@@ -1,0 +1,26 @@
+name: 'Close stale issues and PR'
+
+on:
+  schedule:
+    - cron: '30 22 * * *'
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v3
+        with:
+          repo-token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
+          remove-stale-when-updated: true
+          exempt-milestones: true
+          exempt-assignees: true
+
+          days-before-issue-stale: 40
+          days-before-issue-close: 5
+          stale-issue-message: "This issue is stale because it has been open for 40 days without any activity. Please remove the stale label or this will be closed in 5 days."
+          stale-issue-label: "stale"
+
+          days-before-pr-stale: 90
+          days-before-pr-close: 14
+          stale-pr-message: "This pull request is stale because it has been open for 90 days without any activity. Please remove the stale label or this will be closed in 14 days."
+          stale-pr-label: "stale"
