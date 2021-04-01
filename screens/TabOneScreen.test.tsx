@@ -3,12 +3,6 @@ import { fireEvent, render } from 'react-native-testing-library'
 
 import TabOneScreen from './TabOneScreen'
 
-it('<TabOneScreen/> snapshot', () => {
-  const tree = render(<TabOneScreen />).toJSON()
-
-  expect(tree).toMatchSnapshot()
-})
-
 it('<TabOneScreen/> click should increment counter', () => {
   const { getByText } = render(<TabOneScreen />)
 

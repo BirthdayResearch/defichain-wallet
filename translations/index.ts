@@ -4,6 +4,11 @@ import * as Localization from 'expo-localization'
 import zh_hans from './zh-Hans'
 
 /**
+ * For testing compatibility, will always be initialized.
+ */
+let init = false
+
+/**
  * Internationalisation for DeFi Fiber, DeFi Blockchain Light Wallet.
  *
  * Translates matrix should be keyed as such:
@@ -30,6 +35,7 @@ import zh_hans from './zh-Hans'
  * @see translate
  */
 export function initI18n (): void {
+  init = true
   i18n.translations = {
     en: {},
     'zh-Hans': zh_hans
@@ -45,6 +51,9 @@ export function initI18n (): void {
  * @param text english text for internationalisation
  */
 export function translate (path: string, text: string): string {
+  if (!init) {
+    initI18n()
+  }
   return i18n.translate(`${path}.${text}`)
 }
 
