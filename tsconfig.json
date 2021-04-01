@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "target": "es6",
-    "lib": [
-      "es2019"
-    ],
-    "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-native",
+    "lib": ["dom", "esnext"],
+    "moduleResolution": "node",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "strict": true
   }
 }

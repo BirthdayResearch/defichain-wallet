@@ -7,6 +7,18 @@
 /.github/workflows/oss-governance-bot.yml       @fuxingloh
 /.github/governance.yml                         @fuxingloh
 
+/assets                                         @fuxingloh
+/components                                     @fuxingloh
+/constants                                      @fuxingloh
+/hooks                                          @fuxingloh
+/navigation                                     @fuxingloh
+/packages                                       @fuxingloh
+/screens                                        @fuxingloh
+
+/app.json                                       @fuxingloh
+/App.tsx                                        @fuxingloh
+/babel.config.js                                @fuxingloh
+/types.tsx                                      @fuxingloh
 
 tsconfig.json                                   @fuxingloh
 package.json                                    @fuxingloh

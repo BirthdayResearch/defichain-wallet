@@ -63,6 +63,8 @@
   name: area/tokens
 - color: fbca04
   name: area/blockchain
+- color: fbca04
+  name: area/workflow
 
 # Priority
 - color: d93f0b
