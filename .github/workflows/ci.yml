@@ -18,3 +18,4 @@ jobs:
 
       - run: npm ci
       - run: npx --no-install jest --ci --coverage --forceExit
+      - run: npx codecov
