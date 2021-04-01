@@ -32,6 +32,7 @@ issue:
         - liquidity
         - tokens
         - blockchain
+        - workflow
       multiple: true
       needs:
         comment: |
