@@ -15,7 +15,7 @@
     }
   ],
   "workspaces": [
-    "./tokens"
+    "./packages/*"
   ],
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
