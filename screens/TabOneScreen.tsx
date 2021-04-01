@@ -1,32 +1,17 @@
 import * as React from 'react'
-import { StyleSheet } from 'react-native'
 
 import EditScreenInfo from '../components/EditScreenInfo'
 import { Text, View } from '../components/Themed'
+import tailwind from 'tailwind-rn'
+import IconDFI from '../components/icons/IconDFI'
 
 export default function TabOneScreen (): JSX.Element {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor='#eee' darkColor='rgba(255,255,255,0.1)' />
+    <View style={tailwind('flex-1 items-center justify-center')}>
+      <IconDFI />
+      <Text style={tailwind('text-xl font-bold')}>Tab One</Text>
+      <View style={tailwind('w-4/5 h-px my-8')} lightColor='#eee' darkColor='rgba(255,255,255,0.1)' />
       <EditScreenInfo path='/screens/TabOneScreen.tsx' />
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold'
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%'
-  }
-})

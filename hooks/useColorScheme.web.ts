@@ -3,3 +3,5 @@
 export default function useColorScheme (): 'light' {
   return 'light'
 }
+
+// TODO(fuxingloh): might not want to support web at all? Or we can do a plugin type support?
