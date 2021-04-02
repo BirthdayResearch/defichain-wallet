@@ -11,7 +11,7 @@ let init = false
 /**
  * Internationalisation for DeFi Fiber, DeFi Blockchain Light Wallet.
  *
- * Translates matrix should be keyed as such:
+ * Translation matrix should be keyed as such:
  *
  * en | file location        | text/key | translation
  * ---|----------------------|----------|--------------
