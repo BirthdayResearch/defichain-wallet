@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: takanabe/github-actions-automate-projects@5d004c140c65fa8b4ef3b18a38219ce680bce816
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        if: github.event_name == 'pull_request' && github.event.sender.type == 'User' && github.event.pull_request.head.repo.full_name == github.repository
         env:
           GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           GITHUB_PROJECT_URL: https://github.com/orgs/DeFiCh/projects/1
