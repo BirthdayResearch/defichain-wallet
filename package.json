@@ -42,7 +42,7 @@
     "expo-linking": "~2.2.3",
     "expo-localization": "~9.1.0",
     "expo-splash-screen": "~0.8.0",
-    "expo-status-bar": "~1.0.3",
+    "expo-status-bar": "~1.0.4",
     "expo-web-browser": "~9.1.0",
     "i18n-js": "^3.8.0",
     "react": "16.14.0",
