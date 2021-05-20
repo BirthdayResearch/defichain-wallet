@@ -1,6 +1,6 @@
 ---
 name: General question
-about: General question about using DeFi Fiber
+about: General question about using DeFi Wallet
 labels: kind/question
 ---
 
