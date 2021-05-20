@@ -1,11 +1,11 @@
-[![CI](https://github.com/DeFiCh/fiber/actions/workflows/ci.yml/badge.svg)](https://github.com/DeFiCh/fiber/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/DeFiCh/fiber/branch/main/graph/badge.svg?token=83SCBQBEVJ)](https://codecov.io/gh/DeFiCh/fiber)
-[![Maintainability](https://api.codeclimate.com/v1/badges/c19bc48002cf7b162e3a/maintainability)](https://codeclimate.com/github/DeFiCh/fiber/maintainability)
+[![CI](https://github.com/DeFiCh/wallet/actions/workflows/ci.yml/badge.svg)](https://github.com/DeFiCh/wallet/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/DeFiCh/wallet/branch/main/graph/badge.svg?token=83SCBQBEVJ)](https://codecov.io/gh/DeFiCh/wallet)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c19bc48002cf7b162e3a/maintainability)](https://codeclimate.com/github/DeFiCh/wallet/maintainability)
 [![TS-Standard](https://badgen.net/badge/code%20style/ts-standard/blue?icon=typescript)](https://github.com/standard/ts-standard)
 
-# DeFi Fiber
+# DeFi Wallet
 
-DeFi blockchain light wallet, enabling decentralized finance on Bitcoin.
+DeFi Blockchain Light Wallet for iOS, Android & Web.
 
 ## Developing & Contributing
 
@@ -27,10 +27,10 @@ convenience with basic toolchain setup but use of IntelliJ is totally optional.
 ### Security issues
 
 If you discover a security vulnerability in
-`DeFi Fiber`, [please see submit it privately](https://github.com/DeFiCh/.github/blob/main/SECURITY.md).
+`DeFi Wallet`, [please see submit it privately](https://github.com/DeFiCh/.github/blob/main/SECURITY.md).
 
 ## License & Disclaimer
 
-By using `DeFi Fiber` (this repo), you (the user) agree to be bound by [the terms of this license](LICENSE).
+By using `DeFi Wallet` (this repo), you (the user) agree to be bound by [the terms of this license](LICENSE).
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDeFiCh%2Ffiber.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FDeFiCh%2Ffiber?ref=badge_large)

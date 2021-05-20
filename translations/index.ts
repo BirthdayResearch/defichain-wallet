@@ -9,7 +9,7 @@ import zh_hans from './zh-Hans'
 let init = false
 
 /**
- * Internationalisation for DeFi Fiber, DeFi Blockchain Light Wallet.
+ * Internationalisation for DeFi Wallet, DeFi Blockchain Light Wallet.
  *
  * Translation matrix should be keyed as such:
  *

@@ -1,4 +1,4 @@
-# DeFi Fiber Contributing Guide
+# DeFi Wallet Contributing Guide
 
 ## Translation Guides
 

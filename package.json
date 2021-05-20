@@ -1,19 +1,7 @@
 {
+  "name": "@defichain/wallet",
   "private": true,
   "license": "MIT",
-  "contributors": [
-    {
-      "name": "DeFiChain Foundation",
-      "email": "engineering@defichain.com",
-      "url": "https://defichain.com/"
-    },
-    {
-      "name": "DeFi Blockchain Contributors"
-    },
-    {
-      "name": "DeFi Fiber Contributors"
-    }
-  ],
   "workspaces": [
     "./packages/*"
   ],
@@ -24,8 +12,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject",
-    "test": "jest --watchAll",
+    "test:watch": "jest --watchAll",
     "standard": "ts-standard --fix"
   },
   "jest": {

@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a bug encountered with using DeFi Fiber
+about: Report a bug encountered with using DeFi Wallet
 labels: kind/bug
 ---
 

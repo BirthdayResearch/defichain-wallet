@@ -23,6 +23,11 @@ node_modules
 dist
 *.tgz
 
+# debug log
+lerna-debug.log
+
+coverage
+
 .expo/*
 npm-debug.*
 *.jks
