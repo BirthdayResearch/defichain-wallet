@@ -57,5 +57,5 @@ export function translate (path: string, text: string): string {
   return i18n.translate(`${path}.${text}`)
 }
 
-// TODO(fuxingloh): add CI workflow to find missing translation and report it
+// TODO(thedoublejay): add CI workflow to find missing translation and report it
 //  simple regex will be able to detect. ideally to be done in TypeScript for translations comparison

@@ -13,10 +13,13 @@ issue:
         comment: |
           @$AUTHOR: Thanks for opening an issue, it is currently awaiting triage.
 
-          The triage/accepted label can be added by members by writing /triage accepted in a comment.
+          The triage/accepted label can be added by foundation members by writing /triage accepted in a comment.
 
     - prefix: kind
-      list: [ "feature", "bug", "question" ]
+      list:
+        - feature
+        - bug
+        - question
       multiple: false
       needs: true
       author_association:
@@ -27,12 +30,9 @@ issue:
 
     - prefix: area
       list:
-        - dex
-        - wallet
-        - liquidity
-        - tokens
-        - blockchain
+        - core
         - workflow
+        - translations
       multiple: true
       needs:
         comment: |
@@ -101,7 +101,13 @@ pull_request:
   labels:
     - prefix: kind
       multiple: false
-      list: [ "feature", "fix", "chore", "docs", "refactor", "dependencies" ]
+      list:
+        - feature
+        - fix
+        - chore
+        - docs
+        - refactor
+        - dependencies
       needs:
         comment: |
           @$AUTHOR: There are no 'kind' label on this PR. You need a 'kind' label to generate the release automatically.
