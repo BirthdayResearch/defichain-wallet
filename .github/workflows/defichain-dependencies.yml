@@ -1,0 +1,43 @@
+name: DeFiChain Dependencies
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */2 * * *'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: '15'
+
+      - run: npm ci
+
+      - name: Upgrade dependencies
+        # we need to find a better tool to manage this
+        run: |
+          npm upgrade \
+          @defichain/whale-api-wallet \
+          @defichain/whale-api-client \
+          @defichain/testcontainers \
+          @defichain/testing
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@01f7dd1d28f5131231ba3ede0f1c8cb413584a1d
+        with:
+          token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
+          labels: kind/dependencies
+          commit-message: Bump defichain dependencies
+          committer: DeFiChain Bot <github-bot@defichain.com>
+          author: DeFiChain Bot <github-bot@defichain.com>
+          title: Bump defichain dependencies
+          body: |
+            #### What kind of PR is this?:
+            /kind dependencies
+            #### What this PR does / why we need it:
+            Bump `@defichain/*` dependencies to the newest release.
+          branch: defichain-bot/bump-deps

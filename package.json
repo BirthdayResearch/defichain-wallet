@@ -8,12 +8,13 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "prepare": "husky install",
+    "standard": "ts-standard --fix",
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "test:watch": "jest --watchAll",
-    "standard": "ts-standard --fix"
+    "start:android": "expo start --android",
+    "start:ios": "expo start --ios",
+    "start:web": "expo start --web",
+    "test:watch": "jest --watch",
+    "test:ci": "jest --ci --coverage"
   },
   "jest": {
     "preset": "jest-expo",

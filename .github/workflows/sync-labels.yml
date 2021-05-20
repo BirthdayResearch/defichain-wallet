@@ -9,7 +9,7 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - uses: micnncim/action-label-syncer@0e9c5104859d0e78219af63791636eba42382b5d
         with:

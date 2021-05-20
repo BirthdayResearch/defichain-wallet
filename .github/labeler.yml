@@ -1,0 +1,12 @@
+version: v1
+
+labels:
+  - label: area/workflow
+    sync: true
+    matcher:
+      files: ".github/**"
+
+  - label: area/translations
+    sync: true
+    matcher:
+      files: "translations/**"

@@ -1,0 +1,16 @@
+name: Governance
+
+on:
+  pull_request_target:
+    branches: [ master, main ]
+    types: [ synchronize, opened ]
+
+jobs:
+  labeler:
+    name: Labeler
+    runs-on: ubuntu-latest
+    steps:
+      - uses: fuxingloh/multi-labeler@v1.5.1
+        with:
+          github-token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
+          config-path: .github/labeler.yml

@@ -54,17 +54,11 @@
 
 # Area
 - color: fbca04
-  name: area/dex
-- color: fbca04
-  name: area/wallet
-- color: fbca04
-  name: area/liquidity
-- color: fbca04
-  name: area/tokens
-- color: fbca04
-  name: area/blockchain
+  name: area/core
 - color: fbca04
   name: area/workflow
+- color: fbca04
+  name: area/translations
 
 # Priority
 - color: d93f0b
