@@ -2,9 +2,6 @@
   "name": "@defichain/wallet",
   "private": true,
   "license": "MIT",
-  "workspaces": [
-    "./packages/*"
-  ],
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "prepare": "husky install",
@@ -28,7 +25,6 @@
     ]
   },
   "dependencies": {
-    "@defichain/tokens": "0.0.0",
     "@expo/vector-icons": "^12.0.0",
     "@expo/webpack-config": "~0.12.72",
     "@react-native-community/masked-view": "0.1.10",
