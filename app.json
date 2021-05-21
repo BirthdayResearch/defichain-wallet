@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "DeFi Wallet",
+    "description": "DeFi Blockchain Light Wallet for iOS, Android & Web.",
     "slug": "wallet",
     "owner": "defichain",
     "version": "0.0.0",
