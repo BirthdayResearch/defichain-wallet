@@ -1,0 +1,25 @@
+name: Expo
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: actions/setup-node@46071b5c7a2e0c34e49c3cb8a0e792e86e18d5ea
+        with:
+          node-version: 15.x
+
+      - uses: expo/expo-github-action@8275e8fa89e599e1b1ef793b0219c299f79bc32b
+        with:
+          expo-version: 4.x
+          expo-packager: npm
+          expo-token: ${{ secrets.EXPO_TOKEN }}
+          expo-cache: true
+
+      - run: npm ci
+      - run: expo publish
