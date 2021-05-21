@@ -1,6 +1,6 @@
 [![CI](https://github.com/DeFiCh/wallet/actions/workflows/ci.yml/badge.svg)](https://github.com/DeFiCh/wallet/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/DeFiCh/wallet/branch/main/graph/badge.svg?token=83SCBQBEVJ)](https://codecov.io/gh/DeFiCh/wallet)
-[![Maintainability](https://api.codeclimate.com/v1/badges/c19bc48002cf7b162e3a/maintainability)](https://codeclimate.com/github/DeFiCh/wallet/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/30297425fadcab8fbba4/maintainability)](https://codeclimate.com/github/DeFiCh/wallet/maintainability)
 [![TS-Standard](https://badgen.net/badge/code%20style/ts-standard/blue?icon=typescript)](https://github.com/standard/ts-standard)
 
 # DeFi Wallet
