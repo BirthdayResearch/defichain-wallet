@@ -40,6 +40,14 @@ src/
 
 Each package or functionality must be accompanied by full coverage testing.
 
+Due to Javascript type coercion, all test assertions must use strict equality checking.
+
+```diff
+-   expect(1).toBe('1')
+-   expect(1).toEqual('1')
++   expect(1).toStrictEqual(1)
+```
+
 ## Developing Guides
 
 ### Tailwind RN
