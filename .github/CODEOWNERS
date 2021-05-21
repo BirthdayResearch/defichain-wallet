@@ -3,27 +3,27 @@
 
 /.github/                                       @fuxingloh
 /.husky/                                        @fuxingloh
-/.idea/                                         @fuxingloh
-/.github/workflows/oss-governance-bot.yml       @fuxingloh
-/.github/governance.yml                         @fuxingloh
+/.idea/                                         @fuxingloh @thedoublejay
 
-/assets                                         @fuxingloh
-/components                                     @fuxingloh
-/constants                                      @fuxingloh
-/hooks                                          @fuxingloh
-/navigation                                     @fuxingloh
-/packages                                       @fuxingloh
-/screens                                        @fuxingloh
+/assets                                         @fuxingloh @thedoublejay
+/components                                     @fuxingloh @thedoublejay
+/constants                                      @fuxingloh @thedoublejay
+/hooks                                          @fuxingloh @thedoublejay
+/navigation                                     @fuxingloh @thedoublejay
+/packages                                       @fuxingloh @thedoublejay
+/screens                                        @fuxingloh @thedoublejay
 
-/app.json                                       @fuxingloh
-/App.tsx                                        @fuxingloh
-/babel.config.js                                @fuxingloh
-/types.tsx                                      @fuxingloh
+/translations                                   @fuxingloh @thedoublejay
 
-tsconfig.json                                   @fuxingloh
+/app.json                                       @fuxingloh @thedoublejay
+/App.tsx                                        @fuxingloh @thedoublejay
+/babel.config.js                                @fuxingloh @thedoublejay
+/types.tsx                                      @fuxingloh @thedoublejay
+
+tsconfig.json                                   @fuxingloh @thedoublejay
 package.json                                    @fuxingloh
 package-lock.json                               @fuxingloh
 
-CONTRIBUTING.md                                 @fuxingloh
-README.md                                       @fuxingloh
+CONTRIBUTING.md                                 @fuxingloh @thedoublejay
+README.md                                       @fuxingloh @thedoublejay
 LICENSE                                         @fuxingloh
