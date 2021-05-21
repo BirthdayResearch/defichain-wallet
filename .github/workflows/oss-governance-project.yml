@@ -1,4 +1,4 @@
-name: Projects
+name: Governance
 
 on:
   pull_request:
@@ -15,3 +15,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           GITHUB_PROJECT_URL: https://github.com/orgs/DeFiCh/projects/1
           GITHUB_PROJECT_COLUMN_NAME: PR in progress
+
+      - uses: actions/github-script@a3e7071a34d7e1f219a8a4de9a5e0a34d1ee1293
+        if: github.event_name == 'pull_request' && github.event.sender.type == 'User' && github.event.pull_request.head.repo.full_name == github.repository
+        with:
+          github-token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
+          script: |
+            github.issues.addAssignees({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              assignees: [context.payload.sender.login]
+            })

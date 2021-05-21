@@ -10,7 +10,7 @@ jobs:
     name: Labeler
     runs-on: ubuntu-latest
     steps:
-      - uses: fuxingloh/multi-labeler@v1.5.1
+      - uses: fuxingloh/multi-labeler@1d6d95ddcc7ef8b928d514329663ba4e0ff0eaf5
         with:
           github-token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           config-path: .github/labeler.yml
