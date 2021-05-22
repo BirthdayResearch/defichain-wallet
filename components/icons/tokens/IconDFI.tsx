@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Svg, { SvgProps, G, Circle, Path } from 'react-native-svg'
 
-function IconDFI (props: SvgProps): JSX.Element {
+export function IconDFI (props: SvgProps): JSX.Element {
   return (
     <Svg
       width={24}
@@ -19,5 +19,3 @@ function IconDFI (props: SvgProps): JSX.Element {
     </Svg>
   )
 }
-
-export default IconDFI

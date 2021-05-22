@@ -1,18 +1,20 @@
 import * as React from 'react'
 
+import { Button } from 'react-native'
+import tailwind from 'tailwind-rn'
+import { translate } from '../translations'
 import EditScreenInfo from '../components/EditScreenInfo'
 import { Text, View } from '../components/Themed'
-import tailwind from 'tailwind-rn'
-import IconDFI from '../components/icons/IconDFI'
-import { translate } from '../translations'
-import { Button } from 'react-native'
+import { getTokenIcon } from '../components/icons/tokens/_index'
 
 export default function TabOneScreen (): JSX.Element {
   const [count, setCount] = React.useState(0)
 
+  const Icon = getTokenIcon('DFI')
+
   return (
     <View style={tailwind('flex-1 items-center justify-center')}>
-      <IconDFI />
+      <Icon />
       <Button title='Click' onPress={() => setCount(count + 2)} />
       <Text testID='count'>
         Count: {count}

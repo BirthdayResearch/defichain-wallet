@@ -41,6 +41,7 @@
       <w>dakotaheight</w>
       <w>debugexclude</w>
       <w>defi</w>
+      <w>defich</w>
       <w>defichain</w>
       <w>defid</w>
       <w>descendantcount</w>
@@ -185,6 +186,7 @@
       <w>txnotokens</w>
       <w>uacomment</w>
       <w>unpkg</w>
+      <w>usdt</w>
       <w>utxo</w>
       <w>utxos</w>
       <w>utxostoaccount</w>
