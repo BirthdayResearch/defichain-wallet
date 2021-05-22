@@ -10,7 +10,7 @@ import { getTokenIcon } from '../components/icons/tokens/_index'
 export default function TabOneScreen (): JSX.Element {
   const [count, setCount] = React.useState(0)
 
-  const Icon = getTokenIcon('DFI')
+  const Icon = getTokenIcon('DFA')
 
   return (
     <View style={tailwind('flex-1 items-center justify-center')}>

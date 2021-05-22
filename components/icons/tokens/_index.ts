@@ -6,6 +6,7 @@ import { IconDOGE } from './IconDOGE'
 import { IconETH } from './IconETH'
 import { IconLTC } from './IconLTC'
 import { IconUSDT } from './IconUSDT'
+import { IconDefault } from './IconDefault'
 
 const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   BCH: IconBCH,
@@ -32,5 +33,9 @@ const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
  * @param {string} symbol of the assets
  */
 export function getTokenIcon (symbol: string): (props: SvgProps) => JSX.Element {
-  return mapping[symbol]
+  const Icon = mapping[symbol]
+  if (Icon === undefined) {
+    return IconDefault(symbol)
+  }
+  return Icon
 }
