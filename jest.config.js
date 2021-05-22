@@ -3,7 +3,6 @@ module.exports = {
   testPathIgnorePatterns: [
     'cypress/.*'
   ],
-  collectCoverage: true,
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
     '!**/.github/**',

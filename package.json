@@ -64,9 +64,9 @@
     ]
   },
   "ts-standard": {
-    "globals": [
-      "it",
-      "expect"
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.test.tsx"
     ]
   }
 }

@@ -12,5 +12,10 @@
     "resolveJsonModule": true,
     "strict": true
   },
-  "extends": "expo/tsconfig.base"
+  "extends": "expo/tsconfig.base",
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+  ]
 }
