@@ -6,9 +6,11 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
+    '!**/.github/**',
     '!**/coverage/**',
+    '!**/cypress/**',
     '!**/node_modules/**',
     '!**/babel.config.js',
-    '!**/jest.setup.js'
+    '!**/jest.config.js'
   ]
 }
