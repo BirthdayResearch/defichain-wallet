@@ -31,3 +31,26 @@ jobs:
 
       - run: npm ci
       - run: npx --no-install ts-standard
+
+  e2e:
+    needs: [ test, lint ]
+    name: End-to-end
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: actions/setup-node@46071b5c7a2e0c34e49c3cb8a0e792e86e18d5ea
+        with:
+          node-version: 14
+
+      - run: npm ci
+
+      - uses: cypress-io/github-action@1db146275576798796bc39ef83d739924145298a
+        with:
+          record: true
+          build: npx --no-install expo build:web
+          start: npx --no-install serve web-build -l 19006
+          browser: chrome
+          spec: cypress/integration/functional/*
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
