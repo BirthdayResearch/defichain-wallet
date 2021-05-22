@@ -13,17 +13,6 @@
     "test:ci": "jest --ci --coverage",
     "cypress:open": "cypress open"
   },
-  "jest": {
-    "preset": "jest-expo",
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/*.{js,jsx,ts,tsx}",
-      "!**/coverage/**",
-      "!**/node_modules/**",
-      "!**/babel.config.js",
-      "!**/jest.setup.js"
-    ]
-  },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
     "@expo/webpack-config": "~0.12.72",
