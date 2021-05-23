@@ -27,7 +27,7 @@ export function TransactionsNavigator (): JSX.Element {
   return (
     <SettingsStack.Navigator>
       <SettingsStack.Screen
-        name='TabTwoScreen'
+        name='transactions'
         component={TransactionsScreen}
         options={{ headerTitle: translate('screens/TransactionsScreen', 'Transactions') }}
       />

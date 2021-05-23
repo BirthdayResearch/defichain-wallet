@@ -34,7 +34,10 @@ export default function BottomTabNavigator (): JSX.Element {
   return (
     <BottomTab.Navigator
       initialRouteName='Balances'
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+      tabBarOptions={{
+        activeTintColor: Colors[colorScheme].tint,
+        adaptive: false
+      }}
     >
       <BottomTab.Screen
         name='Balances'

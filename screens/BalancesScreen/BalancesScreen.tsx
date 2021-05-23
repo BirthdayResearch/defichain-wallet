@@ -39,7 +39,7 @@ export function BalancesNavigator (): JSX.Element {
   return (
     <Balances.Navigator>
       <Balances.Screen
-        name='BalancesScreen'
+        name='balances'
         component={BalancesScreen}
         options={{ headerTitle: translate('screens/BalancesScreen', 'Balances') }}
       />
