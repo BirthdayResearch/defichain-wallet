@@ -3,21 +3,22 @@ name: Governance
 on:
   pull_request:
     types: [ opened ]
+  issues:
+    types: [ opened, labeled ]
 
 jobs:
-  main:
+  pull_request:
     name: DeFi Products
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.sender.type == 'User' && github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - uses: takanabe/github-actions-automate-projects@5d004c140c65fa8b4ef3b18a38219ce680bce816
-        if: github.event_name == 'pull_request' && github.event.sender.type == 'User' && github.event.pull_request.head.repo.full_name == github.repository
         env:
           GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           GITHUB_PROJECT_URL: https://github.com/orgs/DeFiCh/projects/1
           GITHUB_PROJECT_COLUMN_NAME: PR in progress
 
       - uses: actions/github-script@a3e7071a34d7e1f219a8a4de9a5e0a34d1ee1293
-        if: github.event_name == 'pull_request' && github.event.sender.type == 'User' && github.event.pull_request.head.repo.full_name == github.repository
         with:
           github-token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           script: |
@@ -27,3 +28,14 @@ jobs:
               issue_number: context.issue.number,
               assignees: [context.payload.sender.login]
             })
+
+  issue:
+    name: DeFi Products
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issue' && contains(github.event.issue.labels.*.name, 'triage/accepted')
+    steps:
+      - uses: takanabe/github-actions-automate-projects@5d004c140c65fa8b4ef3b18a38219ce680bce816
+        env:
+          GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
+          GITHUB_PROJECT_URL: https://github.com/orgs/DeFiCh/projects/1
+          GITHUB_PROJECT_COLUMN_NAME: To do
