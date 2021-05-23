@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { fireEvent, render } from 'react-native-testing-library'
 
-import TabOneScreen from './TabOneScreen'
+import BalancesScreen from './BalancesScreen'
 
-it('<TabOneScreen/> click should increment counter', () => {
-  const { getByText } = render(<TabOneScreen />)
+it('<BalancesScreen/> click should increment counter', () => {
+  const { getByText } = render(<BalancesScreen />)
 
   expect(getByText('Count: 0')).toBeTruthy()
   fireEvent.press(getByText('Click'))
