@@ -28,7 +28,7 @@ export function LiquidityNavigator (): JSX.Element {
   return (
     <LiquidityStack.Navigator>
       <LiquidityStack.Screen
-        name='TabTwoScreen'
+        name='liquidity'
         component={LiquidityScreen}
         options={{ headerTitle: translate('screens/LiquidityScreen', 'Liquidity') }}
       />
