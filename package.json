@@ -14,12 +14,17 @@
     "cypress:open": "cypress open"
   },
   "dependencies": {
+    "@defichain/jellyfish-transaction-builder": "^0.6.0",
+    "@defichain/jellyfish-wallet": "^0.6.0",
+    "@defichain/jellyfish-wallet-mnemonic": "^0.6.0",
+    "@defichain/whale-api-wallet": "^0.1.1",
     "@expo/vector-icons": "^12.0.0",
     "@expo/webpack-config": "~0.12.72",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "5.11.11",
     "@react-navigation/native": "~5.9.4",
     "@react-navigation/stack": "~5.14.5",
+    "bignumber.js": "^9.0.1",
     "expo": "^41.0.0",
     "expo-asset": "~8.3.1",
     "expo-cli": "^4.4.8",

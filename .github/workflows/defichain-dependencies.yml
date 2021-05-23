@@ -21,10 +21,10 @@ jobs:
         # we need to find a better tool to manage this
         run: |
           npm upgrade \
-          @defichain/whale-api-wallet \
-          @defichain/whale-api-client \
-          @defichain/testcontainers \
-          @defichain/testing
+          @defichain/jellyfish-transaction-builder \
+          @defichain/jellyfish-wallet \
+          @defichain/jellyfish-wallet-mnemonic \
+          @defichain/whale-api-wallet
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@01f7dd1d28f5131231ba3ede0f1c8cb413584a1d
