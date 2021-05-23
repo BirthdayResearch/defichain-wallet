@@ -3,12 +3,14 @@ import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import * as React from 'react'
 
-/* eslint-disable @typescript-eslint/no-floating-promises */
+/**
+ * Delaying splash screen to load additional resources prior to rendering the app
+ */
 export default function useCachedResources (): boolean {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false)
 
-  // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
+    /* eslint-disable @typescript-eslint/no-floating-promises */
     async function loadResourcesAndDataAsync (): Promise<void> {
       try {
         SplashScreen.preventAutoHideAsync()

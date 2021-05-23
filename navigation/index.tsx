@@ -4,7 +4,6 @@ import * as React from 'react'
 import { ColorSchemeName } from 'react-native'
 
 import NotFoundScreen from '../screens/NotFoundScreen'
-import { RootStackParamList } from '../types'
 import BottomTabNavigator from './BottomTabNavigator'
 import LinkingConfiguration from './LinkingConfiguration'
 
@@ -21,8 +20,13 @@ export default function Navigation ({ colorScheme }: { colorScheme: ColorSchemeN
   )
 }
 
-// A root stack navigator is often used for displaying modals on top of all other content
-// Read more here: https://reactnavigation.org/docs/modal
+export interface RootStackParamList {
+  Root: undefined
+  NotFound: undefined
+
+  [key: string]: undefined | object
+}
+
 const Stack = createStackNavigator<RootStackParamList>()
 
 function RootNavigator (): JSX.Element {

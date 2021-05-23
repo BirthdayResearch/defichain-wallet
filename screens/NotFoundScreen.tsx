@@ -1,13 +1,9 @@
-// TODO(fuxingloh): remove once started building
-import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StackScreenProps } from '@react-navigation/stack'
+import { RootStackParamList } from '../navigation'
 
-import { RootStackParamList } from '../types'
-
-export default function NotFoundScreen ({
-  navigation
-}: StackScreenProps<RootStackParamList, 'NotFound'>): JSX.Element {
+export default function NotFoundScreen ({ navigation }: StackScreenProps<RootStackParamList, 'NotFound'>): JSX.Element {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>This screen doesn't exist.</Text>
@@ -18,6 +14,7 @@ export default function NotFoundScreen ({
   )
 }
 
+// TODO(@defich/wallet): move to use tailwind
 const styles = StyleSheet.create({
   container: {
     flex: 1,
