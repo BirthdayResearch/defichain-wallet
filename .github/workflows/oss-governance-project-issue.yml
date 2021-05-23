@@ -16,6 +16,6 @@ jobs:
           script: |
             github.projects.createCard({
               column_id: 13687171,
-              content_id: context.issue.id,
+              content_id: context.payload.issue.id,
               content_type: 'Issue',
             })

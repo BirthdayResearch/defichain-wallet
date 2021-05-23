@@ -15,7 +15,7 @@ jobs:
           script: |
             github.projects.createCard({
               column_id: 14389251,
-              content_id: context.issue.id,
+              content_id: context.payload.pull_request.id,
               content_type: 'PullRequest',
             });
 
