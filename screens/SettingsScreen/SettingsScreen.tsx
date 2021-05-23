@@ -1,37 +1,36 @@
 import * as React from 'react'
 import tailwind from 'tailwind-rn'
 import { createStackNavigator } from '@react-navigation/stack'
-
 import { Text, View } from '../../components/Themed'
 import { translate } from '../../translations'
 
-export default function LiquidityScreen (): JSX.Element {
+export default function SettingsScreen (): JSX.Element {
   return (
     <View style={tailwind('flex-1 items-center justify-center')}>
       <Text style={tailwind('text-xl font-bold')}>
-        {translate('screens/LiquidityScreen', 'Liquidity')}
+        {translate('screens/SettingsScreen', 'Settings')}
       </Text>
       <View style={tailwind('w-4/5 h-px my-8')} lightColor='#eee' darkColor='rgba(255,255,255,0.1)' />
     </View>
   )
 }
 
-export interface LiquidityParamList {
-  LiquidityScreen: undefined
+export interface SettingsParamList {
+  SettingsScreen: undefined
 
   [key: string]: undefined | object
 }
 
-const LiquidityStack = createStackNavigator<LiquidityParamList>()
+const SettingsStack = createStackNavigator<SettingsParamList>()
 
-export function LiquidityNavigator (): JSX.Element {
+export function SettingsNavigator (): JSX.Element {
   return (
-    <LiquidityStack.Navigator>
-      <LiquidityStack.Screen
+    <SettingsStack.Navigator>
+      <SettingsStack.Screen
         name='TabTwoScreen'
-        component={LiquidityScreen}
-        options={{ headerTitle: translate('screens/LiquidityScreen', 'Liquidity') }}
+        component={SettingsScreen}
+        options={{ headerTitle: translate('screens/SettingsScreen', 'Settings') }}
       />
-    </LiquidityStack.Navigator>
+    </SettingsStack.Navigator>
   )
 }

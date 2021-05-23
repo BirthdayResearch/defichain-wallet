@@ -4,16 +4,28 @@ import * as React from 'react'
 
 import Colors from '../constants/Colors'
 import useColorScheme from '../hooks/useColorScheme'
-import { BottomTabParamList } from '../types'
-import { BalancesNavigator } from "../screens/BalancesScreen/BalancesScreen";
+
+import { BalancesNavigator } from '../screens/BalancesScreen/BalancesScreen'
 import { LiquidityNavigator } from '../screens/LiquidityScreen/LiquidityScreen'
+import { TransactionsNavigator } from '../screens/TransactionsScreen/TransactionsScreen'
+import { SettingsNavigator } from '../screens/SettingsScreen/SettingsScreen'
+
+export interface BottomTabParamList {
+  Balances: undefined
+  Liquidity: undefined
+  Transactions: undefined
+  Settings: undefined
+
+  [key: string]: undefined | object
+}
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>()
 
-// You can explore the built-in icon families and icons on the web at:
-// https://icons.expo.fyi/
+/**
+ * @see https://icons.expo.fyi/ to filter => Ionicons
+ */
 function TabBarIcon (props: { name: React.ComponentProps<typeof Ionicons>['name'], color: string }): JSX.Element {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />
+  return <Ionicons size={24} style={{ marginBottom: -3 }} {...props} />
 }
 
 export default function BottomTabNavigator (): JSX.Element {
@@ -21,21 +33,35 @@ export default function BottomTabNavigator (): JSX.Element {
 
   return (
     <BottomTab.Navigator
-      initialRouteName='TabOne'
+      initialRouteName='Balances'
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
     >
       <BottomTab.Screen
-        name='TabOne'
+        name='Balances'
         component={BalancesNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name='wallet' color={color} />
         }}
       />
       <BottomTab.Screen
-        name='TabTwo'
+        name='Liquidity'
         component={LiquidityNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name='pie-chart' color={color} />
+        }}
+      />
+      <BottomTab.Screen
+        name='Transactions'
+        component={TransactionsNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name='time' color={color} />
+        }}
+      />
+      <BottomTab.Screen
+        name='Settings'
+        component={SettingsNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name='settings' color={color} />
         }}
       />
     </BottomTab.Navigator>

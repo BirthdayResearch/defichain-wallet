@@ -6,14 +6,24 @@ export default {
     screens: {
       Root: {
         screens: {
-          TabOne: {
+          Balances: {
             screens: {
-              TabOneScreen: 'one'
+              BalancesScreen: 'balances'
             }
           },
-          TabTwo: {
+          Liquidity: {
             screens: {
-              TabTwoScreen: 'two'
+              LiquidityScreen: 'liquidity'
+            }
+          },
+          Transactions: {
+            screens: {
+              TransactionsScreen: 'transactions'
+            }
+          },
+          Settings: {
+            screens: {
+              SettingsScreen: 'settings'
             }
           }
         }
