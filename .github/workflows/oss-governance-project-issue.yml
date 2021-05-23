@@ -10,8 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.event.issue.labels.*.name, 'triage/accepted')
     steps:
-      - uses: takanabe/github-actions-automate-projects@5d004c140c65fa8b4ef3b18a38219ce680bce816
-        env:
-          GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
-          GITHUB_PROJECT_URL: https://github.com/orgs/DeFiCh/projects/1
-          GITHUB_PROJECT_COLUMN_NAME: To do
+      - uses: actions/github-script@a3e7071a34d7e1f219a8a4de9a5e0a34d1ee1293
+        with:
+          github-token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
+          script: |
+            github.projects.createCard({
+              column_id: 13687171,
+              content_id: context.payload.issue.id,
+              content_type: 'Issue',
+            })
