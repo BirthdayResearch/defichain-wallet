@@ -29,7 +29,7 @@ export default function useCachedResources (): boolean {
       }
     }
 
-    void loadResourcesAndDataAsync()
+    loadResourcesAndDataAsync()
   }, [])
 
   return isLoadingComplete
