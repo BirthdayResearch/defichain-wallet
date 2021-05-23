@@ -2,6 +2,7 @@ name: Governance
 
 on:
   pull_request:
+    types: [ opened ]
 
 jobs:
   main:
