@@ -34,4 +34,4 @@ If you discover a security vulnerability in
 
 By using `DeFi Wallet` (this repo), you (the user) agree to be bound by [the terms of this license](LICENSE).
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDeFiCh%2Ffiber.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FDeFiCh%2Ffiber?ref=badge_large)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDeFiCh%2Fwallet.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FDeFiCh%2Fwallet?ref=badge_large)
