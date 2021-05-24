@@ -18,7 +18,7 @@ jobs:
         uses: nguyenvanuyn96/str-find-action@77006965cef10f4a7c76da0958cfd399f7a97faa
         with:
           find: /translate\(.*\)/
-          include: "*.tsx"
+          include: ".tsx"
       - name: Display results of search
         run: |
-          echo ${{ steps.find_string.outputs.resultArray}}
+          echo ${{ steps.find_string.outputs.resultArray }}
