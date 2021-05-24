@@ -12,7 +12,7 @@
     "start:web": "expo start --web",
     "test:ci": "jest --ci --coverage",
     "cypress:open": "cypress open",
-    "translation:missing": "npx ts-node translations/checker/index.ts"
+    "translation:missing": "ts-node translations/checker/index.ts"
   },
   "dependencies": {
     "@defichain/jellyfish-transaction-builder": "^0.6.0",
@@ -38,7 +38,7 @@
     "expo-web-browser": "~9.1.0",
     "i18n-js": "^3.8.0",
     "lodash": "^4.17.21",
-    "react": "16.14.0",
+    "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
     "react-native-gesture-handler": "~1.10.2",
@@ -65,6 +65,7 @@
     "lint-staged": "^11.0.0",
     "react-native-testing-library": "^6.0.0",
     "react-test-renderer": "~16.11.0",
+    "ts-node": "^10.0.0",
     "ts-standard": "^10.0.0",
     "typescript": "~4.2.4"
   },

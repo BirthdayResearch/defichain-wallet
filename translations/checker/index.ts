@@ -14,7 +14,7 @@ const getAllTranslationsKeys = (keys: string[], map: Map<string, string[]>): Map
     let item = k.replace('translate(', '').replace(')', '').split(',')
     item = item.map((v) => v.trim().replace(/^'(.*)'$/, '$1'))
     if (item[0] != null && item[1] != null) {
-      const list = ((map.get(item[0]) != null) || [])
+      const list = map.get(item[0]) ?? []
       list.push(item[1])
       map.set(item[0], list)
     }
