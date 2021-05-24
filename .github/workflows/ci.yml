@@ -44,7 +44,7 @@ jobs:
 
       - run: npm ci
 
-      - uses: cypress-io/github-action@1db146275576798796bc39ef83d739924145298a
+      - uses: cypress-io/github-action@e4d98336ebb001f83399a65fbfcfa2f778b32e0c
         with:
           record: true
           build: npx --no-install expo build:web

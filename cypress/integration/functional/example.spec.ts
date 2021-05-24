@@ -2,7 +2,7 @@ import {} from 'cypress'
 
 context('cypress example', () => {
   beforeEach(() => {
-    cy.viewport(375, 667)
+    cy.viewport(1000, 800)
     cy.visit(Cypress.env('URL'))
   })
 
