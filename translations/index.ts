@@ -1,8 +1,6 @@
 import i18n from 'i18n-js'
 import * as Localization from 'expo-localization'
-
-import zh_hans from './zh-Hans'
-
+import { translations } from './constants'
 /**
  * For testing compatibility, will always be initialized.
  */
@@ -38,9 +36,8 @@ export function initI18n (): void {
   init = true
   i18n.translations = {
     en: {},
-    'zh-Hans': zh_hans
+    ...translations
   }
-
   i18n.locale = Localization.locale
   i18n.fallbacks = true
   i18n.missingBehaviour = 'guess'
