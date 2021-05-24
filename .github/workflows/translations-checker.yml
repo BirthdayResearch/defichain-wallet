@@ -21,4 +21,4 @@ jobs:
           include: ".tsx"
       - name: Display results of search
         run: |
-          echo ${{ steps.find_string.outputs.resultArray }}
+          echo '${{ steps.find_string.outputs.resultArray }}'
