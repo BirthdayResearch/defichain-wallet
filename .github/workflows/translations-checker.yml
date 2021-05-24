@@ -14,7 +14,11 @@ jobs:
         with:
           node-version: 14
       - name: Find String
+        id: find_string
         uses: nguyenvanuyn96/str-find-action@77006965cef10f4a7c76da0958cfd399f7a97faa
         with:
           find: /translate\(.*\)/
-          include: ".tsx"
+          include: "*.tsx"
+      - name: Display results
+        run: |
+          echo ${{ steps.find_string.outputs.resultArray
