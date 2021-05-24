@@ -19,6 +19,6 @@ jobs:
         with:
           find: /translate\(.*\)/
           include: "*.tsx"
-      - name: Display results
+      - name: Display results of search
         run: |
           echo ${{ steps.find_string.outputs.resultArray
