@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: 14
       - name: Find String
-      - uses: nguyenvanuyn96/str-find-action@77006965cef10f4a7c76da0958cfd399f7a97faa
+        uses: nguyenvanuyn96/str-find-action@77006965cef10f4a7c76da0958cfd399f7a97faa
         with:
           find: "translate\(.*\)"
           include: "*.tsx"
