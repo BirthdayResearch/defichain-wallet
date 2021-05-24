@@ -1,9 +1,8 @@
 name: "Find missing translations"
 
 on:
-  pull_request_target:
+  pull_request:
     branches: [ main ]
-    types: [ synchronize, opened ]
 
 jobs:
   translations:
