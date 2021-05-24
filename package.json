@@ -42,7 +42,7 @@
     "react-native-gesture-handler": "~1.10.2",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.0.0",
-    "react-native-svg": "12.1.0",
+    "react-native-svg": "12.1.1",
     "react-native-web": "~0.14.13",
     "serve": "^11.3.2",
     "tailwind-rn": "^3.0.1"
