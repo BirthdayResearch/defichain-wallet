@@ -1,6 +1,16 @@
 import i18n from 'i18n-js'
 import * as Localization from 'expo-localization'
-import { translations } from './constants'
+
+import zh_hans from './languages/zh-Hans'
+import zh_hant from './languages/zh-Hant'
+import de from './languages/de'
+
+export const translations = {
+  'zh-Hans': zh_hans,
+  'zh-Hant': zh_hant,
+  de: de
+}
+
 /**
  * For testing compatibility, will always be initialized.
  */
