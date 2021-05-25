@@ -28,7 +28,8 @@ jobs:
           header: Missing Translations
           recreate: true
           message: |
-            Missing translations:
-            ```
+            # Translations Report
+            ***
+            ```javascript
             ${{ steps.translations.outputs.content }}
             ```
