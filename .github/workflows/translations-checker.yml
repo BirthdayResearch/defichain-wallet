@@ -17,9 +17,19 @@ jobs:
       - name: Find missing languages
         id: find_string
         run: npm run translation:missing
+      - name: Read missingTranslations.json
+        id: translations
+        uses: juliangruber/read-file-action@74dc4b4435b60f96f84bcba916659c779f46ba0a
+        with:
+          path: ./missingTranslations.json
       - uses: marocchino/sticky-pull-request-comment@322a2451dae6c7831d1a8b931275a7f78147c888
         with:
           GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           header: Missing Translations
           recreate: true
-          path: 'missingTranslations.json'
+          delete: true
+          message: |
+            Missing translations:
+            ```
+            ${{ steps.translations.outputs.content }}
+            ```

@@ -1,7 +1,7 @@
 import * as findInFiles from 'find-in-files'
 import * as fs from 'fs'
 import { findMissingTranslations } from "./index";
-import { translations } from '../index'
+import { translations } from '../translations'
 
 jest.mock('find-in-files');
 const mockedFindInFiles = findInFiles as jest.Mocked<typeof findInFiles>;
