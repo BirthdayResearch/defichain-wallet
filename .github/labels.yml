@@ -58,6 +58,8 @@
 - color: fbca04
   name: area/workflow
 - color: fbca04
+  name: area/playground
+- color: fbca04
   name: area/translations
 
 # Priority
