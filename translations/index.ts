@@ -1,6 +1,7 @@
 import i18n from 'i18n-js'
 import * as Localization from 'expo-localization'
-import { translations } from './constants'
+import { translations } from './translations'
+
 /**
  * For testing compatibility, will always be initialized.
  */

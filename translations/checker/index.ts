@@ -1,22 +1,28 @@
 import * as findInFiles from 'find-in-files'
 import { uniq } from 'lodash'
-import { translations } from '../constants'
+import { translations } from '../translations'
 import * as fs from 'fs'
 
-interface MissingLanguage {
-  [key: string]: {
+interface MissingLanguageItem {
+  totalCount: number
+  missingCount: number
+  labels: {
     [key: string]: string[]
   }
+}
+
+interface MissingLanguage {
+  [key: string]: MissingLanguageItem
 }
 
 const getAllTranslationsKeys = (keys: string[], map: Map<string, string[]>): Map<string, string[]> => {
   keys.forEach((k) => {
     let item = k.replace('translate(', '').replace(')', '').split(',')
     item = item.map((v) => v.trim().replace(/^'(.*)'$/, '$1'))
-    if (item[0] != null && item[1] != null) {
+    if ((item[0] !== '' && item[0] != null) && (item[1] !== '' && item[1] != null)) {
       const list = map.get(item[0]) ?? []
       list.push(item[1])
-      map.set(item[0], list)
+      map.set(item[0], uniq(list))
     }
   })
   return map
@@ -36,37 +42,41 @@ const updateBaseTranslations = async (baseTranslation: Map<string, string[]>): P
   return baseTranslation
 }
 
-const checkTranslations = (baseTranslation: Map<string, string[]>, missingTranslations: MissingLanguage): void => {
+const checkTranslations = (baseTranslation: Map<string, string[]>, missingTranslations: MissingLanguage): MissingLanguage => {
   const languages = Object.keys(translations)
+  let totalCount = 0
   baseTranslation.forEach((labels, screenName) => {
+    totalCount = totalCount + labels.length
     languages.forEach((language) => {
       const langItem: any = { ...translations }[language]
-      if (langItem[screenName] == null) {
-        missingTranslations[language] = missingTranslations[language] ?? {}
-        missingTranslations[language][screenName] = labels
+      const languageTranslations = missingTranslations[language] ?? { missingCount: 0, labels: {}, totalCount }
+      const translationFile = langItem[screenName]
+      if (translationFile == null) {
+        languageTranslations.labels[screenName] = labels
+        languageTranslations.missingCount = languageTranslations.missingCount + labels.length
       } else {
         labels.forEach((baseLabel) => {
-          if (langItem[screenName][baseLabel] == null) {
-            missingTranslations[language] = missingTranslations[language] ?? {}
-            const missingLabels = missingTranslations[language][screenName] ?? []
-            missingLabels.push(baseLabel)
-            missingTranslations[language][screenName] = missingLabels
+          if (translationFile[baseLabel] == null) {
+            languageTranslations.labels[screenName] = languageTranslations.labels[screenName] ?? []
+            languageTranslations.labels[screenName].push(baseLabel)
+            languageTranslations.missingCount = languageTranslations.missingCount + 1
           }
         })
       }
+      languageTranslations.totalCount = totalCount
+      missingTranslations[language] = languageTranslations
     })
   })
-  fs.writeFileSync('./missingTranslations.json', JSON.stringify(missingTranslations))
+  fs.writeFileSync('./missingTranslations.json', JSON.stringify(missingTranslations, null, 4))
+  return missingTranslations
 }
 
-function findMissingTranslations (): void {
-  const baseTranslation = new Map<string, string[]>()
+export async function findMissingTranslations (): Promise<MissingLanguage> {
+  let baseTranslation = new Map<string, string[]>()
   const missingTranslations: MissingLanguage = {}
   // Create base translation file
-  updateBaseTranslations(baseTranslation)
-    .then((baseTranslation) => {
-      checkTranslations(baseTranslation, missingTranslations)
-    }).catch((error) => console.log(error))
+  baseTranslation = await updateBaseTranslations(baseTranslation)
+  return checkTranslations(baseTranslation, missingTranslations)
 }
 
-findMissingTranslations()
+findMissingTranslations().then(() => {}).catch(() => {})
