@@ -27,7 +27,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           header: Missing Translations
           recreate: true
-          delete: true
           message: |
             Missing translations:
             ```
