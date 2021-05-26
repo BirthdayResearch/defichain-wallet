@@ -24,6 +24,7 @@ jobs:
           @defichain/jellyfish-transaction-builder \
           @defichain/jellyfish-wallet \
           @defichain/jellyfish-wallet-mnemonic \
+          @defichain/playground-api-client \
           @defichain/whale-api-wallet
 
       - name: Create Pull Request
