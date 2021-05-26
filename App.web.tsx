@@ -1,10 +1,12 @@
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import tailwind from 'tailwind-rn'
 
 import useCachedResources from './hooks/useCachedResources'
 import useColorScheme from './hooks/useColorScheme'
 import Navigation from './navigation'
+
+import { Playground } from './playground/Playground'
 
 export default function App (): JSX.Element | null {
   const isLoadingComplete = useCachedResources()
@@ -15,25 +17,14 @@ export default function App (): JSX.Element | null {
   }
 
   return (
-    <View style={tailwind('flex-row flex-1 justify-center items-center')}>
-      <View style={tailwind('flex-row border-2 border-gray-200')}>
+    <View style={tailwind('flex-row flex-1 justify-center items-center bg-black')}>
+      <View style={tailwind('flex-row border-2')}>
         <View style={styles.phone}>
           <Navigation colorScheme={colorScheme} />
         </View>
-        <View style={tailwind('border-l-2 border-gray-200')}>
+        <View style={[styles.phone, tailwind('bg-white ml-1')]}>
           <Playground />
         </View>
-      </View>
-    </View>
-  )
-}
-
-function Playground (): JSX.Element {
-  return (
-    <View>
-      <View style={tailwind('p-4')}>
-        <Text style={tailwind('text-lg font-bold')}>DeFi Wallet Preview & Playground</Text>
-        <Text style={tailwind('mt-2')} />
       </View>
     </View>
   )

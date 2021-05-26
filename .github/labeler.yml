@@ -10,3 +10,8 @@ labels:
     sync: true
     matcher:
       files: "translations/**"
+
+  - label: area/playground
+    sync: true
+    matcher:
+      files: "playground/**"
