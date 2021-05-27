@@ -7,6 +7,8 @@ context('cypress example', () => {
   })
 
   // TODO(wallet): need a way to get element consistently
+  //  we could use testID="example"
+  //  select via data-testid="example"
   it('should click and update count', () => {
     cy.contains('Click').click()
     cy.contains('Count: 2')

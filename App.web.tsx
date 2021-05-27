@@ -1,6 +1,8 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import tailwind from 'tailwind-rn'
+import { Provider } from 'react-redux'
+import { store } from './store'
 
 import useCachedResources from './hooks/useCachedResources'
 import useColorScheme from './hooks/useColorScheme'
@@ -17,16 +19,18 @@ export default function App (): JSX.Element | null {
   }
 
   return (
-    <View style={tailwind('flex-row flex-1 justify-center items-center bg-black')}>
-      <View style={tailwind('flex-row border-2')}>
-        <View style={styles.phone}>
-          <Navigation colorScheme={colorScheme} />
-        </View>
-        <View style={[styles.phone, tailwind('bg-white ml-1')]}>
-          <Playground />
+    <Provider store={store}>
+      <View style={tailwind('flex-row flex-1 justify-center items-center bg-black')}>
+        <View style={tailwind('flex-row border-2')}>
+          <View style={styles.phone}>
+            <Navigation colorScheme={colorScheme} />
+          </View>
+          <View style={[styles.phone, tailwind('bg-white ml-1')]}>
+            <Playground />
+          </View>
         </View>
       </View>
-    </View>
+    </Provider>
   )
 }
 
