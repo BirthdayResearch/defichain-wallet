@@ -21,10 +21,10 @@ labels:
     matcher:
       files: "playground/**"
 
-  - label: area/index
+  - label: area/translations
     sync: true
     matcher:
-      files: "index/**"
+      files: "translations/**"
 
   - label: screen/BalancesScreen
     sync: true

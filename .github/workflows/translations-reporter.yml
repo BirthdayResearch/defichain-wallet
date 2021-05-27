@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: 15
       - run: npm ci
-      - name: Find missing languages
+      - name: Find missing translations
         id: find_string
         run: npm run translation:missing
       - name: Read missing_translations.json
