@@ -10,7 +10,9 @@ context('cypress example', () => {
   //  we could use testID="example"
   //  select via data-testid="example"
   it('should click and update count', () => {
+    cy.wait(1000)
     cy.contains('Click').click()
     cy.contains('Count: 2')
+    cy.wait(1000)
   })
 })

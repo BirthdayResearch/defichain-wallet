@@ -29,19 +29,19 @@ labels:
   - label: screen/BalancesScreen
     sync: true
     matcher:
-      files: "screen/BalancesScreen/**"
+      files: "screens/BalancesScreen/**"
 
   - label: screen/LiquidityScreen
     sync: true
     matcher:
-      files: "screen/LiquidityScreen/**"
+      files: "screens/LiquidityScreen/**"
 
   - label: screen/SettingsScreen
     sync: true
     matcher:
-      files: "screen/SettingsScreen/**"
+      files: "screens/SettingsScreen/**"
 
   - label: screen/TransactionsScreen
     sync: true
     matcher:
-      files: "screen/TransactionsScreen/**"
+      files: "screens/TransactionsScreen/**"

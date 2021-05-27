@@ -1,31 +1,30 @@
 import React from 'react'
-import { StatusBar } from 'expo-status-bar'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { Provider } from 'react-redux'
 import { store } from './store'
 
 import useCachedResources from './hooks/useCachedResources'
-import useColorScheme from './hooks/useColorScheme'
-import Navigation from './navigation'
+import useDeFiPlayground from './hooks/defi/useDeFiPlayground'
+import useDeFiWhale from './hooks/defi/useDeFiWhale'
 
 import { initI18n } from './translations'
+import { Main } from './screens/Main'
 
 initI18n()
 
 export default function App (): JSX.Element | null {
-  const isLoadingComplete = useCachedResources()
-  const colorScheme = useColorScheme()
+  const isLoadingComplete = [
+    useCachedResources(),
+    useDeFiPlayground(),
+    useDeFiWhale()
+  ]
 
-  if (!isLoadingComplete) {
+  if (isLoadingComplete.includes(false)) {
     return null
-  } else {
-    return (
-      <Provider store={store}>
-        <SafeAreaProvider>
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar />
-        </SafeAreaProvider>
-      </Provider>
-    )
   }
+
+  return (
+    <Provider store={store}>
+      <Main />
+    </Provider>
+  )
 }
