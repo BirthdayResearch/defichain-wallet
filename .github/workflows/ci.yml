@@ -47,9 +47,9 @@ jobs:
       - name: Setup Playground
         run: docker-compose -f docker-compose.yml up -d
 
-      - run: ./github/workflows/ci/wait-for http://localhost:3001/_health/probes/liveness -t 120
-      - run: ./github/workflows/ci/wait-for http://localhost:3002/_health/probes/liveness -t 120
-      - run: ./github/workflows/ci/wait-for http://localhost:8082/ping -t 120
+      - run: .github/workflows/ci/wait-for http://localhost:3001/_health/probes/liveness -t 120
+      - run: .github/workflows/ci/wait-for http://localhost:3002/_health/probes/liveness -t 120
+      - run: .github/workflows/ci/wait-for http://localhost:8082/ping -t 120
 
       - uses: cypress-io/github-action@6b3bc3a1c27198cda160cb03307c43bc998aa564
         with:
