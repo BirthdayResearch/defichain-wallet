@@ -32,6 +32,7 @@ issue:
       list:
         - core
         - workflow
+        - playground
         - translations
       multiple: true
       needs:
