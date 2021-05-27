@@ -5,13 +5,16 @@
 /.husky/                                        @fuxingloh
 /.idea/                                         @fuxingloh @thedoublejay
 
+/cypress                                        @fuxingloh @thedoublejay
+
 /assets                                         @fuxingloh @thedoublejay
-/components                                     @fuxingloh @thedoublejay
 /constants                                      @fuxingloh @thedoublejay
+
+/components                                     @fuxingloh @thedoublejay
 /hooks                                          @fuxingloh @thedoublejay
 /navigation                                     @fuxingloh @thedoublejay
-/packages                                       @fuxingloh @thedoublejay
 /screens                                        @fuxingloh @thedoublejay
+/store                                          @fuxingloh @thedoublejay
 
 /playground                                     @fuxingloh
 /translations                                   @fuxingloh @thedoublejay

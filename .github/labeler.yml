@@ -6,12 +6,42 @@ labels:
     matcher:
       files: ".github/**"
 
-  - label: area/translations
+  - label: area/assets
     sync: true
     matcher:
-      files: "translations/**"
+      files: "assets/**"
+
+  - label: area/navigation
+    sync: true
+    matcher:
+      files: "navigation/**"
 
   - label: area/playground
     sync: true
     matcher:
       files: "playground/**"
+
+  - label: area/translations
+    sync: true
+    matcher:
+      files: "translations/**"
+
+  - label: screen/BalancesScreen
+    sync: true
+    matcher:
+      files: "screen/BalancesScreen/**"
+
+  - label: screen/LiquidityScreen
+    sync: true
+    matcher:
+      files: "screen/LiquidityScreen/**"
+
+  - label: screen/SettingsScreen
+    sync: true
+    matcher:
+      files: "screen/SettingsScreen/**"
+
+  - label: screen/TransactionsScreen
+    sync: true
+    matcher:
+      files: "screen/TransactionsScreen/**"

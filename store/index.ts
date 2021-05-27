@@ -4,9 +4,11 @@ import { counterSlice } from './liquidity'
 /**
  * RootState for DeFi Wallet App
  *
- * All state reducer in this store must be designed by global use and placed in this
+ * All state reducer in this store must be designed for global use and placed in this
  * directory as such. Reducer that are not meant to be global must not be part of
- * RootState. State should be managed independently within the React Component.
+ * RootState.
+ *
+ * Non-global state should be managed independently within its own React Component.
  */
 export const store = configureStore({
   reducer: {
