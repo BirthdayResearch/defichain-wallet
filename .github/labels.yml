@@ -58,9 +58,23 @@
 - color: fbca04
   name: area/workflow
 - color: fbca04
+  name: area/assets
+- color: fbca04
+  name: area/navigation
+- color: fbca04
   name: area/playground
 - color: fbca04
   name: area/translations
+
+# Screens
+- color: ef4b68
+  name: screen/BalancesScreen
+- color: ef4b68
+  name: screen/LiquidityScreen
+- color: ef4b68
+  name: screen/SettingsScreen
+- color: ef4b68
+  name: screen/TransactionsScreen
 
 # Priority
 - color: d93f0b
