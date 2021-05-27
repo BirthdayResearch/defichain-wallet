@@ -21,10 +21,12 @@ jobs:
         # we need to find a better tool to manage this
         run: |
           npm upgrade \
+          @defichain/jellyfish-api-core \
           @defichain/jellyfish-transaction-builder \
           @defichain/jellyfish-wallet \
           @defichain/jellyfish-wallet-mnemonic \
           @defichain/playground-api-client \
+          @defichain/whale-api-client \
           @defichain/whale-api-wallet
 
       - name: Create Pull Request

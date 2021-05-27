@@ -1,15 +1,17 @@
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
-import { ColorSchemeName } from 'react-native'
 
 import NotFoundScreen from '../screens/NotFoundScreen'
 import BottomTabNavigator from './BottomTabNavigator'
 import LinkingConfiguration from './LinkingConfiguration'
+import useColorScheme from '../hooks/useColorScheme'
 
 // If you are not familiar with React Navigation, we recommend going through the
 // "Fundamentals" guide: https://reactnavigation.org/docs/getting-started
-export default function Navigation ({ colorScheme }: { colorScheme: ColorSchemeName }): JSX.Element {
+export default function Navigation (): JSX.Element {
+  const colorScheme = useColorScheme()
+
   return (
     <NavigationContainer
       linking={LinkingConfiguration}

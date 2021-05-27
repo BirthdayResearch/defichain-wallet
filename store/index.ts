@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { counterSlice } from './liquidity'
-import { playgroundSlice } from "./playground";
 
 /**
  * RootState for DeFi Wallet App
@@ -13,8 +12,7 @@ import { playgroundSlice } from "./playground";
  */
 export const store = configureStore({
   reducer: {
-    counter: counterSlice.reducer,
-    playground: playgroundSlice.reducer,
+    counter: counterSlice.reducer
   }
 })
 

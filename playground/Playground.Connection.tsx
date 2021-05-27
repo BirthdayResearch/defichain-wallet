@@ -1,30 +1,24 @@
 import { Text, View } from 'react-native'
 import tailwind from 'tailwind-rn'
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store";
-import { initializePlayground, PlaygroundState, PlaygroundStatus } from "../store/playground";
+import React, { useEffect } from 'react'
+import { Playground } from '../hooks/defi/useDeFiPlayground'
 
 export function PlaygroundConnection (): JSX.Element {
-  const playground = useSelector<RootState, PlaygroundState>(state => state.playground)
-  const dispatch = useDispatch()
+  const [blockCount, setBlockCount] = React.useState(0)
 
   useEffect(() => {
-    if (playground.status === PlaygroundStatus.NotConnected) {
-      dispatch(initializePlayground())
-    }
-  })
+    const interval = setInterval(() => {
+      if (Playground.rpcClient === undefined) {
+        return
+      }
 
-  const [blockCount, setBlockCount] = useState(0);
-
-  useEffect(() => {
-    if (playground.status === PlaygroundStatus.Connected) {
-      const interval = setInterval(() => {
-        setBlockCount(seconds => seconds + 1);
-      }, 6000);
-      return () => clearInterval(interval);
-    }
-  }, []);
+      /* eslint-disable @typescript-eslint/no-floating-promises */
+      Playground.rpcClient.blockchain.getBlockCount().then(value => {
+        setBlockCount(value)
+      })
+    }, 2000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <View>
@@ -35,37 +29,22 @@ export function PlaygroundConnection (): JSX.Element {
         </View>
       </View>
 
-      <Text style={tailwind('text-xs font-medium')}>
-        Provider: {playground.provider}
-      </Text>
+      <View style={tailwind('mt-1')}>
+        <Text style={tailwind('text-xs font-medium text-gray-900')}>
+          Playground: {Playground.provider ?? 'Not Connected'}
+        </Text>
 
-      <Text style={tailwind('text-xs font-medium')}>
-        Block Count: {blockCount}
-      </Text>
+        <Text style={tailwind('text-xs font-medium text-gray-900')}>
+          Block Count: {blockCount === 0 ? '...' : blockCount}
+        </Text>
+      </View>
     </View>
   )
 }
 
 function PlaygroundStatusBadge (): JSX.Element {
-  const status: PlaygroundStatus = useSelector<RootState, PlaygroundStatus>(state => state.playground.status)
-
-  switch (status) {
-    case PlaygroundStatus.NotConnected:
-      return <View style={tailwind('h-3 w-3 rounded-full bg-gray-500')} />
-    case PlaygroundStatus.Connecting:
-      return <View style={tailwind('h-3 w-3 rounded-full bg-blue-500')} />
-    case PlaygroundStatus.Connected:
-      return <View style={tailwind('h-3 w-3 rounded-full bg-green-500')} />
-    case PlaygroundStatus.Failed:
-      return <View style={tailwind('h-3 w-3 rounded-full bg-red-500')} />
+  if (Playground.rpcClient !== undefined) {
+    return <View style={tailwind('h-3 w-3 rounded-full bg-green-500')} />
   }
+  return <View style={tailwind('h-3 w-3 rounded-full bg-red-500')} />
 }
-
-//   connected: boolean
-//   status: string
-
-//   provider?: string
-//   api?: PlaygroundApiClient
-//   rpc?: PlaygroundRpcClient
-
-// TODO(fuxingloh): Display Block Count
