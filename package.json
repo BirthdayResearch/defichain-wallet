@@ -12,7 +12,8 @@
     "start:web": "expo start --web",
     "playground:start": "docker-compose up",
     "test:ci": "jest --ci --coverage",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "translation:missing": "ts-node translations/reporter/index.ts"
   },
   "dependencies": {
     "@defichain/jellyfish-transaction-builder": ">=0.9.0",
@@ -39,6 +40,7 @@
     "expo-status-bar": "~1.0.4",
     "expo-web-browser": "~9.1.0",
     "i18n-js": "^3.8.0",
+    "lodash": "^4.17.21",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
@@ -53,18 +55,22 @@
   },
   "devDependencies": {
     "@babel/core": "~7.14.3",
+    "@types/find-in-files": "^0.5.0",
     "@types/i18n-js": "^3.8.0",
     "@types/jest": "^26.0.22",
+    "@types/lodash": "^4.14.170",
     "@types/react": "~17.0.6",
     "@types/react-native": "~0.64.5",
     "@types/react-redux": "^7.1.16",
     "@types/react-test-renderer": "^17.0.1",
     "cypress": "^7.3.0",
+    "find-in-files": "^0.5.0",
     "husky": "^6.0.0",
     "jest-expo": "^41.0.0",
     "lint-staged": "^11.0.0",
     "react-native-testing-library": "^6.0.0",
     "react-test-renderer": "~16.11.0",
+    "ts-node": "^10.0.0",
     "ts-standard": "^10.0.0",
     "typescript": "~4.2.4"
   },

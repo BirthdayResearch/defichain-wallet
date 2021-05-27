@@ -8,7 +8,7 @@ export default function TransactionsScreen (): JSX.Element {
   return (
     <View style={tailwind('flex-1 items-center justify-center')}>
       <Text style={tailwind('text-xl font-bold')}>
-        {translate('screens/TransactionsScreen', 'Transactions')}
+        {translate('screens/TransactionsScreen', 'Transactions Text %1')}
       </Text>
       <View style={tailwind('w-4/5 h-px my-8')} lightColor='#eee' darkColor='rgba(255,255,255,0.1)' />
     </View>
