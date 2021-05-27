@@ -13,7 +13,7 @@
     "playground:start": "docker-compose up",
     "test:ci": "jest --ci --coverage",
     "cypress:open": "cypress open",
-    "translation:missing": "ts-node translations/checker/index.ts"
+    "translation:missing": "ts-node translations/reporter/index.ts"
   },
   "dependencies": {
     "@defichain/jellyfish-transaction-builder": ">=0.9.0",

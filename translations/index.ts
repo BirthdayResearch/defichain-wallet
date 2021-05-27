@@ -1,6 +1,6 @@
 import i18n from 'i18n-js'
 import * as Localization from 'expo-localization'
-import { translations } from './translations'
+import { translations } from './languages'
 
 /**
  * For testing compatibility, will always be initialized.
@@ -54,6 +54,3 @@ export function translate (path: string, text: string): string {
   }
   return i18n.translate(`${path}.${text}`)
 }
-
-// TODO(thedoublejay): add CI workflow to find missing translation and report it
-//  simple regex will be able to detect. ideally to be done in TypeScript for translations comparison

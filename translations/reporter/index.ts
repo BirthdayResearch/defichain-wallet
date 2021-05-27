@@ -1,6 +1,6 @@
 import * as findInFiles from 'find-in-files'
 import { uniq } from 'lodash'
-import { translations } from '../translations'
+import { translations } from '../languages'
 import * as fs from 'fs'
 
 interface MissingLanguageItem {
@@ -15,7 +15,9 @@ interface MissingLanguage {
   [key: string]: MissingLanguageItem
 }
 
-const getAllTranslationsKeys = (keys: string[], map: Map<string, string[]>): Map<string, string[]> => {
+const DIRECTORIES = ['components', 'navigation', 'screens']
+
+function getAllTranslationsKeys (keys: string[], map: Map<string, string[]>): Map<string, string[]> {
   keys.forEach((k) => {
     let item = k.replace('translate(', '').replace(')', '').split(',')
     item = item.map((v) => v.trim().replace(/^'(.*)'$/, '$1'))
@@ -28,12 +30,11 @@ const getAllTranslationsKeys = (keys: string[], map: Map<string, string[]>): Map
   return map
 }
 
-const updateBaseTranslations = async (baseTranslation: Map<string, string[]>): Promise<Map<string, string[]>> => {
+async function updateBaseTranslations (baseTranslation: Map<string, string[]>): Promise<Map<string, string[]>> {
   const translationRegex = new RegExp(/translate\(.*,+.*\)/)
   const find = async (directory: string): Promise<findInFiles.FindResult> => await findInFiles.find(translationRegex, directory, '.tsx$')
   // list of folders to check
-  const directories = ['components', 'navigation', 'screens']
-  for (const dir of directories) {
+  for (const dir of DIRECTORIES) {
     const result = await find(dir)
     Object.keys(result).forEach((k) => {
       baseTranslation = getAllTranslationsKeys(uniq(result[k].matches), baseTranslation)
@@ -42,7 +43,7 @@ const updateBaseTranslations = async (baseTranslation: Map<string, string[]>): P
   return baseTranslation
 }
 
-const checkTranslations = (baseTranslation: Map<string, string[]>, missingTranslations: MissingLanguage): MissingLanguage => {
+function checkTranslations (baseTranslation: Map<string, string[]>, missingTranslations: MissingLanguage): MissingLanguage {
   const languages = Object.keys(translations)
   let totalCount = 0
   baseTranslation.forEach((labels, screenName) => {
@@ -67,7 +68,7 @@ const checkTranslations = (baseTranslation: Map<string, string[]>, missingTransl
       missingTranslations[language] = languageTranslations
     })
   })
-  fs.writeFileSync('./missingTranslations.json', JSON.stringify(missingTranslations, null, 4))
+  fs.writeFileSync('./missing_translations.json', JSON.stringify(missingTranslations, null, 4))
   return missingTranslations
 }
 

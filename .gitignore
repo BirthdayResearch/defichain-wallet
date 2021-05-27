@@ -40,4 +40,4 @@ web-build/
 
 # macOS
 .DS_Store
-/missingTranslations.json
+/missing_translations.json

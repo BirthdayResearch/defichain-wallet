@@ -1,7 +1,7 @@
 import * as findInFiles from 'find-in-files'
 import * as fs from 'fs'
 import { findMissingTranslations } from "./index";
-import { translations } from '../translations'
+import { translations } from '../languages'
 
 jest.mock('find-in-files');
 const mockedFindInFiles = findInFiles as jest.Mocked<typeof findInFiles>;
@@ -30,7 +30,7 @@ const input = {
   },
 };
 
-describe('translations checker', () => {
+describe('translations reporter', () => {
 
   beforeEach(() => {
     mockedFindInFiles.find.mockResolvedValue(input)
