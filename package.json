@@ -27,6 +27,7 @@
     "@react-navigation/bottom-tabs": "5.11.11",
     "@react-navigation/native": "~5.9.4",
     "@react-navigation/stack": "~5.14.5",
+    "@reduxjs/toolkit": "^1.5.1",
     "bignumber.js": "^9.0.1",
     "expo": "^41.0.0",
     "expo-asset": "~8.3.1",
@@ -48,6 +49,7 @@
     "react-native-screens": "~3.0.0",
     "react-native-svg": "12.1.1",
     "react-native-web": "~0.14.13",
+    "react-redux": "^7.2.4",
     "serve": "^11.3.2",
     "tailwind-rn": "^3.0.1"
   },
@@ -59,6 +61,7 @@
     "@types/lodash": "^4.14.170",
     "@types/react": "~17.0.6",
     "@types/react-native": "~0.64.5",
+    "@types/react-redux": "^7.1.16",
     "@types/react-test-renderer": "^17.0.1",
     "cypress": "^7.3.0",
     "find-in-files": "^0.5.0",
