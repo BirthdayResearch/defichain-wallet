@@ -33,7 +33,7 @@ jobs:
       - run: npx --no-install ts-standard
 
   e2e:
-    needs: [ test, lint ]
+    needs: [ lint ]
     name: End-to-end
     runs-on: ubuntu-latest
     steps:
