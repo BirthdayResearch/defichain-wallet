@@ -7,9 +7,15 @@ services:
       - "--providers.docker=true"
       - "--entrypoints.web.address=:3000"
     ports:
-      - "3000:3000"
+      - "19553:3000"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    labels:
+      - "traefik.http.middlewares.cors.headers.accesscontrolallowmethods=GET,OPTIONS,POST,PUT"
+      - "traefik.http.middlewares.cors.headers.accesscontrolalloworiginlist=*"
+      - "traefik.http.middlewares.cors.headers.accesscontrolallowheaders=Content-Type"
+      - "traefik.http.middlewares.cors.headers.accesscontrolmaxage=100"
+      - "traefik.http.middlewares.cors.headers.addvaryheader=true"
 
   defi-blockchain:
     image: defi/defichain:1.7.0
@@ -43,20 +49,21 @@ services:
       WHALE_DATABASE_PROVIDER: level
       WHALE_NETWORK: playground
     labels:
+      - "traefik.http.services.whale.loadbalancer.server.port=3000"
       - "traefik.http.routers.whale.priority=1"
       - "traefik.http.routers.whale.rule=PathPrefix(`/{version:v[1-9]}/playground/`)"
       - "traefik.http.routers.whale.entrypoints=web"
-      - "traefik.http.services.whale.loadbalancer.server.port=3000"
+      - "traefik.http.routers.whale.middlewares=cors"
 
   defi-playground:
-    build: ..
     image: ghcr.io/defich/playground:0.0.2
     depends_on:
       - defi-blockchain
     environment:
       PLAYGROUND_DEFID_URL: http://playground-rpcuser:playground-rpcpassword@defi-blockchain:19554
     labels:
+      - "traefik.http.services.playground.loadbalancer.server.port=3000"
       - "traefik.http.routers.playground.priority=0"
       - "traefik.http.routers.playground.rule=PathPrefix(`/{version:v[1-9]}/playground/rpc/`)"
       - "traefik.http.routers.playground.entrypoints=web"
-      - "traefik.http.services.playground.loadbalancer.server.port=3000"
+      - "traefik.http.routers.playground.middlewares=cors"
