@@ -3,7 +3,7 @@ name: Expo Dependencies
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '0 0 * * 0'
 
 jobs:
   build:
