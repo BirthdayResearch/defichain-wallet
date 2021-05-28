@@ -1,8 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Dispatch } from 'redux'
+import { createSelector } from 'reselect'
 import { RootState } from './index'
 
-const initialState = {
+interface LiquidityState {
+  value: number
+  status: string
+}
+
+const initialState: LiquidityState = {
   value: 0,
   status: 'idle'
 }
@@ -71,3 +77,9 @@ export const incrementIfOdd = (amount: number) => (dispatch: Dispatch, getState:
     dispatch(incrementByAmount(amount))
   }
 }
+
+// Create composable selectors
+export const liquidityAmountSelector = createSelector((state: LiquidityState) => state.value, (value) => value)
+// Example of composable selectors. Return value if status is 'loading'
+export const loadingAmountSelector = createSelector(liquidityAmountSelector,
+  (state: LiquidityState) => state.status, (value, status) => status === 'loading' ? value : 0)
