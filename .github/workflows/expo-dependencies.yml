@@ -16,6 +16,10 @@ jobs:
 
       - run: npm ci
 
+      - uses: expo/expo-github-action@8275e8fa89e599e1b1ef793b0219c299f79bc32b
+        with:
+          expo-version: 4.x
+
       - run: expo upgrade
 
       - name: Create Pull Request
