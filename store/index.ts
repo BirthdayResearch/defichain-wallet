@@ -1,5 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { counterSlice } from './liquidity'
+import { block } from './block'
+import { network } from './network'
 
 /**
  * RootState for DeFi Wallet App
@@ -12,6 +14,9 @@ import { counterSlice } from './liquidity'
  */
 export const store = configureStore({
   reducer: {
+    block: block.reducer,
+    network: network.reducer,
+    // TODO(fuxingloh): to be removed
     counter: counterSlice.reducer
   }
 })
