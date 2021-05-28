@@ -1,8 +1,9 @@
 name: Expo Dependencies
 
 on:
-  push:
-    branches: [ thedoublejay/expo_workflow ]
+  workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *'
 
 jobs:
   build:
@@ -27,10 +28,10 @@ jobs:
         with:
           token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           labels: kind/dependencies
-          commit-message: Bump expo dependencies
+          commit-message: Bump Expo dependencies
           committer: DeFiChain Bot <github-bot@defichain.com>
           author: DeFiChain Bot <github-bot@defichain.com>
-          title: Bump expo dependencies
+          title: Bump Expo dependencies
           body: |
             #### What kind of PR is this?:
             /kind dependencies
