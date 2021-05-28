@@ -1,0 +1,37 @@
+name: Expo Dependencies
+
+on:
+  push:
+    branches: [ thedoublejay/expo_workflow ]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: actions/setup-node@46071b5c7a2e0c34e49c3cb8a0e792e86e18d5ea
+        with:
+          node-version: 15
+
+      - uses: expo/expo-github-action@8275e8fa89e599e1b1ef793b0219c299f79bc32b
+        with:
+          expo-version: 4.x
+
+      - run: expo upgrade
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@9825ae65b1cb54b543b938503728b432a0176d29
+        with:
+          token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
+          labels: kind/dependencies
+          commit-message: Bump expo dependencies
+          committer: DeFiChain Bot <github-bot@defichain.com>
+          author: DeFiChain Bot <github-bot@defichain.com>
+          title: Bump expo dependencies
+          body: |
+            #### What kind of PR is this?:
+            /kind dependencies
+            #### What this PR does / why we need it:
+            Bump expo dependencies to newest release
+          branch: defichain-bot/expo-deps
