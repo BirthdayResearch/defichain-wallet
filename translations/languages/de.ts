@@ -1,4 +1,6 @@
-export default {
+import { Translation } from './index'
+
+export const de: Translation = {
   'screens/TransactionsScreen': {
     Transactions: 'Transaktionen'
   },

@@ -78,6 +78,7 @@
       <w>getwalletinfo</w>
       <w>greaterthan</w>
       <w>greaterthanorequal</w>
+      <w>hant</w>
       <w>hdkeypath</w>
       <w>hdmasterfingerprint</w>
       <w>hdseedid</w>

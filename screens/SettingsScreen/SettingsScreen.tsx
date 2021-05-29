@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { Text, View } from '../../components/Themed'
 import { translate } from '../../translations'
 
-export default function SettingsScreen (): JSX.Element {
+export function SettingsScreen (): JSX.Element {
   return (
     <View style={tailwind('flex-1 items-center justify-center')}>
       <Text style={tailwind('text-xl font-bold')}>

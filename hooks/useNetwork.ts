@@ -5,7 +5,7 @@ import { PlaygroundApiClient } from '@defichain/playground-api-client'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from 'redux'
 
-export default function useNetwork (): boolean {
+export function useNetwork (): boolean {
   const dispatch = useDispatch()
   const [isLoading, setLoaded] = React.useState(false)
 

@@ -1,6 +1,6 @@
 import i18n from 'i18n-js'
 import * as Localization from 'expo-localization'
-import { translations } from './languages'
+import { languages } from './languages'
 
 /**
  * For testing compatibility, will always be initialized.
@@ -37,7 +37,7 @@ export function initI18n (): void {
   init = true
   i18n.translations = {
     en: {},
-    ...translations
+    ...languages
   }
   i18n.locale = Localization.locale
   i18n.fallbacks = true

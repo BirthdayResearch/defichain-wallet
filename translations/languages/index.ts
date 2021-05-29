@@ -1,9 +1,15 @@
-import zh_hans from './zh-Hans'
-import zh_hant from './zh-Hant'
-import de from './de'
+import { zhHans } from './zh-Hans'
+import { zhHant } from './zh-Hant'
+import { de } from './de'
 
-export const translations = {
-  'zh-Hans': zh_hans,
-  'zh-Hant': zh_hant,
+export interface Translation {
+  [screen: string]: {
+    [english: string]: string
+  }
+}
+
+export const languages: Record<string, Translation> = {
+  'zh-Hans': zhHans,
+  'zh-Hant': zhHant,
   de: de
 }

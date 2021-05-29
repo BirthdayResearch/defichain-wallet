@@ -2,8 +2,8 @@ import { Ionicons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import * as React from 'react'
 
-import Colors from '../constants/Colors'
-import useColorScheme from '../hooks/useColorScheme'
+import { Colors } from '../constants/Colors'
+import { useColorScheme } from '../hooks/useColorScheme'
 
 import { BalancesNavigator } from '../screens/BalancesScreen/BalancesScreen'
 import { LiquidityNavigator } from '../screens/LiquidityScreen/LiquidityScreen'
@@ -28,7 +28,7 @@ function TabBarIcon (props: { name: React.ComponentProps<typeof Ionicons>['name'
   return <Ionicons size={24} style={{ marginBottom: -3 }} {...props} />
 }
 
-export default function BottomTabNavigator (): JSX.Element {
+export function BottomTabNavigator (): JSX.Element {
   const colorScheme = useColorScheme()
 
   return (

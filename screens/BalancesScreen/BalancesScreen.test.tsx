@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { fireEvent, render } from 'react-native-testing-library'
 
-import BalancesScreen from './BalancesScreen'
+import { BalancesScreen } from './BalancesScreen'
 
 it('<BalancesScreen/> click should increment counter', () => {
   const { getByText } = render(<BalancesScreen />)
