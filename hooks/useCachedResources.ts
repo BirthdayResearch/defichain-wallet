@@ -1,15 +1,9 @@
 import { Ionicons } from '@expo/vector-icons'
 import * as Font from 'expo-font'
-import * as SplashScreen from 'expo-splash-screen'
 import * as React from 'react'
-
-/* eslint-disable @typescript-eslint/no-floating-promises */
 
 async function loadResourcesAndDataAsync (): Promise<void> {
   try {
-    SplashScreen.preventAutoHideAsync()
-
-    // Load fonts
     await Font.loadAsync({
       ...Ionicons.font,
       'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf')
@@ -29,7 +23,6 @@ export default function useCachedResources (): boolean {
   React.useEffect(() => {
     loadResourcesAndDataAsync().finally(() => {
       setLoadingComplete(true)
-      SplashScreen.hideAsync()
     })
   }, [])
 

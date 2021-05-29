@@ -1,23 +1,27 @@
+import React from 'react'
 import { Text, View } from 'react-native'
+import { useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
-import React, { useEffect } from 'react'
-import { Playground } from '../hooks/defi/useDeFiPlayground'
+import { RootState } from '../store'
+import useWhaleApiClient from '../hooks/useWhaleApiClient'
+import { WhaleRpcClient } from '@defichain/whale-api-client'
 
 export function PlaygroundConnection (): JSX.Element {
-  const [blockCount, setBlockCount] = React.useState(0)
+  const playgroundEnvironment = useSelector<RootState>(state => state.network.playground?.environment)
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (Playground.rpcClient === undefined) {
-        return
-      }
+  const client = useWhaleApiClient()
+  const rpcClient = new WhaleRpcClient(client)
 
+  const [count, setCount] = React.useState(0)
+
+  React.useEffect(() => {
+    const intervalId = setInterval(() => {
       /* eslint-disable @typescript-eslint/no-floating-promises */
-      Playground.rpcClient.blockchain.getBlockCount().then(value => {
-        setBlockCount(value)
+      rpcClient.blockchain.getBlockCount().then(count => {
+        setCount(count)
       })
-    }, 2000)
-    return () => clearInterval(interval)
+    }, 2900)
+    return () => clearInterval(intervalId)
   }, [])
 
   return (
@@ -31,11 +35,11 @@ export function PlaygroundConnection (): JSX.Element {
 
       <View style={tailwind('mt-1')}>
         <Text style={tailwind('text-xs font-medium text-gray-900')}>
-          Playground: {Playground.provider ?? 'Not Connected'}
+          Playground: {playgroundEnvironment ?? 'Not Connected'}
         </Text>
 
         <Text style={tailwind('text-xs font-medium text-gray-900')}>
-          Block Count: {blockCount === 0 ? '...' : blockCount}
+          Block Count: {count === 0 ? '...' : count}
         </Text>
       </View>
     </View>
@@ -43,7 +47,8 @@ export function PlaygroundConnection (): JSX.Element {
 }
 
 function PlaygroundStatusBadge (): JSX.Element {
-  if (Playground.rpcClient !== undefined) {
+  const playground = useSelector<RootState>(state => state.network.playground)
+  if (playground !== undefined) {
     return <View style={tailwind('h-3 w-3 rounded-full bg-green-500')} />
   }
   return <View style={tailwind('h-3 w-3 rounded-full bg-red-500')} />

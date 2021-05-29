@@ -54,7 +54,8 @@
     "react-redux": "^7.2.4",
     "reselect": "^4.0.0",
     "serve": "^11.3.2",
-    "tailwind-rn": "^3.0.1"
+    "tailwind-rn": "^3.0.1",
+    "@react-native-async-storage/async-storage": "^1.13.0"
   },
   "devDependencies": {
     "@babel/core": "~7.14.3",
