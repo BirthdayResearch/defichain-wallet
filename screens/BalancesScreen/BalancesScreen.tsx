@@ -7,7 +7,7 @@ import { Text, View } from '../../components/Themed'
 import { getTokenIcon } from '../../components/icons/tokens/_index'
 import { createStackNavigator } from '@react-navigation/stack'
 
-export default function BalancesScreen (): JSX.Element {
+export function BalancesScreen (): JSX.Element {
   const [count, setCount] = React.useState(0)
 
   const Icon = getTokenIcon('DFA')

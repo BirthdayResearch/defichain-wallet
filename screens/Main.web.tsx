@@ -1,8 +1,7 @@
 import React from 'react'
 import tailwind from 'tailwind-rn'
 import { StyleSheet, View } from 'react-native'
-
-import Navigation from '../navigation'
+import { Navigation } from '../navigation'
 import { Playground } from '../playground/Playground'
 
 export function Main (): JSX.Element {

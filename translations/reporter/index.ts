@@ -1,6 +1,6 @@
 import * as findInFiles from 'find-in-files'
 import { uniq } from 'lodash'
-import { translations } from '../languages'
+import { languages as translations } from '../languages'
 import * as fs from 'fs'
 
 interface MissingLanguageItem {

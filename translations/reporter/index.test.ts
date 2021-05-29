@@ -1,14 +1,14 @@
 import * as findInFiles from 'find-in-files'
 import * as fs from 'fs'
 import { findMissingTranslations } from "./index";
-import { translations } from '../languages'
+import { languages } from '../languages'
 
 jest.mock('find-in-files');
 const mockedFindInFiles = findInFiles as jest.Mocked<typeof findInFiles>;
 jest.mock('fs');
 const mockedFs = fs as jest.Mocked<typeof fs>;
 jest.mock('../index')
-const mockedTranslations = translations as jest.Mocked<typeof translations>;
+const mockedTranslations = languages as jest.Mocked<typeof languages>;
 
 const input = {
   'screens\TransactionsScreen\TransactionsScreen.tsx': {

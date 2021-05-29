@@ -3,6 +3,6 @@ import { ColorSchemeName, useColorScheme as _useColorScheme } from 'react-native
 /**
  * @return {NonNullable<ColorSchemeName>} return non-null ColorSchemeName
  */
-export default function useColorScheme (): NonNullable<ColorSchemeName> {
+export function useColorScheme (): NonNullable<ColorSchemeName> {
   return _useColorScheme() as NonNullable<ColorSchemeName>
 }

@@ -9,7 +9,7 @@ import { Button } from 'react-native'
 import { decrement, increment, incrementAsync, incrementIfOdd } from '../../store/liquidity'
 import { RootState } from '../../store'
 
-export default function LiquidityScreen (): JSX.Element {
+export function LiquidityScreen (): JSX.Element {
   const count = useSelector<RootState>(state => state.counter.value)
   const status = useSelector<RootState>(state => state.counter.status)
   const dispatch = useDispatch()
