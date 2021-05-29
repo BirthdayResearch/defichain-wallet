@@ -3,10 +3,26 @@ import { Text, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { RootState } from '../store'
+import useWhaleApiClient from '../hooks/useWhaleApiClient'
+import { WhaleRpcClient } from '@defichain/whale-api-client'
 
 export function PlaygroundConnection (): JSX.Element {
-  const blockCount = useSelector<RootState, number>(state => state.block.count ?? 0)
   const playgroundEnvironment = useSelector<RootState>(state => state.network.playground?.environment)
+
+  const client = useWhaleApiClient()
+  const rpcClient = new WhaleRpcClient(client)
+
+  const [count, setCount] = React.useState(0)
+
+  React.useEffect(() => {
+    const intervalId = setInterval(() => {
+      /* eslint-disable @typescript-eslint/no-floating-promises */
+      rpcClient.blockchain.getBlockCount().then(count => {
+        setCount(count)
+      })
+    }, 2900)
+    return () => clearInterval(intervalId)
+  }, [])
 
   return (
     <View>
@@ -23,7 +39,7 @@ export function PlaygroundConnection (): JSX.Element {
         </Text>
 
         <Text style={tailwind('text-xs font-medium text-gray-900')}>
-          Block Count: {blockCount === 0 ? '...' : blockCount}
+          Block Count: {count === 0 ? '...' : count}
         </Text>
       </View>
     </View>

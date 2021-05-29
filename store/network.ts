@@ -1,6 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { createSelector } from 'reselect'
-import { RootState } from './index'
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
 
 export type NetworkName = 'mainnet' | 'testnet' | 'regtest' | 'playground'
 
@@ -36,7 +34,7 @@ export const network = createSlice({
   }
 })
 
-export const refreshIntervalSelector = createSelector((state: RootState) => state.network.name, (name: NetworkName | undefined) => {
+export const refreshIntervalSelector = createSelector((network: NetworkState) => network.name, (name: NetworkName | undefined) => {
   switch (name) {
     case 'playground':
     case 'regtest':
@@ -47,5 +45,4 @@ export const refreshIntervalSelector = createSelector((state: RootState) => stat
     case 'mainnet':
       return 30000
   }
-}
-)
+})
