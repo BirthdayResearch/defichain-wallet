@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { StackScreenProps } from '@react-navigation/stack'
-import { RootStackParamList } from './BottomTabNavigator'
+import { WalletParamList } from '../WalletNavigator'
 
-export function NotFoundScreen ({ navigation }: StackScreenProps<RootStackParamList, 'NotFound'>): JSX.Element {
+export function NotFoundScreen ({ navigation }: StackScreenProps<WalletParamList, 'NotFound'>): JSX.Element {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>This screen doesn't exist.</Text>
-      <TouchableOpacity onPress={() => navigation.replace('Root')} style={styles.link}>
+      <TouchableOpacity onPress={() => navigation.replace('Wallet')} style={styles.link}>
         <Text style={styles.linkText}>Go to home screen!</Text>
       </TouchableOpacity>
     </View>
