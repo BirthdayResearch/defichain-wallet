@@ -54,8 +54,8 @@
     "react-native-svg": "12.1.1",
     "react-native-web": "~0.14.13",
     "react-redux": "^7.2.4",
+    "readable-stream": "^3.6.0",
     "serve": "^11.3.2",
-    "stream-browserify": "^2.0.2",
     "tailwind-rn": "^3.0.1"
   },
   "devDependencies": {
