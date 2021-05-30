@@ -1,37 +1,36 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Network } from "@defichain/jellyfish-network";
-import { MnemonicHdNodeProvider } from "@defichain/jellyfish-wallet-mnemonic";
-import { mnemonicToSeed } from "@defichain/jellyfish-wallet-mnemonic/dist/mnemonic";
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Network } from '@defichain/jellyfish-network'
+import { MnemonicHdNodeProvider } from '@defichain/jellyfish-wallet-mnemonic'
+import { mnemonicToSeed } from '@defichain/jellyfish-wallet-mnemonic/dist/mnemonic'
 
 const STORAGE_KEY = 'MNEMONIC_WALLET_HD_NODE_SEED'
 
-export class MnemonicHdNodeStorage {
-
+export class MnemonicStorage {
   constructor (private readonly network: Network) {
   }
 
-  async hasSeed (): Promise<boolean> {
-    const seed = await AsyncStorage.getItem(STORAGE_KEY)
-    return seed !== null
-  }
-
   async getHdNodeProvider (): Promise<MnemonicHdNodeProvider> {
-    const seed = await MnemonicHdNodeStorage.getSeed()
+    const seed = await MnemonicStorage.getSeed()
     if (seed === undefined) {
       throw new Error('attempting to getHdNodeProvider() without having any seed stored')
     }
     return MnemonicHdNodeProvider.fromSeed(seed, {
       bip32: {
         public: this.network.bip32.publicPrefix,
-        private: this.network.bip32.privatePrefix,
+        private: this.network.bip32.privatePrefix
       },
       wif: this.network.wifPrefix
     })
   }
 
-  async setMnemonic (mnemonic: string[]) {
+  async setMnemonic (mnemonic: string[]): Promise<void> {
     const seed = mnemonicToSeed(mnemonic)
-    await MnemonicHdNodeStorage.setSeed(seed)
+    await MnemonicStorage.setSeed(seed)
+  }
+
+  static async hasSeed (): Promise<boolean> {
+    const seed = await AsyncStorage.getItem(STORAGE_KEY)
+    return seed !== null
   }
 
   private static async getSeed (): Promise<Buffer | undefined> {
@@ -43,6 +42,7 @@ export class MnemonicHdNodeStorage {
   }
 
   private static async setSeed (seed: Buffer): Promise<void> {
+    // TODO(fuxingloh): need to introduce encryption at rest
     const hex = seed.toString('hex')
     await AsyncStorage.setItem(STORAGE_KEY, hex)
   }

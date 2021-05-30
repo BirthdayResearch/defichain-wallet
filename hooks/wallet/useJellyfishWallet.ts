@@ -1,37 +1,54 @@
-import { JellyfishWallet, WalletAccount, WalletHdNode } from "@defichain/jellyfish-wallet";
-import { getNetwork, Network } from "@defichain/jellyfish-network";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { NetworkName, WhaleApiState } from "../../store/network";
-import { WhaleWalletAccountProvider } from "@defichain/whale-api-wallet";
-import { useWhaleApiClient } from "../api/useWhaleApiClient";
-import { MnemonicHdNodeStorage } from "./mnemonic";
+import { JellyfishWallet, WalletAccount, WalletHdNode } from '@defichain/jellyfish-wallet'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store'
+import { NetworkName } from '../../store/network'
+import { useWhaleApiClient } from '../api/useWhaleApiClient'
+import { useEffect, useState } from 'react'
+import { getMnemonicWallet, hasMnemonicWallet } from './MnemonicWallet'
+
+let wallet: JellyfishWallet<WalletAccount, WalletHdNode>
+
+export enum WalletStatus {
+  NONE,
+  LOADING,
+  LOADED,
+  ERROR
+}
 
 /**
  * Use a loaded Jellyfish Wallet.
  * Attempting to useJellyfishWallet without having it loaded with end exceptionally.
- * You can load a wallet via redux dispatch(loadWallet()) in store/wallet.ts
  */
-export async function useJellyfishWallet (): Promise<JellyfishWallet<WalletAccount, WalletHdNode>> {
-  const whale = useSelector<RootState, WhaleApiState | undefined>(state => state.network.whale)
-  const network = parseNetwork(whale?.network)
-  const mnemonic = new MnemonicHdNodeStorage(network)
-
-  const client = useWhaleApiClient()
-  const accountProvider = new WhaleWalletAccountProvider(client, network)
-  const nodeProvider = await mnemonic.getHdNodeProvider()
-  return new JellyfishWallet(nodeProvider, accountProvider)
+export function useJellyfishWallet (): JellyfishWallet<WalletAccount, WalletHdNode> {
+  if (wallet === undefined) {
+    throw new Error('useLoadJellyfishWallet() === WalletStatus.LOADED, hooks must be called first')
+  }
+  return wallet
 }
 
-function parseNetwork (network?: NetworkName): Network {
-  switch (network) {
-    case "playground":
-      return getNetwork('regtest')
-    case "mainnet":
-    case "testnet":
-    case "regtest":
-      return getNetwork(network)
-    default:
-      throw new Error('attempting to useJellyfishWallet() without network set is not allowed')
+export async function useLoadJellyfishWallet (): Promise<WalletStatus> {
+  const name = useSelector<RootState, NetworkName | undefined>(state => state.network.name)
+  const client = useWhaleApiClient()
+  if (name === undefined) {
+    throw new Error('useNetwork() === true, hooks must be called before useJellyfishWallet()')
   }
+
+  const [status, setStatus] = useState(WalletStatus.LOADING)
+
+  useEffect(() => {
+    async function loadWallet (): Promise<void> {
+      if (await hasMnemonicWallet()) {
+        wallet = await getMnemonicWallet(client, name as NetworkName)
+        setStatus(WalletStatus.LOADED)
+      } else {
+        setStatus(WalletStatus.NONE)
+      }
+    }
+
+    loadWallet().catch(() => {
+      setStatus(WalletStatus.ERROR)
+    })
+  })
+
+  return status
 }

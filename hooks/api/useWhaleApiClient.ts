@@ -5,8 +5,9 @@ import { WhaleApiState } from '../../store/network'
 
 export function useWhaleApiClient (): WhaleApiClient {
   const whale = useSelector<RootState, WhaleApiState | undefined>(state => state.network.whale)
+
   if (whale === undefined) {
-    throw new Error('useNetwork() must be setup before using useWhaleApiClient')
+    throw new Error('useNetwork() === true, hooks must be called before useWhaleApiClient()')
   }
 
   return new WhaleApiClient({

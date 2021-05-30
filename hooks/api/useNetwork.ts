@@ -1,22 +1,23 @@
-import * as React from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { network, NetworkName, PlaygroundApiState } from '../store/network'
+import { network, NetworkName, PlaygroundApiState } from '../../store/network'
 import { PlaygroundApiClient } from '@defichain/playground-api-client'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from 'redux'
+import { useEffect, useState } from 'react'
 
 export function useNetwork (): boolean {
   const dispatch = useDispatch()
-  const [isLoading, setLoaded] = React.useState(false)
+
+  const [isLoaded, setLoaded] = useState(false)
 
   // TODO(fuxingloh): maybe should change to useMemo to only recompute if Network changed
-  React.useEffect(() => {
+  useEffect(() => {
     loadNetwork(dispatch).finally(() => {
       setLoaded(true)
     })
   })
 
-  return isLoading
+  return isLoaded
 }
 
 async function loadNetwork (dispatch: Dispatch<any>): Promise<void> {
