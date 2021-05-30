@@ -2,9 +2,9 @@ import * as React from 'react'
 import { Button } from 'react-native'
 import tailwind from 'tailwind-rn'
 
-import { translate } from '../../translations'
-import { Text, View } from '../../components/Themed'
-import { getTokenIcon } from '../../components/icons/tokens/_index'
+import { translate } from '../../../../translations'
+import { Text, View } from '../../../../components/Themed'
+import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { createStackNavigator } from '@react-navigation/stack'
 
 export function BalancesScreen (): JSX.Element {

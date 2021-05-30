@@ -11,11 +11,6 @@ labels:
     matcher:
       files: "assets/**"
 
-  - label: area/navigation
-    sync: true
-    matcher:
-      files: "navigation/**"
-
   - label: area/playground
     sync: true
     matcher:

@@ -1,8 +1,8 @@
 import * as React from 'react'
 import tailwind from 'tailwind-rn'
 import { createStackNavigator } from '@react-navigation/stack'
-import { Text, View } from '../../components/Themed'
-import { translate } from '../../translations'
+import { Text, View } from '../../../../components/Themed'
+import { translate } from '../../../../translations'
 
 export function SettingsScreen (): JSX.Element {
   return (

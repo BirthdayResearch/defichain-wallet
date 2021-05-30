@@ -33,7 +33,6 @@ issue:
         - core
         - workflow
         - assets
-        - navigation
         - playground
         - translations
       multiple: true

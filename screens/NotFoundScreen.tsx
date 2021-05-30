@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { StackScreenProps } from '@react-navigation/stack'
-import { RootStackParamList } from '../navigation'
+import { RootStackParamList } from './BottomTabNavigator'
 
 export function NotFoundScreen ({ navigation }: StackScreenProps<RootStackParamList, 'NotFound'>): JSX.Element {
   return (

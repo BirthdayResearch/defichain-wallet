@@ -2,13 +2,13 @@ import { Ionicons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import * as React from 'react'
 
-import { Colors } from '../constants/Colors'
-import { useColorScheme } from '../hooks/design/useColorScheme'
+import { Colors } from '../../constants/Colors'
+import { useColorScheme } from '../../hooks/design/useColorScheme'
 
-import { BalancesNavigator } from '../screens/BalancesScreen/BalancesScreen'
-import { LiquidityNavigator } from '../screens/LiquidityScreen/LiquidityScreen'
-import { TransactionsNavigator } from '../screens/TransactionsScreen/TransactionsScreen'
-import { SettingsNavigator } from '../screens/SettingsScreen/SettingsScreen'
+import { BalancesNavigator } from './screens/BalancesScreen/BalancesScreen'
+import { LiquidityNavigator } from './screens/LiquidityScreen/LiquidityScreen'
+import { TransactionsNavigator } from './screens/TransactionsScreen/TransactionsScreen'
+import { SettingsNavigator } from './screens/SettingsScreen/SettingsScreen'
 
 export interface BottomTabParamList {
   Balances: undefined
