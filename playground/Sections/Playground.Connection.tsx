@@ -11,27 +11,36 @@ export function PlaygroundConnection (): JSX.Element {
 
   const environment = useSelector<RootState>(state => state.network.playground?.environment)
   const [count, setCount] = useState(0)
+  const [refresh, setRefresh] = useState(2999)
   const [connected, setConnected] = useState(false)
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      /* eslint-disable @typescript-eslint/no-floating-promises */
+    function reloadBlockCount (): void {
       rpcClient.blockchain.getBlockCount().then(count => {
-        setConnected(true)
         setCount(count)
+        if (!connected) {
+          setConnected(true)
+          setRefresh(2999)
+        }
       }).catch(() => {
         setConnected(false)
+        setRefresh(refresh * 2)
+      }).finally(() => {
+        intervalId = setTimeout(reloadBlockCount, refresh)
       })
-    }, 5999)
-    return () => clearInterval(intervalId)
-  }, [])
+    }
+
+    let intervalId = setTimeout(reloadBlockCount, refresh)
+    return () => clearTimeout(intervalId)
+  }, [refresh])
 
   return (
     <View>
-      <View style={tailwind('flex-row flex items-center')}>
+      <View style={tailwind('flex flex-row items-center')}>
         <Text style={tailwind('text-lg font-bold')}>Connection</Text>
-        <View style={tailwind('ml-2')}>
+        <View style={tailwind('flex flex-row items-center ml-2')}>
           <PlaygroundStatus online={connected} offline={!connected} />
+          <Text style={tailwind('text-xs ml-2 text-gray-900')}>↻{(refresh / 1000).toFixed(0)}s</Text>
         </View>
       </View>
 
