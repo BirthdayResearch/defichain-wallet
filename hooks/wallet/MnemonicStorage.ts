@@ -5,6 +5,9 @@ import { mnemonicToSeed } from '@defichain/jellyfish-wallet-mnemonic/dist/mnemon
 
 const STORAGE_KEY = 'MNEMONIC_WALLET_HD_NODE_SEED'
 
+/**
+ * Do not access MnemonicStorage directly access it through hooks for shared state
+ */
 export class MnemonicStorage {
   constructor (private readonly network: Network) {
   }
@@ -23,7 +26,11 @@ export class MnemonicStorage {
     })
   }
 
-  async setMnemonic (mnemonic: string[]): Promise<void> {
+  static async clear (): Promise<void> {
+    await AsyncStorage.removeItem(STORAGE_KEY)
+  }
+
+  static async setMnemonic (mnemonic: string[]): Promise<void> {
     const seed = mnemonicToSeed(mnemonic)
     await MnemonicStorage.setSeed(seed)
   }

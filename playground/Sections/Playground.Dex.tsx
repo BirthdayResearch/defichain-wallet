@@ -5,7 +5,7 @@ import React from 'react'
 export function PlaygroundDex (): JSX.Element {
   return (
     <View>
-      <Text style={tailwind('font-bold')}>Playground DEX</Text>
+      <Text style={tailwind('text-lg font-bold')}>DEX</Text>
     </View>
   )
 }

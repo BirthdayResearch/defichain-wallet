@@ -39,6 +39,7 @@
     "expo-font": "~9.1.0",
     "expo-linking": "~2.2.3",
     "expo-localization": "~10.1.0",
+    "expo-random": "~11.1.2",
     "expo-splash-screen": "~0.10.2",
     "expo-status-bar": "~1.0.4",
     "expo-web-browser": "~9.1.0",

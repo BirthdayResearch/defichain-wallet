@@ -5,7 +5,7 @@ import React from 'react'
 export function PlaygroundToken (): JSX.Element {
   return (
     <View>
-      <Text style={tailwind('font-bold')}>Playground Token</Text>
+      <Text style={tailwind('text-lg font-bold')}>Token</Text>
     </View>
   )
 }

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
-import { RootState } from '../store'
-import { usePlaygroundRpcClient } from '../hooks/api/usePlaygroundRpcClient'
+import { RootState } from '../../store'
+import { usePlaygroundRpcClient } from '../../hooks/api/usePlaygroundRpcClient'
+import { PlaygroundStatus } from '../Playground.Status'
 
 export function PlaygroundConnection (): JSX.Element {
   const rpcClient = usePlaygroundRpcClient()
@@ -18,17 +19,19 @@ export function PlaygroundConnection (): JSX.Element {
       rpcClient.blockchain.getBlockCount().then(count => {
         setConnected(true)
         setCount(count)
+      }).catch(() => {
+        setConnected(false)
       })
-    }, 2950)
+    }, 5999)
     return () => clearInterval(intervalId)
   }, [])
 
   return (
     <View>
       <View style={tailwind('flex-row flex items-center')}>
-        <Text style={tailwind('font-bold')}>Connection</Text>
+        <Text style={tailwind('text-lg font-bold')}>Connection</Text>
         <View style={tailwind('ml-2')}>
-          <PlaygroundStatusBadge connected={connected} />
+          <PlaygroundStatus online={connected} offline={!connected} />
         </View>
       </View>
 
@@ -43,11 +46,4 @@ export function PlaygroundConnection (): JSX.Element {
       </View>
     </View>
   )
-}
-
-function PlaygroundStatusBadge (props: { connected: boolean }): JSX.Element {
-  if (props.connected) {
-    return <View style={tailwind('h-3 w-3 rounded-full bg-green-500')} />
-  }
-  return <View style={tailwind('h-3 w-3 rounded-full bg-red-500')} />
 }
