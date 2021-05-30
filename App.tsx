@@ -1,3 +1,4 @@
+import './shim'
 import React from 'react'
 import { Provider } from 'react-redux'
 import { store } from './store'
@@ -7,8 +8,6 @@ import { useCachedResources } from './hooks/design/useCachedResources'
 import { useNetwork } from './hooks/api/useNetwork'
 import { initI18n } from './translations'
 import { Main } from './screens/Main'
-
-require('stream-browserify')
 
 initI18n()
 
