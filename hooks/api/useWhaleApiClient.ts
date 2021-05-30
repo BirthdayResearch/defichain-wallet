@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { WhaleApiClient } from '@defichain/whale-api-client'
-import { RootState } from '../store'
-import { WhaleApiState } from '../store/network'
+import { RootState } from '../../store'
+import { WhaleApiState } from '../../store/network'
 
 export function useWhaleApiClient (): WhaleApiClient {
   const whale = useSelector<RootState, WhaleApiState | undefined>(state => state.network.whale)

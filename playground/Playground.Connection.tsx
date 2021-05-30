@@ -3,7 +3,7 @@ import { Text, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { RootState } from '../store'
-import { usePlaygroundRpcClient } from '../hooks/usePlaygroundRpcClient'
+import { usePlaygroundRpcClient } from '../hooks/api/usePlaygroundRpcClient'
 
 export function PlaygroundConnection (): JSX.Element {
   const playgroundEnvironment = useSelector<RootState>(state => state.network.playground?.environment)
