@@ -21,7 +21,7 @@ async function loadResourcesAndDataAsync (): Promise<void> {
   try {
     await Font.loadAsync({
       ...Ionicons.font,
-      'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf')
+      'space-mono': require('../../assets/fonts/SpaceMono-Regular.ttf')
     })
   } catch (e) {
     // TODO(@defich/wallet): We might want to provide this error information to an error reporting service

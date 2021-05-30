@@ -5,7 +5,7 @@ import * as React from 'react'
 import { NotFoundScreen } from '../screens/NotFoundScreen'
 import { BottomTabNavigator } from './BottomTabNavigator'
 import { LinkingConfiguration } from './LinkingConfiguration'
-import { useColorScheme } from '../hooks/useColorScheme'
+import { useColorScheme } from '../hooks/design/useColorScheme'
 
 // If you are not familiar with React Navigation, we recommend going through the
 // "Fundamentals" guide: https://reactnavigation.org/docs/getting-started

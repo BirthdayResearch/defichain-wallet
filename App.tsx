@@ -4,7 +4,7 @@ import { store } from './store'
 import * as SplashScreen from 'expo-splash-screen'
 
 import { initI18n } from './translations'
-import { useCachedResources } from './hooks/useCachedResources'
+import { useCachedResources } from './hooks/design/useCachedResources'
 import { useNetwork } from './hooks/useNetwork'
 import { Main } from './screens/Main'
 

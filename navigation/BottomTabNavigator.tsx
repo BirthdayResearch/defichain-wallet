@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import * as React from 'react'
 
 import { Colors } from '../constants/Colors'
-import { useColorScheme } from '../hooks/useColorScheme'
+import { useColorScheme } from '../hooks/design/useColorScheme'
 
 import { BalancesNavigator } from '../screens/BalancesScreen/BalancesScreen'
 import { LiquidityNavigator } from '../screens/LiquidityScreen/LiquidityScreen'
