@@ -25,14 +25,11 @@ async function loadNetwork (dispatch: Dispatch<any>): Promise<void> {
 
   if (name === 'playground') {
     const playground = await loadPlayground()
-    if (playground !== undefined) {
-      dispatch(network.actions.setPlayground(playground))
-      dispatch(network.actions.setWhale({
-        url: playground.url,
-        network: name
-      }))
-    }
-    // TODO(fuxingloh): no escape hook if set to playground but no client is loaded from it
+    dispatch(network.actions.setPlayground(playground))
+    dispatch(network.actions.setWhale({
+      url: playground.url,
+      network: name
+    }))
   } else {
     dispatch(network.actions.setWhale({
       url: 'https://ocean.defichain.com',
@@ -56,7 +53,7 @@ async function loadNetworkName (): Promise<NetworkName> {
   // TODO(fuxingloh): check build so that only mainnet can be loaded in production build
 }
 
-async function loadPlayground (): Promise<PlaygroundApiState | undefined> {
+async function loadPlayground (): Promise<PlaygroundApiState> {
   try {
     const url = 'http://localhost:19553'
     const api = new PlaygroundApiClient({ url })
@@ -65,11 +62,7 @@ async function loadPlayground (): Promise<PlaygroundApiState | undefined> {
   } catch (err) {
   }
 
-  try {
-    const url = 'https://playground.ocean.defichain.com'
-    const api = new PlaygroundApiClient({ url })
-    await api.rpc.call('getblockchaininfo', [], 'number')
-    return { url, environment: 'ocean' }
-  } catch (err) {
-  }
+  // Always fallback to playground.ocean even if it's not available
+  const url = 'https://playground.ocean.defichain.com'
+  return { url, environment: 'ocean' }
 }

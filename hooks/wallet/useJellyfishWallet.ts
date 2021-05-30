@@ -6,7 +6,7 @@ import { useWhaleApiClient } from '../api/useWhaleApiClient'
 import { useEffect, useState } from 'react'
 import { getMnemonicWallet, hasMnemonicWallet } from './MnemonicWallet'
 
-let wallet: JellyfishWallet<WalletAccount, WalletHdNode>
+let wallet: JellyfishWallet<WalletAccount, WalletHdNode> | undefined
 
 export enum WalletStatus {
   NONE,
@@ -26,7 +26,7 @@ export function useJellyfishWallet (): JellyfishWallet<WalletAccount, WalletHdNo
   return wallet
 }
 
-export async function useLoadJellyfishWallet (): Promise<WalletStatus> {
+export function useLoadJellyfishWallet (): WalletStatus {
   const name = useSelector<RootState, NetworkName | undefined>(state => state.network.name)
   const client = useWhaleApiClient()
   if (name === undefined) {
@@ -45,10 +45,19 @@ export async function useLoadJellyfishWallet (): Promise<WalletStatus> {
       }
     }
 
+    if (wallet !== undefined) {
+      setStatus(WalletStatus.LOADED)
+      return
+    }
+
     loadWallet().catch(() => {
       setStatus(WalletStatus.ERROR)
     })
   })
 
   return status
+}
+
+export function resetJellyfishWallet (): void {
+  wallet = undefined
 }
