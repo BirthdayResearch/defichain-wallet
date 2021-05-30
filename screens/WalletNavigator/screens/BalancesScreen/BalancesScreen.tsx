@@ -15,8 +15,8 @@ export function BalancesScreen (): JSX.Element {
   return (
     <View style={tailwind('flex-1 items-center justify-center')}>
       <Icon />
-      <Button title='Click' onPress={() => setCount(count + 2)} />
-      <Text testID='count'>
+      <Button testID='count_btn' title='Click' onPress={() => setCount(count + 2)} />
+      <Text testID='count_text'>
         Count: {count}
       </Text>
       <Text style={tailwind('text-xl font-bold')}>
