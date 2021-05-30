@@ -32,6 +32,8 @@ export function PlaygroundWallet (): JSX.Element {
         onPress={() => WalletAPI.clearWallet(dispatch)}
       />
 
+      <View style={tailwind('border-b border-gray-100')} />
+
       <PlaygroundAction
         testID='playground_wallet_abandon'
         title='Setup wallet with abandon x23 + art as mnemonic seed'
