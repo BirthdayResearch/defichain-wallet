@@ -1,6 +1,5 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSelector, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Dispatch } from 'redux'
-import { createSelector } from 'reselect'
 import { RootState } from './index'
 
 interface LiquidityState {

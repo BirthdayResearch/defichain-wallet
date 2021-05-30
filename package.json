@@ -25,6 +25,7 @@
     "@defichain/whale-api-wallet": ">=0.2.1",
     "@expo/vector-icons": "^12.0.0",
     "@expo/webpack-config": "~0.12.72",
+    "@react-native-async-storage/async-storage": "^1.13.0",
     "@react-native-community/masked-view": "0.1.11",
     "@react-navigation/bottom-tabs": "5.11.11",
     "@react-navigation/native": "~5.9.4",
@@ -52,10 +53,8 @@
     "react-native-svg": "12.1.1",
     "react-native-web": "~0.14.13",
     "react-redux": "^7.2.4",
-    "reselect": "^4.0.0",
     "serve": "^11.3.2",
-    "tailwind-rn": "^3.0.1",
-    "@react-native-async-storage/async-storage": "^1.13.0"
+    "tailwind-rn": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "~7.14.3",
