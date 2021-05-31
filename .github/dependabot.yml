@@ -27,7 +27,6 @@ updates:
       - dependency-name: "@types/react-native"
       - dependency-name: "typescript"
       - dependency-name: "jest-expo"
-      - dependency-name: "@babel/core"
 
   - package-ecosystem: "github-actions"
     directory: "/"
