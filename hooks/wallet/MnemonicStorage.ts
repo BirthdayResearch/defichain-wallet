@@ -37,12 +37,12 @@ export class MnemonicStorage {
 
   static async hasSeed (): Promise<boolean> {
     const seed = await AsyncStorage.getItem(STORAGE_KEY)
-    return seed !== null
+    return seed != null
   }
 
   private static async getSeed (): Promise<Buffer | undefined> {
     const seed: string | null = await AsyncStorage.getItem(STORAGE_KEY)
-    if (seed === null) {
+    if (seed == null) {
       return undefined
     }
     return Buffer.from(seed, 'hex')
