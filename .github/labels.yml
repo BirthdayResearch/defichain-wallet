@@ -65,13 +65,13 @@
   name: area/translations
 
 # Screens
-- color: ef4b68
+- color: f7d179
   name: screen/BalancesScreen
-- color: ef4b68
+- color: f7d179
   name: screen/LiquidityScreen
-- color: ef4b68
+- color: f7d179
   name: screen/SettingsScreen
-- color: ef4b68
+- color: f7d179
   name: screen/TransactionsScreen
 
 # Priority
