@@ -56,12 +56,12 @@
     "react-native-web": "~0.13.12",
     "react-redux": "^7.2.4",
     "serve": "^11.3.2",
-    "stream-browserify": "^2.0.2",
+    "stream-browserify": "^3.0.0",
     "tailwind-rn": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
-    "@types/find-in-files": "^0.5.0",
+    "@types/find-in-files": "^0.5.1",
     "@types/i18n-js": "^3.8.0",
     "@types/jest": "^26.0.22",
     "@types/lodash": "^4.14.170",
