@@ -1,36 +1,58 @@
-import { Text, View } from 'react-native'
+import { ScrollView, Text, View } from 'react-native'
 import tailwind from 'tailwind-rn'
 import React from 'react'
-import { PlaygroundConnection } from './Playground.Connection'
-import { PlaygroundWallet } from './Playground.Wallet'
-import { PlaygroundToken } from './Playground.Token'
-import { PlaygroundDex } from './Playground.Dex'
+import { PlaygroundConnection } from './Sections/Playground.Connection'
+import { PlaygroundWallet } from './Sections/Playground.Wallet'
+import { PlaygroundToken } from './Sections/Playground.Token'
+import { PlaygroundDex } from './Sections/Playground.Dex'
+import { createStackNavigator } from '@react-navigation/stack'
+import { NavigationContainer } from '@react-navigation/native'
 
-export function Playground (): JSX.Element {
+export function PlaygroundScreen (): JSX.Element {
   return (
-    <View style={tailwind('p-4')}>
-      <Text style={tailwind('text-lg font-bold')}>DeFi Wallet x DeFi Playground</Text>
-      <View style={tailwind('mt-2 p-3 bg-pink-100 rounded')}>
+    <ScrollView style={tailwind('p-4 bg-white')}>
+      <View style={tailwind('p-3 bg-pink-100 rounded')}>
         <Text style={tailwind('text-xs font-medium')}>
           DeFi Playground is a specialized testing blockchain isolated from MainNet for testing DeFi applications.
           Assets are not real, it can be minted by anyone. Blocks are generated every 3 seconds, the chain resets daily.
         </Text>
       </View>
 
-      <View>
-        <View style={tailwind('mt-4')}>
-          <PlaygroundConnection />
-        </View>
-        <View style={tailwind('mt-4')}>
-          <PlaygroundWallet />
-        </View>
-        <View style={tailwind('mt-4')}>
-          <PlaygroundToken />
-        </View>
-        <View style={tailwind('mt-4')}>
-          <PlaygroundDex />
-        </View>
+      <View style={tailwind('mt-4')}>
+        <PlaygroundConnection />
       </View>
-    </View>
+
+      <View style={tailwind('mt-4')}>
+        <PlaygroundWallet />
+      </View>
+      <View style={tailwind('mt-4')}>
+        <PlaygroundToken />
+      </View>
+      <View style={tailwind('mt-4')}>
+        <PlaygroundDex />
+      </View>
+    </ScrollView>
+  )
+}
+
+export interface PlaygroundParamList {
+  PlaygroundScreen: undefined
+
+  [key: string]: undefined | object
+}
+
+const PlaygroundStack = createStackNavigator<PlaygroundParamList>()
+
+export function PlaygroundNavigator (): JSX.Element {
+  return (
+    <NavigationContainer>
+      <PlaygroundStack.Navigator>
+        <PlaygroundStack.Screen
+          name='playground'
+          component={PlaygroundScreen}
+          options={{ headerTitle: 'DeFi Wallet x DeFi Playground' }}
+        />
+      </PlaygroundStack.Navigator>
+    </NavigationContainer>
   )
 }

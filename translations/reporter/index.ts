@@ -15,7 +15,7 @@ interface MissingLanguage {
   [key: string]: MissingLanguageItem
 }
 
-const DIRECTORIES = ['components', 'navigation', 'screens']
+const DIRECTORIES = ['components', 'screens']
 
 function getAllTranslationsKeys (keys: string[], map: Map<string, string[]>): Map<string, string[]> {
   keys.forEach((k) => {
@@ -80,4 +80,6 @@ export async function findMissingTranslations (): Promise<MissingLanguage> {
   return checkTranslations(baseTranslation, missingTranslations)
 }
 
-findMissingTranslations().then(() => {}).catch(() => {})
+findMissingTranslations().then(() => {
+}).catch(() => {
+})

@@ -2,9 +2,9 @@ import * as React from 'react'
 import { Button } from 'react-native'
 import tailwind from 'tailwind-rn'
 
-import { translate } from '../../translations'
-import { Text, View } from '../../components/Themed'
-import { getTokenIcon } from '../../components/icons/tokens/_index'
+import { translate } from '../../../../translations'
+import { Text, View } from '../../../../components/Themed'
+import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { createStackNavigator } from '@react-navigation/stack'
 
 export function BalancesScreen (): JSX.Element {
@@ -15,8 +15,8 @@ export function BalancesScreen (): JSX.Element {
   return (
     <View style={tailwind('flex-1 items-center justify-center')}>
       <Icon />
-      <Button title='Click' onPress={() => setCount(count + 2)} />
-      <Text testID='count'>
+      <Button testID='count_btn' title='Click' onPress={() => setCount(count + 2)} />
+      <Text testID='count_text'>
         Count: {count}
       </Text>
       <Text style={tailwind('text-xl font-bold')}>

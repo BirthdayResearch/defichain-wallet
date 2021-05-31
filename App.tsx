@@ -1,11 +1,12 @@
+import './shim'
 import React from 'react'
 import { Provider } from 'react-redux'
 import { store } from './store'
 import * as SplashScreen from 'expo-splash-screen'
 
+import { useCachedResources } from './hooks/design/useCachedResources'
+import { useNetwork } from './hooks/api/useNetwork'
 import { initI18n } from './translations'
-import { useCachedResources } from './hooks/useCachedResources'
-import { useNetwork } from './hooks/useNetwork'
 import { Main } from './screens/Main'
 
 initI18n()
