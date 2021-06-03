@@ -3,11 +3,11 @@ import { Text, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { RootState } from '../../store'
-import { usePlaygroundRpcClient } from '../../hooks/api/usePlaygroundRpcClient'
+import { usePlaygroundApiClient } from '../../hooks/api/usePlaygroundClient'
 import { PlaygroundStatus } from '../Playground.Status'
 
 export function PlaygroundConnection (): JSX.Element {
-  const rpcClient = usePlaygroundRpcClient()
+  const apiClient = usePlaygroundApiClient()
 
   const environment = useSelector<RootState>(state => state.network.playground?.environment)
   const [count, setCount] = useState(0)
@@ -16,8 +16,8 @@ export function PlaygroundConnection (): JSX.Element {
 
   useEffect(() => {
     function reloadBlockCount (): void {
-      rpcClient.blockchain.getBlockCount().then(count => {
-        setCount(count)
+      apiClient.playground.info().then(({ block }) => {
+        setCount(block.count)
         if (!connected) {
           setConnected(true)
           setRefresh(2999)
