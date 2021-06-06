@@ -3,7 +3,9 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { translate } from '../../translations'
 import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
 import * as Linking from 'expo-linking'
-import { WalletSetupScreen } from './screens/WalletSetupScreen'
+import { WalletOnboardingScreen } from './screens/WalletOnboardingScreen'
+import { Ionicons } from '@expo/vector-icons'
+import { PrimaryColor } from '../../constants/Colors'
 
 export interface WalletParamList {
   Setup: undefined
@@ -19,8 +21,16 @@ export function WalletSetupNavigator (): JSX.Element {
       <WalletStack.Navigator initialRouteName='Setup'>
         <WalletStack.Screen
           name='Setup'
-          component={WalletSetupScreen}
-          options={{ headerTitle: translate('screens/WalletSetupScreen', 'Wallet') }}
+          component={WalletOnboardingScreen}
+          options={{
+            headerTitle: translate('screens/WalletOnboardingScreen', 'Wallets'),
+            headerRight: (props): JSX.Element => {
+              return <Ionicons name='add' size={28} color={PrimaryColor} />
+            },
+            headerRightContainerStyle: {
+              paddingRight: 12
+            }
+          }}
         />
       </WalletStack.Navigator>
     </NavigationContainer>
