@@ -48,6 +48,7 @@ services:
     environment:
       WHALE_DEFID_URL: http://playground-rpcuser:playground-rpcpassword@defi-blockchain:19554
       WHALE_DATABASE_PROVIDER: level
+      WHALE_DATABASE_LEVEL_LOCATION: .level/index
       WHALE_NETWORK: playground
     labels:
       - "traefik.http.services.whale.loadbalancer.server.port=3000"

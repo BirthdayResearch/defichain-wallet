@@ -10,7 +10,7 @@ export function PlaygroundAction (props: {
 }): JSX.Element {
   return (
     <TouchableOpacity
-      style={tailwind('flex-row items-center justify-between my-2')}
+      style={tailwind('flex-row items-center justify-between py-2 border-b border-gray-100')}
       onPress={props.onPress}
       testID={props.testID}
     >

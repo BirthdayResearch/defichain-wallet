@@ -4,7 +4,6 @@ import React from 'react'
 import { PlaygroundConnection } from './Sections/Playground.Connection'
 import { PlaygroundWallet } from './Sections/Playground.Wallet'
 import { PlaygroundToken } from './Sections/Playground.Token'
-import { PlaygroundDex } from './Sections/Playground.Dex'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 
@@ -27,9 +26,6 @@ export function PlaygroundScreen (): JSX.Element {
       </View>
       <View style={tailwind('mt-4')}>
         <PlaygroundToken />
-      </View>
-      <View style={tailwind('mt-4')}>
-        <PlaygroundDex />
       </View>
     </ScrollView>
   )
