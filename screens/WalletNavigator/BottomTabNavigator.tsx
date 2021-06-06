@@ -7,12 +7,13 @@ import { LiquidityNavigator } from './screens/LiquidityScreen/LiquidityScreen'
 import { TransactionsNavigator } from './screens/TransactionsScreen/TransactionsScreen'
 import { SettingsNavigator } from './screens/SettingsScreen/SettingsScreen'
 import { PathConfigMap } from '@react-navigation/core'
+import { PrimaryColor } from '../../constants/Colors'
 
 export function BottomTabNavigator (): JSX.Element {
   return (
     <BottomTab.Navigator
       initialRouteName='Balances'
-      tabBarOptions={{ adaptive: false }}
+      tabBarOptions={{ adaptive: false, activeTintColor: PrimaryColor }}
     >
       <BottomTab.Screen
         name='Balances'
