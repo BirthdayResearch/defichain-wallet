@@ -10,9 +10,9 @@ services:
       - "--entrypoints.ping.address=:8082"
       - "--ping.entryPoint=ping"
     ports:
-      - "3000:3000"
-      - "8080:8080"
-      - "8082:8082"
+      - "19553:3000"
+      - "19552:8080"
+      - "19551:8082"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
