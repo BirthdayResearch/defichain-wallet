@@ -57,7 +57,7 @@ async function loadPlayground (): Promise<PlaygroundApiState> {
   try {
     const url = 'http://localhost:19553'
     const api = new PlaygroundApiClient({ url })
-    await api.rpc.call('getblockchaininfo', [], 'number')
+    await api.playground.info()
     return { url, environment: 'localhost' }
   } catch (err) {
   }

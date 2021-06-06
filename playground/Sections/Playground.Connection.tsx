@@ -30,7 +30,7 @@ export function PlaygroundConnection (): JSX.Element {
       })
     }
 
-    let intervalId = setTimeout(reloadBlockCount, refresh)
+    let intervalId = setTimeout(reloadBlockCount, 0)
     return () => clearTimeout(intervalId)
   }, [refresh])
 
