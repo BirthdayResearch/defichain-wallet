@@ -3,15 +3,18 @@ import { PlaygroundApiClient, PlaygroundRpcClient } from '@defichain/playground-
 import { RootState } from '../../store'
 import { PlaygroundApiState } from '../../store/network'
 
-export function usePlaygroundRpcClient (): PlaygroundRpcClient {
+export function usePlaygroundApiClient (): PlaygroundApiClient {
   const playground = useSelector<RootState, PlaygroundApiState | undefined>(state => state.network.playground)
 
   if (playground === undefined) {
     throw new Error('useNetwork() === true, hooks must be called before usePlaygroundRpcClient()')
   }
-
-  const client = new PlaygroundApiClient({
+  return new PlaygroundApiClient({
     url: playground.url
   })
+}
+
+export function usePlaygroundRpcClient (): PlaygroundRpcClient {
+  const client = usePlaygroundApiClient()
   return new PlaygroundRpcClient(client)
 }

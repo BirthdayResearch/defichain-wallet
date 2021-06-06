@@ -1,10 +1,15 @@
 <component name="ProjectDictionaryState">
   <dictionary name="fuxing">
     <words>
+      <w>accesscontrolallowheaders</w>
+      <w>accesscontrolallowmethods</w>
+      <w>accesscontrolalloworiginlist</w>
+      <w>accesscontrolmaxage</w>
       <w>accounttoaccount</w>
       <w>accounttoutxos</w>
       <w>acindex</w>
       <w>addpoolliquidity</w>
+      <w>addvaryheader</w>
       <w>amkheight</w>
       <w>ancestorcount</w>
       <w>ancestorfees</w>
