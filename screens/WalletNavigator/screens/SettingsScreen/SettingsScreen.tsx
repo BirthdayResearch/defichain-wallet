@@ -86,7 +86,10 @@ function RowNetworkItem (network?: NetworkName): JSX.Element {
 
 function RowExitWalletItem (onPress: () => void): JSX.Element {
   return (
-    <TouchableOpacity onPress={onPress} style={tailwind('bg-white')}>
+    <TouchableOpacity
+      testID='setting_exit_wallet'
+      onPress={onPress} style={tailwind('bg-white')}
+    >
       <Text style={[tailwind('p-4 font-bold'), PrimaryColorStyle.text]}>
         {translate('wallet/settings', 'EXIT WALLET')}
       </Text>
