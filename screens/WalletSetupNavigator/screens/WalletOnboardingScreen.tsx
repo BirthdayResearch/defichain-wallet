@@ -4,8 +4,11 @@ import tailwind from 'tailwind-rn'
 import { Ionicons } from '@expo/vector-icons'
 import { translate } from '../../../translations'
 import { PrimaryColorStyle } from '../../../constants/Colors'
+import { useNavigation } from '@react-navigation/native'
 
 export function WalletOnboardingScreen (): JSX.Element {
+  const navigator = useNavigation()
+
   return (
     <View style={tailwind('flex-1 py-12 items-center justify-between bg-gray-100')}>
       <View style={tailwind('flex items-center')}>
@@ -19,7 +22,10 @@ export function WalletOnboardingScreen (): JSX.Element {
       </View>
 
       <View style={tailwind('mt-24')}>
-        <TouchableOpacity style={[tailwind('px-4 py-3 rounded'), PrimaryColorStyle.bg]}>
+        <TouchableOpacity
+          onPress={() => navigator.navigate('AddWallet')}
+          style={[tailwind('px-4 py-3 rounded'), PrimaryColorStyle.bg]}
+        >
           <Text style={tailwind('text-white font-bold')}>
             {translate('/setup', 'ADD WALLET')}
           </Text>
