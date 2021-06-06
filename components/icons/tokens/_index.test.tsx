@@ -1,10 +1,10 @@
 import * as React from 'react'
-import renderer from 'react-test-renderer'
 import { getTokenIcon } from "./_index";
+import { render } from "react-native-testing-library";
 
 it('getTokenIcon("DFI") should get <IconDFI /> snapshot', () => {
   const Icon = getTokenIcon('DFI')
-  const tree = renderer.create(<Icon />).toJSON()
+  const tree = render(<Icon />).toJSON()
   expect(tree).toMatchSnapshot()
 })
 
