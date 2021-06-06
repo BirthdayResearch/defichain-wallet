@@ -11,7 +11,7 @@ export function PlaygroundConnection (): JSX.Element {
 
   const environment = useSelector<RootState>(state => state.network.playground?.environment)
   const [count, setCount] = useState(0)
-  const [refresh, setRefresh] = useState(2999)
+  const [refresh, setRefresh] = useState(100)
   const [connected, setConnected] = useState(false)
 
   useEffect(() => {
@@ -25,12 +25,10 @@ export function PlaygroundConnection (): JSX.Element {
       }).catch(() => {
         setConnected(false)
         setRefresh(refresh * 2)
-      }).finally(() => {
-        intervalId = setTimeout(reloadBlockCount, refresh)
       })
     }
 
-    let intervalId = setTimeout(reloadBlockCount, 0)
+    const intervalId = setTimeout(reloadBlockCount, refresh)
     return () => clearTimeout(intervalId)
   }, [refresh])
 
