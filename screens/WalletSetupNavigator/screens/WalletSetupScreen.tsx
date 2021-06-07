@@ -6,7 +6,7 @@ import * as React from 'react'
 export function WalletSetupScreen (): JSX.Element {
   return (
     <View style={tailwind('flex-1 items-center justify-center')}>
-      <Text style={tailwind('text-xl font-bold')}>
+      <Text style={tailwind('text-xl font-bold')} testID='wallet_setup'>
         {translate('screens/WalletSetupScreen', 'Wallet Setup')}
       </Text>
     </View>

@@ -1,36 +1,98 @@
 import * as React from 'react'
 import tailwind from 'tailwind-rn'
-import { createStackNavigator } from '@react-navigation/stack'
-import { Text, View } from '../../../../components/Themed'
+import { useDispatch, useSelector } from 'react-redux'
+import { Text, View, SectionList, TouchableOpacity } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
 import { translate } from '../../../../translations'
+import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Colors'
+import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
+import { RootState } from '../../../../store'
+import { NetworkName } from '../../../../store/network'
 
 export function SettingsScreen (): JSX.Element {
+  const network = useSelector<RootState, NetworkName | undefined>(state => state.network.name)
+  const WalletAPI = useWalletAPI()
+  const dispatch = useDispatch()
+
   return (
-    <View style={tailwind('flex-1 items-center justify-center')}>
-      <Text style={tailwind('text-xl font-bold')}>
-        {translate('WalletNavigator/SettingsScreen', 'Settings')}
-      </Text>
-      <View style={tailwind('w-4/5 h-px my-8')} lightColor='#eee' darkColor='rgba(255,255,255,0.1)' />
+    <View style={tailwind('flex-1 bg-gray-100')}>
+      <SectionList
+        sections={[
+          {
+            key: 'Network',
+            data: [''],
+            renderItem (): JSX.Element {
+              return RowNetworkItem(network)
+            }
+          },
+          {
+            data: ['EXIT WALLET'],
+            renderItem ({ item }): JSX.Element {
+              return RowExitWalletItem(() => WalletAPI.clearWallet(dispatch))
+            }
+          }
+        ]}
+        ItemSeparatorComponent={ItemSeparator}
+        renderSectionHeader={({ section }) => {
+          return SectionHeader(section.key)
+        }}
+        keyExtractor={(item, index) => `${index}`}
+      />
     </View>
   )
 }
 
-export interface SettingsParamList {
-  SettingsScreen: undefined
-
-  [key: string]: undefined | object
+function ItemSeparator (): JSX.Element {
+  return <View style={tailwind('h-px bg-gray-100')} />
 }
 
-const SettingsStack = createStackNavigator<SettingsParamList>()
+function SectionHeader (key?: string): JSX.Element | null {
+  if (key === undefined) {
+    return <Text style={tailwind('h-5')} />
+  }
 
-export function SettingsNavigator (): JSX.Element {
   return (
-    <SettingsStack.Navigator>
-      <SettingsStack.Screen
-        name='settings'
-        component={SettingsScreen}
-        options={{ headerTitle: translate('screens/SettingsScreen', 'Settings') }}
-      />
-    </SettingsStack.Navigator>
+    <Text style={tailwind('p-4 font-bold')}>
+      {translate('wallet/settings', key)}
+    </Text>
+  )
+}
+
+function RowNetworkItem (network?: NetworkName): JSX.Element {
+  function getNetworkName (): string {
+    switch (network) {
+      case 'mainnet':
+        return 'MainNet'
+      case 'testnet':
+        return 'TestNet'
+      case 'regtest':
+        return 'RegTest'
+      case 'playground':
+        return 'Playground'
+      default:
+        return 'Not Connected'
+    }
+  }
+
+  return (
+    <TouchableOpacity style={tailwind('flex-1 flex-row px-4 bg-white items-center justify-between')}>
+      <Text style={tailwind('py-4')}>
+        {getNetworkName()}
+      </Text>
+      <Ionicons size={20} name='checkmark-sharp' color={PrimaryColor} />
+    </TouchableOpacity>
+  )
+}
+
+function RowExitWalletItem (onPress: () => void): JSX.Element {
+  return (
+    <TouchableOpacity
+      testID='setting_exit_wallet'
+      onPress={onPress} style={tailwind('bg-white')}
+    >
+      <Text style={[tailwind('p-4 font-bold'), PrimaryColorStyle.text]}>
+        {translate('wallet/settings', 'EXIT WALLET')}
+      </Text>
+    </TouchableOpacity>
   )
 }

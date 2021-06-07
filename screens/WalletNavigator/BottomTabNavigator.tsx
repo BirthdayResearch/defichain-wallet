@@ -5,7 +5,7 @@ import * as React from 'react'
 import { BalancesNavigator } from './screens/BalancesScreen/BalancesScreen'
 import { LiquidityNavigator } from './screens/LiquidityScreen/LiquidityScreen'
 import { TransactionsNavigator } from './screens/TransactionsScreen/TransactionsScreen'
-import { SettingsNavigator } from './screens/SettingsScreen/SettingsScreen'
+import { SettingsNavigator } from './screens/SettingsScreen/SettingsNavigator'
 import { PathConfigMap } from '@react-navigation/core'
 import { PrimaryColor } from '../../constants/Colors'
 
@@ -19,6 +19,7 @@ export function BottomTabNavigator (): JSX.Element {
         name='Balances'
         component={BalancesNavigator}
         options={{
+          tabBarTestID: 'bottom_tab_balances',
           tabBarIcon: ({ color }) => <TabBarIcon name='wallet' color={color} />
         }}
       />
@@ -26,6 +27,7 @@ export function BottomTabNavigator (): JSX.Element {
         name='Liquidity'
         component={LiquidityNavigator}
         options={{
+          tabBarTestID: 'bottom_tab_liquidity',
           tabBarIcon: ({ color }) => <TabBarIcon name='pie-chart' color={color} />
         }}
       />
@@ -33,6 +35,7 @@ export function BottomTabNavigator (): JSX.Element {
         name='Transactions'
         component={TransactionsNavigator}
         options={{
+          tabBarTestID: 'bottom_tab_transactions',
           tabBarIcon: ({ color }) => <TabBarIcon name='time' color={color} />
         }}
       />
@@ -40,6 +43,7 @@ export function BottomTabNavigator (): JSX.Element {
         name='Settings'
         component={SettingsNavigator}
         options={{
+          tabBarTestID: 'bottom_tab_settings',
           tabBarIcon: ({ color }) => <TabBarIcon name='settings' color={color} />
         }}
       />
