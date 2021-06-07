@@ -30,7 +30,7 @@ export function PlaygroundToken (): JSX.Element {
       <PlaygroundAction
         key={token.id}
         testID={`playground_token_${token.symbol}`}
-        title={`Top up 100.0 ${token.symbol} to your Wallet`}
+        title={`Top up 100.0 ${token.symbol} to Wallet`}
         onPress={() => {
           topUp100(token)
         }}
