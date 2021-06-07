@@ -18,17 +18,16 @@ export function PlaygroundConnection (): JSX.Element {
     function reloadBlockCount (): void {
       apiClient.playground.info().then(({ block }) => {
         setCount(block.count)
-        if (!connected) {
-          setConnected(true)
-          setRefresh(2999)
-        }
+        setConnected(true)
+        setRefresh(2999)
+        intervalId = setTimeout(reloadBlockCount, refresh)
       }).catch(() => {
         setConnected(false)
         setRefresh(refresh * 2)
       })
     }
 
-    const intervalId = setTimeout(reloadBlockCount, refresh)
+    let intervalId = setTimeout(reloadBlockCount, refresh)
     return () => clearTimeout(intervalId)
   }, [refresh])
 
