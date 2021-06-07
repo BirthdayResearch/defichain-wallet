@@ -6,8 +6,11 @@ import { PlaygroundRpcClient } from '@defichain/playground-api-client'
 import { TokenInfo } from '@defichain/jellyfish-api-core/dist/category/token'
 import { PlaygroundAction } from '../Playground.Action'
 import { PlaygroundStatus } from '../Playground.Status'
+import { useWalletAPI } from '../../hooks/wallet/WalletAPI'
+import { WalletStatus } from '../../store/wallet'
 
-export function PlaygroundToken (): JSX.Element {
+export function PlaygroundToken (): JSX.Element | null {
+  const WalletAPI = useWalletAPI()
   const rpcClient = usePlaygroundRpcClient()
   const [status, setStatus] = useState<string>('loading')
   const [tokens, setTokens] = useState<PlaygroundTokenInfo[]>([])
@@ -20,6 +23,10 @@ export function PlaygroundToken (): JSX.Element {
       setStatus('error')
     })
   }, [])
+
+  if (WalletAPI.getStatus() === WalletStatus.NO_WALLET) {
+    return null
+  }
 
   function topUp100 (token: PlaygroundTokenInfo): void {
     // TODO(fuxingloh):
@@ -54,8 +61,6 @@ export function PlaygroundToken (): JSX.Element {
     </View>
   )
 }
-
-// TODO(fuxingloh): top up
 
 export type PlaygroundTokenInfo = TokenInfo & { id: string }
 
