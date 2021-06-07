@@ -17,7 +17,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:HEAD-643194e
+    image: defi/defichain:1.7.9-rc.1
     command: >
       defid
       -printtoconsole
@@ -39,8 +39,22 @@ services:
       -dakotacrescentheight=5
       -eunosheight=6
 
+  defi-playground:
+    image: ghcr.io/defich/playground:0.2.0
+    depends_on:
+      - defi-blockchain
+    ports:
+      - "3002:3000"
+    environment:
+      PLAYGROUND_DEFID_URL: http://playground-rpcuser:playground-rpcpassword@defi-blockchain:19554
+    labels:
+      - "traefik.http.services.playground.loadbalancer.server.port=3000"
+      - "traefik.http.routers.playground.priority=0"
+      - "traefik.http.routers.playground.rule=PathPrefix(`/{version:v[1-9]}/playground/rpc/`, `/{version:v[1-9]}/playground/wallet`, `/{version:v[1-9]}/playground/info`)"
+      - "traefik.http.routers.playground.entrypoints=web"
+
   defi-whale:
-    image: ghcr.io/defich/whale:0.2.4
+    image: ghcr.io/defich/whale:0.3.0
     depends_on:
       - defi-blockchain
     ports:
@@ -55,17 +69,6 @@ services:
       - "traefik.http.routers.whale.priority=1"
       - "traefik.http.routers.whale.rule=PathPrefix(`/{version:v[1-9]}/playground/`)"
       - "traefik.http.routers.whale.entrypoints=web"
-
-  defi-playground:
-    image: ghcr.io/defich/playground:0.2.0
-    depends_on:
-      - defi-blockchain
-    ports:
-      - "3002:3000"
-    environment:
-      PLAYGROUND_DEFID_URL: http://playground-rpcuser:playground-rpcpassword@defi-blockchain:19554
-    labels:
-      - "traefik.http.services.playground.loadbalancer.server.port=3000"
-      - "traefik.http.routers.playground.priority=0"
-      - "traefik.http.routers.playground.rule=PathPrefix(`/{version:v[1-9]}/playground/rpc/`, `/{version:v[1-9]}/playground/wallet`, `/{version:v[1-9]}/playground/info`)"
-      - "traefik.http.routers.playground.entrypoints=web"
+      - "traefik.http.routers.playground.middlewares=rewrite"
+      - "traefik.http.middlewares.rewrite.replacepathregex.regex=^/v1/playground/(.*)"
+      - "traefik.http.middlewares.rewrite.replacepathregex.replacement=/v1/regtest/$$1"
