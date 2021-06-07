@@ -32,6 +32,10 @@ jobs:
 
             The following translations are missing for this pull request.
 
+            <details>
+            <summary><b>View Full Report</b></summary>
+
             ```json
             ${{ steps.translations.outputs.content }}
             ```
+            </details>
