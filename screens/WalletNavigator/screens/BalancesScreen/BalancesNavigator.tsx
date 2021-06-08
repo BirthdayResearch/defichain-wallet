@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { translate } from '../../../../translations'
 import { createStackNavigator } from '@react-navigation/stack'
-import { BalancesScreen } from "./BalancesScreen";
+import { BalancesScreen } from './BalancesScreen'
 
 export interface BalancesParamList {
   BalancesScreen: undefined

@@ -28,18 +28,17 @@ export function PlaygroundToken (): JSX.Element | null {
     return null
   }
 
-  function topUp100 (token: PlaygroundTokenInfo): void {
-    // TODO(fuxingloh):
-  }
-
-  const actions = tokens.map(token => {
+  const actions = tokens.filter(({ symbol }) => symbol !== 'DFI').map(token => {
     return (
       <PlaygroundAction
         key={token.id}
         testID={`playground_token_${token.symbol}`}
         title={`Top up 100.0 ${token.symbol} to Wallet`}
-        onPress={() => {
-          topUp100(token)
+        onPress={async () => {
+          const address = await WalletAPI.getWallet().get(0).getAddress()
+          await rpcClient.call('sendtokenstoaddress', [{}, {
+            [address]: `100@${token.symbol}`
+          }], 'number')
         }}
       />
     )

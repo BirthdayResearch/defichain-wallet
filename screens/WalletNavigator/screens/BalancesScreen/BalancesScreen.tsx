@@ -1,39 +1,51 @@
 import * as React from 'react'
-import { Button, View } from 'react-native'
+import { Text, View } from 'react-native'
 import tailwind from 'tailwind-rn'
 
-import { translate } from '../../../../translations'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { useWhaleApiClient } from "../../../../hooks/api/useWhaleApiClient";
-import { useWalletAPI } from "../../../../hooks/wallet/WalletAPI";
-import { useEffect } from "react";
-import { AddressToken } from "@defichain/whale-api-client/dist/api/address";
+import { useWhaleApiClient } from '../../../../hooks/api/useWhaleApiClient'
+import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
+import { useEffect } from 'react'
+import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 
 export function BalancesScreen (): JSX.Element {
   const whaleApiClient = useWhaleApiClient()
   const account = useWalletAPI().getWallet().get(0)
 
-  const [utxoBalance, setUtxoBalance] = React.useState<string>("")
+  const [utxoBalance, setUtxoBalance] = React.useState<string>('')
   const [tokens, setTokens] = React.useState<AddressToken[]>([])
 
   useEffect(() => {
+    /* eslint-disable @typescript-eslint/no-floating-promises */
     account.getAddress().then(async address => {
-      await whaleApiClient.address.getBalance(address).then(value => {
-        setUtxoBalance(value)
-      })
+      const balance = await whaleApiClient.address.getBalance(address)
+      setUtxoBalance(balance)
 
-      await whaleApiClient.address.listToken(address, 30).then(tokens => {
-        setTokens(tokens)
-      })
+      const tokens = await whaleApiClient.address.listToken(address, 30)
+      setTokens([...tokens])
     })
-  }, []);
+  }, [])
 
-  const Icon = getTokenIcon('DFA')
+  const Icon = getTokenIcon('DFI')
+
+  const balances = tokens.map(token => {
+    const Icon = getTokenIcon(token.symbol)
+
+    return (
+      <View key={token.id} style={tailwind('flex-row items-center')}>
+        <Icon />
+        <Text style={tailwind('ml-2')}>{token.amount}</Text>
+      </View>
+    )
+  })
 
   return (
     <View style={tailwind('flex-1 items-center justify-center')}>
-      <Icon />
-
+      <View style={tailwind('flex-row items-center')}>
+        <Icon />
+        <Text style={tailwind('ml-2')}>{utxoBalance}</Text>
+      </View>
+      {balances}
     </View>
   )
 }

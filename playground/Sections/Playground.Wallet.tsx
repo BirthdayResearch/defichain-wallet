@@ -6,15 +6,13 @@ import { PlaygroundStatus } from '../Playground.Status'
 import { WalletStatus } from '../../store/wallet'
 import { useWalletAPI } from '../../hooks/wallet/WalletAPI'
 import { useDispatch } from 'react-redux'
+import { usePlaygroundRpcClient } from '../../hooks/api/usePlaygroundClient'
 
 export function PlaygroundWallet (): JSX.Element {
   const WalletAPI = useWalletAPI()
+  const rpcClient = usePlaygroundRpcClient()
   const status = WalletAPI.getStatus()
   const dispatch = useDispatch()
-
-  function topUp50DFI (): void {
-    // TODO(fuxingloh):
-  }
 
   return (
     <View>
@@ -55,7 +53,10 @@ export function PlaygroundWallet (): JSX.Element {
       <PlaygroundAction
         testID='playground_wallet_top_up'
         title='Top up current wallet with 50 DFI UTXO'
-        onPress={topUp50DFI}
+        onPress={async () => {
+          const address = await WalletAPI.getWallet().get(0).getAddress()
+          await rpcClient.wallet.sendToAddress(address, 50)
+        }}
       />
     </View>
   )
