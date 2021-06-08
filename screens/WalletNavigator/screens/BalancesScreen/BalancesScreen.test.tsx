@@ -8,5 +8,5 @@ it('<BalancesScreen/> click should increment counter', () => {
 
   expect(getByText('Count: 0')).toBeTruthy()
   fireEvent.press(getByText('Click'))
-  expect(getByText('Count: 2')).toBeTruthy()
+  expect(getByText('Loading')).toBeTruthy()
 })
