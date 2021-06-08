@@ -24,7 +24,7 @@ export function PlaygroundToken (): JSX.Element | null {
     })
   }, [])
 
-  if (WalletAPI.getStatus() === WalletStatus.NO_WALLET) {
+  if (WalletAPI.getStatus() !== WalletStatus.LOADED_WALLET) {
     return null
   }
 

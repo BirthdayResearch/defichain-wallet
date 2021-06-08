@@ -12,10 +12,6 @@ export function PlaygroundWallet (): JSX.Element | null {
   const status = WalletAPI.getStatus()
   const dispatch = useDispatch()
 
-  if (WalletAPI.getStatus() === WalletStatus.NO_WALLET) {
-    return null
-  }
-
   return (
     <View>
       <View style={tailwind('flex-row flex items-center')}>

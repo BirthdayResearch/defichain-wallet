@@ -12,6 +12,10 @@ export function PlaygroundUTXO (): JSX.Element | null {
   const rpcClient = usePlaygroundRpcClient()
   const status = WalletAPI.getStatus()
 
+  if (WalletAPI.getStatus() !== WalletStatus.LOADING) {
+    return null
+  }
+
   return (
     <View>
       <View style={tailwind('flex-row flex items-center')}>
