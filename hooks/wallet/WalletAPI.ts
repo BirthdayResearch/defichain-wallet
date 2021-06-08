@@ -51,7 +51,7 @@ const WalletAPI = {
     dispatch(wallet.actions.setStatus(WalletStatus.LOADING))
 
     MnemonicStorage.setMnemonic(words).then(() => {
-      dispatch(wallet.actions.setStatus(WalletStatus.LOADED_WALLET))
+      dispatch(wallet.actions.setStatus(WalletStatus.INITIAL))
     }).catch(() => {
       dispatch(wallet.actions.setStatus(WalletStatus.ERROR))
     })

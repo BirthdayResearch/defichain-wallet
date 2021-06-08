@@ -2,14 +2,10 @@
 
 exports[`getTokenIcon("DFI") should get <IconDFI /> snapshot 1`] = `
 <RNSVGSvgView
-  align="xMidYMid"
   bbHeight={24}
   bbWidth={24}
   focusable={false}
   height={24}
-  meetOrSlice={0}
-  minX={0}
-  minY={0}
   style={
     Array [
       Object {
@@ -23,8 +19,6 @@ exports[`getTokenIcon("DFI") should get <IconDFI /> snapshot 1`] = `
       },
     ]
   }
-  vbHeight={24}
-  vbWidth={24}
   width={24}
 >
   <RNSVGGroup>

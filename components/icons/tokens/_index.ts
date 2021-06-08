@@ -10,12 +10,19 @@ import { IconDefault } from './IconDefault'
 
 const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   BCH: IconBCH,
+  tBCH: IconBCH,
   BTC: IconBTC,
+  tBTC: IconBTC,
   DFI: IconDFI,
+  tDFI: IconDFI,
   DOGE: IconDOGE,
+  tDOGE: IconDOGE,
   ETH: IconETH,
+  tETH: IconETH,
   LTC: IconLTC,
-  USDT: IconUSDT
+  tLTC: IconLTC,
+  USDT: IconUSDT,
+  tUSD: IconUSDT
 }
 
 /**
