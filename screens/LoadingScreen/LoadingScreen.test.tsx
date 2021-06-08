@@ -15,3 +15,8 @@ it('<LoadingScreen/> should display passed text', () => {
   expect(getByText('Creating Wallet')).toBeTruthy()
 })
 
+it('<LoadingScreen /> should match snapshot', () => {
+  const tree = render(<LoadingScreen message={'Creating Wallet'} />).toJSON()
+  expect(tree).toMatchSnapshot()
+})
+
