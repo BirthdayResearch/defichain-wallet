@@ -4,11 +4,7 @@ import tailwind from 'tailwind-rn'
 import { View } from '../../components/Themed'
 import { translate } from '../../translations'
 
-interface LoadingScreenProps {
-  message?: string
-}
-
-export default function LoadingScreen (props: LoadingScreenProps): JSX.Element {
+export default function LoadingScreen (props: { message?: string }): JSX.Element {
   const { message } = props
   const loadingMessage = message ?? translate('screens/LoadingScreen', 'Loading')
   return (
