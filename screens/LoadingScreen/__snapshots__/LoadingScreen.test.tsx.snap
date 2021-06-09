@@ -10,14 +10,14 @@ exports[`<LoadingScreen /> should match snapshot 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "flex": 1,
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+          "flexBasis": "0%",
+          "flexGrow": 1,
+          "flexShrink": 1,
           "height": "100%",
           "justifyContent": "center",
           "position": "relative",
           "width": "100%",
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
         },
       ],
     ]
