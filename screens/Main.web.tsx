@@ -3,13 +3,16 @@ import tailwind from 'tailwind-rn'
 import { StyleSheet, View } from 'react-native'
 import { RootNavigator } from './RootNavigator'
 import { PlaygroundNavigator } from '../playground/Playground'
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
 
 export function Main (): JSX.Element {
   return (
     <View style={tailwind('flex-row flex-1 justify-center items-center bg-black')}>
       <View style={tailwind('flex-row')}>
         <View style={styles.phone}>
-          <RootNavigator />
+          <ErrorBoundary>
+            <RootNavigator />
+          </ErrorBoundary>
         </View>
         <View style={[styles.phone, tailwind('bg-white ml-2')]}>
           <PlaygroundNavigator />

@@ -10,9 +10,13 @@ import { decrement, increment, incrementAsync, incrementIfOdd } from '../../../.
 import { RootState } from '../../../../store'
 
 export function LiquidityScreen (): JSX.Element {
-  const count = useSelector<RootState>(state => state.counter.value)
+  const count = useSelector<RootState, number>(state => state.counter.value)
   const status = useSelector<RootState>(state => state.counter.status)
   const dispatch = useDispatch()
+
+  if (count > 2) {
+    throw new Error('Trigger error boundary!')
+  }
 
   return (
     <View style={tailwind('flex-1 items-center justify-center')}>

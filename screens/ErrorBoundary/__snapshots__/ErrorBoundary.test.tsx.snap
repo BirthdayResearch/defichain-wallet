@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorBoundary when there is an error <ErrorBoundary /> should render when there is an error 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#fff",
+      },
+      Object {
+        "alignItems": "center",
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "justifyContent": "center",
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#000",
+        },
+        Object {
+          "fontSize": 20,
+          "fontWeight": "700",
+          "lineHeight": 28,
+        },
+      ]
+    }
+  >
+    Something went wrong
+  </Text>
+</View>
+`;
+
+exports[`ErrorBoundary when there is no error <ErrorBoundary /> should render children components 1`] = `
+<h1>
+  Child Component
+</h1>
+`;

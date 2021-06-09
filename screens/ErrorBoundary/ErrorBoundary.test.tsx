@@ -1,0 +1,42 @@
+import * as React from 'react'
+import { render } from 'react-native-testing-library'
+
+import ErrorBoundary from './ErrorBoundary'
+import { View } from "react-native";
+
+describe('ErrorBoundary', () => {
+
+  let consoleErrorSpy: jest.SpyInstance;
+  let errorMock: Error
+
+  beforeAll(() => {
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {
+    })
+    errorMock = new Error('This is a test error!')
+  })
+
+  afterAll(() => {
+    consoleErrorSpy.mockRestore()
+  })
+
+  describe('when there is no error', () => {
+    it('<ErrorBoundary /> should render children components', () => {
+      const tree = render(<ErrorBoundary children={<h1>Child Component</h1>} />).toJSON()
+      expect(tree).toMatchSnapshot()
+    })
+  })
+
+  describe('when there is an error', () => {
+    it('<ErrorBoundary /> should render when there is an error', () => {
+      const wrapper = render(
+        <ErrorBoundary>
+          <View>{errorMock}</View>
+        </ErrorBoundary>
+      )
+      expect(wrapper).toMatchSnapshot()
+    })
+  })
+
+
+})
+
