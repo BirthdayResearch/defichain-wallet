@@ -10,6 +10,7 @@
       <w>acindex</w>
       <w>addpoolliquidity</w>
       <w>addvaryheader</w>
+      <w>aentan</w>
       <w>amkheight</w>
       <w>ancestorcount</w>
       <w>ancestorfees</w>
@@ -100,8 +101,10 @@
       <w>isvalid</w>
       <w>iswatchonly</w>
       <w>iswitness</w>
+      <w>izzycsy</w>
       <w>jingyi</w>
       <w>jsonrpc</w>
+      <w>jtlntno</w>
       <w>keyhash</w>
       <w>keypoololdest</w>
       <w>keypoolsize</w>
