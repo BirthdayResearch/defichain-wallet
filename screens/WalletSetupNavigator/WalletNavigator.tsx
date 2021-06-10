@@ -4,29 +4,18 @@ import { translate } from '../../translations'
 import { LinkingOptions, NavigationContainer, NavigationContainerRef } from '@react-navigation/native'
 import * as Linking from 'expo-linking'
 import { WalletOnboarding } from './screens/WalletOnboarding'
-import { Ionicons } from '@expo/vector-icons'
-import { PrimaryColor } from '../../constants/Colors'
-import { TouchableOpacity } from 'react-native'
-import { WalletSetup } from './screens/WalletSetup'
-import { WalletMnemonicCreate } from "./screens/WalletMnemonicCreate";
-import { WalletMnemonicRestoreWord } from "./screens/WalletMnemonicRestoreWord";
-import { WalletMnemonicRestore } from "./screens/WalletMnemonicRestore";
-import { WalletMnemonicCreateVerifyWord } from "./screens/WalletMnemonicCreateVerifyWord";
+import { WalletMnemonicCreate } from './screens/WalletMnemonicCreate'
+import { WalletMnemonicRestore } from './screens/WalletMnemonicRestore'
+import { DeFiChainTheme } from '../../constants/Theme'
+import { WalletMnemonicCreateVerify } from './screens/WalletMnemonicCreateVerify'
 
 export interface WalletParamList {
   WalletOnboardingScreen: undefined
-  AddWallet: undefined
   WalletMnemonicCreate: undefined
-  WalletMnemonicCreateVerifyWord: {
-    words: {
-      progress: string[]
-      actual: string[]
-    }
-  }
-  WalletMnemonicRestore: undefined
-  WalletMnemonicRestoreWord: {
+  WalletMnemonicCreateVerify: {
     words: string[]
   }
+  WalletMnemonicRestore: undefined
 
   [key: string]: undefined | object
 }
@@ -38,11 +27,9 @@ const LinkingConfiguration: LinkingOptions = {
   config: {
     screens: {
       WalletOnboarding: 'wallet/onboarding',
-      WalletSetup: 'wallet/setup',
       WalletMnemonicCreate: 'wallet/mnemonic/create',
-      WalletMnemonicCreateVerifyWord: 'wallet/mnemonic/create/verify/word',
-      WalletMnemonicRestore: 'wallet/mnemonic/restore',
-      WalletMnemonicRestoreWord: 'wallet/mnemonic/restore/word',
+      WalletMnemonicCreateVerify: 'wallet/mnemonic/create/verify',
+      WalletMnemonicRestore: 'wallet/mnemonic/restore'
     }
   }
 }
@@ -51,54 +38,32 @@ export function WalletNavigator (): JSX.Element {
   const navigationRef = React.useRef<NavigationContainerRef>(null)
 
   return (
-    <NavigationContainer linking={LinkingConfiguration} ref={navigationRef}>
+    <NavigationContainer linking={LinkingConfiguration} ref={navigationRef} theme={DeFiChainTheme}>
       <WalletStack.Navigator initialRouteName='Setup'>
         <WalletStack.Screen
           name='WalletOnboarding'
           component={WalletOnboarding}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Wallets'),
-            headerRight: (): JSX.Element => (
-              <TouchableOpacity onPress={() => navigationRef.current?.navigate('WalletSetup')}>
-                <Ionicons name='add' size={28} color={PrimaryColor} />
-              </TouchableOpacity>
-            ),
-            headerRightContainerStyle: {
-              paddingRight: 12
-            }
-          }}
-        />
-        <WalletStack.Screen
-          name='WalletSetup'
-          component={WalletSetup}
-          options={{
-            headerTitle: translate('screens/WalletNavigator', 'Add Wallet')
+            headerTitle: translate('screens/WalletNavigator', 'Wallets')
           }}
         />
         <WalletStack.Screen
           name='WalletMnemonicCreate'
           component={WalletMnemonicCreate}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Create Mnemonic Wallet')
+            headerTitle: translate('screens/WalletNavigator', 'Create Mnemonic Phrase')
           }}
         />
         <WalletStack.Screen
-          name='WalletMnemonicCreateVerifyWord'
-          component={WalletMnemonicCreateVerifyWord}
+          name='WalletMnemonicCreateVerify'
+          component={WalletMnemonicCreateVerify}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Verify Mnemonic Wallet')
+            headerTitle: translate('screens/WalletNavigator', 'Verify Mnemonic Phrase')
           }}
         />
         <WalletStack.Screen
           name='WalletMnemonicRestore'
           component={WalletMnemonicRestore}
-          options={{
-            headerTitle: translate('screens/WalletNavigator', 'Restore Mnemonic Wallet')
-          }}
-        />
-        <WalletStack.Screen
-          name='WalletMnemonicRestoreWord'
-          component={WalletMnemonicRestoreWord}
           options={{
             headerTitle: translate('screens/WalletNavigator', 'Restore Mnemonic Wallet')
           }}

@@ -1,8 +1,9 @@
-import React from 'react'
+import * as React from 'react'
 import { useWalletAPI } from '../hooks/wallet/WalletAPI'
 import { WalletStatus } from '../store/wallet'
-import { AppNavigator } from './WalletNavigator/AppNavigator'
+import { AppNavigator } from './AppNavigator/AppNavigator'
 import { WalletNavigator } from './WalletSetupNavigator/WalletNavigator'
+// import { LoadingNavigator } from "./LoadingNavigator/LoadingNavigator";
 
 /**
  * Top Root Level Wallet State to control what screen to show

@@ -32,8 +32,9 @@ const WalletAPI = {
   },
   clearWallet (dispatch: Dispatch<any>): void {
     dispatch(wallet.actions.setStatus(WalletStatus.LOADING))
+
     MnemonicStorage.clear().then(() => {
-      dispatch(wallet.actions.setStatus(WalletStatus.NO_WALLET))
+      dispatch(wallet.actions.setStatus(WalletStatus.INITIAL))
     }).catch(() => {
       dispatch(wallet.actions.setStatus(WalletStatus.ERROR))
     })
