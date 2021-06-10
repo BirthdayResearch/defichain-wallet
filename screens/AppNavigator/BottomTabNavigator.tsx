@@ -9,6 +9,24 @@ import { SettingsNavigator } from './screens/SettingsScreen/SettingsNavigator'
 import { PathConfigMap } from '@react-navigation/core'
 import { PrimaryColor } from '../../constants/Colors'
 
+export interface BottomTabParamList {
+  Balances: undefined
+  Liquidity: undefined
+  Transactions: undefined
+  Settings: undefined
+
+  [key: string]: undefined | object
+}
+
+const BottomTab = createBottomTabNavigator<BottomTabParamList>()
+
+/**
+ * @see https://icons.expo.fyi/ to filter => Ionicons
+ */
+function TabBarIcon (props: { name: React.ComponentProps<typeof Ionicons>['name'], color: string }): JSX.Element {
+  return <Ionicons size={24} style={{ marginBottom: -3 }} {...props} />
+}
+
 export function BottomTabNavigator (): JSX.Element {
   return (
     <BottomTab.Navigator
@@ -51,25 +69,7 @@ export function BottomTabNavigator (): JSX.Element {
   )
 }
 
-const BottomTab = createBottomTabNavigator<BottomTabParamList>()
-
-export interface BottomTabParamList {
-  Balances: undefined
-  Liquidity: undefined
-  Transactions: undefined
-  Settings: undefined
-
-  [key: string]: undefined | object
-}
-
-/**
- * @see https://icons.expo.fyi/ to filter => Ionicons
- */
-function TabBarIcon (props: { name: React.ComponentProps<typeof Ionicons>['name'], color: string }): JSX.Element {
-  return <Ionicons size={24} style={{ marginBottom: -3 }} {...props} />
-}
-
-export const WalletLinking: PathConfigMap = {
+export const AppLinking: PathConfigMap = {
   Balances: {
     screens: {
       BalancesScreen: 'balances'

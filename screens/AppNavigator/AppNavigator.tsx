@@ -2,7 +2,7 @@ import * as React from 'react'
 import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import { WalletLinking, BottomTabNavigator } from './BottomTabNavigator'
+import { AppLinking, BottomTabNavigator } from './BottomTabNavigator'
 import * as Linking from 'expo-linking'
 
 const WalletStack = createStackNavigator<WalletParamList>()
@@ -30,7 +30,7 @@ const LinkingConfiguration: LinkingOptions = {
     screens: {
       Wallet: {
         path: 'app',
-        screens: WalletLinking
+        screens: AppLinking
       }
     }
   }
