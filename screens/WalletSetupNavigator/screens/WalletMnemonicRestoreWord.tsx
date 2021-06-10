@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native'
 import { ScrollView, View } from 'react-native'
 import tailwind from 'tailwind-rn'
 
-export function WalletMnemonicWord (): JSX.Element {
+export function WalletMnemonicRestoreWord (): JSX.Element {
   const navigator = useNavigation()
 
   return (

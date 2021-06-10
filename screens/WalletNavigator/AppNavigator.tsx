@@ -14,7 +14,7 @@ export interface WalletParamList {
   [key: string]: undefined | object
 }
 
-export function WalletNavigator (): JSX.Element {
+export function AppNavigator (): JSX.Element {
   return (
     <NavigationContainer linking={LinkingConfiguration}>
       <WalletStack.Navigator screenOptions={{ headerShown: false }}>
@@ -29,7 +29,7 @@ const LinkingConfiguration: LinkingOptions = {
   config: {
     screens: {
       Wallet: {
-        path: 'wallet',
+        path: 'app',
         screens: WalletLinking
       }
     }

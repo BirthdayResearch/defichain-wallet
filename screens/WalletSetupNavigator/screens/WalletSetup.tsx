@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { PrimaryColor } from '../../../constants/Colors'
 import * as React from 'react'
 
-export function WalletAddScreen (): JSX.Element {
+export function WalletSetup (): JSX.Element {
   const navigator = useNavigation()
 
   return (

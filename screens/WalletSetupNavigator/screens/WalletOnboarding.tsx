@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
 import { useDispatch } from 'react-redux'
 
-export function WalletOnboardingScreen (): JSX.Element {
+export function WalletOnboarding (): JSX.Element {
   const WalletAPI = useWalletAPI()
   const dispatch = useDispatch()
   const navigator = useNavigation()
@@ -17,9 +17,9 @@ export function WalletOnboardingScreen (): JSX.Element {
     <View style={tailwind('flex-1 py-12 items-center justify-between bg-gray-100')}>
       <TouchableOpacity
         delayLongPress={5000} onLongPress={() => {
-          // TODO(fuxingloh): this should only be available in debug mode
-          WalletAPI.setMnemonicAbandon23(dispatch)
-        }}
+        // TODO(fuxingloh): this should only be available in debug mode
+        WalletAPI.setMnemonicAbandon23(dispatch)
+      }}
       >
         <View style={tailwind('flex items-center')}>
           <View style={tailwind('bg-white rounded-full p-4')}>
@@ -35,7 +35,7 @@ export function WalletOnboardingScreen (): JSX.Element {
 
       <View style={tailwind('mt-24')}>
         <TouchableOpacity
-          onPress={() => navigator.navigate('AddWallet')}
+          onPress={() => navigator.navigate('WalletSetup')}
           style={[tailwind('px-4 py-3 rounded'), PrimaryColorStyle.bg]}
         >
           <Text style={tailwind('text-white font-bold')}>
