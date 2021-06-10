@@ -36,9 +36,7 @@ export function PlaygroundWallet (): JSX.Element | null {
         testID='playground_wallet_abandon'
         title='Setup wallet with abandon x23 + art as mnemonic seed'
         onPress={() => {
-          WalletAPI.setMnemonic(dispatch, [
-            'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'
-          ])
+          WalletAPI.setMnemonicAbandon23(dispatch)
         }}
       />
 

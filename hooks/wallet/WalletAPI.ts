@@ -55,6 +55,11 @@ const WalletAPI = {
     }).catch(() => {
       dispatch(wallet.actions.setStatus(WalletStatus.ERROR))
     })
+  },
+  setMnemonicAbandon23 (dispatch: Dispatch<any>): void {
+    WalletAPI.setMnemonic(dispatch, [
+      'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'
+    ])
   }
 }
 
