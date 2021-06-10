@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useWalletAPI } from '../hooks/wallet/WalletAPI'
 import { WalletStatus } from '../store/wallet'
 import { AppNavigator } from './AppNavigator/AppNavigator'
-import { WalletNavigator } from './WalletSetupNavigator/WalletNavigator'
+import { WalletNavigator } from './WalletNavigator/WalletNavigator'
 // import { LoadingNavigator } from "./LoadingNavigator/LoadingNavigator";
 
 /**
