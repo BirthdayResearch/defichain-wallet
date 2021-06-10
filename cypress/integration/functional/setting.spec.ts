@@ -10,6 +10,6 @@ context('wallet/settings', () => {
 
   it('should exit wallet when clicked', () => {
     cy.get('[data-testid="setting_exit_wallet"]').click()
-    cy.get('[data-testid="wallet_setup"]').contains('Wallet Setup')
+    cy.get('[data-testid="wallet_onboarding"]').contains('No wallets')
   })
 })

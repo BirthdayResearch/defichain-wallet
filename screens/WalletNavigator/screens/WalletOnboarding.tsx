@@ -19,7 +19,7 @@ export function WalletOnboarding (): JSX.Element {
   }
 
   return (
-    <ScrollView style={tailwind('flex-1 py-8 bg-gray-100')}>
+    <ScrollView style={tailwind('flex-1 py-8 bg-gray-100')} testID='wallet_onboarding'>
       <View style={tailwind('flex items-center')}>
         <TouchableOpacity delayLongPress={5000} onLongPress={onDebugPress}>
           <View style={tailwind('flex bg-white justify-center items-center rounded-full h-16 w-16')}>
