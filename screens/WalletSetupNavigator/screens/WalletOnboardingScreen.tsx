@@ -17,6 +17,7 @@ export function WalletOnboardingScreen (): JSX.Element {
     <View style={tailwind('flex-1 py-12 items-center justify-between bg-gray-100')}>
       <TouchableOpacity
         delayLongPress={5000} onLongPress={() => {
+          // TODO(fuxingloh): this should only be available in debug mode
           WalletAPI.setMnemonicAbandon23(dispatch)
         }}
       >
