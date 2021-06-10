@@ -1,8 +1,8 @@
 import * as React from 'react'
 import tailwind from 'tailwind-rn'
 import { createStackNavigator } from '@react-navigation/stack'
-import { Text, View } from '../../../../components/Themed'
 import { translate } from '../../../../translations'
+import { View, Text } from 'react-native'
 
 export function TransactionsScreen (): JSX.Element {
   return (
@@ -10,7 +10,7 @@ export function TransactionsScreen (): JSX.Element {
       <Text style={tailwind('text-xl font-bold')}>
         {translate('screens/TransactionsScreen', 'Transactions Text %1')}
       </Text>
-      <View style={tailwind('w-4/5 h-px my-8')} lightColor='#eee' darkColor='rgba(255,255,255,0.1)' />
+      <View style={tailwind('w-4/5 h-px my-8')} />
     </View>
   )
 }

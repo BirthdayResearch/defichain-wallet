@@ -3,9 +3,8 @@ import tailwind from 'tailwind-rn'
 import { createStackNavigator } from '@react-navigation/stack'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Text, View } from '../../../../components/Themed'
 import { translate } from '../../../../translations'
-import { Button } from 'react-native'
+import { Button, Text, View } from 'react-native'
 import { decrement, increment, incrementAsync, incrementIfOdd } from '../../../../store/liquidity'
 import { RootState } from '../../../../store'
 
@@ -20,7 +19,7 @@ export function LiquidityScreen (): JSX.Element {
         {translate('screens/LiquidityScreen', 'Liquidity')}
       </Text>
 
-      <View style={tailwind('w-4/5 h-px my-8')} lightColor='#eee' darkColor='rgba(255,255,255,0.1)' />
+      <View style={tailwind('w-4/5 h-px my-8')} />
 
       <Button title='Increment' onPress={() => dispatch(increment())} />
       <Button title='Decrement' onPress={() => dispatch(decrement())} />

@@ -7,7 +7,7 @@ import { LiquidityNavigator } from './screens/LiquidityScreen/LiquidityScreen'
 import { TransactionsNavigator } from './screens/TransactionsScreen/TransactionsScreen'
 import { SettingsNavigator } from './screens/SettingsScreen/SettingsNavigator'
 import { PathConfigMap } from '@react-navigation/core'
-import { PrimaryColor } from '../../constants/Colors'
+import { PrimaryColor } from '../../constants/Theme'
 
 export interface BottomTabParamList {
   Balances: undefined
