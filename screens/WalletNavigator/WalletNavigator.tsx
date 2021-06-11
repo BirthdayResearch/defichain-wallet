@@ -1,37 +1,42 @@
-import * as React from 'react'
-import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
+import { LinkingOptions, NavigationContainer, NavigationContainerRef } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-
-import { WalletLinking, BottomTabNavigator } from './BottomTabNavigator'
 import * as Linking from 'expo-linking'
-
-const WalletStack = createStackNavigator<WalletParamList>()
+import * as React from 'react'
+import { DeFiChainTheme } from '../../constants/Theme'
+import { translate } from '../../translations'
+import { WalletOnboarding } from './screens/WalletOnboarding'
 
 export interface WalletParamList {
-  Wallet: undefined
-  NotFound: undefined
+  WalletOnboarding: undefined
 
   [key: string]: undefined | object
 }
 
-export function WalletNavigator (): JSX.Element {
-  return (
-    <NavigationContainer linking={LinkingConfiguration}>
-      <WalletStack.Navigator screenOptions={{ headerShown: false }}>
-        <WalletStack.Screen name='Wallet' component={BottomTabNavigator} />
-      </WalletStack.Navigator>
-    </NavigationContainer>
-  )
-}
+const WalletStack = createStackNavigator<WalletParamList>()
 
 const LinkingConfiguration: LinkingOptions = {
   prefixes: [Linking.makeUrl('/')],
   config: {
     screens: {
-      Wallet: {
-        path: 'wallet',
-        screens: WalletLinking
-      }
+      WalletOnboarding: 'wallet/onboarding'
     }
   }
+}
+
+export function WalletNavigator (): JSX.Element {
+  const navigationRef = React.useRef<NavigationContainerRef>(null)
+
+  return (
+    <NavigationContainer linking={LinkingConfiguration} ref={navigationRef} theme={DeFiChainTheme}>
+      <WalletStack.Navigator initialRouteName='Setup'>
+        <WalletStack.Screen
+          name='WalletOnboarding'
+          component={WalletOnboarding}
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'Wallets')
+          }}
+        />
+      </WalletStack.Navigator>
+    </NavigationContainer>
+  )
 }
