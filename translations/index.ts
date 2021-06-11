@@ -53,5 +53,9 @@ export function translate (path: string, text: string): string {
     initI18n()
   }
   const translation = i18n.translate(`${path}.${text}`)
-  return translation != null && translation !== '' ? translation : text
+  if (translation !== null && translation !== undefined && translation !== '') {
+    return translation
+  } else {
+    return text
+  }
 }
