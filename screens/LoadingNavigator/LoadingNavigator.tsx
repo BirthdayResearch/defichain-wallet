@@ -1,8 +1,8 @@
+import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import * as Linking from 'expo-linking'
 import * as React from 'react'
 import { View } from 'react-native'
-import { createStackNavigator } from '@react-navigation/stack'
-import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
-import * as Linking from 'expo-linking'
 
 export interface LoadingParamList {
   Loading: undefined

@@ -1,10 +1,10 @@
-import * as React from 'react'
-import { createStackNavigator } from '@react-navigation/stack'
 import { LinkingOptions, NavigationContainer, NavigationContainerRef } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
 import * as Linking from 'expo-linking'
+import * as React from 'react'
+import { DeFiChainTheme } from '../../constants/Theme'
 import { translate } from '../../translations'
 import { WalletOnboarding } from './screens/WalletOnboarding'
-import { DeFiChainTheme } from '../../constants/Theme'
 
 export interface WalletParamList {
   WalletOnboarding: undefined

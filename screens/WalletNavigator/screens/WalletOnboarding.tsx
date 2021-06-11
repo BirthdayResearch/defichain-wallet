@@ -1,10 +1,10 @@
+import { Ionicons } from '@expo/vector-icons'
 import * as React from 'react'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
-import tailwind from 'tailwind-rn'
-import { Ionicons } from '@expo/vector-icons'
-import { translate } from '../../../translations'
-import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
 import { useDispatch } from 'react-redux'
+import tailwind from 'tailwind-rn'
+import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
+import { translate } from '../../../translations'
 
 export function WalletOnboarding (): JSX.Element {
   const WalletAPI = useWalletAPI()
