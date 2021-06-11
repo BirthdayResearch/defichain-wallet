@@ -5,21 +5,16 @@ exports[`<LoadingScreen /> should match snapshot 1`] = `
   style={
     Array [
       Object {
-        "backgroundColor": "#fff",
+        "alignItems": "center",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "height": "100%",
+        "justifyContent": "center",
+        "position": "relative",
+        "width": "100%",
       },
-      Array [
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "flexBasis": "0%",
-          "flexGrow": 1,
-          "flexShrink": 1,
-          "height": "100%",
-          "justifyContent": "center",
-          "position": "relative",
-          "width": "100%",
-        },
-      ],
     ]
   }
 >
