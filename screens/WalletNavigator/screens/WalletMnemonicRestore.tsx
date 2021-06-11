@@ -1,11 +1,11 @@
-import * as React from 'react'
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import tailwind from 'tailwind-rn'
-import { PrimaryColorStyle } from '../../../constants/Colors'
-import { useState } from 'react'
-import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
-import { useDispatch } from 'react-redux'
 import { validateMnemonic } from '@defichain/jellyfish-wallet-mnemonic'
+import * as React from 'react'
+import { useState } from 'react'
+import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { useDispatch } from 'react-redux'
+import tailwind from 'tailwind-rn'
+import { PrimaryColorStyle } from '../../../constants/Theme'
+import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
 
 export function WalletMnemonicRestore (): JSX.Element {
   const [phrase, setPhrase] = useState<string>('')
@@ -33,6 +33,7 @@ export function WalletMnemonicRestore (): JSX.Element {
         style={tailwind('bg-white font-medium mt-4 p-4 h-32')}
         multiline
         numberOfLines={4}
+        textAlignVertical='top'
         placeholder='Enter your 24 word mnemonic phrase separated by spaces'
         onChangeText={setPhrase}
       />

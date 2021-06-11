@@ -1,12 +1,12 @@
-import * as React from 'react'
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import tailwind from 'tailwind-rn'
 import { StackScreenProps } from '@react-navigation/stack'
-import { WalletParamList } from '../WalletNavigator'
-import { PrimaryColorStyle } from '../../../constants/Colors'
-import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
-import { useDispatch } from 'react-redux'
+import * as React from 'react'
 import { useState } from 'react'
+import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { useDispatch } from 'react-redux'
+import tailwind from 'tailwind-rn'
+import { PrimaryColorStyle } from '../../../constants/Theme'
+import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
+import { WalletParamList } from '../WalletNavigator'
 
 type Props = StackScreenProps<WalletParamList, 'WalletMnemonicCreateVerify'>
 

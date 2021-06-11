@@ -1,12 +1,12 @@
+import { generateMnemonic } from '@defichain/jellyfish-wallet-mnemonic'
+import { Ionicons } from '@expo/vector-icons'
+import { StackScreenProps } from '@react-navigation/stack'
+import * as Random from 'expo-random'
 import * as React from 'react'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import tailwind from 'tailwind-rn'
-import * as Random from 'expo-random'
-import { StackScreenProps } from '@react-navigation/stack'
-import { generateMnemonic } from '@defichain/jellyfish-wallet-mnemonic'
-import { WalletParamList } from '../WalletNavigator'
-import { Ionicons } from '@expo/vector-icons'
 import { PrimaryColor, PrimaryColorStyle } from '../../../constants/Theme'
+import { WalletParamList } from '../WalletNavigator'
 
 type Props = StackScreenProps<WalletParamList, 'WalletMnemonicCreate'>
 

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { Ionicons } from '@expo/vector-icons'
 import { translate } from '../../../translations'
