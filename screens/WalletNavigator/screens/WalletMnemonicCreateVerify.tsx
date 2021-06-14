@@ -1,9 +1,10 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { useState } from 'react'
-import { KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
 import tailwind from 'tailwind-rn'
+import { Text, TextInput, View } from '../../../components'
 import { PrimaryColorStyle } from '../../../constants/Theme'
 import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
 import { WalletParamList } from '../WalletNavigator'
@@ -39,7 +40,7 @@ export function WalletMnemonicCreateVerify ({ route }: Props): JSX.Element {
           {`${props.index + 1}`.padStart(2, '0')}
         </Text>
         <TextInput
-          style={tailwind('flex-grow py-4 font-bold text-gray-800')}
+          style={tailwind('flex-grow py-4 pr-4 font-bold text-gray-800')}
           autoCapitalize='none'
           onChangeText={(text) => {
             setValid(props.word === text.trim())

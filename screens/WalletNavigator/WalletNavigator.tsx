@@ -1,13 +1,13 @@
-import * as React from 'react'
-import { createStackNavigator } from '@react-navigation/stack'
-import { translate } from '../../translations'
 import { LinkingOptions, NavigationContainer, NavigationContainerRef } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
 import * as Linking from 'expo-linking'
-import { WalletOnboarding } from './screens/WalletOnboarding'
-import { WalletMnemonicCreate } from './screens/WalletMnemonicCreate'
-import { WalletMnemonicRestore } from './screens/WalletMnemonicRestore'
+import * as React from 'react'
 import { DeFiChainTheme } from '../../constants/Theme'
+import { translate } from '../../translations'
+import { WalletMnemonicCreate } from './screens/WalletMnemonicCreate'
 import { WalletMnemonicCreateVerify } from './screens/WalletMnemonicCreateVerify'
+import { WalletMnemonicRestore } from './screens/WalletMnemonicRestore'
+import { WalletOnboarding } from './screens/WalletOnboarding'
 
 export interface WalletParamList {
   WalletOnboardingScreen: undefined
@@ -51,21 +51,24 @@ export function WalletNavigator (): JSX.Element {
           name='WalletMnemonicCreate'
           component={WalletMnemonicCreate}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Create Mnemonic Phrase')
+            headerTitle: translate('screens/WalletNavigator', 'Create Mnemonic Phrase'),
+            headerBackTitleVisible: false
           }}
         />
         <WalletStack.Screen
           name='WalletMnemonicCreateVerify'
           component={WalletMnemonicCreateVerify}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Verify Mnemonic Phrase')
+            headerTitle: translate('screens/WalletNavigator', 'Verify Mnemonic Phrase'),
+            headerBackTitleVisible: false
           }}
         />
         <WalletStack.Screen
           name='WalletMnemonicRestore'
           component={WalletMnemonicRestore}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Restore Mnemonic Wallet')
+            headerTitle: translate('screens/WalletNavigator', 'Restore Mnemonic Wallet'),
+            headerBackTitleVisible: false
           }}
         />
       </WalletStack.Navigator>
