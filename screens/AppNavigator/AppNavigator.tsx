@@ -1,7 +1,7 @@
-import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
-import * as Linking from 'expo-linking'
 import * as React from 'react'
+import { createStackNavigator } from '@react-navigation/stack'
+import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
+import * as Linking from 'expo-linking'
 import { AppLinking, BottomTabNavigator } from './BottomTabNavigator'
 
 const WalletStack = createStackNavigator<WalletParamList>()
