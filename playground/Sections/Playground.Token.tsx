@@ -1,13 +1,13 @@
-import { Text, View } from 'react-native'
-import tailwind from 'tailwind-rn'
-import React, { useEffect, useState } from 'react'
-import { usePlaygroundRpcClient } from '../../hooks/api/usePlaygroundClient'
-import { PlaygroundRpcClient } from '@defichain/playground-api-client'
 import { TokenInfo } from '@defichain/jellyfish-api-core/dist/category/token'
-import { PlaygroundAction } from '../Playground.Action'
-import { PlaygroundStatus } from '../Playground.Status'
+import { PlaygroundRpcClient } from '@defichain/playground-api-client'
+import React, { useEffect, useState } from 'react'
+import tailwind from 'tailwind-rn'
+import { Text, View } from '../../components'
+import { usePlaygroundRpcClient } from '../../hooks/api/usePlaygroundClient'
 import { useWalletAPI } from '../../hooks/wallet/WalletAPI'
 import { WalletStatus } from '../../store/wallet'
+import { PlaygroundAction } from '../Playground.Action'
+import { PlaygroundStatus } from '../Playground.Status'
 
 export function PlaygroundToken (): JSX.Element | null {
   const WalletAPI = useWalletAPI()
@@ -47,7 +47,7 @@ export function PlaygroundToken (): JSX.Element | null {
   return (
     <View>
       <View style={tailwind('flex-row flex items-center')}>
-        <Text style={tailwind('text-lg font-bold')}>Token</Text>
+        <Text style={tailwind('text-2xl font-bold')}>Token</Text>
         <View style={tailwind('ml-2')}>
           <PlaygroundStatus
             online={status === 'online'}

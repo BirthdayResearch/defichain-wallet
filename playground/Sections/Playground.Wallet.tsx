@@ -1,11 +1,11 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { useDispatch } from 'react-redux'
 import tailwind from 'tailwind-rn'
+import { Text, View } from '../../components'
+import { useWalletAPI } from '../../hooks/wallet/WalletAPI'
+import { WalletStatus } from '../../store/wallet'
 import { PlaygroundAction } from '../Playground.Action'
 import { PlaygroundStatus } from '../Playground.Status'
-import { WalletStatus } from '../../store/wallet'
-import { useWalletAPI } from '../../hooks/wallet/WalletAPI'
-import { useDispatch } from 'react-redux'
 
 export function PlaygroundWallet (): JSX.Element | null {
   const WalletAPI = useWalletAPI()
@@ -15,7 +15,7 @@ export function PlaygroundWallet (): JSX.Element | null {
   return (
     <View>
       <View style={tailwind('flex-row flex items-center')}>
-        <Text style={tailwind('text-lg font-bold')}>Wallet</Text>
+        <Text style={tailwind('text-2xl font-bold')}>Wallet</Text>
         <View style={tailwind('ml-2')}>
           <PlaygroundStatus
             online={status === WalletStatus.LOADED_WALLET}

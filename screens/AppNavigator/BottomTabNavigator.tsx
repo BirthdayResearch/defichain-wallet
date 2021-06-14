@@ -2,7 +2,6 @@ import { Ionicons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { PathConfigMap } from '@react-navigation/core'
 import * as React from 'react'
-import { PrimaryColor } from '../../constants/Theme'
 
 import { BalancesNavigator } from './screens/BalancesScreen/BalancesNavigator'
 import { LiquidityNavigator } from './screens/LiquidityScreen/LiquidityScreen'
@@ -31,7 +30,7 @@ export function BottomTabNavigator (): JSX.Element {
   return (
     <BottomTab.Navigator
       initialRouteName='Balances'
-      tabBarOptions={{ adaptive: false, activeTintColor: PrimaryColor, showLabel: false }}
+      tabBarOptions={{ adaptive: false, showLabel: false }}
     >
       <BottomTab.Screen
         name='Balances'
@@ -61,7 +60,6 @@ export function BottomTabNavigator (): JSX.Element {
         name='Settings'
         component={SettingsNavigator}
         options={{
-          tabBarTestID: 'bottom_tab_settings',
           tabBarIcon: ({ color }) => <TabBarIcon name='settings' color={color} />
         }}
       />
@@ -87,7 +85,8 @@ export const AppLinking: PathConfigMap = {
   },
   Settings: {
     screens: {
-      SettingsScreen: 'settings'
+      SettingsScreen: 'settings',
+      PlaygroundScreen: 'settings/playground'
     }
   }
 }

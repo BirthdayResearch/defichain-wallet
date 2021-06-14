@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons'
+import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { SectionList, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,8 +10,11 @@ import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
 import { RootState } from '../../../../store'
 import { NetworkName } from '../../../../store/network'
 import { translate } from '../../../../translations'
+import { SettingsParamList } from './SettingsNavigator'
 
-export function SettingsScreen (): JSX.Element {
+type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
+
+export function SettingsScreen ({ navigation }: Props): JSX.Element {
   const network = useSelector<RootState, NetworkName | undefined>(state => state.network.name)
   const WalletAPI = useWalletAPI()
   const dispatch = useDispatch()
@@ -23,12 +27,12 @@ export function SettingsScreen (): JSX.Element {
             key: 'Network',
             data: [''],
             renderItem (): JSX.Element {
-              return RowNetworkItem(network)
+              return RowNetworkItem(network, () => navigation.navigate('Playground'))
             }
           },
           {
             data: ['EXIT WALLET'],
-            renderItem ({ item }): JSX.Element {
+            renderItem (): JSX.Element {
               return RowExitWalletItem(() => WalletAPI.clearWallet(dispatch))
             }
           }
@@ -59,7 +63,7 @@ function SectionHeader (key?: string): JSX.Element | null {
   )
 }
 
-function RowNetworkItem (network?: NetworkName): JSX.Element {
+function RowNetworkItem (network?: NetworkName, onPress?: () => void): JSX.Element {
   function getNetworkName (): string {
     switch (network) {
       case 'mainnet':
@@ -76,7 +80,10 @@ function RowNetworkItem (network?: NetworkName): JSX.Element {
   }
 
   return (
-    <TouchableOpacity style={tailwind('flex-1 flex-row px-4 bg-white items-center justify-between')}>
+    <TouchableOpacity
+      style={tailwind('flex-1 flex-row px-4 bg-white items-center justify-between')}
+      onPress={onPress}
+    >
       <Text style={tailwind('py-4')}>
         {getNetworkName()}
       </Text>
