@@ -1,0 +1,430 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<HelpScreen /> should match snapshot 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "flex-start",
+      "justifyContent": "flex-start",
+      "width": "100%",
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "fontSize": 16,
+        "fontWeight": "700",
+        "lineHeight": 24,
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+      }
+    }
+  >
+    Connect with the community
+  </Text>
+  <RCTScrollView
+    data={
+      Array [
+        Object {
+          "id": "wiki",
+          "title": "Community Wiki",
+          "url": "https://defichain-wiki.com/",
+        },
+        Object {
+          "id": "gh",
+          "title": "Report an issue to Github",
+          "url": "https://github.com/DeFiCh/wallet/issues",
+        },
+        Object {
+          "id": "faq",
+          "title": "Frequently Asked Questions",
+          "url": "https://defichain.com/learn/#faq",
+        },
+        Object {
+          "id": "tg_en",
+          "title": "Telegram (EN)",
+          "url": "https://t.me/defiblockchain",
+        },
+        Object {
+          "id": "tg_de",
+          "title": "Telegram (DE)",
+          "url": "https://t.me/defiblockchain_DE",
+        },
+        Object {
+          "id": "wechat",
+          "title": "WeChat",
+          "url": "http://weixin.qq.com/r/0xz07DzEdmEJrXiP90nB",
+        },
+        Object {
+          "id": "reddit",
+          "title": "Reddit Community",
+          "url": "https://www.reddit.com/r/defiblockchain/",
+        },
+        Object {
+          "id": "website",
+          "title": "Official Website",
+          "url": "https://defichain.com/",
+        },
+      ]
+    }
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    style={
+      Object {
+        "marginBottom": 16,
+        "width": "100%",
+      }
+    }
+    testID="help_items_list"
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={21}
+  >
+    <View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(229, 231, 235, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(229, 231, 235, 1)",
+              "borderRightColor": "rgba(229, 231, 235, 1)",
+              "borderTopColor": "rgba(229, 231, 235, 1)",
+              "opacity": 1,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 16,
+            }
+          }
+          testID="wiki"
+        >
+          <Text>
+            Community Wiki
+          </Text>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(229, 231, 235, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(229, 231, 235, 1)",
+              "borderRightColor": "rgba(229, 231, 235, 1)",
+              "borderTopColor": "rgba(229, 231, 235, 1)",
+              "opacity": 1,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 16,
+            }
+          }
+          testID="gh"
+        >
+          <Text>
+            Report an issue to Github
+          </Text>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(229, 231, 235, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(229, 231, 235, 1)",
+              "borderRightColor": "rgba(229, 231, 235, 1)",
+              "borderTopColor": "rgba(229, 231, 235, 1)",
+              "opacity": 1,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 16,
+            }
+          }
+          testID="faq"
+        >
+          <Text>
+            Frequently Asked Questions
+          </Text>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(229, 231, 235, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(229, 231, 235, 1)",
+              "borderRightColor": "rgba(229, 231, 235, 1)",
+              "borderTopColor": "rgba(229, 231, 235, 1)",
+              "opacity": 1,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 16,
+            }
+          }
+          testID="tg_en"
+        >
+          <Text>
+            Telegram (EN)
+          </Text>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(229, 231, 235, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(229, 231, 235, 1)",
+              "borderRightColor": "rgba(229, 231, 235, 1)",
+              "borderTopColor": "rgba(229, 231, 235, 1)",
+              "opacity": 1,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 16,
+            }
+          }
+          testID="tg_de"
+        >
+          <Text>
+            Telegram (DE)
+          </Text>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(229, 231, 235, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(229, 231, 235, 1)",
+              "borderRightColor": "rgba(229, 231, 235, 1)",
+              "borderTopColor": "rgba(229, 231, 235, 1)",
+              "opacity": 1,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 16,
+            }
+          }
+          testID="wechat"
+        >
+          <Text>
+            WeChat
+          </Text>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(229, 231, 235, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(229, 231, 235, 1)",
+              "borderRightColor": "rgba(229, 231, 235, 1)",
+              "borderTopColor": "rgba(229, 231, 235, 1)",
+              "opacity": 1,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 16,
+            }
+          }
+          testID="reddit"
+        >
+          <Text>
+            Reddit Community
+          </Text>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(229, 231, 235, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(229, 231, 235, 1)",
+              "borderRightColor": "rgba(229, 231, 235, 1)",
+              "borderTopColor": "rgba(229, 231, 235, 1)",
+              "opacity": 1,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 16,
+            }
+          }
+          testID="website"
+        >
+          <Text>
+            Official Website
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "justifyContent": "center",
+        "paddingTop": 16,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "rgba(107, 114, 128, 1)",
+          "fontSize": 12,
+          "lineHeight": 16,
+        }
+      }
+    >
+      DeFiChain is a community-driven and open project.
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "rgba(107, 114, 128, 1)",
+          "fontSize": 12,
+          "lineHeight": 16,
+        }
+      }
+    >
+      The DeFiChain Foundation does not provide direct support.
+    </Text>
+  </View>
+</View>
+`;

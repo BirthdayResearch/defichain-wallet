@@ -42,7 +42,7 @@ export function SettingsNavigator (): JSX.Element {
 function HelpButton (): JSX.Element {
   const navigation = useNavigation()
   return (
-    <TouchableOpacity style={tailwind('m-2')} onPress={() => navigation.navigate('help')}>
+    <TouchableOpacity testID='settings_help_button' style={tailwind('m-2')} onPress={() => navigation.navigate('help')}>
       <Ionicons name='help-circle-outline' size={28} color={PrimaryColor} />
     </TouchableOpacity>
   )

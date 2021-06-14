@@ -13,6 +13,7 @@ export function HelpScreen (): JSX.Element {
       <FlatList
         style={tailwind('w-full mb-4')}
         data={HelpOptions}
+        testID='help_items_list'
         renderItem={({ item }) => (
           <HelpItemRow key={item.id} id={item.id} title={item.title} url={item.url} />)}
       />
@@ -28,7 +29,7 @@ export function HelpScreen (): JSX.Element {
   )
 }
 
-const HelpOptions = [
+export const HelpOptions = [
   { id: 'wiki', title: 'Community Wiki', url: 'https://defichain-wiki.com/' },
   { id: 'gh', title: 'Report an issue to Github', url: 'https://github.com/DeFiCh/wallet/issues' },
   { id: 'faq', title: 'Frequently Asked Questions', url: 'https://defichain.com/learn/#faq' },
@@ -39,13 +40,13 @@ const HelpOptions = [
   { id: 'website', title: 'Official Website', url: 'https://defichain.com/' }
 ]
 
-interface HelpScreenItem {
+export interface HelpScreenItem {
   id: string
   title: string
   url: string
 }
 
-function HelpItemRow ({ url, title }: HelpScreenItem): JSX.Element {
+function HelpItemRow ({ url, title, id }: HelpScreenItem): JSX.Element {
   const handlePress = useCallback(async () => {
     const supported = await Linking.canOpenURL(url)
     if (supported) {
@@ -53,7 +54,7 @@ function HelpItemRow ({ url, title }: HelpScreenItem): JSX.Element {
     }
   }, [url])
   return (
-    <TouchableOpacity style={tailwind('bg-white p-4 border-b border-gray-200')} onPress={handlePress}>
+    <TouchableOpacity testID={id} style={tailwind('bg-white p-4 border-b border-gray-200')} onPress={handlePress}>
       <Text>{translate('screens/HelpScreen', title)}</Text>
     </TouchableOpacity>
   )
