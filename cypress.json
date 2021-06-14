@@ -2,5 +2,8 @@
   "projectId": "oqk3fk",
   "env": {
     "URL": "http://localhost:19006/"
-  }
+  },
+  "viewportWidth": 1000,
+  "viewportHeight": 800,
+  "retries": { "runMode": 1, "openMode": 1 }
 }
