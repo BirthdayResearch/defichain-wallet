@@ -23,3 +23,17 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+declare namespace Cypress {
+  interface Chainable {
+    /**
+     * Custom command to select DOM element by data-testid attribute.
+     * @example cy.getByTestID('settings')
+     */
+    getByTestID (value: string): Chainable<Element>
+  }
+}
+
+Cypress.Commands.add('getByTestID', (selector, ...args) => {
+  return cy.get(`[data-testid=${selector}]`, ...args)
+})

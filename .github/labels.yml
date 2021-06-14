@@ -63,6 +63,8 @@
   name: area/playground
 - color: fbca04
   name: area/translations
+- color: fbca04
+  name: area/e2e
 
 # Screens
 - color: f7d179

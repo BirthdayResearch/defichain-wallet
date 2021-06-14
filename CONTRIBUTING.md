@@ -15,19 +15,30 @@ In this matrix, the key will always be the english representation of the text. H
 The benefits of this design allows:
 
 1. **Improved developer experience:**
-The components/screens will always have up to date english presentation of what you see on the app.
-This allows developers with all levels of experience, to CMD/CTRL + SHIFT + F and find responsible code easily.
+   The components/screens will always have up to date english presentation of what you see on the app. This allows
+   developers with all levels of experience, to CMD/CTRL + SHIFT + F and find responsible code easily.
 
 2. **Improved translation experience:**
-Translator will be translating from the english text instead of 'keys' which is suboptimal.
-When the english text change context or meaning, it will always require all translations to be updated.
+   Translator will be translating from the english text instead of 'keys' which is suboptimal. When the english text
+   change context or meaning, it will always require all translations to be updated.
 
 ## Testing Guides
 
+| Type | Location                                 |
+| ---- | ---------------------------------------- |
+| ui   | [screens/**/__ tests __](./screens/**/__tests__)      |
+| api  | [hooks/**/__ tests __](./hooks/**/__tests__)          |
+| e2e  | [cypress/integration/functional](./cypress/integration/functional) |
+
+### Element should have `testID` attributes
+
+Elements should have `testID` attribute to be used as unique selector. This attribute is decoupled to any styling or
+behavior changes.
+
 ### Test file should be co-located
 
-By not using `__tests__` directory, this keep the imports (`../button`) clean and makes the file structure flat.
-Making it easier for discovery of test and keep the related concerns together. 
+By not using `__tests__` directory, this keep the imports (`../button`) clean and makes the file structure flat. Making
+it easier for discovery of test and keep the related concerns together.
 
 ```txt
 src/
@@ -52,8 +63,8 @@ Due to Javascript type coercion, all test assertions must use strict equality ch
 
 ### Tailwind RN
 
-Tailwind should be used to write all styles, and styles file should be avoided.
-If the component gets too complex, you should separate it into its own component.
+Tailwind should be used to write all styles, and styles file should be avoided. If the component gets too complex, you
+should separate it into its own component.
 
 ```tsx
 <View style={tailwind('flex-1 items-center justify-center')}>
@@ -86,13 +97,13 @@ TypeScript must be used for all code written in this project.
 
 ### `constants.ts` not allowed
 
-It's an anti-pattern for scaling code, it gives a false impression of separation of concern. All it does is create a 
+It's an anti-pattern for scaling code, it gives a false impression of separation of concern. All it does is create a
 mass of code concentration within project that were better separated.
 
-> An analogy for this problem is file organization in projects. Many of us have come to agree that organizing files by 
-> file type (e.g. splitting everything into html, js and css folders) don't really scale. The code related to a feature 
-> will be forced to be split between three folders, just for a false impression of "separation of concerns". The key 
-> here is that "concerns" is not defined by file type. Instead, most of us opt to organize files by feature or 
+> An analogy for this problem is file organization in projects. Many of us have come to agree that organizing files by
+> file type (e.g. splitting everything into html, js and css folders) don't really scale. The code related to a feature
+> will be forced to be split between three folders, just for a false impression of "separation of concerns". The key
+> here is that "concerns" is not defined by file type. Instead, most of us opt to organize files by feature or
 > responsibility. https://github.com/vuejs/rfcs/issues/55#issuecomment-504875870
 
 ### Minimize dependencies (target zero)
