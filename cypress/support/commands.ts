@@ -28,12 +28,12 @@ declare namespace Cypress {
   interface Chainable {
     /**
      * Custom command to select DOM element by data-testid attribute.
-     * @example cy.getBySel('settings')
+     * @example cy.getByTestID('settings')
      */
-    getBySel (value: string): Chainable<Element>
+    getByTestID (value: string): Chainable<Element>
   }
 }
 
-Cypress.Commands.add('getBySel', (selector, ...args) => {
+Cypress.Commands.add('getByTestID', (selector, ...args) => {
   return cy.get(`[data-testid=${selector}]`, ...args)
 })
