@@ -24,6 +24,12 @@ When the english text change context or meaning, it will always require all tran
 
 ## Testing Guides
 
+| Type | Location                                 |
+| ---- | ---------------------------------------- |
+| ui   | [screens/**/__ tests __](./screens/**/__tests__)      |
+| api  | [hooks/**/__ tests __](./hooks/**/__tests__)          |
+| e2e  | [cypress/integration/functional](./cypress/integration/functional) |
+
 ### Test file should be co-located
 
 By not using `__tests__` directory, this keep the imports (`../button`) clean and makes the file structure flat.
