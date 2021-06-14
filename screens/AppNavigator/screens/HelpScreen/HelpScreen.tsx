@@ -8,7 +8,7 @@ export function HelpScreen (): JSX.Element {
   return (
     <View style={tailwind('items-start justify-start w-full')}>
       <Text style={tailwind('font-bold p-4 text-base')}>
-        {translate('screens/LoadingScreen', 'Connect with the community')}
+        {translate('screens/HelpScreen', 'Connect with the community')}
       </Text>
       <FlatList
         style={tailwind('w-full mb-4')}
@@ -19,10 +19,10 @@ export function HelpScreen (): JSX.Element {
       />
       <View style={tailwind('flex-1 items-center justify-center w-full pt-4')}>
         <Text style={tailwind('text-gray-500 text-xs')}>
-          {translate('screens/LoadingScreen', 'DeFiChain is a community-driven and open project.')}
+          {translate('screens/HelpScreen', 'DeFiChain is a community-driven and open project.')}
         </Text>
         <Text style={tailwind('text-gray-500 text-xs')}>
-          {translate('screens/LoadingScreen', 'The DeFiChain Foundation does not provide direct support.')}
+          {translate('screens/HelpScreen', 'The DeFiChain Foundation does not provide direct support.')}
         </Text>
       </View>
     </View>
