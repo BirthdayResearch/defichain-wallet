@@ -41,7 +41,7 @@ export function initI18n (): void {
   }
   i18n.locale = Localization.locale
   i18n.fallbacks = true
-  i18n.missingBehaviour = 'guess'
+  i18n.missingTranslation = () => null
 }
 
 /**
@@ -52,5 +52,10 @@ export function translate (path: string, text: string): string {
   if (!init) {
     initI18n()
   }
-  return i18n.translate(`${path}.${text}`)
+  const translation = i18n.translate(`${path}.${text}`)
+  if (translation !== null && translation !== undefined && translation !== '') {
+    return translation
+  } else {
+    return text
+  }
 }
