@@ -60,6 +60,7 @@ export function BottomTabNavigator (): JSX.Element {
         name='Settings'
         component={SettingsNavigator}
         options={{
+          tabBarTestID: 'bottom_tab_settings',
           tabBarIcon: ({ color }) => <TabBarIcon name='settings' color={color} />
         }}
       />
