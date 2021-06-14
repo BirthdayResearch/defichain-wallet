@@ -1,13 +1,14 @@
-import * as React from 'react'
-import tailwind from 'tailwind-rn'
-import { useDispatch, useSelector } from 'react-redux'
-import { Text, View, SectionList, TouchableOpacity } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import { translate } from '../../../../translations'
+import * as React from 'react'
+import { SectionList, TouchableOpacity } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+import tailwind from 'tailwind-rn'
+import { Text, View } from '../../../../components'
 import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
 import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
 import { RootState } from '../../../../store'
 import { NetworkName } from '../../../../store/network'
+import { translate } from '../../../../translations'
 
 export function SettingsScreen (): JSX.Element {
   const network = useSelector<RootState, NetworkName | undefined>(state => state.network.name)
@@ -48,11 +49,11 @@ function ItemSeparator (): JSX.Element {
 
 function SectionHeader (key?: string): JSX.Element | null {
   if (key === undefined) {
-    return <Text style={tailwind('h-5')} />
+    return <Text style={tailwind('h-6')} />
   }
 
   return (
-    <Text style={tailwind('p-4 font-bold')}>
+    <Text style={tailwind('p-4 font-bold text-lg')}>
       {translate('wallet/settings', key)}
     </Text>
   )
