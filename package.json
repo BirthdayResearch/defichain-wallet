@@ -90,7 +90,8 @@
   "ts-standard": {
     "ignore": [
       "**/*.test.ts",
-      "**/*.test.tsx"
+      "**/*.test.tsx",
+      "cypress/support/commands.ts"
     ]
   }
 }

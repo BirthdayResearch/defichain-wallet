@@ -21,6 +21,11 @@ labels:
     matcher:
       files: "translations/**"
 
+  - label: area/e2e
+      sync: true
+      matcher:
+        files: "cypress/**"
+
   - label: screen/BalancesScreen
     sync: true
     matcher:
