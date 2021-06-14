@@ -1,9 +1,10 @@
 import { validateMnemonic } from '@defichain/jellyfish-wallet-mnemonic'
 import * as React from 'react'
 import { useState } from 'react'
-import { KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
 import tailwind from 'tailwind-rn'
+import { Text, TextInput, View } from '../../../components'
 import { PrimaryColorStyle } from '../../../constants/Theme'
 import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
 

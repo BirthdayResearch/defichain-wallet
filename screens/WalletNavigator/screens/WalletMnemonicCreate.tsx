@@ -3,8 +3,9 @@ import { Ionicons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import * as Random from 'expo-random'
 import * as React from 'react'
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { ScrollView, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
+import { Text, View } from '../../../components'
 import { PrimaryColor, PrimaryColorStyle } from '../../../constants/Theme'
 import { WalletParamList } from '../WalletNavigator'
 
@@ -25,21 +26,23 @@ export function WalletMnemonicCreate ({ navigation }: Props): JSX.Element {
   return (
     <ScrollView style={tailwind('flex-1 bg-gray-100')} contentInsetAdjustmentBehavior='automatic'>
       <View style={tailwind('mx-4 mt-6')}>
-        <Text style={[tailwind('font-bold text-lg'), PrimaryColorStyle.text]}>
+        <Text style={[tailwind('font-bold text-xl'), PrimaryColorStyle.text]}>
           What is a Mnemonic phrase?
         </Text>
-        <Text style={tailwind('font-medium mt-2')}>
+        <Text style={tailwind('mt-2')}>
           Mnemonic phrase is a set of randomly generated words that represent your wallet password.
           The phrase is cryptographically unique. Once generated, it is impossible to recover that phrase.
         </Text>
-        <MnemonicTipRow positive text='Write down the 24 words and store them in a safe and secured place.' />
-        <MnemonicTipRow positive={false} text='Never share your mnemonic phrase with anyone.' />
-        <MnemonicTipRow positive={false} text='Never store it on a computer, phone or any other digital devices.' />
-        <MnemonicTipRow positive={false} text='Without a backup, there is no way your can recover it.' />
+        <View style={tailwind('flex-1')}>
+          <MnemonicTipRow positive text='Write down the 24 words and store them in a safe and secured place.' />
+          <MnemonicTipRow positive={false} text='Never share your mnemonic phrase with anyone.' />
+          <MnemonicTipRow positive={false} text='Never store it on a computer, phone or any other digital devices.' />
+          <MnemonicTipRow positive={false} text='Without a backup, there is no way your can recover it.' />
+        </View>
       </View>
 
       <View style={tailwind('mt-6')}>
-        <Text style={[tailwind('mx-4 mb-4 font-bold text-lg'), PrimaryColorStyle.text]}>
+        <Text style={[tailwind('mx-4 mb-4 font-bold text-xl'), PrimaryColorStyle.text]}>
           Your 24 word Mnemonic phrase
         </Text>
         {words.map((word, index) => {
@@ -64,7 +67,7 @@ function MnemonicWordRow (props: { index: number, word: string }): JSX.Element {
         <Text style={[tailwind('w-6 text-gray-500 font-medium')]}>
           {`${props.index + 1}`.padStart(2, '0')}
         </Text>
-        <Text style={tailwind('font-bold text-gray-800')}>
+        <Text style={tailwind('flex-grow font-bold text-gray-800')}>
           {props.word}
         </Text>
       </View>
@@ -75,8 +78,8 @@ function MnemonicWordRow (props: { index: number, word: string }): JSX.Element {
 function MnemonicTipRow (props: { positive: boolean, text: string }): JSX.Element {
   return (
     <View style={tailwind('flex-row mt-3')}>
-      <Ionicons size={20} name={props.positive ? 'checkmark-circle' : 'alert-circle'} color={PrimaryColor} />
-      <Text style={tailwind('ml-2 text-sm')}>
+      <Ionicons size={24} name={props.positive ? 'checkmark-circle' : 'alert-circle'} color={PrimaryColor} />
+      <Text style={tailwind('flex-1 ml-2 text-sm')}>
         {props.text}
       </Text>
     </View>

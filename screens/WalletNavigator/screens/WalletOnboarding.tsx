@@ -1,12 +1,13 @@
-import * as React from 'react'
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
-import tailwind from 'tailwind-rn'
 import { Ionicons } from '@expo/vector-icons'
-import { translate } from '../../../translations'
-import { PrimaryColor } from '../../../constants/Theme'
 import { useNavigation } from '@react-navigation/native'
-import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
+import * as React from 'react'
+import { ScrollView, TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
+import tailwind from 'tailwind-rn'
+import { Text, View } from '../../../components'
+import { PrimaryColor } from '../../../constants/Theme'
+import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
+import { translate } from '../../../translations'
 
 export function WalletOnboarding (): JSX.Element {
   const WalletAPI = useWalletAPI()
@@ -27,7 +28,7 @@ export function WalletOnboarding (): JSX.Element {
           </View>
         </TouchableOpacity>
 
-        <Text style={tailwind('font-bold mt-4 text-gray-600')}>
+        <Text style={tailwind('font-bold text-lg mt-4 text-gray-600')}>
           {translate('screens/WalletOnboarding', 'No wallets')}
         </Text>
       </View>
@@ -54,13 +55,13 @@ function WalletOptionRow (props: { text: string, icon: string, onPress: () => vo
       style={tailwind('flex-row items-center justify-between px-4 bg-white')}
     >
       <View style={tailwind('flex-row items-center')}>
-        <Ionicons name={props.icon as any} size={18} color={PrimaryColor} />
+        <Ionicons name={props.icon as any} size={20} color={PrimaryColor} />
         <Text style={tailwind('font-medium ml-3 py-4')}>
           {props.text}
         </Text>
       </View>
       <View>
-        <Ionicons name='chevron-forward' size={20} />
+        <Ionicons name='chevron-forward' size={24} />
       </View>
     </TouchableOpacity>
   )

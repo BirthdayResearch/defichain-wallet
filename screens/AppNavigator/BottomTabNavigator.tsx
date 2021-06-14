@@ -31,7 +31,7 @@ export function BottomTabNavigator (): JSX.Element {
   return (
     <BottomTab.Navigator
       initialRouteName='Balances'
-      tabBarOptions={{ adaptive: false, activeTintColor: PrimaryColor }}
+      tabBarOptions={{ adaptive: false, activeTintColor: PrimaryColor, showLabel: false }}
     >
       <BottomTab.Screen
         name='Balances'
