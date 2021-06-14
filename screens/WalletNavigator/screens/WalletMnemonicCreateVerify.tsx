@@ -1,7 +1,7 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { useState } from 'react'
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { PrimaryColorStyle } from '../../../constants/Theme'
@@ -52,34 +52,39 @@ export function WalletMnemonicCreateVerify ({ route }: Props): JSX.Element {
   }
 
   return (
-    <ScrollView style={tailwind('flex-1 bg-gray-100')} contentInsetAdjustmentBehavior='automatic'>
-      <Text style={tailwind('mx-4 my-5 font-medium')}>
-        To ensure you have a copy of your mnemonic phrase for safety and recovery purpose,
-        please enter your 24 word mnemonic phrase for verification.
-      </Text>
-
-      <View>
-        {actualWords.map((word, index) => {
-          return <MnemonicWordInputRow word={word} index={index} key={index} />
-        })}
-      </View>
-
-      {valid ? null : (
-        <View style={tailwind('mx-4 my-2')}>
-          <Text style={tailwind('text-red-500 font-medium')}>
-            Your 24 word mnemonic phrase verification failed, please check your have entered the correct phrase.
-          </Text>
-        </View>
-      )}
-
-      <TouchableOpacity
-        style={[tailwind('m-4 rounded flex items-center justify-center'), PrimaryColorStyle.bg]}
-        onPress={onVerify}
-      >
-        <Text style={tailwind('p-3 font-bold text-white')}>
-          VERIFY MNEMONIC
+    <KeyboardAvoidingView
+      style={tailwind('flex-1 justify-center')} behavior='padding' enabled
+      keyboardVerticalOffset={100}
+    >
+      <ScrollView style={tailwind('flex-1 bg-gray-100')} contentInsetAdjustmentBehavior='automatic'>
+        <Text style={tailwind('mx-4 my-5 font-medium')}>
+          To ensure you have a copy of your mnemonic phrase for safety and recovery purpose,
+          please enter your 24 word mnemonic phrase for verification.
         </Text>
-      </TouchableOpacity>
-    </ScrollView>
+
+        <View>
+          {actualWords.map((word, index) => {
+            return <MnemonicWordInputRow word={word} index={index} key={index} />
+          })}
+        </View>
+
+        {valid ? null : (
+          <View style={tailwind('mx-4 my-2')}>
+            <Text style={tailwind('text-red-500 font-medium')}>
+              Your 24 word mnemonic phrase verification failed, please check your have entered the correct phrase.
+            </Text>
+          </View>
+        )}
+
+        <TouchableOpacity
+          style={[tailwind('m-4 rounded flex items-center justify-center'), PrimaryColorStyle.bg]}
+          onPress={onVerify}
+        >
+          <Text style={tailwind('p-3 font-bold text-white')}>
+            VERIFY MNEMONIC
+          </Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </KeyboardAvoidingView>
   )
 }
