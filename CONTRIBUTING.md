@@ -27,8 +27,15 @@ When the english text change context or meaning, it will always require all tran
 | Type | Location                                 |
 | ---- | ---------------------------------------- |
 | ui   | [screens/**/__ tests __](./screens/**/__tests__)      |
-| api  | [hooks/**/__ tests __](./hooks/**/__tests__)          |
+| api  | [hooks/**/__ tests __](./hooks/**/
+__tests__)          |
 | e2e  | [cypress/integration/functional](./cypress/integration/functional) |
+
+### Element should have `testID` attributes
+
+Elements should have `testID` attribute to be used as unique selector. 
+This attribute is decoupled to any styling or behavior changes.
+
 
 ### Test file should be co-located
 
