@@ -13,6 +13,7 @@
     "playground:start": "docker-compose up",
     "test:ci": "jest --ci --coverage",
     "cypress:open": "cypress open",
+    "cypress:run": "cypress run --headless --browser chrome",
     "translation:missing": "ts-node translations/reporter/index.ts"
   },
   "dependencies": {

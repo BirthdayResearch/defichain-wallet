@@ -2,8 +2,7 @@ import {} from 'cypress'
 
 context('wallet/settings', () => {
   beforeEach(() => {
-    cy.visit(Cypress.env('URL'))
-    cy.getByTestID('playground_wallet_abandon').click()
+    cy.createEmptyWallet()
     cy.getByTestID('bottom_tab_settings').click()
   })
 
