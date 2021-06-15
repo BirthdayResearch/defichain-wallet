@@ -1,11 +1,11 @@
-import { Text, View } from 'react-native'
-import tailwind from 'tailwind-rn'
 import React, { useEffect, useState } from 'react'
+import tailwind from 'tailwind-rn'
+import { Text, View } from '../../components'
 import { usePlaygroundApiClient, usePlaygroundRpcClient } from '../../hooks/api/usePlaygroundClient'
-import { PlaygroundAction } from '../Playground.Action'
-import { PlaygroundStatus } from '../Playground.Status'
 import { useWalletAPI } from '../../hooks/wallet/WalletAPI'
 import { WalletStatus } from '../../store/wallet'
+import { PlaygroundAction } from '../Playground.Action'
+import { PlaygroundStatus } from '../Playground.Status'
 
 export function PlaygroundUTXO (): JSX.Element | null {
   const WalletAPI = useWalletAPI()
@@ -39,7 +39,7 @@ export function PlaygroundUTXO (): JSX.Element | null {
   return (
     <View>
       <View style={tailwind('flex-row flex items-center')}>
-        <Text style={tailwind('text-lg font-bold')}>UTXO</Text>
+        <Text style={tailwind('text-2xl font-bold')}>UTXO</Text>
         <View style={tailwind('ml-2')}>
           <PlaygroundStatus
             online={status === 'online'}

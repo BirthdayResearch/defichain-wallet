@@ -1,8 +1,9 @@
+import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
-import tailwind from 'tailwind-rn'
 import { StyleSheet, View } from 'react-native'
-import { RootNavigator } from './RootNavigator'
+import tailwind from 'tailwind-rn'
 import { PlaygroundNavigator } from '../playground/Playground'
+import { RootNavigator } from './RootNavigator'
 
 export function Main (): JSX.Element {
   return (
@@ -12,7 +13,9 @@ export function Main (): JSX.Element {
           <RootNavigator />
         </View>
         <View style={[styles.phone, tailwind('bg-white ml-2')]}>
-          <PlaygroundNavigator />
+          <NavigationContainer>
+            <PlaygroundNavigator />
+          </NavigationContainer>
         </View>
       </View>
     </View>

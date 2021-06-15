@@ -1,12 +1,12 @@
+import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import * as React from 'react'
+import { useEffect } from 'react'
 import { Text, View } from 'react-native'
 import tailwind from 'tailwind-rn'
 
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { useWhaleApiClient } from '../../../../hooks/api/useWhaleApiClient'
 import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
-import { useEffect } from 'react'
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 
 export function BalancesScreen (): JSX.Element {
   const whaleApiClient = useWhaleApiClient()
@@ -16,13 +16,14 @@ export function BalancesScreen (): JSX.Element {
   const [tokens, setTokens] = React.useState<AddressToken[]>([])
 
   useEffect(() => {
-    /* eslint-disable @typescript-eslint/no-floating-promises */
     account.getAddress().then(async address => {
       const balance = await whaleApiClient.address.getBalance(address)
       setUtxoBalance(balance)
 
       const tokens = await whaleApiClient.address.listToken(address, 30)
       setTokens([...tokens])
+    }).catch(() => {
+      console.log('@typescript-eslint/no-floating-promises')
     })
   }, [])
 
