@@ -21,7 +21,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.defichain.app"
     },
     "android": {
       "adaptiveIcon": {
