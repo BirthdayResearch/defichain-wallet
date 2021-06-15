@@ -1,12 +1,12 @@
 import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { TouchableOpacity } from 'react-native'
+import * as React from 'react'
 import tailwind from 'tailwind-rn'
 import { PrimaryColor } from '../../../../constants/Theme'
 import { translate } from '../../../../translations'
-import * as React from 'react'
-import { HelpScreen } from '../HelpScreen/HelpScreen'
 import { SettingsScreen } from './SettingsScreen'
+import { HelpScreen } from '../HelpScreen/HelpScreen'
 import { Ionicons } from '@expo/vector-icons'
 
 export interface SettingsParamList {
@@ -21,12 +21,9 @@ export function SettingsNavigator (): JSX.Element {
   return (
     <SettingsStack.Navigator>
       <SettingsStack.Screen
-        name='settings'
+        name='SettingsScreen'
         component={SettingsScreen}
-        options={{
-          headerTitle: translate('screens/SettingsScreen', 'Settings'),
-          headerRight: () => <HelpButton />
-        }}
+        options={{ headerTitle: translate('screens/SettingsNavigator', 'Settings'), headerRight: () => <HelpButton /> }}
       />
       <SettingsStack.Screen
         name='help'
