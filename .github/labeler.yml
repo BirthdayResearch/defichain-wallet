@@ -25,23 +25,3 @@ labels:
     sync: true
     matcher:
       files: "cypress/**"
-
-  - label: screen/BalancesScreen
-    sync: true
-    matcher:
-      files: "screens/BalancesScreen/**"
-
-  - label: screen/LiquidityScreen
-    sync: true
-    matcher:
-      files: "screens/LiquidityScreen/**"
-
-  - label: screen/SettingsScreen
-    sync: true
-    matcher:
-      files: "screens/SettingsScreen/**"
-
-  - label: screen/TransactionsScreen
-    sync: true
-    matcher:
-      files: "screens/TransactionsScreen/**"

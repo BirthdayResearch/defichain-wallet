@@ -35,6 +35,14 @@ issue:
         - assets
         - playground
         - translations
+        - ui-ux
+        - balance
+        - dex
+        - icx
+        - transactions
+        - network
+        - wallet
+        - settings
       multiple: true
       needs:
         comment: |
