@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { getTokenIcon } from "./_index";
-import { render } from "react-native-testing-library";
+import { render } from "@testing-library/react-native";
 
 it('getTokenIcon("DFI") should get <IconDFI /> snapshot', () => {
   const Icon = getTokenIcon('DFI')
