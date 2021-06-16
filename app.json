@@ -28,7 +28,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.defichain.app"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
