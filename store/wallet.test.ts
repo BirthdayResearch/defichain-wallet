@@ -33,7 +33,7 @@ describe('wallet reducer', () => {
   it('should handle initial state', () => {
     expect(wallet.reducer(undefined, { type: 'unknown' })).toEqual({
       status: WalletStatus.INITIAL,
-      utxoBalance: '',
+      utxoBalance: '0',
       tokens: []
     });
   });
