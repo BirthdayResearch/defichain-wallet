@@ -1,8 +1,8 @@
-name: Expo
+name: Publish
 
 on:
-  push:
-    branches: [ main ]
+  release:
+    types: [ published, prereleased ]
 
 jobs:
   publish:
@@ -22,4 +22,11 @@ jobs:
           expo-cache: true
 
       - run: npm ci
-      - run: expo publish --release-channel=main
+
+      - name: Publish Prerelease
+        if: github.event.release.prerelease
+        run: expo publish --release-channel=prerelease
+
+      - name: Publish Release
+        if: "!github.event.release.prerelease"
+        run: expo publish --release-channel=release
