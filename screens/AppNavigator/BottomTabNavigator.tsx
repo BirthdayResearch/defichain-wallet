@@ -6,7 +6,7 @@ import * as React from 'react'
 import { BalancesNavigator } from './screens/BalancesScreen/BalancesNavigator'
 import { LiquidityNavigator } from './screens/LiquidityScreen/LiquidityScreen'
 import { SettingsNavigator } from './screens/SettingsScreen/SettingsNavigator'
-import { TransactionsNavigator } from './screens/TransactionsScreen/TransactionsScreen'
+import { TransactionsNavigator } from './screens/TransactionsScreen/TransactionsNavigator'
 
 export interface BottomTabParamList {
   Balances: undefined
