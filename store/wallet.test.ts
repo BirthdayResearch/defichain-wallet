@@ -1,9 +1,6 @@
 import { AddressToken } from "@defichain/whale-api-client/dist/api/address";
 import {
   tokensSelector,
-  setStatus,
-  setTokens,
-  setUtxoBalance,
   WalletState,
   WalletStatus,
   wallet
@@ -39,19 +36,19 @@ describe('wallet reducer', () => {
   });
 
   it('should handle setStatus', () => {
-    const actual = wallet.reducer(initialState, setStatus(WalletStatus.LOADED_WALLET));
+    const actual = wallet.reducer(initialState, wallet.actions.setStatus(WalletStatus.LOADED_WALLET));
     expect(actual.status).toStrictEqual(WalletStatus.LOADED_WALLET);
   });
 
   it('should handle setTokens', () => {
     const tokens: AddressToken[] = [initialDFI]
-    const actual = wallet.reducer(initialState, setTokens(tokens));
+    const actual = wallet.reducer(initialState, wallet.actions.setTokens(tokens));
     expect(actual.tokens).toStrictEqual(tokens)
   });
 
   it('should handle setUtxoBalance', () => {
     const utxoAmount = '77'
-    const actual = wallet.reducer(initialState, setUtxoBalance(utxoAmount));
+    const actual = wallet.reducer(initialState, wallet.actions.setUtxoBalance(utxoAmount));
     expect(actual.utxoBalance).toStrictEqual(utxoAmount)
   });
 
