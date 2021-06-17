@@ -4,8 +4,7 @@ import Svg, { SvgProps, Defs, Mask, Use, Path, G } from 'react-native-svg'
 export function IconDOGE (props: SvgProps): JSX.Element {
   return (
     <Svg
-      height={32}
-      width={32}
+      height='32' width='32' viewBox='2 0 25 39'
       {...props}
     >
       <Defs>

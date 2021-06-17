@@ -1,4 +1,4 @@
-import { ApiPagedResponse, WhaleApiClient } from '@defichain/whale-api-client'
+import { WhaleApiClient } from '@defichain/whale-api-client'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,20 +8,12 @@ import { setTokens, setUtxoBalance, tokensSelector } from '../../store/wallet'
 import { useWhaleApiClient } from '../api/useWhaleApiClient'
 import { useWalletAPI } from './WalletAPI'
 
-const fetchWalletTokens = async (address: string, whaleAPI: WhaleApiClient): Promise<ApiPagedResponse<AddressToken>> => {
-  return await whaleAPI.address.listToken(address)
-}
-
-const fetchWalletBalance = async (address: string, whaleAPI: WhaleApiClient): Promise<string> => {
-  return await whaleAPI.address.getBalance(address)
-}
-
 const fetchWalletData = (address: string, dispatch: Dispatch<any>, whaleAPI: WhaleApiClient): void => {
-  fetchWalletTokens(address, whaleAPI).then((walletTokens) => {
+  whaleAPI.address.listToken(address).then((walletTokens) => {
     dispatch(setTokens(walletTokens))
   }).catch((error) => console.log(error))
 
-  fetchWalletBalance(address, whaleAPI).then((walletBalance) => {
+  whaleAPI.address.getBalance(address).then((walletBalance) => {
     dispatch(setUtxoBalance(walletBalance))
   }).catch((error) => console.log(error))
 }
