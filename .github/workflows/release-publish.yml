@@ -62,3 +62,6 @@ jobs:
         run: eas submit --platform ios --latest --asc-app-id ${{ secrets.ASC_APP_ID }} --apple-id ${{ secrets.APPLE_ID }}
         env:
           EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
+
+      - name: EAS Submit (Android)
+        run: eas submit --platform android --latest
