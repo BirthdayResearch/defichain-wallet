@@ -125,6 +125,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       "backgroundColor": "rgba(243, 244, 246, 1)",
     }
   }
+  testID="community_flat_list"
   updateCellsBatchingPeriod={50}
   viewabilityConfigCallbackPairs={Array []}
   windowSize={21}

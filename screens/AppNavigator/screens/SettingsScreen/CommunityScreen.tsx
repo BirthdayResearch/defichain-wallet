@@ -45,7 +45,7 @@ interface CommunityItem {
   icon: React.ComponentProps<typeof MaterialCommunityIcons>['name']
 }
 
-export const Communities: CommunityItem[] = [
+const Communities: CommunityItem[] = [
   { id: 'gh', title: 'Report an issue on Github', url: 'https://github.com/DeFiCh/wallet/issues', icon: 'github' },
   { id: 'faq', title: 'Frequently Asked Questions', url: 'https://defichain.com/learn/#faq', icon: 'help-circle' },
   { id: 'tg_en', title: 'Telegram (EN)', url: 'https://t.me/defiblockchain', icon: 'telegram' },
