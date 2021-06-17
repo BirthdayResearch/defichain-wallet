@@ -48,8 +48,6 @@ export const wallet = createSlice({
   }
 })
 
-export const { setStatus, setTokens, setUtxoBalance } = wallet.actions
-
 const rawTokensSelector = createSelector((state: WalletState) => state.tokens, (tokens) => {
   if (tokens.some((t) => t.id === '0')) {
     return tokens

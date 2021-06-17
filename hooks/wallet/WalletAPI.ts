@@ -1,4 +1,4 @@
-import { setStatus, WalletStatus } from '../../store/wallet'
+import { wallet, WalletStatus } from '../../store/wallet'
 import { JellyfishWallet, WalletAccount, WalletHdNode } from '@defichain/jellyfish-wallet'
 import { generateMnemonic } from '@defichain/jellyfish-wallet-mnemonic'
 import { MnemonicStorage } from './MnemonicStorage'
@@ -31,12 +31,12 @@ const WalletAPI = {
     return jellyfishWallet
   },
   clearWallet (dispatch: Dispatch<any>): void {
-    dispatch(setStatus(WalletStatus.LOADING))
+    dispatch(wallet.actions.setStatus(WalletStatus.LOADING))
 
     MnemonicStorage.clear().then(() => {
-      dispatch(setStatus(WalletStatus.INITIAL))
+      dispatch(wallet.actions.setStatus(WalletStatus.INITIAL))
     }).catch(() => {
-      dispatch(setStatus(WalletStatus.ERROR))
+      dispatch(wallet.actions.setStatus(WalletStatus.ERROR))
     })
   },
   randomMnemonic (dispatch: Dispatch<any>): string[] {
@@ -49,12 +49,12 @@ const WalletAPI = {
     return words
   },
   setMnemonic (dispatch: Dispatch<any>, words: string[]): void {
-    dispatch(setStatus(WalletStatus.LOADING))
+    dispatch(wallet.actions.setStatus(WalletStatus.LOADING))
 
     MnemonicStorage.setMnemonic(words).then(() => {
-      dispatch(setStatus(WalletStatus.INITIAL))
+      dispatch(wallet.actions.setStatus(WalletStatus.INITIAL))
     }).catch(() => {
-      dispatch(setStatus(WalletStatus.ERROR))
+      dispatch(wallet.actions.setStatus(WalletStatus.ERROR))
     })
   },
   setMnemonicAbandon23 (dispatch: Dispatch<any>): void {
@@ -78,16 +78,16 @@ export function useWalletAPI (): typeof WalletAPI {
     async function loadWallet (): Promise<void> {
       if (await hasMnemonicWallet()) {
         jellyfishWallet = await getMnemonicWallet(client, network as NetworkName)
-        dispatch(setStatus(WalletStatus.LOADED_WALLET))
+        dispatch(wallet.actions.setStatus(WalletStatus.LOADED_WALLET))
       } else {
         jellyfishWallet = undefined
-        dispatch(setStatus(WalletStatus.NO_WALLET))
+        dispatch(wallet.actions.setStatus(WalletStatus.NO_WALLET))
       }
     }
 
     if (status === WalletStatus.INITIAL) {
       loadWallet().catch(() => {
-        dispatch(setStatus(WalletStatus.ERROR))
+        dispatch(wallet.actions.setStatus(WalletStatus.ERROR))
       })
     }
   })
