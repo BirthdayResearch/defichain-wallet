@@ -1,5 +1,4 @@
-import {} from 'cypress'
-import { HelpScreenItem } from '../../../screens/AppNavigator/screens/HelpScreen/HelpScreen'
+import { HelpScreenItem } from '../../../screens/AppNavigator/screens/SettingsScreen/CommunityScreen'
 
 const communityLinks = [
   {
