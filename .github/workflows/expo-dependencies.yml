@@ -17,7 +17,7 @@ jobs:
 
       - run: npm ci
 
-      - uses: expo/expo-github-action@8275e8fa89e599e1b1ef793b0219c299f79bc32b
+      - uses: expo/expo-github-action@a888e4f3111809b703f2a1471dc7f1f3fc5cbfa8
         with:
           expo-version: 4.x
 
