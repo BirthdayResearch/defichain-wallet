@@ -33,6 +33,7 @@ export function CommunityScreen (): JSX.Element {
       renderItem={({ item }) => (
         <CommunityItemRow key={item.id} {...item} />
       )}
+      testID='community_flat_list'
     />
   )
 }

@@ -43,13 +43,11 @@ context('wallet/settings/community', () => {
     cy.getByTestID('settings_community_button').click()
   })
 
-  it('should display community links with correct number of items', function () {
-    cy.getByTestID('help_items_list').should('exist').children().children().should('have.length', communityLinks.length)
-  })
+  it('should display all community links', function () {
+    const flatList = cy.getByTestID('community_flat_list')
 
-  it('should be able to display correct labels', function () {
     communityLinks.forEach((item) => {
-      cy.getByTestID(item.id).should('exist').contains(item.title)
+      flatList.getByTestID(item.id).should('exist').contains(item.title)
     })
   })
 })
