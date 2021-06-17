@@ -1,7 +1,7 @@
-import { Ionicons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { PathConfigMap } from '@react-navigation/core'
 import * as React from 'react'
+import { VectorIcon, VectorIconName } from '../../constants/Theme'
 
 import { BalancesNavigator } from './screens/BalancesScreen/BalancesNavigator'
 import { LiquidityNavigator } from './screens/LiquidityScreen/LiquidityScreen'
@@ -22,8 +22,8 @@ const BottomTab = createBottomTabNavigator<BottomTabParamList>()
 /**
  * @see https://icons.expo.fyi/ to filter => Ionicons
  */
-function TabBarIcon (props: { name: React.ComponentProps<typeof Ionicons>['name'], color: string }): JSX.Element {
-  return <Ionicons size={24} {...props} />
+function TabBarIcon (props: { name: VectorIconName, color: string }): JSX.Element {
+  return <VectorIcon size={24} {...props} />
 }
 
 export function BottomTabNavigator (): JSX.Element {
@@ -37,7 +37,7 @@ export function BottomTabNavigator (): JSX.Element {
         component={BalancesNavigator}
         options={{
           tabBarTestID: 'bottom_tab_balances',
-          tabBarIcon: ({ color }) => <TabBarIcon name='wallet' color={color} />
+          tabBarIcon: ({ color }) => <TabBarIcon name='account-balance-wallet' color={color} />
         }}
       />
       <BottomTab.Screen
@@ -53,7 +53,7 @@ export function BottomTabNavigator (): JSX.Element {
         component={TransactionsNavigator}
         options={{
           tabBarTestID: 'bottom_tab_transactions',
-          tabBarIcon: ({ color }) => <TabBarIcon name='time' color={color} />
+          tabBarIcon: ({ color }) => <TabBarIcon name='access-time' color={color} />
         }}
       />
       <BottomTab.Screen
