@@ -7,6 +7,7 @@ on:
 jobs:
   publish:
     name: Publish
+    environment: Expo Release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
@@ -33,6 +34,7 @@ jobs:
 
   eas:
     name: EAS
+    environment: EAS Release
     runs-on: ubuntu-latest
     if: "!github.event.release.prerelease"
     steps:
@@ -51,4 +53,12 @@ jobs:
       - run: npm ci
       - run: npm install -g eas-cli
 
-      - run: eas build --platform all --non-interactive --wait
+      - name: EAS Build
+        run: eas build --platform all --non-interactive --wait
+
+      - run: sleep 15s
+
+      - name: EAS Submit (iOS)
+        run: eas submit --platform ios --latest --asc-app-id ${{ secrets.ASC_APP_ID }} --apple-id ${{ secrets.APPLE_ID }}
+        env:
+          EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
