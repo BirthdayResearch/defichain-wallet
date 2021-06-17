@@ -1,14 +1,7 @@
-import { HelpScreenItem } from '../../../screens/AppNavigator/screens/SettingsScreen/CommunityScreen'
-
 const communityLinks = [
   {
-    id: 'wiki',
-    title: 'Community Wiki',
-    url: 'https://defichain-wiki.com/'
-  },
-  {
     id: 'gh',
-    title: 'Report an issue to Github',
+    title: 'Report an issue on Github',
     url: 'https://github.com/DeFiCh/wallet/issues'
   },
   {
@@ -43,11 +36,11 @@ const communityLinks = [
   }
 ]
 
-context('wallet/settings/help', () => {
+context('wallet/settings/community', () => {
   beforeEach(function () {
     cy.createEmptyWallet()
     cy.getByTestID('bottom_tab_settings').click()
-    cy.getByTestID('settings_help_button').click()
+    cy.getByTestID('settings_community_button').click()
   })
 
   it('should display community links with correct number of items', function () {
@@ -55,8 +48,8 @@ context('wallet/settings/help', () => {
   })
 
   it('should be able to display correct labels', function () {
-    communityLinks.forEach((link: HelpScreenItem) => {
-      cy.getByTestID(link.id).should('exist').contains(link.title)
+    communityLinks.forEach((item) => {
+      cy.getByTestID(item.id).should('exist').contains(item.title)
     })
   })
 })

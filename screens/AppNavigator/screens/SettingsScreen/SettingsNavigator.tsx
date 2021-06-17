@@ -30,7 +30,7 @@ export function SettingsNavigator (): JSX.Element {
           headerRightContainerStyle: tailwind('px-2 py-2'),
           headerRight: (): JSX.Element => {
             return (
-              <TouchableOpacity onPress={() => navigation.navigate('CommunityScreen')} testID='settings_help_button'>
+              <TouchableOpacity onPress={() => navigation.navigate('CommunityScreen')} testID='settings_community_button'>
                 <VectorIcon name='help-outline' size={24} color={PrimaryColor} />
               </TouchableOpacity>
             )
