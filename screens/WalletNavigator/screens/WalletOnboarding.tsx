@@ -1,11 +1,10 @@
-import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../components'
-import { PrimaryColor } from '../../../constants/Theme'
+import { PrimaryColor, VectorIcon, VectorIconName } from '../../../constants/Theme'
 import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
 import { translate } from '../../../translations'
 
@@ -24,7 +23,7 @@ export function WalletOnboarding (): JSX.Element {
       <View style={tailwind('flex items-center')}>
         <TouchableOpacity delayLongPress={5000} onLongPress={onDebugPress}>
           <View style={tailwind('flex bg-white justify-center items-center rounded-full h-16 w-16')}>
-            <Ionicons size={24} name='wallet' color='#999' />
+            <VectorIcon size={26} name='account-balance-wallet' color='#999' />
           </View>
         </TouchableOpacity>
 
@@ -36,32 +35,32 @@ export function WalletOnboarding (): JSX.Element {
       <View style={tailwind('mt-8')}>
         <WalletOptionRow
           onPress={() => navigator.navigate('WalletMnemonicCreate')}
-          text='Create new mnemonic wallet' icon='time'
+          text='Create new mnemonic wallet' icon='account-balance-wallet'
         />
         <View style={tailwind('h-px bg-gray-100')} />
         <WalletOptionRow
           onPress={() => navigator.navigate('WalletMnemonicRestore')}
-          text='Restore mnemonic wallet' icon='document-text'
+          text='Restore mnemonic wallet' icon='restore-page'
         />
       </View>
     </ScrollView>
   )
 }
 
-function WalletOptionRow (props: { text: string, icon: string, onPress: () => void }): JSX.Element {
+function WalletOptionRow (props: { text: string, icon: VectorIconName, onPress: () => void }): JSX.Element {
   return (
     <TouchableOpacity
       onPress={props.onPress}
       style={tailwind('flex-row items-center justify-between px-4 bg-white')}
     >
       <View style={tailwind('flex-row items-center')}>
-        <Ionicons name={props.icon as any} size={20} color={PrimaryColor} />
+        <VectorIcon name={props.icon} size={24} color={PrimaryColor} />
         <Text style={tailwind('font-medium ml-3 py-4')}>
           {props.text}
         </Text>
       </View>
       <View>
-        <Ionicons name='chevron-forward' size={24} />
+        <VectorIcon name='chevron-right' size={24} />
       </View>
     </TouchableOpacity>
   )

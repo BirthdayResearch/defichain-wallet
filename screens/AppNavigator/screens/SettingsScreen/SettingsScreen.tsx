@@ -1,11 +1,10 @@
-import { Ionicons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { SectionList, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
-import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
+import { PrimaryColor, PrimaryColorStyle, VectorIcon } from '../../../../constants/Theme'
 import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
 import { RootState } from '../../../../store'
 import { NetworkName } from '../../../../store/network'
@@ -87,7 +86,7 @@ function RowNetworkItem (network?: NetworkName, onPress?: () => void): JSX.Eleme
       <Text style={tailwind('py-4')}>
         {getNetworkName()}
       </Text>
-      <Ionicons size={20} name='checkmark-sharp' color={PrimaryColor} />
+      <VectorIcon size={24} name='check' color={PrimaryColor} />
     </TouchableOpacity>
   )
 }
