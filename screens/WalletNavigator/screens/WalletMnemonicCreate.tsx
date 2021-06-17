@@ -1,12 +1,11 @@
 import { generateMnemonic } from '@defichain/jellyfish-wallet-mnemonic'
-import { Ionicons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import * as Random from 'expo-random'
 import * as React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../components'
-import { PrimaryColor, PrimaryColorStyle } from '../../../constants/Theme'
+import { PrimaryColor, PrimaryColorStyle, VectorIcon } from '../../../constants/Theme'
 import { WalletParamList } from '../WalletNavigator'
 
 type Props = StackScreenProps<WalletParamList, 'WalletMnemonicCreate'>
@@ -78,7 +77,7 @@ function MnemonicWordRow (props: { index: number, word: string }): JSX.Element {
 function MnemonicTipRow (props: { positive: boolean, text: string }): JSX.Element {
   return (
     <View style={tailwind('flex-row mt-3')}>
-      <Ionicons size={24} name={props.positive ? 'checkmark-circle' : 'alert-circle'} color={PrimaryColor} />
+      <VectorIcon size={24} name={props.positive ? 'check' : 'error'} color={PrimaryColor} />
       <Text style={tailwind('flex-1 ml-2 text-sm')}>
         {props.text}
       </Text>
