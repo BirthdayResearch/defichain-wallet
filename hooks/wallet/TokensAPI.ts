@@ -4,17 +4,17 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { RootState } from '../../store'
-import { setTokens, setUtxoBalance, tokensSelector } from '../../store/wallet'
+import { wallet, tokensSelector } from '../../store/wallet'
 import { useWhaleApiClient } from '../api/useWhaleApiClient'
 import { useWalletAPI } from './WalletAPI'
 
 const fetchWalletData = (address: string, dispatch: Dispatch<any>, whaleAPI: WhaleApiClient): void => {
   whaleAPI.address.listToken(address).then((walletTokens) => {
-    dispatch(setTokens(walletTokens))
+    dispatch(wallet.actions.setTokens(walletTokens))
   }).catch((error) => console.log(error))
 
   whaleAPI.address.getBalance(address).then((walletBalance) => {
-    dispatch(setUtxoBalance(walletBalance))
+    dispatch(wallet.actions.setUtxoBalance(walletBalance))
   }).catch((error) => console.log(error))
 }
 
