@@ -3,7 +3,6 @@ import { counterSlice } from './liquidity'
 import { block } from './block'
 import { network } from './network'
 import { wallet } from './wallet'
-import { transaction } from './transaction'
 
 /**
  * RootState for DeFi Wallet App
@@ -19,7 +18,6 @@ export const store = configureStore({
     block: block.reducer,
     network: network.reducer,
     wallet: wallet.reducer,
-    transaction: transaction.reducer,
     // TODO(fuxingloh): to be removed
     counter: counterSlice.reducer
   }
