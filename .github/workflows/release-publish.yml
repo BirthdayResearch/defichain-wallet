@@ -64,4 +64,6 @@ jobs:
           EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
 
       - name: EAS Submit (Android)
-        run: eas submit --platform android --latest
+        run: |
+          echo "${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON }}" > ANDROID_SERVICE_ACCOUNT.json
+          eas submit --platform android --latest --key=ANDROID_SERVICE_ACCOUNT.json
