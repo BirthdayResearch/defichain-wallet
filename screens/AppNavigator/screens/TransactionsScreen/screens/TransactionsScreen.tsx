@@ -1,16 +1,18 @@
 import * as React from 'react'
 import tailwind from 'tailwind-rn'
-import { translate } from '../../../../translations'
-import { View, Button, FlatList, ScrollView } from 'react-native'
+import { translate } from '../../../../../translations'
+import { View, Button, FlatList, ScrollView, TouchableOpacity } from 'react-native'
 import { useEffect, useState } from 'react'
-import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
+import { useWalletAPI } from '../../../../../hooks/wallet/WalletAPI'
 import { AddressActivity } from '@defichain/whale-api-client/dist/api/address'
-import { useWhaleApiClient } from '../../../../hooks/api/useWhaleApiClient'
+import { useWhaleApiClient } from '../../../../../hooks/api/useWhaleApiClient'
 import { Ionicons } from '@expo/vector-icons'
 import BigNumber from 'bignumber.js'
-import { Text, NumberText } from '../../../../components'
+import { Text, NumberText } from '../../../../../components'
+import { useNavigation } from '@react-navigation/native'
 
 export function TransactionsScreen (): JSX.Element {
+  const navigation = useNavigation()
   const whaleApiClient = useWhaleApiClient()
   const account = useWalletAPI().getWallet().get(0)
 
@@ -94,7 +96,11 @@ export function TransactionsScreen (): JSX.Element {
     const amountText = <NumberText value={option.amount} style={{ color }} />
 
     return (
-      <View key={row.item.id} style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full h-16')}>
+      <TouchableOpacity
+        key={row.item.id}
+        style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full h-16')}
+        onPress={() => navigation.navigate('TransactionDetail', { activity: row.item })}
+      >
         <View style={tailwind('w-full flex-row flex-initial')}>
           <View style={tailwind('w-8 justify-center')}>
             {txIcon}
@@ -121,7 +127,7 @@ export function TransactionsScreen (): JSX.Element {
             <Ionicons name='chevron-forward' size={24} color='gray' />
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 
