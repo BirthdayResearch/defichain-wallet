@@ -14,12 +14,14 @@ export interface WalletState {
   status: WalletStatus
   utxoBalance: string
   tokens: AddressToken[]
+  address: string
 }
 
 const initialState: WalletState = {
   status: WalletStatus.INITIAL,
   utxoBalance: '0',
-  tokens: []
+  tokens: [],
+  address: ''
 }
 
 const initialDFI: AddressToken = {
@@ -44,6 +46,9 @@ export const wallet = createSlice({
     },
     setUtxoBalance: (state, action: PayloadAction<string>) => {
       state.utxoBalance = action.payload
+    },
+    setAddress: (state, action: PayloadAction<string>) => {
+      state.address = action.payload
     }
   }
 })

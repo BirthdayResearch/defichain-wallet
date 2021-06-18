@@ -1,21 +1,42 @@
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
+import { useCallback, useState } from 'react'
 import * as React from 'react'
-import { FlatList, Text, View } from 'react-native'
+import { FlatList, RefreshControl, Text, View } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { NumberText } from '../../../../components'
 
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
+import { useWhaleApiClient } from '../../../../hooks/api/useWhaleApiClient'
+import { fetchTokens, useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
+import { RootState } from '../../../../store'
 import { translate } from '../../../../translations'
 
 export function BalancesScreen (): JSX.Element {
+  const address = useSelector((state: RootState) => state.wallet.address)
+  const [refreshing, setRefreshing] = useState(false)
+  const dispatch = useDispatch()
+  const whaleAPI = useWhaleApiClient()
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true)
+    await fetchTokens(address, dispatch, whaleAPI)
+    setRefreshing(false)
+  }, [])
+
   const tokens = useTokensAPI()
   return (
-    <View style={tailwind('items-start justify-start w-full')}>
+    <View style={tailwind('items-start justify-start w-full flex-grow')}>
       <FlatList
         style={tailwind('w-full mb-4')}
         data={tokens}
         testID='balances_list'
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
         renderItem={({ item }) => <BalanceItemRow token={item} key={item.id} />}
         ListHeaderComponent={
           <Text style={tailwind('font-bold p-4 text-base')}>

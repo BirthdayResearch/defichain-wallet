@@ -78,6 +78,8 @@ export function useWalletAPI (): typeof WalletAPI {
     async function loadWallet (): Promise<void> {
       if (await hasMnemonicWallet()) {
         jellyfishWallet = await getMnemonicWallet(client, network as NetworkName)
+        const address = await jellyfishWallet.get(0).getAddress()
+        dispatch(wallet.actions.setAddress(address))
         dispatch(wallet.actions.setStatus(WalletStatus.LOADED_WALLET))
       } else {
         jellyfishWallet = undefined

@@ -6,9 +6,8 @@ import { Dispatch } from 'redux'
 import { RootState } from '../../store'
 import { wallet, tokensSelector } from '../../store/wallet'
 import { useWhaleApiClient } from '../api/useWhaleApiClient'
-import { useWalletAPI } from './WalletAPI'
 
-const fetchWalletData = (address: string, dispatch: Dispatch<any>, whaleAPI: WhaleApiClient): void => {
+export function fetchTokens (address: string, dispatch: Dispatch<any>, whaleAPI: WhaleApiClient): void {
   whaleAPI.address.listToken(address).then((walletTokens) => {
     dispatch(wallet.actions.setTokens(walletTokens))
   }).catch((error) => console.log(error))
@@ -20,19 +19,12 @@ const fetchWalletData = (address: string, dispatch: Dispatch<any>, whaleAPI: Wha
 
 export function useTokensAPI (): AddressToken[] {
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const account = useWalletAPI().getWallet().get(0)
+  const address = useSelector((state: RootState) => state.wallet.address)
   const dispatch = useDispatch()
   const whaleAPI = useWhaleApiClient()
 
   useEffect(() => {
-    let intervalId: NodeJS.Timeout
-    account.getAddress().then(async address => {
-      await fetchWalletData(address, dispatch, whaleAPI)
-      intervalId = setInterval(() => {
-        fetchWalletData(address, dispatch, whaleAPI)
-      }, 10000)
-    }).catch((error) => console.log(error))
-    return () => clearInterval(intervalId)
+    fetchTokens(address, dispatch, whaleAPI)
   }, [])
   return tokens
 }
