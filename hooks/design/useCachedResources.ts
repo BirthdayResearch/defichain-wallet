@@ -1,4 +1,4 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons'
 import * as Font from 'expo-font'
 import * as React from 'react'
 
@@ -20,7 +20,7 @@ export function useCachedResources (): boolean {
 async function loadResourcesAndDataAsync (): Promise<void> {
   try {
     await Font.loadAsync({
-      ...MaterialCommunityIcons.font,
+      ...MaterialIcons.font,
       'space-mono': require('../../assets/fonts/SpaceMono-Regular.ttf')
     })
   } catch (e) {
