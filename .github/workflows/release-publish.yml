@@ -44,7 +44,11 @@ jobs:
           expo-token: ${{ secrets.EXPO_TOKEN }}
 
       - run: npm ci
-      - run: npx standard-version --release-as 0.0.1 # ${{needs.version.outputs.version}}
+
+      - run: |
+          git config --global user.email "github-bot@defichain.com"
+          git config --global user.name "defichain-bot"
+          npx standard-version --release-as 0.0.2 # ${{needs.version.outputs.version}}
 
       - name: Publish Prerelease
         run: expo publish --release-channel=prerelease
@@ -70,7 +74,10 @@ jobs:
       - run: npm ci
       - run: npm install -g eas-cli
 
-      - run: npx standard-version --release-as 0.0.1 # ${{needs.version.outputs.version}}
+      - run: |
+          git config --global user.email "github-bot@defichain.com"
+          git config --global user.name "defichain-bot"
+          npx standard-version --release-as 0.0.2 # ${{needs.version.outputs.version}}
 
       - name: EAS Build
         run: eas build --platform all --non-interactive --wait
