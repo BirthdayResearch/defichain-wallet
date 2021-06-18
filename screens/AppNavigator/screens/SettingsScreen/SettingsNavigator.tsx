@@ -1,16 +1,16 @@
 import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { TouchableOpacity } from 'react-native'
 import * as React from 'react'
+import { TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
-import { PrimaryColor } from '../../../../constants/Theme'
+import { PrimaryColor, VectorIcon } from '../../../../constants/Theme'
 import { translate } from '../../../../translations'
+import { CommunityScreen } from './CommunityScreen'
 import { SettingsScreen } from './SettingsScreen'
-import { HelpScreen } from '../HelpScreen/HelpScreen'
-import { Ionicons } from '@expo/vector-icons'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
+  CommunityScreen: undefined
 
   [key: string]: undefined | object
 }
@@ -18,29 +18,33 @@ export interface SettingsParamList {
 const SettingsStack = createStackNavigator<SettingsParamList>()
 
 export function SettingsNavigator (): JSX.Element {
+  const navigation = useNavigation()
+
   return (
     <SettingsStack.Navigator>
       <SettingsStack.Screen
         name='SettingsScreen'
         component={SettingsScreen}
-        options={{ headerTitle: translate('screens/SettingsNavigator', 'Settings'), headerRight: () => <HelpButton /> }}
+        options={{
+          headerTitle: translate('screens/SettingsNavigator', 'Settings'),
+          headerRightContainerStyle: tailwind('px-2 py-2'),
+          headerRight: (): JSX.Element => {
+            return (
+              <TouchableOpacity onPress={() => navigation.navigate('CommunityScreen')} testID='settings_community_button'>
+                <VectorIcon name='help-outline' size={24} color={PrimaryColor} />
+              </TouchableOpacity>
+            )
+          }
+        }}
       />
       <SettingsStack.Screen
-        name='help'
-        component={HelpScreen}
+        name='CommunityScreen'
+        component={CommunityScreen}
         options={{
-          headerTitle: translate('screens/HelpScreen', 'Help')
+          headerTitle: translate('screens/CommunityScreen', 'Community'),
+          headerBackTitleVisible: false
         }}
       />
     </SettingsStack.Navigator>
-  )
-}
-
-function HelpButton (): JSX.Element {
-  const navigation = useNavigation()
-  return (
-    <TouchableOpacity testID='settings_help_button' style={tailwind('m-2')} onPress={() => navigation.navigate('help')}>
-      <Ionicons name='help-circle-outline' size={28} color={PrimaryColor} />
-    </TouchableOpacity>
   )
 }

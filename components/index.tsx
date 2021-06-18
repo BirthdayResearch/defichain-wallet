@@ -1,4 +1,4 @@
-import React, {} from 'react'
+import React from 'react'
 import { StyleSheet, Text as DefaultText, TextInput as DefaultTextInput, View as DefaultView, StyleProp, TextStyle } from 'react-native'
 import NumberFormat from 'react-number-format'
 

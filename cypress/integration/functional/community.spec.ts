@@ -1,15 +1,7 @@
-import {} from 'cypress'
-import { HelpScreenItem } from '../../../screens/AppNavigator/screens/HelpScreen/HelpScreen'
-
 const communityLinks = [
   {
-    id: 'wiki',
-    title: 'Community Wiki',
-    url: 'https://defichain-wiki.com/'
-  },
-  {
     id: 'gh',
-    title: 'Report an issue to Github',
+    title: 'Report an issue on Github',
     url: 'https://github.com/DeFiCh/wallet/issues'
   },
   {
@@ -44,20 +36,18 @@ const communityLinks = [
   }
 ]
 
-context('wallet/settings/help', () => {
+context('wallet/settings/community', () => {
   beforeEach(function () {
     cy.createEmptyWallet()
     cy.getByTestID('bottom_tab_settings').click()
-    cy.getByTestID('settings_help_button').click()
+    cy.getByTestID('settings_community_button').click()
   })
 
-  it('should display community links with correct number of items', function () {
-    cy.getByTestID('help_items_list').should('exist').children().children().should('have.length', communityLinks.length)
-  })
+  it('should display all community links', function () {
+    const flatList = cy.getByTestID('community_flat_list')
 
-  it('should be able to display correct labels', function () {
-    communityLinks.forEach((link: HelpScreenItem) => {
-      cy.getByTestID(link.id).should('exist').contains(link.title)
+    communityLinks.forEach((item) => {
+      flatList.getByTestID(item.id).should('exist').contains(item.title)
     })
   })
 })
