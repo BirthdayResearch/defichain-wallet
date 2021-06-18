@@ -37,7 +37,7 @@ export function TransactionsScreen (): JSX.Element {
 
     setStatus('loading')
     account.getAddress().then(async address => {
-      return await whaleApiClient.address.listTransaction(address, 10, nextToken)
+      return await whaleApiClient.address.listTransaction(address, undefined, nextToken)
     }).then(async addActivities => {
       setHasNext(addActivities.hasNext)
       setNextToken(addActivities.nextToken as string|undefined)
