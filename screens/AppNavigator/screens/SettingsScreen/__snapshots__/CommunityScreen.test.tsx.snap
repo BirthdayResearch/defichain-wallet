@@ -1,0 +1,595 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CommunityScreen /> should match snapshot 1`] = `
+<RCTScrollView
+  ItemSeparatorComponent={[Function]}
+  ListFooterComponent={
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "paddingBottom": 24,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 24,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "rgba(156, 163, 175, 1)",
+            "fontSize": 12,
+            "fontWeight": "400",
+            "lineHeight": 16,
+          }
+        }
+      >
+        DeFiChain is a community-driven and open project.
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "rgba(156, 163, 175, 1)",
+            "fontSize": 12,
+            "fontWeight": "400",
+            "lineHeight": 16,
+          }
+        }
+      >
+        The DeFiChain Foundation does not provide direct support.
+      </Text>
+    </View>
+  }
+  ListHeaderComponent={
+    <Text
+      style={
+        Object {
+          "fontWeight": "500",
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 24,
+        }
+      }
+    >
+      Connect with the community:
+    </Text>
+  }
+  data={
+    Array [
+      Object {
+        "icon": "github",
+        "id": "gh",
+        "title": "Report an issue on Github",
+        "url": "https://github.com/DeFiCh/wallet/issues",
+      },
+      Object {
+        "icon": "help-circle",
+        "id": "faq",
+        "title": "Frequently Asked Questions",
+        "url": "https://defichain.com/learn/#faq",
+      },
+      Object {
+        "icon": "telegram",
+        "id": "tg_en",
+        "title": "Telegram (EN)",
+        "url": "https://t.me/defiblockchain",
+      },
+      Object {
+        "icon": "telegram",
+        "id": "tg_de",
+        "title": "Telegram (DE)",
+        "url": "https://t.me/defiblockchain_DE",
+      },
+      Object {
+        "icon": "wechat",
+        "id": "wechat",
+        "title": "WeChat",
+        "url": "http://weixin.qq.com/r/0xz07DzEdmEJrXiP90nB",
+      },
+      Object {
+        "icon": "reddit",
+        "id": "reddit",
+        "title": "Reddit Community",
+        "url": "https://www.reddit.com/r/defiblockchain/",
+      },
+      Object {
+        "icon": "web",
+        "id": "website",
+        "title": "Official Website",
+        "url": "https://defichain.com/",
+      },
+    ]
+  }
+  disableVirtualization={false}
+  getItem={[Function]}
+  getItemCount={[Function]}
+  horizontal={false}
+  initialNumToRender={10}
+  keyExtractor={[Function]}
+  maxToRenderPerBatch={10}
+  onContentSizeChange={[Function]}
+  onEndReachedThreshold={2}
+  onLayout={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  removeClippedSubviews={false}
+  renderItem={[Function]}
+  scrollEventThrottle={50}
+  stickyHeaderIndices={Array []}
+  style={
+    Object {
+      "backgroundColor": "rgba(243, 244, 246, 1)",
+    }
+  }
+  testID="community_flat_list"
+  updateCellsBatchingPeriod={50}
+  viewabilityConfigCallbackPairs={Array []}
+  windowSize={21}
+>
+  <View>
+    <View
+      onLayout={[Function]}
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "fontWeight": "600",
+            },
+            Object {
+              "fontWeight": "500",
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 24,
+            },
+          ]
+        }
+      >
+        Connect with the community:
+      </Text>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "flexDirection": "row",
+            "opacity": 1,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          }
+        }
+        testID="gh"
+      >
+        <Text />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "fontWeight": "600",
+              },
+              Object {
+                "marginLeft": 8,
+              },
+            ]
+          }
+        >
+          Report an issue on Github
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(243, 244, 246, 1)",
+              "height": 1,
+            },
+          ]
+        }
+      />
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "flexDirection": "row",
+            "opacity": 1,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          }
+        }
+        testID="faq"
+      >
+        <Text />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "fontWeight": "600",
+              },
+              Object {
+                "marginLeft": 8,
+              },
+            ]
+          }
+        >
+          Frequently Asked Questions
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(243, 244, 246, 1)",
+              "height": 1,
+            },
+          ]
+        }
+      />
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "flexDirection": "row",
+            "opacity": 1,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          }
+        }
+        testID="tg_en"
+      >
+        <Text />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "fontWeight": "600",
+              },
+              Object {
+                "marginLeft": 8,
+              },
+            ]
+          }
+        >
+          Telegram (EN)
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(243, 244, 246, 1)",
+              "height": 1,
+            },
+          ]
+        }
+      />
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "flexDirection": "row",
+            "opacity": 1,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          }
+        }
+        testID="tg_de"
+      >
+        <Text />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "fontWeight": "600",
+              },
+              Object {
+                "marginLeft": 8,
+              },
+            ]
+          }
+        >
+          Telegram (DE)
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(243, 244, 246, 1)",
+              "height": 1,
+            },
+          ]
+        }
+      />
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "flexDirection": "row",
+            "opacity": 1,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          }
+        }
+        testID="wechat"
+      >
+        <Text />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "fontWeight": "600",
+              },
+              Object {
+                "marginLeft": 8,
+              },
+            ]
+          }
+        >
+          WeChat
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(243, 244, 246, 1)",
+              "height": 1,
+            },
+          ]
+        }
+      />
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "flexDirection": "row",
+            "opacity": 1,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          }
+        }
+        testID="reddit"
+      >
+        <Text />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "fontWeight": "600",
+              },
+              Object {
+                "marginLeft": 8,
+              },
+            ]
+          }
+        >
+          Reddit Community
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(243, 244, 246, 1)",
+              "height": 1,
+            },
+          ]
+        }
+      />
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "flexDirection": "row",
+            "opacity": 1,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          }
+        }
+        testID="website"
+      >
+        <Text />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "fontWeight": "600",
+              },
+              Object {
+                "marginLeft": 8,
+              },
+            ]
+          }
+        >
+          Official Website
+        </Text>
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "paddingBottom": 24,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 24,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "fontWeight": "600",
+              },
+              Object {
+                "color": "rgba(156, 163, 175, 1)",
+                "fontSize": 12,
+                "fontWeight": "400",
+                "lineHeight": 16,
+              },
+            ]
+          }
+        >
+          DeFiChain is a community-driven and open project.
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "fontWeight": "600",
+              },
+              Object {
+                "color": "rgba(156, 163, 175, 1)",
+                "fontSize": 12,
+                "fontWeight": "400",
+                "lineHeight": 16,
+              },
+            ]
+          }
+        >
+          The DeFiChain Foundation does not provide direct support.
+        </Text>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;

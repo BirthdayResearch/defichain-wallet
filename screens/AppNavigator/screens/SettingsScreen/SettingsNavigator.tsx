@@ -5,11 +5,12 @@ import { TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { PrimaryColor, VectorIcon } from '../../../../constants/Theme'
 import { translate } from '../../../../translations'
-import { HelpScreen } from '../HelpScreen/HelpScreen'
+import { CommunityScreen } from './CommunityScreen'
 import { SettingsScreen } from './SettingsScreen'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
+  CommunityScreen: undefined
 
   [key: string]: undefined | object
 }
@@ -17,29 +18,33 @@ export interface SettingsParamList {
 const SettingsStack = createStackNavigator<SettingsParamList>()
 
 export function SettingsNavigator (): JSX.Element {
+  const navigation = useNavigation()
+
   return (
     <SettingsStack.Navigator>
       <SettingsStack.Screen
         name='SettingsScreen'
         component={SettingsScreen}
-        options={{ headerTitle: translate('screens/SettingsNavigator', 'Settings'), headerRight: () => <HelpButton /> }}
+        options={{
+          headerTitle: translate('screens/SettingsNavigator', 'Settings'),
+          headerRightContainerStyle: tailwind('px-2 py-2'),
+          headerRight: (): JSX.Element => {
+            return (
+              <TouchableOpacity onPress={() => navigation.navigate('CommunityScreen')} testID='settings_community_button'>
+                <VectorIcon name='help-outline' size={24} color={PrimaryColor} />
+              </TouchableOpacity>
+            )
+          }
+        }}
       />
       <SettingsStack.Screen
-        name='help'
-        component={HelpScreen}
+        name='CommunityScreen'
+        component={CommunityScreen}
         options={{
-          headerTitle: translate('screens/HelpScreen', 'Help')
+          headerTitle: translate('screens/CommunityScreen', 'Community'),
+          headerBackTitleVisible: false
         }}
       />
     </SettingsStack.Navigator>
-  )
-}
-
-function HelpButton (): JSX.Element {
-  const navigation = useNavigation()
-  return (
-    <TouchableOpacity testID='settings_help_button' style={tailwind('m-2')} onPress={() => navigation.navigate('help')}>
-      <VectorIcon name='help-outline' size={24} color={PrimaryColor} />
-    </TouchableOpacity>
   )
 }
