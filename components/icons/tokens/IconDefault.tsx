@@ -6,7 +6,7 @@ export function IconDefault (symbol: string): (props: SvgProps) => JSX.Element {
 
   return (props: SvgProps): JSX.Element => {
     return (
-      <Svg width={32} height={32} {...props}>
+      <Svg width={32} height={32} viewBox='0 0 30 40' {...props}>
         <Circle cx={16} cy={16} r={16} fill='#cccccc' />
         <Text x='0' y='16' fontWeight='600' fontSize='12' fill='#000000'>{symbol}</Text>
       </Svg>

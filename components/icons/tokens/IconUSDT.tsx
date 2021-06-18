@@ -3,7 +3,7 @@ import Svg, { SvgProps, Circle, Path } from 'react-native-svg'
 
 export function IconUSDT (props: SvgProps): JSX.Element {
   return (
-    <Svg width={32} height={32} {...props}>
+    <Svg height='32' width='32' viewBox='2 0 25 40' {...props}>
       <Circle cx={16} cy={16} r={16} fill='#26A17B' />
       <Path
         fill='#FFF'

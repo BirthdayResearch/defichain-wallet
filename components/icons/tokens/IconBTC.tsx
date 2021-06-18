@@ -3,7 +3,7 @@ import Svg, { SvgProps, Path } from 'react-native-svg'
 
 export function IconBTC (props: SvgProps): JSX.Element {
   return (
-    <Svg height={64} width={64} {...props}>
+    <Svg height='32' width='32' viewBox='0 0 65 75' {...props}>
       <Path
         fill='#f7931a'
         d='M63.04 39.741c-4.275 17.143-21.638 27.576-38.783 23.301C7.12 58.768-3.313 41.404.962 24.262 5.234 7.117 22.597-3.317 39.737.957c17.144 4.274 27.576 21.64 23.302 38.784z'

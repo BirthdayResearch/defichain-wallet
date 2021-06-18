@@ -15,20 +15,29 @@ export function PlaygroundConnection (): JSX.Element {
   const [connected, setConnected] = useState(false)
 
   useEffect(() => {
+    let isMounted = true
+
     function reloadBlockCount (): void {
       apiClient.playground.info().then(({ block }) => {
-        setCount(block.count)
-        setConnected(true)
-        setRefresh(2999)
-        intervalId = setTimeout(reloadBlockCount, refresh)
+        if (isMounted) {
+          setCount(block.count)
+          setConnected(true)
+          setRefresh(2999)
+          intervalId = setTimeout(reloadBlockCount, refresh)
+        }
       }).catch(() => {
-        setConnected(false)
-        setRefresh(refresh * 2)
+        if (isMounted) {
+          setConnected(false)
+          setRefresh(refresh * 2)
+        }
       })
     }
 
     let intervalId = setTimeout(reloadBlockCount, refresh)
-    return () => clearTimeout(intervalId)
+    return () => {
+      clearTimeout(intervalId)
+      isMounted = false
+    }
   }, [refresh])
 
   return (

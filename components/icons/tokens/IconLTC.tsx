@@ -3,7 +3,7 @@ import Svg, { SvgProps, Path } from 'react-native-svg'
 
 export function IconLTC (props: SvgProps): JSX.Element {
   return (
-    <Svg height={32} width={32} {...props}>
+    <Svg height='32' width='32' viewBox='-6 0 40 40' {...props}>
       <Path
         d='M16 0C7.163 0 0 7.163 0 16s7.163 16 16 16c8.838 0 16-7.163 16-16S24.838 0 16 0z'
         fill='#345d9d'

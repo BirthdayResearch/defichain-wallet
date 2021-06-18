@@ -4,8 +4,7 @@ import Svg, { SvgProps, G, Circle, Path } from 'react-native-svg'
 export function IconDFI (props: SvgProps): JSX.Element {
   return (
     <Svg
-      width={24}
-      height={24}
+      height='32' width='32' viewBox='-2 0 29 26'
       {...props}
     >
       <G>
