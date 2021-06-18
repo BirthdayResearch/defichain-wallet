@@ -26,32 +26,29 @@ export function BalancesScreen (): JSX.Element {
 
   const tokens = useTokensAPI()
   return (
-    <View style={tailwind('items-start justify-start w-full flex-grow')}>
-      <FlatList
-        style={tailwind('w-full mb-4')}
-        data={tokens}
-        testID='balances_list'
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        }
-        renderItem={({ item }) => <BalanceItemRow token={item} key={item.id} />}
-        ListHeaderComponent={
-          <Text style={tailwind('font-bold p-4 text-base')}>
-            {translate('screens/BalancesScreen', 'Portfolio')}
-          </Text>
-        }
-      />
-    </View>
+    <FlatList
+      data={tokens}
+      testID='balances_list'
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      }
+      renderItem={({ item }) => <BalanceItemRow token={item} key={item.id} />}
+      ListHeaderComponent={
+        <Text style={tailwind('font-bold p-4 text-base')}>
+          {translate('screens/BalancesScreen', 'Portfolio')}
+        </Text>
+      }
+    />
   )
 }
 
 function BalanceItemRow ({ token }: { token: AddressToken }): JSX.Element {
   const Icon = getTokenIcon(token.symbol)
   return (
-    <View testID={token.id} style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full h-16')}>
+    <View testID={token.id} style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center h-16')}>
       <View style={tailwind('w-8')}>
         <Icon />
       </View>
