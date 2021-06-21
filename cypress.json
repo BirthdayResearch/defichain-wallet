@@ -5,5 +5,5 @@
   },
   "viewportWidth": 1000,
   "viewportHeight": 800,
-  "retries": { "runMode": 1, "openMode": 1 }
+  "retries": { "runMode": 1, "openMode": 0 }
 }
