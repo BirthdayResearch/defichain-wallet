@@ -4,23 +4,11 @@ import { translate } from '../../../../../translations'
 import { View, Button, FlatList, TouchableOpacity } from 'react-native'
 import { useEffect, useState } from 'react'
 import { useWalletAPI } from '../../../../../hooks/wallet/WalletAPI'
-import { AddressActivity } from '@defichain/whale-api-client/dist/api/address'
 import { useWhaleApiClient } from '../../../../../hooks/api/useWhaleApiClient'
 import { Ionicons } from '@expo/vector-icons'
-import BigNumber from 'bignumber.js'
 import { Text, NumberText } from '../../../../../components'
-import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native'
-
-interface TransactionRowModel {
-  id: string
-  desc: string // of each transaction type, eg: Sent, Add Liquidity
-  iconName: string
-  color: string
-  amount: string
-  block: number
-  token: string
-  onPress: () => void
-}
+import { useNavigation } from '@react-navigation/native'
+import { activitiesToTxRows, TransactionRowModel } from './reducer'
 
 interface ReducedPageState {
   txRows: TransactionRowModel[]
@@ -66,7 +54,7 @@ export function TransactionsScreen (): JSX.Element {
     account.getAddress().then(async address => {
       return await whaleApiClient.address.listTransaction(address, undefined, nextToken)
     }).then(async addActivities => {
-      const newRows = activityToTxRowReducer(addActivities, navigation)
+      const newRows = activitiesToTxRows(addActivities, navigation)
       return {
         txRows: [...activities, ...newRows],
         hasNext: addActivities.hasNext,
@@ -146,53 +134,4 @@ function TransactionRow (row: { item: TransactionRowModel }): JSX.Element {
       </View>
     </TouchableOpacity>
   )
-}
-
-// minimum output, just enough for rendering (setState) use
-function activityToTxRowReducer (activities: AddressActivity[], navigation: NavigationProp<ParamListBase>): TransactionRowModel[] {
-  const newRows = []
-  for (let i = 0; i < activities.length; i++) {
-    const act = activities[i]
-    newRows.push(_actToTxRow(act, navigation))
-  }
-  return newRows
-}
-
-function _actToTxRow (activity: AddressActivity, navigation: NavigationProp<ParamListBase>): TransactionRowModel {
-  let iconName: 'arrow-up' | 'arrow-down'
-  let color: '#02B31B'|'gray'
-  let desc = ''
-  const isPositive = activity.vin === undefined
-
-  // TODO(@ivan-zynesis): fix when other token transaction can be included
-  const TOKEN_NAME: { [key in number]: string } = {
-    0: 'DFI',
-    1: 'tBTC'
-  }
-
-  const tokenId = TOKEN_NAME[activity.tokenId as number]
-  let amount = new BigNumber(activity.value)
-
-  if (isPositive) {
-    color = '#02B31B' // green
-    // TODO(@ivan-zynesis): Simplified, more complicated token transaction should have different icon and desc
-    iconName = 'arrow-down'
-    desc = 'Received'
-  } else {
-    color = 'gray'
-    iconName = 'arrow-up'
-    desc = 'Sent'
-    amount = amount.negated()
-  }
-
-  return {
-    id: activity.id,
-    desc,
-    iconName,
-    color,
-    amount: amount.toFixed(),
-    block: activity.block.height,
-    token: tokenId,
-    onPress: () => { navigation.navigate('TransactionDetail', { activity }) }
-  }
 }
