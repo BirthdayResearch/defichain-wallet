@@ -8,10 +8,14 @@ import { useWhaleApiClient } from '../../../../../hooks/api/useWhaleApiClient'
 import { Ionicons } from '@expo/vector-icons'
 import { Text, NumberText } from '../../../../../components'
 import { useNavigation } from '@react-navigation/native'
-import { activitiesToTxRows, TransactionRowModel } from './reducer'
+import { activitiesToViewModel, VMTransaction } from './reducer'
 
-interface ReducedPageState {
-  txRows: TransactionRowModel[]
+interface TxRow extends VMTransaction {
+  onPress: () => void
+}
+
+interface State {
+  txRows: TxRow[]
   hasNext: boolean
   nextToken: string|undefined
 }
@@ -22,7 +26,7 @@ export function TransactionsScreen (): JSX.Element {
   const account = useWalletAPI().getWallet().get(0)
 
   // main data
-  const [activities, setAddressActivities] = useState<TransactionRowModel[]>([])
+  const [activities, setAddressActivities] = useState<TxRow[]>([])
   const [status, setStatus] = useState('initial') // page status
 
   // TODO(@ivan-zynesis): standardize how to display error (some base component)?
@@ -54,13 +58,18 @@ export function TransactionsScreen (): JSX.Element {
     account.getAddress().then(async address => {
       return await whaleApiClient.address.listTransaction(address, undefined, nextToken)
     }).then(async addActivities => {
-      const newRows = activitiesToTxRows(addActivities, navigation)
+      const newRows = activitiesToViewModel(addActivities, navigation).map(tx => ({
+        ...tx,
+        onPress: () => {
+          navigation.navigate('TransactionDetail', { tx })
+        }
+      }))
       return {
         txRows: [...activities, ...newRows],
         hasNext: addActivities.hasNext,
         nextToken: addActivities.nextToken as string|undefined
       }
-    }).then(async (reduced: ReducedPageState) => {
+    }).then(async (reduced: State) => {
       setHasNext(reduced.hasNext)
       setNextToken(reduced.nextToken)
       setAddressActivities(reduced.txRows)
@@ -98,7 +107,7 @@ export function TransactionsScreen (): JSX.Element {
 }
 
 // Flatlist row renderer
-function TransactionRow (row: { item: TransactionRowModel }): JSX.Element {
+function TransactionRow (row: { item: TxRow }): JSX.Element {
   const {
     color,
     amount,

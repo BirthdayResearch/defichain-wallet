@@ -2,7 +2,8 @@ import { AddressActivity } from '@defichain/whale-api-client/dist/api/address'
 import { NavigationProp, ParamListBase } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 
-export interface TransactionRowModel {
+// VM for ViewModel
+export interface VMTransaction {
   id: string
   desc: string // of each transaction type, eg: Sent, Add Liquidity
   iconName: string
@@ -11,19 +12,18 @@ export interface TransactionRowModel {
   block: number
   token: string
   txid: string
-  onPress: () => void
 }
 
-export function activitiesToTxRows (activities: AddressActivity[], navigation: NavigationProp<ParamListBase>): TransactionRowModel[] {
+export function activitiesToViewModel (activities: AddressActivity[], navigation: NavigationProp<ParamListBase>): VMTransaction[] {
   const newRows = []
   for (let i = 0; i < activities.length; i++) {
     const act = activities[i]
-    newRows.push(activityToTxRow(act, navigation))
+    newRows.push(activityToViewModel(act, navigation))
   }
   return newRows
 }
 
-export function activityToTxRow (activity: AddressActivity, navigation?: NavigationProp<ParamListBase>): TransactionRowModel {
+export function activityToViewModel (activity: AddressActivity, navigation?: NavigationProp<ParamListBase>): VMTransaction {
   let iconName: 'arrow-up' | 'arrow-down'
   let color: '#02B31B'|'gray'
   let desc = ''
@@ -58,11 +58,6 @@ export function activityToTxRow (activity: AddressActivity, navigation?: Navigat
     amount: amount.toFixed(),
     block: activity.block.height,
     token: tokenId,
-    txid: activity.txid,
-    onPress: () => {
-      if (navigation !== undefined) {
-        navigation.navigate('TransactionDetail', { activity })
-      }
-    }
+    txid: activity.txid
   }
 }

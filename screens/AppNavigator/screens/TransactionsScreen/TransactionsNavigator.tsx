@@ -3,12 +3,12 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { translate } from '../../../../translations'
 import { TransactionsScreen } from './screens/TransactionsScreen'
 import { TransactionDetailScreen } from './screens/TransactionDetailScreen'
-import { AddressActivity } from '@defichain/whale-api-client/dist/api/address'
+import { VMTransaction } from './screens/reducer'
 
 export interface TransactionsParamList {
   TransactionsScreen: undefined
   TransactionDetailScreen: {
-    activity: AddressActivity
+    tx: VMTransaction
   }
 
   [key: string]: undefined | object
