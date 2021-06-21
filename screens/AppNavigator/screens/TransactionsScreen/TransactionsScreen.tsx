@@ -63,12 +63,7 @@ export function TransactionsScreen (): JSX.Element {
     account.getAddress().then(async address => {
       return await whaleApiClient.address.listTransaction(address, undefined, nextToken)
     }).then(async addActivities => {
-      const newRows = []
-      for (let i = 0; i < addActivities.length; i++) {
-        const act = addActivities[i]
-        newRows.push(activityToTxRowReducer(act))
-      }
-
+      const newRows = activityToTxRowReducer(addActivities)
       return {
         txRows: [...activities, ...newRows],
         hasNext: addActivities.hasNext,
@@ -156,7 +151,16 @@ function TransactionRow (row: { item: TransactionRowModel }): JSX.Element {
 }
 
 // minimum output, just enough for rendering (setState) use
-const activityToTxRowReducer = (activity: AddressActivity): TransactionRowModel => {
+function activityToTxRowReducer (activities: AddressActivity[]): TransactionRowModel[] {
+  const newRows = []
+  for (let i = 0; i < activities.length; i++) {
+    const act = activities[i]
+    newRows.push(_actToTxRow(act))
+  }
+  return newRows
+}
+
+function _actToTxRow (activity: AddressActivity): TransactionRowModel {
   let iconName: 'arrow-up' | 'arrow-down'
   let color: '#02B31B'|'gray'
   let desc = ''
