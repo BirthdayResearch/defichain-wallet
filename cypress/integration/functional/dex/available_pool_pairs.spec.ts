@@ -1,5 +1,4 @@
 context('app/dex/available', () => {
-
   beforeEach(function () {
     cy.createEmptyWallet()
     cy.getByTestID('bottom_tab_liquidity').click()
@@ -20,5 +19,16 @@ context('app/dex/available', () => {
       expect(text).to.contains('Pooled DFI')
       expect(text).to.contains('Pooled tBTC')
     })
-  });
+  })
+
+  it('should have DFI-tUSD PoolPair', () => {
+    const list = cy.getByTestID('liquidity_screen_list')
+
+    const row = list.getByTestID('pool_pair_row').eq(2)
+    row.invoke('text').should(text => {
+      expect(text).to.contains('DFI-tUSD')
+      expect(text).to.contains('Pooled DFI')
+      expect(text).to.contains('Pooled tUSD')
+    })
+  })
 })

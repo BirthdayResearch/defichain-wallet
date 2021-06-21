@@ -2,11 +2,11 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { SectionList, TouchableOpacity } from 'react-native'
-import NumberFormat from "react-number-format";
+import NumberFormat from 'react-number-format'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
-import { getTokenIcon } from "../../../../components/icons/tokens/_index";
-import { PrimaryColor, VectorIcon } from '../../../../constants/Theme';
+import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { PrimaryColor, VectorIcon } from '../../../../constants/Theme'
 import { useWhaleApiClient } from '../../../../hooks/api/useWhaleApiClient'
 import { translate } from '../../../../translations'
 
@@ -15,7 +15,7 @@ export function LiquidityScreen (): JSX.Element {
   const [pairs, setPairs] = useState<Array<DexItem<PoolPairData>>>([])
 
   useEffect(() => {
-    // TODO(fuxingloh): does not auto refresh currently, but not required for MVP. Due to limited PP
+    // TODO(fuxingloh): does not auto refresh currently, but not required for MVP. Due to limited PP availability
     whaleApiClient.poolpair.list(50).then(pairs => {
       setPairs(pairs.map(data => ({ type: 'available', data: data })))
     }).catch((err) => {
@@ -25,7 +25,7 @@ export function LiquidityScreen (): JSX.Element {
 
   return (
     <SectionList
-      testID={'liquidity_screen_list'}
+      testID='liquidity_screen_list'
       style={tailwind('bg-gray-100')}
       sections={[
         {
@@ -38,7 +38,7 @@ export function LiquidityScreen (): JSX.Element {
       renderSectionHeader={({ section }) => {
         return (
           <Text style={tailwind('pt-5 pb-4 px-4 font-bold bg-gray-100')}>
-            {translate('app/LiquidityScreen', section.key || '')}
+            {translate('app/LiquidityScreen', section.key ?? '')}
           </Text>
         )
       }}
@@ -58,7 +58,7 @@ function PoolPairRow (data: PoolPairData): JSX.Element {
   const IconB = getTokenIcon(symbolB)
 
   return (
-    <View testID={'pool_pair_row'} style={tailwind('bg-white')}>
+    <View testID='pool_pair_row' style={tailwind('bg-white')}>
       <View style={tailwind('ml-4 mt-4 flex-row items-center justify-between')}>
         <View style={tailwind('flex-row')}>
           <IconA width={32} height={32} />
@@ -67,8 +67,8 @@ function PoolPairRow (data: PoolPairData): JSX.Element {
         </View>
 
         <View style={tailwind('flex-row')}>
-          <PoolPairInfoButton name={'remove'} />
-          <PoolPairInfoButton name={'add'} />
+          <PoolPairInfoButton name='remove' />
+          <PoolPairInfoButton name='add' />
         </View>
       </View>
 
