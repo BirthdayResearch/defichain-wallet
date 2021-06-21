@@ -12,7 +12,7 @@ import { Text, NumberText } from '../../../../components'
 
 interface TransactionRowModel {
   id: string
-  desc: string
+  desc: string // of each transaction type, eg: Sent, Add Liquidity
   iconName: string
   color: string
   amount: string
@@ -115,36 +115,26 @@ function TransactionRow (row: { item: TransactionRowModel }): JSX.Element {
     block,
     token
   } = row.item
-  const txIcon = <Ionicons name='arrow-down' size={24} color={color} />
-  const amountText = <NumberText value={amount} style={{ color }} />
 
   return (
-    <View key={row.item.id} style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full h-16')}>
-      <View style={tailwind('w-full flex-row flex-initial')}>
-        <View style={tailwind('w-8 justify-center')}>
-          {txIcon}
+    <View key={row.item.id} style={tailwind('flex-row w-full h-16 bg-white p-2 border-b border-gray-200 items-center')}>
+      <View style={tailwind('w-8 justify-center')}>
+        <Ionicons name='arrow-down' size={24} color={color} />
+      </View>
+      <View style={tailwind('flex-1 flex-row justify-center items-center')}>
+        <View style={tailwind('flex-auto flex-col ml-3 justify-center')}>
+          <Text style={tailwind('font-medium')}>{translate('screens/TransactionsScreen', desc)}</Text>
+          <Text style={tailwind('font-medium')}>{translate('screens/TransactionsScreen', 'block')}: {block}</Text>
         </View>
-        <View style={tailwind('flex-auto flex-row justify-center items-center')}>
-          <View style={tailwind('flex-auto flex-col ml-3 justify-center')}>
-            <Text style={tailwind('font-medium')}>
-              {translate('screens/TransactionsScreen', desc)}
-            </Text>
-            <Text style={tailwind('font-medium')}>
-              {translate('screens/TransactionsScreen', 'block')}: {block}
-            </Text>
-          </View>
-          <View style={tailwind('flex-row ml-3 items-center')}>
-            {amountText}
-            <View style={tailwind('w-16 ml-2 items-start')}>
-              <Text style={tailwind('flex-shrink font-medium text-gray-600')}>
-                {token}
-              </Text>
-            </View>
+        <View style={tailwind('flex-row ml-3 items-center')}>
+          <NumberText value={amount} style={{ color }} />
+          <View style={tailwind('w-16 ml-2 items-start')}>
+            <Text style={tailwind('flex-shrink font-medium text-gray-600')}>{token}</Text>
           </View>
         </View>
-        <View style={tailwind('w-8 flex-grow-0 justify-center flex-end')}>
-          <Ionicons name='chevron-forward' size={24} color='gray' />
-        </View>
+      </View>
+      <View style={tailwind('w-8 justify-center')}>
+        <Ionicons name='chevron-forward' size={24} color='gray' />
       </View>
     </View>
   )
