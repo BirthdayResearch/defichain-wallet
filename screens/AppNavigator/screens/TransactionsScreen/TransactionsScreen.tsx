@@ -55,6 +55,7 @@ export function TransactionsScreen (): JSX.Element {
 
     /**
      * promise chain of
+     * 0. retrieve wallet (pre-req: user should not reach this page if no wallet found)
      * 1. API call to whale
      * 2. reducer
      * 3. dispatch
@@ -77,7 +78,7 @@ export function TransactionsScreen (): JSX.Element {
       setHasNext(reduced.hasNext)
       setNextToken(reduced.nextToken)
       setAddressActivities(reduced.txRows)
-      setStatus('idle')
+      setStatus('idle') // do this last, ensure no re-loading before all data updates dispatched
     }).catch((e) => {
       setError(e)
       setStatus('error')
@@ -110,7 +111,7 @@ export function TransactionsScreen (): JSX.Element {
   )
 }
 
-// TODO(@ivan-zynesis): refactoring as a separate file (doing it later because transaction detail implementation branch has a lot file hierarchy changes)
+// Flatlist row renderer
 function TransactionRow (row: { item: TransactionRowModel }): JSX.Element {
   const {
     color,
@@ -154,6 +155,7 @@ function TransactionRow (row: { item: TransactionRowModel }): JSX.Element {
   )
 }
 
+// minimum output, just enough for rendering (setState) use
 const activityToTxRowReducer = (activity: AddressActivity): TransactionRowModel => {
   let iconName: 'arrow-up' | 'arrow-down'
   let color: '#02B31B'|'gray'
