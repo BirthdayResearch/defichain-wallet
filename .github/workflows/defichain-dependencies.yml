@@ -15,19 +15,10 @@ jobs:
         with:
           node-version: 15
 
-      - run: npm ci
-
       - name: Upgrade dependencies
-        # we need to find a better tool to manage this
         run: |
-          npm upgrade \
-          @defichain/jellyfish-api-core \
-          @defichain/jellyfish-transaction-builder \
-          @defichain/jellyfish-wallet \
-          @defichain/jellyfish-wallet-mnemonic \
-          @defichain/playground-api-client \
-          @defichain/whale-api-client \
-          @defichain/whale-api-wallet
+          npx npm-check-updates -u --target newest --pre -f "/^@defichain\/.+/"
+          npm i
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@9825ae65b1cb54b543b938503728b432a0176d29
