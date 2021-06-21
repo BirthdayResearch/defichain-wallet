@@ -10,7 +10,7 @@ context('app/dex/available', () => {
     list.getByTestID('pool_pair_row').should('have.length', 4)
   })
 
-  it('should have DFI-tBTC PoolPair', () => {
+  it('should have DFI-tBTC PoolPair as 1st', () => {
     const list = cy.getByTestID('liquidity_screen_list')
 
     const row = list.getByTestID('pool_pair_row').first()
@@ -21,7 +21,7 @@ context('app/dex/available', () => {
     })
   })
 
-  it('should have DFI-tUSD PoolPair', () => {
+  it('should have DFI-tUSD PoolPair as 3rd', () => {
     const list = cy.getByTestID('liquidity_screen_list')
 
     const row = list.getByTestID('pool_pair_row').eq(2)

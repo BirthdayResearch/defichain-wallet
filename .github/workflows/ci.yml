@@ -57,7 +57,7 @@ jobs:
           build: npx --no-install expo build:web
           start: npx --no-install serve web-build -l 19006
           browser: chrome
-          spec: cypress/integration/functional/*
+          spec: cypress/integration/**
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
