@@ -10,6 +10,7 @@ module.exports = {
     '!**/cypress/**',
     '!**/node_modules/**',
     '!**/babel.config.js',
-    '!**/jest.config.js'
+    '!**/jest.config.js',
+    '!**/playground/**'
   ]
 }
