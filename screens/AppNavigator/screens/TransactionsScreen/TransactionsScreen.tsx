@@ -1,7 +1,7 @@
 import * as React from 'react'
 import tailwind from 'tailwind-rn'
 import { translate } from '../../../../translations'
-import { View, Button, FlatList, ScrollView } from 'react-native'
+import { View, Button, FlatList } from 'react-native'
 import { useEffect, useState } from 'react'
 import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
 import { AddressActivity } from '@defichain/whale-api-client/dist/api/address'
@@ -55,7 +55,7 @@ export function TransactionsScreen (): JSX.Element {
 
   const TransactionRow = (row: { item: AddressActivity }): JSX.Element => {
     let iconName: 'arrow-up' | 'arrow-down'
-    let color: 'green'|'gray'
+    let color: '#02B31B'|'gray'
     let desc = ''
     const isPositive = row.item.vin === undefined
 
@@ -69,7 +69,7 @@ export function TransactionsScreen (): JSX.Element {
     let amount = new BigNumber(row.item.value)
 
     if (isPositive) {
-      color = 'green'
+      color = '#02B31B' // green
       // TODO(@ivan-zynesis): Simplified, more complicated token transaction should have different icon and desc
       iconName = 'arrow-down'
       desc = 'Received'
@@ -110,8 +110,8 @@ export function TransactionsScreen (): JSX.Element {
             </View>
             <View style={tailwind('flex-row ml-3 items-center')}>
               {amountText}
-              <View style={tailwind('w-16 ml-3 items-start')}>
-                <Text style={tailwind('flex-shrink font-medium')}>
+              <View style={tailwind('w-16 ml-2 items-start')}>
+                <Text style={tailwind('flex-shrink font-medium text-gray-600')}>
                   {option.token}
                 </Text>
               </View>
@@ -137,13 +137,12 @@ export function TransactionsScreen (): JSX.Element {
   }
 
   return (
-    <ScrollView style={tailwind('w-full')}>
-      <FlatList
-        data={activities}
-        renderItem={TransactionRow}
-        keyExtractor={(item) => item.id}
-        ListFooterComponent={LoadMore}
-      />
-    </ScrollView>
+    <FlatList
+      style={tailwind('w-full')}
+      data={activities}
+      renderItem={TransactionRow}
+      keyExtractor={(item) => item.id}
+      ListFooterComponent={LoadMore}
+    />
   )
 }
