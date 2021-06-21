@@ -17,7 +17,7 @@ jobs:
 
       - name: Upgrade dependencies
         run: |
-          npx npm-check-updates -u --target newest --pre -f "/^@defichain\/.+/"
+          npx npm-check-updates -u --deep --target newest --pre -f "/^@defichain\/.+/"
           npm i
 
       - name: Create Pull Request
