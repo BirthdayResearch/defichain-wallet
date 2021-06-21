@@ -35,9 +35,9 @@ export function BalancesScreen (): JSX.Element {
           onRefresh={onRefresh}
         />
       }
-      renderItem={({ item }) => <BalanceItemRow token={item} key={item.id} />}
+      renderItem={({ item }) => <BalanceItemRow token={item} key={item.symbol} />}
       ListHeaderComponent={
-        <Text style={tailwind('font-bold p-4 text-base')}>
+        <Text testID='balances_title' style={tailwind('font-bold p-4 text-base')}>
           {translate('screens/BalancesScreen', 'Portfolio')}
         </Text>
       }
@@ -47,16 +47,21 @@ export function BalancesScreen (): JSX.Element {
 
 function BalanceItemRow ({ token }: { token: AddressToken }): JSX.Element {
   const Icon = getTokenIcon(token.symbol)
+  const baseTestID = `balances_row_${token.id}`
   return (
-    <View testID={token.id} style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center h-16')}>
+    <View testID={baseTestID} style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center h-16')}>
       <View style={tailwind('w-8')}>
-        <Icon />
+        <Icon testID={`${baseTestID}_icon`} />
       </View>
       <View style={tailwind('flex flex-col ml-3')}>
-        <Text style={tailwind('font-medium')}>{token.symbol}</Text>
-        <Text style={tailwind('text-xs text-gray-400 overflow-hidden')}>{token.name}</Text>
+        <Text testID={`${baseTestID}_symbol`} style={tailwind('font-medium')}>{token.symbol}</Text>
+        <Text
+          testID={`${baseTestID}_name`}
+          style={tailwind('text-xs text-gray-400 overflow-hidden')}
+        >{token.name}
+        </Text>
       </View>
-      <Text style={tailwind('flex-grow text-right font-medium overflow-hidden ml-3')}>
+      <Text testID={`${baseTestID}_amount`} style={tailwind('flex-grow text-right font-medium overflow-hidden ml-3')}>
         <NumberText value={token.amount} />
       </Text>
     </View>
