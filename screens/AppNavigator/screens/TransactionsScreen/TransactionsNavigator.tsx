@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { translate } from '../../../../translations'
-import { TransactionsScreen } from './TransactionsScreen'
+import { TransactionsScreen } from './screens/TransactionsScreen'
 
 export interface TransactionsParamList {
   TransactionsScreen: undefined

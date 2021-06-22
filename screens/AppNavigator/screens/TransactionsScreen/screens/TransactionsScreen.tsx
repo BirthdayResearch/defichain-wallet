@@ -1,27 +1,24 @@
 import * as React from 'react'
 import tailwind from 'tailwind-rn'
-import { translate } from '../../../../translations'
-import { View, Button, FlatList } from 'react-native'
+import { translate } from '../../../../../translations'
+import { View, Button, FlatList, TouchableOpacity } from 'react-native'
 import { useEffect, useState } from 'react'
-import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
-import { AddressActivity } from '@defichain/whale-api-client/dist/api/address'
-import { useWhaleApiClient } from '../../../../hooks/api/useWhaleApiClient'
+import { useWalletAPI } from '../../../../../hooks/wallet/WalletAPI'
+import { useWhaleApiClient } from '../../../../../hooks/api/useWhaleApiClient'
 import { Ionicons } from '@expo/vector-icons'
-import BigNumber from 'bignumber.js'
-import { Text, NumberText } from '../../../../components'
+import { Text, NumberText } from '../../../../../components'
+import { activitiesToViewModel, VMTransaction } from './reducer'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { TransactionsParamList } from '../TransactionsNavigator'
 
-interface TransactionRowModel {
-  id: string
-  desc: string // of each transaction type, eg: Sent, Add Liquidity
-  iconName: string
-  color: string
-  amount: string
-  block: number
-  token: string
+// prop for Transaction row
+interface TxRow extends VMTransaction {
+  navigation: NavigationProp<TransactionsParamList>
 }
 
-interface ReducedPageState {
-  txRows: TransactionRowModel[]
+// reduced state
+interface State {
+  txRows: TxRow[]
   hasNext: boolean
   nextToken: string|undefined
 }
@@ -29,9 +26,10 @@ interface ReducedPageState {
 export function TransactionsScreen (): JSX.Element {
   const whaleApiClient = useWhaleApiClient()
   const account = useWalletAPI().getWallet().get(0)
+  const navigation = useNavigation<NavigationProp<TransactionsParamList>>()
 
   // main data
-  const [activities, setAddressActivities] = useState<TransactionRowModel[]>([])
+  const [activities, setAddressActivities] = useState<TxRow[]>([])
   const [status, setStatus] = useState('initial') // page status
 
   // TODO(@ivan-zynesis): standardize how to display error (some base component)?
@@ -42,7 +40,7 @@ export function TransactionsScreen (): JSX.Element {
   const [nextToken, setNextToken] = useState<string|undefined>(undefined)
   const [hasNext, setHasNext] = useState<boolean|undefined>(undefined)
 
-  function loadData (isFirstPage: boolean = true): void {
+  const loadData = (isFirstPage: boolean = true): void => {
     if (status === 'loading') {
       return
     }
@@ -63,13 +61,15 @@ export function TransactionsScreen (): JSX.Element {
     account.getAddress().then(async address => {
       return await whaleApiClient.address.listTransaction(address, undefined, nextToken)
     }).then(async addActivities => {
-      const newRows = activityToTxRowReducer(addActivities)
+      const newRows = activitiesToViewModel(addActivities).map(tx => ({
+        ...tx, navigation
+      }))
       return {
         txRows: [...activities, ...newRows],
         hasNext: addActivities.hasNext,
         nextToken: addActivities.nextToken as string|undefined
       }
-    }).then(async (reduced: ReducedPageState) => {
+    }).then(async (reduced: State) => {
       setHasNext(reduced.hasNext)
       setNextToken(reduced.nextToken)
       setAddressActivities(reduced.txRows)
@@ -107,7 +107,7 @@ export function TransactionsScreen (): JSX.Element {
 }
 
 // Flatlist row renderer
-function TransactionRow (row: { item: TransactionRowModel }): JSX.Element {
+function TransactionRow (row: { item: TxRow }): JSX.Element {
   const {
     color,
     amount,
@@ -117,7 +117,13 @@ function TransactionRow (row: { item: TransactionRowModel }): JSX.Element {
   } = row.item
 
   return (
-    <View key={row.item.id} style={tailwind('flex-row w-full h-16 bg-white p-2 border-b border-gray-200 items-center')}>
+    <TouchableOpacity
+      key={row.item.id}
+      style={tailwind('flex-row w-full h-16 bg-white p-2 border-b border-gray-200 items-center')}
+      onPress={() => {
+        // TODO(@ivan-zynesis): in another PR, TransactionDetail
+      }}
+    >
       <View style={tailwind('w-8 justify-center')}>
         <Ionicons name='arrow-down' size={24} color={color} />
       </View>
@@ -136,54 +142,6 @@ function TransactionRow (row: { item: TransactionRowModel }): JSX.Element {
       <View style={tailwind('w-8 justify-center')}>
         <Ionicons name='chevron-forward' size={24} color='gray' />
       </View>
-    </View>
+    </TouchableOpacity>
   )
-}
-
-// minimum output, just enough for rendering (setState) use
-function activityToTxRowReducer (activities: AddressActivity[]): TransactionRowModel[] {
-  const newRows = []
-  for (let i = 0; i < activities.length; i++) {
-    const act = activities[i]
-    newRows.push(_actToTxRow(act))
-  }
-  return newRows
-}
-
-function _actToTxRow (activity: AddressActivity): TransactionRowModel {
-  let iconName: 'arrow-up' | 'arrow-down'
-  let color: '#02B31B'|'gray'
-  let desc = ''
-  const isPositive = activity.vin === undefined
-
-  // TODO(@ivan-zynesis): fix when other token transaction can be included
-  const TOKEN_NAME: { [key in number]: string } = {
-    0: 'DFI',
-    1: 'tBTC'
-  }
-
-  const tokenId = TOKEN_NAME[activity.tokenId as number]
-  let amount = new BigNumber(activity.value)
-
-  if (isPositive) {
-    color = '#02B31B' // green
-    // TODO(@ivan-zynesis): Simplified, more complicated token transaction should have different icon and desc
-    iconName = 'arrow-down'
-    desc = 'Received'
-  } else {
-    color = 'gray'
-    iconName = 'arrow-up'
-    desc = 'Sent'
-    amount = amount.negated()
-  }
-
-  return {
-    id: activity.id,
-    desc,
-    iconName,
-    color,
-    amount: amount.toFixed(),
-    block: activity.block.height,
-    token: tokenId
-  }
 }
