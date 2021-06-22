@@ -28,6 +28,10 @@ export function TransactionsScreen (): JSX.Element {
       return
     }
 
+    if (loadingStatus === 'idle' && !hasNext) {
+      return // no next page (could be empty list)
+    }
+
     setLoadingStatus('loading')
     account.getAddress().then(async address => {
       return await whaleApiClient.address.listTransaction(address, undefined, nextToken)
