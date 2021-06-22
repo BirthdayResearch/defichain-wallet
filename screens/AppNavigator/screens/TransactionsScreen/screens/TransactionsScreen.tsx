@@ -1,7 +1,7 @@
 import * as React from 'react'
 import tailwind from 'tailwind-rn'
 import { translate } from '../../../../../translations'
-import { View, Button, FlatList, TouchableOpacity, RefreshControl } from 'react-native'
+import { View, FlatList, TouchableOpacity, RefreshControl } from 'react-native'
 import { useEffect, useState } from 'react'
 import { useWalletAPI } from '../../../../../hooks/wallet/WalletAPI'
 import { useWhaleApiClient } from '../../../../../hooks/api/useWhaleApiClient'
@@ -10,6 +10,7 @@ import { Text, NumberText } from '../../../../../components'
 import { activitiesToViewModel, VMTransaction } from './statePropcessor'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { TransactionsParamList } from '../TransactionsNavigator'
+import { PrimaryColorStyle } from '../../../../../constants/Theme'
 
 export function TransactionsScreen (): JSX.Element {
   const whaleApiClient = useWhaleApiClient()
@@ -105,8 +106,10 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ar
 
 function LoadMore (onPress: () => void): JSX.Element|null {
   return (
-    <View style={tailwind('flex-1 items-center justify-center w-full mt-1')}>
-      <Button title={translate('screens/TransactionsScreen', 'load more')} onPress={onPress} />
+    <View style={tailwind('flex-1 items-center justify-center w-full m-1')}>
+      <TouchableOpacity onPress={onPress} style={tailwind('p-2')}>
+        <Text style={PrimaryColorStyle.text}>{translate('screens/TransactionsScreen', 'LOAD MORE')}</Text>
+      </TouchableOpacity>
     </View>
   )
 }
