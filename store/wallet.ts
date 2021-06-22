@@ -67,7 +67,3 @@ export const tokensSelector = createSelector([rawTokensSelector, (state: WalletS
   }
   return t
 }))
-
-export const lpSelector = createSelector((state: WalletState) => state.tokens, (tokens) => {
-  return tokens.filter((t) => t.isLPS)
-})
