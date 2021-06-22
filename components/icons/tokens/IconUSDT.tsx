@@ -1,9 +1,9 @@
 import * as React from 'react'
-import Svg, { SvgProps, Circle, Path } from 'react-native-svg'
+import Svg, { Circle, Path, SvgProps } from 'react-native-svg'
 
 export function IconUSDT (props: SvgProps): JSX.Element {
   return (
-    <Svg height='32' width='32' viewBox='2 0 25 40' {...props}>
+    <Svg width={32} height={32} viewBox='0 0 32 32' {...props}>
       <Circle cx={16} cy={16} r={16} fill='#26A17B' />
       <Path
         fill='#FFF'

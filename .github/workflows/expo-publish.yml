@@ -22,4 +22,4 @@ jobs:
           expo-cache: true
 
       - run: npm ci
-      - run: expo publish
+      - run: expo publish --release-channel=main
