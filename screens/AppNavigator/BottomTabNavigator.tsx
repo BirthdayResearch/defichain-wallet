@@ -4,7 +4,7 @@ import * as React from 'react'
 import { VectorIcon, VectorIconName } from '../../constants/Theme'
 
 import { BalancesNavigator } from './screens/BalancesScreen/BalancesNavigator'
-import { LiquidityNavigator } from './screens/LiquidityScreen/LiquidityScreen'
+import { LiquidityNavigator } from './screens/LiquidityScreen/LiquidityNavigator'
 import { SettingsNavigator } from './screens/SettingsScreen/SettingsNavigator'
 import { TransactionsNavigator } from './screens/TransactionsScreen/TransactionsScreen'
 
