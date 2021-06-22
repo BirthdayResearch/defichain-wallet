@@ -1,26 +1,3 @@
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
-
-const tokens: AddressToken[] = [
-  {
-    id: '0',
-    symbol: 'DFI',
-    amount: '50',
-    name: 'Defi',
-    isDAT: true,
-    isLPS: false,
-    symbolKey: 'DFI'
-  },
-  {
-    id: '1',
-    symbol: 'tBTC',
-    amount: '100',
-    name: 'Playground BTC',
-    isDAT: true,
-    isLPS: false,
-    symbolKey: 'tBTC'
-  }
-]
-
 context('wallet/balances', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
@@ -31,21 +8,22 @@ context('wallet/balances', () => {
     cy.getByTestID('playground_wallet_top_up').click()
     cy.getByTestID('playground_token_tBTC').click()
     cy.wait(['@sendToAddress', '@sendTokensToAddress'])
-    cy.wait(10000)
+    cy.wait(4000)
     cy.getByTestID('playground_wallet_fetch_balances').click()
     cy.getByTestID('bottom_tab_balances').click()
   })
 
-  it('should display tokens', function () {
-    const flatList = cy.getByTestID('balances_list')
-    tokens.forEach((item) => {
-      const baseTestID = `balances_row_${item.id}`
-      flatList.getByTestID('balances_title').should('exist').contains('Portfolio')
-      flatList.getByTestID(baseTestID).should('exist')
-      flatList.getByTestID(`${baseTestID}_icon`).should('exist')
-      flatList.getByTestID(`${baseTestID}_symbol`).should('exist').contains(item.symbol)
-      flatList.getByTestID(`${baseTestID}_name`).should('exist').contains(item.name)
-      flatList.getByTestID(`${baseTestID}_amount`).should('exist').contains(item.amount)
-    })
+  it('should display DFI and BTC tokens with correct amounts', function () {
+    cy.getByTestID('balances_list').should('exist')
+    // Check if title exists
+    cy.getByTestID('balances_title').should('exist').contains('Portfolio')
+    // Check if DFI exists
+    cy.getByTestID('balances_row_0').should('exist')
+    // Check if tBTC exists
+    cy.getByTestID('balances_row_1').should('exist')
+    // Check if DFI amount is correct
+    cy.getByTestID('balances_row_0_amount').contains(50)
+    // Check if tBTC amount is correct
+    cy.getByTestID('balances_row_1_amount').contains(100)
   })
 })
