@@ -31,11 +31,13 @@ declare namespace Cypress {
      * @example cy.getByTestID('settings')
      */
     getByTestID (value: string): Chainable<Element>
+
     /**
      * @description Redirects to main page and creates an empty wallet for testing. Useful on starts of tests.
-     * @example cy.createEmptyWallet()
+     * @param {boolean} [isRandom=false] default = false, creates randomly generated mnemonic seed or abandon x23
+     * @example cy.createEmptyWallet(isRandom?: boolean)
      */
-    createEmptyWallet (): Chainable<Element>
+    createEmptyWallet (isRandom?: boolean): Chainable<Element>
   }
 }
 
@@ -43,7 +45,7 @@ Cypress.Commands.add('getByTestID', (selector, ...args) => {
   return cy.get(`[data-testid=${selector}]`, ...args)
 })
 
-Cypress.Commands.add('createEmptyWallet', () => {
+Cypress.Commands.add('createEmptyWallet', (isRandom: boolean = false) => {
   cy.visit(Cypress.env('URL'))
-  cy.getByTestID('playground_wallet_abandon').click()
+  cy.getByTestID(isRandom ? 'playground_wallet_random' : 'playground_wallet_abandon').click()
 })
