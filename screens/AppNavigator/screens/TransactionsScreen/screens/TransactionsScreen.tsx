@@ -24,12 +24,11 @@ export function TransactionsScreen (): JSX.Element {
   // const [error, setError] = useState<Error|undefined>(undefined) // TODO: render error
 
   const loadData = (): void => {
-    if (loadingStatus === 'loading') {
+    if (
+      loadingStatus === 'loading' ||
+      (loadingStatus === 'idle' && !hasNext) // last page
+    ) {
       return
-    }
-
-    if (loadingStatus === 'idle' && !hasNext) {
-      return // no next page (could be empty list)
     }
 
     setLoadingStatus('loading')
