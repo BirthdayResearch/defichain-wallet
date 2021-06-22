@@ -24,7 +24,7 @@ export function activitiesToViewModel (activities: AddressActivity[]): VMTransac
 
 export function activityToViewModel (activity: AddressActivity): VMTransaction {
   let iconName: 'arrow-up' | 'arrow-down'
-  let color: '#02B31B'|'gray'
+  let color: '#02B31B'|'rgba(0,0,0,0.6)' // green | gray
   let desc = ''
   const isPositive = activity.vin === undefined
 
@@ -43,7 +43,7 @@ export function activityToViewModel (activity: AddressActivity): VMTransaction {
     iconName = 'arrow-down'
     desc = 'Received'
   } else {
-    color = 'gray'
+    color = 'rgba(0,0,0,0.6)'
     iconName = 'arrow-up'
     desc = 'Sent'
     amount = amount.negated()

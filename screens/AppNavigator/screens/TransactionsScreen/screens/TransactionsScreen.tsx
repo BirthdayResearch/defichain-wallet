@@ -7,7 +7,7 @@ import { useWalletAPI } from '../../../../../hooks/wallet/WalletAPI'
 import { useWhaleApiClient } from '../../../../../hooks/api/useWhaleApiClient'
 import { Ionicons } from '@expo/vector-icons'
 import { Text, NumberText } from '../../../../../components'
-import { activitiesToViewModel, VMTransaction } from './reducer'
+import { activitiesToViewModel, VMTransaction } from './statePropcessor'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { TransactionsParamList } from '../TransactionsNavigator'
 
@@ -19,7 +19,7 @@ export function TransactionsScreen (): JSX.Element {
   const [activities, setAddressActivities] = useState<VMTransaction[]>([])
   const [loadingStatus, setLoadingStatus] = useState('initial') // page status
   const [nextToken, setNextToken] = useState<string|undefined>(undefined)
-  const [hasNext, setHasNext] = useState<boolean|undefined>(undefined)
+  const [hasNext, setHasNext] = useState<boolean>(false)
   // const [error, setError] = useState<Error|undefined>(undefined) // TODO: render error
 
   const loadData = (): void => {
@@ -34,6 +34,7 @@ export function TransactionsScreen (): JSX.Element {
       const newRows = activitiesToViewModel(addActivities)
       setAddressActivities([...activities, ...newRows])
       setHasNext(addActivities.hasNext)
+      console.log('hasNext', addActivities.hasNext)
       setNextToken(addActivities.nextToken as string|undefined)
       setLoadingStatus('idle')
     }).catch((e) => {
@@ -50,7 +51,7 @@ export function TransactionsScreen (): JSX.Element {
       data={activities}
       renderItem={TransactionRow(navigation)}
       keyExtractor={(item) => item.id}
-      ListFooterComponent={hasNext !== undefined ? LoadMore(loadData) : null}
+      ListFooterComponent={hasNext ? LoadMore(loadData) : undefined}
       refreshControl={
         <RefreshControl
           refreshing={loadingStatus === 'loading'}
@@ -79,7 +80,7 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ar
           navigation.navigate('TransactionDetail', { tx: row.item })
         }}
       >
-        <View style={tailwind('w-8 justify-center')}>
+        <View style={tailwind('w-8 justify-center items-center')}>
           <Ionicons name='arrow-down' size={24} color={color} />
         </View>
         <View style={tailwind('flex-1 flex-row justify-center items-center')}>
@@ -94,8 +95,8 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ar
             </View>
           </View>
         </View>
-        <View style={tailwind('w-8 justify-center')}>
-          <Ionicons name='chevron-forward' size={24} color='gray' />
+        <View style={tailwind('w-8 justify-center items-center')}>
+          <Ionicons name='chevron-forward' size={24} color='rgba(0,0,0,0.6)' />
         </View>
       </TouchableOpacity>
     )
@@ -104,7 +105,7 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ar
 
 function LoadMore (onPress: () => void): JSX.Element|null {
   return (
-    <View style={tailwind('flex-1 items-center justify-center w-full')}>
+    <View style={tailwind('flex-1 items-center justify-center w-full mt-1')}>
       <Button title={translate('screens/TransactionsScreen', 'load more')} onPress={onPress} />
     </View>
   )
