@@ -73,8 +73,8 @@ function PoolPairRow (data: PoolPairData): JSX.Element {
       </View>
 
       <View style={tailwind('p-4')}>
-        <PoolPairInfoLine symbol={symbolA} reserve={data.tokenA.reserve.toFixed()} />
-        <PoolPairInfoLine symbol={symbolB} reserve={data.tokenB.reserve.toFixed()} />
+        <PoolPairInfoLine symbol={symbolA} reserve={data.tokenA.reserve} />
+        <PoolPairInfoLine symbol={symbolB} reserve={data.tokenB.reserve} />
       </View>
     </View>
   )
