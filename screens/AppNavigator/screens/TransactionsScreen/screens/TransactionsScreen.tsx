@@ -1,7 +1,7 @@
 import * as React from 'react'
 import tailwind from 'tailwind-rn'
 import { translate } from '../../../../../translations'
-import { View, Button, FlatList, TouchableOpacity } from 'react-native'
+import { View, Button, FlatList, TouchableOpacity, RefreshControl } from 'react-native'
 import { useEffect, useState } from 'react'
 import { useWalletAPI } from '../../../../../hooks/wallet/WalletAPI'
 import { useWhaleApiClient } from '../../../../../hooks/api/useWhaleApiClient'
@@ -17,17 +17,17 @@ export function TransactionsScreen (): JSX.Element {
   const navigation = useNavigation<NavigationProp<TransactionsParamList>>()
 
   const [activities, setAddressActivities] = useState<VMTransaction[]>([])
-  const [status, setStatus] = useState('initial') // page status
+  const [loadingStatus, setLoadingStatus] = useState('initial') // page status
   const [nextToken, setNextToken] = useState<string|undefined>(undefined)
   const [hasNext, setHasNext] = useState<boolean|undefined>(undefined)
   // const [error, setError] = useState<Error|undefined>(undefined) // TODO: render error
 
   const loadData = (): void => {
-    if (status === 'loading') {
+    if (loadingStatus === 'loading') {
       return
     }
 
-    setStatus('loading')
+    setLoadingStatus('loading')
     account.getAddress().then(async address => {
       return await whaleApiClient.address.listTransaction(address, undefined, nextToken)
     }).then(async addActivities => {
@@ -35,10 +35,10 @@ export function TransactionsScreen (): JSX.Element {
       setAddressActivities([...activities, ...newRows])
       setHasNext(addActivities.hasNext)
       setNextToken(addActivities.nextToken as string|undefined)
-      setStatus('idle')
+      setLoadingStatus('idle')
     }).catch((e) => {
       // setError(e)
-      setStatus('error')
+      setLoadingStatus('error')
     })
   }
 
@@ -51,6 +51,12 @@ export function TransactionsScreen (): JSX.Element {
       renderItem={TransactionRow(navigation)}
       keyExtractor={(item) => item.id}
       ListFooterComponent={hasNext !== undefined ? LoadMore(loadData) : null}
+      refreshControl={
+        <RefreshControl
+          refreshing={loadingStatus === 'loading'}
+          onRefresh={loadData}
+        />
+      }
     />
   )
 }
