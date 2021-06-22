@@ -35,7 +35,6 @@ export function TransactionsScreen (): JSX.Element {
       const newRows = activitiesToViewModel(addActivities)
       setAddressActivities([...activities, ...newRows])
       setHasNext(addActivities.hasNext)
-      console.log('hasNext', addActivities.hasNext)
       setNextToken(addActivities.nextToken as string|undefined)
       setLoadingStatus('idle')
     }).catch((e) => {
@@ -63,7 +62,7 @@ export function TransactionsScreen (): JSX.Element {
   )
 }
 
-function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (arg: { item: VMTransaction }) => JSX.Element {
+function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (row: { item: VMTransaction }) => JSX.Element {
   return (row: { item: VMTransaction }): JSX.Element => {
     const {
       color,
