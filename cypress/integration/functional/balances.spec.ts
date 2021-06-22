@@ -3,8 +3,8 @@ context('wallet/balances', () => {
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_settings').click()
 
-    cy.intercept('/v1/regtest/rpc/sendtoaddress').as('sendToAddress')
-    cy.intercept('/v1/regtest/rpc/sendtokenstoaddress').as('sendTokensToAddress')
+    cy.intercept('/v0/playground/rpc/sendtoaddress').as('sendToAddress')
+    cy.intercept('/v0/playground/rpc/sendtokenstoaddress').as('sendTokensToAddress')
     cy.getByTestID('playground_wallet_top_up').click()
     cy.getByTestID('playground_token_BTC').click()
     cy.wait(['@sendToAddress', '@sendTokensToAddress'])
