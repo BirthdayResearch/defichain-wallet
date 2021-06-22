@@ -22,7 +22,7 @@ export function PlaygroundConnection (): JSX.Element {
         if (isMounted) {
           setCount(block.count)
           setConnected(true)
-          setRefresh(2999)
+          setRefresh(5999)
           intervalId = setTimeout(reloadBlockCount, refresh)
         }
       }).catch(() => {

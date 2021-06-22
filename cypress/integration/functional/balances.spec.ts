@@ -6,7 +6,7 @@ context('wallet/balances', () => {
     cy.intercept(`${baseURL}/sendtokenstoaddress`).as('sendTokensToAddress')
     cy.getByTestID('bottom_tab_settings').click()
     cy.getByTestID('playground_wallet_top_up').click()
-    cy.getByTestID('playground_token_tBTC').click()
+    cy.getByTestID('playground_token_BTC').click()
     cy.wait(['@sendToAddress', '@sendTokensToAddress'])
     cy.wait(4000)
     cy.getByTestID('playground_wallet_fetch_balances').click()
