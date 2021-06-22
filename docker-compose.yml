@@ -6,25 +6,23 @@ services:
     command:
       - "--api.insecure=true"
       - "--providers.docker=true"
-      - "--entrypoints.web.address=:3000"
+      - "--entrypoints.web.address=:80"
       - "--entrypoints.ping.address=:8082"
       - "--ping.entryPoint=ping"
     ports:
-      - "19553:3000"
+      - "19553:80"
       - "19552:8080"
       - "19551:8082"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:1.7.9-rc.1
+    image: defi/defichain:1.7.10
     command: >
       defid
       -printtoconsole
       -rpcallowip=0.0.0.0/0
       -rpcbind=0.0.0.0
-      -rpcuser=playground-rpcuser
-      -rpcpassword=playground-rpcpassword
+      -rpcuser=playground
+      -rpcpassword=playground
       -masternode_operator=mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy
       -regtest=1
       -jellyfish_regtest=1
@@ -41,35 +39,30 @@ services:
       -eunosheight=6
 
   defi-playground:
-    image: ghcr.io/defich/playground:0.2.0
+    image: ghcr.io/defich/playground:0.3.0
     depends_on:
       - defi-blockchain
     ports:
       - "3002:3000"
     environment:
-      PLAYGROUND_DEFID_URL: http://playground-rpcuser:playground-rpcpassword@defi-blockchain:19554
+      PLAYGROUND_DEFID_URL: http://playground:playground@defi-blockchain:19554
     labels:
       - "traefik.http.services.playground.loadbalancer.server.port=3000"
-      - "traefik.http.routers.playground.priority=0"
-      - "traefik.http.routers.playground.rule=PathPrefix(`/v1/playground/rpc/`, `/v1/playground/wallet`, `/v1/playground/info`)"
+      - "traefik.http.routers.playground.rule=PathPrefix(`/v0/playground/`)"
       - "traefik.http.routers.playground.entrypoints=web"
 
   defi-whale:
-    image: ghcr.io/defich/whale:0.3.0
+    image: ghcr.io/defich/whale:0.4.0
     depends_on:
       - defi-blockchain
     ports:
       - "3001:3000"
     environment:
-      WHALE_DEFID_URL: http://playground-rpcuser:playground-rpcpassword@defi-blockchain:19554
+      WHALE_DEFID_URL: http://playground:playground@defi-blockchain:19554
       WHALE_DATABASE_PROVIDER: level
       WHALE_DATABASE_LEVEL_LOCATION: .level/index
       WHALE_NETWORK: regtest
     labels:
       - "traefik.http.services.whale.loadbalancer.server.port=3000"
-      - "traefik.http.routers.whale.priority=1"
-      - "traefik.http.routers.whale.rule=PathPrefix(`/v1/playground/`)"
+      - "traefik.http.routers.whale.rule=PathPrefix(`/v0/regtest/`)"
       - "traefik.http.routers.whale.entrypoints=web"
-      - "traefik.http.routers.whale.middlewares=rewrite"
-      - "traefik.http.middlewares.rewrite.replacepathregex.regex=^/v1/playground/(.*)"
-      - "traefik.http.middlewares.rewrite.replacepathregex.replacement=/v1/regtest/$$1"
