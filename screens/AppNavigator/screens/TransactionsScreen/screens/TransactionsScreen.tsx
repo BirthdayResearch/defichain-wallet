@@ -16,29 +16,17 @@ interface TxRow extends VMTransaction {
   navigation: NavigationProp<TransactionsParamList>
 }
 
-// reduced state
-interface State {
-  txRows: TxRow[]
-  hasNext: boolean
-  nextToken: string|undefined
-}
-
 export function TransactionsScreen (): JSX.Element {
   const whaleApiClient = useWhaleApiClient()
   const account = useWalletAPI().getWallet().get(0)
   const navigation = useNavigation<NavigationProp<TransactionsParamList>>()
 
-  // main data
+  // in component state
   const [activities, setAddressActivities] = useState<TxRow[]>([])
   const [status, setStatus] = useState('initial') // page status
-
-  // TODO(@ivan-zynesis): standardize how to display error (some base component)?
-  // eslint-disable-next-line
-  const [error, setError] = useState<Error|undefined>(undefined)
-
-  // pagination
   const [nextToken, setNextToken] = useState<string|undefined>(undefined)
   const [hasNext, setHasNext] = useState<boolean|undefined>(undefined)
+  // const [error, setError] = useState<Error|undefined>(undefined)
 
   const loadData = (isFirstPage: boolean = true): void => {
     if (status === 'loading') {
@@ -50,32 +38,19 @@ export function TransactionsScreen (): JSX.Element {
     }
 
     setStatus('loading')
-
-    /**
-     * promise chain of
-     * 0. retrieve wallet (pre-req: user should not reach this page if no wallet found)
-     * 1. API call to whale
-     * 2. reducer
-     * 3. dispatch
-     */
     account.getAddress().then(async address => {
       return await whaleApiClient.address.listTransaction(address, undefined, nextToken)
     }).then(async addActivities => {
-      const newRows = activitiesToViewModel(addActivities).map(tx => ({
-        ...tx, navigation
-      }))
-      return {
-        txRows: [...activities, ...newRows],
-        hasNext: addActivities.hasNext,
-        nextToken: addActivities.nextToken as string|undefined
-      }
-    }).then(async (reduced: State) => {
-      setHasNext(reduced.hasNext)
-      setNextToken(reduced.nextToken)
-      setAddressActivities(reduced.txRows)
-      setStatus('idle') // do this last, ensure no re-loading before all data updates dispatched
+      // reducer
+      const newRows = activitiesToViewModel(addActivities).map(act => ({ ...act, navigation }))
+
+      // setState
+      setAddressActivities([...activities, ...newRows])
+      setHasNext(addActivities.hasNext)
+      setNextToken(addActivities.nextToken as string|undefined)
+      setStatus('idle')
     }).catch((e) => {
-      setError(e)
+      // setError(e)
       setStatus('error')
     })
   }
@@ -84,29 +59,19 @@ export function TransactionsScreen (): JSX.Element {
     loadData()
   }, [])
 
-  const LoadMore = (): JSX.Element|null => {
-    if (hasNext !== true) {
-      return null
-    }
-    return (
-      <View style={tailwind('flex-1 items-center justify-center w-full')}>
-        <Button title={translate('screens/TransactionsScreen', 'load more')} onPress={() => loadData(false)} />
-      </View>
-    )
-  }
-
   return (
     <FlatList
       style={tailwind('w-full')}
       data={activities}
       renderItem={TransactionRow}
       keyExtractor={(item) => item.id}
-      ListFooterComponent={LoadMore}
+      ListFooterComponent={hasNext !== undefined ? LoadMore(() => {
+        loadData(false)
+      }) : null}
     />
   )
 }
 
-// Flatlist row renderer
 function TransactionRow (row: { item: TxRow }): JSX.Element {
   const {
     color,
@@ -143,5 +108,13 @@ function TransactionRow (row: { item: TxRow }): JSX.Element {
         <Ionicons name='chevron-forward' size={24} color='gray' />
       </View>
     </TouchableOpacity>
+  )
+}
+
+function LoadMore (onPress: () => void): JSX.Element|null {
+  return (
+    <View style={tailwind('flex-1 items-center justify-center w-full')}>
+      <Button title={translate('screens/TransactionsScreen', 'load more')} onPress={onPress} />
+    </View>
   )
 }
