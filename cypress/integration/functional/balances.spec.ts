@@ -23,7 +23,7 @@ context('wallet/balances', () => {
   })
 
   it('should display navigation buttons and be able to redirect', function () {
-    cy.getByTestID('button_receive').should('exist').click()
+    cy.getByTestID('button_RECEIVE').should('exist').click()
     cy.location().should((loc) => {
       expect(loc.href).contains('Receive')
     })
