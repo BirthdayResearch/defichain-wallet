@@ -21,13 +21,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.defichain.app",
+      "buildNumber": "0.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.defichain.app",
+      "versionCode": 0
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

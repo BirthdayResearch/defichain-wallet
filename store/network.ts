@@ -1,15 +1,15 @@
-import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
+import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export type NetworkName = 'mainnet' | 'testnet' | 'regtest' | 'playground'
 
 export interface PlaygroundApiState {
   url: string
-  environment: 'localhost' | 'ocean'
+  environment: 'localhost' | 'remote'
 }
 
 export interface WhaleApiState {
   url: string
-  network: NetworkName
+  network: 'mainnet' | 'testnet' | 'regtest'
 }
 
 interface NetworkState {

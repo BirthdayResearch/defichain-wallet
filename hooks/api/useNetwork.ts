@@ -1,9 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { network, NetworkName, PlaygroundApiState } from '../../store/network'
 import { PlaygroundApiClient } from '@defichain/playground-api-client'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from 'redux'
-import { useEffect, useState } from 'react'
+import { network, NetworkName, PlaygroundApiState } from '../../store/network'
 
 export function useNetwork (): boolean {
   const dispatch = useDispatch()
@@ -28,7 +28,7 @@ async function loadNetwork (dispatch: Dispatch<any>): Promise<void> {
     dispatch(network.actions.setPlayground(playground))
     dispatch(network.actions.setWhale({
       url: playground.url,
-      network: name
+      network: 'regtest'
     }))
   } else {
     dispatch(network.actions.setWhale({
@@ -62,7 +62,6 @@ async function loadPlayground (): Promise<PlaygroundApiState> {
   } catch (err) {
   }
 
-  // Always fallback to playground.ocean even if it's not available
-  const url = 'https://playground.ocean.defichain.com'
-  return { url, environment: 'ocean' }
+  // Always fallback to playground.defichain.com even if it's not available
+  return { url: 'https://playground.defichain.com', environment: 'remote' }
 }

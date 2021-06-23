@@ -51,13 +51,13 @@ jobs:
       - run: .github/workflows/ci/wait-for http://localhost:3002/_health/probes/liveness -t 120
       - run: .github/workflows/ci/wait-for http://localhost:19551/ping -t 120
 
-      - uses: cypress-io/github-action@6b3bc3a1c27198cda160cb03307c43bc998aa564
+      - uses: cypress-io/github-action@d2b5039cb4888cf1f0bb9e808f904f7093e0cb2a
         with:
           record: true
           build: npx --no-install expo build:web
           start: npx --no-install serve web-build -l 19006
           browser: chrome
-          spec: cypress/integration/functional/*
+          spec: cypress/integration/**
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

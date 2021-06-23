@@ -1,0 +1,100 @@
+name: Publish
+
+on:
+  release:
+    types: [ published, prereleased ]
+
+
+jobs:
+  version:
+    name: Version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.result }}
+    steps:
+      - uses: actions/github-script@a3e7071a34d7e1f219a8a4de9a5e0a34d1ee1293
+        id: version
+        with:
+          script: |
+            const semver = context.ref.replace('refs/tags/v', '')
+            if (semver.match(/^[0-9]+\.[0-9]+\.[0-9]+$/)) {
+              return semver
+            }
+
+            throw new Error('not semver')
+          result-encoding: string
+
+  expo-prelease:
+    name: Expo Prelease
+    environment: Expo Release
+    runs-on: ubuntu-latest
+    if: github.event.release.prerelease
+    needs: [ version ]
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: actions/setup-node@46071b5c7a2e0c34e49c3cb8a0e792e86e18d5ea
+        with:
+          node-version: 15
+
+      - uses: expo/expo-github-action@8275e8fa89e599e1b1ef793b0219c299f79bc32b
+        with:
+          expo-version: 4.x
+          expo-packager: npm
+          expo-token: ${{ secrets.EXPO_TOKEN }}
+
+      - run: npm ci
+
+      - run: |
+          git config --global user.email "github-bot@defichain.com"
+          git config --global user.name "defichain-bot"
+          npx standard-version --release-as ${{needs.version.outputs.version}}
+
+      - name: Publish Prerelease
+        run: expo publish --release-channel=prerelease
+
+  eas-release:
+    name: EAS Release
+    environment: EAS Release
+    runs-on: ubuntu-latest
+    if: "!github.event.release.prerelease"
+    needs: [ version ]
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: actions/setup-node@46071b5c7a2e0c34e49c3cb8a0e792e86e18d5ea
+        with:
+          node-version: 15
+
+      - uses: expo/expo-github-action@8275e8fa89e599e1b1ef793b0219c299f79bc32b
+        with:
+          expo-version: 4.x
+          expo-packager: npm
+          expo-token: ${{ secrets.EXPO_TOKEN }}
+
+      - run: npm ci
+      - run: npm install -g eas-cli
+
+      - run: |
+          git config --global user.email "github-bot@defichain.com"
+          git config --global user.name "defichain-bot"
+          npx standard-version --release-as ${{needs.version.outputs.version}}
+
+      - name: EAS Build - iOS & Android
+        run: eas build --platform all --non-interactive --wait
+
+      - run: sleep 10s
+
+      - name: EAS Submit - iOS
+        run: eas submit --platform ios --latest --asc-app-id ${{ secrets.ASC_APP_ID }} --apple-id ${{ secrets.APPLE_ID }}
+        env:
+          EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
+
+      - run: echo "$ANDROID_SERVICE_ACCOUNT_JSON" > ANDROID_SERVICE_ACCOUNT.json
+        env:
+          ANDROID_SERVICE_ACCOUNT_JSON: ${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON }}
+
+      - name: EAS Submit - Android
+        run: eas submit --platform android --latest --release-status=draft --key=ANDROID_SERVICE_ACCOUNT.json
+
+      - name: EAS Submit - Android (Cleanup)
+        run: rm ANDROID_SERVICE_ACCOUNT.json
+        if: always()

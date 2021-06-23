@@ -21,22 +21,7 @@ labels:
     matcher:
       files: "translations/**"
 
-  - label: screen/BalancesScreen
+  - label: area/e2e
     sync: true
     matcher:
-      files: "screens/BalancesScreen/**"
-
-  - label: screen/LiquidityScreen
-    sync: true
-    matcher:
-      files: "screens/LiquidityScreen/**"
-
-  - label: screen/SettingsScreen
-    sync: true
-    matcher:
-      files: "screens/SettingsScreen/**"
-
-  - label: screen/TransactionsScreen
-    sync: true
-    matcher:
-      files: "screens/TransactionsScreen/**"
+      files: "cypress/**"

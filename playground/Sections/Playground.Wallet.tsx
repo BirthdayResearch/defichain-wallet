@@ -1,21 +1,26 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
+import { Text, View } from '../../components'
+import { useWhaleApiClient } from '../../hooks/api/useWhaleApiClient'
+import { fetchTokens } from '../../hooks/wallet/TokensAPI'
+import { useWalletAPI } from '../../hooks/wallet/WalletAPI'
+import { RootState } from '../../store'
+import { WalletStatus } from '../../store/wallet'
 import { PlaygroundAction } from '../Playground.Action'
 import { PlaygroundStatus } from '../Playground.Status'
-import { WalletStatus } from '../../store/wallet'
-import { useWalletAPI } from '../../hooks/wallet/WalletAPI'
-import { useDispatch } from 'react-redux'
 
 export function PlaygroundWallet (): JSX.Element | null {
   const WalletAPI = useWalletAPI()
   const status = WalletAPI.getStatus()
   const dispatch = useDispatch()
+  const address = useSelector((state: RootState) => state.wallet.address)
+  const whaleApi = useWhaleApiClient()
 
   return (
     <View>
       <View style={tailwind('flex-row flex items-center')}>
-        <Text style={tailwind('text-lg font-bold')}>Wallet</Text>
+        <Text style={tailwind('text-2xl font-bold')}>Wallet</Text>
         <View style={tailwind('ml-2')}>
           <PlaygroundStatus
             online={status === WalletStatus.LOADED_WALLET}
@@ -36,9 +41,7 @@ export function PlaygroundWallet (): JSX.Element | null {
         testID='playground_wallet_abandon'
         title='Setup wallet with abandon x23 + art as mnemonic seed'
         onPress={() => {
-          WalletAPI.setMnemonic(dispatch, [
-            'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'
-          ])
+          WalletAPI.setMnemonicAbandon23(dispatch)
         }}
       />
 
@@ -46,6 +49,12 @@ export function PlaygroundWallet (): JSX.Element | null {
         testID='playground_wallet_random'
         title='Setup wallet with a randomly generated mnemonic seed'
         onPress={() => WalletAPI.randomMnemonic(dispatch)}
+      />
+
+      <PlaygroundAction
+        testID='playground_wallet_fetch_balances'
+        title='Fetch Balances'
+        onPress={() => fetchTokens(address, dispatch, whaleApi)}
       />
     </View>
   )

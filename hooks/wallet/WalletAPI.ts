@@ -32,8 +32,9 @@ const WalletAPI = {
   },
   clearWallet (dispatch: Dispatch<any>): void {
     dispatch(wallet.actions.setStatus(WalletStatus.LOADING))
+
     MnemonicStorage.clear().then(() => {
-      dispatch(wallet.actions.setStatus(WalletStatus.NO_WALLET))
+      dispatch(wallet.actions.setStatus(WalletStatus.INITIAL))
     }).catch(() => {
       dispatch(wallet.actions.setStatus(WalletStatus.ERROR))
     })
@@ -55,6 +56,11 @@ const WalletAPI = {
     }).catch(() => {
       dispatch(wallet.actions.setStatus(WalletStatus.ERROR))
     })
+  },
+  setMnemonicAbandon23 (dispatch: Dispatch<any>): void {
+    WalletAPI.setMnemonic(dispatch, [
+      'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'
+    ])
   }
 }
 
@@ -72,6 +78,8 @@ export function useWalletAPI (): typeof WalletAPI {
     async function loadWallet (): Promise<void> {
       if (await hasMnemonicWallet()) {
         jellyfishWallet = await getMnemonicWallet(client, network as NetworkName)
+        const address = await jellyfishWallet.get(0).getAddress()
+        dispatch(wallet.actions.setAddress(address))
         dispatch(wallet.actions.setStatus(WalletStatus.LOADED_WALLET))
       } else {
         jellyfishWallet = undefined
