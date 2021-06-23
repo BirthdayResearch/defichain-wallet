@@ -6,7 +6,7 @@ import { VectorIcon, VectorIconName } from '../../constants/Theme'
 import { BalancesNavigator } from './screens/BalancesScreen/BalancesNavigator'
 import { LiquidityNavigator } from './screens/LiquidityScreen/LiquidityNavigator'
 import { SettingsNavigator } from './screens/SettingsScreen/SettingsNavigator'
-import { TransactionsNavigator } from './screens/TransactionsScreen/TransactionsScreen'
+import { TransactionsNavigator } from './screens/TransactionsScreen/TransactionsNavigator'
 
 export interface BottomTabParamList {
   Balances: undefined
