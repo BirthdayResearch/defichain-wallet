@@ -1,8 +1,11 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../components'
+import { useWhaleApiClient } from '../../hooks/api/useWhaleApiClient'
+import { fetchTokens } from '../../hooks/wallet/TokensAPI'
 import { useWalletAPI } from '../../hooks/wallet/WalletAPI'
+import { RootState } from '../../store'
 import { WalletStatus } from '../../store/wallet'
 import { PlaygroundAction } from '../Playground.Action'
 import { PlaygroundStatus } from '../Playground.Status'
@@ -11,6 +14,8 @@ export function PlaygroundWallet (): JSX.Element | null {
   const WalletAPI = useWalletAPI()
   const status = WalletAPI.getStatus()
   const dispatch = useDispatch()
+  const address = useSelector((state: RootState) => state.wallet.address)
+  const whaleApi = useWhaleApiClient()
 
   return (
     <View>
@@ -44,6 +49,12 @@ export function PlaygroundWallet (): JSX.Element | null {
         testID='playground_wallet_random'
         title='Setup wallet with a randomly generated mnemonic seed'
         onPress={() => WalletAPI.randomMnemonic(dispatch)}
+      />
+
+      <PlaygroundAction
+        testID='playground_wallet_fetch_balances'
+        title='Fetch Balances'
+        onPress={() => fetchTokens(address, dispatch, whaleApi)}
       />
     </View>
   )

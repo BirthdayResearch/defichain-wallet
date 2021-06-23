@@ -1,28 +1,21 @@
 import { SvgProps } from 'react-native-svg'
 import { IconBCH } from './IconBCH'
 import { IconBTC } from './IconBTC'
+import { IconDefault } from './IconDefault'
 import { IconDFI } from './IconDFI'
 import { IconDOGE } from './IconDOGE'
 import { IconETH } from './IconETH'
 import { IconLTC } from './IconLTC'
 import { IconUSDT } from './IconUSDT'
-import { IconDefault } from './IconDefault'
 
 const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   BCH: IconBCH,
-  tBCH: IconBCH,
   BTC: IconBTC,
-  tBTC: IconBTC,
   DFI: IconDFI,
-  tDFI: IconDFI,
   DOGE: IconDOGE,
-  tDOGE: IconDOGE,
   ETH: IconETH,
-  tETH: IconETH,
   LTC: IconLTC,
-  tLTC: IconLTC,
-  USDT: IconUSDT,
-  tUSD: IconUSDT
+  USDT: IconUSDT
 }
 
 /**

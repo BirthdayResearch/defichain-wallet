@@ -138,9 +138,9 @@ function PoolPairRowAvailable (data: PoolPairData): JSX.Element {
         </View>
       </View>
 
-      <View style={tailwind('mt-4')}>
-        <PoolPairInfoLine symbol={symbolA} reserve={data.tokenA.reserve.toFixed()} />
-        <PoolPairInfoLine symbol={symbolB} reserve={data.tokenB.reserve.toFixed()} />
+      <View style={tailwind('p-4')}>
+        <PoolPairInfoLine symbol={symbolA} reserve={data.tokenA.reserve} />
+        <PoolPairInfoLine symbol={symbolB} reserve={data.tokenB.reserve} />
       </View>
     </View>
   )
