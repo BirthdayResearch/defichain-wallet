@@ -67,11 +67,11 @@ jobs:
       - uses: expo/expo-github-action@c3c02de017ef8cf6152daee160e8a47a2340a5e5
         with:
           expo-version: 4.x
+          eas-version: latest
           expo-packager: npm
           expo-token: ${{ secrets.EXPO_TOKEN }}
 
       - run: npm ci
-      - run: npm install -g eas-cli
 
       - run: |
           git config --global user.email "github-bot@defichain.com"
