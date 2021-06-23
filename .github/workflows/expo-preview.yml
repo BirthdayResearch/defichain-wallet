@@ -19,8 +19,8 @@ jobs:
         with:
           expo-version: 4.x
           expo-packager: npm
-          expo-token: ${{ secrets.EXPO_TOKEN }}
           expo-cache: true
+          token: ${{ secrets.EXPO_TOKEN }}
 
       - run: npm ci
       - run: expo publish --release-channel=pr-preview-${{ github.event.number }}
