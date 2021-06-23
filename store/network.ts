@@ -9,7 +9,7 @@ export interface PlaygroundApiState {
 
 export interface WhaleApiState {
   url: string
-  network: NetworkName
+  network: 'mainnet' | 'testnet' | 'regtest'
 }
 
 interface NetworkState {

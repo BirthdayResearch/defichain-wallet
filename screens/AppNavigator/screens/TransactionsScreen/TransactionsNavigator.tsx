@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { translate } from '../../../../translations'
 import { TransactionsScreen } from './screens/TransactionsScreen'
 import { TransactionDetailScreen } from './screens/TransactionDetailScreen'
-import { VMTransaction } from './screens/reducer'
+import { VMTransaction } from './screens/stateProcessor'
 
 export interface TransactionsParamList {
   TransactionsScreen: undefined
@@ -30,7 +30,7 @@ export function TransactionsNavigator (): JSX.Element {
         name='TransactionDetail'
         component={TransactionDetailScreen}
         options={{
-          headerTitle: translate('screens/TransactionsDetailScreen', 'TransactionDetail')
+          headerTitle: translate('screens/TransactionsDetailScreen', 'Transaction')
         }}
       />
     </TransactionsStack.Navigator>

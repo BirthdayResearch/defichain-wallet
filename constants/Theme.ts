@@ -8,10 +8,13 @@ export const PrimaryColor = '#ff00af'
 
 export const PrimaryColorStyle = StyleSheet.create({
   bg: {
-    backgroundColor: '#ff00af'
+    backgroundColor: PrimaryColor
   },
   text: {
-    color: '#ff00af'
+    color: PrimaryColor
+  },
+  border: {
+    borderColor: PrimaryColor
   }
 })
 

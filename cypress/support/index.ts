@@ -14,3 +14,9 @@
 // ***********************************************************
 
 import './commands'
+
+Cypress.Server.defaults({
+  ignore: (xhr: Request) => {
+    return xhr.url.match(/^.+\/v0\/playground\/(info|wallet)$/)
+  }
+})
