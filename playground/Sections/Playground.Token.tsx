@@ -33,11 +33,11 @@ export function PlaygroundToken (): JSX.Element | null {
       <PlaygroundAction
         key={token.id}
         testID={`playground_token_${token.symbol}`}
-        title={`Top up 100.0 ${token.symbol} to Wallet`}
+        title={`Top up 10.0 ${token.symbol} to Wallet`}
         onPress={async () => {
           const address = await WalletAPI.getWallet().get(0).getAddress()
           await rpcClient.call('sendtokenstoaddress', [{}, {
-            [address]: `100@${token.symbol}`
+            [address]: `10@${token.symbol}`
           }], 'number')
         }}
       />

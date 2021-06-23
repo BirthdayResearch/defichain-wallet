@@ -19,8 +19,8 @@ context('wallet/balances', () => {
     cy.getByTestID('balances_title').should('exist').contains('Portfolio')
     cy.getByTestID('balances_row_0').should('exist')
     cy.getByTestID('balances_row_1').should('exist')
-    cy.getByTestID('balances_row_0_amount').contains(50)
-    cy.getByTestID('balances_row_1_amount').contains(100)
+    cy.getByTestID('balances_row_0_amount').contains(10)
+    cy.getByTestID('balances_row_1_amount').contains(10)
   })
 
   it('should display navigation buttons and be able to redirect', function () {
