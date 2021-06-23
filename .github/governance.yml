@@ -55,19 +55,6 @@ issue:
         member: true
         owner: true
 
-    - prefix: screen
-      list:
-        - BalancesScreen
-        - LiquidityScreen
-        - SettingsScreen
-        - TransactionsScreen
-      multiple: true
-      author_association:
-        author: true
-        collaborator: true
-        member: true
-        owner: true
-
     - prefix: priority
       multiple: false
       list: [ "urgent-now", "important-soon" ]
