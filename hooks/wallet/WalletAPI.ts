@@ -1,17 +1,18 @@
-import { wallet, WalletStatus } from '../../store/wallet'
-import { JellyfishWallet, WalletAccount, WalletHdNode } from '@defichain/jellyfish-wallet'
+import { JellyfishWallet, WalletHdNode } from '@defichain/jellyfish-wallet'
 import { generateMnemonic } from '@defichain/jellyfish-wallet-mnemonic'
-import { MnemonicStorage } from './MnemonicStorage'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../store'
+import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import * as Random from 'expo-random'
-import { NetworkName } from '../../store/network'
-import { useWhaleApiClient } from '../api/useWhaleApiClient'
 import { useEffect } from 'react'
-import { getMnemonicWallet, hasMnemonicWallet } from './MnemonicWallet'
+import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
+import { RootState } from '../../store'
+import { NetworkName } from '../../store/network'
+import { wallet, WalletStatus } from '../../store/wallet'
+import { useWhaleApiClient } from '../api/useWhaleApiClient'
+import { MnemonicStorage } from './MnemonicStorage'
+import { getMnemonicWallet, hasMnemonicWallet } from './MnemonicWallet'
 
-let jellyfishWallet: JellyfishWallet<WalletAccount, WalletHdNode> | undefined
+let jellyfishWallet: JellyfishWallet<WhaleWalletAccount, WalletHdNode> | undefined
 
 /**
  * IMPORTANT: Do not log anything in WalletAPI or any Wallet related features.
@@ -24,7 +25,7 @@ const WalletAPI = {
   getStatus (): WalletStatus {
     return useSelector<RootState, WalletStatus>(state => state.wallet.status)
   },
-  getWallet (): JellyfishWallet<WalletAccount, WalletHdNode> {
+  getWallet (): JellyfishWallet<WhaleWalletAccount, WalletHdNode> {
     if (jellyfishWallet === undefined) {
       throw new Error('JellyfishWallet not yet initialized')
     }
