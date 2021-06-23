@@ -85,11 +85,11 @@ function BalanceActionButton (props: {
 }): JSX.Element {
   return (
     <TouchableOpacity
-      testID={`button_${props.title}`} style={[tailwind('px-2 py-1.5 ml-3 flex-row items-center border border-gray-300 rounded uppercase')]}
+      testID={`button_${props.title}`} style={[tailwind('px-2 py-1.5 ml-3 flex-row items-center border border-gray-300 rounded')]}
       onPress={props.onPress}
     >
       <MaterialIcons name={props.icon} size={20} color={PrimaryColor} />
-      <Text style={[tailwind('mx-1'), PrimaryColorStyle.text]}>
+      <Text style={[tailwind('mx-1 uppercase'), PrimaryColorStyle.text]}>
         {translate('screens/BalancesScreen', props.title)}
       </Text>
     </TouchableOpacity>
