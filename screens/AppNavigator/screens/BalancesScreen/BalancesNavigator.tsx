@@ -1,30 +1,31 @@
+import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { translate } from '../../../../translations'
-import { createStackNavigator } from '@react-navigation/stack'
 import { BalancesScreen } from './BalancesScreen'
 import { ReceiveScreen } from './ReceiveScreen/ReceiveScreen'
 
-export interface BalancesParamList {
+export interface BalanceParamList {
   BalancesScreen: undefined
+  ReceiveScreen: undefined
 
   [key: string]: undefined | object
 }
 
-const Balances = createStackNavigator<BalancesParamList>()
+const BalanceStack = createStackNavigator<BalanceParamList>()
 
 export function BalancesNavigator (): JSX.Element {
   return (
-    <Balances.Navigator>
-      <Balances.Screen
-        name='balances'
+    <BalanceStack.Navigator>
+      <BalanceStack.Screen
+        name='Balances'
         component={BalancesScreen}
-        options={{ headerTitle: translate('screens/BalancesScreen', 'Balances') }}
+        options={{ headerTitle: translate('screens/BalancesScreen', 'Wallet Balances') }}
       />
-      <Balances.Screen
-        name='receive'
+      <BalanceStack.Screen
+        name='Receive'
         component={ReceiveScreen}
         options={{ headerTitle: translate('screens/ReceiveScreen', 'Receive') }}
       />
-    </Balances.Navigator>
+    </BalanceStack.Navigator>
   )
 }
