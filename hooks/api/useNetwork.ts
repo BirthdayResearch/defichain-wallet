@@ -28,7 +28,7 @@ async function loadNetwork (dispatch: Dispatch<any>): Promise<void> {
     dispatch(network.actions.setPlayground(playground))
     dispatch(network.actions.setWhale({
       url: playground.url,
-      network: name
+      network: 'regtest'
     }))
   } else {
     dispatch(network.actions.setWhale({
@@ -62,7 +62,6 @@ async function loadPlayground (): Promise<PlaygroundApiState> {
   } catch (err) {
   }
 
-  // Always fallback to playground.ocean even if it's not available
-  const url = 'http://52.221.214.183'
-  return { url, environment: 'remote' }
+  // Always fallback to playground.defichain.com even if it's not available
+  return { url: 'https://playground.defichain.com', environment: 'remote' }
 }
