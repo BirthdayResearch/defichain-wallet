@@ -99,7 +99,7 @@ describe('balances page', () => {
       </Provider>
     );
     const rendered = render(component)
-    const receiveButton = await rendered.findByTestId('button_receive')
+    const receiveButton = await rendered.findByTestId('button_RECEIVE')
     fireEvent.press(receiveButton)
     expect(spy).toHaveBeenCalled()
   })

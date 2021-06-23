@@ -44,11 +44,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       ListHeaderComponent={
         <View style={tailwind('flex-row justify-end px-4 py-3 bg-white border-b border-gray-200')}>
           <BalanceActionButton
-            icon='arrow-downward' title='receive'
+            icon='arrow-downward' title='RECEIVE'
             onPress={() => navigation.navigate('Receive')}
           />
           <BalanceActionButton
-            icon='arrow-upward' title='send'
+            icon='arrow-upward' title='SEND'
             onPress={() => navigation.navigate('Send')}
           />
         </View>
@@ -89,7 +89,7 @@ function BalanceActionButton (props: {
       onPress={props.onPress}
     >
       <MaterialIcons name={props.icon} size={20} color={PrimaryColor} />
-      <Text style={[tailwind('mx-1 uppercase'), PrimaryColorStyle.text]}>
+      <Text style={[tailwind('mx-1'), PrimaryColorStyle.text]}>
         {translate('screens/BalancesScreen', props.title)}
       </Text>
     </TouchableOpacity>

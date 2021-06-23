@@ -25,12 +25,12 @@ exports[`balances page should match snapshot 1`] = `
       <BalanceActionButton
         icon="arrow-downward"
         onPress={[Function]}
-        title="receive"
+        title="RECEIVE"
       />
       <BalanceActionButton
         icon="arrow-upward"
         onPress={[Function]}
-        title="send"
+        title="SEND"
       />
     </View>
   }
@@ -156,10 +156,9 @@ exports[`balances page should match snapshot 1`] = `
               "paddingLeft": 8,
               "paddingRight": 8,
               "paddingTop": 6,
-              "textTransform": "uppercase",
             }
           }
-          testID="button_receive"
+          testID="button_RECEIVE"
         >
           <Text />
           <Text
@@ -181,7 +180,7 @@ exports[`balances page should match snapshot 1`] = `
               ]
             }
           >
-            receive
+            RECEIVE
           </Text>
         </View>
         <View
@@ -216,10 +215,9 @@ exports[`balances page should match snapshot 1`] = `
               "paddingLeft": 8,
               "paddingRight": 8,
               "paddingTop": 6,
-              "textTransform": "uppercase",
             }
           }
-          testID="button_send"
+          testID="button_SEND"
         >
           <Text />
           <Text
@@ -241,7 +239,7 @@ exports[`balances page should match snapshot 1`] = `
               ]
             }
           >
-            send
+            SEND
           </Text>
         </View>
       </View>
@@ -265,7 +263,7 @@ exports[`balances page should match snapshot 1`] = `
             },
           ]
         }
-        testID="balance_item_row"
+        testID="balances_row_0"
       >
         <View
           style={
@@ -379,6 +377,7 @@ exports[`balances page should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="balances_row_0_amount"
         >
           23
         </Text>
@@ -413,7 +412,7 @@ exports[`balances page should match snapshot 1`] = `
             },
           ]
         }
-        testID="balance_item_row"
+        testID="balances_row_1"
       >
         <View
           style={
@@ -525,6 +524,7 @@ exports[`balances page should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="balances_row_1_amount"
         >
           777
         </Text>
@@ -559,7 +559,7 @@ exports[`balances page should match snapshot 1`] = `
             },
           ]
         }
-        testID="balance_item_row"
+        testID="balances_row_2"
       >
         <View
           style={
@@ -715,6 +715,7 @@ exports[`balances page should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="balances_row_2_amount"
         >
           555
         </Text>
