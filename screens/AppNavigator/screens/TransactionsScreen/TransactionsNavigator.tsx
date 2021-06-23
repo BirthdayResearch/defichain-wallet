@@ -2,7 +2,7 @@ import * as React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { translate } from '../../../../translations'
 import { TransactionsScreen } from './screens/TransactionsScreen'
-import { VMTransaction } from './screens/statePropcessor'
+import { VMTransaction } from './screens/stateProcessor'
 
 export interface TransactionsParamList {
   TransactionsScreen: undefined
