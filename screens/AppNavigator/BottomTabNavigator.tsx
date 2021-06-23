@@ -4,7 +4,7 @@ import * as React from 'react'
 import { VectorIcon, VectorIconName } from '../../constants/Theme'
 
 import { BalancesNavigator } from './screens/BalancesScreen/BalancesNavigator'
-import { LiquidityNavigator } from './screens/LiquidityScreen/LiquidityNavigator'
+import { DexNavigator } from './screens/Dex/DexNavigator'
 import { SettingsNavigator } from './screens/SettingsScreen/SettingsNavigator'
 import { TransactionsNavigator } from './screens/TransactionsScreen/TransactionsNavigator'
 
@@ -42,7 +42,7 @@ export function BottomTabNavigator (): JSX.Element {
       />
       <BottomTab.Screen
         name='Liquidity'
-        component={LiquidityNavigator}
+        component={DexNavigator}
         options={{
           tabBarTestID: 'bottom_tab_liquidity',
           tabBarIcon: ({ color }) => <TabBarIcon name='pie-chart' color={color} />
@@ -74,9 +74,9 @@ export const AppLinking: PathConfigMap = {
       BalancesScreen: 'balances'
     }
   },
-  Liquidity: {
+  Dex: {
     screens: {
-      LiquidityScreen: 'liquidity'
+      Dex: 'Dex'
     }
   },
   Transactions: {
