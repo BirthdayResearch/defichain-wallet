@@ -50,6 +50,7 @@ export function TransactionsScreen (): JSX.Element {
 
   return (
     <FlatList
+      testID='transactions_screen_list'
       style={tailwind('w-full')}
       data={activities}
       renderItem={TransactionRow(navigation)}
@@ -65,8 +66,8 @@ export function TransactionsScreen (): JSX.Element {
   )
 }
 
-function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (row: { item: VMTransaction }) => JSX.Element {
-  return (row: { item: VMTransaction }): JSX.Element => {
+function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (row: { item: VMTransaction, index: number }) => JSX.Element {
+  return (row: { item: VMTransaction, index: number }): JSX.Element => {
     const {
       color,
       amount,
@@ -75,8 +76,10 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
       token
     } = row.item
 
+    const rowId = `transaction_row_${row.index}`
     return (
       <TouchableOpacity
+        testID={rowId}
         key={row.item.id}
         style={tailwind('flex-row w-full h-16 bg-white p-2 border-b border-gray-200 items-center')}
         onPress={() => {
@@ -109,7 +112,11 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
 function LoadMore (onPress: () => void): JSX.Element|null {
   return (
     <View style={tailwind('flex-1 items-center justify-center w-full m-1')}>
-      <TouchableOpacity onPress={onPress} style={tailwind('p-2')}>
+      <TouchableOpacity
+        testID='transactions_list_loadmore'
+        onPress={onPress}
+        style={tailwind('p-2')}
+      >
         <Text style={PrimaryColorStyle.text}>{translate('screens/TransactionsScreen', 'LOAD MORE')}</Text>
       </TouchableOpacity>
     </View>
