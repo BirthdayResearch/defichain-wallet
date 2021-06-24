@@ -18,7 +18,7 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
   const grayDivider = <View style={tailwind('bg-gray w-full h-4')} />
   const RenderRow = (lhs: string, rhs: string): JSX.Element => {
     return (
-      <View>
+      <View testID={`transaction-detail-${lhs.toLowerCase()}`}>
         {grayDivider}
         <View style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full h-16')}>
           <View style={tailwind('w-1/2 flex-1')}>
@@ -47,7 +47,10 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
       {RenderRow('Amount', translate('screens/TransactionDetailScreen', tx.amount))}
       {RenderRow('Block', translate('screens/TransactionDetailScreen', `${tx.block}`))}
       {grayDivider}
-      <View style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full h-16')}>
+      <View
+        testID='transaction-detail-explorer-url'
+        style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full h-16')}
+      >
         <View style={tailwind('flex-1 flex-row flex-initial')}>
           <View style={tailwind('flex-1')}>
             <Text style={tailwind('flex-1 font-medium text-gray-500')}>
