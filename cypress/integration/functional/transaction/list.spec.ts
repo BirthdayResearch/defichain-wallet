@@ -12,7 +12,7 @@ context('app/transactions/list', () => {
       cy.wait(['@sendToAddress'])
 
       // balances to be mined
-      cy.wait(4000)
+      cy.wait(3100)
 
       // go to page for testing
       cy.getByTestID('bottom_tab_transactions').click()
