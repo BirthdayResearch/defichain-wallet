@@ -1,5 +1,5 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React from 'react'
+import { MaterialIcons } from '@expo/vector-icons'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
@@ -41,7 +41,7 @@ export function ReceiveScreen (): JSX.Element {
           copyToClipboard(address)
         }}
       >
-        <MaterialCommunityIcons
+        <MaterialIcons
           style={tailwind('self-center')} name='content-copy' size={16}
           color={PrimaryColor}
         />
