@@ -6,13 +6,14 @@ import { Text } from '../../../../../components'
 import { StackScreenProps } from '@react-navigation/stack'
 import { TransactionsParamList } from '../TransactionsNavigator'
 import { Ionicons } from '@expo/vector-icons'
-
-// FIXME(@ivan-zynesis): envvar
-const EXPLORER_BASE_URL = 'https://explorer.defichain.io'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../../store'
+import { NetworkName } from '../../../../../store/network'
 
 type Props = StackScreenProps<TransactionsParamList, 'TransactionDetailScreen'>
 
 export function TransactionDetailScreen (props: Props): JSX.Element {
+  const network = useSelector<RootState, NetworkName | undefined>(state => state.network.name)
   const { tx } = props.route.params
 
   const grayDivider = <View style={tailwind('bg-gray w-full h-4')} />
@@ -32,7 +33,7 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
     )
   }
 
-  const url = explorerUrl(tx.txid)
+  const url = explorerUrl(network, tx.txid)
   const onTxidUrlPressed = React.useCallback(async () => {
     const supported = await Linking.canOpenURL(url)
     if (supported) {
@@ -66,6 +67,17 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
   )
 }
 
-function explorerUrl (txid: string): string {
-  return `${EXPLORER_BASE_URL}/#/DFI/tx/${txid}`
+function explorerUrl (network: NetworkName | undefined, txid: string): string {
+  const baseUrl = (): string => {
+    switch (network) {
+      case 'mainnet':
+        return 'https://explorer.defichain.io'
+      case 'testnet': // FIXME(@ivan-zynesis): if they have working explorer
+      case 'regtest':
+      case 'playground':
+      default:
+        return 'https://playground.defichain.com'
+    }
+  }
+  return `${baseUrl()}/#/DFI/tx/${txid}`
 }
