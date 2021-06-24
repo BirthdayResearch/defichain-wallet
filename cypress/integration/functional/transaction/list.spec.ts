@@ -4,7 +4,7 @@ context('app/transactions/list', () => {
       cy.createEmptyWallet()
 
       // setup transactions history, topup twice
-      const baseURL = '/v1/playground/rpc'
+      const baseURL = '/v0/playground/rpc'
       cy.intercept(`${baseURL}/sendtoaddress`).as('sendToAddress')
       cy.getByTestID('playground_wallet_top_up').click()
       cy.wait(['@sendToAddress'])
