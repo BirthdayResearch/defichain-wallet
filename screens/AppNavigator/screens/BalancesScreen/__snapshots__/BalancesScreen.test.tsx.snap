@@ -27,11 +27,6 @@ exports[`balances page should match snapshot 1`] = `
         onPress={[Function]}
         title="RECEIVE"
       />
-      <BalanceActionButton
-        icon="arrow-upward"
-        onPress={[Function]}
-        title="SEND"
-      />
     </View>
   }
   data={
@@ -181,65 +176,6 @@ exports[`balances page should match snapshot 1`] = `
             }
           >
             RECEIVE
-          </Text>
-        </View>
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(209, 213, 219, 1)",
-              "borderBottomLeftRadius": 4,
-              "borderBottomRightRadius": 4,
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(209, 213, 219, 1)",
-              "borderLeftWidth": 1,
-              "borderRightColor": "rgba(209, 213, 219, 1)",
-              "borderRightWidth": 1,
-              "borderTopColor": "rgba(209, 213, 219, 1)",
-              "borderTopLeftRadius": 4,
-              "borderTopRightRadius": 4,
-              "borderTopWidth": 1,
-              "flexDirection": "row",
-              "marginLeft": 12,
-              "opacity": 1,
-              "paddingBottom": 6,
-              "paddingLeft": 8,
-              "paddingRight": 8,
-              "paddingTop": 6,
-            }
-          }
-          testID="button_SEND"
-        >
-          <Text />
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontSize": 16,
-                  "fontWeight": "600",
-                },
-                Array [
-                  Object {
-                    "marginLeft": 4,
-                    "marginRight": 4,
-                  },
-                  Object {
-                    "color": "#ff00af",
-                  },
-                ],
-              ]
-            }
-          >
-            SEND
           </Text>
         </View>
       </View>

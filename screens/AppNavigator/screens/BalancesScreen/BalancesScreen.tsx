@@ -47,10 +47,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             icon='arrow-downward' title='RECEIVE'
             onPress={() => navigation.navigate('Receive')}
           />
-          <BalanceActionButton
-            icon='arrow-upward' title='SEND'
-            onPress={() => navigation.navigate('Send')}
-          />
         </View>
       }
     />

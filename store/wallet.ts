@@ -24,7 +24,7 @@ const initialState: WalletState = {
   address: ''
 }
 
-const initialDFI: AddressToken = {
+const tokenDFI: AddressToken = {
   id: '0',
   symbol: 'DFI',
   symbolKey: 'DFI',
@@ -32,6 +32,12 @@ const initialDFI: AddressToken = {
   isLPS: false,
   amount: '0',
   name: 'Defi'
+}
+
+const utxoDFI: AddressToken = {
+  ...tokenDFI,
+  id: '0_utxo',
+  name: 'UTXO Defi'
 }
 
 export const wallet = createSlice({
@@ -54,16 +60,19 @@ export const wallet = createSlice({
 })
 
 const rawTokensSelector = createSelector((state: WalletState) => state.tokens, (tokens) => {
-  if (tokens.some((t) => t.id === '0')) {
-    return tokens
-  } else {
-    return [initialDFI, ...tokens]
+  const rawTokens = []
+  if (!tokens.some((t) => t.id === '0_utxo')) {
+    rawTokens.push(utxoDFI)
   }
+  if (!tokens.some((t) => t.id === '0')) {
+    rawTokens.push(tokenDFI)
+  }
+  return [...rawTokens, ...tokens]
 })
-//* Use as token selector to include UTXO balance
+
 export const tokensSelector = createSelector([rawTokensSelector, (state: WalletState) => state.utxoBalance], (tokens, utxoBalance) => tokens.map((t) => {
-  if (t.id === '0') {
-    return { ...t, amount: new BigNumber(t.amount).plus(utxoBalance).toFixed() }
+  if (t.id === '0_utxo') {
+    return { ...t, amount: new BigNumber(utxoBalance).toFixed() }
   }
   return t
 }))
