@@ -1,19 +1,8 @@
 context('app/transactions/list', () => {
   describe('wallet has 2 transactions in history', function () {
     before(() => {
-      cy.createEmptyWallet()
-
-      // setup transactions history, topup twice
-      const baseURL = '/v0/playground/rpc'
-      cy.intercept(`${baseURL}/sendtoaddress`).as('sendToAddress')
-      cy.getByTestID('playground_wallet_top_up').click()
-      cy.wait(['@sendToAddress'])
-      cy.getByTestID('playground_wallet_top_up').click()
-      cy.wait(['@sendToAddress'])
-
-      // balances to be mined
-      cy.wait(3100)
-
+      cy.createEmptyWallet(true)
+      cy.sendDFItoWallet().sendDFItoWallet().wait(4000)
       // go to page for testing
       cy.getByTestID('bottom_tab_transactions').click()
     })

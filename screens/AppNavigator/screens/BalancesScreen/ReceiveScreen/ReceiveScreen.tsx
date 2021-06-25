@@ -1,5 +1,5 @@
-import React from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
+import React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
