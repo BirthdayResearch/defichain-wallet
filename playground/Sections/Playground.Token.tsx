@@ -56,16 +56,6 @@ export function PlaygroundToken (): JSX.Element | null {
           />
         </View>
       </View>
-      <PlaygroundAction
-        testID=''
-        title='Convert 10 DFI from utxos to token'
-        onPress={async () => {
-          const payload: { [key: string]: string } = {}
-          const address = await WalletAPI.getWallet().get(0).getAddress()
-          payload[address] = 'DFI@0'
-          await rpcClient.call('utxostoaccount', [payload], 'number')
-        }}
-      />
       {actions}
     </View>
   )
