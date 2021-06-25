@@ -28,10 +28,10 @@ export function PlaygroundUTXO (): JSX.Element | null {
   const actions = status === 'online' ? (
     <PlaygroundAction
       testID='playground_wallet_top_up'
-      title='Top up 50 DFI UTXO to Wallet'
+      title='Top up 10 DFI UTXO to Wallet'
       onPress={async () => {
         const address = await WalletAPI.getWallet().get(0).getAddress()
-        await rpcClient.wallet.sendToAddress(address, 50)
+        await rpcClient.wallet.sendToAddress(address, 10)
       }}
     />
   ) : null

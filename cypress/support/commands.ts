@@ -38,6 +38,19 @@ declare namespace Cypress {
      * @example cy.createEmptyWallet(isRandom?: boolean)
      */
     createEmptyWallet (isRandom?: boolean): Chainable<Element>
+
+    /**
+     * @description Sends UTXO DFI to wallet.
+     * @example cy.sendDFItoWallet().wait(4000)
+     */
+    sendDFItoWallet (): Chainable<Element>
+
+    /**
+     * @description Sends token to wallet. Accepts a list of token symbols to be sent.
+     * @param {string[]} tokens to be sent
+     * @example cy.sendTokenToWallet(['BTC', 'ETH']).wait(4000)
+     */
+    sendTokenToWallet (tokens: string[]): Chainable<Element>
   }
 }
 
@@ -48,4 +61,18 @@ Cypress.Commands.add('getByTestID', (selector, ...args) => {
 Cypress.Commands.add('createEmptyWallet', (isRandom: boolean = false) => {
   cy.visit(Cypress.env('URL'))
   cy.getByTestID(isRandom ? 'playground_wallet_random' : 'playground_wallet_abandon').click()
+})
+
+Cypress.Commands.add('sendDFItoWallet', () => {
+  cy.intercept('/v0/playground/rpc/sendtoaddress').as('sendToAddress')
+  cy.getByTestID('playground_wallet_top_up').click()
+  cy.wait(['@sendToAddress'])
+})
+
+Cypress.Commands.add('sendTokenToWallet', (tokens: string[]) => {
+  cy.intercept('/v0/playground/rpc/sendtokenstoaddress').as('sendTokensToAddress')
+  tokens.forEach((t: string) => {
+    cy.getByTestID(`playground_token_${t}`).click()
+  })
+  cy.wait(['@sendTokensToAddress'])
 })

@@ -48,7 +48,7 @@ describe('balances page', () => {
       network: {
         name: 'playground',
         whale: {
-          network: 'playground',
+          network: 'regtest',
           url: 'http://0.0.0.0'
         }
       }
@@ -57,12 +57,13 @@ describe('balances page', () => {
       preloadedState: initialState,
       reducer: { wallet: wallet.reducer, network: network.reducer }
     })
-    const navigation = {
-      navigate: jest.fn()
+    const navigation: any = {
+      navigate: jest.fn(),
     }
+    const route: any = {}
     const component = (
       <Provider store={store}>
-        <BalancesScreen navigation={navigation as any} />
+        <BalancesScreen navigation={navigation} route={route} />
       </Provider>
     );
     const rendered = render(component)
@@ -80,7 +81,7 @@ describe('balances page', () => {
       network: {
         name: 'playground',
         whale: {
-          network: 'playground',
+          network: 'regtest',
           url: 'http://0.0.0.0'
         }
       }
@@ -89,17 +90,18 @@ describe('balances page', () => {
       preloadedState: initialState,
       reducer: { wallet: wallet.reducer, network: network.reducer }
     })
-    const navigation = {
-      navigate: jest.fn()
+    const navigation: any = {
+      navigate: jest.fn(),
     }
+    const route: any = {}
     const spy = jest.spyOn(navigation, 'navigate')
     const component = (
       <Provider store={store}>
-        <BalancesScreen navigation={navigation as any} />
+        <BalancesScreen navigation={navigation} route={route} />
       </Provider>
     );
     const rendered = render(component)
-    const receiveButton = await rendered.findByTestId('button_receive')
+    const receiveButton = await rendered.findByTestId('button_RECEIVE')
     fireEvent.press(receiveButton)
     expect(spy).toHaveBeenCalled()
   })

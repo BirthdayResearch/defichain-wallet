@@ -36,11 +36,11 @@ jobs:
         with:
           node-version: 15
 
-      - uses: expo/expo-github-action@8275e8fa89e599e1b1ef793b0219c299f79bc32b
+      - uses: expo/expo-github-action@c3c02de017ef8cf6152daee160e8a47a2340a5e5
         with:
           expo-version: 4.x
           expo-packager: npm
-          expo-token: ${{ secrets.EXPO_TOKEN }}
+          token: ${{ secrets.EXPO_TOKEN }}
 
       - run: npm ci
 
@@ -64,14 +64,14 @@ jobs:
         with:
           node-version: 15
 
-      - uses: expo/expo-github-action@8275e8fa89e599e1b1ef793b0219c299f79bc32b
+      - uses: expo/expo-github-action@c3c02de017ef8cf6152daee160e8a47a2340a5e5
         with:
+          eas-version: latest
           expo-version: 4.x
           expo-packager: npm
-          expo-token: ${{ secrets.EXPO_TOKEN }}
+          token: ${{ secrets.EXPO_TOKEN }}
 
       - run: npm ci
-      - run: npm install -g eas-cli
 
       - run: |
           git config --global user.email "github-bot@defichain.com"

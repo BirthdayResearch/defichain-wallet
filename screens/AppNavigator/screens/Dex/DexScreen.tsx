@@ -1,5 +1,6 @@
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
+import { MaterialIcons } from '@expo/vector-icons'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { SectionList, TouchableOpacity } from 'react-native'
@@ -8,13 +9,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { PrimaryColor, PrimaryColorStyle, VectorIcon } from '../../../../constants/Theme'
+import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
 import { useWhaleApiClient } from '../../../../hooks/api/useWhaleApiClient'
 import { fetchTokens } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
 import { translate } from '../../../../translations'
 
-export function LiquidityScreen (): JSX.Element {
+export function DexScreen (): JSX.Element {
   const whaleApiClient = useWhaleApiClient()
   const address = useSelector((state: RootState) => state.wallet.address)
   const [pairs, setPairs] = useState<Array<DexItem<PoolPairData>>>([])
@@ -79,7 +80,7 @@ export function LiquidityScreen (): JSX.Element {
         }
         return (
           <Text style={tailwind('pt-5 pb-4 px-4 font-bold bg-gray-100')}>
-            {translate('app/LiquidityScreen', section.key)}
+            {translate('app/DexScreen', section.key)}
           </Text>
         )
       }}
@@ -108,6 +109,7 @@ function PoolPairRowYour (data: AddressToken): JSX.Element {
         </View>
         <View style={tailwind('flex-row -mr-3')}>
           <PoolPairLiqBtn name='remove' />
+          <PoolPairLiqBtn name='add' />
         </View>
       </View>
 
@@ -138,7 +140,7 @@ function PoolPairRowAvailable (data: PoolPairData): JSX.Element {
         </View>
       </View>
 
-      <View style={tailwind('p-4')}>
+      <View style={tailwind('mt-4')}>
         <PoolPairInfoLine symbol={symbolA} reserve={data.tokenA.reserve} />
         <PoolPairInfoLine symbol={symbolB} reserve={data.tokenB.reserve} />
       </View>
@@ -149,12 +151,12 @@ function PoolPairRowAvailable (data: PoolPairData): JSX.Element {
 function PoolPairLiqBtn (props: { name: 'remove' | 'add' }): JSX.Element {
   return (
     <TouchableOpacity style={tailwind('py-2 px-3')}>
-      <VectorIcon size={24} name={props.name} color={PrimaryColor} />
+      <MaterialIcons size={24} name={props.name} color={PrimaryColor} />
     </TouchableOpacity>
   )
 }
 
-function PoolPairSwapBtn (props: {}): JSX.Element {
+function PoolPairSwapBtn (): JSX.Element {
   return (
     <TouchableOpacity style={tailwind('py-2 px-3 flex-row items-center')}>
       <Text style={[tailwind('font-bold'), PrimaryColorStyle.text]}>SWAP</Text>
