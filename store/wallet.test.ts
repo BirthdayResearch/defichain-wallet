@@ -8,7 +8,8 @@ import {
 
 describe('wallet reducer', () => {
   let initialState: WalletState;
-  let initialDFI: AddressToken;
+  let tokenDFI: AddressToken;
+  let utxoDFI: AddressToken;
 
   beforeEach(() => {
     initialState = {
@@ -17,7 +18,7 @@ describe('wallet reducer', () => {
       utxoBalance: '0',
       address: ''
     };
-    initialDFI = {
+    tokenDFI = {
       id: '0',
       amount: '100000',
       isDAT: true,
@@ -26,6 +27,12 @@ describe('wallet reducer', () => {
       symbol: 'DFI',
       symbolKey: 'DFI'
     };
+    utxoDFI = {
+      ...tokenDFI,
+      amount: '0',
+      id: '0_utxo',
+      name: 'UTXO Defi'
+    }
   })
 
   it('should handle initial state', () => {
@@ -43,7 +50,7 @@ describe('wallet reducer', () => {
   });
 
   it('should handle setTokens', () => {
-    const tokens: AddressToken[] = [initialDFI]
+    const tokens: AddressToken[] = [tokenDFI, utxoDFI]
     const actual = wallet.reducer(initialState, wallet.actions.setTokens(tokens));
     expect(actual.tokens).toStrictEqual(tokens)
   });
@@ -60,9 +67,9 @@ describe('wallet reducer', () => {
     expect(actual.address).toStrictEqual(address)
   });
 
-  it('should able to select tokens with DFI added', () => {
+  it('should able to select tokens with default DFIs', () => {
     const actual = tokensSelector({ ...initialState, utxoBalance: '77' })
-    expect(actual).toStrictEqual([{ ...initialDFI, amount: '77' }])
+    expect(actual).toStrictEqual([{ ...utxoDFI, amount: '77' }, { ...tokenDFI, amount: '0' }])
   });
 
   it('should able to select tokens with existing DFI Token', () => {
@@ -78,9 +85,9 @@ describe('wallet reducer', () => {
     const state = {
       ...initialState,
       utxoBalance: '77',
-      tokens: [{ ...initialDFI }, { ...btc }]
+      tokens: [{ ...utxoDFI }, { ...tokenDFI }, { ...btc }]
     }
     const actual = tokensSelector(state)
-    expect(actual).toStrictEqual([{ ...initialDFI, amount: '100077' }, { ...btc }])
+    expect(actual).toStrictEqual([{ ...utxoDFI, amount: '77' }, { ...tokenDFI }, { ...btc }])
   });
 })
