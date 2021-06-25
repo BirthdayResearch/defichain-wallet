@@ -39,7 +39,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
       data={tokens}
-      renderItem={({ item }) => <BalanceItemRow token={item} key={item.symbol} />}
+      renderItem={({ item }) =>
+        <BalanceItemRow
+          token={item} key={item.symbol}
+          onPress={() => navigation.navigate('Send', { token: item })}
+        />}
       ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
       ListHeaderComponent={
         <View style={tailwind('flex-row justify-end px-4 py-3 bg-white border-b border-gray-200')}>
@@ -53,11 +57,14 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   )
 }
 
-function BalanceItemRow ({ token }: { token: AddressToken }): JSX.Element {
+function BalanceItemRow ({ token, onPress }: { token: AddressToken, onPress: () => void }): JSX.Element {
   const Icon = getTokenIcon(token.symbol)
 
   return (
-    <View testID={`balances_row_${token.id}`} style={tailwind('bg-white p-4 flex-row justify-between items-center')}>
+    <TouchableOpacity
+      onPress={onPress} testID={`balances_row_${token.id}`}
+      style={tailwind('bg-white py-4 pl-4 pr-2 flex-row justify-between items-center')}
+    >
       <View style={tailwind('flex-row items-center')}>
         <Icon />
         <View style={tailwind('mx-3')}>
@@ -68,9 +75,15 @@ function BalanceItemRow ({ token }: { token: AddressToken }): JSX.Element {
 
       <NumberFormat
         value={token.amount} decimalScale={3} thousandSeparator displayType='text'
-        renderText={(value) => <Text testID={`balances_row_${token.id}_amount`}>{value}</Text>}
+        renderText={(value) =>
+          <View style={tailwind('flex-row items-center')}>
+            <Text style={tailwind('mr-2')} testID={`balances_row_${token.id}_amount`}>
+              {value}
+            </Text>
+            <MaterialIcons name='chevron-right' size={24} />
+          </View>}
       />
-    </View>
+    </TouchableOpacity>
   )
 }
 
@@ -81,7 +94,8 @@ function BalanceActionButton (props: {
 }): JSX.Element {
   return (
     <TouchableOpacity
-      testID={`button_${props.title}`} style={[tailwind('px-2 py-1.5 ml-3 flex-row items-center border border-gray-300 rounded')]}
+      testID={`button_${props.title}`}
+      style={[tailwind('px-2 py-1.5 ml-3 flex-row items-center border border-gray-300 rounded')]}
       onPress={props.onPress}
     >
       <MaterialIcons name={props.icon} size={20} color={PrimaryColor} />

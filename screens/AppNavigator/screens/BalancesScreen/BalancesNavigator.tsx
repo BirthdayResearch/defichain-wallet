@@ -1,3 +1,4 @@
+import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { translate } from '../../../../translations'
@@ -8,7 +9,7 @@ import { SendScreen } from './SendScreen/SendScreen'
 export interface BalanceParamList {
   BalancesScreen: undefined
   ReceiveScreen: undefined
-  SendScreen: undefined
+  SendScreen: { token: AddressToken }
 
   [key: string]: undefined | object
 }
