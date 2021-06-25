@@ -1,196 +1,191 @@
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
-import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
+import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { useEffect, useState } from 'react'
-import { SectionList, TouchableOpacity } from 'react-native'
-import NumberFormat from 'react-number-format'
-import { useDispatch, useSelector } from 'react-redux'
+import { useCallback, useState } from 'react'
+import { TouchableOpacity } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 import tailwind from 'tailwind-rn'
-import { Text, View } from '../../../../components'
+import { Text, TextInput, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
-import { useWhaleApiClient } from '../../../../hooks/api/useWhaleApiClient'
-import { fetchTokens, useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
-import { RootState } from '../../../../store'
-import { translate } from '../../../../translations'
+import { PrimaryColorStyle } from '../../../../constants/Theme'
+import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { DexParamList } from './DexNavigator'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
+type EditingAmount = 'primary' | 'secondary'
+
+interface ExtPoolPairData extends PoolPairData {
+  aSymbol: string
+  bSymbol: string
+  aToBRate: BigNumber
+  bToARate: BigNumber
+}
 
 export function AddLiquidityScreen (props: Props): JSX.Element {
-  const whaleApiClient = useWhaleApiClient()
-  const address = useSelector((state: RootState) => state.wallet.address)
-  const [pairs, setPairs] = useState<Array<DexItem<PoolPairData>>>([])
-  const dispatch = useDispatch()
+  // TODO: poll for PoolPairData periodically
 
-  const [inputOne, setInputOne] = useState<string|undefined>(
-    props.route?.params.inputOnePreset !== undefined
-      ? props.route.params.inputOnePreset
-      : undefined
-  )
-  const [inputTwo, setInputTwo] = useState<string|undefined>(
-    props.route?.params.inputTwoPreset !== undefined
-      ? props.route.params.inputTwoPreset
-      : undefined
-  )
+  // this component state
+  const [tokenAAmount, setTokenAAmount] = useState<BigNumber>(new BigNumber(0))
+  const [tokenBAmount, setTokenBAmount] = useState<BigNumber>(new BigNumber(0))
+  const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
 
+  // gather required data
   const tokens = useTokensAPI()
+  const { pair: poolPairData } = props.route.params
+  const [aSymbol, bSymbol] = poolPairData.symbol.split('-')
+  const pair: ExtPoolPairData = {
+    ...poolPairData,
+    aSymbol,
+    bSymbol,
+    aToBRate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve),
+    bToARate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve)
+  }
+  const balanceA = tokens.find(at => at.id === pair.tokenA.id)
+  const balanceB = tokens.find(at => at.id === pair.tokenB.id)
+  const [tokenASymbol, tokenBSymbol] = pair.symbol.split('-')
 
-  useEffect(() => {
-    // TODO(fuxingloh): does not auto refresh currently, but not required for MVP. Due to limited PP availability
-    fetchTokens(address, dispatch, whaleApiClient)
-    whaleApiClient.poolpair.list(50).then(pairs => {
-      setPairs(pairs.map(data => ({ type: 'available', data: data })))
-    }).catch((err) => {
-      console.log(err)
-    })
-  }, [])
+  const buildSummary = useCallback((ref: EditingAmount, refAmount: BigNumber) => {
+    if (ref === 'primary') {
+      setTokenAAmount(refAmount)
+      setTokenBAmount(refAmount.times(pair.aToBRate))
+      setSharePercentage(refAmount.div(pair.tokenA.reserve))
+    } else {
+      setTokenBAmount(refAmount)
+      setTokenAAmount(refAmount.times(pair.bToARate))
+      setSharePercentage(refAmount.div(pair.tokenB.reserve))
+    }
+  }, [tokenAAmount, tokenBAmount])
 
-  const yourLPTokens = useSelector<RootState, Array<DexItem<AddressToken>>>(({ wallet }: RootState) => {
-    return wallet.tokens.filter(({ isLPS }) => isLPS).map(data => ({ type: 'your', data: data }))
-  })
-
+  const grayDivider = <View style={tailwind('bg-gray w-full h-4')} />
   return (
-    <SectionList
-      testID='liquidity_screen_list'
-      style={tailwind('bg-gray-100')}
-      sections={[
-        {
-          data: yourLPTokens as Array<DexItem<any>>
-        },
-        {
-          key: 'Available pool pairs',
-          data: pairs as Array<DexItem<any>>
-        }
-      ]}
-      renderItem={({ item }): JSX.Element => {
-        switch (item.type) {
-          case 'your':
-            return PoolPairRowYour(item.data)
-          case 'available':
-            return PoolPairRowAvailable(item.data)
-        }
-      }}
-      ListHeaderComponent={() => {
-        if (yourLPTokens.length > 0) {
-          return (
-            <Text style={tailwind('pt-5 pb-4 px-4 font-bold bg-gray-100')}>
-              Your liquidity
-            </Text>
+    <View style={tailwind('w-full h-full')}>
+      <ScrollView style={tailwind('w-full flex-column flex-1')}>
+        {grayDivider}
+        {TokenInput(tokenASymbol, balanceA, tokenAAmount, (amount) => { buildSummary('primary', amount) })}
+        {grayDivider}
+        {TokenInput(tokenBSymbol, balanceB, tokenBAmount, (amount) => { buildSummary('secondary', amount) })}
+        {grayDivider}
+        {Summary(pair, sharePercentage)}
+      </ScrollView>
+      <View style={tailwind('w-full h-16')}>
+        {ContinueButton(
+          canAddLiquidity(
+            pair,
+            tokenAAmount,
+            tokenBAmount,
+            balanceA === undefined ? undefined : new BigNumber(balanceA.amount),
+            balanceB === undefined ? undefined : new BigNumber(balanceB.amount)
           )
-        }
-        return (
-          <View style={tailwind('px-4 pt-4 pb-2')}>
-            <Text style={tailwind('text-sm')}>
-              Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX) to start earning fees
-              and annual returns of up to 100%. You can withdraw any time.
-            </Text>
-          </View>
-        )
-      }}
-      ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
-      renderSectionHeader={({ section }) => {
-        if (section.key === undefined) {
-          return null
-        }
-        return (
-          <Text style={tailwind('pt-5 pb-4 px-4 font-bold bg-gray-100')}>
-            {translate('app/DexScreen', section.key)}
-          </Text>
-        )
-      }}
-      keyExtractor={(item, index) => `${index}`}
-    />
-  )
-}
-
-interface DexItem<T> {
-  type: 'your' | 'available'
-  data: T
-}
-
-function PoolPairRowYour (data: AddressToken): JSX.Element {
-  const [symbolA, symbolB] = data.symbol.split('-')
-  const IconA = getTokenIcon(symbolA)
-  const IconB = getTokenIcon(symbolB)
-
-  return (
-    <View testID='pool_pair_row' style={tailwind('p-4 bg-white')}>
-      <View style={tailwind('flex-row items-center justify-between')}>
-        <View style={tailwind('flex-row items-center')}>
-          <IconA width={32} height={32} />
-          <IconB width={32} height={32} style={tailwind('-ml-3 mr-3')} />
-          <Text style={tailwind('text-lg')}>{data.symbol}</Text>
-        </View>
-        <View style={tailwind('flex-row -mr-3')}>
-          <PoolPairLiqBtn name='remove' />
-          <PoolPairLiqBtn name='add' />
-        </View>
-      </View>
-
-      <View style={tailwind('mt-4')}>
-        <PoolPairInfoLine symbol={data.symbol} reserve={data.amount} />
+        )}
       </View>
     </View>
   )
 }
 
-function PoolPairRowAvailable (data: PoolPairData): JSX.Element {
-  const [symbolA, symbolB] = data.symbol.split('-')
-  const IconA = getTokenIcon(symbolA)
-  const IconB = getTokenIcon(symbolB)
-
-  return (
-    <View testID='pool_pair_row' style={tailwind('p-4 bg-white')}>
-      <View style={tailwind('flex-row items-center justify-between')}>
-        <View style={tailwind('flex-row items-center')}>
-          <IconA width={32} height={32} />
-          <IconB width={32} height={32} style={tailwind('-ml-3 mr-3')} />
-          <Text style={tailwind('text-lg')}>{data.symbol}</Text>
-        </View>
-
-        <View style={tailwind('flex-row -mr-2')}>
-          <PoolPairLiqBtn name='add' />
-          <PoolPairSwapBtn />
-        </View>
+function TokenInput (symbol: string, token: AddressToken | undefined, current: BigNumber, setState: (amount: BigNumber) => void): JSX.Element {
+  const renderIcon = (): JSX.Element|null => {
+    if (symbol === undefined) {
+      return null
+    }
+    const TokenIcon = getTokenIcon(symbol)
+    return (
+      <View style={tailwind('w-8 justify-center items-center')}>
+        <TokenIcon />
       </View>
+    )
+  }
 
-      <View style={tailwind('mt-4')}>
-        <PoolPairInfoLine symbol={symbolA} reserve={data.tokenA.reserve} />
-        <PoolPairInfoLine symbol={symbolB} reserve={data.tokenB.reserve} />
+  const balanceAmount = token !== undefined ? token.amount : 0
+  return (
+    <View style={tailwind('flex-column w-full h-40 items-center')}>
+      <View style={tailwind('flex-column w-full h-8 bg-white justify-center')}>
+        <Text style={tailwind('m-6')}>Input</Text>
+      </View>
+      <View style={tailwind('flex-row w-full h-16 bg-white items-center p-4')}>
+        <TextInput
+          style={tailwind('flex-1 ml-2 mr-4')}
+          value={current.isNaN() ? '' : current.toString()}
+          keyboardType='numeric'
+          onChange={event => setState(new BigNumber(event.nativeEvent.text))}
+        />
+        {renderIcon()}
+        <Text style={tailwind('w-12 ml-2')}>{symbol}</Text>
+      </View>
+      <View style={tailwind('bg-white w-full border-t border-gray-200 h-12 justify-center')}>
+        <Text style={tailwind('ml-6')}>Balance: {balanceAmount}</Text>
       </View>
     </View>
   )
 }
 
-function PoolPairLiqBtn (props: { name: 'remove' | 'add' }): JSX.Element {
+function Summary (pair: ExtPoolPairData, sharePercentage: BigNumber): JSX.Element {
+  const RenderRow = (lhs: string, rhs: string): JSX.Element => {
+    return (
+      <View style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full h-16')}>
+        <View style={tailwind('flex-1')}>
+          <Text style={tailwind('font-medium')}>{lhs}</Text>
+        </View>
+        <View style={tailwind('flex-1')}>
+          <Text style={tailwind('font-medium text-right text-gray-600')}>{rhs}</Text>
+        </View>
+      </View>
+    )
+  }
+
   return (
-    <TouchableOpacity style={tailwind('py-2 px-3')}>
-      <MaterialIcons size={24} name={props.name} color={PrimaryColor} />
+    <View style={tailwind('flex-column w-full items-center')}>
+      <View style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full h-16')}>
+        <View style={tailwind('flex-1')}>
+          <Text style={tailwind('font-medium')}>Price</Text>
+        </View>
+        <View style={tailwind('flex-1 flex-column')}>
+          <Text style={tailwind('font-medium text-right text-gray-600')}>{pair.aToBRate.toString()} {pair.aSymbol} per {pair.bSymbol}</Text>
+          <Text style={tailwind('font-medium text-right text-gray-600')}>{pair.bToARate.toString()} {pair.bSymbol} per {pair.aSymbol}</Text>
+        </View>
+      </View>
+      {RenderRow('Share of pool', sharePercentage.toString())}
+      {RenderRow(`Pooled ${pair.aSymbol}`, pair.tokenA.reserve)}
+      {RenderRow(`Pooled ${pair.bSymbol}`, pair.tokenB.reserve)}
+    </View>
+  )
+}
+
+function ContinueButton (enabled: boolean): JSX.Element {
+  const buttonColor = enabled ? PrimaryColorStyle.bg : { backgroundColor: 'gray' }
+  return (
+    <TouchableOpacity
+      style={[tailwind('m-2 p-3 rounded flex-row justify-center'), buttonColor]}
+      onPress={() => console.log('TODO: link when work on CONFIRM ADD LIQ page')}
+      disabled={!enabled}
+    >
+      <Text style={[tailwind('text-white font-bold')]}>Continue</Text>
     </TouchableOpacity>
   )
 }
 
-function PoolPairSwapBtn (props: {}): JSX.Element {
-  return (
-    <TouchableOpacity style={tailwind('py-2 px-3 flex-row items-center')}>
-      <Text style={[tailwind('font-bold'), PrimaryColorStyle.text]}>SWAP</Text>
-    </TouchableOpacity>
-  )
-}
+// TODO: display specific error
+function canAddLiquidity (pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenBAmount: BigNumber, balanceA: BigNumber|undefined, balanceB: BigNumber|undefined): boolean {
+  if (tokenAAmount.isNaN() || tokenBAmount.isNaN()) {
+    // empty string, use still input-ing
+    return false
+  }
 
-function PoolPairInfoLine (props: { symbol: string, reserve: string }): JSX.Element {
-  return (
-    <View style={tailwind('flex-row justify-between')}>
-      <Text style={tailwind('text-sm')}>Pooled {props.symbol}</Text>
-      <NumberFormat
-        value={props.reserve} decimalScale={2} thousandSeparator displayType='text'
-        renderText={value => {
-          return <Text>{value} {props.symbol}</Text>
-        }}
-      />
-    </View>
-  )
+  if (tokenAAmount.lte(0) || tokenBAmount.lte(0)) {
+    return false
+  }
+
+  if (tokenAAmount.gt(pair.tokenA.reserve) || tokenBAmount.gt(pair.tokenB.reserve)) {
+    return false
+  }
+
+  if (
+    balanceA === undefined || balanceA.lt(tokenAAmount) ||
+    balanceB === undefined || balanceB.lt(tokenBAmount)
+  ) {
+    return false
+  }
+
+  return true
 }

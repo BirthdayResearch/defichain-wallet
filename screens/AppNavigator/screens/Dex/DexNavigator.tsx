@@ -2,12 +2,13 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { translate } from '../../../../translations'
 import { DexScreen } from './DexScreen'
+import { AddLiquidityScreen } from './DexAddLiquidity'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
 
 export interface DexParamList {
   DexScreen: undefined
   AddLiquidity: {
-    inputOnePreset: string
-    inputTwoPreset: string
+    pair: PoolPairData
   }
 
   [key: string]: undefined | object
@@ -25,8 +26,8 @@ export function DexNavigator (): JSX.Element {
       />
       <DexStack.Screen
         name='AddLiquidity'
-        component={DexScreen}
-        options={{ headerTitle: translate('screens/DexScreen', 'Decentralized Exchange') }}
+        component={AddLiquidityScreen}
+        options={{ headerTitle: translate('screens/DexScreen', 'Add Liquidity') }}
       />
     </DexStack.Navigator>
   )
