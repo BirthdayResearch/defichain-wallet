@@ -156,7 +156,7 @@ function PoolPairLiqBtn (props: { name: 'remove' | 'add' }): JSX.Element {
   )
 }
 
-function PoolPairSwapBtn (props: {}): JSX.Element {
+function PoolPairSwapBtn (): JSX.Element {
   return (
     <TouchableOpacity style={tailwind('py-2 px-3 flex-row items-center')}>
       <Text style={[tailwind('font-bold'), PrimaryColorStyle.text]}>SWAP</Text>
