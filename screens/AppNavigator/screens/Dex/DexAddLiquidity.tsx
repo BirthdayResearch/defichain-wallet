@@ -31,6 +31,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   // this component state
   const [tokenAAmount, setTokenAAmount] = useState<BigNumber>(new BigNumber(0))
   const [tokenBAmount, setTokenBAmount] = useState<BigNumber>(new BigNumber(0))
+  // ratio, before times 100
   const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
 
   // gather required data
@@ -178,7 +179,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
           <Text style={tailwind('font-medium text-right text-gray-600')}>{pair.bToARate.toString()} {pair.bSymbol} per {pair.aSymbol}</Text>
         </View>
       </View>
-      {RenderRow('Share of pool', sharePercentage.toString())}
+      {RenderRow('Share of pool', sharePercentage.times(100).toString())}
       {RenderRow(`Pooled ${pair.aSymbol}`, pair.tokenA.reserve)}
       {RenderRow(`Pooled ${pair.bSymbol}`, pair.tokenB.reserve)}
     </View>
