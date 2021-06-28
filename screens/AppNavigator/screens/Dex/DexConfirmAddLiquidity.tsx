@@ -13,17 +13,17 @@ import { PrimaryColorStyle } from '../../../../constants/Theme'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { DexParamList } from './DexNavigator'
 
-type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
+type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
 
-interface ExtPoolPairData extends PoolPairData {
-  aSymbol: string
-  bSymbol: string
-  aToBRate: BigNumber
-  bToARate: BigNumber
+export interface AddLiquiditySummary extends PoolPairData {
+  tokenAAmount: BigNumber
+  tokenBAmount: BigNumber
+  fee: BigNumber
+  percentage: BigNumber // to add
 }
 
-export function AddLiquidityScreen (props: Props): JSX.Element {
+export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   // TODO: poll for PoolPairData periodically
 
   // this component state
@@ -42,7 +42,6 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     aToBRate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve),
     bToARate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve)
   }
-
   const balanceA = tokens.find(at => at.id === pair.tokenA.id)
   const balanceB = tokens.find(at => at.id === pair.tokenB.id)
   const [tokenASymbol, tokenBSymbol] = pair.symbol.split('-')
@@ -100,7 +99,7 @@ function TokenInput (symbol: string, token: AddressToken | undefined, current: B
 
   const balanceAmount = token !== undefined ? token.amount : 0
   const onMax = (): void => {
-    let amountToSet = new BigNumber(balanceAmount).minus(0.0001) // simple fee estimation
+    let amountToSet = new BigNumber(balanceAmount).minus(0.001) // simple fee estimation
     if (amountToSet.lt(0)) {
       amountToSet = new BigNumber(0)
     }
