@@ -122,8 +122,8 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: BigNu
   }
 
   return (
-    <View style={tailwind('flex-column w-full h-36 items-center mt-4')}>
-      <View style={tailwind('flex-column w-full h-8 bg-white justify-center')}>
+    <View style={tailwind('flex-col w-full h-36 items-center mt-4')}>
+      <View style={tailwind('flex-col w-full h-8 bg-white justify-center')}>
         <Text style={tailwind('m-4')}>Input</Text>
       </View>
       <View style={tailwind('flex-row w-full h-16 bg-white items-center p-4')}>
@@ -168,12 +168,12 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
   }
 
   return (
-    <View style={tailwind('flex-column w-full items-center mt-4')}>
+    <View style={tailwind('flex-col w-full items-center mt-4')}>
       <View style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full h-16')}>
         <View style={tailwind('flex-1')}>
           <Text style={tailwind('font-medium')}>Price</Text>
         </View>
-        <View style={tailwind('flex-1 flex-column')}>
+        <View style={tailwind('flex-1 flex-col')}>
           <Text style={tailwind('font-medium text-right text-gray-600')}>{pair.aToBRate.toString()} {pair.aSymbol} per {pair.bSymbol}</Text>
           <Text style={tailwind('font-medium text-right text-gray-600')}>{pair.bToARate.toString()} {pair.bSymbol} per {pair.aSymbol}</Text>
         </View>
@@ -200,6 +200,7 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
 
 // TODO: display specific error
 function canAddLiquidity (pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenBAmount: BigNumber, balanceA: BigNumber|undefined, balanceB: BigNumber|undefined): boolean {
+  return true
   if (tokenAAmount.isNaN() || tokenBAmount.isNaN()) {
     // empty string, use still input-ing
     return false

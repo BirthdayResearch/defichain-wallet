@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@defichain/jellyfish-api-core": ">=0.18.0",
+    "@defichain/jellyfish-transaction": "^0.18.0",
     "@defichain/jellyfish-transaction-builder": ">=0.18.0",
     "@defichain/jellyfish-wallet": ">=0.18.0",
     "@defichain/jellyfish-wallet-mnemonic": ">=0.18.0",
@@ -61,6 +62,7 @@
     "react-number-format": "^4.6.3",
     "react-redux": "^7.2.4",
     "serve": "^12.0.0",
+    "smart-buffer": "^4.1.0",
     "stream-browserify": "^3.0.0",
     "tailwind-rn": "^3.0.1"
   },

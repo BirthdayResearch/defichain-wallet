@@ -38,6 +38,18 @@ export function DexScreen (): JSX.Element {
     return wallet.tokens.filter(({ isLPS }) => isLPS).map(data => ({ type: 'your', data: data }))
   })
 
+  const onAdd = (data: PoolPairData): void => {
+    navigation.navigate('AddLiquidity', { pair: data })
+  }
+
+  const onRemove = (): void => {
+    // TODO(@ivan-zynesis)
+  }
+
+  const onSwap = (): void => {
+    // TODO(@ivan-zynesis)
+  }
+
   return (
     <SectionList
       testID='liquidity_screen_list'
@@ -54,13 +66,12 @@ export function DexScreen (): JSX.Element {
       renderItem={({ item }): JSX.Element => {
         switch (item.type) {
           case 'your':
-            return PoolPairRowYour(
-              item.data,
-              (pairs.find(pr => pr.data) as DexItem<PoolPairData>).data,
-              navigation
-            )
+            return PoolPairRowYour(item.data, () => {
+              const poolPairData = pairs.find(pr => pr.data.symbol === (item.data as AddressToken).symbol)
+              onAdd((poolPairData as DexItem<PoolPairData>).data)
+            }, onRemove)
           case 'available':
-            return PoolPairRowAvailable(item.data, navigation)
+            return PoolPairRowAvailable(item.data, () => onAdd(item.data), onSwap)
         }
       }}
       ListHeaderComponent={() => {
@@ -101,7 +112,7 @@ interface DexItem<T> {
   data: T
 }
 
-function PoolPairRowYour (data: AddressToken, pair: PoolPairData, navigation: NavigationProp<DexParamList>): JSX.Element {
+function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () => void): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
   const IconA = getTokenIcon(symbolA)
   const IconB = getTokenIcon(symbolB)
@@ -116,10 +127,7 @@ function PoolPairRowYour (data: AddressToken, pair: PoolPairData, navigation: Na
         </View>
         <View style={tailwind('flex-row -mr-3')}>
           <PoolPairLiqBtn name='remove' />
-          <PoolPairLiqBtn
-            name='add'
-            onPress={() => navigation.navigate('AddLiquidity', { pair: pair })}
-          />
+          <PoolPairLiqBtn name='add' onPress={onAdd} />
         </View>
       </View>
 
@@ -130,7 +138,7 @@ function PoolPairRowYour (data: AddressToken, pair: PoolPairData, navigation: Na
   )
 }
 
-function PoolPairRowAvailable (data: PoolPairData, navigation: NavigationProp<DexParamList>): JSX.Element {
+function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: () => void): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
   const IconA = getTokenIcon(symbolA)
   const IconB = getTokenIcon(symbolB)
@@ -145,10 +153,7 @@ function PoolPairRowAvailable (data: PoolPairData, navigation: NavigationProp<De
         </View>
 
         <View style={tailwind('flex-row -mr-2')}>
-          <PoolPairLiqBtn
-            name='add'
-            onPress={() => navigation.navigate('AddLiquidity', { pair: data })}
-          />
+          <PoolPairLiqBtn name='add' onPress={onAdd} />
           <PoolPairSwapBtn />
         </View>
       </View>
