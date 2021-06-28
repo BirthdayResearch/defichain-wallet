@@ -69,7 +69,7 @@ function AddressRow ({ control, openQRScanner }: AddressForm): JSX.Element {
   return (
     <>
       <Text
-        style={tailwind('text-sm text-gray-300 font-bold pl-4 mt-4 mb-2')}
+        style={tailwind('text-sm font-bold pl-4 mt-4 mb-2')}
       >{translate('screens/SendScreen', 'TO ADDRESS')}
       </Text>
       <Controller
@@ -106,7 +106,7 @@ function AmountRow ({ token, control, onMaxPress }: AmountForm): JSX.Element {
   return (
     <>
       <Text
-        style={tailwind('text-sm text-gray-300 font-bold pl-4 mt-8 mb-2')}
+        style={tailwind('text-sm font-bold pl-4 mt-8 mb-2')}
       >{translate('screens/SendScreen', 'SEND')}
       </Text>
       <Controller
