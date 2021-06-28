@@ -3,7 +3,7 @@ import * as React from 'react'
 import { translate } from '../../../../translations'
 import { DexScreen } from './DexScreen'
 import { AddLiquidityScreen } from './DexAddLiquidity'
-import { ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
+import { AddLiquiditySummary, ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
 
 export interface DexParamList {
@@ -12,7 +12,7 @@ export interface DexParamList {
     pair: PoolPairData
   }
   ConfirmAddLiquidity: {
-    summary: 
+    summary: AddLiquiditySummary
   }
 
   [key: string]: undefined | object

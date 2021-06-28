@@ -1,5 +1,5 @@
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
@@ -26,6 +26,8 @@ interface ExtPoolPairData extends PoolPairData {
 export function AddLiquidityScreen (props: Props): JSX.Element {
   // TODO: poll for PoolPairData periodically
 
+  const navigation = useNavigation<NavigationProp<DexParamList>>()
+
   // this component state
   const [tokenAAmount, setTokenAAmount] = useState<BigNumber>(new BigNumber(0))
   const [tokenBAmount, setTokenBAmount] = useState<BigNumber>(new BigNumber(0))
@@ -40,12 +42,13 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     aSymbol,
     bSymbol,
     aToBRate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve),
-    bToARate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve)
+    bToARate: new BigNumber(poolPairData.tokenA.reserve).div(poolPairData.tokenB.reserve)
   }
-
-  const balanceA = tokens.find(at => at.id === pair.tokenA.id)
-  const balanceB = tokens.find(at => at.id === pair.tokenB.id)
-  const [tokenASymbol, tokenBSymbol] = pair.symbol.split('-')
+  const addressTokenA = tokens.find(at => at.id === pair.tokenA.id)
+  const addressTokenB = tokens.find(at => at.id === pair.tokenB.id)
+  // expected behavior: address token is not listed when no token
+  const balanceA = addressTokenA === undefined ? new BigNumber(0) : new BigNumber(addressTokenA.amount)
+  const balanceB = addressTokenB === undefined ? new BigNumber(0) : new BigNumber(addressTokenB.amount)
 
   const buildSummary = useCallback((ref: EditingAmount, refAmount: BigNumber) => {
     if (ref === 'primary') {
@@ -59,38 +62,46 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     }
   }, [tokenAAmount, tokenBAmount])
 
-  const grayDivider = <View style={tailwind('bg-gray w-full h-4')} />
+  const canContinue = canAddLiquidity(pair, tokenAAmount, tokenBAmount, balanceA, balanceB)
+
   return (
     <View style={tailwind('w-full h-full')}>
-      <ScrollView style={tailwind('w-full flex-column flex-1')}>
-        {grayDivider}
-        {TokenInput(tokenASymbol, balanceA, tokenAAmount, (amount) => { buildSummary('primary', amount) })}
-        {grayDivider}
-        {TokenInput(tokenBSymbol, balanceB, tokenBAmount, (amount) => { buildSummary('secondary', amount) })}
-        {grayDivider}
-        {Summary(pair, sharePercentage)}
+      <ScrollView style={tailwind('w-full flex-col flex-1 bg-gray-100')}>
+        <TokenInput
+          symbol={pair.aSymbol}
+          balance={balanceA}
+          current={tokenAAmount}
+          onChange={(amount) => { buildSummary('primary', amount) }}
+        />
+        <TokenInput
+          symbol={pair.bSymbol}
+          balance={balanceB}
+          current={tokenBAmount}
+          onChange={(amount) => { buildSummary('secondary', amount) }}
+        />
+        <Summary pair={pair} sharePercentage={sharePercentage} />
       </ScrollView>
       <View style={tailwind('w-full h-16')}>
-        {ContinueButton(
-          canAddLiquidity(
-            pair,
-            tokenAAmount,
-            tokenBAmount,
-            balanceA === undefined ? undefined : new BigNumber(balanceA.amount),
-            balanceB === undefined ? undefined : new BigNumber(balanceB.amount)
-          )
-        )}
+        <ContinueButton
+          enabled={canContinue}
+          onPress={() => {
+            navigation.navigate('ConfirmAddLiquidity', {
+              summary: {
+                ...poolPairData,
+                fee: new BigNumber(0.0001),
+                percentage: sharePercentage
+              }
+            })
+          }}
+        />
       </View>
     </View>
   )
 }
 
-function TokenInput (symbol: string, token: AddressToken | undefined, current: BigNumber, setState: (amount: BigNumber) => void): JSX.Element {
+function TokenInput (props: { symbol: string, balance: BigNumber, current: BigNumber, onChange: (amount: BigNumber) => void }): JSX.Element {
   const renderIcon = (): JSX.Element|null => {
-    if (symbol === undefined) {
-      return null
-    }
-    const TokenIcon = getTokenIcon(symbol)
+    const TokenIcon = getTokenIcon(props.symbol)
     return (
       <View style={tailwind('w-8 justify-center items-center')}>
         <TokenIcon />
@@ -98,34 +109,37 @@ function TokenInput (symbol: string, token: AddressToken | undefined, current: B
     )
   }
 
-  const balanceAmount = token !== undefined ? token.amount : 0
   const onMax = (): void => {
-    let amountToSet = new BigNumber(balanceAmount).minus(0.0001) // simple fee estimation
+    let amountToSet = props.balance
+    if (props.symbol === 'DFI') { // TODO: any better way for not hardcoding this?
+      amountToSet.minus(0.001) // simple fee estimation
+    }
+
     if (amountToSet.lt(0)) {
       amountToSet = new BigNumber(0)
     }
-    setState(amountToSet)
+    props.onChange(amountToSet)
   }
 
   return (
-    <View style={tailwind('flex-column w-full h-40 items-center')}>
+    <View style={tailwind('flex-column w-full h-36 items-center mt-4')}>
       <View style={tailwind('flex-column w-full h-8 bg-white justify-center')}>
         <Text style={tailwind('m-4')}>Input</Text>
       </View>
       <View style={tailwind('flex-row w-full h-16 bg-white items-center p-4')}>
         <TextInput
           style={tailwind('flex-1 mr-4 text-gray-500')}
-          value={current.isNaN() ? '' : current.toString()}
+          value={props.current.isNaN() ? '' : props.current.toString()}
           keyboardType='numeric'
-          onChange={event => setState(new BigNumber(event.nativeEvent.text))}
+          onChange={event => props.onChange(new BigNumber(event.nativeEvent.text))}
         />
         {renderIcon()}
-        <Text style={tailwind('w-12 ml-4 text-gray-500')}>{symbol}</Text>
+        <Text style={tailwind('w-12 ml-4 text-gray-500')}>{props.symbol}</Text>
       </View>
       <View style={tailwind('w-full bg-white flex-row border-t border-gray-200 h-12 items-center')}>
         <View style={tailwind('flex flex-row flex-1 ml-4')}>
           <Text>Balance: </Text>
-          <Text style={tailwind('text-gray-500')}>{balanceAmount}</Text>
+          <Text style={tailwind('text-gray-500')}>{props.balance.toString()}</Text>
         </View>
         <TouchableOpacity
           style={tailwind('flex w-12 mr4')}
@@ -138,7 +152,8 @@ function TokenInput (symbol: string, token: AddressToken | undefined, current: B
   )
 }
 
-function Summary (pair: ExtPoolPairData, sharePercentage: BigNumber): JSX.Element {
+function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }): JSX.Element {
+  const { pair, sharePercentage } = props
   const RenderRow = (lhs: string, rhs: string): JSX.Element => {
     return (
       <View style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full h-16')}>
@@ -153,7 +168,7 @@ function Summary (pair: ExtPoolPairData, sharePercentage: BigNumber): JSX.Elemen
   }
 
   return (
-    <View style={tailwind('flex-column w-full items-center')}>
+    <View style={tailwind('flex-column w-full items-center mt-4')}>
       <View style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full h-16')}>
         <View style={tailwind('flex-1')}>
           <Text style={tailwind('font-medium')}>Price</Text>
@@ -170,13 +185,13 @@ function Summary (pair: ExtPoolPairData, sharePercentage: BigNumber): JSX.Elemen
   )
 }
 
-function ContinueButton (enabled: boolean): JSX.Element {
-  const buttonColor = enabled ? PrimaryColorStyle.bg : { backgroundColor: 'gray' }
+function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
+  const buttonColor = props.enabled ? PrimaryColorStyle.bg : { backgroundColor: 'gray' }
   return (
     <TouchableOpacity
       style={[tailwind('m-2 p-3 rounded flex-row justify-center'), buttonColor]}
-      onPress={() => console.log('TODO: link when work on CONFIRM ADD LIQ page')}
-      disabled={!enabled}
+      onPress={props.onPress}
+      disabled={!props.enabled}
     >
       <Text style={[tailwind('text-white font-bold')]}>Continue</Text>
     </TouchableOpacity>
