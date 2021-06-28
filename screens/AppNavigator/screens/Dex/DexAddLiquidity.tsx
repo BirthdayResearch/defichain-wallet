@@ -98,23 +98,40 @@ function TokenInput (symbol: string, token: AddressToken | undefined, current: B
   }
 
   const balanceAmount = token !== undefined ? token.amount : 0
+  const onMax = (): void => {
+    let amountToSet = new BigNumber(balanceAmount).minus(0.001) // simple fee estimation
+    if (amountToSet.lt(0)) {
+      amountToSet = new BigNumber(0)
+    }
+    setState(amountToSet)
+  }
+
   return (
     <View style={tailwind('flex-column w-full h-40 items-center')}>
       <View style={tailwind('flex-column w-full h-8 bg-white justify-center')}>
-        <Text style={tailwind('m-6')}>Input</Text>
+        <Text style={tailwind('m-4')}>Input</Text>
       </View>
       <View style={tailwind('flex-row w-full h-16 bg-white items-center p-4')}>
         <TextInput
-          style={tailwind('flex-1 ml-2 mr-4')}
+          style={tailwind('flex-1 mr-4 text-gray-500')}
           value={current.isNaN() ? '' : current.toString()}
           keyboardType='numeric'
           onChange={event => setState(new BigNumber(event.nativeEvent.text))}
         />
         {renderIcon()}
-        <Text style={tailwind('w-12 ml-2')}>{symbol}</Text>
+        <Text style={tailwind('w-12 ml-4 text-gray-500')}>{symbol}</Text>
       </View>
-      <View style={tailwind('bg-white w-full border-t border-gray-200 h-12 justify-center')}>
-        <Text style={tailwind('ml-6')}>Balance: {balanceAmount}</Text>
+      <View style={tailwind('w-full bg-white flex-row border-t border-gray-200 h-12 items-center')}>
+        <View style={tailwind('flex flex-row flex-1 ml-4')}>
+          <Text>Balance: </Text>
+          <Text style={tailwind('text-gray-500')}>{balanceAmount}</Text>
+        </View>
+        <TouchableOpacity
+          style={tailwind('flex w-12 mr4')}
+          onPress={onMax}
+        >
+          <Text style={[PrimaryColorStyle.text]}>MAX</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )
@@ -128,7 +145,7 @@ function Summary (pair: ExtPoolPairData, sharePercentage: BigNumber): JSX.Elemen
           <Text style={tailwind('font-medium')}>{lhs}</Text>
         </View>
         <View style={tailwind('flex-1')}>
-          <Text style={tailwind('font-medium text-right text-gray-600')}>{rhs}</Text>
+          <Text style={tailwind('font-medium text-right text-gray-500')}>{rhs}</Text>
         </View>
       </View>
     )
