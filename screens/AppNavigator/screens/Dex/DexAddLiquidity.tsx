@@ -142,7 +142,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: BigNu
           <Text style={tailwind('text-gray-500')}>{props.balance.toString()}</Text>
         </View>
         <TouchableOpacity
-          style={tailwind('flex w-12 mr4')}
+          style={tailwind('flex w-12 mr-4')}
           onPress={onMax}
         >
           <Text style={[PrimaryColorStyle.text]}>MAX</Text>
@@ -200,7 +200,6 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
 
 // TODO: display specific error
 function canAddLiquidity (pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenBAmount: BigNumber, balanceA: BigNumber|undefined, balanceB: BigNumber|undefined): boolean {
-  return true
   if (tokenAAmount.isNaN() || tokenBAmount.isNaN()) {
     // empty string, use still input-ing
     return false

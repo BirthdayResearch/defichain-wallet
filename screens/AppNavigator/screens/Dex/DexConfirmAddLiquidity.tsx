@@ -16,9 +16,9 @@ import { WalletHdNode } from '@defichain/jellyfish-wallet'
 import { useCallback } from 'react'
 import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
 import { useWhaleApiClient } from '../../../../hooks/api/useWhaleApiClient'
-import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
+import { CTransactionSegWit, Script } from '@defichain/jellyfish-transaction/dist'
 import { SmartBuffer } from 'smart-buffer'
-import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
+import { StackActions, useNavigation } from '@react-navigation/native'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -28,6 +28,8 @@ export interface AddLiquiditySummary extends PoolPairData {
 }
 
 export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
+  const navigation = useNavigation()
+
   const {
     fee,
     percentage,
@@ -36,7 +38,6 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     symbol,
     totalLiquidity
   } = props.route.params.summary
-  console.log(tokenB)
   const [aSymbol, bSymbol] = symbol.split('-')
   const aToBRate = new BigNumber(tokenB.reserve).div(tokenA.reserve).toString()
   const bToARate = new BigNumber(tokenA.reserve).div(tokenB.reserve).toString()
@@ -48,14 +49,11 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 
   const whaleAPI = useWhaleApiClient()
   const WalletAPI = useWalletAPI()
-  const tokens = useTokensAPI()
-
-  console.log(tokens)
-
-  tokens.find(token => token.symbol === 'DFI')
 
   const addLiquidity = useCallback(() => {
     const account = WalletAPI.getWallet().get(0) as WhaleWalletAccount
+
+    // TODO: add loading spinner after we have standardized design
     constructSignedAddLiqAndSend(
       whaleAPI,
       account,
@@ -63,7 +61,9 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       tokenAAmount,
       Number(tokenB.id),
       tokenBAmount
-    ).then(res => console.log(res)).catch(e => {
+    ).then(() => {
+      navigation.dispatch(StackActions.popToTop())
+    }).catch(e => {
       // TODO: display error, close modal to retry/redirect
       console.log(e)
     })
@@ -135,21 +135,27 @@ async function constructSignedAddLiqAndSend (
     shareAddress: script
   }
 
-  // const utxosToAcc = await builder.account.utxosToAccount({
-  //   to: [{
-  //     script,
-  //     balances: [
-  //       { token: tokenAId, amount: tokenAAmount }
-  //     ]
-  //   }]
-  // }, script)
-  // const utxosToAccBuffer = new SmartBuffer()
-  // new CTransactionSegWit(utxosToAcc).toBuffer(utxosToAccBuffer)
-  // await whaleAPI.transactions.send({ hex: utxosToAccBuffer.toString('hex') })
+  // for test use, make enough token
+  // await convertForSufficientToken(whaleAPI, builder, script, tokenAAmount.minus(dfiTokenBalance))
 
   const dfTx = await builder.liqPool.addLiquidity(addLiq, script)
   const buffer = new SmartBuffer()
   new CTransactionSegWit(dfTx).toBuffer(buffer)
-  // return 'something'
   return await whaleAPI.transactions.send({ hex: buffer.toString('hex') })
+}
+
+// used for move utxos to token for dev use, going to remove
+// eslint-disable-next-line
+async function convertForSufficientToken (whaleAPI: WhaleApiClient, builder: P2WPKHTransactionBuilder, script: Script, amount: BigNumber): Promise<string> {
+  const utxosToAcc = await builder.account.utxosToAccount({
+    to: [{
+      script,
+      balances: [
+        { token: 0, amount }
+      ]
+    }]
+  }, script)
+  const utxosToAccBuffer = new SmartBuffer()
+  new CTransactionSegWit(utxosToAcc).toBuffer(utxosToAccBuffer)
+  return await whaleAPI.transactions.send({ hex: utxosToAccBuffer.toString('hex') })
 }
