@@ -59,9 +59,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
 function BalanceItemRow ({ token, onPress }: { token: AddressToken, onPress: () => void }): JSX.Element {
   const Icon = getTokenIcon(token.symbol)
+  const isDisabled = token.id === '0'
 
   return (
     <TouchableOpacity
+      disabled={isDisabled}
       onPress={onPress} testID={`balances_row_${token.id}`}
       style={tailwind('bg-white py-4 pl-4 pr-2 flex-row justify-between items-center')}
     >
@@ -80,7 +82,7 @@ function BalanceItemRow ({ token, onPress }: { token: AddressToken, onPress: () 
             <Text style={tailwind('mr-2')} testID={`balances_row_${token.id}_amount`}>
               {value}
             </Text>
-            <MaterialIcons name='chevron-right' size={24} />
+            <MaterialIcons name='chevron-right' size={24} style={isDisabled ? tailwind('opacity-0') : []} />
           </View>}
       />
     </TouchableOpacity>
