@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as Linking from 'expo-linking'
 import * as React from 'react'
 import { DeFiChainTheme } from '../../constants/Theme'
-import { PlaygroundNavigator } from '../../playground/Playground'
+import { PlaygroundNavigator } from '../PlaygroundNavigator/PlaygroundNavigator'
 import { AppLinking, BottomTabNavigator } from './BottomTabNavigator'
 
 const App = createStackNavigator<WalletParamList>()

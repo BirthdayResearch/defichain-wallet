@@ -14,7 +14,7 @@ labels:
   - label: area/playground
     sync: true
     matcher:
-      files: "playground/**"
+      files: "screens/PlaygroundNavigator/**"
 
   - label: area/translations
     sync: true

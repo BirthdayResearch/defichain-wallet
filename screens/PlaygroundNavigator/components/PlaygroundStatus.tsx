@@ -1,6 +1,6 @@
+import React from 'react'
 import { View } from 'react-native'
 import tailwind from 'tailwind-rn'
-import React from 'react'
 
 export function PlaygroundStatus (props: {
   loading?: boolean
