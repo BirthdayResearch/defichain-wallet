@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import tailwind from 'tailwind-rn'
-import { PlaygroundNavigator } from '../playground/Playground'
+import { PlaygroundNavigator } from './PlaygroundNavigator/PlaygroundNavigator'
 import { RootNavigator } from './RootNavigator'
 
 export function Main (): JSX.Element {
