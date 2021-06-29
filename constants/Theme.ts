@@ -15,17 +15,6 @@ export const PrimaryColorStyle = StyleSheet.create({
   },
   border: {
     borderColor: PrimaryColor
-  },
-  button: {
-    backgroundColor: PrimaryColor,
-    color: '#ffffff'
-  }
-})
-
-export const DisabledColorStyle = StyleSheet.create({
-  button: {
-    backgroundColor: 'rgba(0,0,0,0.2)',
-    color: 'rgba(255,255,255,0.06)'
   }
 })
 
