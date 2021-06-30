@@ -19,6 +19,7 @@ issue:
       list:
         - feature
         - bug
+        - refactor
         - question
       multiple: false
       needs: true
@@ -32,6 +33,8 @@ issue:
       list:
         - core
         - workflow
+        - app
+        - store
         - assets
         - playground
         - translations
