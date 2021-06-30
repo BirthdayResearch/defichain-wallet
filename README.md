@@ -16,11 +16,11 @@ channel. [`app/environment.ts`](/app/environment.ts) carries the environment sta
 <details>
 <summary><b>Production</b></summary>
 
-Created by Expo Application Service and configured in [`eas.json`](/eas.json) it creates a native build
+Created by Expo Application Service and configured in [`eas.json`](/eas.json), it creates a native build
 with [`release-publish.yml`](/.github/workflows/release-publish.yml) workflow on type "published". Builds can only be
-trigger by DeFiChain engineers, they are automatically uploaded into native app store for distribution.
+triggered by DeFiChain engineers, they are automatically uploaded into native app store for distribution.
 
-Production environment is no debug and **MainNet** is the only network available.
+In the production environment, only **MainNet** is available, and debugging is not enabled.
 
 </details>
 
@@ -31,7 +31,7 @@ Preview builds are created by 2 workflow. First at each pull request
 via [`expo-preview.yml`](/.github/workflows/expo-preview.yml) workflow, release are prefixed `pr-preview-`. Secondly
 at  [`release-publish.yml`](/.github/workflows/release-publish.yml) workflow on type "prereleased".
 
-Preview environment has debug ability and all available network configured.
+In the preview environment, all networks are available, and debugging is enabled.
 
 </details>
 
@@ -40,7 +40,7 @@ Preview environment has debug ability and all available network configured.
 
 Development builds are created on local machine and not triggered by any CI workflow.
 
-Development environment has debug ability and all playground network configured.
+In the development environment, all playground networks are available, and debugging is enabled.
 
 </details>
 
@@ -91,7 +91,7 @@ There are 2 types of tests in DeFi Wallet.
 
 #### Unit Testing
 
-Unit testing are created to test each individual units/components of a software. As they are unit tests, they should be
+Unit testing is created to test each individual units/components of a software. As they are unit tests, they should be
 closely co-located together with the unit. They follow the naming semantic of `*.test.ts` and placed together in the
 same directory of the code you are testing.
 
