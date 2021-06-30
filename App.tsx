@@ -1,13 +1,14 @@
-import './shim'
+import * as SplashScreen from 'expo-splash-screen'
 import React from 'react'
 import { Provider } from 'react-redux'
-import { store } from './store'
-import * as SplashScreen from 'expo-splash-screen'
+import { Logging } from './app/logging'
+import { useNetwork } from './hooks/api/useNetwork'
 
 import { useCachedResources } from './hooks/design/useCachedResources'
-import { useNetwork } from './hooks/api/useNetwork'
-import { initI18n } from './translations'
 import { Main } from './screens/Main'
+import './shim'
+import { store } from './store'
+import { initI18n } from './translations'
 
 initI18n()
 
@@ -25,12 +26,15 @@ function WalletApp (): JSX.Element | null {
     useNetwork()
   ]
 
-  /* eslint-disable @typescript-eslint/no-floating-promises */
   if (isLoaded.includes(false)) {
-    SplashScreen.preventAutoHideAsync()
+    SplashScreen.preventAutoHideAsync().catch(reason => {
+      Logging.error(reason)
+    })
     return null
   } else {
-    SplashScreen.hideAsync()
+    SplashScreen.hideAsync().catch(reason => {
+      Logging.error(reason)
+    })
     return <Main />
   }
 }
