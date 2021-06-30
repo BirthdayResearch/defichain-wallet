@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`environments should match Development 1`] = `
+Object {
+  "debug": true,
+  "name": "Development",
+  "networks": Array [
+    "Remote Playground",
+    "Local Playground",
+  ],
+}
+`;
+
+exports[`environments should match Preview 1`] = `
+Object {
+  "debug": true,
+  "name": "Preview",
+  "networks": Array [
+    "MainNet",
+    "Remote Playground",
+    "Local Playground",
+  ],
+}
+`;
+
+exports[`environments should match Production 1`] = `
+Object {
+  "debug": false,
+  "name": "Production",
+  "networks": Array [
+    "MainNet",
+  ],
+}
+`;
+
+exports[`should match development 1`] = `
+Object {
+  "debug": true,
+  "name": "Development",
+  "networks": Array [
+    "Remote Playground",
+    "Local Playground",
+  ],
+}
+`;
+
+exports[`should match development for default 1`] = `
+Object {
+  "debug": true,
+  "name": "Development",
+  "networks": Array [
+    "Remote Playground",
+    "Local Playground",
+  ],
+}
+`;
+
+exports[`should match preview for pr-preview- 1`] = `
+Object {
+  "debug": true,
+  "name": "Preview",
+  "networks": Array [
+    "MainNet",
+    "Remote Playground",
+    "Local Playground",
+  ],
+}
+`;
+
+exports[`should match preview for prerelease 1`] = `
+Object {
+  "debug": true,
+  "name": "Preview",
+  "networks": Array [
+    "MainNet",
+    "Remote Playground",
+    "Local Playground",
+  ],
+}
+`;
+
+exports[`should match production 1`] = `
+Object {
+  "debug": false,
+  "name": "Production",
+  "networks": Array [
+    "MainNet",
+  ],
+}
+`;

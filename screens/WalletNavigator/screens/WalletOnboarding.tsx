@@ -3,6 +3,7 @@ import * as React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
 import tailwind from 'tailwind-rn'
+import { getEnvironment } from '../../../app/environment'
 import { Text, View } from '../../../components'
 import { PrimaryColor, VectorIcon, VectorIconName } from '../../../constants/Theme'
 import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
@@ -13,10 +14,9 @@ export function WalletOnboarding (): JSX.Element {
   const dispatch = useDispatch()
   const navigator = useNavigation()
 
-  function onDebugPress (): void {
-    // TODO(fuxingloh): this should only be available in debug mode
+  const onDebugPress = getEnvironment().debug ? () => {
     WalletAPI.setMnemonicAbandon23(dispatch)
-  }
+  } : undefined
 
   return (
     <ScrollView style={tailwind('flex-1 py-8 bg-gray-100')} testID='wallet_onboarding'>
