@@ -42,8 +42,8 @@ export function DexScreen (): JSX.Element {
     navigation.navigate('AddLiquidity', { pair: data })
   }
 
-  const onRemove = (): void => {
-    // TODO(@ivan-zynesis)
+  const onRemove = (data: PoolPairData): void => {
+    navigation.navigate('RemoveLiquidity', { pair: data })
   }
 
   const onSwap = (): void => {
@@ -69,7 +69,10 @@ export function DexScreen (): JSX.Element {
             return PoolPairRowYour(item.data, () => {
               const poolPairData = pairs.find(pr => pr.data.symbol === (item.data as AddressToken).symbol)
               onAdd((poolPairData as DexItem<PoolPairData>).data)
-            }, onRemove)
+            }, () => {
+              const poolPairData = pairs.find(pr => pr.data.symbol === (item.data as AddressToken).symbol)
+              onRemove((poolPairData as DexItem<PoolPairData>).data)
+            })
           case 'available':
             return PoolPairRowAvailable(item.data, () => onAdd(item.data), onSwap)
         }
@@ -126,7 +129,7 @@ function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () =>
           <Text style={tailwind('text-lg')}>{data.symbol}</Text>
         </View>
         <View style={tailwind('flex-row -mr-3')}>
-          <PoolPairLiqBtn name='remove' />
+          <PoolPairLiqBtn name='remove' onPress={onRemove} />
           <PoolPairLiqBtn name='add' onPress={onAdd} />
         </View>
       </View>

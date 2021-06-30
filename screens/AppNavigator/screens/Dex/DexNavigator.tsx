@@ -4,6 +4,7 @@ import { translate } from '../../../../translations'
 import { DexScreen } from './DexScreen'
 import { AddLiquidityScreen } from './DexAddLiquidity'
 import { AddLiquiditySummary, ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
+import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
 
 export interface DexParamList {
@@ -13,6 +14,9 @@ export interface DexParamList {
   }
   ConfirmAddLiquidity: {
     summary: AddLiquiditySummary
+  }
+  RemoveLiquidity: {
+    pair: PoolPairData
   }
 
   [key: string]: undefined | object
@@ -37,6 +41,11 @@ export function DexNavigator (): JSX.Element {
         name='ConfirmAddLiquidity'
         component={ConfirmAddLiquidityScreen}
         options={{ headerTitle: translate('screens/DexScreen', 'Add Liquidity') }}
+      />
+      <DexStack.Screen
+        name='RemoveLiquidity'
+        component={RemoveLiquidityScreen}
+        options={{ headerTitle: translate('screens/DexScreen', 'Remove Liquidity') }}
       />
     </DexStack.Navigator>
   )
