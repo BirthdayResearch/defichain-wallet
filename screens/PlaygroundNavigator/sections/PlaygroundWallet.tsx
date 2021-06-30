@@ -1,14 +1,14 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
-import { Text, View } from '../../components'
-import { useWhaleApiClient } from '../../hooks/api/useWhaleApiClient'
-import { fetchTokens } from '../../hooks/wallet/TokensAPI'
-import { useWalletAPI } from '../../hooks/wallet/WalletAPI'
-import { RootState } from '../../store'
-import { WalletStatus } from '../../store/wallet'
-import { PlaygroundAction } from '../Playground.Action'
-import { PlaygroundStatus } from '../Playground.Status'
+import { Text, View } from '../../../components'
+import { useWhaleApiClient } from '../../../hooks/api/useWhaleApiClient'
+import { fetchTokens } from '../../../hooks/wallet/TokensAPI'
+import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
+import { RootState } from '../../../store'
+import { WalletStatus } from '../../../store/wallet'
+import { PlaygroundAction } from '../components/PlaygroundAction'
+import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
 export function PlaygroundWallet (): JSX.Element | null {
   const WalletAPI = useWalletAPI()
