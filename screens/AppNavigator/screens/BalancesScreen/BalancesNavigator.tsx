@@ -3,10 +3,14 @@ import * as React from 'react'
 import { translate } from '../../../../translations'
 import { BalancesScreen } from './BalancesScreen'
 import { ReceiveScreen } from './ReceiveScreen/ReceiveScreen'
+import { ConvertScreen, ConversionMode } from './ConvertScreen'
 
 export interface BalanceParamList {
   BalancesScreen: undefined
   ReceiveScreen: undefined
+  ConvertScreen: {
+    mode: ConversionMode
+  }
 
   [key: string]: undefined | object
 }
@@ -25,6 +29,11 @@ export function BalancesNavigator (): JSX.Element {
         name='Receive'
         component={ReceiveScreen}
         options={{ headerTitle: translate('screens/ReceiveScreen', 'Receive') }}
+      />
+      <BalanceStack.Screen
+        name='ConvertScreen' // only name it the same as ParamList will make intellisense work for navigation prop
+        component={ConvertScreen}
+        options={{ headerTitle: translate('screens/ConvertScreen', 'Convert') }}
       />
     </BalanceStack.Navigator>
   )
