@@ -138,7 +138,7 @@ function CoinAmountRow (props: { symbol: string, amount: BigNumber }): JSX.Eleme
         <TokenIcon style={tailwind('ml-2')} />
         <Text style={tailwind('ml-2')}>{props.symbol}</Text>
       </View>
-      <Text style={tailwind('flex-1 text-right text-gray-500')}>{props.amount.toString()}</Text>
+      <Text style={tailwind('flex-1 text-right text-gray-500 mr-2')}>{props.amount.toString()}</Text>
     </View>
   )
 }
