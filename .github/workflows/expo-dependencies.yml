@@ -21,6 +21,7 @@ jobs:
         with:
           expo-version: 4.x
 
+      - run: npm install expo-cli@latest
       - run: expo upgrade
 
       - name: Create Pull Request

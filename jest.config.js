@@ -11,6 +11,6 @@ module.exports = {
     '!**/node_modules/**',
     '!**/babel.config.js',
     '!**/jest.config.js',
-    '!**/playground/**'
+    '!**/screens/PlaygroundNavigator/**'
   ]
 }

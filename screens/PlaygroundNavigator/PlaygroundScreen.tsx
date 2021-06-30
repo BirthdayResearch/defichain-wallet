@@ -1,12 +1,11 @@
-import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import { ScrollView } from 'react-native'
 import tailwind from 'tailwind-rn'
-import { Text, View } from '../components'
-import { PlaygroundConnection } from './Sections/Playground.Connection'
-import { PlaygroundToken } from './Sections/Playground.Token'
-import { PlaygroundUTXO } from './Sections/Playground.UTXO'
-import { PlaygroundWallet } from './Sections/Playground.Wallet'
+import { Text, View } from '../../components'
+import { PlaygroundConnection } from './sections/PlaygroundConnection'
+import { PlaygroundToken } from './sections/PlaygroundToken'
+import { PlaygroundUTXO } from './sections/PlaygroundUTXO'
+import { PlaygroundWallet } from './sections/PlaygroundWallet'
 
 export function PlaygroundScreen (): JSX.Element {
   return (
@@ -34,28 +33,5 @@ export function PlaygroundScreen (): JSX.Element {
         <PlaygroundToken />
       </View>
     </ScrollView>
-  )
-}
-
-export interface PlaygroundParamList {
-  PlaygroundScreen: undefined
-
-  [key: string]: undefined | object
-}
-
-const PlaygroundStack = createStackNavigator<PlaygroundParamList>()
-
-export function PlaygroundNavigator (): JSX.Element {
-  return (
-    <PlaygroundStack.Navigator mode='modal'>
-      <PlaygroundStack.Screen
-        name='PlaygroundScreen'
-        component={PlaygroundScreen}
-        options={{
-          headerTitle: 'DeFi Playground',
-          headerBackTitleVisible: false
-        }}
-      />
-    </PlaygroundStack.Navigator>
   )
 }

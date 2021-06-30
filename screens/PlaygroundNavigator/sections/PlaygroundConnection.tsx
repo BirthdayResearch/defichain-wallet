@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
-import { Text, View } from '../../components'
-import { usePlaygroundApiClient } from '../../hooks/api/usePlaygroundClient'
-import { RootState } from '../../store'
-import { PlaygroundStatus } from '../Playground.Status'
+import { Text, View } from '../../../components'
+import { usePlaygroundApiClient } from '../../../hooks/api/usePlaygroundClient'
+import { RootState } from '../../../store'
+import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
 export function PlaygroundConnection (): JSX.Element {
   const apiClient = usePlaygroundApiClient()
