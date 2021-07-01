@@ -1,12 +1,11 @@
 import * as SplashScreen from 'expo-splash-screen'
 import React from 'react'
 import { Provider } from 'react-redux'
+import './_shim'
 import { Logging } from './app/logging'
 import { useNetwork } from './hooks/api/useNetwork'
-
 import { useCachedResources } from './hooks/design/useCachedResources'
 import { Main } from './screens/Main'
-import './shim'
 import { store } from './store'
 import { initI18n } from './translations'
 
@@ -27,14 +26,12 @@ function WalletApp (): JSX.Element | null {
   ]
 
   if (isLoaded.includes(false)) {
-    SplashScreen.preventAutoHideAsync().catch(reason => {
-      Logging.error(reason)
-    })
+    SplashScreen.preventAutoHideAsync()
+      .catch(Logging.error)
     return null
   } else {
-    SplashScreen.hideAsync().catch(reason => {
-      Logging.error(reason)
-    })
+    SplashScreen.hideAsync()
+      .catch(Logging.error)
     return <Main />
   }
 }
