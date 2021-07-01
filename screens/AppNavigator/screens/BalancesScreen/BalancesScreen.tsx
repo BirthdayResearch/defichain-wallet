@@ -46,12 +46,17 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         />}
       ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
       ListHeaderComponent={
-        <View style={tailwind('flex-row justify-end px-4 py-3 bg-white border-b border-gray-200')}>
-          <BalanceActionButton
-            icon='arrow-downward' title='RECEIVE'
-            onPress={() => navigation.navigate('Receive')}
-          />
-        </View>
+        <>
+          <View style={tailwind('flex-row py-3 bg-white border-b border-gray-200')}>
+            <BalanceActionButton
+              icon='arrow-downward' title='RECEIVE'
+              onPress={() => navigation.navigate('Receive')}
+            />
+          </View>
+          <Text testID='balances_title' style={tailwind('p-4 text-xs text-gray-500')}>
+            {translate('screens/BalancesScreen', 'BALANCE DETAILS')}
+          </Text>
+        </>
       }
     />
   )
