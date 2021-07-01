@@ -7,12 +7,13 @@ import { useCallback, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import tailwind from 'tailwind-rn'
-import { NumberText, Text, TextInput, View } from '../../../../components'
+import { Text, TextInput, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { PrimaryColorStyle } from '../../../../constants/Theme'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { DexParamList } from './DexNavigator'
 import { translate } from '../../../../translations'
+import NumberFormat from 'react-number-format'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -136,7 +137,10 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: BigNu
       <View style={tailwind('w-full bg-white flex-row border-t border-gray-200 h-12 items-center')}>
         <View style={tailwind('flex flex-row flex-1 ml-4')}>
           <Text>{translate('screens/AddLiquidity', 'Balance')}: </Text>
-          <NumberText value={props.balance.toString()} style={tailwind('text-gray-500')} />
+          <NumberFormat
+            value={props.balance.toNumber()} decimalScale={3} thousandSeparator displayType='text'
+            renderText={(value) => <Text style={tailwind('text-gray-500')}>{value}</Text>}
+          />
         </View>
         <TouchableOpacity
           style={tailwind('flex w-12 mr-4')}
@@ -172,12 +176,18 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
         </View>
         <View style={tailwind('flex-1 flex-col')}>
           <View style={tailwind('flex-1 flex-row justify-end')}>
-            <NumberText style={tailwind('font-medium text-right text-gray-500')} value={pair.aToBRate.toString()} />
-            <Text style={tailwind('font-medium text-right text-gray-500')}> {pair.aSymbol} {translate('screens/AddLiquidity', 'per')} {pair.bSymbol}</Text>
+            <NumberFormat
+              value={pair.aToBRate.toNumber()} decimalScale={3} thousandSeparator displayType='text'
+              renderText={(value) => <Text style={tailwind('font-medium text-gray-500')}>{value}</Text>}
+            />
+            <Text style={tailwind('font-medium text-gray-500')}> {pair.aSymbol} {translate('screens/AddLiquidity', 'per')} {pair.bSymbol}</Text>
           </View>
           <View style={tailwind('flex-1 flex-row justify-end')}>
-            <NumberText style={tailwind('font-medium text-right text-gray-500')} value={pair.bToARate.toString()} />
-            <Text style={tailwind('font-medium text-right text-gray-500')}> {pair.bSymbol} {translate('screens/AddLiquidity', 'per')} {pair.aSymbol}</Text>
+            <NumberFormat
+              value={pair.bToARate.toNumber()} decimalScale={3} thousandSeparator displayType='text'
+              renderText={(value) => <Text style={tailwind('font-medium text-gray-500')}>{value}</Text>}
+            />
+            <Text style={tailwind('font-medium text-gray-500')}> {pair.bSymbol} {translate('screens/AddLiquidity', 'per')} {pair.aSymbol}</Text>
           </View>
         </View>
       </View>
