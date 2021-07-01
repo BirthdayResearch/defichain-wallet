@@ -51,6 +51,7 @@
     "lodash": "^4.17.21",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-hook-form": "^7.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-loading-spinner-overlay": "^2.0.0",
@@ -67,6 +68,7 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
+    "@testing-library/react-hooks": "^7.0.0",
     "@testing-library/react-native": "^7.2.0",
     "@types/find-in-files": "^0.5.1",
     "@types/i18n-js": "^3.8.0",
