@@ -7,11 +7,12 @@ import { useCallback, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import tailwind from 'tailwind-rn'
-import { Text, TextInput, View } from '../../../../components'
+import { NumberText, Text, TextInput, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { PrimaryColorStyle } from '../../../../constants/Theme'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { DexParamList } from './DexNavigator'
+import { translate } from '../../../../translations'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -101,14 +102,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
 }
 
 function TokenInput (props: { symbol: string, balance: BigNumber, current: BigNumber, onChange: (amount: BigNumber) => void }): JSX.Element {
-  const renderIcon = (): JSX.Element|null => {
-    const TokenIcon = getTokenIcon(props.symbol)
-    return (
-      <View style={tailwind('w-8 justify-center items-center')}>
-        <TokenIcon />
-      </View>
-    )
-  }
+  const TokenIcon = getTokenIcon(props.symbol)
 
   const onMax = (): void => {
     let amountToSet = props.balance
@@ -125,28 +119,30 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: BigNu
   return (
     <View style={tailwind('flex-col w-full h-36 items-center mt-4')}>
       <View style={tailwind('flex-col w-full h-8 bg-white justify-center')}>
-        <Text style={tailwind('m-4')}>Input</Text>
+        <Text style={tailwind('m-4')}>{translate('screens/AddLiquidity', 'Input')}</Text>
       </View>
       <View style={tailwind('flex-row w-full h-16 bg-white items-center p-4')}>
         <TextInput
           style={tailwind('flex-1 mr-4 text-gray-500')}
           value={props.current.isNaN() ? '' : props.current.toString()}
-          keyboardType='numeric'
+          keyboardType='decimal-pad'
           onChange={event => props.onChange(new BigNumber(event.nativeEvent.text))}
         />
-        {renderIcon()}
+        <View style={tailwind('w-8 justify-center items-center')}>
+          <TokenIcon />
+        </View>
         <Text style={tailwind('w-12 ml-4 text-gray-500')}>{props.symbol}</Text>
       </View>
       <View style={tailwind('w-full bg-white flex-row border-t border-gray-200 h-12 items-center')}>
         <View style={tailwind('flex flex-row flex-1 ml-4')}>
-          <Text>Balance: </Text>
-          <Text style={tailwind('text-gray-500')}>{props.balance.toString()}</Text>
+          <Text>{translate('screens/AddLiquidity', 'Balance')}: </Text>
+          <NumberText value={props.balance.toString()} style={tailwind('text-gray-500')} />
         </View>
         <TouchableOpacity
           style={tailwind('flex w-12 mr-4')}
           onPress={onMax}
         >
-          <Text style={[PrimaryColorStyle.text]}>MAX</Text>
+          <Text style={[PrimaryColorStyle.text]}>{translate('screens/AddLiquidity', 'MAX')}</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -155,14 +151,14 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: BigNu
 
 function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }): JSX.Element {
   const { pair, sharePercentage } = props
-  const RenderRow = (lhs: string, rhs: string): JSX.Element => {
+  const RenderRow = (props: { lhs: string, rhs: string }): JSX.Element => {
     return (
-      <View style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full h-16')}>
+      <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-center w-full')}>
         <View style={tailwind('flex-1')}>
-          <Text style={tailwind('font-medium')}>{lhs}</Text>
+          <Text style={tailwind('font-medium')}>{props.lhs}</Text>
         </View>
         <View style={tailwind('flex-1')}>
-          <Text style={tailwind('font-medium text-right text-gray-500')}>{rhs}</Text>
+          <Text style={tailwind('font-medium text-right text-gray-500')}>{props.rhs}</Text>
         </View>
       </View>
     )
@@ -170,18 +166,24 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
 
   return (
     <View style={tailwind('flex-col w-full items-center mt-4')}>
-      <View style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full h-16')}>
+      <View style={tailwind('bg-white p-4 pt-2 pb-2 border-b border-gray-200 flex-row items-center w-full')}>
         <View style={tailwind('flex-1')}>
-          <Text style={tailwind('font-medium')}>Price</Text>
+          <Text style={tailwind('font-medium')}>{translate('screens/AddLiquidity', 'Price')}</Text>
         </View>
         <View style={tailwind('flex-1 flex-col')}>
-          <Text style={tailwind('font-medium text-right text-gray-600')}>{pair.aToBRate.toString()} {pair.aSymbol} per {pair.bSymbol}</Text>
-          <Text style={tailwind('font-medium text-right text-gray-600')}>{pair.bToARate.toString()} {pair.bSymbol} per {pair.aSymbol}</Text>
+          <View style={tailwind('flex-1 flex-row justify-end')}>
+            <NumberText style={tailwind('font-medium text-right text-gray-500')} value={pair.aToBRate.toString()} />
+            <Text style={tailwind('font-medium text-right text-gray-500')}> {pair.aSymbol} {translate('screens/AddLiquidity', 'per')} {pair.bSymbol}</Text>
+          </View>
+          <View style={tailwind('flex-1 flex-row justify-end')}>
+            <NumberText style={tailwind('font-medium text-right text-gray-500')} value={pair.bToARate.toString()} />
+            <Text style={tailwind('font-medium text-right text-gray-500')}> {pair.bSymbol} {translate('screens/AddLiquidity', 'per')} {pair.aSymbol}</Text>
+          </View>
         </View>
       </View>
-      {RenderRow('Share of pool', sharePercentage.times(100).toString())}
-      {RenderRow(`Pooled ${pair.aSymbol}`, pair.tokenA.reserve)}
-      {RenderRow(`Pooled ${pair.bSymbol}`, pair.tokenB.reserve)}
+      <RenderRow lhs='Share of pool' rhs={sharePercentage.times(100).toString()} />
+      <RenderRow lhs={`Pooled ${pair.aSymbol}`} rhs={pair.tokenA.reserve} />
+      <RenderRow lhs={`Pooled ${pair.bSymbol}`} rhs={pair.tokenB.reserve} />
     </View>
   )
 }
