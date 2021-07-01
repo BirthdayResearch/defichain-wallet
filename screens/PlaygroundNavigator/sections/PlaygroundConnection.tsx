@@ -1,44 +1,35 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
+import { getPlaygroundApiClient } from '../../../app/api/playground'
+import { EnvironmentNetwork } from '../../../app/environment'
+import { Logging } from '../../../app/logging'
+import { getNetwork } from '../../../app/storage'
 import { Text, View } from '../../../components'
-import { usePlaygroundApiClient } from '../../../hooks/api/usePlaygroundClient'
-import { RootState } from '../../../store'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
 export function PlaygroundConnection (): JSX.Element {
-  const apiClient = usePlaygroundApiClient()
+  const refresh = 6000
+  const apiClient = getPlaygroundApiClient()
 
-  const environment = useSelector<RootState>(state => state.network.playground?.environment)
   const [count, setCount] = useState(0)
-  const [refresh, setRefresh] = useState(100)
   const [connected, setConnected] = useState(false)
+  const [environment, setEnvironment] = useState<EnvironmentNetwork | undefined>(undefined)
 
   useEffect(() => {
-    let isMounted = true
+    getNetwork().then(network => {
+      setEnvironment(network)
+    }).catch(Logging.error)
 
-    function reloadBlockCount (): void {
+    const interval = setInterval(() => {
       apiClient.playground.info().then(({ block }) => {
-        if (isMounted) {
-          setCount(block.count)
-          setConnected(true)
-          setRefresh(5999)
-          intervalId = setTimeout(reloadBlockCount, refresh)
-        }
+        setCount(block.count)
+        setConnected(true)
       }).catch(() => {
-        if (isMounted) {
-          setConnected(false)
-          setRefresh(refresh * 2)
-        }
+        setConnected(false)
       })
-    }
-
-    let intervalId = setTimeout(reloadBlockCount, refresh)
-    return () => {
-      clearTimeout(intervalId)
-      isMounted = false
-    }
-  }, [refresh])
+    }, refresh)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <View>
