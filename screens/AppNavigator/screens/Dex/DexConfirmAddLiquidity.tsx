@@ -57,10 +57,12 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     constructSignedAddLiqAndSend(
       whaleAPI,
       account,
-      Number(tokenA.id),
-      tokenAAmount,
-      Number(tokenB.id),
-      tokenBAmount
+      {
+        tokenAId: Number(tokenA.id),
+        tokenAAmount,
+        tokenBId: Number(tokenB.id),
+        tokenBAmount
+      }
     ).then(() => {
       navigation.dispatch(StackActions.popToTop())
     }).catch(e => {
@@ -108,8 +110,7 @@ function ConfirmButton (props: { onPress: () => void }): JSX.Element {
 
 async function constructSignedAddLiqAndSend (
   whaleAPI: WhaleApiClient, account: WhaleWalletAccount,
-  tokenAId: number, tokenAAmount: BigNumber,
-  tokenBId: number, tokenBAmount: BigNumber
+  addLiqForm: { tokenAId: number, tokenAAmount: BigNumber, tokenBId: number, tokenBAmount: BigNumber }
 ): Promise<string> {
   const feeRate = new WhaleFeeRateProvider(whaleAPI)
   const prevout = new WhalePrevoutProvider(account, 50)
@@ -123,8 +124,8 @@ async function constructSignedAddLiqAndSend (
     from: [{
       script,
       balances: [
-        { token: tokenAId, amount: tokenAAmount },
-        { token: tokenBId, amount: tokenBAmount }
+        { token: addLiqForm.tokenAId, amount: addLiqForm.tokenAAmount },
+        { token: addLiqForm.tokenBId, amount: addLiqForm.tokenBAmount }
       ]
     }],
     shareAddress: script
