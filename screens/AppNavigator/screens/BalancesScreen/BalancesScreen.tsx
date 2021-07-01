@@ -42,7 +42,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       renderItem={({ item }) =>
         <BalanceItemRow
           token={item} key={item.symbol}
-          onPress={() => navigation.navigate('Send', { token: item })}
+          onPress={() => navigation.navigate('TokenDetail', { token: item })}
         />}
       ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
       ListHeaderComponent={
@@ -63,7 +63,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 }
 
 function BalanceItemRow ({ token, onPress }: { token: AddressToken, onPress: () => void }): JSX.Element {
-  const Icon = getTokenIcon(token.symbol)
+  const Icon = getTokenIcon(token.symbol, token.id)
   const isDisabled = token.id === '0'
 
   return (

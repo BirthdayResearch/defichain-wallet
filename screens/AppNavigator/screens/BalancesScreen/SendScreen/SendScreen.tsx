@@ -112,7 +112,7 @@ function AddressRow ({ control }: AddressForm): JSX.Element {
 }
 
 function AmountRow ({ token, control, onMaxPress }: AmountForm): JSX.Element {
-  const Icon = getTokenIcon(token.symbol)
+  const Icon = getTokenIcon(token.symbol, token.id)
   return (
     <>
       <Text
