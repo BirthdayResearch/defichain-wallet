@@ -78,9 +78,9 @@ export function ConvertScreen (props: Props): JSX.Element {
         <View style={tailwind('w-full justify-center items-center p-2')}>
           <Ionicons name='arrow-down' size={16} color={PrimaryColor} />
         </View>
-        <TextRow lhs='To: ' rhs={`${convAmount} ${outputUnit}`} />
-        <TextRow lhs='Previous: ' rhs={`${targetToken.amount} ${outputUnit}`} />
-        <TextRow lhs='Total: ' rhs={`${resultBal.toString()} ${outputUnit}`} />
+        <TextRow lhs='To: ' rhs={`${convAmount} ${outputUnit}`} testID='output_to' />
+        <TextRow lhs='Previous: ' rhs={`${targetToken.amount} ${outputUnit}`} testID='output_bal' />
+        <TextRow lhs='Total: ' rhs={`${resultBal.toString()} ${outputUnit}`} testID='output_total' />
       </ScrollView>
       <View style={tailwind('w-full h-16')}>
         <ContinueButton
@@ -100,6 +100,7 @@ function ConversionInput (props: { unit: string, current: string, balance: BigNu
       </View>
       <View style={tailwind('flex-row w-full h-12 bg-white justify-center p-4')}>
         <TextInput
+          testID='text_input_convert_from'
           value={props.current}
           style={tailwind('flex-1 mr-4 text-gray-500')}
           keyboardType='numeric'
@@ -123,14 +124,14 @@ function ConversionInput (props: { unit: string, current: string, balance: BigNu
   )
 }
 
-function TextRow (props: { lhs: string, rhs: string }): JSX.Element {
+function TextRow (props: { lhs: string, rhs: string, testID?: string }): JSX.Element {
   return (
     <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
       <View style={tailwind('flex-1')}>
-        <Text style={tailwind('font-medium')}>{props.lhs}</Text>
+        <Text style={tailwind('font-medium')} testID={`text_row_${props.testID ?? ''}_lhs`}>{props.lhs}</Text>
       </View>
       <View style={tailwind('flex-1')}>
-        <Text style={tailwind('font-medium')}>{props.rhs}</Text>
+        <Text style={tailwind('font-medium')} testID={`text_row_${props.testID ?? ''}_rhs`}>{props.rhs}</Text>
       </View>
     </View>
   )
@@ -140,6 +141,7 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
   const buttonColor = props.enabled ? PrimaryColorStyle.bg : { backgroundColor: 'gray' }
   return (
     <TouchableOpacity
+      testID='button_continue'
       style={[tailwind('m-2 p-3 rounded flex-row justify-center'), buttonColor]}
       onPress={props.onPress}
       disabled={!props.enabled}
@@ -183,7 +185,6 @@ async function constructSignedConversionAndSend (whaleAPI: WhaleApiClient, accou
   }
 
   const buffer = new SmartBuffer()
-  console.log('signed', signed)
   new CTransactionSegWit(signed).toBuffer(buffer)
   return await whaleAPI.transactions.send({ hex: buffer.toString('hex') })
 }

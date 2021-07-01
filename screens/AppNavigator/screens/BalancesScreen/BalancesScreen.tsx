@@ -48,11 +48,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       ListHeaderComponent={
         <View style={tailwind('flex-row justify-end px-4 py-3 bg-white border-b border-gray-200')}>
           <BalanceActionButton
-            icon='swap-horiz' title='to DFC'
+            icon='swap-horiz' title='TO_DFC'
             onPress={() => navigation.navigate('ConvertScreen', { mode: 'utxosToAccount' })}
           />
           <BalanceActionButton
-            icon='swap-horiz' title='2 utxos'
+            icon='swap-horiz' title='TO_UTXOS'
             onPress={() => navigation.navigate('ConvertScreen', { mode: 'accountToUtxos' })}
           />
           <BalanceActionButton
