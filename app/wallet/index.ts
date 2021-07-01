@@ -28,14 +28,6 @@ async function newWallet (): Promise<Wallet> {
 }
 
 /**
- * @return WhaleWalletAccount the default index 0 account
- * @see useCachedWallet to load wallet first
- */
-export function getAccount (): WhaleWalletAccount {
-  return getWallet().get(0)
-}
-
-/**
  * @return {JellyfishWallet<WhaleWalletAccount, WalletHdNode>}
  * @see useCachedWallet to load wallet first
  */
