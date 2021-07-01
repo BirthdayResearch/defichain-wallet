@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@defichain/jellyfish-api-core": ">=0.21.0",
+    "@defichain/jellyfish-transaction": ">=0.21.0",
     "@defichain/jellyfish-transaction-builder": ">=0.21.0",
     "@defichain/jellyfish-wallet": ">=0.21.0",
     "@defichain/jellyfish-wallet-mnemonic": ">=0.21.0",
