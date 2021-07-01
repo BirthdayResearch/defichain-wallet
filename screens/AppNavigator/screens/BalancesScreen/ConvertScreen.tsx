@@ -10,7 +10,7 @@ import { TouchableOpacity } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import tailwind from 'tailwind-rn'
 import { Text, TextInput, View } from '../../../../components'
-import { PrimaryColorStyle } from '../../../../constants/Theme'
+import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { BalanceParamList } from './BalancesNavigator'
 import { WhaleApiClient } from '@defichain/whale-api-client'
@@ -18,6 +18,7 @@ import { WhaleFeeRateProvider, WhalePrevoutProvider, WhaleWalletAccount } from '
 import { SmartBuffer } from 'smart-buffer'
 import { useWhaleApiClient } from '../../../../hooks/api/useWhaleApiClient'
 import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
+import { Ionicons } from '@expo/vector-icons'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<BalanceParamList, 'ConvertScreen'>
@@ -57,7 +58,7 @@ export function ConvertScreen (props: Props): JSX.Element {
     ).then(() => {
       navigation.dispatch(StackActions.popToTop())
     }).catch(e => console.log(e)) // TODO: display error
-  }, [])
+  }, [amount])
 
   return (
     <View style={tailwind('w-full h-full')}>
@@ -66,8 +67,17 @@ export function ConvertScreen (props: Props): JSX.Element {
           current={amount}
           unit={mode ? 'UTXOS' : 'Token'}
           balance={new BigNumber(sourceToken.amount)}
-          onChange={setAmount}
+          onChange={(val) => {
+            if (mode && new BigNumber(val).eq(sourceToken.amount)) {
+              setAmount(new BigNumber(val).minus(0.0001).toString()) // spare for fee
+            } else {
+              setAmount(val)
+            }
+          }}
         />
+        <View style={tailwind('w-full justify-center items-center p-2')}>
+          <Ionicons name='arrow-down' size={16} color={PrimaryColor} />
+        </View>
         <TextRow lhs='To: ' rhs={`${convAmount} ${outputUnit}`} />
         <TextRow lhs='Previous: ' rhs={`${targetToken.amount} ${outputUnit}`} />
         <TextRow lhs='Total: ' rhs={`${resultBal.toString()} ${outputUnit}`} />
@@ -84,7 +94,7 @@ export function ConvertScreen (props: Props): JSX.Element {
 
 function ConversionInput (props: { unit: string, current: string, balance: BigNumber, onChange: (amount: string) => void }): JSX.Element {
   return (
-    <View style={tailwind('flex-col w-full h-36 items-center mt-4')}>
+    <View style={tailwind('flex-col w-full h-32 items-center mt-4')}>
       <View style={tailwind('flex-col w-full h-8 bg-white justify-center')}>
         <Text style={tailwind('m-4')}>From</Text>
       </View>
@@ -158,7 +168,7 @@ async function constructSignedConversionAndSend (whaleAPI: WhaleApiClient, accou
       to: [{
         script,
         balances: [
-          { token: 0, amount } // only DFI
+          { token: 0, amount }
         ]
       }]
     }, script)
@@ -166,13 +176,14 @@ async function constructSignedConversionAndSend (whaleAPI: WhaleApiClient, accou
     signed = await builder.account.accountToUtxos({
       from: script,
       balances: [
-        { token: 0, amount } // only DFI
+        { token: 0, amount }
       ],
       mintingOutputsStart: 2 // 0: DfTx, 1: change, 2: minted utxos (mandated by jellyfish-tx)
     }, script)
   }
 
   const buffer = new SmartBuffer()
+  console.log('signed', signed)
   new CTransactionSegWit(signed).toBuffer(buffer)
   return await whaleAPI.transactions.send({ hex: buffer.toString('hex') })
 }
