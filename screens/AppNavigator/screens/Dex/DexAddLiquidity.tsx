@@ -14,6 +14,7 @@ import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { DexParamList } from './DexNavigator'
 import { translate } from '../../../../translations'
 import NumberFormat from 'react-number-format'
+import { PrimaryButton } from '../../../../components/PrimaryButton'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -84,20 +85,18 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
         />
         <Summary pair={pair} sharePercentage={sharePercentage} />
       </ScrollView>
-      <View style={tailwind('w-full h-16')}>
-        <ContinueButton
-          enabled={canContinue}
-          onPress={() => {
-            navigation.navigate('ConfirmAddLiquidity', {
-              summary: {
-                ...poolPairData,
-                fee: new BigNumber(0.0001),
-                percentage: sharePercentage
-              }
-            })
-          }}
-        />
-      </View>
+      <ContinueButton
+        enabled={canContinue}
+        onPress={() => {
+          navigation.navigate('ConfirmAddLiquidity', {
+            summary: {
+              ...poolPairData,
+              fee: new BigNumber(0.0001),
+              percentage: sharePercentage
+            }
+          })
+        }}
+      />
     </View>
   )
 }
@@ -199,15 +198,15 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
 }
 
 function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
-  const buttonColor = props.enabled ? PrimaryColorStyle.bg : { backgroundColor: 'gray' }
   return (
-    <TouchableOpacity
-      style={[tailwind('m-2 p-3 rounded flex-row justify-center'), buttonColor]}
-      onPress={props.onPress}
+    <PrimaryButton
+      touchableStyle={tailwind('m-2')}
+      title='Continue'
       disabled={!props.enabled}
+      onPress={props.onPress}
     >
-      <Text style={[tailwind('text-white font-bold')]}>Continue</Text>
-    </TouchableOpacity>
+      <Text style={tailwind('text-white font-bold')}>{translate('screens/SendScreen', 'CONTINUE')}</Text>
+    </PrimaryButton>
   )
 }
 
