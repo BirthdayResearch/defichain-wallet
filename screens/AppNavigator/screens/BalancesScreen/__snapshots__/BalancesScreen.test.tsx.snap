@@ -323,7 +323,7 @@ exports[`balances page should match snapshot 1`] = `
                 ]
               }
             >
-              DFI
+              DFI (Token)
             </Text>
             <Text
               style={

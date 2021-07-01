@@ -13,6 +13,7 @@ import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
 import { useWhaleApiClient } from '../../../../hooks/api/useWhaleApiClient'
 import { fetchTokens, useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
+import { getSymbolDisplay } from '../../../../store/wallet'
 import { translate } from '../../../../translations'
 import { BalanceParamList } from './BalancesNavigator'
 
@@ -64,18 +65,16 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
 function BalanceItemRow ({ token, onPress }: { token: AddressToken, onPress: () => void }): JSX.Element {
   const Icon = getTokenIcon(token.symbol, token.id)
-  const isDisabled = token.id === '0'
 
   return (
     <TouchableOpacity
-      disabled={isDisabled}
       onPress={onPress} testID={`balances_row_${token.id}`}
       style={tailwind('bg-white py-4 pl-4 pr-2 flex-row justify-between items-center')}
     >
       <View style={tailwind('flex-row items-center')}>
         <Icon />
         <View style={tailwind('mx-3')}>
-          <Text>{token.symbol}</Text>
+          <Text>{getSymbolDisplay(token)}</Text>
           <Text style={tailwind('text-xs font-medium text-gray-600')}>{token.name}</Text>
         </View>
       </View>
@@ -87,7 +86,7 @@ function BalanceItemRow ({ token, onPress }: { token: AddressToken, onPress: () 
             <Text style={tailwind('mr-2')} testID={`balances_row_${token.id}_amount`}>
               {value}
             </Text>
-            <MaterialIcons name='chevron-right' size={24} style={isDisabled ? tailwind('opacity-0') : []} />
+            <MaterialIcons name='chevron-right' size={24} />
           </View>}
       />
     </TouchableOpacity>

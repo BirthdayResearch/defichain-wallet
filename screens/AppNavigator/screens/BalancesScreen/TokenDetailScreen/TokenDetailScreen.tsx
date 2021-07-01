@@ -5,6 +5,7 @@ import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import tailwind from 'tailwind-rn'
 import { PrimaryColor } from '../../../../../constants/Theme'
+import { getSymbolDisplay } from '../../../../../store/wallet'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { Text } from '../../../../../components'
@@ -33,18 +34,24 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
       <Text style={tailwind('p-4 text-xs text-gray-500')}>
         {translate('screens/TokenDetailScreen', 'AVAILABLE OPTIONS')}
       </Text>
-      <TokenActionRow
-        title={translate('screens/TokenDetailScreen', 'Send to other wallet')} icon='arrow-upward'
-        onPress={() => navigation.navigate('Send', { token })}
-      />
-      <TokenActionRow
-        title={`${translate('screens/TokenDetailScreen', 'Receive')} ${token.symbol}`} icon='arrow-downward'
-        onPress={() => navigation.navigate('Receive')}
-      />
+      {
+        token.id !== '0' && (
+          <>
+            <TokenActionRow
+              title={translate('screens/TokenDetailScreen', 'Send to other wallet')} icon='arrow-upward'
+              onPress={() => navigation.navigate('Send', { token })}
+            />
+            <TokenActionRow
+              title={`${translate('screens/TokenDetailScreen', 'Receive')} ${getSymbolDisplay(token)}`} icon='arrow-downward'
+              onPress={() => navigation.navigate('Receive')}
+            />
+          </>
+        )
+      }
       {
         token.symbol === 'DFI' && (
           <TokenActionRow
-            title={`${translate('screens/TokenDetailScreen', 'Convert')} ${token.symbol}`}
+            title={`${translate('screens/TokenDetailScreen', 'Convert')} ${getSymbolDisplay(token)}`}
             icon='swap-vert' onPress={() => navigation.navigate('Convert')}
           />
         )

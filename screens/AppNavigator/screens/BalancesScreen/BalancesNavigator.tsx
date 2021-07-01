@@ -5,6 +5,7 @@ import { View } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { Text } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { getSymbolDisplay } from '../../../../store/wallet'
 import { translate } from '../../../../translations'
 import { BalancesScreen } from './BalancesScreen'
 import { ReceiveScreen } from './ReceiveScreen/ReceiveScreen'
@@ -54,7 +55,7 @@ export function BalancesNavigator (): JSX.Element {
               return (
                 <View style={tailwind('flex-row items-center')}>
                   <Icon />
-                  <Text style={tailwind('ml-2')}>{token.symbol}</Text>
+                  <Text style={tailwind('ml-2')}>{getSymbolDisplay(token)}</Text>
                 </View>
               )
             }

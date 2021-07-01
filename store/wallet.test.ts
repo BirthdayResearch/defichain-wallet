@@ -3,7 +3,7 @@ import {
   tokensSelector,
   WalletState,
   WalletStatus,
-  wallet
+  wallet, getSymbolDisplay
 } from './wallet';
 
 describe('wallet reducer', () => {
@@ -23,7 +23,7 @@ describe('wallet reducer', () => {
       amount: '100000',
       isDAT: true,
       isLPS: false,
-      name: 'Defi',
+      name: 'Defichain',
       symbol: 'DFI',
       symbolKey: 'DFI'
     };
@@ -31,7 +31,6 @@ describe('wallet reducer', () => {
       ...tokenDFI,
       amount: '0',
       id: '0_utxo',
-      name: 'UTXO Defi'
     }
   })
 
@@ -89,5 +88,12 @@ describe('wallet reducer', () => {
     }
     const actual = tokensSelector(state)
     expect(actual).toStrictEqual([{ ...utxoDFI, amount: '77' }, { ...tokenDFI }, { ...btc }])
+  });
+
+  it('should able to distinguish utxo vs tokens', () => {
+    let symbol = getSymbolDisplay(tokenDFI)
+    expect(symbol).toStrictEqual('DFI (Token)')
+    symbol = getSymbolDisplay(utxoDFI)
+    expect(symbol).toStrictEqual('DFI (UTXO)')
   });
 })

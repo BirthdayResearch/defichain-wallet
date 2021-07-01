@@ -31,13 +31,19 @@ const tokenDFI: AddressToken = {
   isDAT: true,
   isLPS: false,
   amount: '0',
-  name: 'Defi'
+  name: 'Defichain'
 }
 
 const utxoDFI: AddressToken = {
   ...tokenDFI,
-  id: '0_utxo',
-  name: 'UTXO Defi'
+  id: '0_utxo'
+}
+
+export const getSymbolDisplay = (token: AddressToken): string => {
+  if (token.symbol === 'DFI') {
+    return token.id === '0_utxo' ? 'DFI (UTXO)' : 'DFI (Token)'
+  }
+  return token.symbol
 }
 
 export const wallet = createSlice({
