@@ -81,6 +81,8 @@
   name: area/wallet
 - color: fbca04
   name: area/settings
+- color: fbca04
+  name: area/store
 
 # Priority
 - color: d93f0b

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import NumberFormat from 'react-number-format'
 import tailwind from 'tailwind-rn'
 import { translate } from '../../../../../translations'
 import { View, FlatList, TouchableOpacity, RefreshControl } from 'react-native'
@@ -6,7 +7,7 @@ import { useEffect, useState } from 'react'
 import { useWalletAPI } from '../../../../../hooks/wallet/WalletAPI'
 import { useWhaleApiClient } from '../../../../../hooks/api/useWhaleApiClient'
 import { Ionicons } from '@expo/vector-icons'
-import { Text, NumberText } from '../../../../../components'
+import { Text } from '../../../../../components'
 import { activitiesToViewModel, VMTransaction } from './stateProcessor'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { TransactionsParamList } from '../TransactionsNavigator'
@@ -40,8 +41,7 @@ export function TransactionsScreen (): JSX.Element {
       setHasNext(addActivities.hasNext)
       setNextToken(addActivities.nextToken as string|undefined)
       setLoadingStatus('idle')
-    }).catch((e) => {
-      // setError(e)
+    }).catch(() => {
       setLoadingStatus('error')
     })
   }
@@ -95,7 +95,10 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
             <Text style={tailwind('font-medium')}>{translate('screens/TransactionsScreen', 'block')}: {block}</Text>
           </View>
           <View style={tailwind('flex-row ml-3 items-center')}>
-            <NumberText value={amount} style={{ color }} />
+            <NumberFormat
+              value={amount} decimalScale={8} thousandSeparator displayType='text'
+              renderText={(value) => <Text style={{ color }}>{value}</Text>}
+            />
             <View style={tailwind('w-16 ml-2 items-start')}>
               <Text style={tailwind('flex-shrink font-medium text-gray-600')}>{token}</Text>
             </View>
