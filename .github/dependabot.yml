@@ -9,7 +9,7 @@ updates:
     ignore:
       - dependency-name: "@defichain/*"
       - dependency-name: "@react-native-async-storage/async-storage"
-      - dependency-name: "@react-native-community/masked-view"
+      - dependency-name: "@react-native-masked-view/masked-view"
       - dependency-name: "@react-navigation/bottom-tabs"
       - dependency-name: "react"
       - dependency-name: "react-dom"

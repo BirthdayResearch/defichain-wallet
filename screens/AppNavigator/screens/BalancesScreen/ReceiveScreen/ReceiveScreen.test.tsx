@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { fireEvent, render } from "@testing-library/react-native"
 import * as React from 'react'
 import { Provider } from "react-redux";
-import Clipboard from 'expo-clipboard'
+import * as Clipboard from 'expo-clipboard'
 import { RootState } from "../../../../../store";
 import { network } from "../../../../../store/network";
 import { wallet, WalletStatus } from "../../../../../store/wallet";
