@@ -2,6 +2,7 @@ import * as SplashScreen from 'expo-splash-screen'
 import React from 'react'
 import { Provider } from 'react-redux'
 import './_shim'
+import { useCachedPlaygroundClient } from './app/api/playground'
 import { Logging } from './app/logging'
 import { useNetwork } from './hooks/api/useNetwork'
 import { useCachedResources } from './hooks/design/useCachedResources'
@@ -20,18 +21,19 @@ export default function App (): JSX.Element | null {
 }
 
 function WalletApp (): JSX.Element | null {
-  const isLoaded = [
+  const isLoaded: boolean[] = [
     useCachedResources(),
-    useNetwork()
+    useNetwork(),
+    useCachedPlaygroundClient()
   ]
 
   if (isLoaded.includes(false)) {
     SplashScreen.preventAutoHideAsync()
       .catch(Logging.error)
     return null
-  } else {
-    SplashScreen.hideAsync()
-      .catch(Logging.error)
-    return <Main />
   }
+
+  SplashScreen.hideAsync()
+    .catch(Logging.error)
+  return <Main />
 }

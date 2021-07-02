@@ -1,44 +1,38 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
+import { getPlaygroundApiClient } from '../../../app/api/playground'
+import { EnvironmentNetwork } from '../../../app/environment'
+import { Logging } from '../../../app/logging'
+import { getNetwork } from '../../../app/storage'
 import { Text, View } from '../../../components'
-import { usePlaygroundApiClient } from '../../../hooks/api/usePlaygroundClient'
-import { RootState } from '../../../store'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
 export function PlaygroundConnection (): JSX.Element {
-  const apiClient = usePlaygroundApiClient()
+  const duration = 3000
+  const apiClient = getPlaygroundApiClient()
 
-  const environment = useSelector<RootState>(state => state.network.playground?.environment)
   const [count, setCount] = useState(0)
-  const [refresh, setRefresh] = useState(100)
   const [connected, setConnected] = useState(false)
+  const [environment, setEnvironment] = useState<EnvironmentNetwork | undefined>(undefined)
 
   useEffect(() => {
-    let isMounted = true
+    getNetwork().then(network => {
+      setEnvironment(network)
+    }).catch(Logging.error)
 
-    function reloadBlockCount (): void {
+    function refresh (): void {
       apiClient.playground.info().then(({ block }) => {
-        if (isMounted) {
-          setCount(block.count)
-          setConnected(true)
-          setRefresh(5999)
-          intervalId = setTimeout(reloadBlockCount, refresh)
-        }
+        setCount(block.count)
+        setConnected(true)
       }).catch(() => {
-        if (isMounted) {
-          setConnected(false)
-          setRefresh(refresh * 2)
-        }
+        setConnected(false)
       })
     }
 
-    let intervalId = setTimeout(reloadBlockCount, refresh)
-    return () => {
-      clearTimeout(intervalId)
-      isMounted = false
-    }
-  }, [refresh])
+    refresh()
+    const interval = setInterval(refresh, duration)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <View>
@@ -46,7 +40,7 @@ export function PlaygroundConnection (): JSX.Element {
         <Text style={tailwind('text-2xl font-bold')}>Connection</Text>
         <View style={tailwind('flex-row items-center ml-2')}>
           <PlaygroundStatus online={connected} offline={!connected} />
-          <Text style={tailwind('ml-2 text-gray-900')}>↻{(refresh / 1000).toFixed(0)}s</Text>
+          <Text style={tailwind('ml-2 text-gray-900')}>↻{(duration / 1000).toFixed(0)}s</Text>
         </View>
       </View>
 
