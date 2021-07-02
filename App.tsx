@@ -5,7 +5,6 @@ import './_shim'
 import { useCachedPlaygroundClient } from './app/api/playground'
 import { useCachedWhaleClient } from './app/api/whale'
 import { Logging } from './app/logging'
-import { useNetwork } from './hooks/api/useNetwork'
 import { useCachedResources } from './hooks/design/useCachedResources'
 import { Main } from './screens/Main'
 import { store } from './store'
@@ -46,7 +45,6 @@ export default function App (): JSX.Element | null {
  */
 function WalletApp (): JSX.Element | null {
   const isLoaded: boolean[] = [
-    useNetwork(),
     useCachedWhaleClient()
   ]
 

@@ -2,7 +2,6 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../components'
-import { useWhaleApiClient } from '../../../hooks/api/useWhaleApiClient'
 import { fetchTokens } from '../../../hooks/wallet/TokensAPI'
 import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
 import { RootState } from '../../../store'
@@ -15,7 +14,6 @@ export function PlaygroundWallet (): JSX.Element | null {
   const status = WalletAPI.getStatus()
   const dispatch = useDispatch()
   const address = useSelector((state: RootState) => state.wallet.address)
-  const whaleApi = useWhaleApiClient()
 
   return (
     <View>
@@ -54,7 +52,7 @@ export function PlaygroundWallet (): JSX.Element | null {
       <PlaygroundAction
         testID='playground_wallet_fetch_balances'
         title='Fetch Balances'
-        onPress={() => fetchTokens(address, dispatch, whaleApi)}
+        onPress={() => fetchTokens(address, dispatch)}
       />
     </View>
   )

@@ -1,19 +1,15 @@
-import * as React from 'react'
-import tailwind from 'tailwind-rn'
-import { translate } from '../../../../../translations'
-import { View, Linking } from 'react-native'
-import { Text } from '../../../../../components'
-import { StackScreenProps } from '@react-navigation/stack'
-import { TransactionsParamList } from '../TransactionsNavigator'
 import { Ionicons } from '@expo/vector-icons'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../../../../store'
-import { NetworkName } from '../../../../../store/network'
+import { StackScreenProps } from '@react-navigation/stack'
+import * as React from 'react'
+import { Linking, View } from 'react-native'
+import tailwind from 'tailwind-rn'
+import { Text } from '../../../../../components'
+import { translate } from '../../../../../translations'
+import { TransactionsParamList } from '../TransactionsNavigator'
 
 type Props = StackScreenProps<TransactionsParamList, 'TransactionDetailScreen'>
 
 export function TransactionDetailScreen (props: Props): JSX.Element {
-  const network = useSelector<RootState, NetworkName | undefined>(state => state.network.name)
   const { tx } = props.route.params
 
   const grayDivider = <View style={tailwind('bg-gray w-full h-4')} />
@@ -33,13 +29,11 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
     )
   }
 
-  const url = explorerUrl(network, tx.txid)
   const onTxidUrlPressed = React.useCallback(async () => {
-    const supported = await Linking.canOpenURL(url)
-    if (supported) {
-      await Linking.openURL(url)
-    }
-  }, [url])
+    // TODO(ivan-zynesis): new explorer URL linking
+    const url = 'https://playground.defichain.com'
+    await Linking.openURL(url)
+  }, [])
 
   return (
     <View>
@@ -65,19 +59,4 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
       </View>
     </View>
   )
-}
-
-function explorerUrl (network: NetworkName | undefined, txid: string): string {
-  const baseUrl = (): string => {
-    switch (network) {
-      case 'mainnet':
-        return 'https://explorer.defichain.io'
-      case 'testnet': // FIXME(@ivan-zynesis): if they have working explorer
-      case 'regtest':
-      case 'playground':
-      default:
-        return 'https://playground.defichain.com'
-    }
-  }
-  return `${baseUrl()}/#/DFI/tx/${txid}`
 }

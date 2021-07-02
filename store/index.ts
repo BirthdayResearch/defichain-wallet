@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { block } from './block'
-import { network } from './network'
 import { wallet } from './wallet'
 
 /**
@@ -15,7 +14,6 @@ import { wallet } from './wallet'
 export const store = configureStore({
   reducer: {
     block: block.reducer,
-    network: network.reducer,
     wallet: wallet.reducer
   }
 })
