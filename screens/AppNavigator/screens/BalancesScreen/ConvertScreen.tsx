@@ -24,7 +24,7 @@ export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<BalanceParamList, 'ConvertScreen'>
 
 interface ConversionIO extends AddressToken {
-  unit: 'UTXOS' | 'TOKEN'
+  unit: 'UTXOS' | 'Token'
 }
 
 export function ConvertScreen (props: Props): JSX.Element {
@@ -37,10 +37,13 @@ export function ConvertScreen (props: Props): JSX.Element {
   const convAmount = new BigNumber(amount).isNaN() ? '0' : new BigNumber(amount).toString()
   const resultBal = new BigNumber(targetToken.amount).plus(convAmount)
 
+  const whaleApiClient = useWhaleApiClient()
+  const account = useWalletAPI().getWallet().get(0)
+
   const convert = useCallback(() => {
     constructSignedConversionAndSend(
-      useWhaleApiClient(),
-      useWalletAPI().getWallet().get(0),
+      whaleApiClient,
+      account,
       props.route.params.mode,
       new BigNumber(amount)
     ).then(() => {
@@ -82,12 +85,12 @@ function getDFIBalances (mode: ConversionMode, tokens: AddressToken[]): [source:
   const source: AddressToken = mode === 'utxosToAccount'
     ? tokens.find(tk => tk.id === '0_utxo') as AddressToken
     : tokens.find(tk => tk.id === '0') as AddressToken
-  const sourceUnit = mode === 'utxosToAccount' ? 'UTXOS' : 'TOKEN'
+  const sourceUnit = mode === 'utxosToAccount' ? 'UTXOS' : 'Token'
 
   const target: AddressToken = mode === 'utxosToAccount'
     ? tokens.find(tk => tk.id === '0') as AddressToken
     : tokens.find(tk => tk.id === '0_utxo') as AddressToken
-  const targetUnit = mode === 'utxosToAccount' ? 'TOKEN' : 'UTXOS'
+  const targetUnit = mode === 'utxosToAccount' ? 'Token' : 'UTXOS'
 
   return [
     { ...source, unit: sourceUnit },
@@ -128,14 +131,14 @@ function ConversionInput (props: { unit: string, current: string, balance: BigNu
   )
 }
 
-function TextRow (props: { lhs: string, rhs: string, testID?: string }): JSX.Element {
+function TextRow (props: { lhs: string, rhs: string, testID: string }): JSX.Element {
   return (
     <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
       <View style={tailwind('flex-1')}>
-        <Text style={tailwind('font-medium')} testID={`text_row_${props.testID ?? ''}_lhs`}>{props.lhs}</Text>
+        <Text style={tailwind('font-medium')} testID={`text_row_${props.testID}_lhs`}>{props.lhs}</Text>
       </View>
       <View style={tailwind('flex-1')}>
-        <Text style={tailwind('font-medium')} testID={`text_row_${props.testID ?? ''}_rhs`}>{props.rhs}</Text>
+        <Text style={tailwind('font-medium')} testID={`text_row_${props.testID}_rhs`}>{props.rhs}</Text>
       </View>
     </View>
   )
