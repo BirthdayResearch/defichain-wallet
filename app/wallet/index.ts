@@ -27,6 +27,10 @@ async function newWallet (): Promise<Wallet> {
   return new JellyfishWallet(nodeProvider, accountProvider)
 }
 
+export function hasWallet (): boolean {
+  return INSTANCE !== undefined
+}
+
 /**
  * @return {JellyfishWallet<WhaleWalletAccount, WalletHdNode>}
  * @see useCachedWallet to load wallet first

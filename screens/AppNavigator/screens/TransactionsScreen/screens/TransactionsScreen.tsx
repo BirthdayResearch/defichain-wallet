@@ -6,21 +6,21 @@ import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import tailwind from 'tailwind-rn'
 import { getWhaleClient } from '../../../../../app/api/whale'
+import { getWallet } from '../../../../../app/wallet'
 import { Text } from '../../../../../components'
 import { PrimaryColorStyle } from '../../../../../constants/Theme'
-import { useWalletAPI } from '../../../../../hooks/wallet/WalletAPI'
 import { translate } from '../../../../../translations'
 import { TransactionsParamList } from '../TransactionsNavigator'
 import { activitiesToViewModel, VMTransaction } from './stateProcessor'
 
 export function TransactionsScreen (): JSX.Element {
   const whaleApiClient = getWhaleClient()
-  const account = useWalletAPI().getWallet().get(0)
+  const account = getWallet().get(0)
   const navigation = useNavigation<NavigationProp<TransactionsParamList>>()
 
   const [activities, setAddressActivities] = useState<VMTransaction[]>([])
   const [loadingStatus, setLoadingStatus] = useState('initial') // page status
-  const [nextToken, setNextToken] = useState<string|undefined>(undefined)
+  const [nextToken, setNextToken] = useState<string | undefined>(undefined)
   const [hasNext, setHasNext] = useState<boolean>(false)
   // const [error, setError] = useState<Error|undefined>(undefined) // TODO: render error
 
@@ -39,7 +39,7 @@ export function TransactionsScreen (): JSX.Element {
       const newRows = activitiesToViewModel(addActivities)
       setAddressActivities([...activities, ...newRows])
       setHasNext(addActivities.hasNext)
-      setNextToken(addActivities.nextToken as string|undefined)
+      setNextToken(addActivities.nextToken as string | undefined)
       setLoadingStatus('idle')
     }).catch(() => {
       setLoadingStatus('error')
@@ -112,7 +112,7 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
   }
 }
 
-function LoadMore (onPress: () => void): JSX.Element|null {
+function LoadMore (onPress: () => void): JSX.Element | null {
   return (
     <View style={tailwind('flex-1 items-center justify-center w-full m-1')}>
       <TouchableOpacity
