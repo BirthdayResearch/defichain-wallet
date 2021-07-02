@@ -1,4 +1,3 @@
-import { P2WPKHTransactionBuilder } from '@defichain/jellyfish-transaction-builder'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
@@ -14,45 +13,34 @@ import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { BalanceParamList } from './BalancesNavigator'
 import { WhaleApiClient } from '@defichain/whale-api-client'
-import { WhaleFeeRateProvider, WhalePrevoutProvider, WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { SmartBuffer } from 'smart-buffer'
+import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { useWhaleApiClient } from '../../../../hooks/api/useWhaleApiClient'
 import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
 import { Ionicons } from '@expo/vector-icons'
+import { PrimaryButton } from '../../../../components/PrimaryButton'
+import { translate } from '../../../../translations'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<BalanceParamList, 'ConvertScreen'>
 
+interface ConversionIO extends AddressToken {
+  unit: 'UTXOS' | 'TOKEN'
+}
+
 export function ConvertScreen (props: Props): JSX.Element {
-  // ease syntax: true = utxo -> account, fasel = account -> utxo
-  const mode = props.route.params.mode === 'utxosToAccount'
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
 
-  // this component state
-  const [amount, setAmount] = useState<string>('0')
-
-  // gather required data
   const tokens = useTokensAPI()
-  const sourceToken: AddressToken = mode
-    ? tokens.find(tk => tk.id === '0_utxo') as AddressToken
-    : tokens.find(tk => tk.id === '0') as AddressToken
+  const [sourceToken, targetToken] = getDFIBalances(props.route.params.mode, tokens)
 
-  const targetToken: AddressToken = mode
-    ? tokens.find(tk => tk.id === '0') as AddressToken
-    : tokens.find(tk => tk.id === '0_utxo') as AddressToken
-
-  const outputUnit = mode ? 'Token' : 'UTXOS'
+  const [amount, setAmount] = useState<string>('0')
   const convAmount = new BigNumber(amount).isNaN() ? '0' : new BigNumber(amount).toString()
   const resultBal = new BigNumber(targetToken.amount).plus(convAmount)
 
-  const whaleAPI = useWhaleApiClient()
-  const WalletAPI = useWalletAPI()
-  const account = WalletAPI.getWallet().get(0) as WhaleWalletAccount
-
   const convert = useCallback(() => {
     constructSignedConversionAndSend(
-      whaleAPI,
-      account,
+      useWhaleApiClient(),
+      useWalletAPI().getWallet().get(0),
       props.route.params.mode,
       new BigNumber(amount)
     ).then(() => {
@@ -65,10 +53,10 @@ export function ConvertScreen (props: Props): JSX.Element {
       <ScrollView style={tailwind('w-full flex-col flex-1 bg-gray-100')}>
         <ConversionInput
           current={amount}
-          unit={mode ? 'UTXOS' : 'Token'}
+          unit={sourceToken.unit}
           balance={new BigNumber(sourceToken.amount)}
           onChange={(val) => {
-            if (mode && new BigNumber(val).eq(sourceToken.amount)) {
+            if (sourceToken.unit === 'UTXOS' && new BigNumber(val).eq(sourceToken.amount)) {
               setAmount(new BigNumber(val).minus(0.0001).toString()) // spare for fee
             } else {
               setAmount(val)
@@ -78,18 +66,33 @@ export function ConvertScreen (props: Props): JSX.Element {
         <View style={tailwind('w-full justify-center items-center p-2')}>
           <Ionicons name='arrow-down' size={16} color={PrimaryColor} />
         </View>
-        <TextRow lhs='To: ' rhs={`${convAmount} ${outputUnit}`} testID='output_to' />
-        <TextRow lhs='Previous: ' rhs={`${targetToken.amount} ${outputUnit}`} testID='output_bal' />
-        <TextRow lhs='Total: ' rhs={`${resultBal.toString()} ${outputUnit}`} testID='output_total' />
+        <TextRow lhs='To: ' rhs={`${convAmount} ${targetToken.unit}`} testID='output_to' />
+        <TextRow lhs='Previous: ' rhs={`${targetToken.amount} ${targetToken.unit}`} testID='output_bal' />
+        <TextRow lhs='Total: ' rhs={`${resultBal.toString()} ${targetToken.unit}`} testID='output_total' />
       </ScrollView>
-      <View style={tailwind('w-full h-16')}>
-        <ContinueButton
-          enabled={canConvert(convAmount, sourceToken.amount)}
-          onPress={convert}
-        />
-      </View>
+      <ContinueButton
+        enabled={canConvert(convAmount, sourceToken.amount)}
+        onPress={convert}
+      />
     </View>
   )
+}
+
+function getDFIBalances (mode: ConversionMode, tokens: AddressToken[]): [source: ConversionIO, target: ConversionIO] {
+  const source: AddressToken = mode === 'utxosToAccount'
+    ? tokens.find(tk => tk.id === '0_utxo') as AddressToken
+    : tokens.find(tk => tk.id === '0') as AddressToken
+  const sourceUnit = mode === 'utxosToAccount' ? 'UTXOS' : 'TOKEN'
+
+  const target: AddressToken = mode === 'utxosToAccount'
+    ? tokens.find(tk => tk.id === '0') as AddressToken
+    : tokens.find(tk => tk.id === '0_utxo') as AddressToken
+  const targetUnit = mode === 'utxosToAccount' ? 'TOKEN' : 'UTXOS'
+
+  return [
+    { ...source, unit: sourceUnit },
+    { ...target, unit: targetUnit }
+  ]
 }
 
 function ConversionInput (props: { unit: string, current: string, balance: BigNumber, onChange: (amount: string) => void }): JSX.Element {
@@ -139,16 +142,10 @@ function TextRow (props: { lhs: string, rhs: string, testID?: string }): JSX.Ele
 }
 
 function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
-  const buttonColor = props.enabled ? PrimaryColorStyle.bg : { backgroundColor: 'gray' }
   return (
-    <TouchableOpacity
-      testID='button_continue_convert'
-      style={[tailwind('m-2 p-3 rounded flex-row justify-center'), buttonColor]}
-      onPress={props.onPress}
-      disabled={!props.enabled}
-    >
-      <Text style={[tailwind('text-white font-bold')]}>Continue</Text>
-    </TouchableOpacity>
+    <PrimaryButton testID='button_continue_convert' disabled={!props.enabled} title='Convert' onPress={props.onPress}>
+      <Text style={tailwind('text-white font-bold')}>{translate('components/Button', 'CONTINUE')}</Text>
+    </PrimaryButton>
   )
 }
 
@@ -157,12 +154,7 @@ function canConvert (amount: string, balance: string): boolean {
 }
 
 async function constructSignedConversionAndSend (whaleAPI: WhaleApiClient, account: WhaleWalletAccount, mode: ConversionMode, amount: BigNumber): Promise<string> {
-  const feeRate = new WhaleFeeRateProvider(whaleAPI)
-  const prevout = new WhalePrevoutProvider(account, 50)
-  const builder = new P2WPKHTransactionBuilder(feeRate, prevout, {
-    // @ts-expect-error
-    get: (_) => account.hdNode
-  })
+  const builder = account.withTransactionBuilder()
 
   const script = await account.getScript()
   let signed: TransactionSegWit
@@ -185,7 +177,6 @@ async function constructSignedConversionAndSend (whaleAPI: WhaleApiClient, accou
     }, script)
   }
 
-  const buffer = new SmartBuffer()
-  new CTransactionSegWit(signed).toBuffer(buffer)
-  return await whaleAPI.transactions.send({ hex: buffer.toString('hex') })
+  const hex = new CTransactionSegWit(signed).toHex()
+  return await whaleAPI.transactions.send({ hex })
 }
