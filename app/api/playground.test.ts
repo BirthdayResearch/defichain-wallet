@@ -4,7 +4,7 @@ import { waitFor } from "@testing-library/react-native";
 import { EnvironmentNetwork } from "../environment";
 import { Logging } from "../logging";
 import { getNetwork } from "../storage";
-import { getPlaygroundClient, useCachedPlaygroundClient } from "./playground";
+import { getPlaygroundApiClient, getPlaygroundRpcClient, useCachedPlaygroundClient } from "./playground";
 
 jest.mock('@defichain/playground-api-client')
 jest.mock('../storage')
@@ -23,7 +23,8 @@ it('should load RemotePlayground', async () => {
     expect(result.current).toBeTruthy()
   })
 
-  expect(getPlaygroundClient()).toBeDefined()
+  expect(getPlaygroundApiClient()).toBeDefined()
+  expect(getPlaygroundRpcClient()).toBeDefined()
   expect(PlaygroundApiClient).toBeCalledWith({
     url: "https://playground.defichain.com"
   })
@@ -37,7 +38,8 @@ it('should load LocalPlayground', async () => {
     expect(result.current).toBeTruthy()
   })
 
-  expect(getPlaygroundClient()).toBeDefined()
+  expect(getPlaygroundApiClient()).toBeDefined()
+  expect(getPlaygroundRpcClient()).toBeDefined()
   expect(PlaygroundApiClient).toBeCalledWith({
     url: "http://localhost:19553"
   })
