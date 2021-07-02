@@ -114,6 +114,7 @@ function ConversionInput (props: { unit: string, current: string, balance: BigNu
           <Text style={tailwind('text-gray-500')}>{props.balance.toString()}</Text>
         </View>
         <TouchableOpacity
+          testID='button_max_convert_from'
           style={tailwind('flex w-12 mr-2')}
           onPress={() => { props.onChange(props.balance.toString()) }}
         >
@@ -141,7 +142,7 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
   const buttonColor = props.enabled ? PrimaryColorStyle.bg : { backgroundColor: 'gray' }
   return (
     <TouchableOpacity
-      testID='button_continue'
+      testID='button_continue_convert'
       style={[tailwind('m-2 p-3 rounded flex-row justify-center'), buttonColor]}
       onPress={props.onPress}
       disabled={!props.enabled}
