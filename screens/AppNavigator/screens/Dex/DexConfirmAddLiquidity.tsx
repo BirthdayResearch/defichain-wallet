@@ -51,7 +51,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const WalletAPI = useWalletAPI()
 
   const addLiquidity = useCallback(() => {
-    const account = WalletAPI.getWallet().get(0) as WhaleWalletAccount
+    const account = WalletAPI.getWallet().get(0)
 
     // TODO: add loading spinner after we have standardized design
     constructSignedAddLiqAndSend(
@@ -132,7 +132,7 @@ async function constructSignedAddLiqAndSend (
   }
 
   // for test use, make enough token
-  // await convertForSufficientToken(whaleAPI, builder, script, tokenAAmount.minus(dfiTokenBalance))
+  // await convertForSufficientToken(whaleAPI, builder, script, addLiqForm.tokenAAmount)
 
   const dfTx = await builder.liqPool.addLiquidity(addLiq, script)
   const buffer = new SmartBuffer()

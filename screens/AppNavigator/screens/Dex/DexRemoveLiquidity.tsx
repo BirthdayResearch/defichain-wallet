@@ -8,18 +8,18 @@ import { ScrollView } from 'react-native-gesture-handler'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { PrimaryColorStyle } from '../../../../constants/Theme'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { DexParamList } from './DexNavigator'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { WhaleApiClient } from '@defichain/whale-api-client'
-import { WhaleFeeRateProvider, WhalePrevoutProvider, WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { P2WPKHTransactionBuilder } from '@defichain/jellyfish-transaction-builder/dist'
-import { SmartBuffer } from 'smart-buffer'
+import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import Slider from '@react-native-community/slider'
 import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
 import { useWhaleApiClient } from '../../../../hooks/api/useWhaleApiClient'
+import { translate } from '../../../../translations'
+import { PrimaryButton } from '../../../../components/PrimaryButton'
+import NumberFormat from 'react-number-format'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
@@ -58,7 +58,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   const WalletAPI = useWalletAPI()
 
   const removeLiquidity = useCallback(() => {
-    const account = WalletAPI.getWallet().get(0) as WhaleWalletAccount
+    const account = WalletAPI.getWallet().get(0)
     // TODO: add loading spinner after we have standardized design
     constructSignedRemoveLiqAndSend(
       whaleAPI,
@@ -78,7 +78,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
       <ScrollView style={tailwind('w-full flex-col flex-1 bg-gray-100')}>
         <View style={tailwind('w-full bg-white mt-8')}>
           <View style={tailwind('w-full flex-row p-4')}>
-            <Text style={tailwind('flex-1')}>Amount of liquidity to remove</Text>
+            <Text style={tailwind('flex-1')}>{translate('screens/RemoveLiquidity', 'Amount of liquidity to remove')}</Text>
             <Text style={tailwind('text-right')}>{percentage} %</Text>
           </View>
           <AmountSlider
@@ -90,7 +90,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         <View style={tailwind('w-full bg-white mt-8')}>
           <CoinAmountRow symbol={aSymbol} amount={tokenAAmount} />
           <CoinAmountRow symbol={bSymbol} amount={tokenBAmount} />
-          <PriceRow lhs='Price' rhs={[`${tokenAPerLmToken.toString()} ${aSymbol}`, `${tokenBPerLmToken.toString()} ${bSymbol}`]} />
+          <PriceRow lhs={translate('screens/AddLiquidity', 'Price')} rhs={[`${tokenAPerLmToken.toString()} ${aSymbol}`, `${tokenBPerLmToken.toString()} ${bSymbol}`]} />
         </View>
       </ScrollView>
       <View style={tailwind('w-full h-16')}>
@@ -106,25 +106,21 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
 function AmountSlider (props: { current: number, onChange: (percentage: number) => void, viewStyle: StyleProp<ViewStyle> }): JSX.Element {
   return (
     <View style={[tailwind('flex-row items-center border-t border-gray-200'), props.viewStyle]}>
-      <TouchableOpacity
-        style={tailwind('mr-4')}
-        onPress={() => props.onChange(0)}
-      >
-        <Text style={tailwind('text-gray-500 text-xs')}>None</Text>
+      <TouchableOpacity onPress={() => props.onChange(0)}>
+        <Text style={tailwind('text-gray-500 text-xs')}>{translate('components/slider', 'None')}</Text>
       </TouchableOpacity>
-      <Slider
-        value={props.current}
-        minimumValue={0}
-        maximumValue={100}
-        minimumTrackTintColor='#ff00af'
-        thumbTintColor='#ff00af'
-        onValueChange={(val) => props.onChange(val)}
-      />
-      <TouchableOpacity
-        style={tailwind('ml-4')}
-        onPress={() => props.onChange(100)}
-      >
-        <Text style={tailwind('text-gray-500 text-xs')}>All</Text>
+      <View style={tailwind('flex-1 ml-4 mr-4')}>
+        <Slider
+          value={props.current}
+          minimumValue={0}
+          maximumValue={100}
+          minimumTrackTintColor='#ff00af'
+          thumbTintColor='#ff00af'
+          onValueChange={(val) => props.onChange(val)}
+        />
+      </View>
+      <TouchableOpacity onPress={() => props.onChange(100)}>
+        <Text style={tailwind('text-gray-500 text-xs')}>{translate('components', 'All')}</Text>
       </TouchableOpacity>
     </View>
   )
@@ -138,7 +134,10 @@ function CoinAmountRow (props: { symbol: string, amount: BigNumber }): JSX.Eleme
         <TokenIcon style={tailwind('ml-2')} />
         <Text style={tailwind('ml-2')}>{props.symbol}</Text>
       </View>
-      <Text style={tailwind('flex-1 text-right text-gray-500 mr-2')}>{props.amount.toString()}</Text>
+      <NumberFormat
+        value={props.amount.toNumber()} decimalScale={8} thousandSeparator displayType='text'
+        renderText={(value) => <Text style={tailwind('flex-1 text-right text-gray-500 mr-2')}>{value}</Text>}
+      />
     </View>
   )
 }
@@ -157,26 +156,20 @@ function PriceRow (props: { lhs: string, rhs: string[], rowStyle?: StyleProp<Vie
 }
 
 function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
-  const buttonColor = props.enabled ? PrimaryColorStyle.bg : { backgroundColor: 'gray' }
   return (
-    <TouchableOpacity
+    <PrimaryButton
+      touchableStyle={tailwind('m-2')}
+      title='continue'
       disabled={!props.enabled}
-      style={[tailwind('m-2 p-3 rounded flex-row justify-center'), buttonColor]}
       onPress={props.onPress}
     >
-      <Text style={[tailwind('text-white font-bold')]}>Continue</Text>
-    </TouchableOpacity>
+      <Text style={tailwind('text-white font-bold')}>{translate('components/Button', 'CONTINUE')}</Text>
+    </PrimaryButton>
   )
 }
 
 async function constructSignedRemoveLiqAndSend (whaleAPI: WhaleApiClient, account: WhaleWalletAccount, tokenId: number, amount: BigNumber): Promise<string> {
-  const feeRate = new WhaleFeeRateProvider(whaleAPI)
-  const prevout = new WhalePrevoutProvider(account, 50)
-  const builder = new P2WPKHTransactionBuilder(feeRate, prevout, {
-    // @ts-expect-error
-    get: (_) => account.hdNode as WalletHdNode
-  })
-
+  const builder = account.withTransactionBuilder()
   const script = await account.getScript()
   const removeLiq = {
     script,
@@ -184,8 +177,6 @@ async function constructSignedRemoveLiqAndSend (whaleAPI: WhaleApiClient, accoun
     amount
   }
   const dfTx = await builder.liqPool.removeLiquidity(removeLiq, script)
-  const buffer = new SmartBuffer()
-  new CTransactionSegWit(dfTx).toBuffer(buffer)
-
-  return await whaleAPI.transactions.send({ hex: buffer.toString('hex') })
+  const hex = new CTransactionSegWit(dfTx).toHex()
+  return await whaleAPI.transactions.send({ hex })
 }
