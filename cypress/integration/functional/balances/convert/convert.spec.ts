@@ -3,7 +3,7 @@ context('wallet/balances/convert - bi-direction success case', () => {
     cy.createEmptyWallet(true)
 
     cy.getByTestID('bottom_tab_settings').click()
-    cy.sendDFItoWallet().wait(3100)
+    cy.sendDFItoWallet().wait(4000)
     cy.getByTestID('playground_wallet_fetch_balances').click()
 
     cy.getByTestID('bottom_tab_balances').click()
@@ -43,7 +43,7 @@ context('wallet/balances/convert - bi-direction success case', () => {
 
     // // result check
     // // wait for one block
-    cy.wait(3100)
+    cy.wait(4000)
 
     // // refresh balance
     cy.getByTestID('bottom_tab_settings').click()

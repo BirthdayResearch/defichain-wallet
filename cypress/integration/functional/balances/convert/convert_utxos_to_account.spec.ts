@@ -3,7 +3,7 @@ context('wallet/balances/convert - utxosToAccount: invalid input', () => {
     cy.createEmptyWallet(true)
 
     cy.getByTestID('bottom_tab_settings').click()
-    cy.sendDFItoWallet().wait(3100)
+    cy.sendDFItoWallet().wait(4000)
     cy.getByTestID('playground_wallet_fetch_balances').click()
 
     cy.getByTestID('bottom_tab_balances').click()
