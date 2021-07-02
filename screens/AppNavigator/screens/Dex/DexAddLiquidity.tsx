@@ -32,8 +32,8 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
 
   // this component state
-  const [tokenAAmount, setTokenAAmount] = useState<BigNumber>(new BigNumber(0))
-  const [tokenBAmount, setTokenBAmount] = useState<BigNumber>(new BigNumber(0))
+  const [tokenAAmount, setTokenAAmount] = useState<string>('0')
+  const [tokenBAmount, setTokenBAmount] = useState<string>('0')
   // ratio, before times 100
   const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
 
@@ -54,19 +54,26 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const balanceA = addressTokenA === undefined ? new BigNumber(0) : new BigNumber(addressTokenA.amount)
   const balanceB = addressTokenB === undefined ? new BigNumber(0) : new BigNumber(addressTokenB.amount)
 
-  const buildSummary = useCallback((ref: EditingAmount, refAmount: BigNumber) => {
+  const buildSummary = useCallback((ref: EditingAmount, amountString: string) => {
+    const refAmount = amountString.length === 0 ? new BigNumber(0) : new BigNumber(amountString)
     if (ref === 'primary') {
-      setTokenAAmount(refAmount)
-      setTokenBAmount(refAmount.times(pair.aToBRate))
+      setTokenAAmount(amountString)
+      setTokenBAmount(refAmount.times(pair.aToBRate).toString())
       setSharePercentage(refAmount.div(pair.tokenA.reserve))
     } else {
-      setTokenBAmount(refAmount)
-      setTokenAAmount(refAmount.times(pair.bToARate))
+      setTokenBAmount(amountString)
+      setTokenAAmount(refAmount.times(pair.bToARate).toString())
       setSharePercentage(refAmount.div(pair.tokenB.reserve))
     }
   }, [tokenAAmount, tokenBAmount])
 
-  const canContinue = canAddLiquidity(pair, tokenAAmount, tokenBAmount, balanceA, balanceB)
+  const canContinue = canAddLiquidity(
+    pair,
+    new BigNumber(tokenAAmount),
+    new BigNumber(tokenBAmount),
+    balanceA,
+    balanceB
+  )
 
   return (
     <View style={tailwind('w-full h-full')}>
@@ -101,7 +108,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   )
 }
 
-function TokenInput (props: { symbol: string, balance: BigNumber, current: BigNumber, onChange: (amount: BigNumber) => void }): JSX.Element {
+function TokenInput (props: { symbol: string, balance: BigNumber, current: string, onChange: (amount: string) => void }): JSX.Element {
   const TokenIcon = getTokenIcon(props.symbol)
 
   const onMax = (): void => {
@@ -113,7 +120,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: BigNu
     if (amountToSet.lt(0)) {
       amountToSet = new BigNumber(0)
     }
-    props.onChange(amountToSet)
+    props.onChange(amountToSet.toString())
   }
 
   return (
@@ -124,9 +131,9 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: BigNu
       <View style={tailwind('flex-row w-full h-16 bg-white items-center p-4')}>
         <TextInput
           style={tailwind('flex-1 mr-4 text-gray-500')}
-          value={props.current.isNaN() ? '' : props.current.toString()}
-          keyboardType='decimal-pad'
-          onChange={event => props.onChange(new BigNumber(event.nativeEvent.text))}
+          value={props.current}
+          keyboardType='numeric'
+          onChangeText={txt => props.onChange(txt)}
         />
         <View style={tailwind('w-8 justify-center items-center')}>
           <TokenIcon />
