@@ -1,4 +1,4 @@
-import { PlaygroundApiClient } from '@defichain/playground-api-client'
+import { PlaygroundApiClient, PlaygroundRpcClient } from '@defichain/playground-api-client'
 import { useEffect, useState } from 'react'
 import { EnvironmentNetwork } from '../environment'
 import { Logging } from '../logging'
@@ -19,12 +19,17 @@ export function useCachedPlaygroundClient (): boolean {
   return isLoaded
 }
 
-export function getPlaygroundClient (): PlaygroundApiClient {
+export function getPlaygroundApiClient (): PlaygroundApiClient {
   if (SINGLETON !== undefined) {
     return SINGLETON
   }
 
-  throw new Error('useCachedPlaygroundClient() === true, hooks must be called before getPlaygroundClient()')
+  throw new Error('useCachedPlaygroundClient() === true, hooks must be called before getPlaygroundApiClient()')
+}
+
+export function getPlaygroundRpcClient (): PlaygroundRpcClient {
+  const client = getPlaygroundApiClient()
+  return new PlaygroundRpcClient(client)
 }
 
 async function newPlaygroundClient (): Promise<PlaygroundApiClient> {
