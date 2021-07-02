@@ -1,5 +1,5 @@
 import React from 'react'
-import { ButtonProps, TouchableOpacity, StyleSheet } from 'react-native'
+import { ButtonProps, TouchableOpacity, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { PrimaryColor } from '../constants/Theme'
 
@@ -14,12 +14,16 @@ export const PrimaryButtonStyle = StyleSheet.create({
   }
 })
 
-export function PrimaryButton (props: React.PropsWithChildren<ButtonProps>): JSX.Element {
+export function PrimaryButton (props: React.PropsWithChildren<ButtonProps> & { touchableStyle?: StyleProp<ViewStyle> }): JSX.Element {
   return (
     <TouchableOpacity
       disabled={props.disabled}
       onPress={props.onPress}
-      style={[tailwind('m-4 mt-8 p-3 rounded flex-row justify-center'), props.disabled === true ? PrimaryButtonStyle.disabled : PrimaryButtonStyle.button]}
+      style={[
+        tailwind('m-4 mt-8 p-3 rounded flex-row justify-center'),
+        props.touchableStyle,
+        props.disabled === true ? PrimaryButtonStyle.disabled : PrimaryButtonStyle.button
+      ]}
     >
       {
         props.children

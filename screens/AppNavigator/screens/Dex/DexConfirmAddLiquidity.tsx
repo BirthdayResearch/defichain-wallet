@@ -2,12 +2,11 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
+import { StyleProp, ViewStyle } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
 import { translate } from '../../../../translations'
-import { PrimaryColorStyle } from '../../../../constants/Theme'
 import { DexParamList } from './DexNavigator'
 import { P2WPKHTransactionBuilder } from '@defichain/jellyfish-transaction-builder/dist'
 import { WhaleFeeRateProvider, WhalePrevoutProvider, WhaleWalletAccount } from '@defichain/whale-api-wallet'
@@ -19,6 +18,7 @@ import { useWhaleApiClient } from '../../../../hooks/api/useWhaleApiClient'
 import { CTransactionSegWit, Script } from '@defichain/jellyfish-transaction/dist'
 import { SmartBuffer } from 'smart-buffer'
 import { StackActions, useNavigation } from '@react-navigation/native'
+import { PrimaryButton } from '../../../../components/PrimaryButton'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -57,10 +57,12 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     constructSignedAddLiqAndSend(
       whaleAPI,
       account,
-      Number(tokenA.id),
-      tokenAAmount,
-      Number(tokenB.id),
-      tokenBAmount
+      {
+        tokenAId: Number(tokenA.id),
+        tokenAAmount,
+        tokenBId: Number(tokenB.id),
+        tokenBAmount
+      }
     ).then(() => {
       navigation.dispatch(StackActions.popToTop())
     }).catch(e => {
@@ -80,9 +82,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         <TextRows lhs={`Pooled ${aSymbol}`} rhs={[`${tokenA.reserve}`]} />
         <TextRows lhs={`Pooled ${bSymbol}`} rhs={[`${tokenB.reserve}`]} />
       </ScrollView>
-      <View style={tailwind('w-full h-16')}>
-        <ComfirmButton onPress={() => addLiquidity()} />
-      </View>
+      <ConfirmButton onPress={() => addLiquidity()} />
     </View>
   )
 }
@@ -100,21 +100,17 @@ function TextRows (props: { lhs: string, rhs: string[], rowStyle?: StyleProp<Vie
   )
 }
 
-function ComfirmButton (props: { onPress: () => void }): JSX.Element {
+function ConfirmButton (props: { onPress: () => void }): JSX.Element {
   return (
-    <TouchableOpacity
-      style={[tailwind('m-2 p-3 rounded flex-row justify-center'), PrimaryColorStyle.bg]}
-      onPress={props.onPress}
-    >
+    <PrimaryButton title='Confirm' touchableStyle={tailwind('m-2')} onPress={props.onPress}>
       <Text style={[tailwind('text-white font-bold')]}>{translate('screens/ConfirmLiquidity', 'CONFIRM')}</Text>
-    </TouchableOpacity>
+    </PrimaryButton>
   )
 }
 
 async function constructSignedAddLiqAndSend (
   whaleAPI: WhaleApiClient, account: WhaleWalletAccount,
-  tokenAId: number, tokenAAmount: BigNumber,
-  tokenBId: number, tokenBAmount: BigNumber
+  addLiqForm: { tokenAId: number, tokenAAmount: BigNumber, tokenBId: number, tokenBAmount: BigNumber }
 ): Promise<string> {
   const feeRate = new WhaleFeeRateProvider(whaleAPI)
   const prevout = new WhalePrevoutProvider(account, 50)
@@ -128,8 +124,8 @@ async function constructSignedAddLiqAndSend (
     from: [{
       script,
       balances: [
-        { token: tokenAId, amount: tokenAAmount },
-        { token: tokenBId, amount: tokenBAmount }
+        { token: addLiqForm.tokenAId, amount: addLiqForm.tokenAAmount },
+        { token: addLiqForm.tokenBId, amount: addLiqForm.tokenBAmount }
       ]
     }],
     shareAddress: script
