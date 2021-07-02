@@ -11,8 +11,8 @@ beforeEach(() => {
 })
 
 describe('network', () => {
-  it('should default to Remote Playground', async () => {
-    expect(await storage.getNetwork()).toBe(EnvironmentNetwork.RemotePlayground)
+  it('should default to Local Playground', async () => {
+    expect(await storage.getNetwork()).toBe(EnvironmentNetwork.LocalPlayground)
     expect(getItem).toBeCalled()
   });
 

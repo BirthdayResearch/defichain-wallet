@@ -49,19 +49,19 @@ describe('setMnemonicHdNodeProvider', () => {
     await setMnemonicHdNodeProvider(mnemonic)
 
     expect(setItem).toBeCalledWith(
-      'Development.Remote Playground.MNEMONIC_SEED',
+      'Development.Local Playground.MNEMONIC_SEED',
       '408b285c123836004f4b8842c89324c1f01382450c0d439af345ba7fc49acf705489c6fc77dbd4e3dc1dd8cc6bc9f043db8ada1e243c4a0eafb290d399480840'
     )
   })
 
   it('should set mnemonic (void come effort ...)', async () => {
-    getItem.mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
+    getItem.mockResolvedValueOnce(EnvironmentNetwork.RemotePlayground)
 
     const mnemonic = 'void come effort suffer camp survey warrior heavy shoot primary clutch crush open amazing screen patrol group space point ten exist slush involve unfold'.split(' ')
     await setMnemonicHdNodeProvider(mnemonic)
 
     expect(setItem).toBeCalledWith(
-      'Development.Local Playground.MNEMONIC_SEED',
+      'Development.Remote Playground.MNEMONIC_SEED',
       'b873212f885ccffbf4692afcb84bc2e55886de2dfa07d90f5c3c239abc31c0a6ce047e30fd8bf6a281e71389aa82d73df74c7bbfb3b06b4639a5cee775cccd3c'
     )
   })
@@ -91,7 +91,7 @@ describe('clearMnemonicHdNodeProvider', () => {
     await clearMnemonicHdNodeProvider()
 
     expect(removeItem).toBeCalledWith(
-      'Development.Remote Playground.MNEMONIC_SEED'
+      'Development.Local Playground.MNEMONIC_SEED'
     )
   })
 })
