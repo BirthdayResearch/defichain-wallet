@@ -8,7 +8,7 @@ import { Text, View } from '../../../components'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
 export function PlaygroundConnection (): JSX.Element {
-  const refresh = 6000
+  const duration = 3000
   const apiClient = getPlaygroundApiClient()
 
   const [count, setCount] = useState(0)
@@ -20,14 +20,17 @@ export function PlaygroundConnection (): JSX.Element {
       setEnvironment(network)
     }).catch(Logging.error)
 
-    const interval = setInterval(() => {
+    function refresh (): void {
       apiClient.playground.info().then(({ block }) => {
         setCount(block.count)
         setConnected(true)
       }).catch(() => {
         setConnected(false)
       })
-    }, refresh)
+    }
+
+    refresh()
+    const interval = setInterval(refresh, duration)
     return () => clearInterval(interval)
   }, [])
 
@@ -37,7 +40,7 @@ export function PlaygroundConnection (): JSX.Element {
         <Text style={tailwind('text-2xl font-bold')}>Connection</Text>
         <View style={tailwind('flex-row items-center ml-2')}>
           <PlaygroundStatus online={connected} offline={!connected} />
-          <Text style={tailwind('ml-2 text-gray-900')}>↻{(refresh / 1000).toFixed(0)}s</Text>
+          <Text style={tailwind('ml-2 text-gray-900')}>↻{(duration / 1000).toFixed(0)}s</Text>
         </View>
       </View>
 
