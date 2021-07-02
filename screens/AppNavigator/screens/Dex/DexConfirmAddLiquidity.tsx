@@ -9,9 +9,8 @@ import { Text, View } from '../../../../components'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
 import { P2WPKHTransactionBuilder } from '@defichain/jellyfish-transaction-builder/dist'
-import { WhaleFeeRateProvider, WhalePrevoutProvider, WhaleWalletAccount } from '@defichain/whale-api-wallet'
+import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { WhaleApiClient } from '@defichain/whale-api-client'
-import { WalletHdNode } from '@defichain/jellyfish-wallet'
 import { useCallback } from 'react'
 import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
 import { useWhaleApiClient } from '../../../../hooks/api/useWhaleApiClient'
@@ -51,7 +50,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const WalletAPI = useWalletAPI()
 
   const addLiquidity = useCallback(() => {
-    const account = WalletAPI.getWallet().get(0) as WhaleWalletAccount
+    const account = WalletAPI.getWallet().get(0)
 
     // TODO: add loading spinner after we have standardized design
     constructSignedAddLiqAndSend(
@@ -112,12 +111,7 @@ async function constructSignedAddLiqAndSend (
   whaleAPI: WhaleApiClient, account: WhaleWalletAccount,
   addLiqForm: { tokenAId: number, tokenAAmount: BigNumber, tokenBId: number, tokenBAmount: BigNumber }
 ): Promise<string> {
-  const feeRate = new WhaleFeeRateProvider(whaleAPI)
-  const prevout = new WhalePrevoutProvider(account, 50)
-  const builder = new P2WPKHTransactionBuilder(feeRate, prevout, {
-    // @ts-expect-error
-    get: (_) => account.hdNode as WalletHdNode
-  })
+  const builder = account.withTransactionBuilder()
 
   const script = await account.getScript()
   const addLiq = {
@@ -135,9 +129,8 @@ async function constructSignedAddLiqAndSend (
   // await convertForSufficientToken(whaleAPI, builder, script, tokenAAmount.minus(dfiTokenBalance))
 
   const dfTx = await builder.liqPool.addLiquidity(addLiq, script)
-  const buffer = new SmartBuffer()
-  new CTransactionSegWit(dfTx).toBuffer(buffer)
-  return await whaleAPI.transactions.send({ hex: buffer.toString('hex') })
+  const hex = new CTransactionSegWit(dfTx).toHex()
+  return await whaleAPI.transactions.send({ hex })
 }
 
 // used for move utxos to token for dev use, going to remove
