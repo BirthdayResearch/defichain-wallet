@@ -1,22 +1,42 @@
 import { PlaygroundApiClient } from "@defichain/playground-api-client";
 import { renderHook } from '@testing-library/react-hooks'
 import { waitFor } from "@testing-library/react-native";
-import { EnvironmentNetwork } from "../environment";
-import { Logging } from "../logging";
-import { getNetwork } from "../storage";
+import { environments, getEnvironment } from "../environment";
 import { getPlaygroundApiClient, getPlaygroundRpcClient, useCachedPlaygroundClient } from "./playground";
 
 jest.mock('@defichain/playground-api-client')
+jest.mock('../environment')
 jest.mock('../storage')
-jest.spyOn(console, 'log').mockImplementation(jest.fn)
-const error = jest.spyOn(Logging, 'error')
+
+const mocked = {
+  getEnvironment: getEnvironment as jest.MockedFunction<typeof getEnvironment>,
+  PlaygroundApiClient: PlaygroundApiClient as jest.MockedClass<typeof PlaygroundApiClient>,
+}
 
 beforeEach(() => {
   jest.clearAllMocks()
+
+  mocked.getEnvironment.mockReturnValue(environments.Development)
 })
 
+function getMockClient (success: boolean): PlaygroundApiClient {
+  const client = {
+    playground: {
+      async info (): Promise<void> {
+        if (!success) {
+          throw new Error('')
+        }
+      }
+    }
+  }
+  // @ts-ignore
+  return client
+}
+
 it('should load RemotePlayground', async () => {
-  (getNetwork as jest.Mock).mockResolvedValue(EnvironmentNetwork.RemotePlayground)
+  mocked.PlaygroundApiClient.mockImplementation(args => {
+    return getMockClient(args.url === "https://playground.defichain.com")
+  })
 
   const { result } = renderHook(() => useCachedPlaygroundClient())
   await waitFor(() => {
@@ -31,7 +51,9 @@ it('should load RemotePlayground', async () => {
 })
 
 it('should load LocalPlayground', async () => {
-  (getNetwork as jest.Mock).mockResolvedValue(EnvironmentNetwork.LocalPlayground)
+  mocked.PlaygroundApiClient.mockImplementation(args => {
+    return getMockClient(args.url === "http://localhost:19553")
+  })
 
   const { result } = renderHook(() => useCachedPlaygroundClient())
   await waitFor(() => {
@@ -42,14 +64,5 @@ it('should load LocalPlayground', async () => {
   expect(getPlaygroundRpcClient()).toBeDefined()
   expect(PlaygroundApiClient).toBeCalledWith({
     url: "http://localhost:19553"
-  })
-})
-
-it('should load MainNet but playground not available', async () => {
-  (getNetwork as jest.Mock).mockResolvedValue(EnvironmentNetwork.MainNet)
-
-  renderHook(() => useCachedPlaygroundClient())
-  await waitFor(() => {
-    expect(error).toBeCalled()
   })
 })
