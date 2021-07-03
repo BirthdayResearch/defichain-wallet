@@ -1,6 +1,6 @@
 import { PlaygroundApiClient, PlaygroundRpcClient } from '@defichain/playground-api-client'
 import { useEffect, useState } from 'react'
-import { EnvironmentNetwork, getEnvironment } from '../environment'
+import { EnvironmentNetwork, getEnvironment, isPlayground } from '../environment'
 import { Logging } from '../logging'
 import { setNetwork } from '../storage'
 
@@ -15,22 +15,21 @@ export function useCachedPlaygroundClient (): boolean {
 
   useEffect(() => {
     async function load (): Promise<void> {
-      if (!getEnvironment().debug) {
+      const environment = getEnvironment()
+      if (!environment.debug) {
         setLoaded(true)
         return
       }
 
-      const localClient = newPlaygroundClient(EnvironmentNetwork.LocalPlayground)
-      if (await isConnected(localClient)) {
-        await setNetwork(EnvironmentNetwork.LocalPlayground)
-        INSTANCE = localClient
-        setLoaded(true)
-        return
+      for (const network of environment.networks.filter(isPlayground)) {
+        const client = newPlaygroundClient(network)
+        if (await isConnected(client)) {
+          await setNetwork(EnvironmentNetwork.LocalPlayground)
+          INSTANCE = client
+          setLoaded(true)
+          return
+        }
       }
-
-      await setNetwork(EnvironmentNetwork.RemotePlayground)
-      INSTANCE = newPlaygroundClient(EnvironmentNetwork.RemotePlayground)
-      setLoaded(true)
     }
 
     load().catch(Logging.error)

@@ -1,22 +1,17 @@
 import { PlaygroundApiClient } from "@defichain/playground-api-client";
 import { renderHook } from '@testing-library/react-hooks'
 import { waitFor } from "@testing-library/react-native";
-import { environments, getEnvironment } from "../environment";
 import { getPlaygroundApiClient, getPlaygroundRpcClient, useCachedPlaygroundClient } from "./playground";
 
 jest.mock('@defichain/playground-api-client')
-jest.mock('../environment')
 jest.mock('../storage')
 
 const mocked = {
-  getEnvironment: getEnvironment as jest.MockedFunction<typeof getEnvironment>,
   PlaygroundApiClient: PlaygroundApiClient as jest.MockedClass<typeof PlaygroundApiClient>,
 }
 
 beforeEach(() => {
   jest.clearAllMocks()
-
-  mocked.getEnvironment.mockReturnValue(environments.Development)
 })
 
 function getMockClient (success: boolean): PlaygroundApiClient {
