@@ -22,7 +22,6 @@ jobs:
           expo-version: 4.x
 
       - run: expo upgrade
-      - run: npm install expo-cli@latest
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@9825ae65b1cb54b543b938503728b432a0176d29
