@@ -4,6 +4,7 @@ import * as React from 'react'
 
 /**
  * Delaying splash screen to load additional resources prior to rendering the app
+ * @return boolean when loading complete
  */
 export function useCachedResources (): boolean {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false)
