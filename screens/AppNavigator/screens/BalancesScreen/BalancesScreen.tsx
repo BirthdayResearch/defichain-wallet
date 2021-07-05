@@ -10,7 +10,6 @@ import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
-import { useWhaleApiClient } from '../../../../hooks/api/useWhaleApiClient'
 import { fetchTokens, useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
 import { translate } from '../../../../translations'
@@ -22,11 +21,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const address = useSelector((state: RootState) => state.wallet.address)
   const [refreshing, setRefreshing] = useState(false)
   const dispatch = useDispatch()
-  const whaleAPI = useWhaleApiClient()
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
-    await fetchTokens(address, dispatch, whaleAPI)
+    await fetchTokens(address, dispatch)
     setRefreshing(false)
   }, [])
 

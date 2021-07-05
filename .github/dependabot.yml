@@ -13,7 +13,17 @@ updates:
       - dependency-name: "@react-native-masked-view/masked-view"
       - dependency-name: "@react-navigation/*"
       - dependency-name: "expo"
-      - dependency-name: "expo-*"
+      - dependency-name: "expo-asset"
+      - dependency-name: "expo-clipboard"
+      - dependency-name: "expo-constants"
+      - dependency-name: "expo-font"
+      - dependency-name: "expo-linking"
+      - dependency-name: "expo-localization"
+      - dependency-name: "expo-random"
+      - dependency-name: "expo-splash-screen"
+      - dependency-name: "expo-status-bar"
+      - dependency-name: "expo-updates"
+      - dependency-name: "expo-web-browser"
       - dependency-name: "react"
       - dependency-name: "react-dom"
       - dependency-name: "react-native"
@@ -27,15 +37,6 @@ updates:
       - dependency-name: "@types/react-native"
       - dependency-name: "typescript"
       - dependency-name: "jest-expo"
-
-  - package-ecosystem: 'npm'
-    directory: '/'
-    schedule:
-      interval: 'daily'
-    labels:
-      - "kind/dependencies"
-    allow:
-      - dependency-name: "expo-cli"
 
   - package-ecosystem: "github-actions"
     directory: "/"

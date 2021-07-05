@@ -1,15 +1,13 @@
-import { wallet, WalletStatus } from '../../store/wallet'
 import { JellyfishWallet, WalletAccount, WalletHdNode } from '@defichain/jellyfish-wallet'
 import { generateMnemonic } from '@defichain/jellyfish-wallet-mnemonic'
-import { MnemonicStorage } from './MnemonicStorage'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../store'
 import * as Random from 'expo-random'
-import { NetworkName } from '../../store/network'
-import { useWhaleApiClient } from '../api/useWhaleApiClient'
 import { useEffect } from 'react'
-import { getMnemonicWallet, hasMnemonicWallet } from './MnemonicWallet'
+import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
+import { RootState } from '../../store'
+import { wallet, WalletStatus } from '../../store/wallet'
+import { MnemonicStorage } from './MnemonicStorage'
+import { getMnemonicWallet, hasMnemonicWallet } from './MnemonicWallet'
 
 let jellyfishWallet: JellyfishWallet<WalletAccount, WalletHdNode> | undefined
 
@@ -65,19 +63,13 @@ const WalletAPI = {
 }
 
 export function useWalletAPI (): typeof WalletAPI {
-  const network = useSelector<RootState, NetworkName | undefined>(state => state.network.name)
-  if (network === undefined) {
-    throw new Error('useNetwork() === true, hooks must be called before useWalletAPI()')
-  }
-
-  const client = useWhaleApiClient()
   const status = useSelector<RootState, WalletStatus>(state => state.wallet.status)
   const dispatch = useDispatch()
 
   useEffect(() => {
     async function loadWallet (): Promise<void> {
       if (await hasMnemonicWallet()) {
-        jellyfishWallet = await getMnemonicWallet(client, network as NetworkName)
+        jellyfishWallet = await getMnemonicWallet()
         const address = await jellyfishWallet.get(0).getAddress()
         dispatch(wallet.actions.setAddress(address))
         dispatch(wallet.actions.setStatus(WalletStatus.LOADED_WALLET))
