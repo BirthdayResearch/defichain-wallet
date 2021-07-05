@@ -61,7 +61,7 @@
     "react-native-screens": "~3.4.0",
     "react-native-svg": "12.1.1",
     "react-native-web": "~0.13.12",
-    "react-number-format": "^4.6.3",
+    "react-number-format": "^4.6.4",
     "react-redux": "^7.2.4",
     "serve": "^12.0.0",
     "stream-browserify": "^3.0.0",
