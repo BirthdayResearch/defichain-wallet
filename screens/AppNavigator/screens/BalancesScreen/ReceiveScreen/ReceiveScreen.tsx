@@ -7,7 +7,7 @@ import { PrimaryColor, PrimaryColorStyle } from '../../../../../constants/Theme'
 import { RootState } from '../../../../../store'
 import { translate } from '../../../../../translations'
 import QRCode from 'react-native-qrcode-svg'
-import Clipboard from 'expo-clipboard'
+import * as Clipboard from 'expo-clipboard'
 
 export function ReceiveScreen (): JSX.Element {
   const address = useSelector((state: RootState) => state.wallet.address)

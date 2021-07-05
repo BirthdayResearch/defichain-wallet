@@ -1,35 +1,63 @@
-import { PlaygroundApiClient } from '@defichain/playground-api-client'
+import { PlaygroundApiClient, PlaygroundRpcClient } from '@defichain/playground-api-client'
 import { useEffect, useState } from 'react'
-import { EnvironmentNetwork } from '../environment'
+import { EnvironmentNetwork, getEnvironment, isPlayground } from '../environment'
 import { Logging } from '../logging'
-import { getNetwork } from '../storage'
+import { setNetwork } from '../storage'
 
-let SINGLETON: PlaygroundApiClient | undefined
+let INSTANCE: PlaygroundApiClient | undefined
 
+/**
+ * use cached playground client,
+ * will only be loaded if it is in non debug mode
+ */
 export function useCachedPlaygroundClient (): boolean {
   const [isLoaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    newPlaygroundClient().then((client) => {
-      SINGLETON = client
-      setLoaded(true)
-    }).catch(Logging.error)
+    async function load (): Promise<void> {
+      const environment = getEnvironment()
+      if (!environment.debug) {
+        setLoaded(true)
+        return
+      }
+
+      for (const network of environment.networks.filter(isPlayground)) {
+        const client = newPlaygroundClient(network)
+        if (await isConnected(client)) {
+          await setNetwork(EnvironmentNetwork.LocalPlayground)
+          INSTANCE = client
+          setLoaded(true)
+          return
+        }
+      }
+    }
+
+    load().catch(Logging.error)
   }, [])
 
   return isLoaded
 }
 
-export function getPlaygroundClient (): PlaygroundApiClient {
-  if (SINGLETON !== undefined) {
-    return SINGLETON
+export function getPlaygroundApiClient (): PlaygroundApiClient {
+  if (INSTANCE !== undefined) {
+    return INSTANCE
   }
 
-  throw new Error('useCachedPlaygroundClient() === true, hooks must be called before getPlaygroundClient()')
+  throw new Error('useCachedPlaygroundClient() === true, hooks must be called before getPlaygroundApiClient()')
 }
 
-async function newPlaygroundClient (): Promise<PlaygroundApiClient> {
-  const network = await getNetwork()
+export function getPlaygroundRpcClient (): PlaygroundRpcClient {
+  const client = getPlaygroundApiClient()
+  return new PlaygroundRpcClient(client)
+}
 
+async function isConnected (client: PlaygroundApiClient): Promise<boolean> {
+  return await client.playground.info()
+    .then(() => true)
+    .catch(() => false)
+}
+
+function newPlaygroundClient (network: EnvironmentNetwork): PlaygroundApiClient {
   switch (network) {
     case EnvironmentNetwork.RemotePlayground:
       return new PlaygroundApiClient({ url: 'https://playground.defichain.com' })

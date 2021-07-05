@@ -2,8 +2,8 @@ import { TokenInfo } from '@defichain/jellyfish-api-core/dist/category/token'
 import { PlaygroundRpcClient } from '@defichain/playground-api-client'
 import React, { useEffect, useState } from 'react'
 import tailwind from 'tailwind-rn'
+import { getPlaygroundRpcClient } from '../../../app/api/playground'
 import { Text, View } from '../../../components'
-import { usePlaygroundRpcClient } from '../../../hooks/api/usePlaygroundClient'
 import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
 import { WalletStatus } from '../../../store/wallet'
 import { PlaygroundAction } from '../components/PlaygroundAction'
@@ -11,7 +11,7 @@ import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
 export function PlaygroundToken (): JSX.Element | null {
   const WalletAPI = useWalletAPI()
-  const rpcClient = usePlaygroundRpcClient()
+  const rpcClient = getPlaygroundRpcClient()
   const [status, setStatus] = useState<string>('loading')
   const [tokens, setTokens] = useState<PlaygroundTokenInfo[]>([])
 

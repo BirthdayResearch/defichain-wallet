@@ -34,17 +34,17 @@ export const environments: Record<EnvironmentName, Environment> = {
     name: EnvironmentName.Preview,
     debug: true,
     networks: [
-      EnvironmentNetwork.MainNet,
+      EnvironmentNetwork.LocalPlayground,
       EnvironmentNetwork.RemotePlayground,
-      EnvironmentNetwork.LocalPlayground
+      EnvironmentNetwork.MainNet
     ]
   },
   Development: {
     name: EnvironmentName.Development,
     debug: true,
     networks: [
-      EnvironmentNetwork.RemotePlayground,
-      EnvironmentNetwork.LocalPlayground
+      EnvironmentNetwork.LocalPlayground,
+      EnvironmentNetwork.RemotePlayground
     ]
   }
 }
@@ -64,4 +64,14 @@ export function getEnvironment (): Environment {
   }
 
   return environments[EnvironmentName.Development]
+}
+
+/**
+ * @param {EnvironmentNetwork} network to check if it is a playground network
+ */
+export function isPlayground (network: EnvironmentNetwork): boolean {
+  return [
+    EnvironmentNetwork.LocalPlayground,
+    EnvironmentNetwork.RemotePlayground
+  ].includes(network)
 }
