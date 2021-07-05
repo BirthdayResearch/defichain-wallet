@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { EnvironmentNetwork } from "../environment";
 import { addMnemonicHdNodeProvider, getMnemonicHdNodeProvider } from "./mnemonic";
-import { WalletData, WalletType } from "./persistance";
+import { WalletData, WalletType } from "./persistence";
 
 const getItem = jest.spyOn(AsyncStorage, 'getItem')
 const setItem = jest.spyOn(AsyncStorage, 'setItem')

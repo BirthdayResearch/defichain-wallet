@@ -1,6 +1,6 @@
 import { MnemonicHdNodeProvider, mnemonicToSeed } from '@defichain/jellyfish-wallet-mnemonic'
 import { getNetworkOptions } from './network'
-import { WalletData, WalletStorage, WalletType } from './persistance'
+import { WalletData, WalletStorage, WalletType } from './persistence'
 
 export async function getMnemonicHdNodeProvider (data: WalletData): Promise<MnemonicHdNodeProvider> {
   const seed = Buffer.from(data.raw, 'hex')
