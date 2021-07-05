@@ -37,7 +37,7 @@
     "buffer": "^6.0.3",
     "expo": "^42.0.0",
     "expo-asset": "~8.3.2",
-    "expo-cli": "^4.7.2",
+    "expo-cli": "^4.7.3",
     "expo-clipboard": "~1.1.0",
     "expo-constants": "~11.0.1",
     "expo-font": "~9.2.1",
