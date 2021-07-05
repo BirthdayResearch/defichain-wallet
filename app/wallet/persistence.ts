@@ -42,7 +42,7 @@ async function remove (index: number): Promise<void> {
   await set(wallets)
 }
 
-export const WalletStorage = {
+export const WalletPersistence = {
   get,
   add,
   remove

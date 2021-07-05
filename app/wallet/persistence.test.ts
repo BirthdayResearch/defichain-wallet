@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { EnvironmentNetwork } from "../environment";
-import { WalletStorage, WalletType } from "./persistence";
+import { WalletPersistence, WalletType } from "./persistence";
 
 const getItem = jest.spyOn(AsyncStorage, 'getItem')
 const setItem = jest.spyOn(AsyncStorage, 'setItem')
@@ -14,7 +14,7 @@ it('should getWallets() that is empty', async () => {
     .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
     .mockResolvedValueOnce("[]")
 
-  const items = await WalletStorage.get()
+  const items = await WalletPersistence.get()
   expect(items.length).toStrictEqual(0)
 })
 
@@ -27,8 +27,8 @@ it('should add() add()', async () => {
     .mockResolvedValueOnce("[]")
     .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
 
-  await WalletStorage.add({ raw: "seed-1", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" })
-  await WalletStorage.add({ raw: "seed-2", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" })
+  await WalletPersistence.add({ raw: "seed-1", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" })
+  await WalletPersistence.add({ raw: "seed-2", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" })
 
   expect(getItem).toBeCalledTimes(6)
 })
@@ -42,7 +42,7 @@ it('should remove()', async () => {
     ]))
     .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
 
-  await WalletStorage.remove(0)
+  await WalletPersistence.remove(0)
 
   expect(setItem).toBeCalledTimes(1)
   expect(setItem).toBeCalledWith(
