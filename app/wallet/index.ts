@@ -64,8 +64,15 @@ export function getWallet (index: number): Wallet {
 }
 
 /**
- * @param {number} index of wallet to check if exist
+ * @return Wallet
  */
-export function hasWallet (index: number): boolean {
-  return getWallet(index) !== undefined
+export function getDefaultWallet (): Wallet {
+  return getWallet(0)
+}
+
+/**
+ * @return boolean if default wallet exist
+ */
+export function hasDefaultWallet (): boolean {
+  return getWallets().length > 0
 }

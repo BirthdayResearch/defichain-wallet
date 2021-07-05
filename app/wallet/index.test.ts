@@ -4,7 +4,7 @@ import { renderHook } from "@testing-library/react-hooks";
 import { waitFor } from "@testing-library/react-native";
 import { useCachedWhaleClient } from "../api/whale";
 import { EnvironmentNetwork } from "../environment";
-import { getWallet, getWallets, useCachedWallets } from "./index";
+import { getDefaultWallet, getWallets, hasDefaultWallet, useCachedWallets } from "./index";
 import { WalletData, WalletType } from "./persistence";
 
 const getItem = jest.spyOn(AsyncStorage, 'getItem')
@@ -36,10 +36,10 @@ it('should load account 0 with withTransactionBuilder', async () => {
     expect(result).toBeTruthy()
   })
 
-  expect(getWallet(0).get(0).withTransactionBuilder().utxo).toBeDefined()
-  expect(getWallet(0).get(0).withTransactionBuilder().dex).toBeDefined()
-  expect(getWallet(0).get(0).withTransactionBuilder().account).toBeDefined()
-  expect(getWallet(0).get(0).withTransactionBuilder().liqPool).toBeDefined()
+  expect(getDefaultWallet().get(0).withTransactionBuilder().utxo).toBeDefined()
+  expect(getDefaultWallet().get(0).withTransactionBuilder().dex).toBeDefined()
+  expect(getDefaultWallet().get(0).withTransactionBuilder().account).toBeDefined()
+  expect(getDefaultWallet().get(0).withTransactionBuilder().liqPool).toBeDefined()
 });
 
 it('should load LocalPlayground with (abandon x23) with expected keys', async () => {
@@ -53,17 +53,19 @@ it('should load LocalPlayground with (abandon x23) with expected keys', async ()
     expect(result).toBeTruthy()
   })
 
-  expect(getWallet(0)).toBeDefined()
-  expect(await getWallet(0).get(0).getAddress()).toStrictEqual('bcrt1qynxwmwauztnzzar2nddh8hyhe3l7v5p3f7dn4c')
-  expect(await getWallet(0).get(0).getScript()).toStrictEqual({
+  expect(getDefaultWallet()).toBeDefined()
+  expect(hasDefaultWallet()).toBeTruthy()
+
+  expect(await getDefaultWallet().get(0).getAddress()).toStrictEqual('bcrt1qynxwmwauztnzzar2nddh8hyhe3l7v5p3f7dn4c')
+  expect(await getDefaultWallet().get(0).getScript()).toStrictEqual({
     stack: [
       OP_CODES.OP_0,
       OP_CODES.OP_PUSHDATA_HEX_LE('24ccedbbbc12e621746a9b5b73dc97cc7fe65031'),
     ]
   })
 
-  expect(await getWallet(0).get(1).getAddress()).toStrictEqual('bcrt1q4qv0q69rzfqy5wc74wpjgu0y2u9jyyggrrx3gn')
-  expect(await getWallet(0).get(1).getScript()).toStrictEqual({
+  expect(await getDefaultWallet().get(1).getAddress()).toStrictEqual('bcrt1q4qv0q69rzfqy5wc74wpjgu0y2u9jyyggrrx3gn')
+  expect(await getDefaultWallet().get(1).getScript()).toStrictEqual({
     stack: [
       OP_CODES.OP_0,
       OP_CODES.OP_PUSHDATA_HEX_LE('a818f068a312404a3b1eab832471e4570b221108'),
@@ -82,12 +84,12 @@ it('should load RemotePlayground with (abandon x23) with expected keys', async (
     expect(result).toBeTruthy()
   })
 
-  expect(getWallet(0)).toBeDefined()
-  expect(await getWallet(0).get(0).getAddress()).toStrictEqual('bcrt1qynxwmwauztnzzar2nddh8hyhe3l7v5p3f7dn4c')
-  expect(await getWallet(0).get(1).getAddress()).toStrictEqual('bcrt1q4qv0q69rzfqy5wc74wpjgu0y2u9jyyggrrx3gn')
+  expect(getDefaultWallet()).toBeDefined()
+  expect(await getDefaultWallet().get(0).getAddress()).toStrictEqual('bcrt1qynxwmwauztnzzar2nddh8hyhe3l7v5p3f7dn4c')
+  expect(await getDefaultWallet().get(1).getAddress()).toStrictEqual('bcrt1q4qv0q69rzfqy5wc74wpjgu0y2u9jyyggrrx3gn')
 })
 
-it('should fail without having any seed stored', async () => {
+it('should not have any wallet stored', async () => {
   getItem
     .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
     .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
