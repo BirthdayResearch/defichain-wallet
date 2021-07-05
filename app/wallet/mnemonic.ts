@@ -1,23 +1,9 @@
 import { MnemonicHdNodeProvider, mnemonicToSeed } from '@defichain/jellyfish-wallet-mnemonic'
-import { getItem, removeItem, setItem } from '../storage'
 import { getNetworkOptions } from './network'
+import { WalletData, WalletStorage, WalletType } from './persistance'
 
-const KEY = 'MNEMONIC_SEED'
-
-async function getSeed (): Promise<Buffer | undefined> {
-  const seed: string | null = await getItem(KEY)
-  if (seed == null) {
-    return undefined
-  }
-
-  return Buffer.from(seed, 'hex')
-}
-
-export async function getMnemonicHdNodeProvider (): Promise<MnemonicHdNodeProvider> {
-  const seed = await getSeed()
-  if (seed === undefined) {
-    throw new Error('attempting to getMnemonicHdNodeProvider() without having any seed stored')
-  }
+export async function getMnemonicHdNodeProvider (data: WalletData): Promise<MnemonicHdNodeProvider> {
+  const seed = Buffer.from(data.raw, 'hex')
 
   const network = await getNetworkOptions()
   return MnemonicHdNodeProvider.fromSeed(seed, {
@@ -29,16 +15,12 @@ export async function getMnemonicHdNodeProvider (): Promise<MnemonicHdNodeProvid
   })
 }
 
-export async function setMnemonicHdNodeProvider (mnemonic: string[]): Promise<void> {
+export async function addMnemonicHdNodeProvider (mnemonic: string[]): Promise<void> {
   const seed = mnemonicToSeed(mnemonic)
   const hex = seed.toString('hex')
-  await setItem(KEY, hex)
-}
-
-export async function hasMnemonicHdNodeProvider (): Promise<boolean> {
-  return await getItem(KEY) !== null
-}
-
-export async function clearMnemonicHdNodeProvider (): Promise<void> {
-  await removeItem(KEY)
+  await WalletStorage.add({
+    version: 'v1',
+    type: WalletType.MNEMONIC_UNPROTECTED,
+    raw: hex
+  })
 }
