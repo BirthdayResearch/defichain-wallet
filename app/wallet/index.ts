@@ -1,19 +1,19 @@
 import { JellyfishWallet, WalletHdNode } from '@defichain/jellyfish-wallet'
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
+import { WhaleWalletAccount, WhaleWalletAccountProvider } from '@defichain/whale-api-wallet'
 import { useEffect, useState } from 'react'
 import { Logging } from '../logging'
 import { getMnemonicHdNodeProvider } from './mnemonic'
+import { WalletData, WalletPersistence, WalletType } from './persistence'
 import { getWhaleWalletAccountProvider } from './whale'
 
 type Wallet = JellyfishWallet<WhaleWalletAccount, WalletHdNode>
-let INSTANCE: Wallet
+let INSTANCE: Wallet[]
 
-export function useCachedWallet (): boolean {
+export function useCachedWallets (): boolean {
   const [isLoaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    newWallet().then((client) => {
-      INSTANCE = client
+    initWallets().then(() => {
       setLoaded(true)
     }).catch(Logging.error)
   }, [])
@@ -21,20 +21,58 @@ export function useCachedWallet (): boolean {
   return isLoaded
 }
 
-async function newWallet (): Promise<Wallet> {
-  const nodeProvider = await getMnemonicHdNodeProvider()
+async function initWallets (): Promise<void> {
+  const items: Wallet[] = []
+
   const accountProvider = await getWhaleWalletAccountProvider()
-  return new JellyfishWallet(nodeProvider, accountProvider)
+  for (const item of await WalletPersistence.get()) {
+    items.push(await newWallet(item, accountProvider))
+  }
+
+  INSTANCE = items
+}
+
+async function newWallet (data: WalletData, accountProvider: WhaleWalletAccountProvider): Promise<Wallet> {
+  switch (data.type) {
+    case WalletType.MNEMONIC_UNPROTECTED:
+      return new JellyfishWallet(await getMnemonicHdNodeProvider(data), accountProvider)
+
+    default:
+      throw new Error(`wallet ${data.type as string} not available`)
+  }
 }
 
 /**
- * @return {JellyfishWallet<WhaleWalletAccount, WalletHdNode>}
- * @see useCachedWallet to load wallet first
+ * @return {JellyfishWallet<WhaleWalletAccount, WalletHdNode>[]}
+ * @see useCachedWallets to load wallet first
  */
-export function getWallet (): Wallet {
+export function getWallets (): Wallet[] {
   if (INSTANCE !== undefined) {
     return INSTANCE
   }
 
-  throw new Error('useCachedWallet() === true, hooks must be called before getWallet()')
+  throw new Error('useCachedWallets() === true, hooks must be called before get...()')
+}
+
+/**
+ * @param {number} index of wallet to retrieve
+ * @return {JellyfishWallet<WhaleWalletAccount, WalletHdNode>}
+ * @see useCachedWallets to load wallet first
+ */
+export function getWallet (index: number): Wallet {
+  return getWallets()[index]
+}
+
+/**
+ * @return Wallet
+ */
+export function getDefaultWallet (): Wallet {
+  return getWallet(0)
+}
+
+/**
+ * @return boolean if default wallet exist
+ */
+export function hasDefaultWallet (): boolean {
+  return getWallets().length > 0
 }

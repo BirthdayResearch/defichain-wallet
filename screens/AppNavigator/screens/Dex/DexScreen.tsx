@@ -7,23 +7,23 @@ import { SectionList, TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
+import { getWhaleClient } from '../../../../app/api/whale'
 import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
-import { useWhaleApiClient } from '../../../../hooks/api/useWhaleApiClient'
 import { fetchTokens } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
 import { translate } from '../../../../translations'
 
 export function DexScreen (): JSX.Element {
-  const whaleApiClient = useWhaleApiClient()
+  const whaleApiClient = getWhaleClient()
   const address = useSelector((state: RootState) => state.wallet.address)
   const [pairs, setPairs] = useState<Array<DexItem<PoolPairData>>>([])
   const dispatch = useDispatch()
 
   useEffect(() => {
     // TODO(fuxingloh): does not auto refresh currently, but not required for MVP. Due to limited PP availability
-    fetchTokens(address, dispatch, whaleApiClient)
+    fetchTokens(address, dispatch)
     whaleApiClient.poolpair.list(50).then(pairs => {
       setPairs(pairs.map(data => ({ type: 'available', data: data })))
     }).catch((err) => {
