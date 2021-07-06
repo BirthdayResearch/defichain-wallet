@@ -12,7 +12,8 @@ context('wallet/balances/convert - accountToUtxos: invalid input', () => {
     cy.getByTestID('balances_row_0_utxo_amount').contains(10)
   })
   it('amount = 0', function () {
-    cy.getByTestID('button_TO_UTXOS').click()
+    cy.getByTestID('balances_row_0').click()
+    cy.getByTestID('convert_button').click()
 
     cy.getByTestID('text_row_output_to_rhs').should('contain', '0 UTXOS')
     cy.getByTestID('text_row_output_bal_rhs').should('contain', '10 UTXOS')

@@ -13,7 +13,8 @@ context('wallet/balances/convert - bi-direction success case', () => {
   })
 
   it('utxosToToken: default start with 0', function () {
-    cy.getByTestID('button_TO_DFC').click()
+    cy.getByTestID('balances_row_0_utxo').click()
+    cy.getByTestID('convert_button').click()
 
     cy.getByTestID('text_row_output_to_rhs').should('contain', '0 Token')
     cy.getByTestID('text_row_output_bal_rhs').should('contain', '0 Token')
@@ -58,7 +59,8 @@ context('wallet/balances/convert - bi-direction success case', () => {
   })
 
   it('tokenToUtxos: default start with 0', function () {
-    cy.getByTestID('button_TO_UTXOS').click()
+    cy.getByTestID('balances_row_0').click()
+    cy.getByTestID('convert_button').click()
 
     cy.getByTestID('text_row_output_to_rhs').should('contain', '0 UTXOS')
     // action balance can be 8.769xxxxx UTXOS, must split into 2 assertions

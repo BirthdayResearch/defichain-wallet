@@ -7,7 +7,7 @@ import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { WalletToken } from '../../../../store/wallet'
 import { translate } from '../../../../translations'
 import { BalancesScreen } from './BalancesScreen'
-import { ConversionMode } from './ConvertScreen'
+import { ConversionMode, ConvertScreen } from './ConvertScreen'
 import { ReceiveScreen } from './screens/ReceiveScreen'
 import { SendScreen } from './screens/SendScreen'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
@@ -67,6 +67,14 @@ export function BalancesNavigator (): JSX.Element {
             )
           }
         })}
+      />
+      <BalanceStack.Screen
+        name='Convert'
+        component={ConvertScreen}
+        options={{
+          headerTitle: translate('screens/ConvertScreen', 'Convert'),
+          headerBackTitleVisible: false
+        }}
       />
     </BalanceStack.Navigator>
   )

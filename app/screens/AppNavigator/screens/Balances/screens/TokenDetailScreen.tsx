@@ -8,6 +8,7 @@ import { Text } from '../../../../../components'
 import { PrimaryColor } from '../../../../../constants/Theme'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
+import { ConversionMode } from '../ConvertScreen'
 
 interface TokenActionItems {
   title: string
@@ -55,7 +56,10 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
           <TokenActionRow
             testID='convert_button'
             title={`${translate('screens/TokenDetailScreen', 'Convert')} ${token.displaySymbol}`}
-            icon='swap-vert' onPress={() => navigation.navigate('Convert')}
+            icon='swap-vert' onPress={() => {
+              const mode: ConversionMode = token.id === '0_utxo' ? 'utxosToAccount' : 'accountToUtxos'
+              navigation.navigate('Convert', { mode })
+            }}
           />
         )
       }
