@@ -57,8 +57,7 @@ export const wallet = createSlice({
     },
     setTokens: (state, action: PayloadAction<AddressToken[]>) => {
       state.tokens = action.payload.map((t) => {
-        let displaySymbol = t.symbol
-        let avatarSymbol = t.symbol
+        let [displaySymbol, avatarSymbol] = t.symbol
         if (t.id === '0') {
           displaySymbol = 'DFI (Token)'
         }
