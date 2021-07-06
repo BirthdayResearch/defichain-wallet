@@ -3,7 +3,7 @@
  */
 export const Logging = {
   error (error: Error): void {
-    console.log(error)
+    console.error(error)
   },
   info (message: string): void {
     console.log(message)

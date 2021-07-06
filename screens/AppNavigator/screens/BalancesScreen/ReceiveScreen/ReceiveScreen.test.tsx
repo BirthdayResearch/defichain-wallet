@@ -1,10 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { fireEvent, render } from "@testing-library/react-native"
+import * as Clipboard from 'expo-clipboard'
 import * as React from 'react'
 import { Provider } from "react-redux";
-import Clipboard from 'expo-clipboard'
 import { RootState } from "../../../../../store";
-import { network } from "../../../../../store/network";
 import { wallet, WalletStatus } from "../../../../../store/wallet";
 import { ReceiveScreen } from "./ReceiveScreen";
 
@@ -24,7 +23,7 @@ describe('receive page', () => {
     };
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { wallet: wallet.reducer, network: network.reducer }
+      reducer: { wallet: wallet.reducer }
     })
     const component = (
       <Provider store={store}>
@@ -46,7 +45,7 @@ describe('receive page', () => {
     };
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { wallet: wallet.reducer, network: network.reducer }
+      reducer: { wallet: wallet.reducer }
     })
     const component = (
       <Provider store={store}>

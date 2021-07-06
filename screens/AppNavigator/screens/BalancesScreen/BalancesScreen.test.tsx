@@ -3,7 +3,6 @@ import { fireEvent, render } from "@testing-library/react-native"
 import * as React from 'react'
 import { Provider } from "react-redux";
 import { RootState } from "../../../../store";
-import { network } from "../../../../store/network";
 import { wallet, WalletStatus } from "../../../../store/wallet";
 import { BalancesScreen } from "./BalancesScreen";
 
@@ -44,18 +43,11 @@ describe('balances page', () => {
         status: WalletStatus.LOADED_WALLET,
         utxoBalance: '77',
         tokens: []
-      },
-      network: {
-        name: 'playground',
-        whale: {
-          network: 'regtest',
-          url: 'http://0.0.0.0'
-        }
       }
     };
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { wallet: wallet.reducer, network: network.reducer }
+      reducer: { wallet: wallet.reducer }
     })
     const navigation: any = {
       navigate: jest.fn(),
@@ -77,18 +69,11 @@ describe('balances page', () => {
         status: WalletStatus.LOADED_WALLET,
         utxoBalance: '77',
         tokens: []
-      },
-      network: {
-        name: 'playground',
-        whale: {
-          network: 'regtest',
-          url: 'http://0.0.0.0'
-        }
       }
     };
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { wallet: wallet.reducer, network: network.reducer }
+      reducer: { wallet: wallet.reducer }
     })
     const navigation: any = {
       navigate: jest.fn(),
@@ -102,6 +87,35 @@ describe('balances page', () => {
     );
     const rendered = render(component)
     const receiveButton = await rendered.findByTestId('button_RECEIVE')
+    fireEvent.press(receiveButton)
+    expect(spy).toHaveBeenCalled()
+  })
+
+  it('should navigate to token detail page', async () => {
+    const initialState: Partial<RootState> = {
+      wallet: {
+        address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
+        status: WalletStatus.LOADED_WALLET,
+        utxoBalance: '77',
+        tokens: []
+      }
+    };
+    const store = configureStore({
+      preloadedState: initialState,
+      reducer: { wallet: wallet.reducer }
+    })
+    const navigation: any = {
+      navigate: jest.fn(),
+    }
+    const route: any = {}
+    const spy = jest.spyOn(navigation, 'navigate')
+    const component = (
+      <Provider store={store}>
+        <BalancesScreen navigation={navigation} route={route} />
+      </Provider>
+    );
+    const rendered = render(component)
+    const receiveButton = await rendered.findByTestId('balances_row_0')
     fireEvent.press(receiveButton)
     expect(spy).toHaveBeenCalled()
   })

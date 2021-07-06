@@ -11,6 +11,8 @@ module.exports = {
     '!**/node_modules/**',
     '!**/babel.config.js',
     '!**/jest.config.js',
-    '!**/screens/PlaygroundNavigator/**'
+    '!**/screens/PlaygroundNavigator/**',
+    '!**/_shim.js',
+    '!**/metro.config.js'
   ]
 }

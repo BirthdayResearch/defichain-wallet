@@ -1,22 +1,18 @@
-import { StackScreenProps } from '@react-navigation/stack'
+import { useNavigation } from '@react-navigation/native'
 import * as React from 'react'
+import { useCallback } from 'react'
 import { SectionList, TouchableOpacity } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import tailwind from 'tailwind-rn'
+import { EnvironmentNetwork, getEnvironment, isPlayground } from '../../../../app/environment'
+import { setNetwork } from '../../../../app/storage'
 import { Text, View } from '../../../../components'
 import { PrimaryColor, PrimaryColorStyle, VectorIcon } from '../../../../constants/Theme'
 import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
-import { RootState } from '../../../../store'
-import { NetworkName } from '../../../../store/network'
 import { translate } from '../../../../translations'
-import { SettingsParamList } from './SettingsNavigator'
 
-type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
-
-export function SettingsScreen ({ navigation }: Props): JSX.Element {
-  const network = useSelector<RootState, NetworkName | undefined>(state => state.network.name)
-  const WalletAPI = useWalletAPI()
-  const dispatch = useDispatch()
+export function SettingsScreen (): JSX.Element {
+  const networks = getEnvironment().networks
 
   return (
     <View style={tailwind('flex-1 bg-gray-100')}>
@@ -24,16 +20,12 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         sections={[
           {
             key: 'Network',
-            data: [''],
-            renderItem (): JSX.Element {
-              return RowNetworkItem(network, () => navigation.navigate('Playground'))
-            }
+            data: networks,
+            renderItem: ({ item }) => <RowNetworkItem network={item as EnvironmentNetwork} />
           },
           {
             data: ['EXIT WALLET'],
-            renderItem (): JSX.Element {
-              return RowExitWalletItem(() => WalletAPI.clearWallet(dispatch))
-            }
+            renderItem: () => <RowExitWalletItem />
           }
         ]}
         ItemSeparatorComponent={ItemSeparator}
@@ -62,21 +54,16 @@ function SectionHeader (key?: string): JSX.Element | null {
   )
 }
 
-function RowNetworkItem (network?: NetworkName, onPress?: () => void): JSX.Element {
-  function getNetworkName (): string {
-    switch (network) {
-      case 'mainnet':
-        return 'MainNet'
-      case 'testnet':
-        return 'TestNet'
-      case 'regtest':
-        return 'RegTest'
-      case 'playground':
-        return 'Playground'
-      default:
-        return 'Not Connected'
+function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
+  const navigation = useNavigation()
+
+  const onPress = useCallback(async () => {
+    await setNetwork(props.network)
+    // TODO(fuxingloh): reset wallet via store
+    if (isPlayground(props.network)) {
+      navigation.navigate('Playground')
     }
-  }
+  }, [])
 
   return (
     <TouchableOpacity
@@ -84,18 +71,25 @@ function RowNetworkItem (network?: NetworkName, onPress?: () => void): JSX.Eleme
       onPress={onPress}
     >
       <Text style={tailwind('py-4')}>
-        {getNetworkName()}
+        {props.network}
       </Text>
       <VectorIcon size={24} name='check' color={PrimaryColor} />
     </TouchableOpacity>
   )
 }
 
-function RowExitWalletItem (onPress: () => void): JSX.Element {
+function RowExitWalletItem (): JSX.Element {
+  const WalletAPI = useWalletAPI()
+  const dispatch = useDispatch()
+
+  const onExit = useCallback(() => {
+    WalletAPI.clearWallet(dispatch)
+  }, [])
+
   return (
     <TouchableOpacity
       testID='setting_exit_wallet'
-      onPress={onPress} style={tailwind('bg-white')}
+      onPress={onExit} style={tailwind('bg-white')}
     >
       <Text style={[tailwind('p-4 font-bold'), PrimaryColorStyle.text]}>
         {translate('wallet/settings', 'EXIT WALLET')}

@@ -1,20 +1,20 @@
+import { Ionicons } from '@expo/vector-icons'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
+import { useEffect, useState } from 'react'
+import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import tailwind from 'tailwind-rn'
-import { translate } from '../../../../../translations'
-import { View, FlatList, TouchableOpacity, RefreshControl } from 'react-native'
-import { useEffect, useState } from 'react'
-import { useWalletAPI } from '../../../../../hooks/wallet/WalletAPI'
-import { useWhaleApiClient } from '../../../../../hooks/api/useWhaleApiClient'
-import { Ionicons } from '@expo/vector-icons'
+import { getWhaleClient } from '../../../../../app/api/whale'
 import { Text } from '../../../../../components'
-import { activitiesToViewModel, VMTransaction } from './stateProcessor'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { TransactionsParamList } from '../TransactionsNavigator'
 import { PrimaryColorStyle } from '../../../../../constants/Theme'
+import { useWalletAPI } from '../../../../../hooks/wallet/WalletAPI'
+import { translate } from '../../../../../translations'
+import { TransactionsParamList } from '../TransactionsNavigator'
+import { activitiesToViewModel, VMTransaction } from './stateProcessor'
 
 export function TransactionsScreen (): JSX.Element {
-  const whaleApiClient = useWhaleApiClient()
+  const whaleApiClient = getWhaleClient()
   const account = useWalletAPI().getWallet().get(0)
   const navigation = useNavigation<NavigationProp<TransactionsParamList>>()
 

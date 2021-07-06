@@ -1,0 +1,778 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`token detail screen should accept DST 1`] = `
+<RCTScrollView
+  style={
+    Object {
+      "backgroundColor": "rgba(243, 244, 246, 1)",
+    }
+  }
+>
+  <View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderBottomColor": "rgba(209, 213, 219, 1)",
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(209, 213, 219, 1)",
+          "borderRightColor": "rgba(209, 213, 219, 1)",
+          "borderTopColor": "rgba(209, 213, 219, 1)",
+          "flexDirection": "column",
+          "justifyContent": "center",
+          "marginBottom": 16,
+          "paddingBottom": 32,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 32,
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "fontWeight": "600",
+            },
+            Object {
+              "color": "rgba(107, 114, 128, 1)",
+              "fontSize": 12,
+              "lineHeight": 16,
+            },
+          ]
+        }
+      >
+        AMOUNT BALANCE
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "fontWeight": "600",
+            },
+            Object {
+              "fontSize": 24,
+              "fontWeight": "700",
+              "lineHeight": 32,
+            },
+          ]
+        }
+      >
+        100,000 BTC
+      </Text>
+    </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 16,
+            "fontWeight": "600",
+          },
+          Object {
+            "color": "rgba(107, 114, 128, 1)",
+            "fontSize": 12,
+            "lineHeight": 16,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          },
+        ]
+      }
+    >
+      AVAILABLE OPTIONS
+    </Text>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderBottomColor": "rgba(229, 231, 235, 1)",
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(229, 231, 235, 1)",
+          "borderRightColor": "rgba(229, 231, 235, 1)",
+          "borderTopColor": "rgba(229, 231, 235, 1)",
+          "flexDirection": "row",
+          "opacity": 1,
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 8,
+          "paddingTop": 16,
+        }
+      }
+      testID="send_button"
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": "#ff00af",
+              "fontSize": 24,
+            },
+            undefined,
+            Object {
+              "fontFamily": "material",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "fontWeight": "600",
+            },
+            Object {
+              "flexGrow": 1,
+              "marginLeft": 8,
+            },
+          ]
+        }
+      >
+        Send to other wallet
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 24,
+            },
+            undefined,
+            Object {
+              "fontFamily": "material",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderBottomColor": "rgba(229, 231, 235, 1)",
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(229, 231, 235, 1)",
+          "borderRightColor": "rgba(229, 231, 235, 1)",
+          "borderTopColor": "rgba(229, 231, 235, 1)",
+          "flexDirection": "row",
+          "opacity": 1,
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 8,
+          "paddingTop": 16,
+        }
+      }
+      testID="receive_button"
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": "#ff00af",
+              "fontSize": 24,
+            },
+            undefined,
+            Object {
+              "fontFamily": "material",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "fontWeight": "600",
+            },
+            Object {
+              "flexGrow": 1,
+              "marginLeft": 8,
+            },
+          ]
+        }
+      >
+        Receive undefined
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 24,
+            },
+            undefined,
+            Object {
+              "fontFamily": "material",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
+  </View>
+</RCTScrollView>
+`;
+
+exports[`token detail screen should accept Token DFI 1`] = `
+<RCTScrollView
+  style={
+    Object {
+      "backgroundColor": "rgba(243, 244, 246, 1)",
+    }
+  }
+>
+  <View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderBottomColor": "rgba(209, 213, 219, 1)",
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(209, 213, 219, 1)",
+          "borderRightColor": "rgba(209, 213, 219, 1)",
+          "borderTopColor": "rgba(209, 213, 219, 1)",
+          "flexDirection": "column",
+          "justifyContent": "center",
+          "marginBottom": 16,
+          "paddingBottom": 32,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 32,
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "fontWeight": "600",
+            },
+            Object {
+              "color": "rgba(107, 114, 128, 1)",
+              "fontSize": 12,
+              "lineHeight": 16,
+            },
+          ]
+        }
+      >
+        AMOUNT BALANCE
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "fontWeight": "600",
+            },
+            Object {
+              "fontSize": 24,
+              "fontWeight": "700",
+              "lineHeight": 32,
+            },
+          ]
+        }
+      >
+        100,000 DFI
+      </Text>
+    </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 16,
+            "fontWeight": "600",
+          },
+          Object {
+            "color": "rgba(107, 114, 128, 1)",
+            "fontSize": 12,
+            "lineHeight": 16,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          },
+        ]
+      }
+    >
+      AVAILABLE OPTIONS
+    </Text>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderBottomColor": "rgba(229, 231, 235, 1)",
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(229, 231, 235, 1)",
+          "borderRightColor": "rgba(229, 231, 235, 1)",
+          "borderTopColor": "rgba(229, 231, 235, 1)",
+          "flexDirection": "row",
+          "opacity": 1,
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 8,
+          "paddingTop": 16,
+        }
+      }
+      testID="convert_button"
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": "#ff00af",
+              "fontSize": 24,
+            },
+            undefined,
+            Object {
+              "fontFamily": "material",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "fontWeight": "600",
+            },
+            Object {
+              "flexGrow": 1,
+              "marginLeft": 8,
+            },
+          ]
+        }
+      >
+        Convert undefined
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 24,
+            },
+            undefined,
+            Object {
+              "fontFamily": "material",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
+  </View>
+</RCTScrollView>
+`;
+
+exports[`token detail screen should accept UTXO DFI 1`] = `
+<RCTScrollView
+  style={
+    Object {
+      "backgroundColor": "rgba(243, 244, 246, 1)",
+    }
+  }
+>
+  <View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderBottomColor": "rgba(209, 213, 219, 1)",
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(209, 213, 219, 1)",
+          "borderRightColor": "rgba(209, 213, 219, 1)",
+          "borderTopColor": "rgba(209, 213, 219, 1)",
+          "flexDirection": "column",
+          "justifyContent": "center",
+          "marginBottom": 16,
+          "paddingBottom": 32,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 32,
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "fontWeight": "600",
+            },
+            Object {
+              "color": "rgba(107, 114, 128, 1)",
+              "fontSize": 12,
+              "lineHeight": 16,
+            },
+          ]
+        }
+      >
+        AMOUNT BALANCE
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "fontWeight": "600",
+            },
+            Object {
+              "fontSize": 24,
+              "fontWeight": "700",
+              "lineHeight": 32,
+            },
+          ]
+        }
+      >
+        100,000 DFI
+      </Text>
+    </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 16,
+            "fontWeight": "600",
+          },
+          Object {
+            "color": "rgba(107, 114, 128, 1)",
+            "fontSize": 12,
+            "lineHeight": 16,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          },
+        ]
+      }
+    >
+      AVAILABLE OPTIONS
+    </Text>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderBottomColor": "rgba(229, 231, 235, 1)",
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(229, 231, 235, 1)",
+          "borderRightColor": "rgba(229, 231, 235, 1)",
+          "borderTopColor": "rgba(229, 231, 235, 1)",
+          "flexDirection": "row",
+          "opacity": 1,
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 8,
+          "paddingTop": 16,
+        }
+      }
+      testID="send_button"
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": "#ff00af",
+              "fontSize": 24,
+            },
+            undefined,
+            Object {
+              "fontFamily": "material",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "fontWeight": "600",
+            },
+            Object {
+              "flexGrow": 1,
+              "marginLeft": 8,
+            },
+          ]
+        }
+      >
+        Send to other wallet
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 24,
+            },
+            undefined,
+            Object {
+              "fontFamily": "material",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderBottomColor": "rgba(229, 231, 235, 1)",
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(229, 231, 235, 1)",
+          "borderRightColor": "rgba(229, 231, 235, 1)",
+          "borderTopColor": "rgba(229, 231, 235, 1)",
+          "flexDirection": "row",
+          "opacity": 1,
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 8,
+          "paddingTop": 16,
+        }
+      }
+      testID="receive_button"
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": "#ff00af",
+              "fontSize": 24,
+            },
+            undefined,
+            Object {
+              "fontFamily": "material",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "fontWeight": "600",
+            },
+            Object {
+              "flexGrow": 1,
+              "marginLeft": 8,
+            },
+          ]
+        }
+      >
+        Receive undefined
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 24,
+            },
+            undefined,
+            Object {
+              "fontFamily": "material",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderBottomColor": "rgba(229, 231, 235, 1)",
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(229, 231, 235, 1)",
+          "borderRightColor": "rgba(229, 231, 235, 1)",
+          "borderTopColor": "rgba(229, 231, 235, 1)",
+          "flexDirection": "row",
+          "opacity": 1,
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 8,
+          "paddingTop": 16,
+        }
+      }
+      testID="convert_button"
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": "#ff00af",
+              "fontSize": 24,
+            },
+            undefined,
+            Object {
+              "fontFamily": "material",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "fontWeight": "600",
+            },
+            Object {
+              "flexGrow": 1,
+              "marginLeft": 8,
+            },
+          ]
+        }
+      >
+        Convert undefined
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 24,
+            },
+            undefined,
+            Object {
+              "fontFamily": "material",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
+  </View>
+</RCTScrollView>
+`;

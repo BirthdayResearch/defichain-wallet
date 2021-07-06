@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import tailwind from 'tailwind-rn'
+import { getPlaygroundApiClient, getPlaygroundRpcClient } from '../../../app/api/playground'
 import { Text, View } from '../../../components'
-import { usePlaygroundApiClient, usePlaygroundRpcClient } from '../../../hooks/api/usePlaygroundClient'
 import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
 import { WalletStatus } from '../../../store/wallet'
 import { PlaygroundAction } from '../components/PlaygroundAction'
@@ -9,8 +9,9 @@ import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
 export function PlaygroundUTXO (): JSX.Element | null {
   const WalletAPI = useWalletAPI()
-  const rpcClient = usePlaygroundRpcClient()
-  const apiClient = usePlaygroundApiClient()
+  const rpcClient = getPlaygroundRpcClient()
+  const apiClient = getPlaygroundApiClient()
+
   const [status, setStatus] = useState<string>('loading')
 
   useEffect(() => {
