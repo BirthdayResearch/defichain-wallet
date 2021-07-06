@@ -1,26 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../components'
-import { EnvironmentNetwork } from '../../../environment'
+import { useNetworkContext } from "../../../contexts/NetworkContext";
 import { getPlaygroundApiClient } from '../../../middlewares/api/playground'
-import { Logging } from '../../../middlewares/logging'
-import { getNetwork } from '../../../middlewares/storage'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
 const DURATION = 3000
 
 export function PlaygroundConnection (): JSX.Element {
+  const { network } = useNetworkContext()
   const apiClient = getPlaygroundApiClient()
 
   const [count, setCount] = useState(0)
   const [connected, setConnected] = useState(false)
-  const [environment, setEnvironment] = useState<EnvironmentNetwork | undefined>(undefined)
 
   useEffect(() => {
-    getNetwork().then(network => {
-      setEnvironment(network)
-    }).catch(Logging.error)
-
     function refresh (): void {
       apiClient.playground.info().then(({ block }) => {
         setCount(block.count)
@@ -47,7 +41,7 @@ export function PlaygroundConnection (): JSX.Element {
 
       <View style={tailwind('mt-1')}>
         <Text style={tailwind('text-sm font-medium text-gray-900')}>
-          Playground: {environment}
+          Playground: {network}
         </Text>
 
         <Text style={tailwind('mt-1 text-sm font-medium text-gray-900')}>

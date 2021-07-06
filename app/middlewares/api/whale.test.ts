@@ -1,24 +1,23 @@
 import { WhaleApiClient } from "@defichain/whale-api-client";
-import { renderHook } from '@testing-library/react-hooks'
-import { waitFor } from "@testing-library/react-native";
 import { EnvironmentNetwork } from "../../environment";
 import { getNetwork } from "../storage";
-import { getWhaleClient, useCachedWhaleClient } from "./whale";
+import { getWhaleClient, initWhaleClient } from "./whale";
 
 jest.mock('@defichain/whale-api-client')
 jest.mock('../storage')
+
+const mocked = {
+  getNetwork: getNetwork as jest.MockedFunction<typeof getNetwork>,
+}
 
 beforeEach(() => {
   jest.clearAllMocks()
 })
 
 it('should load MainNet', async () => {
-  (getNetwork as jest.Mock).mockResolvedValue(EnvironmentNetwork.MainNet)
+  mocked.getNetwork.mockResolvedValue(EnvironmentNetwork.MainNet)
 
-  const { result } = renderHook(() => useCachedWhaleClient())
-  await waitFor(() => {
-    expect(result.current).toBeTruthy()
-  })
+  await initWhaleClient()
 
   expect(getWhaleClient()).toBeDefined()
   expect(WhaleApiClient).toBeCalledWith({
@@ -28,12 +27,9 @@ it('should load MainNet', async () => {
 })
 
 it('should load TestNet', async () => {
-  (getNetwork as jest.Mock).mockResolvedValue(EnvironmentNetwork.TestNet)
+  mocked.getNetwork.mockResolvedValue(EnvironmentNetwork.TestNet)
 
-  const { result } = renderHook(() => useCachedWhaleClient())
-  await waitFor(() => {
-    expect(result.current).toBeTruthy()
-  })
+  await initWhaleClient()
 
   expect(getWhaleClient()).toBeDefined()
   expect(WhaleApiClient).toBeCalledWith({
@@ -43,12 +39,9 @@ it('should load TestNet', async () => {
 })
 
 it('should load RemotePlayground', async () => {
-  (getNetwork as jest.Mock).mockResolvedValue(EnvironmentNetwork.RemotePlayground)
+  mocked.getNetwork.mockResolvedValue(EnvironmentNetwork.RemotePlayground)
 
-  const { result } = renderHook(() => useCachedWhaleClient())
-  await waitFor(() => {
-    expect(result.current).toBeTruthy()
-  })
+  await initWhaleClient()
 
   expect(getWhaleClient()).toBeDefined()
   expect(WhaleApiClient).toBeCalledWith({
@@ -58,12 +51,9 @@ it('should load RemotePlayground', async () => {
 })
 
 it('should load LocalPlayground', async () => {
-  (getNetwork as jest.Mock).mockResolvedValue(EnvironmentNetwork.LocalPlayground)
+  mocked.getNetwork.mockResolvedValue(EnvironmentNetwork.LocalPlayground)
 
-  const { result } = renderHook(() => useCachedWhaleClient())
-  await waitFor(() => {
-    expect(result.current).toBeTruthy()
-  })
+  await initWhaleClient()
 
   expect(getWhaleClient()).toBeDefined()
   expect(WhaleApiClient).toBeCalledWith({

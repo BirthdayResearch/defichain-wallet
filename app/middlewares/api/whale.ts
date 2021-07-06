@@ -1,22 +1,12 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
-import { useEffect, useState } from 'react'
 import { EnvironmentNetwork } from '../../environment'
-import { Logging } from '../logging'
 import { getNetwork } from '../storage'
 
 let SINGLETON: WhaleApiClient | undefined
 
-export function useCachedWhaleClient (): boolean {
-  const [isLoaded, setLoaded] = useState(false)
-
-  useEffect(() => {
-    newWhaleClient().then((client) => {
-      SINGLETON = client
-      setLoaded(true)
-    }).catch(Logging.error)
-  }, [])
-
-  return isLoaded
+export async function initWhaleClient () {
+  SINGLETON = await newWhaleClient()
+  return SINGLETON
 }
 
 export function getWhaleClient (): WhaleApiClient {

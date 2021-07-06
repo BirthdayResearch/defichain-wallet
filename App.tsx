@@ -2,9 +2,9 @@ import * as SplashScreen from 'expo-splash-screen'
 import React from 'react'
 import { Provider } from 'react-redux'
 import './_shim'
+import { NetworkContainer } from "./app/contexts/NetworkContext";
 import { useCachedResources } from './app/hooks/useCachedResources'
 import { useCachedPlaygroundClient } from './app/middlewares/api/playground'
-import { useCachedWhaleClient } from './app/middlewares/api/whale'
 import { Logging } from './app/middlewares/logging'
 import { Main } from './app/screens/Main'
 import { store } from './app/store'
@@ -34,23 +34,9 @@ export default function App (): JSX.Element | null {
 
   return (
     <Provider store={store}>
-      <WalletApp />
+      <NetworkContainer>
+        <Main />
+      </NetworkContainer>
     </Provider>
   )
-}
-
-/**
- * Loads
- * - CachedWhaleClient: must be loaded after CachedPlaygroundClient
- */
-function WalletApp (): JSX.Element | null {
-  const isLoaded: boolean[] = [
-    useCachedWhaleClient()
-  ]
-
-  if (isLoaded.includes(false)) {
-    return null
-  }
-
-  return <Main />
 }
