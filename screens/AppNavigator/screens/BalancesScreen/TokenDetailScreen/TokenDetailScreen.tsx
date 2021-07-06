@@ -5,7 +5,6 @@ import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import tailwind from 'tailwind-rn'
 import { PrimaryColor } from '../../../../../constants/Theme'
-import { getSymbolDisplay } from '../../../../../store/wallet'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { Text } from '../../../../../components'
@@ -45,7 +44,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
             />
             <TokenActionRow
               testID='receive_button'
-              title={`${translate('screens/TokenDetailScreen', 'Receive')} ${getSymbolDisplay(token)}`} icon='arrow-downward'
+              title={`${translate('screens/TokenDetailScreen', 'Receive')} ${token.displaySymbol}`} icon='arrow-downward'
               onPress={() => navigation.navigate('Receive')}
             />
           </>
@@ -55,7 +54,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
         token.symbol === 'DFI' && (
           <TokenActionRow
             testID='convert_button'
-            title={`${translate('screens/TokenDetailScreen', 'Convert')} ${getSymbolDisplay(token)}`}
+            title={`${translate('screens/TokenDetailScreen', 'Convert')} ${token.displaySymbol}`}
             icon='swap-vert' onPress={() => navigation.navigate('Convert')}
           />
         )

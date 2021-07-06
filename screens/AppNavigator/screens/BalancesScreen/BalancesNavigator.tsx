@@ -1,11 +1,10 @@
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { View } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { Text } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { getSymbolDisplay } from '../../../../store/wallet'
+import { WalletToken } from '../../../../store/wallet'
 import { translate } from '../../../../translations'
 import { BalancesScreen } from './BalancesScreen'
 import { ReceiveScreen } from './ReceiveScreen/ReceiveScreen'
@@ -15,8 +14,8 @@ import { TokenDetailScreen } from './TokenDetailScreen/TokenDetailScreen'
 export interface BalanceParamList {
   BalancesScreen: undefined
   ReceiveScreen: undefined
-  SendScreen: { token: AddressToken }
-  TokenDetailScreen: { token: AddressToken }
+  SendScreen: { token: WalletToken }
+  TokenDetailScreen: { token: WalletToken }
 
   [key: string]: undefined | object
 }
@@ -51,11 +50,11 @@ export function BalancesNavigator (): JSX.Element {
           return {
             headerTitle: () => {
               const token = route?.params?.token
-              const Icon = getTokenIcon(token.symbol, token.id)
+              const Icon = getTokenIcon(token.avatarSymbol)
               return (
                 <View style={tailwind('flex-row items-center')}>
                   <Icon />
-                  <Text style={tailwind('ml-2')}>{getSymbolDisplay(token)}</Text>
+                  <Text style={tailwind('ml-2')}>{token.displaySymbol}</Text>
                 </View>
               )
             }

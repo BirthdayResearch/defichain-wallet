@@ -3,7 +3,7 @@ import { IconBCH } from './IconBCH'
 import { IconBTC } from './IconBTC'
 import { IconDefault } from './IconDefault'
 import { IconDFI } from './IconDFI'
-import { IconDFIUTXO } from './IconDFIUTXO'
+import { IconUTXO } from './IconUTXO'
 import { IconDOGE } from './IconDOGE'
 import { IconETH } from './IconETH'
 import { IconLTC } from './IconLTC'
@@ -17,7 +17,7 @@ const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   ETH: IconETH,
   LTC: IconLTC,
   USDT: IconUSDT,
-  UTXO: IconDFIUTXO
+  _UTXO: IconUTXO
 }
 
 /**
@@ -33,13 +33,11 @@ const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
  *  Following a vector specification guideline, this allows anyone to create PR into that repo.
  *
  * @param {string} symbol of the assets
- * @param {string} id of token
  */
-export function getTokenIcon (symbol: string, id?: string): (props: SvgProps) => JSX.Element {
-  const symbolKey = id === '0_utxo' ? 'UTXO' : symbol
-  const Icon = mapping[symbolKey]
+export function getTokenIcon (symbol: string): (props: SvgProps) => JSX.Element {
+  const Icon = mapping[symbol]
   if (Icon === undefined) {
-    return IconDefault(symbolKey)
+    return IconDefault(symbol)
   }
   return Icon
 }

@@ -1,4 +1,3 @@
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
@@ -12,7 +11,7 @@ import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
 import { fetchTokens, useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
-import { getSymbolDisplay } from '../../../../store/wallet'
+import { WalletToken } from '../../../../store/wallet'
 import { translate } from '../../../../translations'
 import { BalanceParamList } from './BalancesNavigator'
 
@@ -61,8 +60,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   )
 }
 
-function BalanceItemRow ({ token, onPress }: { token: AddressToken, onPress: () => void }): JSX.Element {
-  const Icon = getTokenIcon(token.symbol, token.id)
+function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () => void }): JSX.Element {
+  const Icon = getTokenIcon(token.avatarSymbol)
 
   return (
     <TouchableOpacity
@@ -72,7 +71,7 @@ function BalanceItemRow ({ token, onPress }: { token: AddressToken, onPress: () 
       <View style={tailwind('flex-row items-center')}>
         <Icon />
         <View style={tailwind('mx-3')}>
-          <Text>{getSymbolDisplay(token)}</Text>
+          <Text>{token.displaySymbol}</Text>
           <Text style={tailwind('text-xs font-medium text-gray-600')}>{token.name}</Text>
         </View>
       </View>

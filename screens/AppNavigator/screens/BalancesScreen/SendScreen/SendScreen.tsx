@@ -1,4 +1,3 @@
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
@@ -11,12 +10,13 @@ import { Text, TextInput } from '../../../../../components'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../../components/PrimaryButton'
 import { PrimaryColor, PrimaryColorStyle } from '../../../../../constants/Theme'
+import { WalletToken } from '../../../../../store/wallet'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
 
 interface AmountForm {
   control: Control
-  token: AddressToken
+  token: WalletToken
   onMaxPress: (amount: string) => void
 }
 
@@ -30,7 +30,7 @@ export function SendScreen ({ route }: Props): JSX.Element {
   const [token] = useState(route.params.token)
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
 
-  const onSubmit = async (): Promise<void> => {
+  async function onSubmit (): Promise<void> {
     if (isValid) {
       const values = getValues()
       await send(new BigNumber(values.amount), values.address)
@@ -94,7 +94,7 @@ function AddressRow ({ control }: AddressForm): JSX.Element {
 }
 
 function AmountRow ({ token, control, onMaxPress }: AmountForm): JSX.Element {
-  const Icon = getTokenIcon(token.symbol, token.id)
+  const Icon = getTokenIcon(token.avatarSymbol)
   return (
     <>
       <Text

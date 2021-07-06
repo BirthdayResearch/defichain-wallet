@@ -10,10 +10,15 @@ export enum WalletStatus {
   ERROR
 }
 
+export interface WalletToken extends AddressToken {
+  displaySymbol: string
+  avatarSymbol: string
+}
+
 export interface WalletState {
   status: WalletStatus
   utxoBalance: string
-  tokens: AddressToken[]
+  tokens: WalletToken[]
   address: string
 }
 
@@ -24,26 +29,23 @@ const initialState: WalletState = {
   address: ''
 }
 
-const tokenDFI: AddressToken = {
+const tokenDFI: WalletToken = {
   id: '0',
   symbol: 'DFI',
   symbolKey: 'DFI',
   isDAT: true,
   isLPS: false,
   amount: '0',
-  name: 'Defichain'
+  name: 'Defichain',
+  displaySymbol: 'DFI (Token)',
+  avatarSymbol: 'DFI'
 }
 
-const utxoDFI: AddressToken = {
+const utxoDFI: WalletToken = {
   ...tokenDFI,
-  id: '0_utxo'
-}
-
-export const getSymbolDisplay = (token: AddressToken): string => {
-  if (token.symbol === 'DFI') {
-    return token.id === '0_utxo' ? 'DFI (UTXO)' : 'DFI (Token)'
-  }
-  return token.symbol
+  id: '0_utxo',
+  displaySymbol: 'DFI (UTXO)',
+  avatarSymbol: '_UTXO'
 }
 
 export const wallet = createSlice({
@@ -54,7 +56,18 @@ export const wallet = createSlice({
       state.status = action.payload
     },
     setTokens: (state, action: PayloadAction<AddressToken[]>) => {
-      state.tokens = action.payload
+      state.tokens = action.payload.map((t) => {
+        let displaySymbol = t.symbol
+        let avatarSymbol = t.symbol
+        if (t.id === '0') {
+          displaySymbol = 'DFI (Token)'
+        }
+        if (t.id === '0_utxo') {
+          displaySymbol = 'DFI (UTXO)'
+          avatarSymbol = '_UTXO'
+        }
+        return { ...t, displaySymbol: displaySymbol, avatarSymbol: avatarSymbol }
+      })
     },
     setUtxoBalance: (state, action: PayloadAction<string>) => {
       state.utxoBalance = action.payload

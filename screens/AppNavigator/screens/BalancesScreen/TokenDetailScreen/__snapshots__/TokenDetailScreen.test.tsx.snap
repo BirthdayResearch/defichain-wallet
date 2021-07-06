@@ -232,7 +232,7 @@ exports[`token detail screen should accept DST 1`] = `
           ]
         }
       >
-        Receive BTC
+        Receive undefined
       </Text>
       <Text
         allowFontScaling={false}
@@ -406,7 +406,7 @@ exports[`token detail screen should accept Token DFI 1`] = `
           ]
         }
       >
-        Convert DFI (Token)
+        Convert undefined
       </Text>
       <Text
         allowFontScaling={false}
@@ -665,7 +665,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
           ]
         }
       >
-        Receive DFI (UTXO)
+        Receive undefined
       </Text>
       <Text
         allowFontScaling={false}
@@ -750,7 +750,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
           ]
         }
       >
-        Convert DFI (UTXO)
+        Convert undefined
       </Text>
       <Text
         allowFontScaling={false}

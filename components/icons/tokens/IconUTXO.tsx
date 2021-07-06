@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Svg, { Circle, Path, SvgProps } from 'react-native-svg'
 
-export function IconDFIUTXO (props: SvgProps): JSX.Element {
+export function IconUTXO (props: SvgProps): JSX.Element {
   return (
     <Svg width={32} height={32} viewBox='0 0 32 32' {...props}>
       <Circle cx={16} cy={16} r={16} fill='rgba(255, 0, 175, 0.2)' />
