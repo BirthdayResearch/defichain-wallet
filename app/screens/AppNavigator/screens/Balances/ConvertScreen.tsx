@@ -14,11 +14,11 @@ import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { BalanceParamList } from './BalancesNavigator'
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
 import { Ionicons } from '@expo/vector-icons'
 import { PrimaryButton } from '../../../../components/PrimaryButton'
 import { translate } from '../../../../translations'
 import { getWhaleClient } from '../../../../middlewares/api/whale'
+import { getDefaultWallet } from '../../../../middlewares/wallet'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<BalanceParamList, 'ConvertScreen'>
@@ -36,7 +36,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   const [amount, setAmount] = useState<string>('0')
   const convAmount = new BigNumber(amount).isNaN() ? '0' : new BigNumber(amount).toString()
   const resultBal = new BigNumber(targetToken.amount).plus(convAmount)
-  const account = useWalletAPI().getWallet().get(0)
+  const account = getDefaultWallet().get(0)
   const whaleApiClient = getWhaleClient()
 
   const convert = useCallback(() => {
