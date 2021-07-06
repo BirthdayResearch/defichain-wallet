@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { renderHook } from "@testing-library/react-hooks";
 import { waitFor } from "@testing-library/react-native";
 import { EnvironmentNetwork } from "../../environment";
-import { useCachedWhaleClient } from "../api/whale";
+import { initWhaleClient } from "../api/whale";
 import { getDefaultWallet, getWallets, hasDefaultWallet, useCachedWallets } from "./index";
 import { WalletData, WalletType } from "./persistence";
 
@@ -12,11 +12,7 @@ jest.spyOn(console, 'error').mockImplementation(jest.fn)
 
 beforeEach(async () => {
   jest.clearAllMocks()
-
-  const { result } = renderHook(() => useCachedWhaleClient())
-  await waitFor(() => {
-    expect(result.current).toBeTruthy()
-  })
+  await initWhaleClient()
 })
 
 const ABANDON23: WalletData = {
