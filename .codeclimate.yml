@@ -12,6 +12,9 @@ checks:
 exclude_patterns:
   - "dist/"
   - "**/node_modules/"
+  - "**/cypress/"
+  - "**/app/assets/"
+  - "**/app/components/icons"
   - "**/*.test.ts"
   - "**/*.test.tsx"
   - "**/*.d.ts"
