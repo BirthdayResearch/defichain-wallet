@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../components'
-import { useNetworkContext } from "../../../contexts/NetworkContext";
+import { useNetworkContext } from '../../../contexts/NetworkContext'
 import { getPlaygroundApiClient } from '../../../middlewares/api/playground'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
 

@@ -4,7 +4,7 @@ import { getNetwork } from '../storage'
 
 let SINGLETON: WhaleApiClient | undefined
 
-export async function initWhaleClient () {
+export async function initWhaleClient (): Promise<WhaleApiClient> {
   SINGLETON = await newWhaleClient()
   return SINGLETON
 }

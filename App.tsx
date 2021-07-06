@@ -2,7 +2,7 @@ import * as SplashScreen from 'expo-splash-screen'
 import React from 'react'
 import { Provider } from 'react-redux'
 import './_shim'
-import { NetworkContainer } from "./app/contexts/NetworkContext";
+import { NetworkContainer } from './app/contexts/NetworkContext'
 import { useCachedResources } from './app/hooks/useCachedResources'
 import { useCachedPlaygroundClient } from './app/middlewares/api/playground'
 import { Logging } from './app/middlewares/logging'

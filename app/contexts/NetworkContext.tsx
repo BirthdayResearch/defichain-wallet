@@ -1,7 +1,7 @@
-import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { EnvironmentNetwork } from "../environment";
-import { initWhaleClient } from "../middlewares/api/whale";
-import { Logging } from "../middlewares/logging";
+import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react'
+import { EnvironmentNetwork } from '../environment'
+import { initWhaleClient } from '../middlewares/api/whale'
+import { Logging } from '../middlewares/logging'
 import * as storage from '../middlewares/storage'
 
 interface NetworkContext {
@@ -23,7 +23,7 @@ export function NetworkContainer (props: { children: ReactNode }): JSX.Element |
     storage.getNetwork().then(value => {
       setNetwork(value)
     }).catch(Logging.error)
-  }, []);
+  }, [])
 
   if (network === undefined) {
     return null
