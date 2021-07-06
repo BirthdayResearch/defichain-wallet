@@ -15,7 +15,7 @@ interface MissingLanguage {
   [key: string]: MissingLanguageItem
 }
 
-const DIRECTORIES = ['components', 'screens']
+const DIRECTORIES = ['app/components', 'app/screens']
 
 function getAllTranslationsKeys (keys: string[], map: Map<string, string[]>): Map<string, string[]> {
   keys.forEach((k) => {
