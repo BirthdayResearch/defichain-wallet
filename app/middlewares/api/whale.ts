@@ -14,7 +14,7 @@ export function getWhaleClient (): WhaleApiClient {
     return SINGLETON
   }
 
-  throw new Error('useCachedWhaleClient() === true, hooks must be called before getWhaleClient()')
+  throw new Error('initWhaleClient() must be called before getWhaleClient()')
 }
 
 async function newWhaleClient (): Promise<WhaleApiClient> {
