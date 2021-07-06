@@ -11,13 +11,13 @@ import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
+import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { fetchTokens } from '../../../../hooks/wallet/TokensAPI'
-import { getWhaleClient } from '../../../../middlewares/api/whale'
 import { RootState } from '../../../../store'
 import { translate } from '../../../../translations'
 
 export function DexScreen (): JSX.Element {
-  const whaleApiClient = getWhaleClient()
+  const client = useWhaleApiClient()
   const address = useSelector((state: RootState) => state.wallet.address)
   const [pairs, setPairs] = useState<Array<DexItem<PoolPairData>>>([])
   const dispatch = useDispatch()
@@ -26,7 +26,7 @@ export function DexScreen (): JSX.Element {
   useEffect(() => {
     // TODO(fuxingloh): does not auto refresh currently, but not required for MVP. Due to limited PP availability
     fetchTokens(address, dispatch)
-    whaleApiClient.poolpair.list(50).then(pairs => {
+    client.poolpair.list(50).then(pairs => {
       setPairs(pairs.map(data => ({ type: 'available', data: data })))
     }).catch((err) => {
       console.log(err)

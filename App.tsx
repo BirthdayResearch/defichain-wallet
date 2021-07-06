@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import './_shim'
 import { NetworkContainer } from './app/contexts/NetworkContext'
 import { PlaygroundContainer, useConnectedPlayground } from './app/contexts/PlaygroundContext'
+import { WhaleContainer } from './app/contexts/WhaleContext'
 import { useCachedResources } from './app/hooks/useCachedResources'
 import { Logging } from './app/middlewares/logging'
 import { Main } from './app/screens/Main'
@@ -36,9 +37,11 @@ export default function App (): JSX.Element | null {
   return (
     <NetworkContainer>
       <PlaygroundContainer>
-        <Provider store={store}>
-          <Main />
-        </Provider>
+        <WhaleContainer>
+          <Provider store={store}>
+            <Main />
+          </Provider>
+        </WhaleContainer>
       </PlaygroundContainer>
     </NetworkContainer>
   )

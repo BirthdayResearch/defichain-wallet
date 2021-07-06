@@ -7,14 +7,14 @@ import NumberFormat from 'react-number-format'
 import tailwind from 'tailwind-rn'
 import { Text } from '../../../../components'
 import { PrimaryColorStyle } from '../../../../constants/Theme'
+import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
-import { getWhaleClient } from '../../../../middlewares/api/whale'
 import { translate } from '../../../../translations'
 import { activitiesToViewModel, VMTransaction } from './screens/stateProcessor'
 import { TransactionsParamList } from './TransactionsNavigator'
 
 export function TransactionsScreen (): JSX.Element {
-  const whaleApiClient = getWhaleClient()
+  const client = useWhaleApiClient()
   const account = useWalletAPI().getWallet().get(0)
   const navigation = useNavigation<NavigationProp<TransactionsParamList>>()
 
@@ -34,7 +34,7 @@ export function TransactionsScreen (): JSX.Element {
 
     setLoadingStatus('loading')
     account.getAddress().then(async address => {
-      return await whaleApiClient.address.listTransaction(address, undefined, nextToken)
+      return await client.address.listTransaction(address, undefined, nextToken)
     }).then(async addActivities => {
       const newRows = activitiesToViewModel(addActivities)
       setAddressActivities([...activities, ...newRows])
