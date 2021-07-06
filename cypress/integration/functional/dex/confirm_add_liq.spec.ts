@@ -28,7 +28,6 @@ context('app/dex/addLiquidity', () => {
 
     // lm token amount and % is calculated = percentage * total pool, may vary like 7.7999999 or 7.80000001
     cy.getByTestID('liquidity_tokens_received_0').contains('7.').contains('DFI-BTC')
-    cy.getByTestID('share_of_pool_0').contains('0.007').contains('%')
 
     cy.getByTestID('primary_button_Confirm').click()
     cy.wait(4000)
