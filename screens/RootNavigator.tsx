@@ -7,7 +7,13 @@ import { WalletNavigator } from './WalletNavigator/WalletNavigator'
 /**
  * Top Root Level Wallet State to control what screen to show
  */
-export function RootNavigator (): JSX.Element {
+export function RootNavigator (): JSX.Element | null {
+  // const isLoaded = useCachedWallets()
+  //
+  // if (!isLoaded) {
+  //   return null
+  // }
+
   const WalletAPI = useWalletAPI()
   const status = WalletAPI.getStatus()
 

@@ -13,6 +13,7 @@ let jellyfishWallet: JellyfishWallet<WalletAccount, WalletHdNode> | undefined
 
 /**
  * IMPORTANT: Do not log anything in WalletAPI or any Wallet related features.
+ * @deprecated
  */
 const WalletAPI = {
   // TODO(fuxingloh): kinda awkward that dispatch is passed to WalletAPI.
@@ -62,6 +63,9 @@ const WalletAPI = {
   }
 }
 
+/**
+ * @deprecated
+ */
 export function useWalletAPI (): typeof WalletAPI {
   const status = useSelector<RootState, WalletStatus>(state => state.wallet.status)
   const dispatch = useDispatch()

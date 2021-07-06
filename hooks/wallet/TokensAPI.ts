@@ -6,6 +6,9 @@ import { getWhaleClient } from '../../app/api/whale'
 import { RootState } from '../../store'
 import { tokensSelector, wallet } from '../../store/wallet'
 
+/**
+ * @deprecated and move into store/ as getWhaleClient is store agnostic now
+ */
 export function fetchTokens (address: string, dispatch: Dispatch<any>): void {
   const client = getWhaleClient()
 
@@ -18,6 +21,9 @@ export function fetchTokens (address: string, dispatch: Dispatch<any>): void {
   }).catch((error) => console.log(error))
 }
 
+/**
+ * @deprecated and move into store/ as getWhaleClient is store agnostic now
+ */
 export function useTokensAPI (): AddressToken[] {
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const address = useSelector((state: RootState) => state.wallet.address)
