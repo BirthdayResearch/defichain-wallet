@@ -60,30 +60,37 @@ npm install
 
 ```txt
 wallet/
+├─ .github/
 ├─ app/
+│  ├─ assets/
+│  ├─ components/
+│  ├─ contexts/
 │  ├─ hooks/
-│  └─ wallet/
-├─ assets/
-├─ components/
-├─ cypress/
-├─ screens/
-│  ├─ ...Navigator/
-│  └─ Main.tsx
-├─ store/
-└─ translations/
-   └─ languages/
+│  ├─ middleware/
+│  ├─ screens/
+│  │  ├─ ...Navigator/
+│  │  └─ Main.tsx
+│  ├─ store/
+│  └─ translations/
+│     └─ languages/
+└─ cypress/
 ```
 
-DeFi Wallet project is structured with 7 core directories. Each pull request will likely carry significant changes into
-those directories with `i18n`, `e2e` and feature implementation.
+DeFi Wallet project is structured with 3 core directories. Each pull request will likely carry significant changes into
+those directories.
 
-1. `/app` - all non UI logic, hooks, wallet management and etc
-2. `/assets` - for assets of the project that can be loaded at startup
-3. `/components` - top level components for shared design language
-4. `/cypress` - E2E tested facilitated through web technologies
-5. `/screens` - screens hierarchy tree matching directory hierarchy tree
-6. `/store`  - global state that is used at least more than once in screens
-7. `/translations` - various language translations
+Directory               | Description
+------------------------|-------------
+`/.github`              | workflow for shift left automation
+`/app/assets`           | assets of the project that can be loaded at startup
+`/app/components`       | top level components for a shared design language
+`/app/contexts`         | shared contexts for application, non-UI logic
+`/app/hooks`            | shared hooks for application, for UI logic only
+`/app/middlewares`      | middlewares for application, non-UI logic
+`/app/screens`          | screens hierarchy tree matching directory hierarchy tree
+`/app/store`            | global state that is used at least more than once in screens, for UI logic only
+`/app/translations`     | various language translations
+`/cypress`              | E2E tested facilitated through web testing technologies
 
 ### Testing
 
@@ -95,7 +102,8 @@ Unit testing is created to test each individual units/components of a software. 
 closely co-located together with the unit. They follow the naming semantic of `*.test.ts` and placed together in the
 same directory of the code you are testing.
 
-Unit tests are written for `/app`, `/components`, `/screens` and `/store`. Code coverage is collected for this.
+Unit tests are written for `/app/contexts`, `/app/middlewares`, `/app/components`, `/app/screens` and `/app/store`. Code
+coverage is collected for this.
 
 #### End-to-end Testing
 
@@ -116,7 +124,7 @@ under the hood, you can `npm run playground` for the local playground environmen
 are not real, it can be minted by anyone. Blocks are generated every 3 seconds, the chain resets daily on remote
 playground.
 
-`/screens/PlaygroundNavigator/*` contains various end user (cypress included) testing screen for debugging and setup
+`/app/screens/PlaygroundNavigator/*` contains various end user (cypress included) testing screen for debugging and setup
 purpose that can be accessed in development and preview environment.
 
 ### IntelliJ IDEA

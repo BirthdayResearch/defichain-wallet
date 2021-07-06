@@ -24,11 +24,11 @@ The benefits of this design allows:
 
 ## Testing Guides
 
-| Type | Location                                 |
-| ---- | ---------------------------------------- |
-| ui   | [screens/**/__ tests __](./screens/**/__tests__)      |
-| api  | [hooks/**/__ tests __](./hooks/**/__tests__)          |
-| e2e  | [cypress/integration/functional](./cypress/integration/functional) |
+Type | Location
+---- | ----------------------------------------
+ui   | [app/screens/**.test.ts](app/screens)
+api  | [app/hooks/**.test.ts](app/hooks)
+e2e  | [cypress/integration/functional](./cypress/integration/functional)
 
 ### Element should have `testID` attributes
 
@@ -41,7 +41,7 @@ By not using `__tests__` directory, this keep the imports (`../button`) clean an
 it easier for discovery of test and keep the related concerns together.
 
 ```txt
-src/
+app/
 ├─ components/
 │  ├─ button.tsx
 │  └─ button.test.tsx
