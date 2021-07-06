@@ -14,7 +14,17 @@ labels:
   - label: area/assets
     sync: true
     matcher:
-      files: "assets/**"
+      files: "app/assets/**"
+
+  - label: area/translations
+    sync: true
+    matcher:
+      files: "app/translations/**"
+
+  - label: area/store
+    sync: true
+    matcher:
+      files: "app/store/**"
 
   - label: area/e2e
     sync: true
@@ -25,20 +35,10 @@ labels:
     sync: true
     matcher:
       files:
-        - "screens/**"
-        - "components/**"
+        - "app/screens/**"
+        - "app/components/**"
 
   - label: area/playground
     sync: true
     matcher:
-      files: "screens/PlaygroundNavigator/**"
-
-  - label: area/translations
-    sync: true
-    matcher:
-      files: "translations/**"
-
-  - label: area/store
-    sync: true
-    matcher:
-      files: "store/**"
+      files: "app/screens/PlaygroundNavigator/**"
