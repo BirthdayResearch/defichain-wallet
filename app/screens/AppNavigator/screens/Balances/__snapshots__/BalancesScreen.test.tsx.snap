@@ -1,0 +1,897 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`balances page should match snapshot 1`] = `
+<RCTScrollView
+  ItemSeparatorComponent={[Function]}
+  ListHeaderComponent={
+    <React.Fragment>
+      <View
+        style={
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 231, 235, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 231, 235, 1)",
+            "borderRightColor": "rgba(229, 231, 235, 1)",
+            "borderTopColor": "rgba(229, 231, 235, 1)",
+            "flexDirection": "row",
+            "paddingBottom": 12,
+            "paddingTop": 12,
+          }
+        }
+      >
+        <BalanceActionButton
+          icon="arrow-downward"
+          onPress={[Function]}
+          title="RECEIVE"
+        />
+      </View>
+      <Text
+        style={
+          Object {
+            "color": "rgba(107, 114, 128, 1)",
+            "fontSize": 12,
+            "lineHeight": 16,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          }
+        }
+        testID="balances_title"
+      >
+        BALANCE DETAILS
+      </Text>
+    </React.Fragment>
+  }
+  data={
+    Array [
+      Object {
+        "amount": "23",
+        "id": "0",
+        "isDAT": true,
+        "isLPS": false,
+        "name": "Defi",
+        "symbol": "DFI",
+        "symbolKey": "DFI",
+      },
+      Object {
+        "amount": "777",
+        "id": "1",
+        "isDAT": true,
+        "isLPS": false,
+        "name": "Bitcoin",
+        "symbol": "BTC",
+        "symbolKey": "BTC",
+      },
+      Object {
+        "amount": "555",
+        "id": "2",
+        "isDAT": true,
+        "isLPS": false,
+        "name": "Ethereum",
+        "symbol": "ETH",
+        "symbolKey": "ETH",
+      },
+    ]
+  }
+  disableVirtualization={false}
+  getItem={[Function]}
+  getItemCount={[Function]}
+  horizontal={false}
+  initialNumToRender={10}
+  keyExtractor={[Function]}
+  maxToRenderPerBatch={10}
+  onContentSizeChange={[Function]}
+  onEndReachedThreshold={2}
+  onLayout={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  refreshControl={
+    <RefreshControlMock
+      onRefresh={[Function]}
+      refreshing={false}
+    />
+  }
+  removeClippedSubviews={false}
+  renderItem={[Function]}
+  scrollEventThrottle={50}
+  stickyHeaderIndices={Array []}
+  style={
+    Object {
+      "backgroundColor": "rgba(243, 244, 246, 1)",
+    }
+  }
+  testID="balances_list"
+  updateCellsBatchingPeriod={50}
+  viewabilityConfigCallbackPairs={Array []}
+  windowSize={21}
+>
+  <RCTRefreshControl />
+  <View>
+    <View
+      onLayout={[Function]}
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(229, 231, 235, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(229, 231, 235, 1)",
+              "borderRightColor": "rgba(229, 231, 235, 1)",
+              "borderTopColor": "rgba(229, 231, 235, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "borderBottomColor": "rgba(209, 213, 219, 1)",
+              "borderBottomLeftRadius": 4,
+              "borderBottomRightRadius": 4,
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(209, 213, 219, 1)",
+              "borderLeftWidth": 1,
+              "borderRightColor": "rgba(209, 213, 219, 1)",
+              "borderRightWidth": 1,
+              "borderTopColor": "rgba(209, 213, 219, 1)",
+              "borderTopLeftRadius": 4,
+              "borderTopRightRadius": 4,
+              "borderTopWidth": 1,
+              "flexDirection": "row",
+              "marginLeft": 12,
+              "opacity": 1,
+              "paddingBottom": 6,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 6,
+            }
+          }
+          testID="button_TO_DFC"
+        >
+          <Text />
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 16,
+                  "fontWeight": "600",
+                },
+                Array [
+                  Object {
+                    "marginLeft": 4,
+                    "marginRight": 4,
+                  },
+                  Object {
+                    "color": "#ff00af",
+                  },
+                ],
+              ]
+            }
+          >
+            TO_DFC
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "borderBottomColor": "rgba(209, 213, 219, 1)",
+              "borderBottomLeftRadius": 4,
+              "borderBottomRightRadius": 4,
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(209, 213, 219, 1)",
+              "borderLeftWidth": 1,
+              "borderRightColor": "rgba(209, 213, 219, 1)",
+              "borderRightWidth": 1,
+              "borderTopColor": "rgba(209, 213, 219, 1)",
+              "borderTopLeftRadius": 4,
+              "borderTopRightRadius": 4,
+              "borderTopWidth": 1,
+              "flexDirection": "row",
+              "marginLeft": 12,
+              "opacity": 1,
+              "paddingBottom": 6,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 6,
+            }
+          }
+          testID="button_TO_UTXOS"
+        >
+          <Text />
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 16,
+                  "fontWeight": "600",
+                },
+                Array [
+                  Object {
+                    "marginLeft": 4,
+                    "marginRight": 4,
+                  },
+                  Object {
+                    "color": "#ff00af",
+                  },
+                ],
+              ]
+            }
+          >
+            TO_UTXOS
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "borderBottomColor": "rgba(209, 213, 219, 1)",
+              "borderBottomLeftRadius": 4,
+              "borderBottomRightRadius": 4,
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(209, 213, 219, 1)",
+              "borderLeftWidth": 1,
+              "borderRightColor": "rgba(209, 213, 219, 1)",
+              "borderRightWidth": 1,
+              "borderTopColor": "rgba(209, 213, 219, 1)",
+              "borderTopLeftRadius": 4,
+              "borderTopRightRadius": 4,
+              "borderTopWidth": 1,
+              "flexDirection": "row",
+              "marginLeft": 12,
+              "opacity": 1,
+              "paddingBottom": 6,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 6,
+            }
+          }
+          testID="button_RECEIVE"
+        >
+          <Text />
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 16,
+                  "fontWeight": "600",
+                },
+                Array [
+                  Object {
+                    "marginLeft": 4,
+                    "marginRight": 4,
+                  },
+                  Object {
+                    "color": "#ff00af",
+                  },
+                ],
+              ]
+            }
+          >
+            RECEIVE
+          </Text>
+        </View>
+      </View>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "fontWeight": "600",
+            },
+            Object {
+              "color": "rgba(107, 114, 128, 1)",
+              "fontSize": 12,
+              "lineHeight": 16,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 16,
+            },
+          ]
+        }
+        testID="balances_title"
+      >
+        BALANCE DETAILS
+      </Text>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "opacity": 1,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 8,
+            "paddingTop": 16,
+          }
+        }
+        testID="balances_row_0"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              },
+            ]
+          }
+        >
+          <RNSVGSvgView
+            align="xMidYMid"
+            bbHeight={32}
+            bbWidth={32}
+            focusable={false}
+            height={32}
+            meetOrSlice={0}
+            minX={0}
+            minY={0}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "borderWidth": 0,
+                },
+                Object {
+                  "flex": 0,
+                  "height": 32,
+                  "width": 32,
+                },
+              ]
+            }
+            vbHeight={32}
+            vbWidth={32}
+            width={32}
+          >
+            <RNSVGGroup>
+              <RNSVGCircle
+                cx={16}
+                cy={16}
+                fill={4282664004}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                r={16}
+              />
+              <RNSVGText
+                alignmentBaseline="middle"
+                content={null}
+                dx={Array []}
+                dy={Array []}
+                fill={4294967295}
+                font={
+                  Object {
+                    "fontSize": "11",
+                    "fontWeight": "bolder",
+                    "textAnchor": "middle",
+                  }
+                }
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                rotate={Array []}
+                x={
+                  Array [
+                    "50%",
+                  ]
+                }
+                y={
+                  Array [
+                    "50%",
+                  ]
+                }
+              />
+            </RNSVGGroup>
+          </RNSVGSvgView>
+          <View
+            style={
+              Array [
+                Object {
+                  "marginLeft": 12,
+                  "marginRight": 12,
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontSize": 16,
+                    "fontWeight": "600",
+                  },
+                  undefined,
+                ]
+              }
+            />
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontSize": 16,
+                    "fontWeight": "600",
+                  },
+                  Object {
+                    "color": "rgba(75, 85, 99, 1)",
+                    "fontSize": 12,
+                    "fontWeight": "500",
+                    "lineHeight": 16,
+                  },
+                ]
+              }
+            >
+              Defi
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 16,
+                  "fontWeight": "600",
+                },
+                Object {
+                  "marginRight": 8,
+                },
+              ]
+            }
+            testID="balances_row_0_amount"
+          >
+            23
+          </Text>
+          <Text />
+        </View>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(243, 244, 246, 1)",
+              "height": 1,
+            },
+          ]
+        }
+      />
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "opacity": 1,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 8,
+            "paddingTop": 16,
+          }
+        }
+        testID="balances_row_1"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              },
+            ]
+          }
+        >
+          <RNSVGSvgView
+            align="xMidYMid"
+            bbHeight={32}
+            bbWidth={32}
+            focusable={false}
+            height={32}
+            meetOrSlice={0}
+            minX={0}
+            minY={0}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "borderWidth": 0,
+                },
+                Object {
+                  "flex": 0,
+                  "height": 32,
+                  "width": 32,
+                },
+              ]
+            }
+            vbHeight={32}
+            vbWidth={32}
+            width={32}
+          >
+            <RNSVGGroup>
+              <RNSVGCircle
+                cx={16}
+                cy={16}
+                fill={4282664004}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                r={16}
+              />
+              <RNSVGText
+                alignmentBaseline="middle"
+                content={null}
+                dx={Array []}
+                dy={Array []}
+                fill={4294967295}
+                font={
+                  Object {
+                    "fontSize": "11",
+                    "fontWeight": "bolder",
+                    "textAnchor": "middle",
+                  }
+                }
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                rotate={Array []}
+                x={
+                  Array [
+                    "50%",
+                  ]
+                }
+                y={
+                  Array [
+                    "50%",
+                  ]
+                }
+              />
+            </RNSVGGroup>
+          </RNSVGSvgView>
+          <View
+            style={
+              Array [
+                Object {
+                  "marginLeft": 12,
+                  "marginRight": 12,
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontSize": 16,
+                    "fontWeight": "600",
+                  },
+                  undefined,
+                ]
+              }
+            />
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontSize": 16,
+                    "fontWeight": "600",
+                  },
+                  Object {
+                    "color": "rgba(75, 85, 99, 1)",
+                    "fontSize": 12,
+                    "fontWeight": "500",
+                    "lineHeight": 16,
+                  },
+                ]
+              }
+            >
+              Bitcoin
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 16,
+                  "fontWeight": "600",
+                },
+                Object {
+                  "marginRight": 8,
+                },
+              ]
+            }
+            testID="balances_row_1_amount"
+          >
+            777
+          </Text>
+          <Text />
+        </View>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(243, 244, 246, 1)",
+              "height": 1,
+            },
+          ]
+        }
+      />
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "opacity": 1,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 8,
+            "paddingTop": 16,
+          }
+        }
+        testID="balances_row_2"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              },
+            ]
+          }
+        >
+          <RNSVGSvgView
+            align="xMidYMid"
+            bbHeight={32}
+            bbWidth={32}
+            focusable={false}
+            height={32}
+            meetOrSlice={0}
+            minX={0}
+            minY={0}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "borderWidth": 0,
+                },
+                Object {
+                  "flex": 0,
+                  "height": 32,
+                  "width": 32,
+                },
+              ]
+            }
+            vbHeight={32}
+            vbWidth={32}
+            width={32}
+          >
+            <RNSVGGroup>
+              <RNSVGCircle
+                cx={16}
+                cy={16}
+                fill={4282664004}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                r={16}
+              />
+              <RNSVGText
+                alignmentBaseline="middle"
+                content={null}
+                dx={Array []}
+                dy={Array []}
+                fill={4294967295}
+                font={
+                  Object {
+                    "fontSize": "11",
+                    "fontWeight": "bolder",
+                    "textAnchor": "middle",
+                  }
+                }
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                rotate={Array []}
+                x={
+                  Array [
+                    "50%",
+                  ]
+                }
+                y={
+                  Array [
+                    "50%",
+                  ]
+                }
+              />
+            </RNSVGGroup>
+          </RNSVGSvgView>
+          <View
+            style={
+              Array [
+                Object {
+                  "marginLeft": 12,
+                  "marginRight": 12,
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontSize": 16,
+                    "fontWeight": "600",
+                  },
+                  undefined,
+                ]
+              }
+            />
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontSize": 16,
+                    "fontWeight": "600",
+                  },
+                  Object {
+                    "color": "rgba(75, 85, 99, 1)",
+                    "fontSize": 12,
+                    "fontWeight": "500",
+                    "lineHeight": 16,
+                  },
+                ]
+              }
+            >
+              Ethereum
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 16,
+                  "fontWeight": "600",
+                },
+                Object {
+                  "marginRight": 8,
+                },
+              ]
+            }
+            testID="balances_row_2_amount"
+          >
+            555
+          </Text>
+          <Text />
+        </View>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;
