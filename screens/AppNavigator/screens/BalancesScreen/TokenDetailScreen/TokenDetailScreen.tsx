@@ -14,6 +14,7 @@ interface TokenActionItems {
   title: string
   icon: React.ComponentProps<typeof MaterialIcons>['name']
   onPress: () => void
+  testID: string
 }
 
 type Props = StackScreenProps<BalanceParamList, 'TokenDetailScreen'>
@@ -38,10 +39,12 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
         token.id !== '0' && (
           <>
             <TokenActionRow
+              testID='send_button'
               title={translate('screens/TokenDetailScreen', 'Send to other wallet')} icon='arrow-upward'
               onPress={() => navigation.navigate('Send', { token })}
             />
             <TokenActionRow
+              testID='receive_button'
               title={`${translate('screens/TokenDetailScreen', 'Receive')} ${getSymbolDisplay(token)}`} icon='arrow-downward'
               onPress={() => navigation.navigate('Receive')}
             />
@@ -51,6 +54,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
       {
         token.symbol === 'DFI' && (
           <TokenActionRow
+            testID='convert_button'
             title={`${translate('screens/TokenDetailScreen', 'Convert')} ${getSymbolDisplay(token)}`}
             icon='swap-vert' onPress={() => navigation.navigate('Convert')}
           />
@@ -60,9 +64,9 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
   )
 }
 
-function TokenActionRow ({ title, icon, onPress }: TokenActionItems): JSX.Element {
+function TokenActionRow ({ title, icon, onPress, testID }: TokenActionItems): JSX.Element {
   return (
-    <TouchableOpacity onPress={onPress} style={tailwind('flex-row py-4 pl-4 pr-2 bg-white border-b border-gray-200')}>
+    <TouchableOpacity testID={testID} onPress={onPress} style={tailwind('flex-row py-4 pl-4 pr-2 bg-white border-b border-gray-200')}>
       <MaterialIcons name={icon} size={24} color={PrimaryColor} />
       <Text style={tailwind('flex-grow ml-2')}>
         {title}
