@@ -1,4 +1,3 @@
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
@@ -12,6 +11,7 @@ import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
 import { fetchTokens, useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
+import { WalletToken } from '../../../../store/wallet'
 import { translate } from '../../../../translations'
 import { BalanceParamList } from './BalancesNavigator'
 
@@ -40,35 +40,38 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       renderItem={({ item }) =>
         <BalanceItemRow
           token={item} key={item.symbol}
-          onPress={() => navigation.navigate('Send', { token: item })}
+          onPress={() => navigation.navigate('TokenDetail', { token: item })}
         />}
       ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
       ListHeaderComponent={
-        <View style={tailwind('flex-row justify-end px-4 py-3 bg-white border-b border-gray-200')}>
-          <BalanceActionButton
-            icon='arrow-downward' title='RECEIVE'
-            onPress={() => navigation.navigate('Receive')}
-          />
-        </View>
+        <>
+          <View style={tailwind('flex-row py-3 bg-white border-b border-gray-200')}>
+            <BalanceActionButton
+              icon='arrow-downward' title='RECEIVE'
+              onPress={() => navigation.navigate('Receive')}
+            />
+          </View>
+          <Text testID='balances_title' style={tailwind('p-4 text-xs text-gray-500')}>
+            {translate('screens/BalancesScreen', 'BALANCE DETAILS')}
+          </Text>
+        </>
       }
     />
   )
 }
 
-function BalanceItemRow ({ token, onPress }: { token: AddressToken, onPress: () => void }): JSX.Element {
-  const Icon = getTokenIcon(token.symbol)
-  const isDisabled = token.id === '0'
+function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () => void }): JSX.Element {
+  const Icon = getTokenIcon(token.avatarSymbol)
 
   return (
     <TouchableOpacity
-      disabled={isDisabled}
       onPress={onPress} testID={`balances_row_${token.id}`}
       style={tailwind('bg-white py-4 pl-4 pr-2 flex-row justify-between items-center')}
     >
       <View style={tailwind('flex-row items-center')}>
         <Icon />
         <View style={tailwind('mx-3')}>
-          <Text>{token.symbol}</Text>
+          <Text>{token.displaySymbol}</Text>
           <Text style={tailwind('text-xs font-medium text-gray-600')}>{token.name}</Text>
         </View>
       </View>
@@ -80,7 +83,7 @@ function BalanceItemRow ({ token, onPress }: { token: AddressToken, onPress: () 
             <Text style={tailwind('mr-2')} testID={`balances_row_${token.id}_amount`}>
               {value}
             </Text>
-            <MaterialIcons name='chevron-right' size={24} style={isDisabled ? tailwind('opacity-0') : []} />
+            <MaterialIcons name='chevron-right' size={24} />
           </View>}
       />
     </TouchableOpacity>

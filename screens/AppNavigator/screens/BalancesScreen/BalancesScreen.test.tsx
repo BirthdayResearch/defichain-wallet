@@ -90,5 +90,34 @@ describe('balances page', () => {
     fireEvent.press(receiveButton)
     expect(spy).toHaveBeenCalled()
   })
+
+  it('should navigate to token detail page', async () => {
+    const initialState: Partial<RootState> = {
+      wallet: {
+        address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
+        status: WalletStatus.LOADED_WALLET,
+        utxoBalance: '77',
+        tokens: []
+      }
+    };
+    const store = configureStore({
+      preloadedState: initialState,
+      reducer: { wallet: wallet.reducer }
+    })
+    const navigation: any = {
+      navigate: jest.fn(),
+    }
+    const route: any = {}
+    const spy = jest.spyOn(navigation, 'navigate')
+    const component = (
+      <Provider store={store}>
+        <BalancesScreen navigation={navigation} route={route} />
+      </Provider>
+    );
+    const rendered = render(component)
+    const receiveButton = await rendered.findByTestId('balances_row_0')
+    fireEvent.press(receiveButton)
+    expect(spy).toHaveBeenCalled()
+  })
 })
 

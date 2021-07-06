@@ -1,10 +1,9 @@
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { getWhaleClient } from '../../app/api/whale'
 import { RootState } from '../../store'
-import { tokensSelector, wallet } from '../../store/wallet'
+import { tokensSelector, wallet, WalletToken } from '../../store/wallet'
 
 /**
  * @deprecated and move into store/ as getWhaleClient is store agnostic now
@@ -24,7 +23,7 @@ export function fetchTokens (address: string, dispatch: Dispatch<any>): void {
 /**
  * @deprecated and move into store/ as getWhaleClient is store agnostic now
  */
-export function useTokensAPI (): AddressToken[] {
+export function useTokensAPI (): WalletToken[] {
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const address = useSelector((state: RootState) => state.wallet.address)
   const dispatch = useDispatch()

@@ -3,6 +3,7 @@ import { IconBCH } from './IconBCH'
 import { IconBTC } from './IconBTC'
 import { IconDefault } from './IconDefault'
 import { IconDFI } from './IconDFI'
+import { IconUTXO } from './IconUTXO'
 import { IconDOGE } from './IconDOGE'
 import { IconETH } from './IconETH'
 import { IconLTC } from './IconLTC'
@@ -15,7 +16,8 @@ const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   DOGE: IconDOGE,
   ETH: IconETH,
   LTC: IconLTC,
-  USDT: IconUSDT
+  USDT: IconUSDT,
+  _UTXO: IconUTXO
 }
 
 /**

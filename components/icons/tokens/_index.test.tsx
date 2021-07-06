@@ -2,7 +2,7 @@ import * as React from 'react'
 import { getTokenIcon } from "./_index";
 import { render } from "@testing-library/react-native";
 
-const icons = ['DFI', 'FAKE', 'BCH', 'BTC', 'DOGE', 'ETH', 'LTC', 'USDT']
+const icons = ['DFI', 'FAKE', 'BCH', 'BTC', 'DOGE', 'ETH', 'LTC', 'USDT', '_UTXO']
 
 describe('token icons', () => {
   icons.forEach(icon => {

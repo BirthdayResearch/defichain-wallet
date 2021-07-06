@@ -1,15 +1,21 @@
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
+import { View } from 'react-native'
+import tailwind from 'tailwind-rn'
+import { Text } from '../../../../components'
+import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { WalletToken } from '../../../../store/wallet'
 import { translate } from '../../../../translations'
 import { BalancesScreen } from './BalancesScreen'
 import { ReceiveScreen } from './ReceiveScreen/ReceiveScreen'
 import { SendScreen } from './SendScreen/SendScreen'
+import { TokenDetailScreen } from './TokenDetailScreen/TokenDetailScreen'
 
 export interface BalanceParamList {
   BalancesScreen: undefined
   ReceiveScreen: undefined
-  SendScreen: { token: AddressToken }
+  SendScreen: { token: WalletToken }
+  TokenDetailScreen: { token: WalletToken }
 
   [key: string]: undefined | object
 }
@@ -35,6 +41,24 @@ export function BalancesNavigator (): JSX.Element {
         options={{
           headerTitle: translate('screens/SendScreen', 'Wallet Send'),
           headerBackTitleVisible: false
+        }}
+      />
+      <BalanceStack.Screen
+        name='TokenDetail'
+        component={TokenDetailScreen}
+        options={({ route }: { route: any }) => {
+          return {
+            headerTitle: () => {
+              const token = route?.params?.token
+              const Icon = getTokenIcon(token.avatarSymbol)
+              return (
+                <View style={tailwind('flex-row items-center')}>
+                  <Icon />
+                  <Text style={tailwind('ml-2')}>{token.displaySymbol}</Text>
+                </View>
+              )
+            }
+          }
         }}
       />
     </BalanceStack.Navigator>
