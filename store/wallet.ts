@@ -65,7 +65,7 @@ export const wallet = createSlice({
           displaySymbol = 'DFI (UTXO)'
           avatarSymbol = '_UTXO'
         }
-        return { ...t, displaySymbol: displaySymbol, avatarSymbol: avatarSymbol }
+        return { ...t, displaySymbol, avatarSymbol }
       })
     },
     setUtxoBalance: (state, action: PayloadAction<string>) => {
