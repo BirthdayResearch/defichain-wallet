@@ -41,12 +41,12 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const [tokenB, setTokenB] = useState<AddressToken>()
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
 
-  const onSubmit = (): void => {
+  function onSubmit (): void {
     console.log(isValid)
     console.log(getValues())
   }
 
-  const swapToken = (): void => {
+  function swapToken (): void {
     setTokenA(tokenB)
     setTokenB(tokenA)
   }
