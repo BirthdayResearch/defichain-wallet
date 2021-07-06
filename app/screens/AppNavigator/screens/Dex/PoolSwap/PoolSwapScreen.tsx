@@ -71,7 +71,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           await trigger(tokenAForm)
         }}
       />
-      <TouchableOpacity style={tailwind('justify-center items-center mt-4')} onPress={swapToken}>
+      <TouchableOpacity style={tailwind('justify-center items-center mt-4')} onPress={swapToken} testID='swap_button'>
         <MaterialIcons name='swap-vert' size={28} color={PrimaryColor} />
       </TouchableOpacity>
       <TokenRow
@@ -82,7 +82,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         (new BigNumber(getValues()[tokenAForm]).isGreaterThan(0) && new BigNumber(getValues()[tokenBForm]).isGreaterThan(0)) &&
           <SwapSummary poolpair={poolpair} tokenA={tokenA} tokenB={tokenB} />
       }
-      <PrimaryButton disabled={!isValid} title='Swap' onPress={onSubmit}>
+      <PrimaryButton disabled={!isValid} title='Swap' onPress={onSubmit} testID='button_submit'>
         <Text style={tailwind('text-white font-bold')}>{translate('screens/PoolSwapScreen', 'SWAP')}</Text>
       </PrimaryButton>
     </ScrollView>
@@ -117,6 +117,7 @@ function TokenRow ({ token, control, onMaxPress, title, controlName }: TokenForm
               value={value}
               keyboardType='numeric'
               placeholder={translate('screens/PoolSwapScreen', 'Enter an amount')}
+              testID={`input_amount_${token.id}`}
             />
             <View style={tailwind('flex-row bg-white pr-4 items-center')}>
               <Icon />
@@ -137,7 +138,7 @@ function TokenRow ({ token, control, onMaxPress, title, controlName }: TokenForm
         </View>
         {
           (onMaxPress != null) && (
-            <TouchableOpacity onPress={() => onMaxPress(token.amount)}>
+            <TouchableOpacity testID='max_button_token_a' onPress={() => onMaxPress(token.amount)}>
               <Text
                 style={[PrimaryColorStyle.text, tailwind('font-bold')]}
               >{translate('screens/PoolSwapScreen', 'MAX')}
