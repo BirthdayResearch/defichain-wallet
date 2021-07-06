@@ -30,9 +30,8 @@ context('app/dex/addLiquidity', () => {
     cy.getByTestID('liquidity_tokens_received_0').contains('7.').contains('DFI-BTC')
     cy.getByTestID('share_of_pool_0').contains('0.007').contains('%')
 
-    cy.intercept('/v0/playground/transactions/send').as('sendRaw')
     cy.getByTestID('primary_button_Confirm').click()
-    cy.wait(['@sendRaw'])
+    cy.wait(4000)
 
     // // redirected back to dex root page
     // cy.getByTestID('liquidity_screen_list').should('exist')
