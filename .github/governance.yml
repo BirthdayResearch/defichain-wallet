@@ -19,8 +19,12 @@ issue:
       list:
         - feature
         - bug
+        - fix
         - refactor
         - question
+        - chore
+        - docs
+        - dependencies
       multiple: false
       needs: true
       author_association:

@@ -14,7 +14,7 @@
     "test:ci": "jest --ci --coverage",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --headless --browser chrome",
-    "translation:missing": "ts-node translations/reporter/index.ts"
+    "translation:missing": "ts-node app/translations/reporter/index.ts"
   },
   "dependencies": {
     "@defichain/jellyfish-address": ">=0.21.0",

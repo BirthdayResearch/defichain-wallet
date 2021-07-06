@@ -12,6 +12,7 @@ checks:
 exclude_patterns:
   - "dist/"
   - "**/node_modules/"
+  - "**/cypress/"
   - "**/*.test.ts"
   - "**/*.test.tsx"
   - "**/*.d.ts"
