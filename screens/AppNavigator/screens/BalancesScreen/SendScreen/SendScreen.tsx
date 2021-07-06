@@ -1,6 +1,3 @@
-import { DeFiAddress } from '@defichain/jellyfish-address'
-import { NetworkName } from '@defichain/jellyfish-network'
-import { CTransactionSegWit } from '@defichain/jellyfish-transaction'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -9,15 +6,11 @@ import React, { useState } from 'react'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import { useForm, Controller, Control } from 'react-hook-form'
 import NumberFormat from 'react-number-format'
-import { useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { Text, TextInput } from '../../../../../components'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../../components/PrimaryButton'
 import { PrimaryColor, PrimaryColorStyle } from '../../../../../constants/Theme'
-import { useWhaleApiClient } from '../../../../../hooks/api/useWhaleApiClient'
-import { useWalletAPI } from '../../../../../hooks/wallet/WalletAPI'
-import { RootState } from '../../../../../store'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
 
@@ -34,9 +27,6 @@ interface AddressForm {
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
 export function SendScreen ({ route }: Props): JSX.Element {
-  const network = useSelector<RootState, NetworkName>(state => state.network.whale?.network as any)
-  const walletAPI = useWalletAPI()
-  const whaleAPI = useWhaleApiClient()
   const [token] = useState(route.params.token)
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
 
@@ -48,15 +38,7 @@ export function SendScreen ({ route }: Props): JSX.Element {
   }
 
   async function send (amount: BigNumber, address: string): Promise<void> {
-    const account = walletAPI.getWallet().get(0)
-    const signed = await account.withTransactionBuilder().utxo.send(
-      amount,
-      DeFiAddress.from(network, address).getScript(),
-      await account.getScript()
-    )
-    await whaleAPI.transactions.send({
-      hex: new CTransactionSegWit(signed).toHex()
-    })
+    console.log(amount, address)
   }
 
   return (
