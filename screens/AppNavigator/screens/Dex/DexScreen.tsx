@@ -118,7 +118,7 @@ function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () =>
   const IconB = getTokenIcon(symbolB)
 
   return (
-    <View testID='pool_pair_row' style={tailwind('p-4 bg-white')}>
+    <View testID='pool_pair_row_your' style={tailwind('p-4 bg-white')}>
       <View style={tailwind('flex-row items-center justify-between')}>
         <View style={tailwind('flex-row items-center')}>
           <IconA width={32} height={32} />
@@ -126,8 +126,8 @@ function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () =>
           <Text style={tailwind('text-lg')}>{data.symbol}</Text>
         </View>
         <View style={tailwind('flex-row -mr-3')}>
-          <PoolPairLiqBtn name='remove' />
-          <PoolPairLiqBtn name='add' onPress={onAdd} />
+          <PoolPairLiqBtn name='remove' pair={data.symbol} />
+          <PoolPairLiqBtn name='add' onPress={onAdd} pair={data.symbol} />
         </View>
       </View>
 
@@ -153,7 +153,7 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
         </View>
 
         <View style={tailwind('flex-row -mr-2')}>
-          <PoolPairLiqBtn name='add' onPress={onAdd} />
+          <PoolPairLiqBtn name='add' onPress={onAdd} pair={data.symbol} />
           <PoolPairSwapBtn />
         </View>
       </View>
@@ -166,9 +166,13 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
   )
 }
 
-function PoolPairLiqBtn (props: { name: 'remove' | 'add', onPress?: () => void }): JSX.Element {
+function PoolPairLiqBtn (props: { name: 'remove' | 'add', pair: string, onPress?: () => void }): JSX.Element {
   return (
-    <TouchableOpacity style={tailwind('py-2 px-3')} onPress={props.onPress}>
+    <TouchableOpacity
+      testID={`pool_pair_${props.name}_${props.pair}`}
+      style={tailwind('py-2 px-3')}
+      onPress={props.onPress}
+    >
       <MaterialIcons size={24} name={props.name} color={PrimaryColor} />
     </TouchableOpacity>
   )

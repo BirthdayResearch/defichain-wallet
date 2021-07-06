@@ -23,6 +23,8 @@ type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
 export interface AddLiquiditySummary extends PoolPairData {
   fee: BigNumber // stick to whatever estimation/calculation done on previous page
+  tokenAAmount: BigNumber
+  tokenBAmount: BigNumber
   percentage: BigNumber // to add
 }
 
@@ -33,7 +35,9 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     fee,
     percentage,
     tokenA,
+    tokenAAmount,
     tokenB,
+    tokenBAmount,
     symbol,
     totalLiquidity
   } = props.route.params.summary
@@ -41,10 +45,6 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const aToBRate = new BigNumber(tokenB.reserve).div(tokenA.reserve).toString()
   const bToARate = new BigNumber(tokenA.reserve).div(tokenB.reserve).toString()
   const lmTokenAmount = percentage.times(totalLiquidity).toString()
-
-  // this component state
-  const tokenAAmount = percentage.times(tokenA.reserve)
-  const tokenBAmount = percentage.times(tokenB.reserve)
 
   const whaleAPI = useWhaleApiClient()
   const WalletAPI = useWalletAPI()
@@ -71,15 +71,15 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   }, [])
 
   return (
-    <View style={tailwind('w-full h-full')}>
+    <View testID='confirm-root' style={tailwind('w-full h-full')}>
       <ScrollView style={tailwind('w-full flex-col flex-1')}>
         <TextRows lhs='Adding' rhs={[`${tokenAAmount.toString()} ${aSymbol}`, `${tokenBAmount.toString()} ${bSymbol}`]} rowStyle={tailwind('mt-4')} />
         <TextRows lhs='Fee' rhs={[`${fee.toString()} DFI`]} />
         <TextRows lhs='Price' rhs={[`${aToBRate} ${bSymbol} / ${aSymbol}`, `${bToARate} ${aSymbol} / ${bSymbol}`]} />
         <TextRows lhs='Liquidity tokens received' rhs={[`${lmTokenAmount} ${aSymbol}-${bSymbol}`]} />
         <TextRows lhs='Share of pool' rhs={[`${percentage.toString()} %`]} />
-        <TextRows lhs={`Pooled ${aSymbol}`} rhs={[`${tokenA.reserve}`]} />
-        <TextRows lhs={`Pooled ${bSymbol}`} rhs={[`${tokenB.reserve}`]} />
+        <TextRows lhs={`Pooled ${aSymbol}`} rhs={[tokenA.reserve]} />
+        <TextRows lhs={`Pooled ${bSymbol}`} rhs={[tokenB.reserve]} />
       </ScrollView>
       <ConfirmButton onPress={() => addLiquidity()} />
     </View>
@@ -87,13 +87,14 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 }
 
 function TextRows (props: { lhs: string, rhs: string[], rowStyle?: StyleProp<ViewStyle> }): JSX.Element {
+  const rhsTestID = props.lhs.replaceAll(' ', '_').toLowerCase()
   return (
     <View style={[tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full'), props.rowStyle]}>
       <View style={tailwind('flex-1')}>
         <Text style={tailwind('font-medium')}>{props.lhs}</Text>
       </View>
       <View style={tailwind('flex-1')}>
-        {props.rhs.map((val, idx) => (<Text key={idx} style={tailwind('font-medium text-right text-gray-500')}>{val}</Text>))}
+        {props.rhs.map((val, idx) => (<Text testID={`${rhsTestID}_${idx}`} key={idx} style={tailwind('font-medium text-right text-gray-500')}>{val}</Text>))}
       </View>
     </View>
   )
