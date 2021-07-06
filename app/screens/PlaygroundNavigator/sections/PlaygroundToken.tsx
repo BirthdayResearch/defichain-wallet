@@ -3,20 +3,20 @@ import { PlaygroundRpcClient } from '@defichain/playground-api-client'
 import React, { useEffect, useState } from 'react'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../components'
+import { usePlaygroundContext } from '../../../contexts/PlaygroundContext'
 import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
-import { getPlaygroundRpcClient } from '../../../middlewares/api/playground'
 import { WalletStatus } from '../../../store/wallet'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
 export function PlaygroundToken (): JSX.Element | null {
   const WalletAPI = useWalletAPI()
-  const rpcClient = getPlaygroundRpcClient()
+  const { rpc } = usePlaygroundContext()
   const [status, setStatus] = useState<string>('loading')
   const [tokens, setTokens] = useState<PlaygroundTokenInfo[]>([])
 
   useEffect(() => {
-    getTokens(rpcClient).then(value => {
+    getTokens(rpc).then(value => {
       setTokens(value)
       setStatus('online')
     }).catch(() => {
@@ -36,7 +36,7 @@ export function PlaygroundToken (): JSX.Element | null {
         title={`Top up 10.0 ${token.symbol} to Wallet`}
         onPress={async () => {
           const address = await WalletAPI.getWallet().get(0).getAddress()
-          await rpcClient.call('sendtokenstoaddress', [{}, {
+          await rpc.call('sendtokenstoaddress', [{}, {
             [address]: `10@${token.symbol}`
           }], 'number')
         }}

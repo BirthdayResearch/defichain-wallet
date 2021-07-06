@@ -6,9 +6,9 @@ import { useDispatch } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
 import { PrimaryColor, PrimaryColorStyle, VectorIcon } from '../../../../constants/Theme'
+import { useNetworkContext } from '../../../../contexts/NetworkContext'
 import { EnvironmentNetwork, getEnvironment, isPlayground } from '../../../../environment'
 import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
-import { setNetwork } from '../../../../middlewares/storage'
 import { translate } from '../../../../translations'
 
 export function SettingsScreen (): JSX.Element {
@@ -56,14 +56,17 @@ function SectionHeader (key?: string): JSX.Element | null {
 
 function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
   const navigation = useNavigation()
+  const { network, updateNetwork } = useNetworkContext()
 
   const onPress = useCallback(async () => {
-    await setNetwork(props.network)
-    // TODO(fuxingloh): reset wallet via store
-    if (isPlayground(props.network)) {
-      navigation.navigate('Playground')
+    if (props.network === network) {
+      if (isPlayground(props.network)) {
+        navigation.navigate('Playground')
+      }
+    } else {
+      await updateNetwork(props.network)
     }
-  }, [])
+  }, [network])
 
   return (
     <TouchableOpacity
@@ -73,7 +76,10 @@ function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
       <Text style={tailwind('py-4')}>
         {props.network}
       </Text>
-      <VectorIcon size={24} name='check' color={PrimaryColor} />
+
+      {
+        props.network === network ? <VectorIcon size={24} name='check' color={PrimaryColor} /> : null
+      }
     </TouchableOpacity>
   )
 }

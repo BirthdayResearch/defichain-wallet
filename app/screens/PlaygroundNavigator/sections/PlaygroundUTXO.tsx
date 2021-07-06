@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../components'
+import { usePlaygroundContext } from '../../../contexts/PlaygroundContext'
 import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
-import { getPlaygroundApiClient, getPlaygroundRpcClient } from '../../../middlewares/api/playground'
 import { WalletStatus } from '../../../store/wallet'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
 export function PlaygroundUTXO (): JSX.Element | null {
   const WalletAPI = useWalletAPI()
-  const rpcClient = getPlaygroundRpcClient()
-  const apiClient = getPlaygroundApiClient()
+  const { api, rpc } = usePlaygroundContext()
 
   const [status, setStatus] = useState<string>('loading')
 
   useEffect(() => {
-    apiClient.playground.wallet().then(() => {
+    api.playground.wallet().then(() => {
       setStatus('online')
     }).catch(() => {
       setStatus('error')
@@ -32,7 +31,7 @@ export function PlaygroundUTXO (): JSX.Element | null {
       title='Top up 10 DFI UTXO to Wallet'
       onPress={async () => {
         const address = await WalletAPI.getWallet().get(0).getAddress()
-        await rpcClient.wallet.sendToAddress(address, 10)
+        await rpc.wallet.sendToAddress(address, 10)
       }}
     />
   ) : null

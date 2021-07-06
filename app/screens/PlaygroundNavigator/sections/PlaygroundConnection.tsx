@@ -2,24 +2,25 @@ import React, { useEffect, useState } from 'react'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../components'
 import { useNetworkContext } from '../../../contexts/NetworkContext'
-import { getPlaygroundApiClient } from '../../../middlewares/api/playground'
+import { usePlaygroundContext } from '../../../contexts/PlaygroundContext'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
 const DURATION = 3000
 
 export function PlaygroundConnection (): JSX.Element {
   const { network } = useNetworkContext()
-  const apiClient = getPlaygroundApiClient()
+  const { api } = usePlaygroundContext()
 
   const [count, setCount] = useState(0)
   const [connected, setConnected] = useState(false)
 
   useEffect(() => {
     function refresh (): void {
-      apiClient.playground.info().then(({ block }) => {
+      api.playground.info().then(({ block }) => {
         setCount(block.count)
         setConnected(true)
       }).catch(() => {
+        setCount(0)
         setConnected(false)
       })
     }

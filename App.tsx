@@ -3,8 +3,8 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import './_shim'
 import { NetworkContainer } from './app/contexts/NetworkContext'
+import { PlaygroundContainer, useConnectedPlayground } from './app/contexts/PlaygroundContext'
 import { useCachedResources } from './app/hooks/useCachedResources'
-import { useCachedPlaygroundClient } from './app/middlewares/api/playground'
 import { Logging } from './app/middlewares/logging'
 import { Main } from './app/screens/Main'
 import { store } from './app/store'
@@ -20,7 +20,8 @@ initI18n()
 export default function App (): JSX.Element | null {
   const isLoaded: boolean[] = [
     useCachedResources(),
-    useCachedPlaygroundClient()
+    // find a connected playground at app load
+    useConnectedPlayground()
   ]
 
   if (isLoaded.includes(false)) {
@@ -33,10 +34,12 @@ export default function App (): JSX.Element | null {
     .catch(Logging.error)
 
   return (
-    <Provider store={store}>
-      <NetworkContainer>
-        <Main />
-      </NetworkContainer>
-    </Provider>
+    <NetworkContainer>
+      <PlaygroundContainer>
+        <Provider store={store}>
+          <Main />
+        </Provider>
+      </PlaygroundContainer>
+    </NetworkContainer>
   )
 }

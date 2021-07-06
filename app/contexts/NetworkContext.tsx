@@ -1,26 +1,27 @@
-import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { EnvironmentNetwork } from '../environment'
 import { initWhaleClient } from '../middlewares/api/whale'
 import { Logging } from '../middlewares/logging'
 import * as storage from '../middlewares/storage'
 
-interface NetworkContext {
+interface Network {
   network: EnvironmentNetwork
   updateNetwork: (network: EnvironmentNetwork) => Promise<void>
   reloadNetwork: () => Promise<void>
 }
 
-const Network = createContext<NetworkContext>(undefined as any)
+const NetworkContext = createContext<Network>(undefined as any)
 
-export function useNetworkContext (): NetworkContext {
-  return useContext(Network)
+export function useNetworkContext (): Network {
+  return useContext(NetworkContext)
 }
 
-export function NetworkContainer (props: { children: ReactNode }): JSX.Element | null {
+export function NetworkContainer (props: React.PropsWithChildren<any>): JSX.Element | null {
   const [network, setNetwork] = useState<EnvironmentNetwork | undefined>(undefined)
 
   useEffect(() => {
-    storage.getNetwork().then(value => {
+    storage.getNetwork().then(async value => {
+      await initWhaleClient()
       setNetwork(value)
     }).catch(Logging.error)
   }, [])
@@ -29,7 +30,7 @@ export function NetworkContainer (props: { children: ReactNode }): JSX.Element |
     return null
   }
 
-  const context: NetworkContext = {
+  const context: Network = {
     network: network,
     async updateNetwork (value: EnvironmentNetwork): Promise<void> {
       await storage.setNetwork(value)
@@ -42,8 +43,8 @@ export function NetworkContainer (props: { children: ReactNode }): JSX.Element |
   }
 
   return (
-    <Network.Provider value={context}>
+    <NetworkContext.Provider value={context}>
       {props.children}
-    </Network.Provider>
+    </NetworkContext.Provider>
   )
 }
