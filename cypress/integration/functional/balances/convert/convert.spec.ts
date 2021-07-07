@@ -16,9 +16,9 @@ context('wallet/balances/convert - bi-direction success case', () => {
     cy.getByTestID('balances_row_0_utxo').click()
     cy.getByTestID('convert_button').click()
 
-    cy.getByTestID('text_row_output_to_rhs').should('contain', '0 Token')
-    cy.getByTestID('text_row_output_bal_rhs').should('contain', '0 Token')
-    cy.getByTestID('text_row_output_total_rhs').should('contain', '0 Token')
+    cy.getByTestID('text_to_value').should('contain', '0 Token')
+    cy.getByTestID('text_prev_value').should('contain', '0 Token')
+    cy.getByTestID('text_total_value').should('contain', '0 Token')
 
     cy.getByTestID('button_continue_convert').should('not.be.enabled')
   })
@@ -29,9 +29,9 @@ context('wallet/balances/convert - bi-direction success case', () => {
       .invoke('attr', 'type', 'text') // cypress issue with numeric/decimal input, must cast
       .type('1.23')
 
-    cy.getByTestID('text_row_output_to_rhs').should('contain', '1.23 Token')
-    cy.getByTestID('text_row_output_bal_rhs').should('contain', '0 Token')
-    cy.getByTestID('text_row_output_total_rhs').should('contain', '1.23 Token')
+    cy.getByTestID('text_to_value').should('contain', '1.23 Token')
+    cy.getByTestID('text_prev_value').should('contain', '0 Token')
+    cy.getByTestID('text_total_value').should('contain', '1.23 Token')
     cy.getByTestID('button_continue_convert').should('not.be.disabled')
   })
 
@@ -62,10 +62,10 @@ context('wallet/balances/convert - bi-direction success case', () => {
     cy.getByTestID('balances_row_0').click()
     cy.getByTestID('convert_button').click()
 
-    cy.getByTestID('text_row_output_to_rhs').should('contain', '0 UTXOS')
+    cy.getByTestID('text_to_value').should('contain', '0 UTXOS')
     // action balance can be 8.769xxxxx UTXOS, must split into 2 assertions
-    cy.getByTestID('text_row_output_bal_rhs').should('contain', '8.769').should('contain', 'UTXOS')
-    cy.getByTestID('text_row_output_total_rhs').should('contain', '8.769').should('contain', 'UTXOS')
+    cy.getByTestID('text_prev_value').should('contain', '8.769').should('contain', 'UTXOS')
+    cy.getByTestID('text_total_value').should('contain', '8.769').should('contain', 'UTXOS')
     cy.getByTestID('button_continue_convert').should('not.be.enabled')
   })
 
@@ -74,9 +74,9 @@ context('wallet/balances/convert - bi-direction success case', () => {
       .invoke('attr', 'type', 'text') // cypress issue with numeric/decimal input, must cast
       .type('0.4')
 
-    cy.getByTestID('text_row_output_to_rhs').should('contain', '0.4 UTXOS')
-    cy.getByTestID('text_row_output_bal_rhs').should('contain', '8.769').should('contain', 'UTXOS')
-    cy.getByTestID('text_row_output_total_rhs').should('contain', '9.169').should('contain', 'UTXOS')
+    cy.getByTestID('text_to_value').should('contain', '0.4 UTXOS')
+    cy.getByTestID('text_prev_value').should('contain', '8.769').should('contain', 'UTXOS')
+    cy.getByTestID('text_total_value').should('contain', '9.169').should('contain', 'UTXOS')
     cy.getByTestID('button_continue_convert').should('not.be.disabled')
   })
 

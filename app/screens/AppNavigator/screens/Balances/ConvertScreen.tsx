@@ -5,8 +5,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useCallback, useState } from 'react'
-import { TouchableOpacity } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { TouchableOpacity, ScrollView } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { Text, TextInput, View } from '../../../../components'
 import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
@@ -14,11 +13,12 @@ import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { BalanceParamList } from './BalancesNavigator'
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons'
 import { PrimaryButton } from '../../../../components/PrimaryButton'
 import { translate } from '../../../../translations'
 import { getWhaleClient } from '../../../../middlewares/api/whale'
-import { getDefaultWallet } from '../../../../middlewares/wallet'
+import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
+import NumberFormat from 'react-number-format'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<BalanceParamList, 'ConvertScreen'>
@@ -36,7 +36,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   const [amount, setAmount] = useState<string>('0')
   const convAmount = new BigNumber(amount).isNaN() ? '0' : new BigNumber(amount).toString()
   const resultBal = new BigNumber(targetToken.amount).plus(convAmount)
-  const account = getDefaultWallet().get(0)
+  const account = useWalletAPI().getWallet().get(0)
   const whaleApiClient = getWhaleClient()
 
   const convert = useCallback(() => {
@@ -66,11 +66,41 @@ export function ConvertScreen (props: Props): JSX.Element {
           }}
         />
         <View style={tailwind('w-full justify-center items-center p-2')}>
-          <Ionicons name='arrow-down' size={16} color={PrimaryColor} />
+          <MaterialIcons name='arrow-downward' size={16} color={PrimaryColor} />
         </View>
-        <TextRow lhs='To: ' rhs={`${convAmount} ${targetToken.unit}`} testID='output_to' />
-        <TextRow lhs='Previous: ' rhs={`${targetToken.amount} ${targetToken.unit}`} testID='output_bal' />
-        <TextRow lhs='Total: ' rhs={`${resultBal.toString()} ${targetToken.unit}`} testID='output_total' />
+        <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
+          <View style={tailwind('flex-1')}>
+            <Text style={tailwind('font-medium')} testID='text_to_desc'>{`${translate('screens/Convert', 'To')}: `}</Text>
+          </View>
+          <View style={tailwind('flex-1')}>
+            <NumberFormat
+              value={convAmount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${targetToken.unit}`}
+              renderText={(value: string) => <Text testID='text_to_value' style={tailwind('font-medium text-gray-500')}>{value}</Text>}
+            />
+          </View>
+        </View>
+        <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
+          <View style={tailwind('flex-1')}>
+            <Text style={tailwind('font-medium')} testID='text_prev_desc'>{`${translate('screens/Convert', 'Previous')}: `}</Text>
+          </View>
+          <View style={tailwind('flex-1')}>
+            <NumberFormat
+              value={targetToken.amount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${targetToken.unit}`}
+              renderText={(value: string) => <Text testID='text_prev_value' style={tailwind('font-medium text-gray-500')}>{value}</Text>}
+            />
+          </View>
+        </View>
+        <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
+          <View style={tailwind('flex-1')}>
+            <Text style={tailwind('font-medium')} testID='text_prev_desc'>{`${translate('screens/Convert', 'Total')}: `}</Text>
+          </View>
+          <View style={tailwind('flex-1')}>
+            <NumberFormat
+              value={resultBal.toString()} decimalScale={8} thousandSeparator displayType='text' suffix={` ${targetToken.unit}`}
+              renderText={(value: string) => <Text testID='text_total_value' style={tailwind('font-medium text-gray-500')}>{value}</Text>}
+            />
+          </View>
+        </View>
       </ScrollView>
       <ContinueButton
         enabled={canConvert(convAmount, sourceToken.amount)}
@@ -101,7 +131,7 @@ function ConversionInput (props: { unit: string, current: string, balance: BigNu
   return (
     <View style={tailwind('flex-col w-full h-32 items-center mt-4')}>
       <View style={tailwind('flex-col w-full h-8 bg-white justify-center')}>
-        <Text style={tailwind('m-4')}>From</Text>
+        <Text style={tailwind('m-4')}>{translate('screens/Convert', 'From')}</Text>
       </View>
       <View style={tailwind('flex-row w-full h-12 bg-white justify-center p-4')}>
         <TextInput
@@ -115,29 +145,19 @@ function ConversionInput (props: { unit: string, current: string, balance: BigNu
       </View>
       <View style={tailwind('w-full bg-white flex-row border-t border-gray-200 h-12 items-center')}>
         <View style={tailwind('flex flex-row flex-1 ml-4')}>
-          <Text>Balance: </Text>
-          <Text style={tailwind('text-gray-500')}>{props.balance.toString()}</Text>
+          <Text>{translate('screens/Convert', 'Balance')}: </Text>
+          <NumberFormat
+            value={props.balance.toNumber()} decimalScale={8} thousandSeparator displayType='text'
+            renderText={(value: string) => <Text style={tailwind('font-medium text-gray-500')}>{value}</Text>}
+          />
         </View>
         <TouchableOpacity
           testID='button_max_convert_from'
           style={tailwind('flex w-12 mr-2')}
           onPress={() => { props.onChange(props.balance.toString()) }}
         >
-          <Text style={[PrimaryColorStyle.text]}>MAX</Text>
+          <Text style={[PrimaryColorStyle.text]}>{translate('components/max', 'MAX')}</Text>
         </TouchableOpacity>
-      </View>
-    </View>
-  )
-}
-
-function TextRow (props: { lhs: string, rhs: string, testID: string }): JSX.Element {
-  return (
-    <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
-      <View style={tailwind('flex-1')}>
-        <Text style={tailwind('font-medium')} testID={`text_row_${props.testID}_lhs`}>{props.lhs}</Text>
-      </View>
-      <View style={tailwind('flex-1')}>
-        <Text style={tailwind('font-medium')} testID={`text_row_${props.testID}_rhs`}>{props.rhs}</Text>
       </View>
     </View>
   )

@@ -15,9 +15,9 @@ context('wallet/balances/convert - utxosToAccount: invalid input', () => {
     cy.getByTestID('balances_row_0_utxo').click()
     cy.getByTestID('convert_button').click()
 
-    cy.getByTestID('text_row_output_to_rhs').should('contain', '0 Token')
-    cy.getByTestID('text_row_output_bal_rhs').should('contain', '0 Token')
-    cy.getByTestID('text_row_output_total_rhs').should('contain', '0 Token')
+    cy.getByTestID('text_to_value').should('contain', '0 Token')
+    cy.getByTestID('text_prev_value').should('contain', '0 Token')
+    cy.getByTestID('text_total_value').should('contain', '0 Token')
 
     cy.getByTestID('button_continue_convert').should('not.be.enabled')
   })
@@ -27,14 +27,14 @@ context('wallet/balances/convert - utxosToAccount: invalid input', () => {
       .invoke('attr', 'type', 'text') // cypress issue with numeric/decimal input, must cast
       .type('11.1')
 
-    cy.getByTestID('text_row_output_to_rhs').should('contain', '11.1')
+    cy.getByTestID('text_to_value').should('contain', '11.1')
     cy.getByTestID('button_continue_convert').should('not.be.enabled')
   })
 
   it('should insert balance - 0.001 as amount on MAX pressed', function () {
     cy.getByTestID('button_max_convert_from').click()
 
-    cy.getByTestID('text_row_output_to_rhs').should('contain', '9.999')
+    cy.getByTestID('text_to_value').should('contain', '9.999')
     cy.getByTestID('button_continue_convert').should('not.be.disabled')
   })
 })
