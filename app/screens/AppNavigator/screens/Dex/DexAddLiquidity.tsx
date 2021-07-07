@@ -166,7 +166,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
 
 function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }): JSX.Element {
   const { pair, sharePercentage } = props
-  const RenderRow = (props: { lhs: string, rhs: string }): JSX.Element => {
+  const RenderRow = (props: { lhs: string, rhs: string | number }): JSX.Element => {
     const rhsTestID = props.lhs.replaceAll(' ', '_').toLowerCase()
     return (
       <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-center w-full')}>
@@ -174,7 +174,10 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
           <Text style={tailwind('font-medium')}>{props.lhs}</Text>
         </View>
         <View style={tailwind('flex-1')}>
-          <Text testID={rhsTestID} style={tailwind('font-medium text-right text-gray-500')}>{props.rhs}</Text>
+          <NumberFormat
+            value={props.rhs} decimalScale={2} thousandSeparator displayType='text'
+            renderText={(value) => <Text testID={rhsTestID} style={tailwind('font-medium text-right text-gray-500')}>{value}</Text>}
+          />
         </View>
       </View>
     )
@@ -203,9 +206,9 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
           </View>
         </View>
       </View>
-      <RenderRow lhs='Share of pool' rhs={sharePercentage.times(100).toString()} />
-      <RenderRow lhs={`Pooled ${pair.aSymbol}`} rhs={pair.tokenA.reserve} />
-      <RenderRow lhs={`Pooled ${pair.bSymbol}`} rhs={pair.tokenB.reserve} />
+      <RenderRow lhs={translate('screens/AddLiquidity', 'Share of pool')} rhs={sharePercentage.times(100).toNumber()} />
+      <RenderRow lhs={`${translate('screens/AddLiquidity', 'Pooled ')} ${pair.aSymbol}`} rhs={pair.tokenA.reserve} />
+      <RenderRow lhs={`${translate('screens/AddLiquidity', 'Pooled ')} ${pair.bSymbol}`} rhs={pair.tokenB.reserve} />
     </View>
   )
 }

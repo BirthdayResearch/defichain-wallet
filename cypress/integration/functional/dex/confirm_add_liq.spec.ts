@@ -9,6 +9,7 @@ context('app/dex/addLiquidity', () => {
 
     cy.getByTestID('bottom_tab_liquidity').click()
     cy.getByTestID('pool_pair_add_DFI-BTC').click()
+    cy.wait(100)
     cy.getByTestID('token_balance_primary').contains('10')
     cy.getByTestID('token_balance_secondary').contains('10')
 
@@ -18,16 +19,16 @@ context('app/dex/addLiquidity', () => {
 
   it('should be able to complete add liquidity', function () {
     cy.getByTestID('confirm-root').should('exist')
-    cy.getByTestID('adding_0').contains('7.8 DFI')
-    cy.getByTestID('adding_1').contains('7.8 BTC')
+    cy.getByTestID('text_adding_0').contains('7.8 DFI')
+    cy.getByTestID('text_adding_1').contains('7.8 BTC')
 
-    cy.getByTestID('fee_0').contains('0.0001')
+    cy.getByTestID('text_fee_0').contains('0.0001')
 
-    cy.getByTestID('price_0').contains('1 BTC / DFI')
-    cy.getByTestID('price_1').contains('1 DFI / BTC')
+    cy.getByTestID('text_price_0').contains('1 BTC / DFI')
+    cy.getByTestID('text_price_1').contains('1 DFI / BTC')
 
     // lm token amount and % is calculated = percentage * total pool, may vary like 7.7999999 or 7.80000001
-    cy.getByTestID('liquidity_tokens_received_0').contains('7.').contains('DFI-BTC')
+    cy.getByTestID('text_liquidity_tokens_received_0').contains('7.').contains('DFI-BTC')
 
     cy.getByTestID('button_confirm_add_liq').click()
     cy.wait(4000)

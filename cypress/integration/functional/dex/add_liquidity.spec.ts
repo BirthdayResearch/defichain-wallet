@@ -18,9 +18,7 @@ context('app/dex/addLiquidity', () => {
     cy.getByTestID('a_per_b_unit').contains('DFI per BTC')
     cy.getByTestID('b_per_a_price').contains('1')
     cy.getByTestID('b_per_a_unit').contains('BTC per DFI')
-    cy.getByTestID('share_of_pool').contains('0.123') // 1.23 / 1000
-    cy.getByTestID('pooled_dfi').contains('1000')
-    cy.getByTestID('pooled_btc').contains('1000')
+    cy.getByTestID('share_of_pool').contains('0.12') // 0.12xxx depend on total pool and precision
   })
 
   it('should update both token and build summary base on secondary token input', function () {
@@ -33,8 +31,6 @@ context('app/dex/addLiquidity', () => {
     cy.getByTestID('a_per_b_unit').contains('DFI per BTC')
     cy.getByTestID('b_per_a_price').contains('1')
     cy.getByTestID('b_per_a_unit').contains('BTC per DFI')
-    cy.getByTestID('share_of_pool').contains('0.78')
-    cy.getByTestID('pooled_dfi').contains('1000')
-    cy.getByTestID('pooled_btc').contains('1000')
+    cy.getByTestID('share_of_pool').contains('0.7') // 0.7xxxx depend on total pool and precision
   })
 })
