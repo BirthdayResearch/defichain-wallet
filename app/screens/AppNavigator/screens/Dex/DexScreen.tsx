@@ -1,6 +1,7 @@
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
 import { MaterialIcons } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { SectionList, TouchableOpacity } from 'react-native'
@@ -20,6 +21,7 @@ export function DexScreen (): JSX.Element {
   const address = useSelector((state: RootState) => state.wallet.address)
   const [pairs, setPairs] = useState<Array<DexItem<PoolPairData>>>([])
   const dispatch = useDispatch()
+  const navigation = useNavigation()
 
   useEffect(() => {
     // TODO(fuxingloh): does not auto refresh currently, but not required for MVP. Due to limited PP availability
@@ -45,7 +47,7 @@ export function DexScreen (): JSX.Element {
         },
         {
           key: 'Available pool pairs',
-          data: pairs as Array<DexItem<any>>
+          data: pairs
         }
       ]}
       renderItem={({ item }): JSX.Element => {
@@ -53,7 +55,7 @@ export function DexScreen (): JSX.Element {
           case 'your':
             return PoolPairRowYour(item.data)
           case 'available':
-            return PoolPairRowAvailable(item.data)
+            return PoolPairRowAvailable(item.data, () => navigation.navigate('PoolSwap', { poolpair: item.data }))
         }
       }}
       ListHeaderComponent={() => {
@@ -120,7 +122,7 @@ function PoolPairRowYour (data: AddressToken): JSX.Element {
   )
 }
 
-function PoolPairRowAvailable (data: PoolPairData): JSX.Element {
+function PoolPairRowAvailable (data: PoolPairData, onSwap: () => void): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
   const IconA = getTokenIcon(symbolA)
   const IconB = getTokenIcon(symbolB)
@@ -136,7 +138,7 @@ function PoolPairRowAvailable (data: PoolPairData): JSX.Element {
 
         <View style={tailwind('flex-row -mr-2')}>
           <PoolPairLiqBtn name='add' />
-          <PoolPairSwapBtn />
+          <PoolPairSwapBtn onPress={onSwap} />
         </View>
       </View>
 
@@ -156,10 +158,10 @@ function PoolPairLiqBtn (props: { name: 'remove' | 'add' }): JSX.Element {
   )
 }
 
-function PoolPairSwapBtn (): JSX.Element {
+function PoolPairSwapBtn ({ onPress }: { onPress: () => void }): JSX.Element {
   return (
-    <TouchableOpacity style={tailwind('py-2 px-3 flex-row items-center')}>
-      <Text style={[tailwind('font-bold'), PrimaryColorStyle.text]}>SWAP</Text>
+    <TouchableOpacity style={tailwind('py-2 px-3 flex-row items-center')} onPress={onPress}>
+      <Text style={[tailwind('font-bold'), PrimaryColorStyle.text]}>{translate('screens/DexScreen', 'SWAP')}</Text>
     </TouchableOpacity>
   )
 }
