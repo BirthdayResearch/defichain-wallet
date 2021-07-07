@@ -1,10 +1,7 @@
 import { MainNet, Network, RegTest, TestNet } from '@defichain/jellyfish-network'
 import { EnvironmentNetwork } from '../../environment'
-import { getNetwork } from '../storage'
 
-export async function getNetworkOptions (): Promise<Network> {
-  const network = await getNetwork()
-
+export function getJellyfishNetwork (network: EnvironmentNetwork): Network {
   switch (network) {
     case EnvironmentNetwork.MainNet:
       return MainNet

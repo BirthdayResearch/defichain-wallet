@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { EnvironmentNetwork } from '../environment'
-import { initWhaleClient } from '../middlewares/api/whale'
 import { Logging } from '../middlewares/logging'
 import * as storage from '../middlewares/storage'
 
@@ -21,7 +20,6 @@ export function NetworkProvider (props: React.PropsWithChildren<any>): JSX.Eleme
 
   useEffect(() => {
     storage.getNetwork().then(async value => {
-      await initWhaleClient()
       setNetwork(value)
     }).catch(Logging.error)
   }, [])
@@ -34,7 +32,6 @@ export function NetworkProvider (props: React.PropsWithChildren<any>): JSX.Eleme
     network: network,
     async updateNetwork (value: EnvironmentNetwork): Promise<void> {
       await storage.setNetwork(value)
-      await initWhaleClient()
       setNetwork(value)
     },
     async reloadNetwork (): Promise<void> {

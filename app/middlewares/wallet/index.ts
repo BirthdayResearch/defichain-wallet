@@ -6,7 +6,7 @@ import { getMnemonicHdNodeProvider } from './mnemonic'
 import { WalletData, WalletPersistence, WalletType } from './persistence'
 import { getWhaleWalletAccountProvider } from './whale'
 
-type Wallet = JellyfishWallet<WhaleWalletAccount, WalletHdNode>
+export type Wallet = JellyfishWallet<WhaleWalletAccount, WalletHdNode>
 let INSTANCE: Wallet[]
 
 export function useCachedWallets (): boolean {
