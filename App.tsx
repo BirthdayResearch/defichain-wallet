@@ -2,16 +2,36 @@ import * as SplashScreen from 'expo-splash-screen'
 import React from 'react'
 import { Provider } from 'react-redux'
 import './_shim'
-import { Logging } from './app/logging'
-import { useNetwork } from './hooks/api/useNetwork'
-import { useCachedResources } from './hooks/design/useCachedResources'
-import { Main } from './screens/Main'
-import { store } from './store'
-import { initI18n } from './translations'
+import { useCachedResources } from './app/hooks/useCachedResources'
+import { useCachedPlaygroundClient } from './app/middlewares/api/playground'
+import { useCachedWhaleClient } from './app/middlewares/api/whale'
+import { Logging } from './app/middlewares/logging'
+import { Main } from './app/screens/Main'
+import { store } from './app/store'
+import { initI18n } from './app/translations'
 
 initI18n()
 
+/**
+ * Loads
+ * - CachedResources
+ * - CachedPlaygroundClient
+ */
 export default function App (): JSX.Element | null {
+  const isLoaded: boolean[] = [
+    useCachedResources(),
+    useCachedPlaygroundClient()
+  ]
+
+  if (isLoaded.includes(false)) {
+    SplashScreen.preventAutoHideAsync()
+      .catch(Logging.error)
+    return null
+  }
+
+  SplashScreen.hideAsync()
+    .catch(Logging.error)
+
   return (
     <Provider store={store}>
       <WalletApp />
@@ -19,19 +39,18 @@ export default function App (): JSX.Element | null {
   )
 }
 
+/**
+ * Loads
+ * - CachedWhaleClient: must be loaded after CachedPlaygroundClient
+ */
 function WalletApp (): JSX.Element | null {
-  const isLoaded = [
-    useCachedResources(),
-    useNetwork()
+  const isLoaded: boolean[] = [
+    useCachedWhaleClient()
   ]
 
   if (isLoaded.includes(false)) {
-    SplashScreen.preventAutoHideAsync()
-      .catch(Logging.error)
     return null
-  } else {
-    SplashScreen.hideAsync()
-      .catch(Logging.error)
-    return <Main />
   }
+
+  return <Main />
 }
