@@ -43,6 +43,7 @@ async function remove (index: number): Promise<void> {
 }
 
 export const WalletPersistence = {
+  set,
   get,
   add,
   remove

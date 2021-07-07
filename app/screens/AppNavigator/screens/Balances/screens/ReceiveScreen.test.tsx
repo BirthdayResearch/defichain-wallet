@@ -4,7 +4,7 @@ import * as Clipboard from 'expo-clipboard'
 import * as React from 'react'
 import { Provider } from "react-redux";
 import { RootState } from "../../../../../store";
-import { wallet, WalletStatus } from "../../../../../store/wallet";
+import { wallet } from "../../../../../store/wallet";
 import { ReceiveScreen } from "./ReceiveScreen";
 
 jest.mock("expo-clipboard", () => ({
@@ -16,7 +16,6 @@ describe('receive page', () => {
     const initialState: Partial<RootState> = {
       wallet: {
         address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
-        status: WalletStatus.LOADED_WALLET,
         utxoBalance: '77',
         tokens: []
       }
@@ -38,7 +37,6 @@ describe('receive page', () => {
     const initialState: Partial<RootState> = {
       wallet: {
         address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
-        status: WalletStatus.LOADED_WALLET,
         utxoBalance: '77',
         tokens: []
       }

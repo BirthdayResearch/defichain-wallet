@@ -3,7 +3,7 @@ import { fireEvent, render } from "@testing-library/react-native"
 import * as React from 'react'
 import { Provider } from "react-redux";
 import { RootState } from "../../../../store";
-import { wallet, WalletStatus } from "../../../../store/wallet";
+import { wallet } from "../../../../store/wallet";
 import { BalancesScreen } from "./BalancesScreen";
 
 jest.mock("../../../../hooks/wallet/TokensAPI", () => ({
@@ -40,7 +40,6 @@ describe('balances page', () => {
     const initialState: Partial<RootState> = {
       wallet: {
         address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
-        status: WalletStatus.LOADED_WALLET,
         utxoBalance: '77',
         tokens: []
       }
@@ -66,7 +65,6 @@ describe('balances page', () => {
     const initialState: Partial<RootState> = {
       wallet: {
         address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
-        status: WalletStatus.LOADED_WALLET,
         utxoBalance: '77',
         tokens: []
       }
@@ -95,7 +93,6 @@ describe('balances page', () => {
     const initialState: Partial<RootState> = {
       wallet: {
         address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
-        status: WalletStatus.LOADED_WALLET,
         utxoBalance: '77',
         tokens: []
       }
