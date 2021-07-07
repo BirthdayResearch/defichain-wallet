@@ -3,9 +3,6 @@ module.exports = {
   testPathIgnorePatterns: [
     'cypress/.*'
   ],
-  setupFiles: [
-    './mock.js'
-  ],
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
     '!**/*.test.{js,jsx,ts,tsx}',
@@ -20,7 +17,6 @@ module.exports = {
     '!**/screens/PlaygroundNavigator/**',
     '!**/.versionrc.js',
     '!**/_shim.js',
-    '!**/metro.config.js',
-    '!**/mock.js'
+    '!**/metro.config.js'
   ]
 }

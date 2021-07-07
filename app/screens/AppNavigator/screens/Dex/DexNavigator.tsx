@@ -25,7 +25,10 @@ export function DexNavigator (): JSX.Element {
       <DexStack.Screen
         name='PoolSwap'
         component={PoolSwapScreen}
-        options={{ headerTitle: translate('screens/DexScreen', 'Decentralized Exchange') }}
+        options={{
+          headerTitle: translate('screens/DexScreen', 'Decentralized Exchange'),
+          headerBackTitleVisible: false
+        }}
       />
     </DexStack.Navigator>
   )

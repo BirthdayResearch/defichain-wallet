@@ -6,6 +6,8 @@ import { RootState } from "../../../../../store";
 import { wallet, WalletStatus } from "../../../../../store/wallet";
 import { PoolSwapScreen } from "./PoolSwapScreen";
 
+jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper')
+
 jest.mock("../../../../../hooks/wallet/TokensAPI", () => ({
   useTokensAPI: () => [{
     id: '0',

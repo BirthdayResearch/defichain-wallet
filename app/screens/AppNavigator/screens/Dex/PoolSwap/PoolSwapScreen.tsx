@@ -17,14 +17,6 @@ import { translate } from '../../../../../translations'
 import LoadingScreen from '../../../../LoadingNavigator/LoadingScreen'
 import { DexParamList } from '../DexNavigator'
 
-interface TokenForm {
-  control: Control
-  controlName: string
-  token: AddressToken
-  onMaxPress?: (amount: string) => void
-  title: string
-}
-
 interface SwapSummaryItems {
   poolpair: PoolPairData
   tokenA: AddressToken
@@ -89,6 +81,14 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   )
 }
 
+interface TokenForm {
+  control: Control
+  controlName: string
+  token: AddressToken
+  onMaxPress?: (amount: string) => void
+  title: string
+}
+
 function TokenRow ({ token, control, onMaxPress, title, controlName }: TokenForm): JSX.Element {
   const Icon = getTokenIcon(token.symbol)
   const rules: { required: boolean, pattern: RegExp, max?: string } = {
@@ -100,9 +100,8 @@ function TokenRow ({ token, control, onMaxPress, title, controlName }: TokenForm
   }
   return (
     <>
-      <Text
-        style={tailwind('text-sm font-bold pl-4 pt-4 mt-4 bg-white flex-grow')}
-      >{title}
+      <Text style={tailwind('text-sm font-bold pl-4 pt-4 mt-4 bg-white flex-grow')}>
+        {title}
       </Text>
       <Controller
         control={control}
