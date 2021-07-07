@@ -16,7 +16,7 @@ export function useNetworkContext (): Network {
   return useContext(NetworkContext)
 }
 
-export function NetworkContainer (props: React.PropsWithChildren<any>): JSX.Element | null {
+export function NetworkProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const [network, setNetwork] = useState<EnvironmentNetwork | undefined>(undefined)
 
   useEffect(() => {

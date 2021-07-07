@@ -2,8 +2,8 @@ import * as SplashScreen from 'expo-splash-screen'
 import React from 'react'
 import { Provider } from 'react-redux'
 import './_shim'
-import { NetworkContainer } from './app/contexts/NetworkContext'
-import { PlaygroundContainer, useConnectedPlayground } from './app/contexts/PlaygroundContext'
+import { NetworkProvider } from './app/contexts/NetworkContext'
+import { PlaygroundProvider, useConnectedPlayground } from './app/contexts/PlaygroundContext'
 import { WhaleContainer } from './app/contexts/WhaleContext'
 import { useCachedResources } from './app/hooks/useCachedResources'
 import { Logging } from './app/middlewares/logging'
@@ -35,14 +35,14 @@ export default function App (): JSX.Element | null {
     .catch(Logging.error)
 
   return (
-    <NetworkContainer>
-      <PlaygroundContainer>
+    <NetworkProvider>
+      <PlaygroundProvider>
         <WhaleContainer>
           <Provider store={store}>
             <Main />
           </Provider>
         </WhaleContainer>
-      </PlaygroundContainer>
-    </NetworkContainer>
+      </PlaygroundProvider>
+    </NetworkProvider>
   )
 }

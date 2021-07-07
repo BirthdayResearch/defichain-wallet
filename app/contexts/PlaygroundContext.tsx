@@ -16,7 +16,7 @@ export function usePlaygroundContext (): Playground {
   return useContext(PlaygroundContext)
 }
 
-export function PlaygroundContainer (props: React.PropsWithChildren<any>): JSX.Element | null {
+export function PlaygroundProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
 
   const context = useMemo(() => {
