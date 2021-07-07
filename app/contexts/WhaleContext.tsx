@@ -9,7 +9,7 @@ export function useWhaleApiClient (): WhaleApiClient {
   return useContext(WhaleApiClientContext)
 }
 
-export function WhaleContainer (props: React.PropsWithChildren<any>): JSX.Element | null {
+export function WhaleProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
 
   const client = useMemo(() => {

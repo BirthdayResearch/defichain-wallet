@@ -2,15 +2,13 @@ import React, { useEffect, useState } from 'react'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../components'
 import { usePlaygroundContext } from '../../../contexts/PlaygroundContext'
-import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
-import { WalletStatus } from '../../../store/wallet'
+import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
 export function PlaygroundUTXO (): JSX.Element | null {
-  const WalletAPI = useWalletAPI()
+  const { wallets } = useWalletManagementContext()
   const { api, rpc } = usePlaygroundContext()
-
   const [status, setStatus] = useState<string>('loading')
 
   useEffect(() => {
@@ -21,7 +19,7 @@ export function PlaygroundUTXO (): JSX.Element | null {
     })
   }, [])
 
-  if (WalletAPI.getStatus() !== WalletStatus.LOADED_WALLET) {
+  if (wallets.length === 0) {
     return null
   }
 
@@ -30,7 +28,7 @@ export function PlaygroundUTXO (): JSX.Element | null {
       testID='playground_wallet_top_up'
       title='Top up 10 DFI UTXO to Wallet'
       onPress={async () => {
-        const address = await WalletAPI.getWallet().get(0).getAddress()
+        const address = await wallets[0].get(0).getAddress()
         await rpc.wallet.sendToAddress(address, 10)
       }}
     />

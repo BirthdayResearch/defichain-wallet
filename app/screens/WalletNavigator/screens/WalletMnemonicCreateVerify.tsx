@@ -2,11 +2,11 @@ import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { useState } from 'react'
 import { KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native'
-import { useDispatch } from 'react-redux'
 import tailwind from 'tailwind-rn'
+import { Mnemonic } from '../../../api/wallet/mnemonic'
 import { Text, TextInput, View } from '../../../components'
 import { PrimaryColorStyle } from '../../../constants/Theme'
-import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
+import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
 import { WalletParamList } from '../WalletNavigator'
 
 type Props = StackScreenProps<WalletParamList, 'WalletMnemonicCreateVerify'>
@@ -16,12 +16,11 @@ export function WalletMnemonicCreateVerify ({ route }: Props): JSX.Element {
   const enteredWords: string[] = []
 
   const [valid, setValid] = useState<boolean>(true)
-  const WalletAPI = useWalletAPI()
-  const dispatch = useDispatch()
+  const { setWallet } = useWalletManagementContext()
 
-  function onVerify (): void {
+  async function onVerify (): Promise<void> {
     if (actualWords.join(' ') === enteredWords.join(' ')) {
-      WalletAPI.setMnemonic(dispatch, enteredWords)
+      await setWallet(Mnemonic.createWalletData(enteredWords))
     } else {
       setValid(false)
     }

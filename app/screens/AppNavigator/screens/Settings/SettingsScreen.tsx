@@ -2,13 +2,12 @@ import { useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { useCallback } from 'react'
 import { SectionList, TouchableOpacity } from 'react-native'
-import { useDispatch } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
 import { PrimaryColor, PrimaryColorStyle, VectorIcon } from '../../../../constants/Theme'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
+import { useWalletManagementContext } from '../../../../contexts/WalletManagementContext'
 import { EnvironmentNetwork, getEnvironment, isPlayground } from '../../../../environment'
-import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
 import { translate } from '../../../../translations'
 
 export function SettingsScreen (): JSX.Element {
@@ -85,17 +84,12 @@ function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
 }
 
 function RowExitWalletItem (): JSX.Element {
-  const WalletAPI = useWalletAPI()
-  const dispatch = useDispatch()
-
-  const onExit = useCallback(() => {
-    WalletAPI.clearWallet(dispatch)
-  }, [])
+  const { clearWallets } = useWalletManagementContext()
 
   return (
     <TouchableOpacity
       testID='setting_exit_wallet'
-      onPress={onExit} style={tailwind('bg-white')}
+      onPress={clearWallets} style={tailwind('bg-white')}
     >
       <Text style={[tailwind('p-4 font-bold'), PrimaryColorStyle.text]}>
         {translate('wallet/settings', 'EXIT WALLET')}

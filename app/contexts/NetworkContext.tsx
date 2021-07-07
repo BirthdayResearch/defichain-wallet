@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import { Logging } from '../api/logging'
+import * as storage from '../api/storage'
 import { EnvironmentNetwork } from '../environment'
-import { Logging } from '../middlewares/logging'
-import * as storage from '../middlewares/storage'
 
 interface Network {
   network: EnvironmentNetwork

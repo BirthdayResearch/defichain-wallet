@@ -1,8 +1,8 @@
 import { PlaygroundApiClient, PlaygroundRpcClient } from '@defichain/playground-api-client'
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { Logging } from '../api/logging'
+import { setNetwork } from '../api/storage'
 import { EnvironmentNetwork, getEnvironment, isPlayground } from '../environment'
-import { Logging } from '../middlewares/logging'
-import { setNetwork } from '../middlewares/storage'
 import { useNetworkContext } from './NetworkContext'
 
 interface Playground {

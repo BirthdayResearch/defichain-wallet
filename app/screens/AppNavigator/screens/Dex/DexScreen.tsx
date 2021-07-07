@@ -25,7 +25,7 @@ export function DexScreen (): JSX.Element {
 
   useEffect(() => {
     // TODO(fuxingloh): does not auto refresh currently, but not required for MVP. Due to limited PP availability
-    fetchTokens(address, dispatch)
+    fetchTokens(client, address, dispatch)
     client.poolpair.list(50).then(pairs => {
       setPairs(pairs.map(data => ({ type: 'available', data: data })))
     }).catch((err) => {

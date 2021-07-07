@@ -4,13 +4,12 @@ import React, { useEffect, useState } from 'react'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../components'
 import { usePlaygroundContext } from '../../../contexts/PlaygroundContext'
-import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
-import { WalletStatus } from '../../../store/wallet'
+import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
 export function PlaygroundToken (): JSX.Element | null {
-  const WalletAPI = useWalletAPI()
+  const { wallets } = useWalletManagementContext()
   const { rpc } = usePlaygroundContext()
   const [status, setStatus] = useState<string>('loading')
   const [tokens, setTokens] = useState<PlaygroundTokenInfo[]>([])
@@ -24,7 +23,7 @@ export function PlaygroundToken (): JSX.Element | null {
     })
   }, [])
 
-  if (WalletAPI.getStatus() !== WalletStatus.LOADED_WALLET) {
+  if (wallets.length === 0) {
     return null
   }
 
@@ -35,7 +34,7 @@ export function PlaygroundToken (): JSX.Element | null {
         testID={`playground_token_${token.symbol}`}
         title={`Top up 10.0 ${token.symbol} to Wallet`}
         onPress={async () => {
-          const address = await WalletAPI.getWallet().get(0).getAddress()
+          const address = await wallets[0].get(0).getAddress()
           await rpc.call('sendtokenstoaddress', [{}, {
             [address]: `10@${token.symbol}`
           }], 'number')
