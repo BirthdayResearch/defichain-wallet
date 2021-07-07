@@ -20,7 +20,7 @@ export function TransactionsScreen (): JSX.Element {
 
   const [activities, setAddressActivities] = useState<VMTransaction[]>([])
   const [loadingStatus, setLoadingStatus] = useState('initial') // page status
-  const [nextToken, setNextToken] = useState<string|undefined>(undefined)
+  const [nextToken, setNextToken] = useState<string | undefined>(undefined)
   const [hasNext, setHasNext] = useState<boolean>(false)
   // const [error, setError] = useState<Error|undefined>(undefined) // TODO: render error
 
