@@ -103,8 +103,7 @@
     "ignore": [
       "**/*.test.ts",
       "**/*.test.tsx",
-      "cypress/support/commands.ts",
-      "mock.js"
+      "cypress/support/commands.ts"
     ]
   },
   "standard-version": {
