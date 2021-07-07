@@ -16,10 +16,10 @@ import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import Slider from '@react-native-community/slider'
 import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
-import { useWhaleApiClient } from '../../../../hooks/api/useWhaleApiClient'
 import { translate } from '../../../../translations'
 import { PrimaryButton } from '../../../../components/PrimaryButton'
 import NumberFormat from 'react-number-format'
+import { getWhaleClient } from '../../../../middlewares/api/whale'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
@@ -54,7 +54,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
     setPercentage(new BigNumber(percentage).toFixed(2))
   }, [percentage])
 
-  const whaleAPI = useWhaleApiClient()
+  const whaleAPI = getWhaleClient()
   const WalletAPI = useWalletAPI()
 
   const removeLiquidity = useCallback(() => {
