@@ -1,6 +1,6 @@
 context('app/dex/addLiquidity', () => {
   beforeEach(function () {
-    cy.createEmptyWallet(true)
+    cy.createEmptyWallet()
 
     cy.getByTestID('bottom_tab_settings').click()
     // fund DFI token involve multiple actions, ready in 2 blocks
@@ -9,11 +9,11 @@ context('app/dex/addLiquidity', () => {
 
     cy.getByTestID('bottom_tab_liquidity').click()
     cy.getByTestID('pool_pair_add_DFI-BTC').click()
-    cy.getByTestID('token_balance_primary').contains(10)
-    cy.getByTestID('token_balance_secondary').contains(10)
+    cy.getByTestID('token_balance_primary').contains('10')
+    cy.getByTestID('token_balance_secondary').contains('10')
 
     cy.getByTestID('token_input_secondary').invoke('attr', 'type', 'text').type('7.8')
-    cy.getByTestID('primary_button_Continue').click()
+    cy.getByTestID('button_continue_add_liq').click()
   })
 
   it('should be able to complete add liquidity', function () {
@@ -29,18 +29,18 @@ context('app/dex/addLiquidity', () => {
     // lm token amount and % is calculated = percentage * total pool, may vary like 7.7999999 or 7.80000001
     cy.getByTestID('liquidity_tokens_received_0').contains('7.').contains('DFI-BTC')
 
-    cy.getByTestID('primary_button_Confirm').click()
+    cy.getByTestID('button_confirm_add_liq').click()
     cy.wait(4000)
 
-    // // redirected back to dex root page
-    // cy.getByTestID('liquidity_screen_list').should('exist')
+    // redirected back to dex root page
+    cy.getByTestID('liquidity_screen_list').should('exist')
 
-    // // wait balance update
-    // cy.wait(3100)
-    // cy.getByTestID('bottom_tab_settings').click()
-    // cy.getByTestID('playground_wallet_fetch_balances').click()
-    // cy.getByTestID('bottom_tab_liquidity').click()
+    // wait balance update
+    cy.wait(3100)
+    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('playground_wallet_fetch_balances').click()
+    cy.getByTestID('bottom_tab_liquidity').click()
 
-    // cy.getByTestID('pool_pair_row_your').contains('7.80 DFI-BTC')
+    cy.getByTestID('pool_pair_row_your').contains('7.80 DFI-BTC')
   })
 })

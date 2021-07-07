@@ -214,6 +214,7 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
   return (
     <PrimaryButton
       touchableStyle={tailwind('m-2')}
+      testID='button_continue_add_liq'
       title='Continue'
       disabled={!props.enabled}
       onPress={props.onPress}

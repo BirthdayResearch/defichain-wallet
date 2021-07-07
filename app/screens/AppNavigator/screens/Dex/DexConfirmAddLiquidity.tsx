@@ -16,8 +16,8 @@ import { CTransactionSegWit, Script } from '@defichain/jellyfish-transaction/dis
 import { SmartBuffer } from 'smart-buffer'
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { PrimaryButton } from '../../../../components/PrimaryButton'
-import { getDefaultWallet } from '../../../../middlewares/wallet'
 import { getWhaleClient } from '../../../../middlewares/api/whale'
+import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -47,7 +47,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const lmTokenAmount = percentage.times(totalLiquidity).toString()
 
   const whaleAPI = getWhaleClient()
-  const account = getDefaultWallet().get(0)
+  const account = useWalletAPI().getWallet().get(0)
+  // const account = getDefaultWallet().get(0) // getting error: must call useCachedWallet() first
 
   const addLiquidity = useCallback(() => {
     // TODO: add loading spinner after we have standardized design
@@ -100,7 +101,12 @@ function TextRows (props: { lhs: string, rhs: string[], rowStyle?: StyleProp<Vie
 
 function ConfirmButton (props: { onPress: () => void }): JSX.Element {
   return (
-    <PrimaryButton title='Confirm' touchableStyle={tailwind('m-2')} onPress={props.onPress}>
+    <PrimaryButton
+      testID='button_confirm_add_liq'
+      title='Confirm'
+      touchableStyle={tailwind('m-2')}
+      onPress={props.onPress}
+    >
       <Text style={[tailwind('text-white font-bold')]}>{translate('screens/ConfirmLiquidity', 'CONFIRM')}</Text>
     </PrimaryButton>
   )
