@@ -6,22 +6,39 @@ labels:
     matcher:
       files: ".github/**"
 
+  - label: area/app
+    sync: true
+    matcher:
+      files: "app/**"
+
   - label: area/assets
     sync: true
     matcher:
-      files: "assets/**"
-
-  - label: area/playground
-    sync: true
-    matcher:
-      files: "playground/**"
+      files: "app/assets/**"
 
   - label: area/translations
     sync: true
     matcher:
-      files: "translations/**"
+      files: "app/translations/**"
+
+  - label: area/store
+    sync: true
+    matcher:
+      files: "app/store/**"
 
   - label: area/e2e
     sync: true
     matcher:
       files: "cypress/**"
+
+  - label: area/ui-ux
+    sync: true
+    matcher:
+      files:
+        - "app/screens/**"
+        - "app/components/**"
+
+  - label: area/playground
+    sync: true
+    matcher:
+      files: "app/screens/PlaygroundNavigator/**"

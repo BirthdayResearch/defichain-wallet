@@ -2,20 +2,20 @@
 # More details are here: https://help.github.com/articles/about-codeowners/
 
 /.github/                                       @fuxingloh
-/.husky/                                        @fuxingloh
+/.husky/                                        @fuxingloh @thedoublejay
 /.idea/                                         @fuxingloh @thedoublejay
 
+/app                                            @fuxingloh @thedoublejay @ivan-zynesis
+/app/assets                                     @fuxingloh @thedoublejay @ivan-zynesis @izzycsy
+/app/components                                 @fuxingloh @thedoublejay @ivan-zynesis
+/app/contexts                                   @fuxingloh @thedoublejay @ivan-zynesis
+/app/hooks                                      @fuxingloh @thedoublejay @ivan-zynesis
+/app/middlewares                                @fuxingloh @thedoublejay @ivan-zynesis
+/app/screens                                    @fuxingloh @thedoublejay @ivan-zynesis
+/app/store                                      @fuxingloh @thedoublejay @ivan-zynesis
+/app/translations                               @fuxingloh @thedoublejay @ivan-zynesis @izzycsy
+
 /cypress                                        @fuxingloh @thedoublejay @ivan-zynesis @izzycsy
-
-/assets                                         @fuxingloh @thedoublejay
-/components                                     @fuxingloh @thedoublejay @ivan-zynesis
-/screens                                        @fuxingloh @thedoublejay @ivan-zynesis
-/constants                                      @fuxingloh @thedoublejay @ivan-zynesis
-/hooks                                          @fuxingloh @thedoublejay @ivan-zynesis
-/store                                          @fuxingloh @thedoublejay @ivan-zynesis
-
-/playground                                     @fuxingloh
-/translations                                   @fuxingloh @thedoublejay @izzycsy
 
 /app.json                                       @fuxingloh @thedoublejay
 /App.tsx                                        @fuxingloh @thedoublejay

@@ -148,6 +148,7 @@
       <w>poolpair</w>
       <w>poolpairs</w>
       <w>poolswap</w>
+      <w>prereleased</w>
       <w>previousblockhash</w>
       <w>prevout</w>
       <w>prevouts</w>
@@ -207,6 +208,7 @@
       <w>verificationprogress</w>
       <w>verifymessage</w>
       <w>vernotif</w>
+      <w>versionrc</w>
       <w>vout</w>
       <w>vsize</w>
       <w>walletname</w>

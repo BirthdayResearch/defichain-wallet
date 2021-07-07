@@ -19,7 +19,12 @@ issue:
       list:
         - feature
         - bug
+        - fix
+        - refactor
         - question
+        - chore
+        - docs
+        - dependencies
       multiple: false
       needs: true
       author_association:
@@ -32,6 +37,8 @@ issue:
       list:
         - core
         - workflow
+        - app
+        - store
         - assets
         - playground
         - translations
@@ -49,19 +56,6 @@ issue:
           @$AUTHOR: There are no 'area' labels on this issue. Adding an appropriate label will greatly expedite the process for us. You can add as many area as you see fit. **If you are unsure what to do you can ignore this!**
 
           You can add area labels by leaving a `/area` comment.
-      author_association:
-        author: true
-        collaborator: true
-        member: true
-        owner: true
-
-    - prefix: screen
-      list:
-        - BalancesScreen
-        - LiquidityScreen
-        - SettingsScreen
-        - TransactionsScreen
-      multiple: true
       author_association:
         author: true
         collaborator: true
