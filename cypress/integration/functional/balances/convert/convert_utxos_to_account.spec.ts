@@ -1,4 +1,4 @@
-context('wallet/balances/convert - utxosToAccount: invalid input', () => {
+context('wallet/balances/convert - utxosToAccount', () => {
   before(function () {
     cy.createEmptyWallet(true)
 
@@ -11,30 +11,40 @@ context('wallet/balances/convert - utxosToAccount: invalid input', () => {
     cy.getByTestID('balances_row_0_utxo').should('exist')
     cy.getByTestID('balances_row_0_utxo_amount').contains(10)
   })
-  it('amount = 0', function () {
+  it('navigate through DFI UTXOS token detail page', function () {
     cy.getByTestID('balances_row_0_utxo').click()
     cy.getByTestID('convert_button').click()
 
-    cy.getByTestID('text_to_value').should('contain', '0 Token')
-    cy.getByTestID('text_prev_value').should('contain', '0 Token')
-    cy.getByTestID('text_total_value').should('contain', '0 Token')
+    cy.getByTestID('text_preview_input_desc').contains('DFI (UTXOS)')
+    cy.getByTestID('text_preview_input_value').contains('10 DFI')
+    cy.getByTestID('text_preview_output_desc').contains('DFI (TOKEN)')
+    cy.getByTestID('text_preview_output_value').contains('0 DFI')
 
     cy.getByTestID('button_continue_convert').should('not.be.enabled')
   })
 
-  it('amount > balance', function () {
-    cy.getByTestID('text_input_convert_from')
+  it('navigate through token detail', function () {
+    cy.getByTestID('text_input_convert_from_input')
       .invoke('attr', 'type', 'text') // cypress issue with numeric/decimal input, must cast
       .type('11.1')
 
-    cy.getByTestID('text_to_value').should('contain', '11.1')
+    cy.getByTestID('text_preview_input_value').contains('-1.1 DFI')
+    cy.getByTestID('text_preview_output_value').contains('11.1 DFI')
+
     cy.getByTestID('button_continue_convert').should('not.be.enabled')
   })
 
-  it('should insert balance - 0.001 as amount on MAX pressed', function () {
+  it('should insert balance as amount on MAX pressed', function () {
     cy.getByTestID('button_max_convert_from').click()
 
-    cy.getByTestID('text_to_value').should('contain', '9.999')
+    cy.getByTestID('text_preview_input_value').contains('0 DFI')
+    cy.getByTestID('text_preview_output_value').contains('10 DFI')
     cy.getByTestID('button_continue_convert').should('not.be.disabled')
+  })
+
+  it('should be able to toggle into "accountToUtxos" mode', function () {
+    cy.getByTestID('button_convert_mode_toggle').click()
+    cy.getByTestID('text_preview_input_desc').contains('DFI (TOKEN)')
+    cy.getByTestID('text_preview_output_desc').contains('DFI (UTXOS)')
   })
 })

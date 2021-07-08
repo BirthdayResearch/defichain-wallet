@@ -16,22 +16,22 @@ context('wallet/balances/convert - bi-direction success case', () => {
     cy.getByTestID('balances_row_0_utxo').click()
     cy.getByTestID('convert_button').click()
 
-    cy.getByTestID('text_to_value').should('contain', '0 Token')
-    cy.getByTestID('text_prev_value').should('contain', '0 Token')
-    cy.getByTestID('text_total_value').should('contain', '0 Token')
+    cy.getByTestID('text_preview_input_desc').contains('DFI (UTXOS)')
+    cy.getByTestID('text_preview_input_value').contains('10 DFI')
+    cy.getByTestID('text_preview_output_desc').contains('DFI (TOKEN)')
+    cy.getByTestID('text_preview_output_value').contains('0 DFI')
 
-    cy.getByTestID('button_continue_convert').should('not.be.enabled')
+    // cy.getByTestID('button_continue_convert').should('not.be.enabled')
   })
 
   it('utxosToToken: should build summary correctly', function () {
     // https://github.com/cypress-io/cypress/issues/1171#issuecomment-364059485
-    cy.getByTestID('text_input_convert_from')
+    cy.getByTestID('text_input_convert_from_input')
       .invoke('attr', 'type', 'text') // cypress issue with numeric/decimal input, must cast
       .type('1.23')
 
-    cy.getByTestID('text_to_value').should('contain', '1.23 Token')
-    cy.getByTestID('text_prev_value').should('contain', '0 Token')
-    cy.getByTestID('text_total_value').should('contain', '1.23 Token')
+    cy.getByTestID('text_preview_input_value').contains('8.77 DFI')
+    cy.getByTestID('text_preview_output_value').contains('1.23 DFI')
     cy.getByTestID('button_continue_convert').should('not.be.disabled')
   })
 
@@ -62,21 +62,20 @@ context('wallet/balances/convert - bi-direction success case', () => {
     cy.getByTestID('balances_row_0').click()
     cy.getByTestID('convert_button').click()
 
-    cy.getByTestID('text_to_value').should('contain', '0 UTXOS')
+    cy.getByTestID('text_preview_input_desc').contains('DFI (TOKEN)')
+    cy.getByTestID('text_preview_input_value').contains('1.23 DFI')
+    cy.getByTestID('text_preview_output_desc').contains('DFI (UTXOS)')
     // action balance can be 8.769xxxxx UTXOS, must split into 2 assertions
-    cy.getByTestID('text_prev_value').should('contain', '8.769').should('contain', 'UTXOS')
-    cy.getByTestID('text_total_value').should('contain', '8.769').should('contain', 'UTXOS')
-    cy.getByTestID('button_continue_convert').should('not.be.enabled')
+    cy.getByTestID('text_preview_output_value').contains('8.769').contains('DFI')
   })
 
   it('tokenToUtxos: should build summary correctly', function () {
-    cy.getByTestID('text_input_convert_from')
+    cy.getByTestID('text_input_convert_from_input')
       .invoke('attr', 'type', 'text') // cypress issue with numeric/decimal input, must cast
       .type('0.4')
 
-    cy.getByTestID('text_to_value').should('contain', '0.4 UTXOS')
-    cy.getByTestID('text_prev_value').should('contain', '8.769').should('contain', 'UTXOS')
-    cy.getByTestID('text_total_value').should('contain', '9.169').should('contain', 'UTXOS')
+    cy.getByTestID('text_preview_input_value').should('contain', '0.83 DFI')
+    cy.getByTestID('text_preview_output_value').should('contain', '9.169').contains('DFI')
     cy.getByTestID('button_continue_convert').should('not.be.disabled')
   })
 
