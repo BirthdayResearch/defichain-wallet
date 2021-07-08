@@ -3,6 +3,8 @@ import * as React from 'react'
 import { AppIcon } from "../AppIcon";
 import { getTokenIcon } from "./_index";
 
+jest.mock('randomcolor', () => jest.fn().mockReturnValue('#ffffff'))
+
 const icons = ['DFI', 'FAKE', 'BCH', 'BTC', 'DOGE', 'ETH', 'LTC', 'USDT', '_UTXO']
 
 describe('token icons', () => {

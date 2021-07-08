@@ -1557,7 +1557,7 @@ exports[`token icons getTokenIcon("FAKE") should get <IconFAKE /> snapshot 1`] =
     <RNSVGCircle
       cx={16}
       cy={16}
-      fill={4282664004}
+      fill={4294967295}
       propList={
         Array [
           "fill",
@@ -1566,14 +1566,14 @@ exports[`token icons getTokenIcon("FAKE") should get <IconFAKE /> snapshot 1`] =
       r={16}
     />
     <RNSVGText
-      alignmentBaseline="middle"
+      alignmentBaseline="central"
       content={null}
       dx={Array []}
       dy={Array []}
       fill={4294967295}
       font={
         Object {
-          "fontSize": "11",
+          "fontSize": "24",
           "fontWeight": "bolder",
           "textAnchor": "middle",
         }
@@ -1596,7 +1596,7 @@ exports[`token icons getTokenIcon("FAKE") should get <IconFAKE /> snapshot 1`] =
       }
     >
       <RNSVGTSpan
-        content="FAKE"
+        content="F"
         dx={Array []}
         dy={Array []}
         font={Object {}}
