@@ -79,7 +79,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         <View style={tailwind('w-full bg-white mt-8')}>
           <View style={tailwind('w-full flex-row p-4')}>
             <Text style={tailwind('flex-1')}>{translate('screens/RemoveLiquidity', 'Amount of liquidity to remove')}</Text>
-            <Text style={tailwind('text-right')}>{percentage} %</Text>
+            <Text testID='text_slider_pencentage' style={tailwind('text-right')}>{percentage} %</Text>
           </View>
           <AmountSlider
             current={Number(percentage)}
@@ -90,7 +90,21 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         <View style={tailwind('w-full bg-white mt-8')}>
           <CoinAmountRow symbol={aSymbol} amount={tokenAAmount} />
           <CoinAmountRow symbol={bSymbol} amount={tokenBAmount} />
-          <PriceRow lhs={translate('screens/AddLiquidity', 'Price')} rhs={[`${tokenAPerLmToken.toString()} ${aSymbol}`, `${tokenBPerLmToken.toString()} ${bSymbol}`]} />
+          <View style={tailwind('bg-white p-2 border-t border-gray-200 flex-row items-start w-full')}>
+            <View style={tailwind('flex-1 ml-2')}>
+              <Text style={tailwind('font-medium')}>{translate('screens/AddLiquidity', 'Price')}</Text>
+            </View>
+            <View style={tailwind('flex-1 mr-2')}>
+              <NumberFormat
+                value={tokenAPerLmToken.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix={`  ${aSymbol}`}
+                renderText={(val) => <Text testID='text_a_to_b_price' style={tailwind('font-medium text-right text-gray-500')}>{val}</Text>}
+              />
+              <NumberFormat
+                value={tokenBPerLmToken.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix={`  ${bSymbol}`}
+                renderText={(val) => <Text testID='text_b_to_a_price' style={tailwind('font-medium text-right text-gray-500')}>{val}</Text>}
+              />
+            </View>
+          </View>
         </View>
       </ScrollView>
       <View style={tailwind('w-full h-16')}>
@@ -106,11 +120,12 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
 function AmountSlider (props: { current: number, onChange: (percentage: number) => void, viewStyle: StyleProp<ViewStyle> }): JSX.Element {
   return (
     <View style={[tailwind('flex-row items-center border-t border-gray-200'), props.viewStyle]}>
-      <TouchableOpacity onPress={() => props.onChange(0)}>
+      <TouchableOpacity testID='button_slider_min' onPress={() => props.onChange(0)}>
         <Text style={tailwind('text-gray-500 text-xs')}>{translate('components/slider', 'None')}</Text>
       </TouchableOpacity>
       <View style={tailwind('flex-1 ml-4 mr-4')}>
         <Slider
+          testID='slider_remove_liq_percentage'
           value={props.current}
           minimumValue={0}
           maximumValue={100}
@@ -119,7 +134,7 @@ function AmountSlider (props: { current: number, onChange: (percentage: number) 
           onValueChange={(val) => props.onChange(val)}
         />
       </View>
-      <TouchableOpacity onPress={() => props.onChange(100)}>
+      <TouchableOpacity testID='button_slider_max' onPress={() => props.onChange(100)}>
         <Text style={tailwind('text-gray-500 text-xs')}>{translate('components', 'All')}</Text>
       </TouchableOpacity>
     </View>
@@ -136,21 +151,8 @@ function CoinAmountRow (props: { symbol: string, amount: BigNumber }): JSX.Eleme
       </View>
       <NumberFormat
         value={props.amount.toNumber()} decimalScale={8} thousandSeparator displayType='text'
-        renderText={(value) => <Text style={tailwind('flex-1 text-right text-gray-500 mr-2')}>{value}</Text>}
+        renderText={(value) => <Text testID={`text_coin_amount_${props.symbol}`} style={tailwind('flex-1 text-right text-gray-500 mr-2')}>{value}</Text>}
       />
-    </View>
-  )
-}
-
-function PriceRow (props: { lhs: string, rhs: string[], rowStyle?: StyleProp<ViewStyle> }): JSX.Element {
-  return (
-    <View style={[tailwind('bg-white p-2 border-t border-gray-200 flex-row items-start w-full'), props.rowStyle]}>
-      <View style={tailwind('flex-1 ml-2')}>
-        <Text style={tailwind('font-medium')}>{props.lhs}</Text>
-      </View>
-      <View style={tailwind('flex-1 mr-2')}>
-        {props.rhs.map((val, idx) => (<Text key={idx} style={tailwind('font-medium text-right text-gray-500')}>{val}</Text>))}
-      </View>
     </View>
   )
 }
@@ -158,6 +160,7 @@ function PriceRow (props: { lhs: string, rhs: string[], rowStyle?: StyleProp<Vie
 function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
   return (
     <PrimaryButton
+      testID='button_continue_remove_liq'
       touchableStyle={tailwind('m-2')}
       title='continue'
       disabled={!props.enabled}
