@@ -1,21 +1,20 @@
 import { useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
-import { useDispatch } from 'react-redux'
 import tailwind from 'tailwind-rn'
+import { Mnemonic } from '../../../api/wallet/mnemonic'
 import { Text, View } from '../../../components'
 import { PrimaryColor, VectorIcon, VectorIconName } from '../../../constants/Theme'
+import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
 import { getEnvironment } from '../../../environment'
-import { useWalletAPI } from '../../../hooks/wallet/WalletAPI'
 import { translate } from '../../../translations'
 
 export function WalletOnboarding (): JSX.Element {
-  const WalletAPI = useWalletAPI()
-  const dispatch = useDispatch()
+  const { setWallet } = useWalletManagementContext()
   const navigator = useNavigation()
 
-  const onDebugPress = getEnvironment().debug ? () => {
-    WalletAPI.setMnemonicAbandon23(dispatch)
+  const onDebugPress = getEnvironment().debug ? async () => {
+    await setWallet(Mnemonic.createWalletDataAbandon23())
   } : undefined
 
   return (
