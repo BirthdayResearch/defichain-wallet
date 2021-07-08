@@ -292,14 +292,14 @@ exports[`balances page should match snapshot 1`] = `
                 r={16}
               />
               <RNSVGText
-                alignmentBaseline="middle"
+                alignmentBaseline="central"
                 content={null}
                 dx={Array []}
                 dy={Array []}
                 fill={4294967295}
                 font={
                   Object {
-                    "fontSize": "8",
+                    "fontSize": "24",
                     "fontWeight": "bolder",
                     "textAnchor": "middle",
                   }
@@ -320,7 +320,17 @@ exports[`balances page should match snapshot 1`] = `
                     "50%",
                   ]
                 }
-              />
+              >
+                <RNSVGTSpan
+                  content="T"
+                  dx={Array []}
+                  dy={Array []}
+                  font={Object {}}
+                  rotate={Array []}
+                  x={Array []}
+                  y={Array []}
+                />
+              </RNSVGText>
             </RNSVGGroup>
           </RNSVGSvgView>
           <View
@@ -482,14 +492,14 @@ exports[`balances page should match snapshot 1`] = `
                 r={16}
               />
               <RNSVGText
-                alignmentBaseline="middle"
+                alignmentBaseline="central"
                 content={null}
                 dx={Array []}
                 dy={Array []}
                 fill={4294967295}
                 font={
                   Object {
-                    "fontSize": "8",
+                    "fontSize": "24",
                     "fontWeight": "bolder",
                     "textAnchor": "middle",
                   }
@@ -510,7 +520,17 @@ exports[`balances page should match snapshot 1`] = `
                     "50%",
                   ]
                 }
-              />
+              >
+                <RNSVGTSpan
+                  content="T"
+                  dx={Array []}
+                  dy={Array []}
+                  font={Object {}}
+                  rotate={Array []}
+                  x={Array []}
+                  y={Array []}
+                />
+              </RNSVGText>
             </RNSVGGroup>
           </RNSVGSvgView>
           <View
@@ -672,14 +692,14 @@ exports[`balances page should match snapshot 1`] = `
                 r={16}
               />
               <RNSVGText
-                alignmentBaseline="middle"
+                alignmentBaseline="central"
                 content={null}
                 dx={Array []}
                 dy={Array []}
                 fill={4294967295}
                 font={
                   Object {
-                    "fontSize": "8",
+                    "fontSize": "24",
                     "fontWeight": "bolder",
                     "textAnchor": "middle",
                   }
@@ -700,7 +720,17 @@ exports[`balances page should match snapshot 1`] = `
                     "50%",
                   ]
                 }
-              />
+              >
+                <RNSVGTSpan
+                  content="T"
+                  dx={Array []}
+                  dy={Array []}
+                  font={Object {}}
+                  rotate={Array []}
+                  x={Array []}
+                  y={Array []}
+                />
+              </RNSVGText>
             </RNSVGGroup>
           </RNSVGSvgView>
           <View
