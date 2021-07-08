@@ -37,8 +37,8 @@ it('should remove()', async () => {
   getItem
     .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
     .mockResolvedValueOnce(JSON.stringify([
-      {version: 'v1', type: WalletType.MNEMONIC_UNPROTECTED, raw: '1'},
-      {version: 'v1', type: WalletType.MNEMONIC_UNPROTECTED, raw: '2'},
+      { version: 'v1', type: WalletType.MNEMONIC_UNPROTECTED, raw: '1' },
+      { version: 'v1', type: WalletType.MNEMONIC_UNPROTECTED, raw: '2' },
     ]))
     .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
 
@@ -48,7 +48,7 @@ it('should remove()', async () => {
   expect(setItem).toBeCalledWith(
     "Development.Local Playground.WALLET",
     JSON.stringify([
-      {version: 'v1', type: WalletType.MNEMONIC_UNPROTECTED, raw: '2'},
+      { version: 'v1', type: WalletType.MNEMONIC_UNPROTECTED, raw: '2' },
     ])
   )
 })
