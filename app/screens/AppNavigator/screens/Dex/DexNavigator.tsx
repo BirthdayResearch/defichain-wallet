@@ -1,3 +1,4 @@
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { translate } from '../../../../translations'
@@ -5,10 +6,11 @@ import { DexScreen } from './DexScreen'
 import { AddLiquidityScreen } from './DexAddLiquidity'
 import { AddLiquiditySummary, ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
 import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
+import { PoolSwapScreen } from './PoolSwap/PoolSwapScreen'
 
 export interface DexParamList {
   DexScreen: undefined
+  PoolSwapScreen: { poolpair: PoolPairData }
   AddLiquidity: { pair: PoolPairData }
   ConfirmAddLiquidity: { summary: AddLiquiditySummary }
   RemoveLiquidity: { pair: PoolPairData }
@@ -40,6 +42,14 @@ export function DexNavigator (): JSX.Element {
         name='RemoveLiquidity'
         component={RemoveLiquidityScreen}
         options={{ headerTitle: translate('screens/DexScreen', 'Remove Liquidity') }}
+      />
+      <DexStack.Screen
+        name='PoolSwap'
+        component={PoolSwapScreen}
+        options={{
+          headerTitle: translate('screens/DexScreen', 'Decentralized Exchange'),
+          headerBackTitleVisible: false
+        }}
       />
     </DexStack.Navigator>
   )

@@ -46,10 +46,6 @@ export function DexScreen (): JSX.Element {
     navigation.navigate('RemoveLiquidity', { pair: data })
   }
 
-  const onSwap = (): void => {
-    // TODO(@ivan-zynesis)
-  }
-
   return (
     <SectionList
       testID='liquidity_screen_list'
@@ -60,7 +56,7 @@ export function DexScreen (): JSX.Element {
         },
         {
           key: 'Available pool pairs',
-          data: pairs as Array<DexItem<any>>
+          data: pairs
         }
       ]}
       renderItem={({ item }): JSX.Element => {
@@ -74,7 +70,10 @@ export function DexScreen (): JSX.Element {
               onRemove((poolPairData as DexItem<PoolPairData>).data)
             })
           case 'available':
-            return PoolPairRowAvailable(item.data, () => onAdd(item.data), onSwap)
+            return PoolPairRowAvailable(item.data,
+              () => onAdd(item.data),
+              () => navigation.navigate('PoolSwap', { poolpair: item.data })
+            )
         }
       }}
       ListHeaderComponent={() => {
@@ -157,7 +156,7 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
 
         <View style={tailwind('flex-row -mr-2')}>
           <PoolPairLiqBtn name='add' onPress={onAdd} pair={data.symbol} />
-          <PoolPairSwapBtn />
+          <PoolPairSwapBtn onPress={onSwap} />
         </View>
       </View>
 
@@ -181,10 +180,10 @@ function PoolPairLiqBtn (props: { name: 'remove' | 'add', pair: string, onPress?
   )
 }
 
-function PoolPairSwapBtn (): JSX.Element {
+function PoolPairSwapBtn ({ onPress }: { onPress: () => void }): JSX.Element {
   return (
-    <TouchableOpacity style={tailwind('py-2 px-3 flex-row items-center')}>
-      <Text style={[tailwind('font-bold'), PrimaryColorStyle.text]}>SWAP</Text>
+    <TouchableOpacity style={tailwind('py-2 px-3 flex-row items-center')} onPress={onPress}>
+      <Text style={[tailwind('font-bold'), PrimaryColorStyle.text]}>{translate('screens/DexScreen', 'SWAP')}</Text>
     </TouchableOpacity>
   )
 }

@@ -2,22 +2,20 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { StyleProp, ViewStyle } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { FlatList } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
-import { P2WPKHTransactionBuilder } from '@defichain/jellyfish-transaction-builder/dist'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { useCallback } from 'react'
-import { CTransactionSegWit, Script } from '@defichain/jellyfish-transaction/dist'
-import { SmartBuffer } from 'smart-buffer'
+import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { PrimaryButton } from '../../../../components/PrimaryButton'
 import { getWhaleClient } from '../../../../middlewares/api/whale'
 import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
+import NumberFormat from 'react-number-format'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -41,10 +39,10 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     symbol,
     totalLiquidity
   } = props.route.params.summary
-  const [aSymbol, bSymbol] = symbol.split('-')
-  const aToBRate = new BigNumber(tokenB.reserve).div(tokenA.reserve).toString()
-  const bToARate = new BigNumber(tokenA.reserve).div(tokenB.reserve).toString()
-  const lmTokenAmount = percentage.times(totalLiquidity).toString()
+  const [aSymbol, bSymbol] = symbol.split('-') as [string, string]
+  const aToBRate = new BigNumber(tokenB.reserve).div(tokenA.reserve)
+  const bToARate = new BigNumber(tokenA.reserve).div(tokenB.reserve)
+  const lmTokenAmount = percentage.times(totalLiquidity)
 
   const whaleAPI = getWhaleClient()
   const account = useWalletAPI().getWallet().get(0)
@@ -69,31 +67,83 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     })
   }, [])
 
+  const items: Array<{ lhs: string, rhs: Array<{value: string | number, suffix?: string}> }> = [
+    {
+      lhs: translate('screens/ConfirmAddLiq', 'Adding'),
+      rhs: [
+        { value: tokenAAmount.toNumber(), suffix: ` ${aSymbol}` },
+        { value: tokenBAmount.toNumber(), suffix: ` ${bSymbol}` }
+      ]
+    },
+    {
+      lhs: translate('screens/ConfirmAddLiq', 'Fee'),
+      rhs: [
+        { value: fee.toNumber(), suffix: ' DFI' }
+      ]
+    },
+    {
+      lhs: translate('screens/ConfirmAddLiq', 'Price'),
+      rhs: [
+        { value: aToBRate.toNumber(), suffix: ` ${bSymbol} / ${aSymbol}` },
+        { value: bToARate.toNumber(), suffix: ` ${aSymbol} / ${bSymbol}` }
+      ]
+    },
+    {
+      lhs: translate('screens/ConfirmAddLiq', 'Liquidity tokens received'),
+      rhs: [
+        { value: lmTokenAmount.toNumber(), suffix: ` ${symbol}` }
+      ]
+    },
+    {
+      lhs: translate('screens/ConfirmAddLiq', 'Share of pool'),
+      rhs: [
+        { value: percentage.toNumber(), suffix: ' %' }
+      ]
+    },
+    {
+      lhs: `${translate('screens/ConfirmAddLiq', 'Pooled')} ${aSymbol}`,
+      rhs: [
+        { value: tokenA.reserve }
+      ]
+    },
+    {
+      lhs: `${translate('screens/ConfirmAddLiq', 'Pooled')} ${bSymbol}`,
+      rhs: [
+        { value: tokenB.reserve }
+      ]
+    }
+  ]
+
   return (
     <View testID='confirm-root' style={tailwind('w-full h-full')}>
-      <ScrollView style={tailwind('w-full flex-col flex-1')}>
-        <TextRows lhs='Adding' rhs={[`${tokenAAmount.toString()} ${aSymbol}`, `${tokenBAmount.toString()} ${bSymbol}`]} rowStyle={tailwind('mt-4')} />
-        <TextRows lhs='Fee' rhs={[`${fee.toString()} DFI`]} />
-        <TextRows lhs='Price' rhs={[`${aToBRate} ${bSymbol} / ${aSymbol}`, `${bToARate} ${aSymbol} / ${bSymbol}`]} />
-        <TextRows lhs='Liquidity tokens received' rhs={[`${lmTokenAmount} ${aSymbol}-${bSymbol}`]} />
-        <TextRows lhs='Share of pool' rhs={[`${percentage.toString()} %`]} />
-        <TextRows lhs={`Pooled ${aSymbol}`} rhs={[tokenA.reserve]} />
-        <TextRows lhs={`Pooled ${bSymbol}`} rhs={[tokenB.reserve]} />
-      </ScrollView>
+      <FlatList
+        style={tailwind('w-full flex-col flex-1')}
+        data={items}
+        renderItem={({ item }) => <Row lhs={item.lhs} rhs={item.rhs} />}
+        ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
+        ListHeaderComponent={<View style={tailwind('w-full h')} />}
+      />
       <ConfirmButton onPress={() => addLiquidity()} />
     </View>
   )
 }
 
-function TextRows (props: { lhs: string, rhs: string[], rowStyle?: StyleProp<ViewStyle> }): JSX.Element {
-  const rhsTestID = props.lhs.replaceAll(' ', '_').toLowerCase()
+function Row (props: { lhs: string, rhs: Array<{value: string | number, suffix?: string}> }): JSX.Element {
+  const rhsTestIdPrefix = `text_${props.lhs.replaceAll(' ', '_').toLocaleLowerCase()}`
   return (
-    <View style={[tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full'), props.rowStyle]}>
+    <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
       <View style={tailwind('flex-1')}>
         <Text style={tailwind('font-medium')}>{props.lhs}</Text>
       </View>
       <View style={tailwind('flex-1')}>
-        {props.rhs.map((val, idx) => (<Text testID={`${rhsTestID}_${idx}`} key={idx} style={tailwind('font-medium text-right text-gray-500')}>{val}</Text>))}
+        {
+          props.rhs.map((val, idx) => (
+            <NumberFormat
+              value={val.value} decimalScale={8} thousandSeparator displayType='text' suffix={val.suffix} key={idx}
+              renderText={(val: string) => <Text testID={`${rhsTestIdPrefix}_${idx}`} style={tailwind('font-medium text-right text-gray-500')}>{val}</Text>}
+            />
+          ))
+        }
       </View>
     </View>
   )
@@ -130,26 +180,7 @@ async function constructSignedAddLiqAndSend (
     shareAddress: script
   }
 
-  // for test use, make enough token
-  // await convertForSufficientToken(whaleAPI, builder, script, addLiqForm.tokenAAmount)
-
   const dfTx = await builder.liqPool.addLiquidity(addLiq, script)
   const hex = new CTransactionSegWit(dfTx).toHex()
   return await whaleAPI.transactions.send({ hex })
-}
-
-// used for move utxos to token for dev use, going to remove
-// eslint-disable-next-line
-async function convertForSufficientToken (whaleAPI: WhaleApiClient, builder: P2WPKHTransactionBuilder, script: Script, amount: BigNumber): Promise<string> {
-  const utxosToAcc = await builder.account.utxosToAccount({
-    to: [{
-      script,
-      balances: [
-        { token: 0, amount }
-      ]
-    }]
-  }, script)
-  const utxosToAccBuffer = new SmartBuffer()
-  new CTransactionSegWit(utxosToAcc).toBuffer(utxosToAccBuffer)
-  return await whaleAPI.transactions.send({ hex: utxosToAccBuffer.toString('hex') })
 }
