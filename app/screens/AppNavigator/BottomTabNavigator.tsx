@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { PathConfigMap } from '@react-navigation/core'
 import * as React from 'react'
+import { NetworkDrawer } from '../../components/NetworkDrawer/NetworkDrawer'
 import { VectorIcon, VectorIconName } from '../../constants/Theme'
 
 import { BalancesNavigator } from './screens/Balances/BalancesNavigator'
@@ -28,43 +29,46 @@ function TabBarIcon (props: { name: VectorIconName, color: string }): JSX.Elemen
 
 export function BottomTabNavigator (): JSX.Element {
   return (
-    <BottomTab.Navigator
-      initialRouteName='Balances'
-      tabBarOptions={{ adaptive: false, showLabel: false }}
-    >
-      <BottomTab.Screen
-        name='Balances'
-        component={BalancesNavigator}
-        options={{
-          tabBarTestID: 'bottom_tab_balances',
-          tabBarIcon: ({ color }) => <TabBarIcon name='account-balance-wallet' color={color} />
-        }}
-      />
-      <BottomTab.Screen
-        name='Liquidity'
-        component={DexNavigator}
-        options={{
-          tabBarTestID: 'bottom_tab_liquidity',
-          tabBarIcon: ({ color }) => <TabBarIcon name='pie-chart' color={color} />
-        }}
-      />
-      <BottomTab.Screen
-        name='Transactions'
-        component={TransactionsNavigator}
-        options={{
-          tabBarTestID: 'bottom_tab_transactions',
-          tabBarIcon: ({ color }) => <TabBarIcon name='access-time' color={color} />
-        }}
-      />
-      <BottomTab.Screen
-        name='Settings'
-        component={SettingsNavigator}
-        options={{
-          tabBarTestID: 'bottom_tab_settings',
-          tabBarIcon: ({ color }) => <TabBarIcon name='settings' color={color} />
-        }}
-      />
-    </BottomTab.Navigator>
+    <>
+      <NetworkDrawer />
+      <BottomTab.Navigator
+        initialRouteName='Balances'
+        tabBarOptions={{ adaptive: false, showLabel: false }}
+      >
+        <BottomTab.Screen
+          name='Balances'
+          component={BalancesNavigator}
+          options={{
+            tabBarTestID: 'bottom_tab_balances',
+            tabBarIcon: ({ color }) => <TabBarIcon name='account-balance-wallet' color={color} />
+          }}
+        />
+        <BottomTab.Screen
+          name='Liquidity'
+          component={DexNavigator}
+          options={{
+            tabBarTestID: 'bottom_tab_liquidity',
+            tabBarIcon: ({ color }) => <TabBarIcon name='pie-chart' color={color} />
+          }}
+        />
+        <BottomTab.Screen
+          name='Transactions'
+          component={TransactionsNavigator}
+          options={{
+            tabBarTestID: 'bottom_tab_transactions',
+            tabBarIcon: ({ color }) => <TabBarIcon name='access-time' color={color} />
+          }}
+        />
+        <BottomTab.Screen
+          name='Settings'
+          component={SettingsNavigator}
+          options={{
+            tabBarTestID: 'bottom_tab_settings',
+            tabBarIcon: ({ color }) => <TabBarIcon name='settings' color={color} />
+          }}
+        />
+      </BottomTab.Navigator>
+    </>
   )
 }
 
