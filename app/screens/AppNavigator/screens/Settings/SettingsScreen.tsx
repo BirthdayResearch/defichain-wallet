@@ -2,13 +2,12 @@ import { useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { useCallback } from 'react'
 import { SectionList, TouchableOpacity } from 'react-native'
-import { useDispatch } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
 import { PrimaryColor, PrimaryColorStyle, VectorIcon } from '../../../../constants/Theme'
+import { useNetworkContext } from '../../../../contexts/NetworkContext'
+import { useWalletManagementContext } from '../../../../contexts/WalletManagementContext'
 import { EnvironmentNetwork, getEnvironment, isPlayground } from '../../../../environment'
-import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
-import { setNetwork } from '../../../../middlewares/storage'
 import { translate } from '../../../../translations'
 
 export function SettingsScreen (): JSX.Element {
@@ -56,14 +55,17 @@ function SectionHeader (key?: string): JSX.Element | null {
 
 function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
   const navigation = useNavigation()
+  const { network, updateNetwork } = useNetworkContext()
 
   const onPress = useCallback(async () => {
-    await setNetwork(props.network)
-    // TODO(fuxingloh): reset wallet via store
-    if (isPlayground(props.network)) {
-      navigation.navigate('Playground')
+    if (props.network === network) {
+      if (isPlayground(props.network)) {
+        navigation.navigate('Playground')
+      }
+    } else {
+      await updateNetwork(props.network)
     }
-  }, [])
+  }, [network])
 
   return (
     <TouchableOpacity
@@ -73,23 +75,21 @@ function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
       <Text style={tailwind('py-4')}>
         {props.network}
       </Text>
-      <VectorIcon size={24} name='check' color={PrimaryColor} />
+
+      {
+        props.network === network ? <VectorIcon size={24} name='check' color={PrimaryColor} /> : null
+      }
     </TouchableOpacity>
   )
 }
 
 function RowExitWalletItem (): JSX.Element {
-  const WalletAPI = useWalletAPI()
-  const dispatch = useDispatch()
-
-  const onExit = useCallback(() => {
-    WalletAPI.clearWallet(dispatch)
-  }, [])
+  const { clearWallets } = useWalletManagementContext()
 
   return (
     <TouchableOpacity
       testID='setting_exit_wallet'
-      onPress={onExit} style={tailwind('bg-white')}
+      onPress={clearWallets} style={tailwind('bg-white')}
     >
       <Text style={[tailwind('p-4 font-bold'), PrimaryColorStyle.text]}>
         {translate('wallet/settings', 'EXIT WALLET')}

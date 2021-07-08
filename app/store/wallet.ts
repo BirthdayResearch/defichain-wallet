@@ -2,28 +2,18 @@ import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
 
-export enum WalletStatus {
-  INITIAL,
-  LOADING,
-  NO_WALLET,
-  LOADED_WALLET,
-  ERROR
-}
-
 export interface WalletToken extends AddressToken {
   displaySymbol: string
   avatarSymbol: string
 }
 
 export interface WalletState {
-  status: WalletStatus
   utxoBalance: string
   tokens: WalletToken[]
   address: string
 }
 
 const initialState: WalletState = {
-  status: WalletStatus.INITIAL,
   utxoBalance: '0',
   tokens: [],
   address: ''
@@ -52,9 +42,6 @@ export const wallet = createSlice({
   name: 'wallet',
   initialState,
   reducers: {
-    setStatus: (state, action: PayloadAction<WalletStatus>) => {
-      state.status = action.payload
-    },
     setTokens: (state, action: PayloadAction<AddressToken[]>) => {
       state.tokens = action.payload.map((t) => {
         let displaySymbol = t.symbol

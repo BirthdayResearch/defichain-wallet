@@ -1,11 +1,13 @@
 import * as SplashScreen from 'expo-splash-screen'
 import React from 'react'
-import { Provider } from 'react-redux'
+import { Provider as StoreProvider } from 'react-redux'
 import './_shim'
+import { Logging } from './app/api/logging'
+import { NetworkProvider } from './app/contexts/NetworkContext'
+import { PlaygroundProvider, useConnectedPlayground } from './app/contexts/PlaygroundContext'
+import { WalletManagementProvider } from './app/contexts/WalletManagementContext'
+import { WhaleProvider } from './app/contexts/WhaleContext'
 import { useCachedResources } from './app/hooks/useCachedResources'
-import { useCachedPlaygroundClient } from './app/middlewares/api/playground'
-import { useCachedWhaleClient } from './app/middlewares/api/whale'
-import { Logging } from './app/middlewares/logging'
 import { Main } from './app/screens/Main'
 import { store } from './app/store'
 import { initI18n } from './app/translations'
@@ -20,7 +22,8 @@ initI18n()
 export default function App (): JSX.Element | null {
   const isLoaded: boolean[] = [
     useCachedResources(),
-    useCachedPlaygroundClient()
+    // find a connected playground at app load
+    useConnectedPlayground()
   ]
 
   if (isLoaded.includes(false)) {
@@ -33,24 +36,16 @@ export default function App (): JSX.Element | null {
     .catch(Logging.error)
 
   return (
-    <Provider store={store}>
-      <WalletApp />
-    </Provider>
+    <NetworkProvider>
+      <PlaygroundProvider>
+        <WhaleProvider>
+          <WalletManagementProvider>
+            <StoreProvider store={store}>
+              <Main />
+            </StoreProvider>
+          </WalletManagementProvider>
+        </WhaleProvider>
+      </PlaygroundProvider>
+    </NetworkProvider>
   )
-}
-
-/**
- * Loads
- * - CachedWhaleClient: must be loaded after CachedPlaygroundClient
- */
-function WalletApp (): JSX.Element | null {
-  const isLoaded: boolean[] = [
-    useCachedWhaleClient()
-  ]
-
-  if (isLoaded.includes(false)) {
-    return null
-  }
-
-  return <Main />
 }
