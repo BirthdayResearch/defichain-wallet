@@ -1490,7 +1490,7 @@ exports[`token icons getTokenIcon("FAKE") should get <IconFAKE /> snapshot 1`] =
     <RNSVGCircle
       cx={16}
       cy={16}
-      fill={4282664004}
+      fill={4294967295}
       propList={
         Array [
           "fill",
@@ -1506,7 +1506,7 @@ exports[`token icons getTokenIcon("FAKE") should get <IconFAKE /> snapshot 1`] =
       fill={4294967295}
       font={
         Object {
-          "fontSize": "11",
+          "fontSize": "8",
           "fontWeight": "bolder",
           "textAnchor": "middle",
         }

@@ -2,6 +2,8 @@ import { render } from "@testing-library/react-native";
 import * as React from 'react'
 import { getTokenIcon } from "./_index";
 
+jest.mock('randomcolor', () => jest.fn().mockReturnValue('#ffffff'))
+
 const icons = ['DFI', 'FAKE', 'BCH', 'BTC', 'DOGE', 'ETH', 'LTC', 'USDT', '_UTXO']
 
 describe('token icons', () => {
