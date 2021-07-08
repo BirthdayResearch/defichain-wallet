@@ -1,4 +1,4 @@
-import { tokensSelector, wallet, WalletState, WalletStatus, WalletToken, } from './wallet';
+import { tokensSelector, wallet, WalletState, WalletToken, } from './wallet';
 
 describe('wallet reducer', () => {
   let initialState: WalletState;
@@ -7,7 +7,6 @@ describe('wallet reducer', () => {
 
   beforeEach(() => {
     initialState = {
-      status: WalletStatus.INITIAL,
       tokens: [],
       utxoBalance: '0',
       address: ''
@@ -34,16 +33,10 @@ describe('wallet reducer', () => {
 
   it('should handle initial state', () => {
     expect(wallet.reducer(undefined, { type: 'unknown' })).toEqual({
-      status: WalletStatus.INITIAL,
       utxoBalance: '0',
       tokens: [],
       address: ''
     });
-  });
-
-  it('should handle setStatus', () => {
-    const actual = wallet.reducer(initialState, wallet.actions.setStatus(WalletStatus.LOADED_WALLET));
-    expect(actual.status).toStrictEqual(WalletStatus.LOADED_WALLET);
   });
 
   it('should handle setTokens', () => {

@@ -16,9 +16,9 @@ import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { MaterialIcons } from '@expo/vector-icons'
 import { PrimaryButton } from '../../../../components/PrimaryButton'
 import { translate } from '../../../../translations'
-import { getWhaleClient } from '../../../../middlewares/api/whale'
-import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
 import NumberFormat from 'react-number-format'
+import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
+import { useWallet } from '../../../../contexts/WalletContext'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<BalanceParamList, 'ConvertScreen'>
@@ -36,8 +36,8 @@ export function ConvertScreen (props: Props): JSX.Element {
   const [amount, setAmount] = useState<string>('0')
   const convAmount = new BigNumber(amount).isNaN() ? '0' : new BigNumber(amount).toString()
   const resultBal = new BigNumber(targetToken.amount).plus(convAmount)
-  const account = useWalletAPI().getWallet().get(0)
-  const whaleApiClient = getWhaleClient()
+  const whaleApiClient = useWhaleApiClient()
+  const account = useWallet().get(0)
 
   const convert = useCallback(() => {
     constructSignedConversionAndSend(
