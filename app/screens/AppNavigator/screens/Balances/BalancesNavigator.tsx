@@ -72,7 +72,7 @@ export function BalancesNavigator (): JSX.Element {
         name='Convert'
         component={ConvertScreen}
         options={{
-          headerTitle: translate('screens/ConvertScreen', 'Convert'),
+          headerTitle: translate('screens/ConvertScreen', 'Convert DFIs'),
           headerBackTitleVisible: false
         }}
       />

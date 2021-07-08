@@ -4,8 +4,8 @@ import { NavigationProp, StackActions, useNavigation } from '@react-navigation/n
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { useCallback, useState } from 'react'
-import { TouchableOpacity, ScrollView } from 'react-native'
+import { useState, useEffect } from 'react'
+import { TouchableOpacity, ScrollView, ViewStyle, StyleProp } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { Text, TextInput, View } from '../../../../components'
 import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
@@ -19,27 +19,44 @@ import { translate } from '../../../../translations'
 import NumberFormat from 'react-number-format'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { useWallet } from '../../../../contexts/WalletContext'
+import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
+import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<BalanceParamList, 'ConvertScreen'>
 
 interface ConversionIO extends AddressToken {
-  unit: 'UTXOS' | 'Token'
+  unit: 'UTXOS' | 'TOKEN'
 }
 
 export function ConvertScreen (props: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
 
   const tokens = useTokensAPI()
-  const [sourceToken, targetToken] = getDFIBalances(props.route.params.mode, tokens)
+  const [mode, setMode] = useState(props.route.params.mode)
+  const [sourceToken, setSourceToken] = useState<ConversionIO>()
+  const [targetToken, setTargetToken] = useState<ConversionIO>()
 
   const [amount, setAmount] = useState<string>('0')
-  const convAmount = new BigNumber(amount).isNaN() ? '0' : new BigNumber(amount).toString()
-  const resultBal = new BigNumber(targetToken.amount).plus(convAmount)
+
   const whaleApiClient = useWhaleApiClient()
   const account = useWallet().get(0)
 
-  const convert = useCallback(() => {
+  useEffect(() => {
+    const [source, target] = getDFIBalances(mode, tokens)
+    setSourceToken(source)
+    setTargetToken(target)
+    console.log('use effect', mode)
+  }, [mode])
+
+  if (sourceToken === undefined || targetToken === undefined) {
+    return <LoadingScreen />
+  }
+
+  // to display (prevent NaN)
+  const convAmount = new BigNumber(amount).isNaN() ? '0' : new BigNumber(amount).toString()
+
+  const convert = (): void => {
     constructSignedConversionAndSend(
       whaleApiClient,
       account,
@@ -48,64 +65,41 @@ export function ConvertScreen (props: Props): JSX.Element {
     ).then(() => {
       navigation.dispatch(StackActions.popToTop())
     }).catch(e => console.log(e)) // TODO: display error
-  }, [amount])
+  }
 
   return (
     <View style={tailwind('w-full h-full')}>
       <ScrollView style={tailwind('w-full flex-col flex-1 bg-gray-100')}>
-        <ConversionInput
+        <ConversionIOCard
+          style={tailwind('mt-4')}
+          mode='input'
           current={amount}
           unit={sourceToken.unit}
           balance={new BigNumber(sourceToken.amount)}
-          onChange={(val) => {
-            if (sourceToken.unit === 'UTXOS' && new BigNumber(val).eq(sourceToken.amount)) {
-              setAmount(new BigNumber(val).minus(0.0001).toString()) // spare for fee
-            } else {
-              setAmount(val)
-            }
-          }}
+          onChange={setAmount}
         />
-        <View style={tailwind('w-full justify-center items-center p-2')}>
-          <MaterialIcons name='arrow-downward' size={16} color={PrimaryColor} />
-        </View>
-        <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
-          <View style={tailwind('flex-1')}>
-            <Text style={tailwind('font-medium')} testID='text_to_desc'>{`${translate('screens/Convert', 'To')}: `}</Text>
-          </View>
-          <View style={tailwind('flex-1')}>
-            <NumberFormat
-              value={convAmount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${targetToken.unit}`}
-              renderText={(value: string) => <Text testID='text_to_value' style={tailwind('font-medium text-gray-500')}>{value}</Text>}
-            />
-          </View>
-        </View>
-        <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
-          <View style={tailwind('flex-1')}>
-            <Text style={tailwind('font-medium')} testID='text_prev_desc'>{`${translate('screens/Convert', 'Previous')}: `}</Text>
-          </View>
-          <View style={tailwind('flex-1')}>
-            <NumberFormat
-              value={targetToken.amount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${targetToken.unit}`}
-              renderText={(value: string) => <Text testID='text_prev_value' style={tailwind('font-medium text-gray-500')}>{value}</Text>}
-            />
-          </View>
-        </View>
-        <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
-          <View style={tailwind('flex-1')}>
-            <Text style={tailwind('font-medium')} testID='text_prev_desc'>{`${translate('screens/Convert', 'Total')}: `}</Text>
-          </View>
-          <View style={tailwind('flex-1')}>
-            <NumberFormat
-              value={resultBal.toString()} decimalScale={8} thousandSeparator displayType='text' suffix={` ${targetToken.unit}`}
-              renderText={(value: string) => <Text testID='text_total_value' style={tailwind('font-medium text-gray-500')}>{value}</Text>}
-            />
-          </View>
-        </View>
+        <ToggleModeButton onPress={() => setMode(mode === 'utxosToAccount' ? 'accountToUtxos' : 'utxosToAccount')} />
+        <ConversionIOCard
+          mode='output'
+          current={convAmount}
+          unit={targetToken.unit}
+          balance={new BigNumber(targetToken.amount)}
+        />
+        <TokenVsUtxosInfo />
       </ScrollView>
-      <ContinueButton
-        enabled={canConvert(convAmount, sourceToken.amount)}
-        onPress={convert}
-      />
+      <SectionTitle title={translate('screens/ConvertScreen', 'PREVIEW CONVERSION')} />
+      <View style={tailwind('bg-white flex-col justify-center')}>
+        <PreviewConvResult testID='text_preview_input' unit={sourceToken.unit} balance={new BigNumber(sourceToken.amount).minus(convAmount)} />
+        <PreviewConvResult testID='text_preview_output' unit={targetToken.unit} balance={new BigNumber(targetToken.amount).plus(convAmount)} />
+        <PrimaryButton
+          testID='button_continue_convert'
+          disabled={!canConvert(convAmount, sourceToken.amount)}
+          title='Convert' onPress={convert}
+          touchableStyle={tailwind('mt-0')}
+        >
+          <Text style={tailwind('text-white font-bold')}>{translate('components/Button', 'CONTINUE')}</Text>
+        </PrimaryButton>
+      </View>
     </View>
   )
 }
@@ -114,12 +108,12 @@ function getDFIBalances (mode: ConversionMode, tokens: AddressToken[]): [source:
   const source: AddressToken = mode === 'utxosToAccount'
     ? tokens.find(tk => tk.id === '0_utxo') as AddressToken
     : tokens.find(tk => tk.id === '0') as AddressToken
-  const sourceUnit = mode === 'utxosToAccount' ? 'UTXOS' : 'Token'
+  const sourceUnit = mode === 'utxosToAccount' ? 'UTXOS' : 'TOKEN'
 
   const target: AddressToken = mode === 'utxosToAccount'
     ? tokens.find(tk => tk.id === '0') as AddressToken
     : tokens.find(tk => tk.id === '0_utxo') as AddressToken
-  const targetUnit = mode === 'utxosToAccount' ? 'Token' : 'UTXOS'
+  const targetUnit = mode === 'utxosToAccount' ? 'TOKEN' : 'UTXOS'
 
   return [
     { ...source, unit: sourceUnit },
@@ -127,47 +121,108 @@ function getDFIBalances (mode: ConversionMode, tokens: AddressToken[]): [source:
   ]
 }
 
-function ConversionInput (props: { unit: string, current: string, balance: BigNumber, onChange: (amount: string) => void }): JSX.Element {
+function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' | 'output', unit: string, current: string, balance: BigNumber, onChange?: (amount: string) => void }): JSX.Element {
+  const iconType = props.unit === 'UTXOS' ? '_UTXO' : 'DFI'
+  const titlePrefix = props.mode === 'input' ? 'CONVERT' : 'TO'
+  const title = `${translate('screens/Convert', titlePrefix)} ${props.unit}`
+
+  const DFIIcon = getTokenIcon(iconType)
+  const MaxButton = (): JSX.Element | null => {
+    if (props.mode === 'output') {
+      return null
+    }
+
+    return (
+      <TouchableOpacity
+        testID='button_max_convert_from'
+        style={tailwind('flex w-12 mr-2')}
+        onPress={() => {
+          if (props.onChange !== undefined) {
+            props.onChange(props.balance.toString())
+          }
+        }}
+      >
+        <Text style={[PrimaryColorStyle.text]}>{translate('components/max', 'MAX')}</Text>
+      </TouchableOpacity>
+    )
+  }
   return (
-    <View style={tailwind('flex-col w-full h-32 items-center mt-4')}>
-      <View style={tailwind('flex-col w-full h-8 bg-white justify-center')}>
-        <Text style={tailwind('m-4')}>{translate('screens/Convert', 'From')}</Text>
-      </View>
-      <View style={tailwind('flex-row w-full h-12 bg-white justify-center p-4')}>
+    <View style={[tailwind('flex-col w-full h-30 items-center'), props.style]}>
+      <SectionTitle title={title} />
+      <View style={tailwind('flex-row w-full h-10 bg-white items-center pl-4 pr-4')}>
         <TextInput
-          testID='text_input_convert_from'
+          testID={`text_input_convert_from_${props.mode}`}
           value={props.current}
           style={tailwind('flex-1 mr-4 text-gray-500')}
           keyboardType='numeric'
-          onChange={event => props.onChange(event.nativeEvent.text)}
+          editable={props.mode === 'input'}
+          onChange={event => {
+            if (props.onChange !== undefined) {
+              props.onChange(event.nativeEvent.text)
+            }
+          }}
         />
+        <DFIIcon width={24} height={24} style={tailwind('mr-2')} />
         <Text>{props.unit}</Text>
       </View>
       <View style={tailwind('w-full bg-white flex-row border-t border-gray-200 h-12 items-center')}>
         <View style={tailwind('flex flex-row flex-1 ml-4')}>
           <Text>{translate('screens/Convert', 'Balance')}: </Text>
           <NumberFormat
-            value={props.balance.toNumber()} decimalScale={8} thousandSeparator displayType='text'
+            value={props.balance.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
             renderText={(value: string) => <Text style={tailwind('font-medium text-gray-500')}>{value}</Text>}
           />
         </View>
-        <TouchableOpacity
-          testID='button_max_convert_from'
-          style={tailwind('flex w-12 mr-2')}
-          onPress={() => { props.onChange(props.balance.toString()) }}
-        >
-          <Text style={[PrimaryColorStyle.text]}>{translate('components/max', 'MAX')}</Text>
-        </TouchableOpacity>
+        {MaxButton()}
       </View>
     </View>
   )
 }
 
-function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
+function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
   return (
-    <PrimaryButton testID='button_continue_convert' disabled={!props.enabled} title='Convert' onPress={props.onPress}>
-      <Text style={tailwind('text-white font-bold')}>{translate('components/Button', 'CONTINUE')}</Text>
-    </PrimaryButton>
+    <TouchableOpacity
+      testID='button_convert_mode_toggle'
+      style={tailwind('w-full justify-center items-center p-2')}
+      onPress={props.onPress}
+    >
+      <MaterialIcons name='swap-vert' size={24} color={PrimaryColor} />
+    </TouchableOpacity>
+  )
+}
+
+function TokenVsUtxosInfo (): JSX.Element {
+  return (
+    <TouchableOpacity style={tailwind('flex-row p-4 items-center justify-center')} onPress={() => { /* TODO: token vs utxo explanation UI */ }}>
+      <MaterialIcons name='info' size={24} color='gray' />
+      <Text style={tailwind('ml-2')}>{translate('screens/ConvertScreen', "Tokens vs UTXO, what's the difference?")}</Text>
+    </TouchableOpacity>
+  )
+}
+
+/**
+ * footer, UTXOS or Token DFI balance preview AFTER conversion
+ */
+function PreviewConvResult (props: { unit: string, balance: BigNumber, testID: string }): JSX.Element {
+  const iconType = props.unit === 'UTXOS' ? '_UTXO' : 'DFI'
+  const DFIIcon = getTokenIcon(iconType)
+  return (
+    <View style={tailwind('flex-row h-12 pl-4 pr-4 items-center')}>
+      <DFIIcon width={24} height={24} style={tailwind('mr-2')} />
+      <Text testID={`${props.testID}_desc`} style={tailwind('flex-1')}>DFI ({props.unit})</Text>
+      <NumberFormat
+        value={props.balance.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
+        renderText={(value: string) => <Text testID={`${props.testID}_value`} style={tailwind('font-medium text-gray-500')}>{value}</Text>}
+      />
+    </View>
+  )
+}
+
+function SectionTitle (props: { title: string }): JSX.Element {
+  return (
+    <View style={tailwind('flex-col w-full h-8 justify-center')}>
+      <Text style={tailwind('ml-4 mr-4 text-gray-500 text-sm')}>{props.title}</Text>
+    </View>
   )
 }
 
