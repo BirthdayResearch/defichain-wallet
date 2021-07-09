@@ -3,7 +3,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import tailwind from 'tailwind-rn'
@@ -15,7 +15,7 @@ import { DexParamList } from './DexNavigator'
 import { translate } from '../../../../translations'
 import NumberFormat from 'react-number-format'
 import { PrimaryButton } from '../../../../components/PrimaryButton'
-import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
+// import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -36,10 +36,21 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   // const [balanceA, setBalanceA] = useState(new BigNumber(0))
   // const [balanceB, setBalanceB] = useState(new BigNumber(0))
   const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
-  const [pair, setPair] = useState<ExtPoolPairData>()
+  // const [pair, setPair] = useState<ExtPoolPairData>()
   // const [canContinue, setCanContinue] = useState(false)
 
   const tokens = useTokensAPI()
+
+  const { pair: poolPairData } = props.route.params
+  const [aSymbol, bSymbol] = poolPairData.symbol.split('-')
+
+  const pair = {
+    ...poolPairData,
+    aSymbol,
+    bSymbol,
+    aToBRate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve),
+    bToARate: new BigNumber(poolPairData.tokenA.reserve).div(poolPairData.tokenB.reserve)
+  }
 
   const buildSummary = (ref: EditingAmount, amountString: string): void => {
     const refAmount = amountString.length === 0 ? new BigNumber(0) : new BigNumber(amountString)
@@ -67,26 +78,27 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   // }, [pair, tokenAAmount, tokenBAmount, balanceA, balanceB])
 
   // prop/global state change
-  useEffect(() => {
-    const { pair: poolPairData } = props.route.params
-    const [aSymbol, bSymbol] = poolPairData.symbol.split('-')
-    // const addressTokenA = tokens.find(at => at.id === poolPairData.tokenA.id)
-    // const addressTokenB = tokens.find(at => at.id === poolPairData.tokenB.id)
+  // useEffect(() => {
+  //   const { pair: poolPairData } = props.route.params
+  //   const [aSymbol, bSymbol] = poolPairData.symbol.split('-')
+  //   const addressTokenA = tokens.find(at => at.id === poolPairData.tokenA.id)
+  //   const addressTokenB = tokens.find(at => at.id === poolPairData.tokenB.id)
 
-    // side effect to state
-    setPair({
-      ...poolPairData,
-      aSymbol,
-      bSymbol,
-      aToBRate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve),
-      bToARate: new BigNumber(poolPairData.tokenA.reserve).div(poolPairData.tokenB.reserve)
-    })
-    // if (addressTokenA !== undefined) setBalanceA(new BigNumber(addressTokenA.amount))
-    // if (addressTokenB !== undefined) setBalanceB(new BigNumber(addressTokenB.amount))
-  }, [props.route.params.pair, tokens])
+  //   side effect to state
+  //   setPair({
+  //     ...poolPairData,
+  //     aSymbol,
+  //     bSymbol,
+  //     aToBRate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve),
+  //     bToARate: new BigNumber(poolPairData.tokenA.reserve).div(poolPairData.tokenB.reserve)
+  //   })
+  //   if (addressTokenA !== undefined) setBalanceA(new BigNumber(addressTokenA.amount))
+  //   if (addressTokenB !== undefined) setBalanceB(new BigNumber(addressTokenB.amount))
+  // }, [props.route.params.pair, tokens])
 
   if (pair === undefined) {
-    return <LoadingScreen />
+    return <Text>LOADING</Text>
+    // return <LoadingScreen />
   }
 
   const addressTokenA = tokens.find(at => at.id === pair.tokenA.id)
