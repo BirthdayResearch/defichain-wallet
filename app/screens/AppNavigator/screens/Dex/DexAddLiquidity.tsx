@@ -96,10 +96,10 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   //   if (addressTokenB !== undefined) setBalanceB(new BigNumber(addressTokenB.amount))
   // }, [props.route.params.pair, tokens])
 
-  if (pair === undefined) {
-    return <Text>LOADING</Text>
-    // return <LoadingScreen />
-  }
+  // if (pair === undefined) {
+  //   return <Text>LOADING</Text>
+  //   return <LoadingScreen />
+  // }
 
   const addressTokenA = tokens.find(at => at.id === pair.tokenA.id)
   const addressTokenB = tokens.find(at => at.id === pair.tokenB.id)
@@ -159,10 +159,10 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
       <View style={tailwind('flex-col w-full h-8 justify-center')}>
         <Text style={tailwind('ml-4')}>{translate('screens/AddLiquidity', 'Input')}</Text>
       </View>
-      <View style={tailwind('flex-row w-full h-16 items-center p-4')}>
+      <View style={tailwind('flex-1 flex-row w-full h-16 items-center p-4')}>
         <TextInput
           testID={`token_input_${props.type}`}
-          style={tailwind('flex-1 mr-4 text-gray-500')}
+          style={tailwind('mr-4 text-gray-500')}
           value={props.current}
           keyboardType='numeric'
           onChangeText={txt => props.onChange(txt)}
