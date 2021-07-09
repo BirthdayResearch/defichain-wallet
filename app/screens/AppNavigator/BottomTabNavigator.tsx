@@ -1,8 +1,10 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { PathConfigMap } from '@react-navigation/core'
 import * as React from 'react'
+import { useSelector } from 'react-redux'
 import { NetworkDrawer } from '../../components/NetworkDrawer/NetworkDrawer'
 import { VectorIcon, VectorIconName } from '../../constants/Theme'
+import { RootState } from '../../store'
 
 import { BalancesNavigator } from './screens/Balances/BalancesNavigator'
 import { DexNavigator } from './screens/Dex/DexNavigator'
@@ -28,12 +30,15 @@ function TabBarIcon (props: { name: VectorIconName, color: string }): JSX.Elemen
 }
 
 export function BottomTabNavigator (): JSX.Element {
+  const isNetworkDrawerOpen = useSelector((state: RootState) => state.networkDrawer.isOpen)
   return (
     <>
-      <NetworkDrawer />
+      {
+        isNetworkDrawerOpen && <NetworkDrawer />
+      }
       <BottomTab.Navigator
         initialRouteName='Balances'
-        tabBarOptions={{ adaptive: false, showLabel: false }}
+        tabBarOptions={{ adaptive: false }}
       >
         <BottomTab.Screen
           name='Balances'
