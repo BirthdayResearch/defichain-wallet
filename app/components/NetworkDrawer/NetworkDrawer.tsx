@@ -31,11 +31,7 @@ export function NetworkDrawer (): JSX.Element {
   const dispatch = useDispatch()
 
   const slideAnim = useRef(new Animated.Value(0)).current
-  Animated.timing(slideAnim, {
-    toValue: isOpen ? height : 0,
-    duration: 300,
-    useNativeDriver: false
-  }).start()
+  Animated.timing(slideAnim, { toValue: isOpen ? height : 0, duration: 300, useNativeDriver: false }).start()
 
   return (
     <Animated.View
@@ -53,8 +49,7 @@ export function NetworkDrawer (): JSX.Element {
         {
           txid !== undefined && (
             <TouchableOpacity
-              testID='networkDrawer_explorer'
-              style={tailwind('flex-row bg-white p-1 items-center')}
+              testID='networkDrawer_explorer' style={tailwind('flex-row bg-white p-1 items-center')}
               onPress={async () => await handlePress(txid)}
             >
               <Text style={[PrimaryColorStyle.text, tailwind('text-sm font-medium mr-1')]}>
@@ -68,11 +63,9 @@ export function NetworkDrawer (): JSX.Element {
       {
         !isLoading && (
           <TouchableOpacity
-            testID='networkDrawer_close'
-            onPress={() => {
+            testID='networkDrawer_close' onPress={() => {
               dispatch(networkDrawer.actions.openNetworkDrawer({ isOpen: false }))
-            }}
-            style={tailwind('px-2 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
+            }} style={tailwind('px-2 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
           >
             <Text style={[PrimaryColorStyle.text, tailwind('text-sm')]}>
               {translate('screens/NetworkDrawer', 'OK')}
