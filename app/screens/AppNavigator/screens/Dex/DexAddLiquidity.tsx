@@ -103,8 +103,8 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
 
   const addressTokenA = tokens.find(at => at.id === pair.tokenA.id)
   const addressTokenB = tokens.find(at => at.id === pair.tokenB.id)
-  const balanceA = new BigNumber(addressTokenA?.amount ?? 0)
-  const balanceB = new BigNumber(addressTokenB?.amount ?? 0)
+  const balanceA = addressTokenA !== undefined ? new BigNumber(addressTokenA.amount) : new BigNumber(0)
+  const balanceB = addressTokenB !== undefined ? new BigNumber(addressTokenB.amount) : new BigNumber(0)
 
   const canContinue = canAddLiquidity(
     pair,
@@ -197,11 +197,15 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
     const rhsTestID = props.lhs.replaceAll(' ', '_').toLowerCase()
     return (
       <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-center w-full')}>
-        <Text style={tailwind('flex-1 font-medium')}>{props.lhs}</Text>
-        <NumberFormat
-          value={props.rhs} decimalScale={2} thousandSeparator displayType='text'
-          renderText={(value) => <Text testID={rhsTestID} style={tailwind('flex-1 font-medium text-right text-gray-500')}>{value}</Text>}
-        />
+        <View style={tailwind('flex-1')}>
+          <Text style={tailwind('font-medium')}>{props.lhs}</Text>
+        </View>
+        <View style={tailwind('flex-1')}>
+          <NumberFormat
+            value={props.rhs} decimalScale={2} thousandSeparator displayType='text'
+            renderText={(value) => <Text testID={rhsTestID} style={tailwind('font-medium text-right text-gray-500')}>{value}</Text>}
+          />
+        </View>
       </View>
     )
   }
@@ -209,7 +213,9 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
   return (
     <View style={tailwind('flex-col w-full items-center mt-4')}>
       <View style={tailwind('bg-white p-4 pt-2 pb-2 border-b border-gray-200 flex-row items-center w-full')}>
-        <Text style={tailwind('flex-1 font-medium')}>{translate('screens/AddLiquidity', 'Price')}</Text>
+        <View style={tailwind('flex-1')}>
+          <Text style={tailwind('font-medium')}>{translate('screens/AddLiquidity', 'Price')}</Text>
+        </View>
         <View style={tailwind('flex-1 flex-col')}>
           <View style={tailwind('flex-1 flex-row justify-end')}>
             <NumberFormat
