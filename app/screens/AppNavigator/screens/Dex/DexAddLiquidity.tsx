@@ -33,8 +33,8 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   // this component state
   const [tokenAAmount, setTokenAAmount] = useState<string>('0')
   const [tokenBAmount, setTokenBAmount] = useState<string>('0')
-  const [balanceA, setBalanceA] = useState(new BigNumber(0))
-  const [balanceB, setBalanceB] = useState(new BigNumber(0))
+  // const [balanceA, setBalanceA] = useState(new BigNumber(0))
+  // const [balanceB, setBalanceB] = useState(new BigNumber(0))
   const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
   const [pair, setPair] = useState<ExtPoolPairData>()
   // const [canContinue, setCanContinue] = useState(false)
@@ -70,8 +70,8 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   useEffect(() => {
     const { pair: poolPairData } = props.route.params
     const [aSymbol, bSymbol] = poolPairData.symbol.split('-')
-    const addressTokenA = tokens.find(at => at.id === poolPairData.tokenA.id)
-    const addressTokenB = tokens.find(at => at.id === poolPairData.tokenB.id)
+    // const addressTokenA = tokens.find(at => at.id === poolPairData.tokenA.id)
+    // const addressTokenB = tokens.find(at => at.id === poolPairData.tokenB.id)
 
     // side effect to state
     setPair({
@@ -81,13 +81,18 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
       aToBRate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve),
       bToARate: new BigNumber(poolPairData.tokenA.reserve).div(poolPairData.tokenB.reserve)
     })
-    if (addressTokenA !== undefined) setBalanceA(new BigNumber(addressTokenA.amount))
-    if (addressTokenB !== undefined) setBalanceB(new BigNumber(addressTokenB.amount))
+    // if (addressTokenA !== undefined) setBalanceA(new BigNumber(addressTokenA.amount))
+    // if (addressTokenB !== undefined) setBalanceB(new BigNumber(addressTokenB.amount))
   }, [props.route.params.pair, tokens])
 
   if (pair === undefined) {
     return <LoadingScreen />
   }
+
+  const addressTokenA = tokens.find(at => at.id === pair.tokenA.id)
+  const addressTokenB = tokens.find(at => at.id === pair.tokenB.id)
+  const balanceA = new BigNumber(addressTokenA?.amount ?? 0)
+  const balanceB = new BigNumber(addressTokenB?.amount ?? 0)
 
   const canContinue = canAddLiquidity(
     pair,
