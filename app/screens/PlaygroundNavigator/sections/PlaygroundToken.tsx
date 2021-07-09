@@ -7,15 +7,19 @@ import { usePlaygroundContext } from '../../../contexts/PlaygroundContext'
 import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
-import BigNumber from 'bignumber.js'
-import { UTXO } from '@defichain/jellyfish-api-core/dist/category/wallet'
-import { SmartBuffer } from 'smart-buffer'
+import { WIF, Bech32, Bs58 } from '@defichain/jellyfish-crypto'
 import { RegTest } from '@defichain/jellyfish-network'
-import { TransactionSigner } from '@defichain/jellyfish-transaction-signature'
-import { OP_CODES, Vout, Script, DeFiTransactionConstants, Transaction, CTransactionSegWit } from '@defichain/jellyfish-transaction'
+import { UTXO } from '@defichain/jellyfish-api-core/dist/category/wallet'
 import { toOPCodes } from '@defichain/jellyfish-transaction/dist/script/_buffer'
-import { Bech32, Bs58, WIF } from '@defichain/jellyfish-crypto'
+import { DeFiTransactionConstants, Transaction, CTransactionSegWit, OP_CODES, Vout, Script } from '@defichain/jellyfish-transaction'
+import { TransactionSigner } from '@defichain/jellyfish-transaction-signature'
+import { SmartBuffer } from 'smart-buffer'
+import { BigNumber } from 'bignumber.js'
 
+/**
+ * Depend on defid setup in playground
+ * @see https://github.com/DeFiCh/playground/blob/main/src/module.playground/setup/setup.ts#L8-L9
+ */
 const PLAYGROUND_MN = {
   address: 'mwsZw8nF7pKxWH8eoKL9tPxTpaFkz7QeLU',
   privKey: 'cRiRQ9cHmy5evDqNDdEV8f6zfbK6epi9Fpz4CRZsmLEmkwy54dWz',
@@ -74,8 +78,8 @@ export function PlaygroundToken (): JSX.Element | null {
         testID='playground_token_DFI'
         title='Top up 10.0 DFI to Wallet'
         onPress={async () => {
-          const recipient = await WalletAPI.getWallet().get(0).getScript()
-          await playgroundUtxoToUserAccount(rpcClient, recipient)
+          const script = await wallets[0].get(0).getScript()
+          await playgroundUtxoToUserAccount(rpc, script)
         }}
       />
       {actions}

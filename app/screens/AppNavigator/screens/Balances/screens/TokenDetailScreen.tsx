@@ -8,6 +8,7 @@ import { Text } from '../../../../../components'
 import { PrimaryColor } from '../../../../../constants/Theme'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
+import { ConversionMode } from '../ConvertScreen'
 
 interface TokenActionItems {
   title: string
@@ -44,7 +45,8 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
             />
             <TokenActionRow
               testID='receive_button'
-              title={`${translate('screens/TokenDetailScreen', 'Receive')} ${token.displaySymbol}`} icon='arrow-downward'
+              title={`${translate('screens/TokenDetailScreen', 'Receive')} ${token.displaySymbol}`}
+              icon='arrow-downward'
               onPress={() => navigation.navigate('Receive')}
             />
           </>
@@ -55,7 +57,10 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
           <TokenActionRow
             testID='convert_button'
             title={`${translate('screens/TokenDetailScreen', 'Convert')} ${token.displaySymbol}`}
-            icon='swap-vert' onPress={() => navigation.navigate('Convert')}
+            icon='swap-vert' onPress={() => {
+              const mode: ConversionMode = token.id === '0_utxo' ? 'utxosToAccount' : 'accountToUtxos'
+              navigation.navigate('Convert', { mode })
+            }}
           />
         )
       }
@@ -65,7 +70,10 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
 
 function TokenActionRow ({ title, icon, onPress, testID }: TokenActionItems): JSX.Element {
   return (
-    <TouchableOpacity testID={testID} onPress={onPress} style={tailwind('flex-row py-4 pl-4 pr-2 bg-white border-b border-gray-200')}>
+    <TouchableOpacity
+      testID={testID} onPress={onPress}
+      style={tailwind('flex-row py-4 pl-4 pr-2 bg-white border-b border-gray-200')}
+    >
       <MaterialIcons name={icon} size={24} color={PrimaryColor} />
       <Text style={tailwind('flex-grow ml-2')}>
         {title}

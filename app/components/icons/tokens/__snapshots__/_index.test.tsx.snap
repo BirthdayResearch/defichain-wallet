@@ -1,5 +1,72 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`token icons <AppIcon /> should match snapshot 1`] = `
+<RNSVGSvgView
+  align="xMidYMid"
+  bbHeight="64"
+  bbWidth="64"
+  focusable={false}
+  height="64"
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
+  style={
+    Array [
+      Object {
+        "backgroundColor": "transparent",
+        "borderWidth": 0,
+      },
+      Object {
+        "flex": 0,
+        "height": 64,
+        "width": 64,
+      },
+    ]
+  }
+  vbHeight={96}
+  vbWidth={96}
+  width="64"
+>
+  <RNSVGGroup>
+    <RNSVGGroup
+      fill={null}
+      name="Icons"
+      propList={
+        Array [
+          "fill",
+          "stroke",
+        ]
+      }
+      stroke={null}
+    >
+      <RNSVGGroup
+        fill={4294901935}
+        matrix={
+          Array [
+            1,
+            0,
+            0,
+            1,
+            -4,
+            -4,
+          ]
+        }
+        propList={
+          Array [
+            "fill",
+          ]
+        }
+      >
+        <RNSVGPath
+          d="M62.6562934,87.7813333 L62.6562934,16.2186667 C78.0659072,20.8213333 89.3303695,35.12 89.3303695,52 C89.3303695,68.88 78.0659072,83.1813333 62.6562934,87.7813333 M51.986663,4 L51.986663,44.456 L45.8916366,38.3626667 L45.1127535,23.1546667 L51.4691859,4.02666667 C47.3933871,4.06933333 43.4562934,4.65066667 39.6872465,5.65066667 L36.6117255,14.896 L27.8946374,10.5253333 C24.4456794,12.5333333 21.2554598,14.936 18.4200056,17.712 L34.5658238,25.8 L35.037955,35.056 L25.7820506,34.5813333 L17.6891359,18.4426667 C14.915032,21.2773333 12.5090303,24.464 10.5004724,27.9146667 L14.8750208,36.632 L5.62178383,39.704 C4.62417338,43.472 4.04267852,47.408 4,51.4826667 L23.1359822,45.128 L38.3482078,45.904 L44.4432342,52 L38.3482078,58.096 L23.1359822,58.872 L4,52.5173333 C4.04267852,56.592 4.62417338,60.528 5.62178383,64.296 L14.8750208,67.368 L10.5004724,76.0853333 C12.5090303,79.536 14.915032,82.7226667 17.6891359,85.5573333 L25.7820506,69.4186667 L35.037955,68.944 L34.5658238,78.1973333 L18.4200056,86.288 C21.2554598,89.0613333 24.4456794,91.464 27.8946374,93.4746667 L36.6117255,89.104 L39.6872465,98.3493333 C43.4562934,99.3466667 47.3933871,99.9306667 51.4691859,99.9733333 L45.1127535,80.8453333 L45.8916366,65.6373333 L51.986663,59.544 L51.986663,100 C78.503362,100 100,78.5093333 100,52 C100,25.4906667 78.503362,4 51.986663,4"
+          name="logomark"
+        />
+      </RNSVGGroup>
+    </RNSVGGroup>
+  </RNSVGGroup>
+</RNSVGSvgView>
+`;
+
 exports[`token icons getTokenIcon("_UTXO") should get <Icon_UTXO /> snapshot 1`] = `
 <RNSVGSvgView
   align="xMidYMid"
@@ -1490,7 +1557,7 @@ exports[`token icons getTokenIcon("FAKE") should get <IconFAKE /> snapshot 1`] =
     <RNSVGCircle
       cx={16}
       cy={16}
-      fill={4282664004}
+      fill={4294967295}
       propList={
         Array [
           "fill",
@@ -1499,14 +1566,14 @@ exports[`token icons getTokenIcon("FAKE") should get <IconFAKE /> snapshot 1`] =
       r={16}
     />
     <RNSVGText
-      alignmentBaseline="middle"
+      alignmentBaseline="central"
       content={null}
       dx={Array []}
       dy={Array []}
       fill={4294967295}
       font={
         Object {
-          "fontSize": "11",
+          "fontSize": "24",
           "fontWeight": "bolder",
           "textAnchor": "middle",
         }
@@ -1529,7 +1596,7 @@ exports[`token icons getTokenIcon("FAKE") should get <IconFAKE /> snapshot 1`] =
       }
     >
       <RNSVGTSpan
-        content="FAKE"
+        content="F"
         dx={Array []}
         dy={Array []}
         font={Object {}}

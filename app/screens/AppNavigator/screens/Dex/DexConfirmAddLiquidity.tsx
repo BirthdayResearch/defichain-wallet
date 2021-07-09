@@ -13,9 +13,9 @@ import { useCallback } from 'react'
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { PrimaryButton } from '../../../../components/PrimaryButton'
-import { getWhaleClient } from '../../../../middlewares/api/whale'
-import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
 import NumberFormat from 'react-number-format'
+import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
+import { useWallet } from '../../../../contexts/WalletContext'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -44,8 +44,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const bToARate = new BigNumber(tokenA.reserve).div(tokenB.reserve)
   const lmTokenAmount = percentage.times(totalLiquidity)
 
-  const whaleAPI = getWhaleClient()
-  const account = useWalletAPI().getWallet().get(0)
+  const whaleAPI = useWhaleApiClient()
+  const account = useWallet().get(0)
   // const account = getDefaultWallet().get(0) // getting error: must call useCachedWallet() first
 
   const addLiquidity = useCallback(() => {
