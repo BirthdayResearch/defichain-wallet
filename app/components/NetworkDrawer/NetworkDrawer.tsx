@@ -9,6 +9,15 @@ import { RootState } from '../../store'
 import { networkDrawer } from '../../store/networkDrawer'
 import { translate } from '../../translations'
 
+async function handlePress (txid: string): Promise<void> {
+  // TODO(thedoublejay) explorer URL
+  const url = `https://explorer.defichain.io/#/DFI/mainnet/tx/${txid}`
+  const supported = await Linking.canOpenURL(url)
+  if (supported) {
+    await Linking.openURL(url)
+  }
+}
+
 /**
  * @description - Global component to be used for async calls, network errors etc. This component is positioned above the bottom tab.
  * Need to get the height of bottom tab via `useBottomTabBarHeight()` hook to be called on screen.
@@ -28,15 +37,6 @@ export function NetworkDrawer (): JSX.Element {
     useNativeDriver: false
   }).start()
 
-  async function handlePress (txid: string): Promise<void> {
-    // TODO(thedoublejay) explorer URL
-    const url = `https://explorer.defichain.io/#/DFI/mainnet/tx/${txid}`
-    const supported = await Linking.canOpenURL(url)
-    if (supported) {
-      await Linking.openURL(url)
-    }
-  }
-
   return (
     <Animated.View
       style={[tailwind('bg-white px-5 py-3 flex-row absolute w-full items-center border-t border-gray-200 z-10'), {
@@ -44,12 +44,10 @@ export function NetworkDrawer (): JSX.Element {
         height: 75
       }]}
     >
-      <View style={tailwind('mr-1 my-2')}>
-        {
-          isLoading ? <ActivityIndicator color={PrimaryColor} />
-            : <MaterialIcons name='check-circle' size={20} color='#02B31B' />
-        }
-      </View>
+      {
+        isLoading ? <ActivityIndicator color={PrimaryColor} />
+          : <MaterialIcons name='check-circle' size={20} color='#02B31B' />
+      }
       <View style={tailwind('flex-grow mr-1 justify-center items-center text-center')}>
         <Text style={tailwind('text-sm font-bold')}>{translate('screens/NetworkDrawer', title)}</Text>
         {

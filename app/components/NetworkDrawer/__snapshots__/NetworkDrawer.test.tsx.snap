@@ -24,36 +24,26 @@ exports[`networkDrawer should display completed state and close panel 1`] = `
     }
   }
 >
-  <View
+  <Text
+    allowFontScaling={false}
     style={
-      Object {
-        "marginBottom": 8,
-        "marginRight": 4,
-        "marginTop": 8,
-      }
+      Array [
+        Object {
+          "color": "#02B31B",
+          "fontSize": 20,
+        },
+        undefined,
+        Object {
+          "fontFamily": "material",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        Object {},
+      ]
     }
   >
-    <Text
-      allowFontScaling={false}
-      style={
-        Array [
-          Object {
-            "color": "#02B31B",
-            "fontSize": 20,
-          },
-          undefined,
-          Object {
-            "fontFamily": "material",
-            "fontStyle": "normal",
-            "fontWeight": "normal",
-          },
-          Object {},
-        ]
-      }
-    >
-      
-    </Text>
-  </View>
+    
+  </Text>
   <View
     style={
       Object {
@@ -236,22 +226,12 @@ exports[`networkDrawer should display loading state 1`] = `
     }
   }
 >
-  <View
-    style={
-      Object {
-        "marginBottom": 8,
-        "marginRight": 4,
-        "marginTop": 8,
-      }
-    }
-  >
-    <ActivityIndicator
-      animating={true}
-      color="#ff00af"
-      hidesWhenStopped={true}
-      size="small"
-    />
-  </View>
+  <ActivityIndicator
+    animating={true}
+    color="#ff00af"
+    hidesWhenStopped={true}
+    size="small"
+  />
   <View
     style={
       Object {
@@ -376,36 +356,26 @@ exports[`networkDrawer should display txid and click 1`] = `
     }
   }
 >
-  <View
+  <Text
+    allowFontScaling={false}
     style={
-      Object {
-        "marginBottom": 8,
-        "marginRight": 4,
-        "marginTop": 8,
-      }
+      Array [
+        Object {
+          "color": "#02B31B",
+          "fontSize": 20,
+        },
+        undefined,
+        Object {
+          "fontFamily": "material",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        Object {},
+      ]
     }
   >
-    <Text
-      allowFontScaling={false}
-      style={
-        Array [
-          Object {
-            "color": "#02B31B",
-            "fontSize": 20,
-          },
-          undefined,
-          Object {
-            "fontFamily": "material",
-            "fontStyle": "normal",
-            "fontWeight": "normal",
-          },
-          Object {},
-        ]
-      }
-    >
-      
-    </Text>
-  </View>
+    
+  </Text>
   <View
     style={
       Object {
@@ -588,17 +558,7 @@ exports[`networkDrawer should match snapshot 1`] = `
     }
   }
 >
-  <View
-    style={
-      Object {
-        "marginBottom": 8,
-        "marginRight": 4,
-        "marginTop": 8,
-      }
-    }
-  >
-    <Text />
-  </View>
+  <Text />
   <View
     style={
       Object {
