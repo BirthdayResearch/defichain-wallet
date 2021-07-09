@@ -37,7 +37,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const [balanceB, setBalanceB] = useState(new BigNumber(0))
   const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
   const [pair, setPair] = useState<ExtPoolPairData>()
-  const [canContinue, setCanContinue] = useState(false)
+  // const [canContinue, setCanContinue] = useState(false)
 
   const tokens = useTokensAPI()
 
@@ -55,16 +55,16 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     }
   }, [pair])
 
-  useEffect(() => {
-    if (pair === undefined) return
-    setCanContinue(canAddLiquidity(
-      pair,
-      new BigNumber(tokenAAmount),
-      new BigNumber(tokenBAmount),
-      balanceA,
-      balanceB
-    ))
-  }, [pair, tokenAAmount, tokenBAmount, balanceA, balanceB])
+  // useEffect(() => {
+  //   if (pair === undefined) return
+  //   setCanContinue(canAddLiquidity(
+  //     pair,
+  //     new BigNumber(tokenAAmount),
+  //     new BigNumber(tokenBAmount),
+  //     balanceA,
+  //     balanceB
+  //   ))
+  // }, [pair, tokenAAmount, tokenBAmount, balanceA, balanceB])
 
   // prop/global state change
   useEffect(() => {
@@ -88,6 +88,14 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   if (pair === undefined) {
     return <LoadingScreen />
   }
+
+  const canContinue = canAddLiquidity(
+    pair,
+    new BigNumber(tokenAAmount),
+    new BigNumber(tokenBAmount),
+    balanceA,
+    balanceB
+  )
 
   return (
     <View style={tailwind('w-full h-full')}>
