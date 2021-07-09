@@ -1,21 +1,21 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import * as Font from 'expo-font'
-import * as React from 'react'
+import { useEffect, useState } from 'react'
 
 /**
  * Delaying splash screen to load additional resources prior to rendering the app
  * @return boolean when loading complete
  */
 export function useCachedResources (): boolean {
-  const [isLoadingComplete, setLoadingComplete] = React.useState(false)
+  const [isLoaded, setLoaded] = useState(false)
 
-  React.useEffect(() => {
+  useEffect(() => {
     loadResourcesAndDataAsync().finally(() => {
-      setLoadingComplete(true)
+      setLoaded(true)
     })
   }, [])
 
-  return isLoadingComplete
+  return isLoaded
 }
 
 async function loadResourcesAndDataAsync (): Promise<void> {
