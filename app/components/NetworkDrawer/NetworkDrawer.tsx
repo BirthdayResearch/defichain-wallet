@@ -11,7 +11,7 @@ import { translate } from '../../translations'
 
 /**
  * @description - Global component to be used for async calls, network errors etc. This component is positioned above the bottom tab.
- * Need to get the height of bottom tab via `useBottomTabBarHeight` hook to be called on screen.
+ * Need to get the height of bottom tab via `useBottomTabBarHeight()` hook to be called on screen.
  * @example
  *          const height = useBottomTabBarHeight()
  *          // Accepts partial state
