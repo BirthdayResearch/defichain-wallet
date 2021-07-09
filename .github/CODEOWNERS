@@ -6,11 +6,11 @@
 /.idea/                                         @fuxingloh @thedoublejay
 
 /app                                            @fuxingloh @thedoublejay @ivan-zynesis
+/app/api                                        @fuxingloh @thedoublejay @ivan-zynesis
 /app/assets                                     @fuxingloh @thedoublejay @ivan-zynesis @izzycsy
 /app/components                                 @fuxingloh @thedoublejay @ivan-zynesis
 /app/contexts                                   @fuxingloh @thedoublejay @ivan-zynesis
 /app/hooks                                      @fuxingloh @thedoublejay @ivan-zynesis
-/app/middlewares                                @fuxingloh @thedoublejay @ivan-zynesis
 /app/screens                                    @fuxingloh @thedoublejay @ivan-zynesis
 /app/store                                      @fuxingloh @thedoublejay @ivan-zynesis
 /app/translations                               @fuxingloh @thedoublejay @ivan-zynesis @izzycsy
