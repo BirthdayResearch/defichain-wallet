@@ -15,11 +15,11 @@ import { WhaleApiClient } from '@defichain/whale-api-client'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import Slider from '@react-native-community/slider'
-import { useWalletAPI } from '../../../../hooks/wallet/WalletAPI'
 import { translate } from '../../../../translations'
 import { PrimaryButton } from '../../../../components/PrimaryButton'
 import NumberFormat from 'react-number-format'
-import { getWhaleClient } from '../../../../middlewares/api/whale'
+import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
+import { useWallet } from '../../../../contexts/WalletContext'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
@@ -54,11 +54,10 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
     setPercentage(new BigNumber(percentage).toFixed(2))
   }, [percentage])
 
-  const whaleAPI = getWhaleClient()
-  const WalletAPI = useWalletAPI()
+  const whaleAPI = useWhaleApiClient()
+  const account = useWallet().get(0)
 
   const removeLiquidity = useCallback(() => {
-    const account = WalletAPI.getWallet().get(0)
     // TODO: add loading spinner after we have standardized design
     constructSignedRemoveLiqAndSend(
       whaleAPI,
