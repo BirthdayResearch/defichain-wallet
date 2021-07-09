@@ -3,7 +3,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { useEffect, useCallback, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import tailwind from 'tailwind-rn'
@@ -41,7 +41,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
 
   const tokens = useTokensAPI()
 
-  const buildSummary = useCallback((ref: EditingAmount, amountString: string): void => {
+  const buildSummary = (ref: EditingAmount, amountString: string): void => {
     const refAmount = amountString.length === 0 ? new BigNumber(0) : new BigNumber(amountString)
     if (pair === undefined) return
     if (ref === 'primary') {
@@ -53,7 +53,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
       setTokenAAmount(refAmount.times(pair.bToARate).toString())
       setSharePercentage(refAmount.div(pair.tokenB.reserve))
     }
-  }, [pair])
+  }
 
   // useEffect(() => {
   //   if (pair === undefined) return
