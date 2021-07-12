@@ -4,7 +4,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useState, useEffect } from 'react'
-import { TouchableOpacity, ScrollView } from 'react-native'
+import { TouchableOpacity, ScrollView, Button } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { Text, TextInput, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
@@ -26,8 +26,23 @@ interface ExtPoolPairData extends PoolPairData {
   bToARate: BigNumber
 }
 
+function Debugger (props: { step: number, onPress: () => void }): JSX.Element {
+  return (
+    <>
+      <Text>{props.step}</Text>
+      <Button title='next' onPress={props.onPress} />
+    </>
+  )
+}
+
 export function AddLiquidityScreen (props: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
+
+  const [debug, setDebug] = useState(0)
+
+  if (debug === 0) {
+    return <Debugger step={debug} onPress={() => setDebug(debug + 1)} />
+  }
 
   // this component state
   const [tokenAAmount, setTokenAAmount] = useState<string>('0')
@@ -39,6 +54,10 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const [canContinue, setCanContinue] = useState(false)
 
   const tokens = useTokensAPI()
+
+  if (debug === 1) {
+    return <Debugger step={debug} onPress={() => setDebug(debug + 1)} />
+  }
 
   const buildSummary = (ref: EditingAmount, amountString: string): void => {
     const refAmount = amountString.length === 0 ? new BigNumber(0) : new BigNumber(amountString)
@@ -54,6 +73,10 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     }
   }
 
+  if (debug === 2) {
+    return <Debugger step={debug} onPress={() => setDebug(debug + 1)} />
+  }
+
   useEffect(() => {
     if (pair === undefined) return
     setCanContinue(canAddLiquidity(
@@ -64,6 +87,10 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
       balanceB
     ))
   }, [pair, tokenAAmount, tokenBAmount, balanceA, balanceB])
+
+  if (debug === 3) {
+    return <Debugger step={debug} onPress={() => setDebug(debug + 1)} />
+  }
 
   // prop/global state change
   useEffect(() => {
@@ -84,8 +111,16 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     if (addressTokenB !== undefined) setBalanceB(new BigNumber(addressTokenB.amount))
   }, [props.route.params.pair, tokens])
 
+  if (debug === 4) {
+    return <Debugger step={debug} onPress={() => setDebug(debug + 1)} />
+  }
+
   if (pair === undefined) {
     return <LoadingScreen />
+  }
+
+  if (debug === 5) {
+    return <Debugger step={debug} onPress={() => setDebug(debug + 1)} />
   }
 
   return (
