@@ -65,7 +65,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       // TODO: display error, close modal to retry/redirect
       console.log(e)
     })
-  }, [])
+  }, [props.route.params.summary])
 
   const items: Array<{ lhs: string, rhs: Array<{value: string | number, suffix?: string}> }> = [
     {
