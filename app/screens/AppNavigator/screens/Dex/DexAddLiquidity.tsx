@@ -4,7 +4,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useState, useCallback, useEffect } from 'react'
-import { TouchableOpacity, ScrollView, Button } from 'react-native'
+import { TouchableOpacity, ScrollView } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { Text, TextInput, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
@@ -26,20 +26,9 @@ interface ExtPoolPairData extends PoolPairData {
   bToARate: BigNumber
 }
 
-function Debugger (props: { step: number, onPress: () => void }): JSX.Element {
-  return (
-    <View style={tailwind('flex-col w-full h-8 justify-center')}>
-      <Text>{props.step}</Text>
-      <Button title='next' onPress={props.onPress} />
-    </View>
-  )
-}
-
 export function AddLiquidityScreen (props: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const tokens = useTokensAPI()
-
-  const [debug, setDebug] = useState(0)
 
   const [tokenAAmount, setTokenAAmount] = useState<string>('0')
   const [tokenBAmount, setTokenBAmount] = useState<string>('0')
@@ -63,20 +52,12 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   // const balanceA = addressTokenA !== undefined ? new BigNumber(addressTokenA.amount) : new BigNumber(0)
   // const balanceB = addressTokenB !== undefined ? new BigNumber(addressTokenB.amount) : new BigNumber(0)
 
-  if (debug === 0) {
-    return <Debugger step={debug} onPress={() => setDebug(debug + 1)} />
-  }
-
   // this component state
   const [balanceA, setBalanceA] = useState(new BigNumber(0))
   const [balanceB, setBalanceB] = useState(new BigNumber(0))
   const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
   const [pair, setPair] = useState<ExtPoolPairData>()
   const [canContinue, setCanContinue] = useState(false)
-
-  if (debug === 1) {
-    return <Debugger step={debug} onPress={() => setDebug(debug + 1)} />
-  }
 
   const buildSummary = useCallback((ref: EditingAmount, amountString: string): void => {
     const refAmount = amountString.length === 0 ? new BigNumber(0) : new BigNumber(amountString)
@@ -91,10 +72,6 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
       setSharePercentage(refAmount.div(pair.tokenB.reserve))
     }
   }, [pair])
-
-  if (debug === 2) {
-    return <Debugger step={debug} onPress={() => setDebug(debug + 1)} />
-  }
 
   // const canContinue = canAddLiquidity(
   //   pair,
@@ -115,10 +92,6 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     ))
   }, [pair, tokenAAmount, tokenBAmount, balanceA, balanceB])
 
-  if (debug === 3) {
-    return <Debugger step={debug} onPress={() => setDebug(debug + 1)} />
-  }
-
   // prop/global state change
   useEffect(() => {
     const { pair: poolPairData } = props.route.params
@@ -138,16 +111,8 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     if (addressTokenB !== undefined) setBalanceB(new BigNumber(addressTokenB.amount))
   }, [props.route.params.pair, tokens])
 
-  if (debug === 4) {
-    return <Debugger step={debug} onPress={() => setDebug(debug + 1)} />
-  }
-
   if (pair === undefined) {
     return <LoadingScreen />
-  }
-
-  if (debug === 5) {
-    return <Debugger step={debug} onPress={() => setDebug(debug + 1)} />
   }
 
   return (
@@ -167,32 +132,22 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
           current={tokenBAmount}
           onChange={(amount) => { buildSummary('secondary', amount) }}
         />
-        {
-          debug < 7
-            ? (<Debugger step={debug} onPress={() => setDebug(debug + 1)} />)
-            : (<Summary pair={pair} sharePercentage={sharePercentage} />)
-        }
+        <Summary pair={pair} sharePercentage={sharePercentage} />
       </ScrollView>
-      {
-        debug < 6
-          ? (<Debugger step={debug} onPress={() => setDebug(debug + 1)} />)
-          : (
-            <ContinueButton
-              enabled={canContinue}
-              onPress={() => {
-                navigation.navigate('ConfirmAddLiquidity', {
-                  summary: {
-                    ...pair,
-                    fee: new BigNumber(0.0001),
-                    tokenAAmount: new BigNumber(tokenAAmount),
-                    tokenBAmount: new BigNumber(tokenBAmount),
-                    percentage: sharePercentage
-                  }
-                })
-              }}
-            />
-          )
-      }
+      <ContinueButton
+        enabled={canContinue}
+        onPress={() => {
+          navigation.navigate('ConfirmAddLiquidity', {
+            summary: {
+              ...pair,
+              fee: new BigNumber(0.0001),
+              tokenAAmount: new BigNumber(tokenAAmount),
+              tokenBAmount: new BigNumber(tokenBAmount),
+              percentage: sharePercentage
+            }
+          })
+        }}
+      />
     </View>
   )
 }
@@ -288,7 +243,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
 function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
   return (
     <PrimaryButton
-      // touchableStyle={tailwind('m-2')}
+      touchableStyle={tailwind('m-3')}
       testID='button_continue_add_liq'
       title='Continue'
       disabled={!props.enabled}
