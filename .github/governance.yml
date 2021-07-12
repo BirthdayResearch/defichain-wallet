@@ -19,11 +19,11 @@ issue:
       list:
         - feature
         - bug
-        - fix
-        - refactor
         - question
+        - fix
         - chore
         - docs
+        - refactor
         - dependencies
       multiple: false
       needs: true
