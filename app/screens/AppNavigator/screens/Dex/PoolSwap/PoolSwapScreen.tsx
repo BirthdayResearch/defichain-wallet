@@ -1,6 +1,10 @@
+import { CTransactionSegWit, PoolSwap } from '@defichain/jellyfish-transaction'
+import { WhaleApiClient } from '@defichain/whale-api-client'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
+import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { MaterialIcons } from '@expo/vector-icons'
+import { StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
@@ -12,6 +16,8 @@ import { Text, TextInput } from '../../../../../components'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../../components/PrimaryButton'
 import { PrimaryColor, PrimaryColorStyle } from '../../../../../constants/Theme'
+import { useWallet } from '../../../../../contexts/WalletContext'
+import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { translate } from '../../../../../translations'
 import LoadingScreen from '../../../../LoadingNavigator/LoadingScreen'
@@ -26,6 +32,7 @@ interface SwapSummaryItems {
 type Props = StackScreenProps<DexParamList, 'PoolSwapScreen'>
 
 export function PoolSwapScreen ({ route }: Props): JSX.Element {
+  const navigation = useNavigation()
   const poolpair = route.params.poolpair
   const tokens = useTokensAPI()
   const [tokenAForm, tokenBForm] = ['tokenA', 'tokenB']
@@ -33,9 +40,25 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const [tokenB, setTokenB] = useState<AddressToken>()
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
 
+  const whaleApiClient = useWhaleApiClient()
+  const account = useWallet().get(0)
+
   function onSubmit (): void {
-    console.log(isValid)
-    console.log(getValues())
+    const atA = poolpair.tokenA.id === tokenA?.id ? poolpair.tokenA : poolpair.tokenB
+    const atB = poolpair.tokenA.id === tokenB?.id ? poolpair.tokenA : poolpair.tokenB
+
+    if (tokenA !== undefined && tokenB !== undefined && atA !== undefined && atB !== undefined && isValid) {
+      const swap = {
+        fromToken: tokenA,
+        toToken: tokenB,
+        fromAmount: new BigNumber((getValues()[tokenAForm])),
+        currentAToBPrice: new BigNumber(atB.reserve).div(atA.reserve)
+      }
+      // no longer a promise after refactor to network drawer
+      constructSignedSwapAndSend(account, swap, whaleApiClient)
+        .then(() => navigation.dispatch(StackActions.popToTop()))
+        .catch(e => console.log(e))
+    }
   }
 
   function swapToken (): void {
@@ -205,4 +228,40 @@ function SwapSummary ({ poolpair, tokenA, tokenB }: SwapSummaryItems): JSX.Eleme
       />
     </View>
   )
+}
+
+interface DexForm {
+  fromToken: AddressToken
+  toToken: AddressToken
+  fromAmount: BigNumber
+  currentAToBPrice: BigNumber
+  slippagePercentage?: number
+}
+async function constructSignedSwapAndSend (
+  account: WhaleWalletAccount, // must be both owner and recipient for simplicity
+  dexForm: DexForm,
+  // dispatch: Dispatch<any>
+  whaleAPI: WhaleApiClient
+): Promise<void> {
+  const builder = account.withTransactionBuilder()
+
+  const maxPrice = dexForm.currentAToBPrice.times(100 + (dexForm.slippagePercentage ?? 5)).div(100)
+  const integer = maxPrice.integerValue(BigNumber.ROUND_FLOOR)
+  const fraction = maxPrice.modulo(1)
+
+  const script = await account.getScript()
+  const swap: PoolSwap = {
+    fromScript: script,
+    toScript: script,
+    fromTokenId: Number(dexForm.fromToken.id),
+    toTokenId: Number(dexForm.toToken.id),
+    fromAmount: dexForm.fromAmount,
+    maxPrice: { integer, fraction }
+  }
+
+  const dfTx = await builder.dex.poolSwap(swap, script)
+  const signed = new CTransactionSegWit(dfTx)
+
+  // dispatch(store.networkDrawer.action.push(signed))
+  await whaleAPI.transactions.send({ hex: signed.toHex() })
 }
