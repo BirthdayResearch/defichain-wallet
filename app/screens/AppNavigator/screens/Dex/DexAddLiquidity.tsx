@@ -1,5 +1,5 @@
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+// import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
@@ -13,7 +13,7 @@ import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { DexParamList } from './DexNavigator'
 import { translate } from '../../../../translations'
 import NumberFormat from 'react-number-format'
-import { PrimaryButton } from '../../../../components/PrimaryButton'
+// import { PrimaryButton } from '../../../../components/PrimaryButton'
 import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
@@ -36,7 +36,7 @@ function Debugger (props: { step: number, onPress: () => void }): JSX.Element {
 }
 
 export function AddLiquidityScreen (props: Props): JSX.Element {
-  const navigation = useNavigation<NavigationProp<DexParamList>>()
+  // const navigation = useNavigation<NavigationProp<DexParamList>>()
   const tokens = useTokensAPI()
 
   const [debug, setDebug] = useState(0)
@@ -96,13 +96,13 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     return <Debugger step={debug} onPress={() => setDebug(debug + 1)} />
   }
 
-  const canContinue = canAddLiquidity(
-    pair,
-    new BigNumber(tokenAAmount),
-    new BigNumber(tokenBAmount),
-    balanceA,
-    balanceB
-  )
+  // const canContinue = canAddLiquidity(
+  //   pair,
+  //   new BigNumber(tokenAAmount),
+  //   new BigNumber(tokenBAmount),
+  //   balanceA,
+  //   balanceB
+  // )
 
   // useEffect(() => {
   //   if (pair === undefined) return
@@ -168,30 +168,30 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
           onChange={(amount) => { buildSummary('secondary', amount) }}
         />
         {
-          // debug < 6
-          //   ? (<Debugger step={debug} onPress={() => setDebug(debug + 1)} />)
-          //   : (<Summary pair={pair} sharePercentage={sharePercentage} />)
+          debug < 6
+            ? (<Debugger step={debug} onPress={() => setDebug(debug + 1)} />)
+            : (<Summary pair={pair} sharePercentage={sharePercentage} />)
         }
       </ScrollView>
       {
-        debug < 7
-          ? (<Debugger step={debug} onPress={() => setDebug(debug + 1)} />)
-          : (
-            <ContinueButton
-              enabled={canContinue}
-              onPress={() => {
-                navigation.navigate('ConfirmAddLiquidity', {
-                  summary: {
-                    ...pair,
-                    fee: new BigNumber(0.0001),
-                    tokenAAmount: new BigNumber(tokenAAmount),
-                    tokenBAmount: new BigNumber(tokenBAmount),
-                    percentage: sharePercentage
-                  }
-                })
-              }}
-            />
-          )
+        // debug < 7
+        //   ? (<Debugger step={debug} onPress={() => setDebug(debug + 1)} />)
+        //   : (
+        //     <ContinueButton
+        //       enabled={canContinue}
+        //       onPress={() => {
+        //         navigation.navigate('ConfirmAddLiquidity', {
+        //           summary: {
+        //             ...pair,
+        //             fee: new BigNumber(0.0001),
+        //             tokenAAmount: new BigNumber(tokenAAmount),
+        //             tokenBAmount: new BigNumber(tokenBAmount),
+        //             percentage: sharePercentage
+        //           }
+        //         })
+        //       }}
+        //     />
+        //   )
       }
     </View>
   )
@@ -237,90 +237,90 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
   )
 }
 
-// function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }): JSX.Element {
-//   const { pair, sharePercentage } = props
-//   const RenderRow = (props: { lhs: string, rhs: string | number }): JSX.Element => {
-//     const rhsTestID = props.lhs.replaceAll(' ', '_').toLowerCase()
-//     return (
-//       <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-center w-full')}>
-//         <View style={tailwind('flex-1')}>
-//           <Text style={tailwind('font-medium')}>{props.lhs}</Text>
-//         </View>
-//         <View style={tailwind('flex-1')}>
-//           <NumberFormat
-//             value={props.rhs} decimalScale={2} thousandSeparator displayType='text'
-//             renderText={(value) => <Text testID={rhsTestID} style={tailwind('font-medium text-right text-gray-500')}>{value}</Text>}
-//           />
-//         </View>
-//       </View>
-//     )
-//   }
+function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }): JSX.Element {
+  const { pair, sharePercentage } = props
+  const RenderRow = (props: { lhs: string, rhs: string | number }): JSX.Element => {
+    const rhsTestID = props.lhs.replaceAll(' ', '_').toLowerCase()
+    return (
+      <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-center w-full')}>
+        <View style={tailwind('flex-1')}>
+          <Text style={tailwind('font-medium')}>{props.lhs}</Text>
+        </View>
+        <View style={tailwind('flex-1')}>
+          <NumberFormat
+            value={props.rhs} decimalScale={2} thousandSeparator displayType='text'
+            renderText={(value) => <Text testID={rhsTestID} style={tailwind('font-medium text-right text-gray-500')}>{value}</Text>}
+          />
+        </View>
+      </View>
+    )
+  }
 
-//   return (
-//     <View style={tailwind('flex-col w-full items-center mt-4')}>
-//       <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-center w-full')}>
-//         <View style={tailwind('flex-1')}>
-//           <Text style={tailwind('font-medium')}>{translate('screens/AddLiquidity', 'Price')}</Text>
-//         </View>
-//         <View style={tailwind('flex-col')}>
-//           <View style={tailwind('flex-1 flex-row')}>
-//             <NumberFormat
-//               value={pair.aToBRate.toNumber()} decimalScale={3} thousandSeparator displayType='text'
-//               renderText={(value) => <Text testID='a_per_b_price' style={tailwind('font-medium text-gray-500')}>{value}</Text>}
-//             />
-//             <Text testID='a_per_b_unit' style={tailwind('font-medium text-gray-500')}> {pair.aSymbol} {translate('screens/AddLiquidity', 'per')} {pair.bSymbol}</Text>
-//           </View>
-//           <View style={tailwind('flex-1 flex-row')}>
-//             <NumberFormat
-//               value={pair.bToARate.toNumber()} decimalScale={3} thousandSeparator displayType='text'
-//               renderText={(value) => <Text testID='b_per_a_price' style={tailwind('font-medium text-gray-500')}>{value}</Text>}
-//             />
-//             <Text testID='b_per_a_unit' style={tailwind('font-medium text-gray-500')}> {pair.bSymbol} {translate('screens/AddLiquidity', 'per')} {pair.aSymbol}</Text>
-//           </View>
-//         </View>
-//       </View>
-//       <RenderRow lhs={translate('screens/AddLiquidity', 'Share of pool')} rhs={sharePercentage.times(100).toNumber()} />
-//       <RenderRow lhs={`${translate('screens/AddLiquidity', 'Pooled ')} ${pair.aSymbol}`} rhs={pair.tokenA.reserve} />
-//       <RenderRow lhs={`${translate('screens/AddLiquidity', 'Pooled ')} ${pair.bSymbol}`} rhs={pair.tokenB.reserve} />
-//     </View>
-//   )
-// }
-
-function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
   return (
-    <PrimaryButton
-      // touchableStyle={tailwind('m-2')}
-      testID='button_continue_add_liq'
-      title='Continue'
-      disabled={!props.enabled}
-      onPress={props.onPress}
-    >
-      <Text style={tailwind('text-white font-bold')}>{translate('screens/SendScreen', 'CONTINUE')}</Text>
-    </PrimaryButton>
+    <View style={tailwind('flex-col w-full items-center mt-4')}>
+      <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-center w-full')}>
+        <View style={tailwind('flex-1')}>
+          <Text style={tailwind('font-medium')}>{translate('screens/AddLiquidity', 'Price')}</Text>
+        </View>
+        <View style={tailwind('flex-col')}>
+          <View style={tailwind('flex-1 flex-row')}>
+            <NumberFormat
+              value={pair.aToBRate.toNumber()} decimalScale={3} thousandSeparator displayType='text'
+              renderText={(value) => <Text testID='a_per_b_price' style={tailwind('font-medium text-gray-500')}>{value}</Text>}
+            />
+            <Text testID='a_per_b_unit' style={tailwind('font-medium text-gray-500')}> {pair.aSymbol} {translate('screens/AddLiquidity', 'per')} {pair.bSymbol}</Text>
+          </View>
+          <View style={tailwind('flex-1 flex-row')}>
+            <NumberFormat
+              value={pair.bToARate.toNumber()} decimalScale={3} thousandSeparator displayType='text'
+              renderText={(value) => <Text testID='b_per_a_price' style={tailwind('font-medium text-gray-500')}>{value}</Text>}
+            />
+            <Text testID='b_per_a_unit' style={tailwind('font-medium text-gray-500')}> {pair.bSymbol} {translate('screens/AddLiquidity', 'per')} {pair.aSymbol}</Text>
+          </View>
+        </View>
+      </View>
+      <RenderRow lhs={translate('screens/AddLiquidity', 'Share of pool')} rhs={sharePercentage.times(100).toNumber()} />
+      <RenderRow lhs={`${translate('screens/AddLiquidity', 'Pooled ')} ${pair.aSymbol}`} rhs={pair.tokenA.reserve} />
+      <RenderRow lhs={`${translate('screens/AddLiquidity', 'Pooled ')} ${pair.bSymbol}`} rhs={pair.tokenB.reserve} />
+    </View>
   )
 }
 
-// TODO: display specific error
-function canAddLiquidity (pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenBAmount: BigNumber, balanceA: BigNumber|undefined, balanceB: BigNumber|undefined): boolean {
-  if (tokenAAmount.isNaN() || tokenBAmount.isNaN()) {
-    // empty string, use still input-ing
-    return false
-  }
+// function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
+//   return (
+//     <PrimaryButton
+//       // touchableStyle={tailwind('m-2')}
+//       testID='button_continue_add_liq'
+//       title='Continue'
+//       disabled={!props.enabled}
+//       onPress={props.onPress}
+//     >
+//       <Text style={tailwind('text-white font-bold')}>{translate('screens/SendScreen', 'CONTINUE')}</Text>
+//     </PrimaryButton>
+//   )
+// }
 
-  if (tokenAAmount.lte(0) || tokenBAmount.lte(0)) {
-    return false
-  }
+// // TODO: display specific error
+// function canAddLiquidity (pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenBAmount: BigNumber, balanceA: BigNumber|undefined, balanceB: BigNumber|undefined): boolean {
+//   if (tokenAAmount.isNaN() || tokenBAmount.isNaN()) {
+//     // empty string, use still input-ing
+//     return false
+//   }
 
-  if (tokenAAmount.gt(pair.tokenA.reserve) || tokenBAmount.gt(pair.tokenB.reserve)) {
-    return false
-  }
+//   if (tokenAAmount.lte(0) || tokenBAmount.lte(0)) {
+//     return false
+//   }
 
-  if (
-    balanceA === undefined || balanceA.lt(tokenAAmount) ||
-    balanceB === undefined || balanceB.lt(tokenBAmount)
-  ) {
-    return false
-  }
+//   if (tokenAAmount.gt(pair.tokenA.reserve) || tokenBAmount.gt(pair.tokenB.reserve)) {
+//     return false
+//   }
 
-  return true
-}
+//   if (
+//     balanceA === undefined || balanceA.lt(tokenAAmount) ||
+//     balanceB === undefined || balanceB.lt(tokenBAmount)
+//   ) {
+//     return false
+//   }
+
+//   return true
+// }
