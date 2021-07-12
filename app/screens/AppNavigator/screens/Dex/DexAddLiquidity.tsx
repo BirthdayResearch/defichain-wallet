@@ -3,7 +3,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import tailwind from 'tailwind-rn'
@@ -15,7 +15,7 @@ import { DexParamList } from './DexNavigator'
 import { translate } from '../../../../translations'
 import NumberFormat from 'react-number-format'
 import { PrimaryButton } from '../../../../components/PrimaryButton'
-// import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
+import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -41,17 +41,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
 
   const tokens = useTokensAPI()
 
-  // const { pair: poolPairData } = props.route.params
-  // const [aSymbol, bSymbol] = poolPairData.symbol.split('-')
-  // const pair = {
-  //   ...poolPairData,
-  //   aSymbol,
-  //   bSymbol,
-  //   aToBRate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve),
-  //   bToARate: new BigNumber(poolPairData.tokenA.reserve).div(poolPairData.tokenB.reserve)
-  // }
-
-  const buildSummary = (ref: EditingAmount, amountString: string): void => {
+  const buildSummary = useCallback((ref: EditingAmount, amountString: string): void => {
     const refAmount = amountString.length === 0 ? new BigNumber(0) : new BigNumber(amountString)
     if (pair === undefined) return
     if (ref === 'primary') {
@@ -63,7 +53,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
       setTokenAAmount(refAmount.times(pair.bToARate).toString())
       setSharePercentage(refAmount.div(pair.tokenB.reserve))
     }
-  }
+  }, [pair, tokens])
 
   useEffect(() => {
     if (pair === undefined) return
@@ -96,22 +86,8 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   }, [props.route.params.pair, tokens])
 
   if (pair === undefined) {
-    return <Text>LOADING</Text>
-    // return <LoadingScreen />
+    return <LoadingScreen />
   }
-
-  // const addressTokenA = tokens.find(at => at.id === pair.tokenA.id)
-  // const addressTokenB = tokens.find(at => at.id === pair.tokenB.id)
-  // const balanceA = addressTokenA !== undefined ? new BigNumber(addressTokenA.amount) : new BigNumber(0)
-  // const balanceB = addressTokenB !== undefined ? new BigNumber(addressTokenB.amount) : new BigNumber(0)
-
-  // const canContinue = canAddLiquidity(
-  //   pair,
-  //   new BigNumber(tokenAAmount),
-  //   new BigNumber(tokenBAmount),
-  //   balanceA,
-  //   balanceB
-  // )
 
   return (
     <View style={tailwind('w-full h-full')}>
@@ -158,10 +134,10 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
       <View style={tailwind('flex-col w-full h-8 justify-center')}>
         <Text style={tailwind('ml-4')}>{translate('screens/AddLiquidity', 'Input')}</Text>
       </View>
-      <View style={tailwind('flex-1 flex-row w-full h-16 items-center p-4')}>
+      <View style={tailwind('w-full flex-row h-16 items-center p-4')}>
         <TextInput
           testID={`token_input_${props.type}`}
-          style={tailwind('mr-4 text-gray-500')}
+          style={tailwind('flex-1 mr-4 text-gray-500')}
           value={props.current}
           keyboardType='numeric'
           onChangeText={txt => props.onChange(txt)}
@@ -169,9 +145,9 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
         <View style={tailwind('w-8 justify-center items-center')}>
           <TokenIcon />
         </View>
-        <Text style={tailwind('w-12 ml-4 text-gray-500')}>{props.symbol}</Text>
+        <Text style={tailwind('ml-4 text-gray-500 text-right')}>{props.symbol}</Text>
       </View>
-      <View style={tailwind('w-full bg-white flex-row border-t border-gray-200 h-12 items-center')}>
+      <View style={tailwind('w-full flex-row border-t border-gray-200 h-12 items-center')}>
         <View style={tailwind('flex flex-row flex-1 ml-4')}>
           <Text>{translate('screens/AddLiquidity', 'Balance')}: </Text>
           <NumberFormat
@@ -180,7 +156,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
           />
         </View>
         <TouchableOpacity
-          style={tailwind('flex w-12 mr-4')}
+          style={tailwind('flex mr-4')}
           onPress={() => props.onChange(props.balance.toString())}
         >
           <Text style={[PrimaryColorStyle.text]}>{translate('screens/AddLiquidity', 'MAX')}</Text>
@@ -211,19 +187,19 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
 
   return (
     <View style={tailwind('flex-col w-full items-center mt-4')}>
-      <View style={tailwind('bg-white p-4 pt-2 pb-2 border-b border-gray-200 flex-row items-center w-full')}>
+      <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-center w-full')}>
         <View style={tailwind('flex-1')}>
           <Text style={tailwind('font-medium')}>{translate('screens/AddLiquidity', 'Price')}</Text>
         </View>
-        <View style={tailwind('flex-1 flex-col')}>
-          <View style={tailwind('flex-1 flex-row justify-end')}>
+        <View style={tailwind('flex-col')}>
+          <View style={tailwind('flex-1 flex-row')}>
             <NumberFormat
               value={pair.aToBRate.toNumber()} decimalScale={3} thousandSeparator displayType='text'
               renderText={(value) => <Text testID='a_per_b_price' style={tailwind('font-medium text-gray-500')}>{value}</Text>}
             />
             <Text testID='a_per_b_unit' style={tailwind('font-medium text-gray-500')}> {pair.aSymbol} {translate('screens/AddLiquidity', 'per')} {pair.bSymbol}</Text>
           </View>
-          <View style={tailwind('flex-1 flex-row justify-end')}>
+          <View style={tailwind('flex-1 flex-row')}>
             <NumberFormat
               value={pair.bToARate.toNumber()} decimalScale={3} thousandSeparator displayType='text'
               renderText={(value) => <Text testID='b_per_a_price' style={tailwind('font-medium text-gray-500')}>{value}</Text>}
