@@ -3,9 +3,8 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { useState, useEffect, useCallback } from 'react'
-import { TouchableOpacity } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { useState, useEffect } from 'react'
+import { TouchableOpacity, ScrollView } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { Text, TextInput, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
@@ -41,7 +40,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
 
   const tokens = useTokensAPI()
 
-  const buildSummary = useCallback((ref: EditingAmount, amountString: string): void => {
+  const buildSummary = (ref: EditingAmount, amountString: string): void => {
     const refAmount = amountString.length === 0 ? new BigNumber(0) : new BigNumber(amountString)
     if (pair === undefined) return
     if (ref === 'primary') {
@@ -53,7 +52,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
       setTokenAAmount(refAmount.times(pair.bToARate).toString())
       setSharePercentage(refAmount.div(pair.tokenB.reserve))
     }
-  }, [pair, tokens])
+  }
 
   useEffect(() => {
     if (pair === undefined) return
@@ -148,7 +147,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
         <Text style={tailwind('ml-4 text-gray-500 text-right')}>{props.symbol}</Text>
       </View>
       <View style={tailwind('w-full flex-row border-t border-gray-200 h-12 items-center')}>
-        <View style={tailwind('flex flex-row flex-1 ml-4')}>
+        <View style={tailwind('flex-row flex-1 ml-4')}>
           <Text>{translate('screens/AddLiquidity', 'Balance')}: </Text>
           <NumberFormat
             value={props.balance.toNumber()} decimalScale={3} thousandSeparator displayType='text'
