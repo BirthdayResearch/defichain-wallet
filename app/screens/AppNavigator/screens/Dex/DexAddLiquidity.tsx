@@ -13,7 +13,7 @@ import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { DexParamList } from './DexNavigator'
 import { translate } from '../../../../translations'
 import NumberFormat from 'react-number-format'
-// import { PrimaryButton } from '../../../../components/PrimaryButton'
+import { PrimaryButton } from '../../../../components/PrimaryButton'
 import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
@@ -28,10 +28,10 @@ type EditingAmount = 'primary' | 'secondary'
 
 function Debugger (props: { step: number, onPress: () => void }): JSX.Element {
   return (
-    <>
+    <View style={tailwind('flex-col w-full h-8 justify-center')}>
       <Text>{props.step}</Text>
       <Button title='next' onPress={props.onPress} />
-    </>
+    </View>
   )
 }
 
@@ -174,24 +174,24 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
         }
       </ScrollView>
       {
-        // debug < 7
-        //   ? (<Debugger step={debug} onPress={() => setDebug(debug + 1)} />)
-        //   : (
-        //     <ContinueButton
-        //       enabled={canContinue}
-        //       onPress={() => {
-        //         navigation.navigate('ConfirmAddLiquidity', {
-        //           summary: {
-        //             ...pair,
-        //             fee: new BigNumber(0.0001),
-        //             tokenAAmount: new BigNumber(tokenAAmount),
-        //             tokenBAmount: new BigNumber(tokenBAmount),
-        //             percentage: sharePercentage
-        //           }
-        //         })
-        //       }}
-        //     />
-        //   )
+        debug < 7
+          ? (<Debugger step={debug} onPress={() => setDebug(debug + 1)} />)
+          : (
+            <ContinueButton
+              enabled={false}
+              onPress={() => {
+                // navigation.navigate('ConfirmAddLiquidity', {
+                //   summary: {
+                //     ...pair,
+                //     fee: new BigNumber(0.0001),
+                //     tokenAAmount: new BigNumber(tokenAAmount),
+                //     tokenBAmount: new BigNumber(tokenBAmount),
+                //     percentage: sharePercentage
+                //   }
+                // })
+              }}
+            />
+          )
       }
     </View>
   )
@@ -286,19 +286,19 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
 //   )
 // }
 
-// function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
-//   return (
-//     <PrimaryButton
-//       // touchableStyle={tailwind('m-2')}
-//       testID='button_continue_add_liq'
-//       title='Continue'
-//       disabled={!props.enabled}
-//       onPress={props.onPress}
-//     >
-//       <Text style={tailwind('text-white font-bold')}>{translate('screens/SendScreen', 'CONTINUE')}</Text>
-//     </PrimaryButton>
-//   )
-// }
+function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
+  return (
+    <PrimaryButton
+      // touchableStyle={tailwind('m-2')}
+      testID='button_continue_add_liq'
+      title='Continue'
+      disabled={!props.enabled}
+      onPress={props.onPress}
+    >
+      <Text style={tailwind('text-white font-bold')}>{translate('screens/SendScreen', 'CONTINUE')}</Text>
+    </PrimaryButton>
+  )
+}
 
 // // TODO: display specific error
 // function canAddLiquidity (pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenBAmount: BigNumber, balanceA: BigNumber|undefined, balanceB: BigNumber|undefined): boolean {
