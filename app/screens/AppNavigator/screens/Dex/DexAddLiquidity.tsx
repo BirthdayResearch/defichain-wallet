@@ -30,34 +30,15 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const tokens = useTokensAPI()
 
+  // this component UI state
   const [tokenAAmount, setTokenAAmount] = useState<string>('0')
   const [tokenBAmount, setTokenBAmount] = useState<string>('0')
-  // const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
-
-  // const { pair: poolPairData } = props.route.params
-  // const [aSymbol, bSymbol] = poolPairData.symbol.split('-')
-  // const addressTokenA = tokens.find(at => at.id === poolPairData.tokenA.id)
-  // const addressTokenB = tokens.find(at => at.id === poolPairData.tokenB.id)
-
-  // side effect to state
-  // const pair = {
-  //   ...poolPairData,
-  //   aSymbol,
-  //   bSymbol,
-  //   aToBRate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve),
-  //   bToARate: new BigNumber(poolPairData.tokenA.reserve).div(poolPairData.tokenB.reserve)
-  // }
-  // if (addressTokenA !== undefined) setBalanceA(new BigNumber(addressTokenA.amount))
-  // if (addressTokenB !== undefined) setBalanceB(new BigNumber(addressTokenB.amount))
-  // const balanceA = addressTokenA !== undefined ? new BigNumber(addressTokenA.amount) : new BigNumber(0)
-  // const balanceB = addressTokenB !== undefined ? new BigNumber(addressTokenB.amount) : new BigNumber(0)
-
-  // this component state
+  const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
+  const [canContinue, setCanContinue] = useState(false)
+  // derived from props
   const [balanceA, setBalanceA] = useState(new BigNumber(0))
   const [balanceB, setBalanceB] = useState(new BigNumber(0))
-  const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
   const [pair, setPair] = useState<ExtPoolPairData>()
-  const [canContinue, setCanContinue] = useState(false)
 
   const buildSummary = useCallback((ref: EditingAmount, amountString: string): void => {
     const refAmount = amountString.length === 0 ? new BigNumber(0) : new BigNumber(amountString)
@@ -72,14 +53,6 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
       setSharePercentage(refAmount.div(pair.tokenB.reserve))
     }
   }, [pair])
-
-  // const canContinue = canAddLiquidity(
-  //   pair,
-  //   new BigNumber(tokenAAmount),
-  //   new BigNumber(tokenBAmount),
-  //   balanceA,
-  //   balanceB
-  // )
 
   useEffect(() => {
     if (pair === undefined) return
@@ -254,7 +227,7 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
   )
 }
 
-// // TODO: display specific error
+// just leave it as it is now, will be moved to network drawer
 function canAddLiquidity (pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenBAmount: BigNumber, balanceA: BigNumber|undefined, balanceB: BigNumber|undefined): boolean {
   if (tokenAAmount.isNaN() || tokenBAmount.isNaN()) {
     // empty string, use still input-ing
