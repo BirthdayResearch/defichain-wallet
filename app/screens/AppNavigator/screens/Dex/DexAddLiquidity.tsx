@@ -1,5 +1,5 @@
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
-// import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
@@ -36,7 +36,7 @@ function Debugger (props: { step: number, onPress: () => void }): JSX.Element {
 }
 
 export function AddLiquidityScreen (props: Props): JSX.Element {
-  // const navigation = useNavigation<NavigationProp<DexParamList>>()
+  const navigation = useNavigation<NavigationProp<DexParamList>>()
   const tokens = useTokensAPI()
 
   const [debug, setDebug] = useState(0)
@@ -180,15 +180,15 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
             <ContinueButton
               enabled={false}
               onPress={() => {
-                // navigation.navigate('ConfirmAddLiquidity', {
-                //   summary: {
-                //     ...pair,
-                //     fee: new BigNumber(0.0001),
-                //     tokenAAmount: new BigNumber(tokenAAmount),
-                //     tokenBAmount: new BigNumber(tokenBAmount),
-                //     percentage: sharePercentage
-                //   }
-                // })
+                navigation.navigate('ConfirmAddLiquidity', {
+                  summary: {
+                    ...pair,
+                    fee: new BigNumber(0.0001),
+                    tokenAAmount: new BigNumber(tokenAAmount),
+                    tokenBAmount: new BigNumber(tokenBAmount),
+                    percentage: sharePercentage
+                  }
+                })
               }}
             />
           )
@@ -238,23 +238,22 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
 }
 
 function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }): JSX.Element {
-  const { pair } = props
-  // const RenderRow = (props: { lhs: string, rhs: string | number }): JSX.Element => {
-  //   const rhsTestID = props.lhs.replaceAll(' ', '_').toLowerCase()
-  //   return (
-  //     <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-center w-full')}>
-  //       <View style={tailwind('flex-1')}>
-  //         <Text style={tailwind('font-medium')}>{props.lhs}</Text>
-  //       </View>
-  //       <View style={tailwind('flex-1')}>
-  //         <NumberFormat
-  //           value={props.rhs} decimalScale={2} thousandSeparator displayType='text'
-  //           renderText={(value) => <Text testID={rhsTestID} style={tailwind('font-medium text-right text-gray-500')}>{value}</Text>}
-  //         />
-  //       </View>
-  //     </View>
-  //   )
-  // }
+  const { pair, sharePercentage } = props
+  const RenderRow = (rowProps: { lhs: string, rhs: string | number, testID: string }): JSX.Element => {
+    return (
+      <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-center w-full')}>
+        <View style={tailwind('flex-1')}>
+          <Text style={tailwind('font-medium')}>{rowProps.lhs}</Text>
+        </View>
+        <View style={tailwind('flex-1')}>
+          <NumberFormat
+            value={rowProps.rhs} decimalScale={2} thousandSeparator displayType='text'
+            renderText={(value) => <Text testID={rowProps.testID} style={tailwind('font-medium text-right text-gray-500')}>{value}</Text>}
+          />
+        </View>
+      </View>
+    )
+  }
 
   return (
     <View style={tailwind('flex-col w-full items-center mt-4')}>
@@ -279,9 +278,9 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
           </View>
         </View>
       </View>
-      {/* <RenderRow lhs={translate('screens/AddLiquidity', 'Share of pool')} rhs={sharePercentage.times(100).toNumber()} />
-      <RenderRow lhs={`${translate('screens/AddLiquidity', 'Pooled ')} ${pair.aSymbol}`} rhs={pair.tokenA.reserve} />
-      <RenderRow lhs={`${translate('screens/AddLiquidity', 'Pooled ')} ${pair.bSymbol}`} rhs={pair.tokenB.reserve} /> */}
+      <RenderRow testID='share_of_pool' lhs={translate('screens/AddLiquidity', 'Share of pool')} rhs={sharePercentage.times(100).toNumber()} />
+      <RenderRow testID={`pooled_${pair.aSymbol}`} lhs={`${translate('screens/AddLiquidity', 'Pooled ')} ${pair.aSymbol}`} rhs={pair.tokenA.reserve} />
+      <RenderRow testID={`pooled_${pair.bSymbol}`} lhs={`${translate('screens/AddLiquidity', 'Pooled ')} ${pair.bSymbol}`} rhs={pair.tokenB.reserve} />
     </View>
   )
 }
