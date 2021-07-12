@@ -3,7 +3,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import tailwind from 'tailwind-rn'
@@ -33,24 +33,23 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   // this component state
   const [tokenAAmount, setTokenAAmount] = useState<string>('0')
   const [tokenBAmount, setTokenBAmount] = useState<string>('0')
-  // const [balanceA, setBalanceA] = useState(new BigNumber(0))
-  // const [balanceB, setBalanceB] = useState(new BigNumber(0))
+  const [balanceA, setBalanceA] = useState(new BigNumber(0))
+  const [balanceB, setBalanceB] = useState(new BigNumber(0))
   const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
-  // const [pair, setPair] = useState<ExtPoolPairData>()
-  // const [canContinue, setCanContinue] = useState(false)
+  const [pair, setPair] = useState<ExtPoolPairData>()
+  const [canContinue, setCanContinue] = useState(false)
 
   const tokens = useTokensAPI()
 
-  const { pair: poolPairData } = props.route.params
-  const [aSymbol, bSymbol] = poolPairData.symbol.split('-')
-
-  const pair = {
-    ...poolPairData,
-    aSymbol,
-    bSymbol,
-    aToBRate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve),
-    bToARate: new BigNumber(poolPairData.tokenA.reserve).div(poolPairData.tokenB.reserve)
-  }
+  // const { pair: poolPairData } = props.route.params
+  // const [aSymbol, bSymbol] = poolPairData.symbol.split('-')
+  // const pair = {
+  //   ...poolPairData,
+  //   aSymbol,
+  //   bSymbol,
+  //   aToBRate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve),
+  //   bToARate: new BigNumber(poolPairData.tokenA.reserve).div(poolPairData.tokenB.reserve)
+  // }
 
   const buildSummary = (ref: EditingAmount, amountString: string): void => {
     const refAmount = amountString.length === 0 ? new BigNumber(0) : new BigNumber(amountString)
@@ -66,53 +65,53 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     }
   }
 
-  // useEffect(() => {
-  //   if (pair === undefined) return
-  //   setCanContinue(canAddLiquidity(
-  //     pair,
-  //     new BigNumber(tokenAAmount),
-  //     new BigNumber(tokenBAmount),
-  //     balanceA,
-  //     balanceB
-  //   ))
-  // }, [pair, tokenAAmount, tokenBAmount, balanceA, balanceB])
+  useEffect(() => {
+    if (pair === undefined) return
+    setCanContinue(canAddLiquidity(
+      pair,
+      new BigNumber(tokenAAmount),
+      new BigNumber(tokenBAmount),
+      balanceA,
+      balanceB
+    ))
+  }, [pair, tokenAAmount, tokenBAmount, balanceA, balanceB])
 
   // prop/global state change
-  // useEffect(() => {
-  //   const { pair: poolPairData } = props.route.params
-  //   const [aSymbol, bSymbol] = poolPairData.symbol.split('-')
-  //   const addressTokenA = tokens.find(at => at.id === poolPairData.tokenA.id)
-  //   const addressTokenB = tokens.find(at => at.id === poolPairData.tokenB.id)
+  useEffect(() => {
+    const { pair: poolPairData } = props.route.params
+    const [aSymbol, bSymbol] = poolPairData.symbol.split('-')
+    const addressTokenA = tokens.find(at => at.id === poolPairData.tokenA.id)
+    const addressTokenB = tokens.find(at => at.id === poolPairData.tokenB.id)
 
-  //   side effect to state
-  //   setPair({
-  //     ...poolPairData,
-  //     aSymbol,
-  //     bSymbol,
-  //     aToBRate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve),
-  //     bToARate: new BigNumber(poolPairData.tokenA.reserve).div(poolPairData.tokenB.reserve)
-  //   })
-  //   if (addressTokenA !== undefined) setBalanceA(new BigNumber(addressTokenA.amount))
-  //   if (addressTokenB !== undefined) setBalanceB(new BigNumber(addressTokenB.amount))
-  // }, [props.route.params.pair, tokens])
+    // side effect to state
+    setPair({
+      ...poolPairData,
+      aSymbol,
+      bSymbol,
+      aToBRate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve),
+      bToARate: new BigNumber(poolPairData.tokenA.reserve).div(poolPairData.tokenB.reserve)
+    })
+    if (addressTokenA !== undefined) setBalanceA(new BigNumber(addressTokenA.amount))
+    if (addressTokenB !== undefined) setBalanceB(new BigNumber(addressTokenB.amount))
+  }, [props.route.params.pair, tokens])
 
-  // if (pair === undefined) {
-  //   return <Text>LOADING</Text>
-  //   return <LoadingScreen />
-  // }
+  if (pair === undefined) {
+    return <Text>LOADING</Text>
+    // return <LoadingScreen />
+  }
 
-  const addressTokenA = tokens.find(at => at.id === pair.tokenA.id)
-  const addressTokenB = tokens.find(at => at.id === pair.tokenB.id)
-  const balanceA = addressTokenA !== undefined ? new BigNumber(addressTokenA.amount) : new BigNumber(0)
-  const balanceB = addressTokenB !== undefined ? new BigNumber(addressTokenB.amount) : new BigNumber(0)
+  // const addressTokenA = tokens.find(at => at.id === pair.tokenA.id)
+  // const addressTokenB = tokens.find(at => at.id === pair.tokenB.id)
+  // const balanceA = addressTokenA !== undefined ? new BigNumber(addressTokenA.amount) : new BigNumber(0)
+  // const balanceB = addressTokenB !== undefined ? new BigNumber(addressTokenB.amount) : new BigNumber(0)
 
-  const canContinue = canAddLiquidity(
-    pair,
-    new BigNumber(tokenAAmount),
-    new BigNumber(tokenBAmount),
-    balanceA,
-    balanceB
-  )
+  // const canContinue = canAddLiquidity(
+  //   pair,
+  //   new BigNumber(tokenAAmount),
+  //   new BigNumber(tokenBAmount),
+  //   balanceA,
+  //   balanceB
+  // )
 
   return (
     <View style={tailwind('w-full h-full')}>
