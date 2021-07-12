@@ -36,7 +36,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   // gather required data
   const tokens = useTokensAPI()
   const { pair } = props.route.params
-  const [aSymbol, bSymbol] = pair.symbol.split('-')
+  const [aSymbol, bSymbol] = pair.symbol.split('-') as [string, string]
   const lmToken = tokens.find(token => token.symbol === pair.symbol) as AddressToken
   const tokenAPerLmToken = new BigNumber(pair.tokenA.reserve).div(pair.totalLiquidity)
   const tokenBPerLmToken = new BigNumber(pair.tokenB.reserve).div(pair.totalLiquidity)
@@ -95,11 +95,11 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
             </View>
             <View style={tailwind('flex-1 mr-2')}>
               <NumberFormat
-                value={tokenAPerLmToken.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix={`  ${aSymbol}`}
+                value={tokenAPerLmToken.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix={` ${aSymbol}`}
                 renderText={(val) => <Text testID='text_a_to_b_price' style={tailwind('font-medium text-right text-gray-500')}>{val}</Text>}
               />
               <NumberFormat
-                value={tokenBPerLmToken.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix={`  ${bSymbol}`}
+                value={tokenBPerLmToken.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix={` ${bSymbol}`}
                 renderText={(val) => <Text testID='text_b_to_a_price' style={tailwind('font-medium text-right text-gray-500')}>{val}</Text>}
               />
             </View>
