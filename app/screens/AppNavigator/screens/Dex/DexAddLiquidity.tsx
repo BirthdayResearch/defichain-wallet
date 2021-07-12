@@ -3,7 +3,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { useState } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { TouchableOpacity, ScrollView, Button } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { Text, TextInput, View } from '../../../../components'
@@ -43,42 +43,42 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
 
   const [tokenAAmount, setTokenAAmount] = useState<string>('0')
   const [tokenBAmount, setTokenBAmount] = useState<string>('0')
-  const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
+  // const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
 
-  const { pair: poolPairData } = props.route.params
-  const [aSymbol, bSymbol] = poolPairData.symbol.split('-')
-  const addressTokenA = tokens.find(at => at.id === poolPairData.tokenA.id)
-  const addressTokenB = tokens.find(at => at.id === poolPairData.tokenB.id)
+  // const { pair: poolPairData } = props.route.params
+  // const [aSymbol, bSymbol] = poolPairData.symbol.split('-')
+  // const addressTokenA = tokens.find(at => at.id === poolPairData.tokenA.id)
+  // const addressTokenB = tokens.find(at => at.id === poolPairData.tokenB.id)
 
   // side effect to state
-  const pair = {
-    ...poolPairData,
-    aSymbol,
-    bSymbol,
-    aToBRate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve),
-    bToARate: new BigNumber(poolPairData.tokenA.reserve).div(poolPairData.tokenB.reserve)
-  }
+  // const pair = {
+  //   ...poolPairData,
+  //   aSymbol,
+  //   bSymbol,
+  //   aToBRate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve),
+  //   bToARate: new BigNumber(poolPairData.tokenA.reserve).div(poolPairData.tokenB.reserve)
+  // }
   // if (addressTokenA !== undefined) setBalanceA(new BigNumber(addressTokenA.amount))
   // if (addressTokenB !== undefined) setBalanceB(new BigNumber(addressTokenB.amount))
-  const balanceA = addressTokenA !== undefined ? new BigNumber(addressTokenA.amount) : new BigNumber(0)
-  const balanceB = addressTokenB !== undefined ? new BigNumber(addressTokenB.amount) : new BigNumber(0)
+  // const balanceA = addressTokenA !== undefined ? new BigNumber(addressTokenA.amount) : new BigNumber(0)
+  // const balanceB = addressTokenB !== undefined ? new BigNumber(addressTokenB.amount) : new BigNumber(0)
 
   if (debug === 0) {
     return <Debugger step={debug} onPress={() => setDebug(debug + 1)} />
   }
 
   // this component state
-  // const [balanceA, setBalanceA] = useState(new BigNumber(0))
-  // const [balanceB, setBalanceB] = useState(new BigNumber(0))
-  // const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
-  // const [pair, setPair] = useState<ExtPoolPairData>()
-  // const [canContinue, setCanContinue] = useState(false)
+  const [balanceA, setBalanceA] = useState(new BigNumber(0))
+  const [balanceB, setBalanceB] = useState(new BigNumber(0))
+  const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
+  const [pair, setPair] = useState<ExtPoolPairData>()
+  const [canContinue, setCanContinue] = useState(false)
 
   if (debug === 1) {
     return <Debugger step={debug} onPress={() => setDebug(debug + 1)} />
   }
 
-  const buildSummary = (ref: EditingAmount, amountString: string): void => {
+  const buildSummary = useCallback((ref: EditingAmount, amountString: string): void => {
     const refAmount = amountString.length === 0 ? new BigNumber(0) : new BigNumber(amountString)
     if (pair === undefined) return
     if (ref === 'primary') {
@@ -90,7 +90,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
       setTokenAAmount(refAmount.times(pair.bToARate).toString())
       setSharePercentage(refAmount.div(pair.tokenB.reserve))
     }
-  }
+  }, [pair])
 
   if (debug === 2) {
     return <Debugger step={debug} onPress={() => setDebug(debug + 1)} />
@@ -104,39 +104,39 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   //   balanceB
   // )
 
-  // useEffect(() => {
-  //   if (pair === undefined) return
-  //   setCanContinue(canAddLiquidity(
-  //     pair,
-  //     new BigNumber(tokenAAmount),
-  //     new BigNumber(tokenBAmount),
-  //     balanceA,
-  //     balanceB
-  //   ))
-  // }, [pair, tokenAAmount, tokenBAmount, balanceA, balanceB])
+  useEffect(() => {
+    if (pair === undefined) return
+    setCanContinue(canAddLiquidity(
+      pair,
+      new BigNumber(tokenAAmount),
+      new BigNumber(tokenBAmount),
+      balanceA,
+      balanceB
+    ))
+  }, [pair, tokenAAmount, tokenBAmount, balanceA, balanceB])
 
   if (debug === 3) {
     return <Debugger step={debug} onPress={() => setDebug(debug + 1)} />
   }
 
   // prop/global state change
-  // useEffect(() => {
-  //   const { pair: poolPairData } = props.route.params
-  //   const [aSymbol, bSymbol] = poolPairData.symbol.split('-')
-  //   const addressTokenA = tokens.find(at => at.id === poolPairData.tokenA.id)
-  //   const addressTokenB = tokens.find(at => at.id === poolPairData.tokenB.id)
+  useEffect(() => {
+    const { pair: poolPairData } = props.route.params
+    const [aSymbol, bSymbol] = poolPairData.symbol.split('-')
+    const addressTokenA = tokens.find(at => at.id === poolPairData.tokenA.id)
+    const addressTokenB = tokens.find(at => at.id === poolPairData.tokenB.id)
 
-  //   // side effect to state
-  //   setPair({
-  //     ...poolPairData,
-  //     aSymbol,
-  //     bSymbol,
-  //     aToBRate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve),
-  //     bToARate: new BigNumber(poolPairData.tokenA.reserve).div(poolPairData.tokenB.reserve)
-  //   })
-  //   if (addressTokenA !== undefined) setBalanceA(new BigNumber(addressTokenA.amount))
-  //   if (addressTokenB !== undefined) setBalanceB(new BigNumber(addressTokenB.amount))
-  // }, [props.route.params.pair, tokens])
+    // side effect to state
+    setPair({
+      ...poolPairData,
+      aSymbol,
+      bSymbol,
+      aToBRate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve),
+      bToARate: new BigNumber(poolPairData.tokenA.reserve).div(poolPairData.tokenB.reserve)
+    })
+    if (addressTokenA !== undefined) setBalanceA(new BigNumber(addressTokenA.amount))
+    if (addressTokenB !== undefined) setBalanceB(new BigNumber(addressTokenB.amount))
+  }, [props.route.params.pair, tokens])
 
   if (debug === 4) {
     return <Debugger step={debug} onPress={() => setDebug(debug + 1)} />
@@ -178,7 +178,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
           ? (<Debugger step={debug} onPress={() => setDebug(debug + 1)} />)
           : (
             <ContinueButton
-              enabled={false}
+              enabled={canContinue}
               onPress={() => {
                 navigation.navigate('ConfirmAddLiquidity', {
                   summary: {
@@ -300,26 +300,26 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
 }
 
 // // TODO: display specific error
-// function canAddLiquidity (pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenBAmount: BigNumber, balanceA: BigNumber|undefined, balanceB: BigNumber|undefined): boolean {
-//   if (tokenAAmount.isNaN() || tokenBAmount.isNaN()) {
-//     // empty string, use still input-ing
-//     return false
-//   }
+function canAddLiquidity (pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenBAmount: BigNumber, balanceA: BigNumber|undefined, balanceB: BigNumber|undefined): boolean {
+  if (tokenAAmount.isNaN() || tokenBAmount.isNaN()) {
+    // empty string, use still input-ing
+    return false
+  }
 
-//   if (tokenAAmount.lte(0) || tokenBAmount.lte(0)) {
-//     return false
-//   }
+  if (tokenAAmount.lte(0) || tokenBAmount.lte(0)) {
+    return false
+  }
 
-//   if (tokenAAmount.gt(pair.tokenA.reserve) || tokenBAmount.gt(pair.tokenB.reserve)) {
-//     return false
-//   }
+  if (tokenAAmount.gt(pair.tokenA.reserve) || tokenBAmount.gt(pair.tokenB.reserve)) {
+    return false
+  }
 
-//   if (
-//     balanceA === undefined || balanceA.lt(tokenAAmount) ||
-//     balanceB === undefined || balanceB.lt(tokenBAmount)
-//   ) {
-//     return false
-//   }
+  if (
+    balanceA === undefined || balanceA.lt(tokenAAmount) ||
+    balanceB === undefined || balanceB.lt(tokenBAmount)
+  ) {
+    return false
+  }
 
-//   return true
-// }
+  return true
+}
