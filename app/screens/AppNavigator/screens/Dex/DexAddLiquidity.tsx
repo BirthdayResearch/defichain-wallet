@@ -151,7 +151,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   }
 
   return (
-    <View style={tailwind('w-full h-full')}>
+    <View style={tailwind('w-full h-full flex-col')}>
       <ScrollView style={tailwind('w-full flex-col flex-1 bg-gray-100')}>
         <TokenInput
           type='primary'
