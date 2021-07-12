@@ -13,7 +13,7 @@ import { TransactionsNavigator } from './screens/Transactions/TransactionsNaviga
 
 export interface BottomTabParamList {
   Balances: undefined
-  Liquidity: undefined
+  Dex: undefined
   Transactions: undefined
   Settings: undefined
 
@@ -49,7 +49,7 @@ export function BottomTabNavigator (): JSX.Element {
           }}
         />
         <BottomTab.Screen
-          name='Liquidity'
+          name='Dex'
           component={DexNavigator}
           options={{
             tabBarTestID: 'bottom_tab_liquidity',
@@ -85,7 +85,7 @@ export const AppLinking: PathConfigMap = {
   },
   Dex: {
     screens: {
-      Dex: 'Dex'
+      DexScreen: 'dex'
     }
   },
   Transactions: {
