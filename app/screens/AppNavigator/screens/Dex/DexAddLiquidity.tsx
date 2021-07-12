@@ -168,13 +168,13 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
           onChange={(amount) => { buildSummary('secondary', amount) }}
         />
         {
-          debug >= 6
+          debug < 6
             ? (<Debugger step={debug} onPress={() => setDebug(debug + 1)} />)
             : (<Summary pair={pair} sharePercentage={sharePercentage} />)
         }
       </ScrollView>
       {
-        debug >= 7
+        debug < 7
           ? (<Debugger step={debug} onPress={() => setDebug(debug + 1)} />)
           : (
             <ContinueButton
@@ -289,7 +289,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
 function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
   return (
     <PrimaryButton
-      touchableStyle={tailwind('m-2')}
+      // touchableStyle={tailwind('m-2')}
       testID='button_continue_add_liq'
       title='Continue'
       disabled={!props.enabled}
