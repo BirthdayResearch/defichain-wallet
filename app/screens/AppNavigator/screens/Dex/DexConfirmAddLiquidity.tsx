@@ -67,49 +67,49 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     })
   }, [props.route.params.summary])
 
-  const items: Array<{ lhs: string, rhs: Array<{value: string | number, suffix?: string}> }> = [
+  const items: Array<{ lhs: string, rhs: Array<{value: string | number, suffix?: string, testID: string}> }> = [
     {
       lhs: translate('screens/ConfirmAddLiq', 'Adding'),
       rhs: [
-        { value: tokenAAmount.toNumber(), suffix: ` ${aSymbol}` },
-        { value: tokenBAmount.toNumber(), suffix: ` ${bSymbol}` }
+        { value: tokenAAmount.toNumber(), suffix: ` ${aSymbol}`, testID: 'adding_a' },
+        { value: tokenBAmount.toNumber(), suffix: ` ${bSymbol}`, testID: 'adding_b' }
       ]
     },
     {
       lhs: translate('screens/ConfirmAddLiq', 'Fee'),
       rhs: [
-        { value: fee.toNumber(), suffix: ' DFI' }
+        { value: fee.toNumber(), suffix: ' DFI', testID: 'fee' }
       ]
     },
     {
       lhs: translate('screens/ConfirmAddLiq', 'Price'),
       rhs: [
-        { value: aToBRate.toNumber(), suffix: ` ${bSymbol} / ${aSymbol}` },
-        { value: bToARate.toNumber(), suffix: ` ${aSymbol} / ${bSymbol}` }
+        { value: aToBRate.toNumber(), suffix: ` ${bSymbol} / ${aSymbol}`, testID: 'price_a' },
+        { value: bToARate.toNumber(), suffix: ` ${aSymbol} / ${bSymbol}`, testID: 'price_b' }
       ]
     },
     {
       lhs: translate('screens/ConfirmAddLiq', 'Liquidity tokens received'),
       rhs: [
-        { value: lmTokenAmount.toNumber(), suffix: ` ${symbol}` }
+        { value: lmTokenAmount.toNumber(), suffix: ` ${symbol}`, testID: 'liquidity_tokens_received' }
       ]
     },
     {
       lhs: translate('screens/ConfirmAddLiq', 'Share of pool'),
       rhs: [
-        { value: percentage.toNumber(), suffix: ' %' }
+        { value: percentage.toNumber(), suffix: ' %', testID: 'share_of_pool' }
       ]
     },
     {
       lhs: `${translate('screens/ConfirmAddLiq', 'Pooled')} ${aSymbol}`,
       rhs: [
-        { value: tokenA.reserve }
+        { value: tokenA.reserve, testID: 'pooled_a' }
       ]
     },
     {
       lhs: `${translate('screens/ConfirmAddLiq', 'Pooled')} ${bSymbol}`,
       rhs: [
-        { value: tokenB.reserve }
+        { value: tokenB.reserve, testID: 'pooled_b' }
       ]
     }
   ]
@@ -128,8 +128,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   )
 }
 
-function Row (props: { lhs: string, rhs: Array<{value: string | number, suffix?: string}> }): JSX.Element {
-  const rhsTestIdPrefix = `text_${props.lhs.replaceAll(' ', '_').toLocaleLowerCase()}`
+function Row (props: { lhs: string, rhs: Array<{value: string | number, suffix?: string, testID: string}> }): JSX.Element {
   return (
     <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
       <View style={tailwind('flex-1')}>
@@ -137,10 +136,10 @@ function Row (props: { lhs: string, rhs: Array<{value: string | number, suffix?:
       </View>
       <View style={tailwind('flex-1')}>
         {
-          props.rhs.map((val, idx) => (
+          props.rhs.map((value, idx) => (
             <NumberFormat
-              value={val.value} decimalScale={8} thousandSeparator displayType='text' suffix={val.suffix} key={idx}
-              renderText={(val: string) => <Text testID={`${rhsTestIdPrefix}_${idx}`} style={tailwind('font-medium text-right text-gray-500')}>{val}</Text>}
+              value={value.value} decimalScale={8} thousandSeparator displayType='text' suffix={value.suffix} key={idx}
+              renderText={(val: string) => <Text testID={`text_${value.testID}`} style={tailwind('font-medium text-right text-gray-500')}>{val}</Text>}
             />
           ))
         }
