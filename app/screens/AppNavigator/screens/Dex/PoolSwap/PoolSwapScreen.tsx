@@ -120,6 +120,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       <TokenRow
         token={tokenB} control={control} controlName={tokenBForm}
         title={translate('screens/PoolSwapScreen', 'To')}
+        maxAmount={tokenAAmount}
       />
       {
         (new BigNumber(getValues()[tokenAForm]).isGreaterThan(0) && new BigNumber(getValues()[tokenBForm]).isGreaterThan(0)) &&
@@ -278,11 +279,11 @@ async function constructSignedSwapAndSend (
 ): Promise<void> {
   const builder = account.withTransactionBuilder()
 
-  const maxPrice = dexForm.toAmount.div(dexForm.fromAmount)
+  const maxPrice = dexForm.fromAmount.div(dexForm.toAmount)
 
   // will be handled in jellyfish soon (submit maxPrice as a single BN)
   const integer = maxPrice.integerValue(BigNumber.ROUND_FLOOR)
-  const fraction = maxPrice.modulo(1).times('1e8')
+  const fraction = maxPrice.modulo(1).times('1e8').integerValue(BigNumber.ROUND_FLOOR)
 
   const script = await account.getScript()
   const swap: PoolSwap = {
