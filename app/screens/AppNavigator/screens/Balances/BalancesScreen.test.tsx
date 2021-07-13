@@ -6,6 +6,9 @@ import { RootState } from "../../../../store";
 import { wallet } from "../../../../store/wallet";
 import { BalancesScreen } from "./BalancesScreen";
 
+jest.mock('@react-navigation/bottom-tabs', () => ({
+  useBottomTabBarHeight: () => 49
+}))
 jest.mock('randomcolor', () => jest.fn().mockReturnValue('#ffffff'))
 
 jest.mock("../../../../hooks/wallet/TokensAPI", () => ({

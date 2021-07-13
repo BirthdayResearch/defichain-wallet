@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { NetworkDrawer } from '../../components/NetworkDrawer/NetworkDrawer'
 import { VectorIcon, VectorIconName } from '../../constants/Theme'
 import { RootState } from '../../store'
+import { isDrawerOpenSelector } from '../../store/networkDrawer'
 
 import { BalancesNavigator } from './screens/Balances/BalancesNavigator'
 import { DexNavigator } from './screens/Dex/DexNavigator'
@@ -30,7 +31,7 @@ function TabBarIcon (props: { name: VectorIconName, color: string }): JSX.Elemen
 }
 
 export function BottomTabNavigator (): JSX.Element {
-  const isNetworkDrawerOpen = useSelector((state: RootState) => state.networkDrawer.isOpen)
+  const isNetworkDrawerOpen = useSelector((state: RootState) => isDrawerOpenSelector(state.networkDrawer))
   return (
     <>
       {

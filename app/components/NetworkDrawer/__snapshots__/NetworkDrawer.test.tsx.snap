@@ -1,540 +1,140 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`networkDrawer should display completed state and close panel 1`] = `
-<View
-  style={
-    Object {
-      "alignItems": "center",
-      "backgroundColor": "rgba(255, 255, 255, 1)",
-      "borderBottomColor": "rgba(229, 231, 235, 1)",
-      "borderLeftColor": "rgba(229, 231, 235, 1)",
-      "borderRightColor": "rgba(229, 231, 235, 1)",
-      "borderTopColor": "rgba(229, 231, 235, 1)",
-      "borderTopWidth": 1,
-      "bottom": 0,
-      "flexDirection": "row",
-      "height": 75,
-      "paddingBottom": 12,
-      "paddingLeft": 20,
-      "paddingRight": 20,
-      "paddingTop": 12,
-      "position": "absolute",
-      "width": "100%",
-      "zIndex": 10,
-    }
-  }
->
-  <Text
-    allowFontScaling={false}
-    style={
-      Array [
-        Object {
-          "color": "#02B31B",
-          "fontSize": 20,
-        },
-        undefined,
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>
-  <View
-    style={
-      Object {
-        "alignItems": "center",
-        "flexGrow": 1,
-        "justifyContent": "center",
-        "marginRight": 4,
-        "textAlign": "center",
-      }
-    }
-  >
-    <Text
-      style={
-        Array [
-          Object {
-            "fontSize": 16,
-            "fontWeight": "600",
-          },
-          Object {
-            "fontSize": 14,
-            "fontWeight": "700",
-            "lineHeight": 20,
-          },
-        ]
-      }
-    >
-      Transaction completed
-    </Text>
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "flexDirection": "row",
-          "opacity": 1,
-          "paddingBottom": 4,
-          "paddingLeft": 4,
-          "paddingRight": 4,
-          "paddingTop": 4,
-        }
-      }
-      testID="networkDrawer_explorer"
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontSize": 16,
-              "fontWeight": "600",
-            },
-            Array [
-              Object {
-                "color": "#ff00af",
-              },
-              Object {
-                "fontSize": 14,
-                "fontWeight": "500",
-                "lineHeight": 20,
-                "marginRight": 4,
-              },
-            ],
-          ]
-        }
-      >
-        aoiwidwoajdpaow...
-      </Text>
-      <Text
-        allowFontScaling={false}
-        style={
-          Array [
-            Object {
-              "color": "#ff00af",
-              "fontSize": 18,
-            },
-            undefined,
-            Object {
-              "fontFamily": "material",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            Object {},
-          ]
-        }
-      >
-        
-      </Text>
-    </View>
-  </View>
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(209, 213, 219, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(209, 213, 219, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(209, 213, 219, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(209, 213, 219, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
-      }
-    }
-    testID="networkDrawer_close"
-  >
-    <Text
-      style={
-        Array [
-          Object {
-            "fontSize": 16,
-            "fontWeight": "600",
-          },
-          Array [
-            Object {
-              "color": "#ff00af",
-            },
-            Object {
-              "fontSize": 14,
-              "lineHeight": 20,
-            },
-          ],
-        ]
-      }
-    >
-      OK
-    </Text>
-  </View>
-</View>
-`;
-
-exports[`networkDrawer should display loading state 1`] = `
-<View
-  style={
-    Object {
-      "alignItems": "center",
-      "backgroundColor": "rgba(255, 255, 255, 1)",
-      "borderBottomColor": "rgba(229, 231, 235, 1)",
-      "borderLeftColor": "rgba(229, 231, 235, 1)",
-      "borderRightColor": "rgba(229, 231, 235, 1)",
-      "borderTopColor": "rgba(229, 231, 235, 1)",
-      "borderTopWidth": 1,
-      "bottom": 0,
-      "flexDirection": "row",
-      "height": 75,
-      "paddingBottom": 12,
-      "paddingLeft": 20,
-      "paddingRight": 20,
-      "paddingTop": 12,
-      "position": "absolute",
-      "width": "100%",
-      "zIndex": 10,
-    }
-  }
->
-  <ActivityIndicator
-    animating={true}
-    color="#ff00af"
-    hidesWhenStopped={true}
-    size="small"
-  />
-  <View
-    style={
-      Object {
-        "alignItems": "center",
-        "flexGrow": 1,
-        "justifyContent": "center",
-        "marginRight": 4,
-        "textAlign": "center",
-      }
-    }
-  >
-    <Text
-      style={
-        Array [
-          Object {
-            "fontSize": 16,
-            "fontWeight": "600",
-          },
-          Object {
-            "fontSize": 14,
-            "fontWeight": "700",
-            "lineHeight": 20,
-          },
-        ]
-      }
-    >
-      Loading...
-    </Text>
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "flexDirection": "row",
-          "opacity": 1,
-          "paddingBottom": 4,
-          "paddingLeft": 4,
-          "paddingRight": 4,
-          "paddingTop": 4,
-        }
-      }
-      testID="networkDrawer_explorer"
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontSize": 16,
-              "fontWeight": "600",
-            },
-            Array [
-              Object {
-                "color": "#ff00af",
-              },
-              Object {
-                "fontSize": 14,
-                "fontWeight": "500",
-                "lineHeight": 20,
-                "marginRight": 4,
-              },
-            ],
-          ]
-        }
-      >
-        ...
-      </Text>
-      <Text
-        allowFontScaling={false}
-        style={
-          Array [
-            Object {
-              "color": "#ff00af",
-              "fontSize": 18,
-            },
-            undefined,
-            Object {
-              "fontFamily": "material",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            Object {},
-          ]
-        }
-      >
-        
-      </Text>
-    </View>
-  </View>
-</View>
-`;
-
-exports[`networkDrawer should display txid and click 1`] = `
-<View
-  style={
-    Object {
-      "alignItems": "center",
-      "backgroundColor": "rgba(255, 255, 255, 1)",
-      "borderBottomColor": "rgba(229, 231, 235, 1)",
-      "borderLeftColor": "rgba(229, 231, 235, 1)",
-      "borderRightColor": "rgba(229, 231, 235, 1)",
-      "borderTopColor": "rgba(229, 231, 235, 1)",
-      "borderTopWidth": 1,
-      "bottom": 0,
-      "flexDirection": "row",
-      "height": 75,
-      "paddingBottom": 12,
-      "paddingLeft": 20,
-      "paddingRight": 20,
-      "paddingTop": 12,
-      "position": "absolute",
-      "width": "100%",
-      "zIndex": 10,
-    }
-  }
->
-  <Text
-    allowFontScaling={false}
-    style={
-      Array [
-        Object {
-          "color": "#02B31B",
-          "fontSize": 20,
-        },
-        undefined,
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>
-  <View
-    style={
-      Object {
-        "alignItems": "center",
-        "flexGrow": 1,
-        "justifyContent": "center",
-        "marginRight": 4,
-        "textAlign": "center",
-      }
-    }
-  >
-    <Text
-      style={
-        Array [
-          Object {
-            "fontSize": 16,
-            "fontWeight": "600",
-          },
-          Object {
-            "fontSize": 14,
-            "fontWeight": "700",
-            "lineHeight": 20,
-          },
-        ]
-      }
-    >
-      Transaction completed
-    </Text>
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "flexDirection": "row",
-          "opacity": 1,
-          "paddingBottom": 4,
-          "paddingLeft": 4,
-          "paddingRight": 4,
-          "paddingTop": 4,
-        }
-      }
-      testID="networkDrawer_explorer"
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontSize": 16,
-              "fontWeight": "600",
-            },
-            Array [
-              Object {
-                "color": "#ff00af",
-              },
-              Object {
-                "fontSize": 14,
-                "fontWeight": "500",
-                "lineHeight": 20,
-                "marginRight": 4,
-              },
-            ],
-          ]
-        }
-      >
-        aoiwidwoajdpaow...
-      </Text>
-      <Text
-        allowFontScaling={false}
-        style={
-          Array [
-            Object {
-              "color": "#ff00af",
-              "fontSize": 18,
-            },
-            undefined,
-            Object {
-              "fontFamily": "material",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            Object {},
-          ]
-        }
-      >
-        
-      </Text>
-    </View>
-  </View>
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(209, 213, 219, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(209, 213, 219, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(209, 213, 219, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(209, 213, 219, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
-      }
-    }
-    testID="networkDrawer_close"
-  >
-    <Text
-      style={
-        Array [
-          Object {
-            "fontSize": 16,
-            "fontWeight": "600",
-          },
-          Array [
-            Object {
-              "color": "#ff00af",
-            },
-            Object {
-              "fontSize": 14,
-              "lineHeight": 20,
-            },
-          ],
-        ]
-      }
-    >
-      OK
-    </Text>
-  </View>
-</View>
-`;
-
 exports[`networkDrawer should match snapshot 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "rgba(255, 255, 255, 1)",
+      "borderBottomColor": "rgba(229, 231, 235, 1)",
+      "borderLeftColor": "rgba(229, 231, 235, 1)",
+      "borderRightColor": "rgba(229, 231, 235, 1)",
+      "borderTopColor": "rgba(229, 231, 235, 1)",
+      "borderTopWidth": 1,
+      "bottom": 0,
+      "flexDirection": "row",
+      "height": 75,
+      "paddingBottom": 12,
+      "paddingLeft": 20,
+      "paddingRight": 20,
+      "paddingTop": 12,
+      "position": "absolute",
+      "width": "100%",
+      "zIndex": 10,
+    }
+  }
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      Array [
+        Object {
+          "color": "#ff0000",
+          "fontSize": 20,
+        },
+        undefined,
+        Object {
+          "fontFamily": "material",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        Object {},
+      ]
+    }
+  >
+    
+  </Text>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "marginRight": 4,
+        "textAlign": "center",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 16,
+            "fontWeight": "600",
+          },
+          Object {
+            "fontSize": 14,
+            "fontWeight": "700",
+            "lineHeight": 20,
+          },
+        ]
+      }
+    >
+      An error has occurred
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(209, 213, 219, 1)",
+        "borderBottomLeftRadius": 4,
+        "borderBottomRightRadius": 4,
+        "borderBottomWidth": 1,
+        "borderLeftColor": "rgba(209, 213, 219, 1)",
+        "borderLeftWidth": 1,
+        "borderRightColor": "rgba(209, 213, 219, 1)",
+        "borderRightWidth": 1,
+        "borderTopColor": "rgba(209, 213, 219, 1)",
+        "borderTopLeftRadius": 4,
+        "borderTopRightRadius": 4,
+        "borderTopWidth": 1,
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "opacity": 1,
+        "paddingBottom": 4,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 4,
+      }
+    }
+    testID="networkDrawer_close"
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 16,
+            "fontWeight": "600",
+          },
+          Array [
+            Object {
+              "color": "#ff00af",
+            },
+            Object {
+              "fontSize": 14,
+              "lineHeight": 20,
+            },
+          ],
+        ]
+      }
+    >
+      OK
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`networkDrawer should match snapshot with error 1`] = `
 <View
   style={
     Object {
@@ -585,57 +185,8 @@ exports[`networkDrawer should match snapshot 1`] = `
         ]
       }
     >
-      Loading...
+      An error has occurred
     </Text>
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "flexDirection": "row",
-          "opacity": 1,
-          "paddingBottom": 4,
-          "paddingLeft": 4,
-          "paddingRight": 4,
-          "paddingTop": 4,
-        }
-      }
-      testID="networkDrawer_explorer"
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontSize": 16,
-              "fontWeight": "600",
-            },
-            Array [
-              Object {
-                "color": "#ff00af",
-              },
-              Object {
-                "fontSize": 14,
-                "fontWeight": "500",
-                "lineHeight": 20,
-                "marginRight": 4,
-              },
-            ],
-          ]
-        }
-      >
-        ...
-      </Text>
-      <Text />
-    </View>
   </View>
   <View
     accessible={true}

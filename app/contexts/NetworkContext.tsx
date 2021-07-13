@@ -1,3 +1,4 @@
+import { NetworkName } from '@defichain/jellyfish-network'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Logging } from '../api/logging'
 import * as storage from '../api/storage'
@@ -10,6 +11,18 @@ interface Network {
 }
 
 const NetworkContext = createContext<Network>(undefined as any)
+
+export function networkMapper (network: EnvironmentNetwork): NetworkName {
+  switch (network) {
+    case EnvironmentNetwork.MainNet:
+      return 'mainnet'
+    case EnvironmentNetwork.TestNet:
+      return 'testnet'
+    case EnvironmentNetwork.LocalPlayground:
+    case EnvironmentNetwork.RemotePlayground:
+      return 'regtest'
+  }
+}
 
 export function useNetworkContext (): Network {
   return useContext(NetworkContext)

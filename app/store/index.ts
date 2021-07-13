@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { block } from './block'
 import { networkDrawer } from './networkDrawer'
 import { wallet } from './wallet'
@@ -17,7 +17,10 @@ export const store = configureStore({
     block: block.reducer,
     wallet: wallet.reducer,
     networkDrawer: networkDrawer.reducer
-  }
+  },
+  middleware: [
+    ...getDefaultMiddleware({ serializableCheck: false })
+  ]
 })
 
 export type RootState = ReturnType<typeof store.getState>

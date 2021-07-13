@@ -1,63 +1,109 @@
+import { DeFiAddress } from '@defichain/jellyfish-address'
+import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction'
 import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
+import { useDispatch } from 'react-redux'
 import tailwind from 'tailwind-rn'
+import { Logging } from '../../../../../api/logging'
 import { Text, TextInput } from '../../../../../components'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../../components/PrimaryButton'
 import { PrimaryColor, PrimaryColorStyle } from '../../../../../constants/Theme'
+import { networkMapper, useNetworkContext } from '../../../../../contexts/NetworkContext'
+import { useWallet } from '../../../../../contexts/WalletContext'
+import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
+import { networkDrawer } from '../../../../../store/networkDrawer'
 import { WalletToken } from '../../../../../store/wallet'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
 
-interface AmountForm {
-  control: Control
-  token: WalletToken
-  onMaxPress: (amount: string) => void
-}
-
-interface AddressForm {
-  control: Control
-}
-
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
 export function SendScreen ({ route }: Props): JSX.Element {
+  const { network } = useNetworkContext()
+  const wallet = useWallet()
+  const client = useWhaleApiClient()
   const [token] = useState(route.params.token)
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
+  const dispatch = useDispatch()
+  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  useEffect(() => {
+    client.transactions.estimateFee().then((f) => setFee(new BigNumber(f))).catch((e) => Logging.error(e))
+  }, [])
 
   async function onSubmit (): Promise<void> {
+    setIsSubmitting(true)
     if (isValid) {
       const values = getValues()
       await send(new BigNumber(values.amount), values.address)
     }
+    setIsSubmitting(false)
   }
 
   async function send (amount: BigNumber, address: string): Promise<void> {
-    console.log(amount, address)
+    try {
+      const account = wallet.get(0)
+      const script = await account.getScript()
+      const builder = account.withTransactionBuilder()
+      const to = DeFiAddress.from(networkMapper(network), address).getScript()
+      let signed: TransactionSegWit
+      if (token.symbol === 'DFI') {
+        signed = await builder.utxo.send(amount, to, script)
+      } else {
+        signed = await builder.account.accountToAccount({
+          from: script,
+          to: [{ script: to, balances: [{ token: +token.id, amount }] }]
+        }, script)
+      }
+      dispatch(networkDrawer.actions.queueTransaction({
+        signed: new CTransactionSegWit(signed),
+        broadcasted: false,
+        title: `${translate('screens/SendScreen', 'Sending')} ${token.symbol}`
+      }))
+    } catch (e) {
+      Logging.error(e)
+      dispatch(networkDrawer.actions.setError(e))
+    }
   }
 
   return (
     <ScrollView style={tailwind('bg-gray-100')}>
       <AddressRow control={control} />
       <AmountRow
+        fee={fee}
         token={token} control={control} onMaxPress={async (amount) => {
           setValue('amount', amount)
           await trigger('amount')
         }}
       />
-      <PrimaryButton disabled={!isValid} title='Send' onPress={onSubmit}>
+      {
+        fee !== undefined && (
+          <View style={tailwind('flex-row w-full bg-white p-4 mt-6')}>
+            <View style={tailwind('flex-grow')}>
+              <Text>{translate('screens/SendScreen', 'Transaction fee')}</Text>
+            </View>
+            <NumberFormat
+              value={fee.toString()} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
+              renderText={(value) => <Text style={tailwind('text-gray-500')}>{value}</Text>}
+            />
+          </View>
+        )
+      }
+      <PrimaryButton disabled={!isValid || isSubmitting} title='Send' onPress={onSubmit}>
         <Text style={tailwind('text-white font-bold')}>{translate('screens/SendScreen', 'SEND')}</Text>
       </PrimaryButton>
     </ScrollView>
   )
 }
 
-function AddressRow ({ control }: AddressForm): JSX.Element {
+function AddressRow ({ control }: { control: Control }): JSX.Element {
   return (
     <>
       <Text
@@ -93,8 +139,16 @@ function AddressRow ({ control }: AddressForm): JSX.Element {
   )
 }
 
-function AmountRow ({ token, control, onMaxPress }: AmountForm): JSX.Element {
+interface AmountForm {
+  control: Control
+  token: WalletToken
+  onMaxPress: (amount: string) => void
+  fee: BigNumber
+}
+
+function AmountRow ({ token, control, onMaxPress, fee }: AmountForm): JSX.Element {
   const Icon = getTokenIcon(token.avatarSymbol)
+  const maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).toFixed(8) : token.amount
   return (
     <>
       <Text
@@ -106,7 +160,7 @@ function AmountRow ({ token, control, onMaxPress }: AmountForm): JSX.Element {
         rules={{
           required: true,
           pattern: /^\d*\.?\d*$/,
-          max: token.amount
+          max: maxAmount
         }}
         render={({ field: { onBlur, onChange, value } }) => (
           <View style={tailwind('flex-row w-full border-b border-gray-100')}>
@@ -132,11 +186,11 @@ function AmountRow ({ token, control, onMaxPress }: AmountForm): JSX.Element {
         <View style={tailwind('flex-grow flex-row')}>
           <Text>{translate('screens/SendScreen', 'Balance: ')}</Text>
           <NumberFormat
-            value={token.amount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
+            value={maxAmount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
             renderText={(value) => <Text style={tailwind('text-gray-500')}>{value}</Text>}
           />
         </View>
-        <TouchableOpacity onPress={() => onMaxPress(token.amount)}>
+        <TouchableOpacity onPress={() => onMaxPress(maxAmount)}>
           <Text
             style={[PrimaryColorStyle.text, tailwind('font-bold')]}
           >{translate('screens/SendScreen', 'MAX')}

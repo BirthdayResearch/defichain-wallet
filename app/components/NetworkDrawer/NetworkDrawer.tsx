@@ -1,12 +1,14 @@
 import { MaterialIcons } from '@expo/vector-icons'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { Text } from '..'
+import { Logging } from '../../api/logging'
 import { PrimaryColor, PrimaryColorStyle } from '../../constants/Theme'
+import { useWhaleApiClient } from '../../contexts/WhaleContext'
 import { RootState } from '../../store'
-import { networkDrawer } from '../../store/networkDrawer'
+import { firstTransactionSelector, networkDrawer, Transaction } from '../../store/networkDrawer'
 import { translate } from '../../translations'
 
 async function handlePress (txid: string): Promise<void> {
@@ -21,17 +23,44 @@ async function handlePress (txid: string): Promise<void> {
 /**
  * @description - Global component to be used for async calls, network errors etc. This component is positioned above the bottom tab.
  * Need to get the height of bottom tab via `useBottomTabBarHeight()` hook to be called on screen.
- * @example
- *          const height = useBottomTabBarHeight()
- *          // Accepts partial state
- *          dispatch(openNetworkDrawer({ isOpen: true, isLoading: true, height }))
  * */
 export function NetworkDrawer (): JSX.Element {
-  const { height, isLoading, txid, title, isOpen } = useSelector((state: RootState) => state.networkDrawer)
+  const { height, err: e } = useSelector((state: RootState) => state.networkDrawer)
+  const transaction = useSelector((state: RootState) => firstTransactionSelector(state.networkDrawer))
+  const [tx, setTx] = useState<Transaction>(transaction)
   const dispatch = useDispatch()
-
+  const client = useWhaleApiClient()
+  const [err, setErr] = useState<Error | undefined>(e)
   const slideAnim = useRef(new Animated.Value(0)).current
-  Animated.timing(slideAnim, { toValue: isOpen ? height : 0, duration: 300, useNativeDriver: false }).start()
+  Animated.timing(slideAnim, { toValue: height, duration: 300, useNativeDriver: false }).start()
+
+  async function broadcastTransaction (tx: Transaction): Promise<string | undefined> {
+    let retries = 0
+    try {
+      return await client.transactions.send({ hex: tx.signed.toHex() })
+    } catch (e) {
+      retries++
+      Logging.error(e)
+      if (retries < 1) {
+        return await broadcastTransaction(tx)
+      }
+      setErr(e)
+    }
+  }
+
+  useEffect(() => {
+    if (transaction !== undefined) {
+      broadcastTransaction(transaction).then(() => {
+        setTx({
+          ...transaction,
+          title: translate('screens/NetworkDrawer', 'Transaction complete'),
+          broadcasted: true
+        })
+        dispatch(networkDrawer.actions.popTransaction())
+      }).catch(() => {
+      })
+    }
+  }, [transaction])
 
   return (
     <Animated.View
@@ -40,39 +69,77 @@ export function NetworkDrawer (): JSX.Element {
         height: 75
       }]}
     >
+      {err !== undefined ? <TransactionError txid={tx?.signed.txId} /> : <TransactionDetail tx={tx} />}
+    </Animated.View>
+  )
+}
+
+function TransactionDetail ({ tx }: { tx: Transaction }): JSX.Element {
+  return (
+    <>
       {
-        isLoading ? <ActivityIndicator color={PrimaryColor} />
+        !tx.broadcasted ? <ActivityIndicator color={PrimaryColor} />
           : <MaterialIcons name='check-circle' size={20} color='#02B31B' />
       }
       <View style={tailwind('flex-grow mr-1 justify-center items-center text-center')}>
-        <Text style={tailwind('text-sm font-bold')}>{translate('screens/NetworkDrawer', title)}</Text>
+        <Text
+          style={tailwind('text-sm font-bold')}
+        >{translate('screens/NetworkDrawer', tx?.title ?? 'Loading...')}
+        </Text>
         {
-          txid !== undefined && (
-            <TouchableOpacity
-              testID='networkDrawer_explorer' style={tailwind('flex-row bg-white p-1 items-center')}
-              onPress={async () => await handlePress(txid)}
-            >
-              <Text style={[PrimaryColorStyle.text, tailwind('text-sm font-medium mr-1')]}>
-                {`${txid.substring(0, 15)}...`}
-              </Text>
-              <MaterialIcons name='open-in-new' size={18} color={PrimaryColor} />
-            </TouchableOpacity>
-          )
+          tx.signed.txId !== undefined && <TransactionIDButton txid={tx.signed.txId} />
         }
       </View>
       {
-        !isLoading && (
-          <TouchableOpacity
-            testID='networkDrawer_close' onPress={() => {
-              dispatch(networkDrawer.actions.openNetworkDrawer({ isOpen: false }))
-            }} style={tailwind('px-2 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
-          >
-            <Text style={[PrimaryColorStyle.text, tailwind('text-sm')]}>
-              {translate('screens/NetworkDrawer', 'OK')}
-            </Text>
-          </TouchableOpacity>
-        )
+        tx.broadcasted && <TransactionCloseButton />
       }
-    </Animated.View>
+    </>
+  )
+}
+
+function TransactionError ({ txid }: { txid: string | undefined }): JSX.Element {
+  return (
+    <>
+      <MaterialIcons name='error' size={20} color='#ff0000' />
+      <View style={tailwind('flex-grow mr-1 justify-center items-center text-center')}>
+        <Text
+          style={tailwind('text-sm font-bold')}
+        >{`${translate('screens/NetworkDrawer', 'An error has occurred')}`}
+        </Text>
+        {
+          txid !== undefined && <TransactionIDButton txid={txid} />
+        }
+      </View>
+      <TransactionCloseButton />
+    </>
+  )
+}
+
+function TransactionIDButton ({ txid }: { txid: string }): JSX.Element {
+  return (
+    <TouchableOpacity
+      testID='networkDrawer_explorer' style={tailwind('flex-row bg-white p-1 items-center')}
+      onPress={async () => await handlePress(txid)}
+    >
+      <Text style={[PrimaryColorStyle.text, tailwind('text-sm font-medium mr-1')]}>
+        {`${txid.substring(0, 15)}...`}
+      </Text>
+      <MaterialIcons name='open-in-new' size={18} color={PrimaryColor} />
+    </TouchableOpacity>
+  )
+}
+
+function TransactionCloseButton (): JSX.Element {
+  const dispatch = useDispatch()
+  return (
+    <TouchableOpacity
+      testID='networkDrawer_close' onPress={() => {
+        dispatch(networkDrawer.actions.closeNetworkDrawer())
+      }} style={tailwind('px-2 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
+    >
+      <Text style={[PrimaryColorStyle.text, tailwind('text-sm')]}>
+        {translate('screens/NetworkDrawer', 'OK')}
+      </Text>
+    </TouchableOpacity>
   )
 }
