@@ -1,5 +1,6 @@
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction'
+import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
@@ -8,8 +9,10 @@ import { Control, Controller, useForm } from 'react-hook-form'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
+import { Dispatch } from 'redux'
 import tailwind from 'tailwind-rn'
 import { Logging } from '../../../../../api/logging'
+import { Wallet } from '../../../../../api/wallet'
 import { Text, TextInput } from '../../../../../components'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../../components/PrimaryButton'
@@ -17,10 +20,37 @@ import { PrimaryColor, PrimaryColorStyle } from '../../../../../constants/Theme'
 import { networkMapper, useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
+import { EnvironmentNetwork } from '../../../../../environment'
 import { networkDrawer } from '../../../../../store/networkDrawer'
 import { WalletToken } from '../../../../../store/wallet'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
+
+async function send (amount: BigNumber, address: string, wallet: Wallet, network: EnvironmentNetwork, token: AddressToken, dispatch: Dispatch<any>): Promise<void> {
+  try {
+    const account = wallet.get(0)
+    const script = await account.getScript()
+    const builder = account.withTransactionBuilder()
+    const to = DeFiAddress.from(networkMapper(network), address).getScript()
+    let signed: TransactionSegWit
+    if (token.symbol === 'DFI') {
+      signed = await builder.utxo.send(amount, to, script)
+    } else {
+      signed = await builder.account.accountToAccount({
+        from: script,
+        to: [{ script: to, balances: [{ token: +token.id, amount }] }]
+      }, script)
+    }
+    dispatch(networkDrawer.actions.queueTransaction({
+      signed: new CTransactionSegWit(signed),
+      broadcasted: false,
+      title: `${translate('screens/SendScreen', 'Sending')} ${token.symbol}`
+    }))
+  } catch (e) {
+    Logging.error(e)
+    dispatch(networkDrawer.actions.setError(e))
+  }
+}
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -42,35 +72,9 @@ export function SendScreen ({ route }: Props): JSX.Element {
     setIsSubmitting(true)
     if (isValid) {
       const values = getValues()
-      await send(new BigNumber(values.amount), values.address)
+      await send(new BigNumber(values.amount), values.address, wallet, network, token, dispatch)
     }
     setIsSubmitting(false)
-  }
-
-  async function send (amount: BigNumber, address: string): Promise<void> {
-    try {
-      const account = wallet.get(0)
-      const script = await account.getScript()
-      const builder = account.withTransactionBuilder()
-      const to = DeFiAddress.from(networkMapper(network), address).getScript()
-      let signed: TransactionSegWit
-      if (token.symbol === 'DFI') {
-        signed = await builder.utxo.send(amount, to, script)
-      } else {
-        signed = await builder.account.accountToAccount({
-          from: script,
-          to: [{ script: to, balances: [{ token: +token.id, amount }] }]
-        }, script)
-      }
-      dispatch(networkDrawer.actions.queueTransaction({
-        signed: new CTransactionSegWit(signed),
-        broadcasted: false,
-        title: `${translate('screens/SendScreen', 'Sending')} ${token.symbol}`
-      }))
-    } catch (e) {
-      Logging.error(e)
-      dispatch(networkDrawer.actions.setError(e))
-    }
   }
 
   return (
