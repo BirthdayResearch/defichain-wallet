@@ -60,7 +60,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         fromToken: tokenA,
         toToken: tokenB,
         fromAmount: new BigNumber((getValues()[tokenAForm])),
-        currentAToBPrice: new BigNumber(atB.reserve).div(atA.reserve)
+        toAmount: new BigNumber((getValues()[tokenBForm]))
       }
       // no longer a promise after refactor to network drawer
       constructSignedSwapAndSend(account, swap, whaleApiClient)
@@ -252,8 +252,7 @@ interface DexForm {
   fromToken: AddressToken
   toToken: AddressToken
   fromAmount: BigNumber
-  currentAToBPrice: BigNumber
-  slippagePercentage?: number
+  toAmount: BigNumber
 }
 async function constructSignedSwapAndSend (
   account: WhaleWalletAccount, // must be both owner and recipient for simplicity
@@ -263,9 +262,11 @@ async function constructSignedSwapAndSend (
 ): Promise<void> {
   const builder = account.withTransactionBuilder()
 
-  const maxPrice = dexForm.currentAToBPrice.times(100 + (dexForm.slippagePercentage ?? 5)).div(100)
+  const maxPrice = dexForm.toAmount.div(dexForm.fromAmount)
+
+  // will be handled in jellyfish soon (submit maxPrice as a single BN)
   const integer = maxPrice.integerValue(BigNumber.ROUND_FLOOR)
-  const fraction = maxPrice.modulo(1)
+  const fraction = maxPrice.modulo(1).times('1e8')
 
   const script = await account.getScript()
   const swap: PoolSwap = {
