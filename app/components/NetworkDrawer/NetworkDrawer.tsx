@@ -1,3 +1,4 @@
+import { WhaleApiClient } from '@defichain/whale-api-client'
 import { MaterialIcons } from '@expo/vector-icons'
 import React, { useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 'react-native'
@@ -20,6 +21,20 @@ async function handlePress (txid: string): Promise<void> {
   }
 }
 
+async function broadcastTransaction (tx: Transaction, client: WhaleApiClient, setError: (e: Error) => void): Promise<string | undefined> {
+  let retries = 0
+  try {
+    return await client.transactions.send({ hex: tx.signed.toHex() })
+  } catch (e) {
+    retries++
+    Logging.error(e)
+    if (retries < 1) {
+      return await broadcastTransaction(tx, client, setError)
+    }
+    setError(e)
+  }
+}
+
 /**
  * @description - Global component to be used for async calls, network errors etc. This component is positioned above the bottom tab.
  * Need to get the height of bottom tab via `useBottomTabBarHeight()` hook to be called on screen.
@@ -30,27 +45,13 @@ export function NetworkDrawer (): JSX.Element {
   const [tx, setTx] = useState<Transaction>(transaction)
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
-  const [err, setErr] = useState<Error | undefined>(e)
+  const [err, setError] = useState<Error | undefined>(e)
   const slideAnim = useRef(new Animated.Value(0)).current
   Animated.timing(slideAnim, { toValue: height, duration: 300, useNativeDriver: false }).start()
 
-  async function broadcastTransaction (tx: Transaction): Promise<string | undefined> {
-    let retries = 0
-    try {
-      return await client.transactions.send({ hex: tx.signed.toHex() })
-    } catch (e) {
-      retries++
-      Logging.error(e)
-      if (retries < 1) {
-        return await broadcastTransaction(tx)
-      }
-      setErr(e)
-    }
-  }
-
   useEffect(() => {
     if (transaction !== undefined) {
-      broadcastTransaction(transaction).then(() => {
+      broadcastTransaction(transaction, client, setError).then(() => {
         setTx({
           ...transaction,
           title: translate('screens/NetworkDrawer', 'Transaction complete'),
