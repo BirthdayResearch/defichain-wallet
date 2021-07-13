@@ -26,7 +26,19 @@ import { WalletToken } from '../../../../../store/wallet'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
 
-async function send (amount: BigNumber, address: string, wallet: Wallet, network: EnvironmentNetwork, token: AddressToken, dispatch: Dispatch<any>): Promise<void> {
+interface SendForm {
+  amount: BigNumber
+  address: string
+  token: AddressToken
+  network: EnvironmentNetwork
+}
+
+async function send ({
+  address,
+  token,
+  amount,
+  network
+}: SendForm, wallet: Wallet, dispatch: Dispatch<any>): Promise<void> {
   try {
     const account = wallet.get(0)
     const script = await account.getScript()
@@ -72,7 +84,7 @@ export function SendScreen ({ route }: Props): JSX.Element {
     setIsSubmitting(true)
     if (isValid) {
       const values = getValues()
-      await send(new BigNumber(values.amount), values.address, wallet, network, token, dispatch)
+      await send({ address: values.address, token, amount: new BigNumber(values.amount), network }, wallet, dispatch)
     }
     setIsSubmitting(false)
   }
