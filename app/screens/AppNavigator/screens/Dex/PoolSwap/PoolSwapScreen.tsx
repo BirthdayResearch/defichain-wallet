@@ -1,6 +1,5 @@
 import { CTransactionSegWit, PoolSwap } from '@defichain/jellyfish-transaction'
 import { WhaleApiClient } from '@defichain/whale-api-client'
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { MaterialIcons } from '@expo/vector-icons'
@@ -23,10 +22,16 @@ import { translate } from '../../../../../translations'
 import LoadingScreen from '../../../../LoadingNavigator/LoadingScreen'
 import { DexParamList } from '../DexNavigator'
 
+interface DerivedTokenState {
+  id: string
+  amount: string
+  symbol: string
+}
+
 interface SwapSummaryItems {
   poolpair: PoolPairData
-  tokenA: AddressToken
-  tokenB: AddressToken
+  tokenA: DerivedTokenState
+  tokenB: DerivedTokenState
   tokenAAmount: string
   tokenBAmount: string
 }
@@ -40,8 +45,8 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const [tokenAForm, tokenBForm] = ['tokenA', 'tokenB']
 
   // props derived state
-  const [tokenA, setTokenA] = useState<AddressToken>()
-  const [tokenB, setTokenB] = useState<AddressToken>()
+  const [tokenA, setTokenA] = useState<DerivedTokenState>()
+  const [tokenB, setTokenB] = useState<DerivedTokenState>()
 
   // component UI state
   const { control, setValue, formState: { isValid }, getValues, trigger, watch } = useForm({ mode: 'onChange' })
@@ -52,6 +57,8 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const account = useWallet().get(0)
 
   function onSubmit (): void {
+    if (tokenA === undefined || tokenB === undefined) return
+
     const atA = poolpair.tokenA.id === tokenA?.id ? poolpair.tokenA : poolpair.tokenB
     const atB = poolpair.tokenA.id === tokenB?.id ? poolpair.tokenA : poolpair.tokenB
 
@@ -72,12 +79,21 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const swapToken = useCallback((): void => {
     setTokenA(tokenB)
     setTokenB(tokenA)
-  }, [])
+  }, [tokenA, tokenB])
 
   useEffect(() => {
-    const a = tokens.find((token) => token.id === poolpair.tokenA.id)
+    const [tokenASymbol, tokenBSymbol] = poolpair.symbol.split('-') as [string, string]
+    const a = tokens.find((token) => token.id === poolpair.tokenA.id) ?? {
+      id: poolpair.tokenA.id,
+      amount: '0',
+      symbol: tokenASymbol
+    }
     setTokenA(a)
-    const b = tokens.find((token) => token.id === poolpair.tokenB.id)
+    const b = tokens.find((token) => token.id === poolpair.tokenB.id) ?? {
+      id: poolpair.tokenB.id,
+      amount: '0',
+      symbol: tokenBSymbol
+    }
     setTokenB(b)
   }, [route.params.poolpair, tokens])
 
@@ -119,7 +135,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
 interface TokenForm {
   control: Control
   controlName: string
-  token: AddressToken
+  token: DerivedTokenState
   enableMaxButton?: boolean
   maxAmount?: string
   customCallback?: (amount: string) => void
@@ -249,8 +265,8 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, tokenBAmount }: 
 }
 
 interface DexForm {
-  fromToken: AddressToken
-  toToken: AddressToken
+  fromToken: DerivedTokenState
+  toToken: DerivedTokenState
   fromAmount: BigNumber
   toAmount: BigNumber
 }
