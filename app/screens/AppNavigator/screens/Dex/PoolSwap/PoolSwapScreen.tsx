@@ -76,9 +76,14 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     }
   }
 
-  const swapToken = useCallback((): void => {
+  const swapToken = useCallback(async (): Promise<void> => {
     setTokenA(tokenB)
     setTokenB(tokenA)
+    const { [tokenAForm]: currentA, [tokenBForm]: currentB } = getValues()
+    setValue(tokenAForm, currentB)
+    await trigger(tokenAForm)
+    setValue(tokenBForm, currentA)
+    await trigger(tokenBForm)
   }, [tokenA, tokenB])
 
   useEffect(() => {
@@ -167,9 +172,9 @@ function TokenRow (form: TokenForm): JSX.Element {
               style={tailwind('flex-grow p-4 bg-white')}
               autoCapitalize='none'
               onBlur={onBlur}
-              onChangeText={(text) => {
-                if (customCallback !== undefined) customCallback(text)
-                else onChange(text)
+              onChange={(e) => {
+                if (customCallback !== undefined) customCallback(e.nativeEvent.text)
+                else onChange(e)
               }}
               value={value}
               keyboardType='numeric'
