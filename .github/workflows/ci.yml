@@ -18,8 +18,6 @@ jobs:
 
       - run: npm ci
       - run: npm run test:ci
-      - run: npx merge-cypress-jest-coverage
-      - run: npx codecov
 
   lint:
     name: Lint
@@ -62,3 +60,17 @@ jobs:
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  merge_tests:
+    needs: [ e2e, test ]
+    name: Merge tests results
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: actions/setup-node@38d90ce44d5275ad62cc48384b3d8a58c500bb5f
+        with:
+          node-version: 15
+      - run: npm ci
+      - run: npx merge-cypress-jest-coverage
+      - run: npx codecov
+
