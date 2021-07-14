@@ -27,9 +27,8 @@ dist
 lerna-debug.log
 
 coverage
-jest-coverage
 .nyc_output
-reports
+jest-coverage
 cypress-coverage
 
 .expo/*

@@ -8,6 +8,9 @@
       <excludeFolder url="file://$MODULE_DIR$/web-build" />
       <excludePattern pattern="*dist*" />
       <excludePattern pattern="*__snapshots__*" />
+      <excludePattern pattern="*.nyc_output*" />
+      <excludePattern pattern="*cypress-coverage*" />
+      <excludePattern pattern="*jest-coverage*" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
