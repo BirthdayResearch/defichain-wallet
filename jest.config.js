@@ -12,11 +12,13 @@ module.exports = {
     '!**/coverage/**',
     '!**/cypress/**',
     '!**/node_modules/**',
-    '!**/babel.config.js',
-    '!**/jest.config.js',
-    '!**/screens/PlaygroundNavigator/**',
+    '!**/web-build/**',
+    '!**/*.config.js',
     '!**/.versionrc.js',
     '!**/_shim.js',
-    '!**/metro.config.js'
-  ]
+    '!**/screens/PlaygroundNavigator/**',
+    '!**/cypress-coverage/**',
+    '!**/jest-coverage/**'
+  ],
+  coverageDirectory: 'jest-coverage'
 }

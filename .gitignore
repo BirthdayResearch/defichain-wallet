@@ -27,6 +27,10 @@ dist
 lerna-debug.log
 
 coverage
+reports
+.nyc_output
+jest-coverage
+cypress-coverage
 
 .expo/*
 npm-debug.*

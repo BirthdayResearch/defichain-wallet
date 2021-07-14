@@ -9,7 +9,7 @@
     "start": "expo start",
     "start:android": "expo start --android",
     "start:ios": "expo start --ios",
-    "start:web": "expo start --web",
+    "start:web": "export CYPRESS_E2E=true && expo start --web",
     "playground:start": "docker-compose up",
     "test:ci": "jest --ci --coverage",
     "cypress:open": "cypress open",
@@ -73,6 +73,7 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
+    "@cypress/code-coverage": "^3.9.9",
     "@testing-library/react-hooks": "^7.0.0",
     "@testing-library/react-native": "^7.2.0",
     "@types/find-in-files": "^0.5.1",
@@ -85,6 +86,7 @@
     "@types/react-native-loading-spinner-overlay": "^0.5.3",
     "@types/react-redux": "^7.1.18",
     "@types/react-test-renderer": "^17.0.1",
+    "babel-plugin-istanbul": "^6.0.0",
     "cypress": "^7.7.0",
     "find-in-files": "^0.5.0",
     "husky": "^7.0.1",
@@ -115,5 +117,17 @@
       "changelog": true,
       "tag": true
     }
+  },
+  "nyc": {
+    "report-dir": "cypress-coverage",
+    "all": true,
+    "include": [
+      "app/**"
+    ],
+    "exclude": [
+      "**.test.ts",
+      "**.test.tsx",
+      "**.snap"
+    ]
   }
 }
