@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleProp, ViewStyle, ButtonProps, StyleSheet, TouchableOpacity } from 'react-native'
+import { ButtonProps, StyleProp, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native'
 
 import tailwind from 'tailwind-rn'
 import { PrimaryColor } from '../constants/Theme'

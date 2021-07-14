@@ -3,11 +3,15 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { translate } from '../../../../translations'
 import { DexScreen } from './DexScreen'
+import { AddLiquidityScreen } from './DexAddLiquidity'
+import { AddLiquiditySummary, ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
 import { PoolSwapScreen } from './PoolSwap/PoolSwapScreen'
 
 export interface DexParamList {
   DexScreen: undefined
   PoolSwapScreen: { poolpair: PoolPairData }
+  AddLiquidity: { pair: PoolPairData }
+  ConfirmAddLiquidity: { summary: AddLiquiditySummary }
 
   [key: string]: undefined | object
 }
@@ -21,6 +25,16 @@ export function DexNavigator (): JSX.Element {
         name='DexScreen'
         component={DexScreen}
         options={{ headerTitle: translate('screens/DexScreen', 'Decentralized Exchange') }}
+      />
+      <DexStack.Screen
+        name='AddLiquidity'
+        component={AddLiquidityScreen}
+        options={{ headerTitle: translate('screens/DexScreen', 'Add Liquidity') }}
+      />
+      <DexStack.Screen
+        name='ConfirmAddLiquidity'
+        component={ConfirmAddLiquidityScreen}
+        options={{ headerTitle: translate('screens/DexScreen', 'Add Liquidity') }}
       />
       <DexStack.Screen
         name='PoolSwap'
