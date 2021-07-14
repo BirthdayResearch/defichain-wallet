@@ -1,9 +1,11 @@
 {
   "projectId": "oqk3fk",
-  "env": {
-    "URL": "http://localhost:19006/"
-  },
+  "fixturesFolder": false,
+  "baseUrl": "http://localhost:19006",
   "viewportWidth": 1000,
   "viewportHeight": 800,
-  "retries": { "runMode": 1, "openMode": 0 }
+  "retries": {
+    "runMode": 1,
+    "openMode": 0
+  }
 }

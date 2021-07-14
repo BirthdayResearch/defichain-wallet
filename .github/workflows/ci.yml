@@ -67,9 +67,6 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: ls -l
-      - run: ls cypress -l
-
       - name: Upload coverage
         uses: actions/upload-artifact@11e311c8b504ea40cbed20583a64d75b4735cff3
         with:
