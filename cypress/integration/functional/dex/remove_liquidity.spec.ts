@@ -20,10 +20,10 @@ context('app/dex/removeLiquidity', () => {
     cy.getByTestID('text_coin_amount_ETH').contains('0')
   })
 
-  /* it('should display price based on pool tokenA:tokenB ratio regardless removal amount', function () {
+  it('should display price based on pool tokenA:tokenB ratio regardless removal amount', function () {
     cy.getByTestID('text_a_to_b_price').contains('0.1 DFI')
     cy.getByTestID('text_b_to_a_price').contains('10 ETH')
-  }) */
+  })
 
   // // unable to trigger slider change event for react: https://github.com/cypress-io/cypress/issues/1570
   // it('Slider - should be draggable with 0.01% precision', function () {
@@ -34,7 +34,7 @@ context('app/dex/removeLiquidity', () => {
   //   cy.getByTestID('text_slider_pencentage').invoke('text').should(t => expect(t).equals('99.99 %'))
   // })
 
-  it.skip('Slider "None" / "All" button', function () {
+  it('Slider "None" / "All" button', function () {
     cy.getByTestID('button_slider_max').click().wait(100)
     cy.getByTestID('text_slider_pencentage').contains('100.00 %')
     cy.getByTestID('text_a_to_b_price').contains('0.1')
