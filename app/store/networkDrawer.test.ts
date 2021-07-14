@@ -36,7 +36,7 @@ describe('networkDrawer reducer', () => {
     expect(removed).toStrictEqual({ transactions: [payload], err: undefined, height: 49 })
   })
 
-  it('should handle closeNetworkDrawer', () => {
+  it('should closeNetworkDrawer', () => {
     const actual = networkDrawer.reducer(initialState, networkDrawer.actions.closeNetworkDrawer());
     expect(actual).toStrictEqual({ transactions: [], err: undefined, height: 49 })
   })
