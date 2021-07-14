@@ -47,7 +47,7 @@ describe('networkDrawer reducer', () => {
     expect(actual).toStrictEqual({ transactions: [], err, height: 49 })
   })
 
-  it('should handle setHeight', () => {
+  it('should setHeight', () => {
     const actual = networkDrawer.reducer(initialState, networkDrawer.actions.setHeight(77));
     expect(actual).toStrictEqual({ transactions: [], err: undefined, height: 77 })
   })
