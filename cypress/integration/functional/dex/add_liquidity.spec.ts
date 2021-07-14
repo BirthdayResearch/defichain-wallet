@@ -31,6 +31,6 @@ context('app/dex/addLiquidity', () => {
     cy.getByTestID('a_per_b_unit').contains('DFI per BTC')
     cy.getByTestID('b_per_a_price').contains('1')
     cy.getByTestID('b_per_a_unit').contains('BTC per DFI')
-    cy.getByTestID('share_of_pool').contains('0.7%') // 0.7xxxx depend on total pool and precision
+    cy.getByTestID('share_of_pool').contains('0.7') // 0.7xxxx depend on total pool and precision
   })
 })
