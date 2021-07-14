@@ -1,21 +1,21 @@
+import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
+import { WhaleApiClient } from '@defichain/whale-api-client'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
+import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
+import { StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
+import { useCallback } from 'react'
 import { FlatList } from 'react-native'
+import NumberFormat from 'react-number-format'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
+import { PrimaryButton } from '../../../../components/PrimaryButton'
+import { useWallet } from '../../../../contexts/WalletContext'
+import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { WhaleApiClient } from '@defichain/whale-api-client'
-import { useCallback } from 'react'
-import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
-import { StackActions, useNavigation } from '@react-navigation/native'
-import { PrimaryButton } from '../../../../components/PrimaryButton'
-import NumberFormat from 'react-number-format'
-import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
-import { useWallet } from '../../../../contexts/WalletContext'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -84,8 +84,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     {
       lhs: translate('screens/ConfirmAddLiq', 'Price'),
       rhs: [
-        { value: aToBRate.toNumber(), suffix: ` ${bSymbol} / ${aSymbol}`, testID: 'price_a' },
-        { value: bToARate.toNumber(), suffix: ` ${aSymbol} / ${bSymbol}`, testID: 'price_b' }
+        { value: aToBRate.toNumber(), suffix: ` ${bSymbol} per ${aSymbol}`, testID: 'price_a' },
+        { value: bToARate.toNumber(), suffix: ` ${aSymbol} per ${bSymbol}`, testID: 'price_b' }
       ]
     },
     {
@@ -115,16 +115,14 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   ]
 
   return (
-    <View testID='confirm-root' style={tailwind('w-full h-full')}>
-      <FlatList
-        style={tailwind('w-full flex-col flex-1')}
-        data={items}
-        renderItem={({ item }) => <Row lhs={item.lhs} rhs={item.rhs} />}
-        ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
-        ListHeaderComponent={<View style={tailwind('w-full h')} />}
-      />
-      <ConfirmButton onPress={() => addLiquidity()} />
-    </View>
+    <FlatList
+      testID='confirm-root'
+      style={tailwind('w-full flex-col mt-5')}
+      data={items}
+      renderItem={({ item }) => <Row lhs={item.lhs} rhs={item.rhs} />}
+      ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
+      ListFooterComponent={<ConfirmButton onPress={() => addLiquidity()} />}
+    />
   )
 }
 
@@ -153,7 +151,7 @@ function ConfirmButton (props: { onPress: () => void }): JSX.Element {
     <PrimaryButton
       testID='button_confirm_add_liq'
       title='Confirm'
-      touchableStyle={tailwind('m-2')}
+      touchableStyle={tailwind('mb-2 mt-4')}
       onPress={props.onPress}
     >
       <Text style={[tailwind('text-white font-bold')]}>{translate('screens/ConfirmLiquidity', 'CONFIRM')}</Text>
