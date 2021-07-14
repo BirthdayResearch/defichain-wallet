@@ -6,7 +6,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
@@ -28,14 +28,6 @@ interface DerivedTokenState {
   symbol: string
 }
 
-interface SwapSummaryItems {
-  poolpair: PoolPairData
-  tokenA: DerivedTokenState
-  tokenB: DerivedTokenState
-  tokenAAmount: string
-  tokenBAmount: string
-}
-
 type Props = StackScreenProps<DexParamList, 'PoolSwapScreen'>
 
 export function PoolSwapScreen ({ route }: Props): JSX.Element {
@@ -49,20 +41,20 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const [tokenB, setTokenB] = useState<DerivedTokenState>()
 
   // component UI state
-  const { control, setValue, formState: { isValid }, getValues, trigger, watch } = useForm({ mode: 'onChange' })
-  const tokenAAmount = watch(tokenAForm)
-  const tokenBAmount = watch(tokenBForm)
+  const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
 
   const whaleApiClient = useWhaleApiClient()
   const account = useWallet().get(0)
 
   function onSubmit (): void {
-    if (tokenA === undefined || tokenB === undefined) return
+    if (tokenA === undefined || tokenB === undefined) {
+      return
+    }
 
     const atA = poolpair.tokenA.id === tokenA?.id ? poolpair.tokenA : poolpair.tokenB
     const atB = poolpair.tokenA.id === tokenB?.id ? poolpair.tokenA : poolpair.tokenB
 
-    if (tokenA !== undefined && tokenB !== undefined && atA !== undefined && atB !== undefined && isValid) {
+    if (atA !== undefined && atB !== undefined && isValid) {
       const swap = {
         fromToken: tokenA,
         toToken: tokenB,
@@ -109,12 +101,13 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const aToBPrice = tokenA.id === poolpair.tokenA.id
     ? new BigNumber(poolpair.tokenB.reserve).div(poolpair.tokenA.reserve)
     : new BigNumber(poolpair.tokenA.reserve).div(poolpair.tokenB.reserve)
+
   return (
     <ScrollView style={tailwind('bg-gray-100')}>
       <TokenRow
         token={tokenA} control={control} controlName={tokenAForm}
         title={translate('screens/PoolSwapScreen', 'From')}
-        customCallback={async (amount) => {
+        onChangeFromAmount={async (amount) => {
           setValue(tokenAForm, amount)
           await trigger(tokenAForm)
           setValue(tokenBForm, aToBPrice.times(amount).toFixed())
@@ -128,11 +121,14 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       <TokenRow
         token={tokenB} control={control} controlName={tokenBForm}
         title={translate('screens/PoolSwapScreen', 'To')}
-        maxAmount={aToBPrice.times(tokenAAmount).toFixed()}
+        maxAmount={aToBPrice.times(getValues()[tokenAForm]).toFixed()}
       />
       {
         (new BigNumber(getValues()[tokenAForm]).isGreaterThan(0) && new BigNumber(getValues()[tokenBForm]).isGreaterThan(0)) &&
-          <SwapSummary poolpair={poolpair} tokenA={tokenA} tokenB={tokenB} tokenAAmount={tokenAAmount} tokenBAmount={tokenBAmount} />
+          <SwapSummary
+            poolpair={poolpair} tokenA={tokenA} tokenB={tokenB} tokenAAmount={getValues()[tokenAForm]}
+            tokenBAmount={getValues()[tokenBForm]}
+          />
       }
       <PrimaryButton disabled={!isValid} title='Swap' onPress={onSubmit} testID='button_submit'>
         <Text style={tailwind('text-white font-bold')}>{translate('screens/PoolSwapScreen', 'SWAP')}</Text>
@@ -147,12 +143,12 @@ interface TokenForm {
   token: DerivedTokenState
   enableMaxButton?: boolean
   maxAmount?: string
-  customCallback?: (amount: string) => void
+  onChangeFromAmount?: (amount: string) => void
   title: string
 }
 
 function TokenRow (form: TokenForm): JSX.Element {
-  const { token, control, customCallback, title, controlName, enableMaxButton = true } = form
+  const { token, control, onChangeFromAmount, title, controlName, enableMaxButton = true } = form
   const Icon = getTokenIcon(token.symbol)
   const rules: { required: boolean, pattern: RegExp, max?: string } = {
     required: true,
@@ -176,8 +172,9 @@ function TokenRow (form: TokenForm): JSX.Element {
               autoCapitalize='none'
               onBlur={onBlur}
               onChange={(e) => {
-                if (customCallback !== undefined) customCallback(e.nativeEvent.text)
-                else onChange(e)
+                if (onChangeFromAmount !== undefined) {
+                  onChangeFromAmount(e.nativeEvent.text)
+                } else onChange(e)
               }}
               value={value}
               keyboardType='numeric'
@@ -198,12 +195,19 @@ function TokenRow (form: TokenForm): JSX.Element {
           <Text>{translate('screens/PoolSwapScreen', 'Balance: ')}</Text>
           <NumberFormat
             value={token.amount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
-            renderText={(value) => <Text testID={`text_balance_${controlName}`} style={tailwind('text-gray-500')}>{value}</Text>}
+            renderText={(value) => (
+              <Text
+                testID={`text_balance_${controlName}`}
+                style={tailwind('text-gray-500')}
+              >
+                {value}
+              </Text>
+            )}
           />
         </View>
         {
-          (enableMaxButton != null && customCallback !== undefined) && (
-            <TouchableOpacity testID='max_button_token_a' onPress={() => customCallback(token.amount)}>
+          (enableMaxButton != null && onChangeFromAmount !== undefined) && (
+            <TouchableOpacity testID='max_button_token_a' onPress={() => onChangeFromAmount(token.amount)}>
               <Text
                 style={[PrimaryColorStyle.text, tailwind('font-bold')]}
               >{translate('screens/PoolSwapScreen', 'MAX')}
@@ -242,6 +246,14 @@ function PriceRow ({
       </View>
     </View>
   )
+}
+
+interface SwapSummaryItems {
+  poolpair: PoolPairData
+  tokenA: DerivedTokenState
+  tokenB: DerivedTokenState
+  tokenAAmount: string
+  tokenBAmount: string
 }
 
 function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, tokenBAmount }: SwapSummaryItems): JSX.Element {
@@ -284,6 +296,7 @@ interface DexForm {
   fromAmount: BigNumber
   toAmount: BigNumber
 }
+
 async function constructSignedSwapAndSend (
   account: WhaleWalletAccount, // must be both owner and recipient for simplicity
   dexForm: DexForm,

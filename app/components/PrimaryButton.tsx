@@ -15,7 +15,7 @@ export const PrimaryButtonStyle = StyleSheet.create({
   }
 })
 
-export function PrimaryButton (props: React.PropsWithChildren<ButtonProps> & { touchableStyle: StyleProp<ViewStyle> }): JSX.Element {
+export function PrimaryButton (props: React.PropsWithChildren<ButtonProps> & { touchableStyle?: StyleProp<ViewStyle> }): JSX.Element {
   return (
     <TouchableOpacity
       {...props}
