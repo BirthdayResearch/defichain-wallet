@@ -64,6 +64,7 @@ jobs:
           browser: chrome
           spec: cypress/integration/**
         env:
+          NODE_ENV: E2E
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
