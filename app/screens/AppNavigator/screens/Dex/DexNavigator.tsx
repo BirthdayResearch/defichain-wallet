@@ -4,6 +4,7 @@ import * as React from 'react'
 import { translate } from '../../../../translations'
 import { AddLiquidityScreen } from './DexAddLiquidity'
 import { AddLiquiditySummary, ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
+import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
 import { DexScreen } from './DexScreen'
 import { PoolSwapScreen } from './PoolSwap/PoolSwapScreen'
 
@@ -35,6 +36,11 @@ export function DexNavigator (): JSX.Element {
         name='ConfirmAddLiquidity'
         component={ConfirmAddLiquidityScreen}
         options={{ headerTitle: translate('screens/DexScreen', 'Add Liquidity') }}
+      />
+      <DexStack.Screen
+        name='RemoveLiquidity'
+        component={RemoveLiquidityScreen}
+        options={{ headerTitle: translate('screens/DexScreen', 'Remove Liquidity') }}
       />
       <DexStack.Screen
         name='PoolSwap'
