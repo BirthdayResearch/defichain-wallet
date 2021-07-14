@@ -18,6 +18,11 @@ jobs:
 
       - run: npm ci
       - run: npm run test:ci
+      - name: Upload e2e coverage
+        uses: actions/upload-artifact@11e311c8b504ea40cbed20583a64d75b4735cff3
+        with:
+          name: unit_coverage
+          path: jest-coverage
 
   lint:
     name: Lint
@@ -61,16 +66,28 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Upload e2e coverage
+        uses: actions/upload-artifact@11e311c8b504ea40cbed20583a64d75b4735cff3
+        with:
+          name: e2e_coverage
+          path: cypress-coverage
+
   merge_tests:
     needs: [ e2e, test ]
     name: Merge tests results
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
       - uses: actions/setup-node@38d90ce44d5275ad62cc48384b3d8a58c500bb5f
         with:
           node-version: 15
-      - run: npm ci
+      - name: Download e2e artifact
+        uses: actions/download-artifact@3be87be14a055c47b01d3bd88f8fe02320a9bb60
+        with:
+          name: e2e_coverage
+      - name: Download unit artifact
+        uses: actions/download-artifact@3be87be14a055c47b01d3bd88f8fe02320a9bb60
+        with:
+          name: unit_coverage
       - run: npx merge-cypress-jest-coverage
       - run: npx codecov
 
