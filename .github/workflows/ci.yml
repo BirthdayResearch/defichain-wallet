@@ -30,7 +30,7 @@ jobs:
 
       - run: npm ci
       - run: npm run test:ci
-      - name: Upload e2e coverage
+      - name: Upload coverage
         uses: actions/upload-artifact@11e311c8b504ea40cbed20583a64d75b4735cff3
         with:
           name: jest-coverage
@@ -57,15 +57,14 @@ jobs:
       - uses: cypress-io/github-action@6122aa43014e18ec9c2d06fc0bdc5b6759064508
         with:
           record: true
-          build: npx --no-install expo build:web
-          start: npx --no-install serve web-build -l 19006
+          start: npm run start:web
           browser: chrome
           spec: cypress/integration/**
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload e2e coverage
+      - name: Upload coverage
         uses: actions/upload-artifact@11e311c8b504ea40cbed20583a64d75b4735cff3
         with:
           name: cypress-coverage
