@@ -11,6 +11,7 @@
     "start:ios": "expo start --ios",
     "start:web": "expo start --web",
     "playground:start": "docker-compose up",
+    "playground:restart": "docker-compose restart",
     "test:ci": "jest --ci --coverage",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --headless --browser chrome",

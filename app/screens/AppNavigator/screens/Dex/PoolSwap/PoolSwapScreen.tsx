@@ -106,6 +106,9 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     return <LoadingScreen />
   }
 
+  const aToBPrice = tokenA.id === poolpair.tokenA.id
+    ? new BigNumber(poolpair.tokenB.reserve).div(poolpair.tokenA.reserve)
+    : new BigNumber(poolpair.tokenA.reserve).div(poolpair.tokenB.reserve)
   return (
     <ScrollView style={tailwind('bg-gray-100')}>
       <TokenRow
@@ -114,7 +117,8 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         customCallback={async (amount) => {
           setValue(tokenAForm, amount)
           await trigger(tokenAForm)
-          setValue(tokenBForm, amount)
+          console.log(aToBPrice.toFixed())
+          setValue(tokenBForm, aToBPrice.times(amount).toFixed())
           await trigger(tokenBForm)
         }}
         maxAmount={tokenA.amount}
@@ -125,7 +129,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       <TokenRow
         token={tokenB} control={control} controlName={tokenBForm}
         title={translate('screens/PoolSwapScreen', 'To')}
-        maxAmount={tokenAAmount}
+        maxAmount={aToBPrice.times(tokenAAmount).toFixed()}
       />
       {
         (new BigNumber(getValues()[tokenAForm]).isGreaterThan(0) && new BigNumber(getValues()[tokenBForm]).isGreaterThan(0)) &&
@@ -179,7 +183,7 @@ function TokenRow (form: TokenForm): JSX.Element {
               value={value}
               keyboardType='numeric'
               placeholder={translate('screens/PoolSwapScreen', 'Enter an amount')}
-              testID={`input_amount_${token.id}`}
+              testID={`text_input_${controlName}`}
             />
             <View style={tailwind('flex-row bg-white pr-4 items-center')}>
               <Icon />
@@ -195,7 +199,7 @@ function TokenRow (form: TokenForm): JSX.Element {
           <Text>{translate('screens/PoolSwapScreen', 'Balance: ')}</Text>
           <NumberFormat
             value={token.amount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
-            renderText={(value) => <Text style={tailwind('text-gray-500')}>{value}</Text>}
+            renderText={(value) => <Text testID={`text_balance_${controlName}`} style={tailwind('text-gray-500')}>{value}</Text>}
           />
         </View>
         {
@@ -215,9 +219,10 @@ function TokenRow (form: TokenForm): JSX.Element {
 }
 
 function PriceRow ({
+  testID,
   title,
   values
-}: { title: string, values: Array<{ amount: string, symbol: string }> }): JSX.Element {
+}: { testID: string, title: string, values: Array<{ amount: string, symbol: string }> }): JSX.Element {
   return (
     <View style={tailwind('flex-row w-full border-b border-gray-100 bg-white p-4')}>
       <Text>{title}</Text>
@@ -229,7 +234,7 @@ function PriceRow ({
               value={token.amount} decimalScale={8} thousandSeparator
               displayType='text' suffix={` ${token.symbol}`}
               renderText={(value) => (
-                <Text style={tailwind('text-gray-500 text-right ml-1')}>
+                <Text testID={`text_price_row_${testID}_${index}`} style={tailwind('text-gray-500 text-right ml-1')}>
                   {value}
                 </Text>
               )}
@@ -251,18 +256,22 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, tokenBAmount }: 
   return (
     <View style={tailwind('mt-4')}>
       <PriceRow
+        testID='price'
         title={translate('screens/PoolSwapScreen', 'Price')}
         values={price}
       />
       <PriceRow
+        testID='estimated'
         title={translate('screens/PoolSwapScreen', 'Estimated to receive')}
-        values={[{ amount: tokenAAmount, symbol: tokenB.symbol }]}
+        values={[{ amount: new BigNumber(tokenAAmount).times(price[1].amount).toFixed(), symbol: tokenB.symbol }]}
       />
       <PriceRow
+        testID='minimum'
         title={translate('screens/PoolSwapScreen', 'Minimum to receive')}
         values={[{ amount: tokenBAmount, symbol: tokenB.symbol }]}
       />
       <PriceRow
+        testID='fee'
         title={translate('screens/PoolSwapScreen', 'Liquidity provider fee')}
         values={[{ amount: '0.001', symbol: 'DFI' }]}
       />
