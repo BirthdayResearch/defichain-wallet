@@ -117,7 +117,6 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         customCallback={async (amount) => {
           setValue(tokenAForm, amount)
           await trigger(tokenAForm)
-          console.log(aToBPrice.toFixed())
           setValue(tokenBForm, aToBPrice.times(amount).toFixed())
           await trigger(tokenBForm)
         }}
