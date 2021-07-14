@@ -27,6 +27,10 @@ dist
 lerna-debug.log
 
 coverage
+jest-coverage
+.nyc_output
+reports
+cypress-coverage
 
 .expo/*
 npm-debug.*
@@ -43,7 +47,3 @@ web-build/
 /missing_translations.json
 /cypress/screenshots
 /cypress/videos
-jest-coverage
-.nyc_output
-reports
-cypress-coverage

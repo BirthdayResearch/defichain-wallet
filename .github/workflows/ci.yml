@@ -7,25 +7,6 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    env:
-      NODE_ENV: test
-    steps:
-      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
-      - uses: actions/setup-node@38d90ce44d5275ad62cc48384b3d8a58c500bb5f
-        with:
-          node-version: 15
-
-      - run: npm ci
-      - run: npm run test:ci
-      - name: Upload e2e coverage
-        uses: actions/upload-artifact@11e311c8b504ea40cbed20583a64d75b4735cff3
-        with:
-          name: unit_coverage
-          path: jest-coverage
-
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -38,12 +19,26 @@ jobs:
       - run: npm ci
       - run: npx --no-install ts-standard
 
+  unit:
+    name: Unit Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: actions/setup-node@38d90ce44d5275ad62cc48384b3d8a58c500bb5f
+        with:
+          node-version: 15
+
+      - run: npm ci
+      - run: npm run test:ci
+      - name: Upload e2e coverage
+        uses: actions/upload-artifact@11e311c8b504ea40cbed20583a64d75b4735cff3
+        with:
+          name: jest-coverage
+          path: jest-coverage
+
   e2e:
-    needs: [ lint ]
     name: End-to-end
     runs-on: ubuntu-latest
-    env:
-      NODE_ENV: e2e
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
       - uses: actions/setup-node@38d90ce44d5275ad62cc48384b3d8a58c500bb5f
@@ -76,22 +71,26 @@ jobs:
           name: e2e_coverage
           path: cypress-coverage
 
-  merge_tests:
-    needs: [ e2e ]
-    name: Merge tests results
+  coverage:
+    needs: [ unit, e2e ]
+    name: Coverage
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@38d90ce44d5275ad62cc48384b3d8a58c500bb5f
         with:
           node-version: 15
-      - name: Download e2e artifact
+
+      - name: Download cypress coverage
         uses: actions/download-artifact@3be87be14a055c47b01d3bd88f8fe02320a9bb60
         with:
-          name: e2e_coverage
-      - name: Download unit artifact
+          name: cypress-coverage
+
+      - name: Download jest coverage
         uses: actions/download-artifact@3be87be14a055c47b01d3bd88f8fe02320a9bb60
         with:
-          name: unit_coverage
+          name: jest-coverage
+
       - run: npx merge-cypress-jest-coverage
-      - run: npx codecov
+
+      - uses: codecov/codecov-action@29386c70ef20e286228c72b668a06fd0e8399192
 
