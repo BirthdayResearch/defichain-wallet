@@ -6,25 +6,35 @@ labels:
     matcher:
       files: ".github/**"
 
-  - label: area/app
+  - label: area/api
     sync: true
     matcher:
-      files: "app/**"
+      files: "app/api/**"
 
   - label: area/assets
     sync: true
     matcher:
       files: "app/assets/**"
 
-  - label: area/translations
+  - label: area/contexts
     sync: true
     matcher:
-      files: "app/translations/**"
+      files: "app/contexts/**"
+
+  - label: area/hooks
+    sync: true
+    matcher:
+      files: "app/hooks/**"
 
   - label: area/store
     sync: true
     matcher:
       files: "app/store/**"
+
+  - label: area/translations
+    sync: true
+    matcher:
+      files: "app/translations/**"
 
   - label: area/e2e
     sync: true

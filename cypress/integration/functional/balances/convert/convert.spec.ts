@@ -16,7 +16,7 @@ context('wallet/balances/convert - bi-direction success case', () => {
     cy.getByTestID('balances_row_0_utxo').click()
     cy.getByTestID('convert_button').click()
 
-    cy.getByTestID('text_preview_input_desc').contains('DFI (UTXOS)')
+    cy.getByTestID('text_preview_input_desc').contains('DFI (UTXO)')
     cy.getByTestID('text_preview_input_value').contains('10 DFI')
     cy.getByTestID('text_preview_output_desc').contains('DFI (TOKEN)')
     cy.getByTestID('text_preview_output_value').contains('0 DFI')
@@ -64,7 +64,7 @@ context('wallet/balances/convert - bi-direction success case', () => {
 
     cy.getByTestID('text_preview_input_desc').contains('DFI (TOKEN)')
     cy.getByTestID('text_preview_input_value').contains('1.23 DFI')
-    cy.getByTestID('text_preview_output_desc').contains('DFI (UTXOS)')
+    cy.getByTestID('text_preview_output_desc').contains('DFI (UTXO)')
     // action balance can be 8.769xxxxx UTXOS, must split into 2 assertions
     cy.getByTestID('text_preview_output_value').contains('8.769').contains('DFI')
   })

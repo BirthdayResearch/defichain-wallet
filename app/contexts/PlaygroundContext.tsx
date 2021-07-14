@@ -10,16 +10,25 @@ interface Playground {
   api: PlaygroundApiClient
 }
 
-const PlaygroundContext = createContext<Playground>(undefined as any)
+const PlaygroundContext = createContext<Playground | undefined>(undefined)
 
 export function usePlaygroundContext (): Playground {
-  return useContext(PlaygroundContext)
+  const context = useContext(PlaygroundContext)
+  if (context !== undefined) {
+    return context
+  }
+
+  throw new Error('attempting to usePlaygroundContext on a non debug environment')
 }
 
 export function PlaygroundProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
 
   const context = useMemo(() => {
+    if (!getEnvironment().debug) {
+      return undefined
+    }
+
     const api = newPlaygroundClient(network)
     const rpc = new PlaygroundRpcClient(api)
     return { api, rpc }
@@ -33,19 +42,18 @@ export function PlaygroundProvider (props: React.PropsWithChildren<any>): JSX.El
 }
 
 /**
- * hooks to find connected playground
+ * hooks to find connected playground, won't be registered if running on non-debug mode
  * @return boolean when completed or found connected playground
  */
 export function useConnectedPlayground (): boolean {
+  const environment = getEnvironment()
+  if (!environment.debug) {
+    return true
+  }
+
   const [isLoaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    const environment = getEnvironment()
-    if (!environment.debug) {
-      setLoaded(true)
-      return
-    }
-
     async function findPlayground (): Promise<void> {
       for (const network of environment.networks.filter(isPlayground)) {
         if (await isConnected(network)) {

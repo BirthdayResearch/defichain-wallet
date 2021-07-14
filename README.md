@@ -82,11 +82,11 @@ those directories.
 Directory               | Description
 ------------------------|-------------
 `/.github`              | workflow for shift left automation
+`/app/api`              | api & middlewares for application, non-UI logic
 `/app/assets`           | assets of the project that can be loaded at startup
 `/app/components`       | top level components for a shared design language
 `/app/contexts`         | shared contexts for application, non-UI logic
 `/app/hooks`            | shared hooks for application, for UI logic only
-`/app/middlewares`      | middlewares for application, non-UI logic
 `/app/screens`          | screens hierarchy tree matching directory hierarchy tree
 `/app/store`            | global state that is used at least more than once in screens, for UI logic only
 `/app/translations`     | various language translations
@@ -102,7 +102,7 @@ Unit testing is created to test each individual units/components of a software. 
 closely co-located together with the unit. They follow the naming semantic of `*.test.ts` and placed together in the
 same directory of the code you are testing.
 
-Unit tests are written for `/app/contexts`, `/app/middlewares`, `/app/components`, `/app/screens` and `/app/store`. Code
+Unit tests are written for `/app/contexts`, `/app/api`, `/app/components`, `/app/screens` and `/app/store`. Code
 coverage is collected for this.
 
 #### End-to-end Testing

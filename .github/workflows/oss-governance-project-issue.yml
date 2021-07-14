@@ -2,24 +2,15 @@ name: Governance Issues
 
 on:
   issues:
-    types: [ opened, labeled, unlabeled ]
+    types: [ opened, labeled ]
 
 jobs:
   main:
     name: DeFi Products
     runs-on: ubuntu-latest
-    if: contains(github.event.issue.labels.*.name, 'triage/accepted')
+    if: contains(github.event.issue.labels.*.name, 'triage/accepted') && github.event.issue.state == 'open'
     steps:
       - uses: peter-evans/create-or-update-project-card@c75ba6ac3c7c432dedd22a553951c216a4664b5f
-        if: contains(github.event.issue.labels.*.name, 'priority/urgent-now') || contains(github.event.issue.labels.*.name, 'priority/important-soon')
-        with:
-          token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
-          project-location: defich
-          project-name: DeFi Products
-          column-name: Prioritized
-
-      - uses: peter-evans/create-or-update-project-card@c75ba6ac3c7c432dedd22a553951c216a4664b5f
-        if: "!contains(github.event.issue.labels.*.name, 'priority/urgent-now') && !contains(github.event.issue.labels.*.name, 'priority/important-soon')"
         with:
           token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           project-location: defich
