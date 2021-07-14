@@ -26,7 +26,7 @@ export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<BalanceParamList, 'ConvertScreen'>
 
 interface ConversionIO extends AddressToken {
-  unit: 'UTXOS' | 'TOKEN'
+  unit: 'UTXO' | 'TOKEN'
 }
 
 export function ConvertScreen (props: Props): JSX.Element {
@@ -85,9 +85,7 @@ export function ConvertScreen (props: Props): JSX.Element {
         balance={new BigNumber(targetToken.amount)}
       />
       <TokenVsUtxosInfo />
-      <View style={tailwind('mb-4')}>
-        <SectionTitle title={translate('screens/ConvertScreen', 'PREVIEW CONVERSION')} />
-      </View>
+      <SectionTitle title={translate('screens/ConvertScreen', 'PREVIEW CONVERSION')} />
       <View style={tailwind('bg-white flex-col justify-center')}>
         <PreviewConvResult
           testID='text_preview_input' unit={sourceToken.unit}
@@ -114,12 +112,12 @@ function getDFIBalances (mode: ConversionMode, tokens: AddressToken[]): [source:
   const source: AddressToken = mode === 'utxosToAccount'
     ? tokens.find(tk => tk.id === '0_utxo') as AddressToken
     : tokens.find(tk => tk.id === '0') as AddressToken
-  const sourceUnit = mode === 'utxosToAccount' ? 'UTXOS' : 'TOKEN'
+  const sourceUnit = mode === 'utxosToAccount' ? 'UTXO' : 'TOKEN'
 
   const target: AddressToken = mode === 'utxosToAccount'
     ? tokens.find(tk => tk.id === '0') as AddressToken
     : tokens.find(tk => tk.id === '0_utxo') as AddressToken
-  const targetUnit = mode === 'utxosToAccount' ? 'TOKEN' : 'UTXOS'
+  const targetUnit = mode === 'utxosToAccount' ? 'TOKEN' : 'UTXO'
 
   return [
     { ...source, unit: sourceUnit },
@@ -232,7 +230,7 @@ function PreviewConvResult (props: { unit: string, balance: BigNumber, testID: s
 
 function SectionTitle (props: { title: string }): JSX.Element {
   return (
-    <View style={tailwind('flex-col w-full h-8 justify-center')}>
+    <View style={tailwind('flex-col w-full h-8 justify-center mb-2')}>
       <Text style={tailwind('ml-4 mr-4 text-gray-500 text-sm')}>{props.title}</Text>
     </View>
   )
