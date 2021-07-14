@@ -82,11 +82,6 @@ jobs:
     name: Coverage
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@38d90ce44d5275ad62cc48384b3d8a58c500bb5f
-        with:
-          node-version: 15
-          cache: 'npm'
-
       - name: Download jest coverage
         uses: actions/download-artifact@3be87be14a055c47b01d3bd88f8fe02320a9bb60
         with:
