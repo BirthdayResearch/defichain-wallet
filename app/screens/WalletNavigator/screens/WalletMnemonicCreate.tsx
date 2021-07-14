@@ -25,7 +25,7 @@ export function WalletMnemonicCreate ({ navigation }: Props): JSX.Element {
   return (
     <ScrollView style={tailwind('flex-1 bg-gray-100')} contentInsetAdjustmentBehavior='automatic'>
       <View style={tailwind('mx-4 mt-6')}>
-        <Text style={[tailwind('font-bold text-xl'), PrimaryColorStyle.text]}>
+        <Text style={tailwind('font-bold text-xl')}>
           What is a Mnemonic phrase?
         </Text>
         <Text style={tailwind('mt-2')}>
@@ -41,7 +41,7 @@ export function WalletMnemonicCreate ({ navigation }: Props): JSX.Element {
       </View>
 
       <View style={tailwind('mt-6')}>
-        <Text style={[tailwind('mx-4 mb-4 font-bold text-xl'), PrimaryColorStyle.text]}>
+        <Text style={tailwind('mx-4 mb-4 font-bold text-xl')}>
           Your 24 word Mnemonic phrase
         </Text>
         {words.map((word, index) => {

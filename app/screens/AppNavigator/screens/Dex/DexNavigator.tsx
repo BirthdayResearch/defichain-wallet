@@ -2,10 +2,10 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { translate } from '../../../../translations'
-import { DexScreen } from './DexScreen'
 import { AddLiquidityScreen } from './DexAddLiquidity'
 import { AddLiquiditySummary, ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
 import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
+import { DexScreen } from './DexScreen'
 import { PoolSwapScreen } from './PoolSwap/PoolSwapScreen'
 
 export interface DexParamList {
@@ -13,7 +13,6 @@ export interface DexParamList {
   PoolSwapScreen: { poolpair: PoolPairData }
   AddLiquidity: { pair: PoolPairData }
   ConfirmAddLiquidity: { summary: AddLiquiditySummary }
-  RemoveLiquidity: { pair: PoolPairData }
 
   [key: string]: undefined | object
 }

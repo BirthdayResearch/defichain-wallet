@@ -19,7 +19,7 @@ context('wallet/balances/convert - accountToUtxos', () => {
 
     cy.getByTestID('text_preview_input_desc').contains('DFI (TOKEN)')
     cy.getByTestID('text_preview_input_value').contains('10 DFI')
-    cy.getByTestID('text_preview_output_desc').contains('DFI (UTXOS)')
+    cy.getByTestID('text_preview_output_desc').contains('DFI (UTXO)')
     cy.getByTestID('text_preview_output_value').contains('10 DFI')
 
     cy.getByTestID('button_continue_convert').should('not.be.enabled')
@@ -46,7 +46,7 @@ context('wallet/balances/convert - accountToUtxos', () => {
 
   it('should be able to toggle into "utxosToAccount" mode', function () {
     cy.getByTestID('button_convert_mode_toggle').click()
-    cy.getByTestID('text_preview_input_desc').contains('DFI (UTXOS)')
+    cy.getByTestID('text_preview_input_desc').contains('DFI (UTXO)')
     cy.getByTestID('text_preview_output_desc').contains('DFI (TOKEN)')
   })
 })

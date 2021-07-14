@@ -1,25 +1,25 @@
+import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
+import { WhaleApiClient } from '@defichain/whale-api-client'
+import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
+import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
+import Slider from '@react-native-community/slider'
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useCallback, useState } from 'react'
-import { TouchableOpacity, ViewStyle, StyleProp } from 'react-native'
+import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import NumberFormat from 'react-number-format'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
-import { DexParamList } from './DexNavigator'
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import { WhaleApiClient } from '@defichain/whale-api-client'
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
-import Slider from '@react-native-community/slider'
-import { translate } from '../../../../translations'
 import { PrimaryButton } from '../../../../components/PrimaryButton'
-import NumberFormat from 'react-number-format'
-import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { useWallet } from '../../../../contexts/WalletContext'
+import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
+import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
+import { translate } from '../../../../translations'
+import { DexParamList } from './DexNavigator'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
@@ -35,7 +35,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
 
   // gather required data
   const tokens = useTokensAPI()
-  const { pair } = props.route.params
+  const { pair } = props.route.params as any
   const [aSymbol, bSymbol] = pair.symbol.split('-') as [string, string]
   const lmToken = tokens.find(token => token.symbol === pair.symbol) as AddressToken
   const tokenAPerLmToken = new BigNumber(pair.tokenA.reserve).div(pair.totalLiquidity)
@@ -73,46 +73,61 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   }, [amount])
 
   return (
-    <View style={tailwind('w-full h-full')}>
-      <ScrollView style={tailwind('w-full flex-col flex-1 bg-gray-100')}>
-        <View style={tailwind('w-full bg-white mt-8')}>
-          <View style={tailwind('w-full flex-row p-4')}>
-            <Text style={tailwind('flex-1')}>{translate('screens/RemoveLiquidity', 'Amount of liquidity to remove')}</Text>
-            <Text testID='text_slider_pencentage' style={tailwind('text-right')}>{percentage} %</Text>
-          </View>
-          <AmountSlider
-            current={Number(percentage)}
-            viewStyle={tailwind('p-4')}
-            onChange={setSliderPercentage}
-          />
+    <ScrollView style={tailwind('w-full flex-col flex-1 bg-gray-100')}>
+      <View style={tailwind('w-full bg-white mt-8')}>
+        <View style={tailwind('w-full flex-row p-4')}>
+          <Text
+            style={tailwind('flex-1')}
+          >{translate('screens/RemoveLiquidity', 'Amount of liquidity to remove')}
+          </Text>
+          <Text testID='text_slider_pencentage' style={tailwind('text-right')}>{percentage} %</Text>
         </View>
-        <View style={tailwind('w-full bg-white mt-8')}>
-          <CoinAmountRow symbol={aSymbol} amount={tokenAAmount} />
-          <CoinAmountRow symbol={bSymbol} amount={tokenBAmount} />
-          <View style={tailwind('bg-white p-2 border-t border-gray-200 flex-row items-start w-full')}>
-            <View style={tailwind('flex-1 ml-2')}>
-              <Text style={tailwind('font-medium')}>{translate('screens/AddLiquidity', 'Price')}</Text>
-            </View>
-            <View style={tailwind('flex-1 mr-2')}>
-              <NumberFormat
-                value={tokenAPerLmToken.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix={` ${aSymbol}`}
-                renderText={(val) => <Text testID='text_a_to_b_price' style={tailwind('font-medium text-right text-gray-500')}>{val}</Text>}
-              />
-              <NumberFormat
-                value={tokenBPerLmToken.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix={` ${bSymbol}`}
-                renderText={(val) => <Text testID='text_b_to_a_price' style={tailwind('font-medium text-right text-gray-500')}>{val}</Text>}
-              />
-            </View>
-          </View>
-        </View>
-      </ScrollView>
-      <View style={tailwind('w-full h-16')}>
-        <ContinueButton
-          enabled={Number(percentage) !== 0}
-          onPress={removeLiquidity}
+        <AmountSlider
+          current={Number(percentage)}
+          viewStyle={tailwind('p-4')}
+          onChange={setSliderPercentage}
         />
       </View>
-    </View>
+      <View style={tailwind('w-full bg-white mt-8 mb-4')}>
+        <CoinAmountRow symbol={aSymbol} amount={tokenAAmount} />
+        <CoinAmountRow symbol={bSymbol} amount={tokenBAmount} />
+        <View style={tailwind('bg-white p-2 border-t border-gray-200 flex-row items-start w-full')}>
+          <View style={tailwind('flex-1 ml-2')}>
+            <Text style={tailwind('font-medium')}>{translate('screens/AddLiquidity', 'Price')}</Text>
+          </View>
+          <View style={tailwind('flex-1 mr-2')}>
+            <NumberFormat
+              value={tokenAPerLmToken.toNumber()} decimalScale={8} thousandSeparator displayType='text'
+              suffix={` ${aSymbol}`}
+              renderText={(val) => (
+                <Text
+                  testID='text_a_to_b_price'
+                  style={tailwind('font-medium text-right text-gray-500')}
+                >
+                  {val}
+                </Text>
+              )}
+            />
+            <NumberFormat
+              value={tokenBPerLmToken.toNumber()} decimalScale={8} thousandSeparator displayType='text'
+              suffix={` ${bSymbol}`}
+              renderText={(val) => (
+                <Text
+                  testID='text_b_to_a_price'
+                  style={tailwind('font-medium text-right text-gray-500')}
+                >
+                  {val}
+                </Text>
+              )}
+            />
+          </View>
+        </View>
+      </View>
+      <ContinueButton
+        enabled={Number(percentage) !== 0}
+        onPress={removeLiquidity}
+      />
+    </ScrollView>
   )
 }
 
@@ -150,7 +165,14 @@ function CoinAmountRow (props: { symbol: string, amount: BigNumber }): JSX.Eleme
       </View>
       <NumberFormat
         value={props.amount.toNumber()} decimalScale={8} thousandSeparator displayType='text'
-        renderText={(value) => <Text testID={`text_coin_amount_${props.symbol}`} style={tailwind('flex-1 text-right text-gray-500 mr-2')}>{value}</Text>}
+        renderText={(value) => (
+          <Text
+            testID={`text_coin_amount_${props.symbol}`}
+            style={tailwind('flex-1 text-right text-gray-500 mr-2')}
+          >
+            {value}
+          </Text>
+        )}
       />
     </View>
   )
