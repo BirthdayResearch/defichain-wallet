@@ -156,7 +156,7 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
 
         <View style={tailwind('flex-row -mr-2')}>
           <PoolPairLiqBtn name='add' onPress={onAdd} pair={data.symbol} />
-          <PoolPairSwapBtn onPress={onSwap} />
+          <PoolPairSwapBtn symbol={data.symbol} onPress={onSwap} />
         </View>
       </View>
 
@@ -180,9 +180,12 @@ function PoolPairLiqBtn (props: { name: 'remove' | 'add', pair: string, onPress?
   )
 }
 
-function PoolPairSwapBtn ({ onPress }: { onPress: () => void }): JSX.Element {
+function PoolPairSwapBtn ({ symbol, onPress }: { symbol: string, onPress: () => void }): JSX.Element {
   return (
-    <TouchableOpacity style={tailwind('py-2 px-3 flex-row items-center')} onPress={onPress}>
+    <TouchableOpacity
+      testID={`button_swap_${symbol}`} style={tailwind('py-2 px-3 flex-row items-center')}
+      onPress={onPress}
+    >
       <Text style={[tailwind('font-bold'), PrimaryColorStyle.text]}>{translate('screens/DexScreen', 'SWAP')}</Text>
     </TouchableOpacity>
   )

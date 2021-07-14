@@ -10,10 +10,10 @@ context('app/dex/swap', () => {
     cy.getByTestID('button_swap_DFI-ETH').click().wait(100)
   })
 
-  /* it('should display token balance', function () {
+  it('should display token balance', function () {
     cy.getByTestID('text_balance_tokenA').contains('0')
     cy.getByTestID('text_balance_tokenB').contains('10')
-  }) */
+  })
 
   it('should be able to swap token between from/to', function () {
     cy.getByTestID('swap_button').click().wait(100)
