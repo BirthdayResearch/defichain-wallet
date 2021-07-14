@@ -3,7 +3,7 @@ context('app/dex/removeLiquidity', () => {
     cy.createEmptyWallet(true)
 
     cy.getByTestID('bottom_tab_settings').click()
-    cy.sendDFItoWallet().sendTokenToWallet(['DFI-ETH']).wait(4000)
+    cy.sendDFItoWallet().sendTokenToWallet(['DFI-ETH']).wait(6000)
     cy.getByTestID('playground_wallet_fetch_balances').click()
 
     cy.getByTestID('bottom_tab_liquidity').click().wait(100)
