@@ -17,7 +17,9 @@ module.exports = {
     '!**/screens/PlaygroundNavigator/**',
     '!**/.versionrc.js',
     '!**/_shim.js',
-    '!**/metro.config.js'
+    '!**/metro.config.js',
+    '!**/cypress-coverage/**',
+    '!**/jest-coverage/**'
   ],
   coverageDirectory: 'jest-coverage'
 }
