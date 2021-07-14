@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { fetchTokens, useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
@@ -47,13 +46,14 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
       ListHeaderComponent={
         <>
+          {/* TODO(thedoublejay) display when summary is available
           <View style={tailwind('flex-row py-3 bg-white border-b border-gray-200')}>
             <BalanceActionButton
               icon='arrow-downward' title='RECEIVE'
               onPress={() => navigation.navigate('Receive')}
             />
-          </View>
-          <Text testID='balances_title' style={tailwind('p-4 text-xs text-gray-500')}>
+          </View> */}
+          <Text testID='balances_title' style={tailwind('p-4 text-xs text-gray-500 mt-2')}>
             {translate('screens/BalancesScreen', 'BALANCE DETAILS')}
           </Text>
         </>
@@ -92,7 +92,7 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
   )
 }
 
-function BalanceActionButton (props: {
+/* function BalanceActionButton (props: {
   icon: React.ComponentProps<typeof MaterialIcons>['name']
   title: string
   onPress: () => void
@@ -109,4 +109,4 @@ function BalanceActionButton (props: {
       </Text>
     </TouchableOpacity>
   )
-}
+} */
