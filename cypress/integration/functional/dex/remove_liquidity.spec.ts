@@ -20,7 +20,7 @@ context('app/dex/removeLiquidity', () => {
     cy.getByTestID('text_coin_amount_ETH').contains('0')
   })
 
-  it('should display price based on pool tokenA:tokenB ratio regardless removal amount', function () {
+  it.skip('should display price based on pool tokenA:tokenB ratio regardless removal amount', function () {
     cy.getByTestID('text_a_to_b_price').contains('0.1 DFI')
     cy.getByTestID('text_b_to_a_price').contains('10 ETH')
   })
