@@ -45,7 +45,8 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
             />
             <TokenActionRow
               testID='receive_button'
-              title={`${translate('screens/TokenDetailScreen', 'Receive')} ${token.displaySymbol}`} icon='arrow-downward'
+              title={`${translate('screens/TokenDetailScreen', 'Receive')} ${token.displaySymbol}`}
+              icon='arrow-downward'
               onPress={() => navigation.navigate('Receive')}
             />
           </>
@@ -69,7 +70,10 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
 
 function TokenActionRow ({ title, icon, onPress, testID }: TokenActionItems): JSX.Element {
   return (
-    <TouchableOpacity testID={testID} onPress={onPress} style={tailwind('flex-row py-4 pl-4 pr-2 bg-white border-b border-gray-200')}>
+    <TouchableOpacity
+      testID={testID} onPress={onPress}
+      style={tailwind('flex-row py-4 pl-4 pr-2 bg-white border-b border-gray-200')}
+    >
       <MaterialIcons name={icon} size={24} color={PrimaryColor} />
       <Text style={tailwind('flex-grow ml-2')}>
         {title}

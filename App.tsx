@@ -8,6 +8,7 @@ import { PlaygroundProvider, useConnectedPlayground } from './app/contexts/Playg
 import { WalletManagementProvider } from './app/contexts/WalletManagementContext'
 import { WhaleProvider } from './app/contexts/WhaleContext'
 import { useCachedResources } from './app/hooks/useCachedResources'
+import ErrorBoundary from './app/screens/ErrorBoundary/ErrorBoundary'
 import { Main } from './app/screens/Main'
 import { store } from './app/store'
 import { initI18n } from './app/translations'
@@ -36,16 +37,18 @@ export default function App (): JSX.Element | null {
     .catch(Logging.error)
 
   return (
-    <NetworkProvider>
-      <PlaygroundProvider>
-        <WhaleProvider>
-          <WalletManagementProvider>
-            <StoreProvider store={store}>
-              <Main />
-            </StoreProvider>
-          </WalletManagementProvider>
-        </WhaleProvider>
-      </PlaygroundProvider>
-    </NetworkProvider>
+    <ErrorBoundary>
+      <NetworkProvider>
+        <PlaygroundProvider>
+          <WhaleProvider>
+            <WalletManagementProvider>
+              <StoreProvider store={store}>
+                <Main />
+              </StoreProvider>
+            </WalletManagementProvider>
+          </WhaleProvider>
+        </PlaygroundProvider>
+      </NetworkProvider>
+    </ErrorBoundary>
   )
 }

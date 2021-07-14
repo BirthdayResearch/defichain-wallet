@@ -6,6 +6,8 @@ import { RootState } from "../../../../store";
 import { wallet } from "../../../../store/wallet";
 import { BalancesScreen } from "./BalancesScreen";
 
+jest.mock('randomcolor', () => jest.fn().mockReturnValue('#ffffff'))
+
 jest.mock("../../../../hooks/wallet/TokensAPI", () => ({
   useTokensAPI: () => [{
     id: '0',

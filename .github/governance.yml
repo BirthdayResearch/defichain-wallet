@@ -19,11 +19,11 @@ issue:
       list:
         - feature
         - bug
-        - fix
-        - refactor
         - question
+        - fix
         - chore
         - docs
+        - refactor
         - dependencies
       multiple: false
       needs: true
@@ -37,17 +37,19 @@ issue:
       list:
         - core
         - workflow
-        - app
-        - store
+        - api
         - assets
-        - playground
+        - contexts
+        - hooks
+        - store
         - translations
+        - e2e
         - ui-ux
+        - playground
         - balance
         - dex
         - icx
         - transactions
-        - network
         - wallet
         - settings
       multiple: true

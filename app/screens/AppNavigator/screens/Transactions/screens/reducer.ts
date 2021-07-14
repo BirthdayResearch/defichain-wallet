@@ -25,7 +25,7 @@ export function activitiesToViewModel (activities: AddressActivity[], navigation
 
 export function activityToViewModel (activity: AddressActivity, navigation?: NavigationProp<ParamListBase>): VMTransaction {
   let iconName: 'arrow-up' | 'arrow-down'
-  let color: '#02B31B'|'gray'
+  let color: '#02B31B' | 'gray'
   let desc = ''
   const isPositive = activity.vin === undefined
 
