@@ -27,7 +27,7 @@ context('app/dex/swap', () => {
    * the test is kind of fragile (very strict condition) to ensure it does display reserve values from defid and conversion done correctly
    * drop your your defid container image and restart if test fail when run locally
    */
-  it('input "from" amount should be automatically input "to" + display summary', function () {
+  it.skip('input "from" amount should be automatically input "to" + display summary', function () {
     cy.getByTestID('text_input_tokenA').invoke('attr', 'type', 'text').clear().type('8.34').trigger('change')
     cy.getByTestID('text_input_tokenB').invoke('val').should(val => expect(val).to.equals('0.0834'))
     cy.getByTestID('text_price_row_price_0').contains('100 ETH per DFI')
@@ -63,7 +63,7 @@ context('app/dex/swap', () => {
     cy.getByTestID('button_submit').should('have.attr', 'disabled')
   })
 
-  it('should be able to swap one token to another', function () {
+  it.skip('should be able to swap one token to another', function () {
     cy.getByTestID('text_input_tokenA').invoke('attr', 'type', 'text').clear().type('6.54321').trigger('change')
     cy.getByTestID('button_submit').click().wait(100)
 
