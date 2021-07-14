@@ -119,6 +119,12 @@
     }
   },
   "nyc": {
-    "report-dir": "cypress-coverage"
+    "report-dir": "cypress-coverage",
+    "all": true,
+    "include": [
+      "app/**"
+    ],
+    "exclude": [],
+    "reporter": []
   }
 }
