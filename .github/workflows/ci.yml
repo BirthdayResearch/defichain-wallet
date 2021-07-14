@@ -34,6 +34,8 @@ jobs:
       - run: npm run test:ci
 
       - uses: codecov/codecov-action@29386c70ef20e286228c72b668a06fd0e8399192
+        with:
+          fail_ci_if_error: true
 
   e2e:
     name: End-to-end
@@ -68,24 +70,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: codecov/codecov-action@29386c70ef20e286228c72b668a06fd0e8399192
-
-#  coverage:
-#    needs: [ unit, e2e ]
-#    name: Coverage
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Download jest coverage
-#        uses: actions/download-artifact@3be87be14a055c47b01d3bd88f8fe02320a9bb60
-#        with:
-#          name: jest-coverage
-#          path: jest-coverage
-#
-#      - name: Download cypress coverage
-#        uses: actions/download-artifact@3be87be14a055c47b01d3bd88f8fe02320a9bb60
-#        with:
-#          name: cypress-coverage
-#          path: cypress-coverage
-#
-#
-#      - uses: codecov/codecov-action@29386c70ef20e286228c72b668a06fd0e8399192
-#
+        with:
+          fail_ci_if_error: true
