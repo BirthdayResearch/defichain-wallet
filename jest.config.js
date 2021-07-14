@@ -18,5 +18,6 @@ module.exports = {
     '!**/.versionrc.js',
     '!**/_shim.js',
     '!**/metro.config.js'
-  ]
+  ],
+  coverageDirectory: 'jest-coverage'
 }

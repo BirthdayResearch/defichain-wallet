@@ -43,3 +43,7 @@ web-build/
 /missing_translations.json
 /cypress/screenshots
 /cypress/videos
+jest-coverage
+.nyc_output
+reports
+cypress-coverage

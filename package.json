@@ -73,6 +73,7 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
+    "@cypress/code-coverage": "^3.9.9",
     "@testing-library/react-hooks": "^7.0.0",
     "@testing-library/react-native": "^7.2.0",
     "@types/find-in-files": "^0.5.1",
@@ -115,5 +116,8 @@
       "changelog": true,
       "tag": true
     }
+  },
+  "nyc": {
+    "report-dir": "cypress-coverage"
   }
 }
