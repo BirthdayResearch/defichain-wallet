@@ -59,7 +59,7 @@ Cypress.Commands.add('getByTestID', (selector, ...args) => {
 })
 
 Cypress.Commands.add('createEmptyWallet', (isRandom: boolean = false) => {
-  cy.visit(Cypress.env('URL'))
+  cy.visit('/')
   cy.getByTestID(isRandom ? 'playground_wallet_random' : 'playground_wallet_abandon').click()
 })
 
