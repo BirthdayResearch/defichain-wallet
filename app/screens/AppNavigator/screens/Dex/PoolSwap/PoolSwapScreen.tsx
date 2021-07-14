@@ -110,7 +110,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         onChangeFromAmount={async (amount) => {
           setValue(tokenAForm, amount)
           await trigger(tokenAForm)
-          setValue(tokenBForm, aToBPrice.times(amount).toFixed())
+          setValue(tokenBForm, aToBPrice.times(amount !== undefined && amount !== '' ? amount : 0).toFixed())
           await trigger(tokenBForm)
         }}
         maxAmount={tokenA.amount}
@@ -150,9 +150,12 @@ interface TokenForm {
 function TokenRow (form: TokenForm): JSX.Element {
   const { token, control, onChangeFromAmount, title, controlName, enableMaxButton = true } = form
   const Icon = getTokenIcon(token.symbol)
-  const rules: { required: boolean, pattern: RegExp, max?: string } = {
+  const rules: { required: boolean, pattern: RegExp, validate: any, max?: string } = {
     required: true,
-    pattern: /^\d*\.?\d*$/
+    pattern: /^\d*\.?\d*$/,
+    validate: {
+      greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
+    }
   }
   if (form.maxAmount !== undefined) {
     rules.max = form.maxAmount
