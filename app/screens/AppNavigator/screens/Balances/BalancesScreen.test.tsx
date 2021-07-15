@@ -66,7 +66,7 @@ describe('balances page', () => {
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 
-  it('should display navigation buttons', async () => {
+  it.skip('should display navigation buttons', async () => {
     const initialState: Partial<RootState> = {
       wallet: {
         address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',

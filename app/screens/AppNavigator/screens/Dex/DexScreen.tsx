@@ -1,7 +1,7 @@
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
 import { MaterialIcons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { SectionList, TouchableOpacity } from 'react-native'
@@ -15,13 +15,14 @@ import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { fetchTokens } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
 import { translate } from '../../../../translations'
+import { DexParamList } from './DexNavigator'
 
 export function DexScreen (): JSX.Element {
   const client = useWhaleApiClient()
   const address = useSelector((state: RootState) => state.wallet.address)
   const [pairs, setPairs] = useState<Array<DexItem<PoolPairData>>>([])
   const dispatch = useDispatch()
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProp<DexParamList>>()
 
   useEffect(() => {
     // TODO(fuxingloh): does not auto refresh currently, but not required for MVP. Due to limited PP availability
@@ -36,6 +37,14 @@ export function DexScreen (): JSX.Element {
   const yourLPTokens = useSelector<RootState, Array<DexItem<AddressToken>>>(({ wallet }: RootState) => {
     return wallet.tokens.filter(({ isLPS }) => isLPS).map(data => ({ type: 'your', data: data }))
   })
+
+  const onAdd = (data: PoolPairData): void => {
+    navigation.navigate('AddLiquidity', { pair: data })
+  }
+
+  const onRemove = (data: PoolPairData): void => {
+    navigation.navigate('RemoveLiquidity', { pair: data })
+  }
 
   return (
     <SectionList
@@ -53,9 +62,18 @@ export function DexScreen (): JSX.Element {
       renderItem={({ item }): JSX.Element => {
         switch (item.type) {
           case 'your':
-            return PoolPairRowYour(item.data)
+            return PoolPairRowYour(item.data, () => {
+              const poolPairData = pairs.find(pr => pr.data.symbol === (item.data as AddressToken).symbol)
+              onAdd((poolPairData as DexItem<PoolPairData>).data)
+            }, () => {
+              const poolPairData = pairs.find(pr => pr.data.symbol === (item.data as AddressToken).symbol)
+              onRemove((poolPairData as DexItem<PoolPairData>).data)
+            })
           case 'available':
-            return PoolPairRowAvailable(item.data, () => navigation.navigate('PoolSwap', { poolpair: item.data }))
+            return PoolPairRowAvailable(item.data,
+              () => onAdd(item.data),
+              () => navigation.navigate('PoolSwap', { poolpair: item.data })
+            )
         }
       }}
       ListHeaderComponent={() => {
@@ -96,13 +114,13 @@ interface DexItem<T> {
   data: T
 }
 
-function PoolPairRowYour (data: AddressToken): JSX.Element {
+function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () => void): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
   const IconA = getTokenIcon(symbolA)
   const IconB = getTokenIcon(symbolB)
 
   return (
-    <View testID='pool_pair_row' style={tailwind('p-4 bg-white')}>
+    <View testID='pool_pair_row_your' style={tailwind('p-4 bg-white')}>
       <View style={tailwind('flex-row items-center justify-between')}>
         <View style={tailwind('flex-row items-center')}>
           <IconA width={32} height={32} />
@@ -110,8 +128,8 @@ function PoolPairRowYour (data: AddressToken): JSX.Element {
           <Text style={tailwind('text-lg')}>{data.symbol}</Text>
         </View>
         <View style={tailwind('flex-row -mr-3')}>
-          <PoolPairLiqBtn name='remove' />
-          <PoolPairLiqBtn name='add' />
+          <PoolPairLiqBtn name='add' onPress={onAdd} pair={data.symbol} />
+          <PoolPairLiqBtn name='remove' onPress={onRemove} pair={data.symbol} />
         </View>
       </View>
 
@@ -122,7 +140,7 @@ function PoolPairRowYour (data: AddressToken): JSX.Element {
   )
 }
 
-function PoolPairRowAvailable (data: PoolPairData, onSwap: () => void): JSX.Element {
+function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: () => void): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
   const IconA = getTokenIcon(symbolA)
   const IconB = getTokenIcon(symbolB)
@@ -137,8 +155,8 @@ function PoolPairRowAvailable (data: PoolPairData, onSwap: () => void): JSX.Elem
         </View>
 
         <View style={tailwind('flex-row -mr-2')}>
-          <PoolPairLiqBtn name='add' />
-          <PoolPairSwapBtn onPress={onSwap} />
+          <PoolPairLiqBtn name='add' onPress={onAdd} pair={data.symbol} />
+          <PoolPairSwapBtn symbol={data.symbol} onPress={onSwap} />
         </View>
       </View>
 
@@ -150,17 +168,24 @@ function PoolPairRowAvailable (data: PoolPairData, onSwap: () => void): JSX.Elem
   )
 }
 
-function PoolPairLiqBtn (props: { name: 'remove' | 'add' }): JSX.Element {
+function PoolPairLiqBtn (props: { name: 'remove' | 'add', pair: string, onPress?: () => void }): JSX.Element {
   return (
-    <TouchableOpacity style={tailwind('py-2 px-3')}>
+    <TouchableOpacity
+      testID={`pool_pair_${props.name}_${props.pair}`}
+      style={tailwind('py-2 px-3')}
+      onPress={props.onPress}
+    >
       <MaterialIcons size={24} name={props.name} color={PrimaryColor} />
     </TouchableOpacity>
   )
 }
 
-function PoolPairSwapBtn ({ onPress }: { onPress: () => void }): JSX.Element {
+function PoolPairSwapBtn ({ symbol, onPress }: { symbol: string, onPress: () => void }): JSX.Element {
   return (
-    <TouchableOpacity style={tailwind('py-2 px-3 flex-row items-center')} onPress={onPress}>
+    <TouchableOpacity
+      testID={`button_swap_${symbol}`} style={tailwind('py-2 px-3 flex-row items-center')}
+      onPress={onPress}
+    >
       <Text style={[tailwind('font-bold'), PrimaryColorStyle.text]}>{translate('screens/DexScreen', 'SWAP')}</Text>
     </TouchableOpacity>
   )

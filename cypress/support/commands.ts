@@ -59,7 +59,7 @@ Cypress.Commands.add('getByTestID', (selector, ...args) => {
 })
 
 Cypress.Commands.add('createEmptyWallet', (isRandom: boolean = false) => {
-  cy.visit(Cypress.env('URL'))
+  cy.visit('/')
   cy.getByTestID(isRandom ? 'playground_wallet_random' : 'playground_wallet_abandon').click()
 })
 
@@ -70,9 +70,27 @@ Cypress.Commands.add('sendDFItoWallet', () => {
 })
 
 Cypress.Commands.add('sendTokenToWallet', (tokens: string[]) => {
-  cy.intercept('/v0/playground/rpc/sendtokenstoaddress').as('sendTokensToAddress')
+  const sendingNonDFI = tokens.find(token => token !== 'DFI') !== undefined
+  const sendingDFI = tokens.includes('DFI')
+
+  if (sendingNonDFI) {
+    cy.intercept('/v0/playground/rpc/sendtokenstoaddress').as('sendTokensToAddress')
+  }
+  
+  if (sendingDFI) {
+    cy.intercept('/v0/playground/rpc/sendrawtransaction').as('sendRawTransaction')
+  }
+
   tokens.forEach((t: string) => {
     cy.getByTestID(`playground_token_${t}`).click()
   })
-  cy.wait(['@sendTokensToAddress'])
+
+  const requests = []
+  if (sendingNonDFI) {
+    requests.push('@sendTokensToAddress')
+  }
+  if (sendingDFI) {
+    requests.push('@sendRawTransaction')
+  }
+  cy.wait(requests)
 })

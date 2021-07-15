@@ -7,6 +7,7 @@ import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { WalletToken } from '../../../../store/wallet'
 import { translate } from '../../../../translations'
 import { BalancesScreen } from './BalancesScreen'
+import { ConversionMode, ConvertScreen } from './ConvertScreen'
 import { ReceiveScreen } from './screens/ReceiveScreen'
 import { SendScreen } from './screens/SendScreen'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
@@ -16,6 +17,7 @@ export interface BalanceParamList {
   ReceiveScreen: undefined
   SendScreen: { token: WalletToken }
   TokenDetailScreen: { token: WalletToken }
+  ConvertScreen: { mode: ConversionMode }
 
   [key: string]: undefined | object
 }
@@ -65,6 +67,14 @@ export function BalancesNavigator (): JSX.Element {
             )
           }
         })}
+      />
+      <BalanceStack.Screen
+        name='Convert'
+        component={ConvertScreen}
+        options={{
+          headerTitle: translate('screens/ConvertScreen', 'Convert DFIs'),
+          headerBackTitleVisible: false
+        }}
       />
     </BalanceStack.Navigator>
   )
