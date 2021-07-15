@@ -91,7 +91,7 @@ export function SendScreen ({ route }: Props): JSX.Element {
 
   return (
     <ScrollView style={tailwind('bg-gray-100')}>
-      <AddressRow control={control} />
+      <AddressRow control={control} networkName={networkName} />
       <AmountRow
         fee={fee}
         token={token} control={control} onMaxPress={async (amount) => {
@@ -119,7 +119,7 @@ export function SendScreen ({ route }: Props): JSX.Element {
   )
 }
 
-function AddressRow ({ control }: { control: Control }): JSX.Element {
+function AddressRow ({ control, networkName }: { control: Control, networkName: NetworkName }): JSX.Element {
   return (
     <>
       <Text
@@ -129,7 +129,10 @@ function AddressRow ({ control }: { control: Control }): JSX.Element {
       <Controller
         control={control}
         rules={{
-          required: true
+          required: true,
+          validate: {
+            isValidAddress: (address) => DeFiAddress.from(networkName, address).valid
+          }
         }}
         render={({ field: { value, onBlur, onChange } }) => (
           <View style={tailwind('flex-row w-full')}>
@@ -176,7 +179,10 @@ function AmountRow ({ token, control, onMaxPress, fee }: AmountForm): JSX.Elemen
         rules={{
           required: true,
           pattern: /^\d*\.?\d*$/,
-          max: maxAmount
+          max: maxAmount,
+          validate: {
+            greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
+          }
         }}
         render={({ field: { onBlur, onChange, value } }) => (
           <View style={tailwind('flex-row w-full border-b border-gray-100')}>
