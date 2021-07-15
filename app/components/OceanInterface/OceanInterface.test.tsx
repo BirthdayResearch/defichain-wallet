@@ -40,7 +40,7 @@ describe('oceanInterface', () => {
         height: 49,
         transactions: [{
           broadcasted: false,
-          signed
+          signer: async () => signed
         }]
       }
     };
