@@ -16,8 +16,8 @@ Object {
   "debug": true,
   "name": "Preview",
   "networks": Array [
-    "Local Playground",
     "Remote Playground",
+    "TestNet",
     "MainNet",
   ],
 }
@@ -28,7 +28,7 @@ Object {
   "debug": false,
   "name": "Production",
   "networks": Array [
-    "MainNet",
+    "Remote Playground",
   ],
 }
 `;
