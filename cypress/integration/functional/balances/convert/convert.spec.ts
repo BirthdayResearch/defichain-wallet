@@ -40,7 +40,7 @@ context('wallet/balances/convert - bi-direction success case', () => {
     cy.getByTestID('button_continue_convert').click()
 
     // check UI redirected (balances root)
-    cy.getByTestID('balances_list').should('exist')
+    // cy.getByTestID('balances_list').should('exist')
 
     // // result check
     // // wait for one block
