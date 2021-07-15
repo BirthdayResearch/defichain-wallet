@@ -1,18 +1,21 @@
 # DeFi Wallet Beta Testing
 
 ## Test Setup
+
 Requirements:
 
 1. Mobile Device 
 2. Stable Network
-3. URL for Testing 
+3. Testing URL for Expo Go, TestFlight Invite Code
 
-The test will run on [DeFi Playground](https://github.com/DeFiCh/wallet#testing). To start testing, please follow the steps below based on your operating system.
+
+The test will run on [DeFi Playground](https://github.com/DeFiCh/wallet#testing). To start testing, please follow the steps below based on your mobile device's operating system.
 
 ### Android
 1. Download [Expo Go](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en&gl=US) from Play Store
 2. If you have Expo Go installed on your device, please ensure that you have the latest version via Play Store for proper compatibility with the DeFi Wallet
 3. Open the URL provided for testing and scan the QR code using your Expo App
+4. You may also copy the Expo URL and paste it on the Expo Go App
 
 ### iOS
 1. Download [TestFlight](https://apps.apple.com/us/app/testflight/id899247664) from App Store
@@ -25,10 +28,11 @@ The test will run on [DeFi Playground](https://github.com/DeFiCh/wallet#testing)
 ## Test Data
 
 ### How to generate assets for your wallet
-If you need UTXO or Tokens to test, you may generate them using DeFi Playground.
+If you need UTXO or Tokens to test, you may generate them using DeFi Playground in the Wallet.
 
 1. Create your wallet
-2. Click on Settings in the Bottom Navigation and click on Remote Playground
+2. Click on Settings Icon in the Bottom Navigation. 
+3. Click on Remote Playground
 <div>
 <img alt="settings" width="30%" src="/.github/images/beta_testing/settings.jpg" />
 </div>
@@ -38,8 +42,8 @@ If you need UTXO or Tokens to test, you may generate them using DeFi Playground.
 </div>
 4. Click on any operation (e.g Top Up 10 UTXO DFI) 
 5. Click on Fetch Balances
-6. Click Back button and go to Balances page
-7. Check if your balance is updated. If your balance is not yet updated, try pull to refresh to get your latest balances
+6. Click Back button and navigate to balances screen using the bottom navigation
+7. Check if your balance is updated. If not, try `pull to refresh` on the Balances screen to get your latest balances
 
 ## Test Results
 You may post your test results on the respective GitHub Discussions thread. Please add these details for any posted feedback
