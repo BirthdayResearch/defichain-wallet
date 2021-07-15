@@ -26,11 +26,11 @@ If you need UTXO or Tokens to test, you may generate them using DeFi Playground.
 1. Create your wallet
 2. Click on Settings in the Bottom Navigation and click on Remote Playground
 <div>
-<img alt="settings" width="30%" src="images/beta_testing/settings.jpg" />
+<img alt="settings" width="30%" src="/.github/images/beta_testing/settings.jpg" />
 </div>
 3. It should open a new screen where you can do various operations (e.g, Top up 10 DFI UTXO, 10 BTC Token etc.).
 <div>
-<img alt="playground" width="30%" src="images/beta_testing/playground.jpg" />
+<img alt="playground" width="30%" src="/.github/images/beta_testing/playground.jpg" />
 </div>
 4. Click on any operation (e.g Top Up 10 UTXO DFI) 
 5. Click on Fetch Balances
