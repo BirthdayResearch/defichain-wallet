@@ -27,15 +27,16 @@ export const environments: Record<EnvironmentName, Environment> = {
     name: EnvironmentName.Production,
     debug: false,
     networks: [
-      EnvironmentNetwork.MainNet
+      EnvironmentNetwork.RemotePlayground
+      // EnvironmentNetwork.MainNet
     ]
   },
   Preview: {
     name: EnvironmentName.Preview,
     debug: true,
     networks: [
-      EnvironmentNetwork.LocalPlayground,
       EnvironmentNetwork.RemotePlayground,
+      EnvironmentNetwork.TestNet,
       EnvironmentNetwork.MainNet
     ]
   },
