@@ -33,12 +33,7 @@ describe('ocean reducer', () => {
     const pop = ocean.reducer(actual, ocean.actions.popTransaction());
     expect(pop).toStrictEqual({ transactions: [payload], err: undefined, height: 49 })
     const removed = ocean.reducer(pop, ocean.actions.popTransaction());
-    expect(removed).toStrictEqual({ transactions: [payload], err: undefined, height: 49 })
-  })
-
-  it('should closeOceanInterface', () => {
-    const actual = ocean.reducer(initialState, ocean.actions.closeOceanInterface());
-    expect(actual).toStrictEqual({ transactions: [], err: undefined, height: 49 })
+    expect(removed).toStrictEqual({ transactions: [], err: undefined, height: 49 })
   })
 
   it('should handle setError', () => {

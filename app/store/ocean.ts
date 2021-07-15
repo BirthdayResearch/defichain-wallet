@@ -29,10 +29,6 @@ export const ocean = createSlice({
     queueTransaction: (state, action: PayloadAction<OceanTransaction>) => {
       state.transactions = [...state.transactions, action.payload]
     },
-    closeOceanInterface: (state) => {
-      state.transactions = []
-      state.err = undefined
-    },
     setError: (state, action: PayloadAction<Error>) => {
       state.err = action.payload
     },
