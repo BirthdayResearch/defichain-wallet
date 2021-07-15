@@ -1,7 +1,7 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { MaterialIcons } from '@expo/vector-icons'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Animated, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { Text } from '..'
@@ -11,16 +11,23 @@ import { useWhaleApiClient } from '../../contexts/WhaleContext'
 import { RootState } from '../../store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
 import { translate } from '../../translations'
+import * as Clipboard from 'expo-clipboard'
 
 const MAX_AUTO_RETRY = 1
 
-async function handlePress (txid: string): Promise<void> {
-  // TODO(thedoublejay) explorer URL
-  const url = `https://explorer.defichain.io/#/DFI/mainnet/tx/${txid}`
-  const supported = await Linking.canOpenURL(url)
-  if (supported) {
-    await Linking.openURL(url)
-  }
+// async function gotoExplorer (txid: string): Promise<void> {
+//   // TODO(thedoublejay) explorer URL
+//   const url = `https://explorer.defichain.io/#/DFI/mainnet/tx/${txid}`
+//   // TODO (future improvement): this page should support in mempool, to be confirm
+//   const supported = await Linking.canOpenURL(url)
+//   if (supported) {
+//     await Linking.openURL(url)
+//   }
+// }
+
+function copyToClipboard (txid: string): void {
+  const msg = `Transaction broadcasted, block should be mined and confirmed wihin next minute, txid: ${txid}`
+  Clipboard.setString(msg)
 }
 
 async function broadcastTransaction (tx: OceanTransaction, client: WhaleApiClient, retries: number = 0): Promise<string> {
@@ -62,6 +69,7 @@ export function OceanInterface (): JSX.Element | null {
   useEffect(() => {
     // last available job will remained in this UI state until get dismissed
     if (transaction !== undefined) {
+      console.log('broadcasting', transaction.signed.txId)
       setTx({
         ...transaction,
         broadcasted: false
@@ -107,7 +115,7 @@ function TransactionDetail ({ tx, onClose }: { tx: OceanTransaction, onClose: ()
         >{translate('screens/OceanInterface', tx.title ?? 'Loading...')}
         </Text>
         {
-          tx.signed.txId !== undefined && <TransactionIDButton txid={tx.signed.txId} />
+          tx.signed.txId !== undefined && <TransactionIDButton txid={tx.signed.txId} onPress={() => copyToClipboard(tx.signed.txId)} />
         }
       </View>
       {
@@ -135,16 +143,15 @@ function TransactionError ({ txid, onClose }: { txid: string | undefined, onClos
   )
 }
 
-function TransactionIDButton ({ txid }: { txid: string }): JSX.Element {
+function TransactionIDButton ({ txid, onPress }: { txid: string, onPress?: () => void }): JSX.Element {
   return (
     <TouchableOpacity
-      testID='oceanNetwork_explorer' style={tailwind('flex-row bg-white p-1 items-center')}
-      onPress={async () => await handlePress(txid)}
+      testID='oceanNetwork_explorer' style={tailwind('flex-row bg-white p-1 items-center')} disabled
     >
       <Text style={[PrimaryColorStyle.text, tailwind('text-sm font-medium mr-1')]}>
         {`${txid.substring(0, 15)}...`}
       </Text>
-      <MaterialIcons name='open-in-new' size={18} color={PrimaryColor} />
+      <MaterialIcons name='open-in-new' size={18} color={PrimaryColor} onPress={onPress} />
     </TouchableOpacity>
   )
 }
