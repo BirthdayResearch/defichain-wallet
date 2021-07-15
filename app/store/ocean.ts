@@ -49,3 +49,5 @@ export const isDrawerOpenSelector = createSelector([(state: OceanState) => state
   (transactions, err) => transactions?.length > 0 || err !== undefined)
 
 export const firstTransactionSelector = createSelector((state: OceanState) => state.transactions, (transactions) => transactions[0])
+
+export const hasTxQueued = createSelector((state: OceanState) => state.transactions, (transactions) => transactions.length > 0)
