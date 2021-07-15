@@ -37,7 +37,8 @@ context('wallet/balances/convert - bi-direction success case', () => {
 
   it('utxosToToken: should be able to convert successfully', function () {
     cy.intercept('/v0/playground/transactions/send').as('sendRaw')
-    cy.getByTestID('button_continue_convert').click()
+    cy.getByTestID('button_continue_convert').click().wait(4000)
+    cy.getByTestID('oceanInterface_close').click()
 
     // check UI redirected (balances root)
     // cy.getByTestID('balances_list').should('exist')
@@ -59,6 +60,7 @@ context('wallet/balances/convert - bi-direction success case', () => {
   })
 
   it('tokenToUtxos: default start with 0', function () {
+    cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_row_0').click()
     cy.getByTestID('convert_button').click()
 
@@ -81,7 +83,8 @@ context('wallet/balances/convert - bi-direction success case', () => {
 
   it('tokenToUtxos: should be able to convert successfully', function () {
     cy.intercept('/v0/playground/transactions/send').as('sendRaw')
-    cy.getByTestID('button_continue_convert').click()
+    cy.getByTestID('button_continue_convert').click().wait(4000)
+    cy.getByTestID('oceanInterface_close').click()
 
     // check UI redirected (balances root)
     cy.getByTestID('balances_list').should('exist')
