@@ -3,13 +3,13 @@ import { render } from "@testing-library/react-native";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { RootState } from "../../store";
-import { oceanInterface } from "../../store/oceanInterface";
+import { ocean } from "../../store/ocean";
 import { OceanInterface } from "./OceanInterface";
 
 describe('oceanInterface', () => {
   it('should match snapshot with error', async () => {
     const initialState: Partial<RootState> = {
-      oceanInterface: {
+      ocean: {
         height: 49,
         transactions: [],
         err: new Error('An unknown error has occurred')
@@ -17,7 +17,7 @@ describe('oceanInterface', () => {
     };
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { oceanInterface: oceanInterface.reducer }
+      reducer: { ocean: ocean.reducer }
     })
     const component = (
       <Provider store={store}>
@@ -30,7 +30,7 @@ describe('oceanInterface', () => {
 
   it('should match snapshot', async () => {
     const initialState: Partial<RootState> = {
-      oceanInterface: {
+      ocean: {
         height: 49,
         transactions: [],
         err: new Error('An unknown error has occurred')
@@ -38,7 +38,7 @@ describe('oceanInterface', () => {
     };
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { oceanInterface: oceanInterface.reducer }
+      reducer: { ocean: ocean.reducer }
     })
     const component = (
       <Provider store={store}>

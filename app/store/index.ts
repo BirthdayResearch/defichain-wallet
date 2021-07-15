@@ -1,6 +1,6 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { block } from './block'
-import { oceanInterface } from './oceanInterface'
+import { ocean } from './ocean'
 import { wallet } from './wallet'
 
 /**
@@ -16,7 +16,7 @@ export const store = configureStore({
   reducer: {
     block: block.reducer,
     wallet: wallet.reducer,
-    oceanInterface: oceanInterface.reducer
+    ocean: ocean.reducer
   },
   middleware: [
     ...getDefaultMiddleware({ serializableCheck: false })

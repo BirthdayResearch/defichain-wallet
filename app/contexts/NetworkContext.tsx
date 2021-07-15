@@ -13,7 +13,7 @@ interface Network {
 
 const NetworkContext = createContext<Network>(undefined as any)
 
-export function networkMapper (network: EnvironmentNetwork): NetworkName {
+function networkMapper (network: EnvironmentNetwork): NetworkName {
   switch (network) {
     case EnvironmentNetwork.MainNet:
       return 'mainnet'

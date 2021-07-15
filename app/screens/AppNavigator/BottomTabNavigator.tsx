@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { OceanInterface } from '../../components/OceanInterface/OceanInterface'
 import { VectorIcon, VectorIconName } from '../../constants/Theme'
 import { RootState } from '../../store'
-import { isDrawerOpenSelector } from '../../store/oceanInterface'
+import { isDrawerOpenSelector } from '../../store/ocean'
 
 import { BalancesNavigator } from './screens/Balances/BalancesNavigator'
 import { DexNavigator } from './screens/Dex/DexNavigator'
@@ -31,7 +31,7 @@ function TabBarIcon (props: { name: VectorIconName, color: string }): JSX.Elemen
 }
 
 export function BottomTabNavigator (): JSX.Element {
-  const isOceanInterfaceOpen = useSelector((state: RootState) => isDrawerOpenSelector(state.oceanInterface))
+  const isOceanInterfaceOpen = useSelector((state: RootState) => isDrawerOpenSelector(state.ocean))
   return (
     <>
       {

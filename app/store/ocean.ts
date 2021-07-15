@@ -7,20 +7,20 @@ export interface OceanTransaction {
   title?: string
 }
 
-export interface OceanInterfaceState {
+export interface OceanState {
   transactions: OceanTransaction[]
   height: number
   err?: Error
 }
 
-const initialState: OceanInterfaceState = {
+const initialState: OceanState = {
   transactions: [],
   height: 49,
   err: undefined
 }
 
-export const oceanInterface = createSlice({
-  name: 'oceanInterface',
+export const ocean = createSlice({
+  name: 'ocean',
   initialState,
   reducers: {
     setHeight: (state, action: PayloadAction<number>) => {
@@ -45,7 +45,7 @@ export const oceanInterface = createSlice({
   }
 })
 
-export const isDrawerOpenSelector = createSelector([(state: OceanInterfaceState) => state.transactions, (state: OceanInterfaceState) => state.err],
+export const isDrawerOpenSelector = createSelector([(state: OceanState) => state.transactions, (state: OceanState) => state.err],
   (transactions, err) => transactions?.length > 0 || err !== undefined)
 
-export const firstTransactionSelector = createSelector((state: OceanInterfaceState) => state.transactions, (transactions) => transactions[0])
+export const firstTransactionSelector = createSelector((state: OceanState) => state.transactions, (transactions) => transactions[0])

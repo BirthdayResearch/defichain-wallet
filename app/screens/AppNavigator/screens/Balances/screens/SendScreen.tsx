@@ -21,7 +21,7 @@ import { PrimaryColor, PrimaryColorStyle } from '../../../../../constants/Theme'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
-import { oceanInterface } from '../../../../../store/oceanInterface'
+import { ocean } from '../../../../../store/ocean'
 import { WalletToken } from '../../../../../store/wallet'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
@@ -53,14 +53,14 @@ async function send ({
         to: [{ script: to, balances: [{ token: +token.id, amount }] }]
       }, script)
     }
-    dispatch(oceanInterface.actions.queueTransaction({
+    dispatch(ocean.actions.queueTransaction({
       signed: new CTransactionSegWit(signed),
       broadcasted: false,
       title: `${translate('screens/SendScreen', 'Sending')} ${token.symbol}`
     }))
   } catch (e) {
     Logging.error(e)
-    dispatch(oceanInterface.actions.setError(e))
+    dispatch(ocean.actions.setError(e))
   }
 }
 

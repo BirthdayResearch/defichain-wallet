@@ -9,7 +9,7 @@ import { Logging } from '../../api/logging'
 import { PrimaryColor, PrimaryColorStyle } from '../../constants/Theme'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
 import { RootState } from '../../store'
-import { firstTransactionSelector, oceanInterface, OceanTransaction } from '../../store/oceanInterface'
+import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
 import { translate } from '../../translations'
 
 async function handlePress (txid: string): Promise<void> {
@@ -40,8 +40,8 @@ async function broadcastTransaction (tx: OceanTransaction, client: WhaleApiClien
  * Need to get the height of bottom tab via `useBottomTabBarHeight()` hook to be called on screen.
  * */
 export function OceanInterface (): JSX.Element {
-  const { height, err: e } = useSelector((state: RootState) => state.oceanInterface)
-  const transaction = useSelector((state: RootState) => firstTransactionSelector(state.oceanInterface))
+  const { height, err: e } = useSelector((state: RootState) => state.ocean)
+  const transaction = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const [tx, setTx] = useState<OceanTransaction>(transaction)
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
@@ -57,7 +57,7 @@ export function OceanInterface (): JSX.Element {
           title: translate('screens/OceanInterface', 'Transaction complete'),
           broadcasted: true
         })
-        dispatch(oceanInterface.actions.popTransaction())
+        dispatch(ocean.actions.popTransaction())
       }).catch(() => {
       })
     }
@@ -135,7 +135,7 @@ function TransactionCloseButton (): JSX.Element {
   return (
     <TouchableOpacity
       testID='oceanInterface_close' onPress={() => {
-        dispatch(oceanInterface.actions.closeOceanInterface())
+        dispatch(ocean.actions.closeOceanInterface())
       }} style={tailwind('px-2 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
     >
       <Text style={[PrimaryColorStyle.text, tailwind('text-sm')]}>
