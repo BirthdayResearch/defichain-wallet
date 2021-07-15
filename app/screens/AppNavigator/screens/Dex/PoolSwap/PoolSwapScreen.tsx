@@ -1,23 +1,24 @@
 import { CTransactionSegWit, PoolSwap } from '@defichain/jellyfish-transaction'
-import { WhaleApiClient } from '@defichain/whale-api-client'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { MaterialIcons } from '@expo/vector-icons'
-import { StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
+import { useDispatch } from 'react-redux'
+import { Dispatch } from 'redux'
 import tailwind from 'tailwind-rn'
+import { Logging } from '../../../../../api/logging'
 import { Text, TextInput } from '../../../../../components'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../../components/PrimaryButton'
 import { PrimaryColor, PrimaryColorStyle } from '../../../../../constants/Theme'
 import { useWallet } from '../../../../../contexts/WalletContext'
-import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
+import { ocean } from '../../../../../store/ocean'
 import { translate } from '../../../../../translations'
 import LoadingScreen from '../../../../LoadingNavigator/LoadingScreen'
 import { DexParamList } from '../DexNavigator'
@@ -31,7 +32,6 @@ interface DerivedTokenState {
 type Props = StackScreenProps<DexParamList, 'PoolSwapScreen'>
 
 export function PoolSwapScreen ({ route }: Props): JSX.Element {
-  const navigation = useNavigation()
   const poolpair = route.params.poolpair
   const tokens = useTokensAPI()
   const [tokenAForm, tokenBForm] = ['tokenA', 'tokenB']
@@ -43,8 +43,8 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   // component UI state
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
 
-  const whaleApiClient = useWhaleApiClient()
   const account = useWallet().get(0)
+  const dispatch = useDispatch()
 
   function onSubmit (): void {
     if (tokenA === undefined || tokenB === undefined) {
@@ -61,10 +61,11 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         fromAmount: new BigNumber((getValues()[tokenAForm])),
         toAmount: new BigNumber((getValues()[tokenBForm]))
       }
-      // no longer a promise after refactor to network drawer
-      constructSignedSwapAndSend(account, swap, whaleApiClient)
-        .then(() => navigation.dispatch(StackActions.popToTop()))
-        .catch(e => console.log(e))
+      constructSignedSwapAndSend(account, swap, dispatch)
+        .catch(e => {
+          Logging.error(e)
+          dispatch(ocean.actions.setError(e))
+        })
     }
   }
 
@@ -303,8 +304,7 @@ interface DexForm {
 async function constructSignedSwapAndSend (
   account: WhaleWalletAccount, // must be both owner and recipient for simplicity
   dexForm: DexForm,
-  // dispatch: Dispatch<any>
-  whaleAPI: WhaleApiClient
+  dispatch: Dispatch<any>
 ): Promise<void> {
   const builder = account.withTransactionBuilder()
 
@@ -327,6 +327,9 @@ async function constructSignedSwapAndSend (
   const dfTx = await builder.dex.poolSwap(swap, script)
   const signed = new CTransactionSegWit(dfTx)
 
-  // dispatch(store.ocean.action.push(signed))
-  await whaleAPI.transactions.send({ hex: signed.toHex() })
+  dispatch(ocean.actions.queueTransaction({
+    signed,
+    broadcasted: false,
+    title: `${translate('screens/PoolSwapScreen', 'Swapping Token')}`
+  }))
 }

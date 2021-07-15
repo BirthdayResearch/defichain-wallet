@@ -1,19 +1,20 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
-import { WhaleApiClient } from '@defichain/whale-api-client'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useCallback } from 'react'
 import { FlatList } from 'react-native'
 import NumberFormat from 'react-number-format'
+import { useDispatch } from 'react-redux'
+import { Dispatch } from 'redux'
 import tailwind from 'tailwind-rn'
+import { Logging } from '../../../../api/logging'
 import { Text, View } from '../../../../components'
 import { PrimaryButton } from '../../../../components/PrimaryButton'
 import { useWallet } from '../../../../contexts/WalletContext'
-import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
+import { ocean } from '../../../../store/ocean'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
 
@@ -27,8 +28,6 @@ export interface AddLiquiditySummary extends PoolPairData {
 }
 
 export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
-  const navigation = useNavigation()
-
   const {
     fee,
     percentage,
@@ -44,26 +43,23 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const bToARate = new BigNumber(tokenA.reserve).div(tokenB.reserve)
   const lmTokenAmount = percentage.times(totalLiquidity)
 
-  const whaleAPI = useWhaleApiClient()
   const account = useWallet().get(0)
-  // const account = getDefaultWallet().get(0) // getting error: must call useCachedWallet() first
+  const dispatch = useDispatch()
 
   const addLiquidity = useCallback(() => {
     // TODO: add loading spinner after we have standardized design
     constructSignedAddLiqAndSend(
-      whaleAPI,
       account,
       {
         tokenAId: Number(tokenA.id),
         tokenAAmount,
         tokenBId: Number(tokenB.id),
         tokenBAmount
-      }
-    ).then(() => {
-      navigation.dispatch(StackActions.popToTop())
-    }).catch(e => {
-      // TODO: display error, close modal to retry/redirect
-      console.log(e)
+      },
+      dispatch
+    ).catch(e => {
+      Logging.error(e)
+      dispatch(ocean.actions.setError(e))
     })
   }, [props.route.params.summary])
 
@@ -119,6 +115,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       testID='confirm-root'
       style={tailwind('w-full flex-col mt-5')}
       data={items}
+      keyExtractor={(item, index) => `${index}`}
       renderItem={({ item }) => <Row lhs={item.lhs} rhs={item.rhs} />}
       ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
       ListFooterComponent={<ConfirmButton onPress={() => addLiquidity()} />}
@@ -159,10 +156,10 @@ function ConfirmButton (props: { onPress: () => void }): JSX.Element {
   )
 }
 
-async function constructSignedAddLiqAndSend (
-  whaleAPI: WhaleApiClient, account: WhaleWalletAccount,
-  addLiqForm: { tokenAId: number, tokenAAmount: BigNumber, tokenBId: number, tokenBAmount: BigNumber }
-): Promise<string> {
+async function constructSignedAddLiqAndSend (account: WhaleWalletAccount,
+  addLiqForm: { tokenAId: number, tokenAAmount: BigNumber, tokenBId: number, tokenBAmount: BigNumber },
+  dispatch: Dispatch<any>
+): Promise<void> {
   const builder = account.withTransactionBuilder()
 
   const script = await account.getScript()
@@ -178,6 +175,10 @@ async function constructSignedAddLiqAndSend (
   }
 
   const dfTx = await builder.liqPool.addLiquidity(addLiq, script)
-  const hex = new CTransactionSegWit(dfTx).toHex()
-  return await whaleAPI.transactions.send({ hex })
+  const signed = new CTransactionSegWit(dfTx)
+  dispatch(ocean.actions.queueTransaction({
+    signed,
+    broadcasted: false,
+    title: `${translate('screens/ConfirmLiquidity', 'Adding Liquidity')}`
+  }))
 }

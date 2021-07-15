@@ -1,23 +1,24 @@
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction'
-import { WhaleApiClient } from '@defichain/whale-api-client'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { MaterialIcons } from '@expo/vector-icons'
-import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { ScrollView, StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import NumberFormat from 'react-number-format'
+import { useDispatch } from 'react-redux'
+import { Dispatch } from 'redux'
 import tailwind from 'tailwind-rn'
+import { Logging } from '../../../../api/logging'
 import { Text, TextInput, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../components/PrimaryButton'
 import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
 import { useWallet } from '../../../../contexts/WalletContext'
-import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
+import { ocean } from '../../../../store/ocean'
 import { translate } from '../../../../translations'
 import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
 import { BalanceParamList } from './BalancesNavigator'
@@ -30,8 +31,6 @@ interface ConversionIO extends AddressToken {
 }
 
 export function ConvertScreen (props: Props): JSX.Element {
-  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
-
   const tokens = useTokensAPI()
   const [mode, setMode] = useState(props.route.params.mode)
   const [sourceToken, setSourceToken] = useState<ConversionIO>()
@@ -39,14 +38,13 @@ export function ConvertScreen (props: Props): JSX.Element {
 
   const [amount, setAmount] = useState<string>('0')
 
-  const whaleApiClient = useWhaleApiClient()
   const account = useWallet().get(0)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const [source, target] = getDFIBalances(mode, tokens)
     setSourceToken(source)
     setTargetToken(target)
-    console.log('use effect', mode)
   }, [mode])
 
   if (sourceToken === undefined || targetToken === undefined) {
@@ -58,13 +56,14 @@ export function ConvertScreen (props: Props): JSX.Element {
 
   const convert = (): void => {
     constructSignedConversionAndSend(
-      whaleApiClient,
       account,
       props.route.params.mode,
-      new BigNumber(amount)
-    ).then(() => {
-      navigation.dispatch(StackActions.popToTop())
-    }).catch(e => console.log(e)) // TODO: display error
+      new BigNumber(amount),
+      dispatch
+    ).catch(e => {
+      Logging.error(e)
+      dispatch(ocean.actions.setError(e))
+    })
   }
 
   return (
@@ -240,7 +239,8 @@ function canConvert (amount: string, balance: string): boolean {
   return new BigNumber(balance).gte(amount) && !(new BigNumber(amount).isZero())
 }
 
-async function constructSignedConversionAndSend (whaleAPI: WhaleApiClient, account: WhaleWalletAccount, mode: ConversionMode, amount: BigNumber): Promise<string> {
+async function constructSignedConversionAndSend (account: WhaleWalletAccount, mode: ConversionMode,
+  amount: BigNumber, dispatch: Dispatch<any>): Promise<void> {
   const builder = account.withTransactionBuilder()
 
   const script = await account.getScript()
@@ -264,6 +264,10 @@ async function constructSignedConversionAndSend (whaleAPI: WhaleApiClient, accou
     }, script)
   }
 
-  const hex = new CTransactionSegWit(signed).toHex()
-  return await whaleAPI.transactions.send({ hex })
+  const signedDftx = new CTransactionSegWit(signed)
+  dispatch(ocean.actions.queueTransaction({
+    signed: signedDftx,
+    broadcasted: false,
+    title: `${translate('screens/ConvertScreen', 'Converting DFI')}`
+  }))
 }
