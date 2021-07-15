@@ -1,9 +1,9 @@
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction";
 import { SmartBuffer } from "smart-buffer";
-import { isDrawerOpenSelector, networkDrawer, NetworkDrawerState } from './networkDrawer'
+import { isDrawerOpenSelector, oceanInterface, OceanInterfaceState } from './oceanInterface'
 
-describe('networkDrawer reducer', () => {
-  let initialState: NetworkDrawerState
+describe('oceanInterface reducer', () => {
+  let initialState: OceanInterfaceState
 
   beforeEach(() => {
     initialState = {
@@ -14,7 +14,7 @@ describe('networkDrawer reducer', () => {
   })
 
   it('should handle initial state', () => {
-    expect(networkDrawer.reducer(undefined, { type: 'unknown' })).toEqual({
+    expect(oceanInterface.reducer(undefined, { type: 'unknown' })).toEqual({
       transactions: [],
       err: undefined,
       height: 49
@@ -26,29 +26,29 @@ describe('networkDrawer reducer', () => {
     const buffer = SmartBuffer.fromBuffer(Buffer.from(v2, 'hex'))
     const signed = new CTransactionSegWit(buffer)
     const payload = { title: 'Sending', broadcasted: false, signed }
-    const addedTransaction = networkDrawer.reducer(initialState, networkDrawer.actions.queueTransaction(payload));
+    const addedTransaction = oceanInterface.reducer(initialState, oceanInterface.actions.queueTransaction(payload));
     expect(addedTransaction).toStrictEqual({ transactions: [payload], err: undefined, height: 49 })
-    const actual = networkDrawer.reducer(addedTransaction, networkDrawer.actions.queueTransaction(payload));
+    const actual = oceanInterface.reducer(addedTransaction, oceanInterface.actions.queueTransaction(payload));
 
-    const pop = networkDrawer.reducer(actual, networkDrawer.actions.popTransaction());
+    const pop = oceanInterface.reducer(actual, oceanInterface.actions.popTransaction());
     expect(pop).toStrictEqual({ transactions: [payload], err: undefined, height: 49 })
-    const removed = networkDrawer.reducer(pop, networkDrawer.actions.popTransaction());
+    const removed = oceanInterface.reducer(pop, oceanInterface.actions.popTransaction());
     expect(removed).toStrictEqual({ transactions: [payload], err: undefined, height: 49 })
   })
 
-  it('should closeNetworkDrawer', () => {
-    const actual = networkDrawer.reducer(initialState, networkDrawer.actions.closeNetworkDrawer());
+  it('should closeOceanInterface', () => {
+    const actual = oceanInterface.reducer(initialState, oceanInterface.actions.closeOceanInterface());
     expect(actual).toStrictEqual({ transactions: [], err: undefined, height: 49 })
   })
 
   it('should handle setError', () => {
     const err = new Error('An error has occurred')
-    const actual = networkDrawer.reducer(initialState, networkDrawer.actions.setError(err));
+    const actual = oceanInterface.reducer(initialState, oceanInterface.actions.setError(err));
     expect(actual).toStrictEqual({ transactions: [], err, height: 49 })
   })
 
   it('should setHeight', () => {
-    const actual = networkDrawer.reducer(initialState, networkDrawer.actions.setHeight(77));
+    const actual = oceanInterface.reducer(initialState, oceanInterface.actions.setHeight(77));
     expect(actual).toStrictEqual({ transactions: [], err: undefined, height: 77 })
   })
 

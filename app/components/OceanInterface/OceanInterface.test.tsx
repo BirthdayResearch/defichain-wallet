@@ -3,13 +3,13 @@ import { render } from "@testing-library/react-native";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { RootState } from "../../store";
-import { networkDrawer } from "../../store/networkDrawer";
-import { NetworkDrawer } from "./NetworkDrawer";
+import { oceanInterface } from "../../store/oceanInterface";
+import { OceanInterface } from "./OceanInterface";
 
-describe('networkDrawer', () => {
+describe('oceanInterface', () => {
   it('should match snapshot with error', async () => {
     const initialState: Partial<RootState> = {
-      networkDrawer: {
+      oceanInterface: {
         height: 49,
         transactions: [],
         err: new Error('An unknown error has occurred')
@@ -17,11 +17,11 @@ describe('networkDrawer', () => {
     };
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { networkDrawer: networkDrawer.reducer }
+      reducer: { oceanInterface: oceanInterface.reducer }
     })
     const component = (
       <Provider store={store}>
-        <NetworkDrawer />
+        <OceanInterface />
       </Provider>
     );
     const rendered = render(component)
@@ -30,7 +30,7 @@ describe('networkDrawer', () => {
 
   it('should match snapshot', async () => {
     const initialState: Partial<RootState> = {
-      networkDrawer: {
+      oceanInterface: {
         height: 49,
         transactions: [],
         err: new Error('An unknown error has occurred')
@@ -38,11 +38,11 @@ describe('networkDrawer', () => {
     };
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { networkDrawer: networkDrawer.reducer }
+      reducer: { oceanInterface: oceanInterface.reducer }
     })
     const component = (
       <Provider store={store}>
-        <NetworkDrawer />
+        <OceanInterface />
       </Provider>
     );
     const rendered = render(component)

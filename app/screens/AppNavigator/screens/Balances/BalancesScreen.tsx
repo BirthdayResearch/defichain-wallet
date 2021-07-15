@@ -12,7 +12,7 @@ import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { fetchTokens, useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
-import { networkDrawer } from '../../../../store/networkDrawer'
+import { oceanInterface } from '../../../../store/oceanInterface'
 import { WalletToken } from '../../../../store/wallet'
 import { translate } from '../../../../translations'
 import { BalanceParamList } from './BalancesNavigator'
@@ -27,7 +27,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(networkDrawer.actions.setHeight(height))
+    dispatch(oceanInterface.actions.setHeight(height))
   }, [height])
 
   const onRefresh = useCallback(async () => {

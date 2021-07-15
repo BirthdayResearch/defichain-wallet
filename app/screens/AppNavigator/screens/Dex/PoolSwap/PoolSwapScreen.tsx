@@ -327,6 +327,6 @@ async function constructSignedSwapAndSend (
   const dfTx = await builder.dex.poolSwap(swap, script)
   const signed = new CTransactionSegWit(dfTx)
 
-  // dispatch(store.networkDrawer.action.push(signed))
+  // dispatch(store.oceanInterface.action.push(signed))
   await whaleAPI.transactions.send({ hex: signed.toHex() })
 }

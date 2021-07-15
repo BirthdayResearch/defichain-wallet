@@ -1,35 +1,35 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction'
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export interface Transaction {
+export interface OceanTransaction {
   broadcasted: boolean
   signed: CTransactionSegWit
   title?: string
 }
 
-export interface NetworkDrawerState {
-  transactions: Transaction[]
+export interface OceanInterfaceState {
+  transactions: OceanTransaction[]
   height: number
   err?: Error
 }
 
-const initialState: NetworkDrawerState = {
+const initialState: OceanInterfaceState = {
   transactions: [],
   height: 49,
   err: undefined
 }
 
-export const networkDrawer = createSlice({
-  name: 'networkDrawer',
+export const oceanInterface = createSlice({
+  name: 'oceanInterface',
   initialState,
   reducers: {
     setHeight: (state, action: PayloadAction<number>) => {
       state.height = action.payload
     },
-    queueTransaction: (state, action: PayloadAction<Transaction>) => {
+    queueTransaction: (state, action: PayloadAction<OceanTransaction>) => {
       state.transactions = [...state.transactions, action.payload]
     },
-    closeNetworkDrawer: (state) => {
+    closeOceanInterface: (state) => {
       state.transactions = []
       state.err = undefined
     },
@@ -45,7 +45,7 @@ export const networkDrawer = createSlice({
   }
 })
 
-export const isDrawerOpenSelector = createSelector([(state: NetworkDrawerState) => state.transactions, (state: NetworkDrawerState) => state.err],
+export const isDrawerOpenSelector = createSelector([(state: OceanInterfaceState) => state.transactions, (state: OceanInterfaceState) => state.err],
   (transactions, err) => transactions?.length > 0 || err !== undefined)
 
-export const firstTransactionSelector = createSelector((state: NetworkDrawerState) => state.transactions, (transactions) => transactions[0])
+export const firstTransactionSelector = createSelector((state: OceanInterfaceState) => state.transactions, (transactions) => transactions[0])

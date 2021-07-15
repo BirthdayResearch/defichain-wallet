@@ -9,7 +9,7 @@ import { Logging } from '../../api/logging'
 import { PrimaryColor, PrimaryColorStyle } from '../../constants/Theme'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
 import { RootState } from '../../store'
-import { firstTransactionSelector, networkDrawer, Transaction } from '../../store/networkDrawer'
+import { firstTransactionSelector, oceanInterface, OceanTransaction } from '../../store/oceanInterface'
 import { translate } from '../../translations'
 
 async function handlePress (txid: string): Promise<void> {
@@ -21,7 +21,7 @@ async function handlePress (txid: string): Promise<void> {
   }
 }
 
-async function broadcastTransaction (tx: Transaction, client: WhaleApiClient, setError: (e: Error) => void): Promise<string | undefined> {
+async function broadcastTransaction (tx: OceanTransaction, client: WhaleApiClient, setError: (e: Error) => void): Promise<string | undefined> {
   let retries = 0
   try {
     return await client.transactions.send({ hex: tx.signed.toHex() })
@@ -39,10 +39,10 @@ async function broadcastTransaction (tx: Transaction, client: WhaleApiClient, se
  * @description - Global component to be used for async calls, network errors etc. This component is positioned above the bottom tab.
  * Need to get the height of bottom tab via `useBottomTabBarHeight()` hook to be called on screen.
  * */
-export function NetworkDrawer (): JSX.Element {
-  const { height, err: e } = useSelector((state: RootState) => state.networkDrawer)
-  const transaction = useSelector((state: RootState) => firstTransactionSelector(state.networkDrawer))
-  const [tx, setTx] = useState<Transaction>(transaction)
+export function OceanInterface (): JSX.Element {
+  const { height, err: e } = useSelector((state: RootState) => state.oceanInterface)
+  const transaction = useSelector((state: RootState) => firstTransactionSelector(state.oceanInterface))
+  const [tx, setTx] = useState<OceanTransaction>(transaction)
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
   const [err, setError] = useState<Error | undefined>(e)
@@ -54,10 +54,10 @@ export function NetworkDrawer (): JSX.Element {
       broadcastTransaction(transaction, client, setError).then(() => {
         setTx({
           ...transaction,
-          title: translate('screens/NetworkDrawer', 'Transaction complete'),
+          title: translate('screens/OceanInterface', 'Transaction complete'),
           broadcasted: true
         })
-        dispatch(networkDrawer.actions.popTransaction())
+        dispatch(oceanInterface.actions.popTransaction())
       }).catch(() => {
       })
     }
@@ -75,7 +75,7 @@ export function NetworkDrawer (): JSX.Element {
   )
 }
 
-function TransactionDetail ({ tx }: { tx: Transaction }): JSX.Element {
+function TransactionDetail ({ tx }: { tx: OceanTransaction }): JSX.Element {
   return (
     <>
       {
@@ -85,7 +85,7 @@ function TransactionDetail ({ tx }: { tx: Transaction }): JSX.Element {
       <View style={tailwind('flex-grow mr-1 justify-center items-center text-center')}>
         <Text
           style={tailwind('text-sm font-bold')}
-        >{translate('screens/NetworkDrawer', tx?.title ?? 'Loading...')}
+        >{translate('screens/OceanInterface', tx?.title ?? 'Loading...')}
         </Text>
         {
           tx.signed.txId !== undefined && <TransactionIDButton txid={tx.signed.txId} />
@@ -105,7 +105,7 @@ function TransactionError ({ txid }: { txid: string | undefined }): JSX.Element 
       <View style={tailwind('flex-grow mr-1 justify-center items-center text-center')}>
         <Text
           style={tailwind('text-sm font-bold')}
-        >{`${translate('screens/NetworkDrawer', 'An error has occurred')}`}
+        >{`${translate('screens/OceanInterface', 'An error has occurred')}`}
         </Text>
         {
           txid !== undefined && <TransactionIDButton txid={txid} />
@@ -119,7 +119,7 @@ function TransactionError ({ txid }: { txid: string | undefined }): JSX.Element 
 function TransactionIDButton ({ txid }: { txid: string }): JSX.Element {
   return (
     <TouchableOpacity
-      testID='networkDrawer_explorer' style={tailwind('flex-row bg-white p-1 items-center')}
+      testID='oceanNetwork_explorer' style={tailwind('flex-row bg-white p-1 items-center')}
       onPress={async () => await handlePress(txid)}
     >
       <Text style={[PrimaryColorStyle.text, tailwind('text-sm font-medium mr-1')]}>
@@ -134,12 +134,12 @@ function TransactionCloseButton (): JSX.Element {
   const dispatch = useDispatch()
   return (
     <TouchableOpacity
-      testID='networkDrawer_close' onPress={() => {
-        dispatch(networkDrawer.actions.closeNetworkDrawer())
+      testID='oceanInterface_close' onPress={() => {
+        dispatch(oceanInterface.actions.closeOceanInterface())
       }} style={tailwind('px-2 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
     >
       <Text style={[PrimaryColorStyle.text, tailwind('text-sm')]}>
-        {translate('screens/NetworkDrawer', 'OK')}
+        {translate('screens/OceanInterface', 'OK')}
       </Text>
     </TouchableOpacity>
   )
