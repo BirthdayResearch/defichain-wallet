@@ -69,7 +69,6 @@ export function OceanInterface (): JSX.Element | null {
   useEffect(() => {
     // last available job will remained in this UI state until get dismissed
     if (transaction !== undefined) {
-      console.log('broadcasting', transaction.signed.txId)
       setTx({
         ...transaction,
         broadcasted: false
