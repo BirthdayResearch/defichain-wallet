@@ -64,11 +64,11 @@ export function OceanInterface (): JSX.Element | null {
     if (transaction !== undefined) {
       setTx({
         ...transaction,
-        title: translate('screens/OceanInterface', 'Transaction complete'),
         broadcasted: false
       })
 
       broadcastTransaction(transaction, client)
+        .then(() => setTx({ ...transaction, broadcasted: true, title: translate('screens/OceanInterface', 'Sent') }))
         .catch((e: Error) => setError(e))
         .finally(() => dispatch(ocean.actions.popTransaction())) // remove the job as soon as completion
     }
@@ -104,7 +104,7 @@ function TransactionDetail ({ tx, onClose }: { tx: OceanTransaction, onClose: ()
       <View style={tailwind('flex-grow mr-1 justify-center items-center text-center')}>
         <Text
           style={tailwind('text-sm font-bold')}
-        >{translate('screens/OceanInterface', tx?.title ?? 'Loading...')}
+        >{translate('screens/OceanInterface', tx.title ?? 'Loading...')}
         </Text>
         {
           tx.signed.txId !== undefined && <TransactionIDButton txid={tx.signed.txId} />
