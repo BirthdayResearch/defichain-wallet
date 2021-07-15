@@ -22,7 +22,7 @@ import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { RootState } from '../../../../../store'
-import { firstTransactionSelector, ocean } from '../../../../../store/ocean'
+import { hasTxQueued, ocean } from '../../../../../store/ocean'
 import { WalletToken } from '../../../../../store/wallet'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
@@ -76,14 +76,14 @@ export function SendScreen ({ route }: Props): JSX.Element {
   const dispatch = useDispatch()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const transactionJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.ocean))
 
   useEffect(() => {
     client.transactions.estimateFee().then((f) => setFee(new BigNumber(f))).catch((e) => Logging.error(e))
   }, [])
 
   async function onSubmit (): Promise<void> {
-    if (transactionJob !== undefined) {
+    if (hasPendingJob) {
       return
     }
     setIsSubmitting(true)
@@ -117,7 +117,7 @@ export function SendScreen ({ route }: Props): JSX.Element {
           </View>
         )
       }
-      <PrimaryButton disabled={!isValid || isSubmitting || transactionJob !== undefined} title='Send' onPress={onSubmit}>
+      <PrimaryButton disabled={!isValid || isSubmitting || hasPendingJob} title='Send' onPress={onSubmit}>
         <Text style={tailwind('text-white font-bold')}>{translate('screens/SendScreen', 'SEND')}</Text>
       </PrimaryButton>
     </ScrollView>
