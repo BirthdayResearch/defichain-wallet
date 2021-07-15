@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import tailwind from 'tailwind-rn'
 import { Logging } from '../../../../../api/logging'
@@ -21,7 +21,8 @@ import { PrimaryColor, PrimaryColorStyle } from '../../../../../constants/Theme'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
-import { ocean } from '../../../../../store/ocean'
+import { RootState } from '../../../../../store'
+import { firstTransactionSelector, ocean } from '../../../../../store/ocean'
 import { WalletToken } from '../../../../../store/wallet'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
@@ -75,12 +76,16 @@ export function SendScreen ({ route }: Props): JSX.Element {
   const dispatch = useDispatch()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const transactionJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
 
   useEffect(() => {
     client.transactions.estimateFee().then((f) => setFee(new BigNumber(f))).catch((e) => Logging.error(e))
   }, [])
 
   async function onSubmit (): Promise<void> {
+    if (transactionJob !== undefined) {
+      return
+    }
     setIsSubmitting(true)
     if (isValid) {
       const values = getValues()
@@ -112,7 +117,7 @@ export function SendScreen ({ route }: Props): JSX.Element {
           </View>
         )
       }
-      <PrimaryButton disabled={!isValid || isSubmitting} title='Send' onPress={onSubmit}>
+      <PrimaryButton disabled={!isValid || isSubmitting || transactionJob !== undefined} title='Send' onPress={onSubmit}>
         <Text style={tailwind('text-white font-bold')}>{translate('screens/SendScreen', 'SEND')}</Text>
       </PrimaryButton>
     </ScrollView>
