@@ -1,9 +1,7 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
-import { WhaleApiClient } from '@defichain/whale-api-client'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import Slider from '@react-native-community/slider'
-import { StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
@@ -11,21 +9,22 @@ import { useCallback, useState } from 'react'
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import NumberFormat from 'react-number-format'
+import { useDispatch } from 'react-redux'
+import { Dispatch } from 'redux'
 import tailwind from 'tailwind-rn'
+import { Logging } from '../../../../api/logging'
 import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../components/PrimaryButton'
 import { useWallet } from '../../../../contexts/WalletContext'
-import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
+import { ocean } from '../../../../store/ocean'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
 export function RemoveLiquidityScreen (props: Props): JSX.Element {
-  const navigation = useNavigation()
-
   // this component state
   const [tokenAAmount, setTokenAAmount] = useState<BigNumber>(new BigNumber(0))
   const [tokenBAmount, setTokenBAmount] = useState<BigNumber>(new BigNumber(0))
@@ -54,21 +53,19 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
     setPercentage(new BigNumber(percentage).toFixed(2))
   }, [percentage])
 
-  const whaleAPI = useWhaleApiClient()
   const account = useWallet().get(0)
+  const dispatch = useDispatch()
 
   const removeLiquidity = useCallback(() => {
     // TODO: add loading spinner after we have standardized design
     constructSignedRemoveLiqAndSend(
-      whaleAPI,
       account,
       Number(pair.id),
-      amount
-    ).then(() => {
-      navigation.dispatch(StackActions.popToTop())
-    }).catch(e => {
-      // TODO: display error, close modal to retry/redirect
-      console.log(e)
+      amount,
+      dispatch
+    ).catch(e => {
+      Logging.error(e)
+      dispatch(ocean.actions.setError(e))
     })
   }, [amount])
 
@@ -192,7 +189,8 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
   )
 }
 
-async function constructSignedRemoveLiqAndSend (whaleAPI: WhaleApiClient, account: WhaleWalletAccount, tokenId: number, amount: BigNumber): Promise<string> {
+async function constructSignedRemoveLiqAndSend (account: WhaleWalletAccount, tokenId: number,
+  amount: BigNumber, dispatch: Dispatch<any>): Promise<void> {
   const builder = account.withTransactionBuilder()
   const script = await account.getScript()
   const removeLiq = {
@@ -201,6 +199,10 @@ async function constructSignedRemoveLiqAndSend (whaleAPI: WhaleApiClient, accoun
     amount
   }
   const dfTx = await builder.liqPool.removeLiquidity(removeLiq, script)
-  const hex = new CTransactionSegWit(dfTx).toHex()
-  return await whaleAPI.transactions.send({ hex })
+  const signed = new CTransactionSegWit(dfTx)
+  dispatch(ocean.actions.queueTransaction({
+    signed,
+    broadcasted: false,
+    title: `${translate('screens/RemoveLiquidity', 'Removing Liquidity')}`
+  }))
 }
