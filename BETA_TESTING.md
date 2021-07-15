@@ -2,58 +2,63 @@
 
 ## Test Setup
 
-Requirements:
+**Prerequisites:**
 
-1. Mobile Device 
-2. Stable Network
-3. Testing URL for Expo Go, TestFlight Invite Code
+1. Mobile device
+2. Stable network
+3. Expo Go test URL & TestFlight invitation code
 
-
-The test will run on [DeFi Playground](https://github.com/DeFiCh/wallet#testing). To start testing, please follow the steps below based on your mobile device's operating system.
+The test will run on [DeFi Playground](https://github.com/DeFiCh/wallet#testing). To begin, refer to the steps below based on your mobile device's operating system.
 
 ### Android
-1. Download [Expo Go](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en&gl=US) from Play Store
-2. If you have Expo Go installed on your device, please ensure that you have the latest version via Play Store for proper compatibility with the DeFi Wallet
-3. Open the URL provided for testing and scan the QR code using your Expo App
-4. You may also copy the Expo URL and paste it on the Expo Go App
+1. Download [Expo Go](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www) from Play Store
+2. If you have Expo Go installed on your device, kindly ensure that you have the latest version via Play Store for ideal compatibility with DeFi Wallet
+3. Go to DeFiCh/wallet Discussions and select the [latest version](https://github.com/DeFiCh/wallet/discussions/categories/beta-testing)
+4. Scan the QR code using your mobile device
+5. Alternatively, copy and paste the Expo URL in your Expo Go App
+6. DeFi Wallet should reflect in Expo Go
 
 ### iOS
 1. Download [TestFlight](https://apps.apple.com/us/app/testflight/id899247664) from App Store
-2. If you have TestFlight installed on your device, please ensure that you have the latest version via App Store for proper compatibility with the DeFi Wallet
-3. Check your email for TestFlight Invitation Link
-4. Open the Link and copy the TestFlight Code
-5. Open TestFlight app, Click on Redeem code on upper right corner
-6. Install the application
+2. TestFlight app must be installed on your iOS device using 13.0 or later
+2. If you have TestFlight installed on your device, kindly ensure that you have the latest version via App Store for ideal compatibility with DeFi Wallet
+3. After signing up, check your email and click on `View in TestFlight` invitation link
+4. It should redirect and open the TestFlight app, **enter the code**
+5. Alternatively, open TestFlight app, click on the `Redeem`, and **enter the code**
+7. DeFi Wallet should reflect in TestFlight
 
 ## Test Data
 
 ### How to generate assets for your wallet
-If you need UTXO or Tokens to test, you may generate them using DeFi Playground in the Wallet.
+Should you need utxoDFI or Tokens for testing, you may generate them using DeFi Playground in the Wallet.
 
 1. Create your wallet
-2. Click on Settings Icon in the Bottom Navigation. 
-3. Click on Remote Playground
+2. Click on `Settings` via bottom navigation bar 
+3. Click on `Remote Playground`
       <div>
         <img alt="settings" width="40%" src="/.github/images/beta_testing/settings.jpg" />
       </div>
-4. It should open a new screen where you can do various operations (e.g, Top up 10 DFI UTXO, 10 BTC Token etc.)
+4. It should open a new screen where you can do various operations (e.g. top-up 10 utxoDFI, 10 dBTC Token etc.)
       <div>
         <img alt="playground" width="40%" src="/.github/images/beta_testing/playground.jpg" />
       </div>
-5. Click on any operation (e.g Top Up 10 UTXO DFI) 
-6. Click on Fetch Balances
-7. Click Back button and navigate to balances screen using the bottom navigation
-8. Check if your balance is updated. If not, try `pull to refresh` on the Balances screen to get your latest balances
+5. Click on any operation (e.g. top-up 10 utxoDFI) 
+6. Click on `Fetch Balances`
+7. Click on `Back` and navigate to `Balances` screen via bottom navigation bar
+8. Check if your balance has been updated
+9. Otherwise, try `pull to refresh` on the Balances screen to retrieve your latest balance
 
 ## Test Results
-You may post your test results on the respective GitHub Discussions thread. Please add these details for any feedback
+Select the respective DeFi Wallet version thread via [GitHub Discussions](https://github.com/DeFiCh/wallet/discussions/categories/beta-testing) and post your feedback(s). 
 
-- Operating System (Android or iOS) 
-- Version (Android 12 or iOS 15)
-- Mobile Device (Samsung S21, iPhone 12)
+**Do include the following before leaving a comment / post:**
+- Operating System (OS): Android / iOS
+- OS Version: Android 12, iOS 15, etc.
+- Mobile Device: Samsung S21, iPhone 12, etc.
+- App Feature:
+<!-- Kindly attach screenshot for better reference -->
 
-
-
-
-
-
+_Additional comment(s) / pain point(s):_
+- Was it easy to use?
+- Did anything not work according to expectation?
+- What pain point(s) you may have experienced and hope to overcome?
