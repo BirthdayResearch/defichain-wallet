@@ -3,7 +3,7 @@ import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface OceanTransaction {
   broadcasted: boolean
-  signed: CTransactionSegWit
+  signer: () => Promise<CTransactionSegWit>
   title?: string
 }
 

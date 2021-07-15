@@ -166,21 +166,25 @@ async function constructSignedAddLiqAndSend (account: WhaleWalletAccount,
   const builder = account.withTransactionBuilder()
 
   const script = await account.getScript()
-  const addLiq = {
-    from: [{
-      script,
-      balances: [
-        { token: addLiqForm.tokenAId, amount: addLiqForm.tokenAAmount },
-        { token: addLiqForm.tokenBId, amount: addLiqForm.tokenBAmount }
-      ]
-    }],
-    shareAddress: script
+
+  const signer = async (): Promise<CTransactionSegWit> => {
+    const addLiq = {
+      from: [{
+        script,
+        balances: [
+          { token: addLiqForm.tokenAId, amount: addLiqForm.tokenAAmount },
+          { token: addLiqForm.tokenBId, amount: addLiqForm.tokenBAmount }
+        ]
+      }],
+      shareAddress: script
+    }
+
+    const dfTx = await builder.liqPool.addLiquidity(addLiq, script)
+    return new CTransactionSegWit(dfTx)
   }
 
-  const dfTx = await builder.liqPool.addLiquidity(addLiq, script)
-  const signed = new CTransactionSegWit(dfTx)
   dispatch(ocean.actions.queueTransaction({
-    signed,
+    signer,
     broadcasted: false,
     title: `${translate('screens/ConfirmLiquidity', 'Adding Liquidity')}`
   }))

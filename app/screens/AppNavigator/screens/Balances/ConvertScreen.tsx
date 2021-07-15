@@ -249,29 +249,32 @@ async function constructSignedConversionAndSend (account: WhaleWalletAccount, mo
   const builder = account.withTransactionBuilder()
 
   const script = await account.getScript()
-  let signed: TransactionSegWit
-  if (mode === 'utxosToAccount') {
-    signed = await builder.account.utxosToAccount({
-      to: [{
-        script,
+
+  const signer = async (): Promise<CTransactionSegWit> => {
+    let signed: TransactionSegWit
+    if (mode === 'utxosToAccount') {
+      signed = await builder.account.utxosToAccount({
+        to: [{
+          script,
+          balances: [
+            { token: 0, amount }
+          ]
+        }]
+      }, script)
+    } else {
+      signed = await builder.account.accountToUtxos({
+        from: script,
         balances: [
           { token: 0, amount }
-        ]
-      }]
-    }, script)
-  } else {
-    signed = await builder.account.accountToUtxos({
-      from: script,
-      balances: [
-        { token: 0, amount }
-      ],
-      mintingOutputsStart: 2 // 0: DfTx, 1: change, 2: minted utxos (mandated by jellyfish-tx)
-    }, script)
+        ],
+        mintingOutputsStart: 2 // 0: DfTx, 1: change, 2: minted utxos (mandated by jellyfish-tx)
+      }, script)
+    }
+    return new CTransactionSegWit(signed)
   }
 
-  const signedDftx = new CTransactionSegWit(signed)
   dispatch(ocean.actions.queueTransaction({
-    signed: signedDftx,
+    signer,
     broadcasted: false,
     title: `${translate('screens/ConvertScreen', 'Converting DFI')}`
   }))

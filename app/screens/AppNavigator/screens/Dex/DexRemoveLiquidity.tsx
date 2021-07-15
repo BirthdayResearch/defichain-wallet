@@ -195,15 +195,19 @@ async function constructSignedRemoveLiqAndSend (account: WhaleWalletAccount, tok
   amount: BigNumber, dispatch: Dispatch<any>): Promise<void> {
   const builder = account.withTransactionBuilder()
   const script = await account.getScript()
-  const removeLiq = {
-    script,
-    tokenId,
-    amount
+
+  const signer = async (): Promise<CTransactionSegWit> => {
+    const removeLiq = {
+      script,
+      tokenId,
+      amount
+    }
+    const dfTx = await builder.liqPool.removeLiquidity(removeLiq, script)
+    return new CTransactionSegWit(dfTx)
   }
-  const dfTx = await builder.liqPool.removeLiquidity(removeLiq, script)
-  const signed = new CTransactionSegWit(dfTx)
+
   dispatch(ocean.actions.queueTransaction({
-    signed,
+    signer,
     broadcasted: false,
     title: `${translate('screens/RemoveLiquidity', 'Removing Liquidity')}`
   }))

@@ -12,6 +12,7 @@ import { RootState } from '../../store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
 import { translate } from '../../translations'
 import * as Clipboard from 'expo-clipboard'
+import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 
 const MAX_AUTO_RETRY = 1
 
@@ -30,9 +31,9 @@ function copyToClipboard (txid: string): void {
   Clipboard.setString(msg)
 }
 
-async function broadcastTransaction (tx: OceanTransaction, client: WhaleApiClient, retries: number = 0): Promise<string> {
+async function broadcastTransaction (tx: CTransactionSegWit, client: WhaleApiClient, retries: number = 0): Promise<string> {
   try {
-    return await client.transactions.send({ hex: tx.signed.toHex() })
+    return await client.transactions.send({ hex: tx.toHex() })
   } catch (e) {
     Logging.error(e)
     if (retries < MAX_AUTO_RETRY) {
@@ -55,8 +56,9 @@ export function OceanInterface (): JSX.Element | null {
   const transaction = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
 
   // state
-  const [tx, setTx] = useState<OceanTransaction|undefined>(transaction)
+  const [tx, setTx] = useState<OceanTransaction | undefined>(transaction)
   const [err, setError] = useState<Error | undefined>(e)
+  const [txid, setTxid] = useState<string | undefined>()
 
   const slideAnim = useRef(new Animated.Value(0)).current
   Animated.timing(slideAnim, { toValue: height, duration: 300, useNativeDriver: false }).start()
@@ -74,7 +76,11 @@ export function OceanInterface (): JSX.Element | null {
         broadcasted: false
       })
 
-      broadcastTransaction(transaction, client)
+      transaction.signer()
+        .then(async signedTx => {
+          setTxid(signedTx.txId)
+          await broadcastTransaction(signedTx, client)
+        })
         .then(() => setTx({ ...transaction, broadcasted: true, title: translate('screens/OceanInterface', 'Sent') }))
         .catch((e: Error) => setError(e))
         .finally(() => dispatch(ocean.actions.popTransaction())) // remove the job as soon as completion
@@ -94,37 +100,40 @@ export function OceanInterface (): JSX.Element | null {
     >
       {
         err !== undefined
-          ? <TransactionError txid={tx.signed.txId} onClose={dismissDrawer} />
-          : <TransactionDetail tx={tx} onClose={dismissDrawer} />
+          ? <TransactionError errMsg={err.message} onClose={dismissDrawer} />
+          : <TransactionDetail broadcasted={tx.broadcasted} txid={txid} onClose={dismissDrawer} />
       }
     </Animated.View>
   )
 }
 
-function TransactionDetail ({ tx, onClose }: { tx: OceanTransaction, onClose: () => void }): JSX.Element {
+function TransactionDetail ({ broadcasted, txid, onClose }: { broadcasted: boolean, txid?: string, onClose: () => void }): JSX.Element {
+  let title = 'Signing...'
+  if (txid !== undefined) title = 'Broadcasting...'
+  if (broadcasted) title = 'Sent'
   return (
     <>
       {
-        !tx.broadcasted ? <ActivityIndicator color={PrimaryColor} />
+        !broadcasted ? <ActivityIndicator color={PrimaryColor} />
           : <MaterialIcons name='check-circle' size={20} color='#02B31B' />
       }
       <View style={tailwind('flex-grow mr-1 justify-center items-center text-center')}>
         <Text
           style={tailwind('text-sm font-bold')}
-        >{translate('screens/OceanInterface', tx.title ?? 'Loading...')}
+        >{translate('screens/OceanInterface', title)}
         </Text>
         {
-          tx.signed.txId !== undefined && <TransactionIDButton txid={tx.signed.txId} onPress={() => copyToClipboard(tx.signed.txId)} />
+          txid !== undefined && <TransactionIDButton txid={txid} onPress={() => copyToClipboard(txid)} />
         }
       </View>
       {
-        tx.broadcasted && <TransactionCloseButton onPress={onClose} />
+        broadcasted && <TransactionCloseButton onPress={onClose} />
       }
     </>
   )
 }
 
-function TransactionError ({ txid, onClose }: { txid: string | undefined, onClose: () => void }): JSX.Element {
+function TransactionError ({ errMsg, onClose }: { errMsg: string | undefined, onClose: () => void }): JSX.Element {
   return (
     <>
       <MaterialIcons name='error' size={20} color='#ff0000' />
@@ -133,9 +142,10 @@ function TransactionError ({ txid, onClose }: { txid: string | undefined, onClos
           style={tailwind('text-sm font-bold')}
         >{`${translate('screens/OceanInterface', 'An error has occurred')}`}
         </Text>
-        {
-          txid !== undefined && <TransactionIDButton txid={txid} />
-        }
+        <Text
+          style={tailwind('text-sm font-bold')}
+        >{errMsg}
+        </Text>
       </View>
       <TransactionCloseButton onPress={onClose} />
     </>

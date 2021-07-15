@@ -318,20 +318,21 @@ async function constructSignedSwapAndSend (
   const fraction = maxPrice.modulo(1).times('1e8').integerValue(BigNumber.ROUND_FLOOR)
 
   const script = await account.getScript()
-  const swap: PoolSwap = {
-    fromScript: script,
-    toScript: script,
-    fromTokenId: Number(dexForm.fromToken.id),
-    toTokenId: Number(dexForm.toToken.id),
-    fromAmount: dexForm.fromAmount,
-    maxPrice: { integer, fraction }
+  const signer = async (): Promise<CTransactionSegWit> => {
+    const swap: PoolSwap = {
+      fromScript: script,
+      toScript: script,
+      fromTokenId: Number(dexForm.fromToken.id),
+      toTokenId: Number(dexForm.toToken.id),
+      fromAmount: dexForm.fromAmount,
+      maxPrice: { integer, fraction }
+    }
+    const dfTx = await builder.dex.poolSwap(swap, script)
+    return new CTransactionSegWit(dfTx)
   }
 
-  const dfTx = await builder.dex.poolSwap(swap, script)
-  const signed = new CTransactionSegWit(dfTx)
-
   dispatch(ocean.actions.queueTransaction({
-    signed,
+    signer,
     broadcasted: false,
     title: `${translate('screens/PoolSwapScreen', 'Swapping Token')}`
   }))
