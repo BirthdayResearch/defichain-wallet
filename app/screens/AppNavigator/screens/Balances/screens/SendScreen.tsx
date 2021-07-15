@@ -1,4 +1,5 @@
 import { DeFiAddress } from '@defichain/jellyfish-address'
+import { NetworkName } from '@defichain/jellyfish-network'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { MaterialIcons } from '@expo/vector-icons'
@@ -17,10 +18,9 @@ import { Text, TextInput } from '../../../../../components'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../../components/PrimaryButton'
 import { PrimaryColor, PrimaryColorStyle } from '../../../../../constants/Theme'
-import { networkMapper, useNetworkContext } from '../../../../../contexts/NetworkContext'
+import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
-import { EnvironmentNetwork } from '../../../../../environment'
 import { oceanInterface } from '../../../../../store/oceanInterface'
 import { WalletToken } from '../../../../../store/wallet'
 import { translate } from '../../../../../translations'
@@ -30,20 +30,20 @@ interface SendForm {
   amount: BigNumber
   address: string
   token: AddressToken
-  network: EnvironmentNetwork
+  networkName: NetworkName
 }
 
 async function send ({
   address,
   token,
   amount,
-  network
+  networkName
 }: SendForm, wallet: Wallet, dispatch: Dispatch<any>): Promise<void> {
   try {
     const account = wallet.get(0)
     const script = await account.getScript()
     const builder = account.withTransactionBuilder()
-    const to = DeFiAddress.from(networkMapper(network), address).getScript()
+    const to = DeFiAddress.from(networkName, address).getScript()
     let signed: TransactionSegWit
     if (token.symbol === 'DFI') {
       signed = await builder.utxo.send(amount, to, script)
@@ -67,7 +67,7 @@ async function send ({
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
 export function SendScreen ({ route }: Props): JSX.Element {
-  const { network } = useNetworkContext()
+  const { networkName } = useNetworkContext()
   const wallet = useWallet()
   const client = useWhaleApiClient()
   const [token] = useState(route.params.token)
@@ -84,7 +84,7 @@ export function SendScreen ({ route }: Props): JSX.Element {
     setIsSubmitting(true)
     if (isValid) {
       const values = getValues()
-      await send({ address: values.address, token, amount: new BigNumber(values.amount), network }, wallet, dispatch)
+      await send({ address: values.address, token, amount: new BigNumber(values.amount), networkName }, wallet, dispatch)
     }
     setIsSubmitting(false)
   }

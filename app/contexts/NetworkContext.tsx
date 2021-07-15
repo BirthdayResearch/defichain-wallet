@@ -6,13 +6,14 @@ import { EnvironmentNetwork } from '../environment'
 
 interface Network {
   network: EnvironmentNetwork
+  networkName: NetworkName
   updateNetwork: (network: EnvironmentNetwork) => Promise<void>
   reloadNetwork: () => Promise<void>
 }
 
 const NetworkContext = createContext<Network>(undefined as any)
 
-export function networkMapper (network: EnvironmentNetwork): NetworkName {
+function networkMapper (network: EnvironmentNetwork): NetworkName {
   switch (network) {
     case EnvironmentNetwork.MainNet:
       return 'mainnet'
@@ -43,6 +44,7 @@ export function NetworkProvider (props: React.PropsWithChildren<any>): JSX.Eleme
 
   const context: Network = {
     network: network,
+    networkName: networkMapper(network),
     async updateNetwork (value: EnvironmentNetwork): Promise<void> {
       await storage.setNetwork(value)
       setNetwork(value)
