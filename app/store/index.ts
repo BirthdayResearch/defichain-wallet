@@ -1,5 +1,6 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { block } from './block'
+import { ocean } from './ocean'
 import { wallet } from './wallet'
 
 /**
@@ -14,8 +15,12 @@ import { wallet } from './wallet'
 export const store = configureStore({
   reducer: {
     block: block.reducer,
-    wallet: wallet.reducer
-  }
+    wallet: wallet.reducer,
+    ocean: ocean.reducer
+  },
+  middleware: [
+    ...getDefaultMiddleware({ serializableCheck: false })
+  ]
 })
 
 export type RootState = ReturnType<typeof store.getState>

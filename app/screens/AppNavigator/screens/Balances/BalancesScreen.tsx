@@ -1,7 +1,8 @@
 import { MaterialIcons } from '@expo/vector-icons'
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { FlatList, RefreshControl, TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,6 +12,7 @@ import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { fetchTokens, useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
+import { ocean } from '../../../../store/ocean'
 import { WalletToken } from '../../../../store/wallet'
 import { translate } from '../../../../translations'
 import { BalanceParamList } from './BalancesNavigator'
@@ -18,10 +20,15 @@ import { BalanceParamList } from './BalancesNavigator'
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
+  const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
   const address = useSelector((state: RootState) => state.wallet.address)
   const [refreshing, setRefreshing] = useState(false)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(ocean.actions.setHeight(height))
+  }, [height])
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
