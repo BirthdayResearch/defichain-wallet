@@ -2,7 +2,6 @@ import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
@@ -17,7 +16,7 @@ import { Wallet } from '../../../../../api/wallet'
 import { Text, TextInput } from '../../../../../components'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../../components/PrimaryButton'
-import { PrimaryColor, PrimaryColorStyle } from '../../../../../constants/Theme'
+import { PrimaryColorStyle } from '../../../../../constants/Theme'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
@@ -149,11 +148,11 @@ function AddressRow ({ control, networkName }: { control: Control, networkName: 
               onChangeText={onChange}
               placeholder={translate('screens/SendScreen', 'Enter an address')}
             />
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={tailwind('p-4 bg-white')}
             >
               <MaterialIcons name='qr-code-scanner' size={24} color={PrimaryColor} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         )}
         name='address'
