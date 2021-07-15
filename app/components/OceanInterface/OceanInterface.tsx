@@ -1,6 +1,6 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { MaterialIcons } from '@expo/vector-icons'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
@@ -12,6 +12,8 @@ import { RootState } from '../../store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
 import { translate } from '../../translations'
 
+const MAX_AUTO_RETRY = 1
+
 async function handlePress (txid: string): Promise<void> {
   // TODO(thedoublejay) explorer URL
   const url = `https://explorer.defichain.io/#/DFI/mainnet/tx/${txid}`
@@ -21,17 +23,15 @@ async function handlePress (txid: string): Promise<void> {
   }
 }
 
-async function broadcastTransaction (tx: OceanTransaction, client: WhaleApiClient, setError: (e: Error) => void): Promise<string | undefined> {
-  let retries = 0
+async function broadcastTransaction (tx: OceanTransaction, client: WhaleApiClient, retries: number = 0): Promise<string> {
   try {
     return await client.transactions.send({ hex: tx.signed.toHex() })
   } catch (e) {
-    retries++
     Logging.error(e)
-    if (retries < 1) {
-      return await broadcastTransaction(tx, client, setError)
+    if (retries < MAX_AUTO_RETRY) {
+      return await broadcastTransaction(tx, client, retries + 1)
     }
-    setError(e)
+    throw e
   }
 }
 
@@ -39,29 +39,44 @@ async function broadcastTransaction (tx: OceanTransaction, client: WhaleApiClien
  * @description - Global component to be used for async calls, network errors etc. This component is positioned above the bottom tab.
  * Need to get the height of bottom tab via `useBottomTabBarHeight()` hook to be called on screen.
  * */
-export function OceanInterface (): JSX.Element {
-  const { height, err: e } = useSelector((state: RootState) => state.ocean)
-  const transaction = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
-  const [tx, setTx] = useState<OceanTransaction>(transaction)
+export function OceanInterface (): JSX.Element | null {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
+
+  // store
+  const { height, err: e } = useSelector((state: RootState) => state.ocean)
+  const transaction = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
+
+  // state
+  const [tx, setTx] = useState<OceanTransaction|undefined>(transaction)
   const [err, setError] = useState<Error | undefined>(e)
+
   const slideAnim = useRef(new Animated.Value(0)).current
   Animated.timing(slideAnim, { toValue: height, duration: 300, useNativeDriver: false }).start()
 
+  const dismissDrawer = useCallback(() => {
+    setTx(undefined)
+    setError(undefined)
+  }, [])
+
   useEffect(() => {
+    // last available job will remained in this UI state until get dismissed
     if (transaction !== undefined) {
-      broadcastTransaction(transaction, client, setError).then(() => {
-        setTx({
-          ...transaction,
-          title: translate('screens/OceanInterface', 'Transaction complete'),
-          broadcasted: true
-        })
-        dispatch(ocean.actions.popTransaction())
-      }).catch(() => {
+      setTx({
+        ...transaction,
+        title: translate('screens/OceanInterface', 'Transaction complete'),
+        broadcasted: false
       })
+
+      broadcastTransaction(transaction, client)
+        .catch((e: Error) => setError(e))
+        .finally(() => dispatch(ocean.actions.popTransaction())) // remove the job as soon as completion
     }
   }, [transaction])
+
+  if (tx === undefined) {
+    return null
+  }
 
   return (
     <Animated.View
@@ -70,12 +85,16 @@ export function OceanInterface (): JSX.Element {
         height: 75
       }]}
     >
-      {err !== undefined ? <TransactionError txid={tx?.signed.txId} /> : <TransactionDetail tx={tx} />}
+      {
+        err !== undefined
+          ? <TransactionError txid={tx.signed.txId} onClose={dismissDrawer} />
+          : <TransactionDetail tx={tx} onClose={dismissDrawer} />
+      }
     </Animated.View>
   )
 }
 
-function TransactionDetail ({ tx }: { tx: OceanTransaction }): JSX.Element {
+function TransactionDetail ({ tx, onClose }: { tx: OceanTransaction, onClose: () => void }): JSX.Element {
   return (
     <>
       {
@@ -92,13 +111,13 @@ function TransactionDetail ({ tx }: { tx: OceanTransaction }): JSX.Element {
         }
       </View>
       {
-        tx.broadcasted && <TransactionCloseButton />
+        tx.broadcasted && <TransactionCloseButton onPress={onClose} />
       }
     </>
   )
 }
 
-function TransactionError ({ txid }: { txid: string | undefined }): JSX.Element {
+function TransactionError ({ txid, onClose }: { txid: string | undefined, onClose: () => void }): JSX.Element {
   return (
     <>
       <MaterialIcons name='error' size={20} color='#ff0000' />
@@ -111,7 +130,7 @@ function TransactionError ({ txid }: { txid: string | undefined }): JSX.Element 
           txid !== undefined && <TransactionIDButton txid={txid} />
         }
       </View>
-      <TransactionCloseButton />
+      <TransactionCloseButton onPress={onClose} />
     </>
   )
 }
@@ -130,13 +149,10 @@ function TransactionIDButton ({ txid }: { txid: string }): JSX.Element {
   )
 }
 
-function TransactionCloseButton (): JSX.Element {
-  const dispatch = useDispatch()
+function TransactionCloseButton (props: { onPress: () => void }): JSX.Element {
   return (
     <TouchableOpacity
-      testID='oceanInterface_close' onPress={() => {
-        dispatch(ocean.actions.closeOceanInterface())
-      }} style={tailwind('px-2 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
+      testID='oceanInterface_close' onPress={props.onPress} style={tailwind('px-2 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
     >
       <Text style={[PrimaryColorStyle.text, tailwind('text-sm')]}>
         {translate('screens/OceanInterface', 'OK')}

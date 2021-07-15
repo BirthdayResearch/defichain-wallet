@@ -37,16 +37,11 @@ export const ocean = createSlice({
       state.err = action.payload
     },
     popTransaction: (state) => {
-      if (state.transactions.length > 1) {
-        state.transactions.shift()
-        state.transactions = [...state.transactions]
-      }
+      state.transactions.shift()
+      state.transactions = [...state.transactions]
     }
   }
 })
-
-export const isDrawerOpenSelector = createSelector([(state: OceanState) => state.transactions, (state: OceanState) => state.err],
-  (transactions, err) => transactions?.length > 0 || err !== undefined)
 
 export const firstTransactionSelector = createSelector((state: OceanState) => state.transactions, (transactions) => transactions[0])
 
