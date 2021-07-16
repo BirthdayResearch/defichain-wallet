@@ -28,7 +28,7 @@ export function WalletManagementProvider (props: React.PropsWithChildren<any>): 
     WalletPersistence.get().then(dataList => {
       setDataList(dataList)
     }).catch(Logging.error)
-  }, [])
+  }, [network])
 
   const wallets = useMemo(() => {
     const options = getJellyfishNetwork(network)
