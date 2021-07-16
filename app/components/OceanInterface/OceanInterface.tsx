@@ -1,7 +1,7 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { MaterialIcons } from '@expo/vector-icons'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ActivityIndicator, Animated, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { Text } from '..'
@@ -11,24 +11,18 @@ import { useWhaleApiClient } from '../../contexts/WhaleContext'
 import { RootState } from '../../store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
 import { translate } from '../../translations'
-import * as Clipboard from 'expo-clipboard'
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 
 const MAX_AUTO_RETRY = 1
 
-// async function gotoExplorer (txid: string): Promise<void> {
-//   // TODO(thedoublejay) explorer URL
-//   const url = `https://explorer.defichain.io/#/DFI/mainnet/tx/${txid}`
-//   // TODO (future improvement): this page should support in mempool, to be confirm
-//   const supported = await Linking.canOpenURL(url)
-//   if (supported) {
-//     await Linking.openURL(url)
-//   }
-// }
-
-function copyToClipboard (txid: string): void {
-  const msg = `Transaction broadcasted, block should be mined and confirmed wihin next minute, txid: ${txid}`
-  Clipboard.setString(msg)
+async function gotoExplorer (txid: string): Promise<void> {
+  // TODO(thedoublejay) explorer URL
+  const url = `https://explorer.defichain.io/#/DFI/mainnet/tx/${txid}`
+  // TODO (future improvement): this page should support in mempool, to be confirm
+  const supported = await Linking.canOpenURL(url)
+  if (supported) {
+    await Linking.openURL(url)
+  }
 }
 
 async function broadcastTransaction (tx: CTransactionSegWit, client: WhaleApiClient, retries: number = 0): Promise<string> {
@@ -81,8 +75,14 @@ export function OceanInterface (): JSX.Element | null {
           setTxid(signedTx.txId)
           await broadcastTransaction(signedTx, client)
         })
-        .then(() => setTx({ ...transaction, broadcasted: true, title: translate('screens/OceanInterface', 'Sent') }))
-        .catch((e: Error) => setError(e))
+        .then(() => setTx({ ...transaction, broadcasted: true, title: translate('screens/OceanInterface', 'Transaction Sent') }))
+        .catch((e: Error) => {
+          let errMsg = e.message
+          if (txid !== undefined) {
+            errMsg = `${errMsg}. Txid: ${txid}`
+          }
+          setError(new Error(errMsg))
+        })
         .finally(() => dispatch(ocean.actions.popTransaction())) // remove the job as soon as completion
     }
   }, [transaction])
@@ -123,7 +123,7 @@ function TransactionDetail ({ broadcasted, txid, onClose }: { broadcasted: boole
         >{translate('screens/OceanInterface', title)}
         </Text>
         {
-          txid !== undefined && <TransactionIDButton txid={txid} onPress={() => copyToClipboard(txid)} />
+          txid !== undefined && <TransactionIDButton txid={txid} onPress={async () => { await gotoExplorer(txid) }} />
         }
       </View>
       {
