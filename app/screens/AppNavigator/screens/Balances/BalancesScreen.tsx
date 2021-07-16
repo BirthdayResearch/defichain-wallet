@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { SectionTitle } from '../../../../components/SectionTitle'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { fetchTokens, useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
@@ -60,9 +61,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
               onPress={() => navigation.navigate('Receive')}
             />
           </View> */}
-          <Text testID='balances_title' style={tailwind('p-4 text-xs text-gray-500 mt-2')}>
-            {translate('screens/BalancesScreen', 'BALANCE DETAILS')}
-          </Text>
+          <SectionTitle testID='balances_title' text={translate('screens/BalancesScreen', 'BALANCE DETAILS')} />
         </>
       }
     />

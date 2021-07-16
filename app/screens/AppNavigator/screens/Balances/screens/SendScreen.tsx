@@ -16,6 +16,7 @@ import { Wallet } from '../../../../../api/wallet'
 import { Text, TextInput } from '../../../../../components'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../../components/PrimaryButton'
+import { SectionTitle } from '../../../../../components/SectionTitle'
 import { PrimaryColorStyle } from '../../../../../constants/Theme'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWallet } from '../../../../../contexts/WalletContext'
@@ -131,10 +132,10 @@ export function SendScreen ({ route }: Props): JSX.Element {
 function AddressRow ({ control, networkName }: { control: Control, networkName: NetworkName }): JSX.Element {
   return (
     <>
-      <Text
-        style={tailwind('text-sm font-bold pl-4 mt-4 mb-2')}
-      >{translate('screens/SendScreen', 'TO ADDRESS')}
-      </Text>
+      <SectionTitle
+        text={translate('screens/SendScreen', 'TO ADDRESS')}
+        testID='title_to_address'
+      />
       <Controller
         control={control}
         rules={{
@@ -179,10 +180,10 @@ function AmountRow ({ token, control, onMaxPress, fee }: AmountForm): JSX.Elemen
   const maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).toFixed(8) : token.amount
   return (
     <>
-      <Text
-        style={tailwind('text-sm font-bold pl-4 mt-8 mb-2')}
-      >{translate('screens/SendScreen', 'SEND')}
-      </Text>
+      <SectionTitle
+        text={translate('screens/SendScreen', 'SEND')}
+        testID='title_send'
+      />
       <Controller
         control={control}
         rules={{

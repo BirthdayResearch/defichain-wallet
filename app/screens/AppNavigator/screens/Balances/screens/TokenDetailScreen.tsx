@@ -5,6 +5,7 @@ import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import tailwind from 'tailwind-rn'
 import { Text } from '../../../../../components'
+import { SectionTitle } from '../../../../../components/SectionTitle'
 import { PrimaryColor } from '../../../../../constants/Theme'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
@@ -32,9 +33,10 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
           renderText={(value) => <Text style={tailwind('text-2xl font-bold')}>{value}</Text>}
         />
       </View>
-      <Text style={tailwind('p-4 text-xs text-gray-500')}>
-        {translate('screens/TokenDetailScreen', 'AVAILABLE OPTIONS')}
-      </Text>
+      <SectionTitle
+        text={translate('screens/TokenDetailScreen', 'AVAILABLE OPTIONS')}
+        testID='title_available_options'
+      />
       {
         token.id !== '0' && (
           <>
