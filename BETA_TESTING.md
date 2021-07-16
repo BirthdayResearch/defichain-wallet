@@ -21,11 +21,11 @@ The test will run on [DeFi Playground](https://github.com/DeFiCh/wallet#testing)
 ### iOS
 1. Download [TestFlight](https://apps.apple.com/us/app/testflight/id899247664) from App Store
 2. TestFlight app must be installed on your iOS device using 13.0 or later
-2. If you have TestFlight installed on your device, kindly ensure that you have the latest version via App Store for ideal compatibility with DeFi Wallet
-3. After signing up, check your email and click on `View in TestFlight` invitation link
-4. It should redirect and open the TestFlight app, **enter the code**
-5. Alternatively, open TestFlight app, click on the `Redeem`, and **enter the code**
-7. DeFi Wallet should reflect in TestFlight
+3. If you have TestFlight installed on your device, kindly ensure that you have the latest version via App Store for
+   ideal compatibility with DeFi Wallet
+4. Open the`TestFlight` invitation link in your TestFlight app
+5. It should open the DeFi Wallet app. Click on Accept
+6. DeFi Wallet should reflect in TestFlight
 
 ## Test Data
 
