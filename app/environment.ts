@@ -28,6 +28,7 @@ export const environments: Record<EnvironmentName, Environment> = {
     debug: false,
     networks: [
       EnvironmentNetwork.RemotePlayground,
+      EnvironmentNetwork.TestNet,
       EnvironmentNetwork.MainNet
     ]
   },

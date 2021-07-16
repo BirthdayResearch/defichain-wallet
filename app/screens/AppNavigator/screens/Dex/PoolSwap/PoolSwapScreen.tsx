@@ -312,11 +312,6 @@ async function constructSignedSwapAndSend (
   const builder = account.withTransactionBuilder()
 
   const maxPrice = dexForm.fromAmount.div(dexForm.toAmount)
-
-  // will be handled in jellyfish soon (submit maxPrice as a single BN)
-  const integer = maxPrice.integerValue(BigNumber.ROUND_FLOOR)
-  const fraction = maxPrice.modulo(1).times('1e8').integerValue(BigNumber.ROUND_FLOOR)
-
   const script = await account.getScript()
   const signer = async (): Promise<CTransactionSegWit> => {
     const swap: PoolSwap = {
@@ -325,7 +320,7 @@ async function constructSignedSwapAndSend (
       fromTokenId: Number(dexForm.fromToken.id),
       toTokenId: Number(dexForm.toToken.id),
       fromAmount: dexForm.fromAmount,
-      maxPrice: { integer, fraction }
+      maxPrice
     }
     const dfTx = await builder.dex.poolSwap(swap, script)
     return new CTransactionSegWit(dfTx)
