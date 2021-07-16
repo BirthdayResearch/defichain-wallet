@@ -44,7 +44,7 @@ export function BottomTabNavigator (): JSX.Element {
           }}
         />
         <BottomTab.Screen
-          name='Dex'
+          name='DEX'
           component={DexNavigator}
           options={{
             tabBarTestID: 'bottom_tab_liquidity',
