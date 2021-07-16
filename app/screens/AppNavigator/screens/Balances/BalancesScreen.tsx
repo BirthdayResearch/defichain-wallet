@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { SectionTitle } from '../../../../components/SectionTitle'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { fetchTokens, useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
@@ -60,9 +61,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
               onPress={() => navigation.navigate('Receive')}
             />
           </View> */}
-          <Text testID='balances_title' style={tailwind('p-4 text-xs text-gray-500 mt-2')}>
-            {translate('screens/BalancesScreen', 'BALANCE DETAILS')}
-          </Text>
+          <SectionTitle testID='balances_title' text={translate('screens/BalancesScreen', 'BALANCE DETAILS')} />
         </>
       }
     />
@@ -77,24 +76,28 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
       onPress={onPress} testID={`balances_row_${token.id}`}
       style={tailwind('bg-white py-4 pl-4 pr-2 flex-row justify-between items-center')}
     >
-      <View style={tailwind('flex-row items-center')}>
+      <View style={tailwind('flex-row items-center flex-auto')}>
         <Icon />
-        <View style={tailwind('mx-3')}>
+        <View style={tailwind('mx-3 flex-auto')}>
           <Text>{token.displaySymbol}</Text>
-          <Text style={tailwind('text-xs font-medium text-gray-600')}>{token.name}</Text>
+          <Text
+            numberOfLines={1}
+            ellipsizeMode='tail'
+            style={tailwind('text-xs font-medium text-gray-600')}
+          >{token.name}
+          </Text>
         </View>
+        <NumberFormat
+          value={token.amount} decimalScale={3} thousandSeparator displayType='text'
+          renderText={(value) =>
+            <View style={tailwind('flex-row items-center')}>
+              <Text style={tailwind('mr-2')} testID={`balances_row_${token.id}_amount`}>
+                {value}
+              </Text>
+              <MaterialIcons name='chevron-right' size={24} />
+            </View>}
+        />
       </View>
-
-      <NumberFormat
-        value={token.amount} decimalScale={3} thousandSeparator displayType='text'
-        renderText={(value) =>
-          <View style={tailwind('flex-row items-center')}>
-            <Text style={tailwind('mr-2')} testID={`balances_row_${token.id}_amount`}>
-              {value}
-            </Text>
-            <MaterialIcons name='chevron-right' size={24} />
-          </View>}
-      />
     </TouchableOpacity>
   )
 }

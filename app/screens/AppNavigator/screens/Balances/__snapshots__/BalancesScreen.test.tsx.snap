@@ -5,23 +5,10 @@ exports[`balances page should match snapshot 1`] = `
   ItemSeparatorComponent={[Function]}
   ListHeaderComponent={
     <React.Fragment>
-      <Text
-        style={
-          Object {
-            "color": "rgba(107, 114, 128, 1)",
-            "fontSize": 12,
-            "lineHeight": 16,
-            "marginTop": 8,
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 16,
-            "paddingTop": 16,
-          }
-        }
+      <SectionTitle
         testID="balances_title"
-      >
-        BALANCE DETAILS
-      </Text>
+        text="BALANCE DETAILS"
+      />
     </React.Fragment>
   }
   data={
@@ -98,12 +85,9 @@ exports[`balances page should match snapshot 1`] = `
         style={
           Array [
             Object {
-              "fontSize": 16,
-              "fontWeight": "600",
-            },
-            Object {
               "color": "rgba(107, 114, 128, 1)",
               "fontSize": 12,
+              "fontWeight": "700",
               "lineHeight": 16,
               "marginTop": 8,
               "paddingBottom": 16,
@@ -152,7 +136,10 @@ exports[`balances page should match snapshot 1`] = `
             Array [
               Object {
                 "alignItems": "center",
+                "flexBasis": "auto",
                 "flexDirection": "row",
+                "flexGrow": 1,
+                "flexShrink": 1,
               },
             ]
           }
@@ -241,6 +228,9 @@ exports[`balances page should match snapshot 1`] = `
             style={
               Array [
                 Object {
+                  "flexBasis": "auto",
+                  "flexGrow": 1,
+                  "flexShrink": 1,
                   "marginLeft": 12,
                   "marginRight": 12,
                 },
@@ -259,6 +249,8 @@ exports[`balances page should match snapshot 1`] = `
               }
             />
             <Text
+              ellipsizeMode="tail"
+              numberOfLines={1}
               style={
                 Array [
                   Object {
@@ -277,34 +269,34 @@ exports[`balances page should match snapshot 1`] = `
               Defi
             </Text>
           </View>
-        </View>
-        <View
-          style={
-            Array [
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-              },
-            ]
-          }
-        >
-          <Text
+          <View
             style={
               Array [
                 Object {
-                  "fontSize": 16,
-                  "fontWeight": "600",
-                },
-                Object {
-                  "marginRight": 8,
+                  "alignItems": "center",
+                  "flexDirection": "row",
                 },
               ]
             }
-            testID="balances_row_0_amount"
           >
-            23
-          </Text>
-          <Text />
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontSize": 16,
+                    "fontWeight": "600",
+                  },
+                  Object {
+                    "marginRight": 8,
+                  },
+                ]
+              }
+              testID="balances_row_0_amount"
+            >
+              23
+            </Text>
+            <Text />
+          </View>
         </View>
       </View>
       <View
@@ -352,7 +344,10 @@ exports[`balances page should match snapshot 1`] = `
             Array [
               Object {
                 "alignItems": "center",
+                "flexBasis": "auto",
                 "flexDirection": "row",
+                "flexGrow": 1,
+                "flexShrink": 1,
               },
             ]
           }
@@ -441,6 +436,9 @@ exports[`balances page should match snapshot 1`] = `
             style={
               Array [
                 Object {
+                  "flexBasis": "auto",
+                  "flexGrow": 1,
+                  "flexShrink": 1,
                   "marginLeft": 12,
                   "marginRight": 12,
                 },
@@ -459,6 +457,8 @@ exports[`balances page should match snapshot 1`] = `
               }
             />
             <Text
+              ellipsizeMode="tail"
+              numberOfLines={1}
               style={
                 Array [
                   Object {
@@ -477,34 +477,34 @@ exports[`balances page should match snapshot 1`] = `
               Bitcoin
             </Text>
           </View>
-        </View>
-        <View
-          style={
-            Array [
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-              },
-            ]
-          }
-        >
-          <Text
+          <View
             style={
               Array [
                 Object {
-                  "fontSize": 16,
-                  "fontWeight": "600",
-                },
-                Object {
-                  "marginRight": 8,
+                  "alignItems": "center",
+                  "flexDirection": "row",
                 },
               ]
             }
-            testID="balances_row_1_amount"
           >
-            777
-          </Text>
-          <Text />
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontSize": 16,
+                    "fontWeight": "600",
+                  },
+                  Object {
+                    "marginRight": 8,
+                  },
+                ]
+              }
+              testID="balances_row_1_amount"
+            >
+              777
+            </Text>
+            <Text />
+          </View>
         </View>
       </View>
       <View
@@ -552,7 +552,10 @@ exports[`balances page should match snapshot 1`] = `
             Array [
               Object {
                 "alignItems": "center",
+                "flexBasis": "auto",
                 "flexDirection": "row",
+                "flexGrow": 1,
+                "flexShrink": 1,
               },
             ]
           }
@@ -641,6 +644,9 @@ exports[`balances page should match snapshot 1`] = `
             style={
               Array [
                 Object {
+                  "flexBasis": "auto",
+                  "flexGrow": 1,
+                  "flexShrink": 1,
                   "marginLeft": 12,
                   "marginRight": 12,
                 },
@@ -659,6 +665,8 @@ exports[`balances page should match snapshot 1`] = `
               }
             />
             <Text
+              ellipsizeMode="tail"
+              numberOfLines={1}
               style={
                 Array [
                   Object {
@@ -677,34 +685,34 @@ exports[`balances page should match snapshot 1`] = `
               Ethereum
             </Text>
           </View>
-        </View>
-        <View
-          style={
-            Array [
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-              },
-            ]
-          }
-        >
-          <Text
+          <View
             style={
               Array [
                 Object {
-                  "fontSize": 16,
-                  "fontWeight": "600",
-                },
-                Object {
-                  "marginRight": 8,
+                  "alignItems": "center",
+                  "flexDirection": "row",
                 },
               ]
             }
-            testID="balances_row_2_amount"
           >
-            555
-          </Text>
-          <Text />
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontSize": 16,
+                    "fontWeight": "600",
+                  },
+                  Object {
+                    "marginRight": 8,
+                  },
+                ]
+              }
+              testID="balances_row_2_amount"
+            >
+              555
+            </Text>
+            <Text />
+          </View>
         </View>
       </View>
     </View>
