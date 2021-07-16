@@ -29,6 +29,8 @@ Object {
   "name": "Production",
   "networks": Array [
     "Remote Playground",
+    "TestNet",
+    "MainNet",
   ],
 }
 `;

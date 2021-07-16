@@ -6,11 +6,11 @@
 /.idea/                                         @fuxingloh @thedoublejay
 
 /app                                            @fuxingloh @thedoublejay @ivan-zynesis
-/app/api                                        @fuxingloh @thedoublejay @ivan-zynesis
+/app/api                                        @fuxingloh
 /app/assets                                     @fuxingloh @thedoublejay @ivan-zynesis @izzycsy
 /app/components                                 @fuxingloh @thedoublejay @ivan-zynesis
-/app/contexts                                   @fuxingloh @thedoublejay @ivan-zynesis
-/app/hooks                                      @fuxingloh @thedoublejay @ivan-zynesis
+/app/contexts                                   @fuxingloh
+/app/hooks                                      @fuxingloh
 /app/screens                                    @fuxingloh @thedoublejay @ivan-zynesis
 /app/store                                      @fuxingloh @thedoublejay @ivan-zynesis
 /app/translations                               @fuxingloh @thedoublejay @ivan-zynesis @izzycsy
@@ -26,5 +26,6 @@ package.json                                    @fuxingloh @thedoublejay
 package-lock.json                               @fuxingloh
 
 CONTRIBUTING.md                                 @fuxingloh @thedoublejay @izzycsy
+BETA_TESTING.md                                 @fuxingloh @thedoublejay @izzycsy
 README.md                                       @fuxingloh @thedoublejay @izzycsy
 LICENSE                                         @fuxingloh
