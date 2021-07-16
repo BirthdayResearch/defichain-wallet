@@ -9,7 +9,7 @@ import { useCallback, useState } from 'react'
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import NumberFormat from 'react-number-format'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import tailwind from 'tailwind-rn'
 import { Logging } from '../../../../api/logging'
@@ -18,13 +18,15 @@ import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../components/PrimaryButton'
 import { useWallet } from '../../../../contexts/WalletContext'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
-import { ocean } from '../../../../store/ocean'
+import { RootState } from '../../../../store'
+import { hasTxQueued, ocean } from '../../../../store/ocean'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
 export function RemoveLiquidityScreen (props: Props): JSX.Element {
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.ocean))
   // this component state
   const [tokenAAmount, setTokenAAmount] = useState<BigNumber>(new BigNumber(0))
   const [tokenBAmount, setTokenBAmount] = useState<BigNumber>(new BigNumber(0))
@@ -57,7 +59,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   const dispatch = useDispatch()
 
   const removeLiquidity = useCallback(() => {
-    // TODO: add loading spinner after we have standardized design
+    if (hasPendingJob) return
     constructSignedRemoveLiqAndSend(
       account,
       Number(pair.id),
@@ -121,7 +123,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         </View>
       </View>
       <ContinueButton
-        enabled={Number(percentage) !== 0}
+        enabled={Number(percentage) !== 0 && !hasPendingJob}
         onPress={removeLiquidity}
       />
     </ScrollView>
@@ -193,15 +195,19 @@ async function constructSignedRemoveLiqAndSend (account: WhaleWalletAccount, tok
   amount: BigNumber, dispatch: Dispatch<any>): Promise<void> {
   const builder = account.withTransactionBuilder()
   const script = await account.getScript()
-  const removeLiq = {
-    script,
-    tokenId,
-    amount
+
+  const signer = async (): Promise<CTransactionSegWit> => {
+    const removeLiq = {
+      script,
+      tokenId,
+      amount
+    }
+    const dfTx = await builder.liqPool.removeLiquidity(removeLiq, script)
+    return new CTransactionSegWit(dfTx)
   }
-  const dfTx = await builder.liqPool.removeLiquidity(removeLiq, script)
-  const signed = new CTransactionSegWit(dfTx)
+
   dispatch(ocean.actions.queueTransaction({
-    signed,
+    signer,
     broadcasted: false,
     title: `${translate('screens/RemoveLiquidity', 'Removing Liquidity')}`
   }))

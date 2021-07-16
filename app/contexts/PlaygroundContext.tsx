@@ -18,14 +18,14 @@ export function usePlaygroundContext (): Playground {
     return context
   }
 
-  throw new Error('attempting to usePlaygroundContext on a non debug environment')
+  throw new Error('attempting to usePlaygroundContext without useConnectedPlayground()')
 }
 
 export function PlaygroundProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
 
   const context = useMemo(() => {
-    if (!getEnvironment().debug) {
+    if (!isPlayground(network)) {
       return undefined
     }
 
@@ -42,15 +42,11 @@ export function PlaygroundProvider (props: React.PropsWithChildren<any>): JSX.El
 }
 
 /**
- * hooks to find connected playground, won't be registered if running on non-debug mode
+ * hooks to find connected playground if available
  * @return boolean when completed or found connected playground
  */
 export function useConnectedPlayground (): boolean {
   const environment = getEnvironment()
-  if (!environment.debug) {
-    return true
-  }
-
   const [isLoaded, setLoaded] = useState(false)
 
   useEffect(() => {
@@ -58,10 +54,11 @@ export function useConnectedPlayground (): boolean {
       for (const network of environment.networks.filter(isPlayground)) {
         if (await isConnected(network)) {
           await setNetwork(network)
-          setLoaded(true)
-          return
+          break
         }
       }
+
+      setLoaded(true)
     }
 
     findPlayground().catch(Logging.error)

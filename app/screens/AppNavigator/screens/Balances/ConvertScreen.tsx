@@ -8,7 +8,7 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { ScrollView, StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import tailwind from 'tailwind-rn'
 import { Logging } from '../../../../api/logging'
@@ -18,7 +18,8 @@ import { PrimaryButton } from '../../../../components/PrimaryButton'
 import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
 import { useWallet } from '../../../../contexts/WalletContext'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
-import { ocean } from '../../../../store/ocean'
+import { RootState } from '../../../../store'
+import { hasTxQueued, ocean } from '../../../../store/ocean'
 import { translate } from '../../../../translations'
 import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
 import { BalanceParamList } from './BalancesNavigator'
@@ -31,7 +32,10 @@ interface ConversionIO extends AddressToken {
 }
 
 export function ConvertScreen (props: Props): JSX.Element {
+  // global state
   const tokens = useTokensAPI()
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.ocean))
+
   const [mode, setMode] = useState(props.route.params.mode)
   const [sourceToken, setSourceToken] = useState<ConversionIO>()
   const [targetToken, setTargetToken] = useState<ConversionIO>()
@@ -55,6 +59,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   const convAmount = new BigNumber(amount).isNaN() ? '0' : new BigNumber(amount).toString()
 
   const convert = (): void => {
+    if (hasPendingJob) return
     constructSignedConversionAndSend(
       account,
       props.route.params.mode,
@@ -96,7 +101,7 @@ export function ConvertScreen (props: Props): JSX.Element {
         />
         <PrimaryButton
           testID='button_continue_convert'
-          disabled={!canConvert(convAmount, sourceToken.amount)}
+          disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob}
           title='Convert' onPress={convert}
           touchableStyle={tailwind('mt-4')}
         >
@@ -244,29 +249,32 @@ async function constructSignedConversionAndSend (account: WhaleWalletAccount, mo
   const builder = account.withTransactionBuilder()
 
   const script = await account.getScript()
-  let signed: TransactionSegWit
-  if (mode === 'utxosToAccount') {
-    signed = await builder.account.utxosToAccount({
-      to: [{
-        script,
+
+  const signer = async (): Promise<CTransactionSegWit> => {
+    let signed: TransactionSegWit
+    if (mode === 'utxosToAccount') {
+      signed = await builder.account.utxosToAccount({
+        to: [{
+          script,
+          balances: [
+            { token: 0, amount }
+          ]
+        }]
+      }, script)
+    } else {
+      signed = await builder.account.accountToUtxos({
+        from: script,
         balances: [
           { token: 0, amount }
-        ]
-      }]
-    }, script)
-  } else {
-    signed = await builder.account.accountToUtxos({
-      from: script,
-      balances: [
-        { token: 0, amount }
-      ],
-      mintingOutputsStart: 2 // 0: DfTx, 1: change, 2: minted utxos (mandated by jellyfish-tx)
-    }, script)
+        ],
+        mintingOutputsStart: 2 // 0: DfTx, 1: change, 2: minted utxos (mandated by jellyfish-tx)
+      }, script)
+    }
+    return new CTransactionSegWit(signed)
   }
 
-  const signedDftx = new CTransactionSegWit(signed)
   dispatch(ocean.actions.queueTransaction({
-    signed: signedDftx,
+    signer,
     broadcasted: false,
     title: `${translate('screens/ConvertScreen', 'Converting DFI')}`
   }))
