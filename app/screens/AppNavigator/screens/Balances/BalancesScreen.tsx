@@ -77,7 +77,7 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
       onPress={onPress} testID={`balances_row_${token.id}`}
       style={tailwind('bg-white py-4 pl-4 pr-2 flex-row justify-between items-center')}
     >
-      <View style={tailwind('flex-row items-center')}>
+      <View style={tailwind('flex-row items-center flex-auto')}>
         <Icon />
         <View style={tailwind('mx-3 flex-auto')}>
           <Text>{token.displaySymbol}</Text>
