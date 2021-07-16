@@ -79,22 +79,26 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
     >
       <View style={tailwind('flex-row items-center')}>
         <Icon />
-        <View style={tailwind('mx-3')}>
+        <View style={tailwind('mx-3 flex-auto')}>
           <Text>{token.displaySymbol}</Text>
-          <Text style={tailwind('text-xs font-medium text-gray-600')}>{token.name}</Text>
+          <Text
+            numberOfLines={1}
+            ellipsizeMode='tail'
+            style={tailwind('text-xs font-medium text-gray-600')}
+          >{token.name}
+          </Text>
         </View>
+        <NumberFormat
+          value={token.amount} decimalScale={3} thousandSeparator displayType='text'
+          renderText={(value) =>
+            <View style={tailwind('flex-row items-center')}>
+              <Text style={tailwind('mr-2')} testID={`balances_row_${token.id}_amount`}>
+                {value}
+              </Text>
+              <MaterialIcons name='chevron-right' size={24} />
+            </View>}
+        />
       </View>
-
-      <NumberFormat
-        value={token.amount} decimalScale={3} thousandSeparator displayType='text'
-        renderText={(value) =>
-          <View style={tailwind('flex-row items-center')}>
-            <Text style={tailwind('mr-2')} testID={`balances_row_${token.id}_amount`}>
-              {value}
-            </Text>
-            <MaterialIcons name='chevron-right' size={24} />
-          </View>}
-      />
     </TouchableOpacity>
   )
 }
