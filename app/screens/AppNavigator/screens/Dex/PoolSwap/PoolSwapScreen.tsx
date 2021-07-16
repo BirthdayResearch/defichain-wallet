@@ -8,7 +8,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import tailwind from 'tailwind-rn'
 import { Logging } from '../../../../../api/logging'
@@ -18,7 +18,8 @@ import { PrimaryButton } from '../../../../../components/PrimaryButton'
 import { PrimaryColor, PrimaryColorStyle } from '../../../../../constants/Theme'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
-import { ocean } from '../../../../../store/ocean'
+import { RootState } from '../../../../../store'
+import { hasTxQueued, ocean } from '../../../../../store/ocean'
 import { translate } from '../../../../../translations'
 import LoadingScreen from '../../../../LoadingNavigator/LoadingScreen'
 import { DexParamList } from '../DexNavigator'
@@ -34,6 +35,7 @@ type Props = StackScreenProps<DexParamList, 'PoolSwapScreen'>
 export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const poolpair = route.params.poolpair
   const tokens = useTokensAPI()
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.ocean))
   const [tokenAForm, tokenBForm] = ['tokenA', 'tokenB']
 
   // props derived state
@@ -47,6 +49,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const dispatch = useDispatch()
 
   function onSubmit (): void {
+    if (hasPendingJob) return
     if (tokenA === undefined || tokenB === undefined) {
       return
     }
@@ -131,7 +134,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
             tokenBAmount={getValues()[tokenBForm]}
           />
       }
-      <PrimaryButton disabled={!isValid} title='Swap' onPress={onSubmit} testID='button_submit'>
+      <PrimaryButton disabled={!isValid || hasPendingJob} title='Swap' onPress={onSubmit} testID='button_submit'>
         <Text style={tailwind('text-white font-bold')}>{translate('screens/PoolSwapScreen', 'SWAP')}</Text>
       </PrimaryButton>
     </ScrollView>
@@ -315,20 +318,21 @@ async function constructSignedSwapAndSend (
   const fraction = maxPrice.modulo(1).times('1e8').integerValue(BigNumber.ROUND_FLOOR)
 
   const script = await account.getScript()
-  const swap: PoolSwap = {
-    fromScript: script,
-    toScript: script,
-    fromTokenId: Number(dexForm.fromToken.id),
-    toTokenId: Number(dexForm.toToken.id),
-    fromAmount: dexForm.fromAmount,
-    maxPrice: { integer, fraction }
+  const signer = async (): Promise<CTransactionSegWit> => {
+    const swap: PoolSwap = {
+      fromScript: script,
+      toScript: script,
+      fromTokenId: Number(dexForm.fromToken.id),
+      toTokenId: Number(dexForm.toToken.id),
+      fromAmount: dexForm.fromAmount,
+      maxPrice: { integer, fraction }
+    }
+    const dfTx = await builder.dex.poolSwap(swap, script)
+    return new CTransactionSegWit(dfTx)
   }
 
-  const dfTx = await builder.dex.poolSwap(swap, script)
-  const signed = new CTransactionSegWit(dfTx)
-
   dispatch(ocean.actions.queueTransaction({
-    signed,
+    signer,
     broadcasted: false,
     title: `${translate('screens/PoolSwapScreen', 'Swapping Token')}`
   }))

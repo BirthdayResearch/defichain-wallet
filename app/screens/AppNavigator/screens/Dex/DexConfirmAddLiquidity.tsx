@@ -7,14 +7,15 @@ import * as React from 'react'
 import { useCallback } from 'react'
 import { FlatList } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import tailwind from 'tailwind-rn'
 import { Logging } from '../../../../api/logging'
 import { Text, View } from '../../../../components'
 import { PrimaryButton } from '../../../../components/PrimaryButton'
 import { useWallet } from '../../../../contexts/WalletContext'
-import { ocean } from '../../../../store/ocean'
+import { RootState } from '../../../../store'
+import { hasTxQueued, ocean } from '../../../../store/ocean'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
 
@@ -28,6 +29,7 @@ export interface AddLiquiditySummary extends PoolPairData {
 }
 
 export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.ocean))
   const {
     fee,
     percentage,
@@ -47,7 +49,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const dispatch = useDispatch()
 
   const addLiquidity = useCallback(() => {
-    // TODO: add loading spinner after we have standardized design
+    if (hasPendingJob) return
     constructSignedAddLiqAndSend(
       account,
       {
@@ -118,7 +120,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       keyExtractor={(item, index) => `${index}`}
       renderItem={({ item }) => <Row lhs={item.lhs} rhs={item.rhs} />}
       ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
-      ListFooterComponent={<ConfirmButton onPress={() => addLiquidity()} />}
+      ListFooterComponent={<ConfirmButton disabled={hasPendingJob} onPress={() => addLiquidity()} />}
     />
   )
 }
@@ -143,13 +145,14 @@ function Row (props: { lhs: string, rhs: Array<{value: string | number, suffix?:
   )
 }
 
-function ConfirmButton (props: { onPress: () => void }): JSX.Element {
+function ConfirmButton (props: { disabled?: boolean, onPress: () => void }): JSX.Element {
   return (
     <PrimaryButton
       testID='button_confirm_add_liq'
       title='Confirm'
       touchableStyle={tailwind('mb-2 mt-4')}
       onPress={props.onPress}
+      disabled={props.disabled}
     >
       <Text style={[tailwind('text-white font-bold')]}>{translate('screens/ConfirmLiquidity', 'CONFIRM')}</Text>
     </PrimaryButton>
@@ -163,21 +166,25 @@ async function constructSignedAddLiqAndSend (account: WhaleWalletAccount,
   const builder = account.withTransactionBuilder()
 
   const script = await account.getScript()
-  const addLiq = {
-    from: [{
-      script,
-      balances: [
-        { token: addLiqForm.tokenAId, amount: addLiqForm.tokenAAmount },
-        { token: addLiqForm.tokenBId, amount: addLiqForm.tokenBAmount }
-      ]
-    }],
-    shareAddress: script
+
+  const signer = async (): Promise<CTransactionSegWit> => {
+    const addLiq = {
+      from: [{
+        script,
+        balances: [
+          { token: addLiqForm.tokenAId, amount: addLiqForm.tokenAAmount },
+          { token: addLiqForm.tokenBId, amount: addLiqForm.tokenBAmount }
+        ]
+      }],
+      shareAddress: script
+    }
+
+    const dfTx = await builder.liqPool.addLiquidity(addLiq, script)
+    return new CTransactionSegWit(dfTx)
   }
 
-  const dfTx = await builder.liqPool.addLiquidity(addLiq, script)
-  const signed = new CTransactionSegWit(dfTx)
   dispatch(ocean.actions.queueTransaction({
-    signed,
+    signer,
     broadcasted: false,
     title: `${translate('screens/ConfirmLiquidity', 'Adding Liquidity')}`
   }))

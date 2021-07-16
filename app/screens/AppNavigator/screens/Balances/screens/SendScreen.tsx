@@ -44,17 +44,22 @@ async function send ({
     const script = await account.getScript()
     const builder = account.withTransactionBuilder()
     const to = DeFiAddress.from(networkName, address).getScript()
-    let signed: TransactionSegWit
-    if (token.symbol === 'DFI') {
-      signed = await builder.utxo.send(amount, to, script)
-    } else {
-      signed = await builder.account.accountToAccount({
-        from: script,
-        to: [{ script: to, balances: [{ token: +token.id, amount }] }]
-      }, script)
+
+    const signer = async (): Promise<CTransactionSegWit> => {
+      let signed: TransactionSegWit
+      if (token.symbol === 'DFI') {
+        signed = await builder.utxo.send(amount, to, script)
+      } else {
+        signed = await builder.account.accountToAccount({
+          from: script,
+          to: [{ script: to, balances: [{ token: +token.id, amount }] }]
+        }, script)
+      }
+      return new CTransactionSegWit(signed)
     }
+
     dispatch(ocean.actions.queueTransaction({
-      signed: new CTransactionSegWit(signed),
+      signer,
       broadcasted: false,
       title: `${translate('screens/SendScreen', 'Sending')} ${token.symbol}`
     }))
