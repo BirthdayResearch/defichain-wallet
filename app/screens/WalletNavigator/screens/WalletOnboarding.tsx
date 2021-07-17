@@ -6,16 +6,15 @@ import { Mnemonic } from '../../../api/wallet/mnemonic'
 import { Text, View } from '../../../components'
 import { PrimaryColor, VectorIcon, VectorIconName } from '../../../constants/Theme'
 import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
-import { getEnvironment } from '../../../environment'
 import { translate } from '../../../translations'
 
 export function WalletOnboarding (): JSX.Element {
   const { setWallet } = useWalletManagementContext()
   const navigator = useNavigation()
 
-  const onDebugPress = getEnvironment().debug ? async () => {
+  const onDebugPress = async (): Promise<void> => {
     await setWallet(Mnemonic.createWalletDataAbandon23())
-  } : undefined
+  }
 
   return (
     <ScrollView style={tailwind('flex-1 py-8 bg-gray-100')} testID='wallet_onboarding'>
