@@ -162,7 +162,7 @@ function AddressRow ({ control, networkName, onQrButtonPress }: { control: Contr
               placeholder={translate('screens/SendScreen', 'Enter an address')}
             />
             <TouchableOpacity
-              style={tailwind('p-4 bg-white')}
+              style={tailwind('w-14 p-4 bg-white')}
               onPress={onQrButtonPress}
             >
               <MaterialIcons name='qr-code-scanner' size={24} color={PrimaryColor} />
