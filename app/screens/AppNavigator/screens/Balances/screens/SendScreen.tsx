@@ -10,14 +10,13 @@ import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import tailwind from 'tailwind-rn'
+import { tailwind } from '../../../../../../tailwind'
 import { Logging } from '../../../../../api/logging'
 import { Wallet } from '../../../../../api/wallet'
 import { Text, TextInput } from '../../../../../components'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../../components/PrimaryButton'
 import { SectionTitle } from '../../../../../components/SectionTitle'
-import { PrimaryColorStyle } from '../../../../../constants/Theme'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
@@ -224,7 +223,7 @@ function AmountRow ({ token, control, onMaxPress, fee }: AmountForm): JSX.Elemen
         </View>
         <TouchableOpacity onPress={() => onMaxPress(maxAmount)}>
           <Text
-            style={[PrimaryColorStyle.text, tailwind('font-bold')]}
+            style={tailwind('font-bold text-primary')}
           >{translate('screens/SendScreen', 'MAX')}
           </Text>
         </TouchableOpacity>

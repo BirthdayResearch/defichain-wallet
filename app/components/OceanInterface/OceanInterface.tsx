@@ -4,10 +4,9 @@ import { MaterialIcons } from '@expo/vector-icons'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import tailwind from 'tailwind-rn'
 import { Text } from '..'
+import { tailwind } from '../../../tailwind'
 import { Logging } from '../../api/logging'
-import { PrimaryColor, PrimaryColorStyle } from '../../constants/Theme'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
 import { RootState } from '../../store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
@@ -116,8 +115,8 @@ function TransactionDetail ({ broadcasted, txid, onClose }: { broadcasted: boole
   return (
     <>
       {
-        !broadcasted ? <ActivityIndicator color={PrimaryColor} />
-          : <MaterialIcons name='check-circle' size={20} color='#02B31B' />
+        !broadcasted ? <ActivityIndicator style={tailwind('text-primary')} />
+          : <MaterialIcons name='check-circle' size={20} style={tailwind('text-success')} />
       }
       <View style={tailwind('flex-auto mx-6 justify-center items-center text-center')}>
         <Text
@@ -163,12 +162,12 @@ function TransactionIDButton ({ txid, onPress }: { txid: string, onPress?: () =>
       onPress={onPress}
     >
       <Text
-        style={[PrimaryColorStyle.text, tailwind('text-sm font-medium mr-1')]} numberOfLines={1}
+        style={tailwind('text-sm font-medium mr-1 text-primary')} numberOfLines={1}
         ellipsizeMode='tail'
       >
         {txid}
       </Text>
-      <MaterialIcons name='open-in-new' size={18} color={PrimaryColor} />
+      <MaterialIcons name='open-in-new' size={18} style={tailwind('text-primary')} />
     </TouchableOpacity>
   )
 }
@@ -178,7 +177,7 @@ function TransactionCloseButton (props: { onPress: () => void }): JSX.Element {
     <TouchableOpacity
       testID='oceanInterface_close' onPress={props.onPress} style={tailwind('px-2 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
     >
-      <Text style={[PrimaryColorStyle.text, tailwind('text-sm')]}>
+      <Text style={tailwind('text-sm text-primary')}>
         {translate('screens/OceanInterface', 'OK')}
       </Text>
     </TouchableOpacity>

@@ -172,16 +172,12 @@ exports[`receive page should match snapshot 1`] = `
     <Text />
     <Text
       style={
-        Array [
-          Object {
-            "color": "#ff00af",
-          },
-          Object {
-            "fontWeight": "500",
-            "marginLeft": 8,
-            "textTransform": "uppercase",
-          },
-        ]
+        Object {
+          "color": "rgba(255, 0, 175, 1)",
+          "fontWeight": "500",
+          "marginLeft": 8,
+          "textTransform": "uppercase",
+        }
       }
     >
       Copy

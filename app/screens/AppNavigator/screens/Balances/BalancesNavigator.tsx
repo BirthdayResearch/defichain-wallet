@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { View } from 'react-native'
-import tailwind from 'tailwind-rn'
+import { tailwind } from '../../../../../tailwind'
 import { Text } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { WalletToken } from '../../../../store/wallet'

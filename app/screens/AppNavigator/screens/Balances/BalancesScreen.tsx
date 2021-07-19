@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { FlatList, RefreshControl, TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
-import tailwind from 'tailwind-rn'
+import { tailwind } from '../../../../../tailwind'
 import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { SectionTitle } from '../../../../components/SectionTitle'
@@ -114,7 +114,7 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
       onPress={props.onPress}
     >
       <MaterialIcons name={props.icon} size={20} color={PrimaryColor} />
-      <Text style={[tailwind('mx-1'), PrimaryColorStyle.text]}>
+      <Text style={tailwind('mx-1 text-primary')}>
         {translate('screens/BalancesScreen', props.title)}
       </Text>
     </TouchableOpacity>

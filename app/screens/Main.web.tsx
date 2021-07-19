@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import tailwind from 'tailwind-rn'
+import { tailwind } from '../../tailwind'
 import { useNetworkContext } from '../contexts/NetworkContext'
 import { isPlayground } from '../environment'
 import { PlaygroundNavigator } from './PlaygroundNavigator/PlaygroundNavigator'

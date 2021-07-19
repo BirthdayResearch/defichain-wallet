@@ -10,12 +10,11 @@ import { ScrollView, StyleProp, TouchableOpacity, ViewStyle } from 'react-native
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import tailwind from 'tailwind-rn'
+import { tailwind } from '../../../../../tailwind'
 import { Logging } from '../../../../api/logging'
 import { Text, TextInput, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../components/PrimaryButton'
-import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
 import { useWallet } from '../../../../contexts/WalletContext'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
@@ -150,7 +149,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
           }
         }}
       >
-        <Text style={[PrimaryColorStyle.text]}>{translate('components/max', 'MAX')}</Text>
+        <Text style={tailwind('text-primary')}>{translate('components/max', 'MAX')}</Text>
       </TouchableOpacity>
     )
   }
@@ -194,7 +193,7 @@ function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
       style={tailwind('w-full justify-center items-center p-2')}
       onPress={props.onPress}
     >
-      <MaterialIcons name='swap-vert' size={24} color={PrimaryColor} />
+      <MaterialIcons name='swap-vert' size={24} style={tailwind('text-primary')} />
     </TouchableOpacity>
   )
 }

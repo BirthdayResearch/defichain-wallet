@@ -6,11 +6,10 @@ import * as React from 'react'
 import { useCallback, useEffect, useState } from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
-import tailwind from 'tailwind-rn'
+import { tailwind } from '../../../../../tailwind'
 import { Text, TextInput, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../components/PrimaryButton'
-import { PrimaryColorStyle } from '../../../../constants/Theme'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { translate } from '../../../../translations'
 import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
@@ -168,7 +167,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
             onPress={() => props.onChange(props.balance.toString())}
           >
             <Text
-              style={[PrimaryColorStyle.text, tailwind('font-bold')]}
+              style={tailwind('font-bold text-primary')}
             >{translate('screens/AddLiquidity', 'MAX')}
             </Text>
           </TouchableOpacity>

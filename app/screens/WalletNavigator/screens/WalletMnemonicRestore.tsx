@@ -2,10 +2,9 @@ import { validateMnemonicSentence } from '@defichain/jellyfish-wallet-mnemonic'
 import * as React from 'react'
 import { useState } from 'react'
 import { KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native'
-import tailwind from 'tailwind-rn'
+import { tailwind } from '../../../../tailwind'
 import { Mnemonic } from '../../../api/wallet/mnemonic'
 import { Text, TextInput, View } from '../../../components'
-import { PrimaryColorStyle } from '../../../constants/Theme'
 import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
 
 export function WalletMnemonicRestore (): JSX.Element {
@@ -51,7 +50,7 @@ export function WalletMnemonicRestore (): JSX.Element {
 
         <TouchableOpacity
           onPress={onRestore}
-          style={[tailwind('my-6 mx-4 rounded flex items-center justify-center'), PrimaryColorStyle.bg]}
+          style={[tailwind('my-6 mx-4 rounded flex items-center justify-center bg-primary')]}
         >
           <Text style={tailwind('p-3 font-bold text-white')}>
             RESTORE

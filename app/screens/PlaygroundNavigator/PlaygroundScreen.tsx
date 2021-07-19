@@ -1,6 +1,6 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
-import tailwind from 'tailwind-rn'
+import { tailwind } from '../../../tailwind'
 import { Text, View } from '../../components'
 import { PlaygroundConnection } from './sections/PlaygroundConnection'
 import { PlaygroundToken } from './sections/PlaygroundToken'

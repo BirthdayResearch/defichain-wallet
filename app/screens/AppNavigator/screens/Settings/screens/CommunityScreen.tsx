@@ -2,9 +2,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import * as React from 'react'
 import { useCallback } from 'react'
 import { FlatList, Linking, TouchableOpacity } from 'react-native'
-import tailwind from 'tailwind-rn'
+import { tailwind } from '../../../../../../tailwind'
 import { Text, View } from '../../../../../components'
-import { PrimaryColor } from '../../../../../constants/Theme'
 import { translate } from '../../../../../translations'
 
 export function CommunityScreen (): JSX.Element {
@@ -69,7 +68,7 @@ function CommunityItemRow ({ id, title, url, icon }: CommunityItem): JSX.Element
       onPress={handlePress}
       testID={id}
     >
-      <MaterialCommunityIcons name={icon} size={24} color={PrimaryColor} />
+      <MaterialCommunityIcons name={icon} size={24} style={tailwind('text-primary')} />
       <Text style={tailwind('ml-2')}>
         {translate('screens/CommunityScreen', title)}
       </Text>

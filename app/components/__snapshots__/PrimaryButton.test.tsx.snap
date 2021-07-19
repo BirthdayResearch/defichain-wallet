@@ -13,7 +13,7 @@ exports[`primary button should match snapshot 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Object {
-      "backgroundColor": "#ff00af",
+      "backgroundColor": "rgba(255, 0, 175, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
       "borderTopLeftRadius": 4,
