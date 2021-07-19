@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Text } from 'react-native'
 import { BarCodeScanner as DefaultBarCodeScanner } from 'expo-barcode-scanner'
 import { Logging } from '../api/logging'
@@ -14,7 +14,7 @@ type Props = StackScreenProps<BalanceParamList, 'BarCodeScanner'>
 export function BarCodeScanner ({ route, navigation }: Props): JSX.Element {
   // null => undetermined
   const [hasPermission, setHasPermission] = useState<boolean | null>(null)
-  const scanned = false
+  const [scanned, setScanned] = useState(false)
 
   useEffect(() => {
     DefaultBarCodeScanner.requestPermissionsAsync()
@@ -32,12 +32,13 @@ export function BarCodeScanner ({ route, navigation }: Props): JSX.Element {
     }
   }, [])
 
-  const handleBarCodeScanned = ({ data }: { data: string }): void => {
+  const handleBarCodeScanned = useCallback(({ data }: { data: string }): void => {
     if (!scanned) {
+      setScanned(true)
       route.params.onQrScanned(data)
       navigation.pop()
     }
-  }
+  }, [])
 
   if (hasPermission === null) {
     return (
