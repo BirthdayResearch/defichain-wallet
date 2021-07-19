@@ -30,7 +30,7 @@ export function BarCodeScanner ({ route, navigation }: Props): JSX.Element {
     if (!scanned) {
       setScanned(true)
       route.params.onQrScanned(data)
-      navigation.pop()
+      // navigation.pop()
     }
   }, [])
 
