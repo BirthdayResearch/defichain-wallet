@@ -1,6 +1,6 @@
 import React from 'react'
 import { ButtonProps, StyleProp, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native'
-import { tailwind } from '../../tailwind'
+import { tailwind } from '../tailwind'
 
 export const PrimaryButtonStyle = StyleSheet.create({
   button: {

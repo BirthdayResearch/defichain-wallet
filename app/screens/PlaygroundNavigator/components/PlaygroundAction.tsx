@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
-import { tailwind } from '../../../../tailwind'
+import { tailwind } from '../../../tailwind'
 
 export function PlaygroundAction (props: {
   testID: string

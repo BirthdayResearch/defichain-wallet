@@ -3,11 +3,11 @@ import { useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { useCallback } from 'react'
 import { SectionList, TouchableOpacity } from 'react-native'
-import { tailwind } from '../../../../../tailwind'
 import { Text, View } from '../../../../components'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
 import { useWalletManagementContext } from '../../../../contexts/WalletManagementContext'
 import { EnvironmentNetwork, getEnvironment, isPlayground } from '../../../../environment'
+import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 
 export function SettingsScreen (): JSX.Element {

@@ -2,8 +2,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import * as React from 'react'
 import { useCallback } from 'react'
 import { FlatList, Linking, TouchableOpacity } from 'react-native'
-import { tailwind } from '../../../../../../tailwind'
 import { Text, View } from '../../../../../components'
+import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 
 export function CommunityScreen (): JSX.Element {

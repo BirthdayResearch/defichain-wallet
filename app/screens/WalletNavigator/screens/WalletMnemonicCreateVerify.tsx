@@ -2,10 +2,10 @@ import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { useState } from 'react'
 import { KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native'
-import { tailwind } from '../../../../tailwind'
 import { Mnemonic } from '../../../api/wallet/mnemonic'
 import { Text, TextInput, View } from '../../../components'
 import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
+import { tailwind } from '../../../tailwind'
 import { WalletParamList } from '../WalletNavigator'
 
 type Props = StackScreenProps<WalletParamList, 'WalletMnemonicCreateVerify'>

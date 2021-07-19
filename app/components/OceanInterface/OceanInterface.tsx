@@ -5,11 +5,11 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Text } from '..'
-import { tailwind } from '../../../tailwind'
 import { Logging } from '../../api/logging'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
 import { RootState } from '../../store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
+import { tailwind } from '../../tailwind'
 import { translate } from '../../translations'
 
 const MAX_AUTO_RETRY = 1

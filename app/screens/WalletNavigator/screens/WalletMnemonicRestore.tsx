@@ -2,10 +2,10 @@ import { validateMnemonicSentence } from '@defichain/jellyfish-wallet-mnemonic'
 import * as React from 'react'
 import { useState } from 'react'
 import { KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native'
-import { tailwind } from '../../../../tailwind'
 import { Mnemonic } from '../../../api/wallet/mnemonic'
 import { Text, TextInput, View } from '../../../components'
 import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
+import { tailwind } from '../../../tailwind'
 
 export function WalletMnemonicRestore (): JSX.Element {
   const { setWallet } = useWalletManagementContext()

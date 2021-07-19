@@ -3,9 +3,9 @@ import { StackScreenProps } from '@react-navigation/stack'
 import * as Random from 'expo-random'
 import * as React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
-import { tailwind } from '../../../../tailwind'
 import { Text, View } from '../../../components'
 import { VectorIcon } from '../../../constants/Theme'
+import { tailwind } from '../../../tailwind'
 import { WalletParamList } from '../WalletNavigator'
 
 type Props = StackScreenProps<WalletParamList, 'WalletMnemonicCreate'>

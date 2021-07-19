@@ -4,8 +4,8 @@ import React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 import { useSelector } from 'react-redux'
-import { tailwind } from '../../../../../../tailwind'
 import { RootState } from '../../../../../store'
+import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 
 export function ReceiveScreen (): JSX.Element {

@@ -1,12 +1,12 @@
 import { useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
-import { tailwind } from '../../../../tailwind'
 import { Mnemonic } from '../../../api/wallet/mnemonic'
 import { Text, View } from '../../../components'
 import { VectorIcon, VectorIconName } from '../../../constants/Theme'
 import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
 import { getEnvironment } from '../../../environment'
+import { tailwind } from '../../../tailwind'
 import { translate } from '../../../translations'
 
 export function WalletOnboarding (): JSX.Element {
