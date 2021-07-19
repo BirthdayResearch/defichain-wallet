@@ -7,6 +7,7 @@ import tailwind from 'tailwind-rn'
 import { View } from '.'
 import { StackScreenProps } from '@react-navigation/stack'
 import { BalanceParamList } from '../screens/AppNavigator/screens/Balances/BalancesNavigator'
+import { getEnvironment } from '../environment'
 
 type Props = StackScreenProps<BalanceParamList, 'BarCodeScanner'>
 
@@ -23,11 +24,16 @@ export function BarCodeScanner ({ route, navigation }: Props): JSX.Element {
         }
       })
       .catch(e => Logging.error(e))
+
+    // for dev/test use, browser scenario, auto return with a hardcoded regtest env address
+    if (getEnvironment().debug) {
+      setTimeout(() => handleBarCodeScanned({ data: 'mmtWjUvgmyWXpekoxBgMJqKVMTtqA6NH1T' }), 3000)
+    }
   }, [])
 
-  const handleBarCodeScanned = ({ data }: { type: string, data: string }): void => {
+  const handleBarCodeScanned = ({ data }: { data: string }): void => {
     route.params.onQrScanned(data)
-    navigation.goBack()
+    navigation.pop()
   }
 
   if (hasPermission === null) {
