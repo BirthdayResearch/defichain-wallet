@@ -14,6 +14,7 @@ type Props = StackScreenProps<BalanceParamList, 'BarCodeScanner'>
 export function BarCodeScanner ({ route, navigation }: Props): JSX.Element {
   // null => undetermined
   const [hasPermission, setHasPermission] = useState<boolean | null>(null)
+  const scanned = false
 
   useEffect(() => {
     DefaultBarCodeScanner.requestPermissionsAsync()
@@ -32,8 +33,10 @@ export function BarCodeScanner ({ route, navigation }: Props): JSX.Element {
   }, [])
 
   const handleBarCodeScanned = ({ data }: { data: string }): void => {
-    route.params.onQrScanned(data)
-    navigation.pop()
+    if (!scanned) {
+      route.params.onQrScanned(data)
+      navigation.pop()
+    }
   }
 
   if (hasPermission === null) {
