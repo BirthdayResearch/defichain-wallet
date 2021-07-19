@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { tailwind } from '../../../tailwind'
+import tailwind from 'tailwind-rn'
 import { Text, View } from '../../components'
 import { AppIcon } from '../../components/icons/AppIcon'
 import { translate } from '../../translations'
