@@ -98,6 +98,14 @@
   name: priority/important-soon
   description: Will be important soon
 
+# Design
+- color: 137fdd
+  name: design/in-progress
+  description: Design in-progress
+- color: 137fdd
+  name: design/ready
+  description: Design is ready
+
 # Triage
 - color: b1f488
   name: triage/accepted
