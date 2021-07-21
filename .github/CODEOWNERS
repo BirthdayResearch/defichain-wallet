@@ -6,26 +6,35 @@
 /.idea/                                         @fuxingloh @thedoublejay
 
 /app                                            @fuxingloh @thedoublejay @ivan-zynesis
-/app/api                                        @fuxingloh
+/app/api                                        @fuxingloh @thedoublejay
 /app/assets                                     @fuxingloh @thedoublejay @ivan-zynesis @izzycsy
 /app/components                                 @fuxingloh @thedoublejay @ivan-zynesis
-/app/contexts                                   @fuxingloh
-/app/hooks                                      @fuxingloh
+/app/contexts                                   @fuxingloh @thedoublejay
+/app/hooks                                      @fuxingloh @thedoublejay
 /app/screens                                    @fuxingloh @thedoublejay @ivan-zynesis
 /app/store                                      @fuxingloh @thedoublejay @ivan-zynesis
 /app/translations                               @fuxingloh @thedoublejay @ivan-zynesis @izzycsy
 
 /cypress                                        @fuxingloh @thedoublejay @ivan-zynesis @izzycsy
 
+/.codeclimate.yml                               @fuxingloh @thedoublejay
+/.versionrc.js                                  @fuxingloh @thedoublejay
+/_shim.js                                       @fuxingloh @thedoublejay
 /app.json                                       @fuxingloh @thedoublejay
 /App.tsx                                        @fuxingloh @thedoublejay
-/babel.config.js                                @fuxingloh @thedoublejay
+/cypress.json                                   @fuxingloh @thedoublejay
+/docker-compose.yml                             @fuxingloh @thedoublejay
+/eas.json                                       @fuxingloh @thedoublejay
+/netlify.toml                                   @fuxingloh @thedoublejay
 
-tsconfig.json                                   @fuxingloh @thedoublejay
+babel.config.js                                 @fuxingloh @thedoublejay
+jest.config.js                                  @fuxingloh @thedoublejay
+metro.config.js                                 @fuxingloh @thedoublejay
 package.json                                    @fuxingloh @thedoublejay
-package-lock.json                               @fuxingloh
+package-lock.json                               @fuxingloh @thedoublejay
+tsconfig.json                                   @fuxingloh @thedoublejay
 
+BETA_TESTING.md                                 @thedoublejay @izzycsy
 CONTRIBUTING.md                                 @fuxingloh @thedoublejay @izzycsy
-BETA_TESTING.md                                 @fuxingloh @thedoublejay @izzycsy
 README.md                                       @fuxingloh @thedoublejay @izzycsy
 LICENSE                                         @fuxingloh
