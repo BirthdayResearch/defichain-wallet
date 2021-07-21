@@ -33,7 +33,7 @@ jobs:
       - run: npm ci
       - run: npm run test:ci
 
-      - uses: codecov/codecov-action@29386c70ef20e286228c72b668a06fd0e8399192
+      - uses: codecov/codecov-action@c585afe366f940d214dc09df2664c06d7fe07052
         with:
           fail_ci_if_error: true
 
@@ -69,6 +69,6 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: codecov/codecov-action@29386c70ef20e286228c72b668a06fd0e8399192
+      - uses: codecov/codecov-action@c585afe366f940d214dc09df2664c06d7fe07052
         with:
           fail_ci_if_error: true

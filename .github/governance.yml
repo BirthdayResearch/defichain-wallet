@@ -72,6 +72,14 @@ issue:
         member: true
         owner: true
 
+    - prefix: design
+      multiple: false
+      list: [ "in-progress", "ready" ]
+      author_association:
+        collaborator: true
+        member: true
+        owner: true
+
   chat_ops:
     - cmd: /close
       type: close
