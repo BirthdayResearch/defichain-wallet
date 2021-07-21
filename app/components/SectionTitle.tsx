@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text } from 'react-native'
-import tailwind from 'tailwind-rn'
+import { tailwind } from '../tailwind'
 
 export function SectionTitle ({ text, testID }: { text: string, testID: string }): JSX.Element {
   return (

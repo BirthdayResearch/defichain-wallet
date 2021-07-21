@@ -27,8 +27,12 @@ export function BarCodeScanner ({ route, navigation }: Props): JSX.Element {
     DefaultBarCodeScanner.requestPermissionsAsync()
       .then(({ status }) => {
         switch (status) {
-          case 'granted': setHasPermission(true); break
-          case 'denied': setHasPermission(false); break
+          case 'granted':
+            setHasPermission(true)
+            break
+          case 'denied':
+            setHasPermission(false)
+            break
         }
       })
       .catch(e => Logging.error(e))

@@ -2,11 +2,10 @@ import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { useState } from 'react'
 import { KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native'
-import tailwind from 'tailwind-rn'
 import { Mnemonic } from '../../../api/wallet/mnemonic'
 import { Text, TextInput, View } from '../../../components'
-import { PrimaryColorStyle } from '../../../constants/Theme'
 import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
+import { tailwind } from '../../../tailwind'
 import { WalletParamList } from '../WalletNavigator'
 
 type Props = StackScreenProps<WalletParamList, 'WalletMnemonicCreateVerify'>
@@ -77,7 +76,7 @@ export function WalletMnemonicCreateVerify ({ route }: Props): JSX.Element {
         )}
 
         <TouchableOpacity
-          style={[tailwind('m-4 rounded flex items-center justify-center'), PrimaryColorStyle.bg]}
+          style={[tailwind('m-4 rounded flex items-center justify-center bg-primary')]}
           onPress={onVerify}
         >
           <Text style={tailwind('p-3 font-bold text-white')}>

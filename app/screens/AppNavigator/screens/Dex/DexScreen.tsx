@@ -7,13 +7,12 @@ import { useEffect, useState } from 'react'
 import { SectionList, TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
-import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { PrimaryColor, PrimaryColorStyle } from '../../../../constants/Theme'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { fetchTokens } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
+import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
 
@@ -175,7 +174,7 @@ function PoolPairLiqBtn (props: { name: 'remove' | 'add', pair: string, onPress?
       style={tailwind('py-2 px-3')}
       onPress={props.onPress}
     >
-      <MaterialIcons size={24} name={props.name} color={PrimaryColor} />
+      <MaterialIcons size={24} name={props.name} style={tailwind('text-primary')} />
     </TouchableOpacity>
   )
 }
@@ -186,7 +185,7 @@ function PoolPairSwapBtn ({ symbol, onPress }: { symbol: string, onPress: () => 
       testID={`button_swap_${symbol}`} style={tailwind('py-2 px-3 flex-row items-center')}
       onPress={onPress}
     >
-      <Text style={[tailwind('font-bold'), PrimaryColorStyle.text]}>{translate('screens/DexScreen', 'SWAP')}</Text>
+      <Text style={tailwind('font-bold text-primary')}>{translate('screens/DexScreen', 'SWAP')}</Text>
     </TouchableOpacity>
   )
 }

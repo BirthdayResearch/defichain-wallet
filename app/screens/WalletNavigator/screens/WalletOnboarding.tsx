@@ -1,12 +1,12 @@
 import { useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
-import tailwind from 'tailwind-rn'
 import { Mnemonic } from '../../../api/wallet/mnemonic'
 import { Text, View } from '../../../components'
-import { PrimaryColor, VectorIcon, VectorIconName } from '../../../constants/Theme'
+import { VectorIcon, VectorIconName } from '../../../constants/Theme'
 import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
 import { getEnvironment } from '../../../environment'
+import { tailwind } from '../../../tailwind'
 import { translate } from '../../../translations'
 
 export function WalletOnboarding (): JSX.Element {
@@ -53,7 +53,7 @@ function WalletOptionRow (props: { text: string, icon: VectorIconName, onPress: 
       style={tailwind('flex-row items-center justify-between px-4 bg-white')}
     >
       <View style={tailwind('flex-row items-center')}>
-        <VectorIcon name={props.icon} size={24} color={PrimaryColor} />
+        <VectorIcon name={props.icon} size={24} style={tailwind('text-primary')} />
         <Text style={tailwind('font-medium ml-3 py-4')}>
           {props.text}
         </Text>

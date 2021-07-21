@@ -3,10 +3,9 @@ import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
-import tailwind from 'tailwind-rn'
 import { Text } from '../../../../../components'
 import { SectionTitle } from '../../../../../components/SectionTitle'
-import { PrimaryColor } from '../../../../../constants/Theme'
+import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from '../ConvertScreen'
@@ -76,7 +75,7 @@ function TokenActionRow ({ title, icon, onPress, testID }: TokenActionItems): JS
       testID={testID} onPress={onPress}
       style={tailwind('flex-row py-4 pl-4 pr-2 bg-white border-b border-gray-200')}
     >
-      <MaterialIcons name={icon} size={24} color={PrimaryColor} />
+      <MaterialIcons name={icon} size={24} style={tailwind('text-primary')} />
       <Text style={tailwind('flex-grow ml-2')}>
         {title}
       </Text>

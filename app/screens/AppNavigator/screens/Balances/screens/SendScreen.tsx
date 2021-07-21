@@ -11,20 +11,19 @@ import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import tailwind from 'tailwind-rn'
 import { Logging } from '../../../../../api/logging'
 import { Wallet } from '../../../../../api/wallet'
 import { Text, TextInput } from '../../../../../components'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../../components/PrimaryButton'
 import { SectionTitle } from '../../../../../components/SectionTitle'
-import { PrimaryColor, PrimaryColorStyle } from '../../../../../constants/Theme'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { RootState } from '../../../../../store'
 import { hasTxQueued, ocean } from '../../../../../store/ocean'
 import { WalletToken } from '../../../../../store/wallet'
+import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
 
@@ -95,7 +94,12 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
     setIsSubmitting(true)
     if (isValid) {
       const values = getValues()
-      await send({ address: values.address, token, amount: new BigNumber(values.amount), networkName }, wallet, dispatch)
+      await send({
+        address: values.address,
+        token,
+        amount: new BigNumber(values.amount),
+        networkName
+      }, wallet, dispatch)
     }
     setIsSubmitting(false)
   }
@@ -136,7 +140,11 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   )
 }
 
-function AddressRow ({ control, networkName, onQrButtonPress }: { control: Control, networkName: NetworkName, onQrButtonPress: () => void }): JSX.Element {
+function AddressRow ({
+  control,
+  networkName,
+  onQrButtonPress
+}: { control: Control, networkName: NetworkName, onQrButtonPress: () => void }): JSX.Element {
   return (
     <>
       <SectionTitle
@@ -165,7 +173,7 @@ function AddressRow ({ control, networkName, onQrButtonPress }: { control: Contr
               style={tailwind('w-14 p-4 bg-white')}
               onPress={onQrButtonPress}
             >
-              <MaterialIcons name='qr-code-scanner' size={24} color={PrimaryColor} />
+              <MaterialIcons name='qr-code-scanner' size={24} style={tailwind('text-primary')} />
             </TouchableOpacity>
           </View>
         )}
@@ -233,7 +241,7 @@ function AmountRow ({ token, control, onMaxPress, fee }: AmountForm): JSX.Elemen
         </View>
         <TouchableOpacity onPress={() => onMaxPress(maxAmount)}>
           <Text
-            style={[PrimaryColorStyle.text, tailwind('font-bold')]}
+            style={tailwind('font-bold text-primary')}
           >{translate('screens/SendScreen', 'MAX')}
           </Text>
         </TouchableOpacity>

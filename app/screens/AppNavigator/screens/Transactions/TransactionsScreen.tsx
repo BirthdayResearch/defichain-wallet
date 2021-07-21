@@ -4,11 +4,10 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
-import tailwind from 'tailwind-rn'
 import { Text } from '../../../../components'
-import { PrimaryColorStyle } from '../../../../constants/Theme'
 import { useWallet } from '../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
+import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { activitiesToViewModel, VMTransaction } from './screens/stateProcessor'
 import { TransactionsParamList } from './TransactionsNavigator'
@@ -120,7 +119,7 @@ function LoadMore (onPress: () => void): JSX.Element|null {
         onPress={onPress}
         style={tailwind('p-2')}
       >
-        <Text style={PrimaryColorStyle.text}>{translate('screens/TransactionsScreen', 'LOAD MORE')}</Text>
+        <Text style={tailwind('text-primary')}>{translate('screens/TransactionsScreen', 'LOAD MORE')}</Text>
       </TouchableOpacity>
     </View>
   )

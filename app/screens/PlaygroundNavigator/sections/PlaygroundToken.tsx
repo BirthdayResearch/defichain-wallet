@@ -1,20 +1,27 @@
 import { TokenInfo } from '@defichain/jellyfish-api-core/dist/category/token'
+import { UTXO } from '@defichain/jellyfish-api-core/dist/category/wallet'
+import { Bech32, Bs58, WIF } from '@defichain/jellyfish-crypto'
+import { RegTest } from '@defichain/jellyfish-network'
+import {
+  CTransactionSegWit,
+  DeFiTransactionConstants,
+  OP_CODES,
+  Script,
+  Transaction,
+  Vout
+} from '@defichain/jellyfish-transaction'
+import { TransactionSigner } from '@defichain/jellyfish-transaction-signature'
+import { toOPCodes } from '@defichain/jellyfish-transaction/dist/script/_buffer'
 import { PlaygroundRpcClient } from '@defichain/playground-api-client'
+import { BigNumber } from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
-import tailwind from 'tailwind-rn'
+import { SmartBuffer } from 'smart-buffer'
 import { Text, View } from '../../../components'
 import { usePlaygroundContext } from '../../../contexts/PlaygroundContext'
 import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
+import { tailwind } from '../../../tailwind'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
-import { WIF, Bech32, Bs58 } from '@defichain/jellyfish-crypto'
-import { RegTest } from '@defichain/jellyfish-network'
-import { UTXO } from '@defichain/jellyfish-api-core/dist/category/wallet'
-import { toOPCodes } from '@defichain/jellyfish-transaction/dist/script/_buffer'
-import { DeFiTransactionConstants, Transaction, CTransactionSegWit, OP_CODES, Vout, Script } from '@defichain/jellyfish-transaction'
-import { TransactionSigner } from '@defichain/jellyfish-transaction-signature'
-import { SmartBuffer } from 'smart-buffer'
-import { BigNumber } from 'bignumber.js'
 
 /**
  * Depend on defid setup in playground
