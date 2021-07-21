@@ -2,6 +2,7 @@ import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
+import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
@@ -71,7 +72,7 @@ async function send ({
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
-export function SendScreen ({ route }: Props): JSX.Element {
+export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const { networkName } = useNetworkContext()
   const wallet = useWallet()
   const client = useWhaleApiClient()
@@ -93,14 +94,25 @@ export function SendScreen ({ route }: Props): JSX.Element {
     setIsSubmitting(true)
     if (isValid) {
       const values = getValues()
-      await send({ address: values.address, token, amount: new BigNumber(values.amount), networkName }, wallet, dispatch)
+      await send({
+        address: values.address,
+        token,
+        amount: new BigNumber(values.amount),
+        networkName
+      }, wallet, dispatch)
     }
     setIsSubmitting(false)
   }
 
   return (
     <ScrollView style={tailwind('bg-gray-100')}>
-      <AddressRow control={control} networkName={networkName} />
+      <AddressRow
+        control={control}
+        networkName={networkName}
+        onQrButtonPress={() => navigation.navigate('BarCodeScanner', {
+          onQrScanned: value => setValue('address', value)
+        })}
+      />
       <AmountRow
         fee={fee}
         token={token} control={control} onMaxPress={async (amount) => {
@@ -128,7 +140,11 @@ export function SendScreen ({ route }: Props): JSX.Element {
   )
 }
 
-function AddressRow ({ control, networkName }: { control: Control, networkName: NetworkName }): JSX.Element {
+function AddressRow ({
+  control,
+  networkName,
+  onQrButtonPress
+}: { control: Control, networkName: NetworkName, onQrButtonPress: () => void }): JSX.Element {
   return (
     <>
       <SectionTitle
@@ -153,11 +169,12 @@ function AddressRow ({ control, networkName }: { control: Control, networkName: 
               onChangeText={onChange}
               placeholder={translate('screens/SendScreen', 'Enter an address')}
             />
-            {/* <TouchableOpacity
-              style={tailwind('p-4 bg-white')}
+            <TouchableOpacity
+              style={tailwind('w-14 p-4 bg-white')}
+              onPress={onQrButtonPress}
             >
-              <MaterialIcons name='qr-code-scanner' size={24} color={PrimaryColor} />
-            </TouchableOpacity> */}
+              <MaterialIcons name='qr-code-scanner' size={24} style={tailwind('text-primary')} />
+            </TouchableOpacity>
           </View>
         )}
         name='address'
@@ -176,7 +193,8 @@ interface AmountForm {
 
 function AmountRow ({ token, control, onMaxPress, fee }: AmountForm): JSX.Element {
   const Icon = getTokenIcon(token.avatarSymbol)
-  const maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).toFixed(8) : token.amount
+  let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).toFixed(8) : token.amount
+  maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
   return (
     <>
       <SectionTitle
