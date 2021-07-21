@@ -40,6 +40,7 @@
     "buffer": "^6.0.3",
     "expo": "^42.0.0",
     "expo-asset": "~8.3.2",
+    "expo-barcode-scanner": "^10.2.2",
     "expo-cli": "^4.8.1",
     "expo-clipboard": "~1.1.0",
     "expo-constants": "~11.0.1",
