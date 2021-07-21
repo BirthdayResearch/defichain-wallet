@@ -1,9 +1,15 @@
 import SecureStore from 'expo-secure-store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { EnvironmentNetwork } from "../../environment";
 import { WalletPersistence, WalletType } from "./persistence";
 
-const getItem = jest.spyOn(SecureStore, 'getItemAsync')
-const setItem = jest.spyOn(SecureStore, 'setItemAsync')
+jest.mock('expo-secure-store', () => ({
+  getItemAsync: jest.fn().mockReturnValue((k) => ''),
+  setItemAsync: jest.fn().mockReturnValue(new Promise(res => res('')))
+}))
+
+const getItem = jest.spyOn(AsyncStorage, 'getItem')
+const setItem = jest.spyOn(AsyncStorage, 'setItem')
 
 beforeEach(() => {
   jest.clearAllMocks()
