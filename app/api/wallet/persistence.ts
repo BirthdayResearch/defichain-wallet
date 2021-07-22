@@ -1,4 +1,5 @@
-import { getItem, setItem } from '../storage'
+// import { getItem, setItem } from '../storage'
+import { SecureStorage } from '../secure_store'
 
 const KEY = 'WALLET'
 
@@ -18,7 +19,7 @@ export interface WalletData {
 }
 
 async function get (): Promise<WalletData[]> {
-  const json = await getItem(KEY)
+  const json = await SecureStorage.getItem(KEY)
   if (json !== null) {
     return JSON.parse(json)
   }
@@ -27,7 +28,7 @@ async function get (): Promise<WalletData[]> {
 }
 
 async function set (wallets: WalletData[]): Promise<void> {
-  await setItem(KEY, JSON.stringify(wallets))
+  await SecureStorage.setItem(KEY, JSON.stringify(wallets))
 }
 
 async function add (data: WalletData): Promise<void> {
