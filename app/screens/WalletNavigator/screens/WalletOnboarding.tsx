@@ -26,7 +26,7 @@ export function WalletOnboarding (): JSX.Element {
           </View>
         </TouchableOpacity>
 
-        <Text style={tailwind('font-bold text-lg mt-4 text-gray-600')}>
+        <Text fontWeight='bold' style={tailwind('text-lg mt-4 text-gray-600')}>
           {translate('screens/WalletOnboarding', 'No wallets')}
         </Text>
       </View>

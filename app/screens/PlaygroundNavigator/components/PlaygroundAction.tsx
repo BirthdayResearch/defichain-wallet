@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
+import { Text } from '../../../components/Text'
 import { tailwind } from '../../../tailwind'
 
 export function PlaygroundAction (props: {
@@ -14,7 +15,7 @@ export function PlaygroundAction (props: {
       onPress={props.onPress}
       testID={props.testID}
     >
-      <Text style={tailwind('flex-1 text-sm font-medium text-gray-900')}>
+      <Text style={tailwind('flex-1 text-sm text-gray-900')} fontWeight='medium'>
         {props.title}
       </Text>
       <View style={tailwind('px-4')} />

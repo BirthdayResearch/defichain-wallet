@@ -135,7 +135,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
       }
       <PrimaryButton disabled={!isValid || isSubmitting || hasPendingJob} title='Send' onPress={onSubmit}>
         <Text
-          style={tailwind('text-white font-bold')}
+          style={tailwind('text-white')}
           fontWeight='bold'
         >{translate('screens/SendScreen', 'SEND')}
         </Text>
@@ -245,7 +245,8 @@ function AmountRow ({ token, control, onMaxPress, fee }: AmountForm): JSX.Elemen
         </View>
         <TouchableOpacity onPress={() => onMaxPress(maxAmount)}>
           <Text
-            style={tailwind('font-bold text-primary')}
+            fontWeight='bold'
+            style={tailwind('text-primary')}
           >{translate('screens/SendScreen', 'MAX')}
           </Text>
         </TouchableOpacity>

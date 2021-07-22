@@ -105,7 +105,7 @@ export function ConvertScreen (props: Props): JSX.Element {
           touchableStyle={tailwind('mt-4')}
         >
           <Text
-            style={tailwind('text-white font-bold')}
+            style={tailwind('text-white')}
             fontWeight='bold'
           >{translate('components/Button', 'CONTINUE')}
           </Text>
@@ -183,7 +183,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
             value={props.balance.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
             renderText={(value: string) => (
               <Text
-                style={tailwind('font-medium text-gray-500')}
+                style={tailwind('text-gray-500')}
                 fontWeight='medium'
               >
                 {value}
@@ -239,7 +239,7 @@ function PreviewConvResult (props: { unit: string, balance: BigNumber, testID: s
         renderText={(value: string) => (
           <Text
             testID={`${props.testID}_value`}
-            style={tailwind('font-medium text-gray-500')}
+            style={tailwind('text-gray-500')}
             fontWeight='medium'
           >
             {value}

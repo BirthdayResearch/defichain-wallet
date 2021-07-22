@@ -78,7 +78,7 @@ export function DexScreen (): JSX.Element {
       ListHeaderComponent={() => {
         if (yourLPTokens.length > 0) {
           return (
-            <Text style={tailwind('pt-5 pb-4 px-4 font-bold bg-gray-100')}>
+            <Text fontWeight='bold' style={tailwind('pt-5 pb-4 px-4 bg-gray-100')}>
               Your liquidity
             </Text>
           )
@@ -98,7 +98,7 @@ export function DexScreen (): JSX.Element {
           return null
         }
         return (
-          <Text style={tailwind('pt-5 pb-4 px-4 font-bold bg-gray-100')}>
+          <Text fontWeight='bold' style={tailwind('pt-5 pb-4 px-4 bg-gray-100')}>
             {translate('app/DexScreen', section.key)}
           </Text>
         )

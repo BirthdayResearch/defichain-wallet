@@ -37,7 +37,7 @@ export function PlaygroundUTXO (): JSX.Element | null {
   return (
     <View>
       <View style={tailwind('flex-row flex items-center')}>
-        <Text style={tailwind('text-xl font-bold')}>UTXO</Text>
+        <Text fontWeight='bold' style={tailwind('text-xl')}>UTXO</Text>
         <View style={tailwind('ml-2')}>
           <PlaygroundStatus
             online={status === 'online'}

@@ -71,7 +71,7 @@ export function PlaygroundToken (): JSX.Element | null {
   return (
     <View>
       <View style={tailwind('flex-row flex items-center')}>
-        <Text style={tailwind('text-xl font-bold')}>Token</Text>
+        <Text fontWeight='bold' style={tailwind('text-xl')}>Token</Text>
         <View style={tailwind('ml-2')}>
           <PlaygroundStatus
             online={status === 'online'}

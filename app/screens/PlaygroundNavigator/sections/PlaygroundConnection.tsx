@@ -33,7 +33,7 @@ export function PlaygroundConnection (): JSX.Element {
   return (
     <View>
       <View style={tailwind('flex flex-row items-center')}>
-        <Text style={tailwind('text-xl font-bold')}>Connection</Text>
+        <Text fontWeight='bold' style={tailwind('text-xl')}>Connection</Text>
         <View style={tailwind('flex-row items-center ml-2')}>
           <PlaygroundStatus online={connected} offline={!connected} />
           <Text style={tailwind('ml-2 text-gray-900')}>↻{(DURATION / 1000).toFixed(0)}s</Text>

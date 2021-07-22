@@ -47,7 +47,7 @@ function SectionHeader (key?: string): JSX.Element | null {
   }
 
   return (
-    <Text style={tailwind('p-4 font-bold text-lg')}>
+    <Text fontWeight='bold' style={tailwind('p-4 text-lg')}>
       {translate('wallet/settings', key)}
     </Text>
   )
@@ -92,7 +92,7 @@ function RowExitWalletItem (): JSX.Element {
       testID='setting_exit_wallet'
       onPress={clearWallets} style={tailwind('bg-white')}
     >
-      <Text style={tailwind('p-4 font-bold text-primary')}>
+      <Text fontWeight='bold' style={tailwind('p-4 text-primary')}>
         {translate('wallet/settings', 'EXIT WALLET')}
       </Text>
     </TouchableOpacity>

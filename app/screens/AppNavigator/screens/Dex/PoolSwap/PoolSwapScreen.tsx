@@ -134,7 +134,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           />
       }
       <PrimaryButton disabled={!isValid || hasPendingJob} title='Swap' onPress={onSubmit} testID='button_submit'>
-        <Text style={tailwind('text-white font-bold')}>{translate('screens/PoolSwapScreen', 'SWAP')}</Text>
+        <Text fontWeight='bold' style={tailwind('text-white')}>{translate('screens/PoolSwapScreen', 'SWAP')}</Text>
       </PrimaryButton>
     </ScrollView>
   )
@@ -165,7 +165,7 @@ function TokenRow (form: TokenForm): JSX.Element {
   }
   return (
     <>
-      <Text style={tailwind('text-sm font-bold pl-4 pt-4 mt-4 bg-white flex-grow')}>
+      <Text fontWeight='bold' style={tailwind('text-sm pl-4 pt-4 mt-4 bg-white flex-grow')}>
         {title}
       </Text>
       <Controller
@@ -215,7 +215,8 @@ function TokenRow (form: TokenForm): JSX.Element {
           (enableMaxButton != null && onChangeFromAmount !== undefined) && (
             <TouchableOpacity testID='max_button_token_a' onPress={() => onChangeFromAmount(token.amount)}>
               <Text
-                style={tailwind('font-bold text-primary')}
+                fontWeight='bold'
+                style={tailwind('text-primary')}
               >{translate('screens/PoolSwapScreen', 'MAX')}
               </Text>
             </TouchableOpacity>

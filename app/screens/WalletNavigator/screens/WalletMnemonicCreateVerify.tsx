@@ -30,10 +30,11 @@ export function WalletMnemonicCreateVerify ({ route }: Props): JSX.Element {
 
     return (
       <View style={tailwind('bg-white pl-4 mb-3 flex-row items-center')}>
-        <Text style={[
-          tailwind('w-6 font-medium'),
-          valid ? tailwind('text-gray-500') : tailwind('text-red-500')
-        ]}
+        <Text
+          fontWeight='medium' style={[
+            tailwind('w-6'),
+            valid ? tailwind('text-gray-500') : tailwind('text-red-500')
+          ]}
         >
           {`${props.index + 1}`.padStart(2, '0')}
         </Text>
@@ -79,7 +80,7 @@ export function WalletMnemonicCreateVerify ({ route }: Props): JSX.Element {
           style={[tailwind('m-4 rounded flex items-center justify-center bg-primary')]}
           onPress={onVerify}
         >
-          <Text style={tailwind('p-3 font-bold text-white')}>
+          <Text fontWeight='bold' style={tailwind('p-3 text-white')}>
             VERIFY MNEMONIC
           </Text>
         </TouchableOpacity>

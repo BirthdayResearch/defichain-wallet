@@ -120,7 +120,8 @@ function TransactionDetail ({ broadcasted, txid, onClose }: { broadcasted: boole
       }
       <View style={tailwind('flex-auto mx-6 justify-center items-center text-center')}>
         <Text
-          style={tailwind('text-sm font-bold')}
+          style={tailwind('text-sm')}
+          fontWeight='bold'
         >{translate('screens/OceanInterface', title)}
         </Text>
         {
@@ -140,11 +141,13 @@ function TransactionError ({ errMsg, onClose }: { errMsg: string | undefined, on
       <MaterialIcons name='error' size={20} color='#ff0000' />
       <View style={tailwind('flex-auto mx-2 justify-center items-center text-center')}>
         <Text
-          style={tailwind('text-sm font-bold')}
+          fontWeight='bold'
+          style={tailwind('text-sm')}
         >{`${translate('screens/OceanInterface', 'An error has occurred')}`}
         </Text>
         <Text
-          style={tailwind('text-sm font-bold')}
+          fontWeight='bold'
+          style={tailwind('text-sm')}
           numberOfLines={1}
           ellipsizeMode='tail'
         >{errMsg}
@@ -162,7 +165,8 @@ function TransactionIDButton ({ txid, onPress }: { txid: string, onPress?: () =>
       onPress={onPress}
     >
       <Text
-        style={tailwind('text-sm font-medium mr-1 text-primary')} numberOfLines={1}
+        fontWeight='medium'
+        style={tailwind('text-sm mr-1 text-primary')} numberOfLines={1}
         ellipsizeMode='tail'
       >
         {txid}

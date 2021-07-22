@@ -89,17 +89,16 @@ exports[`ErrorBoundary when there is an error <ErrorBoundary /> should render wh
         Object {
           "fontFamily": "RegularFont",
           "fontSize": 16,
-          "fontWeight": "600",
+          "fontWeight": "400",
         },
         Object {
           "fontSize": 20,
-          "fontWeight": "700",
           "lineHeight": 28,
           "marginTop": 12,
         },
         Object {
-          "fontFamily": "RegularFont",
-          "fontWeight": "400",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
         },
       ]
     }
@@ -112,19 +111,18 @@ exports[`ErrorBoundary when there is an error <ErrorBoundary /> should render wh
         Object {
           "fontFamily": "RegularFont",
           "fontSize": 16,
-          "fontWeight": "600",
+          "fontWeight": "400",
         },
         Object {
           "color": "rgba(156, 163, 175, 1)",
           "fontSize": 14,
-          "fontWeight": "700",
           "lineHeight": 20,
           "marginTop": 12,
           "textAlign": "center",
         },
         Object {
-          "fontFamily": "RegularFont",
-          "fontWeight": "400",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
         },
       ]
     }

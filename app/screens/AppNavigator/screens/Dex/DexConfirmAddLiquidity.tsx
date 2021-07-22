@@ -129,14 +129,21 @@ function Row (props: { lhs: string, rhs: Array<{value: string | number, suffix?:
   return (
     <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
       <View style={tailwind('flex-1')}>
-        <Text style={tailwind('font-medium')}>{props.lhs}</Text>
+        <Text fontWeight='medium'>{props.lhs}</Text>
       </View>
       <View style={tailwind('flex-1')}>
         {
           props.rhs.map((value, idx) => (
             <NumberFormat
               value={value.value} decimalScale={8} thousandSeparator displayType='text' suffix={value.suffix} key={idx}
-              renderText={(val: string) => <Text testID={`text_${value.testID}`} style={tailwind('font-medium text-right text-gray-500')}>{val}</Text>}
+              renderText={(val: string) => (
+                <Text
+                  fontWeight='medium' testID={`text_${value.testID}`}
+                  style={tailwind('text-right text-gray-500')}
+                >
+                  {val}
+                </Text>
+              )}
             />
           ))
         }
@@ -154,7 +161,11 @@ function ConfirmButton (props: { disabled?: boolean, onPress: () => void }): JSX
       onPress={props.onPress}
       disabled={props.disabled}
     >
-      <Text style={[tailwind('text-white font-bold')]}>{translate('screens/ConfirmLiquidity', 'CONFIRM')}</Text>
+      <Text
+        fontWeight='bold'
+        style={[tailwind('text-white')]}
+      >{translate('screens/ConfirmLiquidity', 'CONFIRM')}
+      </Text>
     </PrimaryButton>
   )
 }

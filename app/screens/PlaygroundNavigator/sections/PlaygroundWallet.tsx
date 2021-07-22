@@ -21,7 +21,7 @@ export function PlaygroundWallet (): JSX.Element | null {
   return (
     <View>
       <View style={tailwind('flex-row flex items-center')}>
-        <Text style={tailwind('text-xl font-bold')}>Wallet</Text>
+        <Text fontWeight='bold' style={tailwind('text-xl')}>Wallet</Text>
         <View style={tailwind('ml-2')}>
           <PlaygroundStatus
             online={wallets.length > 0}

@@ -35,7 +35,7 @@ exports[`token detail screen should accept DST 1`] = `
             Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
-              "fontWeight": "600",
+              "fontWeight": "400",
             },
             Object {
               "color": "rgba(107, 114, 128, 1)",
@@ -57,11 +57,10 @@ exports[`token detail screen should accept DST 1`] = `
             Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
-              "fontWeight": "600",
+              "fontWeight": "400",
             },
             Object {
               "fontSize": 24,
-              "fontWeight": "700",
               "lineHeight": 32,
             },
             Object {
@@ -80,7 +79,7 @@ exports[`token detail screen should accept DST 1`] = `
           Object {
             "fontFamily": "RegularFont",
             "fontSize": 16,
-            "fontWeight": "600",
+            "fontWeight": "400",
           },
           Array [
             Object {
@@ -160,7 +159,7 @@ exports[`token detail screen should accept DST 1`] = `
             Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
-              "fontWeight": "600",
+              "fontWeight": "400",
             },
             Object {
               "flexGrow": 1,
@@ -252,7 +251,7 @@ exports[`token detail screen should accept DST 1`] = `
             Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
-              "fontWeight": "600",
+              "fontWeight": "400",
             },
             Object {
               "flexGrow": 1,
@@ -327,7 +326,7 @@ exports[`token detail screen should accept Token DFI 1`] = `
             Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
-              "fontWeight": "600",
+              "fontWeight": "400",
             },
             Object {
               "color": "rgba(107, 114, 128, 1)",
@@ -349,11 +348,10 @@ exports[`token detail screen should accept Token DFI 1`] = `
             Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
-              "fontWeight": "600",
+              "fontWeight": "400",
             },
             Object {
               "fontSize": 24,
-              "fontWeight": "700",
               "lineHeight": 32,
             },
             Object {
@@ -372,7 +370,7 @@ exports[`token detail screen should accept Token DFI 1`] = `
           Object {
             "fontFamily": "RegularFont",
             "fontSize": 16,
-            "fontWeight": "600",
+            "fontWeight": "400",
           },
           Array [
             Object {
@@ -452,7 +450,7 @@ exports[`token detail screen should accept Token DFI 1`] = `
             Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
-              "fontWeight": "600",
+              "fontWeight": "400",
             },
             Object {
               "flexGrow": 1,
@@ -527,7 +525,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
             Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
-              "fontWeight": "600",
+              "fontWeight": "400",
             },
             Object {
               "color": "rgba(107, 114, 128, 1)",
@@ -549,11 +547,10 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
             Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
-              "fontWeight": "600",
+              "fontWeight": "400",
             },
             Object {
               "fontSize": 24,
-              "fontWeight": "700",
               "lineHeight": 32,
             },
             Object {
@@ -572,7 +569,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
           Object {
             "fontFamily": "RegularFont",
             "fontSize": 16,
-            "fontWeight": "600",
+            "fontWeight": "400",
           },
           Array [
             Object {
@@ -652,7 +649,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
             Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
-              "fontWeight": "600",
+              "fontWeight": "400",
             },
             Object {
               "flexGrow": 1,
@@ -744,7 +741,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
             Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
-              "fontWeight": "600",
+              "fontWeight": "400",
             },
             Object {
               "flexGrow": 1,
@@ -836,7 +833,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
             Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
-              "fontWeight": "600",
+              "fontWeight": "400",
             },
             Object {
               "flexGrow": 1,

@@ -25,7 +25,7 @@ export function WalletMnemonicCreate ({ navigation }: Props): JSX.Element {
   return (
     <ScrollView style={tailwind('flex-1 bg-gray-100')} contentInsetAdjustmentBehavior='automatic'>
       <View style={tailwind('mx-4 mt-6')}>
-        <Text style={tailwind('font-bold text-xl')}>
+        <Text fontWeight='bold' style={tailwind('text-xl')}>
           What is a Mnemonic phrase?
         </Text>
         <Text style={tailwind('mt-2')}>
@@ -41,7 +41,7 @@ export function WalletMnemonicCreate ({ navigation }: Props): JSX.Element {
       </View>
 
       <View style={tailwind('mt-6')}>
-        <Text style={tailwind('mx-4 mb-4 font-bold text-xl')}>
+        <Text fontWeight='bold' style={tailwind('mx-4 mb-4 text-xl')}>
           Your 24 word Mnemonic phrase
         </Text>
         {words.map((word, index) => {
@@ -53,7 +53,7 @@ export function WalletMnemonicCreate ({ navigation }: Props): JSX.Element {
         style={[tailwind('m-4 rounded flex items-center justify-center bg-primary')]}
         onPress={onContinue}
       >
-        <Text style={tailwind('p-3 font-bold text-white')}>CONTINUE</Text>
+        <Text fontWeight='bold' style={tailwind('p-3 text-white')}>CONTINUE</Text>
       </TouchableOpacity>
     </ScrollView>
   )
@@ -63,10 +63,10 @@ function MnemonicWordRow (props: { index: number, word: string }): JSX.Element {
   return (
     <View style={tailwind('bg-white mx-4 mb-3 rounded')}>
       <View style={tailwind('px-4 py-4 flex-row items-center')}>
-        <Text style={[tailwind('w-6 text-gray-500 font-medium')]}>
+        <Text style={[tailwind('w-6 text-gray-500')]} fontWeight='medium'>
           {`${props.index + 1}`.padStart(2, '0')}
         </Text>
-        <Text style={tailwind('flex-grow font-bold text-gray-800')}>
+        <Text fontWeight='bold' style={tailwind('flex-grow text-gray-800')}>
           {props.word}
         </Text>
       </View>

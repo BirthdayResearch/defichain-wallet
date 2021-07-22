@@ -132,7 +132,8 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
   return (
     <View style={tailwind('mt-3')}>
       <Text
-        style={tailwind('text-sm font-bold pl-3 mt-4 mb-1')}
+        fontWeight='bold'
+        style={tailwind('text-sm pl-3 mt-4 mb-1')}
       >{translate('screens/AddLiquidity', `Token ${props.type === 'primary' ? 'A' : 'B'}`)}
       </Text>
       <View style={tailwind('flex-col w-full bg-white items-center mt-2')}>
@@ -167,7 +168,8 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
             onPress={() => props.onChange(props.balance.toString())}
           >
             <Text
-              style={tailwind('font-bold text-primary')}
+              fontWeight='bold'
+              style={tailwind('text-primary')}
             >{translate('screens/AddLiquidity', 'MAX')}
             </Text>
           </TouchableOpacity>
@@ -183,7 +185,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
     return (
       <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-center w-full')}>
         <View style={tailwind('flex-1')}>
-          <Text style={tailwind('font-medium')}>{rowProps.lhs}</Text>
+          <Text fontWeight='medium'>{rowProps.lhs}</Text>
         </View>
         <View style={tailwind('flex-1')}>
           <NumberFormat

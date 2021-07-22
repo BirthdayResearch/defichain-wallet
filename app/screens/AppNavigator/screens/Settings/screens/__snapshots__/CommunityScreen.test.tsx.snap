@@ -20,7 +20,6 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           Object {
             "color": "rgba(156, 163, 175, 1)",
             "fontSize": 12,
-            "fontWeight": "400",
             "lineHeight": 16,
           }
         }
@@ -32,7 +31,6 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           Object {
             "color": "rgba(156, 163, 175, 1)",
             "fontSize": 12,
-            "fontWeight": "400",
             "lineHeight": 16,
           }
         }
@@ -43,9 +41,9 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
   }
   ListHeaderComponent={
     <Text
+      fontWeight="medium"
       style={
         Object {
-          "fontWeight": "500",
           "paddingBottom": 16,
           "paddingLeft": 16,
           "paddingRight": 16,
@@ -140,18 +138,17 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
             Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
-              "fontWeight": "600",
+              "fontWeight": "400",
             },
             Object {
-              "fontWeight": "500",
               "paddingBottom": 16,
               "paddingLeft": 16,
               "paddingRight": 16,
               "paddingTop": 24,
             },
             Object {
-              "fontFamily": "RegularFont",
-              "fontWeight": "400",
+              "fontFamily": "MediumFont",
+              "fontWeight": "500",
             },
           ]
         }
@@ -194,7 +191,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
               },
               Object {
                 "marginLeft": 8,
@@ -255,7 +252,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
               },
               Object {
                 "marginLeft": 8,
@@ -316,7 +313,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
               },
               Object {
                 "marginLeft": 8,
@@ -377,7 +374,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
               },
               Object {
                 "marginLeft": 8,
@@ -438,7 +435,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
               },
               Object {
                 "marginLeft": 8,
@@ -499,7 +496,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
               },
               Object {
                 "marginLeft": 8,
@@ -560,7 +557,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
               },
               Object {
                 "marginLeft": 8,
@@ -598,12 +595,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
               },
               Object {
                 "color": "rgba(156, 163, 175, 1)",
                 "fontSize": 12,
-                "fontWeight": "400",
                 "lineHeight": 16,
               },
               Object {
@@ -621,12 +617,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
               },
               Object {
                 "color": "rgba(156, 163, 175, 1)",
                 "fontSize": 12,
-                "fontWeight": "400",
                 "lineHeight": 16,
               },
               Object {

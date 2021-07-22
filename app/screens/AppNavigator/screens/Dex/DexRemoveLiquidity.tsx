@@ -92,7 +92,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         <CoinAmountRow symbol={bSymbol} amount={tokenBAmount} />
         <View style={tailwind('bg-white p-2 border-t border-gray-200 flex-row items-start w-full')}>
           <View style={tailwind('flex-1 ml-2')}>
-            <Text style={tailwind('font-medium')}>{translate('screens/AddLiquidity', 'Price')}</Text>
+            <Text fontWeight='medium'>{translate('screens/AddLiquidity', 'Price')}</Text>
           </View>
           <View style={tailwind('flex-1 mr-2')}>
             <NumberFormat
@@ -101,7 +101,8 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
               renderText={(val) => (
                 <Text
                   testID='text_a_to_b_price'
-                  style={tailwind('font-medium text-right text-gray-500')}
+                  fontWeight='medium'
+                  style={tailwind('text-right text-gray-500')}
                 >
                   {val}
                 </Text>

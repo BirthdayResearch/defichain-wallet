@@ -19,7 +19,7 @@ export function ReceiveScreen (): JSX.Element {
   return (
     <View style={tailwind('flex flex-1 w-full relative')}>
       <Text
-        style={tailwind('p-4 font-medium')}
+        style={tailwind('p-4')}
         fontWeight='medium'
       >{translate('screens/ReceiveScreen', 'Use this address to receive DFI or any DST')}
       </Text>
@@ -32,7 +32,7 @@ export function ReceiveScreen (): JSX.Element {
         </View>
         <Text
           testID='address_text'
-          style={tailwind('text-gray-500 font-medium')}
+          style={tailwind('text-gray-500')}
           fontWeight='medium'
         >{address}
         </Text>
@@ -47,7 +47,7 @@ export function ReceiveScreen (): JSX.Element {
           style={tailwind('self-center text-primary')} name='content-copy' size={16}
         />
         <Text
-          style={tailwind('ml-2 uppercase font-medium text-primary')}
+          style={tailwind('ml-2 uppercase text-primary')}
           fontWeight='medium'
         >{translate('screens/ReceiveScreen', 'Copy')}
         </Text>

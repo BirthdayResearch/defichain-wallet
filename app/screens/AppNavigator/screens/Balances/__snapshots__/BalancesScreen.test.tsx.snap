@@ -87,7 +87,7 @@ exports[`balances page should match snapshot 1`] = `
             Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
-              "fontWeight": "600",
+              "fontWeight": "400",
             },
             Array [
               Object {
@@ -253,7 +253,7 @@ exports[`balances page should match snapshot 1`] = `
                   Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
-                    "fontWeight": "600",
+                    "fontWeight": "400",
                   },
                   undefined,
                   Object {
@@ -271,12 +271,11 @@ exports[`balances page should match snapshot 1`] = `
                   Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
-                    "fontWeight": "600",
+                    "fontWeight": "400",
                   },
                   Object {
                     "color": "rgba(75, 85, 99, 1)",
                     "fontSize": 12,
-                    "fontWeight": "500",
                     "lineHeight": 16,
                   },
                   Object {
@@ -305,7 +304,7 @@ exports[`balances page should match snapshot 1`] = `
                   Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
-                    "fontWeight": "600",
+                    "fontWeight": "400",
                   },
                   Object {
                     "marginRight": 8,
@@ -476,7 +475,7 @@ exports[`balances page should match snapshot 1`] = `
                   Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
-                    "fontWeight": "600",
+                    "fontWeight": "400",
                   },
                   undefined,
                   Object {
@@ -494,12 +493,11 @@ exports[`balances page should match snapshot 1`] = `
                   Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
-                    "fontWeight": "600",
+                    "fontWeight": "400",
                   },
                   Object {
                     "color": "rgba(75, 85, 99, 1)",
                     "fontSize": 12,
-                    "fontWeight": "500",
                     "lineHeight": 16,
                   },
                   Object {
@@ -528,7 +526,7 @@ exports[`balances page should match snapshot 1`] = `
                   Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
-                    "fontWeight": "600",
+                    "fontWeight": "400",
                   },
                   Object {
                     "marginRight": 8,
@@ -699,7 +697,7 @@ exports[`balances page should match snapshot 1`] = `
                   Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
-                    "fontWeight": "600",
+                    "fontWeight": "400",
                   },
                   undefined,
                   Object {
@@ -717,12 +715,11 @@ exports[`balances page should match snapshot 1`] = `
                   Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
-                    "fontWeight": "600",
+                    "fontWeight": "400",
                   },
                   Object {
                     "color": "rgba(75, 85, 99, 1)",
                     "fontSize": 12,
-                    "fontWeight": "500",
                     "lineHeight": 16,
                   },
                   Object {
@@ -751,7 +748,7 @@ exports[`balances page should match snapshot 1`] = `
                   Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
-                    "fontWeight": "600",
+                    "fontWeight": "400",
                   },
                   Object {
                     "marginRight": 8,

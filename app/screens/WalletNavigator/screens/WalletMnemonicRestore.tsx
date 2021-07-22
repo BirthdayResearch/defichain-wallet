@@ -27,7 +27,7 @@ export function WalletMnemonicRestore (): JSX.Element {
       keyboardVerticalOffset={100}
     >
       <ScrollView style={tailwind('bg-gray-100')} contentInsetAdjustmentBehavior='automatic'>
-        <Text style={tailwind('font-medium mt-6 px-4')}>
+        <Text fontWeight='medium' style={tailwind('mt-6 px-4')}>
           Your 24 word mnemonic phrase
         </Text>
 
@@ -42,7 +42,7 @@ export function WalletMnemonicRestore (): JSX.Element {
 
         {valid ? null : (
           <View style={tailwind('mx-4 mt-4')}>
-            <Text style={tailwind('text-red-500 font-medium')}>
+            <Text fontWeight='medium' style={tailwind('text-red-500')}>
               Unable to verify your 24 word mnemonic phrase, please check you have entered the correct phrase.
             </Text>
           </View>
@@ -52,7 +52,7 @@ export function WalletMnemonicRestore (): JSX.Element {
           onPress={onRestore}
           style={[tailwind('my-6 mx-4 rounded flex items-center justify-center bg-primary')]}
         >
-          <Text style={tailwind('p-3 font-bold text-white')}>
+          <Text fontWeight='bold' style={tailwind('p-3 text-white')}>
             RESTORE
           </Text>
         </TouchableOpacity>

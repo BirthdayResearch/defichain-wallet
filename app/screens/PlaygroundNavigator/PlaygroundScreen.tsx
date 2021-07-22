@@ -11,7 +11,7 @@ export function PlaygroundScreen (): JSX.Element {
   return (
     <ScrollView style={tailwind('p-4 bg-white')} contentInsetAdjustmentBehavior='always'>
       <View style={tailwind('mb-4 p-3 bg-pink-100 rounded')}>
-        <Text style={tailwind('text-xs font-medium')}>
+        <Text fontWeight='medium' style={tailwind('text-xs')}>
           DeFi Playground is a specialized testing blockchain isolated from MainNet for testing DeFi applications.
           Assets are not real, it can be minted by anyone. Blocks are generated every 3 seconds, the chain resets daily.
         </Text>

@@ -90,8 +90,8 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
         </View>
         <View style={tailwind('flex-1 flex-row justify-center items-center')}>
           <View style={tailwind('flex-auto flex-col ml-3 justify-center')}>
-            <Text style={tailwind('font-medium')}>{translate('screens/TransactionsScreen', desc)}</Text>
-            <Text style={tailwind('font-medium')}>{translate('screens/TransactionsScreen', 'block')}: {block}</Text>
+            <Text fontWeight='medium'>{translate('screens/TransactionsScreen', desc)}</Text>
+            <Text fontWeight='medium'>{translate('screens/TransactionsScreen', 'block')}: {block}</Text>
           </View>
           <View style={tailwind('flex-row ml-3 items-center')}>
             <NumberFormat
@@ -99,7 +99,7 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
               renderText={(value) => <Text style={{ color }}>{value}</Text>}
             />
             <View style={tailwind('w-16 ml-2 items-start')}>
-              <Text style={tailwind('flex-shrink font-medium text-gray-600')}>{token}</Text>
+              <Text fontWeight='medium' style={tailwind('flex-shrink text-gray-600')}>{token}</Text>
             </View>
           </View>
         </View>

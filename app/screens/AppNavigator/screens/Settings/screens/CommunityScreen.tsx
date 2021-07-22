@@ -12,16 +12,16 @@ export function CommunityScreen (): JSX.Element {
       style={tailwind('bg-gray-100')}
       data={Communities}
       ListHeaderComponent={
-        <Text style={tailwind('font-medium pt-6 pb-4 px-4')}>
+        <Text fontWeight='medium' style={tailwind('pt-6 pb-4 px-4')}>
           {translate('screens/CommunityScreen', 'Connect with the community:')}
         </Text>
       }
       ListFooterComponent={
         <View style={tailwind('items-center py-6 px-4')}>
-          <Text style={tailwind('text-gray-400 text-xs font-normal')}>
+          <Text style={tailwind('text-gray-400 text-xs')}>
             {translate('screens/CommunityScreen', 'DeFiChain is a community-driven and open project.')}
           </Text>
-          <Text style={tailwind('text-gray-400 text-xs font-normal')}>
+          <Text style={tailwind('text-gray-400 text-xs')}>
             {translate('screens/CommunityScreen', 'The DeFiChain Foundation does not provide direct support.')}
           </Text>
         </View>

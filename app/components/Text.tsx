@@ -13,10 +13,10 @@ export type FontWeight = 'light' | 'regular' | 'medium' | 'semibold' | 'bold'
 
 export const HeaderFont = { headerTitleStyle: { fontFamily: FontFaces.SemiBoldFont } }
 
-const Default = StyleSheet.create({
+export const Default = StyleSheet.create({
   text: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '400',
     fontFamily: FontFaces.RegularFont
   }
 })
