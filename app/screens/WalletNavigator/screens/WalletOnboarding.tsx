@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
 import { Mnemonic } from '../../../api/wallet/mnemonic'
@@ -8,10 +8,11 @@ import { useWalletManagementContext } from '../../../contexts/WalletManagementCo
 import { getEnvironment } from '../../../environment'
 import { tailwind } from '../../../tailwind'
 import { translate } from '../../../translations'
+import { WalletParamList } from '../WalletNavigator'
 
 export function WalletOnboarding (): JSX.Element {
   const { setWallet } = useWalletManagementContext()
-  const navigator = useNavigation()
+  const navigator = useNavigation<NavigationProp<WalletParamList>>()
 
   const onDebugPress = getEnvironment().debug ? async () => {
     await setWallet(Mnemonic.createWalletDataAbandon23())
@@ -33,8 +34,7 @@ export function WalletOnboarding (): JSX.Element {
 
       <View style={tailwind('mt-8')}>
         <WalletOptionRow
-          // onPress={() => navigator.navigate('WalletMnemonicCreate')}
-          onPress={() => navigator.navigate('PinCreation', { length: 6 })}
+          onPress={() => navigator.navigate('WalletMnemonicCreate')}
           text='Create new mnemonic wallet' icon='account-balance-wallet'
         />
         <View style={tailwind('h-px bg-gray-100')} />

@@ -1,20 +1,24 @@
 import { MaterialIcons } from '@expo/vector-icons'
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
+
 import { TextInput, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { View } from '.'
 
 interface PinInputOptions {
-  length: 6 // should be easy to support 4-8 numeric, fix it to 6 first
+  length: 4 | 6 // should be easy to support 4-8 numeric, fix it to 4 or 6 first
   onChange: (text: string) => void
 }
 
-export function PinInput ({ length }: PinInputOptions): JSX.Element {
+export function PinInput ({ length, onChange }: PinInputOptions): JSX.Element {
   const [text, setText] = useState<string>('')
   const _textInput = useRef<TextInput | null>(null)
 
+  useEffect(() => {
+    _textInput.current?.focus()
+  }, [_textInput])
+
   const digitBoxes = (): JSX.Element => {
-    console.log('length', length)
     const arr = []
     for (let i = 0; i < length; i++) {
       let child: JSX.Element | null = null
@@ -36,16 +40,17 @@ export function PinInput ({ length }: PinInputOptions): JSX.Element {
     <TouchableOpacity onPress={() => _textInput.current?.focus()}>
       {digitBoxes()}
       <TextInput
-        ref={ref => {
-          _textInput.current = ref
-          ref?.focus()
-        }}
+        ref={ref => { _textInput.current = ref }}
         style={tailwind('opacity-0 h-0')}
         keyboardType='numeric'
         secureTextEntry
         autoFocus
         maxLength={length}
-        onChangeText={txt => setText(txt)}
+        onChangeText={txt => {
+          console.log('pininput raw: ', txt)
+          setText(txt)
+          onChange(txt)
+        }}
       />
     </TouchableOpacity>
   )
