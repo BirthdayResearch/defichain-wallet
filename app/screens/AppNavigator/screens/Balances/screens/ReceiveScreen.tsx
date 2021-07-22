@@ -1,9 +1,10 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import * as Clipboard from 'expo-clipboard'
 import React from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 import { useSelector } from 'react-redux'
+import { Text } from '../../../../../components/Text'
 import { RootState } from '../../../../../store'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
@@ -19,6 +20,7 @@ export function ReceiveScreen (): JSX.Element {
     <View style={tailwind('flex flex-1 w-full relative')}>
       <Text
         style={tailwind('p-4 font-medium')}
+        fontWeight='medium'
       >{translate('screens/ReceiveScreen', 'Use this address to receive DFI or any DST')}
       </Text>
       <View style={tailwind('bg-white flex justify-center items-center p-5 border-b border-gray-200')}>
@@ -31,6 +33,7 @@ export function ReceiveScreen (): JSX.Element {
         <Text
           testID='address_text'
           style={tailwind('text-gray-500 font-medium')}
+          fontWeight='medium'
         >{address}
         </Text>
       </View>
@@ -45,6 +48,7 @@ export function ReceiveScreen (): JSX.Element {
         />
         <Text
           style={tailwind('ml-2 uppercase font-medium text-primary')}
+          fontWeight='medium'
         >{translate('screens/ReceiveScreen', 'Copy')}
         </Text>
       </TouchableOpacity>

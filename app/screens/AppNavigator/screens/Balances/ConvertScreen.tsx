@@ -104,7 +104,11 @@ export function ConvertScreen (props: Props): JSX.Element {
           title='Convert' onPress={convert}
           touchableStyle={tailwind('mt-4')}
         >
-          <Text style={tailwind('text-white font-bold')}>{translate('components/Button', 'CONTINUE')}</Text>
+          <Text
+            style={tailwind('text-white font-bold')}
+            fontWeight='bold'
+          >{translate('components/Button', 'CONTINUE')}
+          </Text>
         </PrimaryButton>
       </View>
     </ScrollView>
@@ -177,7 +181,14 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
           <Text>{translate('screens/Convert', 'Balance')}: </Text>
           <NumberFormat
             value={props.balance.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
-            renderText={(value: string) => <Text style={tailwind('font-medium text-gray-500')}>{value}</Text>}
+            renderText={(value: string) => (
+              <Text
+                style={tailwind('font-medium text-gray-500')}
+                fontWeight='medium'
+              >
+                {value}
+              </Text>
+            )}
           />
         </View>
         {MaxButton()}
@@ -225,7 +236,15 @@ function PreviewConvResult (props: { unit: string, balance: BigNumber, testID: s
       <Text testID={`${props.testID}_desc`} style={tailwind('flex-1')}>DFI ({props.unit})</Text>
       <NumberFormat
         value={props.balance.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
-        renderText={(value: string) => <Text testID={`${props.testID}_value`} style={tailwind('font-medium text-gray-500')}>{value}</Text>}
+        renderText={(value: string) => (
+          <Text
+            testID={`${props.testID}_value`}
+            style={tailwind('font-medium text-gray-500')}
+            fontWeight='medium'
+          >
+            {value}
+          </Text>
+        )}
       />
     </View>
   )

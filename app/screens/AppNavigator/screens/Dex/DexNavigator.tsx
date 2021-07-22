@@ -1,6 +1,7 @@
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
+import { HeaderFont } from '../../../../components/Text'
 import { translate } from '../../../../translations'
 import { AddLiquidityScreen } from './DexAddLiquidity'
 import { AddLiquiditySummary, ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
@@ -21,7 +22,7 @@ const DexStack = createStackNavigator<DexParamList>()
 
 export function DexNavigator (): JSX.Element {
   return (
-    <DexStack.Navigator>
+    <DexStack.Navigator screenOptions={HeaderFont}>
       <DexStack.Screen
         name='DexScreen'
         component={DexScreen}

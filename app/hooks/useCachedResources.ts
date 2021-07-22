@@ -1,3 +1,10 @@
+import {
+  IBMPlexSans_300Light,
+  IBMPlexSans_400Regular,
+  IBMPlexSans_500Medium,
+  IBMPlexSans_600SemiBold,
+  IBMPlexSans_700Bold
+} from '@expo-google-fonts/ibm-plex-sans'
 import { MaterialIcons } from '@expo/vector-icons'
 import * as Font from 'expo-font'
 import { useEffect, useState } from 'react'
@@ -22,7 +29,11 @@ async function loadResourcesAndDataAsync (): Promise<void> {
   try {
     await Font.loadAsync({
       ...MaterialIcons.font,
-      'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf')
+      LightFont: IBMPlexSans_300Light,
+      RegularFont: IBMPlexSans_400Regular,
+      MediumFont: IBMPlexSans_500Medium,
+      SemiBoldFont: IBMPlexSans_600SemiBold,
+      BoldFont: IBMPlexSans_700Bold
     })
   } catch (e) {
     // TODO(@defich/wallet): We might want to provide this error information to an error reporting service

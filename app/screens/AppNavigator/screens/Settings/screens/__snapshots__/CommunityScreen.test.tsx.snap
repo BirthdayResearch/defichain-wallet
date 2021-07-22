@@ -138,6 +138,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         style={
           Array [
             Object {
+              "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "600",
             },
@@ -147,6 +148,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               "paddingLeft": 16,
               "paddingRight": 16,
               "paddingTop": 24,
+            },
+            Object {
+              "fontFamily": "RegularFont",
+              "fontWeight": "400",
             },
           ]
         }
@@ -187,11 +192,16 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "600",
               },
               Object {
                 "marginLeft": 8,
+              },
+              Object {
+                "fontFamily": "RegularFont",
+                "fontWeight": "400",
               },
             ]
           }
@@ -243,11 +253,16 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "600",
               },
               Object {
                 "marginLeft": 8,
+              },
+              Object {
+                "fontFamily": "RegularFont",
+                "fontWeight": "400",
               },
             ]
           }
@@ -299,11 +314,16 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "600",
               },
               Object {
                 "marginLeft": 8,
+              },
+              Object {
+                "fontFamily": "RegularFont",
+                "fontWeight": "400",
               },
             ]
           }
@@ -355,11 +375,16 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "600",
               },
               Object {
                 "marginLeft": 8,
+              },
+              Object {
+                "fontFamily": "RegularFont",
+                "fontWeight": "400",
               },
             ]
           }
@@ -411,11 +436,16 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "600",
               },
               Object {
                 "marginLeft": 8,
+              },
+              Object {
+                "fontFamily": "RegularFont",
+                "fontWeight": "400",
               },
             ]
           }
@@ -467,11 +497,16 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "600",
               },
               Object {
                 "marginLeft": 8,
+              },
+              Object {
+                "fontFamily": "RegularFont",
+                "fontWeight": "400",
               },
             ]
           }
@@ -523,11 +558,16 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "600",
               },
               Object {
                 "marginLeft": 8,
+              },
+              Object {
+                "fontFamily": "RegularFont",
+                "fontWeight": "400",
               },
             ]
           }
@@ -556,6 +596,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "600",
               },
@@ -564,6 +605,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                 "fontSize": 12,
                 "fontWeight": "400",
                 "lineHeight": 16,
+              },
+              Object {
+                "fontFamily": "RegularFont",
+                "fontWeight": "400",
               },
             ]
           }
@@ -574,6 +619,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "600",
               },
@@ -582,6 +628,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                 "fontSize": 12,
                 "fontWeight": "400",
                 "lineHeight": 16,
+              },
+              Object {
+                "fontFamily": "RegularFont",
+                "fontWeight": "400",
               },
             ]
           }

@@ -15,13 +15,24 @@ exports[`receive page should match snapshot 1`] = `
 >
   <Text
     style={
-      Object {
-        "fontWeight": "500",
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 16,
-      }
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "600",
+        },
+        Object {
+          "fontWeight": "500",
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 16,
+        },
+        Object {
+          "fontFamily": "MediumFont",
+          "fontWeight": "500",
+        },
+      ]
     }
   >
     Use this address to receive DFI or any DST
@@ -133,10 +144,21 @@ exports[`receive page should match snapshot 1`] = `
     </View>
     <Text
       style={
-        Object {
-          "color": "rgba(107, 114, 128, 1)",
-          "fontWeight": "500",
-        }
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "600",
+          },
+          Object {
+            "color": "rgba(107, 114, 128, 1)",
+            "fontWeight": "500",
+          },
+          Object {
+            "fontFamily": "MediumFont",
+            "fontWeight": "500",
+          },
+        ]
       }
       testID="address_text"
     >
@@ -172,12 +194,23 @@ exports[`receive page should match snapshot 1`] = `
     <Text />
     <Text
       style={
-        Object {
-          "color": "rgba(255, 0, 175, 1)",
-          "fontWeight": "500",
-          "marginLeft": 8,
-          "textTransform": "uppercase",
-        }
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "600",
+          },
+          Object {
+            "color": "rgba(255, 0, 175, 1)",
+            "fontWeight": "500",
+            "marginLeft": 8,
+            "textTransform": "uppercase",
+          },
+          Object {
+            "fontFamily": "MediumFont",
+            "fontWeight": "500",
+          },
+        ]
       }
     >
       Copy

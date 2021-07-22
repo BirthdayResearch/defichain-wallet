@@ -134,7 +134,11 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
         )
       }
       <PrimaryButton disabled={!isValid || isSubmitting || hasPendingJob} title='Send' onPress={onSubmit}>
-        <Text style={tailwind('text-white font-bold')}>{translate('screens/SendScreen', 'SEND')}</Text>
+        <Text
+          style={tailwind('text-white font-bold')}
+          fontWeight='bold'
+        >{translate('screens/SendScreen', 'SEND')}
+        </Text>
       </PrimaryButton>
     </ScrollView>
   )

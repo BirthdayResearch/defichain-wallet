@@ -1,5 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
+import { HeaderFont } from '../../../../components/Text'
 import { translate } from '../../../../translations'
 import { VMTransaction } from './screens/stateProcessor'
 import { TransactionDetailScreen } from './screens/TransactionDetailScreen'
@@ -20,6 +21,7 @@ export function TransactionsNavigator (): JSX.Element {
   return (
     <TransactionsStack.Navigator
       initialRouteName='Transactions'
+      screenOptions={HeaderFont}
     >
       <TransactionsStack.Screen
         name='Transactions'

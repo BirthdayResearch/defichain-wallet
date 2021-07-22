@@ -33,6 +33,7 @@ exports[`token detail screen should accept DST 1`] = `
         style={
           Array [
             Object {
+              "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "600",
             },
@@ -40,6 +41,10 @@ exports[`token detail screen should accept DST 1`] = `
               "color": "rgba(107, 114, 128, 1)",
               "fontSize": 12,
               "lineHeight": 16,
+            },
+            Object {
+              "fontFamily": "RegularFont",
+              "fontWeight": "400",
             },
           ]
         }
@@ -50,6 +55,7 @@ exports[`token detail screen should accept DST 1`] = `
         style={
           Array [
             Object {
+              "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "600",
             },
@@ -57,6 +63,10 @@ exports[`token detail screen should accept DST 1`] = `
               "fontSize": 24,
               "fontWeight": "700",
               "lineHeight": 32,
+            },
+            Object {
+              "fontFamily": "BoldFont",
+              "fontWeight": "700",
             },
           ]
         }
@@ -68,15 +78,25 @@ exports[`token detail screen should accept DST 1`] = `
       style={
         Array [
           Object {
-            "color": "rgba(107, 114, 128, 1)",
-            "fontSize": 12,
-            "fontWeight": "700",
-            "lineHeight": 16,
-            "marginTop": 8,
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 16,
-            "paddingTop": 16,
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "600",
+          },
+          Array [
+            Object {
+              "color": "rgba(107, 114, 128, 1)",
+              "fontSize": 12,
+              "lineHeight": 16,
+              "marginTop": 8,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 16,
+            },
+          ],
+          Object {
+            "fontFamily": "MediumFont",
+            "fontWeight": "500",
           },
         ]
       }
@@ -138,12 +158,17 @@ exports[`token detail screen should accept DST 1`] = `
         style={
           Array [
             Object {
+              "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "600",
             },
             Object {
               "flexGrow": 1,
               "marginLeft": 8,
+            },
+            Object {
+              "fontFamily": "RegularFont",
+              "fontWeight": "400",
             },
           ]
         }
@@ -225,12 +250,17 @@ exports[`token detail screen should accept DST 1`] = `
         style={
           Array [
             Object {
+              "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "600",
             },
             Object {
               "flexGrow": 1,
               "marginLeft": 8,
+            },
+            Object {
+              "fontFamily": "RegularFont",
+              "fontWeight": "400",
             },
           ]
         }
@@ -295,6 +325,7 @@ exports[`token detail screen should accept Token DFI 1`] = `
         style={
           Array [
             Object {
+              "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "600",
             },
@@ -302,6 +333,10 @@ exports[`token detail screen should accept Token DFI 1`] = `
               "color": "rgba(107, 114, 128, 1)",
               "fontSize": 12,
               "lineHeight": 16,
+            },
+            Object {
+              "fontFamily": "RegularFont",
+              "fontWeight": "400",
             },
           ]
         }
@@ -312,6 +347,7 @@ exports[`token detail screen should accept Token DFI 1`] = `
         style={
           Array [
             Object {
+              "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "600",
             },
@@ -319,6 +355,10 @@ exports[`token detail screen should accept Token DFI 1`] = `
               "fontSize": 24,
               "fontWeight": "700",
               "lineHeight": 32,
+            },
+            Object {
+              "fontFamily": "BoldFont",
+              "fontWeight": "700",
             },
           ]
         }
@@ -330,15 +370,25 @@ exports[`token detail screen should accept Token DFI 1`] = `
       style={
         Array [
           Object {
-            "color": "rgba(107, 114, 128, 1)",
-            "fontSize": 12,
-            "fontWeight": "700",
-            "lineHeight": 16,
-            "marginTop": 8,
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 16,
-            "paddingTop": 16,
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "600",
+          },
+          Array [
+            Object {
+              "color": "rgba(107, 114, 128, 1)",
+              "fontSize": 12,
+              "lineHeight": 16,
+              "marginTop": 8,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 16,
+            },
+          ],
+          Object {
+            "fontFamily": "MediumFont",
+            "fontWeight": "500",
           },
         ]
       }
@@ -400,12 +450,17 @@ exports[`token detail screen should accept Token DFI 1`] = `
         style={
           Array [
             Object {
+              "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "600",
             },
             Object {
               "flexGrow": 1,
               "marginLeft": 8,
+            },
+            Object {
+              "fontFamily": "RegularFont",
+              "fontWeight": "400",
             },
           ]
         }
@@ -470,6 +525,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
         style={
           Array [
             Object {
+              "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "600",
             },
@@ -477,6 +533,10 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
               "color": "rgba(107, 114, 128, 1)",
               "fontSize": 12,
               "lineHeight": 16,
+            },
+            Object {
+              "fontFamily": "RegularFont",
+              "fontWeight": "400",
             },
           ]
         }
@@ -487,6 +547,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
         style={
           Array [
             Object {
+              "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "600",
             },
@@ -494,6 +555,10 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
               "fontSize": 24,
               "fontWeight": "700",
               "lineHeight": 32,
+            },
+            Object {
+              "fontFamily": "BoldFont",
+              "fontWeight": "700",
             },
           ]
         }
@@ -505,15 +570,25 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
       style={
         Array [
           Object {
-            "color": "rgba(107, 114, 128, 1)",
-            "fontSize": 12,
-            "fontWeight": "700",
-            "lineHeight": 16,
-            "marginTop": 8,
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 16,
-            "paddingTop": 16,
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "600",
+          },
+          Array [
+            Object {
+              "color": "rgba(107, 114, 128, 1)",
+              "fontSize": 12,
+              "lineHeight": 16,
+              "marginTop": 8,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 16,
+            },
+          ],
+          Object {
+            "fontFamily": "MediumFont",
+            "fontWeight": "500",
           },
         ]
       }
@@ -575,12 +650,17 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
         style={
           Array [
             Object {
+              "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "600",
             },
             Object {
               "flexGrow": 1,
               "marginLeft": 8,
+            },
+            Object {
+              "fontFamily": "RegularFont",
+              "fontWeight": "400",
             },
           ]
         }
@@ -662,12 +742,17 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
         style={
           Array [
             Object {
+              "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "600",
             },
             Object {
               "flexGrow": 1,
               "marginLeft": 8,
+            },
+            Object {
+              "fontFamily": "RegularFont",
+              "fontWeight": "400",
             },
           ]
         }
@@ -749,12 +834,17 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
         style={
           Array [
             Object {
+              "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "600",
             },
             Object {
               "flexGrow": 1,
               "marginLeft": 8,
+            },
+            Object {
+              "fontFamily": "RegularFont",
+              "fontWeight": "400",
             },
           ]
         }

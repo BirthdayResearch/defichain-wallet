@@ -1,17 +1,17 @@
 import React from 'react'
-import { StyleSheet, Text as DefaultText, TextInput as DefaultTextInput, View as DefaultView } from 'react-native'
+import { StyleSheet, TextInput as DefaultTextInput, View as DefaultView } from 'react-native'
+import { Text as DefaultText, TextProps } from './Text'
 
 const Default = StyleSheet.create({
   text: {
     fontSize: 16,
-    fontWeight: '600'
+    fontWeight: '400',
+    fontFamily: 'RegularFont'
   }
 })
 
-export function Text (props: DefaultText['props']): JSX.Element {
-  const { style, ...otherProps } = props
-
-  return <DefaultText style={[Default.text, style]} {...otherProps} />
+export function Text (props: TextProps): JSX.Element {
+  return <DefaultText {...props} />
 }
 
 export function View (props: DefaultView['props']): JSX.Element {

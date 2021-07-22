@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { TouchableOpacity } from 'react-native'
+import { HeaderFont } from '../../../../components/Text'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { CommunityScreen } from './screens/CommunityScreen'
@@ -21,7 +22,7 @@ export function SettingsNavigator (): JSX.Element {
   const navigation = useNavigation()
 
   return (
-    <SettingsStack.Navigator>
+    <SettingsStack.Navigator screenOptions={HeaderFont}>
       <SettingsStack.Screen
         name='SettingsScreen'
         component={SettingsScreen}

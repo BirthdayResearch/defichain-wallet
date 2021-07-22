@@ -4,6 +4,7 @@ import { View } from 'react-native'
 import { Text } from '../../../../components'
 import { BarCodeScanner } from '../../../../components/BarCodeScanner'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { HeaderFont } from '../../../../components/Text'
 import { WalletToken } from '../../../../store/wallet'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -28,7 +29,7 @@ const BalanceStack = createStackNavigator<BalanceParamList>()
 
 export function BalancesNavigator (): JSX.Element {
   return (
-    <BalanceStack.Navigator>
+    <BalanceStack.Navigator screenOptions={HeaderFont}>
       <BalanceStack.Screen
         name='Balances'
         component={BalancesScreen}
@@ -64,7 +65,7 @@ export function BalancesNavigator (): JSX.Element {
             return (
               <View style={tailwind('flex-row items-center')}>
                 <Icon />
-                <Text style={tailwind('ml-2')}>{token.displaySymbol}</Text>
+                <Text style={tailwind('ml-2')} fontWeight='semibold'>{token.displaySymbol}</Text>
               </View>
             )
           }
