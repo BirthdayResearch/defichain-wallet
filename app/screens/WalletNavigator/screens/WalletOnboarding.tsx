@@ -33,7 +33,8 @@ export function WalletOnboarding (): JSX.Element {
 
       <View style={tailwind('mt-8')}>
         <WalletOptionRow
-          onPress={() => navigator.navigate('WalletMnemonicCreate')}
+          // onPress={() => navigator.navigate('WalletMnemonicCreate')}
+          onPress={() => navigator.navigate('PinCreation', { length: 6 })}
           text='Create new mnemonic wallet' icon='account-balance-wallet'
         />
         <View style={tailwind('h-px bg-gray-100')} />
