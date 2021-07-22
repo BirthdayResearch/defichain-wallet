@@ -1,13 +1,13 @@
-import SecureStore from 'expo-secure-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { EnvironmentNetwork } from "../../environment";
 import { WalletPersistence, WalletType } from "./persistence";
 
-jest.mock('expo-secure-store', () => ({
-  getItemAsync: jest.fn().mockReturnValue((k) => ''),
-  setItemAsync: jest.fn().mockReturnValue(new Promise(res => res('')))
+jest.mock('react-native/Libraries/Utilities/Platform', () => ({
+  OS: 'web',
+  select: opts => opts.web
 }))
 
+// web has no SecureStore implementation, fallback to AsyncStorage
 const getItem = jest.spyOn(AsyncStorage, 'getItem')
 const setItem = jest.spyOn(AsyncStorage, 'setItem')
 
