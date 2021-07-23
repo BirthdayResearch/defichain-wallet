@@ -53,10 +53,13 @@ exports[`oceanInterface should match snapshot 1`] = `
       style={
         Array [
           Object {
+            "fontFamily": "RegularFont",
             "fontSize": 16,
-            "fontWeight": "600",
+            "fontWeight": "400",
+            "lineHeight": 24,
           },
           Object {
+            "fontFamily": "BoldFont",
             "fontSize": 14,
             "fontWeight": "700",
             "lineHeight": 20,

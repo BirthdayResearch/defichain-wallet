@@ -19,6 +19,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         style={
           Object {
             "color": "rgba(156, 163, 175, 1)",
+            "fontFamily": "RegularFont",
             "fontSize": 12,
             "fontWeight": "400",
             "lineHeight": 16,
@@ -31,6 +32,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         style={
           Object {
             "color": "rgba(156, 163, 175, 1)",
+            "fontFamily": "RegularFont",
             "fontSize": 12,
             "fontWeight": "400",
             "lineHeight": 16,
@@ -45,6 +47,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
     <Text
       style={
         Object {
+          "fontFamily": "MediumFont",
           "fontWeight": "500",
           "paddingBottom": 16,
           "paddingLeft": 16,
@@ -138,10 +141,13 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         style={
           Array [
             Object {
+              "fontFamily": "RegularFont",
               "fontSize": 16,
-              "fontWeight": "600",
+              "fontWeight": "400",
+              "lineHeight": 24,
             },
             Object {
+              "fontFamily": "MediumFont",
               "fontWeight": "500",
               "paddingBottom": 16,
               "paddingLeft": 16,
@@ -187,8 +193,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "fontFamily": "RegularFont",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
+                "lineHeight": 24,
               },
               Object {
                 "marginLeft": 8,
@@ -243,8 +251,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "fontFamily": "RegularFont",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
+                "lineHeight": 24,
               },
               Object {
                 "marginLeft": 8,
@@ -299,8 +309,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "fontFamily": "RegularFont",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
+                "lineHeight": 24,
               },
               Object {
                 "marginLeft": 8,
@@ -355,8 +367,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "fontFamily": "RegularFont",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
+                "lineHeight": 24,
               },
               Object {
                 "marginLeft": 8,
@@ -411,8 +425,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "fontFamily": "RegularFont",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
+                "lineHeight": 24,
               },
               Object {
                 "marginLeft": 8,
@@ -467,8 +483,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "fontFamily": "RegularFont",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
+                "lineHeight": 24,
               },
               Object {
                 "marginLeft": 8,
@@ -523,8 +541,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "fontFamily": "RegularFont",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
+                "lineHeight": 24,
               },
               Object {
                 "marginLeft": 8,
@@ -556,11 +576,14 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "fontFamily": "RegularFont",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
+                "lineHeight": 24,
               },
               Object {
                 "color": "rgba(156, 163, 175, 1)",
+                "fontFamily": "RegularFont",
                 "fontSize": 12,
                 "fontWeight": "400",
                 "lineHeight": 16,
@@ -574,11 +597,14 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "fontFamily": "RegularFont",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
+                "lineHeight": 24,
               },
               Object {
                 "color": "rgba(156, 163, 175, 1)",
+                "fontFamily": "RegularFont",
                 "fontSize": 12,
                 "fontWeight": "400",
                 "lineHeight": 16,
