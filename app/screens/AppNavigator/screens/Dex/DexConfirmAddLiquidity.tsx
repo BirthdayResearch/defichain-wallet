@@ -43,7 +43,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const [aSymbol, bSymbol] = symbol.split('-') as [string, string]
   const aToBRate = new BigNumber(tokenB.reserve).div(tokenA.reserve)
   const bToARate = new BigNumber(tokenA.reserve).div(tokenB.reserve)
-  const lmTokenAmount = percentage.times(totalLiquidity)
+  const lmTokenAmount = percentage.times(totalLiquidity.token)
 
   const account = useWallet().get(0)
   const dispatch = useDispatch()
