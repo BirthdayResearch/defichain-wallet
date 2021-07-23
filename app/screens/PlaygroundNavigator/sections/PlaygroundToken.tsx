@@ -161,7 +161,8 @@ async function playgroundUtxoToUserAccount (rpcClient: PlaygroundRpcClient, reci
       script: utxoLockScript,
       tokenId: 0x00
     },
-    ellipticPair: pair
+    publicKey: pair.publicKey,
+    sign: pair.sign
   }])
 
   return await rpcClient.rawtx.sendRawTransaction(new CTransactionSegWit(signed).toHex())

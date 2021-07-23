@@ -4,10 +4,12 @@ import { useState } from 'react'
 import { KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native'
 import { Mnemonic } from '../../../api/wallet/mnemonic'
 import { Text, TextInput, View } from '../../../components'
+import { useNetworkContext } from '../../../contexts/NetworkContext'
 import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
 import { tailwind } from '../../../tailwind'
 
 export function WalletMnemonicRestore (): JSX.Element {
+  const { network } = useNetworkContext()
   const { setWallet } = useWalletManagementContext()
   const [phrase, setPhrase] = useState<string>('')
   const [valid, setValid] = useState<boolean>(true)
@@ -15,7 +17,7 @@ export function WalletMnemonicRestore (): JSX.Element {
   async function onRestore (): Promise<void> {
     const words = phrase.split(' ')
     if (validateMnemonicSentence(words)) {
-      await setWallet(Mnemonic.createWalletData(words))
+      await setWallet(Mnemonic.createWalletData(words, network))
     } else {
       setValid(false)
     }

@@ -1,33 +1,39 @@
-import { Network } from '@defichain/jellyfish-network'
-import { MnemonicHdNodeProvider, mnemonicToSeed } from '@defichain/jellyfish-wallet-mnemonic'
+import { Bip32Options, MnemonicHdNodeProvider } from '@defichain/jellyfish-wallet-mnemonic'
+import { EnvironmentNetwork } from '../../environment'
+import { getJellyfishNetwork } from './network'
 import { WalletData, WalletType } from './persistence'
 
-function createProvider (data: WalletData, options: Network): MnemonicHdNodeProvider {
-  const seed = Buffer.from(data.raw, 'hex')
-
-  return MnemonicHdNodeProvider.fromSeed(seed, {
-    bip32: {
-      public: options.bip32.publicPrefix,
-      private: options.bip32.privatePrefix
-    },
-    wif: options.wifPrefix
-  })
-}
-
-export function createWalletData (mnemonic: string[]): WalletData {
-  const seed = mnemonicToSeed(mnemonic)
-  const hex = seed.toString('hex')
+function getBip32Option (envNetwork: EnvironmentNetwork): Bip32Options {
+  const network = getJellyfishNetwork(envNetwork)
   return {
-    version: 'v1',
-    type: WalletType.MNEMONIC_UNPROTECTED,
-    raw: hex
+    bip32: {
+      public: network.bip32.publicPrefix,
+      private: network.bip32.privatePrefix
+    },
+    wif: network.wifPrefix
   }
 }
 
-export function createWalletDataAbandon23 (): WalletData {
+function createProvider (data: WalletData, network: EnvironmentNetwork): MnemonicHdNodeProvider {
+  if (data.type !== WalletType.MNEMONIC_UNPROTECTED || data.version !== 'v1') {
+    throw new Error('Unexpected WalletData')
+  }
+  return MnemonicHdNodeProvider.fromData(JSON.parse(data.raw), getBip32Option(network))
+}
+
+export function createWalletData (mnemonic: string[], network: EnvironmentNetwork): WalletData {
+  const mnemonicData = MnemonicHdNodeProvider.wordsToData(mnemonic, getBip32Option(network))
+  return {
+    version: 'v1',
+    type: WalletType.MNEMONIC_UNPROTECTED,
+    raw: JSON.stringify(mnemonicData)
+  }
+}
+
+export function createWalletDataAbandon23 (network: EnvironmentNetwork): WalletData {
   return createWalletData([
     'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'
-  ])
+  ], network)
 }
 
 export const Mnemonic = {

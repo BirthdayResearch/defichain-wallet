@@ -21,7 +21,7 @@ it('should createWallet', async () => {
     raw: "408b285c123836004f4b8842c89324c1f01382450c0d439af345ba7fc49acf705489c6fc77dbd4e3dc1dd8cc6bc9f043db8ada1e243c4a0eafb290d399480840"
   }
 
-  const wallet = createWallet(data, options, provider)
+  const wallet = createWallet(data, network, provider)
 
   expect(wallet.get(0).withTransactionBuilder().utxo).toBeDefined()
   expect(wallet.get(0).withTransactionBuilder().dex).toBeDefined()
@@ -38,6 +38,6 @@ it('should fail as wallet type not available', async () => {
   }
 
   expect(() => {
-    createWallet(data, options, provider)
+    createWallet(data, network, provider)
   }).toThrow('wallet undefined not available')
 })
