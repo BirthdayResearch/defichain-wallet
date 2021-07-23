@@ -8,7 +8,8 @@ import { WalletMnemonicCreate } from './screens/WalletMnemonicCreate'
 import { WalletMnemonicCreateVerify } from './screens/WalletMnemonicCreateVerify'
 import { WalletMnemonicRestore } from './screens/WalletMnemonicRestore'
 import { WalletOnboarding } from './screens/WalletOnboarding'
-import { PinCreationScreen } from './screens/PinCreationScreen'
+import { PinCreation } from './screens/PinCreationScreen'
+import { PinConfirmation } from './screens/PinConfirmation'
 
 export interface WalletParamList {
   WalletOnboardingScreen: undefined
@@ -20,6 +21,10 @@ export interface WalletParamList {
   PinCreation: {
     words: string[]
     pinLength: 4 | 6
+  }
+  PinConfirmation: {
+    words: string[]
+    pin: string
   }
 
   [key: string]: undefined | object
@@ -78,7 +83,14 @@ export function WalletNavigator (): JSX.Element {
         />
         <WalletStack.Screen
           name='PinCreation'
-          component={PinCreationScreen}
+          component={PinCreation}
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'Secure your wallet')
+          }}
+        />
+        <WalletStack.Screen
+          name='PinConfirmation'
+          component={PinConfirmation}
           options={{
             headerTitle: translate('screens/WalletNavigator', 'Secure your wallet')
           }}

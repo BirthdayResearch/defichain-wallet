@@ -1,65 +1,25 @@
 import { MaterialIcons } from '@expo/vector-icons'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
+import { ScrollView } from 'react-native'
 import tailwind from 'tailwind-rn'
-import { Mnemonic } from '../../../api/wallet/mnemonic'
 import { Text, View } from '../../../components'
 import { CreateWalletStepIndicator } from '../../../components/CreateWalletStepIndicator'
 import { PinInput } from '../../../components/PinInput'
 import { PrimaryButton } from '../../../components/PrimaryButton'
-import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
 import { translate } from '../../../translations'
 import { WalletParamList } from '../WalletNavigator'
 
 type Props = StackScreenProps<WalletParamList, 'PinCreation'>
-type STEP = 'CREATE' | 'VERIFY'
 
-export function PinCreationScreen ({ navigation, route }: Props): JSX.Element {
+export function PinCreation ({ route }: Props): JSX.Element {
+  const navigation = useNavigation<NavigationProp<WalletParamList>>()
   const { pinLength, words } = route.params
-  const [step, setStep] = useState<STEP>('CREATE')
   const [newPin, setNewPin] = useState('')
-  const [verifyPin, setVerifyPin] = useState('')
-  const { setWallet } = useWalletManagementContext()
-
-  // inherit from MnemonicVerify screen
-  // TODO(@ivan-zynesis): encrypt seed
-  function onPinVerified (): void {
-    setWallet(Mnemonic.createWalletData(words))
-      .catch(e => console.log(e))
-  }
 
   return (
-    <View style={tailwind('w-full flex-1 flex-col bg-white')}>
-      {
-        step === 'CREATE' ? (
-          <CreatePin
-            pinLength={pinLength}
-            onChange={(val: string) => { setNewPin(val) }}
-            onComplete={() => setStep('VERIFY')}
-            value={newPin}
-          />
-        ) : null
-      }
-      {
-        step === 'VERIFY' ? (
-          <VerifyPin
-            pinLength={pinLength}
-            value={verifyPin}
-            error={verifyPin.length === 6 && verifyPin !== newPin}
-            onChange={(val: string) => {
-              setVerifyPin(val)
-              if (newPin === val) onPinVerified()
-            }}
-          />
-        ) : null
-      }
-    </View>
-  )
-}
-
-function CreatePin (props: { value: string, pinLength: 4 | 6, onChange: (pin: string) => void, onComplete: () => void }): JSX.Element {
-  return (
-    <>
+    <ScrollView style={tailwind('w-full flex-1 flex-col bg-white')}>
       <CreateWalletStepIndicator
         current={3}
         steps={[
@@ -80,28 +40,18 @@ function CreatePin (props: { value: string, pinLength: 4 | 6, onChange: (pin: st
         <Text style={tailwind('text-center font-bold')}>{translate('screens/PinCreation', 'Create a passcode for your wallet')}</Text>
       </View>
       <PinInput
-        length={props.pinLength}
-        onChange={props.onChange}
+        length={pinLength}
+        onChange={val => setNewPin(val)}
       />
-      <PrimaryButton onPress={props.onComplete} title='create-pin' disabled={props.value.length !== props.pinLength}>
+      <PrimaryButton
+        title='create-pin'
+        disabled={newPin.length !== pinLength}
+        onPress={() => {
+          navigation.navigate('PinConfirmation', { words, pin: newPin })
+        }}
+      >
         <Text style={tailwind('text-white font-bold')}>{translate('screens/PinCreation', 'CREATE PASSCODE')}</Text>
       </PrimaryButton>
-    </>
-  )
-}
-
-function VerifyPin (props: { value: string, pinLength: 4 | 6, onChange: (pin: string) => void, error: boolean }): JSX.Element {
-  return (
-    <>
-      <PinInput
-        length={props.pinLength}
-        onChange={props.onChange}
-      />
-      {
-        (props.error) ? (
-          <Text style={tailwind('text-center text-red-500')}>{translate('screens/PinCreation', 'Wrong passcode entered')}</Text>
-        ) : null
-      }
-    </>
+    </ScrollView>
   )
 }

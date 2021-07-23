@@ -47,7 +47,6 @@ export function PinInput ({ length, onChange }: PinInputOptions): JSX.Element {
         autoFocus
         maxLength={length}
         onChangeText={txt => {
-          console.log('pininput raw: ', txt)
           setText(txt)
           onChange(txt)
         }}
