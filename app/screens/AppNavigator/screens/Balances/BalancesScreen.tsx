@@ -79,7 +79,7 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
       <View style={tailwind('flex-row items-center flex-auto')}>
         <Icon />
         <View style={tailwind('mx-3 flex-auto')}>
-          <Text>{token.displaySymbol}</Text>
+          <Text style={tailwind('font-medium')}>{token.displaySymbol}</Text>
           <Text
             numberOfLines={1}
             ellipsizeMode='tail'
