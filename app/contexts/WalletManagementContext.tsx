@@ -1,15 +1,13 @@
-import { WhaleWalletAccountProvider } from '@defichain/whale-api-wallet'
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { Logging } from '../api/logging'
-import { createWallet, Wallet } from '../api/wallet'
-import { getJellyfishNetwork } from '../api/wallet/network'
-import { WalletData, WalletPersistence } from '../api/wallet/persistence'
+import { WalletPersistence, WalletPersistenceData } from '../api/wallet/persistence'
+import { initWhaleWallet, WhaleWallet } from '../api/wallet/provider'
 import { useNetworkContext } from './NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
 
 interface WalletManagement {
-  wallets: Wallet[]
-  setWallet: (data: WalletData) => Promise<void>
+  wallets: WhaleWallet[]
+  setWallet: (data: WalletPersistenceData<any>) => Promise<void>
   clearWallets: () => Promise<void>
 }
 
@@ -22,7 +20,7 @@ export function useWalletManagementContext (): WalletManagement {
 export function WalletManagementProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
   const client = useWhaleApiClient()
-  const [dataList, setDataList] = useState<WalletData[]>([])
+  const [dataList, setDataList] = useState<Array<WalletPersistenceData<any>>>([])
 
   useEffect(() => {
     WalletPersistence.get().then(dataList => {
@@ -31,14 +29,12 @@ export function WalletManagementProvider (props: React.PropsWithChildren<any>): 
   }, [network])
 
   const wallets = useMemo(() => {
-    const options = getJellyfishNetwork(network)
-    const provider = new WhaleWalletAccountProvider(client, options)
-    return dataList.map(data => createWallet(data, network, provider))
+    return dataList.map(data => initWhaleWallet(data, network, client))
   }, [dataList])
 
   const management: WalletManagement = {
     wallets: wallets,
-    async setWallet (data: WalletData): Promise<void> {
+    async setWallet (data: WalletPersistenceData<any>): Promise<void> {
       await WalletPersistence.set([data])
       setDataList(await WalletPersistence.get())
     },
