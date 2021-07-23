@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native'
 import { Mnemonic } from '../../../api/wallet/mnemonic'
 import { Text, TextInput, View } from '../../../components'
+import { useNetworkContext } from '../../../contexts/NetworkContext'
 import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
 import { getEnvironment } from '../../../environment'
 import { tailwind } from '../../../tailwind'
@@ -18,11 +19,12 @@ export function WalletMnemonicCreateVerify ({ route }: Props): JSX.Element {
   const enteredWords: string[] = []
 
   const [valid, setValid] = useState<boolean>(true)
+  const { network } = useNetworkContext()
   const { setWallet } = useWalletManagementContext()
 
   async function onVerify (): Promise<void> {
     if (actualWords.join(' ') === enteredWords.join(' ')) {
-      await setWallet(Mnemonic.createWalletData(enteredWords))
+      await setWallet(Mnemonic.createWalletData(enteredWords, network))
     } else {
       setValid(false)
     }
