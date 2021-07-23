@@ -46,6 +46,12 @@ declare namespace Cypress {
     sendDFItoWallet (): Chainable<Element>
 
     /**
+     * @description Sends DFI Token to wallet.
+     * @example cy.sendDFITokentoWallet().wait(4000)
+     */
+    sendDFITokentoWallet (): Chainable<Element>
+
+    /**
      * @description Sends token to wallet. Accepts a list of token symbols to be sent.
      * @param {string[]} tokens to be sent
      * @example cy.sendTokenToWallet(['BTC', 'ETH']).wait(4000)
@@ -66,6 +72,12 @@ Cypress.Commands.add('createEmptyWallet', (isRandom: boolean = false) => {
 Cypress.Commands.add('sendDFItoWallet', () => {
   cy.intercept('/v0/playground/rpc/sendtoaddress').as('sendToAddress')
   cy.getByTestID('playground_wallet_top_up').click()
+  cy.wait(['@sendToAddress'])
+})
+
+Cypress.Commands.add('sendDFITokentoWallet', () => {
+  cy.intercept('/v0/playground/wallet/tokens/dfi/sendtoaddress').as('sendToAddress')
+  cy.getByTestID('playground_token_DFI').click()
   cy.wait(['@sendToAddress'])
 })
 
