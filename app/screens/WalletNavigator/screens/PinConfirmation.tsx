@@ -2,7 +2,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
 import { ScrollView } from 'react-native'
 import tailwind from 'tailwind-rn'
-import { Mnemonic } from '../../../api/wallet/mnemonic'
+import { MnemonicUnprotected } from '../../../api/wallet/provider/mnemonic_unprotected'
 import { Text } from '../../../components'
 import { PinInput } from '../../../components/PinInput'
 import { useNetworkContext } from '../../../contexts/NetworkContext'
@@ -28,8 +28,7 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
       setInvalid(true)
       return
     }
-
-    setWallet(Mnemonic.createWalletData(words, network))
+    setWallet(MnemonicUnprotected.toData(words, network))
       .catch(e => console.log(e))
   }
 

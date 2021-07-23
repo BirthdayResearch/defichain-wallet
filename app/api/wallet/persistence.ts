@@ -1,7 +1,8 @@
 import { getItem, setItem } from '../storage'
 
 export enum WalletType {
-  MNEMONIC_UNPROTECTED = 'MNEMONIC_UNPROTECTED'
+  MNEMONIC_UNPROTECTED = 'MNEMONIC_UNPROTECTED',
+  MNEMONIC_ENCRYPTED = 'MNEMONIC_ENCRYPTED'
 }
 
 export interface WalletPersistenceData<T> {

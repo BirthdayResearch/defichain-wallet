@@ -3,10 +3,10 @@ import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { useState } from 'react'
 import { KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native'
-import { MnemonicUnprotected } from '../../../api/wallet/provider/mnemonic_unprotected'
+// import { MnemonicUnprotected } from '../../../api/wallet/provider/mnemonic_unprotected'
 import { Text, TextInput, View } from '../../../components'
-import { useNetworkContext } from '../../../contexts/NetworkContext'
-import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
+// import { useNetworkContext } from '../../../contexts/NetworkContext'
+// import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
 import { getEnvironment } from '../../../environment'
 import { tailwind } from '../../../tailwind'
 import { WalletParamList } from '../WalletNavigator'
@@ -19,12 +19,16 @@ export function WalletMnemonicCreateVerify ({ route }: Props): JSX.Element {
   const enteredWords: string[] = []
 
   const [valid, setValid] = useState<boolean>(true)
-  const { network } = useNetworkContext()
-  const { setWallet } = useWalletManagementContext()
+  // const { network } = useNetworkContext()
+  // const { setWallet } = useWalletManagementContext()
 
   async function onVerify (): Promise<void> {
     if (actualWords.join(' ') === enteredWords.join(' ')) {
-      await setWallet(MnemonicUnprotected.toData(enteredWords, network))
+      // await setWallet(MnemonicUnprotected.toData(enteredWords, network))
+      navigation.navigate('PinCreation', {
+        words: actualWords,
+        pinLength: 6
+      })
     } else {
       setValid(false)
     }
