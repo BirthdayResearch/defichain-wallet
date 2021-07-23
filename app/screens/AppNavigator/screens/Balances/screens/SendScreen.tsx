@@ -2,6 +2,7 @@ import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
+import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
@@ -12,13 +13,11 @@ import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Logging } from '../../../../../api/logging'
-import { Wallet } from '../../../../../api/wallet'
 import { Text, TextInput } from '../../../../../components'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../../components/PrimaryButton'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
-import { useWallet } from '../../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { RootState } from '../../../../../store'
 import { hasTxQueued, ocean } from '../../../../../store/ocean'
@@ -39,14 +38,14 @@ async function send ({
   token,
   amount,
   networkName
-}: SendForm, wallet: Wallet, dispatch: Dispatch<any>): Promise<void> {
+}: SendForm, dispatch: Dispatch<any>): Promise<void> {
   try {
-    const account = wallet.get(0)
-    const script = await account.getScript()
-    const builder = account.withTransactionBuilder()
     const to = DeFiAddress.from(networkName, address).getScript()
 
-    const signer = async (): Promise<CTransactionSegWit> => {
+    const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
+      const script = await account.getScript()
+      const builder = account.withTransactionBuilder()
+
       let signed: TransactionSegWit
       if (token.symbol === 'DFI') {
         signed = await builder.utxo.send(amount, to, script)
@@ -60,8 +59,7 @@ async function send ({
     }
 
     dispatch(ocean.actions.queueTransaction({
-      signer,
-      broadcasted: false,
+      sign: signer,
       title: `${translate('screens/SendScreen', 'Sending')} ${token.symbol}`
     }))
   } catch (e) {
@@ -74,7 +72,6 @@ type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
 export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const { networkName } = useNetworkContext()
-  const wallet = useWallet()
   const client = useWhaleApiClient()
   const [token] = useState(route.params.token)
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
@@ -99,7 +96,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
         token,
         amount: new BigNumber(values.amount),
         networkName
-      }, wallet, dispatch)
+      }, dispatch)
     }
     setIsSubmitting(false)
   }

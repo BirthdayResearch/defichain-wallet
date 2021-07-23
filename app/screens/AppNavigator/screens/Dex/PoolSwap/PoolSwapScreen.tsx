@@ -308,11 +308,12 @@ async function constructSignedSwapAndSend (
   dexForm: DexForm,
   dispatch: Dispatch<any>
 ): Promise<void> {
-  const builder = account.withTransactionBuilder()
-
   const maxPrice = dexForm.fromAmount.div(dexForm.toAmount)
-  const script = await account.getScript()
+
   const signer = async (): Promise<CTransactionSegWit> => {
+    const builder = account.withTransactionBuilder()
+    const script = await account.getScript()
+
     const swap: PoolSwap = {
       fromScript: script,
       toScript: script,
@@ -326,8 +327,7 @@ async function constructSignedSwapAndSend (
   }
 
   dispatch(ocean.actions.queueTransaction({
-    signer,
-    broadcasted: false,
+    sign: signer,
     title: `${translate('screens/PoolSwapScreen', 'Swapping Token')}`
   }))
 }

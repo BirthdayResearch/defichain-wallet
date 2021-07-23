@@ -1,9 +1,10 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction'
+import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface OceanTransaction {
   broadcasted: boolean
-  signer: () => Promise<CTransactionSegWit>
+  sign: (account: WhaleWalletAccount) => Promise<CTransactionSegWit>
   title?: string
 }
 
@@ -26,8 +27,8 @@ export const ocean = createSlice({
     setHeight: (state, action: PayloadAction<number>) => {
       state.height = action.payload
     },
-    queueTransaction: (state, action: PayloadAction<OceanTransaction>) => {
-      state.transactions = [...state.transactions, action.payload]
+    queueTransaction: (state, action: PayloadAction<Omit<OceanTransaction, 'broadcasted'>>) => {
+      state.transactions = [...state.transactions, { ...action.payload, broadcasted: false }]
     },
     setError: (state, action: PayloadAction<Error>) => {
       state.err = action.payload

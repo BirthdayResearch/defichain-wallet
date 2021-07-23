@@ -6,6 +6,7 @@ import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 're
 import { useDispatch, useSelector } from 'react-redux'
 import { Text } from '..'
 import { Logging } from '../../api/logging'
+import { useWallet } from '../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
 import { RootState } from '../../store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
@@ -44,6 +45,9 @@ export function OceanInterface (): JSX.Element | null {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
 
+  // Require fixes to support more than 1 WalletAcount
+  const whaleWalletAccount = useWallet().get(0)
+
   // store
   const { height, err: e } = useSelector((state: RootState) => state.ocean)
   const transaction = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
@@ -67,7 +71,7 @@ export function OceanInterface (): JSX.Element | null {
         ...transaction,
         broadcasted: false
       })
-      transaction.signer()
+      transaction.sign(whaleWalletAccount)
         .then(async signedTx => {
           setTxid(signedTx.txId)
           await broadcastTransaction(signedTx, client)
