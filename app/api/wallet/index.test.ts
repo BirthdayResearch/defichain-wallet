@@ -18,7 +18,10 @@ it('should createWallet', async () => {
   const data: WalletData = {
     version: "v1",
     type: WalletType.MNEMONIC_UNPROTECTED,
-    raw: "408b285c123836004f4b8842c89324c1f01382450c0d439af345ba7fc49acf705489c6fc77dbd4e3dc1dd8cc6bc9f043db8ada1e243c4a0eafb290d399480840"
+    raw: JSON.stringify([
+      '235b34cd7c9f6d7e4595ffe9ae4b1cb5606df8aca2b527d20a07c8f56b2342f4', // root priv key
+      'f40eaad21641ca7cb5ac00f9ce21cac9ba070bb673a237f7bce57acda54386a4' // chain code
+    ])
   }
 
   const wallet = createWallet(data, network, provider)
