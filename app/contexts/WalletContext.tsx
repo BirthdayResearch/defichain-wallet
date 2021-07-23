@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Logging } from '../api/logging'
-import { Wallet } from '../api/wallet'
+import { WhaleWallet } from '../api/wallet/provider'
 import { wallet as store } from '../store/wallet'
 import { useWalletManagementContext } from './WalletManagementContext'
 
-const WalletContext = createContext<Wallet>(undefined as any)
+const WalletContext = createContext<WhaleWallet>(undefined as any)
 
-export function useWallet (): Wallet {
+export function useWallet (): WhaleWallet {
   return useContext(WalletContext)
 }
 
