@@ -71,7 +71,7 @@ context('poolswap with values', () => {
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_row_2').should('exist')
       cy.getByTestID('balances_row_2_amount').then(($txt: any) => {
-        const balanceAmount = $txt[0].textContent
+        const balanceAmount = $txt[0].textContent.replace(' ETH', '').replace(',', '')
         expect(new BigNumber(balanceAmount).toNumber()).be.gte(new BigNumber(tokenValue).toNumber())
       })
 
