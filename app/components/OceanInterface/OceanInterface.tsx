@@ -1,17 +1,16 @@
+import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { MaterialIcons } from '@expo/vector-icons'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import tailwind from 'tailwind-rn'
 import { Text } from '..'
 import { Logging } from '../../api/logging'
-import { PrimaryColor, PrimaryColorStyle } from '../../constants/Theme'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
 import { RootState } from '../../store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
+import { tailwind } from '../../tailwind'
 import { translate } from '../../translations'
-import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 
 const MAX_AUTO_RETRY = 1
 
@@ -48,34 +47,36 @@ export function OceanInterface (): JSX.Element | null {
   // store
   const { height, err: e } = useSelector((state: RootState) => state.ocean)
   const transaction = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
-
+  const slideAnim = useRef(new Animated.Value(0)).current
   // state
   const [tx, setTx] = useState<OceanTransaction | undefined>(transaction)
   const [err, setError] = useState<Error | undefined>(e)
   const [txid, setTxid] = useState<string | undefined>()
 
-  const slideAnim = useRef(new Animated.Value(0)).current
-  Animated.timing(slideAnim, { toValue: height, duration: 300, useNativeDriver: false }).start()
-
   const dismissDrawer = useCallback(() => {
     setTx(undefined)
     setError(undefined)
+    slideAnim.setValue(0)
   }, [])
 
   useEffect(() => {
     // last available job will remained in this UI state until get dismissed
     if (transaction !== undefined) {
+      Animated.timing(slideAnim, { toValue: height, duration: 200, useNativeDriver: false }).start()
       setTx({
         ...transaction,
         broadcasted: false
       })
-
       transaction.signer()
         .then(async signedTx => {
           setTxid(signedTx.txId)
           await broadcastTransaction(signedTx, client)
         })
-        .then(() => setTx({ ...transaction, broadcasted: true, title: translate('screens/OceanInterface', 'Transaction Sent') }))
+        .then(() => setTx({
+          ...transaction,
+          broadcasted: true,
+          title: translate('screens/OceanInterface', 'Transaction Sent')
+        }))
         .catch((e: Error) => {
           let errMsg = e.message
           if (txid !== undefined) {
@@ -110,20 +111,20 @@ export function OceanInterface (): JSX.Element | null {
 function TransactionDetail ({ broadcasted, txid, onClose }: { broadcasted: boolean, txid?: string, onClose: () => void }): JSX.Element {
   let title = 'Signing...'
   if (txid !== undefined) title = 'Broadcasting...'
-  if (broadcasted) title = 'Sent'
+  if (broadcasted) title = 'Transaction Sent'
   return (
     <>
       {
-        !broadcasted ? <ActivityIndicator color={PrimaryColor} />
-          : <MaterialIcons name='check-circle' size={20} color='#02B31B' />
+        !broadcasted ? <ActivityIndicator style={tailwind('text-primary')} />
+          : <MaterialIcons name='check-circle' size={20} style={tailwind('text-success')} />
       }
-      <View style={tailwind('flex-grow mr-1 justify-center items-center text-center')}>
+      <View style={tailwind('flex-auto mx-6 justify-center items-center text-center')}>
         <Text
           style={tailwind('text-sm font-bold')}
         >{translate('screens/OceanInterface', title)}
         </Text>
         {
-          txid !== undefined && <TransactionIDButton txid={txid} onPress={async () => { await gotoExplorer(txid) }} />
+          txid !== undefined && <TransactionIDButton txid={txid} onPress={async () => await gotoExplorer(txid)} />
         }
       </View>
       {
@@ -137,13 +138,15 @@ function TransactionError ({ errMsg, onClose }: { errMsg: string | undefined, on
   return (
     <>
       <MaterialIcons name='error' size={20} color='#ff0000' />
-      <View style={tailwind('flex-grow mr-1 justify-center items-center text-center')}>
+      <View style={tailwind('flex-auto mx-2 justify-center items-center text-center')}>
         <Text
           style={tailwind('text-sm font-bold')}
         >{`${translate('screens/OceanInterface', 'An error has occurred')}`}
         </Text>
         <Text
           style={tailwind('text-sm font-bold')}
+          numberOfLines={1}
+          ellipsizeMode='tail'
         >{errMsg}
         </Text>
       </View>
@@ -155,12 +158,16 @@ function TransactionError ({ errMsg, onClose }: { errMsg: string | undefined, on
 function TransactionIDButton ({ txid, onPress }: { txid: string, onPress?: () => void }): JSX.Element {
   return (
     <TouchableOpacity
-      testID='oceanNetwork_explorer' style={tailwind('flex-row bg-white p-1 items-center')} disabled
+      testID='oceanNetwork_explorer' style={tailwind('flex-row p-1 items-center')}
+      onPress={onPress}
     >
-      <Text style={[PrimaryColorStyle.text, tailwind('text-sm font-medium mr-1')]}>
-        {`${txid.substring(0, 15)}...`}
+      <Text
+        style={tailwind('text-sm font-medium mr-1 text-primary')} numberOfLines={1}
+        ellipsizeMode='tail'
+      >
+        {txid}
       </Text>
-      <MaterialIcons name='open-in-new' size={18} color={PrimaryColor} onPress={onPress} />
+      <MaterialIcons name='open-in-new' size={18} style={tailwind('text-primary')} />
     </TouchableOpacity>
   )
 }
@@ -170,7 +177,7 @@ function TransactionCloseButton (props: { onPress: () => void }): JSX.Element {
     <TouchableOpacity
       testID='oceanInterface_close' onPress={props.onPress} style={tailwind('px-2 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
     >
-      <Text style={[PrimaryColorStyle.text, tailwind('text-sm')]}>
+      <Text style={tailwind('text-sm text-primary')}>
         {translate('screens/OceanInterface', 'OK')}
       </Text>
     </TouchableOpacity>

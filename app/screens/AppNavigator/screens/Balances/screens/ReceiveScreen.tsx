@@ -4,9 +4,8 @@ import React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 import { useSelector } from 'react-redux'
-import tailwind from 'tailwind-rn'
-import { PrimaryColor, PrimaryColorStyle } from '../../../../../constants/Theme'
 import { RootState } from '../../../../../store'
+import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 
 export function ReceiveScreen (): JSX.Element {
@@ -42,11 +41,10 @@ export function ReceiveScreen (): JSX.Element {
         }}
       >
         <MaterialIcons
-          style={tailwind('self-center')} name='content-copy' size={16}
-          color={PrimaryColor}
+          style={tailwind('self-center text-primary')} name='content-copy' size={16}
         />
         <Text
-          style={[PrimaryColorStyle.text, tailwind('ml-2 uppercase font-medium')]}
+          style={tailwind('ml-2 uppercase font-medium text-primary')}
         >{translate('screens/ReceiveScreen', 'Copy')}
         </Text>
       </TouchableOpacity>

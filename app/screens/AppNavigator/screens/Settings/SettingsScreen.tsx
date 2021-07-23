@@ -1,13 +1,13 @@
+import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { useCallback } from 'react'
 import { SectionList, TouchableOpacity } from 'react-native'
-import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
-import { PrimaryColor, PrimaryColorStyle, VectorIcon } from '../../../../constants/Theme'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
 import { useWalletManagementContext } from '../../../../contexts/WalletManagementContext'
 import { EnvironmentNetwork, getEnvironment, isPlayground } from '../../../../environment'
+import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 
 export function SettingsScreen (): JSX.Element {
@@ -77,7 +77,8 @@ function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
       </Text>
 
       {
-        props.network === network ? <VectorIcon size={24} name='check' color={PrimaryColor} /> : null
+        props.network === network
+          ? <MaterialIcons size={24} name='check' style={tailwind('text-primary')} /> : null
       }
     </TouchableOpacity>
   )
@@ -91,7 +92,7 @@ function RowExitWalletItem (): JSX.Element {
       testID='setting_exit_wallet'
       onPress={clearWallets} style={tailwind('bg-white')}
     >
-      <Text style={[tailwind('p-4 font-bold'), PrimaryColorStyle.text]}>
+      <Text style={tailwind('p-4 font-bold text-primary')}>
         {translate('wallet/settings', 'EXIT WALLET')}
       </Text>
     </TouchableOpacity>

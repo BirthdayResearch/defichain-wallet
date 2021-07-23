@@ -35,6 +35,7 @@
       <w>checksig</w>
       <w>checksigverify</w>
       <w>clarkequayheight</w>
+      <w>codeclimate</w>
       <w>codeseparator</w>
       <w>createmasternode</w>
       <w>createpoolpair</w>
@@ -82,6 +83,7 @@
       <w>gettxout</w>
       <w>getunconfirmedbalance</w>
       <w>getwalletinfo</w>
+      <w>gitattributes</w>
       <w>greaterthan</w>
       <w>greaterthanorequal</w>
       <w>hant</w>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../components'
 import { usePlaygroundContext } from '../../../contexts/PlaygroundContext'
 import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
+import { tailwind } from '../../../tailwind'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
 

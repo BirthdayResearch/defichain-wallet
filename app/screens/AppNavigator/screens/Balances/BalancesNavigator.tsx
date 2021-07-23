@@ -1,10 +1,11 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { View } from 'react-native'
-import tailwind from 'tailwind-rn'
 import { Text } from '../../../../components'
+import { BarCodeScanner } from '../../../../components/BarCodeScanner'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { WalletToken } from '../../../../store/wallet'
+import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { BalancesScreen } from './BalancesScreen'
 import { ConversionMode, ConvertScreen } from './ConvertScreen'
@@ -18,6 +19,7 @@ export interface BalanceParamList {
   SendScreen: { token: WalletToken }
   TokenDetailScreen: { token: WalletToken }
   ConvertScreen: { mode: ConversionMode }
+  BarCodeScanner: { onQrScanned: (value: string) => void }
 
   [key: string]: undefined | object
 }
@@ -73,6 +75,14 @@ export function BalancesNavigator (): JSX.Element {
         component={ConvertScreen}
         options={{
           headerTitle: translate('screens/ConvertScreen', 'Convert DFIs'),
+          headerBackTitleVisible: false
+        }}
+      />
+      <BalanceStack.Screen
+        name='BarCodeScanner'
+        component={BarCodeScanner}
+        options={{
+          headerTitle: translate('screens/ConvertScreen', 'Scan recipient QR'),
           headerBackTitleVisible: false
         }}
       />

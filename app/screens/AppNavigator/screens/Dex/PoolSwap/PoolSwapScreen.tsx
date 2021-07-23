@@ -10,16 +10,15 @@ import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import tailwind from 'tailwind-rn'
 import { Logging } from '../../../../../api/logging'
 import { Text, TextInput } from '../../../../../components'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../../components/PrimaryButton'
-import { PrimaryColor, PrimaryColorStyle } from '../../../../../constants/Theme'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
 import { hasTxQueued, ocean } from '../../../../../store/ocean'
+import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import LoadingScreen from '../../../../LoadingNavigator/LoadingScreen'
 import { DexParamList } from '../DexNavigator'
@@ -120,7 +119,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         maxAmount={tokenA.amount}
       />
       <TouchableOpacity style={tailwind('justify-center items-center mt-4')} onPress={swapToken} testID='swap_button'>
-        <MaterialIcons name='swap-vert' size={28} color={PrimaryColor} />
+        <MaterialIcons name='swap-vert' size={28} style={tailwind('text-primary')} />
       </TouchableOpacity>
       <TokenRow
         token={tokenB} control={control} controlName={tokenBForm}
@@ -216,7 +215,7 @@ function TokenRow (form: TokenForm): JSX.Element {
           (enableMaxButton != null && onChangeFromAmount !== undefined) && (
             <TouchableOpacity testID='max_button_token_a' onPress={() => onChangeFromAmount(token.amount)}>
               <Text
-                style={[PrimaryColorStyle.text, tailwind('font-bold')]}
+                style={tailwind('font-bold text-primary')}
               >{translate('screens/PoolSwapScreen', 'MAX')}
               </Text>
             </TouchableOpacity>

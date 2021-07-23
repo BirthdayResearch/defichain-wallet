@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
-import tailwind from 'tailwind-rn'
 import { Text, View } from '../../components'
 import { AppIcon } from '../../components/icons/AppIcon'
+import { tailwind } from '../../tailwind'
 import { translate } from '../../translations'
 
 interface Props {

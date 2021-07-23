@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
-      - uses: actions/setup-node@38d90ce44d5275ad62cc48384b3d8a58c500bb5f
+      - uses: actions/setup-node@aa759c6c94d3800c55b8601f21ba4b2371704cb7
         with:
           node-version: 15
           cache: 'npm'
@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
-      - uses: actions/setup-node@38d90ce44d5275ad62cc48384b3d8a58c500bb5f
+      - uses: actions/setup-node@aa759c6c94d3800c55b8601f21ba4b2371704cb7
         with:
           node-version: 15
           cache: 'npm'
@@ -33,7 +33,7 @@ jobs:
       - run: npm ci
       - run: npm run test:ci
 
-      - uses: codecov/codecov-action@29386c70ef20e286228c72b668a06fd0e8399192
+      - uses: codecov/codecov-action@c585afe366f940d214dc09df2664c06d7fe07052
         with:
           fail_ci_if_error: true
 
@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
-      - uses: actions/setup-node@38d90ce44d5275ad62cc48384b3d8a58c500bb5f
+      - uses: actions/setup-node@aa759c6c94d3800c55b8601f21ba4b2371704cb7
         with:
           node-version: 15
           cache: 'npm'
@@ -69,6 +69,6 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: codecov/codecov-action@29386c70ef20e286228c72b668a06fd0e8399192
+      - uses: codecov/codecov-action@c585afe366f940d214dc09df2664c06d7fe07052
         with:
           fail_ci_if_error: true

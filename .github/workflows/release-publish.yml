@@ -32,14 +32,14 @@ jobs:
     needs: [ version ]
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
-      - uses: actions/setup-node@38d90ce44d5275ad62cc48384b3d8a58c500bb5f
+      - uses: actions/setup-node@aa759c6c94d3800c55b8601f21ba4b2371704cb7
         with:
           node-version: 15
 
       - uses: expo/expo-github-action@c3c02de017ef8cf6152daee160e8a47a2340a5e5
         with:
           expo-version: 4.x
-          expo-packager: npm
+          packager: npm
           token: ${{ secrets.EXPO_TOKEN }}
 
       - run: npm ci
@@ -60,7 +60,7 @@ jobs:
     needs: [ version ]
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
-      - uses: actions/setup-node@38d90ce44d5275ad62cc48384b3d8a58c500bb5f
+      - uses: actions/setup-node@aa759c6c94d3800c55b8601f21ba4b2371704cb7
         with:
           node-version: 15
 
@@ -68,7 +68,7 @@ jobs:
         with:
           eas-version: latest
           expo-version: 4.x
-          expo-packager: npm
+          packager: npm
           token: ${{ secrets.EXPO_TOKEN }}
 
       - run: npm ci

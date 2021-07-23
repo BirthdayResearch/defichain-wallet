@@ -2,6 +2,7 @@ import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
+import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
@@ -10,19 +11,19 @@ import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import tailwind from 'tailwind-rn'
 import { Logging } from '../../../../../api/logging'
 import { Wallet } from '../../../../../api/wallet'
 import { Text, TextInput } from '../../../../../components'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../../components/PrimaryButton'
-import { PrimaryColorStyle } from '../../../../../constants/Theme'
+import { SectionTitle } from '../../../../../components/SectionTitle'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { RootState } from '../../../../../store'
 import { hasTxQueued, ocean } from '../../../../../store/ocean'
 import { WalletToken } from '../../../../../store/wallet'
+import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
 
@@ -71,7 +72,7 @@ async function send ({
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
-export function SendScreen ({ route }: Props): JSX.Element {
+export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const { networkName } = useNetworkContext()
   const wallet = useWallet()
   const client = useWhaleApiClient()
@@ -93,14 +94,25 @@ export function SendScreen ({ route }: Props): JSX.Element {
     setIsSubmitting(true)
     if (isValid) {
       const values = getValues()
-      await send({ address: values.address, token, amount: new BigNumber(values.amount), networkName }, wallet, dispatch)
+      await send({
+        address: values.address,
+        token,
+        amount: new BigNumber(values.amount),
+        networkName
+      }, wallet, dispatch)
     }
     setIsSubmitting(false)
   }
 
   return (
     <ScrollView style={tailwind('bg-gray-100')}>
-      <AddressRow control={control} networkName={networkName} />
+      <AddressRow
+        control={control}
+        networkName={networkName}
+        onQrButtonPress={() => navigation.navigate('BarCodeScanner', {
+          onQrScanned: value => setValue('address', value)
+        })}
+      />
       <AmountRow
         fee={fee}
         token={token} control={control} onMaxPress={async (amount) => {
@@ -128,13 +140,17 @@ export function SendScreen ({ route }: Props): JSX.Element {
   )
 }
 
-function AddressRow ({ control, networkName }: { control: Control, networkName: NetworkName }): JSX.Element {
+function AddressRow ({
+  control,
+  networkName,
+  onQrButtonPress
+}: { control: Control, networkName: NetworkName, onQrButtonPress: () => void }): JSX.Element {
   return (
     <>
-      <Text
-        style={tailwind('text-sm font-bold pl-4 mt-4 mb-2')}
-      >{translate('screens/SendScreen', 'TO ADDRESS')}
-      </Text>
+      <SectionTitle
+        text={translate('screens/SendScreen', 'TO ADDRESS')}
+        testID='title_to_address'
+      />
       <Controller
         control={control}
         rules={{
@@ -153,11 +169,12 @@ function AddressRow ({ control, networkName }: { control: Control, networkName: 
               onChangeText={onChange}
               placeholder={translate('screens/SendScreen', 'Enter an address')}
             />
-            {/* <TouchableOpacity
-              style={tailwind('p-4 bg-white')}
+            <TouchableOpacity
+              style={tailwind('w-14 p-4 bg-white')}
+              onPress={onQrButtonPress}
             >
-              <MaterialIcons name='qr-code-scanner' size={24} color={PrimaryColor} />
-            </TouchableOpacity> */}
+              <MaterialIcons name='qr-code-scanner' size={24} style={tailwind('text-primary')} />
+            </TouchableOpacity>
           </View>
         )}
         name='address'
@@ -176,13 +193,14 @@ interface AmountForm {
 
 function AmountRow ({ token, control, onMaxPress, fee }: AmountForm): JSX.Element {
   const Icon = getTokenIcon(token.avatarSymbol)
-  const maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).toFixed(8) : token.amount
+  let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).toFixed(8) : token.amount
+  maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
   return (
     <>
-      <Text
-        style={tailwind('text-sm font-bold pl-4 mt-8 mb-2')}
-      >{translate('screens/SendScreen', 'SEND')}
-      </Text>
+      <SectionTitle
+        text={translate('screens/SendScreen', 'SEND')}
+        testID='title_send'
+      />
       <Controller
         control={control}
         rules={{
@@ -223,7 +241,7 @@ function AmountRow ({ token, control, onMaxPress, fee }: AmountForm): JSX.Elemen
         </View>
         <TouchableOpacity onPress={() => onMaxPress(maxAmount)}>
           <Text
-            style={[PrimaryColorStyle.text, tailwind('font-bold')]}
+            style={tailwind('font-bold text-primary')}
           >{translate('screens/SendScreen', 'MAX')}
           </Text>
         </TouchableOpacity>

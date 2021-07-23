@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../components'
 import { useNetworkContext } from '../../../contexts/NetworkContext'
 import { usePlaygroundContext } from '../../../contexts/PlaygroundContext'
+import { tailwind } from '../../../tailwind'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
 const DURATION = 3000

@@ -26,17 +26,25 @@ exports[`oceanInterface should match snapshot 1`] = `
 >
   <ActivityIndicator
     animating={true}
-    color="#ff00af"
+    color="#999999"
     hidesWhenStopped={true}
     size="small"
+    style={
+      Object {
+        "color": "rgba(255, 0, 175, 1)",
+      }
+    }
   />
   <View
     style={
       Object {
         "alignItems": "center",
+        "flexBasis": "auto",
         "flexGrow": 1,
+        "flexShrink": 1,
         "justifyContent": "center",
-        "marginRight": 4,
+        "marginLeft": 24,
+        "marginRight": 24,
         "textAlign": "center",
       }
     }
