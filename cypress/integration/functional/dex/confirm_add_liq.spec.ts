@@ -4,7 +4,9 @@ context('app/dex/addLiquidity', () => {
 
     cy.getByTestID('bottom_tab_settings').click()
     // fund DFI token involve multiple actions, ready in 2 blocks
-    cy.sendDFItoWallet().sendTokenToWallet(['DFI', 'BTC']).wait(10000)
+    cy.sendDFItoWallet()
+      .sendDFITokentoWallet()
+      .sendTokenToWallet(['BTC']).wait(10000)
     cy.getByTestID('playground_wallet_fetch_balances').click()
 
     cy.getByTestID('bottom_tab_liquidity').click()

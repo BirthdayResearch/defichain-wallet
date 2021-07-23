@@ -12,7 +12,7 @@ export function PlaygroundUTXO (): JSX.Element | null {
   const [status, setStatus] = useState<string>('loading')
 
   useEffect(() => {
-    api.playground.wallet().then(() => {
+    api.wallet.balances().then(() => {
       setStatus('online')
     }).catch(() => {
       setStatus('error')
