@@ -33,7 +33,7 @@ export function WalletManagementProvider (props: React.PropsWithChildren<any>): 
   const wallets = useMemo(() => {
     const options = getJellyfishNetwork(network)
     const provider = new WhaleWalletAccountProvider(client, options)
-    return dataList.map(data => createWallet(data, options, provider))
+    return dataList.map(data => createWallet(data, network, provider))
   }, [dataList])
 
   const management: WalletManagement = {
