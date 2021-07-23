@@ -83,7 +83,7 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
           <Text
             numberOfLines={1}
             ellipsizeMode='tail'
-            style={tailwind('text-xs font-medium text-gray-600')}
+            style={tailwind('text-sm font-medium text-gray-600')}
           >{token.name}
           </Text>
         </View>
