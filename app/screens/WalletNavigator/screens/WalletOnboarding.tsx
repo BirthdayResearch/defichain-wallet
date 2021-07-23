@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
 import { MnemonicUnprotected } from '../../../api/wallet/provider/mnemonic_unprotected'
@@ -8,10 +8,11 @@ import { useWalletManagementContext } from '../../../contexts/WalletManagementCo
 import { getEnvironment } from '../../../environment'
 import { tailwind } from '../../../tailwind'
 import { translate } from '../../../translations'
+import { WalletParamList } from '../WalletNavigator'
 
 export function WalletOnboarding (): JSX.Element {
   const { setWallet } = useWalletManagementContext()
-  const navigator = useNavigation()
+  const navigator = useNavigation<NavigationProp<WalletParamList>>()
 
   const onDebugPress = getEnvironment().debug ? async () => {
     await setWallet(MnemonicUnprotected.Abandon23Playground)
