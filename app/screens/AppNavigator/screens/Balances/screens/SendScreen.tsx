@@ -128,12 +128,15 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
             </View>
             <NumberFormat
               value={fee.toString()} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
-              renderText={(value) => <Text style={tailwind('text-gray-500')}>{value}</Text>}
+              renderText={(value) => <Text testID='transaction_fee' style={tailwind('text-gray-500')}>{value}</Text>}
             />
           </View>
         )
       }
-      <PrimaryButton disabled={!isValid || isSubmitting || hasPendingJob} title='Send' onPress={onSubmit}>
+      <PrimaryButton
+        testID='send_submit_button' disabled={!isValid || isSubmitting || hasPendingJob} title='Send'
+        onPress={onSubmit}
+      >
         <Text style={tailwind('text-white font-bold')}>{translate('screens/SendScreen', 'SEND')}</Text>
       </PrimaryButton>
     </ScrollView>
@@ -162,6 +165,7 @@ function AddressRow ({
         render={({ field: { value, onBlur, onChange } }) => (
           <View style={tailwind('flex-row w-full')}>
             <TextInput
+              testID='address_input'
               style={tailwind('flex-grow p-4 bg-white')}
               autoCapitalize='none'
               value={value}
@@ -170,6 +174,7 @@ function AddressRow ({
               placeholder={translate('screens/SendScreen', 'Enter an address')}
             />
             <TouchableOpacity
+              testID='qr_code_button'
               style={tailwind('w-14 p-4 bg-white')}
               onPress={onQrButtonPress}
             >
@@ -214,6 +219,7 @@ function AmountRow ({ token, control, onMaxPress, fee }: AmountForm): JSX.Elemen
         render={({ field: { onBlur, onChange, value } }) => (
           <View style={tailwind('flex-row w-full border-b border-gray-100')}>
             <TextInput
+              testID='amount_input'
               style={tailwind('flex-grow p-4 bg-white')}
               autoCapitalize='none'
               onBlur={onBlur}
@@ -224,7 +230,7 @@ function AmountRow ({ token, control, onMaxPress, fee }: AmountForm): JSX.Elemen
             />
             <View style={tailwind('flex-row bg-white pr-4 items-center')}>
               <Icon />
-              <Text style={tailwind('ml-2')}>{token.symbol}</Text>
+              <Text testID='token_symbol' style={tailwind('ml-2')}>{token.symbol}</Text>
             </View>
           </View>
         )}
@@ -236,10 +242,10 @@ function AmountRow ({ token, control, onMaxPress, fee }: AmountForm): JSX.Elemen
           <Text>{translate('screens/SendScreen', 'Balance: ')}</Text>
           <NumberFormat
             value={maxAmount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
-            renderText={(value) => <Text style={tailwind('text-gray-500')}>{value}</Text>}
+            renderText={(value) => <Text testID='max_value' style={tailwind('text-gray-500')}>{value}</Text>}
           />
         </View>
-        <TouchableOpacity onPress={() => onMaxPress(maxAmount)}>
+        <TouchableOpacity testID='max_button' onPress={() => onMaxPress(maxAmount)}>
           <Text
             style={tailwind('font-bold text-primary')}
           >{translate('screens/SendScreen', 'MAX')}
