@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should resolve bip32 option for RemotePlayground 1`] = `
+Object {
+  "bip32": Object {
+    "private": 70615956,
+    "public": 70617039,
+  },
+  "wif": 239,
+}
+`;
