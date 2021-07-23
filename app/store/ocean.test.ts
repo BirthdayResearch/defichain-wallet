@@ -28,11 +28,17 @@ describe('ocean reducer', () => {
     const sign = async () => new CTransactionSegWit(buffer)
     const payload: Omit<OceanTransaction, 'broadcasted'> = { title: 'Sending', sign }
     const addedTransaction = ocean.reducer(initialState, ocean.actions.queueTransaction(payload));
-    expect(addedTransaction).toStrictEqual({ transactions: [payload], err: undefined, height: 49 })
+    expect(addedTransaction).toStrictEqual({ transactions: [{
+      ...payload,
+      broadcasted: false
+    }], err: undefined, height: 49 })
     const actual = ocean.reducer(addedTransaction, ocean.actions.queueTransaction(payload));
 
     const pop = ocean.reducer(actual, ocean.actions.popTransaction());
-    expect(pop).toStrictEqual({ transactions: [payload], err: undefined, height: 49 })
+    expect(pop).toStrictEqual({ transactions: [{
+      ...payload,
+      broadcasted: false
+    }], err: undefined, height: 49 })
     const removed = ocean.reducer(pop, ocean.actions.popTransaction());
     expect(removed).toStrictEqual({ transactions: [], err: undefined, height: 49 })
   })
