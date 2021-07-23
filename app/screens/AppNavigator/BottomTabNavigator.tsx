@@ -48,7 +48,7 @@ export function BottomTabNavigator (): JSX.Element {
           name='DEX'
           component={DexNavigator}
           options={{
-            tabBarTestID: 'bottom_tab_liquidity',
+            tabBarTestID: 'bottom_tab_dex',
             tabBarIcon: ({ color }) => <TabBarIcon name='pie-chart' color={color} />
           }}
         />

@@ -6,7 +6,7 @@ context('app/dex/removeLiquidity', () => {
     cy.sendDFItoWallet().sendTokenToWallet(['DFI-ETH']).wait(6000)
     cy.getByTestID('playground_wallet_fetch_balances').click()
 
-    cy.getByTestID('bottom_tab_liquidity').click().wait(1000)
+    cy.getByTestID('bottom_tab_dex').click().wait(1000)
 
     const list = cy.getByTestID('liquidity_screen_list')
     list.getByTestID('pool_pair_row_your').should('have.length', 1)
@@ -56,7 +56,7 @@ context('app/dex/removeLiquidity', () => {
     // refresh balance
     cy.getByTestID('bottom_tab_settings').click()
     cy.getByTestID('playground_wallet_fetch_balances').click()
-    cy.getByTestID('bottom_tab_liquidity').click().wait(100)
+    cy.getByTestID('bottom_tab_dex').click().wait(100)
 
     const list = cy.getByTestID('liquidity_screen_list')
     list.getByTestID('pool_pair_row_your').should('not.exist') // DFI-ETH balance row removed
