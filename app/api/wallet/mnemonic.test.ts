@@ -11,11 +11,10 @@ describe('getMnemonicHdNodeProvider', () => {
     const data: WalletData = {
       version: "v1",
       type: WalletType.MNEMONIC_UNPROTECTED,
-      raw: JSON.stringify({
-        words: ['abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'],
-        chainCode: 'f40eaad21641ca7cb5ac00f9ce21cac9ba070bb673a237f7bce57acda54386a4',
-        privKey: '235b34cd7c9f6d7e4595ffe9ae4b1cb5606df8aca2b527d20a07c8f56b2342f4'
-      })
+      raw: JSON.stringify([
+        '235b34cd7c9f6d7e4595ffe9ae4b1cb5606df8aca2b527d20a07c8f56b2342f4', // root priv key
+        'f40eaad21641ca7cb5ac00f9ce21cac9ba070bb673a237f7bce57acda54386a4' // chain code
+      ])
     }
     const options = EnvironmentNetwork.LocalPlayground
 
@@ -36,11 +35,10 @@ describe('addMnemonicHdNodeProvider', () => {
     expect(Mnemonic.createWalletDataAbandon23(EnvironmentNetwork.LocalPlayground)).toStrictEqual({
       version: "v1",
       type: WalletType.MNEMONIC_UNPROTECTED,
-      raw: JSON.stringify({
-        words: ['abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'],
-        chainCode: 'f40eaad21641ca7cb5ac00f9ce21cac9ba070bb673a237f7bce57acda54386a4',
-        privKey: '235b34cd7c9f6d7e4595ffe9ae4b1cb5606df8aca2b527d20a07c8f56b2342f4'
-      })
+      raw: JSON.stringify([
+        '235b34cd7c9f6d7e4595ffe9ae4b1cb5606df8aca2b527d20a07c8f56b2342f4',
+        'f40eaad21641ca7cb5ac00f9ce21cac9ba070bb673a237f7bce57acda54386a4'
+      ])
     })
   })
 
@@ -50,11 +48,10 @@ describe('addMnemonicHdNodeProvider', () => {
     expect(Mnemonic.createWalletData(mnemonic, EnvironmentNetwork.LocalPlayground)).toStrictEqual({
       version: "v1",
       type: WalletType.MNEMONIC_UNPROTECTED,
-      raw: JSON.stringify({
-        words: ['void', 'come', 'effort', 'suffer', 'camp', 'survey', 'warrior', 'heavy', 'shoot', 'primary', 'clutch', 'crush', 'open', 'amazing', 'screen', 'patrol', 'group', 'space', 'point', 'ten', 'exist', 'slush', 'involve', 'unfold'],
-        chainCode: 'bbb5f26acee2e3713d43cf4e702f2b1ff8672afa9e0d5ac846196689e1d893d2',
-        privKey: 'b21fcb414b4414e9bcf7ae647a79a4d29280f6b71cba204cb4dd3d6c6568d0fc'
-      })
+      raw: JSON.stringify([
+        'b21fcb414b4414e9bcf7ae647a79a4d29280f6b71cba204cb4dd3d6c6568d0fc',
+        'bbb5f26acee2e3713d43cf4e702f2b1ff8672afa9e0d5ac846196689e1d893d2'
+      ])
     })
   })
 })

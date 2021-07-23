@@ -18,7 +18,12 @@ function createProvider (data: WalletData, network: EnvironmentNetwork): Mnemoni
   if (data.type !== WalletType.MNEMONIC_UNPROTECTED || data.version !== 'v1') {
     throw new Error('Unexpected WalletData')
   }
-  return MnemonicHdNodeProvider.fromData(JSON.parse(data.raw), getBip32Option(network))
+  const [privKey, chainCode] = JSON.parse(data.raw)
+  return MnemonicHdNodeProvider.fromData({
+    words: [],
+    privKey,
+    chainCode
+  }, getBip32Option(network))
 }
 
 export function createWalletData (mnemonic: string[], network: EnvironmentNetwork): WalletData {
@@ -26,7 +31,7 @@ export function createWalletData (mnemonic: string[], network: EnvironmentNetwor
   return {
     version: 'v1',
     type: WalletType.MNEMONIC_UNPROTECTED,
-    raw: JSON.stringify(mnemonicData)
+    raw: JSON.stringify([mnemonicData.privKey, mnemonicData.chainCode])
   }
 }
 
