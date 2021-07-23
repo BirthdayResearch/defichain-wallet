@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should resolve bip32 option for LocalPlayground 1`] = `
+Object {
+  "bip32": Object {
+    "private": 70615956,
+    "public": 70617039,
+  },
+  "wif": 239,
+}
+`;
+
+exports[`should resolve bip32 option for MainNet 1`] = `
+Object {
+  "bip32": Object {
+    "private": 76066276,
+    "public": 76067358,
+  },
+  "wif": 128,
+}
+`;
+
+exports[`should resolve bip32 option for RemotePlayground 1`] = `
+Object {
+  "bip32": Object {
+    "private": 70615956,
+    "public": 70617039,
+  },
+  "wif": 239,
+}
+`;
+
+exports[`should resolve bip32 option for TestNet 1`] = `
+Object {
+  "bip32": Object {
+    "private": 70615956,
+    "public": 70617039,
+  },
+  "wif": 239,
+}
+`;

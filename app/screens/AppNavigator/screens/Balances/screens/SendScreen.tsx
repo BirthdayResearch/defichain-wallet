@@ -12,7 +12,7 @@ import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Logging } from '../../../../../api/logging'
-import { Wallet } from '../../../../../api/wallet'
+import { WhaleWallet } from '../../../../../api/wallet/provider'
 import { Text, TextInput } from '../../../../../components'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { PrimaryButton } from '../../../../../components/PrimaryButton'
@@ -39,7 +39,7 @@ async function send ({
   token,
   amount,
   networkName
-}: SendForm, wallet: Wallet, dispatch: Dispatch<any>): Promise<void> {
+}: SendForm, wallet: WhaleWallet, dispatch: Dispatch<any>): Promise<void> {
   try {
     const account = wallet.get(0)
     const script = await account.getScript()
