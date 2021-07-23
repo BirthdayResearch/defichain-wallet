@@ -37,7 +37,7 @@ context('poolswap with values', () => {
     // Valid form
     cy.getByTestID('text_input_tokenA').type('1')
     cy.getByTestID('text_price_row_price_1').then(($txt: any) => {
-      const tokenValue = $txt[0].textContent.replace(' ETH per DFI', '')
+      const tokenValue = $txt[0].textContent.replace(' ETH per DFI', '').replace(',', '')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
       cy.getByTestID('button_submit').should('not.have.attr', 'disabled')
 
@@ -57,14 +57,14 @@ context('poolswap with values', () => {
     cy.getByTestID('max_button_token_a').click().wait(3000)
     cy.getByTestID('text_input_tokenA').should('have.value', '10.00000000')
     cy.getByTestID('text_price_row_minimum_0').then(($txt: any) => {
-      const tokenValue = $txt[0].textContent.replace(' ETH', '')
+      const tokenValue = $txt[0].textContent.replace(' ETH', '').replace(',', '')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
     })
   })
 
   it('should be able to swap', function () {
     cy.getByTestID('text_price_row_minimum_0').then(($txt: any) => {
-      const tokenValue = $txt[0].textContent.replace(' ETH', '')
+      const tokenValue = $txt[0].textContent.replace(' ETH', '').replace(',', '')
       cy.getByTestID('button_submit').click()
       cy.wait(5000).getByTestID('oceanInterface_close').click().wait(5000)
       cy.getByTestID('playground_wallet_fetch_balances').click()
