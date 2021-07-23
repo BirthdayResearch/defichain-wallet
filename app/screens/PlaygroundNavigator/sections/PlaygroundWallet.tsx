@@ -2,7 +2,7 @@ import { generateMnemonicWords } from '@defichain/jellyfish-wallet-mnemonic'
 import * as Random from 'expo-random'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Mnemonic } from '../../../api/wallet/mnemonic'
+import { MnemonicUnprotected } from '../../../api/wallet/provider/mnemonic_unprotected'
 import { Text, View } from '../../../components'
 import { useNetworkContext } from '../../../contexts/NetworkContext'
 import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
@@ -41,7 +41,7 @@ export function PlaygroundWallet (): JSX.Element | null {
       <PlaygroundAction
         testID='playground_wallet_abandon'
         title='Setup wallet with abandon x23 + art as mnemonic seed'
-        onPress={async () => await setWallet(Mnemonic.createWalletDataAbandon23(network.network))}
+        onPress={async () => await setWallet(MnemonicUnprotected.Abandon23Playground)}
       />
 
       <PlaygroundAction
@@ -53,7 +53,7 @@ export function PlaygroundWallet (): JSX.Element | null {
             return Buffer.from(bytes)
           })
 
-          await setWallet(Mnemonic.createWalletData(words, network.network))
+          await setWallet(MnemonicUnprotected.toData(words, network.network))
         }}
       />
 

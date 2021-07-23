@@ -1,22 +1,20 @@
 import { useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
-import { Mnemonic } from '../../../api/wallet/mnemonic'
+import { MnemonicUnprotected } from '../../../api/wallet/provider/mnemonic_unprotected'
 import { Text, View } from '../../../components'
 import { VectorIcon, VectorIconName } from '../../../constants/Theme'
-import { useNetworkContext } from '../../../contexts/NetworkContext'
 import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
 import { getEnvironment } from '../../../environment'
 import { tailwind } from '../../../tailwind'
 import { translate } from '../../../translations'
 
 export function WalletOnboarding (): JSX.Element {
-  const { network } = useNetworkContext()
   const { setWallet } = useWalletManagementContext()
   const navigator = useNavigation()
 
   const onDebugPress = getEnvironment().debug ? async () => {
-    await setWallet(Mnemonic.createWalletDataAbandon23(network))
+    await setWallet(MnemonicUnprotected.Abandon23Playground)
   } : undefined
 
   return (
