@@ -92,7 +92,7 @@ export function WalletMnemonicCreateVerify ({ route }: Props): JSX.Element {
         <TouchableOpacity
           style={[tailwind('m-4 rounded flex items-center justify-center bg-primary')]}
           onPress={onVerify}
-          delayLongPress={1000}
+          delayLongPress={5000}
           onLongPress={bypassCheck}
         >
           <Text style={tailwind('p-3 font-bold text-white')}>

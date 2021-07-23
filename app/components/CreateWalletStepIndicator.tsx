@@ -32,8 +32,8 @@ export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Eleme
   function following (): JSX.Element[] {
     const arr: JSX.Element[] = []
     for (let i = 1; i < totalStep; i++) {
-      arr.push(<View style={[tailwind('h-1 flex-grow mt-3.5'), { backgroundColor: current >= i + 1 ? PrimaryColor : '#FFCDEF' }]} />)
-      arr.push(<StepNode step={i + 1} isActive={current === i + 1} />)
+      arr.push(<View key={i * 2} style={[tailwind('h-1 flex-grow mt-3.5'), { backgroundColor: current >= i + 1 ? PrimaryColor : '#FFCDEF' }]} />)
+      arr.push(<StepNode key={i * 2 + 1} step={i + 1} isActive={current === i + 1} />)
     }
     return arr
   }
@@ -43,7 +43,7 @@ export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Eleme
     for (let i = 0; i < steps.length; i++) {
       const textColor = current === i + 1 ? PrimaryColor : 'gray'
       arr.push(
-        <View style={[tailwind('w-16')]}>
+        <View key={i} style={[tailwind('w-16')]}>
           <Text style={[tailwind('text-center'), { color: textColor }]}>{steps[i]}</Text>
         </View>
       )

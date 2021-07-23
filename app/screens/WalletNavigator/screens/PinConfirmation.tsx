@@ -1,23 +1,19 @@
-import { MaterialIcons } from '@expo/vector-icons'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
 import { ScrollView } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { Mnemonic } from '../../../api/wallet/mnemonic'
-import { Text, View } from '../../../components'
-import { CreateWalletStepIndicator } from '../../../components/CreateWalletStepIndicator'
+import { Text } from '../../../components'
 import { PinInput } from '../../../components/PinInput'
-import { PrimaryButton } from '../../../components/PrimaryButton'
+import { useNetworkContext } from '../../../contexts/NetworkContext'
 import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
 import { translate } from '../../../translations'
 import { WalletParamList } from '../WalletNavigator'
 
 type Props = StackScreenProps<WalletParamList, 'PinConfirmation'>
-const MAX_ALLOWED_ATTEMPT = 3
 
 export function PinConfirmation ({ route }: Props): JSX.Element {
-  const navigation = useNavigation()
+  const { network } = useNetworkContext()
   const { pin, words } = route.params
   const { setWallet } = useWalletManagementContext()
   const [invalid, setInvalid] = useState<boolean>(false)
@@ -33,19 +29,21 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
       return
     }
 
-    setWallet(Mnemonic.createWalletData(words))
+    setWallet(Mnemonic.createWalletData(words, network))
       .catch(e => console.log(e))
   }
 
   return (
-    <ScrollView style={tailwind('w-full flex-1 flex-col bg-white')}>
+    <ScrollView contentContainerStyle={tailwind('w-full flex-1 flex-col bg-white justify-center')}>
+      <Text style={tailwind('text-center text-lg font-bold')}>{translate('screens/PinConfirmation', 'Verify your passcode')}</Text>
+      <Text style={tailwind('pt-2 pb-4 text-center text-gray-500')}>{translate('screens/PinConfirmation', 'Enter your passcode again to verify')}</Text>
       <PinInput
         length={pin.length as any}
         onChange={verifyPin}
       />
       {
         (invalid) ? (
-          <Text style={tailwind('text-center text-red-500')}>
+          <Text style={tailwind('text-center text-red-500 font-bold')}>
             {translate('screens/PinConfirmation', 'Wrong passcode entered')}
           </Text>
         ) : null
