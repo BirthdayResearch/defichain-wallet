@@ -38,13 +38,13 @@ context('poolswap with values', () => {
     cy.getByTestID('text_input_tokenA').type('1')
     cy.getByTestID('text_price_row_price_1').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' ETH per DFI', '')
-      cy.getByTestID('text_input_tokenB').should('have.value', tokenValue)
+      cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
       cy.getByTestID('button_submit').should('not.have.attr', 'disabled')
 
       // Invalid tokenA - NaN, more than Max, zero
       cy.getByTestID('text_input_tokenA').clear().type('a')
       cy.getByTestID('text_input_tokenA').should('have.value', '0')
-      cy.getByTestID('text_input_tokenB').should('have.value', '0.00000000')
+      cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(0).toFixed(8))
       cy.getByTestID('button_submit').should('have.attr', 'disabled')
       cy.getByTestID('text_input_tokenA').clear().type('15')
       cy.getByTestID('button_submit').should('have.attr', 'disabled')
@@ -58,7 +58,7 @@ context('poolswap with values', () => {
     cy.getByTestID('text_input_tokenA').should('have.value', '10.00000000')
     cy.getByTestID('text_price_row_minimum_0').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' ETH', '')
-      cy.getByTestID('text_input_tokenB').should('have.value', tokenValue)
+      cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
     })
   })
 
