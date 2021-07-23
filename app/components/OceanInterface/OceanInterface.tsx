@@ -44,9 +44,7 @@ async function broadcastTransaction (tx: CTransactionSegWit, client: WhaleApiCli
 export function OceanInterface (): JSX.Element | null {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
-
-  // Require fixes to support more than 1 WalletAcount
-  const whaleWalletAccount = useWallet().get(0)
+  const walletContext = useWallet()
 
   // store
   const { height, err: e } = useSelector((state: RootState) => state.ocean)
@@ -71,7 +69,7 @@ export function OceanInterface (): JSX.Element | null {
         ...transaction,
         broadcasted: false
       })
-      transaction.sign(whaleWalletAccount)
+      transaction.sign(walletContext.get(0))
         .then(async signedTx => {
           setTxid(signedTx.txId)
           await broadcastTransaction(signedTx, client)
@@ -90,7 +88,7 @@ export function OceanInterface (): JSX.Element | null {
         })
         .finally(() => dispatch(ocean.actions.popTransaction())) // remove the job as soon as completion
     }
-  }, [transaction])
+  }, [transaction, walletContext])
 
   if (tx === undefined) {
     return null
