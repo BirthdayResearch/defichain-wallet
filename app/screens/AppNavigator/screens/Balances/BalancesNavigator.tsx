@@ -29,7 +29,7 @@ const BalanceStack = createStackNavigator<BalanceParamList>()
 
 export function BalancesNavigator (): JSX.Element {
   return (
-    <BalanceStack.Navigator screenOptions={HeaderFont}>
+    <BalanceStack.Navigator screenOptions={{ headerTitleStyle: HeaderFont }}>
       <BalanceStack.Screen
         name='Balances'
         component={BalancesScreen}
@@ -65,7 +65,7 @@ export function BalancesNavigator (): JSX.Element {
             return (
               <View style={tailwind('flex-row items-center')}>
                 <Icon />
-                <Text style={tailwind('ml-2')} fontWeight='semibold'>{token.displaySymbol}</Text>
+                <Text style={tailwind('ml-2 font-semibold')}>{token.displaySymbol}</Text>
               </View>
             )
           }

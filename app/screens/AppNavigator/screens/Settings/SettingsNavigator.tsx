@@ -22,7 +22,7 @@ export function SettingsNavigator (): JSX.Element {
   const navigation = useNavigation()
 
   return (
-    <SettingsStack.Navigator screenOptions={HeaderFont}>
+    <SettingsStack.Navigator screenOptions={{ headerTitleStyle: HeaderFont }}>
       <SettingsStack.Screen
         name='SettingsScreen'
         component={SettingsScreen}

@@ -2,8 +2,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { PathConfigMap } from '@react-navigation/core'
 import * as React from 'react'
 import { OceanInterface } from '../../components/OceanInterface/OceanInterface'
-import { FontFaces } from '../../components/Text'
 import { VectorIcon, VectorIconName } from '../../constants/Theme'
+import { tailwind } from '../../tailwind'
 
 import { BalancesNavigator } from './screens/Balances/BalancesNavigator'
 import { DexNavigator } from './screens/Dex/DexNavigator'
@@ -34,7 +34,7 @@ export function BottomTabNavigator (): JSX.Element {
       <OceanInterface />
       <BottomTab.Navigator
         initialRouteName='Balances'
-        tabBarOptions={{ adaptive: false, labelStyle: { fontFamily: FontFaces.MediumFont } }}
+        tabBarOptions={{ adaptive: false, labelStyle: tailwind('font-medium') }}
       >
         <BottomTab.Screen
           name='Balances'

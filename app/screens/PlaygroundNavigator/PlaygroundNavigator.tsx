@@ -13,7 +13,7 @@ const PlaygroundStack = createStackNavigator<PlaygroundParamList>()
 
 export function PlaygroundNavigator (): JSX.Element {
   return (
-    <PlaygroundStack.Navigator mode='modal' screenOptions={HeaderFont}>
+    <PlaygroundStack.Navigator mode='modal' screenOptions={{ headerTitleStyle: HeaderFont }}>
       <PlaygroundStack.Screen
         name='PlaygroundScreen'
         component={PlaygroundScreen}

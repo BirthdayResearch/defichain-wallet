@@ -40,7 +40,7 @@ export function WalletNavigator (): JSX.Element {
 
   return (
     <NavigationContainer linking={LinkingConfiguration} ref={navigationRef} theme={DeFiChainTheme}>
-      <WalletStack.Navigator initialRouteName='Setup' screenOptions={HeaderFont}>
+      <WalletStack.Navigator initialRouteName='Setup' screenOptions={{ headerTitleStyle: HeaderFont }}>
         <WalletStack.Screen
           name='WalletOnboarding'
           component={WalletOnboarding}

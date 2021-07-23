@@ -22,7 +22,7 @@ const DexStack = createStackNavigator<DexParamList>()
 
 export function DexNavigator (): JSX.Element {
   return (
-    <DexStack.Navigator screenOptions={HeaderFont}>
+    <DexStack.Navigator screenOptions={{ headerTitleStyle: HeaderFont }}>
       <DexStack.Screen
         name='DexScreen'
         component={DexScreen}

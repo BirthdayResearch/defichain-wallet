@@ -21,7 +21,7 @@ export function TransactionsNavigator (): JSX.Element {
   return (
     <TransactionsStack.Navigator
       initialRouteName='Transactions'
-      screenOptions={HeaderFont}
+      screenOptions={{ headerTitleStyle: HeaderFont }}
     >
       <TransactionsStack.Screen
         name='Transactions'
