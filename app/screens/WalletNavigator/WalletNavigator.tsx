@@ -2,6 +2,7 @@ import { LinkingOptions, NavigationContainer, NavigationContainerRef } from '@re
 import { createStackNavigator } from '@react-navigation/stack'
 import * as Linking from 'expo-linking'
 import * as React from 'react'
+import { HeaderFont } from '../../components/Text'
 import { DeFiChainTheme } from '../../constants/Theme'
 import { translate } from '../../translations'
 import { WalletMnemonicCreate } from './screens/WalletMnemonicCreate'
@@ -39,7 +40,7 @@ export function WalletNavigator (): JSX.Element {
 
   return (
     <NavigationContainer linking={LinkingConfiguration} ref={navigationRef} theme={DeFiChainTheme}>
-      <WalletStack.Navigator initialRouteName='Setup'>
+      <WalletStack.Navigator initialRouteName='Setup' screenOptions={{ headerTitleStyle: HeaderFont }}>
         <WalletStack.Screen
           name='WalletOnboarding'
           component={WalletOnboarding}
