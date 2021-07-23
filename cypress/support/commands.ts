@@ -70,27 +70,9 @@ Cypress.Commands.add('sendDFItoWallet', () => {
 })
 
 Cypress.Commands.add('sendTokenToWallet', (tokens: string[]) => {
-  const sendingNonDFI = tokens.find(token => token !== 'DFI') !== undefined
-  const sendingDFI = tokens.includes('DFI')
-
-  if (sendingNonDFI) {
-    cy.intercept('/v0/playground/rpc/sendtokenstoaddress').as('sendTokensToAddress')
-  }
-  
-  if (sendingDFI) {
-    cy.intercept('/v0/playground/rpc/sendrawtransaction').as('sendRawTransaction')
-  }
-
+  cy.intercept('/v0/playground/rpc/sendtokenstoaddress').as('sendTokensToAddress')
   tokens.forEach((t: string) => {
     cy.getByTestID(`playground_token_${t}`).click()
   })
-
-  const requests = []
-  if (sendingNonDFI) {
-    requests.push('@sendTokensToAddress')
-  }
-  if (sendingDFI) {
-    requests.push('@sendRawTransaction')
-  }
-  cy.wait(requests)
+  cy.wait(['@sendTokensToAddress'])
 })
