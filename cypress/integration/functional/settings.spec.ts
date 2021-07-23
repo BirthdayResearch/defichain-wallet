@@ -1,5 +1,3 @@
-import {} from 'cypress'
-
 context('wallet/settings', () => {
   beforeEach(() => {
     cy.createEmptyWallet()
@@ -9,5 +7,10 @@ context('wallet/settings', () => {
   it('should exit wallet when clicked', () => {
     cy.getByTestID('setting_exit_wallet').click()
     cy.getByTestID('wallet_onboarding').contains('No wallets')
+  })
+
+  it('should change network when clicked', () => {
+    cy.getByTestID('button_network_RemotePlayground').click()
+    cy.getByTestID('button_network_RemotePlayground_check').should('exist')
   })
 })
