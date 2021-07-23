@@ -2,7 +2,7 @@ import { validateMnemonicSentence } from '@defichain/jellyfish-wallet-mnemonic'
 import * as React from 'react'
 import { useState } from 'react'
 import { KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native'
-import { Mnemonic } from '../../../api/wallet/mnemonic'
+import { MnemonicUnprotected } from '../../../api/wallet/provider/mnemonic_unprotected'
 import { Text, TextInput, View } from '../../../components'
 import { useNetworkContext } from '../../../contexts/NetworkContext'
 import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
@@ -17,7 +17,7 @@ export function WalletMnemonicRestore (): JSX.Element {
   async function onRestore (): Promise<void> {
     const words = phrase.split(' ')
     if (validateMnemonicSentence(words)) {
-      await setWallet(Mnemonic.createWalletData(words, network))
+      await setWallet(MnemonicUnprotected.toData(words, network))
     } else {
       setValid(false)
     }
