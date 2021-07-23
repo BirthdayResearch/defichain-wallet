@@ -1,9 +1,10 @@
-import { generateMnemonic } from '@defichain/jellyfish-wallet-mnemonic'
+import { generateMnemonicWords } from '@defichain/jellyfish-wallet-mnemonic'
 import * as Random from 'expo-random'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Mnemonic } from '../../../api/wallet/mnemonic'
 import { Text, View } from '../../../components'
+import { useNetworkContext } from '../../../contexts/NetworkContext'
 import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
 import { useWhaleApiClient } from '../../../contexts/WhaleContext'
 import { fetchTokens } from '../../../hooks/wallet/TokensAPI'
@@ -14,6 +15,7 @@ import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
 export function PlaygroundWallet (): JSX.Element | null {
   const { wallets, clearWallets, setWallet } = useWalletManagementContext()
+  const network = useNetworkContext()
   const whaleApiClient = useWhaleApiClient()
   const dispatch = useDispatch()
   const address = useSelector((state: RootState) => state.wallet.address)
@@ -39,19 +41,19 @@ export function PlaygroundWallet (): JSX.Element | null {
       <PlaygroundAction
         testID='playground_wallet_abandon'
         title='Setup wallet with abandon x23 + art as mnemonic seed'
-        onPress={async () => await setWallet(Mnemonic.createWalletDataAbandon23())}
+        onPress={async () => await setWallet(Mnemonic.createWalletDataAbandon23(network.network))}
       />
 
       <PlaygroundAction
         testID='playground_wallet_random'
         title='Setup wallet with a randomly generated mnemonic seed'
         onPress={async () => {
-          const words = generateMnemonic(24, numOfBytes => {
+          const words = generateMnemonicWords(24, (numOfBytes: number) => {
             const bytes = Random.getRandomBytes(numOfBytes)
             return Buffer.from(bytes)
           })
 
-          await setWallet(Mnemonic.createWalletData(words))
+          await setWallet(Mnemonic.createWalletData(words, network.network))
         }}
       />
 

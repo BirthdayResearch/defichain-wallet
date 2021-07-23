@@ -41,7 +41,7 @@ services:
       -eunosheight=6
 
   defi-playground:
-    image: ghcr.io/defich/playground:0.5.6
+    image: ghcr.io/defich/playground:0.6.0
     depends_on:
       - defi-blockchain
     ports:
@@ -54,7 +54,7 @@ services:
       - "traefik.http.routers.playground.entrypoints=web"
 
   defi-whale:
-    image: ghcr.io/defich/whale:0.5.9
+    image: ghcr.io/defich/whale:0.5.10
     depends_on:
       - defi-blockchain
     ports:
