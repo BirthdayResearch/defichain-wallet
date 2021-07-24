@@ -1,7 +1,6 @@
 import { NetworkName } from '@defichain/jellyfish-network'
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { Logging } from '../api/logging'
-import * as storage from '../api/storage'
+import { Logging, StorageAPI } from '../api'
 import { EnvironmentNetwork } from '../environment'
 
 interface Network {
@@ -33,7 +32,7 @@ export function NetworkProvider (props: React.PropsWithChildren<any>): JSX.Eleme
   const [network, setNetwork] = useState<EnvironmentNetwork | undefined>(undefined)
 
   useEffect(() => {
-    storage.getNetwork().then(async value => {
+    StorageAPI.getNetwork().then(async value => {
       setNetwork(value)
     }).catch(Logging.error)
   }, [])
@@ -46,7 +45,7 @@ export function NetworkProvider (props: React.PropsWithChildren<any>): JSX.Eleme
     network: network,
     networkName: networkMapper(network),
     async updateNetwork (value: EnvironmentNetwork): Promise<void> {
-      await storage.setNetwork(value)
+      await StorageAPI.setNetwork(value)
       setNetwork(value)
     },
     async reloadNetwork (): Promise<void> {
