@@ -14,6 +14,7 @@ export interface WalletPersistenceData<T> {
 
 async function get (): Promise<Array<WalletPersistenceData<any>>> {
   const json = await StorageAPI.getItem('WALLET')
+
   if (json !== null) {
     return JSON.parse(json)
   }
@@ -25,24 +26,10 @@ async function set (wallets: Array<WalletPersistenceData<any>>): Promise<void> {
   await StorageAPI.setItem('WALLET', JSON.stringify(wallets))
 }
 
-async function add (data: WalletPersistenceData<any>): Promise<void> {
-  const wallets = await get()
-  wallets.push(data)
-  await set(wallets)
-}
-
-async function remove (index: number): Promise<void> {
-  const wallets = await get()
-  wallets.splice(index, 1)
-  await set(wallets)
-}
-
 /**
  * Multi Wallet Persistence Layer
  */
 export const WalletPersistence = {
   set,
-  get,
-  add,
-  remove
+  get
 }

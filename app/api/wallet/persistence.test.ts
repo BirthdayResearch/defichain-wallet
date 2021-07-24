@@ -16,46 +16,60 @@ beforeEach(() => {
   jest.clearAllMocks()
 })
 
-it('should getWallets() that is empty', async () => {
-  getItem
-    .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
-    .mockResolvedValueOnce("[]")
+describe('WalletPersistence.get()', () => {
+  it('should get empty', async () => {
+    getItem
+      .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
+      .mockResolvedValueOnce("[]")
 
-  const items = await WalletPersistence.get()
-  expect(items.length).toStrictEqual(0)
+    const items = await WalletPersistence.get()
+    expect(items.length).toStrictEqual(0)
+  })
+
+  it('should get non empty', async () => {
+    getItem
+      .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
+      .mockResolvedValueOnce(JSON.stringify([
+        { raw: "raw-1", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" }
+      ]))
+
+    const items = await WalletPersistence.get()
+    expect(items.length).toStrictEqual(1)
+  })
 })
 
-it('should add() add()', async () => {
-  getItem
-    .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
-    .mockResolvedValueOnce("[]")
-    .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
-    .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
-    .mockResolvedValueOnce("[]")
-    .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
+describe('WalletPersistence.set()', () => {
+  it('should set 1 wallet', async () => {
+    getItem.mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
 
-  await WalletPersistence.add({ raw: "seed-1", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" })
-  await WalletPersistence.add({ raw: "seed-2", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" })
-
-  expect(getItem).toBeCalledTimes(6)
-})
-
-it('should remove()', async () => {
-  getItem
-    .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
-    .mockResolvedValueOnce(JSON.stringify([
-      { version: 'v1', type: WalletType.MNEMONIC_UNPROTECTED, raw: '1' },
-      { version: 'v1', type: WalletType.MNEMONIC_UNPROTECTED, raw: '2' },
-    ]))
-    .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
-
-  await WalletPersistence.remove(0)
-
-  expect(setItem).toBeCalledTimes(1)
-  expect(setItem).toBeCalledWith(
-    "Development.Local Playground.WALLET",
-    JSON.stringify([
-      { version: 'v1', type: WalletType.MNEMONIC_UNPROTECTED, raw: '2' },
+    await WalletPersistence.set([
+      { raw: "raw-1", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" },
     ])
-  )
+
+    expect(getItem).toBeCalledTimes(1)
+    expect(setItem).toBeCalledWith(
+      'Development.Local Playground.WALLET',
+      JSON.stringify([
+        { raw: "raw-1", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" },
+      ])
+    )
+  })
+
+  it('should set 2 wallets', async () => {
+    getItem.mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
+
+    await WalletPersistence.set([
+      { raw: "raw-1", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" },
+      { raw: "raw-2", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" },
+    ])
+
+    expect(getItem).toBeCalledTimes(1)
+    expect(setItem).toBeCalledWith(
+      'Development.Local Playground.WALLET',
+      JSON.stringify([
+        { raw: "raw-1", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" },
+        { raw: "raw-2", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" },
+      ])
+    )
+  })
 })
