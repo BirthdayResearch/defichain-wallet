@@ -1,5 +1,4 @@
-// import { getItem, setItem } from '../storage'
-import { SecureStorage } from '../secure_store'
+import { StorageAPI } from '../storage'
 
 export enum WalletType {
   MNEMONIC_UNPROTECTED = 'MNEMONIC_UNPROTECTED'
@@ -13,8 +12,8 @@ export interface WalletPersistenceData<T> {
   raw: T
 }
 
-async function get (): Promise<WalletPersistenceData<any>[]> {
-  const json = await SecureStorage.getItem('WALLET')
+async function get (): Promise<Array<WalletPersistenceData<any>>> {
+  const json = await StorageAPI.getItem('WALLET')
   if (json !== null) {
     return JSON.parse(json)
   }
@@ -23,7 +22,7 @@ async function get (): Promise<WalletPersistenceData<any>[]> {
 }
 
 async function set (wallets: Array<WalletPersistenceData<any>>): Promise<void> {
-  await SecureStorage.setItem('WALLET', JSON.stringify(wallets))
+  await StorageAPI.setItem('WALLET', JSON.stringify(wallets))
 }
 
 async function add (data: WalletPersistenceData<any>): Promise<void> {

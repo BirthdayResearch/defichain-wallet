@@ -1,15 +1,16 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import ExpoSecureStore from "expo-secure-store";
 import { EnvironmentNetwork } from "../../environment";
 import { WalletPersistence, WalletType } from "./persistence";
 
-jest.mock('react-native/Libraries/Utilities/Platform', () => ({
-  OS: 'web',
-  select: opts => opts.web
+// TODO(fuxingloh): 'jest-expo' only test native (provider.native.ts) by default, need to improve testing capability
+jest.mock('expo-secure-store', () => ({
+  getItemAsync: jest.fn(),
+  setItemAsync: jest.fn(),
+  deleteItemAsync: jest.fn(),
 }))
 
-// web has no SecureStore implementation, fallback to AsyncStorage
-const getItem = jest.spyOn(AsyncStorage, 'getItem')
-const setItem = jest.spyOn(AsyncStorage, 'setItem')
+const getItem = jest.spyOn(ExpoSecureStore, 'getItemAsync')
+const setItem = jest.spyOn(ExpoSecureStore, 'setItemAsync')
 
 beforeEach(() => {
   jest.clearAllMocks()
