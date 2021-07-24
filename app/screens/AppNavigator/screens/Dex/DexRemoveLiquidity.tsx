@@ -39,13 +39,13 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   const { pair } = props.route.params as any
   const [aSymbol, bSymbol] = pair.symbol.split('-') as [string, string]
   const lmToken = tokens.find(token => token.symbol === pair.symbol) as AddressToken
-  const tokenAPerLmToken = new BigNumber(pair.tokenA.reserve).div(pair.totalLiquidity)
-  const tokenBPerLmToken = new BigNumber(pair.tokenB.reserve).div(pair.totalLiquidity)
+  const tokenAPerLmToken = new BigNumber(pair.tokenA.reserve).div(pair.totalLiquidity.token)
+  const tokenBPerLmToken = new BigNumber(pair.tokenB.reserve).div(pair.totalLiquidity.token)
 
   const setSliderPercentage = useCallback((percentage: number) => {
     // this must round down, avoid attempt remove more than selected (or even available)
     const toRemove = new BigNumber(percentage).div(100).times(lmToken.amount).decimalPlaces(8, BigNumber.ROUND_DOWN)
-    const ratioToTotal = toRemove.div(pair.totalLiquidity)
+    const ratioToTotal = toRemove.div(pair.totalLiquidity.token)
     // assume defid will trim the dust values too
     const tokenA = ratioToTotal.times(pair.tokenA.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN)
     const tokenB = ratioToTotal.times(pair.tokenB.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN)
