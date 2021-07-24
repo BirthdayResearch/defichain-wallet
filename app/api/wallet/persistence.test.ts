@@ -3,11 +3,6 @@ import { EnvironmentNetwork } from "../../environment";
 import { WalletPersistence, WalletType } from "./persistence";
 
 // TODO(fuxingloh): 'jest-expo' only test native (provider.native.ts) by default, need to improve testing capability
-jest.mock('expo-secure-store', () => ({
-  getItemAsync: jest.fn(),
-  setItemAsync: jest.fn(),
-  deleteItemAsync: jest.fn(),
-}))
 
 const getItem = jest.spyOn(ExpoSecureStore, 'getItemAsync')
 const setItem = jest.spyOn(ExpoSecureStore, 'setItemAsync')
