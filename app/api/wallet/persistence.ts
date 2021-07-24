@@ -13,17 +13,41 @@ export interface WalletPersistenceData<T> {
 }
 
 async function get (): Promise<Array<WalletPersistenceData<any>>> {
-  const json = await StorageAPI.getItem('WALLET')
+  const count: string = await StorageAPI.getItem('WALLET.count') ?? '0'
 
-  if (json !== null) {
-    return JSON.parse(json)
+  const list: Array<WalletPersistenceData<any>> = []
+  for (let i = 0; i < parseInt(count); i++) {
+    const data = await StorageAPI.getItem(`WALLET.${i}`)
+    if (data === null) {
+      throw new Error(`WALLET.count=${count} but ${i} doesn't exist`)
+    }
+
+    list[i] = JSON.parse(data)
   }
-
-  return []
+  return list
 }
 
+/**
+ * @param wallets to set, override previous set wallet
+ */
 async function set (wallets: Array<WalletPersistenceData<any>>): Promise<void> {
-  await StorageAPI.setItem('WALLET', JSON.stringify(wallets))
+  await clear()
+
+  for (let i = 0; i < wallets.length; i++) {
+    await StorageAPI.setItem(`WALLET.${i}`, JSON.stringify(wallets[i]))
+  }
+  await StorageAPI.setItem('WALLET.count', `${wallets.length}`)
+}
+
+/**
+ * Clear all persisted wallet
+ */
+async function clear (): Promise<void> {
+  const count: string = await StorageAPI.getItem('WALLET.count') ?? '0'
+
+  for (let i = 0; i < parseInt(count); i++) {
+    await StorageAPI.removeItem(`WALLET.${i}`)
+  }
 }
 
 /**
