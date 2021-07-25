@@ -10,14 +10,13 @@ describe('button', () => {
   buttonFill.forEach(fill => {
     buttonColor.forEach(color => {
       it(`should match styling of button type ${fill}-${color}`, () => {
-        const enabled = render(<Button fill={fill} color={color} disabled={false} title={'Test'} label={'Submit'}
-                                       onPress={() => {
-                                       }} />).toJSON()
+        const onPress = jest.fn()
+        const enabled = render(<Button fill={fill} color={color} disabled={false} title={'Test'}
+                                       label={'Submit'} onPress={onPress} />).toJSON()
         expect(enabled).toMatchSnapshot()
 
-        const disabled = render(<Button fill={fill} color={color} disabled={true} title={'Test'} label={'Submit'}
-                                        onPress={() => {
-                                        }} />).toJSON()
+        const disabled = render(<Button fill={fill} color={color} disabled={true} title={'Test'}
+                                        label={'Submit'} onPress={onPress} />).toJSON()
         expect(disabled).toMatchSnapshot()
       })
     })
