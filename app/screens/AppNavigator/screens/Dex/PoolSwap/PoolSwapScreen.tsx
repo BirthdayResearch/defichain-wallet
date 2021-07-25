@@ -12,8 +12,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Logging } from '../../../../../api/logging'
 import { Text, TextInput } from '../../../../../components'
+import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
-import { PrimaryButton } from '../../../../../components/PrimaryButton'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
@@ -133,9 +133,11 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
             tokenBAmount={getValues()[tokenBForm]}
           />
       }
-      <PrimaryButton disabled={!isValid || hasPendingJob} title='Swap' onPress={onSubmit} testID='button_submit'>
-        <Text style={tailwind('text-white font-bold')}>{translate('screens/PoolSwapScreen', 'SWAP')}</Text>
-      </PrimaryButton>
+      <Button
+        disabled={!isValid || hasPendingJob}
+        label={translate('screens/PoolSwapScreen', 'SWAP')}
+        title='Swap' onPress={onSubmit} testID='button_submit'
+      />
     </ScrollView>
   )
 }

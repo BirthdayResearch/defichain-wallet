@@ -13,8 +13,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Logging } from '../../../../api/logging'
 import { Text, View } from '../../../../components'
+import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { PrimaryButton } from '../../../../components/PrimaryButton'
 import { useWallet } from '../../../../contexts/WalletContext'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
@@ -179,15 +179,15 @@ function CoinAmountRow (props: { symbol: string, amount: BigNumber }): JSX.Eleme
 
 function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
   return (
-    <PrimaryButton
-      testID='button_continue_remove_liq'
-      touchableStyle={tailwind('m-2')}
-      title='continue'
-      disabled={!props.enabled}
-      onPress={props.onPress}
-    >
-      <Text style={tailwind('text-white font-bold')}>{translate('components/Button', 'CONTINUE')}</Text>
-    </PrimaryButton>
+    <View style={tailwind('m-2')}>
+      <Button
+        testID='button_continue_remove_liq'
+        title='continue'
+        disabled={!props.enabled}
+        onPress={props.onPress}
+        label={translate('components/Button', 'CONTINUE')}
+      />
+    </View>
   )
 }
 
