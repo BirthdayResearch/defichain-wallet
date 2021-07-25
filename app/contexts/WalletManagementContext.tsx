@@ -7,12 +7,21 @@ import { useWhaleApiClient } from './WhaleContext'
 
 interface WalletManagement {
   wallets: WhaleWallet[]
+  /**
+   * @param {WalletPersistenceData} data to set, only 1 wallet is supported for now
+   */
   setWallet: (data: WalletPersistenceData<any>) => Promise<void>
   clearWallets: () => Promise<void>
 }
 
 const WalletManagementContext = createContext<WalletManagement>(undefined as any)
 
+/**
+ * WalletManagement Context wrapped within <WalletManagementProvider>
+ *
+ * This context enable wallet management by allow access to all configured wallets.
+ * Setting, removing and getting individual wallet.
+ */
 export function useWalletManagementContext (): WalletManagement {
   return useContext(WalletManagementContext)
 }

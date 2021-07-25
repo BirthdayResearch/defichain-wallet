@@ -1,7 +1,6 @@
 import { PlaygroundApiClient, PlaygroundRpcClient } from '@defichain/playground-api-client'
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
-import { Logging } from '../api/logging'
-import { setNetwork } from '../api/storage'
+import { Logging, StorageAPI } from '../api'
 import { EnvironmentNetwork, getEnvironment, isPlayground } from '../environment'
 import { useNetworkContext } from './NetworkContext'
 
@@ -53,7 +52,7 @@ export function useConnectedPlayground (): boolean {
     async function findPlayground (): Promise<void> {
       for (const network of environment.networks.filter(isPlayground)) {
         if (await isConnected(network)) {
-          await setNetwork(network)
+          await StorageAPI.setNetwork(network)
           break
         }
       }
