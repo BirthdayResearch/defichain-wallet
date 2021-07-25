@@ -77,7 +77,7 @@ context('wallet/send', () => {
     it('check if exist on other side', function () {
       const network = localStorage.getItem('Development.NETWORK')
       let url: string
-      if (network === 'Remote Playground') {
+      if (network === 'Playground') {
         url = 'https://playground.defichain.com/'
       } else {
         url = 'http://localhost:19553/'
