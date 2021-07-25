@@ -1,17 +1,27 @@
 import BigNumber from 'bignumber.js'
 
 context('wallet/send', () => {
+  let address: string
+
   before(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_settings').click()
-    cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(10000)
-    cy.getByTestID('playground_wallet_fetch_balances').click()
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('balances_row_0_utxo').click()
+    cy.getByTestID('receive_button').click()
+    cy.getByTestID('address_text').then(($txt: any) => {
+      // store random address
+      address = $txt[0].textContent
+
+      cy.getByTestID('bottom_tab_settings').click()
+      cy.getByTestID('setting_exit_wallet').click()
+      cy.createEmptyWallet(true)
+      cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(10000)
+      cy.getByTestID('playground_wallet_fetch_balances').click()
+      cy.getByTestID('bottom_tab_balances').click()
+    })
   })
 
   describe('DFI UTXO', () => {
     it('should be able to validate form', function () {
-      const address = 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d'
       cy.getByTestID('balances_list').should('exist')
       cy.getByTestID('balances_row_0_utxo').should('exist')
       cy.getByTestID('balances_row_0_utxo_amount').contains(10).click()
@@ -63,11 +73,16 @@ context('wallet/send', () => {
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_row_0_utxo_amount').contains('8.999')
     })
+
+    it('check if exist on other side', function () {
+      cy.request(`https://playground.defichain.com/v0/regtest/address/${address}/balance`).then((response) => {
+        expect(response.body).to.have.property('data', '1.00000000')
+      })
+    })
   })
 
   describe('dBTC', () => {
     it('should be able to send', function () {
-      const address = 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d'
       cy.getByTestID('balances_list').should('exist')
       cy.getByTestID('balances_row_1').should('exist')
       cy.getByTestID('balances_row_1_amount').contains(10).click()
