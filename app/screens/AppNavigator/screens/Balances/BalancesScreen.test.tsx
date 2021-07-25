@@ -66,7 +66,7 @@ describe('balances page', () => {
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 
-  it.skip('should display navigation buttons', async () => {
+  /*it.skip('should display navigation buttons', async () => {
     const initialState: Partial<RootState> = {
       wallet: {
         address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
@@ -92,7 +92,7 @@ describe('balances page', () => {
     const receiveButton = await rendered.findByTestId('button_RECEIVE')
     fireEvent.press(receiveButton)
     expect(spy).toHaveBeenCalled()
-  })
+  })*/
 
   it('should navigate to token detail page', async () => {
     const initialState: Partial<RootState> = {
