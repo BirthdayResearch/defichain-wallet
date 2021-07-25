@@ -1,6 +1,6 @@
 context('wallet/settings', () => {
   beforeEach(function () {
-    cy.createEmptyWallet(true).wait(10000)
+    cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_settings').click()
   })
 

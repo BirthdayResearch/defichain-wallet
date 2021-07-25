@@ -141,6 +141,7 @@ exports[`receive page should match snapshot 1`] = `
       </RNSVGSvgView>
     </View>
     <Text
+      numberOfLines={2}
       style={
         Array [
           Object {
