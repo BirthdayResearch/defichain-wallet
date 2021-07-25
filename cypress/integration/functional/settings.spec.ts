@@ -5,8 +5,8 @@ context('wallet/settings', () => {
   })
 
   it('should change network when clicked', function () {
-    cy.getByTestID('button_network_LocalPlayground_check').should('exist')
-    cy.getByTestID('button_network_RemotePlayground').click()
+    cy.getByTestID('button_network_Local_check').should('exist')
+    cy.getByTestID('button_network_Remote').click()
   })
 
   it('should exit wallet when clicked', function () {
