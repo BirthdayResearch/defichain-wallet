@@ -75,7 +75,14 @@ context('wallet/send', () => {
     })
 
     it('check if exist on other side', function () {
-      cy.request(`https://playground.defichain.com/v0/regtest/address/${address}/balance`).then((response) => {
+      const network = localStorage.getItem('Development.NETWORK')
+      let url: string
+      if (network === 'Remote Playground') {
+        url = 'https://playground.defichain.com/'
+      } else {
+        url = 'http://localhost:19553/'
+      }
+      cy.request(`${url}v0/regtest/address/${address}/balance`).then((response) => {
         expect(response.body).to.have.property('data', '1.00000000')
       })
     })
