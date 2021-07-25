@@ -81,10 +81,10 @@ those directories.
 
 Directory               | Description
 ------------------------|-------------
-`/.github`              | workflow for shift left automation
-`/app/api`              | api & middlewares for application, non-UI logic
+`/.github`              | GitHub Workflow for shift left automation
+`/app/api`              | API and middlewares logic for application, for non-UI logic only
 `/app/assets`           | assets of the project that can be loaded at startup
-`/app/components`       | top level components for a shared design language
+`/app/components`       | top level components for a atomic shared design language
 `/app/contexts`         | shared contexts for application, non-UI logic
 `/app/hooks`            | shared hooks for application, for UI logic only
 `/app/screens`          | screens hierarchy tree matching directory hierarchy tree
