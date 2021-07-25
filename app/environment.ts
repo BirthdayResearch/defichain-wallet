@@ -4,8 +4,8 @@ import * as Updates from 'expo-updates'
  * Network supported in this environment
  */
 export enum EnvironmentNetwork {
-  LocalPlayground = 'Local Playground',
-  RemotePlayground = 'Remote Playground',
+  LocalPlayground = 'Local',
+  RemotePlayground = 'Playground',
   MainNet = 'MainNet',
   TestNet = 'TestNet'
 }

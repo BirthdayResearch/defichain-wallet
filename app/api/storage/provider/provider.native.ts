@@ -1,4 +1,4 @@
-import ExpoSecureStore from 'expo-secure-store'
+import * as ExpoSecureStore from 'expo-secure-store'
 import { IStorage } from './index'
 
 export const Provider: IStorage = {

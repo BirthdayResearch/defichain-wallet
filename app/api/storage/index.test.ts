@@ -1,10 +1,10 @@
-import ExpoSecureStore from "expo-secure-store";
+import * as ExpoSecureStore from "expo-secure-store";
 import { EnvironmentNetwork } from "../../environment";
 import { StorageAPI } from "./index";
 
 // TODO(fuxingloh): 'jest-expo' only test native (provider.native.ts) by default, need to improve testing capability
 
-const getItem = jest.spyOn(ExpoSecureStore, 'getItemAsync')
+const getItem = jest.spyOn(ExpoSecureStore, 'getItemAsync').mockImplementation(jest.fn())
 const setItem = jest.spyOn(ExpoSecureStore, 'setItemAsync')
 const removeItem = jest.spyOn(ExpoSecureStore, 'deleteItemAsync')
 
@@ -13,7 +13,7 @@ beforeEach(() => {
 })
 
 describe('network', () => {
-  it('should default to Local Playground', async () => {
+  it('should default to Local', async () => {
     expect(await StorageAPI.getNetwork()).toBe(EnvironmentNetwork.LocalPlayground)
     expect(getItem).toBeCalled()
   });
@@ -23,12 +23,12 @@ describe('network', () => {
     expect(setItem).toBeCalled()
   });
 
-  it('should get Local Playground', async () => {
+  it('should get Local', async () => {
     getItem.mockResolvedValue(EnvironmentNetwork.LocalPlayground)
     expect(await StorageAPI.getNetwork()).toBe(EnvironmentNetwork.LocalPlayground)
   });
 
-  it('should get Local Playground', async () => {
+  it('should get Local', async () => {
     getItem.mockResolvedValue(EnvironmentNetwork.RemotePlayground)
     expect(await StorageAPI.getNetwork()).toBe(EnvironmentNetwork.RemotePlayground)
   });
@@ -48,17 +48,17 @@ describe('item', () => {
     await StorageAPI.getItem('get')
     expect(getItem).toBeCalledTimes(2)
     expect(getItem).toBeCalledWith('Development.NETWORK')
-    expect(getItem).toBeCalledWith('Development.Remote Playground.get')
+    expect(getItem).toBeCalledWith('Development.Playground.get')
   })
 
   it('should setItem with environment and network prefixed key', async () => {
     await StorageAPI.setItem('set', 'value')
-    expect(setItem).toBeCalledWith('Development.Remote Playground.set', 'value')
+    expect(setItem).toBeCalledWith('Development.Playground.set', 'value')
   })
 
   it('should removeItem with environment and network prefixed key', async () => {
     await StorageAPI.removeItem('remove')
-    expect(removeItem).toBeCalledWith('Development.Remote Playground.remove')
+    expect(removeItem).toBeCalledWith('Development.Playground.remove')
   })
 })
 
@@ -69,12 +69,12 @@ describe('byte length validation', () => {
 
   it('should set if 1 byte length', async () => {
     await StorageAPI.setItem('key', '1')
-    expect(setItem).toBeCalledWith('Development.Local Playground.key', '1')
+    expect(setItem).toBeCalledWith('Development.Local.key', '1')
   })
 
   it('should set if 100 byte length', async () => {
     await StorageAPI.setItem('key', '0000000000100000000020000000003000000000400000000050000000006000000000700000000080000000009000000000')
-    expect(setItem).toBeCalledWith('Development.Local Playground.key', '0000000000100000000020000000003000000000400000000050000000006000000000700000000080000000009000000000')
+    expect(setItem).toBeCalledWith('Development.Local.key', '0000000000100000000020000000003000000000400000000050000000006000000000700000000080000000009000000000')
   })
 
   function generateText (length: number, sequence: string) {
@@ -89,7 +89,7 @@ describe('byte length validation', () => {
     const text = generateText(2047, '0')
 
     await StorageAPI.setItem('key', text)
-    expect(setItem).toBeCalledWith('Development.Local Playground.key', text)
+    expect(setItem).toBeCalledWith('Development.Local.key', text)
   })
 
   it('should error if 2048 byte length', async () => {
@@ -110,14 +110,14 @@ describe('byte length validation', () => {
       const text = generateText(1, '好')
 
       await StorageAPI.setItem('key', text)
-      expect(setItem).toBeCalledWith('Development.Local Playground.key', text)
+      expect(setItem).toBeCalledWith('Development.Local.key', text)
     })
 
     it('should set if 2046 byte length utf-8', async () => {
       const text = generateText(682, '好')
 
       await StorageAPI.setItem('key', text)
-      expect(setItem).toBeCalledWith('Development.Local Playground.key', text)
+      expect(setItem).toBeCalledWith('Development.Local.key', text)
     })
 
 
