@@ -8,7 +8,7 @@ context('app/dex/removeLiquidity', () => {
 
     cy.getByTestID('bottom_tab_dex').click().wait(1000)
 
-    const list = cy.getByTestID('liquidity_screen_list')
+    const list = cy.getByTestID('liquidity_screen_list').wait(2000)
     list.getByTestID('pool_pair_row_your').should('have.length', 1)
 
     const row = list.getByTestID('pool_pair_row_your').first()
@@ -40,9 +40,6 @@ context('app/dex/removeLiquidity', () => {
   it('Slider "None" / "All" button', function () {
     cy.getByTestID('button_slider_max').click().wait(1000)
     cy.getByTestID('text_slider_percentage').contains('100.00 %')
-    cy.getByTestID('text_coin_amount_DFI').contains('1')
-    cy.getByTestID('text_coin_amount_ETH').contains('100')
-
     cy.getByTestID('button_slider_min').click().wait(1000)
     cy.getByTestID('text_slider_percentage').contains('0.00 %')
     cy.getByTestID('text_coin_amount_DFI').contains('0')
@@ -54,6 +51,8 @@ context('app/dex/removeLiquidity', () => {
   it('Should be able to remove liquidity', function () {
     cy.getByTestID('button_slider_max').click().wait(1000)
     cy.getByTestID('button_continue_remove_liq').click().wait(4000)
+    cy.getByTestID('bottom_tab_dex').click().wait(1000)
+    cy.wait(5000).getByTestID('oceanInterface_close').click().wait(5000)
 
     // redirected back to dex root page
     cy.getByTestID('liquidity_screen_list').should('exist')
@@ -65,5 +64,9 @@ context('app/dex/removeLiquidity', () => {
 
     const list = cy.getByTestID('liquidity_screen_list')
     list.getByTestID('pool_pair_row_your').should('not.exist') // DFI-ETH balance row removed
+
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('balances_row_0').should('exist')
+    cy.getByTestID('balances_row_1').should('exist')
   })
 })
