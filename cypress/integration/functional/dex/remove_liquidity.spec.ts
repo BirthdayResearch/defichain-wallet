@@ -67,6 +67,6 @@ context('app/dex/removeLiquidity', () => {
 
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_row_0').should('exist')
-    cy.getByTestID('balances_row_1').should('exist')
+    cy.getByTestID('balances_row_2').should('exist')
   })
 })
