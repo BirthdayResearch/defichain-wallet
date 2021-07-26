@@ -45,7 +45,7 @@ export function WalletNavigator (): JSX.Element {
           name='WalletOnboarding'
           component={WalletOnboarding}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Wallets')
+            headerShown: false
           }}
         />
         <WalletStack.Screen
