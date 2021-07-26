@@ -14,7 +14,6 @@ import { Logging } from '../../../../api/logging'
 import { Text, TextInput, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { useWallet } from '../../../../contexts/WalletContext'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
 import { hasTxQueued, ocean } from '../../../../store/ocean'
@@ -31,6 +30,7 @@ interface ConversionIO extends AddressToken {
 }
 
 export function ConvertScreen (props: Props): JSX.Element {
+  const dispatch = useDispatch()
   // global state
   const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.ocean))
@@ -40,9 +40,6 @@ export function ConvertScreen (props: Props): JSX.Element {
   const [targetToken, setTargetToken] = useState<ConversionIO>()
 
   const [amount, setAmount] = useState<string>('0')
-
-  const account = useWallet().get(0)
-  const dispatch = useDispatch()
 
   useEffect(() => {
     const [source, target] = getDFIBalances(mode, tokens)
@@ -60,7 +57,6 @@ export function ConvertScreen (props: Props): JSX.Element {
   const convert = (): void => {
     if (hasPendingJob) return
     constructSignedConversionAndSend(
-      account,
       props.route.params.mode,
       new BigNumber(amount),
       dispatch
@@ -242,13 +238,10 @@ function canConvert (amount: string, balance: string): boolean {
   return new BigNumber(balance).gte(amount) && !(new BigNumber(amount).isZero())
 }
 
-async function constructSignedConversionAndSend (account: WhaleWalletAccount, mode: ConversionMode,
-  amount: BigNumber, dispatch: Dispatch<any>): Promise<void> {
-  const builder = account.withTransactionBuilder()
-
-  const script = await account.getScript()
-
-  const signer = async (): Promise<CTransactionSegWit> => {
+async function constructSignedConversionAndSend (mode: ConversionMode, amount: BigNumber, dispatch: Dispatch<any>): Promise<void> {
+  const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
+    const builder = account.withTransactionBuilder()
+    const script = await account.getScript()
     let signed: TransactionSegWit
     if (mode === 'utxosToAccount') {
       signed = await builder.account.utxosToAccount({
@@ -272,8 +265,7 @@ async function constructSignedConversionAndSend (account: WhaleWalletAccount, mo
   }
 
   dispatch(ocean.actions.queueTransaction({
-    signer,
-    broadcasted: false,
+    sign: signer,
     title: `${translate('screens/ConvertScreen', 'Converting DFI')}`
   }))
 }

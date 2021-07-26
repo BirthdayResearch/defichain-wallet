@@ -6,6 +6,7 @@ import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 're
 import { useDispatch, useSelector } from 'react-redux'
 import { Text } from '..'
 import { Logging } from '../../api/logging'
+import { useWallet } from '../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
 import { RootState } from '../../store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
@@ -43,6 +44,7 @@ async function broadcastTransaction (tx: CTransactionSegWit, client: WhaleApiCli
 export function OceanInterface (): JSX.Element | null {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
+  const walletContext = useWallet()
 
   // store
   const { height, err: e } = useSelector((state: RootState) => state.ocean)
@@ -67,7 +69,7 @@ export function OceanInterface (): JSX.Element | null {
         ...transaction,
         broadcasted: false
       })
-      transaction.signer()
+      transaction.sign(walletContext.get(0))
         .then(async signedTx => {
           setTxid(signedTx.txId)
           await broadcastTransaction(signedTx, client)
@@ -86,7 +88,7 @@ export function OceanInterface (): JSX.Element | null {
         })
         .finally(() => dispatch(ocean.actions.popTransaction())) // remove the job as soon as completion
     }
-  }, [transaction])
+  }, [transaction, walletContext])
 
   if (tx === undefined) {
     return null

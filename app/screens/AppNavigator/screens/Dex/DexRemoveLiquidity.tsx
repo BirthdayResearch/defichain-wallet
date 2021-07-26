@@ -15,7 +15,6 @@ import { Logging } from '../../../../api/logging'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { useWallet } from '../../../../contexts/WalletContext'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
 import { hasTxQueued, ocean } from '../../../../store/ocean'
@@ -55,13 +54,11 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
     setPercentage(new BigNumber(percentage).toFixed(2))
   }, [percentage])
 
-  const account = useWallet().get(0)
   const dispatch = useDispatch()
 
   const removeLiquidity = useCallback(() => {
     if (hasPendingJob) return
     constructSignedRemoveLiqAndSend(
-      account,
       Number(pair.id),
       amount,
       dispatch
@@ -191,12 +188,11 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
   )
 }
 
-async function constructSignedRemoveLiqAndSend (account: WhaleWalletAccount, tokenId: number,
-  amount: BigNumber, dispatch: Dispatch<any>): Promise<void> {
-  const builder = account.withTransactionBuilder()
-  const script = await account.getScript()
+async function constructSignedRemoveLiqAndSend (tokenId: number, amount: BigNumber, dispatch: Dispatch<any>): Promise<void> {
+  const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
+    const builder = account.withTransactionBuilder()
+    const script = await account.getScript()
 
-  const signer = async (): Promise<CTransactionSegWit> => {
     const removeLiq = {
       script,
       tokenId,
@@ -207,8 +203,7 @@ async function constructSignedRemoveLiqAndSend (account: WhaleWalletAccount, tok
   }
 
   dispatch(ocean.actions.queueTransaction({
-    signer,
-    broadcasted: false,
+    sign: signer,
     title: `${translate('screens/RemoveLiquidity', 'Removing Liquidity')}`
   }))
 }
