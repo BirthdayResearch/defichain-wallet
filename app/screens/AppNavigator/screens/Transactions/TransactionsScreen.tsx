@@ -1,10 +1,12 @@
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
+
 import { Text } from '../../../../components'
+import { Button } from '../../../../components/Button'
 import { useWallet } from '../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { tailwind } from '../../../../tailwind'
@@ -21,6 +23,7 @@ export function TransactionsScreen (): JSX.Element {
   const [loadingStatus, setLoadingStatus] = useState('initial') // page status
   const [nextToken, setNextToken] = useState<string | undefined>(undefined)
   const [hasNext, setHasNext] = useState<boolean>(false)
+  const [isEmpty, setIsEmpty] = useState<boolean>(true)
   // const [error, setError] = useState<Error|undefined>(undefined) // TODO: render error
 
   const loadData = (): void => {
@@ -39,6 +42,7 @@ export function TransactionsScreen (): JSX.Element {
       setAddressActivities([...activities, ...newRows])
       setHasNext(addActivities.hasNext)
       setNextToken(addActivities.nextToken as string | undefined)
+      setIsEmpty(newRows.length === 0)
       setLoadingStatus('idle')
     }).catch(() => {
       setLoadingStatus('error')
@@ -47,21 +51,50 @@ export function TransactionsScreen (): JSX.Element {
 
   useEffect(() => loadData(), [])
 
+  if (isEmpty) {
+    return (
+      EmptyTransaction(navigation)
+    )
+  } else {
+    return (
+      <FlatList
+        testID='transactions_screen_list'
+        style={tailwind('w-full')}
+        data={activities}
+        renderItem={TransactionRow(navigation)}
+        keyExtractor={(item) => item.id}
+        ListFooterComponent={hasNext ? LoadMore(loadData) : undefined}
+        refreshControl={
+          <RefreshControl
+            refreshing={loadingStatus === 'loading'}
+            onRefresh={loadData}
+          />
+        }
+      />
+    )
+  }
+}
+
+function EmptyTransaction (navigation: NavigationProp<TransactionsParamList>): JSX.Element {
   return (
-    <FlatList
-      testID='transactions_screen_list'
-      style={tailwind('w-full')}
-      data={activities}
-      renderItem={TransactionRow(navigation)}
-      keyExtractor={(item) => item.id}
-      ListFooterComponent={hasNext ? LoadMore(loadData) : undefined}
-      refreshControl={
-        <RefreshControl
-          refreshing={loadingStatus === 'loading'}
-          onRefresh={loadData}
-        />
-      }
-    />
+    <View
+      testID='empty_transaction'
+      style={tailwind('px-8 pt-32 pb-2 text-center')}
+    >
+      <MaterialCommunityIcons name='folder-alert' size={44} color='#212121' style={tailwind('pb-5 text-center')} />
+      <Text style={tailwind('text-2xl pb-2 font-semibold text-center')}>
+        {translate('screens/TransactionsScreen', 'No transactions yet')}
+      </Text>
+      <Text style={tailwind('text-sm pb-16 text-center opacity-60')}>
+        {translate('screens/TransactionsScreen', 'Start transacting with your wallet. All transactions made will be displayed here.')}
+      </Text>
+      <Button
+        testID='button_receive_coins'
+        title='Receive Coins'
+        onPress={() => navigation.navigate('Receive')}
+        label={translate('screens/TransactionsScreen', 'RECEIVE COINS')}
+      />
+    </View>
   )
 }
 
