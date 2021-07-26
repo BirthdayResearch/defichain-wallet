@@ -7,14 +7,16 @@ interface ButtonProps extends React.PropsWithChildren<Props> {
   color?: 'primary' | 'secondary'
   fill?: 'fill' | 'outline' | 'flat'
   label?: string
+  margin?: string
 }
 
 export function Button (props: ButtonProps): JSX.Element {
   const {
     color = 'primary',
-    fill = 'fill'
+    fill = 'fill',
+    margin = 'm-4 mt-8'
   } = props
-  const buttonStyle = `${fill === 'flat' ? 'border-none' : `border border-${color} border-opacity-20`}
+  const buttonStyle = `${fill === 'flat' ? 'border-0' : `border border-${color} border-opacity-20`}
                     ${fill === 'fill' ? `bg-${color} bg-opacity-10` : 'bg-transparent'}`
   const disabledStyle = 'bg-black bg-opacity-20 text-white text-opacity-5 border-0'
 
@@ -22,7 +24,7 @@ export function Button (props: ButtonProps): JSX.Element {
   return (
     <TouchableOpacity
       {...props}
-      style={[tailwind(`m-4 mt-8 p-3 rounded flex-row justify-center ${buttonStyle} ${props.disabled === true ? disabledStyle : ''}`)]}
+      style={[tailwind(`${margin} p-3 rounded flex-row justify-center ${buttonStyle} ${props.disabled === true ? disabledStyle : ''}`)]}
     >
       {
         props.label !== undefined &&
