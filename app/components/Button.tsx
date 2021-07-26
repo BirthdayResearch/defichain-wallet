@@ -3,10 +3,13 @@ import { ButtonProps, TouchableOpacity } from 'react-native'
 import { tailwind } from '../tailwind'
 import { Text } from './Text'
 
-export type ButtonFillTypes = 'fill' | 'outline' | 'flat'
-export type ButtonColor = 'primary' | 'secondary'
+interface ButtonProps:  React.PropsWithChildren<ButtonProps> {
+  color?: 'primary' | 'secondary'
+  fill?: 'fill' | 'outline' | 'flat'
+  label?: string
+}
 
-export function Button (props: React.PropsWithChildren<ButtonProps> & { color?: ButtonColor, fill?: ButtonFillTypes, label?: string }): JSX.Element {
+export function Button (props: ButtonProps): JSX.Element {
   const {
     color = 'primary',
     fill = 'fill'
