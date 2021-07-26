@@ -1,12 +1,15 @@
-import {} from 'cypress'
-
 context('wallet/settings', () => {
-  beforeEach(() => {
-    cy.createEmptyWallet()
+  beforeEach(function () {
+    cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_settings').click()
   })
 
-  it('should exit wallet when clicked', () => {
+  it('should change network when clicked', function () {
+    cy.getByTestID('button_network_Local_check').should('exist')
+    cy.getByTestID('button_network_Playground').click()
+  })
+
+  it('should exit wallet when clicked', function () {
     cy.getByTestID('setting_exit_wallet').click()
     cy.getByTestID('wallet_onboarding').contains('No wallets')
   })

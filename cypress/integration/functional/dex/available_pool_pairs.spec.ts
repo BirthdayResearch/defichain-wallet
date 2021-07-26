@@ -1,7 +1,7 @@
 context('app/dex/available', () => {
   beforeEach(function () {
     cy.createEmptyWallet()
-    cy.getByTestID('bottom_tab_liquidity').click()
+    cy.getByTestID('bottom_tab_dex').click()
   })
 
   it('should display 4 available pool pair', function () {

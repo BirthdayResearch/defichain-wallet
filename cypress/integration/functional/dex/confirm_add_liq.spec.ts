@@ -9,7 +9,7 @@ context('app/dex/addLiquidity', () => {
       .sendTokenToWallet(['BTC']).wait(10000)
     cy.getByTestID('playground_wallet_fetch_balances').click()
 
-    cy.getByTestID('bottom_tab_liquidity').click()
+    cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('pool_pair_add_DFI-BTC').click()
     cy.wait(100)
     cy.getByTestID('token_balance_primary').contains('10')
@@ -42,7 +42,7 @@ context('app/dex/addLiquidity', () => {
     cy.wait(3100)
     cy.getByTestID('bottom_tab_settings').click()
     cy.getByTestID('playground_wallet_fetch_balances').click()
-    cy.getByTestID('bottom_tab_liquidity').click()
+    cy.getByTestID('bottom_tab_dex').click()
 
     cy.getByTestID('pool_pair_row_your').contains('7.80 DFI-BTC')
   })

@@ -79,7 +79,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
             style={tailwind('flex-1')}
           >{translate('screens/RemoveLiquidity', 'Amount of liquidity to remove')}
           </Text>
-          <Text testID='text_slider_pencentage' style={tailwind('text-right')}>{percentage} %</Text>
+          <Text testID='text_slider_percentage' style={tailwind('text-right')}>{percentage} %</Text>
         </View>
         <AmountSlider
           current={Number(percentage)}
@@ -160,7 +160,7 @@ function CoinAmountRow (props: { symbol: string, amount: BigNumber }): JSX.Eleme
     <View style={tailwind('flex-row items-center border-t border-gray-200 p-2')}>
       <View style={tailwind('flex-row flex-1 items-center justify-start')}>
         <TokenIcon style={tailwind('ml-2')} />
-        <Text style={tailwind('ml-2')}>{props.symbol}</Text>
+        <Text testID={`remove_liq_symbol_${props.symbol}`} style={tailwind('ml-2')}>{props.symbol}</Text>
       </View>
       <NumberFormat
         value={props.amount.toNumber()} decimalScale={8} thousandSeparator displayType='text'
