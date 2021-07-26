@@ -96,7 +96,7 @@
     "find-in-files": "^0.5.0",
     "husky": "^7.0.1",
     "jest-expo": "^42.0.0",
-    "lint-staged": "^11.0.0",
+    "lint-staged": "^11.1.1",
     "randomcolor": "^0.6.2",
     "react-test-renderer": "~16.13.1",
     "standard-version": "^9.3.1",
