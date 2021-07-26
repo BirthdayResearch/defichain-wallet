@@ -34,7 +34,7 @@ Should you need utxoDFI or Tokens for testing, you may generate them using DeFi 
 
 1. Create your wallet
 2. Click on `Settings` via bottom navigation bar 
-3. Click on `Remote Playground`
+3. Click on `Playground`
       <div>
         <img alt="settings" width="40%" src="/.github/images/beta_testing/settings.jpg" />
       </div>

@@ -12,8 +12,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Logging } from '../../../../../api/logging'
 import { Text, TextInput } from '../../../../../components'
+import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
-import { PrimaryButton } from '../../../../../components/PrimaryButton'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
@@ -111,9 +111,10 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         token={tokenA} control={control} controlName={tokenAForm}
         title={translate('screens/PoolSwapScreen', 'From')}
         onChangeFromAmount={async (amount) => {
+          amount = isNaN(+amount) ? '0' : amount
           setValue(tokenAForm, amount)
           await trigger(tokenAForm)
-          setValue(tokenBForm, aToBPrice.times(amount !== undefined && amount !== '' ? amount : 0).toFixed())
+          setValue(tokenBForm, aToBPrice.times(amount !== undefined && amount !== '' ? amount : 0).toFixed(8))
           await trigger(tokenBForm)
         }}
         maxAmount={tokenA.amount}
@@ -124,7 +125,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       <TokenRow
         token={tokenB} control={control} controlName={tokenBForm}
         title={translate('screens/PoolSwapScreen', 'To')}
-        maxAmount={aToBPrice.times(getValues()[tokenAForm]).toFixed()}
+        maxAmount={aToBPrice.times(getValues()[tokenAForm]).toFixed(8)}
       />
       {
         (new BigNumber(getValues()[tokenAForm]).isGreaterThan(0) && new BigNumber(getValues()[tokenBForm]).isGreaterThan(0)) &&
@@ -133,9 +134,11 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
             tokenBAmount={getValues()[tokenBForm]}
           />
       }
-      <PrimaryButton disabled={!isValid || hasPendingJob} title='Swap' onPress={onSubmit} testID='button_submit'>
-        <Text style={tailwind('text-white font-bold')}>{translate('screens/PoolSwapScreen', 'SWAP')}</Text>
-      </PrimaryButton>
+      <Button
+        disabled={!isValid || hasPendingJob}
+        label={translate('screens/PoolSwapScreen', 'SWAP')}
+        title='Swap' onPress={onSubmit} testID='button_submit'
+      />
     </ScrollView>
   )
 }
@@ -266,10 +269,10 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, tokenBAmount }: 
   const reserveA = tokenA.id === poolpair.tokenA.id ? poolpair.tokenA.reserve : poolpair.tokenB.reserve
   const reserveB = tokenB.id === poolpair.tokenB.id ? poolpair.tokenB.reserve : poolpair.tokenA.reserve
   const price = [{
-    amount: new BigNumber(reserveA).div(reserveB).toFixed(),
+    amount: new BigNumber(reserveA).div(reserveB).toFixed(8),
     symbol: `${tokenA.symbol} per ${tokenB.symbol}`
   },
-  { amount: new BigNumber(reserveB).div(reserveA).toFixed(), symbol: `${tokenB.symbol} per ${tokenA.symbol}` }]
+  { amount: new BigNumber(reserveB).div(reserveA).toFixed(8), symbol: `${tokenB.symbol} per ${tokenA.symbol}` }]
   return (
     <View style={tailwind('mt-4')}>
       <PriceRow
@@ -280,12 +283,12 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, tokenBAmount }: 
       <PriceRow
         testID='estimated'
         title={translate('screens/PoolSwapScreen', 'Estimated to receive')}
-        values={[{ amount: new BigNumber(tokenAAmount).times(price[1].amount).toFixed(), symbol: tokenB.symbol }]}
+        values={[{ amount: new BigNumber(tokenAAmount).times(price[1].amount).toFixed(8), symbol: tokenB.symbol }]}
       />
       <PriceRow
         testID='minimum'
         title={translate('screens/PoolSwapScreen', 'Minimum to receive')}
-        values={[{ amount: tokenBAmount, symbol: tokenB.symbol }]}
+        values={[{ amount: new BigNumber(tokenBAmount).toFixed(8), symbol: tokenB.symbol }]}
       />
       <PriceRow
         testID='fee'
@@ -308,8 +311,7 @@ async function constructSignedSwapAndSend (
   dexForm: DexForm,
   dispatch: Dispatch<any>
 ): Promise<void> {
-  const maxPrice = dexForm.fromAmount.div(dexForm.toAmount)
-
+  const maxPrice = dexForm.fromAmount.div(dexForm.toAmount).decimalPlaces(8)
   const signer = async (): Promise<CTransactionSegWit> => {
     const builder = account.withTransactionBuilder()
     const script = await account.getScript()

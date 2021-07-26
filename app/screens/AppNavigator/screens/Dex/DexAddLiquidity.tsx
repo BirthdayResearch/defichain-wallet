@@ -7,8 +7,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { Text, TextInput, View } from '../../../../components'
+import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { PrimaryButton } from '../../../../components/PrimaryButton'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -266,15 +266,15 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
 
 function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
   return (
-    <PrimaryButton
-      touchableStyle={tailwind('m-3')}
-      testID='button_continue_add_liq'
-      title='Continue'
-      disabled={!props.enabled}
-      onPress={props.onPress}
-    >
-      <Text style={tailwind('text-white font-bold')}>{translate('screens/SendScreen', 'CONTINUE')}</Text>
-    </PrimaryButton>
+    <View style={tailwind('m-3')}>
+      <Button
+        testID='button_continue_add_liq'
+        title='Continue'
+        disabled={!props.enabled}
+        onPress={props.onPress}
+        label={translate('screens/SendScreen', 'CONTINUE')}
+      />
+    </View>
   )
 }
 

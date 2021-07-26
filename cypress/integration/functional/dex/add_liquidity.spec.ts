@@ -1,7 +1,7 @@
 context('app/dex/addLiquidity', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_liquidity').click()
+    cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('pool_pair_add_DFI-BTC').click()
   })
 

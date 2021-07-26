@@ -13,8 +13,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Logging } from '../../../../api/logging'
 import { Text, View } from '../../../../components'
+import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { PrimaryButton } from '../../../../components/PrimaryButton'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
 import { hasTxQueued, ocean } from '../../../../store/ocean'
@@ -38,13 +38,13 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   const { pair } = props.route.params as any
   const [aSymbol, bSymbol] = pair.symbol.split('-') as [string, string]
   const lmToken = tokens.find(token => token.symbol === pair.symbol) as AddressToken
-  const tokenAPerLmToken = new BigNumber(pair.tokenA.reserve).div(pair.totalLiquidity)
-  const tokenBPerLmToken = new BigNumber(pair.tokenB.reserve).div(pair.totalLiquidity)
+  const tokenAPerLmToken = new BigNumber(pair.tokenA.reserve).div(pair.totalLiquidity.token)
+  const tokenBPerLmToken = new BigNumber(pair.tokenB.reserve).div(pair.totalLiquidity.token)
 
   const setSliderPercentage = useCallback((percentage: number) => {
     // this must round down, avoid attempt remove more than selected (or even available)
     const toRemove = new BigNumber(percentage).div(100).times(lmToken.amount).decimalPlaces(8, BigNumber.ROUND_DOWN)
-    const ratioToTotal = toRemove.div(pair.totalLiquidity)
+    const ratioToTotal = toRemove.div(pair.totalLiquidity.token)
     // assume defid will trim the dust values too
     const tokenA = ratioToTotal.times(pair.tokenA.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN)
     const tokenB = ratioToTotal.times(pair.tokenB.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN)
@@ -76,7 +76,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
             style={tailwind('flex-1')}
           >{translate('screens/RemoveLiquidity', 'Amount of liquidity to remove')}
           </Text>
-          <Text testID='text_slider_pencentage' style={tailwind('text-right')}>{percentage} %</Text>
+          <Text testID='text_slider_percentage' style={tailwind('text-right')}>{percentage} %</Text>
         </View>
         <AmountSlider
           current={Number(percentage)}
@@ -157,7 +157,7 @@ function CoinAmountRow (props: { symbol: string, amount: BigNumber }): JSX.Eleme
     <View style={tailwind('flex-row items-center border-t border-gray-200 p-2')}>
       <View style={tailwind('flex-row flex-1 items-center justify-start')}>
         <TokenIcon style={tailwind('ml-2')} />
-        <Text style={tailwind('ml-2')}>{props.symbol}</Text>
+        <Text testID={`remove_liq_symbol_${props.symbol}`} style={tailwind('ml-2')}>{props.symbol}</Text>
       </View>
       <NumberFormat
         value={props.amount.toNumber()} decimalScale={8} thousandSeparator displayType='text'
@@ -176,15 +176,15 @@ function CoinAmountRow (props: { symbol: string, amount: BigNumber }): JSX.Eleme
 
 function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
   return (
-    <PrimaryButton
-      testID='button_continue_remove_liq'
-      touchableStyle={tailwind('m-2')}
-      title='continue'
-      disabled={!props.enabled}
-      onPress={props.onPress}
-    >
-      <Text style={tailwind('text-white font-bold')}>{translate('components/Button', 'CONTINUE')}</Text>
-    </PrimaryButton>
+    <View style={tailwind('m-2')}>
+      <Button
+        testID='button_continue_remove_liq'
+        title='continue'
+        disabled={!props.enabled}
+        onPress={props.onPress}
+        label={translate('components/Button', 'CONTINUE')}
+      />
+    </View>
   )
 }
 

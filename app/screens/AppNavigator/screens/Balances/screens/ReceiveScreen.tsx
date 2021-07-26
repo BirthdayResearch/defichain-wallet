@@ -32,6 +32,7 @@ export function ReceiveScreen (): JSX.Element {
         <Text
           testID='address_text'
           style={tailwind('text-gray-500 font-medium')}
+          numberOfLines={2}
         >{address}
         </Text>
       </View>

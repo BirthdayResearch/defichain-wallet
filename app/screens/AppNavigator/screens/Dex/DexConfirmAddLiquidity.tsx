@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Logging } from '../../../../api/logging'
 import { Text, View } from '../../../../components'
-import { PrimaryButton } from '../../../../components/PrimaryButton'
+import { Button } from '../../../../components/Button'
 import { RootState } from '../../../../store'
 import { hasTxQueued, ocean } from '../../../../store/ocean'
 import { tailwind } from '../../../../tailwind'
@@ -42,7 +42,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const [aSymbol, bSymbol] = symbol.split('-') as [string, string]
   const aToBRate = new BigNumber(tokenB.reserve).div(tokenA.reserve)
   const bToARate = new BigNumber(tokenA.reserve).div(tokenB.reserve)
-  const lmTokenAmount = percentage.times(totalLiquidity)
+  const lmTokenAmount = percentage.times(totalLiquidity.token)
+
   const dispatch = useDispatch()
 
   const addLiquidity = useCallback(() => {
@@ -143,15 +144,15 @@ function Row (props: { lhs: string, rhs: Array<{value: string | number, suffix?:
 
 function ConfirmButton (props: { disabled?: boolean, onPress: () => void }): JSX.Element {
   return (
-    <PrimaryButton
-      testID='button_confirm_add_liq'
-      title='Confirm'
-      touchableStyle={tailwind('mb-2 mt-4')}
-      onPress={props.onPress}
-      disabled={props.disabled}
-    >
-      <Text style={[tailwind('text-white font-bold')]}>{translate('screens/ConfirmLiquidity', 'CONFIRM')}</Text>
-    </PrimaryButton>
+    <View style={tailwind('mb-2 mt-4')}>
+      <Button
+        testID='button_confirm_add_liq'
+        title='Confirm'
+        onPress={props.onPress}
+        disabled={props.disabled}
+        label={translate('screens/ConfirmLiquidity', 'CONFIRM')}
+      />
+    </View>
   )
 }
 

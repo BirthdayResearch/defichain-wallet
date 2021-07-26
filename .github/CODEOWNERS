@@ -5,16 +5,10 @@
 /.husky/                                        @fuxingloh @thedoublejay
 /.idea/                                         @fuxingloh @thedoublejay
 
-/app                                            @fuxingloh @thedoublejay @ivan-zynesis
-/app/api                                        @fuxingloh @thedoublejay
-/app/assets                                     @fuxingloh @thedoublejay @ivan-zynesis @izzycsy
-/app/components                                 @fuxingloh @thedoublejay @ivan-zynesis
-/app/contexts                                   @fuxingloh @thedoublejay
-/app/hooks                                      @fuxingloh @thedoublejay
-/app/screens                                    @fuxingloh @thedoublejay @ivan-zynesis
-/app/store                                      @fuxingloh @thedoublejay @ivan-zynesis
-/app/translations                               @fuxingloh @thedoublejay @ivan-zynesis @izzycsy
+/app/                                           @fuxingloh @thedoublejay @ivan-zynesis
 
+/app/assets                                     @fuxingloh @thedoublejay @ivan-zynesis @izzycsy
+/app/translations                               @fuxingloh @thedoublejay @ivan-zynesis @izzycsy
 /cypress                                        @fuxingloh @thedoublejay @ivan-zynesis @izzycsy
 
 /.codeclimate.yml                               @fuxingloh @thedoublejay
