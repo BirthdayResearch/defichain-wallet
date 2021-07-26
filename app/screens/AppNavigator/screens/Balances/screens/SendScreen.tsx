@@ -14,8 +14,8 @@ import { Dispatch } from 'redux'
 import { Logging } from '../../../../../api/logging'
 import { WhaleWallet } from '../../../../../api/wallet/provider'
 import { Text, TextInput } from '../../../../../components'
+import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
-import { PrimaryButton } from '../../../../../components/PrimaryButton'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWallet } from '../../../../../contexts/WalletContext'
@@ -133,12 +133,12 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
           </View>
         )
       }
-      <PrimaryButton
-        testID='send_submit_button' disabled={!isValid || isSubmitting || hasPendingJob} title='Send'
-        onPress={onSubmit}
-      >
-        <Text style={tailwind('text-white font-bold')}>{translate('screens/SendScreen', 'SEND')}</Text>
-      </PrimaryButton>
+      <Button
+        testID='send_submit_button'
+        disabled={!isValid || isSubmitting || hasPendingJob}
+        label={translate('screens/SendScreen', 'SEND')}
+        title='Send' onPress={onSubmit}
+      />
     </ScrollView>
   )
 }
