@@ -14,5 +14,13 @@ context('app/transactions/list', () => {
       // seems to be crashing (when trying to get element if testid not found)
       // cy.getByTestID('transaction_row_2').should('not.exist')
     })
+
+    it('should not display empty transaction text', () => {
+      cy.getByTestID('empty_transaction').should('not.exist')
+    })
+
+    it('RECEIVE COINS should not exist', () => {
+      cy.getByTestID('button_receive_coins').should('not.exist')
+    })
   })
 })

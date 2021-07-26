@@ -13,5 +13,13 @@ context('app/transactions/list', () => {
     it('LOAD MORE should not exist', () => {
       cy.getByTestID('transactions_list_loadmore').should('not.exist')
     })
+
+    it('should display empty transaction text', () => {
+      cy.getByTestID('empty_transaction').should('exist')
+    })
+
+    it('should display RECEIVE COINS', () => {
+      cy.getByTestID('button_receive_coins').should('exist')
+    })
   })
 })
