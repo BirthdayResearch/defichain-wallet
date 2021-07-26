@@ -9,7 +9,7 @@ context('wallet/send', () => {
     cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(10000)
     cy.getByTestID('playground_wallet_fetch_balances').click()
     cy.getByTestID('bottom_tab_balances').click()
-    network = localStorage.getItem('Development.NETWORK') ?? 'Playground'
+    network = localStorage.getItem('Development.NETWORK')
   })
 
   describe('DFI UTXO', () => {
