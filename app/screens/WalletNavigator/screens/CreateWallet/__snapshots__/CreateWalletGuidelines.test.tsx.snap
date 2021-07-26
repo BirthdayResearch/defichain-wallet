@@ -326,6 +326,7 @@ exports[`create wallet guidelines should match snapshot 1`] = `
             },
           ]
         }
+        testID="guidelines_switch"
         thumbTintColor="#fff"
         tintColor="rgba(120, 120, 128, 0.20)"
         value={false}
