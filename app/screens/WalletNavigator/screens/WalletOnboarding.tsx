@@ -12,6 +12,7 @@ export function WalletOnboarding (): JSX.Element {
 
   return (
     <ScrollView
+      testID='onboarding_carousel'
       contentContainerStyle={tailwind('h-full')}
       style={tailwind('flex-1 bg-gray-100')}
     >
