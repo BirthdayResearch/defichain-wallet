@@ -1,9 +1,9 @@
 import React from 'react'
-import { ButtonProps, TouchableOpacity } from 'react-native'
+import { ButtonProps as Props, TouchableOpacity } from 'react-native'
 import { tailwind } from '../tailwind'
 import { Text } from './Text'
 
-interface ButtonProps:  React.PropsWithChildren<ButtonProps> {
+interface ButtonProps extends React.PropsWithChildren<Props> {
   color?: 'primary' | 'secondary'
   fill?: 'fill' | 'outline' | 'flat'
   label?: string
