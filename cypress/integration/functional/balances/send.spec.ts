@@ -1,23 +1,15 @@
 import BigNumber from 'bignumber.js'
 
 context('wallet/send', () => {
-  let address: string
-
+  // bech32, p2sh, legacy
+  const addresses = ['bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9', '2MxnNb1MYSZvS3c26d4gC7gXsNMkB83UoXB', 'n1xjm9oekw98Rfb3Mv4ApyhwxC5kMuHnCo']
+  let network: string
   before(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('balances_row_0_utxo').click()
-    cy.getByTestID('receive_button').click()
-    cy.getByTestID('address_text').then(($txt: any) => {
-      // store random address
-      address = $txt[0].textContent
-
-      cy.getByTestID('bottom_tab_settings').click()
-      cy.getByTestID('setting_exit_wallet').click()
-      cy.createEmptyWallet(true)
-      cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(10000)
-      cy.getByTestID('playground_wallet_fetch_balances').click()
-      cy.getByTestID('bottom_tab_balances').click()
-    })
+    cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(10000)
+    cy.getByTestID('playground_wallet_fetch_balances').click()
+    cy.getByTestID('bottom_tab_balances').click()
+    network = localStorage.getItem('Development.NETWORK') ?? 'Playground'
   })
 
   describe('DFI UTXO', () => {
@@ -28,7 +20,7 @@ context('wallet/send', () => {
       cy.getByTestID('send_button').click()
 
       // Valid form
-      cy.getByTestID('address_input').type(address)
+      cy.getByTestID('address_input').type(addresses[0])
       cy.getByTestID('amount_input').type('0.1')
       cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
 
@@ -37,7 +29,7 @@ context('wallet/send', () => {
       cy.getByTestID('send_submit_button').should('have.attr', 'disabled')
 
       // Invalid amount - Character, over max amount, zero
-      cy.getByTestID('address_input').clear().type(address)
+      cy.getByTestID('address_input').clear().type(addresses[0])
       cy.getByTestID('amount_input').clear().type('a')
       cy.getByTestID('send_submit_button').should('have.attr', 'disabled')
       cy.getByTestID('amount_input').clear().type('12')
@@ -51,7 +43,7 @@ context('wallet/send', () => {
       cy.getByTestID('token_symbol').should('contain', 'DFI')
     })
 
-    it('should be able to compute max values', function () {
+    it('should be able to compute for max values', function () {
       cy.getByTestID('transaction_fee').then(($txt: any) => {
         const transactionFee = $txt[0].textContent.replace(' DFI', '')
         cy.getByTestID('max_value').then(($txt: any) => {
@@ -65,42 +57,55 @@ context('wallet/send', () => {
       })
     })
 
-    it('should be able to send', function () {
-      cy.getByTestID('amount_input').clear().type('1')
-      cy.getByTestID('send_submit_button').click()
-      cy.wait(5000).getByTestID('oceanInterface_close').click().wait(5000)
-      cy.getByTestID('playground_wallet_fetch_balances').click()
-      cy.getByTestID('bottom_tab_balances').click()
-      cy.getByTestID('balances_row_0_utxo_amount').contains('8.999')
-    })
+    addresses.forEach((address) => {
+      it(`should be able to send to address ${address}`, function () {
+        cy.getByTestID('address_input').clear().type(address)
+        cy.getByTestID('amount_input').clear().type('1')
+        cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
+        cy.getByTestID('send_submit_button').click()
+        cy.wait(5000).getByTestID('oceanInterface_close').click().wait(5000)
+        cy.getByTestID('playground_wallet_fetch_balances').click()
+        cy.getByTestID('bottom_tab_balances').click()
+      })
 
-    it('check if exist on other side', function () {
-      const network = localStorage.getItem('Development.NETWORK')
-      let url: string
-      if (network === 'Playground') {
-        url = 'https://playground.defichain.com/'
-      } else {
-        url = 'http://localhost:19553/'
-      }
-      cy.request(`${url}v0/regtest/address/${address}/balance`).then((response) => {
-        expect(response.body).to.have.property('data', '1.00000000')
+      it(`should check if exist on other side ${address}`, function () {
+        let url: string
+        if (network === 'Playground') {
+          url = 'https://playground.defichain.com/'
+        } else {
+          url = 'http://localhost:19553/'
+        }
+        cy.request(`${url}v0/regtest/address/${address}/balance`).then((response) => {
+          expect(response.body).to.have.property('data', '1.00000000')
+        })
+      })
+
+      it('should return to balances and resume send flow', function () {
+        cy.getByTestID('balances_row_0_utxo_amount').click()
+        cy.getByTestID('send_button').click()
       })
     })
   })
 
   describe('dBTC', () => {
-    it('should be able to send', function () {
-      cy.getByTestID('balances_list').should('exist')
-      cy.getByTestID('balances_row_1').should('exist')
-      cy.getByTestID('balances_row_1_amount').contains(10).click()
-      cy.getByTestID('send_button').click()
-      cy.getByTestID('address_input').type(address)
-      cy.getByTestID('max_button').click()
-      cy.getByTestID('send_submit_button').click()
-      cy.wait(5000).getByTestID('oceanInterface_close').click().wait(5000)
-      cy.getByTestID('playground_wallet_fetch_balances').click()
-      cy.getByTestID('bottom_tab_balances').click()
-      cy.getByTestID('balances_row_1_amount').should('not.exist')
+    addresses.forEach((address) => {
+      it(`should be able to send to address ${address}`, function () {
+        cy.getByTestID('bottom_tab_balances').click()
+        cy.getByTestID('balances_list').should('exist')
+        cy.getByTestID('balances_row_1').should('exist')
+        cy.getByTestID('balances_row_1_amount').contains(10).click()
+        cy.getByTestID('send_button').click()
+        cy.getByTestID('address_input').type(address)
+        cy.getByTestID('max_button').click()
+        cy.getByTestID('send_submit_button').click()
+        cy.wait(5000).getByTestID('oceanInterface_close').click().wait(5000)
+        cy.getByTestID('playground_wallet_fetch_balances').click()
+        cy.getByTestID('bottom_tab_balances').click()
+        cy.getByTestID('balances_row_1_amount').should('not.exist')
+
+        cy.sendTokenToWallet(['BTC']).wait(10000)
+        cy.getByTestID('playground_wallet_fetch_balances').click()
+      })
     })
   })
 })

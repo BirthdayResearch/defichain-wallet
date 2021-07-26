@@ -81,7 +81,7 @@ function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
         props.network === network &&
         (
           <MaterialIcons
-            testID={`button_network_${props.network.replace(' ', '')}_check`} size={24} name='check'
+            testID={`button_network_${props.network}_check`} size={24} name='check'
             style={tailwind('text-primary')}
           />
         )
