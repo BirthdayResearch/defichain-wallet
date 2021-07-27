@@ -30,7 +30,8 @@ context('wallet/recover', () => {
   })
 
   it('should be able to submit form', function () {
-    cy.wait(2000)
+    cy.getByTestID('recover_wallet_button').should('not.have.attr', 'disabled')
+    cy.getByTestID('recover_wallet_button').click().wait(2000)
     cy.getByTestID('balances_list').should('exist')
   })
 })
