@@ -12,8 +12,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Logging } from '../../../../api/logging'
 import { Text, TextInput, View } from '../../../../components'
+import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { PrimaryButton } from '../../../../components/PrimaryButton'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
 import { hasTxQueued, ocean } from '../../../../store/ocean'
@@ -94,14 +94,13 @@ export function ConvertScreen (props: Props): JSX.Element {
           testID='text_preview_output' unit={targetToken.unit}
           balance={new BigNumber(targetToken.amount).plus(convAmount)}
         />
-        <PrimaryButton
-          testID='button_continue_convert'
-          disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob}
-          title='Convert' onPress={convert}
-          touchableStyle={tailwind('mt-4')}
-        >
-          <Text style={tailwind('text-white font-bold')}>{translate('components/Button', 'CONTINUE')}</Text>
-        </PrimaryButton>
+        <View style={tailwind('mt-4')}>
+          <Button
+            testID='button_continue_convert'
+            disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob}
+            title='Convert' onPress={convert} label={translate('components/Button', 'CONTINUE')}
+          />
+        </View>
       </View>
     </ScrollView>
   )

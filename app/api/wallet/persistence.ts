@@ -1,4 +1,4 @@
-import { getItem, setItem } from '../storage'
+import { StorageAPI } from '../storage'
 
 export enum WalletType {
   MNEMONIC_UNPROTECTED = 'MNEMONIC_UNPROTECTED',
@@ -14,28 +14,41 @@ export interface WalletPersistenceData<T> {
 }
 
 async function get (): Promise<Array<WalletPersistenceData<any>>> {
-  const json = await getItem('WALLET')
-  if (json !== null) {
-    return JSON.parse(json)
+  const count: string = await StorageAPI.getItem('WALLET.count') ?? '0'
+
+  const list: Array<WalletPersistenceData<any>> = []
+  for (let i = 0; i < parseInt(count); i++) {
+    const data = await StorageAPI.getItem(`WALLET.${i}`)
+    if (data === null) {
+      throw new Error(`WALLET.count=${count} but ${i} doesn't exist`)
+    }
+
+    list[i] = JSON.parse(data)
   }
-
-  return []
+  return list
 }
 
+/**
+ * @param wallets to set, override previous set wallet
+ */
 async function set (wallets: Array<WalletPersistenceData<any>>): Promise<void> {
-  await setItem('WALLET', JSON.stringify(wallets))
+  await clear()
+
+  for (let i = 0; i < wallets.length; i++) {
+    await StorageAPI.setItem(`WALLET.${i}`, JSON.stringify(wallets[i]))
+  }
+  await StorageAPI.setItem('WALLET.count', `${wallets.length}`)
 }
 
-async function add (data: WalletPersistenceData<any>): Promise<void> {
-  const wallets = await get()
-  wallets.push(data)
-  await set(wallets)
-}
+/**
+ * Clear all persisted wallet
+ */
+async function clear (): Promise<void> {
+  const count: string = await StorageAPI.getItem('WALLET.count') ?? '0'
 
-async function remove (index: number): Promise<void> {
-  const wallets = await get()
-  wallets.splice(index, 1)
-  await set(wallets)
+  for (let i = 0; i < parseInt(count); i++) {
+    await StorageAPI.removeItem(`WALLET.${i}`)
+  }
 }
 
 /**
@@ -43,7 +56,5 @@ async function remove (index: number): Promise<void> {
  */
 export const WalletPersistence = {
   set,
-  get,
-  add,
-  remove
+  get
 }

@@ -1,67 +1,42 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
-import { ScrollView, TouchableOpacity } from 'react-native'
-import { MnemonicUnprotected } from '../../../api/wallet/provider/mnemonic_unprotected'
-import { Text, View } from '../../../components'
-import { VectorIcon, VectorIconName } from '../../../constants/Theme'
-import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
-import { getEnvironment } from '../../../environment'
+import { ScrollView } from 'react-native'
+import { View } from '../../../components'
+import { Button } from '../../../components/Button'
 import { tailwind } from '../../../tailwind'
 import { translate } from '../../../translations'
 import { WalletParamList } from '../WalletNavigator'
+import { OnboardingCarousel } from './components/OnboardingCarousel'
 
 export function WalletOnboarding (): JSX.Element {
-  const { setWallet } = useWalletManagementContext()
   const navigator = useNavigation<NavigationProp<WalletParamList>>()
 
-  const onDebugPress = getEnvironment().debug ? async () => {
-    await setWallet(MnemonicUnprotected.Abandon23Playground)
-  } : undefined
-
   return (
-    <ScrollView style={tailwind('flex-1 py-8 bg-gray-100')} testID='wallet_onboarding'>
-      <View style={tailwind('flex items-center')}>
-        <TouchableOpacity delayLongPress={5000} onLongPress={onDebugPress}>
-          <View style={tailwind('flex bg-white justify-center items-center rounded-full h-16 w-16')}>
-            <VectorIcon size={26} name='account-balance-wallet' color='#999' />
-          </View>
-        </TouchableOpacity>
-
-        <Text style={tailwind('font-bold text-lg mt-4 text-gray-600')}>
-          {translate('screens/WalletOnboarding', 'No wallets')}
-        </Text>
+    <ScrollView
+      testID='onboarding_carousel'
+      contentContainerStyle={tailwind('h-full')}
+      style={tailwind('flex-1 bg-gray-100')}
+    >
+      <View style={tailwind('h-4/6')}>
+        <OnboardingCarousel />
       </View>
-
-      <View style={tailwind('mt-8')}>
-        <WalletOptionRow
+      <View style={tailwind('mt-8 px-4')}>
+        <Button
           onPress={() => navigator.navigate('WalletMnemonicCreate')}
-          text='Create new mnemonic wallet' icon='account-balance-wallet'
+          label={translate('screens/Onboarding', 'CREATE A WALLET')}
+          testID='create_wallet_button'
+          title='create_wallet'
+          margin='m-2'
         />
-        <View style={tailwind('h-px bg-gray-100')} />
-        <WalletOptionRow
+        <Button
           onPress={() => navigator.navigate('WalletMnemonicRestore')}
-          text='Restore mnemonic wallet' icon='restore-page'
+          label={translate('screens/Onboarding', 'RESTORE WALLET')}
+          testID='restore_wallet_button'
+          title='restore_wallet'
+          fill='flat'
+          margin='m-2'
         />
       </View>
     </ScrollView>
-  )
-}
-
-function WalletOptionRow (props: { text: string, icon: VectorIconName, onPress: () => void }): JSX.Element {
-  return (
-    <TouchableOpacity
-      onPress={props.onPress}
-      style={tailwind('flex-row items-center justify-between px-4 bg-white')}
-    >
-      <View style={tailwind('flex-row items-center')}>
-        <VectorIcon name={props.icon} size={24} style={tailwind('text-primary')} />
-        <Text style={tailwind('font-medium ml-3 py-4')}>
-          {props.text}
-        </Text>
-      </View>
-      <View>
-        <VectorIcon name='chevron-right' size={24} />
-      </View>
-    </TouchableOpacity>
   )
 }

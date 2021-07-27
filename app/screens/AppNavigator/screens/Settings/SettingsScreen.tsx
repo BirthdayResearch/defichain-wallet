@@ -69,6 +69,7 @@ function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
 
   return (
     <TouchableOpacity
+      testID={`button_network_${props.network}`}
       style={tailwind('flex-1 flex-row px-4 bg-white items-center justify-between')}
       onPress={onPress}
     >
@@ -77,8 +78,13 @@ function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
       </Text>
 
       {
-        props.network === network
-          ? <MaterialIcons size={24} name='check' style={tailwind('text-primary')} /> : null
+        props.network === network &&
+        (
+          <MaterialIcons
+            testID={`button_network_${props.network}_check`} size={24} name='check'
+            style={tailwind('text-primary')}
+          />
+        )
       }
     </TouchableOpacity>
   )
