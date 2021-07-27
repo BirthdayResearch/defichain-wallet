@@ -1,4 +1,4 @@
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
@@ -58,7 +58,7 @@ export function TransactionsScreen (): JSX.Element {
         testID='empty_transaction'
         style={tailwind('px-8 pt-32 pb-2 text-center')}
       >
-        <MaterialCommunityIcons name='folder-alert' size={44} color='#212121' style={tailwind('pb-5 text-center')} />
+        <MaterialCommunityIcons name='folder-alert' size={44} style={tailwind('pb-5 text-center text-black')} />
         <Text style={tailwind('text-2xl pb-2 font-semibold text-center')}>
           {translate('screens/TransactionsScreen', 'No transactions yet')}
         </Text>
@@ -114,7 +114,7 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
         }}
       >
         <View style={tailwind('w-8 justify-center items-center')}>
-          <Ionicons name='arrow-down' size={24} color={color} />
+          <MaterialCommunityIcons name='arrow-up' size={24} color={color} />
         </View>
         <View style={tailwind('flex-1 flex-row justify-center items-center')}>
           <View style={tailwind('flex-auto flex-col ml-3 justify-center')}>
@@ -132,7 +132,7 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
           </View>
         </View>
         <View style={tailwind('w-8 justify-center items-center')}>
-          <Ionicons name='chevron-forward' size={24} color='rgba(0,0,0,0.6)' />
+          <MaterialCommunityIcons name='chevron-right' size={24} style={tailwind('text-black opacity-60')} />
         </View>
       </TouchableOpacity>
     )
