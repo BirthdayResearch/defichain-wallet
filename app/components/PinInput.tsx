@@ -20,6 +20,8 @@ export function PinInput ({ length, onChange }: PinInputOptions): JSX.Element {
 
   useEffect(() => {
     if (text.length === length) {
+      // allow UI thread complete render with updated textinput state
+      // before resolving long async task
       setTimeout(() => onChange(text), 100)
     }
   }, [text])

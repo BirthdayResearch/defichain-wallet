@@ -1,10 +1,13 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
+
 import { Logging } from '../api/logging'
 import { WalletPersistence, WalletPersistenceData } from '../api/wallet/persistence'
 import { initWhaleWallet, WhaleWallet } from '../api/wallet/provider'
 import { PromptInterface } from '../api/wallet/provider/mnemonic_encrypted'
 import { useNetworkContext } from './NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
+
+const MAX_PASSCODE_ATTEMPTS = 3
 
 interface WalletManagement {
   wallets: WhaleWallet[]
@@ -13,7 +16,12 @@ interface WalletManagement {
    */
   setWallet: (data: WalletPersistenceData<any>) => Promise<void>
   clearWallets: () => Promise<void>
+
+  // logic to bridge promptPassphrase UI and jellyfish-txn-builder
   setPasscodePromptInterface: (constructPrompt: PromptInterface) => void
+  incrementPasscodeErrorCount: () => void
+  errorCount: number
+  resetErrorCount: () => void
 }
 
 const WalletManagementContext = createContext<WalletManagement>(undefined as any)
@@ -33,6 +41,7 @@ export function WalletManagementProvider (props: React.PropsWithChildren<any>): 
   const client = useWhaleApiClient()
   const [dataList, setDataList] = useState<Array<WalletPersistenceData<any>>>([])
   const [promptInterface, setPromptInterface] = useState<PromptInterface>()
+  const [errCount, setErrCount] = useState(0)
 
   useEffect(() => {
     WalletPersistence.get().then(dataList => {
@@ -40,9 +49,13 @@ export function WalletManagementProvider (props: React.PropsWithChildren<any>): 
     }).catch(Logging.error)
   }, [network])
 
+  useEffect(() => {
+    if (errCount > MAX_PASSCODE_ATTEMPTS) {
+      // TODO(@ivan-zynesis): wipe wallets from storage
+    }
+  }, [errCount])
+
   const wallets = useMemo(() => {
-    console.log('use wallet memo, prompt constructor', promptInterface)
-    if (promptInterface !== undefined) console.log('prompt constructor set')
     return dataList.map(data => initWhaleWallet(data, network, client, promptInterface))
   }, [dataList, promptInterface])
 
@@ -58,6 +71,13 @@ export function WalletManagementProvider (props: React.PropsWithChildren<any>): 
     },
     setPasscodePromptInterface (cb: PromptInterface): void {
       setPromptInterface(cb)
+    },
+    incrementPasscodeErrorCount (): void {
+      setErrCount(errCount + 1)
+    },
+    errorCount: errCount,
+    resetErrorCount: () => {
+      setErrCount(0)
     }
   }
 

@@ -1,5 +1,6 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleApiClient } from '@defichain/whale-api-client'
+import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { MaterialIcons } from '@expo/vector-icons'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 'react-native'
@@ -17,6 +18,7 @@ import { PinInput } from '../PinInput'
 
 const MAX_AUTO_RETRY = 1
 const PASSCODE_LENGTH = 6
+const MAX_SIGNING_RETRY = 3
 
 async function gotoExplorer (txid: string): Promise<void> {
   // TODO(thedoublejay) explorer URL
@@ -25,6 +27,19 @@ async function gotoExplorer (txid: string): Promise<void> {
   const supported = await Linking.canOpenURL(url)
   if (supported) {
     await Linking.openURL(url)
+  }
+}
+
+async function signTransaction (tx: OceanTransaction, account: WhaleWalletAccount, incrementErrorCounter: () => void, retries: number = 0): Promise<CTransactionSegWit> {
+  try {
+    return await tx.sign(account)
+  } catch (e) {
+    Logging.error(e)
+    if (retries < MAX_SIGNING_RETRY) {
+      incrementErrorCounter()
+      return await signTransaction(tx, account, incrementErrorCounter, retries + 1)
+    }
+    throw e
   }
 }
 
@@ -87,16 +102,19 @@ export function OceanInterface (): JSX.Element | null {
       Animated.timing(slideAnim, { toValue: height, duration: 200, useNativeDriver: false }).start()
       setTx(transaction)
 
-      transaction.sign(walletContext.get(0))
+      signTransaction(transaction, walletContext.get(0), () => walletManagement.incrementPasscodeErrorCount())
         .then(async signedTx => {
           setTxid(signedTx.txId)
           await broadcastTransaction(signedTx, client)
         })
-        .then(() => setTx({
-          ...transaction,
-          broadcasted: true,
-          title: translate('screens/OceanInterface', 'Transaction Sent')
-        }))
+        .then(() => {
+          walletManagement.resetErrorCount()
+          setTx({
+            ...transaction,
+            broadcasted: true,
+            title: translate('screens/OceanInterface', 'Transaction Sent')
+          })
+        })
         .catch((e: Error) => {
           let errMsg = e.message
           if (txid !== undefined) {
@@ -107,19 +125,6 @@ export function OceanInterface (): JSX.Element | null {
         .finally(() => dispatch(ocean.actions.popTransaction())) // remove the job as soon as completion
     }
   }, [transaction, walletContext])
-
-  // UI provide interface to WalletContext to access pin request component
-  useEffect(() => {
-    const passcodePromptConstructor = {
-      prompt: async (): Promise<string> => {
-        setIsPrompting(true)
-        const pass = await new Promise<string>(resolve => { passcodeResolverRef.current = resolve })
-        setIsPrompting(false)
-        return pass
-      }
-    }
-    walletManagement.setPasscodePromptInterface(passcodePromptConstructor)
-  }, [])
 
   if (tx === undefined) {
     return null

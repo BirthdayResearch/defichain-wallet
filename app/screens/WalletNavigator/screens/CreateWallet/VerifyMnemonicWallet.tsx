@@ -16,12 +16,9 @@ export function VerifyMnemonicWallet ({ route }: Props): JSX.Element {
   const enteredWords: string[] = []
 
   const [valid, setValid] = useState<boolean>(true)
-  // const { network } = useNetworkContext()
-  // const { setWallet } = useWalletManagementContext()
 
   async function onVerify (): Promise<void> {
     if (actualWords.join(' ') === enteredWords.join(' ')) {
-      // await setWallet(MnemonicUnprotected.toData(enteredWords, network))
       navigation.navigate('PinCreation', {
         words: actualWords,
         pinLength: 6
