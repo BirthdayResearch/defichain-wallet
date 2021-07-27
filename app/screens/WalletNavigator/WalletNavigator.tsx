@@ -2,15 +2,15 @@ import { LinkingOptions, NavigationContainer, NavigationContainerRef } from '@re
 import { createStackNavigator } from '@react-navigation/stack'
 import * as Linking from 'expo-linking'
 import * as React from 'react'
-import { HeaderFont } from '../../components/Text'
+import { HeaderFont } from '../../components'
 import { DeFiChainTheme } from '../../constants/Theme'
 import { translate } from '../../translations'
 import { CreateMnemonicWallet } from './screens/CreateWallet/CreateMnemonicWallet'
 import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
 import { GuidelinesRecoveryWords } from './screens/CreateWallet/GuidelinesRecoveryWords'
 import { VerifyMnemonicWallet } from './screens/CreateWallet/VerifyMnemonicWallet'
-import { WalletMnemonicRestore } from './screens/WalletMnemonicRestore'
-import { WalletOnboarding } from './screens/WalletOnboarding'
+import { Onboarding } from './screens/Onboarding'
+import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
 
 export interface WalletParamList {
   WalletOnboardingScreen: undefined
@@ -18,7 +18,7 @@ export interface WalletParamList {
   VerifyMnemonicWallet: {
     words: string[]
   }
-  WalletMnemonicRestore: undefined
+  RestoreMnemonicWallet: undefined
 
   [key: string]: undefined | object
 }
@@ -29,12 +29,12 @@ const LinkingConfiguration: LinkingOptions = {
   prefixes: [Linking.makeUrl('/')],
   config: {
     screens: {
-      WalletOnboarding: 'wallet/onboarding',
+      Onboarding: 'wallet/onboarding',
       CreateMnemonicWallet: 'wallet/mnemonic/create',
       CreateWalletGuidelines: 'wallet/onboarding/guidelines',
       GuidelinesRecoveryWords: 'wallet/onboarding/guidelines/recovery',
       VerifyMnemonicWallet: 'wallet/mnemonic/create/verify',
-      WalletMnemonicRestore: 'wallet/mnemonic/restore'
+      RestoreMnemonicWallet: 'wallet/mnemonic/restore'
     }
   }
 }
@@ -46,8 +46,8 @@ export function WalletNavigator (): JSX.Element {
     <NavigationContainer linking={LinkingConfiguration} ref={navigationRef} theme={DeFiChainTheme}>
       <WalletStack.Navigator initialRouteName='Setup' screenOptions={{ headerTitleStyle: HeaderFont }}>
         <WalletStack.Screen
-          name='WalletOnboarding'
-          component={WalletOnboarding}
+          name='Onboarding'
+          component={Onboarding}
           options={{
             headerShown: false
           }}
@@ -85,10 +85,10 @@ export function WalletNavigator (): JSX.Element {
           }}
         />
         <WalletStack.Screen
-          name='WalletMnemonicRestore'
-          component={WalletMnemonicRestore}
+          name='RestoreMnemonicWallet'
+          component={RestoreMnemonicWallet}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Restore Mnemonic Wallet'),
+            headerTitle: translate('screens/WalletNavigator', 'Recover Wallet'),
             headerBackTitleVisible: false
           }}
         />
