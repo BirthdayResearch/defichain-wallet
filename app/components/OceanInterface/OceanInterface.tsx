@@ -14,10 +14,8 @@ import { RootState } from '../../store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
 import { tailwind } from '../../tailwind'
 import { translate } from '../../translations'
-import { PinInput } from '../PinInput'
 
 const MAX_AUTO_RETRY = 1
-const PASSCODE_LENGTH = 6
 const MAX_SIGNING_RETRY = 3
 
 async function gotoExplorer (txid: string): Promise<void> {
@@ -74,27 +72,12 @@ export function OceanInterface (): JSX.Element | null {
   const [err, setError] = useState<Error | undefined>(e)
   const [txid, setTxid] = useState<string | undefined>()
 
-  // passcode interface
-  const [isPrompting, setIsPrompting] = useState(false)
-  const passcodeResolverRef = useRef<(val: string) => void>()
-
   const dismissDrawer = useCallback(() => {
     setTx(undefined)
     setError(undefined)
     setTxid(undefined)
     slideAnim.setValue(0)
   }, [])
-
-  const onPasscodeInput = useCallback((passcodeInput: string) => {
-    if (isPrompting && passcodeInput.length === PASSCODE_LENGTH && passcodeResolverRef.current !== undefined) {
-      setIsPrompting(false)
-      const resolver = passcodeResolverRef.current
-      setTimeout(() => {
-        resolver(passcodeInput)
-        passcodeResolverRef.current = undefined
-      }, 100)
-    }
-  }, [isPrompting])
 
   useEffect(() => {
     // last available job will remained in this UI state until get dismissed
@@ -142,11 +125,9 @@ export function OceanInterface (): JSX.Element | null {
           ? <TransactionError errMsg={err.message} onClose={dismissDrawer} />
           : (
             <TransactionDetail
-              isPrompting={isPrompting}
               broadcasted={tx.broadcasted}
               txid={txid}
               onClose={dismissDrawer}
-              onPasscodeInput={onPasscodeInput}
             />
           )
       }
@@ -154,9 +135,8 @@ export function OceanInterface (): JSX.Element | null {
   )
 }
 
-function TransactionDetail ({ isPrompting, broadcasted, txid, onClose, onPasscodeInput }: { isPrompting: boolean, broadcasted: boolean, txid?: string, onClose: () => void, onPasscodeInput: (passcode: string) => void }): JSX.Element | null {
+function TransactionDetail ({ broadcasted, txid, onClose }: { broadcasted: boolean, txid?: string, onClose: () => void }): JSX.Element | null {
   let title = 'Signing...'
-  if (isPrompting) title = 'Authorization required'
   if (txid !== undefined) title = 'Broadcasting...'
   if (broadcasted) title = 'Transaction Sent'
   return (
@@ -170,9 +150,6 @@ function TransactionDetail ({ isPrompting, broadcasted, txid, onClose, onPasscod
           style={tailwind('text-sm font-bold')}
         >{translate('screens/OceanInterface', title)}
         </Text>
-        {
-          isPrompting && <PinInput length={PASSCODE_LENGTH} onChange={onPasscodeInput} />
-        }
         {
           txid !== undefined && <TransactionIDButton txid={txid} onPress={async () => await gotoExplorer(txid)} />
         }
