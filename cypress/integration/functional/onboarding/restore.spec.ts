@@ -15,16 +15,16 @@ context('wallet/recover', () => {
   recoveryWords.forEach((word, index) => {
     it(`should validate input recovery word #${index + 1} ${word}`, function () {
       // Invalid forms - number, uppercase, space, special character
-      cy.getByTestID(`recover_word_${index + 1}`).clear().type('1').blur()
+      cy.getByTestID(`recover_word_${index + 1}`).clear().type('1').type('{enter}')
       cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(255, 0, 0)')
-      cy.getByTestID(`recover_word_${index + 1}`).clear().type('A').blur()
+      cy.getByTestID(`recover_word_${index + 1}`).clear().type('A').type('{enter}')
       cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(255, 0, 0)')
-      cy.getByTestID(`recover_word_${index + 1}`).clear().type('a a').blur()
+      cy.getByTestID(`recover_word_${index + 1}`).clear().type('a a').type('{enter}')
       cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(255, 0, 0)')
-      cy.getByTestID(`recover_word_${index + 1}`).clear().type('$$$').blur()
+      cy.getByTestID(`recover_word_${index + 1}`).clear().type('$$$').type('{enter}')
       cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(255, 0, 0)')
 
-      cy.getByTestID(`recover_word_${index + 1}`).clear().type(word).blur()
+      cy.getByTestID(`recover_word_${index + 1}`).clear().type(word).type('{enter}')
       cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(0, 0, 0)')
     })
   })
