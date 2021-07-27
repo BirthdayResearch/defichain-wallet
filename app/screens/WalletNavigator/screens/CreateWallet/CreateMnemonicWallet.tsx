@@ -3,21 +3,21 @@ import { StackScreenProps } from '@react-navigation/stack'
 import * as Random from 'expo-random'
 import * as React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
-import { Text, View } from '../../../components'
-import { VectorIcon } from '../../../constants/Theme'
-import { tailwind } from '../../../tailwind'
-import { WalletParamList } from '../WalletNavigator'
+import { Text, View } from '../../../../components'
+import { VectorIcon } from '../../../../constants/Theme'
+import { tailwind } from '../../../../tailwind'
+import { WalletParamList } from '../../WalletNavigator'
 
-type Props = StackScreenProps<WalletParamList, 'WalletMnemonicCreate'>
+type Props = StackScreenProps<WalletParamList, 'CreateMnemonicWallet'>
 
-export function WalletMnemonicCreate ({ navigation }: Props): JSX.Element {
+export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
   const words = generateMnemonicWords(24, numOfBytes => {
     const bytes = Random.getRandomBytes(numOfBytes)
     return Buffer.from(bytes)
   })
 
   function onContinue (): void {
-    navigation.navigate('WalletMnemonicCreateVerify', {
+    navigation.navigate('VerifyMnemonicWallet', {
       words: words
     })
   }
