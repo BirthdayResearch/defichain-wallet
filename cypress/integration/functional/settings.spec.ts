@@ -11,6 +11,7 @@ context('wallet/settings', () => {
 
   it('should exit wallet when clicked', function () {
     cy.getByTestID('setting_exit_wallet').click()
-    cy.getByTestID('wallet_onboarding').contains('No wallets')
+    cy.getByTestID('create_wallet_button').should('exist')
+    cy.getByTestID('restore_wallet_button').should('exist')
   })
 })

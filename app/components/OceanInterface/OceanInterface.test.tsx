@@ -8,6 +8,12 @@ import { RootState } from "../../store";
 import { ocean } from "../../store/ocean";
 import { OceanInterface } from "./OceanInterface";
 
+jest.mock('../../contexts/WalletContext', () => ({
+  useWallet: jest.fn().mockReturnValue({
+    get: jest.fn()
+  })
+}))
+
 describe('oceanInterface', () => {
   it('should match snapshot with error', async () => {
     const initialState: Partial<RootState> = {
@@ -40,7 +46,7 @@ describe('oceanInterface', () => {
         height: 49,
         transactions: [{
           broadcasted: false,
-          signer: async () => signed
+          sign: async () => signed
         }]
       }
     };

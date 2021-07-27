@@ -12,7 +12,6 @@ import { Dispatch } from 'redux'
 import { Logging } from '../../../../api/logging'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
-import { useWallet } from '../../../../contexts/WalletContext'
 import { RootState } from '../../../../store'
 import { hasTxQueued, ocean } from '../../../../store/ocean'
 import { tailwind } from '../../../../tailwind'
@@ -45,13 +44,11 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const bToARate = new BigNumber(tokenA.reserve).div(tokenB.reserve)
   const lmTokenAmount = percentage.times(totalLiquidity.token)
 
-  const account = useWallet().get(0)
   const dispatch = useDispatch()
 
   const addLiquidity = useCallback(() => {
     if (hasPendingJob) return
     constructSignedAddLiqAndSend(
-      account,
       {
         tokenAId: Number(tokenA.id),
         tokenAAmount,
@@ -159,15 +156,14 @@ function ConfirmButton (props: { disabled?: boolean, onPress: () => void }): JSX
   )
 }
 
-async function constructSignedAddLiqAndSend (account: WhaleWalletAccount,
+async function constructSignedAddLiqAndSend (
   addLiqForm: { tokenAId: number, tokenAAmount: BigNumber, tokenBId: number, tokenBAmount: BigNumber },
   dispatch: Dispatch<any>
 ): Promise<void> {
-  const builder = account.withTransactionBuilder()
+  const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
+    const builder = account.withTransactionBuilder()
+    const script = await account.getScript()
 
-  const script = await account.getScript()
-
-  const signer = async (): Promise<CTransactionSegWit> => {
     const addLiq = {
       from: [{
         script,
@@ -184,8 +180,7 @@ async function constructSignedAddLiqAndSend (account: WhaleWalletAccount,
   }
 
   dispatch(ocean.actions.queueTransaction({
-    signer,
-    broadcasted: false,
+    sign: signer,
     title: `${translate('screens/ConfirmLiquidity', 'Adding Liquidity')}`
   }))
 }
