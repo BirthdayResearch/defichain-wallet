@@ -21,7 +21,7 @@ export function WalletOnboarding (): JSX.Element {
       </View>
       <View style={tailwind('mt-8 px-4')}>
         <Button
-          onPress={() => navigator.navigate('WalletMnemonicCreate')}
+          onPress={() => navigator.navigate('CreateWalletGuidelines')}
           label={translate('screens/Onboarding', 'CREATE A WALLET')}
           testID='create_wallet_button'
           title='create_wallet'
