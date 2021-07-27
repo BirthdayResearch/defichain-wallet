@@ -6,11 +6,11 @@ import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 
 import { Text } from '../../../../components'
-import { Button } from '../../../../components/Button'
 import { useWallet } from '../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
+import { EmptyTransaction } from './EmptyTransaction'
 import { activitiesToViewModel, VMTransaction } from './screens/stateProcessor'
 import { TransactionsParamList } from './TransactionsNavigator'
 
@@ -54,24 +54,7 @@ export function TransactionsScreen (): JSX.Element {
 
   if (isEmpty) {
     return (
-      <View
-        testID='empty_transaction'
-        style={tailwind('px-8 pt-32 pb-2 text-center')}
-      >
-        <MaterialCommunityIcons name='folder-alert' size={44} style={tailwind('pb-5 text-center text-black')} />
-        <Text style={tailwind('text-2xl pb-2 font-semibold text-center')}>
-          {translate('screens/TransactionsScreen', 'No transactions yet')}
-        </Text>
-        <Text style={tailwind('text-sm pb-16 text-center opacity-60')}>
-          {translate('screens/TransactionsScreen', 'Start transacting with your wallet. All transactions made will be displayed here.')}
-        </Text>
-        <Button
-          testID='button_receive_coins'
-          title='Receive Coins'
-          onPress={() => navigation.navigate('Receive')}
-          label={translate('screens/TransactionsScreen', 'RECEIVE COINS')}
-        />
-      </View>
+      <EmptyTransaction navigation={navigation} />
     )
   } else {
     return (
