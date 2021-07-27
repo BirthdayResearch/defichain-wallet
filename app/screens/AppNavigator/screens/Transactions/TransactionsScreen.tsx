@@ -54,7 +54,24 @@ export function TransactionsScreen (): JSX.Element {
 
   if (isEmpty) {
     return (
-      EmptyTransaction(navigation)
+      <View
+        testID='empty_transaction'
+        style={tailwind('px-8 pt-32 pb-2 text-center')}
+      >
+        <MaterialCommunityIcons name='folder-alert' size={44} color='#212121' style={tailwind('pb-5 text-center')} />
+        <Text style={tailwind('text-2xl pb-2 font-semibold text-center')}>
+          {translate('screens/TransactionsScreen', 'No transactions yet')}
+        </Text>
+        <Text style={tailwind('text-sm pb-16 text-center opacity-60')}>
+          {translate('screens/TransactionsScreen', 'Start transacting with your wallet. All transactions made will be displayed here.')}
+        </Text>
+        <Button
+          testID='button_receive_coins'
+          title='Receive Coins'
+          onPress={() => navigation.navigate('Receive')}
+          label={translate('screens/TransactionsScreen', 'RECEIVE COINS')}
+        />
+      </View>
     )
   } else {
     return (
@@ -74,29 +91,6 @@ export function TransactionsScreen (): JSX.Element {
       />
     )
   }
-}
-
-function EmptyTransaction (navigation: NavigationProp<TransactionsParamList>): JSX.Element {
-  return (
-    <View
-      testID='empty_transaction'
-      style={tailwind('px-8 pt-32 pb-2 text-center')}
-    >
-      <MaterialCommunityIcons name='folder-alert' size={44} color='#212121' style={tailwind('pb-5 text-center')} />
-      <Text style={tailwind('text-2xl pb-2 font-semibold text-center')}>
-        {translate('screens/TransactionsScreen', 'No transactions yet')}
-      </Text>
-      <Text style={tailwind('text-sm pb-16 text-center opacity-60')}>
-        {translate('screens/TransactionsScreen', 'Start transacting with your wallet. All transactions made will be displayed here.')}
-      </Text>
-      <Button
-        testID='button_receive_coins'
-        title='Receive Coins'
-        onPress={() => navigation.navigate('Receive')}
-        label={translate('screens/TransactionsScreen', 'RECEIVE COINS')}
-      />
-    </View>
-  )
 }
 
 function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (row: { item: VMTransaction, index: number }) => JSX.Element {
