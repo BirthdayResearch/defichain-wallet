@@ -1,4 +1,4 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
@@ -97,7 +97,7 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
         }}
       >
         <View style={tailwind('w-8 justify-center items-center')}>
-          <MaterialCommunityIcons name='arrow-up' size={24} color={color} />
+          <MaterialIcons name='arrow-downward' size={24} color={color} />
         </View>
         <View style={tailwind('flex-1 flex-row justify-center items-center')}>
           <View style={tailwind('flex-auto flex-col ml-3 justify-center')}>
@@ -115,7 +115,7 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
           </View>
         </View>
         <View style={tailwind('w-8 justify-center items-center')}>
-          <MaterialCommunityIcons name='chevron-right' size={24} style={tailwind('text-black opacity-60')} />
+          <MaterialIcons name='chevron-right' size={24} style={tailwind('text-black opacity-60')} />
         </View>
       </TouchableOpacity>
     )
