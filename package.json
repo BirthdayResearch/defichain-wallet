@@ -14,7 +14,7 @@
     "test:ci": "jest --ci --coverage",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --headless --browser chrome",
-    "RestoreMnemonicWallet": "ts-node app/translations/reporter/index.ts"
+    "translation:missing": "ts-node app/translations/reporter/index.ts"
   },
   "dependencies": {
     "@defichain/jellyfish-address": ">=0.29.1",
