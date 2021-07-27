@@ -1,5 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons'
-import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
 import { TextInput, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
@@ -20,7 +20,7 @@ export function PinInput ({ length, onChange }: PinInputOptions): JSX.Element {
 
   useEffect(() => {
     if (text.length === length) {
-      onChange(text)
+      setTimeout(() => onChange(text), 100)
     }
   }, [text])
 
