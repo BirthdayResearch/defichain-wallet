@@ -30,14 +30,18 @@ exports[`token icons <AppIcon /> should match snapshot 1`] = `
   <RNSVGGroup>
     <RNSVGGroup
       fill={null}
+      fillRule={0}
       name="icon-1024"
       propList={
         Array [
           "fill",
+          "fillRule",
           "stroke",
+          "strokeWidth",
         ]
       }
       stroke={null}
+      strokeWidth="1"
     >
       <RNSVGRect
         fill={4294698742}
