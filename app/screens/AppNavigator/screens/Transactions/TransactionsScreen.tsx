@@ -42,10 +42,11 @@ export function TransactionsScreen (): JSX.Element {
       setAddressActivities([...activities, ...newRows])
       setHasNext(addActivities.hasNext)
       setNextToken(addActivities.nextToken as string | undefined)
-      setIsEmpty([...activities, ...newRows].length === 0)
+      if (isEmpty) setIsEmpty([...activities, ...newRows].length === 0)
+
       setLoadingStatus('idle')
     }).catch(() => {
-      setIsEmpty(activities.length === 0)
+      if (isEmpty) setIsEmpty(activities.length === 0)
       setLoadingStatus('error')
     })
   }

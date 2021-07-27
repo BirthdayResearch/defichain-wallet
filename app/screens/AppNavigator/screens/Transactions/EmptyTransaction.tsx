@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ScrollView } from 'react-native-gesture-handler'
+import { ScrollView, RefreshControl } from 'react-native'
 import { NavigationProp } from '@react-navigation/native'
 import { MaterialIcons } from '@expo/vector-icons'
 import { TransactionsParamList } from './TransactionsNavigator'
@@ -7,7 +7,6 @@ import { tailwind } from '../../../../tailwind'
 import { Text } from '../../../../components'
 import { translate } from '../../../../translations'
 import { Button } from '../../../../components/Button'
-import { RefreshControl } from 'react-native'
 
 interface EmptyTransactionProps {
   navigation: NavigationProp<TransactionsParamList>
