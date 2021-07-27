@@ -1,5 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
 
 import { TextInput, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
@@ -17,6 +17,12 @@ export function PinInput ({ length, onChange }: PinInputOptions): JSX.Element {
   useEffect(() => {
     _textInput.current?.focus()
   }, [_textInput])
+
+  useEffect(() => {
+    if (text.length === length) {
+      onChange(text)
+    }
+  }, [text])
 
   const digitBoxes = (): JSX.Element => {
     const arr = []
@@ -46,10 +52,7 @@ export function PinInput ({ length, onChange }: PinInputOptions): JSX.Element {
         secureTextEntry
         autoFocus
         maxLength={length}
-        onChangeText={txt => {
-          setText(txt)
-          onChange(txt)
-        }}
+        onChangeText={txt => { setText(txt) }}
       />
     </TouchableOpacity>
   )

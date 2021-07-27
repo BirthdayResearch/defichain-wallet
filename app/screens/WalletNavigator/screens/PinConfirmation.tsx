@@ -2,6 +2,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
 import { ScrollView } from 'react-native'
 import tailwind from 'tailwind-rn'
+import { MnemonicEncrypted } from '../../../api/wallet/provider/mnemonic_encrypted'
 import { MnemonicUnprotected } from '../../../api/wallet/provider/mnemonic_unprotected'
 import { Text } from '../../../components'
 import { PinInput } from '../../../components/PinInput'
@@ -28,7 +29,10 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
       setInvalid(true)
       return
     }
-    setWallet(MnemonicUnprotected.toData(words, network))
+    MnemonicEncrypted.toData(words, network, pin)
+      .then(async encrypted => {
+        await setWallet(encrypted)
+      })
       .catch(e => console.log(e))
   }
 

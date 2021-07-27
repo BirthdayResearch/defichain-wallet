@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useMemo, useState } from '
 import { Logging } from '../api/logging'
 import { WalletPersistence, WalletPersistenceData } from '../api/wallet/persistence'
 import { initWhaleWallet, WhaleWallet } from '../api/wallet/provider'
+import { PromptInterface } from '../api/wallet/provider/mnemonic_encrypted'
 import { useNetworkContext } from './NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
 
@@ -9,6 +10,7 @@ interface WalletManagement {
   wallets: WhaleWallet[]
   setWallet: (data: WalletPersistenceData<any>) => Promise<void>
   clearWallets: () => Promise<void>
+  setPasscodePromptInterface: (constructPrompt: PromptInterface) => void
 }
 
 const WalletManagementContext = createContext<WalletManagement>(undefined as any)
@@ -21,6 +23,7 @@ export function WalletManagementProvider (props: React.PropsWithChildren<any>): 
   const { network } = useNetworkContext()
   const client = useWhaleApiClient()
   const [dataList, setDataList] = useState<Array<WalletPersistenceData<any>>>([])
+  const [promptInterface, setPromptInterface] = useState<PromptInterface>()
 
   useEffect(() => {
     WalletPersistence.get().then(dataList => {
@@ -29,8 +32,10 @@ export function WalletManagementProvider (props: React.PropsWithChildren<any>): 
   }, [network])
 
   const wallets = useMemo(() => {
-    return dataList.map(data => initWhaleWallet(data, network, client))
-  }, [dataList])
+    console.log('use wallet memo, prompt constructor', promptInterface)
+    if (promptInterface !== undefined) console.log('prompt constructor set')
+    return dataList.map(data => initWhaleWallet(data, network, client, promptInterface))
+  }, [dataList, promptInterface])
 
   const management: WalletManagement = {
     wallets: wallets,
@@ -41,6 +46,9 @@ export function WalletManagementProvider (props: React.PropsWithChildren<any>): 
     async clearWallets (): Promise<void> {
       await WalletPersistence.set([])
       setDataList(await WalletPersistence.get())
+    },
+    setPasscodePromptInterface (cb: PromptInterface): void {
+      setPromptInterface(cb)
     }
   }
 

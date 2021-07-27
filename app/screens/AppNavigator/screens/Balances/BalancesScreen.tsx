@@ -28,6 +28,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    console.log('height')
     dispatch(ocean.actions.setHeight(height))
   }, [height])
 

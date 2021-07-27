@@ -7,13 +7,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Text } from '..'
 import { Logging } from '../../api/logging'
 import { useWallet } from '../../contexts/WalletContext'
+import { useWalletManagementContext } from '../../contexts/WalletManagementContext'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
 import { RootState } from '../../store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
 import { tailwind } from '../../tailwind'
 import { translate } from '../../translations'
+import { PinInput } from '../PinInput'
 
 const MAX_AUTO_RETRY = 1
+const PASSCODE_LENGTH = 6
 
 async function gotoExplorer (txid: string): Promise<void> {
   // TODO(thedoublejay) explorer URL
@@ -44,6 +47,7 @@ async function broadcastTransaction (tx: CTransactionSegWit, client: WhaleApiCli
 export function OceanInterface (): JSX.Element | null {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
+  const walletManagement = useWalletManagementContext()
   const walletContext = useWallet()
 
   // store
@@ -51,9 +55,14 @@ export function OceanInterface (): JSX.Element | null {
   const transaction = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const slideAnim = useRef(new Animated.Value(0)).current
   // state
-  const [tx, setTx] = useState<OceanTransaction | undefined>(transaction)
+  const [tx, setTx] = useState<OceanTransaction | undefined>()
   const [err, setError] = useState<Error | undefined>(e)
   const [txid, setTxid] = useState<string | undefined>()
+
+  // passcode interface
+  const [isPrompting, setIsPrompting] = useState(false)
+  const [passcode, setPasscode] = useState('')
+  const passcodeResolverRef = useRef<(val: string) => void>()
 
   const dismissDrawer = useCallback(() => {
     setTx(undefined)
@@ -65,10 +74,8 @@ export function OceanInterface (): JSX.Element | null {
     // last available job will remained in this UI state until get dismissed
     if (transaction !== undefined) {
       Animated.timing(slideAnim, { toValue: height, duration: 200, useNativeDriver: false }).start()
-      setTx({
-        ...transaction,
-        broadcasted: false
-      })
+      setTx(transaction)
+
       transaction.sign(walletContext.get(0))
         .then(async signedTx => {
           setTxid(signedTx.txId)
@@ -84,11 +91,35 @@ export function OceanInterface (): JSX.Element | null {
           if (txid !== undefined) {
             errMsg = `${errMsg}. Txid: ${txid}`
           }
+          console.log(e)
           setError(new Error(errMsg))
         })
         .finally(() => dispatch(ocean.actions.popTransaction())) // remove the job as soon as completion
     }
   }, [transaction, walletContext])
+
+  // UI provide interface to WalletContext to access pin request
+  useEffect(() => {
+    const passcodePromptConstructor = {
+      prompt: async (): Promise<string> => {
+        setIsPrompting(true)
+        console.log('waiting')
+        const pass = await new Promise<string>(resolve => { passcodeResolverRef.current = resolve })
+        console.log('input: ')
+        setIsPrompting(false)
+        console.log('complete taking pin')
+        return pass
+      }
+    }
+    walletManagement.setPasscodePromptInterface(passcodePromptConstructor)
+  }, [])
+
+  useEffect(() => {
+    if (!isPrompting && passcode.length === PASSCODE_LENGTH && passcodeResolverRef.current !== undefined) {
+      passcodeResolverRef.current(passcode)
+      passcodeResolverRef.current = undefined
+    }
+  }, [passcode, isPrompting])
 
   if (tx === undefined) {
     return null
@@ -104,13 +135,26 @@ export function OceanInterface (): JSX.Element | null {
       {
         err !== undefined
           ? <TransactionError errMsg={err.message} onClose={dismissDrawer} />
-          : <TransactionDetail broadcasted={tx.broadcasted} txid={txid} onClose={dismissDrawer} />
+          : (
+            <TransactionDetail
+              isPrompting={isPrompting}
+              broadcasted={tx.broadcasted}
+              txid={txid}
+              onClose={dismissDrawer}
+              onPasscodeInput={pass => {
+                setIsPrompting(false)
+                setPasscode(pass)
+                // if (pass.length === PASSCODE_LENGTH && resolvePasscode !== undefined) resolvePasscode(pass)
+                // if (pass.length === PASSCODE_LENGTH && passcodeResolverRef.current !== undefined) passcodeResolverRef.current(pass)
+              }}
+            />
+          )
       }
     </Animated.View>
   )
 }
 
-function TransactionDetail ({ broadcasted, txid, onClose }: { broadcasted: boolean, txid?: string, onClose: () => void }): JSX.Element {
+function TransactionDetail ({ isPrompting, broadcasted, txid, onClose, onPasscodeInput }: { isPrompting: boolean, broadcasted: boolean, txid?: string, onClose: () => void, onPasscodeInput: (passcode: string) => void }): JSX.Element | null {
   let title = 'Signing...'
   if (txid !== undefined) title = 'Broadcasting...'
   if (broadcasted) title = 'Transaction Sent'
@@ -126,6 +170,9 @@ function TransactionDetail ({ broadcasted, txid, onClose }: { broadcasted: boole
         >{translate('screens/OceanInterface', title)}
         </Text>
         {
+          isPrompting && <PinInput length={PASSCODE_LENGTH} onChange={onPasscodeInput} />
+        }
+        {
           txid !== undefined && <TransactionIDButton txid={txid} onPress={async () => await gotoExplorer(txid)} />
         }
       </View>
@@ -137,6 +184,7 @@ function TransactionDetail ({ broadcasted, txid, onClose }: { broadcasted: boole
 }
 
 function TransactionError ({ errMsg, onClose }: { errMsg: string | undefined, onClose: () => void }): JSX.Element {
+  console.log(errMsg)
   return (
     <>
       <MaterialIcons name='error' size={20} color='#ff0000' />
