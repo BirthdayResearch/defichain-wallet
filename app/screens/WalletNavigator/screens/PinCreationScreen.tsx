@@ -7,7 +7,7 @@ import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../components'
 import { CreateWalletStepIndicator } from '../../../components/CreateWalletStepIndicator'
 import { PinInput } from '../../../components/PinInput'
-import { PrimaryButton } from '../../../components/PrimaryButton'
+import { Button } from '../../../components/Button'
 import { translate } from '../../../translations'
 import { WalletParamList } from '../WalletNavigator'
 
@@ -43,7 +43,7 @@ export function PinCreation ({ route }: Props): JSX.Element {
         length={pinLength}
         onChange={val => setNewPin(val)}
       />
-      <PrimaryButton
+      <Button
         title='create-pin'
         disabled={newPin.length !== pinLength}
         onPress={() => {
@@ -51,7 +51,7 @@ export function PinCreation ({ route }: Props): JSX.Element {
         }}
       >
         <Text style={tailwind('text-white font-bold')}>{translate('screens/PinCreation', 'CREATE PASSCODE')}</Text>
-      </PrimaryButton>
+      </Button>
     </ScrollView>
   )
 }
