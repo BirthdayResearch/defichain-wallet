@@ -7,7 +7,7 @@ import { tailwind } from '../../../tailwind'
 import { translate } from '../../../translations'
 import { OnboardingCarousel } from './components/OnboardingCarousel'
 
-export function WalletOnboarding (): JSX.Element {
+export function Onboarding (): JSX.Element {
   const navigator = useNavigation()
 
   return (
@@ -28,7 +28,7 @@ export function WalletOnboarding (): JSX.Element {
           margin='m-2'
         />
         <Button
-          onPress={() => navigator.navigate('WalletMnemonicRestore')}
+          onPress={() => navigator.navigate('RestoreMnemonicWallet')}
           label={translate('screens/Onboarding', 'RESTORE WALLET')}
           testID='restore_wallet_button'
           title='restore_wallet'

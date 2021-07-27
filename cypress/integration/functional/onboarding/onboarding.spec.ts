@@ -26,8 +26,7 @@ context('wallet/onboarding', () => {
     cy.url().should('include', 'wallet/mnemonic/create')
   })
 
-  //* Will be expanded once other screens are ready
-  it('should be able to restore wallet', function () {
+  it('should redirect to restore wallet page', function () {
     cy.getByTestID('restore_wallet_button').click()
     cy.url().should('include', 'wallet/mnemonic/restore')
   })
