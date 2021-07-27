@@ -61,14 +61,25 @@ export function OceanInterface (): JSX.Element | null {
 
   // passcode interface
   const [isPrompting, setIsPrompting] = useState(false)
-  const [passcode, setPasscode] = useState('')
   const passcodeResolverRef = useRef<(val: string) => void>()
 
   const dismissDrawer = useCallback(() => {
     setTx(undefined)
     setError(undefined)
+    setTxid(undefined)
     slideAnim.setValue(0)
   }, [])
+
+  const onPasscodeInput = useCallback((passcodeInput: string) => {
+    if (isPrompting && passcodeInput.length === PASSCODE_LENGTH && passcodeResolverRef.current !== undefined) {
+      setIsPrompting(false)
+      const resolver = passcodeResolverRef.current
+      setTimeout(() => {
+        resolver(passcodeInput)
+        passcodeResolverRef.current = undefined
+      }, 100)
+    }
+  }, [isPrompting])
 
   useEffect(() => {
     // last available job will remained in this UI state until get dismissed
@@ -91,35 +102,24 @@ export function OceanInterface (): JSX.Element | null {
           if (txid !== undefined) {
             errMsg = `${errMsg}. Txid: ${txid}`
           }
-          console.log(e)
           setError(new Error(errMsg))
         })
         .finally(() => dispatch(ocean.actions.popTransaction())) // remove the job as soon as completion
     }
   }, [transaction, walletContext])
 
-  // UI provide interface to WalletContext to access pin request
+  // UI provide interface to WalletContext to access pin request component
   useEffect(() => {
     const passcodePromptConstructor = {
       prompt: async (): Promise<string> => {
         setIsPrompting(true)
-        console.log('waiting')
         const pass = await new Promise<string>(resolve => { passcodeResolverRef.current = resolve })
-        console.log('input: ')
         setIsPrompting(false)
-        console.log('complete taking pin')
         return pass
       }
     }
     walletManagement.setPasscodePromptInterface(passcodePromptConstructor)
   }, [])
-
-  useEffect(() => {
-    if (!isPrompting && passcode.length === PASSCODE_LENGTH && passcodeResolverRef.current !== undefined) {
-      passcodeResolverRef.current(passcode)
-      passcodeResolverRef.current = undefined
-    }
-  }, [passcode, isPrompting])
 
   if (tx === undefined) {
     return null
@@ -141,12 +141,7 @@ export function OceanInterface (): JSX.Element | null {
               broadcasted={tx.broadcasted}
               txid={txid}
               onClose={dismissDrawer}
-              onPasscodeInput={pass => {
-                setIsPrompting(false)
-                setPasscode(pass)
-                // if (pass.length === PASSCODE_LENGTH && resolvePasscode !== undefined) resolvePasscode(pass)
-                // if (pass.length === PASSCODE_LENGTH && passcodeResolverRef.current !== undefined) passcodeResolverRef.current(pass)
-              }}
+              onPasscodeInput={onPasscodeInput}
             />
           )
       }
@@ -156,6 +151,7 @@ export function OceanInterface (): JSX.Element | null {
 
 function TransactionDetail ({ isPrompting, broadcasted, txid, onClose, onPasscodeInput }: { isPrompting: boolean, broadcasted: boolean, txid?: string, onClose: () => void, onPasscodeInput: (passcode: string) => void }): JSX.Element | null {
   let title = 'Signing...'
+  if (isPrompting) title = 'Authorization required'
   if (txid !== undefined) title = 'Broadcasting...'
   if (broadcasted) title = 'Transaction Sent'
   return (
@@ -208,7 +204,7 @@ function TransactionError ({ errMsg, onClose }: { errMsg: string | undefined, on
 function TransactionIDButton ({ txid, onPress }: { txid: string, onPress?: () => void }): JSX.Element {
   return (
     <TouchableOpacity
-      testID='oceanNetwork_explorer' style={tailwind('flex-row p-1 items-center')}
+      testID='oceanNetwork_explorer' style={tailwind('flex-row p-1 items-center  max-w')}
       onPress={onPress}
     >
       <Text
