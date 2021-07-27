@@ -9,7 +9,7 @@ context('wallet/settings', () => {
     cy.getByTestID('button_network_Playground').click()
   })
 
-  it.only('should exit wallet when clicked', function () {
+  it('should exit wallet when clicked', function () {
     cy.getByTestID('setting_exit_wallet').click()
     cy.getByTestID('create_wallet_button').should('exist')
     cy.getByTestID('restore_wallet_button').should('exist')
