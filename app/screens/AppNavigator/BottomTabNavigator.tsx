@@ -1,8 +1,8 @@
+import { MaterialIcons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { PathConfigMap } from '@react-navigation/core'
 import * as React from 'react'
 import { OceanInterface } from '../../components/OceanInterface/OceanInterface'
-import { VectorIcon, VectorIconName } from '../../constants/Theme'
 import { tailwind } from '../../tailwind'
 
 import { BalancesNavigator } from './screens/Balances/BalancesNavigator'
@@ -21,27 +21,20 @@ export interface BottomTabParamList {
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>()
 
-/**
- * @see https://icons.expo.fyi/ to filter => Ionicons
- */
-function TabBarIcon (props: { name: VectorIconName, color: string }): JSX.Element {
-  return <VectorIcon size={24} {...props} />
-}
-
 export function BottomTabNavigator (): JSX.Element {
   return (
     <>
       <OceanInterface />
       <BottomTab.Navigator
         initialRouteName='Balances'
-        tabBarOptions={{ adaptive: false, labelStyle: tailwind('font-medium') }}
+        tabBarOptions={{ adaptive: false, labelStyle: tailwind('font-medium text-xs') }}
       >
         <BottomTab.Screen
           name='Balances'
           component={BalancesNavigator}
           options={{
             tabBarTestID: 'bottom_tab_balances',
-            tabBarIcon: ({ color }) => <TabBarIcon name='account-balance-wallet' color={color} />
+            tabBarIcon: ({ color }) => <MaterialIcons size={24} name='account-balance-wallet' color={color} />
           }}
         />
         <BottomTab.Screen
@@ -49,7 +42,7 @@ export function BottomTabNavigator (): JSX.Element {
           component={DexNavigator}
           options={{
             tabBarTestID: 'bottom_tab_dex',
-            tabBarIcon: ({ color }) => <TabBarIcon name='pie-chart' color={color} />
+            tabBarIcon: ({ color }) => <MaterialIcons size={24} name='pie-chart' color={color} />
           }}
         />
         <BottomTab.Screen
@@ -57,7 +50,7 @@ export function BottomTabNavigator (): JSX.Element {
           component={TransactionsNavigator}
           options={{
             tabBarTestID: 'bottom_tab_transactions',
-            tabBarIcon: ({ color }) => <TabBarIcon name='access-time' color={color} />
+            tabBarIcon: ({ color }) => <MaterialIcons size={24} name='assignment' color={color} />
           }}
         />
         <BottomTab.Screen
@@ -65,7 +58,7 @@ export function BottomTabNavigator (): JSX.Element {
           component={SettingsNavigator}
           options={{
             tabBarTestID: 'bottom_tab_settings',
-            tabBarIcon: ({ color }) => <TabBarIcon name='settings' color={color} />
+            tabBarIcon: ({ color }) => <MaterialIcons size={24} name='settings' color={color} />
           }}
         />
       </BottomTab.Navigator>

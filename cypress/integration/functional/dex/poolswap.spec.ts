@@ -8,7 +8,7 @@ context('poolswap without balance', () => {
 
   it('should be able to validate empty form', function () {
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('button_swap_DFI-LTC').click()
+    cy.getByTestID('pool_pair_swap-vert_DFI-LTC').click()
     cy.getByTestID('button_submit').should('have.attr', 'disabled')
   })
 })
@@ -21,7 +21,7 @@ context('poolswap with values', () => {
     cy.getByTestID('playground_wallet_fetch_balances').click()
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('button_swap_DFI-LTC').click()
+    cy.getByTestID('pool_pair_swap-vert_DFI-LTC').click()
   })
 
   it('should be able to click swap button', function () {
@@ -63,7 +63,7 @@ context('poolswap with values', () => {
   })
 
   it('should be able to swap', function () {
-    cy.getByTestID('text_price_row_minimum_0').then(($txt: any) => {
+    cy.getByTestID('text_price_row_minimum_0').then(() => {
       // const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
       cy.getByTestID('button_submit').click()
       cy.wait(5000).getByTestID('oceanInterface_close').click().wait(5000)
