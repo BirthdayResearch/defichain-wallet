@@ -3,7 +3,7 @@ import Svg, { G, Path, Rect, SvgProps } from 'react-native-svg'
 
 export function AppIcon (props: SvgProps): JSX.Element {
   return (
-    <Svg width='64' height='64' viewBox='0 0 1024 1024'>
+    <Svg width='64' height='64' viewBox='0 0 1024 1024' {...props}>
       <G id='icon-1024' stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
         <Rect id='Rectangle' fill='#FBE6F6' x='64' y='64' width='896' height='896' rx='448' />
         <Path
