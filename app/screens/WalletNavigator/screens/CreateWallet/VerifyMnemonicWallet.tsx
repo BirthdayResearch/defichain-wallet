@@ -3,17 +3,14 @@ import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { useState } from 'react'
 import { KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native'
-// import { MnemonicUnprotected } from '../../../api/wallet/provider/mnemonic_unprotected'
-import { Text, TextInput, View } from '../../../components'
-// import { useNetworkContext } from '../../../contexts/NetworkContext'
-// import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
-import { getEnvironment } from '../../../environment'
-import { tailwind } from '../../../tailwind'
-import { WalletParamList } from '../WalletNavigator'
+import { Text, TextInput, View } from '../../../../components'
+import { getEnvironment } from '../../../../environment'
+import { tailwind } from '../../../../tailwind'
+import { WalletParamList } from '../../WalletNavigator'
 
-type Props = StackScreenProps<WalletParamList, 'WalletMnemonicCreateVerify'>
+type Props = StackScreenProps<WalletParamList, 'VerifyMnemonicWallet'>
 
-export function WalletMnemonicCreateVerify ({ route }: Props): JSX.Element {
+export function VerifyMnemonicWallet ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<WalletParamList>>()
   const actualWords = route.params.words
   const enteredWords: string[] = []

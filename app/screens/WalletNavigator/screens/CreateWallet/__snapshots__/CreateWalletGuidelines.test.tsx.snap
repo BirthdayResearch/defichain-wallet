@@ -1,0 +1,430 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`create wallet guidelines should match snapshot 1`] = `
+<RCTScrollView
+  style={
+    Object {
+      "backgroundColor": "rgba(255, 255, 255, 1)",
+      "flexBasis": "0%",
+      "flexGrow": 1,
+      "flexShrink": 1,
+      "paddingBottom": 16,
+      "paddingLeft": 16,
+      "paddingRight": 16,
+      "paddingTop": 24,
+    }
+  }
+>
+  <View>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Object {
+            "fontFamily": "SemiBoldFont",
+            "fontSize": 18,
+            "fontWeight": "600",
+            "lineHeight": 28,
+          },
+        ]
+      }
+    >
+      Creating a wallet
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Object {
+            "color": "rgba(107, 114, 128, 1)",
+            "fontFamily": "MediumFont",
+            "fontSize": 14,
+            "fontWeight": "500",
+            "lineHeight": 20,
+            "marginTop": 4,
+          },
+        ]
+      }
+    >
+      Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.
+    </Text>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "marginBottom": 8,
+          "opacity": 1,
+        }
+      }
+      testID="recovery_words_button"
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Object {
+              "color": "rgba(255, 0, 175, 1)",
+              "fontFamily": "MediumFont",
+              "fontSize": 14,
+              "fontWeight": "500",
+              "lineHeight": 20,
+            },
+          ]
+        }
+      >
+        Learn more about recovery words
+      </Text>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "marginBottom": 12,
+            "marginTop": 12,
+          },
+        ]
+      }
+    >
+      <Text />
+      <View
+        style={
+          Array [
+            Object {
+              "flexBasis": "auto",
+              "flexDirection": "column",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "marginLeft": 24,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "fontFamily": "MediumFont",
+                "fontWeight": "500",
+              },
+            ]
+          }
+        >
+          Write the words in paper
+        </Text>
+        <Text
+          numberOfLines={4}
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "color": "rgba(107, 114, 128, 1)",
+                "fontSize": 14,
+                "lineHeight": 20,
+              },
+            ]
+          }
+        >
+          Take note of their correct spelling and correct order.
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "marginBottom": 12,
+            "marginTop": 12,
+          },
+        ]
+      }
+    >
+      <Text />
+      <View
+        style={
+          Array [
+            Object {
+              "flexBasis": "auto",
+              "flexDirection": "column",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "marginLeft": 24,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "fontFamily": "MediumFont",
+                "fontWeight": "500",
+              },
+            ]
+          }
+        >
+          Secure them in a safe space
+        </Text>
+        <Text
+          numberOfLines={4}
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "color": "rgba(107, 114, 128, 1)",
+                "fontSize": 14,
+                "lineHeight": 20,
+              },
+            ]
+          }
+        >
+          Store them offline and in a safe place.
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "marginBottom": 12,
+            "marginTop": 12,
+          },
+        ]
+      }
+    >
+      <Text />
+      <View
+        style={
+          Array [
+            Object {
+              "flexBasis": "auto",
+              "flexDirection": "column",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "marginLeft": 24,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "fontFamily": "MediumFont",
+                "fontWeight": "500",
+              },
+            ]
+          }
+        >
+          Keep them private
+        </Text>
+        <Text
+          numberOfLines={4}
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "color": "rgba(107, 114, 128, 1)",
+                "fontSize": 14,
+                "lineHeight": 20,
+              },
+            ]
+          }
+        >
+          Don’t share to anyone. Keep the recovery words only to yourself.
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "marginBottom": 16,
+            "marginTop": 16,
+          },
+        ]
+      }
+    >
+      <RCTSwitch
+        accessibilityRole="switch"
+        onChange={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        onTintColor="#34C759"
+        style={
+          Array [
+            Object {
+              "height": 31,
+              "width": 51,
+            },
+            Object {
+              "backgroundColor": "#ffffff",
+              "borderRadius": 16,
+            },
+          ]
+        }
+        testID="guidelines_switch"
+        thumbTintColor="#fff"
+        tintColor="rgba(120, 120, 128, 0.20)"
+        value={false}
+      />
+      <View
+        style={
+          Array [
+            Object {
+              "flexBasis": "auto",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "marginLeft": 16,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "fontFamily": "MediumFont",
+                "fontSize": 14,
+                "fontWeight": "500",
+                "lineHeight": 20,
+              },
+            ]
+          }
+        >
+          I understand it is my responsibility to keep my recovery words secure, and losing them will result in the irrecoverable loss of my wallet funds.
+        </Text>
+      </View>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(0, 0, 0, 0.2)",
+          "borderBottomColor": "rgba(255, 0, 175, 0.2)",
+          "borderBottomLeftRadius": 4,
+          "borderBottomRightRadius": 4,
+          "borderBottomWidth": 0,
+          "borderLeftColor": "rgba(255, 0, 175, 0.2)",
+          "borderLeftWidth": 0,
+          "borderRightColor": "rgba(255, 0, 175, 0.2)",
+          "borderRightWidth": 0,
+          "borderTopColor": "rgba(255, 0, 175, 0.2)",
+          "borderTopLeftRadius": 4,
+          "borderTopRightRadius": 4,
+          "borderTopWidth": 0,
+          "color": "rgba(255, 255, 255, 0.05)",
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "marginLeft": 0,
+          "marginRight": 0,
+          "marginTop": 32,
+          "opacity": 1,
+          "paddingBottom": 12,
+          "paddingLeft": 12,
+          "paddingRight": 12,
+          "paddingTop": 12,
+        }
+      }
+      testID="create_recovery_words_button"
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Object {
+              "color": "rgba(255, 255, 255, 0.2)",
+              "fontFamily": "BoldFont",
+              "fontWeight": "700",
+            },
+          ]
+        }
+      >
+        SHOW MY 24 RECOVERY WORDS
+      </Text>
+    </View>
+  </View>
+</RCTScrollView>
+`;
