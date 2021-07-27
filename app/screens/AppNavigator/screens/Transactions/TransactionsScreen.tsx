@@ -54,7 +54,7 @@ export function TransactionsScreen (): JSX.Element {
 
   if (isEmpty) {
     return (
-      <EmptyTransaction navigation={navigation} />
+      <EmptyTransaction navigation={navigation} handleRefresh={loadData} loadingStatus={loadingStatus} />
     )
   } else {
     return (
