@@ -2,8 +2,9 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { useCallback } from 'react'
-import { SectionList, TouchableOpacity } from 'react-native'
-import { Text, View } from '../../../../components'
+import { Alert, Platform, ScrollView, TouchableOpacity } from 'react-native'
+import { Text } from '../../../../components'
+import { SectionTitle } from '../../../../components/SectionTitle'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
 import { useWalletManagementContext } from '../../../../contexts/WalletManagementContext'
 import { EnvironmentNetwork, getEnvironment, isPlayground } from '../../../../environment'
@@ -14,42 +15,15 @@ export function SettingsScreen (): JSX.Element {
   const networks = getEnvironment().networks
 
   return (
-    <View style={tailwind('flex-1 bg-gray-100')}>
-      <SectionList
-        sections={[
-          {
-            key: 'Network',
-            data: networks,
-            renderItem: ({ item }) => <RowNetworkItem network={item as EnvironmentNetwork} />
-          },
-          {
-            data: ['EXIT WALLET'],
-            renderItem: () => <RowExitWalletItem />
-          }
-        ]}
-        ItemSeparatorComponent={ItemSeparator}
-        renderSectionHeader={({ section }) => {
-          return SectionHeader(section.key)
-        }}
-        keyExtractor={(item, index) => `${index}`}
-      />
-    </View>
-  )
-}
-
-function ItemSeparator (): JSX.Element {
-  return <View style={tailwind('h-px bg-gray-100')} />
-}
-
-function SectionHeader (key?: string): JSX.Element | null {
-  if (key === undefined) {
-    return <Text style={tailwind('h-6')} />
-  }
-
-  return (
-    <Text style={tailwind('p-4 font-bold text-lg')}>
-      {translate('wallet/settings', key)}
-    </Text>
+    <ScrollView style={tailwind('flex-1 bg-gray-100')}>
+      <SectionTitle text={translate('screens/Settings', 'NETWORK')} testID='network_title' />
+      {
+        networks.map((network, index) => (
+          <RowNetworkItem key={index} network={network} />
+        ))
+      }
+      <RowExitWalletItem />
+    </ScrollView>
   )
 }
 
@@ -70,10 +44,10 @@ function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
   return (
     <TouchableOpacity
       testID={`button_network_${props.network}`}
-      style={tailwind('flex-1 flex-row px-4 bg-white items-center justify-between')}
+      style={tailwind('flex-row p-4 bg-white items-center justify-between border-b border-gray-200')}
       onPress={onPress}
     >
-      <Text style={tailwind('py-4')}>
+      <Text style={tailwind('font-medium')}>
         {props.network}
       </Text>
 
@@ -93,13 +67,40 @@ function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
 function RowExitWalletItem (): JSX.Element {
   const { clearWallets } = useWalletManagementContext()
 
+  async function onExitWallet (): Promise<void> {
+    if (Platform.OS === 'web') {
+      await clearWallets()
+    } else {
+      Alert.alert(
+        translate('screens/Settings', 'Are you sure you want to unlink your wallet?'),
+        translate('screens/Settings', 'You will need to use your recovery words the next time you want to get back to your wallet.'),
+        [
+          {
+            text: translate('screens/Settings', 'Cancel'),
+            style: 'cancel'
+          },
+          {
+            text: translate('screens/Settings', 'Unlink Wallet'),
+            onPress: async () => await clearWallets(),
+            style: 'destructive'
+          }
+        ]
+      )
+    }
+  }
+
   return (
     <TouchableOpacity
       testID='setting_exit_wallet'
-      onPress={clearWallets} style={tailwind('bg-white')}
+      onPress={onExitWallet} style={tailwind('flex bg-white flex-row p-4 mt-8 items-center')}
     >
-      <Text style={tailwind('p-4 font-bold text-primary')}>
-        {translate('wallet/settings', 'EXIT WALLET')}
+      <MaterialIcons
+        name='exit-to-app'
+        style={[tailwind('text-primary mr-2'), { transform: [{ scaleX: -1 }] }]}
+        size={24}
+      />
+      <Text style={tailwind('font-medium text-primary')}>
+        {translate('screens/Settings', 'UNLINK WALLET')}
       </Text>
     </TouchableOpacity>
   )
