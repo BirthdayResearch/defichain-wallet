@@ -8,7 +8,7 @@ import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 
 export function TokensVsUtxoScreen (): JSX.Element {
   return (
-    <View style={tailwind('')}>
+    <View testID='token_vs_utxo_screen'>
       <View style={tailwind('pt-6 px-4 border-b-2 border-gray-200')}>
         <Text style={tailwind('text-black pb-6')}>
           {translate('screens/ConvertScreen', 'DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.')}
