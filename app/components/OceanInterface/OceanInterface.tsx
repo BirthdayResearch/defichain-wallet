@@ -53,12 +53,10 @@ export function OceanInterface (): JSX.Element | null {
   // state
   const [tx, setTx] = useState<OceanTransaction | undefined>()
   const [err, setError] = useState<Error | undefined>(e)
-  const [txid, setTxid] = useState<string | undefined>()
 
   const dismissDrawer = useCallback(() => {
     setTx(undefined)
     setError(undefined)
-    setTxid(undefined)
     slideAnim.setValue(0)
   }, [])
 
@@ -77,10 +75,7 @@ export function OceanInterface (): JSX.Element | null {
           })
         })
         .catch((e: Error) => {
-          let errMsg = e.message
-          if (txid !== undefined) {
-            errMsg = `${errMsg}. Txid: ${txid}`
-          }
+          const errMsg = `${e.message}. Txid: ${transaction.tx.txId}`
           setError(new Error(errMsg))
         })
         .finally(() => dispatch(ocean.actions.popTransaction())) // remove the job as soon as completion
@@ -104,7 +99,7 @@ export function OceanInterface (): JSX.Element | null {
           : (
             <TransactionDetail
               broadcasted={tx.broadcasted}
-              txid={txid}
+              txid={transaction.tx.txId}
               onClose={dismissDrawer}
             />
           )
@@ -113,10 +108,8 @@ export function OceanInterface (): JSX.Element | null {
   )
 }
 
-function TransactionDetail ({ broadcasted, txid, onClose }: { broadcasted: boolean, txid?: string, onClose: () => void }): JSX.Element | null {
-  let title = 'Signing...'
-  if (txid !== undefined) title = 'Broadcasting...'
-  if (broadcasted) title = 'Transaction Sent'
+function TransactionDetail ({ broadcasted, txid, onClose }: { broadcasted: boolean, txid: string, onClose: () => void }): JSX.Element | null {
+  const title = broadcasted ? 'Transaction Sent' : 'Broadcasting...'
   return (
     <>
       {
@@ -140,7 +133,6 @@ function TransactionDetail ({ broadcasted, txid, onClose }: { broadcasted: boole
 }
 
 function TransactionError ({ errMsg, onClose }: { errMsg: string | undefined, onClose: () => void }): JSX.Element {
-  console.log(errMsg)
   return (
     <>
       <MaterialIcons name='error' size={20} color='#ff0000' />

@@ -108,8 +108,7 @@ export function EncryptedWallet (): JSX.Element {
         attemptsRemaining={attemptsRemaining >= MAX_PASSCODE_ATTEMPT ? undefined : attemptsRemaining}
         onPinInput={pin => {
           if (promptResolve.current !== undefined) {
-            const resolve = promptResolve.current
-            resolve(pin)
+            promptResolve.current(pin)
             promptResolve.current = undefined
             promptReject.current = undefined
           }
@@ -117,8 +116,7 @@ export function EncryptedWallet (): JSX.Element {
         }}
         onCancel={() => {
           if (promptReject.current !== undefined) {
-            const reject = promptReject.current
-            reject(new Error('USER_CANCELED'))
+            promptReject.current(new Error('USER_CANCELED'))
             promptResolve.current = undefined
             promptReject.current = undefined
           }

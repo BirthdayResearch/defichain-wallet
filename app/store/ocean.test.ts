@@ -30,14 +30,14 @@ describe('ocean reducer', () => {
     const addedTransaction = ocean.reducer(initialState, ocean.actions.queueTransaction(payload));
     expect(addedTransaction).toStrictEqual({ transactions: [{
       ...payload,
-      status: 'INITIAL'
+      broadcasted: false
     }], err: undefined, height: 49 })
     const actual = ocean.reducer(addedTransaction, ocean.actions.queueTransaction(payload));
 
     const pop = ocean.reducer(actual, ocean.actions.popTransaction());
     expect(pop).toStrictEqual({ transactions: [{
       ...payload,
-      status: 'INITIAL'
+      broadcasted: false
     }], err: undefined, height: 49 })
     const removed = ocean.reducer(pop, ocean.actions.popTransaction());
     expect(removed).toStrictEqual({ transactions: [], err: undefined, height: 49 })

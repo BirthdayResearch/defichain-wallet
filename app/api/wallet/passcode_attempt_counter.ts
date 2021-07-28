@@ -7,15 +7,12 @@ async function get (): Promise<number> {
   return str === undefined ? 0 : Number(str)
 }
 
-/**
- * @param wallets to set, override previous set wallet
- */
 async function set (count: number): Promise<void> {
   await StorageAPI.setItem(KEY, `${count}`)
 }
 
 /**
- * Multi Wallet Persistence Layer
+ * Failed passcode input counter persistence layer
  */
 export const PasscodeAttemptCounter = {
   set,
