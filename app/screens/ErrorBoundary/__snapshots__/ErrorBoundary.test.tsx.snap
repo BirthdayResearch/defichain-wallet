@@ -47,14 +47,18 @@ exports[`ErrorBoundary when there is an error <ErrorBoundary /> should render wh
     <RNSVGGroup>
       <RNSVGGroup
         fill={null}
+        fillRule={0}
         name="icon-1024"
         propList={
           Array [
             "fill",
+            "fillRule",
             "stroke",
+            "strokeWidth",
           ]
         }
         stroke={null}
+        strokeWidth="1"
       >
         <RNSVGRect
           fill={4294698742}
