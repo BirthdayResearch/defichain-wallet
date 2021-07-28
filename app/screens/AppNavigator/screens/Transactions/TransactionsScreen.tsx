@@ -32,8 +32,11 @@ export function TransactionsScreen (): JSX.Element {
       return await client.address.listTransaction(address, undefined, nextToken)
     }).then(async addActivities => {
       const newRows = activitiesToViewModel(addActivities)
-      if (nextToken !== undefined) setAddressActivities([...activities, ...newRows])
-      else setAddressActivities([...newRows])
+      if (nextToken !== undefined) {
+        setAddressActivities([...activities, ...newRows])
+      } else {
+        setAddressActivities([...newRows])
+      }
       setHasNext(addActivities.hasNext)
       setNextToken(addActivities.nextToken as string | undefined)
       setLoadingStatus('idle')
