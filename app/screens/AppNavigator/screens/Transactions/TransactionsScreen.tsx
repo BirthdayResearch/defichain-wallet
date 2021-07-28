@@ -48,26 +48,9 @@ export function TransactionsScreen (): JSX.Element {
 
   useEffect(() => loadData(), [])
 
-  return (
-    <>
-      {(activities.length === 0) && <EmptyTransaction navigation={navigation} handleRefresh={loadData} loadingStatus={loadingStatus} />}
-      {!(activities.length === 0) &&
-        <FlatList
-          testID='transactions_screen_list'
-          style={tailwind('w-full')}
-          data={activities}
-          renderItem={TransactionRow(navigation)}
-          keyExtractor={(item) => item.id}
-          ListFooterComponent={hasNext ? LoadMore(onLoadMore) : undefined}
-          refreshControl={
-            <RefreshControl
-              refreshing={loadingStatus === 'loading'}
-              onRefresh={loadData}
-            />
-          }
-        />}
-    </>
-  )
+  return activities.length === 0
+    ? <EmptyTransaction navigation={navigation} handleRefresh={loadData} loadingStatus={loadingStatus} />
+    : <FlatList testID='transactions_screen_list' style={tailwind('w-full')} data={activities} renderItem={TransactionRow(navigation)} keyExtractor={(item) => item.id} ListFooterComponent={hasNext ? LoadMore(onLoadMore) : undefined} refreshControl={<RefreshControl refreshing={loadingStatus === 'loading'} onRefresh={loadData} />} />
 }
 
 function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (row: { item: VMTransaction, index: number }) => JSX.Element {
@@ -117,7 +100,7 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
   }
 }
 
-function LoadMore (onPress: () => void): JSX.Element|null {
+function LoadMore (onPress: () => void): JSX.Element | null {
   return (
     <View style={tailwind('flex-1 items-center justify-center w-full m-1')}>
       <TouchableOpacity
