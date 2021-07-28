@@ -21,5 +21,10 @@ context('app/transactions/list', () => {
     it('should display RECEIVE COINS', () => {
       cy.getByTestID('button_receive_coins').should('exist')
     })
+
+    it('should navigate to receive screen', () => {
+      cy.getByTestID('button_receive_coins').should('exist').click()
+      cy.getByTestID('receive_screen').should('exist')
+    })
   })
 })

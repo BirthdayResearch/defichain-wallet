@@ -17,7 +17,10 @@ export function ReceiveScreen (): JSX.Element {
   }
 
   return (
-    <View style={tailwind('flex flex-1 w-full relative')}>
+    <View
+      testID='receive_screen'
+      style={tailwind('flex flex-1 w-full relative')}
+    >
       <Text
         style={tailwind('p-4 font-medium')}
       >{translate('screens/ReceiveScreen', 'Use this address to receive DFI or any DST')}
