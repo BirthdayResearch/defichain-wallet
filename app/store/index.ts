@@ -2,6 +2,7 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { block } from './block'
 import { ocean } from './ocean'
 import { wallet } from './wallet'
+import { transactionQueue } from './transaction'
 
 /**
  * RootState for DeFi Wallet App
@@ -16,7 +17,8 @@ export const store = configureStore({
   reducer: {
     block: block.reducer,
     wallet: wallet.reducer,
-    ocean: ocean.reducer
+    ocean: ocean.reducer,
+    transactionQueue: transactionQueue.reducer
   },
   middleware: [
     ...getDefaultMiddleware({ serializableCheck: false })

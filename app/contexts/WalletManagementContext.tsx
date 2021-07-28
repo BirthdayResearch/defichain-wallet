@@ -1,13 +1,11 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
-
 import { Logging } from '../api/logging'
+import { PasscodeAttemptCounter } from '../api/wallet/passcode_attempt_counter'
 import { WalletPersistence, WalletPersistenceData } from '../api/wallet/persistence'
 import { initWhaleWallet, WhaleWallet } from '../api/wallet/provider'
 import { PromptInterface } from '../api/wallet/provider/mnemonic_encrypted'
 import { useNetworkContext } from './NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
-
-const MAX_PASSCODE_ATTEMPTS = 3
 
 interface WalletManagement {
   wallets: WhaleWallet[]
@@ -19,9 +17,9 @@ interface WalletManagement {
 
   // logic to bridge promptPassphrase UI and jellyfish-txn-builder
   setPasscodePromptInterface: (constructPrompt: PromptInterface) => void
-  incrementPasscodeErrorCount: () => void
-  errorCount: number
-  resetErrorCount: () => void
+  incrementPasscodeErrorCount: () => Promise<void>
+  errorCount: () => Promise<number>
+  resetErrorCount: () => Promise<void>
 }
 
 const WalletManagementContext = createContext<WalletManagement>(undefined as any)
@@ -36,24 +34,20 @@ export function useWalletManagementContext (): WalletManagement {
   return useContext(WalletManagementContext)
 }
 
+export const MAX_PASSCODE_ATTEMPT = 3
+
 export function WalletManagementProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
   const client = useWhaleApiClient()
   const [dataList, setDataList] = useState<Array<WalletPersistenceData<any>>>([])
+
   const [promptInterface, setPromptInterface] = useState<PromptInterface>()
-  const [errCount, setErrCount] = useState(0)
 
   useEffect(() => {
     WalletPersistence.get().then(dataList => {
       setDataList(dataList)
     }).catch(Logging.error)
   }, [network])
-
-  useEffect(() => {
-    if (errCount > MAX_PASSCODE_ATTEMPTS) {
-      // TODO(@ivan-zynesis): wipe wallets from storage
-    }
-  }, [errCount])
 
   const wallets = useMemo(() => {
     return dataList.map(data => initWhaleWallet(data, network, client, promptInterface))
@@ -72,12 +66,14 @@ export function WalletManagementProvider (props: React.PropsWithChildren<any>): 
     setPasscodePromptInterface (cb: PromptInterface): void {
       setPromptInterface(cb)
     },
-    incrementPasscodeErrorCount (): void {
-      setErrCount(errCount + 1)
+    async incrementPasscodeErrorCount (): Promise<void> {
+      const failed = await PasscodeAttemptCounter.get()
+      if (failed + 1 > MAX_PASSCODE_ATTEMPT) return await this.clearWallets()
+      return await PasscodeAttemptCounter.set(failed + 1)
     },
-    errorCount: errCount,
-    resetErrorCount: () => {
-      setErrCount(0)
+    errorCount: PasscodeAttemptCounter.get,
+    async resetErrorCount (): Promise<void> {
+      return await PasscodeAttemptCounter.set(0)
     }
   }
 

@@ -52,10 +52,12 @@ export function translate (path: string, text: string, options?: TranslateOption
   if (!init) {
     initI18n()
   }
-  const translation = i18n.translate(`${path}.${text}`, options)
-  if (translation !== null && translation !== undefined && translation !== '') {
-    return translation
-  } else {
-    return text
+  let translation = i18n.translate(`${path}.${text}`, options) ?? text
+  if (options !== undefined) {
+    // TODO(@ivan-zynesis): fix with i18n method
+    Object.keys(options).forEach(k => {
+      translation = translation.replaceAll(`%{${k}}`, options[k])
+    })
   }
+  return translation
 }

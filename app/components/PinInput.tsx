@@ -8,10 +8,11 @@ import { View } from '.'
 interface PinInputOptions {
   length: 4 | 6 // should be easy to support 4-8 numeric, fix it to 4 or 6 first
   onChange: (text: string) => void
+  value?: string
 }
 
-export function PinInput ({ length, onChange }: PinInputOptions): JSX.Element {
-  const [text, setText] = useState<string>('')
+export function PinInput ({ length, onChange, value }: PinInputOptions): JSX.Element {
+  const [text, setText] = useState<string>(value ?? '')
   const _textInput = useRef<TextInput | null>(null)
 
   useEffect(() => {
@@ -22,7 +23,9 @@ export function PinInput ({ length, onChange }: PinInputOptions): JSX.Element {
     if (text.length === length) {
       // allow UI thread complete render with updated textinput state
       // before resolving long async task
-      setTimeout(() => onChange(text), 100)
+      setTimeout(() => {
+        onChange(text)
+      }, 100)
     }
   }, [text])
 

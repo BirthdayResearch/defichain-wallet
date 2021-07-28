@@ -1,6 +1,5 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleApiClient } from '@defichain/whale-api-client'
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { MaterialIcons } from '@expo/vector-icons'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 'react-native'
@@ -8,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Text } from '..'
 import { Logging } from '../../api/logging'
 import { useWallet } from '../../contexts/WalletContext'
-import { useWalletManagementContext } from '../../contexts/WalletManagementContext'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
 import { RootState } from '../../store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
@@ -16,7 +14,6 @@ import { tailwind } from '../../tailwind'
 import { translate } from '../../translations'
 
 const MAX_AUTO_RETRY = 1
-const MAX_SIGNING_RETRY = 3
 
 async function gotoExplorer (txid: string): Promise<void> {
   // TODO(thedoublejay) explorer URL
@@ -25,19 +22,6 @@ async function gotoExplorer (txid: string): Promise<void> {
   const supported = await Linking.canOpenURL(url)
   if (supported) {
     await Linking.openURL(url)
-  }
-}
-
-async function signTransaction (tx: OceanTransaction, account: WhaleWalletAccount, incrementErrorCounter: () => void, retries: number = 0): Promise<CTransactionSegWit> {
-  try {
-    return await tx.sign(account)
-  } catch (e) {
-    Logging.error(e)
-    if (retries < MAX_SIGNING_RETRY) {
-      incrementErrorCounter()
-      return await signTransaction(tx, account, incrementErrorCounter, retries + 1)
-    }
-    throw e
   }
 }
 
@@ -60,7 +44,6 @@ async function broadcastTransaction (tx: CTransactionSegWit, client: WhaleApiCli
 export function OceanInterface (): JSX.Element | null {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
-  const walletManagement = useWalletManagementContext()
   const walletContext = useWallet()
 
   // store
@@ -85,13 +68,8 @@ export function OceanInterface (): JSX.Element | null {
       Animated.timing(slideAnim, { toValue: height, duration: 200, useNativeDriver: false }).start()
       setTx(transaction)
 
-      signTransaction(transaction, walletContext.get(0), () => walletManagement.incrementPasscodeErrorCount())
-        .then(async signedTx => {
-          setTxid(signedTx.txId)
-          await broadcastTransaction(signedTx, client)
-        })
+      broadcastTransaction(transaction.tx, client)
         .then(() => {
-          walletManagement.resetErrorCount()
           setTx({
             ...transaction,
             broadcasted: true,
