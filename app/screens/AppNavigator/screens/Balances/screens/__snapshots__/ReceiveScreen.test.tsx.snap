@@ -12,6 +12,7 @@ exports[`receive page should match snapshot 1`] = `
       "width": "100%",
     }
   }
+  testID="receive_screen"
 >
   <Text
     style={
