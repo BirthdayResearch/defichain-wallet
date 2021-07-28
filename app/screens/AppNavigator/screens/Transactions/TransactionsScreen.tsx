@@ -23,64 +23,58 @@ export function TransactionsScreen (): JSX.Element {
   const [loadingStatus, setLoadingStatus] = useState('initial') // page status
   const [nextToken, setNextToken] = useState<string | undefined>(undefined)
   const [hasNext, setHasNext] = useState<boolean>(false)
-  const [isEmpty, setIsEmpty] = useState<boolean>(true)
   // const [error, setError] = useState<Error|undefined>(undefined) // TODO: render error
 
-  const loadData = (): void => {
-    if (
-      loadingStatus === 'loading' ||
-      (loadingStatus === 'idle' && !hasNext) // last page
-    ) {
-      return
-    }
-
+  const loadData = (nextToken?: string | undefined): void => {
+    if (loadingStatus === 'loading') return
     setLoadingStatus('loading')
     wallet.get(0).getAddress().then(async address => {
       return await client.address.listTransaction(address, undefined, nextToken)
     }).then(async addActivities => {
       const newRows = activitiesToViewModel(addActivities)
-      setAddressActivities([...activities, ...newRows])
+      if (nextToken !== undefined) setAddressActivities([...activities, ...newRows])
+      else setAddressActivities([...newRows])
       setHasNext(addActivities.hasNext)
       setNextToken(addActivities.nextToken as string | undefined)
-      if (isEmpty) setIsEmpty([...activities, ...newRows].length === 0)
-
       setLoadingStatus('idle')
     }).catch(() => {
-      if (isEmpty) setIsEmpty(activities.length === 0)
       setLoadingStatus('error')
     })
   }
 
+  const onLoadMore = (): void => {
+    loadData(nextToken)
+  }
+
   useEffect(() => loadData(), [])
 
-  if (isEmpty) {
-    return (
-      <EmptyTransaction navigation={navigation} handleRefresh={loadData} loadingStatus={loadingStatus} />
-    )
-  } else {
-    return (
-      <FlatList
-        testID='transactions_screen_list'
-        style={tailwind('w-full')}
-        data={activities}
-        renderItem={TransactionRow(navigation)}
-        keyExtractor={(item) => item.id}
-        ListFooterComponent={hasNext ? LoadMore(loadData) : undefined}
-        refreshControl={
-          <RefreshControl
-            refreshing={loadingStatus === 'loading'}
-            onRefresh={loadData}
-          />
-        }
-      />
-    )
-  }
+  return (
+    <>
+      {(activities.length === 0) && <EmptyTransaction navigation={navigation} handleRefresh={loadData} loadingStatus={loadingStatus} />}
+      {!(activities.length === 0) &&
+        <FlatList
+          testID='transactions_screen_list'
+          style={tailwind('w-full')}
+          data={activities}
+          renderItem={TransactionRow(navigation)}
+          keyExtractor={(item) => item.id}
+          ListFooterComponent={hasNext ? LoadMore(onLoadMore) : undefined}
+          refreshControl={
+            <RefreshControl
+              refreshing={loadingStatus === 'loading'}
+              onRefresh={loadData}
+            />
+          }
+        />}
+    </>
+  )
 }
 
 function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (row: { item: VMTransaction, index: number }) => JSX.Element {
   return (row: { item: VMTransaction, index: number }): JSX.Element => {
     const {
       color,
+      iconName,
       amount,
       desc,
       block,
@@ -98,7 +92,7 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
         }}
       >
         <View style={tailwind('w-8 justify-center items-center')}>
-          <MaterialIcons name='arrow-downward' size={24} color={color} />
+          <MaterialIcons name={iconName} size={24} color={color} />
         </View>
         <View style={tailwind('flex-1 flex-row justify-center items-center')}>
           <View style={tailwind('flex-auto flex-col ml-3 justify-center')}>

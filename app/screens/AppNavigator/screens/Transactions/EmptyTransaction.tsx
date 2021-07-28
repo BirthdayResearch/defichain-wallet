@@ -10,7 +10,7 @@ import { Button } from '../../../../components/Button'
 
 interface EmptyTransactionProps {
   navigation: NavigationProp<TransactionsParamList>
-  handleRefresh: () => void
+  handleRefresh: (nextToken?: string | undefined) => void
   loadingStatus: string
 }
 
