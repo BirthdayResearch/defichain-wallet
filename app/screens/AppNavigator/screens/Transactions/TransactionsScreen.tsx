@@ -1,14 +1,16 @@
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
+
 import { Text } from '../../../../components'
 import { useWallet } from '../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
+import { EmptyTransaction } from './EmptyTransaction'
 import { activitiesToViewModel, VMTransaction } from './screens/stateProcessor'
 import { TransactionsParamList } from './TransactionsNavigator'
 
@@ -23,20 +25,18 @@ export function TransactionsScreen (): JSX.Element {
   const [hasNext, setHasNext] = useState<boolean>(false)
   // const [error, setError] = useState<Error|undefined>(undefined) // TODO: render error
 
-  const loadData = (): void => {
-    if (
-      loadingStatus === 'loading' ||
-      (loadingStatus === 'idle' && !hasNext) // last page
-    ) {
-      return
-    }
-
+  const loadData = (nextToken?: string | undefined): void => {
+    if (loadingStatus === 'loading') return
     setLoadingStatus('loading')
     wallet.get(0).getAddress().then(async address => {
       return await client.address.listTransaction(address, undefined, nextToken)
     }).then(async addActivities => {
       const newRows = activitiesToViewModel(addActivities)
-      setAddressActivities([...activities, ...newRows])
+      if (nextToken !== undefined) {
+        setAddressActivities([...activities, ...newRows])
+      } else {
+        setAddressActivities([...newRows])
+      }
       setHasNext(addActivities.hasNext)
       setNextToken(addActivities.nextToken as string | undefined)
       setLoadingStatus('idle')
@@ -45,30 +45,22 @@ export function TransactionsScreen (): JSX.Element {
     })
   }
 
+  const onLoadMore = (): void => {
+    loadData(nextToken)
+  }
+
   useEffect(() => loadData(), [])
 
-  return (
-    <FlatList
-      testID='transactions_screen_list'
-      style={tailwind('w-full')}
-      data={activities}
-      renderItem={TransactionRow(navigation)}
-      keyExtractor={(item) => item.id}
-      ListFooterComponent={hasNext ? LoadMore(loadData) : undefined}
-      refreshControl={
-        <RefreshControl
-          refreshing={loadingStatus === 'loading'}
-          onRefresh={loadData}
-        />
-      }
-    />
-  )
+  return activities.length === 0
+    ? <EmptyTransaction navigation={navigation} handleRefresh={loadData} loadingStatus={loadingStatus} />
+    : <FlatList testID='transactions_screen_list' style={tailwind('w-full')} data={activities} renderItem={TransactionRow(navigation)} keyExtractor={(item) => item.id} ListFooterComponent={hasNext ? LoadMore(onLoadMore) : undefined} refreshControl={<RefreshControl refreshing={loadingStatus === 'loading'} onRefresh={loadData} />} />
 }
 
 function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (row: { item: VMTransaction, index: number }) => JSX.Element {
   return (row: { item: VMTransaction, index: number }): JSX.Element => {
     const {
       color,
+      iconName,
       amount,
       desc,
       block,
@@ -86,7 +78,7 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
         }}
       >
         <View style={tailwind('w-8 justify-center items-center')}>
-          <Ionicons name='arrow-down' size={24} color={color} />
+          <MaterialIcons name={iconName} size={24} color={color} />
         </View>
         <View style={tailwind('flex-1 flex-row justify-center items-center')}>
           <View style={tailwind('flex-auto flex-col ml-3 justify-center')}>
@@ -104,14 +96,14 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
           </View>
         </View>
         <View style={tailwind('w-8 justify-center items-center')}>
-          <Ionicons name='chevron-forward' size={24} color='rgba(0,0,0,0.6)' />
+          <MaterialIcons name='chevron-right' size={24} style={tailwind('text-black opacity-60')} />
         </View>
       </TouchableOpacity>
     )
   }
 }
 
-function LoadMore (onPress: () => void): JSX.Element|null {
+function LoadMore (onPress: () => void): JSX.Element | null {
   return (
     <View style={tailwind('flex-1 items-center justify-center w-full m-1')}>
       <TouchableOpacity

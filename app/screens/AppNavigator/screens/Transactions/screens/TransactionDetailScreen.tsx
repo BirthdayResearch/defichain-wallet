@@ -12,7 +12,7 @@ type Props = StackScreenProps<TransactionsParamList, 'TransactionDetailScreen'>
 export function TransactionDetailScreen (props: Props): JSX.Element {
   const { tx } = props.route.params
 
-  const grayDivider = <View style={tailwind('bg-gray w-full h-4')} />
+  const grayDivider = <View style={tailwind('bg-gray-100 w-full h-4')} />
   const RenderRow = (lhs: string, rhs: string): JSX.Element => {
     return (
       <View testID={`transaction-detail-${lhs.toLowerCase()}`}>
