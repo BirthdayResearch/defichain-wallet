@@ -1,11 +1,12 @@
 import { AddressActivity } from '@defichain/whale-api-client/dist/api/address'
+import { MaterialIcons } from '@expo/vector-icons'
 import BigNumber from 'bignumber.js'
 
 // VM for ViewModel
 export interface VMTransaction {
   id: string
   desc: string // of each transaction type, eg: Sent, Add Liquidity
-  iconName: string
+  iconName: React.ComponentProps<typeof MaterialIcons>['name']
   color: string
   amount: string
   block: number
@@ -23,7 +24,7 @@ export function activitiesToViewModel (activities: AddressActivity[]): VMTransac
 }
 
 export function activityToViewModel (activity: AddressActivity): VMTransaction {
-  let iconName: 'arrow-up' | 'arrow-down'
+  let iconName: 'arrow-upward' | 'arrow-downward'
   let color: '#02B31B'|'rgba(0,0,0,0.6)' // green | gray
   let desc = ''
   const isPositive = activity.vin === undefined
@@ -40,11 +41,11 @@ export function activityToViewModel (activity: AddressActivity): VMTransaction {
   if (isPositive) {
     color = '#02B31B' // green
     // TODO(@ivan-zynesis): Simplified, more complicated token transaction should have different icon and desc
-    iconName = 'arrow-down'
+    iconName = 'arrow-downward'
     desc = 'Received'
   } else {
     color = 'rgba(0,0,0,0.6)'
-    iconName = 'arrow-up'
+    iconName = 'arrow-upward'
     desc = 'Sent'
     amount = amount.negated()
   }
