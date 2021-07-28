@@ -84,7 +84,7 @@ export function ConvertScreen (props: Props): JSX.Element {
         unit={targetToken.unit}
         balance={new BigNumber(targetToken.amount)}
       />
-      <TokenVsUtxosInfo testID='token_vs_utxo_info' navigation={props.navigation} />
+      <TokenVsUtxosInfo navigation={props.navigation} />
       <SectionTitle title={translate('screens/ConvertScreen', 'PREVIEW CONVERSION')} />
       <View style={tailwind('bg-white flex-col justify-center')}>
         <PreviewConvResult
@@ -194,12 +194,14 @@ function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
   )
 }
 
-function TokenVsUtxosInfo (props: { navigation: NavigationProp<BalanceParamList>, testID: string}): JSX.Element {
+function TokenVsUtxosInfo (props: { navigation: NavigationProp<BalanceParamList>}): JSX.Element {
   return (
     <TouchableOpacity
-      style={tailwind('flex-row p-4 my-3 items-center justify-center')} onPress={() => {
+      style={tailwind('flex-row p-4 my-3 items-center justify-center')}
+      onPress={() => {
         props.navigation.navigate('TokensVsUtxo')
       }}
+      testID='token_vs_utxo_info'
     >
       <MaterialIcons name='info' size={24} color='gray' />
       <Text
