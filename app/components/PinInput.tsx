@@ -1,33 +1,40 @@
 import { MaterialIcons } from '@expo/vector-icons'
-import React, { useState, useRef, useEffect } from 'react'
-
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { TextInput, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { View } from '.'
+import { Text } from './Text'
 
 interface PinInputOptions {
   length: 4 | 6 // should be easy to support 4-8 numeric, fix it to 4 or 6 first
   onChange: (text: string) => void
-  value?: string
 }
 
-export function PinInput ({ length, onChange, value }: PinInputOptions): JSX.Element {
-  const [text, setText] = useState<string>(value ?? '')
+export function PinInput ({ length, onChange }: PinInputOptions): JSX.Element {
+  const [text, setText] = useState<string>('')
   const _textInput = useRef<TextInput | null>(null)
 
-  useEffect(() => {
+  const focus = useCallback(() => {
     _textInput.current?.focus()
-  }, [_textInput])
+  }, [_textInput, _textInput?.current])
+
+  // CAUTION: as digit box is meant to display same length as an invisible textinput value
+  // should be used side by side with setText('')
+  const clear = useCallback(() => {
+    focus()
+    _textInput.current?.clear()
+  }, [_textInput, _textInput?.current, focus])
 
   useEffect(() => {
     if (text.length === length) {
-      // allow UI thread complete render with updated textinput state
-      // before resolving long async task
+      // allow UI thread to complete painting before attempt heavy async task in callback
       setTimeout(() => {
+        clear()
+        setText('')
         onChange(text)
       }, 100)
     }
-  }, [text])
+  }, [text, clear])
 
   const digitBoxes = (): JSX.Element => {
     const arr = []
@@ -35,6 +42,9 @@ export function PinInput ({ length, onChange, value }: PinInputOptions): JSX.Ele
       let child: JSX.Element | null = null
       if (text.length > i) {
         child = <MaterialIcons name='circle' size={15} color='black' />
+        if (text.length - 1 === i) {
+          child = <Text>{text[i]}</Text>
+        }
       }
       arr.push(
         <View key={i} style={tailwind('h-8 w-8 items-center justify-center border border-gray-500 rounded p-2 m-2')}>
@@ -48,7 +58,7 @@ export function PinInput ({ length, onChange, value }: PinInputOptions): JSX.Ele
   }
 
   return (
-    <TouchableOpacity onPress={() => _textInput.current?.focus()}>
+    <TouchableOpacity onPress={() => focus()}>
       {digitBoxes()}
       <TextInput
         ref={ref => { _textInput.current = ref }}

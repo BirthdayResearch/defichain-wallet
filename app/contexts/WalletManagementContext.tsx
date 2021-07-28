@@ -7,6 +7,9 @@ import { PromptInterface } from '../api/wallet/provider/mnemonic_encrypted'
 import { useNetworkContext } from './NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
 
+export const MAX_PASSCODE_ATTEMPT = 3
+export const PASSCODE_LENGTH = 6
+
 interface WalletManagement {
   wallets: WhaleWallet[]
   /**
@@ -33,8 +36,6 @@ const WalletManagementContext = createContext<WalletManagement>(undefined as any
 export function useWalletManagementContext (): WalletManagement {
   return useContext(WalletManagementContext)
 }
-
-export const MAX_PASSCODE_ATTEMPT = 3
 
 export function WalletManagementProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
