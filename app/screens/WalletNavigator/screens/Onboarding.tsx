@@ -1,15 +1,14 @@
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { ScrollView } from 'react-native'
 import { View } from '../../../components'
 import { Button } from '../../../components/Button'
 import { tailwind } from '../../../tailwind'
 import { translate } from '../../../translations'
-import { WalletParamList } from '../WalletNavigator'
 import { OnboardingCarousel } from './components/OnboardingCarousel'
 
-export function WalletOnboarding (): JSX.Element {
-  const navigator = useNavigation<NavigationProp<WalletParamList>>()
+export function Onboarding (): JSX.Element {
+  const navigator = useNavigation()
 
   return (
     <ScrollView
@@ -29,7 +28,7 @@ export function WalletOnboarding (): JSX.Element {
           margin='m-2'
         />
         <Button
-          onPress={() => navigator.navigate('WalletMnemonicRestore')}
+          onPress={() => navigator.navigate('RestoreMnemonicWallet')}
           label={translate('screens/Onboarding', 'RESTORE WALLET')}
           testID='restore_wallet_button'
           title='restore_wallet'

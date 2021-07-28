@@ -9,6 +9,7 @@ import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { SectionTitle } from '../../../../components/SectionTitle'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { fetchTokens } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
@@ -54,7 +55,7 @@ export function DexScreen (): JSX.Element {
           data: yourLPTokens as Array<DexItem<any>>
         },
         {
-          key: 'Available pool pairs',
+          key: 'AVAILABLE POOL PAIRS',
           data: pairs
         }
       ]}
@@ -78,29 +79,25 @@ export function DexScreen (): JSX.Element {
       ListHeaderComponent={() => {
         if (yourLPTokens.length > 0) {
           return (
-            <Text style={tailwind('pt-5 pb-4 px-4 font-bold bg-gray-100')}>
-              Your liquidity
-            </Text>
+            <SectionTitle text={translate('screens/DexScreen', 'YOUR LIQUIDITY')} testID='liq_title' />
           )
         }
         return (
           <View style={tailwind('px-4 pt-4 pb-2')}>
-            <Text style={tailwind('text-sm')}>
-              Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX) to start earning fees
-              and annual returns of up to 100%. You can withdraw any time.
+            <Text style={tailwind('text-base font-medium')}>
+              {
+                translate('screens/DexScreen', 'Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.')
+              }
             </Text>
           </View>
         )
       }}
-      ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
       renderSectionHeader={({ section }) => {
         if (section.key === undefined) {
           return null
         }
         return (
-          <Text style={tailwind('pt-5 pb-4 px-4 font-bold bg-gray-100')}>
-            {translate('app/DexScreen', section.key)}
-          </Text>
+          <SectionTitle text={translate('screens/DexScreen', section.key)} testID={section.key} />
         )
       }}
       keyExtractor={(item, index) => `${index}`}
@@ -124,7 +121,7 @@ function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () =>
         <View style={tailwind('flex-row items-center')}>
           <IconA width={32} height={32} />
           <IconB width={32} height={32} style={tailwind('-ml-3 mr-3')} />
-          <Text style={tailwind('text-lg')}>{data.symbol}</Text>
+          <Text style={tailwind('text-lg font-bold')}>{data.symbol}</Text>
         </View>
         <View style={tailwind('flex-row -mr-3')}>
           <PoolPairLiqBtn name='add' onPress={onAdd} pair={data.symbol} />
@@ -145,17 +142,17 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
   const IconB = getTokenIcon(symbolB)
 
   return (
-    <View testID='pool_pair_row' style={tailwind('p-4 bg-white')}>
+    <View testID='pool_pair_row' style={tailwind('p-4 bg-white border-b border-gray-200')}>
       <View style={tailwind('flex-row items-center justify-between')}>
         <View style={tailwind('flex-row items-center')}>
           <IconA width={32} height={32} />
           <IconB width={32} height={32} style={tailwind('-ml-3 mr-3')} />
-          <Text style={tailwind('text-lg')}>{data.symbol}</Text>
+          <Text style={tailwind('text-lg font-bold')}>{data.symbol}</Text>
         </View>
 
         <View style={tailwind('flex-row -mr-2')}>
           <PoolPairLiqBtn name='add' onPress={onAdd} pair={data.symbol} />
-          <PoolPairSwapBtn symbol={data.symbol} onPress={onSwap} />
+          <PoolPairLiqBtn name='swap-vert' onPress={onSwap} pair={data.symbol} />
         </View>
       </View>
 
@@ -167,11 +164,11 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
   )
 }
 
-function PoolPairLiqBtn (props: { name: 'remove' | 'add', pair: string, onPress?: () => void }): JSX.Element {
+function PoolPairLiqBtn (props: { name: React.ComponentProps<typeof MaterialIcons>['name'], pair: string, onPress?: () => void }): JSX.Element {
   return (
     <TouchableOpacity
       testID={`pool_pair_${props.name}_${props.pair}`}
-      style={tailwind('py-2 px-3')}
+      style={tailwind('p-1 border border-gray-300 rounded mr-2')}
       onPress={props.onPress}
     >
       <MaterialIcons size={24} name={props.name} style={tailwind('text-primary')} />
@@ -179,25 +176,15 @@ function PoolPairLiqBtn (props: { name: 'remove' | 'add', pair: string, onPress?
   )
 }
 
-function PoolPairSwapBtn ({ symbol, onPress }: { symbol: string, onPress: () => void }): JSX.Element {
-  return (
-    <TouchableOpacity
-      testID={`button_swap_${symbol}`} style={tailwind('py-2 px-3 flex-row items-center')}
-      onPress={onPress}
-    >
-      <Text style={tailwind('font-bold text-primary')}>{translate('screens/DexScreen', 'SWAP')}</Text>
-    </TouchableOpacity>
-  )
-}
-
 function PoolPairInfoLine (props: { symbol: string, reserve: string }): JSX.Element {
   return (
     <View style={tailwind('flex-row justify-between')}>
-      <Text style={tailwind('text-sm')}>Pooled {props.symbol}</Text>
+      <Text style={tailwind('text-sm font-semibold mb-1')}>Pooled {props.symbol}</Text>
       <NumberFormat
+        suffix={` ${props.symbol}`}
         value={props.reserve} decimalScale={2} thousandSeparator displayType='text'
         renderText={value => {
-          return <Text>{value} {props.symbol}</Text>
+          return <Text style={tailwind('text-sm font-semibold')}>{value}</Text>
         }}
       />
     </View>
