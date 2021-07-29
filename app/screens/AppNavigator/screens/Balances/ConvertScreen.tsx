@@ -125,7 +125,7 @@ function getDFIBalances (mode: ConversionMode, tokens: AddressToken[]): [source:
 }
 
 function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' | 'output', unit: string, current: string, balance: BigNumber, onChange?: (amount: string) => void }): JSX.Element {
-  const iconType = props.unit === 'UTXOS' ? '_UTXO' : 'DFI'
+  const iconType = props.unit === 'UTXO' ? '_UTXO' : 'DFI'
   const titlePrefix = props.mode === 'input' ? 'CONVERT' : 'TO'
   const title = `${translate('screens/Convert', titlePrefix)} ${props.unit}`
 
