@@ -2,6 +2,7 @@ import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-tran
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { MaterialIcons } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
@@ -124,7 +125,7 @@ function getDFIBalances (mode: ConversionMode, tokens: AddressToken[]): [source:
 }
 
 function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' | 'output', unit: string, current: string, balance: BigNumber, onChange?: (amount: string) => void }): JSX.Element {
-  const iconType = props.unit === 'UTXOS' ? '_UTXO' : 'DFI'
+  const iconType = props.unit === 'UTXO' ? '_UTXO' : 'DFI'
   const titlePrefix = props.mode === 'input' ? 'CONVERT' : 'TO'
   const title = `${translate('screens/Convert', titlePrefix)} ${props.unit}`
 
@@ -194,14 +195,18 @@ function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
 }
 
 function TokenVsUtxosInfo (): JSX.Element {
+  const navigation = useNavigation()
   return (
     <TouchableOpacity
-      style={tailwind('flex-row p-4 my-3 items-center justify-center')} onPress={() => { /* TODO: token vs utxo explanation UI */
+      style={tailwind('flex-row px-4 py-2 mb-14 items-center justify-start')}
+      onPress={() => {
+        navigation.navigate('TokensVsUtxo')
       }}
+      testID='token_vs_utxo_info'
     >
-      <MaterialIcons name='info' size={24} color='gray' />
+      <MaterialIcons name='help' size={16} style={tailwind('text-primary')} />
       <Text
-        style={tailwind('ml-2')}
+        style={tailwind('ml-1 text-primary')}
       >{translate('screens/ConvertScreen', "Tokens vs UTXO, what's the difference?")}
       </Text>
     </TouchableOpacity>
@@ -212,7 +217,7 @@ function TokenVsUtxosInfo (): JSX.Element {
  * footer, UTXOS or Token DFI balance preview AFTER conversion
  */
 function PreviewConvResult (props: { unit: string, balance: BigNumber, testID: string }): JSX.Element {
-  const iconType = props.unit === 'UTXOS' ? '_UTXO' : 'DFI'
+  const iconType = props.unit === 'UTXO' ? '_UTXO' : 'DFI'
   const DFIIcon = getTokenIcon(iconType)
   return (
     <View style={tailwind('flex-row h-12 pl-4 pr-4 items-center')}>
