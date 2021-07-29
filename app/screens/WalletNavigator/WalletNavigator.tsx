@@ -11,8 +11,8 @@ import { GuidelinesRecoveryWords } from './screens/CreateWallet/GuidelinesRecove
 import { VerifyMnemonicWallet } from './screens/CreateWallet/VerifyMnemonicWallet'
 import { Onboarding } from './screens/Onboarding'
 import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
-import { PinCreation } from './screens/PinCreationScreen'
-import { PinConfirmation } from './screens/PinConfirmation'
+import { PinCreation } from './screens/CreateWallet/PinCreationScreen'
+import { PinConfirmation } from './screens/CreateWallet/PinConfirmation'
 
 export interface WalletParamList {
   WalletOnboardingScreen: undefined

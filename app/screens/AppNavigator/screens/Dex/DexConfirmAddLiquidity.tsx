@@ -14,6 +14,7 @@ import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { RootState } from '../../../../store'
 import { hasTxQueued, ocean } from '../../../../store/ocean'
+import { transactionQueue } from '../../../../store/transaction'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
@@ -179,7 +180,7 @@ async function constructSignedAddLiqAndSend (
     return new CTransactionSegWit(dfTx)
   }
 
-  dispatch(ocean.actions.queueTransaction({
+  dispatch(transactionQueue.actions.push({
     sign: signer,
     title: `${translate('screens/ConfirmLiquidity', 'Adding Liquidity')}`
   }))
