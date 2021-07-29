@@ -1,5 +1,5 @@
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
@@ -27,7 +27,7 @@ export function DexScreen (): JSX.Element {
   useEffect(() => {
     // TODO(fuxingloh): does not auto refresh currently, but not required for MVP. Due to limited PP availability
     fetchTokens(client, address, dispatch)
-    client.poolpair.list(50).then(pairs => {
+    client.poolpairs.list(50).then(pairs => {
       setPairs(pairs.map(data => ({ type: 'available', data: data })))
     }).catch((err) => {
       console.log(err)
