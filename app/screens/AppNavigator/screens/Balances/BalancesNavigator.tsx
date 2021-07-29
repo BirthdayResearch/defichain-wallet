@@ -13,6 +13,7 @@ import { ConversionMode, ConvertScreen } from './ConvertScreen'
 import { ReceiveScreen } from './screens/ReceiveScreen'
 import { SendScreen } from './screens/SendScreen'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
+import { TokensVsUtxoScreen } from './screens/TokensVsUtxoScreen'
 
 export interface BalanceParamList {
   BalancesScreen: undefined
@@ -21,6 +22,7 @@ export interface BalanceParamList {
   TokenDetailScreen: { token: WalletToken }
   ConvertScreen: { mode: ConversionMode }
   BarCodeScanner: { onQrScanned: (value: string) => void }
+  TokenVsUtxoScreen: undefined
 
   [key: string]: undefined | object
 }
@@ -84,6 +86,14 @@ export function BalancesNavigator (): JSX.Element {
         component={BarCodeScanner}
         options={{
           headerTitle: translate('screens/ConvertScreen', 'Scan recipient QR'),
+          headerBackTitleVisible: false
+        }}
+      />
+      <BalanceStack.Screen
+        name='TokensVsUtxo'
+        component={TokensVsUtxoScreen}
+        options={{
+          headerTitle: translate('screens/ConvertScreen', 'Tokens vs UTXO'),
           headerBackTitleVisible: false
         }}
       />

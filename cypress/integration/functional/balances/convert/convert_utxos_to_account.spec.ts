@@ -47,4 +47,9 @@ context('wallet/balances/convert - utxosToAccount', () => {
     cy.getByTestID('text_preview_input_desc').contains('DFI (TOKEN)')
     cy.getByTestID('text_preview_output_desc').contains('DFI (UTXO)')
   })
+
+  it('should be able to render token vs utxo screen', function () {
+    cy.getByTestID('token_vs_utxo_info').click()
+    cy.getByTestID('token_vs_utxo_screen').should('exist')
+  })
 })
