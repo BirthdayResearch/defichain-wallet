@@ -8,10 +8,8 @@ const DEFAULT_SCRYPT_PARAMS: ScryptParams = {
 }
 
 class NativeScryptModule implements ScryptProvider {
-  passphraseToKey (nfcUtf8: string, salt: Buffer, desiredKeyLen: number): Buffer {
-    let result: Buffer | null = null
-    let err: Error | null = null
-    rnScrypt(
+  async passphraseToKey (nfcUtf8: string, salt: Buffer, desiredKeyLen: number): Promise<Buffer> {
+    return await rnScrypt(
       Buffer.from(nfcUtf8, 'ascii'),
       salt,
       DEFAULT_SCRYPT_PARAMS.N,
@@ -20,16 +18,6 @@ class NativeScryptModule implements ScryptProvider {
       desiredKeyLen,
       'buffer'
     )
-      .then(buffer => { result = buffer })
-      .catch((e: Error) => { err = e })
-
-    const start = Date.now()
-    while (true) {
-      if (result !== null) {
-        return result
-      }
-      if (err !== null || (Date.now() > start + 10000)) throw new Error()
-    }
   }
 }
 
