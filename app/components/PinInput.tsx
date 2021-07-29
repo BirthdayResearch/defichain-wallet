@@ -45,6 +45,8 @@ export function PinInput ({ length, onChange, disabled }: PinInputOptions): JSX.
     }
   }, [text, clear])
 
+  useEffect(() => focus(), [])
+
   const digitBoxes = (): JSX.Element => {
     const arr = []
     for (let i = 0; i < length; i++) {
