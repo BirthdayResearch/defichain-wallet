@@ -17,13 +17,13 @@ export function TokensVsUtxoScreen (): JSX.Element {
     >
       <View style={tailwind('pt-6 px-4 border-b-2 border-gray-200')}>
         <Text style={tailwind('text-black pb-6')}>
-          {translate('screens/ConvertScreen', 'DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.')}
+          {translate('screens/TokensVsUtxoScreen', 'DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.')}
         </Text>
         <Text style={tailwind('text-black pb-6')}>
-          {translate('screens/ConvertScreen', 'UTXO DFI is the main form DFI and is used for core cryptocurrency purposes like send, receive and fees. DFI tokens are used for DeFi functions such as swaps and liquidity mining.')}
+          {translate('screens/TokensVsUtxoScreen', 'UTXO DFI is the main form DFI and is used for core cryptocurrency purposes like send, receive and fees. DFI tokens are used for DeFi functions such as swaps and liquidity mining.')}
         </Text>
         <Text style={tailwind('text-black pb-4')}>
-          {translate('screens/ConvertScreen', 'Your DFI balance includes both UTXO and tokens.')}
+          {translate('screens/TokensVsUtxoScreen', 'Your DFI balance includes both UTXO and tokens.')}
         </Text>
       </View>
       <View style={tailwind('flex flex-row flex-grow self-stretch items-stretch')}>
@@ -52,7 +52,7 @@ function ComparisonTitle (props: {tokenUnit: '_UTXO' | 'DFI'}): JSX.Element {
   return (
     <View style={tailwind('flex flex-row items-center pb-5')}>
       <TokenIcon width={24} height={24} style={tailwind('mr-2')} />
-      <Text style={tailwind('text-lg')}>{translate('screens/ConvertScreen', label)}</Text>
+      <Text style={tailwind('text-lg')}>{translate('screens/TokensVsUtxoScreen', label)}</Text>
     </View>
   )
 }
@@ -61,7 +61,7 @@ function ComparisonRow (props: {label: string}): JSX.Element {
   return (
     <View style={tailwind('flex flex-row pb-2')}>
       <MaterialIcons name='check' size={24} style={tailwind('text-green-500 mr-2')} />
-      <Text style={tailwind('text-sm font-medium')}>{translate('screens/ConvertScreen', props.label)}</Text>
+      <Text style={tailwind('text-sm font-medium')}>{translate('screens/TokensVsUtxoScreen', props.label)}</Text>
     </View>
   )
 }
