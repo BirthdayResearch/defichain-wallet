@@ -99,7 +99,7 @@ export function OceanInterface (): JSX.Element | null {
           : (
             <TransactionDetail
               broadcasted={tx.broadcasted}
-              txid={transaction.tx.txId}
+              txid={tx.tx.txId}
               onClose={dismissDrawer}
             />
           )

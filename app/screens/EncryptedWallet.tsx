@@ -9,7 +9,8 @@ import { useWalletManagementContext, MAX_PASSCODE_ATTEMPT, PASSCODE_LENGTH } fro
 import { RootState } from '../store'
 import { ocean } from '../store/ocean'
 import { DfTxSigner, first, transactionQueue } from '../store/transaction'
-import { UnlockWalletInterface } from './AppNavigator/screens/UnlockWallet'
+import { translate } from '../translations'
+import { AuthorizationInterface } from './AppNavigator/screens/AuthorizationInterface'
 
 /**
  * Side by side with AppNavigator at root level
@@ -24,6 +25,7 @@ export function EncryptedWallet (): JSX.Element {
 
   // state
   const [attemptsRemaining, setAttemptsRemaining] = useState<number>(MAX_PASSCODE_ATTEMPT)
+  const [spinnerMessage, setSpinnerMessage] = useState<string>()
   // setting this to default true (require pin callback setup), cause wallet require unlock upon this component reconstruct
   const [awaitingPromise, setAwaitingPromise] = useState(false) // waiting whole passphrase promise to be resolve
   const [awaitingPin, setAwaitingPin] = useState(false) // waiting pin input
@@ -42,6 +44,11 @@ export function EncryptedWallet (): JSX.Element {
     setAttemptsRemaining(MAX_PASSCODE_ATTEMPT)
     await walletManagement.resetErrorCount()
   }, [attemptsRemaining])
+
+  useEffect(() => {
+    if (!awaitingPromise || awaitingPin) setSpinnerMessage(undefined)
+    else setSpinnerMessage(translate('components/EncryptedWallet', 'Unlocking wallet...'))
+  }, [awaitingPromise, awaitingPin])
 
   // consume pending to sign TransactionQueue from store
   useEffect(() => {
@@ -102,25 +109,32 @@ export function EncryptedWallet (): JSX.Element {
 
   return (
     <View style={[tailwind('h-full'), viewHeight]}>
-      <UnlockWalletInterface
-        isPrompting={awaitingPromise || awaitingPin}
+      <AuthorizationInterface
+        isPrompting={awaitingPin}
+        spinnerMessage={spinnerMessage}
         pinLength={PASSCODE_LENGTH}
         attemptsRemaining={attemptsRemaining >= MAX_PASSCODE_ATTEMPT ? undefined : attemptsRemaining}
         onPinInput={pin => {
-          if (promptResolve.current !== undefined) {
-            promptResolve.current(pin)
-            promptResolve.current = undefined
-            promptReject.current = undefined
-          }
           setAwaitingPin(false)
+          if (promptResolve.current !== undefined) {
+            const resolve = promptResolve.current
+            setTimeout(() => {
+              resolve(pin)
+              promptResolve.current = undefined
+              promptReject.current = undefined
+            }, 50)
+          }
         }}
         onCancel={() => {
-          if (promptReject.current !== undefined) {
-            promptReject.current(new Error('USER_CANCELED'))
-            promptResolve.current = undefined
-            promptReject.current = undefined
-          }
           setAwaitingPin(false)
+          if (promptReject.current !== undefined) {
+            const reject = promptReject.current
+            setTimeout(() => {
+              reject(new Error('USER_CANCELED'))
+              promptResolve.current = undefined
+              promptReject.current = undefined
+            }, 50)
+          }
         }}
       />
     </View>

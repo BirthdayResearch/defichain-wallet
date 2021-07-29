@@ -8,9 +8,18 @@ import { Text } from './Text'
 interface PinInputOptions {
   length: 4 | 6 // should be easy to support 4-8 numeric, fix it to 4 or 6 first
   onChange: (text: string) => void
+  disabled?: boolean
 }
 
-export function PinInput ({ length, onChange }: PinInputOptions): JSX.Element {
+/**
+ * JSX component to collect 4 or 6 digit pin
+ *
+ * @param {PinInputOptions} props
+ * @param {4|6} props.length pin length
+ * @param {(text: string) => void} props.onChange on triggered when user input reach `length`, clear input after fired
+ * @param {boolean} disabled
+ */
+export function PinInput ({ length, onChange, disabled }: PinInputOptions): JSX.Element {
   const [text, setText] = useState<string>('')
   const _textInput = useRef<TextInput | null>(null)
 
@@ -61,6 +70,7 @@ export function PinInput ({ length, onChange }: PinInputOptions): JSX.Element {
     <TouchableOpacity onPress={() => focus()}>
       {digitBoxes()}
       <TextInput
+        editable={disabled === undefined ? true : !disabled}
         ref={ref => { _textInput.current = ref }}
         style={tailwind('opacity-0 h-0')}
         keyboardType='numeric'
