@@ -26,7 +26,6 @@ export function initWhaleWallet (data: WalletPersistenceData<any>, network: Envi
  * @param {EnvironmentNetwork} network
  */
 function resolveProvider (data: WalletPersistenceData<any>, network: EnvironmentNetwork, promptInterface?: PromptInterface): WalletHdNodeProvider<WalletHdNode> {
-  console.log('wallet type', data.type)
   switch (data.type) {
     case WalletType.MNEMONIC_UNPROTECTED:
       return MnemonicUnprotected.initProvider(data, network)
