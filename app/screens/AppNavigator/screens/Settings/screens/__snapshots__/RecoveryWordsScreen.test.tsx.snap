@@ -1,0 +1,1314 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`recovery word should match snapshot 1`] = `
+<RCTScrollView>
+  <View>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Object {
+            "color": "rgba(0, 0, 0, 1)",
+            "fontSize": 14,
+            "lineHeight": 20,
+            "opacity": 0.6,
+            "paddingBottom": 8,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 24,
+          },
+        ]
+      }
+    >
+      Keep your recovery words safe and private
+    </Text>
+    <View
+      style={
+        Array [
+          Object {
+            "paddingBottom": 48,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          1
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          bunker
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          2
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          layer
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          3
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          kid
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          4
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          involve
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          5
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          flight
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          6
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          figure
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          7
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          gauge
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          8
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          ticket
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          9
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          final
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          10
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          beach
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          11
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          basic
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          12
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          aspect
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          13
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          exit
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          14
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          slow
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          15
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          high
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          16
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          aerobic
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          17
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          sister
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          18
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          device
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          19
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          bullet
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          20
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          twin
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          21
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          profit
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          22
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          scale
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          23
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          sell
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+        >
+          24
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+        >
+          find
+        </Text>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;
