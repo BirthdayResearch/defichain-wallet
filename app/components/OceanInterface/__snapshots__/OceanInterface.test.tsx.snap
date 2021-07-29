@@ -67,8 +67,58 @@ exports[`oceanInterface should match snapshot 1`] = `
         ]
       }
     >
-      Signing...
+      Broadcasting...
     </Text>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "maxWidth": "100%",
+          "opacity": 1,
+          "paddingBottom": 4,
+          "paddingLeft": 4,
+          "paddingRight": 4,
+          "paddingTop": 4,
+        }
+      }
+      testID="oceanNetwork_explorer"
+    >
+      <Text
+        ellipsizeMode="tail"
+        numberOfLines={1}
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Object {
+              "color": "rgba(255, 0, 175, 1)",
+              "fontFamily": "MediumFont",
+              "fontSize": 14,
+              "fontWeight": "500",
+              "lineHeight": 20,
+              "marginRight": 4,
+            },
+          ]
+        }
+      >
+        da5660376145f7a8c43d5c0628e9d03a3671027e3a82f878fb23dbe4c6ea2cf2
+      </Text>
+      <Text />
+    </View>
   </View>
 </View>
 `;
