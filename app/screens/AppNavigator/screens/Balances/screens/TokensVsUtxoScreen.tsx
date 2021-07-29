@@ -1,6 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import React from 'react'
-import { View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { Text } from '../../../../../components'
 import { translate } from '../../../../../translations'
 import { tailwind } from '../../../../../tailwind'
@@ -8,7 +8,13 @@ import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 
 export function TokensVsUtxoScreen (): JSX.Element {
   return (
-    <View testID='token_vs_utxo_screen'>
+    <ScrollView
+      testID='token_vs_utxo_screen' style={tailwind('bg-white h-full')}
+      contentContainerStyle={{
+        flexGrow: 1,
+        justifyContent: 'space-between'
+      }}
+    >
       <View style={tailwind('pt-6 px-4 border-b-2 border-gray-200')}>
         <Text style={tailwind('text-black pb-6')}>
           {translate('screens/ConvertScreen', 'DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.')}
@@ -20,7 +26,7 @@ export function TokensVsUtxoScreen (): JSX.Element {
           {translate('screens/ConvertScreen', 'Your DFI balance includes both UTXO and tokens.')}
         </Text>
       </View>
-      <View style={tailwind('flex flex-row h-full')}>
+      <View style={tailwind('flex flex-row flex-grow self-stretch items-stretch')}>
         <View style={tailwind('w-6/12 border-r-2 border-gray-200 px-4 py-5')}>
           <ComparisonTitle tokenUnit='_UTXO' />
           <ComparisonRow label='Core crypto services' />
@@ -35,7 +41,7 @@ export function TokensVsUtxoScreen (): JSX.Element {
           <ComparisonRow label='Atomic Swaps' />
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
