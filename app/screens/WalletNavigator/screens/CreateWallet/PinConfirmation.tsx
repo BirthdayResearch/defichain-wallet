@@ -1,9 +1,9 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
-import { ActivityIndicator, ScrollView } from 'react-native'
+import { ScrollView } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { MnemonicEncrypted } from '../../../../api/wallet/provider/mnemonic_encrypted'
-import { Text, View } from '../../../../components'
+import { Text } from '../../../../components'
 import { PinInput } from '../../../../components/PinInput'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
 import { useWalletManagementContext } from '../../../../contexts/WalletManagementContext'
@@ -18,7 +18,7 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
   const { setWallet } = useWalletManagementContext()
 
   const [invalid, setInvalid] = useState<boolean>(false)
-  const [spinnerMessage, setSpinnerMessage] = useState<string>()
+  // const [spinnerMessage, setSpinnerMessage] = useState<string>()
 
   if (![4, 6].includes(pin.length)) throw new Error('Unexpected pin length')
 
@@ -29,15 +29,21 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
       return
     }
 
-    setSpinnerMessage(translate('screens/PinConfirmation', 'Encrypting wallet...'))
-    const copy = { words, network, pin }
-    setTimeout(() => {
-      MnemonicEncrypted.toData(copy.words, copy.network, copy.pin)
-        .then(async encrypted => {
-          await setWallet(encrypted)
-        })
-        .catch(e => console.log(e))
-    }, 50) // allow UI render the spinner before async task
+    MnemonicEncrypted.toData(words, network, pin)
+      .then(async encrypted => {
+        await setWallet(encrypted)
+      })
+      .catch(e => console.log(e))
+
+    // const copy = { words, network, pin }
+    // setSpinnerMessage(translate('screens/PinConfirmation', 'Encrypting wallet...'))
+    // setTimeout(() => {
+    //   MnemonicEncrypted.toData(copy.words, copy.network, copy.pin)
+    //     .then(async encrypted => {
+    //       await setWallet(encrypted)
+    //     })
+    //     .catch(e => console.log(e))
+    // }, 50) // allow UI render the spinner before async task
   }
 
   return (
@@ -48,14 +54,14 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
         length={pin.length as any}
         onChange={verifyPin}
       />
-      {
+      {/* {
         (spinnerMessage !== undefined) ? (
           <View style={tailwind('flex-row justify-center p-2')}>
             <ActivityIndicator style={tailwind('text-primary')} />
             <Text style={tailwind('ml-2')}>{spinnerMessage}</Text>
           </View>
         ) : null
-      }
+      } */}
       {
         (invalid) ? (
           <Text style={tailwind('text-center text-red-500 font-bold')}>
