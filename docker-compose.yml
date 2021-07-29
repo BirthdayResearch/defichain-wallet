@@ -17,7 +17,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:1.7.11
+    image: defi/defichain:1.8.0
     command: >
       defid
       -printtoconsole
@@ -39,9 +39,10 @@ services:
       -dakotaheight=4
       -dakotacrescentheight=5
       -eunosheight=6
+      -eunospayaheight=7
 
   defi-playground:
-    image: ghcr.io/defich/playground:0.6.0
+    image: ghcr.io/defich/playground:0.7.0
     depends_on:
       - defi-blockchain
     ports:
@@ -54,7 +55,7 @@ services:
       - "traefik.http.routers.playground.entrypoints=web"
 
   defi-whale:
-    image: ghcr.io/defich/whale:0.5.11
+    image: ghcr.io/defich/whale:0.7.0
     depends_on:
       - defi-blockchain
     ports:
@@ -66,5 +67,5 @@ services:
       WHALE_NETWORK: regtest
     labels:
       - "traefik.http.services.whale.loadbalancer.server.port=3000"
-      - "traefik.http.routers.whale.rule=PathPrefix(`/v0/regtest/`)"
+      - "traefik.http.routers.whale.rule=PathPrefix(`/v[0-9]+.[0-9]+/regtest/`)"
       - "traefik.http.routers.whale.entrypoints=web"
