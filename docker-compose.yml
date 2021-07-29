@@ -67,5 +67,5 @@ services:
       WHALE_NETWORK: regtest
     labels:
       - "traefik.http.services.whale.loadbalancer.server.port=3000"
-      - "traefik.http.routers.whale.rule=PathPrefix(`/v[0-9]+.[0-9]+/regtest/`)"
+      - "traefik.http.routers.whale.rule=PathPrefix(`/v{[0-9]+}.{[0-9]+}/regtest/`)"
       - "traefik.http.routers.whale.entrypoints=web"
