@@ -1,5 +1,7 @@
 import { Scrypt, ScryptProvider } from '@defichain/jellyfish-wallet-encrypted'
+import { Platform } from 'react-native'
 import scryptsy from 'scryptsy'
+import { scrypt as nativeScrypt } from './scrypt.native'
 
 export interface ScryptParams {
   N: number
@@ -40,4 +42,6 @@ export class SimpleScryptsy implements ScryptProvider {
   }
 }
 
-export const scrypt = new Scrypt(new SimpleScryptsy())
+export const scrypt = Platform.OS === 'web'
+  ? new Scrypt(new SimpleScryptsy())
+  : nativeScrypt
