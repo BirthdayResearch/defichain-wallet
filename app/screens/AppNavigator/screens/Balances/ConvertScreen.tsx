@@ -216,7 +216,7 @@ function TokenVsUtxosInfo (props: { navigation: NavigationProp<BalanceParamList>
  * footer, UTXOS or Token DFI balance preview AFTER conversion
  */
 function PreviewConvResult (props: { unit: string, balance: BigNumber, testID: string }): JSX.Element {
-  const iconType = props.unit === 'UTXOS' ? '_UTXO' : 'DFI'
+  const iconType = props.unit === 'UTXO' ? '_UTXO' : 'DFI'
   const DFIIcon = getTokenIcon(iconType)
   return (
     <View style={tailwind('flex-row h-12 pl-4 pr-4 items-center')}>
