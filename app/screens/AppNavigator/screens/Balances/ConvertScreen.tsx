@@ -2,8 +2,8 @@ import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-tran
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { MaterialIcons } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
-import { NavigationProp } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
@@ -84,7 +84,7 @@ export function ConvertScreen (props: Props): JSX.Element {
         unit={targetToken.unit}
         balance={new BigNumber(targetToken.amount)}
       />
-      <TokenVsUtxosInfo navigation={props.navigation} />
+      <TokenVsUtxosInfo />
       <SectionTitle title={translate('screens/ConvertScreen', 'PREVIEW CONVERSION')} />
       <View style={tailwind('bg-white flex-col justify-center')}>
         <PreviewConvResult
@@ -194,12 +194,13 @@ function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
   )
 }
 
-function TokenVsUtxosInfo (props: { navigation: NavigationProp<BalanceParamList>}): JSX.Element {
+function TokenVsUtxosInfo (): JSX.Element {
+  const navigation = useNavigation()
   return (
     <TouchableOpacity
       style={tailwind('flex-row px-4 py-2 mb-14 items-center justify-start')}
       onPress={() => {
-        props.navigation.navigate('TokensVsUtxo')
+        navigation.navigate('TokensVsUtxo')
       }}
       testID='token_vs_utxo_info'
     >
