@@ -1,5 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
+import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { useCallback } from 'react'
 import { Alert, Platform, ScrollView, TouchableOpacity } from 'react-native'
@@ -10,10 +11,13 @@ import { useWalletManagementContext } from '../../../../contexts/WalletManagemen
 import { EnvironmentNetwork, getEnvironment, isPlayground } from '../../../../environment'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
+import { SettingsParamList } from './SettingsNavigator'
 
-export function SettingsScreen (): JSX.Element {
+type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
+
+export function SettingsScreen ({ navigation }: Props): JSX.Element {
   const networks = getEnvironment().networks
-
+  const words = getRecoveryWords()
   return (
     <ScrollView style={tailwind('flex-1 bg-gray-100')}>
       <SectionTitle text={translate('screens/Settings', 'NETWORK')} testID='network_title' />
@@ -22,6 +26,11 @@ export function SettingsScreen (): JSX.Element {
           <RowNetworkItem key={index} network={network} />
         ))
       }
+      <SectionTitle text={translate('screens/Settings', 'SECURITY')} testID='security_title' />
+      <ViewRecoveryWords onPress={() => {
+        navigation.navigate('RecoveryWordsScreen', { words })
+      }}
+      />
       <RowExitWalletItem />
     </ScrollView>
   )
@@ -104,4 +113,28 @@ function RowExitWalletItem (): JSX.Element {
       </Text>
     </TouchableOpacity>
   )
+}
+
+function ViewRecoveryWords ({ onPress }: { onPress: () => void}): JSX.Element {
+  return (
+    <TouchableOpacity
+      testID='view_recovery_words'
+      style={tailwind('bg-white p-4 flex-row items-center justify-between border-b border-gray-200')}
+      onPress={onPress}
+    >
+      <Text style={tailwind('font-medium')}>
+        {translate('screens/Settings', 'Recovery Words')}
+      </Text>
+      <MaterialIcons
+        name='chevron-right'
+        style={[tailwind('text-black')]}
+        size={24}
+      />
+    </TouchableOpacity>
+  )
+}
+
+function getRecoveryWords (): string[] {
+  // TODO(kengye): integrate with jellyfish api to retrieve mnemonic seeds
+  return ['bunker', 'layer', 'kid', 'involve', 'flight', 'figure', 'gauge', 'ticket', 'final', 'beach', 'basic', 'aspect', 'exit', 'slow', 'high', 'aerobic', 'sister', 'device', 'bullet', 'twin', 'profit', 'scale', 'sell', 'find']
 }
