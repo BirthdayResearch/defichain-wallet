@@ -2,8 +2,9 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
-import { useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Alert, Platform, ScrollView, TouchableOpacity } from 'react-native'
+import { Logging } from '../../../../api'
 import { Text } from '../../../../components'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
@@ -17,7 +18,17 @@ type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
 
 export function SettingsScreen ({ navigation }: Props): JSX.Element {
   const networks = getEnvironment().networks
-  const words = getRecoveryWords()
+  const [words, setWords] = useState<string[]>([])
+  const getRecoveryWords = (): void => {
+    getMockRecoveryWords().then((words) => {
+      setWords(words)
+    }).catch(Logging.error)
+  }
+
+  useEffect(() => {
+    getRecoveryWords()
+  }, [])
+
   return (
     <ScrollView style={tailwind('flex-1 bg-gray-100')}>
       <SectionTitle text={translate('screens/Settings', 'NETWORK')} testID='network_title' />
@@ -134,7 +145,7 @@ function ViewRecoveryWords ({ onPress }: { onPress: () => void}): JSX.Element {
   )
 }
 
-function getRecoveryWords (): string[] {
+async function getMockRecoveryWords (): Promise<string[]> {
   // TODO(kengye): integrate with jellyfish api to retrieve mnemonic seeds
   return ['bunker', 'layer', 'kid', 'involve', 'flight', 'figure', 'gauge', 'ticket', 'final', 'beach', 'basic', 'aspect', 'exit', 'slow', 'high', 'aerobic', 'sister', 'device', 'bullet', 'twin', 'profit', 'scale', 'sell', 'find']
 }
