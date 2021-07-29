@@ -197,15 +197,15 @@ function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
 function TokenVsUtxosInfo (props: { navigation: NavigationProp<BalanceParamList>}): JSX.Element {
   return (
     <TouchableOpacity
-      style={tailwind('flex-row p-4 my-3 items-center justify-center')}
+      style={tailwind('flex-row px-4 py-2 mb-14 items-center justify-start')}
       onPress={() => {
         props.navigation.navigate('TokensVsUtxo')
       }}
       testID='token_vs_utxo_info'
     >
-      <MaterialIcons name='info' size={24} color='gray' />
+      <MaterialIcons name='help' size={16} style={tailwind('text-primary')} />
       <Text
-        style={tailwind('ml-2')}
+        style={tailwind('ml-1 text-primary')}
       >{translate('screens/ConvertScreen', "Tokens vs UTXO, what's the difference?")}
       </Text>
     </TouchableOpacity>
