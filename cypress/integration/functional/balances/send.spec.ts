@@ -69,13 +69,15 @@ context('wallet/send', () => {
       })
 
       it(`should check if exist on other side ${address}`, function () {
+        // TODO(jj): we should inject a WhaleClient into cypress global for operations
+        //  such as this as versioning is automatically handled there
         let url: string
         if (network === 'Playground') {
-          url = 'https://playground.defichain.com/'
+          url = 'https://playground.defichain.com/v0.7/regtest'
         } else {
-          url = 'http://localhost:19553/'
+          url = 'http://localhost:19553/v0.7/regtest'
         }
-        cy.request(`${url}v0/regtest/address/${address}/balance`).then((response) => {
+        cy.request(`${url}/address/${address}/balance`).then((response) => {
           expect(response.body).to.have.property('data', '1.00000000')
         })
       })

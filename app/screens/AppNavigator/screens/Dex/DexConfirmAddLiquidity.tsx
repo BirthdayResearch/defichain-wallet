@@ -1,5 +1,5 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
