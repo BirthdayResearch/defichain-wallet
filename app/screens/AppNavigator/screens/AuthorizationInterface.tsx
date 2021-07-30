@@ -35,12 +35,19 @@ export function AuthorizationInterface (props: UnlockWalletProps): JSX.Element {
         <Text style={tailwind('text-center text-lg font-bold')}>{translate('screens/UnlockWallet', 'Enter passcode')}</Text>
         <Text style={tailwind('pt-2 pb-4 text-center text-gray-500')}>{translate('screens/UnlockWallet', 'For transaction signing purpose')}</Text>
         {/* TODO: switch authorization method here when biometric supported */}
-        <PassphraseInput isPrompting={isPrompting} pinLength={pinLength} onPinInput={onPinInput} />
+        <PassphraseInput
+          isPrompting={isPrompting}
+          pinLength={pinLength}
+          onPinInput={pin => {
+            // to make sure no false trigger
+            if (pin.length === pinLength) onPinInput(pin)
+          }}
+        />
         <Loading message={spinnerMessage} />
         {
           (attemptsRemaining !== undefined) ? (
             <Text style={tailwind('text-center text-red-500 font-bold')}>
-              {translate('screens/PinConfirmation', 'Wrong passcode. %{attemptsRemaining} tries remaining', { attemptsRemaining })}
+              {translate('screens/PinConfirmation', 'Wrong passcode. %{attemptsRemaining} tries remaining', { attemptsRemaining: `${attemptsRemaining}` })}
             </Text>
           ) : null
         }
@@ -67,7 +74,7 @@ function Loading ({ message }: { message?: string }): JSX.Element | null {
   if (message === undefined) return null
   return (
     <View style={tailwind('flex-row justify-center p-2')}>
-      <ActivityIndicator style={tailwind('text-primary')} />
+      <ActivityIndicator />
       <Text style={tailwind('ml-2')}>{message}</Text>
     </View>
   )

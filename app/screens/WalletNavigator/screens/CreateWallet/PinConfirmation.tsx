@@ -29,12 +29,6 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
       return
     }
 
-    // MnemonicEncrypted.toData(words, network, pin)
-    //   .then(async encrypted => {
-    //     await setWallet(encrypted)
-    //   })
-    //   .catch(e => console.log(e))
-
     const copy = { words, network, pin }
     setSpinnerMessage(translate('screens/PinConfirmation', 'Encrypting wallet...'))
     setTimeout(() => {
@@ -57,7 +51,7 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
       {
         (spinnerMessage !== undefined) ? (
           <View style={tailwind('flex-row justify-center p-2')}>
-            <ActivityIndicator style={tailwind('text-primary')} />
+            <ActivityIndicator />
             <Text style={tailwind('ml-2')}>{spinnerMessage}</Text>
           </View>
         ) : null

@@ -37,13 +37,13 @@ export function EncryptedWallet (): JSX.Element {
   // update persistent + resolve state
   const onRetry = useCallback(async (attempts: number) => {
     setAttemptsRemaining(MAX_PASSCODE_ATTEMPT - attempts)
-    setAwaitingPin(true) // ensure next retry can update state of pin input
+    setAwaitingPin(true)
     await walletManagement.incrementPasscodeErrorCount()
-  }, [attemptsRemaining, awaitingPin])
+  }, [attemptsRemaining])
   const onSuccess = useCallback(async () => {
     setAttemptsRemaining(MAX_PASSCODE_ATTEMPT)
     await walletManagement.resetErrorCount()
-  }, [attemptsRemaining])
+  }, [])
 
   useEffect(() => {
     if (!awaitingPromise || awaitingPin) setSpinnerMessage(undefined)
@@ -62,16 +62,15 @@ export function EncryptedWallet (): JSX.Element {
           // else result = undefined // neutral
         })
         .then(async () => {
+          setAwaitingPromise(false) // dismiss prompt UI
           if (result === undefined) {
             // case: cancel
-            setAwaitingPromise(false) // dismiss prompt UI
             dispatch(transactionQueue.actions.pop()) // remove job
           } else if (result === null) {
             // case: consecutive error
             await walletManagement.clearWallets()
           } else {
             // case: success
-            setAwaitingPromise(false) // dismiss prompt UI
             dispatch(transactionQueue.actions.pop()) // remove job
             dispatch(ocean.actions.queueTransaction({ tx: result })) // push signed result for broadcasting
             await onSuccess()

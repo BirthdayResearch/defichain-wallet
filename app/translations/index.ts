@@ -56,7 +56,7 @@ export function translate (path: string, text: string, options?: TranslateOption
   if (options !== undefined) {
     // TODO(@ivan-zynesis): fix with i18n method
     Object.keys(options).forEach(k => {
-      translation = translation.replaceAll(`%{${k}}`, options[k])
+      translation = translation.replace(new RegExp(`%{${k}}`, 'g'), options[k])
     })
   }
   return translation
