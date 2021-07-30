@@ -10,8 +10,7 @@
     "noEmit": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "strict": true,
-		"types": ["node", "jest", "cypress", "@testing-library/cypress"]
+    "strict": true
   },
   "extends": "expo/tsconfig.base",
   "exclude": [
