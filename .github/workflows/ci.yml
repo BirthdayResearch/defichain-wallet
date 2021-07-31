@@ -18,23 +18,18 @@ jobs:
           cache: 'npm'
 
       - run: npm ci
-      - run: cd app
-
-      - id: hash
-        run: |
-          export HASH=$(openssl sha1 styles.json)
-          echo "::set-output name=result::$HASH"
-
-      - run: npx create-tailwind-rn
 
       - name: "Drift Detection: tailwind.config.js"
+        working-directory: app
         run: |
-          export HASH=$(openssl sha1 styles.json)
-          if [${{ steps.hash.outputs.result }} -ne $HASH ] ; then
+          export BEFORE=$(openssl sha1 styles.json | sed 's/^.* //')
+          npx create-tailwind-rn
+          export AFTER=$(openssl sha1 styles.json | sed 's/^.* //')
+
+          if [ $BEFORE -ne $AFTER ] ; then
             echo "Drift Detected: tailwind.config.js"
             exit 1
           fi
-
 
   lint:
     name: Lint
