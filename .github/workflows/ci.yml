@@ -27,7 +27,7 @@ jobs:
           export AFTER=$(openssl sha1 styles.json | sed 's/^.* //')
 
           if [ $BEFORE -ne $AFTER ] ; then
-            echo "Drift Detected: tailwind.config.js"
+            echo "Drift detected: tailwind.config.js, please run 'npx create-tailwind-rn' on the /app directory."
             exit 1
           fi
 
