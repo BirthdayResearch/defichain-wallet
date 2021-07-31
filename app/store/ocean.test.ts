@@ -1,4 +1,5 @@
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction";
+import { WhaleWalletAccount } from '@defichain/whale-api-wallet';
 import { SmartBuffer } from "smart-buffer";
 import { ocean, OceanState, OceanTransaction } from './ocean'
 
