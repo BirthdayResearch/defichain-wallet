@@ -51,8 +51,9 @@ export function OceanInterface (): JSX.Element | null {
   const transaction = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const slideAnim = useRef(new Animated.Value(0)).current
   // state
-  const [tx, setTx] = useState<OceanTransaction | undefined>()
+  const [tx, setTx] = useState<OceanTransaction | undefined>(transaction)
   const [err, setError] = useState<Error | undefined>(e)
+  const [txid, setTxid] = useState<string | undefined>()
 
   const dismissDrawer = useCallback(() => {
     setTx(undefined)
@@ -64,18 +65,25 @@ export function OceanInterface (): JSX.Element | null {
     // last available job will remained in this UI state until get dismissed
     if (transaction !== undefined) {
       Animated.timing(slideAnim, { toValue: height, duration: 200, useNativeDriver: false }).start()
-      setTx(transaction)
-
-      broadcastTransaction(transaction.tx, client)
-        .then(() => {
-          setTx({
-            ...transaction,
-            broadcasted: true,
-            title: translate('screens/OceanInterface', 'Transaction Sent')
-          })
+      setTx({
+        ...transaction,
+        broadcasted: false
+      })
+      transaction.sign(walletContext.get(0))
+        .then(async signedTx => {
+          setTxid(signedTx.txId)
+          await broadcastTransaction(signedTx, client)
         })
+        .then(() => setTx({
+          ...transaction,
+          broadcasted: true,
+          title: translate('screens/OceanInterface', 'Transaction Sent')
+        }))
         .catch((e: Error) => {
-          const errMsg = `${e.message}. Txid: ${transaction.tx.txId}`
+          let errMsg = e.message
+          if (txid !== undefined) {
+            errMsg = `${errMsg}. Txid: ${txid}`
+          }
           setError(new Error(errMsg))
         })
         .finally(() => dispatch(ocean.actions.popTransaction())) // remove the job as soon as completion
@@ -96,20 +104,16 @@ export function OceanInterface (): JSX.Element | null {
       {
         err !== undefined
           ? <TransactionError errMsg={err.message} onClose={dismissDrawer} />
-          : (
-            <TransactionDetail
-              broadcasted={tx.broadcasted}
-              txid={tx.tx.txId}
-              onClose={dismissDrawer}
-            />
-          )
+          : <TransactionDetail broadcasted={tx.broadcasted} txid={txid} onClose={dismissDrawer} />
       }
     </Animated.View>
   )
 }
 
-function TransactionDetail ({ broadcasted, txid, onClose }: { broadcasted: boolean, txid: string, onClose: () => void }): JSX.Element | null {
-  const title = broadcasted ? 'Transaction Sent' : 'Broadcasting...'
+function TransactionDetail ({ broadcasted, txid, onClose }: { broadcasted: boolean, txid?: string, onClose: () => void }): JSX.Element {
+  let title = 'Signing...'
+  if (txid !== undefined) title = 'Broadcasting...'
+  if (broadcasted) title = 'Transaction Sent'
   return (
     <>
       {
@@ -156,7 +160,7 @@ function TransactionError ({ errMsg, onClose }: { errMsg: string | undefined, on
 function TransactionIDButton ({ txid, onPress }: { txid: string, onPress?: () => void }): JSX.Element {
   return (
     <TouchableOpacity
-      testID='oceanNetwork_explorer' style={tailwind('flex-row p-1 items-center  max-w')}
+      testID='oceanNetwork_explorer' style={tailwind('flex-row p-1 items-center')}
       onPress={onPress}
     >
       <Text

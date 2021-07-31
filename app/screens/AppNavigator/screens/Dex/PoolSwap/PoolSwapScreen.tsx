@@ -18,7 +18,6 @@ import { useWallet } from '../../../../../contexts/WalletContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
 import { hasTxQueued, ocean } from '../../../../../store/ocean'
-import { transactionQueue } from '../../../../../store/transaction'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import LoadingScreen from '../../../../LoadingNavigator/LoadingScreen'
@@ -329,7 +328,7 @@ async function constructSignedSwapAndSend (
     return new CTransactionSegWit(dfTx)
   }
 
-  dispatch(transactionQueue.actions.push({
+  dispatch(ocean.actions.queueTransaction({
     sign: signer,
     title: `${translate('screens/PoolSwapScreen', 'Swapping Token')}`
   }))

@@ -1,9 +1,10 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction'
+import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface OceanTransaction {
   broadcasted: boolean
-  tx: CTransactionSegWit
+  sign: (account: WhaleWalletAccount) => Promise<CTransactionSegWit>
   title?: string
 }
 
