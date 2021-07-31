@@ -7,6 +7,35 @@ on:
     branches: [ main ]
 
 jobs:
+  tailwind:
+    name: Tailwind
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: actions/setup-node@aa759c6c94d3800c55b8601f21ba4b2371704cb7
+        with:
+          node-version: 15
+          cache: 'npm'
+
+      - run: npm ci
+      - run: cd app
+
+      - id: hash
+        run: |
+          export HASH=$(openssl sha1 styles.json)
+          echo "::set-output name=result::$HASH"
+
+      - run: npx create-tailwind-rn
+
+      - name: "Drift Detection: tailwind.config.js"
+        run: |
+          export HASH=$(openssl sha1 styles.json)
+          if [${{ steps.hash.outputs.result }} -ne $HASH ] ; then
+            echo "Drift Detected: tailwind.config.js"
+            exit 1
+          fi
+
+
   lint:
     name: Lint
     runs-on: ubuntu-latest
