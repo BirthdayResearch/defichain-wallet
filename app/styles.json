@@ -4513,6 +4513,72 @@
 	"min-w-max": {
 		"minWidth": "max-content"
 	},
+	"max-w-0": {
+		"maxWidth": 0
+	},
+	"max-w-none": {
+		"maxWidth": "none"
+	},
+	"max-w-xs": {
+		"maxWidth": 320
+	},
+	"max-w-sm": {
+		"maxWidth": 384
+	},
+	"max-w-md": {
+		"maxWidth": 448
+	},
+	"max-w-lg": {
+		"maxWidth": 512
+	},
+	"max-w-xl": {
+		"maxWidth": 576
+	},
+	"max-w-2xl": {
+		"maxWidth": 672
+	},
+	"max-w-3xl": {
+		"maxWidth": 768
+	},
+	"max-w-4xl": {
+		"maxWidth": 896
+	},
+	"max-w-5xl": {
+		"maxWidth": 1024
+	},
+	"max-w-6xl": {
+		"maxWidth": 1152
+	},
+	"max-w-7xl": {
+		"maxWidth": 1280
+	},
+	"max-w-full": {
+		"maxWidth": "100%"
+	},
+	"max-w-min": {
+		"maxWidth": "min-content"
+	},
+	"max-w-max": {
+		"maxWidth": "max-content"
+	},
+	"max-w-prose": {
+		"maxWidth": "65ch"
+	},
+	"max-w-screen-sm": {
+		"maxWidth": 640
+	},
+	"max-w-screen-md": {
+		"maxWidth": 768
+	},
+	"max-w-screen-lg": {
+		"maxWidth": 1024
+	},
+	"max-w-screen-xl": {
+		"maxWidth": 1280
+	},
+	"max-w-screen-2xl": {
+		"maxWidth": 1536
+	},
 	"max-w-1/4": {
 		"maxWidth": "25%"
 	},
