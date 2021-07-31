@@ -1,6 +1,6 @@
 import { StorageAPI } from '../storage'
 
-const KEY = 'PASSCODE_ERROR.count'
+const KEY = 'PASSCODE_ATTEMPT.count'
 
 async function get (): Promise<number> {
   const str = await StorageAPI.getItem(KEY)
