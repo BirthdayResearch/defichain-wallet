@@ -17,7 +17,7 @@ import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
-import { hasTxQueued, transactionQueue } from '../../../../store/transaction'
+import { hasTxQueued, ocean } from '../../../../store/ocean'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
@@ -25,7 +25,7 @@ import { DexParamList } from './DexNavigator'
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
 export function RemoveLiquidityScreen (props: Props): JSX.Element {
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.ocean))
   // this component state
   const [tokenAAmount, setTokenAAmount] = useState<BigNumber>(new BigNumber(0))
   const [tokenBAmount, setTokenBAmount] = useState<BigNumber>(new BigNumber(0))
@@ -64,6 +64,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
       dispatch
     ).catch(e => {
       Logging.error(e)
+      dispatch(ocean.actions.setError(e))
     })
   }, [amount])
 
@@ -201,7 +202,7 @@ async function constructSignedRemoveLiqAndSend (tokenId: number, amount: BigNumb
     return new CTransactionSegWit(dfTx)
   }
 
-  dispatch(transactionQueue.actions.push({
+  dispatch(ocean.actions.queueTransaction({
     sign: signer,
     title: `${translate('screens/RemoveLiquidity', 'Removing Liquidity')}`
   }))

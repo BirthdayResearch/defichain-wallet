@@ -1,39 +1,29 @@
-import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { useState } from 'react'
 import { KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native'
+import { MnemonicUnprotected } from '../../../../api/wallet/provider/mnemonic_unprotected'
 import { Text, TextInput, View } from '../../../../components'
-import { getEnvironment } from '../../../../environment'
+import { useNetworkContext } from '../../../../contexts/NetworkContext'
+import { useWalletManagementContext } from '../../../../contexts/WalletManagementContext'
 import { tailwind } from '../../../../tailwind'
 import { WalletParamList } from '../../WalletNavigator'
 
 type Props = StackScreenProps<WalletParamList, 'VerifyMnemonicWallet'>
 
 export function VerifyMnemonicWallet ({ route }: Props): JSX.Element {
-  const navigation = useNavigation<NavigationProp<WalletParamList>>()
   const actualWords = route.params.words
   const enteredWords: string[] = []
 
   const [valid, setValid] = useState<boolean>(true)
+  const { network } = useNetworkContext()
+  const { setWallet } = useWalletManagementContext()
 
   async function onVerify (): Promise<void> {
     if (actualWords.join(' ') === enteredWords.join(' ')) {
-      navigation.navigate('PinCreation', {
-        words: actualWords,
-        pinLength: 6
-      })
+      await setWallet(MnemonicUnprotected.toData(enteredWords, network))
     } else {
       setValid(false)
-    }
-  }
-
-  function bypassCheck (): void {
-    if (getEnvironment().debug) {
-      navigation.navigate('PinCreation', {
-        words: actualWords,
-        pinLength: 6
-      })
     }
   }
 
@@ -90,8 +80,6 @@ export function VerifyMnemonicWallet ({ route }: Props): JSX.Element {
         <TouchableOpacity
           style={[tailwind('m-4 rounded flex items-center justify-center bg-primary')]}
           onPress={onVerify}
-          delayLongPress={5000}
-          onLongPress={bypassCheck}
         >
           <Text style={tailwind('p-3 font-bold text-white')}>
             VERIFY MNEMONIC

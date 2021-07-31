@@ -4,7 +4,6 @@ import { WhaleWalletAccount, WhaleWalletAccountProvider } from '@defichain/whale
 import { EnvironmentNetwork } from '../../../environment'
 import { getJellyfishNetwork } from '../network'
 import { WalletPersistenceData, WalletType } from '../persistence'
-import { MnemonicEncrypted, PromptInterface } from './mnemonic_encrypted'
 import { MnemonicUnprotected } from './mnemonic_unprotected'
 
 /**
@@ -12,10 +11,10 @@ import { MnemonicUnprotected } from './mnemonic_unprotected'
  */
 export type WhaleWallet = JellyfishWallet<WhaleWalletAccount, WalletHdNode>
 
-export function initWhaleWallet (data: WalletPersistenceData<any>, network: EnvironmentNetwork, client: WhaleApiClient, promptInterface?: PromptInterface): WhaleWallet {
+export function initWhaleWallet (data: WalletPersistenceData<any>, network: EnvironmentNetwork, client: WhaleApiClient): WhaleWallet {
   const jellyfishNetwork = getJellyfishNetwork(network)
 
-  const walletProvider = resolveProvider(data, network, promptInterface)
+  const walletProvider = resolveProvider(data, network)
   const accountProvider = new WhaleWalletAccountProvider(client, jellyfishNetwork)
 
   return new JellyfishWallet(walletProvider, accountProvider)
@@ -25,13 +24,11 @@ export function initWhaleWallet (data: WalletPersistenceData<any>, network: Envi
  * @param {WalletPersistenceData} data to resolve wallet provider for init
  * @param {EnvironmentNetwork} network
  */
-function resolveProvider (data: WalletPersistenceData<any>, network: EnvironmentNetwork, promptInterface?: PromptInterface): WalletHdNodeProvider<WalletHdNode> {
+function resolveProvider (data: WalletPersistenceData<any>, network: EnvironmentNetwork): WalletHdNodeProvider<WalletHdNode> {
   switch (data.type) {
     case WalletType.MNEMONIC_UNPROTECTED:
       return MnemonicUnprotected.initProvider(data, network)
 
-    case WalletType.MNEMONIC_ENCRYPTED:
-      return MnemonicEncrypted.initProvider(data, network, promptInterface)
     default:
       throw new Error(`wallet ${data.type as string} not available`)
   }

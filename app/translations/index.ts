@@ -1,5 +1,5 @@
 import * as Localization from 'expo-localization'
-import i18n, { TranslateOptions } from 'i18n-js'
+import i18n from 'i18n-js'
 import { languages } from './languages'
 
 /**
@@ -48,16 +48,14 @@ export function initI18n (): void {
  * @param path translation path, can follow file location
  * @param text english text for internationalisation
  */
-export function translate (path: string, text: string, options?: TranslateOptions): string {
+export function translate (path: string, text: string): string {
   if (!init) {
     initI18n()
   }
-  let translation = i18n.translate(`${path}.${text}`, options) ?? text
-  if (options !== undefined) {
-    // TODO(@ivan-zynesis): fix with i18n method
-    Object.keys(options).forEach(k => {
-      translation = translation.replace(new RegExp(`%{${k}}`, 'g'), options[k])
-    })
+  const translation = i18n.translate(`${path}.${text}`)
+  if (translation !== null && translation !== undefined && translation !== '') {
+    return translation
+  } else {
+    return text
   }
-  return translation
 }

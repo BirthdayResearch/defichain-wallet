@@ -17,7 +17,7 @@ import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
-import { hasTxQueued, transactionQueue } from '../../../../store/transaction'
+import { hasTxQueued, ocean } from '../../../../store/ocean'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
@@ -34,7 +34,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   const dispatch = useDispatch()
   // global state
   const tokens = useTokensAPI()
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.ocean))
 
   const [mode, setMode] = useState(props.route.params.mode)
   const [sourceToken, setSourceToken] = useState<ConversionIO>()
@@ -63,6 +63,7 @@ export function ConvertScreen (props: Props): JSX.Element {
       dispatch
     ).catch(e => {
       Logging.error(e)
+      dispatch(ocean.actions.setError(e))
     })
   }
 
@@ -268,7 +269,7 @@ async function constructSignedConversionAndSend (mode: ConversionMode, amount: B
     return new CTransactionSegWit(signed)
   }
 
-  dispatch(transactionQueue.actions.push({
+  dispatch(ocean.actions.queueTransaction({
     sign: signer,
     title: `${translate('screens/ConvertScreen', 'Converting DFI')}`
   }))

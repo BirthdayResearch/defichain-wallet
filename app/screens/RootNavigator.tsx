@@ -3,7 +3,6 @@ import { WalletProvider } from '../contexts/WalletContext'
 import { useWalletManagementContext } from '../contexts/WalletManagementContext'
 import { AppNavigator } from './AppNavigator/AppNavigator'
 import { WalletNavigator } from './WalletNavigator/WalletNavigator'
-import { EncryptedWallet } from './EncryptedWallet'
 
 /**
  * Top Root Level Wallet State to control what screen to show
@@ -17,7 +16,6 @@ export function RootNavigator (): JSX.Element {
 
   return (
     <WalletProvider>
-      <EncryptedWallet />
       <AppNavigator />
     </WalletProvider>
   )
