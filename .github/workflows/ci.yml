@@ -7,30 +7,6 @@ on:
     branches: [ main ]
 
 jobs:
-  tailwind:
-    name: Tailwind
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
-      - uses: actions/setup-node@aa759c6c94d3800c55b8601f21ba4b2371704cb7
-        with:
-          node-version: 15
-          cache: 'npm'
-
-      - run: npm ci
-
-      - name: "Drift Detection: tailwind.config.js"
-        working-directory: app
-        run: |
-          export BEFORE=$(openssl sha1 styles.json | sed 's/^.* //')
-          npx create-tailwind-rn
-          export AFTER=$(openssl sha1 styles.json | sed 's/^.* //')
-
-          if [ "$BEFORE" -ne "$AFTER" ] ; then
-            echo "Drift detected: tailwind.config.js, please run 'npx create-tailwind-rn' on the /app directory."
-            exit 1
-          fi
-
   lint:
     name: Lint
     runs-on: ubuntu-latest
