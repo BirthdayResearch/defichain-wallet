@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { MnemonicUnprotected } from '../../../api/wallet/provider/mnemonic_unprotected'
 import { Text, View } from '../../../components'
 import { useNetworkContext } from '../../../contexts/NetworkContext'
-import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
+import { useWalletPersistenceContext } from '../../../contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '../../../contexts/WhaleContext'
 import { fetchTokens } from '../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../store'
@@ -14,7 +14,7 @@ import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
 export function PlaygroundWallet (): JSX.Element | null {
-  const { wallets, clearWallets, setWallet } = useWalletManagementContext()
+  const { wallets, clearWallets, setWallet } = useWalletPersistenceContext()
   const network = useNetworkContext()
   const whaleApiClient = useWhaleApiClient()
   const dispatch = useDispatch()
