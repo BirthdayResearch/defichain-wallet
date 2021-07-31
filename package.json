@@ -13,8 +13,7 @@
     "playground:start": "docker-compose rm -fsv && docker-compose up",
     "test:ci": "jest --ci --coverage",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --headless --browser chrome",
-    "translation:missing": "ts-node app/translations/reporter/index.ts"
+    "cypress:run": "cypress run --headless --browser chrome"
   },
   "dependencies": {
     "@defichain/jellyfish-address": ">=0.32.0",

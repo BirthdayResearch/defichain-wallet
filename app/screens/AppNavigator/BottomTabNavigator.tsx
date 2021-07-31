@@ -4,6 +4,7 @@ import { PathConfigMap } from '@react-navigation/core'
 import * as React from 'react'
 import { OceanInterface } from '../../components/OceanInterface/OceanInterface'
 import { tailwind } from '../../tailwind'
+import { translate } from "../../translations";
 
 import { BalancesNavigator } from './screens/Balances/BalancesNavigator'
 import { DexNavigator } from './screens/Dex/DexNavigator'
@@ -30,7 +31,7 @@ export function BottomTabNavigator (): JSX.Element {
         tabBarOptions={{ adaptive: false, labelStyle: tailwind('font-medium text-xs') }}
       >
         <BottomTab.Screen
-          name='Balances'
+          name={translate('BottomTabNavigator', 'Balances')}
           component={BalancesNavigator}
           options={{
             tabBarTestID: 'bottom_tab_balances',
@@ -38,7 +39,7 @@ export function BottomTabNavigator (): JSX.Element {
           }}
         />
         <BottomTab.Screen
-          name='DEX'
+          name={translate('BottomTabNavigator', 'DEX')}
           component={DexNavigator}
           options={{
             tabBarTestID: 'bottom_tab_dex',
@@ -46,7 +47,7 @@ export function BottomTabNavigator (): JSX.Element {
           }}
         />
         <BottomTab.Screen
-          name='Transactions'
+          name={translate('BottomTabNavigator', 'Transactions')}
           component={TransactionsNavigator}
           options={{
             tabBarTestID: 'bottom_tab_transactions',
@@ -54,7 +55,7 @@ export function BottomTabNavigator (): JSX.Element {
           }}
         />
         <BottomTab.Screen
-          name='Settings'
+          name={translate('BottomTabNavigator', 'Settings')}
           component={SettingsNavigator}
           options={{
             tabBarTestID: 'bottom_tab_settings',

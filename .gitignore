@@ -44,6 +44,7 @@ web-build/
 
 # macOS
 .DS_Store
-/missing_translations.json
+
+# Cypress
 /cypress/screenshots
 /cypress/videos
