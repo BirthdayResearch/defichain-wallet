@@ -1,6 +1,8 @@
 import * as Localization from 'expo-localization'
 import i18n, { TranslateOptions } from 'i18n-js'
-import { Languages } from './languages'
+import de from './languages/de.json'
+import zhHans from './languages/zh-Hans.json'
+import zhHant from './languages/zh-Hant.json'
 
 /**
  * For testing compatibility, will always be initialized.
@@ -35,10 +37,12 @@ let init = false
  */
 export function initI18n (): void {
   init = true
-  i18n.translations = Object.entries(Languages).reduce((obj, [key, value]) => {
-    obj[key] = deepEncode(value)
-    return obj
-  }, {} as any)
+  i18n.translations = {
+    en: {},
+    de: deepEncode(de),
+    'zh-Hans': deepEncode(zhHans),
+    'zh-Hant': deepEncode(zhHant)
+  }
   i18n.locale = Localization.locale
   i18n.fallbacks = true
 }
@@ -51,9 +55,6 @@ export function initI18n (): void {
 export function translate (scope: string, text: string, options?: TranslateOptions): string {
   if (!init) {
     initI18n()
-  }
-  if (__DEV__) {
-    console.log(scope)
   }
 
   return i18n.translate(`${scope}.${encodeScope(text)}`, {
@@ -79,5 +80,5 @@ function deepEncode (obj: any): any {
  * Encode a text as scope that is safe to use as a path
  */
 export function encodeScope (text: string): string {
-  return new Buffer(text).toString('base64')
+  return Buffer.from(text).toString('base64')
 }

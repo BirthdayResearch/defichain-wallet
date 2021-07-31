@@ -4,7 +4,7 @@ import { PathConfigMap } from '@react-navigation/core'
 import * as React from 'react'
 import { OceanInterface } from '../../components/OceanInterface/OceanInterface'
 import { tailwind } from '../../tailwind'
-import { translate } from "../../translations";
+import { translate } from '../../translations'
 
 import { BalancesNavigator } from './screens/Balances/BalancesNavigator'
 import { DexNavigator } from './screens/Dex/DexNavigator'
