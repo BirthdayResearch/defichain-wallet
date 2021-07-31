@@ -11,8 +11,6 @@ import { GuidelinesRecoveryWords } from './screens/CreateWallet/GuidelinesRecove
 import { VerifyMnemonicWallet } from './screens/CreateWallet/VerifyMnemonicWallet'
 import { Onboarding } from './screens/Onboarding'
 import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
-import { PinCreation } from './screens/CreateWallet/PinCreationScreen'
-import { PinConfirmation } from './screens/CreateWallet/PinConfirmation'
 
 export interface WalletParamList {
   WalletOnboardingScreen: undefined
@@ -21,14 +19,6 @@ export interface WalletParamList {
     words: string[]
   }
   RestoreMnemonicWallet: undefined
-  PinCreation: {
-    words: string[]
-    pinLength: 4 | 6
-  }
-  PinConfirmation: {
-    words: string[]
-    pin: string
-  }
 
   [key: string]: undefined | object
 }
@@ -100,20 +90,6 @@ export function WalletNavigator (): JSX.Element {
           options={{
             headerTitle: translate('screens/WalletNavigator', 'Recover Wallet'),
             headerBackTitleVisible: false
-          }}
-        />
-        <WalletStack.Screen
-          name='PinCreation'
-          component={PinCreation}
-          options={{
-            headerTitle: translate('screens/WalletNavigator', 'Secure your wallet')
-          }}
-        />
-        <WalletStack.Screen
-          name='PinConfirmation'
-          component={PinConfirmation}
-          options={{
-            headerTitle: translate('screens/WalletNavigator', 'Secure your wallet')
           }}
         />
       </WalletStack.Navigator>
