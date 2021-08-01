@@ -1,4 +1,4 @@
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
