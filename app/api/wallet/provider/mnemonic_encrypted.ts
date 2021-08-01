@@ -1,7 +1,19 @@
-import { EncryptedHdNodeProvider, EncryptedProviderData, PromptPassphrase } from '@defichain/jellyfish-wallet-encrypted'
+import {
+  EncryptedHdNodeProvider,
+  EncryptedProviderData,
+  PrivateKeyEncryption,
+  PromptPassphrase,
+  Scrypt
+} from '@defichain/jellyfish-wallet-encrypted'
+import * as Random from 'expo-random'
 import { EnvironmentNetwork } from '../../../environment'
 import { getBip32Option } from '../network'
 import { WalletPersistenceData, WalletType } from '../persistence'
+
+const encryption = new PrivateKeyEncryption(new Scrypt(), numOfBytes => {
+  const bytes = Random.getRandomBytes(numOfBytes)
+  return Buffer.from(bytes)
+})
 
 function initProvider (
   data: WalletPersistenceData<EncryptedProviderData>,
@@ -13,12 +25,12 @@ function initProvider (
   }
 
   const bip32Options = getBip32Option(network)
-  return EncryptedHdNodeProvider.init(data.raw, bip32Options, scrypt, promptPassphrase)
+  return EncryptedHdNodeProvider.init(data.raw, bip32Options, encryption, promptPassphrase)
 }
 
 async function toData (mnemonic: string[], network: EnvironmentNetwork, passphrase: string): Promise<WalletPersistenceData<EncryptedProviderData>> {
   const options = getBip32Option(network)
-  const data = await EncryptedHdNodeProvider.wordsToEncryptedData(mnemonic, options, scrypt, passphrase)
+  const data = await EncryptedHdNodeProvider.wordsToEncryptedData(mnemonic, options, encryption, passphrase)
 
   return {
     version: 'v1',
