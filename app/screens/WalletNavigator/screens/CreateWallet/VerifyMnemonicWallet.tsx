@@ -2,7 +2,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import arrayShuffle from 'array-shuffle'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { ScrollView, TouchableOpacity } from 'react-native'
+import { Alert, ScrollView, TouchableOpacity } from 'react-native'
 import { MnemonicUnprotected } from '../../../../api/wallet/provider/mnemonic_unprotected'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
@@ -50,10 +50,20 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
 
   async function onVerify (): Promise<void> {
     if (recoveryWords.join(' ') === selectedWords.join(' ')) {
-      console.log('SUCCESS!')
       await setWallet(MnemonicUnprotected.toData(selectedWords, network))
+    } else {
+      Alert.alert(
+        '',
+        translate('screens/VerifyMnemonicWallet', 'Invalid selection. Please ensure you have written down your 24 words.'),
+        [
+          {
+            text: translate('screens/VerifyMnemonicWallet', 'Go back'),
+            onPress: () => navigation.navigate('CreateMnemonicWallet'),
+            style: 'destructive'
+          }
+        ]
+      )
     }
-    console.log('FAIL')
   }
 
   return (
