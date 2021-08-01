@@ -1,5 +1,5 @@
 import { StackScreenProps } from '@react-navigation/stack'
-import arrayShuffle from 'array-shuffle'
+import { shuffle } from 'lodash'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { Alert, Platform, ScrollView, TouchableOpacity } from 'react-native'
@@ -35,13 +35,13 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
 
   useEffect(() => {
     const random: number[] = Array.from(Array(24), (v, i) => i)
-    const randomNumbers = arrayShuffle(random)
+    const randomNumbers = shuffle(random)
     const firstSix = randomNumbers.slice(0, 6)
     const others = randomNumbers.slice(6, randomNumbers.length)
     firstSix.forEach((randomNumber, i) => {
       const counter = 3 * i
       selectedWords[randomNumber] = ''
-      const words = arrayShuffle([recoveryWords[randomNumber], recoveryWords[others[counter]], recoveryWords[others[counter + 1]], recoveryWords[others[counter + 2]]])
+      const words = shuffle([recoveryWords[randomNumber], recoveryWords[others[counter]], recoveryWords[others[counter + 1]], recoveryWords[others[counter + 2]]])
       randomWords.push({ index: randomNumber, words })
     })
     setSelectedWords([...selectedWords])
