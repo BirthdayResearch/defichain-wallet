@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
-import { HeaderFont } from '../../components/Text'
+import { HeaderFont } from '../../components'
 import { PlaygroundScreen } from './PlaygroundScreen'
 
 export interface PlaygroundParamList {
