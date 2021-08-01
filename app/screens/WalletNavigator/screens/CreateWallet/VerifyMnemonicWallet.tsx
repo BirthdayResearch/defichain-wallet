@@ -2,7 +2,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import arrayShuffle from 'array-shuffle'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { Alert, ScrollView, TouchableOpacity } from 'react-native'
+import { Alert, Platform, ScrollView, TouchableOpacity } from 'react-native'
 import { MnemonicUnprotected } from '../../../../api/wallet/provider/mnemonic_unprotected'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
@@ -52,17 +52,21 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
     if (recoveryWords.join(' ') === selectedWords.join(' ')) {
       await setWallet(MnemonicUnprotected.toData(selectedWords, network))
     } else {
-      Alert.alert(
-        '',
-        translate('screens/VerifyMnemonicWallet', 'Invalid selection. Please ensure you have written down your 24 words.'),
-        [
-          {
-            text: translate('screens/VerifyMnemonicWallet', 'Go back'),
-            onPress: () => navigation.navigate('CreateMnemonicWallet'),
-            style: 'destructive'
-          }
-        ]
-      )
+      if (Platform.OS === 'web') {
+        navigation.navigate('CreateMnemonicWallet')
+      } else {
+        Alert.alert(
+          '',
+          translate('screens/VerifyMnemonicWallet', 'Invalid selection. Please ensure you have written down your 24 words.'),
+          [
+            {
+              text: translate('screens/VerifyMnemonicWallet', 'Go back'),
+              onPress: () => navigation.navigate('CreateMnemonicWallet'),
+              style: 'destructive'
+            }
+          ]
+        )
+      }
     }
   }
 
@@ -77,6 +81,7 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
 
       {randomWords.map((n, index) => (
         <RecoveryWordRow
+          lineNumber={index}
           words={n.words} index={n.index} key={index} onWordSelect={(word) => {
             selectedWords[n.index] = word
             setSelectedWords([...selectedWords])
@@ -89,7 +94,7 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
         disabled={!isValid}
         onPress={onVerify}
         title='verify mnemonic'
-        key='verify_words_button'
+        testID='verify_words_button'
         label={translate('screens/VerifyMnemonicWallet', 'VERIFY')}
       />
     </ScrollView>
@@ -100,23 +105,29 @@ interface RecoveryWordItem {
   index: number
   words: string[]
   onWordSelect: (word: string) => void
+  lineNumber: number
 }
 
-function RecoveryWordRow ({ index, words, onWordSelect }: RecoveryWordItem): JSX.Element {
+function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWordItem): JSX.Element {
   const [selectedWord, setSelectedWord] = useState<string>()
   const activeButton = 'bg-primary bg-opacity-10 border border-primary border-opacity-20'
   return (
     <View style={tailwind('bg-white p-4 py-6 border-b border-gray-200')}>
-      <Text style={tailwind('text-gray-600')}>
-        {translate('screens/VerifyMnemonicWallet', `What is word #${index + 1}?`)}
-      </Text>
+      <View style={tailwind('flex-row')}>
+        <Text style={tailwind('text-gray-600')}>
+          {translate('screens/VerifyMnemonicWallet', 'What is word ')}
+        </Text>
+        <Text testID={`line_${lineNumber}`} style={tailwind('text-black font-semibold')}>
+          {`#${index + 1}?`}
+        </Text>
+      </View>
       <View style={tailwind('flex-row mt-4 mb-2')}>
         {
           words.map((w, i) => (
             <TouchableOpacity
               style={tailwind(`rounded border ${selectedWord === w ? activeButton : 'bg-gray-100 border-gray-100'} p-1 px-2 mr-3`)}
               key={`${w}_${i}`}
-              testID={`${w}_select`}
+              testID={`line_${lineNumber}_${w}`}
               onPress={() => {
                 setSelectedWord(w)
                 onWordSelect(w)
