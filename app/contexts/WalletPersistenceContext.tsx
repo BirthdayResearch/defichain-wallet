@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { Logging, WalletPersistence, WalletPersistenceData } from '../api'
+import { Logging } from '../api'
+import { WalletPersistence, WalletPersistenceData } from '../api/wallet'
 import { useNetworkContext } from './NetworkContext'
 
 interface WalletPersistenceContextI {
-  wallets: WalletPersistenceData<any>[]
+  wallets: Array<WalletPersistenceData<any>>
   /**
    * @param {WalletPersistenceData} data to set, only 1 wallet is supported for now
    */

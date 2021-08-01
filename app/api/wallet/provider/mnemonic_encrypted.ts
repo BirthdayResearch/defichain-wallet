@@ -1,27 +1,19 @@
 import { EncryptedHdNodeProvider, EncryptedProviderData, PromptPassphrase } from '@defichain/jellyfish-wallet-encrypted'
 import { EnvironmentNetwork } from '../../../environment'
-import { scrypt } from '../../scrypt'
 import { getBip32Option } from '../network'
 import { WalletPersistenceData, WalletType } from '../persistence'
-
-export interface PromptInterface {
-  prompt: PromptPassphrase
-}
 
 function initProvider (
   data: WalletPersistenceData<EncryptedProviderData>,
   network: EnvironmentNetwork,
-  promptInterface?: PromptInterface // must allow construction/new for every prompt
+  promptPassphrase: PromptPassphrase
 ): EncryptedHdNodeProvider {
   if (data.type !== WalletType.MNEMONIC_ENCRYPTED || data.version !== 'v1') {
     throw new Error('Unexpected WalletPersistenceData')
   }
 
-  const options = getBip32Option(network)
-  return EncryptedHdNodeProvider.init(data.raw, options, scrypt, async () => {
-    if (promptInterface === undefined) return '' // before OceanInterface bridged the UI
-    return await promptInterface.prompt()
-  })
+  const bip32Options = getBip32Option(network)
+  return EncryptedHdNodeProvider.init(data.raw, bip32Options, scrypt, promptPassphrase)
 }
 
 async function toData (mnemonic: string[], network: EnvironmentNetwork, passphrase: string): Promise<WalletPersistenceData<EncryptedProviderData>> {
