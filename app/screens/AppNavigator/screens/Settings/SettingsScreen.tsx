@@ -22,6 +22,7 @@ export function SettingsScreen (): JSX.Element {
           <RowNetworkItem key={index} network={network} />
         ))
       }
+      <RowNavigateItem pageName='AboutScreen' title='About' />
       <RowExitWalletItem />
     </ScrollView>
   )
@@ -102,6 +103,23 @@ function RowExitWalletItem (): JSX.Element {
       <Text style={tailwind('font-medium text-primary')}>
         {translate('screens/Settings', 'UNLINK WALLET')}
       </Text>
+    </TouchableOpacity>
+  )
+}
+
+function RowNavigateItem ({ pageName, title }: { pageName: string, title: string }): JSX.Element {
+  const navigation = useNavigation()
+  return (
+    <TouchableOpacity
+      testID={`setting_navigate_${title}`}
+      onPress={() => {
+        navigation.navigate(pageName)
+      }} style={tailwind('flex bg-white flex-row p-4 pr-2 mt-4 items-center')}
+    >
+      <Text style={tailwind('font-medium flex-grow')}>
+        {translate('screens/Settings', title)}
+      </Text>
+      <MaterialIcons name='chevron-right' size={24} />
     </TouchableOpacity>
   )
 }

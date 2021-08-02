@@ -30,7 +30,7 @@ context('wallet/balances/convert - accountToUtxos', () => {
       .invoke('attr', 'type', 'text') // cypress issue with numeric/decimal input, must cast
       .type('11.1')
 
-    cy.getByTestID('text_preview_input_value').contains('-1.1 DFI')
+    cy.getByTestID('text_preview_input_value').contains('0 DFI')
     cy.getByTestID('text_preview_output_value').contains('21.1 DFI')
 
     cy.getByTestID('button_continue_convert').should('not.be.enabled')
