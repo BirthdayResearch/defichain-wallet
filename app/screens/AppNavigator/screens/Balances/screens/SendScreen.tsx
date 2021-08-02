@@ -17,6 +17,7 @@ import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { SectionTitle } from '../../../../../components/SectionTitle'
+import { SetAmountButton } from '../../../../../components/SetAmountButton'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { RootState } from '../../../../../store'
@@ -251,27 +252,9 @@ function AmountRow ({ token, control, onMaxPress, onHalfPress, fee }: AmountForm
             renderText={(value) => <Text testID='max_value' style={tailwind('text-gray-500')}>{value}</Text>}
           />
         </View>
-        <SetAmountButton type='half' onPress={onHalfPress} amount={halfAmount} />
-        <SetAmountButton type='max' onPress={onMaxPress} amount={maxAmount} />
+        <SetAmountButton type='half' label='50%' onPress={onHalfPress} amount={halfAmount} />
+        <SetAmountButton type='max' label='MAX' onPress={onMaxPress} amount={maxAmount} />
       </View>
     </>
-  )
-}
-
-function SetAmountButton (props: {type: 'half' | 'max', onPress: (amount: string) => void, amount: string}): JSX.Element {
-  return (
-    <TouchableOpacity
-      testID={`${props.type}_button`}
-      style={[
-        tailwind('px-2 py-1.5 border border-gray-300 rounded'),
-        props.type === 'half' ? tailwind('mr-1') : tailwind('')
-      ]}
-      onPress={() => props.onPress(props.amount)}
-    >
-      <Text
-        style={tailwind('font-medium text-primary')}
-      >{translate('screens/SendScreen', props.type === 'half' ? '50%' : 'MAX')}
-      </Text>
-    </TouchableOpacity>
   )
 }
