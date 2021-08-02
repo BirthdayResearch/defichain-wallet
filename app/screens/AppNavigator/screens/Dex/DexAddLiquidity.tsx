@@ -42,7 +42,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const [pair, setPair] = useState<ExtPoolPairData>()
 
   const buildSummary = useCallback((ref: EditingAmount, amountString: string): void => {
-    const refAmount = amountString.length === 0 ? new BigNumber(0) : new BigNumber(amountString)
+    const refAmount = amountString.length === 0 || isNaN(+amountString) ? new BigNumber(0) : new BigNumber(amountString)
     if (pair === undefined) return
     if (ref === 'primary') {
       setTokenAAmount(amountString)
@@ -138,18 +138,18 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
         testID={`token_input_${props.type}_title`}
       />
       <View style={tailwind('flex-col w-full bg-white items-center')}>
-        <View style={tailwind('w-full flex-row items-center p-4')}>
+        <View style={tailwind('w-full flex-row items-center')}>
           <TextInput
             testID={`token_input_${props.type}`}
-            style={tailwind('flex-1 mr-4 text-gray-500')}
+            style={tailwind('flex-1 mr-4 text-gray-500 p-4')}
             value={props.current}
             keyboardType='numeric'
             onChangeText={txt => props.onChange(txt)}
           />
-          <View style={tailwind('justify-center items-center')}>
+          <View style={tailwind('justify-center flex-row items-center pr-4')}>
             <TokenIcon />
+            <Text style={tailwind('ml-2 text-gray-500 text-right')}>{props.symbol}</Text>
           </View>
-          <Text style={tailwind('ml-2 text-gray-500 text-right')}>{props.symbol}</Text>
         </View>
         <View style={tailwind('w-full px-4 py-2 flex-row border-t border-gray-200 items-center')}>
           <View style={tailwind('flex-row flex-1')}>
@@ -296,12 +296,6 @@ function canAddLiquidity (pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenB
     return false
   }
 
-  if (
-    balanceA === undefined || balanceA.lt(tokenAAmount) ||
-    balanceB === undefined || balanceB.lt(tokenBAmount)
-  ) {
-    return false
-  }
-
-  return true
+  return !(balanceA === undefined || balanceA.lt(tokenAAmount) ||
+    balanceB === undefined || balanceB.lt(tokenBAmount))
 }
