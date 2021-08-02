@@ -1,7 +1,6 @@
 import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
 import { MnemonicProviderData } from '@defichain/jellyfish-wallet-mnemonic'
-import { useNavigation } from '@react-navigation/native'
-import React, { createContext, PropsWithChildren, useCallback, useContext, useMemo } from 'react'
+import React, { createContext, MutableRefObject, PropsWithChildren, useCallback, useContext, useMemo, useRef } from 'react'
 import {
   initWhaleWallet,
   MnemonicEncrypted,
@@ -13,7 +12,20 @@ import {
 import { useNetworkContext } from './NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
 
+interface EncryptedWalletInterface {
+  // consumer provide interface
+  provide: (onPrompt: () => void) => void
+
+  // provider demand passcode/biometric UI
+  prompt?: () => void
+
+  // consumer return result
+  resolve: (passphrase: string) => void
+  reject: (error: Error) => void
+}
+
 const WalletContext = createContext<WhaleWallet>(undefined as any)
+const EncryptedWalletContext = createContext<MutableRefObject<EncryptedWalletInterface>>(undefined as any)
 
 export function useWallet (): WhaleWallet {
   return useContext(WalletContext)
@@ -65,19 +77,20 @@ function MnemonicUnprotectedProvider (props: WalletProviderProps<MnemonicProvide
 function MnemonicEncryptedProvider (props: WalletProviderProps<EncryptedProviderData>): JSX.Element | null {
   const { network } = useNetworkContext()
   const client = useWhaleApiClient()
-  const navigation = useNavigation()
+  const signingRef = useRef<EncryptedWalletInterface>({
+    provide: (prompt) => { signingRef.current.prompt = prompt },
+    resolve: () => {},
+    reject: () => {}
+  })
 
   const promptPassphrase = useCallback(async () => {
     return await new Promise<string>((resolve, reject) => {
       // TODO(ivan): implementation
-      navigation.navigate('PromptPassphrase', {
-        resolve (passphrase: string) {
-          resolve(passphrase)
-        },
-        reject (error: Error) {
-          reject(error)
-        }
-      })
+      if (signingRef.current?.prompt !== undefined) {
+        signingRef.current.resolve = resolve
+        signingRef.current.reject = reject
+        signingRef.current.prompt()
+      } // else UI not ready
     })
   }, [])
 
@@ -88,7 +101,9 @@ function MnemonicEncryptedProvider (props: WalletProviderProps<EncryptedProvider
 
   return (
     <WalletContext.Provider value={wallet}>
-      {props.children}
+      <EncryptedWalletContext.Provider value={signingRef}>
+        {props.children}
+      </EncryptedWalletContext.Provider>
     </WalletContext.Provider>
   )
 }
