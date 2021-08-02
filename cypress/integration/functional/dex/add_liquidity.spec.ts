@@ -1,16 +1,23 @@
 context('app/dex/addLiquidity', () => {
-  beforeEach(function () {
+  before(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_dex').click().wait(1000)
+    cy.getByTestID('bottom_tab_dex').click()
+    cy.sendDFItoWallet()
+      .sendDFITokentoWallet()
+      .sendTokenToWallet(['BTC']).wait(10000)
+    cy.getByTestID('playground_wallet_fetch_balances').click()
+
+    cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('pool_pair_add_DFI-BTC').click()
+    cy.wait(100)
+    cy.getByTestID('token_balance_primary').contains('10')
+    cy.getByTestID('token_balance_secondary').contains('10')
   })
 
   it('should update both token and build summary when click on max amount button', function () {
-    cy.getByTestID('token_input_primary').invoke('val').should(text => expect(text).to.contain('0'))
-    cy.getByTestID('token_input_secondary').invoke('val').should(text => expect(text).to.contain('0'))
-    cy.getByTestID('max_amount_button').first().click().wait(3000)
-    cy.getByTestID('token_input_primary').invoke('val').should(text => expect(text).to.contain('10'))
-    cy.getByTestID('token_input_secondary').invoke('val').should(text => expect(text).to.contain('10'))
+    cy.getByTestID('max_amount_button').first().click()
+    cy.getByTestID('token_input_primary').should('have.value', '10.00000000')
+    cy.getByTestID('token_input_secondary').should('have.value', '10.00000000')
     cy.getByTestID('a_per_b_price').contains('1')
     cy.getByTestID('a_per_b_unit').contains('DFI per BTC')
     cy.getByTestID('b_per_a_price').contains('1')
@@ -19,11 +26,10 @@ context('app/dex/addLiquidity', () => {
   })
 
   it('should update both token and build summary when click on half amount button', function () {
-    cy.getByTestID('token_input_primary').clear().invoke('val').should(text => expect(text).to.contain('0'))
-    cy.getByTestID('token_input_secondary').invoke('val').should(text => expect(text).to.contain('0'))
-    cy.getByTestID('half_amount_button').first().click().wait(3000)
-    cy.getByTestID('token_input_primary').invoke('val').should(text => expect(text).to.contain('5'))
-    cy.getByTestID('token_input_secondary').invoke('val').should(text => expect(text).to.contain('5'))
+    cy.getByTestID('token_input_primary').clear()
+    cy.getByTestID('half_amount_button').first().click()
+    cy.getByTestID('token_input_primary').should('have.value', '5.00000000')
+    cy.getByTestID('token_input_secondary').should('have.value', '5.00000000')
     cy.getByTestID('a_per_b_price').contains('1')
     cy.getByTestID('a_per_b_unit').contains('DFI per BTC')
     cy.getByTestID('b_per_a_price').contains('1')
@@ -32,7 +38,7 @@ context('app/dex/addLiquidity', () => {
   })
 
   it('should update both token and build summary base on primary token input', function () {
-    cy.getByTestID('token_input_primary').clear().invoke('val').should(text => expect(text).to.contain('0'))
+    cy.getByTestID('token_input_primary').clear().invoke('val').should(text => expect(text).to.contain(''))
     cy.getByTestID('token_input_secondary').invoke('val').should(text => expect(text).to.contain('0'))
 
     cy.getByTestID('token_input_primary').invoke('attr', 'type', 'text').type('1.23').trigger('change')
@@ -48,7 +54,7 @@ context('app/dex/addLiquidity', () => {
   })
 
   it('should update both token and build summary base on secondary token input', function () {
-    cy.getByTestID('token_input_secondary').invoke('attr', 'type', 'text').type('7.8').trigger('change')
+    cy.getByTestID('token_input_secondary').clear().invoke('attr', 'type', 'text').type('7.8').trigger('change')
 
     cy.getByTestID('token_input_primary').invoke('val').should(text => expect(text).to.contain('7.8'))
     cy.getByTestID('token_input_secondary').invoke('val').should(text => expect(text).to.contain('7.8'))
