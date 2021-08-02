@@ -88,7 +88,7 @@ export function WalletNavigator (): JSX.Element {
           name='RestoreMnemonicWallet'
           component={RestoreMnemonicWallet}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Recover Wallet'),
+            headerTitle: translate('screens/WalletNavigator', 'Restore Wallet'),
             headerBackTitleVisible: false
           }}
         />

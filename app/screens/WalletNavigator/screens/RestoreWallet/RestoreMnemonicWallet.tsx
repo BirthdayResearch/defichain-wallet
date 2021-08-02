@@ -105,7 +105,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
       <Button
         title='recover_wallet' onPress={onRestore} testID='recover_wallet_button'
         disabled={!isValid || isSubmitting}
-        label={translate('screens/RestoreWallet', 'RECOVER WALLET')}
+        label={translate('screens/RestoreWallet', 'RESTORE WALLET')}
       />
     </KeyboardAwareScrollView>
   )
