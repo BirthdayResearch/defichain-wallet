@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Text, View } from '../../../components'
 import { usePlaygroundContext } from '../../../contexts/PlaygroundContext'
-import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
+import { useWallet } from '../../../contexts/WalletContext'
 import { tailwind } from '../../../tailwind'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
-export function PlaygroundUTXO (): JSX.Element | null {
-  const { wallets } = useWalletManagementContext()
+export function PlaygroundUTXO (): JSX.Element {
+  const wallet = useWallet()
   const { api, rpc } = usePlaygroundContext()
   const [status, setStatus] = useState<string>('loading')
 
@@ -18,21 +18,6 @@ export function PlaygroundUTXO (): JSX.Element | null {
       setStatus('error')
     })
   }, [])
-
-  if (wallets.length === 0) {
-    return null
-  }
-
-  const actions = status === 'online' ? (
-    <PlaygroundAction
-      testID='playground_wallet_top_up'
-      title='Top up 10 DFI UTXO to Wallet'
-      onPress={async () => {
-        const address = await wallets[0].get(0).getAddress()
-        await rpc.wallet.sendToAddress(address, 10)
-      }}
-    />
-  ) : null
 
   return (
     <View>
@@ -47,7 +32,16 @@ export function PlaygroundUTXO (): JSX.Element | null {
         </View>
       </View>
 
-      {actions}
+      {status === 'online' ? (
+        <PlaygroundAction
+          testID='playground_wallet_top_up'
+          title='Top up 10 DFI UTXO to Wallet'
+          onPress={async () => {
+            const address = await wallet.get(0).getAddress()
+            await rpc.wallet.sendToAddress(address, 10)
+          }}
+        />
+      ) : null}
     </View>
   )
 }
