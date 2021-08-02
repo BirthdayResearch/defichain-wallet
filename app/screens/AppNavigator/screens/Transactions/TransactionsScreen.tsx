@@ -83,14 +83,17 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
         <View style={tailwind('flex-1 flex-row justify-center items-center')}>
           <View style={tailwind('flex-auto flex-col ml-3 justify-center')}>
             <Text style={tailwind('font-medium')}>{translate('screens/TransactionsScreen', desc)}</Text>
-            <Text style={tailwind('font-medium')}>{translate('screens/TransactionsScreen', 'block')}: {block}</Text>
+            <Text
+              style={tailwind('text-xs text-gray-600')}
+            >{translate('screens/TransactionsScreen', 'Block')}: {block}
+            </Text>
           </View>
-          <View style={tailwind('flex-row ml-3 items-center')}>
+          <View style={tailwind('flex-row ml-3 w-32 justify-end items-center')}>
             <NumberFormat
               value={amount} decimalScale={8} thousandSeparator displayType='text'
-              renderText={(value) => <Text style={{ color }}>{value}</Text>}
+              renderText={(value) => <Text numberOfLines={1} ellipsizeMode='tail' style={{ color }}>{value}</Text>}
             />
-            <View style={tailwind('w-16 ml-2 items-start')}>
+            <View style={tailwind('ml-2 items-start')}>
               <Text style={tailwind('flex-shrink font-medium text-gray-600')}>{token}</Text>
             </View>
           </View>
