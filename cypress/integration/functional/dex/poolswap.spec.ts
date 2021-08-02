@@ -67,7 +67,7 @@ context('poolswap with values', () => {
     cy.getByTestID('text_input_tokenA').should('have.value', '5.00000000')
     cy.getByTestID('text_price_row_minimum_0').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
-      cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
+      cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).div(2).toFixed(8))
     })
   })
 
