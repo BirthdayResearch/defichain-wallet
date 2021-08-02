@@ -1,4 +1,4 @@
-import { fireEvent, render } from "@testing-library/react-native";
+import { render } from "@testing-library/react-native";
 import BigNumber from "bignumber.js";
 import * as React from "react";
 import { SetAmountButton } from "./SetAmountButton";
