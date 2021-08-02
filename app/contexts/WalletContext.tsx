@@ -13,6 +13,13 @@ import { useNetworkContext } from './NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
 
 interface EncryptedWalletInterface {
+  // consumer provide interface
+  provide: (onPrompt: () => void) => void
+
+  // provider demand passcode/biometric UI
+  prompt?: () => void
+
+  // consumer return result
   resolve: (passphrase: string) => void
   reject: (error: Error) => void
 }
@@ -70,8 +77,8 @@ function MnemonicUnprotectedProvider (props: WalletProviderProps<MnemonicProvide
 function MnemonicEncryptedProvider (props: WalletProviderProps<EncryptedProviderData>): JSX.Element | null {
   const { network } = useNetworkContext()
   const client = useWhaleApiClient()
-  // const navigation = useNavigation()
   const signingRef = useRef<EncryptedWalletInterface>({
+    provide: (prompt) => { signingRef.current.prompt = prompt },
     resolve: () => {},
     reject: () => {}
   })
@@ -79,7 +86,11 @@ function MnemonicEncryptedProvider (props: WalletProviderProps<EncryptedProvider
   const promptPassphrase = useCallback(async () => {
     return await new Promise<string>((resolve, reject) => {
       // TODO(ivan): implementation
-      signingRef.current = { resolve, reject }
+      if (signingRef.current?.prompt !== undefined) {
+        signingRef.current.resolve = resolve
+        signingRef.current.reject = reject
+        signingRef.current.prompt()
+      } // else UI not ready
     })
   }, [])
 
