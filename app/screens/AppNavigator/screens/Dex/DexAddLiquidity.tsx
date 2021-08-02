@@ -10,6 +10,7 @@ import { Text, TextInput, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { SetAmountButton } from '../../../../components/SetAmountButton'
+import { SectionTitle } from '../../../../components/SectionTitle'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -131,12 +132,12 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
 function TokenInput (props: { symbol: string, balance: BigNumber, current: string, type: EditingAmount, onChange: (amount: string) => void }): JSX.Element {
   const TokenIcon = getTokenIcon(props.symbol)
   return (
-    <View style={tailwind('mt-3')}>
-      <Text
-        style={tailwind('text-sm font-bold pl-3 mt-4 mb-1')}
-      >{translate('screens/AddLiquidity', `Token ${props.type === 'primary' ? 'A' : 'B'}`)}
-      </Text>
-      <View style={tailwind('flex-col w-full bg-white items-center mt-2')}>
+    <View>
+      <SectionTitle
+        text={translate('screens/AddLiquidity', `TOKEN ${props.type === 'primary' ? 'A' : 'B'}`)}
+        testID={`token_input_${props.type}_title`}
+      />
+      <View style={tailwind('flex-col w-full bg-white items-center')}>
         <View style={tailwind('w-full flex-row items-center p-4')}>
           <TextInput
             testID={`token_input_${props.type}`}
@@ -145,10 +146,10 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
             keyboardType='numeric'
             onChangeText={txt => props.onChange(txt)}
           />
-          <View style={tailwind('w-8 justify-center items-center')}>
+          <View style={tailwind('justify-center items-center')}>
             <TokenIcon />
           </View>
-          <Text style={tailwind('ml-4 text-gray-500 text-right')}>{props.symbol}</Text>
+          <Text style={tailwind('ml-2 text-gray-500 text-right')}>{props.symbol}</Text>
         </View>
         <View style={tailwind('w-full px-4 py-2 flex-row border-t border-gray-200 items-center')}>
           <View style={tailwind('flex-row flex-1')}>
@@ -256,11 +257,11 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
       />
       <RenderRow
         testID={`pooled_${pair.aSymbol}`}
-        lhs={`${translate('screens/AddLiquidity', 'Pooled ')} ${pair.aSymbol}`} rhs={pair.tokenA.reserve}
+        lhs={`${translate('screens/AddLiquidity', 'Pooled')} ${pair.aSymbol}`} rhs={pair.tokenA.reserve}
       />
       <RenderRow
         testID={`pooled_${pair.bSymbol}`}
-        lhs={`${translate('screens/AddLiquidity', 'Pooled ')} ${pair.bSymbol}`} rhs={pair.tokenB.reserve}
+        lhs={`${translate('screens/AddLiquidity', 'Pooled')} ${pair.bSymbol}`} rhs={pair.tokenB.reserve}
       />
     </View>
   )

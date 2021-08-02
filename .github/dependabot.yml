@@ -20,6 +20,7 @@ updates:
       - dependency-name: "expo-linking"
       - dependency-name: "expo-localization"
       - dependency-name: "expo-random"
+      - dependency-name: "expo-secure-store"
       - dependency-name: "expo-splash-screen"
       - dependency-name: "expo-status-bar"
       - dependency-name: "expo-updates"

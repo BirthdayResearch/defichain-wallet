@@ -1,8 +1,9 @@
 import { MnemonicProviderData } from "@defichain/jellyfish-wallet-mnemonic";
 import { WhaleApiClient } from "@defichain/whale-api-client";
-import { EnvironmentNetwork } from "../../../environment";
-import { WalletPersistenceData, WalletType } from "../persistence";
+import { EnvironmentNetwork } from "../../environment";
+import { WalletPersistenceData, WalletType } from "./persistence";
 import { initWhaleWallet } from "./index";
+import { MnemonicUnprotected } from "./provider/mnemonic_unprotected";
 
 beforeEach(async () => {
   jest.clearAllMocks()
@@ -22,23 +23,11 @@ it('should initWhaleWallet', async () => {
     }
   }
 
-  const wallet = initWhaleWallet(data, network, client)
+  const provider = MnemonicUnprotected.initProvider(data, network)
+  const wallet = initWhaleWallet(provider, network, client)
 
   expect(wallet.get(0).withTransactionBuilder().utxo).toBeDefined()
   expect(wallet.get(0).withTransactionBuilder().dex).toBeDefined()
   expect(wallet.get(0).withTransactionBuilder().account).toBeDefined()
   expect(wallet.get(0).withTransactionBuilder().liqPool).toBeDefined()
-});
-
-
-it('should fail as wallet type not available', async () => {
-  const data: WalletPersistenceData<string> = {
-    version: "v1",
-    type: undefined as any,
-    raw: ""
-  }
-
-  expect(() => {
-    initWhaleWallet(data, network, client)
-  }).toThrow('wallet undefined not available')
 })
