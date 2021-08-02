@@ -34,8 +34,16 @@ context('wallet/balances/convert - utxosToAccount', () => {
     cy.getByTestID('button_continue_convert').should('not.be.enabled')
   })
 
+  it('should insert balance as amount on 50% pressed', function () {
+    cy.getByTestID('half_amount_button').click()
+
+    cy.getByTestID('text_preview_input_value').contains('5 DFI')
+    cy.getByTestID('text_preview_output_value').contains('5 DFI')
+    cy.getByTestID('button_continue_convert').should('not.be.disabled')
+  })
+
   it('should insert balance as amount on MAX pressed', function () {
-    cy.getByTestID('button_max_convert_from').click()
+    cy.getByTestID('max_amount_button').click()
 
     cy.getByTestID('text_preview_input_value').contains('0 DFI')
     cy.getByTestID('text_preview_output_value').contains('10 DFI')
