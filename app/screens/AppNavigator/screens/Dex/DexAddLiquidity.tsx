@@ -46,11 +46,11 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     if (pair === undefined) return
     if (ref === 'primary') {
       setTokenAAmount(amountString)
-      setTokenBAmount(refAmount.times(pair.aToBRate).toString())
+      setTokenBAmount(refAmount.times(pair.aToBRate).toFixed(8))
       setSharePercentage(refAmount.div(pair.tokenA.reserve))
     } else {
       setTokenBAmount(amountString)
-      setTokenAAmount(refAmount.times(pair.bToARate).toString())
+      setTokenAAmount(refAmount.times(pair.bToARate).toFixed(8))
       setSharePercentage(refAmount.div(pair.tokenB.reserve))
     }
   }, [pair])
