@@ -93,11 +93,11 @@ export function ConvertScreen (props: Props): JSX.Element {
       <View style={tailwind('bg-white flex-col justify-center')}>
         <PreviewConvResult
           testID='text_preview_input' unit={sourceToken.unit}
-          balance={new BigNumber(sourceToken.amount).minus(convAmount)}
+          balance={BigNumber.maximum(new BigNumber(sourceToken.amount).minus(convAmount), 0)}
         />
         <PreviewConvResult
           testID='text_preview_output' unit={targetToken.unit}
-          balance={new BigNumber(targetToken.amount).plus(convAmount)}
+          balance={BigNumber.maximum(new BigNumber(targetToken.amount).plus(convAmount), 0)}
         />
         <Button
           testID='button_continue_convert'
@@ -240,7 +240,7 @@ function PreviewConvResult (props: { unit: string, balance: BigNumber, testID: s
 }
 
 function canConvert (amount: string, balance: string): boolean {
-  return new BigNumber(balance).gte(amount) && !(new BigNumber(amount).isZero())
+  return new BigNumber(balance).gte(amount) && !(new BigNumber(amount).isZero()) && (new BigNumber(amount).isPositive())
 }
 
 async function constructSignedConversionAndSend (mode: ConversionMode, amount: BigNumber, dispatch: Dispatch<any>): Promise<void> {

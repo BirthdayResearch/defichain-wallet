@@ -44,20 +44,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
     </View>
   }
   ListHeaderComponent={
-    <Text
-      style={
-        Object {
-          "fontFamily": "MediumFont",
-          "fontWeight": "500",
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "paddingTop": 24,
-        }
-      }
-    >
-      Connect with the community:
-    </Text>
+    <SectionTitle
+      testID="community_title"
+      text="CONNECT WITH THE COMMUNITY:"
+    />
   }
   data={
     Array [
@@ -146,18 +136,25 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Object {
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 24,
-            },
+            Array [
+              Object {
+                "color": "rgba(107, 114, 128, 1)",
+                "fontFamily": "MediumFont",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 16,
+                "marginTop": 8,
+                "paddingBottom": 16,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "paddingTop": 16,
+              },
+            ],
           ]
         }
+        testID="community_title"
       >
-        Connect with the community:
+        CONNECT WITH THE COMMUNITY:
       </Text>
     </View>
     <View

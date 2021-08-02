@@ -182,7 +182,7 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
         title='continue'
         disabled={!props.enabled}
         onPress={props.onPress}
-        label={translate('components/Button', 'CONTINUE')}
+        label={translate('components/Button', 'REMOVE')}
       />
     </View>
   )
