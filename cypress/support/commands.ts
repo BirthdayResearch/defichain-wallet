@@ -99,7 +99,5 @@ Cypress.Commands.add('sendTokenToWallet', (tokens: string[]) => {
 })
 
 Cypress.Commands.add('closeOceanInterface', () => {
-  cy.intercept('GET', '**/regtest/transactions/*').as('confirmTransaction')
-  cy.wait(2000).wait(['@confirmTransaction'], { timeout: 60000 })
-  cy.getByTestID('oceanInterface_close').click()
+  cy.wait(10000).getByTestID('oceanInterface_close').click().wait(2000)
 })
