@@ -36,11 +36,11 @@ context('wallet/balances/convert - accountToUtxos', () => {
     cy.getByTestID('button_continue_convert').should('not.be.enabled')
   })
 
-  it('should insert balance as amount on 50% pressed', function () {
+  it('should insert 50% of balance as amount on 50% pressed', function () {
     cy.getByTestID('half_amount_button').click()
 
-    cy.getByTestID('text_preview_input_value').contains('10 DFI')
-    cy.getByTestID('text_preview_output_value').contains('10 DFI')
+    cy.getByTestID('text_preview_input_value').contains('5 DFI')
+    cy.getByTestID('text_preview_output_value').contains('15 DFI')
     cy.getByTestID('button_continue_convert').should('not.be.disabled')
   })
 
