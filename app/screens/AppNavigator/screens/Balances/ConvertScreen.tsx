@@ -128,27 +128,8 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
   const iconType = props.unit === 'UTXO' ? '_UTXO' : 'DFI'
   const titlePrefix = props.mode === 'input' ? 'CONVERT' : 'TO'
   const title = `${translate('screens/Convert', titlePrefix)} ${props.unit}`
-
   const DFIIcon = getTokenIcon(iconType)
-  const MaxButton = (): JSX.Element | null => {
-    if (props.mode === 'output') {
-      return null
-    }
 
-    return (
-      <TouchableOpacity
-        testID='button_max_convert_from'
-        style={tailwind('flex w-12 mr-2')}
-        onPress={() => {
-          if (props.onChange !== undefined) {
-            props.onChange(props.balance.toString())
-          }
-        }}
-      >
-        <Text style={tailwind('text-primary')}>{translate('components/max', 'MAX')}</Text>
-      </TouchableOpacity>
-    )
-  }
   return (
     <View style={[tailwind('flex-col w-full items-center'), props.style]}>
       <SectionTitle title={title} />
@@ -168,15 +149,16 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
         <DFIIcon width={24} height={24} style={tailwind('mr-2')} />
         <Text>{props.unit}</Text>
       </View>
-      <View style={tailwind('w-full bg-white flex-row border-t border-gray-200 items-center')}>
-        <View style={tailwind('flex flex-row flex-1 ml-4 px-1 py-4')}>
+      <View style={tailwind('w-full px-4 bg-white flex-row border-t border-gray-200 items-center')}>
+        <View style={tailwind('flex flex-row flex-1 px-1 py-4')}>
           <Text>{translate('screens/Convert', 'Balance')}: </Text>
           <NumberFormat
             value={props.balance.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
             renderText={(value: string) => <Text style={tailwind('font-medium text-gray-500')}>{value}</Text>}
           />
         </View>
-        {MaxButton()}
+        <SetAmountButton type='half' mode={props.mode} onChange={props.onChange} balance={props.balance} />
+        <SetAmountButton type='max' mode={props.mode} onChange={props.onChange} balance={props.balance} />
       </View>
     </View>
   )
@@ -236,6 +218,29 @@ function SectionTitle (props: { title: string }): JSX.Element {
     <View style={tailwind('flex-col w-full h-8 justify-center mb-2')}>
       <Text style={tailwind('ml-4 mr-4 text-gray-500 text-sm')}>{props.title}</Text>
     </View>
+  )
+}
+
+function SetAmountButton (props: { type: 'half' | 'max', mode: 'input' | 'output', onChange?: (amount: string) => void, balance: BigNumber}): JSX.Element | null {
+  if (props.mode === 'output') {
+    return null
+  }
+
+  return (
+    <TouchableOpacity
+      testID={`button_${props.type}_convert_from`}
+      style={[
+        tailwind('flex px-2 py-1.5 border border-gray-300 rounded'),
+        props.type === 'half' ? tailwind('mr-1') : tailwind('')
+      ]}
+      onPress={() => {
+        if (props.onChange !== undefined) {
+          props.onChange(props.type === 'half' ? props.balance.div(2).toFixed(8).toString() : props.balance.toFixed(8).toString())
+        }
+      }}
+    >
+      <Text style={tailwind('text-primary text-center font-medium')}>{translate('components/max', props.type === 'half' ? '50%' : 'MAX')}</Text>
+    </TouchableOpacity>
   )
 }
 

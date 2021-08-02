@@ -112,7 +112,13 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
       />
       <AmountRow
         fee={fee}
-        token={token} control={control} onMaxPress={async (amount) => {
+        token={token}
+        control={control}
+        onMaxPress={async (amount) => {
+          setValue('amount', amount)
+          await trigger('amount')
+        }}
+        onHalfPress={async (amount) => {
           setValue('amount', amount)
           await trigger('amount')
         }}
@@ -190,13 +196,16 @@ interface AmountForm {
   control: Control
   token: WalletToken
   onMaxPress: (amount: string) => void
+  onHalfPress: (amount: string) => void
   fee: BigNumber
 }
 
-function AmountRow ({ token, control, onMaxPress, fee }: AmountForm): JSX.Element {
+function AmountRow ({ token, control, onMaxPress, onHalfPress, fee }: AmountForm): JSX.Element {
   const Icon = getTokenIcon(token.avatarSymbol)
   let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).toFixed(8) : token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
+  let halfAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).div(2).toFixed(8) : token.amount
+  halfAmount = BigNumber.max(halfAmount, 0).toFixed(8)
   return (
     <>
       <SectionTitle
@@ -235,20 +244,34 @@ function AmountRow ({ token, control, onMaxPress, fee }: AmountForm): JSX.Elemen
         defaultValue=''
       />
       <View style={tailwind('flex-row w-full bg-white p-4')}>
-        <View style={tailwind('flex-grow flex-row')}>
+        <View style={tailwind('flex-grow flex-row items-center')}>
           <Text>{translate('screens/SendScreen', 'Balance: ')}</Text>
           <NumberFormat
             value={maxAmount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
             renderText={(value) => <Text testID='max_value' style={tailwind('text-gray-500')}>{value}</Text>}
           />
         </View>
-        <TouchableOpacity testID='max_button' onPress={() => onMaxPress(maxAmount)}>
-          <Text
-            style={tailwind('font-bold text-primary')}
-          >{translate('screens/SendScreen', 'MAX')}
-          </Text>
-        </TouchableOpacity>
+        <SetAmountButton type='half' onPress={onHalfPress} amount={halfAmount} />
+        <SetAmountButton type='max' onPress={onMaxPress} amount={maxAmount} />
       </View>
     </>
+  )
+}
+
+function SetAmountButton (props: {type: 'half' | 'max', onPress: (amount: string) => void, amount: string}): JSX.Element {
+  return (
+    <TouchableOpacity
+      testID={`${props.type}_button`}
+      style={[
+        tailwind('px-2 py-1.5 border border-gray-300 rounded'),
+        props.type === 'half' ? tailwind('mr-1') : tailwind('')
+      ]}
+      onPress={() => props.onPress(props.amount)}
+    >
+      <Text
+        style={tailwind('font-medium text-primary')}
+      >{translate('screens/SendScreen', props.type === 'half' ? '50%' : 'MAX')}
+      </Text>
+    </TouchableOpacity>
   )
 }
