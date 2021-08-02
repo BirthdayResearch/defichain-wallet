@@ -130,8 +130,6 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
   const titlePrefix = props.mode === 'input' ? 'CONVERT' : 'TO'
   const title = `${translate('screens/Convert', titlePrefix)} ${props.unit}`
   const DFIIcon = getTokenIcon(iconType)
-  const halfAmount = props.balance.div(2).toFixed(8).toString()
-  const maxAmount = props.balance.toFixed(8).toString()
 
   return (
     <View style={[tailwind('flex-col w-full items-center'), props.style]}>
@@ -160,8 +158,8 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
             renderText={(value: string) => <Text style={tailwind('font-medium text-gray-500')}>{value}</Text>}
           />
         </View>
-        {props.mode === 'input' && props.onChange && <SetAmountButton type='half' label='50%' onPress={props.onChange} amount={halfAmount} />}
-        {props.mode === 'input' && props.onChange && <SetAmountButton type='max' label='MAX' onPress={props.onChange} amount={maxAmount} />}
+        {props.mode === 'input' && props.onChange && <SetAmountButton type='half' onPress={props.onChange} amount={props.balance} />}
+        {props.mode === 'input' && props.onChange && <SetAmountButton type='max' onPress={props.onChange} amount={props.balance} />}
       </View>
     </View>
   )

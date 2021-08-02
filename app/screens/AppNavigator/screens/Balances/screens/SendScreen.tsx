@@ -205,8 +205,6 @@ function AmountRow ({ token, control, onMaxPress, onHalfPress, fee }: AmountForm
   const Icon = getTokenIcon(token.avatarSymbol)
   let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).toFixed(8) : token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
-  let halfAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).div(2).toFixed(8) : token.amount
-  halfAmount = BigNumber.max(halfAmount, 0).toFixed(8)
   return (
     <>
       <SectionTitle
@@ -244,16 +242,16 @@ function AmountRow ({ token, control, onMaxPress, onHalfPress, fee }: AmountForm
         name='amount'
         defaultValue=''
       />
-      <View style={tailwind('flex-row w-full bg-white p-4')}>
-        <View style={tailwind('flex-grow flex-row items-center')}>
+      <View style={tailwind('flex-row w-full bg-white px-4 items-center')}>
+        <View style={tailwind('flex-1 flex-row py-4')}>
           <Text>{translate('screens/SendScreen', 'Balance: ')}</Text>
           <NumberFormat
             value={maxAmount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
             renderText={(value) => <Text testID='max_value' style={tailwind('text-gray-500')}>{value}</Text>}
           />
         </View>
-        <SetAmountButton type='half' label='50%' onPress={onHalfPress} amount={halfAmount} />
-        <SetAmountButton type='max' label='MAX' onPress={onMaxPress} amount={maxAmount} />
+        <SetAmountButton type='half' onPress={onHalfPress} amount={new BigNumber(maxAmount)} />
+        <SetAmountButton type='max' onPress={onMaxPress} amount={new BigNumber(maxAmount)} />
       </View>
     </>
   )
