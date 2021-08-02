@@ -1,91 +1,143 @@
 import { StackScreenProps } from '@react-navigation/stack'
+import { shuffle } from 'lodash'
 import * as React from 'react'
-import { useState } from 'react'
-import { KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native'
+import { useEffect, useState } from 'react'
+import { Alert, Platform, ScrollView, TouchableOpacity } from 'react-native'
 import { MnemonicUnprotected } from '../../../../api/wallet/provider/mnemonic_unprotected'
-import { Text, TextInput, View } from '../../../../components'
+import { Text, View } from '../../../../components'
+import { Button } from '../../../../components/Button'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
 import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { tailwind } from '../../../../tailwind'
+import { translate } from '../../../../translations'
 import { WalletParamList } from '../../WalletNavigator'
 
 type Props = StackScreenProps<WalletParamList, 'VerifyMnemonicWallet'>
 
-export function VerifyMnemonicWallet ({ route }: Props): JSX.Element {
-  const actualWords = route.params.words
-  const enteredWords: string[] = []
+interface VerifyMnemonicItem {
+  index: number
+  words: string[]
+}
 
-  const [valid, setValid] = useState<boolean>(true)
+export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element {
+  const recoveryWords = route.params.words
+
+  if (!Array.isArray(recoveryWords) || recoveryWords === undefined) {
+    navigation.navigate('CreateMnemonicWallet')
+    return <></>
+  }
+
+  const [selectedWords, setSelectedWords] = useState<string[]>([...recoveryWords])
+  const [randomWords, setRandomWords] = useState<VerifyMnemonicItem[]>([])
+  const [isValid, setValid] = useState<boolean>(false)
   const { network } = useNetworkContext()
   const { setWallet } = useWalletPersistenceContext()
 
+  useEffect(() => {
+    const random: number[] = Array.from(Array(24), (v, i) => i)
+    const randomNumbers = shuffle(random)
+    const firstSix = randomNumbers.slice(0, 6)
+    const others = randomNumbers.slice(6, randomNumbers.length)
+    firstSix.forEach((randomNumber, i) => {
+      const counter = 3 * i
+      selectedWords[randomNumber] = ''
+      const words = shuffle([recoveryWords[randomNumber], recoveryWords[others[counter]], recoveryWords[others[counter + 1]], recoveryWords[others[counter + 2]]])
+      randomWords.push({ index: randomNumber, words })
+    })
+    setSelectedWords([...selectedWords])
+    setRandomWords([...randomWords])
+  }, [JSON.stringify(recoveryWords)])
+
   async function onVerify (): Promise<void> {
-    if (actualWords.join(' ') === enteredWords.join(' ')) {
-      await setWallet(MnemonicUnprotected.toData(enteredWords, network))
+    if (recoveryWords.join(' ') === selectedWords.join(' ')) {
+      await setWallet(MnemonicUnprotected.toData(selectedWords, network))
     } else {
-      setValid(false)
+      if (Platform.OS === 'web') {
+        navigation.navigate('CreateMnemonicWallet')
+      } else {
+        Alert.alert(
+          '',
+          translate('screens/VerifyMnemonicWallet', 'Invalid selection. Please ensure you have written down your 24 words.'),
+          [
+            {
+              text: translate('screens/VerifyMnemonicWallet', 'Go back'),
+              onPress: () => navigation.navigate('CreateMnemonicWallet'),
+              style: 'destructive'
+            }
+          ]
+        )
+      }
     }
   }
 
-  function MnemonicWordInputRow (props: { index: number, word: string }): JSX.Element {
-    const [valid, setValid] = useState<boolean>(true)
-
-    return (
-      <View style={tailwind('bg-white pl-4 mb-3 flex-row items-center')}>
-        <Text style={[
-          tailwind('w-6 font-medium'),
-          valid ? tailwind('text-gray-500') : tailwind('text-red-500')
-        ]}
-        >
-          {`${props.index + 1}`.padStart(2, '0')}
-        </Text>
-        <TextInput
-          style={tailwind('flex-grow py-4 pr-4 font-bold text-gray-800')}
-          autoCapitalize='none'
-          onChangeText={(text) => {
-            setValid(props.word === text.trim())
-            enteredWords[props.index] = text.trim()
-          }}
-          placeholder='enter phrase'
-        />
-      </View>
-    )
-  }
-
   return (
-    <KeyboardAvoidingView
-      style={tailwind('flex-1 justify-center')} behavior='padding' enabled
-      keyboardVerticalOffset={100}
-    >
-      <ScrollView style={tailwind('flex-1 bg-gray-100')} contentInsetAdjustmentBehavior='automatic'>
-        <Text style={tailwind('mx-4 my-5 font-medium')}>
-          To ensure you have a copy of your mnemonic phrase for safety and recovery purpose,
-          please enter your 24 word mnemonic phrase for verification.
+    <ScrollView style={tailwind('flex-1 bg-white')}>
+      <Text style={tailwind('pt-4 font-semibold text-base px-4 text-center')}>
+        {translate('screens/VerifyMnemonicWallet', 'Verify what you wrote as correct.')}
+      </Text>
+      <Text style={tailwind('font-semibold text-base px-4 text-center')}>
+        {translate('screens/VerifyMnemonicWallet', 'Answer the questions to proceed.')}
+      </Text>
+
+      {randomWords.map((n, index) => (
+        <RecoveryWordRow
+          lineNumber={index}
+          words={n.words} index={n.index} key={index} onWordSelect={(word) => {
+            selectedWords[n.index] = word
+            setSelectedWords([...selectedWords])
+            setValid(!selectedWords.some((w) => w === ''))
+          }}
+        />
+      ))}
+
+      <Button
+        disabled={!isValid}
+        onPress={onVerify}
+        title='verify mnemonic'
+        testID='verify_words_button'
+        label={translate('screens/VerifyMnemonicWallet', 'VERIFY')}
+      />
+    </ScrollView>
+  )
+}
+
+interface RecoveryWordItem {
+  index: number
+  words: string[]
+  onWordSelect: (word: string) => void
+  lineNumber: number
+}
+
+function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWordItem): JSX.Element {
+  const [selectedWord, setSelectedWord] = useState<string>()
+  const activeButton = 'bg-primary bg-opacity-10 border border-primary border-opacity-20'
+  return (
+    <View style={tailwind('bg-white p-4 py-6 border-b border-gray-200')}>
+      <View style={tailwind('flex-row')}>
+        <Text style={tailwind('text-gray-600')}>
+          {translate('screens/VerifyMnemonicWallet', 'What is word ')}
         </Text>
-
-        <View>
-          {actualWords.map((word, index) => {
-            return <MnemonicWordInputRow word={word} index={index} key={index} />
-          })}
-        </View>
-
-        {valid ? null : (
-          <View style={tailwind('mx-4 my-2')}>
-            <Text style={tailwind('text-red-500 font-medium')}>
-              Your 24 word mnemonic phrase verification failed, please check your have entered the correct phrase.
-            </Text>
-          </View>
-        )}
-
-        <TouchableOpacity
-          style={[tailwind('m-4 rounded flex items-center justify-center bg-primary')]}
-          onPress={onVerify}
-        >
-          <Text style={tailwind('p-3 font-bold text-white')}>
-            VERIFY MNEMONIC
-          </Text>
-        </TouchableOpacity>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        <Text testID={`line_${lineNumber}`} style={tailwind('text-black font-semibold')}>
+          {`#${index + 1}?`}
+        </Text>
+      </View>
+      <View style={tailwind('flex-row mt-4 mb-2')}>
+        {
+          words.map((w, i) => (
+            <TouchableOpacity
+              style={tailwind(`rounded border ${selectedWord === w ? activeButton : 'bg-gray-100 border-gray-100'} p-1 px-2 mr-3`)}
+              key={`${w}_${i}`}
+              testID={`line_${lineNumber}_${w}`}
+              onPress={() => {
+                setSelectedWord(w)
+                onWordSelect(w)
+              }}
+            >
+              <Text style={tailwind(`${selectedWord === w ? 'text-primary' : 'text-black'} font-semibold`)}>{w}</Text>
+            </TouchableOpacity>
+          ))
+        }
+      </View>
+    </View>
   )
 }
