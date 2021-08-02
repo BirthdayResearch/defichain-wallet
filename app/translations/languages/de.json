@@ -1,0 +1,8 @@
+{
+  "BottomTabNavigator": {
+    "Balances": "Guthaben",
+    "Liquidity": "Liquidität",
+    "Transactions": "Transaktionen",
+    "Settings": "Einstellungen"
+  }
+}
