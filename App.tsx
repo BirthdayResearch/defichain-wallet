@@ -2,10 +2,10 @@ import * as SplashScreen from 'expo-splash-screen'
 import React from 'react'
 import { Provider as StoreProvider } from 'react-redux'
 import './_shim'
-import { Logging } from './app/api/logging'
+import { Logging } from './app/api'
 import { NetworkProvider } from './app/contexts/NetworkContext'
 import { PlaygroundProvider, useConnectedPlayground } from './app/contexts/PlaygroundContext'
-import { WalletManagementProvider } from './app/contexts/WalletManagementContext'
+import { WalletPersistenceProvider } from './app/contexts/WalletPersistenceContext'
 import { WhaleProvider } from './app/contexts/WhaleContext'
 import { useCachedResources } from './app/hooks/useCachedResources'
 import ErrorBoundary from './app/screens/ErrorBoundary/ErrorBoundary'
@@ -41,11 +41,11 @@ export default function App (): JSX.Element | null {
       <NetworkProvider>
         <PlaygroundProvider>
           <WhaleProvider>
-            <WalletManagementProvider>
+            <WalletPersistenceProvider>
               <StoreProvider store={store}>
                 <Main />
               </StoreProvider>
-            </WalletManagementProvider>
+            </WalletPersistenceProvider>
           </WhaleProvider>
         </PlaygroundProvider>
       </NetworkProvider>

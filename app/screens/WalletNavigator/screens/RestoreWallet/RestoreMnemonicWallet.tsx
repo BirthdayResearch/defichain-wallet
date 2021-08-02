@@ -9,14 +9,14 @@ import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
-import { useWalletManagementContext } from '../../../../contexts/WalletManagementContext'
+import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
 
 export function RestoreMnemonicWallet (): JSX.Element {
   const { network } = useNetworkContext()
-  const { setWallet } = useWalletManagementContext()
+  const { setWallet } = useWalletPersistenceContext()
   const { control, formState: { isValid }, getValues } = useForm({ mode: 'onChange' })
   const [recoveryWords] = useState<number[]>(Array.from(Array(24), (v, i) => i + 1))
   const [isSubmitting, setIsSubmitting] = useState(false)

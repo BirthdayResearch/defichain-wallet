@@ -10,6 +10,9 @@ export interface WalletToken extends AddressToken {
 export interface WalletState {
   utxoBalance: string
   tokens: WalletToken[]
+  /**
+   * @deprecated use `useWalletContext().get(0).getAddress()` instead
+   */
   address: string
 }
 

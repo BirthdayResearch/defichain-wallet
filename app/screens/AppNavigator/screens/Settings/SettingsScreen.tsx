@@ -6,7 +6,7 @@ import { Alert, Platform, ScrollView, TouchableOpacity } from 'react-native'
 import { Text } from '../../../../components'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
-import { useWalletManagementContext } from '../../../../contexts/WalletManagementContext'
+import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { EnvironmentNetwork, getEnvironment, isPlayground } from '../../../../environment'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -65,7 +65,7 @@ function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
 }
 
 function RowExitWalletItem (): JSX.Element {
-  const { clearWallets } = useWalletManagementContext()
+  const { clearWallets } = useWalletPersistenceContext()
 
   async function onExitWallet (): Promise<void> {
     if (Platform.OS === 'web') {

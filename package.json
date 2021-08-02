@@ -22,6 +22,7 @@
     "@defichain/jellyfish-transaction": ">=0.33.0",
     "@defichain/jellyfish-transaction-builder": ">=0.33.0",
     "@defichain/jellyfish-wallet": ">=0.33.0",
+    "@defichain/jellyfish-wallet-encrypted": ">=0.33.0",
     "@defichain/jellyfish-wallet-mnemonic": ">=0.33.0",
     "@defichain/playground-api-client": ">=0.7.0",
     "@defichain/whale-api-client": ">=0.7.1",
@@ -79,6 +80,7 @@
   "devDependencies": {
     "@babel/core": "~7.9.0",
     "@cypress/code-coverage": "^3.9.9",
+    "@testing-library/cypress": "^8.0.0",
     "@testing-library/react-hooks": "^7.0.0",
     "@testing-library/react-native": "^7.2.0",
     "@types/i18n-js": "^3.8.2",
