@@ -54,7 +54,7 @@ context('poolswap with values', () => {
   })
 
   it('should be able to click max', function () {
-    cy.getByTestID('max_button_token_a').click().wait(3000)
+    cy.getByTestID('max_amount_button').click().wait(3000)
     cy.getByTestID('text_input_tokenA').should('have.value', '10.00000000')
     cy.getByTestID('text_price_row_minimum_0').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')

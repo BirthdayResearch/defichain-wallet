@@ -16,7 +16,7 @@ export function SetAmountButton (props: SetAmountButtonProps): JSX.Element {
 
   return (
     <TouchableOpacity
-      testID={`button_${props.type}_amount`}
+      testID={`${props.type}_amount_button`}
       style={[
         tailwind('flex px-2 py-1.5 border border-gray-300 rounded'),
         props.type === 'half' && tailwind('mr-1')
