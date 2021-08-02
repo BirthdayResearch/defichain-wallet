@@ -14,4 +14,10 @@ context('wallet/settings', () => {
     cy.getByTestID('create_wallet_button').should('exist')
     cy.getByTestID('restore_wallet_button').should('exist')
   })
+
+  it.only('should navigate to about page', function () {
+    cy.getByTestID('setting_navigate_About').click()
+    cy.url().should('include', 'app/AboutScreen')
+    cy.getByTestID('app_logo').should('exist')
+  })
 })
