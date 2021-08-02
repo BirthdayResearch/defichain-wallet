@@ -37,7 +37,7 @@ context('wallet/balances/convert - accountToUtxos', () => {
   })
 
   it('should insert balance as amount on 50% pressed', function () {
-    cy.getByTestID('max_amount_button').click()
+    cy.getByTestID('half_amount_button').click()
 
     cy.getByTestID('text_preview_input_value').contains('10 DFI')
     cy.getByTestID('text_preview_output_value').contains('10 DFI')
