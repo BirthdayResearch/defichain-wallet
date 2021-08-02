@@ -1,26 +1,34 @@
 import { StackScreenProps } from '@react-navigation/stack'
-import React, { useState } from 'react'
+import React, { useState, useEffect , useCallback } from 'react'
 import { ActivityIndicator, ScrollView } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { MnemonicEncrypted } from '../../../../api/wallet/provider/mnemonic_encrypted'
 import { Text, View } from '../../../../components'
 import { PinInput } from '../../../../components/PinInput'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
+import { useWalletManagementContext } from '../../../../contexts/WalletManagementContext'
 import { translate } from '../../../../translations'
 import { WalletParamList } from '../../WalletNavigator'
+import * as LocalAuthentication from 'expo-local-authentication'
+import { SecurityLevel, AuthenticationType } from 'expo-local-authentication'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { Logging } from '../../../../api'
+import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
 
-type Props = StackScreenProps<WalletParamList, 'PinConfirmation'>
 
-export function PinConfirmation ({ route }: Props): JSX.Element {
+type Props = StackScreenProps<WalletParamList, 'EnrollBiometric'>
+
+export function EnrollBiometric ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<WalletParamList>>()
   const { network } = useNetworkContext()
-  const { pin, words } = route.params
+  const { pin, encrypted } = route.params
+  const { setWallet } = useWalletManagementContext()
 
-  const [invalid, setInvalid] = useState<boolean>(false)
+  const [securityLevelChecked, setSecurityLevelChecked] = useState(false)
+  const [isProtected, setIsProtected] = useState<boolean | null>(null)
+  const [supported, setSupported] = useState<AuthenticationType[]>([])
+  const [selectedType, setSelectedTyped] = useState<AuthenticationType>()
   const [spinnerMessage, setSpinnerMessage] = useState<string>()
-
-  if (![4, 6].includes(pin.length)) throw new Error('Unexpected pin length')
 
   function verifyPin (input: string): void {
     if (input.length !== pin.length) return
@@ -36,6 +44,24 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
         .then(async encrypted => navigation.navigate('EnrollBiometric', { pin, encrypted }))
         .catch(e => console.log(e))
     }, 50) // allow UI render the spinner before async task
+  }
+
+  useEffect(() => {
+    LocalAuthentication.hasHardwareAsync()
+      .then(async hasHardware => {
+        const isDeviceProtected = hasHardware &&
+          await LocalAuthentication.getEnrolledLevelAsync() !== SecurityLevel.NONE
+        const supportedTypes = await LocalAuthentication.supportedAuthenticationTypesAsync()
+
+        setIsProtected(isDeviceProtected)
+        setSupported(supportedTypes)
+        setSecurityLevelChecked(true)
+      })
+      .catch(e => Logging.error(e))
+  }, [])
+
+  if (!securityLevelChecked) {
+    return <LoadingScreen message={translate('screens/EnrollBiometric', 'Checking hardware status')} />
   }
 
   return (

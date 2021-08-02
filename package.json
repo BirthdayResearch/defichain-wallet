@@ -40,7 +40,7 @@
     "@reduxjs/toolkit": "^1.6.1",
     "bignumber.js": "^9.0.1",
     "buffer": "^6.0.3",
-    "expo": "^42.0.0",
+    "expo": "^42.0.3",
     "expo-asset": "~8.3.3",
     "expo-barcode-scanner": "~10.2.2",
     "expo-cli": "^4.8.1",
@@ -51,12 +51,13 @@
     "expo-linking": "~2.3.1",
     "expo-localization": "~10.2.0",
     "expo-random": "~11.2.0",
-    "expo-secure-store": "^10.2.0",
+    "expo-secure-store": "~10.2.0",
     "expo-splash-screen": "~0.11.2",
     "expo-status-bar": "~1.0.4",
     "expo-updates": "~0.8.2",
     "expo-web-browser": "~9.2.0",
     "i18n-js": "^3.8.0",
+    "install": "^0.13.0",
     "lodash": "^4.17.21",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -78,7 +79,8 @@
     "smart-buffer": "^4.1.0",
     "stream-browserify": "^3.0.0",
     "tailwind-rn": "^3.0.1",
-    "tailwindcss": "^2.2.7"
+    "tailwindcss": "^2.2.7",
+    "expo-local-authentication": "~11.1.1"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",

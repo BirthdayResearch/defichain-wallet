@@ -13,6 +13,9 @@ import { Onboarding } from './screens/Onboarding'
 import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
 import { PinCreation } from './screens/CreateWallet/PinCreationScreen'
 import { PinConfirmation } from './screens/CreateWallet/PinConfirmation'
+import { EnrollBiometric } from './screens/CreateWallet/EnrollBiometric'
+import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
+import { WalletPersistenceData } from '../../api'
 
 export interface WalletParamList {
   WalletOnboardingScreen: undefined
@@ -28,6 +31,10 @@ export interface WalletParamList {
   PinConfirmation: {
     words: string[]
     pin: string
+  }
+  EnrollBiometric: {
+    pin: string
+    encrypted: WalletPersistenceData<EncryptedProviderData>
   }
 
   [key: string]: undefined | object
@@ -114,6 +121,13 @@ export function WalletNavigator (): JSX.Element {
           component={PinConfirmation}
           options={{
             headerTitle: translate('screens/WalletNavigator', 'Secure your wallet')
+          }}
+        />
+        <WalletStack.Screen
+          name='EnrollBiometric'
+          component={EnrollBiometric}
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'Wallet Created')
           }}
         />
       </WalletStack.Navigator>
