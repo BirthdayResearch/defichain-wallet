@@ -62,6 +62,15 @@ context('poolswap with values', () => {
     })
   })
 
+  it('should be able to click half', function () {
+    cy.getByTestID('half_amount_button').click().wait(3000)
+    cy.getByTestID('text_input_tokenA').should('have.value', '5.00000000')
+    cy.getByTestID('text_price_row_minimum_0').then(($txt: any) => {
+      const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
+      cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
+    })
+  })
+
   it('should be able to swap', function () {
     cy.getByTestID('text_price_row_minimum_0').then(() => {
       // const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
