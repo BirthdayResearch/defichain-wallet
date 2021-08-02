@@ -1,10 +1,9 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { View } from 'react-native'
-import { Text } from '../../../../components'
+import { HeaderFont, Text } from '../../../../components'
 import { BarCodeScanner } from '../../../../components/BarCodeScanner'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { HeaderFont } from '../../../../components/Text'
 import { WalletToken } from '../../../../store/wallet'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -36,7 +35,7 @@ export function BalancesNavigator (): JSX.Element {
         name='Balances'
         component={BalancesScreen}
         options={{
-          headerTitle: translate('screens/BalancesScreen', 'Wallet Balances'),
+          headerTitle: translate('screens/BalancesScreen', 'Balances'),
           headerBackTitleVisible: false
         }}
       />
@@ -44,7 +43,7 @@ export function BalancesNavigator (): JSX.Element {
         name='Receive'
         component={ReceiveScreen}
         options={{
-          headerTitle: translate('screens/ReceiveScreen', 'Wallet Receive'),
+          headerTitle: translate('screens/ReceiveScreen', 'Receive'),
           headerBackTitleVisible: false
         }}
       />
@@ -52,7 +51,7 @@ export function BalancesNavigator (): JSX.Element {
         name='Send'
         component={SendScreen}
         options={{
-          headerTitle: translate('screens/SendScreen', 'Wallet Send'),
+          headerTitle: translate('screens/SendScreen', 'Send'),
           headerBackTitleVisible: false
         }}
       />
@@ -77,7 +76,7 @@ export function BalancesNavigator (): JSX.Element {
         name='Convert'
         component={ConvertScreen}
         options={{
-          headerTitle: translate('screens/ConvertScreen', 'Convert DFIs'),
+          headerTitle: translate('screens/ConvertScreen', 'Convert DFI'),
           headerBackTitleVisible: false
         }}
       />

@@ -10,10 +10,11 @@ import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Logging } from '../../../../../api/logging'
+import { Logging } from '../../../../../api'
 import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
+import { SectionTitle } from '../../../../../components/SectionTitle'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
@@ -109,7 +110,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     <ScrollView style={tailwind('bg-gray-100')}>
       <TokenRow
         token={tokenA} control={control} controlName={tokenAForm}
-        title={translate('screens/PoolSwapScreen', 'From')}
+        title={`${translate('screens/PoolSwapScreen', 'SWAP')} ${tokenA.symbol}`}
         onChangeFromAmount={async (amount) => {
           amount = isNaN(+amount) ? '0' : amount
           setValue(tokenAForm, amount)
@@ -119,12 +120,12 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         }}
         maxAmount={tokenA.amount}
       />
-      <TouchableOpacity style={tailwind('justify-center items-center mt-4')} onPress={swapToken} testID='swap_button'>
+      <TouchableOpacity style={tailwind('justify-center items-center mt-6')} onPress={swapToken} testID='swap_button'>
         <MaterialIcons name='swap-vert' size={28} style={tailwind('text-primary')} />
       </TouchableOpacity>
       <TokenRow
         token={tokenB} control={control} controlName={tokenBForm}
-        title={translate('screens/PoolSwapScreen', 'To')}
+        title={`${translate('screens/PoolSwapScreen', 'TO')} ${tokenB.symbol}`}
         maxAmount={aToBPrice.times(getValues()[tokenAForm]).toFixed(8)}
       />
       {
@@ -168,9 +169,7 @@ function TokenRow (form: TokenForm): JSX.Element {
   }
   return (
     <>
-      <Text style={tailwind('text-sm font-bold pl-4 pt-4 mt-4 bg-white flex-grow')}>
-        {title}
-      </Text>
+      <SectionTitle text={title} testID={`text_input_${title}`} />
       <Controller
         control={control}
         rules={rules}
