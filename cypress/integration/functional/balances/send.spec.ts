@@ -57,6 +57,21 @@ context('wallet/send', () => {
       })
     })
 
+    it('should be able to compute half of max values', function () {
+      cy.getByTestID('transaction_fee').then(($txt: any) => {
+        const transactionFee = $txt[0].textContent.replace(' DFI', '')
+        cy.getByTestID('max_value').then(($txt: any) => {
+          const maxValue = $txt[0].textContent.replace(' DFI', '')
+          const halfValue = new BigNumber(maxValue).div(2)
+          expect(new BigNumber(halfValue).multipliedBy(2).plus(transactionFee).toFixed(0)).eq('10')
+          cy.getByTestID('amount_input').clear()
+          cy.getByTestID('half_amount_button').click()
+          cy.getByTestID('amount_input').should('have.value', halfValue.toFixed(8))
+          cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
+        })
+      })
+    })
+
     addresses.forEach((address) => {
       it(`should be able to send to address ${address}`, function () {
         cy.getByTestID('address_input').clear().type(address)
