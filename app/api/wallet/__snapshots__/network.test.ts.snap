@@ -39,3 +39,11 @@ Object {
   "wif": 239,
 }
 `;
+
+exports[`should return correct tx url for LocalPlayground 1`] = `"http://localhost:19553/v0.7/regtest/transactions/123"`;
+
+exports[`should return correct tx url for MainNet 1`] = `"https://mainnet.defichain.io/#/DFI/mainnet/tx/123"`;
+
+exports[`should return correct tx url for RemotePlayground 1`] = `"https://playground.defichain.com/v0.7/regtest/transactions/123"`;
+
+exports[`should return correct tx url for TestNet 1`] = `"https://testnet.defichain.io/#/DFI/testnet/home/tx/123"`;
