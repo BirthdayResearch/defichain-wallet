@@ -24,3 +24,17 @@ export function getBip32Option (envNetwork: EnvironmentNetwork): Bip32Options {
     wif: network.wifPrefix
   }
 }
+
+export function getTxURLByNetwork (network: EnvironmentNetwork, txId: string): string {
+  switch (network) {
+    case EnvironmentNetwork.MainNet:
+      return 'https://mainnet.defichain.io/#/DFI/mainnet/tx/' + txId
+
+    case EnvironmentNetwork.TestNet:
+      return 'https://testnet.defichain.io/#/DFI/testnet/home/tx/' + txId
+
+    case EnvironmentNetwork.LocalPlayground:
+    case EnvironmentNetwork.RemotePlayground:
+      return 'https://playground.defichain.com/v0.7/regtest/transactions/' + txId
+  }
+}
