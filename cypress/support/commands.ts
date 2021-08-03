@@ -59,6 +59,12 @@ declare global {
 			 * @example cy.sendTokenToWallet(['BTC', 'ETH']).wait(4000)
 			 */
 			sendTokenToWallet (tokens: string[]): Chainable<Element>
+
+      /**
+       * @description Wait for the ocean interface to be confirmed then close the drawer
+       * @example cy.closeOceanInterface()
+       */
+      closeOceanInterface (): Chainable<Element>
 		}
 	}
 }
@@ -90,4 +96,8 @@ Cypress.Commands.add('sendTokenToWallet', (tokens: string[]) => {
     cy.getByTestID(`playground_token_${t}`).click()
   })
   cy.wait(['@sendTokensToAddress'])
+})
+
+Cypress.Commands.add('closeOceanInterface', () => {
+  cy.wait(10000).getByTestID('oceanInterface_close').click().wait(2000)
 })
