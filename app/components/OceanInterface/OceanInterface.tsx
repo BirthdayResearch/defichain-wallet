@@ -6,6 +6,8 @@ import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 're
 import { useDispatch, useSelector } from 'react-redux'
 import { Text } from '..'
 import { Logging } from '../../api/logging'
+import { getTxURLByNetwork } from '../../api/wallet'
+import { useNetworkContext } from '../../contexts/NetworkContext'
 import { useWallet } from '../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
 import { RootState } from '../../store'
@@ -17,7 +19,8 @@ const MAX_AUTO_RETRY = 1
 
 async function gotoExplorer (txid: string): Promise<void> {
   // TODO(thedoublejay) explorer URL
-  const url = `https://explorer.defichain.io/#/DFI/mainnet/tx/${txid}`
+  const { network } = useNetworkContext()
+  const url = getTxURLByNetwork(network, txid)
   // TODO (future improvement): this page should support in mempool, to be confirm
   const supported = await Linking.canOpenURL(url)
   if (supported) {
