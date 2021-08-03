@@ -20,8 +20,6 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
   const [invalid, setInvalid] = useState<boolean>(false)
   const [spinnerMessage, setSpinnerMessage] = useState<string>()
 
-  if (![4, 6].includes(pin.length)) throw new Error('Unexpected pin length')
-
   function verifyPin (input: string): void {
     if (input.length !== pin.length) return
     if (input !== pin) {
@@ -33,7 +31,9 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
     setSpinnerMessage(translate('screens/PinConfirmation', 'Encrypting wallet...'))
     setTimeout(() => {
       MnemonicEncrypted.toData(copy.words, copy.network, copy.pin)
-        .then(async encrypted => navigation.navigate('EnrollBiometric', { pin, encrypted }))
+        .then(async encrypted => {
+          navigation.navigate('EnrollBiometric', { encrypted, pin })
+        })
         .catch(e => console.log(e))
     }, 50) // allow UI render the spinner before async task
   }
