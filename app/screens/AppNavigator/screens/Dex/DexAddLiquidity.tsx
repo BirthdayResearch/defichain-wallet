@@ -9,7 +9,7 @@ import NumberFormat from 'react-number-format'
 import { Text, TextInput, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { SetAmountButton } from '../../../../components/SetAmountButton'
+import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
@@ -165,12 +165,12 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
             />
           </View>
           <SetAmountButton
-            type='half'
+            type={AmountButtonTypes.half}
             onPress={props.onChange}
             amount={props.balance}
           />
           <SetAmountButton
-            type='max'
+            type={AmountButtonTypes.max}
             onPress={props.onChange}
             amount={props.balance}
           />

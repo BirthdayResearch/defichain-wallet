@@ -15,7 +15,7 @@ import { Logging } from '../../../../api'
 import { Text, TextInput, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { SetAmountButton } from '../../../../components/SetAmountButton'
+import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
@@ -160,8 +160,8 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
             renderText={(value: string) => <Text style={tailwind('font-medium text-gray-500')}>{value}</Text>}
           />
         </View>
-        {props.mode === 'input' && props.onChange && <SetAmountButton type='half' onPress={props.onChange} amount={props.balance} />}
-        {props.mode === 'input' && props.onChange && <SetAmountButton type='max' onPress={props.onChange} amount={props.balance} />}
+        {props.mode === 'input' && props.onChange && <SetAmountButton type={AmountButtonTypes.half} onPress={props.onChange} amount={props.balance} />}
+        {props.mode === 'input' && props.onChange && <SetAmountButton type={AmountButtonTypes.max} onPress={props.onChange} amount={props.balance} />}
       </View>
     </View>
   )

@@ -14,7 +14,7 @@ import { Logging } from '../../../../../api'
 import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
-import { SetAmountButton } from '../../../../../components/SetAmountButton'
+import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
@@ -217,8 +217,8 @@ function TokenRow (form: TokenForm): JSX.Element {
         {
           (enableMaxButton != null && onChangeFromAmount !== undefined) && (
             <>
-              <SetAmountButton type='half' onPress={onChangeFromAmount} amount={new BigNumber(token.amount)} />
-              <SetAmountButton type='max' onPress={onChangeFromAmount} amount={new BigNumber(token.amount)} />
+              <SetAmountButton type={AmountButtonTypes.half} onPress={onChangeFromAmount} amount={new BigNumber(token.amount)} />
+              <SetAmountButton type={AmountButtonTypes.max} onPress={onChangeFromAmount} amount={new BigNumber(token.amount)} />
             </>
           )
         }

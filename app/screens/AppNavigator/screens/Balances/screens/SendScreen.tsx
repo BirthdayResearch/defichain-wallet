@@ -17,7 +17,7 @@ import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { SectionTitle } from '../../../../../components/SectionTitle'
-import { SetAmountButton } from '../../../../../components/SetAmountButton'
+import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { RootState } from '../../../../../store'
@@ -115,11 +115,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
         fee={fee}
         token={token}
         control={control}
-        onMaxPress={async (amount) => {
-          setValue('amount', amount)
-          await trigger('amount')
-        }}
-        onHalfPress={async (amount) => {
+        onAmountButtonPress={async (amount) => {
           setValue('amount', amount)
           await trigger('amount')
         }}
@@ -196,12 +192,11 @@ function AddressRow ({
 interface AmountForm {
   control: Control
   token: WalletToken
-  onMaxPress: (amount: string) => void
-  onHalfPress: (amount: string) => void
+  onAmountButtonPress: (amount: string) => void
   fee: BigNumber
 }
 
-function AmountRow ({ token, control, onMaxPress, onHalfPress, fee }: AmountForm): JSX.Element {
+function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): JSX.Element {
   const Icon = getTokenIcon(token.avatarSymbol)
   let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).toFixed(8) : token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
@@ -250,8 +245,8 @@ function AmountRow ({ token, control, onMaxPress, onHalfPress, fee }: AmountForm
             renderText={(value) => <Text testID='max_value' style={tailwind('text-gray-500')}>{value}</Text>}
           />
         </View>
-        <SetAmountButton type='half' onPress={onHalfPress} amount={new BigNumber(maxAmount)} />
-        <SetAmountButton type='max' onPress={onMaxPress} amount={new BigNumber(maxAmount)} />
+        <SetAmountButton type={AmountButtonTypes.half} onPress={onAmountButtonPress} amount={new BigNumber(maxAmount)} />
+        <SetAmountButton type={AmountButtonTypes.max} onPress={onAmountButtonPress} amount={new BigNumber(maxAmount)} />
       </View>
     </>
   )
