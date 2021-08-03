@@ -15,6 +15,7 @@ import { Logging } from '../../../../api'
 import { Text, TextInput, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
@@ -131,27 +132,8 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
   const iconType = props.unit === 'UTXO' ? '_UTXO' : 'DFI'
   const titlePrefix = props.mode === 'input' ? 'CONVERT' : 'TO'
   const title = `${translate('screens/Convert', titlePrefix)} ${props.unit}`
-
   const DFIIcon = getTokenIcon(iconType)
-  const MaxButton = (): JSX.Element | null => {
-    if (props.mode === 'output') {
-      return null
-    }
 
-    return (
-      <TouchableOpacity
-        testID='button_max_convert_from'
-        style={tailwind('flex w-12 mr-2')}
-        onPress={() => {
-          if (props.onChange !== undefined) {
-            props.onChange(props.balance.toString())
-          }
-        }}
-      >
-        <Text style={tailwind('text-primary font-bold')}>{translate('components/max', 'MAX')}</Text>
-      </TouchableOpacity>
-    )
-  }
   return (
     <View style={[tailwind('flex-col w-full'), props.style]}>
       <SectionTitle text={title} testID={`text_input_convert_from_${props.mode}_text`} />
@@ -170,15 +152,16 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
         />
         <DFIIcon width={24} height={24} />
       </View>
-      <View style={tailwind('w-full bg-white flex-row border-t border-gray-200 items-center')}>
-        <View style={tailwind('flex flex-row flex-1 ml-4 px-1 py-4')}>
+      <View style={tailwind('w-full px-4 bg-white flex-row border-t border-gray-200 items-center')}>
+        <View style={tailwind('flex flex-row flex-1 px-1 py-4')}>
           <Text>{translate('screens/Convert', 'Balance')}: </Text>
           <NumberFormat
             value={props.balance.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
             renderText={(value: string) => <Text style={tailwind('font-medium text-gray-500')}>{value}</Text>}
           />
         </View>
-        {MaxButton()}
+        {props.mode === 'input' && props.onChange && <SetAmountButton type={AmountButtonTypes.half} onPress={props.onChange} amount={props.balance} />}
+        {props.mode === 'input' && props.onChange && <SetAmountButton type={AmountButtonTypes.max} onPress={props.onChange} amount={props.balance} />}
       </View>
     </View>
   )

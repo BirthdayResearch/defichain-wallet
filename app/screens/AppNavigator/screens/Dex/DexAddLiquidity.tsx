@@ -4,11 +4,12 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useCallback, useEffect, useState } from 'react'
-import { ScrollView, TouchableOpacity } from 'react-native'
+import { ScrollView } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { Text, TextInput, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
@@ -45,11 +46,11 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     if (pair === undefined) return
     if (ref === 'primary') {
       setTokenAAmount(amountString)
-      setTokenBAmount(refAmount.times(pair.aToBRate).toString())
+      setTokenBAmount(refAmount.times(pair.aToBRate).toFixed(8))
       setSharePercentage(refAmount.div(pair.tokenA.reserve))
     } else {
       setTokenBAmount(amountString)
-      setTokenAAmount(refAmount.times(pair.bToARate).toString())
+      setTokenAAmount(refAmount.times(pair.bToARate).toFixed(8))
       setSharePercentage(refAmount.div(pair.tokenB.reserve))
     }
   }, [pair])
@@ -150,8 +151,8 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
             <Text style={tailwind('ml-2 text-gray-500 text-right')}>{props.symbol}</Text>
           </View>
         </View>
-        <View style={tailwind('w-full flex-row border-t border-gray-200 items-center')}>
-          <View style={tailwind('flex-row flex-1 p-4')}>
+        <View style={tailwind('w-full px-4 py-2 flex-row border-t border-gray-200 items-center')}>
+          <View style={tailwind('flex-row flex-1')}>
             <Text>{translate('screens/AddLiquidity', 'Balance')}: </Text>
             <NumberFormat
               value={props.balance.toNumber()} decimalScale={3} thousandSeparator displayType='text'
@@ -163,15 +164,16 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
               )}
             />
           </View>
-          <TouchableOpacity
-            style={tailwind('flex mr-4')}
-            onPress={() => props.onChange(props.balance.toString())}
-          >
-            <Text
-              style={tailwind('font-bold text-primary')}
-            >{translate('screens/AddLiquidity', 'MAX')}
-            </Text>
-          </TouchableOpacity>
+          <SetAmountButton
+            type={AmountButtonTypes.half}
+            onPress={props.onChange}
+            amount={props.balance}
+          />
+          <SetAmountButton
+            type={AmountButtonTypes.max}
+            onPress={props.onChange}
+            amount={props.balance}
+          />
         </View>
       </View>
     </View>
