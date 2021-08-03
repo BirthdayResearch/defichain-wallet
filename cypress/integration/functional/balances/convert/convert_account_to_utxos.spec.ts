@@ -30,14 +30,22 @@ context('wallet/balances/convert - accountToUtxos', () => {
       .invoke('attr', 'type', 'text') // cypress issue with numeric/decimal input, must cast
       .type('11.1')
 
-    cy.getByTestID('text_preview_input_value').contains('-1.1 DFI')
+    cy.getByTestID('text_preview_input_value').contains('0 DFI')
     cy.getByTestID('text_preview_output_value').contains('21.1 DFI')
 
     cy.getByTestID('button_continue_convert').should('not.be.enabled')
   })
 
+  it('should insert 50% of balance as amount on 50% pressed', function () {
+    cy.getByTestID('50%_amount_button').click()
+
+    cy.getByTestID('text_preview_input_value').contains('5 DFI')
+    cy.getByTestID('text_preview_output_value').contains('15 DFI')
+    cy.getByTestID('button_continue_convert').should('not.be.disabled')
+  })
+
   it('should insert balance as amount on MAX pressed', function () {
-    cy.getByTestID('button_max_convert_from').click()
+    cy.getByTestID('MAX_amount_button').click()
 
     cy.getByTestID('text_preview_input_value').contains('0 DFI')
     cy.getByTestID('text_preview_output_value').contains('20 DFI')

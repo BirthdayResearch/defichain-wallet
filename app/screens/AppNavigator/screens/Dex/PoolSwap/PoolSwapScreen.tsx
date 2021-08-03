@@ -15,6 +15,7 @@ import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { SectionTitle } from '../../../../../components/SectionTitle'
+import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
@@ -197,8 +198,8 @@ function TokenRow (form: TokenForm): JSX.Element {
         name={controlName}
         defaultValue=''
       />
-      <View style={tailwind('flex-row w-full bg-white p-4')}>
-        <View style={tailwind('flex-grow flex-row')}>
+      <View style={tailwind('flex-row w-full bg-white px-4 items-center')}>
+        <View style={tailwind('flex-1 flex-row py-4')}>
           <Text>{translate('screens/PoolSwapScreen', 'Balance: ')}</Text>
           <NumberFormat
             value={token.amount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
@@ -214,12 +215,16 @@ function TokenRow (form: TokenForm): JSX.Element {
         </View>
         {
           (enableMaxButton != null && onChangeFromAmount !== undefined) && (
-            <TouchableOpacity testID='max_button_token_a' onPress={() => onChangeFromAmount(token.amount)}>
-              <Text
-                style={tailwind('font-bold text-primary')}
-              >{translate('screens/PoolSwapScreen', 'MAX')}
-              </Text>
-            </TouchableOpacity>
+            <>
+              <SetAmountButton
+                type={AmountButtonTypes.half} onPress={onChangeFromAmount}
+                amount={new BigNumber(token.amount)}
+              />
+              <SetAmountButton
+                type={AmountButtonTypes.max} onPress={onChangeFromAmount}
+                amount={new BigNumber(token.amount)}
+              />
+            </>
           )
         }
 

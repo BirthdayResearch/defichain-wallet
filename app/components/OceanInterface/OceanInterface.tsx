@@ -1,19 +1,24 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleApiClient } from '@defichain/whale-api-client'
+import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { MaterialIcons } from '@expo/vector-icons'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Text } from '..'
-import { Logging } from '../../api/logging'
+import { Logging } from '../../api'
 import { useWallet } from '../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
+import { getEnvironment } from '../../environment'
+import { fetchTokens } from '../../hooks/wallet/TokensAPI'
 import { RootState } from '../../store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
 import { tailwind } from '../../tailwind'
 import { translate } from '../../translations'
 
 const MAX_AUTO_RETRY = 1
+const MAX_TIMEOUT = 300000
+const INTERVAL_TIME = 5000
 
 async function gotoExplorer (txid: string): Promise<void> {
   // TODO(thedoublejay) explorer URL
@@ -37,6 +42,38 @@ async function broadcastTransaction (tx: CTransactionSegWit, client: WhaleApiCli
   }
 }
 
+async function waitForTxConfirmation (id: string, client: WhaleApiClient): Promise<Transaction> {
+  const initialTime = getEnvironment().debug ? 5000 : 30000
+  let start = initialTime
+
+  return await new Promise((resolve, reject) => {
+    let intervalID: number
+    const callTransaction = (): void => {
+      client.transactions.get(id).then((tx) => {
+        if (intervalID !== undefined) {
+          clearInterval(intervalID)
+        }
+        resolve(tx)
+      }).catch((e) => {
+        if (start >= MAX_TIMEOUT) {
+          Logging.error(e)
+          if (intervalID !== undefined) {
+            clearInterval(intervalID)
+          }
+          reject(e)
+        }
+      })
+    }
+    setTimeout(() => {
+      callTransaction()
+      intervalID = setInterval(() => {
+        start += INTERVAL_TIME
+        callTransaction()
+      }, INTERVAL_TIME)
+    }, initialTime)
+  })
+}
+
 /**
  * @description - Global component to be used for async calls, network errors etc. This component is positioned above the bottom tab.
  * Need to get the height of bottom tab via `useBottomTabBarHeight()` hook to be called on screen.
@@ -50,6 +87,7 @@ export function OceanInterface (): JSX.Element | null {
   const { height, err: e } = useSelector((state: RootState) => state.ocean)
   const transaction = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const slideAnim = useRef(new Animated.Value(0)).current
+  const address = useSelector((state: RootState) => state.wallet.address)
   // state
   const [tx, setTx] = useState<OceanTransaction | undefined>(transaction)
   const [err, setError] = useState<Error | undefined>(e)
@@ -69,16 +107,33 @@ export function OceanInterface (): JSX.Element | null {
         broadcasted: false
       })
       broadcastTransaction(transaction.tx, client)
-        .then(() => setTx({
-          ...transaction,
-          broadcasted: true,
-          title: translate('screens/OceanInterface', 'Transaction Sent')
-        }))
+        .then(async () => {
+          setTx({
+            ...transaction,
+            title: translate('screens/OceanInterface', 'Waiting for confirmation')
+          })
+          let title
+          try {
+            await waitForTxConfirmation(transaction.tx.txId, client)
+            title = 'Transaction Completed'
+          } catch (e) {
+            Logging.error(e)
+            title = 'Sent but not confirmed'
+          }
+          setTx({
+            ...transaction,
+            broadcasted: true,
+            title: translate('screens/OceanInterface', title)
+          })
+        })
         .catch((e: Error) => {
           const errMsg = `${e.message}. Txid: ${transaction.tx.txId}`
           setError(new Error(errMsg))
         })
-        .finally(() => dispatch(ocean.actions.popTransaction())) // remove the job as soon as completion
+        .finally(() => {
+          dispatch(ocean.actions.popTransaction())
+          fetchTokens(client, address, dispatch)
+        }) // remove the job as soon as completion
     }
   }, [transaction, walletContext])
 
@@ -96,16 +151,19 @@ export function OceanInterface (): JSX.Element | null {
       {
         err !== undefined
           ? <TransactionError errMsg={err.message} onClose={dismissDrawer} />
-          : <TransactionDetail broadcasted={tx.broadcasted} txid={tx.tx.txId} onClose={dismissDrawer} />
+          : <TransactionDetail broadcasted={tx.broadcasted} title={tx.title} txid={tx.tx.txId} onClose={dismissDrawer} />
       }
     </Animated.View>
   )
 }
 
-function TransactionDetail ({ broadcasted, txid, onClose }: { broadcasted: boolean, txid?: string, onClose: () => void }): JSX.Element {
-  let title = 'Signing...'
-  if (txid !== undefined) title = 'Broadcasting...'
-  if (broadcasted) title = 'Transaction Sent'
+function TransactionDetail ({
+  broadcasted,
+  txid,
+  onClose,
+  title
+}: { broadcasted: boolean, txid?: string, onClose: () => void, title?: string }): JSX.Element {
+  title = title ?? translate('screens/OceanInterface', 'Signing...')
   return (
     <>
       {
@@ -115,7 +173,7 @@ function TransactionDetail ({ broadcasted, txid, onClose }: { broadcasted: boole
       <View style={tailwind('flex-auto mx-6 justify-center items-center text-center')}>
         <Text
           style={tailwind('text-sm font-bold')}
-        >{translate('screens/OceanInterface', title)}
+        >{title}
         </Text>
         {
           txid !== undefined && <TransactionIDButton txid={txid} onPress={async () => await gotoExplorer(txid)} />
@@ -169,7 +227,8 @@ function TransactionIDButton ({ txid, onPress }: { txid: string, onPress?: () =>
 function TransactionCloseButton (props: { onPress: () => void }): JSX.Element {
   return (
     <TouchableOpacity
-      testID='oceanInterface_close' onPress={props.onPress} style={tailwind('px-2 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
+      testID='oceanInterface_close' onPress={props.onPress}
+      style={tailwind('px-2 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
     >
       <Text style={tailwind('text-sm text-primary')}>
         {translate('screens/OceanInterface', 'OK')}
