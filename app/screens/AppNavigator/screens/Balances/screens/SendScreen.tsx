@@ -12,7 +12,7 @@ import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Logging } from '../../../../../api/logging'
+import { Logging } from '../../../../../api'
 import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
@@ -20,6 +20,7 @@ import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
+import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
 import { hasTxQueued, ocean } from '../../../../../store/ocean'
 import { WalletToken } from '../../../../../store/wallet'
@@ -74,7 +75,8 @@ type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
-  const [token] = useState(route.params.token)
+  const tokens = useTokensAPI()
+  const [token, setToken] = useState(route.params.token)
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
   const dispatch = useDispatch()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
@@ -84,6 +86,13 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   useEffect(() => {
     client.transactions.estimateFee().then((f) => setFee(new BigNumber(f))).catch((e) => Logging.error(e))
   }, [])
+
+  useEffect(() => {
+    const t = tokens.find((t) => t.id === token.id)
+    if (t !== undefined) {
+      setToken({ ...t })
+    }
+  }, [tokens])
 
   async function onSubmit (): Promise<void> {
     if (hasPendingJob) {

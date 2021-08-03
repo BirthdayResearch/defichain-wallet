@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { SmartBuffer } from 'smart-buffer';
 import { RootState } from "../../store";
 import { ocean } from "../../store/ocean";
+import { wallet } from "../../store/wallet";
 import { OceanInterface } from "./OceanInterface";
 
 jest.mock('../../contexts/WalletContext', () => ({
@@ -21,11 +22,16 @@ describe('oceanInterface', () => {
         height: 49,
         transactions: [],
         err: new Error('An unknown error has occurred')
+      },
+      wallet: {
+        address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
+        utxoBalance: '77',
+        tokens: []
       }
     };
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { ocean: ocean.reducer }
+      reducer: { ocean: ocean.reducer, wallet: wallet.reducer }
     })
     const component = (
       <Provider store={store}>
@@ -48,11 +54,16 @@ describe('oceanInterface', () => {
           broadcasted: false,
           sign: async () => signed
         }]
+      },
+      wallet: {
+        address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
+        utxoBalance: '77',
+        tokens: []
       }
     };
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { ocean: ocean.reducer }
+      reducer: { ocean: ocean.reducer, wallet: wallet.reducer }
     })
     const component = (
       <Provider store={store}>
