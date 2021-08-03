@@ -70,7 +70,7 @@ declare global {
 }
 
 Cypress.Commands.add('getByTestID', (selector, ...args) => {
-  return cy.get(`[data-testid=${selector}]`, ...args)
+  return cy.get(`[data-testid=${Cypress.$.escapeSelector(selector)}]`, ...args)
 })
 
 Cypress.Commands.add('createEmptyWallet', (isRandom: boolean = false) => {

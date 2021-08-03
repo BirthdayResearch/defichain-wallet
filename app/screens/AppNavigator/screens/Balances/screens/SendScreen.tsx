@@ -17,6 +17,7 @@ import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { SectionTitle } from '../../../../../components/SectionTitle'
+import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
@@ -121,7 +122,9 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
       />
       <AmountRow
         fee={fee}
-        token={token} control={control} onMaxPress={async (amount) => {
+        token={token}
+        control={control}
+        onAmountButtonPress={async (amount) => {
           setValue('amount', amount)
           await trigger('amount')
         }}
@@ -198,11 +201,11 @@ function AddressRow ({
 interface AmountForm {
   control: Control
   token: WalletToken
-  onMaxPress: (amount: string) => void
+  onAmountButtonPress: (amount: string) => void
   fee: BigNumber
 }
 
-function AmountRow ({ token, control, onMaxPress, fee }: AmountForm): JSX.Element {
+function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): JSX.Element {
   const Icon = getTokenIcon(token.avatarSymbol)
   let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).toFixed(8) : token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
@@ -243,20 +246,16 @@ function AmountRow ({ token, control, onMaxPress, fee }: AmountForm): JSX.Elemen
         name='amount'
         defaultValue=''
       />
-      <View style={tailwind('flex-row w-full bg-white p-4')}>
-        <View style={tailwind('flex-grow flex-row')}>
+      <View style={tailwind('flex-row w-full bg-white px-4 items-center')}>
+        <View style={tailwind('flex-1 flex-row py-4')}>
           <Text>{translate('screens/SendScreen', 'Balance: ')}</Text>
           <NumberFormat
             value={maxAmount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
             renderText={(value) => <Text testID='max_value' style={tailwind('text-gray-500')}>{value}</Text>}
           />
         </View>
-        <TouchableOpacity testID='max_button' onPress={() => onMaxPress(maxAmount)}>
-          <Text
-            style={tailwind('font-bold text-primary')}
-          >{translate('screens/SendScreen', 'MAX')}
-          </Text>
-        </TouchableOpacity>
+        <SetAmountButton type={AmountButtonTypes.half} onPress={onAmountButtonPress} amount={new BigNumber(maxAmount)} />
+        <SetAmountButton type={AmountButtonTypes.max} onPress={onAmountButtonPress} amount={new BigNumber(maxAmount)} />
       </View>
     </>
   )
