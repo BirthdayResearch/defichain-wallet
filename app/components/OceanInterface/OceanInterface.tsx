@@ -10,6 +10,7 @@ import { getTxURLByNetwork } from '../../api/wallet'
 import { useNetworkContext } from '../../contexts/NetworkContext'
 import { useWallet } from '../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
+import { EnvironmentNetwork } from '../../environment'
 import { RootState } from '../../store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
 import { tailwind } from '../../tailwind'
@@ -17,9 +18,8 @@ import { translate } from '../../translations'
 
 const MAX_AUTO_RETRY = 1
 
-async function gotoExplorer (txid: string): Promise<void> {
+async function gotoExplorer (txid: string, network: EnvironmentNetwork): Promise<void> {
   // TODO(thedoublejay) explorer URL
-  const { network } = useNetworkContext()
   const url = getTxURLByNetwork(network, txid)
   // TODO (future improvement): this page should support in mempool, to be confirm
   const supported = await Linking.canOpenURL(url)
@@ -48,6 +48,7 @@ export function OceanInterface (): JSX.Element | null {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
   const walletContext = useWallet()
+  const { network } = useNetworkContext()
 
   // store
   const { height, err: e } = useSelector((state: RootState) => state.ocean)
@@ -107,13 +108,13 @@ export function OceanInterface (): JSX.Element | null {
       {
         err !== undefined
           ? <TransactionError errMsg={err.message} onClose={dismissDrawer} />
-          : <TransactionDetail broadcasted={tx.broadcasted} txid={txid} onClose={dismissDrawer} />
+          : <TransactionDetail broadcasted={tx.broadcasted} txid={txid} network={network} onClose={dismissDrawer} />
       }
     </Animated.View>
   )
 }
 
-function TransactionDetail ({ broadcasted, txid, onClose }: { broadcasted: boolean, txid?: string, onClose: () => void }): JSX.Element {
+function TransactionDetail ({ broadcasted, txid, network, onClose }: { broadcasted: boolean, txid?: string, network: EnvironmentNetwork, onClose: () => void }): JSX.Element {
   let title = 'Signing...'
   if (txid !== undefined) title = 'Broadcasting...'
   if (broadcasted) title = 'Transaction Sent'
@@ -129,7 +130,7 @@ function TransactionDetail ({ broadcasted, txid, onClose }: { broadcasted: boole
         >{translate('screens/OceanInterface', title)}
         </Text>
         {
-          txid !== undefined && <TransactionIDButton txid={txid} onPress={async () => await gotoExplorer(txid)} />
+          txid !== undefined && <TransactionIDButton txid={txid} onPress={async () => await gotoExplorer(txid, network)} />
         }
       </View>
       {
