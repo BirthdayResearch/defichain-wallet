@@ -99,5 +99,5 @@ Cypress.Commands.add('sendTokenToWallet', (tokens: string[]) => {
 })
 
 Cypress.Commands.add('closeOceanInterface', () => {
-  cy.wait(10000).getByTestID('oceanInterface_close').click().wait(2000)
+  cy.wait(5000).getByTestID('oceanInterface_close').click().wait(2000)
 })

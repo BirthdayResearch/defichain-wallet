@@ -9,6 +9,7 @@ import { Text } from '..'
 import { Logging } from '../../api'
 import { useWallet } from '../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
+import { getEnvironment } from '../../environment'
 import { fetchTokens } from '../../hooks/wallet/TokensAPI'
 import { RootState } from '../../store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
@@ -17,7 +18,7 @@ import { translate } from '../../translations'
 
 const MAX_AUTO_RETRY = 1
 const MAX_TIMEOUT = 300000
-const TIMEOUT_INTERVAL = 30000
+const INTERVAL_TIME = 5000
 
 async function gotoExplorer (txid: string): Promise<void> {
   // TODO(thedoublejay) explorer URL
@@ -42,26 +43,34 @@ async function broadcastTransaction (tx: CTransactionSegWit, client: WhaleApiCli
 }
 
 async function waitForTxConfirmation (id: string, client: WhaleApiClient): Promise<Transaction> {
-  let start = 0
-  let intervalTimeout = 10000
-  // Start initial check after 10 seconds, then check after 30 seconds
+  const initialTime = getEnvironment().debug ? 5000 : 30000
+  let start = initialTime
+
   return await new Promise((resolve, reject) => {
-    const interval = setInterval(() => {
-      intervalTimeout = TIMEOUT_INTERVAL
-      start += TIMEOUT_INTERVAL
+    let intervalID: number
+    const callTransaction = (): void => {
       client.transactions.get(id).then((tx) => {
-        clearInterval(interval)
+        if (intervalID !== undefined) {
+          clearInterval(intervalID)
+        }
         resolve(tx)
       }).catch((e) => {
         if (start >= MAX_TIMEOUT) {
           Logging.error(e)
-          if (interval !== undefined) {
-            clearInterval(interval)
+          if (intervalID !== undefined) {
+            clearInterval(intervalID)
           }
           reject(e)
         }
       })
-    }, intervalTimeout)
+    }
+    setTimeout(() => {
+      callTransaction()
+      intervalID = setInterval(() => {
+        start += INTERVAL_TIME
+        callTransaction()
+      }, INTERVAL_TIME)
+    }, initialTime)
   })
 }
 
