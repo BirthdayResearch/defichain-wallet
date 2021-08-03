@@ -25,14 +25,14 @@ context('wallet/balances/convert - bi-direction success case', () => {
   })
 
   it('utxosToToken: should build summary correctly with max amount button', function () {
-    cy.getByTestID('max_amount_button').click()
+    cy.getByTestID('MAX_amount_button').click()
     cy.getByTestID('text_preview_input_value').contains('0 DFI')
     cy.getByTestID('text_preview_output_value').contains('10 DFI')
     cy.getByTestID('button_continue_convert').should('not.be.disabled')
   })
 
   it('utxosToToken: should build summary correctly with half amount button', function () {
-    cy.getByTestID('half_amount_button').click()
+    cy.getByTestID('50%_amount_button').click()
     cy.getByTestID('text_preview_input_value').contains('5 DFI')
     cy.getByTestID('text_preview_output_value').contains('5 DFI')
     cy.getByTestID('button_continue_convert').should('not.be.disabled')
@@ -87,14 +87,14 @@ context('wallet/balances/convert - bi-direction success case', () => {
   })
 
   it('tokenToUtxos: should build summary correctly with max amount button', function () {
-    cy.getByTestID('max_amount_button').click()
+    cy.getByTestID('MAX_amount_button').click()
     cy.getByTestID('text_preview_input_value').should('contain', '0 DFI')
     cy.getByTestID('text_preview_output_value').should('contain', '9.999').contains('DFI')
     cy.getByTestID('button_continue_convert').should('not.be.disabled')
   })
 
   it('tokenToUtxos: should build summary correctly with half amount button', function () {
-    cy.getByTestID('half_amount_button').click()
+    cy.getByTestID('50%_amount_button').click()
     cy.getByTestID('text_preview_input_value').should('contain', '0.615 DFI')
     cy.getByTestID('text_preview_output_value').should('contain', '9.384').contains('DFI')
     cy.getByTestID('button_continue_convert').should('not.be.disabled')

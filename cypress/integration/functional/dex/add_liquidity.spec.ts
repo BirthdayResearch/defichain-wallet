@@ -15,7 +15,7 @@ context('app/dex/addLiquidity', () => {
   })
 
   it('should update both token and build summary when click on max amount button', function () {
-    cy.getByTestID('max_amount_button').first().click()
+    cy.getByTestID('MAX_amount_button').first().click()
     cy.getByTestID('token_input_primary').should('have.value', '10.00000000')
     cy.getByTestID('token_input_secondary').should('have.value', '10.00000000')
     cy.getByTestID('a_per_b_price').contains('1')
@@ -27,7 +27,7 @@ context('app/dex/addLiquidity', () => {
 
   it('should update both token and build summary when click on half amount button', function () {
     cy.getByTestID('token_input_primary').clear()
-    cy.getByTestID('half_amount_button').first().click()
+    cy.getByTestID('50%_amount_button').first().click()
     cy.getByTestID('token_input_primary').should('have.value', '5.00000000')
     cy.getByTestID('token_input_secondary').should('have.value', '5.00000000')
     cy.getByTestID('a_per_b_price').contains('1')
