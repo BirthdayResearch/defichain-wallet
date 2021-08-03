@@ -26,7 +26,6 @@ exports[`set amount button should match styling of set amount button type half 1
       "borderTopRightRadius": 4,
       "borderTopWidth": 1,
       "display": "flex",
-      "marginRight": 4,
       "opacity": 1,
       "paddingBottom": 6,
       "paddingLeft": 8,
@@ -54,7 +53,7 @@ exports[`set amount button should match styling of set amount button type half 1
       ]
     }
   >
-    50%
+    half
   </Text>
 </View>
 `;
@@ -112,7 +111,7 @@ exports[`set amount button should match styling of set amount button type max 1`
       ]
     }
   >
-    MAX
+    max
   </Text>
 </View>
 `;
