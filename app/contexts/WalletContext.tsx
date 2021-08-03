@@ -13,11 +13,9 @@ import {
 import { useNetworkContext } from './NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
 
-const HARDCODED_PIN_LENGTH = 6
-
 interface EncryptedWalletInterface {
   // provider demand passcode/biometric UI
-  prompt?: (pinLength: 4 | 6) => Promise<string>
+  prompt: () => Promise<string>
 }
 
 interface EncryptedWalletUIContext {
@@ -81,16 +79,12 @@ function MnemonicUnprotectedProvider (props: WalletProviderProps<MnemonicProvide
 function MnemonicEncryptedProvider (props: WalletProviderProps<EncryptedProviderData>): JSX.Element | null {
   const { network } = useNetworkContext()
   const client = useWhaleApiClient()
-  const [promptUI, setPromptUI] = useState<EncryptedWalletInterface>()
+  const [promptUI, setPromptUI] = useState<EncryptedWalletInterface>({
+    prompt: async () => { throw new Error('Prompt UI not ready') }
+  })
 
   const wallet = useMemo(() => {
-    const provider = MnemonicEncrypted.initProvider(props.data, network, {
-      prompt: async () => {
-        console.log('prompted called')
-        if (promptUI === undefined || promptUI.prompt === undefined) throw new Error('Prompt UI not ready')
-        return await promptUI.prompt(HARDCODED_PIN_LENGTH)
-      }
-    })
+    const provider = MnemonicEncrypted.initProvider(props.data, network, promptUI)
     return initWhaleWallet(provider, network, client)
   }, [promptUI])
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, Dispatch, useRef } from 'react'
+import React, { useState, useEffect, useCallback, Dispatch } from 'react'
 import { ActivityIndicator, TouchableOpacity } from 'react-native'
 import { tailwind } from '../tailwind'
 import { Text, View } from '../components'
@@ -18,6 +18,15 @@ import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 const MAX_PASSCODE_ATTEMPT = 4 // allowed 3 failures
 const PIN_LENGTH = 6
 
+/**
+ * useRef() working well on web but not on mobile
+ * (do not resolve/reject func ref do not survive re-render, any UI state update)
+ */
+let PASSPHRASE_PROMISE_PROXY: {
+  resolve: (pass: string) => void
+  reject: (e: Error) => void
+} | undefined
+
 type Status = 'INIT' | 'IDLE' | 'PIN' | 'SIGNING'
 /**
  * The main UI page transaction signing logic interact with encrypted wallet context
@@ -36,36 +45,29 @@ export function TransactionAuthorization (): JSX.Element | null {
   const [status, emitEvent] = useState<Status>('INIT')
   const [attemptsRemaining, setAttemptsRemaining] = useState<number>(MAX_PASSCODE_ATTEMPT)
 
-  const resolvePrompt = useRef<(pass: string) => void>()
-  const rejectPrompt = useRef<(e: Error) => void>()
-
-  const onPinInput = (pin: string): void => {
-    if (pin.length === PIN_LENGTH) {
-      if (resolvePrompt.current !== undefined) {
-        const resolve = resolvePrompt.current
-        emitEvent('SIGNING')
-        setTimeout(() => {
-          resolve(pin)
-          // remove proxied promised, allow next prompt() call
-          resolvePrompt.current = undefined
-          rejectPrompt.current = undefined
-        }, 50)
-      }
+  const onPinInput = useCallback((pin: string): void => {
+    if (pin.length === PIN_LENGTH && PASSPHRASE_PROMISE_PROXY !== undefined) {
+      const resolve = PASSPHRASE_PROMISE_PROXY.resolve
+      emitEvent('SIGNING')
+      setTimeout(() => {
+        resolve(pin)
+        // remove proxied promised, allow next prompt() call
+        PASSPHRASE_PROMISE_PROXY = undefined
+      }, 50)
     }
-  }
+  }, [PASSPHRASE_PROMISE_PROXY, PASSPHRASE_PROMISE_PROXY?.resolve])
 
-  const onCancel = (): void => {
+  const onCancel = useCallback((): void => {
     emitEvent('IDLE')
-    if (rejectPrompt.current !== undefined) {
-      const reject = rejectPrompt.current
+    if (PASSPHRASE_PROMISE_PROXY !== undefined) {
+      const reject = PASSPHRASE_PROMISE_PROXY.reject
       setTimeout(() => {
         reject(new Error('USER_CANCELED'))
         // remove proxied promised, allow next prompt() call
-        resolvePrompt.current = undefined
-        rejectPrompt.current = undefined
+        PASSPHRASE_PROMISE_PROXY = undefined
       }, 50)
     }
-  }
+  }, [PASSPHRASE_PROMISE_PROXY, PASSPHRASE_PROMISE_PROXY?.reject])
 
   const onRetry = useCallback(async (attempts: number) => {
     setAttemptsRemaining(MAX_PASSCODE_ATTEMPT - attempts)
@@ -83,32 +85,44 @@ export function TransactionAuthorization (): JSX.Element | null {
 
   // consume pending to sign TransactionQueue from store
   useEffect(() => {
-    // last available job will remained in this UI state until get dismissed
-    if (transaction !== undefined) {
-      let result: CTransactionSegWit | null | undefined // 3 types of result
+    if (status === 'IDLE' && // wait for prompt UI is ready again
+      transaction !== undefined // any tx queued
+    ) {
+      let result: CTransactionSegWit | null | undefined
 
       signTransaction(transaction, wallet.get(0), onRetry)
         .then(async signedTx => { result = signedTx }) // positive
         .catch(e => {
-          if (e.message !== 'USER_CANCELED') result = null // negative
+          // error type check
+          if (e.message === 'invalid hash') result = null // negative, invalid passcode
           // else result = undefined // neutral
         })
         .then(async () => {
+          // result handling, 3 cases
           if (result === undefined) dispatch(transactionQueue.actions.pop())
           else if (result === null) await clearWallets()
           else await onComplete(dispatch, result)
-          emitEvent('IDLE')
-        }).catch(e => Logging.error(e))
+        })
+        .catch(e => Logging.error(e))
+        .finally(() => emitEvent('IDLE'))
     }
-  }, [transaction, wallet, status, emitEvent])
+  }, [transaction, wallet, status])
 
   useEffect(() => {
     encryptionUI.provide({
-      prompt: async () => await new Promise<string>((resolve, reject) => {
-        resolvePrompt.current = resolve
-        rejectPrompt.current = reject
-        emitEvent('PIN')
-      })
+      prompt: async () => {
+        return await new Promise<string>((resolve, reject) => {
+          // passphrase prompt is meant for authorizing single transaction regardless
+          // caller should not prompt for next transaction before one is completed
+          if (status !== 'INIT' && status !== 'IDLE') throw Error('Signing in progress')
+
+          // wait for user input
+          PASSPHRASE_PROMISE_PROXY = {
+            resolve, reject
+          }
+          emitEvent('PIN')
+        })
+      }
     })
     emitEvent('IDLE')
   }, [])
