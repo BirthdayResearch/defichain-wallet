@@ -18,7 +18,8 @@ import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
-import { hasTxQueued, ocean } from '../../../../store/ocean'
+import { ocean } from '../../../../store/ocean'
+import { hasTxQueued, transactionQueue } from '../../../../store/transaction_queue'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
@@ -35,7 +36,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   const dispatch = useDispatch()
   // global state
   const tokens = useTokensAPI()
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.ocean))
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
 
   const [mode, setMode] = useState(props.route.params.mode)
   const [sourceToken, setSourceToken] = useState<ConversionIO>()
@@ -244,11 +245,13 @@ function canConvert (amount: string, balance: string): boolean {
 }
 
 async function constructSignedConversionAndSend (mode: ConversionMode, amount: BigNumber, dispatch: Dispatch<any>): Promise<void> {
+  console.log('dispatch')
   const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
     const builder = account.withTransactionBuilder()
     const script = await account.getScript()
     let signed: TransactionSegWit
     if (mode === 'utxosToAccount') {
+      console.log('utxosToAccount')
       signed = await builder.account.utxosToAccount({
         to: [{
           script,
@@ -258,6 +261,7 @@ async function constructSignedConversionAndSend (mode: ConversionMode, amount: B
         }]
       }, script)
     } else {
+      console.log('accountToUtxos')
       signed = await builder.account.accountToUtxos({
         from: script,
         balances: [
@@ -269,7 +273,7 @@ async function constructSignedConversionAndSend (mode: ConversionMode, amount: B
     return new CTransactionSegWit(signed)
   }
 
-  dispatch(ocean.actions.queueTransaction({
+  dispatch(transactionQueue.actions.push({
     sign: signer,
     title: `${translate('screens/ConvertScreen', 'Converting DFI')}`
   }))

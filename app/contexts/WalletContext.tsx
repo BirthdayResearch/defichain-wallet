@@ -1,6 +1,7 @@
 import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
 import { MnemonicProviderData } from '@defichain/jellyfish-wallet-mnemonic'
-import React, { createContext, MutableRefObject, PropsWithChildren, useCallback, useContext, useMemo, useRef } from 'react'
+import React, { createContext, PropsWithChildren, useContext, useMemo, useState } from 'react'
+
 import {
   initWhaleWallet,
   MnemonicEncrypted,
@@ -12,23 +13,26 @@ import {
 import { useNetworkContext } from './NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
 
+const HARDCODED_PIN_LENGTH = 6
+
 interface EncryptedWalletInterface {
-  // consumer provide interface
-  provide: (onPrompt: () => void) => void
-
   // provider demand passcode/biometric UI
-  prompt?: () => void
+  prompt?: (pinLength: 4 | 6) => Promise<string>
+}
 
-  // consumer return result
-  resolve: (passphrase: string) => void
-  reject: (error: Error) => void
+interface EncryptedWalletUIContext {
+  provide: (ewi: EncryptedWalletInterface) => void
 }
 
 const WalletContext = createContext<WhaleWallet>(undefined as any)
-const EncryptedWalletContext = createContext<MutableRefObject<EncryptedWalletInterface>>(undefined as any)
+const EncryptedWalletContext = createContext<EncryptedWalletUIContext>(undefined as any)
 
 export function useWallet (): WhaleWallet {
   return useContext(WalletContext)
+}
+
+export function useEncryptedWallet (): EncryptedWalletUIContext {
+  return useContext(EncryptedWalletContext)
 }
 
 interface WalletProviderProps<T> extends PropsWithChildren<any> {
@@ -77,31 +81,28 @@ function MnemonicUnprotectedProvider (props: WalletProviderProps<MnemonicProvide
 function MnemonicEncryptedProvider (props: WalletProviderProps<EncryptedProviderData>): JSX.Element | null {
   const { network } = useNetworkContext()
   const client = useWhaleApiClient()
-  const signingRef = useRef<EncryptedWalletInterface>({
-    provide: (prompt) => { signingRef.current.prompt = prompt },
-    resolve: () => {},
-    reject: () => {}
-  })
-
-  const promptPassphrase = useCallback(async () => {
-    return await new Promise<string>((resolve, reject) => {
-      // TODO(ivan): implementation
-      if (signingRef.current?.prompt !== undefined) {
-        signingRef.current.resolve = resolve
-        signingRef.current.reject = reject
-        signingRef.current.prompt()
-      } // else UI not ready
-    })
-  }, [])
+  const [promptUI, setPromptUI] = useState<EncryptedWalletInterface>()
 
   const wallet = useMemo(() => {
-    const provider = MnemonicEncrypted.initProvider(props.data, network, promptPassphrase)
+    const provider = MnemonicEncrypted.initProvider(props.data, network, {
+      prompt: async () => {
+        console.log('prompted called')
+        if (promptUI === undefined || promptUI.prompt === undefined) throw new Error('Prompt UI not ready')
+        return await promptUI.prompt(HARDCODED_PIN_LENGTH)
+      }
+    })
     return initWhaleWallet(provider, network, client)
-  }, [])
+  }, [promptUI])
+
+  const encryptedWalletInterface: EncryptedWalletUIContext = {
+    provide: (ewi: EncryptedWalletInterface) => {
+      setPromptUI(ewi)
+    }
+  }
 
   return (
     <WalletContext.Provider value={wallet}>
-      <EncryptedWalletContext.Provider value={signingRef}>
+      <EncryptedWalletContext.Provider value={encryptedWalletInterface}>
         {props.children}
       </EncryptedWalletContext.Provider>
     </WalletContext.Provider>

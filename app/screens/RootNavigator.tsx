@@ -5,6 +5,7 @@ import { useWallet, WalletProvider } from '../contexts/WalletContext'
 import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
 import { wallet as store } from '../store/wallet'
 import { AppNavigator } from './AppNavigator/AppNavigator'
+import { TransactionAuthorization } from './TransactionAuthorization'
 import { WalletNavigator } from './WalletNavigator/WalletNavigator'
 
 /**
@@ -20,6 +21,7 @@ export function RootNavigator (): JSX.Element {
   return (
     <WalletProvider data={wallets[0]}>
       <WalletAddressProvider>
+        <TransactionAuthorization />
         <AppNavigator />
       </WalletAddressProvider>
     </WalletProvider>
