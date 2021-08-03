@@ -98,6 +98,10 @@ Cypress.Commands.add('sendTokenToWallet', (tokens: string[]) => {
   cy.wait(['@sendTokensToAddress'])
 })
 
-Cypress.Commands.add('closeOceanInterface', () => {
-  cy.wait(10000).getByTestID('oceanInterface_close').click().wait(2000)
+Cypress.Commands.add('sendTokenToWallet', (tokens: string[]) => {
+  cy.intercept('/v0/playground/rpc/sendtokenstoaddress').as('sendTokensToAddress')
+  tokens.forEach((t: string) => {
+    cy.getByTestID(`playground_token_${t}`).click()
+  })
+  cy.wait(['@sendTokensToAddress'])
 })
