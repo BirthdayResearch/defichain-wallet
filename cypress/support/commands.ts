@@ -26,8 +26,8 @@ import '@testing-library/cypress/add-commands'
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 declare global {
-	namespace Cypress {
-		interface Chainable {
+  namespace Cypress {
+    interface Chainable {
       /**
        * @description Custom command to select DOM element by data-testid attribute.
        * @example cy.getByTestID('settings')
@@ -66,7 +66,7 @@ declare global {
        */
       closeOceanInterface (): Chainable<Element>
     }
-	}
+  }
 }
 
 Cypress.Commands.add('getByTestID', (selector, ...args) => {
