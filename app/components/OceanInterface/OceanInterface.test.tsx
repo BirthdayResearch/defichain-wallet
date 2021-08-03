@@ -14,6 +14,12 @@ jest.mock('../../contexts/WalletContext', () => ({
   })
 }))
 
+jest.mock('../../contexts/NetworkContext', () => ({
+	useNetworkContext: jest.fn().mockReturnValue({
+		network: 'Playground'
+	})
+}))
+
 describe('oceanInterface', () => {
   it('should match snapshot with error', async () => {
     const initialState: Partial<RootState> = {
