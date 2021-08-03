@@ -245,13 +245,11 @@ function canConvert (amount: string, balance: string): boolean {
 }
 
 async function constructSignedConversionAndSend (mode: ConversionMode, amount: BigNumber, dispatch: Dispatch<any>): Promise<void> {
-  console.log('dispatch')
   const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
     const builder = account.withTransactionBuilder()
     const script = await account.getScript()
     let signed: TransactionSegWit
     if (mode === 'utxosToAccount') {
-      console.log('utxosToAccount')
       signed = await builder.account.utxosToAccount({
         to: [{
           script,
@@ -261,7 +259,6 @@ async function constructSignedConversionAndSend (mode: ConversionMode, amount: B
         }]
       }, script)
     } else {
-      console.log('accountToUtxos')
       signed = await builder.account.accountToUtxos({
         from: script,
         balances: [
