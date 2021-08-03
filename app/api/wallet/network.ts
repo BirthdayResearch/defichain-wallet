@@ -34,6 +34,8 @@ export function getTxURLByNetwork (network: EnvironmentNetwork, txId: string): s
       return 'https://testnet.defichain.io/#/DFI/testnet/home/tx/' + txId
 
     case EnvironmentNetwork.LocalPlayground:
+      return 'http://localhost:19553/v0.7/regtest/transactions/' + txId
+
     case EnvironmentNetwork.RemotePlayground:
       return 'https://playground.defichain.com/v0.7/regtest/transactions/' + txId
   }
