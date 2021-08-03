@@ -1,33 +1,35 @@
-/**
- * @WARNING
- * This is a simple SecureStorage accessing API to read/write user's raw passcode
- * The storage is encrypted and only accessible if device is unlocked
- * These API should NOT be consumed if user's device is not protected by pin/biometric
- * These API should NOT be consumed for jailbroken device, the passcode (thus the wallet private key) is considered compromised
- *
- * MUST USE SECURE STORE ONLY
- */
-import SecureStore from 'expo-secure-store'
+import { StorageAPI } from '../storage'
 
-const KEY = 'RAW_PASSCODE.value'
+const KEYS = {
+  enrolled: 'BIOMETRIC.enrolled',
+  passphrase: 'BIOMETRIC.passphrase'
+}
 
 async function get (): Promise<string | null> {
-  return await SecureStore.getItemAsync(KEY)
+  if (!await isEnrolled()) return null
+  return await StorageAPI.getItem(KEYS.passphrase)
 }
 
 async function set (passcode: string): Promise<void> {
-  await SecureStore.setItemAsync(KEY, passcode)
+  await StorageAPI.setItem(KEYS.enrolled, 'TRUE')
+  await StorageAPI.setItem(KEYS.passphrase, passcode)
 }
 
 async function clear (): Promise<void> {
-  await SecureStore.deleteItemAsync(KEY)
+  await StorageAPI.removeItem(KEYS.enrolled)
+  await StorageAPI.removeItem(KEYS.passphrase)
+}
+
+async function isEnrolled (): Promise<boolean> {
+  return await StorageAPI.getItem(KEYS.enrolled) === 'TRUE'
 }
 
 /**
  * Failed passcode input counter persistence layer
  */
-export const PasscodeAttemptCounter = {
+export const BiometricProtectedPasscode = {
   set,
   get,
-  clear
+  clear,
+  isEnrolled
 }
