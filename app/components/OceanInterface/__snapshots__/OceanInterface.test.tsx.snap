@@ -83,7 +83,6 @@ exports[`oceanInterface should match snapshot 1`] = `
         Object {
           "alignItems": "center",
           "flexDirection": "row",
-          "maxWidth": "100%",
           "opacity": 1,
           "paddingBottom": 4,
           "paddingLeft": 4,

@@ -1,8 +1,8 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { block } from './block'
 import { ocean } from './ocean'
+import { transactionQueue } from './transaction_queue'
 import { wallet } from './wallet'
-import { transactionQueue } from './transaction'
 
 /**
  * RootState for DeFi Wallet App

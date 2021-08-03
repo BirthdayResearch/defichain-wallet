@@ -8,6 +8,8 @@ interface ButtonProps extends React.PropsWithChildren<Props> {
   fill?: 'fill' | 'outline' | 'flat'
   label?: string
   margin?: string
+  delayLongPress?: number
+  onLongPress?: () => void
 }
 
 export function Button (props: ButtonProps): JSX.Element {
@@ -24,6 +26,11 @@ export function Button (props: ButtonProps): JSX.Element {
   return (
     <TouchableOpacity
       {...props}
+      onLongPress={e => {
+        if (props.onLongPress !== undefined) {
+          props.onLongPress()
+        }
+      }}
       style={[tailwind(`${margin} p-3 rounded flex-row justify-center ${buttonStyle} ${props.disabled === true ? disabledStyle : ''}`)]}
     >
       {

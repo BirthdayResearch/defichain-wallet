@@ -1,5 +1,5 @@
 import { CTransactionSegWit, PoolSwap } from '@defichain/jellyfish-transaction'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -10,15 +10,15 @@ import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Logging } from '../../../../../api/logging'
+import { Logging } from '../../../../../api'
 import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
+import { SectionTitle } from '../../../../../components/SectionTitle'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
-import { hasTxQueued, ocean } from '../../../../../store/ocean'
-import { transactionQueue } from '../../../../../store/transaction'
+import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import LoadingScreen from '../../../../LoadingNavigator/LoadingScreen'
@@ -35,7 +35,7 @@ type Props = StackScreenProps<DexParamList, 'PoolSwapScreen'>
 export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const poolpair = route.params.poolpair
   const tokens = useTokensAPI()
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.ocean))
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const [tokenAForm, tokenBForm] = ['tokenA', 'tokenB']
 
   // props derived state
@@ -67,7 +67,6 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       constructSignedSwapAndSend(account, swap, dispatch)
         .catch(e => {
           Logging.error(e)
-          dispatch(ocean.actions.setError(e))
         })
     }
   }
@@ -110,7 +109,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     <ScrollView style={tailwind('bg-gray-100')}>
       <TokenRow
         token={tokenA} control={control} controlName={tokenAForm}
-        title={translate('screens/PoolSwapScreen', 'From')}
+        title={`${translate('screens/PoolSwapScreen', 'SWAP')} ${tokenA.symbol}`}
         onChangeFromAmount={async (amount) => {
           amount = isNaN(+amount) ? '0' : amount
           setValue(tokenAForm, amount)
@@ -120,12 +119,12 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         }}
         maxAmount={tokenA.amount}
       />
-      <TouchableOpacity style={tailwind('justify-center items-center mt-4')} onPress={swapToken} testID='swap_button'>
+      <TouchableOpacity style={tailwind('justify-center items-center mt-6')} onPress={swapToken} testID='swap_button'>
         <MaterialIcons name='swap-vert' size={28} style={tailwind('text-primary')} />
       </TouchableOpacity>
       <TokenRow
         token={tokenB} control={control} controlName={tokenBForm}
-        title={translate('screens/PoolSwapScreen', 'To')}
+        title={`${translate('screens/PoolSwapScreen', 'TO')} ${tokenB.symbol}`}
         maxAmount={aToBPrice.times(getValues()[tokenAForm]).toFixed(8)}
       />
       {
@@ -169,9 +168,7 @@ function TokenRow (form: TokenForm): JSX.Element {
   }
   return (
     <>
-      <Text style={tailwind('text-sm font-bold pl-4 pt-4 mt-4 bg-white flex-grow')}>
-        {title}
-      </Text>
+      <SectionTitle text={title} testID={`text_input_${title}`} />
       <Controller
         control={control}
         rules={rules}

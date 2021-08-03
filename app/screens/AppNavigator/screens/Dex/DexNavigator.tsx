@@ -1,4 +1,4 @@
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { HeaderFont } from '../../../../components/Text'

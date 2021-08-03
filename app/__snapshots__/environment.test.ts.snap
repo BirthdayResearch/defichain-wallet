@@ -17,7 +17,6 @@ Object {
   "name": "Preview",
   "networks": Array [
     "Playground",
-    "TestNet",
     "MainNet",
   ],
 }
@@ -29,7 +28,6 @@ Object {
   "name": "Production",
   "networks": Array [
     "Playground",
-    "TestNet",
     "MainNet",
   ],
 }

@@ -7,7 +7,7 @@ import ImageB from '../../../../assets/images/onboarding/b.png'
 import ImageC from '../../../../assets/images/onboarding/c.png'
 import { Text, View } from '../../../../components'
 import { AppIcon } from '../../../../components/icons/AppIcon'
-import { useWalletManagementContext } from '../../../../contexts/WalletManagementContext'
+import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { getEnvironment } from '../../../../environment'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -39,7 +39,7 @@ const slides: JSX.Element[] = [<InitialSlide key={0} />,
 const { width } = Platform.OS === 'web' ? { width: '375px' } : Dimensions.get('window')
 
 export function InitialSlide (): JSX.Element {
-  const { setWallet } = useWalletManagementContext()
+  const { setWallet } = useWalletPersistenceContext()
   const onDebugPress = getEnvironment().debug ? async () => {
     await setWallet(MnemonicUnprotected.Abandon23Playground)
   } : undefined

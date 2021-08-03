@@ -58,7 +58,7 @@ export function PinInput ({ length, onChange, disabled }: PinInputOptions): JSX.
         }
       }
       arr.push(
-        <View key={i} style={tailwind('h-8 w-8 items-center justify-center border border-gray-500 rounded p-2 m-2')}>
+        <View key={i} style={tailwind('h-8 w-8 items-center justify-center border border-gray-500 rounded-full p-2 m-2')}>
           {child}
         </View>
       )

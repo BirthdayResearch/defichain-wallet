@@ -11,13 +11,13 @@ import { ScrollView } from 'react-native-gesture-handler'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Logging } from '../../../../api/logging'
+import { Logging } from '../../../../api'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
-import { hasTxQueued, transactionQueue } from '../../../../store/transaction'
+import { hasTxQueued, transactionQueue } from '../../../../store/transaction_queue'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
@@ -72,10 +72,10 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
       <View style={tailwind('w-full bg-white mt-8')}>
         <View style={tailwind('w-full flex-row p-4')}>
           <Text
-            style={tailwind('flex-1')}
+            style={tailwind('flex-1 font-semibold')}
           >{translate('screens/RemoveLiquidity', 'Amount of liquidity to remove')}
           </Text>
-          <Text testID='text_slider_percentage' style={tailwind('text-right')}>{percentage} %</Text>
+          <Text testID='text_slider_percentage' style={tailwind('text-right')}>{percentage}%</Text>
         </View>
         <AmountSlider
           current={Number(percentage)}
@@ -130,7 +130,7 @@ function AmountSlider (props: { current: number, onChange: (percentage: number) 
   return (
     <View style={[tailwind('flex-row items-center border-t border-gray-200'), props.viewStyle]}>
       <TouchableOpacity testID='button_slider_min' onPress={() => props.onChange(0)}>
-        <Text style={tailwind('text-gray-500 text-xs')}>{translate('components/slider', 'None')}</Text>
+        <Text style={tailwind('text-gray-500 text-sm')}>{translate('components/slider', 'None')}</Text>
       </TouchableOpacity>
       <View style={tailwind('flex-1 ml-4 mr-4')}>
         <Slider
@@ -144,7 +144,7 @@ function AmountSlider (props: { current: number, onChange: (percentage: number) 
         />
       </View>
       <TouchableOpacity testID='button_slider_max' onPress={() => props.onChange(100)}>
-        <Text style={tailwind('text-gray-500 text-xs')}>{translate('components', 'All')}</Text>
+        <Text style={tailwind('text-gray-500 text-sm')}>{translate('components', 'All')}</Text>
       </TouchableOpacity>
     </View>
   )

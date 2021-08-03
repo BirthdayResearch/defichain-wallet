@@ -1,32 +1,42 @@
-import { EncryptedHdNodeProvider, EncryptedProviderData, PromptPassphrase } from '@defichain/jellyfish-wallet-encrypted'
+import {
+  EncryptedHdNodeProvider,
+  EncryptedProviderData,
+  PrivateKeyEncryption,
+  PromptPassphrase,
+  Scrypt
+} from '@defichain/jellyfish-wallet-encrypted'
+import * as Random from 'expo-random'
 import { EnvironmentNetwork } from '../../../environment'
-import { scrypt } from '../../scrypt'
 import { getBip32Option } from '../network'
 import { WalletPersistenceData, WalletType } from '../persistence'
 
-export interface PromptInterface {
+const encryption = new PrivateKeyEncryption(new Scrypt(), numOfBytes => {
+  const bytes = Random.getRandomBytes(numOfBytes)
+  return Buffer.from(bytes)
+})
+
+interface PromptInterface {
   prompt: PromptPassphrase
 }
 
 function initProvider (
   data: WalletPersistenceData<EncryptedProviderData>,
   network: EnvironmentNetwork,
-  promptInterface?: PromptInterface // must allow construction/new for every prompt
+  promptInterface: PromptInterface
 ): EncryptedHdNodeProvider {
   if (data.type !== WalletType.MNEMONIC_ENCRYPTED || data.version !== 'v1') {
     throw new Error('Unexpected WalletPersistenceData')
   }
 
-  const options = getBip32Option(network)
-  return EncryptedHdNodeProvider.init(data.raw, options, scrypt, async () => {
-    if (promptInterface === undefined) return '' // before OceanInterface bridged the UI
+  const bip32Options = getBip32Option(network)
+  return EncryptedHdNodeProvider.init(data.raw, bip32Options, encryption, async () => {
     return await promptInterface.prompt()
   })
 }
 
 async function toData (mnemonic: string[], network: EnvironmentNetwork, passphrase: string): Promise<WalletPersistenceData<EncryptedProviderData>> {
   const options = getBip32Option(network)
-  const data = await EncryptedHdNodeProvider.wordsToEncryptedData(mnemonic, options, scrypt, passphrase)
+  const data = await EncryptedHdNodeProvider.wordsToEncryptedData(mnemonic, options, encryption, passphrase)
 
   return {
     version: 'v1',

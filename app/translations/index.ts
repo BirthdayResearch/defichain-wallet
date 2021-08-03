@@ -1,6 +1,8 @@
 import * as Localization from 'expo-localization'
 import i18n, { TranslateOptions } from 'i18n-js'
-import { languages } from './languages'
+import de from './languages/de.json'
+import zhHans from './languages/zh-Hans.json'
+import zhHant from './languages/zh-Hant.json'
 
 /**
  * For testing compatibility, will always be initialized.
@@ -37,27 +39,46 @@ export function initI18n (): void {
   init = true
   i18n.translations = {
     en: {},
-    ...languages
+    de: deepEncode(de),
+    'zh-Hans': deepEncode(zhHans),
+    'zh-Hant': deepEncode(zhHant)
   }
   i18n.locale = Localization.locale
   i18n.fallbacks = true
-  i18n.missingTranslation = () => null
 }
 
 /**
- * @param path translation path, can follow file location
- * @param text english text for internationalisation
+ * @param {string} scope translation path, can follow file location
+ * @param {string} text english text for internationalisation, also acts as fallback
+ * @param {TranslateOptions} options
  */
-export function translate (path: string, text: string, options?: TranslateOptions): string {
+export function translate (scope: string, text: string, options?: TranslateOptions): string {
   if (!init) {
     initI18n()
   }
-  let translation = i18n.translate(`${path}.${text}`, options) ?? text
-  if (options !== undefined) {
-    // TODO(@ivan-zynesis): fix with i18n method
-    Object.keys(options).forEach(k => {
-      translation = translation.replace(new RegExp(`%{${k}}`, 'g'), options[k])
-    })
+
+  return i18n.translate(`${scope}.${encodeScope(text)}`, {
+    defaultValue: text,
+    ...options
+  })
+}
+
+function deepEncode (obj: any): any {
+  for (const [scope, value] of Object.entries(obj)) {
+    if (typeof value === 'string') {
+      obj[encodeScope(scope)] = value
+    }
+    if (typeof value === 'object') {
+      obj[scope] = deepEncode(value)
+    }
   }
-  return translation
+
+  return obj
+}
+
+/**
+ * Encode a text as scope that is safe to use as a path
+ */
+export function encodeScope (text: string): string {
+  return Buffer.from(text).toString('base64')
 }

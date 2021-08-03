@@ -65,15 +65,12 @@ export function OceanInterface (): JSX.Element | null {
     if (transaction !== undefined) {
       Animated.timing(slideAnim, { toValue: height, duration: 200, useNativeDriver: false }).start()
       setTx(transaction)
-
       broadcastTransaction(transaction.tx, client)
-        .then(() => {
-          setTx({
-            ...transaction,
-            broadcasted: true,
-            title: translate('screens/OceanInterface', 'Transaction Sent')
-          })
-        })
+        .then(() => setTx({
+          ...transaction,
+          broadcasted: true,
+          title: translate('screens/OceanInterface', 'Transaction Sent')
+        }))
         .catch((e: Error) => {
           const errMsg = `${e.message}. Txid: ${transaction.tx.txId}`
           setError(new Error(errMsg))
@@ -96,13 +93,7 @@ export function OceanInterface (): JSX.Element | null {
       {
         err !== undefined
           ? <TransactionError errMsg={err.message} onClose={dismissDrawer} />
-          : (
-            <TransactionDetail
-              broadcasted={tx.broadcasted}
-              txid={tx.tx.txId}
-              onClose={dismissDrawer}
-            />
-          )
+          : <TransactionDetail broadcasted={tx.broadcasted} txid={tx.tx.txId} onClose={dismissDrawer} />
       }
     </Animated.View>
   )
