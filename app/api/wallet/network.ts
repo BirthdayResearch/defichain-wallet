@@ -26,17 +26,23 @@ export function getBip32Option (envNetwork: EnvironmentNetwork): Bip32Options {
 }
 
 export function getTxURLByNetwork (network: EnvironmentNetwork, txId: string): string {
+  const baseUrl = new URL('https://defiscan.xyz/tx/')
+  baseUrl.searchParams.set('txid', txId)
+
   switch (network) {
     case EnvironmentNetwork.MainNet:
-      return 'https://mainnet.defichain.io/#/DFI/mainnet/tx/' + txId
+      // no-op: network param not required for MainNet
+      break
 
     case EnvironmentNetwork.TestNet:
-      return 'https://testnet.defichain.io/#/DFI/testnet/home/tx/' + txId
+      baseUrl.searchParams.set('network', EnvironmentNetwork.TestNet)
+      break
 
     case EnvironmentNetwork.LocalPlayground:
-      return 'http://localhost:19553/v0.7/regtest/transactions/' + txId
-
     case EnvironmentNetwork.RemotePlayground:
-      return 'https://playground.defichain.com/v0.7/regtest/transactions/' + txId
+      baseUrl.searchParams.set('network', EnvironmentNetwork.RemotePlayground)
+      break
   }
+
+  return baseUrl.toString()
 }
