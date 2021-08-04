@@ -1,5 +1,4 @@
 import React, { useContext, useMemo, createContext } from 'react'
-
 import { EnvironmentNetwork } from '../environment'
 import { useNetworkContext } from './NetworkContext'
 
