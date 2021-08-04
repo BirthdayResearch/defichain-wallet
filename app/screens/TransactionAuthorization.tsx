@@ -109,23 +109,25 @@ export function TransactionAuthorization (): JSX.Element | null {
   }, [transaction, wallet, status])
 
   useEffect(() => {
-    encryptionUI.provide({
-      prompt: async () => {
-        return await new Promise<string>((resolve, reject) => {
-          // passphrase prompt is meant for authorizing single transaction regardless
-          // caller should not prompt for next transaction before one is completed
-          if (status !== 'INIT' && status !== 'IDLE') throw Error('Signing in progress')
+    if (encryptionUI !== undefined) {
+      encryptionUI.provide({
+        prompt: async () => {
+          return await new Promise<string>((resolve, reject) => {
+            // passphrase prompt is meant for authorizing single transaction regardless
+            // caller should not prompt for next transaction before one is completed
+            if (status !== 'INIT' && status !== 'IDLE') throw Error('Signing in progress')
 
-          // wait for user input
-          PASSPHRASE_PROMISE_PROXY = {
-            resolve, reject
-          }
-          emitEvent('PIN')
-        })
-      }
-    })
-    emitEvent('IDLE')
-  }, [])
+            // wait for user input
+            PASSPHRASE_PROMISE_PROXY = {
+              resolve, reject
+            }
+            emitEvent('PIN')
+          })
+        }
+      })
+      emitEvent('IDLE')
+    } // else { wallet not encrypted }
+  }, [encryptionUI])
 
   if (status === 'INIT') return null
 
