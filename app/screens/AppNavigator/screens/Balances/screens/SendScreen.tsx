@@ -12,13 +12,15 @@ import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Logging } from '../../../../../api/logging'
+import { Logging } from '../../../../../api'
 import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { SectionTitle } from '../../../../../components/SectionTitle'
+import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
+import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
 import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
 import { WalletToken } from '../../../../../store/wallet'
@@ -72,7 +74,8 @@ type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
-  const [token] = useState(route.params.token)
+  const tokens = useTokensAPI()
+  const [token, setToken] = useState(route.params.token)
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
   const dispatch = useDispatch()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
@@ -80,8 +83,15 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
 
   useEffect(() => {
-    client.transactions.estimateFee().then((f) => setFee(new BigNumber(f))).catch((e) => Logging.error(e))
+    client.fee.estimate().then((f) => setFee(new BigNumber(f))).catch((e) => Logging.error(e))
   }, [])
+
+  useEffect(() => {
+    const t = tokens.find((t) => t.id === token.id)
+    if (t !== undefined) {
+      setToken({ ...t })
+    }
+  }, [JSON.stringify(tokens)])
 
   async function onSubmit (): Promise<void> {
     if (hasPendingJob) {
@@ -111,7 +121,9 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
       />
       <AmountRow
         fee={fee}
-        token={token} control={control} onMaxPress={async (amount) => {
+        token={token}
+        control={control}
+        onAmountButtonPress={async (amount) => {
           setValue('amount', amount)
           await trigger('amount')
         }}
@@ -188,11 +200,11 @@ function AddressRow ({
 interface AmountForm {
   control: Control
   token: WalletToken
-  onMaxPress: (amount: string) => void
+  onAmountButtonPress: (amount: string) => void
   fee: BigNumber
 }
 
-function AmountRow ({ token, control, onMaxPress, fee }: AmountForm): JSX.Element {
+function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): JSX.Element {
   const Icon = getTokenIcon(token.avatarSymbol)
   let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).toFixed(8) : token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
@@ -233,20 +245,19 @@ function AmountRow ({ token, control, onMaxPress, fee }: AmountForm): JSX.Elemen
         name='amount'
         defaultValue=''
       />
-      <View style={tailwind('flex-row w-full bg-white p-4')}>
-        <View style={tailwind('flex-grow flex-row')}>
+      <View style={tailwind('flex-row w-full bg-white px-4 items-center')}>
+        <View style={tailwind('flex-1 flex-row py-4')}>
           <Text>{translate('screens/SendScreen', 'Balance: ')}</Text>
           <NumberFormat
             value={maxAmount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
             renderText={(value) => <Text testID='max_value' style={tailwind('text-gray-500')}>{value}</Text>}
           />
         </View>
-        <TouchableOpacity testID='max_button' onPress={() => onMaxPress(maxAmount)}>
-          <Text
-            style={tailwind('font-bold text-primary')}
-          >{translate('screens/SendScreen', 'MAX')}
-          </Text>
-        </TouchableOpacity>
+        <SetAmountButton
+          type={AmountButtonTypes.half} onPress={onAmountButtonPress}
+          amount={new BigNumber(maxAmount)}
+        />
+        <SetAmountButton type={AmountButtonTypes.max} onPress={onAmountButtonPress} amount={new BigNumber(maxAmount)} />
       </View>
     </>
   )

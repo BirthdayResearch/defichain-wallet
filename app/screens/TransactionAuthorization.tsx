@@ -4,7 +4,7 @@ import { tailwind } from '../tailwind'
 import { Text, View } from '../components'
 import { PinInput } from '../components/PinInput'
 import { translate } from '../translations'
-import { useEncryptedWallet, useWallet } from '../contexts/WalletContext'
+import { useEncryptedWalletUI, useWallet } from '../contexts/WalletContext'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../store'
 import { DfTxSigner, first, transactionQueue } from '../store/transaction_queue'
@@ -35,7 +35,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   // context
   const { clearWallets } = useWalletPersistenceContext()
   const wallet = useWallet()
-  const encryptionUI = useEncryptedWallet()
+  const encryptionUI = useEncryptedWalletUI()
 
   // store
   const dispatch = useDispatch()
@@ -109,23 +109,25 @@ export function TransactionAuthorization (): JSX.Element | null {
   }, [transaction, wallet, status])
 
   useEffect(() => {
-    encryptionUI.provide({
-      prompt: async () => {
-        return await new Promise<string>((resolve, reject) => {
-          // passphrase prompt is meant for authorizing single transaction regardless
-          // caller should not prompt for next transaction before one is completed
-          if (status !== 'INIT' && status !== 'IDLE') throw Error('Signing in progress')
+    if (encryptionUI !== undefined) {
+      encryptionUI.provide({
+        prompt: async () => {
+          return await new Promise<string>((resolve, reject) => {
+            // passphrase prompt is meant for authorizing single transaction regardless
+            // caller should not prompt for next transaction before one is completed
+            if (status !== 'INIT' && status !== 'IDLE') throw Error('Signing in progress')
 
-          // wait for user input
-          PASSPHRASE_PROMISE_PROXY = {
-            resolve, reject
-          }
-          emitEvent('PIN')
-        })
-      }
-    })
-    emitEvent('IDLE')
-  }, [])
+            // wait for user input
+            PASSPHRASE_PROMISE_PROXY = {
+              resolve, reject
+            }
+            emitEvent('PIN')
+          })
+        }
+      })
+      emitEvent('IDLE')
+    } // else { wallet not encrypted }
+  }, [encryptionUI])
 
   if (status === 'INIT') return null
 

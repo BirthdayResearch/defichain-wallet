@@ -3,6 +3,7 @@ import * as React from 'react'
 import { useCallback } from 'react'
 import { FlatList, Linking, TouchableOpacity } from 'react-native'
 import { Text, View } from '../../../../../components'
+import { SectionTitle } from '../../../../../components/SectionTitle'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 
@@ -12,9 +13,10 @@ export function CommunityScreen (): JSX.Element {
       style={tailwind('bg-gray-100')}
       data={Communities}
       ListHeaderComponent={
-        <Text style={tailwind('font-medium pt-6 pb-4 px-4')}>
-          {translate('screens/CommunityScreen', 'Connect with the community:')}
-        </Text>
+        <SectionTitle
+          text={translate('screens/CommunityScreen', 'CONNECT WITH THE COMMUNITY:')}
+          testID='community_title'
+        />
       }
       ListFooterComponent={
         <View style={tailwind('items-center py-6 px-4')}>

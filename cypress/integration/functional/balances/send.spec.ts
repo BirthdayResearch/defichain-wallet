@@ -50,8 +50,23 @@ context('wallet/send', () => {
           const maxValue = $txt[0].textContent.replace(' DFI', '')
           expect(new BigNumber(transactionFee).plus(maxValue).toFixed(0)).eq('10')
           cy.getByTestID('amount_input').clear()
-          cy.getByTestID('max_button').click()
+          cy.getByTestID('MAX_amount_button').click()
           cy.getByTestID('amount_input').should('have.value', maxValue)
+          cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
+        })
+      })
+    })
+
+    it('should be able to compute half of max values', function () {
+      cy.getByTestID('transaction_fee').then(($txt: any) => {
+        const transactionFee = $txt[0].textContent.replace(' DFI', '')
+        cy.getByTestID('max_value').then(($txt: any) => {
+          const maxValue = $txt[0].textContent.replace(' DFI', '')
+          const halfValue = new BigNumber(maxValue).div(2)
+          expect(new BigNumber(halfValue).multipliedBy(2).plus(transactionFee).toFixed(0)).eq('10')
+          cy.getByTestID('amount_input').clear()
+          cy.getByTestID('50%_amount_button').click()
+          cy.getByTestID('amount_input').should('have.value', halfValue.toFixed(8))
           cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
         })
       })
@@ -63,7 +78,7 @@ context('wallet/send', () => {
         cy.getByTestID('amount_input').clear().type('1')
         cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
         cy.getByTestID('send_submit_button').click()
-        cy.wait(5000).getByTestID('oceanInterface_close').click().wait(5000)
+        cy.closeOceanInterface()
         cy.getByTestID('playground_wallet_fetch_balances').click()
         cy.getByTestID('bottom_tab_balances').click()
       })
@@ -73,9 +88,9 @@ context('wallet/send', () => {
         //  such as this as versioning is automatically handled there
         let url: string
         if (network === 'Playground') {
-          url = 'https://playground.defichain.com/v0.7/regtest'
+          url = 'https://playground.defichain.com/v0.8/regtest'
         } else {
-          url = 'http://localhost:19553/v0.7/regtest'
+          url = 'http://localhost:19553/v0.8/regtest'
         }
         cy.request(`${url}/address/${address}/balance`).then((response) => {
           expect(response.body).to.have.property('data', '1.00000000')
@@ -98,9 +113,9 @@ context('wallet/send', () => {
         cy.getByTestID('balances_row_1_amount').contains(10).click()
         cy.getByTestID('send_button').click()
         cy.getByTestID('address_input').type(address)
-        cy.getByTestID('max_button').click()
+        cy.getByTestID('MAX_amount_button').click()
         cy.getByTestID('send_submit_button').click()
-        cy.wait(5000).getByTestID('oceanInterface_close').click().wait(5000)
+        cy.closeOceanInterface()
         cy.getByTestID('playground_wallet_fetch_balances').click()
         cy.getByTestID('bottom_tab_balances').click()
         cy.getByTestID('balances_row_1_amount').should('not.exist')
