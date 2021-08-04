@@ -12,7 +12,7 @@ import ErrorBoundary from './app/screens/ErrorBoundary/ErrorBoundary'
 import { Main } from './app/screens/Main'
 import { store } from './app/store'
 import { initI18n } from './app/translations'
-import { DeFiScanProvider } from './app/contexts/DefiScanContext'
+import { DeFiScanProvider } from './app/contexts/DeFiScanContext'
 
 initI18n()
 

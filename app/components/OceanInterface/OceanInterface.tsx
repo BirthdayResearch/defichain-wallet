@@ -7,7 +7,7 @@ import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 're
 import { useDispatch, useSelector } from 'react-redux'
 import { Text } from '..'
 import { Logging } from '../../api'
-import { useDeFiScan } from '../../contexts/DefiScanContext'
+import { useDeFiScan } from '../../contexts/DeFiScanContext'
 import { useWalletAddressContext } from '../../contexts/WalletAddressContext'
 import { useWallet } from '../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
