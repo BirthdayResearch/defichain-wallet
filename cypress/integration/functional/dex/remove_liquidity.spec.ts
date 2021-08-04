@@ -51,8 +51,8 @@ context('app/dex/removeLiquidity', () => {
   it('Should be able to remove liquidity', function () {
     cy.getByTestID('button_slider_max').click().wait(1000)
     cy.getByTestID('button_continue_remove_liq').click().wait(4000)
-    cy.getByTestID('bottom_tab_dex').click().wait(1000)
     cy.closeOceanInterface()
+    cy.getByTestID('bottom_tab_dex').click().wait(1000)
 
     // redirected back to dex root page
     cy.getByTestID('liquidity_screen_list').should('exist')
