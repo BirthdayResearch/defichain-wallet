@@ -7,11 +7,10 @@ import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 're
 import { useDispatch, useSelector } from 'react-redux'
 import { Text } from '..'
 import { Logging } from '../../api'
-import { getTxURLByNetwork } from '../../api/wallet'
-import { useNetworkContext } from '../../contexts/NetworkContext'
+import { useDeFiScan } from '../../contexts/DefiScanContext'
 import { useWallet } from '../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
-import { getEnvironment, EnvironmentNetwork } from '../../environment'
+import { getEnvironment } from '../../environment'
 import { fetchTokens } from '../../hooks/wallet/TokensAPI'
 import { RootState } from '../../store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
@@ -22,13 +21,12 @@ const MAX_AUTO_RETRY = 1
 const MAX_TIMEOUT = 300000
 const INTERVAL_TIME = 5000
 
-async function gotoExplorer (txid: string, network: EnvironmentNetwork): Promise<void> {
+async function gotoExplorer (txUrl: string): Promise<void> {
   // TODO(thedoublejay) explorer URL
-  const url = getTxURLByNetwork(network, txid)
   // TODO (future improvement): this page should support in mempool, to be confirm
-  const supported = await Linking.canOpenURL(url)
+  const supported = await Linking.canOpenURL(txUrl)
   if (supported) {
-    await Linking.openURL(url)
+    await Linking.openURL(txUrl)
   }
 }
 
@@ -84,7 +82,7 @@ export function OceanInterface (): JSX.Element | null {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
   const walletContext = useWallet()
-  const { network } = useNetworkContext()
+  const { getTransactionUrl } = useDeFiScan()
 
   // store
   const { height, err: e } = useSelector((state: RootState) => state.ocean)
@@ -95,6 +93,7 @@ export function OceanInterface (): JSX.Element | null {
   const [tx, setTx] = useState<OceanTransaction | undefined>(transaction)
   const [err, setError] = useState<Error | undefined>(e)
   const [txid, setTxid] = useState<string | undefined>()
+  const [txUrl, setTxUrl] = useState<string | undefined>()
 
   const dismissDrawer = useCallback(() => {
     setTx(undefined)
@@ -113,6 +112,7 @@ export function OceanInterface (): JSX.Element | null {
       transaction.sign(walletContext.get(0))
         .then(async signedTx => {
           setTxid(signedTx.txId)
+          setTxUrl(getTransactionUrl(signedTx.txId))
           setTx({
             ...transaction,
             title: translate('screens/OceanInterface', 'Broadcasting...')
@@ -165,7 +165,7 @@ export function OceanInterface (): JSX.Element | null {
       {
         err !== undefined
           ? <TransactionError errMsg={err.message} onClose={dismissDrawer} />
-          : <TransactionDetail broadcasted={tx.broadcasted} title={tx.title} txid={txid} network={network} onClose={dismissDrawer} />
+          : <TransactionDetail broadcasted={tx.broadcasted} title={tx.title} txid={txid} txUrl={txUrl} onClose={dismissDrawer} />
       }
     </Animated.View>
   )
@@ -174,10 +174,10 @@ export function OceanInterface (): JSX.Element | null {
 function TransactionDetail ({
   broadcasted,
   txid,
-  network,
+  txUrl,
   onClose,
   title
-}: { broadcasted: boolean, txid?: string, network: EnvironmentNetwork, onClose: () => void, title?: string }): JSX.Element {
+}: { broadcasted: boolean, txid?: string, txUrl?: string, onClose: () => void, title?: string }): JSX.Element {
   title = title ?? translate('screens/OceanInterface', 'Signing...')
   return (
     <>
@@ -191,7 +191,7 @@ function TransactionDetail ({
         >{title}
         </Text>
         {
-          txid !== undefined && <TransactionIDButton txid={txid} onPress={async () => await gotoExplorer(txid, network)} />
+          txid !== undefined && txUrl !== undefined && <TransactionIDButton txid={txid} onPress={async () => await gotoExplorer(txUrl)} />
         }
       </View>
       {

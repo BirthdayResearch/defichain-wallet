@@ -12,6 +12,7 @@ import ErrorBoundary from './app/screens/ErrorBoundary/ErrorBoundary'
 import { Main } from './app/screens/Main'
 import { store } from './app/store'
 import { initI18n } from './app/translations'
+import { DeFiScanProvider } from './app/contexts/DefiScanContext'
 
 initI18n()
 
@@ -42,9 +43,11 @@ export default function App (): JSX.Element | null {
         <PlaygroundProvider>
           <WhaleProvider>
             <WalletPersistenceProvider>
-              <StoreProvider store={store}>
-                <Main />
-              </StoreProvider>
+              <DeFiScanProvider>
+                <StoreProvider store={store}>
+                  <Main />
+                </StoreProvider>
+              </DeFiScanProvider>
             </WalletPersistenceProvider>
           </WhaleProvider>
         </PlaygroundProvider>
