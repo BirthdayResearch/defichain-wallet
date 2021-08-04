@@ -24,9 +24,24 @@ context('wallet/balances/convert - bi-direction success case', () => {
     // cy.getByTestID('button_continue_convert').should('not.be.enabled')
   })
 
+  it('utxosToToken: should build summary correctly with max amount button', function () {
+    cy.getByTestID('MAX_amount_button').click()
+    cy.getByTestID('text_preview_input_value').contains('0 DFI')
+    cy.getByTestID('text_preview_output_value').contains('10 DFI')
+    cy.getByTestID('button_continue_convert').should('not.be.disabled')
+  })
+
+  it('utxosToToken: should build summary correctly with half amount button', function () {
+    cy.getByTestID('50%_amount_button').click()
+    cy.getByTestID('text_preview_input_value').contains('5 DFI')
+    cy.getByTestID('text_preview_output_value').contains('5 DFI')
+    cy.getByTestID('button_continue_convert').should('not.be.disabled')
+  })
+
   it('utxosToToken: should build summary correctly', function () {
     // https://github.com/cypress-io/cypress/issues/1171#issuecomment-364059485
     cy.getByTestID('text_input_convert_from_input')
+      .clear()
       .invoke('attr', 'type', 'text') // cypress issue with numeric/decimal input, must cast
       .type('1.23')
 
@@ -37,8 +52,8 @@ context('wallet/balances/convert - bi-direction success case', () => {
 
   it('utxosToToken: should be able to convert successfully', function () {
     cy.intercept('/v0/playground/transactions/send').as('sendRaw')
-    cy.getByTestID('button_continue_convert').click().wait(4000)
-    cy.getByTestID('oceanInterface_close').click()
+    cy.getByTestID('button_continue_convert').click()
+    cy.closeOceanInterface()
 
     // check UI redirected (balances root)
     // cy.getByTestID('balances_list').should('exist')
@@ -71,8 +86,23 @@ context('wallet/balances/convert - bi-direction success case', () => {
     cy.getByTestID('text_preview_output_value').contains('8.769').contains('DFI')
   })
 
+  it('tokenToUtxos: should build summary correctly with max amount button', function () {
+    cy.getByTestID('MAX_amount_button').click()
+    cy.getByTestID('text_preview_input_value').should('contain', '0 DFI')
+    cy.getByTestID('text_preview_output_value').should('contain', '9.999').contains('DFI')
+    cy.getByTestID('button_continue_convert').should('not.be.disabled')
+  })
+
+  it('tokenToUtxos: should build summary correctly with half amount button', function () {
+    cy.getByTestID('50%_amount_button').click()
+    cy.getByTestID('text_preview_input_value').should('contain', '0.615 DFI')
+    cy.getByTestID('text_preview_output_value').should('contain', '9.384').contains('DFI')
+    cy.getByTestID('button_continue_convert').should('not.be.disabled')
+  })
+
   it('tokenToUtxos: should build summary correctly', function () {
     cy.getByTestID('text_input_convert_from_input')
+      .clear()
       .invoke('attr', 'type', 'text') // cypress issue with numeric/decimal input, must cast
       .type('0.4')
 
@@ -83,8 +113,8 @@ context('wallet/balances/convert - bi-direction success case', () => {
 
   it('tokenToUtxos: should be able to convert successfully', function () {
     cy.intercept('/v0/playground/transactions/send').as('sendRaw')
-    cy.getByTestID('button_continue_convert').click().wait(4000)
-    cy.getByTestID('oceanInterface_close').click()
+    cy.getByTestID('button_continue_convert').click()
+    cy.closeOceanInterface()
 
     // check UI redirected (balances root)
     cy.getByTestID('balances_list').should('exist')

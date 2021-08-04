@@ -3,11 +3,10 @@ name: DeFiChain Dependencies
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */2 * * *'
+    - cron: '0 * * * *'
 
 jobs:
-  build:
-    name: Build
+  jellyfish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
@@ -17,7 +16,7 @@ jobs:
 
       - name: Upgrade dependencies
         run: |
-          npx npm-check-updates -l m -u --deep --target newest --pre -f "/^@defichain\/.+/" \
+          npx npm-check-updates -l m -u --deep --target newest --pre -f "/^@defichain\/.+/" -x "/^@defichain\/(whale|playground)-.+/" \
           | grep -q 'Run npm install to install new versions' && \
           npm i
 
@@ -26,13 +25,73 @@ jobs:
         with:
           token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           labels: kind/dependencies
-          commit-message: Bump defichain dependencies
           committer: DeFiChain Bot <github-bot@defichain.com>
           author: DeFiChain Bot <github-bot@defichain.com>
-          title: Bump defichain dependencies
+          title: Bump @defichain/jellyfish dependencies
+          commit-message: Bump @defichain/jellyfish dependencies
           body: |
             #### What kind of PR is this?:
             /kind dependencies
             #### What this PR does / why we need it:
-            Bump `@defichain/*` dependencies to the newest release.
-          branch: defichain-bot/bump-deps
+            Bump `@defichain/jellyfish` dependencies to the latest release.
+          branch: defichain-bot/bump-jellyfish-deps
+
+  whale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: actions/setup-node@aa759c6c94d3800c55b8601f21ba4b2371704cb7
+        with:
+          node-version: 15
+
+      - name: Upgrade dependencies
+        run: |
+          npx npm-check-updates -l m -u --deep --target newest --pre -f "/^@defichain\/whale-.+/" \
+          | grep -q 'Run npm install to install new versions' && \
+          npm i
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@9825ae65b1cb54b543b938503728b432a0176d29
+        with:
+          token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
+          labels: kind/dependencies
+          committer: DeFiChain Bot <github-bot@defichain.com>
+          author: DeFiChain Bot <github-bot@defichain.com>
+          title: Bump @defichain/whale dependencies
+          commit-message: Bump @defichain/whale dependencies
+          body: |
+            #### What kind of PR is this?:
+            /kind dependencies
+            #### What this PR does / why we need it:
+            Bump `@defichain/whale` dependencies to the latest release.
+          branch: defichain-bot/bump-whale-deps
+
+  playground:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: actions/setup-node@aa759c6c94d3800c55b8601f21ba4b2371704cb7
+        with:
+          node-version: 15
+
+      - name: Upgrade dependencies
+        run: |
+          npx npm-check-updates -l m -u --deep --target newest --pre -f "/^@defichain\/playground-.+/" \
+          | grep -q 'Run npm install to install new versions' && \
+          npm i
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@9825ae65b1cb54b543b938503728b432a0176d29
+        with:
+          token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
+          labels: kind/dependencies
+          committer: DeFiChain Bot <github-bot@defichain.com>
+          author: DeFiChain Bot <github-bot@defichain.com>
+          title: Bump @defichain/playground dependencies
+          commit-message: Bump @defichain/playground dependencies
+          body: |
+            #### What kind of PR is this?:
+            /kind dependencies
+            #### What this PR does / why we need it:
+            Bump `@defichain/playground` dependencies to the latest release.
+          branch: defichain-bot/bump-playground-deps
