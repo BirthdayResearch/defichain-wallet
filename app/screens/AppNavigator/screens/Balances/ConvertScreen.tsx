@@ -15,8 +15,8 @@ import { Logging } from '../../../../api'
 import { Text, TextInput, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
 import { SectionTitle } from '../../../../components/SectionTitle'
+import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
 import { hasTxQueued, ocean } from '../../../../store/ocean'
@@ -48,7 +48,7 @@ export function ConvertScreen (props: Props): JSX.Element {
     const [source, target] = getDFIBalances(mode, tokens)
     setSourceToken(source)
     setTargetToken(target)
-  }, [mode])
+  }, [mode, JSON.stringify(tokens)])
 
   if (sourceToken === undefined || targetToken === undefined) {
     return <LoadingScreen />

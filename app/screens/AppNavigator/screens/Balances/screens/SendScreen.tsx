@@ -92,7 +92,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
     if (t !== undefined) {
       setToken({ ...t })
     }
-  }, [tokens])
+  }, [JSON.stringify(tokens)])
 
   async function onSubmit (): Promise<void> {
     if (hasPendingJob) {

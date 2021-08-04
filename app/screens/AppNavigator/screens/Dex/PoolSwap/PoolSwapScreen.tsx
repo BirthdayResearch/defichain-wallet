@@ -14,8 +14,8 @@ import { Logging } from '../../../../../api'
 import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
-import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import { SectionTitle } from '../../../../../components/SectionTitle'
+import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
@@ -97,7 +97,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       symbol: tokenBSymbol
     }
     setTokenB(b)
-  }, [route.params.poolpair, tokens])
+  }, [route.params.poolpair, JSON.stringify(tokens)])
 
   if (tokenA === undefined || tokenB === undefined) {
     return <LoadingScreen />
