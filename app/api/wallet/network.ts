@@ -24,25 +24,3 @@ export function getBip32Option (envNetwork: EnvironmentNetwork): Bip32Options {
     wif: network.wifPrefix
   }
 }
-
-export function getTxURLByNetwork (network: EnvironmentNetwork, txId: string): string {
-  const baseUrl = new URL('https://defiscan.xyz/tx/')
-  baseUrl.searchParams.set('txid', txId)
-
-  switch (network) {
-    case EnvironmentNetwork.MainNet:
-      // no-op: network param not required for MainNet
-      break
-
-    case EnvironmentNetwork.TestNet:
-      baseUrl.searchParams.set('network', EnvironmentNetwork.TestNet)
-      break
-
-    case EnvironmentNetwork.LocalPlayground:
-    case EnvironmentNetwork.RemotePlayground:
-      baseUrl.searchParams.set('network', EnvironmentNetwork.RemotePlayground)
-      break
-  }
-
-  return baseUrl.toString()
-}
