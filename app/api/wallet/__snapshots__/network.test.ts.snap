@@ -39,11 +39,3 @@ Object {
   "wif": 239,
 }
 `;
-
-exports[`should return correct tx url for LocalPlayground 1`] = `"https://defiscan.xyz/tx/?txid=123&network=Playground"`;
-
-exports[`should return correct tx url for MainNet 1`] = `"https://defiscan.xyz/tx/?txid=123"`;
-
-exports[`should return correct tx url for RemotePlayground 1`] = `"https://defiscan.xyz/tx/?txid=123&network=Playground"`;
-
-exports[`should return correct tx url for TestNet 1`] = `"https://defiscan.xyz/tx/?txid=123&network=TestNet"`;

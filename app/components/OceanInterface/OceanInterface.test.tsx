@@ -15,9 +15,9 @@ jest.mock('../../contexts/WalletContext', () => ({
   })
 }))
 
-jest.mock('../../contexts/NetworkContext', () => ({
-	useNetworkContext: jest.fn().mockReturnValue({
-		network: 'Playground'
+jest.mock('../../contexts/DeFiScanContext', () => ({
+	useDeFiScan: jest.fn().mockReturnValue({
+		getTransactionUrl: jest.fn()
 	})
 }))
 
