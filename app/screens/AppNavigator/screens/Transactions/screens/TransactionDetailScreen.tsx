@@ -3,7 +3,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { Linking, ScrollView, View } from 'react-native'
 import { Text } from '../../../../../components'
-import { useDeFiScan } from '../../../../../contexts/DeFiScanContext'
+import { useDeFiScanContext } from '../../../../../contexts/DeFiScanContext'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { TransactionsParamList } from '../TransactionsNavigator'
@@ -12,7 +12,7 @@ type Props = StackScreenProps<TransactionsParamList, 'TransactionDetailScreen'>
 
 export function TransactionDetailScreen (props: Props): JSX.Element {
   const { tx } = props.route.params
-  const { getTransactionUrl } = useDeFiScan()
+  const { getTransactionUrl } = useDeFiScanContext()
 
   const grayDivider = <View style={tailwind('bg-gray-100 w-full h-4')} />
   const RenderRow = (lhs: string, rhs: string): JSX.Element => {

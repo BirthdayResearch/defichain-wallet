@@ -7,7 +7,7 @@ import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 're
 import { useDispatch, useSelector } from 'react-redux'
 import { Text } from '..'
 import { Logging } from '../../api'
-import { useDeFiScan } from '../../contexts/DeFiScanContext'
+import { useDeFiScanContext } from '../../contexts/DeFiScanContext'
 import { useWalletAddressContext } from '../../contexts/WalletAddressContext'
 import { useWallet } from '../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
@@ -83,7 +83,7 @@ export function OceanInterface (): JSX.Element | null {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
   const walletContext = useWallet()
-  const { getTransactionUrl } = useDeFiScan()
+  const { getTransactionUrl } = useDeFiScanContext()
 
   // store
   const { height, err: e } = useSelector((state: RootState) => state.ocean)

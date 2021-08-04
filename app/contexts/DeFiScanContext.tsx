@@ -8,7 +8,7 @@ interface DeFiScan {
 
 const DeFiScanContext = createContext<DeFiScan>(undefined as any)
 
-export function useDeFiScan (): DeFiScan {
+export function useDeFiScanContext (): DeFiScan {
   return useContext(DeFiScanContext)
 }
 
