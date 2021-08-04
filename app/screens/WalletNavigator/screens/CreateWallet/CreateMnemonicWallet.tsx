@@ -5,6 +5,7 @@ import * as React from 'react'
 import { ScrollView } from 'react-native'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
+import { CREATE_STEPS, CreateWalletStepIndicator } from '../../../../components/CreateWalletStepIndicator'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { WalletParamList } from '../../WalletNavigator'
@@ -25,6 +26,11 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
 
   return (
     <ScrollView style={tailwind('flex-1 bg-white')}>
+      <CreateWalletStepIndicator
+        current={1}
+        steps={CREATE_STEPS}
+        style={tailwind('py-4 px-1')}
+      />
       <Text style={tailwind('font-semibold text-base p-4 text-center')}>
         {translate('screens/CreateMnemonicWallet', 'Take note of the words in their correct order')}
       </Text>

@@ -19,7 +19,7 @@ import { AmountButtonTypes, SetAmountButton } from '../../../../../components/Se
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
-import { hasTxQueued, ocean } from '../../../../../store/ocean'
+import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import LoadingScreen from '../../../../LoadingNavigator/LoadingScreen'
@@ -36,7 +36,7 @@ type Props = StackScreenProps<DexParamList, 'PoolSwapScreen'>
 export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const poolpair = route.params.poolpair
   const tokens = useTokensAPI()
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.ocean))
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const [tokenAForm, tokenBForm] = ['tokenA', 'tokenB']
 
   // props derived state
@@ -68,7 +68,6 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       constructSignedSwapAndSend(account, swap, dispatch)
         .catch(e => {
           Logging.error(e)
-          dispatch(ocean.actions.setError(e))
         })
     }
   }
@@ -217,8 +216,14 @@ function TokenRow (form: TokenForm): JSX.Element {
         {
           (enableMaxButton != null && onChangeFromAmount !== undefined) && (
             <>
-              <SetAmountButton type={AmountButtonTypes.half} onPress={onChangeFromAmount} amount={new BigNumber(token.amount)} />
-              <SetAmountButton type={AmountButtonTypes.max} onPress={onChangeFromAmount} amount={new BigNumber(token.amount)} />
+              <SetAmountButton
+                type={AmountButtonTypes.half} onPress={onChangeFromAmount}
+                amount={new BigNumber(token.amount)}
+              />
+              <SetAmountButton
+                type={AmountButtonTypes.max} onPress={onChangeFromAmount}
+                amount={new BigNumber(token.amount)}
+              />
             </>
           )
         }
@@ -326,7 +331,7 @@ async function constructSignedSwapAndSend (
     return new CTransactionSegWit(dfTx)
   }
 
-  dispatch(ocean.actions.queueTransaction({
+  dispatch(transactionQueue.actions.push({
     sign: signer,
     title: `${translate('screens/PoolSwapScreen', 'Swapping Token')}`
   }))

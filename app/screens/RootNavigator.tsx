@@ -3,6 +3,7 @@ import { WalletAddressProvider } from '../contexts/WalletAddressContext'
 import { WalletProvider } from '../contexts/WalletContext'
 import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
 import { AppNavigator } from './AppNavigator/AppNavigator'
+import { TransactionAuthorization } from './TransactionAuthorization'
 import { WalletNavigator } from './WalletNavigator/WalletNavigator'
 
 /**
@@ -18,6 +19,7 @@ export function RootNavigator (): JSX.Element {
   return (
     <WalletProvider data={wallets[0]}>
       <WalletAddressProvider>
+        <TransactionAuthorization />
         <AppNavigator />
       </WalletAddressProvider>
     </WalletProvider>

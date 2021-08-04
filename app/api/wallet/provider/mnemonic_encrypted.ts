@@ -15,17 +15,23 @@ const encryption = new PrivateKeyEncryption(new Scrypt(), numOfBytes => {
   return Buffer.from(bytes)
 })
 
+interface PromptInterface {
+  prompt: PromptPassphrase
+}
+
 function initProvider (
   data: WalletPersistenceData<EncryptedProviderData>,
   network: EnvironmentNetwork,
-  promptPassphrase: PromptPassphrase
+  promptInterface: PromptInterface
 ): EncryptedHdNodeProvider {
   if (data.type !== WalletType.MNEMONIC_ENCRYPTED || data.version !== 'v1') {
     throw new Error('Unexpected WalletPersistenceData')
   }
 
   const bip32Options = getBip32Option(network)
-  return EncryptedHdNodeProvider.init(data.raw, bip32Options, encryption, promptPassphrase)
+  return EncryptedHdNodeProvider.init(data.raw, bip32Options, encryption, async () => {
+    return await promptInterface.prompt()
+  })
 }
 
 async function toData (mnemonic: string[], network: EnvironmentNetwork, passphrase: string): Promise<WalletPersistenceData<EncryptedProviderData>> {

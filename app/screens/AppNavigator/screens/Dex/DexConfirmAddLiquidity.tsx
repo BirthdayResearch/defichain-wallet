@@ -13,7 +13,7 @@ import { Logging } from '../../../../api/logging'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { RootState } from '../../../../store'
-import { hasTxQueued, ocean } from '../../../../store/ocean'
+import { hasTxQueued, transactionQueue } from '../../../../store/transaction_queue'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
@@ -28,7 +28,7 @@ export interface AddLiquiditySummary extends PoolPairData {
 }
 
 export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.ocean))
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const {
     fee,
     percentage,
@@ -58,7 +58,6 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       dispatch
     ).catch(e => {
       Logging.error(e)
-      dispatch(ocean.actions.setError(e))
     })
   }, [props.route.params.summary])
 
@@ -179,7 +178,7 @@ async function constructSignedAddLiqAndSend (
     return new CTransactionSegWit(dfTx)
   }
 
-  dispatch(ocean.actions.queueTransaction({
+  dispatch(transactionQueue.actions.push({
     sign: signer,
     title: `${translate('screens/ConfirmLiquidity', 'Adding Liquidity')}`
   }))

@@ -38,13 +38,19 @@ context('wallet/createmnemonic', () => {
     })
   })
 
-  it('should be able to verify and arrive on balances page', function () {
+  it('should be able to verify', function () {
     cy.getByTestID('verify_words_button').should('not.have.attr', 'disabled')
     cy.getByTestID('verify_words_button').click()
-    cy.getByTestID('balances_list').should('exist')
+  })
+
+  it('should be able to set pincode', function () {
+    cy.getByTestID('pin_input').type('000000')
+    cy.getByTestID('create_pin_button').click()
+    cy.getByTestID('pin_confirm_input').type('000000')
   })
 
   it('should be able to restore mnemonic words', function () {
+    cy.getByTestID('balances_list').should('exist')
     cy.getByTestID('playground_wallet_clear').click()
     cy.getByTestID('restore_wallet_button').click()
     recoveryWords.forEach((word, index) => {

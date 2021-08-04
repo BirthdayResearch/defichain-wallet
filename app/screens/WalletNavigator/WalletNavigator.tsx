@@ -8,6 +8,8 @@ import { translate } from '../../translations'
 import { CreateMnemonicWallet } from './screens/CreateWallet/CreateMnemonicWallet'
 import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
 import { GuidelinesRecoveryWords } from './screens/CreateWallet/GuidelinesRecoveryWords'
+import { PinConfirmation } from './screens/CreateWallet/PinConfirmationScreen'
+import { PinCreationScreen } from './screens/CreateWallet/PinCreationScreen'
 import { VerifyMnemonicWallet } from './screens/CreateWallet/VerifyMnemonicWallet'
 import { Onboarding } from './screens/Onboarding'
 import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
@@ -19,6 +21,14 @@ export interface WalletParamList {
     words: string[]
   }
   RestoreMnemonicWallet: undefined
+  PinCreation: {
+    pinLength: 4 | 6
+    words: string[]
+  }
+  PinConfirmation: {
+    pin: string
+    words: string[]
+  }
 
   [key: string]: undefined | object
 }
@@ -34,7 +44,9 @@ const LinkingConfiguration: LinkingOptions = {
       CreateWalletGuidelines: 'wallet/onboarding/guidelines',
       GuidelinesRecoveryWords: 'wallet/onboarding/guidelines/recovery',
       VerifyMnemonicWallet: 'wallet/mnemonic/create/verify',
-      RestoreMnemonicWallet: 'wallet/mnemonic/restore'
+      RestoreMnemonicWallet: 'wallet/mnemonic/restore',
+      PinCreation: 'wallet/pin/create',
+      PinConfirmation: 'wallet/pin/confirm'
     }
   }
 }
@@ -89,6 +101,22 @@ export function WalletNavigator (): JSX.Element {
           component={RestoreMnemonicWallet}
           options={{
             headerTitle: translate('screens/WalletNavigator', 'Restore Wallet'),
+            headerBackTitleVisible: false
+          }}
+        />
+        <WalletStack.Screen
+          name='PinCreation'
+          component={PinCreationScreen}
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'Create a passcode'),
+            headerBackTitleVisible: false
+          }}
+        />
+        <WalletStack.Screen
+          name='PinConfirmation'
+          component={PinConfirmation}
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'Verify passcode'),
             headerBackTitleVisible: false
           }}
         />
