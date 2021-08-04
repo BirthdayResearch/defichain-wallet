@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { SectionTitle } from '../../../../components/SectionTitle'
+import { useWalletAddressContext } from '../../../../contexts/WalletAddressContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { fetchTokens } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
@@ -19,7 +20,7 @@ import { DexParamList } from './DexNavigator'
 
 export function DexScreen (): JSX.Element {
   const client = useWhaleApiClient()
-  const address = useSelector((state: RootState) => state.wallet.address)
+  const { address } = useWalletAddressContext()
   const [pairs, setPairs] = useState<Array<DexItem<PoolPairData>>>([])
   const dispatch = useDispatch()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
