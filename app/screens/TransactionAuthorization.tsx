@@ -91,7 +91,8 @@ export function TransactionAuthorization (): JSX.Element | null {
   // consume pending to sign TransactionQueue from store
   useEffect(() => {
     if (status === 'IDLE' && // wait for prompt UI is ready again
-      transaction !== undefined // any tx queued
+      transaction !== undefined && // any tx queued
+      wallet !== undefined // just in case any data stuck in store
     ) {
       let result: CTransactionSegWit | null | undefined
 
@@ -132,8 +133,8 @@ export function TransactionAuthorization (): JSX.Element | null {
         }
       })
       emitEvent('IDLE')
-    } // else { wallet not encrypted }
-  }, [encryptionUI])
+    } // else { wallet not encrypted }, this component expected to remain render null but functional
+  }, [])
 
   // setup biometric hook if enrolled
   useEffect(() => {
@@ -163,6 +164,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   if (status === 'IDLE') {
     viewHeight.height = 0
   }
+  console.log('status', status)
 
   return (
     <View style={[tailwind('w-full h-full flex-col'), viewHeight]}>
