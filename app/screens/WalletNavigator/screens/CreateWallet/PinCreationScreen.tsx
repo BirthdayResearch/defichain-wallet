@@ -5,9 +5,9 @@ import React, { useState } from 'react'
 import { ScrollView } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
+import { Button } from '../../../../components/Button'
 import { CreateWalletStepIndicator } from '../../../../components/CreateWalletStepIndicator'
 import { PinInput } from '../../../../components/PinInput'
-import { Button } from '../../../../components/Button'
 import { translate } from '../../../../translations'
 import { WalletParamList } from '../../WalletNavigator'
 
@@ -27,7 +27,7 @@ export function PinCreationScreen ({ route }: Props): JSX.Element {
           translate('components/CreateWalletIndicator', 'verify'),
           translate('components/CreateWalletIndicator', 'secure')
         ]}
-        style={tailwind('p-4')}
+        style={tailwind('py-4 px-1')}
       />
       <View style={tailwind('p-4')}>
         <Text style={tailwind('text-center text-gray-500')}>{translate('screens/PinCreation', 'Well done! You answered correctly. Now let\'s make your wallet safe by creating a passcode. Don\'t share your passcode to anyone.')}</Text>

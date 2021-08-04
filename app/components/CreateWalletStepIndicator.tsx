@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
 import { Text, View } from '.'
-import { PrimaryColor } from '../constants/Theme'
 import { tailwind } from '../tailwind'
 
 interface StepIndicatorProps {
@@ -32,8 +31,13 @@ export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Eleme
   function following (): JSX.Element[] {
     const arr: JSX.Element[] = []
     for (let i = 1; i < totalStep; i++) {
-      arr.push(<View key={i * 2} style={[tailwind('h-1 flex-grow mt-3.5'), { backgroundColor: current >= i + 1 ? PrimaryColor : '#FFCDEF' }]} />)
-      arr.push(<StepNode key={i * 2 + 1} step={i + 1} isActive={current === i + 1} />)
+      const iconStyle = current >= i + 1 ? 'bg-primary' : 'bg-gray-100'
+      arr.push(
+        <View
+          key={i * 2}
+          style={tailwind(`h-1 flex-grow mt-3.5 ${iconStyle}`)}
+        />)
+      arr.push(<StepNode key={i * 2 + 1} step={i + 1} current={current} />)
     }
     return arr
   }
@@ -41,10 +45,15 @@ export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Eleme
   function descriptions (): JSX.Element[] {
     const arr: JSX.Element[] = []
     for (let i = 0; i < steps.length; i++) {
-      const textColor = current === i + 1 ? PrimaryColor : 'gray'
+      let textStyle = ''
+      if (current === i + 1) {
+        textStyle = 'text-primary'
+      } else {
+        textStyle = 'text-gray-500'
+      }
       arr.push(
         <View key={i} style={[tailwind('w-16')]}>
-          <Text style={[tailwind('text-center'), { color: textColor }]}>{steps[i]}</Text>
+          <Text style={tailwind(`text-center text-sm font-medium ${textStyle}`)}>{steps[i]}</Text>
         </View>
       )
     }
@@ -54,26 +63,35 @@ export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Eleme
   return (
     <View style={[tailwind('flex-col justify-center items-center w-full'), containerViewStyle]}>
       <View style={[tailwind('flex-row justify-center w-9/12')]}>
-        <StepNode step={1} isActive={current === 1} />
+        <StepNode step={1} current={current} />
         {following()}
       </View>
-      <View style={[tailwind('flex-row justify-between w-10/12 mt-2')]}>
+      <View style={[tailwind('flex-row justify-between w-10/12 mt-1 font-medium')]}>
         {descriptions()}
       </View>
     </View>
   )
 }
 
-function StepNode (props: { step: number, isActive: boolean }): JSX.Element {
+function StepNode (props: { step: number, current: number }): JSX.Element {
+  let stepperStyle
+  let textStyle
+  if (props.current === props.step) {
+    stepperStyle = 'bg-primary bg-opacity-10 border border-primary'
+    textStyle = 'text-primary'
+  } else if (props.current > props.step) {
+    stepperStyle = 'bg-primary border border-primary'
+    textStyle = 'text-white'
+  } else {
+    stepperStyle = 'bg-transparent border border-gray-200'
+    textStyle = 'text-gray-500'
+  }
   return (
     <View style={tailwind('flex-col')}>
       <View
-        style={
-          [tailwind('flex-row h-8 w-8 rounded-2xl justify-center items-center'),
-            { backgroundColor: props.isActive ? '#FFCDEF' : PrimaryColor }]
-        }
+        style={tailwind(`h-8 w-8 rounded-2xl justify-center items-center ${stepperStyle}`)}
       >
-        <Text style={{ color: props.isActive ? PrimaryColor : 'white' }}>{props.step}</Text>
+        <Text style={tailwind(`${textStyle} font-medium`)}>{props.step}</Text>
       </View>
     </View>
   )
