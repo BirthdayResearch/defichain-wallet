@@ -10,10 +10,12 @@ import { RootState } from '../store'
 import { DfTxSigner, first, transactionQueue } from '../store/transaction_queue'
 import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
 import { PasscodeAttemptCounter } from '../api/wallet/passcode_attempt'
+import { BiometricProtectedPasscode } from '../api/wallet/biometric_protected_passcode'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { ocean } from '../store/ocean'
 import { Logging } from '../api'
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
+import * as LocalAuthentication from 'expo-local-authentication'
 
 const MAX_PASSCODE_ATTEMPT = 4 // allowed 3 failures
 const PIN_LENGTH = 6
@@ -36,6 +38,9 @@ export function TransactionAuthorization (): JSX.Element | null {
   const { clearWallets } = useWalletPersistenceContext()
   const wallet = useWallet()
   const encryptionUI = useEncryptedWalletUI()
+
+  // biometric related persistent storage API
+  const [isBiometric, setIsBiometric] = useState(false)
 
   // store
   const dispatch = useDispatch()
@@ -108,6 +113,7 @@ export function TransactionAuthorization (): JSX.Element | null {
     }
   }, [transaction, wallet, status])
 
+  // setup UI (if wallet is encrypted)
   useEffect(() => {
     if (encryptionUI !== undefined) {
       encryptionUI.provide({
@@ -128,6 +134,27 @@ export function TransactionAuthorization (): JSX.Element | null {
       emitEvent('IDLE')
     } // else { wallet not encrypted }
   }, [encryptionUI])
+
+  // setup biometric hook if enrolled
+  useEffect(() => {
+    BiometricProtectedPasscode.isEnrolled()
+      .then(isEnrolled => setIsBiometric(isEnrolled))
+      .catch(e => Logging.error(e))
+  }, [wallet])
+
+  // prompt biometric auth in 'PIN' event
+  useEffect(() => {
+    if (status === 'PIN' && isBiometric) {
+      LocalAuthentication.authenticateAsync()
+        .then(async () => await BiometricProtectedPasscode.get())
+        .then(pinFromSecureStore => {
+          if (pinFromSecureStore !== null) {
+            onPinInput(pinFromSecureStore)
+          }
+        })
+        .catch(e => Logging.error(e)) // auto fallback to manual pin input
+    }
+  }, [status, isBiometric])
 
   if (status === 'INIT') return null
 
