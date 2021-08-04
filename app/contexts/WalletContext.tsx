@@ -29,7 +29,7 @@ export function useWallet (): WhaleWallet {
   return useContext(WalletContext)
 }
 
-export function useEncryptedWallet (): EncryptedWalletUIContext {
+export function useEncryptedWalletUI (): EncryptedWalletUIContext {
   return useContext(EncryptedWalletContext)
 }
 

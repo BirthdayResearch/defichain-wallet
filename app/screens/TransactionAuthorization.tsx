@@ -4,7 +4,7 @@ import { tailwind } from '../tailwind'
 import { Text, View } from '../components'
 import { PinInput } from '../components/PinInput'
 import { translate } from '../translations'
-import { useEncryptedWallet, useWallet } from '../contexts/WalletContext'
+import { useEncryptedWalletUI, useWallet } from '../contexts/WalletContext'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../store'
 import { DfTxSigner, first, transactionQueue } from '../store/transaction_queue'
@@ -35,7 +35,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   // context
   const { clearWallets } = useWalletPersistenceContext()
   const wallet = useWallet()
-  const encryptionUI = useEncryptedWallet()
+  const encryptionUI = useEncryptedWalletUI()
 
   // store
   const dispatch = useDispatch()
