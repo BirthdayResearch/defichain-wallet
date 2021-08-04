@@ -15,6 +15,12 @@ jest.mock('../../contexts/WalletContext', () => ({
   })
 }))
 
+jest.mock('../../contexts/DeFiScanContext', () => ({
+	useDeFiScanContext: jest.fn().mockReturnValue({
+		getTransactionUrl: jest.fn()
+	})
+}))
+
 jest.mock("../../contexts/WalletAddressContext", () => ({
   useWalletAddressContext: () => {
     return {

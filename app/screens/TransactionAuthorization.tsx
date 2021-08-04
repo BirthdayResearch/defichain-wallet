@@ -28,6 +28,7 @@ let PASSPHRASE_PROMISE_PROXY: {
 } | undefined
 
 type Status = 'INIT' | 'IDLE' | 'PIN' | 'SIGNING'
+
 /**
  * The main UI page transaction signing logic interact with encrypted wallet context
  */
@@ -96,7 +97,9 @@ export function TransactionAuthorization (): JSX.Element | null {
       let result: CTransactionSegWit | null | undefined
 
       signTransaction(transaction, wallet.get(0), onRetry)
-        .then(async signedTx => { result = signedTx }) // positive
+        .then(async signedTx => {
+          result = signedTx
+        }) // positive
         .catch(e => {
           // error type check
           if (e.message === 'invalid hash') result = null // negative, invalid passcode

@@ -80,7 +80,9 @@ function MnemonicEncryptedProvider (props: WalletProviderProps<EncryptedProvider
   const { network } = useNetworkContext()
   const client = useWhaleApiClient()
   const [promptUI, setPromptUI] = useState<EncryptedWalletInterface>({
-    prompt: async () => { throw new Error('Prompt UI not ready') }
+    prompt: async () => {
+      throw new Error('Prompt UI not ready')
+    }
   })
 
   const wallet = useMemo(() => {
