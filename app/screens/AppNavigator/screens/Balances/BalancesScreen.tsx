@@ -5,13 +5,13 @@ import * as React from 'react'
 import { useCallback, useEffect, useState } from 'react'
 import { FlatList, RefreshControl, TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { SectionTitle } from '../../../../components/SectionTitle'
+import { useWalletAddressContext } from '../../../../contexts/WalletAddressContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { fetchTokens, useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
-import { RootState } from '../../../../store'
 import { ocean } from '../../../../store/ocean'
 import { WalletToken } from '../../../../store/wallet'
 import { tailwind } from '../../../../tailwind'
@@ -23,7 +23,7 @@ type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
-  const address = useSelector((state: RootState) => state.wallet.address)
+  const { address } = useWalletAddressContext()
   const [refreshing, setRefreshing] = useState(false)
   const dispatch = useDispatch()
 

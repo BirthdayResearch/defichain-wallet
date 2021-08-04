@@ -7,6 +7,7 @@ import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 're
 import { useDispatch, useSelector } from 'react-redux'
 import { Text } from '..'
 import { Logging } from '../../api'
+import { useWalletAddressContext } from '../../contexts/WalletAddressContext'
 import { useWallet } from '../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
 import { getEnvironment } from '../../environment'
@@ -87,11 +88,11 @@ export function OceanInterface (): JSX.Element | null {
   const { height, err: e } = useSelector((state: RootState) => state.ocean)
   const transaction = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const slideAnim = useRef(new Animated.Value(0)).current
-  const address = useSelector((state: RootState) => state.wallet.address)
   // state
   const [tx, setTx] = useState<OceanTransaction | undefined>(transaction)
   const [err, setError] = useState<Error | undefined>(e)
   const [txid, setTxid] = useState<string | undefined>()
+  const { address } = useWalletAddressContext()
 
   const dismissDrawer = useCallback(() => {
     setTx(undefined)
