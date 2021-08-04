@@ -88,7 +88,7 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
           </Text>
         </View>
         <NumberFormat
-          value={token.amount} decimalScale={3} thousandSeparator displayType='text'
+          value={token.amount} decimalScale={4} thousandSeparator displayType='text'
           renderText={(value) =>
             <View style={tailwind('flex-row items-center')}>
               <Text style={tailwind('mr-2')} testID={`balances_row_${token.id}_amount`}>
