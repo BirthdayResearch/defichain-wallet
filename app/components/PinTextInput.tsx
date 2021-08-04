@@ -70,6 +70,7 @@ export function PinTextInput ({ cellCount, testID, value, onChange }: PinTextInp
         keyboardType='number-pad'
         textContentType='oneTimeCode'
         renderCell={renderCell}
+        testID={testID}
       />
     </View>
   )

@@ -57,7 +57,7 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
         </Text>
       </View>
       <PinTextInput
-        cellCount={6} testID='pin_input' value={newPin} onChange={(pin) => {
+        cellCount={6} testID='pin_confirm_input' value={newPin} onChange={(pin) => {
           setNewPin(pin)
           verifyPin(pin)
         }}

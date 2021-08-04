@@ -40,6 +40,7 @@ export function PinCreationScreen ({ route }: Props): JSX.Element {
         </Text>
       </View>
       <Button
+        testID='create_pin_button'
         label={translate('screens/PinCreation', 'CREATE PASSCODE')}
         title='create-pin'
         disabled={newPin.length !== pinLength}
