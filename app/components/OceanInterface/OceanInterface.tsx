@@ -203,7 +203,7 @@ function TransactionError ({ errMsg, onClose }: { errMsg: string | undefined, on
 function TransactionIDButton ({ txid, onPress }: { txid: string, onPress?: () => void }): JSX.Element {
   return (
     <TouchableOpacity
-      testID='oceanNetwork_explorer' style={tailwind('flex-row p-1 items-center  max-w')}
+      testID='oceanNetwork_explorer' style={tailwind('flex-row p-1 items-center  max-w-full')}
       onPress={onPress}
     >
       <Text
