@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { Alert, Platform, ScrollView, TouchableOpacity } from 'react-native'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
-import { CreateWalletStepIndicator } from '../../../../components/CreateWalletStepIndicator'
+import { CREATE_STEPS, CreateWalletStepIndicator } from '../../../../components/CreateWalletStepIndicator'
 import { getEnvironment } from '../../../../environment'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -85,11 +85,7 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
     <ScrollView style={tailwind('flex-1 bg-white')}>
       <CreateWalletStepIndicator
         current={2}
-        steps={[
-          translate('components/CreateWalletIndicator', 'recovery'),
-          translate('components/CreateWalletIndicator', 'verify'),
-          translate('components/CreateWalletIndicator', 'secure')
-        ]}
+        steps={CREATE_STEPS}
         style={tailwind('py-4 px-1')}
       />
       <Text style={tailwind('pt-4 font-semibold text-base px-4 text-center')}>

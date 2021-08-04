@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
 import { Text, View } from '.'
 import { tailwind } from '../tailwind'
+import { translate } from '../translations'
 
 interface StepIndicatorProps {
   current: number
@@ -9,6 +10,17 @@ interface StepIndicatorProps {
   steps?: string[]
   style?: StyleProp<ViewStyle>
 }
+
+export const CREATE_STEPS = [
+  translate('components/CreateWalletIndicator', 'recovery'),
+  translate('components/CreateWalletIndicator', 'verify'),
+  translate('components/CreateWalletIndicator', 'passcode')
+]
+
+export const RESTORE_STEPS = [
+  translate('components/CreateWalletIndicator', 'restore'),
+  translate('components/CreateWalletIndicator', 'passcode')
+]
 
 /**
  * @param props
@@ -24,7 +36,7 @@ export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Eleme
   }
 
   const totalStep = total ?? steps.length
-  if (totalStep < 3 || totalStep > 5 || current <= 0 || current > totalStep) {
+  if (totalStep > 5 || current <= 0 || current > totalStep) {
     throw Error('Invalid prop for CreateWalletStepIndicator')
   }
 
@@ -52,7 +64,7 @@ export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Eleme
         textStyle = 'text-gray-500'
       }
       arr.push(
-        <View key={i} style={[tailwind('w-16')]}>
+        <View key={i}>
           <Text style={tailwind(`text-center text-sm font-medium ${textStyle}`)}>{steps[i]}</Text>
         </View>
       )
