@@ -3,11 +3,10 @@ import { shuffle } from 'lodash'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { Alert, Platform, ScrollView, TouchableOpacity } from 'react-native'
-import { MnemonicUnprotected } from '../../../../api/wallet/provider/mnemonic_unprotected'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
-import { useNetworkContext } from '../../../../contexts/NetworkContext'
-import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
+import { CREATE_STEPS, CreateWalletStepIndicator } from '../../../../components/CreateWalletStepIndicator'
+import { getEnvironment } from '../../../../environment'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { WalletParamList } from '../../WalletNavigator'
@@ -18,6 +17,8 @@ interface VerifyMnemonicItem {
   index: number
   words: string[]
 }
+
+const HARDCODED_PIN_LENGTH = 6
 
 export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element {
   const recoveryWords = route.params.words
@@ -30,8 +31,6 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
   const [selectedWords, setSelectedWords] = useState<string[]>([...recoveryWords])
   const [randomWords, setRandomWords] = useState<VerifyMnemonicItem[]>([])
   const [isValid, setValid] = useState<boolean>(false)
-  const { network } = useNetworkContext()
-  const { setWallet } = useWalletPersistenceContext()
 
   useEffect(() => {
     const random: number[] = Array.from(Array(24), (v, i) => i)
@@ -48,9 +47,12 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
     setRandomWords([...randomWords])
   }, [JSON.stringify(recoveryWords)])
 
-  async function onVerify (): Promise<void> {
+  function onVerify (): void {
     if (recoveryWords.join(' ') === selectedWords.join(' ')) {
-      await setWallet(MnemonicUnprotected.toData(selectedWords, network))
+      navigation.navigate('PinCreation', {
+        pinLength: HARDCODED_PIN_LENGTH,
+        words: recoveryWords
+      })
     } else {
       if (Platform.OS === 'web') {
         navigation.navigate('CreateMnemonicWallet')
@@ -70,8 +72,22 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
     }
   }
 
+  function debugBypass (): void {
+    if (getEnvironment().debug) {
+      navigation.navigate('PinCreation', {
+        pinLength: HARDCODED_PIN_LENGTH,
+        words: recoveryWords
+      })
+    }
+  }
+
   return (
     <ScrollView style={tailwind('flex-1 bg-white')}>
+      <CreateWalletStepIndicator
+        current={2}
+        steps={CREATE_STEPS}
+        style={tailwind('py-4 px-1')}
+      />
       <Text style={tailwind('pt-4 font-semibold text-base px-4 text-center')}>
         {translate('screens/VerifyMnemonicWallet', 'Verify what you wrote as correct.')}
       </Text>
@@ -93,6 +109,8 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
       <Button
         disabled={!isValid}
         onPress={onVerify}
+        delayLongPress={1000}
+        onLongPress={debugBypass}
         title='verify mnemonic'
         testID='verify_words_button'
         label={translate('screens/VerifyMnemonicWallet', 'VERIFY')}

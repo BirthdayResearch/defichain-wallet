@@ -92,7 +92,6 @@ export function OceanInterface (): JSX.Element | null {
   // state
   const [tx, setTx] = useState<OceanTransaction | undefined>(transaction)
   const [err, setError] = useState<Error | undefined>(e)
-  const [txid, setTxid] = useState<string | undefined>()
   const [txUrl, setTxUrl] = useState<string | undefined>()
   const { address } = useWalletAddressContext()
 
@@ -110,23 +109,16 @@ export function OceanInterface (): JSX.Element | null {
         ...transaction,
         broadcasted: false
       })
-      transaction.sign(walletContext.get(0))
-        .then(async signedTx => {
-          setTxid(signedTx.txId)
-          setTxUrl(getTransactionUrl(signedTx.txId))
-          setTx({
-            ...transaction,
-            title: translate('screens/OceanInterface', 'Broadcasting...')
-          })
-          await broadcastTransaction(signedTx, client)
+      broadcastTransaction(transaction.tx, client)
+        .then(async () => {
+          setTxUrl(getTransactionUrl(transaction.tx.txId))
           setTx({
             ...transaction,
             title: translate('screens/OceanInterface', 'Waiting for confirmation')
           })
-
           let title
           try {
-            await waitForTxConfirmation(signedTx.txId, client)
+            await waitForTxConfirmation(transaction.tx.txId, client)
             title = 'Transaction Completed'
           } catch (e) {
             Logging.error(e)
@@ -139,10 +131,7 @@ export function OceanInterface (): JSX.Element | null {
           })
         })
         .catch((e: Error) => {
-          let errMsg = e.message
-          if (txid !== undefined) {
-            errMsg = `${errMsg}. Txid: ${txid}`
-          }
+          const errMsg = `${e.message}. Txid: ${transaction.tx.txId}`
           setError(new Error(errMsg))
         })
         .finally(() => {
@@ -166,7 +155,13 @@ export function OceanInterface (): JSX.Element | null {
       {
         err !== undefined
           ? <TransactionError errMsg={err.message} onClose={dismissDrawer} />
-          : <TransactionDetail broadcasted={tx.broadcasted} title={tx.title} txid={txid} txUrl={txUrl} onClose={dismissDrawer} />
+          : (
+            <TransactionDetail
+              broadcasted={tx.broadcasted}
+              title={tx.title} txid={tx.tx.txId} txUrl={txUrl}
+              onClose={dismissDrawer}
+            />
+          )
       }
     </Animated.View>
   )
@@ -192,7 +187,8 @@ function TransactionDetail ({
         >{title}
         </Text>
         {
-          txid !== undefined && txUrl !== undefined && <TransactionIDButton txid={txid} onPress={async () => await gotoExplorer(txUrl)} />
+          txid !== undefined && txUrl !== undefined &&
+            <TransactionIDButton txid={txid} onPress={async () => await gotoExplorer(txUrl)} />
         }
       </View>
       {

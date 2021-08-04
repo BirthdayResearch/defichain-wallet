@@ -1,14 +1,15 @@
+import BigNumber from 'bignumber.js'
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { tailwind } from '../tailwind'
-import { Text } from './Text'
 import { translate } from '../translations'
-import BigNumber from 'bignumber.js'
+import { Text } from './Text'
 
 export enum AmountButtonTypes {
   half = '50%',
   max = 'MAX'
 }
+
 interface SetAmountButtonProps {
   type: AmountButtonTypes
   onPress: (amount: string) => void
