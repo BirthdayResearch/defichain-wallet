@@ -1,21 +1,21 @@
-import React, { useState, useEffect, useCallback, Dispatch } from 'react'
+import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
+import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
+import React, { Dispatch, useCallback, useEffect, useState } from 'react'
 import { ActivityIndicator, TouchableOpacity } from 'react-native'
-import { tailwind } from '../tailwind'
-import { Text, View } from '../components'
-import { PinInput } from '../components/PinInput'
-import { translate } from '../translations'
-import { useEncryptedWalletUI, useWallet } from '../contexts/WalletContext'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../store'
-import { DfTxSigner, first, transactionQueue } from '../store/transaction_queue'
-import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
+import { Logging } from '../api'
 import { PasscodeAttemptCounter } from '../api/wallet/passcode_attempt'
 import { BiometricProtectedPasscode } from '../api/wallet/biometric_protected_passcode'
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { ocean } from '../store/ocean'
-import { Logging } from '../api'
-import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
+import { Text, View } from '../components'
+import { PinInput } from '../components/PinInput'
+import { useEncryptedWalletUI, useWallet } from '../contexts/WalletContext'
+import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
 import * as LocalAuthentication from 'expo-local-authentication'
+import { RootState } from '../store'
+import { ocean } from '../store/ocean'
+import { DfTxSigner, first, transactionQueue } from '../store/transaction_queue'
+import { tailwind } from '../tailwind'
+import { translate } from '../translations'
 
 const MAX_PASSCODE_ATTEMPT = 4 // allowed 3 failures
 const PIN_LENGTH = 6
@@ -132,8 +132,8 @@ export function TransactionAuthorization (): JSX.Element | null {
           })
         }
       })
-      emitEvent('IDLE')
     } // else { wallet not encrypted }, this component expected to remain render null but functional
+    emitEvent('IDLE')
   }, [])
 
   // setup biometric hook if enrolled

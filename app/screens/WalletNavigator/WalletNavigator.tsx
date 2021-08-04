@@ -115,7 +115,7 @@ export function WalletNavigator (): JSX.Element {
           name='PinCreation'
           component={PinCreation}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Secure Your Wallet'),
+            headerTitle: translate('screens/WalletNavigator', 'Create a passcode'),
             headerBackTitleVisible: false
           }}
         />
@@ -123,7 +123,7 @@ export function WalletNavigator (): JSX.Element {
           name='PinConfirmation'
           component={PinConfirmation}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Secure Your Wallet'),
+            headerTitle: translate('screens/WalletNavigator', 'Verify passcode'),
             headerBackTitleVisible: false
           }}
         />

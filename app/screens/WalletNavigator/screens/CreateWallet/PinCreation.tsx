@@ -3,11 +3,11 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
 import { ScrollView } from 'react-native'
-import tailwind from 'tailwind-rn'
 import { Text, View } from '../../../../components'
-import { CreateWalletStepIndicator } from '../../../../components/CreateWalletStepIndicator'
-import { PinInput } from '../../../../components/PinInput'
 import { Button } from '../../../../components/Button'
+import { CREATE_STEPS, CreateWalletStepIndicator } from '../../../../components/CreateWalletStepIndicator'
+import { PinTextInput } from '../../../../components/PinTextInput'
+import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { WalletParamList } from '../../WalletNavigator'
 
@@ -22,25 +22,25 @@ export function PinCreation ({ route }: Props): JSX.Element {
     <ScrollView style={tailwind('w-full flex-1 flex-col bg-white')}>
       <CreateWalletStepIndicator
         current={3}
-        steps={[
-          translate('components/CreateWalletIndicator', 'recovery'),
-          translate('components/CreateWalletIndicator', 'verify'),
-          translate('components/CreateWalletIndicator', 'secure')
-        ]}
-        style={tailwind('p-4')}
+        steps={CREATE_STEPS}
+        style={tailwind('py-4 px-1')}
       />
-      <View style={tailwind('p-4')}>
-        <Text style={tailwind('text-center text-gray-500')}>{translate('screens/PinCreation', 'Well done! You answered correctly. Now let\'s make your wallet safe by creating a passcode. Don\'t share your passcode to anyone.')}</Text>
+      <View style={tailwind('px-6 py-4 mb-12')}>
+        <Text
+          style={tailwind('text-center font-semibold')}
+        >{translate('screens/PinCreation', 'Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.')}
+        </Text>
       </View>
-      <View style={tailwind('p-4 flex-row mt-4 justify-center items-center')}>
-        <MaterialIcons name='lock' />
-        <Text style={tailwind('text-center font-bold ml-2')}>{translate('screens/PinCreation', 'Create a passcode for your wallet')}</Text>
+      <PinTextInput cellCount={6} testID='pin_input' value={newPin} onChange={setNewPin} />
+      <View style={tailwind('p-4 flex-row mt-2 mb-8 justify-center items-center')}>
+        <MaterialIcons name='lock-outline' size={18} />
+        <Text
+          style={tailwind('text-center text-sm font-semibold ml-2')}
+        >{translate('screens/PinCreation', 'Keep your passcode private')}
+        </Text>
       </View>
-      <PinInput
-        length={pinLength}
-        onChange={val => setNewPin(val)}
-      />
       <Button
+        testID='create_pin_button'
         label={translate('screens/PinCreation', 'CREATE PASSCODE')}
         title='create-pin'
         disabled={newPin.length !== pinLength}
