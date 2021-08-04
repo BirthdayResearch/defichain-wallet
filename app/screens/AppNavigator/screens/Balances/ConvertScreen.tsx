@@ -19,7 +19,8 @@ import { SectionTitle } from '../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
-import { hasTxQueued, ocean } from '../../../../store/ocean'
+import { ocean } from '../../../../store/ocean'
+import { hasTxQueued, transactionQueue } from '../../../../store/transaction_queue'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
@@ -36,7 +37,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   const dispatch = useDispatch()
   // global state
   const tokens = useTokensAPI()
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.ocean))
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
 
   const [mode, setMode] = useState(props.route.params.mode)
   const [sourceToken, setSourceToken] = useState<ConversionIO>()
@@ -160,8 +161,10 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
             renderText={(value: string) => <Text style={tailwind('font-medium text-gray-500')}>{value}</Text>}
           />
         </View>
-        {props.mode === 'input' && props.onChange && <SetAmountButton type={AmountButtonTypes.half} onPress={props.onChange} amount={props.balance} />}
-        {props.mode === 'input' && props.onChange && <SetAmountButton type={AmountButtonTypes.max} onPress={props.onChange} amount={props.balance} />}
+        {props.mode === 'input' && props.onChange &&
+          <SetAmountButton type={AmountButtonTypes.half} onPress={props.onChange} amount={props.balance} />}
+        {props.mode === 'input' && props.onChange &&
+          <SetAmountButton type={AmountButtonTypes.max} onPress={props.onChange} amount={props.balance} />}
       </View>
     </View>
   )
@@ -252,7 +255,7 @@ async function constructSignedConversionAndSend (mode: ConversionMode, amount: B
     return new CTransactionSegWit(signed)
   }
 
-  dispatch(ocean.actions.queueTransaction({
+  dispatch(transactionQueue.actions.push({
     sign: signer,
     title: `${translate('screens/ConvertScreen', 'Converting DFI')}`
   }))

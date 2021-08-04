@@ -22,7 +22,7 @@ import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
-import { hasTxQueued, ocean } from '../../../../../store/ocean'
+import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
 import { WalletToken } from '../../../../../store/wallet'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
@@ -60,13 +60,12 @@ async function send ({
       return new CTransactionSegWit(signed)
     }
 
-    dispatch(ocean.actions.queueTransaction({
+    dispatch(transactionQueue.actions.push({
       sign: signer,
       title: `${translate('screens/SendScreen', 'Sending')} ${token.symbol}`
     }))
   } catch (e) {
     Logging.error(e)
-    dispatch(ocean.actions.setError(e))
   }
 }
 
@@ -81,7 +80,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const dispatch = useDispatch()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.ocean))
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
 
   useEffect(() => {
     client.fee.estimate().then((f) => setFee(new BigNumber(f))).catch((e) => Logging.error(e))
@@ -254,7 +253,10 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
             renderText={(value) => <Text testID='max_value' style={tailwind('text-gray-500')}>{value}</Text>}
           />
         </View>
-        <SetAmountButton type={AmountButtonTypes.half} onPress={onAmountButtonPress} amount={new BigNumber(maxAmount)} />
+        <SetAmountButton
+          type={AmountButtonTypes.half} onPress={onAmountButtonPress}
+          amount={new BigNumber(maxAmount)}
+        />
         <SetAmountButton type={AmountButtonTypes.max} onPress={onAmountButtonPress} amount={new BigNumber(maxAmount)} />
       </View>
     </>

@@ -15,6 +15,12 @@ jest.mock('../../contexts/WalletContext', () => ({
   })
 }))
 
+jest.mock('../../contexts/DeFiScanContext', () => ({
+	useDeFiScanContext: jest.fn().mockReturnValue({
+		getTransactionUrl: jest.fn()
+	})
+}))
+
 jest.mock("../../contexts/WalletAddressContext", () => ({
   useWalletAddressContext: () => {
     return {
@@ -59,7 +65,7 @@ describe('oceanInterface', () => {
         height: 49,
         transactions: [{
           broadcasted: false,
-          sign: async () => signed
+          tx: signed
         }]
       },
       wallet: {
