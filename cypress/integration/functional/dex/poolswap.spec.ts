@@ -75,7 +75,7 @@ context('poolswap with values', () => {
     cy.getByTestID('text_price_row_minimum_0').then(() => {
       // const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
       cy.getByTestID('button_submit').click()
-      cy.wait(5000).getByTestID('oceanInterface_close').click().wait(5000)
+      cy.closeOceanInterface()
       cy.getByTestID('playground_wallet_fetch_balances').click()
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_row_4').should('exist')
