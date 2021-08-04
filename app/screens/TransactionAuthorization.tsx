@@ -1,12 +1,12 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import React, { Dispatch, useCallback, useEffect, useState } from 'react'
-import { ActivityIndicator, TouchableOpacity } from 'react-native'
+import { ActivityIndicator, Alert, Platform, SafeAreaView, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../api'
-import { PasscodeAttemptCounter } from '../api/wallet/passcode_attempt'
+import { PasscodeAttemptCounter } from '../api/wallet'
 import { Text, View } from '../components'
-import { PinInput } from '../components/PinInput'
+import { PinTextInput } from '../components/PinTextInput'
 import { useEncryptedWalletUI, useWallet } from '../contexts/WalletContext'
 import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
 import { RootState } from '../store'
@@ -44,8 +44,10 @@ export function TransactionAuthorization (): JSX.Element | null {
   // computed state
   const [status, emitEvent] = useState<Status>('INIT')
   const [attemptsRemaining, setAttemptsRemaining] = useState<number>(MAX_PASSCODE_ATTEMPT)
+  const [pin, setPin] = useState<string>('')
 
   const onPinInput = useCallback((pin: string): void => {
+    setPin(pin)
     if (pin.length === PIN_LENGTH && PASSPHRASE_PROMISE_PROXY !== undefined) {
       const resolve = PASSPHRASE_PROMISE_PROXY.resolve
       emitEvent('SIGNING')
@@ -58,6 +60,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   }, [PASSPHRASE_PROMISE_PROXY, PASSPHRASE_PROMISE_PROXY?.resolve])
 
   const onCancel = useCallback((): void => {
+    setPin('')
     emitEvent('IDLE')
     if (PASSPHRASE_PROMISE_PROXY !== undefined) {
       const reject = PASSPHRASE_PROMISE_PROXY.reject
@@ -70,12 +73,14 @@ export function TransactionAuthorization (): JSX.Element | null {
   }, [PASSPHRASE_PROMISE_PROXY, PASSPHRASE_PROMISE_PROXY?.reject])
 
   const onRetry = useCallback(async (attempts: number) => {
+    setPin('')
     setAttemptsRemaining(MAX_PASSCODE_ATTEMPT - attempts)
     await PasscodeAttemptCounter.set(attempts)
     emitEvent('PIN')
   }, [attemptsRemaining])
 
   const onComplete = useCallback(async (dispatch: Dispatch<any>, tx: CTransactionSegWit) => {
+    setPin('')
     setAttemptsRemaining(MAX_PASSCODE_ATTEMPT)
     await PasscodeAttemptCounter.set(0)
 
@@ -99,9 +104,14 @@ export function TransactionAuthorization (): JSX.Element | null {
         })
         .then(async () => {
           // result handling, 3 cases
-          if (result === undefined) dispatch(transactionQueue.actions.pop())
-          else if (result === null) await clearWallets()
-          else await onComplete(dispatch, result)
+          if (result === undefined) {
+            dispatch(transactionQueue.actions.pop())
+          } else if (result === null) {
+            await clearWallets()
+            onUnlinkWallet()
+          } else {
+            await onComplete(dispatch, result)
+          }
         })
         .catch(e => Logging.error(e))
         .finally(() => emitEvent('IDLE'))
@@ -136,50 +146,48 @@ export function TransactionAuthorization (): JSX.Element | null {
   if (status === 'IDLE') {
     viewHeight.height = 0
   }
-
   return (
-    <View style={[tailwind('w-full h-full flex-col'), viewHeight]}>
-      <TouchableOpacity style={tailwind('bg-white p-4')} onPress={onCancel}>
+    <SafeAreaView style={[tailwind('w-full h-full flex-col bg-white'), viewHeight]}>
+      <View style={{ paddingTop: 20 }}>
+        <TouchableOpacity style={tailwind('bg-white p-4 border-b border-gray-200')} onPress={onCancel}>
+          <Text
+            style={tailwind('font-bold text-primary')}
+          >{translate('components/UnlockWallet', 'CANCEL')}
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={tailwind('bg-white w-full flex-1 flex-col mt-8')}>
         <Text
-          style={tailwind('font-bold text-primary')}
-        >{translate('components/UnlockWallet', 'CANCEL')}
+          style={tailwind('text-center text-xl font-bold')}
+        >{translate('screens/UnlockWallet', 'Enter passcode')}
         </Text>
-      </TouchableOpacity>
-      <View style={tailwind('bg-white w-full flex-1 flex-col justify-center border-t border-gray-200')}>
-        <Text style={tailwind('text-center text-lg font-bold')}>{translate('screens/UnlockWallet', 'Enter passcode')}</Text>
-        <Text style={tailwind('pt-2 pb-4 text-center text-gray-500')}>{translate('screens/UnlockWallet', 'For transaction signing purpose')}</Text>
+        <Text
+          style={tailwind('p-4 px-8 text-sm text-center text-gray-500 mb-6')}
+        >{translate('screens/UnlockWallet', 'To proceed with your transaction, please enter your passcode')}
+        </Text>
         {/* TODO: switch authorization method here when biometric supported */}
-        <PassphraseInput
-          isPrompting={status === 'PIN'}
-          disabled={status === 'SIGNING'}
-          pinLength={PIN_LENGTH}
-          onPinInput={onPinInput}
+        {
+          status === 'PIN' && (
+            <PinTextInput
+              cellCount={PIN_LENGTH} onChange={(pin) => {
+                onPinInput(pin)
+              }} value={pin} testID='pin_authorize'
+            />
+          )
+        }
+        <Loading
+          message={status === 'SIGNING' ? translate('screens/TransactionAuthorization', 'Signing...') : undefined}
         />
-        <Loading message={status === 'SIGNING' ? translate('screens/TransactionAuthorization', 'Signing...') : undefined} />
         {
           (attemptsRemaining !== undefined && attemptsRemaining !== MAX_PASSCODE_ATTEMPT) ? (
-            <Text style={tailwind('text-center text-red-500 font-bold')}>
-              {translate('screens/PinConfirmation', 'Wrong passcode. %{attemptsRemaining} tries remaining', { attemptsRemaining: `${attemptsRemaining}` })}
+            <Text style={tailwind('text-center text-error text-sm font-bold mt-5')}>
+              {translate('screens/PinConfirmation', `${attemptsRemaining === 1 ? 'Last attempt or your wallet will be unlinked'
+                : 'Incorrect passcode. %{attemptsRemaining} attempts remaining'}`, { attemptsRemaining: `${attemptsRemaining}` })}
             </Text>
           ) : null
         }
       </View>
-    </View>
-  )
-}
-
-function PassphraseInput ({ isPrompting, pinLength, onPinInput, disabled }: {
-  isPrompting: boolean
-  pinLength: 4 | 6
-  onPinInput: (pin: string) => void
-  disabled?: boolean
-}): JSX.Element | null {
-  if (!isPrompting) {
-    return null
-  }
-
-  return (
-    <PinInput length={pinLength} onChange={onPinInput} disabled={disabled} />
+    </SafeAreaView>
   )
 }
 
@@ -187,7 +195,7 @@ function Loading ({ message }: { message?: string }): JSX.Element | null {
   if (message === undefined) return null
   return (
     <View style={tailwind('flex-row justify-center p-2')}>
-      <ActivityIndicator />
+      <ActivityIndicator color='#FF00AF' />
       <Text style={tailwind('ml-2')}>{message}</Text>
     </View>
   )
@@ -203,5 +211,20 @@ async function signTransaction (tx: DfTxSigner, account: WhaleWalletAccount, onA
       return await signTransaction(tx, account, onAutoRetry, retries)
     }
     throw e
+  }
+}
+
+function onUnlinkWallet (): void {
+  if (Platform.OS !== 'web') {
+    Alert.alert(
+      translate('screens/PinConfirmation', 'Wallet Unlinked'),
+      translate('screens/PinConfirmation', 'Your wallet was unlinked due to security concerns. You can use your recovery words to restore and set up your wallet again.'),
+      [
+        {
+          text: translate('screens/PinConfirmation', 'Close'),
+          style: 'destructive'
+        }
+      ]
+    )
   }
 }
