@@ -9,8 +9,8 @@ import NumberFormat from 'react-number-format'
 import { Text, TextInput, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
 import { SectionTitle } from '../../../../components/SectionTitle'
+import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -83,7 +83,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     })
     if (addressTokenA !== undefined) setBalanceA(new BigNumber(addressTokenA.amount))
     if (addressTokenB !== undefined) setBalanceB(new BigNumber(addressTokenB.amount))
-  }, [props.route.params.pair, tokens])
+  }, [props.route.params.pair, JSON.stringify(tokens)])
 
   if (pair === undefined) {
     return <LoadingScreen />

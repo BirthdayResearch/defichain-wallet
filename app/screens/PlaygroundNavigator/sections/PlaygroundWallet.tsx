@@ -1,14 +1,10 @@
 import { generateMnemonicWords } from '@defichain/jellyfish-wallet-mnemonic'
 import * as Random from 'expo-random'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { MnemonicUnprotected } from '../../../api/wallet'
 import { Text, View } from '../../../components'
 import { useNetworkContext } from '../../../contexts/NetworkContext'
 import { useWalletPersistenceContext } from '../../../contexts/WalletPersistenceContext'
-import { useWhaleApiClient } from '../../../contexts/WhaleContext'
-import { fetchTokens } from '../../../hooks/wallet/TokensAPI'
-import { RootState } from '../../../store'
 import { tailwind } from '../../../tailwind'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
@@ -16,9 +12,6 @@ import { PlaygroundStatus } from '../components/PlaygroundStatus'
 export function PlaygroundWallet (): JSX.Element | null {
   const { wallets, clearWallets, setWallet } = useWalletPersistenceContext()
   const network = useNetworkContext()
-  const whaleApiClient = useWhaleApiClient()
-  const dispatch = useDispatch()
-  const address = useSelector((state: RootState) => state.wallet.address)
 
   return (
     <View>
@@ -55,12 +48,6 @@ export function PlaygroundWallet (): JSX.Element | null {
 
           await setWallet(MnemonicUnprotected.toData(words, network.network))
         }}
-      />
-
-      <PlaygroundAction
-        testID='playground_wallet_fetch_balances'
-        title='Fetch Balances'
-        onPress={() => fetchTokens(whaleApiClient, address, dispatch)}
       />
     </View>
   )

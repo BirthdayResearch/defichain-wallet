@@ -7,6 +7,14 @@ import { RootState } from "../../../../../store";
 import { wallet } from "../../../../../store/wallet";
 import { ReceiveScreen } from "./ReceiveScreen";
 
+jest.mock("../../../../../contexts/WalletAddressContext", () => ({
+  useWalletAddressContext: () => {
+    return {
+      address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d'
+    }
+  }
+}));
+
 jest.mock("expo-clipboard", () => ({
   setString: jest.fn()
 }))
@@ -15,7 +23,6 @@ describe('receive page', () => {
   it('should match snapshot', async () => {
     const initialState: Partial<RootState> = {
       wallet: {
-        address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
         utxoBalance: '77',
         tokens: []
       }
@@ -36,7 +43,6 @@ describe('receive page', () => {
   it('should trigger copy', async () => {
     const initialState: Partial<RootState> = {
       wallet: {
-        address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
         utxoBalance: '77',
         tokens: []
       }

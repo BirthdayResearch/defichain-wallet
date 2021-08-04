@@ -84,7 +84,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.ocean))
 
   useEffect(() => {
-    client.transactions.estimateFee().then((f) => setFee(new BigNumber(f))).catch((e) => Logging.error(e))
+    client.fee.estimate().then((f) => setFee(new BigNumber(f))).catch((e) => Logging.error(e))
   }, [])
 
   useEffect(() => {
@@ -92,7 +92,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
     if (t !== undefined) {
       setToken({ ...t })
     }
-  }, [tokens])
+  }, [JSON.stringify(tokens)])
 
   async function onSubmit (): Promise<void> {
     if (hasPendingJob) {

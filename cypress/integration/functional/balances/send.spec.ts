@@ -1,3 +1,4 @@
+import { WhaleApiClient } from '@defichain/whale-api-client'
 import BigNumber from 'bignumber.js'
 
 context('wallet/send', () => {
@@ -84,16 +85,12 @@ context('wallet/send', () => {
       })
 
       it(`should check if exist on other side ${address}`, function () {
-        // TODO(jj): we should inject a WhaleClient into cypress global for operations
-        //  such as this as versioning is automatically handled there
-        let url: string
-        if (network === 'Playground') {
-          url = 'https://playground.defichain.com/v0.7/regtest'
-        } else {
-          url = 'http://localhost:19553/v0.7/regtest'
-        }
-        cy.request(`${url}/address/${address}/balance`).then((response) => {
-          expect(response.body).to.have.property('data', '1.00000000')
+        const whale = new WhaleApiClient({
+          url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
+          network: 'regtest'
+        })
+        cy.wrap(whale.address.getBalance(address)).then((response) => {
+          expect(response).eq('1.00000000')
         })
       })
 
