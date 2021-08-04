@@ -6,6 +6,7 @@ import { Text } from '../../../../../components'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { TransactionsParamList } from '../TransactionsNavigator'
+import { formatBlockTime } from '../TransactionsScreen'
 
 type Props = StackScreenProps<TransactionsParamList, 'TransactionDetailScreen'>
 
@@ -41,6 +42,7 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
       {/* TODO(@ivan-zynesis): handle different transaction type other than sent/receive */}
       {RenderRow('Amount', translate('screens/TransactionDetailScreen', tx.amount))}
       {RenderRow('Block', translate('screens/TransactionDetailScreen', `${tx.block}`))}
+      {RenderRow('Date', translate('screens/TransactionDetailScreen', `${formatBlockTime(tx.medianTime)}`))}
       {grayDivider}
       <View
         testID='transaction-detail-explorer-url'
