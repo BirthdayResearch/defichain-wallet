@@ -33,7 +33,7 @@ async function gotoExplorer (txid: string): Promise<void> {
 
 async function broadcastTransaction (tx: CTransactionSegWit, client: WhaleApiClient, retries: number = 0): Promise<string> {
   try {
-    return await client.transactions.send({ hex: tx.toHex() })
+    return await client.rawtx.send({ hex: tx.toHex() })
   } catch (e) {
     Logging.error(e)
     if (retries < MAX_AUTO_RETRY) {
