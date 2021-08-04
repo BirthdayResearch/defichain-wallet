@@ -34,7 +34,7 @@ export function PinTextInput ({ cellCount, testID, value, onChange }: PinTextInp
   const renderCell = ({ index, symbol, isFocused }: RenderCellItem): JSX.Element => {
     let textChild = null
 
-    if (symbol !== undefined || symbol !== '') {
+    if (symbol !== undefined && symbol !== '') {
       textChild = (
         <MaskSymbol
           maskSymbol='●'
