@@ -67,7 +67,7 @@ exports[`oceanInterface should match snapshot 1`] = `
         ]
       }
     >
-      Broadcasting...
+      Signing...
     </Text>
     <View
       accessible={true}
