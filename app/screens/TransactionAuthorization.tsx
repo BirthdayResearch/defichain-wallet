@@ -164,7 +164,6 @@ export function TransactionAuthorization (): JSX.Element | null {
   if (status === 'IDLE') {
     viewHeight.height = 0
   }
-  console.log('status', status)
 
   return (
     <View style={[tailwind('w-full h-full flex-col'), viewHeight]}>
