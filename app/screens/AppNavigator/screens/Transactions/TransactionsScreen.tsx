@@ -1,5 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
+import moment from 'moment'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
@@ -63,7 +64,7 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
       iconName,
       amount,
       desc,
-      block,
+      medianTime,
       token
     } = row.item
 
@@ -85,7 +86,7 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
             <Text style={tailwind('font-medium')}>{translate('screens/TransactionsScreen', desc)}</Text>
             <Text
               style={tailwind('text-xs text-gray-600')}
-            >{translate('screens/TransactionsScreen', 'Block')}: {block}
+            >{moment(medianTime * 1000).format('MMM D, h:mm a')}
             </Text>
           </View>
           <View style={tailwind('flex-row ml-3 w-32 justify-end items-center')}>
