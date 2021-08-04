@@ -83,7 +83,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     })
     if (addressTokenA !== undefined) setBalanceA(new BigNumber(addressTokenA.amount))
     if (addressTokenB !== undefined) setBalanceB(new BigNumber(addressTokenB.amount))
-  }, [props.route.params.pair, tokens])
+  }, [props.route.params.pair, JSON.stringify(tokens)])
 
   if (pair === undefined) {
     return <LoadingScreen />

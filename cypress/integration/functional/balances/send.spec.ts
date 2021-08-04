@@ -88,9 +88,9 @@ context('wallet/send', () => {
         //  such as this as versioning is automatically handled there
         let url: string
         if (network === 'Playground') {
-          url = 'https://playground.defichain.com/v0.7/regtest'
+          url = 'https://playground.defichain.com/v0.8/regtest'
         } else {
-          url = 'http://localhost:19553/v0.7/regtest'
+          url = 'http://localhost:19553/v0.8/regtest'
         }
         cy.request(`${url}/address/${address}/balance`).then((response) => {
           expect(response.body).to.have.property('data', '1.00000000')

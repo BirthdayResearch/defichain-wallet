@@ -15,6 +15,14 @@ jest.mock('../../contexts/WalletContext', () => ({
   })
 }))
 
+jest.mock("../../contexts/WalletAddressContext", () => ({
+  useWalletAddressContext: () => {
+    return {
+      address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d'
+    }
+  }
+}));
+
 describe('oceanInterface', () => {
   it('should match snapshot with error', async () => {
     const initialState: Partial<RootState> = {
@@ -24,7 +32,6 @@ describe('oceanInterface', () => {
         err: new Error('An unknown error has occurred')
       },
       wallet: {
-        address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
         utxoBalance: '77',
         tokens: []
       }
@@ -56,7 +63,6 @@ describe('oceanInterface', () => {
         }]
       },
       wallet: {
-        address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
         utxoBalance: '77',
         tokens: []
       }

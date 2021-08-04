@@ -96,7 +96,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       symbol: tokenBSymbol
     }
     setTokenB(b)
-  }, [route.params.poolpair, tokens])
+  }, [route.params.poolpair, JSON.stringify(tokens)])
 
   if (tokenA === undefined || tokenB === undefined) {
     return <LoadingScreen />

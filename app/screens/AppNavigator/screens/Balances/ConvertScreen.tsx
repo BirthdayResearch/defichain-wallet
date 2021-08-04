@@ -49,7 +49,7 @@ export function ConvertScreen (props: Props): JSX.Element {
     const [source, target] = getDFIBalances(mode, tokens)
     setSourceToken(source)
     setTargetToken(target)
-  }, [mode])
+  }, [mode, JSON.stringify(tokens)])
 
   if (sourceToken === undefined || targetToken === undefined) {
     return <LoadingScreen />
