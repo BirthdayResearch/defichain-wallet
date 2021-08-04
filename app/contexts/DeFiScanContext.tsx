@@ -31,7 +31,7 @@ export function DeFiScanProvider (props: React.PropsWithChildren<any>): JSX.Elem
 }
 
 function getTxURLByNetwork (network: EnvironmentNetwork, txid: string): string {
-  const baseUrl = new URL(`https://defiscan.xyz/transactions/${txid}`)
+  const baseUrl = new URL(`https://defiscan.live/transactions/${txid}`)
 
   switch (network) {
     case EnvironmentNetwork.MainNet:
