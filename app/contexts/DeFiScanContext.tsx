@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, createContext } from 'react'
+import React, { createContext, useContext, useMemo } from 'react'
 import { EnvironmentNetwork } from '../environment'
 import { useNetworkContext } from './NetworkContext'
 
@@ -31,7 +31,7 @@ export function DeFiScanProvider (props: React.PropsWithChildren<any>): JSX.Elem
 }
 
 function getTxURLByNetwork (network: EnvironmentNetwork, txid: string): string {
-  const baseUrl = new URL(`https://defiscan.live/transactions/${txid}`)
+  let baseUrl = `https://defiscan.live/transactions/${txid}`
 
   switch (network) {
     case EnvironmentNetwork.MainNet:
@@ -39,12 +39,12 @@ function getTxURLByNetwork (network: EnvironmentNetwork, txid: string): string {
       break
 
     case EnvironmentNetwork.TestNet:
-      baseUrl.searchParams.set('network', EnvironmentNetwork.TestNet)
+      baseUrl = `${baseUrl}?network=${EnvironmentNetwork.TestNet}`
       break
 
     case EnvironmentNetwork.LocalPlayground:
     case EnvironmentNetwork.RemotePlayground:
-      baseUrl.searchParams.set('network', EnvironmentNetwork.RemotePlayground)
+      baseUrl = `${baseUrl}?network=${EnvironmentNetwork.RemotePlayground}`
       break
   }
 
