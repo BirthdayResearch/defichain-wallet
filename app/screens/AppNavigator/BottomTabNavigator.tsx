@@ -10,6 +10,7 @@ import { BalancesNavigator } from './screens/Balances/BalancesNavigator'
 import { DexNavigator } from './screens/Dex/DexNavigator'
 import { SettingsNavigator } from './screens/Settings/SettingsNavigator'
 import { TransactionsNavigator } from './screens/Transactions/TransactionsNavigator'
+import { MasternodesNavigator } from './screens/Masternodes/MasternodesNavigator'
 
 export interface BottomTabParamList {
   Balances: undefined
@@ -51,6 +52,14 @@ export function BottomTabNavigator (): JSX.Element {
           component={TransactionsNavigator}
           options={{
             tabBarTestID: 'bottom_tab_transactions',
+            tabBarIcon: ({ color }) => <MaterialIcons size={24} name='assignment' color={color} />
+          }}
+        />
+        <BottomTab.Screen
+          name={translate('BottomTabNavigator', 'Masternodes')}
+          component={MasternodesNavigator}
+          options={{
+            tabBarTestID: 'bottom_tab_masternodes',
             tabBarIcon: ({ color }) => <MaterialIcons size={24} name='assignment' color={color} />
           }}
         />
