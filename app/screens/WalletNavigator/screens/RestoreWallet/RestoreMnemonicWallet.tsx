@@ -7,6 +7,7 @@ import { Alert, TextInput } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
+import { CreateWalletStepIndicator, RESTORE_STEPS } from '../../../../components/CreateWalletStepIndicator'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -37,7 +38,9 @@ export function RestoreMnemonicWallet (): JSX.Element {
     if (isValid && validateMnemonicSentence(words)) {
       setIsSubmitting(false)
       navigation.navigate('PinCreation', {
-        words, pinLength: 6
+        words,
+        pinLength: 6,
+        type: 'restore'
       })
     } else {
       setIsSubmitting(false)
@@ -52,16 +55,23 @@ export function RestoreMnemonicWallet (): JSX.Element {
   }
 
   return (
-    <KeyboardAwareScrollView style={tailwind('bg-gray-100')}>
-      <View style={tailwind('justify-center p-4 bg-white')}>
+    <KeyboardAwareScrollView style={tailwind('bg-white')}>
+      <CreateWalletStepIndicator
+        current={1}
+        steps={RESTORE_STEPS}
+        style={tailwind('py-4 px-1')}
+      />
+      <View style={tailwind('justify-center p-4')}>
         <Text style={tailwind('font-medium text-sm text-gray-500 text-center')}>
           {translate('screens/RestoreWallet', 'Please provide your 24 recovery words to regain access to your wallet.')}
         </Text>
       </View>
-      <SectionTitle
-        text={translate('screens/RestoreWallet', 'ENTER THE CORRECT WORD')}
-        testID='recover_title'
-      />
+      <View style={tailwind('bg-gray-100')}>
+        <SectionTitle
+          text={translate('screens/RestoreWallet', 'ENTER THE CORRECT WORD')}
+          testID='recover_title'
+        />
+      </View>
       {
         recoveryWords.map((order) => (
           <Controller
@@ -80,6 +90,8 @@ export function RestoreMnemonicWallet (): JSX.Element {
                   placeholderTextColor={`${invalid && isTouched ? 'rgba(255, 0, 0, 1)' : 'rgba(0, 0, 0, 0.4)'}`}
                   style={tailwind(`flex-grow p-4 pl-0 ${invalid && isTouched ? 'text-error' : 'text-black'}`)}
                   autoCapitalize='none'
+                  autoCorrect={false}
+                  autoCompleteType='off'
                   value={value}
                   onBlur={onBlur}
                   onChangeText={onChange}

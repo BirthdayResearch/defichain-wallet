@@ -1,16 +1,19 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
-import { ScrollView, View } from 'react-native'
+import { Linking, ScrollView, View } from 'react-native'
 import { Text } from '../../../../../components'
+import { useDeFiScanContext } from '../../../../../contexts/DeFiScanContext'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { TransactionsParamList } from '../TransactionsNavigator'
+import { formatBlockTime } from '../TransactionsScreen'
 
 type Props = StackScreenProps<TransactionsParamList, 'TransactionDetailScreen'>
 
 export function TransactionDetailScreen (props: Props): JSX.Element {
   const { tx } = props.route.params
+  const { getTransactionUrl } = useDeFiScanContext()
 
   const grayDivider = <View style={tailwind('bg-gray-100 w-full h-4')} />
   const RenderRow = (lhs: string, rhs: string): JSX.Element => {
@@ -29,11 +32,11 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
     )
   }
 
-  /* const onTxidUrlPressed = React.useCallback(async () => {
+  const onTxidUrlPressed = React.useCallback(async () => {
     // TODO(ivan-zynesis): new explorer URL linking
-    const url = 'https://playground.defichain.com'
+    const url = getTransactionUrl(tx.txid)
     await Linking.openURL(url)
-  }, []) */
+  }, [])
 
   return (
     <View>
@@ -41,6 +44,7 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
       {/* TODO(@ivan-zynesis): handle different transaction type other than sent/receive */}
       {RenderRow('Amount', translate('screens/TransactionDetailScreen', tx.amount))}
       {RenderRow('Block', translate('screens/TransactionDetailScreen', `${tx.block}`))}
+      {RenderRow('Date', translate('screens/TransactionDetailScreen', `${formatBlockTime(tx.medianTime)}`))}
       {grayDivider}
       <View
         testID='transaction-detail-explorer-url'
@@ -53,7 +57,7 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
             </Text>
           </View>
           <View style={tailwind('ml-2 flex-grow-0 justify-center')}>
-            <MaterialIcons name='open-in-new' size={24} style={tailwind('text-primary')} />
+            <MaterialIcons name='open-in-new' size={24} style={tailwind('text-primary')} onPress={onTxidUrlPressed} />
           </View>
         </View>
       </View>

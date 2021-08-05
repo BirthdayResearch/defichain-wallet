@@ -4,10 +4,10 @@ context('app/dex/available', () => {
     cy.getByTestID('bottom_tab_dex').click()
   })
 
-  it('should display 4 available pool pair', function () {
+  it('should display 5 available pool pair', function () {
     const list = cy.getByTestID('liquidity_screen_list')
 
-    list.getByTestID('pool_pair_row').should('have.length', 4)
+    list.getByTestID('pool_pair_row').should('have.length', 5)
   })
 
   it('should have DFI-BTC PoolPair as 1st', () => {

@@ -10,6 +10,7 @@ export interface VMTransaction {
   color: string
   amount: string
   block: number
+  medianTime: number
   token: string
   txid: string
 }
@@ -57,6 +58,7 @@ export function activityToViewModel (activity: AddressActivity): VMTransaction {
     color,
     amount: amount.toFixed(),
     block: activity.block.height,
+    medianTime: activity.block.medianTime,
     token: tokenId,
     txid: activity.txid
   }

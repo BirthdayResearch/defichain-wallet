@@ -17,6 +17,8 @@ import { EnrollBiometric } from './screens/CreateWallet/EnrollBiometric'
 import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
 import { WalletPersistenceData } from '../../api/wallet/persistence'
 
+type PinCreationType = 'create' | 'restore'
+
 export interface WalletParamList {
   WalletOnboardingScreen: undefined
   CreateMnemonicWallet: undefined
@@ -27,10 +29,12 @@ export interface WalletParamList {
   PinCreation: {
     pinLength: 4 | 6
     words: string[]
+    type: PinCreationType
   }
   PinConfirmation: {
     pin: string
     words: string[]
+    type: PinCreationType
   }
   EnrollBiometric: {
     pin: string
