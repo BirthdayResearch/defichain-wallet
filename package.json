@@ -40,7 +40,7 @@
     "bignumber.js": "^9.0.1",
     "buffer": "^6.0.3",
     "dayjs": "^1.10.6",
-    "expo": "^42.0.3",
+    "expo": "^42.0.0",
     "expo-asset": "~8.3.3",
     "expo-barcode-scanner": "~10.2.2",
     "expo-cli": "^4.9.1",
