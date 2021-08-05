@@ -8,7 +8,7 @@ import { Logging } from '../../../../api'
 import { Text } from '../../../../components'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
-import { useWalletManagementContext } from '../../../../contexts/WalletManagementContext'
+import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { EnvironmentNetwork, getEnvironment, isPlayground } from '../../../../environment'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -42,6 +42,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         navigation.navigate('RecoveryWordsScreen', { words })
       }}
       />
+      <RowNavigateItem pageName='AboutScreen' title='About' />
       <RowExitWalletItem />
     </ScrollView>
   )
@@ -85,7 +86,7 @@ function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
 }
 
 function RowExitWalletItem (): JSX.Element {
-  const { clearWallets } = useWalletManagementContext()
+  const { clearWallets } = useWalletPersistenceContext()
 
   async function onExitWallet (): Promise<void> {
     if (Platform.OS === 'web') {
@@ -148,4 +149,21 @@ function ViewRecoveryWords ({ onPress }: { onPress: () => void}): JSX.Element {
 async function getMockRecoveryWords (): Promise<string[]> {
   // TODO(kengye): integrate with jellyfish api to retrieve mnemonic seeds
   return ['bunker', 'layer', 'kid', 'involve', 'flight', 'figure', 'gauge', 'ticket', 'final', 'beach', 'basic', 'aspect', 'exit', 'slow', 'high', 'aerobic', 'sister', 'device', 'bullet', 'twin', 'profit', 'scale', 'sell', 'find']
+}
+
+function RowNavigateItem ({ pageName, title }: { pageName: string, title: string }): JSX.Element {
+  const navigation = useNavigation()
+  return (
+    <TouchableOpacity
+      testID={`setting_navigate_${title}`}
+      onPress={() => {
+        navigation.navigate(pageName)
+      }} style={tailwind('flex bg-white flex-row p-4 pr-2 mt-4 items-center')}
+    >
+      <Text style={tailwind('font-medium flex-grow')}>
+        {translate('screens/Settings', title)}
+      </Text>
+      <MaterialIcons name='chevron-right' size={24} />
+    </TouchableOpacity>
+  )
 }

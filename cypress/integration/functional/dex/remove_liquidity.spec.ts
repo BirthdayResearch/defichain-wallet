@@ -39,9 +39,9 @@ context('app/dex/removeLiquidity', () => {
 
   it('Slider "None" / "All" button', function () {
     cy.getByTestID('button_slider_max').click().wait(1000)
-    cy.getByTestID('text_slider_percentage').contains('100.00 %')
+    cy.getByTestID('text_slider_percentage').contains('100.00%')
     cy.getByTestID('button_slider_min').click().wait(1000)
-    cy.getByTestID('text_slider_percentage').contains('0.00 %')
+    cy.getByTestID('text_slider_percentage').contains('0.00%')
     cy.getByTestID('text_coin_amount_DFI').contains('0')
     cy.getByTestID('text_coin_amount_DFI').contains('0')
 
@@ -51,8 +51,8 @@ context('app/dex/removeLiquidity', () => {
   it('Should be able to remove liquidity', function () {
     cy.getByTestID('button_slider_max').click().wait(1000)
     cy.getByTestID('button_continue_remove_liq').click().wait(4000)
+    cy.closeOceanInterface()
     cy.getByTestID('bottom_tab_dex').click().wait(1000)
-    cy.wait(5000).getByTestID('oceanInterface_close').click().wait(5000)
 
     // redirected back to dex root page
     cy.getByTestID('liquidity_screen_list').should('exist')

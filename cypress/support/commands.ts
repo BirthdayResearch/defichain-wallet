@@ -1,3 +1,4 @@
+import '@testing-library/cypress/add-commands'
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -24,44 +25,52 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-declare namespace Cypress {
-  interface Chainable {
-    /**
-     * @description Custom command to select DOM element by data-testid attribute.
-     * @example cy.getByTestID('settings')
-     */
-    getByTestID (value: string): Chainable<Element>
+declare global {
+	namespace Cypress {
+		interface Chainable {
+			/**
+			 * @description Custom command to select DOM element by data-testid attribute.
+			 * @example cy.getByTestID('settings')
+			 */
+			getByTestID (value: string): Chainable<Element>
 
-    /**
-     * @description Redirects to main page and creates an empty wallet for testing. Useful on starts of tests.
-     * @param {boolean} [isRandom=false] default = false, creates randomly generated mnemonic seed or abandon x23
-     * @example cy.createEmptyWallet(isRandom?: boolean)
-     */
-    createEmptyWallet (isRandom?: boolean): Chainable<Element>
+			/**
+			 * @description Redirects to main page and creates an empty wallet for testing. Useful on starts of tests.
+			 * @param {boolean} [isRandom=false] default = false, creates randomly generated mnemonic seed or abandon x23
+			 * @example cy.createEmptyWallet(isRandom?: boolean)
+			 */
+			createEmptyWallet (isRandom?: boolean): Chainable<Element>
 
-    /**
-     * @description Sends UTXO DFI to wallet.
-     * @example cy.sendDFItoWallet().wait(4000)
-     */
-    sendDFItoWallet (): Chainable<Element>
+			/**
+			 * @description Sends UTXO DFI to wallet.
+			 * @example cy.sendDFItoWallet().wait(4000)
+			 */
+			sendDFItoWallet (): Chainable<Element>
 
-    /**
-     * @description Sends DFI Token to wallet.
-     * @example cy.sendDFITokentoWallet().wait(4000)
-     */
-    sendDFITokentoWallet (): Chainable<Element>
+			/**
+			 * @description Sends DFI Token to wallet.
+			 * @example cy.sendDFITokentoWallet().wait(4000)
+			 */
+			sendDFITokentoWallet (): Chainable<Element>
 
-    /**
-     * @description Sends token to wallet. Accepts a list of token symbols to be sent.
-     * @param {string[]} tokens to be sent
-     * @example cy.sendTokenToWallet(['BTC', 'ETH']).wait(4000)
-     */
-    sendTokenToWallet (tokens: string[]): Chainable<Element>
-  }
+			/**
+			 * @description Sends token to wallet. Accepts a list of token symbols to be sent.
+			 * @param {string[]} tokens to be sent
+			 * @example cy.sendTokenToWallet(['BTC', 'ETH']).wait(4000)
+			 */
+			sendTokenToWallet (tokens: string[]): Chainable<Element>
+
+      /**
+       * @description Wait for the ocean interface to be confirmed then close the drawer
+       * @example cy.closeOceanInterface()
+       */
+      closeOceanInterface (): Chainable<Element>
+		}
+	}
 }
 
 Cypress.Commands.add('getByTestID', (selector, ...args) => {
-  return cy.get(`[data-testid=${selector}]`, ...args)
+  return cy.get(`[data-testid=${Cypress.$.escapeSelector(selector)}]`, ...args)
 })
 
 Cypress.Commands.add('createEmptyWallet', (isRandom: boolean = false) => {
@@ -87,4 +96,9 @@ Cypress.Commands.add('sendTokenToWallet', (tokens: string[]) => {
     cy.getByTestID(`playground_token_${t}`).click()
   })
   cy.wait(['@sendTokensToAddress'])
+})
+
+Cypress.Commands.add('closeOceanInterface', () => {
+  cy.getByTestID('pin_authorize').type('000000')
+  cy.wait(5000).getByTestID('oceanInterface_close').click().wait(2000)
 })

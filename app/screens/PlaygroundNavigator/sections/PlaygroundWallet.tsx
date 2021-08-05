@@ -1,24 +1,17 @@
 import { generateMnemonicWords } from '@defichain/jellyfish-wallet-mnemonic'
 import * as Random from 'expo-random'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { MnemonicUnprotected } from '../../../api/wallet/provider/mnemonic_unprotected'
+import { MnemonicEncrypted, MnemonicUnprotected } from '../../../api/wallet'
 import { Text, View } from '../../../components'
 import { useNetworkContext } from '../../../contexts/NetworkContext'
-import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
-import { useWhaleApiClient } from '../../../contexts/WhaleContext'
-import { fetchTokens } from '../../../hooks/wallet/TokensAPI'
-import { RootState } from '../../../store'
+import { useWalletPersistenceContext } from '../../../contexts/WalletPersistenceContext'
 import { tailwind } from '../../../tailwind'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
 export function PlaygroundWallet (): JSX.Element | null {
-  const { wallets, clearWallets, setWallet } = useWalletManagementContext()
-  const network = useNetworkContext()
-  const whaleApiClient = useWhaleApiClient()
-  const dispatch = useDispatch()
-  const address = useSelector((state: RootState) => state.wallet.address)
+  const { wallets, clearWallets, setWallet } = useWalletPersistenceContext()
+  const { network } = useNetworkContext()
 
   return (
     <View>
@@ -46,21 +39,15 @@ export function PlaygroundWallet (): JSX.Element | null {
 
       <PlaygroundAction
         testID='playground_wallet_random'
-        title='Setup wallet with a randomly generated mnemonic seed'
+        title='Setup an encrypted wallet with a random seed using 000000 passcode'
         onPress={async () => {
           const words = generateMnemonicWords(24, (numOfBytes: number) => {
             const bytes = Random.getRandomBytes(numOfBytes)
             return Buffer.from(bytes)
           })
-
-          await setWallet(MnemonicUnprotected.toData(words, network.network))
+          const encrypted = await MnemonicEncrypted.toData(words, network, '000000')
+          await setWallet(encrypted)
         }}
-      />
-
-      <PlaygroundAction
-        testID='playground_wallet_fetch_balances'
-        title='Fetch Balances'
-        onPress={() => fetchTokens(whaleApiClient, address, dispatch)}
       />
     </View>
   )

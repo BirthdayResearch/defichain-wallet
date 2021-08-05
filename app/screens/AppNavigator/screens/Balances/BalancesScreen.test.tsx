@@ -40,11 +40,18 @@ jest.mock("../../../../hooks/wallet/TokensAPI", () => ({
     }]
 }));
 
+jest.mock("../../../../contexts/WalletAddressContext", () => ({
+  useWalletAddressContext: () => {
+    return {
+      address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d'
+    }
+  }
+}));
+
 describe('balances page', () => {
   it('should match snapshot', async () => {
     const initialState: Partial<RootState> = {
       wallet: {
-        address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
         utxoBalance: '77',
         tokens: []
       }
@@ -69,7 +76,6 @@ describe('balances page', () => {
   /*it.skip('should display navigation buttons', async () => {
     const initialState: Partial<RootState> = {
       wallet: {
-        address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
         utxoBalance: '77',
         tokens: []
       }
@@ -97,7 +103,6 @@ describe('balances page', () => {
   it('should navigate to token detail page', async () => {
     const initialState: Partial<RootState> = {
       wallet: {
-        address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
         utxoBalance: '77',
         tokens: []
       }

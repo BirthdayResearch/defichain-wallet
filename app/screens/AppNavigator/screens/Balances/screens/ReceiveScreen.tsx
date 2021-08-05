@@ -3,14 +3,13 @@ import * as Clipboard from 'expo-clipboard'
 import React from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
-import { useSelector } from 'react-redux'
-import { Text } from '../../../../../components/Text'
-import { RootState } from '../../../../../store'
+import { Text } from '../../../../../components'
+import { useWalletAddressContext } from '../../../../../contexts/WalletAddressContext'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 
 export function ReceiveScreen (): JSX.Element {
-  const address = useSelector((state: RootState) => state.wallet.address)
+  const { address } = useWalletAddressContext()
 
   const copyToClipboard = (text: string): void => {
     Clipboard.setString(text)

@@ -11,13 +11,13 @@ import { ScrollView } from 'react-native-gesture-handler'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Logging } from '../../../../api/logging'
+import { Logging } from '../../../../api'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
-import { hasTxQueued, ocean } from '../../../../store/ocean'
+import { hasTxQueued, transactionQueue } from '../../../../store/transaction_queue'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
@@ -25,7 +25,7 @@ import { DexParamList } from './DexNavigator'
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
 export function RemoveLiquidityScreen (props: Props): JSX.Element {
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.ocean))
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   // this component state
   const [tokenAAmount, setTokenAAmount] = useState<BigNumber>(new BigNumber(0))
   const [tokenBAmount, setTokenBAmount] = useState<BigNumber>(new BigNumber(0))
@@ -64,7 +64,6 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
       dispatch
     ).catch(e => {
       Logging.error(e)
-      dispatch(ocean.actions.setError(e))
     })
   }, [amount])
 
@@ -73,10 +72,10 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
       <View style={tailwind('w-full bg-white mt-8')}>
         <View style={tailwind('w-full flex-row p-4')}>
           <Text
-            style={tailwind('flex-1')}
+            style={tailwind('flex-1 font-semibold')}
           >{translate('screens/RemoveLiquidity', 'Amount of liquidity to remove')}
           </Text>
-          <Text testID='text_slider_percentage' style={tailwind('text-right')}>{percentage} %</Text>
+          <Text testID='text_slider_percentage' style={tailwind('text-right')}>{percentage}%</Text>
         </View>
         <AmountSlider
           current={Number(percentage)}
@@ -131,7 +130,7 @@ function AmountSlider (props: { current: number, onChange: (percentage: number) 
   return (
     <View style={[tailwind('flex-row items-center border-t border-gray-200'), props.viewStyle]}>
       <TouchableOpacity testID='button_slider_min' onPress={() => props.onChange(0)}>
-        <Text style={tailwind('text-gray-500 text-xs')}>{translate('components/slider', 'None')}</Text>
+        <Text style={tailwind('text-gray-500 text-sm')}>{translate('components/slider', 'None')}</Text>
       </TouchableOpacity>
       <View style={tailwind('flex-1 ml-4 mr-4')}>
         <Slider
@@ -145,7 +144,7 @@ function AmountSlider (props: { current: number, onChange: (percentage: number) 
         />
       </View>
       <TouchableOpacity testID='button_slider_max' onPress={() => props.onChange(100)}>
-        <Text style={tailwind('text-gray-500 text-xs')}>{translate('components', 'All')}</Text>
+        <Text style={tailwind('text-gray-500 text-sm')}>{translate('components', 'All')}</Text>
       </TouchableOpacity>
     </View>
   )
@@ -182,7 +181,7 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
         title='continue'
         disabled={!props.enabled}
         onPress={props.onPress}
-        label={translate('components/Button', 'CONTINUE')}
+        label={translate('components/Button', 'REMOVE')}
       />
     </View>
   )
@@ -202,7 +201,7 @@ async function constructSignedRemoveLiqAndSend (tokenId: number, amount: BigNumb
     return new CTransactionSegWit(dfTx)
   }
 
-  dispatch(ocean.actions.queueTransaction({
+  dispatch(transactionQueue.actions.push({
     sign: signer,
     title: `${translate('screens/RemoveLiquidity', 'Removing Liquidity')}`
   }))

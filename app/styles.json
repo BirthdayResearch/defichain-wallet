@@ -4579,6 +4579,15 @@
 	"max-w-screen-2xl": {
 		"maxWidth": 1536
 	},
+	"max-w-1/4": {
+		"maxWidth": "25%"
+	},
+	"max-w-1/2": {
+		"maxWidth": "50%"
+	},
+	"max-w-3/4": {
+		"maxWidth": "75%"
+	},
 	"flex-1": {
 		"flexGrow": 1,
 		"flexShrink": 1,
@@ -4694,6 +4703,9 @@
 	},
 	"self-stretch": {
 		"alignSelf": "stretch"
+	},
+	"self-baseline": {
+		"alignSelf": "baseline"
 	},
 	"overflow-hidden": {
 		"overflow": "hidden"
