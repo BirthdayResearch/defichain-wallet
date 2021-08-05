@@ -5,7 +5,11 @@ import React, { useState } from 'react'
 import { ScrollView } from 'react-native'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
-import { CREATE_STEPS, CreateWalletStepIndicator } from '../../../../components/CreateWalletStepIndicator'
+import {
+  CREATE_STEPS,
+  CreateWalletStepIndicator,
+  RESTORE_STEPS
+} from '../../../../components/CreateWalletStepIndicator'
 import { PinTextInput } from '../../../../components/PinTextInput'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -15,7 +19,7 @@ type Props = StackScreenProps<WalletParamList, 'PinCreation'>
 
 export function PinCreationScreen ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<WalletParamList>>()
-  const { pinLength, words } = route.params
+  const { pinLength, words, type } = route.params
   const [newPin, setNewPin] = useState('')
 
   return (
@@ -24,14 +28,14 @@ export function PinCreationScreen ({ route }: Props): JSX.Element {
       style={tailwind('w-full flex-1 flex-col bg-white')}
     >
       <CreateWalletStepIndicator
-        current={3}
-        steps={CREATE_STEPS}
+        current={type === 'create' ? 3 : 2}
+        steps={type === 'create' ? CREATE_STEPS : RESTORE_STEPS}
         style={tailwind('py-4 px-1')}
       />
       <View style={tailwind('px-6 py-4 mb-12')}>
         <Text
           style={tailwind('text-center font-semibold')}
-        >{translate('screens/PinCreation', 'Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.')}
+        >{translate('screens/PinCreation', `Well done! Your wallet is ${type === 'create' ? 'created' : 'restored'}. Keep your wallet private and secure by creating a passcode for it.`)}
         </Text>
       </View>
       <PinTextInput cellCount={6} testID='pin_input' value={newPin} onChange={setNewPin} />
@@ -48,7 +52,7 @@ export function PinCreationScreen ({ route }: Props): JSX.Element {
         title='create-pin'
         disabled={newPin.length !== pinLength}
         onPress={() => {
-          navigation.navigate('PinConfirmation', { words, pin: newPin })
+          navigation.navigate('PinConfirmation', { words, pin: newPin, type })
         }}
       />
     </ScrollView>

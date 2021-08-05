@@ -32,6 +32,12 @@ context('wallet/recover', () => {
   it('should be able to submit form', function () {
     cy.getByTestID('recover_wallet_button').should('not.have.attr', 'disabled')
     cy.getByTestID('recover_wallet_button').click().wait(2000)
-    cy.getByTestID('screen_create_pin').should('exist')
+  })
+
+  it('should be able to set pincode', function () {
+    cy.getByTestID('pin_input').type('000000')
+    cy.getByTestID('create_pin_button').click()
+    cy.getByTestID('pin_confirm_input').type('000000')
+    cy.getByTestID('balances_list').should('exist')
   })
 })

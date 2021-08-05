@@ -14,6 +14,8 @@ import { VerifyMnemonicWallet } from './screens/CreateWallet/VerifyMnemonicWalle
 import { Onboarding } from './screens/Onboarding'
 import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
 
+type PinCreationType = 'create' | 'restore'
+
 export interface WalletParamList {
   WalletOnboardingScreen: undefined
   CreateMnemonicWallet: undefined
@@ -24,10 +26,12 @@ export interface WalletParamList {
   PinCreation: {
     pinLength: 4 | 6
     words: string[]
+    type: PinCreationType
   }
   PinConfirmation: {
     pin: string
     words: string[]
+    type: PinCreationType
   }
 
   [key: string]: undefined | object

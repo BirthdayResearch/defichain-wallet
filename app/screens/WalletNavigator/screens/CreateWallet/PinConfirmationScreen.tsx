@@ -4,7 +4,11 @@ import { ActivityIndicator, ScrollView } from 'react-native'
 import { Logging } from '../../../../api'
 import { MnemonicEncrypted } from '../../../../api/wallet'
 import { Text, View } from '../../../../components'
-import { CREATE_STEPS, CreateWalletStepIndicator } from '../../../../components/CreateWalletStepIndicator'
+import {
+  CREATE_STEPS,
+  CreateWalletStepIndicator,
+  RESTORE_STEPS
+} from '../../../../components/CreateWalletStepIndicator'
 import { PinTextInput } from '../../../../components/PinTextInput'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
 import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
@@ -16,7 +20,7 @@ type Props = StackScreenProps<WalletParamList, 'PinConfirmation'>
 
 export function PinConfirmation ({ route }: Props): JSX.Element {
   const { network } = useNetworkContext()
-  const { pin, words } = route.params
+  const { pin, words, type } = route.params
   const { setWallet } = useWalletPersistenceContext()
   const [newPin, setNewPin] = useState('')
 
@@ -26,6 +30,7 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
   function verifyPin (input: string): void {
     if (input.length !== pin.length) return
     if (input !== pin) {
+      setNewPin('')
       setInvalid(true)
       return
     } else {
@@ -46,8 +51,8 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
   return (
     <ScrollView style={tailwind('w-full flex-1 flex-col bg-white')}>
       <CreateWalletStepIndicator
-        current={3}
-        steps={CREATE_STEPS}
+        current={type === 'create' ? 3 : 2}
+        steps={type === 'create' ? CREATE_STEPS : RESTORE_STEPS}
         style={tailwind('py-4 px-1')}
       />
       <View style={tailwind('px-6 py-4 mb-6')}>
@@ -73,7 +78,7 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
         }
         {
           invalid && (
-            <Text style={tailwind('text-center text-error font-semibold text-sm')}>
+            <Text testID='wrong_passcode_text' style={tailwind('text-center text-error font-semibold text-sm')}>
               {translate('screens/PinConfirmation', 'Wrong passcode entered')}
             </Text>
           )
