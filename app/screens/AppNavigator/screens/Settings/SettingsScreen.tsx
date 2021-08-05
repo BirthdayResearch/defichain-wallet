@@ -2,14 +2,16 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
-import { useState, useEffect, useCallback } from 'react'
+import { useCallback } from 'react'
 import { Alert, Platform, ScrollView, TouchableOpacity } from 'react-native'
-import { Logging } from '../../../../api'
+import { useDispatch } from 'react-redux'
+import { MnemonicWords } from '../../../../api/wallet/mnemonic_words'
 import { Text } from '../../../../components'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
 import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { EnvironmentNetwork, getEnvironment, isPlayground } from '../../../../environment'
+import { authentication, Authentication } from '../../../../store/authentication'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { SettingsParamList } from './SettingsNavigator'
@@ -18,16 +20,24 @@ type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
 
 export function SettingsScreen ({ navigation }: Props): JSX.Element {
   const networks = getEnvironment().networks
-  const [words, setWords] = useState<string[]>([])
-  const getRecoveryWords = (): void => {
-    getMockRecoveryWords().then((words) => {
-      setWords(words)
-    }).catch(Logging.error)
-  }
+  const dispatch = useDispatch()
+  const walletContext = useWalletPersistenceContext()
 
-  useEffect(() => {
-    getRecoveryWords()
-  }, [])
+  const revealRecoveryWords = useCallback(() => {
+    if (walletContext.wallets[0].type !== 'MNEMONIC_ENCRYPTED') {
+      // TODO: alert(mnemonic phrase only get encrypted and stored if for encrypted type)
+      return
+    }
+
+    const auth: Authentication<string[]> = {
+      message: translate('screens/Setting', 'To continue downloading your recovery words, we need you to enter your passcode.'),
+      consume: async passphrase => await MnemonicWords.decrypt(passphrase),
+      onAuthenticated: async (words) => {
+        navigation.navigate('RecoveryWordsScreen', { words })
+      }
+    }
+    dispatch(authentication.actions.prompt(auth))
+  }, [walletContext.wallets[0]])
 
   return (
     <ScrollView style={tailwind('flex-1 bg-gray-100')}>
@@ -38,10 +48,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         ))
       }
       <SectionTitle text={translate('screens/Settings', 'SECURITY')} testID='security_title' />
-      <ViewRecoveryWords onPress={() => {
-        navigation.navigate('RecoveryWordsScreen', { words })
-      }}
-      />
+      <ViewRecoveryWords onPress={revealRecoveryWords} />
       <RowNavigateItem pageName='AboutScreen' title='About' />
       <RowExitWalletItem />
     </ScrollView>
@@ -144,11 +151,6 @@ function ViewRecoveryWords ({ onPress }: { onPress: () => void}): JSX.Element {
       />
     </TouchableOpacity>
   )
-}
-
-async function getMockRecoveryWords (): Promise<string[]> {
-  // TODO(kengye): integrate with jellyfish api to retrieve mnemonic seeds
-  return ['bunker', 'layer', 'kid', 'involve', 'flight', 'figure', 'gauge', 'ticket', 'final', 'beach', 'basic', 'aspect', 'exit', 'slow', 'high', 'aerobic', 'sister', 'device', 'bullet', 'twin', 'profit', 'scale', 'sell', 'find']
 }
 
 function RowNavigateItem ({ pageName, title }: { pageName: string, title: string }): JSX.Element {

@@ -32,7 +32,7 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
     setTimeout(() => {
       MnemonicEncrypted.toData(copy.words, copy.network, copy.pin)
         .then(async encrypted => {
-          navigation.navigate('EnrollBiometric', { encrypted, pin })
+          navigation.navigate('EnrollBiometric', { encrypted, pin, words })
         })
         .catch(e => console.log(e))
     }, 50) // allow UI render the spinner before async task

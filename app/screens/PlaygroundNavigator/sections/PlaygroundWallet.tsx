@@ -2,6 +2,7 @@ import { generateMnemonicWords } from '@defichain/jellyfish-wallet-mnemonic'
 import * as Random from 'expo-random'
 import React from 'react'
 import { MnemonicEncrypted, MnemonicUnprotected } from '../../../api/wallet'
+import { MnemonicWords } from '../../../api/wallet/mnemonic_words'
 import { Text, View } from '../../../components'
 import { useNetworkContext } from '../../../contexts/NetworkContext'
 import { useWalletPersistenceContext } from '../../../contexts/WalletPersistenceContext'
@@ -47,6 +48,7 @@ export function PlaygroundWallet (): JSX.Element | null {
           })
           const encrypted = await MnemonicEncrypted.toData(words, network, '000000')
           await setWallet(encrypted)
+          await MnemonicWords.encrypt(words, '000000')
         }}
       />
     </View>

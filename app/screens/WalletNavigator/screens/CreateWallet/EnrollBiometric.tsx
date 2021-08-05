@@ -14,11 +14,12 @@ import { Button } from '../../../../components/Button'
 import { BiometricProtectedPasscode } from '../../../../api/wallet/biometric_protected_passcode'
 import { FaceIdIcon } from '../../../../components/icons/FaceIdIcon'
 import { TouchIdIcon } from '../../../../components/icons/TouchIdIcon'
+import { MnemonicWords } from '../../../../api/wallet/mnemonic_words'
 
 type Props = StackScreenProps<WalletParamList, 'EnrollBiometric'>
 
 export function EnrollBiometric ({ route }: Props): JSX.Element {
-  const { pin, encrypted } = route.params
+  const { pin, encrypted, words } = route.params
   const { setWallet } = useWalletPersistenceContext()
 
   const [securityLevelChecked, setSecurityLevelChecked] = useState(false)
@@ -37,6 +38,11 @@ export function EnrollBiometric ({ route }: Props): JSX.Element {
       await BiometricProtectedPasscode.set(pin)
       setEnrolled(true)
     }
+  }, [])
+
+  const onComplete = useCallback(async () => {
+    await setWallet(encrypted)
+    await MnemonicWords.encrypt(words, pin)
   }, [])
 
   useEffect(() => {
@@ -104,7 +110,7 @@ export function EnrollBiometric ({ route }: Props): JSX.Element {
           margin='m-4'
           label={translate('screens/EnrollBiometric', 'GO TO WALLET')}
           title='gotoWallet'
-          onPress={async () => await setWallet(encrypted)}
+          onPress={async () => await onComplete()}
         />
       </View>
     </View>

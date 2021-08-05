@@ -35,6 +35,7 @@ export interface WalletParamList {
   EnrollBiometric: {
     pin: string
     encrypted: WalletPersistenceData<EncryptedProviderData>
+    words: string[]
   }
 
   [key: string]: undefined | object
