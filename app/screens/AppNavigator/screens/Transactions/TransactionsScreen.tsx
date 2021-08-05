@@ -43,7 +43,7 @@ export function TransactionsScreen (): JSX.Element {
         setAddressActivities([...newRows])
       }
       setHasNext(addActivities.hasNext)
-      setNextToken(addActivities.nextToken as string | undefined)
+      setNextToken(addActivities.nextToken as string)
       setLoadingStatus('idle')
     }).catch(() => {
       setLoadingStatus('error')
