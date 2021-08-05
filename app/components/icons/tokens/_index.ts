@@ -8,6 +8,7 @@ import { IconETH } from './IconETH'
 import { IconLTC } from './IconLTC'
 import { IconUSDT } from './IconUSDT'
 import { IconUTXO } from './IconUTXO'
+import { IconUSDC } from './IconUSDC'
 
 const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   BCH: IconBCH,
@@ -17,7 +18,8 @@ const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   ETH: IconETH,
   LTC: IconLTC,
   USDT: IconUSDT,
-  _UTXO: IconUTXO
+  _UTXO: IconUTXO,
+  USDC: IconUSDC
 }
 
 /**
