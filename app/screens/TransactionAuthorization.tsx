@@ -144,14 +144,20 @@ export function TransactionAuthorization (): JSX.Element | null {
 
   if (status === 'INIT') return null
 
-  // hide/dismiss UI when not needed
-  const viewHeight: { height?: number } = {}
-  if (status === 'IDLE') {
-    viewHeight.height = 0
-  }
   return (
-    <SafeAreaView style={[tailwind('w-full h-full flex-col bg-white'), viewHeight]}>
-      <View style={{ paddingTop: 20 }}>
+    <SafeAreaView
+      style={[
+        tailwind('w-full h-full flex-col bg-white'),
+        status === 'IDLE' && tailwind('hidden')
+      ]}
+    >
+      <View
+        style={{
+          paddingTop: Platform.select({
+            android: 20
+          })
+        }}
+      >
         <TouchableOpacity style={tailwind('bg-white p-4 border-b border-gray-200')} onPress={onCancel}>
           <Text
             style={tailwind('font-bold text-primary')}
