@@ -1,9 +1,11 @@
 import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as Linking from 'expo-linking'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppState } from 'react-native'
 import { useDispatch } from 'react-redux'
+import { Logging } from '../../api'
+import { BiometricProtectedPasscode } from '../../api/wallet/biometric_protected_passcode'
 import { DeFiChainTheme } from '../../constants/Theme'
 import { authentication } from '../../store/authentication'
 import { translate } from '../../translations'
@@ -22,10 +24,12 @@ export interface AppParamList {
 
 export function AppNavigator (): JSX.Element {
   const dispatch = useDispatch()
+  const [isDeviceProtected, setIsDeviceProtected] = useState(false)
 
   useEffect(() => {
     AppState.addEventListener('change', nextState => {
-      if (nextState === 'active') {
+      if (isDeviceProtected && nextState === 'active') {
+        // privacy lock only applicable if biometric enrolled (even user chosen fallback to pin is fine)
         dispatch(authentication.actions.prompt({
           message: translate('screens/PrivacyLock', 'Welcome back, is it you? (FIXME: copy writing)'),
           consume: async () => true, // no action, not consuming retrieved passphrase
@@ -33,7 +37,13 @@ export function AppNavigator (): JSX.Element {
         }))
       }
     })
-  })
+  }, [isDeviceProtected])
+
+  useEffect(() => {
+    BiometricProtectedPasscode.isEnrolled()
+      .then(isEnrolled => setIsDeviceProtected(isEnrolled))
+      .catch(e => Logging.error(e))
+  }, [])
 
   return (
     <NavigationContainer linking={LinkingConfiguration} theme={DeFiChainTheme}>
