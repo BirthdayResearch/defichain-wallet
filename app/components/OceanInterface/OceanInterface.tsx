@@ -90,7 +90,7 @@ export function OceanInterface (): JSX.Element | null {
   const transaction = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const slideAnim = useRef(new Animated.Value(0)).current
   // state
-  const [tx, setTx] = useState<OceanTransaction | undefined>()
+  const [tx, setTx] = useState<OceanTransaction | undefined>(transaction)
   const [err, setError] = useState<Error | undefined>(e)
   const [txUrl, setTxUrl] = useState<string | undefined>()
   const { address } = useWalletAddressContext()
@@ -179,7 +179,7 @@ function TransactionDetail ({
   onClose,
   title
 }: { broadcasted: boolean, txid?: string, txUrl?: string, onClose: () => void, title?: string }): JSX.Element {
-  title = title ?? translate('screens/OceanInterface', 'Signing...')
+  title = title ?? translate('screens/OceanInterface', 'Broadcasting...')
   return (
     <>
       {
