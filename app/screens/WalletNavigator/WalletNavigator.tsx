@@ -131,7 +131,7 @@ export function WalletNavigator (): JSX.Element {
           name='EnrollBiometric'
           component={EnrollBiometric}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Wallet Created')
+            headerTitle: translate('screens/WalletNavigator', 'Secure your wallet')
           }}
         />
       </WalletStack.Navigator>
