@@ -38,7 +38,8 @@ export function RestoreMnemonicWallet (): JSX.Element {
       setIsSubmitting(false)
       navigation.navigate('PinCreation', {
         words,
-        pinLength: 6
+        pinLength: 6,
+        type: 'restore'
       })
     } else {
       setIsSubmitting(false)

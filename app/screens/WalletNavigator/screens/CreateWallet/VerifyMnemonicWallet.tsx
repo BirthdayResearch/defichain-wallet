@@ -51,7 +51,8 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
     if (recoveryWords.join(' ') === selectedWords.join(' ')) {
       navigation.navigate('PinCreation', {
         pinLength: HARDCODED_PIN_LENGTH,
-        words: recoveryWords
+        words: recoveryWords,
+        type: 'create'
       })
     } else {
       if (Platform.OS === 'web') {
@@ -76,7 +77,8 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
     if (getEnvironment().debug) {
       navigation.navigate('PinCreation', {
         pinLength: HARDCODED_PIN_LENGTH,
-        words: recoveryWords
+        words: recoveryWords,
+        type: 'create'
       })
     }
   }
