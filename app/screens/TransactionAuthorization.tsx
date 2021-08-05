@@ -159,7 +159,10 @@ export function TransactionAuthorization (): JSX.Element | null {
   useEffect(() => {
     if (status === 'PIN' && isBiometric) {
       LocalAuthentication.authenticateAsync()
-        .then(async () => await BiometricProtectedPasscode.get())
+        .then(auth => {
+          if (!auth.success) return null
+          return BiometricProtectedPasscode.get()
+        })
         .then(pinFromSecureStore => {
           if (pinFromSecureStore !== null) {
             onPinInput(pinFromSecureStore)
