@@ -2,7 +2,11 @@ import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as Linking from 'expo-linking'
 import * as React from 'react'
+import { AppState } from 'react-native'
+import { useDispatch } from 'react-redux'
 import { DeFiChainTheme } from '../../constants/Theme'
+import { authentication } from '../../store/authentication'
+import { translate } from '../../translations'
 import { PlaygroundNavigator } from '../PlaygroundNavigator/PlaygroundNavigator'
 import { AppLinking, BottomTabNavigator } from './BottomTabNavigator'
 
@@ -17,6 +21,18 @@ export interface AppParamList {
 }
 
 export function AppNavigator (): JSX.Element {
+  const dispatch = useDispatch()
+
+  React.useEffect(() => {
+    AppState.addEventListener('focus', (next) => {
+      dispatch(authentication.actions.prompt({
+        message: translate('screens/PrivacyLock', 'Welcome back, is it you? (FIXME: copy writing)'),
+        consume: async () => true, // no action, not consuming retrieved passphrase
+        onAuthenticated: async () => {} // no action, <TransactionAuthorization /> do auto dismissed
+      }))
+    })
+  }, [])
+
   return (
     <NavigationContainer linking={LinkingConfiguration} theme={DeFiChainTheme}>
       <App.Navigator screenOptions={{ headerShown: false }}>
