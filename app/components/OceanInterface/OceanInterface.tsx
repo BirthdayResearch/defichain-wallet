@@ -111,7 +111,11 @@ export function OceanInterface (): JSX.Element | null {
       })
       broadcastTransaction(transaction.tx, client)
         .then(async () => {
-          setTxUrl(getTransactionUrl(transaction.tx.txId))
+          try {
+            setTxUrl(getTransactionUrl(transaction.tx.txId))
+          } catch (e) {
+            Logging.error(e)
+          }
           setTx({
             ...transaction,
             title: translate('screens/OceanInterface', 'Waiting for confirmation')
@@ -133,6 +137,7 @@ export function OceanInterface (): JSX.Element | null {
         .catch((e: Error) => {
           const errMsg = `${e.message}. Txid: ${transaction.tx.txId}`
           setError(new Error(errMsg))
+          Logging.error(e)
         })
         .finally(() => {
           dispatch(ocean.actions.popTransaction())
