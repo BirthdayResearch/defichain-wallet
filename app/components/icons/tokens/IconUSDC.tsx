@@ -3,8 +3,10 @@ import Svg, { EMaskUnits, G, Mask, Path, SvgProps } from 'react-native-svg'
 
 export function IconUSDC (props: SvgProps): JSX.Element {
   return (
-    <Svg width={24} height={24} viewBox='0 0 24 24' {...props}>
-      <Mask id='mask0' maskUnits={EMaskUnits.USER_SPACE_ON_USE} x='0' y='0' width='24' height='24'>
+    <Svg width={32} height={32} viewBox='0 0 24 24' {...props}>
+      <Mask id='mask0' maskUnits={'userSpaceOnUse' as EMaskUnits.USER_SPACE_ON_USE} x='0' y='0' width='24' height='24'>
+        {/* Cast userSpaceOnUse to pass type checking since enum of react-native-svg is used in runtime */}
+        {/* Related open issue: https://github.com/react-native-svg/react-native-svg/issues/1210 */}
         <Path d='M0 6.10352e-05H24V24H0V6.10352e-05Z' fill='white' />
       </Mask>
       <G mask='url(#mask0)'>
