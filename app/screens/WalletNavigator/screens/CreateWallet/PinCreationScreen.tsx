@@ -19,7 +19,10 @@ export function PinCreationScreen ({ route }: Props): JSX.Element {
   const [newPin, setNewPin] = useState('')
 
   return (
-    <ScrollView style={tailwind('w-full flex-1 flex-col bg-white')}>
+    <ScrollView
+      testID='screen_create_pin'
+      style={tailwind('w-full flex-1 flex-col bg-white')}
+    >
       <CreateWalletStepIndicator
         current={3}
         steps={CREATE_STEPS}
