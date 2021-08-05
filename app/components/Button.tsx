@@ -8,7 +8,6 @@ interface ButtonProps extends React.PropsWithChildren<TouchableOpacityProps> {
   fill?: 'fill' | 'outline' | 'flat'
   label?: string
   margin?: string
-  delayLongPress?: number
   onLongPress?: () => void
   title?: string
 }
