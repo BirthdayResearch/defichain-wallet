@@ -1,5 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
+import dayjs from 'dayjs'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
@@ -13,6 +14,10 @@ import { translate } from '../../../../translations'
 import { EmptyTransaction } from './EmptyTransaction'
 import { activitiesToViewModel, VMTransaction } from './screens/stateProcessor'
 import { TransactionsParamList } from './TransactionsNavigator'
+
+export function formatBlockTime (date: number): string {
+  return dayjs(date * 1000).format('MMM D, h:mm a')
+}
 
 export function TransactionsScreen (): JSX.Element {
   const client = useWhaleApiClient()
@@ -63,7 +68,7 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
       iconName,
       amount,
       desc,
-      block,
+      medianTime,
       token
     } = row.item
 
@@ -85,7 +90,7 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
             <Text style={tailwind('font-medium')}>{translate('screens/TransactionsScreen', desc)}</Text>
             <Text
               style={tailwind('text-xs text-gray-600')}
-            >{translate('screens/TransactionsScreen', 'Block')}: {block}
+            >{formatBlockTime(medianTime)}
             </Text>
           </View>
           <View style={tailwind('flex-row ml-3 w-32 justify-end items-center')}>

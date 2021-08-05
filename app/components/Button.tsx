@@ -1,15 +1,16 @@
 import React from 'react'
-import { ButtonProps as Props, TouchableOpacity } from 'react-native'
+import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
 import { tailwind } from '../tailwind'
 import { Text } from './Text'
 
-interface ButtonProps extends React.PropsWithChildren<Props> {
+interface ButtonProps extends React.PropsWithChildren<TouchableOpacityProps> {
   color?: 'primary' | 'secondary'
   fill?: 'fill' | 'outline' | 'flat'
   label?: string
   margin?: string
   delayLongPress?: number
   onLongPress?: () => void
+  title?: string
 }
 
 export function Button (props: ButtonProps): JSX.Element {
