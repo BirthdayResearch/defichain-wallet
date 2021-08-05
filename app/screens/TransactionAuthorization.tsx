@@ -156,6 +156,9 @@ export function TransactionAuthorization (): JSX.Element | null {
             if (invalidPassphrase) {
               await clearWallets()
               onUnlinkWallet()
+            } else {
+              setPin('')
+              setAttemptsRemaining(MAX_PASSCODE_ATTEMPT)
             }
           })
           .catch(e => Logging.error(e))
