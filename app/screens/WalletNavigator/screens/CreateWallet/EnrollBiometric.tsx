@@ -28,7 +28,7 @@ export function EnrollBiometric ({ route }: Props): JSX.Element {
 
   const enroll = useCallback(async () => {
     const result = await LocalAuthentication.authenticateAsync({
-      promptMessage: translate('screens/EnrollBiometric', 'Secure Your DeFi Wallet'),
+      promptMessage: translate('screens/EnrollBiometric', 'Secure your DeFi Wallet'),
       cancelLabel: translate('screens/EnrollBiometric', 'Fallback to created 6 digits pin')
     })
 
@@ -74,7 +74,7 @@ export function EnrollBiometric ({ route }: Props): JSX.Element {
         <View style={tailwind('w-full p-2 justify-center items-center p-4 pt-8')}>
           {biometricIcon}
         </View>
-        <Text style={tailwind('m-4')}>{translate('screens/EnrollBiometric', 'Do you want to use local authentication to unlock your light wallet?')}</Text>
+        <Text style={tailwind('m-4')}>{translate('screens/EnrollBiometric', 'Do you want to use local authentication to unlock your DeFi Wallet?')}</Text>
         <View style={tailwind('bg-white flex-row p-2 justify-between items-center')}>
           <Text style={tailwind('ml-2')}>{translate('screens/EnrollBiometric', 'Biometric sensor(s)')}</Text>
           <Switch
@@ -122,7 +122,7 @@ function BiometricOption ({ type }: { type: AuthenticationType }): JSX.Element {
       break
     case AuthenticationType.FINGERPRINT:
       if (Platform.OS === 'android') {
-        optionName = 'Fingerprint'
+        optionName = 'fingerprint'
       } else {
         optionName = 'Touch ID'
       }
