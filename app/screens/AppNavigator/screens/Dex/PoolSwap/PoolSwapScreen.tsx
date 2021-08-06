@@ -42,6 +42,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   // props derived state
   const [tokenA, setTokenA] = useState<DerivedTokenState>()
   const [tokenB, setTokenB] = useState<DerivedTokenState>()
+  const [isComputing, setIsComputing] = useState<boolean>(false)
 
   // component UI state
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
@@ -112,11 +113,14 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         token={tokenA} control={control} controlName={tokenAForm}
         title={`${translate('screens/PoolSwapScreen', 'SWAP')} ${tokenA.symbol}`}
         onChangeFromAmount={async (amount) => {
+          setIsComputing(true)
           amount = isNaN(+amount) ? '0' : amount
           setValue(tokenAForm, amount)
           await trigger(tokenAForm)
-          setValue(tokenBForm, aToBPrice.times(amount !== undefined && amount !== '' ? amount : 0).toFixed(8))
+          const reserveA = getReserveAmount(tokenA.id, poolpair)
+          setValue(tokenBForm, calculateEstimatedAmount(amount, reserveA, aToBPrice.toFixed(8)).toFixed(8))
           await trigger(tokenBForm)
+          setIsComputing(false)
         }}
         maxAmount={tokenA.amount}
       />
@@ -129,7 +133,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         maxAmount={aToBPrice.times(getValues()[tokenAForm]).toFixed(8)}
       />
       {
-        (new BigNumber(getValues()[tokenAForm]).isGreaterThan(0) && new BigNumber(getValues()[tokenBForm]).isGreaterThan(0)) &&
+        !isComputing && (new BigNumber(getValues()[tokenAForm]).isGreaterThan(0) && new BigNumber(getValues()[tokenBForm]).isGreaterThan(0)) &&
           <SwapSummary
             poolpair={poolpair} tokenA={tokenA} tokenB={tokenB} tokenAAmount={getValues()[tokenAForm]}
             tokenBAmount={getValues()[tokenBForm]}
@@ -268,9 +272,9 @@ interface SwapSummaryItems {
   tokenBAmount: string
 }
 
-function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, tokenBAmount }: SwapSummaryItems): JSX.Element {
-  const reserveA = tokenA.id === poolpair.tokenA.id ? poolpair.tokenA.reserve : poolpair.tokenB.reserve
-  const reserveB = tokenB.id === poolpair.tokenB.id ? poolpair.tokenB.reserve : poolpair.tokenA.reserve
+function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount }: SwapSummaryItems): JSX.Element {
+  const reserveA = getReserveAmount(tokenA.id, poolpair)
+  const reserveB = getReserveAmount(tokenB.id, poolpair)
   const price = [{
     amount: new BigNumber(reserveA).div(reserveB).toFixed(8),
     symbol: `${tokenA.symbol} per ${tokenB.symbol}`
@@ -286,12 +290,10 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, tokenBAmount }: 
       <PriceRow
         testID='estimated'
         title={translate('screens/PoolSwapScreen', 'Estimated to receive')}
-        values={[{ amount: new BigNumber(tokenAAmount).times(price[1].amount).toFixed(8), symbol: tokenB.symbol }]}
-      />
-      <PriceRow
-        testID='minimum'
-        title={translate('screens/PoolSwapScreen', 'Minimum to receive')}
-        values={[{ amount: new BigNumber(tokenBAmount).toFixed(8), symbol: tokenB.symbol }]}
+        values={[{
+          amount: calculateEstimatedAmount(tokenAAmount, reserveA, price[1].amount).toFixed(8),
+          symbol: tokenB.symbol
+        }]}
       />
       <PriceRow
         testID='fee'
@@ -335,4 +337,14 @@ async function constructSignedSwapAndSend (
     sign: signer,
     title: `${translate('screens/PoolSwapScreen', 'Swapping Token')}`
   }))
+}
+
+function calculateEstimatedAmount (tokenAAmount: string, reserveA: string, price: string): BigNumber {
+  tokenAAmount = tokenAAmount !== undefined && tokenAAmount !== '' ? tokenAAmount : '0'
+  const slippage = (new BigNumber(1).minus(new BigNumber(tokenAAmount).div(reserveA)))
+  return new BigNumber(tokenAAmount).times(price).times(slippage)
+}
+
+function getReserveAmount (id: string, poolpair: PoolPairData): string {
+  return id === poolpair.tokenA.id ? poolpair.tokenA.reserve : poolpair.tokenB.reserve
 }
