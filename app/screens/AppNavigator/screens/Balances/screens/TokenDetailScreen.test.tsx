@@ -15,7 +15,7 @@ jest.mock("../../../../../hooks/wallet/TokensAPI", () => ({
       isDAT: true,
       isLPS: false,
       amount: '100000',
-      name: 'Defichain'
+      name: 'DeFiChain'
     },
     {
       id: '0',
@@ -102,7 +102,7 @@ describe('token detail screen', () => {
           isDAT: true,
           isLPS: false,
           amount: '100000',
-          name: 'Defichain'
+          name: 'DeFiChain'
         }
       }
     }
@@ -143,7 +143,7 @@ describe('token detail screen', () => {
           isDAT: true,
           isLPS: false,
           amount: '100000',
-          name: 'Defichain'
+          name: 'DeFiChain'
         }
       }
     }
