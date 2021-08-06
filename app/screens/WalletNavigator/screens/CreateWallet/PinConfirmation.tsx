@@ -1,9 +1,10 @@
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+// import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
 import { ActivityIndicator, ScrollView } from 'react-native'
 import { Logging } from '../../../../api'
 import { MnemonicEncrypted } from '../../../../api/wallet'
+import { MnemonicWords } from '../../../../api/wallet/mnemonic_words'
 import { Text, View } from '../../../../components'
 import {
   CREATE_STEPS,
@@ -12,6 +13,7 @@ import {
 } from '../../../../components/CreateWalletStepIndicator'
 import { PinTextInput } from '../../../../components/PinTextInput'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
+import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { WalletParamList } from '../../WalletNavigator'
@@ -20,7 +22,8 @@ type Props = StackScreenProps<WalletParamList, 'PinConfirmation'>
 
 export function PinConfirmation ({ route }: Props): JSX.Element {
   const { network } = useNetworkContext()
-  const navigation = useNavigation<NavigationProp<WalletParamList>>()
+  const { setWallet } = useWalletPersistenceContext()
+  // const navigation = useNavigation<NavigationProp<WalletParamList>>()
   const { pin, words, type } = route.params
   const [newPin, setNewPin] = useState('')
 
@@ -42,7 +45,11 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
     setTimeout(() => {
       MnemonicEncrypted.toData(copy.words, copy.network, copy.pin)
         .then(async encrypted => {
-          navigation.navigate('EnrollBiometric', { pin, encrypted, words })
+          await MnemonicWords.encrypt(words, pin)
+          await setWallet(encrypted)
+
+          // temp disabled biometric, forward data to biometric enrolment page after more test
+          // navigation.navigate('EnrollBiometric', { pin, encrypted, words })
         })
         .catch(e => Logging.error(e))
     }, 50) // allow UI render the spinner before async task
