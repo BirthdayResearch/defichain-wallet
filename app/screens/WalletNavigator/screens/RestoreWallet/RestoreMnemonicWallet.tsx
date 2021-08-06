@@ -90,7 +90,6 @@ export function RestoreMnemonicWallet (): JSX.Element {
                   placeholderTextColor={`${invalid && isTouched ? 'rgba(255, 0, 0, 1)' : 'rgba(0, 0, 0, 0.4)'}`}
                   style={tailwind(`flex-grow p-4 pl-0 ${invalid && isTouched ? 'text-error' : 'text-black'}`)}
                   autoCapitalize='none'
-                  autoCorrect={false}
                   autoCompleteType='off'
                   value={value}
                   onBlur={onBlur}
