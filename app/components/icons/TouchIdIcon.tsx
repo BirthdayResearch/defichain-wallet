@@ -4,8 +4,8 @@ import Svg, { G, Path, SvgProps } from 'react-native-svg'
 export function TouchIdIcon (props: SvgProps): JSX.Element {
   return (
     <Svg width='49' height='50' viewBox='0 0 49 50' {...props}>
-      <G id='Onboarding' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' stroke-linecap='round'>
-        <G id='Wallet-Created---Touch-ID-(b)' transform='translate(-163.000000, -115.000000)' stroke='#FF00AF' stroke-width='1.5'>
+      <G id='Onboarding' stroke='none' strokeWidth='1' fill='none' fillRule='evenodd' stroke-linecap='round'>
+        <G id='Wallet-Created---Touch-ID-(b)' transform='translate(-163.000000, -115.000000)' stroke='#FF00AF' strokeWidth='1.5'>
           <G id='icon' transform='translate(164.029199, 116.030139)'>
             <Path d='M2.59087392,13.0621077 C0.242950218,17.7186535 -0.627114958,23.1846984 0.470299501,28.7118275 C1.05317076,31.6474592 -0.10077702,25.7740468 0.482998607,28.7094988 C0.551432682,29.053612 0.626569062,29.3945009 0.708584126,29.7321654' id='Path' />
             <Path d='M33.9894149,2.448157 C29.4842305,0.202195434 24.2409105,-0.607841109 18.9407973,0.477521876 C12.9200097,1.7103108 7.90086423,5.16846106 4.5453017,9.83844175' id='Path' />
