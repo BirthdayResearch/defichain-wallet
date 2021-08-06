@@ -32,6 +32,10 @@ export function PlaygroundScreen (): JSX.Element {
   )
 }
 
+/**
+ * @deprecated need to refactor this as it should never have a 2 `WalletProvider`,
+ * however, it should be is a single wallet Provider nested properly
+ */
 function PlaygroundWalletSection (): JSX.Element | null {
   const { wallets } = useWalletPersistenceContext()
 

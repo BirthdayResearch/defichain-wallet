@@ -7,7 +7,7 @@ import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 
 import { Text } from '../../../../components'
-import { useWallet } from '../../../../contexts/WalletContext'
+import { useWalletAddressContext } from '../../../../contexts/WalletAddressContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -21,7 +21,7 @@ export function formatBlockTime (date: number): string {
 
 export function TransactionsScreen (): JSX.Element {
   const client = useWhaleApiClient()
-  const wallet = useWallet()
+  const { address } = useWalletAddressContext()
   const navigation = useNavigation<NavigationProp<TransactionsParamList>>()
 
   const [activities, setAddressActivities] = useState<VMTransaction[]>([])
@@ -33,21 +33,20 @@ export function TransactionsScreen (): JSX.Element {
   const loadData = (nextToken?: string | undefined): void => {
     if (loadingStatus === 'loading') return
     setLoadingStatus('loading')
-    wallet.get(0).getAddress().then(async address => {
-      return await client.address.listTransaction(address, undefined, nextToken)
-    }).then(async addActivities => {
-      const newRows = activitiesToViewModel(addActivities)
-      if (nextToken !== undefined) {
-        setAddressActivities([...activities, ...newRows])
-      } else {
-        setAddressActivities([...newRows])
-      }
-      setHasNext(addActivities.hasNext)
-      setNextToken(addActivities.nextToken as string)
-      setLoadingStatus('idle')
-    }).catch(() => {
-      setLoadingStatus('error')
-    })
+    client.address.listTransaction(address, undefined, nextToken)
+      .then(async addActivities => {
+        const newRows = activitiesToViewModel(addActivities)
+        if (nextToken !== undefined) {
+          setAddressActivities([...activities, ...newRows])
+        } else {
+          setAddressActivities([...newRows])
+        }
+        setHasNext(addActivities.hasNext)
+        setNextToken(addActivities.nextToken as string)
+        setLoadingStatus('idle')
+      }).catch(() => {
+        setLoadingStatus('error')
+      })
   }
 
   const onLoadMore = (): void => {
