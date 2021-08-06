@@ -26,14 +26,9 @@ exports[`oceanInterface should match snapshot 1`] = `
 >
   <ActivityIndicator
     animating={true}
-    color="#999999"
+    color="#FF00AF"
     hidesWhenStopped={true}
     size="small"
-    style={
-      Object {
-        "color": "rgba(255, 0, 175, 1)",
-      }
-    }
   />
   <View
     style={
@@ -67,7 +62,7 @@ exports[`oceanInterface should match snapshot 1`] = `
         ]
       }
     >
-      Signing...
+      Broadcasting...
     </Text>
   </View>
 </View>

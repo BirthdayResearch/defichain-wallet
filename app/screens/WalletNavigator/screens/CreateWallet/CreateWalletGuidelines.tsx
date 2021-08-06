@@ -1,8 +1,8 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
-import { ScrollView, Switch, TouchableOpacity } from 'react-native'
-import { Text, View } from '../../../../components'
+import { ScrollView, TouchableOpacity } from 'react-native'
+import { Text, View, Switch } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -70,9 +70,6 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
       }
       <View style={tailwind('flex-row items-center my-4')}>
         <Switch
-          trackColor={{ false: 'rgba(120, 120, 128, 0.20)', true: '#34C759' }}
-          thumbColor='#fff'
-          ios_backgroundColor='#ffffff'
           onValueChange={toggleSwitch}
           value={isEnabled}
           testID='guidelines_switch'

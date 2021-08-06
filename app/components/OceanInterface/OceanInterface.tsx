@@ -179,11 +179,11 @@ function TransactionDetail ({
   onClose,
   title
 }: { broadcasted: boolean, txid?: string, txUrl?: string, onClose: () => void, title?: string }): JSX.Element {
-  title = title ?? translate('screens/OceanInterface', 'Signing...')
+  title = title ?? translate('screens/OceanInterface', 'Broadcasting...')
   return (
     <>
       {
-        !broadcasted ? <ActivityIndicator style={tailwind('text-primary')} />
+        !broadcasted ? <ActivityIndicator color='#FF00AF' />
           : <MaterialIcons name='check-circle' size={20} style={tailwind('text-success')} />
       }
       <View style={tailwind('flex-auto mx-6 justify-center items-center text-center')}>
@@ -227,7 +227,7 @@ function TransactionError ({ errMsg, onClose }: { errMsg: string | undefined, on
 function TransactionIDButton ({ txid, onPress }: { txid: string, onPress?: () => void }): JSX.Element {
   return (
     <TouchableOpacity
-      testID='oceanNetwork_explorer' style={tailwind('flex-row p-1 items-center')}
+      testID='oceanNetwork_explorer' style={tailwind('flex-row p-1 items-center  max-w-full')}
       onPress={onPress}
     >
       <Text

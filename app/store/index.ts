@@ -3,6 +3,7 @@ import { block } from './block'
 import { ocean } from './ocean'
 import { transactionQueue } from './transaction_queue'
 import { wallet } from './wallet'
+import { authentication } from './authentication'
 
 /**
  * RootState for DeFi Wallet App
@@ -20,7 +21,8 @@ export const createStore =
       block: block.reducer,
       wallet: wallet.reducer,
       ocean: ocean.reducer,
-      transactionQueue: transactionQueue.reducer
+      transactionQueue: transactionQueue.reducer,
+      authentication: authentication.reducer
     },
     middleware: [
       ...getDefaultMiddleware({ serializableCheck: false })

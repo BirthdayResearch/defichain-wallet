@@ -19,8 +19,7 @@ import { SectionTitle } from '../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
-import { ocean } from '../../../../store/ocean'
-import { hasTxQueued, transactionQueue } from '../../../../store/transaction_queue'
+import { hasTxQueued, transactionQueue } from '../../../../store/transaction'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
@@ -66,7 +65,6 @@ export function ConvertScreen (props: Props): JSX.Element {
       dispatch
     ).catch(e => {
       Logging.error(e)
-      dispatch(ocean.actions.setError(e))
     })
   }
 

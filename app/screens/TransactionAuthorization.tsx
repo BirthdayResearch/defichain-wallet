@@ -1,15 +1,18 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
+import * as LocalAuthentication from 'expo-local-authentication'
 import React, { Dispatch, useCallback, useEffect, useState } from 'react'
 import { ActivityIndicator, Alert, Platform, SafeAreaView, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../api'
 import { PasscodeAttemptCounter } from '../api/wallet'
+import { BiometricProtectedPasscode } from '../api/wallet/biometric_protected_passcode'
 import { Text, View } from '../components'
 import { PinTextInput } from '../components/PinTextInput'
 import { useEncryptedWalletUI, useWallet } from '../contexts/WalletContext'
 import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
 import { RootState } from '../store'
+import { Authentication, authentication as authenticationStore } from '../store/authentication'
 import { ocean } from '../store/ocean'
 import { DfTxSigner, first, transactionQueue } from '../store/transaction_queue'
 import { tailwind } from '../tailwind'
@@ -28,7 +31,6 @@ let PASSPHRASE_PROMISE_PROXY: {
 } | undefined
 
 type Status = 'INIT' | 'IDLE' | 'PIN' | 'SIGNING'
-
 /**
  * The main UI page transaction signing logic interact with encrypted wallet context
  */
@@ -38,15 +40,20 @@ export function TransactionAuthorization (): JSX.Element | null {
   const wallet = useWallet()
   const encryptionUI = useEncryptedWalletUI()
 
+  // biometric related persistent storage API
+  const [isBiometric, setIsBiometric] = useState(false)
+
   // store
   const dispatch = useDispatch()
   const transaction = useSelector((state: RootState) => first(state.transactionQueue))
+  const authentication = useSelector((state: RootState) => state.authentication.authentication)
 
   // computed state
   const [status, emitEvent] = useState<Status>('INIT')
   const [attemptsRemaining, setAttemptsRemaining] = useState<number>(MAX_PASSCODE_ATTEMPT)
   const [pin, setPin] = useState<string>('')
 
+  // generic callbacks
   const onPinInput = useCallback((pin: string): void => {
     setPin(pin)
     if (pin.length === PIN_LENGTH && PASSPHRASE_PROMISE_PROXY !== undefined) {
@@ -80,6 +87,7 @@ export function TransactionAuthorization (): JSX.Element | null {
     emitEvent('PIN')
   }, [attemptsRemaining])
 
+  // transaction signing specific callback
   const onComplete = useCallback(async (dispatch: Dispatch<any>, tx: CTransactionSegWit) => {
     setPin('')
     setAttemptsRemaining(MAX_PASSCODE_ATTEMPT)
@@ -89,58 +97,106 @@ export function TransactionAuthorization (): JSX.Element | null {
     dispatch(ocean.actions.queueTransaction({ tx })) // push signed result for broadcasting
   }, [])
 
-  // consume pending to sign TransactionQueue from store
-  useEffect(() => {
-    if (status === 'IDLE' && // wait for prompt UI is ready again
-      transaction !== undefined // any tx queued
-    ) {
-      let result: CTransactionSegWit | null | undefined
+  const onPrompt = useCallback(async () => {
+    return await new Promise<string>((resolve, reject) => {
+      // passphrase prompt is meant for authorizing single transaction regardless
+      // caller should not prompt for next transaction before one is completed
+      if (status !== 'INIT' && status !== 'IDLE') throw Error('Prompt UI occupied')
 
-      signTransaction(transaction, wallet.get(0), onRetry)
-        .then(async signedTx => {
-          result = signedTx
-        }) // positive
-        .catch(e => {
-          // error type check
-          if (e.message === 'invalid hash') result = null // negative, invalid passcode
-          // else result = undefined // neutral
-        })
-        .then(async () => {
-          // result handling, 3 cases
-          if (result === undefined) {
-            dispatch(transactionQueue.actions.pop())
-          } else if (result === null) {
-            await clearWallets()
-            onUnlinkWallet()
-          } else {
-            await onComplete(dispatch, result)
-          }
-        })
-        .catch(e => Logging.error(e))
-        .finally(() => emitEvent('IDLE'))
+      // wait for user input
+      PASSPHRASE_PROMISE_PROXY = {
+        resolve, reject
+      }
+      emitEvent('PIN')
+    })
+  }, [status])
+
+  /**
+   * Currently serving
+   * 1. consume pending to sign store/TransactionQueue
+   * 2. generic authentication job store/Authentication
+   */
+  useEffect(() => {
+    if (status === 'IDLE') { // wait for prompt UI is ready again
+      if (transaction !== undefined && // any tx queued
+        wallet !== undefined // just in case any data stuck in store
+      ) {
+        let result: CTransactionSegWit | null | undefined
+
+        signTransaction(transaction, wallet.get(0), onRetry)
+          .then(async signedTx => { result = signedTx }) // positive
+          .catch(e => {
+            // error type check
+            if (e.message === 'invalid hash') result = null // negative, invalid passcode
+            // else result = undefined // neutral
+          })
+          .then(async () => {
+            // result handling, 3 cases
+            if (result === undefined) {
+              dispatch(transactionQueue.actions.pop())
+            } else if (result === null) {
+              await clearWallets()
+              onUnlinkWallet()
+            } else {
+              await onComplete(dispatch, result)
+            }
+          })
+          .catch(e => Logging.error(e))
+          .finally(() => emitEvent('IDLE'))
+      } else if (authentication !== undefined) {
+        let invalidPassphrase = false
+        authenticateFor(onPrompt, authentication, onRetry)
+          .catch(e => {
+            // error type check
+            if (e.message === 'invalid hash') invalidPassphrase = true
+            // else result = undefined // neutral
+          })
+          .then(async () => {
+            if (invalidPassphrase) {
+              await clearWallets()
+              onUnlinkWallet()
+            } else {
+              setAttemptsRemaining(MAX_PASSCODE_ATTEMPT)
+              await PasscodeAttemptCounter.set(0)
+            }
+            dispatch(authenticationStore.actions.dismiss())
+          })
+          .catch(e => Logging.error(e))
+          .finally(() => {
+            setPin('')
+            emitEvent('IDLE')
+          })
+      }
     }
-  }, [transaction, wallet, status])
+  }, [transaction, wallet, status, authentication])
 
   useEffect(() => {
     if (encryptionUI !== undefined) {
-      encryptionUI.provide({
-        prompt: async () => {
-          return await new Promise<string>((resolve, reject) => {
-            // passphrase prompt is meant for authorizing single transaction regardless
-            // caller should not prompt for next transaction before one is completed
-            if (status !== 'INIT' && status !== 'IDLE') throw Error('Signing in progress')
-
-            // wait for user input
-            PASSPHRASE_PROMISE_PROXY = {
-              resolve, reject
-            }
-            emitEvent('PIN')
-          })
-        }
-      })
-    }
+      encryptionUI.provide({ prompt: onPrompt })
+    } // else { wallet not encrypted }, this component expected to remain render null but functional
     emitEvent('IDLE')
   }, [])
+
+  // setup biometric hook if enrolled
+  useEffect(() => {
+    BiometricProtectedPasscode.isEnrolled()
+      .then(isEnrolled => setIsBiometric(isEnrolled))
+      .catch(e => Logging.error(e))
+  }, [wallet])
+
+  // prompt biometric auth in 'PIN' event
+  useEffect(() => {
+    if (status === 'PIN' && isBiometric) {
+      LocalAuthentication.authenticateAsync()
+        .then(async () => await BiometricProtectedPasscode.get())
+        .then(pinFromSecureStore => {
+          if (pinFromSecureStore !== null) {
+            onPinInput(pinFromSecureStore)
+          }
+        })
+        .catch(e => Logging.error(e)) // auto fallback to manual pin input
+    }
+  }, [status, isBiometric])
 
   if (status === 'INIT') return null
 
@@ -210,17 +266,37 @@ function Loading ({ message }: { message?: string }): JSX.Element | null {
   )
 }
 
-async function signTransaction (tx: DfTxSigner, account: WhaleWalletAccount, onAutoRetry: (attempts: number) => Promise<void>, retries: number = 0): Promise<CTransactionSegWit> {
+async function execWithAutoRetries (promptPromise: () => Promise<any>, onAutoRetry: (attempts: number) => Promise<void>, retries: number = 0): Promise<any> {
   try {
-    return await tx.sign(account)
+    return await promptPromise()
   } catch (e) {
     if (e.message === 'USER_CANCELED') throw e
     if (++retries < MAX_PASSCODE_ATTEMPT) {
       await onAutoRetry(retries)
-      return await signTransaction(tx, account, onAutoRetry, retries)
+      return await execWithAutoRetries(promptPromise, onAutoRetry, retries)
     }
     throw e
   }
+}
+
+// store/transactionQueue execution
+async function signTransaction (tx: DfTxSigner, account: WhaleWalletAccount, onAutoRetry: (attempts: number) => Promise<void>): Promise<CTransactionSegWit> {
+  return await execWithAutoRetries(async () => (await tx.sign(account)), onAutoRetry)
+}
+
+// store/authentication execution
+async function authenticateFor<T> (
+  promptPassphrase: () => Promise<string>,
+  authentication: Authentication<T>,
+  onAutoRetry: (attempts: number) => Promise<void>
+): Promise<void> {
+  const customJob = async (): Promise<void> => {
+    const passphrase = await promptPassphrase()
+    const result = await authentication.consume(passphrase)
+    return await authentication.onAuthenticated(result)
+  }
+
+  return await execWithAutoRetries(customJob, onAutoRetry)
 }
 
 function onUnlinkWallet (): void {

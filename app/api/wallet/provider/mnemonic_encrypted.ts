@@ -5,13 +5,37 @@ import {
   PromptPassphrase,
   Scrypt
 } from '@defichain/jellyfish-wallet-encrypted'
-import * as Random from 'expo-random'
+import { getRandomBytes } from 'expo-random'
 import { EnvironmentNetwork } from '../../../environment'
 import { getBip32Option } from '../network'
 import { WalletPersistenceData, WalletType } from '../persistence'
 
-const encryption = new PrivateKeyEncryption(new Scrypt(), numOfBytes => {
-  const bytes = Random.getRandomBytes(numOfBytes)
+// BIP38 default, 16k, 8, 8
+const DEFAULT_SCRYPT_N_R_P = [
+  Math.pow(2, 9),
+  8, // decide stress on ram, not to reduce, to remained strong POW
+  2 // iteration, directly stack up time (if only purely single thread)
+]
+
+/**
+ * Benchmarked using samsung s8 (adb linked, which is really slow)
+ * -----|---|---|---------|--------
+ * N    | r | p | encrypt | sign tx
+ * -----|---|---|---------|--------
+ * 2^14 | 8 | 8 | 199433  | 218643
+ * 2^11 | 8 | 8 | 17086   | 23299
+ * 2^11 | 8 | 1 | 3692    | 9137
+ * 2^11 | 1 | 8 | 3694    | 8603
+ * 2^11 | 1 | 1 | 2001    | 7231
+ * 2^11 | 4 | 1 | 2949    | 7624
+ * 2^12 | 4 | 4 | 2962    | 8277
+ *
+ * 2^11 | 8 | 8 | 19491   | 29512
+ * 2^14 | 8 | 1 | 26615   | 30331
+ * 2^11 | 4 | 8 | 8926    | 14117
+ */
+const encryption = new PrivateKeyEncryption(new Scrypt(...DEFAULT_SCRYPT_N_R_P), numOfBytes => {
+  const bytes = getRandomBytes(numOfBytes)
   return Buffer.from(bytes)
 })
 
