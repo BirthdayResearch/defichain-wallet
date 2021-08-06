@@ -172,7 +172,7 @@ export function TransactionAuthorization (): JSX.Element | null {
         </Text>
         <Text
           style={tailwind('p-4 px-8 text-sm text-center text-gray-500 mb-6')}
-        >{translate('screens/UnlockWallet', 'To proceed with your transaction, please enter your passcode')}
+        >{translate('screens/UnlockWallet', 'Please enter passcode to securely sign your transaction')}
         </Text>
         {/* TODO: switch authorization method here when biometric supported */}
         {
