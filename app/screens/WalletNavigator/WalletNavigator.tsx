@@ -8,11 +8,14 @@ import { translate } from '../../translations'
 import { CreateMnemonicWallet } from './screens/CreateWallet/CreateMnemonicWallet'
 import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
 import { GuidelinesRecoveryWords } from './screens/CreateWallet/GuidelinesRecoveryWords'
-import { PinConfirmation } from './screens/CreateWallet/PinConfirmationScreen'
-import { PinCreationScreen } from './screens/CreateWallet/PinCreationScreen'
 import { VerifyMnemonicWallet } from './screens/CreateWallet/VerifyMnemonicWallet'
 import { Onboarding } from './screens/Onboarding'
 import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
+import { PinCreation } from './screens/CreateWallet/PinCreation'
+import { PinConfirmation } from './screens/CreateWallet/PinConfirmation'
+import { EnrollBiometric } from './screens/CreateWallet/EnrollBiometric'
+import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
+import { WalletPersistenceData } from '../../api/wallet/persistence'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -32,6 +35,11 @@ export interface WalletParamList {
     pin: string
     words: string[]
     type: PinCreationType
+  }
+  EnrollBiometric: {
+    pin: string
+    encrypted: WalletPersistenceData<EncryptedProviderData>
+    words: string[]
   }
 
   [key: string]: undefined | object
@@ -110,7 +118,7 @@ export function WalletNavigator (): JSX.Element {
         />
         <WalletStack.Screen
           name='PinCreation'
-          component={PinCreationScreen}
+          component={PinCreation}
           options={{
             headerTitle: translate('screens/WalletNavigator', 'Create a passcode'),
             headerBackTitleVisible: false
@@ -122,6 +130,13 @@ export function WalletNavigator (): JSX.Element {
           options={{
             headerTitle: translate('screens/WalletNavigator', 'Verify passcode'),
             headerBackTitleVisible: false
+          }}
+        />
+        <WalletStack.Screen
+          name='EnrollBiometric'
+          component={EnrollBiometric}
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'Wallet Created')
           }}
         />
       </WalletStack.Navigator>

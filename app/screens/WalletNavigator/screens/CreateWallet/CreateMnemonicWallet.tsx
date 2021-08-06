@@ -1,6 +1,6 @@
 import { generateMnemonicWords } from '@defichain/jellyfish-wallet-mnemonic'
 import { StackScreenProps } from '@react-navigation/stack'
-import * as Random from 'expo-random'
+import { getRandomBytes } from 'expo-random'
 import * as React from 'react'
 import { ScrollView } from 'react-native'
 import { Text, View } from '../../../../components'
@@ -14,7 +14,7 @@ type Props = StackScreenProps<WalletParamList, 'CreateMnemonicWallet'>
 
 export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
   const words = generateMnemonicWords(24, numOfBytes => {
-    const bytes = Random.getRandomBytes(numOfBytes)
+    const bytes = getRandomBytes(numOfBytes)
     return Buffer.from(bytes)
   })
 

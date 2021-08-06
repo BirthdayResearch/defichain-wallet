@@ -8,11 +8,13 @@ import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { AboutScreen } from './screens/AboutScreen'
 import { CommunityScreen } from './screens/CommunityScreen'
+import { RecoveryWordsScreen } from './screens/RecoveryWordsScreen'
 import { SettingsScreen } from './SettingsScreen'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
   CommunityScreen: undefined
+  RecoveryWordsScreen: { words: string[] }
 
   [key: string]: undefined | object
 }
@@ -45,6 +47,14 @@ export function SettingsNavigator (): JSX.Element {
         component={CommunityScreen}
         options={{
           headerTitle: translate('screens/CommunityScreen', 'Community'),
+          headerBackTitleVisible: false
+        }}
+      />
+      <SettingsStack.Screen
+        name='RecoveryWordsScreen'
+        component={RecoveryWordsScreen}
+        options={{
+          headerTitle: translate('screens/Settings', 'Recovery Words'),
           headerBackTitleVisible: false
         }}
       />

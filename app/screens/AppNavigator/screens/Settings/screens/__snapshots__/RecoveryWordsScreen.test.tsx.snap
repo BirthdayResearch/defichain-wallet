@@ -1,0 +1,1366 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`recovery word screen should match snapshot 1`] = `
+<RCTScrollView
+  testID="recovery_word_screen"
+>
+  <View>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Object {
+            "color": "rgba(0, 0, 0, 1)",
+            "fontFamily": "MediumFont",
+            "fontSize": 14,
+            "fontWeight": "500",
+            "lineHeight": 20,
+            "opacity": 0.6,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 24,
+          },
+        ]
+      }
+    >
+      Keep your recovery words safe and private
+    </Text>
+    <View
+      style={
+        Array [
+          Object {
+            "paddingBottom": 48,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_1_number"
+        >
+          1
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_1"
+        >
+          bunker
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_2_number"
+        >
+          2
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_2"
+        >
+          layer
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_3_number"
+        >
+          3
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_3"
+        >
+          kid
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_4_number"
+        >
+          4
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_4"
+        >
+          involve
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_5_number"
+        >
+          5
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_5"
+        >
+          flight
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_6_number"
+        >
+          6
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_6"
+        >
+          figure
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_7_number"
+        >
+          7
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_7"
+        >
+          gauge
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_8_number"
+        >
+          8
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_8"
+        >
+          ticket
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_9_number"
+        >
+          9
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_9"
+        >
+          final
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_10_number"
+        >
+          10
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_10"
+        >
+          beach
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_11_number"
+        >
+          11
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_11"
+        >
+          basic
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_12_number"
+        >
+          12
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_12"
+        >
+          aspect
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_13_number"
+        >
+          13
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_13"
+        >
+          exit
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_14_number"
+        >
+          14
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_14"
+        >
+          slow
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_15_number"
+        >
+          15
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_15"
+        >
+          high
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_16_number"
+        >
+          16
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_16"
+        >
+          aerobic
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_17_number"
+        >
+          17
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_17"
+        >
+          sister
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_18_number"
+        >
+          18
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_18"
+        >
+          device
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_19_number"
+        >
+          19
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_19"
+        >
+          bullet
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_20_number"
+        >
+          20
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_20"
+        >
+          twin
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_21_number"
+        >
+          21
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_21"
+        >
+          profit
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_22_number"
+        >
+          22
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_22"
+        >
+          scale
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_23_number"
+        >
+          23
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_23"
+        >
+          sell
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(243, 244, 246, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(243, 244, 246, 1)",
+              "borderRightColor": "rgba(243, 244, 246, 1)",
+              "borderTopColor": "rgba(243, 244, 246, 1)",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 12,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "width": 40,
+              },
+            ]
+          }
+          testID="word_24_number"
+        >
+          24
+          .
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              undefined,
+            ]
+          }
+          testID="word_24"
+        >
+          find
+        </Text>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;

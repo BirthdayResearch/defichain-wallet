@@ -1,6 +1,7 @@
 context('wallet/createmnemonic', () => {
   const numbers = Array.from(Array(24), (v, i) => i + 1)
   const recoveryWords: string[] = []
+  const settingsRecoveryWords: string[] = []
   before(function () {
     cy.visit('/')
     cy.getByTestID('playground_wallet_clear').click()
@@ -51,11 +52,31 @@ context('wallet/createmnemonic', () => {
     cy.getByTestID('pin_confirm_input').type('000000')
   })
 
-  it('should be able to restore mnemonic words', function () {
+  it('should be able to verify mnemonic from settings page', function () {
     cy.getByTestID('balances_list').should('exist')
+    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('view_recovery_words').click()
+    cy.getByTestID('pin_authorize').type('000000')
+  })
+
+  numbers.forEach((i) => {
+    it(`settings - should display word #${i}`, function () {
+      cy.getByTestID(`word_${i}`).should('exist')
+      cy.getByTestID(`word_${i}_number`).should('exist').contains(`${i}.`)
+      cy.getByTestID(`word_${i}`).then(($txt: any) => {
+        settingsRecoveryWords.push($txt[0].textContent)
+      })
+    })
+  })
+
+  it('settings - should be able to have equal words', function () {
+    expect(recoveryWords).to.deep.eq(settingsRecoveryWords)
+  })
+
+  it('should be able to restore mnemonic words', function () {
     cy.getByTestID('playground_wallet_clear').click()
     cy.getByTestID('restore_wallet_button').click()
-    recoveryWords.forEach((word, index) => {
+    settingsRecoveryWords.forEach((word, index) => {
       cy.getByTestID(`recover_word_${index + 1}`).clear().type(word).blur()
       cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(0, 0, 0)')
     })

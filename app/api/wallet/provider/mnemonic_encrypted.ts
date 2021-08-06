@@ -5,7 +5,7 @@ import {
   PromptPassphrase,
   Scrypt
 } from '@defichain/jellyfish-wallet-encrypted'
-import * as Random from 'expo-random'
+import { getRandomBytes } from 'expo-random'
 import { EnvironmentNetwork } from '../../../environment'
 import { getBip32Option } from '../network'
 import { WalletPersistenceData, WalletType } from '../persistence'
@@ -35,7 +35,7 @@ const DEFAULT_SCRYPT_N_R_P = [
  * 2^11 | 4 | 8 | 8926    | 14117
  */
 const encryption = new PrivateKeyEncryption(new Scrypt(...DEFAULT_SCRYPT_N_R_P), numOfBytes => {
-  const bytes = Random.getRandomBytes(numOfBytes)
+  const bytes = getRandomBytes(numOfBytes)
   return Buffer.from(bytes)
 })
 

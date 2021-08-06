@@ -17,7 +17,7 @@ import { WalletParamList } from '../../WalletNavigator'
 
 type Props = StackScreenProps<WalletParamList, 'PinCreation'>
 
-export function PinCreationScreen ({ route }: Props): JSX.Element {
+export function PinCreation ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<WalletParamList>>()
   const { pinLength, words, type } = route.params
   const [newPin, setNewPin] = useState('')
