@@ -1,10 +1,8 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { ScrollView } from 'react-native'
-import { Provider as StoreProvider } from 'react-redux'
 import { Text, View } from '../../components'
 import { WalletProvider } from '../../contexts/WalletContext'
 import { useWalletPersistenceContext } from '../../contexts/WalletPersistenceContext'
-import { createStore } from '../../store'
 import { tailwind } from '../../tailwind'
 import { PlaygroundConnection } from './sections/PlaygroundConnection'
 import { PlaygroundToken } from './sections/PlaygroundToken'
@@ -34,9 +32,12 @@ export function PlaygroundScreen (): JSX.Element {
   )
 }
 
+/**
+ * @deprecated need to refactor this as it should never have a 2 `WalletProvider`,
+ * however, it should be is a single wallet Provider nested properly
+ */
 function PlaygroundWalletSection (): JSX.Element | null {
   const { wallets } = useWalletPersistenceContext()
-  const store = useMemo(() => createStore(), [wallets[0]])
 
   if (wallets.length === 0) {
     return null
@@ -44,15 +45,13 @@ function PlaygroundWalletSection (): JSX.Element | null {
 
   return (
     <WalletProvider data={wallets[0]}>
-      <StoreProvider store={store}>
-        <View style={tailwind('mt-4 mb-4')}>
-          <PlaygroundUTXO />
-        </View>
+      <View style={tailwind('mt-4 mb-4')}>
+        <PlaygroundUTXO />
+      </View>
 
-        <View style={tailwind('mt-4 mb-4')}>
-          <PlaygroundToken />
-        </View>
-      </StoreProvider>
+      <View style={tailwind('mt-4 mb-4')}>
+        <PlaygroundToken />
+      </View>
     </WalletProvider>
   )
 }

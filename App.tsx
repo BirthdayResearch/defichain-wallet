@@ -6,6 +6,7 @@ import { DeFiScanProvider } from './app/contexts/DeFiScanContext'
 import { NetworkProvider } from './app/contexts/NetworkContext'
 import { PlaygroundProvider, useConnectedPlayground } from './app/contexts/PlaygroundContext'
 import { WalletPersistenceProvider } from './app/contexts/WalletPersistenceContext'
+import { WalletStoreProvider } from './app/contexts/WalletStoreProvider'
 import { WhaleProvider } from './app/contexts/WhaleContext'
 import { useCachedResources } from './app/hooks/useCachedResources'
 import ErrorBoundary from './app/screens/ErrorBoundary/ErrorBoundary'
@@ -45,7 +46,9 @@ export default function App (): JSX.Element | null {
           <WhaleProvider>
             <WalletPersistenceProvider>
               <DeFiScanProvider>
-                <Main />
+                <WalletStoreProvider>
+                  <Main />
+                </WalletStoreProvider>
               </DeFiScanProvider>
             </WalletPersistenceProvider>
           </WhaleProvider>
