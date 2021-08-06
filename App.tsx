@@ -25,6 +25,9 @@ export default function App (): JSX.Element | null {
   const isLoaded: boolean[] = [
     useCachedResources(),
     // find a connected playground at app load
+    // TODO(fuxingloh): feel like we should deprecate to auto resolve to a fixed network
+    //  instead of automated resolution, after setup we switch to one based on the test?
+    //  might be difficult due to ci automation?
     useConnectedPlayground()
   ]
 
