@@ -71,6 +71,7 @@ export function PinTextInput ({ cellCount, testID, value, onChange }: PinTextInp
         textContentType='oneTimeCode'
         renderCell={renderCell}
         testID={testID}
+        autoFocus
       />
     </View>
   )
