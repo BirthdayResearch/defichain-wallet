@@ -67,7 +67,7 @@ function MnemonicUnprotectedProvider (props: WalletProviderProps<MnemonicProvide
   const wallet = useMemo(() => {
     const provider = MnemonicUnprotected.initProvider(props.data, network)
     return initWhaleWallet(provider, network, client)
-  }, [])
+  }, [network])
 
   return (
     <WalletContext.Provider value={wallet}>
@@ -88,7 +88,7 @@ function MnemonicEncryptedProvider (props: WalletProviderProps<EncryptedProvider
   const wallet = useMemo(() => {
     const provider = MnemonicEncrypted.initProvider(props.data, network, promptUI)
     return initWhaleWallet(provider, network, client)
-  }, [promptUI])
+  }, [network, promptUI])
 
   const encryptedWalletInterface: EncryptedWalletUIContext = {
     provide: (ewi: EncryptedWalletInterface) => {
