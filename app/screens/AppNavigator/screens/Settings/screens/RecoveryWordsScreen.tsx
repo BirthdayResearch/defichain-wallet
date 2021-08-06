@@ -12,7 +12,7 @@ export function RecoveryWordsScreen ({ route }: Props): JSX.Element {
   const { words } = route.params
   return (
     <ScrollView testID='recovery_word_screen'>
-      <Text style={tailwind('text-black opacity-60 pt-6 pb-2 px-4 text-sm')}>
+      <Text style={tailwind('text-black opacity-60 pt-6 pb-4 px-4 text-sm font-medium')}>
         {translate('screens/RecoveryWordsScreen', 'Keep your recovery words safe and private')}
       </Text>
       <View style={tailwind('pb-12')}>

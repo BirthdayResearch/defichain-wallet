@@ -1,6 +1,6 @@
 import { PrivateKeyEncryption, Scrypt } from '@defichain/jellyfish-wallet-encrypted'
+import { getRandomBytes } from 'expo-random'
 import { StorageAPI } from '../storage'
-import Random from 'expo-random'
 
 const KEY = 'RAW_MNEMONIC_V0.space_separated_values'
 const WORDS_LENGTH = 24
@@ -113,7 +113,7 @@ class RawMnemonicEncryption {
 }
 
 const encryption = new PrivateKeyEncryption(new Scrypt(), numOfBytes => {
-  const bytes = Random.getRandomBytes(numOfBytes)
+  const bytes = getRandomBytes(numOfBytes)
   return Buffer.from(bytes)
 })
 

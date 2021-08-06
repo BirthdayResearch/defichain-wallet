@@ -1,5 +1,5 @@
 import { generateMnemonicWords } from '@defichain/jellyfish-wallet-mnemonic'
-import * as Random from 'expo-random'
+import { getRandomBytes } from 'expo-random'
 import React from 'react'
 import { MnemonicEncrypted, MnemonicUnprotected } from '../../../api/wallet'
 import { MnemonicWords } from '../../../api/wallet/mnemonic_words'
@@ -43,7 +43,7 @@ export function PlaygroundWallet (): JSX.Element | null {
         title='Setup an encrypted wallet with a random seed using 000000 passcode'
         onPress={async () => {
           const words = generateMnemonicWords(24, (numOfBytes: number) => {
-            const bytes = Random.getRandomBytes(numOfBytes)
+            const bytes = getRandomBytes(numOfBytes)
             return Buffer.from(bytes)
           })
           const encrypted = await MnemonicEncrypted.toData(words, network, '000000')

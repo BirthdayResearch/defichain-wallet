@@ -1,22 +1,22 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
+import * as LocalAuthentication from 'expo-local-authentication'
 import React, { Dispatch, useCallback, useEffect, useState } from 'react'
 import { ActivityIndicator, Alert, Platform, SafeAreaView, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../api'
 import { PasscodeAttemptCounter } from '../api/wallet'
+import { BiometricProtectedPasscode } from '../api/wallet/biometric_protected_passcode'
 import { Text, View } from '../components'
 import { PinTextInput } from '../components/PinTextInput'
 import { useEncryptedWalletUI, useWallet } from '../contexts/WalletContext'
 import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
 import { RootState } from '../store'
+import { Authentication, authentication as authenticationStore } from '../store/authentication'
 import { ocean } from '../store/ocean'
 import { DfTxSigner, first, transactionQueue } from '../store/transaction_queue'
-import { Authentication, authentication as authenticationStore } from '../store/authentication'
 import { tailwind } from '../tailwind'
 import { translate } from '../translations'
-import { BiometricProtectedPasscode } from '../api/wallet/biometric_protected_passcode'
-import * as LocalAuthentication from 'expo-local-authentication'
 
 const MAX_PASSCODE_ATTEMPT = 4 // allowed 3 failures
 const PIN_LENGTH = 6
@@ -159,7 +159,10 @@ export function TransactionAuthorization (): JSX.Element | null {
             }
           })
           .catch(e => Logging.error(e))
-          .finally(() => emitEvent('IDLE'))
+          .finally(() => {
+            setPin('')
+            emitEvent('IDLE')
+          })
       }
     }
   }, [transaction, wallet, status, authentication])
