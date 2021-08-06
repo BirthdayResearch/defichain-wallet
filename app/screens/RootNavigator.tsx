@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+import { Provider as StoreProvider } from 'react-redux'
 import { WalletAddressProvider } from '../contexts/WalletAddressContext'
 import { WalletProvider } from '../contexts/WalletContext'
 import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
+import { createStore } from '../store'
 import { AppNavigator } from './AppNavigator/AppNavigator'
 import { TransactionAuthorization } from './TransactionAuthorization'
 import { WalletNavigator } from './WalletNavigator/WalletNavigator'
@@ -11,6 +13,7 @@ import { WalletNavigator } from './WalletNavigator/WalletNavigator'
  */
 export function RootNavigator (): JSX.Element {
   const { wallets } = useWalletPersistenceContext()
+  const store = useMemo(() => createStore(), [wallets[0]])
 
   if (wallets.length === 0) {
     return <WalletNavigator />
@@ -18,10 +21,12 @@ export function RootNavigator (): JSX.Element {
 
   return (
     <WalletProvider data={wallets[0]}>
-      <WalletAddressProvider>
-        <TransactionAuthorization />
-        <AppNavigator />
-      </WalletAddressProvider>
+      <StoreProvider store={store}>
+        <WalletAddressProvider>
+          <TransactionAuthorization />
+          <AppNavigator />
+        </WalletAddressProvider>
+      </StoreProvider>
     </WalletProvider>
   )
 }

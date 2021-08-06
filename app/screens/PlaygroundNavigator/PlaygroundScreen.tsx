@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { ScrollView } from 'react-native'
+import { Provider as StoreProvider } from 'react-redux'
 import { Text, View } from '../../components'
 import { WalletProvider } from '../../contexts/WalletContext'
 import { useWalletPersistenceContext } from '../../contexts/WalletPersistenceContext'
+import { createStore } from '../../store'
 import { tailwind } from '../../tailwind'
 import { PlaygroundConnection } from './sections/PlaygroundConnection'
 import { PlaygroundToken } from './sections/PlaygroundToken'
@@ -34,6 +36,7 @@ export function PlaygroundScreen (): JSX.Element {
 
 function PlaygroundWalletSection (): JSX.Element | null {
   const { wallets } = useWalletPersistenceContext()
+  const store = useMemo(() => createStore(), [wallets[0]])
 
   if (wallets.length === 0) {
     return null
@@ -41,13 +44,15 @@ function PlaygroundWalletSection (): JSX.Element | null {
 
   return (
     <WalletProvider data={wallets[0]}>
-      <View style={tailwind('mt-4 mb-4')}>
-        <PlaygroundUTXO />
-      </View>
+      <StoreProvider store={store}>
+        <View style={tailwind('mt-4 mb-4')}>
+          <PlaygroundUTXO />
+        </View>
 
-      <View style={tailwind('mt-4 mb-4')}>
-        <PlaygroundToken />
-      </View>
+        <View style={tailwind('mt-4 mb-4')}>
+          <PlaygroundToken />
+        </View>
+      </StoreProvider>
     </WalletProvider>
   )
 }
