@@ -102,20 +102,20 @@ function MasternodeItemRow (
   return (
     <TouchableOpacity
       onPress={onPress} testID={`masternodes_row_${masternode.id}`}
-      style={tailwind('bg-white py-4 pl-4 pr-2 flex-row justify-between items-center')}
+      style={tailwind('bg-white py-4 pl-4 pr-2 mr-2 flex-row justify-between items-center')}
     >
       <View>
-        {renderField('Owner', masternode.ownerAuthAddress)}
-        {renderField('Operator', masternode.operatorAuthAddress)}
-        {renderField('State', masternode.state)}
+        {renderField(masternode.id, 'Owner', masternode.ownerAuthAddress)}
+        {renderField(masternode.id, 'Operator', masternode.operatorAuthAddress)}
+        {renderField(masternode.id, 'State', masternode.state)}
       </View>
     </TouchableOpacity>
   )
 }
 
-function renderField (key: string, value: string): JSX.Element {
+function renderField (id: string, key: string, value: string): JSX.Element {
   return (
-    <View style={tailwind('flex-row items-start')}>
+    <View style={tailwind('flex-row items-start')} testID={`masternodes_row_${id}_${key}`}>
       <View style={tailwind('w-20 text-right pr-2')}>
         <Text style={tailwind('text-sm mb-1 font-semibold')}>{key}: </Text>
       </View>

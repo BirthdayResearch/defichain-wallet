@@ -12,7 +12,7 @@ export function MasternodeDetailScreen ({ route, navigation }: Props): JSX.Eleme
 
   return (
     <ScrollView style={tailwind('bg-gray-100')}>
-      <View style={tailwind('bg-white mx-8 mt-32 p-8')}>
+      <View style={tailwind('bg-white mx-8 mt-32 p-8')} testID='masternodes_details'>
         {renderField('Owner', masternode.ownerAuthAddress)}
         {renderField('Operator', masternode.operatorAuthAddress)}
         {renderField('Creation', masternode.creationHeight)}
@@ -26,7 +26,7 @@ export function MasternodeDetailScreen ({ route, navigation }: Props): JSX.Eleme
 
 function renderField (key: string, value: any): JSX.Element {
   return (
-    <View style={tailwind('flex-row items-start')}>
+    <View style={tailwind('flex-row items-start')} testID={`masternodes_details_${key}`}>
       <View style={tailwind('w-20 text-right pr-2')}>
         <Text style={tailwind('text-sm mb-1 font-semibold')}>{key}: </Text>
       </View>
