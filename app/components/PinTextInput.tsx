@@ -71,6 +71,7 @@ export function PinTextInput ({ cellCount, testID, value, onChange }: PinTextInp
         textContentType='oneTimeCode'
         renderCell={renderCell}
         testID={testID}
+        autoFocus
       />
     </View>
   )
@@ -89,7 +90,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     borderColor: 'rgba(0, 0, 0, 0.2)',
     borderStyle: 'solid',
-    borderWidth: 1
+    borderWidth: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 1,
+    paddingLeft: 1
   },
   focusCell: {
     borderColor: '#ff00af'
