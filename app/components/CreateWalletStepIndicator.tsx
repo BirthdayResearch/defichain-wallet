@@ -14,12 +14,12 @@ interface StepIndicatorProps {
 export const CREATE_STEPS = [
   translate('components/CreateWalletIndicator', 'Recovery'),
   translate('components/CreateWalletIndicator', 'Verify'),
-  translate('components/CreateWalletIndicator', 'Passcode')
+  translate('components/CreateWalletIndicator', 'Secure')
 ]
 
 export const RESTORE_STEPS = [
   translate('components/CreateWalletIndicator', 'Restore'),
-  translate('components/CreateWalletIndicator', 'Passcode')
+  translate('components/CreateWalletIndicator', 'Secure')
 ]
 
 /**
