@@ -36,8 +36,8 @@ context('poolswap with values', () => {
     cy.getByTestID('swap_button').click().wait(4000)
     // Valid form
     cy.getByTestID('text_input_tokenA').type('1')
-    cy.getByTestID('text_price_row_price_1').then(($txt: any) => {
-      const tokenValue = $txt[0].textContent.replace(' LTC per DFI', '').replace(',', '')
+    cy.getByTestID('text_price_row_estimated_0').then(($txt: any) => {
+      const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
       cy.getByTestID('button_submit').should('not.have.attr', 'disabled')
 
@@ -56,7 +56,7 @@ context('poolswap with values', () => {
   it('should be able to click max', function () {
     cy.getByTestID('MAX_amount_button').click().wait(3000)
     cy.getByTestID('text_input_tokenA').should('have.value', '10.00000000')
-    cy.getByTestID('text_price_row_minimum_0').then(($txt: any) => {
+    cy.getByTestID('text_price_row_estimated_0').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
     })
@@ -64,27 +64,26 @@ context('poolswap with values', () => {
 
   it('should be able to click half', function () {
     cy.getByTestID('50%_amount_button').click().wait(3000)
-    cy.getByTestID('text_input_tokenA').should('have.value', '5.00000000')
-    cy.getByTestID('text_price_row_minimum_0').then(($txt: any) => {
+    cy.getByTestID('text_input_tokenA').should('have.value', '5.00000000').wait(3000)
+    cy.getByTestID('text_price_row_estimated_0').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
-      cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).div(2).toFixed(8))
+      cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
     })
   })
 
   it('should be able to swap', function () {
-    cy.getByTestID('text_price_row_minimum_0').then(() => {
-      // const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
+    cy.getByTestID('text_price_row_estimated_0').then(($txt: any) => {
+      const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
       cy.getByTestID('button_submit').click()
       cy.closeOceanInterface()
       cy.getByTestID('playground_wallet_fetch_balances').click()
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_row_4').should('exist')
 
-      // Need to update once poolswap calculations are correct
-      /* cy.getByTestID('balances_row_4_amount').then(($txt: any) => {
+      cy.getByTestID('balances_row_4_amount').then(($txt: any) => {
         const balanceAmount = $txt[0].textContent.replace(' LTC', '').replace(',', '')
         expect(new BigNumber(balanceAmount).toNumber()).be.gte(new BigNumber(tokenValue).toNumber())
-      }) */
+      })
 
       cy.getByTestID('bottom_tab_dex').click()
       cy.getByTestID('swap_button').click().wait(4000)
