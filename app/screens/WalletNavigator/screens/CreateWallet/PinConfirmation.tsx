@@ -1,3 +1,4 @@
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
 import { ActivityIndicator, ScrollView } from 'react-native'
@@ -11,7 +12,6 @@ import {
 } from '../../../../components/CreateWalletStepIndicator'
 import { PinTextInput } from '../../../../components/PinTextInput'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
-import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { WalletParamList } from '../../WalletNavigator'
@@ -20,8 +20,8 @@ type Props = StackScreenProps<WalletParamList, 'PinConfirmation'>
 
 export function PinConfirmation ({ route }: Props): JSX.Element {
   const { network } = useNetworkContext()
+  const navigation = useNavigation<NavigationProp<WalletParamList>>()
   const { pin, words, type } = route.params
-  const { setWallet } = useWalletPersistenceContext()
   const [newPin, setNewPin] = useState('')
 
   const [invalid, setInvalid] = useState<boolean>(false)
@@ -42,7 +42,7 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
     setTimeout(() => {
       MnemonicEncrypted.toData(copy.words, copy.network, copy.pin)
         .then(async encrypted => {
-          await setWallet(encrypted)
+          navigation.navigate('EnrollBiometric', { pin, encrypted, words })
         })
         .catch(e => Logging.error(e))
     }, 50) // allow UI render the spinner before async task

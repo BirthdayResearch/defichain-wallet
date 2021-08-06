@@ -106,7 +106,7 @@ class RawMnemonicEncryption {
    */
   async decrypt (passphrase: string): Promise<string[]> {
     const encrypted = await StorageAPI.getItem(KEY)
-    if (encrypted === null) throw new Error('No mnemonic words backup')
+    if (encrypted === null) throw new Error('NO_MNEMONIC_BACKUP')
     return await this._decrypt(encrypted, passphrase)
   }
 }
