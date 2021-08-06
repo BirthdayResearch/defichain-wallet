@@ -12,8 +12,8 @@ import { WalletPersistenceData, WalletType } from '../persistence'
 
 // BIP38 default, 16k, 8, 8
 const DEFAULT_SCRYPT_N_R_P = [
-  Math.pow(2, 12),
-  4, // decide stress on ram, not to reduce, to remained strong POW
+  Math.pow(2, 9),
+  8, // decide stress on ram, not to reduce, to remained strong POW
   2 // iteration, directly stack up time (if only purely single thread)
 ]
 
