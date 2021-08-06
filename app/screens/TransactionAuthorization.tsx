@@ -190,7 +190,7 @@ export function TransactionAuthorization (): JSX.Element | null {
         {
           (attemptsRemaining !== undefined && attemptsRemaining !== MAX_PASSCODE_ATTEMPT) ? (
             <Text style={tailwind('text-center text-error text-sm font-bold mt-5')}>
-              {translate('screens/PinConfirmation', `${attemptsRemaining === 1 ? 'Last attempt or your wallet will be unlinked'
+              {translate('screens/PinConfirmation', `${attemptsRemaining === 1 ? 'Last attempt or your wallet will be unlinked for your security'
                 : 'Incorrect passcode. %{attemptsRemaining} attempts remaining'}`, { attemptsRemaining: `${attemptsRemaining}` })}
             </Text>
           ) : null
@@ -227,7 +227,7 @@ function onUnlinkWallet (): void {
   if (Platform.OS !== 'web') {
     Alert.alert(
       translate('screens/PinConfirmation', 'Wallet Unlinked'),
-      translate('screens/PinConfirmation', 'Your wallet was unlinked due to security concerns. You can use your recovery words to restore and set up your wallet again.'),
+      translate('screens/PinConfirmation', 'Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.'),
       [
         {
           text: translate('screens/PinConfirmation', 'Close'),
