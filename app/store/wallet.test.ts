@@ -15,7 +15,7 @@ describe('wallet reducer', () => {
       amount: '100000',
       isDAT: true,
       isLPS: false,
-      name: 'Defichain',
+      name: 'DeFiChain',
       symbol: 'DFI',
       symbolKey: 'DFI',
       avatarSymbol: 'DFI',
