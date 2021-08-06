@@ -152,11 +152,11 @@ export function TransactionAuthorization (): JSX.Element | null {
             // else result = undefined // neutral
           })
           .then(async () => {
-            dispatch(authenticationStore.actions.dismiss())
             if (invalidPassphrase) {
               await clearWallets()
               onUnlinkWallet()
             }
+            dispatch(authenticationStore.actions.dismiss())
           })
           .catch(e => Logging.error(e))
           .finally(() => {
