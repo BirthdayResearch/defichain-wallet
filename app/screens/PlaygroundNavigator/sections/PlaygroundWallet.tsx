@@ -34,8 +34,24 @@ export function PlaygroundWallet (): JSX.Element | null {
 
       <PlaygroundAction
         testID='playground_wallet_abandon'
-        title='Setup wallet with abandon x23 + art as mnemonic seed'
-        onPress={async () => await setWallet(MnemonicUnprotected.Abandon23Playground)}
+        title='Setup an unprotected wallet with abandon x23 + art as the 24 word'
+        onPress={async () => {
+          const data = await MnemonicUnprotected.toData([
+            'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'
+          ], network)
+          await setWallet(data)
+        }}
+      />
+
+      <PlaygroundAction
+        testID='playground_wallet_abandon_encrypted'
+        title='Setup an encrypted wallet with abandon x23 + art as the 24 word with 000000 passcode'
+        onPress={async () => {
+          const data = await MnemonicEncrypted.toData([
+            'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'
+          ], network, '000000')
+          await setWallet(data)
+        }}
       />
 
       <PlaygroundAction
