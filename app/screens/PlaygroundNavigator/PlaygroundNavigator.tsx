@@ -18,7 +18,7 @@ export function PlaygroundNavigator (): JSX.Element {
         name='PlaygroundScreen'
         component={PlaygroundScreen}
         options={{
-          headerTitle: 'DeFi Playground',
+          headerTitle: 'DeFi Testing',
           headerBackTitleVisible: false
         }}
       />

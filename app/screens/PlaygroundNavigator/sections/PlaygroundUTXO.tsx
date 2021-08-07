@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Text, View } from '../../../components'
+import { View } from '../../../components'
 import { usePlaygroundContext } from '../../../contexts/PlaygroundContext'
 import { useWallet } from '../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../contexts/WhaleContext'
 import { fetchTokens } from '../../../hooks/wallet/TokensAPI'
-import { tailwind } from '../../../tailwind'
 import { PlaygroundAction } from '../components/PlaygroundAction'
-import { PlaygroundStatus } from '../components/PlaygroundStatus'
+import { PlaygroundTitle } from '../components/PlaygroundTitle'
 
 export function PlaygroundUTXO (): JSX.Element {
   const wallet = useWallet()
@@ -26,16 +25,13 @@ export function PlaygroundUTXO (): JSX.Element {
 
   return (
     <View>
-      <View style={tailwind('flex-row flex items-center')}>
-        <Text style={tailwind('text-xl font-bold')}>UTXO</Text>
-        <View style={tailwind('ml-2')}>
-          <PlaygroundStatus
-            online={status === 'online'}
-            loading={status === 'loading'}
-            error={status === 'error'}
-          />
-        </View>
-      </View>
+      <PlaygroundTitle
+        title='UTXO' status={{
+          online: status === 'online',
+          loading: status === 'loading',
+          error: status === 'error'
+        }}
+      />
 
       {status === 'online' ? (
         <>

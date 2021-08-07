@@ -3,12 +3,11 @@ import { getRandomBytes } from 'expo-random'
 import React from 'react'
 import { MnemonicEncrypted, MnemonicUnprotected } from '../../../api/wallet'
 import { MnemonicWords } from '../../../api/wallet/mnemonic_words'
-import { Text, View } from '../../../components'
+import { View } from '../../../components'
 import { useNetworkContext } from '../../../contexts/NetworkContext'
 import { useWalletPersistenceContext } from '../../../contexts/WalletPersistenceContext'
-import { tailwind } from '../../../tailwind'
 import { PlaygroundAction } from '../components/PlaygroundAction'
-import { PlaygroundStatus } from '../components/PlaygroundStatus'
+import { PlaygroundTitle } from '../components/PlaygroundTitle'
 
 export function PlaygroundWallet (): JSX.Element | null {
   const { wallets, clearWallets, setWallet } = useWalletPersistenceContext()
@@ -16,15 +15,7 @@ export function PlaygroundWallet (): JSX.Element | null {
 
   return (
     <View>
-      <View style={tailwind('flex-row flex items-center')}>
-        <Text style={tailwind('text-xl font-bold')}>Wallet</Text>
-        <View style={tailwind('ml-2')}>
-          <PlaygroundStatus
-            online={wallets.length > 0}
-            offline={wallets.length === 0}
-          />
-        </View>
-      </View>
+      <PlaygroundTitle title='Wallet' status={{ online: wallets.length > 0, offline: wallets.length === 0 }} />
 
       <PlaygroundAction
         testID='playground_wallet_clear'

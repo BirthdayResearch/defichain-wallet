@@ -2,12 +2,14 @@ import React from 'react'
 import { View } from 'react-native'
 import { tailwind } from '../../../tailwind'
 
-export function PlaygroundStatus (props: {
+export interface PlaygroundStatusProps {
   loading?: boolean
   online?: boolean
   offline?: boolean
   error?: boolean
-}): JSX.Element {
+}
+
+export function PlaygroundStatus (props: PlaygroundStatusProps): JSX.Element {
   if (props.online !== undefined && props.online) {
     return <View style={tailwind('h-3 w-3 rounded-full bg-green-500')} />
   }
