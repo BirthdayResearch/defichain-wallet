@@ -92,6 +92,11 @@ export const AppLinking: PathConfigMap = {
       TransactionsScreen: 'transactions'
     }
   },
+  Masternodes: {
+    screens: {
+      MasternodesScreen: 'masternodes'
+    }
+  },
   Settings: {
     screens: {
       SettingsScreen: 'settings',

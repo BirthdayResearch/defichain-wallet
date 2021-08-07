@@ -4,12 +4,14 @@ import { HeaderFont } from '../../../../components/Text'
 import { translate } from '../../../../translations'
 import { MasternodesScreen, Masternode } from './MasternodesScreen'
 import { MasternodeDetailScreen } from './MasternodeDetailScreen'
+import { MasternodeCreateScreen } from './MasternodeCreateScreen'
 
 export interface MasternodeParamList {
   MasternodesScreen: undefined
   MasternodeDetailScreen: {
     masternode: Masternode
   }
+  MasternodeCreateScreen: undefined
 
   [key: string]: undefined | object
 }
@@ -34,6 +36,14 @@ export function MasternodesNavigator (): JSX.Element {
         component={MasternodeDetailScreen}
         options={{
           headerTitle: translate('screens/MasternodeDetailScreen', 'Masternode'),
+          headerBackTitleVisible: false
+        }}
+      />
+      <MasternodesStack.Screen
+        name='MasternodeCreate'
+        component={MasternodeCreateScreen}
+        options={{
+          headerTitle: translate('screens/MasternodeCreateScreen', 'Create Masternode'),
           headerBackTitleVisible: false
         }}
       />
