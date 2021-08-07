@@ -54,18 +54,24 @@ declare global {
 			sendDFITokentoWallet (): Chainable<Element>
 
 			/**
-			 * @description Sends token to wallet. Accepts a list of token symbols to be sent.
-			 * @param {string[]} tokens to be sent
-			 * @example cy.sendTokenToWallet(['BTC', 'ETH']).wait(4000)
-			 */
-			sendTokenToWallet (tokens: string[]): Chainable<Element>
+       * @description Sends token to wallet. Accepts a list of token symbols to be sent.
+       * @param {string[]} tokens to be sent
+       * @example cy.sendTokenToWallet(['BTC', 'ETH']).wait(4000)
+       */
+      sendTokenToWallet (tokens: string[]): Chainable<Element>
 
       /**
        * @description Wait for the ocean interface to be confirmed then close the drawer
        * @example cy.closeOceanInterface()
        */
       closeOceanInterface (): Chainable<Element>
-		}
+
+      /**
+       * @description Exit current wallet
+       * @example cy.exitWallet()
+       */
+      exitWallet (): Chainable<Element>
+    }
 	}
 }
 
@@ -101,4 +107,8 @@ Cypress.Commands.add('sendTokenToWallet', (tokens: string[]) => {
 Cypress.Commands.add('closeOceanInterface', () => {
   cy.getByTestID('pin_authorize').type('000000')
   cy.wait(5000).getByTestID('oceanInterface_close').click().wait(2000)
+})
+
+Cypress.Commands.add('exitWallet', () => {
+  cy.getByTestID('playground_wallet_clear').click()
 })

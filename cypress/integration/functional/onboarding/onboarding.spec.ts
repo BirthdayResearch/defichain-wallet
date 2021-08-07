@@ -1,7 +1,7 @@
 context('wallet/onboarding', () => {
   beforeEach(function () {
     cy.visit('/')
-    cy.getByTestID('playground_wallet_clear').click()
+    cy.exitWallet()
   })
 
   it('should display elements', function () {
