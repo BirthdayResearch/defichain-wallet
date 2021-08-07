@@ -31,6 +31,26 @@ context('Onboarding - Create Mnemonic Wallet', () => {
     cy.getByTestID('verify_words_button').should('have.attr', 'disabled')
   })
 
+  it('should select incorrect words', function () {
+    [0, 1, 2, 3, 4, 5].forEach((key, index) => {
+      cy.getByTestID(`line_${index}`).then(($txt: any) => {
+        const wordIndex = (+$txt[0].textContent.replace('?', '').replace('#', '')) - 1
+        cy.getByTestID(`recovery_word_row_${wordIndex}`).children().first().click()
+      })
+    })
+  })
+
+  it('should return to previous page on error', function () {
+    cy.getByTestID('verify_words_button').should('not.have.attr', 'disabled')
+    cy.getByTestID('verify_words_button').click()
+    // validate if they're the same words on return
+    numbers.forEach((i) => {
+      cy.getByTestID(`word_${i}`).should('exist')
+      cy.getByTestID(`word_${i}_number`).should('exist').contains(`${i}.`)
+    })
+    cy.getByTestID('verify_button').click()
+  })
+
   it('should be able to select correct words', function () {
     [0, 1, 2, 3, 4, 5].forEach((key, index) => {
       cy.getByTestID(`line_${index}`).then(($txt: any) => {

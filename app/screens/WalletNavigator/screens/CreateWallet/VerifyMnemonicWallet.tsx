@@ -141,7 +141,7 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
           {`#${index + 1}?`}
         </Text>
       </View>
-      <View style={tailwind('flex-row mt-4 mb-2')}>
+      <View style={tailwind('flex-row mt-4 mb-2')} testID={`recovery_word_row_${index}`}>
         {
           words.map((w, i) => (
             <TouchableOpacity
