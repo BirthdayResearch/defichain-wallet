@@ -93,7 +93,7 @@ function Description (props: { step: number, current: number, content: string })
   return (
     <Text
       style={[
-        tailwind('text-center text-sm font-medium top-10 absolute w-16'),
+        tailwind('text-center text-sm font-medium top-9 absolute w-20'),
         props.current === props.step ? tailwind('text-primary') : tailwind('text-gray-500')
       ]}
     >
