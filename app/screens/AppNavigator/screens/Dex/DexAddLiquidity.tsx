@@ -9,12 +9,12 @@ import NumberFormat from 'react-number-format'
 import { Text, TextInput, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import LoadingScreen from '../../../../components/LoadingScreen'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
-import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
 import { DexParamList } from './DexNavigator'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>

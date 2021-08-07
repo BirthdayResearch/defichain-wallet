@@ -1,4 +1,4 @@
-context('wallet/settings', () => {
+context('Wallet - Settings', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_settings').click()
@@ -15,12 +15,7 @@ context('wallet/settings', () => {
     cy.getByTestID('restore_wallet_button').should('exist')
   })
 
-  it('should navigate to recovery word screen', function () {
-    cy.getByTestID('view_recovery_words').should('exist').click()
-    cy.getByTestID('recovery_word_screen').should('exist')
-  })
-
-  it.only('should navigate to about page', function () {
+  it('should navigate to about page', function () {
     cy.getByTestID('setting_navigate_About').click()
     cy.url().should('include', 'app/AboutScreen')
     cy.getByTestID('app_logo').should('exist')

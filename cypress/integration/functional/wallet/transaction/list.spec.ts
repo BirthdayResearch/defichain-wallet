@@ -1,4 +1,4 @@
-context('app/transactions/list', () => {
+context('Wallet - Transaction - List', () => {
   describe('wallet has 2 transactions in history', function () {
     before(() => {
       cy.createEmptyWallet(true)

@@ -1,4 +1,4 @@
-context('app/transactions/list', () => {
+context('Wallet - Transaction - Empty', () => {
   describe('new wallet', function () {
     before(() => {
       cy.createEmptyWallet(true)

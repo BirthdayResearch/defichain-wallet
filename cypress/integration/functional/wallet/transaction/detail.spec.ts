@@ -1,4 +1,4 @@
-context('app/transactions/detail', () => {
+context('Wallet - Transaction - Detail', () => {
   before(() => {
     cy.createEmptyWallet()
     cy.sendDFItoWallet().wait(4000)

@@ -1,9 +1,9 @@
-context('wallet/recover', () => {
+context('Onboarding - Restore Wallet', () => {
   const recoveryWords = ['abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art']
 
   before(function () {
     cy.visit('/')
-    cy.getByTestID('playground_wallet_clear').click()
+    cy.exitWallet()
     cy.getByTestID('restore_wallet_button').click()
     cy.url().should('include', 'wallet/mnemonic/restore')
   })

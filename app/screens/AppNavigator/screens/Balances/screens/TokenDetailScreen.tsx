@@ -38,7 +38,13 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
         </Text>
         <NumberFormat
           value={token.amount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
-          renderText={(value) => <Text style={tailwind('text-2xl font-bold')}>{value}</Text>}
+          renderText={(value) => (
+            <Text
+              testID='token_detail_amount'
+              style={tailwind('text-2xl font-bold')}
+            >{value}
+            </Text>
+          )}
         />
       </View>
       <SectionTitle
