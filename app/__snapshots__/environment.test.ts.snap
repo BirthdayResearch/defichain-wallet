@@ -7,6 +7,8 @@ Object {
   "networks": Array [
     "Local",
     "Playground",
+    "TestNet",
+    "MainNet",
   ],
 }
 `;
@@ -17,6 +19,7 @@ Object {
   "name": "Preview",
   "networks": Array [
     "Playground",
+    "TestNet",
     "MainNet",
   ],
 }
@@ -27,8 +30,8 @@ Object {
   "debug": false,
   "name": "Production",
   "networks": Array [
-    "Playground",
     "MainNet",
+    "Playground",
   ],
 }
 `;
