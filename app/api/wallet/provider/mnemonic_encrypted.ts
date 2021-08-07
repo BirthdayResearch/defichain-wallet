@@ -71,11 +71,5 @@ async function toData (mnemonic: string[], network: EnvironmentNetwork, passphra
 
 export const MnemonicEncrypted = {
   initProvider,
-  toData,
-  /**
-   * Convenience Abandon23 Art on Playground Network Data
-   */
-  Abandon23Playground: toData([
-    'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'
-  ], EnvironmentNetwork.LocalPlayground, '123456')
+  toData
 }
