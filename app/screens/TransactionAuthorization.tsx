@@ -214,7 +214,10 @@ export function TransactionAuthorization (): JSX.Element | null {
           })
         }}
       >
-        <TouchableOpacity style={tailwind('bg-white p-4 border-b border-gray-200')} onPress={onCancel}>
+        <TouchableOpacity
+          testID='cancel_authorization' style={tailwind('bg-white p-4 border-b border-gray-200')}
+          onPress={onCancel}
+        >
           <Text
             style={tailwind('font-bold text-primary')}
           >{translate('components/UnlockWallet', 'CANCEL')}

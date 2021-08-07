@@ -1,11 +1,11 @@
-context('wallet/balances', () => {
+context('Wallet - Balances', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_settings').click()
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
       .sendTokenToWallet(['BTC', 'ETH']).wait(10000)
-    cy.getByTestID('playground_wallet_fetch_balances').click()
+    cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
   })
 
@@ -20,11 +20,4 @@ context('wallet/balances', () => {
     cy.getByTestID('balances_row_2').should('exist')
     cy.getByTestID('balances_row_2_amount').contains(10)
   })
-
-  /* it.skip('should display navigation buttons and be able to redirect', function () {
-    cy.getByTestID('button_RECEIVE').should('exist').click()
-    cy.location().should((loc) => {
-      expect(loc.href).contains('Receive')
-    })
-  }) */
 })

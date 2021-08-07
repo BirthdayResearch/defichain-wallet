@@ -71,6 +71,12 @@ declare global {
        * @example cy.exitWallet()
        */
       exitWallet (): Chainable<Element>
+
+      /**
+       * @description Fetch wallet balance
+       * @example cy.fetchWalletBalance()
+       */
+      fetchWalletBalance (): Chainable<Element>
     }
   }
 }
@@ -111,4 +117,8 @@ Cypress.Commands.add('closeOceanInterface', () => {
 
 Cypress.Commands.add('exitWallet', () => {
   cy.getByTestID('playground_wallet_clear').click()
+})
+
+Cypress.Commands.add('fetchWalletBalance', () => {
+  cy.getByTestID('playground_wallet_fetch_balances').click()
 })

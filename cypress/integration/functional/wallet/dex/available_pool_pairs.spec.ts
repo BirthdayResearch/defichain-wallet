@@ -1,4 +1,4 @@
-context('app/dex/available', () => {
+context('Wallet - DEX - Available Pool Pairs', () => {
   beforeEach(function () {
     cy.createEmptyWallet()
     cy.getByTestID('bottom_tab_dex').click()

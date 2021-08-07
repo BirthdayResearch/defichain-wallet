@@ -1,10 +1,10 @@
-context('wallet/balances/convert - bi-direction success case', () => {
+context('Wallet - Convert DFI - bi-direction success case', () => {
   before(function () {
     cy.createEmptyWallet(true)
 
     cy.getByTestID('bottom_tab_settings').click()
     cy.sendDFItoWallet().wait(4000)
-    cy.getByTestID('playground_wallet_fetch_balances').click()
+    cy.fetchWalletBalance()
 
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
@@ -64,7 +64,7 @@ context('wallet/balances/convert - bi-direction success case', () => {
 
     // // refresh balance
     cy.getByTestID('bottom_tab_settings').click()
-    cy.getByTestID('playground_wallet_fetch_balances').click()
+    cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
 
     cy.getByTestID('balances_list').should('exist')
@@ -125,7 +125,7 @@ context('wallet/balances/convert - bi-direction success case', () => {
 
     // // refresh balance
     cy.getByTestID('bottom_tab_settings').click()
-    cy.getByTestID('playground_wallet_fetch_balances').click()
+    cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
 
     cy.getByTestID('balances_list').should('exist')

@@ -1,4 +1,4 @@
-context('wallet/recover', () => {
+context('Onboarding - Restore Wallet', () => {
   const recoveryWords = ['abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art']
 
   before(function () {

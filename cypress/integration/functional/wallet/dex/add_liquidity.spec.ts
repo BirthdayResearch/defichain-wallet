@@ -1,11 +1,11 @@
-context('app/dex/addLiquidity', () => {
+context('Wallet - DEX - Add Liquidity', () => {
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_dex').click()
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
       .sendTokenToWallet(['BTC']).wait(10000)
-    cy.getByTestID('playground_wallet_fetch_balances').click()
+    cy.fetchWalletBalance()
 
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('pool_pair_add_DFI-BTC').click()

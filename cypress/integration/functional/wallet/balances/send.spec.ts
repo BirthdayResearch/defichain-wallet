@@ -1,25 +1,30 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import BigNumber from 'bignumber.js'
 
-context('wallet/send', () => {
+context('Wallet - Send', () => {
   // bech32, p2sh, legacy
   const addresses = ['bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9', '2MxnNb1MYSZvS3c26d4gC7gXsNMkB83UoXB', 'n1xjm9oekw98Rfb3Mv4ApyhwxC5kMuHnCo']
   let network: string
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(10000)
-    cy.getByTestID('playground_wallet_fetch_balances').click()
+    cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
     network = localStorage.getItem('Development.NETWORK')
   })
 
   describe('DFI UTXO', () => {
-    it('should be able to validate form', function () {
+    it('should be able redirect to QR screen page', function () {
       cy.getByTestID('balances_list').should('exist')
       cy.getByTestID('balances_row_0_utxo').should('exist')
       cy.getByTestID('balances_row_0_utxo_amount').contains(10).click()
       cy.getByTestID('send_button').click()
+      cy.getByTestID('qr_code_button').click()
+      cy.url().should('include', 'app/BarCodeScanner')
+      cy.go('back')
+    })
 
+    it('should be able to validate form', function () {
       // Valid form
       cy.getByTestID('address_input').type(addresses[0])
       cy.getByTestID('amount_input').type('0.1')
@@ -80,7 +85,7 @@ context('wallet/send', () => {
         cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
         cy.getByTestID('send_submit_button').click()
         cy.closeOceanInterface()
-        cy.getByTestID('playground_wallet_fetch_balances').click()
+        cy.fetchWalletBalance()
         cy.getByTestID('bottom_tab_balances').click()
       })
 
@@ -113,12 +118,12 @@ context('wallet/send', () => {
         cy.getByTestID('MAX_amount_button').click()
         cy.getByTestID('send_submit_button').click()
         cy.closeOceanInterface()
-        cy.getByTestID('playground_wallet_fetch_balances').click()
+        cy.fetchWalletBalance()
         cy.getByTestID('bottom_tab_balances').click()
         cy.getByTestID('balances_row_1_amount').should('not.exist')
 
         cy.sendTokenToWallet(['BTC']).wait(10000)
-        cy.getByTestID('playground_wallet_fetch_balances').click()
+        cy.fetchWalletBalance()
       })
     })
   })

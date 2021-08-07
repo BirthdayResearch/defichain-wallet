@@ -1,4 +1,4 @@
-context('app/dex/addLiquidity', () => {
+context('Wallet - Confirm Add Liquidity', () => {
   beforeEach(function () {
     cy.createEmptyWallet()
 
@@ -7,7 +7,7 @@ context('app/dex/addLiquidity', () => {
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
       .sendTokenToWallet(['BTC']).wait(10000)
-    cy.getByTestID('playground_wallet_fetch_balances').click()
+    cy.fetchWalletBalance()
 
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('pool_pair_add_DFI-BTC').click()
@@ -41,7 +41,7 @@ context('app/dex/addLiquidity', () => {
     // wait balance update
     cy.wait(3100)
     cy.getByTestID('bottom_tab_settings').click()
-    cy.getByTestID('playground_wallet_fetch_balances').click()
+    cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_dex').click()
 
     cy.getByTestID('pool_pair_row_your').contains('7.80 DFI-BTC')

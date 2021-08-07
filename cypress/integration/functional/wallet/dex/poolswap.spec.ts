@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js'
 
-context('poolswap without balance', () => {
+context('Wallet - DEX - Pool Swap without balance', () => {
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_balances').click()
@@ -13,12 +13,12 @@ context('poolswap without balance', () => {
   })
 })
 
-context('poolswap with values', () => {
+context('Wallet - DEX - Pool Swap with balance', () => {
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_settings').click()
     cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['LTC']).wait(10000)
-    cy.getByTestID('playground_wallet_fetch_balances').click()
+    cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('pool_pair_swap-vert_DFI-LTC').click()
@@ -76,7 +76,7 @@ context('poolswap with values', () => {
       const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
       cy.getByTestID('button_submit').click()
       cy.closeOceanInterface()
-      cy.getByTestID('playground_wallet_fetch_balances').click()
+      cy.fetchWalletBalance()
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_row_4').should('exist')
 

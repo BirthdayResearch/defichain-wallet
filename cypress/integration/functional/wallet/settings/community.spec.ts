@@ -36,7 +36,7 @@ const communityLinks = [
   }
 ]
 
-context('wallet/settings/community', () => {
+context('Wallet - Settings - Community', () => {
   beforeEach(function () {
     cy.createEmptyWallet()
     cy.getByTestID('bottom_tab_settings').click()

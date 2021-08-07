@@ -1,10 +1,10 @@
-context('wallet/balances/convert - utxosToAccount', () => {
+context('Wallet - Convert DFI - utxosToAccount', () => {
   before(function () {
     cy.createEmptyWallet(true)
 
     cy.getByTestID('bottom_tab_settings').click()
     cy.sendDFItoWallet().wait(4000)
-    cy.getByTestID('playground_wallet_fetch_balances').click()
+    cy.fetchWalletBalance()
 
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
