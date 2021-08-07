@@ -21,7 +21,7 @@ export function PlaygroundToken (): JSX.Element | null {
     }).catch(() => {
       setStatus('error')
     })
-  }, [])
+  }, [wallet])
 
   const actions = tokens.filter(({ symbol }) => symbol !== 'DFI').map(token => {
     return (

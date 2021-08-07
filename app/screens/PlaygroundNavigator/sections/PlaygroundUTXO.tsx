@@ -22,7 +22,7 @@ export function PlaygroundUTXO (): JSX.Element {
     }).catch(() => {
       setStatus('error')
     })
-  }, [])
+  }, [wallet])
 
   return (
     <View>
