@@ -37,7 +37,7 @@ export function PlaygroundConnection (): JSX.Element {
 
       <View style={tailwind('px-4 py-4 bg-white')}>
         <Text style={tailwind('font-medium')}>
-          Network: {network}
+          Network: <Text testID='playground_active_network'>{network}</Text>
         </Text>
         <Text>
           Blocks: {count === 0 ? '...' : count}

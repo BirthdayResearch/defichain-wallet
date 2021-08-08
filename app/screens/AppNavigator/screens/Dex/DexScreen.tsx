@@ -41,7 +41,7 @@ export function DexScreen (): JSX.Element {
     }).catch((err) => {
       Logging.error(err)
     })
-  }, [JSON.stringify(tokens)])
+  }, [JSON.stringify(tokens), address])
 
   const onAdd = (data: PoolPairData): void => {
     navigation.navigate('AddLiquidity', { pair: data })
@@ -135,7 +135,7 @@ function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () =>
       </View>
 
       <View style={tailwind('mt-4')}>
-        <PoolPairInfoLine symbol={data.symbol} reserve={data.amount} />
+        <PoolPairInfoLine symbol={data.symbol} reserve={data.amount} row='your' />
       </View>
     </View>
   )
@@ -162,8 +162,8 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
       </View>
 
       <View style={tailwind('mt-4')}>
-        <PoolPairInfoLine symbol={symbolA} reserve={data.tokenA.reserve} />
-        <PoolPairInfoLine symbol={symbolB} reserve={data.tokenB.reserve} />
+        <PoolPairInfoLine symbol={symbolA} reserve={data.tokenA.reserve} row='available' />
+        <PoolPairInfoLine symbol={symbolB} reserve={data.tokenB.reserve} row='available' />
       </View>
     </View>
   )
@@ -181,7 +181,7 @@ function PoolPairLiqBtn (props: { name: React.ComponentProps<typeof MaterialIcon
   )
 }
 
-function PoolPairInfoLine (props: { symbol: string, reserve: string }): JSX.Element {
+function PoolPairInfoLine (props: { symbol: string, reserve: string, row: string }): JSX.Element {
   return (
     <View style={tailwind('flex-row justify-between')}>
       <Text style={tailwind('text-sm font-semibold mb-1')}>Pooled {props.symbol}</Text>
@@ -189,7 +189,7 @@ function PoolPairInfoLine (props: { symbol: string, reserve: string }): JSX.Elem
         suffix={` ${props.symbol}`}
         value={props.reserve} decimalScale={2} thousandSeparator displayType='text'
         renderText={value => {
-          return <Text style={tailwind('text-sm font-semibold')}>{value}</Text>
+          return <Text testID={`${props.row}_${props.symbol}`} style={tailwind('text-sm font-semibold')}>{value}</Text>
         }}
       />
     </View>
