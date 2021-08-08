@@ -31,6 +31,6 @@ export function useTokensAPI (): WalletToken[] {
 
   useEffect(() => {
     fetchTokens(client, address, dispatch)
-  }, [address, dispatch])
+  }, [address])
   return tokens
 }
