@@ -1,5 +1,5 @@
 import { CTransactionSegWit, PoolSwap } from '@defichain/jellyfish-transaction'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -10,17 +10,19 @@ import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Logging } from '../../../../../api/logging'
+import { Logging } from '../../../../../api'
 import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
+import LoadingScreen from '../../../../../components/LoadingScreen'
+import { SectionTitle } from '../../../../../components/SectionTitle'
+import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import { useWallet } from '../../../../../contexts/WalletContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
-import { hasTxQueued, ocean } from '../../../../../store/ocean'
+import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
-import LoadingScreen from '../../../../LoadingNavigator/LoadingScreen'
 import { DexParamList } from '../DexNavigator'
 
 interface DerivedTokenState {
@@ -34,12 +36,13 @@ type Props = StackScreenProps<DexParamList, 'PoolSwapScreen'>
 export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const poolpair = route.params.poolpair
   const tokens = useTokensAPI()
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.ocean))
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const [tokenAForm, tokenBForm] = ['tokenA', 'tokenB']
 
   // props derived state
   const [tokenA, setTokenA] = useState<DerivedTokenState>()
   const [tokenB, setTokenB] = useState<DerivedTokenState>()
+  const [isComputing, setIsComputing] = useState<boolean>(false)
 
   // component UI state
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
@@ -66,7 +69,6 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       constructSignedSwapAndSend(account, swap, dispatch)
         .catch(e => {
           Logging.error(e)
-          dispatch(ocean.actions.setError(e))
         })
     }
   }
@@ -95,7 +97,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       symbol: tokenBSymbol
     }
     setTokenB(b)
-  }, [route.params.poolpair, tokens])
+  }, [route.params.poolpair, JSON.stringify(tokens)])
 
   if (tokenA === undefined || tokenB === undefined) {
     return <LoadingScreen />
@@ -109,26 +111,29 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     <ScrollView style={tailwind('bg-gray-100')}>
       <TokenRow
         token={tokenA} control={control} controlName={tokenAForm}
-        title={translate('screens/PoolSwapScreen', 'From')}
+        title={`${translate('screens/PoolSwapScreen', 'SWAP')} ${tokenA.symbol}`}
         onChangeFromAmount={async (amount) => {
+          setIsComputing(true)
           amount = isNaN(+amount) ? '0' : amount
           setValue(tokenAForm, amount)
           await trigger(tokenAForm)
-          setValue(tokenBForm, aToBPrice.times(amount !== undefined && amount !== '' ? amount : 0).toFixed(8))
+          const reserveA = getReserveAmount(tokenA.id, poolpair)
+          setValue(tokenBForm, calculateEstimatedAmount(amount, reserveA, aToBPrice.toFixed(8)).toFixed(8))
           await trigger(tokenBForm)
+          setIsComputing(false)
         }}
         maxAmount={tokenA.amount}
       />
-      <TouchableOpacity style={tailwind('justify-center items-center mt-4')} onPress={swapToken} testID='swap_button'>
+      <TouchableOpacity style={tailwind('justify-center items-center mt-6')} onPress={swapToken} testID='swap_button'>
         <MaterialIcons name='swap-vert' size={28} style={tailwind('text-primary')} />
       </TouchableOpacity>
       <TokenRow
         token={tokenB} control={control} controlName={tokenBForm}
-        title={translate('screens/PoolSwapScreen', 'To')}
+        title={`${translate('screens/PoolSwapScreen', 'TO')} ${tokenB.symbol}`}
         maxAmount={aToBPrice.times(getValues()[tokenAForm]).toFixed(8)}
       />
       {
-        (new BigNumber(getValues()[tokenAForm]).isGreaterThan(0) && new BigNumber(getValues()[tokenBForm]).isGreaterThan(0)) &&
+        !isComputing && (new BigNumber(getValues()[tokenAForm]).isGreaterThan(0) && new BigNumber(getValues()[tokenBForm]).isGreaterThan(0)) &&
           <SwapSummary
             poolpair={poolpair} tokenA={tokenA} tokenB={tokenB} tokenAAmount={getValues()[tokenAForm]}
             tokenBAmount={getValues()[tokenBForm]}
@@ -168,9 +173,7 @@ function TokenRow (form: TokenForm): JSX.Element {
   }
   return (
     <>
-      <Text style={tailwind('text-sm font-bold pl-4 pt-4 mt-4 bg-white flex-grow')}>
-        {title}
-      </Text>
+      <SectionTitle text={title} testID={`text_input_${title}`} />
       <Controller
         control={control}
         rules={rules}
@@ -199,8 +202,8 @@ function TokenRow (form: TokenForm): JSX.Element {
         name={controlName}
         defaultValue=''
       />
-      <View style={tailwind('flex-row w-full bg-white p-4')}>
-        <View style={tailwind('flex-grow flex-row')}>
+      <View style={tailwind('flex-row w-full bg-white px-4 items-center')}>
+        <View style={tailwind('flex-1 flex-row py-4')}>
           <Text>{translate('screens/PoolSwapScreen', 'Balance: ')}</Text>
           <NumberFormat
             value={token.amount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
@@ -216,12 +219,16 @@ function TokenRow (form: TokenForm): JSX.Element {
         </View>
         {
           (enableMaxButton != null && onChangeFromAmount !== undefined) && (
-            <TouchableOpacity testID='max_button_token_a' onPress={() => onChangeFromAmount(token.amount)}>
-              <Text
-                style={tailwind('font-bold text-primary')}
-              >{translate('screens/PoolSwapScreen', 'MAX')}
-              </Text>
-            </TouchableOpacity>
+            <>
+              <SetAmountButton
+                type={AmountButtonTypes.half} onPress={onChangeFromAmount}
+                amount={new BigNumber(token.amount)}
+              />
+              <SetAmountButton
+                type={AmountButtonTypes.max} onPress={onChangeFromAmount}
+                amount={new BigNumber(token.amount)}
+              />
+            </>
           )
         }
 
@@ -265,9 +272,9 @@ interface SwapSummaryItems {
   tokenBAmount: string
 }
 
-function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, tokenBAmount }: SwapSummaryItems): JSX.Element {
-  const reserveA = tokenA.id === poolpair.tokenA.id ? poolpair.tokenA.reserve : poolpair.tokenB.reserve
-  const reserveB = tokenB.id === poolpair.tokenB.id ? poolpair.tokenB.reserve : poolpair.tokenA.reserve
+function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount }: SwapSummaryItems): JSX.Element {
+  const reserveA = getReserveAmount(tokenA.id, poolpair)
+  const reserveB = getReserveAmount(tokenB.id, poolpair)
   const price = [{
     amount: new BigNumber(reserveA).div(reserveB).toFixed(8),
     symbol: `${tokenA.symbol} per ${tokenB.symbol}`
@@ -283,12 +290,10 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, tokenBAmount }: 
       <PriceRow
         testID='estimated'
         title={translate('screens/PoolSwapScreen', 'Estimated to receive')}
-        values={[{ amount: new BigNumber(tokenAAmount).times(price[1].amount).toFixed(8), symbol: tokenB.symbol }]}
-      />
-      <PriceRow
-        testID='minimum'
-        title={translate('screens/PoolSwapScreen', 'Minimum to receive')}
-        values={[{ amount: new BigNumber(tokenBAmount).toFixed(8), symbol: tokenB.symbol }]}
+        values={[{
+          amount: calculateEstimatedAmount(tokenAAmount, reserveA, price[1].amount).toFixed(8),
+          symbol: tokenB.symbol
+        }]}
       />
       <PriceRow
         testID='fee'
@@ -328,8 +333,18 @@ async function constructSignedSwapAndSend (
     return new CTransactionSegWit(dfTx)
   }
 
-  dispatch(ocean.actions.queueTransaction({
+  dispatch(transactionQueue.actions.push({
     sign: signer,
     title: `${translate('screens/PoolSwapScreen', 'Swapping Token')}`
   }))
+}
+
+function calculateEstimatedAmount (tokenAAmount: string, reserveA: string, price: string): BigNumber {
+  tokenAAmount = tokenAAmount !== undefined && tokenAAmount !== '' ? tokenAAmount : '0'
+  const slippage = (new BigNumber(1).minus(new BigNumber(tokenAAmount).div(reserveA)))
+  return new BigNumber(tokenAAmount).times(price).times(slippage)
+}
+
+function getReserveAmount (id: string, poolpair: PoolPairData): string {
+  return id === poolpair.tokenA.id ? poolpair.tokenA.reserve : poolpair.tokenB.reserve
 }

@@ -1,6 +1,8 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
 import { Text, View } from '../../components'
+import { WalletProvider } from '../../contexts/WalletContext'
+import { useWalletPersistenceContext } from '../../contexts/WalletPersistenceContext'
 import { tailwind } from '../../tailwind'
 import { PlaygroundConnection } from './sections/PlaygroundConnection'
 import { PlaygroundToken } from './sections/PlaygroundToken'
@@ -25,6 +27,24 @@ export function PlaygroundScreen (): JSX.Element {
         <PlaygroundWallet />
       </View>
 
+      <PlaygroundWalletSection />
+    </ScrollView>
+  )
+}
+
+/**
+ * @deprecated need to refactor this as it should never have a 2 `WalletProvider`,
+ * however, it should be is a single wallet Provider nested properly
+ */
+function PlaygroundWalletSection (): JSX.Element | null {
+  const { wallets } = useWalletPersistenceContext()
+
+  if (wallets.length === 0) {
+    return null
+  }
+
+  return (
+    <WalletProvider data={wallets[0]}>
       <View style={tailwind('mt-4 mb-4')}>
         <PlaygroundUTXO />
       </View>
@@ -32,6 +52,6 @@ export function PlaygroundScreen (): JSX.Element {
       <View style={tailwind('mt-4 mb-4')}>
         <PlaygroundToken />
       </View>
-    </ScrollView>
+    </WalletProvider>
   )
 }

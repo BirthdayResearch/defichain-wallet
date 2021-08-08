@@ -1,5 +1,5 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpair'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
@@ -9,11 +9,11 @@ import { FlatList } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Logging } from '../../../../api/logging'
+import { Logging } from '../../../../api'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { RootState } from '../../../../store'
-import { hasTxQueued, ocean } from '../../../../store/ocean'
+import { hasTxQueued, transactionQueue } from '../../../../store/transaction_queue'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
@@ -28,7 +28,7 @@ export interface AddLiquiditySummary extends PoolPairData {
 }
 
 export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.ocean))
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const {
     fee,
     percentage,
@@ -58,7 +58,6 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       dispatch
     ).catch(e => {
       Logging.error(e)
-      dispatch(ocean.actions.setError(e))
     })
   }, [props.route.params.summary])
 
@@ -179,7 +178,7 @@ async function constructSignedAddLiqAndSend (
     return new CTransactionSegWit(dfTx)
   }
 
-  dispatch(ocean.actions.queueTransaction({
+  dispatch(transactionQueue.actions.push({
     sign: signer,
     title: `${translate('screens/ConfirmLiquidity', 'Adding Liquidity')}`
   }))

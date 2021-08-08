@@ -34,13 +34,17 @@ describe('getMnemonicHdNodeProvider', () => {
 
 describe('addMnemonicHdNodeProvider', () => {
   it('should set mnemonic (abandon x23)', async () => {
-    expect(MnemonicUnprotected.Abandon23Playground).toStrictEqual({
+    const data = MnemonicUnprotected.toData([
+      'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'
+    ], EnvironmentNetwork.LocalPlayground)
+
+    expect(data).toStrictEqual({
       version: "v1",
       type: WalletType.MNEMONIC_UNPROTECTED,
       raw: {
         words: ['abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'],
-        privKey: '235b34cd7c9f6d7e4595ffe9ae4b1cb5606df8aca2b527d20a07c8f56b2342f4',
-        chainCode: 'f40eaad21641ca7cb5ac00f9ce21cac9ba070bb673a237f7bce57acda54386a4'
+        privKey: '5237699220ac42181ec13168534b56aaad0b812ef09dc6427660ae89bbebaa7c',
+        chainCode: '276c385797e9a2018cbc10e769f137198dd94719670ec0e5df3ea69385a33229'
       }
     })
   })
@@ -53,8 +57,8 @@ describe('addMnemonicHdNodeProvider', () => {
       type: WalletType.MNEMONIC_UNPROTECTED,
       raw: {
         words: words,
-        privKey: 'b21fcb414b4414e9bcf7ae647a79a4d29280f6b71cba204cb4dd3d6c6568d0fc',
-        chainCode: 'bbb5f26acee2e3713d43cf4e702f2b1ff8672afa9e0d5ac846196689e1d893d2'
+        privKey: 'f97bae97aa293a5d5d62765684efe281e783aa927899c97c61a9ead3953286c3',
+        chainCode: '67537da3836a1566399151c71e5e4e92e93386921748701bb66417cbb663c799'
       }
     })
   })

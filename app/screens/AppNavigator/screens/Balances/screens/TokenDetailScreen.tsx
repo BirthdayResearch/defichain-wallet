@@ -1,10 +1,11 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { Text } from '../../../../../components'
 import { SectionTitle } from '../../../../../components/SectionTitle'
+import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
@@ -16,11 +17,19 @@ interface TokenActionItems {
   onPress: () => void
   testID: string
 }
-
 type Props = StackScreenProps<BalanceParamList, 'TokenDetailScreen'>
 
 export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
-  const [token] = useState(route.params.token)
+  const [token, setToken] = useState(route.params.token)
+  const tokens = useTokensAPI()
+
+  useEffect(() => {
+    const t = tokens.find((t) => t.id === token.id)
+    if (t !== undefined) {
+      setToken({ ...t })
+    }
+  }, [JSON.stringify(tokens)])
+
   return (
     <ScrollView style={tailwind('bg-gray-100')}>
       <View style={tailwind('flex-col bg-white px-2 py-8 mb-4 justify-center items-center border-b border-gray-300')}>
@@ -29,7 +38,13 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
         </Text>
         <NumberFormat
           value={token.amount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
-          renderText={(value) => <Text style={tailwind('text-2xl font-bold')}>{value}</Text>}
+          renderText={(value) => (
+            <Text
+              testID='token_detail_amount'
+              style={tailwind('text-2xl font-bold')}
+            >{value}
+            </Text>
+          )}
         />
       </View>
       <SectionTitle

@@ -1,14 +1,11 @@
 import * as React from 'react'
-import { Dimensions, Image, ImageSourcePropType, Platform, TouchableOpacity } from 'react-native'
+import { Dimensions, Image, ImageSourcePropType, Platform } from 'react-native'
 import SwiperFlatList from 'react-native-swiper-flatlist'
-import { MnemonicUnprotected } from '../../../../api/wallet/provider/mnemonic_unprotected'
 import ImageA from '../../../../assets/images/onboarding/a.png'
 import ImageB from '../../../../assets/images/onboarding/b.png'
 import ImageC from '../../../../assets/images/onboarding/c.png'
 import { Text, View } from '../../../../components'
 import { AppIcon } from '../../../../components/icons/AppIcon'
-import { useWalletManagementContext } from '../../../../contexts/WalletManagementContext'
-import { getEnvironment } from '../../../../environment'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 
@@ -39,15 +36,9 @@ const slides: JSX.Element[] = [<InitialSlide key={0} />,
 const { width } = Platform.OS === 'web' ? { width: '375px' } : Dimensions.get('window')
 
 export function InitialSlide (): JSX.Element {
-  const { setWallet } = useWalletManagementContext()
-  const onDebugPress = getEnvironment().debug ? async () => {
-    await setWallet(MnemonicUnprotected.Abandon23Playground)
-  } : undefined
   return (
     <View style={tailwind('flex-1 items-center justify-center p-8')}>
-      <TouchableOpacity onPress={onDebugPress}>
-        <AppIcon width={100} height={100} />
-      </TouchableOpacity>
+      <AppIcon width={100} height={100} />
       <Text style={tailwind('text-2xl font-bold mt-3')}>
         {translate('screens/OnboardingCarousel', 'DeFiChain')}
       </Text>

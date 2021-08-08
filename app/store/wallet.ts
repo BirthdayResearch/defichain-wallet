@@ -10,13 +10,11 @@ export interface WalletToken extends AddressToken {
 export interface WalletState {
   utxoBalance: string
   tokens: WalletToken[]
-  address: string
 }
 
 const initialState: WalletState = {
   utxoBalance: '0',
-  tokens: [],
-  address: ''
+  tokens: []
 }
 
 const tokenDFI: WalletToken = {
@@ -26,7 +24,7 @@ const tokenDFI: WalletToken = {
   isDAT: true,
   isLPS: false,
   amount: '0',
-  name: 'Defichain',
+  name: 'DeFiChain',
   displaySymbol: 'DFI (Token)',
   avatarSymbol: 'DFI'
 }
@@ -58,9 +56,6 @@ export const wallet = createSlice({
     },
     setUtxoBalance: (state, action: PayloadAction<string>) => {
       state.utxoBalance = action.payload
-    },
-    setAddress: (state, action: PayloadAction<string>) => {
-      state.address = action.payload
     }
   }
 })

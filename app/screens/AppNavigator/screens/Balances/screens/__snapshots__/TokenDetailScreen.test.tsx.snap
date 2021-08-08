@@ -65,6 +65,7 @@ exports[`token detail screen should accept DST 1`] = `
             },
           ]
         }
+        testID="token_detail_amount"
       >
         100,000 BTC
       </Text>
@@ -345,6 +346,7 @@ exports[`token detail screen should accept Token DFI 1`] = `
             },
           ]
         }
+        testID="token_detail_amount"
       >
         100,000 DFI
       </Text>
@@ -536,6 +538,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
             },
           ]
         }
+        testID="token_detail_amount"
       >
         100,000 DFI
       </Text>

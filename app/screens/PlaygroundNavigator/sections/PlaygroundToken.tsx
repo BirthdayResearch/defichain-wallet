@@ -3,13 +3,13 @@ import { PlaygroundRpcClient } from '@defichain/playground-api-client'
 import React, { useEffect, useState } from 'react'
 import { Text, View } from '../../../components'
 import { usePlaygroundContext } from '../../../contexts/PlaygroundContext'
-import { useWalletManagementContext } from '../../../contexts/WalletManagementContext'
+import { useWallet } from '../../../contexts/WalletContext'
 import { tailwind } from '../../../tailwind'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundStatus } from '../components/PlaygroundStatus'
 
 export function PlaygroundToken (): JSX.Element | null {
-  const { wallets } = useWalletManagementContext()
+  const wallet = useWallet()
   const { rpc, api } = usePlaygroundContext()
   const [status, setStatus] = useState<string>('loading')
   const [tokens, setTokens] = useState<PlaygroundTokenInfo[]>([])
@@ -23,10 +23,6 @@ export function PlaygroundToken (): JSX.Element | null {
     })
   }, [])
 
-  if (wallets.length === 0) {
-    return null
-  }
-
   const actions = tokens.filter(({ symbol }) => symbol !== 'DFI').map(token => {
     return (
       <PlaygroundAction
@@ -34,7 +30,7 @@ export function PlaygroundToken (): JSX.Element | null {
         testID={`playground_token_${token.symbol}`}
         title={`Top up 10.0 ${token.symbol} to Wallet`}
         onPress={async () => {
-          const address = await wallets[0].get(0).getAddress()
+          const address = await wallet.get(0).getAddress()
           await rpc.call('sendtokenstoaddress', [{}, {
             [address]: `10@${token.symbol}`
           }], 'number')
@@ -62,7 +58,7 @@ export function PlaygroundToken (): JSX.Element | null {
         onPress={async () => {
           await api.wallet.sendTokenDfiToAddress({
             amount: '10',
-            address: await wallets[0].get(0).getAddress()
+            address: await wallet.get(0).getAddress()
           })
         }}
       />

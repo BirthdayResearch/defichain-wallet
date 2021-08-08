@@ -27,9 +27,9 @@ export const environments: Record<EnvironmentName, Environment> = {
     name: EnvironmentName.Production,
     debug: false,
     networks: [
-      EnvironmentNetwork.RemotePlayground,
-      EnvironmentNetwork.TestNet,
-      EnvironmentNetwork.MainNet
+      EnvironmentNetwork.MainNet,
+      // EnvironmentNetwork.TestNet, still having issues with this deployment in EU region due to peers issues
+      EnvironmentNetwork.RemotePlayground
     ]
   },
   Preview: {
@@ -46,7 +46,9 @@ export const environments: Record<EnvironmentName, Environment> = {
     debug: true,
     networks: [
       EnvironmentNetwork.LocalPlayground,
-      EnvironmentNetwork.RemotePlayground
+      EnvironmentNetwork.RemotePlayground,
+      EnvironmentNetwork.TestNet,
+      EnvironmentNetwork.MainNet
     ]
   }
 }

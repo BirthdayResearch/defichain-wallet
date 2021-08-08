@@ -6,9 +6,9 @@ import { DeFiChainTheme } from '../../constants/Theme'
 import { PlaygroundNavigator } from '../PlaygroundNavigator/PlaygroundNavigator'
 import { AppLinking, BottomTabNavigator } from './BottomTabNavigator'
 
-const App = createStackNavigator<WalletParamList>()
+const App = createStackNavigator<AppParamList>()
 
-export interface WalletParamList {
+export interface AppParamList {
   App: undefined
   Playground: undefined
   NotFound: undefined

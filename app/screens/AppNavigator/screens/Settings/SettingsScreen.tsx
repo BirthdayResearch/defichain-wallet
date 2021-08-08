@@ -1,18 +1,43 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
+import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { useCallback } from 'react'
 import { Alert, Platform, ScrollView, TouchableOpacity } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { MnemonicWords } from '../../../../api/wallet/mnemonic_words'
 import { Text } from '../../../../components'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
-import { useWalletManagementContext } from '../../../../contexts/WalletManagementContext'
+import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { EnvironmentNetwork, getEnvironment, isPlayground } from '../../../../environment'
+import { authentication, Authentication } from '../../../../store/authentication'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
+import { SettingsParamList } from './SettingsNavigator'
 
-export function SettingsScreen (): JSX.Element {
+type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
+
+export function SettingsScreen ({ navigation }: Props): JSX.Element {
   const networks = getEnvironment().networks
+  const dispatch = useDispatch()
+  const walletContext = useWalletPersistenceContext()
+
+  const revealRecoveryWords = useCallback(() => {
+    if (walletContext.wallets[0].type !== 'MNEMONIC_ENCRYPTED') {
+      // TODO: alert(mnemonic phrase only get encrypted and stored if for encrypted type)
+      return
+    }
+
+    const auth: Authentication<string[]> = {
+      message: translate('screens/Setting', 'To continue downloading your recovery words, we need you to enter your passcode.'),
+      consume: async passphrase => await MnemonicWords.decrypt(passphrase),
+      onAuthenticated: async (words) => {
+        navigation.navigate('RecoveryWordsScreen', { words })
+      }
+    }
+    dispatch(authentication.actions.prompt(auth))
+  }, [walletContext.wallets[0]])
 
   return (
     <ScrollView style={tailwind('flex-1 bg-gray-100')}>
@@ -22,6 +47,9 @@ export function SettingsScreen (): JSX.Element {
           <RowNetworkItem key={index} network={network} />
         ))
       }
+      <SectionTitle text={translate('screens/Settings', 'SECURITY')} testID='security_title' />
+      <ViewRecoveryWords onPress={revealRecoveryWords} />
+      <RowNavigateItem pageName='AboutScreen' title='About' />
       <RowExitWalletItem />
     </ScrollView>
   )
@@ -65,7 +93,7 @@ function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
 }
 
 function RowExitWalletItem (): JSX.Element {
-  const { clearWallets } = useWalletManagementContext()
+  const { clearWallets } = useWalletPersistenceContext()
 
   async function onExitWallet (): Promise<void> {
     if (Platform.OS === 'web') {
@@ -102,6 +130,42 @@ function RowExitWalletItem (): JSX.Element {
       <Text style={tailwind('font-medium text-primary')}>
         {translate('screens/Settings', 'UNLINK WALLET')}
       </Text>
+    </TouchableOpacity>
+  )
+}
+
+function ViewRecoveryWords ({ onPress }: { onPress: () => void}): JSX.Element {
+  return (
+    <TouchableOpacity
+      testID='view_recovery_words'
+      style={tailwind('bg-white p-4 flex-row items-center justify-between border-b border-gray-200')}
+      onPress={onPress}
+    >
+      <Text style={tailwind('font-medium')}>
+        {translate('screens/Settings', 'Recovery Words')}
+      </Text>
+      <MaterialIcons
+        name='chevron-right'
+        style={[tailwind('text-black')]}
+        size={24}
+      />
+    </TouchableOpacity>
+  )
+}
+
+function RowNavigateItem ({ pageName, title }: { pageName: string, title: string }): JSX.Element {
+  const navigation = useNavigation()
+  return (
+    <TouchableOpacity
+      testID={`setting_navigate_${title}`}
+      onPress={() => {
+        navigation.navigate(pageName)
+      }} style={tailwind('flex bg-white flex-row p-4 pr-2 mt-4 items-center')}
+    >
+      <Text style={tailwind('font-medium flex-grow')}>
+        {translate('screens/Settings', title)}
+      </Text>
+      <MaterialIcons name='chevron-right' size={24} />
     </TouchableOpacity>
   )
 }

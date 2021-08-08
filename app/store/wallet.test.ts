@@ -9,14 +9,13 @@ describe('wallet reducer', () => {
     initialState = {
       tokens: [],
       utxoBalance: '0',
-      address: ''
     };
     tokenDFI = {
       id: '0',
       amount: '100000',
       isDAT: true,
       isLPS: false,
-      name: 'Defichain',
+      name: 'DeFiChain',
       symbol: 'DFI',
       symbolKey: 'DFI',
       avatarSymbol: 'DFI',
@@ -35,7 +34,6 @@ describe('wallet reducer', () => {
     expect(wallet.reducer(undefined, { type: 'unknown' })).toEqual({
       utxoBalance: '0',
       tokens: [],
-      address: ''
     });
   });
 
@@ -49,12 +47,6 @@ describe('wallet reducer', () => {
     const utxoAmount = '77'
     const actual = wallet.reducer(initialState, wallet.actions.setUtxoBalance(utxoAmount));
     expect(actual.utxoBalance).toStrictEqual(utxoAmount)
-  });
-
-  it('should handle setAddress', () => {
-    const address = 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d'
-    const actual = wallet.reducer(initialState, wallet.actions.setAddress(address));
-    expect(actual.address).toStrictEqual(address)
   });
 
   it('should able to select tokens with default DFIs', () => {

@@ -1,12 +1,13 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
+import dayjs from 'dayjs'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 
 import { Text } from '../../../../components'
-import { useWallet } from '../../../../contexts/WalletContext'
+import { useWalletAddressContext } from '../../../../contexts/WalletAddressContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -14,9 +15,13 @@ import { EmptyTransaction } from './EmptyTransaction'
 import { activitiesToViewModel, VMTransaction } from './screens/stateProcessor'
 import { TransactionsParamList } from './TransactionsNavigator'
 
+export function formatBlockTime (date: number): string {
+  return dayjs(date * 1000).format('MMM D, h:mm a')
+}
+
 export function TransactionsScreen (): JSX.Element {
   const client = useWhaleApiClient()
-  const wallet = useWallet()
+  const { address } = useWalletAddressContext()
   const navigation = useNavigation<NavigationProp<TransactionsParamList>>()
 
   const [activities, setAddressActivities] = useState<VMTransaction[]>([])
@@ -28,21 +33,20 @@ export function TransactionsScreen (): JSX.Element {
   const loadData = (nextToken?: string | undefined): void => {
     if (loadingStatus === 'loading') return
     setLoadingStatus('loading')
-    wallet.get(0).getAddress().then(async address => {
-      return await client.address.listTransaction(address, undefined, nextToken)
-    }).then(async addActivities => {
-      const newRows = activitiesToViewModel(addActivities)
-      if (nextToken !== undefined) {
-        setAddressActivities([...activities, ...newRows])
-      } else {
-        setAddressActivities([...newRows])
-      }
-      setHasNext(addActivities.hasNext)
-      setNextToken(addActivities.nextToken as string | undefined)
-      setLoadingStatus('idle')
-    }).catch(() => {
-      setLoadingStatus('error')
-    })
+    client.address.listTransaction(address, undefined, nextToken)
+      .then(async addActivities => {
+        const newRows = activitiesToViewModel(addActivities)
+        if (nextToken !== undefined) {
+          setAddressActivities([...activities, ...newRows])
+        } else {
+          setAddressActivities([...newRows])
+        }
+        setHasNext(addActivities.hasNext)
+        setNextToken(addActivities.nextToken as string)
+        setLoadingStatus('idle')
+      }).catch(() => {
+        setLoadingStatus('error')
+      })
   }
 
   const onLoadMore = (): void => {
@@ -63,7 +67,7 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
       iconName,
       amount,
       desc,
-      block,
+      medianTime,
       token
     } = row.item
 
@@ -83,14 +87,17 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
         <View style={tailwind('flex-1 flex-row justify-center items-center')}>
           <View style={tailwind('flex-auto flex-col ml-3 justify-center')}>
             <Text style={tailwind('font-medium')}>{translate('screens/TransactionsScreen', desc)}</Text>
-            <Text style={tailwind('font-medium')}>{translate('screens/TransactionsScreen', 'block')}: {block}</Text>
+            <Text
+              style={tailwind('text-xs text-gray-600')}
+            >{formatBlockTime(medianTime)}
+            </Text>
           </View>
-          <View style={tailwind('flex-row ml-3 items-center')}>
+          <View style={tailwind('flex-row ml-3 w-32 justify-end items-center')}>
             <NumberFormat
               value={amount} decimalScale={8} thousandSeparator displayType='text'
-              renderText={(value) => <Text style={{ color }}>{value}</Text>}
+              renderText={(value) => <Text numberOfLines={1} ellipsizeMode='tail' style={{ color }}>{value}</Text>}
             />
-            <View style={tailwind('w-16 ml-2 items-start')}>
+            <View style={tailwind('ml-2 items-start')}>
               <Text style={tailwind('flex-shrink font-medium text-gray-600')}>{token}</Text>
             </View>
           </View>
