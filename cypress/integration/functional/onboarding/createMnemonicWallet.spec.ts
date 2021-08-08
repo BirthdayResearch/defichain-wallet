@@ -3,6 +3,8 @@ context('Onboarding - Create Mnemonic Wallet', () => {
   const settingsRecoveryWords: string[] = []
 
   it('should start creation of mnemonic wallet', function () {
+    cy.visit('/')
+    cy.exitWallet()
     cy.startCreateMnemonicWallet(recoveryWords)
   })
 

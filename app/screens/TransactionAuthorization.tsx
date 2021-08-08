@@ -273,6 +273,7 @@ async function execWithAutoRetries (promptPromise: () => Promise<any>, onAutoRet
   try {
     return await promptPromise()
   } catch (e) {
+    Logging.error(e)
     if (e.message === 'USER_CANCELED') throw e
     if (++retries < MAX_PASSCODE_ATTEMPT) {
       await onAutoRetry(retries)

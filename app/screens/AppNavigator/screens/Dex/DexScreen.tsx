@@ -41,7 +41,7 @@ export function DexScreen (): JSX.Element {
     }).catch((err) => {
       Logging.error(err)
     })
-  }, [JSON.stringify(tokens)])
+  }, [JSON.stringify(tokens), address])
 
   const onAdd = (data: PoolPairData): void => {
     navigation.navigate('AddLiquidity', { pair: data })

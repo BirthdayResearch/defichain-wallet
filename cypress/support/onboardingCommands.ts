@@ -40,8 +40,6 @@ declare global {
 }
 
 Cypress.Commands.add('startCreateMnemonicWallet', (recoveryWords: string[]) => {
-  cy.visit('/')
-  cy.exitWallet()
   cy.getByTestID('create_wallet_button').click()
   cy.getByTestID('guidelines_switch').click()
   cy.getByTestID('create_recovery_words_button').click()

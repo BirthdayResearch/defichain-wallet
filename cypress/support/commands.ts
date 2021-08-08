@@ -1,5 +1,6 @@
 import '@testing-library/cypress/add-commands'
 import './onboardingCommands'
+import './walletCommands'
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -78,6 +79,13 @@ declare global {
        * @example cy.fetchWalletBalance()
        */
       fetchWalletBalance (): Chainable<Element>
+
+      /**
+       * @description Switch networks via app
+       * @param {string} network to be used
+       * @example cy.switchToMainnet('MainNet')
+       */
+      switchNetwork (network: string): Chainable<Element>
     }
   }
 }
@@ -122,4 +130,10 @@ Cypress.Commands.add('exitWallet', () => {
 
 Cypress.Commands.add('fetchWalletBalance', () => {
   cy.getByTestID('playground_wallet_fetch_balances').click()
+})
+
+Cypress.Commands.add('switchNetwork', (network: string) => {
+  cy.createEmptyWallet(true)
+  cy.getByTestID('bottom_tab_settings').click()
+  cy.getByTestID(`button_network_${network}`).click()
 })
