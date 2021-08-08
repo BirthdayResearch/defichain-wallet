@@ -28,7 +28,7 @@ export const environments: Record<EnvironmentName, Environment> = {
     debug: false,
     networks: [
       EnvironmentNetwork.MainNet,
-      // EnvironmentNetwork.TestNet, still having issues with this deployment in EU region due to peers issues
+      EnvironmentNetwork.TestNet,
       EnvironmentNetwork.RemotePlayground
     ]
   },
