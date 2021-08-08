@@ -28,7 +28,7 @@ export function MasternodeDetailScreen ({ route }: Props): JSX.Element {
           thumbColor='#fff'
           ios_backgroundColor='#ffffff'
           onValueChange={toggleSwitch}
-          value={isEnabled}
+          value={masternode.state === 'ENABLED' ? !isEnabled : isEnabled}
           testID='masternode_state_switch'
           style={tailwind('mr-5')}
         />
