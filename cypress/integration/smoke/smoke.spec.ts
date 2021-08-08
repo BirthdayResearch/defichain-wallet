@@ -11,6 +11,9 @@ context('Mainnet - Wallet', () => {
   const localAddress = {
     address: ''
   }
+  const mainnetAddress = {
+    address: ''
+  }
 
   beforeEach(() => {
     cy.restoreLocalStorage()
@@ -31,11 +34,7 @@ context('Mainnet - Wallet', () => {
 
   it('should have MainNet and Connected status', function () {
     cy.switchNetwork('MainNet')
-    cy.getByTestID('playground_active_network').then(($txt: any) => {
-      const network = $txt[0].textContent
-      expect(network).eq('MainNet')
-    })
-    cy.getByTestID('playground_status_indicator').should('have.css', 'background-color', 'rgb(16, 185, 129)')
+    cy.isNetworkConnected('MainNet')
   })
 
   it('should start creation of mnemonic wallet', function () {
@@ -71,8 +70,22 @@ context('Mainnet - Wallet', () => {
     })
 
     it('should be have valid network address', function () {
-      cy.verifyWalletAddress('mainnet')
+      cy.verifyWalletAddress('mainnet', mainnetAddress)
       cy.getByTestID('bottom_tab_balances').click()
+    })
+  })
+
+  context('Wallet - On Refresh', () => {
+    it('should load selected network', function () {
+      cy.reload()
+      cy.isNetworkConnected('MainNet')
+      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('balances_row_0_utxo').click()
+      cy.getByTestID('receive_button').click()
+      cy.getByTestID('address_text').then(($txt: any) => {
+        const address = $txt[0].textContent
+        expect(address).eq(mainnetAddress.address)
+      })
     })
   })
 
