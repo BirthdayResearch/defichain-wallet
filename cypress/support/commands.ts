@@ -86,6 +86,16 @@ declare global {
        * @example cy.switchToMainnet('MainNet')
        */
       switchNetwork (network: string): Chainable<Element>
+
+      /**
+       * @description Stores local storage for dependent tests
+       */
+      saveLocalStorage (): Chainable<Element>
+
+      /**
+       * @description Restores local storage for dependent tests
+       */
+      restoreLocalStorage (): Chainable<Element>
     }
   }
 }
@@ -133,7 +143,20 @@ Cypress.Commands.add('fetchWalletBalance', () => {
 })
 
 Cypress.Commands.add('switchNetwork', (network: string) => {
-  cy.createEmptyWallet(true)
   cy.getByTestID('bottom_tab_settings').click()
   cy.getByTestID(`button_network_${network}`).click()
 })
+
+let LOCAL_STORAGE_MEMORY = {};
+
+Cypress.Commands.add('saveLocalStorage', () => {
+  Object.keys(localStorage).forEach(key => {
+    LOCAL_STORAGE_MEMORY[key] = localStorage[key];
+  });
+});
+
+Cypress.Commands.add('restoreLocalStorage', () => {
+  Object.keys(LOCAL_STORAGE_MEMORY).forEach(key => {
+    localStorage.setItem(key, LOCAL_STORAGE_MEMORY[key]);
+  });
+});

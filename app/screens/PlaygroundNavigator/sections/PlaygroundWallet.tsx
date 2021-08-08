@@ -11,7 +11,7 @@ import { PlaygroundTitle } from '../components/PlaygroundTitle'
 
 export function PlaygroundWallet (): JSX.Element | null {
   const { wallets, clearWallets, setWallet } = useWalletPersistenceContext()
-  const { network } = useNetworkContext()
+  const { network, updateNetwork } = useNetworkContext()
 
   return (
     <View>
@@ -27,6 +27,7 @@ export function PlaygroundWallet (): JSX.Element | null {
         testID='playground_wallet_abandon'
         title='Setup an unprotected wallet with abandon x23 + art as the 24 word'
         onPress={async () => {
+          await updateNetwork(network)
           const data = await MnemonicUnprotected.toData([
             'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'
           ], network)
@@ -38,6 +39,7 @@ export function PlaygroundWallet (): JSX.Element | null {
         testID='playground_wallet_abandon_encrypted'
         title='Setup an encrypted wallet with abandon x23 + art as the 24 word with 000000 passcode'
         onPress={async () => {
+          await updateNetwork(network)
           const data = await MnemonicEncrypted.toData([
             'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'
           ], network, '000000')
@@ -49,6 +51,7 @@ export function PlaygroundWallet (): JSX.Element | null {
         testID='playground_wallet_random'
         title='Setup an encrypted wallet with a random seed using 000000 passcode'
         onPress={async () => {
+          await updateNetwork(network)
           const words = generateMnemonicWords(24, (numOfBytes: number) => {
             const bytes = getRandomBytes(numOfBytes)
             return Buffer.from(bytes)

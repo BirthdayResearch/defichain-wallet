@@ -2,6 +2,14 @@ context('Onboarding - Create Mnemonic Wallet', () => {
   const recoveryWords: string[] = []
   const settingsRecoveryWords: string[] = []
 
+  beforeEach(() => {
+    cy.restoreLocalStorage()
+  })
+
+  afterEach(() => {
+    cy.saveLocalStorage()
+  })
+
   it('should start creation of mnemonic wallet', function () {
     cy.visit('/')
     cy.exitWallet()
@@ -50,6 +58,12 @@ context('Onboarding - Create Mnemonic Wallet', () => {
     it('should be able to restore mnemonic words', function () {
       cy.exitWallet()
       cy.restoreMnemonicWords(settingsRecoveryWords)
+    })
+  })
+
+  context('Settings - On Restore - Mnemonic Verification', () => {
+    it('should be able to verify mnemonic from settings page', function () {
+      cy.verifyMnemonicOnSettingsPage([], recoveryWords)
     })
   })
 })
