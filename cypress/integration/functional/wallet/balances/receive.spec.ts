@@ -1,7 +1,7 @@
 context('Wallet - Receive', () => {
   before(function () {
     cy.createEmptyWallet(true)
-    cy.sendDFItoWallet()
+    cy.sendDFItoWallet().wait(10000)
     cy.fetchWalletBalance()
   })
 
