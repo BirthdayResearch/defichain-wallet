@@ -83,7 +83,9 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
 
   useEffect(() => {
-    client.fee.estimate().then((f) => setFee(new BigNumber(f))).catch((e) => Logging.error(e))
+    client.fee.estimate()
+      .then((f) => setFee(new BigNumber(f)))
+      .catch(Logging.error)
   }, [])
 
   useEffect(() => {

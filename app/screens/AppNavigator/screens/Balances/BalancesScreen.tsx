@@ -35,7 +35,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     setRefreshing(true)
     await fetchTokens(client, address, dispatch)
     setRefreshing(false)
-  }, [])
+  }, [address])
 
   const tokens = useTokensAPI()
   return (

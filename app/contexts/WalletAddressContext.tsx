@@ -20,7 +20,7 @@ export function WalletAddressProvider (props: React.PropsWithChildren<any>): JSX
     wallet.get(0).getAddress().then(value => {
       setAddress(value)
     }).catch(Logging.error)
-  }, [])
+  }, [wallet])
 
   if (address === undefined) {
     return null

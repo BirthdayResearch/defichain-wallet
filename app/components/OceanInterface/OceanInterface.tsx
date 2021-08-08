@@ -144,7 +144,7 @@ export function OceanInterface (): JSX.Element | null {
           fetchTokens(client, address, dispatch)
         }) // remove the job as soon as completion
     }
-  }, [transaction, walletContext])
+  }, [transaction, walletContext, address])
 
   if (tx === undefined) {
     return null
