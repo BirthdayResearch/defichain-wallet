@@ -2,14 +2,15 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { HeaderFont } from '../../../../components/Text'
 import { translate } from '../../../../translations'
-import { MasternodesScreen, Masternode } from './MasternodesScreen'
+import { MasternodesScreen } from './MasternodesScreen'
 import { MasternodeDetailScreen } from './MasternodeDetailScreen'
 import { MasternodeCreateScreen } from './MasternodeCreateScreen'
+import { MasternodeData } from '@defichain/whale-api-client/dist/api/masternodes'
 
 export interface MasternodeParamList {
   MasternodesScreen: undefined
   MasternodeDetailScreen: {
-    masternode: Masternode
+    masternode: MasternodeData
   }
   MasternodeCreateScreen: undefined
 

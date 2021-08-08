@@ -33,7 +33,7 @@ export function EmptyMasternode (props: EmptyMasternodeProps): JSX.Element {
       <Button
         testID='button_create_masternode'
         title='Create Masternode'
-        onPress={() => props.navigation.navigate('Create')}
+        onPress={() => props.navigation.navigate('MasternodeCreate')}
         label={translate('screens/MasternodesScreen', 'CREATE MASTERNODE')}
       />
     </ScrollView>

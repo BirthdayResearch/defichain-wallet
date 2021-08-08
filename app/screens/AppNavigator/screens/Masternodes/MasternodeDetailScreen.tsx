@@ -38,14 +38,18 @@ export function MasternodeDetailScreen ({ route }: Props): JSX.Element {
         testID='masternodes_details'
       >
         <View style={tailwind('w-full')}>
-          {renderField('Owner', masternode.ownerAuthAddress)}
+          {renderField('Owner', masternode.owner.address)}
+          {renderField('Operator', masternode.operator.address === masternode.owner.address ? 'Same as owner' : masternode.operator.address)}
+          {renderField('State', masternode.state)}
+          {renderField('Minted', masternode.mintedBlocks)}
+          {/* {renderField('Owner', masternode.ownerAuthAddress)}
           {renderField('Operator', masternode.operatorAuthAddress === masternode.ownerAuthAddress ? 'Same as owner' : masternode.operatorAuthAddress)}
           {renderField('State', masternode.state)}
           {renderField('Minted', masternode.mintedBlocks)}
           {renderField('Creation', masternode.creationHeight)}
           {renderField('Resign', masternode.resignHeight)}
           {renderField('ResignTx', masternode.resignTx)}
-          {renderField('BanTx', masternode.banTx)}
+          {renderField('BanTx', masternode.banTx)} */}
         </View>
       </View>
     </ScrollView>

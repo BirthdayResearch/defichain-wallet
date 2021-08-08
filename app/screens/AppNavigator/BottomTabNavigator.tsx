@@ -56,11 +56,11 @@ export function BottomTabNavigator (): JSX.Element {
           }}
         />
         <BottomTab.Screen
-          name={translate('BottomTabNavigator', 'Masternodes')}
+          name={translate('BottomTabNavigator', 'MNs')}
           component={MasternodesNavigator}
           options={{
             tabBarTestID: 'bottom_tab_masternodes',
-            tabBarIcon: ({ color }) => <MaterialIcons size={24} name='assignment' color={color} />
+            tabBarIcon: ({ color }) => <MaterialIcons size={24} name='dns' color={color} />
           }}
         />
         <BottomTab.Screen

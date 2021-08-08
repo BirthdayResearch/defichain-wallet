@@ -43,7 +43,7 @@ export function MasternodeCreateScreen ({ navigation }: Props): JSX.Element {
   }
 
   return (
-    <ScrollView style={tailwind('w-full flex-clo flex-1 bg-gray-100')}>
+    <ScrollView style={tailwind('w-full flex-col flex-1 bg-gray-100')}>
       <AddressRow
         control={control}
         networkName={networkName}
