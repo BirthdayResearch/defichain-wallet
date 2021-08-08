@@ -31,6 +31,7 @@ Object {
   "name": "Production",
   "networks": Array [
     "MainNet",
+    "TestNet",
     "Playground",
   ],
 }
