@@ -14,6 +14,8 @@ import { Button } from '../../../../components/Button'
 // import { ApiPagedResponse } from '@defichain/whale-api-client'
 import { MasternodeData } from '@defichain/whale-api-client/dist/api/masternodes'
 import { Logging } from '../../../../api'
+import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
+// import BigNumber from 'bignumber.js'
 
 type Props = StackScreenProps<MasternodeParamList, 'MasternodesScreen'>
 
@@ -86,6 +88,10 @@ export function MasternodesScreen ({ navigation }: Props): JSX.Element {
   // const [masternodes, setMasternodes] = useState<MasternodeData[]>([])
   // const [hasNext, setHasNext] = useState<boolean>(false)
   // const [nextToken, setNextToken] = useState<string | undefined>(undefined)
+  const [canCreate, setCanCreate] = useState(false)
+
+  const tokens = useTokensAPI()
+  console.log('tokens: ', tokens)
 
   const onRefresh = useCallback(() => {
     setRefreshing(true)
@@ -103,16 +109,26 @@ export function MasternodesScreen ({ navigation }: Props): JSX.Element {
     onRefresh()
   }, [])
 
+  useEffect(() => {
+    setCanCreate(true)
+    // if (new BigNumber(tokens[1].amount).gte(new BigNumber('20000'))) {
+    //   setCanCreate(true)
+    // } else {
+    //   setCanCreate(false)
+    // }
+  }, [JSON.stringify(tokens)])
+
   return masternodes.length === 0
     ? <EmptyMasternode navigation={navigation} refreshing={refreshing} onRefresh={onRefresh} />
-    : renderMasternodes(masternodes, navigation, refreshing, onRefresh)
+    : renderMasternodes(masternodes, navigation, refreshing, onRefresh, canCreate)
 }
 
 function renderMasternodes (
   masternodes: MasternodeData[],
   navigation: StackNavigationProp<MasternodeParamList, 'MasternodesScreen'>,
   refreshing: boolean,
-  onRefresh: () => void
+  onRefresh: () => void,
+  canCreate: boolean
 ): JSX.Element {
   return (
     <FlatList
@@ -129,8 +145,34 @@ function renderMasternodes (
         />}
       ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
       ListHeaderComponent={<SectionTitle testID='masternodes_title' text={translate('screens/MasternodesScreen', 'MASTERNODE LIST')} />}
-      ListFooterComponent={<Button testID='button_create_masternode' title='Create Masternode' onPress={() => navigation.navigate('MasternodeCreate')} label={translate('screens/MasternodesScreen', 'CREATE MASTERNODE')} />}
+      ListFooterComponent={<CreateButton navigation={navigation} canCreate={canCreate} />}
     />
+  )
+}
+
+function CreateButton (
+  props: {
+    navigation: StackNavigationProp<MasternodeParamList, 'MasternodesScreen'>
+    canCreate: boolean
+  }
+): JSX.Element {
+  return (
+    <View style={tailwind('flex justify-center')}>
+      <Button
+        testID='button_create_masternode'
+        title='Create Masternode'
+        disabled={!props.canCreate}
+        onPress={
+          () => props.navigation.navigate('MasternodeCreate')
+        }
+        label={translate('screens/MasternodesScreen', 'CREATE MASTERNODE')}
+      />
+      {!props.canCreate && (
+        <View style={tailwind('p-4 pb-0')}>
+          <Text style={tailwind('text-sm text-center text-gray-200')}>Unable to create masternode due to lack of funds. Minimum 20,000 DFI is required to create masternode.</Text>
+        </View>
+      )}
+    </View>
   )
 }
 
