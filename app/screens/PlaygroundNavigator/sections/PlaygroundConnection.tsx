@@ -1,53 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import { Text, View } from '../../../components'
 import { useNetworkContext } from '../../../contexts/NetworkContext'
-import { usePlaygroundContext } from '../../../contexts/PlaygroundContext'
+import { isPlayground } from '../../../environment'
+import { RootState } from '../../../store'
 import { tailwind } from '../../../tailwind'
-import { PlaygroundStatus } from '../components/PlaygroundStatus'
-
-const DURATION = 3000
+import { PlaygroundTitle } from '../components/PlaygroundTitle'
 
 export function PlaygroundConnection (): JSX.Element {
   const { network } = useNetworkContext()
-  const { api } = usePlaygroundContext()
-
-  const [count, setCount] = useState(0)
-  const [connected, setConnected] = useState(false)
-
-  useEffect(() => {
-    function refresh (): void {
-      api.playground.info().then(({ block }) => {
-        setCount(block.count)
-        setConnected(true)
-      }).catch(() => {
-        setCount(0)
-        setConnected(false)
-      })
-    }
-
-    refresh()
-    const interval = setInterval(refresh, DURATION)
-    return () => clearInterval(interval)
-  }, [])
+  const connected = useSelector((state: RootState) => state.block.connected)
+  const count = useSelector((state: RootState) => state.block.count)
 
   return (
     <View>
-      <View style={tailwind('flex flex-row items-center')}>
-        <Text style={tailwind('text-xl font-bold')}>Connection</Text>
-        <View style={tailwind('flex-row items-center ml-2')}>
-          <PlaygroundStatus online={connected} offline={!connected} />
-          <Text style={tailwind('ml-2 text-gray-900')}>↻{(DURATION / 1000).toFixed(0)}s</Text>
-        </View>
-      </View>
+      <PlaygroundTitle title='Connection' status={{ online: connected, offline: !connected }} />
 
-      <View style={tailwind('mt-1')}>
-        <Text style={tailwind('text-sm font-medium text-gray-900')}>
-          Playground: {network}
+      <View style={tailwind('px-4 py-4 bg-white')}>
+        <Text style={tailwind('font-medium')}>
+          Network: <Text testID='playground_active_network'>{network}</Text>
+        </Text>
+        <Text>
+          Blocks: {count === 0 ? '...' : count}
         </Text>
 
-        <Text style={tailwind('mt-1 text-sm font-medium text-gray-900')}>
-          Block Count: {count === 0 ? '...' : count}
-        </Text>
+        {isPlayground(network) ? (
+          <Text style={tailwind('mt-2 text-sm')}>
+            DeFi Playground is a specialized testing blockchain isolated from MainNet for testing DeFi applications.
+            Assets are not real, it can be minted by anyone. Blocks are generated every 3 seconds, the chain resets
+            daily.
+          </Text>
+        ) : null}
       </View>
     </View>
   )

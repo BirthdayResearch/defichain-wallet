@@ -53,7 +53,9 @@ export function TransactionsScreen (): JSX.Element {
     loadData(nextToken)
   }
 
-  useEffect(() => loadData(), [])
+  useEffect(() => {
+    loadData()
+  }, [address])
 
   return activities.length === 0
     ? <EmptyTransaction navigation={navigation} handleRefresh={loadData} loadingStatus={loadingStatus} />

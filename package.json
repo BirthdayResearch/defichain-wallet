@@ -118,7 +118,7 @@
     "ignore": [
       "**/*.test.ts",
       "**/*.test.tsx",
-      "cypress/support/commands.ts"
+      "cypress/support/*.ts"
     ]
   },
   "standard-version": {

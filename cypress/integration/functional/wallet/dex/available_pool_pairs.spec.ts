@@ -19,6 +19,7 @@ context('Wallet - DEX - Available Pool Pairs', () => {
       expect(text).to.contains('Pooled DFI')
       expect(text).to.contains('Pooled BTC')
     })
+    cy.getByTestID('apr_DFI_BTC').should('exist')
   })
 
   it('should have DFI-USDT PoolPair as 3rd', () => {
@@ -30,5 +31,6 @@ context('Wallet - DEX - Available Pool Pairs', () => {
       expect(text).to.contains('Pooled DFI')
       expect(text).to.contains('Pooled USDT')
     })
+    cy.getByTestID('apr_DFI_USDT').should('exist')
   })
 })

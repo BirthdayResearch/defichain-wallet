@@ -2,6 +2,7 @@ import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
+import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { SectionList, TouchableOpacity } from 'react-native'
@@ -41,7 +42,7 @@ export function DexScreen (): JSX.Element {
     }).catch((err) => {
       Logging.error(err)
     })
-  }, [JSON.stringify(tokens)])
+  }, [JSON.stringify(tokens), address])
 
   const onAdd = (data: PoolPairData): void => {
     navigation.navigate('AddLiquidity', { pair: data })
@@ -135,7 +136,7 @@ function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () =>
       </View>
 
       <View style={tailwind('mt-4')}>
-        <PoolPairInfoLine symbol={data.symbol} reserve={data.amount} />
+        <PoolPairInfoLine symbol={data.symbol} reserve={data.amount} row='your' />
       </View>
     </View>
   )
@@ -162,8 +163,12 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
       </View>
 
       <View style={tailwind('mt-4')}>
-        <PoolPairInfoLine symbol={symbolA} reserve={data.tokenA.reserve} />
-        <PoolPairInfoLine symbol={symbolB} reserve={data.tokenB.reserve} />
+        {
+          data.apr?.total !== undefined &&
+            <PoolPairAPR symbol={`${symbolA}_${symbolB}`} apr={data.apr.total} row='apr' />
+        }
+        <PoolPairInfoLine symbol={symbolA} reserve={data.tokenA.reserve} row='available' />
+        <PoolPairInfoLine symbol={symbolB} reserve={data.tokenB.reserve} row='available' />
       </View>
     </View>
   )
@@ -181,7 +186,7 @@ function PoolPairLiqBtn (props: { name: React.ComponentProps<typeof MaterialIcon
   )
 }
 
-function PoolPairInfoLine (props: { symbol: string, reserve: string }): JSX.Element {
+function PoolPairInfoLine (props: { symbol: string, reserve: string, row: string }): JSX.Element {
   return (
     <View style={tailwind('flex-row justify-between')}>
       <Text style={tailwind('text-sm font-semibold mb-1')}>Pooled {props.symbol}</Text>
@@ -189,7 +194,23 @@ function PoolPairInfoLine (props: { symbol: string, reserve: string }): JSX.Elem
         suffix={` ${props.symbol}`}
         value={props.reserve} decimalScale={2} thousandSeparator displayType='text'
         renderText={value => {
-          return <Text style={tailwind('text-sm font-semibold')}>{value}</Text>
+          return <Text testID={`${props.row}_${props.symbol}`} style={tailwind('text-sm font-semibold')}>{value}</Text>
+        }}
+      />
+    </View>
+  )
+}
+
+function PoolPairAPR (props: { symbol: string, apr: number, row: string }): JSX.Element {
+  return (
+    <View style={tailwind('flex-row justify-between items-end')}>
+      <Text style={tailwind('text-sm font-semibold mb-1')}>{translate('screens/DexScreen', 'APR')}</Text>
+      <NumberFormat
+        suffix='%'
+        value={new BigNumber(isNaN(props.apr) ? 0 : props.apr).times(100).toFixed(2)} decimalScale={2} thousandSeparator
+        displayType='text'
+        renderText={value => {
+          return <Text testID={`${props.row}_${props.symbol}`} style={tailwind('text-xl font-semibold')}>{value}</Text>
         }}
       />
     </View>

@@ -7,7 +7,6 @@ interface Network {
   network: EnvironmentNetwork
   networkName: NetworkName
   updateNetwork: (network: EnvironmentNetwork) => Promise<void>
-  reloadNetwork: () => Promise<void>
 }
 
 const NetworkContext = createContext<Network>(undefined as any)
@@ -47,9 +46,6 @@ export function NetworkProvider (props: React.PropsWithChildren<any>): JSX.Eleme
     async updateNetwork (value: EnvironmentNetwork): Promise<void> {
       await StorageAPI.setNetwork(value)
       setNetwork(value)
-    },
-    async reloadNetwork (): Promise<void> {
-      setNetwork(network)
     }
   }
 
