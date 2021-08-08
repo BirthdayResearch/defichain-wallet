@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import { HeaderFont } from '../../components'
+import { HeaderTitle } from '../../components/HeaderTitle'
 import { PlaygroundScreen } from './PlaygroundScreen'
 
 export interface PlaygroundParamList {
@@ -18,7 +19,7 @@ export function PlaygroundNavigator (): JSX.Element {
         name='PlaygroundScreen'
         component={PlaygroundScreen}
         options={{
-          headerTitle: 'DeFi Testing',
+          headerTitle: () => <HeaderTitle text='DeFi Testing' />,
           headerBackTitleVisible: false
         }}
       />

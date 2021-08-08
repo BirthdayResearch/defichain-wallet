@@ -1,21 +1,22 @@
+import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
 import { LinkingOptions, NavigationContainer, NavigationContainerRef } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as Linking from 'expo-linking'
 import * as React from 'react'
+import { WalletPersistenceData } from '../../api/wallet'
 import { HeaderFont } from '../../components'
+import { HeaderTitle } from '../../components/HeaderTitle'
 import { DeFiChainTheme } from '../../constants/Theme'
 import { translate } from '../../translations'
 import { CreateMnemonicWallet } from './screens/CreateWallet/CreateMnemonicWallet'
 import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
+import { EnrollBiometric } from './screens/CreateWallet/EnrollBiometric'
 import { GuidelinesRecoveryWords } from './screens/CreateWallet/GuidelinesRecoveryWords'
+import { PinConfirmation } from './screens/CreateWallet/PinConfirmation'
+import { PinCreation } from './screens/CreateWallet/PinCreation'
 import { VerifyMnemonicWallet } from './screens/CreateWallet/VerifyMnemonicWallet'
 import { Onboarding } from './screens/Onboarding'
 import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
-import { PinCreation } from './screens/CreateWallet/PinCreation'
-import { PinConfirmation } from './screens/CreateWallet/PinConfirmation'
-import { EnrollBiometric } from './screens/CreateWallet/EnrollBiometric'
-import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
-import { WalletPersistenceData } from '../../api/wallet/persistence'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -80,7 +81,7 @@ export function WalletNavigator (): JSX.Element {
           name='CreateWalletGuidelines'
           component={CreateWalletGuidelines}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Guidelines'),
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Guidelines')} />,
             headerBackTitleVisible: false
           }}
         />
@@ -88,7 +89,7 @@ export function WalletNavigator (): JSX.Element {
           name='GuidelinesRecoveryWords'
           component={GuidelinesRecoveryWords}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Learn More'),
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Learn More')} />,
             headerBackTitleVisible: false
           }}
         />
@@ -96,7 +97,7 @@ export function WalletNavigator (): JSX.Element {
           name='CreateMnemonicWallet'
           component={CreateMnemonicWallet}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Display recovery words'),
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Display recovery words')} />,
             headerBackTitleVisible: false
           }}
         />
@@ -104,7 +105,7 @@ export function WalletNavigator (): JSX.Element {
           name='VerifyMnemonicWallet'
           component={VerifyMnemonicWallet}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Verify words'),
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Verify words')} />,
             headerBackTitleVisible: false
           }}
         />
@@ -112,7 +113,7 @@ export function WalletNavigator (): JSX.Element {
           name='RestoreMnemonicWallet'
           component={RestoreMnemonicWallet}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Restore Wallet'),
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Restore Wallet')} />,
             headerBackTitleVisible: false
           }}
         />
@@ -120,7 +121,7 @@ export function WalletNavigator (): JSX.Element {
           name='PinCreation'
           component={PinCreation}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Create a passcode'),
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Create a passcode')} />,
             headerBackTitleVisible: false
           }}
         />
@@ -128,7 +129,7 @@ export function WalletNavigator (): JSX.Element {
           name='PinConfirmation'
           component={PinConfirmation}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Verify passcode'),
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Verify passcode')} />,
             headerBackTitleVisible: false
           }}
         />
@@ -136,7 +137,7 @@ export function WalletNavigator (): JSX.Element {
           name='EnrollBiometric'
           component={EnrollBiometric}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Wallet Created')
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Wallet Created')} />
           }}
         />
       </WalletStack.Navigator>

@@ -2,6 +2,7 @@ import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
+import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { SectionList, TouchableOpacity } from 'react-native'
@@ -162,6 +163,10 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
       </View>
 
       <View style={tailwind('mt-4')}>
+        {
+          data.apr?.total !== undefined &&
+            <PoolPairAPR symbol={`${symbolA}_${symbolB}`} apr={data.apr.total} row='apr' />
+        }
         <PoolPairInfoLine symbol={symbolA} reserve={data.tokenA.reserve} row='available' />
         <PoolPairInfoLine symbol={symbolB} reserve={data.tokenB.reserve} row='available' />
       </View>
@@ -190,6 +195,22 @@ function PoolPairInfoLine (props: { symbol: string, reserve: string, row: string
         value={props.reserve} decimalScale={2} thousandSeparator displayType='text'
         renderText={value => {
           return <Text testID={`${props.row}_${props.symbol}`} style={tailwind('text-sm font-semibold')}>{value}</Text>
+        }}
+      />
+    </View>
+  )
+}
+
+function PoolPairAPR (props: { symbol: string, apr: number, row: string }): JSX.Element {
+  return (
+    <View style={tailwind('flex-row justify-between items-end')}>
+      <Text style={tailwind('text-sm font-semibold mb-1')}>{translate('screens/DexScreen', 'APR')}</Text>
+      <NumberFormat
+        suffix='%'
+        value={new BigNumber(isNaN(props.apr) ? 0 : props.apr).times(100).toFixed(2)} decimalScale={2} thousandSeparator
+        displayType='text'
+        renderText={value => {
+          return <Text testID={`${props.row}_${props.symbol}`} style={tailwind('text-xl font-semibold')}>{value}</Text>
         }}
       />
     </View>

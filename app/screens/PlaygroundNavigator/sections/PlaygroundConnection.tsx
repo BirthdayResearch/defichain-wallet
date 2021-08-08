@@ -1,35 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { Logging } from '../../../api'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import { Text, View } from '../../../components'
 import { useNetworkContext } from '../../../contexts/NetworkContext'
-import { useWhaleApiClient } from '../../../contexts/WhaleContext'
 import { isPlayground } from '../../../environment'
+import { RootState } from '../../../store'
 import { tailwind } from '../../../tailwind'
 import { PlaygroundTitle } from '../components/PlaygroundTitle'
 
 export function PlaygroundConnection (): JSX.Element {
   const { network } = useNetworkContext()
-  const api = useWhaleApiClient()
-
-  const [count, setCount] = useState(0)
-  const [connected, setConnected] = useState(false)
-
-  useEffect(() => {
-    function refresh (): void {
-      api.stats.get().then(({ count }) => {
-        setCount(count.blocks)
-        setConnected(true)
-      }).catch((err) => {
-        setCount(0)
-        setConnected(false)
-        Logging.error(err)
-      })
-    }
-
-    refresh()
-    const interval = setInterval(refresh, 3000)
-    return () => clearInterval(interval)
-  }, [network])
+  const connected = useSelector((state: RootState) => state.block.connected)
+  const count = useSelector((state: RootState) => state.block.count)
 
   return (
     <View>
