@@ -32,9 +32,9 @@ context('Mainnet - Wallet', () => {
     cy.verifyWalletAddress('regtest', localAddress)
   })
 
-  it('should have MainNet and Connected status', function () {
+  it('should have MainNet', function () {
+    cy.isNetworkConnected('Local')
     cy.switchNetwork('MainNet')
-    cy.isNetworkConnected('MainNet')
   })
 
   it('should start creation of mnemonic wallet', function () {

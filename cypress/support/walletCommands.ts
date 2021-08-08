@@ -36,9 +36,9 @@ Cypress.Commands.add('verifyWalletAddress', (network: string, addressObject?: { 
 })
 
 Cypress.Commands.add('isNetworkConnected', (network: string) => {
-  cy.getByTestID('playground_active_network').then(($txt: any) => {
-    const network = $txt[0].textContent
-    expect(network).eq('MainNet')
+  cy.getByTestID('header_active_network').then(($txt: any) => {
+    const net = $txt[0].textContent
+    expect(net).eq(network)
   })
-  cy.getByTestID('playground_status_indicator').should('have.css', 'background-color', 'rgb(16, 185, 129)')
+  cy.getByTestID('header_status_indicator').should('have.css', 'background-color', 'rgb(16, 185, 129)')
 })
