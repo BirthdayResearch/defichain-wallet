@@ -2,11 +2,11 @@
   "build": {
     "release": {
       "android": {
-        "workflow": "managed",
+        "developmentClient": true,
         "releaseChannel": "production"
       },
       "ios": {
-        "workflow": "managed",
+        "developmentClient": true,
         "releaseChannel": "production"
       }
     }
