@@ -212,7 +212,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
         <View style={tailwind('flex-1')}>
           <Text style={tailwind('font-medium')}>{translate('screens/AddLiquidity', 'Price')}</Text>
         </View>
-        <View style={tailwind('flex-col')}>
+        <View style={tailwind('flex-col items-end')}>
           <View style={tailwind('flex-1 flex-row')}>
             <NumberFormat
               value={pair.aToBRate.toNumber()} decimalScale={3} thousandSeparator displayType='text'
