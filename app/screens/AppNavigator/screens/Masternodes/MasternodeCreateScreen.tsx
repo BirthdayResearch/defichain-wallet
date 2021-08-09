@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { RadioButton } from '../../../../components/RadioButton'
 import { RadioGroup } from '../../../../components/RadioGroup'
+import { useWallet } from '../../../../contexts/WalletContext'
 
 interface CreateMasternodeForm {
   operatorAddress: string
@@ -39,10 +40,11 @@ type Props = StackScreenProps<MasternodeParamList, 'CreateMasternodeScreen'>
 
 export function MasternodeCreateScreen ({ navigation }: Props): JSX.Element {
   const { networkName } = useNetworkContext()
+  const wallet = useWallet()
   // const client = useWhaleApiClient()
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [currentSelectedAddressType/*, setCurrentSelectedAddressType */] = useState<number>(0)
+  const [currentSelectedAddressType, setCurrentSelectedAddressType] = useState<number>(0)
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
 
   const dispatch = useDispatch()
@@ -74,7 +76,7 @@ export function MasternodeCreateScreen ({ navigation }: Props): JSX.Element {
     // return await client.wallet.getNewAddress()
     // setValue('operatorAddress', address)
     setValue('operatorAddress', '2N9pHg9wKQK5hZxzwPfxZfy3jw76YFXriS2')
-    console.log('isValid: ', isValid)
+    await trigger('operatorAddress')
   }
 
   async function create ({
@@ -83,26 +85,31 @@ export function MasternodeCreateScreen ({ navigation }: Props): JSX.Element {
   dispatch: Dispatch<any>
   ): Promise<void> {
     try {
-      const operatorAuthAddress = DeFiAddress.from(networkName, operatorAddress).getScript()
-      console.log('operatorAuthAddress: ', operatorAuthAddress)
-
       // const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
       const signer = async (account: WhaleWalletAccount): Promise<any> => {
         console.log('sign')
-        const script = await account.getScript()
-        console.log('script: ', script)
-        console.log('account: ', account)
 
-        // const builder = account.withTransactionBuilder()
+        const script = await account.getScript()
+        const operatorAuthAddress = currentSelectedAddressType === 0
+          ? script
+          : DeFiAddress.from(networkName, operatorAddress).getScript()
+
+        const useAddress = currentSelectedAddressType === 0
+          ? await wallet.get(0).getAddress()
+          : operatorAddress
+
+        // 0x01 = p2pkh (legacy), 0x04 = p2wpkh (bech32)
+        const operatorType = useAddress.substr(0, 1) === '1' ? 1 : 4
 
         const createMasternode = {
-          operatorType: 1, // 1 | 4
+          operatorType: operatorType,
           // TODO(canonbrother): display input only if pick set operatorAddr option
-          operatorAuthAddress: operatorAddress
+          operatorAuthAddress: operatorAuthAddress
           // TODO(canonbrother): need to check how timelock work
           // timeLock: 0
         }
         console.log('createMasternode: ', createMasternode)
+        // const builder = account.withTransactionBuilder()
 
         // TODO(canonbrother): pending on createmn txn builder merge
         // const dfTx = await builder.masternode.create(createMasternode, script)
@@ -122,11 +129,11 @@ export function MasternodeCreateScreen ({ navigation }: Props): JSX.Element {
   }
 
   async function onAddressTypeButtonPress (index: number): Promise<void> {
-    // setCurrentSelectedAddressType(index)
+    // state
+    setCurrentSelectedAddressType(index)
+    // form
     setValue('currentSelectedAddressType', index)
     await trigger('currentSelectedAddressType')
-    const values = getValues()
-    console.log('values: ', values)
   }
 
   return (
@@ -144,7 +151,6 @@ export function MasternodeCreateScreen ({ navigation }: Props): JSX.Element {
           onQrButtonPress={() => navigation.navigate('BarCodeScanner', {
             onQrScanned: (value: any) => setValue('operatorAddress', value)
           })}
-          getValues={() => getValues()}
         />
       )}
       <Button
@@ -167,41 +173,36 @@ function AddressTypeSelectionRow ({
   onAddressTypeButtonPress: (index: number) => void
 }): JSX.Element {
   return (
-    <>
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-          validate: {
-            zero: (value: number) => {
-              console.log('zero')
-              return value === currentSelectedAddressType
-            }
-          }
-        }}
-        render={({ field: { value } }) => {
-          console.log('value: ', value)
-          return (
-            <RadioGroup
-              items={radioAddressTypes}
-              component={(item, index) => {
-                const isChecked = currentSelectedAddressType === index
-                return (
-                  <RadioButton
-                    key={index}
-                    isChecked={isChecked}
-                    text={item.text}
-                    onChange={() => onAddressTypeButtonPress(index)}
-                  />
-                )
-              }}
-            />
-          )
-        }}
-        name='addressType'
-        defaultValue={0}
-      />
-    </>
+    <Controller
+      control={control}
+      rules={{
+        required: true,
+        validate: {
+          isOwnerAddress: (value: number) => value === 0
+        }
+      }}
+      render={({ field: { value } }) => {
+        console.log('value: ', value)
+        return (
+          <RadioGroup
+            items={radioAddressTypes}
+            component={(item, index) => {
+              const isChecked = currentSelectedAddressType === index
+              return (
+                <RadioButton
+                  key={index}
+                  isChecked={isChecked}
+                  text={item.text}
+                  onChange={() => onAddressTypeButtonPress(index)}
+                />
+              )
+            }}
+          />
+        )
+      }}
+      name='addressType'
+      defaultValue={0}
+    />
   )
 }
 
@@ -209,14 +210,12 @@ function AddressRow ({
   control,
   networkName,
   onGenAddressButtonPress,
-  onQrButtonPress,
-  getValues
+  onQrButtonPress
 }: {
   control: Control
   networkName: NetworkName
   onGenAddressButtonPress: () => void
   onQrButtonPress: () => void
-  getValues: () => any
 }): JSX.Element {
   return (
     <>
@@ -230,16 +229,7 @@ function AddressRow ({
           required: true,
           validate: {
             // TODO(canonbrother): other than validate network type, also validate address type (legacy and bech32)
-            isValidAddress: (address) => {
-              console.log('isValidAddress')
-              if (getValues().addressType === 0) {
-                console.log('isValidAddress 1')
-                return true
-              } else {
-                console.log('isValidAddress 2')
-                return DeFiAddress.from(networkName, address).valid
-              }
-            }
+            isValidAddress: (address) => DeFiAddress.from(networkName, address).valid
           }
         }}
         render={({ field: { value, onBlur, onChange } }) => (
