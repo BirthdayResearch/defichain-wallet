@@ -6,7 +6,7 @@ export function SectionTitle ({ text, testID }: { text: string, testID: string }
   return (
     <Text
       testID={testID}
-      style={[tailwind('p-4 text-xs text-gray-500 mt-2 font-medium')]}
+      style={[tailwind('p-4 pt-6 text-xs text-gray-500 font-medium bg-gray-100')]}
     >
       {
         text
