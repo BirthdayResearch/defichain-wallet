@@ -16,6 +16,7 @@ export interface BottomTabParamList {
   Balances: undefined
   Dex: undefined
   Transactions: undefined
+  Masternodes: undefined
   Settings: undefined
 
   [key: string]: undefined | object
@@ -56,7 +57,7 @@ export function BottomTabNavigator (): JSX.Element {
           }}
         />
         <BottomTab.Screen
-          name={translate('BottomTabNavigator', 'MNs')}
+          name={translate('BottomTabNavigator', 'MN')}
           component={MasternodesNavigator}
           options={{
             tabBarTestID: 'bottom_tab_masternodes',
