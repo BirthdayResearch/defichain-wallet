@@ -148,7 +148,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
           />
           <View style={tailwind('justify-center flex-row items-center pr-4')}>
             <TokenIcon />
-            <Text style={tailwind('ml-2 text-gray-500 text-right')}>{props.symbol}</Text>
+            <Text style={tailwind('ml-2 text-gray-500 text-right')}>{getSymbolLabel(props.symbol)}</Text>
           </View>
         </View>
         <View style={tailwind('w-full px-4 py-2 flex-row border-t border-gray-200 items-center')}>
@@ -298,4 +298,14 @@ function canAddLiquidity (pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenB
 
   return !(balanceA === undefined || balanceA.lt(tokenAAmount) ||
     balanceB === undefined || balanceB.lt(tokenBAmount))
+}
+
+function getSymbolLabel (symbol: string): string {
+  switch (symbol) {
+    case 'DFI':
+      return 'DFI (Token)'
+
+    default:
+      return symbol
+  }
 }
