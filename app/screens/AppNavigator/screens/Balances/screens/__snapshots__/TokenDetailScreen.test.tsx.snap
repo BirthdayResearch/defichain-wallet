@@ -446,7 +446,7 @@ exports[`token detail screen should accept Token DFI 1`] = `
           ]
         }
       >
-        Convert undefined
+        Convert to UTXO
       </Text>
       <Text
         allowFontScaling={false}
@@ -816,7 +816,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
           ]
         }
       >
-        Convert undefined
+        Convert to Token
       </Text>
       <Text
         allowFontScaling={false}

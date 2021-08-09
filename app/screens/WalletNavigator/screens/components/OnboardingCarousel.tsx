@@ -73,7 +73,7 @@ export function OnboardingCarousel (): JSX.Element {
       autoplayDelay={30}
       autoplayLoop
       autoplayLoopKeepAnimation
-      index={2}
+      index={0}
       showPagination
       data={slides}
       paginationStyleItem={tailwind('h-2.5 w-2.5 mx-1.5')}

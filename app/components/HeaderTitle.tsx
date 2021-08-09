@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View } from 'react-native'
+import { Platform, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../api'
 import { useNetworkContext } from '../contexts/NetworkContext'
@@ -57,7 +57,7 @@ export function ConnectionStatus (): JSX.Element {
 
 export function HeaderTitle ({ text, testID }: { text: string, testID?: string }): JSX.Element {
   return (
-    <View style={tailwind('flex-col')}>
+    <View style={tailwind(`flex-col ${Platform.OS === 'ios' ? 'items-center' : ''}`)}>
       <Text
         testID={testID}
         style={tailwind('font-semibold')}

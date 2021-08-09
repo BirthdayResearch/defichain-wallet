@@ -1,12 +1,10 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import * as LocalAuthentication from 'expo-local-authentication'
 import React, { Dispatch, useCallback, useEffect, useState } from 'react'
 import { ActivityIndicator, Alert, Platform, SafeAreaView, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../api'
 import { PasscodeAttemptCounter } from '../api/wallet'
-import { BiometricProtectedPasscode } from '../api/wallet/biometric_protected_passcode'
 import { Text, View } from '../components'
 import { PinTextInput } from '../components/PinTextInput'
 import { useEncryptedWalletUI, useWallet } from '../contexts/WalletContext'
@@ -41,7 +39,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   const encryptionUI = useEncryptedWalletUI()
 
   // biometric related persistent storage API
-  const [isBiometric, setIsBiometric] = useState(false)
+  // const [isBiometric, setIsBiometric] = useState(false)
 
   // store
   const dispatch = useDispatch()
@@ -177,7 +175,8 @@ export function TransactionAuthorization (): JSX.Element | null {
     emitEvent('IDLE')
   }, [])
 
-  // setup biometric hook if enrolled
+  // Disable Biometric hook
+  /* // setup biometric hook if enrolled
   useEffect(() => {
     BiometricProtectedPasscode.isEnrolled()
       .then(isEnrolled => setIsBiometric(isEnrolled))
@@ -196,7 +195,7 @@ export function TransactionAuthorization (): JSX.Element | null {
         })
         .catch(e => Logging.error(e)) // auto fallback to manual pin input
     }
-  }, [status, isBiometric])
+  }, [status, isBiometric]) */
 
   if (status === 'INIT') return null
 
