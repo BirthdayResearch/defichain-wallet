@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../api'
 import { useNetworkContext } from '../contexts/NetworkContext'
 import { useWhaleApiClient } from '../contexts/WhaleContext'
+import { isPlayground } from '../environment'
 import { RootState } from '../store'
 import { block } from '../store/block'
 import { tailwind } from '../tailwind'
@@ -34,7 +35,7 @@ export function ConnectionStatus (): JSX.Element {
 
     if (!isPolling) {
       refresh()
-      interval = setInterval(refresh, 3000)
+      interval = setInterval(refresh, isPlayground(network) ? 3000 : 30000)
     }
     return () => {
       dispatch(block.actions.setPolling(false))
