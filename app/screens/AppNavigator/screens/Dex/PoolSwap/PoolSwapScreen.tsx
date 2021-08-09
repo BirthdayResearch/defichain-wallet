@@ -243,9 +243,9 @@ function PriceRow ({
   values
 }: { testID: string, title: string, values: Array<{ amount: string, symbol: string }> }): JSX.Element {
   return (
-    <View style={tailwind('flex-row w-full border-b border-gray-100 bg-white p-4')}>
+    <View style={tailwind('flex-row w-full border-b border-gray-100 bg-white p-4 flex-wrap')}>
       <Text>{title}</Text>
-      <View style={tailwind('flex-col flex-grow')}>
+      <View style={tailwind('flex-col flex-grow w-1/2')}>
         {
           values.map((token, index) => (
             <NumberFormat
@@ -253,7 +253,7 @@ function PriceRow ({
               value={token.amount} decimalScale={8} thousandSeparator
               displayType='text' suffix={` ${token.symbol}`}
               renderText={(value) => (
-                <Text testID={`text_price_row_${testID}_${index}`} style={tailwind('text-gray-500 text-right ml-1')}>
+                <Text testID={`text_price_row_${testID}_${index}`} style={tailwind('text-gray-500 text-right ml-4')}>
                   {value}
                 </Text>
               )}
