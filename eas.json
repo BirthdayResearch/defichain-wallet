@@ -1,14 +1,7 @@
 {
   "build": {
     "release": {
-      "android": {
-        "developmentClient": true,
-        "releaseChannel": "production"
-      },
-      "ios": {
-        "developmentClient": true,
-        "releaseChannel": "production"
-      }
+      "releaseChannel": "production"
     }
   }
 }
