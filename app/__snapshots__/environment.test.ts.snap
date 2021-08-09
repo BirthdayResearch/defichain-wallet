@@ -30,9 +30,9 @@ Object {
   "debug": false,
   "name": "Production",
   "networks": Array [
-    "MainNet",
-    "TestNet",
     "Playground",
+    "TestNet",
+    "MainNet",
   ],
 }
 `;
