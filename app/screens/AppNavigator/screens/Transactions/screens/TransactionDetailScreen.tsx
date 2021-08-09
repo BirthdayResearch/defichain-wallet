@@ -1,7 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
-import { Linking, ScrollView, View } from 'react-native'
+import { Linking, ScrollView, TouchableOpacity, View } from 'react-native'
 import { Text } from '../../../../../components'
 import { useDeFiScanContext } from '../../../../../contexts/DeFiScanContext'
 import { tailwind } from '../../../../../tailwind'
@@ -46,21 +46,22 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
       {RenderRow('Block', translate('screens/TransactionDetailScreen', `${tx.block}`))}
       {RenderRow('Date', translate('screens/TransactionDetailScreen', `${formatBlockTime(tx.medianTime)}`))}
       {grayDivider}
-      <View
+      <TouchableOpacity
         testID='transaction-detail-explorer-url'
         style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full p-4')}
+        onPress={onTxidUrlPressed}
       >
         <View style={tailwind('flex-1 flex-row flex-initial')}>
           <View style={tailwind('flex-1')}>
-            <Text style={tailwind('flex-1 font-medium text-sm text-gray-500')}>
-              {translate('screens/TransactionDetailScreen', tx.txid)}
+            <Text style={tailwind('text-primary font-medium text-sm')}>
+              {tx.txid}
             </Text>
           </View>
           <View style={tailwind('ml-2 flex-grow-0 justify-center')}>
-            <MaterialIcons name='open-in-new' size={24} style={tailwind('text-primary')} onPress={onTxidUrlPressed} />
+            <MaterialIcons name='open-in-new' size={24} style={tailwind('text-primary')} />
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   )
 }
