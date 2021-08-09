@@ -291,8 +291,7 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount }: SwapSummaryIte
         testID='estimated'
         title={translate('screens/PoolSwapScreen', 'Estimated to receive')}
         values={[{
-          // amount: calculateEstimatedAmount(tokenAAmount, reserveA, price[1].amount).toFixed(8),
-          amount: new BigNumber(99999999999999999).toFixed(8),
+          amount: calculateEstimatedAmount(tokenAAmount, reserveA, price[1].amount).toFixed(8),
           symbol: tokenB.symbol
         }]}
       />
