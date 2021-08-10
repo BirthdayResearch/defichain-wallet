@@ -2,6 +2,7 @@ import { WhaleApiClient } from '@defichain/whale-api-client'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
+import { Logging } from '../../api'
 import { useWalletAddressContext } from '../../contexts/WalletAddressContext'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
 import { RootState } from '../../store'
@@ -13,11 +14,11 @@ import { tokensSelector, wallet, WalletToken } from '../../store/wallet'
 export function fetchTokens (client: WhaleApiClient, address: string, dispatch: Dispatch<any>): void {
   client.address.listToken(address).then((walletTokens) => {
     dispatch(wallet.actions.setTokens(walletTokens))
-  }).catch((error) => console.log(error))
+  }).catch((error) => Logging.error(error))
 
   client.address.getBalance(address).then((walletBalance) => {
     dispatch(wallet.actions.setUtxoBalance(walletBalance))
-  }).catch((error) => console.log(error))
+  }).catch((error) => Logging.error(error))
 }
 
 /**
@@ -26,11 +27,12 @@ export function fetchTokens (client: WhaleApiClient, address: string, dispatch: 
 export function useTokensAPI (): WalletToken[] {
   const client = useWhaleApiClient()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  const blocks = useSelector((state: RootState) => state.block.count)
   const { address } = useWalletAddressContext()
   const dispatch = useDispatch()
 
   useEffect(() => {
     fetchTokens(client, address, dispatch)
-  }, [address])
+  }, [address, blocks])
   return tokens
 }

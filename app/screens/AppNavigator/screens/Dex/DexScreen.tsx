@@ -4,45 +4,26 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { useEffect, useState } from 'react'
 import { SectionList, TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { useDispatch, useSelector } from 'react-redux'
-import { Logging } from '../../../../api'
+import { useSelector } from 'react-redux'
 import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { SectionTitle } from '../../../../components/SectionTitle'
-import { useWalletAddressContext } from '../../../../contexts/WalletAddressContext'
-import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
-import { fetchTokens } from '../../../../hooks/wallet/TokensAPI'
-import { RootState } from '../../../../store'
-import { tokensSelector } from '../../../../store/wallet'
+import { usePoolPairsAPI } from '../../../../hooks/wallet/PoolPairsAPI'
+import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
 
 export function DexScreen (): JSX.Element {
-  const client = useWhaleApiClient()
-  const { address } = useWalletAddressContext()
-  const [pairs, setPairs] = useState<Array<DexItem<PoolPairData>>>([])
-  const dispatch = useDispatch()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
-  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  const tokens = useTokensAPI()
+  const pairs = usePoolPairsAPI()
   const yourLPTokens = useSelector(() => tokens.filter(({ isLPS }) => isLPS).map(data => ({
     type: 'your',
     data: data
   })))
-
-  useEffect(() => {
-    // TODO(fuxingloh): does not auto refresh currently, but not required for MVP. Due to limited PP availability
-    // Currently, refreshes on token balance update (to update poolpairs) or when there's LP token added
-    fetchTokens(client, address, dispatch)
-    client.poolpairs.list(50).then(pairs => {
-      setPairs(pairs.map(data => ({ type: 'available', data: data })))
-    }).catch((err) => {
-      Logging.error(err)
-    })
-  }, [JSON.stringify(tokens), address])
 
   const onAdd = (data: PoolPairData): void => {
     navigation.navigate('AddLiquidity', { pair: data })

@@ -10,7 +10,7 @@ import zhHant from './languages/zh-Hant.json'
 let init = false
 
 /**
- * Internationalisation for DeFi Wallet, DeFi Blockchain Light Wallet.
+ * Internationalisation for DeFiChain Wallet, DeFi Blockchain Light Wallet.
  *
  * Translation matrix should be keyed as such:
  *

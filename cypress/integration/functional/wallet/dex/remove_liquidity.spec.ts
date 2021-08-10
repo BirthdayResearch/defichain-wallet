@@ -4,7 +4,6 @@ context('Wallet - DEX - Remove Liquidity', () => {
 
     cy.getByTestID('bottom_tab_settings').click()
     cy.sendDFItoWallet().sendTokenToWallet(['DFI-ETH']).wait(6000)
-    cy.fetchWalletBalance()
 
     cy.getByTestID('bottom_tab_dex').click().wait(1000)
 

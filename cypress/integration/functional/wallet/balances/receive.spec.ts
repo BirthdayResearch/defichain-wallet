@@ -2,7 +2,6 @@ context('Wallet - Receive', () => {
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().wait(10000)
-    cy.fetchWalletBalance()
   })
 
   it('should display valid address when clicked', function () {
