@@ -7,6 +7,14 @@ import { tailwind } from '../../../../tailwind'
 import { MasternodeParamList } from './MasternodesNavigator'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { translate } from '../../../../translations'
+import { Logging } from '../../../../api'
+import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
+import { transactionQueue } from '../../../../store/transaction_queue'
+import { useDispatch } from 'react-redux'
+
+interface ResignMasternodeForm {
+  nodeId: string
+}
 
 type Props = StackScreenProps<MasternodeParamList, 'MasternodeDetailScreen'>
 
@@ -14,7 +22,42 @@ export function MasternodeDetailScreen ({ route }: Props): JSX.Element {
   const [masternode] = useState(route.params.masternode)
 
   const [isEnabled, setIsEnabled] = useState(false)
-  const toggleSwitch = (): void => setIsEnabled(previousState => !previousState)
+
+  const toggleResign = async (nodeId: string): Promise<void> => {
+    setIsEnabled(previousState => !previousState)
+    await resign({ nodeId })
+  }
+
+  const dispatch = useDispatch()
+
+  async function resign ({ nodeId }: ResignMasternodeForm): Promise<void> {
+    try {
+      // const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
+      const signer = async (account: WhaleWalletAccount): Promise<any> => {
+        const script = await account.getScript()
+        console.log('script: ', script)
+
+        const resignMasternode = {
+          nodeId: nodeId
+        }
+        console.log('resignMasternode: ', resignMasternode)
+
+        // const builder = account.withTransactionBuilder()
+        // const dfTx = await builder.masternode.resign(resignMasternode, script)
+        // return new CTransactionSegWit(dfTx)
+
+        return ''
+      }
+
+      dispatch(transactionQueue.actions.push({
+        sign: signer,
+        title: `${translate('screens/ResignMasternode', 'Resigning Masternode')}`
+      }))
+    } catch (err) {
+      console.log('err: ', err)
+      Logging.error(err)
+    }
+  }
 
   return (
     <ScrollView style={tailwind('bg-gray-100')}>
@@ -27,10 +70,11 @@ export function MasternodeDetailScreen ({ route }: Props): JSX.Element {
           trackColor={{ false: 'rgba(120, 120, 128, 0.20)', true: '#34C759' }}
           thumbColor='#fff'
           ios_backgroundColor='#ffffff'
-          onValueChange={toggleSwitch}
+          onValueChange={async () => await toggleResign(masternode.id)}
           value={masternode.state === 'ENABLED' ? !isEnabled : isEnabled}
           testID='masternode_state_switch'
           style={tailwind('mr-5')}
+          disabled={masternode.state !== 'ENABLED'}
         />
       </View>
       <View

@@ -55,11 +55,9 @@ export function MasternodeCreateScreen ({ navigation }: Props): JSX.Element {
     if (hasPendingJob) {
       return
     }
-    console.log('isValid: ', isValid)
     setIsSubmitting(true)
     if (isValid) {
       const values = getValues()
-      console.log('values: ', values)
       await create(
         {
           operatorAddress: values.operatorAddress
@@ -89,8 +87,6 @@ export function MasternodeCreateScreen ({ navigation }: Props): JSX.Element {
     try {
       // const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
       const signer = async (account: WhaleWalletAccount): Promise<any> => {
-        console.log('sign')
-
         const script = await account.getScript()
         const operatorAuthAddress = currentSelectedAddressType === 0
           ? script
@@ -184,7 +180,6 @@ function AddressTypeSelectionRow ({
         }
       }}
       render={({ field: { value } }) => {
-        console.log('value: ', value)
         return (
           <RadioGroup
             testID='address_type_radio'

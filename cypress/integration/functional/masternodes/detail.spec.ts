@@ -13,5 +13,8 @@ context('app/masternodes', () => {
     cy.getByTestID('masternodes_details_Minted').should('exist')
     // cy.getByTestID('masternodes_details_Creation').should('exist')
     // cy.getByTestID('masternodes_details_Resign').should('exist')
+
+    cy.getByTestID('masternodes_details_State').contains('RESIGNED')
+    cy.get('[data-testid=masternode_state_switch] input').uncheck()
   })
 })
