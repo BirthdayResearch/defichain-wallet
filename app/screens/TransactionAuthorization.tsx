@@ -126,7 +126,9 @@ export function TransactionAuthorization (): JSX.Element | null {
           .catch(e => {
             // error type check
             if (e.message === 'invalid hash') result = null // negative, invalid passcode
-            // else result = undefined // neutral
+            else {
+              dispatch(ocean.actions.setError(e))
+            }
           })
           .then(async () => {
             // result handling, 3 cases
@@ -140,7 +142,10 @@ export function TransactionAuthorization (): JSX.Element | null {
             }
           })
           .catch(e => Logging.error(e))
-          .finally(() => emitEvent('IDLE'))
+          .finally(() => {
+            setPin('')
+            emitEvent('IDLE')
+          })
       } else if (authentication !== undefined) {
         let invalidPassphrase = false
         authenticateFor(onPrompt, authentication, onRetry)
@@ -274,7 +279,7 @@ async function execWithAutoRetries (promptPromise: () => Promise<any>, onAutoRet
   } catch (e) {
     Logging.error(e)
     if (e.message === 'USER_CANCELED') throw e
-    if (++retries < MAX_PASSCODE_ATTEMPT) {
+    if (e.message === 'invalid hash' && ++retries < MAX_PASSCODE_ATTEMPT) {
       await onAutoRetry(retries)
       return await execWithAutoRetries(promptPromise, onAutoRetry, retries)
     }
