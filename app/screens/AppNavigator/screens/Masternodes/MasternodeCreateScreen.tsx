@@ -31,8 +31,10 @@ interface CreateMasternodeForm {
 }
 
 const radioAddressTypes = [{
+  id: 'owner_address',
   text: 'Owner Address'
 }, {
+  id: 'operator_address',
   text: 'Operator Address'
 }]
 
@@ -185,11 +187,13 @@ function AddressTypeSelectionRow ({
         console.log('value: ', value)
         return (
           <RadioGroup
+            testID='address_type_radio'
             items={radioAddressTypes}
             component={(item, index) => {
               const isChecked = currentSelectedAddressType === index
               return (
                 <RadioButton
+                  testID={`${item.id as string}_radio`}
                   key={index}
                   isChecked={isChecked}
                   text={item.text}

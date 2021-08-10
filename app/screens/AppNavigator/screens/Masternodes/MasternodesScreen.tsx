@@ -138,9 +138,9 @@ function renderMasternodes (
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
       data={masternodes}
-      renderItem={({ item }) =>
+      renderItem={({ item, index }) =>
         <MasternodeItemRow
-          masternode={item} key={item.id}
+          masternode={item} index={index} key={item.id}
           onPress={() => navigation.navigate('MasternodeDetail', { masternode: item })}
         />}
       ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
@@ -177,26 +177,26 @@ function CreateButton (
 }
 
 function MasternodeItemRow (
-  { masternode, onPress }: { masternode: MasternodeData, onPress: () => void }
+  { masternode, index, onPress }: { masternode: MasternodeData, index: number, onPress: () => void }
 ): JSX.Element {
   return (
     <TouchableOpacity
-      onPress={onPress} testID={`masternodes_row_${masternode.id}`}
+      onPress={onPress} testID={`masternodes_row_${index}`}
       style={tailwind('bg-white pt-4 pb-4 flex-row justify-between items-center')}
     >
       <View style={tailwind('w-full')}>
-        {renderField(masternode.id, 'Owner', masternode.owner.address)}
-        {renderField(masternode.id, 'Operator', masternode.operator.address === masternode.owner.address ? 'Same as owner' : masternode.operator.address)}
-        {renderField(masternode.id, 'State', masternode.state)}
-        {/* {renderField(masternode.id, 'Type', masternode.local ? 'Local' : 'Remote')} */}
+        {renderField(index, 'Owner', masternode.owner.address)}
+        {renderField(index, 'Operator', masternode.operator.address === masternode.owner.address ? 'Same as owner' : masternode.operator.address)}
+        {renderField(index, 'State', masternode.state)}
+        {/* {renderField(index, 'Type', masternode.local ? 'Local' : 'Remote')} */}
       </View>
     </TouchableOpacity>
   )
 }
 
-function renderField (id: string, key: string, value: string): JSX.Element {
+function renderField (index: number, key: string, value: string): JSX.Element {
   return (
-    <View style={tailwind('flex-row items-start')} testID={`masternodes_row_${id}_${key}`}>
+    <View style={tailwind('flex-row items-start')} testID={`masternodes_row_${index}_${key}`}>
       <View style={tailwind('w-3/12 text-right pr-3')}>
         <Text style={tailwind('text-sm mb-1 font-semibold')}>{key}: </Text>
       </View>

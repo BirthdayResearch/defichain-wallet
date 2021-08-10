@@ -2,15 +2,16 @@ import * as React from 'react'
 import { TouchableOpacity, View, Text } from 'react-native'
 import { tailwind } from '../tailwind'
 
-export function RadioButton ({ isChecked, text, onChange }: { isChecked: boolean, text: string, onChange: (v: any) => void }): JSX.Element {
+export function RadioButton ({ testID, isChecked, text, onChange }: { testID: string, isChecked: boolean, text: string, onChange: (v: any) => void }): JSX.Element {
   const renderCheckedView = (): (JSX.Element | null) => {
     return isChecked ? (
-      <View style={tailwind('flex w-4 h-4 justify-center pl-4 border-primary bg-primary rounded-full')} />
+      <View testID={`${testID}_checked`} style={tailwind('flex w-4 h-4 justify-center pl-4 border-primary bg-primary rounded-full')} />
     ) : null
   }
 
   return (
     <TouchableOpacity
+      testID={testID}
       style={tailwind('flex-row items-center justify-center h-16 pl-4 pr-4 mt-2 ml-2 mr-2')}
       onPress={onChange}
     >
