@@ -8,7 +8,6 @@ context('Wallet - Send', () => {
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(10000)
-    cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
     network = localStorage.getItem('Development.NETWORK')
   })
@@ -123,7 +122,6 @@ context('Wallet - Send', () => {
         cy.getByTestID('balances_row_1_amount').should('not.exist')
 
         cy.sendTokenToWallet(['BTC']).wait(10000)
-        cy.fetchWalletBalance()
       })
     })
   })

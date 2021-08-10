@@ -12,6 +12,7 @@ import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import LoadingScreen from '../../../../components/LoadingScreen'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
+import { usePoolPairsAPI } from '../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -28,6 +29,7 @@ interface ExtPoolPairData extends PoolPairData {
 }
 
 export function AddLiquidityScreen (props: Props): JSX.Element {
+  const pairs = usePoolPairsAPI()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const tokens = useTokensAPI()
 
@@ -69,21 +71,24 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   // prop/global state change
   useEffect(() => {
     const { pair: poolPairData } = props.route.params
-    const [aSymbol, bSymbol] = poolPairData.symbol.split('-')
-    const addressTokenA = tokens.find(at => at.id === poolPairData.tokenA.id)
-    const addressTokenB = tokens.find(at => at.id === poolPairData.tokenB.id)
+    const poolpair = pairs.find((p) => p.data.id === poolPairData.id)?.data
+    if (poolpair !== undefined) {
+      const [aSymbol, bSymbol] = poolpair.symbol.split('-')
+      const addressTokenA = tokens.find(at => at.id === poolpair.tokenA.id)
+      const addressTokenB = tokens.find(at => at.id === poolpair.tokenB.id)
 
-    // side effect to state
-    setPair({
-      ...poolPairData,
-      aSymbol,
-      bSymbol,
-      aToBRate: new BigNumber(poolPairData.tokenB.reserve).div(poolPairData.tokenA.reserve),
-      bToARate: new BigNumber(poolPairData.tokenA.reserve).div(poolPairData.tokenB.reserve)
-    })
-    if (addressTokenA !== undefined) setBalanceA(new BigNumber(addressTokenA.amount))
-    if (addressTokenB !== undefined) setBalanceB(new BigNumber(addressTokenB.amount))
-  }, [props.route.params.pair, JSON.stringify(tokens)])
+      // side effect to state
+      setPair({
+        ...poolpair,
+        aSymbol,
+        bSymbol,
+        aToBRate: new BigNumber(poolpair.tokenB.reserve).div(poolpair.tokenA.reserve),
+        bToARate: new BigNumber(poolpair.tokenA.reserve).div(poolpair.tokenB.reserve)
+      })
+      if (addressTokenA !== undefined) setBalanceA(new BigNumber(addressTokenA.amount))
+      if (addressTokenB !== undefined) setBalanceB(new BigNumber(addressTokenB.amount))
+    }
+  }, [props.route.params.pair, JSON.stringify(tokens), pairs])
 
   if (pair === undefined) {
     return <LoadingScreen />

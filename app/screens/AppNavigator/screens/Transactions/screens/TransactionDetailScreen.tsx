@@ -33,7 +33,6 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
   }
 
   const onTxidUrlPressed = React.useCallback(async () => {
-    // TODO(ivan-zynesis): new explorer URL linking
     const url = getTransactionUrl(tx.txid)
     await Linking.openURL(url)
   }, [])

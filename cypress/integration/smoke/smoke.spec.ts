@@ -28,7 +28,6 @@ context('Mainnet - Wallet', () => {
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
       .sendTokenToWallet(['BTC', 'DFI-ETH']).wait(10000)
-    cy.fetchWalletBalance()
     cy.verifyWalletAddress('regtest', localAddress)
   })
 
