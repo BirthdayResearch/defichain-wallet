@@ -30,7 +30,7 @@ export function EnrollBiometric ({ route }: Props): JSX.Element {
   const enroll = useCallback(async () => {
     const result = await LocalAuthentication.authenticateAsync({
       disableDeviceFallback: true,
-      promptMessage: translate('screens/EnrollBiometric', 'Secure Your DeFi Wallet'),
+      promptMessage: translate('screens/EnrollBiometric', 'Secure Your DeFiChain Wallet'),
       cancelLabel: translate('screens/EnrollBiometric', 'Fallback to created 6 digits pin')
     })
 
