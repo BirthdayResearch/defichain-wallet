@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../api'
 import { isPlayground } from '../environment'
@@ -6,12 +6,6 @@ import { RootState } from '../store'
 import { block } from '../store/block'
 import { useNetworkContext } from './NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
-
-const StatsContext = createContext<any>(undefined as any)
-
-export function useWalletAddressContext (): any {
-  return useContext(StatsContext)
-}
 
 export function StatsContextProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
