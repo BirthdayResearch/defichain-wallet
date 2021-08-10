@@ -7,7 +7,7 @@ import { block } from '../store/block'
 import { useNetworkContext } from './NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
 
-export function StatsContextProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
+export function StatsProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
   const isPolling = useSelector((state: RootState) => state.block.isPolling)
   const api = useWhaleApiClient()
