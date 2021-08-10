@@ -1,5 +1,7 @@
 ---
-name: Bug report about: Report a bug encountered with using DeFiChain Wallet labels: kind/bug
+name: Bug report 
+about: Report a bug encountered with using DeFiChain Wallet 
+labels: kind/bug
 ---
 
 <!-- 
