@@ -5,7 +5,7 @@ import { Logging } from './app/api'
 import { DeFiScanProvider } from './app/contexts/DeFiScanContext'
 import { NetworkProvider } from './app/contexts/NetworkContext'
 import { PlaygroundProvider } from './app/contexts/PlaygroundContext'
-import { StatsContextProvider } from './app/contexts/StatsContext'
+import { StatsProvider } from './app/contexts/StatsProvider'
 import { WalletPersistenceProvider } from './app/contexts/WalletPersistenceContext'
 import { WalletStoreProvider } from './app/contexts/WalletStoreProvider'
 import { WhaleProvider } from './app/contexts/WhaleContext'
@@ -41,9 +41,9 @@ export default function App (): JSX.Element | null {
             <WalletPersistenceProvider>
               <DeFiScanProvider>
                 <WalletStoreProvider>
-                  <StatsContextProvider>
+                  <StatsProvider>
                     <Main />
-                  </StatsContextProvider>
+                  </StatsProvider>
                 </WalletStoreProvider>
               </DeFiScanProvider>
             </WalletPersistenceProvider>
