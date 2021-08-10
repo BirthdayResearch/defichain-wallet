@@ -1,4 +1,4 @@
-import { tokensSelector, wallet, WalletState, WalletToken, } from './wallet';
+import { DexItem, tokensSelector, wallet, WalletState, WalletToken, } from './wallet';
 
 describe('wallet reducer', () => {
   let initialState: WalletState;
@@ -9,6 +9,7 @@ describe('wallet reducer', () => {
     initialState = {
       tokens: [],
       utxoBalance: '0',
+      poolpairs: []
     };
     tokenDFI = {
       id: '0',
@@ -34,6 +35,7 @@ describe('wallet reducer', () => {
     expect(wallet.reducer(undefined, { type: 'unknown' })).toEqual({
       utxoBalance: '0',
       tokens: [],
+      poolpairs: []
     });
   });
 
@@ -47,6 +49,50 @@ describe('wallet reducer', () => {
     const utxoAmount = '77'
     const actual = wallet.reducer(initialState, wallet.actions.setUtxoBalance(utxoAmount));
     expect(actual.utxoBalance).toStrictEqual(utxoAmount)
+  });
+
+  it('should handle setPoolpairs', () => {
+    const payload: DexItem[] = [{
+      type: 'available',
+      data: {
+        "id": "8",
+        "symbol": "DFI-USDT",
+        "name": "Default Defi token-Playground USDT",
+        "status": 'true',
+        "tokenA": {
+          "id": "0",
+          "reserve": "1000",
+          "blockCommission": "0"
+        },
+        "tokenB": {
+          "id": "3",
+          "reserve": "10000000",
+          "blockCommission": "0"
+        },
+        "priceRatio": {
+          "ab": "0.0001",
+          "ba": "10000"
+        },
+        "commission": "0",
+        "totalLiquidity": {
+          "token": "100000",
+          "usd": "20000000"
+        },
+        "tradeEnabled": true,
+        "ownerAddress": "mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy",
+        "rewardPct": "0.2",
+        "creation": {
+          "tx": "f691c8b0a5d362a013a7207228e618d832c0b99af8da99c847923f5f93136d60",
+          "height": 119
+        },
+        "apr": {
+          "reward": 133.7652,
+          "total": 133.7652
+        }
+      }
+    }]
+    const actual = wallet.reducer(initialState, wallet.actions.setPoolPairs(payload));
+    expect(actual.poolpairs).toStrictEqual(payload)
   });
 
   it('should able to select tokens with default DFIs', () => {

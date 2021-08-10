@@ -18,6 +18,7 @@ import LoadingScreen from '../../../../../components/LoadingScreen'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import { useWallet } from '../../../../../contexts/WalletContext'
+import { usePoolPairsAPI } from '../../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
 import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
@@ -34,7 +35,8 @@ interface DerivedTokenState {
 type Props = StackScreenProps<DexParamList, 'PoolSwapScreen'>
 
 export function PoolSwapScreen ({ route }: Props): JSX.Element {
-  const poolpair = route.params.poolpair
+  const pairs = usePoolPairsAPI()
+  const [poolpair, setPoolPair] = useState<PoolPairData>()
   const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const [tokenAForm, tokenBForm] = ['tokenA', 'tokenB']
@@ -43,6 +45,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const [tokenA, setTokenA] = useState<DerivedTokenState>()
   const [tokenB, setTokenB] = useState<DerivedTokenState>()
   const [isComputing, setIsComputing] = useState<boolean>(false)
+  const [aToBPrice, setAToBPrice] = useState<BigNumber>()
 
   // component UI state
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
@@ -50,9 +53,16 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const account = useWallet().get(0)
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    const pair = pairs.find((v) => v.data.id === route.params.poolpair.id)
+    if (pair !== undefined) {
+      setPoolPair(pair.data)
+    }
+  }, [pairs, route.params.poolpair])
+
   function onSubmit (): void {
     if (hasPendingJob) return
-    if (tokenA === undefined || tokenB === undefined) {
+    if (tokenA === undefined || tokenB === undefined || poolpair === undefined) {
       return
     }
 
@@ -81,31 +91,40 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     await trigger(tokenAForm)
     setValue(tokenBForm, currentA)
     await trigger(tokenBForm)
-  }, [tokenA, tokenB])
+  }, [tokenA, tokenB, poolpair])
 
   useEffect(() => {
-    const [tokenASymbol, tokenBSymbol] = poolpair.symbol.split('-') as [string, string]
-    const a = tokens.find((token) => token.id === poolpair.tokenA.id) ?? {
-      id: poolpair.tokenA.id,
-      amount: '0',
-      symbol: tokenASymbol
+    if (poolpair !== undefined) {
+      let [tokenASymbol, tokenBSymbol] = poolpair.symbol.split('-') as [string, string]
+      let [tokenAId, tokenBId] = [poolpair.tokenA.id, poolpair.tokenB.id]
+      if (tokenA !== undefined) {
+        [tokenASymbol, tokenAId] = [tokenA.symbol, tokenA.id]
+      }
+      if (tokenB !== undefined) {
+        [tokenBSymbol, tokenBId] = [tokenB.symbol, tokenB.id]
+      }
+      const a = tokens.find((token) => token.id === tokenAId) ?? {
+        id: tokenAId,
+        amount: '0',
+        symbol: tokenASymbol
+      }
+      setTokenA(a)
+      const b = tokens.find((token) => token.id === tokenBId) ?? {
+        id: tokenBId,
+        amount: '0',
+        symbol: tokenBSymbol
+      }
+      setTokenB(b)
+      const aToBPrice = tokenAId === poolpair.tokenA.id
+        ? new BigNumber(poolpair.tokenB.reserve).div(poolpair.tokenA.reserve)
+        : new BigNumber(poolpair.tokenA.reserve).div(poolpair.tokenB.reserve)
+      setAToBPrice(aToBPrice)
     }
-    setTokenA(a)
-    const b = tokens.find((token) => token.id === poolpair.tokenB.id) ?? {
-      id: poolpair.tokenB.id,
-      amount: '0',
-      symbol: tokenBSymbol
-    }
-    setTokenB(b)
-  }, [route.params.poolpair, JSON.stringify(tokens)])
+  }, [JSON.stringify(tokens), poolpair])
 
-  if (tokenA === undefined || tokenB === undefined) {
+  if (tokenA === undefined || tokenB === undefined || poolpair === undefined || aToBPrice === undefined) {
     return <LoadingScreen />
   }
-
-  const aToBPrice = tokenA.id === poolpair.tokenA.id
-    ? new BigNumber(poolpair.tokenB.reserve).div(poolpair.tokenA.reserve)
-    : new BigNumber(poolpair.tokenA.reserve).div(poolpair.tokenB.reserve)
 
   return (
     <ScrollView style={tailwind('bg-gray-100')}>

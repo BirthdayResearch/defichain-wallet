@@ -5,7 +5,6 @@ context('Wallet - Balances', () => {
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
       .sendTokenToWallet(['BTC', 'ETH']).wait(10000)
-    cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
   })
 
