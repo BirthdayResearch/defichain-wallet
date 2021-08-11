@@ -9,6 +9,7 @@ import NumberFormat from 'react-number-format'
 import { Text, TextInput, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { IconLabelScreenType, InputIconLabel } from '../../../../components/InputIconLabel'
 import LoadingScreen from '../../../../components/LoadingScreen'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
@@ -153,7 +154,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
           />
           <View style={tailwind('justify-center flex-row items-center pr-4')}>
             <TokenIcon />
-            <Text style={tailwind('ml-2 text-gray-500 text-right')}>{props.symbol}</Text>
+            <InputIconLabel label={props.symbol} screenType={IconLabelScreenType.DEX} />
           </View>
         </View>
         <View style={tailwind('w-full px-4 py-2 flex-row border-t border-gray-200 items-center')}>
