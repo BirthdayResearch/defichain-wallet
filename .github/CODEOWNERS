@@ -3,7 +3,6 @@
 
 /.github/                                       @fuxingloh
 /.husky/                                        @fuxingloh @thedoublejay
-/.idea/                                         @fuxingloh @thedoublejay
 
 /app/                                           @fuxingloh @thedoublejay @ivan-zynesis
 
@@ -28,7 +27,7 @@ package.json                                    @fuxingloh @thedoublejay
 package-lock.json                               @fuxingloh @thedoublejay
 tsconfig.json                                   @fuxingloh @thedoublejay
 
-BETA_TESTING.md                                 @thedoublejay @izzycsy
+BETA_TESTING.md                                 @fuxingloh @thedoublejay @izzycsy
 CONTRIBUTING.md                                 @fuxingloh @thedoublejay @izzycsy
 README.md                                       @fuxingloh @thedoublejay @izzycsy
 LICENSE                                         @fuxingloh
