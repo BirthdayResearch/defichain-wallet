@@ -79,14 +79,14 @@ context('Wallet - Transaction Authorization', () => {
 
   context('Transaction Authorization', () => {
     it('should be able to cancel', function () {
-      cy.getByTestID('address_input').clear().type('bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9')
+      cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
       cy.getByTestID('amount_input').clear().type('1')
       cy.getByTestID('send_submit_button').click().wait(3000)
       cy.getByTestID('cancel_authorization').click()
     })
 
     it('should be able to exit failed retries', function () {
-      cy.getByTestID('address_input').clear().type('bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9')
+      cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
       cy.getByTestID('amount_input').clear().type('1')
       cy.getByTestID('send_submit_button').click()
       Array.from(Array(4), (v, i) => i + 1).forEach(() => {
@@ -103,7 +103,7 @@ context('Wallet - Transaction Authorization', () => {
       cy.getByTestID('balances_row_0_utxo').should('exist')
       cy.getByTestID('balances_row_0_utxo_amount').contains(10).click()
       cy.getByTestID('send_button').click()
-      cy.getByTestID('address_input').clear().type('bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9')
+      cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
       cy.getByTestID('amount_input').clear().type('1')
       cy.getByTestID('send_submit_button').click().wait(3000)
       Array.from(Array(3), (v, i) => i + 1).forEach(() => {
