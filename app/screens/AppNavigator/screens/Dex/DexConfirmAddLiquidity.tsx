@@ -50,8 +50,10 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     if (hasPendingJob) return
     constructSignedAddLiqAndSend(
       {
+        tokenASymbol: tokenA.symbol,
         tokenAId: Number(tokenA.id),
         tokenAAmount,
+        tokenBSymbol: tokenB.symbol,
         tokenBId: Number(tokenB.id),
         tokenBAmount
       },
@@ -61,7 +63,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     })
   }, [props.route.params.summary])
 
-  const items: Array<{ lhs: string, rhs: Array<{value: string | number, suffix?: string, testID: string}> }> = [
+  const items: Array<{ lhs: string, rhs: Array<{ value: string | number, suffix?: string, testID: string }> }> = [
     {
       lhs: translate('screens/ConfirmAddLiq', 'Adding'),
       rhs: [
@@ -121,7 +123,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   )
 }
 
-function Row (props: { lhs: string, rhs: Array<{value: string | number, suffix?: string, testID: string}> }): JSX.Element {
+function Row (props: { lhs: string, rhs: Array<{ value: string | number, suffix?: string, testID: string }> }): JSX.Element {
   return (
     <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
       <View style={tailwind('flex-1')}>
@@ -132,7 +134,13 @@ function Row (props: { lhs: string, rhs: Array<{value: string | number, suffix?:
           props.rhs.map((value, idx) => (
             <NumberFormat
               value={value.value} decimalScale={8} thousandSeparator displayType='text' suffix={value.suffix} key={idx}
-              renderText={(val: string) => <Text testID={`text_${value.testID}`} style={tailwind('font-medium text-right text-gray-500')}>{val}</Text>}
+              renderText={(val: string) => (
+                <Text
+                  testID={`text_${value.testID}`}
+                  style={tailwind('font-medium text-right text-gray-500')}
+                >{val}
+                </Text>
+              )}
             />
           ))
         }
@@ -156,7 +164,7 @@ function ConfirmButton (props: { disabled?: boolean, onPress: () => void }): JSX
 }
 
 async function constructSignedAddLiqAndSend (
-  addLiqForm: { tokenAId: number, tokenAAmount: BigNumber, tokenBId: number, tokenBAmount: BigNumber },
+  addLiqForm: { tokenASymbol: string, tokenAId: number, tokenAAmount: BigNumber, tokenBSymbol: string, tokenBId: number, tokenBAmount: BigNumber },
   dispatch: Dispatch<any>
 ): Promise<void> {
   const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
@@ -177,9 +185,10 @@ async function constructSignedAddLiqAndSend (
     const dfTx = await builder.liqPool.addLiquidity(addLiq, script)
     return new CTransactionSegWit(dfTx)
   }
-
+  const message = `Adding ${addLiqForm.tokenAAmount.toFixed(8)} ${addLiqForm.tokenASymbol} - ${addLiqForm.tokenBAmount.toFixed(8)} ${addLiqForm.tokenBSymbol}`
   dispatch(transactionQueue.actions.push({
     sign: signer,
-    title: `${translate('screens/ConfirmLiquidity', 'Adding Liquidity')}`
+    title: `${translate('screens/ConfirmLiquidity', 'Adding Liquidity')}`,
+    description: `${translate('screens/ConfirmLiquidity', message)}`
   }))
 }

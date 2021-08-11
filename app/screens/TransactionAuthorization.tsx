@@ -258,10 +258,20 @@ export function TransactionAuthorization (): JSX.Element | null {
           style={tailwind('text-center text-xl font-bold')}
         >{translate('screens/UnlockWallet', 'Enter passcode')}
         </Text>
-        <Text
-          style={tailwind('p-4 px-8 text-sm text-center text-gray-500 mb-6')}
-        >{translate('screens/UnlockWallet', 'Please enter passcode to securely sign your transaction')}
-        </Text>
+        <View style={tailwind('p-4 px-8 text-sm text-center text-gray-500 mb-6')}>
+          <Text
+            style={tailwind('p-4 px-8 text-sm text-center text-gray-500 mb-2')}
+          >{translate('screens/UnlockWallet', 'Please enter passcode to securely sign your transaction')}
+          </Text>
+          {
+            transaction?.description !== undefined && (
+              <Text
+                style={tailwind('text-sm text-center text-gray-500')}
+              >{transaction.description}
+              </Text>
+            )
+          }
+        </View>
         {/* TODO: switch authorization method here when biometric supported */}
         {
           status === 'PIN' && (
