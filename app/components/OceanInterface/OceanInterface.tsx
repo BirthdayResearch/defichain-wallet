@@ -91,7 +91,7 @@ export function OceanInterface (): JSX.Element | null {
   const slideAnim = useRef(new Animated.Value(0)).current
   // state
   const [tx, setTx] = useState<OceanTransaction | undefined>(transaction)
-  const [err, setError] = useState<Error | undefined>(e)
+  const [err, setError] = useState<string | undefined>(e?.message)
   const [txUrl, setTxUrl] = useState<string | undefined>()
   const { address } = useWalletAddressContext()
 
@@ -136,7 +136,7 @@ export function OceanInterface (): JSX.Element | null {
         })
         .catch((e: Error) => {
           const errMsg = `${e.message}. Txid: ${transaction.tx.txId}`
-          setError(new Error(errMsg))
+          setError(errMsg)
           Logging.error(e)
         })
         .finally(() => {
@@ -146,7 +146,15 @@ export function OceanInterface (): JSX.Element | null {
     }
   }, [transaction, walletContext, address])
 
-  if (tx === undefined) {
+  // If there are any explicit errors to be displayed
+  useEffect(() => {
+    if (e !== undefined) {
+      setError(e.message)
+      Animated.timing(slideAnim, { toValue: height, duration: 200, useNativeDriver: false }).start()
+    }
+  }, [e])
+
+  if (tx === undefined && err === undefined) {
     return null
   }
 
@@ -159,13 +167,15 @@ export function OceanInterface (): JSX.Element | null {
     >
       {
         err !== undefined
-          ? <TransactionError errMsg={err.message} onClose={dismissDrawer} />
+          ? <TransactionError errMsg={err} onClose={dismissDrawer} />
           : (
-            <TransactionDetail
-              broadcasted={tx.broadcasted}
-              title={tx.title} txid={tx.tx.txId} txUrl={txUrl}
-              onClose={dismissDrawer}
-            />
+            tx !== undefined && (
+              <TransactionDetail
+                broadcasted={tx.broadcasted}
+                title={tx.title} txid={tx.tx.txId} txUrl={txUrl}
+                onClose={dismissDrawer}
+              />
+            )
           )
       }
     </Animated.View>

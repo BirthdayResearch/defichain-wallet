@@ -2,7 +2,6 @@ import { StorageAPI } from '../storage'
 
 const KEY = 'PASSCODE_ATTEMPT.count'
 
-// TODO - Not used anywhere
 async function get (): Promise<number> {
   const str = await StorageAPI.getItem(KEY)
   return str === undefined ? 0 : Number(str)
