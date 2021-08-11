@@ -16,6 +16,7 @@ import { Logging } from '../../../../../api'
 import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
+import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
@@ -240,7 +241,7 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
             />
             <View style={tailwind('flex-row bg-white pr-4 items-center')}>
               <Icon />
-              <Text testID='token_symbol' style={tailwind('ml-2')}>{token.symbol}</Text>
+              <InputIconLabel testID='token_symbol' label={token.symbol} screenType={IconLabelScreenType.Balance} />
             </View>
           </View>
         )}
