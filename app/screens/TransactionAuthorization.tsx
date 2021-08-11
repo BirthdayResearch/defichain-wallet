@@ -28,7 +28,11 @@ let PASSPHRASE_PROMISE_PROXY: {
   reject: (e: Error) => void
 } | undefined
 
-type Status = 'INIT' | 'IDLE' | 'PIN' | 'SIGNING'
+const INVALID_HASH = 'invalid hash'
+const USER_CANCELED = 'USER_CANCELED'
+
+type Status = 'INIT' | 'IDLE' | 'PIN' | 'SIGNING' | 'CANCELLED'
+
 /**
  * The main UI page transaction signing logic interact with encrypted wallet context
  */
@@ -50,6 +54,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   const [status, emitEvent] = useState<Status>('INIT')
   const [attemptsRemaining, setAttemptsRemaining] = useState<number>(MAX_PASSCODE_ATTEMPT)
   const [pin, setPin] = useState<string>('')
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
 
   // generic callbacks
   const onPinInput = useCallback((pin: string): void => {
@@ -57,6 +62,7 @@ export function TransactionAuthorization (): JSX.Element | null {
     if (pin.length === PIN_LENGTH && PASSPHRASE_PROMISE_PROXY !== undefined) {
       const resolve = PASSPHRASE_PROMISE_PROXY.resolve
       emitEvent('SIGNING')
+      setIsSubmitted(true)
       setTimeout(() => {
         resolve(pin)
         // remove proxied promised, allow next prompt() call
@@ -67,11 +73,12 @@ export function TransactionAuthorization (): JSX.Element | null {
 
   const onCancel = useCallback((): void => {
     setPin('')
-    emitEvent('IDLE')
+    emitEvent('CANCELLED')
+    setIsSubmitted(false)
     if (PASSPHRASE_PROMISE_PROXY !== undefined) {
       const reject = PASSPHRASE_PROMISE_PROXY.reject
       setTimeout(() => {
-        reject(new Error('USER_CANCELED'))
+        reject(new Error(USER_CANCELED))
         // remove proxied promised, allow next prompt() call
         PASSPHRASE_PROMISE_PROXY = undefined
       }, 50)
@@ -99,15 +106,30 @@ export function TransactionAuthorization (): JSX.Element | null {
     return await new Promise<string>((resolve, reject) => {
       // passphrase prompt is meant for authorizing single transaction regardless
       // caller should not prompt for next transaction before one is completed
-      if (status !== 'INIT' && status !== 'IDLE') throw Error('Prompt UI occupied')
-
-      // wait for user input
-      PASSPHRASE_PROMISE_PROXY = {
-        resolve, reject
+      if (status === 'PIN' || status === 'SIGNING') {
+        throw Error('Prompt UI occupied')
+      } else {
+        if (status !== 'CANCELLED') {
+          // wait for user input
+          PASSPHRASE_PROMISE_PROXY = {
+            resolve, reject
+          }
+          emitEvent('PIN')
+        }
       }
-      emitEvent('PIN')
     })
   }, [status])
+
+  const onSubmitCompletion = (): void => {
+    setPin('')
+    emitEvent('IDLE')
+  }
+
+  useEffect(() => {
+    PasscodeAttemptCounter.get().then((counter) => {
+      setAttemptsRemaining(MAX_PASSCODE_ATTEMPT - counter)
+    }).catch((err) => Logging.error(err))
+  }, [])
 
   /**
    * Currently serving
@@ -120,13 +142,15 @@ export function TransactionAuthorization (): JSX.Element | null {
         wallet !== undefined // just in case any data stuck in store
       ) {
         let result: CTransactionSegWit | null | undefined
-
         signTransaction(transaction, wallet.get(0), onRetry)
-          .then(async signedTx => { result = signedTx }) // positive
+          .then(async signedTx => {
+            result = signedTx
+          }) // positive
           .catch(e => {
             // error type check
-            if (e.message === 'invalid hash') result = null // negative, invalid passcode
-            else {
+            if (e.message === INVALID_HASH) {
+              result = null // negative, invalid passcode
+            } else if (e.message !== USER_CANCELED) {
               dispatch(ocean.actions.setError(e))
             }
           })
@@ -135,6 +159,8 @@ export function TransactionAuthorization (): JSX.Element | null {
             if (result === undefined) {
               dispatch(transactionQueue.actions.pop())
             } else if (result === null) {
+              setAttemptsRemaining(MAX_PASSCODE_ATTEMPT)
+              await PasscodeAttemptCounter.set(0)
               await clearWallets()
               onUnlinkWallet()
             } else {
@@ -143,22 +169,28 @@ export function TransactionAuthorization (): JSX.Element | null {
           })
           .catch(e => Logging.error(e))
           .finally(() => {
-            setPin('')
-            emitEvent('IDLE')
+            onSubmitCompletion()
           })
       } else if (authentication !== undefined) {
-        let invalidPassphrase = false
+        let status = ''
         authenticateFor(onPrompt, authentication, onRetry)
           .catch(e => {
             // error type check
-            if (e.message === 'invalid hash') invalidPassphrase = true
-            // else result = undefined // neutral
+            if (e.message === INVALID_HASH) {
+              status = INVALID_HASH
+            } else if (e.message === USER_CANCELED) {
+              status = USER_CANCELED
+            } else if (e.message !== USER_CANCELED) {
+              dispatch(ocean.actions.setError(e))
+            }
           })
           .then(async () => {
-            if (invalidPassphrase) {
+            if (status === INVALID_HASH) {
+              setAttemptsRemaining(MAX_PASSCODE_ATTEMPT)
+              await PasscodeAttemptCounter.set(0)
               await clearWallets()
               onUnlinkWallet()
-            } else {
+            } else if (status !== USER_CANCELED) {
               setAttemptsRemaining(MAX_PASSCODE_ATTEMPT)
               await PasscodeAttemptCounter.set(0)
             }
@@ -166,8 +198,7 @@ export function TransactionAuthorization (): JSX.Element | null {
           })
           .catch(e => Logging.error(e))
           .finally(() => {
-            setPin('')
-            emitEvent('IDLE')
+            onSubmitCompletion()
           })
       }
     }
@@ -202,13 +233,14 @@ export function TransactionAuthorization (): JSX.Element | null {
     }
   }, [status, isBiometric]) */
 
-  if (status === 'INIT') return null
+  if (status === 'INIT' || status === 'IDLE' || status === 'CANCELLED') {
+    return null
+  }
 
   return (
     <SafeAreaView
       style={[
-        tailwind('w-full h-full flex-col bg-white'),
-        status === 'IDLE' && tailwind('hidden')
+        tailwind('w-full h-full flex-col bg-white')
       ]}
     >
       <View
@@ -251,8 +283,8 @@ export function TransactionAuthorization (): JSX.Element | null {
           message={status === 'SIGNING' ? translate('screens/TransactionAuthorization', 'Signing...') : undefined}
         />
         {
-          (attemptsRemaining !== undefined && attemptsRemaining !== MAX_PASSCODE_ATTEMPT) ? (
-            <Text style={tailwind('text-center text-error text-sm font-bold mt-5')}>
+          (isSubmitted && attemptsRemaining !== undefined && attemptsRemaining !== MAX_PASSCODE_ATTEMPT) ? (
+            <Text testID='pin_attempt_error' style={tailwind('text-center text-error text-sm font-bold mt-5')}>
               {translate('screens/PinConfirmation', `${attemptsRemaining === 1 ? 'Last attempt or your wallet will be unlinked for your security'
                 : 'Incorrect passcode. %{attemptsRemaining} attempts remaining'}`, { attemptsRemaining: `${attemptsRemaining}` })}
             </Text>
@@ -278,8 +310,8 @@ async function execWithAutoRetries (promptPromise: () => Promise<any>, onAutoRet
     return await promptPromise()
   } catch (e) {
     Logging.error(e)
-    if (e.message === 'USER_CANCELED') throw e
-    if (e.message === 'invalid hash' && ++retries < MAX_PASSCODE_ATTEMPT) {
+    retries = await PasscodeAttemptCounter.get() ?? 0
+    if (e.message === INVALID_HASH && ++retries < MAX_PASSCODE_ATTEMPT) {
       await onAutoRetry(retries)
       return await execWithAutoRetries(promptPromise, onAutoRetry, retries)
     }
