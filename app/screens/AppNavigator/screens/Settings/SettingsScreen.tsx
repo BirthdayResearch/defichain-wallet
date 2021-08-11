@@ -5,7 +5,6 @@ import * as React from 'react'
 import { useCallback } from 'react'
 import { Alert, Platform, ScrollView, TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
-import { BiometricProtectedPasscode } from '../../../../api/wallet/biometric_protected_passcode'
 import { MnemonicWords } from '../../../../api/wallet/mnemonic_words'
 import { Text } from '../../../../components'
 import { SectionTitle } from '../../../../components/SectionTitle'
@@ -56,23 +55,6 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
     dispatch(authentication.actions.prompt(auth))
   }, [walletContext.wallets[0]])
 
-  const enrollBiometric = useCallback(() => {
-    if (walletContext.wallets[0].type !== 'MNEMONIC_ENCRYPTED') {
-      return
-    }
-
-    const auth: Authentication<string> = {
-      message: translate('screens/Setting', 'To continue enroll biometric authentication, we need you to enter your passcode.'),
-      consume: async passphrase => {
-        await MnemonicWords.decrypt(passphrase)
-        return passphrase
-      },
-      onAuthenticated: async validatedPin => await BiometricProtectedPasscode.set(validatedPin)
-    }
-
-    dispatch(authentication.actions.prompt(auth))
-  }, [walletContext.wallets[0]])
-
   return (
     <ScrollView style={tailwind('flex-1 bg-gray-100')}>
       <SectionTitle text={translate('screens/Settings', 'NETWORK')} testID='network_title' />
@@ -84,7 +66,6 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       <SectionTitle text={translate('screens/Settings', 'SECURITY')} testID='security_title' />
       <SecurityRow testID='view_recovery_words' label='Recovery Words' onPress={revealRecoveryWords} />
       <SecurityRow testID='view_change_passcode' label='Change Passcode' onPress={changePasscode} />
-      <SecurityRow testID='view_enroll_biometric' label='Biometric Authentication' onPress={enrollBiometric} />
       <RowNavigateItem pageName='AboutScreen' title='About' />
       <RowExitWalletItem />
     </ScrollView>
