@@ -172,27 +172,26 @@ export function TransactionAuthorization (): JSX.Element | null {
             onSubmitCompletion()
           })
       } else if (authentication !== undefined) {
-        let status = ''
+        let invalidPassphrase = false
         authenticateFor(onPrompt, authentication, onRetry)
+          .then(async () => {
+            setAttemptsRemaining(MAX_PASSCODE_ATTEMPT)
+            await PasscodeAttemptCounter.set(0)
+          })
           .catch(e => {
             // error type check
             if (e.message === INVALID_HASH) {
-              status = INVALID_HASH
-            } else if (e.message === USER_CANCELED) {
-              status = USER_CANCELED
+              invalidPassphrase = true
             } else if (e.message !== USER_CANCELED) {
               dispatch(ocean.actions.setError(e))
             }
           })
           .then(async () => {
-            if (status === INVALID_HASH) {
+            if (invalidPassphrase) {
               setAttemptsRemaining(MAX_PASSCODE_ATTEMPT)
               await PasscodeAttemptCounter.set(0)
               await clearWallets()
               onUnlinkWallet()
-            } else if (status !== USER_CANCELED) {
-              setAttemptsRemaining(MAX_PASSCODE_ATTEMPT)
-              await PasscodeAttemptCounter.set(0)
             }
             dispatch(authenticationStore.actions.dismiss())
           })
