@@ -5,10 +5,12 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
+import { useSelector } from 'react-redux'
 
 import { Text } from '../../../../components'
-import { useWallet } from '../../../../contexts/WalletContext'
+import { useWalletAddressContext } from '../../../../contexts/WalletAddressContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
+import { RootState } from '../../../../store'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { EmptyTransaction } from './EmptyTransaction'
@@ -21,8 +23,9 @@ export function formatBlockTime (date: number): string {
 
 export function TransactionsScreen (): JSX.Element {
   const client = useWhaleApiClient()
-  const wallet = useWallet()
+  const { address } = useWalletAddressContext()
   const navigation = useNavigation<NavigationProp<TransactionsParamList>>()
+  const blocks = useSelector((state: RootState) => state.block.count)
 
   const [activities, setAddressActivities] = useState<VMTransaction[]>([])
   const [loadingStatus, setLoadingStatus] = useState('initial') // page status
@@ -33,28 +36,29 @@ export function TransactionsScreen (): JSX.Element {
   const loadData = (nextToken?: string | undefined): void => {
     if (loadingStatus === 'loading') return
     setLoadingStatus('loading')
-    wallet.get(0).getAddress().then(async address => {
-      return await client.address.listTransaction(address, undefined, nextToken)
-    }).then(async addActivities => {
-      const newRows = activitiesToViewModel(addActivities)
-      if (nextToken !== undefined) {
-        setAddressActivities([...activities, ...newRows])
-      } else {
-        setAddressActivities([...newRows])
-      }
-      setHasNext(addActivities.hasNext)
-      setNextToken(addActivities.nextToken as string)
-      setLoadingStatus('idle')
-    }).catch(() => {
-      setLoadingStatus('error')
-    })
+    client.address.listTransaction(address, undefined, nextToken)
+      .then(async addActivities => {
+        const newRows = activitiesToViewModel(addActivities)
+        if (nextToken !== undefined) {
+          setAddressActivities([...activities, ...newRows])
+        } else {
+          setAddressActivities([...newRows])
+        }
+        setHasNext(addActivities.hasNext)
+        setNextToken(addActivities.nextToken as string)
+        setLoadingStatus('idle')
+      }).catch(() => {
+        setLoadingStatus('error')
+      })
   }
 
   const onLoadMore = (): void => {
     loadData(nextToken)
   }
 
-  useEffect(() => loadData(), [])
+  useEffect(() => {
+    loadData()
+  }, [address, blocks])
 
   return activities.length === 0
     ? <EmptyTransaction navigation={navigation} handleRefresh={loadData} loadingStatus={loadingStatus} />

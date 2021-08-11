@@ -53,7 +53,8 @@ const Communities: CommunityItem[] = [
   { id: 'tg_de', title: 'Telegram (DE)', url: 'https://t.me/defiblockchain_DE', icon: 'telegram' },
   { id: 'wechat', title: 'WeChat', url: 'http://weixin.qq.com/r/0xz07DzEdmEJrXiP90nB', icon: 'wechat' },
   { id: 'reddit', title: 'Reddit Community', url: 'https://www.reddit.com/r/defiblockchain/', icon: 'reddit' },
-  { id: 'website', title: 'Official Website', url: 'https://defichain.com/', icon: 'web' }
+  { id: 'website', title: 'Official Website', url: 'https://defichain.com/', icon: 'web' },
+  { id: 'explorer', title: 'DeFiScan', url: 'https://defiscan.live/', icon: 'magnify' }
 ]
 
 function CommunityItemRow ({ id, title, url, icon }: CommunityItem): JSX.Element {

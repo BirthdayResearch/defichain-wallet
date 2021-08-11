@@ -1,4 +1,4 @@
-# DeFi Wallet Beta Testing
+# DeFiChain Wallet Beta Testing
 
 ## Test Setup
 
@@ -11,21 +11,25 @@
 The test will run on [DeFi Playground](https://github.com/DeFiCh/wallet#testing). To begin, refer to the steps below based on your mobile device's operating system.
 
 ### Android
+
 1. Download [Expo Go](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www) from Play Store
-2. If you have Expo Go installed on your device, kindly ensure that you have the latest version via Play Store for ideal compatibility with DeFi Wallet
-3. Go to DeFiCh/wallet Discussions and select the [latest version](https://github.com/DeFiCh/wallet/discussions/categories/beta-testing)
+2. If you have Expo Go installed on your device, kindly ensure that you have the latest version via Play Store for ideal
+   compatibility with DeFiChain Wallet
+3. Go to DeFiCh/wallet Discussions and select
+   the [latest version](https://github.com/DeFiCh/wallet/discussions/categories/beta-testing)
 4. Scan the QR code using your mobile device
 5. Alternatively, copy and paste the Expo URL in your Expo Go App
-6. DeFi Wallet should reflect in Expo Go
+6. DeFiChain Wallet should reflect in Expo Go
 
 ### iOS
+
 1. Download [TestFlight](https://apps.apple.com/us/app/testflight/id899247664) from App Store
 2. TestFlight app must be installed on your iOS device using 13.0 or later
 3. If you have TestFlight installed on your device, kindly ensure that you have the latest version via App Store for
-   ideal compatibility with DeFi Wallet
+   ideal compatibility with DeFiChain Wallet
 4. Open the`TestFlight` invitation link in your TestFlight app
-5. It should open the DeFi Wallet app. Click on Accept
-6. DeFi Wallet should reflect in TestFlight
+5. It should open the DeFiChain Wallet app. Click on Accept
+6. DeFiChain Wallet should reflect in TestFlight
 
 ## Test Data
 
@@ -49,7 +53,10 @@ Should you need utxoDFI or Tokens for testing, you may generate them using DeFi 
 9. Otherwise, try `pull to refresh` on the Balances screen to retrieve your latest balance
 
 ## Test Results
-Select the respective DeFi Wallet version thread via [GitHub Discussions](https://github.com/DeFiCh/wallet/discussions/categories/beta-testing) and post your feedback(s). 
+
+Select the respective DeFiChain Wallet version thread
+via [GitHub Discussions](https://github.com/DeFiCh/wallet/discussions/categories/beta-testing) and post your feedback(s)
+.
 
 **Do include the following before leaving a comment / post:**
 - Operating System (OS): Android / iOS

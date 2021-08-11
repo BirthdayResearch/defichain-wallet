@@ -5,6 +5,7 @@ import * as React from 'react'
 import { useCallback } from 'react'
 import { Alert, Platform, ScrollView, TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
+import { Logging } from '../../../../api'
 import { MnemonicWords } from '../../../../api/wallet/mnemonic_words'
 import { Text } from '../../../../components'
 import { SectionTitle } from '../../../../components/SectionTitle'
@@ -34,7 +35,8 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       consume: async passphrase => await MnemonicWords.decrypt(passphrase),
       onAuthenticated: async (words) => {
         navigation.navigate('RecoveryWordsScreen', { words })
-      }
+      },
+      onError: e => Logging.error(e)
     }
     dispatch(authentication.actions.prompt(auth))
   }, [walletContext.wallets[0]])

@@ -25,11 +25,5 @@ function toData (mnemonic: string[], network: EnvironmentNetwork): WalletPersist
 
 export const MnemonicUnprotected = {
   initProvider,
-  toData,
-  /**
-   * Convenience Abandon23 Art on Playground Network Data
-   */
-  Abandon23Playground: toData([
-    'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'
-  ], EnvironmentNetwork.LocalPlayground)
+  toData
 }
