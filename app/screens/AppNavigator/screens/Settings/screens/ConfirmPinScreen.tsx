@@ -1,3 +1,4 @@
+import { StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
 import { ActivityIndicator, ScrollView } from 'react-native'
@@ -15,6 +16,7 @@ import { SettingsParamList } from '../SettingsNavigator'
 type Props = StackScreenProps<SettingsParamList, 'ConfirmPinScreen'>
 
 export function ConfirmPinScreen ({ route }: Props): JSX.Element {
+  const navigation = useNavigation()
   const { network } = useNetworkContext()
   const { setWallet } = useWalletPersistenceContext()
   const { pin, words } = route.params
@@ -40,7 +42,7 @@ export function ConfirmPinScreen ({ route }: Props): JSX.Element {
         .then(async encrypted => {
           await MnemonicWords.encrypt(words, pin)
           await setWallet(encrypted)
-
+          navigation.dispatch(StackActions.popToTop())
           // if (biometricEnrolled) BiometricProtectedPasscode.set(pin)
         })
         .catch(e => Logging.error(e))
