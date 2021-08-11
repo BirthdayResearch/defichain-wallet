@@ -182,8 +182,8 @@ export function TransactionAuthorization (): JSX.Element | null {
             // error type check
             if (e.message === INVALID_HASH) {
               invalidPassphrase = true
-            } else if (e.message !== USER_CANCELED) {
-              dispatch(ocean.actions.setError(e))
+            } else if (e.message !== USER_CANCELED && authentication.onError !== undefined) {
+              authentication.onError(e)
             }
           })
           .then(async () => {
