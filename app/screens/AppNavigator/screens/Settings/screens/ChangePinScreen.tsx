@@ -22,12 +22,12 @@ export function ChangePinScreen ({ route }: Props): JSX.Element {
       testID='screen_create_pin'
       style={tailwind('w-full flex-1 flex-col bg-white')}
     >
-      {/* <View style={tailwind('px-6 py-4 mb-12')}>
+      <View style={tailwind('px-6 py-4 mb-12')}>
         <Text
           style={tailwind('text-center font-semibold')}
-        >{translate('screens/ChangePinScreen', `Well done! Your wallet is ${type === 'create' ? 'created' : 'restored'}. Keep your wallet private and secure by creating a passcode for it.`)}
+        >{translate('screens/ChangePinScreen', 'Create new passcode for your wallet')}
         </Text>
-      </View> */}
+      </View>
       <PinTextInput cellCount={6} testID='pin_input' value={newPin} onChange={setNewPin} />
       <View style={tailwind('p-4 flex-row mt-2 mb-8 justify-center items-center')}>
         <MaterialIcons name='lock-outline' size={18} />
