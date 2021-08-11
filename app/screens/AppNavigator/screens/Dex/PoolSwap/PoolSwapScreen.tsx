@@ -14,7 +14,7 @@ import { Logging } from '../../../../../api'
 import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
-import { InputIconLabel } from '../../../../../components/InputIconLabel'
+import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
 import LoadingScreen from '../../../../../components/LoadingScreen'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
@@ -215,7 +215,7 @@ function TokenRow (form: TokenForm): JSX.Element {
             />
             <View style={tailwind('flex-row bg-white pr-4 items-center')}>
               <Icon />
-              <InputIconLabel label={token.symbol} />
+              <InputIconLabel label={token.symbol} screenType={IconLabelScreenType.DEX} />
             </View>
           </View>
         )}
