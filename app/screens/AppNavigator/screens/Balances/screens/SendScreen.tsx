@@ -177,12 +177,13 @@ function AddressRow ({
           <View style={tailwind('flex-row w-full')}>
             <TextInput
               testID='address_input'
-              style={tailwind('flex-grow p-4 bg-white')}
+              style={tailwind('w-4/5 flex-grow p-4 pr-0 bg-white')}
               autoCapitalize='none'
               value={value}
               onBlur={onBlur}
               onChangeText={onChange}
               placeholder={translate('screens/SendScreen', 'Enter an address')}
+              multiline
             />
             <TouchableOpacity
               testID='qr_code_button'
