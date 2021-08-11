@@ -149,10 +149,9 @@ export function TransactionAuthorization (): JSX.Element | null {
             // error type check
             if (e.message === INVALID_HASH) {
               result = null // negative, invalid passcode
+            } else if (e.message !== USER_CANCELED) {
+              dispatch(ocean.actions.setError(e))
             }
-            // else if (e.message !== USER_CANCELED) {
-            //   dispatch(ocean.actions.setError(e))
-            // }
           })
           .then(async () => {
             // result handling, 3 cases
