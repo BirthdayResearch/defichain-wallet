@@ -13,6 +13,7 @@ import { useNetworkContext } from '../../../../contexts/NetworkContext'
 import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { EnvironmentNetwork, getEnvironment, isPlayground } from '../../../../environment'
 import { authentication, Authentication } from '../../../../store/authentication'
+import { ocean } from '../../../../store/ocean'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { SettingsParamList } from './SettingsNavigator'
@@ -52,6 +53,9 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       consume: async passphrase => await MnemonicWords.decrypt(passphrase),
       onAuthenticated: async words => {
         navigation.navigate('ChangePinScreen', { words, pinLength: 6 })
+      },
+      onError: (e) => {
+        dispatch(ocean.actions.setError(e))
       }
     }
 

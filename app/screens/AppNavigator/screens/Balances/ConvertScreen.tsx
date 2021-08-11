@@ -255,6 +255,7 @@ async function constructSignedConversionAndSend (mode: ConversionMode, amount: B
 
   dispatch(transactionQueue.actions.push({
     sign: signer,
-    title: `${translate('screens/ConvertScreen', 'Converting DFI')}`
+    title: `${translate('screens/ConvertScreen', 'Converting DFI')}`,
+    description: `${translate('screens/ConvertScreen', `Converting ${amount.toFixed(8)} ${mode === 'utxosToAccount' ? 'UTXO to Token' : 'Token to UTXO'}`)}`
   }))
 }

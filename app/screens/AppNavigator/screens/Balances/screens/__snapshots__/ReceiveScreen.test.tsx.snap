@@ -41,11 +41,6 @@ exports[`receive page should match snapshot 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 231, 235, 1)",
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(229, 231, 235, 1)",
-        "borderRightColor": "rgba(229, 231, 235, 1)",
-        "borderTopColor": "rgba(229, 231, 235, 1)",
         "display": "flex",
         "justifyContent": "center",
         "paddingBottom": 20,
@@ -155,6 +150,7 @@ exports[`receive page should match snapshot 1`] = `
             "color": "rgba(107, 114, 128, 1)",
             "fontFamily": "MediumFont",
             "fontWeight": "500",
+            "textAlign": "center",
           },
         ]
       }
@@ -164,53 +160,125 @@ exports[`receive page should match snapshot 1`] = `
     </Text>
   </View>
   <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "alignItems": "center",
         "backgroundColor": "rgba(255, 255, 255, 1)",
         "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "opacity": 1,
-        "paddingBottom": 12,
-        "paddingLeft": 12,
-        "paddingRight": 12,
-        "paddingTop": 12,
+        "flexDirection": "column",
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
       }
     }
-    testID="copy_button"
   >
-    <Text />
-    <Text
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Object {
-            "color": "rgba(255, 0, 175, 1)",
-            "fontFamily": "MediumFont",
-            "fontWeight": "500",
-            "marginLeft": 8,
-            "textTransform": "uppercase",
-          },
-        ]
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "rgba(229, 231, 235, 1)",
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(229, 231, 235, 1)",
+          "borderLeftWidth": 1,
+          "borderRightColor": "rgba(229, 231, 235, 1)",
+          "borderRightWidth": 1,
+          "borderTopColor": "rgba(229, 231, 235, 1)",
+          "borderTopWidth": 1,
+          "display": "flex",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "justifyContent": "center",
+          "opacity": 1,
+          "paddingBottom": 12,
+          "paddingLeft": 12,
+          "paddingRight": 12,
+          "paddingTop": 12,
+        }
       }
+      testID="copy_button"
     >
-      Copy
-    </Text>
+      <Text />
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Object {
+              "color": "rgba(255, 0, 175, 1)",
+              "fontFamily": "MediumFont",
+              "fontWeight": "500",
+              "marginLeft": 8,
+              "textTransform": "uppercase",
+            },
+          ]
+        }
+      >
+        COPY TO CLIPBOARD
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "justifyContent": "center",
+          "marginTop": 8,
+          "opacity": 1,
+          "paddingBottom": 12,
+          "paddingLeft": 12,
+          "paddingRight": 12,
+          "paddingTop": 12,
+        }
+      }
+      testID="share_button"
+    >
+      <Text />
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Object {
+              "color": "rgba(255, 0, 175, 1)",
+              "fontFamily": "MediumFont",
+              "fontWeight": "500",
+              "marginLeft": 8,
+              "textTransform": "uppercase",
+            },
+          ]
+        }
+      >
+        SHARE
+      </Text>
+    </View>
   </View>
 </View>
 `;

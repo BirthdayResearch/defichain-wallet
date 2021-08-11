@@ -1,7 +1,9 @@
+import { MaterialIcons } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import { Text } from '../../../../components'
 import { BarCodeScanner } from '../../../../components/BarCodeScanner'
 import { ConnectionStatus, HeaderTitle } from '../../../../components/HeaderTitle'
@@ -35,9 +37,38 @@ export interface BalanceParamList {
   [key: string]: undefined | object
 }
 
+function BalanceActionButton (props: {
+  icon?: React.ComponentProps<typeof MaterialIcons>['name']
+  title?: string
+  onPress: () => void
+  testID: string
+}): JSX.Element {
+  return (
+    <TouchableOpacity
+      testID={props.testID}
+      style={[tailwind('px-2 py-1.5 ml-3 flex-row items-center')]}
+      onPress={props.onPress}
+    >
+      {
+        props.icon !== undefined && (
+          <MaterialIcons name={props.icon} size={20} style={tailwind('text-primary')} />
+        )
+      }
+      {
+        props.title !== undefined && (
+          <Text style={tailwind('mx-1 text-primary font-semibold')}>
+            {translate('screens/BalancesScreen', props.title)}
+          </Text>
+        )
+      }
+    </TouchableOpacity>
+  )
+}
+
 const BalanceStack = createStackNavigator<BalanceParamList>()
 
 export function BalancesNavigator (): JSX.Element {
+  const navigation = useNavigation()
   return (
     <BalanceStack.Navigator>
       <BalanceStack.Screen
@@ -45,7 +76,13 @@ export function BalancesNavigator (): JSX.Element {
         component={BalancesScreen}
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/BalancesScreen', 'Balances')} />,
-          headerBackTitleVisible: false
+          headerBackTitleVisible: false,
+          headerRight: () => (
+            <BalanceActionButton
+              testID='header_receive_balance' title='RECEIVE'
+              onPress={() => navigation.navigate('Receive')}
+            />
+          )
         }}
       />
       <BalanceStack.Screen

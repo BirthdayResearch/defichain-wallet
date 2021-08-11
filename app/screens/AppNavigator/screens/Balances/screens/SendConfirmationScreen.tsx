@@ -171,7 +171,8 @@ async function send ({
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
-      title: `${translate('screens/SendScreen', 'Sending')} ${token.symbol}`
+      title: `${translate('screens/SendScreen', 'Sending')} ${token.symbol}`,
+      description: `${translate('screens/SendScreen', `Sending ${token.amount} ${token.symbol}`)}`
     }))
   } catch (e) {
     Logging.error(e)

@@ -4,12 +4,10 @@ exports[`balances page should match snapshot 1`] = `
 <RCTScrollView
   ItemSeparatorComponent={[Function]}
   ListHeaderComponent={
-    <React.Fragment>
-      <SectionTitle
-        testID="balances_title"
-        text="BALANCE DETAILS"
-      />
-    </React.Fragment>
+    <SectionTitle
+      testID="balances_title"
+      text="BALANCE DETAILS"
+    />
   }
   data={
     Array [
