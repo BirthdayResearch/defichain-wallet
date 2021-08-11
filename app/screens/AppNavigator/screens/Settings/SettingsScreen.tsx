@@ -23,9 +23,10 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   const networks = getEnvironment().networks
   const dispatch = useDispatch()
   const walletContext = useWalletPersistenceContext()
+  const isEncrypted = walletContext.wallets[0].type === 'MNEMONIC_ENCRYPTED'
 
   const revealRecoveryWords = useCallback(() => {
-    if (walletContext.wallets[0].type !== 'MNEMONIC_ENCRYPTED') {
+    if (!isEncrypted) {
       // TODO: alert(mnemonic phrase only get encrypted and stored if for encrypted type)
       return
     }
@@ -67,7 +68,9 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       }
       <SectionTitle text={translate('screens/Settings', 'SECURITY')} testID='security_title' />
       <SecurityRow testID='view_recovery_words' label='Recovery Words' onPress={revealRecoveryWords} />
-      <SecurityRow testID='view_change_passcode' label='Change Passcode' onPress={changePasscode} />
+      {
+        isEncrypted && <SecurityRow testID='view_change_passcode' label='Change Passcode' onPress={changePasscode} />
+      }
       <RowNavigateItem pageName='AboutScreen' title='About' />
       <RowExitWalletItem />
     </ScrollView>

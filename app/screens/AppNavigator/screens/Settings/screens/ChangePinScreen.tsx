@@ -22,7 +22,7 @@ export function ChangePinScreen ({ route }: Props): JSX.Element {
       testID='screen_create_pin'
       style={tailwind('w-full flex-1 flex-col bg-white')}
     >
-      <View style={tailwind('px-6 py-4 mb-12')}>
+      <View style={tailwind('px-6 py-4 mb-8')}>
         <Text
           style={tailwind('text-center font-semibold')}
         >{translate('screens/ChangePinScreen', 'Create new passcode for your wallet')}
@@ -42,6 +42,7 @@ export function ChangePinScreen ({ route }: Props): JSX.Element {
         title='create-pin'
         disabled={newPin.length !== pinLength}
         onPress={() => {
+          setNewPin('')
           navigation.navigate('ConfirmPinScreen', { words, pin: newPin })
         }}
       />

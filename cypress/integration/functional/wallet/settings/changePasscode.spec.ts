@@ -1,0 +1,72 @@
+function sendWithNewPin (): void {
+  cy.getByTestID('bottom_tab_balances').click()
+  cy.getByTestID('balances_list').should('exist')
+  cy.getByTestID('balances_row_0_utxo').click()
+  cy.getByTestID('send_button').click()
+  cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
+  cy.getByTestID('amount_input').clear().type('1')
+  cy.getByTestID('send_submit_button').click()
+  cy.getByTestID('pin_authorize').type('000000').wait(1000)
+  cy.closeOceanInterface('696969')
+}
+
+function nonTransactionNewPin (): void {
+  cy.getByTestID('bottom_tab_settings').click()
+  cy.getByTestID('view_recovery_words').click()
+  cy.getByTestID('pin_authorize').type('696969').wait(1000)
+  cy.getByTestID('recovery_word_screen').should('exist')
+}
+
+context('Wallet - Change Passcode', () => {
+  beforeEach(() => {
+    cy.restoreLocalStorage()
+  })
+
+  afterEach(() => {
+    cy.saveLocalStorage()
+  })
+
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(10000)
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('balances_list').should('exist')
+    cy.getByTestID('balances_row_0_utxo').should('exist')
+    cy.getByTestID('balances_row_0_utxo_amount').contains(10)
+  })
+
+  it('should be able to change passcode', function () {
+    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('view_change_passcode').click()
+    cy.getByTestID('pin_authorize').type('000000').wait(1000)
+    cy.getByTestID('pin_input').type('696969').wait(1000)
+    cy.getByTestID('change_pin_button').click()
+    cy.getByTestID('pin_confirm_input').type('777777')
+    cy.getByTestID('wrong_passcode_text').should('exist')
+    cy.getByTestID('pin_confirm_input').type('696969')
+  })
+
+  it('should not be able to use old passcode for non transaction UI', function () {
+    nonTransactionNewPin()
+  })
+
+  it('should not be able to use old passcode for transaction UI', function () {
+    sendWithNewPin()
+  })
+
+  it('should be able to input new passcode on reload for non transaction UI', function () {
+    cy.reload()
+    nonTransactionNewPin()
+  })
+
+  it('should be able to input new passcode on reload for transaction UI', function () {
+    cy.reload()
+    sendWithNewPin()
+  })
+
+  it('should not display on unencrypted mnemonic wallet', function () {
+    cy.createEmptyWallet(false)
+    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('view_change_passcode').should('not.exist')
+  })
+})
