@@ -1,8 +1,5 @@
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
-import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction'
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
@@ -10,8 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { useDispatch, useSelector } from 'react-redux'
-import { Dispatch } from 'redux'
+import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
@@ -23,52 +19,11 @@ import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
-import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
+import { hasTxQueued } from '../../../../../store/transaction_queue'
 import { WalletToken } from '../../../../../store/wallet'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
-
-interface SendForm {
-  amount: BigNumber
-  address: string
-  token: AddressToken
-  networkName: NetworkName
-}
-
-async function send ({
-  address,
-  token,
-  amount,
-  networkName
-}: SendForm, dispatch: Dispatch<any>): Promise<void> {
-  try {
-    const to = DeFiAddress.from(networkName, address).getScript()
-
-    const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
-      const script = await account.getScript()
-      const builder = account.withTransactionBuilder()
-
-      let signed: TransactionSegWit
-      if (token.symbol === 'DFI') {
-        signed = await builder.utxo.send(amount, to, script)
-      } else {
-        signed = await builder.account.accountToAccount({
-          from: script,
-          to: [{ script: to, balances: [{ token: +token.id, amount }] }]
-        }, script)
-      }
-      return new CTransactionSegWit(signed)
-    }
-
-    dispatch(transactionQueue.actions.push({
-      sign: signer,
-      title: `${translate('screens/SendScreen', 'Sending')} ${token.symbol}`
-    }))
-  } catch (e) {
-    Logging.error(e)
-  }
-}
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -78,9 +33,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const tokens = useTokensAPI()
   const [token, setToken] = useState(route.params.token)
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
-  const dispatch = useDispatch()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
 
   useEffect(() => {
@@ -100,17 +53,15 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
     if (hasPendingJob) {
       return
     }
-    setIsSubmitting(true)
     if (isValid) {
       const values = getValues()
-      await send({
-        address: values.address,
+      navigation.navigate('SendConfirmationScreen', {
+        destination: values.address,
         token,
         amount: new BigNumber(values.amount),
-        networkName
-      }, dispatch)
+        fee
+      })
     }
-    setIsSubmitting(false)
   }
 
   return (
@@ -146,7 +97,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
       }
       <Button
         testID='send_submit_button'
-        disabled={!isValid || isSubmitting || hasPendingJob}
+        disabled={!isValid || hasPendingJob}
         label={translate('screens/SendScreen', 'SEND')}
         title='Send' onPress={onSubmit}
       />
