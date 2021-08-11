@@ -148,16 +148,16 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
           },
           Array [
             Object {
+              "backgroundColor": "rgba(243, 244, 246, 1)",
               "color": "rgba(107, 114, 128, 1)",
               "fontFamily": "MediumFont",
               "fontSize": 12,
               "fontWeight": "500",
               "lineHeight": 16,
-              "marginTop": 8,
               "paddingBottom": 16,
               "paddingLeft": 16,
               "paddingRight": 16,
-              "paddingTop": 16,
+              "paddingTop": 24,
             },
           ],
         ]

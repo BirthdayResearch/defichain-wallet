@@ -5,7 +5,6 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
       .sendTokenToWallet(['BTC']).wait(10000)
-    cy.fetchWalletBalance()
 
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('pool_pair_add_DFI-BTC').click()

@@ -1,6 +1,6 @@
 ---
 name: UI/UX improvements
-about: Suggest a UI/UX improvement for DeFi Wallet
+about: Suggest a UI/UX improvement for DeFiChain Wallet
 labels: 'kind/feature,area/ui-ux'
 ---
 

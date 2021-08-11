@@ -1,12 +1,12 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
+import { authentication } from './authentication'
 import { block } from './block'
 import { ocean } from './ocean'
 import { transactionQueue } from './transaction_queue'
 import { wallet } from './wallet'
-import { authentication } from './authentication'
 
 /**
- * RootState for DeFi Wallet App
+ * RootState for DeFiChain Wallet App
  *
  * All state reducer in this store must be designed for global use and placed in this
  * directory as such. Reducer that are not meant to be global must not be part of

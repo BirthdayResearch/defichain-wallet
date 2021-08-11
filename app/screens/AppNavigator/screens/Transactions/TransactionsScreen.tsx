@@ -5,10 +5,12 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
+import { useSelector } from 'react-redux'
 
 import { Text } from '../../../../components'
 import { useWalletAddressContext } from '../../../../contexts/WalletAddressContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
+import { RootState } from '../../../../store'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { EmptyTransaction } from './EmptyTransaction'
@@ -23,6 +25,7 @@ export function TransactionsScreen (): JSX.Element {
   const client = useWhaleApiClient()
   const { address } = useWalletAddressContext()
   const navigation = useNavigation<NavigationProp<TransactionsParamList>>()
+  const blocks = useSelector((state: RootState) => state.block.count)
 
   const [activities, setAddressActivities] = useState<VMTransaction[]>([])
   const [loadingStatus, setLoadingStatus] = useState('initial') // page status
@@ -55,7 +58,7 @@ export function TransactionsScreen (): JSX.Element {
 
   useEffect(() => {
     loadData()
-  }, [address])
+  }, [address, blocks])
 
   return activities.length === 0
     ? <EmptyTransaction navigation={navigation} handleRefresh={loadData} loadingStatus={loadingStatus} />

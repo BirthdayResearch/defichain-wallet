@@ -23,7 +23,7 @@ const DexStack = createStackNavigator<DexParamList>()
 
 export function DexNavigator (): JSX.Element {
   return (
-    <DexStack.Navigator screenOptions={{ headerTitleStyle: HeaderFont }}>
+    <DexStack.Navigator screenOptions={{ headerTitleStyle: HeaderFont, headerBackTitleVisible: false }}>
       <DexStack.Screen
         name='DexScreen'
         component={DexScreen}
@@ -48,8 +48,7 @@ export function DexNavigator (): JSX.Element {
         name='PoolSwap'
         component={PoolSwapScreen}
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Decentralized Exchange')} />,
-          headerBackTitleVisible: false
+          headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Decentralized Exchange')} />
         }}
       />
     </DexStack.Navigator>

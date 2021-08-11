@@ -20,7 +20,7 @@ import { SectionTitle } from '../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
-import { hasTxQueued, transactionQueue } from '../../../../store/transaction'
+import { hasTxQueued, transactionQueue } from '../../../../store/transaction_queue'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { BalanceParamList } from './BalancesNavigator'
@@ -103,7 +103,7 @@ export function ConvertScreen (props: Props): JSX.Element {
           testID='button_continue_convert'
           margin='m-4 mt-3'
           disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob}
-          title='Convert' onPress={convert} label={translate('components/Button', 'CONTINUE')}
+          title='Convert' onPress={convert} label={translate('components/Button', 'CONVERT')}
         />
       </View>
     </ScrollView>
@@ -193,7 +193,7 @@ function TokenVsUtxosInfo (): JSX.Element {
       <MaterialIcons name='help' size={16} style={tailwind('text-primary')} />
       <Text
         style={tailwind('ml-1 text-primary text-sm font-medium')}
-      >{translate('screens/ConvertScreen', "Tokens vs UTXO, what's the difference?")}
+      >{translate('screens/ConvertScreen', "Token vs UTXO, what's the difference?")}
       </Text>
     </TouchableOpacity>
   )

@@ -30,7 +30,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           header: wallet-preview
           message: |
-            Build preview for DeFi Wallet is ready!
+            Build preview for DeFiChain Wallet is ready!
 
             Built with commit ${{ github.sha }}
 

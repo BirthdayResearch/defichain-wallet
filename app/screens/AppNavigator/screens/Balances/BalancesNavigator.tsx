@@ -96,7 +96,7 @@ export function BalancesNavigator (): JSX.Element {
         name='TokensVsUtxo'
         component={TokensVsUtxoScreen}
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/ConvertScreen', 'Tokens vs UTXO')} />,
+          headerTitle: () => <HeaderTitle text={translate('screens/ConvertScreen', 'Token vs UTXO')} />,
           headerBackTitleVisible: false
         }}
       />

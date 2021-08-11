@@ -4,7 +4,6 @@ context('Wallet - Convert DFI - bi-direction success case', () => {
 
     cy.getByTestID('bottom_tab_settings').click()
     cy.sendDFItoWallet().wait(4000)
-    cy.fetchWalletBalance()
 
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
