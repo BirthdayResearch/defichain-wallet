@@ -302,8 +302,7 @@ function Loading ({ message }: { message?: string }): JSX.Element | null {
 
 async function execWithAutoRetries (promptPromise: () => Promise<any>, onAutoRetry: (attempts: number) => Promise<void>, retries: number = 0): Promise<any> {
   try {
-    const result = await promptPromise()
-    return result
+    return await promptPromise()
   } catch (e) {
     Logging.error(e)
     if (e.message === INVALID_HASH && ++retries < MAX_PASSCODE_ATTEMPT) {
