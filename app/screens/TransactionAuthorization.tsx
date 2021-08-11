@@ -144,6 +144,10 @@ export function TransactionAuthorization (): JSX.Element | null {
       } else if (authentication !== undefined) {
         let invalidPassphrase = false
         authenticateFor(onPrompt, authentication, onRetry)
+          .then(async () => {
+            setAttemptsRemaining(MAX_PASSCODE_ATTEMPT)
+            await PasscodeAttemptCounter.set(0)
+          })
           .catch(e => {
             // error type check
             if (e.message === 'invalid hash') invalidPassphrase = true
@@ -153,9 +157,6 @@ export function TransactionAuthorization (): JSX.Element | null {
             if (invalidPassphrase) {
               await clearWallets()
               onUnlinkWallet()
-            } else {
-              setAttemptsRemaining(MAX_PASSCODE_ATTEMPT)
-              await PasscodeAttemptCounter.set(0)
             }
             dispatch(authenticationStore.actions.dismiss())
           })
