@@ -67,7 +67,6 @@ export function BalancesNavigator (): JSX.Element {
         name='Balances'
         component={BalancesScreen}
         options={{
-          headerTitleAlign: 'center',
           headerTitle: () => <HeaderTitle text={translate('screens/BalancesScreen', 'Balances')} />,
           headerBackTitleVisible: false,
           headerRight: () => (
