@@ -41,9 +41,9 @@ context('Wallet - Change Passcode', () => {
     cy.getByTestID('pin_authorize').type('000000').wait(1000)
     cy.getByTestID('pin_input').type('696969').wait(1000)
     cy.getByTestID('change_pin_button').click()
-    cy.getByTestID('pin_confirm_input').type('777777')
+    cy.getByTestID('pin_confirm_input').type('777777').wait(1000)
     cy.getByTestID('wrong_passcode_text').should('exist')
-    cy.getByTestID('pin_confirm_input').type('696969')
+    cy.getByTestID('pin_confirm_input').type('696969').wait(1000)
   })
 
   it('should not be able to use old passcode for non transaction UI', function () {
