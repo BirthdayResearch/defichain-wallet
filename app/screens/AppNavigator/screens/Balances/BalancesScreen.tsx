@@ -3,9 +3,10 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { useCallback, useEffect, useState } from 'react'
-import { FlatList, RefreshControl, TouchableOpacity } from 'react-native'
+import { FlatList, RefreshControl, Share, TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
+import { Logging } from '../../../../api'
 import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { SectionTitle } from '../../../../components/SectionTitle'
@@ -19,6 +20,16 @@ import { translate } from '../../../../translations'
 import { BalanceParamList } from './BalancesNavigator'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
+
+export async function onShare (address: string): Promise<void> {
+  try {
+    await Share.share({
+      message: address
+    })
+  } catch (error) {
+    Logging.error(error.message)
+  }
+}
 
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const height = useBottomTabBarHeight()
@@ -54,13 +65,16 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
       ListHeaderComponent={
         <>
-          {/* TODO(thedoublejay) display when summary is available
           <View style={tailwind('flex-row py-3 bg-white border-b border-gray-200')}>
             <BalanceActionButton
               icon='arrow-downward' title='RECEIVE'
               onPress={() => navigation.navigate('Receive')}
             />
-          </View> */}
+            <BalanceActionButton
+              icon='share' title='SHARE'
+              onPress={async () => await onShare(address)}
+            />
+          </View>
           <SectionTitle testID='balances_title' text={translate('screens/BalancesScreen', 'BALANCE DETAILS')} />
         </>
       }
@@ -102,7 +116,7 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
   )
 }
 
-/* function BalanceActionButton (props: {
+function BalanceActionButton (props: {
   icon: React.ComponentProps<typeof MaterialIcons>['name']
   title: string
   onPress: () => void
@@ -113,10 +127,10 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
       style={[tailwind('px-2 py-1.5 ml-3 flex-row items-center border border-gray-300 rounded')]}
       onPress={props.onPress}
     >
-      <MaterialIcons name={props.icon} size={20} color={PrimaryColor} />
+      <MaterialIcons name={props.icon} size={20} style={tailwind('text-primary')} />
       <Text style={tailwind('mx-1 text-primary')}>
         {translate('screens/BalancesScreen', props.title)}
       </Text>
     </TouchableOpacity>
   )
-} */
+}
