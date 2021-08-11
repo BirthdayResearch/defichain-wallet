@@ -45,7 +45,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
     }
 
     const auth: Authentication<string[]> = {
-      message: translate('screens/Setting', 'To continue changing your passcode, we need you to enter your current passcode.'),
+      message: translate('screens/Setting', 'To update your passcode, we need you to enter your current passcode.'),
       consume: async passphrase => await MnemonicWords.decrypt(passphrase),
       onAuthenticated: async words => {
         navigation.navigate('ChangePinScreen', { words, pinLength: 6 })
