@@ -16,6 +16,7 @@ import { Logging } from '../../../../../api'
 import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
+import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
@@ -176,12 +177,13 @@ function AddressRow ({
           <View style={tailwind('flex-row w-full')}>
             <TextInput
               testID='address_input'
-              style={tailwind('flex-grow p-4 bg-white')}
+              style={tailwind('w-4/5 flex-grow p-4 pr-0 bg-white')}
               autoCapitalize='none'
               value={value}
               onBlur={onBlur}
               onChangeText={onChange}
               placeholder={translate('screens/SendScreen', 'Enter an address')}
+              multiline
             />
             <TouchableOpacity
               testID='qr_code_button'
@@ -240,7 +242,7 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
             />
             <View style={tailwind('flex-row bg-white pr-4 items-center')}>
               <Icon />
-              <Text testID='token_symbol' style={tailwind('ml-2')}>{token.symbol}</Text>
+              <InputIconLabel testID='token_symbol' label={token.symbol} screenType={IconLabelScreenType.Balance} />
             </View>
           </View>
         )}
