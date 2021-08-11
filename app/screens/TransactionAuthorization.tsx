@@ -31,7 +31,7 @@ let PASSPHRASE_PROMISE_PROXY: {
 const INVALID_HASH = 'invalid hash'
 const USER_CANCELED = 'USER_CANCELED'
 
-type Status = 'INIT' | 'IDLE' | 'PIN' | 'SIGNING' | 'CANCELLED'
+type Status = 'INIT' | 'IDLE' | 'PIN' | 'SIGNING'
 
 /**
  * The main UI page transaction signing logic interact with encrypted wallet context
@@ -54,38 +54,32 @@ export function TransactionAuthorization (): JSX.Element | null {
   const [status, emitEvent] = useState<Status>('INIT')
   const [attemptsRemaining, setAttemptsRemaining] = useState<number>(MAX_PASSCODE_ATTEMPT)
   const [pin, setPin] = useState<string>('')
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
+  const [isRetry, setIsRetry] = useState(false)
 
   // generic callbacks
   const onPinInput = useCallback((pin: string): void => {
-    setPin(pin)
     if (pin.length === PIN_LENGTH && PASSPHRASE_PROMISE_PROXY !== undefined) {
       const resolve = PASSPHRASE_PROMISE_PROXY.resolve
-      emitEvent('SIGNING')
-      setIsSubmitted(true)
       setTimeout(() => {
         resolve(pin)
         // remove proxied promised, allow next prompt() call
         PASSPHRASE_PROMISE_PROXY = undefined
       }, 50)
+      emitEvent('SIGNING')
     }
+    setPin(pin)
   }, [PASSPHRASE_PROMISE_PROXY, PASSPHRASE_PROMISE_PROXY?.resolve])
 
   const onCancel = useCallback((): void => {
-    setPin('')
-    emitEvent('CANCELLED')
-    setIsSubmitted(false)
     if (PASSPHRASE_PROMISE_PROXY !== undefined) {
-      const reject = PASSPHRASE_PROMISE_PROXY.reject
-      setTimeout(() => {
-        reject(new Error(USER_CANCELED))
-        // remove proxied promised, allow next prompt() call
-        PASSPHRASE_PROMISE_PROXY = undefined
-      }, 50)
+      PASSPHRASE_PROMISE_PROXY.reject(new Error(USER_CANCELED))
+      // remove proxied promised, allow next prompt() call
+      PASSPHRASE_PROMISE_PROXY = undefined
     }
   }, [PASSPHRASE_PROMISE_PROXY, PASSPHRASE_PROMISE_PROXY?.reject])
 
   const onRetry = useCallback(async (attempts: number) => {
+    setIsRetry(true)
     setPin('')
     setAttemptsRemaining(MAX_PASSCODE_ATTEMPT - attempts)
     await PasscodeAttemptCounter.set(attempts)
@@ -94,6 +88,7 @@ export function TransactionAuthorization (): JSX.Element | null {
 
   // transaction signing specific callback
   const onComplete = useCallback(async (dispatch: Dispatch<any>, tx: CTransactionSegWit) => {
+    setIsRetry(false)
     setPin('')
     setAttemptsRemaining(MAX_PASSCODE_ATTEMPT)
     await PasscodeAttemptCounter.set(0)
@@ -103,26 +98,25 @@ export function TransactionAuthorization (): JSX.Element | null {
   }, [])
 
   const onPrompt = useCallback(async () => {
-    return await new Promise<string>((resolve, reject) => {
-      // passphrase prompt is meant for authorizing single transaction regardless
-      // caller should not prompt for next transaction before one is completed
-      if (status === 'PIN' || status === 'SIGNING') {
-        throw Error('Prompt UI occupied')
-      } else {
-        if (status !== 'CANCELLED') {
-          // wait for user input
-          PASSPHRASE_PROMISE_PROXY = {
-            resolve, reject
-          }
-          emitEvent('PIN')
+    if (status === 'PIN' || status === 'SIGNING') {
+      throw Error('Prompt UI occupied')
+    } else {
+      return await new Promise<string>((resolve, reject) => {
+        // passphrase prompt is meant for authorizing single transaction regardless
+        // caller should not prompt for next transaction before one is completed
+        // proxy the promise, wait for user input
+        PASSPHRASE_PROMISE_PROXY = {
+          resolve, reject
         }
-      }
-    })
+        emitEvent('PIN')
+      })
+    }
   }, [status])
 
   const onSubmitCompletion = (): void => {
     setPin('')
     emitEvent('IDLE')
+    setIsRetry(false)
   }
 
   useEffect(() => {
@@ -142,7 +136,7 @@ export function TransactionAuthorization (): JSX.Element | null {
         wallet !== undefined // just in case any data stuck in store
       ) {
         let result: CTransactionSegWit | null | undefined
-        signTransaction(transaction, wallet.get(0), onRetry)
+        signTransaction(transaction, wallet.get(0), onRetry, MAX_PASSCODE_ATTEMPT - attemptsRemaining)
           .then(async signedTx => {
             result = signedTx
           }) // positive
@@ -173,7 +167,7 @@ export function TransactionAuthorization (): JSX.Element | null {
           })
       } else if (authentication !== undefined) {
         let invalidPassphrase = false
-        authenticateFor(onPrompt, authentication, onRetry)
+        authenticateFor(onPrompt, authentication, onRetry, MAX_PASSCODE_ATTEMPT - attemptsRemaining)
           .then(async () => {
             setAttemptsRemaining(MAX_PASSCODE_ATTEMPT)
             await PasscodeAttemptCounter.set(0)
@@ -232,7 +226,7 @@ export function TransactionAuthorization (): JSX.Element | null {
     }
   }, [status, isBiometric]) */
 
-  if (status === 'INIT' || status === 'IDLE' || status === 'CANCELLED') {
+  if (status === 'INIT' || status === 'IDLE') {
     return null
   }
 
@@ -264,10 +258,20 @@ export function TransactionAuthorization (): JSX.Element | null {
           style={tailwind('text-center text-xl font-bold')}
         >{translate('screens/UnlockWallet', 'Enter passcode')}
         </Text>
-        <Text
-          style={tailwind('p-4 px-8 text-sm text-center text-gray-500 mb-6')}
-        >{translate('screens/UnlockWallet', 'Please enter passcode to securely sign your transaction')}
-        </Text>
+        <View style={tailwind('p-4 px-8 text-sm text-center text-gray-500 mb-6')}>
+          <Text
+            style={tailwind('p-4 px-8 text-sm text-center text-gray-500 mb-2')}
+          >{translate('screens/UnlockWallet', 'Please enter passcode to securely sign your transaction')}
+          </Text>
+          {
+            transaction?.description !== undefined && (
+              <Text
+                style={tailwind('text-sm text-center text-gray-500')}
+              >{transaction.description}
+              </Text>
+            )
+          }
+        </View>
         {/* TODO: switch authorization method here when biometric supported */}
         {
           status === 'PIN' && (
@@ -281,11 +285,19 @@ export function TransactionAuthorization (): JSX.Element | null {
         <Loading
           message={status === 'SIGNING' ? translate('screens/TransactionAuthorization', 'Signing...') : undefined}
         />
-        {
-          (isSubmitted && attemptsRemaining !== undefined && attemptsRemaining !== MAX_PASSCODE_ATTEMPT) ? (
+        {// upon retry: show remaining attempt allowed
+          (isRetry && attemptsRemaining !== undefined && attemptsRemaining !== MAX_PASSCODE_ATTEMPT) ? (
             <Text testID='pin_attempt_error' style={tailwind('text-center text-error text-sm font-bold mt-5')}>
               {translate('screens/PinConfirmation', `${attemptsRemaining === 1 ? 'Last attempt or your wallet will be unlinked for your security'
                 : 'Incorrect passcode. %{attemptsRemaining} attempts remaining'}`, { attemptsRemaining: `${attemptsRemaining}` })}
+            </Text>
+          ) : null
+        }
+        {// on first time: warn user there were accumulated error attempt counter
+          (!isRetry && attemptsRemaining !== undefined && attemptsRemaining !== MAX_PASSCODE_ATTEMPT) ? (
+            <Text testID='pin_attempt_warning' style={tailwind('text-center text-error text-sm font-bold mt-5')}>
+              {translate('components/TransactionAuthorization', `${attemptsRemaining === 1 ? 'Last attempt or your wallet will be unlinked for your security'
+                : '%{attemptsRemaining} attempts remaining'}`, { attemptsRemaining: `${attemptsRemaining}` })}
             </Text>
           ) : null
         }
@@ -309,7 +321,6 @@ async function execWithAutoRetries (promptPromise: () => Promise<any>, onAutoRet
     return await promptPromise()
   } catch (e) {
     Logging.error(e)
-    retries = await PasscodeAttemptCounter.get() ?? 0
     if (e.message === INVALID_HASH && ++retries < MAX_PASSCODE_ATTEMPT) {
       await onAutoRetry(retries)
       return await execWithAutoRetries(promptPromise, onAutoRetry, retries)
@@ -319,15 +330,16 @@ async function execWithAutoRetries (promptPromise: () => Promise<any>, onAutoRet
 }
 
 // store/transactionQueue execution
-async function signTransaction (tx: DfTxSigner, account: WhaleWalletAccount, onAutoRetry: (attempts: number) => Promise<void>): Promise<CTransactionSegWit> {
-  return await execWithAutoRetries(async () => (await tx.sign(account)), onAutoRetry)
+async function signTransaction (tx: DfTxSigner, account: WhaleWalletAccount, onAutoRetry: (attempts: number) => Promise<void>, retries: number = 0): Promise<CTransactionSegWit> {
+  return await execWithAutoRetries(async () => (await tx.sign(account)), onAutoRetry, retries)
 }
 
 // store/authentication execution
 async function authenticateFor<T> (
   promptPassphrase: () => Promise<string>,
   authentication: Authentication<T>,
-  onAutoRetry: (attempts: number) => Promise<void>
+  onAutoRetry: (attempts: number) => Promise<void>,
+  retries: number = 0
 ): Promise<void> {
   const customJob = async (): Promise<void> => {
     const passphrase = await promptPassphrase()
@@ -335,7 +347,7 @@ async function authenticateFor<T> (
     return await authentication.onAuthenticated(result)
   }
 
-  return await execWithAutoRetries(customJob, onAutoRetry)
+  return await execWithAutoRetries(customJob, onAutoRetry, retries)
 }
 
 function onUnlinkWallet (): void {
