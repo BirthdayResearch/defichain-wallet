@@ -1,5 +1,5 @@
 context('Wallet - Balances', () => {
-  beforeEach(function () {
+  before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_settings').click()
     cy.sendDFItoWallet()
@@ -18,5 +18,16 @@ context('Wallet - Balances', () => {
     cy.getByTestID('balances_row_1_amount').contains(10)
     cy.getByTestID('balances_row_2').should('exist')
     cy.getByTestID('balances_row_2_amount').contains(10)
+  })
+
+  it('should redirect to receive page', function () {
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('header_receive_balance').click()
+    cy.getByTestID('address_text').should('exist')
+  })
+
+  it('should be able to click share', function () {
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('header_share_balance').click()
   })
 })
