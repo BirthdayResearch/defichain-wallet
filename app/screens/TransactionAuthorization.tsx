@@ -72,16 +72,10 @@ export function TransactionAuthorization (): JSX.Element | null {
 
   const onCancel = useCallback((): void => {
     if (PASSPHRASE_PROMISE_PROXY !== undefined) {
-      const reject = PASSPHRASE_PROMISE_PROXY.reject
-      setTimeout(() => {
-        reject(new Error(USER_CANCELED))
-        // remove proxied promised, allow next prompt() call
-        PASSPHRASE_PROMISE_PROXY = undefined
-      }, 50)
+      PASSPHRASE_PROMISE_PROXY.reject(new Error(USER_CANCELED))
+      // remove proxied promised, allow next prompt() call
+      PASSPHRASE_PROMISE_PROXY = undefined
     }
-    setIsRetry(false)
-    setPin('')
-    emitEvent('IDLE')
   }, [PASSPHRASE_PROMISE_PROXY, PASSPHRASE_PROMISE_PROXY?.reject])
 
   const onRetry = useCallback(async (attempts: number) => {
@@ -122,6 +116,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   const onSubmitCompletion = (): void => {
     setPin('')
     emitEvent('IDLE')
+    setIsRetry(false)
   }
 
   useEffect(() => {
