@@ -64,9 +64,10 @@ declare global {
 
       /**
        * @description Wait for the ocean interface to be confirmed then close the drawer
-       * @example cy.closeOceanInterface()
+       * @param {string} pin - accepts optional pin
+       * @example cy.closeOceanInterface('000000')
        */
-      closeOceanInterface (): Chainable<Element>
+      closeOceanInterface (pin?: string): Chainable<Element>
 
       /**
        * @description Exit current wallet
@@ -129,8 +130,9 @@ Cypress.Commands.add('sendTokenToWallet', (tokens: string[]) => {
   cy.wait(['@sendTokensToAddress'])
 })
 
-Cypress.Commands.add('closeOceanInterface', () => {
-  cy.getByTestID('pin_authorize').type('000000')
+Cypress.Commands.add('closeOceanInterface', (pin?: string) => {
+  const inputPin = pin !== undefined ? pin : '000000'
+  cy.getByTestID('pin_authorize').type(inputPin)
   cy.wait(5000).getByTestID('oceanInterface_close').click().wait(2000)
 })
 
