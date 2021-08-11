@@ -2,13 +2,11 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
-import { Share, TouchableOpacity, View } from 'react-native'
-import { Logging } from '../../../../api'
+import { TouchableOpacity, View } from 'react-native'
 import { Text } from '../../../../components'
 import { BarCodeScanner } from '../../../../components/BarCodeScanner'
 import { ConnectionStatus, HeaderTitle } from '../../../../components/HeaderTitle'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
-import { useWalletAddressContext } from '../../../../contexts/WalletAddressContext'
 import { WalletToken } from '../../../../store/wallet'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -59,20 +57,9 @@ function BalanceActionButton (props: {
   )
 }
 
-export async function onShare (address: string): Promise<void> {
-  try {
-    await Share.share({
-      message: address
-    })
-  } catch (error) {
-    Logging.error(error.message)
-  }
-}
-
 const BalanceStack = createStackNavigator<BalanceParamList>()
 
 export function BalancesNavigator (): JSX.Element {
-  const { address } = useWalletAddressContext()
   const navigation = useNavigation()
   return (
     <BalanceStack.Navigator>
@@ -83,12 +70,6 @@ export function BalancesNavigator (): JSX.Element {
           headerTitleAlign: 'center',
           headerTitle: () => <HeaderTitle text={translate('screens/BalancesScreen', 'Balances')} />,
           headerBackTitleVisible: false,
-          headerLeft: () => (
-            <BalanceActionButton
-              testID='header_share_balance' icon='share'
-              onPress={async () => await onShare(address)}
-            />
-          ),
           headerRight: () => (
             <BalanceActionButton
               testID='header_receive_balance' title='RECEIVE'

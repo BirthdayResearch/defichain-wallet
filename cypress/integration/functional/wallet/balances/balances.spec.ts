@@ -25,9 +25,4 @@ context('Wallet - Balances', () => {
     cy.getByTestID('header_receive_balance').click()
     cy.getByTestID('address_text').should('exist')
   })
-
-  it('should be able to click share', function () {
-    cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('header_share_balance').click()
-  })
 })

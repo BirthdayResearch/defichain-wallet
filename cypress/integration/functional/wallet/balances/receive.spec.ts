@@ -22,4 +22,9 @@ context('Wallet - Receive', () => {
       cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
     })
   })
+
+  it('should be able to click share', function () {
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('share_button').click()
+  })
 })
