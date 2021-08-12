@@ -51,7 +51,7 @@ export function ConfirmPinScreen ({ route }: Props): JSX.Element {
 
   return (
     <ScrollView style={tailwind('w-full flex-1 flex-col bg-white')}>
-      <View style={tailwind('px-6 py-4 mb-6')}>
+      <View style={tailwind('px-6 py-4 mb-6 mt-8')}>
         <Text
           style={tailwind('text-center font-semibold')}
         >{translate('screens/PinConfirmation', 'Enter your passcode again to verify')}
