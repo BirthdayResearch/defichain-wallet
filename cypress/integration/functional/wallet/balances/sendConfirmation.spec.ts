@@ -18,6 +18,6 @@ context('Wallet - Send Preview/Confirmation', () => {
     cy.getByTestID('text_amount').invoke('text').should(t => expect(t).equal('1.23400000 BTC'))
     cy.getByTestID('text_fee').invoke('text').should(t => expect(t).equal('0.00005000 DFI'))
     cy.getByTestID('text_balance').invoke('text').should(t => expect(t).equal('8.76595000 BTC'))
-    cy.getByTestID('button_confirm_send').should('not.have.attr', 'disabled') // actual send result tested in send.spec
+    cy.getByTestID('button_confirm_send').should('not.have.attr', 'disabled')
   })
 })
