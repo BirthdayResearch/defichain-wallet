@@ -267,7 +267,8 @@ function TransactionCloseButton (props: { onPress: () => void }): JSX.Element {
 
 enum ErrorCodes {
   UnknownError = 0,
-  InsufficientUTXO = 1
+  InsufficientUTXO = 1,
+  InsufficientBalance = 16
 }
 
 interface ErrorMapping {
@@ -276,11 +277,15 @@ interface ErrorMapping {
 }
 
 function errorMessageMapping (err: string): ErrorMapping {
-  console.log(err)
   if (err === 'not enough balance after combing all prevouts') {
     return {
       code: ErrorCodes.InsufficientUTXO,
       message: 'Insufficient UTXO DFI'
+    }
+  } else if (err.includes('amount') && err.includes('is less than')) {
+    return {
+      code: ErrorCodes.InsufficientBalance,
+      message: 'Not enough balance'
     }
   }
 
