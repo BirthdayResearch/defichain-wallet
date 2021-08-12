@@ -63,7 +63,7 @@ exports[`empty transaction should match snapshot 1`] = `
         ]
       }
     >
-      Start transacting with your wallet. All transactions made will be displayed here.
+      Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.
     </Text>
     <View
       accessible={true}

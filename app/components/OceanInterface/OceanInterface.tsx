@@ -213,20 +213,21 @@ function TransactionDetail ({
   )
 }
 
-function TransactionError ({ errMsg, onClose }: { errMsg: string | undefined, onClose: () => void }): JSX.Element {
+function TransactionError ({ errMsg, onClose }: { errMsg: string, onClose: () => void }): JSX.Element {
+  const err = errorMessageMapping(errMsg)
   return (
     <>
       <MaterialIcons name='error' size={20} color='#ff0000' />
       <View style={tailwind('flex-auto mx-2 justify-center items-center text-center')}>
         <Text
           style={tailwind('text-sm font-bold')}
-        >{`${translate('screens/OceanInterface', 'An error has occurred')}`}
+        >{`${translate('screens/OceanInterface', `Error Code: ${err.code}`)}`}
         </Text>
         <Text
           style={tailwind('text-sm font-bold')}
           numberOfLines={1}
           ellipsizeMode='tail'
-        >{errMsg}
+        >{translate('screens/OceanInterface', err.message)}
         </Text>
       </View>
       <TransactionCloseButton onPress={onClose} />
@@ -262,4 +263,34 @@ function TransactionCloseButton (props: { onPress: () => void }): JSX.Element {
       </Text>
     </TouchableOpacity>
   )
+}
+
+enum ErrorCodes {
+  UnknownError = 0,
+  InsufficientUTXO = 1,
+  InsufficientBalance = 16
+}
+
+interface ErrorMapping {
+  code: ErrorCodes
+  message: string
+}
+
+function errorMessageMapping (err: string): ErrorMapping {
+  if (err === 'not enough balance after combing all prevouts') {
+    return {
+      code: ErrorCodes.InsufficientUTXO,
+      message: 'Insufficient UTXO DFI'
+    }
+  } else if (err.includes('amount') && err.includes('is less than')) {
+    return {
+      code: ErrorCodes.InsufficientBalance,
+      message: 'Not enough balance'
+    }
+  }
+
+  return {
+    code: ErrorCodes.UnknownError,
+    message: err
+  }
 }

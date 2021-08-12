@@ -63,7 +63,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   }, [walletContext.wallets[0]])
 
   return (
-    <ScrollView style={tailwind('flex-1 bg-gray-100')}>
+    <ScrollView style={tailwind('flex-1 bg-gray-100 pb-8')}>
       <SectionTitle text={translate('screens/Settings', 'NETWORK')} testID='network_title' />
       {
         networks.map((network, index) => (
@@ -98,7 +98,7 @@ function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
   return (
     <TouchableOpacity
       testID={`button_network_${props.network}`}
-      style={tailwind('flex-row p-4 bg-white items-center justify-between border-b border-gray-200')}
+      style={tailwind('flex flex-row p-4 pr-2 bg-white items-center justify-between border-b border-gray-200')}
       onPress={onPress}
     >
       <Text style={tailwind('font-medium')}>
@@ -150,7 +150,7 @@ function RowExitWalletItem (): JSX.Element {
     >
       <MaterialIcons
         name='exit-to-app'
-        style={[tailwind('text-primary mr-2'), { transform: [{ scaleX: -1 }] }]}
+        style={[tailwind('self-center text-primary mr-2'), { transform: [{ scaleX: -1 }] }]}
         size={24}
       />
       <Text style={tailwind('font-medium text-primary')}>
@@ -164,7 +164,7 @@ function SecurityRow ({ testID, label, onPress }: { testID: string, label: strin
   return (
     <TouchableOpacity
       testID={testID}
-      style={tailwind('bg-white p-4 flex-row items-center justify-between border-b border-gray-200')}
+      style={tailwind('flex bg-white p-4 pr-2 flex-row items-center justify-between border-b border-gray-200')}
       onPress={onPress}
     >
       <Text style={tailwind('font-medium')}>
