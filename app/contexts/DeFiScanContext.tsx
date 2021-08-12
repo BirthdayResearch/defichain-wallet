@@ -49,8 +49,12 @@ function getTxURLByNetwork (network: EnvironmentNetwork, txid: string, rawtx?: s
   }
 
   if (typeof rawtx === 'string' && rawtx.length !== 0) {
-    baseUrl += `&rawtx=${rawtx}`
+    if (network === EnvironmentNetwork.MainNet) {
+      baseUrl += `?rawtx=${rawtx}`
+    } else {
+      baseUrl += `&rawtx=${rawtx}`
+    }
   }
 
-  return baseUrl.toString()
+  return baseUrl
 }
