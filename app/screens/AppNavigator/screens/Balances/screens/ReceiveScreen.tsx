@@ -53,15 +53,15 @@ export function ReceiveScreen (): JSX.Element {
       <View style={tailwind('bg-white flex flex-col p-4')}>
         {
           isCopied ? (
-            <Text
+            <View
               style={tailwind('flex flex-grow flex-row justify-center text-center items-center border border-white border-opacity-0 p-3')}
             >
-              <MaterialIcons name='check' size={18} style={tailwind('self-center text-success')} />
+              <MaterialIcons name='check' size={20} style={tailwind('self-center text-success')} />
               <Text
-                style={tailwind('ml-2 uppercase font-medium text-success')}
+                style={tailwind('ml-1 uppercase font-medium text-success')}
               >{translate('screens/ReceiveScreen', 'Copied to Clipboard')}
               </Text>
-            </Text>
+            </View>
           ) : (
             <TouchableOpacity
               testID='copy_button'
