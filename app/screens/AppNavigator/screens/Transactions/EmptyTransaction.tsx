@@ -1,12 +1,12 @@
-import * as React from 'react'
-import { ScrollView, RefreshControl } from 'react-native'
-import { NavigationProp } from '@react-navigation/native'
 import { MaterialIcons } from '@expo/vector-icons'
-import { TransactionsParamList } from './TransactionsNavigator'
-import { tailwind } from '../../../../tailwind'
+import { NavigationProp } from '@react-navigation/native'
+import * as React from 'react'
+import { RefreshControl, ScrollView } from 'react-native'
 import { Text } from '../../../../components'
-import { translate } from '../../../../translations'
 import { Button } from '../../../../components/Button'
+import { tailwind } from '../../../../tailwind'
+import { translate } from '../../../../translations'
+import { TransactionsParamList } from './TransactionsNavigator'
 
 interface EmptyTransactionProps {
   navigation: NavigationProp<TransactionsParamList>
@@ -31,7 +31,7 @@ export function EmptyTransaction (props: EmptyTransactionProps): JSX.Element {
         {translate('screens/TransactionsScreen', 'No transactions yet')}
       </Text>
       <Text style={tailwind('text-sm pb-16 text-center opacity-60')}>
-        {translate('screens/TransactionsScreen', 'Start transacting with your wallet. All transactions made will be displayed here.')}
+        {translate('screens/TransactionsScreen', 'Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.')}
       </Text>
       <Button
         testID='button_receive_coins'

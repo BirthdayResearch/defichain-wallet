@@ -120,7 +120,10 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
         control={control}
         networkName={networkName}
         onQrButtonPress={() => navigation.navigate('BarCodeScanner', {
-          onQrScanned: value => setValue('address', value)
+          onQrScanned: async (value) => {
+            setValue('address', value)
+            await trigger('address')
+          }
         })}
       />
       <AmountRow
