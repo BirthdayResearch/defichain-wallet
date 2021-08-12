@@ -131,8 +131,13 @@ function NumberRow (props: { lhs: string, rhs: { value: string | number, suffix?
         <NumberFormat
           value={props.rhs.value} decimalScale={8} thousandSeparator displayType='text'
           suffix={props.rhs.suffix}
-          renderText={(val: string) => <Text testID={props.rhs.testID}
-                                             style={tailwind('flex-wrap font-medium text-right text-gray-500')}>{val}</Text>}
+          renderText={(val: string) => (
+            <Text
+              testID={props.rhs.testID}
+              style={tailwind('flex-wrap font-medium text-right text-gray-500')}
+            >{val}
+            </Text>
+          )}
         />
       </View>
     </View>
