@@ -41,6 +41,7 @@ context('Wallet - Pool Pair Rewards', () => {
       cy.getByTestID('address_input').type(walletA.address)
       cy.getByTestID('MAX_amount_button').click()
       cy.getByTestID('send_submit_button').click()
+      cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.closeOceanInterface().wait(3000)
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_row_6_amount').should('not.exist').wait(3000)

@@ -106,16 +106,7 @@ export function BalancesNavigator (): JSX.Element {
         component={SendConfirmationScreen}
         options={{
           headerBackTitleVisible: false,
-          headerTitle: () => {
-            return (
-              <View style={tailwind('flex-row items-center')}>
-                <View style={tailwind('flex-col ml-2')}>
-                  <Text style={tailwind('font-semibold')}>{translate('screens/SendConfirmationScreen', 'Confirm Send')}</Text>
-                  <ConnectionStatus />
-                </View>
-              </View>
-            )
-          }
+          headerTitle: () => <HeaderTitle text={translate('screens/SendConfirmationScreen', 'Confirm Send')} />
         }}
       />
       <BalanceStack.Screen

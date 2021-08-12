@@ -57,10 +57,10 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
     <ScrollView style={tailwind('bg-gray-100')}>
       <View style={tailwind('flex-col bg-white px-2 py-8 mb-4 justify-center items-center border-b border-gray-300')}>
         <Text style={tailwind('text-xs text-gray-500')}>
-          {translate('screens/SendConfirmationScreen', 'You are sending')}
+          {translate('screens/SendConfirmationScreen', 'YOU ARE SENDING')}
         </Text>
         <NumberFormat
-          value={amount.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
+          value={amount.toFixed(8)} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
           renderText={(value) => (
             <Text
               testID='text_send_amount'
@@ -71,7 +71,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         />
       </View>
       <SectionTitle
-        text={translate('screens/SendConfirmationScreen', 'TRANSACTION DETAIL')}
+        text={translate('screens/SendConfirmationScreen', 'TRANSACTION DETAILS')}
         testID='title_transaction_detail'
       />
       <TextRow
@@ -80,20 +80,20 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       />
       <TextRow
         lhs={translate('screens/SendConfirmationScreen', 'Network')}
-        rhs={{ value: network.networkName, testID: 'text_network' }}
+        rhs={{ value: network.network, testID: 'text_network' }}
       />
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Amount')}
-        rhs={{ value: amount.toNumber(), suffix: ` ${token.symbol}`, testID: 'text_amount' }}
+        rhs={{ value: amount.toFixed(8), suffix: ` ${token.symbol}`, testID: 'text_amount' }}
       />
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Transaction fee')}
-        rhs={{ value: fee.toNumber(), suffix: ' DFI', testID: 'text_fee' }}
+        rhs={{ value: fee.toFixed(8), suffix: ' DFI', testID: 'text_fee' }}
       />
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Remaining balance')}
         rhs={{
-          value: new BigNumber(token.amount).minus(amount).toNumber(),
+          value: new BigNumber(token.amount).minus(amount).toFixed(8),
           suffix: ` ${token.symbol}`,
           testID: 'text_balance'
         }}
@@ -129,8 +129,10 @@ function NumberRow (props: { lhs: string, rhs: { value: string | number, suffix?
       </View>
       <View style={tailwind('flex-1')}>
         <NumberFormat
-          value={props.rhs.value} decimalScale={8} thousandSeparator displayType='text' suffix={props.rhs.suffix}
-          renderText={(val: string) => <Text testID={props.rhs.testID} style={tailwind('font-medium text-right text-gray-500')}>{val}</Text>}
+          value={props.rhs.value} decimalScale={8} thousandSeparator displayType='text'
+          suffix={props.rhs.suffix}
+          renderText={(val: string) => <Text testID={props.rhs.testID}
+                                             style={tailwind('flex-wrap font-medium text-right text-gray-500')}>{val}</Text>}
         />
       </View>
     </View>
