@@ -110,6 +110,7 @@
       <w>keyhash</w>
       <w>keypoololdest</w>
       <w>keypoolsize</w>
+      <w>kyleleow</w>
       <w>lessthan</w>
       <w>lessthanorequal</w>
       <w>libevent</w>
