@@ -3,6 +3,8 @@ name: Expo
 on:
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - '**.md'
 
 jobs:
   publish-preview:

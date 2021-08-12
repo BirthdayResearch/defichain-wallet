@@ -177,6 +177,7 @@ function AddressRow ({
         render={({ field: { value, onBlur, onChange } }) => (
           <View style={tailwind('flex-row w-full')}>
             <TextInput
+              placeholderTextColor='rgba(0, 0, 0, 0.4)'
               testID='address_input'
               style={tailwind('w-4/5 flex-grow p-4 pr-0 bg-white')}
               autoCapitalize='none'
@@ -232,6 +233,7 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
         render={({ field: { onBlur, onChange, value } }) => (
           <View style={tailwind('flex-row w-full border-b border-gray-100')}>
             <TextInput
+              placeholderTextColor='rgba(0, 0, 0, 0.4)'
               testID='amount_input'
               style={tailwind('flex-grow p-4 bg-white')}
               autoCapitalize='none'
@@ -251,7 +253,7 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
         defaultValue=''
       />
       <View style={tailwind('flex-row w-full bg-white px-4 items-center')}>
-        <View style={tailwind('flex-1 flex-row py-4')}>
+        <View style={tailwind('flex-1 flex-row py-4 flex-wrap mr-2')}>
           <Text>{translate('screens/SendScreen', 'Balance: ')}</Text>
           <NumberFormat
             value={maxAmount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
