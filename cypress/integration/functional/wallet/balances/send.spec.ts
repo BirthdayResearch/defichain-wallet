@@ -83,7 +83,7 @@ context('Wallet - Send', () => {
         cy.getByTestID('amount_input').clear().type('1')
         cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
         cy.getByTestID('send_submit_button').click()
-        cy.getByTestID('button_confirm_send').click() // in SendConfirmationScreen
+        cy.getByTestID('button_confirm_send').click()
         cy.closeOceanInterface()
         cy.fetchWalletBalance()
         cy.getByTestID('bottom_tab_balances').click()
