@@ -112,7 +112,7 @@ export function OceanInterface (): JSX.Element | null {
       broadcastTransaction(transaction.tx, client)
         .then(async () => {
           try {
-            setTxUrl(getTransactionUrl(transaction.tx.txId))
+            setTxUrl(getTransactionUrl(transaction.tx.txId, transaction.tx.toHex()))
           } catch (e) {
             Logging.error(e)
           }

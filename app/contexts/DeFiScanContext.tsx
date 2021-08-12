@@ -3,7 +3,7 @@ import { EnvironmentNetwork } from '../environment'
 import { useNetworkContext } from './NetworkContext'
 
 interface DeFiScan {
-  getTransactionUrl: (txid: string) => string
+  getTransactionUrl: (txid: string, hexTxId?: string) => string
 }
 
 const DeFiScanContext = createContext<DeFiScan>(undefined as any)
@@ -16,8 +16,8 @@ export function DeFiScanProvider (props: React.PropsWithChildren<any>): JSX.Elem
   const { network } = useNetworkContext()
 
   const context = useMemo(() => {
-    const getTransactionUrl = (txid: string): string => {
-      return getTxURLByNetwork(network, txid)
+    const getTransactionUrl = (txid: string, hexTxId?: string): string => {
+      return getTxURLByNetwork(network, txid, hexTxId)
     }
 
     return { getTransactionUrl }
@@ -30,7 +30,7 @@ export function DeFiScanProvider (props: React.PropsWithChildren<any>): JSX.Elem
   )
 }
 
-function getTxURLByNetwork (network: EnvironmentNetwork, txid: string): string {
+function getTxURLByNetwork (network: EnvironmentNetwork, txid: string, hexTxId?: string): string {
   let baseUrl = `https://defiscan.live/transactions/${txid}`
 
   switch (network) {
@@ -39,13 +39,17 @@ function getTxURLByNetwork (network: EnvironmentNetwork, txid: string): string {
       break
 
     case EnvironmentNetwork.TestNet:
-      baseUrl = `${baseUrl}?network=${EnvironmentNetwork.TestNet}`
+      baseUrl += `?network=${EnvironmentNetwork.TestNet}`
       break
 
     case EnvironmentNetwork.LocalPlayground:
     case EnvironmentNetwork.RemotePlayground:
-      baseUrl = `${baseUrl}?network=${EnvironmentNetwork.RemotePlayground}`
+      baseUrl += `?network=${EnvironmentNetwork.RemotePlayground}`
       break
+  }
+
+  if (typeof hexTxId === 'string' && hexTxId.length !== 0) {
+    baseUrl += `&rawtx=${hexTxId}`
   }
 
   return baseUrl.toString()
