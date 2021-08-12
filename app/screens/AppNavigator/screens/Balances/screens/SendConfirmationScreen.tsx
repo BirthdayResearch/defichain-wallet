@@ -60,10 +60,10 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
           {translate('screens/SendConfirmationScreen', 'You are sending')}
         </Text>
         <NumberFormat
-          value={token.amount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
+          value={amount.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
           renderText={(value) => (
             <Text
-              testID='token_detail_amount'
+              testID='text_send_amount'
               style={tailwind('text-2xl font-bold')}
             >{value}
             </Text>
@@ -80,7 +80,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       />
       <TextRow
         lhs={translate('screens/SendConfirmationScreen', 'Network')}
-        rhs={{ value: network.networkName, testID: 'text_destination' }}
+        rhs={{ value: network.networkName, testID: 'text_network' }}
       />
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Amount')}
@@ -88,12 +88,12 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       />
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Transaction fee')}
-        rhs={{ value: fee.toNumber(), suffix: ` ${token.symbol}`, testID: 'text_fee' }}
+        rhs={{ value: fee.toNumber(), suffix: ' DFI', testID: 'text_fee' }}
       />
       <NumberRow
-        lhs={translate('screens/SendConfirmationScreen', 'Transaction fee')}
+        lhs={translate('screens/SendConfirmationScreen', 'Remaining balance')}
         rhs={{
-          value: new BigNumber(token.amount).minus(amount).minus(fee).toNumber(),
+          value: new BigNumber(token.amount).minus(amount).toNumber(),
           suffix: ` ${token.symbol}`,
           testID: 'text_balance'
         }}
@@ -130,7 +130,7 @@ function NumberRow (props: { lhs: string, rhs: { value: string | number, suffix?
       <View style={tailwind('flex-1')}>
         <NumberFormat
           value={props.rhs.value} decimalScale={8} thousandSeparator displayType='text' suffix={props.rhs.suffix}
-          renderText={(val: string) => <Text testID={`text_${props.rhs.testID}`} style={tailwind('font-medium text-right text-gray-500')}>{val}</Text>}
+          renderText={(val: string) => <Text testID={props.rhs.testID} style={tailwind('font-medium text-right text-gray-500')}>{val}</Text>}
         />
       </View>
     </View>
