@@ -35,8 +35,8 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const tokens = useTokensAPI()
 
   // this component UI state
-  const [tokenAAmount, setTokenAAmount] = useState<string>('0')
-  const [tokenBAmount, setTokenBAmount] = useState<string>('0')
+  const [tokenAAmount, setTokenAAmount] = useState<string>('')
+  const [tokenBAmount, setTokenBAmount] = useState<string>('')
   const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
   const [canContinue, setCanContinue] = useState(false)
   // derived from props
@@ -146,11 +146,13 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
       <View style={tailwind('flex-col w-full bg-white items-center')}>
         <View style={tailwind('w-full flex-row items-center')}>
           <TextInput
+            placeholderTextColor='rgba(0, 0, 0, 0.4)'
             testID={`token_input_${props.type}`}
-            style={tailwind('flex-1 mr-4 text-gray-500 p-4')}
+            style={tailwind('flex-1 mr-4 text-gray-500 bg-white p-4')}
             value={props.current}
             keyboardType='numeric'
             onChangeText={txt => props.onChange(txt)}
+            placeholder={translate('screens/AddLiquidity', 'Enter an amount')}
           />
           <View style={tailwind('justify-center flex-row items-center pr-4')}>
             <TokenIcon />
@@ -158,10 +160,10 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
           </View>
         </View>
         <View style={tailwind('w-full px-4 py-2 flex-row border-t border-gray-200 items-center')}>
-          <View style={tailwind('flex-row flex-1')}>
+          <View style={tailwind('flex-row flex-1 flex-wrap mr-2')}>
             <Text>{translate('screens/AddLiquidity', 'Balance')}: </Text>
             <NumberFormat
-              value={props.balance.toNumber()} decimalScale={3} thousandSeparator displayType='text'
+              value={props.balance.toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
               suffix={` ${props.symbol}`}
               renderText={(value) => (
                 <Text testID={`token_balance_${props.type}`} style={tailwind('text-gray-500')}>

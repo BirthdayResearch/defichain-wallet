@@ -2,9 +2,11 @@ context('Wallet - Receive', () => {
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().wait(10000)
+    cy.getByTestID('bottom_tab_balances').click()
   })
 
   it('should display valid address when clicked', function () {
+    cy.getByTestID('balances_list').should('exist')
     cy.getByTestID('balances_row_0_utxo').click()
     cy.getByTestID('receive_button').click()
   })

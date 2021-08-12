@@ -24,7 +24,8 @@ describe('receive page', () => {
     const initialState: Partial<RootState> = {
       wallet: {
         utxoBalance: '77',
-        tokens: []
+        tokens: [],
+        poolpairs: []
       }
     };
     const store = configureStore({
@@ -44,7 +45,8 @@ describe('receive page', () => {
     const initialState: Partial<RootState> = {
       wallet: {
         utxoBalance: '77',
-        tokens: []
+        tokens: [],
+        poolpairs: []
       }
     };
     const store = configureStore({
@@ -60,6 +62,30 @@ describe('receive page', () => {
     const rendered = render(component)
     const copyButton = await rendered.findByTestId('copy_button')
     fireEvent.press(copyButton)
+    expect(spy).toHaveBeenCalled()
+  })
+
+  it('should trigger share', async () => {
+    const initialState: Partial<RootState> = {
+      wallet: {
+        utxoBalance: '77',
+        tokens: [],
+        poolpairs: []
+      }
+    };
+    const store = configureStore({
+      preloadedState: initialState,
+      reducer: { wallet: wallet.reducer }
+    })
+    const component = (
+      <Provider store={store}>
+        <ReceiveScreen />
+      </Provider>
+    );
+    const spy = jest.spyOn(Clipboard, 'setString')
+    const rendered = render(component)
+    const share_button = await rendered.findByTestId('share_button')
+    fireEvent.press(share_button)
     expect(spy).toHaveBeenCalled()
   })
 })
