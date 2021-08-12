@@ -1,6 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { Text } from '../../../../components'
@@ -13,6 +14,7 @@ import { translate } from '../../../../translations'
 import { BalancesScreen } from './BalancesScreen'
 import { ConversionMode, ConvertScreen } from './ConvertScreen'
 import { ReceiveScreen } from './screens/ReceiveScreen'
+import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
 import { SendScreen } from './screens/SendScreen'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
 import { TokensVsUtxoScreen } from './screens/TokensVsUtxoScreen'
@@ -21,6 +23,12 @@ export interface BalanceParamList {
   BalancesScreen: undefined
   ReceiveScreen: undefined
   SendScreen: { token: WalletToken }
+  SendConfirmationScreen: {
+    token: WalletToken
+    destination: string
+    amount: BigNumber
+    fee: BigNumber
+  }
   TokenDetailScreen: { token: WalletToken }
   ConvertScreen: { mode: ConversionMode }
   BarCodeScanner: { onQrScanned: (value: string) => void }
@@ -91,6 +99,14 @@ export function BalancesNavigator (): JSX.Element {
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/SendScreen', 'Send')} />,
           headerBackTitleVisible: false
+        }}
+      />
+      <BalanceStack.Screen
+        name='SendConfirmationScreen'
+        component={SendConfirmationScreen}
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => <HeaderTitle text={translate('screens/SendConfirmationScreen', 'Confirm Send')} />
         }}
       />
       <BalanceStack.Screen

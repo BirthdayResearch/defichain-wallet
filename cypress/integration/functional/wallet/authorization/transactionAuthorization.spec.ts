@@ -80,14 +80,17 @@ context('Wallet - Transaction Authorization', () => {
     it('should be able to cancel', function () {
       cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
       cy.getByTestID('amount_input').clear().type('1')
-      cy.getByTestID('send_submit_button').click().wait(3000)
+      cy.getByTestID('send_submit_button').click()
+      cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.getByTestID('cancel_authorization').click()
     })
 
     it('should be able to exit failed retries', function () {
+      cy.go('back')
       cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
       cy.getByTestID('amount_input').clear().type('1')
       cy.getByTestID('send_submit_button').click()
+      cy.getByTestID('button_confirm_send').click().wait(3000)
       Array.from(Array(4), (v, i) => i + 1).forEach(() => {
         cy.getByTestID('pin_authorize').type('696969').wait(1000)
       })
@@ -104,12 +107,15 @@ context('Wallet - Transaction Authorization', () => {
       cy.getByTestID('send_button').click()
       cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
       cy.getByTestID('amount_input').clear().type('1')
-      cy.getByTestID('send_submit_button').click().wait(3000)
+      cy.getByTestID('send_submit_button').click()
+      cy.getByTestID('button_confirm_send').click().wait(3000)
       Array.from(Array(3), (v, i) => i + 1).forEach(() => {
         cy.getByTestID('pin_authorize').type('696969').wait(1000)
       })
       cy.closeOceanInterface()
-      cy.getByTestID('send_submit_button').click().wait(3000)
+      cy.go('back')
+      cy.getByTestID('send_submit_button').click()
+      cy.getByTestID('button_confirm_send').click().wait(3000)
       Array.from(Array(1), (v, i) => i + 1).forEach(() => {
         cy.getByTestID('pin_authorize').type('696969').wait(1000)
       })
