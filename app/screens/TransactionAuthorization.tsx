@@ -183,11 +183,6 @@ export function TransactionAuthorization (): JSX.Element | null {
     }
   }, [transaction, wallet, status, authentication, attemptsRemaining])
 
-  /**
-   * Currently serving
-   * 1. consume pending to sign store/TransactionQueue
-   * 2. generic authentication job store/Authentication
-   */
   useEffect(() => {
     if (encryptionUI !== undefined) {
       encryptionUI.provide({ prompt: onPrompt })

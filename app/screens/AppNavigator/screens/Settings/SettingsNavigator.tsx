@@ -64,14 +64,6 @@ export function SettingsNavigator (): JSX.Element {
         }}
       />
       <SettingsStack.Screen
-        name='RecoveryWordsScreen'
-        component={RecoveryWordsScreen}
-        options={{
-          headerTitle: translate('screens/Settings', 'Recovery Words'),
-          headerBackTitleVisible: false
-        }}
-      />
-      <SettingsStack.Screen
         name='AboutScreen'
         component={AboutScreen}
         options={{
