@@ -93,7 +93,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Remaining balance')}
         rhs={{
-          value: new BigNumber(token.amount).minus(amount).toFixed(8),
+          value: new BigNumber(token.amount).minus(amount.toFixed(8)).minus(fee.toFixed(8)).toFixed(8),
           suffix: ` ${token.symbol}`,
           testID: 'text_balance'
         }}
