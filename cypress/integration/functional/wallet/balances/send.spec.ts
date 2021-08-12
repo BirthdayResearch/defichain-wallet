@@ -83,7 +83,7 @@ context('Wallet - Send', () => {
         cy.getByTestID('amount_input').clear().type('1')
         cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
         cy.getByTestID('send_submit_button').click()
-        cy.getByTestID('button_confirm_send').click()
+        cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
         cy.fetchWalletBalance()
         cy.getByTestID('bottom_tab_balances').click()
@@ -117,7 +117,7 @@ context('Wallet - Send', () => {
         cy.getByTestID('address_input').type(address)
         cy.getByTestID('MAX_amount_button').click()
         cy.getByTestID('send_submit_button').click()
-        cy.getByTestID('button_confirm_send').click() // in SendConfirmationScreen
+        cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
         cy.fetchWalletBalance()
         cy.getByTestID('bottom_tab_balances').click()
@@ -138,8 +138,8 @@ context('Wallet - Send', () => {
         cy.getByTestID('send_button').click()
         cy.getByTestID('address_input').type(address)
         cy.getByTestID('MAX_amount_button').click()
-        cy.getByTestID('send_submit_button').click().wait(100)
-        cy.getByTestID('button_confirm_send').click() // in SendConfirmationScreen
+        cy.getByTestID('send_submit_button').click()
+        cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
         cy.fetchWalletBalance()
         cy.getByTestID('bottom_tab_balances').click()
