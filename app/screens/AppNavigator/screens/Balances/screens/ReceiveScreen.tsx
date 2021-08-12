@@ -54,7 +54,7 @@ export function ReceiveScreen (): JSX.Element {
         {
           isCopied ? (
             <Text
-              style={tailwind('flex flex-grow flex-row justify-center items-center border border-white border-opacity-0 p-3')}
+              style={tailwind('flex flex-grow flex-row justify-center text-center items-center border border-white border-opacity-0 p-3')}
             >
               <MaterialIcons name='check' size={18} style={tailwind('self-center text-success')} />
               <Text
@@ -65,7 +65,7 @@ export function ReceiveScreen (): JSX.Element {
           ) : (
             <TouchableOpacity
               testID='copy_button'
-              style={tailwind('flex flex-grow flex-row justify-center items-center p-3 border border-gray-200')}
+              style={tailwind('flex flex-grow flex-row justify-center text-center items-center p-3 border border-gray-200')}
               onPress={() => {
                 setIsCopied(true)
                 copyToClipboard(address)
