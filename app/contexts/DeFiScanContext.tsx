@@ -3,7 +3,7 @@ import { EnvironmentNetwork } from '../environment'
 import { useNetworkContext } from './NetworkContext'
 
 interface DeFiScan {
-  getTransactionUrl: (txid: string, hexTxId?: string) => string
+  getTransactionUrl: (txid: string, rawtx?: string) => string
 }
 
 const DeFiScanContext = createContext<DeFiScan>(undefined as any)
@@ -16,8 +16,8 @@ export function DeFiScanProvider (props: React.PropsWithChildren<any>): JSX.Elem
   const { network } = useNetworkContext()
 
   const context = useMemo(() => {
-    const getTransactionUrl = (txid: string, hexTxId?: string): string => {
-      return getTxURLByNetwork(network, txid, hexTxId)
+    const getTransactionUrl = (txid: string, rawtx?: string): string => {
+      return getTxURLByNetwork(network, txid, rawtx)
     }
 
     return { getTransactionUrl }
@@ -30,7 +30,7 @@ export function DeFiScanProvider (props: React.PropsWithChildren<any>): JSX.Elem
   )
 }
 
-function getTxURLByNetwork (network: EnvironmentNetwork, txid: string, hexTxId?: string): string {
+function getTxURLByNetwork (network: EnvironmentNetwork, txid: string, rawtx?: string): string {
   let baseUrl = `https://defiscan.live/transactions/${txid}`
 
   switch (network) {
@@ -48,8 +48,8 @@ function getTxURLByNetwork (network: EnvironmentNetwork, txid: string, hexTxId?:
       break
   }
 
-  if (typeof hexTxId === 'string' && hexTxId.length !== 0) {
-    baseUrl += `&rawtx=${hexTxId}`
+  if (typeof rawtx === 'string' && rawtx.length !== 0) {
+    baseUrl += `&rawtx=${rawtx}`
   }
 
   return baseUrl.toString()
