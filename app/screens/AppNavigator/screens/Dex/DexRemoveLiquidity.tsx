@@ -203,6 +203,7 @@ async function constructSignedRemoveLiqAndSend (tokenId: number, amount: BigNumb
 
   dispatch(transactionQueue.actions.push({
     sign: signer,
-    title: `${translate('screens/RemoveLiquidity', 'Removing Liquidity')}`
+    title: `${translate('screens/RemoveLiquidity', 'Removing Liquidity')}`,
+    description: `${translate('screens/RemoveLiquidity', 'Removing Liquidity')}`
   }))
 }

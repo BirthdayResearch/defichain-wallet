@@ -10,7 +10,6 @@ context('Wallet - Transaction Authorization with Error', () => {
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(10000)
-    cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
     cy.getByTestID('balances_row_0_utxo').should('exist')

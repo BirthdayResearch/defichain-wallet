@@ -8,7 +8,9 @@ import { HeaderTitle } from '../../../../components/HeaderTitle'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { AboutScreen } from './screens/AboutScreen'
+import { ChangePinScreen } from './screens/ChangePinScreen'
 import { CommunityScreen } from './screens/CommunityScreen'
+import { ConfirmPinScreen } from './screens/ConfirmPinScreen'
 import { RecoveryWordsScreen } from './screens/RecoveryWordsScreen'
 import { SettingsScreen } from './SettingsScreen'
 
@@ -16,6 +18,8 @@ export interface SettingsParamList {
   SettingsScreen: undefined
   CommunityScreen: undefined
   RecoveryWordsScreen: { words: string[] }
+  ChangePinScreen: { pinLength: number, words: string[] }
+  ConfirmPinScreen: { pin: string, words: string[] }
 
   [key: string]: undefined | object
 }
@@ -64,6 +68,22 @@ export function SettingsNavigator (): JSX.Element {
         component={AboutScreen}
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/AboutScreen', 'About')} />,
+          headerBackTitleVisible: false
+        }}
+      />
+      <SettingsStack.Screen
+        name='ChangePinScreen'
+        component={ChangePinScreen}
+        options={{
+          headerTitle: translate('screens/AboutScreen', 'Create new passcode'),
+          headerBackTitleVisible: false
+        }}
+      />
+      <SettingsStack.Screen
+        name='ConfirmPinScreen'
+        component={ConfirmPinScreen}
+        options={{
+          headerTitle: translate('screens/ConfirmPinScreen', 'Verify passcode'),
           headerBackTitleVisible: false
         }}
       />
