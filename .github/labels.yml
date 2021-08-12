@@ -110,3 +110,16 @@
 - color: b1f488
   name: triage/accepted
   description: Triage has been accepted
+
+# Bug
+- color: ff3a3a
+  name: bug/minor
+  description: Minor issue which is non-breaking and has a workaround
+- color: ff3a3a
+  name: bug/major
+  description: Major issue which is non-breaking but no workaround
+- color: ff3a3a
+  name: bug/critical
+  description: Critical issue that affects core functionalities. Needs to be hotfix
+
+
