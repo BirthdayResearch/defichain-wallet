@@ -15,22 +15,20 @@ context('Wallet - Convert DFI - utxosToAccount', () => {
     cy.getByTestID('convert_button').click()
 
     cy.getByTestID('text_preview_input_desc').contains('DFI (UTXO)')
-    cy.getByTestID('text_preview_input_value').contains('10 DFI')
     cy.getByTestID('text_preview_output_desc').contains('DFI (TOKEN)')
-    cy.getByTestID('text_preview_output_value').contains('0 DFI')
 
-    cy.getByTestID('button_continue_convert').should('not.be.enabled')
+    cy.getByTestID('button_continue_convert').should('have.attr', 'disabled')
   })
 
   it('navigate through token detail', function () {
     cy.getByTestID('text_input_convert_from_input')
       .invoke('attr', 'type', 'text') // cypress issue with numeric/decimal input, must cast
-      .type('11.1')
+      .type('11.1').blur()
 
     cy.getByTestID('text_preview_input_value').contains('0 DFI')
     cy.getByTestID('text_preview_output_value').contains('11.1 DFI')
 
-    cy.getByTestID('button_continue_convert').should('not.be.enabled')
+    cy.getByTestID('button_continue_convert').should('have.attr', 'disabled')
   })
 
   it('should insert balance as amount on 50% pressed', function () {
@@ -38,7 +36,7 @@ context('Wallet - Convert DFI - utxosToAccount', () => {
 
     cy.getByTestID('text_preview_input_value').contains('5 DFI')
     cy.getByTestID('text_preview_output_value').contains('5 DFI')
-    cy.getByTestID('button_continue_convert').should('not.be.disabled')
+    cy.getByTestID('button_continue_convert').should('not.have.attr', 'disabled')
   })
 
   it('should insert balance as amount on MAX pressed', function () {
@@ -46,7 +44,7 @@ context('Wallet - Convert DFI - utxosToAccount', () => {
 
     cy.getByTestID('text_preview_input_value').contains('0 DFI')
     cy.getByTestID('text_preview_output_value').contains('10 DFI')
-    cy.getByTestID('button_continue_convert').should('not.be.disabled')
+    cy.getByTestID('button_continue_convert').should('not.have.attr', 'disabled')
   })
 
   it('should be able to toggle into "accountToUtxos" mode', function () {

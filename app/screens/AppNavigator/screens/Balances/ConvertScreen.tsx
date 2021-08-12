@@ -42,7 +42,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   const [sourceToken, setSourceToken] = useState<ConversionIO>()
   const [targetToken, setTargetToken] = useState<ConversionIO>()
 
-  const [amount, setAmount] = useState<string>('0')
+  const [amount, setAmount] = useState<string>('')
 
   useEffect(() => {
     const [source, target] = getDFIBalances(mode, tokens)
@@ -55,7 +55,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   }
 
   // to display (prevent NaN)
-  const convAmount = new BigNumber(amount).isNaN() ? '0' : new BigNumber(amount).toString()
+  const convAmount = new BigNumber(amount).isNaN() ? '' : new BigNumber(amount).toString()
 
   const convert = (): void => {
     if (hasPendingJob) return
@@ -138,6 +138,8 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
       <SectionTitle text={title} testID={`text_input_convert_from_${props.mode}_text`} />
       <View style={tailwind('flex-row w-full bg-white items-center pl-4 pr-4')}>
         <TextInput
+          placeholderTextColor='rgba(0, 0, 0, 0.4)'
+          placeholder={translate('screens/Convert', 'Enter an amount')}
           testID={`text_input_convert_from_${props.mode}`}
           value={props.current}
           style={tailwind('flex-1 mr-4 text-gray-500 px-1 py-4')}
@@ -152,10 +154,10 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
         <DFIIcon width={24} height={24} />
       </View>
       <View style={tailwind('w-full px-4 bg-white flex-row border-t border-gray-200 items-center')}>
-        <View style={tailwind('flex flex-row flex-1 px-1 py-4')}>
+        <View style={tailwind('flex flex-row flex-1 px-1 py-4 flex-wrap mr-2')}>
           <Text>{translate('screens/Convert', 'Balance')}: </Text>
           <NumberFormat
-            value={props.balance.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
+            value={props.balance.toFixed(8)} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
             renderText={(value: string) => <Text style={tailwind('font-medium text-gray-500')}>{value}</Text>}
           />
         </View>

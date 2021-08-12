@@ -200,6 +200,7 @@ function TokenRow (form: TokenForm): JSX.Element {
         render={({ field: { onBlur, onChange, value } }) => (
           <View style={tailwind('flex-row w-full border-b border-gray-100')}>
             <TextInput
+              placeholderTextColor='rgba(0, 0, 0, 0.4)'
               style={tailwind('flex-grow p-4 bg-white')}
               autoCapitalize='none'
               onBlur={onBlur}
@@ -223,7 +224,7 @@ function TokenRow (form: TokenForm): JSX.Element {
         defaultValue=''
       />
       <View style={tailwind('flex-row w-full bg-white px-4 items-center')}>
-        <View style={tailwind('flex-1 flex-row py-4')}>
+        <View style={tailwind('flex-1 flex-row py-4 flex-wrap mr-2')}>
           <Text>{translate('screens/PoolSwapScreen', 'Balance: ')}</Text>
           <NumberFormat
             value={token.amount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
@@ -356,7 +357,7 @@ async function constructSignedSwapAndSend (
   dispatch(transactionQueue.actions.push({
     sign: signer,
     title: `${translate('screens/PoolSwapScreen', 'Swapping Token')}`,
-    description: `${translate('screens/PoolSwapScreen', `Swapping ${dexForm.fromToken.amount} ${dexForm.fromToken.symbol} to ${dexForm.toAmount.toFixed(8)} ${dexForm.toToken.symbol}`)}`
+    description: `${translate('screens/PoolSwapScreen', `Swapping ${dexForm.fromAmount.toFixed(8)} ${dexForm.fromToken.symbol} to ${dexForm.toAmount.toFixed(8)} ${dexForm.toToken.symbol}`)}`
   }))
 }
 
