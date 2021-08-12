@@ -86,6 +86,7 @@ context('Wallet - Transaction Authorization', () => {
     })
 
     it('should be able to exit failed retries', function () {
+      cy.go('back')
       cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
       cy.getByTestID('amount_input').clear().type('1')
       cy.getByTestID('send_submit_button').click()
@@ -112,6 +113,7 @@ context('Wallet - Transaction Authorization', () => {
         cy.getByTestID('pin_authorize').type('696969').wait(1000)
       })
       cy.closeOceanInterface()
+      cy.go('back')
       cy.getByTestID('send_submit_button').click()
       cy.getByTestID('button_confirm_send').click().wait(3000)
       Array.from(Array(1), (v, i) => i + 1).forEach(() => {
