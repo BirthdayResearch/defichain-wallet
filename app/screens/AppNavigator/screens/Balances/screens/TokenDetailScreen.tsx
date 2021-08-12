@@ -38,7 +38,13 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
         </Text>
         <NumberFormat
           value={token.amount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
-          renderText={(value) => <Text style={tailwind('text-2xl font-bold')}>{value}</Text>}
+          renderText={(value) => (
+            <Text
+              testID='token_detail_amount'
+              style={tailwind('text-2xl font-bold')}
+            >{value}
+            </Text>
+          )}
         />
       </View>
       <SectionTitle
@@ -66,7 +72,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
         token.symbol === 'DFI' && (
           <TokenActionRow
             testID='convert_button'
-            title={`${translate('screens/TokenDetailScreen', 'Convert')} ${token.displaySymbol}`}
+            title={`${translate('screens/TokenDetailScreen', `Convert to ${token.id === '0_utxo' ? 'Token' : 'UTXO'}`)}`}
             icon='swap-vert' onPress={() => {
               const mode: ConversionMode = token.id === '0_utxo' ? 'utxosToAccount' : 'accountToUtxos'
               navigation.navigate('Convert', { mode })

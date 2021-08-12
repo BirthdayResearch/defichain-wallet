@@ -52,6 +52,7 @@ export function PinCreation ({ route }: Props): JSX.Element {
         title='create-pin'
         disabled={newPin.length !== pinLength}
         onPress={() => {
+          setNewPin('')
           navigation.navigate('PinConfirmation', { words, pin: newPin, type })
         }}
       />

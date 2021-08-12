@@ -110,6 +110,7 @@
       <w>keyhash</w>
       <w>keypoololdest</w>
       <w>keypoolsize</w>
+      <w>kyleleow</w>
       <w>lessthan</w>
       <w>lessthanorequal</w>
       <w>libevent</w>
@@ -173,6 +174,7 @@
       <w>scripthash</w>
       <w>secp</w>
       <w>segwit</w>
+      <w>semibold</w>
       <w>sendrawtransaction</w>
       <w>sendtoaddress</w>
       <w>sendtokenstoaddress</w>

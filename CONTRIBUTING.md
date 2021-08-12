@@ -1,4 +1,4 @@
-# DeFi Wallet Contributing Guide
+# DeFiChain Wallet Contributing Guide
 
 ## Translation Guides
 

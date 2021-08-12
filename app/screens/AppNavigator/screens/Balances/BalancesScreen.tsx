@@ -35,7 +35,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     setRefreshing(true)
     await fetchTokens(client, address, dispatch)
     setRefreshing(false)
-  }, [])
+  }, [address])
 
   const tokens = useTokensAPI()
   return (
@@ -52,18 +52,12 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           onPress={() => navigation.navigate('TokenDetail', { token: item })}
         />}
       ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
-      ListHeaderComponent={
-        <>
-          {/* TODO(thedoublejay) display when summary is available
-          <View style={tailwind('flex-row py-3 bg-white border-b border-gray-200')}>
-            <BalanceActionButton
-              icon='arrow-downward' title='RECEIVE'
-              onPress={() => navigation.navigate('Receive')}
-            />
-          </View> */}
-          <SectionTitle testID='balances_title' text={translate('screens/BalancesScreen', 'BALANCE DETAILS')} />
-        </>
-      }
+      ListHeaderComponent={(
+        <SectionTitle
+          testID='balances_title'
+          text={translate('screens/BalancesScreen', 'BALANCE DETAILS')}
+        />
+      )}
     />
   )
 }
@@ -101,22 +95,3 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
     </TouchableOpacity>
   )
 }
-
-/* function BalanceActionButton (props: {
-  icon: React.ComponentProps<typeof MaterialIcons>['name']
-  title: string
-  onPress: () => void
-}): JSX.Element {
-  return (
-    <TouchableOpacity
-      testID={`button_${props.title}`}
-      style={[tailwind('px-2 py-1.5 ml-3 flex-row items-center border border-gray-300 rounded')]}
-      onPress={props.onPress}
-    >
-      <MaterialIcons name={props.icon} size={20} color={PrimaryColor} />
-      <Text style={tailwind('mx-1 text-primary')}>
-        {translate('screens/BalancesScreen', props.title)}
-      </Text>
-    </TouchableOpacity>
-  )
-} */

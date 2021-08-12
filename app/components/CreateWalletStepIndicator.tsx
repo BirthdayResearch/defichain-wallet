@@ -12,14 +12,14 @@ interface StepIndicatorProps {
 }
 
 export const CREATE_STEPS = [
-  translate('components/CreateWalletIndicator', 'recovery'),
-  translate('components/CreateWalletIndicator', 'verify'),
-  translate('components/CreateWalletIndicator', 'passcode')
+  translate('components/CreateWalletIndicator', 'Recovery'),
+  translate('components/CreateWalletIndicator', 'Verify'),
+  translate('components/CreateWalletIndicator', 'Secure')
 ]
 
 export const RESTORE_STEPS = [
-  translate('components/CreateWalletIndicator', 'restore'),
-  translate('components/CreateWalletIndicator', 'passcode')
+  translate('components/CreateWalletIndicator', 'Restore'),
+  translate('components/CreateWalletIndicator', 'Secure')
 ]
 
 /**
@@ -49,43 +49,22 @@ export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Eleme
           key={i * 2}
           style={tailwind(`h-1 flex-grow mt-3.5 ${iconStyle}`)}
         />)
-      arr.push(<StepNode key={i * 2 + 1} step={i + 1} current={current} />)
-    }
-    return arr
-  }
-
-  function descriptions (): JSX.Element[] {
-    const arr: JSX.Element[] = []
-    for (let i = 0; i < steps.length; i++) {
-      let textStyle = ''
-      if (current === i + 1) {
-        textStyle = 'text-primary'
-      } else {
-        textStyle = 'text-gray-500'
-      }
-      arr.push(
-        <View key={i}>
-          <Text style={tailwind(`text-center text-sm font-medium ${textStyle}`)}>{steps[i]}</Text>
-        </View>
-      )
+      arr.push(<StepNode key={i * 2 + 1} step={i + 1} current={current} content={steps[i]} />)
     }
     return arr
   }
 
   return (
     <View style={[tailwind('flex-col justify-center items-center w-full'), containerViewStyle]}>
-      <View style={[tailwind('flex-row justify-center w-9/12')]}>
-        <StepNode step={1} current={current} />
+      <View style={[tailwind('flex-row justify-center w-9/12 h-14')]}>
+        <StepNode step={1} current={current} content={steps[0]} />
         {following()}
-      </View>
-      <View style={[tailwind('flex-row justify-between w-10/12 mt-1 font-medium pl-2')]}>
-        {descriptions()}
       </View>
     </View>
   )
 }
 
-function StepNode (props: { step: number, current: number }): JSX.Element {
+function StepNode (props: { step: number, current: number, content: string }): JSX.Element {
   let stepperStyle
   let textStyle
   if (props.current === props.step) {
@@ -101,10 +80,24 @@ function StepNode (props: { step: number, current: number }): JSX.Element {
   return (
     <View style={tailwind('flex-col')}>
       <View
-        style={tailwind(`h-8 w-8 rounded-2xl justify-center items-center ${stepperStyle}`)}
+        style={tailwind(`h-8 w-8 rounded-2xl justify-center items-center relative ${stepperStyle}`)}
       >
-        <Text style={tailwind(`${textStyle} font-medium`)}>{props.step}</Text>
+        <Text style={tailwind(`${textStyle} font-medium absolute`)}>{props.step}</Text>
+        <Description step={props.step} current={props.current} content={props.content} />
       </View>
     </View>
+  )
+}
+
+function Description (props: { step: number, current: number, content: string }): JSX.Element {
+  return (
+    <Text
+      style={[
+        tailwind('text-center text-sm font-medium top-9 absolute w-20'),
+        props.current === props.step ? tailwind('text-primary') : tailwind('text-gray-500')
+      ]}
+    >
+      {props.content}
+    </Text>
   )
 }

@@ -4,14 +4,13 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/30297425fadcab8fbba4/maintainability)](https://codeclimate.com/github/DeFiCh/wallet/maintainability)
 [![TS-Standard](https://badgen.net/badge/code%20style/ts-standard/blue?icon=typescript)](https://github.com/standard/ts-standard)
 
-# DeFi Wallet
+# DeFiChain Wallet
 
 DeFi Blockchain Light Wallet for iOS, Android & Web.
 
 ## Releases
 
-DeFi Wallet has 3 releases channel and unique environment for each of those
-channel. [`app/environment.ts`](/app/environment.ts) carries the environment state for those releases channel.
+DeFiChain Wallet has 3 releases channel and unique environment for each of those channel. [`app/environment.ts`](/app/environment.ts) carries the environment state for those releases channel.
 
 <details>
 <summary><b>Production</b></summary>
@@ -76,8 +75,8 @@ wallet/
 └─ cypress/
 ```
 
-DeFi Wallet project is structured with 3 core directories. Each pull request will likely carry significant changes into
-those directories.
+DeFiChain Wallet project is structured with 3 core directories. Each pull request will likely carry significant changes
+into those directories.
 
 Directory               | Description
 ------------------------|-------------
@@ -94,7 +93,7 @@ Directory               | Description
 
 ### Testing
 
-There are 2 types of tests in DeFi Wallet.
+There are 2 types of tests in DeFiChain Wallet.
 
 #### Unit Testing
 
@@ -107,14 +106,14 @@ coverage is collected for this.
 
 #### End-to-end Testing
 
-On top of unit tests, end-to-end provides additional testing that tests the entire lifecycle of DeFi Wallet. All
+On top of unit tests, end-to-end provides additional testing that tests the entire lifecycle of DeFiChain Wallet. All
 components and screen are integrated together as expected for real use cases. As such test are written for real usage
 narrative as a normal consumer would. They are placed in the `/cypress` directory, and we
 use [Cypress](https://github.com/cypress-io/cypress) to facilitate the testing.
 
 Cypress is a modern end-to-end testing framework for web. It uses a sequential jest like approach for testing with
 automatic wait and retrofitted with many utilities for great testing quality of life. Utilities are further customized
-for DeFi wallet with our own construct. As cypress is for web only testing, we set up a web environment to run
+for DeFiChain Wallet with our own construct. As cypress is for web only testing, we set up a web environment to run
 end-to-end testing together with a local [playground](https://github.com/DeFiCh/playground). React(-Native) is platform
 agnostic and that allow us to test with high confidence that the expected logic will follow the same flow in native.
 
@@ -135,10 +134,10 @@ convenience with basic toolchain setup but use of IntelliJ is totally optional.
 ### Security issues
 
 If you discover a security vulnerability in
-`DeFi Wallet`, [please see submit it privately](https://github.com/DeFiCh/.github/blob/main/SECURITY.md).
+`DeFiChain Wallet`, [please see submit it privately](https://github.com/DeFiCh/.github/blob/main/SECURITY.md).
 
 ## License & Disclaimer
 
-By using `DeFi Wallet` (this repo), you (the user) agree to be bound by [the terms of this license](LICENSE).
+By using `DeFiChain Wallet` (this repo), you (the user) agree to be bound by [the terms of this license](LICENSE).
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDeFiCh%2Fwallet.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FDeFiCh%2Fwallet?ref=badge_large)

@@ -1,26 +1,24 @@
 import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import { Text } from '../../../components/Text'
+import { Text } from '../../../components'
 import { tailwind } from '../../../tailwind'
 
-export function PlaygroundAction (props: {
+interface PlaygroundActionProps {
   testID: string
   title: string
   onPress: () => void
-}): JSX.Element {
+}
+
+export function PlaygroundAction (props: PlaygroundActionProps): JSX.Element {
   return (
-    <TouchableOpacity
-      style={tailwind('flex-row items-center justify-between py-3')}
-      onPress={props.onPress}
-      testID={props.testID}
-    >
-      <Text style={tailwind('flex-1 text-sm font-medium text-gray-900')}>
-        {props.title}
-      </Text>
-      <View style={tailwind('px-4')} />
-      <View>
-        <Ionicons name='chevron-forward' size={24} />
+    <TouchableOpacity onPress={props.onPress} testID={props.testID}>
+      <View style={tailwind('flex-row items-center justify-between p-4 bg-white border-b border-gray-100')}>
+        <Text style={tailwind('flex-1 font-medium ')}>
+          {props.title}
+        </Text>
+        <View style={tailwind('px-4')} />
+        <Ionicons name='chevron-forward' style={tailwind('opacity-70')} size={18} />
       </View>
     </TouchableOpacity>
   )

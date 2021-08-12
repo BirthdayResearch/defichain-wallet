@@ -12,7 +12,7 @@ export function RecoveryWordsScreen ({ route }: Props): JSX.Element {
   const { words } = route.params
   return (
     <ScrollView testID='recovery_word_screen'>
-      <Text style={tailwind('text-black opacity-60 pt-6 pb-2 px-4 text-sm')}>
+      <Text style={tailwind('text-black opacity-60 pt-6 pb-4 px-4 text-sm font-medium')}>
         {translate('screens/RecoveryWordsScreen', 'Keep your recovery words safe and private')}
       </Text>
       <View style={tailwind('pb-12')}>
@@ -27,10 +27,10 @@ export function RecoveryWordsScreen ({ route }: Props): JSX.Element {
 function MnemonicWordRow (props: {word: string, index: number}): JSX.Element {
   return (
     <View style={tailwind('flex-row px-4 py-3 bg-white border-b border-gray-100')}>
-      <Text style={tailwind('w-10')}>
+      <Text testID={`word_${props.index + 1}_number`} style={tailwind('w-10')}>
         {props.index + 1}.
       </Text>
-      <Text>
+      <Text testID={`word_${props.index + 1}`}>
         {props.word}
       </Text>
     </View>

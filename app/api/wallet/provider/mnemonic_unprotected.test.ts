@@ -34,7 +34,11 @@ describe('getMnemonicHdNodeProvider', () => {
 
 describe('addMnemonicHdNodeProvider', () => {
   it('should set mnemonic (abandon x23)', async () => {
-    expect(MnemonicUnprotected.Abandon23Playground).toStrictEqual({
+    const data = MnemonicUnprotected.toData([
+      'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'
+    ], EnvironmentNetwork.LocalPlayground)
+
+    expect(data).toStrictEqual({
       version: "v1",
       type: WalletType.MNEMONIC_UNPROTECTED,
       raw: {

@@ -24,9 +24,9 @@
     "@defichain/jellyfish-wallet": ">=0.35.0",
     "@defichain/jellyfish-wallet-encrypted": ">=0.35.0",
     "@defichain/jellyfish-wallet-mnemonic": ">=0.35.0",
-    "@defichain/playground-api-client": ">=0.8.4",
-    "@defichain/whale-api-client": ">=0.8.5",
-    "@defichain/whale-api-wallet": ">=0.8.5",
+    "@defichain/playground-api-client": ">=0.8.5",
+    "@defichain/whale-api-client": ">=0.8.8",
+    "@defichain/whale-api-wallet": ">=0.8.8",
     "@expo-google-fonts/ibm-plex-sans": "^0.2.0",
     "@expo/vector-icons": "^12.0.0",
     "@expo/webpack-config": "~0.12.63",
@@ -46,7 +46,7 @@
     "expo-cli": "^4.9.1",
     "expo-clipboard": "~1.1.0",
     "expo-constants": "~11.0.1",
-    "expo-crypto": "^9.2.0",
+    "expo-crypto": "~9.2.0",
     "expo-font": "~9.2.1",
     "expo-linking": "~2.3.1",
     "expo-local-authentication": "~11.1.1",
@@ -85,6 +85,7 @@
   "devDependencies": {
     "@babel/core": "~7.9.0",
     "@cypress/code-coverage": "^3.9.9",
+    "@expo/metro-config": "^0.1.82",
     "@testing-library/cypress": "^8.0.0",
     "@testing-library/react-hooks": "^7.0.0",
     "@testing-library/react-native": "^7.2.0",
@@ -99,6 +100,7 @@
     "@types/react-test-renderer": "^17.0.1",
     "babel-plugin-istanbul": "^6.0.0",
     "cypress": "^8.0.0",
+    "eas-cli": "^0.23.0",
     "husky": "^7.0.1",
     "jest-expo": "^42.0.0",
     "lint-staged": "^11.1.1",
@@ -118,7 +120,7 @@
     "ignore": [
       "**/*.test.ts",
       "**/*.test.tsx",
-      "cypress/support/commands.ts"
+      "cypress/support/*.ts"
     ]
   },
   "standard-version": {

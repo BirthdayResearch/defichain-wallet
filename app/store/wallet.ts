@@ -1,4 +1,5 @@
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
 
@@ -10,11 +11,18 @@ export interface WalletToken extends AddressToken {
 export interface WalletState {
   utxoBalance: string
   tokens: WalletToken[]
+  poolpairs: DexItem[]
+}
+
+export interface DexItem {
+  type: 'your' | 'available'
+  data: PoolPairData
 }
 
 const initialState: WalletState = {
   utxoBalance: '0',
-  tokens: []
+  tokens: [],
+  poolpairs: []
 }
 
 const tokenDFI: WalletToken = {
@@ -24,7 +32,7 @@ const tokenDFI: WalletToken = {
   isDAT: true,
   isLPS: false,
   amount: '0',
-  name: 'Defichain',
+  name: 'DeFiChain',
   displaySymbol: 'DFI (Token)',
   avatarSymbol: 'DFI'
 }
@@ -56,6 +64,9 @@ export const wallet = createSlice({
     },
     setUtxoBalance: (state, action: PayloadAction<string>) => {
       state.utxoBalance = action.payload
+    },
+    setPoolPairs: (state, action: PayloadAction<DexItem[]>) => {
+      state.poolpairs = action.payload
     }
   }
 })

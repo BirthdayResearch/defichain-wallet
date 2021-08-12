@@ -16,10 +16,12 @@ exports[`recovery word screen should match snapshot 1`] = `
           },
           Object {
             "color": "rgba(0, 0, 0, 1)",
+            "fontFamily": "MediumFont",
             "fontSize": 14,
+            "fontWeight": "500",
             "lineHeight": 20,
             "opacity": 0.6,
-            "paddingBottom": 8,
+            "paddingBottom": 16,
             "paddingLeft": 16,
             "paddingRight": 16,
             "paddingTop": 24,
@@ -71,6 +73,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_1_number"
         >
           1
           .
@@ -87,6 +90,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_1"
         >
           bunker
         </Text>
@@ -124,6 +128,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_2_number"
         >
           2
           .
@@ -140,6 +145,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_2"
         >
           layer
         </Text>
@@ -177,6 +183,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_3_number"
         >
           3
           .
@@ -193,6 +200,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_3"
         >
           kid
         </Text>
@@ -230,6 +238,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_4_number"
         >
           4
           .
@@ -246,6 +255,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_4"
         >
           involve
         </Text>
@@ -283,6 +293,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_5_number"
         >
           5
           .
@@ -299,6 +310,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_5"
         >
           flight
         </Text>
@@ -336,6 +348,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_6_number"
         >
           6
           .
@@ -352,6 +365,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_6"
         >
           figure
         </Text>
@@ -389,6 +403,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_7_number"
         >
           7
           .
@@ -405,6 +420,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_7"
         >
           gauge
         </Text>
@@ -442,6 +458,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_8_number"
         >
           8
           .
@@ -458,6 +475,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_8"
         >
           ticket
         </Text>
@@ -495,6 +513,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_9_number"
         >
           9
           .
@@ -511,6 +530,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_9"
         >
           final
         </Text>
@@ -548,6 +568,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_10_number"
         >
           10
           .
@@ -564,6 +585,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_10"
         >
           beach
         </Text>
@@ -601,6 +623,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_11_number"
         >
           11
           .
@@ -617,6 +640,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_11"
         >
           basic
         </Text>
@@ -654,6 +678,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_12_number"
         >
           12
           .
@@ -670,6 +695,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_12"
         >
           aspect
         </Text>
@@ -707,6 +733,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_13_number"
         >
           13
           .
@@ -723,6 +750,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_13"
         >
           exit
         </Text>
@@ -760,6 +788,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_14_number"
         >
           14
           .
@@ -776,6 +805,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_14"
         >
           slow
         </Text>
@@ -813,6 +843,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_15_number"
         >
           15
           .
@@ -829,6 +860,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_15"
         >
           high
         </Text>
@@ -866,6 +898,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_16_number"
         >
           16
           .
@@ -882,6 +915,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_16"
         >
           aerobic
         </Text>
@@ -919,6 +953,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_17_number"
         >
           17
           .
@@ -935,6 +970,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_17"
         >
           sister
         </Text>
@@ -972,6 +1008,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_18_number"
         >
           18
           .
@@ -988,6 +1025,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_18"
         >
           device
         </Text>
@@ -1025,6 +1063,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_19_number"
         >
           19
           .
@@ -1041,6 +1080,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_19"
         >
           bullet
         </Text>
@@ -1078,6 +1118,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_20_number"
         >
           20
           .
@@ -1094,6 +1135,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_20"
         >
           twin
         </Text>
@@ -1131,6 +1173,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_21_number"
         >
           21
           .
@@ -1147,6 +1190,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_21"
         >
           profit
         </Text>
@@ -1184,6 +1228,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_22_number"
         >
           22
           .
@@ -1200,6 +1245,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_22"
         >
           scale
         </Text>
@@ -1237,6 +1283,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_23_number"
         >
           23
           .
@@ -1253,6 +1300,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_23"
         >
           sell
         </Text>
@@ -1290,6 +1338,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               },
             ]
           }
+          testID="word_24_number"
         >
           24
           .
@@ -1306,6 +1355,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               undefined,
             ]
           }
+          testID="word_24"
         >
           find
         </Text>

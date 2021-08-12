@@ -4,7 +4,8 @@ exports[`empty transaction should match snapshot 1`] = `
 <RCTScrollView
   refreshControl={
     <RefreshControlMock
-      refreshing={false}
+      onRefresh={[Function]}
+      refreshing={true}
     />
   }
   style={

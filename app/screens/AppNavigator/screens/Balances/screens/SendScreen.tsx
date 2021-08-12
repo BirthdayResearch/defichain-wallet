@@ -16,6 +16,7 @@ import { Logging } from '../../../../../api'
 import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
+import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
@@ -62,7 +63,8 @@ async function send ({
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
-      title: `${translate('screens/SendScreen', 'Sending')} ${token.symbol}`
+      title: `${translate('screens/SendScreen', 'Sending')} ${token.symbol}`,
+      description: `${translate('screens/SendScreen', `Sending ${amount.toFixed(8)} ${token.symbol}`)}`
     }))
   } catch (e) {
     Logging.error(e)
@@ -83,7 +85,9 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
 
   useEffect(() => {
-    client.fee.estimate().then((f) => setFee(new BigNumber(f))).catch((e) => Logging.error(e))
+    client.fee.estimate()
+      .then((f) => setFee(new BigNumber(f)))
+      .catch(Logging.error)
   }, [])
 
   useEffect(() => {
@@ -173,13 +177,15 @@ function AddressRow ({
         render={({ field: { value, onBlur, onChange } }) => (
           <View style={tailwind('flex-row w-full')}>
             <TextInput
+              placeholderTextColor='rgba(0, 0, 0, 0.4)'
               testID='address_input'
-              style={tailwind('flex-grow p-4 bg-white')}
+              style={tailwind('w-4/5 flex-grow p-4 pr-0 bg-white')}
               autoCapitalize='none'
               value={value}
               onBlur={onBlur}
               onChangeText={onChange}
               placeholder={translate('screens/SendScreen', 'Enter an address')}
+              multiline
             />
             <TouchableOpacity
               testID='qr_code_button'
@@ -227,6 +233,7 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
         render={({ field: { onBlur, onChange, value } }) => (
           <View style={tailwind('flex-row w-full border-b border-gray-100')}>
             <TextInput
+              placeholderTextColor='rgba(0, 0, 0, 0.4)'
               testID='amount_input'
               style={tailwind('flex-grow p-4 bg-white')}
               autoCapitalize='none'
@@ -238,7 +245,7 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
             />
             <View style={tailwind('flex-row bg-white pr-4 items-center')}>
               <Icon />
-              <Text testID='token_symbol' style={tailwind('ml-2')}>{token.symbol}</Text>
+              <InputIconLabel testID='token_symbol' label={token.symbol} screenType={IconLabelScreenType.Balance} />
             </View>
           </View>
         )}
@@ -246,7 +253,7 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
         defaultValue=''
       />
       <View style={tailwind('flex-row w-full bg-white px-4 items-center')}>
-        <View style={tailwind('flex-1 flex-row py-4')}>
+        <View style={tailwind('flex-1 flex-row py-4 flex-wrap mr-2')}>
           <Text>{translate('screens/SendScreen', 'Balance: ')}</Text>
           <NumberFormat
             value={maxAmount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}

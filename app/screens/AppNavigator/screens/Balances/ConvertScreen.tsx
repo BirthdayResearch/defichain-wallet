@@ -15,14 +15,14 @@ import { Logging } from '../../../../api'
 import { Text, TextInput, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import LoadingScreen from '../../../../components/LoadingScreen'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
-import { hasTxQueued, transactionQueue } from '../../../../store/transaction'
+import { hasTxQueued, transactionQueue } from '../../../../store/transaction_queue'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
-import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
 import { BalanceParamList } from './BalancesNavigator'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
@@ -42,7 +42,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   const [sourceToken, setSourceToken] = useState<ConversionIO>()
   const [targetToken, setTargetToken] = useState<ConversionIO>()
 
-  const [amount, setAmount] = useState<string>('0')
+  const [amount, setAmount] = useState<string>('')
 
   useEffect(() => {
     const [source, target] = getDFIBalances(mode, tokens)
@@ -55,7 +55,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   }
 
   // to display (prevent NaN)
-  const convAmount = new BigNumber(amount).isNaN() ? '0' : new BigNumber(amount).toString()
+  const convAmount = new BigNumber(amount).isNaN() ? '' : new BigNumber(amount).toString()
 
   const convert = (): void => {
     if (hasPendingJob) return
@@ -103,7 +103,7 @@ export function ConvertScreen (props: Props): JSX.Element {
           testID='button_continue_convert'
           margin='m-4 mt-3'
           disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob}
-          title='Convert' onPress={convert} label={translate('components/Button', 'CONTINUE')}
+          title='Convert' onPress={convert} label={translate('components/Button', 'CONVERT')}
         />
       </View>
     </ScrollView>
@@ -138,6 +138,8 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
       <SectionTitle text={title} testID={`text_input_convert_from_${props.mode}_text`} />
       <View style={tailwind('flex-row w-full bg-white items-center pl-4 pr-4')}>
         <TextInput
+          placeholderTextColor='rgba(0, 0, 0, 0.4)'
+          placeholder={translate('screens/Convert', 'Enter an amount')}
           testID={`text_input_convert_from_${props.mode}`}
           value={props.current}
           style={tailwind('flex-1 mr-4 text-gray-500 px-1 py-4')}
@@ -152,10 +154,10 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
         <DFIIcon width={24} height={24} />
       </View>
       <View style={tailwind('w-full px-4 bg-white flex-row border-t border-gray-200 items-center')}>
-        <View style={tailwind('flex flex-row flex-1 px-1 py-4')}>
+        <View style={tailwind('flex flex-row flex-1 px-1 py-4 flex-wrap mr-2')}>
           <Text>{translate('screens/Convert', 'Balance')}: </Text>
           <NumberFormat
-            value={props.balance.toNumber()} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
+            value={props.balance.toFixed(8)} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
             renderText={(value: string) => <Text style={tailwind('font-medium text-gray-500')}>{value}</Text>}
           />
         </View>
@@ -193,7 +195,7 @@ function TokenVsUtxosInfo (): JSX.Element {
       <MaterialIcons name='help' size={16} style={tailwind('text-primary')} />
       <Text
         style={tailwind('ml-1 text-primary text-sm font-medium')}
-      >{translate('screens/ConvertScreen', "Tokens vs UTXO, what's the difference?")}
+      >{translate('screens/ConvertScreen', "Token vs UTXO, what's the difference?")}
       </Text>
     </TouchableOpacity>
   )
@@ -255,6 +257,7 @@ async function constructSignedConversionAndSend (mode: ConversionMode, amount: B
 
   dispatch(transactionQueue.actions.push({
     sign: signer,
-    title: `${translate('screens/ConvertScreen', 'Converting DFI')}`
+    title: `${translate('screens/ConvertScreen', 'Converting DFI')}`,
+    description: `${translate('screens/ConvertScreen', `Converting ${amount.toFixed(8)} ${mode === 'utxosToAccount' ? 'UTXO to Token' : 'Token to UTXO'}`)}`
   }))
 }

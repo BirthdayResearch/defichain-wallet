@@ -28,7 +28,7 @@ export const environments: Record<EnvironmentName, Environment> = {
     debug: false,
     networks: [
       EnvironmentNetwork.RemotePlayground,
-      // EnvironmentNetwork.TestNet,
+      EnvironmentNetwork.TestNet,
       EnvironmentNetwork.MainNet
     ]
   },
@@ -37,7 +37,7 @@ export const environments: Record<EnvironmentName, Environment> = {
     debug: true,
     networks: [
       EnvironmentNetwork.RemotePlayground,
-      // EnvironmentNetwork.TestNet,
+      EnvironmentNetwork.TestNet,
       EnvironmentNetwork.MainNet
     ]
   },
@@ -46,7 +46,9 @@ export const environments: Record<EnvironmentName, Environment> = {
     debug: true,
     networks: [
       EnvironmentNetwork.LocalPlayground,
-      EnvironmentNetwork.RemotePlayground
+      EnvironmentNetwork.RemotePlayground,
+      EnvironmentNetwork.TestNet,
+      EnvironmentNetwork.MainNet
     ]
   }
 }

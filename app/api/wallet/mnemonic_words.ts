@@ -1,4 +1,5 @@
-import { PrivateKeyEncryption } from '@defichain/jellyfish-wallet-encrypted'
+import { PrivateKeyEncryption, Scrypt } from '@defichain/jellyfish-wallet-encrypted'
+import { getRandomBytes } from 'expo-random'
 import { StorageAPI } from '../storage'
 
 const KEY = 'RAW_MNEMONIC_V0.space_separated_values'
@@ -106,9 +107,14 @@ class RawMnemonicEncryption {
    */
   async decrypt (passphrase: string): Promise<string[]> {
     const encrypted = await StorageAPI.getItem(KEY)
-    if (encrypted === null) throw new Error('No mnemonic words backup')
+    if (encrypted === null) throw new Error('NO_MNEMONIC_BACKUP')
     return await this._decrypt(encrypted, passphrase)
   }
 }
 
-export const MnemonicWords = new RawMnemonicEncryption(new PrivateKeyEncryption())
+const encryption = new PrivateKeyEncryption(new Scrypt(), numOfBytes => {
+  const bytes = getRandomBytes(numOfBytes)
+  return Buffer.from(bytes)
+})
+
+export const MnemonicWords = new RawMnemonicEncryption(encryption)

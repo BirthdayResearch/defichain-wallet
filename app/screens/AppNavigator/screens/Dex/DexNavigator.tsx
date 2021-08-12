@@ -1,7 +1,8 @@
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
-import { HeaderFont } from '../../../../components/Text'
+import { HeaderFont } from '../../../../components'
+import { HeaderTitle } from '../../../../components/HeaderTitle'
 import { translate } from '../../../../translations'
 import { AddLiquidityScreen } from './DexAddLiquidity'
 import { AddLiquiditySummary, ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
@@ -22,33 +23,32 @@ const DexStack = createStackNavigator<DexParamList>()
 
 export function DexNavigator (): JSX.Element {
   return (
-    <DexStack.Navigator screenOptions={{ headerTitleStyle: HeaderFont }}>
+    <DexStack.Navigator screenOptions={{ headerTitleStyle: HeaderFont, headerBackTitleVisible: false }}>
       <DexStack.Screen
         name='DexScreen'
         component={DexScreen}
-        options={{ headerTitle: translate('screens/DexScreen', 'Decentralized Exchange') }}
+        options={{ headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Decentralized Exchange')} /> }}
       />
       <DexStack.Screen
         name='AddLiquidity'
         component={AddLiquidityScreen}
-        options={{ headerTitle: translate('screens/DexScreen', 'Add Liquidity') }}
+        options={{ headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Add Liquidity')} /> }}
       />
       <DexStack.Screen
         name='ConfirmAddLiquidity'
         component={ConfirmAddLiquidityScreen}
-        options={{ headerTitle: translate('screens/DexScreen', 'Add Liquidity') }}
+        options={{ headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Add Liquidity')} /> }}
       />
       <DexStack.Screen
         name='RemoveLiquidity'
         component={RemoveLiquidityScreen}
-        options={{ headerTitle: translate('screens/DexScreen', 'Remove Liquidity') }}
+        options={{ headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Remove Liquidity')} /> }}
       />
       <DexStack.Screen
         name='PoolSwap'
         component={PoolSwapScreen}
         options={{
-          headerTitle: translate('screens/DexScreen', 'Decentralized Exchange'),
-          headerBackTitleVisible: false
+          headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Decentralized Exchange')} />
         }}
       />
     </DexStack.Navigator>

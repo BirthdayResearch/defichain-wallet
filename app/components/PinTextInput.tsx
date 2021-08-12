@@ -1,15 +1,7 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import {
-  CodeField,
-  Cursor,
-  isLastFilledCell,
-  MaskSymbol,
-  useBlurOnFulfill,
-  useClearByFocusCell
-} from 'react-native-confirmation-code-field'
+import { CodeField, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field'
 import { tailwind } from '../tailwind'
-import { Text } from './Text'
 
 export interface PinTextInputItem {
   cellCount: number
@@ -32,35 +24,19 @@ export function PinTextInput ({ cellCount, testID, value, onChange }: PinTextInp
   })
 
   const renderCell = ({ index, symbol, isFocused }: RenderCellItem): JSX.Element => {
-    let textChild = null
-
-    if (symbol !== undefined && symbol !== '') {
-      textChild = (
-        <MaskSymbol
-          maskSymbol='●'
-          isLastFilledCell={isLastFilledCell({ index, value })}
-        >
-          {symbol}
-        </MaskSymbol>
-      )
-    } else if (isFocused) {
-      textChild = <Cursor />
-    }
-
+    const hasValue = symbol !== undefined && symbol !== ''
     return (
-      <Text
+      <View
         testID={`${testID}_${index}`}
         key={index}
-        style={[styles.cell, isFocused && styles.focusCell]}
+        style={[styles.cell, hasValue && styles.filledCell, isFocused && styles.focusCell, index === 0 && { marginLeft: 0 }]}
         onLayout={getCellOnLayoutHandler(index)}
-      >
-        {textChild}
-      </Text>
+      />
     )
   }
 
   return (
-    <View style={tailwind('flex-row justify-center')}>
+    <View style={tailwind('flex-row justify-center mb-4')}>
       <CodeField
         ref={ref}
         {...props}
@@ -71,6 +47,7 @@ export function PinTextInput ({ cellCount, testID, value, onChange }: PinTextInp
         textContentType='oneTimeCode'
         renderCell={renderCell}
         testID={testID}
+        autoFocus
       />
     </View>
   )
@@ -78,20 +55,31 @@ export function PinTextInput ({ cellCount, testID, value, onChange }: PinTextInp
 
 const styles = StyleSheet.create({
   cell: {
-    width: 40,
-    height: 40,
-    lineHeight: 32,
+    width: 20,
+    height: 20,
+    lineHeight: 20,
     fontSize: 20,
     fontWeight: '500',
     textAlign: 'center',
-    marginLeft: 10,
-    borderRadius: 20,
+    marginLeft: 25,
+    borderRadius: 10,
     backgroundColor: '#ffffff',
     borderColor: 'rgba(0, 0, 0, 0.2)',
     borderStyle: 'solid',
-    borderWidth: 1
+    borderWidth: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 1,
+    paddingLeft: 1
   },
   focusCell: {
-    borderColor: '#ff00af'
+    borderColor: '#ff00af',
+    borderRadius: 10
+  },
+  filledCell: {
+    borderColor: '#ff00af',
+    backgroundColor: '#ff00af',
+    borderRadius: 10
   }
 })

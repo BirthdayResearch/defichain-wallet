@@ -8,10 +8,10 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { CreateWalletStepIndicator, RESTORE_STEPS } from '../../../../components/CreateWalletStepIndicator'
+import LoadingScreen from '../../../../components/LoadingScreen'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
-import LoadingScreen from '../../../LoadingNavigator/LoadingScreen'
 import { WalletParamList } from '../../WalletNavigator'
 
 export function RestoreMnemonicWallet (): JSX.Element {
@@ -90,7 +90,6 @@ export function RestoreMnemonicWallet (): JSX.Element {
                   placeholderTextColor={`${invalid && isTouched ? 'rgba(255, 0, 0, 1)' : 'rgba(0, 0, 0, 0.4)'}`}
                   style={tailwind(`flex-grow p-4 pl-0 ${invalid && isTouched ? 'text-error' : 'text-black'}`)}
                   autoCapitalize='none'
-                  autoCorrect={false}
                   autoCompleteType='off'
                   value={value}
                   onBlur={onBlur}
