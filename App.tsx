@@ -10,7 +10,7 @@ import { WalletPersistenceProvider } from './app/contexts/WalletPersistenceConte
 import { WalletStoreProvider } from './app/contexts/WalletStoreProvider'
 import { WhaleProvider } from './app/contexts/WhaleContext'
 import { useCachedResources } from './app/hooks/useCachedResources'
-import { ErrorBoundary } from './app/screens/ErrorBoundary/ErrorBoundary'
+import ErrorBoundary from './app/screens/ErrorBoundary/ErrorBoundary'
 import { Main } from './app/screens/Main'
 import { initI18n } from './app/translations'
 

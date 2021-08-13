@@ -1,10 +1,18 @@
-import React, { PropsWithChildren } from 'react'
+import React, { ReactElement } from 'react'
 import { Text, View } from '../../components'
 import { AppIcon } from '../../components/icons/AppIcon'
 import { tailwind } from '../../tailwind'
 import { translate } from '../../translations'
 
-function ErrorScreen (): JSX.Element {
+interface Props {
+  children: ReactElement
+}
+
+interface State {
+  hasError: boolean
+}
+
+export function ErrorDisplayComponent (): JSX.Element {
   return (
     <View style={tailwind('flex-1 items-center justify-center p-4')}>
       <AppIcon />
@@ -18,29 +26,21 @@ function ErrorScreen (): JSX.Element {
   )
 }
 
-interface ErrorBoundaryState {
-  hasError: boolean
-}
-
-export class ErrorBoundary extends React.Component<PropsWithChildren<{}>, ErrorBoundaryState> {
-  constructor (props: PropsWithChildren<{}>) {
+class ErrorBoundary extends React.Component<Props, State> {
+  constructor (props: Props) {
     super(props)
     this.state = { hasError: false }
   }
 
-  static getDerivedStateFromError (): ErrorBoundaryState {
+  static getDerivedStateFromError (): State {
     return { hasError: true }
   }
 
   render (): JSX.Element {
-    if (this.state.hasError) {
-      return <ErrorScreen />
-    }
-
-    return (
-      <>
-        {this.props.children}
-      </>
-    )
+    return this.state.hasError
+      ? <ErrorDisplayComponent />
+      : this.props.children
   }
 }
+
+export default ErrorBoundary
