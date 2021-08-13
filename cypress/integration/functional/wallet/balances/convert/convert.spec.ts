@@ -63,10 +63,23 @@ context('Wallet - Convert DFI', () => {
     cy.getByTestID('target_amount').contains('21.00000000')
     cy.getByTestID('target_amount_unit').contains('UTXO')
     cy.getByTestID('text_fee').should('exist')
-    /* cy.getByTestID('button_confirm_convert').click().wait(3000)
-    cy.closeOceanInterface()
-    cy.go('back').wait(3000)
-    cy.getByTestID('source_balance').contains(9)
-    cy.getByTestID('target_balance').contains(22) */
+    cy.go('back')
+  })
+
+  it('should test UTXO to account conversion', function () {
+    cy.getByTestID('button_convert_mode_toggle').click().wait(4000)
+    cy.getByTestID('text_input_convert_from_input').clear().type('1')
+    cy.getByTestID('button_continue_convert').click()
+    cy.getByTestID('button_confirm_convert').should('not.have.attr', 'disabled')
+    cy.getByTestID('button_cancel_convert').click()
+    cy.getByTestID('text_input_convert_from_input').should('exist')
+
+    cy.getByTestID('button_continue_convert').click()
+    cy.getByTestID('text_convert_amount').contains('1.00000000 DFI (UTXO)')
+    cy.getByTestID('source_amount').contains('19.00000000')
+    cy.getByTestID('source_amount_unit').contains('UTXO')
+    cy.getByTestID('target_amount').contains('11.00000000')
+    cy.getByTestID('target_amount_unit').contains('Token')
+    cy.getByTestID('text_fee').should('exist')
   })
 })
