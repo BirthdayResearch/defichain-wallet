@@ -120,6 +120,9 @@ export function OceanInterface (): JSX.Element | null {
             ...transaction,
             title: translate('screens/OceanInterface', 'Waiting for confirmation')
           })
+          if (transaction.postAction !== undefined) {
+            transaction.postAction()
+          }
           let title
           try {
             await waitForTxConfirmation(transaction.tx.txId, client)

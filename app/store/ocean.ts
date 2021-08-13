@@ -5,6 +5,7 @@ export interface OceanTransaction {
   broadcasted: boolean
   tx: CTransactionSegWit
   title?: string
+  postAction?: () => any
 }
 
 export interface OceanState {
