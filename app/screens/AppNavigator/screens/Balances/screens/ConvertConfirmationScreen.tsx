@@ -7,6 +7,7 @@ import React, { Dispatch, useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
+import { Logging } from '../../../../../api'
 import { Text } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
@@ -32,7 +33,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
       return
     }
     setIsSubmitting(true)
-    await constructSignedConversionAndSend(mode, amount, dispatch)
+    await constructSignedConversionAndSend({ mode, amount }, dispatch)
     setIsSubmitting(false)
   }
 
@@ -144,35 +145,42 @@ function DFIBalanceRow (props: { lhs: string, rhs: { value: string | number, tes
   )
 }
 
-async function constructSignedConversionAndSend (mode: ConversionMode, amount: BigNumber, dispatch: Dispatch<any>): Promise<void> {
-  const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
-    const builder = account.withTransactionBuilder()
-    const script = await account.getScript()
-    let signed: TransactionSegWit
-    if (mode === 'utxosToAccount') {
-      signed = await builder.account.utxosToAccount({
-        to: [{
-          script,
+async function constructSignedConversionAndSend ({
+  mode,
+  amount
+}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>): Promise<void> {
+  try {
+    const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
+      const script = await account.getScript()
+      const builder = account.withTransactionBuilder()
+      let signed: TransactionSegWit
+      if (mode === 'utxosToAccount') {
+        signed = await builder.account.utxosToAccount({
+          to: [{
+            script,
+            balances: [
+              { token: 0, amount }
+            ]
+          }]
+        }, script)
+      } else {
+        signed = await builder.account.accountToUtxos({
+          from: script,
           balances: [
             { token: 0, amount }
-          ]
-        }]
-      }, script)
-    } else {
-      signed = await builder.account.accountToUtxos({
-        from: script,
-        balances: [
-          { token: 0, amount }
-        ],
-        mintingOutputsStart: 2 // 0: DfTx, 1: change, 2: minted utxos (mandated by jellyfish-tx)
-      }, script)
+          ],
+          mintingOutputsStart: 2 // 0: DfTx, 1: change, 2: minted utxos (mandated by jellyfish-tx)
+        }, script)
+      }
+      return new CTransactionSegWit(signed)
     }
-    return new CTransactionSegWit(signed)
-  }
 
-  dispatch(transactionQueue.actions.push({
-    sign: signer,
-    title: `${translate('screens/ConvertScreen', 'Converting DFI')}`,
-    description: `${translate('screens/ConvertScreen', `Converting ${amount.toFixed(8)} ${mode === 'utxosToAccount' ? 'UTXO to Token' : 'Token to UTXO'}`)}`
-  }))
+    dispatch(transactionQueue.actions.push({
+      sign: signer,
+      title: `${translate('screens/ConvertScreen', 'Converting DFI')}`,
+      description: `${translate('screens/ConvertScreen', `Converting ${amount.toFixed(8)} ${mode === 'utxosToAccount' ? 'UTXO to Token' : 'Token to UTXO'}`)}`
+    }))
+  } catch (e) {
+    Logging.error(e)
+  }
 }
