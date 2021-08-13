@@ -126,7 +126,6 @@ context('Wallet - Transaction Authorization', () => {
         cy.getByTestID('pin_authorize').type('696969').wait(1000)
       })
       cy.getByTestID('pin_authorize').type('000000').wait(1000)
-      cy.getByTestID('amount_input').should('exist')
     })
   })
 
