@@ -1,6 +1,6 @@
 context('app/masternodes', () => {
   beforeEach(function () {
-    cy.createEmptyWallet()
+    cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_masternodes').click()
   })
 
@@ -16,7 +16,14 @@ context('app/masternodes', () => {
     cy.getByTestID('masternodes_row_1_State').contains('ENABLED')
   })
 
+  it('should display unable to createmn as insufficient balance', function () {
+    cy.getByTestID('insufficient_bal_create_masternode').should('exist')
+  })
+
   it('should have createmn button and get navigated to createmn screen', function () {
+    cy.sendDFItoWallet().wait(10000)
+
+    cy.getByTestID('insufficient_bal_create_masternode').should('not.exist')
     cy.getByTestID('button_create_masternode').should('exist')
     cy.getByTestID('button_create_masternode').click()
     cy.getByTestID('address_type_radio').should('exist')

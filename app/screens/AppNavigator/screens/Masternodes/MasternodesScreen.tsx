@@ -15,7 +15,9 @@ import { Button } from '../../../../components/Button'
 import { MasternodeData } from '@defichain/whale-api-client/dist/api/masternodes'
 import { Logging } from '../../../../api'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
-// import BigNumber from 'bignumber.js'
+import BigNumber from 'bignumber.js'
+import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
+import { useNetworkContext } from '../../../../contexts/NetworkContext'
 
 type Props = StackScreenProps<MasternodeParamList, 'MasternodesScreen'>
 
@@ -93,6 +95,9 @@ export function MasternodesScreen ({ navigation }: Props): JSX.Element {
   const tokens = useTokensAPI()
   console.log('tokens: ', tokens)
 
+  const { networkName } = useNetworkContext()
+  console.log('networkName: ', networkName)
+
   const onRefresh = useCallback(() => {
     setRefreshing(true)
     client.masternodes.list().then(response => {
@@ -111,12 +116,14 @@ export function MasternodesScreen ({ navigation }: Props): JSX.Element {
 
   useEffect(() => {
     setCanCreate(true)
-    // if (new BigNumber(tokens[1].amount).gte(new BigNumber('20000'))) {
-    //   setCanCreate(true)
-    // } else {
-    //   setCanCreate(false)
-    // }
-  }, [JSON.stringify(tokens)])
+    const utxo: AddressToken = tokens.find(token => token.id === '0_utxo') as AddressToken
+    const minAcquiredBal = networkName === 'regtest' ? new BigNumber(2) : new BigNumber(20000)
+    if (new BigNumber(utxo.amount).gte(minAcquiredBal)) {
+      setCanCreate(true)
+    } else {
+      setCanCreate(false)
+    }
+  }, [networkName, JSON.stringify(tokens)])
 
   return masternodes.length === 0
     ? <EmptyMasternode navigation={navigation} refreshing={refreshing} onRefresh={onRefresh} />
@@ -168,8 +175,8 @@ function CreateButton (
         label={translate('screens/MasternodesScreen', 'CREATE MASTERNODE')}
       />
       {!props.canCreate && (
-        <View style={tailwind('p-4 pb-0')}>
-          <Text style={tailwind('text-sm text-center text-gray-200')}>Unable to create masternode due to lack of funds. Minimum 20,000 DFI is required to create masternode.</Text>
+        <View testID='insufficient_bal_create_masternode' style={tailwind('p-4 pb-0')}>
+          <Text style={tailwind('text-sm text-center text-primary')}>Unable to create masternode due to lack of funds. Minimum 20,000 DFI is required to create masternode.</Text>
         </View>
       )}
     </View>
@@ -201,7 +208,7 @@ function renderField (index: number, key: string, value: string): JSX.Element {
         <Text style={tailwind('text-sm mb-1 font-semibold')}>{key}: </Text>
       </View>
       <View style={tailwind('w-9/12 pr-3')}>
-        <Text style={tailwind('text-sm mb-1 break-words')}>{value}</Text>
+        <Text style={tailwind('text-sm mb-1 overflow-ellipsis overflow-hidden')}>{value}</Text>
       </View>
     </View>
   )
