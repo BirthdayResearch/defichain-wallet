@@ -96,7 +96,10 @@ context('Wallet - Send', () => {
         cy.getByTestID('send_submit_button').click()
         cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
-        cy.go('back')
+        cy.getByTestID('balances_list').should('exist')
+        cy.getByTestID('balances_row_0_utxo').should('exist')
+        cy.getByTestID('balances_row_0_utxo_amount').click()
+        cy.getByTestID('send_button').click()
       })
 
       it(`should check if exist on other side ${address}`, function () {
@@ -125,7 +128,6 @@ context('Wallet - Send', () => {
         cy.getByTestID('send_submit_button').click()
         cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
-        cy.getByTestID('bottom_tab_balances').click()
         cy.getByTestID('balances_row_1_amount').should('not.exist')
 
         cy.sendTokenToWallet(['BTC']).wait(10000)
@@ -146,7 +148,6 @@ context('Wallet - Send', () => {
         cy.getByTestID('send_submit_button').click()
         cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
-        cy.getByTestID('bottom_tab_balances').click()
         cy.getByTestID('balances_row_6_amount').should('not.exist')
 
         cy.sendTokenToWallet(['DFI-BTC']).wait(10000)
