@@ -34,7 +34,7 @@ export function PinTextInput ({ cellCount, testID, value, onChange }: PinTextInp
       />
     )
   }
-
+  const autofocus = true
   return (
     <View style={tailwind('flex-row justify-center mb-4')}>
       <CodeField
@@ -47,7 +47,7 @@ export function PinTextInput ({ cellCount, testID, value, onChange }: PinTextInp
         textContentType='oneTimeCode'
         renderCell={renderCell}
         testID={testID}
-        autoFocus
+        autoFocus={autofocus}
       />
     </View>
   )
