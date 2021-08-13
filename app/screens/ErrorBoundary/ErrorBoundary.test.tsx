@@ -1,8 +1,7 @@
 import { render } from '@testing-library/react-native'
 import * as React from 'react'
 import { View } from "react-native";
-
-import ErrorBoundary from './ErrorBoundary'
+import { ErrorBoundary } from './ErrorBoundary'
 
 describe('ErrorBoundary', () => {
 
@@ -36,7 +35,5 @@ describe('ErrorBoundary', () => {
       expect(wrapper).toMatchSnapshot()
     })
   })
-
-
 })
 

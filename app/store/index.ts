@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { authentication } from './authentication'
 import { block } from './block'
@@ -14,9 +15,8 @@ import { wallet } from './wallet'
  *
  * Non-global state should be managed independently within its own React Component.
  */
-export const createStore =
-  /* eslint-disable @typescript-eslint/explicit-function-return-type */
-  () => configureStore({
+export function initializeStore () {
+  return configureStore({
     reducer: {
       block: block.reducer,
       wallet: wallet.reducer,
@@ -28,5 +28,7 @@ export const createStore =
       ...getDefaultMiddleware({ serializableCheck: false })
     ]
   })
+}
 
-export type RootState = ReturnType<ReturnType<typeof createStore>['getState']>
+export type RootStore = ReturnType<typeof initializeStore>
+export type RootState = ReturnType<RootStore['getState']>

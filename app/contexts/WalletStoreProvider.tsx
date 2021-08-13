@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useMemo } from 'react'
 import { Provider as StoreProvider } from 'react-redux'
-import { createStore } from '../store'
+import { initializeStore } from '../store'
 import { useWalletPersistenceContext } from './WalletPersistenceContext'
 
 /**
@@ -10,7 +10,7 @@ export function WalletStoreProvider (props: PropsWithChildren<any>): JSX.Element
   const { wallets } = useWalletPersistenceContext()
 
   const store = useMemo(() => {
-    return createStore()
+    return initializeStore()
   }, [wallets])
 
   return (

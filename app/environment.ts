@@ -1,3 +1,4 @@
+import { NetworkName } from '@defichain/jellyfish-network'
 import * as Updates from 'expo-updates'
 
 /**
@@ -78,4 +79,20 @@ export function isPlayground (network: EnvironmentNetwork): boolean {
     EnvironmentNetwork.LocalPlayground,
     EnvironmentNetwork.RemotePlayground
   ].includes(network)
+}
+
+/**
+ * @param {EnvironmentNetwork} network
+ * @return {NetworkName} from jellyfish
+ */
+export function getNetworkName (network: EnvironmentNetwork): NetworkName {
+  switch (network) {
+    case EnvironmentNetwork.MainNet:
+      return 'mainnet'
+    case EnvironmentNetwork.TestNet:
+      return 'testnet'
+    case EnvironmentNetwork.LocalPlayground:
+    case EnvironmentNetwork.RemotePlayground:
+      return 'regtest'
+  }
 }

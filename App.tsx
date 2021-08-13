@@ -10,11 +10,9 @@ import { WalletPersistenceProvider } from './app/contexts/WalletPersistenceConte
 import { WalletStoreProvider } from './app/contexts/WalletStoreProvider'
 import { WhaleProvider } from './app/contexts/WhaleContext'
 import { useCachedResources } from './app/hooks/useCachedResources'
-import ErrorBoundary from './app/screens/ErrorBoundary/ErrorBoundary'
+import { ErrorBoundary } from './app/screens/ErrorBoundary/ErrorBoundary'
 import { Main } from './app/screens/Main'
 import { initI18n } from './app/translations'
-
-initI18n()
 
 /**
  * Loads
@@ -22,6 +20,7 @@ initI18n()
  * - CachedPlaygroundClient
  */
 export default function App (): JSX.Element | null {
+  initI18n()
   const isLoaded = useCachedResources()
 
   if (!isLoaded) {
@@ -38,15 +37,15 @@ export default function App (): JSX.Element | null {
       <NetworkProvider>
         <PlaygroundProvider>
           <WhaleProvider>
-            <WalletPersistenceProvider>
-              <DeFiScanProvider>
+            <DeFiScanProvider>
+              <WalletPersistenceProvider>
                 <WalletStoreProvider>
                   <StatsProvider>
                     <Main />
                   </StatsProvider>
                 </WalletStoreProvider>
-              </DeFiScanProvider>
-            </WalletPersistenceProvider>
+              </WalletPersistenceProvider>
+            </DeFiScanProvider>
           </WhaleProvider>
         </PlaygroundProvider>
       </NetworkProvider>
