@@ -271,7 +271,8 @@ function TransactionCloseButton (props: { onPress: () => void }): JSX.Element {
 enum ErrorCodes {
   UnknownError = 0,
   InsufficientUTXO = 1,
-  InsufficientBalance = 16
+  InsufficientBalance = 2,
+  PoolSwapHigher = 3,
 }
 
 interface ErrorMapping {
@@ -289,6 +290,11 @@ function errorMessageMapping (err: string): ErrorMapping {
     return {
       code: ErrorCodes.InsufficientBalance,
       message: 'Not enough balance'
+    }
+  } else if (err.includes('Price is higher than indicated.')) {
+    return {
+      code: ErrorCodes.PoolSwapHigher,
+      message: 'Price is higher than indicated'
     }
   }
 

@@ -1,4 +1,4 @@
-import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction/dist'
+import { CTransactionSegWit, PoolSwap } from '@defichain/jellyfish-transaction/dist'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -12,22 +12,29 @@ import { Text } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { SectionTitle } from '../../../../../components/SectionTitle'
+import { useWallet } from '../../../../../contexts/WalletContext'
 import { RootState } from '../../../../../store'
 import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
-import { BalanceParamList } from '../BalancesNavigator'
-import { ConversionMode } from './ConvertScreen'
+import { DexParamList } from '../DexNavigator'
+import { DerivedTokenState } from './PoolSwapScreen'
 
-type Props = StackScreenProps<BalanceParamList, 'ConvertConfirmationScreen'>
+type Props = StackScreenProps<DexParamList, 'ConfirmPoolSwapScreen'>
 
-export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
-  const { sourceUnit, sourceBalance, targetUnit, targetBalance, mode, amount, fee } = route.params
+export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
+  const {
+    tokenA,
+    tokenB,
+    fee,
+    swap
+  } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
+  const account = useWallet().get(0)
   const postAction = (): void => {
     if (isOnPage) {
       navigation.dispatch(StackActions.popToTop())
@@ -46,13 +53,13 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
       return
     }
     setIsSubmitting(true)
-    await constructSignedConversionAndSend({ mode, amount }, dispatch, postAction)
+    await constructSignedSwapAndSend(account, swap, dispatch, postAction)
     setIsSubmitting(false)
   }
 
   function onCancel (): void {
     if (!isSubmitting) {
-      navigation.navigate('Convert')
+      navigation.navigate('PoolSwap')
     }
   }
 
@@ -60,14 +67,14 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
     <ScrollView style={tailwind('bg-gray-100 pb-4')}>
       <View style={tailwind('flex-col bg-white px-4 py-8 mb-4 justify-center items-center border-b border-gray-300')}>
         <Text style={tailwind('text-xs text-gray-500')}>
-          {translate('screens/ConvertConfirmationScreen', 'YOU ARE CONVERTING')}
+          {translate('screens/PoolSwapConfirmScreen', 'YOU ARE SWAPPING')}
         </Text>
         <NumberFormat
-          value={amount.toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
-          suffix={` ${mode === 'utxosToAccount' ? 'DFI (UTXO)' : 'DFI (Token)'}`}
+          value={swap.fromAmount.toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
+          suffix={` ${tokenA.symbol}`}
           renderText={(value) => (
             <Text
-              testID='text_convert_amount'
+              testID='text_swap_amount'
               style={tailwind('text-2xl font-bold flex-wrap text-center')}
             >{value}
             </Text>
@@ -75,33 +82,39 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
         />
       </View>
       <SectionTitle
-        text={translate('screens/ConvertConfirmationScreen', 'AFTER CONVERSION, YOU WILL HAVE:')}
-        testID='title_conversion_detail'
+        text={translate('screens/PoolSwapConfirmScreen', 'AFTER SWAP, YOU WILL HAVE:')}
+        testID='title_swap_detail'
       />
-      <DFIBalanceRow
-        unit={sourceUnit}
-        lhs={translate('screens/ConvertConfirmationScreen', sourceUnit)}
-        rhs={{ value: sourceBalance.toFixed(8), testID: 'source_amount' }}
+      <TokenBalanceRow
+        unit={tokenA.symbol}
+        lhs={tokenA.symbol}
+        rhs={{
+          value: BigNumber.max(new BigNumber(tokenA.amount).minus(swap.fromAmount), 0).toFixed(8),
+          testID: 'source_amount'
+        }}
       />
-      <DFIBalanceRow
-        unit={targetUnit}
-        lhs={translate('screens/ConvertConfirmationScreen', targetUnit)}
-        rhs={{ value: targetBalance.toFixed(8), testID: 'target_amount' }}
+      <TokenBalanceRow
+        unit={tokenB.symbol}
+        lhs={tokenB.symbol}
+        rhs={{
+          value: BigNumber.max(new BigNumber(tokenB.amount).plus(swap.toAmount), 0).toFixed(8),
+          testID: 'target_amount'
+        }}
       />
       <NumberRow
-        lhs={translate('screens/ConvertConfirmationScreen', 'Estimated fee')}
+        lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated fee')}
         rhs={{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }}
       />
       <Button
-        testID='button_confirm_convert'
+        testID='button_confirm_swap'
         disabled={isSubmitting || hasPendingJob}
-        label={translate('screens/SendConfirmationScreen', 'CONVERT')}
-        title='CONVERT' onPress={onSubmit}
+        label={translate('screens/PoolSwapConfirmScreen', 'SWAP')}
+        title='Swap' onPress={onSubmit}
       />
       <Button
-        testID='button_cancel_convert'
+        testID='button_cancel_swap'
         disabled={isSubmitting || hasPendingJob}
-        label={translate('screens/SendConfirmationScreen', 'CANCEL')}
+        label={translate('screens/PoolSwapConfirmScreen', 'CANCEL')}
         title='CANCEL' onPress={onCancel}
         fill='flat'
         margin='m-4 mt-0'
@@ -133,13 +146,12 @@ function NumberRow (props: { lhs: string, rhs: { value: string | number, suffix?
   )
 }
 
-function DFIBalanceRow (props: { lhs: string, rhs: { value: string | number, testID: string }, unit: string }): JSX.Element {
-  const iconType = props.unit === 'UTXO' ? '_UTXO' : 'DFI'
-  const DFIIcon = getTokenIcon(iconType)
+function TokenBalanceRow (props: { lhs: string, rhs: { value: string | number, testID: string }, unit: string }): JSX.Element {
+  const TokenIcon = getTokenIcon(props.unit)
   return (
     <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
       <View style={tailwind('flex-1 flex-row')}>
-        <DFIIcon width={24} height={24} style={tailwind('mr-2')} />
+        <TokenIcon width={24} height={24} style={tailwind('mr-2')} />
         <Text style={tailwind('font-medium')} testID={`${props.rhs.testID}_unit`}>{props.lhs}</Text>
       </View>
       <View style={tailwind('flex-1')}>
@@ -158,40 +170,41 @@ function DFIBalanceRow (props: { lhs: string, rhs: { value: string | number, tes
   )
 }
 
-async function constructSignedConversionAndSend ({
-  mode,
-  amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, postAction: () => void): Promise<void> {
+export interface DexForm {
+  fromToken: DerivedTokenState
+  toToken: DerivedTokenState
+  fromAmount: BigNumber
+  toAmount: BigNumber
+}
+
+async function constructSignedSwapAndSend (
+  account: WhaleWalletAccount, // must be both owner and recipient for simplicity
+  dexForm: DexForm,
+  dispatch: Dispatch<any>,
+  postAction: () => void
+): Promise<void> {
   try {
-    const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
-      const script = await account.getScript()
+    const maxPrice = dexForm.fromAmount.div(dexForm.toAmount).decimalPlaces(8)
+    const signer = async (): Promise<CTransactionSegWit> => {
       const builder = account.withTransactionBuilder()
-      let signed: TransactionSegWit
-      if (mode === 'utxosToAccount') {
-        signed = await builder.account.utxosToAccount({
-          to: [{
-            script,
-            balances: [
-              { token: 0, amount }
-            ]
-          }]
-        }, script)
-      } else {
-        signed = await builder.account.accountToUtxos({
-          from: script,
-          balances: [
-            { token: 0, amount }
-          ],
-          mintingOutputsStart: 2 // 0: DfTx, 1: change, 2: minted utxos (mandated by jellyfish-tx)
-        }, script)
+      const script = await account.getScript()
+
+      const swap: PoolSwap = {
+        fromScript: script,
+        toScript: script,
+        fromTokenId: Number(dexForm.fromToken.id),
+        toTokenId: Number(dexForm.toToken.id),
+        fromAmount: dexForm.fromAmount,
+        maxPrice
       }
-      return new CTransactionSegWit(signed)
+      const dfTx = await builder.dex.poolSwap(swap, script)
+      return new CTransactionSegWit(dfTx)
     }
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
-      title: `${translate('screens/ConvertScreen', 'Converting DFI')}`,
-      description: `${translate('screens/ConvertScreen', `Converting ${amount.toFixed(8)} ${mode === 'utxosToAccount' ? 'UTXO to Token' : 'Token to UTXO'}`)}`,
+      title: `${translate('screens/PoolSwapScreen', 'Swapping Token')}`,
+      description: `${translate('screens/PoolSwapScreen', `Swapping ${dexForm.fromAmount.toFixed(8)} ${dexForm.fromToken.symbol} to ${dexForm.toAmount.toFixed(8)} ${dexForm.toToken.symbol}`)}`,
       postAction
     }))
   } catch (e) {
