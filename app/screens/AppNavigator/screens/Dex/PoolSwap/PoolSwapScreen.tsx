@@ -144,9 +144,14 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         }}
         maxAmount={tokenA.amount}
       />
-      <TouchableOpacity style={tailwind('justify-center items-center mt-6')} onPress={swapToken} testID='swap_button'>
-        <MaterialIcons name='swap-vert' size={28} style={tailwind('text-primary')} />
-      </TouchableOpacity>
+      <View style={tailwind('justify-center items-center mt-6')}>
+        <TouchableOpacity
+          style={tailwind('border border-gray-300 rounded bg-white p-1')} onPress={swapToken}
+          testID='swap_button'
+        >
+          <MaterialIcons name='swap-vert' size={24} style={tailwind('text-primary')} />
+        </TouchableOpacity>
+      </View>
       <TokenRow
         token={tokenB} control={control} controlName={tokenBForm}
         title={`${translate('screens/PoolSwapScreen', 'TO')} ${tokenB.symbol}`}

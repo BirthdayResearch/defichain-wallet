@@ -9,7 +9,7 @@ import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
-import { ConversionMode } from '../ConvertScreen'
+import { ConversionMode } from './ConvertScreen'
 
 interface TokenActionItems {
   title: string

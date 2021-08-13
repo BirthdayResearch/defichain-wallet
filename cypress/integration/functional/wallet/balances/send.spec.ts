@@ -88,6 +88,12 @@ context('Wallet - Send', () => {
         cy.getByTestID('amount_input').clear().type('1')
         cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
         cy.getByTestID('send_submit_button').click()
+
+        // Cancel button
+        cy.getByTestID('button_cancel_send').click()
+        cy.getByTestID('address_input').should('exist')
+
+        cy.getByTestID('send_submit_button').click()
         cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
         cy.go('back')

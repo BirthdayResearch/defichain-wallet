@@ -3,6 +3,7 @@ import { NetworkName } from '@defichain/jellyfish-network'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
+import { useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
@@ -31,6 +32,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const navigation = useNavigation()
 
   async function onSubmit (): Promise<void> {
     if (hasPendingJob) {
@@ -46,6 +48,12 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
     setIsSubmitting(false)
   }
 
+  function onCancel (): void {
+    if (!isSubmitting) {
+      navigation.navigate('Send')
+    }
+  }
+
   useEffect(() => {
     const t = tokens.find((t) => t.id === token.id)
     if (t !== undefined) {
@@ -54,8 +62,8 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   }, [JSON.stringify(tokens)])
 
   return (
-    <ScrollView style={tailwind('bg-gray-100')}>
-      <View style={tailwind('flex-col bg-white px-2 py-8 mb-4 justify-center items-center border-b border-gray-300')}>
+    <ScrollView style={tailwind('bg-gray-100 pb-4')}>
+      <View style={tailwind('flex-col bg-white px-4 py-8 mb-4 justify-center items-center border-b border-gray-300')}>
         <Text style={tailwind('text-xs text-gray-500')}>
           {translate('screens/SendConfirmationScreen', 'YOU ARE SENDING')}
         </Text>
@@ -64,7 +72,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
           renderText={(value) => (
             <Text
               testID='text_send_amount'
-              style={tailwind('text-2xl font-bold')}
+              style={tailwind('text-2xl font-bold flex-wrap')}
             >{value}
             </Text>
           )}
@@ -87,8 +95,8 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         rhs={{ value: amount.toFixed(8), suffix: ` ${token.symbol}`, testID: 'text_amount' }}
       />
       <NumberRow
-        lhs={translate('screens/SendConfirmationScreen', 'Transaction fee')}
-        rhs={{ value: fee.toFixed(8), suffix: ' DFI', testID: 'text_fee' }}
+        lhs={translate('screens/SendConfirmationScreen', 'Estimated fee')}
+        rhs={{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }}
       />
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Remaining balance')}
@@ -101,8 +109,16 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       <Button
         testID='button_confirm_send'
         disabled={isSubmitting || hasPendingJob}
-        label={translate('screens/SendConfirmationScreen', 'CONFIRM SEND')}
+        label={translate('screens/SendConfirmationScreen', 'SEND')}
         title='Send' onPress={onSubmit}
+      />
+      <Button
+        testID='button_cancel_send'
+        disabled={isSubmitting || hasPendingJob}
+        label={translate('screens/SendConfirmationScreen', 'CANCEL')}
+        title='CANCEL' onPress={onCancel}
+        fill='flat'
+        margin='m-4 mt-0'
       />
     </ScrollView>
   )
