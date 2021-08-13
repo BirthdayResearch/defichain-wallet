@@ -1,12 +1,10 @@
 context('Wallet - Convert DFI', () => {
   before(function () {
     cy.createEmptyWallet(true)
-
-    cy.getByTestID('bottom_tab_settings').click()
     cy
       .sendDFItoWallet()
       .sendDFItoWallet()
-      .sendDFITokentoWallet().wait(4000)
+      .sendDFITokentoWallet().wait(10000)
 
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
@@ -85,7 +83,7 @@ context('Wallet - Convert DFI', () => {
     cy.getByTestID('target_amount_unit').contains('Token')
     cy.getByTestID('text_fee').should('exist')
 
-    cy.getByTestID('button_confirm_convert').click().wait(500)
+    cy.getByTestID('button_confirm_convert').click().wait(4000)
     cy.closeOceanInterface()
 
     cy.getByTestID('balances_row_0_utxo_amount').contains('18.999') // 20 - 1 - fee
