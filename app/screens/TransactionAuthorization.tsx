@@ -31,7 +31,7 @@ let PASSPHRASE_PROMISE_PROXY: {
 const INVALID_HASH = 'invalid hash'
 const USER_CANCELED = 'USER_CANCELED'
 
-type Status = 'INIT' | 'IDLE' | 'PIN' | 'SIGNING'
+type Status = 'INIT' | 'IDLE' | 'BLOCK' | 'PIN' | 'SIGNING'
 
 /**
  * The main UI page transaction signing logic interact with encrypted wallet context
@@ -85,6 +85,9 @@ export function TransactionAuthorization (): JSX.Element | null {
   }, [attemptsRemaining])
 
   const onPrompt = useCallback(async () => {
+    if (PASSPHRASE_PROMISE_PROXY !== undefined) {
+      throw new Error('prompt UI occupied')
+    }
     return await new Promise<string>((resolve, reject) => {
       // passphrase prompt is meant for authorizing single transaction regardless
       // caller should not prompt for next transaction before one is completed
@@ -108,10 +111,18 @@ export function TransactionAuthorization (): JSX.Element | null {
     emitEvent('IDLE') // very last step, open up for next task
   }
 
+  // mandatory UI initialization
   useEffect(() => {
-    PasscodeAttemptCounter.get().then((counter) => {
-      setAttemptsRemaining(MAX_PASSCODE_ATTEMPT - counter)
-    }).catch((err) => Logging.error(err))
+    if (encryptionUI !== undefined) {
+      encryptionUI.provide({ prompt: onPrompt })
+    } // else { wallet not encrypted }, this component expected to remain render null but functional
+
+    PasscodeAttemptCounter.get()
+      .then((counter) => {
+        setAttemptsRemaining(MAX_PASSCODE_ATTEMPT - counter)
+        emitEvent('IDLE')
+      })
+      .catch((err) => Logging.error(err))
   }, [])
 
   /**
@@ -133,6 +144,7 @@ export function TransactionAuthorization (): JSX.Element | null {
     if (transaction !== undefined && // any tx queued
       wallet !== undefined // just in case any data stuck in store
     ) {
+      emitEvent('BLOCK') // prevent any re-render trigger (between IDLE and PIN)
       signTransaction(transaction, wallet.get(0), onRetry, retries)
         .then(async signedTx => {
           // case 1: success
@@ -157,6 +169,7 @@ export function TransactionAuthorization (): JSX.Element | null {
           onTaskCompletion()
         })
     } else if (authentication !== undefined) {
+      emitEvent('BLOCK') // prevent any re-render trigger (between IDLE and PIN)
       authenticateFor(onPrompt, authentication, onRetry, retries)
         .then(async () => {
           // case 1: success
@@ -181,13 +194,6 @@ export function TransactionAuthorization (): JSX.Element | null {
         })
     }
   }, [transaction, wallet, status, authentication, attemptsRemaining])
-
-  useEffect(() => {
-    if (encryptionUI !== undefined) {
-      encryptionUI.provide({ prompt: onPrompt })
-    } // else { wallet not encrypted }, this component expected to remain render null but functional
-    emitEvent('IDLE')
-  }, [])
 
   // Disable Biometric hook
   /* // setup biometric hook if enrolled
