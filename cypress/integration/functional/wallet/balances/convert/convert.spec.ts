@@ -87,7 +87,6 @@ context('Wallet - Convert DFI', () => {
 
     cy.getByTestID('button_confirm_convert').click().wait(500)
     cy.closeOceanInterface()
-    cy.go('back').go('back')
 
     cy.getByTestID('balances_row_0_utxo_amount').contains('18.999') // 20 - 1 - fee
     cy.getByTestID('balances_row_0_amount').contains('11')
