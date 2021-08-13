@@ -1,7 +1,7 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import BigNumber from 'bignumber.js'
 
-context('Wallet - Send', () => {
+context('Wallet - Send', function () {
   let whale: WhaleApiClient
   beforeEach(function () {
     cy.restoreLocalStorage()
@@ -117,7 +117,7 @@ context('Wallet - Send', () => {
     })
   })
 
-  describe('dBTC', () => {
+  describe('dBTC', function () {
     addresses.forEach(function (address) {
       it(`should be able to send to address ${address}`, function () {
         cy.getByTestID('bottom_tab_balances').click()
