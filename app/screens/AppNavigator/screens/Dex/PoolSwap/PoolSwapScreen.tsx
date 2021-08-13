@@ -1,16 +1,13 @@
-import { CTransactionSegWit, PoolSwap } from '@defichain/jellyfish-transaction'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { MaterialIcons } from '@expo/vector-icons'
-import { StackActions, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { useDispatch, useSelector } from 'react-redux'
-import { Dispatch } from 'redux'
+import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
@@ -19,16 +16,16 @@ import { IconLabelScreenType, InputIconLabel } from '../../../../../components/I
 import LoadingScreen from '../../../../../components/LoadingScreen'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
-import { useWallet } from '../../../../../contexts/WalletContext'
+import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { usePoolPairsAPI } from '../../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
-import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
+import { hasTxQueued } from '../../../../../store/transaction_queue'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { DexParamList } from '../DexNavigator'
 
-interface DerivedTokenState {
+export interface DerivedTokenState {
   id: string
   amount: string
   symbol: string
@@ -37,24 +34,19 @@ interface DerivedTokenState {
 type Props = StackScreenProps<DexParamList, 'PoolSwapScreen'>
 
 export function PoolSwapScreen ({ route }: Props): JSX.Element {
+  const client = useWhaleApiClient()
   const pairs = usePoolPairsAPI()
   const [poolpair, setPoolPair] = useState<PoolPairData>()
+  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const [tokenAForm, tokenBForm] = ['tokenA', 'tokenB']
-  const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const navigation = useNavigation()
-  const postAction = (): void => {
-    if (isOnPage) {
-      navigation.dispatch(StackActions.popToTop())
-    }
-  }
 
   useEffect(() => {
-    setIsOnPage(true)
-    return () => {
-      setIsOnPage(false)
-    }
+    client.fee.estimate()
+      .then((f) => setFee(new BigNumber(f)))
+      .catch(Logging.error)
   }, [])
 
   // props derived state
@@ -65,9 +57,6 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
 
   // component UI state
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
-
-  const account = useWallet().get(0)
-  const dispatch = useDispatch()
 
   useEffect(() => {
     const pair = pairs.find((v) => v.data.id === route.params.poolpair.id)
@@ -92,10 +81,12 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         fromAmount: new BigNumber((getValues()[tokenAForm])),
         toAmount: new BigNumber((getValues()[tokenBForm]))
       }
-      constructSignedSwapAndSend(account, swap, dispatch, postAction)
-        .catch(e => {
-          Logging.error(e)
-        })
+      navigation.navigate('ConfirmPoolSwapScreen', {
+        tokenA,
+        tokenB,
+        swap,
+        fee
+      })
     }
   }
 
@@ -343,44 +334,6 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount }: SwapSummaryIte
       />
     </View>
   )
-}
-
-interface DexForm {
-  fromToken: DerivedTokenState
-  toToken: DerivedTokenState
-  fromAmount: BigNumber
-  toAmount: BigNumber
-}
-
-async function constructSignedSwapAndSend (
-  account: WhaleWalletAccount, // must be both owner and recipient for simplicity
-  dexForm: DexForm,
-  dispatch: Dispatch<any>,
-  postAction: () => void
-): Promise<void> {
-  const maxPrice = dexForm.fromAmount.div(dexForm.toAmount).decimalPlaces(8)
-  const signer = async (): Promise<CTransactionSegWit> => {
-    const builder = account.withTransactionBuilder()
-    const script = await account.getScript()
-
-    const swap: PoolSwap = {
-      fromScript: script,
-      toScript: script,
-      fromTokenId: Number(dexForm.fromToken.id),
-      toTokenId: Number(dexForm.toToken.id),
-      fromAmount: dexForm.fromAmount,
-      maxPrice
-    }
-    const dfTx = await builder.dex.poolSwap(swap, script)
-    return new CTransactionSegWit(dfTx)
-  }
-
-  dispatch(transactionQueue.actions.push({
-    sign: signer,
-    title: `${translate('screens/PoolSwapScreen', 'Swapping Token')}`,
-    description: `${translate('screens/PoolSwapScreen', `Swapping ${dexForm.fromAmount.toFixed(8)} ${dexForm.fromToken.symbol} to ${dexForm.toAmount.toFixed(8)} ${dexForm.toToken.symbol}`)}`,
-    postAction
-  }))
 }
 
 function calculateEstimatedAmount (tokenAAmount: string, reserveA: string, price: string): BigNumber {
