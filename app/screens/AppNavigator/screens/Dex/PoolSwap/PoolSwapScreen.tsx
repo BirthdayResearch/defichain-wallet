@@ -90,14 +90,27 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     }
   }
 
+  function updatePoolPairPrice (tokenAId: string, poolpair: PoolPairData): void {
+    const aToBPrice = tokenAId === poolpair.tokenA.id
+      ? new BigNumber(poolpair.tokenB.reserve).div(poolpair.tokenA.reserve)
+      : new BigNumber(poolpair.tokenA.reserve).div(poolpair.tokenB.reserve)
+    setAToBPrice(aToBPrice)
+  }
+
   const swapToken = useCallback(async (): Promise<void> => {
-    setTokenA(tokenB)
-    setTokenB(tokenA)
-    const { [tokenAForm]: currentA, [tokenBForm]: currentB } = getValues()
-    setValue(tokenAForm, currentB)
-    await trigger(tokenAForm)
-    setValue(tokenBForm, currentA)
-    await trigger(tokenBForm)
+    if (tokenB !== undefined && tokenA !== undefined) {
+      const tokenAId = tokenB.id
+      setTokenA(tokenB)
+      setTokenB(tokenA)
+      const { [tokenAForm]: currentA, [tokenBForm]: currentB } = getValues()
+      setValue(tokenAForm, currentB)
+      await trigger(tokenAForm)
+      setValue(tokenBForm, currentA)
+      await trigger(tokenBForm)
+      if (poolpair !== undefined) {
+        updatePoolPairPrice(tokenAId, poolpair)
+      }
+    }
   }, [tokenA, tokenB, poolpair])
 
   useEffect(() => {
@@ -122,10 +135,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         symbol: tokenBSymbol
       }
       setTokenB(b)
-      const aToBPrice = tokenAId === poolpair.tokenA.id
-        ? new BigNumber(poolpair.tokenB.reserve).div(poolpair.tokenA.reserve)
-        : new BigNumber(poolpair.tokenA.reserve).div(poolpair.tokenB.reserve)
-      setAToBPrice(aToBPrice)
+      updatePoolPairPrice(tokenAId, poolpair)
     }
   }, [JSON.stringify(tokens), poolpair])
 
