@@ -3,12 +3,12 @@ import { PlaygroundRpcClient } from '@defichain/playground-api-client'
 import React, { useEffect, useState } from 'react'
 import { View } from '../../../components'
 import { usePlaygroundContext } from '../../../contexts/PlaygroundContext'
-import { useWallet } from '../../../contexts/WalletContext'
+import { useWalletContext } from '../../../contexts/WalletContext'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundTitle } from '../components/PlaygroundTitle'
 
 export function PlaygroundToken (): JSX.Element | null {
-  const wallet = useWallet()
+  const { wallet } = useWalletContext()
   const { rpc, api } = usePlaygroundContext()
   const [status, setStatus] = useState<string>('loading')
   const [tokens, setTokens] = useState<PlaygroundTokenInfo[]>([])

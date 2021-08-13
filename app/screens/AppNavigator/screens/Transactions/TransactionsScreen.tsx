@@ -6,9 +6,8 @@ import { useEffect, useState } from 'react'
 import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
-
 import { Text } from '../../../../components'
-import { useWalletAddressContext } from '../../../../contexts/WalletAddressContext'
+import { useWalletContext } from '../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { RootState } from '../../../../store'
 import { tailwind } from '../../../../tailwind'
@@ -23,7 +22,7 @@ export function formatBlockTime (date: number): string {
 
 export function TransactionsScreen (): JSX.Element {
   const client = useWhaleApiClient()
-  const { address } = useWalletAddressContext()
+  const { address } = useWalletContext()
   const navigation = useNavigation<NavigationProp<TransactionsParamList>>()
   const blocks = useSelector((state: RootState) => state.block.count)
 
@@ -60,9 +59,24 @@ export function TransactionsScreen (): JSX.Element {
     loadData()
   }, [address, blocks])
 
-  return activities.length === 0
-    ? <EmptyTransaction navigation={navigation} handleRefresh={loadData} loadingStatus={loadingStatus} />
-    : <FlatList testID='transactions_screen_list' style={tailwind('w-full')} data={activities} renderItem={TransactionRow(navigation)} keyExtractor={(item) => item.id} ListFooterComponent={hasNext ? LoadMore(onLoadMore) : undefined} refreshControl={<RefreshControl refreshing={loadingStatus === 'loading'} onRefresh={loadData} />} />
+  if (activities.length === 0) {
+    return (
+      <EmptyTransaction
+        navigation={navigation}
+        handleRefresh={loadData}
+        loadingStatus={loadingStatus}
+      />
+    )
+  }
+
+  return (
+    <FlatList
+      testID='transactions_screen_list' style={tailwind('w-full')} data={activities}
+      renderItem={TransactionRow(navigation)} keyExtractor={(item) => item.id}
+      ListFooterComponent={hasNext ? LoadMore(onLoadMore) : undefined}
+      refreshControl={<RefreshControl refreshing={loadingStatus === 'loading'} onRefresh={loadData} />}
+    />
+  )
 }
 
 function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (row: { item: VMTransaction, index: number }) => JSX.Element {

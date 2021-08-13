@@ -1,8 +1,8 @@
 import { MnemonicProviderData } from "@defichain/jellyfish-wallet-mnemonic";
 import { WhaleApiClient } from "@defichain/whale-api-client";
 import { EnvironmentNetwork } from "../../environment";
+import { initJellyfishWallet } from "./index";
 import { WalletPersistenceData, WalletType } from "./persistence";
-import { initWhaleWallet } from "./index";
 import { MnemonicUnprotected } from "./provider/mnemonic_unprotected";
 
 beforeEach(async () => {
@@ -12,7 +12,7 @@ beforeEach(async () => {
 const network = EnvironmentNetwork.LocalPlayground
 const client = new WhaleApiClient({ url: 'http://localhost:19553', network: 'regtest' })
 
-it('should initWhaleWallet', async () => {
+it('should initJellyfishWallet', async () => {
   const data: WalletPersistenceData<MnemonicProviderData> = {
     version: "v1",
     type: WalletType.MNEMONIC_UNPROTECTED,
@@ -24,7 +24,7 @@ it('should initWhaleWallet', async () => {
   }
 
   const provider = MnemonicUnprotected.initProvider(data, network)
-  const wallet = initWhaleWallet(provider, network, client)
+  const wallet = initJellyfishWallet(provider, network, client)
 
   expect(wallet.get(0).withTransactionBuilder().utxo).toBeDefined()
   expect(wallet.get(0).withTransactionBuilder().dex).toBeDefined()

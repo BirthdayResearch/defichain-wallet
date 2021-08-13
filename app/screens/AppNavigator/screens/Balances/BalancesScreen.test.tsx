@@ -40,8 +40,8 @@ jest.mock("../../../../hooks/wallet/TokensAPI", () => ({
     }]
 }));
 
-jest.mock("../../../../contexts/WalletAddressContext", () => ({
-  useWalletAddressContext: () => {
+jest.mock("../../../../contexts/WalletContext", () => ({
+  useWalletContext: () => {
     return {
       address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d'
     }

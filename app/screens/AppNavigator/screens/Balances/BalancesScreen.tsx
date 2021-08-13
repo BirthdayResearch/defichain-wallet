@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux'
 import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { SectionTitle } from '../../../../components/SectionTitle'
-import { useWalletAddressContext } from '../../../../contexts/WalletAddressContext'
+import { useWalletContext } from '../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { fetchTokens, useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { ocean } from '../../../../store/ocean'
@@ -23,7 +23,7 @@ type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
-  const { address } = useWalletAddressContext()
+  const { address } = useWalletContext()
   const [refreshing, setRefreshing] = useState(false)
   const dispatch = useDispatch()
 

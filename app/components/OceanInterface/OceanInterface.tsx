@@ -8,8 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Text } from '..'
 import { Logging } from '../../api'
 import { useDeFiScanContext } from '../../contexts/DeFiScanContext'
-import { useWalletAddressContext } from '../../contexts/WalletAddressContext'
-import { useWallet } from '../../contexts/WalletContext'
+import { useWalletContext } from '../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
 import { getEnvironment } from '../../environment'
 import { fetchTokens } from '../../hooks/wallet/TokensAPI'
@@ -82,7 +81,7 @@ async function waitForTxConfirmation (id: string, client: WhaleApiClient): Promi
 export function OceanInterface (): JSX.Element | null {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
-  const walletContext = useWallet()
+  const { wallet, address } = useWalletContext()
   const { getTransactionUrl } = useDeFiScanContext()
 
   // store
@@ -93,7 +92,6 @@ export function OceanInterface (): JSX.Element | null {
   const [tx, setTx] = useState<OceanTransaction | undefined>(transaction)
   const [err, setError] = useState<string | undefined>(e?.message)
   const [txUrl, setTxUrl] = useState<string | undefined>()
-  const { address } = useWalletAddressContext()
 
   const dismissDrawer = useCallback(() => {
     setTx(undefined)
@@ -147,7 +145,7 @@ export function OceanInterface (): JSX.Element | null {
           fetchTokens(client, address, dispatch)
         }) // remove the job as soon as completion
     }
-  }, [transaction, walletContext, address])
+  }, [transaction, wallet, address])
 
   // If there are any explicit errors to be displayed
   useEffect(() => {

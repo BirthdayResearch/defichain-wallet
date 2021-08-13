@@ -5,7 +5,7 @@ import { Share, TouchableOpacity, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 import { Logging } from '../../../../../api'
 import { Text } from '../../../../../components'
-import { useWalletAddressContext } from '../../../../../contexts/WalletAddressContext'
+import { useWalletContext } from '../../../../../contexts/WalletContext'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 
@@ -20,7 +20,7 @@ export async function onShare (address: string): Promise<void> {
 }
 
 export function ReceiveScreen (): JSX.Element {
-  const { address } = useWalletAddressContext()
+  const { address } = useWalletContext()
   const [isCopied, setIsCopied] = useState<boolean>(false)
 
   const copyToClipboard = (text: string): void => {
