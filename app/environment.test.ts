@@ -36,7 +36,7 @@ it('should match Remote Playground on Production environment', () => {
   const env = getEnvironment()
   expect(env.name).toStrictEqual(EnvironmentName.Production)
   // To be changed to MainNet on launch
-  expect(env.networks[0]).toStrictEqual(EnvironmentNetwork.RemotePlayground)
+  expect(env.networks[0]).toStrictEqual(EnvironmentNetwork.MainNet)
 })
 
 it('should match Remote Playground on prerelease environment', () => {
