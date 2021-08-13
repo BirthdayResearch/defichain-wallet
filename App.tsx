@@ -14,14 +14,13 @@ import ErrorBoundary from './app/screens/ErrorBoundary/ErrorBoundary'
 import { Main } from './app/screens/Main'
 import { initI18n } from './app/translations'
 
-initI18n()
-
 /**
  * Loads
  * - CachedResources
  * - CachedPlaygroundClient
  */
 export default function App (): JSX.Element | null {
+  initI18n()
   const isLoaded = useCachedResources()
 
   if (!isLoaded) {
@@ -38,15 +37,15 @@ export default function App (): JSX.Element | null {
       <NetworkProvider>
         <PlaygroundProvider>
           <WhaleProvider>
-            <WalletPersistenceProvider>
-              <DeFiScanProvider>
+            <DeFiScanProvider>
+              <WalletPersistenceProvider>
                 <WalletStoreProvider>
                   <StatsProvider>
                     <Main />
                   </StatsProvider>
                 </WalletStoreProvider>
-              </DeFiScanProvider>
-            </WalletPersistenceProvider>
+              </WalletPersistenceProvider>
+            </DeFiScanProvider>
           </WhaleProvider>
         </PlaygroundProvider>
       </NetworkProvider>

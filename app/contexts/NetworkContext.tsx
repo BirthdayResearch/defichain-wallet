@@ -1,50 +1,42 @@
 import { NetworkName } from '@defichain/jellyfish-network'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Logging, StorageAPI } from '../api'
+import { getJellyfishNetwork } from '../api/wallet'
 import { EnvironmentNetwork } from '../environment'
 
-interface Network {
+interface NetworkContextI {
   network: EnvironmentNetwork
   networkName: NetworkName
   updateNetwork: (network: EnvironmentNetwork) => Promise<void>
 }
 
-const NetworkContext = createContext<Network>(undefined as any)
+const NetworkContext = createContext<NetworkContextI>(undefined as any)
 
-function networkMapper (network: EnvironmentNetwork): NetworkName {
-  switch (network) {
-    case EnvironmentNetwork.MainNet:
-      return 'mainnet'
-    case EnvironmentNetwork.TestNet:
-      return 'testnet'
-    case EnvironmentNetwork.LocalPlayground:
-    case EnvironmentNetwork.RemotePlayground:
-      return 'regtest'
-  }
-}
-
-export function useNetworkContext (): Network {
+export function useNetworkContext (): NetworkContextI {
   return useContext(NetworkContext)
 }
 
 export function NetworkProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
-  const [network, setNetwork] = useState<EnvironmentNetwork | undefined>(undefined)
+  const [network, setNetwork] = useState<EnvironmentNetwork>()
+  const [networkName, setNetworkName] = useState<NetworkName>()
 
   useEffect(() => {
     StorageAPI.getNetwork().then(async value => {
+      setNetworkName(getJellyfishNetwork(value).name)
       setNetwork(value)
     }).catch(Logging.error)
   }, [])
 
-  if (network === undefined) {
+  if (network === undefined || networkName === undefined) {
     return null
   }
 
-  const context: Network = {
+  const context: NetworkContextI = {
     network: network,
-    networkName: networkMapper(network),
+    networkName: networkName,
     async updateNetwork (value: EnvironmentNetwork): Promise<void> {
       await StorageAPI.setNetwork(value)
+      setNetworkName(getJellyfishNetwork(value).name)
       setNetwork(value)
     }
   }

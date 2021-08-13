@@ -26,23 +26,23 @@ export function useWalletPersistenceContext (): WalletPersistenceContextI {
 
 export function WalletPersistenceProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
-  const [list, setList] = useState<Array<WalletPersistenceData<any>>>([])
+  const [dataList, setDataList] = useState<Array<WalletPersistenceData<any>>>([])
 
   useEffect(() => {
     WalletPersistence.get().then(dataList => {
-      setList(dataList)
+      setDataList(dataList)
     }).catch(Logging.error)
-  }, [network])
+  }, [network]) // WalletPersistence is network dependent
 
   const management: WalletPersistenceContextI = {
-    wallets: list,
+    wallets: dataList,
     async setWallet (data: WalletPersistenceData<any>): Promise<void> {
       await WalletPersistence.set([data])
-      setList(await WalletPersistence.get())
+      setDataList(await WalletPersistence.get())
     },
     async clearWallets (): Promise<void> {
       await WalletPersistence.set([])
-      setList(await WalletPersistence.get())
+      setDataList(await WalletPersistence.get())
     }
   }
 

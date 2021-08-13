@@ -16,6 +16,9 @@ export function StatsProvider (props: React.PropsWithChildren<any>): JSX.Element
   const dispatch = useDispatch()
 
   useEffect(() => {
+    // TODO: https://reactnative.dev/docs/appstate refactor to support app app refreshing
+    //  isPolling is a good indicator of background polling
+    //  we can use AppState to suspend and activate polling based on user activity
     let intervalID: number
 
     function refresh (): void {
