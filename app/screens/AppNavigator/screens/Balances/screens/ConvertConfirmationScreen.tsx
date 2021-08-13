@@ -1,9 +1,9 @@
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { useNavigation } from '@react-navigation/native'
+import { StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
-import React, { Dispatch, useState } from 'react'
+import React, { Dispatch, useEffect, useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
@@ -27,13 +27,26 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation()
+  const [isOnPage, setIsOnPage] = useState<boolean>(true)
+  const postAction = (): void => {
+    if (isOnPage) {
+      navigation.dispatch(StackActions.popToTop())
+    }
+  }
+
+  useEffect(() => {
+    setIsOnPage(true)
+    return () => {
+      setIsOnPage(false)
+    }
+  }, [])
 
   async function onSubmit (): Promise<void> {
     if (hasPendingJob) {
       return
     }
     setIsSubmitting(true)
-    await constructSignedConversionAndSend({ mode, amount }, dispatch)
+    await constructSignedConversionAndSend({ mode, amount }, dispatch, postAction)
     setIsSubmitting(false)
   }
 
@@ -148,7 +161,7 @@ function DFIBalanceRow (props: { lhs: string, rhs: { value: string | number, tes
 async function constructSignedConversionAndSend ({
   mode,
   amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>): Promise<void> {
+}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, postAction: () => void): Promise<void> {
   try {
     const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
       const script = await account.getScript()
@@ -178,7 +191,8 @@ async function constructSignedConversionAndSend ({
     dispatch(transactionQueue.actions.push({
       sign: signer,
       title: `${translate('screens/ConvertScreen', 'Converting DFI')}`,
-      description: `${translate('screens/ConvertScreen', `Converting ${amount.toFixed(8)} ${mode === 'utxosToAccount' ? 'UTXO to Token' : 'Token to UTXO'}`)}`
+      description: `${translate('screens/ConvertScreen', `Converting ${amount.toFixed(8)} ${mode === 'utxosToAccount' ? 'UTXO to Token' : 'Token to UTXO'}`)}`,
+      postAction
     }))
   } catch (e) {
     Logging.error(e)

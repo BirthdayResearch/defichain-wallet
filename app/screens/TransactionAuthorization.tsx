@@ -137,7 +137,7 @@ export function TransactionAuthorization (): JSX.Element | null {
         .then(async signedTx => {
           // case 1: success
           await resetPasscodeCounter()
-          dispatch(ocean.actions.queueTransaction({ tx: signedTx })) // push signed result for broadcasting
+          dispatch(ocean.actions.queueTransaction({ tx: signedTx, postAction: transaction.postAction })) // push signed result for broadcasting
         })
         .catch(async e => {
           if (e.message === INVALID_HASH) {

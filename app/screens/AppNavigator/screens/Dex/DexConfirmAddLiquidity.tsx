@@ -1,10 +1,11 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
+import { StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
@@ -43,6 +44,20 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const aToBRate = new BigNumber(tokenB.reserve).div(tokenA.reserve)
   const bToARate = new BigNumber(tokenA.reserve).div(tokenB.reserve)
   const lmTokenAmount = percentage.times(totalLiquidity.token)
+  const [isOnPage, setIsOnPage] = useState<boolean>(true)
+  const navigation = useNavigation()
+  const postAction = (): void => {
+    if (isOnPage) {
+      navigation.dispatch(StackActions.popToTop())
+    }
+  }
+
+  useEffect(() => {
+    setIsOnPage(true)
+    return () => {
+      setIsOnPage(false)
+    }
+  }, [])
 
   const dispatch = useDispatch()
 
@@ -57,7 +72,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         tokenBId: Number(tokenB.id),
         tokenBAmount
       },
-      dispatch
+      dispatch,
+      postAction
     ).catch(e => {
       Logging.error(e)
     })
@@ -165,7 +181,8 @@ function ConfirmButton (props: { disabled?: boolean, onPress: () => void }): JSX
 
 async function constructSignedAddLiqAndSend (
   addLiqForm: { tokenASymbol: string, tokenAId: number, tokenAAmount: BigNumber, tokenBSymbol: string, tokenBId: number, tokenBAmount: BigNumber },
-  dispatch: Dispatch<any>
+  dispatch: Dispatch<any>,
+  postAction: () => void
 ): Promise<void> {
   const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
     const builder = account.withTransactionBuilder()
@@ -189,6 +206,7 @@ async function constructSignedAddLiqAndSend (
   dispatch(transactionQueue.actions.push({
     sign: signer,
     title: `${translate('screens/ConfirmLiquidity', 'Adding Liquidity')}`,
-    description: `${translate('screens/ConfirmLiquidity', message)}`
+    description: `${translate('screens/ConfirmLiquidity', message)}`,
+    postAction
   }))
 }
