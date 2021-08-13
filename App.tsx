@@ -4,10 +4,9 @@ import './_shim'
 import { Logging } from './app/api'
 import { DeFiScanProvider } from './app/contexts/DeFiScanContext'
 import { NetworkProvider } from './app/contexts/NetworkContext'
-import { PlaygroundProvider } from './app/contexts/PlaygroundContext'
 import { StatsProvider } from './app/contexts/StatsProvider'
+import { StoreProvider } from './app/contexts/StoreProvider'
 import { WalletPersistenceProvider } from './app/contexts/WalletPersistenceContext'
-import { WalletStoreProvider } from './app/contexts/WalletStoreProvider'
 import { WhaleProvider } from './app/contexts/WhaleContext'
 import { useCachedResources } from './app/hooks/useCachedResources'
 import ErrorBoundary from './app/screens/ErrorBoundary/ErrorBoundary'
@@ -35,19 +34,17 @@ export default function App (): JSX.Element | null {
   return (
     <ErrorBoundary>
       <NetworkProvider>
-        <PlaygroundProvider>
-          <WhaleProvider>
-            <DeFiScanProvider>
-              <WalletPersistenceProvider>
-                <WalletStoreProvider>
-                  <StatsProvider>
-                    <Main />
-                  </StatsProvider>
-                </WalletStoreProvider>
-              </WalletPersistenceProvider>
-            </DeFiScanProvider>
-          </WhaleProvider>
-        </PlaygroundProvider>
+        <WhaleProvider>
+          <DeFiScanProvider>
+            <WalletPersistenceProvider>
+              <StoreProvider>
+                <StatsProvider>
+                  <Main />
+                </StatsProvider>
+              </StoreProvider>
+            </WalletPersistenceProvider>
+          </DeFiScanProvider>
+        </WhaleProvider>
       </NetworkProvider>
     </ErrorBoundary>
   )
