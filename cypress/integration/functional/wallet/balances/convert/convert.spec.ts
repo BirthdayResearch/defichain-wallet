@@ -1,131 +1,85 @@
-context('Wallet - Convert DFI - bi-direction success case', () => {
+context('Wallet - Convert DFI', () => {
   before(function () {
     cy.createEmptyWallet(true)
 
     cy.getByTestID('bottom_tab_settings').click()
-    cy.sendDFItoWallet().wait(4000)
+    cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet().wait(4000)
 
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
-    cy.getByTestID('balances_row_0_utxo').should('exist')
-    cy.getByTestID('balances_row_0_utxo_amount').contains(10)
-  })
-
-  it('utxosToToken: default start with 0', function () {
+    cy.getByTestID('balances_row_0').should('exist')
+    cy.getByTestID('balances_row_0_amount').contains(10)
+    cy.getByTestID('balances_row_0_utxo_amount').contains(20)
     cy.getByTestID('balances_row_0_utxo').click()
     cy.getByTestID('convert_button').click()
+  })
 
-    cy.getByTestID('text_preview_input_desc').contains('DFI (UTXO)')
-    cy.getByTestID('text_preview_output_desc').contains('DFI (TOKEN)')
+  it('should have form validation', function () {
     cy.getByTestID('button_continue_convert').should('have.attr', 'disabled')
+    cy.getByTestID('source_balance').contains(20)
+    cy.getByTestID('target_balance').contains(10)
+    cy.getByTestID('text_input_convert_from_input_text').contains('CONVERT UTXO')
+    cy.getByTestID('text_input_convert_from_to_text').contains('TO TOKEN')
+    cy.getByTestID('text_input_convert_from_input').type('1')
+    cy.getByTestID('source_balance').contains(20)
+    cy.getByTestID('target_balance').contains(11)
   })
 
-  it('utxosToToken: should build summary correctly with max amount button', function () {
-    cy.getByTestID('MAX_amount_button').click()
-    cy.getByTestID('text_preview_input_value').contains('0 DFI')
-    cy.getByTestID('text_preview_output_value').contains('10 DFI')
+  it('should swap conversion', function () {
+    cy.getByTestID('button_convert_mode_toggle').click().wait(4000)
+    cy.getByTestID('source_balance').contains(10)
+    cy.getByTestID('target_balance').contains(21)
+    cy.getByTestID('text_input_convert_from_input_text').contains('CONVERT TOKEN')
+    cy.getByTestID('text_input_convert_from_to_text').contains('TO UTXO')
     cy.getByTestID('button_continue_convert').should('not.have.attr', 'disabled')
   })
 
-  it('utxosToToken: should build summary correctly with half amount button', function () {
+  it('should click tokens vs info screen', function () {
+    cy.getByTestID('token_vs_utxo_info').click()
+    cy.getByTestID('token_vs_utxo_screen').should('exist')
+    cy.go('back')
+  })
+
+  it('should test amount buttons', function () {
     cy.getByTestID('50%_amount_button').click()
-    cy.getByTestID('text_preview_input_value').contains('5 DFI')
-    cy.getByTestID('text_preview_output_value').contains('5 DFI')
-    cy.getByTestID('button_continue_convert').should('not.have.attr', 'disabled')
-  })
-
-  it('utxosToToken: should build summary correctly', function () {
-    // https://github.com/cypress-io/cypress/issues/1171#issuecomment-364059485
-    cy.getByTestID('text_input_convert_from_input')
-      .clear()
-      .invoke('attr', 'type', 'text') // cypress issue with numeric/decimal input, must cast
-      .type('1.23')
-
-    cy.getByTestID('text_preview_input_value').contains('8.77 DFI')
-    cy.getByTestID('text_preview_output_value').contains('1.23 DFI')
-    cy.getByTestID('button_continue_convert').should('not.have.attr', 'disabled')
-  })
-
-  it('utxosToToken: should be able to convert successfully', function () {
-    cy.intercept('/v0/playground/transactions/send').as('sendRaw')
-    cy.getByTestID('button_continue_convert').click()
-    cy.closeOceanInterface()
-
-    // check UI redirected (balances root)
-    // cy.getByTestID('balances_list').should('exist')
-
-    // // result check
-    // // wait for one block
-    cy.wait(4000)
-
-    // // refresh balance
-    cy.getByTestID('bottom_tab_settings').click()
-    cy.fetchWalletBalance()
-    cy.getByTestID('bottom_tab_balances').click()
-
-    cy.getByTestID('balances_list').should('exist')
-    cy.getByTestID('balances_row_0_utxo').should('exist')
-    cy.getByTestID('balances_row_0_utxo_amount').contains('8.769') // fee deducted, balance should be 8.77 - 0.0...1
-    cy.getByTestID('balances_row_0').should('exist')
-    cy.getByTestID('balances_row_0_amount').contains(1.23)
-  })
-
-  it('tokenToUtxos: default start with 0', function () {
-    cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('balances_row_0').click()
-    cy.getByTestID('convert_button').click()
-
-    cy.getByTestID('text_preview_input_desc').contains('DFI (TOKEN)')
-    cy.getByTestID('text_preview_output_desc').contains('DFI (UTXO)')
-    cy.getByTestID('button_continue_convert').should('have.attr', 'disabled')
-  })
-
-  it('tokenToUtxos: should build summary correctly with max amount button', function () {
+    cy.getByTestID('text_input_convert_from_input').should('have.value', '5.00000000')
+    cy.getByTestID('target_balance').contains(25)
     cy.getByTestID('MAX_amount_button').click()
-    cy.getByTestID('text_preview_input_value').should('contain', '0 DFI')
-    cy.getByTestID('text_preview_output_value').should('contain', '9.999').contains('DFI')
-    cy.getByTestID('button_continue_convert').should('not.have.attr', 'disabled')
+    cy.getByTestID('text_input_convert_from_input').should('have.value', '10.00000000')
+    cy.getByTestID('target_balance').contains(30)
   })
 
-  it('tokenToUtxos: should build summary correctly with half amount button', function () {
-    cy.getByTestID('50%_amount_button').click()
-    cy.getByTestID('text_preview_input_value').should('contain', '0.615 DFI')
-    cy.getByTestID('text_preview_output_value').should('contain', '9.384').contains('DFI')
-    cy.getByTestID('button_continue_convert').should('not.have.attr', 'disabled')
-  })
-
-  it('tokenToUtxos: should build summary correctly', function () {
-    cy.getByTestID('text_input_convert_from_input')
-      .clear()
-      .invoke('attr', 'type', 'text') // cypress issue with numeric/decimal input, must cast
-      .type('0.4')
-
-    cy.getByTestID('text_preview_input_value').should('contain', '0.83 DFI')
-    cy.getByTestID('text_preview_output_value').should('contain', '9.169').contains('DFI')
-    cy.getByTestID('button_continue_convert').should('not.have.attr', 'disabled')
-  })
-
-  it('tokenToUtxos: should be able to convert successfully', function () {
-    cy.intercept('/v0/playground/transactions/send').as('sendRaw')
+  it('should test account to UTXO conversion', function () {
+    cy.getByTestID('text_input_convert_from_input').clear().type('1')
     cy.getByTestID('button_continue_convert').click()
-    cy.closeOceanInterface()
+    cy.getByTestID('button_confirm_convert').should('not.have.attr', 'disabled')
+    cy.getByTestID('button_cancel_convert').click()
+    cy.getByTestID('text_input_convert_from_input').should('exist')
 
-    // check UI redirected (balances root)
-    cy.getByTestID('balances_list').should('exist')
+    cy.getByTestID('button_continue_convert').click()
+    cy.getByTestID('text_convert_amount').contains('1.00000000 DFI (Token)')
+    cy.getByTestID('source_amount').contains('9.00000000')
+    cy.getByTestID('source_amount_unit').contains('Token')
+    cy.getByTestID('target_amount').contains('21.00000000')
+    cy.getByTestID('target_amount_unit').contains('UTXO')
+    cy.getByTestID('text_fee').should('exist')
+    cy.go('back')
+  })
 
-    // // result check
-    // // wait for one block
-    cy.wait(3100)
+  it('should test UTXO to account conversion', function () {
+    cy.getByTestID('button_convert_mode_toggle').click().wait(4000)
+    cy.getByTestID('text_input_convert_from_input').clear().type('1')
+    cy.getByTestID('button_continue_convert').click()
+    cy.getByTestID('button_confirm_convert').should('not.have.attr', 'disabled')
+    cy.getByTestID('button_cancel_convert').click()
+    cy.getByTestID('text_input_convert_from_input').should('exist')
 
-    // // refresh balance
-    cy.getByTestID('bottom_tab_settings').click()
-    cy.fetchWalletBalance()
-    cy.getByTestID('bottom_tab_balances').click()
-
-    cy.getByTestID('balances_list').should('exist')
-    cy.getByTestID('balances_row_0_utxo').should('exist')
-    cy.getByTestID('balances_row_0_utxo_amount').contains('9.169') // fee deducted, balance should be 9.17 - 0.0...1
-    cy.getByTestID('balances_row_0').should('exist')
-    cy.getByTestID('balances_row_0_amount').contains('0.83')
+    cy.getByTestID('button_continue_convert').click()
+    cy.getByTestID('text_convert_amount').contains('1.00000000 DFI (UTXO)')
+    cy.getByTestID('source_amount').contains('19.00000000')
+    cy.getByTestID('source_amount_unit').contains('UTXO')
+    cy.getByTestID('target_amount').contains('11.00000000')
+    cy.getByTestID('target_amount_unit').contains('Token')
+    cy.getByTestID('text_fee').should('exist')
   })
 })

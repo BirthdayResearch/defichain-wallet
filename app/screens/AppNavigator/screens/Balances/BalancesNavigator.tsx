@@ -12,7 +12,8 @@ import { WalletToken } from '../../../../store/wallet'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { BalancesScreen } from './BalancesScreen'
-import { ConversionMode, ConvertScreen } from './ConvertScreen'
+import { ConvertConfirmationScreen } from './screens/ConvertConfirmationScreen'
+import { ConversionMode, ConvertScreen } from './screens/ConvertScreen'
 import { ReceiveScreen } from './screens/ReceiveScreen'
 import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
 import { SendScreen } from './screens/SendScreen'
@@ -31,6 +32,15 @@ export interface BalanceParamList {
   }
   TokenDetailScreen: { token: WalletToken }
   ConvertScreen: { mode: ConversionMode }
+  ConvertConfirmationScreen: {
+    amount: BigNumber
+    mode: ConversionMode
+    sourceUnit: string
+    sourceBalance: BigNumber
+    targetUnit: string
+    targetBalance: BigNumber
+    fee: BigNumber
+  }
   BarCodeScanner: { onQrScanned: (value: string) => void }
   TokenVsUtxoScreen: undefined
 
@@ -135,6 +145,14 @@ export function BalancesNavigator (): JSX.Element {
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/ConvertScreen', 'Convert DFI')} />,
           headerBackTitleVisible: false
+        }}
+      />
+      <BalanceStack.Screen
+        name='ConvertConfirmationScreen'
+        component={ConvertConfirmationScreen}
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => <HeaderTitle text={translate('screens/ConvertConfirmScreen', 'Confirm DFI Conversion')} />
         }}
       />
       <BalanceStack.Screen

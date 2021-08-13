@@ -55,7 +55,7 @@ context('Wallet - Send', () => {
 
     it('should be able to compute for max values', function () {
       cy.getByTestID('transaction_fee').then(($txt: any) => {
-        const transactionFee = $txt[0].textContent.replace(' DFI', '')
+        const transactionFee = $txt[0].textContent.replace(' DFI (UTXO)', '')
         cy.getByTestID('max_value').then(($txt: any) => {
           const maxValue = $txt[0].textContent.replace(' DFI', '')
           expect(new BigNumber(transactionFee).plus(maxValue).toFixed(0)).eq('10')
@@ -69,7 +69,7 @@ context('Wallet - Send', () => {
 
     it('should be able to compute half of max values', function () {
       cy.getByTestID('transaction_fee').then(($txt: any) => {
-        const transactionFee = $txt[0].textContent.replace(' DFI', '')
+        const transactionFee = $txt[0].textContent.replace(' DFI (UTXO)', '')
         cy.getByTestID('max_value').then(($txt: any) => {
           const maxValue = $txt[0].textContent.replace(' DFI', '')
           const halfValue = new BigNumber(maxValue).div(2)
@@ -87,6 +87,12 @@ context('Wallet - Send', () => {
         cy.getByTestID('address_input').clear().type(address)
         cy.getByTestID('amount_input').clear().type('1')
         cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
+        cy.getByTestID('send_submit_button').click()
+
+        // Cancel button
+        cy.getByTestID('button_cancel_send').click()
+        cy.getByTestID('address_input').should('exist')
+
         cy.getByTestID('send_submit_button').click()
         cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
