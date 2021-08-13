@@ -55,7 +55,7 @@ context('Wallet - Send', () => {
 
     it('should be able to compute for max values', function () {
       cy.getByTestID('transaction_fee').then(($txt: any) => {
-        const transactionFee = $txt[0].textContent.replace(' DFI', '')
+        const transactionFee = $txt[0].textContent.replace(' DFI (UTXO)', '')
         cy.getByTestID('max_value').then(($txt: any) => {
           const maxValue = $txt[0].textContent.replace(' DFI', '')
           expect(new BigNumber(transactionFee).plus(maxValue).toFixed(0)).eq('10')
@@ -69,7 +69,7 @@ context('Wallet - Send', () => {
 
     it('should be able to compute half of max values', function () {
       cy.getByTestID('transaction_fee').then(($txt: any) => {
-        const transactionFee = $txt[0].textContent.replace(' DFI', '')
+        const transactionFee = $txt[0].textContent.replace(' DFI (UTXO)', '')
         cy.getByTestID('max_value').then(($txt: any) => {
           const maxValue = $txt[0].textContent.replace(' DFI', '')
           const halfValue = new BigNumber(maxValue).div(2)

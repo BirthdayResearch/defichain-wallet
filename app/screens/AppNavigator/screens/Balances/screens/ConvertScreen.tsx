@@ -62,7 +62,7 @@ export function ConvertScreen (props: Props): JSX.Element {
     return <LoadingScreen />
   }
 
-  const convert = (): void => {
+  function convert (sourceToken: ConversionIO, targetToken: ConversionIO): void {
     if (hasPendingJob) {
       return
     }
@@ -96,7 +96,8 @@ export function ConvertScreen (props: Props): JSX.Element {
       <Button
         testID='button_continue_convert'
         disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob}
-        title='Convert' onPress={convert} label={translate('components/Button', 'CONTINUE')}
+        title='Convert' onPress={() => convert(sourceToken, targetToken)}
+        label={translate('components/Button', 'CONTINUE')}
       />
     </ScrollView>
   )
