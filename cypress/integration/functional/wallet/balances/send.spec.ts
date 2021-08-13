@@ -2,14 +2,19 @@ import { WhaleApiClient } from '@defichain/whale-api-client'
 import BigNumber from 'bignumber.js'
 
 context('Wallet - Send', () => {
+  beforeEach(() => {
+    cy.restoreLocalStorage()
+  })
+
+  afterEach(() => {
+    cy.saveLocalStorage()
+  })
   // bech32, p2sh, legacy
   const addresses = ['bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9', '2MxnNb1MYSZvS3c26d4gC7gXsNMkB83UoXB', 'n1xjm9oekw98Rfb3Mv4ApyhwxC5kMuHnCo']
-  let network: string
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().sendTokenToWallet(['BTC', 'DFI-BTC']).wait(10000)
     cy.getByTestID('bottom_tab_balances').click()
-    network = localStorage.getItem('Development.NETWORK')
   })
 
   describe('DFI UTXO', () => {
@@ -50,7 +55,7 @@ context('Wallet - Send', () => {
 
     it('should be able to compute for max values', function () {
       cy.getByTestID('transaction_fee').then(($txt: any) => {
-        const transactionFee = $txt[0].textContent.replace(' DFI', '')
+        const transactionFee = $txt[0].textContent.replace(' DFI (UTXO)', '')
         cy.getByTestID('max_value').then(($txt: any) => {
           const maxValue = $txt[0].textContent.replace(' DFI', '')
           expect(new BigNumber(transactionFee).plus(maxValue).toFixed(0)).eq('10')
@@ -64,7 +69,7 @@ context('Wallet - Send', () => {
 
     it('should be able to compute half of max values', function () {
       cy.getByTestID('transaction_fee').then(($txt: any) => {
-        const transactionFee = $txt[0].textContent.replace(' DFI', '')
+        const transactionFee = $txt[0].textContent.replace(' DFI (UTXO)', '')
         cy.getByTestID('max_value').then(($txt: any) => {
           const maxValue = $txt[0].textContent.replace(' DFI', '')
           const halfValue = new BigNumber(maxValue).div(2)
@@ -83,12 +88,19 @@ context('Wallet - Send', () => {
         cy.getByTestID('amount_input').clear().type('1')
         cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
         cy.getByTestID('send_submit_button').click()
+
+        // Cancel button
+        cy.getByTestID('button_cancel_send').click()
+        cy.getByTestID('address_input').should('exist')
+
+        cy.getByTestID('send_submit_button').click()
+        cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
-        cy.fetchWalletBalance()
-        cy.getByTestID('bottom_tab_balances').click()
+        cy.go('back')
       })
 
       it(`should check if exist on other side ${address}`, function () {
+        const network = localStorage.getItem('Development.NETWORK')
         const whale = new WhaleApiClient({
           url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
           network: 'regtest'
@@ -96,11 +108,6 @@ context('Wallet - Send', () => {
         cy.wrap(whale.address.getBalance(address)).then((response) => {
           expect(response).eq('1.00000000')
         })
-      })
-
-      it('should return to balances and resume send flow', function () {
-        cy.getByTestID('balances_row_0_utxo_amount').click()
-        cy.getByTestID('send_button').click()
       })
     })
   })
@@ -116,8 +123,8 @@ context('Wallet - Send', () => {
         cy.getByTestID('address_input').type(address)
         cy.getByTestID('MAX_amount_button').click()
         cy.getByTestID('send_submit_button').click()
+        cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
-        cy.fetchWalletBalance()
         cy.getByTestID('bottom_tab_balances').click()
         cy.getByTestID('balances_row_1_amount').should('not.exist')
 
@@ -137,8 +144,8 @@ context('Wallet - Send', () => {
         cy.getByTestID('address_input').type(address)
         cy.getByTestID('MAX_amount_button').click()
         cy.getByTestID('send_submit_button').click()
+        cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
-        cy.fetchWalletBalance()
         cy.getByTestID('bottom_tab_balances').click()
         cy.getByTestID('balances_row_6_amount').should('not.exist')
 

@@ -1,6 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { Text } from '../../../../components'
@@ -11,8 +12,10 @@ import { WalletToken } from '../../../../store/wallet'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { BalancesScreen } from './BalancesScreen'
-import { ConversionMode, ConvertScreen } from './ConvertScreen'
+import { ConvertConfirmationScreen } from './screens/ConvertConfirmationScreen'
+import { ConversionMode, ConvertScreen } from './screens/ConvertScreen'
 import { ReceiveScreen } from './screens/ReceiveScreen'
+import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
 import { SendScreen } from './screens/SendScreen'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
 import { TokensVsUtxoScreen } from './screens/TokensVsUtxoScreen'
@@ -21,8 +24,23 @@ export interface BalanceParamList {
   BalancesScreen: undefined
   ReceiveScreen: undefined
   SendScreen: { token: WalletToken }
+  SendConfirmationScreen: {
+    token: WalletToken
+    destination: string
+    amount: BigNumber
+    fee: BigNumber
+  }
   TokenDetailScreen: { token: WalletToken }
   ConvertScreen: { mode: ConversionMode }
+  ConvertConfirmationScreen: {
+    amount: BigNumber
+    mode: ConversionMode
+    sourceUnit: string
+    sourceBalance: BigNumber
+    targetUnit: string
+    targetBalance: BigNumber
+    fee: BigNumber
+  }
   BarCodeScanner: { onQrScanned: (value: string) => void }
   TokenVsUtxoScreen: undefined
 
@@ -94,6 +112,14 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
       <BalanceStack.Screen
+        name='SendConfirmationScreen'
+        component={SendConfirmationScreen}
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => <HeaderTitle text={translate('screens/SendConfirmationScreen', 'Confirm Send')} />
+        }}
+      />
+      <BalanceStack.Screen
         name='TokenDetail'
         component={TokenDetailScreen}
         options={({ route }: { route: any }) => ({
@@ -119,6 +145,14 @@ export function BalancesNavigator (): JSX.Element {
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/ConvertScreen', 'Convert DFI')} />,
           headerBackTitleVisible: false
+        }}
+      />
+      <BalanceStack.Screen
+        name='ConvertConfirmationScreen'
+        component={ConvertConfirmationScreen}
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => <HeaderTitle text={translate('screens/ConvertConfirmScreen', 'Confirm DFI Conversion')} />
         }}
       />
       <BalanceStack.Screen
