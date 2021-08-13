@@ -95,7 +95,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       PASSPHRASE_PROMISE_PROXY = {
         resolve, reject
       }
-      setPin('')
+      // setPin('') // do not reset, keep pin cached until onTaskCompletion
       emitEvent('PIN')
     })
   }, [])
@@ -201,21 +201,26 @@ export function TransactionAuthorization (): JSX.Element | null {
     BiometricProtectedPasscode.isEnrolled()
       .then(isEnrolled => setIsBiometric(isEnrolled))
       .catch(e => Logging.error(e))
-  }, [wallet])
+  }, [wallet]) */
 
   // prompt biometric auth in 'PIN' event
   useEffect(() => {
-    if (status === 'PIN' && isBiometric) {
-      LocalAuthentication.authenticateAsync()
-        .then(async () => await BiometricProtectedPasscode.get())
-        .then(pinFromSecureStore => {
-          if (pinFromSecureStore !== null) {
-            onPinInput(pinFromSecureStore)
-          }
-        })
-        .catch(e => Logging.error(e)) // auto fallback to manual pin input
+    if (status === 'PIN' && pin.length === PIN_LENGTH) {
+      onPinInput(pin)
     }
-  }, [status, isBiometric]) */
+
+    // biometric disabled
+    // if (status === 'PIN' && isBiometric) {
+    //   LocalAuthentication.authenticateAsync()
+    //     .then(async () => await BiometricProtectedPasscode.get())
+    //     .then(pinFromSecureStore => {
+    //       if (pinFromSecureStore !== null) {
+    //         onPinInput(pinFromSecureStore)
+    //       }
+    //     })
+    //     .catch(e => Logging.error(e)) // auto fallback to manual pin input
+    // }
+  }, [status, pin/*, isBiometric */])
 
   if (status === 'INIT' || status === 'IDLE') {
     return null
