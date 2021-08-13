@@ -89,10 +89,10 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
         fee !== undefined && (
           <View style={tailwind('flex-row w-full bg-white p-4 mt-6')}>
             <View style={tailwind('flex-grow')}>
-              <Text>{translate('screens/SendScreen', 'Transaction fee')}</Text>
+              <Text>{translate('screens/SendScreen', 'Estimated fee')}</Text>
             </View>
             <NumberFormat
-              value={fee.toString()} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
+              value={fee.toString()} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI (UTXO)'
               renderText={(value) => <Text testID='transaction_fee' style={tailwind('text-gray-500')}>{value}</Text>}
             />
           </View>
@@ -101,7 +101,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
       <Button
         testID='send_submit_button'
         disabled={!isValid || hasPendingJob}
-        label={translate('screens/SendScreen', 'SEND')}
+        label={translate('screens/SendScreen', 'CONTINUE')}
         title='Send' onPress={onSubmit}
       />
     </ScrollView>
