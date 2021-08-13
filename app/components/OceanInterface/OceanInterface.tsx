@@ -133,6 +133,9 @@ export function OceanInterface (): JSX.Element | null {
             broadcasted: true,
             title: translate('screens/OceanInterface', title)
           })
+          if (transaction.postAction !== undefined) {
+            transaction.postAction()
+          }
         })
         .catch((e: Error) => {
           const errMsg = `${e.message}. Txid: ${transaction.tx.txId}`

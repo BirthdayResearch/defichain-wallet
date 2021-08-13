@@ -2,6 +2,7 @@ import { CTransactionSegWit, PoolSwap } from '@defichain/jellyfish-transaction'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { MaterialIcons } from '@expo/vector-icons'
+import { StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -41,6 +42,20 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const [tokenAForm, tokenBForm] = ['tokenA', 'tokenB']
+  const [isOnPage, setIsOnPage] = useState<boolean>(true)
+  const navigation = useNavigation()
+  const postAction = (): void => {
+    if (isOnPage) {
+      navigation.dispatch(StackActions.popToTop())
+    }
+  }
+
+  useEffect(() => {
+    setIsOnPage(true)
+    return () => {
+      setIsOnPage(false)
+    }
+  }, [])
 
   // props derived state
   const [tokenA, setTokenA] = useState<DerivedTokenState>()
@@ -77,7 +92,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         fromAmount: new BigNumber((getValues()[tokenAForm])),
         toAmount: new BigNumber((getValues()[tokenBForm]))
       }
-      constructSignedSwapAndSend(account, swap, dispatch)
+      constructSignedSwapAndSend(account, swap, dispatch, postAction)
         .catch(e => {
           Logging.error(e)
         })
@@ -335,7 +350,8 @@ interface DexForm {
 async function constructSignedSwapAndSend (
   account: WhaleWalletAccount, // must be both owner and recipient for simplicity
   dexForm: DexForm,
-  dispatch: Dispatch<any>
+  dispatch: Dispatch<any>,
+  postAction: () => void
 ): Promise<void> {
   const maxPrice = dexForm.fromAmount.div(dexForm.toAmount).decimalPlaces(8)
   const signer = async (): Promise<CTransactionSegWit> => {
@@ -357,7 +373,8 @@ async function constructSignedSwapAndSend (
   dispatch(transactionQueue.actions.push({
     sign: signer,
     title: `${translate('screens/PoolSwapScreen', 'Swapping Token')}`,
-    description: `${translate('screens/PoolSwapScreen', `Swapping ${dexForm.fromAmount.toFixed(8)} ${dexForm.fromToken.symbol} to ${dexForm.toAmount.toFixed(8)} ${dexForm.toToken.symbol}`)}`
+    description: `${translate('screens/PoolSwapScreen', `Swapping ${dexForm.fromAmount.toFixed(8)} ${dexForm.fromToken.symbol} to ${dexForm.toAmount.toFixed(8)} ${dexForm.toToken.symbol}`)}`,
+    postAction
   }))
 }
 
