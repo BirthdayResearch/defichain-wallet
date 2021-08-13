@@ -2,10 +2,11 @@ import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import Slider from '@react-native-community/slider'
+import { StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import NumberFormat from 'react-number-format'
@@ -32,6 +33,20 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   // ratio, before times 100
   const [percentage, setPercentage] = useState<string>('0') // for display
   const [amount, setAmount] = useState<BigNumber>(new BigNumber(0)) // to construct tx
+  const [isOnPage, setIsOnPage] = useState<boolean>(true)
+  const navigation = useNavigation()
+  const postAction = (): void => {
+    if (isOnPage) {
+      navigation.dispatch(StackActions.popToTop())
+    }
+  }
+
+  useEffect(() => {
+    setIsOnPage(true)
+    return () => {
+      setIsOnPage(false)
+    }
+  }, [])
 
   // gather required data
   const tokens = useTokensAPI()
@@ -61,7 +76,8 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
     constructSignedRemoveLiqAndSend(
       Number(pair.id),
       amount,
-      dispatch
+      dispatch,
+      postAction
     ).catch(e => {
       Logging.error(e)
     })
@@ -187,7 +203,7 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
   )
 }
 
-async function constructSignedRemoveLiqAndSend (tokenId: number, amount: BigNumber, dispatch: Dispatch<any>): Promise<void> {
+async function constructSignedRemoveLiqAndSend (tokenId: number, amount: BigNumber, dispatch: Dispatch<any>, postAction: () => void): Promise<void> {
   const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
     const builder = account.withTransactionBuilder()
     const script = await account.getScript()
@@ -204,6 +220,7 @@ async function constructSignedRemoveLiqAndSend (tokenId: number, amount: BigNumb
   dispatch(transactionQueue.actions.push({
     sign: signer,
     title: `${translate('screens/RemoveLiquidity', 'Removing Liquidity')}`,
-    description: `${translate('screens/RemoveLiquidity', 'Removing Liquidity')}`
+    description: `${translate('screens/RemoveLiquidity', 'Removing Liquidity')}`,
+    postAction
   }))
 }

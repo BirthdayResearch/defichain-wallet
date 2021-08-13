@@ -3,7 +3,7 @@ import { NetworkName } from '@defichain/jellyfish-network'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { useNavigation } from '@react-navigation/native'
+import { StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
@@ -33,6 +33,19 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation()
+  const [isOnPage, setIsOnPage] = useState<boolean>(true)
+  const postAction = (): void => {
+    if (isOnPage) {
+      navigation.dispatch(StackActions.popToTop())
+    }
+  }
+
+  useEffect(() => {
+    setIsOnPage(true)
+    return () => {
+      setIsOnPage(false)
+    }
+  }, [])
 
   async function onSubmit (): Promise<void> {
     if (hasPendingJob) {
@@ -44,7 +57,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       token,
       amount,
       networkName: network.networkName
-    }, dispatch)
+    }, dispatch, postAction)
     setIsSubmitting(false)
   }
 
@@ -172,7 +185,7 @@ async function send ({
   token,
   amount,
   networkName
-}: SendForm, dispatch: Dispatch<any>): Promise<void> {
+}: SendForm, dispatch: Dispatch<any>, postAction: () => void): Promise<void> {
   try {
     const to = DeFiAddress.from(networkName, address).getScript()
 
@@ -195,7 +208,8 @@ async function send ({
     dispatch(transactionQueue.actions.push({
       sign: signer,
       title: `${translate('screens/SendScreen', 'Sending')} ${token.symbol}`,
-      description: `${translate('screens/SendScreen', `Sending ${amount.toFixed(8)} ${token.symbol}`)}`
+      description: `${translate('screens/SendScreen', `Sending ${amount.toFixed(8)} ${token.symbol}`)}`,
+      postAction
     }))
   } catch (e) {
     Logging.error(e)

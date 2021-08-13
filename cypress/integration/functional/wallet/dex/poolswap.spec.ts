@@ -84,10 +84,6 @@ context('Wallet - DEX - Pool Swap with balance', () => {
         const balanceAmount = $txt[0].textContent.replace(' LTC', '').replace(',', '')
         expect(new BigNumber(balanceAmount).toNumber()).be.gte(new BigNumber(tokenValue).toNumber())
       })
-
-      cy.getByTestID('bottom_tab_dex').click()
-      cy.getByTestID('swap_button').click().wait(4000)
-      cy.getByTestID('button_submit').click()
     })
   })
 })

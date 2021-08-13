@@ -1,12 +1,18 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import BigNumber from 'bignumber.js'
 
-context('Wallet - Send', () => {
-  beforeEach(() => {
+context('Wallet - Send', function () {
+  let whale: WhaleApiClient
+  beforeEach(function () {
     cy.restoreLocalStorage()
+    const network = localStorage.getItem('Development.NETWORK')
+    whale = new WhaleApiClient({
+      url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
+      network: 'regtest'
+    })
   })
 
-  afterEach(() => {
+  afterEach(function () {
     cy.saveLocalStorage()
   })
   // bech32, p2sh, legacy
@@ -17,7 +23,7 @@ context('Wallet - Send', () => {
     cy.getByTestID('bottom_tab_balances').click()
   })
 
-  describe('DFI UTXO', () => {
+  describe('DFI UTXO', function () {
     it('should be able redirect to QR screen page', function () {
       cy.getByTestID('balances_list').should('exist')
       cy.getByTestID('balances_row_0_utxo').should('exist')
@@ -82,8 +88,13 @@ context('Wallet - Send', () => {
       })
     })
 
-    addresses.forEach((address) => {
+    addresses.forEach(function (address) {
       it(`should be able to send to address ${address}`, function () {
+        cy.getByTestID('bottom_tab_balances').click()
+        cy.getByTestID('balances_list').should('exist')
+        cy.getByTestID('balances_row_0_utxo').should('exist')
+        cy.getByTestID('balances_row_0_utxo_amount').click()
+        cy.getByTestID('send_button').click()
         cy.getByTestID('address_input').clear().type(address)
         cy.getByTestID('amount_input').clear().type('1')
         cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
@@ -96,15 +107,9 @@ context('Wallet - Send', () => {
         cy.getByTestID('send_submit_button').click()
         cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
-        cy.go('back')
       })
 
       it(`should check if exist on other side ${address}`, function () {
-        const network = localStorage.getItem('Development.NETWORK')
-        const whale = new WhaleApiClient({
-          url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
-          network: 'regtest'
-        })
         cy.wrap(whale.address.getBalance(address)).then((response) => {
           expect(response).eq('1.00000000')
         })
@@ -112,8 +117,8 @@ context('Wallet - Send', () => {
     })
   })
 
-  describe('dBTC', () => {
-    addresses.forEach((address) => {
+  describe('dBTC', function () {
+    addresses.forEach(function (address) {
       it(`should be able to send to address ${address}`, function () {
         cy.getByTestID('bottom_tab_balances').click()
         cy.getByTestID('balances_list').should('exist')
@@ -125,7 +130,6 @@ context('Wallet - Send', () => {
         cy.getByTestID('send_submit_button').click()
         cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
-        cy.getByTestID('bottom_tab_balances').click()
         cy.getByTestID('balances_row_1_amount').should('not.exist')
 
         cy.sendTokenToWallet(['BTC']).wait(10000)
@@ -133,8 +137,8 @@ context('Wallet - Send', () => {
     })
   })
 
-  describe('DFI-BTC', () => {
-    addresses.forEach((address) => {
+  describe('DFI-BTC', function () {
+    addresses.forEach(function (address) {
       it(`should be able to send to address ${address}`, function () {
         cy.getByTestID('bottom_tab_balances').click()
         cy.getByTestID('balances_list').should('exist')
@@ -146,7 +150,6 @@ context('Wallet - Send', () => {
         cy.getByTestID('send_submit_button').click()
         cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
-        cy.getByTestID('bottom_tab_balances').click()
         cy.getByTestID('balances_row_6_amount').should('not.exist')
 
         cy.sendTokenToWallet(['DFI-BTC']).wait(10000)
