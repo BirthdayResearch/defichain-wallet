@@ -7,7 +7,7 @@ import { Logging } from '../api'
 import { PasscodeAttemptCounter } from '../api/wallet'
 import { Text, View } from '../components'
 import { PinTextInput } from '../components/PinTextInput'
-import { useEncryptedWalletUI, useWallet } from '../contexts/WalletContext'
+import { useEncryptedWalletUI, useWalletContext } from '../contexts/WalletContext'
 import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
 import { RootState } from '../store'
 import { Authentication, authentication as authenticationStore } from '../store/authentication'
@@ -39,7 +39,7 @@ type Status = 'INIT' | 'IDLE' | 'BLOCK' | 'PIN' | 'SIGNING'
 export function TransactionAuthorization (): JSX.Element | null {
   // context
   const { clearWallets } = useWalletPersistenceContext()
-  const wallet = useWallet()
+  const { wallet } = useWalletContext()
   const encryptionUI = useEncryptedWalletUI()
 
   // biometric related persistent storage API

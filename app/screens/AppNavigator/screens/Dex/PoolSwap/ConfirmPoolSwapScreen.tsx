@@ -12,7 +12,7 @@ import { Text } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { SectionTitle } from '../../../../../components/SectionTitle'
-import { useWallet } from '../../../../../contexts/WalletContext'
+import { useWalletContext } from '../../../../../contexts/WalletContext'
 import { RootState } from '../../../../../store'
 import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
 import { tailwind } from '../../../../../tailwind'
@@ -34,7 +34,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
-  const account = useWallet().get(0)
+  const { account } = useWalletContext()
   const postAction = (): void => {
     if (isOnPage) {
       navigation.dispatch(StackActions.popToTop())

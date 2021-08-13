@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Logging } from '../../api'
-import { useWalletAddressContext } from '../../contexts/WalletAddressContext'
+import { useWalletContext } from '../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../contexts/WhaleContext'
 import { RootState } from '../../store'
 import { tokensSelector, wallet, WalletToken } from '../../store/wallet'
@@ -28,7 +28,7 @@ export function useTokensAPI (): WalletToken[] {
   const client = useWhaleApiClient()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const blocks = useSelector((state: RootState) => state.block.count)
-  const { address } = useWalletAddressContext()
+  const { address } = useWalletContext()
   const dispatch = useDispatch()
 
   useEffect(() => {
