@@ -75,6 +75,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
     cy.getByTestID('text_price_row_estimated_0').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
       cy.getByTestID('button_submit').click()
+      cy.getByTestID('confirm_title').contains('YOU ARE SWAPPING')
       cy.getByTestID('button_confirm_swap').click().wait(3000)
       cy.closeOceanInterface()
       cy.fetchWalletBalance()

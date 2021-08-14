@@ -23,8 +23,8 @@ exports[`token detail screen should accept DST 1`] = `
           "justifyContent": "center",
           "marginBottom": 16,
           "paddingBottom": 32,
-          "paddingLeft": 8,
-          "paddingRight": 8,
+          "paddingLeft": 16,
+          "paddingRight": 16,
           "paddingTop": 32,
         }
       }
@@ -45,6 +45,7 @@ exports[`token detail screen should accept DST 1`] = `
             },
           ]
         }
+        testID="confirm_title"
       >
         AMOUNT BALANCE
       </Text>
@@ -58,6 +59,7 @@ exports[`token detail screen should accept DST 1`] = `
               "lineHeight": 24,
             },
             Object {
+              "flexWrap": "wrap",
               "fontFamily": "BoldFont",
               "fontSize": 24,
               "fontWeight": "700",
@@ -67,7 +69,7 @@ exports[`token detail screen should accept DST 1`] = `
         }
         testID="token_detail_amount"
       >
-        100,000 BTC
+        100,000.00000000 BTC
       </Text>
     </View>
     <Text
@@ -304,8 +306,8 @@ exports[`token detail screen should accept Token DFI 1`] = `
           "justifyContent": "center",
           "marginBottom": 16,
           "paddingBottom": 32,
-          "paddingLeft": 8,
-          "paddingRight": 8,
+          "paddingLeft": 16,
+          "paddingRight": 16,
           "paddingTop": 32,
         }
       }
@@ -326,6 +328,7 @@ exports[`token detail screen should accept Token DFI 1`] = `
             },
           ]
         }
+        testID="confirm_title"
       >
         AMOUNT BALANCE
       </Text>
@@ -339,6 +342,7 @@ exports[`token detail screen should accept Token DFI 1`] = `
               "lineHeight": 24,
             },
             Object {
+              "flexWrap": "wrap",
               "fontFamily": "BoldFont",
               "fontSize": 24,
               "fontWeight": "700",
@@ -348,7 +352,7 @@ exports[`token detail screen should accept Token DFI 1`] = `
         }
         testID="token_detail_amount"
       >
-        100,000 DFI
+        100,000.00000000 DFI
       </Text>
     </View>
     <Text
@@ -496,8 +500,8 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
           "justifyContent": "center",
           "marginBottom": 16,
           "paddingBottom": 32,
-          "paddingLeft": 8,
-          "paddingRight": 8,
+          "paddingLeft": 16,
+          "paddingRight": 16,
           "paddingTop": 32,
         }
       }
@@ -518,6 +522,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
             },
           ]
         }
+        testID="confirm_title"
       >
         AMOUNT BALANCE
       </Text>
@@ -531,6 +536,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
               "lineHeight": 24,
             },
             Object {
+              "flexWrap": "wrap",
               "fontFamily": "BoldFont",
               "fontSize": 24,
               "fontWeight": "700",
@@ -540,7 +546,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
         }
         testID="token_detail_amount"
       >
-        100,000 DFI
+        100,000.00000000 DFI
       </Text>
     </View>
     <Text

@@ -4,13 +4,15 @@ import { StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
-import { ScrollView, View } from 'react-native'
-import NumberFormat from 'react-number-format'
+import { ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
-import { Text } from '../../../../../components'
-import { Button } from '../../../../../components/Button'
-import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
+import {
+  ConfirmTitle,
+  NumberRow,
+  SubmitButtonGroup,
+  TokenBalanceRow
+} from '../../../../../components/ConfirmComponents'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { RootState } from '../../../../../store'
 import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
@@ -58,33 +60,22 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
 
   return (
     <ScrollView style={tailwind('bg-gray-100 pb-4')}>
-      <View style={tailwind('flex-col bg-white px-4 py-8 mb-4 justify-center items-center border-b border-gray-300')}>
-        <Text style={tailwind('text-xs text-gray-500')}>
-          {translate('screens/ConvertConfirmationScreen', 'YOU ARE CONVERTING')}
-        </Text>
-        <NumberFormat
-          value={amount.toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
-          suffix={` ${mode === 'utxosToAccount' ? 'DFI (UTXO)' : 'DFI (Token)'}`}
-          renderText={(value) => (
-            <Text
-              testID='text_convert_amount'
-              style={tailwind('text-2xl font-bold flex-wrap text-center')}
-            >{value}
-            </Text>
-          )}
-        />
-      </View>
+      <ConfirmTitle
+        title={translate('screens/ConvertConfirmationScreen', 'YOU ARE CONVERTING')}
+        testID='text_convert_amount' amount={amount}
+        suffix={` ${mode === 'utxosToAccount' ? 'DFI (UTXO)' : 'DFI (Token)'}`}
+      />
       <SectionTitle
         text={translate('screens/ConvertConfirmationScreen', 'AFTER CONVERSION, YOU WILL HAVE:')}
         testID='title_conversion_detail'
       />
-      <DFIBalanceRow
-        unit={sourceUnit}
+      <TokenBalanceRow
+        iconType={sourceUnit === 'UTXO' ? '_UTXO' : 'DFI'}
         lhs={translate('screens/ConvertConfirmationScreen', sourceUnit)}
         rhs={{ value: sourceBalance.toFixed(8), testID: 'source_amount' }}
       />
-      <DFIBalanceRow
-        unit={targetUnit}
+      <TokenBalanceRow
+        iconType={targetUnit === 'UTXO' ? '_UTXO' : 'DFI'}
         lhs={translate('screens/ConvertConfirmationScreen', targetUnit)}
         rhs={{ value: targetBalance.toFixed(8), testID: 'target_amount' }}
       />
@@ -92,69 +83,12 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
         lhs={translate('screens/ConvertConfirmationScreen', 'Estimated fee')}
         rhs={{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }}
       />
-      <Button
-        testID='button_confirm_convert'
-        disabled={isSubmitting || hasPendingJob}
+      <SubmitButtonGroup
+        onSubmit={onSubmit} onCancel={onCancel} title='convert'
         label={translate('screens/SendConfirmationScreen', 'CONVERT')}
-        title='CONVERT' onPress={onSubmit}
-      />
-      <Button
-        testID='button_cancel_convert'
-        disabled={isSubmitting || hasPendingJob}
-        label={translate('screens/SendConfirmationScreen', 'CANCEL')}
-        title='CANCEL' onPress={onCancel}
-        fill='flat'
-        margin='m-4 mt-0'
+        isDisabled={isSubmitting || hasPendingJob}
       />
     </ScrollView>
-  )
-}
-
-function NumberRow (props: { lhs: string, rhs: { value: string | number, suffix?: string, testID: string } }): JSX.Element {
-  return (
-    <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
-      <View style={tailwind('flex-1')}>
-        <Text style={tailwind('font-medium')}>{props.lhs}</Text>
-      </View>
-      <View style={tailwind('flex-1')}>
-        <NumberFormat
-          value={props.rhs.value} decimalScale={8} thousandSeparator displayType='text'
-          suffix={props.rhs.suffix}
-          renderText={(val: string) => (
-            <Text
-              testID={props.rhs.testID}
-              style={tailwind('flex-wrap font-medium text-right text-gray-500')}
-            >{val}
-            </Text>
-          )}
-        />
-      </View>
-    </View>
-  )
-}
-
-function DFIBalanceRow (props: { lhs: string, rhs: { value: string | number, testID: string }, unit: string }): JSX.Element {
-  const iconType = props.unit === 'UTXO' ? '_UTXO' : 'DFI'
-  const DFIIcon = getTokenIcon(iconType)
-  return (
-    <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
-      <View style={tailwind('flex-1 flex-row')}>
-        <DFIIcon width={24} height={24} style={tailwind('mr-2')} />
-        <Text style={tailwind('font-medium')} testID={`${props.rhs.testID}_unit`}>{props.lhs}</Text>
-      </View>
-      <View style={tailwind('flex-1')}>
-        <NumberFormat
-          value={props.rhs.value} decimalScale={8} thousandSeparator displayType='text'
-          renderText={(val: string) => (
-            <Text
-              testID={props.rhs.testID}
-              style={tailwind('flex-wrap font-medium text-right text-gray-500')}
-            >{val}
-            </Text>
-          )}
-        />
-      </View>
-    </View>
   )
 }
 

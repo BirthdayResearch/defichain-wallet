@@ -139,7 +139,7 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
 
         <View style={tailwind('flex-row -mr-2')}>
           <PoolPairLiqBtn name='add' onPress={onAdd} pair={data.symbol} />
-          <PoolPairLiqBtn name='swap-vert' onPress={onSwap} pair={data.symbol} />
+          <PoolPairLiqBtn name='swap-horiz' onPress={onSwap} pair={data.symbol} />
         </View>
       </View>
 
