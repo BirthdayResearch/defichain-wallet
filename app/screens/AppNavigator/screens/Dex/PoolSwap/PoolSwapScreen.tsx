@@ -182,8 +182,8 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       }
       <Button
         disabled={!isValid || hasPendingJob}
-        label={translate('screens/PoolSwapScreen', 'SWAP')}
-        title='Swap' onPress={onSubmit} testID='button_submit'
+        label={translate('screens/PoolSwapScreen', 'CONTINUE')}
+        title='CONTINUE' onPress={onSubmit} testID='button_submit'
       />
     </ScrollView>
   )

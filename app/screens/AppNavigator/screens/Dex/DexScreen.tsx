@@ -170,12 +170,12 @@ function PoolPairLiqBtn (props: { name: React.ComponentProps<typeof MaterialIcon
 function PoolPairInfoLine (props: { symbol: string, reserve: string, row: string }): JSX.Element {
   return (
     <View style={tailwind('flex-row justify-between')}>
-      <Text style={tailwind('text-sm font-semibold mb-1')}>Pooled {props.symbol}</Text>
+      <Text style={tailwind('text-sm font-medium mb-1')}>Pooled {props.symbol}</Text>
       <NumberFormat
         suffix={` ${props.symbol}`}
-        value={props.reserve} decimalScale={2} thousandSeparator displayType='text'
+        value={props.reserve} decimalScale={8} thousandSeparator displayType='text'
         renderText={value => {
-          return <Text testID={`${props.row}_${props.symbol}`} style={tailwind('text-sm font-semibold')}>{value}</Text>
+          return <Text testID={`${props.row}_${props.symbol}`} style={tailwind('text-sm')}>{value}</Text>
         }}
       />
     </View>
@@ -185,13 +185,13 @@ function PoolPairInfoLine (props: { symbol: string, reserve: string, row: string
 function PoolPairAPR (props: { symbol: string, apr: number, row: string }): JSX.Element {
   return (
     <View style={tailwind('flex-row justify-between items-end')}>
-      <Text style={tailwind('text-sm font-semibold mb-1')}>{translate('screens/DexScreen', 'APR')}</Text>
+      <Text style={tailwind('text-sm font-medium mb-1')}>{translate('screens/DexScreen', 'APR')}</Text>
       <NumberFormat
         suffix='%'
         value={new BigNumber(isNaN(props.apr) ? 0 : props.apr).times(100).toFixed(2)} decimalScale={2} thousandSeparator
         displayType='text'
         renderText={value => {
-          return <Text testID={`${props.row}_${props.symbol}`} style={tailwind('text-xl font-semibold')}>{value}</Text>
+          return <Text testID={`${props.row}_${props.symbol}`} style={tailwind('text-xl')}>{value}</Text>
         }}
       />
     </View>
