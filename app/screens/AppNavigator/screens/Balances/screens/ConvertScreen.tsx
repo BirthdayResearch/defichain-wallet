@@ -225,7 +225,7 @@ function TokenVsUtxosInfo (): JSX.Element {
       <MaterialIcons name='help' size={16} style={tailwind('text-primary')} />
       <Text
         style={tailwind('ml-1 text-primary text-sm font-medium')}
-      >{translate('screens/ConvertScreen', "Token vs UTXO, what's the difference?")}
+      >{translate('screens/ConvertScreen', 'Token vs UTXO, what is the difference?')}
       </Text>
     </TouchableOpacity>
   )
