@@ -3,7 +3,7 @@ import { NetworkName } from '@defichain/jellyfish-network'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { StackActions, useNavigation } from '@react-navigation/native'
+import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
@@ -32,7 +32,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const postAction = (): void => {
     if (isOnPage) {

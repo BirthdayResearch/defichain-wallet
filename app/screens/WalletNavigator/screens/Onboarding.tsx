@@ -1,14 +1,15 @@
-import { useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { ScrollView } from 'react-native'
 import { View } from '../../../components'
 import { Button } from '../../../components/Button'
 import { tailwind } from '../../../tailwind'
 import { translate } from '../../../translations'
+import { WalletParamList } from '../WalletNavigator'
 import { OnboardingCarousel } from './components/OnboardingCarousel'
 
 export function Onboarding (): JSX.Element {
-  const navigator = useNavigation()
+  const navigator = useNavigation<NavigationProp<WalletParamList>>()
 
   return (
     <ScrollView

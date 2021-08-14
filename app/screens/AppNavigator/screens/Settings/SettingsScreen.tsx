@@ -1,5 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { useCallback } from 'react'
@@ -82,7 +82,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
 }
 
 function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProp<SettingsParamList>>()
   const { network, updateNetwork } = useNetworkContext()
 
   const onPress = useCallback(async () => {
@@ -180,7 +180,7 @@ function SecurityRow ({ testID, label, onPress }: { testID: string, label: strin
 }
 
 function RowNavigateItem ({ pageName, title }: { pageName: string, title: string }): JSX.Element {
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProp<SettingsParamList>>()
   return (
     <TouchableOpacity
       testID={`setting_navigate_${title}`}
