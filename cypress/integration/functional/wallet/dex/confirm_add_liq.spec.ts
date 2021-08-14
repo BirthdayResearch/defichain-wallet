@@ -20,8 +20,8 @@ context('Wallet - Confirm Add Liquidity', () => {
 
   it('should be able to complete add liquidity', function () {
     cy.getByTestID('confirm-root').should('exist')
-    cy.getByTestID('text_adding_a').contains('7.8 DFI')
-    cy.getByTestID('text_adding_b').contains('7.8 BTC')
+    cy.getByTestID('text_adding_a').contains('7.80000000 DFI')
+    cy.getByTestID('text_adding_b').contains('7.80000000 BTC')
 
     cy.getByTestID('text_fee').contains('0.0001')
 
@@ -43,6 +43,6 @@ context('Wallet - Confirm Add Liquidity', () => {
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_dex').click()
 
-    cy.getByTestID('pool_pair_row_your').contains('7.80 DFI-BTC')
+    cy.getByTestID('pool_pair_row_your').contains('7.80000000 DFI-BTC')
   })
 })
