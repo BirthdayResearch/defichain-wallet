@@ -25,6 +25,7 @@ services:
       -rpcbind=0.0.0.0
       -rpcuser=playground
       -rpcpassword=playground
+      -rpcworkqueue=512
       -masternode_operator=mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy
       -regtest=1
       -jellyfish_regtest=1
