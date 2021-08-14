@@ -64,7 +64,7 @@ context('Wallet - Convert DFI', () => {
     cy.getByTestID('target_amount').contains('21.00000000')
     cy.getByTestID('target_amount_unit').contains('UTXO')
     cy.getByTestID('text_fee').should('exist')
-    cy.go('back')
+    cy.getByTestID('button_cancel_convert').click()
   })
 
   it('should test UTXO to account conversion', function () {
