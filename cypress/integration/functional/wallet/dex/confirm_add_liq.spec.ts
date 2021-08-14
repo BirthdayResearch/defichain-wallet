@@ -25,8 +25,8 @@ context('Wallet - Confirm Add Liquidity', () => {
 
     cy.getByTestID('text_fee').contains('0.0001')
 
-    cy.getByTestID('text_price_a').contains('1 BTC per DFI')
-    cy.getByTestID('text_price_b').contains('1 DFI per BTC')
+    cy.getByTestID('text_price_a').contains('1.00000000 BTC per DFI')
+    cy.getByTestID('text_price_b').contains('1.00000000 DFI per BTC')
 
     // lm token amount and % is calculated = percentage * total pool, may vary like 7.7999999 or 7.80000001
     cy.getByTestID('text_liquidity_tokens_received').contains('7.').contains('DFI-BTC')
