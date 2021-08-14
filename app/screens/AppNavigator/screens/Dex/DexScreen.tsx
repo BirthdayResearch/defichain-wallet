@@ -26,11 +26,11 @@ export function DexScreen (): JSX.Element {
   })))
 
   const onAdd = (data: PoolPairData): void => {
-    navigation.navigate('AddLiquidity', { pair: data })
+    navigation.navigate({ name: 'AddLiquidity', params: { pair: data }, merge: true })
   }
 
   const onRemove = (data: PoolPairData): void => {
-    navigation.navigate('RemoveLiquidity', { pair: data })
+    navigation.navigate({ name: 'RemoveLiquidity', params: { pair: data }, merge: true })
   }
 
   return (
@@ -59,7 +59,7 @@ export function DexScreen (): JSX.Element {
           case 'available':
             return PoolPairRowAvailable(item.data,
               () => onAdd(item.data),
-              () => navigation.navigate('PoolSwap', { poolpair: item.data })
+              () => navigation.navigate({ name: 'PoolSwap', params: { poolpair: item.data }, merge: true })
             )
         }
       }}

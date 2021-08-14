@@ -48,10 +48,14 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
   }, [JSON.stringify(recoveryWords)])
 
   function navigateToPinCreation (): void {
-    navigation.navigate('PinCreation', {
-      pinLength: HARDCODED_PIN_LENGTH,
-      words: recoveryWords,
-      type: 'create'
+    navigation.navigate({
+      name: 'PinCreation',
+      params: {
+        pinLength: HARDCODED_PIN_LENGTH,
+        words: recoveryWords,
+        type: 'create'
+      },
+      merge: true
     })
   }
 

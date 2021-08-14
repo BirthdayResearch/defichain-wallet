@@ -57,7 +57,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
             <TokenActionRow
               testID='send_button'
               title={translate('screens/TokenDetailScreen', 'Send to other wallet')} icon='arrow-upward'
-              onPress={() => navigation.navigate('Send', { token })}
+              onPress={() => navigation.navigate({ name: 'Send', params: { token }, merge: true })}
             />
             <TokenActionRow
               testID='receive_button'
@@ -75,7 +75,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
             title={`${translate('screens/TokenDetailScreen', `Convert to ${token.id === '0_utxo' ? 'Token' : 'UTXO'}`)}`}
             icon='swap-vert' onPress={() => {
               const mode: ConversionMode = token.id === '0_utxo' ? 'utxosToAccount' : 'accountToUtxos'
-              navigation.navigate('Convert', { mode })
+              navigation.navigate({ name: 'Convert', params: { mode }, merge: true })
             }}
           />
         )

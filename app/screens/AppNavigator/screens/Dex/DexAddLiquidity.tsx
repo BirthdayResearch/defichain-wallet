@@ -119,14 +119,18 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
       <ContinueButton
         enabled={canContinue}
         onPress={() => {
-          navigation.navigate('ConfirmAddLiquidity', {
-            summary: {
-              ...pair,
-              fee: new BigNumber(0.0001),
-              tokenAAmount: new BigNumber(tokenAAmount),
-              tokenBAmount: new BigNumber(tokenBAmount),
-              percentage: sharePercentage
-            }
+          navigation.navigate({
+            name: 'ConfirmAddLiquidity',
+            params: {
+              summary: {
+                ...pair,
+                fee: new BigNumber(0.0001),
+                tokenAAmount: new BigNumber(tokenAAmount),
+                tokenBAmount: new BigNumber(tokenBAmount),
+                percentage: sharePercentage
+              }
+            },
+            merge: true
           })
         }}
       />

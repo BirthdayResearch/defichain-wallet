@@ -55,11 +55,15 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
     }
     if (isValid) {
       const values = getValues()
-      navigation.navigate('SendConfirmationScreen', {
-        destination: values.address,
-        token,
-        amount: new BigNumber(values.amount),
-        fee
+      navigation.navigate({
+        name: 'SendConfirmationScreen',
+        params: {
+          destination: values.address,
+          token,
+          amount: new BigNumber(values.amount),
+          fee
+        },
+        merge: true
       })
     }
   }
@@ -69,11 +73,15 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
       <AddressRow
         control={control}
         networkName={networkName}
-        onQrButtonPress={() => navigation.navigate('BarCodeScanner', {
-          onQrScanned: async (value) => {
-            setValue('address', value)
-            await trigger('address')
-          }
+        onQrButtonPress={() => navigation.navigate({
+          name: 'BarCodeScanner',
+          params: {
+            onQrScanned: async (value) => {
+              setValue('address', value)
+              await trigger('address')
+            }
+          },
+          merge: true
         })}
       />
       <AmountRow

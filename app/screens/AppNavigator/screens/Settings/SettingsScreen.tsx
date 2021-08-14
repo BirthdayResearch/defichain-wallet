@@ -36,7 +36,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       message: translate('screens/Setting', 'To continue downloading your recovery words, we need you to enter your passcode.'),
       consume: async passphrase => await MnemonicWords.decrypt(passphrase),
       onAuthenticated: async (words) => {
-        navigation.navigate('RecoveryWordsScreen', { words })
+        navigation.navigate({ name: 'RecoveryWordsScreen', params: { words }, merge: true })
       },
       onError: e => Logging.error(e)
     }
@@ -52,7 +52,9 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       message: translate('screens/Setting', 'To update your passcode, we need you to enter your current passcode.'),
       consume: async passphrase => await MnemonicWords.decrypt(passphrase),
       onAuthenticated: async words => {
-        navigation.navigate('ChangePinScreen', { words, pinLength: 6 })
+        navigation.navigate({
+          name: 'ChangePinScreen', params: { words, pinLength: 6 }, merge: true
+        })
       },
       onError: (e) => {
         dispatch(ocean.actions.setError(e))
@@ -160,7 +162,7 @@ function RowExitWalletItem (): JSX.Element {
   )
 }
 
-function SecurityRow ({ testID, label, onPress }: { testID: string, label: string, onPress: () => void}): JSX.Element {
+function SecurityRow ({ testID, label, onPress }: { testID: string, label: string, onPress: () => void }): JSX.Element {
   return (
     <TouchableOpacity
       testID={testID}

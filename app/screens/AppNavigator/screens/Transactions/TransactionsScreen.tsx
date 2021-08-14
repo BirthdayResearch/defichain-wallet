@@ -97,7 +97,9 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
         key={row.item.id}
         style={tailwind('flex-row w-full h-16 bg-white p-2 border-b border-gray-200 items-center')}
         onPress={() => {
-          navigation.navigate('TransactionDetail', { tx: row.item })
+          navigation.navigate({
+            name: 'TransactionDetail', params: { tx: row.item }, merge: true
+          })
         }}
       >
         <View style={tailwind('w-8 justify-center items-center')}>

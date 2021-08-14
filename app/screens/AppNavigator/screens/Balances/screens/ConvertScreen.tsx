@@ -66,14 +66,18 @@ export function ConvertScreen (props: Props): JSX.Element {
     if (hasPendingJob) {
       return
     }
-    navigation.navigate('ConvertConfirmationScreen', {
-      sourceUnit: sourceToken.unit,
-      sourceBalance: BigNumber.maximum(new BigNumber(sourceToken.amount).minus(convAmount), 0),
-      targetUnit: targetToken.unit,
-      targetBalance: BigNumber.maximum(new BigNumber(targetToken.amount).plus(convAmount), 0),
-      mode,
-      amount: new BigNumber(amount),
-      fee
+    navigation.navigate({
+      name: 'ConvertConfirmationScreen',
+      params: {
+        sourceUnit: sourceToken.unit,
+        sourceBalance: BigNumber.maximum(new BigNumber(sourceToken.amount).minus(convAmount), 0),
+        targetUnit: targetToken.unit,
+        targetBalance: BigNumber.maximum(new BigNumber(targetToken.amount).plus(convAmount), 0),
+        mode,
+        amount: new BigNumber(amount),
+        fee
+      },
+      merge: true
     })
   }
 
