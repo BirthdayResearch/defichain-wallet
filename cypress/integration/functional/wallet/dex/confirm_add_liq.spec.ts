@@ -20,13 +20,13 @@ context('Wallet - Confirm Add Liquidity', () => {
 
   it('should be able to complete add liquidity', function () {
     cy.getByTestID('confirm-root').should('exist')
-    cy.getByTestID('text_adding_a').contains('7.8 DFI')
-    cy.getByTestID('text_adding_b').contains('7.8 BTC')
+    cy.getByTestID('text_adding_a').contains('7.80000000 DFI')
+    cy.getByTestID('text_adding_b').contains('7.80000000 BTC')
 
     cy.getByTestID('text_fee').contains('0.0001')
 
-    cy.getByTestID('text_price_a').contains('1 BTC per DFI')
-    cy.getByTestID('text_price_b').contains('1 DFI per BTC')
+    cy.getByTestID('text_price_a').contains('1.00000000 BTC per DFI')
+    cy.getByTestID('text_price_b').contains('1.00000000 DFI per BTC')
 
     // lm token amount and % is calculated = percentage * total pool, may vary like 7.7999999 or 7.80000001
     cy.getByTestID('text_liquidity_tokens_received').contains('7.').contains('DFI-BTC')
@@ -43,6 +43,6 @@ context('Wallet - Confirm Add Liquidity', () => {
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_dex').click()
 
-    cy.getByTestID('pool_pair_row_your').contains('7.80 DFI-BTC')
+    cy.getByTestID('pool_pair_row_your').contains('7.80000000 DFI-BTC')
   })
 })

@@ -199,7 +199,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
         <View style={tailwind('flex-1')}>
           <NumberFormat
             suffix={rowProps.isPercent === true ? '%' : ''}
-            value={rowProps.rhs} decimalScale={2} thousandSeparator displayType='text'
+            value={rowProps.rhs} decimalScale={8} thousandSeparator displayType='text'
             renderText={(value) => (
               <Text
                 testID={rowProps.testID}
@@ -223,7 +223,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
         <View style={tailwind('flex-col items-end')}>
           <View style={tailwind('flex-1 flex-row')}>
             <NumberFormat
-              value={pair.aToBRate.toNumber()} decimalScale={3} thousandSeparator displayType='text'
+              value={pair.aToBRate.toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
               renderText={(value) => (
                 <Text
                   testID='a_per_b_price'
@@ -241,7 +241,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
           </View>
           <View style={tailwind('flex-1 flex-row')}>
             <NumberFormat
-              value={pair.bToARate.toNumber()} decimalScale={3} thousandSeparator displayType='text'
+              value={pair.bToARate.toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
               renderText={(value) => (
                 <Text
                   testID='b_per_a_price'
@@ -261,7 +261,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
       </View>
       <RenderRow
         testID='share_of_pool' isPercent lhs={translate('screens/AddLiquidity', 'Share of pool')}
-        rhs={sharePercentage.times(100).toNumber()}
+        rhs={sharePercentage.times(100).toFixed(8)}
       />
       <RenderRow
         testID={`pooled_${pair.aSymbol}`}

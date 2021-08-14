@@ -83,33 +83,33 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     {
       lhs: translate('screens/ConfirmAddLiq', 'Adding'),
       rhs: [
-        { value: tokenAAmount.toNumber(), suffix: ` ${aSymbol}`, testID: 'adding_a' },
-        { value: tokenBAmount.toNumber(), suffix: ` ${bSymbol}`, testID: 'adding_b' }
+        { value: tokenAAmount.toFixed(8), suffix: ` ${aSymbol}`, testID: 'adding_a' },
+        { value: tokenBAmount.toFixed(8), suffix: ` ${bSymbol}`, testID: 'adding_b' }
       ]
     },
     {
-      lhs: translate('screens/ConfirmAddLiq', 'Fee'),
+      lhs: translate('screens/ConfirmAddLiq', 'Estimated Fee'),
       rhs: [
-        { value: fee.toNumber(), suffix: ' DFI', testID: 'fee' }
+        { value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'fee' }
       ]
     },
     {
       lhs: translate('screens/ConfirmAddLiq', 'Price'),
       rhs: [
-        { value: aToBRate.toNumber(), suffix: ` ${bSymbol} per ${aSymbol}`, testID: 'price_a' },
-        { value: bToARate.toNumber(), suffix: ` ${aSymbol} per ${bSymbol}`, testID: 'price_b' }
+        { value: aToBRate.toFixed(8), suffix: ` ${bSymbol} per ${aSymbol}`, testID: 'price_a' },
+        { value: bToARate.toFixed(8), suffix: ` ${aSymbol} per ${bSymbol}`, testID: 'price_b' }
       ]
     },
     {
       lhs: translate('screens/ConfirmAddLiq', 'Liquidity tokens received'),
       rhs: [
-        { value: lmTokenAmount.toNumber(), suffix: ` ${symbol}`, testID: 'liquidity_tokens_received' }
+        { value: lmTokenAmount.toFixed(8), suffix: ` ${symbol}`, testID: 'liquidity_tokens_received' }
       ]
     },
     {
       lhs: translate('screens/ConfirmAddLiq', 'Share of pool'),
       rhs: [
-        { value: percentage.toNumber(), suffix: ' %', testID: 'share_of_pool' }
+        { value: percentage.toFixed(8), suffix: ' %', testID: 'share_of_pool' }
       ]
     },
     {
