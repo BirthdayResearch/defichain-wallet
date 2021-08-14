@@ -40,6 +40,7 @@ jobs:
   e2e:
     name: End-to-end
     runs-on: ubuntu-latest
+    if: github.event.pull_request.head.repo.full_name == github.repository
     strategy:
       fail-fast: false # https://github.com/cypress-io/github-action/issues/48
       matrix:
