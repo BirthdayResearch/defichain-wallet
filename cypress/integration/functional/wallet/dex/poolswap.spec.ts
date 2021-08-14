@@ -8,7 +8,7 @@ context('Wallet - DEX - Pool Swap without balance', () => {
 
   it('should be able to validate empty form', function () {
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('pool_pair_swap-vert_DFI-LTC').click()
+    cy.getByTestID('pool_pair_swap-horiz_DFI-LTC').click()
     cy.getByTestID('button_submit').should('have.attr', 'disabled')
   })
 })
@@ -21,7 +21,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('pool_pair_swap-vert_DFI-LTC').click()
+    cy.getByTestID('pool_pair_swap-horiz_DFI-LTC').click()
   })
 
   it('should be able to click swap button', function () {
