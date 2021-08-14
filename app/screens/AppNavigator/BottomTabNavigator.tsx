@@ -28,7 +28,7 @@ export function BottomTabNavigator (): JSX.Element {
       <OceanInterface />
       <BottomTab.Navigator
         initialRouteName='Balances'
-        tabBarOptions={{ adaptive: false, labelStyle: tailwind('font-medium text-xs') }}
+        screenOptions={{ tabBarLabelPosition: 'below-icon', tabBarLabelStyle: tailwind('font-medium text-xs') }}
       >
         <BottomTab.Screen
           name={translate('BottomTabNavigator', 'Balances')}
@@ -67,7 +67,7 @@ export function BottomTabNavigator (): JSX.Element {
   )
 }
 
-export const AppLinking: PathConfigMap = {
+export const AppLinking: PathConfigMap<any> = {
   Balances: {
     screens: {
       BalancesScreen: 'balances'
