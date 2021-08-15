@@ -117,7 +117,7 @@ function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () =>
       </View>
 
       <View style={tailwind('mt-4')}>
-        <PoolPairInfoLine symbol={data.symbol} reserve={data.amount} row='your' />
+        <PoolPairInfoLine symbol={data.symbol} reserve={data.amount} row='your' decimalScale={8} />
       </View>
     </View>
   )
@@ -148,8 +148,8 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
           data.apr?.total !== undefined &&
             <PoolPairAPR symbol={`${symbolA}_${symbolB}`} apr={data.apr.total} row='apr' />
         }
-        <PoolPairInfoLine symbol={symbolA} reserve={data.tokenA.reserve} row='available' />
-        <PoolPairInfoLine symbol={symbolB} reserve={data.tokenB.reserve} row='available' />
+        <PoolPairInfoLine symbol={symbolA} reserve={data.tokenA.reserve} row='available' decimalScale={2} />
+        <PoolPairInfoLine symbol={symbolB} reserve={data.tokenB.reserve} row='available' decimalScale={2} />
       </View>
     </View>
   )
@@ -167,13 +167,13 @@ function PoolPairLiqBtn (props: { name: React.ComponentProps<typeof MaterialIcon
   )
 }
 
-function PoolPairInfoLine (props: { symbol: string, reserve: string, row: string }): JSX.Element {
+function PoolPairInfoLine (props: { symbol: string, reserve: string, row: string, decimalScale: number }): JSX.Element {
   return (
     <View style={tailwind('flex-row justify-between')}>
       <Text style={tailwind('text-sm font-medium mb-1')}>Pooled {props.symbol}</Text>
       <NumberFormat
         suffix={` ${props.symbol}`}
-        value={props.reserve} decimalScale={8} thousandSeparator displayType='text'
+        value={props.reserve} decimalScale={props.decimalScale} thousandSeparator displayType='text'
         renderText={value => {
           return <Text testID={`${props.row}_${props.symbol}`} style={tailwind('text-sm')}>{value}</Text>
         }}
