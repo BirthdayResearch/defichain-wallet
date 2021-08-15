@@ -58,6 +58,8 @@ context('Wallet - Convert DFI', () => {
     cy.getByTestID('text_input_convert_from_input').should('exist')
 
     cy.getByTestID('button_continue_convert').click()
+
+    cy.getByTestID('confirm_title').contains('YOU ARE CONVERTING')
     cy.getByTestID('text_convert_amount').contains('1.00000000 DFI (Token)')
     cy.getByTestID('source_amount').contains('9.00000000')
     cy.getByTestID('source_amount_unit').contains('Token')

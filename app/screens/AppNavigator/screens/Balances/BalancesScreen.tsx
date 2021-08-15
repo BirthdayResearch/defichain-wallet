@@ -70,7 +70,7 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
       onPress={onPress} testID={`balances_row_${token.id}`}
       style={tailwind('bg-white py-4 pl-4 pr-2 flex-row justify-between items-center')}
     >
-      <View style={tailwind('flex-row items-center flex-auto')}>
+      <View style={tailwind('flex-row items-center flex-grow')}>
         <Icon />
         <View style={tailwind('mx-3 flex-auto')}>
           <Text style={tailwind('font-medium')}>{token.displaySymbol}</Text>
@@ -81,16 +81,18 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
           >{token.name}
           </Text>
         </View>
-        <NumberFormat
-          value={token.amount} decimalScale={4} thousandSeparator displayType='text'
-          renderText={(value) =>
-            <View style={tailwind('flex-row items-center')}>
-              <Text style={tailwind('mr-2')} testID={`balances_row_${token.id}_amount`}>
-                {value}
-              </Text>
-              <MaterialIcons name='chevron-right' size={24} />
-            </View>}
-        />
+        <View style={tailwind('flex-row items-center')}>
+          <NumberFormat
+            value={token.amount} decimalScale={8} thousandSeparator displayType='text'
+            renderText={(value) =>
+              <>
+                <Text style={tailwind('mr-2 flex-wrap')} testID={`balances_row_${token.id}_amount`}>
+                  {value}
+                </Text>
+                <MaterialIcons name='chevron-right' size={24} />
+              </>}
+          />
+        </View>
       </View>
     </TouchableOpacity>
   )

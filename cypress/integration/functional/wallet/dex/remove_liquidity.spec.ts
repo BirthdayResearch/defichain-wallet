@@ -11,7 +11,7 @@ context('Wallet - DEX - Remove Liquidity', () => {
     list.getByTestID('pool_pair_row_your').should('have.length', 1)
 
     const row = list.getByTestID('pool_pair_row_your').first()
-    row.invoke('text').should(text => expect(text).to.contains('10.00 DFI-ETH'))
+    row.invoke('text').should(text => expect(text).to.contains('10.00000000 DFI-ETH'))
 
     cy.getByTestID('pool_pair_remove_DFI-ETH').click().wait(1000)
 
