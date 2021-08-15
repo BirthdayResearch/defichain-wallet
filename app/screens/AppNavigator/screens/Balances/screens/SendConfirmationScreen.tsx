@@ -61,7 +61,13 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
 
   function onCancel (): void {
     if (!isSubmitting) {
-      navigation.navigate('Send')
+      navigation.navigate({
+        name: 'Send',
+        params: {
+          token
+        },
+        merge: true
+      })
     }
   }
 
