@@ -9,11 +9,12 @@ import { ScrollView, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
-import { Text, TextInput } from '../../../../../components'
+import { Text } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
 import LoadingScreen from '../../../../../components/LoadingScreen'
+import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
@@ -220,8 +221,7 @@ function TokenRow (form: TokenForm): JSX.Element {
         rules={rules}
         render={({ field: { onBlur, onChange, value } }) => (
           <View style={tailwind('flex-row w-full border-b border-gray-100')}>
-            <TextInput
-              placeholderTextColor='rgba(0, 0, 0, 0.4)'
+            <NumberTextInput
               style={tailwind('flex-grow p-4 bg-white')}
               autoCapitalize='none'
               onBlur={onBlur}
@@ -231,7 +231,6 @@ function TokenRow (form: TokenForm): JSX.Element {
                 } else onChange(e)
               }}
               value={value}
-              keyboardType='numeric'
               placeholder={translate('screens/PoolSwapScreen', 'Enter an amount')}
               testID={`text_input_${controlName}`}
             />

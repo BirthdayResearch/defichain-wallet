@@ -9,10 +9,11 @@ import { ScrollView, StyleProp, TouchableOpacity, ViewStyle } from 'react-native
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
-import { Text, TextInput, View } from '../../../../../components'
+import { Text, View } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import LoadingScreen from '../../../../../components/LoadingScreen'
+import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
@@ -130,13 +131,11 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
     <View style={[tailwind('flex-col w-full'), props.style]}>
       <SectionTitle text={title.toUpperCase()} testID={`text_input_convert_from_${props.mode}_text`} />
       <View style={tailwind('flex-row w-full bg-white items-center pl-4 pr-4')}>
-        <TextInput
-          placeholderTextColor='rgba(0, 0, 0, 0.4)'
+        <NumberTextInput
           placeholder={translate('screens/Convert', 'Enter an amount')}
           testID={`text_input_convert_from_${props.mode}`}
           value={props.current}
           style={tailwind('flex-1 mr-4 text-gray-500 px-1 py-4')}
-          keyboardType='numeric'
           editable={props.mode === 'input'}
           onChange={event => {
             if (props.onChange !== undefined) {
