@@ -3,14 +3,14 @@ import React, { createContext, useContext, useMemo } from 'react'
 import { EnvironmentNetwork, isPlayground } from '../environment'
 import { useNetworkContext } from './NetworkContext'
 
-interface Playground {
+interface PlaygroundContextI {
   rpc: PlaygroundRpcClient
   api: PlaygroundApiClient
 }
 
-const PlaygroundContext = createContext<Playground | undefined>(undefined)
+const PlaygroundContext = createContext<PlaygroundContextI | undefined>(undefined)
 
-export function usePlaygroundContext (): Playground {
+export function usePlaygroundContext (): PlaygroundContextI {
   const context = useContext(PlaygroundContext)
   if (context !== undefined) {
     return context

@@ -6,11 +6,12 @@ import * as React from 'react'
 import { useCallback, useEffect, useState } from 'react'
 import { ScrollView } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { Text, TextInput, View } from '../../../../components'
+import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { IconLabelScreenType, InputIconLabel } from '../../../../components/InputIconLabel'
 import LoadingScreen from '../../../../components/LoadingScreen'
+import { NumberTextInput } from '../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
 import { usePoolPairsAPI } from '../../../../hooks/wallet/PoolPairsAPI'
@@ -119,14 +120,18 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
       <ContinueButton
         enabled={canContinue}
         onPress={() => {
-          navigation.navigate('ConfirmAddLiquidity', {
-            summary: {
-              ...pair,
-              fee: new BigNumber(0.0001),
-              tokenAAmount: new BigNumber(tokenAAmount),
-              tokenBAmount: new BigNumber(tokenBAmount),
-              percentage: sharePercentage
-            }
+          navigation.navigate({
+            name: 'ConfirmAddLiquidity',
+            params: {
+              summary: {
+                ...pair,
+                fee: new BigNumber(0.0001),
+                tokenAAmount: new BigNumber(tokenAAmount),
+                tokenBAmount: new BigNumber(tokenBAmount),
+                percentage: sharePercentage
+              }
+            },
+            merge: true
           })
         }}
       />
@@ -145,12 +150,10 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
       />
       <View style={tailwind('flex-col w-full bg-white items-center')}>
         <View style={tailwind('w-full flex-row items-center')}>
-          <TextInput
-            placeholderTextColor='rgba(0, 0, 0, 0.4)'
+          <NumberTextInput
             testID={`token_input_${props.type}`}
             style={tailwind('flex-1 mr-4 text-gray-500 bg-white p-4')}
             value={props.current}
-            keyboardType='numeric'
             onChangeText={txt => props.onChange(txt)}
             placeholder={translate('screens/AddLiquidity', 'Enter an amount')}
           />
@@ -199,7 +202,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
         <View style={tailwind('flex-1')}>
           <NumberFormat
             suffix={rowProps.isPercent === true ? '%' : ''}
-            value={rowProps.rhs} decimalScale={2} thousandSeparator displayType='text'
+            value={rowProps.rhs} decimalScale={8} thousandSeparator displayType='text'
             renderText={(value) => (
               <Text
                 testID={rowProps.testID}
@@ -223,7 +226,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
         <View style={tailwind('flex-col items-end')}>
           <View style={tailwind('flex-1 flex-row')}>
             <NumberFormat
-              value={pair.aToBRate.toNumber()} decimalScale={3} thousandSeparator displayType='text'
+              value={pair.aToBRate.toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
               renderText={(value) => (
                 <Text
                   testID='a_per_b_price'
@@ -236,12 +239,12 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
             <Text
               testID='a_per_b_unit'
               style={tailwind('font-medium text-gray-500')}
-            > {pair.aSymbol} {translate('screens/AddLiquidity', 'per')} {pair.bSymbol}
+            > {pair.bSymbol} {translate('screens/AddLiquidity', 'per')} {pair.aSymbol}
             </Text>
           </View>
           <View style={tailwind('flex-1 flex-row')}>
             <NumberFormat
-              value={pair.bToARate.toNumber()} decimalScale={3} thousandSeparator displayType='text'
+              value={pair.bToARate.toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
               renderText={(value) => (
                 <Text
                   testID='b_per_a_price'
@@ -254,14 +257,14 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
             <Text
               testID='b_per_a_unit'
               style={tailwind('font-medium text-gray-500')}
-            > {pair.bSymbol} {translate('screens/AddLiquidity', 'per')} {pair.aSymbol}
+            > {pair.aSymbol} {translate('screens/AddLiquidity', 'per')} {pair.bSymbol}
             </Text>
           </View>
         </View>
       </View>
       <RenderRow
         testID='share_of_pool' isPercent lhs={translate('screens/AddLiquidity', 'Share of pool')}
-        rhs={sharePercentage.times(100).toNumber()}
+        rhs={sharePercentage.times(100).toFixed(8)}
       />
       <RenderRow
         testID={`pooled_${pair.aSymbol}`}

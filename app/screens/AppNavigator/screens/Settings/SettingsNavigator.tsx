@@ -1,5 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { TouchableOpacity } from 'react-native'
@@ -27,7 +27,7 @@ export interface SettingsParamList {
 const SettingsStack = createStackNavigator<SettingsParamList>()
 
 export function SettingsNavigator (): JSX.Element {
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProp<SettingsParamList>>()
 
   return (
     <SettingsStack.Navigator screenOptions={{ headerTitleStyle: HeaderFont }}>

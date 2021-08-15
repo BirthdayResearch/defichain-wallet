@@ -7,8 +7,8 @@ import { RootState } from "../../../../../store";
 import { wallet } from "../../../../../store/wallet";
 import { ReceiveScreen } from "./ReceiveScreen";
 
-jest.mock("../../../../../contexts/WalletAddressContext", () => ({
-  useWalletAddressContext: () => {
+jest.mock("../../../../../contexts/WalletContext", () => ({
+  useWalletContext: () => {
     return {
       address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d'
     }

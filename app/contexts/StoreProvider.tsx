@@ -1,21 +1,21 @@
 import React, { PropsWithChildren, useMemo } from 'react'
-import { Provider as StoreProvider } from 'react-redux'
-import { createStore } from '../store'
+import { Provider } from 'react-redux'
+import { initializeStore } from '../store'
 import { useWalletPersistenceContext } from './WalletPersistenceContext'
 
 /**
  * Store that is memoized to network & wallets setting.
  */
-export function WalletStoreProvider (props: PropsWithChildren<any>): JSX.Element {
+export function StoreProvider (props: PropsWithChildren<any>): JSX.Element {
   const { wallets } = useWalletPersistenceContext()
 
   const store = useMemo(() => {
-    return createStore()
+    return initializeStore()
   }, [wallets])
 
   return (
-    <StoreProvider store={store}>
+    <Provider store={store}>
       {props.children}
-    </StoreProvider>
+    </Provider>
   )
 }

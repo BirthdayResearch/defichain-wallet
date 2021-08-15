@@ -19,8 +19,12 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
   })
 
   function onContinue (): void {
-    navigation.navigate('VerifyMnemonicWallet', {
-      words
+    navigation.navigate({
+      name: 'VerifyMnemonicWallet',
+      params: {
+        words
+      },
+      merge: true
     })
   }
 

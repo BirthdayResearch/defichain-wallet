@@ -1,4 +1,4 @@
-name: Drift Detection
+name: CI Drift
 
 on:
   pull_request:

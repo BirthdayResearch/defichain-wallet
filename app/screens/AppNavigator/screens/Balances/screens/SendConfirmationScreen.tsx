@@ -3,16 +3,14 @@ import { NetworkName } from '@defichain/jellyfish-network'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { StackActions, useNavigation } from '@react-navigation/native'
+import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
-import { ScrollView, View } from 'react-native'
-import NumberFormat from 'react-number-format'
+import { ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
-import { Text } from '../../../../../components'
-import { Button } from '../../../../../components/Button'
+import { ConfirmTitle, NumberRow, SubmitButtonGroup, TextRow } from '../../../../../components/ConfirmComponents'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
@@ -32,7 +30,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const postAction = (): void => {
     if (isOnPage) {
@@ -63,7 +61,13 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
 
   function onCancel (): void {
     if (!isSubmitting) {
-      navigation.navigate('Send')
+      navigation.navigate({
+        name: 'Send',
+        params: {
+          token
+        },
+        merge: true
+      })
     }
   }
 
@@ -76,21 +80,10 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
 
   return (
     <ScrollView style={tailwind('bg-gray-100 pb-4')}>
-      <View style={tailwind('flex-col bg-white px-4 py-8 mb-4 justify-center items-center border-b border-gray-300')}>
-        <Text style={tailwind('text-xs text-gray-500')}>
-          {translate('screens/SendConfirmationScreen', 'YOU ARE SENDING')}
-        </Text>
-        <NumberFormat
-          value={amount.toFixed(8)} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
-          renderText={(value) => (
-            <Text
-              testID='text_send_amount'
-              style={tailwind('text-2xl font-bold flex-wrap')}
-            >{value}
-            </Text>
-          )}
-        />
-      </View>
+      <ConfirmTitle
+        title={translate('screens/SendConfirmationScreen', 'YOU ARE SENDING')} testID='text_send_amount'
+        amount={amount} suffix={` ${token.symbol}`}
+      />
       <SectionTitle
         text={translate('screens/SendConfirmationScreen', 'TRANSACTION DETAILS')}
         testID='title_transaction_detail'
@@ -119,57 +112,12 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
           testID: 'text_balance'
         }}
       />
-      <Button
-        testID='button_confirm_send'
-        disabled={isSubmitting || hasPendingJob}
+      <SubmitButtonGroup
+        onSubmit={onSubmit} onCancel={onCancel} title='send'
         label={translate('screens/SendConfirmationScreen', 'SEND')}
-        title='Send' onPress={onSubmit}
-      />
-      <Button
-        testID='button_cancel_send'
-        disabled={isSubmitting || hasPendingJob}
-        label={translate('screens/SendConfirmationScreen', 'CANCEL')}
-        title='CANCEL' onPress={onCancel}
-        fill='flat'
-        margin='m-4 mt-0'
+        isDisabled={isSubmitting || hasPendingJob}
       />
     </ScrollView>
-  )
-}
-
-function TextRow (props: { lhs: string, rhs: { value: string, testID: string } }): JSX.Element {
-  return (
-    <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
-      <View style={tailwind('flex-1')}>
-        <Text style={tailwind('font-medium')}>{props.lhs}</Text>
-      </View>
-      <View style={tailwind('flex-1')}>
-        <Text testID={props.rhs.testID} style={tailwind('font-medium text-right text-gray-500')}>{props.rhs.value}</Text>
-      </View>
-    </View>
-  )
-}
-
-function NumberRow (props: { lhs: string, rhs: { value: string | number, suffix?: string, testID: string } }): JSX.Element {
-  return (
-    <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
-      <View style={tailwind('flex-1')}>
-        <Text style={tailwind('font-medium')}>{props.lhs}</Text>
-      </View>
-      <View style={tailwind('flex-1')}>
-        <NumberFormat
-          value={props.rhs.value} decimalScale={8} thousandSeparator displayType='text'
-          suffix={props.rhs.suffix}
-          renderText={(val: string) => (
-            <Text
-              testID={props.rhs.testID}
-              style={tailwind('flex-wrap font-medium text-right text-gray-500')}
-            >{val}
-            </Text>
-          )}
-        />
-      </View>
-    </View>
   )
 }
 

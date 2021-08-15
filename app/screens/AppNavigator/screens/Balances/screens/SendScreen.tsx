@@ -13,6 +13,7 @@ import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
+import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
@@ -55,11 +56,15 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
     }
     if (isValid) {
       const values = getValues()
-      navigation.navigate('SendConfirmationScreen', {
-        destination: values.address,
-        token,
-        amount: new BigNumber(values.amount),
-        fee
+      navigation.navigate({
+        name: 'SendConfirmationScreen',
+        params: {
+          destination: values.address,
+          token,
+          amount: new BigNumber(values.amount),
+          fee
+        },
+        merge: true
       })
     }
   }
@@ -69,11 +74,15 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
       <AddressRow
         control={control}
         networkName={networkName}
-        onQrButtonPress={() => navigation.navigate('BarCodeScanner', {
-          onQrScanned: async (value) => {
-            setValue('address', value)
-            await trigger('address')
-          }
+        onQrButtonPress={() => navigation.navigate({
+          name: 'BarCodeScanner',
+          params: {
+            onQrScanned: async (value) => {
+              setValue('address', value)
+              await trigger('address')
+            }
+          },
+          merge: true
         })}
       />
       <AmountRow
@@ -185,15 +194,13 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
         }}
         render={({ field: { onBlur, onChange, value } }) => (
           <View style={tailwind('flex-row w-full border-b border-gray-100')}>
-            <TextInput
-              placeholderTextColor='rgba(0, 0, 0, 0.4)'
+            <NumberTextInput
               testID='amount_input'
               style={tailwind('flex-grow p-4 bg-white')}
               autoCapitalize='none'
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              keyboardType='numeric'
               placeholder={translate('screens/SendScreen', 'Enter an amount')}
             />
             <View style={tailwind('flex-row bg-white pr-4 items-center')}>

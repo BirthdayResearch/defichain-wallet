@@ -1,6 +1,6 @@
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { MaterialIcons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
@@ -9,10 +9,11 @@ import { ScrollView, StyleProp, TouchableOpacity, ViewStyle } from 'react-native
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
-import { Text, TextInput, View } from '../../../../../components'
+import { Text, View } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import LoadingScreen from '../../../../../components/LoadingScreen'
+import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
@@ -35,7 +36,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   // global state
   const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const [mode, setMode] = useState(props.route.params.mode)
   const [sourceToken, setSourceToken] = useState<ConversionIO>()
   const [targetToken, setTargetToken] = useState<ConversionIO>()
@@ -66,14 +67,18 @@ export function ConvertScreen (props: Props): JSX.Element {
     if (hasPendingJob) {
       return
     }
-    navigation.navigate('ConvertConfirmationScreen', {
-      sourceUnit: sourceToken.unit,
-      sourceBalance: BigNumber.maximum(new BigNumber(sourceToken.amount).minus(convAmount), 0),
-      targetUnit: targetToken.unit,
-      targetBalance: BigNumber.maximum(new BigNumber(targetToken.amount).plus(convAmount), 0),
-      mode,
-      amount: new BigNumber(amount),
-      fee
+    navigation.navigate({
+      name: 'ConvertConfirmationScreen',
+      params: {
+        sourceUnit: sourceToken.unit,
+        sourceBalance: BigNumber.maximum(new BigNumber(sourceToken.amount).minus(convAmount), 0),
+        targetUnit: targetToken.unit,
+        targetBalance: BigNumber.maximum(new BigNumber(targetToken.amount).plus(convAmount), 0),
+        mode,
+        amount: new BigNumber(amount),
+        fee
+      },
+      merge: true
     })
   }
 
@@ -130,13 +135,11 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
     <View style={[tailwind('flex-col w-full'), props.style]}>
       <SectionTitle text={title.toUpperCase()} testID={`text_input_convert_from_${props.mode}_text`} />
       <View style={tailwind('flex-row w-full bg-white items-center pl-4 pr-4')}>
-        <TextInput
-          placeholderTextColor='rgba(0, 0, 0, 0.4)'
+        <NumberTextInput
           placeholder={translate('screens/Convert', 'Enter an amount')}
           testID={`text_input_convert_from_${props.mode}`}
           value={props.current}
           style={tailwind('flex-1 mr-4 text-gray-500 px-1 py-4')}
-          keyboardType='numeric'
           editable={props.mode === 'input'}
           onChange={event => {
             if (props.onChange !== undefined) {
@@ -213,7 +216,7 @@ function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
 }
 
 function TokenVsUtxosInfo (): JSX.Element {
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   return (
     <TouchableOpacity
       style={tailwind('flex-row px-4 py-2 my-2 items-center justify-start')}
@@ -225,7 +228,7 @@ function TokenVsUtxosInfo (): JSX.Element {
       <MaterialIcons name='help' size={16} style={tailwind('text-primary')} />
       <Text
         style={tailwind('ml-1 text-primary text-sm font-medium')}
-      >{translate('screens/ConvertScreen', "Token vs UTXO, what's the difference?")}
+      >{translate('screens/ConvertScreen', 'Token vs UTXO, what is the difference?')}
       </Text>
     </TouchableOpacity>
   )

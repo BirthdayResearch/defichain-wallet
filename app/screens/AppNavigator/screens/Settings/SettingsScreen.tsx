@@ -1,5 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { useCallback } from 'react'
@@ -36,7 +36,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       message: translate('screens/Setting', 'To continue downloading your recovery words, we need you to enter your passcode.'),
       consume: async passphrase => await MnemonicWords.decrypt(passphrase),
       onAuthenticated: async (words) => {
-        navigation.navigate('RecoveryWordsScreen', { words })
+        navigation.navigate({ name: 'RecoveryWordsScreen', params: { words }, merge: true })
       },
       onError: e => Logging.error(e)
     }
@@ -52,7 +52,9 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       message: translate('screens/Setting', 'To update your passcode, we need you to enter your current passcode.'),
       consume: async passphrase => await MnemonicWords.decrypt(passphrase),
       onAuthenticated: async words => {
-        navigation.navigate('ChangePinScreen', { words, pinLength: 6 })
+        navigation.navigate({
+          name: 'ChangePinScreen', params: { words, pinLength: 6 }, merge: true
+        })
       },
       onError: (e) => {
         dispatch(ocean.actions.setError(e))
@@ -82,7 +84,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
 }
 
 function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProp<SettingsParamList>>()
   const { network, updateNetwork } = useNetworkContext()
 
   const onPress = useCallback(async () => {
@@ -160,7 +162,7 @@ function RowExitWalletItem (): JSX.Element {
   )
 }
 
-function SecurityRow ({ testID, label, onPress }: { testID: string, label: string, onPress: () => void}): JSX.Element {
+function SecurityRow ({ testID, label, onPress }: { testID: string, label: string, onPress: () => void }): JSX.Element {
   return (
     <TouchableOpacity
       testID={testID}
@@ -180,7 +182,7 @@ function SecurityRow ({ testID, label, onPress }: { testID: string, label: strin
 }
 
 function RowNavigateItem ({ pageName, title }: { pageName: string, title: string }): JSX.Element {
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProp<SettingsParamList>>()
   return (
     <TouchableOpacity
       testID={`setting_navigate_${title}`}
