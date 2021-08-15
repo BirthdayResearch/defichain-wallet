@@ -239,7 +239,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
             <Text
               testID='a_per_b_unit'
               style={tailwind('font-medium text-gray-500')}
-            > {pair.aSymbol} {translate('screens/AddLiquidity', 'per')} {pair.bSymbol}
+            > {pair.bSymbol} {translate('screens/AddLiquidity', 'per')} {pair.aSymbol}
             </Text>
           </View>
           <View style={tailwind('flex-1 flex-row')}>
@@ -257,7 +257,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
             <Text
               testID='b_per_a_unit'
               style={tailwind('font-medium text-gray-500')}
-            > {pair.bSymbol} {translate('screens/AddLiquidity', 'per')} {pair.aSymbol}
+            > {pair.aSymbol} {translate('screens/AddLiquidity', 'per')} {pair.bSymbol}
             </Text>
           </View>
         </View>

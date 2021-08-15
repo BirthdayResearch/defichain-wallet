@@ -18,9 +18,9 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('token_input_primary').should('have.value', '10.00000000')
     cy.getByTestID('token_input_secondary').should('have.value', '10.00000000')
     cy.getByTestID('a_per_b_price').contains('1')
-    cy.getByTestID('a_per_b_unit').contains('DFI per BTC')
+    cy.getByTestID('a_per_b_unit').contains('BTC per DFI')
     cy.getByTestID('b_per_a_price').contains('1')
-    cy.getByTestID('b_per_a_unit').contains('BTC per DFI')
+    cy.getByTestID('b_per_a_unit').contains('DFI per BTC')
     cy.getByTestID('share_of_pool').contains('1')
   })
 
@@ -30,9 +30,9 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('token_input_primary').should('have.value', '5.00000000')
     cy.getByTestID('token_input_secondary').should('have.value', '5.00000000')
     cy.getByTestID('a_per_b_price').contains('1')
-    cy.getByTestID('a_per_b_unit').contains('DFI per BTC')
+    cy.getByTestID('a_per_b_unit').contains('BTC per DFI')
     cy.getByTestID('b_per_a_price').contains('1')
-    cy.getByTestID('b_per_a_unit').contains('BTC per DFI')
+    cy.getByTestID('b_per_a_unit').contains('DFI per BTC')
     cy.getByTestID('share_of_pool').contains('0.5')
   })
 
@@ -46,9 +46,9 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('token_input_secondary').invoke('val').should(text => expect(text).to.contain('1.23'))
 
     cy.getByTestID('a_per_b_price').contains('1')
-    cy.getByTestID('a_per_b_unit').contains('DFI per BTC')
+    cy.getByTestID('a_per_b_unit').contains('BTC per DFI')
     cy.getByTestID('b_per_a_price').contains('1')
-    cy.getByTestID('b_per_a_unit').contains('BTC per DFI')
+    cy.getByTestID('b_per_a_unit').contains('DFI per BTC')
     cy.getByTestID('share_of_pool').contains('0.12') // 0.12xxx depend on total pool and precision
   })
 
@@ -59,9 +59,9 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('token_input_secondary').invoke('val').should(text => expect(text).to.contain('7.8'))
 
     cy.getByTestID('a_per_b_price').contains('1')
-    cy.getByTestID('a_per_b_unit').contains('DFI per BTC')
+    cy.getByTestID('a_per_b_unit').contains('BTC per DFI')
     cy.getByTestID('b_per_a_price').contains('1')
-    cy.getByTestID('b_per_a_unit').contains('BTC per DFI')
+    cy.getByTestID('b_per_a_unit').contains('DFI per BTC')
     cy.getByTestID('share_of_pool').contains('0.7') // 0.7xxxx depend on total pool and precision
   })
 })
