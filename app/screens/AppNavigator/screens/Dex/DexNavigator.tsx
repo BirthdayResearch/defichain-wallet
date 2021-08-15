@@ -31,7 +31,10 @@ const DexStack = createStackNavigator<DexParamList>()
 
 export function DexNavigator (): JSX.Element {
   return (
-    <DexStack.Navigator screenOptions={{ headerTitleStyle: HeaderFont, headerBackTitleVisible: false }}>
+    <DexStack.Navigator
+      initialRouteName='DexScreen'
+      screenOptions={{ headerTitleStyle: HeaderFont, headerBackTitleVisible: false }}
+    >
       <DexStack.Screen
         name='DexScreen'
         component={DexScreen}

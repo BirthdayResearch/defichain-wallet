@@ -8,7 +8,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { CreateWalletStepIndicator, RESTORE_STEPS } from '../../../../components/CreateWalletStepIndicator'
-import LoadingScreen from '../../../../components/LoadingScreen'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -29,7 +28,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
   }, [])
 
   if (inputRefMap.length < 24) {
-    return <LoadingScreen />
+    return <></>
   }
 
   async function onRestore (): Promise<void> {

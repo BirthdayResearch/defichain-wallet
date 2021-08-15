@@ -10,7 +10,6 @@ import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { IconLabelScreenType, InputIconLabel } from '../../../../components/InputIconLabel'
-import LoadingScreen from '../../../../components/LoadingScreen'
 import { NumberTextInput } from '../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
@@ -93,7 +92,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   }, [props.route.params.pair, JSON.stringify(tokens), pairs])
 
   if (pair === undefined) {
-    return <LoadingScreen />
+    return <></>
   }
 
   return (
