@@ -49,7 +49,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       renderItem={({ item }) =>
         <BalanceItemRow
           token={item} key={item.symbol}
-          onPress={() => navigation.navigate('TokenDetail', { token: item })}
+          onPress={() => navigation.navigate({ name: 'TokenDetail', params: { token: item }, merge: true })}
         />}
       ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
       ListHeaderComponent={(

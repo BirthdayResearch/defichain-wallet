@@ -1,5 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
@@ -78,7 +78,7 @@ function BalanceActionButton (props: {
 const BalanceStack = createStackNavigator<BalanceParamList>()
 
 export function BalancesNavigator (): JSX.Element {
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   return (
     <BalanceStack.Navigator>
       <BalanceStack.Screen

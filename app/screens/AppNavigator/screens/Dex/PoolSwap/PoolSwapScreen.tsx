@@ -1,6 +1,6 @@
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { MaterialIcons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -42,7 +42,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const [tokenAForm, tokenBForm] = ['tokenA', 'tokenB']
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProp<DexParamList>>()
 
   useEffect(() => {
     client.fee.estimate()

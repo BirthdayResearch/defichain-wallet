@@ -1,6 +1,6 @@
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { MaterialIcons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
@@ -36,7 +36,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   // global state
   const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const [mode, setMode] = useState(props.route.params.mode)
   const [sourceToken, setSourceToken] = useState<ConversionIO>()
   const [targetToken, setTargetToken] = useState<ConversionIO>()
@@ -67,14 +67,18 @@ export function ConvertScreen (props: Props): JSX.Element {
     if (hasPendingJob) {
       return
     }
-    navigation.navigate('ConvertConfirmationScreen', {
-      sourceUnit: sourceToken.unit,
-      sourceBalance: BigNumber.maximum(new BigNumber(sourceToken.amount).minus(convAmount), 0),
-      targetUnit: targetToken.unit,
-      targetBalance: BigNumber.maximum(new BigNumber(targetToken.amount).plus(convAmount), 0),
-      mode,
-      amount: new BigNumber(amount),
-      fee
+    navigation.navigate({
+      name: 'ConvertConfirmationScreen',
+      params: {
+        sourceUnit: sourceToken.unit,
+        sourceBalance: BigNumber.maximum(new BigNumber(sourceToken.amount).minus(convAmount), 0),
+        targetUnit: targetToken.unit,
+        targetBalance: BigNumber.maximum(new BigNumber(targetToken.amount).plus(convAmount), 0),
+        mode,
+        amount: new BigNumber(amount),
+        fee
+      },
+      merge: true
     })
   }
 
@@ -212,7 +216,7 @@ function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
 }
 
 function TokenVsUtxosInfo (): JSX.Element {
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   return (
     <TouchableOpacity
       style={tailwind('flex-row px-4 py-2 my-2 items-center justify-start')}

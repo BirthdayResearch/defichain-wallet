@@ -53,7 +53,9 @@ export function PinCreation ({ route }: Props): JSX.Element {
         disabled={newPin.length !== pinLength}
         onPress={() => {
           setNewPin('')
-          navigation.navigate('PinConfirmation', { words, pin: newPin, type })
+          navigation.navigate({
+            name: 'PinConfirmation', params: { words, pin: newPin, type }, merge: true
+          })
         }}
       />
     </ScrollView>

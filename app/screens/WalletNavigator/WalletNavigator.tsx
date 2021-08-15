@@ -48,7 +48,7 @@ export interface WalletParamList {
 
 const WalletStack = createStackNavigator<WalletParamList>()
 
-const LinkingConfiguration: LinkingOptions = {
+const LinkingConfiguration: LinkingOptions<ReactNavigation.RootParamList> = {
   prefixes: [Linking.makeUrl('/')],
   config: {
     screens: {
@@ -65,7 +65,7 @@ const LinkingConfiguration: LinkingOptions = {
 }
 
 export function WalletNavigator (): JSX.Element {
-  const navigationRef = React.useRef<NavigationContainerRef>(null)
+  const navigationRef = React.useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null)
 
   return (
     <NavigationContainer linking={LinkingConfiguration} ref={navigationRef} theme={DeFiChainTheme}>

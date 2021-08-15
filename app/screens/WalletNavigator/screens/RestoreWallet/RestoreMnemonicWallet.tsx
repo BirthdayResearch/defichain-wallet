@@ -37,10 +37,14 @@ export function RestoreMnemonicWallet (): JSX.Element {
     const words = Object.values(getValues())
     if (isValid && validateMnemonicSentence(words)) {
       setIsSubmitting(false)
-      navigation.navigate('PinCreation', {
-        words,
-        pinLength: 6,
-        type: 'restore'
+      navigation.navigate({
+        name: 'PinCreation',
+        params: {
+          words,
+          pinLength: 6,
+          type: 'restore'
+        },
+        merge: true
       })
     } else {
       setIsSubmitting(false)

@@ -1,18 +1,22 @@
+function createDFIWallet (): void {
+  cy.createEmptyWallet(true)
+  cy
+    .sendDFItoWallet()
+    .sendDFItoWallet()
+    .sendDFITokentoWallet().wait(10000)
+
+  cy.getByTestID('bottom_tab_balances').click()
+  cy.getByTestID('balances_list').should('exist')
+  cy.getByTestID('balances_row_0').should('exist')
+  cy.getByTestID('balances_row_0_amount').contains(10)
+  cy.getByTestID('balances_row_0_utxo_amount').contains(20)
+  cy.getByTestID('balances_row_0_utxo').click()
+  cy.getByTestID('convert_button').click()
+}
+
 context('Wallet - Convert DFI', () => {
   before(function () {
-    cy.createEmptyWallet(true)
-    cy
-      .sendDFItoWallet()
-      .sendDFItoWallet()
-      .sendDFITokentoWallet().wait(10000)
-
-    cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('balances_list').should('exist')
-    cy.getByTestID('balances_row_0').should('exist')
-    cy.getByTestID('balances_row_0_amount').contains(10)
-    cy.getByTestID('balances_row_0_utxo_amount').contains(20)
-    cy.getByTestID('balances_row_0_utxo').click()
-    cy.getByTestID('convert_button').click()
+    createDFIWallet()
   })
 
   it('should have form validation', function () {
@@ -66,7 +70,7 @@ context('Wallet - Convert DFI', () => {
     cy.getByTestID('target_amount').contains('21.00000000')
     cy.getByTestID('target_amount_unit').contains('UTXO')
     cy.getByTestID('text_fee').should('exist')
-    cy.go('back')
+    cy.getByTestID('button_cancel_convert').click()
   })
 
   it('should test UTXO to account conversion', function () {
@@ -84,11 +88,44 @@ context('Wallet - Convert DFI', () => {
     cy.getByTestID('target_amount').contains('11.00000000')
     cy.getByTestID('target_amount_unit').contains('Token')
     cy.getByTestID('text_fee').should('exist')
+  })
+})
+
+context('Wallet - Convert UTXO to Account', function () {
+  it('should test UTXO to account conversion', function () {
+    createDFIWallet()
+    cy.getByTestID('text_input_convert_from_input').clear().type('1')
+    cy.getByTestID('button_continue_convert').click()
+    cy.getByTestID('button_confirm_convert').should('not.have.attr', 'disabled')
+    cy.getByTestID('button_cancel_convert').click()
+    cy.getByTestID('text_input_convert_from_input').should('exist')
+
+    cy.getByTestID('button_continue_convert').click()
 
     cy.getByTestID('button_confirm_convert').click().wait(4000)
-    cy.closeOceanInterface()
+    cy.closeOceanInterface().wait(5000)
 
     cy.getByTestID('balances_row_0_utxo_amount').contains('18.999') // 20 - 1 - fee
     cy.getByTestID('balances_row_0_amount').contains('11')
+  })
+})
+
+context('Wallet - Convert Account to UTXO', function () {
+  it('should test UTXO to account conversion', function () {
+    createDFIWallet()
+    cy.getByTestID('button_convert_mode_toggle').click().wait(4000)
+    cy.getByTestID('text_input_convert_from_input').clear().type('1')
+    cy.getByTestID('button_continue_convert').click()
+    cy.getByTestID('button_confirm_convert').should('not.have.attr', 'disabled')
+    cy.getByTestID('button_cancel_convert').click()
+    cy.getByTestID('text_input_convert_from_input').should('exist')
+
+    cy.getByTestID('button_continue_convert').click()
+
+    cy.getByTestID('button_confirm_convert').click().wait(4000)
+    cy.closeOceanInterface().wait(5000)
+
+    cy.getByTestID('balances_row_0_utxo_amount').contains('20.999')
+    cy.getByTestID('balances_row_0_amount').contains('9')
   })
 })

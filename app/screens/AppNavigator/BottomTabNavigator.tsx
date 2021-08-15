@@ -1,6 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { PathConfigMap } from '@react-navigation/core'
 import * as React from 'react'
 import { OceanInterface } from '../../components/OceanInterface/OceanInterface'
 import { tailwind } from '../../tailwind'
@@ -28,7 +27,7 @@ export function BottomTabNavigator (): JSX.Element {
       <OceanInterface />
       <BottomTab.Navigator
         initialRouteName='Balances'
-        tabBarOptions={{ adaptive: false, labelStyle: tailwind('font-medium text-xs') }}
+        screenOptions={{ headerShown: false, tabBarLabelPosition: 'below-icon', tabBarLabelStyle: tailwind('font-medium text-xs') }}
       >
         <BottomTab.Screen
           name={translate('BottomTabNavigator', 'Balances')}
@@ -67,7 +66,7 @@ export function BottomTabNavigator (): JSX.Element {
   )
 }
 
-export const AppLinking: PathConfigMap = {
+export const AppLinking = {
   Balances: {
     screens: {
       BalancesScreen: 'balances'

@@ -43,7 +43,9 @@ export function ChangePinScreen ({ route }: Props): JSX.Element {
         disabled={newPin.length !== pinLength}
         onPress={() => {
           setNewPin('')
-          navigation.navigate('ConfirmPinScreen', { words, pin: newPin })
+          navigation.navigate({
+            name: 'ConfirmPinScreen', params: { words, pin: newPin }, merge: true
+          })
         }}
       />
     </ScrollView>
