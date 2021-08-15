@@ -16,6 +16,7 @@ jobs:
       - uses: actions/setup-node@25316bbc1f10ac9d8798711f44914b1cf3c4e954
         with:
           node-version: 15
+          cache: 'npm'
 
       - uses: expo/expo-github-action@c3c02de017ef8cf6152daee160e8a47a2340a5e5
         with:
