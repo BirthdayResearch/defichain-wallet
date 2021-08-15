@@ -6,11 +6,12 @@ import * as React from 'react'
 import { useCallback, useEffect, useState } from 'react'
 import { ScrollView } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { Text, TextInput, View } from '../../../../components'
+import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { IconLabelScreenType, InputIconLabel } from '../../../../components/InputIconLabel'
 import LoadingScreen from '../../../../components/LoadingScreen'
+import { NumberTextInput } from '../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
 import { usePoolPairsAPI } from '../../../../hooks/wallet/PoolPairsAPI'
@@ -145,12 +146,10 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
       />
       <View style={tailwind('flex-col w-full bg-white items-center')}>
         <View style={tailwind('w-full flex-row items-center')}>
-          <TextInput
-            placeholderTextColor='rgba(0, 0, 0, 0.4)'
+          <NumberTextInput
             testID={`token_input_${props.type}`}
             style={tailwind('flex-1 mr-4 text-gray-500 bg-white p-4')}
             value={props.current}
-            keyboardType='numeric'
             onChangeText={txt => props.onChange(txt)}
             placeholder={translate('screens/AddLiquidity', 'Enter an amount')}
           />
