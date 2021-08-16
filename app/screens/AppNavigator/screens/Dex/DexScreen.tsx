@@ -47,15 +47,14 @@ export function DexScreen (): JSX.Element {
         }
       ]}
       renderItem={({ item }): JSX.Element => {
+        const poolPairData = pairs.find(pr => pr.data.symbol === (item.data as AddressToken).symbol)
         switch (item.type) {
           case 'your':
             return PoolPairRowYour(item.data, () => {
-              const poolPairData = pairs.find(pr => pr.data.symbol === (item.data as AddressToken).symbol)
               onAdd((poolPairData as DexItem<PoolPairData>).data)
             }, () => {
-              const poolPairData = pairs.find(pr => pr.data.symbol === (item.data as AddressToken).symbol)
               onRemove((poolPairData as DexItem<PoolPairData>).data)
-            })
+            }, poolPairData?.data)
           case 'available':
             return PoolPairRowAvailable(item.data,
               () => onAdd(item.data),
@@ -97,10 +96,15 @@ interface DexItem<T> {
   data: T
 }
 
-function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () => void): JSX.Element {
+function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () => void, pair?: PoolPairData): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
   const IconA = getTokenIcon(symbolA)
   const IconB = getTokenIcon(symbolB)
+  const toRemove = new BigNumber(1).times(data.amount).decimalPlaces(8, BigNumber.ROUND_DOWN)
+  const ratioToTotal = toRemove.div(pair?.totalLiquidity?.token ?? 1)
+  // assume defid will trim the dust values too
+  const tokenATotal = ratioToTotal.times(pair?.tokenA.reserve ?? 0).decimalPlaces(8, BigNumber.ROUND_DOWN)
+  const tokenBTotal = ratioToTotal.times(pair?.tokenB.reserve ?? 0).decimalPlaces(8, BigNumber.ROUND_DOWN)
 
   return (
     <View testID='pool_pair_row_your' style={tailwind('p-4 bg-white')}>
@@ -117,7 +121,15 @@ function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () =>
       </View>
 
       <View style={tailwind('mt-4')}>
-        <PoolPairInfoLine symbol={data.symbol} reserve={data.amount} row='your' />
+        <PoolPairInfoLine symbol={data.symbol} reserve={data.amount} row='your' decimalScale={8} />
+        {
+          pair !== undefined && (
+            <>
+              <PoolPairInfoLine symbol={symbolA} reserve={tokenATotal.toFixed(8)} row='tokenA' decimalScale={8} />
+              <PoolPairInfoLine symbol={symbolB} reserve={tokenBTotal.toFixed(8)} row='tokenB' decimalScale={8} />
+            </>
+          )
+        }
       </View>
     </View>
   )
@@ -148,8 +160,8 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
           data.apr?.total !== undefined &&
             <PoolPairAPR symbol={`${symbolA}_${symbolB}`} apr={data.apr.total} row='apr' />
         }
-        <PoolPairInfoLine symbol={symbolA} reserve={data.tokenA.reserve} row='available' />
-        <PoolPairInfoLine symbol={symbolB} reserve={data.tokenB.reserve} row='available' />
+        <PoolPairInfoLine symbol={symbolA} reserve={data.tokenA.reserve} row='available' decimalScale={2} />
+        <PoolPairInfoLine symbol={symbolB} reserve={data.tokenB.reserve} row='available' decimalScale={2} />
       </View>
     </View>
   )
@@ -167,13 +179,13 @@ function PoolPairLiqBtn (props: { name: React.ComponentProps<typeof MaterialIcon
   )
 }
 
-function PoolPairInfoLine (props: { symbol: string, reserve: string, row: string }): JSX.Element {
+function PoolPairInfoLine (props: { symbol: string, reserve: string, row: string, decimalScale: number }): JSX.Element {
   return (
     <View style={tailwind('flex-row justify-between')}>
       <Text style={tailwind('text-sm font-medium mb-1')}>Pooled {props.symbol}</Text>
       <NumberFormat
         suffix={` ${props.symbol}`}
-        value={props.reserve} decimalScale={8} thousandSeparator displayType='text'
+        value={props.reserve} decimalScale={props.decimalScale} thousandSeparator displayType='text'
         renderText={value => {
           return <Text testID={`${props.row}_${props.symbol}`} style={tailwind('text-sm')}>{value}</Text>
         }}

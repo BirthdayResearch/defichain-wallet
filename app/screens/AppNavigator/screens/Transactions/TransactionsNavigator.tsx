@@ -21,11 +21,11 @@ const TransactionsStack = createStackNavigator<TransactionsParamList>()
 export function TransactionsNavigator (): JSX.Element {
   return (
     <TransactionsStack.Navigator
-      initialRouteName='Transactions'
+      initialRouteName='TransactionsScreen'
       screenOptions={{ headerTitleStyle: HeaderFont }}
     >
       <TransactionsStack.Screen
-        name='Transactions'
+        name='TransactionsScreen'
         component={TransactionsScreen}
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/TransactionsScreen', 'Transactions')} />

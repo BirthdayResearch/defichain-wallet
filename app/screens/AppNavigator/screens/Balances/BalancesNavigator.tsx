@@ -80,9 +80,9 @@ const BalanceStack = createStackNavigator<BalanceParamList>()
 export function BalancesNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   return (
-    <BalanceStack.Navigator>
+    <BalanceStack.Navigator initialRouteName='BalancesScreen'>
       <BalanceStack.Screen
-        name='Balances'
+        name='BalancesScreen'
         component={BalancesScreen}
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/BalancesScreen', 'Balances')} />,

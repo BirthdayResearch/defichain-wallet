@@ -53,6 +53,7 @@ export const wallet = createSlice({
         let displaySymbol = t.symbol
         let avatarSymbol = t.symbol
         if (t.id === '0') {
+          t.name = 'DeFiChain'
           displaySymbol = 'DFI (Token)'
         }
         if (t.id === '0_utxo') {

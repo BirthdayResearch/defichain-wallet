@@ -13,7 +13,6 @@ import { Text } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
 import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
-import LoadingScreen from '../../../../../components/LoadingScreen'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
@@ -141,7 +140,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   }, [JSON.stringify(tokens), poolpair])
 
   if (tokenA === undefined || tokenB === undefined || poolpair === undefined || aToBPrice === undefined) {
-    return <LoadingScreen />
+    return <></>
   }
 
   return (

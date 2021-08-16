@@ -10,7 +10,6 @@ import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { IconLabelScreenType, InputIconLabel } from '../../../../components/InputIconLabel'
-import LoadingScreen from '../../../../components/LoadingScreen'
 import { NumberTextInput } from '../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
@@ -93,7 +92,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   }, [props.route.params.pair, JSON.stringify(tokens), pairs])
 
   if (pair === undefined) {
-    return <LoadingScreen />
+    return <></>
   }
 
   return (
@@ -239,7 +238,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
             <Text
               testID='a_per_b_unit'
               style={tailwind('font-medium text-gray-500')}
-            > {pair.aSymbol} {translate('screens/AddLiquidity', 'per')} {pair.bSymbol}
+            > {pair.bSymbol} {translate('screens/AddLiquidity', 'per')} {pair.aSymbol}
             </Text>
           </View>
           <View style={tailwind('flex-1 flex-row')}>
@@ -257,7 +256,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
             <Text
               testID='b_per_a_unit'
               style={tailwind('font-medium text-gray-500')}
-            > {pair.bSymbol} {translate('screens/AddLiquidity', 'per')} {pair.aSymbol}
+            > {pair.aSymbol} {translate('screens/AddLiquidity', 'per')} {pair.bSymbol}
             </Text>
           </View>
         </View>
