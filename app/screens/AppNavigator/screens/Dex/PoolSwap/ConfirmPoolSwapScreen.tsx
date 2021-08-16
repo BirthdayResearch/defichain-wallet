@@ -29,7 +29,8 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
     tokenA,
     tokenB,
     fee,
-    swap
+    swap,
+    pair
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const dispatch = useDispatch()
@@ -61,7 +62,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
 
   function onCancel (): void {
     if (!isSubmitting) {
-      navigation.navigate('PoolSwap')
+      navigation.navigate({ name: 'PoolSwap', params: { pair }, merge: true })
     }
   }
 

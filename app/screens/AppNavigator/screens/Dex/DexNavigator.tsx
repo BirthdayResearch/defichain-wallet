@@ -21,6 +21,7 @@ export interface DexParamList {
     tokenB: DerivedTokenState
     swap: DexForm
     fee: BigNumber
+    pair: PoolPairData
   }
   AddLiquidity: { pair: PoolPairData }
   ConfirmAddLiquidity: { pair: PoolPairData, summary: AddLiquiditySummary }
