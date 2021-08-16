@@ -74,7 +74,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         suffix={` ${tokenA.symbol}`}
       />
       <SectionTitle
-        text={translate('screens/PoolSwapConfirmScreen', 'AFTER SWAP, YOU WILL HAVE:')}
+        text={translate('screens/PoolSwapConfirmScreen', 'ESTIMATED AMOUNT TO RECEIVE')}
         testID='title_swap_detail'
       />
       <TokenBalanceRow
