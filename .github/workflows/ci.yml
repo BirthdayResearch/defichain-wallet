@@ -21,7 +21,7 @@ jobs:
           cache: 'npm'
 
       - run: npm ci
-      - run: npx --no-install ts-standard
+      - run: npx --no-install eslint app App.tsx
 
   unit:
     name: Unit Test

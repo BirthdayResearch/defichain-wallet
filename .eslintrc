@@ -1,0 +1,19 @@
+{
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "extends": [
+    "standard-with-typescript",
+    "standard-jsx"
+  ],
+  "ignorePatterns": [
+    "*.json",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "cypress/support/*.ts"
+  ],
+  "rules": {
+    "import/no-default-export": "warn"
+  },
+  "overrides": []
+}
