@@ -27,10 +27,10 @@ context('Onboarding - Restore Wallet', () => {
 
   it('should reset all recover word input on every landing', function () {
     cy.getByTestID('restore_wallet_button').click()
-    Array.from(Array(24), (v, i) => i + 1).forEach((key, index) => {
-      cy.getByTestID(`recover_word_${index}`).invoke('val').then((text: any) => {
-        expect(text).to.be(undefined)
-      })
+    Array.from(Array(24), (v, i) => i + 1).forEach((key) => {
+      cy.getByTestID(`recover_word_${key}`).invoke('val').then((text: any) =>
+        expect(text).to.be.empty
+      )
     })
   })
 
