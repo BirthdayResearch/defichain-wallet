@@ -1,12 +1,12 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
-import { JellyfishWallet } from '@defichain/jellyfish-wallet'
+import { JellyfishWallet, WalletHdNodeProvider } from '@defichain/jellyfish-wallet'
 import { MnemonicHdNode } from '@defichain/jellyfish-wallet-mnemonic'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import React, { useCallback, useEffect, useState } from 'react'
 import { ActivityIndicator, Alert, Platform, SafeAreaView, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../api'
-import { initJellyfishWallet, MnemonicEncrypted, PasscodeAttemptCounter } from '../api/wallet'
+import { initJellyfishWallet, MnemonicEncrypted, MnemonicUnprotected, PasscodeAttemptCounter, WalletType } from '../api/wallet'
 import { Text, View } from '../components'
 import { PinTextInput } from '../components/PinTextInput'
 import { useNetworkContext } from '../contexts/NetworkContext'
@@ -122,7 +122,14 @@ export function TransactionAuthorization (): JSX.Element | null {
 
   // mandatory UI initialization
   useEffect(() => {
-    const provider = MnemonicEncrypted.initProvider(providerData, network, { prompt: onPrompt })
+    let provider: WalletHdNodeProvider<MnemonicHdNode>
+    if (providerData.type === WalletType.MNEMONIC_UNPROTECTED) {
+      provider = MnemonicUnprotected.initProvider(providerData, network)
+    } else if (providerData.type === WalletType.MNEMONIC_ENCRYPTED) {
+      provider = MnemonicEncrypted.initProvider(providerData, network, { prompt: onPrompt })
+    } else {
+      throw new Error('Missing wallet provider data handler')
+    }
     setWallet(initJellyfishWallet(provider, network, whaleApiClient))
 
     PasscodeAttemptCounter.get()
