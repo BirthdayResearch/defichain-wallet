@@ -1,6 +1,6 @@
 context('Wallet - Confirm Add Liquidity', () => {
   beforeEach(function () {
-    cy.createEmptyWallet()
+    cy.createEmptyWallet(true)
 
     cy.getByTestID('bottom_tab_settings').click()
     // fund DFI token involve multiple actions, ready in 2 blocks
@@ -20,19 +20,23 @@ context('Wallet - Confirm Add Liquidity', () => {
 
   it('should be able to complete add liquidity', function () {
     cy.getByTestID('confirm-root').should('exist')
-    cy.getByTestID('text_adding_a').contains('7.80000000 DFI')
-    cy.getByTestID('text_adding_b').contains('7.80000000 BTC')
+    cy.getByTestID('button_cancel_add').click()
+    cy.getByTestID('token_input_primary').should('exist')
+    cy.getByTestID('button_continue_add_liq').click()
 
-    cy.getByTestID('text_fee').contains('0.0001')
+    cy.getByTestID('a_amount').contains('7.80000000')
+    cy.getByTestID('b_amount').contains('7.80000000')
 
-    cy.getByTestID('text_price_a').contains('1.00000000 BTC per DFI')
-    cy.getByTestID('text_price_b').contains('1.00000000 DFI per BTC')
+    cy.getByTestID('text_fee').should('exist')
+
+    cy.getByTestID('price_a').contains('1.00000000 BTC per DFI')
+    cy.getByTestID('price_b').contains('1.00000000 DFI per BTC')
 
     // lm token amount and % is calculated = percentage * total pool, may vary like 7.7999999 or 7.80000001
-    cy.getByTestID('text_liquidity_tokens_received').contains('7.').contains('DFI-BTC')
+    cy.getByTestID('text_add_amount').contains('7.').contains('DFI-BTC')
 
-    cy.getByTestID('button_confirm_add_liq').click()
-    cy.wait(4000)
+    cy.getByTestID('button_confirm_add').click()
+    cy.closeOceanInterface()
 
     // redirected back to dex root page
     cy.getByTestID('liquidity_screen_list').should('exist')

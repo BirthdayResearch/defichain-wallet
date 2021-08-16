@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { ActivityIndicator, ScrollView } from 'react-native'
 import { Logging } from '../../../../../api'
 import { MnemonicEncrypted } from '../../../../../api/wallet'
-import { MnemonicWords } from '../../../../../api/wallet/mnemonic_words'
+import { MnemonicStorage } from '../../../../../api/wallet/mnemonic_storage'
 import { Text, View } from '../../../../../components'
 import { PinTextInput } from '../../../../../components/PinTextInput'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
@@ -40,10 +40,9 @@ export function ConfirmPinScreen ({ route }: Props): JSX.Element {
     setTimeout(() => {
       MnemonicEncrypted.toData(copy.words, copy.network, copy.pin)
         .then(async encrypted => {
-          await MnemonicWords.encrypt(words, pin)
+          await MnemonicStorage.set(words, pin)
           await setWallet(encrypted)
           navigation.dispatch(StackActions.popToTop())
-          // if (biometricEnrolled) BiometricProtectedPasscode.set(pin)
         })
         .catch(e => Logging.error(e))
     }, 50) // allow UI render the spinner before async task
