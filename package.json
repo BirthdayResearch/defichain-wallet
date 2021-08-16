@@ -5,7 +5,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "prepare": "husky install",
-    "standard": "ts-standard --fix",
+    "lint": "eslint app App.tsx --fix",
     "start": "expo start",
     "start:android": "expo start --android",
     "start:ios": "expo start --ios",
@@ -113,14 +113,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js}": [
-      "npm run standard"
-    ]
-  },
-  "ts-standard": {
-    "ignore": [
-      "**/*.test.ts",
-      "**/*.test.tsx",
-      "cypress/support/*.ts"
+      "npm run lint"
     ]
   },
   "standard-version": {
