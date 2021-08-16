@@ -117,7 +117,7 @@ Cypress.Commands.add('sendDFItoWallet', () => {
 })
 
 Cypress.Commands.add('sendDFITokentoWallet', () => {
-  cy.intercept('/v0/playground/wallet/tokens/dfi/sendtoaddress').as('sendToAddress')
+  cy.intercept('/v0/playground/wallet/tokens/0/send').as('sendToAddress')
   cy.getByTestID('playground_token_DFI').click()
   cy.wait(['@sendToAddress'])
 })
