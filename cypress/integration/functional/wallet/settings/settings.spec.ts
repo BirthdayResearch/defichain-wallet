@@ -9,10 +9,17 @@ context('Wallet - Settings', () => {
     cy.getByTestID('button_network_Playground').click()
   })
 
-  it('should exit wallet when clicked', function () {
+  it('should exit wallet when clicked on positive action', function () {
     cy.getByTestID('setting_exit_wallet').click()
+    cy.on('window:confirm', () => {})
     cy.getByTestID('create_wallet_button').should('exist')
     cy.getByTestID('restore_wallet_button').should('exist')
+  })
+
+  it('should stay in setting screen when clicked on negative action', function () {
+    cy.getByTestID('setting_exit_wallet').click()
+    cy.on('window:confirm', () => { return false })
+    cy.getByTestID('setting_screen').should('exist')
   })
 
   it('should navigate to about page', function () {

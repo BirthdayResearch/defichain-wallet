@@ -66,7 +66,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   }, [walletContext.wallets[0]])
 
   return (
-    <ScrollView style={tailwind('flex-1 bg-gray-100 pb-8')}>
+    <ScrollView style={tailwind('flex-1 bg-gray-100 pb-8')} testID='setting_screen'>
       <SectionTitle text={translate('screens/Settings', 'NETWORK')} testID='network_title' />
       {
         networks.map((network, index) => (
