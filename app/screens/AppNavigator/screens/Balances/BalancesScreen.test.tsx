@@ -48,6 +48,14 @@ jest.mock("../../../../contexts/WalletContext", () => ({
   }
 }));
 
+jest.mock("../../../../contexts/WalletPersistenceContext", () => ({
+  useWalletPersistenceContext: () => {
+    return {
+      wallets: []
+    }
+  }
+}));
+
 describe('balances page', () => {
   it('should match snapshot', async () => {
     const initialState: Partial<RootState> = {

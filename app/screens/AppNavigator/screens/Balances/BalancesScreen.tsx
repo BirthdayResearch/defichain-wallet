@@ -10,6 +10,7 @@ import { Text, View } from '../../../../components'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { useWalletContext } from '../../../../contexts/WalletContext'
+import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { fetchTokens, useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { ocean } from '../../../../store/ocean'
@@ -26,10 +27,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const { address } = useWalletContext()
   const [refreshing, setRefreshing] = useState(false)
   const dispatch = useDispatch()
+  const { wallets } = useWalletPersistenceContext()
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
-  }, [height])
+  }, [height, wallets])
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true)

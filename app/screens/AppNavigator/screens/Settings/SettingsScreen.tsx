@@ -9,13 +9,13 @@ import { Logging } from '../../../../api'
 import { MnemonicWords } from '../../../../api/wallet/mnemonic_words'
 import { Text } from '../../../../components'
 import { SectionTitle } from '../../../../components/SectionTitle'
-import { useNetworkContext } from '../../../../contexts/NetworkContext'
 import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
-import { EnvironmentNetwork, getEnvironment, isPlayground } from '../../../../environment'
+import { getEnvironment } from '../../../../environment'
 import { authentication, Authentication } from '../../../../store/authentication'
 import { ocean } from '../../../../store/ocean'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
+import { RowNetworkItem } from './components/RowNetworkItem'
 import { SettingsParamList } from './SettingsNavigator'
 
 type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
@@ -33,7 +33,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
     }
 
     const auth: Authentication<string[]> = {
-      message: translate('screens/Setting', 'To continue downloading your recovery words, we need you to enter your passcode.'),
+      message: translate('screens/Settings', 'To continue downloading your recovery words, we need you to enter your passcode.'),
       consume: async passphrase => await MnemonicWords.decrypt(passphrase),
       onAuthenticated: async (words) => {
         navigation.navigate({ name: 'RecoveryWordsScreen', params: { words }, merge: true })
@@ -49,7 +49,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
     }
 
     const auth: Authentication<string[]> = {
-      message: translate('screens/Setting', 'To update your passcode, we need you to enter your current passcode.'),
+      message: translate('screens/Settings', 'To update your passcode, we need you to enter your current passcode.'),
       consume: async passphrase => await MnemonicWords.decrypt(passphrase),
       onAuthenticated: async words => {
         navigation.navigate({
@@ -80,43 +80,6 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       <RowNavigateItem pageName='AboutScreen' title='About' />
       <RowExitWalletItem />
     </ScrollView>
-  )
-}
-
-function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
-  const navigation = useNavigation<NavigationProp<SettingsParamList>>()
-  const { network, updateNetwork } = useNetworkContext()
-
-  const onPress = useCallback(async () => {
-    if (props.network === network) {
-      if (isPlayground(props.network)) {
-        navigation.navigate('Playground')
-      }
-    } else {
-      await updateNetwork(props.network)
-    }
-  }, [network])
-
-  return (
-    <TouchableOpacity
-      testID={`button_network_${props.network}`}
-      style={tailwind('flex flex-row p-4 pr-2 bg-white items-center justify-between border-b border-gray-200')}
-      onPress={onPress}
-    >
-      <Text style={tailwind('font-medium')}>
-        {props.network}
-      </Text>
-
-      {
-        props.network === network &&
-        (
-          <MaterialIcons
-            testID={`button_network_${props.network}_check`} size={24} name='check'
-            style={tailwind('text-primary')}
-          />
-        )
-      }
-    </TouchableOpacity>
   )
 }
 

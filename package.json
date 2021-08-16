@@ -5,7 +5,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "prepare": "husky install",
-    "standard": "ts-standard --fix",
+    "lint": "eslint app App.tsx --fix",
     "start": "expo start",
     "start:android": "expo start --android",
     "start:ios": "expo start --ios",
@@ -16,15 +16,15 @@
     "cypress:run": "cypress run --headless --browser chrome"
   },
   "dependencies": {
-    "@defichain/jellyfish-address": ">=0.36.0",
-    "@defichain/jellyfish-api-core": ">=0.36.0",
-    "@defichain/jellyfish-network": ">=0.36.0",
-    "@defichain/jellyfish-transaction": ">=0.36.0",
-    "@defichain/jellyfish-transaction-builder": ">=0.36.0",
-    "@defichain/jellyfish-wallet": ">=0.36.0",
-    "@defichain/jellyfish-wallet-encrypted": ">=0.36.0",
-    "@defichain/jellyfish-wallet-mnemonic": ">=0.36.0",
-    "@defichain/playground-api-client": ">=0.8.5",
+    "@defichain/jellyfish-address": ">=0.38.0",
+    "@defichain/jellyfish-api-core": ">=0.38.0",
+    "@defichain/jellyfish-network": ">=0.38.0",
+    "@defichain/jellyfish-transaction": ">=0.38.0",
+    "@defichain/jellyfish-transaction-builder": ">=0.38.0",
+    "@defichain/jellyfish-wallet": ">=0.38.0",
+    "@defichain/jellyfish-wallet-encrypted": ">=0.38.0",
+    "@defichain/jellyfish-wallet-mnemonic": ">=0.38.0",
+    "@defichain/playground-api-client": ">=0.8.6",
     "@defichain/whale-api-client": ">=0.8.9",
     "@defichain/whale-api-wallet": ">=0.8.9",
     "@expo-google-fonts/ibm-plex-sans": "^0.2.0",
@@ -113,14 +113,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js}": [
-      "npm run standard"
-    ]
-  },
-  "ts-standard": {
-    "ignore": [
-      "**/*.test.ts",
-      "**/*.test.tsx",
-      "cypress/support/*.ts"
+      "npm run lint"
     ]
   },
   "standard-version": {

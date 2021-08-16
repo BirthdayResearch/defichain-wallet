@@ -9,7 +9,7 @@ describe('ocean reducer', () => {
   beforeEach(() => {
     initialState = {
       transactions: [],
-      height: 49,
+      height: 0,
       err: undefined
     }
   })
@@ -18,7 +18,7 @@ describe('ocean reducer', () => {
     expect(ocean.reducer(undefined, { type: 'unknown' })).toEqual({
       transactions: [],
       err: undefined,
-      height: 49
+      height: 0
     });
   })
 
@@ -31,22 +31,22 @@ describe('ocean reducer', () => {
     expect(addedTransaction).toStrictEqual({ transactions: [{
       ...payload,
       broadcasted: false
-    }], err: undefined, height: 49 })
+    }], err: undefined, height: 0 })
     const actual = ocean.reducer(addedTransaction, ocean.actions.queueTransaction(payload));
 
     const pop = ocean.reducer(actual, ocean.actions.popTransaction());
     expect(pop).toStrictEqual({ transactions: [{
       ...payload,
       broadcasted: false
-    }], err: undefined, height: 49 })
+    }], err: undefined, height: 0 })
     const removed = ocean.reducer(pop, ocean.actions.popTransaction());
-    expect(removed).toStrictEqual({ transactions: [], err: undefined, height: 49 })
+    expect(removed).toStrictEqual({ transactions: [], err: undefined, height: 0 })
   })
 
   it('should handle setError', () => {
     const err = new Error('An error has occurred')
     const actual = ocean.reducer(initialState, ocean.actions.setError(err));
-    expect(actual).toStrictEqual({ transactions: [], err, height: 49 })
+    expect(actual).toStrictEqual({ transactions: [], err, height: 0 })
   })
 
   it('should setHeight', () => {
