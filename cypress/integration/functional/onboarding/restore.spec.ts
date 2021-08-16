@@ -12,6 +12,28 @@ context('Onboarding - Restore Wallet', () => {
     cy.getByTestID('recover_wallet_button').should('have.attr', 'disabled')
   })
 
+  it('should not prompt when navigate back without filling any recovery word', function () {
+    cy.go('back')
+    cy.getByTestID('onboarding_carousel').should('exist')
+  })
+
+  it('should be able to navigate back if at least one recovery word is filled', function () {
+    cy.getByTestID('restore_wallet_button').click()
+    cy.getByTestID('recover_word_1').type('a')
+    cy.go('back')
+    cy.on('window:confirm', () => {})
+    cy.getByTestID('onboarding_carousel').should('exist')
+  })
+
+  it('should reset all recover word input on every landing', function () {
+    cy.getByTestID('restore_wallet_button').click()
+    Array.from(Array(24), (v, i) => i + 1).forEach((key, index) => {
+      cy.getByTestID(`recover_word_${index}`).invoke('val').then((text: any) => {
+        expect(text).to.be(undefined)
+      })
+    })
+  })
+
   recoveryWords.forEach((word, index) => {
     it(`should validate input recovery word #${index + 1} ${word}`, function () {
       // Invalid forms - number, uppercase, space, special character
