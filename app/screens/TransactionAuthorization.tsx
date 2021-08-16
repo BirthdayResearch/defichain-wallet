@@ -200,7 +200,7 @@ export function TransactionAuthorization (): JSX.Element | null {
     }
   }, [status, pin])
 
-  if (status === 'INIT' || status === 'IDLE') {
+  if (status === 'INIT' || status === 'IDLE' || status === 'BLOCK') {
     return null
   }
 
