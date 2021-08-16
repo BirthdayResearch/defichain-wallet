@@ -43,7 +43,6 @@ export function ConfirmPinScreen ({ route }: Props): JSX.Element {
           await MnemonicWords.encrypt(words, pin)
           await setWallet(encrypted)
           navigation.dispatch(StackActions.popToTop())
-          // if (biometricEnrolled) BiometricProtectedPasscode.set(pin)
         })
         .catch(e => Logging.error(e))
     }, 50) // allow UI render the spinner before async task
