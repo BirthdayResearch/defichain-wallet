@@ -57,6 +57,10 @@ export function RestoreMnemonicWallet (): JSX.Element {
           ]
         )
       })
+      return () => {
+        navigation.removeListener('beforeRemove', () => {
+        })
+      }
     }
   }, [navigation, isDirty])
 
