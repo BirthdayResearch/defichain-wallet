@@ -103,10 +103,9 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       const tokenAId = tokenB.id
       setTokenA(tokenB)
       setTokenB(tokenA)
-      const { [tokenAForm]: currentA, [tokenBForm]: currentB } = getValues()
-      setValue(tokenAForm, currentB)
+      setValue(tokenAForm, '')
       await trigger(tokenAForm)
-      setValue(tokenBForm, currentA)
+      setValue(tokenBForm, '')
       await trigger(tokenBForm)
       if (poolpair !== undefined) {
         updatePoolPairPrice(tokenAId, poolpair)
