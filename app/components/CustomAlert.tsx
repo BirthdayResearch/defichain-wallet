@@ -10,7 +10,7 @@ interface CustomAlertOption {
 /**
  * Alert that supports web and native.
  *
- * @param props same param when calling react native `Alert`
+ * @param option Same param as react native's `Alert.alert()`.
  *
  * ## Web
  *
