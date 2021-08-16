@@ -85,7 +85,8 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         tokenA,
         tokenB,
         swap,
-        fee
+        fee,
+        poolpair
       })
     }
   }
@@ -102,10 +103,9 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       const tokenAId = tokenB.id
       setTokenA(tokenB)
       setTokenB(tokenA)
-      const { [tokenAForm]: currentA, [tokenBForm]: currentB } = getValues()
-      setValue(tokenAForm, currentB)
+      setValue(tokenAForm, '')
       await trigger(tokenAForm)
-      setValue(tokenBForm, currentA)
+      setValue(tokenBForm, '')
       await trigger(tokenBForm)
       if (poolpair !== undefined) {
         updatePoolPairPrice(tokenAId, poolpair)
@@ -146,6 +146,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   return (
     <ScrollView style={tailwind('bg-gray-100')}>
       <TokenRow
+        isDisabled={false}
         token={tokenA} control={control} controlName={tokenAForm}
         title={`${translate('screens/PoolSwapScreen', 'SWAP')} ${tokenA.symbol}`}
         onChangeFromAmount={async (amount) => {
@@ -169,6 +170,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         </TouchableOpacity>
       </View>
       <TokenRow
+        isDisabled
         token={tokenB} control={control} controlName={tokenBForm}
         title={`${translate('screens/PoolSwapScreen', 'TO')} ${tokenB.symbol}`}
         maxAmount={aToBPrice.times(getValues()[tokenAForm]).toFixed(8)}
@@ -197,10 +199,11 @@ interface TokenForm {
   maxAmount?: string
   onChangeFromAmount?: (amount: string) => void
   title: string
+  isDisabled: boolean
 }
 
 function TokenRow (form: TokenForm): JSX.Element {
-  const { token, control, onChangeFromAmount, title, controlName, enableMaxButton = true } = form
+  const { token, control, onChangeFromAmount, title, controlName, enableMaxButton = true, isDisabled } = form
   const Icon = getTokenIcon(token.symbol)
   const rules: { required: boolean, pattern: RegExp, validate: any, max?: string } = {
     required: true,
@@ -224,13 +227,16 @@ function TokenRow (form: TokenForm): JSX.Element {
               style={tailwind('flex-grow p-4 bg-white')}
               autoCapitalize='none'
               onBlur={onBlur}
+              editable={!isDisabled}
               onChange={(e) => {
-                if (onChangeFromAmount !== undefined) {
-                  onChangeFromAmount(e.nativeEvent.text)
-                } else onChange(e)
+                if (!isDisabled) {
+                  if (onChangeFromAmount !== undefined) {
+                    onChangeFromAmount(e.nativeEvent.text)
+                  } else onChange(e)
+                }
               }}
               value={value}
-              placeholder={translate('screens/PoolSwapScreen', 'Enter an amount')}
+              placeholder={isDisabled ? undefined : translate('screens/PoolSwapScreen', 'Enter an amount')}
               testID={`text_input_${controlName}`}
             />
             <View style={tailwind('flex-row bg-white pr-4 items-center')}>

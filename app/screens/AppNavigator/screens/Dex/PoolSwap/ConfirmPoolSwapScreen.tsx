@@ -14,7 +14,6 @@ import {
   TokenBalanceRow
 } from '../../../../../components/ConfirmComponents'
 import { SectionTitle } from '../../../../../components/SectionTitle'
-import { useWalletContext } from '../../../../../contexts/WalletContext'
 import { RootState } from '../../../../../store'
 import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
 import { tailwind } from '../../../../../tailwind'
@@ -29,14 +28,14 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
     tokenA,
     tokenB,
     fee,
-    swap
+    swap,
+    pair
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
-  const { account } = useWalletContext()
   const postAction = (): void => {
     if (isOnPage) {
       navigation.dispatch(StackActions.popToTop())
@@ -55,13 +54,13 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
       return
     }
     setIsSubmitting(true)
-    await constructSignedSwapAndSend(account, swap, dispatch, postAction)
+    await constructSignedSwapAndSend(swap, dispatch, postAction)
     setIsSubmitting(false)
   }
 
   function onCancel (): void {
     if (!isSubmitting) {
-      navigation.navigate('PoolSwap')
+      navigation.navigate({ name: 'PoolSwap', params: { pair }, merge: true })
     }
   }
 
@@ -73,7 +72,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         suffix={` ${tokenA.symbol}`}
       />
       <SectionTitle
-        text={translate('screens/PoolSwapConfirmScreen', 'AFTER SWAP, YOU WILL HAVE:')}
+        text={translate('screens/PoolSwapConfirmScreen', 'ESTIMATED AMOUNT TO RECEIVE')}
         testID='title_swap_detail'
       />
       <TokenBalanceRow
@@ -113,14 +112,13 @@ export interface DexForm {
 }
 
 async function constructSignedSwapAndSend (
-  account: WhaleWalletAccount, // must be both owner and recipient for simplicity
   dexForm: DexForm,
   dispatch: Dispatch<any>,
   postAction: () => void
 ): Promise<void> {
   try {
     const maxPrice = dexForm.fromAmount.div(dexForm.toAmount).decimalPlaces(8)
-    const signer = async (): Promise<CTransactionSegWit> => {
+    const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
       const builder = account.withTransactionBuilder()
       const script = await account.getScript()
 

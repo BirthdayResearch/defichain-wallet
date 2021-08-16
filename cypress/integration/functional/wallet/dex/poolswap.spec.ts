@@ -28,8 +28,6 @@ context('Wallet - DEX - Pool Swap with balance', () => {
     cy.getByTestID('text_balance_tokenA').contains('10.00000000 DFI')
     cy.getByTestID('text_balance_tokenB').contains('10.00000000 LTC')
     cy.getByTestID('swap_button').click().wait(4000)
-    cy.getByTestID('text_balance_tokenB').contains('10.00000000 DFI')
-    cy.getByTestID('text_balance_tokenA').contains('10.00000000 LTC')
   })
 
   it('should be able to validate form', function () {
@@ -63,7 +61,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
   })
 
   it('should be able to click half', function () {
-    cy.getByTestID('50%_amount_button').click().wait(3000)
+    cy.getByTestID('50%_amount_button').click().wait(500)
     cy.getByTestID('text_input_tokenA').should('have.value', '5.00000000').wait(3000)
     cy.getByTestID('text_price_row_estimated_0').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
