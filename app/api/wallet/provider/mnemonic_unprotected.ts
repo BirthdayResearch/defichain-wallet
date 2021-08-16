@@ -1,4 +1,9 @@
-import { MnemonicHdNodeProvider, MnemonicProviderData } from '@defichain/jellyfish-wallet-mnemonic'
+import {
+  generateMnemonicWords,
+  MnemonicHdNodeProvider,
+  MnemonicProviderData
+} from '@defichain/jellyfish-wallet-mnemonic'
+import { getRandomBytes } from 'expo-random'
 import { EnvironmentNetwork } from '../../../environment'
 import { getBip32Option } from '../network'
 import { WalletPersistenceData, WalletType } from '../persistence'
@@ -23,7 +28,15 @@ function toData (mnemonic: string[], network: EnvironmentNetwork): WalletPersist
   }
 }
 
+function generateWords (): string[] {
+  return generateMnemonicWords(24, numOfBytes => {
+    const bytes = getRandomBytes(numOfBytes)
+    return Buffer.from(bytes)
+  })
+}
+
 export const MnemonicUnprotected = {
   initProvider,
-  toData
+  toData,
+  generateWords
 }

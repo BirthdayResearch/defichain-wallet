@@ -63,3 +63,16 @@ describe('addMnemonicHdNodeProvider', () => {
     })
   })
 })
+
+
+it('should generate random mnemonic words 100000 times', () => {
+  const total = 100000
+  const generated = new Set<string>()
+
+  for (let i = 0; i < total; i++) {
+    const sentence = MnemonicUnprotected.generateWords().join(' ')
+    generated.add(sentence)
+  }
+
+  expect(generated.size).toStrictEqual(total)
+})
