@@ -1,18 +1,17 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { StackActions, useNavigation } from '@react-navigation/native'
+import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { useCallback, useEffect, useState } from 'react'
-import { FlatList } from 'react-native'
-import NumberFormat from 'react-number-format'
+import { useEffect, useState } from 'react'
+import { ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Logging } from '../../../../api'
-import { Text, View } from '../../../../components'
-import { Button } from '../../../../components/Button'
+import { ConfirmTitle, NumberRow, SubmitButtonGroup, TokenBalanceRow } from '../../../../components/ConfirmComponents'
+import { SectionTitle } from '../../../../components/SectionTitle'
 import { RootState } from '../../../../store'
 import { hasTxQueued, transactionQueue } from '../../../../store/transaction_queue'
 import { tailwind } from '../../../../tailwind'
@@ -40,12 +39,14 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     symbol,
     totalLiquidity
   } = props.route.params.summary
+  const pair = props.route.params.pair
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [aSymbol, bSymbol] = symbol.split('-') as [string, string]
   const aToBRate = new BigNumber(tokenB.reserve).div(tokenA.reserve)
   const bToARate = new BigNumber(tokenA.reserve).div(tokenB.reserve)
   const lmTokenAmount = percentage.times(totalLiquidity.token)
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProp<DexParamList>>()
   const postAction = (): void => {
     if (isOnPage) {
       navigation.dispatch(StackActions.popToTop())
@@ -61,8 +62,11 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 
   const dispatch = useDispatch()
 
-  const addLiquidity = useCallback(() => {
-    if (hasPendingJob) return
+  async function addLiquidity (): Promise<void> {
+    if (hasPendingJob) {
+      return
+    }
+    setIsSubmitting(true)
     constructSignedAddLiqAndSend(
       {
         tokenASymbol: tokenA.symbol,
@@ -76,106 +80,79 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       postAction
     ).catch(e => {
       Logging.error(e)
-    })
-  }, [props.route.params.summary])
+    }).finally(() => setIsSubmitting(false))
+  }
 
-  const items: Array<{ lhs: string, rhs: Array<{ value: string | number, suffix?: string, testID: string }> }> = [
-    {
-      lhs: translate('screens/ConfirmAddLiq', 'Adding'),
-      rhs: [
-        { value: tokenAAmount.toFixed(8), suffix: ` ${aSymbol}`, testID: 'adding_a' },
-        { value: tokenBAmount.toFixed(8), suffix: ` ${bSymbol}`, testID: 'adding_b' }
-      ]
-    },
-    {
-      lhs: translate('screens/ConfirmAddLiq', 'Estimated Fee'),
-      rhs: [
-        { value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'fee' }
-      ]
-    },
-    {
-      lhs: translate('screens/ConfirmAddLiq', 'Price'),
-      rhs: [
-        { value: aToBRate.toFixed(8), suffix: ` ${bSymbol} per ${aSymbol}`, testID: 'price_a' },
-        { value: bToARate.toFixed(8), suffix: ` ${aSymbol} per ${bSymbol}`, testID: 'price_b' }
-      ]
-    },
-    {
-      lhs: translate('screens/ConfirmAddLiq', 'Liquidity tokens received'),
-      rhs: [
-        { value: lmTokenAmount.toFixed(8), suffix: ` ${symbol}`, testID: 'liquidity_tokens_received' }
-      ]
-    },
-    {
-      lhs: translate('screens/ConfirmAddLiq', 'Share of pool'),
-      rhs: [
-        { value: percentage.toFixed(8), suffix: ' %', testID: 'share_of_pool' }
-      ]
-    },
-    {
-      lhs: `${translate('screens/ConfirmAddLiq', 'Pooled')} ${aSymbol}`,
-      rhs: [
-        { value: tokenA.reserve, testID: 'pooled_a' }
-      ]
-    },
-    {
-      lhs: `${translate('screens/ConfirmAddLiq', 'Pooled')} ${bSymbol}`,
-      rhs: [
-        { value: tokenB.reserve, testID: 'pooled_b' }
-      ]
+  function onCancel (): void {
+    if (!isSubmitting) {
+      navigation.navigate({
+        name: 'AddLiquidity',
+        params: { pair },
+        merge: true
+      })
     }
-  ]
+  }
 
   return (
-    <FlatList
-      testID='confirm-root'
-      style={tailwind('w-full flex-col mt-5')}
-      data={items}
-      keyExtractor={(item, index) => `${index}`}
-      renderItem={({ item }) => <Row lhs={item.lhs} rhs={item.rhs} />}
-      ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
-      ListFooterComponent={<ConfirmButton disabled={hasPendingJob} onPress={() => addLiquidity()} />}
-    />
-  )
-}
-
-function Row (props: { lhs: string, rhs: Array<{ value: string | number, suffix?: string, testID: string }> }): JSX.Element {
-  return (
-    <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
-      <View style={tailwind('flex-1')}>
-        <Text style={tailwind('font-medium')}>{props.lhs}</Text>
-      </View>
-      <View style={tailwind('flex-1')}>
-        {
-          props.rhs.map((value, idx) => (
-            <NumberFormat
-              value={value.value} decimalScale={8} thousandSeparator displayType='text' suffix={value.suffix} key={idx}
-              renderText={(val: string) => (
-                <Text
-                  testID={`text_${value.testID}`}
-                  style={tailwind('font-medium text-right text-gray-500')}
-                >{val}
-                </Text>
-              )}
-            />
-          ))
-        }
-      </View>
-    </View>
-  )
-}
-
-function ConfirmButton (props: { disabled?: boolean, onPress: () => void }): JSX.Element {
-  return (
-    <View style={tailwind('mb-2 mt-4')}>
-      <Button
-        testID='button_confirm_add_liq'
-        title='Confirm'
-        onPress={props.onPress}
-        disabled={props.disabled}
-        label={translate('screens/ConfirmLiquidity', 'CONFIRM')}
+    <ScrollView testID='confirm-root' style={tailwind('bg-gray-100 pb-4')}>
+      <ConfirmTitle
+        title={translate('screens/ConfirmAddLiq', 'YOU ARE ADDING')}
+        testID='text_add_amount' amount={lmTokenAmount}
+        suffix={` ${symbol}`}
       />
-    </View>
+      <SectionTitle
+        text={translate('screens/ConfirmAddLiq', 'AMOUNT TO SUPPLY')}
+        testID='title_add_detail'
+      />
+      <TokenBalanceRow
+        iconType={aSymbol}
+        lhs={aSymbol}
+        rhs={{
+          value: BigNumber.max(tokenAAmount, 0).toFixed(8),
+          testID: 'a_amount'
+        }}
+      />
+      <TokenBalanceRow
+        iconType={bSymbol}
+        lhs={bSymbol}
+        rhs={{
+          value: BigNumber.max(tokenBAmount, 0).toFixed(8),
+          testID: 'b_amount'
+        }}
+      />
+      <SectionTitle
+        text={translate('screens/ConfirmAddLiq', 'TRANSACTION DETAILS')}
+        testID='title_tx_detail'
+      />
+      <NumberRow
+        lhs={translate('screens/ConfirmAddLiq', 'Price')}
+        rightHandElements={[
+          { value: aToBRate.toFixed(8), suffix: ` ${bSymbol} per ${aSymbol}`, testID: 'price_a' },
+          { value: bToARate.toFixed(8), suffix: ` ${aSymbol} per ${bSymbol}`, testID: 'price_b' }
+        ]}
+      />
+      <NumberRow
+        lhs={translate('screens/ConfirmAddLiq', 'Share of pool')}
+        rightHandElements={[{ value: percentage.toFixed(8), suffix: ' %', testID: 'percentage_pool' }]}
+      />
+      <NumberRow
+        lhs={translate('screens/ConfirmAddLiq', `Pooled ${aSymbol}`)}
+        rightHandElements={[{ value: tokenA.reserve, suffix: ` ${tokenA.symbol}`, testID: 'pooled_a' }]}
+      />
+      <NumberRow
+        lhs={translate('screens/ConfirmAddLiq', `Pooled ${bSymbol}`)}
+        rightHandElements={[{ value: tokenB.reserve, suffix: ` ${tokenB.symbol}`, testID: 'pooled_b' }]}
+      />
+      <NumberRow
+        lhs={translate('screens/ConfirmAddLiq', 'Estimated fee')}
+        rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
+      />
+      <SubmitButtonGroup
+        onSubmit={addLiquidity} onCancel={onCancel} title='add'
+        label={translate('screens/ConfirmAddLiq', 'ADD')}
+        isDisabled={isSubmitting || hasPendingJob}
+      />
+    </ScrollView>
   )
 }
 

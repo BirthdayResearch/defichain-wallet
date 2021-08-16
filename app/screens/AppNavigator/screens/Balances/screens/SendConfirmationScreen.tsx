@@ -98,19 +98,19 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       />
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Amount')}
-        rhs={{ value: amount.toFixed(8), suffix: ` ${token.symbol}`, testID: 'text_amount' }}
+        rightHandElements={[{ value: amount.toFixed(8), suffix: ` ${token.symbol}`, testID: 'text_amount' }]}
       />
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Estimated fee')}
-        rhs={{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }}
+        rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
       />
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Remaining balance')}
-        rhs={{
+        rightHandElements={[{
           value: BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)).minus(fee.toFixed(8)), 0).toFixed(8),
           suffix: ` ${token.symbol}`,
           testID: 'text_balance'
-        }}
+        }]}
       />
       <SubmitButtonGroup
         onSubmit={onSubmit} onCancel={onCancel} title='send'
