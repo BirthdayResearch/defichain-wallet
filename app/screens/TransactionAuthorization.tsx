@@ -144,7 +144,7 @@ export function TransactionAuthorization (): JSX.Element | null {
         Logging.error(e)
         throw e // unexpected, unable to init
       })
-  }, [walletFromContext])
+  }, [walletFromContext, network, whaleApiClient])
 
   /**
    * Currently serving
