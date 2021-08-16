@@ -4,6 +4,7 @@ import { WalletPersistence, WalletPersistenceData } from '../api/wallet'
 import { useNetworkContext } from './NetworkContext'
 
 interface WalletPersistenceContextI {
+  isLoaded: boolean
   wallets: Array<WalletPersistenceData<any>>
   /**
    * @param {WalletPersistenceData} data to set, only 1 wallet is supported for now
@@ -26,15 +27,18 @@ export function useWalletPersistenceContext (): WalletPersistenceContextI {
 
 export function WalletPersistenceProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
+  const [isLoaded, setIsLoaded] = useState(false)
   const [dataList, setDataList] = useState<Array<WalletPersistenceData<any>>>([])
 
   useEffect(() => {
     WalletPersistence.get().then(dataList => {
       setDataList(dataList)
     }).catch(Logging.error)
+      .finally(() => setIsLoaded(true))
   }, [network]) // WalletPersistence is network dependent
 
   const management: WalletPersistenceContextI = {
+    isLoaded,
     wallets: dataList,
     async setWallet (data: WalletPersistenceData<any>): Promise<void> {
       await WalletPersistence.set([data])
