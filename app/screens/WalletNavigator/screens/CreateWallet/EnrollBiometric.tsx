@@ -6,7 +6,7 @@ import { Platform, ScrollView, Switch } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { Logging } from '../../../../api'
 import { BiometricProtectedPasscode } from '../../../../api/wallet/biometric_protected_passcode'
-import { MnemonicWords } from '../../../../api/wallet/mnemonic_words'
+import { MnemonicStorage } from '../../../../api/wallet/mnemonic_storage'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { FaceIdIcon } from '../../../../components/icons/FaceIdIcon'
@@ -42,7 +42,7 @@ export function EnrollBiometric ({ route }: Props): JSX.Element {
 
   const onComplete = useCallback(async () => {
     await setWallet(encrypted)
-    await MnemonicWords.encrypt(words, pin)
+    await MnemonicStorage.set(words, pin)
   }, [])
 
   useEffect(() => {

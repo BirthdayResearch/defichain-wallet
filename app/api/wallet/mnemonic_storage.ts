@@ -4,20 +4,22 @@ import { StorageAPI } from '../storage'
 
 const KEY = 'RAW_MNEMONIC_V0.space_separated_values'
 const WORDS_LENGTH = 24
-/**
- * Android secure storage value limit: 2048 bytes
- * encrypted data must LTE 2048 ascii characters
- * 24 words + 23 spaces must  (~80 char per word after minus few encryption overhead)
- * concat words should not hit the limit
- */
-const SECURE_STORE_MAX_LENGTH = 2048
 
 /**
  * Raw mnemonic words encryption implementation reside in light wallet
  */
-class RawMnemonicEncryption {
-  // jellyfish's PrivateKeyEncryption impl essentially work for infinite length of data
-  constructor (private readonly encryption: PrivateKeyEncryption) {}
+class EncryptedMnemonicStorage {
+  /**
+   * jellyfish's PrivateKeyEncryption impl essentially work for infinite length of data
+   */
+  private readonly encryption: PrivateKeyEncryption
+
+  constructor () {
+    this.encryption = new PrivateKeyEncryption(new Scrypt(), numOfBytes => {
+      const bytes = getRandomBytes(numOfBytes)
+      return Buffer.from(bytes)
+    })
+  }
 
   /**
    * Serialize words into single string
@@ -67,8 +69,8 @@ class RawMnemonicEncryption {
    * @returns {string}
    */
   private async _encrypt (words: string[], passphrase: string): Promise<string> {
-    const joined = RawMnemonicEncryption.serialize(words)
-    const buffer = Buffer.from(joined, 'ascii')
+    const joined = EncryptedMnemonicStorage.serialize(words)
+    const buffer = Buffer.from(joined, 'utf-8')
     const encrypted = await this.encryption.encrypt(buffer, passphrase)
     return encrypted.encode()
   }
@@ -83,8 +85,8 @@ class RawMnemonicEncryption {
    */
   private async _decrypt (encrypted: string, passphrase: string): Promise<string[]> {
     const decrypted = await this.encryption.decrypt(encrypted, passphrase)
-    const str = decrypted.toString('ascii')
-    return RawMnemonicEncryption.deserialize(str)
+    const str = decrypted.toString('utf-8')
+    return EncryptedMnemonicStorage.deserialize(str)
   }
 
   /**
@@ -93,9 +95,8 @@ class RawMnemonicEncryption {
    * @param {string[]} words
    * @param {string} passphrase
    */
-  async encrypt (words: string[], passphrase: string): Promise<void> {
+  async set (words: string[], passphrase: string): Promise<void> {
     const encrypted = await this._encrypt(words, passphrase)
-    if (encrypted.length > SECURE_STORE_MAX_LENGTH) throw new Error('Data exceeded secure storage limit')
     await StorageAPI.setItem(KEY, encrypted)
   }
 
@@ -105,16 +106,11 @@ class RawMnemonicEncryption {
    * @param {string} passphrase
    * @returns {string[]}
    */
-  async decrypt (passphrase: string): Promise<string[]> {
+  async get (passphrase: string): Promise<string[]> {
     const encrypted = await StorageAPI.getItem(KEY)
     if (encrypted === null) throw new Error('NO_MNEMONIC_BACKUP')
     return await this._decrypt(encrypted, passphrase)
   }
 }
 
-const encryption = new PrivateKeyEncryption(new Scrypt(), numOfBytes => {
-  const bytes = getRandomBytes(numOfBytes)
-  return Buffer.from(bytes)
-})
-
-export const MnemonicWords = new RawMnemonicEncryption(encryption)
+export const MnemonicStorage = new EncryptedMnemonicStorage()
