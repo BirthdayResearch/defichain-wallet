@@ -6,11 +6,11 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { ActivityIndicator, Alert, Platform, SafeAreaView, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../api'
-import { initJellyfishWallet, MnemonicEncrypted, PasscodeAttemptCounter, WalletPersistence, WalletType } from '../api/wallet'
+import { initJellyfishWallet, MnemonicEncrypted, PasscodeAttemptCounter } from '../api/wallet'
 import { Text, View } from '../components'
 import { PinTextInput } from '../components/PinTextInput'
 import { useNetworkContext } from '../contexts/NetworkContext'
-import { useWalletContext } from '../contexts/WalletContext'
+import { useWalletNodeContext } from '../contexts/WalletNodeProvider'
 import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '../contexts/WhaleContext'
 import { RootState } from '../store'
@@ -42,8 +42,8 @@ type Status = 'INIT' | 'IDLE' | 'BLOCK' | 'PIN' | 'SIGNING'
  */
 export function TransactionAuthorization (): JSX.Element | null {
   // context
+  const { data: providerData } = useWalletNodeContext()
   const { clearWallets } = useWalletPersistenceContext()
-  const { wallet: walletFromContext } = useWalletContext()
   const { network } = useNetworkContext()
   const whaleApiClient = useWhaleApiClient()
 
@@ -122,29 +122,19 @@ export function TransactionAuthorization (): JSX.Element | null {
 
   // mandatory UI initialization
   useEffect(() => {
-    WalletPersistence.get()
-      .then(async dataList => {
-        if (dataList.length === 0) {
-          throw new Error('No wallet found')
-        }
+    const provider = MnemonicEncrypted.initProvider(providerData, network, { prompt: onPrompt })
+    setWallet(initJellyfishWallet(provider, network, whaleApiClient))
 
-        if (dataList[0].type !== WalletType.MNEMONIC_ENCRYPTED) {
-          throw new Error('Unexpected wallet type')
-        }
-
-        const provider = MnemonicEncrypted.initProvider(dataList[0], network, { prompt: onPrompt })
-        const jWallet = initJellyfishWallet(provider, network, whaleApiClient)
-        setWallet(jWallet)
-
-        const counter = await PasscodeAttemptCounter.get()
+    PasscodeAttemptCounter.get()
+      .then(counter => {
         setAttemptsRemaining(MAX_PASSCODE_ATTEMPT - counter)
         emitEvent('IDLE')
       })
-      .catch(e => {
-        Logging.error(e)
-        throw e // unexpected, unable to init
+      .catch(error => {
+        Logging.error(error)
+        throw error
       })
-  }, [walletFromContext, network, whaleApiClient])
+  }, [providerData, network, whaleApiClient])
 
   /**
    * Currently serving
