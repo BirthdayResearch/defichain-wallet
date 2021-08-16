@@ -9,7 +9,7 @@ context('Wallet - Transaction Authorization with Error', () => {
 
   before(function () {
     cy.createEmptyWallet(true)
-    cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(10000)
+    cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(5000)
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
     cy.getByTestID('balances_row_0_utxo').should('exist')
@@ -69,7 +69,7 @@ context('Wallet - Transaction Authorization', () => {
 
   before(function () {
     cy.createEmptyWallet(true)
-    cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(10000)
+    cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(5000)
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
     cy.getByTestID('balances_row_0_utxo').should('exist')
@@ -100,7 +100,7 @@ context('Wallet - Transaction Authorization', () => {
 
     it('should clear attempt on success', function () {
       cy.createEmptyWallet(true)
-      cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(10000)
+      cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(5000)
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_list').should('exist')
       cy.getByTestID('balances_row_0_utxo').should('exist')
@@ -131,7 +131,7 @@ context('Wallet - Transaction Authorization', () => {
 
   context('Non-Transaction Authorization', () => {
     it('should be prompt non-signing authorization', function () {
-      cy.createEmptyWallet(true)
+      cy.createEmptyWallet(true).wait(4000)
       cy.getByTestID('bottom_tab_settings').click()
       cy.getByTestID('view_recovery_words').click()
     })
@@ -143,13 +143,13 @@ context('Wallet - Transaction Authorization', () => {
 
     it('should be able to exit failed retries', function () {
       Array.from(Array(4), (v, i) => i + 1).forEach(() => {
-        cy.getByTestID('pin_authorize').type('696969').wait(1000)
+        cy.getByTestID('pin_authorize').type('696969').wait(2000)
       })
       cy.url().should('include', 'wallet/onboarding')
     })
 
     it('should clear attempt on success', function () {
-      cy.createEmptyWallet(true)
+      cy.createEmptyWallet(true).wait(4000)
       cy.getByTestID('bottom_tab_settings').click()
       cy.getByTestID('view_recovery_words').click()
       Array.from(Array(3), (v, i) => i + 1).forEach(() => {
