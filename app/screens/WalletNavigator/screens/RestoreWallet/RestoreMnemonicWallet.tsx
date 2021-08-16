@@ -3,7 +3,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { createRef, useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { Alert, TextInput } from 'react-native'
+import { Alert, Platform, TextInput } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
@@ -15,7 +15,7 @@ import { WalletParamList } from '../../WalletNavigator'
 
 export function RestoreMnemonicWallet (): JSX.Element {
   const navigation = useNavigation<NavigationProp<WalletParamList>>()
-  const { control, formState: { isValid }, getValues } = useForm({ mode: 'onChange' })
+  const { control, formState: { isValid, isDirty }, getValues } = useForm({ mode: 'onChange' })
   const [recoveryWords] = useState<number[]>(Array.from(Array(24), (v, i) => i + 1))
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [inputRefMap, setInputRefMap] = useState<Array<React.RefObject<TextInput>>>([])
@@ -26,6 +26,43 @@ export function RestoreMnemonicWallet (): JSX.Element {
       setInputRefMap(inputRefMap)
     })
   }, [])
+
+  useEffect(() => {
+    if (Platform.OS !== 'web') {
+      navigation.addListener('beforeRemove', (e) => {
+        if (!isDirty) {
+          // If we don't have unsaved changes, then we don't need to do anything
+          return
+        }
+
+        // Prevent default behavior of leaving the screen
+        e.preventDefault()
+
+        // Prompt the user before leaving the screen
+        Alert.alert(
+          translate('screens/RestoreWallet', 'Discard changes?'),
+          translate('screens/RestoreWallet', 'You have unsaved changes. Are you sure to discard them and leave the screen?'),
+          [
+            {
+              text: 'Cancel',
+              style: 'cancel',
+              onPress: () => {
+              }
+            },
+            {
+              text: 'Discard',
+              style: 'destructive',
+              onPress: () => navigation.dispatch(e.data.action)
+            }
+          ]
+        )
+      })
+      return () => {
+        navigation.removeListener('beforeRemove', () => {
+        })
+      }
+    }
+  }, [navigation, isDirty])
 
   if (inputRefMap.length < 24) {
     return <></>
