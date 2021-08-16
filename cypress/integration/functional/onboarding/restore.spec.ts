@@ -29,7 +29,16 @@ context('Onboarding - Restore Wallet', () => {
     })
   })
 
+  it('should stay on current screen when restore with at least one invalid recovery word', function () {
+    cy.getByTestID('recover_word_1').clear().type('a')
+    cy.getByTestID('recover_wallet_button').should('not.have.attr', 'disabled')
+    cy.getByTestID('recover_wallet_button').click().wait(2000)
+    cy.on('window:confirm', () => {})
+    cy.url().should('include', 'wallet/mnemonic/restore')
+  })
+
   it('should be able to submit form', function () {
+    cy.getByTestID('recover_word_1').clear().type(recoveryWords[0])
     cy.getByTestID('recover_wallet_button').should('not.have.attr', 'disabled')
     cy.getByTestID('recover_wallet_button').click().wait(2000)
   })
