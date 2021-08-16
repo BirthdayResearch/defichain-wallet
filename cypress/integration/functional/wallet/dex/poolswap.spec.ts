@@ -28,8 +28,6 @@ context('Wallet - DEX - Pool Swap with balance', () => {
     cy.getByTestID('text_balance_tokenA').contains('10.00000000 DFI')
     cy.getByTestID('text_balance_tokenB').contains('10.00000000 LTC')
     cy.getByTestID('swap_button').click().wait(4000)
-    cy.getByTestID('text_balance_tokenB').contains('10.00000000 DFI')
-    cy.getByTestID('text_balance_tokenA').contains('10.00000000 LTC')
   })
 
   it('should be able to validate form', function () {
