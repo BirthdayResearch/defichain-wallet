@@ -5,7 +5,7 @@ import { NavigationProp, StackActions, useNavigation } from '@react-navigation/n
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { ConfirmTitle, NumberRow, SubmitButtonGroup, TokenBalanceRow } from '../../../../components/ConfirmComponents'
@@ -90,10 +90,12 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
           testID: 'b_amount'
         }}
       />
-      <NumberRow
-        lhs={translate('screens/ConfirmRemoveLiquidity', 'Estimated fee')}
-        rhs={{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }}
-      />
+      <View style={tailwind('mt-4')}>
+        <NumberRow
+          lhs={translate('screens/ConfirmRemoveLiquidity', 'Estimated fee')}
+          rhs={{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }}
+        />
+      </View>
       <SubmitButtonGroup
         onSubmit={onSubmit} onCancel={onCancel} title='remove'
         label={translate('screens/ConfirmRemoveLiquidity', 'REMOVE')}
