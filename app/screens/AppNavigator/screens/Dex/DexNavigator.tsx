@@ -23,7 +23,7 @@ export interface DexParamList {
     fee: BigNumber
   }
   AddLiquidity: { pair: PoolPairData }
-  ConfirmAddLiquidity: { summary: AddLiquiditySummary }
+  ConfirmAddLiquidity: { pair: PoolPairData, summary: AddLiquiditySummary }
   RemoveLiquidity: { pair: PoolPairData }
   ConfirmRemoveLiquidity: { amount: BigNumber, fee: BigNumber, pair: PoolPairData, tokenAAmount: string, tokenBAmount: string }
 

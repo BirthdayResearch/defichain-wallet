@@ -1,6 +1,6 @@
 import React from 'react'
 import { MnemonicEncrypted, MnemonicUnprotected } from '../../../api/wallet'
-import { MnemonicWords } from '../../../api/wallet/mnemonic_words'
+import { MnemonicStorage } from '../../../api/wallet/mnemonic_storage'
 import { View } from '../../../components'
 import { useNetworkContext } from '../../../contexts/NetworkContext'
 import { useWalletPersistenceContext } from '../../../contexts/WalletPersistenceContext'
@@ -53,7 +53,7 @@ export function PlaygroundWallet (): JSX.Element | null {
           const words = MnemonicUnprotected.generateWords()
           const encrypted = await MnemonicEncrypted.toData(words, network, '000000')
           await setWallet(encrypted)
-          await MnemonicWords.encrypt(words, '000000')
+          await MnemonicStorage.set(words, '000000')
         }}
       />
     </View>
