@@ -14,15 +14,6 @@ import {
 import { useNetworkContext } from './NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
 
-interface EncryptedWalletInterface {
-  // provider demand passcode/biometric UI
-  prompt: () => Promise<string>
-}
-
-interface EncryptedWalletUIContext {
-  provide: (ewi: EncryptedWalletInterface) => void
-}
-
 interface WalletContextI {
   /**
    * The entire HD Wallet, powered by @defichain/jellyfish-wallet
@@ -39,14 +30,9 @@ interface WalletContextI {
 }
 
 const WalletContext = createContext<WalletContextI>(undefined as any)
-const EncryptedWalletContext = createContext<EncryptedWalletUIContext>(undefined as any)
 
 export function useWalletContext (): WalletContextI {
   return useContext(WalletContext)
-}
-
-export function useEncryptedWalletUI (): EncryptedWalletUIContext {
-  return useContext(EncryptedWalletContext)
 }
 
 interface WalletProviderProps<T> extends PropsWithChildren<any> {
@@ -92,27 +78,22 @@ function MnemonicUnprotectedProvider (props: WalletProviderProps<MnemonicProvide
 
 function MnemonicEncryptedProvider (props: WalletProviderProps<EncryptedProviderData>): JSX.Element | null {
   const { network } = useNetworkContext()
-  const [promptUI, setPromptUI] = useState<EncryptedWalletInterface>({
-    async prompt () {
-      throw new Error('Prompt UI not ready')
-    }
-  })
 
   const provider = useMemo(() => {
-    return MnemonicEncrypted.initProvider(props.data, network, promptUI)
-  }, [network, promptUI, props.data])
-
-  const encryptedWalletInterface: EncryptedWalletUIContext = {
-    provide: (ewi: EncryptedWalletInterface) => {
-      setPromptUI(ewi)
-    }
-  }
+    return MnemonicEncrypted.initProvider(props.data, network, {
+      prompt: async () => {
+        /**
+         * wallet context only use for READ purpose (non signing)
+         * see {@link TransactionAuthorization} for signing implementation
+         */
+        throw new Error('No UI attached for passphrase prompting')
+      }
+    })
+  }, [network, props.data])
 
   return (
     <WalletContextProvider provider={provider}>
-      <EncryptedWalletContext.Provider value={encryptedWalletInterface}>
-        {props.children}
-      </EncryptedWalletContext.Provider>
+      {props.children}
     </WalletContextProvider>
   )
 }

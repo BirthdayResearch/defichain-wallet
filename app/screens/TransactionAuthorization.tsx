@@ -1,14 +1,18 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
+import { JellyfishWallet } from '@defichain/jellyfish-wallet'
+import { MnemonicHdNode } from '@defichain/jellyfish-wallet-mnemonic'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import React, { useCallback, useEffect, useState } from 'react'
 import { ActivityIndicator, Alert, Platform, SafeAreaView, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../api'
-import { PasscodeAttemptCounter } from '../api/wallet'
+import { initJellyfishWallet, MnemonicEncrypted, PasscodeAttemptCounter, WalletPersistence, WalletType } from '../api/wallet'
 import { Text, View } from '../components'
 import { PinTextInput } from '../components/PinTextInput'
-import { useEncryptedWalletUI, useWalletContext } from '../contexts/WalletContext'
+import { useNetworkContext } from '../contexts/NetworkContext'
+import { useWalletContext } from '../contexts/WalletContext'
 import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
+import { useWhaleApiClient } from '../contexts/WhaleContext'
 import { RootState } from '../store'
 import { Authentication, authentication as authenticationStore } from '../store/authentication'
 import { ocean } from '../store/ocean'
@@ -39,8 +43,9 @@ type Status = 'INIT' | 'IDLE' | 'BLOCK' | 'PIN' | 'SIGNING'
 export function TransactionAuthorization (): JSX.Element | null {
   // context
   const { clearWallets } = useWalletPersistenceContext()
-  const { wallet } = useWalletContext()
-  const encryptionUI = useEncryptedWalletUI()
+  const { wallet: walletFromContext } = useWalletContext()
+  const { network } = useNetworkContext()
+  const whaleApiClient = useWhaleApiClient()
 
   // biometric related persistent storage API
   // const [isBiometric, setIsBiometric] = useState(false)
@@ -55,6 +60,9 @@ export function TransactionAuthorization (): JSX.Element | null {
   const [attemptsRemaining, setAttemptsRemaining] = useState<number>(MAX_PASSCODE_ATTEMPT)
   const [pin, setPin] = useState<string>('')
   const [isRetry, setIsRetry] = useState(false)
+
+  // wallet with (provider with prompting UI attached)
+  const [wallet, setWallet] = useState<JellyfishWallet<WhaleWalletAccount, MnemonicHdNode>>()
 
   // generic callbacks
   const onPinInput = useCallback((pin: string): void => {
@@ -114,17 +122,29 @@ export function TransactionAuthorization (): JSX.Element | null {
 
   // mandatory UI initialization
   useEffect(() => {
-    if (encryptionUI !== undefined) {
-      encryptionUI.provide({ prompt: onPrompt })
-    } // else { wallet not encrypted }, this component expected to remain render null but functional
+    WalletPersistence.get()
+      .then(async dataList => {
+        if (dataList.length === 0) {
+          throw new Error('No wallet found')
+        }
 
-    PasscodeAttemptCounter.get()
-      .then((counter) => {
+        if (dataList[0].type !== WalletType.MNEMONIC_ENCRYPTED) {
+          throw new Error('Unexpected wallet type')
+        }
+
+        const provider = MnemonicEncrypted.initProvider(dataList[0], network, { prompt: onPrompt })
+        const jWallet = initJellyfishWallet(provider, network, whaleApiClient)
+        setWallet(jWallet)
+
+        const counter = await PasscodeAttemptCounter.get()
         setAttemptsRemaining(MAX_PASSCODE_ATTEMPT - counter)
         emitEvent('IDLE')
       })
-      .catch((err) => Logging.error(err))
-  }, [])
+      .catch(e => {
+        Logging.error(e)
+        throw e // unexpected, unable to init
+      })
+  }, [walletFromContext])
 
   /**
    * Currently serving
