@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { ActivityIndicator, ScrollView } from 'react-native'
 import { Logging } from '../../../../api'
 import { MnemonicEncrypted } from '../../../../api/wallet'
-import { MnemonicWords } from '../../../../api/wallet/mnemonic_words'
+import { MnemonicStorage } from '../../../../api/wallet/mnemonic_storage'
 import { Text, View } from '../../../../components'
 import {
   CREATE_STEPS,
@@ -45,7 +45,7 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
     setTimeout(() => {
       MnemonicEncrypted.toData(copy.words, copy.network, copy.pin)
         .then(async encrypted => {
-          await MnemonicWords.encrypt(words, pin)
+          await MnemonicStorage.set(words, pin)
           await setWallet(encrypted)
 
           // temp disabled biometric, forward data to biometric enrolment page after more test
