@@ -3,11 +3,12 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { useCallback } from 'react'
-import { Alert, Platform, ScrollView, TouchableOpacity } from 'react-native'
+import { ScrollView, TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { Logging } from '../../../../api'
 import { MnemonicWords } from '../../../../api/wallet/mnemonic_words'
 import { Text } from '../../../../components'
+import { CustomAlert } from '../../../../components/CustomAlert'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
 import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
@@ -124,25 +125,21 @@ function RowExitWalletItem (): JSX.Element {
   const { clearWallets } = useWalletPersistenceContext()
 
   async function onExitWallet (): Promise<void> {
-    if (Platform.OS === 'web') {
-      await clearWallets()
-    } else {
-      Alert.alert(
-        translate('screens/Settings', 'Are you sure you want to unlink your wallet?'),
-        translate('screens/Settings', 'You will need to use your recovery words the next time you want to get back to your wallet.'),
-        [
-          {
-            text: translate('screens/Settings', 'Cancel'),
-            style: 'cancel'
-          },
-          {
-            text: translate('screens/Settings', 'Unlink Wallet'),
-            onPress: async () => await clearWallets(),
-            style: 'destructive'
-          }
-        ]
-      )
-    }
+    CustomAlert({
+      title: translate('screens/Settings', 'Are you sure you want to unlink your wallet?'),
+      message: translate('screens/Settings', 'You will need to use your recovery words the next time you want to get back to your wallet.'),
+      buttons: [
+        {
+          text: translate('screens/Settings', 'Cancel'),
+          style: 'cancel'
+        },
+        {
+          text: translate('screens/Settings', 'Unlink Wallet'),
+          onPress: async () => await clearWallets(),
+          style: 'destructive'
+        }
+      ]
+    })
   }
 
   return (

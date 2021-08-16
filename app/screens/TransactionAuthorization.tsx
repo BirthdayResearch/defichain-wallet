@@ -1,11 +1,12 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import React, { useCallback, useEffect, useState } from 'react'
-import { ActivityIndicator, Alert, Platform, SafeAreaView, TouchableOpacity } from 'react-native'
+import { ActivityIndicator, Platform, SafeAreaView, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../api'
 import { PasscodeAttemptCounter } from '../api/wallet'
 import { Text, View } from '../components'
+import { CustomAlert } from '../components/CustomAlert'
 import { PinTextInput } from '../components/PinTextInput'
 import { useEncryptedWalletUI, useWalletContext } from '../contexts/WalletContext'
 import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
@@ -348,16 +349,14 @@ async function authenticateFor<T> (
 }
 
 function alertUnlinkWallet (): void {
-  if (Platform.OS !== 'web') {
-    Alert.alert(
-      translate('screens/PinConfirmation', 'Wallet Unlinked'),
-      translate('screens/PinConfirmation', 'Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.'),
-      [
-        {
-          text: translate('screens/PinConfirmation', 'Close'),
-          style: 'destructive'
-        }
-      ]
-    )
-  }
+  CustomAlert({
+    title: translate('screens/PinConfirmation', 'Wallet Unlinked'),
+    message: translate('screens/PinConfirmation', 'Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.'),
+    buttons: [
+      {
+        text: translate('screens/PinConfirmation', 'Close'),
+        style: 'destructive'
+      }
+    ]
+  })
 }

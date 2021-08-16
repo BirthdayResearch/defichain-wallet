@@ -3,11 +3,12 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { createRef, useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { Alert, TextInput } from 'react-native'
+import { TextInput } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { CreateWalletStepIndicator, RESTORE_STEPS } from '../../../../components/CreateWalletStepIndicator'
+import { CustomAlert } from '../../../../components/CustomAlert'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -47,13 +48,13 @@ export function RestoreMnemonicWallet (): JSX.Element {
       })
     } else {
       setIsSubmitting(false)
-      Alert.alert(
-        translate('screens/RestoreWallet', 'Error'),
-        translate('screens/RestoreWallet', 'The recovery words you have entered are invalid. Please double check and try again.'),
-        [
+      CustomAlert({
+        title: translate('screens/RestoreWallet', 'Error'),
+        message: translate('screens/RestoreWallet', 'The recovery words you have entered are invalid. Please double check and try again.'),
+        buttons: [
           { text: 'OK' }
         ]
-      )
+      })
     }
   }
 
