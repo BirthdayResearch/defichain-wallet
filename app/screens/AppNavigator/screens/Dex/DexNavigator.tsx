@@ -7,6 +7,7 @@ import { HeaderTitle } from '../../../../components/HeaderTitle'
 import { translate } from '../../../../translations'
 import { AddLiquidityScreen } from './DexAddLiquidity'
 import { AddLiquiditySummary, ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
+import { RemoveLiquidityConfirmScreen } from './DexConfirmRemoveLiquidity'
 import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
 import { DexScreen } from './DexScreen'
 import { ConfirmPoolSwapScreen, DexForm } from './PoolSwap/ConfirmPoolSwapScreen'
@@ -23,6 +24,8 @@ export interface DexParamList {
   }
   AddLiquidity: { pair: PoolPairData }
   ConfirmAddLiquidity: { summary: AddLiquiditySummary }
+  RemoveLiquidity: { pair: PoolPairData }
+  ConfirmRemoveLiquidity: { amount: BigNumber, fee: BigNumber, pair: PoolPairData, tokenAAmount: string, tokenBAmount: string }
 
   [key: string]: undefined | object
 }
@@ -51,6 +54,13 @@ export function DexNavigator (): JSX.Element {
         name='RemoveLiquidity'
         component={RemoveLiquidityScreen}
         options={{ headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Remove Liquidity')} /> }}
+      />
+      <DexStack.Screen
+        name='RemoveLiquidityConfirmScreen'
+        component={RemoveLiquidityConfirmScreen}
+        options={{
+          headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Confirm removal')} />
+        }}
       />
       <DexStack.Screen
         name='PoolSwap'

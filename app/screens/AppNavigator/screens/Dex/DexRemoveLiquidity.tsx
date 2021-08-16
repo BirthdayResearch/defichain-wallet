@@ -1,24 +1,23 @@
-import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import Slider from '@react-native-community/slider'
-import { StackActions, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import NumberFormat from 'react-number-format'
-import { useDispatch, useSelector } from 'react-redux'
-import { Dispatch } from 'redux'
+import { useSelector } from 'react-redux'
 import { Logging } from '../../../../api'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { SectionTitle } from '../../../../components/SectionTitle'
+import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
-import { hasTxQueued, transactionQueue } from '../../../../store/transaction_queue'
+import { hasTxQueued } from '../../../../store/transaction_queue'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
@@ -26,6 +25,8 @@ import { DexParamList } from './DexNavigator'
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
 export function RemoveLiquidityScreen (props: Props): JSX.Element {
+  const client = useWhaleApiClient()
+  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   // this component state
   const [tokenAAmount, setTokenAAmount] = useState<BigNumber>(new BigNumber(0))
@@ -33,30 +34,17 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   // ratio, before times 100
   const [percentage, setPercentage] = useState<string>('0') // for display
   const [amount, setAmount] = useState<BigNumber>(new BigNumber(0)) // to construct tx
-  const [isOnPage, setIsOnPage] = useState<boolean>(true)
-  const navigation = useNavigation()
-  const postAction = (): void => {
-    if (isOnPage) {
-      navigation.dispatch(StackActions.popToTop())
-    }
-  }
-
-  useEffect(() => {
-    setIsOnPage(true)
-    return () => {
-      setIsOnPage(false)
-    }
-  }, [])
+  const navigation = useNavigation<NavigationProp<DexParamList>>()
 
   // gather required data
   const tokens = useTokensAPI()
-  const { pair } = props.route.params as any
+  const { pair } = props.route.params
   const [aSymbol, bSymbol] = pair.symbol.split('-') as [string, string]
   const lmToken = tokens.find(token => token.symbol === pair.symbol) as AddressToken
-  const tokenAPerLmToken = new BigNumber(pair.tokenA.reserve).div(pair.totalLiquidity.token)
-  const tokenBPerLmToken = new BigNumber(pair.tokenB.reserve).div(pair.totalLiquidity.token)
+  const tokenAPerLmToken = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
+  const tokenBPerLmToken = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
 
-  const setSliderPercentage = useCallback((percentage: number) => {
+  const setSliderPercentage = (percentage: number): void => {
     // this must round down, avoid attempt remove more than selected (or even available)
     const toRemove = new BigNumber(percentage).div(100).times(lmToken.amount).decimalPlaces(8, BigNumber.ROUND_DOWN)
     const ratioToTotal = toRemove.div(pair.totalLiquidity.token)
@@ -67,21 +55,20 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
     setTokenAAmount(tokenA)
     setTokenBAmount(tokenB)
     setPercentage(new BigNumber(percentage).toFixed(2))
-  }, [percentage])
+  }
 
-  const dispatch = useDispatch()
+  const removeLiquidity = (): void => {
+    if (hasPendingJob) {
+      return
+    }
+    navigation.navigate('RemoveLiquidityConfirmScreen', { amount, pair, tokenAAmount, tokenBAmount, fee })
+  }
 
-  const removeLiquidity = useCallback(() => {
-    if (hasPendingJob) return
-    constructSignedRemoveLiqAndSend(
-      Number(pair.id),
-      amount,
-      dispatch,
-      postAction
-    ).catch(e => {
-      Logging.error(e)
-    })
-  }, [amount])
+  useEffect(() => {
+    client.fee.estimate()
+      .then((f) => setFee(new BigNumber(f)))
+      .catch(Logging.error)
+  }, [])
 
   return (
     <ScrollView style={tailwind('w-full flex-col flex-1 bg-gray-100')}>
@@ -89,7 +76,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         <View style={tailwind('w-full flex-row p-4')}>
           <Text
             style={tailwind('flex-1 font-semibold')}
-          >{translate('screens/RemoveLiquidity', 'Amount of liquidity to remove')}
+          >{translate('screens/RemoveLiquidity', 'Amount to remove')}
           </Text>
           <Text testID='text_slider_percentage' style={tailwind('text-right')}>{percentage}%</Text>
         </View>
@@ -99,7 +86,8 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
           onChange={setSliderPercentage}
         />
       </View>
-      <View style={tailwind('w-full bg-white mt-8 mb-4')}>
+      <SectionTitle text={translate('screens/RemoveLiquidity', 'YOU ARE REMOVING')} testID='remove_liq_title' />
+      <View style={tailwind('w-full bg-white mb-4')}>
         <CoinAmountRow symbol={aSymbol} amount={tokenAAmount} />
         <CoinAmountRow symbol={bSymbol} amount={tokenBAmount} />
         <View style={tailwind('bg-white p-2 border-t border-gray-200 flex-row items-start w-full')}>
@@ -108,8 +96,8 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
           </View>
           <View style={tailwind('flex-1 mr-2')}>
             <NumberFormat
-              value={tokenAPerLmToken.toNumber()} decimalScale={8} thousandSeparator displayType='text'
-              suffix={` ${aSymbol}`}
+              value={tokenAPerLmToken.toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
+              suffix={` ${bSymbol} per ${aSymbol}`}
               renderText={(val) => (
                 <Text
                   testID='text_a_to_b_price'
@@ -120,8 +108,8 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
               )}
             />
             <NumberFormat
-              value={tokenBPerLmToken.toNumber()} decimalScale={8} thousandSeparator displayType='text'
-              suffix={` ${bSymbol}`}
+              value={tokenBPerLmToken.toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
+              suffix={` ${aSymbol} per ${bSymbol}`}
               renderText={(val) => (
                 <Text
                   testID='text_b_to_a_price'
@@ -175,7 +163,7 @@ function CoinAmountRow (props: { symbol: string, amount: BigNumber }): JSX.Eleme
         <Text testID={`remove_liq_symbol_${props.symbol}`} style={tailwind('ml-2')}>{props.symbol}</Text>
       </View>
       <NumberFormat
-        value={props.amount.toNumber()} decimalScale={8} thousandSeparator displayType='text'
+        value={props.amount.toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
         renderText={(value) => (
           <Text
             testID={`text_coin_amount_${props.symbol}`}
@@ -197,30 +185,8 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
         title='continue'
         disabled={!props.enabled}
         onPress={props.onPress}
-        label={translate('components/Button', 'REMOVE')}
+        label={translate('components/Button', 'CONTINUE')}
       />
     </View>
   )
-}
-
-async function constructSignedRemoveLiqAndSend (tokenId: number, amount: BigNumber, dispatch: Dispatch<any>, postAction: () => void): Promise<void> {
-  const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
-    const builder = account.withTransactionBuilder()
-    const script = await account.getScript()
-
-    const removeLiq = {
-      script,
-      tokenId,
-      amount
-    }
-    const dfTx = await builder.liqPool.removeLiquidity(removeLiq, script)
-    return new CTransactionSegWit(dfTx)
-  }
-
-  dispatch(transactionQueue.actions.push({
-    sign: signer,
-    title: `${translate('screens/RemoveLiquidity', 'Removing Liquidity')}`,
-    description: `${translate('screens/RemoveLiquidity', 'Removing Liquidity')}`,
-    postAction
-  }))
 }
