@@ -12,7 +12,6 @@ import { Logging } from '../../../../../api'
 import { Text, View } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
-import LoadingScreen from '../../../../../components/LoadingScreen'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
@@ -60,7 +59,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   }, [mode, JSON.stringify(tokens), amount])
 
   if (sourceToken === undefined || targetToken === undefined) {
-    return <LoadingScreen />
+    return <></>
   }
 
   function convert (sourceToken: ConversionIO, targetToken: ConversionIO): void {

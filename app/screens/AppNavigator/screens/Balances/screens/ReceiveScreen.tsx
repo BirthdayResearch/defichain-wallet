@@ -44,6 +44,7 @@ export function ReceiveScreen (): JSX.Element {
           />
         </View>
         <Text
+          selectable
           testID='address_text'
           style={tailwind('text-gray-500 font-medium text-center')}
           numberOfLines={2}

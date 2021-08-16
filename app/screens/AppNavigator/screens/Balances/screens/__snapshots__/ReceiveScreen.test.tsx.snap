@@ -138,6 +138,7 @@ exports[`receive page should match snapshot 1`] = `
     </View>
     <Text
       numberOfLines={2}
+      selectable={true}
       style={
         Array [
           Object {
