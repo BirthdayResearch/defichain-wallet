@@ -1,7 +1,8 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
 import { useNetworkContext } from '../../contexts/NetworkContext'
-import { WalletProvider } from '../../contexts/WalletContext'
+import { WalletContextProvider } from '../../contexts/WalletContext'
+import { WalletNodeProvider } from '../../contexts/WalletNodeProvider'
 import { useWalletPersistenceContext } from '../../contexts/WalletPersistenceContext'
 import { isPlayground } from '../../environment'
 import { tailwind } from '../../tailwind'
@@ -33,9 +34,11 @@ function PlaygroundWalletSection (): JSX.Element | null {
   }
 
   return (
-    <WalletProvider data={wallets[0]}>
-      <PlaygroundUTXO />
-      <PlaygroundToken />
-    </WalletProvider>
+    <WalletNodeProvider data={wallets[0]}>
+      <WalletContextProvider>
+        <PlaygroundUTXO />
+        <PlaygroundToken />
+      </WalletContextProvider>
+    </WalletNodeProvider>
   )
 }
