@@ -128,7 +128,8 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
                 tokenAAmount: new BigNumber(tokenAAmount),
                 tokenBAmount: new BigNumber(tokenBAmount),
                 percentage: sharePercentage
-              }
+              },
+              pair
             },
             merge: true
           })
