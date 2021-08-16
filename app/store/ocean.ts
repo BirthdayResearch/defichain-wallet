@@ -16,7 +16,7 @@ export interface OceanState {
 
 const initialState: OceanState = {
   transactions: [],
-  height: 49,
+  height: 0,
   err: undefined
 }
 
