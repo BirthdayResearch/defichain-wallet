@@ -1,4 +1,5 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -48,7 +49,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
       return
     }
     setIsSubmitting(true)
-    await constructSignedRemoveLiqAndSend(Number(pair.id), amount, pair.symbol, dispatch, postAction)
+    await constructSignedRemoveLiqAndSend(pair, amount, dispatch, postAction)
     setIsSubmitting(false)
   }
 
@@ -102,7 +103,9 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
   )
 }
 
-async function constructSignedRemoveLiqAndSend (tokenId: number, amount: BigNumber, symbol: string, dispatch: Dispatch<any>, postAction: () => void): Promise<void> {
+async function constructSignedRemoveLiqAndSend (pair: PoolPairData, amount: BigNumber, dispatch: Dispatch<any>, postAction: () => void): Promise<void> {
+  const tokenId = Number(pair.id)
+  const symbol = pair.symbol
   const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
     const builder = account.withTransactionBuilder()
     const script = await account.getScript()
