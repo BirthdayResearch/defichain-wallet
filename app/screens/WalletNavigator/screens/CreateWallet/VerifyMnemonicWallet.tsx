@@ -67,8 +67,8 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
         navigation.navigate('CreateMnemonicWallet')
       } else {
         Alert.alert(
-          '',
           translate('screens/VerifyMnemonicWallet', 'Invalid selection. Please ensure you have written down your 24 words.'),
+          '',
           [
             {
               text: translate('screens/VerifyMnemonicWallet', 'Go back'),
