@@ -71,7 +71,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         suffix={` ${pair.symbol}`}
       />
       <SectionTitle
-        text={translate('screens/ConfirmRemoveLiquidity', 'YOU WILL RECEIVE')}
+        text={translate('screens/ConfirmRemoveLiquidity', 'ESTIMATED AMOUNT TO RECEIVE')}
         testID='title_remove_detail'
       />
       <TokenBalanceRow
