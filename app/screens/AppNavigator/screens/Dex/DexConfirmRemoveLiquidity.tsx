@@ -5,7 +5,7 @@ import { NavigationProp, StackActions, useNavigation } from '@react-navigation/n
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
-import { ScrollView, View } from 'react-native'
+import { ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { ConfirmTitle, NumberRow, SubmitButtonGroup, TokenBalanceRow } from '../../../../components/ConfirmComponents'
@@ -25,6 +25,8 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
     tokenAAmount, tokenBAmount
   } = route.params
   const [aSymbol, bSymbol] = pair.symbol.split('-') as [string, string]
+  const aToBRate = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
+  const bToARate = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
   const dispatch = useDispatch()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -90,12 +92,21 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
           testID: 'b_amount'
         }}
       />
-      <View style={tailwind('mt-4')}>
-        <NumberRow
-          lhs={translate('screens/ConfirmRemoveLiquidity', 'Estimated fee')}
-          rhs={{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }}
-        />
-      </View>
+      <SectionTitle
+        text={translate('screens/ConfirmRemoveLiquidity', 'TRANSACTION DETAILS')}
+        testID='title_tx_detail'
+      />
+      <NumberRow
+        lhs={translate('screens/ConfirmRemoveLiquidity', 'Price')}
+        rightHandElements={[
+          { value: aToBRate.toFixed(8), suffix: ` ${bSymbol} per ${aSymbol}`, testID: 'price_a' },
+          { value: bToARate.toFixed(8), suffix: ` ${aSymbol} per ${bSymbol}`, testID: 'price_b' }
+        ]}
+      />
+      <NumberRow
+        lhs={translate('screens/ConfirmRemoveLiquidity', 'Estimated fee')}
+        rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
+      />
       <SubmitButtonGroup
         onSubmit={onSubmit} onCancel={onCancel} title='remove'
         label={translate('screens/ConfirmRemoveLiquidity', 'REMOVE')}

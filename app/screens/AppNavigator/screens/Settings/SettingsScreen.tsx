@@ -6,7 +6,7 @@ import { useCallback } from 'react'
 import { Alert, Platform, ScrollView, TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { Logging } from '../../../../api'
-import { MnemonicWords } from '../../../../api/wallet/mnemonic_words'
+import { MnemonicStorage } from '../../../../api/wallet/mnemonic_storage'
 import { Text } from '../../../../components'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
@@ -34,7 +34,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
 
     const auth: Authentication<string[]> = {
       message: translate('screens/Settings', 'To continue downloading your recovery words, we need you to enter your passcode.'),
-      consume: async passphrase => await MnemonicWords.decrypt(passphrase),
+      consume: async passphrase => await MnemonicStorage.get(passphrase),
       onAuthenticated: async (words) => {
         navigation.navigate({ name: 'RecoveryWordsScreen', params: { words }, merge: true })
       },
@@ -50,7 +50,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
 
     const auth: Authentication<string[]> = {
       message: translate('screens/Settings', 'To update your passcode, we need you to enter your current passcode.'),
-      consume: async passphrase => await MnemonicWords.decrypt(passphrase),
+      consume: async passphrase => await MnemonicStorage.get(passphrase),
       onAuthenticated: async words => {
         navigation.navigate({
           name: 'ChangePinScreen', params: { words, pinLength: 6 }, merge: true
