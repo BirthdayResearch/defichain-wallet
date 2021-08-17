@@ -27,6 +27,7 @@ context('Onboarding', () => {
     cy.getByTestID('create_recovery_words_button').click()
 
     cy.url().should('include', 'wallet/mnemonic/create')
+    cy.go('back')
     cy.on('window:confirm', () => {
     })
     cy.getByTestID('guidelines_switch').should('exist')
