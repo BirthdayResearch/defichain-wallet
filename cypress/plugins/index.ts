@@ -20,3 +20,9 @@ module.exports = (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions)
   require('@cypress/code-coverage/task')(on, config)
   return config
 }
+
+module.exports = (on, config) => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const getCompareSnapshotsPlugin = require('cypress-image-diff-js/dist/plugin')
+  getCompareSnapshotsPlugin(on, config)
+}

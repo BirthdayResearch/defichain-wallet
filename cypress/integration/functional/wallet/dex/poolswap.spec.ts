@@ -17,7 +17,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_settings').click()
-    cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['LTC']).wait(10000)
+    cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['LTC']).wait(3000)
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('bottom_tab_dex').click()
@@ -87,5 +87,23 @@ context('Wallet - DEX - Pool Swap with balance', () => {
         expect(new BigNumber(balanceAmount).toNumber()).be.gte(new BigNumber(tokenValue).toNumber())
       })
     })
+  })
+})
+
+context('Wallet - DEX - Pool Swap failed api', () => {
+  before(function () {
+    cy.createEmptyWallet(true)
+  })
+
+  it('should handle failed API calls', function () {
+    cy.intercept('**/regtest/poolpairs**', {
+      statusCode: 404,
+      body: '404 Not Found!',
+      headers: {
+        'x-not-found': 'true'
+      }
+    })
+    cy.getByTestID('bottom_tab_dex').click()
+    cy.getByTestID('pool_pair_row').should('not.exist')
   })
 })
