@@ -7,6 +7,8 @@ context('Wallet - Settings', () => {
   it('should change network when clicked', function () {
     cy.getByTestID('button_network_Local_check').should('exist')
     cy.getByTestID('button_network_Playground').click()
+    cy.on('window:confirm', () => {
+    })
   })
 
   it('should exit wallet when clicked on positive action', function () {
