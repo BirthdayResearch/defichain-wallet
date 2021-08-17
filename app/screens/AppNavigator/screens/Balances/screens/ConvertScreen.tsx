@@ -19,6 +19,7 @@ import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
 import { hasTxQueued } from '../../../../../store/transaction_queue'
+import { hasTxQueued as hasBoardcastQueued } from '../../../../../store/ocean'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
@@ -35,6 +36,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   // global state
   const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBoardcastQueued(state.ocean))
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const [mode, setMode] = useState(props.route.params.mode)
   const [sourceToken, setSourceToken] = useState<ConversionIO>()
@@ -63,7 +65,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   }
 
   function convert (sourceToken: ConversionIO, targetToken: ConversionIO): void {
-    if (hasPendingJob) {
+    if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
     navigation.navigate({
@@ -99,7 +101,7 @@ export function ConvertScreen (props: Props): JSX.Element {
       <TokenVsUtxosInfo />
       <Button
         testID='button_continue_convert'
-        disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob}
+        disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob || hasPendingBroadcastJob}
         title='Convert' onPress={() => convert(sourceToken, targetToken)}
         label={translate('components/Button', 'CONTINUE')}
       />

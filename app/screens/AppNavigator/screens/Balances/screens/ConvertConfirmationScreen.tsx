@@ -16,6 +16,7 @@ import {
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { RootState } from '../../../../../store'
 import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
+import { hasTxQueued as hasBoardcastQueued } from '../../../../../store/ocean'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
@@ -26,6 +27,7 @@ type Props = StackScreenProps<BalanceParamList, 'ConvertConfirmationScreen'>
 export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
   const { sourceUnit, sourceBalance, targetUnit, targetBalance, mode, amount, fee } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBoardcastQueued(state.ocean))
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
@@ -44,7 +46,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
   }, [])
 
   async function onSubmit (): Promise<void> {
-    if (hasPendingJob) {
+    if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
     setIsSubmitting(true)
@@ -94,7 +96,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
       <SubmitButtonGroup
         onSubmit={onSubmit} onCancel={onCancel} title='convert'
         label={translate('screens/SendConfirmationScreen', 'CONVERT')}
-        isDisabled={isSubmitting || hasPendingJob}
+        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
       />
     </ScrollView>
   )

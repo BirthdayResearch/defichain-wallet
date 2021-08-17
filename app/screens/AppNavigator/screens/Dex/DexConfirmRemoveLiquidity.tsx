@@ -12,6 +12,7 @@ import { ConfirmTitle, NumberRow, SubmitButtonGroup, TokenBalanceRow } from '../
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { RootState } from '../../../../store'
 import { hasTxQueued, transactionQueue } from '../../../../store/transaction_queue'
+import { hasTxQueued as hasBoardcastQueued } from '../../../../store/ocean'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
@@ -29,6 +30,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
   const bToARate = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
   const dispatch = useDispatch()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBoardcastQueued(state.ocean))
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
@@ -47,7 +49,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
   }, [])
 
   async function onSubmit (): Promise<void> {
-    if (hasPendingJob) {
+    if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
     setIsSubmitting(true)
@@ -110,7 +112,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
       <SubmitButtonGroup
         onSubmit={onSubmit} onCancel={onCancel} title='remove'
         label={translate('screens/ConfirmRemoveLiquidity', 'REMOVE')}
-        isDisabled={isSubmitting || hasPendingJob}
+        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
       />
     </ScrollView>
   )

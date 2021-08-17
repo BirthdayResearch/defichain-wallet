@@ -16,6 +16,7 @@ import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
 import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
+import { hasTxQueued as hasBoardcastQueued } from '../../../../../store/ocean'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
@@ -28,6 +29,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   const [token, setToken] = useState(route.params.token)
   const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBoardcastQueued(state.ocean))
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
@@ -46,7 +48,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   }, [])
 
   async function onSubmit (): Promise<void> {
-    if (hasPendingJob) {
+    if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
     setIsSubmitting(true)
@@ -115,7 +117,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       <SubmitButtonGroup
         onSubmit={onSubmit} onCancel={onCancel} title='send'
         label={translate('screens/SendConfirmationScreen', 'SEND')}
-        isDisabled={isSubmitting || hasPendingJob}
+        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
       />
     </ScrollView>
   )
