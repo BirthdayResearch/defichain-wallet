@@ -48,7 +48,7 @@ describe('wallet reducer', () => {
   it('should handle setUtxoBalance', () => {
     const utxoAmount = '77'
     const actual = wallet.reducer(initialState, wallet.actions.setUtxoBalance(utxoAmount));
-    expect(actual.utxoBalance).toStrictEqual(utxoAmount)
+    expect(actual.utxoBalance).toStrictEqual('77')
   });
 
   it('should handle setPoolpairs', () => {
@@ -97,7 +97,7 @@ describe('wallet reducer', () => {
 
   it('should able to select tokens with default DFIs', () => {
     const actual = tokensSelector({ ...initialState, utxoBalance: '77' })
-    expect(actual).toStrictEqual([{ ...utxoDFI, amount: '77' }, { ...tokenDFI, amount: '0' }])
+    expect(actual).toStrictEqual([{ ...utxoDFI, amount: '77.00000000' }, { ...tokenDFI, amount: '0' }])
   });
 
   it('should able to select tokens with existing DFI Token', () => {
@@ -114,10 +114,10 @@ describe('wallet reducer', () => {
     };
     const state = {
       ...initialState,
-      utxoBalance: '77',
+      utxoBalance: '77.00000000',
       tokens: [{ ...utxoDFI }, { ...tokenDFI }, { ...btc }]
     }
     const actual = tokensSelector(state)
-    expect(actual).toStrictEqual([{ ...utxoDFI, amount: '77' }, { ...tokenDFI }, { ...btc }])
+    expect(actual).toStrictEqual([{ ...utxoDFI, amount: '77.00000000' }, { ...tokenDFI }, { ...btc }])
   });
 })

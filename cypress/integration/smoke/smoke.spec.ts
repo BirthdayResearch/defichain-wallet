@@ -5,6 +5,15 @@
  * The goal is to have run smoke testing in Mainnet
  * */
 
+import { WhaleApiClient } from '@defichain/whale-api-client'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import BigNumber from 'bignumber.js'
+
+interface DexItem {
+  type: 'your' | 'available'
+  data: PoolPairData
+}
+
 context('Mainnet - Wallet', () => {
   const recoveryWords: string[] = []
   const settingsRecoveryWords: string[] = []
@@ -135,6 +144,39 @@ context('Mainnet - Wallet', () => {
         expect(address).eq(localAddress.address)
       })
       cy.getByTestID('qr_code_container').compareSnapshot('local-qr-code-container')
+    })
+  })
+})
+
+context('Mainnet - Wallet - Pool Pair Values', () => {
+  beforeEach(function () {
+    cy.restoreLocalStorage()
+  })
+
+  afterEach(function () {
+    cy.saveLocalStorage()
+  })
+
+  let whale: WhaleApiClient
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.switchNetwork('MainNet')
+    cy.createEmptyWallet(true)
+    whale = new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'mainnet', version: 'v0' })
+    cy.getByTestID('bottom_tab_dex').click()
+  })
+
+  it('should verify poolpair values', function () {
+    cy.wrap<DexItem[]>(whale.poolpairs.list(50)).then((pairs) => {
+      const available: PoolPairData[] = pairs.map(data => ({ type: 'available', data: data }))
+      available.forEach((pair) => {
+        const data: PoolPairData = pair.data
+        const [symbolA, symbolB] = data.symbol.split('-')
+        cy.getByTestID(`your_symbol_${data.symbol}`).contains(data.symbol)
+        cy.getByTestID(`apr_${data.symbol}`).contains(`${new BigNumber(data.apr.total).times(100).toFixed(2)}%`)
+        cy.getByTestID(`available_${symbolA}`).contains(`${new BigNumber(new BigNumber(data.tokenA.reserve).toFixed(2, 1)).toNumber().toLocaleString()} ${symbolA}`)
+        cy.getByTestID(`available_${symbolB}`).contains(`${new BigNumber(new BigNumber(data.tokenB.reserve).toFixed(2, 1)).toNumber().toLocaleString()} ${symbolB}`)
+      })
     })
   })
 })

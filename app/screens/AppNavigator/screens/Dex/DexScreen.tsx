@@ -146,7 +146,7 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
         <View style={tailwind('flex-row items-center')}>
           <IconA width={32} height={32} />
           <IconB width={32} height={32} style={tailwind('-ml-3 mr-3')} />
-          <Text style={tailwind('text-lg font-bold')}>{data.symbol}</Text>
+          <Text testID={`your_symbol_${symbolA}-${symbolB}`} style={tailwind('text-lg font-bold')}>{data.symbol}</Text>
         </View>
 
         <View style={tailwind('flex-row -mr-2')}>
@@ -158,7 +158,7 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
       <View style={tailwind('mt-4')}>
         {
           data.apr?.total !== undefined &&
-            <PoolPairAPR symbol={`${symbolA}_${symbolB}`} apr={data.apr.total} row='apr' />
+            <PoolPairAPR symbol={`${symbolA}-${symbolB}`} apr={data.apr.total} row='apr' />
         }
         <PoolPairInfoLine symbol={symbolA} reserve={data.tokenA.reserve} row='available' decimalScale={2} />
         <PoolPairInfoLine symbol={symbolB} reserve={data.tokenB.reserve} row='available' decimalScale={2} />
