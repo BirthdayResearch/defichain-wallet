@@ -36,7 +36,7 @@ export function ConfirmPinScreen ({ route }: Props): JSX.Element {
     }
 
     const copy = { words, network, pin }
-    setSpinnerMessage(translate('screens/PinConfirmation', 'Updating passcode...\nWallet encryption may take up to 20 seconds.'))
+    setSpinnerMessage(translate('screens/PinConfirmation', 'It may take a few seconds to securely encrypt your wallet...'))
     setTimeout(() => {
       MnemonicEncrypted.toData(copy.words, copy.network, copy.pin)
         .then(async encrypted => {
@@ -67,7 +67,7 @@ export function ConfirmPinScreen ({ route }: Props): JSX.Element {
           (spinnerMessage !== undefined) ? (
             <View style={tailwind('items-center')}>
               <ActivityIndicator color='#FF00AF' style={tailwind('mb-4')} />
-              <Text style={tailwind('ml-2 font-semibold text-sm text-center')}>{spinnerMessage}</Text>
+              <Text style={tailwind('ml-2 font-semibold text-sm text-center w-4/5')}>{spinnerMessage}</Text>
             </View>
           ) : null
         }
