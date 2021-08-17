@@ -341,11 +341,6 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount }: SwapSummaryIte
           symbol: tokenB.symbol
         }]}
       />
-      <PriceRow
-        testID='fee'
-        title={translate('screens/PoolSwapScreen', 'Liquidity provider fee')}
-        values={[{ amount: '0.001', symbol: 'DFI' }]}
-      />
     </View>
   )
 }
