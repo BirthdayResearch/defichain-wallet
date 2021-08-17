@@ -34,12 +34,13 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
     }
 
     const auth: Authentication<string[]> = {
-      message: translate('screens/Settings', 'To continue downloading your recovery words, we need you to enter your passcode.'),
       consume: async passphrase => await MnemonicStorage.get(passphrase),
       onAuthenticated: async (words) => {
         navigation.navigate({ name: 'RecoveryWordsScreen', params: { words }, merge: true })
       },
-      onError: e => Logging.error(e)
+      onError: e => Logging.error(e),
+      message: translate('screens/Settings', 'To continue downloading your recovery words, we need you to enter your passcode.'),
+      loading: translate('screens/Settings', 'Decrypting recovering words...')
     }
     dispatch(authentication.actions.prompt(auth))
   }, [walletContext.wallets[0]])
@@ -50,7 +51,6 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
     }
 
     const auth: Authentication<string[]> = {
-      message: translate('screens/Settings', 'To update your passcode, we need you to enter your current passcode.'),
       consume: async passphrase => await MnemonicStorage.get(passphrase),
       onAuthenticated: async words => {
         navigation.navigate({
@@ -59,7 +59,9 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       },
       onError: (e) => {
         dispatch(ocean.actions.setError(e))
-      }
+      },
+      message: translate('screens/Settings', 'To update your passcode, we need you to enter your current passcode.'),
+      loading: translate('screens/Settings', 'Verifying passcode...')
     }
 
     dispatch(authentication.actions.prompt(auth))

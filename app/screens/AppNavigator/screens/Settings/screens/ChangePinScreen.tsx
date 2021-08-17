@@ -38,7 +38,7 @@ export function ChangePinScreen ({ route }: Props): JSX.Element {
       </View>
       <Button
         testID='change_pin_button'
-        label={translate('screens/PinCreation', 'CREATE PASSCODE')}
+        label={translate('screens/PinCreation', 'CHANGE PASSCODE')}
         title='create-pin'
         disabled={newPin.length !== pinLength}
         onPress={() => {
