@@ -85,7 +85,7 @@ const rawTokensSelector = createSelector((state: WalletState) => state.tokens, (
 
 export const tokensSelector = createSelector([rawTokensSelector, (state: WalletState) => state.utxoBalance], (tokens, utxoBalance) => tokens.map((t) => {
   if (t.id === '0_utxo') {
-    return { ...t, amount: new BigNumber(utxoBalance).toFixed() }
+    return { ...t, amount: new BigNumber(utxoBalance).toFixed(8) }
   }
   return t
 }))

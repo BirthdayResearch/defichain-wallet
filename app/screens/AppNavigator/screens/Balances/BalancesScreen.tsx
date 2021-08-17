@@ -66,17 +66,18 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
 function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () => void }): JSX.Element {
   const Icon = getTokenIcon(token.avatarSymbol)
-
+  const testID = `balances_row_${token.id}`
   return (
     <TouchableOpacity
-      onPress={onPress} testID={`balances_row_${token.id}`}
+      onPress={onPress} testID={testID}
       style={tailwind('bg-white py-4 pl-4 pr-2 flex-row justify-between items-center')}
     >
       <View style={tailwind('flex-row items-center flex-grow')}>
-        <Icon />
+        <Icon testID={`${testID}_icon`} />
         <View style={tailwind('mx-3 flex-auto')}>
-          <Text style={tailwind('font-medium')}>{token.displaySymbol}</Text>
+          <Text testID={`${testID}_symbol`} style={tailwind('font-medium')}>{token.displaySymbol}</Text>
           <Text
+            testID={`${testID}_name`}
             numberOfLines={1}
             ellipsizeMode='tail'
             style={tailwind('text-sm font-medium text-gray-600')}
@@ -88,7 +89,7 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
             value={token.amount} decimalScale={8} thousandSeparator displayType='text'
             renderText={(value) =>
               <>
-                <Text style={tailwind('mr-2 flex-wrap')} testID={`balances_row_${token.id}_amount`}>
+                <Text style={tailwind('mr-2 flex-wrap')} testID={`${testID}_amount`}>
                   {value}
                 </Text>
                 <MaterialIcons name='chevron-right' size={24} />

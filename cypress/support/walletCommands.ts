@@ -1,5 +1,6 @@
 import { DeFiAddress } from "@defichain/jellyfish-address";
 import '@testing-library/cypress/add-commands'
+import { BalanceTokenDetail } from "../integration/functional/wallet/balances/balances.spec";
 
 declare global {
   namespace Cypress {
@@ -18,6 +19,14 @@ declare global {
        * @example cy.isNetworkConnected('MainNet')
        */
       isNetworkConnected (network: string): Chainable<Element>
+
+      /**
+       * @description Verify balance row if it has correct values
+       * @param {string} id - token
+       * @param details - token to be verified
+       * @example cy.isNetworkConnected('MainNet')
+       */
+      checkBalanceRow (id: string, details: BalanceTokenDetail): Chainable<Element>
     }
   }
 }
@@ -41,4 +50,13 @@ Cypress.Commands.add('isNetworkConnected', (network: string) => {
     expect(net).eq(network)
   })
   cy.getByTestID('header_status_indicator').should('have.css', 'background-color', 'rgb(16, 185, 129)')
+})
+
+Cypress.Commands.add('checkBalanceRow', (id: string, details: BalanceTokenDetail) => {
+  const testID = `balances_row_${id}`
+  cy.getByTestID(testID).should('exist')
+  cy.getByTestID(`${testID}_icon`).should('exist')
+  cy.getByTestID(`${testID}_symbol`).should('have.text', details.symbol)
+  cy.getByTestID(`${testID}_name`).should('have.text', details.name)
+  cy.getByTestID(`${testID}_amount`).should('have.text', details.amount)
 })
