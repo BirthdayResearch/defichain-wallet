@@ -6,7 +6,7 @@ import { ScrollView, TouchableOpacity } from 'react-native'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { CREATE_STEPS, CreateWalletStepIndicator } from '../../../../components/CreateWalletStepIndicator'
-import { CustomAlert } from '../../../../components/CustomAlert'
+import { WalletAlert } from '../../../../components/WalletAlert'
 import { getEnvironment } from '../../../../environment'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -64,7 +64,7 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
     if (recoveryWords.join(' ') === selectedWords.join(' ')) {
       navigateToPinCreation()
     } else {
-      CustomAlert({
+      WalletAlert({
         title: '',
         message: translate('screens/VerifyMnemonicWallet', 'Invalid selection. Please ensure you have written down your 24 words.'),
         buttons: [

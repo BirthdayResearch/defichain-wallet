@@ -6,10 +6,16 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { ActivityIndicator, Platform, SafeAreaView, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../api'
-import { initJellyfishWallet, MnemonicEncrypted, MnemonicUnprotected, PasscodeAttemptCounter, WalletType } from '../api/wallet'
+import {
+  initJellyfishWallet,
+  MnemonicEncrypted,
+  MnemonicUnprotected,
+  PasscodeAttemptCounter,
+  WalletType
+} from '../api/wallet'
 import { Text, View } from '../components'
-import { CustomAlert } from '../components/CustomAlert'
 import { PinTextInput } from '../components/PinTextInput'
+import { WalletAlert } from '../components/WalletAlert'
 import { useNetworkContext } from '../contexts/NetworkContext'
 import { useWalletNodeContext } from '../contexts/WalletNodeProvider'
 import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
@@ -342,7 +348,7 @@ async function authenticateFor<T> (
 }
 
 function alertUnlinkWallet (): void {
-  CustomAlert({
+  WalletAlert({
     title: translate('screens/PinConfirmation', 'Wallet Unlinked'),
     message: translate('screens/PinConfirmation', 'Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.'),
     buttons: [

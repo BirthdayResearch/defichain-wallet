@@ -8,8 +8,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { CreateWalletStepIndicator, RESTORE_STEPS } from '../../../../components/CreateWalletStepIndicator'
-import { CustomAlert } from '../../../../components/CustomAlert'
 import { SectionTitle } from '../../../../components/SectionTitle'
+import { WalletAlert } from '../../../../components/WalletAlert'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { WalletParamList } from '../../WalletNavigator'
@@ -39,7 +39,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
       e.preventDefault()
 
       // Prompt the user before leaving the screen
-      CustomAlert({
+      WalletAlert({
         title: translate('screens/RestoreWallet', 'Discard changes?'),
         message: translate('screens/RestoreWallet', 'You have unsaved changes. Are you sure to discard them and leave the screen?'),
         buttons: [
@@ -83,7 +83,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
       })
     } else {
       setIsSubmitting(false)
-      CustomAlert({
+      WalletAlert({
         title: translate('screens/RestoreWallet', 'Error'),
         message: translate('screens/RestoreWallet', 'The recovery words you have entered are invalid. Please double check and try again.'),
         buttons: [

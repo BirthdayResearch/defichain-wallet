@@ -27,7 +27,7 @@ interface CustomAlertOption {
  *
  * @reference https://github.com/necolas/react-native-web/issues/1026#issuecomment-687572134
  */
-export function CustomAlert (option: CustomAlertOption): void {
+export function WalletAlert (option: CustomAlertOption): void {
   if (Platform.OS !== 'web') {
     Alert.alert(option.title, option.message, option.buttons, option.options)
   } else if ((option.buttons === undefined || option.buttons.length === 0)) {

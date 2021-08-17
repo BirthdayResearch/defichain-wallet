@@ -8,8 +8,8 @@ import { useDispatch } from 'react-redux'
 import { Logging } from '../../../../api'
 import { MnemonicStorage } from '../../../../api/wallet/mnemonic_storage'
 import { Text } from '../../../../components'
-import { CustomAlert } from '../../../../components/CustomAlert'
 import { SectionTitle } from '../../../../components/SectionTitle'
+import { WalletAlert } from '../../../../components/WalletAlert'
 import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { getEnvironment } from '../../../../environment'
 import { authentication, Authentication } from '../../../../store/authentication'
@@ -88,7 +88,7 @@ function RowExitWalletItem (): JSX.Element {
   const { clearWallets } = useWalletPersistenceContext()
 
   async function onExitWallet (): Promise<void> {
-    CustomAlert({
+    WalletAlert({
       title: translate('screens/Settings', 'Are you sure you want to unlink your wallet?'),
       message: translate('screens/Settings', 'You will need to use your recovery words the next time you want to get back to your wallet.'),
       buttons: [
