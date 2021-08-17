@@ -126,6 +126,11 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         label={translate('screens/Settings', 'Change Passcode')}
         onPress={changePasscode}
       />
+      <SecurityRow
+        testID='view_privacy_lock'
+        label={translate('screens/Settings', 'Privacy Lock')}
+        onPress={() => {}}
+      />
       <RowNavigateItem pageName='AboutScreen' title='About' />
       <RowExitWalletItem />
     </ScrollView>
