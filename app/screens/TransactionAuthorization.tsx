@@ -29,6 +29,10 @@ import { translate } from '../translations'
 
 const MAX_PASSCODE_ATTEMPT = 4 // allowed 3 failures
 const PIN_LENGTH = 6
+const DEFAULT_MESSAGES = {
+  message: translate('screens/UnlockWallet', 'Please enter passcode to securely sign your transaction'),
+  loadingMessage: translate('screens/TransactionAuthorization', 'Signing...')
+}
 
 /**
  * useRef() working well on web but not on mobile
@@ -67,6 +71,10 @@ export function TransactionAuthorization (): JSX.Element | null {
 
   // wallet with (provider with prompting UI attached)
   const [wallet, setWallet] = useState<JellyfishWallet<WhaleWalletAccount, MnemonicHdNode>>()
+
+  // messages
+  const [message, setMessage] = useState(DEFAULT_MESSAGES.message)
+  const [loadingMessage, setLoadingMessage] = useState(DEFAULT_MESSAGES.loadingMessage)
 
   // generic callbacks
   const onPinInput = useCallback((pin: string): void => {
@@ -121,6 +129,8 @@ export function TransactionAuthorization (): JSX.Element | null {
   const onTaskCompletion = (): void => {
     setPin('') // cached PIN cleared upon each task completion
     setIsRetry(false)
+    setMessage(DEFAULT_MESSAGES.message)
+    setLoadingMessage(DEFAULT_MESSAGES.loadingMessage)
     emitEvent('IDLE') // very last step, open up for next task
   }
 
@@ -192,6 +202,10 @@ export function TransactionAuthorization (): JSX.Element | null {
         })
     } else if (authentication !== undefined) {
       emitEvent('BLOCK') // prevent any re-render trigger (between IDLE and PIN)
+
+      setMessage(authentication.message)
+      setLoadingMessage(authentication.loading)
+
       authenticateFor(onPrompt, authentication, onRetry, retries)
         .then(async () => {
           // case 1: success
@@ -259,7 +273,7 @@ export function TransactionAuthorization (): JSX.Element | null {
         <View style={tailwind('p-4 px-8 text-sm text-center text-gray-500 mb-6')}>
           <Text
             style={tailwind('p-4 px-8 text-sm text-center text-gray-500 mb-2')}
-          >{translate('screens/UnlockWallet', 'Please enter passcode to securely sign your transaction')}
+          >{message}
           </Text>
           {
             transaction?.description !== undefined && (
@@ -280,7 +294,7 @@ export function TransactionAuthorization (): JSX.Element | null {
           )
         }
         <Loading
-          message={status === 'SIGNING' ? translate('screens/TransactionAuthorization', 'Signing...') : undefined}
+          message={status === 'SIGNING' ? loadingMessage : undefined}
         />
         {// upon retry: show remaining attempt allowed
           (isRetry && attemptsRemaining !== undefined && attemptsRemaining !== MAX_PASSCODE_ATTEMPT) ? (
