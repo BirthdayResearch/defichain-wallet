@@ -31,7 +31,6 @@ context('Onboarding', () => {
     cy.on('window:confirm', () => {
     })
     cy.getByTestID('guidelines_switch').should('exist')
-    cy.getByTestID('create_recovery_words_button').click()
   })
 
   it('should redirect to restore wallet page', function () {
