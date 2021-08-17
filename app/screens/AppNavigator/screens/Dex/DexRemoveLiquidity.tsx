@@ -163,7 +163,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
 function AmountSlider (props: { current: number, onChange: (percentage: string) => void, viewStyle: StyleProp<ViewStyle> }): JSX.Element {
   return (
     <View style={[tailwind('flex-row items-center border-t border-gray-200'), props.viewStyle]}>
-      <TouchableOpacity testID='button_slider_min' onPress={() => props.onChange('0')}>
+      <TouchableOpacity testID='button_slider_min' onPress={() => props.onChange('0.00')}>
         <Text style={tailwind('text-gray-500 text-sm')}>{translate('components/slider', 'None')}</Text>
       </TouchableOpacity>
       <View style={tailwind('flex-1 ml-4 mr-4')}>
@@ -177,7 +177,7 @@ function AmountSlider (props: { current: number, onChange: (percentage: string) 
           onSlidingComplete={(val) => props.onChange(new BigNumber(val).toFixed(2))}
         />
       </View>
-      <TouchableOpacity testID='button_slider_max' onPress={() => props.onChange('100')}>
+      <TouchableOpacity testID='button_slider_max' onPress={() => props.onChange('100.00')}>
         <Text style={tailwind('text-gray-500 text-sm')}>{translate('components', 'All')}</Text>
       </TouchableOpacity>
     </View>
