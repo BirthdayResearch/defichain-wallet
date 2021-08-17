@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { Text } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
-import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
+import { getNativeIcon } from '../../../../../components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
@@ -204,7 +204,7 @@ interface TokenForm {
 
 function TokenRow (form: TokenForm): JSX.Element {
   const { token, control, onChangeFromAmount, title, controlName, enableMaxButton = true, isDisabled } = form
-  const Icon = getTokenIcon(token.symbol)
+  const Icon = getNativeIcon(token.symbol)
   const rules: { required: boolean, pattern: RegExp, validate: any, max?: string } = {
     required: true,
     pattern: /^\d*\.?\d*$/,
