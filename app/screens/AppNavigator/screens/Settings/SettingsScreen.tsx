@@ -39,8 +39,8 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         navigation.navigate({ name: 'RecoveryWordsScreen', params: { words }, merge: true })
       },
       onError: e => Logging.error(e),
-      message: translate('screens/Settings', 'To continue downloading your recovery words, we need you to enter your passcode.'),
-      loading: translate('screens/Settings', 'Decrypting recovering words...')
+      message: translate('screens/Settings', 'To continue viewing your recovery words, we need you to enter your passcode.'),
+      loading: translate('screens/Settings', 'Loading...')
     }
     dispatch(authentication.actions.prompt(auth))
   }, [walletContext.wallets[0]])
