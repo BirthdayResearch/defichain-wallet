@@ -64,9 +64,9 @@ context('Wallet - DEX - Remove Liquidity', () => {
 
   it('Slider "None" / "All" button', function () {
     cy.getByTestID('button_slider_max').click().wait(1000)
-    cy.getByTestID('text_input_percentage').contains('100.00%')
+    cy.getByTestID('text_input_percentage').contains('100.00')
     cy.getByTestID('button_slider_min').click().wait(1000)
-    cy.getByTestID('text_input_percentage').contains('0.00%')
+    cy.getByTestID('text_input_percentage').contains('0.00')
     cy.getByTestID('text_coin_amount_DFI').contains('0.00000000')
     cy.getByTestID('text_coin_amount_DFI').contains('0.00000000')
 
