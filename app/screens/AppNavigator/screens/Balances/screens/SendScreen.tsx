@@ -20,8 +20,8 @@ import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
+import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
 import { hasTxQueued } from '../../../../../store/transaction_queue'
-import { hasTxQueued as hasBoardcastQueued } from '../../../../../store/ocean'
 import { WalletToken } from '../../../../../store/wallet'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
@@ -37,7 +37,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
-  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBoardcastQueued(state.ocean))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
 
   useEffect(() => {
     client.fee.estimate()

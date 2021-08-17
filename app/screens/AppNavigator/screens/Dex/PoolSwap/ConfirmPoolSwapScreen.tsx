@@ -15,8 +15,8 @@ import {
 } from '../../../../../components/ConfirmComponents'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { RootState } from '../../../../../store'
+import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
 import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
-import { hasTxQueued as hasBoardcastQueued } from '../../../../../store/ocean'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { DexParamList } from '../DexNavigator'
@@ -34,7 +34,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
     slippage
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
-  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBoardcastQueued(state.ocean))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<DexParamList>>()

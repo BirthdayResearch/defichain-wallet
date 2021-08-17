@@ -18,8 +18,8 @@ import { AmountButtonTypes, SetAmountButton } from '../../../../../components/Se
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
+import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
 import { hasTxQueued } from '../../../../../store/transaction_queue'
-import { hasTxQueued as hasBoardcastQueued } from '../../../../../store/ocean'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
@@ -36,7 +36,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   // global state
   const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
-  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBoardcastQueued(state.ocean))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const [mode, setMode] = useState(props.route.params.mode)
   const [sourceToken, setSourceToken] = useState<ConversionIO>()

@@ -20,8 +20,8 @@ import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { usePoolPairsAPI } from '../../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
+import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
 import { hasTxQueued } from '../../../../../store/transaction_queue'
-import { hasTxQueued as hasBoardcastQueued } from '../../../../../store/ocean'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { DexParamList } from '../DexNavigator'
@@ -42,7 +42,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
-  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBoardcastQueued(state.ocean))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const [tokenAForm, tokenBForm] = ['tokenA', 'tokenB']
   const navigation = useNavigation<NavigationProp<DexParamList>>()
 
