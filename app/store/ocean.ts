@@ -42,4 +42,4 @@ export const ocean = createSlice({
 
 export const firstTransactionSelector = createSelector((state: OceanState) => state.transactions, (transactions) => transactions[0])
 
-export const hasTxQueued = createSelector((state: OceanState) => state.transactions, (transactions) => transactions.length > 0)
+export const hasTXinOceanQueue = createSelector((state: OceanState) => state.transactions, (transactions) => transactions.length > 0)

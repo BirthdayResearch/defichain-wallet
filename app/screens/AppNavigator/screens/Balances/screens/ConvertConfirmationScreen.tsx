@@ -15,6 +15,7 @@ import {
 } from '../../../../../components/ConfirmComponents'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { RootState } from '../../../../../store'
+import { hasTXinOceanQueue } from '../../../../../store/ocean'
 import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
@@ -25,7 +26,7 @@ type Props = StackScreenProps<BalanceParamList, 'ConvertConfirmationScreen'>
 
 export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
   const { sourceUnit, sourceBalance, targetUnit, targetBalance, mode, amount, fee } = route.params
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue)) || useSelector((state: RootState) => hasTXinOceanQueue(state.ocean))
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()

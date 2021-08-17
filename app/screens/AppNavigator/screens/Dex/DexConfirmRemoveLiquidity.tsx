@@ -11,6 +11,7 @@ import { Dispatch } from 'redux'
 import { ConfirmTitle, NumberRow, SubmitButtonGroup, TokenBalanceRow } from '../../../../components/ConfirmComponents'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { RootState } from '../../../../store'
+import { hasTXinOceanQueue } from '../../../../store/ocean'
 import { hasTxQueued, transactionQueue } from '../../../../store/transaction_queue'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -28,7 +29,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
   const aToBRate = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
   const bToARate = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
   const dispatch = useDispatch()
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue)) || useSelector((state: RootState) => hasTXinOceanQueue(state.ocean))
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
