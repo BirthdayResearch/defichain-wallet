@@ -36,11 +36,37 @@ context('Wallet - DEX - Remove Liquidity', () => {
   //   cy.getByTestID('text_slider_percentage').invoke('text').should(t => expect(t).equals('99.99 %'))
   // })
 
+  it('should disable continue button by default', () => {
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+  })
+
+  it('should disable continue button when input is invalid', () => {
+    cy.getByTestID('text_input_percentage').clear().type('0')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+    cy.getByTestID('text_input_percentage').clear().type('123')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+    cy.getByTestID('text_input_percentage').clear().type('100.000000000001')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+    cy.getByTestID('text_input_percentage').clear().type('1.23.456.789')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+    cy.getByTestID('text_input_percentage').clear().type('cake')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+  })
+
+  it('should be able to continue when input valid percentage', () => {
+    cy.getByTestID('text_input_percentage').clear().type('1.23')
+    cy.getByTestID('button_continue_remove_liq').should('not.have.attr', 'disabled')
+    cy.getByTestID('text_input_percentage').clear().type('32.1')
+    cy.getByTestID('button_continue_remove_liq').should('not.have.attr', 'disabled')
+    cy.getByTestID('text_input_percentage').clear().type('100.00000000')
+    cy.getByTestID('button_continue_remove_liq').should('not.have.attr', 'disabled')
+  })
+
   it('Slider "None" / "All" button', function () {
     cy.getByTestID('button_slider_max').click().wait(1000)
-    cy.getByTestID('text_slider_percentage').contains('100.00%')
+    cy.getByTestID('text_input_percentage').contains('100.00%')
     cy.getByTestID('button_slider_min').click().wait(1000)
-    cy.getByTestID('text_slider_percentage').contains('0.00%')
+    cy.getByTestID('text_input_percentage').contains('0.00%')
     cy.getByTestID('text_coin_amount_DFI').contains('0.00000000')
     cy.getByTestID('text_coin_amount_DFI').contains('0.00000000')
 
