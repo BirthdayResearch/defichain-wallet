@@ -117,13 +117,13 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       <SecurityRow
         disabled={!isEncrypted}
         testID='view_recovery_words'
-        label='Recovery Words'
+        label={translate('screens/Settings', 'Recovery Words')}
         onPress={revealRecoveryWords}
       />
       <SecurityRow
         disabled={!isEncrypted}
         testID='view_change_passcode'
-        label='Change Passcode'
+        label={translate('screens/Settings', 'Change Passcode')}
         onPress={changePasscode}
       />
       <RowNavigateItem pageName='AboutScreen' title='About' />
