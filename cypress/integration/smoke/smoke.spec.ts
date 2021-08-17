@@ -27,8 +27,9 @@ context('Mainnet - Wallet', () => {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
-      .sendTokenToWallet(['BTC', 'DFI-ETH']).wait(10000)
+      .sendTokenToWallet(['BTC', 'DFI-ETH']).wait(3000)
     cy.verifyWalletAddress('regtest', localAddress)
+    cy.getByTestID('qr_code_container').compareSnapshot('local-qr-code-container')
   })
 
   it('should have MainNet', function () {
@@ -48,9 +49,22 @@ context('Mainnet - Wallet', () => {
     cy.setupPinCode()
   })
 
+  it('should have displayed default tokens', function () {
+    cy.checkBalanceRow('0_utxo', { name: 'DeFiChain', amount: '0.00000000', symbol: 'DFI (UTXO)' })
+    cy.checkBalanceRow('0', { name: 'DeFiChain', amount: '0.00000000', symbol: 'DFI (Token)' })
+  })
+
   context('Settings - Mnemonic Verification', () => {
     it('should be able to verify mnemonic from settings page', function () {
       cy.verifyMnemonicOnSettingsPage(settingsRecoveryWords, recoveryWords)
+    })
+  })
+
+  context('Settings - Change Passcode', () => {
+    it('should be able to change passcode and verify', function () {
+      cy.changePasscode()
+      cy.getByTestID('view_recovery_words').click().wait(3000)
+      cy.getByTestID('pin_authorize').type('696969').wait(3000)
     })
   })
 
@@ -101,10 +115,9 @@ context('Mainnet - Wallet', () => {
       cy.fetchWalletBalance()
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_list').should('exist')
-      cy.getByTestID('balances_row_0_utxo_amount').contains(10)
-      cy.getByTestID('balances_row_0_amount').contains(10)
-      cy.getByTestID('balances_row_1_amount').contains(10)
-      cy.getByTestID('balances_row_7_amount').contains(10)
+      cy.checkBalanceRow('0_utxo', { name: 'DeFiChain', amount: '10.00000000', symbol: 'DFI (UTXO)' })
+      cy.checkBalanceRow('0', { name: 'DeFiChain', amount: 10, symbol: 'DFI (Token)' }, true)
+      cy.checkBalanceRow('7', { name: 'Default Defi token-Playground ETH', amount: '10.00000000', symbol: 'DFI-ETH' })
     })
 
     it('should have correct poolpairs', function () {
@@ -121,6 +134,7 @@ context('Mainnet - Wallet', () => {
         const address = $txt[0].textContent
         expect(address).eq(localAddress.address)
       })
+      cy.getByTestID('qr_code_container').compareSnapshot('local-qr-code-container')
     })
   })
 })

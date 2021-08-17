@@ -1,6 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackScreenProps } from '@react-navigation/stack'
+import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useCallback, useEffect, useState } from 'react'
 import { FlatList, RefreshControl, TouchableOpacity } from 'react-native'
@@ -86,7 +87,7 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
         </View>
         <View style={tailwind('flex-row items-center')}>
           <NumberFormat
-            value={token.amount} decimalScale={8} thousandSeparator displayType='text'
+            value={new BigNumber(token.amount).toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
             renderText={(value) =>
               <>
                 <Text style={tailwind('mr-2 flex-wrap')} testID={`${testID}_amount`}>
