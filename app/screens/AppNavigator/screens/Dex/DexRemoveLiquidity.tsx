@@ -17,6 +17,7 @@ import { SectionTitle } from '../../../../components/SectionTitle'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
+import { hasTxQueued as hasBroadcastQueued } from '../../../../store/ocean'
 import { hasTxQueued } from '../../../../store/transaction_queue'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -28,6 +29,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   const client = useWhaleApiClient()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   // this component state
   const [tokenAAmount, setTokenAAmount] = useState<BigNumber>(new BigNumber(0))
   const [tokenBAmount, setTokenBAmount] = useState<BigNumber>(new BigNumber(0))
@@ -58,7 +60,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   }
 
   const removeLiquidity = (): void => {
-    if (hasPendingJob) {
+    if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
     navigation.navigate('RemoveLiquidityConfirmScreen', { amount, pair, tokenAAmount, tokenBAmount, fee })
@@ -123,7 +125,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         </View>
       </View>
       <ContinueButton
-        enabled={Number(percentage) !== 0 && !hasPendingJob}
+        enabled={Number(percentage) !== 0 && !hasPendingJob && !hasPendingBroadcastJob}
         onPress={removeLiquidity}
       />
     </ScrollView>

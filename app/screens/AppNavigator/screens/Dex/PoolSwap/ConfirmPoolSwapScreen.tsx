@@ -15,6 +15,7 @@ import {
 } from '../../../../../components/ConfirmComponents'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { RootState } from '../../../../../store'
+import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
 import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
@@ -33,6 +34,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
     slippage
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
@@ -51,7 +53,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
   }, [])
 
   async function onSubmit (): Promise<void> {
-    if (hasPendingJob) {
+    if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
     setIsSubmitting(true)
@@ -111,7 +113,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
       <SubmitButtonGroup
         onSubmit={onSubmit} onCancel={onCancel} title='swap'
         label={translate('screens/PoolSwapConfirmScreen', 'SWAP')}
-        isDisabled={isSubmitting || hasPendingJob}
+        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
       />
     </ScrollView>
   )

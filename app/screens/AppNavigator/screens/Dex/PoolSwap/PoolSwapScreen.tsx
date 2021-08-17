@@ -20,6 +20,7 @@ import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { usePoolPairsAPI } from '../../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
+import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
 import { hasTxQueued } from '../../../../../store/transaction_queue'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
@@ -41,6 +42,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const [tokenAForm, tokenBForm] = ['tokenA', 'tokenB']
   const navigation = useNavigation<NavigationProp<DexParamList>>()
 
@@ -68,7 +70,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   }, [pairs, route.params.poolpair])
 
   function onSubmit (): void {
-    if (hasPendingJob) return
+    if (hasPendingJob || hasPendingBroadcastJob) return
     if (tokenA === undefined || tokenB === undefined || poolpair === undefined) {
       return
     }
@@ -187,7 +189,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           />
       }
       <Button
-        disabled={!isValid || hasPendingJob}
+        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/PoolSwapScreen', 'CONTINUE')}
         title='CONTINUE' onPress={onSubmit} testID='button_submit'
       />
