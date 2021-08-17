@@ -2,9 +2,8 @@ import { MaterialIcons } from '@expo/vector-icons'
 import React from 'react'
 import { ScrollView, View } from 'react-native'
 import { Text } from '../../../../../components'
-import { translate } from '../../../../../translations'
 import { tailwind } from '../../../../../tailwind'
-import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
+import { translate } from '../../../../../translations'
 
 export function TokensVsUtxoScreen (): JSX.Element {
   return (

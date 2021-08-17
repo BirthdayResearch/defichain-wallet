@@ -5,7 +5,6 @@ import NumberFormat from 'react-number-format'
 import { tailwind } from '../../tailwind'
 import { translate } from '../../translations'
 import { Button } from '../Button'
-import { getTokenIcon } from '../icons/tokens/_index'
 import { Text } from '../Text'
 
 interface ConfirmTitleItems {

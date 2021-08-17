@@ -8,7 +8,7 @@ import { SectionList, TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { Text, View } from '../../../../components'
-import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { getAssetIcon } from '../../../../components/icons/assets'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { usePoolPairsAPI } from '../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
@@ -98,8 +98,8 @@ interface DexItem<T> {
 
 function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () => void, pair?: PoolPairData): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
-  const IconA = getTokenIcon(symbolA)
-  const IconB = getTokenIcon(symbolB)
+  const IconA = getAssetIcon(symbolA)
+  const IconB = getAssetIcon(symbolB)
   const toRemove = new BigNumber(1).times(data.amount).decimalPlaces(8, BigNumber.ROUND_DOWN)
   const ratioToTotal = toRemove.div(pair?.totalLiquidity?.token ?? 1)
   // assume defid will trim the dust values too
@@ -137,8 +137,8 @@ function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () =>
 
 function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: () => void): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
-  const IconA = getTokenIcon(symbolA)
-  const IconB = getTokenIcon(symbolB)
+  const IconA = getAssetIcon(symbolA)
+  const IconB = getAssetIcon(symbolB)
 
   return (
     <View testID='pool_pair_row' style={tailwind('p-4 bg-white border-b border-gray-200')}>

@@ -8,7 +8,7 @@ import { ScrollView } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
-import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { getAssetIcon } from '../../../../components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '../../../../components/InputIconLabel'
 import { NumberTextInput } from '../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../components/SectionTitle'
@@ -141,7 +141,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
 
 // TODO(@ivan-zynesis): Refactor to reusable component after design team standardize component lib
 function TokenInput (props: { symbol: string, balance: BigNumber, current: string, type: EditingAmount, onChange: (amount: string) => void }): JSX.Element {
-  const TokenIcon = getTokenIcon(props.symbol)
+  const TokenIcon = getAssetIcon(props.symbol)
   return (
     <View>
       <SectionTitle
