@@ -8,7 +8,7 @@ import { FlatList, RefreshControl, TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
 import { Text, View } from '../../../../components'
-import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { getNativeIcon } from '../../../../components/icons/assets'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { useWalletContext } from '../../../../contexts/WalletContext'
 import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
@@ -66,7 +66,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 }
 
 function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () => void }): JSX.Element {
-  const Icon = getTokenIcon(token.avatarSymbol)
+  const Icon = getNativeIcon(token.avatarSymbol)
   const testID = `balances_row_${token.id}`
   return (
     <TouchableOpacity

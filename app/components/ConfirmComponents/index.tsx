@@ -5,7 +5,7 @@ import NumberFormat from 'react-number-format'
 import { tailwind } from '../../tailwind'
 import { translate } from '../../translations'
 import { Button } from '../Button'
-import { getTokenIcon } from '../icons/tokens/_index'
+import { getNativeIcon } from '../icons/assets'
 import { Text } from '../Text'
 
 interface ConfirmTitleItems {
@@ -91,11 +91,11 @@ export function NumberRow ({
 }
 
 export function TokenBalanceRow (props: { lhs: string, rhs: { value: string | number, testID: string }, iconType: string }): JSX.Element {
-  const TokenIcon = getTokenIcon(props.iconType)
+  const TokenIcon = getNativeIcon(props.iconType)
   return (
     <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
       <View style={tailwind('flex-1 flex-row')}>
-        <TokenIcon width={24} height={24} style={tailwind('mr-2')} />
+        <TokenIcon style={tailwind('mr-2')} />
         <Text style={tailwind('font-medium')} testID={`${props.rhs.testID}_unit`}>{props.lhs}</Text>
       </View>
       <View style={tailwind('flex-1')}>
