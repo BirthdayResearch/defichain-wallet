@@ -62,12 +62,14 @@ describe('wallet reducer', () => {
         "tokenA": {
           "id": "0",
           "reserve": "1000",
-          "blockCommission": "0"
+          "blockCommission": "0",
+          "symbol": "DFI"
         },
         "tokenB": {
           "id": "3",
           "reserve": "10000000",
-          "blockCommission": "0"
+          "blockCommission": "0",
+          "symbol": "USDT"
         },
         "priceRatio": {
           "ab": "0.0001",

@@ -167,7 +167,7 @@ context('Mainnet - Wallet - Pool Pair Values', () => {
   })
 
   it('should verify poolpair values', function () {
-    cy.wrap<DexItem[]>(whale.poolpairs.list(50)).then((pairs) => {
+    cy.wrap<DexItem[]>(whale.poolpairs.list(50), { timeout: 20000 }).then((pairs) => {
       const available: PoolPairData[] = pairs.map(data => ({ type: 'available', data: data }))
       available.forEach((pair) => {
         const data: PoolPairData = pair.data
