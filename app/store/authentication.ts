@@ -6,7 +6,11 @@ export interface Authentication<T> {
   // OPTIONAL error handler
   // (CRITICAL invalid passphare error is auto handled, include wipe wallet if necessary)
   onError?: (e: Error) => void
-  message?: string
+
+  // messages in passcode UI
+  // mandatory, default message is for signing transaction
+  message: string
+  loading: string
 }
 
 const initialState: { authentication?: Authentication<any> } = {}
