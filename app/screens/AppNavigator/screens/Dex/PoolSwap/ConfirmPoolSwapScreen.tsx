@@ -4,7 +4,7 @@ import { NavigationProp, StackActions, useNavigation } from '@react-navigation/n
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
-import { ScrollView, View } from 'react-native'
+import { ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import {
@@ -29,7 +29,8 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
     tokenB,
     fee,
     swap,
-    pair
+    pair,
+    slippage
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const dispatch = useDispatch()
@@ -54,7 +55,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
       return
     }
     setIsSubmitting(true)
-    await constructSignedSwapAndSend(swap, dispatch, postAction)
+    await constructSignedSwapAndSend(swap, slippage, dispatch, postAction)
     setIsSubmitting(false)
   }
 
@@ -91,12 +92,22 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
           testID: 'target_amount'
         }}
       />
-      <View style={tailwind('mt-4')}>
-        <NumberRow
-          lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated fee')}
-          rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
-        />
-      </View>
+      <SectionTitle
+        text={translate('screens/PoolSwapConfirmScreen', 'TRANSACTION DETAILS')}
+        testID='title_tx_detail'
+      />
+      <NumberRow
+        lhs={translate('screens/PoolSwapConfirmScreen', 'Slippage Tolerance')}
+        rightHandElements={[{
+          value: new BigNumber(slippage).times(100).toFixed(),
+          suffix: '%',
+          testID: 'slippage_fee'
+        }]}
+      />
+      <NumberRow
+        lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated fee')}
+        rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
+      />
       <SubmitButtonGroup
         onSubmit={onSubmit} onCancel={onCancel} title='swap'
         label={translate('screens/PoolSwapConfirmScreen', 'SWAP')}
@@ -115,11 +126,12 @@ export interface DexForm {
 
 async function constructSignedSwapAndSend (
   dexForm: DexForm,
+  slippage: number,
   dispatch: Dispatch<any>,
   postAction: () => void
 ): Promise<void> {
   try {
-    const maxPrice = dexForm.fromAmount.div(dexForm.toAmount).decimalPlaces(8)
+    const maxPrice = dexForm.fromAmount.div(dexForm.toAmount).times(1 + slippage).decimalPlaces(8)
     const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
       const builder = account.withTransactionBuilder()
       const script = await account.getScript()
