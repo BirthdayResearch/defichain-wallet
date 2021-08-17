@@ -40,6 +40,7 @@ context('Wallet - Transaction Authorization with Error', () => {
     cy.getByTestID('button_confirm_convert').click().wait(2000)
     cy.getByTestID('pin_attempt_error').should('not.exist')
     cy.getByTestID('pin_authorize').type('696969').wait(1000)
+    cy.on('window:confirm', () => {})
     cy.url().should('include', 'wallet/onboarding')
   })
 
@@ -54,6 +55,7 @@ context('Wallet - Transaction Authorization with Error', () => {
     cy.getByTestID('view_recovery_words').click()
     cy.getByTestID('pin_attempt_error').should('not.exist')
     cy.getByTestID('pin_authorize').type('696969').wait(1000)
+    cy.on('window:confirm', () => {})
     cy.url().should('include', 'wallet/onboarding')
   })
 })
@@ -95,6 +97,7 @@ context('Wallet - Transaction Authorization', () => {
       Array.from(Array(4), (v, i) => i + 1).forEach(() => {
         cy.getByTestID('pin_authorize').type('696969').wait(1000)
       })
+      cy.on('window:confirm', () => {})
       cy.url().should('include', 'wallet/onboarding')
     })
 
@@ -145,6 +148,7 @@ context('Wallet - Transaction Authorization', () => {
       Array.from(Array(4), (v, i) => i + 1).forEach(() => {
         cy.getByTestID('pin_authorize').type('696969').wait(2000)
       })
+      cy.on('window:confirm', () => {})
       cy.url().should('include', 'wallet/onboarding')
     })
 

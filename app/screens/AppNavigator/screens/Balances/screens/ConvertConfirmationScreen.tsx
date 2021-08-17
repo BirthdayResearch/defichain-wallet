@@ -4,7 +4,7 @@ import { NavigationProp, StackActions, useNavigation } from '@react-navigation/n
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import {
@@ -85,10 +85,12 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
         lhs={translate('screens/ConvertConfirmationScreen', targetUnit)}
         rhs={{ value: targetBalance.toFixed(8), testID: 'target_amount' }}
       />
-      <NumberRow
-        lhs={translate('screens/ConvertConfirmationScreen', 'Estimated fee')}
-        rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
-      />
+      <View style={tailwind('mt-4')}>
+        <NumberRow
+          lhs={translate('screens/ConvertConfirmationScreen', 'Estimated fee')}
+          rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
+        />
+      </View>
       <SubmitButtonGroup
         onSubmit={onSubmit} onCancel={onCancel} title='convert'
         label={translate('screens/SendConfirmationScreen', 'CONVERT')}

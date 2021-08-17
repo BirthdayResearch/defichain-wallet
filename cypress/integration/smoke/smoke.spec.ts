@@ -93,6 +93,8 @@ context('Mainnet - Wallet', () => {
     it('should change network to Local', function () {
       cy.getByTestID('bottom_tab_settings').click()
       cy.getByTestID('button_network_Local').click()
+      cy.on('window:confirm', () => {
+      })
     })
 
     it('should have correct balances', function () {

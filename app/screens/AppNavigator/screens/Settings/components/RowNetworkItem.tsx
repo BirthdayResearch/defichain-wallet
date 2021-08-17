@@ -2,8 +2,9 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { useCallback } from 'react'
-import { Alert, Platform, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { Text } from '../../../../../components'
+import { WalletAlert } from '../../../../../components/WalletAlert'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { EnvironmentNetwork, isPlayground } from '../../../../../environment'
 import { tailwind } from '../../../../../tailwind'
@@ -20,25 +21,23 @@ export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Ele
         navigation.navigate('Playground')
       }
     } else {
-      if (Platform.OS !== 'web') {
-        Alert.alert(
-          translate('screens/Settings', 'Network Switch'),
-          translate('screens/Settings', `You are about to switch to ${props.network}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?`),
-          [
-            {
-              text: translate('screens/Settings', 'No'),
-              style: 'cancel'
-            },
-            {
-              text: translate('screens/Settings', 'Yes'),
-              style: 'destructive',
-              onPress: async () => await updateNetwork(props.network)
-            }
-          ]
-        )
-      } else {
-        await updateNetwork(props.network)
+      WalletAlert({
+        title: translate('screens/Settings', 'Network Switch'),
+        message: translate(
+          'screens/Settings', `You are about to switch to ${props.network}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?`),
+        buttons: [
+          {
+            text: translate('screens/Settings', 'No'),
+            style: 'cancel'
+          },
+          {
+            text: translate('screens/Settings', 'Yes'),
+            style: 'destructive',
+            onPress: async () => await updateNetwork(props.network)
+          }
+        ]
       }
+      )
     }
   }, [network])
 

@@ -3,12 +3,19 @@ import { JellyfishWallet, WalletHdNodeProvider } from '@defichain/jellyfish-wall
 import { MnemonicHdNode } from '@defichain/jellyfish-wallet-mnemonic'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import React, { useCallback, useEffect, useState } from 'react'
-import { ActivityIndicator, Alert, Platform, SafeAreaView, TouchableOpacity } from 'react-native'
+import { ActivityIndicator, Platform, SafeAreaView, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../api'
-import { initJellyfishWallet, MnemonicEncrypted, MnemonicUnprotected, PasscodeAttemptCounter, WalletType } from '../api/wallet'
+import {
+  initJellyfishWallet,
+  MnemonicEncrypted,
+  MnemonicUnprotected,
+  PasscodeAttemptCounter,
+  WalletType
+} from '../api/wallet'
 import { Text, View } from '../components'
 import { PinTextInput } from '../components/PinTextInput'
+import { WalletAlert } from '../components/WalletAlert'
 import { useNetworkContext } from '../contexts/NetworkContext'
 import { useWalletNodeContext } from '../contexts/WalletNodeProvider'
 import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
@@ -341,16 +348,14 @@ async function authenticateFor<T> (
 }
 
 function alertUnlinkWallet (): void {
-  if (Platform.OS !== 'web') {
-    Alert.alert(
-      translate('screens/PinConfirmation', 'Wallet Unlinked'),
-      translate('screens/PinConfirmation', 'Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.'),
-      [
-        {
-          text: translate('screens/PinConfirmation', 'Close'),
-          style: 'destructive'
-        }
-      ]
-    )
-  }
+  WalletAlert({
+    title: translate('screens/PinConfirmation', 'Wallet Unlinked'),
+    message: translate('screens/PinConfirmation', 'Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.'),
+    buttons: [
+      {
+        text: translate('screens/PinConfirmation', 'Close'),
+        style: 'destructive'
+      }
+    ]
+  })
 }

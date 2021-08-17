@@ -3,12 +3,13 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { createRef, useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { Alert, Platform, TextInput } from 'react-native'
+import { TextInput } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { CreateWalletStepIndicator, RESTORE_STEPS } from '../../../../components/CreateWalletStepIndicator'
 import { SectionTitle } from '../../../../components/SectionTitle'
+import { WalletAlert } from '../../../../components/WalletAlert'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { WalletParamList } from '../../WalletNavigator'
@@ -28,39 +29,37 @@ export function RestoreMnemonicWallet (): JSX.Element {
   }, [])
 
   useEffect(() => {
-    if (Platform.OS !== 'web') {
-      navigation.addListener('beforeRemove', (e) => {
-        if (!isDirty) {
-          // If we don't have unsaved changes, then we don't need to do anything
-          return
-        }
-
-        // Prevent default behavior of leaving the screen
-        e.preventDefault()
-
-        // Prompt the user before leaving the screen
-        Alert.alert(
-          translate('screens/RestoreWallet', 'Discard changes?'),
-          translate('screens/RestoreWallet', 'You have unsaved changes. Are you sure to discard them and leave the screen?'),
-          [
-            {
-              text: 'Cancel',
-              style: 'cancel',
-              onPress: () => {
-              }
-            },
-            {
-              text: 'Discard',
-              style: 'destructive',
-              onPress: () => navigation.dispatch(e.data.action)
-            }
-          ]
-        )
-      })
-      return () => {
-        navigation.removeListener('beforeRemove', () => {
-        })
+    navigation.addListener('beforeRemove', (e) => {
+      if (!isDirty) {
+        // If we don't have unsaved changes, then we don't need to do anything
+        return
       }
+
+      // Prevent default behavior of leaving the screen
+      e.preventDefault()
+
+      // Prompt the user before leaving the screen
+      WalletAlert({
+        title: translate('screens/RestoreWallet', 'Discard changes?'),
+        message: translate('screens/RestoreWallet', 'You have unsaved changes. Are you sure to discard them and leave the screen?'),
+        buttons: [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+            onPress: () => {
+            }
+          },
+          {
+            text: 'Discard',
+            style: 'destructive',
+            onPress: () => navigation.dispatch(e.data.action)
+          }
+        ]
+      })
+    })
+    return () => {
+      navigation.removeListener('beforeRemove', () => {
+      })
     }
   }, [navigation, isDirty])
 
@@ -84,13 +83,13 @@ export function RestoreMnemonicWallet (): JSX.Element {
       })
     } else {
       setIsSubmitting(false)
-      Alert.alert(
-        translate('screens/RestoreWallet', 'Error'),
-        translate('screens/RestoreWallet', 'The recovery words you have entered are invalid. Please double check and try again.'),
-        [
+      WalletAlert({
+        title: translate('screens/RestoreWallet', 'Error'),
+        message: translate('screens/RestoreWallet', 'The recovery words you have entered are invalid. Please double check and try again.'),
+        buttons: [
           { text: 'OK' }
         ]
-      )
+      })
     }
   }
 

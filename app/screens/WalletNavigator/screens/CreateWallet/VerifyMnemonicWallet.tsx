@@ -2,10 +2,11 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { shuffle } from 'lodash'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { Alert, Platform, ScrollView, TouchableOpacity } from 'react-native'
+import { ScrollView, TouchableOpacity } from 'react-native'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { CREATE_STEPS, CreateWalletStepIndicator } from '../../../../components/CreateWalletStepIndicator'
+import { WalletAlert } from '../../../../components/WalletAlert'
 import { getEnvironment } from '../../../../environment'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -63,21 +64,17 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
     if (recoveryWords.join(' ') === selectedWords.join(' ')) {
       navigateToPinCreation()
     } else {
-      if (Platform.OS === 'web') {
-        navigation.navigate('CreateMnemonicWallet')
-      } else {
-        Alert.alert(
-          '',
-          translate('screens/VerifyMnemonicWallet', 'Invalid selection. Please ensure you have written down your 24 words.'),
-          [
-            {
-              text: translate('screens/VerifyMnemonicWallet', 'Go back'),
-              onPress: () => navigation.navigate('CreateMnemonicWallet'),
-              style: 'destructive'
-            }
-          ]
-        )
-      }
+      WalletAlert({
+        title: '',
+        message: translate('screens/VerifyMnemonicWallet', 'Invalid selection. Please ensure you have written down your 24 words.'),
+        buttons: [
+          {
+            text: translate('screens/VerifyMnemonicWallet', 'Go back'),
+            onPress: () => navigation.navigate('CreateMnemonicWallet'),
+            style: 'destructive'
+          }
+        ]
+      })
     }
   }
 

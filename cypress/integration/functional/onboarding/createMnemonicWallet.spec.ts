@@ -32,6 +32,7 @@ context('Onboarding - Create Mnemonic Wallet', () => {
   it('should return to previous page on error', function () {
     cy.getByTestID('verify_words_button').should('not.have.attr', 'disabled')
     cy.getByTestID('verify_words_button').click()
+    cy.on('window:confirm', () => {})
     // validate if they're the same words on return
     Array.from(Array(24), (v, i) => i + 1).forEach((i) => {
       cy.getByTestID(`word_${i}`).should('exist')
