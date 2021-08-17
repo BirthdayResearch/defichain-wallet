@@ -26,7 +26,7 @@ context('Wallet - Receive', () => {
   })
 })
 
-context('Wallet - Receive - QR Code - Check', () => {
+context.skip('Wallet - Receive - QR Code - Check', () => {
   before(function () {
     cy.createEmptyWallet()
     cy.getByTestID('balances_list').should('exist')
