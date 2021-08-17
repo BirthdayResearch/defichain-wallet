@@ -47,6 +47,9 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
         .then(async encrypted => {
           await MnemonicStorage.set(words, pin)
           await setWallet(encrypted)
+
+          // temp disabled biometric, forward data to biometric enrolment page after more test
+          // navigation.navigate('EnrollBiometric', { pin, encrypted, words })
         })
         .catch(e => Logging.error(e))
     }, 50) // allow UI render the spinner before async task

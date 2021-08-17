@@ -58,6 +58,9 @@ export function TransactionAuthorization (): JSX.Element | null {
   const { network } = useNetworkContext()
   const whaleApiClient = useWhaleApiClient()
 
+  // biometric related persistent storage API
+  // const [isBiometric, setIsBiometric] = useState(false)
+
   // store
   const dispatch = useDispatch()
   const transaction = useSelector((state: RootState) => first(state.transactionQueue))
@@ -127,7 +130,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   }, [])
 
   const onTaskCompletion = (): void => {
-    setPin('') // cached PIN cleared upon each task completion
+    setPin('')
     setIsRetry(false)
     setMessage(DEFAULT_MESSAGES.message)
     setLoadingMessage(DEFAULT_MESSAGES.loadingMessage)
@@ -231,12 +234,32 @@ export function TransactionAuthorization (): JSX.Element | null {
     }
   }, [transaction, wallet, status, authentication, attemptsRemaining])
 
-  // auto resolve promptPassphrase promise using cached pin if available
+  // Disable Biometric hook
+  /* // setup biometric hook if enrolled
+  useEffect(() => {
+    BiometricProtectedPasscode.isEnrolled()
+      .then(isEnrolled => setIsBiometric(isEnrolled))
+      .catch(e => Logging.error(e))
+  }, [wallet]) */
+
+  // prompt biometric auth in 'PIN' event
   useEffect(() => {
     if (status === 'PIN' && pin.length === PIN_LENGTH) {
       onPinInput(pin)
     }
-  }, [status, pin])
+
+    // biometric disabled
+    // if (status === 'PIN' && isBiometric) {
+    //   LocalAuthentication.authenticateAsync()
+    //     .then(async () => await BiometricProtectedPasscode.get())
+    //     .then(pinFromSecureStore => {
+    //       if (pinFromSecureStore !== null) {
+    //         onPinInput(pinFromSecureStore)
+    //       }
+    //     })
+    //     .catch(e => Logging.error(e)) // auto fallback to manual pin input
+    // }
+  }, [status, pin/*, isBiometric */])
 
   if (status === 'INIT' || status === 'IDLE' || status === 'BLOCK') {
     return null
@@ -284,6 +307,7 @@ export function TransactionAuthorization (): JSX.Element | null {
             )
           }
         </View>
+        {/* TODO: switch authorization method here when biometric supported */}
         {
           status === 'PIN' && (
             <PinTextInput

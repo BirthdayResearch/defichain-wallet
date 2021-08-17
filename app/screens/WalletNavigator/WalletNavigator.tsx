@@ -1,13 +1,16 @@
+import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
 import { LinkingOptions, NavigationContainer, NavigationContainerRef } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as Linking from 'expo-linking'
 import * as React from 'react'
+import { WalletPersistenceData } from '../../api/wallet'
 import { HeaderFont } from '../../components'
 import { HeaderTitle } from '../../components/HeaderTitle'
 import { DeFiChainTheme } from '../../constants/Theme'
 import { translate } from '../../translations'
 import { CreateMnemonicWallet } from './screens/CreateWallet/CreateMnemonicWallet'
 import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
+import { EnrollBiometric } from './screens/CreateWallet/EnrollBiometric'
 import { GuidelinesRecoveryWords } from './screens/CreateWallet/GuidelinesRecoveryWords'
 import { PinConfirmation } from './screens/CreateWallet/PinConfirmation'
 import { PinCreation } from './screens/CreateWallet/PinCreation'
@@ -33,6 +36,11 @@ export interface WalletParamList {
     pin: string
     words: string[]
     type: PinCreationType
+  }
+  EnrollBiometric: {
+    pin: string
+    encrypted: WalletPersistenceData<EncryptedProviderData>
+    words: string[]
   }
 
   [key: string]: undefined | object
@@ -123,6 +131,13 @@ export function WalletNavigator (): JSX.Element {
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Verify passcode')} />,
             headerBackTitleVisible: false
+          }}
+        />
+        <WalletStack.Screen
+          name='EnrollBiometric'
+          component={EnrollBiometric}
+          options={{
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Wallet Created')} />
           }}
         />
       </WalletStack.Navigator>
