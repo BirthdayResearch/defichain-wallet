@@ -88,7 +88,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
   })
 })
 
-context.only('Wallet - DEX - Pool Swap failed api', () => {
+context('Wallet - DEX - Pool Swap failed api', () => {
   before(function () {
     cy.createEmptyWallet(true)
   })

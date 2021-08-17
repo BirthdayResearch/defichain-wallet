@@ -29,7 +29,7 @@ context('Wallet - Balances', () => {
   })
 })
 
-context.only('Wallet - Balances - Failed API', () => {
+context('Wallet - Balances - Failed API', () => {
   before(function () {
     cy.createEmptyWallet(true)
   })
