@@ -28,3 +28,21 @@ context('Wallet - Balances', () => {
     cy.getByTestID('address_text').should('exist')
   })
 })
+
+context.only('Wallet - Balances - Failed API', () => {
+  before(function () {
+    cy.createEmptyWallet(true)
+  })
+
+  it('should handle failed API calls', function () {
+    cy.intercept('**/regtest/address/**', {
+      statusCode: 404,
+      body: '404 Not Found!',
+      headers: {
+        'x-not-found': 'true'
+      }
+    })
+    cy.checkBalanceRow('0_utxo', { name: 'DeFiChain', amount: '0.00000000', symbol: 'DFI (UTXO)' })
+    cy.checkBalanceRow('0', { name: 'DeFiChain', amount: '0.00000000', symbol: 'DFI (Token)' })
+  })
+})
