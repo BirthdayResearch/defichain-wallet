@@ -119,7 +119,7 @@ async function constructSignedSwapAndSend (
   postAction: () => void
 ): Promise<void> {
   try {
-    const maxPrice = dexForm.fromAmount.div(dexForm.toAmount).decimalPlaces(8)
+    const maxPrice = dexForm.toAmount.times(1.03).decimalPlaces(8)
     const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
       const builder = account.withTransactionBuilder()
       const script = await account.getScript()
