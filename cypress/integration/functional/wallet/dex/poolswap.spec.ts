@@ -66,6 +66,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
     cy.getByTestID('text_price_row_estimated_0').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
+      cy.getByTestID('slippage_10%').click()
     })
   })
 
@@ -73,6 +74,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
     cy.getByTestID('text_price_row_estimated_0').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
       cy.getByTestID('button_submit').click()
+      cy.getByTestID('slippage_fee').contains('10%')
       cy.getByTestID('confirm_title').contains('YOU ARE SWAPPING')
       cy.getByTestID('button_confirm_swap').click().wait(3000)
       cy.closeOceanInterface()

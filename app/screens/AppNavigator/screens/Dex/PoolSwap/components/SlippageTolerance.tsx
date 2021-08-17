@@ -27,6 +27,7 @@ export function SlippageTolerance ({
         {
           percentageList.map((p) => (
             <TouchableOpacity
+              testID={`slippage_${p.label}`}
               key={p.label}
               style={tailwind(`${buttonStyles} ${slippage === p.amount ? activeStyle : ''}`)}
               onPress={() => onSetSlippage(p.amount)}
