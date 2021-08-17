@@ -2,6 +2,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import React from 'react'
 import { ScrollView, View } from 'react-native'
 import { Text } from '../../../../../components'
+import { getNativeIcon } from '../../../../../components/icons/assets'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 
@@ -45,12 +46,12 @@ export function TokensVsUtxoScreen (): JSX.Element {
 }
 
 function ComparisonTitle (props: {tokenUnit: '_UTXO' | 'DFI'}): JSX.Element {
-  const TokenIcon = getTokenIcon(props.tokenUnit)
+  const TokenIcon = getNativeIcon(props.tokenUnit)
   const label = props.tokenUnit === '_UTXO' ? 'DFI (UTXO)' : 'DFI (Token)'
 
   return (
     <View style={tailwind('flex flex-row items-center pb-5')}>
-      <TokenIcon width={24} height={24} style={tailwind('mr-2')} />
+      <TokenIcon style={tailwind('mr-2')} />
       <Text style={tailwind('text-lg')}>{translate('screens/TokensVsUtxoScreen', label)}</Text>
     </View>
   )

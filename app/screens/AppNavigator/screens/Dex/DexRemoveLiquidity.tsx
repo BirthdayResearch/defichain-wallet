@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux'
 import { Logging } from '../../../../api'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
-import { getAssetIcon } from '../../../../components/icons/assets'
+import { getNativeIcon } from '../../../../components/icons/assets'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
@@ -155,7 +155,7 @@ function AmountSlider (props: { current: number, onChange: (percentage: number) 
 }
 
 function CoinAmountRow (props: { symbol: string, amount: BigNumber }): JSX.Element {
-  const TokenIcon = getAssetIcon(props.symbol)
+  const TokenIcon = getNativeIcon(props.symbol)
   return (
     <View style={tailwind('flex-row items-center border-t border-gray-200 p-2')}>
       <View style={tailwind('flex-row flex-1 items-center justify-start')}>

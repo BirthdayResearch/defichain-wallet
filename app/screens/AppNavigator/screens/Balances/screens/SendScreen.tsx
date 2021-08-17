@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
+import { getNativeIcon } from '../../../../../components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
@@ -172,7 +173,7 @@ interface AmountForm {
 }
 
 function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): JSX.Element {
-  const Icon = getTokenIcon(token.avatarSymbol)
+  const Icon = getNativeIcon(token.avatarSymbol)
   let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).toFixed(8) : token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
   return (

@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { Text } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
-import { getAssetIcon } from '../../../../../components/icons/assets'
+import { getNativeIcon } from '../../../../../components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
@@ -177,10 +177,10 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       />
       {
         !isComputing && (new BigNumber(getValues()[tokenAForm]).isGreaterThan(0) && new BigNumber(getValues()[tokenBForm]).isGreaterThan(0)) &&
-        <SwapSummary
-          poolpair={poolpair} tokenA={tokenA} tokenB={tokenB} tokenAAmount={getValues()[tokenAForm]}
-          tokenBAmount={getValues()[tokenBForm]}
-        />
+          <SwapSummary
+            poolpair={poolpair} tokenA={tokenA} tokenB={tokenB} tokenAAmount={getValues()[tokenAForm]}
+            tokenBAmount={getValues()[tokenBForm]}
+          />
       }
       <Button
         disabled={!isValid || hasPendingJob}
@@ -204,7 +204,7 @@ interface TokenForm {
 
 function TokenRow (form: TokenForm): JSX.Element {
   const { token, control, onChangeFromAmount, title, controlName, enableMaxButton = true, isDisabled } = form
-  const Icon = getAssetIcon(token.symbol)
+  const Icon = getNativeIcon(token.symbol)
   const rules: { required: boolean, pattern: RegExp, validate: any, max?: string } = {
     required: true,
     pattern: /^\d*\.?\d*$/,
@@ -284,10 +284,10 @@ function TokenRow (form: TokenForm): JSX.Element {
 }
 
 function PriceRow ({
-                     testID,
-                     title,
-                     values
-                   }: { testID: string, title: string, values: Array<{ amount: string, symbol: string }> }): JSX.Element {
+  testID,
+  title,
+  values
+}: { testID: string, title: string, values: Array<{ amount: string, symbol: string }> }): JSX.Element {
   return (
     <View style={tailwind('flex-row w-full border-b border-gray-100 bg-white p-4 flex-wrap')}>
       <Text>{title}</Text>
@@ -325,7 +325,7 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount }: SwapSummaryIte
     amount: new BigNumber(reserveA).div(reserveB).toFixed(8),
     symbol: `${tokenA.symbol} per ${tokenB.symbol}`
   },
-    { amount: new BigNumber(reserveB).div(reserveA).toFixed(8), symbol: `${tokenB.symbol} per ${tokenA.symbol}` }]
+  { amount: new BigNumber(reserveB).div(reserveA).toFixed(8), symbol: `${tokenB.symbol} per ${tokenA.symbol}` }]
   return (
     <View style={tailwind('mt-4')}>
       <PriceRow

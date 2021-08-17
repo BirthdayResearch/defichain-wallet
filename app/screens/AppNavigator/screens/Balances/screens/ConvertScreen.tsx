@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { Text, View } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
+import { getNativeIcon } from '../../../../../components/icons/assets'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
@@ -127,7 +128,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
   const iconType = props.unit === 'UTXO' ? '_UTXO' : 'DFI'
   const titlePrefix = props.mode === 'input' ? 'CONVERT' : 'TO'
   const title = `${translate('screens/Convert', titlePrefix)} ${props.unit}`
-  const DFIIcon = getTokenIcon(iconType)
+  const DFIIcon = getNativeIcon(iconType)
 
   return (
     <View style={[tailwind('flex-col w-full'), props.style]}>
@@ -145,7 +146,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
             }
           }}
         />
-        <DFIIcon width={24} height={24} />
+        <DFIIcon />
       </View>
       <View style={tailwind('w-full px-4 bg-white flex-row border-t border-gray-200 items-center')}>
         <View style={tailwind('flex flex-row flex-1 px-1 py-4 flex-wrap mr-2')}>
@@ -174,7 +175,7 @@ function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: str
   const iconType = props.unit === 'UTXO' ? '_UTXO' : 'DFI'
   const titlePrefix = 'TO'
   const title = `${translate('screens/Convert', titlePrefix)} ${props.unit.toUpperCase()}`
-  const DFIIcon = getTokenIcon(iconType)
+  const DFIIcon = getNativeIcon(iconType)
 
   return (
     <View style={[tailwind('flex-col w-full'), props.style]}>
@@ -193,7 +194,7 @@ function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: str
             )}
           />
         </View>
-        <DFIIcon width={24} height={24} />
+        <DFIIcon />
       </View>
     </View>
   )

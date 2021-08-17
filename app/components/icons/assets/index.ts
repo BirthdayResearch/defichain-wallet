@@ -1,6 +1,5 @@
 import { SvgProps } from 'react-native-svg'
 import { _Default } from './_Default'
-import { BTC } from './BTC'
 import { dBCH } from './dBCH'
 import { dBTC } from './dBTC'
 import { dDFI } from './dDFI'
@@ -13,36 +12,22 @@ import { dUSDT } from './dUSDT'
 
 const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   _UTXO: DFI,
-  BTC: BTC,
-  DFI: DFI,
+  DFI: dDFI,
+  BCH: dBCH,
   dBCH: dBCH,
+  BTC: dBTC,
   dBTC: dBTC,
   dDFI: dDFI,
+  DOGE: dDOGE,
   dDOGE: dDOGE,
+  ETH: dETH,
   dETH: dETH,
+  LTC: dLTC,
   dLTC: dLTC,
+  USDT: dUSDT,
   dUSDT: dUSDT,
+  USDC: dUSDC,
   dUSDC: dUSDC
-}
-
-/**
- * ```ts
- * const Icon = getAssetIcon('DFI')
- * const dIcon = getAssetIcon('dDOGE')
- *
- * return (
- *  <dIcon />
- * )
- * ```
- *
- * TODO(@defich): move assets into it's own repo where anyone can create pull request into.
- *  Following a vector specification guideline, this allows anyone to create PR into that repo.
- *
- * @param {string} symbol of the asset icon
- * @return {(props: SvgProps) => JSX.Element}
- */
-export function getAssetIcon (symbol: string): (props: SvgProps) => JSX.Element {
-  return getNativeIcon(`d${symbol}`)
 }
 
 /**
