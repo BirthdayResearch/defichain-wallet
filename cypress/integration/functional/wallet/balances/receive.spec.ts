@@ -1,7 +1,7 @@
 context('Wallet - Receive', () => {
   before(function () {
     cy.createEmptyWallet(true)
-    cy.sendDFItoWallet().wait(10000)
+    cy.sendDFItoWallet().wait(3000)
     cy.getByTestID('bottom_tab_balances').click()
   })
 
