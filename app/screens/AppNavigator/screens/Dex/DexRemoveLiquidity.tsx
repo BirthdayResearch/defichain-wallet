@@ -5,7 +5,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
+import { Platform, StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
@@ -13,6 +13,7 @@ import { Logging } from '../../../../api'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { NumberTextInput } from '../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
@@ -31,6 +32,8 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   // this component state
   const [tokenAAmount, setTokenAAmount] = useState<BigNumber>(new BigNumber(0))
   const [tokenBAmount, setTokenBAmount] = useState<BigNumber>(new BigNumber(0))
+  const [valid, setValidity] = useState(false)
+  const [inputHeight, setInputHeight] = useState(24)
   // ratio, before times 100
   const [percentage, setPercentage] = useState<string>('0') // for display
   const [amount, setAmount] = useState<BigNumber>(new BigNumber(0)) // to construct tx
@@ -44,7 +47,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   const tokenAPerLmToken = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
   const tokenBPerLmToken = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
 
-  const setSliderPercentage = (percentage: number): void => {
+  const setInputPercentage = (percentage: string): void => {
     // this must round down, avoid attempt remove more than selected (or even available)
     const toRemove = new BigNumber(percentage).div(100).times(lmToken.amount).decimalPlaces(8, BigNumber.ROUND_DOWN)
     const ratioToTotal = toRemove.div(pair.totalLiquidity.token)
@@ -54,7 +57,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
     setAmount(toRemove)
     setTokenAAmount(tokenA)
     setTokenBAmount(tokenB)
-    setPercentage(new BigNumber(percentage).toFixed(2))
+    setPercentage(percentage)
   }
 
   const removeLiquidity = (): void => {
@@ -70,20 +73,47 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
       .catch(Logging.error)
   }, [])
 
+  useEffect(() => {
+    setValidity(
+      Number(percentage) > 0 &&
+      Number(percentage) <= 100 &&
+      !hasPendingJob
+    )
+  }, [percentage])
+
   return (
     <ScrollView style={tailwind('w-full flex-col flex-1 bg-gray-100')}>
       <View style={tailwind('w-full bg-white mt-8')}>
-        <View style={tailwind('w-full flex-row p-4')}>
+        <View style={tailwind('w-full flex-row p-4 items-stretch')}>
           <Text
-            style={tailwind('flex-1 font-semibold')}
+            style={tailwind('w-2/4 font-semibold flex-1')}
           >{translate('screens/RemoveLiquidity', 'Amount to remove')}
           </Text>
-          <Text testID='text_slider_percentage' style={tailwind('text-right')}>{percentage}%</Text>
+          <NumberTextInput
+            testID='text_slider_percentage'
+            style={[
+              tailwind('text-right w-2/4 p-0 mr-0.5'),
+              Platform.OS === 'ios' && tailwind('-mt-0.5'),
+              {
+                height: Math.max(24, inputHeight)
+              }
+            ]}
+            placeholder='0.00'
+            value={percentage}
+            multiline
+            onContentSizeChange={event => {
+              setInputHeight(event.nativeEvent.contentSize.height)
+            }}
+            onChange={(event) => {
+              setInputPercentage(event.nativeEvent.text)
+            }}
+          />
+          <Text>%</Text>
         </View>
         <AmountSlider
           current={Number(percentage)}
           viewStyle={tailwind('p-4')}
-          onChange={setSliderPercentage}
+          onChange={setInputPercentage}
         />
       </View>
       <SectionTitle text={translate('screens/RemoveLiquidity', 'YOU ARE REMOVING')} testID='remove_liq_title' />
@@ -123,31 +153,31 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         </View>
       </View>
       <ContinueButton
-        enabled={Number(percentage) !== 0 && !hasPendingJob}
+        enabled={valid}
         onPress={removeLiquidity}
       />
     </ScrollView>
   )
 }
 
-function AmountSlider (props: { current: number, onChange: (percentage: number) => void, viewStyle: StyleProp<ViewStyle> }): JSX.Element {
+function AmountSlider (props: { current: number, onChange: (percentage: string) => void, viewStyle: StyleProp<ViewStyle> }): JSX.Element {
   return (
     <View style={[tailwind('flex-row items-center border-t border-gray-200'), props.viewStyle]}>
-      <TouchableOpacity testID='button_slider_min' onPress={() => props.onChange(0)}>
+      <TouchableOpacity testID='button_slider_min' onPress={() => props.onChange('0')}>
         <Text style={tailwind('text-gray-500 text-sm')}>{translate('components/slider', 'None')}</Text>
       </TouchableOpacity>
       <View style={tailwind('flex-1 ml-4 mr-4')}>
         <Slider
           testID='slider_remove_liq_percentage'
-          value={props.current}
+          value={isNaN(props.current) ? 0 : props.current}
           minimumValue={0}
           maximumValue={100}
           minimumTrackTintColor='#ff00af'
           thumbTintColor='#ff00af'
-          onValueChange={(val) => props.onChange(val)}
+          onSlidingComplete={(val) => props.onChange(new BigNumber(val).toFixed(2))}
         />
       </View>
-      <TouchableOpacity testID='button_slider_max' onPress={() => props.onChange(100)}>
+      <TouchableOpacity testID='button_slider_max' onPress={() => props.onChange('100')}>
         <Text style={tailwind('text-gray-500 text-sm')}>{translate('components', 'All')}</Text>
       </TouchableOpacity>
     </View>
