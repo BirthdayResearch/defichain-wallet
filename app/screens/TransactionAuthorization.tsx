@@ -26,6 +26,7 @@ import { ocean } from '../store/ocean'
 import { DfTxSigner, first, transactionQueue } from '../store/transaction_queue'
 import { tailwind } from '../tailwind'
 import { translate } from '../translations'
+import { useLocalAuthContext } from '../contexts/LocalAuthContext'
 
 const MAX_PASSCODE_ATTEMPT = 4 // allowed 3 failures
 const PIN_LENGTH = 6
@@ -57,9 +58,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   const { clearWallets } = useWalletPersistenceContext()
   const { network } = useNetworkContext()
   const whaleApiClient = useWhaleApiClient()
-
-  // biometric related persistent storage API
-  // const [isBiometric, setIsBiometric] = useState(false)
+  const localAuth = useLocalAuthContext()
 
   // store
   const dispatch = useDispatch()
@@ -234,32 +233,18 @@ export function TransactionAuthorization (): JSX.Element | null {
     }
   }, [transaction, wallet, status, authentication, attemptsRemaining])
 
-  // Disable Biometric hook
-  /* // setup biometric hook if enrolled
-  useEffect(() => {
-    BiometricProtectedPasscode.isEnrolled()
-      .then(isEnrolled => setIsBiometric(isEnrolled))
-      .catch(e => Logging.error(e))
-  }, [wallet]) */
-
   // prompt biometric auth in 'PIN' event
   useEffect(() => {
     if (status === 'PIN' && pin.length === PIN_LENGTH) {
       onPinInput(pin)
     }
 
-    // biometric disabled
-    // if (status === 'PIN' && isBiometric) {
-    //   LocalAuthentication.authenticateAsync()
-    //     .then(async () => await BiometricProtectedPasscode.get())
-    //     .then(pinFromSecureStore => {
-    //       if (pinFromSecureStore !== null) {
-    //         onPinInput(pinFromSecureStore)
-    //       }
-    //     })
-    //     .catch(e => Logging.error(e)) // auto fallback to manual pin input
-    // }
-  }, [status, pin/*, isBiometric */])
+    if (status === 'PIN' && localAuth.isEnrolled) {
+      localAuth.authenticate()
+        .then(pinFromSecureStore => onPinInput(pinFromSecureStore))
+        .catch(e => Logging.error(e)) // auto fallback to manual pin input
+    }
+  }, [status, pin, localAuth.isEnrolled])
 
   if (status === 'INIT' || status === 'IDLE' || status === 'BLOCK') {
     return null

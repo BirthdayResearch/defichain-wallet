@@ -10,6 +10,7 @@ import { MnemonicStorage } from '../../../../api/wallet/mnemonic_storage'
 import { Text } from '../../../../components'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { WalletAlert } from '../../../../components/WalletAlert'
+import { useLocalAuthContext } from '../../../../contexts/LocalAuthContext'
 import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { getEnvironment } from '../../../../environment'
 import { authentication, Authentication } from '../../../../store/authentication'
@@ -25,11 +26,11 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   const networks = getEnvironment().networks
   const dispatch = useDispatch()
   const walletContext = useWalletPersistenceContext()
-  const isEncrypted = walletContext.wallets[0].type === 'MNEMONIC_ENCRYPTED'
+  const { isEncrypted } = walletContext
+  const localAuth = useLocalAuthContext()
 
   const revealRecoveryWords = useCallback(() => {
     if (!isEncrypted) {
-      // TODO: alert(mnemonic phrase only get encrypted and stored if for encrypted type)
       return
     }
 
@@ -46,7 +47,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   }, [walletContext.wallets[0]])
 
   const changePasscode = useCallback(() => {
-    if (walletContext.wallets[0].type !== 'MNEMONIC_ENCRYPTED') {
+    if (!isEncrypted) {
       return
     }
 
@@ -67,6 +68,34 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
     dispatch(authentication.actions.prompt(auth))
   }, [walletContext.wallets[0]])
 
+  const toggleBiometric = useCallback(async (wasEnrolled: boolean) => {
+    if (!localAuth.canEnroll) {
+      return
+    }
+
+    if (!wasEnrolled) {
+      // enroll
+      const auth: Authentication<string> = {
+        consume: async passphrase => {
+          await MnemonicStorage.get(passphrase) // for validation purpose only
+          return passphrase
+        },
+        onAuthenticated: async passphrase => {
+          await localAuth.enrollBiometric(passphrase)
+        },
+        onError: (e) => {
+          dispatch(ocean.actions.setError(e))
+        },
+        message: translate('screens/Settings', 'To enroll biometric authentication, we need you to enter your passcode.'),
+        loading: translate('screens/Settings', 'Verifying passcode...')
+      }
+
+      dispatch(authentication.actions.prompt(auth))
+    } else {
+      await localAuth.disenrollBiometric()
+    }
+  }, [localAuth.canEnroll])
+
   return (
     <ScrollView style={tailwind('flex-1 bg-gray-100 pb-8')} testID='setting_screen'>
       <SectionTitle text={translate('screens/Settings', 'NETWORK')} testID='network_title' />
@@ -76,10 +105,27 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         ))
       }
       <SectionTitle text={translate('screens/Settings', 'SECURITY')} testID='security_title' />
-      <SecurityRow testID='view_recovery_words' label='Recovery Words' onPress={revealRecoveryWords} />
-      {
-        isEncrypted && <SecurityRow testID='view_change_passcode' label='Change Passcode' onPress={changePasscode} />
-      }
+      {/* <SecurityRow disabled={isEncrypted} label='Encrypt your wallet' /> */}
+      <SecurityRow
+        disabled={!isEncrypted}
+        testID='view_toggle_biometric'
+        label={translate('screens/Settings', localAuth.isEnrolled ? 'Disable Biometrics' : 'Enroll Biometrics')}
+        onPress={async () => {
+          await toggleBiometric(localAuth.isEnrolled)
+        }}
+      />
+      <SecurityRow
+        disabled={!isEncrypted}
+        testID='view_recovery_words'
+        label='Recovery Words'
+        onPress={revealRecoveryWords}
+      />
+      <SecurityRow
+        disabled={!isEncrypted}
+        testID='view_change_passcode'
+        label='Change Passcode'
+        onPress={changePasscode}
+      />
       <RowNavigateItem pageName='AboutScreen' title='About' />
       <RowExitWalletItem />
     </ScrollView>
@@ -124,7 +170,8 @@ function RowExitWalletItem (): JSX.Element {
   )
 }
 
-function SecurityRow ({ testID, label, onPress }: { testID: string, label: string, onPress: () => void }): JSX.Element {
+function SecurityRow ({ disabled = false, testID, label, onPress }: { disabled?: boolean, testID: string, label: string, onPress: () => void }): JSX.Element | null {
+  if (disabled) return null
   return (
     <TouchableOpacity
       testID={testID}

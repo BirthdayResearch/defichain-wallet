@@ -1,17 +1,15 @@
 import { StackScreenProps } from '@react-navigation/stack'
-import * as LocalAuthentication from 'expo-local-authentication'
-import { AuthenticationType, SecurityLevel } from 'expo-local-authentication'
-import React, { useCallback, useEffect, useState } from 'react'
+import { AuthenticationType } from 'expo-local-authentication'
+import React, { useCallback, useState } from 'react'
 import { Platform, ScrollView, Switch } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { Logging } from '../../../../api'
-import { BiometricProtectedPasscode } from '../../../../api/wallet/biometric_protected_passcode'
 import { MnemonicStorage } from '../../../../api/wallet/mnemonic_storage'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { FaceIdIcon } from '../../../../components/icons/FaceIdIcon'
 import { TouchIdIcon } from '../../../../components/icons/TouchIdIcon'
-import LoadingScreen from '../../../../components/LoadingScreen'
+import { useLocalAuthContext } from '../../../../contexts/LocalAuthContext'
 import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { translate } from '../../../../translations'
 import { WalletParamList } from '../../WalletNavigator'
@@ -19,25 +17,19 @@ import { WalletParamList } from '../../WalletNavigator'
 type Props = StackScreenProps<WalletParamList, 'EnrollBiometric'>
 
 export function EnrollBiometric ({ route }: Props): JSX.Element {
+  const localAuth = useLocalAuthContext()
+  const { hasHardware, isDeviceProtected, supportedTypes } = localAuth
   const { pin, encrypted, words } = route.params
   const { setWallet } = useWalletPersistenceContext()
-
-  const [securityLevelChecked, setSecurityLevelChecked] = useState(false)
-  const [isDeviceProtected, setIsDeviceProtected] = useState<boolean>(false)
-  const [supported, setSupported] = useState<AuthenticationType[]>([])
   const [enrolled, setEnrolled] = useState(false)
 
   const enroll = useCallback(async () => {
-    const result = await LocalAuthentication.authenticateAsync({
+    localAuth.enrollBiometric(pin, {
       disableDeviceFallback: true,
       promptMessage: translate('screens/EnrollBiometric', 'Secure Your DeFiChain Wallet'),
       cancelLabel: translate('screens/EnrollBiometric', 'Fallback to created 6 digits pin')
     })
-
-    if (result.success) {
-      await BiometricProtectedPasscode.set(pin)
-      setEnrolled(true)
-    }
+      .catch(error => Logging.error(error))
   }, [])
 
   const onComplete = useCallback(async () => {
@@ -45,33 +37,15 @@ export function EnrollBiometric ({ route }: Props): JSX.Element {
     await MnemonicStorage.set(words, pin)
   }, [])
 
-  useEffect(() => {
-    LocalAuthentication.hasHardwareAsync()
-      .then(async hasHardware => {
-        const isDeviceProtected = hasHardware &&
-          await LocalAuthentication.getEnrolledLevelAsync() === SecurityLevel.BIOMETRIC
-        const supportedTypes = await LocalAuthentication.supportedAuthenticationTypesAsync()
-
-        setIsDeviceProtected(isDeviceProtected)
-        setSupported(supportedTypes)
-        setSecurityLevelChecked(true)
-      })
-      .catch(e => Logging.error(e))
-  }, [])
-
-  if (!securityLevelChecked) {
-    return <LoadingScreen message={translate('screens/EnrollBiometric', 'Checking hardware status')} />
-  }
-
   let additionalNote = 'You can enroll biometric in settings'
-  if (supported.length === 0) {
+  if (hasHardware) {
     additionalNote = 'No biometric authentication hardware found'
   } else if (!isDeviceProtected) {
     additionalNote = `Increase your device security level to start use biometric authentication. ${additionalNote}`
   }
 
   let biometricIcon = <FaceIdIcon width={64} height={64} />
-  if (!supported.includes(AuthenticationType.FACIAL_RECOGNITION) && supported.includes(AuthenticationType.FINGERPRINT)) {
+  if (!supportedTypes.includes(AuthenticationType.FACIAL_RECOGNITION) && supportedTypes.includes(AuthenticationType.FINGERPRINT)) {
     biometricIcon = <TouchIdIcon width={64} height={64} />
   }
 
@@ -85,7 +59,7 @@ export function EnrollBiometric ({ route }: Props): JSX.Element {
         <View style={tailwind('bg-white flex-row p-2 justify-between items-center')}>
           <Text style={tailwind('ml-2')}>{translate('screens/EnrollBiometric', 'Biometric sensor(s)')}</Text>
           <Switch
-            disabled={[null, false].includes(isDeviceProtected) || supported.length === 0}
+            disabled={[null, false].includes(isDeviceProtected) || supportedTypes.length === 0}
             style={tailwind('mr-2')}
             onValueChange={async enabled => {
               if (!enabled) setEnrolled(false)
@@ -94,10 +68,10 @@ export function EnrollBiometric ({ route }: Props): JSX.Element {
           />
         </View>
         {
-          supported.map(type => (<BiometricOption key={type} type={type} />))
+          supportedTypes.map(type => (<BiometricOption key={type} type={type} />))
         }
         {
-          supported.length === 0 ? (
+          supportedTypes.length === 0 ? (
             <View style={tailwind('bg-white flex-row p-2 justify-between items-center')}>
               <Text style={tailwind('ml-2')}>{translate('screens/EnrollBiometric', 'none')}</Text>
             </View>
