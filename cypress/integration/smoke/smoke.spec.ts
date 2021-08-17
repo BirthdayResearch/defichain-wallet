@@ -38,7 +38,6 @@ context('Mainnet - Wallet', () => {
       .sendDFITokentoWallet()
       .sendTokenToWallet(['BTC', 'DFI-ETH']).wait(3000)
     cy.verifyWalletAddress('regtest', localAddress)
-    cy.getByTestID('qr_code_container').compareSnapshot('local-qr-code-container')
   })
 
   it('should have MainNet', function () {
@@ -143,7 +142,6 @@ context('Mainnet - Wallet', () => {
         const address = $txt[0].textContent
         expect(address).eq(localAddress.address)
       })
-      cy.getByTestID('qr_code_container').compareSnapshot('local-qr-code-container')
     })
   })
 })

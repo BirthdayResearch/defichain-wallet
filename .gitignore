@@ -48,5 +48,3 @@ web-build/
 # Cypress
 /cypress/screenshots
 /cypress/videos
-
-/cypress-visual-screenshots/**

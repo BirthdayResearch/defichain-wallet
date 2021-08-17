@@ -25,3 +25,16 @@ context('Wallet - Receive', () => {
     })
   })
 })
+
+context('Wallet - Receive - QR Code - Check', () => {
+  before(function () {
+    cy.createEmptyWallet()
+    cy.getByTestID('balances_list').should('exist')
+    cy.getByTestID('balances_row_0_utxo').click()
+    cy.getByTestID('receive_button').click()
+  })
+
+  it('should match QR code', function () {
+    cy.getByTestID('qr_code_container').compareSnapshot('qr-code-container')
+  })
+})
