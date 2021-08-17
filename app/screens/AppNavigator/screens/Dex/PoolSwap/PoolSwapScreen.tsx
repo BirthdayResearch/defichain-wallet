@@ -24,6 +24,7 @@ import { hasTxQueued } from '../../../../../store/transaction_queue'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { DexParamList } from '../DexNavigator'
+import { SlippageTolerance } from './components/SlippageTolerance'
 
 export interface DerivedTokenState {
   id: string
@@ -53,6 +54,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const [tokenA, setTokenA] = useState<DerivedTokenState>()
   const [tokenB, setTokenB] = useState<DerivedTokenState>()
   const [isComputing, setIsComputing] = useState<boolean>(false)
+  const [slippage, setSlippage] = useState<number>(0.03)
   const [aToBPrice, setAToBPrice] = useState<BigNumber>()
 
   // component UI state
@@ -86,7 +88,8 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         tokenB,
         swap,
         fee,
-        poolpair
+        pair: poolpair,
+        slippage
       })
     }
   }
@@ -175,6 +178,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         title={`${translate('screens/PoolSwapScreen', 'TO')} ${tokenB.symbol}`}
         maxAmount={aToBPrice.times(getValues()[tokenAForm]).toFixed(8)}
       />
+      <SlippageTolerance slippage={slippage} setSlippage={(amount) => setSlippage(amount)} />
       {
         !isComputing && (new BigNumber(getValues()[tokenAForm]).isGreaterThan(0) && new BigNumber(getValues()[tokenBForm]).isGreaterThan(0)) &&
           <SwapSummary
