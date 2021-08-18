@@ -12,23 +12,30 @@ import { translate } from '../../../../translations'
 interface CarouselImage {
   image: ImageSourcePropType
   title: string
+  secondTitle: string
   subtitle: string
 }
 
 const slides: JSX.Element[] = [<InitialSlide key={0} />,
   <ImageSlide
     key={1}
-    image={ImageA} title='Take full control of your digital assets'
-    subtitle='Nobody owns your keys and wallet except you'
+    image={ImageA}
+    title='Take full control'
+    secondTitle='of your digital assets'
+    subtitle='Nobody owns your keys and wallet except you.'
   />,
   <ImageSlide
     key={2}
-    image={ImageB} title='Unlock the highest potential of your finances'
+    image={ImageB}
+    title='Unlock the highest'
+    secondTitle='potential of your finances'
     subtitle='Transact, liquidity mine, swap and many more features as a fully-decentralized wallet'
   />,
   <ImageSlide
     key={3}
-    image={ImageC} title='Earn high yields of up to 90% with DEX'
+    image={ImageC}
+    title='Earn high yields'
+    secondTitle='of up to 90% with DEX'
     subtitle='Supply liquidity to BTC, ETH, and many other pool pairs. You can also withdraw anytime!'
   />]
 
@@ -40,28 +47,30 @@ export function InitialSlide (): JSX.Element {
     <View style={tailwind('flex-1 items-center justify-center p-8')}>
       <AppIcon width={100} height={100} />
       <Text style={tailwind('text-2xl font-bold mt-3')}>
-        {translate('screens/OnboardingCarousel', 'DeFiChain')}
+        {translate('screens/OnboardingCarousel', 'DeFiChain Wallet')}
       </Text>
-      <Text style={tailwind('text-base font-light text-gray-500')}>
-        {translate('screens/OnboardingCarousel', 'Wallet')}
-      </Text>
-      <Text style={tailwind('text-lg font-medium mt-6 text-center')}>
-        {translate('screens/OnboardingCarousel', 'A wallet dedicated to the native decentralized finance for bitcoin.')}
+      <Text style={tailwind('text-base font-medium text-gray-500 mt-1')}>
+        {translate('screens/OnboardingCarousel', 'Native DeFi for Bitcoin')}
       </Text>
     </View>
   )
 }
 
-export function ImageSlide ({ image, title, subtitle }: CarouselImage): JSX.Element {
+export function ImageSlide ({ image, title, secondTitle, subtitle }: CarouselImage): JSX.Element {
   return (
-    <View style={tailwind('flex-1 items-center py-8 px-5 pt-0')}>
-      <Image source={image} style={{ width, height: '60%' }} />
-      <Text style={tailwind('text-xl font-bold text-center mt-8')}>
-        {translate('screens/OnboardingCarousel', title)}
-      </Text>
-      <Text style={tailwind('font-normal text-center text-gray-500 mt-3')}>
-        {translate('screens/OnboardingCarousel', subtitle)}
-      </Text>
+    <View style={tailwind('flex-1 items-center justify-center py-8 px-5')}>
+      <View style={tailwind('h-2/6 items-center justify-center')}>
+        <Text style={tailwind('text-2xl font-bold text-center')}>
+          {translate('screens/OnboardingCarousel', title)}
+        </Text>
+        <Text style={tailwind('text-2xl font-bold text-center')}>
+          {translate('screens/OnboardingCarousel', secondTitle)}
+        </Text>
+        <Text style={tailwind('font-normal text-center text-gray-500 mt-1 mb-8')}>
+          {translate('screens/OnboardingCarousel', subtitle)}
+        </Text>
+      </View>
+      <Image source={image} style={{ width, height: '55%' }} />
     </View>
   )
 }
