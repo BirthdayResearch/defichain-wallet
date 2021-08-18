@@ -1,48 +1,60 @@
+import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import { AuthenticationType } from 'expo-local-authentication'
 import React, { useCallback, useState } from 'react'
-import { ScrollView, Switch } from 'react-native'
+import { ScrollView, Switch, View } from 'react-native'
 import tailwind from 'tailwind-rn'
-import { Logging } from '../../../../api'
-import { MnemonicStorage } from '../../../../api/wallet/mnemonic_storage'
-import { Text, View } from '../../../../components'
-import { Button } from '../../../../components/Button'
-import { BiometricHardwareOption } from '../../../../components/biometric/BiometricHardwareOption'
-import { FaceIdIcon } from '../../../../components/icons/FaceIdIcon'
-import { TouchIdIcon } from '../../../../components/icons/TouchIdIcon'
-import { useLocalAuthContext } from '../../../../contexts/LocalAuthContext'
-import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
-import { translate } from '../../../../translations'
-import { WalletParamList } from '../../WalletNavigator'
+import { Text } from '../../../../../components'
+import { Button } from '../../../../../components/Button'
+import { BiometricHardwareOption } from '../../../../../components/biometric/BiometricHardwareOption'
+import { FaceIdIcon } from '../../../../../components/icons/FaceIdIcon'
+import { TouchIdIcon } from '../../../../../components/icons/TouchIdIcon'
+import { useLocalAuthContext } from '../../../../../contexts/LocalAuthContext'
+import { translate } from '../../../../../translations'
+import { SettingsParamList } from '../SettingsNavigator'
+import { useDispatch } from 'react-redux'
+import { authentication, Authentication } from '../../../../../store/authentication'
+import { MnemonicStorage } from '../../../../../api/wallet/mnemonic_storage'
+import { ocean } from '../../../../../store/ocean'
 
-type Props = StackScreenProps<WalletParamList, 'EnrollBiometric'>
+type Props = StackScreenProps<SettingsParamList, 'EnrollBiometric'>
 
-export function EnrollBiometric ({ route }: Props): JSX.Element {
+export function EnrollBiometricScreen ({ route }: Props): JSX.Element {
+  const navigation = useNavigation<NavigationProp<SettingsParamList>>()
+  const dispatch = useDispatch()
   const localAuth = useLocalAuthContext()
   const { hasHardware, isDeviceProtected, supportedTypes } = localAuth
-  const { pin, encrypted, words } = route.params
-  const { setWallet } = useWalletPersistenceContext()
   const [enrolled, setEnrolled] = useState(false)
 
   const enroll = useCallback(async () => {
-    localAuth.enrollBiometric(pin, {
-      disableDeviceFallback: true,
-      promptMessage: translate('screens/EnrollBiometric', 'Secure Your DeFiChain Wallet'),
-      cancelLabel: translate('screens/EnrollBiometric', 'Fallback to created 6 digits pin')
-    })
-      .catch(error => Logging.error(error))
+    // enroll
+    const auth: Authentication<string> = {
+      consume: async passphrase => {
+        await MnemonicStorage.get(passphrase) // for validation purpose only
+        return passphrase
+      },
+      onAuthenticated: async passphrase => {
+        await localAuth.enrollBiometric(passphrase)
+      },
+      onError: (e) => {
+        dispatch(ocean.actions.setError(e))
+      },
+      message: translate('screens/Settings', 'To enroll biometric authentication, we need you to enter your passcode.'),
+      loading: translate('screens/Settings', 'Verifying passcode...')
+    }
+
+    dispatch(authentication.actions.prompt(auth))
   }, [])
 
-  const onComplete = useCallback(async () => {
-    await setWallet(encrypted)
-    await MnemonicStorage.set(words, pin)
+  const goBack = useCallback(async () => {
+    navigation.dispatch(StackActions.pop())
   }, [])
 
-  let additionalNote
+  let additionalNote = 'You can enroll biometric in settings'
   if (!hasHardware) {
     additionalNote = 'No biometric authentication hardware found'
   } else if (!isDeviceProtected) {
-    additionalNote = 'Increase your device security level to start use biometric authentication.'
+    additionalNote = `Increase your device security level to start use biometric authentication. ${additionalNote}`
   }
 
   let biometricIcon = <FaceIdIcon width={64} height={64} />
@@ -82,16 +94,14 @@ export function EnrollBiometric ({ route }: Props): JSX.Element {
             </View>
           ) : null
         }
-        {
-          !(additionalNote === undefined) && <Text style={tailwind('w-full text-center p-2')}>{translate('screens/EnrollBiometric', additionalNote)}</Text>
-        }
+        <Text style={tailwind('w-full text-center p-2')}>{translate('screens/EnrollBiometric', additionalNote)}</Text>
       </ScrollView>
       <View style={tailwind('bg-white justify-center')}>
         <Button
           margin='m-4'
-          label={translate('screens/EnrollBiometric', 'GO TO WALLET')}
-          title='gotoWallet'
-          onPress={async () => await onComplete()}
+          label={translate('screens/EnrollBiometricScreen', 'GO BACK')}
+          title='enrollBiometric'
+          onPress={async () => await goBack()}
         />
       </View>
     </View>

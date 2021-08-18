@@ -69,31 +69,9 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   }, [walletContext.wallets[0]])
 
   const toggleBiometric = useCallback(async (wasEnrolled: boolean) => {
-    if (!localAuth.canEnroll) {
-      return
-    }
-
-    if (!wasEnrolled) {
-      // enroll
-      const auth: Authentication<string> = {
-        consume: async passphrase => {
-          await MnemonicStorage.get(passphrase) // for validation purpose only
-          return passphrase
-        },
-        onAuthenticated: async passphrase => {
-          await localAuth.enrollBiometric(passphrase)
-        },
-        onError: (e) => {
-          dispatch(ocean.actions.setError(e))
-        },
-        message: translate('screens/Settings', 'To enroll biometric authentication, we need you to enter your passcode.'),
-        loading: translate('screens/Settings', 'Verifying passcode...')
-      }
-
-      dispatch(authentication.actions.prompt(auth))
-    } else {
-      await localAuth.disenrollBiometric()
-    }
+    console.log('was enrolled', wasEnrolled)
+    if (!wasEnrolled) navigation.navigate('EnrollBiometricScreen')
+    else await localAuth.disenrollBiometric()
   }, [localAuth.canEnroll])
 
   return (
