@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`network selection screen should render 1`] = `
-Array [
+<View
+  testID="network_selection_screen"
+>
   <View
     accessible={true}
     focusable={true}
@@ -51,7 +53,7 @@ Array [
     >
       Local
     </Text>
-  </View>,
+  </View>
   <View
     accessible={true}
     focusable={true}
@@ -102,7 +104,7 @@ Array [
       Playground
     </Text>
     <Text />
-  </View>,
+  </View>
   <View
     accessible={true}
     focusable={true}
@@ -152,7 +154,7 @@ Array [
     >
       TestNet
     </Text>
-  </View>,
+  </View>
   <View
     accessible={true}
     focusable={true}
@@ -202,6 +204,6 @@ Array [
     >
       MainNet
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;
