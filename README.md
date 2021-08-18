@@ -16,7 +16,7 @@ DeFiChain Wallet has 3 releases channel and unique environment for each of those
 <summary><b>Production</b></summary>
 
 Created by Expo Application Service and configured in [`eas.json`](/eas.json), it creates a native build
-with [`release-publish.yml`](/.github/workflows/release-publish.yml) workflow on type "published". Builds can only be
+with [`release-publish.yml`](/.github/workflows/eas-publish.yml) workflow on type "published". Builds can only be
 triggered by DeFiChain engineers, they are automatically uploaded into native app store for distribution.
 
 In the production environment, only **MainNet** is available, and debugging is not enabled.
@@ -28,7 +28,7 @@ In the production environment, only **MainNet** is available, and debugging is n
 
 Preview builds are created by 2 workflow. First at each pull request
 via [`expo-preview.yml`](/.github/workflows/expo-preview.yml) workflow, release are prefixed `pr-preview-`. Secondly
-at  [`release-publish.yml`](/.github/workflows/release-publish.yml) workflow on type "prereleased".
+at  [`release-publish.yml`](/.github/workflows/eas-publish.yml) workflow on type "prereleased".
 
 In the preview environment, all networks are available, and debugging is enabled.
 
