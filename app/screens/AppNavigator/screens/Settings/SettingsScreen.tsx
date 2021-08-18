@@ -93,8 +93,8 @@ function SelectedNetworkItem ({ network, onPress }: { network: EnvironmentNetwor
         {network}
       </Text>
       <MaterialIcons
-        testID={`button_network_${network}_check`} size={24} name='check'
-        style={tailwind('text-primary')}
+        size={24}
+        name='chevron-right'
       />
     </TouchableOpacity>
   )

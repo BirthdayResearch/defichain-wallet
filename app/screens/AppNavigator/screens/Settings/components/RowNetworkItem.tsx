@@ -1,5 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { useCallback } from 'react'
 import { TouchableOpacity } from 'react-native'
@@ -33,7 +33,10 @@ export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Ele
           {
             text: translate('screens/Settings', 'Yes'),
             style: 'destructive',
-            onPress: async () => await updateNetwork(props.network)
+            onPress: async () => {
+              await updateNetwork(props.network)
+              navigation.dispatch(StackActions.popToTop())
+            }
           }
         ]
       }
