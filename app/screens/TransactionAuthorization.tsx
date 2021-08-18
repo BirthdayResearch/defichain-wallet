@@ -231,7 +231,7 @@ export function TransactionAuthorization (): JSX.Element | null {
     }
   }, [transaction, wallet, status, authentication, attemptsRemaining])
 
-  // prompt biometric auth in 'PIN' event
+  // auto resolve with cached pin if any
   useEffect(() => {
     if (status === 'PIN' && pin.length === PIN_LENGTH) {
       onPinInput(pin)
@@ -284,7 +284,6 @@ export function TransactionAuthorization (): JSX.Element | null {
             )
           }
         </View>
-        {/* TODO: switch authorization method here when biometric supported */}
         {
           status === 'PIN' && (
             <PinTextInput
