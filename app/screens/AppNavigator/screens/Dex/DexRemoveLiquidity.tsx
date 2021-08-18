@@ -29,6 +29,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   const client = useWhaleApiClient()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const isIOS = Platform.OS === 'ios'
   // this component state
   const [tokenAAmount, setTokenAAmount] = useState<BigNumber>(new BigNumber(0))
   const [tokenBAmount, setTokenBAmount] = useState<BigNumber>(new BigNumber(0))
@@ -75,8 +76,8 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
 
   useEffect(() => {
     setValidity(
-      Number(percentage) > 0 &&
-      Number(percentage) <= 100 &&
+      new BigNumber(percentage).isGreaterThan(new BigNumber(0)) &&
+      new BigNumber(percentage).isLessThanOrEqualTo(new BigNumber(100)) &&
       !hasPendingJob
     )
   }, [percentage])
@@ -93,7 +94,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
             testID='text_input_percentage'
             style={[
               tailwind('text-right w-2/4 p-0 mr-0.5'),
-              Platform.OS === 'ios' && tailwind('-mt-0.5'),
+              isIOS && tailwind('-mt-0.5'),
               {
                 height: Math.max(24, inputHeight)
               }
