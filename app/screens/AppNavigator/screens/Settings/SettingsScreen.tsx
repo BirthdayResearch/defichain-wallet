@@ -74,6 +74,11 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
     else await localAuth.disenrollBiometric()
   }, [localAuth.canEnroll])
 
+  const togglePrivacyLock = useCallback(async (wasEnabled: boolean) => {
+    if (wasEnabled) await localAuth.disablePrivacyLock()
+    else await localAuth.disablePrivacyLock()
+  }, [])
+
   return (
     <ScrollView style={tailwind('flex-1 bg-gray-100 pb-8')} testID='setting_screen'>
       <SectionTitle text={translate('screens/Settings', 'NETWORK')} testID='network_title' />
@@ -95,14 +100,21 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       <SecurityRow
         disabled={!isEncrypted}
         testID='view_recovery_words'
-        label='Recovery Words'
+        label={translate('screens/Settings', 'Recovery Words')}
         onPress={revealRecoveryWords}
       />
       <SecurityRow
         disabled={!isEncrypted}
         testID='view_change_passcode'
-        label='Change Passcode'
+        label={translate('screens/Settings', 'Change Passcode')}
         onPress={changePasscode}
+      />
+      <SecurityRow
+        testID='view_privacy_lock'
+        label={translate('screens/Settings', 'Privacy Lock')}
+        onPress={async () => {
+          await togglePrivacyLock(localAuth.isPrivacyLock)
+        }}
       />
       <RowNavigateItem pageName='AboutScreen' title='About' />
       <RowExitWalletItem />
