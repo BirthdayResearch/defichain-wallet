@@ -5,6 +5,7 @@ import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContex
 import { LocalAuthContextProvider } from '../contexts/LocalAuthContext'
 import { AppNavigator } from './AppNavigator/AppNavigator'
 import { TransactionAuthorization } from './TransactionAuthorization'
+import { PrivacyLock } from './PrivacyLock'
 import { WalletNavigator } from './WalletNavigator/WalletNavigator'
 
 /**
@@ -26,6 +27,7 @@ export function RootNavigator (): JSX.Element {
     <WalletNodeProvider data={wallets[0]}>
       <WalletContextProvider>
         <LocalAuthContextProvider>
+          <PrivacyLock />
           <TransactionAuthorization />
           <AppNavigator />
         </LocalAuthContextProvider>
