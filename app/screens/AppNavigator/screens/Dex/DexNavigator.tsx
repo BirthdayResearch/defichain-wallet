@@ -22,6 +22,7 @@ export interface DexParamList {
     swap: DexForm
     fee: BigNumber
     pair: PoolPairData
+    slippage: number
   }
   AddLiquidity: { pair: PoolPairData }
   ConfirmAddLiquidity: { pair: PoolPairData, summary: AddLiquiditySummary }

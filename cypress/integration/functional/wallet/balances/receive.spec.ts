@@ -1,7 +1,7 @@
 context('Wallet - Receive', () => {
   before(function () {
     cy.createEmptyWallet(true)
-    cy.sendDFItoWallet().wait(10000)
+    cy.sendDFItoWallet().wait(3000)
     cy.getByTestID('bottom_tab_balances').click()
   })
 
@@ -23,5 +23,18 @@ context('Wallet - Receive', () => {
       cy.getByTestID('address_input').type(address)
       cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
     })
+  })
+})
+
+context('Wallet - Receive - QR Code - Check', () => {
+  before(function () {
+    cy.createEmptyWallet()
+    cy.getByTestID('balances_list').should('exist')
+    cy.getByTestID('balances_row_0_utxo').click()
+    cy.getByTestID('receive_button').click()
+  })
+
+  it('should match QR code', function () {
+    cy.getByTestID('qr_code_container').compareSnapshot('qr-code-container')
   })
 })

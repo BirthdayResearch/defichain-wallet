@@ -1,6 +1,11 @@
 import '@testing-library/cypress/add-commands'
 import './onboardingCommands'
 import './walletCommands'
+
+// @ts-ignore
+const compareSnapshotCommand = require('cypress-image-diff-js/dist/command')
+compareSnapshotCommand()
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -97,6 +102,11 @@ declare global {
        * @description Restores local storage for dependent tests
        */
       restoreLocalStorage (): Chainable<Element>
+
+      /**
+       * @description Compare snapshot from image
+       */
+      compareSnapshot (element?: string): Chainable<Element>
     }
   }
 }

@@ -3,7 +3,7 @@ context('Wallet - DEX - Remove Liquidity', () => {
     cy.createEmptyWallet(true)
 
     cy.getByTestID('bottom_tab_settings').click()
-    cy.sendDFItoWallet().sendTokenToWallet(['DFI-ETH']).wait(10000)
+    cy.sendDFItoWallet().sendTokenToWallet(['DFI-ETH']).wait(3000)
 
     cy.getByTestID('bottom_tab_dex').click().wait(1000)
 
@@ -79,8 +79,26 @@ context('Wallet - DEX - Remove Liquidity', () => {
 
   it('Should be able to remove liquidity', function () {
     cy.getByTestID('button_slider_max').click().wait(1000)
+    cy.getByTestID('text_coin_amount_DFI').contains('1.00000000')
+    cy.getByTestID('text_coin_amount_ETH').contains('100.00000000')
     cy.getByTestID('button_continue_remove_liq').click()
     cy.getByTestID('button_cancel_remove').click()
     cy.getByTestID('button_slider_max').should('exist')
+    cy.getByTestID('button_continue_remove_liq').click()
+
+    cy.getByTestID('confirm_title').should('have.text', 'YOU ARE REMOVING')
+    cy.getByTestID('text_remove_amount').should('have.text', '10.00000000 DFI-ETH')
+    cy.getByTestID('a_amount').should('have.text', '1.00000000')
+    cy.getByTestID('b_amount').should('have.text', '100.00000000')
+    cy.getByTestID('price_a').contains('100.00000000 ETH per DFI')
+    cy.getByTestID('price_b').contains('0.01000000 DFI per ETH')
+    cy.getByTestID('button_confirm_remove').click().wait(2000)
+    cy.closeOceanInterface()
+  })
+
+  it('Should be able to verify if liquidity is removed', function () {
+    cy.getByTestID('pool_pair_row_your').should('not.exist')
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('balances_row_7').should('not.exist')
   })
 })

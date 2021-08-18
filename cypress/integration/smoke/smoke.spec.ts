@@ -5,6 +5,15 @@
  * The goal is to have run smoke testing in Mainnet
  * */
 
+import { WhaleApiClient } from '@defichain/whale-api-client'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import BigNumber from 'bignumber.js'
+
+interface DexItem {
+  type: 'your' | 'available'
+  data: PoolPairData
+}
+
 context('Mainnet - Wallet', () => {
   const recoveryWords: string[] = []
   const settingsRecoveryWords: string[] = []
@@ -27,7 +36,7 @@ context('Mainnet - Wallet', () => {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
-      .sendTokenToWallet(['BTC', 'DFI-ETH']).wait(10000)
+      .sendTokenToWallet(['BTC', 'DFI-ETH']).wait(3000)
     cy.verifyWalletAddress('regtest', localAddress)
   })
 
@@ -48,9 +57,22 @@ context('Mainnet - Wallet', () => {
     cy.setupPinCode()
   })
 
+  it('should have displayed default tokens', function () {
+    cy.checkBalanceRow('0_utxo', { name: 'DeFiChain', amount: '0.00000000', symbol: 'DFI (UTXO)' })
+    cy.checkBalanceRow('0', { name: 'DeFiChain', amount: '0.00000000', symbol: 'DFI (Token)' })
+  })
+
   context('Settings - Mnemonic Verification', () => {
     it('should be able to verify mnemonic from settings page', function () {
       cy.verifyMnemonicOnSettingsPage(settingsRecoveryWords, recoveryWords)
+    })
+  })
+
+  context('Settings - Change Passcode', () => {
+    it('should be able to change passcode and verify', function () {
+      cy.changePasscode()
+      cy.getByTestID('view_recovery_words').click().wait(3000)
+      cy.getByTestID('pin_authorize').type('696969').wait(3000)
     })
   })
 
@@ -101,10 +123,9 @@ context('Mainnet - Wallet', () => {
       cy.fetchWalletBalance()
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_list').should('exist')
-      cy.getByTestID('balances_row_0_utxo_amount').contains(10)
-      cy.getByTestID('balances_row_0_amount').contains(10)
-      cy.getByTestID('balances_row_1_amount').contains(10)
-      cy.getByTestID('balances_row_7_amount').contains(10)
+      cy.checkBalanceRow('0_utxo', { name: 'DeFiChain', amount: '10.00000000', symbol: 'DFI (UTXO)' })
+      cy.checkBalanceRow('0', { name: 'DeFiChain', amount: 10, symbol: 'DFI (Token)' }, true)
+      cy.checkBalanceRow('7', { name: 'Default Defi token-Playground ETH', amount: '10.00000000', symbol: 'DFI-ETH' })
     })
 
     it('should have correct poolpairs', function () {
@@ -120,6 +141,39 @@ context('Mainnet - Wallet', () => {
       cy.getByTestID('address_text').then(($txt: any) => {
         const address = $txt[0].textContent
         expect(address).eq(localAddress.address)
+      })
+    })
+  })
+})
+
+context('Mainnet - Wallet - Pool Pair Values', () => {
+  beforeEach(function () {
+    cy.restoreLocalStorage()
+  })
+
+  afterEach(function () {
+    cy.saveLocalStorage()
+  })
+
+  let whale: WhaleApiClient
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.switchNetwork('MainNet')
+    cy.createEmptyWallet(true)
+    whale = new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'mainnet', version: 'v0' })
+    cy.getByTestID('bottom_tab_dex').click()
+  })
+
+  it('should verify poolpair values', function () {
+    cy.wrap<DexItem[]>(whale.poolpairs.list(50), { timeout: 20000 }).then((pairs) => {
+      const available: PoolPairData[] = pairs.map(data => ({ type: 'available', data: data }))
+      available.forEach((pair) => {
+        const data: PoolPairData = pair.data
+        const [symbolA, symbolB] = data.symbol.split('-')
+        cy.getByTestID(`your_symbol_${data.symbol}`).contains(data.symbol)
+        cy.getByTestID(`apr_${data.symbol}`).contains(`${new BigNumber(data.apr.total).times(100).toFixed(2)}%`)
+        cy.getByTestID(`available_${symbolA}`).contains(`${new BigNumber(new BigNumber(data.tokenA.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)
+        cy.getByTestID(`available_${symbolB}`).contains(`${new BigNumber(new BigNumber(data.tokenB.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)
       })
     })
   })
