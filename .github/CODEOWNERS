@@ -5,9 +5,10 @@
 /.husky/                                        @fuxingloh @thedoublejay
 
 /app/                                           @fuxingloh @thedoublejay @ivan-zynesis @kyleleow
+/app/api                                        @fuxingloh @thedoublejay @ivan-zynesis
 
-/app/assets                                     @fuxingloh @thedoublejay @ivan-zynesis @izzycsy
-/app/translations                               @fuxingloh @thedoublejay @ivan-zynesis @izzycsy
+/app/assets                                     @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow
+/app/translations                               @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow
 /cypress                                        @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow
 
 /.codeclimate.yml                               @fuxingloh @thedoublejay
@@ -27,7 +28,7 @@ package.json                                    @fuxingloh @thedoublejay
 package-lock.json                               @fuxingloh @thedoublejay
 tsconfig.json                                   @fuxingloh @thedoublejay
 
-BETA_TESTING.md                                 @fuxingloh @thedoublejay @izzycsy
-CONTRIBUTING.md                                 @fuxingloh @thedoublejay @izzycsy
-README.md                                       @fuxingloh @thedoublejay @izzycsy
+BETA_TESTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow
+CONTRIBUTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow
+README.md                                       @fuxingloh @thedoublejay @izzycsy @kyleleow
 LICENSE                                         @fuxingloh
