@@ -10,8 +10,11 @@ import React, { Dispatch, useEffect, useState } from 'react'
 import { ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
-import { ConfirmTitle, NumberRow, SubmitButtonGroup, TextRow } from '../../../../../components/ConfirmComponents'
+import { NumberRow } from '../../../../../components/NumberRow'
 import { SectionTitle } from '../../../../../components/SectionTitle'
+import { SubmitButtonGroup } from '../../../../../components/SubmitButtonGroup'
+import { SummaryTitle } from '../../../../../components/SummaryTitle'
+import { TextRow } from '../../../../../components/TextRow'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
@@ -82,7 +85,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
 
   return (
     <ScrollView style={tailwind('bg-gray-100 pb-4')}>
-      <ConfirmTitle
+      <SummaryTitle
         title={translate('screens/SendConfirmationScreen', 'YOU ARE SENDING')} testID='text_send_amount'
         amount={amount} suffix={` ${token.symbol}`}
       />
