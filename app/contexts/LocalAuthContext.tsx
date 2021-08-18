@@ -85,14 +85,14 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
     await _authenticate(options)
     await PrivacyLockPersistence.set(true)
     setIsPrivacyLock(true)
-  }, [])
+  }, [isPrivacyLock])
 
   const disablePrivacyLock = useCallback(async (options?: LocalAuthenticationOptions) => {
     if (!(isPrivacyLock as boolean)) return
     await _authenticate(options)
     await PrivacyLockPersistence.set(false)
     setIsPrivacyLock(false)
-  }, [])
+  }, [isPrivacyLock])
 
   const enrollBiometric = useCallback(async (verifiedPasscode: string, options?: LocalAuthenticationOptions) => {
     if (!canEnroll) return // precaution, not expecting to reach here

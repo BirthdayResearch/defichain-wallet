@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppState, BackHandler } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import tailwind from 'tailwind-rn'
@@ -20,6 +20,9 @@ export function PrivacyLock (): JSX.Element | null {
         } else {
           setAuthenticated(false)
         }
+      } else {
+        // no privacy lock enabled
+        setAuthenticated(true)
       }
     })
   }, [localAuth.isPrivacyLock])
@@ -31,7 +34,7 @@ export function PrivacyLock (): JSX.Element | null {
   return (
     <SafeAreaView
       style={[
-        tailwind('w-full h-full flex-col bg-black')
+        tailwind('w-full h-full flex-col bg-white')
       ]}
     />
   )
