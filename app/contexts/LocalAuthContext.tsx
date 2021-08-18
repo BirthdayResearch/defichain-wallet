@@ -79,11 +79,26 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
     }
   }, [])
 
+  const enablePrivacyLock = useCallback(async (options?: LocalAuthenticationOptions) => {
+    if (isPrivacyLock as boolean) return
+    await _authenticate(options)
+    await PrivacyLockPersistence.set(true)
+    setIsPrivacyLock(true)
+  }, [])
+
+  const disablePrivacyLock = useCallback(async (options?: LocalAuthenticationOptions) => {
+    if (!(isPrivacyLock as boolean)) return
+    await _authenticate(options)
+    await PrivacyLockPersistence.set(false)
+    setIsPrivacyLock(false)
+  }, [])
+
   const enrollBiometric = useCallback(async (verifiedPasscode: string, options?: LocalAuthenticationOptions) => {
     if (!canEnroll) return // precaution, not expecting to reach here
     await _authenticate(options)
     await BiometricProtectedPasscode.set(verifiedPasscode)
     setIsEnrolled(true)
+    await enablePrivacyLock() // default behavior, privacy lock inherit behavior, can be disabled individually
   }, [canEnroll])
 
   const disenrollBiometric = useCallback(async (bypass: boolean, options?: LocalAuthenticationOptions) => {
@@ -91,6 +106,7 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
     if (!bypass) await _authenticate(options)
     await BiometricProtectedPasscode.clear()
     setIsEnrolled(false)
+    await disablePrivacyLock()// default behavior, privacy lock inherit behavior, can be enabled individually
   }, [canEnroll])
 
   useEffect(fetchHardwareStatus, [])
@@ -149,18 +165,8 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
       if (!(hasHardware as boolean) || !(isEnrolled as boolean)) return
       await _authenticate(options)
     },
-    enablePrivacyLock: async (options) => {
-      if (isPrivacyLock as boolean) return
-      await _authenticate(options)
-      await PrivacyLockPersistence.set(true)
-      setIsPrivacyLock(true)
-    },
-    disablePrivacyLock: async (options) => {
-      if (!(isPrivacyLock as boolean)) return
-      await _authenticate(options)
-      await PrivacyLockPersistence.set(false)
-      setIsPrivacyLock(false)
-    },
+    enablePrivacyLock,
+    disablePrivacyLock,
     authenticate: async (options) => {
       if (!(isEnrolled as boolean)) {
         throw new Error('No biometric authentication enrolled')
