@@ -47,7 +47,7 @@ context('Wallet - Transaction Authorization with Error', () => {
   it('should not reset attempts on cancel - non transaction UI', function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_settings').click()
-    cy.getByTestID('view_recovery_words').click()
+    cy.getByTestID('view_recovery_words').click().wait(3000)
     Array.from(Array(3), (v, i) => i + 1).forEach(() => {
       cy.getByTestID('pin_authorize').type('696969').wait(1000)
     })

@@ -13,6 +13,7 @@ import { Logging } from '../../../../api'
 import { ConfirmTitle, NumberRow, SubmitButtonGroup, TokenBalanceRow } from '../../../../components/ConfirmComponents'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { RootState } from '../../../../store'
+import { hasTxQueued as hasBroadcastQueued } from '../../../../store/ocean'
 import { hasTxQueued, transactionQueue } from '../../../../store/transaction_queue'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -29,6 +30,7 @@ export interface AddLiquiditySummary extends PoolPairData {
 
 export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const {
     fee,
     percentage,
@@ -63,7 +65,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const dispatch = useDispatch()
 
   async function addLiquidity (): Promise<void> {
-    if (hasPendingJob) {
+    if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
     setIsSubmitting(true)
@@ -150,7 +152,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       <SubmitButtonGroup
         onSubmit={addLiquidity} onCancel={onCancel} title='add'
         label={translate('screens/ConfirmAddLiq', 'ADD')}
-        isDisabled={isSubmitting || hasPendingJob}
+        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
       />
     </ScrollView>
   )

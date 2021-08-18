@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { Text } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
-import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
+import { getNativeIcon } from '../../../../../components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
@@ -20,10 +20,12 @@ import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { usePoolPairsAPI } from '../../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
+import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
 import { hasTxQueued } from '../../../../../store/transaction_queue'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { DexParamList } from '../DexNavigator'
+import { SlippageTolerance } from './components/SlippageTolerance'
 
 export interface DerivedTokenState {
   id: string
@@ -40,6 +42,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const [tokenAForm, tokenBForm] = ['tokenA', 'tokenB']
   const navigation = useNavigation<NavigationProp<DexParamList>>()
 
@@ -53,6 +56,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const [tokenA, setTokenA] = useState<DerivedTokenState>()
   const [tokenB, setTokenB] = useState<DerivedTokenState>()
   const [isComputing, setIsComputing] = useState<boolean>(false)
+  const [slippage, setSlippage] = useState<number>(0.03)
   const [aToBPrice, setAToBPrice] = useState<BigNumber>()
 
   // component UI state
@@ -66,7 +70,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   }, [pairs, route.params.poolpair])
 
   function onSubmit (): void {
-    if (hasPendingJob) return
+    if (hasPendingJob || hasPendingBroadcastJob) return
     if (tokenA === undefined || tokenB === undefined || poolpair === undefined) {
       return
     }
@@ -86,7 +90,8 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         tokenB,
         swap,
         fee,
-        poolpair
+        pair: poolpair,
+        slippage
       })
     }
   }
@@ -175,6 +180,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         title={`${translate('screens/PoolSwapScreen', 'TO')} ${tokenB.symbol}`}
         maxAmount={aToBPrice.times(getValues()[tokenAForm]).toFixed(8)}
       />
+      <SlippageTolerance slippage={slippage} setSlippage={(amount) => setSlippage(amount)} />
       {
         !isComputing && (new BigNumber(getValues()[tokenAForm]).isGreaterThan(0) && new BigNumber(getValues()[tokenBForm]).isGreaterThan(0)) &&
           <SwapSummary
@@ -183,7 +189,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           />
       }
       <Button
-        disabled={!isValid || hasPendingJob}
+        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/PoolSwapScreen', 'CONTINUE')}
         title='CONTINUE' onPress={onSubmit} testID='button_submit'
       />
@@ -204,7 +210,7 @@ interface TokenForm {
 
 function TokenRow (form: TokenForm): JSX.Element {
   const { token, control, onChangeFromAmount, title, controlName, enableMaxButton = true, isDisabled } = form
-  const Icon = getTokenIcon(token.symbol)
+  const Icon = getNativeIcon(token.symbol)
   const rules: { required: boolean, pattern: RegExp, validate: any, max?: string } = {
     required: true,
     pattern: /^\d*\.?\d*$/,

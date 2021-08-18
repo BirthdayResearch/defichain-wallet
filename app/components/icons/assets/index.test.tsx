@@ -1,9 +1,9 @@
-import { render } from "@testing-library/react-native";
+import { render } from '@testing-library/react-native'
 import * as React from 'react'
-import { AppIcon } from "../AppIcon";
-import { FaceIdIcon } from "../FaceIdIcon";
-import { TouchIdIcon } from "../TouchIdIcon";
-import { getTokenIcon } from "./_index";
+import { AppIcon } from '../AppIcon'
+import { FaceIdIcon } from '../FaceIdIcon'
+import { TouchIdIcon } from '../TouchIdIcon'
+import { getNativeIcon } from './index'
 
 jest.mock('randomcolor', () => jest.fn().mockReturnValue('#ffffff'))
 
@@ -11,8 +11,8 @@ const icons = ['DFI', 'FAKE', 'BCH', 'BTC', 'DOGE', 'ETH', 'LTC', 'USDT', '_UTXO
 
 describe('token icons', () => {
   icons.forEach(icon => {
-    it(`getTokenIcon("${icon}") should get <Icon${icon} /> snapshot`, () => {
-      const Icon = getTokenIcon(icon)
+    it(`getNativeIcon("${icon}") should get <Icon${icon} /> snapshot`, () => {
+      const Icon = getNativeIcon(icon)
       const tree = render(<Icon />).toJSON()
       expect(tree).toMatchSnapshot()
     })

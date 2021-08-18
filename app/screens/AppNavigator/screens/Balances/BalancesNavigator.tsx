@@ -7,7 +7,7 @@ import { TouchableOpacity, View } from 'react-native'
 import { Text } from '../../../../components'
 import { BarCodeScanner } from '../../../../components/BarCodeScanner'
 import { ConnectionStatus, HeaderTitle } from '../../../../components/HeaderTitle'
-import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { getNativeIcon } from '../../../../components/icons/assets'
 import { WalletToken } from '../../../../store/wallet'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -126,7 +126,7 @@ export function BalancesNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: () => {
             const token = route?.params?.token
-            const Icon = getTokenIcon(token.avatarSymbol)
+            const Icon = getNativeIcon(token.avatarSymbol)
             return (
               <View style={tailwind('flex-row items-center')}>
                 <Icon />

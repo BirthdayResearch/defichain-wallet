@@ -18,5 +18,6 @@
 module.exports = (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions): any => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   require('@cypress/code-coverage/task')(on, config)
+  require('cypress-image-diff-js/dist/plugin')(on, config)
   return config
 }

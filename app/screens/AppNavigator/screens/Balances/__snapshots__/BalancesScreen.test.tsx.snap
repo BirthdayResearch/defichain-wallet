@@ -171,6 +171,7 @@ exports[`balances page should match snapshot 1`] = `
                 },
               ]
             }
+            testID="balances_row_0_icon"
             vbHeight={32}
             vbWidth={32}
             width={32}
@@ -257,6 +258,7 @@ exports[`balances page should match snapshot 1`] = `
                   },
                 ]
               }
+              testID="balances_row_0_symbol"
             />
             <Text
               ellipsizeMode="tail"
@@ -278,6 +280,7 @@ exports[`balances page should match snapshot 1`] = `
                   },
                 ]
               }
+              testID="balances_row_0_name"
             >
               Defi
             </Text>
@@ -309,7 +312,7 @@ exports[`balances page should match snapshot 1`] = `
               }
               testID="balances_row_0_amount"
             >
-              23
+              23.00000000
             </Text>
             <Text />
           </View>
@@ -388,6 +391,7 @@ exports[`balances page should match snapshot 1`] = `
                 },
               ]
             }
+            testID="balances_row_1_icon"
             vbHeight={32}
             vbWidth={32}
             width={32}
@@ -474,6 +478,7 @@ exports[`balances page should match snapshot 1`] = `
                   },
                 ]
               }
+              testID="balances_row_1_symbol"
             />
             <Text
               ellipsizeMode="tail"
@@ -495,6 +500,7 @@ exports[`balances page should match snapshot 1`] = `
                   },
                 ]
               }
+              testID="balances_row_1_name"
             >
               Bitcoin
             </Text>
@@ -526,7 +532,7 @@ exports[`balances page should match snapshot 1`] = `
               }
               testID="balances_row_1_amount"
             >
-              777
+              777.00000000
             </Text>
             <Text />
           </View>
@@ -605,6 +611,7 @@ exports[`balances page should match snapshot 1`] = `
                 },
               ]
             }
+            testID="balances_row_2_icon"
             vbHeight={32}
             vbWidth={32}
             width={32}
@@ -691,6 +698,7 @@ exports[`balances page should match snapshot 1`] = `
                   },
                 ]
               }
+              testID="balances_row_2_symbol"
             />
             <Text
               ellipsizeMode="tail"
@@ -712,6 +720,7 @@ exports[`balances page should match snapshot 1`] = `
                   },
                 ]
               }
+              testID="balances_row_2_name"
             >
               Ethereum
             </Text>
@@ -743,7 +752,7 @@ exports[`balances page should match snapshot 1`] = `
               }
               testID="balances_row_2_amount"
             >
-              555
+              555.00000000
             </Text>
             <Text />
           </View>

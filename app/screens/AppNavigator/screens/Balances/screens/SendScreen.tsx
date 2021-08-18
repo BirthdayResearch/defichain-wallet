@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
-import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
+import { getNativeIcon } from '../../../../../components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
@@ -20,6 +20,7 @@ import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
+import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
 import { hasTxQueued } from '../../../../../store/transaction_queue'
 import { WalletToken } from '../../../../../store/wallet'
 import { tailwind } from '../../../../../tailwind'
@@ -36,6 +37,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
 
   useEffect(() => {
     client.fee.estimate()
@@ -51,7 +53,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   }, [JSON.stringify(tokens)])
 
   async function onSubmit (): Promise<void> {
-    if (hasPendingJob) {
+    if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
     if (isValid) {
@@ -109,7 +111,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
       }
       <Button
         testID='send_submit_button'
-        disabled={!isValid || hasPendingJob}
+        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/SendScreen', 'CONTINUE')}
         title='Send' onPress={onSubmit}
       />
@@ -173,7 +175,7 @@ interface AmountForm {
 }
 
 function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): JSX.Element {
-  const Icon = getTokenIcon(token.avatarSymbol)
+  const Icon = getNativeIcon(token.avatarSymbol)
   let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).toFixed(8) : token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
   return (

@@ -20,6 +20,11 @@ const communityLinks = [
     url: 'https://t.me/defiblockchain_DE'
   },
   {
+    id: 'tg_announcement',
+    title: 'Telegram (Announcement)',
+    url: 'https://t.me/defichain_announcements'
+  },
+  {
     id: 'wechat',
     title: 'WeChat',
     url: 'http://weixin.qq.com/r/0xz07DzEdmEJrXiP90nB'

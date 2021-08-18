@@ -51,6 +51,7 @@ const Communities: CommunityItem[] = [
   { id: 'faq', title: 'Frequently Asked Questions', url: 'https://defichain.com/learn/#faq', icon: 'help-circle' },
   { id: 'tg_en', title: 'Telegram (EN)', url: 'https://t.me/defiblockchain', icon: 'telegram' },
   { id: 'tg_de', title: 'Telegram (DE)', url: 'https://t.me/defiblockchain_DE', icon: 'telegram' },
+  { id: 'tg_announcement', title: 'Telegram (Announcement)', url: 'https://t.me/defichain_announcements', icon: 'telegram' },
   { id: 'wechat', title: 'WeChat', url: 'http://weixin.qq.com/r/0xz07DzEdmEJrXiP90nB', icon: 'wechat' },
   { id: 'reddit', title: 'Reddit Community', url: 'https://www.reddit.com/r/defiblockchain/', icon: 'reddit' },
   { id: 'website', title: 'Official Website', url: 'https://defichain.com/', icon: 'web' },

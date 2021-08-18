@@ -8,7 +8,7 @@ import { SectionList, TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { Text, View } from '../../../../components'
-import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { getNativeIcon } from '../../../../components/icons/assets'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { usePoolPairsAPI } from '../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
@@ -98,8 +98,8 @@ interface DexItem<T> {
 
 function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () => void, pair?: PoolPairData): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
-  const IconA = getTokenIcon(symbolA)
-  const IconB = getTokenIcon(symbolB)
+  const IconA = getNativeIcon(symbolA)
+  const IconB = getNativeIcon(symbolB)
   const toRemove = new BigNumber(1).times(data.amount).decimalPlaces(8, BigNumber.ROUND_DOWN)
   const ratioToTotal = toRemove.div(pair?.totalLiquidity?.token ?? 1)
   // assume defid will trim the dust values too
@@ -137,8 +137,8 @@ function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () =>
 
 function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: () => void): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
-  const IconA = getTokenIcon(symbolA)
-  const IconB = getTokenIcon(symbolB)
+  const IconA = getNativeIcon(symbolA)
+  const IconB = getNativeIcon(symbolB)
 
   return (
     <View testID='pool_pair_row' style={tailwind('p-4 bg-white border-b border-gray-200')}>
@@ -146,7 +146,7 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
         <View style={tailwind('flex-row items-center')}>
           <IconA width={32} height={32} />
           <IconB width={32} height={32} style={tailwind('-ml-3 mr-3')} />
-          <Text style={tailwind('text-lg font-bold')}>{data.symbol}</Text>
+          <Text testID={`your_symbol_${symbolA}-${symbolB}`} style={tailwind('text-lg font-bold')}>{data.symbol}</Text>
         </View>
 
         <View style={tailwind('flex-row -mr-2')}>
@@ -158,7 +158,7 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
       <View style={tailwind('mt-4')}>
         {
           data.apr?.total !== undefined &&
-            <PoolPairAPR symbol={`${symbolA}_${symbolB}`} apr={data.apr.total} row='apr' />
+            <PoolPairAPR symbol={`${symbolA}-${symbolB}`} apr={data.apr.total} row='apr' />
         }
         <PoolPairInfoLine symbol={symbolA} reserve={data.tokenA.reserve} row='available' decimalScale={2} />
         <PoolPairInfoLine symbol={symbolB} reserve={data.tokenB.reserve} row='available' decimalScale={2} />

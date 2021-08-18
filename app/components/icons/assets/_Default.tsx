@@ -2,7 +2,7 @@ import randomColor from 'randomcolor'
 import * as React from 'react'
 import Svg, { Circle, SvgProps, Text } from 'react-native-svg'
 
-export function IconDefault (symbol: string): (props: SvgProps) => JSX.Element {
+export function _Default (symbol: string): (props: SvgProps) => JSX.Element {
   return (props: SvgProps): JSX.Element => {
     const color = randomColor({ luminosity: 'dark', seed: symbol })
     const startingLetter = symbol?.substring(0, 1) ?? 'T'
