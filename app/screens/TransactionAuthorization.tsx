@@ -26,7 +26,6 @@ import { ocean } from '../store/ocean'
 import { DfTxSigner, first, transactionQueue } from '../store/transaction_queue'
 import { tailwind } from '../tailwind'
 import { translate } from '../translations'
-import { useLocalAuthContext } from '../contexts/LocalAuthContext'
 
 const MAX_PASSCODE_ATTEMPT = 4 // allowed 3 failures
 const PIN_LENGTH = 6
@@ -58,7 +57,6 @@ export function TransactionAuthorization (): JSX.Element | null {
   const { clearWallets } = useWalletPersistenceContext()
   const { network } = useNetworkContext()
   const whaleApiClient = useWhaleApiClient()
-  const localAuth = useLocalAuthContext()
 
   // store
   const dispatch = useDispatch()
@@ -238,13 +236,7 @@ export function TransactionAuthorization (): JSX.Element | null {
     if (status === 'PIN' && pin.length === PIN_LENGTH) {
       onPinInput(pin)
     }
-
-    if (status === 'PIN' && localAuth.isEnrolled) {
-      localAuth.authenticate()
-        .then(pinFromSecureStore => onPinInput(pinFromSecureStore))
-        .catch(e => Logging.error(e)) // auto fallback to manual pin input
-    }
-  }, [status, pin, localAuth.isEnrolled])
+  }, [status, pin])
 
   if (status === 'INIT' || status === 'IDLE' || status === 'BLOCK') {
     return null

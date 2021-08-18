@@ -7,6 +7,7 @@ import { NetworkProvider } from './app/contexts/NetworkContext'
 import { StatsProvider } from './app/contexts/StatsProvider'
 import { StoreProvider } from './app/contexts/StoreProvider'
 import { WalletPersistenceProvider } from './app/contexts/WalletPersistenceContext'
+import { LocalAuthContextProvider } from './app/contexts/LocalAuthContext'
 import { WhaleProvider } from './app/contexts/WhaleContext'
 import { useCachedResources } from './app/hooks/useCachedResources'
 import ErrorBoundary from './app/screens/ErrorBoundary/ErrorBoundary'
@@ -33,19 +34,21 @@ export default function App (): JSX.Element | null {
 
   return (
     <ErrorBoundary>
-      <NetworkProvider>
-        <WhaleProvider>
-          <DeFiScanProvider>
-            <WalletPersistenceProvider>
-              <StoreProvider>
-                <StatsProvider>
-                  <Main />
-                </StatsProvider>
-              </StoreProvider>
-            </WalletPersistenceProvider>
-          </DeFiScanProvider>
-        </WhaleProvider>
-      </NetworkProvider>
+      <LocalAuthContextProvider>
+        <NetworkProvider>
+          <WhaleProvider>
+            <DeFiScanProvider>
+              <WalletPersistenceProvider>
+                <StoreProvider>
+                  <StatsProvider>
+                    <Main />
+                  </StatsProvider>
+                </StoreProvider>
+              </WalletPersistenceProvider>
+            </DeFiScanProvider>
+          </WhaleProvider>
+        </NetworkProvider>
+      </LocalAuthContextProvider>
     </ErrorBoundary>
   )
 }

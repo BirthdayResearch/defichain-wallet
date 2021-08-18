@@ -2,8 +2,6 @@ import * as LocalAuthentication from 'expo-local-authentication'
 import { AuthenticationType, SecurityLevel, LocalAuthenticationOptions } from 'expo-local-authentication'
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { Logging } from '../api'
-import { useWalletPersistenceContext } from './WalletPersistenceContext'
-import { BiometricProtectedPasscode } from '../api/wallet/biometric_protected_passcode'
 import { PrivacyLockPersistence } from '../api/wallet/privacy_lock'
 
 interface LocalAuthContext {
@@ -15,17 +13,11 @@ interface LocalAuthContext {
   isDeviceProtected: boolean
 
   // API
-  isWalletEncrypted: boolean
-  isEnrolled: boolean
-  canEnroll: boolean
-  isPrivacyLock: boolean
-  enrollBiometric: (passcode: string, options?: LocalAuthenticationOptions) => Promise<void>
-  disenrollBiometric: (options?: LocalAuthenticationOptions) => Promise<void>
+  isPrivacyLock?: boolean
   privacyLock: (options?: LocalAuthenticationOptions) => Promise<void>
   enablePrivacyLock: (options?: LocalAuthenticationOptions) => Promise<void>
   disablePrivacyLock: (options?: LocalAuthenticationOptions) => Promise<void>
   togglePrivacyLock: (options?: LocalAuthenticationOptions) => Promise<void>
-  authenticate: (options?: LocalAuthenticationOptions) => Promise<string> // return passcode
 }
 
 const localAuthContext = createContext<LocalAuthContext>(undefined as any)
@@ -35,21 +27,10 @@ export function useLocalAuthContext (): LocalAuthContext {
 }
 
 export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
-  const { wallets, isEncrypted } = useWalletPersistenceContext()
-
-  // do not put default value, use as flag (init) indicate hardware check complete
-  const [hasHardware, setHasHardware] = useState<boolean>()
+  const [hasHardware, setHasHardware] = useState<boolean>(false)
   const [securityLevel, setSecurityLevel] = useState<SecurityLevel>(SecurityLevel.NONE)
   const [biometricHardwares, setBiometricHardwares] = useState<AuthenticationType[]>([])
   const [isDeviceProtected, setIsDeviceProtected] = useState<boolean>(false)
-
-  // do not put default value, use as flag (init) indicate checked value from persistence layer
-  const [isEnrolled, setIsEnrolled] = useState<boolean>()
-
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [canEnroll, setCanEnroll] = useState(false)
-
-  // do not put default value, use as flag (init) indicate checked value from persistence layer
   const [isPrivacyLock, setIsPrivacyLock] = useState<boolean>()
 
   const fetchHardwareStatus = useCallback(() => {
@@ -94,31 +75,7 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
     setIsPrivacyLock(false)
   }, [isPrivacyLock])
 
-  const enrollBiometric = useCallback(async (verifiedPasscode: string, options?: LocalAuthenticationOptions) => {
-    if (!canEnroll) return // precaution, not expecting to reach here
-    await _authenticate(options)
-    await BiometricProtectedPasscode.set(verifiedPasscode)
-    setIsEnrolled(true)
-    await enablePrivacyLock() // default behavior, privacy lock inherit behavior, can be disabled individually
-  }, [canEnroll])
-
-  const disenrollBiometric = useCallback(async (bypass: boolean, options?: LocalAuthenticationOptions) => {
-    if (!canEnroll) return // precaution, not expecting to reach here
-    if (!bypass) await _authenticate(options)
-    await BiometricProtectedPasscode.clear()
-    setIsEnrolled(false)
-    await disablePrivacyLock()// default behavior, privacy lock inherit behavior, can be enabled individually
-  }, [canEnroll])
-
   useEffect(fetchHardwareStatus, [])
-  useEffect(() => {
-    BiometricProtectedPasscode.isEnrolled()
-      .then(enrolled => setIsEnrolled(enrolled))
-      .catch(error => {
-        Logging.error(error)
-        setIsEnrolled(false)
-      })
-  }, [/* only load from persistence layer once */])
 
   useEffect(() => {
     PrivacyLockPersistence.isEnabled()
@@ -129,41 +86,15 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
       })
   }, [/* only load from persistence layer once */])
 
-  useEffect(() => {
-    if (wallets.length === 0) {
-      disenrollBiometric(true)
-        .catch(error => Logging.error(error))
-    }
-  }, [wallets])
-
-  useEffect(() => {
-    if (hasHardware !== undefined && isEnrolled !== undefined && isPrivacyLock !== undefined) {
-      setCanEnroll(isEncrypted && isDeviceProtected)
-      setIsLoaded(true) // init complete
-    }
-  }, [isEncrypted, hasHardware, isDeviceProtected, isPrivacyLock])
-
-  if (!isLoaded) {
-    return null
-  }
-
   const context: LocalAuthContext = {
     fetchHardwareStatus,
-    hasHardware: hasHardware as boolean,
+    hasHardware,
     hardwareSecurityLevel: securityLevel,
     supportedTypes: biometricHardwares,
     isDeviceProtected,
-
-    isWalletEncrypted: isEncrypted,
-    isEnrolled: isEnrolled as boolean,
-    canEnroll,
-    isPrivacyLock: isPrivacyLock as boolean,
-    enrollBiometric,
-    disenrollBiometric: async (options?: LocalAuthenticationOptions) => {
-      return await disenrollBiometric(false, options)
-    },
+    isPrivacyLock,
     privacyLock: async (options) => {
-      if (!(hasHardware as boolean) || !(isEnrolled as boolean)) return
+      if (!hasHardware || !(isPrivacyLock !== undefined && isPrivacyLock)) return
       await _authenticate(options)
     },
     enablePrivacyLock,
@@ -171,13 +102,6 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
     togglePrivacyLock: async (options) => {
       if (isPrivacyLock as boolean) return await disablePrivacyLock(options)
       return await enablePrivacyLock(options)
-    },
-    authenticate: async (options) => {
-      if (!(isEnrolled as boolean)) {
-        throw new Error('No biometric authentication enrolled')
-      }
-      await _authenticate(options)
-      return (await BiometricProtectedPasscode.get()) as string
     }
   }
 

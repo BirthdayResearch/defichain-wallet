@@ -68,11 +68,6 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
     dispatch(authentication.actions.prompt(auth))
   }, [walletContext.wallets[0]])
 
-  const toggleBiometric = useCallback(async (wasEnrolled: boolean) => {
-    if (!wasEnrolled) navigation.navigate('EnrollBiometricScreen')
-    else await localAuth.disenrollBiometric()
-  }, [localAuth.canEnroll])
-
   return (
     <ScrollView style={tailwind('flex-1 bg-gray-100 pb-8')} testID='setting_screen'>
       <SectionTitle text={translate('screens/Settings', 'NETWORK')} testID='network_title' />
@@ -96,16 +91,8 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         onPress={changePasscode}
       />
       <SecurityRow
-        disabled={!isEncrypted}
-        testID='view_toggle_biometric'
-        label={translate('screens/Settings', localAuth.isEnrolled ? 'Disable Biometrics' : 'Enroll Biometrics')}
-        onPress={async () => {
-          await toggleBiometric(localAuth.isEnrolled)
-        }}
-      />
-      <SecurityRow
         testID='view_toggle_privacy_lock'
-        label={translate('screens/Settings', localAuth.isPrivacyLock ? 'Disable Privacy Lock' : 'Enable Privacy Lock (require hardware)')}
+        label={translate('screens/Settings', localAuth.isPrivacyLock === true ? 'Disable Privacy Lock' : 'Enable Privacy Lock (require hardware)')}
         onPress={async () => localAuth.togglePrivacyLock}
       />
       <RowNavigateItem pageName='AboutScreen' title='About' />

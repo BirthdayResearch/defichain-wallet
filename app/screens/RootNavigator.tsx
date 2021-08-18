@@ -2,7 +2,6 @@ import React from 'react'
 import { WalletContextProvider } from '../contexts/WalletContext'
 import { WalletNodeProvider } from '../contexts/WalletNodeProvider'
 import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
-import { LocalAuthContextProvider } from '../contexts/LocalAuthContext'
 import { AppNavigator } from './AppNavigator/AppNavigator'
 import { TransactionAuthorization } from './TransactionAuthorization'
 import { PrivacyLock } from './PrivacyLock'
@@ -26,11 +25,9 @@ export function RootNavigator (): JSX.Element {
   return (
     <WalletNodeProvider data={wallets[0]}>
       <WalletContextProvider>
-        <LocalAuthContextProvider>
-          <PrivacyLock />
-          <TransactionAuthorization />
-          <AppNavigator />
-        </LocalAuthContextProvider>
+        <PrivacyLock />
+        <TransactionAuthorization />
+        <AppNavigator />
       </WalletContextProvider>
     </WalletNodeProvider>
   )
