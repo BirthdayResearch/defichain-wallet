@@ -94,7 +94,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
           >{translate('screens/RemoveLiquidity', 'Amount to remove')}
           </Text>
           <NumberTextInput
-            testID='text_input_ppercentage'
+            testID='text_input_percentage'
             style={[
               tailwind('text-right w-2/4 p-0 mr-0.5'),
               isIOS && tailwind('-mt-0.5'),
