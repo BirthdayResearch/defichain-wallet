@@ -69,15 +69,9 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   }, [walletContext.wallets[0]])
 
   const toggleBiometric = useCallback(async (wasEnrolled: boolean) => {
-    console.log('was enrolled', wasEnrolled)
     if (!wasEnrolled) navigation.navigate('EnrollBiometricScreen')
     else await localAuth.disenrollBiometric()
   }, [localAuth.canEnroll])
-
-  const togglePrivacyLock = useCallback(async (wasEnabled: boolean) => {
-    if (wasEnabled) await localAuth.disablePrivacyLock()
-    else await localAuth.disablePrivacyLock()
-  }, [])
 
   return (
     <ScrollView style={tailwind('flex-1 bg-gray-100 pb-8')} testID='setting_screen'>
@@ -91,6 +85,18 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       {/* <SecurityRow disabled={isEncrypted} label='Encrypt your wallet' /> */}
       <SecurityRow
         disabled={!isEncrypted}
+        testID='view_recovery_words'
+        label='Recovery Words'
+        onPress={revealRecoveryWords}
+      />
+      <SecurityRow
+        disabled={!isEncrypted}
+        testID='view_change_passcode'
+        label='Change Passcode'
+        onPress={changePasscode}
+      />
+      <SecurityRow
+        disabled={!isEncrypted}
         testID='view_toggle_biometric'
         label={translate('screens/Settings', localAuth.isEnrolled ? 'Disable Biometrics' : 'Enroll Biometrics')}
         onPress={async () => {
@@ -98,23 +104,9 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         }}
       />
       <SecurityRow
-        disabled={!isEncrypted}
-        testID='view_recovery_words'
-        label={translate('screens/Settings', 'Recovery Words')}
-        onPress={revealRecoveryWords}
-      />
-      <SecurityRow
-        disabled={!isEncrypted}
-        testID='view_change_passcode'
-        label={translate('screens/Settings', 'Change Passcode')}
-        onPress={changePasscode}
-      />
-      <SecurityRow
-        testID='view_privacy_lock'
-        label={translate('screens/Settings', 'Privacy Lock')}
-        onPress={async () => {
-          await togglePrivacyLock(localAuth.isPrivacyLock)
-        }}
+        testID='view_toggle_privacy_lock'
+        label={translate('screens/Settings', localAuth.isPrivacyLock ? 'Disable Privacy Lock' : 'Enable Privacy Lock (require hardware)')}
+        onPress={async () => localAuth.togglePrivacyLock}
       />
       <RowNavigateItem pageName='AboutScreen' title='About' />
       <RowExitWalletItem />

@@ -24,6 +24,7 @@ interface LocalAuthContext {
   privacyLock: (options?: LocalAuthenticationOptions) => Promise<void>
   enablePrivacyLock: (options?: LocalAuthenticationOptions) => Promise<void>
   disablePrivacyLock: (options?: LocalAuthenticationOptions) => Promise<void>
+  togglePrivacyLock: (options?: LocalAuthenticationOptions) => Promise<void>
   authenticate: (options?: LocalAuthenticationOptions) => Promise<string> // return passcode
 }
 
@@ -167,6 +168,10 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
     },
     enablePrivacyLock,
     disablePrivacyLock,
+    togglePrivacyLock: async (options) => {
+      if (isPrivacyLock as boolean) return await disablePrivacyLock(options)
+      return await enablePrivacyLock(options)
+    },
     authenticate: async (options) => {
       if (!(isEnrolled as boolean)) {
         throw new Error('No biometric authentication enrolled')
