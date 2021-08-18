@@ -5,13 +5,13 @@ context('Wallet - Settings', () => {
   })
 
   it('should navigate to network selection when clicked on selected network', function () {
-    cy.getByTestID('button_network_Local_check').should('exist')
-    cy.getByTestID('button_network_Local_check').click()
+    cy.getByTestID('button_selected_network').should('exist')
+    cy.getByTestID('button_selected_network').click()
     cy.getByTestID('network_selection_screen').should('exist')
   })
 
   it('should be able to switch network in network selection screen', function () {
-    cy.getByTestID('button_network_Local_check').click()
+    cy.getByTestID('button_selected_network').click()
     cy.getByTestID('button_network_Playground').click()
     cy.on('window:confirm', () => {
     })
