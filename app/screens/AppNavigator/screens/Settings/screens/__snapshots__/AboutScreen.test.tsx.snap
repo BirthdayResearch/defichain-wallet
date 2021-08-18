@@ -136,6 +136,76 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
       >
         vmock
       </Text>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "paddingTop": 20,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "rgba(255, 0, 175, 1)",
+              "borderBottomLeftRadius": 9999,
+              "borderBottomRightRadius": 9999,
+              "borderTopLeftRadius": 9999,
+              "borderTopRightRadius": 9999,
+              "height": 32,
+              "justifyContent": "center",
+              "marginLeft": 8,
+              "marginRight": 8,
+              "opacity": 1,
+              "width": 32,
+            }
+          }
+          testID="youtube_social"
+        >
+          <Text />
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "rgba(255, 0, 175, 1)",
+              "borderBottomLeftRadius": 9999,
+              "borderBottomRightRadius": 9999,
+              "borderTopLeftRadius": 9999,
+              "borderTopRightRadius": 9999,
+              "height": 32,
+              "justifyContent": "center",
+              "marginLeft": 8,
+              "marginRight": 8,
+              "opacity": 1,
+              "width": 32,
+            }
+          }
+          testID="twitter_social"
+        >
+          <Text />
+        </View>
+      </View>
     </View>
     <Text
       style={
