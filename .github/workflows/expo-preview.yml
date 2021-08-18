@@ -6,6 +6,10 @@ on:
     paths-ignore:
       - '**.md'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   publish-preview:
     if: github.event.sender.type == 'User' && github.event.pull_request.head.repo.full_name == github.repository

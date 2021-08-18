@@ -1,9 +1,12 @@
-name: Publish
+name: EAS Publish
 
 on:
   release:
-    types: [ published, prereleased ]
+    types: [ published ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   version:
