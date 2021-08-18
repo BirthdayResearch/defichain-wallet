@@ -91,6 +91,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         onPress={changePasscode}
       />
       <SecurityRow
+        disabled={!localAuth.isDeviceProtected}
         testID='view_toggle_privacy_lock'
         label={translate('screens/Settings', localAuth.isPrivacyLock === true ? 'Disable Privacy Lock' : 'Enable Privacy Lock (require hardware)')}
         onPress={async () => {
@@ -142,14 +143,15 @@ function RowExitWalletItem (): JSX.Element {
 }
 
 function SecurityRow ({ disabled = false, testID, label, onPress }: { disabled?: boolean, testID: string, label: string, onPress: () => void }): JSX.Element | null {
-  if (disabled) return null
+  const textStyleProp = disabled ? { color: 'gray' } : {}
   return (
     <TouchableOpacity
+      disabled={disabled}
       testID={testID}
       style={tailwind('flex bg-white p-4 pr-2 flex-row items-center justify-between border-b border-gray-200')}
       onPress={onPress}
     >
-      <Text style={tailwind('font-medium')}>
+      <Text style={[tailwind('font-medium'), textStyleProp]}>
         {translate('screens/Settings', label)}
       </Text>
       <MaterialIcons
