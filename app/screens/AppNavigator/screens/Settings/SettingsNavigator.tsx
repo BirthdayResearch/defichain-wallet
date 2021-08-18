@@ -11,6 +11,7 @@ import { AboutScreen } from './screens/AboutScreen'
 import { ChangePinScreen } from './screens/ChangePinScreen'
 import { CommunityScreen } from './screens/CommunityScreen'
 import { ConfirmPinScreen } from './screens/ConfirmPinScreen'
+import { NetworkSelectionScreen } from './screens/NetworkSelectionScreen'
 import { RecoveryWordsScreen } from './screens/RecoveryWordsScreen'
 import { SettingsScreen } from './SettingsScreen'
 
@@ -84,6 +85,14 @@ export function SettingsNavigator (): JSX.Element {
         component={ConfirmPinScreen}
         options={{
           headerTitle: translate('screens/ConfirmPinScreen', 'Verify passcode'),
+          headerBackTitleVisible: false
+        }}
+      />
+      <SettingsStack.Screen
+        name='NetworkSelectionScreen'
+        component={NetworkSelectionScreen}
+        options={{
+          headerTitle: translate('screens/NetworkSelectionScreen', 'Select network'),
           headerBackTitleVisible: false
         }}
       />
