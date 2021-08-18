@@ -76,6 +76,12 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         "url": "https://t.me/defiblockchain_DE",
       },
       Object {
+        "icon": "telegram",
+        "id": "tg_announcement",
+        "title": "Telegram (Announcement)",
+        "url": "https://t.me/defichain_announcements",
+      },
+      Object {
         "icon": "wechat",
         "id": "wechat",
         "title": "WeChat",
@@ -382,6 +388,64 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           }
         >
           Telegram (DE)
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(243, 244, 246, 1)",
+              "height": 1,
+            },
+          ]
+        }
+      />
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "flexDirection": "row",
+            "opacity": 1,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          }
+        }
+        testID="tg_announcement"
+      >
+        <Text />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "marginLeft": 8,
+              },
+            ]
+          }
+        >
+          Telegram (Announcement)
         </Text>
       </View>
       <View
