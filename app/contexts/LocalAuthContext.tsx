@@ -100,11 +100,12 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
     enablePrivacyLock,
     disablePrivacyLock,
     togglePrivacyLock: async (options) => {
-      if (isPrivacyLock as boolean) return await disablePrivacyLock(options)
+      if (isPrivacyLock === true) return await disablePrivacyLock(options)
       return await enablePrivacyLock(options)
     }
   }
 
+  console.log('context render', context.isPrivacyLock)
   return (
     <localAuthContext.Provider value={context}>
       {props.children}

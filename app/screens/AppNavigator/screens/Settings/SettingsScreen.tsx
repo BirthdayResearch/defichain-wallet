@@ -93,7 +93,9 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       <SecurityRow
         testID='view_toggle_privacy_lock'
         label={translate('screens/Settings', localAuth.isPrivacyLock === true ? 'Disable Privacy Lock' : 'Enable Privacy Lock (require hardware)')}
-        onPress={async () => localAuth.togglePrivacyLock}
+        onPress={async () => {
+          await localAuth.togglePrivacyLock()
+        }}
       />
       <RowNavigateItem pageName='AboutScreen' title='About' />
       <RowExitWalletItem />
