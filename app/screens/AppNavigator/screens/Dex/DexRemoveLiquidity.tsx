@@ -38,7 +38,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   const [valid, setValidity] = useState(false)
   const [inputHeight, setInputHeight] = useState(24)
   // ratio, before times 100
-  const [percentage, setPercentage] = useState<string>('0') // for display
+  const [percentage, setPercentage] = useState<string>('')
   const [amount, setAmount] = useState<BigNumber>(new BigNumber(0)) // to construct tx
   const navigation = useNavigation<NavigationProp<DexParamList>>()
 
@@ -94,7 +94,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
           >{translate('screens/RemoveLiquidity', 'Amount to remove')}
           </Text>
           <NumberTextInput
-            testID='text_input_percentage'
+            testID='text_input_ppercentage'
             style={[
               tailwind('text-right w-2/4 p-0 mr-0.5'),
               isIOS && tailwind('-mt-0.5'),
@@ -102,7 +102,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
                 height: Math.max(24, inputHeight)
               }
             ]}
-            placeholder='0.00'
+            placeholder={translate('screens/RemoveLiquidity', 'Enter an amount')}
             value={percentage}
             multiline
             onContentSizeChange={event => {
