@@ -85,7 +85,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
 function SelectedNetworkItem ({ network, onPress }: { network: EnvironmentNetwork, onPress: () => void }): JSX.Element {
   return (
     <TouchableOpacity
-      testID={`button_network_${network}`}
+      testID='button_selected_network'
       style={tailwind('flex flex-row p-4 pr-2 bg-white items-center justify-between border-b border-gray-200')}
       onPress={onPress}
     >
