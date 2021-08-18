@@ -39,6 +39,7 @@
     "@reduxjs/toolkit": "^1.6.1",
     "bignumber.js": "^9.0.1",
     "buffer": "^6.0.3",
+    "classnames": "^2.3.1",
     "dayjs": "^1.10.6",
     "expo": "^42.0.0",
     "expo-asset": "~8.3.3",
