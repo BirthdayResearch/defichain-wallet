@@ -102,7 +102,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
                 height: Math.max(24, inputHeight)
               }
             ]}
-            placeholder={translate('screens/RemoveLiquidity', 'Enter an amount')}
+            placeholder={translate('screens/RemoveLiquidity', 'Enter an amount ')}
             value={percentage}
             multiline
             onContentSizeChange={event => {
