@@ -156,6 +156,7 @@ Cypress.Commands.add('fetchWalletBalance', () => {
 
 Cypress.Commands.add('switchNetwork', (network: string) => {
   cy.getByTestID('bottom_tab_settings').click()
+	cy.getByTestID('button_network_Local_check').click()
   cy.getByTestID(`button_network_${network}`).click()
 })
 

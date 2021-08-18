@@ -11,6 +11,7 @@ context('Wallet - Settings', () => {
   })
 
   it('should be able to switch network in network selection screen', function () {
+    cy.getByTestID('button_network_Local_check').click()
     cy.getByTestID('button_network_Playground').click()
     cy.on('window:confirm', () => {
     })
