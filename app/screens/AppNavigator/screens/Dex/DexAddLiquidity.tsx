@@ -10,6 +10,7 @@ import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getNativeIcon } from '../../../../components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '../../../../components/InputIconLabel'
+import { NumberRow } from '../../../../components/NumberRow'
 import { NumberTextInput } from '../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
@@ -139,7 +140,6 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   )
 }
 
-// TODO(@ivan-zynesis): Refactor to reusable component after design team standardize component lib
 function TokenInput (props: { symbol: string, balance: BigNumber, current: string, type: EditingAmount, onChange: (amount: string) => void }): JSX.Element {
   const TokenIcon = getNativeIcon(props.symbol)
   return (
@@ -193,86 +193,45 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
 
 function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }): JSX.Element {
   const { pair, sharePercentage } = props
-  const RenderRow = (rowProps: { lhs: string, rhs: string | number, testID: string, isPercent?: boolean }): JSX.Element => {
-    return (
-      <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-center w-full')}>
-        <View style={tailwind('flex-1')}>
-          <Text style={tailwind('font-medium')}>{rowProps.lhs}</Text>
-        </View>
-        <View style={tailwind('flex-1')}>
-          <NumberFormat
-            suffix={rowProps.isPercent === true ? '%' : ''}
-            value={rowProps.rhs} decimalScale={8} thousandSeparator displayType='text'
-            renderText={(value) => (
-              <Text
-                testID={rowProps.testID}
-                style={tailwind('font-medium text-right text-gray-500')}
-              >
-                {value}
-              </Text>
-            )}
-          />
-        </View>
-      </View>
-    )
-  }
 
   return (
     <View style={tailwind('flex-col w-full items-center mt-4')}>
-      <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-center w-full')}>
-        <View style={tailwind('flex-1')}>
-          <Text style={tailwind('font-medium')}>{translate('screens/AddLiquidity', 'Price')}</Text>
-        </View>
-        <View style={tailwind('flex-col items-end')}>
-          <View style={tailwind('flex-1 flex-row')}>
-            <NumberFormat
-              value={pair.aToBRate.toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
-              renderText={(value) => (
-                <Text
-                  testID='a_per_b_price'
-                  style={tailwind('font-medium text-gray-500')}
-                >
-                  {value}
-                </Text>
-              )}
-            />
-            <Text
-              testID='a_per_b_unit'
-              style={tailwind('font-medium text-gray-500')}
-            > {pair.bSymbol} {translate('screens/AddLiquidity', 'per')} {pair.aSymbol}
-            </Text>
-          </View>
-          <View style={tailwind('flex-1 flex-row')}>
-            <NumberFormat
-              value={pair.bToARate.toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
-              renderText={(value) => (
-                <Text
-                  testID='b_per_a_price'
-                  style={tailwind('font-medium text-gray-500')}
-                >
-                  {value}
-                </Text>
-              )}
-            />
-            <Text
-              testID='b_per_a_unit'
-              style={tailwind('font-medium text-gray-500')}
-            > {pair.aSymbol} {translate('screens/AddLiquidity', 'per')} {pair.bSymbol}
-            </Text>
-          </View>
-        </View>
-      </View>
-      <RenderRow
-        testID='share_of_pool' isPercent lhs={translate('screens/AddLiquidity', 'Share of pool')}
-        rhs={sharePercentage.times(100).toFixed(8)}
+      <NumberRow
+        lhs={translate('screens/AddLiquidity', 'Price')}
+        rightHandElements={[{
+          value: pair.aToBRate.toFixed(8),
+          suffix: ` ${pair.bSymbol} ${translate('screens/AddLiquidity', 'per')} ${pair.aSymbol}`,
+          testID: 'a_per_b_price'
+        }, {
+          value: pair.bToARate.toFixed(8),
+          suffix: ` ${pair.aSymbol} ${translate('screens/AddLiquidity', 'per')} ${pair.bSymbol}`,
+          testID: 'b_per_a_price'
+        }]}
       />
-      <RenderRow
-        testID={`pooled_${pair.aSymbol}`}
-        lhs={`${translate('screens/AddLiquidity', 'Pooled')} ${pair.aSymbol}`} rhs={pair.tokenA.reserve}
+      <NumberRow
+        lhs={translate('screens/AddLiquidity', 'Share of pool')}
+        rightHandElements={[{
+          value: sharePercentage.times(100).toFixed(8),
+          suffix: '%',
+          testID: 'share_of_pool'
+        }]}
       />
-      <RenderRow
-        testID={`pooled_${pair.bSymbol}`}
-        lhs={`${translate('screens/AddLiquidity', 'Pooled')} ${pair.bSymbol}`} rhs={pair.tokenB.reserve}
+      <NumberRow
+        lhs={`${translate('screens/AddLiquidity', 'Pooled')} ${pair.aSymbol}`}
+        rightHandElements={[{
+          value: pair.tokenA.reserve,
+          suffix: '',
+          testID: `pooled_${pair.aSymbol}`
+        }]}
+      />
+
+      <NumberRow
+        lhs={`${translate('screens/AddLiquidity', 'Pooled')} ${pair.bSymbol}`}
+        rightHandElements={[{
+          value: pair.tokenB.reserve,
+          suffix: '',
+          testID: `pooled_${pair.bSymbol}`
+        }]}
       />
     </View>
   )
