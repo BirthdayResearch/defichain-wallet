@@ -156,7 +156,9 @@ Cypress.Commands.add('fetchWalletBalance', () => {
 
 Cypress.Commands.add('switchNetwork', (network: string) => {
   cy.getByTestID('bottom_tab_settings').click()
+	cy.getByTestID('button_selected_network').click()
   cy.getByTestID(`button_network_${network}`).click()
+	cy.on('window:confirm', () => {})
 })
 
 let LOCAL_STORAGE_MEMORY = {};
