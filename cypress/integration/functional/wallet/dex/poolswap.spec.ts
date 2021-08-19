@@ -34,7 +34,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
     cy.getByTestID('swap_button').click().wait(4000)
     // Valid form
     cy.getByTestID('text_input_tokenA').type('1')
-    cy.getByTestID('text_price_row_estimated_0').then(($txt: any) => {
+    cy.getByTestID('estimated').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
       cy.getByTestID('button_submit').should('not.have.attr', 'disabled')
@@ -54,7 +54,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
   it('should be able to click max', function () {
     cy.getByTestID('MAX_amount_button').click().wait(3000)
     cy.getByTestID('text_input_tokenA').should('have.value', '10.00000000')
-    cy.getByTestID('text_price_row_estimated_0').then(($txt: any) => {
+    cy.getByTestID('estimated').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
     })
@@ -63,7 +63,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
   it('should be able to click half', function () {
     cy.getByTestID('50%_amount_button').click().wait(500)
     cy.getByTestID('text_input_tokenA').should('have.value', '5.00000000').wait(3000)
-    cy.getByTestID('text_price_row_estimated_0').then(($txt: any) => {
+    cy.getByTestID('estimated').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
       cy.getByTestID('slippage_10%').click()
@@ -71,7 +71,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
   })
 
   it('should be able to swap', function () {
-    cy.getByTestID('text_price_row_estimated_0').then(($txt: any) => {
+    cy.getByTestID('estimated').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
       cy.getByTestID('button_submit').click()
       cy.getByTestID('slippage_fee').contains('10%')
