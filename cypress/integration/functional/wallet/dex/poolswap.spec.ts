@@ -33,20 +33,20 @@ context('Wallet - DEX - Pool Swap with balance', () => {
   it('should be able to validate form', function () {
     cy.getByTestID('swap_button').click().wait(4000)
     // Valid form
-    cy.getByTestID('text_input_tokenA').type('1')
+    cy.getByTestID('text_input_tokenA').clear().type('1').blur().wait(100)
     cy.getByTestID('text_price_row_estimated_0').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
       cy.getByTestID('button_submit').should('not.have.attr', 'disabled')
 
       // Invalid tokenA - NaN, more than Max, zero
-      cy.getByTestID('text_input_tokenA').clear().type('a')
+      cy.getByTestID('text_input_tokenA').clear().type('a').blur().wait(100)
       cy.getByTestID('text_input_tokenA').should('have.value', '0')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(0).toFixed(8))
       cy.getByTestID('button_submit').should('have.attr', 'disabled')
-      cy.getByTestID('text_input_tokenA').clear().type('15')
+      cy.getByTestID('text_input_tokenA').clear().type('15').blur().wait(100)
       cy.getByTestID('button_submit').should('have.attr', 'disabled')
-      cy.getByTestID('text_input_tokenA').clear().type('0')
+      cy.getByTestID('text_input_tokenA').clear().type('0').blur().wait(100)
       cy.getByTestID('button_submit').should('have.attr', 'disabled')
     })
   })
