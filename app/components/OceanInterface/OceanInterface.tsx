@@ -19,8 +19,6 @@ import { tailwind } from '../../tailwind'
 import { translate } from '../../translations'
 
 const MAX_AUTO_RETRY = 1
-// const MAX_TIMEOUT = 300000
-// const INTERVAL_TIME = 5000
 
 async function gotoExplorer (txUrl: string): Promise<void> {
   // TODO(thedoublejay) explorer URL
@@ -55,38 +53,6 @@ async function waitForTxConfirmation (id: string, dispatch: Dispatch<any>): Prom
     }, TIMEOUT)
   })
 }
-
-// async function waitForTxConfirmation (id: string, client: WhaleApiClient): Promise<Transaction> {
-//   const initialTime = getEnvironment().debug ? 5000 : 30000
-//   let start = initialTime
-
-//   return await new Promise((resolve, reject) => {
-//     let intervalID: number
-//     const callTransaction = (): void => {
-//       client.transactions.get(id).then((tx) => {
-//         if (intervalID !== undefined) {
-//           clearInterval(intervalID)
-//         }
-//         resolve(tx)
-//       }).catch((e) => {
-//         if (start >= MAX_TIMEOUT) {
-//           Logging.error(e)
-//           if (intervalID !== undefined) {
-//             clearInterval(intervalID)
-//           }
-//           reject(e)
-//         }
-//       })
-//     }
-//     setTimeout(() => {
-//       callTransaction()
-//       intervalID = setInterval(() => {
-//         start += INTERVAL_TIME
-//         callTransaction()
-//       }, INTERVAL_TIME)
-//     }, initialTime)
-//   })
-// }
 
 /**
  * @description - Global component to be used for async calls, network errors etc. This component is positioned above the bottom tab.
