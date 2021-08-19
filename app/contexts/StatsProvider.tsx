@@ -4,6 +4,7 @@ import { Logging } from '../api'
 import { isPlayground } from '../environment'
 import { RootState } from '../store'
 import { block } from '../store/block'
+import { publish } from '../store/transaction_notification'
 import { useNetworkContext } from './NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
 
@@ -24,6 +25,7 @@ export function StatsProvider (props: React.PropsWithChildren<any>): JSX.Element
     function refresh (): void {
       dispatch(block.actions.setPolling(true))
       api.stats.get().then(({ count }) => {
+        dispatch(publish({ count: count.blocks, client: api }))
         dispatch(block.actions.updateBlock({ count: count.blocks }))
         dispatch(block.actions.setConnected(true))
       }).catch((err) => {

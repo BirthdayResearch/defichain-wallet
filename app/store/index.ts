@@ -4,6 +4,7 @@ import { authentication } from './authentication'
 import { block } from './block'
 import { ocean } from './ocean'
 import { transactionQueue } from './transaction_queue'
+import { txidNotification } from './transaction_notification'
 import { wallet } from './wallet'
 
 /**
@@ -22,7 +23,8 @@ export function initializeStore () {
       wallet: wallet.reducer,
       ocean: ocean.reducer,
       transactionQueue: transactionQueue.reducer,
-      authentication: authentication.reducer
+      authentication: authentication.reducer,
+      txidNotification: txidNotification.reducer
     },
     middleware: [
       ...getDefaultMiddleware({ serializableCheck: false })
