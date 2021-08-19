@@ -4,6 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
+import ContentLoader, { Rect, Circle } from 'react-content-loader/native'
 import { SectionList, TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
@@ -16,6 +17,10 @@ import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
 
+enum SectionKey {
+  YourLiquidity = 'YOUR LIQUIDITY',
+  AvailablePoolPair = 'AVAILABLE POOL PAIR'
+}
 export function DexScreen (): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const tokens = useTokensAPI()
@@ -33,16 +38,21 @@ export function DexScreen (): JSX.Element {
     navigation.navigate({ name: 'RemoveLiquidity', params: { pair: data }, merge: true })
   }
 
+  const isEmpty = (data: any[]): boolean => {
+    return data.length === 0
+  }
+
   return (
     <SectionList
       testID='liquidity_screen_list'
       style={tailwind('bg-gray-100')}
       sections={[
         {
+          key: SectionKey.YourLiquidity,
           data: yourLPTokens as Array<DexItem<any>>
         },
         {
-          key: 'AVAILABLE POOL PAIRS',
+          key: SectionKey.AvailablePoolPair,
           data: pairs
         }
       ]}
@@ -62,29 +72,32 @@ export function DexScreen (): JSX.Element {
             )
         }
       }}
-      ListHeaderComponent={() => {
-        if (yourLPTokens.length > 0) {
-          return (
-            <SectionTitle text={translate('screens/DexScreen', 'YOUR LIQUIDITY')} testID='liq_title' />
-          )
-        }
-        return (
-          <View style={tailwind('px-4 pt-4 pb-2')}>
-            <Text style={tailwind('text-base font-medium')}>
-              {
-                translate('screens/DexScreen', 'Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.')
-              }
-            </Text>
-          </View>
-        )
-      }}
       renderSectionHeader={({ section }) => {
-        if (section.key === undefined) {
-          return null
+        switch (section.key) {
+          case SectionKey.YourLiquidity:
+            if (!isEmpty(section.data)) {
+              return (
+                <SectionTitle text={translate('screens/DexScreen', section.key)} testID='liq_title' />
+              )
+            }
+            return (
+              <View style={tailwind('px-4 pt-4 pb-2')}>
+                <Text style={tailwind('text-base font-medium')}>
+                  {
+                    translate('screens/DexScreen', 'Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.')
+                  }
+                </Text>
+              </View>
+            )
+
+          case SectionKey.AvailablePoolPair:
+            return (
+              <>
+                <SectionTitle text={translate('screens/DexScreen', section.key)} testID={section.key} />
+                {isEmpty(section.data) && <SkeletonLoader />}
+              </>
+            )
         }
-        return (
-          <SectionTitle text={translate('screens/DexScreen', section.key)} testID={section.key} />
-        )
       }}
       keyExtractor={(item, index) => `${index}`}
     />
@@ -206,6 +219,33 @@ function PoolPairAPR (props: { symbol: string, apr: number, row: string }): JSX.
           return <Text testID={`${props.row}_${props.symbol}`} style={tailwind('text-xl')}>{value}</Text>
         }}
       />
+    </View>
+  )
+}
+
+function SkeletonLoader (): JSX.Element {
+  return (
+    <View style={tailwind('p-4 bg-white')}>
+      <ContentLoader
+        speed={2}
+        width={340}
+        height={122}
+        backgroundColor='#ecebeb'
+        foregroundColor='#ffffff'
+      >
+        <Circle cx='17' cy='20' r='16' />
+        <Rect x='50' y='10' rx='10' ry='10' width='100' height='20' />
+
+        <Rect x='0' y='55' rx='8' ry='8' width='100' height='15' />
+        <Rect x='190' y='55' rx='8' ry='8' width='150' height='15' />
+
+        <Rect x='0' y='80' rx='8' ry='8' width='100' height='15' />
+        <Rect x='190' y='80' rx='8' ry='8' width='150' height='15' />
+
+        <Rect x='0' y='105' rx='8' ry='8' width='100' height='15' />
+        <Rect x='190' y='105' rx='8' ry='8' width='150' height='15' />
+
+      </ContentLoader>
     </View>
   )
 }
