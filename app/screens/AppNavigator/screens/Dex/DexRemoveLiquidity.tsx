@@ -7,14 +7,14 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { Platform, StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { Logging } from '../../../../api'
 import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
-import { getNativeIcon } from '../../../../components/icons/assets'
+import { NumberRow } from '../../../../components/NumberRow'
 import { NumberTextInput } from '../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../components/SectionTitle'
+import { TokenBalanceRow } from '../../../../components/TokenBalanceRow'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
@@ -122,39 +122,23 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
       </View>
       <SectionTitle text={translate('screens/RemoveLiquidity', 'YOU ARE REMOVING')} testID='remove_liq_title' />
       <View style={tailwind('w-full bg-white mb-4')}>
-        <CoinAmountRow symbol={aSymbol} amount={tokenAAmount} />
-        <CoinAmountRow symbol={bSymbol} amount={tokenBAmount} />
-        <View style={tailwind('bg-white p-2 border-t border-gray-200 flex-row items-start w-full')}>
-          <View style={tailwind('flex-1 ml-2')}>
-            <Text style={tailwind('font-medium')}>{translate('screens/AddLiquidity', 'Price')}</Text>
-          </View>
-          <View style={tailwind('flex-1 mr-2')}>
-            <NumberFormat
-              value={tokenAPerLmToken.toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
-              suffix={` ${bSymbol} per ${aSymbol}`}
-              renderText={(val) => (
-                <Text
-                  testID='text_a_to_b_price'
-                  style={tailwind('font-medium text-right text-gray-500')}
-                >
-                  {val}
-                </Text>
-              )}
-            />
-            <NumberFormat
-              value={tokenBPerLmToken.toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
-              suffix={` ${aSymbol} per ${bSymbol}`}
-              renderText={(val) => (
-                <Text
-                  testID='text_b_to_a_price'
-                  style={tailwind('font-medium text-right text-gray-500')}
-                >
-                  {val}
-                </Text>
-              )}
-            />
-          </View>
-        </View>
+        <TokenBalanceRow iconType={aSymbol} lhs={aSymbol} rhs={{ value: tokenAAmount.toFixed(8), testID: 'price_a' }} />
+        <TokenBalanceRow iconType={bSymbol} lhs={bSymbol} rhs={{ value: tokenBAmount.toFixed(8), testID: 'price_b' }} />
+        <NumberRow
+          lhs={translate('screens/AddLiquidity', 'Price')}
+          rightHandElements={[
+            {
+              value: tokenAPerLmToken.toFixed(8),
+              testID: 'text_a_to_b_price',
+              suffix: ` ${bSymbol} per ${aSymbol}`
+            },
+            {
+              value: tokenBPerLmToken.toFixed(8),
+              testID: 'text_b_to_a_price',
+              suffix: ` ${aSymbol} per ${bSymbol}`
+            }
+          ]}
+        />
       </View>
       <ContinueButton
         enabled={valid}
@@ -184,29 +168,6 @@ function AmountSlider (props: { current: number, onChange: (percentage: string) 
       <TouchableOpacity testID='button_slider_max' onPress={() => props.onChange('100.00')}>
         <Text style={tailwind('text-gray-500 text-sm')}>{translate('components', 'All')}</Text>
       </TouchableOpacity>
-    </View>
-  )
-}
-
-function CoinAmountRow (props: { symbol: string, amount: BigNumber }): JSX.Element {
-  const TokenIcon = getNativeIcon(props.symbol)
-  return (
-    <View style={tailwind('flex-row items-center border-t border-gray-200 p-2')}>
-      <View style={tailwind('flex-row flex-1 items-center justify-start')}>
-        <TokenIcon style={tailwind('ml-2')} />
-        <Text testID={`remove_liq_symbol_${props.symbol}`} style={tailwind('ml-2')}>{props.symbol}</Text>
-      </View>
-      <NumberFormat
-        value={props.amount.toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
-        renderText={(value) => (
-          <Text
-            testID={`text_coin_amount_${props.symbol}`}
-            style={tailwind('flex-1 text-right text-gray-500 mr-2')}
-          >
-            {value}
-          </Text>
-        )}
-      />
     </View>
   )
 }
