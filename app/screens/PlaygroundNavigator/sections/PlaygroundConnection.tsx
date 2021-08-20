@@ -31,7 +31,7 @@ export function PlaygroundConnection (): JSX.Element {
               Assets are not real, it can be minted by anyone. Blocks are generated every 3 seconds, the chain resets
               daily.
             </Text>
-          )
+            )
           : null}
       </View>
     </View>
