@@ -24,13 +24,15 @@ export function PlaygroundConnection (): JSX.Element {
           Blocks: {count === 0 ? '...' : count}
         </Text>
 
-        {isPlayground(network) ? (
-          <Text style={tailwind('mt-2 text-sm')}>
-            DeFi Playground is a specialized testing blockchain isolated from MainNet for testing DeFi applications.
-            Assets are not real, it can be minted by anyone. Blocks are generated every 3 seconds, the chain resets
-            daily.
-          </Text>
-        ) : null}
+        {isPlayground(network)
+          ? (
+            <Text style={tailwind('mt-2 text-sm')}>
+              DeFi Playground is a specialized testing blockchain isolated from MainNet for testing DeFi applications.
+              Assets are not real, it can be minted by anyone. Blocks are generated every 3 seconds, the chain resets
+              daily.
+            </Text>
+            )
+          : null}
       </View>
     </View>
   )

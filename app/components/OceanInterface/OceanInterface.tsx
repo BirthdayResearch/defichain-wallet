@@ -170,14 +170,14 @@ export function OceanInterface (): JSX.Element | null {
         err !== undefined
           ? <TransactionError errMsg={err} onClose={dismissDrawer} />
           : (
-            tx !== undefined && (
-              <TransactionDetail
-                broadcasted={tx.broadcasted}
-                title={tx.title} txid={tx.tx.txId} txUrl={txUrl}
-                onClose={dismissDrawer}
-              />
+              tx !== undefined && (
+                <TransactionDetail
+                  broadcasted={tx.broadcasted}
+                  title={tx.title} txid={tx.tx.txId} txUrl={txUrl}
+                  onClose={dismissDrawer}
+                />
+              )
             )
-          )
       }
     </Animated.View>
   )
@@ -194,7 +194,8 @@ function TransactionDetail ({
   return (
     <>
       {
-        !broadcasted ? <ActivityIndicator color='#FF00AF' />
+        !broadcasted
+          ? <ActivityIndicator color='#FF00AF' />
           : <MaterialIcons name='check-circle' size={20} style={tailwind('text-success')} />
       }
       <View style={tailwind('flex-auto mx-6 justify-center items-center text-center')}>
