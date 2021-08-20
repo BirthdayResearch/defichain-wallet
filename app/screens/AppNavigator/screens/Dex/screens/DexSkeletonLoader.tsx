@@ -5,7 +5,10 @@ import { tailwind } from '../../../../../tailwind'
 
 export function DexSkeletonLoader (): JSX.Element {
   return (
-    <View style={tailwind('p-4 bg-white border-b border-gray-200 w-full items-center justify-center')}>
+    <View
+      testID='dex_skeleton_loader'
+      style={tailwind('p-4 bg-white border-b border-gray-200 w-full items-center justify-center')}
+    >
       <ContentLoader
         speed={2}
         viewBox='0 0 328 130'
