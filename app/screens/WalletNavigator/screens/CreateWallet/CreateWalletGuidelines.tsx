@@ -18,7 +18,7 @@ interface GuidelineItem {
 
 const guidelines: GuidelineItem[] = [
   {
-    title: 'Write the words in paper',
+    title: 'Write the words on paper',
     subtitle: 'Take note of their correct spelling and correct order.',
     icon: 'create'
   },
