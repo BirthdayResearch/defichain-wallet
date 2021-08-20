@@ -94,13 +94,7 @@ export function DexScreen (): JSX.Element {
             return (
               <>
                 <SectionTitle text={translate('screens/DexScreen', section.key)} testID={section.key} />
-                {isEmpty(section.data) && (
-                  <>
-                    <DexSkeletonLoader />
-                    <DexSkeletonLoader />
-                    <DexSkeletonLoader />
-                  </>
-                )}
+                {isEmpty(section.data) && <DefaultSkeletonLoader />}
               </>
             )
         }
@@ -226,5 +220,16 @@ function PoolPairAPR (props: { symbol: string, apr: number, row: string }): JSX.
         }}
       />
     </View>
+  )
+}
+
+function DefaultSkeletonLoader (): JSX.Element {
+  const skeletonRow = 3
+  return (
+    <>
+      {Array.from(Array(skeletonRow), (_v, i) => i + 1).map((_x, i) => (
+        <DexSkeletonLoader key={i} />
+      ))}
+    </>
   )
 }
