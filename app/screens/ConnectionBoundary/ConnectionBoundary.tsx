@@ -24,7 +24,10 @@ export default function ConnectionBoundary (props: React.PropsWithChildren<any>)
 
 function ConnectionErrorComponent (props: {onPress: () => void}): JSX.Element {
   return (
-    <View style={tailwind('flex-1 items-center justify-center px-8')}>
+    <View
+      testID='connection_error'
+      style={tailwind('flex-1 items-center justify-center px-8')}
+    >
       <MaterialIcons name='error' size={44} style={tailwind('pb-5 text-center text-black')} />
       <Text style={tailwind('text-2xl pb-2 font-semibold text-center')}>
         {translate('screens/ConnectionBoundary', 'Network rrror')}
