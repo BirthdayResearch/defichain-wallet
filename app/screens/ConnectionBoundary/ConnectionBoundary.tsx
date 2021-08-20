@@ -30,7 +30,7 @@ function ConnectionErrorComponent (props: {onPress: () => void}): JSX.Element {
     >
       <MaterialIcons name='error' size={44} style={tailwind('pb-5 text-center text-black')} />
       <Text style={tailwind('text-2xl pb-2 font-semibold text-center')}>
-        {translate('screens/ConnectionBoundary', 'Network rrror')}
+        {translate('screens/ConnectionBoundary', 'Network error')}
       </Text>
       <Text style={tailwind('text-sm pb-16 text-center opacity-60')}>
         {translate('screens/ErrorBoundary', 'Please check your internet connection and try reloading this page after a few minutes')}
