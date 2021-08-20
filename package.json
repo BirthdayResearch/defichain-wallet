@@ -102,6 +102,7 @@
     "cypress": "^8.3.0",
     "cypress-image-diff-js": "^1.13.3",
     "eas-cli": "^0.23.0",
+    "eslint-config-standard-with-typescript": "^20.0.0",
     "husky": "^7.0.1",
     "jest-expo": "^42.0.0",
     "lint-staged": "^11.1.1",
