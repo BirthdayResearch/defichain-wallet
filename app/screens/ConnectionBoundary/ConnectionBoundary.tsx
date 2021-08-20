@@ -10,7 +10,7 @@ export default function ConnectionBoundary (props: React.PropsWithChildren<any>)
   const netInfo = useNetInfo()
 
   const onReload = (): void => {
-    // do nothing because NetInfo would have caused a re-render if connection changes
+    // do nothing because useNetInfo hook would have caused a re-render if connection changes
   }
 
   const noConnection = (): boolean => {
