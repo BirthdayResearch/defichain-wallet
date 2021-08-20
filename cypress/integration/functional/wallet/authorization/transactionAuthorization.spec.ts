@@ -141,7 +141,7 @@ context('Wallet - Transaction Authorization', () => {
 
     it('should be able to cancel', function () {
       cy.getByTestID('cancel_authorization').click()
-      cy.getByTestID('view_recovery_words').click()
+      cy.getByTestID('view_recovery_words').click().wait(3000)
     })
 
     it('should be able to exit failed retries', function () {

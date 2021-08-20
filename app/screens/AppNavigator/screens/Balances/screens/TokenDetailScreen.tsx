@@ -4,8 +4,8 @@ import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
 import { Text } from '../../../../../components'
-import { ConfirmTitle } from '../../../../../components/ConfirmComponents'
 import { SectionTitle } from '../../../../../components/SectionTitle'
+import { SummaryTitle } from '../../../../../components/SummaryTitle'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
@@ -33,7 +33,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
 
   return (
     <ScrollView style={tailwind('bg-gray-100')}>
-      <ConfirmTitle
+      <SummaryTitle
         title={translate('screens/TokenDetailScreen', 'AMOUNT BALANCE')}
         amount={new BigNumber(token.amount)} suffix={` ${token.symbol}`} testID='token_detail_amount'
       />
