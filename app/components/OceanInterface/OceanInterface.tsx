@@ -170,14 +170,14 @@ export function OceanInterface (): JSX.Element | null {
         err !== undefined
           ? <TransactionError errMsg={err} onClose={dismissDrawer} />
           : (
-              tx !== undefined && (
-                <TransactionDetail
-                  broadcasted={tx.broadcasted}
-                  title={tx.title} txid={tx.tx.txId} txUrl={txUrl}
-                  onClose={dismissDrawer}
-                />
-              )
+            tx !== undefined && (
+              <TransactionDetail
+                broadcasted={tx.broadcasted}
+                title={tx.title} txid={tx.tx.txId} txUrl={txUrl}
+                onClose={dismissDrawer}
+              />
             )
+          )
       }
     </Animated.View>
   )

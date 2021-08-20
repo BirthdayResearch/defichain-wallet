@@ -304,7 +304,7 @@ export function TransactionAuthorization (): JSX.Element | null {
 ? 'Last attempt or your wallet will be unlinked for your security'
                 : 'Incorrect passcode. %{attemptsRemaining} attempts remaining'}`, { attemptsRemaining: `${attemptsRemaining}` })}
               </Text>
-              )
+            )
             : null
         }
         {// on first time: warn user there were accumulated error attempt counter
@@ -315,7 +315,7 @@ export function TransactionAuthorization (): JSX.Element | null {
 ? 'Last attempt or your wallet will be unlinked for your security'
                 : '%{attemptsRemaining} attempts remaining'}`, { attemptsRemaining: `${attemptsRemaining}` })}
               </Text>
-              )
+            )
             : null
         }
       </View>

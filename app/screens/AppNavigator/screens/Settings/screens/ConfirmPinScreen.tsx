@@ -70,7 +70,7 @@ export function ConfirmPinScreen ({ route }: Props): JSX.Element {
                 <ActivityIndicator color='#FF00AF' style={tailwind('mb-4')} />
                 <Text style={tailwind('ml-2 font-semibold text-sm text-center w-4/5')}>{spinnerMessage}</Text>
               </View>
-              )
+            )
             : null
         }
         {

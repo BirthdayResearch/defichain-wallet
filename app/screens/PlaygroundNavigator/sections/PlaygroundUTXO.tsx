@@ -53,7 +53,7 @@ export function PlaygroundUTXO (): JSX.Element {
               }}
             />
           </>
-          )
+        )
         : null}
     </View>
   )
