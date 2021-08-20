@@ -4,7 +4,6 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import ContentLoader, { Rect, Circle } from 'react-content-loader/native'
 import { SectionList, TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
@@ -16,6 +15,7 @@ import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
+import { DexSkeletonLoader } from './screens/DexSkeletonLoader'
 
 enum SectionKey {
   YourLiquidity = 'YOUR LIQUIDITY',
@@ -94,7 +94,13 @@ export function DexScreen (): JSX.Element {
             return (
               <>
                 <SectionTitle text={translate('screens/DexScreen', section.key)} testID={section.key} />
-                {isEmpty(section.data) && <SkeletonLoader />}
+                {isEmpty(section.data) && (
+                  <>
+                    <DexSkeletonLoader />
+                    <DexSkeletonLoader />
+                    <DexSkeletonLoader />
+                  </>
+                )}
               </>
             )
         }
@@ -219,33 +225,6 @@ function PoolPairAPR (props: { symbol: string, apr: number, row: string }): JSX.
           return <Text testID={`${props.row}_${props.symbol}`} style={tailwind('text-xl')}>{value}</Text>
         }}
       />
-    </View>
-  )
-}
-
-function SkeletonLoader (): JSX.Element {
-  return (
-    <View style={tailwind('p-4 bg-white')}>
-      <ContentLoader
-        speed={2}
-        width={340}
-        height={122}
-        backgroundColor='#ecebeb'
-        foregroundColor='#ffffff'
-      >
-        <Circle cx='17' cy='20' r='16' />
-        <Rect x='50' y='10' rx='10' ry='10' width='100' height='20' />
-
-        <Rect x='0' y='55' rx='8' ry='8' width='100' height='15' />
-        <Rect x='190' y='55' rx='8' ry='8' width='150' height='15' />
-
-        <Rect x='0' y='80' rx='8' ry='8' width='100' height='15' />
-        <Rect x='190' y='80' rx='8' ry='8' width='150' height='15' />
-
-        <Rect x='0' y='105' rx='8' ry='8' width='100' height='15' />
-        <Rect x='190' y='105' rx='8' ry='8' width='150' height='15' />
-
-      </ContentLoader>
     </View>
   )
 }
