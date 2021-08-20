@@ -64,7 +64,7 @@ export function ReceiveScreen (): JSX.Element {
                 >{translate('screens/ReceiveScreen', 'Copied to Clipboard')}
                 </Text>
               </View>
-            )
+              )
             : (
               <TouchableOpacity
                 testID='copy_button'
@@ -85,7 +85,7 @@ export function ReceiveScreen (): JSX.Element {
                 >{translate('screens/ReceiveScreen', 'COPY TO CLIPBOARD')}
                 </Text>
               </TouchableOpacity>
-            )
+              )
         }
         <TouchableOpacity
           testID='share_button' style={tailwind('flex flex-row flex-grow justify-center items-center p-3 mt-2')}
