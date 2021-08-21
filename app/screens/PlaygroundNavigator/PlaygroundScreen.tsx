@@ -1,6 +1,7 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
 import { useNetworkContext } from '../../contexts/NetworkContext'
+import { useThemeContext } from '../../contexts/ThemeProvider'
 import { WalletContextProvider } from '../../contexts/WalletContext'
 import { WalletNodeProvider } from '../../contexts/WalletNodeProvider'
 import { useWalletPersistenceContext } from '../../contexts/WalletPersistenceContext'
@@ -12,8 +13,9 @@ import { PlaygroundUTXO } from './sections/PlaygroundUTXO'
 import { PlaygroundWallet } from './sections/PlaygroundWallet'
 
 export function PlaygroundScreen (): JSX.Element {
+  const { getThemeClass } = useThemeContext()
   return (
-    <ScrollView style={tailwind('pb-16 bg-gray-100')} contentInsetAdjustmentBehavior='always'>
+    <ScrollView style={tailwind('pb-16', getThemeClass('body-bg'))} contentInsetAdjustmentBehavior='always'>
       <PlaygroundConnection />
       <PlaygroundWallet />
       <PlaygroundWalletSection />

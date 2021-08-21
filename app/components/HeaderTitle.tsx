@@ -33,7 +33,7 @@ export function HeaderTitle ({ text, testID }: { text: string, testID?: string }
   const { getThemeClass } = useThemeContext()
   return (
     <View style={tailwind(`flex-col ${Platform.OS === 'ios' ? 'items-center' : ''}`)}>
-      <Text testID={testID} style={tailwind('font-semibold leading-5', getThemeClass('title-text'))}>
+      <Text testID={testID} style={tailwind('font-semibold leading-5', getThemeClass('body-text'))}>
         {text}
       </Text>
       <ConnectionStatus />
