@@ -53,37 +53,39 @@ export function ReceiveScreen (): JSX.Element {
       </View>
       <View style={tailwind('bg-white flex flex-col p-4')}>
         {
-          isCopied ? (
-            <View
-              style={tailwind('flex flex-grow flex-row justify-center text-center items-center border border-white border-opacity-0 p-3')}
-            >
-              <MaterialIcons name='check' size={20} style={tailwind('self-center text-success')} />
-              <Text
-                style={tailwind('ml-1 uppercase font-medium text-success')}
-              >{translate('screens/ReceiveScreen', 'Copied to Clipboard')}
-              </Text>
-            </View>
-          ) : (
-            <TouchableOpacity
-              testID='copy_button'
-              style={tailwind('flex flex-grow flex-row justify-center text-center items-center p-3 border border-gray-200')}
-              onPress={() => {
-                setIsCopied(true)
-                copyToClipboard(address)
-                setTimeout(() => {
-                  setIsCopied(false)
-                }, 1500)
-              }}
-            >
-              <MaterialIcons
-                style={tailwind('self-center text-primary')} name='content-copy' size={18}
-              />
-              <Text
-                style={tailwind('ml-2 uppercase font-medium text-primary')}
-              >{translate('screens/ReceiveScreen', 'COPY TO CLIPBOARD')}
-              </Text>
-            </TouchableOpacity>
-          )
+          isCopied
+            ? (
+              <View
+                style={tailwind('flex flex-grow flex-row justify-center text-center items-center border border-white border-opacity-0 p-3')}
+              >
+                <MaterialIcons name='check' size={20} style={tailwind('self-center text-success')} />
+                <Text
+                  style={tailwind('ml-1 uppercase font-medium text-success')}
+                >{translate('screens/ReceiveScreen', 'Copied to Clipboard')}
+                </Text>
+              </View>
+            )
+            : (
+              <TouchableOpacity
+                testID='copy_button'
+                style={tailwind('flex flex-grow flex-row justify-center text-center items-center p-3 border border-gray-200')}
+                onPress={() => {
+                  setIsCopied(true)
+                  copyToClipboard(address)
+                  setTimeout(() => {
+                    setIsCopied(false)
+                  }, 1500)
+                }}
+              >
+                <MaterialIcons
+                  style={tailwind('self-center text-primary')} name='content-copy' size={18}
+                />
+                <Text
+                  style={tailwind('ml-2 uppercase font-medium text-primary')}
+                >{translate('screens/ReceiveScreen', 'COPY TO CLIPBOARD')}
+                </Text>
+              </TouchableOpacity>
+            )
         }
         <TouchableOpacity
           testID='share_button' style={tailwind('flex flex-row flex-grow justify-center items-center p-3 mt-2')}

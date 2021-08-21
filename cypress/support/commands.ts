@@ -107,6 +107,16 @@ declare global {
        * @description Compare snapshot from image
        */
       compareSnapshot (element?: string): Chainable<Element>
+
+      /**
+       * @description Enable offline mode using Chrome Devtools Protocol
+       */
+      goOffline (element?: string): void
+
+			/**
+       * @description Disable offline modeusing Chrome Devtools Protocol
+       */
+			 goOnline (element?: string): void
     }
   }
 }
@@ -156,7 +166,9 @@ Cypress.Commands.add('fetchWalletBalance', () => {
 
 Cypress.Commands.add('switchNetwork', (network: string) => {
   cy.getByTestID('bottom_tab_settings').click()
+	cy.getByTestID('button_selected_network').click()
   cy.getByTestID(`button_network_${network}`).click()
+	cy.on('window:confirm', () => {})
 })
 
 let LOCAL_STORAGE_MEMORY = {};
@@ -172,3 +184,48 @@ Cypress.Commands.add('restoreLocalStorage', () => {
     localStorage.setItem(key, LOCAL_STORAGE_MEMORY[key]);
   });
 });
+
+Cypress.Commands.add('goOffline', () => {
+	cy.log('**go offline**')
+	.then(() => {
+		return Cypress.automation('remote:debugger:protocol',
+			{
+				command: 'Network.enable',
+			})
+	})
+	.then(() => {
+		return Cypress.automation('remote:debugger:protocol',
+			{
+				command: 'Network.emulateNetworkConditions',
+				params: {
+					offline: true,
+					latency: -1,
+					downloadThroughput: -1,
+					uploadThroughput: -1,
+				},
+			})
+	})
+})
+
+Cypress.Commands.add('goOnline', () => {
+	cy.log('**go online**')
+	.then(() => {
+		// https://chromedevtools.github.io/devtools-protocol/1-3/Network/#method-emulateNetworkConditions
+		return Cypress.automation('remote:debugger:protocol',
+			{
+				command: 'Network.emulateNetworkConditions',
+				params: {
+					offline: false,
+					latency: -1,
+					downloadThroughput: -1,
+					uploadThroughput: -1,
+				},
+			})
+	})
+	.then(() => {
+		return Cypress.automation('remote:debugger:protocol',
+			{
+				command: 'Network.disable',
+			})
+	})
+})

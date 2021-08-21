@@ -10,19 +10,19 @@ import { MnemonicStorage } from '../../../../api/wallet/mnemonic_storage'
 import { Text } from '../../../../components'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { WalletAlert } from '../../../../components/WalletAlert'
+import { useNetworkContext } from '../../../../contexts/NetworkContext'
 import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
-import { getEnvironment } from '../../../../environment'
+import { EnvironmentNetwork } from '../../../../environment'
 import { authentication, Authentication } from '../../../../store/authentication'
 import { ocean } from '../../../../store/ocean'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
-import { RowNetworkItem } from './components/RowNetworkItem'
 import { SettingsParamList } from './SettingsNavigator'
 
 type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
 
 export function SettingsScreen ({ navigation }: Props): JSX.Element {
-  const networks = getEnvironment().networks
+  const { network } = useNetworkContext()
   const dispatch = useDispatch()
   const walletContext = useWalletPersistenceContext()
   const isEncrypted = walletContext.wallets[0].type === 'MNEMONIC_ENCRYPTED'
@@ -70,11 +70,11 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   return (
     <ScrollView style={tailwind('flex-1 bg-gray-100 pb-8')} testID='setting_screen'>
       <SectionTitle text={translate('screens/Settings', 'NETWORK')} testID='network_title' />
-      {
-        networks.map((network, index) => (
-          <RowNetworkItem key={index} network={network} />
-        ))
-      }
+      <SelectedNetworkItem
+        network={network} onPress={() => {
+          navigation.navigate('NetworkSelectionScreen')
+        }}
+      />
       <SectionTitle text={translate('screens/Settings', 'SECURITY')} testID='security_title' />
       <SecurityRow testID='view_recovery_words' label='Recovery Words' onPress={revealRecoveryWords} />
       {
@@ -83,6 +83,24 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       <RowNavigateItem pageName='AboutScreen' title='About' />
       <RowExitWalletItem />
     </ScrollView>
+  )
+}
+
+function SelectedNetworkItem ({ network, onPress }: { network: EnvironmentNetwork, onPress: () => void }): JSX.Element {
+  return (
+    <TouchableOpacity
+      testID='button_selected_network'
+      style={tailwind('flex flex-row p-4 pr-2 bg-white items-center justify-between border-b border-gray-200')}
+      onPress={onPress}
+    >
+      <Text style={tailwind('font-medium')}>
+        {network}
+      </Text>
+      <MaterialIcons
+        size={24}
+        name='chevron-right'
+      />
+    </TouchableOpacity>
   )
 }
 

@@ -33,7 +33,9 @@ export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Ele
           {
             text: translate('screens/Settings', 'Yes'),
             style: 'destructive',
-            onPress: async () => await updateNetwork(props.network)
+            onPress: async () => {
+              await updateNetwork(props.network)
+            }
           }
         ]
       }

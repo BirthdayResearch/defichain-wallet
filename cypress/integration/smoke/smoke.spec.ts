@@ -87,7 +87,7 @@ context('Mainnet - Wallet', () => {
   context('Wallet - Verify Wallet Address', () => {
     it('should be have selected valid network', function () {
       cy.getByTestID('bottom_tab_settings').click()
-      cy.getByTestID('button_network_MainNet_check').should('exist')
+      cy.getByTestID('button_selected_network').contains('MainNet').should('exist')
     })
 
     it('should be have valid network address', function () {
@@ -113,10 +113,7 @@ context('Mainnet - Wallet', () => {
   // In this test, there are Local and MainNet wallets existing
   context('Wallet - Network Switch', () => {
     it('should change network to Local', function () {
-      cy.getByTestID('bottom_tab_settings').click()
-      cy.getByTestID('button_network_Local').click()
-      cy.on('window:confirm', () => {
-      })
+      cy.switchNetwork('Local')
     })
 
     it('should have correct balances', function () {

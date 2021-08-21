@@ -20,8 +20,8 @@ const communityLinks = [
     url: 'https://t.me/defiblockchain_DE'
   },
   {
-    id: 'tg_announcement',
-    title: 'Telegram (Announcement)',
+    id: 'announcements',
+    title: 'Announcements',
     url: 'https://t.me/defichain_announcements'
   },
   {

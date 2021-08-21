@@ -7,13 +7,11 @@ import React, { Dispatch, useEffect, useState } from 'react'
 import { ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
-import {
-  ConfirmTitle,
-  NumberRow,
-  SubmitButtonGroup,
-  TokenBalanceRow
-} from '../../../../../components/ConfirmComponents'
+import { NumberRow } from '../../../../../components/NumberRow'
 import { SectionTitle } from '../../../../../components/SectionTitle'
+import { SubmitButtonGroup } from '../../../../../components/SubmitButtonGroup'
+import { SummaryTitle } from '../../../../../components/SummaryTitle'
+import { TokenBalanceRow } from '../../../../../components/TokenBalanceRow'
 import { RootState } from '../../../../../store'
 import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
 import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
@@ -69,7 +67,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
 
   return (
     <ScrollView style={tailwind('bg-gray-100 pb-4')}>
-      <ConfirmTitle
+      <SummaryTitle
         title={translate('screens/PoolSwapConfirmScreen', 'YOU ARE SWAPPING')}
         testID='text_swap_amount' amount={swap.fromAmount}
         suffix={` ${tokenA.symbol}`}
