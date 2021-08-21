@@ -97,7 +97,7 @@ export function DexScreen (): JSX.Element {
             return (
               <>
                 <SectionTitle text={translate('screens/DexScreen', section.key)} testID={section.key} />
-                {isEmpty(section.data) && <DefaultSkeletonLoader />}
+                <DefaultSkeletonLoader />
               </>
             )
         }
