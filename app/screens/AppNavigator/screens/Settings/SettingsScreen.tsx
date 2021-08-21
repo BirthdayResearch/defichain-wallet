@@ -17,6 +17,7 @@ import { authentication, Authentication } from '../../../../store/authentication
 import { ocean } from '../../../../store/ocean'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
+import { RowThemeItem } from './components/RowThemeItem'
 import { SettingsParamList } from './SettingsNavigator'
 
 type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
@@ -80,6 +81,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       {
         isEncrypted && <SecurityRow testID='view_change_passcode' label='Change Passcode' onPress={changePasscode} />
       }
+      <RowThemeItem />
       <RowNavigateItem pageName='AboutScreen' title='About' />
       <RowExitWalletItem />
     </ScrollView>
