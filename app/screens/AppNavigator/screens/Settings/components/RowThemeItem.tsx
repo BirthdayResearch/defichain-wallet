@@ -7,18 +7,18 @@ import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 
 export function RowThemeItem (): JSX.Element {
-  const { theme, setTheme } = useThemeContext()
+  const { theme, setTheme, getThemeClass } = useThemeContext()
   return (
     <View
       testID='theme_row'
-      style={tailwind('flex flex-row p-4 pr-2 bg-white items-center justify-between border-b border-gray-200')}
+      style={tailwind('flex flex-row p-4 pr-2 items-center justify-between', getThemeClass('row-bg row-border'))}
     >
-      <Text style={tailwind('font-medium')}>
+      <Text style={tailwind('font-medium', getThemeClass('body-text'))}>
         {translate('screens/Settings', 'Theme')}
       </Text>
       <View style={tailwind('flex-row items-center')}>
         <MaterialCommunityIcons
-          style={tailwind('mr-2 text-gray-300', { 'text-yellow-400': theme !== 'dark' })}
+          style={tailwind('mr-2', getThemeClass('light-text'), { 'text-yellow-400': theme !== 'dark' })}
           name='white-balance-sunny'
           size={20}
         />
@@ -32,7 +32,7 @@ export function RowThemeItem (): JSX.Element {
           testID='theme_switch'
         />
         <MaterialCommunityIcons
-          style={tailwind('ml-2 text-gray-300', { 'text-yellow-400': theme === 'dark' })}
+          style={tailwind('ml-2', getThemeClass('light-text'), { 'text-yellow-400': theme === 'dark' })}
           name='moon-waning-crescent'
           size={20}
         />

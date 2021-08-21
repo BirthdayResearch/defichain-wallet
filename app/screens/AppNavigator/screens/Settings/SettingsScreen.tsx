@@ -91,24 +91,27 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
 }
 
 function SelectedNetworkItem ({ network, onPress }: { network: EnvironmentNetwork, onPress: () => void }): JSX.Element {
+  const { getThemeClass } = useThemeContext()
   return (
     <TouchableOpacity
       testID='button_selected_network'
-      style={tailwind('flex flex-row p-4 pr-2 bg-white items-center justify-between border-b border-gray-200')}
+      style={tailwind('flex flex-row p-4 pr-2 items-center justify-between', getThemeClass('row-bg row-border'))}
       onPress={onPress}
     >
-      <Text style={tailwind('font-medium')}>
+      <Text style={tailwind('font-medium', getThemeClass('body-text'))}>
         {network}
       </Text>
       <MaterialIcons
         size={24}
         name='chevron-right'
+        style={tailwind(getThemeClass('body-text'))}
       />
     </TouchableOpacity>
   )
 }
 
 function RowExitWalletItem (): JSX.Element {
+  const { getThemeClass } = useThemeContext()
   const { clearWallets } = useWalletPersistenceContext()
 
   async function onExitWallet (): Promise<void> {
@@ -132,14 +135,14 @@ function RowExitWalletItem (): JSX.Element {
   return (
     <TouchableOpacity
       testID='setting_exit_wallet'
-      onPress={onExitWallet} style={tailwind('flex bg-white flex-row p-4 mt-8 items-center')}
+      onPress={onExitWallet} style={tailwind('flex flex-row p-4 mt-8 items-center', getThemeClass('row-bg row-border'))}
     >
       <MaterialIcons
         name='exit-to-app'
-        style={[tailwind('self-center text-primary mr-2'), { transform: [{ scaleX: -1 }] }]}
+        style={[tailwind('self-center mr-2', getThemeClass('text-primary')), { transform: [{ scaleX: -1 }] }]}
         size={24}
       />
-      <Text style={tailwind('font-medium text-primary')}>
+      <Text style={tailwind('font-medium', getThemeClass('text-primary'))}>
         {translate('screens/Settings', 'UNLINK WALLET')}
       </Text>
     </TouchableOpacity>
@@ -147,18 +150,19 @@ function RowExitWalletItem (): JSX.Element {
 }
 
 function SecurityRow ({ testID, label, onPress }: { testID: string, label: string, onPress: () => void }): JSX.Element {
+  const { getThemeClass } = useThemeContext()
   return (
     <TouchableOpacity
       testID={testID}
-      style={tailwind('flex bg-white p-4 pr-2 flex-row items-center justify-between border-b border-gray-200')}
+      style={tailwind('flex p-4 pr-2 flex-row items-center justify-between', getThemeClass('row-bg row-border'))}
       onPress={onPress}
     >
-      <Text style={tailwind('font-medium')}>
+      <Text style={tailwind('font-medium', getThemeClass('body-text'))}>
         {translate('screens/Settings', label)}
       </Text>
       <MaterialIcons
         name='chevron-right'
-        style={[tailwind('text-black')]}
+        style={[tailwind('text-black', getThemeClass('body-text'))]}
         size={24}
       />
     </TouchableOpacity>
@@ -166,18 +170,19 @@ function SecurityRow ({ testID, label, onPress }: { testID: string, label: strin
 }
 
 function RowNavigateItem ({ pageName, title }: { pageName: string, title: string }): JSX.Element {
+  const { getThemeClass } = useThemeContext()
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
   return (
     <TouchableOpacity
       testID={`setting_navigate_${title}`}
       onPress={() => {
         navigation.navigate(pageName)
-      }} style={tailwind('flex bg-white flex-row p-4 pr-2 mt-4 items-center')}
+      }} style={tailwind('flex flex-row p-4 pr-2 mt-4 items-center', getThemeClass('row-bg row-border'))}
     >
-      <Text style={tailwind('font-medium flex-grow')}>
+      <Text style={tailwind('font-medium flex-grow', getThemeClass('body-text'))}>
         {translate('screens/Settings', title)}
       </Text>
-      <MaterialIcons name='chevron-right' size={24} />
+      <MaterialIcons name='chevron-right' size={24} style={tailwind(getThemeClass('body-text'))} />
     </TouchableOpacity>
   )
 }

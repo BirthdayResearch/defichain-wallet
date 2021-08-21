@@ -38,7 +38,8 @@ const light: Record<string, string> = {
   'title-text': 'text-gray-500',
   'body-text': 'text-black',
   'subtitle-text': 'text-gray-600',
-  'text-primary': 'text-primary'
+  'text-primary': 'text-primary',
+  'light-text': 'text-gray-300'
 }
 
 const dark: Record<string, string> = {
@@ -48,7 +49,8 @@ const dark: Record<string, string> = {
   'title-text': 'text-white text-opacity-90',
   'body-text': 'text-white text-opacity-90',
   'subtitle-text': 'text-white text-opacity-70',
-  'text-primary': 'text-darkprimary'
+  'text-primary': 'text-darkprimary',
+  'light-text': 'text-gray-300'
 }
 
 interface Theme {
