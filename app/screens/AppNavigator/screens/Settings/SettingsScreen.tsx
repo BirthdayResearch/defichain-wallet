@@ -11,6 +11,7 @@ import { Text } from '../../../../components'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { WalletAlert } from '../../../../components/WalletAlert'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
+import { useThemeContext } from '../../../../contexts/ThemeProvider'
 import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { EnvironmentNetwork } from '../../../../environment'
 import { authentication, Authentication } from '../../../../store/authentication'
@@ -27,6 +28,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   const dispatch = useDispatch()
   const walletContext = useWalletPersistenceContext()
   const isEncrypted = walletContext.wallets[0].type === 'MNEMONIC_ENCRYPTED'
+  const { getThemeClass } = useThemeContext()
 
   const revealRecoveryWords = useCallback(() => {
     if (!isEncrypted) {
@@ -69,7 +71,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   }, [walletContext.wallets[0]])
 
   return (
-    <ScrollView style={tailwind('flex-1 bg-gray-100 pb-8')} testID='setting_screen'>
+    <ScrollView style={tailwind('flex-1 pb-8', getThemeClass('body-bg'))} testID='setting_screen'>
       <SectionTitle text={translate('screens/Settings', 'NETWORK')} testID='network_title' />
       <SelectedNetworkItem
         network={network} onPress={() => {

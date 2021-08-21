@@ -2,16 +2,16 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import * as React from 'react'
 import { ThemePersistence } from '../../../../../api/wallet/theme_storage'
 import { Switch, Text, View } from '../../../../../components'
-import { useTheme } from '../../../../../hooks/useTheme'
+import { useThemeContext } from '../../../../../contexts/ThemeProvider'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 
 export function RowThemeItem (): JSX.Element {
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme } = useThemeContext()
   return (
     <View
       testID='theme_row'
-      style={tailwind('flex flex-row p-4 pr-2 bg-white items-center justify-between border-b border-gray-200', { 'bg-black': theme === 'dark' })}
+      style={tailwind('flex flex-row p-4 pr-2 bg-white items-center justify-between border-b border-gray-200')}
     >
       <Text style={tailwind('font-medium')}>
         {translate('screens/Settings', 'Theme')}
