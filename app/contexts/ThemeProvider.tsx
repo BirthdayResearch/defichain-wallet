@@ -32,11 +32,21 @@ export function useTheme (): ThemeLoader {
 }
 
 const light: Record<string, string> = {
-  'body-bg': 'bg-gray-100'
+  'body-bg': 'bg-gray-100',
+  'row-bg': 'bg-white',
+  'title-text': 'text-gray-500',
+  'body-text': 'text-black',
+  'subtitle-text': 'text-gray-600',
+  'text-primary': 'text-primary'
 }
 
 const dark: Record<string, string> = {
-  'body-bg': 'bg-gray-900'
+  'body-bg': 'bg-dark',
+  'row-bg': 'bg-darksurface',
+  'title-text': 'text-white text-opacity-90',
+  'body-text': 'text-white text-opacity-90',
+  'subtitle-text': 'text-white text-opacity-70',
+  'text-primary': 'text-darkprimary'
 }
 
 interface Theme {
@@ -57,8 +67,17 @@ export function ThemeProvider (props: React.PropsWithChildren<any>): JSX.Element
 
   function getThemeClass (type: string): string {
     const current = currentTheme === 'dark' ? dark : light
-    return current[type]
+    const classList = type.split(' ')
+    let classes = ''
+    classList.forEach((c) => {
+      classes = `${classes} ${current[c]}`
+    })
+    return classes
   }
+
+  useEffect(() => {
+    setTheme(theme)
+  }, [theme])
 
   const context: Theme = {
     theme: currentTheme,

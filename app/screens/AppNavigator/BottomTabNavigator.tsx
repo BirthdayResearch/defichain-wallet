@@ -27,7 +27,11 @@ export function BottomTabNavigator (): JSX.Element {
       <OceanInterface />
       <BottomTab.Navigator
         initialRouteName='Balances'
-        screenOptions={{ headerShown: false, tabBarLabelPosition: 'below-icon', tabBarLabelStyle: tailwind('font-medium text-xs') }}
+        screenOptions={{
+          headerShown: false,
+          tabBarLabelPosition: 'below-icon',
+          tabBarLabelStyle: tailwind('font-medium text-xs')
+        }}
       >
         <BottomTab.Screen
           name={translate('BottomTabNavigator', 'Balances')}

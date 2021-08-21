@@ -8,6 +8,7 @@ import { Text } from '../../../../components'
 import { BarCodeScanner } from '../../../../components/BarCodeScanner'
 import { ConnectionStatus, HeaderTitle } from '../../../../components/HeaderTitle'
 import { getNativeIcon } from '../../../../components/icons/assets'
+import { useThemeContext } from '../../../../contexts/ThemeProvider'
 import { WalletToken } from '../../../../store/wallet'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -53,6 +54,7 @@ function BalanceActionButton (props: {
   onPress: () => void
   testID: string
 }): JSX.Element {
+  const { getThemeClass } = useThemeContext()
   return (
     <TouchableOpacity
       testID={props.testID}
@@ -66,7 +68,7 @@ function BalanceActionButton (props: {
       }
       {
         props.title !== undefined && (
-          <Text style={tailwind('mx-1 text-primary font-semibold')}>
+          <Text style={tailwind('mx-1 font-semibold', getThemeClass('text-primary'))}>
             {translate('screens/BalancesScreen', props.title)}
           </Text>
         )

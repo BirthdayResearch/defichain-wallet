@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux'
 import { Text, View } from '../../../../components'
 import { getNativeIcon } from '../../../../components/icons/assets'
 import { SectionTitle } from '../../../../components/SectionTitle'
+import { useThemeContext } from '../../../../contexts/ThemeProvider'
 import { useWalletContext } from '../../../../contexts/WalletContext'
 import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
@@ -29,6 +30,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const [refreshing, setRefreshing] = useState(false)
   const dispatch = useDispatch()
   const { wallets } = useWalletPersistenceContext()
+  const { getThemeClass } = useThemeContext()
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
@@ -44,7 +46,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   return (
     <FlatList
       testID='balances_list'
-      style={tailwind('bg-gray-100')}
+      style={tailwind(getThemeClass('body-bg'))}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
@@ -54,7 +56,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           token={item} key={item.symbol}
           onPress={() => navigation.navigate({ name: 'TokenDetail', params: { token: item }, merge: true })}
         />}
-      ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
+      ItemSeparatorComponent={() => <View style={tailwind('h-px', getThemeClass('body-bg'))} />}
       ListHeaderComponent={(
         <SectionTitle
           testID='balances_title'
@@ -68,20 +70,25 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () => void }): JSX.Element {
   const Icon = getNativeIcon(token.avatarSymbol)
   const testID = `balances_row_${token.id}`
+  const { getThemeClass } = useThemeContext()
   return (
     <TouchableOpacity
       onPress={onPress} testID={testID}
-      style={tailwind('bg-white py-4 pl-4 pr-2 flex-row justify-between items-center')}
+      style={tailwind('py-4 pl-4 pr-2 flex-row justify-between items-center', getThemeClass('row-bg'))}
     >
       <View style={tailwind('flex-row items-center flex-grow')}>
         <Icon testID={`${testID}_icon`} />
         <View style={tailwind('mx-3 flex-auto')}>
-          <Text testID={`${testID}_symbol`} style={tailwind('font-medium')}>{token.displaySymbol}</Text>
+          <Text
+            testID={`${testID}_symbol`}
+            style={tailwind('font-medium', getThemeClass('body-text'))}
+          >{token.displaySymbol}
+          </Text>
           <Text
             testID={`${testID}_name`}
             numberOfLines={1}
             ellipsizeMode='tail'
-            style={tailwind('text-sm font-medium text-gray-600')}
+            style={tailwind('text-sm font-medium text-gray-600', getThemeClass('subtitle-text'))}
           >{token.name}
           </Text>
         </View>
@@ -90,10 +97,10 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
             value={new BigNumber(token.amount).toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
             renderText={(value) =>
               <>
-                <Text style={tailwind('mr-2 flex-wrap')} testID={`${testID}_amount`}>
+                <Text style={tailwind('mr-2 flex-wrap', getThemeClass('body-text'))} testID={`${testID}_amount`}>
                   {value}
                 </Text>
-                <MaterialIcons name='chevron-right' size={24} />
+                <MaterialIcons name='chevron-right' size={24} style={tailwind(getThemeClass('body-text'))} />
               </>}
           />
         </View>
