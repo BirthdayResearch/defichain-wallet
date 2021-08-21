@@ -301,8 +301,8 @@ export function TransactionAuthorization (): JSX.Element | null {
             ? (
               <Text testID='pin_attempt_error' style={tailwind('text-center text-error text-sm font-bold mt-5')}>
                 {translate('screens/PinConfirmation', `${attemptsRemaining === 1
-? 'Last attempt or your wallet will be unlinked for your security'
-                : 'Incorrect passcode. %{attemptsRemaining} attempts remaining'}`, { attemptsRemaining: `${attemptsRemaining}` })}
+                  ? 'Last attempt or your wallet will be unlinked for your security'
+                  : 'Incorrect passcode. %{attemptsRemaining} attempts remaining'}`, { attemptsRemaining: `${attemptsRemaining}` })}
               </Text>
               )
             : null
@@ -312,8 +312,8 @@ export function TransactionAuthorization (): JSX.Element | null {
             ? (
               <Text testID='pin_attempt_warning' style={tailwind('text-center text-error text-sm font-bold mt-5')}>
                 {translate('components/TransactionAuthorization', `${attemptsRemaining === 1
-? 'Last attempt or your wallet will be unlinked for your security'
-                : '%{attemptsRemaining} attempts remaining'}`, { attemptsRemaining: `${attemptsRemaining}` })}
+                  ? 'Last attempt or your wallet will be unlinked for your security'
+                  : '%{attemptsRemaining} attempts remaining'}`, { attemptsRemaining: `${attemptsRemaining}` })}
               </Text>
               )
             : null

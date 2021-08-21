@@ -9,10 +9,10 @@ import { StoreProvider } from './app/contexts/StoreProvider'
 import { WalletPersistenceProvider } from './app/contexts/WalletPersistenceContext'
 import { WhaleProvider } from './app/contexts/WhaleContext'
 import { useCachedResources } from './app/hooks/useCachedResources'
+import ConnectionBoundary from './app/screens/ConnectionBoundary/ConnectionBoundary'
 import ErrorBoundary from './app/screens/ErrorBoundary/ErrorBoundary'
 import { Main } from './app/screens/Main'
 import { initI18n } from './app/translations'
-import ConnectionBoundary from './app/screens/ConnectionBoundary/ConnectionBoundary'
 
 /**
  * Loads

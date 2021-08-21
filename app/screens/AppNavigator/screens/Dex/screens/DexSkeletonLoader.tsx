@@ -1,5 +1,5 @@
 import * as React from 'react'
-import ContentLoader, { Rect, Circle } from 'react-content-loader/native'
+import ContentLoader, { Circle, Rect } from 'react-content-loader/native'
 import { View } from 'react-native'
 import { tailwind } from '../../../../../tailwind'
 
