@@ -8,7 +8,7 @@ import { translate } from '../../translations'
 export default function ConnectionBoundary (props: React.PropsWithChildren<any>): JSX.Element | null {
   const netInfo = useNetInfo()
   const noConnection = (): boolean => {
-    return netInfo.isConnected === false || netInfo.isConnected === null
+    return netInfo.isConnected === false
   }
 
   return (
