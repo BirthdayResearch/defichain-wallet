@@ -4,6 +4,25 @@ context('Wallet - DEX - Available Pool Pairs', () => {
     cy.getByTestID('bottom_tab_dex').click()
   })
 
+  it('should display skeleton loader when API has yet to return', () => {
+    cy.intercept('**/poolpairs?size=*', {
+      body: {
+        data: [
+          {}
+        ]
+      },
+      delay: 3000
+    })
+    cy.getByTestID('dex_skeleton_loader').should('exist')
+  })
+
+  it('should not display skeleton loader when API has return', () => {
+    cy.intercept('**/poolpairs?size=*').as('getPoolpairs')
+    cy.wait('@getPoolpairs').then(() => {
+      cy.getByTestID('dex_skeleton_loader').should('not.exist')
+    })
+  })
+
   it('should display 5 available pool pair', function () {
     const list = cy.getByTestID('liquidity_screen_list')
 

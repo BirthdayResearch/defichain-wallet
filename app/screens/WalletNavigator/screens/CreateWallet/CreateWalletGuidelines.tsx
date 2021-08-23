@@ -2,7 +2,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
-import { Text, View, Switch } from '../../../../components'
+import { Switch, Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -18,7 +18,7 @@ interface GuidelineItem {
 
 const guidelines: GuidelineItem[] = [
   {
-    title: 'Write the words in paper',
+    title: 'Write the words on paper',
     subtitle: 'Take note of their correct spelling and correct order.',
     icon: 'create'
   },

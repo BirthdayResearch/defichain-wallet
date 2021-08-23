@@ -15,7 +15,7 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.result }}
     steps:
-      - uses: actions/github-script@a3e7071a34d7e1f219a8a4de9a5e0a34d1ee1293
+      - uses: actions/github-script@f891eff65186019cbb3f7190c4590bc0a1b76fbc
         id: version
         with:
           script: |

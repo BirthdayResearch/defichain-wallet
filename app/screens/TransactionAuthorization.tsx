@@ -297,20 +297,26 @@ export function TransactionAuthorization (): JSX.Element | null {
           message={status === 'SIGNING' ? loadingMessage : undefined}
         />
         {// upon retry: show remaining attempt allowed
-          (isRetry && attemptsRemaining !== undefined && attemptsRemaining !== MAX_PASSCODE_ATTEMPT) ? (
-            <Text testID='pin_attempt_error' style={tailwind('text-center text-error text-sm font-bold mt-5')}>
-              {translate('screens/PinConfirmation', `${attemptsRemaining === 1 ? 'Last attempt or your wallet will be unlinked for your security'
-                : 'Incorrect passcode. %{attemptsRemaining} attempts remaining'}`, { attemptsRemaining: `${attemptsRemaining}` })}
-            </Text>
-          ) : null
+          (isRetry && attemptsRemaining !== undefined && attemptsRemaining !== MAX_PASSCODE_ATTEMPT)
+            ? (
+              <Text testID='pin_attempt_error' style={tailwind('text-center text-error text-sm font-bold mt-5')}>
+                {translate('screens/PinConfirmation', `${attemptsRemaining === 1
+                  ? 'Last attempt or your wallet will be unlinked for your security'
+                  : 'Incorrect passcode. %{attemptsRemaining} attempts remaining'}`, { attemptsRemaining: `${attemptsRemaining}` })}
+              </Text>
+              )
+            : null
         }
         {// on first time: warn user there were accumulated error attempt counter
-          (!isRetry && attemptsRemaining !== undefined && attemptsRemaining !== MAX_PASSCODE_ATTEMPT) ? (
-            <Text testID='pin_attempt_warning' style={tailwind('text-center text-error text-sm font-bold mt-5')}>
-              {translate('components/TransactionAuthorization', `${attemptsRemaining === 1 ? 'Last attempt or your wallet will be unlinked for your security'
-                : '%{attemptsRemaining} attempts remaining'}`, { attemptsRemaining: `${attemptsRemaining}` })}
-            </Text>
-          ) : null
+          (!isRetry && attemptsRemaining !== undefined && attemptsRemaining !== MAX_PASSCODE_ATTEMPT)
+            ? (
+              <Text testID='pin_attempt_warning' style={tailwind('text-center text-error text-sm font-bold mt-5')}>
+                {translate('components/TransactionAuthorization', `${attemptsRemaining === 1
+                  ? 'Last attempt or your wallet will be unlinked for your security'
+                  : '%{attemptsRemaining} attempts remaining'}`, { attemptsRemaining: `${attemptsRemaining}` })}
+              </Text>
+              )
+            : null
         }
       </View>
     </SafeAreaView>

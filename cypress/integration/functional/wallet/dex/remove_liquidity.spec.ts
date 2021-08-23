@@ -15,10 +15,10 @@ context('Wallet - DEX - Remove Liquidity', () => {
 
     cy.getByTestID('pool_pair_remove_DFI-ETH').click().wait(1000)
 
-    cy.getByTestID('text_coin_amount_DFI').contains('0.00000000')
-    cy.getByTestID('text_coin_amount_ETH').contains('0.00000000')
-    cy.getByTestID('remove_liq_symbol_DFI').contains('DFI')
-    cy.getByTestID('remove_liq_symbol_ETH').contains('ETH')
+    cy.getByTestID('price_a').contains('0.00000000')
+    cy.getByTestID('price_a_unit').contains('DFI')
+    cy.getByTestID('price_b').contains('0.00000000')
+    cy.getByTestID('price_b_unit').contains('ETH')
   })
 
   it('should display price based on pool tokenA:tokenB ratio regardless removal amount', function () {
@@ -71,16 +71,20 @@ context('Wallet - DEX - Remove Liquidity', () => {
     cy.getByTestID('text_input_percentage').invoke('val').then(text => {
       expect(text).to.equal('0.00')
     })
-    cy.getByTestID('text_coin_amount_DFI').contains('0.00000000')
-    cy.getByTestID('text_coin_amount_DFI').contains('0.00000000')
+    cy.getByTestID('price_a').contains('0.00000000')
+    cy.getByTestID('price_a_unit').contains('DFI')
+    cy.getByTestID('price_b').contains('0.00000000')
+    cy.getByTestID('price_b_unit').contains('ETH')
 
     cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
   })
 
   it('Should be able to remove liquidity', function () {
     cy.getByTestID('button_slider_max').click().wait(1000)
-    cy.getByTestID('text_coin_amount_DFI').contains('1.00000000')
-    cy.getByTestID('text_coin_amount_ETH').contains('100.00000000')
+    cy.getByTestID('price_a').contains('1.00000000')
+    cy.getByTestID('price_a_unit').contains('DFI')
+    cy.getByTestID('price_b').contains('100.00000000')
+    cy.getByTestID('price_b_unit').contains('ETH')
     cy.getByTestID('button_continue_remove_liq').click()
     cy.getByTestID('button_cancel_remove').click()
     cy.getByTestID('button_slider_max').should('exist')
