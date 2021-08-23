@@ -149,87 +149,54 @@ exports[`balances page should match snapshot 1`] = `
             ]
           }
         >
-          <RNSVGSvgView
-            align="xMidYMid"
-            bbHeight={32}
-            bbWidth={32}
-            focusable={false}
-            height={32}
-            meetOrSlice={0}
-            minX={0}
-            minY={0}
+          <div
             style={
-              Array [
-                Object {
-                  "backgroundColor": "transparent",
-                  "borderWidth": 0,
-                },
-                Object {
-                  "flex": 0,
-                  "height": 32,
-                  "width": 32,
-                },
-              ]
+              Object {
+                "height": "32px",
+                "width": "32px",
+              }
             }
-            testID="balances_row_0_icon"
-            vbHeight={32}
-            vbWidth={32}
-            width={32}
           >
-            <RNSVGGroup>
-              <RNSVGCircle
-                cx={16}
-                cy={16}
-                fill={4294967295}
-                propList={
-                  Array [
-                    "fill",
-                  ]
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#ffffff",
+                  "borderBottomLeftRadius": 9999,
+                  "borderBottomRightRadius": 9999,
+                  "borderTopLeftRadius": 9999,
+                  "borderTopRightRadius": 9999,
+                  "height": "100%",
+                  "width": "100%",
                 }
-                r={16}
-              />
-              <RNSVGText
-                alignmentBaseline="central"
-                content={null}
-                dx={Array []}
-                dy={Array []}
-                fill={4294967295}
-                font={
+              }
+            >
+              <div
+                style={
                   Object {
-                    "fontSize": "24",
-                    "fontWeight": "bolder",
-                    "textAnchor": "middle",
+                    "alignItems": "center",
+                    "display": "flex",
+                    "height": "100%",
+                    "width": "100%",
                   }
                 }
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-                rotate={Array []}
-                x={
-                  Array [
-                    "50%",
-                  ]
-                }
-                y={
-                  Array [
-                    "50%",
-                  ]
-                }
               >
-                <RNSVGTSpan
-                  content="T"
-                  dx={Array []}
-                  dy={Array []}
-                  font={Object {}}
-                  rotate={Array []}
-                  x={Array []}
-                  y={Array []}
+                <div
+                  style={
+                    Object {
+                      "color": "#ffffff",
+                      "flexBasis": "0%",
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                      "fontFamily": "SemiBoldFont",
+                      "fontWeight": "600",
+                      "textAlign": "center",
+                      "width": 4,
+                    }
+                  }
                 />
-              </RNSVGText>
-            </RNSVGGroup>
-          </RNSVGSvgView>
+              </div>
+            </div>
+          </div>
           <View
             style={
               Array [
@@ -369,87 +336,54 @@ exports[`balances page should match snapshot 1`] = `
             ]
           }
         >
-          <RNSVGSvgView
-            align="xMidYMid"
-            bbHeight={32}
-            bbWidth={32}
-            focusable={false}
-            height={32}
-            meetOrSlice={0}
-            minX={0}
-            minY={0}
+          <div
             style={
-              Array [
-                Object {
-                  "backgroundColor": "transparent",
-                  "borderWidth": 0,
-                },
-                Object {
-                  "flex": 0,
-                  "height": 32,
-                  "width": 32,
-                },
-              ]
+              Object {
+                "height": "32px",
+                "width": "32px",
+              }
             }
-            testID="balances_row_1_icon"
-            vbHeight={32}
-            vbWidth={32}
-            width={32}
           >
-            <RNSVGGroup>
-              <RNSVGCircle
-                cx={16}
-                cy={16}
-                fill={4294967295}
-                propList={
-                  Array [
-                    "fill",
-                  ]
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#ffffff",
+                  "borderBottomLeftRadius": 9999,
+                  "borderBottomRightRadius": 9999,
+                  "borderTopLeftRadius": 9999,
+                  "borderTopRightRadius": 9999,
+                  "height": "100%",
+                  "width": "100%",
                 }
-                r={16}
-              />
-              <RNSVGText
-                alignmentBaseline="central"
-                content={null}
-                dx={Array []}
-                dy={Array []}
-                fill={4294967295}
-                font={
+              }
+            >
+              <div
+                style={
                   Object {
-                    "fontSize": "24",
-                    "fontWeight": "bolder",
-                    "textAnchor": "middle",
+                    "alignItems": "center",
+                    "display": "flex",
+                    "height": "100%",
+                    "width": "100%",
                   }
                 }
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-                rotate={Array []}
-                x={
-                  Array [
-                    "50%",
-                  ]
-                }
-                y={
-                  Array [
-                    "50%",
-                  ]
-                }
               >
-                <RNSVGTSpan
-                  content="T"
-                  dx={Array []}
-                  dy={Array []}
-                  font={Object {}}
-                  rotate={Array []}
-                  x={Array []}
-                  y={Array []}
+                <div
+                  style={
+                    Object {
+                      "color": "#ffffff",
+                      "flexBasis": "0%",
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                      "fontFamily": "SemiBoldFont",
+                      "fontWeight": "600",
+                      "textAlign": "center",
+                      "width": 4,
+                    }
+                  }
                 />
-              </RNSVGText>
-            </RNSVGGroup>
-          </RNSVGSvgView>
+              </div>
+            </div>
+          </div>
           <View
             style={
               Array [
@@ -589,87 +523,54 @@ exports[`balances page should match snapshot 1`] = `
             ]
           }
         >
-          <RNSVGSvgView
-            align="xMidYMid"
-            bbHeight={32}
-            bbWidth={32}
-            focusable={false}
-            height={32}
-            meetOrSlice={0}
-            minX={0}
-            minY={0}
+          <div
             style={
-              Array [
-                Object {
-                  "backgroundColor": "transparent",
-                  "borderWidth": 0,
-                },
-                Object {
-                  "flex": 0,
-                  "height": 32,
-                  "width": 32,
-                },
-              ]
+              Object {
+                "height": "32px",
+                "width": "32px",
+              }
             }
-            testID="balances_row_2_icon"
-            vbHeight={32}
-            vbWidth={32}
-            width={32}
           >
-            <RNSVGGroup>
-              <RNSVGCircle
-                cx={16}
-                cy={16}
-                fill={4294967295}
-                propList={
-                  Array [
-                    "fill",
-                  ]
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#ffffff",
+                  "borderBottomLeftRadius": 9999,
+                  "borderBottomRightRadius": 9999,
+                  "borderTopLeftRadius": 9999,
+                  "borderTopRightRadius": 9999,
+                  "height": "100%",
+                  "width": "100%",
                 }
-                r={16}
-              />
-              <RNSVGText
-                alignmentBaseline="central"
-                content={null}
-                dx={Array []}
-                dy={Array []}
-                fill={4294967295}
-                font={
+              }
+            >
+              <div
+                style={
                   Object {
-                    "fontSize": "24",
-                    "fontWeight": "bolder",
-                    "textAnchor": "middle",
+                    "alignItems": "center",
+                    "display": "flex",
+                    "height": "100%",
+                    "width": "100%",
                   }
                 }
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-                rotate={Array []}
-                x={
-                  Array [
-                    "50%",
-                  ]
-                }
-                y={
-                  Array [
-                    "50%",
-                  ]
-                }
               >
-                <RNSVGTSpan
-                  content="T"
-                  dx={Array []}
-                  dy={Array []}
-                  font={Object {}}
-                  rotate={Array []}
-                  x={Array []}
-                  y={Array []}
+                <div
+                  style={
+                    Object {
+                      "color": "#ffffff",
+                      "flexBasis": "0%",
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                      "fontFamily": "SemiBoldFont",
+                      "fontWeight": "600",
+                      "textAlign": "center",
+                      "width": 4,
+                    }
+                  }
                 />
-              </RNSVGText>
-            </RNSVGGroup>
-          </RNSVGSvgView>
+              </div>
+            </div>
+          </div>
           <View
             style={
               Array [
