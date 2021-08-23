@@ -4,8 +4,8 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/30297425fadcab8fbba4/maintainability)](https://codeclimate.com/github/DeFiCh/wallet/maintainability)
 [![TS-Standard](https://badgen.net/badge/code%20style/ts-standard/blue?icon=typescript)](https://github.com/standard/ts-standard)
 <div>
-  <a href="https://apps.apple.com/us/app/defichain-wallet/id1572472820"><img height="40" width="120" src="/.github/images/app_store.svg" alt="app store" /></a>
-  <a href='https://play.google.com/store/apps/details?id=com.defichain.app'><img alt='Get it on Google Play' height="80" width="120" src='/.github/images/google-play-badge.png'/></a>
+  <a href="https://apps.apple.com/us/app/defichain-wallet/id1572472820"><img src="/.github/images/app_store.svg" alt="app store" /></a>
+  <a href='https://play.google.com/store/apps/details?id=com.defichain.app'><img alt='Get it on Google Play' src='/.github/images/play_store.svg'/></a>
 </div>
 
 # DeFiChain Wallet
