@@ -7,7 +7,7 @@ import { ScrollView, TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { Logging } from '../../../../api'
 import { MnemonicStorage } from '../../../../api/wallet/mnemonic_storage'
-import { Text } from '../../../../components'
+import { Switch, Text, View } from '../../../../components'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { WalletAlert } from '../../../../components/WalletAlert'
 import { useLocalAuthContext } from '../../../../contexts/LocalAuthContext'
@@ -86,11 +86,10 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         label='Change Passcode'
         onPress={changePasscode}
       />
-      <SecurityRow
+      <PrivacyLockToggle
         disabled={!localAuth.isDeviceProtected}
-        testID='view_toggle_privacy_lock'
-        label={translate('screens/Settings', localAuth.isPrivacyLock === true ? 'Disable Privacy Lock' : 'Enable Privacy Lock (require hardware)')}
-        onPress={async () => {
+        value={localAuth.isPrivacyLock ?? false}
+        onToggle={async () => {
           await localAuth.togglePrivacyLock()
         }}
       />
@@ -153,6 +152,23 @@ function RowExitWalletItem (): JSX.Element {
         {translate('screens/Settings', 'UNLINK WALLET')}
       </Text>
     </TouchableOpacity>
+  )
+}
+
+function PrivacyLockToggle ({ disabled = false, value, onToggle }: { disabled?: boolean, value: boolean, onToggle: (newValue: boolean) => void }): JSX.Element {
+  const textStyleProp = disabled ? { color: 'gray' } : {}
+  return (
+    <View style={tailwind('flex bg-white p-4 pr-2 flex-row items-center justify-between border-b border-gray-200')}>
+      <Text style={[tailwind('font-medium'), textStyleProp]}>
+        {translate('screens/Settings', 'Privacy Lock')}
+      </Text>
+      <Switch
+        disabled={disabled}
+        onValueChange={onToggle}
+        value={value}
+        testID='switch_privacy_lock'
+      />
+    </View>
   )
 }
 

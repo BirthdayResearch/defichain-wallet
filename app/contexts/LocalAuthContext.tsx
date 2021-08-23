@@ -105,7 +105,6 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
     }
   }
 
-  console.log('context render', context.isPrivacyLock)
   return (
     <localAuthContext.Provider value={context}>
       {props.children}
