@@ -13,6 +13,7 @@ import { Text } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getNativeIcon } from '../../../../../components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
+import { NumberRow } from '../../../../../components/NumberRow'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
@@ -289,33 +290,6 @@ function TokenRow (form: TokenForm): JSX.Element {
   )
 }
 
-function PriceRow ({
-  testID,
-  title,
-  values
-}: { testID: string, title: string, values: Array<{ amount: string, symbol: string }> }): JSX.Element {
-  return (
-    <View style={tailwind('flex-row w-full border-b border-gray-100 bg-white p-4 flex-wrap')}>
-      <Text>{title}</Text>
-      <View style={tailwind('flex-col flex-grow w-1/2')}>
-        {
-          values.map((token, index) => (
-            <NumberFormat
-              key={index}
-              value={token.amount} decimalScale={8} thousandSeparator
-              displayType='text' suffix={` ${token.symbol}`}
-              renderText={(value) => (
-                <Text testID={`text_price_row_${testID}_${index}`} style={tailwind('text-gray-500 text-right ml-4')}>
-                  {value}
-                </Text>
-              )}
-            />))
-        }
-      </View>
-    </View>
-  )
-}
-
 interface SwapSummaryItems {
   poolpair: PoolPairData
   tokenA: DerivedTokenState
@@ -327,25 +301,32 @@ interface SwapSummaryItems {
 function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount }: SwapSummaryItems): JSX.Element {
   const reserveA = getReserveAmount(tokenA.id, poolpair)
   const reserveB = getReserveAmount(tokenB.id, poolpair)
-  const price = [{
-    amount: new BigNumber(reserveA).div(reserveB).toFixed(8),
-    symbol: `${tokenA.symbol} per ${tokenB.symbol}`
-  },
-  { amount: new BigNumber(reserveB).div(reserveA).toFixed(8), symbol: `${tokenB.symbol} per ${tokenA.symbol}` }]
+  const priceA = new BigNumber(reserveA).div(reserveB).toFixed(8)
+  const priceB = new BigNumber(reserveB).div(reserveA).toFixed(8)
+  const estimated = calculateEstimatedAmount(tokenAAmount, reserveA, priceB).toFixed(8)
   return (
     <View style={tailwind('mt-4')}>
-      <PriceRow
-        testID='price'
-        title={translate('screens/PoolSwapScreen', 'Price')}
-        values={price}
-      />
-      <PriceRow
-        testID='estimated'
-        title={translate('screens/PoolSwapScreen', 'Estimated to receive')}
-        values={[{
-          amount: calculateEstimatedAmount(tokenAAmount, reserveA, price[1].amount).toFixed(8),
-          symbol: tokenB.symbol
+      <NumberRow
+        lhs={translate('screens/PoolSwapScreen', 'Price')}
+        rightHandElements={[{
+          testID: 'price_a',
+          value: priceA,
+          suffix: ` ${tokenA.symbol} per ${tokenB.symbol}`
+        }, {
+          testID: 'price_b',
+          value: priceB,
+          suffix: ` ${tokenB.symbol} per ${tokenA.symbol}`
         }]}
+      />
+      <NumberRow
+        lhs={translate('screens/PoolSwapScreen', 'Estimated to receive')}
+        rightHandElements={[
+          {
+            value: estimated,
+            suffix: ` ${tokenB.symbol}`,
+            testID: 'estimated'
+          }
+        ]}
       />
     </View>
   )

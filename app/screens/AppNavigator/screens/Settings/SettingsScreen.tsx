@@ -71,7 +71,11 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   return (
     <ScrollView style={tailwind('flex-1 bg-gray-100 pb-8')} testID='setting_screen'>
       <SectionTitle text={translate('screens/Settings', 'NETWORK')} testID='network_title' />
-      <SelectedNetworkItem network={network} onPress={() => { navigation.navigate('NetworkSelectionScreen') }} />
+      <SelectedNetworkItem
+        network={network} onPress={() => {
+          navigation.navigate('NetworkSelectionScreen')
+        }}
+      />
       <SectionTitle text={translate('screens/Settings', 'SECURITY')} testID='security_title' />
       {/* <SecurityRow disabled={isEncrypted} label='Encrypt your wallet' /> */}
       <SecurityRow

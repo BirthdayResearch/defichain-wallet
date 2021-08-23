@@ -15,7 +15,12 @@ import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
+import { DexSkeletonLoader } from './screens/DexSkeletonLoader'
 
+enum SectionKey {
+  YourLiquidity = 'YOUR LIQUIDITY',
+  AvailablePoolPair = 'AVAILABLE POOL PAIR'
+}
 export function DexScreen (): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const tokens = useTokensAPI()
@@ -33,16 +38,21 @@ export function DexScreen (): JSX.Element {
     navigation.navigate({ name: 'RemoveLiquidity', params: { pair: data }, merge: true })
   }
 
+  const isEmpty = (data: any[]): boolean => {
+    return data.length === 0
+  }
+
   return (
     <SectionList
       testID='liquidity_screen_list'
       style={tailwind('bg-gray-100')}
       sections={[
         {
+          key: SectionKey.YourLiquidity,
           data: yourLPTokens as Array<DexItem<any>>
         },
         {
-          key: 'AVAILABLE POOL PAIRS',
+          key: SectionKey.AvailablePoolPair,
           data: pairs
         }
       ]}
@@ -62,29 +72,32 @@ export function DexScreen (): JSX.Element {
             )
         }
       }}
-      ListHeaderComponent={() => {
-        if (yourLPTokens.length > 0) {
-          return (
-            <SectionTitle text={translate('screens/DexScreen', 'YOUR LIQUIDITY')} testID='liq_title' />
-          )
-        }
-        return (
-          <View style={tailwind('px-4 pt-4 pb-2')}>
-            <Text style={tailwind('text-base font-medium')}>
-              {
-                translate('screens/DexScreen', 'Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.')
-              }
-            </Text>
-          </View>
-        )
-      }}
       renderSectionHeader={({ section }) => {
-        if (section.key === undefined) {
-          return null
+        switch (section.key) {
+          case SectionKey.YourLiquidity:
+            if (!isEmpty(section.data)) {
+              return (
+                <SectionTitle text={translate('screens/DexScreen', section.key)} testID='liq_title' />
+              )
+            }
+            return (
+              <View style={tailwind('px-4 pt-4 pb-2')}>
+                <Text style={tailwind('text-base font-medium')}>
+                  {
+                    translate('screens/DexScreen', 'Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.')
+                  }
+                </Text>
+              </View>
+            )
+
+          case SectionKey.AvailablePoolPair:
+            return (
+              <>
+                <SectionTitle text={translate('screens/DexScreen', section.key)} testID={section.key} />
+                {isEmpty(section.data) && <DefaultSkeletonLoader />}
+              </>
+            )
         }
-        return (
-          <SectionTitle text={translate('screens/DexScreen', section.key)} testID={section.key} />
-        )
       }}
       keyExtractor={(item, index) => `${index}`}
     />
@@ -207,5 +220,16 @@ function PoolPairAPR (props: { symbol: string, apr: number, row: string }): JSX.
         }}
       />
     </View>
+  )
+}
+
+function DefaultSkeletonLoader (): JSX.Element {
+  const skeletonRow = [1, 2, 3]
+  return (
+    <>
+      {skeletonRow.map((x) => (
+        <DexSkeletonLoader key={x} />
+      ))}
+    </>
   )
 }

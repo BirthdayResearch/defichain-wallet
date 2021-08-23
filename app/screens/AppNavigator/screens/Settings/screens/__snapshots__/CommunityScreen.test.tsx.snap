@@ -77,8 +77,8 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       },
       Object {
         "icon": "telegram",
-        "id": "tg_announcement",
-        "title": "Telegram (Announcement)",
+        "id": "announcements",
+        "title": "Announcements",
         "url": "https://t.me/defichain_announcements",
       },
       Object {
@@ -427,7 +427,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
             "paddingTop": 16,
           }
         }
-        testID="tg_announcement"
+        testID="announcements"
       >
         <Text />
         <Text
@@ -445,7 +445,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
             ]
           }
         >
-          Telegram (Announcement)
+          Announcements
         </Text>
       </View>
       <View

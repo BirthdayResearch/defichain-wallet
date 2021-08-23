@@ -140,7 +140,7 @@ exports[`create wallet guidelines should match snapshot 1`] = `
             ]
           }
         >
-          Write the words in paper
+          Write the words on paper
         </Text>
         <Text
           numberOfLines={4}
