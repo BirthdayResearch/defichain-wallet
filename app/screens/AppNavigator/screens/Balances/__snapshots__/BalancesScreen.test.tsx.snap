@@ -149,15 +149,16 @@ exports[`balances page should match snapshot 1`] = `
             ]
           }
         >
-          <div
+          <View
             style={
               Object {
                 "height": "32px",
                 "width": "32px",
               }
             }
+            testID="balances_row_0_icon"
           >
-            <div
+            <View
               style={
                 Object {
                   "backgroundColor": "#ffffff",
@@ -170,17 +171,18 @@ exports[`balances page should match snapshot 1`] = `
                 }
               }
             >
-              <div
+              <View
                 style={
                   Object {
                     "alignItems": "center",
                     "display": "flex",
+                    "flexDirection": "row",
                     "height": "100%",
                     "width": "100%",
                   }
                 }
               >
-                <div
+                <Text
                   style={
                     Object {
                       "color": "#ffffff",
@@ -194,9 +196,9 @@ exports[`balances page should match snapshot 1`] = `
                     }
                   }
                 />
-              </div>
-            </div>
-          </div>
+              </View>
+            </View>
+          </View>
           <View
             style={
               Array [
@@ -336,15 +338,16 @@ exports[`balances page should match snapshot 1`] = `
             ]
           }
         >
-          <div
+          <View
             style={
               Object {
                 "height": "32px",
                 "width": "32px",
               }
             }
+            testID="balances_row_1_icon"
           >
-            <div
+            <View
               style={
                 Object {
                   "backgroundColor": "#ffffff",
@@ -357,17 +360,18 @@ exports[`balances page should match snapshot 1`] = `
                 }
               }
             >
-              <div
+              <View
                 style={
                   Object {
                     "alignItems": "center",
                     "display": "flex",
+                    "flexDirection": "row",
                     "height": "100%",
                     "width": "100%",
                   }
                 }
               >
-                <div
+                <Text
                   style={
                     Object {
                       "color": "#ffffff",
@@ -381,9 +385,9 @@ exports[`balances page should match snapshot 1`] = `
                     }
                   }
                 />
-              </div>
-            </div>
-          </div>
+              </View>
+            </View>
+          </View>
           <View
             style={
               Array [
@@ -523,15 +527,16 @@ exports[`balances page should match snapshot 1`] = `
             ]
           }
         >
-          <div
+          <View
             style={
               Object {
                 "height": "32px",
                 "width": "32px",
               }
             }
+            testID="balances_row_2_icon"
           >
-            <div
+            <View
               style={
                 Object {
                   "backgroundColor": "#ffffff",
@@ -544,17 +549,18 @@ exports[`balances page should match snapshot 1`] = `
                 }
               }
             >
-              <div
+              <View
                 style={
                   Object {
                     "alignItems": "center",
                     "display": "flex",
+                    "flexDirection": "row",
                     "height": "100%",
                     "width": "100%",
                   }
                 }
               >
-                <div
+                <Text
                   style={
                     Object {
                       "color": "#ffffff",
@@ -568,9 +574,9 @@ exports[`balances page should match snapshot 1`] = `
                     }
                   }
                 />
-              </div>
-            </div>
-          </div>
+              </View>
+            </View>
+          </View>
           <View
             style={
               Array [

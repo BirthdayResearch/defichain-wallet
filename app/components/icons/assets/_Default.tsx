@@ -1,10 +1,16 @@
 import * as React from 'react'
 import randomColor from 'randomcolor'
+import { View, Text } from 'react-native'
 import { tailwind } from '../../../tailwind'
 
-export function _Default (symbol: string): (props: React.SVGProps<SVGSVGElement>) => JSX.Element {
-  return (props: React.SVGProps<SVGSVGElement>): JSX.Element => {
-    const { style } = props
+interface _DefaultProps extends React.SVGProps<SVGSVGElement> {
+  testID?: string
+  style?: object
+}
+
+export function _Default (symbol: string): (props: _DefaultProps) => JSX.Element {
+  return (props: _DefaultProps): JSX.Element => {
+    const { style, testID } = props
     const height = '32px'
     const width = '32px'
     const bg = randomColor({ luminosity: 'bright', format: 'rgba', seed: symbol, alpha: 0.2 })
@@ -12,13 +18,13 @@ export function _Default (symbol: string): (props: React.SVGProps<SVGSVGElement>
     const first = symbol?.substring(0, 1)
 
     return (
-      <div style={{ height, width, ...style }}>
-        <div style={{ backgroundColor: bg, ...tailwind('rounded-full w-full h-full') }}>
-          <div style={tailwind('w-full h-full flex items-center')}>
-            <div style={{ color: text, ...tailwind('flex-1 w-1 text-center font-semibold') }}>{first}</div>
-          </div>
-        </div>
-      </div>
+      <View style={{ height, width, ...style }} testID={testID}>
+        <View style={{ backgroundColor: bg, ...tailwind('rounded-full w-full h-full') }}>
+          <View style={tailwind('flex-row w-full h-full flex items-center')}>
+            <Text style={{ color: text, ...tailwind('flex-1 w-1 text-center font-semibold') }}>{first}</Text>
+          </View>
+        </View>
+      </View>
     )
   }
 }
