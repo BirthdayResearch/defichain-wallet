@@ -8,8 +8,8 @@ interface SkeletonLoaderProp {
 }
 
 export enum SkeletonLoaderScreen {
-  'Balance',
-  'Dex'
+  'Balance' = 'Balance',
+  'Dex' = 'Dex'
 }
 
 export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
