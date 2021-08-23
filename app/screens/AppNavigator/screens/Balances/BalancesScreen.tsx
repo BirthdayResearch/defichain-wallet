@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux'
 import { Text, View } from '../../../../components'
 import { getNativeIcon } from '../../../../components/icons/assets'
 import { SectionTitle } from '../../../../components/SectionTitle'
+import { SkeletonLoader, SkeletonLoaderScreen } from '../../../../components/SkeletonLoader'
 import { useWalletContext } from '../../../../contexts/WalletContext'
 import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
@@ -60,6 +61,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           testID='balances_title'
           text={translate('screens/BalancesScreen', 'BALANCE DETAILS')}
         />
+      )}
+      ListEmptyComponent={(
+        <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Balance} />
       )}
     />
   )
