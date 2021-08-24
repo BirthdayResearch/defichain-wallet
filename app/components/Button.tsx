@@ -19,10 +19,11 @@ export function Button (props: ButtonProps): JSX.Element {
     margin = 'm-4 mt-8'
   } = props
   const { theme } = useThemeContext()
-  const themedColor = theme === 'light' ? color : `dark${color}`
+  const isLight = theme === 'light'
+  const themedColor = isLight ? color : `dark${color}`
   const buttonStyle = `${fill === 'flat' ? 'border-0' : `border border-${themedColor} border-opacity-20`}
                     ${fill === 'fill' ? `bg-${themedColor} bg-opacity-10` : 'bg-transparent'}`
-  const disabledStyle = 'bg-black bg-opacity-20 text-white text-opacity-5 border-0'
+  const disabledStyle = isLight ? 'bg-black bg-opacity-20 text-white text-opacity-5 border-0' : 'bg-gray-700 text-white text-opacity-5 border-0'
 
   const textStyle = `${props.disabled === true ? 'text-white text-opacity-20' : `text-${themedColor}`}`
   return (

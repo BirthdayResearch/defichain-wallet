@@ -7,7 +7,6 @@ import { NavigationProp, StackActions, useNavigation } from '@react-navigation/n
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
-import { ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { NumberRow } from '../../../../../components/NumberRow'
@@ -15,6 +14,7 @@ import { SectionTitle } from '../../../../../components/SectionTitle'
 import { SubmitButtonGroup } from '../../../../../components/SubmitButtonGroup'
 import { SummaryTitle } from '../../../../../components/SummaryTitle'
 import { TextRow } from '../../../../../components/TextRow'
+import { ThemedScrollView } from '../../../../../components/themed'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
@@ -84,7 +84,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   }, [JSON.stringify(tokens)])
 
   return (
-    <ScrollView style={tailwind('bg-gray-100 pb-4')}>
+    <ThemedScrollView style={tailwind('pb-4')}>
       <SummaryTitle
         title={translate('screens/SendConfirmationScreen', 'YOU ARE SENDING')} testID='text_send_amount'
         amount={amount} suffix={` ${token.symbol}`}
@@ -122,7 +122,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         label={translate('screens/SendConfirmationScreen', 'SEND')}
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
       />
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 
