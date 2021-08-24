@@ -7,6 +7,25 @@ context('Wallet - Transaction - List', () => {
       cy.getByTestID('bottom_tab_transactions').click()
     })
 
+    it('should displayer skeleton loader when API has yet to return', () => {
+      cy.intercept('**/transactions?size=*', {
+        body: {
+          data: [
+            {}
+          ]
+        },
+        delay: 3000
+      })
+      cy.getByTestID('transaction_skeleton_loader').should('exist')
+    })
+
+    it('should not display skeleton loader when API has return', () => {
+      cy.intercept('**/transactions?size=*').as('getTransactions')
+      cy.wait('@getTransactions').then(() => {
+        cy.getByTestID('transaction_skeleton_loader').should('not.exist')
+      })
+    })
+
     it('should display 2 rows', () => {
       cy.getByTestID('transactions_screen_list').should('exist')
       cy.getByTestID('transaction_row_0').should('exist')
