@@ -52,11 +52,11 @@ Array [
     >
       <RNSVGGroup>
         <RNSVGRect
-          clipPath="lo66w79-animated-diff"
+          clipPath="smtapff-animated-diff"
           fill={
             Array [
               1,
-              "lo66w79-diff",
+              "smtapff-diff",
             ]
           }
           height="100%"
@@ -71,7 +71,7 @@ Array [
         />
         <RNSVGDefs>
           <RNSVGClipPath
-            name="lo66w79-animated-diff"
+            name="smtapff-animated-diff"
           >
             <RNSVGCircle
               cx="17"
@@ -134,7 +134,7 @@ Array [
             }
             gradientTransform={null}
             gradientUnits={0}
-            name="lo66w79-diff"
+            name="smtapff-diff"
             x1="-100%"
             x2="0%"
             y1={0}
@@ -194,11 +194,11 @@ Array [
     >
       <RNSVGGroup>
         <RNSVGRect
-          clipPath="7awn95k-animated-diff"
+          clipPath="i0blz67-animated-diff"
           fill={
             Array [
               1,
-              "7awn95k-diff",
+              "i0blz67-diff",
             ]
           }
           height="100%"
@@ -213,7 +213,7 @@ Array [
         />
         <RNSVGDefs>
           <RNSVGClipPath
-            name="7awn95k-animated-diff"
+            name="i0blz67-animated-diff"
           >
             <RNSVGCircle
               cx="17"
@@ -276,7 +276,7 @@ Array [
             }
             gradientTransform={null}
             gradientUnits={0}
-            name="7awn95k-diff"
+            name="i0blz67-diff"
             x1="-100%"
             x2="0%"
             y1={0}
@@ -336,11 +336,11 @@ Array [
     >
       <RNSVGGroup>
         <RNSVGRect
-          clipPath="37gcgfa-animated-diff"
+          clipPath="wsm8ylq-animated-diff"
           fill={
             Array [
               1,
-              "37gcgfa-diff",
+              "wsm8ylq-diff",
             ]
           }
           height="100%"
@@ -355,7 +355,7 @@ Array [
         />
         <RNSVGDefs>
           <RNSVGClipPath
-            name="37gcgfa-animated-diff"
+            name="wsm8ylq-animated-diff"
           >
             <RNSVGCircle
               cx="17"
@@ -418,7 +418,7 @@ Array [
             }
             gradientTransform={null}
             gradientUnits={0}
-            name="37gcgfa-diff"
+            name="wsm8ylq-diff"
             x1="-100%"
             x2="0%"
             y1={0}
@@ -483,11 +483,11 @@ Array [
     >
       <RNSVGGroup>
         <RNSVGRect
-          clipPath="1fpuu3c-animated-diff"
+          clipPath="y3raut-animated-diff"
           fill={
             Array [
               1,
-              "1fpuu3c-diff",
+              "y3raut-diff",
             ]
           }
           height="100%"
@@ -502,7 +502,7 @@ Array [
         />
         <RNSVGDefs>
           <RNSVGClipPath
-            name="1fpuu3c-animated-diff"
+            name="y3raut-animated-diff"
           >
             <RNSVGCircle
               cx="17"
@@ -541,7 +541,7 @@ Array [
             }
             gradientTransform={null}
             gradientUnits={0}
-            name="1fpuu3c-diff"
+            name="y3raut-diff"
             x1="-100%"
             x2="0%"
             y1={0}
@@ -601,11 +601,11 @@ Array [
     >
       <RNSVGGroup>
         <RNSVGRect
-          clipPath="bsc51le-animated-diff"
+          clipPath="x4t2xd7-animated-diff"
           fill={
             Array [
               1,
-              "bsc51le-diff",
+              "x4t2xd7-diff",
             ]
           }
           height="100%"
@@ -620,7 +620,7 @@ Array [
         />
         <RNSVGDefs>
           <RNSVGClipPath
-            name="bsc51le-animated-diff"
+            name="x4t2xd7-animated-diff"
           >
             <RNSVGCircle
               cx="17"
@@ -659,7 +659,7 @@ Array [
             }
             gradientTransform={null}
             gradientUnits={0}
-            name="bsc51le-diff"
+            name="x4t2xd7-diff"
             x1="-100%"
             x2="0%"
             y1={0}
@@ -719,11 +719,11 @@ Array [
     >
       <RNSVGGroup>
         <RNSVGRect
-          clipPath="ypahn3-animated-diff"
+          clipPath="x5iba6n-animated-diff"
           fill={
             Array [
               1,
-              "ypahn3-diff",
+              "x5iba6n-diff",
             ]
           }
           height="100%"
@@ -738,7 +738,7 @@ Array [
         />
         <RNSVGDefs>
           <RNSVGClipPath
-            name="ypahn3-animated-diff"
+            name="x5iba6n-animated-diff"
           >
             <RNSVGCircle
               cx="17"
@@ -777,7 +777,7 @@ Array [
             }
             gradientTransform={null}
             gradientUnits={0}
-            name="ypahn3-diff"
+            name="x5iba6n-diff"
             x1="-100%"
             x2="0%"
             y1={0}
