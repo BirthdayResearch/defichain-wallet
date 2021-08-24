@@ -1,5 +1,6 @@
 import React from 'react'
 import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
+import { useThemeContext } from '../contexts/ThemeProvider'
 import { tailwind } from '../tailwind'
 import { Text } from './Text'
 
@@ -17,11 +18,13 @@ export function Button (props: ButtonProps): JSX.Element {
     fill = 'fill',
     margin = 'm-4 mt-8'
   } = props
-  const buttonStyle = `${fill === 'flat' ? 'border-0' : `border border-${color} border-opacity-20`}
-                    ${fill === 'fill' ? `bg-${color} bg-opacity-10` : 'bg-transparent'}`
+  const { theme } = useThemeContext()
+  const themedColor = theme === 'light' ? color : `dark${color}`
+  const buttonStyle = `${fill === 'flat' ? 'border-0' : `border border-${themedColor} border-opacity-20`}
+                    ${fill === 'fill' ? `bg-${themedColor} bg-opacity-10` : 'bg-transparent'}`
   const disabledStyle = 'bg-black bg-opacity-20 text-white text-opacity-5 border-0'
 
-  const textStyle = `${props.disabled === true ? 'text-white text-opacity-20' : `text-${color}`}`
+  const textStyle = `${props.disabled === true ? 'text-white text-opacity-20' : `text-${themedColor}`}`
   return (
     <TouchableOpacity
       {...props}

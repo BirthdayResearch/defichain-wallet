@@ -2,10 +2,9 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
-import { ScrollView, TouchableOpacity } from 'react-native'
-import { Text } from '../../../../../components'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { SummaryTitle } from '../../../../../components/SummaryTitle'
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '../../../../../components/themed'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
@@ -32,7 +31,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
   }, [JSON.stringify(tokens)])
 
   return (
-    <ScrollView style={tailwind('bg-gray-100')}>
+    <ThemedScrollView>
       <SummaryTitle
         title={translate('screens/TokenDetailScreen', 'AMOUNT BALANCE')}
         amount={new BigNumber(token.amount)} suffix={` ${token.symbol}`} testID='token_detail_amount'
@@ -70,21 +69,21 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
           />
         )
       }
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 
 function TokenActionRow ({ title, icon, onPress, testID }: TokenActionItems): JSX.Element {
   return (
-    <TouchableOpacity
+    <ThemedTouchableOpacity
       testID={testID} onPress={onPress}
       style={tailwind('flex-row py-4 pl-4 pr-2 bg-white border-b border-gray-200')}
     >
-      <MaterialIcons name={icon} size={24} style={tailwind('text-primary')} />
-      <Text style={tailwind('flex-grow ml-2')}>
+      <ThemedIcon iconType='MaterialIcons' name={icon} size={24} light='text-primary' dark='text-darkprimary' />
+      <ThemedText style={tailwind('flex-grow ml-2')}>
         {title}
-      </Text>
-      <MaterialIcons name='chevron-right' size={24} />
-    </TouchableOpacity>
+      </ThemedText>
+      <ThemedIcon iconType='MaterialIcons' name='chevron-right' size={24} />
+    </ThemedTouchableOpacity>
   )
 }
