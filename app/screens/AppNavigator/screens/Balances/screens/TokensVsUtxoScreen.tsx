@@ -1,30 +1,29 @@
-import { MaterialIcons } from '@expo/vector-icons'
 import React from 'react'
-import { ScrollView, View } from 'react-native'
-import { Text } from '../../../../../components'
+import { View } from 'react-native'
 import { getNativeIcon } from '../../../../../components/icons/assets'
+import { ThemedIcon, ThemedScrollView, ThemedText } from '../../../../../components/themed'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 
 export function TokensVsUtxoScreen (): JSX.Element {
   return (
-    <ScrollView
-      testID='token_vs_utxo_screen' style={tailwind('bg-white h-full')}
+    <ThemedScrollView
+      testID='token_vs_utxo_screen' style={tailwind('h-full')}
       contentContainerStyle={{
         flexGrow: 1,
         justifyContent: 'space-between'
       }}
     >
       <View style={tailwind('pt-6 px-4 border-b-2 border-gray-200')}>
-        <Text style={tailwind('text-black pb-6')}>
+        <ThemedText style={tailwind('pb-6')}>
           {translate('screens/TokensVsUtxoScreen', 'DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.')}
-        </Text>
-        <Text style={tailwind('text-black pb-6')}>
+        </ThemedText>
+        <ThemedText style={tailwind('pb-6')}>
           {translate('screens/TokensVsUtxoScreen', 'UTXO DFI is the main form DFI and is used for core cryptocurrency purposes like send, receive and fees. DFI tokens are used for DeFi functions such as swaps and liquidity mining.')}
-        </Text>
-        <Text style={tailwind('text-black pb-4')}>
+        </ThemedText>
+        <ThemedText style={tailwind('pb-4')}>
           {translate('screens/TokensVsUtxoScreen', 'Your DFI balance includes both UTXO and tokens.')}
-        </Text>
+        </ThemedText>
       </View>
       <View style={tailwind('flex flex-row flex-grow self-stretch items-stretch')}>
         <View style={tailwind('w-6/12 border-r-2 border-gray-200 px-4 py-5')}>
@@ -41,7 +40,7 @@ export function TokensVsUtxoScreen (): JSX.Element {
           <ComparisonRow label='Atomic Swaps' />
         </View>
       </View>
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 
@@ -52,7 +51,7 @@ function ComparisonTitle (props: {tokenUnit: '_UTXO' | 'DFI'}): JSX.Element {
   return (
     <View style={tailwind('flex flex-row items-center pb-5')}>
       <TokenIcon style={tailwind('mr-2')} />
-      <Text style={tailwind('text-lg')}>{translate('screens/TokensVsUtxoScreen', label)}</Text>
+      <ThemedText style={tailwind('text-lg')}>{translate('screens/TokensVsUtxoScreen', label)}</ThemedText>
     </View>
   )
 }
@@ -60,8 +59,14 @@ function ComparisonTitle (props: {tokenUnit: '_UTXO' | 'DFI'}): JSX.Element {
 function ComparisonRow (props: {label: string}): JSX.Element {
   return (
     <View style={tailwind('flex flex-row pb-2')}>
-      <MaterialIcons name='check' size={24} style={tailwind('text-green-500 mr-2')} />
-      <Text style={tailwind('text-sm font-medium')}>{translate('screens/TokensVsUtxoScreen', props.label)}</Text>
+      <ThemedIcon
+        iconType='MaterialIcons' name='check' size={24} style={tailwind('mr-2')} light='text-success'
+        dark='text-darksuccess'
+      />
+      <ThemedText
+        style={tailwind('text-sm font-medium')}
+      >{translate('screens/TokensVsUtxoScreen', props.label)}
+      </ThemedText>
     </View>
   )
 }
