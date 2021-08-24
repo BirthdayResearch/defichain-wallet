@@ -1,15 +1,17 @@
 import * as React from 'react'
 import ContentLoader, { Circle, Rect } from 'react-content-loader/native'
-import { View } from 'react-native'
+import { ThemedView } from '../../../../../components/themed'
 import { useThemeContext } from '../../../../../contexts/ThemeProvider'
 import { tailwind } from '../../../../../tailwind'
 
 export function DexSkeletonLoader (): JSX.Element {
-  const { theme, getThemeClass } = useThemeContext()
+  const { theme } = useThemeContext()
   return (
-    <View
+    <ThemedView
       testID='dex_skeleton_loader'
-      style={tailwind('p-4 w-full items-center justify-center', getThemeClass('row-bg row-border'))}
+      light='bg-white border-b border-gray-200'
+      dark='bg-darksurface border-b border-dark'
+      style={tailwind('p-4 w-full items-center justify-center')}
     >
       <ContentLoader
         speed={2}
@@ -33,6 +35,6 @@ export function DexSkeletonLoader (): JSX.Element {
         <Rect x='210' y='105' width='150' height='15' />
 
       </ContentLoader>
-    </View>
+    </ThemedView>
   )
 }
