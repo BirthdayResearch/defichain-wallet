@@ -8,6 +8,6 @@ type ThemedTextProps = TextProps & ThemedProps
 
 export function ThemedText (props: ThemedTextProps): JSX.Element {
   const { theme } = useThemeContext()
-  const { style, light, dark, ...otherProps } = props
+  const { style, light = 'text-black', dark = 'text-white text-opacity-90', ...otherProps } = props
   return <Text style={[style, tailwind(theme === 'light' ? light : dark)]} {...otherProps} />
 }

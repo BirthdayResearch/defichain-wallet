@@ -21,7 +21,7 @@ export function RowThemeItem (): JSX.Element {
       </ThemedText>
       <View style={tailwind('flex-row items-center')}>
         <MaterialCommunityIcons
-          style={tailwind('mr-2 light-text', { 'text-yellow-400': theme !== 'dark' })}
+          style={tailwind('mr-2 text-gray-300', { 'text-yellow-400': theme !== 'dark' })}
           name='white-balance-sunny'
           size={20}
         />
@@ -35,7 +35,7 @@ export function RowThemeItem (): JSX.Element {
           testID='theme_switch'
         />
         <MaterialCommunityIcons
-          style={tailwind('ml-2 light-text', { 'text-yellow-400': theme === 'dark' })}
+          style={tailwind('ml-2 text-gray-300', { 'text-yellow-400': theme === 'dark' })}
           name='moon-waning-crescent'
           size={20}
         />

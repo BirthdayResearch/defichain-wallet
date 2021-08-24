@@ -8,6 +8,6 @@ type ThemedViewProps = View['props'] & ThemedProps
 
 export function ThemedView (props: ThemedViewProps): JSX.Element {
   const { theme } = useThemeContext()
-  const { style, light, dark, ...otherProps } = props
+  const { style, light = 'bg-gray-100', dark = 'bg-dark', ...otherProps } = props
   return <View style={[style, tailwind(theme === 'light' ? light : dark)]} {...otherProps} />
 }

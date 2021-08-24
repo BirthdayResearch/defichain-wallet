@@ -8,6 +8,7 @@ type ThemedFlatListProps = FlatList['props'] & ThemedProps
 
 export function ThemedFlatList (props: ThemedFlatListProps): JSX.Element {
   const { theme } = useThemeContext()
-  const { style, light, dark, ...otherProps } = props
+  const { style, light = 'bg-gray-100', dark = 'bg-dark', ...otherProps } = props
+
   return <FlatList style={[style, tailwind(theme === 'light' ? light : dark)]} {...otherProps} />
 }

@@ -50,8 +50,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   return (
     <ThemedFlatList
       testID='balances_list'
-      light='bg-gray-100'
-      dark='bg-dark'
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
