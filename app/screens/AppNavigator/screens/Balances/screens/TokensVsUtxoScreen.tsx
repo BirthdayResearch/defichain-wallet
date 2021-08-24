@@ -60,8 +60,8 @@ function ComparisonRow (props: {label: string}): JSX.Element {
   return (
     <View style={tailwind('flex flex-row pb-2')}>
       <ThemedIcon
-        iconType='MaterialIcons' name='check' size={24} style={tailwind('mr-2')} light='text-success'
-        dark='text-darksuccess'
+        iconType='MaterialIcons' name='check' size={24} style={tailwind('mr-2')} light='text-success-500'
+        dark='text-darksuccess-500'
       />
       <ThemedText
         style={tailwind('text-sm font-medium')}

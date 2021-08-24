@@ -143,7 +143,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
       <SectionTitle text={title.toUpperCase()} testID={`text_input_convert_from_${props.mode}_text`} />
       <ThemedView
         style={tailwind('flex-row w-full items-center pl-4 pr-4')} light='bg-white border-b border-gray-200'
-        dark='bg-darksurface border-b border-dark'
+        dark='bg-gray-800 border-b border-gray-700'
       >
         <NumberTextInput
           placeholder={translate('screens/Convert', 'Enter an amount')}
@@ -161,7 +161,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
       </ThemedView>
       <ThemedView
         style={tailwind('w-full px-4 flex-row items-center')} light='bg-white border-b border-gray-200'
-        dark='bg-darksurface border-b border-dark'
+        dark='bg-gray-800 border-b border-gray-700'
       >
         <View style={tailwind('flex flex-row flex-1 px-1 py-4 flex-wrap mr-2')}>
           <ThemedText>{translate('screens/Convert', 'Balance')}: </ThemedText>
@@ -198,7 +198,7 @@ function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: str
       <SectionTitle text={title} testID='text_input_convert_from_to_text' />
       <ThemedView
         style={tailwind('w-full px-4 flex-row items-center')} light='bg-white border-b border-gray-200'
-        dark='bg-darksurface border-b border-dark'
+        dark='bg-gray-800 border-b border-gray-700'
       >
         <View style={tailwind('flex flex-row flex-1 px-1 py-4 flex-wrap mr-2')}>
           <ThemedText>{translate('screens/Convert', 'Balance')}: </ThemedText>
@@ -227,13 +227,13 @@ function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
       <ThemedTouchableOpacity
         testID='button_convert_mode_toggle'
         light='border border-gray-300 rounded bg-white'
-        dark='border border-gray-300 rounded bg-dark'
+        dark='border border-gray-400 rounded bg-gray-900'
         style={tailwind('p-1')}
         onPress={props.onPress}
       >
         <ThemedIcon
           iconType='MaterialIcons' name='swap-vert' size={24} light='text-primary-500'
-          dark='text-darkprimary'
+          dark='text-darkprimary-500'
         />
       </ThemedTouchableOpacity>
     </View>
@@ -250,9 +250,9 @@ function TokenVsUtxosInfo (): JSX.Element {
       }}
       testID='token_vs_utxo_info'
     >
-      <ThemedIcon iconType='MaterialIcons' name='help' size={16} light='text-primary-500' dark='text-darkprimary' />
+      <ThemedIcon iconType='MaterialIcons' name='help' size={16} light='text-primary-500' dark='text-darkprimary-500' />
       <ThemedText
-        light='text-primary-500' dark='text-darkprimary'
+        light='text-primary-500' dark='text-darkprimary-500'
         style={tailwind('ml-1 text-sm font-medium')}
       >{translate('screens/ConvertScreen', 'Token vs UTXO, what is the difference?')}
       </ThemedText>

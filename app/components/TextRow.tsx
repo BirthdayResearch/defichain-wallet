@@ -7,7 +7,7 @@ export function TextRow (props: { lhs: string, rhs: { value: string, testID: str
   return (
     <ThemedView
       style={tailwind('p-4 flex-row items-start w-full')} light='bg-white border-b border-gray-200'
-      dark='bg-darksurface border-b border-dark'
+      dark='bg-gray-800 border-b border-gray-700'
     >
       <View style={tailwind('flex-1')}>
         <ThemedText style={tailwind('font-medium')}>{props.lhs}</ThemedText>

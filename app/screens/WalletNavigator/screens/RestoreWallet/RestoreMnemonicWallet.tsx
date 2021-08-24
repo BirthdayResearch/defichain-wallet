@@ -127,7 +127,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
                   ref={inputRefMap[order]}
                   testID={`recover_word_${order}`}
                   placeholderTextColor={`${invalid && isTouched ? 'rgba(255, 0, 0, 1)' : 'rgba(0, 0, 0, 0.4)'}`}
-                  style={tailwind(`flex-grow p-4 pl-0 ${invalid && isTouched ? 'text-error' : 'text-black'}`)}
+                  style={tailwind(`flex-grow p-4 pl-0 ${invalid && isTouched ? 'text-error-500' : 'text-black'}`)}
                   autoCapitalize='none'
                   autoCompleteType='off'
                   value={value}

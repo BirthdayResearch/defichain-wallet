@@ -14,7 +14,7 @@ export function RowThemeItem (): JSX.Element {
       testID='theme_row'
       style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
       light='bg-white border-b border-gray-200'
-      dark='bg-darksurface border-b border-dark'
+      dark='bg-gray-800 border-b border-gray-700'
     >
       <ThemedText style={tailwind('font-medium')} light='text-black' dark='text-white text-opacity-90'>
         {translate('screens/Settings', 'Theme')}

@@ -54,7 +54,7 @@ export function ReceiveScreen (): JSX.Element {
         >{address}
         </ThemedText>
       </ThemedView>
-      <ThemedView style={tailwind('flex flex-col p-4')} light='bg-white' dark='bg-dark'>
+      <ThemedView style={tailwind('flex flex-col p-4')} light='bg-white' dark='bg-gray-900'>
         {
           isCopied
             ? (
@@ -63,10 +63,10 @@ export function ReceiveScreen (): JSX.Element {
               >
                 <ThemedIcon
                   iconType='MaterialIcons' name='check' size={20} style={tailwind('self-center')}
-                  light='text-success' dark='text-darksuccess'
+                  light='text-success-500' dark='text-darksuccess-500'
                 />
                 <ThemedText
-                  light='text-success' dark='text-darksuccess'
+                  light='text-success-500' dark='text-darksuccess-500'
                   style={tailwind('ml-1 uppercase font-medium')}
                 >{translate('screens/ReceiveScreen', 'Copied to Clipboard')}
                 </ThemedText>
@@ -86,12 +86,12 @@ export function ReceiveScreen (): JSX.Element {
               >
                 <ThemedIcon
                   iconType='MaterialIcons'
-                  light='text-primary-500' dark='text-darkprimary'
+                  light='text-primary-500' dark='text-darkprimary-500'
                   style={tailwind('self-center')} name='content-copy' size={18}
                 />
                 <ThemedText
                   style={tailwind('ml-2 uppercase font-medium')}
-                  light='text-primary-500' dark='text-darkprimary'
+                  light='text-primary-500' dark='text-darkprimary-500'
                 >{translate('screens/ReceiveScreen', 'COPY TO CLIPBOARD')}
                 </ThemedText>
               </TouchableOpacity>
@@ -105,11 +105,11 @@ export function ReceiveScreen (): JSX.Element {
         >
           <ThemedIcon
             iconType='MaterialIcons'
-            light='text-primary-500' dark='text-darkprimary'
+            light='text-primary-500' dark='text-darkprimary-500'
             style={tailwind('self-center')} name='share' size={18}
           />
           <ThemedText
-            light='text-primary-500' dark='text-darkprimary'
+            light='text-primary-500' dark='text-darkprimary-500'
             style={tailwind('ml-2 uppercase font-medium')}
           >{translate('screens/ReceiveScreen', 'SHARE')}
           </ThemedText>

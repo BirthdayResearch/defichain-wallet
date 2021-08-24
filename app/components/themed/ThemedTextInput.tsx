@@ -8,7 +8,7 @@ type ThemedTextInputProps = TextInput['props'] & ThemedProps
 
 export function ThemedTextInput (props: ThemedTextInputProps): JSX.Element {
   const { theme } = useThemeContext()
-  const { style, light = 'text-gray-700 bg-white', dark = 'text-white bg-darksurface', ...otherProps } = props
+  const { style, light = 'text-gray-700 bg-white', dark = 'text-white bg-gray-800', ...otherProps } = props
   return (
     <TextInput
       placeholderTextColor={theme === 'light' ? 'rgba(0, 0, 0, 0.4)' : '#828282'}

@@ -45,7 +45,7 @@ export function SettingsNavigator (): JSX.Element {
             >
               <ThemedIcon
                 iconType='MaterialIcons' name='help-outline' size={24} light='text-primary-500'
-                dark='text-darkprimary'
+                dark='text-darkprimary-500'
               />
             </TouchableOpacity>
           )

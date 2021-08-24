@@ -156,13 +156,13 @@ function AddressRow ({
             <ThemedTouchableOpacity
               testID='qr_code_button'
               light='bg-white'
-              dark='bg-darksurface'
+              dark='bg-gray-800'
               style={tailwind('w-14 p-4')}
               onPress={onQrButtonPress}
             >
               <ThemedIcon
                 iconType='MaterialIcons' name='qr-code-scanner' size={24} light='text-primary-500'
-                dark='text-darkprimary'
+                dark='text-darkprimary-500'
               />
             </ThemedTouchableOpacity>
           </View>
@@ -204,7 +204,7 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
         render={({ field: { onBlur, onChange, value } }) => (
           <ThemedView
             style={tailwind('flex-row w-full')} light='bg-white border-b border-gray-200'
-            dark='bg-darksurface border-b border-dark'
+            dark='bg-gray-800 border-b border-gray-700'
           >
             <NumberTextInput
               testID='amount_input'
@@ -217,7 +217,7 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
             />
             <ThemedView
               style={tailwind('flex-row pr-4 items-center')} light='bg-white border-b border-gray-200'
-              dark='bg-darksurface border-b border-dark'
+              dark='bg-gray-800 border-b border-gray-700'
             >
               <Icon />
               <InputIconLabel testID='token_symbol' label={token.symbol} screenType={IconLabelScreenType.Balance} />
@@ -229,7 +229,7 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
       />
       <ThemedView
         style={tailwind('flex-row w-full px-4 items-center')} light='bg-white border-b border-gray-200'
-        dark='bg-darksurface border-b border-dark'
+        dark='bg-gray-800 border-b border-gray-700'
       >
         <View style={tailwind('flex-1 flex-row py-4 flex-wrap mr-2')}>
           <ThemedText>{translate('screens/SendScreen', 'Balance: ')}</ThemedText>

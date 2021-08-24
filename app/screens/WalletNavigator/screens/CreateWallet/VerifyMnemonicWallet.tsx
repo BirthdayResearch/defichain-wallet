@@ -131,7 +131,7 @@ interface RecoveryWordItem {
 
 function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWordItem): JSX.Element {
   const [selectedWord, setSelectedWord] = useState<string>()
-  const activeButton = 'bg-primary bg-opacity-10 border border-primary border-opacity-20'
+  const activeButton = 'bg-primary-500 bg-opacity-10 border border-primary-500 border-opacity-20'
   return (
     <View style={tailwind('bg-white p-4 py-6 border-b border-gray-200')}>
       <View style={tailwind('flex-row')}>

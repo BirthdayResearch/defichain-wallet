@@ -43,7 +43,7 @@ export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Eleme
   function following (): JSX.Element[] {
     const arr: JSX.Element[] = []
     for (let i = 1; i < totalStep; i++) {
-      const iconStyle = current >= i + 1 ? 'bg-primary' : 'bg-gray-100'
+      const iconStyle = current >= i + 1 ? 'bg-primary-500' : 'bg-gray-100'
       arr.push(
         <View
           key={i * 2}
@@ -68,10 +68,10 @@ function StepNode (props: { step: number, current: number, content: string }): J
   let stepperStyle
   let textStyle
   if (props.current === props.step) {
-    stepperStyle = 'bg-primary bg-opacity-10 border border-primary'
+    stepperStyle = 'bg-primary-500 bg-opacity-10 border border-primary-500'
     textStyle = 'text-primary-500'
   } else if (props.current > props.step) {
-    stepperStyle = 'bg-primary border border-primary'
+    stepperStyle = 'bg-primary-500 border border-primary-500'
     textStyle = 'text-white'
   } else {
     stepperStyle = 'bg-transparent border border-gray-200'

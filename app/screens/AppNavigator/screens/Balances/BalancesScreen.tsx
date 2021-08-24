@@ -59,7 +59,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           token={item} key={item.symbol}
           onPress={() => navigation.navigate({ name: 'TokenDetail', params: { token: item }, merge: true })}
         />}
-      ItemSeparatorComponent={() => <ThemedView style={tailwind('h-px')} light='bg-gray-100' dark='bg-dark' />}
+      ItemSeparatorComponent={() => <ThemedView style={tailwind('h-px')} light='bg-gray-100' dark='bg-gray-700' />}
       ListHeaderComponent={(
         <SectionTitle
           testID='balances_title'
@@ -78,7 +78,7 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
       onPress={onPress} testID={testID}
       style={tailwind('py-4 pl-4 pr-2 flex-row justify-between items-center')}
       light='bg-white'
-      dark='bg-darksurface'
+      dark='bg-gray-800'
     >
       <View style={tailwind('flex-row items-center flex-grow')}>
         <Icon testID={`${testID}_icon`} />

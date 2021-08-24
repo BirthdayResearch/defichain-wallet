@@ -10,7 +10,7 @@ export function TokenBalanceRow (props: { lhs: string, rhs: { value: string | nu
   return (
     <ThemedView
       style={tailwind('p-4 flex-row items-center w-full')} light='bg-white border-b border-gray-200'
-      dark='bg-darksurface border-b border-dark'
+      dark='bg-gray-800 border-b border-gray-700'
     >
       <View style={tailwind('flex-1 flex-row items-center')}>
         <TokenIcon style={tailwind('mr-2')} />

@@ -10,7 +10,7 @@ export function getDefaultTheme (theme: NonNullable<ColorSchemeName>): Theme {
     colors: {
       ...defaultTheme.colors,
       primary: isLight ? '#ff00af' : '#EE2CB1',
-      card: isLight ? defaultTheme.colors.card : '#202020'
+      card: isLight ? defaultTheme.colors.card : '#262626'
     }
   }
 }

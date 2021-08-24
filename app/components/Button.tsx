@@ -20,12 +20,16 @@ export function Button (props: ButtonProps): JSX.Element {
   } = props
   const { theme } = useThemeContext()
   const isLight = theme === 'light'
-  const themedColor = isLight ? `${color}-500` : `dark${color}-500`
-  const buttonStyle = `${fill === 'flat' ? 'border-0' : `border border-${themedColor} border-opacity-20`}
-                    ${fill === 'fill' ? `bg-${themedColor} bg-opacity-10` : 'bg-transparent'}`
-  const disabledStyle = isLight ? 'bg-black bg-opacity-20 text-white text-opacity-5 border-0' : 'bg-gray-600 text-white text-opacity-5 border-0'
+  const themedColor = isLight ? `${color}` : `dark${color}`
 
-  const textStyle = `${props.disabled === true ? 'text-white text-opacity-20' : `text-${themedColor}`}`
+  const disabledStyle = isLight ? 'bg-gray-200 border-0' : 'bg-gray-600 text-gray-500 border-0'
+  const disabledText = isLight ? 'text-gray-400' : 'text-gray-500'
+
+  const buttonColor = isLight ? `bg-${themedColor}-50` : `bg-${themedColor}-700`
+  const buttonStyle = `${fill === 'fill' ? buttonColor : 'bg-transparent'}`
+  const buttonText = isLight ? `text-${themedColor}-500` : `${fill === 'fill' ? 'text-white' : 'text-primary-500'}`
+
+  const textStyle = `${props.disabled === true ? disabledText : buttonText}`
   return (
     <TouchableOpacity
       {...props}

@@ -22,6 +22,7 @@ enum SectionKey {
   YourLiquidity = 'YOUR LIQUIDITY',
   AvailablePoolPair = 'AVAILABLE POOL PAIR'
 }
+
 export function DexScreen (): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const tokens = useTokensAPI()
@@ -82,7 +83,7 @@ export function DexScreen (): JSX.Element {
               )
             }
             return (
-              <ThemedView style={tailwind('px-4 pt-4 pb-2')} light='bg-gray-100' dark='bg-dark'>
+              <ThemedView style={tailwind('px-4 pt-4 pb-2')} light='bg-gray-100' dark='bg-gray-900'>
                 <ThemedText style={tailwind('text-base font-medium')}>
                   {
                     translate('screens/DexScreen', 'Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.')
@@ -123,7 +124,7 @@ function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () =>
   return (
     <ThemedView
       testID='pool_pair_row_your' style={tailwind('p-4')} light='bg-white border-b border-gray-200'
-      dark='bg-darksurface border-b border-dark'
+      dark='bg-gray-800 border-b border-gray-700'
     >
       <View style={tailwind('flex-row items-center justify-between')}>
         <View style={tailwind('flex-row items-center')}>
@@ -166,7 +167,7 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
   return (
     <ThemedView
       testID='pool_pair_row' style={tailwind('p-4')} light='bg-white border-b border-gray-200'
-      dark='bg-darksurface border-b border-dark'
+      dark='bg-gray-800 border-b border-gray-700'
     >
       <View style={tailwind('flex-row items-center justify-between')}>
         <View style={tailwind('flex-row items-center')}>
@@ -210,7 +211,7 @@ function PoolPairLiqBtn (props: { name: React.ComponentProps<typeof MaterialIcon
     >
       <ThemedIcon
         iconType='MaterialIcons' size={24} name={props.name} light='text-primary-500'
-        dark='text-darkprimary'
+        dark='text-darkprimary-500'
       />
     </TouchableOpacity>
   )

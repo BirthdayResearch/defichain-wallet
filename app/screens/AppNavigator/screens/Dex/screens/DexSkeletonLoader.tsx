@@ -10,7 +10,7 @@ export function DexSkeletonLoader (): JSX.Element {
     <ThemedView
       testID='dex_skeleton_loader'
       light='bg-white border-b border-gray-200'
-      dark='bg-darksurface border-b border-dark'
+      dark='bg-gray-800 border-b border-gray-700'
       style={tailwind('p-4 w-full items-center justify-center')}
     >
       <ContentLoader

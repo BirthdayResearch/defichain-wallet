@@ -160,7 +160,7 @@ export function OceanInterface (): JSX.Element | null {
   }
 
   const { theme } = useThemeContext()
-  const currentTheme = `${theme === 'light' ? 'bg-white border-t border-gray-200' : 'bg-darksurface border-t border-gray-700'}`
+  const currentTheme = `${theme === 'light' ? 'bg-white border-t border-gray-200' : 'bg-gray-800 border-t border-gray-700'}`
   return (
     <Animated.View
       style={[tailwind('px-5 py-3 flex-row absolute w-full items-center z-10', currentTheme), {
@@ -199,8 +199,8 @@ function TransactionDetail ({
         !broadcasted
           ? <ActivityIndicator color='#FF00AF' />
           : <ThemedIcon
-              iconType='MaterialIcons' name='check-circle' size={20} light='text-success'
-              dark='text-darksuccess'
+              iconType='MaterialIcons' name='check-circle' size={20} light='text-success-500'
+              dark='text-darksuccess-500'
             />
       }
       <View style={tailwind('flex-auto mx-6 justify-center items-center text-center')}>
@@ -224,7 +224,7 @@ function TransactionError ({ errMsg, onClose }: { errMsg: string, onClose: () =>
   const err = errorMessageMapping(errMsg)
   return (
     <>
-      <ThemedIcon iconType='MaterialIcons' name='error' size={20} light='text-error' dark='text-darkerror' />
+      <ThemedIcon iconType='MaterialIcons' name='error' size={20} light='text-error-500' dark='text-darkerror' />
       <View style={tailwind('flex-auto mx-2 justify-center items-center text-center')}>
         <ThemedText
           style={tailwind('text-sm font-bold')}
@@ -249,7 +249,7 @@ function TransactionIDButton ({ txid, onPress }: { txid: string, onPress?: () =>
       onPress={onPress}
     >
       <ThemedText
-        light='text-primary-500' dark='text-darkprimary'
+        light='text-primary-500' dark='text-darkprimary-500'
         style={tailwind('text-sm font-medium mr-1')} numberOfLines={1}
         ellipsizeMode='tail'
       >
@@ -257,7 +257,7 @@ function TransactionIDButton ({ txid, onPress }: { txid: string, onPress?: () =>
       </ThemedText>
       <ThemedIcon
         iconType='MaterialIcons' name='open-in-new' size={18} light='text-primary-500'
-        dark='text-darkprimary'
+        dark='text-darkprimary-500'
       />
     </TouchableOpacity>
   )
@@ -269,7 +269,7 @@ function TransactionCloseButton (props: { onPress: () => void }): JSX.Element {
       testID='oceanInterface_close' onPress={props.onPress}
       style={tailwind('px-2 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
     >
-      <ThemedText style={tailwind('text-sm')} light='text-primary-500' dark='text-darkprimary'>
+      <ThemedText style={tailwind('text-sm')} light='text-primary-500' dark='text-darkprimary-500'>
         {translate('screens/OceanInterface', 'OK')}
       </ThemedText>
     </TouchableOpacity>
