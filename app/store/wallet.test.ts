@@ -1,9 +1,14 @@
-import { DexItem, tokensSelector, wallet, WalletState, WalletToken, } from './wallet';
+import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
+import { DexItem, tokensSelector, wallet, WalletState, WalletToken, setTokenDisplayAttributes} from './wallet';
 
 describe('wallet reducer', () => {
   let initialState: WalletState;
+  let baseDFI: AddressToken;
   let tokenDFI: WalletToken;
+  let baseUtxoDFI: AddressToken;
   let utxoDFI: WalletToken;
+  let baseBTC: AddressToken;
+  let tokenBTC: WalletToken;
 
   beforeEach(() => {
     initialState = {
@@ -11,7 +16,7 @@ describe('wallet reducer', () => {
       utxoBalance: '0',
       poolpairs: []
     };
-    tokenDFI = {
+    baseDFI = {
       id: '0',
       amount: '100000',
       isDAT: true,
@@ -19,16 +24,36 @@ describe('wallet reducer', () => {
       name: 'DeFiChain',
       symbol: 'DFI',
       symbolKey: 'DFI',
+    }
+    tokenDFI = {
+      ...baseDFI,
       avatarSymbol: 'DFI',
       displaySymbol: 'DFI (Token)'
     };
-    utxoDFI = {
-      ...tokenDFI,
+    baseUtxoDFI={
+      ...baseDFI,
       amount: '0',
       id: '0_utxo',
+    }
+    utxoDFI = {
+      ...baseUtxoDFI,
       avatarSymbol: '_UTXO',
       displaySymbol: 'DFI (UTXO)'
     }
+    baseBTC = {
+      id: '1',
+      isLPS: false,
+      name: 'Bitcoin',
+      isDAT: true,
+      symbol: 'BTC',
+      symbolKey: 'BTC',
+      amount: '1',
+    };
+    tokenBTC = {
+      ...baseBTC,
+      displaySymbol: 'dBTC',
+      avatarSymbol: 'BTC'
+    };
   })
 
   it('should handle initial state', () => {
@@ -103,23 +128,19 @@ describe('wallet reducer', () => {
   });
 
   it('should able to select tokens with existing DFI Token', () => {
-    const btc = {
-      id: '1',
-      isLPS: false,
-      name: 'Bitcoin',
-      isDAT: true,
-      symbol: 'BTC',
-      symbolKey: 'BTC',
-      amount: '1',
-      displaySymbol: 'BTC',
-      avatarSymbol: 'BTC'
-    };
     const state = {
       ...initialState,
       utxoBalance: '77.00000000',
-      tokens: [{ ...utxoDFI }, { ...tokenDFI }, { ...btc }]
+      tokens: [{ ...utxoDFI }, { ...tokenDFI }, { ...tokenBTC }]
     }
     const actual = tokensSelector(state)
-    expect(actual).toStrictEqual([{ ...utxoDFI, amount: '77.00000000' }, { ...tokenDFI }, { ...btc }])
+    expect(actual).toStrictEqual([{ ...utxoDFI, amount: '77.00000000' }, { ...tokenDFI }, { ...tokenBTC }])
+  });
+
+  it('should able to set token display attributes', () => {
+    const payload: AddressToken[] = [baseDFI, baseUtxoDFI, baseBTC]
+    const tokens: WalletToken[] = [tokenDFI, utxoDFI, tokenBTC]
+    const actual = payload.map(setTokenDisplayAttributes);
+    expect(actual).toStrictEqual(tokens)
   });
 })

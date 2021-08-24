@@ -207,7 +207,7 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
             />
             <View style={tailwind('flex-row bg-white pr-4 items-center')}>
               <Icon />
-              <InputIconLabel testID='token_symbol' label={token.symbol} screenType={IconLabelScreenType.Balance} />
+              <InputIconLabel testID='token_symbol' label={token.displaySymbol} screenType={IconLabelScreenType.Balance} />
             </View>
           </View>
         )}
@@ -218,7 +218,7 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
         <View style={tailwind('flex-1 flex-row py-4 flex-wrap mr-2')}>
           <Text>{translate('screens/SendScreen', 'Balance: ')}</Text>
           <NumberFormat
-            value={maxAmount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
+            value={maxAmount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.displaySymbol}`}
             renderText={(value) => <Text testID='max_value' style={tailwind('text-gray-500')}>{value}</Text>}
           />
         </View>

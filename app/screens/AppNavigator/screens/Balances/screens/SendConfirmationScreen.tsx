@@ -1,7 +1,6 @@
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction/dist'
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -20,6 +19,7 @@ import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
 import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
 import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
+import { WalletToken } from '../../../../../store/wallet'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
@@ -87,7 +87,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
     <ScrollView style={tailwind('bg-gray-100 pb-4')}>
       <SummaryTitle
         title={translate('screens/SendConfirmationScreen', 'YOU ARE SENDING')} testID='text_send_amount'
-        amount={amount} suffix={` ${token.symbol}`}
+        amount={amount} suffix={` ${token.displaySymbol}`}
       />
       <SectionTitle
         text={translate('screens/SendConfirmationScreen', 'TRANSACTION DETAILS')}
@@ -103,7 +103,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       />
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Amount')}
-        rightHandElements={[{ value: amount.toFixed(8), suffix: ` ${token.symbol}`, testID: 'text_amount' }]}
+        rightHandElements={[{ value: amount.toFixed(8), suffix: ` ${token.displaySymbol}`, testID: 'text_amount' }]}
       />
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Estimated fee')}
@@ -113,7 +113,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         lhs={translate('screens/SendConfirmationScreen', 'Remaining balance')}
         rightHandElements={[{
           value: BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)).minus(fee.toFixed(8)), 0).toFixed(8),
-          suffix: ` ${token.symbol}`,
+          suffix: ` ${token.displaySymbol}`,
           testID: 'text_balance'
         }]}
       />
@@ -129,7 +129,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
 interface SendForm {
   amount: BigNumber
   address: string
-  token: AddressToken
+  token: WalletToken
   networkName: NetworkName
 }
 
@@ -160,8 +160,8 @@ async function send ({
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
-      title: `${translate('screens/SendScreen', 'Sending')} ${token.symbol}`,
-      description: `${translate('screens/SendScreen', `Sending ${amount.toFixed(8)} ${token.symbol}`)}`,
+      title: `${translate('screens/SendScreen', 'Sending')} ${token.displaySymbol}`,
+      description: `${translate('screens/SendScreen', `Sending ${amount.toFixed(8)} ${token.displaySymbol}`)}`,
       postAction
     }))
   } catch (e) {

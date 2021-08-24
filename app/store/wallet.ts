@@ -44,24 +44,37 @@ const utxoDFI: WalletToken = {
   avatarSymbol: '_UTXO'
 }
 
+export const setTokenDisplayAttributes = (t: AddressToken): WalletToken => {
+  if (t.id === '0') {
+    return {
+      ...t,
+      name: 'DeFiChain',
+      displaySymbol: 'DFI (Token)',
+      avatarSymbol: t.symbol
+    }
+  }
+  if (t.id === '0_utxo') {
+    return {
+      ...t,
+      name: 'DeFiChain',
+      displaySymbol: 'DFI (UTXO)',
+      avatarSymbol: '_UTXO'
+    }
+  }
+  const isDST = !t?.isLPS && t?.isDAT
+  return {
+    ...t,
+    avatarSymbol: t.symbol,
+    displaySymbol: `${isDST ? 'd' : ''}${t?.symbolKey}`
+  }
+}
+
 export const wallet = createSlice({
   name: 'wallet',
   initialState,
   reducers: {
     setTokens: (state, action: PayloadAction<AddressToken[]>) => {
-      state.tokens = action.payload.map((t) => {
-        let displaySymbol = t.symbol
-        let avatarSymbol = t.symbol
-        if (t.id === '0') {
-          t.name = 'DeFiChain'
-          displaySymbol = 'DFI (Token)'
-        }
-        if (t.id === '0_utxo') {
-          displaySymbol = 'DFI (UTXO)'
-          avatarSymbol = '_UTXO'
-        }
-        return { ...t, displaySymbol, avatarSymbol }
-      })
+      state.tokens = action.payload.map(setTokenDisplayAttributes)
     },
     setUtxoBalance: (state, action: PayloadAction<string>) => {
       state.utxoBalance = action.payload
