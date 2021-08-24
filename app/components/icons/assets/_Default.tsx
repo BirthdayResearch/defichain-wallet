@@ -16,6 +16,7 @@ export function _Default (symbol: string): (props: SvgProps) => JSX.Element {
           y='50%'
           fill={text}
           textAnchor='middle'
+          fontSize='24'
           fontWeight='bolder'
           alignmentBaseline='central'
         >

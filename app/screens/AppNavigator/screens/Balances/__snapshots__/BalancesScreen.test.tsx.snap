@@ -196,6 +196,7 @@ exports[`balances page should match snapshot 1`] = `
                 fill={4294967295}
                 font={
                   Object {
+                    "fontSize": "24",
                     "fontWeight": "bolder",
                     "textAnchor": "middle",
                   }
@@ -415,6 +416,7 @@ exports[`balances page should match snapshot 1`] = `
                 fill={4294967295}
                 font={
                   Object {
+                    "fontSize": "24",
                     "fontWeight": "bolder",
                     "textAnchor": "middle",
                   }
@@ -634,6 +636,7 @@ exports[`balances page should match snapshot 1`] = `
                 fill={4294967295}
                 font={
                   Object {
+                    "fontSize": "24",
                     "fontWeight": "bolder",
                     "textAnchor": "middle",
                   }

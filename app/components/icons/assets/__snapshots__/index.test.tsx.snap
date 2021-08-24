@@ -5004,6 +5004,7 @@ exports[`token icons getNativeIcon("FAKE") should get <IconFAKE /> snapshot 1`] 
       fill={4294967295}
       font={
         Object {
+          "fontSize": "24",
           "fontWeight": "bolder",
           "textAnchor": "middle",
         }
