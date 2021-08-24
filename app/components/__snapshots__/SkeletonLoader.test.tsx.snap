@@ -1,0 +1,791 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`skeleton loader should render all skeleton loader for Dex 1`] = `
+Array [
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomColor": "rgba(229, 231, 235, 1)",
+        "borderBottomWidth": 1,
+        "borderLeftColor": "rgba(229, 231, 235, 1)",
+        "borderRightColor": "rgba(229, 231, 235, 1)",
+        "borderTopColor": "rgba(229, 231, 235, 1)",
+        "justifyContent": "center",
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+        "width": "100%",
+      }
+    }
+    testID="dex_skeleton_loader"
+  >
+    <RNSVGSvgView
+      align="xMidYMid"
+      bbHeight={130}
+      bbWidth="100%"
+      focusable={false}
+      height={130}
+      interval={0.25}
+      meetOrSlice={1}
+      minX={0}
+      minY={0}
+      style={
+        Array [
+          Object {
+            "backgroundColor": "transparent",
+            "borderWidth": 0,
+          },
+          Object {},
+          Object {
+            "flex": 0,
+            "height": 130,
+            "width": "100%",
+          },
+        ]
+      }
+      vbHeight={130}
+      vbWidth={328}
+      width="100%"
+    >
+      <RNSVGGroup>
+        <RNSVGRect
+          clipPath="lo66w79-animated-diff"
+          fill={
+            Array [
+              1,
+              "lo66w79-diff",
+            ]
+          }
+          height="100%"
+          propList={
+            Array [
+              "fill",
+            ]
+          }
+          width="100%"
+          x="0"
+          y="0"
+        />
+        <RNSVGDefs>
+          <RNSVGClipPath
+            name="lo66w79-animated-diff"
+          >
+            <RNSVGCircle
+              cx="17"
+              cy="23"
+              r="16"
+            />
+            <RNSVGRect
+              height="20"
+              width="100"
+              x="50"
+              y="13"
+            />
+            <RNSVGRect
+              height="15"
+              width="100"
+              x="0"
+              y="55"
+            />
+            <RNSVGRect
+              height="15"
+              width="150"
+              x="210"
+              y="55"
+            />
+            <RNSVGRect
+              height="15"
+              width="100"
+              x="0"
+              y="80"
+            />
+            <RNSVGRect
+              height="15"
+              width="150"
+              x="210"
+              y="80"
+            />
+            <RNSVGRect
+              height="15"
+              width="100"
+              x="0"
+              y="105"
+            />
+            <RNSVGRect
+              height="15"
+              width="150"
+              x="210"
+              y="105"
+            />
+          </RNSVGClipPath>
+          <RNSVGLinearGradient
+            gradient={
+              Array [
+                0,
+                -1250325,
+                0.5,
+                -1,
+                1,
+                -1250325,
+              ]
+            }
+            gradientTransform={null}
+            gradientUnits={0}
+            name="lo66w79-diff"
+            x1="-100%"
+            x2="0%"
+            y1={0}
+            y2={0}
+          />
+        </RNSVGDefs>
+      </RNSVGGroup>
+    </RNSVGSvgView>
+  </View>,
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomColor": "rgba(229, 231, 235, 1)",
+        "borderBottomWidth": 1,
+        "borderLeftColor": "rgba(229, 231, 235, 1)",
+        "borderRightColor": "rgba(229, 231, 235, 1)",
+        "borderTopColor": "rgba(229, 231, 235, 1)",
+        "justifyContent": "center",
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+        "width": "100%",
+      }
+    }
+    testID="dex_skeleton_loader"
+  >
+    <RNSVGSvgView
+      align="xMidYMid"
+      bbHeight={130}
+      bbWidth="100%"
+      focusable={false}
+      height={130}
+      interval={0.25}
+      meetOrSlice={1}
+      minX={0}
+      minY={0}
+      style={
+        Array [
+          Object {
+            "backgroundColor": "transparent",
+            "borderWidth": 0,
+          },
+          Object {},
+          Object {
+            "flex": 0,
+            "height": 130,
+            "width": "100%",
+          },
+        ]
+      }
+      vbHeight={130}
+      vbWidth={328}
+      width="100%"
+    >
+      <RNSVGGroup>
+        <RNSVGRect
+          clipPath="7awn95k-animated-diff"
+          fill={
+            Array [
+              1,
+              "7awn95k-diff",
+            ]
+          }
+          height="100%"
+          propList={
+            Array [
+              "fill",
+            ]
+          }
+          width="100%"
+          x="0"
+          y="0"
+        />
+        <RNSVGDefs>
+          <RNSVGClipPath
+            name="7awn95k-animated-diff"
+          >
+            <RNSVGCircle
+              cx="17"
+              cy="23"
+              r="16"
+            />
+            <RNSVGRect
+              height="20"
+              width="100"
+              x="50"
+              y="13"
+            />
+            <RNSVGRect
+              height="15"
+              width="100"
+              x="0"
+              y="55"
+            />
+            <RNSVGRect
+              height="15"
+              width="150"
+              x="210"
+              y="55"
+            />
+            <RNSVGRect
+              height="15"
+              width="100"
+              x="0"
+              y="80"
+            />
+            <RNSVGRect
+              height="15"
+              width="150"
+              x="210"
+              y="80"
+            />
+            <RNSVGRect
+              height="15"
+              width="100"
+              x="0"
+              y="105"
+            />
+            <RNSVGRect
+              height="15"
+              width="150"
+              x="210"
+              y="105"
+            />
+          </RNSVGClipPath>
+          <RNSVGLinearGradient
+            gradient={
+              Array [
+                0,
+                -1250325,
+                0.5,
+                -1,
+                1,
+                -1250325,
+              ]
+            }
+            gradientTransform={null}
+            gradientUnits={0}
+            name="7awn95k-diff"
+            x1="-100%"
+            x2="0%"
+            y1={0}
+            y2={0}
+          />
+        </RNSVGDefs>
+      </RNSVGGroup>
+    </RNSVGSvgView>
+  </View>,
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomColor": "rgba(229, 231, 235, 1)",
+        "borderBottomWidth": 1,
+        "borderLeftColor": "rgba(229, 231, 235, 1)",
+        "borderRightColor": "rgba(229, 231, 235, 1)",
+        "borderTopColor": "rgba(229, 231, 235, 1)",
+        "justifyContent": "center",
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+        "width": "100%",
+      }
+    }
+    testID="dex_skeleton_loader"
+  >
+    <RNSVGSvgView
+      align="xMidYMid"
+      bbHeight={130}
+      bbWidth="100%"
+      focusable={false}
+      height={130}
+      interval={0.25}
+      meetOrSlice={1}
+      minX={0}
+      minY={0}
+      style={
+        Array [
+          Object {
+            "backgroundColor": "transparent",
+            "borderWidth": 0,
+          },
+          Object {},
+          Object {
+            "flex": 0,
+            "height": 130,
+            "width": "100%",
+          },
+        ]
+      }
+      vbHeight={130}
+      vbWidth={328}
+      width="100%"
+    >
+      <RNSVGGroup>
+        <RNSVGRect
+          clipPath="37gcgfa-animated-diff"
+          fill={
+            Array [
+              1,
+              "37gcgfa-diff",
+            ]
+          }
+          height="100%"
+          propList={
+            Array [
+              "fill",
+            ]
+          }
+          width="100%"
+          x="0"
+          y="0"
+        />
+        <RNSVGDefs>
+          <RNSVGClipPath
+            name="37gcgfa-animated-diff"
+          >
+            <RNSVGCircle
+              cx="17"
+              cy="23"
+              r="16"
+            />
+            <RNSVGRect
+              height="20"
+              width="100"
+              x="50"
+              y="13"
+            />
+            <RNSVGRect
+              height="15"
+              width="100"
+              x="0"
+              y="55"
+            />
+            <RNSVGRect
+              height="15"
+              width="150"
+              x="210"
+              y="55"
+            />
+            <RNSVGRect
+              height="15"
+              width="100"
+              x="0"
+              y="80"
+            />
+            <RNSVGRect
+              height="15"
+              width="150"
+              x="210"
+              y="80"
+            />
+            <RNSVGRect
+              height="15"
+              width="100"
+              x="0"
+              y="105"
+            />
+            <RNSVGRect
+              height="15"
+              width="150"
+              x="210"
+              y="105"
+            />
+          </RNSVGClipPath>
+          <RNSVGLinearGradient
+            gradient={
+              Array [
+                0,
+                -1250325,
+                0.5,
+                -1,
+                1,
+                -1250325,
+              ]
+            }
+            gradientTransform={null}
+            gradientUnits={0}
+            name="37gcgfa-diff"
+            x1="-100%"
+            x2="0%"
+            y1={0}
+            y2={0}
+          />
+        </RNSVGDefs>
+      </RNSVGGroup>
+    </RNSVGSvgView>
+  </View>,
+]
+`;
+
+exports[`skeleton loader should render all skeleton loader for Transaction 1`] = `
+Array [
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomColor": "rgba(229, 231, 235, 1)",
+        "borderBottomWidth": 1,
+        "borderLeftColor": "rgba(229, 231, 235, 1)",
+        "borderRightColor": "rgba(229, 231, 235, 1)",
+        "borderTopColor": "rgba(229, 231, 235, 1)",
+        "justifyContent": "center",
+        "paddingBottom": 8,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 8,
+        "width": "100%",
+      }
+    }
+    testID="transaction_skeleton_loader"
+  >
+    <RNSVGSvgView
+      align="xMidYMid"
+      bbHeight={47}
+      bbWidth="100%"
+      focusable={false}
+      height={47}
+      interval={0.25}
+      meetOrSlice={1}
+      minX={0}
+      minY={0}
+      style={
+        Array [
+          Object {
+            "backgroundColor": "transparent",
+            "borderWidth": 0,
+          },
+          Object {},
+          Object {
+            "flex": 0,
+            "height": 47,
+            "width": "100%",
+          },
+        ]
+      }
+      vbHeight={47}
+      vbWidth={344}
+      width="100%"
+    >
+      <RNSVGGroup>
+        <RNSVGRect
+          clipPath="1fpuu3c-animated-diff"
+          fill={
+            Array [
+              1,
+              "1fpuu3c-diff",
+            ]
+          }
+          height="100%"
+          propList={
+            Array [
+              "fill",
+            ]
+          }
+          width="100%"
+          x="0"
+          y="0"
+        />
+        <RNSVGDefs>
+          <RNSVGClipPath
+            name="1fpuu3c-animated-diff"
+          >
+            <RNSVGCircle
+              cx="17"
+              cy="23"
+              r="10"
+            />
+            <RNSVGRect
+              height="15"
+              width="100"
+              x="44"
+              y="7"
+            />
+            <RNSVGRect
+              height="10"
+              width="100"
+              x="44"
+              y="29"
+            />
+            <RNSVGRect
+              height="15"
+              width="85"
+              x="250"
+              y="16"
+            />
+          </RNSVGClipPath>
+          <RNSVGLinearGradient
+            gradient={
+              Array [
+                0,
+                -1250325,
+                0.5,
+                -1,
+                1,
+                -1250325,
+              ]
+            }
+            gradientTransform={null}
+            gradientUnits={0}
+            name="1fpuu3c-diff"
+            x1="-100%"
+            x2="0%"
+            y1={0}
+            y2={0}
+          />
+        </RNSVGDefs>
+      </RNSVGGroup>
+    </RNSVGSvgView>
+  </View>,
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomColor": "rgba(229, 231, 235, 1)",
+        "borderBottomWidth": 1,
+        "borderLeftColor": "rgba(229, 231, 235, 1)",
+        "borderRightColor": "rgba(229, 231, 235, 1)",
+        "borderTopColor": "rgba(229, 231, 235, 1)",
+        "justifyContent": "center",
+        "paddingBottom": 8,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 8,
+        "width": "100%",
+      }
+    }
+    testID="transaction_skeleton_loader"
+  >
+    <RNSVGSvgView
+      align="xMidYMid"
+      bbHeight={47}
+      bbWidth="100%"
+      focusable={false}
+      height={47}
+      interval={0.25}
+      meetOrSlice={1}
+      minX={0}
+      minY={0}
+      style={
+        Array [
+          Object {
+            "backgroundColor": "transparent",
+            "borderWidth": 0,
+          },
+          Object {},
+          Object {
+            "flex": 0,
+            "height": 47,
+            "width": "100%",
+          },
+        ]
+      }
+      vbHeight={47}
+      vbWidth={344}
+      width="100%"
+    >
+      <RNSVGGroup>
+        <RNSVGRect
+          clipPath="bsc51le-animated-diff"
+          fill={
+            Array [
+              1,
+              "bsc51le-diff",
+            ]
+          }
+          height="100%"
+          propList={
+            Array [
+              "fill",
+            ]
+          }
+          width="100%"
+          x="0"
+          y="0"
+        />
+        <RNSVGDefs>
+          <RNSVGClipPath
+            name="bsc51le-animated-diff"
+          >
+            <RNSVGCircle
+              cx="17"
+              cy="23"
+              r="10"
+            />
+            <RNSVGRect
+              height="15"
+              width="100"
+              x="44"
+              y="7"
+            />
+            <RNSVGRect
+              height="10"
+              width="100"
+              x="44"
+              y="29"
+            />
+            <RNSVGRect
+              height="15"
+              width="85"
+              x="250"
+              y="16"
+            />
+          </RNSVGClipPath>
+          <RNSVGLinearGradient
+            gradient={
+              Array [
+                0,
+                -1250325,
+                0.5,
+                -1,
+                1,
+                -1250325,
+              ]
+            }
+            gradientTransform={null}
+            gradientUnits={0}
+            name="bsc51le-diff"
+            x1="-100%"
+            x2="0%"
+            y1={0}
+            y2={0}
+          />
+        </RNSVGDefs>
+      </RNSVGGroup>
+    </RNSVGSvgView>
+  </View>,
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomColor": "rgba(229, 231, 235, 1)",
+        "borderBottomWidth": 1,
+        "borderLeftColor": "rgba(229, 231, 235, 1)",
+        "borderRightColor": "rgba(229, 231, 235, 1)",
+        "borderTopColor": "rgba(229, 231, 235, 1)",
+        "justifyContent": "center",
+        "paddingBottom": 8,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 8,
+        "width": "100%",
+      }
+    }
+    testID="transaction_skeleton_loader"
+  >
+    <RNSVGSvgView
+      align="xMidYMid"
+      bbHeight={47}
+      bbWidth="100%"
+      focusable={false}
+      height={47}
+      interval={0.25}
+      meetOrSlice={1}
+      minX={0}
+      minY={0}
+      style={
+        Array [
+          Object {
+            "backgroundColor": "transparent",
+            "borderWidth": 0,
+          },
+          Object {},
+          Object {
+            "flex": 0,
+            "height": 47,
+            "width": "100%",
+          },
+        ]
+      }
+      vbHeight={47}
+      vbWidth={344}
+      width="100%"
+    >
+      <RNSVGGroup>
+        <RNSVGRect
+          clipPath="ypahn3-animated-diff"
+          fill={
+            Array [
+              1,
+              "ypahn3-diff",
+            ]
+          }
+          height="100%"
+          propList={
+            Array [
+              "fill",
+            ]
+          }
+          width="100%"
+          x="0"
+          y="0"
+        />
+        <RNSVGDefs>
+          <RNSVGClipPath
+            name="ypahn3-animated-diff"
+          >
+            <RNSVGCircle
+              cx="17"
+              cy="23"
+              r="10"
+            />
+            <RNSVGRect
+              height="15"
+              width="100"
+              x="44"
+              y="7"
+            />
+            <RNSVGRect
+              height="10"
+              width="100"
+              x="44"
+              y="29"
+            />
+            <RNSVGRect
+              height="15"
+              width="85"
+              x="250"
+              y="16"
+            />
+          </RNSVGClipPath>
+          <RNSVGLinearGradient
+            gradient={
+              Array [
+                0,
+                -1250325,
+                0.5,
+                -1,
+                1,
+                -1250325,
+              ]
+            }
+            gradientTransform={null}
+            gradientUnits={0}
+            name="ypahn3-diff"
+            x1="-100%"
+            x2="0%"
+            y1={0}
+            y2={0}
+          />
+        </RNSVGDefs>
+      </RNSVGGroup>
+    </RNSVGSvgView>
+  </View>,
+]
+`;
