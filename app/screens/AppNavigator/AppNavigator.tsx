@@ -25,7 +25,7 @@ export function AppNavigator (): JSX.Element {
     ...defaultTheme,
     colors: {
       ...defaultTheme.colors,
-      primary: isLight ? '#ff00af' : '#ff99df'
+      primary: isLight ? '#ff00af' : '#EE2CB1'
     }
   }
   return (

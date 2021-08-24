@@ -9,7 +9,7 @@ module.exports = {
         warning: '#ff9629',
         dark: '#121212',
         darksurface: '#202020',
-        darkprimary: '#ff99df'
+        darkprimary: '#EE2CB1'
       },
       maxWidth: {
         '1/4': '25%',

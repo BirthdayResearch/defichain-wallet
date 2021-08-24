@@ -1,0 +1,30 @@
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+import { IconProps } from '@expo/vector-icons/build/createIconSet'
+import React from 'react'
+import { useThemeContext } from '../../contexts/ThemeProvider'
+import { tailwind } from '../../tailwind'
+import { ThemedProps } from './index'
+
+type IconType = 'MaterialCommunityIcons' | 'MaterialIcons'
+
+interface IThemedIcon {
+  iconType: IconType
+}
+
+type ThemedIconProps = ThemedProps & IThemedIcon & IconProps<any>
+
+export function ThemedIcon (props: ThemedIconProps): JSX.Element {
+  const { theme } = useThemeContext()
+  const { style, iconType, light, dark, ...otherProps } = props
+  if (iconType === 'MaterialIcons') {
+    return <MaterialIcons style={[style, tailwind(theme === 'light' ? props.light : props.dark)]} {...otherProps} />
+  } else if (iconType === 'MaterialCommunityIcons') {
+    return (
+      <MaterialCommunityIcons
+        style={[style, tailwind(theme === 'light' ? props.light : props.dark)]} {...otherProps}
+      />
+    )
+  } else {
+    return <></>
+  }
+}
