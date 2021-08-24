@@ -5191,13 +5191,13 @@
 		"borderBottomColor": "rgba(163, 163, 163, var(--tw-border-opacity))",
 		"borderLeftColor": "rgba(163, 163, 163, var(--tw-border-opacity))"
 	},
-	"border-gray-700": {
-    "--tw-border-opacity": 1,
-    "borderTopColor": "rgba(115, 115, 115, var(--tw-border-opacity))",
-    "borderRightColor": "rgba(115, 115, 115, var(--tw-border-opacity))",
-    "borderBottomColor": "rgba(115, 115, 115, var(--tw-border-opacity))",
-    "borderLeftColor": "rgba(115, 115, 115, var(--tw-border-opacity))"
-  },
+	"border-gray-500": {
+		"--tw-border-opacity": 1,
+		"borderTopColor": "rgba(115, 115, 115, var(--tw-border-opacity))",
+		"borderRightColor": "rgba(115, 115, 115, var(--tw-border-opacity))",
+		"borderBottomColor": "rgba(115, 115, 115, var(--tw-border-opacity))",
+		"borderLeftColor": "rgba(115, 115, 115, var(--tw-border-opacity))"
+	},
 	"border-gray-600": {
 		"--tw-border-opacity": 1,
 		"borderTopColor": "rgba(82, 82, 82, var(--tw-border-opacity))",
