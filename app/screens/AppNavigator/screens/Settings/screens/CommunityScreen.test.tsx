@@ -3,6 +3,8 @@ import * as React from 'react'
 import { Linking } from 'react-native'
 import { CommunityScreen } from "./CommunityScreen";
 
+jest.mock("../../../../../contexts/ThemeProvider")
+
 it('<CommunityScreen /> should match snapshot', async () => {
   const tree = render(<CommunityScreen />)
   expect(tree.toJSON()).toMatchSnapshot()

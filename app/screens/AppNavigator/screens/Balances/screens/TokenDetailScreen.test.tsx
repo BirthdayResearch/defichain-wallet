@@ -6,6 +6,7 @@ import { RootState } from "../../../../../store";
 import { wallet } from "../../../../../store/wallet";
 import { TokenDetailScreen } from "./TokenDetailScreen";
 
+jest.mock("../../../../../contexts/ThemeProvider")
 jest.mock("../../../../../hooks/wallet/TokensAPI", () => ({
   useTokensAPI: () => [
     {

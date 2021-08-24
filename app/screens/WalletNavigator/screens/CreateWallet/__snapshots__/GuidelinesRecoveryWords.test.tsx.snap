@@ -3,16 +3,20 @@
 exports[`recovery words guidelines should match snapshot 1`] = `
 <RCTScrollView
   style={
-    Object {
-      "backgroundColor": "rgba(255, 255, 255, 1)",
-      "flexBasis": "0%",
-      "flexGrow": 1,
-      "flexShrink": 1,
-      "paddingBottom": 16,
-      "paddingLeft": 16,
-      "paddingRight": 16,
-      "paddingTop": 24,
-    }
+    Array [
+      Object {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 24,
+      },
+      Object {
+        "backgroundColor": "rgba(245, 245, 245, 1)",
+      },
+    ]
   }
 >
   <View>
@@ -25,12 +29,17 @@ exports[`recovery words guidelines should match snapshot 1`] = `
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Object {
-            "fontFamily": "SemiBoldFont",
-            "fontSize": 18,
-            "fontWeight": "600",
-            "lineHeight": 28,
-          },
+          Array [
+            Object {
+              "fontFamily": "SemiBoldFont",
+              "fontSize": 18,
+              "fontWeight": "600",
+              "lineHeight": 28,
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
         ]
       }
     >
@@ -45,9 +54,14 @@ exports[`recovery words guidelines should match snapshot 1`] = `
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Object {
-            "marginTop": 8,
-          },
+          Array [
+            Object {
+              "marginTop": 8,
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
         ]
       }
     >
@@ -62,9 +76,14 @@ exports[`recovery words guidelines should match snapshot 1`] = `
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Object {
-            "marginTop": 20,
-          },
+          Array [
+            Object {
+              "marginTop": 20,
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
         ]
       }
     >
@@ -79,9 +98,14 @@ exports[`recovery words guidelines should match snapshot 1`] = `
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Object {
-            "marginTop": 20,
-          },
+          Array [
+            Object {
+              "marginTop": 20,
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
         ]
       }
     >
@@ -96,9 +120,14 @@ exports[`recovery words guidelines should match snapshot 1`] = `
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Object {
-            "marginTop": 20,
-          },
+          Array [
+            Object {
+              "marginTop": 20,
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
         ]
       }
     >
