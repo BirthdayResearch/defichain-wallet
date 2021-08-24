@@ -1,10 +1,10 @@
-import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { HeaderFont } from '../../../../components'
 import { HeaderTitle } from '../../../../components/HeaderTitle'
+import { ThemedIcon } from '../../../../components/themed'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { AboutScreen } from './screens/AboutScreen'
@@ -43,7 +43,10 @@ export function SettingsNavigator (): JSX.Element {
               onPress={() => navigation.navigate('CommunityScreen')}
               testID='settings_community_button'
             >
-              <MaterialIcons name='help-outline' size={24} style={tailwind('text-primary')} />
+              <ThemedIcon
+                iconType='MaterialIcons' name='help-outline' size={24} light='text-primary'
+                dark='text-darkprimary'
+              />
             </TouchableOpacity>
           )
         }}
