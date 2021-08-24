@@ -1,30 +1,27 @@
 import * as React from 'react'
 import randomColor from 'randomcolor'
-import { View, Text } from 'react-native'
-import { tailwind } from '../../../tailwind'
+import Svg, { Circle, SvgProps, Text } from 'react-native-svg'
 
-interface _DefaultProps extends React.SVGProps<SVGSVGElement> {
-  testID?: string
-  style?: object
-}
-
-export function _Default (symbol: string): (props: _DefaultProps) => JSX.Element {
-  return (props: _DefaultProps): JSX.Element => {
-    const { style, testID } = props
-    const height = '32px'
-    const width = '32px'
+export function _Default (symbol: string): (props: SvgProps) => JSX.Element {
+  return (props: SvgProps): JSX.Element => {
     const bg = randomColor({ luminosity: 'bright', format: 'rgba', seed: symbol, alpha: 0.2 })
     const text = randomColor({ luminosity: 'dark', format: 'rgba', seed: symbol, alpha: 100 })
-    const first = symbol?.substring(0, 1)
+    const first = symbol?.substring(0, 1) ?? 'T'
 
     return (
-      <View style={{ height, width, ...style }} testID={testID}>
-        <View style={{ backgroundColor: bg, ...tailwind('rounded-full w-full h-full') }}>
-          <View style={tailwind('flex-row w-full h-full flex items-center')}>
-            <Text style={{ color: text, ...tailwind('flex-1 w-1 text-center font-semibold') }}>{first}</Text>
-          </View>
-        </View>
-      </View>
+      <Svg width={32} height={32} viewBox='0 0 32 32' {...props}>
+        <Circle cx={16} cy={16} r={16} fill={bg} />
+        <Text
+          x='50%'
+          y='50%'
+          fill={text}
+          textAnchor='middle'
+          fontWeight='bolder'
+          alignmentBaseline='central'
+        >
+          {first}
+        </Text>
+      </Svg>
     )
   }
 }
