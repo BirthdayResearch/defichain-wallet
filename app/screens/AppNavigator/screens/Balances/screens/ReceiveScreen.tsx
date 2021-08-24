@@ -1,10 +1,9 @@
-import { MaterialIcons } from '@expo/vector-icons'
 import * as Clipboard from 'expo-clipboard'
 import React, { useState } from 'react'
 import { Share, TouchableOpacity, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 import { Logging } from '../../../../../api'
-import { Text } from '../../../../../components'
+import { ThemedIcon, ThemedText, ThemedView } from '../../../../../components/themed'
 import { useWalletContext } from '../../../../../contexts/WalletContext'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
@@ -28,42 +27,50 @@ export function ReceiveScreen (): JSX.Element {
   }
 
   return (
-    <View
+    <ThemedView
       testID='receive_screen'
       style={tailwind('flex flex-1 w-full relative')}
     >
-      <Text
+      <ThemedText
         style={tailwind('p-4 font-medium')}
       >{translate('screens/ReceiveScreen', 'Use this address to receive DFI or any DST')}
-      </Text>
-      <View style={tailwind('bg-white flex justify-center items-center p-5')}>
+      </ThemedText>
+      <ThemedView
+        style={tailwind('flex justify-center items-center p-5')} light='bg-white'
+        dark='bg-white bg-opacity-60'
+      >
         <View testID='qr_code_container' style={tailwind('mb-5')}>
           <QRCode
             value={address}
             size={200}
           />
         </View>
-        <Text
+        <ThemedText
           selectable
-          testID='address_text'
-          style={tailwind('text-gray-500 font-medium text-center')}
+          testID='address_text' light='text-gray-500'
+          dark='text-black'
+          style={tailwind('font-medium text-center')}
           numberOfLines={2}
         >{address}
-        </Text>
-      </View>
-      <View style={tailwind('bg-white flex flex-col p-4')}>
+        </ThemedText>
+      </ThemedView>
+      <ThemedView style={tailwind('flex flex-col p-4')} light='bg-white' dark='bg-dark'>
         {
           isCopied
             ? (
-              <View
+              <ThemedView
                 style={tailwind('flex flex-grow flex-row justify-center text-center items-center border border-white border-opacity-0 p-3')}
               >
-                <MaterialIcons name='check' size={20} style={tailwind('self-center text-success')} />
-                <Text
-                  style={tailwind('ml-1 uppercase font-medium text-success')}
+                <ThemedIcon
+                  iconType='MaterialIcons' name='check' size={20} style={tailwind('self-center')}
+                  light='text-success' dark='text-darksuccess'
+                />
+                <ThemedText
+                  light='text-success' dark='text-darksuccess'
+                  style={tailwind('ml-1 uppercase font-medium')}
                 >{translate('screens/ReceiveScreen', 'Copied to Clipboard')}
-                </Text>
-              </View>
+                </ThemedText>
+              </ThemedView>
               )
             : (
               <TouchableOpacity
@@ -77,13 +84,16 @@ export function ReceiveScreen (): JSX.Element {
                   }, 1500)
                 }}
               >
-                <MaterialIcons
-                  style={tailwind('self-center text-primary')} name='content-copy' size={18}
+                <ThemedIcon
+                  iconType='MaterialIcons'
+                  light='text-primary' dark='text-darkprimary'
+                  style={tailwind('self-center')} name='content-copy' size={18}
                 />
-                <Text
-                  style={tailwind('ml-2 uppercase font-medium text-primary')}
+                <ThemedText
+                  style={tailwind('ml-2 uppercase font-medium')}
+                  light='text-primary' dark='text-darkprimary'
                 >{translate('screens/ReceiveScreen', 'COPY TO CLIPBOARD')}
-                </Text>
+                </ThemedText>
               </TouchableOpacity>
               )
         }
@@ -93,15 +103,18 @@ export function ReceiveScreen (): JSX.Element {
             await onShare(address)
           }}
         >
-          <MaterialIcons
-            style={tailwind('self-center text-primary')} name='share' size={18}
+          <ThemedIcon
+            iconType='MaterialIcons'
+            light='text-primary' dark='text-darkprimary'
+            style={tailwind('self-center')} name='share' size={18}
           />
-          <Text
-            style={tailwind('ml-2 uppercase font-medium text-primary')}
+          <ThemedText
+            light='text-primary' dark='text-darkprimary'
+            style={tailwind('ml-2 uppercase font-medium')}
           >{translate('screens/ReceiveScreen', 'SHARE')}
-          </Text>
+          </ThemedText>
         </TouchableOpacity>
-      </View>
-    </View>
+      </ThemedView>
+    </ThemedView>
   )
 }
