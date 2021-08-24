@@ -1,7 +1,7 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
-import { Text, View } from '../../../../../../components'
 import { SectionTitle } from '../../../../../../components/SectionTitle'
+import { ThemedText, ThemedView } from '../../../../../../components/themed'
 import { tailwind } from '../../../../../../tailwind'
 import { translate } from '../../../../../../translations'
 
@@ -23,7 +23,10 @@ export function SlippageTolerance ({
   return (
     <>
       <SectionTitle text={translate('screens/SlippageTolerance', 'SLIPPAGE TOLERANCE')} testID='title_slippage' />
-      <View style={tailwind('flex-row bg-white p-4')}>
+      <ThemedView
+        style={tailwind('flex-row p-4')} light='bg-white border-b border-gray-200'
+        dark='bg-gray-800 border-b border-gray-700'
+      >
         {
           percentageList.map((p) => (
             <TouchableOpacity
@@ -32,14 +35,14 @@ export function SlippageTolerance ({
               style={tailwind(`${buttonStyles} ${slippage === p.amount ? activeStyle : ''}`)}
               onPress={() => onSetSlippage(p.amount)}
             >
-              <Text
+              <ThemedText
                 style={tailwind(`font-medium text-primary-500 ${slippage === p.amount ? 'text-white' : ''}`)}
               >{p.label}
-              </Text>
+              </ThemedText>
             </TouchableOpacity>
           ))
         }
-      </View>
+      </ThemedView>
     </>
   )
 }

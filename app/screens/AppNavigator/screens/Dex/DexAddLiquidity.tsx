@@ -4,9 +4,8 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useCallback, useEffect, useState } from 'react'
-import { ScrollView } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { Text, View } from '../../../../components'
+import { View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { getNativeIcon } from '../../../../components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '../../../../components/InputIconLabel'
@@ -14,6 +13,7 @@ import { NumberRow } from '../../../../components/NumberRow'
 import { NumberTextInput } from '../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
+import { ThemedScrollView, ThemedText, ThemedView } from '../../../../components/themed'
 import { usePoolPairsAPI } from '../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
@@ -97,7 +97,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   }
 
   return (
-    <ScrollView style={tailwind('w-full flex-col flex-1 bg-gray-100')}>
+    <ThemedScrollView style={tailwind('w-full flex-col flex-1')}>
       <TokenInput
         type='primary'
         symbol={pair.aSymbol}
@@ -136,7 +136,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
           })
         }}
       />
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 
@@ -148,11 +148,15 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
         text={translate('screens/AddLiquidity', `TOKEN ${props.type === 'primary' ? 'A' : 'B'}`)}
         testID={`token_input_${props.type}_title`}
       />
-      <View style={tailwind('flex-col w-full bg-white items-center')}>
+      <ThemedView
+        light='bg-white'
+        dark='bg-gray-800'
+        style={tailwind('flex-col w-full items-center')}
+      >
         <View style={tailwind('w-full flex-row items-center')}>
           <NumberTextInput
             testID={`token_input_${props.type}`}
-            style={tailwind('flex-1 mr-4 text-gray-500 bg-white p-4')}
+            style={tailwind('flex-1 mr-4 p-4')}
             value={props.current}
             onChangeText={txt => props.onChange(txt)}
             placeholder={translate('screens/AddLiquidity', 'Enter an amount')}
@@ -162,16 +166,19 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
             <InputIconLabel label={props.symbol} screenType={IconLabelScreenType.DEX} />
           </View>
         </View>
-        <View style={tailwind('w-full px-4 py-2 flex-row border-t border-gray-200 items-center')}>
+        <ThemedView
+          light='border-t border-gray-200' dark='border-t border-gray-700'
+          style={tailwind('w-full px-4 py-2 flex-row items-center')}
+        >
           <View style={tailwind('flex-row flex-1 flex-wrap mr-2')}>
-            <Text>{translate('screens/AddLiquidity', 'Balance')}: </Text>
+            <ThemedText>{translate('screens/AddLiquidity', 'Balance')}: </ThemedText>
             <NumberFormat
               value={props.balance.toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
               suffix={` ${props.symbol}`}
               renderText={(value) => (
-                <Text testID={`token_balance_${props.type}`} style={tailwind('text-gray-500')}>
+                <ThemedText testID={`token_balance_${props.type}`} light='text-gray-500' dark='text-gray-300'>
                   {value}
-                </Text>
+                </ThemedText>
               )}
             />
           </View>
@@ -185,8 +192,8 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
             onPress={props.onChange}
             amount={props.balance}
           />
-        </View>
-      </View>
+        </ThemedView>
+      </ThemedView>
     </View>
   )
 }

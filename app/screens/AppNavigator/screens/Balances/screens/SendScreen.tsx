@@ -216,8 +216,8 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
               placeholder={translate('screens/SendScreen', 'Enter an amount')}
             />
             <ThemedView
-              style={tailwind('flex-row pr-4 items-center')} light='bg-white border-b border-gray-200'
-              dark='bg-gray-800 border-b border-gray-700'
+              style={tailwind('flex-row pr-4 items-center')} light='bg-white'
+              dark='bg-gray-800'
             >
               <Icon />
               <InputIconLabel testID='token_symbol' label={token.symbol} screenType={IconLabelScreenType.Balance} />
@@ -238,7 +238,7 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
             renderText={(value) => (
               <ThemedText
                 testID='max_value' light='text-gray-500'
-                dark='text-white text-opacity-90'
+                dark='text-gray-300'
               >{value}
               </ThemedText>
             )}

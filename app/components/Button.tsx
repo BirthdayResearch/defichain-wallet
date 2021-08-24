@@ -27,7 +27,7 @@ export function Button (props: ButtonProps): JSX.Element {
 
   const buttonColor = isLight ? `bg-${themedColor}-50` : `bg-${themedColor}-700`
   const buttonStyle = `${fill === 'fill' ? buttonColor : 'bg-transparent'}`
-  const buttonText = isLight ? `text-${themedColor}-500` : `${fill === 'fill' ? 'text-white' : 'text-primary-500'}`
+  const buttonText = isLight ? `text-${themedColor}-500` : `${fill === 'fill' ? 'text-white' : 'text-primary-700'}`
 
   const textStyle = `${props.disabled === true ? disabledText : buttonText}`
   return (

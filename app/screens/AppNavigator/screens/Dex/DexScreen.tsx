@@ -4,13 +4,13 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { SectionList, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { View } from '../../../../components'
 import { getNativeIcon } from '../../../../components/icons/assets'
 import { SectionTitle } from '../../../../components/SectionTitle'
-import { ThemedIcon, ThemedText, ThemedView } from '../../../../components/themed'
+import { ThemedIcon, ThemedSectionList, ThemedText, ThemedView } from '../../../../components/themed'
 import { usePoolPairsAPI } from '../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
@@ -45,9 +45,8 @@ export function DexScreen (): JSX.Element {
   }
 
   return (
-    <SectionList
+    <ThemedSectionList
       testID='liquidity_screen_list'
-      style={tailwind('bg-gray-100')}
       sections={[
         {
           key: SectionKey.YourLiquidity,
