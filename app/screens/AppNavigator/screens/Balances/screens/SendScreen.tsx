@@ -107,7 +107,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
           <View style={tailwind('mt-6')}>
             <NumberRow
               lhs={translate('screens/SendScreen', 'Estimated fee')}
-              rightHandElements={[{ value: fee.toString(), suffix: ' DFI (UTXO)', testID: 'fee_text' }]}
+              rightHandElements={[{ value: fee.toString(), suffix: ' DFI (UTXO)', testID: 'transaction_fee' }]}
             />
           </View>
         )
