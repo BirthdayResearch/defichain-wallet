@@ -136,11 +136,11 @@ function RowExitWalletItem (): JSX.Element {
         name='exit-to-app'
         style={[tailwind('self-center mr-2'), { transform: [{ scaleX: -1 }] }]}
         size={24}
-        light='text-primary'
+        light='text-primary-500'
         dark='text-darkprimary'
       />
       <ThemedText
-        style={tailwind('font-medium')} light='text-primary'
+        style={tailwind('font-medium')} light='text-primary-500'
         dark='text-darkprimary'
       >
         {translate('screens/Settings', 'UNLINK WALLET')}

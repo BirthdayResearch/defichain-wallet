@@ -52,12 +52,12 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
       >
         <View style={tailwind('flex-1 flex-row flex-initial')}>
           <View style={tailwind('flex-1')}>
-            <Text style={tailwind('text-primary font-medium text-sm')}>
+            <Text style={tailwind('text-primary-500 font-medium text-sm')}>
               {tx.txid}
             </Text>
           </View>
           <View style={tailwind('ml-2 flex-grow-0 justify-center')}>
-            <MaterialIcons name='open-in-new' size={24} style={tailwind('text-primary')} />
+            <MaterialIcons name='open-in-new' size={24} style={tailwind('text-primary-500')} />
           </View>
         </View>
       </TouchableOpacity>

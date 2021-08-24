@@ -20,10 +20,10 @@ export function Button (props: ButtonProps): JSX.Element {
   } = props
   const { theme } = useThemeContext()
   const isLight = theme === 'light'
-  const themedColor = isLight ? color : `dark${color}`
+  const themedColor = isLight ? `${color}-500` : `dark${color}-500`
   const buttonStyle = `${fill === 'flat' ? 'border-0' : `border border-${themedColor} border-opacity-20`}
                     ${fill === 'fill' ? `bg-${themedColor} bg-opacity-10` : 'bg-transparent'}`
-  const disabledStyle = isLight ? 'bg-black bg-opacity-20 text-white text-opacity-5 border-0' : 'bg-gray-700 text-white text-opacity-5 border-0'
+  const disabledStyle = isLight ? 'bg-black bg-opacity-20 text-white text-opacity-5 border-0' : 'bg-gray-600 text-white text-opacity-5 border-0'
 
   const textStyle = `${props.disabled === true ? 'text-white text-opacity-20' : `text-${themedColor}`}`
   return (

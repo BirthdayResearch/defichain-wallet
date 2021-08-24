@@ -139,7 +139,7 @@ function LoadMore (onPress: () => void): JSX.Element | null {
         onPress={onPress}
         style={tailwind('p-2')}
       >
-        <Text style={tailwind('text-primary')}>{translate('screens/TransactionsScreen', 'LOAD MORE')}</Text>
+        <Text style={tailwind('text-primary-500')}>{translate('screens/TransactionsScreen', 'LOAD MORE')}</Text>
       </TouchableOpacity>
     </View>
   )

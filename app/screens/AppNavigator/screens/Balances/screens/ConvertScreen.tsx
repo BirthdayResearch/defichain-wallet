@@ -231,7 +231,10 @@ function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
         style={tailwind('p-1')}
         onPress={props.onPress}
       >
-        <ThemedIcon iconType='MaterialIcons' name='swap-vert' size={24} light='text-primary' dark='text-darkprimary' />
+        <ThemedIcon
+          iconType='MaterialIcons' name='swap-vert' size={24} light='text-primary-500'
+          dark='text-darkprimary'
+        />
       </ThemedTouchableOpacity>
     </View>
   )
@@ -247,9 +250,9 @@ function TokenVsUtxosInfo (): JSX.Element {
       }}
       testID='token_vs_utxo_info'
     >
-      <ThemedIcon iconType='MaterialIcons' name='help' size={16} light='text-primary' dark='text-darkprimary' />
+      <ThemedIcon iconType='MaterialIcons' name='help' size={16} light='text-primary-500' dark='text-darkprimary' />
       <ThemedText
-        light='text-primary' dark='text-darkprimary'
+        light='text-primary-500' dark='text-darkprimary'
         style={tailwind('ml-1 text-sm font-medium')}
       >{translate('screens/ConvertScreen', 'Token vs UTXO, what is the difference?')}
       </ThemedText>

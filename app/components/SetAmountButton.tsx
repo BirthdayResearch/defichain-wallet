@@ -30,7 +30,10 @@ export function SetAmountButton (props: SetAmountButtonProps): JSX.Element {
         props.onPress(props.type === AmountButtonTypes.half ? props.amount.div(2).toFixed(decimalPlace) : props.amount.toFixed(decimalPlace))
       }}
     >
-      <Text style={tailwind('text-primary text-center font-medium')}>{translate('components/max', props.type)}</Text>
+      <Text
+        style={tailwind('text-primary-500 text-center font-medium')}
+      >{translate('components/max', props.type)}
+      </Text>
     </TouchableOpacity>
   )
 }

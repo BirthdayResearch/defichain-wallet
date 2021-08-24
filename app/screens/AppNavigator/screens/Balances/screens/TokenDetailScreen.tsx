@@ -79,7 +79,7 @@ function TokenActionRow ({ title, icon, onPress, testID }: TokenActionItems): JS
       testID={testID} onPress={onPress}
       style={tailwind('flex-row py-4 pl-4 pr-2 bg-white border-b border-gray-200')}
     >
-      <ThemedIcon iconType='MaterialIcons' name={icon} size={24} light='text-primary' dark='text-darkprimary' />
+      <ThemedIcon iconType='MaterialIcons' name={icon} size={24} light='text-primary-500' dark='text-darkprimary' />
       <ThemedText style={tailwind('flex-grow ml-2')}>
         {title}
       </ThemedText>

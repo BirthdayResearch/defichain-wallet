@@ -172,7 +172,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           style={tailwind('border border-gray-300 rounded bg-white p-1')} onPress={swapToken}
           testID='swap_button'
         >
-          <MaterialIcons name='swap-vert' size={24} style={tailwind('text-primary')} />
+          <MaterialIcons name='swap-vert' size={24} style={tailwind('text-primary-500')} />
         </TouchableOpacity>
       </View>
       <TokenRow

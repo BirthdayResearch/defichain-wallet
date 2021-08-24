@@ -33,7 +33,7 @@ export function SlippageTolerance ({
               onPress={() => onSetSlippage(p.amount)}
             >
               <Text
-                style={tailwind(`font-medium text-primary ${slippage === p.amount ? 'text-white' : ''}`)}
+                style={tailwind(`font-medium text-primary-500 ${slippage === p.amount ? 'text-white' : ''}`)}
               >{p.label}
               </Text>
             </TouchableOpacity>

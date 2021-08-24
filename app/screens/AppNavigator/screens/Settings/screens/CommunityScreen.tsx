@@ -72,7 +72,7 @@ function CommunityItemRow ({ id, title, url, icon }: CommunityItem): JSX.Element
       onPress={handlePress}
       testID={id}
     >
-      <MaterialCommunityIcons name={icon} size={24} style={tailwind('text-primary')} />
+      <MaterialCommunityIcons name={icon} size={24} style={tailwind('text-primary-500')} />
       <Text style={tailwind('ml-2')}>
         {translate('screens/CommunityScreen', title)}
       </Text>

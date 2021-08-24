@@ -249,13 +249,16 @@ function TransactionIDButton ({ txid, onPress }: { txid: string, onPress?: () =>
       onPress={onPress}
     >
       <ThemedText
-        light='text-primary' dark='text-darkprimary'
+        light='text-primary-500' dark='text-darkprimary'
         style={tailwind('text-sm font-medium mr-1')} numberOfLines={1}
         ellipsizeMode='tail'
       >
         {txid}
       </ThemedText>
-      <ThemedIcon iconType='MaterialIcons' name='open-in-new' size={18} light='text-primary' dark='text-darkprimary' />
+      <ThemedIcon
+        iconType='MaterialIcons' name='open-in-new' size={18} light='text-primary-500'
+        dark='text-darkprimary'
+      />
     </TouchableOpacity>
   )
 }
@@ -266,7 +269,7 @@ function TransactionCloseButton (props: { onPress: () => void }): JSX.Element {
       testID='oceanInterface_close' onPress={props.onPress}
       style={tailwind('px-2 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
     >
-      <ThemedText style={tailwind('text-sm')} light='text-primary' dark='text-darkprimary'>
+      <ThemedText style={tailwind('text-sm')} light='text-primary-500' dark='text-darkprimary'>
         {translate('screens/OceanInterface', 'OK')}
       </ThemedText>
     </TouchableOpacity>

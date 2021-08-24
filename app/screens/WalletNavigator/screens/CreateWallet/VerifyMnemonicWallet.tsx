@@ -154,7 +154,10 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
                 onWordSelect(w)
               }}
             >
-              <Text style={tailwind(`${selectedWord === w ? 'text-primary' : 'text-black'} font-semibold`)}>{w}</Text>
+              <Text
+                style={tailwind(`${selectedWord === w ? 'text-primary-500' : 'text-black'} font-semibold`)}
+              >{w}
+              </Text>
             </TouchableOpacity>
           ))
         }

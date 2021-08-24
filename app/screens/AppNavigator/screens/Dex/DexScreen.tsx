@@ -208,7 +208,10 @@ function PoolPairLiqBtn (props: { name: React.ComponentProps<typeof MaterialIcon
       style={tailwind('p-1 border border-gray-300 rounded mr-2')}
       onPress={props.onPress}
     >
-      <ThemedIcon iconType='MaterialIcons' size={24} name={props.name} light='text-primary' dark='text-darkprimary' />
+      <ThemedIcon
+        iconType='MaterialIcons' size={24} name={props.name} light='text-primary-500'
+        dark='text-darkprimary'
+      />
     </TouchableOpacity>
   )
 }

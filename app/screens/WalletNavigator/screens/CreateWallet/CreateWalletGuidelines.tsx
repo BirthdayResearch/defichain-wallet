@@ -49,7 +49,7 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
         testID='recovery_words_button'
       >
         <Text
-          style={tailwind('text-primary font-medium text-sm')}
+          style={tailwind('text-primary-500 font-medium text-sm')}
         >{translate('screens/Guidelines', 'Learn more about recovery words')}
         </Text>
       </TouchableOpacity>

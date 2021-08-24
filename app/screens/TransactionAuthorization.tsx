@@ -260,7 +260,7 @@ export function TransactionAuthorization (): JSX.Element | null {
           onPress={onCancel}
         >
           <Text
-            style={tailwind('font-bold text-primary')}
+            style={tailwind('font-bold text-primary-500')}
           >{translate('components/UnlockWallet', 'CANCEL')}
           </Text>
         </TouchableOpacity>

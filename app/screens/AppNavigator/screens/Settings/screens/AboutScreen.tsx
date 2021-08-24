@@ -74,7 +74,7 @@ function LinkItemRow ({ title, url, testID }: AboutScreenLinks): JSX.Element {
       onPress={handlePress}
       testID={testID}
     >
-      <Text style={tailwind('font-semibold text-primary')}>
+      <Text style={tailwind('font-semibold text-primary-500')}>
         {translate('screens/AboutScreen', title)}
       </Text>
     </TouchableOpacity>

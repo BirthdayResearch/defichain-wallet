@@ -69,7 +69,7 @@ function StepNode (props: { step: number, current: number, content: string }): J
   let textStyle
   if (props.current === props.step) {
     stepperStyle = 'bg-primary bg-opacity-10 border border-primary'
-    textStyle = 'text-primary'
+    textStyle = 'text-primary-500'
   } else if (props.current > props.step) {
     stepperStyle = 'bg-primary border border-primary'
     textStyle = 'text-white'
@@ -94,7 +94,7 @@ function Description (props: { step: number, current: number, content: string })
     <Text
       style={[
         tailwind('text-center text-sm font-medium top-9 absolute w-20'),
-        props.current === props.step ? tailwind('text-primary') : tailwind('text-gray-500')
+        props.current === props.step ? tailwind('text-primary-500') : tailwind('text-gray-500')
       ]}
     >
       {props.content}

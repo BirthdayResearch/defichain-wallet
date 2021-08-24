@@ -44,7 +44,7 @@ export function SettingsNavigator (): JSX.Element {
               testID='settings_community_button'
             >
               <ThemedIcon
-                iconType='MaterialIcons' name='help-outline' size={24} light='text-primary'
+                iconType='MaterialIcons' name='help-outline' size={24} light='text-primary-500'
                 dark='text-darkprimary'
               />
             </TouchableOpacity>

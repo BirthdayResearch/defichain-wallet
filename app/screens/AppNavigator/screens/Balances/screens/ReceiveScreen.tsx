@@ -86,12 +86,12 @@ export function ReceiveScreen (): JSX.Element {
               >
                 <ThemedIcon
                   iconType='MaterialIcons'
-                  light='text-primary' dark='text-darkprimary'
+                  light='text-primary-500' dark='text-darkprimary'
                   style={tailwind('self-center')} name='content-copy' size={18}
                 />
                 <ThemedText
                   style={tailwind('ml-2 uppercase font-medium')}
-                  light='text-primary' dark='text-darkprimary'
+                  light='text-primary-500' dark='text-darkprimary'
                 >{translate('screens/ReceiveScreen', 'COPY TO CLIPBOARD')}
                 </ThemedText>
               </TouchableOpacity>
@@ -105,11 +105,11 @@ export function ReceiveScreen (): JSX.Element {
         >
           <ThemedIcon
             iconType='MaterialIcons'
-            light='text-primary' dark='text-darkprimary'
+            light='text-primary-500' dark='text-darkprimary'
             style={tailwind('self-center')} name='share' size={18}
           />
           <ThemedText
-            light='text-primary' dark='text-darkprimary'
+            light='text-primary-500' dark='text-darkprimary'
             style={tailwind('ml-2 uppercase font-medium')}
           >{translate('screens/ReceiveScreen', 'SHARE')}
           </ThemedText>

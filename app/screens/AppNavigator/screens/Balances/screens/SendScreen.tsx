@@ -161,7 +161,7 @@ function AddressRow ({
               onPress={onQrButtonPress}
             >
               <ThemedIcon
-                iconType='MaterialIcons' name='qr-code-scanner' size={24} light='text-primary'
+                iconType='MaterialIcons' name='qr-code-scanner' size={24} light='text-primary-500'
                 dark='text-darkprimary'
               />
             </ThemedTouchableOpacity>
