@@ -1,10 +1,12 @@
 import { LinkingOptions, NavigationContainer, NavigationContainerRef } from '@react-navigation/native'
+import { Theme } from '@react-navigation/native/lib/typescript/src/types'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as Linking from 'expo-linking'
 import * as React from 'react'
 import { HeaderFont } from '../../components'
 import { HeaderTitle } from '../../components/HeaderTitle'
-import { DeFiChainTheme } from '../../constants/Theme'
+import { getDefaultTheme } from '../../constants/Theme'
+import { useThemeContext } from '../../contexts/ThemeProvider'
 import { translate } from '../../translations'
 import { CreateMnemonicWallet } from './screens/CreateWallet/CreateMnemonicWallet'
 import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
@@ -57,8 +59,9 @@ const LinkingConfiguration: LinkingOptions<ReactNavigation.RootParamList> = {
 }
 
 export function WalletNavigator (): JSX.Element {
+  const { theme } = useThemeContext()
   const navigationRef = React.useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null)
-
+  const DeFiChainTheme: Theme = getDefaultTheme(theme)
   return (
     <NavigationContainer linking={LinkingConfiguration} ref={navigationRef} theme={DeFiChainTheme}>
       <WalletStack.Navigator initialRouteName='Setup' screenOptions={{ headerTitleStyle: HeaderFont }}>

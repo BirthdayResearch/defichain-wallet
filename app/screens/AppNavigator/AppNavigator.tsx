@@ -1,8 +1,9 @@
-import { DarkTheme, DefaultTheme, LinkingOptions, NavigationContainer } from '@react-navigation/native'
+import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
 import { Theme } from '@react-navigation/native/lib/typescript/src/types'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as Linking from 'expo-linking'
 import * as React from 'react'
+import { getDefaultTheme } from '../../constants/Theme'
 import { useThemeContext } from '../../contexts/ThemeProvider'
 import { PlaygroundNavigator } from '../PlaygroundNavigator/PlaygroundNavigator'
 import { AppLinking, BottomTabNavigator } from './BottomTabNavigator'
@@ -19,16 +20,7 @@ export interface AppParamList {
 
 export function AppNavigator (): JSX.Element {
   const { theme } = useThemeContext()
-  const isLight = theme === 'light'
-  const defaultTheme = isLight ? DefaultTheme : DarkTheme
-  const DeFiChainTheme: Theme = {
-    ...defaultTheme,
-    colors: {
-      ...defaultTheme.colors,
-      primary: isLight ? '#ff00af' : '#EE2CB1',
-      card: isLight ? defaultTheme.colors.card : '#202020'
-    }
-  }
+  const DeFiChainTheme: Theme = getDefaultTheme(theme)
   return (
     <NavigationContainer linking={LinkingConfiguration} theme={DeFiChainTheme}>
       <App.Navigator screenOptions={{ headerShown: false }}>
