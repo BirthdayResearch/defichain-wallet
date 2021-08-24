@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { BalanceSkeletonLoader } from '../screens/AppNavigator/screens/Balances/screens/BalanceSkeletonLoader'
 import { DexSkeletonLoader } from '../screens/AppNavigator/screens/Dex/screens/DexSkeletonLoader'
+import { TransactionSkeletonLoader } from '../screens/AppNavigator/screens/Transactions/screens/TransactionSkeletonLoader'
 
 interface SkeletonLoaderProp {
   row: number
@@ -8,28 +8,28 @@ interface SkeletonLoaderProp {
 }
 
 export enum SkeletonLoaderScreen {
-  'Balance' = 'Balance',
-  'Dex' = 'Dex'
+  'Dex' = 'Dex',
+  'Transaction' = 'Transaction'
 }
 
 export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
   const skeletonRow = Array.from(Array(prop.row), (_v, i) => i + 1)
 
   switch (prop.screen) {
-    case SkeletonLoaderScreen.Balance:
-      return (
-        <>
-          {skeletonRow.map(i => (
-            <BalanceSkeletonLoader key={i} />
-          ))}
-        </>
-      )
-
     case SkeletonLoaderScreen.Dex:
       return (
         <>
           {skeletonRow.map(i => (
             <DexSkeletonLoader key={i} />
+          ))}
+        </>
+      )
+
+    case SkeletonLoaderScreen.Transaction:
+      return (
+        <>
+          {skeletonRow.map(i => (
+            <TransactionSkeletonLoader key={i} />
           ))}
         </>
       )
