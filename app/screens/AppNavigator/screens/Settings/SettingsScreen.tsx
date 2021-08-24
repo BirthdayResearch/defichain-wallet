@@ -163,7 +163,7 @@ function PrivacyLockToggle ({ disabled = false, value, onToggle }: { disabled?: 
   const textStyleProp = disabled ? { color: 'gray' } : {}
   return (
     <View style={tailwind('flex bg-white p-4 pr-2 flex-row items-center justify-between border-b border-gray-200')}>
-      <Text style={[tailwind('font-medium'), textStyleProp]}>
+      <Text testID='text_privacy_lock' style={[tailwind('font-medium'), textStyleProp]}>
         {translate('screens/Settings', 'Privacy Lock')}
       </Text>
       <Switch
