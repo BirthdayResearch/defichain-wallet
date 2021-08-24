@@ -1,12 +1,13 @@
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
-import { ActivityIndicator, ScrollView } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 import { Logging } from '../../../../../api'
 import { MnemonicEncrypted } from '../../../../../api/wallet'
 import { MnemonicStorage } from '../../../../../api/wallet/mnemonic_storage'
-import { Text, View } from '../../../../../components'
+import { View } from '../../../../../components'
 import { PinTextInput } from '../../../../../components/PinTextInput'
+import { ThemedScrollView, ThemedText } from '../../../../../components/themed'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWalletPersistenceContext } from '../../../../../contexts/WalletPersistenceContext'
 import { tailwind } from '../../../../../tailwind'
@@ -49,12 +50,12 @@ export function ConfirmPinScreen ({ route }: Props): JSX.Element {
   }
 
   return (
-    <ScrollView style={tailwind('w-full flex-1 flex-col bg-white')}>
+    <ThemedScrollView style={tailwind('w-full flex-1 flex-col')}>
       <View style={tailwind('px-6 py-4 mb-6 mt-8')}>
-        <Text
+        <ThemedText
           style={tailwind('text-center font-semibold')}
         >{translate('screens/PinConfirmation', 'Enter your passcode again to verify')}
-        </Text>
+        </ThemedText>
       </View>
       <PinTextInput
         cellCount={6} testID='pin_confirm_input' value={newPin} onChange={(pin) => {
@@ -68,19 +69,25 @@ export function ConfirmPinScreen ({ route }: Props): JSX.Element {
             ? (
               <View style={tailwind('items-center')}>
                 <ActivityIndicator color='#FF00AF' style={tailwind('mb-4')} />
-                <Text style={tailwind('ml-2 font-semibold text-sm text-center w-4/5')}>{spinnerMessage}</Text>
+                <ThemedText
+                  style={tailwind('ml-2 font-semibold text-sm text-center w-4/5')}
+                >{spinnerMessage}
+                </ThemedText>
               </View>
               )
             : null
         }
         {
           invalid && (
-            <Text testID='wrong_passcode_text' style={tailwind('text-center text-error-500 font-semibold text-sm')}>
+            <ThemedText
+              testID='wrong_passcode_text' light='text-error-500' dark='text-darkerror-500'
+              style={tailwind('text-center font-semibold text-sm')}
+            >
               {translate('screens/PinConfirmation', 'Wrong passcode entered')}
-            </Text>
+            </ThemedText>
           )
         }
       </View>
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
