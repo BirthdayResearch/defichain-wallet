@@ -1,18 +1,18 @@
 import React from 'react'
-import { useThemeContext } from '../contexts/ThemeProvider'
 import { tailwind } from '../tailwind'
-import { Text } from './Text'
+import { ThemedText } from './themed'
 
 export function SectionTitle ({ text, testID }: { text: string, testID: string }): JSX.Element {
-  const { getThemeClass } = useThemeContext()
   return (
-    <Text
+    <ThemedText
       testID={testID}
-      style={[tailwind('p-4 pt-6 text-xs text-gray-500 font-medium', getThemeClass('body-bg title-text'))]}
+      style={[tailwind('p-4 pt-6 text-xs text-gray-500 font-medium')]}
+      light='bg-gray-100 text-gray-500'
+      dark='bg-dark text-white text-opacity-90'
     >
       {
         text
       }
-    </Text>
+    </ThemedText>
   )
 }
