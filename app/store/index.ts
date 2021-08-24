@@ -3,6 +3,7 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { authentication } from './authentication'
 import { block } from './block'
 import { ocean } from './ocean'
+import { transaction } from './transaction'
 import { transactionQueue } from './transaction_queue'
 import { wallet } from './wallet'
 
@@ -22,7 +23,8 @@ export function initializeStore () {
       wallet: wallet.reducer,
       ocean: ocean.reducer,
       transactionQueue: transactionQueue.reducer,
-      authentication: authentication.reducer
+      authentication: authentication.reducer,
+      transaction: transaction.reducer
     },
     middleware: [
       ...getDefaultMiddleware({ serializableCheck: false })
