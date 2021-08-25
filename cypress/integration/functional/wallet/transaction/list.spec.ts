@@ -1,13 +1,13 @@
 context('Wallet - Transaction - List', () => {
   describe('wallet has 2 transactions in history', function () {
     before(() => {
+      cy.visit('/')
       cy.createEmptyWallet(true)
       cy.sendDFItoWallet().sendDFItoWallet().wait(4000)
-      // go to page for testing
       cy.getByTestID('bottom_tab_transactions').click()
     })
 
-    it('should displayer skeleton loader when API has yet to return', () => {
+    it('should display skeleton loader when API has yet to return', () => {
       cy.intercept('**/transactions?size=*', {
         body: {
           data: [
