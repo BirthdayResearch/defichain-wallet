@@ -61,6 +61,9 @@ export function PrivacyLock (): JSX.Element | null {
 function authenticateOrExit (localAuth: LocalAuthContext): void {
   const backHandler = BackHandler.addEventListener('hardwareBackPress', () => null)
   localAuth.privacyLock()
-    .catch(e => BackHandler.exitApp())
+    .catch(async () => {
+      await AppLastActiveTimestamp.forceRequireReauthenticate()
+      BackHandler.exitApp()
+    })
     .finally(() => backHandler.remove())
 }

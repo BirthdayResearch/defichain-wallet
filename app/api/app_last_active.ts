@@ -7,6 +7,10 @@ async function set (): Promise<void> {
   return await StorageAPI.setItem(KEY, `${Date.now()}`)
 }
 
+async function forceRequireReauthenticate (): Promise<void> {
+  return await StorageAPI.setItem(KEY, `${Date.now() - getTimeoutPeriod()}`)
+}
+
 async function shouldReauthenticate (): Promise<boolean> {
   const lastActive = await StorageAPI.getItem(KEY)
   if (lastActive === null) return false
@@ -26,5 +30,6 @@ function getTimeoutPeriod (): number {
  */
 export const AppLastActiveTimestamp = {
   set,
+  forceRequireReauthenticate,
   shouldReauthenticate
 }
