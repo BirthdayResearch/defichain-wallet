@@ -19,6 +19,7 @@ import { RefreshControl } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
+import { BuyWithFiat } from './BuyWithFiat'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -42,35 +43,38 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
   const tokens = useTokensAPI()
   return (
-    <ThemedFlatList
-      ItemSeparatorComponent={() => (
-        <ThemedView
-          dark={tailwind('bg-gray-700')}
-          light={tailwind('bg-gray-100')}
-          style={tailwind('h-px')}
-        />
-      )}
-      ListHeaderComponent={(
-        <SectionTitle
-          testID='balances_title'
-          text={translate('screens/BalancesScreen', 'BALANCE DETAILS')}
-        />
-      )}
-      data={tokens}
-      refreshControl={
-        <RefreshControl
-          onRefresh={onRefresh}
-          refreshing={refreshing}
-        />
-      }
-      renderItem={({ item }) =>
-        <BalanceItemRow
-          key={item.symbol}
-          onPress={() => navigation.navigate({ name: 'TokenDetail', params: { token: item }, merge: true })}
-          token={item}
-        />}
-      testID='balances_list'
-    />
+    <>
+      <BuyWithFiat />
+      <ThemedFlatList
+        ItemSeparatorComponent={() => (
+          <ThemedView
+            dark={tailwind('bg-gray-700')}
+            light={tailwind('bg-gray-100')}
+            style={tailwind('h-px')}
+          />
+        )}
+        ListHeaderComponent={(
+          <SectionTitle
+            testID='balances_title'
+            text={translate('screens/BalancesScreen', 'BALANCE DETAILS')}
+          />
+        )}
+        data={tokens}
+        refreshControl={
+          <RefreshControl
+            onRefresh={onRefresh}
+            refreshing={refreshing}
+          />
+        }
+        renderItem={({ item }) =>
+          <BalanceItemRow
+            key={item.symbol}
+            onPress={() => navigation.navigate({ name: 'TokenDetail', params: { token: item }, merge: true })}
+            token={item}
+          />}
+        testID='balances_list'
+      />
+    </>
   )
 }
 
