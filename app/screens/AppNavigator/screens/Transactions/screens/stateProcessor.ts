@@ -1,7 +1,6 @@
 import { AddressActivity } from '@defichain/whale-api-client/dist/api/address'
 import { MaterialIcons } from '@expo/vector-icons'
 import BigNumber from 'bignumber.js'
-import { useThemeContext } from '../../../../../contexts/ThemeProvider'
 
 // VM for ViewModel
 export interface VMTransaction {
@@ -16,17 +15,16 @@ export interface VMTransaction {
   txid: string
 }
 
-export function activitiesToViewModel (activities: AddressActivity[]): VMTransaction[] {
+export function activitiesToViewModel (activities: AddressActivity[], isLight: boolean): VMTransaction[] {
   const newRows = []
   for (let i = 0; i < activities.length; i++) {
     const act = activities[i]
-    newRows.push(activityToViewModel(act))
+    newRows.push(activityToViewModel(act, isLight))
   }
   return newRows
 }
 
-export function activityToViewModel (activity: AddressActivity): VMTransaction {
-  const { theme } = useThemeContext()
+export function activityToViewModel (activity: AddressActivity, isLight: boolean): VMTransaction {
   let iconName: 'arrow-upward' | 'arrow-downward'
   let color
   let desc
@@ -47,7 +45,7 @@ export function activityToViewModel (activity: AddressActivity): VMTransaction {
     iconName = 'arrow-downward'
     desc = 'Received'
   } else {
-    color = theme === 'light' ? 'rgba(0,0,0,0.6)' : 'rgba(212, 212, 212, 0.5)'
+    color = isLight ? 'rgba(0,0,0,0.6)' : 'rgba(212, 212, 212, 0.4)'
     iconName = 'arrow-upward'
     desc = 'Sent'
     amount = amount.negated()

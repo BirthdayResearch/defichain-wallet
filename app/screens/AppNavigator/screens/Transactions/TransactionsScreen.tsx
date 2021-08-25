@@ -7,6 +7,7 @@ import { RefreshControl, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity } from '../../../../components/themed'
+import { useThemeContext } from '../../../../contexts/ThemeProvider'
 import { useWalletContext } from '../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { RootState } from '../../../../store'
@@ -23,6 +24,7 @@ export function formatBlockTime (date: number): string {
 export function TransactionsScreen (): JSX.Element {
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
+  const { theme } = useThemeContext()
   const navigation = useNavigation<NavigationProp<TransactionsParamList>>()
   const blocks = useSelector((state: RootState) => state.block.count)
 
@@ -37,7 +39,7 @@ export function TransactionsScreen (): JSX.Element {
     setLoadingStatus('loading')
     client.address.listTransaction(address, undefined, nextToken)
       .then(async addActivities => {
-        const newRows = activitiesToViewModel(addActivities)
+        const newRows = activitiesToViewModel(addActivities, theme === 'light')
         if (nextToken !== undefined) {
           setAddressActivities([...activities, ...newRows])
         } else {
