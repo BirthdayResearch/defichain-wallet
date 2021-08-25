@@ -21,8 +21,7 @@ export function TokenBalanceRow (props: { lhs: string, rhs: { value: string | nu
           value={props.rhs.value} decimalScale={8} thousandSeparator displayType='text'
           renderText={(val: string) => (
             <ThemedText
-              light='text-gray-500'
-              dark='text-white text-opacity-90'
+              light='text-gray-500' dark='text-gray-400'
               testID={props.rhs.testID}
               style={tailwind('flex-wrap font-medium text-right')}
             >{val}

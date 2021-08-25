@@ -15,8 +15,7 @@ export function TextRow (props: { lhs: string, rhs: { value: string, testID: str
       <View style={tailwind('flex-1')}>
         <ThemedText
           testID={props.rhs.testID}
-          light='text-gray-500'
-          dark='text-white text-opacity-90'
+          light='text-gray-500' dark='text-gray-400'
           style={tailwind('font-medium text-right')}
         >{props.rhs.value}
         </ThemedText>

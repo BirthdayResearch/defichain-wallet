@@ -32,8 +32,7 @@ export function NumberRow ({
                 renderText={(val: string) => (
                   <ThemedText
                     testID={rhs.testID}
-                    light='text-gray-500'
-                    dark='text-white text-opacity-90'
+                    light='text-gray-500' dark='text-gray-400'
                     style={tailwind('flex-wrap font-medium text-right text-gray-500')}
                   >{val}
                   </ThemedText>

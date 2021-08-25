@@ -45,7 +45,8 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
       >{translate('screens/Guidelines', 'Creating a wallet')}
       </ThemedText>
       <ThemedText
-        style={tailwind('mt-1 text-sm font-medium text-gray-500')}
+        light='text-gray-500' dark='text-gray-400'
+        style={tailwind('mt-1 text-sm font-medium')}
       >{translate('screens/Guidelines', 'Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.')}
       </ThemedText>
       <TouchableOpacity
@@ -65,7 +66,8 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
             <View style={tailwind('flex-col flex-auto ml-6')}>
               <ThemedText style={tailwind('font-medium')}>{translate('screens/Guidelines', g.title)}</ThemedText>
               <ThemedText
-                style={tailwind('text-sm text-gray-500')}
+                light='text-gray-500' dark='text-gray-400'
+                style={tailwind('text-sm')}
                 numberOfLines={4}
               >{translate('screens/Guidelines', g.subtitle)}
               </ThemedText>

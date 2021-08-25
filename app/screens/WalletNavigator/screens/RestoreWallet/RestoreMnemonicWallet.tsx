@@ -106,7 +106,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
         style={tailwind('py-4 px-1')}
       />
       <View style={tailwind('justify-center p-4')}>
-        <ThemedText style={tailwind('font-medium text-sm text-gray-500 text-center')}>
+        <ThemedText light='text-gray-500' dark='text-gray-400' style={tailwind('font-medium text-sm text-center')}>
           {translate('screens/RestoreWallet', 'Please provide your 24 recovery words to regain access to your wallet.')}
         </ThemedText>
       </View>

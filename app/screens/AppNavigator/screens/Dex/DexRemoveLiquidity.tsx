@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import { Platform, StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Logging } from '../../../../api'
-import { Text, View } from '../../../../components'
+import { View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { NumberRow } from '../../../../components/NumberRow'
 import { NumberTextInput } from '../../../../components/NumberTextInput'
@@ -181,7 +181,11 @@ function AmountSlider (props: { current: number, onChange: (percentage: string) 
         />
       </View>
       <TouchableOpacity testID='button_slider_max' onPress={() => props.onChange('100.00')}>
-        <Text style={tailwind('text-gray-500 text-sm')}>{translate('components', 'All')}</Text>
+        <ThemedText
+          light='text-gray-500' dark='text-gray-400'
+          style={tailwind('text-sm')}
+        >{translate('components', 'All')}
+        </ThemedText>
       </TouchableOpacity>
     </ThemedView>
   )

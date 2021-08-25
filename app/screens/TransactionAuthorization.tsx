@@ -278,13 +278,15 @@ export function TransactionAuthorization (): JSX.Element | null {
         </ThemedText>
         <View style={tailwind('p-4 px-8 text-sm text-center mb-6')}>
           <ThemedText
-            style={tailwind('p-4 px-8 text-sm text-center text-gray-500 mb-2')}
+            light='text-gray-500' dark='text-gray-400'
+            style={tailwind('p-4 px-8 text-sm text-center mb-2')}
           >{message}
           </ThemedText>
           {
             transaction?.description !== undefined && (
               <ThemedText
-                style={tailwind('text-sm text-center text-gray-500')}
+                light='text-gray-500' dark='text-gray-400'
+                style={tailwind('text-sm text-center')}
               >{transaction.description}
               </ThemedText>
             )

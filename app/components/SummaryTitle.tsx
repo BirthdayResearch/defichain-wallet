@@ -17,7 +17,7 @@ export function SummaryTitle ({ title, amount, suffix, testID }: SummaryTitleIte
       style={tailwind('flex-col px-4 py-8 mb-4 justify-center items-center')}
       light='bg-white border-b border-gray-300' dark='bg-gray-800 border-b border-gray-700'
     >
-      <ThemedText testID='confirm_title' style={tailwind('text-xs text-gray-500')}>
+      <ThemedText light='text-gray-500' dark='text-gray-400' testID='confirm_title' style={tailwind('text-xs')}>
         {title}
       </ThemedText>
       <NumberFormat
