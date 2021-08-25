@@ -4,6 +4,7 @@ import { Share, TouchableOpacity, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 import { Logging } from '../../../../../api'
 import { ThemedIcon, ThemedText, ThemedView } from '../../../../../components/themed'
+import { useThemeContext } from '../../../../../contexts/ThemeProvider'
 import { useWalletContext } from '../../../../../contexts/WalletContext'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
@@ -19,6 +20,7 @@ export async function onShare (address: string): Promise<void> {
 }
 
 export function ReceiveScreen (): JSX.Element {
+  const { theme } = useThemeContext()
   const { address } = useWalletContext()
   const [isCopied, setIsCopied] = useState<boolean>(false)
 
@@ -37,10 +39,12 @@ export function ReceiveScreen (): JSX.Element {
       </ThemedText>
       <ThemedView
         style={tailwind('flex justify-center items-center p-5')} light='bg-white'
-        dark='bg-white bg-opacity-60'
+        dark='bg-gray-800'
       >
         <View testID='qr_code_container' style={tailwind('mb-5')}>
           <QRCode
+            color={theme === 'light' ? 'black' : 'white'}
+            backgroundColor={theme === 'light' ? 'white' : 'black'}
             value={address}
             size={200}
           />
@@ -48,7 +52,7 @@ export function ReceiveScreen (): JSX.Element {
         <ThemedText
           selectable
           testID='address_text' light='text-gray-500'
-          dark='text-black'
+          dark='text-gray-100'
           style={tailwind('font-medium text-center')}
           numberOfLines={2}
         >{address}
