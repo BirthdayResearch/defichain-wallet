@@ -83,7 +83,8 @@
     "smart-buffer": "^4.1.0",
     "stream-browserify": "^3.0.0",
     "tailwind-rn": "^3.0.1",
-    "tailwindcss": "^2.2.9"
+    "tailwindcss": "^2.2.9",
+    "varuint-bitcoin": "^1.1.2"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
@@ -92,6 +93,7 @@
     "@testing-library/cypress": "^8.0.1",
     "@testing-library/react-hooks": "^7.0.2",
     "@testing-library/react-native": "^7.2.0",
+    "@types/create-hash": "^1.2.2",
     "@types/i18n-js": "^3.8.2",
     "@types/jest": "^26.0.24",
     "@types/lodash": "^4.14.171",
