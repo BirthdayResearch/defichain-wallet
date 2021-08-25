@@ -2,21 +2,22 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import dayjs from 'dayjs'
 import * as React from 'react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Text } from '../../../../components'
 import { SkeletonLoader, SkeletonLoaderScreen } from '../../../../components/SkeletonLoader'
 import { useWalletContext } from '../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { RootState } from '../../../../store'
-import { transaction } from '../../../../store/transaction'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { EmptyTransaction } from './EmptyTransaction'
 import { activitiesToViewModel, VMTransaction } from './screens/stateProcessor'
 import { TransactionsParamList } from './TransactionsNavigator'
+
+type LoadingState = 'idle' | 'loading' | 'loadingMore' | 'success' | 'background' | 'error'
 
 export function formatBlockTime (date: number): string {
   return dayjs(date * 1000).format('MMM D, h:mm a')
@@ -27,15 +28,14 @@ export function TransactionsScreen (): JSX.Element {
   const { address } = useWalletContext()
   const navigation = useNavigation<NavigationProp<TransactionsParamList>>()
   const blocks = useSelector((state: RootState) => state.block.count)
-  const transactions = useSelector((state: RootState) => state.transaction.transactions)
-  const loadingState = useSelector((state: RootState) => state.transaction.loadingState)
-  const loadMoreToken = useSelector((state: RootState) => state.transaction.loadMoreToken)
-  const dispatch = useDispatch()
+  const [transactions, setTransactions] = useState<VMTransaction[]>([])
+  const [loadingState, setLoadingState] = useState<LoadingState>('idle')
+  const [loadMoreToken, setLoadMoreToken] = useState<string|undefined>(undefined)
 
   useEffect(() => {
     // onload
     if (loadingState === 'idle') {
-      dispatch(transaction.actions.setLoadingState('loading'))
+      setLoadingState('loading')
       loadData()
     }
   }, [])
@@ -43,7 +43,7 @@ export function TransactionsScreen (): JSX.Element {
   useEffect(() => {
     // background update
     if (loadingState === 'success' || loadingState === 'error') {
-      dispatch(transaction.actions.setLoadingState('background'))
+      setLoadingState('background')
       loadData()
     }
   }, [address, blocks])
@@ -52,16 +52,15 @@ export function TransactionsScreen (): JSX.Element {
     client.address.listTransaction(address, undefined, loadMoreToken)
       .then(async addActivities => {
         if (typeof loadMoreToken === 'string') {
-          dispatch(transaction.actions.addTransactions(activitiesToViewModel(addActivities)))
+          setTransactions(transactions.concat(activitiesToViewModel(addActivities)))
         } else {
-          dispatch(transaction.actions.setTransactions(activitiesToViewModel(addActivities)))
+          setTransactions(activitiesToViewModel(addActivities))
         }
 
-        dispatch(transaction.actions.setLoadMoreToken(addActivities.nextToken))
-        dispatch(transaction.actions.setLoadingState('success'))
-      }).catch((err) => {
-        dispatch(transaction.actions.setError(err))
-        dispatch(transaction.actions.setLoadingState('error'))
+        setLoadMoreToken(addActivities.nextToken)
+        setLoadingState('success')
+      }).catch(() => {
+        setLoadingState('error')
       })
   }
 
@@ -72,7 +71,7 @@ export function TransactionsScreen (): JSX.Element {
   }
 
   const onRefresh = (): void => {
-    dispatch(transaction.actions.setLoadingState('loadingMore'))
+    setLoadingState('loadingMore')
     loadData(loadMoreToken)
   }
 
