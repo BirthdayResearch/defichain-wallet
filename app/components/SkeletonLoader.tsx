@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { DexSkeletonLoader } from '../screens/AppNavigator/screens/Dex/screens/DexSkeletonLoader'
-import { TransactionSkeletonLoader } from '../screens/AppNavigator/screens/Transactions/screens/TransactionSkeletonLoader'
+import { DexSkeletonLoader } from './skeletonLoaders/DexSkeletonLoader'
+import { TransactionSkeletonLoader } from './skeletonLoaders/TransactionSkeletonLoader'
 
 interface SkeletonLoaderProp {
   row: number

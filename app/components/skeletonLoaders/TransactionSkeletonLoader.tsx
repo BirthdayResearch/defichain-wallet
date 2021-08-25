@@ -1,7 +1,7 @@
 import * as React from 'react'
 import ContentLoader, { Circle, Rect } from 'react-content-loader/native'
 import { View } from 'react-native'
-import { tailwind } from '../../../../../tailwind'
+import { tailwind } from '../../tailwind'
 
 export function TransactionSkeletonLoader (): JSX.Element {
   return (
