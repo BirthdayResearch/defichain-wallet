@@ -19,7 +19,7 @@ context('Wallet - Send', function () {
   const addresses = ['bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9', '2MxnNb1MYSZvS3c26d4gC7gXsNMkB83UoXB', 'n1xjm9oekw98Rfb3Mv4ApyhwxC5kMuHnCo']
   before(function () {
     cy.createEmptyWallet(true)
-    cy.sendDFItoWallet().sendTokenToWallet(['BTC', 'DFI-BTC']).wait(10000)
+    cy.sendDFItoWallet().sendTokenToWallet(['BTC', 'DFI-BTC']).wait(3000)
     cy.getByTestID('bottom_tab_balances').click()
   })
 
@@ -133,7 +133,7 @@ context('Wallet - Send', function () {
         cy.closeOceanInterface()
         cy.getByTestID('balances_row_1_amount').should('not.exist')
 
-        cy.sendTokenToWallet(['BTC']).wait(10000)
+        cy.sendTokenToWallet(['BTC']).wait(3000)
       })
     })
   })
@@ -153,7 +153,49 @@ context('Wallet - Send', function () {
         cy.closeOceanInterface()
         cy.getByTestID('balances_row_6_amount').should('not.exist')
 
-        cy.sendTokenToWallet(['DFI-BTC']).wait(10000)
+        cy.sendTokenToWallet(['DFI-BTC']).wait(3000)
+      })
+    })
+  })
+})
+
+context('Wallet - Send - Max Values', function () {
+  let whale: WhaleApiClient
+
+  const addresses = ['bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d', 'bcrt1qyynghf6xv66c7zewd6aansn9j9hy3q2hsl7ms7']
+  beforeEach(function () {
+    const network = localStorage.getItem('Development.NETWORK')
+    whale = new WhaleApiClient({
+      url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
+      network: 'regtest'
+    })
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet().wait(3000)
+    cy.getByTestID('bottom_tab_balances').click()
+  })
+
+  addresses.forEach(function (address) {
+    it(`should be able to send to address ${address}`, function () {
+      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('balances_list').should('exist')
+      cy.getByTestID('balances_row_0_utxo').should('exist')
+      cy.getByTestID('balances_row_0_utxo_amount').click()
+      cy.getByTestID('send_button').click()
+      cy.getByTestID('address_input').clear().type(address)
+      cy.getByTestID('MAX_amount_button').click()
+      cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
+      cy.getByTestID('send_submit_button').click()
+      cy.getByTestID('confirm_title').contains('YOU ARE SENDING')
+      cy.getByTestID('text_send_amount').contains('10.00000000 DFI')
+      cy.getByTestID('button_confirm_send').click().wait(3000)
+      cy.closeOceanInterface()
+      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('balances_row_0_utxo_amount').contains('0.00000000')
+    })
+
+    it(`should check if exist on other side ${address}`, function () {
+      cy.wrap(whale.address.getBalance(address)).then((response) => {
+        expect(response).eq('9.99997779')
       })
     })
   })
