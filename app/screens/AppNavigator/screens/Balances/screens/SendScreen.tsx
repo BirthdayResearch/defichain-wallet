@@ -176,7 +176,7 @@ interface AmountForm {
 
 function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): JSX.Element {
   const Icon = getNativeIcon(token.avatarSymbol)
-  let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).toFixed(8) : token.amount
+  let maxAmount = token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
   return (
     <>
