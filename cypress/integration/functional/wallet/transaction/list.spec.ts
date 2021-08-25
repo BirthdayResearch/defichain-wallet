@@ -10,7 +10,7 @@ context('Wallet - Transaction - List', () => {
             {}
           ]
         },
-        delay: 3000
+        delay: 5000
       })
     })
 
