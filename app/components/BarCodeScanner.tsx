@@ -97,10 +97,10 @@ export function BarCodeScanner ({ route, navigation }: Props): JSX.Element {
       <View style={styles.layerCenter}>
         <View style={styles.layerLeft} />
         <View style={[styles.focused, tailwind('relative')]}>
-          <View style={tailwind('border-t-4 border-l-4 border-white w-12 h-12 absolute')} />
-          <View style={tailwind('border-t-4 border-r-4 border-white w-12 h-12 top-0 right-0 absolute z-50')} />
-          <View style={tailwind('border-b-4 border-l-4 border-white w-12 h-12 bottom-0 absolute z-50')} />
-          <View style={tailwind('border-b-4 border-r-4 border-white w-12 h-12 bottom-0 right-0 absolute z-50')} />
+          <View style={tailwind('border-t-4 border-l-4 border-white w-16 h-16 absolute')} />
+          <View style={tailwind('border-t-4 border-r-4 border-white w-16 h-16 top-0 right-0 absolute')} />
+          <View style={tailwind('border-b-4 border-l-4 border-white w-16 h-16 bottom-0 absolute')} />
+          <View style={tailwind('border-b-4 border-r-4 border-white w-16 h-16 bottom-0 right-0 absolute')} />
         </View>
         <View style={styles.layerRight} />
       </View>
