@@ -47,12 +47,11 @@ exports[`token detail screen should accept DST 1`] = `
             },
             Array [
               Object {
-                "color": "rgba(115, 115, 115, 1)",
                 "fontSize": 12,
                 "lineHeight": 16,
               },
               Object {
-                "color": "rgba(0, 0, 0, 1)",
+                "color": "rgba(115, 115, 115, 1)",
               },
             ],
           ]
@@ -378,12 +377,11 @@ exports[`token detail screen should accept Token DFI 1`] = `
             },
             Array [
               Object {
-                "color": "rgba(115, 115, 115, 1)",
                 "fontSize": 12,
                 "lineHeight": 16,
               },
               Object {
-                "color": "rgba(0, 0, 0, 1)",
+                "color": "rgba(115, 115, 115, 1)",
               },
             ],
           ]
@@ -607,12 +605,11 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
             },
             Array [
               Object {
-                "color": "rgba(115, 115, 115, 1)",
                 "fontSize": 12,
                 "lineHeight": 16,
               },
               Object {
-                "color": "rgba(0, 0, 0, 1)",
+                "color": "rgba(115, 115, 115, 1)",
               },
             ],
           ]

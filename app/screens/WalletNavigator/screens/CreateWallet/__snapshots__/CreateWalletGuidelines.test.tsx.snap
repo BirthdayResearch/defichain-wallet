@@ -14,7 +14,7 @@ exports[`create wallet guidelines should match snapshot 1`] = `
         "paddingTop": 24,
       },
       Object {
-        "backgroundColor": "rgba(245, 245, 245, 1)",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
       },
     ]
   }
@@ -56,7 +56,6 @@ exports[`create wallet guidelines should match snapshot 1`] = `
           },
           Array [
             Object {
-              "color": "rgba(115, 115, 115, 1)",
               "fontFamily": "MediumFont",
               "fontSize": 14,
               "fontWeight": "500",
@@ -64,7 +63,7 @@ exports[`create wallet guidelines should match snapshot 1`] = `
               "marginTop": 4,
             },
             Object {
-              "color": "rgba(0, 0, 0, 1)",
+              "color": "rgba(115, 115, 115, 1)",
             },
           ],
         ]
@@ -177,12 +176,11 @@ exports[`create wallet guidelines should match snapshot 1`] = `
               },
               Array [
                 Object {
-                  "color": "rgba(115, 115, 115, 1)",
                   "fontSize": 14,
                   "lineHeight": 20,
                 },
                 Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
@@ -253,12 +251,11 @@ exports[`create wallet guidelines should match snapshot 1`] = `
               },
               Array [
                 Object {
-                  "color": "rgba(115, 115, 115, 1)",
                   "fontSize": 14,
                   "lineHeight": 20,
                 },
                 Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
@@ -329,12 +326,11 @@ exports[`create wallet guidelines should match snapshot 1`] = `
               },
               Array [
                 Object {
-                  "color": "rgba(115, 115, 115, 1)",
                   "fontSize": 14,
                   "lineHeight": 20,
                 },
                 Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]

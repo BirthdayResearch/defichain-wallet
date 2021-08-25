@@ -14,7 +14,7 @@ exports[`recovery words guidelines should match snapshot 1`] = `
         "paddingTop": 24,
       },
       Object {
-        "backgroundColor": "rgba(245, 245, 245, 1)",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
       },
     ]
   }
