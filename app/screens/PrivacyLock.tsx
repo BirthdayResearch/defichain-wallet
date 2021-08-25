@@ -34,7 +34,6 @@ export function PrivacyLock (): JSX.Element | null {
   useEffect(() => {
     AppState.addEventListener('change', appStateHandler)
     prevHandlerRef.current = [...prevHandlerRef.current, appStateHandler]
-    return AppState.removeEventListener('change', appStateHandler)
   }, [appStateHandler])
 
   useEffect(() => {
@@ -49,10 +48,6 @@ export function PrivacyLock (): JSX.Element | null {
     if (localAuth.isPrivacyLock === true) {
       authenticateOrExit(localAuth)
     }
-
-    // add handler for first time
-    AppState.addEventListener('change', appStateHandler)
-    // remove handler on component un-mount is not needed, handler changed by state
   }, [])
 
   return null // simplified, not "hiding" UI when authenticating
@@ -61,6 +56,7 @@ export function PrivacyLock (): JSX.Element | null {
 function authenticateOrExit (localAuth: LocalAuthContext): void {
   const backHandler = BackHandler.addEventListener('hardwareBackPress', () => null)
   localAuth.privacyLock()
+    .then(async () => await AppLastActiveTimestamp.removeForceAuth())
     .catch(async () => {
       await AppLastActiveTimestamp.forceRequireReauthenticate()
       BackHandler.exitApp()

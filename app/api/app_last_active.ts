@@ -1,18 +1,28 @@
 import { EnvironmentName, getEnvironment } from '../environment'
 import { StorageAPI } from './storage'
 
-const KEY = 'APP_LAST_ACTIVE.timestamp'
+const KEYS = {
+  force: 'APP_LAST_ACTIVE.force',
+  timestamp: 'APP_LAST_ACTIVE.timestamp'
+}
 
 async function set (): Promise<void> {
-  return await StorageAPI.setItem(KEY, `${Date.now()}`)
+  return await StorageAPI.setItem(KEYS.timestamp, `${Date.now()}`)
+}
+
+async function removeForceAuth (): Promise<void> {
+  return await StorageAPI.removeItem(KEYS.force)
 }
 
 async function forceRequireReauthenticate (): Promise<void> {
-  return await StorageAPI.setItem(KEY, `${Date.now() - getTimeoutPeriod()}`)
+  return await StorageAPI.setItem(KEYS.force, 'TRUE')
 }
 
 async function shouldReauthenticate (): Promise<boolean> {
-  const lastActive = await StorageAPI.getItem(KEY)
+  const forced = await StorageAPI.getItem(KEYS.force) === 'TRUE'
+  if (forced) return true
+
+  const lastActive = await StorageAPI.getItem(KEYS.timestamp)
   if (lastActive === null) return false
   return Number(lastActive) + getTimeoutPeriod() < Date.now()
 }
@@ -31,5 +41,6 @@ function getTimeoutPeriod (): number {
 export const AppLastActiveTimestamp = {
   set,
   forceRequireReauthenticate,
+  removeForceAuth,
   shouldReauthenticate
 }
