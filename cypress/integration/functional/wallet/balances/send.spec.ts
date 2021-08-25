@@ -187,7 +187,6 @@ context('Wallet - Send - Max Values', function () {
       cy.getByTestID('send_submit_button').click()
       cy.getByTestID('confirm_title').contains('YOU ARE SENDING')
       cy.getByTestID('text_send_amount').contains('10.00000000 DFI')
-      cy.getByTestID('send_submit_button').click()
       cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.closeOceanInterface()
     })
