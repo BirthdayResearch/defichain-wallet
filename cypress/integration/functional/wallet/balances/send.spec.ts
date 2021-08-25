@@ -193,7 +193,7 @@ context('Wallet - Send - Max Values', function () {
 
     it(`should check if exist on other side ${address}`, function () {
       cy.wrap(whale.address.getBalance(address)).then((response) => {
-        expect(response).eq('10.00000000')
+        expect(response).eq('9.99997779')
       })
     })
   })
