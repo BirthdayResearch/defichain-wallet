@@ -4,7 +4,7 @@ import React, { createContext, useCallback, useContext, useEffect, useState } fr
 import { Logging } from '../api'
 import { PrivacyLockPersistence } from '../api/wallet/privacy_lock'
 
-interface LocalAuthContext {
+export interface LocalAuthContext {
   // user's hardware condition, external
   fetchHardwareStatus: () => void // not likely needed, in case user change device's security setting
   hasHardware: boolean
