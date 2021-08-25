@@ -5,7 +5,7 @@ import { translate } from '../../../../translations'
 
 export function GuidelinesRecoveryWords (): JSX.Element {
   return (
-    <ThemedScrollView style={tailwind('flex-1 p-4 pt-6')}>
+    <ThemedScrollView light='bg-white' dark='bg-gray-900' style={tailwind('flex-1 p-4 pt-6')}>
       <ThemedText
         style={tailwind('text-lg font-semibold')}
       >{translate('screens/GuidelinesRecoveryWords', 'What are recovery words?')}

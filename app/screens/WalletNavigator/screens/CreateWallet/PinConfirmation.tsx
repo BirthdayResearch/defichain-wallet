@@ -54,7 +54,7 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
   }
 
   return (
-    <ThemedScrollView style={tailwind('w-full flex-1 flex-col')}>
+    <ThemedScrollView light='bg-white' dark='bg-gray-900' style={tailwind('w-full flex-1 flex-col')}>
       <CreateWalletStepIndicator
         current={type === 'create' ? 3 : 2}
         steps={type === 'create' ? CREATE_STEPS : RESTORE_STEPS}

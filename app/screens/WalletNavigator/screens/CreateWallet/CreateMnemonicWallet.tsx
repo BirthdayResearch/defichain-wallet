@@ -53,7 +53,7 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
   }
 
   return (
-    <ThemedScrollView style={tailwind('flex-1')}>
+    <ThemedScrollView light='bg-white' dark='bg-gray-900' style={tailwind('flex-1')}>
       <CreateWalletStepIndicator
         current={1}
         steps={CREATE_STEPS}

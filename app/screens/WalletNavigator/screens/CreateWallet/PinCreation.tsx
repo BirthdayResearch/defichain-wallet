@@ -23,6 +23,7 @@ export function PinCreation ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollView
+      light='bg-white' dark='bg-gray-900'
       testID='screen_create_pin'
       style={tailwind('w-full flex-1 flex-col')}
     >

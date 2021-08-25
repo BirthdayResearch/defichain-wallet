@@ -39,7 +39,7 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
   const [isEnabled, setIsEnabled] = useState(false)
   const toggleSwitch = (): void => setIsEnabled(previousState => !previousState)
   return (
-    <ThemedScrollView style={tailwind('flex-1 p-4 pt-6')}>
+    <ThemedScrollView light='bg-white' dark='bg-gray-900' style={tailwind('flex-1 p-4 pt-6')}>
       <ThemedText
         style={tailwind('text-lg font-semibold')}
       >{translate('screens/Guidelines', 'Creating a wallet')}
