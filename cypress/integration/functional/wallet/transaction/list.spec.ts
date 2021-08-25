@@ -1,7 +1,6 @@
 context('Wallet - Transaction - List', () => {
   describe('wallet has 2 transactions in history', function () {
     before(() => {
-      cy.visit('/')
       cy.createEmptyWallet(true)
       cy.sendDFItoWallet().sendDFItoWallet().wait(4000)
       cy.getByTestID('bottom_tab_transactions').click()
