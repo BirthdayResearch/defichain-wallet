@@ -32,14 +32,12 @@ export function PrivacyLock (): JSX.Element | null {
   }, [localAuth.isPrivacyLock])
 
   useEffect(() => {
-    console.log('appstate handler changed')
     AppState.addEventListener('change', appStateHandler)
     prevHandlerRef.current = [...prevHandlerRef.current, appStateHandler]
     return AppState.removeEventListener('change', appStateHandler)
   }, [appStateHandler])
 
   useEffect(() => {
-    console.log('prev changed')
     if (prevHandlerRef.current.length > 1) {
       AppState.removeEventListener('change', prevHandlerRef.current[0])
       prevHandlerRef.current.splice(0, 1)
