@@ -189,6 +189,8 @@ context('Wallet - Send - Max Values', function () {
       cy.getByTestID('text_send_amount').contains('10.00000000 DFI')
       cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.closeOceanInterface()
+      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('balances_row_0_utxo_amount').contains('0.00000000')
     })
 
     it(`should check if exist on other side ${address}`, function () {
