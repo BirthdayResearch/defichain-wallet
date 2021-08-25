@@ -87,7 +87,7 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
             testID={`${testID}_symbol`}
             style={tailwind('font-medium')}
             light='text-black'
-            dark='text-white text-opacity-90'
+            dark='text-gray-200'
           >{token.displaySymbol}
           </ThemedText>
           <ThemedText
@@ -96,7 +96,7 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
             ellipsizeMode='tail'
             style={tailwind('text-sm font-medium text-gray-600')}
             light='text-gray-600'
-            dark='text-white text-opacity-70'
+            dark='text-gray-400'
           >{token.name}
           </ThemedText>
         </View>
@@ -107,13 +107,13 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
               <>
                 <ThemedText
                   style={tailwind('mr-2 flex-wrap')} light='text-black'
-                  dark='text-white text-opacity-90' testID={`${testID}_amount`}
+                  dark='text-gray-200' testID={`${testID}_amount`}
                 >
                   {value}
                 </ThemedText>
                 <ThemedIcon
                   iconType='MaterialIcons' name='chevron-right' size={24}
-                  light='text-black' dark='text-white text-opacity-90'
+                  light='text-black' dark='text-gray-200'
                 />
               </>}
           />

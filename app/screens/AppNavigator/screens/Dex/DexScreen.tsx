@@ -71,6 +71,8 @@ export function DexScreen (): JSX.Element {
               () => onAdd(item.data),
               () => navigation.navigate({ name: 'PoolSwap', params: { poolpair: item.data }, merge: true })
             )
+          default:
+            return <></>
         }
       }}
       renderSectionHeader={({ section }) => {
@@ -219,7 +221,11 @@ function PoolPairLiqBtn (props: { name: React.ComponentProps<typeof MaterialIcon
 function PoolPairInfoLine (props: { symbol: string, reserve: string, row: string, decimalScale: number }): JSX.Element {
   return (
     <View style={tailwind('flex-row justify-between')}>
-      <ThemedText style={tailwind('text-sm font-medium mb-1')}>Pooled {props.symbol}</ThemedText>
+      <ThemedText
+        light='text-black' dark='text-gray-400'
+        style={tailwind('text-sm font-medium mb-1')}
+      >Pooled {props.symbol}
+      </ThemedText>
       <NumberFormat
         suffix={` ${props.symbol}`}
         value={props.reserve} decimalScale={props.decimalScale} thousandSeparator displayType='text'
@@ -241,6 +247,7 @@ function PoolPairAPR (props: { symbol: string, apr: number, row: string }): JSX.
   return (
     <View style={tailwind('flex-row justify-between items-end')}>
       <ThemedText
+        light='text-black' dark='text-gray-400'
         style={tailwind('text-sm font-medium mb-1')}
       >{translate('screens/DexScreen', 'APR')}
       </ThemedText>
