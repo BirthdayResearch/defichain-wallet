@@ -1,8 +1,7 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View } from '../../../../../components'
-import { Button } from '../../../../../components/Button'
 import { PinTextInput } from '../../../../../components/PinTextInput'
 import { ThemedIcon, ThemedScrollView, ThemedText } from '../../../../../components/themed'
 import { tailwind } from '../../../../../tailwind'
@@ -15,6 +14,17 @@ export function ChangePinScreen ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
   const { pinLength, words } = route.params
   const [newPin, setNewPin] = useState('')
+
+  useEffect(() => {
+    if (newPin.length !== pinLength) {
+      return
+    }
+
+    setNewPin('')
+    navigation.navigate({
+      name: 'ConfirmPinScreen', params: { words, pin: newPin }, merge: true
+    })
+  }, [newPin])
 
   return (
     <ThemedScrollView
@@ -35,18 +45,6 @@ export function ChangePinScreen ({ route }: Props): JSX.Element {
         >{translate('screens/PinCreation', 'Keep your passcode private')}
         </ThemedText>
       </View>
-      <Button
-        testID='change_pin_button'
-        label={translate('screens/PinCreation', 'CHANGE PASSCODE')}
-        title='create-pin'
-        disabled={newPin.length !== pinLength}
-        onPress={() => {
-          setNewPin('')
-          navigation.navigate({
-            name: 'ConfirmPinScreen', params: { words, pin: newPin }, merge: true
-          })
-        }}
-      />
     </ThemedScrollView>
   )
 }

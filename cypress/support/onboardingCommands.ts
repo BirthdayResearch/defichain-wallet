@@ -68,8 +68,7 @@ Cypress.Commands.add('selectMnemonicWords', (recoveryWords: string[]) => {
 })
 
 Cypress.Commands.add('setupPinCode', () => {
-  cy.getByTestID('pin_input').type('000000')
-  cy.getByTestID('create_pin_button').click()
+  cy.getByTestID('pin_input').type('000000')  
   cy.getByTestID('pin_confirm_input').type('777777').wait(1000)
   cy.getByTestID('wrong_passcode_text').should('exist')
   cy.getByTestID('pin_confirm_input').type('000000')
@@ -99,8 +98,7 @@ Cypress.Commands.add('restoreMnemonicWords', (recoveryWords: string[]) => {
   })
   cy.getByTestID('recover_wallet_button').should('not.have.attr', 'disabled')
   cy.getByTestID('recover_wallet_button').click()
-  cy.getByTestID('pin_input').type('000000')
-  cy.getByTestID('create_pin_button').click()
+  cy.getByTestID('pin_input').type('000000')  
   cy.getByTestID('pin_confirm_input').type('000000')
   cy.getByTestID('balances_list').should('exist')
 })
