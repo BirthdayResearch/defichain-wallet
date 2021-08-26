@@ -1,10 +1,9 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ScrollView } from 'react-native'
 import { Text, View } from '../../../../components'
-import { Button } from '../../../../components/Button'
 import {
   CREATE_STEPS,
   CreateWalletStepIndicator,
@@ -21,6 +20,17 @@ export function PinCreation ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<WalletParamList>>()
   const { pinLength, words, type } = route.params
   const [newPin, setNewPin] = useState('')
+
+  useEffect(() => {
+    if (newPin.length !== pinLength) {
+      return
+    }
+
+    setNewPin('')
+    navigation.navigate({
+      name: 'PinConfirmation', params: { words, pin: newPin, type }, merge: true
+    })
+  }, [newPin])
 
   return (
     <ScrollView
@@ -46,18 +56,6 @@ export function PinCreation ({ route }: Props): JSX.Element {
         >{translate('screens/PinCreation', 'Keep your passcode private')}
         </Text>
       </View>
-      <Button
-        testID='create_pin_button'
-        label={translate('screens/PinCreation', 'CREATE PASSCODE')}
-        title='create-pin'
-        disabled={newPin.length !== pinLength}
-        onPress={() => {
-          setNewPin('')
-          navigation.navigate({
-            name: 'PinConfirmation', params: { words, pin: newPin, type }, merge: true
-          })
-        }}
-      />
     </ScrollView>
   )
 }

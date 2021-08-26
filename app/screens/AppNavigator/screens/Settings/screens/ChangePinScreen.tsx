@@ -1,10 +1,9 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ScrollView } from 'react-native'
 import { Text, View } from '../../../../../components'
-import { Button } from '../../../../../components/Button'
 import { PinTextInput } from '../../../../../components/PinTextInput'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
@@ -16,6 +15,17 @@ export function ChangePinScreen ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
   const { pinLength, words } = route.params
   const [newPin, setNewPin] = useState('')
+
+  useEffect(() => {
+    if (newPin.length !== pinLength) {
+      return
+    }
+
+    setNewPin('')
+    navigation.navigate({
+      name: 'ConfirmPinScreen', params: { words, pin: newPin }, merge: true
+    })
+  }, [newPin])
 
   return (
     <ScrollView
@@ -36,18 +46,6 @@ export function ChangePinScreen ({ route }: Props): JSX.Element {
         >{translate('screens/PinCreation', 'Keep your passcode private')}
         </Text>
       </View>
-      <Button
-        testID='change_pin_button'
-        label={translate('screens/PinCreation', 'CHANGE PASSCODE')}
-        title='create-pin'
-        disabled={newPin.length !== pinLength}
-        onPress={() => {
-          setNewPin('')
-          navigation.navigate({
-            name: 'ConfirmPinScreen', params: { words, pin: newPin }, merge: true
-          })
-        }}
-      />
     </ScrollView>
   )
 }
