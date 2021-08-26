@@ -1,9 +1,11 @@
-context('Wallet - Transaction - List', () => {
+context('Wallet - Transaction - List Skeleton', () => {
   describe('wallet has 2 transactions in history', function () {
-    before(() => {
+    beforeEach(() => {
       cy.createEmptyWallet(true)
       cy.sendDFItoWallet().sendDFItoWallet().wait(4000)
-      cy.getByTestID('bottom_tab_transactions').click()
+    })
+
+    it('should display skeleton loader when API has yet to return', () => {
       cy.intercept('**/transactions?size=*', {
         body: {
           data: [
@@ -12,17 +14,26 @@ context('Wallet - Transaction - List', () => {
         },
         delay: 5000
       })
-    })
-
-    it('should display skeleton loader when API has yet to return', () => {
+      cy.getByTestID('bottom_tab_transactions').click()
       cy.getByTestID('transaction_skeleton_loader').should('exist')
     })
 
     it('should not display skeleton loader when API has return', () => {
       cy.intercept('**/transactions?size=*').as('getTransactions')
+      cy.getByTestID('bottom_tab_transactions').click()
       cy.wait('@getTransactions').then(() => {
         cy.getByTestID('transaction_skeleton_loader').should('not.exist')
       })
+    })
+  })
+})
+
+context('Wallet - Transaction - List', () => {
+  describe('wallet has 2 transactions in history', function () {
+    before(() => {
+      cy.createEmptyWallet(true)
+      cy.sendDFItoWallet().sendDFItoWallet().wait(4000)
+      cy.getByTestID('bottom_tab_transactions').click()
     })
 
     it('should display 2 rows', () => {
