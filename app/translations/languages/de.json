@@ -65,7 +65,11 @@
     "To update your passcode, we need you to enter your current passcode.": "To update your passcode, we need you to enter your current passcode.",
     "Verifying passcode...": "Verifying passcode...",
     "To continue viewing your recovery words, we need you to enter your passcode.": "To continue viewing your recovery words, we need you to enter your passcode.",
-    "Loading...": "Loading..."
+    "Loading...": "Loading...",
+    "Network Switch": "Network Switch",
+    "No": "No",
+    "Yes": "Yes",
+    "You are about to switch to {{ network }}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?": "You are about to switch to {{ network }}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?"
   },
   "screens/AboutScreen": {
     "About": "About",

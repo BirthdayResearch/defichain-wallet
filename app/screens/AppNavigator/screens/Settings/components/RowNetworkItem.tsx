@@ -21,6 +21,7 @@ export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Ele
         navigation.navigate('Playground')
       }
     } else {
+      // TODO(@thedoublejay) Update to pass params for translations
       WalletAlert({
         title: translate('screens/Settings', 'Network Switch'),
         message: translate(
