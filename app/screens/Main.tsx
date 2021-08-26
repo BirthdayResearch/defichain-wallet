@@ -5,11 +5,11 @@ import { useThemeContext } from '../contexts/ThemeProvider'
 import { RootNavigator } from './RootNavigator'
 
 export function Main (): JSX.Element {
-  const { theme } = useThemeContext()
+  const { isLight } = useThemeContext()
   return (
     <SafeAreaProvider>
       <RootNavigator />
-      <StatusBar style={theme === 'light' ? 'dark' : 'light'} />
+      <StatusBar style={isLight ? 'dark' : 'light'} />
     </SafeAreaProvider>
   )
 }

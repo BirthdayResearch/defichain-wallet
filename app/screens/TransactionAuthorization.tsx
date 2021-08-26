@@ -244,8 +244,7 @@ export function TransactionAuthorization (): JSX.Element | null {
     return null
   }
 
-  const { theme } = useThemeContext()
-  const isLight = theme === 'light'
+  const { isLight } = useThemeContext()
   return (
     <SafeAreaView
       style={[

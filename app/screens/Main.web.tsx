@@ -9,8 +9,8 @@ import { PlaygroundNavigator } from './PlaygroundNavigator/PlaygroundNavigator'
 import { RootNavigator } from './RootNavigator'
 
 export function Main (): JSX.Element {
-  const { theme } = useThemeContext()
-  const DeFiChainTheme: Theme = getDefaultTheme(theme)
+  const { isLight } = useThemeContext()
+  const DeFiChainTheme: Theme = getDefaultTheme(isLight)
   return (
     <View style={tailwind('flex-row flex-1 justify-center items-center bg-black')}>
       <View style={styles.phone}>

@@ -132,8 +132,7 @@ interface RecoveryWordItem {
 
 function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWordItem): JSX.Element {
   const [selectedWord, setSelectedWord] = useState<string>()
-  const { theme } = useThemeContext()
-  const isLight = theme === 'light'
+  const { isLight } = useThemeContext()
   const activeButton = isLight ? 'bg-primary-50' : 'bg-darkprimary-500'
   return (
     <ThemedView

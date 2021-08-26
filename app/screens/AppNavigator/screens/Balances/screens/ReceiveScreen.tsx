@@ -20,7 +20,7 @@ export async function onShare (address: string): Promise<void> {
 }
 
 export function ReceiveScreen (): JSX.Element {
-  const { theme } = useThemeContext()
+  const { isLight } = useThemeContext()
   const { address } = useWalletContext()
   const [isCopied, setIsCopied] = useState<boolean>(false)
 
@@ -43,8 +43,8 @@ export function ReceiveScreen (): JSX.Element {
       >
         <View testID='qr_code_container' style={tailwind('mb-5')}>
           <QRCode
-            color={theme === 'light' ? 'black' : 'white'}
-            backgroundColor={theme === 'light' ? 'white' : 'black'}
+            color={isLight ? 'black' : 'white'}
+            backgroundColor={isLight ? 'white' : 'black'}
             value={address}
             size={200}
           />

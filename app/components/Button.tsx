@@ -18,8 +18,7 @@ export function Button (props: ButtonProps): JSX.Element {
     fill = 'fill',
     margin = 'm-4 mt-8'
   } = props
-  const { theme } = useThemeContext()
-  const isLight = theme === 'light'
+  const { isLight } = useThemeContext()
   const themedColor = isLight ? `${color}` : `dark${color}`
 
   const disabledStyle = isLight ? 'bg-gray-200 border-0' : 'bg-gray-600 text-gray-500 border-0'

@@ -32,8 +32,7 @@ export const RESTORE_STEPS = [
  * @returns {JSX.Element}
  */
 export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Element {
-  const { theme } = useThemeContext()
-  const isLight = theme === 'light'
+  const { isLight } = useThemeContext()
   const { current, total, style: containerViewStyle, steps = [] } = props
   if (total === undefined && steps.length === 0) {
     throw Error('Invalid prop for CreateWalletStepIndicator')

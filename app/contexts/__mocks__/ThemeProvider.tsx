@@ -1,5 +1,6 @@
 export function useThemeContext (): any {
   return {
-    theme: 'light'
+    theme: 'light',
+    isLight: true
   }
 }

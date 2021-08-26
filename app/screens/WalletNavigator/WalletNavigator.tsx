@@ -59,9 +59,9 @@ const LinkingConfiguration: LinkingOptions<ReactNavigation.RootParamList> = {
 }
 
 export function WalletNavigator (): JSX.Element {
-  const { theme } = useThemeContext()
+  const { isLight } = useThemeContext()
   const navigationRef = React.useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null)
-  const DeFiChainTheme: Theme = getDefaultTheme(theme)
+  const DeFiChainTheme: Theme = getDefaultTheme(isLight)
   return (
     <NavigationContainer linking={LinkingConfiguration} ref={navigationRef} theme={DeFiChainTheme}>
       <WalletStack.Navigator initialRouteName='Setup' screenOptions={{ headerTitleStyle: HeaderFont }}>

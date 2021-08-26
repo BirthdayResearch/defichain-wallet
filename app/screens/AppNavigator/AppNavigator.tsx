@@ -19,8 +19,8 @@ export interface AppParamList {
 }
 
 export function AppNavigator (): JSX.Element {
-  const { theme } = useThemeContext()
-  const DeFiChainTheme: Theme = getDefaultTheme(theme)
+  const { isLight } = useThemeContext()
+  const DeFiChainTheme: Theme = getDefaultTheme(isLight)
   return (
     <NavigationContainer linking={LinkingConfiguration} theme={DeFiChainTheme}>
       <App.Navigator screenOptions={{ headerShown: false }}>

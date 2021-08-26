@@ -78,8 +78,7 @@ export function ImageSlide ({ image, title, secondTitle, subtitle }: CarouselIma
 }
 
 export function OnboardingCarousel (): JSX.Element {
-  const { theme } = useThemeContext()
-  const isLight = theme === 'light'
+  const { isLight } = useThemeContext()
   return (
     <SwiperFlatList
       autoplay

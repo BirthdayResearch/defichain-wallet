@@ -34,6 +34,7 @@ export function useTheme (): ThemeLoader {
 interface Theme {
   theme: NonNullable<ColorSchemeName>
   setTheme: (theme: NonNullable<ColorSchemeName>) => void
+  isLight: boolean
 }
 
 const ThemeContext = createContext<Theme>(undefined as any)
@@ -52,7 +53,8 @@ export function ThemeProvider (props: React.PropsWithChildren<any>): JSX.Element
 
   const context: Theme = {
     theme: currentTheme,
-    setTheme
+    setTheme,
+    isLight: currentTheme === 'light'
   }
 
   return (

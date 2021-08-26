@@ -27,7 +27,7 @@ export function formatBlockTime (date: number): string {
 export function TransactionsScreen (): JSX.Element {
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
-  const { theme } = useThemeContext()
+  const { isLight } = useThemeContext()
   const navigation = useNavigation<NavigationProp<TransactionsParamList>>()
   const blocks = useSelector((state: RootState) => state.block.count)
   const [transactions, setTransactions] = useState<VMTransaction[]>([])
@@ -54,9 +54,9 @@ export function TransactionsScreen (): JSX.Element {
     client.address.listTransaction(address, undefined, loadMoreToken)
       .then(async addActivities => {
         if (typeof loadMoreToken === 'string') {
-          setTransactions(transactions.concat(activitiesToViewModel(addActivities, theme === 'light')))
+          setTransactions(transactions.concat(activitiesToViewModel(addActivities, isLight)))
         } else {
-          setTransactions(activitiesToViewModel(addActivities, theme === 'light'))
+          setTransactions(activitiesToViewModel(addActivities, isLight))
         }
 
         setLoadMoreToken(addActivities.nextToken)

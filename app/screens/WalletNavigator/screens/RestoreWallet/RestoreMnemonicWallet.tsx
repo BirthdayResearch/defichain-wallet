@@ -95,11 +95,11 @@ export function RestoreMnemonicWallet (): JSX.Element {
     }
   }
 
-  const { theme } = useThemeContext()
+  const { isLight } = useThemeContext()
   const light = 'text-gray-700 bg-white'
   const dark = 'text-white bg-gray-800'
   return (
-    <KeyboardAwareScrollView style={tailwind(`${theme === 'light' ? 'bg-white' : 'bg-gray-900'}`)}>
+    <KeyboardAwareScrollView style={tailwind(`${isLight ? 'bg-white' : 'bg-gray-900'}`)}>
       <CreateWalletStepIndicator
         current={1}
         steps={RESTORE_STEPS}
@@ -134,12 +134,12 @@ export function RestoreMnemonicWallet (): JSX.Element {
                 <TextInput
                   ref={inputRefMap[order]}
                   testID={`recover_word_${order}`}
-                  placeholderTextColor={theme === 'light'
+                  placeholderTextColor={isLight
                     ? `${invalid && isTouched
-? 'rgba(255, 0, 0, 1)'
-                    : 'rgba(0, 0, 0, 0.4)'}`
+                      ? 'rgba(255, 0, 0, 1)'
+                      : 'rgba(0, 0, 0, 0.4)'}`
                     : `${invalid && isTouched ? 'rgba(255, 0, 0, 1)' : '#828282'}`}
-                  style={tailwind(`flex-grow p-4 pl-0 ${invalid && isTouched ? 'text-error-500' : `${theme === 'light' ? light : dark}`}`)}
+                  style={tailwind(`flex-grow p-4 pl-0 ${invalid && isTouched ? 'text-error-500' : `${isLight ? light : dark}`}`)}
                   autoCapitalize='none'
                   autoCompleteType='off'
                   value={value}

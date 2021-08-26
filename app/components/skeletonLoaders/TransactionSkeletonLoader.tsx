@@ -5,7 +5,7 @@ import { tailwind } from '../../tailwind'
 import { ThemedView } from '../themed'
 
 export function TransactionSkeletonLoader (): JSX.Element {
-  const { theme } = useThemeContext()
+  const { isLight } = useThemeContext()
   return (
     <ThemedView
       testID='transaction_skeleton_loader'
@@ -19,8 +19,8 @@ export function TransactionSkeletonLoader (): JSX.Element {
         width='100%'
         height={47}
         preserveAspectRatio='xMidYMid slice'
-        backgroundColor={theme === 'light' ? '#ecebeb' : '#2f2f2f'}
-        foregroundColor={theme === 'light' ? '#ffffff' : '#4a4a4a'}
+        backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}
+        foregroundColor={isLight ? '#ffffff' : '#4a4a4a'}
       >
         <Circle cx='17' cy='23' r='10' />
         <Rect x='44' y='7' width='100' height='15' />
