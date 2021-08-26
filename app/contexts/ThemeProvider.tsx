@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { ColorSchemeName, useColorScheme } from 'react-native'
 import { Logging } from '../api'
-import { ThemePersistence } from '../api/wallet/theme_storage'
+import { ThemePersistence } from '../api/persistence/theme_storage'
 
 interface ThemeLoader {
   theme: NonNullable<ColorSchemeName>

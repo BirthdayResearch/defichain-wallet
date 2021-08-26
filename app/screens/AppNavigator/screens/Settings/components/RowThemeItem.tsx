@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import * as React from 'react'
 import { useState } from 'react'
-import { ThemePersistence } from '../../../../../api/wallet/theme_storage'
+import { ThemePersistence } from '../../../../../api/persistence/theme_storage'
 import { Switch, View } from '../../../../../components'
 import { ThemedText, ThemedView } from '../../../../../components/themed'
 import { useThemeContext } from '../../../../../contexts/ThemeProvider'
