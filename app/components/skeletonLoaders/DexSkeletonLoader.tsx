@@ -1,8 +1,8 @@
 import * as React from 'react'
 import ContentLoader, { Circle, Rect } from 'react-content-loader/native'
-import { ThemedView } from '../../../../../components/themed'
-import { useThemeContext } from '../../../../../contexts/ThemeProvider'
-import { tailwind } from '../../../../../tailwind'
+import { useThemeContext } from '../../contexts/ThemeProvider'
+import { tailwind } from '../../tailwind'
+import { ThemedView } from '../themed'
 
 export function DexSkeletonLoader (): JSX.Element {
   const { theme } = useThemeContext()
