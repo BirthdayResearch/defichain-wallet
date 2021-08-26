@@ -28,7 +28,13 @@
     "SHARE": "SHARE"
   },
   "screens/SendScreen": {
-    "Send": "Send"
+    "Send": "Send",
+    "Estimated fee": "Estimated fee",
+    "CONTINUE": "CONTINUE",
+    "TO ADDRESS": "TO ADDRESS",
+    "Enter an address": "Enter an address",
+    "Enter an amount": "Enter an amount",
+    "Balance: ": "Balance: "
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Confirm Send"
@@ -62,6 +68,12 @@
   },
   "screens/TransactionsDetailScreen": {
     "Transactions": "Transaktionen"
+  },
+  "screens/TokenDetailScreen": {
+    "AMOUNT BALANCE": "AMOUNT BALANCE",
+    "AVAILABLE OPTIONS": "AVAILABLE OPTIONS",
+    "Send to other wallet": "Send to other wallet",
+    "Receive": "Receive"
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "CREATE A WALLET",
