@@ -187,7 +187,7 @@ function PoolPairLiqBtn (props: { name: React.ComponentProps<typeof MaterialIcon
       testID={`pool_pair_${props.name}_${props.pair}`}
       onPress={props.onPress}
       materialIconName={props.name}
-      size={24}
+      iconSize={24}
       style={tailwind('mr-2')}
     />
   )

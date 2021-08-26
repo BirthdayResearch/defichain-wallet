@@ -168,7 +168,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         maxAmount={tokenA.amount}
       />
       <View style={tailwind('justify-center items-center mt-6')}>
-        <IconButton testID='swap_button' onPress={swapToken} materialIconName='swap-vert' size={24} />
+        <IconButton testID='swap_button' onPress={swapToken} materialIconName='swap-vert' iconSize={24} />
       </View>
       <TokenRow
         isDisabled

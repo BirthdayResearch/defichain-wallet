@@ -7,7 +7,7 @@ interface IconButtonProps {
   testID: string
   onPress: () => void
   materialIconName: React.ComponentProps<typeof MaterialIcons>['name']
-  size: number
+  iconSize: number
   style?: StyleProp<ViewStyle>
 }
 
@@ -18,7 +18,7 @@ export function IconButton (props: IconButtonProps): JSX.Element {
       onPress={props.onPress}
       testID={props.testID}
     >
-      <MaterialIcons name={props.materialIconName} size={props.size} style={tailwind('text-primary')} />
+      <MaterialIcons name={props.materialIconName} size={props.iconSize} style={tailwind('text-primary')} />
     </TouchableOpacity>
   )
 }

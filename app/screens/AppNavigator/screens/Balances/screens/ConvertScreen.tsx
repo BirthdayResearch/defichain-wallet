@@ -206,7 +206,7 @@ function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: str
 function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
   return (
     <View style={tailwind('flex-row justify-center items-center mt-6')}>
-      <IconButton testID='button_convert_mode_toggle' onPress={props.onPress} materialIconName='swap-vert' size={24} />
+      <IconButton testID='button_convert_mode_toggle' onPress={props.onPress} materialIconName='swap-vert' iconSize={24} />
     </View>
   )
 }
