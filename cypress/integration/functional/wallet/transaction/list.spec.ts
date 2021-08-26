@@ -3,7 +3,9 @@ context('Wallet - Transaction - List', () => {
     before(() => {
       cy.createEmptyWallet(true)
       cy.sendDFItoWallet().sendDFItoWallet().wait(4000)
-      cy.getByTestID('bottom_tab_transactions').click()
+    })
+
+    it('should display skeleton loader when API has yet to return', () => {
       cy.intercept('**/transactions?size=*', {
         body: {
           data: [
@@ -12,9 +14,7 @@ context('Wallet - Transaction - List', () => {
         },
         delay: 5000
       })
-    })
-
-    it('should display skeleton loader when API has yet to return', () => {
+      cy.getByTestID('bottom_tab_transactions').click()
       cy.getByTestID('transaction_skeleton_loader').should('exist')
     })
 
