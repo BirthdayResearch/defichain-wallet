@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`swap button should match snapshot 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginTop": 24,
+    }
+  }
+>
+  <RNGestureHandlerButton
+    collapsable={false}
+    onGestureEvent={[Function]}
+    onGestureHandlerEvent={[Function]}
+    onGestureHandlerStateChange={[Function]}
+    onHandlerStateChange={[Function]}
+    rippleColor={0}
+    testID="button_convert_mode_toggle"
+  >
+    <View
+      accessible={true}
+      style={
+        Object {
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderBottomColor": "rgba(209, 213, 219, 1)",
+          "borderBottomLeftRadius": 4,
+          "borderBottomRightRadius": 4,
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(209, 213, 219, 1)",
+          "borderLeftWidth": 1,
+          "borderRightColor": "rgba(209, 213, 219, 1)",
+          "borderRightWidth": 1,
+          "borderTopColor": "rgba(209, 213, 219, 1)",
+          "borderTopLeftRadius": 4,
+          "borderTopRightRadius": 4,
+          "borderTopWidth": 1,
+          "opacity": 1,
+          "paddingBottom": 4,
+          "paddingLeft": 4,
+          "paddingRight": 4,
+          "paddingTop": 4,
+        }
+      }
+    >
+      <Text />
+    </View>
+  </RNGestureHandlerButton>
+</View>
+`;
