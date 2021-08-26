@@ -5,17 +5,20 @@ context('Wallet - Transaction - List', () => {
       cy.sendDFItoWallet().sendDFItoWallet().wait(4000)
     })
 
-    it('should display skeleton loader when API has yet to return', () => {
-      cy.intercept('**/transactions?size=*', {
-        body: {
-          data: [
-            {}
-          ]
-        },
-        delay: 5000
+    it('should display skeleton loader when API has yet to return and has no fails within 10 retries', () => {
+      Cypress._.times(10, () => {
+        cy.reload()
+        cy.intercept('**/transactions?size=*', {
+          body: {
+            data: [
+              {}
+            ]
+          },
+          delay: 5000
+        })
+        cy.getByTestID('bottom_tab_transactions').click()
+        cy.getByTestID('transaction_skeleton_loader').should('exist')
       })
-      cy.getByTestID('bottom_tab_transactions').click()
-      cy.getByTestID('transaction_skeleton_loader').should('exist')
     })
 
     it('should not display skeleton loader when API has return', () => {
