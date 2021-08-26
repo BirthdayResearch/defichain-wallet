@@ -92,7 +92,7 @@ context('Wallet - Convert DFI', () => {
 })
 
 context('Wallet - Convert UTXO to Account', function () {
-  it('should test UTXO to account conversion', function () {
+  it('should test conversion of UTXO to account', function () {
     createDFIWallet()
     cy.getByTestID('text_input_convert_from_input').clear().type('1')
     cy.getByTestID('button_continue_convert').click()
@@ -111,7 +111,7 @@ context('Wallet - Convert UTXO to Account', function () {
 })
 
 context('Wallet - Convert Account to UTXO', function () {
-  it('should test UTXO to account conversion', function () {
+  it('should test conversion of account to UTXO', function () {
     createDFIWallet()
     cy.getByTestID('button_convert_mode_toggle').click().wait(4000)
     cy.getByTestID('text_input_convert_from_input').clear().type('1')
