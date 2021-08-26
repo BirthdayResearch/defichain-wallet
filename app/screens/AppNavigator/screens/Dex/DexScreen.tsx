@@ -10,12 +10,12 @@ import { useSelector } from 'react-redux'
 import { Text, View } from '../../../../components'
 import { getNativeIcon } from '../../../../components/icons/assets'
 import { SectionTitle } from '../../../../components/SectionTitle'
+import { SkeletonLoader, SkeletonLoaderScreen } from '../../../../components/SkeletonLoader'
 import { usePoolPairsAPI } from '../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
-import { DexSkeletonLoader } from './screens/DexSkeletonLoader'
 
 enum SectionKey {
   YourLiquidity = 'YOUR LIQUIDITY',
@@ -94,7 +94,7 @@ export function DexScreen (): JSX.Element {
             return (
               <>
                 <SectionTitle text={translate('screens/DexScreen', section.key)} testID={section.key} />
-                {isEmpty(section.data) && <DefaultSkeletonLoader />}
+                {isEmpty(section.data) && <SkeletonLoader row={3} screen={SkeletonLoaderScreen.Dex} />}
               </>
             )
         }
@@ -220,16 +220,5 @@ function PoolPairAPR (props: { symbol: string, apr: number, row: string }): JSX.
         }}
       />
     </View>
-  )
-}
-
-function DefaultSkeletonLoader (): JSX.Element {
-  const skeletonRow = [1, 2, 3]
-  return (
-    <>
-      {skeletonRow.map((x) => (
-        <DexSkeletonLoader key={x} />
-      ))}
-    </>
   )
 }

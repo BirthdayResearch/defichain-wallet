@@ -7,6 +7,7 @@ import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { Text } from '../../../../components'
+import { SkeletonLoader, SkeletonLoaderScreen } from '../../../../components/SkeletonLoader'
 import { useWalletContext } from '../../../../contexts/WalletContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { RootState } from '../../../../store'
@@ -15,6 +16,8 @@ import { translate } from '../../../../translations'
 import { EmptyTransaction } from './EmptyTransaction'
 import { activitiesToViewModel, VMTransaction } from './screens/stateProcessor'
 import { TransactionsParamList } from './TransactionsNavigator'
+
+type LoadingState = 'idle' | 'loading' | 'loadingMore' | 'success' | 'background' | 'error'
 
 export function formatBlockTime (date: number): string {
   return dayjs(date * 1000).format('MMM D, h:mm a')
@@ -25,56 +28,86 @@ export function TransactionsScreen (): JSX.Element {
   const { address } = useWalletContext()
   const navigation = useNavigation<NavigationProp<TransactionsParamList>>()
   const blocks = useSelector((state: RootState) => state.block.count)
+  const [transactions, setTransactions] = useState<VMTransaction[]>([])
+  const [loadingState, setLoadingState] = useState<LoadingState>('idle')
+  const [loadMoreToken, setLoadMoreToken] = useState<string|undefined>(undefined)
 
-  const [activities, setAddressActivities] = useState<VMTransaction[]>([])
-  const [loadingStatus, setLoadingStatus] = useState('initial') // page status
-  const [nextToken, setNextToken] = useState<string | undefined>(undefined)
-  const [hasNext, setHasNext] = useState<boolean>(false)
-  // const [error, setError] = useState<Error|undefined>(undefined) // TODO: render error
+  useEffect(() => {
+    // onload
+    if (loadingState === 'idle') {
+      setLoadingState('loading')
+      loadData()
+    }
+  }, [])
 
-  const loadData = (nextToken?: string | undefined): void => {
-    if (loadingStatus === 'loading') return
-    setLoadingStatus('loading')
-    client.address.listTransaction(address, undefined, nextToken)
+  useEffect(() => {
+    // background update
+    if (loadingState === 'success' || loadingState === 'error') {
+      setLoadingState('background')
+      loadData()
+    }
+  }, [address, blocks])
+
+  const loadData = (loadMoreToken?: string | undefined): void => {
+    client.address.listTransaction(address, undefined, loadMoreToken)
       .then(async addActivities => {
-        const newRows = activitiesToViewModel(addActivities)
-        if (nextToken !== undefined) {
-          setAddressActivities([...activities, ...newRows])
+        if (typeof loadMoreToken === 'string') {
+          setTransactions(transactions.concat(activitiesToViewModel(addActivities)))
         } else {
-          setAddressActivities([...newRows])
+          setTransactions(activitiesToViewModel(addActivities))
         }
-        setHasNext(addActivities.hasNext)
-        setNextToken(addActivities.nextToken as string)
-        setLoadingStatus('idle')
+
+        setLoadMoreToken(addActivities.nextToken)
+        setLoadingState('success')
       }).catch(() => {
-        setLoadingStatus('error')
+        setLoadingState('error')
       })
   }
 
   const onLoadMore = (): void => {
-    loadData(nextToken)
+    if (loadingState === 'success' || loadingState === 'error') {
+      loadData(loadMoreToken)
+    }
   }
 
-  useEffect(() => {
-    loadData()
-  }, [address, blocks])
+  const onRefresh = (): void => {
+    setLoadingState('loadingMore')
+    loadData(loadMoreToken)
+  }
 
-  if (activities.length === 0) {
+  if (transactions.length === 0 &&
+    (loadingState === 'success' || loadingState === 'background')) {
     return (
       <EmptyTransaction
         navigation={navigation}
         handleRefresh={loadData}
-        loadingStatus={loadingStatus}
+        loadingStatus={loadingState}
       />
     )
   }
 
+  if (loadingState === 'loading') {
+    return (
+      <>
+        <SkeletonLoader row={3} screen={SkeletonLoaderScreen.Transaction} />
+      </>
+    )
+  }
+  // TODO(kyleleow): render error screen
   return (
     <FlatList
-      testID='transactions_screen_list' style={tailwind('w-full')} data={activities}
-      renderItem={TransactionRow(navigation)} keyExtractor={(item) => item.id}
-      ListFooterComponent={hasNext ? LoadMore(onLoadMore) : undefined}
-      refreshControl={<RefreshControl refreshing={loadingStatus === 'loading'} onRefresh={loadData} />}
+      testID='transactions_screen_list'
+      style={tailwind('w-full')}
+      data={transactions}
+      renderItem={TransactionRow(navigation)}
+      keyExtractor={(item) => item.id}
+      ListFooterComponent={typeof loadMoreToken === 'string' ? LoadMore(onLoadMore) : undefined}
+      refreshControl={
+        <RefreshControl
+          refreshing={loadingState === 'loadingMore'}
+          onRefresh={onRefresh}
+        />
+      }
     />
   )
 }
