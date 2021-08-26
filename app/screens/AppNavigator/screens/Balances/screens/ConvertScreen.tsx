@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { Text, View } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
+import { IconButton } from '../../../../../components/IconButton'
 import { getNativeIcon } from '../../../../../components/icons/assets'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
@@ -205,13 +206,7 @@ function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: str
 function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
   return (
     <View style={tailwind('flex-row justify-center items-center')}>
-      <TouchableOpacity
-        testID='button_convert_mode_toggle'
-        style={tailwind('border border-gray-300 rounded bg-white p-1')}
-        onPress={props.onPress}
-      >
-        <MaterialIcons name='swap-vert' size={24} style={tailwind('text-primary')} />
-      </TouchableOpacity>
+      <IconButton testID='button_convert_mode_toggle' onPress={props.onPress} materialIconName='swap-vert' size={24} />
     </View>
   )
 }

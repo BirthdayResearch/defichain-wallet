@@ -1,16 +1,16 @@
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
-import { ScrollView, TouchableOpacity, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { Text } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
+import { IconButton } from '../../../../../components/IconButton'
 import { getNativeIcon } from '../../../../../components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
 import { NumberRow } from '../../../../../components/NumberRow'
@@ -168,12 +168,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         maxAmount={tokenA.amount}
       />
       <View style={tailwind('justify-center items-center mt-6')}>
-        <TouchableOpacity
-          style={tailwind('border border-gray-300 rounded bg-white p-1')} onPress={swapToken}
-          testID='swap_button'
-        >
-          <MaterialIcons name='swap-vert' size={24} style={tailwind('text-primary')} />
-        </TouchableOpacity>
+        <IconButton testID='swap_button' onPress={swapToken} materialIconName='swap-vert' size={24} />
       </View>
       <TokenRow
         isDisabled

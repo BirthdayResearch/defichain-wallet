@@ -4,10 +4,11 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { SectionList, TouchableOpacity } from 'react-native'
+import { SectionList } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { Text, View } from '../../../../components'
+import { IconButton } from '../../../../components/IconButton'
 import { getNativeIcon } from '../../../../components/icons/assets'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { SkeletonLoader, SkeletonLoaderScreen } from '../../../../components/SkeletonLoader'
@@ -180,15 +181,15 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
   )
 }
 
-function PoolPairLiqBtn (props: { name: React.ComponentProps<typeof MaterialIcons>['name'], pair: string, onPress?: () => void }): JSX.Element {
+function PoolPairLiqBtn (props: { name: React.ComponentProps<typeof MaterialIcons>['name'], pair: string, onPress: () => void }): JSX.Element {
   return (
-    <TouchableOpacity
+    <IconButton
       testID={`pool_pair_${props.name}_${props.pair}`}
-      style={tailwind('p-1 border border-gray-300 rounded mr-2')}
       onPress={props.onPress}
-    >
-      <MaterialIcons size={24} name={props.name} style={tailwind('text-primary')} />
-    </TouchableOpacity>
+      materialIconName={props.name}
+      size={24}
+      style={tailwind('mr-2')}
+    />
   )
 }
 
