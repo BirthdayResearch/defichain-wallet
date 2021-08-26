@@ -15,7 +15,6 @@ import { getNativeIcon } from '../../../../../components/icons/assets'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
-import { SwapButton } from '../../../../../components/SwapButton'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
@@ -87,14 +86,14 @@ export function ConvertScreen (props: Props): JSX.Element {
   return (
     <ScrollView style={tailwind('w-full flex-col flex-1 bg-gray-100')}>
       <ConversionIOCard
-        style={tailwind('mt-1')}
+        style={tailwind('my-4 mt-1')}
         mode='input'
         current={amount}
         unit={sourceToken.unit}
         balance={new BigNumber(sourceToken.amount)}
         onChange={setAmount}
       />
-      <SwapButton onPress={() => setMode(mode === 'utxosToAccount' ? 'accountToUtxos' : 'utxosToAccount')} />
+      <ToggleModeButton onPress={() => setMode(mode === 'utxosToAccount' ? 'accountToUtxos' : 'utxosToAccount')} />
       <ConversionReceiveCard
         current={BigNumber.maximum(new BigNumber(targetToken.amount).plus(convAmount), 0).toFixed(8)}
         unit={targetToken.unit}
@@ -199,6 +198,20 @@ function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: str
         </View>
         <DFIIcon />
       </View>
+    </View>
+  )
+}
+
+function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
+  return (
+    <View style={tailwind('flex-row justify-center items-center')}>
+      <TouchableOpacity
+        testID='button_convert_mode_toggle'
+        style={tailwind('border border-gray-300 rounded bg-white p-1')}
+        onPress={props.onPress}
+      >
+        <MaterialIcons name='swap-vert' size={24} style={tailwind('text-primary')} />
+      </TouchableOpacity>
     </View>
   )
 }
