@@ -1,13 +1,12 @@
-import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import { Text } from '../../../../components'
 import { BarCodeScanner } from '../../../../components/BarCodeScanner'
 import { ConnectionStatus, HeaderTitle } from '../../../../components/HeaderTitle'
 import { getNativeIcon } from '../../../../components/icons/assets'
+import { ThemedText } from '../../../../components/themed'
 import { WalletToken } from '../../../../store/wallet'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -48,7 +47,6 @@ export interface BalanceParamList {
 }
 
 function BalanceActionButton (props: {
-  icon?: React.ComponentProps<typeof MaterialIcons>['name']
   title?: string
   onPress: () => void
   testID: string
@@ -60,15 +58,13 @@ function BalanceActionButton (props: {
       onPress={props.onPress}
     >
       {
-        props.icon !== undefined && (
-          <MaterialIcons name={props.icon} size={20} style={tailwind('text-primary')} />
-        )
-      }
-      {
         props.title !== undefined && (
-          <Text style={tailwind('mx-1 text-primary font-semibold')}>
+          <ThemedText
+            style={tailwind('mx-1 font-semibold')} light={tailwind('text-primary-500')}
+            dark={tailwind('text-darkprimary-500')}
+          >
             {translate('screens/BalancesScreen', props.title)}
-          </Text>
+          </ThemedText>
         )
       }
     </TouchableOpacity>
@@ -131,7 +127,7 @@ export function BalancesNavigator (): JSX.Element {
               <View style={tailwind('flex-row items-center')}>
                 <Icon />
                 <View style={tailwind('flex-col ml-2')}>
-                  <Text style={tailwind('font-semibold')}>{token.displaySymbol}</Text>
+                  <ThemedText style={tailwind('font-semibold')}>{token.displaySymbol}</ThemedText>
                   <ConnectionStatus />
                 </View>
               </View>

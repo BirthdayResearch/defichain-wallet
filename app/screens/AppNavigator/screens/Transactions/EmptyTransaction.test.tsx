@@ -3,6 +3,7 @@ import * as React from 'react'
 import { EmptyTransaction } from "./EmptyTransaction"
 
 jest.mock('@react-navigation/native');
+jest.mock("../../../../contexts/ThemeProvider")
 
 describe('empty transaction', () => {
   it('should match snapshot', async () => {

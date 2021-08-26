@@ -4,6 +4,7 @@ import * as React from "react";
 import { Platform } from 'react-native'
 import { NumberTextInput } from "./NumberTextInput"
 
+jest.mock("../contexts/ThemeProvider")
 jest.mock('expo-localization')
 
 const platform = ['ios', 'android']

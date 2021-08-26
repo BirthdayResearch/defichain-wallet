@@ -14,6 +14,8 @@ jest.mock("../../../../../contexts/NetworkContext", () => ({
   }
 }))
 
+jest.mock("../../../../../contexts/ThemeProvider")
+
 describe('network selection screen', () => {
   it('should render', async () => {
     const rendered = render(<NetworkSelectionScreen />)

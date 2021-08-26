@@ -15,19 +15,19 @@ export interface VMTransaction {
   txid: string
 }
 
-export function activitiesToViewModel (activities: AddressActivity[]): VMTransaction[] {
+export function activitiesToViewModel (activities: AddressActivity[], isLight: boolean): VMTransaction[] {
   const newRows = []
   for (let i = 0; i < activities.length; i++) {
     const act = activities[i]
-    newRows.push(activityToViewModel(act))
+    newRows.push(activityToViewModel(act, isLight))
   }
   return newRows
 }
 
-export function activityToViewModel (activity: AddressActivity): VMTransaction {
+export function activityToViewModel (activity: AddressActivity, isLight: boolean): VMTransaction {
   let iconName: 'arrow-upward' | 'arrow-downward'
-  let color: '#02B31B'|'rgba(0,0,0,0.6)' // green | gray
-  let desc = ''
+  let color
+  let desc
   const isPositive = activity.vin === undefined
 
   // TODO(@ivan-zynesis): fix when other token transaction can be included
@@ -45,7 +45,7 @@ export function activityToViewModel (activity: AddressActivity): VMTransaction {
     iconName = 'arrow-downward'
     desc = 'Received'
   } else {
-    color = 'rgba(0,0,0,0.6)'
+    color = isLight ? 'rgba(0,0,0,0.6)' : 'rgba(212, 212, 212, 0.4)'
     iconName = 'arrow-upward'
     desc = 'Sent'
     amount = amount.negated()

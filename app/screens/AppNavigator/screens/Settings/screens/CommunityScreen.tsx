@@ -1,16 +1,22 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import * as React from 'react'
 import { useCallback } from 'react'
-import { FlatList, Linking, TouchableOpacity } from 'react-native'
-import { Text, View } from '../../../../../components'
+import { Linking } from 'react-native'
+import { View } from '../../../../../components'
 import { SectionTitle } from '../../../../../components/SectionTitle'
+import {
+  ThemedFlatList,
+  ThemedIcon,
+  ThemedText,
+  ThemedTouchableOpacity,
+  ThemedView
+} from '../../../../../components/themed'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 
 export function CommunityScreen (): JSX.Element {
   return (
-    <FlatList
-      style={tailwind('bg-gray-100')}
+    <ThemedFlatList
       data={Communities}
       ListHeaderComponent={
         <SectionTitle
@@ -20,16 +26,16 @@ export function CommunityScreen (): JSX.Element {
       }
       ListFooterComponent={
         <View style={tailwind('items-center py-6 px-4')}>
-          <Text style={tailwind('text-gray-400 text-xs font-normal')}>
+          <ThemedText style={tailwind('text-xs font-normal')}>
             {translate('screens/CommunityScreen', 'DeFiChain is a community-driven and open project.')}
-          </Text>
-          <Text style={tailwind('text-gray-400 text-xs font-normal')}>
+          </ThemedText>
+          <ThemedText style={tailwind('text-xs font-normal')}>
             {translate('screens/CommunityScreen', 'The DeFiChain Foundation does not provide direct support.')}
-          </Text>
+          </ThemedText>
         </View>
       }
       ItemSeparatorComponent={
-        () => <View style={tailwind('h-px bg-gray-100')} />
+        () => <ThemedView style={tailwind('h-px')} light={tailwind('bg-gray-100')} dark={tailwind('bg-gray-700')} />
       }
       renderItem={({ item }) => (
         <CommunityItemRow key={item.id} {...item} />
@@ -67,15 +73,18 @@ function CommunityItemRow ({ id, title, url, icon }: CommunityItem): JSX.Element
   }, [url])
 
   return (
-    <TouchableOpacity
-      style={tailwind('flex-row bg-white p-4 items-center')}
+    <ThemedTouchableOpacity
+      style={tailwind('flex-row p-4 items-center')}
       onPress={handlePress}
       testID={id}
     >
-      <MaterialCommunityIcons name={icon} size={24} style={tailwind('text-primary')} />
-      <Text style={tailwind('ml-2')}>
+      <ThemedIcon
+        iconType='MaterialCommunityIcons' name={icon} size={24} light={tailwind('text-primary-500')}
+        dark={tailwind('text-darkprimary-500')}
+      />
+      <ThemedText style={tailwind('ml-2')}>
         {translate('screens/CommunityScreen', title)}
-      </Text>
-    </TouchableOpacity>
+      </ThemedText>
+    </ThemedTouchableOpacity>
   )
 }

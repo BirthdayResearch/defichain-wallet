@@ -15,10 +15,9 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         }
       }
     >
-      <Text
+      <ThemedText
         style={
           Object {
-            "color": "rgba(156, 163, 175, 1)",
             "fontFamily": "RegularFont",
             "fontSize": 12,
             "fontWeight": "400",
@@ -27,11 +26,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         }
       >
         DeFiChain is a community-driven and open project.
-      </Text>
-      <Text
+      </ThemedText>
+      <ThemedText
         style={
           Object {
-            "color": "rgba(156, 163, 175, 1)",
             "fontFamily": "RegularFont",
             "fontSize": 12,
             "fontWeight": "400",
@@ -40,7 +38,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         }
       >
         The DeFiChain Foundation does not provide direct support.
-      </Text>
+      </ThemedText>
     </View>
   }
   ListHeaderComponent={
@@ -126,9 +124,12 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
   scrollEventThrottle={50}
   stickyHeaderIndices={Array []}
   style={
-    Object {
-      "backgroundColor": "rgba(243, 244, 246, 1)",
-    }
+    Array [
+      undefined,
+      Object {
+        "backgroundColor": "rgba(245, 245, 245, 1)",
+      },
+    ]
   }
   testID="community_flat_list"
   updateCellsBatchingPeriod={50}
@@ -149,17 +150,22 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               "lineHeight": 24,
             },
             Array [
+              Array [
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                  "fontFamily": "MediumFont",
+                  "fontSize": 12,
+                  "fontWeight": "500",
+                  "lineHeight": 16,
+                  "paddingBottom": 16,
+                  "paddingLeft": 16,
+                  "paddingRight": 16,
+                  "paddingTop": 24,
+                },
+              ],
               Object {
-                "backgroundColor": "rgba(243, 244, 246, 1)",
-                "color": "rgba(107, 114, 128, 1)",
-                "fontFamily": "MediumFont",
-                "fontSize": 12,
-                "fontWeight": "500",
-                "lineHeight": 16,
-                "paddingBottom": 16,
-                "paddingLeft": 16,
-                "paddingRight": 16,
-                "paddingTop": 24,
+                "backgroundColor": "rgba(245, 245, 245, 1)",
+                "color": "rgba(115, 115, 115, 1)",
               },
             ],
           ]
@@ -187,6 +193,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           Object {
             "alignItems": "center",
             "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
             "flexDirection": "row",
             "opacity": 1,
             "paddingBottom": 16,
@@ -207,9 +218,14 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
-                "marginLeft": 8,
-              },
+              Array [
+                Object {
+                  "marginLeft": 8,
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
             ]
           }
         >
@@ -220,8 +236,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(243, 244, 246, 1)",
               "height": 1,
+            },
+            Object {
+              "backgroundColor": "rgba(245, 245, 245, 1)",
             },
           ]
         }
@@ -245,6 +263,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           Object {
             "alignItems": "center",
             "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
             "flexDirection": "row",
             "opacity": 1,
             "paddingBottom": 16,
@@ -265,9 +288,14 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
-                "marginLeft": 8,
-              },
+              Array [
+                Object {
+                  "marginLeft": 8,
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
             ]
           }
         >
@@ -278,8 +306,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(243, 244, 246, 1)",
               "height": 1,
+            },
+            Object {
+              "backgroundColor": "rgba(245, 245, 245, 1)",
             },
           ]
         }
@@ -303,6 +333,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           Object {
             "alignItems": "center",
             "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
             "flexDirection": "row",
             "opacity": 1,
             "paddingBottom": 16,
@@ -323,9 +358,14 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
-                "marginLeft": 8,
-              },
+              Array [
+                Object {
+                  "marginLeft": 8,
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
             ]
           }
         >
@@ -336,8 +376,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(243, 244, 246, 1)",
               "height": 1,
+            },
+            Object {
+              "backgroundColor": "rgba(245, 245, 245, 1)",
             },
           ]
         }
@@ -361,6 +403,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           Object {
             "alignItems": "center",
             "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
             "flexDirection": "row",
             "opacity": 1,
             "paddingBottom": 16,
@@ -381,9 +428,14 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
-                "marginLeft": 8,
-              },
+              Array [
+                Object {
+                  "marginLeft": 8,
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
             ]
           }
         >
@@ -394,8 +446,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(243, 244, 246, 1)",
               "height": 1,
+            },
+            Object {
+              "backgroundColor": "rgba(245, 245, 245, 1)",
             },
           ]
         }
@@ -419,6 +473,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           Object {
             "alignItems": "center",
             "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
             "flexDirection": "row",
             "opacity": 1,
             "paddingBottom": 16,
@@ -439,9 +498,14 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
-                "marginLeft": 8,
-              },
+              Array [
+                Object {
+                  "marginLeft": 8,
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
             ]
           }
         >
@@ -452,8 +516,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(243, 244, 246, 1)",
               "height": 1,
+            },
+            Object {
+              "backgroundColor": "rgba(245, 245, 245, 1)",
             },
           ]
         }
@@ -477,6 +543,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           Object {
             "alignItems": "center",
             "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
             "flexDirection": "row",
             "opacity": 1,
             "paddingBottom": 16,
@@ -497,9 +568,14 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
-                "marginLeft": 8,
-              },
+              Array [
+                Object {
+                  "marginLeft": 8,
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
             ]
           }
         >
@@ -510,8 +586,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(243, 244, 246, 1)",
               "height": 1,
+            },
+            Object {
+              "backgroundColor": "rgba(245, 245, 245, 1)",
             },
           ]
         }
@@ -535,6 +613,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           Object {
             "alignItems": "center",
             "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
             "flexDirection": "row",
             "opacity": 1,
             "paddingBottom": 16,
@@ -555,9 +638,14 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
-                "marginLeft": 8,
-              },
+              Array [
+                Object {
+                  "marginLeft": 8,
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
             ]
           }
         >
@@ -568,8 +656,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(243, 244, 246, 1)",
               "height": 1,
+            },
+            Object {
+              "backgroundColor": "rgba(245, 245, 245, 1)",
             },
           ]
         }
@@ -593,6 +683,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           Object {
             "alignItems": "center",
             "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
             "flexDirection": "row",
             "opacity": 1,
             "paddingBottom": 16,
@@ -613,9 +708,14 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
-                "marginLeft": 8,
-              },
+              Array [
+                Object {
+                  "marginLeft": 8,
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
             ]
           }
         >
@@ -626,8 +726,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(243, 244, 246, 1)",
               "height": 1,
+            },
+            Object {
+              "backgroundColor": "rgba(245, 245, 245, 1)",
             },
           ]
         }
@@ -651,6 +753,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           Object {
             "alignItems": "center",
             "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
             "flexDirection": "row",
             "opacity": 1,
             "paddingBottom": 16,
@@ -671,9 +778,14 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
-                "marginLeft": 8,
-              },
+              Array [
+                Object {
+                  "marginLeft": 8,
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
             ]
           }
         >
@@ -706,13 +818,17 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
-                "color": "rgba(156, 163, 175, 1)",
-                "fontFamily": "RegularFont",
-                "fontSize": 12,
-                "fontWeight": "400",
-                "lineHeight": 16,
-              },
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
             ]
           }
         >
@@ -727,13 +843,17 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
-                "color": "rgba(156, 163, 175, 1)",
-                "fontFamily": "RegularFont",
-                "fontSize": 12,
-                "fontWeight": "400",
-                "lineHeight": 16,
-              },
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
             ]
           }
         >

@@ -3,6 +3,7 @@ import BigNumber from "bignumber.js";
 import * as React from "react";
 import { SetAmountButton } from "./SetAmountButton";
 
+jest.mock("../contexts/ThemeProvider")
 const buttonType: Array<'half' | 'max'> = ['half', 'max']
 const buttonAmount = new BigNumber(10);
 
