@@ -188,7 +188,10 @@
     "Wrong passcode entered": "Wrong passcode entered",
     "Wallet Unlinked": "Wallet Unlinked",
     "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.": "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.",
-    "Close": "Close"
+    "Close": "Close",
+    "Last attempt or your wallet will be unlinked for your security": "Last attempt or your wallet will be unlinked for your security",
+    "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "Incorrect passcode. {{attemptsRemaining}} attempts remaining",
+    "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} attempts remaining"
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.",
