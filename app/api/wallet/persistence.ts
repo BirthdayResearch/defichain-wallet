@@ -1,4 +1,4 @@
-import { StorageAPI } from '../storage'
+import { SecuredStoreAPI } from '../secured'
 
 export enum WalletType {
   MNEMONIC_UNPROTECTED = 'MNEMONIC_UNPROTECTED',
@@ -14,11 +14,11 @@ export interface WalletPersistenceData<T> {
 }
 
 async function get (): Promise<Array<WalletPersistenceData<any>>> {
-  const count: string = await StorageAPI.getItem('WALLET.count') ?? '0'
+  const count: string = await SecuredStoreAPI.getItem('WALLET.count') ?? '0'
 
   const list: Array<WalletPersistenceData<any>> = []
   for (let i = 0; i < parseInt(count); i++) {
-    const data = await StorageAPI.getItem(`WALLET.${i}`)
+    const data = await SecuredStoreAPI.getItem(`WALLET.${i}`)
     if (data === null) {
       throw new Error(`WALLET.count=${count} but ${i} doesn't exist`)
     }
@@ -35,19 +35,19 @@ async function set (wallets: Array<WalletPersistenceData<any>>): Promise<void> {
   await clear()
 
   for (let i = 0; i < wallets.length; i++) {
-    await StorageAPI.setItem(`WALLET.${i}`, JSON.stringify(wallets[i]))
+    await SecuredStoreAPI.setItem(`WALLET.${i}`, JSON.stringify(wallets[i]))
   }
-  await StorageAPI.setItem('WALLET.count', `${wallets.length}`)
+  await SecuredStoreAPI.setItem('WALLET.count', `${wallets.length}`)
 }
 
 /**
  * Clear all persisted wallet
  */
 async function clear (): Promise<void> {
-  const count: string = await StorageAPI.getItem('WALLET.count') ?? '0'
+  const count: string = await SecuredStoreAPI.getItem('WALLET.count') ?? '0'
 
   for (let i = 0; i < parseInt(count); i++) {
-    await StorageAPI.removeItem(`WALLET.${i}`)
+    await SecuredStoreAPI.removeItem(`WALLET.${i}`)
   }
 }
 
