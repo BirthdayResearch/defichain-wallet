@@ -94,7 +94,6 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
         })}
       />
       <AmountRow
-        fee={fee}
         token={token}
         control={control}
         onAmountButtonPress={async (amount) => {
@@ -178,12 +177,11 @@ interface AmountForm {
   control: Control
   token: WalletToken
   onAmountButtonPress: (amount: string) => void
-  fee: BigNumber
 }
 
-function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): JSX.Element {
+function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.Element {
   const Icon = getNativeIcon(token.avatarSymbol)
-  let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).toFixed(8) : token.amount
+  let maxAmount = token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
   return (
     <>
