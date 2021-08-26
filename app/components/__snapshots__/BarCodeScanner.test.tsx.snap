@@ -24,7 +24,12 @@ exports[`barcode scanner should match snapshot 1`] = `
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        undefined,
+        Array [
+          undefined,
+          Object {
+            "color": "rgba(0, 0, 0, 1)",
+          },
+        ],
       ]
     }
   >

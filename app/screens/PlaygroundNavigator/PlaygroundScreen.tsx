@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView } from 'react-native'
+import { ThemedScrollView } from '../../components/themed'
 import { useNetworkContext } from '../../contexts/NetworkContext'
 import { WalletContextProvider } from '../../contexts/WalletContext'
 import { WalletNodeProvider } from '../../contexts/WalletNodeProvider'
@@ -13,11 +13,11 @@ import { PlaygroundWallet } from './sections/PlaygroundWallet'
 
 export function PlaygroundScreen (): JSX.Element {
   return (
-    <ScrollView style={tailwind('pb-16 bg-gray-100')} contentInsetAdjustmentBehavior='always'>
+    <ThemedScrollView style={tailwind('pb-16')} contentInsetAdjustmentBehavior='always'>
       <PlaygroundConnection />
       <PlaygroundWallet />
       <PlaygroundWalletSection />
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 

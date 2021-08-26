@@ -47,7 +47,7 @@ context('Onboarding - Restore Wallet', () => {
       cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(255, 0, 0)')
 
       cy.getByTestID(`recover_word_${index + 1}`).clear().type(word).blur()
-      cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(0, 0, 0)')
+      cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(64, 64, 64)')
     })
   })
 
@@ -67,7 +67,6 @@ context('Onboarding - Restore Wallet', () => {
 
   it('should be able to set pincode', function () {
     cy.getByTestID('pin_input').type('000000')
-    cy.getByTestID('create_pin_button').click()
     cy.getByTestID('pin_confirm_input').type('000000')
     cy.getByTestID('balances_list').should('exist')
   })

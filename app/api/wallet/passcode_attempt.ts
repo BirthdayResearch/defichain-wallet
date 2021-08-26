@@ -1,14 +1,14 @@
-import { StorageAPI } from '../storage'
+import { SecuredStoreAPI } from '../secured'
 
 const KEY = 'PASSCODE_ATTEMPT.count'
 
 async function get (): Promise<number> {
-  const str = await StorageAPI.getItem(KEY)
+  const str = await SecuredStoreAPI.getItem(KEY)
   return str === undefined ? 0 : Number(str)
 }
 
 async function set (count: number): Promise<void> {
-  await StorageAPI.setItem(KEY, `${count}`)
+  await SecuredStoreAPI.setItem(KEY, `${count}`)
 }
 
 /**

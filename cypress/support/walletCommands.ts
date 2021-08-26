@@ -77,7 +77,6 @@ Cypress.Commands.add('changePasscode', () => {
   cy.getByTestID('view_change_passcode').click()
   cy.getByTestID('pin_authorize').type('000000').wait(3000)
   cy.getByTestID('pin_input').type('696969').wait(3000)
-  cy.getByTestID('change_pin_button').click()
   cy.getByTestID('pin_confirm_input').type('777777').wait(3000)
   cy.getByTestID('wrong_passcode_text').should('exist')
   cy.getByTestID('pin_confirm_input').type('696969').wait(3000)
