@@ -24,36 +24,43 @@ export function BuyWithFiat (): JSX.Element {
 
   // TODO(davidleomay): use useCallback?
   async function onBuyWithFiat (): Promise<void> {
-    const auth: Authentication<Buffer> = {
-      consume: async passphrase => {
-        let provider: WalletHdNodeProvider<MnemonicHdNode>
-        if (providerData.type === WalletType.MNEMONIC_UNPROTECTED) {
-          provider = MnemonicUnprotected.initProvider(providerData, network)
-        } else if (providerData.type === WalletType.MNEMONIC_ENCRYPTED) {
-          provider = MnemonicEncrypted.initProvider(providerData, network, { prompt: async () => passphrase })
-        } else {
-          throw new Error('Missing wallet provider data handler')
-        }
-        const wallet = initJellyfishWallet(provider, network, whaleApiClient)
-
-        const messagePrefix = getJellyfishNetwork(network).messagePrefix
-        const message = `By signing this message, you confirm that you are the sole owner of the provided DeFiChain address and are in possession of its private key. Your ID: ${address}`
-          .split(' ')
-          .join('_')
-        const hash = magicHash(message, messagePrefix)
-        return await wallet.get(0).sign(hash)
-      },
-      onAuthenticated: async (signature: Buffer) => {
-        const sig = signature.toString('base64')
-
-        const url = `https://payment.dfx.swiss/login?address=${address}&signature=${sig}&walletId=0&lang=en`
-        await Linking.openURL(url)
-      },
-      onError: e => Logging.error(e),
-      message: translate('screens/BalancesScreen', 'To activate Fiat exchange, we need you to enter your current passcode.'),
-      loading: translate('screens/BalancesScreen', 'Verifying passcode...')
+    if (providerData.type === WalletType.MNEMONIC_UNPROTECTED) {
+      const provider = MnemonicUnprotected.initProvider(providerData, network)
+      const signature = await signMessage(provider)
+      await onMessageSigned(signature)
+    } else if (providerData.type === WalletType.MNEMONIC_ENCRYPTED) {
+      const auth: Authentication<Buffer> = {
+        consume: async passphrase => {
+          const provider = MnemonicEncrypted.initProvider(providerData, network, { prompt: async () => passphrase })
+          return await signMessage(provider)
+        },
+        onAuthenticated: onMessageSigned,
+        onError: e => Logging.error(e),
+        message: translate('screens/BalancesScreen', 'To activate Fiat exchange, we need you to enter your current passcode.'),
+        loading: translate('screens/BalancesScreen', 'Verifying passcode...')
+      }
+      dispatch(authentication.actions.prompt(auth))
+    } else {
+      throw new Error('Missing wallet provider data handler')
     }
-    dispatch(authentication.actions.prompt(auth))
+  }
+
+  async function onMessageSigned (signature: Buffer): Promise<void> {
+    const sig = signature.toString('base64')
+
+    const url = `https://payment.dfx.swiss/login?address=${address}&signature=${sig}&walletId=0&lang=en`
+    await Linking.openURL(url)
+  }
+
+  async function signMessage (provider: WalletHdNodeProvider<MnemonicHdNode>): Promise<Buffer> {
+    const wallet = initJellyfishWallet(provider, network, whaleApiClient)
+
+    const messagePrefix = getJellyfishNetwork(network).messagePrefix
+    const message = `By signing this message, you confirm that you are the sole owner of the provided DeFiChain address and are in possession of its private key. Your ID: ${address}`
+      .split(' ')
+      .join('_')
+    const hash = magicHash(message, messagePrefix)
+    return await wallet.get(0).sign(hash)
   }
 
   function magicHash (message: string, messagePrefix: string): Buffer {
