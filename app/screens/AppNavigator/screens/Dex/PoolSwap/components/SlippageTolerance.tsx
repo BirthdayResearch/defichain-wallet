@@ -24,8 +24,8 @@ export function SlippageTolerance ({
     <>
       <SectionTitle text={translate('screens/SlippageTolerance', 'SLIPPAGE TOLERANCE')} testID='title_slippage' />
       <ThemedView
-        style={tailwind('flex-row p-4')} light='bg-white border-b border-gray-200'
-        dark='bg-gray-800 border-b border-gray-700'
+        style={tailwind('flex-row p-4')} light={tailwind('bg-white border-b border-gray-200')}
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
       >
         {
           percentageList.map((p) => (

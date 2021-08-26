@@ -27,7 +27,7 @@ export function RecoveryWordsScreen ({ route }: Props): JSX.Element {
 function MnemonicWordRow (props: {word: string, index: number}): JSX.Element {
   return (
     <ThemedView
-      light='bg-white border-b border-gray-200' dark='bg-gray-800 border-b border-gray-700'
+      light={tailwind('bg-white border-b border-gray-200')} dark={tailwind('bg-gray-800 border-b border-gray-700')}
       style={tailwind('flex-row px-4 py-3')}
     >
       <ThemedText testID={`word_${props.index + 1}_number`} style={tailwind('w-10')}>

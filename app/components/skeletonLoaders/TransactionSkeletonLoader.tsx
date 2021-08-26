@@ -9,8 +9,8 @@ export function TransactionSkeletonLoader (): JSX.Element {
   return (
     <ThemedView
       testID='transaction_skeleton_loader'
-      light='bg-white border-b border-gray-200'
-      dark='bg-gray-800 border-b border-gray-700'
+      light={tailwind('bg-white border-b border-gray-200')}
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
       style={tailwind('p-2 w-full items-center justify-center')}
     >
       <ContentLoader

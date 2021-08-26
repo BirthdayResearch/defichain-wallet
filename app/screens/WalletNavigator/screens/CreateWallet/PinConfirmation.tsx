@@ -54,7 +54,10 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
   }
 
   return (
-    <ThemedScrollView light='bg-white' dark='bg-gray-900' style={tailwind('w-full flex-1 flex-col')}>
+    <ThemedScrollView
+      light={tailwind('bg-white')} dark={tailwind('bg-gray-900')}
+      style={tailwind('w-full flex-1 flex-col')}
+    >
       <CreateWalletStepIndicator
         current={type === 'create' ? 3 : 2}
         steps={type === 'create' ? CREATE_STEPS : RESTORE_STEPS}
@@ -89,7 +92,7 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
         {
           invalid && (
             <ThemedText
-              light='text-error-500' dark='text-darkerror-500' testID='wrong_passcode_text'
+              light={tailwind('text-error-500')} dark={tailwind('text-darkerror-500')} testID='wrong_passcode_text'
               style={tailwind('text-center font-semibold text-sm')}
             >
               {translate('screens/PinConfirmation', 'Wrong passcode entered')}

@@ -149,8 +149,8 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
         testID={`token_input_${props.type}_title`}
       />
       <ThemedView
-        light='bg-white'
-        dark='bg-gray-800'
+        light={tailwind('bg-white')}
+        dark={tailwind('bg-gray-800')}
         style={tailwind('flex-col w-full items-center')}
       >
         <View style={tailwind('w-full flex-row items-center')}>
@@ -167,7 +167,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
           </View>
         </View>
         <ThemedView
-          light='border-t border-gray-200' dark='border-t border-gray-700'
+          light={tailwind('border-t border-gray-200')} dark={tailwind('border-t border-gray-700')}
           style={tailwind('w-full px-4 py-2 flex-row items-center')}
         >
           <View style={tailwind('flex-row flex-1 flex-wrap mr-2')}>
@@ -176,7 +176,10 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
               value={props.balance.toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
               suffix={` ${props.symbol}`}
               renderText={(value) => (
-                <ThemedText testID={`token_balance_${props.type}`} light='text-gray-500' dark='text-gray-300'>
+                <ThemedText
+                  testID={`token_balance_${props.type}`} light={tailwind('text-gray-500')}
+                  dark={tailwind('text-gray-300')}
+                >
                   {value}
                 </ThemedText>
               )}

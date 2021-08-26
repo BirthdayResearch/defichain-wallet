@@ -35,7 +35,7 @@ export function CommunityScreen (): JSX.Element {
         </View>
       }
       ItemSeparatorComponent={
-        () => <ThemedView style={tailwind('h-px')} light='bg-gray-100' dark='bg-gray-700' />
+        () => <ThemedView style={tailwind('h-px')} light={tailwind('bg-gray-100')} dark={tailwind('bg-gray-700')} />
       }
       renderItem={({ item }) => (
         <CommunityItemRow key={item.id} {...item} />
@@ -79,8 +79,8 @@ function CommunityItemRow ({ id, title, url, icon }: CommunityItem): JSX.Element
       testID={id}
     >
       <ThemedIcon
-        iconType='MaterialCommunityIcons' name={icon} size={24} light='text-primary-500'
-        dark='text-darkprimary-500'
+        iconType='MaterialCommunityIcons' name={icon} size={24} light={tailwind('text-primary-500')}
+        dark={tailwind('text-darkprimary-500')}
       />
       <ThemedText style={tailwind('ml-2')}>
         {translate('screens/CommunityScreen', title)}

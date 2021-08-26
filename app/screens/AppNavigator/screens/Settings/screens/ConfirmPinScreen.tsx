@@ -80,7 +80,7 @@ export function ConfirmPinScreen ({ route }: Props): JSX.Element {
         {
           invalid && (
             <ThemedText
-              testID='wrong_passcode_text' light='text-error-500' dark='text-darkerror-500'
+              testID='wrong_passcode_text' light={tailwind('text-error-500')} dark={tailwind('text-darkerror-500')}
               style={tailwind('text-center font-semibold text-sm')}
             >
               {translate('screens/PinConfirmation', 'Wrong passcode entered')}

@@ -89,8 +89,8 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
     <ThemedScrollView style={tailwind('w-full flex-col flex-1')}>
       <ThemedView style={tailwind('w-full mt-8')}>
         <ThemedView
-          light='bg-white border-b border-gray-200'
-          dark='bg-gray-800 border-b border-gray-700' style={tailwind('w-full flex-row p-4 items-stretch')}
+          light={tailwind('bg-white border-b border-gray-200')}
+          dark={tailwind('bg-gray-800 border-b border-gray-700')} style={tailwind('w-full flex-row p-4 items-stretch')}
         >
           <ThemedText
             style={tailwind('w-2/4 font-semibold flex-1')}
@@ -125,8 +125,8 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
       </ThemedView>
       <SectionTitle text={translate('screens/RemoveLiquidity', 'YOU ARE REMOVING')} testID='remove_liq_title' />
       <ThemedView
-        light='bg-white'
-        dark='bg-gray-800' style={tailwind('w-full mb-4')}
+        light={tailwind('bg-white')}
+        dark={tailwind('bg-gray-800')} style={tailwind('w-full mb-4')}
       >
         <TokenBalanceRow iconType={aSymbol} lhs={aSymbol} rhs={{ value: tokenAAmount.toFixed(8), testID: 'price_a' }} />
         <TokenBalanceRow iconType={bSymbol} lhs={bSymbol} rhs={{ value: tokenBAmount.toFixed(8), testID: 'price_b' }} />
@@ -157,14 +157,14 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
 function AmountSlider (props: { current: number, onChange: (percentage: string) => void, viewStyle: StyleProp<ViewStyle> }): JSX.Element {
   return (
     <ThemedView
-      light='bg-white border-b border-gray-200'
-      dark='bg-gray-800 border-b border-gray-700'
+      light={tailwind('bg-white border-b border-gray-200')}
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
       style={[tailwind('flex-row items-center'), props.viewStyle]}
     >
       <TouchableOpacity testID='button_slider_min' onPress={() => props.onChange('0.00')}>
         <ThemedText
-          light='text-gray-500'
-          dark='text-gray-300'
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-300')}
           style={tailwind(' text-sm')}
         >{translate('components/slider', 'None')}
         </ThemedText>
@@ -182,7 +182,7 @@ function AmountSlider (props: { current: number, onChange: (percentage: string) 
       </View>
       <TouchableOpacity testID='button_slider_max' onPress={() => props.onChange('100.00')}>
         <ThemedText
-          light='text-gray-500' dark='text-gray-400'
+          light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
           style={tailwind('text-sm')}
         >{translate('components', 'All')}
         </ThemedText>

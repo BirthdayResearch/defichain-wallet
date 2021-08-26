@@ -57,7 +57,7 @@ export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Ele
           <ThemedIcon
             iconType='MaterialIcons'
             testID={`button_network_${props.network}_check`} size={24} name='check'
-            light='text-primary-500' dark='text-darkprimary-500'
+            light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
           />
         )
       }

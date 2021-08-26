@@ -174,14 +174,14 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       />
       <View style={tailwind('justify-center items-center mt-6')}>
         <ThemedTouchableOpacity
-          light='border border-gray-300 rounded bg-white'
-          dark='border border-gray-400 rounded bg-gray-900'
+          light={tailwind('border border-gray-300 rounded bg-white')}
+          dark={tailwind('border border-gray-400 rounded bg-gray-900')}
           style={tailwind('p-1')} onPress={swapToken}
           testID='swap_button'
         >
           <ThemedIcon
-            iconType='MaterialIcons' name='swap-vert' size={24} light='text-primary-500'
-            dark='text-darkprimary-500'
+            iconType='MaterialIcons' name='swap-vert' size={24} light={tailwind('text-primary-500')}
+            dark={tailwind('text-darkprimary-500')}
           />
         </ThemedTouchableOpacity>
       </View>
@@ -240,8 +240,8 @@ function TokenRow (form: TokenForm): JSX.Element {
         rules={rules}
         render={({ field: { onBlur, onChange, value } }) => (
           <ThemedView
-            style={tailwind('flex-row w-full')} light='bg-white border-b border-gray-200'
-            dark='bg-gray-800 border-b border-gray-700'
+            style={tailwind('flex-row w-full')} light={tailwind('bg-white border-b border-gray-200')}
+            dark={tailwind('bg-gray-800 border-b border-gray-700')}
           >
             <NumberTextInput
               style={tailwind('flex-grow p-4')}
@@ -260,8 +260,8 @@ function TokenRow (form: TokenForm): JSX.Element {
               testID={`text_input_${controlName}`}
             />
             <ThemedView
-              light='bg-white'
-              dark='bg-gray-800' style={tailwind('flex-row pr-4 items-center')}
+              light={tailwind('bg-white')}
+              dark={tailwind('bg-gray-800')} style={tailwind('flex-row pr-4 items-center')}
             >
               <Icon />
               <InputIconLabel label={token.symbol} screenType={IconLabelScreenType.DEX} />
@@ -273,8 +273,8 @@ function TokenRow (form: TokenForm): JSX.Element {
       />
       <ThemedView
         style={tailwind('flex-row w-full bg-white px-4 items-center')}
-        light='bg-white border-b border-gray-200'
-        dark='bg-gray-800 border-b border-gray-700'
+        light={tailwind('bg-white border-b border-gray-200')}
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
       >
         <View style={tailwind('flex-1 flex-row py-4 flex-wrap mr-2')}>
           <ThemedText>{translate('screens/PoolSwapScreen', 'Balance: ')}</ThemedText>
@@ -283,8 +283,8 @@ function TokenRow (form: TokenForm): JSX.Element {
             renderText={(value) => (
               <ThemedText
                 testID={`text_balance_${controlName}`}
-                light='text-gray-500'
-                dark='text-gray-300'
+                light={tailwind('text-gray-500')}
+                dark={tailwind('text-gray-300')}
               >
                 {value}
               </ThemedText>

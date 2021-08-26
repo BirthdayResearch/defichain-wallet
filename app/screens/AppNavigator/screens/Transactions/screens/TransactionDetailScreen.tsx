@@ -24,8 +24,8 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
     return (
       <ThemedScrollView testID={`transaction-detail-${lhs.toLowerCase()}`}>
         <ThemedView
-          light='bg-white border-b border-gray-200'
-          dark='bg-gray-800 border-b border-gray-700'
+          light={tailwind('bg-white border-b border-gray-200')}
+          dark={tailwind('bg-gray-800 border-b border-gray-700')}
           style={tailwind('p-2 flex-row items-center w-full p-4 mt-4')}
         >
           <View style={tailwind('w-1/2 flex-1')}>
@@ -58,13 +58,17 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
       >
         <View style={tailwind('flex-1 flex-row flex-initial')}>
           <View style={tailwind('flex-1')}>
-            <ThemedText light='text-primary-500' dark='text-darkprimary-500' style={tailwind('font-medium text-sm')}>
+            <ThemedText
+              light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
+              style={tailwind('font-medium text-sm')}
+            >
               {tx.txid}
             </ThemedText>
           </View>
           <View style={tailwind('ml-2 flex-grow-0 justify-center')}>
             <ThemedIcon
-              iconType='MaterialIcons' light='text-primary-500' dark='text-darkprimary-500' name='open-in-new'
+              iconType='MaterialIcons' light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
+              name='open-in-new'
               size={24}
             />
           </View>

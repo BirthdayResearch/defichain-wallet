@@ -39,13 +39,13 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
   const [isEnabled, setIsEnabled] = useState(false)
   const toggleSwitch = (): void => setIsEnabled(previousState => !previousState)
   return (
-    <ThemedScrollView light='bg-white' dark='bg-gray-900' style={tailwind('flex-1 p-4 pt-6')}>
+    <ThemedScrollView light={tailwind('bg-white')} dark={tailwind('bg-gray-900')} style={tailwind('flex-1 p-4 pt-6')}>
       <ThemedText
         style={tailwind('text-lg font-semibold')}
       >{translate('screens/Guidelines', 'Creating a wallet')}
       </ThemedText>
       <ThemedText
-        light='text-gray-500' dark='text-gray-400'
+        light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
         style={tailwind('mt-1 text-sm font-medium')}
       >{translate('screens/Guidelines', 'Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.')}
       </ThemedText>
@@ -54,7 +54,7 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
         testID='recovery_words_button'
       >
         <ThemedText
-          light='text-primary-500' dark='text-darkprimary-500'
+          light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
           style={tailwind('font-medium text-sm')}
         >{translate('screens/Guidelines', 'Learn more about recovery words')}
         </ThemedText>
@@ -66,7 +66,7 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
             <View style={tailwind('flex-col flex-auto ml-6')}>
               <ThemedText style={tailwind('font-medium')}>{translate('screens/Guidelines', g.title)}</ThemedText>
               <ThemedText
-                light='text-gray-500' dark='text-gray-400'
+                light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
                 style={tailwind('text-sm')}
                 numberOfLines={4}
               >{translate('screens/Guidelines', g.subtitle)}

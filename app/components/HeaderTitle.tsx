@@ -19,8 +19,8 @@ export function ConnectionStatus (): JSX.Element {
         <ThemedText
           testID='header_active_network'
           style={tailwind('text-xs font-semibold leading-4')}
-          light='text-gray-600'
-          dark='text-white text-opacity-70'
+          light={tailwind('text-gray-600')}
+          dark={tailwind('text-white text-opacity-70')}
         >
           {network}
         </ThemedText>
@@ -33,8 +33,8 @@ export function HeaderTitle ({ text, testID }: { text: string, testID?: string }
   return (
     <View style={tailwind(`flex-col ${Platform.OS === 'ios' ? 'items-center' : ''}`)}>
       <ThemedText
-        testID={testID} style={tailwind('font-semibold leading-5')} light='text-black'
-        dark='text-white text-opacity-90'
+        testID={testID} style={tailwind('font-semibold leading-5')} light={tailwind('text-black')}
+        dark={tailwind('text-white text-opacity-90')}
       >
         {text}
       </ThemedText>

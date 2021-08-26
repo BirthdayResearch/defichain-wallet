@@ -17,7 +17,7 @@ export function PlaygroundConnection (): JSX.Element {
     <View>
       <PlaygroundTitle title='Connection' status={{ online: connected, offline: !connected }} />
 
-      <ThemedView style={tailwind('px-4 py-4')} light='bg-white' dark='bg-gray-800'>
+      <ThemedView style={tailwind('px-4 py-4')} light={tailwind('bg-white')} dark={tailwind('bg-gray-800')}>
         <Text>
           <ThemedText style={tailwind('font-medium')}>
             Network:

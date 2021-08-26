@@ -130,8 +130,8 @@ function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (ro
       <ThemedTouchableOpacity
         testID={rowId}
         key={row.item.id}
-        light='bg-white border-b border-gray-200'
-        dark='bg-gray-800 border-b border-gray-700'
+        light={tailwind('bg-white border-b border-gray-200')}
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
         style={tailwind('flex-row w-full h-16 p-2 items-center')}
         onPress={() => {
           navigation.navigate({
@@ -183,8 +183,8 @@ function LoadMore (onPress: () => void): JSX.Element | null {
         style={tailwind('p-2')}
       >
         <ThemedText
-          light='text-primary-500'
-          dark='text-darkprimary-500'
+          light={tailwind('text-primary-500')}
+          dark={tailwind('text-darkprimary-500')}
         >{translate('screens/TransactionsScreen', 'LOAD MORE')}
         </ThemedText>
       </TouchableOpacity>

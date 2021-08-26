@@ -84,7 +84,10 @@ export function DexScreen (): JSX.Element {
               )
             }
             return (
-              <ThemedView style={tailwind('px-4 pt-4 pb-2')} light='bg-gray-100' dark='bg-gray-900'>
+              <ThemedView
+                style={tailwind('px-4 pt-4 pb-2')} light={tailwind('bg-gray-100')}
+                dark={tailwind('bg-gray-900')}
+              >
                 <ThemedText style={tailwind('text-base font-medium')}>
                   {
                     translate('screens/DexScreen', 'Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.')
@@ -124,8 +127,8 @@ function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () =>
 
   return (
     <ThemedView
-      testID='pool_pair_row_your' style={tailwind('p-4')} light='bg-white border-b border-gray-200'
-      dark='bg-gray-800 border-b border-gray-700'
+      testID='pool_pair_row_your' style={tailwind('p-4')} light={tailwind('bg-white border-b border-gray-200')}
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
     >
       <View style={tailwind('flex-row items-center justify-between')}>
         <View style={tailwind('flex-row items-center')}>
@@ -167,8 +170,8 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
 
   return (
     <ThemedView
-      testID='pool_pair_row' style={tailwind('p-4')} light='bg-white border-b border-gray-200'
-      dark='bg-gray-800 border-b border-gray-700'
+      testID='pool_pair_row' style={tailwind('p-4')} light={tailwind('bg-white border-b border-gray-200')}
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
     >
       <View style={tailwind('flex-row items-center justify-between')}>
         <View style={tailwind('flex-row items-center')}>
@@ -211,8 +214,8 @@ function PoolPairLiqBtn (props: { name: React.ComponentProps<typeof MaterialIcon
       onPress={props.onPress}
     >
       <ThemedIcon
-        iconType='MaterialIcons' size={24} name={props.name} light='text-primary-500'
-        dark='text-darkprimary-500'
+        iconType='MaterialIcons' size={24} name={props.name} light={tailwind('text-primary-500')}
+        dark={tailwind('text-darkprimary-500')}
       />
     </TouchableOpacity>
   )
@@ -222,7 +225,7 @@ function PoolPairInfoLine (props: { symbol: string, reserve: string, row: string
   return (
     <View style={tailwind('flex-row justify-between')}>
       <ThemedText
-        light='text-black' dark='text-gray-400'
+        light={tailwind('text-black')} dark={tailwind('text-gray-400')}
         style={tailwind('text-sm font-medium mb-1')}
       >Pooled {props.symbol}
       </ThemedText>
@@ -247,7 +250,7 @@ function PoolPairAPR (props: { symbol: string, apr: number, row: string }): JSX.
   return (
     <View style={tailwind('flex-row justify-between items-end')}>
       <ThemedText
-        light='text-black' dark='text-gray-400'
+        light={tailwind('text-black')} dark={tailwind('text-gray-400')}
         style={tailwind('text-sm font-medium mb-1')}
       >{translate('screens/DexScreen', 'APR')}
       </ThemedText>

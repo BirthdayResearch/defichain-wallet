@@ -59,7 +59,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           token={item} key={item.symbol}
           onPress={() => navigation.navigate({ name: 'TokenDetail', params: { token: item }, merge: true })}
         />}
-      ItemSeparatorComponent={() => <ThemedView style={tailwind('h-px')} light='bg-gray-100' dark='bg-gray-700' />}
+      ItemSeparatorComponent={() => <ThemedView
+        style={tailwind('h-px')} light={tailwind('bg-gray-100')}
+        dark={tailwind('bg-gray-700')}
+                                    />}
       ListHeaderComponent={(
         <SectionTitle
           testID='balances_title'
@@ -77,8 +80,8 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
     <ThemedTouchableOpacity
       onPress={onPress} testID={testID}
       style={tailwind('py-4 pl-4 pr-2 flex-row justify-between items-center')}
-      light='bg-white'
-      dark='bg-gray-800'
+      light={tailwind('bg-white')}
+      dark={tailwind('bg-gray-800')}
     >
       <View style={tailwind('flex-row items-center flex-grow')}>
         <Icon testID={`${testID}_icon`} />
@@ -86,8 +89,8 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
           <ThemedText
             testID={`${testID}_symbol`}
             style={tailwind('font-medium')}
-            light='text-black'
-            dark='text-gray-200'
+            light={tailwind('text-black')}
+            dark={tailwind('text-gray-200')}
           >{token.displaySymbol}
           </ThemedText>
           <ThemedText
@@ -95,8 +98,8 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
             numberOfLines={1}
             ellipsizeMode='tail'
             style={tailwind('text-sm font-medium text-gray-600')}
-            light='text-gray-600'
-            dark='text-gray-400'
+            light={tailwind('text-gray-600')}
+            dark={tailwind('text-gray-400')}
           >{token.name}
           </ThemedText>
         </View>
@@ -106,14 +109,14 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
             renderText={(value) =>
               <>
                 <ThemedText
-                  style={tailwind('mr-2 flex-wrap')} light='text-black'
-                  dark='text-gray-200' testID={`${testID}_amount`}
+                  style={tailwind('mr-2 flex-wrap')} light={tailwind('text-black')}
+                  dark={tailwind('text-gray-200')} testID={`${testID}_amount`}
                 >
                   {value}
                 </ThemedText>
                 <ThemedIcon
                   iconType='MaterialIcons' name='chevron-right' size={24}
-                  light='text-black' dark='text-gray-200'
+                  light={tailwind('text-black')} dark={tailwind('text-gray-200')}
                 />
               </>}
           />

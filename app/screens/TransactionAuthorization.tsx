@@ -263,28 +263,31 @@ export function TransactionAuthorization (): JSX.Element | null {
           onPress={onCancel}
         >
           <ThemedText
-            light='text-primary-500'
-            dark='text-darkprimary-500'
+            light={tailwind('text-primary-500')}
+            dark={tailwind('text-darkprimary-500')}
             style={tailwind('font-bold')}
           >{translate('components/UnlockWallet', 'CANCEL')}
           </ThemedText>
         </ThemedTouchableOpacity>
       </View>
-      <ThemedView light='bg-white' dark='bg-gray-900' style={tailwind('w-full flex-1 flex-col mt-8')}>
+      <ThemedView
+        light={tailwind('bg-white')} dark={tailwind('bg-gray-900')}
+        style={tailwind('w-full flex-1 flex-col mt-8')}
+      >
         <ThemedText
           style={tailwind('text-center text-xl font-bold')}
         >{translate('screens/UnlockWallet', 'Enter passcode')}
         </ThemedText>
         <View style={tailwind('p-4 px-8 text-sm text-center mb-6')}>
           <ThemedText
-            light='text-gray-500' dark='text-gray-400'
+            light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
             style={tailwind('p-4 px-8 text-sm text-center mb-2')}
           >{message}
           </ThemedText>
           {
             transaction?.description !== undefined && (
               <ThemedText
-                light='text-gray-500' dark='text-gray-400'
+                light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
                 style={tailwind('text-sm text-center')}
               >{transaction.description}
               </ThemedText>
@@ -307,7 +310,7 @@ export function TransactionAuthorization (): JSX.Element | null {
           (isRetry && attemptsRemaining !== undefined && attemptsRemaining !== MAX_PASSCODE_ATTEMPT)
             ? (
               <ThemedText
-                light='text-error-500' dark='text-darkerror-500' testID='pin_attempt_error'
+                light={tailwind('text-error-500')} dark={tailwind('text-darkerror-500')} testID='pin_attempt_error'
                 style={tailwind('text-center text-sm font-bold mt-5')}
               >
                 {translate('screens/PinConfirmation', `${attemptsRemaining === 1
@@ -321,7 +324,7 @@ export function TransactionAuthorization (): JSX.Element | null {
           (!isRetry && attemptsRemaining !== undefined && attemptsRemaining !== MAX_PASSCODE_ATTEMPT)
             ? (
               <ThemedText
-                light='text-error-500' dark='text-darkerror-500' testID='pin_attempt_warning'
+                light={tailwind('text-error-500')} dark={tailwind('text-darkerror-500')} testID='pin_attempt_warning'
                 style={tailwind('text-center text-sm font-bold mt-5')}
               >
                 {translate('components/TransactionAuthorization', `${attemptsRemaining === 1

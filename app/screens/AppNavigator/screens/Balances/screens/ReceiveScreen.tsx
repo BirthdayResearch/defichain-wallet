@@ -38,8 +38,8 @@ export function ReceiveScreen (): JSX.Element {
       >{translate('screens/ReceiveScreen', 'Use this address to receive DFI or any DST')}
       </ThemedText>
       <ThemedView
-        style={tailwind('flex justify-center items-center p-5')} light='bg-white'
-        dark='bg-gray-800'
+        style={tailwind('flex justify-center items-center p-5')} light={tailwind('bg-white')}
+        dark={tailwind('bg-gray-800')}
       >
         <View testID='qr_code_container' style={tailwind('mb-5')}>
           <QRCode
@@ -51,14 +51,14 @@ export function ReceiveScreen (): JSX.Element {
         </View>
         <ThemedText
           selectable
-          testID='address_text' light='text-gray-500'
-          dark='text-gray-100'
+          testID='address_text' light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-100')}
           style={tailwind('font-medium text-center')}
           numberOfLines={2}
         >{address}
         </ThemedText>
       </ThemedView>
-      <ThemedView style={tailwind('flex flex-col p-4')} light='bg-white' dark='bg-gray-900'>
+      <ThemedView style={tailwind('flex flex-col p-4')} light={tailwind('bg-white')} dark={tailwind('bg-gray-900')}>
         {
           isCopied
             ? (
@@ -67,10 +67,10 @@ export function ReceiveScreen (): JSX.Element {
               >
                 <ThemedIcon
                   iconType='MaterialIcons' name='check' size={20} style={tailwind('self-center')}
-                  light='text-success-500' dark='text-darksuccess-500'
+                  light={tailwind('text-success-500')} dark={tailwind('text-darksuccess-500')}
                 />
                 <ThemedText
-                  light='text-success-500' dark='text-darksuccess-500'
+                  light={tailwind('text-success-500')} dark={tailwind('text-darksuccess-500')}
                   style={tailwind('ml-1 uppercase font-medium')}
                 >{translate('screens/ReceiveScreen', 'Copied to Clipboard')}
                 </ThemedText>
@@ -90,12 +90,12 @@ export function ReceiveScreen (): JSX.Element {
               >
                 <ThemedIcon
                   iconType='MaterialIcons'
-                  light='text-primary-500' dark='text-darkprimary-500'
+                  light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
                   style={tailwind('self-center')} name='content-copy' size={18}
                 />
                 <ThemedText
                   style={tailwind('ml-2 uppercase font-medium')}
-                  light='text-primary-500' dark='text-darkprimary-500'
+                  light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
                 >{translate('screens/ReceiveScreen', 'COPY TO CLIPBOARD')}
                 </ThemedText>
               </TouchableOpacity>
@@ -109,11 +109,11 @@ export function ReceiveScreen (): JSX.Element {
         >
           <ThemedIcon
             iconType='MaterialIcons'
-            light='text-primary-500' dark='text-darkprimary-500'
+            light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
             style={tailwind('self-center')} name='share' size={18}
           />
           <ThemedText
-            light='text-primary-500' dark='text-darkprimary-500'
+            light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
             style={tailwind('ml-2 uppercase font-medium')}
           >{translate('screens/ReceiveScreen', 'SHARE')}
           </ThemedText>

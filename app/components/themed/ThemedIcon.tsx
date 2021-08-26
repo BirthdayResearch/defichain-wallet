@@ -15,13 +15,19 @@ type ThemedIconProps = ThemedProps & IThemedIcon & IconProps<any>
 
 export function ThemedIcon (props: ThemedIconProps): JSX.Element {
   const { isLight } = useThemeContext()
-  const { style, iconType, light = 'text-black', dark = 'text-white text-opacity-90', ...otherProps } = props
+  const {
+    style,
+    iconType,
+    light = tailwind('text-black'),
+    dark = tailwind('text-white text-opacity-90'),
+    ...otherProps
+  } = props
   if (iconType === 'MaterialIcons') {
-    return <MaterialIcons style={[style, tailwind(isLight ? light : dark)]} {...otherProps} />
+    return <MaterialIcons style={[style, isLight ? light : dark]} {...otherProps} />
   } else if (iconType === 'MaterialCommunityIcons') {
     return (
       <MaterialCommunityIcons
-        style={[style, tailwind(isLight ? light : dark)]} {...otherProps}
+        style={[style, isLight ? light : dark]} {...otherProps}
       />
     )
   } else {

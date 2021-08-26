@@ -59,7 +59,10 @@ function BalanceActionButton (props: {
     >
       {
         props.title !== undefined && (
-          <ThemedText style={tailwind('mx-1 font-semibold')} light='text-primary-500' dark='text-darkprimary-500'>
+          <ThemedText
+            style={tailwind('mx-1 font-semibold')} light={tailwind('text-primary-500')}
+            dark={tailwind('text-darkprimary-500')}
+          >
             {translate('screens/BalancesScreen', props.title)}
           </ThemedText>
         )

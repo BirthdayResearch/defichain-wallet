@@ -8,7 +8,7 @@ type ThemedSectionListProps = SectionListProps<any, any> & ThemedProps
 
 export function ThemedSectionList (props: ThemedSectionListProps): JSX.Element {
   const { isLight } = useThemeContext()
-  const { style, light = 'bg-gray-100', dark = 'bg-gray-900', ...otherProps } = props
+  const { style, light = tailwind('bg-gray-100'), dark = tailwind('bg-gray-900'), ...otherProps } = props
 
-  return <SectionList style={[style, tailwind(isLight ? light : dark)]} {...otherProps} />
+  return <SectionList style={[style, isLight ? light : dark]} {...otherProps} />
 }

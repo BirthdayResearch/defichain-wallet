@@ -86,7 +86,7 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
   }
 
   return (
-    <ThemedScrollView light='bg-white' dark='bg-gray-900' style={tailwind('flex-1')}>
+    <ThemedScrollView light={tailwind('bg-white')} dark={tailwind('bg-gray-900')} style={tailwind('flex-1')}>
       <CreateWalletStepIndicator
         current={2}
         steps={CREATE_STEPS}
@@ -136,8 +136,8 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
   const activeButton = isLight ? 'bg-primary-50' : 'bg-darkprimary-500'
   return (
     <ThemedView
-      light='bg-white border-b border-gray-200'
-      dark='bg-gray-800 border-b border-gray-700' style={tailwind('p-4 py-6')}
+      light={tailwind('bg-white border-b border-gray-200')}
+      dark={tailwind('bg-gray-800 border-b border-gray-700')} style={tailwind('p-4 py-6')}
     >
       <View style={tailwind('flex-row')}>
         <ThemedText style={tailwind('text-gray-600')}>
@@ -151,8 +151,8 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
         {
           words.map((w, i) => (
             <ThemedTouchableOpacity
-              light={`${selectedWord === w ? activeButton : 'bg-gray-100'}`}
-              dark={`${selectedWord === w ? activeButton : 'bg-gray-400'}`}
+              light={tailwind(`${selectedWord === w ? activeButton : 'bg-gray-100'}`)}
+              dark={tailwind(`${selectedWord === w ? activeButton : 'bg-gray-400'}`)}
               style={tailwind('rounded p-2 px-3 mr-3')}
               key={`${w}_${i}`}
               testID={`line_${lineNumber}_${w}`}
@@ -162,8 +162,8 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
               }}
             >
               <ThemedText
-                light={`${selectedWord === w ? 'text-primary-500' : 'text-black'} font-semibold`}
-                dark={`${selectedWord === w ? 'text-white' : 'text-black'} font-semibold`}
+                light={tailwind(`${selectedWord === w ? 'text-primary-500' : 'text-black'} font-semibold`)}
+                dark={tailwind(`${selectedWord === w ? 'text-white' : 'text-black'} font-semibold`)}
               >{w}
               </ThemedText>
             </ThemedTouchableOpacity>

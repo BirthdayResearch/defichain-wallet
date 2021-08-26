@@ -16,8 +16,8 @@ export function NumberRow ({
 }: { lhs: string, rightHandElements: NumberRowRightElement[] }): JSX.Element {
   return (
     <ThemedView
-      style={tailwind('p-4 flex-row items-start w-full')} light='bg-white border-b border-gray-200'
-      dark='bg-gray-800 border-b border-gray-700'
+      style={tailwind('p-4 flex-row items-start w-full')} light={tailwind('bg-white border-b border-gray-200')}
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
     >
       <View style={tailwind('flex-1')}>
         <ThemedText style={tailwind('font-medium')}>{lhs}</ThemedText>
@@ -32,7 +32,7 @@ export function NumberRow ({
                 renderText={(val: string) => (
                   <ThemedText
                     testID={rhs.testID}
-                    light='text-gray-500' dark='text-gray-400'
+                    light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
                     style={tailwind('flex-wrap font-medium text-right text-gray-500')}
                   >{val}
                   </ThemedText>

@@ -106,7 +106,10 @@ export function RestoreMnemonicWallet (): JSX.Element {
         style={tailwind('py-4 px-1')}
       />
       <View style={tailwind('justify-center p-4')}>
-        <ThemedText light='text-gray-500' dark='text-gray-400' style={tailwind('font-medium text-sm text-center')}>
+        <ThemedText
+          light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
+          style={tailwind('font-medium text-sm text-center')}
+        >
           {translate('screens/RestoreWallet', 'Please provide your 24 recovery words to regain access to your wallet.')}
         </ThemedText>
       </View>
@@ -127,8 +130,8 @@ export function RestoreMnemonicWallet (): JSX.Element {
             }}
             render={({ field: { value, onBlur, onChange }, fieldState: { invalid, isTouched } }) => (
               <ThemedView
-                light='bg-white border-b border-gray-200'
-                dark='bg-gray-800 border-b border-gray-700' style={tailwind('flex-row w-full')}
+                light={tailwind('bg-white border-b border-gray-200')}
+                dark={tailwind('bg-gray-800 border-b border-gray-700')} style={tailwind('flex-row w-full')}
               >
                 <ThemedText style={tailwind('p-4 font-semibold w-20 pr-0')}>{`#${order}`}</ThemedText>
                 <TextInput

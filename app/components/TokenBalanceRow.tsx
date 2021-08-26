@@ -9,8 +9,8 @@ export function TokenBalanceRow (props: { lhs: string, rhs: { value: string | nu
   const TokenIcon = getNativeIcon(props.iconType)
   return (
     <ThemedView
-      style={tailwind('p-4 flex-row items-center w-full')} light='bg-white border-b border-gray-200'
-      dark='bg-gray-800 border-b border-gray-700'
+      style={tailwind('p-4 flex-row items-center w-full')} light={tailwind('bg-white border-b border-gray-200')}
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
     >
       <View style={tailwind('flex-1 flex-row items-center')}>
         <TokenIcon style={tailwind('mr-2')} />
@@ -21,7 +21,7 @@ export function TokenBalanceRow (props: { lhs: string, rhs: { value: string | nu
           value={props.rhs.value} decimalScale={8} thousandSeparator displayType='text'
           renderText={(val: string) => (
             <ThemedText
-              light='text-gray-500' dark='text-gray-400'
+              light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
               testID={props.rhs.testID}
               style={tailwind('flex-wrap font-medium text-right')}
             >{val}

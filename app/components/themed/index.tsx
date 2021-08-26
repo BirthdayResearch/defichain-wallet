@@ -1,6 +1,6 @@
 export interface ThemedProps {
-  light?: string
-  dark?: string
+  light?: { [key: string]: string }
+  dark?: { [key: string]: string }
 }
 
 export * from './ThemedView'

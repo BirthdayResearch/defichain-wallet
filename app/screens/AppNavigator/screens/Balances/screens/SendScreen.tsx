@@ -154,14 +154,14 @@ function AddressRow ({
             />
             <ThemedTouchableOpacity
               testID='qr_code_button'
-              light='bg-white'
-              dark='bg-gray-800'
+              light={tailwind('bg-white')}
+              dark={tailwind('bg-gray-800')}
               style={tailwind('w-14 p-4')}
               onPress={onQrButtonPress}
             >
               <ThemedIcon
-                iconType='MaterialIcons' name='qr-code-scanner' size={24} light='text-primary-500'
-                dark='text-darkprimary-500'
+                iconType='MaterialIcons' name='qr-code-scanner' size={24} light={tailwind('text-primary-500')}
+                dark={tailwind('text-darkprimary-500')}
               />
             </ThemedTouchableOpacity>
           </View>
@@ -201,8 +201,8 @@ function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.El
         }}
         render={({ field: { onBlur, onChange, value } }) => (
           <ThemedView
-            style={tailwind('flex-row w-full')} light='bg-white border-b border-gray-200'
-            dark='bg-gray-800 border-b border-gray-700'
+            style={tailwind('flex-row w-full')} light={tailwind('bg-white border-b border-gray-200')}
+            dark={tailwind('bg-gray-800 border-b border-gray-700')}
           >
             <NumberTextInput
               testID='amount_input'
@@ -214,8 +214,8 @@ function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.El
               placeholder={translate('screens/SendScreen', 'Enter an amount')}
             />
             <ThemedView
-              style={tailwind('flex-row pr-4 items-center')} light='bg-white'
-              dark='bg-gray-800'
+              style={tailwind('flex-row pr-4 items-center')} light={tailwind('bg-white')}
+              dark={tailwind('bg-gray-800')}
             >
               <Icon />
               <InputIconLabel testID='token_symbol' label={token.symbol} screenType={IconLabelScreenType.Balance} />
@@ -226,8 +226,8 @@ function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.El
         defaultValue=''
       />
       <ThemedView
-        style={tailwind('flex-row w-full px-4 items-center')} light='bg-white border-b border-gray-200'
-        dark='bg-gray-800 border-b border-gray-700'
+        style={tailwind('flex-row w-full px-4 items-center')} light={tailwind('bg-white border-b border-gray-200')}
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
       >
         <View style={tailwind('flex-1 flex-row py-4 flex-wrap mr-2')}>
           <ThemedText>{translate('screens/SendScreen', 'Balance: ')}</ThemedText>
@@ -235,8 +235,8 @@ function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.El
             value={maxAmount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
             renderText={(value) => (
               <ThemedText
-                testID='max_value' light='text-gray-500'
-                dark='text-gray-300'
+                testID='max_value' light={tailwind('text-gray-500')}
+                dark={tailwind('text-gray-300')}
               >{value}
               </ThemedText>
             )}

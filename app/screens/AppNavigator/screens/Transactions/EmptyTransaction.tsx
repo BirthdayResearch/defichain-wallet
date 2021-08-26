@@ -26,7 +26,8 @@ export function EmptyTransaction (props: EmptyTransactionProps): JSX.Element {
       }
     >
       <ThemedIcon
-        iconType='MaterialIcons' light='text-black' dark='text-white' name='assignment-late' size={44}
+        iconType='MaterialIcons' light={tailwind('text-black')} dark={tailwind('text-white')} name='assignment-late'
+        size={44}
         style={tailwind('pb-5 text-center')}
       />
       <ThemedText style={tailwind('text-2xl pb-2 font-semibold text-center')}>
