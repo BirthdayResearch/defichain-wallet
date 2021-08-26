@@ -1,9 +1,8 @@
 import BigNumber from 'bignumber.js'
 import React from 'react'
-import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '../tailwind'
-import { Text } from './Text'
+import { ThemedText, ThemedView } from './themed'
 
 interface SummaryTitleItems {
   title: string
@@ -14,20 +13,26 @@ interface SummaryTitleItems {
 
 export function SummaryTitle ({ title, amount, suffix, testID }: SummaryTitleItems): JSX.Element {
   return (
-    <View style={tailwind('flex-col bg-white px-4 py-8 mb-4 justify-center items-center border-b border-gray-300')}>
-      <Text testID='confirm_title' style={tailwind('text-xs text-gray-500')}>
+    <ThemedView
+      style={tailwind('flex-col px-4 py-8 mb-4 justify-center items-center')}
+      light={tailwind('bg-white border-b border-gray-300')} dark={tailwind('bg-gray-800 border-b border-gray-700')}
+    >
+      <ThemedText
+        light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')} testID='confirm_title'
+        style={tailwind('text-xs')}
+      >
         {title}
-      </Text>
+      </ThemedText>
       <NumberFormat
         value={amount.toFixed(8)} decimalScale={8} thousandSeparator displayType='text' suffix={suffix}
         renderText={(value) => (
-          <Text
+          <ThemedText
             testID={testID}
             style={tailwind('text-2xl font-bold flex-wrap')}
           >{value}
-          </Text>
+          </ThemedText>
         )}
       />
-    </View>
+    </ThemedView>
   )
 }

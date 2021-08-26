@@ -94,7 +94,7 @@ Cypress.Commands.add('restoreMnemonicWords', (recoveryWords: string[]) => {
   cy.getByTestID('restore_wallet_button').click()
   recoveryWords.forEach((word, index) => {
     cy.getByTestID(`recover_word_${index + 1}`).clear().type(word).blur()
-    cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(0, 0, 0)')
+    cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(64, 64, 64)')
   })
   cy.getByTestID('recover_wallet_button').should('not.have.attr', 'disabled')
   cy.getByTestID('recover_wallet_button').click()

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Text } from './Text'
 import { tailwind } from '../tailwind'
+import { ThemedText } from './themed'
 
 export enum IconLabelScreenType {
   Balance,
@@ -14,7 +14,11 @@ interface InputIconLabelProps {
 
 export function InputIconLabel (props: InputIconLabelProps): JSX.Element {
   return (
-    <Text testID={props.testID} style={tailwind('ml-2 text-gray-500 text-right')}>{getSymbolLabel(props.label, props.screenType)}</Text>
+    <ThemedText
+      testID={props.testID} light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
+      style={tailwind('ml-2 text-right')}
+    >{getSymbolLabel(props.label, props.screenType)}
+    </ThemedText>
   )
 }
 

@@ -1,15 +1,21 @@
-import { MaterialIcons } from '@expo/vector-icons'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useCallback, useEffect, useState } from 'react'
-import { FlatList, RefreshControl, TouchableOpacity } from 'react-native'
+import { RefreshControl } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
-import { Text, View } from '../../../../components'
+import { View } from '../../../../components'
 import { getNativeIcon } from '../../../../components/icons/assets'
 import { SectionTitle } from '../../../../components/SectionTitle'
+import {
+  ThemedFlatList,
+  ThemedIcon,
+  ThemedText,
+  ThemedTouchableOpacity,
+  ThemedView
+} from '../../../../components/themed'
 import { useWalletContext } from '../../../../contexts/WalletContext'
 import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
@@ -42,9 +48,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
   const tokens = useTokensAPI()
   return (
-    <FlatList
+    <ThemedFlatList
       testID='balances_list'
-      style={tailwind('bg-gray-100')}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
@@ -54,7 +59,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           token={item} key={item.symbol}
           onPress={() => navigation.navigate({ name: 'TokenDetail', params: { token: item }, merge: true })}
         />}
-      ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
+      ItemSeparatorComponent={() => <ThemedView
+        style={tailwind('h-px')} light={tailwind('bg-gray-100')}
+        dark={tailwind('bg-gray-700')}
+                                    />}
       ListHeaderComponent={(
         <SectionTitle
           testID='balances_title'
@@ -69,35 +77,51 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
   const Icon = getNativeIcon(token.avatarSymbol)
   const testID = `balances_row_${token.id}`
   return (
-    <TouchableOpacity
+    <ThemedTouchableOpacity
       onPress={onPress} testID={testID}
-      style={tailwind('bg-white py-4 pl-4 pr-2 flex-row justify-between items-center')}
+      style={tailwind('py-4 pl-4 pr-2 flex-row justify-between items-center')}
+      light={tailwind('bg-white')}
+      dark={tailwind('bg-gray-800')}
     >
       <View style={tailwind('flex-row items-center flex-grow')}>
         <Icon testID={`${testID}_icon`} />
         <View style={tailwind('mx-3 flex-auto')}>
-          <Text testID={`${testID}_symbol`} style={tailwind('font-medium')}>{token.displaySymbol}</Text>
-          <Text
+          <ThemedText
+            testID={`${testID}_symbol`}
+            style={tailwind('font-medium')}
+            light={tailwind('text-black')}
+            dark={tailwind('text-gray-200')}
+          >{token.displaySymbol}
+          </ThemedText>
+          <ThemedText
             testID={`${testID}_name`}
             numberOfLines={1}
             ellipsizeMode='tail'
             style={tailwind('text-sm font-medium text-gray-600')}
+            light={tailwind('text-gray-600')}
+            dark={tailwind('text-gray-400')}
           >{token.name}
-          </Text>
+          </ThemedText>
         </View>
         <View style={tailwind('flex-row items-center')}>
           <NumberFormat
             value={new BigNumber(token.amount).toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
             renderText={(value) =>
               <>
-                <Text style={tailwind('mr-2 flex-wrap')} testID={`${testID}_amount`}>
+                <ThemedText
+                  style={tailwind('mr-2 flex-wrap')} light={tailwind('text-black')}
+                  dark={tailwind('text-gray-200')} testID={`${testID}_amount`}
+                >
                   {value}
-                </Text>
-                <MaterialIcons name='chevron-right' size={24} />
+                </ThemedText>
+                <ThemedIcon
+                  iconType='MaterialIcons' name='chevron-right' size={24}
+                  light={tailwind('text-black')} dark={tailwind('text-gray-200')}
+                />
               </>}
           />
         </View>
       </View>
-    </TouchableOpacity>
+    </ThemedTouchableOpacity>
   )
 }

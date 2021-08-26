@@ -1,17 +1,18 @@
 // import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
-import { ActivityIndicator, ScrollView } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 import { Logging } from '../../../../api'
 import { MnemonicEncrypted } from '../../../../api/wallet'
 import { MnemonicStorage } from '../../../../api/wallet/mnemonic_storage'
-import { Text, View } from '../../../../components'
+import { View } from '../../../../components'
 import {
   CREATE_STEPS,
   CreateWalletStepIndicator,
   RESTORE_STEPS
 } from '../../../../components/CreateWalletStepIndicator'
 import { PinTextInput } from '../../../../components/PinTextInput'
+import { ThemedScrollView, ThemedText } from '../../../../components/themed'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
 import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { tailwind } from '../../../../tailwind'
@@ -53,17 +54,20 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
   }
 
   return (
-    <ScrollView style={tailwind('w-full flex-1 flex-col bg-white')}>
+    <ThemedScrollView
+      light={tailwind('bg-white')} dark={tailwind('bg-gray-900')}
+      style={tailwind('w-full flex-1 flex-col')}
+    >
       <CreateWalletStepIndicator
         current={type === 'create' ? 3 : 2}
         steps={type === 'create' ? CREATE_STEPS : RESTORE_STEPS}
         style={tailwind('py-4 px-1')}
       />
       <View style={tailwind('px-6 py-4 mb-6')}>
-        <Text
+        <ThemedText
           style={tailwind('text-center font-semibold')}
         >{translate('screens/PinConfirmation', 'Enter your passcode again to verify')}
-        </Text>
+        </ThemedText>
       </View>
       <PinTextInput
         cellCount={6} testID='pin_confirm_input' value={newPin} onChange={(pin) => {
@@ -77,19 +81,25 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
             ? (
               <View style={tailwind('items-center')}>
                 <ActivityIndicator color='#FF00AF' style={tailwind('mb-4')} />
-                <Text style={tailwind('ml-2 font-semibold text-sm text-center w-4/5')}>{spinnerMessage}</Text>
+                <ThemedText
+                  style={tailwind('ml-2 font-semibold text-sm text-center w-4/5')}
+                >{spinnerMessage}
+                </ThemedText>
               </View>
               )
             : null
         }
         {
           invalid && (
-            <Text testID='wrong_passcode_text' style={tailwind('text-center text-error font-semibold text-sm')}>
+            <ThemedText
+              light={tailwind('text-error-500')} dark={tailwind('text-darkerror-500')} testID='wrong_passcode_text'
+              style={tailwind('text-center font-semibold text-sm')}
+            >
               {translate('screens/PinConfirmation', 'Wrong passcode entered')}
-            </Text>
+            </ThemedText>
           )
         }
       </View>
-    </ScrollView>
+    </ThemedScrollView>
   )
 }

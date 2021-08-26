@@ -6,7 +6,6 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Logging } from '../../../../api'
@@ -14,6 +13,7 @@ import { NumberRow } from '../../../../components/NumberRow'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { SubmitButtonGroup } from '../../../../components/SubmitButtonGroup'
 import { SummaryTitle } from '../../../../components/SummaryTitle'
+import { ThemedScrollView } from '../../../../components/themed'
 import { TokenBalanceRow } from '../../../../components/TokenBalanceRow'
 import { RootState } from '../../../../store'
 import { hasTxQueued as hasBroadcastQueued } from '../../../../store/ocean'
@@ -99,7 +99,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   }
 
   return (
-    <ScrollView testID='confirm-root' style={tailwind('bg-gray-100 pb-4')}>
+    <ThemedScrollView testID='confirm-root' style={tailwind('pb-4')}>
       <SummaryTitle
         title={translate('screens/ConfirmAddLiq', 'YOU ARE ADDING')}
         testID='text_add_amount' amount={lmTokenAmount}
@@ -157,7 +157,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         label={translate('screens/ConfirmAddLiq', 'ADD')}
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
       />
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 
