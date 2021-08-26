@@ -88,7 +88,8 @@
     "Network Switch": "Network Switch",
     "No": "No",
     "Yes": "Yes",
-    "You are about to switch to {{network}}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?": "You are about to switch to {{network}}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?"
+    "You are about to switch to {{network}}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?": "You are about to switch to {{network}}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?",
+    "Theme": "Theme"
   },
   "screens/AboutScreen": {
     "About": "About",
