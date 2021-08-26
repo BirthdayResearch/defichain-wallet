@@ -53,7 +53,19 @@
     "Community": "Community"
   },
   "screens/Settings": {
-    "Recovery Words": "Recovery Words"
+    "Recovery Words": "Recovery Words",
+    "Are you sure you want to unlink your wallet?": "Are you sure you want to unlink your wallet?",
+    "You will need to use your recovery words the next time you want to get back to your wallet.": "You will need to use your recovery words the next time you want to get back to your wallet.",
+    "Cancel": "Cancel",
+    "Unlink Wallet": "Unlink Wallet",
+    "UNLINK WALLET": "UNLINK WALLET",
+    "Change Passcode": "Change Passcode",
+    "About": "About",
+    "NETWORK": "NETWORK",
+    "To update your passcode, we need you to enter your current passcode.": "To update your passcode, we need you to enter your current passcode.",
+    "Verifying passcode...": "Verifying passcode...",
+    "To continue viewing your recovery words, we need you to enter your passcode.": "To continue viewing your recovery words, we need you to enter your passcode.",
+    "Loading...": "Loading..."
   },
   "screens/AboutScreen": {
     "About": "About",
@@ -134,7 +146,10 @@
   "screens/PinConfirmation": {
     "It may take a few seconds to securely encrypt your wallet...": "It may take a few seconds to securely encrypt your wallet...",
     "Enter your passcode again to verify": "Enter your passcode again to verify",
-    "Wrong passcode entered": "Wrong passcode entered"
+    "Wrong passcode entered": "Wrong passcode entered",
+    "Wallet Unlinked": "Wallet Unlinked",
+    "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.": "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.",
+    "Close": "Close"
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.",
@@ -172,5 +187,15 @@
     "Liquidity": "Liquidität",
     "Transactions": "Transaktionen",
     "Settings": "Einstellungen"
+  },
+  "screens/OceanInterface": {
+    "Waiting for confirmation": "Waiting for confirmation",
+    "Transaction Completed": "Transaction Completed",
+    "Sent but not confirmed": "Sent but not confirmed",
+    "Broadcasting...": "Broadcasting...",
+    "OK": "OK",
+    "Insufficient UTXO DFI": "Insufficient UTXO DFI",
+    "Not enough balance": "Not enough balance",
+    "Price is higher than indicated": "Price is higher than indicated"
   }
 }
