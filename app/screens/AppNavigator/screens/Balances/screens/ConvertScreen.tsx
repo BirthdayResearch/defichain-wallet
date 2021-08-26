@@ -87,7 +87,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   return (
     <ScrollView style={tailwind('w-full flex-col flex-1 bg-gray-100')}>
       <ConversionIOCard
-        style={tailwind('my-4 mt-1')}
+        style={tailwind('mt-1')}
         mode='input'
         current={amount}
         unit={sourceToken.unit}
@@ -205,7 +205,7 @@ function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: str
 
 function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
   return (
-    <View style={tailwind('flex-row justify-center items-center')}>
+    <View style={tailwind('flex-row justify-center items-center mt-6')}>
       <IconButton testID='button_convert_mode_toggle' onPress={props.onPress} materialIconName='swap-vert' size={24} />
     </View>
   )
