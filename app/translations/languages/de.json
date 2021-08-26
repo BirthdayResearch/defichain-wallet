@@ -75,6 +75,18 @@
     "Send to other wallet": "Send to other wallet",
     "Receive": "Receive"
   },
+  "screens/TokensVsUtxoScreen": {
+    "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.",
+    "UTXO DFI is the main form DFI and is used for core cryptocurrency purposes like send, receive and fees. DFI tokens are used for DeFi functions such as swaps and liquidity mining.": "UTXO DFI is the main form DFI and is used for core cryptocurrency purposes like send, receive and fees. DFI tokens are used for DeFi functions such as swaps and liquidity mining.",
+    "Your DFI balance includes both UTXO and tokens.": "Your DFI balance includes both UTXO and tokens.",
+    "Core crypto services": "Core crypto services",
+    "Send to other wallets": "Send to other wallets",
+    "Receive tokens": "Receive tokens",
+    "Service fees": "Service fees",
+    "DeFi services": "DeFi services",
+    "Liquidity mining": "Liquidity mining",
+    "Atomic Swaps": "Atomic Swaps"
+  },
   "screens/Onboarding": {
     "CREATE A WALLET": "CREATE A WALLET",
     "RESTORE WALLET": "RESTORE WALLET"
