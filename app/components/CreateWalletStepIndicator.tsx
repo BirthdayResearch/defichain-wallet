@@ -102,11 +102,10 @@ function StepNode (props: { step: number, current: number, content: string, isLi
 function Description (props: { step: number, current: number, content: string }): JSX.Element {
   return (
     <ThemedText
-      light={props.current === props.step ? 'text-primary-500' : 'text-gray-500'}
-      dark={props.current === props.step ? 'text-darkprimary-400' : 'text-gray-400'}
+      light={tailwind(props.current === props.step ? 'text-primary-500' : 'text-gray-500')}
+      dark={tailwind(props.current === props.step ? 'text-darkprimary-400' : 'text-gray-400')}
       style={[
         tailwind('text-center text-sm font-medium top-9 absolute w-20')
-
       ]}
     >
       {props.content}
