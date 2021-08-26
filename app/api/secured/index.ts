@@ -62,7 +62,15 @@ async function removeItem (key: string): Promise<void> {
   await StorageProvider.removeItem(await getKey(key))
 }
 
-export const StorageAPI = {
+/**
+ * Secured Store provides a way to encrypt and securely store key–value pairs locally on the native device.
+ * On web for non production workload, it uses AsyncStorage.
+ *
+ * SecuredStoreAPI is also used to keep track of current set network. All key/value stored in SecuredStore
+ * is network prefix. By design isolated each key/value to their network specific store allowing separation
+ * of sensitive value between networks. Thus SecuredStoreAPI should only be used for sensitive values e.g. wallet.
+ */
+export const SecuredStoreAPI = {
   getNetwork,
   setNetwork,
   getItem,
