@@ -116,6 +116,44 @@ context('Wallet - Send', function () {
         })
       })
     })
+
+    it('should be able to transfer correct amount when user cancel a tx and updated some inputs', function () {
+      const oldAddress = addresses[0]
+      const newAddress = addresses[1]
+      const oldAmount = '1'
+      const newAmount = '2'
+      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('balances_list').should('exist')
+      cy.getByTestID('balances_row_0_utxo').should('exist')
+      cy.getByTestID('balances_row_0_utxo_amount').click()
+      cy.getByTestID('send_button').click()
+      cy.getByTestID('address_input').clear().type(oldAddress)
+      cy.getByTestID('amount_input').clear().type(oldAmount)
+      cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
+      cy.getByTestID('send_submit_button').click()
+      cy.getByTestID('confirm_title').contains('YOU ARE SENDING')
+      cy.getByTestID('button_confirm_send').click().wait(3000)
+      // Cancel send on authorisation page
+      cy.getByTestID('cancel_authorization').contains('CANCEL').click()
+      // Check for correct amount
+      cy.getByTestID('text_amount').contains(oldAmount)
+      // Cancel button
+      cy.getByTestID('button_cancel_send').click()
+      // Check correct value exists for input field
+      cy.getByTestID('address_input').should('have.value', oldAddress)
+      cy.getByTestID('amount_input').should('have.value', oldAmount)
+      // Update the input amount
+      cy.getByTestID('address_input').clear().type(newAddress)
+      cy.getByTestID('amount_input').clear().type(newAmount)
+      cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
+      cy.getByTestID('send_submit_button').click()
+      // Check address and amount in confirm send page
+      cy.getByTestID('address_input').should('have.value', newAddress)
+      cy.getByTestID('amount_input').should('have.value', newAmount)
+      cy.getByTestID('confirm_title').contains('YOU ARE SENDING')
+      cy.getByTestID('button_confirm_send').click().wait(3000)
+      cy.closeOceanInterface()
+    })
   })
 
   describe('dBTC', function () {
