@@ -12,8 +12,14 @@
     "**/*.test.tsx",
     "cypress/support/*.ts"
   ],
+  "plugins": ["jest"],
   "rules": {
-    "import/no-default-export": "warn"
+    "import/no-default-export": "warn",
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error"
   },
   "overrides": []
 }
