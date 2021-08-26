@@ -166,7 +166,7 @@ function AmountSlider (props: { current: number, onChange: (percentage: string) 
         />
       </View>
       <TouchableOpacity testID='button_slider_max' onPress={() => props.onChange('100.00')}>
-        <Text style={tailwind('text-gray-500 text-sm')}>{translate('components', 'All')}</Text>
+        <Text style={tailwind('text-gray-500 text-sm')}>{translate('components/slider', 'All')}</Text>
       </TouchableOpacity>
     </View>
   )

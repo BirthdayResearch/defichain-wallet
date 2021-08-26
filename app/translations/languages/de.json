@@ -40,7 +40,16 @@
     "Balance: ": "Balance: "
   },
   "screens/SendConfirmationScreen": {
-    "Confirm Send": "Confirm Send"
+    "Confirm Send": "Confirm Send",
+    "YOU ARE SENDING": "YOU ARE SENDING",
+    "TRANSACTION DETAILS": "TRANSACTION DETAILS",
+    "Address": "Address",
+    "Network": "Network",
+    "Amount": "Amount",
+    "Estimated fee": "Estimated fee",
+    "Remaining balance": "Remaining balance",
+    "SEND": "SEND",
+    "Sending": "Sending"
   },
   "screens/ConvertScreen": {
     "Convert DFI": "Convert DFI",
@@ -269,5 +278,39 @@
     "Price": "Price",
     "Estimated fee": "Estimated fee",
     "REMOVE": "REMOVE"
+  },
+  "screens/RemoveLiquidity": {
+    "Removing Liquidity": "Removing Liquidity",
+    "Amount to remove": "Amount to remove",
+    "Enter an amount ": "Enter an amount ",
+    "YOU ARE REMOVING": "YOU ARE REMOVING",
+    "Price": "Price"
+  },
+  "components/slider": {
+    "None": "None",
+    "All": "All"
+  },
+  "components/Button": {
+    "CONTINUE": "CONTINUE"
+  },
+  "screens/SlippageTolerance": {
+    "SLIPPAGE TOLERANCE": "SLIPPAGE TOLERANCE"
+  },
+  "screens/PoolSwapScreen": {
+    "SWAP": "SWAP",
+    "TO": "TO",
+    "CONTINUE": "CONTINUE",
+    "Enter an amount": "Enter an amount",
+    "Price": "Price",
+    "Estimated to receive": "Estimated to receive"
+  },
+  "screens/PoolSwapConfirmScreen": {
+    "YOU ARE SWAPPING": "YOU ARE SWAPPING",
+    "ESTIMATED BALANCE AFTER SWAP": "ESTIMATED BALANCE AFTER SWAP",
+    "TRANSACTION DETAILS": "TRANSACTION DETAILS",
+    "Slippage Tolerance": "Slippage Tolerance",
+    "Estimated fee": "Estimated fee",
+    "SWAP": "SWAP",
+    "Swapping Token": "Swapping Token"
   }
 }
