@@ -25,7 +25,7 @@ export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Ele
       WalletAlert({
         title: translate('screens/Settings', 'Network Switch'),
         message: translate(
-          'screens/Settings', `You are about to switch to ${props.network}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?`),
+          'screens/Settings', 'You are about to switch to {{ network }}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?', { network: props.network }),
         buttons: [
           {
             text: translate('screens/Settings', 'No'),
