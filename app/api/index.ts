@@ -1,2 +1,2 @@
-export * from './storage'
+export * from './secured'
 export * from './logging'
