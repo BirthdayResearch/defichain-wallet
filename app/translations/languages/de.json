@@ -13,7 +13,10 @@
     "Add Liquidity": "Add Liquidity",
     "Remove Liquidity": "Remove Liquidity",
     "Confirm removal": "Confirm removal",
-    "Confirm swap": "Confirm swap"
+    "Confirm swap": "Confirm swap",
+    "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.",
+    "YOUR LIQUIDITY": "YOUR LIQUIDITY",
+    "AVAILABLE POOL PAIR": "AVAILABLE POOL PAIR"
   },
   "screens/BalancesScreen": {
     "Balances": "Balances",
@@ -50,7 +53,14 @@
     "Settings": "Settings"
   },
   "screens/CommunityScreen": {
-    "Community": "Community"
+    "Community": "Community",
+    "CONNECT WITH THE COMMUNITY:": "CONNECT WITH THE COMMUNITY:",
+    "DeFiChain is a community-driven and open project.": "DeFiChain is a community-driven and open project.",
+    "The DeFiChain Foundation does not provide direct support.": "The DeFiChain Foundation does not provide direct support.",
+    "Report an issue on Github": "Report an issue on Github",
+    "Frequently Asked Questions": "Frequently Asked Questions",
+    "Announcements": "Announcements",
+    "Official Website": "Official Website"
   },
   "screens/Settings": {
     "Recovery Words": "Recovery Words",
@@ -74,13 +84,28 @@
   "screens/AboutScreen": {
     "About": "About",
     "Create new passcode": "Create new passcode",
-    "Verify passcode": "Verify passcode"
+    "Verify passcode": "Verify passcode",
+    "LINKS": "LINKS",
+    "White Paper": "White Paper",
+    "Privacy Policy": "Privacy Policy",
+    "Licenses": "Licenses"
   },
   "screens/NetworkSelectionScreen": {
+    "NETWORK": "NETWORK",
     "Select network": "Select network"
   },
   "screens/TransactionsScreen": {
-    "Transactions": "Transaktionen"
+    "Transactions": "Transaktionen",
+    "No transactions yet": "No transactions yet",
+    "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.",
+    "RECEIVE COINS": "RECEIVE COINS",
+    "LOAD MORE": "LOAD MORE"
+  },
+  "screens/TransactionDetailScreen": {
+    "Type": "Type",
+    "Amount": "Amount",
+    "Block": "Block",
+    "Date": "Date"
   },
   "screens/TransactionsDetailScreen": {
     "Transactions": "Transaktionen"
@@ -159,7 +184,8 @@
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.",
     "Well done! Your wallet is restored. Keep your wallet private and secure by creating a passcode for it.": "Well done! Your wallet is restored. Keep your wallet private and secure by creating a passcode for it.",
     "Keep your passcode private": "Keep your passcode private",
-    "CREATE PASSCODE": "CREATE PASSCODE"
+    "CREATE PASSCODE": "CREATE PASSCODE",
+    "CHANGE PASSCODE": "CHANGE PASSCODE"
   },
   "screens/VerifyMnemonicWallet": {
     "Invalid selection. Please ensure you have written down your 24 words.": "Invalid selection. Please ensure you have written down your 24 words.",
@@ -201,5 +227,47 @@
     "Insufficient UTXO DFI": "Insufficient UTXO DFI",
     "Not enough balance": "Not enough balance",
     "Price is higher than indicated": "Price is higher than indicated"
+  },
+  "components/BarCodeScanner": {
+    "Requesting for camera permission": "Requesting for camera permission",
+    "You have denied the permission request to use your camera": "You have denied the permission request to use your camera"
+  },
+  "components/max": {
+    "HALF": "HALF",
+    "MAX": "MAX"
+  },
+  "screens/common": {
+    "CANCEL": "CANCEL"
+  },
+  "screens/ChangePinScreen": {
+    "Create new passcode for your wallet": "Create new passcode for your wallet"
+  },
+  "screens/RecoveryWordsScreen": {
+    "Keep your recovery words safe and private": "Keep your recovery words safe and private"
+  },
+  "screens/AddLiquidity": {
+    "Enter an amount": "Enter an amount",
+    "Balance": "Balance",
+    "per": "per",
+    "Share of pool": "Share of pool",
+    "Pooled": "Pooled"
+  },
+  "screens/ConfirmAddLiq": {
+    "YOU ARE ADDING": "YOU ARE ADDING",
+    "AMOUNT TO SUPPLY": "AMOUNT TO SUPPLY",
+    "TRANSACTION DETAILS": "TRANSACTION DETAILS",
+    "Price": "Price",
+    "Share of pool": "Share of pool",
+    "Estimated fee": "Estimated fee",
+    "ADD": "ADD",
+    "Adding Liquidity": "Adding Liquidity"
+  },
+  "screens/ConfirmRemoveLiquidity": {
+    "YOU ARE REMOVING": "YOU ARE REMOVING",
+    "ESTIMATED AMOUNT TO RECEIVE": "ESTIMATED AMOUNT TO RECEIVE",
+    "TRANSACTION DETAILS": "TRANSACTION DETAILS",
+    "Price": "Price",
+    "Estimated fee": "Estimated fee",
+    "REMOVE": "REMOVE"
   }
 }
