@@ -1,4 +1,148 @@
 {
+  "screens/WalletNavigator": {
+    "Guidelines": "Guidelines",
+    "Learn More": "Learn More",
+    "Display recovery words": "Display recovery words",
+    "Verify words": "Verify words",
+    "Restore Wallet": "Restore Wallet",
+    "Create a passcode": "Create a passcode",
+    "Verify passcode": "Verify passcode"
+  },
+  "screens/DexScreen": {
+    "Decentralized Exchange": "Decentralized Exchange",
+    "Add Liquidity": "Add Liquidity",
+    "Remove Liquidity": "Remove Liquidity",
+    "Confirm removal": "Confirm removal",
+    "Confirm swap": "Confirm swap"
+  },
+  "screens/BalancesScreen": {
+    "Balances": "Balances",
+    "RECEIVE": "RECEIVE",
+    "BALANCE DETAILS": "BALANCE DETAILS"
+  },
+  "screens/ReceiveScreen": {
+    "Receive": "Receive",
+    "Use this address to receive DFI or any DST": "Use this address to receive DFI or any DST",
+    "Copied to Clipboard": "Copied to Clipboard",
+    "COPY TO CLIPBOARD": "COPY TO CLIPBOARD",
+    "SHARE": "SHARE"
+  },
+  "screens/SendScreen": {
+    "Send": "Send"
+  },
+  "screens/SendConfirmationScreen": {
+    "Confirm Send": "Confirm Send"
+  },
+  "screens/ConvertScreen": {
+    "Convert DFI": "Convert DFI",
+    "Scan recipient QR": "Scan recipient QR"
+  },
+  "screens/ConvertConfirmScreen": {
+    "Confirm DFI Conversion": "Confirm DFI Conversion"
+  },
+  "screens/SettingsNavigator": {
+    "Settings": "Settings"
+  },
+  "screens/CommunityScreen": {
+    "Community": "Community"
+  },
+  "screens/Settings": {
+    "Recovery Words": "Recovery Words"
+  },
+  "screens/AboutScreen": {
+    "About": "About",
+    "Create new passcode": "Create new passcode",
+    "Verify passcode": "Verify passcode"
+  },
+  "screens/NetworkSelectionScreen": {
+    "Select network": "Select network"
+  },
+  "screens/TransactionsScreen": {
+    "Transactions": "Transaktionen"
+  },
+  "screens/TransactionsDetailScreen": {
+    "Transactions": "Transaktionen"
+  },
+  "screens/Onboarding": {
+    "CREATE A WALLET": "CREATE A WALLET",
+    "RESTORE WALLET": "RESTORE WALLET"
+  },
+  "screens/OnboardingCarousel": {
+    "Native DeFi for Bitcoin": "Native DeFi for Bitcoin",
+    "Take full control": "Take full control",
+    "of your digital assets": "of your digital assets",
+    "Nobody owns your keys and wallet except you.": "Nobody owns your keys and wallet except you.",
+    "Unlock the highest": "Unlock the highest",
+    "potential of your finances": "potential of your finances",
+    "Transact, liquidity mine, swap and many more features as a fully-decentralized wallet": "Transact, liquidity mine, swap and many more features as a fully-decentralized wallet",
+    "Earn high yields": "Earn high yields",
+    "of up to 90% with DEX": "of up to 90% with DEX",
+    "Supply liquidity to BTC, ETH, and many other pool pairs. You can also withdraw anytime!": "Supply liquidity to BTC, ETH, and many other pool pairs. You can also withdraw anytime!"
+  },
+  "screens/CreateMnemonicWallet": {
+    "Exit screen": "Exit screen",
+    "If you leave this screen, you will be provided with a new set of 24 recovery words. Do you want to proceed?": "If you leave this screen, you will be provided with a new set of 24 recovery words. Do you want to proceed?",
+    "Cancel": "Cancel",
+    "Yes": "Yes",
+    "Take note of the words in their correct order": "Take note of the words in their correct order",
+    "VERIFY WORDS": "VERIFY WORDS"
+  },
+  "screens/Guidelines": {
+    "Creating a wallet": "Creating a wallet",
+    "Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.": "Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.",
+    "Learn more about recovery words": "Learn more about recovery words",
+    "I understand it is my responsibility to keep my recovery words secure, and losing them will result in the irrecoverable loss of my wallet funds.": "I understand it is my responsibility to keep my recovery words secure, and losing them will result in the irrecoverable loss of my wallet funds.",
+    "SHOW MY 24 RECOVERY WORDS": "SHOW MY 24 RECOVERY WORDS",
+    "Write the words on paper": "Write the words on paper",
+    "Take note of their correct spelling and correct order.": "Take note of their correct spelling and correct order.",
+    "Secure them in a safe space": "Secure them in a safe space",
+    "Store them offline and in a safe place.": "Store them offline and in a safe place.",
+    "Keep them private": "Keep them private",
+    "Don’t share to anyone. Keep the recovery words only to yourself.": "Don’t share to anyone. Keep the recovery words only to yourself."
+  },
+  "screens/GuidelinesRecoveryWords": {
+    "What are recovery words?": "What are recovery words?",
+    "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard.": "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard.",
+    "You will need your recovery words to restore your wallet on, for example, a new mobile device. Think of them as keys to your wallet and funds.": "You will need your recovery words to restore your wallet on, for example, a new mobile device. Think of them as keys to your wallet and funds.",
+    "If you lose your recovery words, you will not be able to restore your wallet, and you will lose access to your wallet and funds.": "If you lose your recovery words, you will not be able to restore your wallet, and you will lose access to your wallet and funds.",
+    "It is important that you write down your recovery words legibly and in the correct order. Store your recovery words safely and securely, away from prying eyes. You may want to think about keeping it safe from fire as well.": "It is important that you write down your recovery words legibly and in the correct order. Store your recovery words safely and securely, away from prying eyes. You may want to think about keeping it safe from fire as well."
+  },
+  "screens/PinConfirmation": {
+    "It may take a few seconds to securely encrypt your wallet...": "It may take a few seconds to securely encrypt your wallet...",
+    "Enter your passcode again to verify": "Enter your passcode again to verify",
+    "Wrong passcode entered": "Wrong passcode entered"
+  },
+  "screens/PinCreation": {
+    "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.",
+    "Well done! Your wallet is restored. Keep your wallet private and secure by creating a passcode for it.": "Well done! Your wallet is restored. Keep your wallet private and secure by creating a passcode for it.",
+    "Keep your passcode private": "Keep your passcode private",
+    "CREATE PASSCODE": "CREATE PASSCODE"
+  },
+  "screens/VerifyMnemonicWallet": {
+    "Invalid selection. Please ensure you have written down your 24 words.": "Invalid selection. Please ensure you have written down your 24 words.",
+    "Go back": "Go back",
+    "Verify what you wrote as correct.": "Verify what you wrote as correct.",
+    "Answer the questions to proceed.": "Answer the questions to proceed.",
+    "VERIFY": "VERIFY",
+    "What is word ": "What is word "
+  },
+  "screens/RestoreWallet": {
+    "Discard changes?": "Discard changes?",
+    "You have unsaved changes. Are you sure to discard them and leave the screen?": "You have unsaved changes. Are you sure to discard them and leave the screen?",
+    "Error": "Error",
+    "The recovery words you have entered are invalid. Please double check and try again.": "The recovery words you have entered are invalid. Please double check and try again.",
+    "Please provide your 24 recovery words to regain access to your wallet.": "Please provide your 24 recovery words to regain access to your wallet.",
+    "ENTER THE CORRECT WORD": "ENTER THE CORRECT WORD",
+    "RESTORE WALLET": "RESTORE WALLET"
+  },
+  "screens/ErrorBoundary": {
+    "Something went wrong": "Something went wrong",
+    "The app ran into a problem and could not recover. Please restart your application.": "The app ran into a problem and could not recover. Please restart your application."
+  },
+  "screens/ConnectionBoundary": {
+    "Network error": "Network error",
+    "Please check your internet connection and try again": "Please check your internet connection and try again"
+  },
   "BottomTabNavigator": {
     "Balances": "Guthaben",
     "Liquidity": "Liquidität",
