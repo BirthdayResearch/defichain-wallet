@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { TouchableOpacity, StyleProp, ViewStyle } from 'react-native'
 import { tailwind } from '../tailwind'
-import { StyleProp, ViewStyle } from 'react-native'
 
 interface IconButtonProps {
   testID: string
