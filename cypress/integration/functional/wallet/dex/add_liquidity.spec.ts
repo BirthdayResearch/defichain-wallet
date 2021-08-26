@@ -78,6 +78,34 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.closeOceanInterface()
   })
 
+  it('should be able to add correct liquidity when user cancel a tx and updated some inputs', function () {
+    const oldAmount = '5.00000000'
+    const newAmount = '10.00000000'
+    cy.getByTestID('token_input_primary').clear().type(oldAmount)
+    cy.getByTestID('button_continue_add_liq').click()
+    cy.getByTestID('text_add_amount').contains(`${oldAmount} DFI-BTC`)
+    cy.getByTestID('a_amount_unit').contains('DFI')
+    cy.getByTestID('a_amount').contains(oldAmount)
+    cy.getByTestID('b_amount_unit').contains('BTC')
+    cy.getByTestID('b_amount').contains(oldAmount)
+    cy.getByTestID('percentage_pool').contains('0.50000000%')
+    cy.getByTestID('button_confirm_add').click().wait(3000)
+    // Cancel send on authorisation page
+    cy.getByTestID('cancel_authorization').contains('CANCEL').click()
+    cy.getByTestID('button_cancel_add').click()
+    // Update the input amount
+    cy.getByTestID('token_input_primary').clear().type(newAmount)
+    cy.getByTestID('button_continue_add_liq').click()
+    cy.getByTestID('text_add_amount').contains(`${newAmount} DFI-BTC`)
+    cy.getByTestID('a_amount_unit').contains('DFI')
+    cy.getByTestID('a_amount').contains(newAmount)
+    cy.getByTestID('b_amount_unit').contains('BTC')
+    cy.getByTestID('b_amount').contains(newAmount)
+    cy.getByTestID('percentage_pool').contains('1.00000000%')
+    cy.getByTestID('button_confirm_add').click().wait(3000)
+    cy.closeOceanInterface()
+  })
+
   it('should have displayed pooled info', function () {
     cy.getByTestID('your_DFI-BTC').contains('10.00000000 DFI-BTC')
     cy.getByTestID('tokenA_DFI').contains('9.99999999 DFI')
