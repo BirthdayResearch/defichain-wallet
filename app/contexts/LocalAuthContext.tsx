@@ -13,7 +13,7 @@ export interface LocalAuthContext {
   isDeviceProtected: boolean
 
   // API
-  isPrivacyLock: () => boolean
+  isPrivacyLock: boolean
   privacyLock: (options?: LocalAuthenticationOptions) => Promise<void>
   enablePrivacyLock: (options?: LocalAuthenticationOptions) => Promise<void>
   disablePrivacyLock: (options?: LocalAuthenticationOptions) => Promise<void>
@@ -44,7 +44,6 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
         setSecurityLevel(security)
         setBiometricHardwares(await LocalAuthentication.supportedAuthenticationTypesAsync())
         setIsDeviceProtected(security !== SecurityLevel.NONE)
-
         setHasHardware(hasHardware) // last, also used as flag indicated hardware check completed
       })
       .catch(error => {
@@ -69,6 +68,7 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
   }, [isPrivacyLock])
 
   useEffect(() => {
+    fetchHardwareStatus()
     PrivacyLockPersistence.isEnabled()
       .then(enabled => setIsPrivacyLock(enabled))
       .catch(error => {
@@ -83,7 +83,7 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
     hardwareSecurityLevel: securityLevel,
     supportedTypes: biometricHardwares,
     isDeviceProtected,
-    isPrivacyLock: () => isPrivacyLock === true,
+    isPrivacyLock: isPrivacyLock === true,
     privacyLock: async (options) => {
       if (!hasHardware || !(isPrivacyLock !== undefined && isPrivacyLock)) return
       await _authenticate(options)

@@ -97,7 +97,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       />
       <PrivacyLockToggle
         disabled={!localAuth.isDeviceProtected}
-        value={localAuth.isPrivacyLock()}
+        value={localAuth.isPrivacyLock}
         onToggle={async () => {
           await localAuth.togglePrivacyLock()
         }}

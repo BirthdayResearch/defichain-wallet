@@ -14,23 +14,27 @@ export function PrivacyLock (): JSX.Element | null {
       AppLastActiveTimestamp.set()
         .then()
         .catch(error => Logging.error(error))
-    } else if (localAuth.isPrivacyLock()) {
+    } else if (localAuth.isPrivacyLock) {
       AppLastActiveTimestamp.shouldReauthenticate()
         .then(async authReq => {
           if (authReq) authenticateOrExit(localAuth)
         })
         .catch(error => Logging.error(error))
     }
-  }, [])
+  }, [localAuth.isPrivacyLock])
 
   // authenticate once during cold start
   useEffect(() => {
-    if (localAuth.isPrivacyLock()) {
+    const id = appState.addListener(handler)
+    return () => appState.removeListener(id)
+  }, [handler])
+
+  // this run only ONCE on fresh start
+  // isPrivacyLock change in-app should not retrigger9
+  useEffect(() => {
+    if (localAuth.isPrivacyLock) {
       authenticateOrExit(localAuth)
     }
-
-    const id = appState.addListener(handler)
-    return appState.removeListener(id)
   }, [])
 
   return null // simplified, not "hiding" UI when authenticating
