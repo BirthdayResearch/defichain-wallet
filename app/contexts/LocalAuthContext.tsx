@@ -61,21 +61,12 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
     }
   }, [])
 
-  const enablePrivacyLock = useCallback(async (options?: LocalAuthenticationOptions) => {
-    if (isPrivacyLock as boolean) return
+  const setPrivacyLock = useCallback(async (value: boolean, options?: LocalAuthenticationOptions) => {
+    if (isPrivacyLock as boolean === value) return
     await _authenticate(options)
-    await PrivacyLockPersistence.set(true)
-    setIsPrivacyLock(true)
+    await PrivacyLockPersistence.set(value)
+    setIsPrivacyLock(value)
   }, [isPrivacyLock])
-
-  const disablePrivacyLock = useCallback(async (options?: LocalAuthenticationOptions) => {
-    if (!(isPrivacyLock as boolean)) return
-    await _authenticate(options)
-    await PrivacyLockPersistence.set(false)
-    setIsPrivacyLock(false)
-  }, [isPrivacyLock])
-
-  useEffect(fetchHardwareStatus, [])
 
   useEffect(() => {
     PrivacyLockPersistence.isEnabled()
@@ -97,11 +88,11 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
       if (!hasHardware || !(isPrivacyLock !== undefined && isPrivacyLock)) return
       await _authenticate(options)
     },
-    enablePrivacyLock,
-    disablePrivacyLock,
+    enablePrivacyLock: async (options) => await setPrivacyLock(true, options),
+    disablePrivacyLock: async (options) => await setPrivacyLock(false, options),
     togglePrivacyLock: async (options) => {
-      if (isPrivacyLock === true) return await disablePrivacyLock(options)
-      return await enablePrivacyLock(options)
+      if (isPrivacyLock === true) return await context.disablePrivacyLock(options)
+      return await context.enablePrivacyLock(options)
     }
   }
 
