@@ -4,13 +4,13 @@ import { NavigationProp, StackActions, useNavigation } from '@react-navigation/n
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
-import { ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { NumberRow } from '../../../../../components/NumberRow'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { SubmitButtonGroup } from '../../../../../components/SubmitButtonGroup'
 import { SummaryTitle } from '../../../../../components/SummaryTitle'
+import { ThemedScrollView } from '../../../../../components/themed'
 import { TokenBalanceRow } from '../../../../../components/TokenBalanceRow'
 import { RootState } from '../../../../../store'
 import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
@@ -66,7 +66,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
   }
 
   return (
-    <ScrollView style={tailwind('bg-gray-100 pb-4')}>
+    <ThemedScrollView style={tailwind('pb-4')}>
       <SummaryTitle
         title={translate('screens/PoolSwapConfirmScreen', 'YOU ARE SWAPPING')}
         testID='text_swap_amount' amount={swap.fromAmount}
@@ -113,7 +113,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         label={translate('screens/PoolSwapConfirmScreen', 'SWAP')}
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
       />
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 

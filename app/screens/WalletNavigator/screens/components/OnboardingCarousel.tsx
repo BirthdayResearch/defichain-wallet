@@ -4,8 +4,10 @@ import SwiperFlatList from 'react-native-swiper-flatlist'
 import ImageA from '../../../../assets/images/onboarding/a.png'
 import ImageB from '../../../../assets/images/onboarding/b.png'
 import ImageC from '../../../../assets/images/onboarding/c.png'
-import { Text, View } from '../../../../components'
+import { View } from '../../../../components'
 import { AppIcon } from '../../../../components/icons/AppIcon'
+import { ThemedText } from '../../../../components/themed'
+import { useThemeContext } from '../../../../contexts/ThemeProvider'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 
@@ -46,12 +48,15 @@ export function InitialSlide (): JSX.Element {
   return (
     <View style={tailwind('flex-1 items-center justify-center p-8')}>
       <AppIcon width={100} height={100} />
-      <Text style={tailwind('text-2xl font-bold mt-3')}>
+      <ThemedText style={tailwind('text-2xl font-bold mt-3')}>
         {translate('screens/OnboardingCarousel', 'DeFiChain Wallet')}
-      </Text>
-      <Text style={tailwind('text-base font-medium text-gray-500 mt-1')}>
+      </ThemedText>
+      <ThemedText
+        light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
+        style={tailwind('text-base font-medium mt-1')}
+      >
         {translate('screens/OnboardingCarousel', 'Native DeFi for Bitcoin')}
-      </Text>
+      </ThemedText>
     </View>
   )
 }
@@ -60,15 +65,18 @@ export function ImageSlide ({ image, title, secondTitle, subtitle }: CarouselIma
   return (
     <View style={tailwind('flex-1 items-center justify-center py-8 px-5')}>
       <View style={tailwind('h-2/6 items-center justify-center')}>
-        <Text style={tailwind('text-2xl font-bold text-center')}>
+        <ThemedText style={tailwind('text-2xl font-bold text-center')}>
           {translate('screens/OnboardingCarousel', title)}
-        </Text>
-        <Text style={tailwind('text-2xl font-bold text-center')}>
+        </ThemedText>
+        <ThemedText style={tailwind('text-2xl font-bold text-center')}>
           {translate('screens/OnboardingCarousel', secondTitle)}
-        </Text>
-        <Text style={tailwind('font-normal text-center text-gray-500 mt-1 mb-8')}>
+        </ThemedText>
+        <ThemedText
+          light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
+          style={tailwind('font-normal text-center mt-1 mb-8')}
+        >
           {translate('screens/OnboardingCarousel', subtitle)}
-        </Text>
+        </ThemedText>
       </View>
       <Image source={image} style={{ width, height: '55%' }} />
     </View>
@@ -76,6 +84,7 @@ export function ImageSlide ({ image, title, secondTitle, subtitle }: CarouselIma
 }
 
 export function OnboardingCarousel (): JSX.Element {
+  const { isLight } = useThemeContext()
   return (
     <SwiperFlatList
       autoplay
@@ -86,8 +95,8 @@ export function OnboardingCarousel (): JSX.Element {
       showPagination
       data={slides}
       paginationStyleItem={tailwind('h-2.5 w-2.5 mx-1.5')}
-      paginationDefaultColor='rgba(0, 0, 0, 0.1)'
-      paginationActiveColor='rgba(0, 0, 0, 0.8)'
+      paginationDefaultColor={isLight ? 'rgba(0, 0, 0, 0.1)' : '#262626'}
+      paginationActiveColor={isLight ? 'rgba(0, 0, 0, 0.8)' : '#D4D4D4'}
       renderItem={({ item }) => (
         <View style={{ width }}>
           {

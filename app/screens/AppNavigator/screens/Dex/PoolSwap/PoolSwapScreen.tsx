@@ -4,19 +4,24 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
-import { Text } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
-import { IconButton } from '../../../../../components/IconButton'
 import { getNativeIcon } from '../../../../../components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
 import { NumberRow } from '../../../../../components/NumberRow'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
+import {
+  ThemedIcon,
+  ThemedScrollView,
+  ThemedText,
+  ThemedTouchableOpacity,
+  ThemedView
+} from '../../../../../components/themed'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { usePoolPairsAPI } from '../../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
@@ -150,7 +155,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   }
 
   return (
-    <ScrollView style={tailwind('bg-gray-100')}>
+    <ThemedScrollView>
       <TokenRow
         isDisabled={false}
         token={tokenA} control={control} controlName={tokenAForm}
@@ -168,7 +173,17 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         maxAmount={tokenA.amount}
       />
       <View style={tailwind('justify-center items-center mt-6')}>
-        <IconButton testID='swap_button' onPress={swapToken} materialIconName='swap-vert' iconSize={24} />
+        <ThemedTouchableOpacity
+          light={tailwind('border border-gray-300 rounded bg-white')}
+          dark={tailwind('border border-gray-400 rounded bg-gray-900')}
+          style={tailwind('p-1')} onPress={swapToken}
+          testID='swap_button'
+        >
+          <ThemedIcon
+            iconType='MaterialIcons' name='swap-vert' size={24} light={tailwind('text-primary-500')}
+            dark={tailwind('text-darkprimary-500')}
+          />
+        </ThemedTouchableOpacity>
       </View>
       <TokenRow
         isDisabled
@@ -189,7 +204,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         label={translate('screens/PoolSwapScreen', 'CONTINUE')}
         title='CONTINUE' onPress={onSubmit} testID='button_submit'
       />
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 
@@ -224,9 +239,12 @@ function TokenRow (form: TokenForm): JSX.Element {
         control={control}
         rules={rules}
         render={({ field: { onBlur, onChange, value } }) => (
-          <View style={tailwind('flex-row w-full border-b border-gray-100')}>
+          <ThemedView
+            style={tailwind('flex-row w-full')} light={tailwind('bg-white border-b border-gray-200')}
+            dark={tailwind('bg-gray-800 border-b border-gray-700')}
+          >
             <NumberTextInput
-              style={tailwind('flex-grow p-4 bg-white')}
+              style={tailwind('flex-grow p-4')}
               autoCapitalize='none'
               onBlur={onBlur}
               editable={!isDisabled}
@@ -241,27 +259,35 @@ function TokenRow (form: TokenForm): JSX.Element {
               placeholder={isDisabled ? undefined : translate('screens/PoolSwapScreen', 'Enter an amount')}
               testID={`text_input_${controlName}`}
             />
-            <View style={tailwind('flex-row bg-white pr-4 items-center')}>
+            <ThemedView
+              light={tailwind('bg-white')}
+              dark={tailwind('bg-gray-800')} style={tailwind('flex-row pr-4 items-center')}
+            >
               <Icon />
               <InputIconLabel label={token.symbol} screenType={IconLabelScreenType.DEX} />
-            </View>
-          </View>
+            </ThemedView>
+          </ThemedView>
         )}
         name={controlName}
         defaultValue=''
       />
-      <View style={tailwind('flex-row w-full bg-white px-4 items-center')}>
+      <ThemedView
+        style={tailwind('flex-row w-full bg-white px-4 items-center')}
+        light={tailwind('bg-white border-b border-gray-200')}
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      >
         <View style={tailwind('flex-1 flex-row py-4 flex-wrap mr-2')}>
-          <Text>{translate('screens/PoolSwapScreen', 'Balance: ')}</Text>
+          <ThemedText>{translate('screens/PoolSwapScreen', 'Balance: ')}</ThemedText>
           <NumberFormat
             value={token.amount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
             renderText={(value) => (
-              <Text
+              <ThemedText
                 testID={`text_balance_${controlName}`}
-                style={tailwind('text-gray-500')}
+                light={tailwind('text-gray-500')}
+                dark={tailwind('text-gray-300')}
               >
                 {value}
-              </Text>
+              </ThemedText>
             )}
           />
         </View>
@@ -280,7 +306,7 @@ function TokenRow (form: TokenForm): JSX.Element {
           )
         }
 
-      </View>
+      </ThemedView>
     </>
   )
 }

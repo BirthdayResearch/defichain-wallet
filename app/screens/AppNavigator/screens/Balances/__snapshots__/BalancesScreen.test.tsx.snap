@@ -65,9 +65,12 @@ exports[`balances page should match snapshot 1`] = `
   scrollEventThrottle={50}
   stickyHeaderIndices={Array []}
   style={
-    Object {
-      "backgroundColor": "rgba(243, 244, 246, 1)",
-    }
+    Array [
+      undefined,
+      Object {
+        "backgroundColor": "rgba(245, 245, 245, 1)",
+      },
+    ]
   }
   testID="balances_list"
   updateCellsBatchingPeriod={50}
@@ -89,17 +92,22 @@ exports[`balances page should match snapshot 1`] = `
               "lineHeight": 24,
             },
             Array [
+              Array [
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                  "fontFamily": "MediumFont",
+                  "fontSize": 12,
+                  "fontWeight": "500",
+                  "lineHeight": 16,
+                  "paddingBottom": 16,
+                  "paddingLeft": 16,
+                  "paddingRight": 16,
+                  "paddingTop": 24,
+                },
+              ],
               Object {
-                "backgroundColor": "rgba(243, 244, 246, 1)",
-                "color": "rgba(107, 114, 128, 1)",
-                "fontFamily": "MediumFont",
-                "fontSize": 12,
-                "fontWeight": "500",
-                "lineHeight": 16,
-                "paddingBottom": 16,
-                "paddingLeft": 16,
-                "paddingRight": 16,
-                "paddingTop": 24,
+                "backgroundColor": "rgba(245, 245, 245, 1)",
+                "color": "rgba(115, 115, 115, 1)",
               },
             ],
           ]
@@ -252,10 +260,15 @@ exports[`balances page should match snapshot 1`] = `
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Object {
-                    "fontFamily": "MediumFont",
-                    "fontWeight": "500",
-                  },
+                  Array [
+                    Object {
+                      "fontFamily": "MediumFont",
+                      "fontWeight": "500",
+                    },
+                    Object {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
                 ]
               }
               testID="balances_row_0_symbol"
@@ -271,13 +284,18 @@ exports[`balances page should match snapshot 1`] = `
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Object {
-                    "color": "rgba(75, 85, 99, 1)",
-                    "fontFamily": "MediumFont",
-                    "fontSize": 14,
-                    "fontWeight": "500",
-                    "lineHeight": 20,
-                  },
+                  Array [
+                    Object {
+                      "color": "rgba(82, 82, 82, 1)",
+                      "fontFamily": "MediumFont",
+                      "fontSize": 14,
+                      "fontWeight": "500",
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "color": "rgba(82, 82, 82, 1)",
+                    },
+                  ],
                 ]
               }
               testID="balances_row_0_name"
@@ -304,10 +322,15 @@ exports[`balances page should match snapshot 1`] = `
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Object {
-                    "flexWrap": "wrap",
-                    "marginRight": 8,
-                  },
+                  Array [
+                    Object {
+                      "flexWrap": "wrap",
+                      "marginRight": 8,
+                    },
+                    Object {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
                 ]
               }
               testID="balances_row_0_amount"
@@ -322,8 +345,10 @@ exports[`balances page should match snapshot 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(243, 244, 246, 1)",
               "height": 1,
+            },
+            Object {
+              "backgroundColor": "rgba(245, 245, 245, 1)",
             },
           ]
         }
@@ -472,10 +497,15 @@ exports[`balances page should match snapshot 1`] = `
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Object {
-                    "fontFamily": "MediumFont",
-                    "fontWeight": "500",
-                  },
+                  Array [
+                    Object {
+                      "fontFamily": "MediumFont",
+                      "fontWeight": "500",
+                    },
+                    Object {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
                 ]
               }
               testID="balances_row_1_symbol"
@@ -491,13 +521,18 @@ exports[`balances page should match snapshot 1`] = `
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Object {
-                    "color": "rgba(75, 85, 99, 1)",
-                    "fontFamily": "MediumFont",
-                    "fontSize": 14,
-                    "fontWeight": "500",
-                    "lineHeight": 20,
-                  },
+                  Array [
+                    Object {
+                      "color": "rgba(82, 82, 82, 1)",
+                      "fontFamily": "MediumFont",
+                      "fontSize": 14,
+                      "fontWeight": "500",
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "color": "rgba(82, 82, 82, 1)",
+                    },
+                  ],
                 ]
               }
               testID="balances_row_1_name"
@@ -524,10 +559,15 @@ exports[`balances page should match snapshot 1`] = `
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Object {
-                    "flexWrap": "wrap",
-                    "marginRight": 8,
-                  },
+                  Array [
+                    Object {
+                      "flexWrap": "wrap",
+                      "marginRight": 8,
+                    },
+                    Object {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
                 ]
               }
               testID="balances_row_1_amount"
@@ -542,8 +582,10 @@ exports[`balances page should match snapshot 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(243, 244, 246, 1)",
               "height": 1,
+            },
+            Object {
+              "backgroundColor": "rgba(245, 245, 245, 1)",
             },
           ]
         }
@@ -692,10 +734,15 @@ exports[`balances page should match snapshot 1`] = `
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Object {
-                    "fontFamily": "MediumFont",
-                    "fontWeight": "500",
-                  },
+                  Array [
+                    Object {
+                      "fontFamily": "MediumFont",
+                      "fontWeight": "500",
+                    },
+                    Object {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
                 ]
               }
               testID="balances_row_2_symbol"
@@ -711,13 +758,18 @@ exports[`balances page should match snapshot 1`] = `
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Object {
-                    "color": "rgba(75, 85, 99, 1)",
-                    "fontFamily": "MediumFont",
-                    "fontSize": 14,
-                    "fontWeight": "500",
-                    "lineHeight": 20,
-                  },
+                  Array [
+                    Object {
+                      "color": "rgba(82, 82, 82, 1)",
+                      "fontFamily": "MediumFont",
+                      "fontSize": 14,
+                      "fontWeight": "500",
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "color": "rgba(82, 82, 82, 1)",
+                    },
+                  ],
                 ]
               }
               testID="balances_row_2_name"
@@ -744,10 +796,15 @@ exports[`balances page should match snapshot 1`] = `
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Object {
-                    "flexWrap": "wrap",
-                    "marginRight": 8,
-                  },
+                  Array [
+                    Object {
+                      "flexWrap": "wrap",
+                      "marginRight": 8,
+                    },
+                    Object {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
                 ]
               }
               testID="balances_row_2_amount"

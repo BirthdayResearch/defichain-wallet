@@ -1,21 +1,26 @@
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { ScrollView, StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
+import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
-import { Text, View } from '../../../../../components'
+import { View } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
-import { IconButton } from '../../../../../components/IconButton'
 import { getNativeIcon } from '../../../../../components/icons/assets'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
+import {
+  ThemedIcon,
+  ThemedScrollView,
+  ThemedText,
+  ThemedTouchableOpacity,
+  ThemedView
+} from '../../../../../components/themed'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
@@ -85,7 +90,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   }
 
   return (
-    <ScrollView style={tailwind('w-full flex-col flex-1 bg-gray-100')}>
+    <ThemedScrollView style={tailwind('w-full flex-col flex-1')}>
       <ConversionIOCard
         style={tailwind('mt-1')}
         mode='input'
@@ -106,7 +111,7 @@ export function ConvertScreen (props: Props): JSX.Element {
         title='Convert' onPress={() => convert(sourceToken, targetToken)}
         label={translate('components/Button', 'CONTINUE')}
       />
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 
@@ -136,7 +141,10 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
   return (
     <View style={[tailwind('flex-col w-full'), props.style]}>
       <SectionTitle text={title.toUpperCase()} testID={`text_input_convert_from_${props.mode}_text`} />
-      <View style={tailwind('flex-row w-full bg-white items-center pl-4 pr-4')}>
+      <ThemedView
+        style={tailwind('flex-row w-full items-center pl-4 pr-4')} light={tailwind('bg-white border-b border-gray-200')}
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      >
         <NumberTextInput
           placeholder={translate('screens/Convert', 'Enter an amount')}
           testID={`text_input_convert_from_${props.mode}`}
@@ -150,18 +158,23 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
           }}
         />
         <DFIIcon />
-      </View>
-      <View style={tailwind('w-full px-4 bg-white flex-row border-t border-gray-200 items-center')}>
+      </ThemedView>
+      <ThemedView
+        style={tailwind('w-full px-4 flex-row items-center')} light={tailwind('bg-white border-b border-gray-200')}
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      >
         <View style={tailwind('flex flex-row flex-1 px-1 py-4 flex-wrap mr-2')}>
-          <Text>{translate('screens/Convert', 'Balance')}: </Text>
+          <ThemedText>{translate('screens/Convert', 'Balance')}: </ThemedText>
           <NumberFormat
             value={props.balance.toFixed(8)} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
             renderText={(value: string) => (
-              <Text
+              <ThemedText
                 testID='source_balance'
-                style={tailwind('font-medium text-gray-500')}
+                light={tailwind('text-gray-500')}
+                dark={tailwind('text-white text-opacity-70')}
+                style={tailwind('font-medium')}
               >{value}
-              </Text>
+              </ThemedText>
             )}
           />
         </View>
@@ -169,7 +182,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
           <SetAmountButton type={AmountButtonTypes.half} onPress={props.onChange} amount={props.balance} />}
         {props.mode === 'input' && props.onChange &&
           <SetAmountButton type={AmountButtonTypes.max} onPress={props.onChange} amount={props.balance} />}
-      </View>
+      </ThemedView>
     </View>
   )
 }
@@ -183,30 +196,46 @@ function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: str
   return (
     <View style={[tailwind('flex-col w-full'), props.style]}>
       <SectionTitle text={title} testID='text_input_convert_from_to_text' />
-      <View style={tailwind('w-full px-4 bg-white flex-row border-t border-gray-200 items-center')}>
+      <ThemedView
+        style={tailwind('w-full px-4 flex-row items-center')} light={tailwind('bg-white border-b border-gray-200')}
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      >
         <View style={tailwind('flex flex-row flex-1 px-1 py-4 flex-wrap mr-2')}>
-          <Text>{translate('screens/Convert', 'Balance')}: </Text>
+          <ThemedText>{translate('screens/Convert', 'Balance')}: </ThemedText>
           <NumberFormat
             value={props.current} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
             renderText={(value: string) => (
-              <Text
+              <ThemedText
                 testID='target_balance'
-                style={tailwind('font-medium text-gray-500')}
+                light={tailwind('text-gray-500')}
+                dark={tailwind('text-white text-opacity-70')}
+                style={tailwind('font-medium')}
               >{value}
-              </Text>
+              </ThemedText>
             )}
           />
         </View>
         <DFIIcon />
-      </View>
+      </ThemedView>
     </View>
   )
 }
 
 function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
   return (
-    <View style={tailwind('flex-row justify-center items-center mt-6')}>
-      <IconButton testID='button_convert_mode_toggle' onPress={props.onPress} materialIconName='swap-vert' iconSize={24} />
+    <View style={tailwind('flex-row justify-center items-center')}>
+      <ThemedTouchableOpacity
+        testID='button_convert_mode_toggle'
+        light={tailwind('border border-gray-300 rounded bg-white')}
+        dark={tailwind('border border-gray-400 rounded bg-gray-900')}
+        style={tailwind('p-1')}
+        onPress={props.onPress}
+      >
+        <ThemedIcon
+          iconType='MaterialIcons' name='swap-vert' size={24} light={tailwind('text-primary-500')}
+          dark={tailwind('text-darkprimary-500')}
+        />
+      </ThemedTouchableOpacity>
     </View>
   )
 }
@@ -221,11 +250,15 @@ function TokenVsUtxosInfo (): JSX.Element {
       }}
       testID='token_vs_utxo_info'
     >
-      <MaterialIcons name='help' size={16} style={tailwind('text-primary')} />
-      <Text
-        style={tailwind('ml-1 text-primary text-sm font-medium')}
+      <ThemedIcon
+        iconType='MaterialIcons' name='help' size={16} light={tailwind('text-primary-500')}
+        dark={tailwind('text-darkprimary-500')}
+      />
+      <ThemedText
+        light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
+        style={tailwind('ml-1 text-sm font-medium')}
       >{translate('screens/ConvertScreen', 'Token vs UTXO, what is the difference?')}
-      </Text>
+      </ThemedText>
     </TouchableOpacity>
   )
 }
