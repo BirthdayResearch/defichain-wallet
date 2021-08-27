@@ -5,7 +5,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "prepare": "husky install",
-    "lint": "eslint app App.tsx --fix",
+    "lint": "eslint app App.tsx cypress/integration --fix",
     "start": "expo start",
     "start:android": "expo start --android",
     "start:ios": "expo start --ios",

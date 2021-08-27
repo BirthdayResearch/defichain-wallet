@@ -1,13 +1,12 @@
 {
   "plugins": [
-    "cypress",
-    "jest"
+    "cypress"  
   ],
   "rules": {
     "cypress/no-assigning-return-values": "error",
     "cypress/no-unnecessary-waiting": "warn",
     "cypress/assertion-before-screenshot": "warn",
-    "cypress/no-force": "warn",
+    "cypress/no-force": "error",
     "cypress/no-async-tests": "error"
   }
 }
