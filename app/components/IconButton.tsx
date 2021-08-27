@@ -1,17 +1,14 @@
 import * as React from 'react'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
-import { StyleProp, ViewStyle, TouchableOpacityProps } from 'react-native'
+import { TouchableOpacityProps } from 'react-native'
 import { tailwind } from '../tailwind'
 import { ThemedIcon, ThemedTouchableOpacity } from './themed'
 
 type IconType = 'MaterialCommunityIcons' | 'MaterialIcons'
 interface IconButtonProps extends TouchableOpacityProps {
-  testID: string
-  onPress: () => void
   iconName: React.ComponentProps<typeof MaterialIcons>['name'] | React.ComponentProps<typeof MaterialCommunityIcons>['name']
   iconType: IconType
   iconSize: number
-  style?: StyleProp<ViewStyle>
 }
 
 export function IconButton (props: IconButtonProps): JSX.Element {
