@@ -1,13 +1,13 @@
-import { render } from "@testing-library/react-native"
+import { render } from '@testing-library/react-native'
 import * as React from 'react'
-import { RecoveryWordsScreen } from "./RecoveryWordsScreen"
+import { RecoveryWordsScreen } from './RecoveryWordsScreen'
 
-jest.mock("../../../../../contexts/ThemeProvider")
+jest.mock('../../../../../contexts/ThemeProvider')
 
 describe('recovery word screen', () => {
   it('should match snapshot', async () => {
     const navigation: any = {
-      navigate: jest.fn(),
+      navigate: jest.fn()
     }
     const route: any = {
       params: {
@@ -15,6 +15,6 @@ describe('recovery word screen', () => {
       }
     }
     const rendered = render(<RecoveryWordsScreen route={route} navigation={navigation} />)
-    expect(rendered.toJSON()).toMatchSnapshot();
+    expect(rendered.toJSON()).toMatchSnapshot()
   })
 })
