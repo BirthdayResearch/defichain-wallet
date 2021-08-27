@@ -13,7 +13,7 @@ export interface LocalAuthContext {
   isDeviceProtected: boolean
 
   // API
-  isPrivacyLock?: boolean
+  isPrivacyLock: () => boolean
   privacyLock: (options?: LocalAuthenticationOptions) => Promise<void>
   enablePrivacyLock: (options?: LocalAuthenticationOptions) => Promise<void>
   disablePrivacyLock: (options?: LocalAuthenticationOptions) => Promise<void>
@@ -92,7 +92,7 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
     hardwareSecurityLevel: securityLevel,
     supportedTypes: biometricHardwares,
     isDeviceProtected,
-    isPrivacyLock,
+    isPrivacyLock: () => isPrivacyLock === true,
     privacyLock: async (options) => {
       if (!hasHardware || !(isPrivacyLock !== undefined && isPrivacyLock)) return
       await _authenticate(options)

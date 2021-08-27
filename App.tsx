@@ -35,23 +35,25 @@ export default function App (): JSX.Element | null {
 
   return (
     <ErrorBoundary>
-      <ConnectionBoundary>
-        <LocalAuthContextProvider>
-          <NetworkProvider>
-            <WhaleProvider>
-              <DeFiScanProvider>
-                <WalletPersistenceProvider>
-                  <StoreProvider>
-                    <StatsProvider>
-                      <Main />
-                    </StatsProvider>
-                  </StoreProvider>
-                </WalletPersistenceProvider>
-              </DeFiScanProvider>
-            </WhaleProvider>
-          </NetworkProvider>
-        </LocalAuthContextProvider>
-      </ConnectionBoundary>
+      <LocalAuthContextProvider>
+        <ConnectionBoundary>
+          <LocalAuthContextProvider>
+            <NetworkProvider>
+              <WhaleProvider>
+                <DeFiScanProvider>
+                  <WalletPersistenceProvider>
+                    <StoreProvider>
+                      <StatsProvider>
+                        <Main />
+                      </StatsProvider>
+                    </StoreProvider>
+                  </WalletPersistenceProvider>
+                </DeFiScanProvider>
+              </WhaleProvider>
+            </NetworkProvider>
+          </LocalAuthContextProvider>
+        </ConnectionBoundary>
+      </LocalAuthContextProvider>
     </ErrorBoundary>
   )
 }
