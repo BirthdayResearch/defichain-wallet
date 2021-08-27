@@ -51,7 +51,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [amount, setAmount] = useState<string>('')
 
-  const onSetAmountButtonPress = (amount: string): void => {
+  const onUtxoAmountButtonPress = (amount: string): void => {
     const [source] = getDFIBalances(mode, tokens)
     const dfiToKeepOnMaxConvert = new BigNumber(0.1)
     const leftover = new BigNumber(source.amount).minus(new BigNumber(amount))
@@ -120,7 +120,7 @@ export function ConvertScreen (props: Props): JSX.Element {
         unit={sourceToken.unit}
         balance={new BigNumber(sourceToken.amount)}
         onChange={setAmount}
-        onButtonPress={onSetAmountButtonPress}
+        onUtxoAmountButtonPress={onUtxoAmountButtonPress}
       />
       <ToggleModeButton onPress={() => setMode(mode === 'utxosToAccount' ? 'accountToUtxos' : 'utxosToAccount')} />
       <ConversionReceiveCard
@@ -130,7 +130,7 @@ export function ConvertScreen (props: Props): JSX.Element {
       <TokenVsUtxosInfo />
       <Button
         testID='button_continue_convert'
-        disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob || hasPendingBroadcastJob || !hasUTXOLeftover(convAmount, sourceToken.amount)}
+        disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob || hasPendingBroadcastJob || !hasUTXOLeftover(mode, convAmount, sourceToken.amount)}
         title='Convert' onPress={() => convert(sourceToken, targetToken)}
         label={translate('components/Button', 'CONTINUE')}
       />
@@ -155,7 +155,7 @@ function getDFIBalances (mode: ConversionMode, tokens: AddressToken[]): [source:
   ]
 }
 
-function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' | 'output', unit: string, current: string, balance: BigNumber, onChange: (amount: string) => void, onButtonPress: (amount: string) => void }): JSX.Element {
+function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' | 'output', unit: 'UTXO' | 'Token', current: string, balance: BigNumber, onChange: (amount: string) => void, onUtxoAmountButtonPress: (amount: string) => void }): JSX.Element {
   const iconType = props.unit === 'UTXO' ? '_UTXO' : 'DFI'
   const titlePrefix = props.mode === 'input' ? 'CONVERT' : 'TO'
   const title = `${translate('screens/Convert', titlePrefix)} ${props.unit}`
@@ -200,9 +200,9 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
           />
         </View>
         {props.mode === 'input' && props.onChange &&
-          <SetAmountButton type={AmountButtonTypes.half} onPress={props.onButtonPress} amount={props.balance} />}
+          <SetAmountButton type={AmountButtonTypes.half} onPress={isUtxo(props.unit) ? props.onUtxoAmountButtonPress : props.onChange} amount={props.balance} />}
         {props.mode === 'input' && props.onChange &&
-          <SetAmountButton type={AmountButtonTypes.max} onPress={props.onButtonPress} amount={props.balance} />}
+          <SetAmountButton type={AmountButtonTypes.max} onPress={isUtxo(props.unit) ? props.onUtxoAmountButtonPress : props.onChange} amount={props.balance} />}
       </ThemedView>
     </View>
   )
@@ -288,6 +288,14 @@ function canConvert (amount: string, balance: string): boolean {
   return new BigNumber(balance).gte(amount) && !(new BigNumber(amount).isZero()) && (new BigNumber(amount).isPositive())
 }
 
-function hasUTXOLeftover (amount: string, balance: string): boolean {
-  return new BigNumber(balance).minus(new BigNumber(amount)).gte(new BigNumber(0.1))
+function hasUTXOLeftover (mode: ConversionMode, amount: string, balance: string): boolean {
+  if (mode === 'accountToUtxos') {
+    return true
+  } else {
+    return new BigNumber(balance).minus(new BigNumber(amount)).gte(new BigNumber(0.1))
+  }
+}
+
+function isUtxo (unit: 'UTXO' | 'Token'): boolean {
+  return unit === 'UTXO'
 }
