@@ -100,6 +100,42 @@ context('Wallet - DEX - Remove Liquidity', () => {
     cy.closeOceanInterface()
   })
 
+  it('should be able to remove correct liquidity when user cancel a tx and updated some inputs', function () {
+    cy.getByTestID('text_input_percentage').clear().type('50')
+    cy.getByTestID('price_a').contains('0.50000000')
+    cy.getByTestID('price_a_unit').contains('DFI')
+    cy.getByTestID('price_b').contains('50.00000000')
+    cy.getByTestID('price_b_unit').contains('ETH')
+    cy.getByTestID('button_continue_remove_liq').click()
+
+    cy.getByTestID('confirm_title').should('have.text', 'YOU ARE REMOVING')
+    cy.getByTestID('text_remove_amount').should('have.text', '5.00000000 DFI-ETH')
+    cy.getByTestID('a_amount').should('have.text', '0.50000000')
+    cy.getByTestID('b_amount').should('have.text', '50.00000000')
+    cy.getByTestID('price_a').contains('100.00000000 ETH per DFI')
+    cy.getByTestID('price_b').contains('0.01000000 DFI per ETH')
+    cy.getByTestID('button_confirm_remove').click().wait(2000)
+
+    // Cancel send on authorisation page
+    cy.getByTestID('cancel_authorization').contains('CANCEL').click()
+    cy.getByTestID('button_cancel_remove').click()
+    // Update input values
+    cy.getByTestID('text_input_percentage').clear().type('100')
+    cy.getByTestID('price_a').contains('1.00000000')
+    cy.getByTestID('price_a_unit').contains('DFI')
+    cy.getByTestID('price_b').contains('100.00000000')
+    cy.getByTestID('price_b_unit').contains('ETH')
+    cy.getByTestID('button_continue_remove_liq').click()
+
+    cy.getByTestID('confirm_title').should('have.text', 'YOU ARE REMOVING')
+    cy.getByTestID('text_remove_amount').should('have.text', '10.00000000 DFI-ETH')
+    cy.getByTestID('a_amount').should('have.text', '1.00000000')
+    cy.getByTestID('b_amount').should('have.text', '100.00000000')
+    cy.getByTestID('button_confirm_remove').click().wait(2000)
+    // Update the input amount
+    cy.closeOceanInterface()
+  })
+
   it('Should be able to verify if liquidity is removed', function () {
     cy.getByTestID('pool_pair_row_your').should('not.exist')
     cy.getByTestID('bottom_tab_balances').click()
