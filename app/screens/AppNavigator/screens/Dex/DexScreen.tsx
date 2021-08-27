@@ -4,14 +4,14 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { View } from '../../../../components'
+import { IconButton } from '../../../../components/IconButton'
 import { getNativeIcon } from '../../../../components/icons/assets'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { SkeletonLoader, SkeletonLoaderScreen } from '../../../../components/SkeletonLoader'
-import { ThemedIcon, ThemedSectionList, ThemedText, ThemedView } from '../../../../components/themed'
+import { ThemedSectionList, ThemedText, ThemedView } from '../../../../components/themed'
 import { usePoolPairsAPI } from '../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
@@ -208,15 +208,14 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
 
 function PoolPairLiqBtn (props: { name: React.ComponentProps<typeof MaterialIcons>['name'], pair: string, onPress: () => void }): JSX.Element {
   return (
-    <TouchableOpacity
+    <IconButton
       testID={`pool_pair_${props.name}_${props.pair}`}
       onPress={props.onPress}
-    >
-      <ThemedIcon
-        iconType='MaterialIcons' size={24} name={props.name} light={tailwind('text-primary-500')}
-        dark={tailwind('text-darkprimary-500')}
-      />
-    </TouchableOpacity>
+      iconType='MaterialIcons'
+      iconName={props.name}
+      iconSize={24}
+      style={tailwind('mr-2')}
+    />
   )
 }
 
