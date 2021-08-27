@@ -102,8 +102,8 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
           await localAuth.togglePrivacyLock()
         }}
       />
-      <RowThemeItem />
       <RowNavigateItem pageName='AboutScreen' title='About' />
+      <RowThemeItem />
       <RowExitWalletItem />
     </ThemedScrollView>
   )
