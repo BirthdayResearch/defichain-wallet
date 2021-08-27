@@ -13,15 +13,15 @@ exports[`set amount button should match styling of set amount button type half 1
   onStartShouldSetResponder={[Function]}
   style={
     Object {
-      "borderBottomColor": "rgba(209, 213, 219, 1)",
+      "borderBottomColor": "rgba(212, 212, 212, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
       "borderBottomWidth": 1,
-      "borderLeftColor": "rgba(209, 213, 219, 1)",
+      "borderLeftColor": "rgba(212, 212, 212, 1)",
       "borderLeftWidth": 1,
-      "borderRightColor": "rgba(209, 213, 219, 1)",
+      "borderRightColor": "rgba(212, 212, 212, 1)",
       "borderRightWidth": 1,
-      "borderTopColor": "rgba(209, 213, 219, 1)",
+      "borderTopColor": "rgba(212, 212, 212, 1)",
       "borderTopLeftRadius": 4,
       "borderTopRightRadius": 4,
       "borderTopWidth": 1,
@@ -44,12 +44,16 @@ exports[`set amount button should match styling of set amount button type half 1
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
-          "color": "rgba(255, 0, 175, 1)",
-          "fontFamily": "MediumFont",
-          "fontWeight": "500",
-          "textAlign": "center",
-        },
+        Array [
+          Object {
+            "fontFamily": "MediumFont",
+            "fontWeight": "500",
+            "textAlign": "center",
+          },
+          Object {
+            "color": "rgba(255, 0, 175, 1)",
+          },
+        ],
       ]
     }
   >
@@ -71,15 +75,15 @@ exports[`set amount button should match styling of set amount button type max 1`
   onStartShouldSetResponder={[Function]}
   style={
     Object {
-      "borderBottomColor": "rgba(209, 213, 219, 1)",
+      "borderBottomColor": "rgba(212, 212, 212, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
       "borderBottomWidth": 1,
-      "borderLeftColor": "rgba(209, 213, 219, 1)",
+      "borderLeftColor": "rgba(212, 212, 212, 1)",
       "borderLeftWidth": 1,
-      "borderRightColor": "rgba(209, 213, 219, 1)",
+      "borderRightColor": "rgba(212, 212, 212, 1)",
       "borderRightWidth": 1,
-      "borderTopColor": "rgba(209, 213, 219, 1)",
+      "borderTopColor": "rgba(212, 212, 212, 1)",
       "borderTopLeftRadius": 4,
       "borderTopRightRadius": 4,
       "borderTopWidth": 1,
@@ -102,12 +106,16 @@ exports[`set amount button should match styling of set amount button type max 1`
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
-          "color": "rgba(255, 0, 175, 1)",
-          "fontFamily": "MediumFont",
-          "fontWeight": "500",
-          "textAlign": "center",
-        },
+        Array [
+          Object {
+            "fontFamily": "MediumFont",
+            "fontWeight": "500",
+            "textAlign": "center",
+          },
+          Object {
+            "color": "rgba(255, 0, 175, 1)",
+          },
+        ],
       ]
     }
   >

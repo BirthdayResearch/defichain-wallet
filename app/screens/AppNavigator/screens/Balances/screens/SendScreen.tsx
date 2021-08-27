@@ -1,21 +1,27 @@
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
-import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
-import { ScrollView, TouchableOpacity, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
-import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { getNativeIcon } from '../../../../../components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
+import { NumberRow } from '../../../../../components/NumberRow'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
+import {
+  ThemedIcon,
+  ThemedText,
+  ThemedTextInput,
+  ThemedTouchableOpacity,
+  ThemedView
+} from '../../../../../components/themed'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
@@ -72,7 +78,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   }
 
   return (
-    <ScrollView style={tailwind('bg-gray-100')}>
+    <ScrollView>
       <AddressRow
         control={control}
         networkName={networkName}
@@ -88,7 +94,6 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
         })}
       />
       <AmountRow
-        fee={fee}
         token={token}
         control={control}
         onAmountButtonPress={async (amount) => {
@@ -98,13 +103,10 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
       />
       {
         fee !== undefined && (
-          <View style={tailwind('flex-row w-full bg-white p-4 mt-6')}>
-            <View style={tailwind('flex-grow')}>
-              <Text>{translate('screens/SendScreen', 'Estimated fee')}</Text>
-            </View>
-            <NumberFormat
-              value={fee.toString()} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI (UTXO)'
-              renderText={(value) => <Text testID='transaction_fee' style={tailwind('text-gray-500')}>{value}</Text>}
+          <View style={tailwind('mt-6')}>
+            <NumberRow
+              lhs={translate('screens/SendScreen', 'Estimated fee')}
+              rightHandElements={[{ value: fee.toString(), suffix: ' DFI (UTXO)', testID: 'transaction_fee' }]}
             />
           </View>
         )
@@ -140,10 +142,9 @@ function AddressRow ({
         }}
         render={({ field: { value, onBlur, onChange } }) => (
           <View style={tailwind('flex-row w-full')}>
-            <TextInput
-              placeholderTextColor='rgba(0, 0, 0, 0.4)'
+            <ThemedTextInput
               testID='address_input'
-              style={tailwind('w-4/5 flex-grow p-4 pr-0 bg-white')}
+              style={tailwind('w-4/5 flex-grow p-4 pr-0')}
               autoCapitalize='none'
               value={value}
               onBlur={onBlur}
@@ -151,13 +152,18 @@ function AddressRow ({
               placeholder={translate('screens/SendScreen', 'Enter an address')}
               multiline
             />
-            <TouchableOpacity
+            <ThemedTouchableOpacity
               testID='qr_code_button'
-              style={tailwind('w-14 p-4 bg-white')}
+              light={tailwind('bg-white')}
+              dark={tailwind('bg-gray-800')}
+              style={tailwind('w-14 p-4')}
               onPress={onQrButtonPress}
             >
-              <MaterialIcons name='qr-code-scanner' size={24} style={tailwind('text-primary')} />
-            </TouchableOpacity>
+              <ThemedIcon
+                iconType='MaterialIcons' name='qr-code-scanner' size={24} light={tailwind('text-primary-500')}
+                dark={tailwind('text-darkprimary-500')}
+              />
+            </ThemedTouchableOpacity>
           </View>
         )}
         name='address'
@@ -171,12 +177,11 @@ interface AmountForm {
   control: Control
   token: WalletToken
   onAmountButtonPress: (amount: string) => void
-  fee: BigNumber
 }
 
-function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): JSX.Element {
+function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.Element {
   const Icon = getNativeIcon(token.avatarSymbol)
-  let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).toFixed(8) : token.amount
+  let maxAmount = token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
   return (
     <>
@@ -195,31 +200,46 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
           }
         }}
         render={({ field: { onBlur, onChange, value } }) => (
-          <View style={tailwind('flex-row w-full border-b border-gray-100')}>
+          <ThemedView
+            style={tailwind('flex-row w-full')} light={tailwind('bg-white border-b border-gray-200')}
+            dark={tailwind('bg-gray-800 border-b border-gray-700')}
+          >
             <NumberTextInput
               testID='amount_input'
-              style={tailwind('flex-grow p-4 bg-white')}
+              style={tailwind('flex-grow p-4')}
               autoCapitalize='none'
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
               placeholder={translate('screens/SendScreen', 'Enter an amount')}
             />
-            <View style={tailwind('flex-row bg-white pr-4 items-center')}>
+            <ThemedView
+              style={tailwind('flex-row pr-4 items-center')} light={tailwind('bg-white')}
+              dark={tailwind('bg-gray-800')}
+            >
               <Icon />
               <InputIconLabel testID='token_symbol' label={token.symbol} screenType={IconLabelScreenType.Balance} />
-            </View>
-          </View>
+            </ThemedView>
+          </ThemedView>
         )}
         name='amount'
         defaultValue=''
       />
-      <View style={tailwind('flex-row w-full bg-white px-4 items-center')}>
+      <ThemedView
+        style={tailwind('flex-row w-full px-4 items-center')} light={tailwind('bg-white border-b border-gray-200')}
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      >
         <View style={tailwind('flex-1 flex-row py-4 flex-wrap mr-2')}>
-          <Text>{translate('screens/SendScreen', 'Balance: ')}</Text>
+          <ThemedText>{translate('screens/SendScreen', 'Balance: ')}</ThemedText>
           <NumberFormat
             value={maxAmount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
-            renderText={(value) => <Text testID='max_value' style={tailwind('text-gray-500')}>{value}</Text>}
+            renderText={(value) => (
+              <ThemedText
+                testID='max_value' light={tailwind('text-gray-500')}
+                dark={tailwind('text-gray-300')}
+              >{value}
+              </ThemedText>
+            )}
           />
         </View>
         <SetAmountButton
@@ -227,7 +247,7 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
           amount={new BigNumber(maxAmount)}
         />
         <SetAmountButton type={AmountButtonTypes.max} onPress={onAmountButtonPress} amount={new BigNumber(maxAmount)} />
-      </View>
+      </ThemedView>
     </>
   )
 }

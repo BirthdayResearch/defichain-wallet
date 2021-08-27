@@ -1,8 +1,8 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
-import { ScrollView } from 'react-native'
 import { View } from '../../../components'
 import { Button } from '../../../components/Button'
+import { ThemedScrollView } from '../../../components/themed'
 import { tailwind } from '../../../tailwind'
 import { translate } from '../../../translations'
 import { WalletParamList } from '../WalletNavigator'
@@ -12,10 +12,10 @@ export function Onboarding (): JSX.Element {
   const navigator = useNavigation<NavigationProp<WalletParamList>>()
 
   return (
-    <ScrollView
+    <ThemedScrollView
       testID='onboarding_carousel'
       contentContainerStyle={tailwind('h-full')}
-      style={tailwind('flex-1 bg-gray-100')}
+      style={tailwind('flex-1')}
     >
       <View style={tailwind('h-4/6')}>
         <OnboardingCarousel />
@@ -37,6 +37,6 @@ export function Onboarding (): JSX.Element {
           margin='m-2'
         />
       </View>
-    </ScrollView>
+    </ThemedScrollView>
   )
 }

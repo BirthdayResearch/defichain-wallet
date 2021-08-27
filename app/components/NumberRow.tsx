@@ -2,7 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '../tailwind'
-import { Text } from './Text'
+import { ThemedText, ThemedView } from './themed'
 
 interface NumberRowRightElement {
   value: string | number
@@ -15,9 +15,12 @@ export function NumberRow ({
   rightHandElements
 }: { lhs: string, rightHandElements: NumberRowRightElement[] }): JSX.Element {
   return (
-    <View style={tailwind('bg-white p-4 border-b border-gray-200 flex-row items-start w-full')}>
+    <ThemedView
+      style={tailwind('p-4 flex-row items-start w-full')} light={tailwind('bg-white border-b border-gray-200')}
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+    >
       <View style={tailwind('flex-1')}>
-        <Text style={tailwind('font-medium')}>{lhs}</Text>
+        <ThemedText style={tailwind('font-medium')}>{lhs}</ThemedText>
       </View>
       <View style={tailwind('flex-1 flex-col')}>
         {
@@ -27,17 +30,18 @@ export function NumberRow ({
                 value={rhs.value} decimalScale={8} thousandSeparator displayType='text'
                 suffix={rhs.suffix}
                 renderText={(val: string) => (
-                  <Text
+                  <ThemedText
                     testID={rhs.testID}
+                    light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
                     style={tailwind('flex-wrap font-medium text-right text-gray-500')}
                   >{val}
-                  </Text>
+                  </ThemedText>
                 )}
               />
             </View>
           ))
         }
       </View>
-    </View>
+    </ThemedView>
   )
 }

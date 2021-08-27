@@ -1,9 +1,7 @@
-import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { useCallback } from 'react'
-import { TouchableOpacity } from 'react-native'
-import { Text } from '../../../../../components'
+import { ThemedIcon, ThemedText, ThemedTouchableOpacity } from '../../../../../components/themed'
 import { WalletAlert } from '../../../../../components/WalletAlert'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { EnvironmentNetwork, isPlayground } from '../../../../../environment'
@@ -44,24 +42,25 @@ export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Ele
   }, [network])
 
   return (
-    <TouchableOpacity
+    <ThemedTouchableOpacity
       testID={`button_network_${props.network}`}
-      style={tailwind('flex flex-row p-4 pr-2 bg-white items-center justify-between border-b border-gray-200')}
+      style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
       onPress={onPress}
     >
-      <Text style={tailwind('font-medium')}>
+      <ThemedText style={tailwind('font-medium')}>
         {props.network}
-      </Text>
+      </ThemedText>
 
       {
         props.network === network &&
         (
-          <MaterialIcons
+          <ThemedIcon
+            iconType='MaterialIcons'
             testID={`button_network_${props.network}_check`} size={24} name='check'
-            style={tailwind('text-primary')}
+            light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
           />
         )
       }
-    </TouchableOpacity>
+    </ThemedTouchableOpacity>
   )
 }

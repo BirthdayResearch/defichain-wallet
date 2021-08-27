@@ -1,6 +1,6 @@
 import { NetworkName } from '@defichain/jellyfish-network'
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { Logging, StorageAPI } from '../api'
+import { Logging, SecuredStoreAPI } from '../api'
 import { getJellyfishNetwork } from '../api/wallet'
 import { EnvironmentNetwork } from '../environment'
 
@@ -21,7 +21,7 @@ export function NetworkProvider (props: React.PropsWithChildren<any>): JSX.Eleme
   const [networkName, setNetworkName] = useState<NetworkName>()
 
   useEffect(() => {
-    StorageAPI.getNetwork().then(async value => {
+    SecuredStoreAPI.getNetwork().then(async value => {
       setNetworkName(getJellyfishNetwork(value).name)
       setNetwork(value)
     }).catch(Logging.error)
@@ -35,7 +35,7 @@ export function NetworkProvider (props: React.PropsWithChildren<any>): JSX.Eleme
     network: network,
     networkName: networkName,
     async updateNetwork (value: EnvironmentNetwork): Promise<void> {
-      await StorageAPI.setNetwork(value)
+      await SecuredStoreAPI.setNetwork(value)
       setNetworkName(getJellyfishNetwork(value).name)
       setNetwork(value)
     }

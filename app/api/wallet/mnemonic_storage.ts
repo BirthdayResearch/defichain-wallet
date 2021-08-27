@@ -1,7 +1,7 @@
 import { PrivateKeyEncryption, Scrypt } from '@defichain/jellyfish-wallet-encrypted'
 import { entropyAsMnemonic, mnemonicAsEntropy } from '@defichain/jellyfish-wallet-mnemonic'
 import { getRandomBytes } from 'expo-random'
-import { StorageAPI } from '../storage'
+import { SecuredStoreAPI } from '../secured'
 
 const KEY = 'ENCRYPTED_MNEMONIC_STORAGE.entropy'
 
@@ -31,7 +31,7 @@ class EncryptedMnemonicStorage {
     const buffer = mnemonicAsEntropy(words)
     const encryptedData = await this.encryption.encrypt(buffer, passphrase)
     const encoded = encryptedData.encode()
-    await StorageAPI.setItem(KEY, encoded)
+    await SecuredStoreAPI.setItem(KEY, encoded)
   }
 
   /**
@@ -41,7 +41,7 @@ class EncryptedMnemonicStorage {
    * @returns {string[]}
    */
   async get (passphrase: string): Promise<string[]> {
-    const encrypted = await StorageAPI.getItem(KEY)
+    const encrypted = await SecuredStoreAPI.getItem(KEY)
     if (encrypted === null) {
       throw new Error('NO_MNEMONIC_BACKUP')
     }

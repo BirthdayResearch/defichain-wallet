@@ -1,14 +1,14 @@
-import { StorageAPI } from '../storage'
+import { SecuredStoreAPI } from '../secured'
 
 const KEY = 'PRIVACY_LOCK.enrolled'
 
 async function set (enabled: boolean): Promise<void> {
   const val = enabled ? 'TRUE' : 'FALSE'
-  await StorageAPI.setItem(KEY, val)
+  await SecuredStoreAPI.setItem(KEY, val)
 }
 
 async function isEnabled (): Promise<boolean> {
-  return await StorageAPI.getItem(KEY) === 'TRUE'
+  return await SecuredStoreAPI.getItem(KEY) === 'TRUE'
 }
 
 /**

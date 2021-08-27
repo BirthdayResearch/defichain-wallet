@@ -2,6 +2,8 @@ import { render } from "@testing-library/react-native"
 import * as React from 'react'
 import { RecoveryWordsScreen } from "./RecoveryWordsScreen"
 
+jest.mock("../../../../../contexts/ThemeProvider")
+
 describe('recovery word screen', () => {
   it('should match snapshot', async () => {
     const navigation: any = {
