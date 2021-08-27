@@ -49,8 +49,30 @@ export function ConvertScreen (props: Props): JSX.Element {
   const [targetToken, setTargetToken] = useState<ConversionIO>()
   const [convAmount, setConvAmount] = useState<string>('0')
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
-
   const [amount, setAmount] = useState<string>('')
+
+  const onSetAmountButtonPress = (amount: string): void => {
+    const [source] = getDFIBalances(mode, tokens)
+    const dfiToKeepOnMaxConvert = new BigNumber(0.1)
+    const leftover = new BigNumber(source.amount).minus(new BigNumber(amount))
+
+    if (leftover.isZero()) {
+      // MAX amount
+      if (new BigNumber(amount).gte(dfiToKeepOnMaxConvert)) {
+        // amount >= 0.1 dfi
+        setAmount(new BigNumber(amount).minus(dfiToKeepOnMaxConvert).toFixed(8))
+      } else {
+        // amount < 0.1 dfi
+        setAmount(new BigNumber(0).toFixed(8))
+      }
+    } else if (leftover.gte(dfiToKeepOnMaxConvert)) {
+      // 50% amount with > 0.1 dfi left after convert
+      setAmount(new BigNumber(amount).toFixed(8))
+    } else {
+      // < 0.1 dfi left after convert
+      setAmount(new BigNumber(0).toFixed(8))
+    }
+  }
 
   useEffect(() => {
     client.fee.estimate()
@@ -98,6 +120,7 @@ export function ConvertScreen (props: Props): JSX.Element {
         unit={sourceToken.unit}
         balance={new BigNumber(sourceToken.amount)}
         onChange={setAmount}
+        onButtonPress={onSetAmountButtonPress}
       />
       <ToggleModeButton onPress={() => setMode(mode === 'utxosToAccount' ? 'accountToUtxos' : 'utxosToAccount')} />
       <ConversionReceiveCard
@@ -107,7 +130,7 @@ export function ConvertScreen (props: Props): JSX.Element {
       <TokenVsUtxosInfo />
       <Button
         testID='button_continue_convert'
-        disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob || hasPendingBroadcastJob}
+        disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob || hasPendingBroadcastJob || !hasUTXOLeftover(convAmount, sourceToken.amount)}
         title='Convert' onPress={() => convert(sourceToken, targetToken)}
         label={translate('components/Button', 'CONTINUE')}
       />
@@ -132,7 +155,7 @@ function getDFIBalances (mode: ConversionMode, tokens: AddressToken[]): [source:
   ]
 }
 
-function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' | 'output', unit: string, current: string, balance: BigNumber, onChange?: (amount: string) => void }): JSX.Element {
+function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' | 'output', unit: string, current: string, balance: BigNumber, onChange: (amount: string) => void, onButtonPress: (amount: string) => void }): JSX.Element {
   const iconType = props.unit === 'UTXO' ? '_UTXO' : 'DFI'
   const titlePrefix = props.mode === 'input' ? 'CONVERT' : 'TO'
   const title = `${translate('screens/Convert', titlePrefix)} ${props.unit}`
@@ -152,9 +175,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
           style={tailwind('flex-1 mr-4 text-gray-500 px-1 py-4')}
           editable={props.mode === 'input'}
           onChange={event => {
-            if (props.onChange !== undefined) {
-              props.onChange(event.nativeEvent.text)
-            }
+            props.onChange(event.nativeEvent.text)
           }}
         />
         <DFIIcon />
@@ -179,9 +200,9 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
           />
         </View>
         {props.mode === 'input' && props.onChange &&
-          <SetAmountButton type={AmountButtonTypes.half} onPress={props.onChange} amount={props.balance} />}
+          <SetAmountButton type={AmountButtonTypes.half} onPress={props.onButtonPress} amount={props.balance} />}
         {props.mode === 'input' && props.onChange &&
-          <SetAmountButton type={AmountButtonTypes.max} onPress={props.onChange} amount={props.balance} />}
+          <SetAmountButton type={AmountButtonTypes.max} onPress={props.onButtonPress} amount={props.balance} />}
       </ThemedView>
     </View>
   )
@@ -265,4 +286,8 @@ function TokenVsUtxosInfo (): JSX.Element {
 
 function canConvert (amount: string, balance: string): boolean {
   return new BigNumber(balance).gte(amount) && !(new BigNumber(amount).isZero()) && (new BigNumber(amount).isPositive())
+}
+
+function hasUTXOLeftover (amount: string, balance: string): boolean {
+  return new BigNumber(balance).minus(new BigNumber(amount)).gte(new BigNumber(0.1))
 }
