@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { View } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
+import { IconButton } from '../../../../../components/IconButton'
 import { getNativeIcon } from '../../../../../components/icons/assets'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
@@ -18,7 +19,6 @@ import {
   ThemedIcon,
   ThemedScrollView,
   ThemedText,
-  ThemedTouchableOpacity,
   ThemedView
 } from '../../../../../components/themed'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
@@ -92,7 +92,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   return (
     <ThemedScrollView style={tailwind('w-full flex-col flex-1')}>
       <ConversionIOCard
-        style={tailwind('my-4 mt-1')}
+        style={tailwind('mt-1')}
         mode='input'
         current={amount}
         unit={sourceToken.unit}
@@ -223,19 +223,14 @@ function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: str
 
 function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
   return (
-    <View style={tailwind('flex-row justify-center items-center')}>
-      <ThemedTouchableOpacity
+    <View style={tailwind('flex-row justify-center items-center mt-6')}>
+      <IconButton
         testID='button_convert_mode_toggle'
-        light={tailwind('border border-gray-300 rounded bg-white')}
-        dark={tailwind('border border-gray-400 rounded bg-gray-900')}
-        style={tailwind('p-1')}
         onPress={props.onPress}
-      >
-        <ThemedIcon
-          iconType='MaterialIcons' name='swap-vert' size={24} light={tailwind('text-primary-500')}
-          dark={tailwind('text-darkprimary-500')}
-        />
-      </ThemedTouchableOpacity>
+        iconType='MaterialIcons'
+        iconName='swap-vert'
+        iconSize={24}
+      />
     </View>
   )
 }

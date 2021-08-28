@@ -9,6 +9,7 @@ import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { Button } from '../../../../../components/Button'
+import { IconButton } from '../../../../../components/IconButton'
 import { getNativeIcon } from '../../../../../components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
 import { NumberRow } from '../../../../../components/NumberRow'
@@ -16,10 +17,8 @@ import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import {
-  ThemedIcon,
   ThemedScrollView,
   ThemedText,
-  ThemedTouchableOpacity,
   ThemedView
 } from '../../../../../components/themed'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
@@ -173,17 +172,13 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         maxAmount={tokenA.amount}
       />
       <View style={tailwind('justify-center items-center mt-6')}>
-        <ThemedTouchableOpacity
-          light={tailwind('border border-gray-300 rounded bg-white')}
-          dark={tailwind('border border-gray-400 rounded bg-gray-900')}
-          style={tailwind('p-1')} onPress={swapToken}
+        <IconButton
           testID='swap_button'
-        >
-          <ThemedIcon
-            iconType='MaterialIcons' name='swap-vert' size={24} light={tailwind('text-primary-500')}
-            dark={tailwind('text-darkprimary-500')}
-          />
-        </ThemedTouchableOpacity>
+          onPress={swapToken}
+          iconType='MaterialIcons'
+          iconName='swap-vert'
+          iconSize={24}
+        />
       </View>
       <TokenRow
         isDisabled
