@@ -1,16 +1,20 @@
+function setupWallet (): void {
+  cy.createEmptyWallet(true)
+  cy.getByTestID('bottom_tab_dex').click()
+  cy.sendDFItoWallet()
+    .sendDFITokentoWallet()
+    .sendTokenToWallet(['BTC']).wait(3000)
+
+  cy.getByTestID('bottom_tab_dex').click()
+  cy.getByTestID('pool_pair_add_DFI-BTC').click()
+  cy.wait(100)
+  cy.getByTestID('token_balance_primary').contains('10')
+  cy.getByTestID('token_balance_secondary').contains('10')
+}
+
 context('Wallet - DEX - Add Liquidity', () => {
   before(function () {
-    cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_dex').click()
-    cy.sendDFItoWallet()
-      .sendDFITokentoWallet()
-      .sendTokenToWallet(['BTC']).wait(3000)
-
-    cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('pool_pair_add_DFI-BTC').click()
-    cy.wait(100)
-    cy.getByTestID('token_balance_primary').contains('10')
-    cy.getByTestID('token_balance_secondary').contains('10')
+    setupWallet()
   })
 
   it('should update both token and build summary when click on max amount button', function () {
@@ -64,6 +68,28 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('percentage_pool').contains('0.20000000%')
     cy.getByTestID('button_cancel_add').click()
   })
+})
+
+context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
+  beforeEach(function () {
+    setupWallet()
+  })
+
+  afterEach(function () {
+    cy.getByTestID('your_DFI-BTC').contains('10.00000000 DFI-BTC')
+    cy.getByTestID('tokenA_DFI').contains('9.99999999 DFI')
+    cy.getByTestID('tokenB_BTC').contains('9.99999999 BTC')
+
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('balances_row_6').should('exist')
+    // Remove added liquidity
+    cy.getByTestID('bottom_tab_dex').click()
+    cy.getByTestID('pool_pair_remove_DFI-BTC').click()
+    cy.getByTestID('button_slider_max').click().wait(1000)
+    cy.getByTestID('button_continue_remove_liq').click()
+    cy.getByTestID('button_confirm_remove').click().wait(2000)
+    cy.closeOceanInterface()
+  })
 
   it('should have updated confirm info', function () {
     cy.getByTestID('token_input_primary').clear().type('10')
@@ -104,14 +130,5 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('percentage_pool').contains('1.00000000%')
     cy.getByTestID('button_confirm_add').click().wait(3000)
     cy.closeOceanInterface()
-  })
-
-  it('should have displayed pooled info', function () {
-    cy.getByTestID('your_DFI-BTC').contains('10.00000000 DFI-BTC')
-    cy.getByTestID('tokenA_DFI').contains('9.99999999 DFI')
-    cy.getByTestID('tokenB_BTC').contains('9.99999999 BTC')
-
-    cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('balances_row_6').should('exist')
   })
 })
