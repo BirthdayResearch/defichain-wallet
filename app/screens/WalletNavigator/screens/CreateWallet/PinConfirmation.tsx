@@ -79,10 +79,10 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
         {
           (spinnerMessage !== undefined)
             ? (
-              <View style={tailwind('items-center')}>
+              <View style={tailwind('items-center px-4')}>
                 <ActivityIndicator color='#FF00AF' style={tailwind('mb-4')} />
                 <ThemedText
-                  style={tailwind('ml-2 font-semibold text-sm text-center w-4/5')}
+                  style={tailwind('ml-2 font-semibold text-sm text-center w-4/6 px-4')}
                 >{spinnerMessage}
                 </ThemedText>
               </View>

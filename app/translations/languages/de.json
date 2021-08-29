@@ -16,7 +16,8 @@
     "Confirm swap": "Bestätige den Umtausch",
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Wähle eines der folgenden Handelspaare aus, füge somit der dezentralen Börse (DEX) Liquidität hinzu und erhalte umgehend Gebühren und Gewinnausschüttungen von jährlich bis zu 100%.",
     "YOUR LIQUIDITY": "VON DIR BEREITGESTELLTE LIQUIDITÄT",
-    "AVAILABLE POOL PAIR": "VERFÜGBARES LIQUIDITY POOL-HANDELSPAAR"
+    "AVAILABLE POOL PAIR": "VERFÜGBARES LIQUIDITY POOL-HANDELSPAAR",
+    "Pooled {{symbol}}": "Im Pool {{symbol}}"
   },
   "screens/BalancesScreen": {
     "Balances": "Guthaben",
@@ -53,7 +54,9 @@
   },
   "screens/ConvertScreen": {
     "Convert DFI": "DFI konvertieren",
-    "Scan recipient QR": "QR-Code des Empfängers scannen"
+    "Scan recipient QR": "QR-Code des Empfängers scannen",
+    "Balance": "Guthaben",
+    "Enter an amount": "Betrag eingeben"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "DFI-Konvertierung bestätigen"
@@ -263,7 +266,8 @@
     "Balance": "Guthaben",
     "per": "pro",
     "Share of pool": "Anteil am Gesamtpool",
-    "Pooled": "Im Pool"
+    "Pooled": "Im Pool",
+    "Price": "Preis"
   },
   "screens/ConfirmAddLiq": {
     "YOU ARE ADDING": "DU FÜGST HINZU",
@@ -306,7 +310,8 @@
     "CONTINUE": "FORTFAHREN",
     "Enter an amount": "Gib eine Menge ein",
     "Price": "Preis",
-    "Estimated to receive": "Vorraussichtlich wird empfangen"
+    "Estimated to receive": "Vorraussichtlich wird empfangen",
+    "Balance: ": "Guthaben: "
   },
   "screens/PoolSwapConfirmScreen": {
     "YOU ARE SWAPPING": "DU TAUSCHST",

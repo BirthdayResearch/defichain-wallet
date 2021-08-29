@@ -225,7 +225,7 @@ function PoolPairInfoLine (props: { symbol: string, reserve: string, row: string
       <ThemedText
         light={tailwind('text-black')} dark={tailwind('text-gray-400')}
         style={tailwind('text-sm font-medium mb-1')}
-      >Pooled {props.symbol}
+      >{translate('screens/DexScreen', 'Pooled {{symbol}}', { symbol: props.symbol })}
       </ThemedText>
       <NumberFormat
         suffix={` ${props.symbol}`}

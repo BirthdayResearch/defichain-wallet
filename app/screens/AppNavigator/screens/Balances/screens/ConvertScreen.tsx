@@ -130,7 +130,7 @@ function getDFIBalances (mode: ConversionMode, tokens: AddressToken[]): [source:
 function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' | 'output', unit: string, current: string, balance: BigNumber, onChange?: (amount: string) => void }): JSX.Element {
   const iconType = props.unit === 'UTXO' ? '_UTXO' : 'DFI'
   const titlePrefix = props.mode === 'input' ? 'CONVERT' : 'TO'
-  const title = `${translate('screens/Convert', titlePrefix)} ${props.unit}`
+  const title = `${translate('screens/ConvertScreen', titlePrefix)} ${props.unit}`
   const DFIIcon = getNativeIcon(iconType)
 
   return (
@@ -141,7 +141,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
         dark={tailwind('bg-gray-800 border-b border-gray-700')}
       >
         <NumberTextInput
-          placeholder={translate('screens/Convert', 'Enter an amount')}
+          placeholder={translate('screens/ConvertScreen', 'Enter an amount')}
           testID={`text_input_convert_from_${props.mode}`}
           value={props.current}
           style={tailwind('flex-1 mr-4 text-gray-500 px-1 py-4')}
@@ -159,7 +159,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
         dark={tailwind('bg-gray-800 border-b border-gray-700')}
       >
         <View style={tailwind('flex flex-row flex-1 px-1 py-4 flex-wrap mr-2')}>
-          <ThemedText>{translate('screens/Convert', 'Balance')}: </ThemedText>
+          <ThemedText>{translate('screens/ConvertScreen', 'Balance')}: </ThemedText>
           <NumberFormat
             value={props.balance.toFixed(8)} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
             renderText={(value: string) => (
@@ -185,7 +185,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
 function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: string, current: string }): JSX.Element {
   const iconType = props.unit === 'UTXO' ? '_UTXO' : 'DFI'
   const titlePrefix = 'TO'
-  const title = `${translate('screens/Convert', titlePrefix)} ${props.unit.toUpperCase()}`
+  const title = `${translate('screens/ConvertScreen', titlePrefix)} ${props.unit.toUpperCase()}`
   const DFIIcon = getNativeIcon(iconType)
 
   return (
@@ -196,7 +196,7 @@ function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: str
         dark={tailwind('bg-gray-800 border-b border-gray-700')}
       >
         <View style={tailwind('flex flex-row flex-1 px-1 py-4 flex-wrap mr-2')}>
-          <ThemedText>{translate('screens/Convert', 'Balance')}: </ThemedText>
+          <ThemedText>{translate('screens/ConvertScreen', 'Balance')}: </ThemedText>
           <NumberFormat
             value={props.current} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
             renderText={(value: string) => (
