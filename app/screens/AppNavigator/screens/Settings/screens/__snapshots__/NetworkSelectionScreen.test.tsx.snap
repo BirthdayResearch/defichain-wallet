@@ -14,17 +14,22 @@ exports[`network selection screen should render 1`] = `
           "lineHeight": 24,
         },
         Array [
+          Array [
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+              "fontFamily": "MediumFont",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 24,
+            },
+          ],
           Object {
-            "backgroundColor": "rgba(243, 244, 246, 1)",
-            "color": "rgba(107, 114, 128, 1)",
-            "fontFamily": "MediumFont",
-            "fontSize": 12,
-            "fontWeight": "500",
-            "lineHeight": 16,
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 16,
-            "paddingTop": 24,
+            "backgroundColor": "rgba(245, 245, 245, 1)",
+            "color": "rgba(115, 115, 115, 1)",
           },
         ],
       ]
@@ -47,11 +52,11 @@ exports[`network selection screen should render 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 231, 235, 1)",
+        "borderBottomColor": "rgba(229, 229, 229, 1)",
         "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(229, 231, 235, 1)",
-        "borderRightColor": "rgba(229, 231, 235, 1)",
-        "borderTopColor": "rgba(229, 231, 235, 1)",
+        "borderLeftColor": "rgba(229, 229, 229, 1)",
+        "borderRightColor": "rgba(229, 229, 229, 1)",
+        "borderTopColor": "rgba(229, 229, 229, 1)",
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
@@ -73,10 +78,15 @@ exports[`network selection screen should render 1`] = `
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Object {
-            "fontFamily": "MediumFont",
-            "fontWeight": "500",
-          },
+          Array [
+            Object {
+              "fontFamily": "MediumFont",
+              "fontWeight": "500",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
         ]
       }
     >
@@ -97,11 +107,11 @@ exports[`network selection screen should render 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 231, 235, 1)",
+        "borderBottomColor": "rgba(229, 229, 229, 1)",
         "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(229, 231, 235, 1)",
-        "borderRightColor": "rgba(229, 231, 235, 1)",
-        "borderTopColor": "rgba(229, 231, 235, 1)",
+        "borderLeftColor": "rgba(229, 229, 229, 1)",
+        "borderRightColor": "rgba(229, 229, 229, 1)",
+        "borderTopColor": "rgba(229, 229, 229, 1)",
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
@@ -123,10 +133,15 @@ exports[`network selection screen should render 1`] = `
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Object {
-            "fontFamily": "MediumFont",
-            "fontWeight": "500",
-          },
+          Array [
+            Object {
+              "fontFamily": "MediumFont",
+              "fontWeight": "500",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
         ]
       }
     >
@@ -148,11 +163,11 @@ exports[`network selection screen should render 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 231, 235, 1)",
+        "borderBottomColor": "rgba(229, 229, 229, 1)",
         "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(229, 231, 235, 1)",
-        "borderRightColor": "rgba(229, 231, 235, 1)",
-        "borderTopColor": "rgba(229, 231, 235, 1)",
+        "borderLeftColor": "rgba(229, 229, 229, 1)",
+        "borderRightColor": "rgba(229, 229, 229, 1)",
+        "borderTopColor": "rgba(229, 229, 229, 1)",
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
@@ -174,10 +189,15 @@ exports[`network selection screen should render 1`] = `
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Object {
-            "fontFamily": "MediumFont",
-            "fontWeight": "500",
-          },
+          Array [
+            Object {
+              "fontFamily": "MediumFont",
+              "fontWeight": "500",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
         ]
       }
     >
@@ -198,11 +218,11 @@ exports[`network selection screen should render 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 231, 235, 1)",
+        "borderBottomColor": "rgba(229, 229, 229, 1)",
         "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(229, 231, 235, 1)",
-        "borderRightColor": "rgba(229, 231, 235, 1)",
-        "borderTopColor": "rgba(229, 231, 235, 1)",
+        "borderLeftColor": "rgba(229, 229, 229, 1)",
+        "borderRightColor": "rgba(229, 229, 229, 1)",
+        "borderTopColor": "rgba(229, 229, 229, 1)",
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
@@ -224,10 +244,15 @@ exports[`network selection screen should render 1`] = `
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Object {
-            "fontFamily": "MediumFont",
-            "fontWeight": "500",
-          },
+          Array [
+            Object {
+              "fontFamily": "MediumFont",
+              "fontWeight": "500",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
         ]
       }
     >

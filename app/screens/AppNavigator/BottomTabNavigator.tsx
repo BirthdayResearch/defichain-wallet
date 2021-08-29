@@ -27,7 +27,11 @@ export function BottomTabNavigator (): JSX.Element {
       <OceanInterface />
       <BottomTab.Navigator
         initialRouteName='Balances'
-        screenOptions={{ headerShown: false, tabBarLabelPosition: 'below-icon', tabBarLabelStyle: tailwind('font-medium text-xs') }}
+        screenOptions={{
+          headerShown: false,
+          tabBarLabelPosition: 'below-icon',
+          tabBarLabelStyle: tailwind('font-medium text-xs')
+        }}
       >
         <BottomTab.Screen
           name={translate('BottomTabNavigator', 'Balances')}
@@ -50,7 +54,7 @@ export function BottomTabNavigator (): JSX.Element {
           component={TransactionsNavigator}
           options={{
             tabBarTestID: 'bottom_tab_transactions',
-            tabBarIcon: ({ color }) => <MaterialIcons size={24} name='assignment' color={color} />
+            tabBarIcon: ({ color }) => <MaterialIcons size={24} name='history' color={color} />
           }}
         />
         <BottomTab.Screen

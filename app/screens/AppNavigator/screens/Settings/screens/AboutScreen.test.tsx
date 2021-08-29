@@ -3,6 +3,8 @@ import * as React from 'react'
 import { Linking } from 'react-native'
 import { AboutScreen } from "./AboutScreen";
 
+jest.mock("../../../../../contexts/ThemeProvider")
+
 it('<AboutScreen /> should match snapshot', async () => {
   const tree = render(<AboutScreen />)
   expect(tree.toJSON()).toMatchSnapshot()

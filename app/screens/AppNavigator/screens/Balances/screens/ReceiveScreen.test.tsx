@@ -19,6 +19,9 @@ jest.mock("expo-clipboard", () => ({
   setString: jest.fn()
 }))
 
+
+jest.mock("../../../../../contexts/ThemeProvider")
+
 describe('receive page', () => {
   it('should match snapshot', async () => {
     const initialState: Partial<RootState> = {
