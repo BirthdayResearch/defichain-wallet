@@ -28,6 +28,7 @@ export function ChangePinScreen ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollView
+      light={tailwind('bg-white')} dark={tailwind('bg-gray-900')}
       testID='screen_create_pin'
       style={tailwind('w-full flex-1 flex-col')}
     >

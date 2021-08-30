@@ -61,7 +61,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
         token.symbol === 'DFI' && (
           <TokenActionRow
             testID='convert_button'
-            title={`${translate('screens/TokenDetailScreen', `Convert to ${token.id === '0_utxo' ? 'Token' : 'UTXO'}`)}`}
+            title={`${translate('screens/TokenDetailScreen', 'Convert to {{symbol}}', { symbol: `${token.id === '0_utxo' ? 'Token' : 'UTXO'}` })}`}
             icon='swap-vert' onPress={() => {
               const mode: ConversionMode = token.id === '0_utxo' ? 'utxosToAccount' : 'accountToUtxos'
               navigation.navigate({ name: 'Convert', params: { mode }, merge: true })

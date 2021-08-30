@@ -50,7 +50,10 @@ export function ConfirmPinScreen ({ route }: Props): JSX.Element {
   }
 
   return (
-    <ThemedScrollView style={tailwind('w-full flex-1 flex-col')}>
+    <ThemedScrollView
+      light={tailwind('bg-white')} dark={tailwind('bg-gray-900')}
+      style={tailwind('w-full flex-1 flex-col')}
+    >
       <View style={tailwind('px-6 py-4 mb-6 mt-8')}>
         <ThemedText
           style={tailwind('text-center font-semibold')}
