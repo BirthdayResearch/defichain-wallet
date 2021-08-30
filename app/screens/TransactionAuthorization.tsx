@@ -280,6 +280,7 @@ export function TransactionAuthorization (): JSX.Element | null {
         </ThemedText>
         <View style={tailwind('p-4 px-8 text-sm text-center mb-6')}>
           <ThemedText
+            testID='txn_authorization_message'
             light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
             style={tailwind('p-4 px-8 text-sm text-center mb-2')}
           >{message}
@@ -287,6 +288,7 @@ export function TransactionAuthorization (): JSX.Element | null {
           {
             transaction?.description !== undefined && (
               <ThemedText
+                testID='txn_authorization_description'
                 light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
                 style={tailwind('text-sm text-center')}
               >{transaction.description}
