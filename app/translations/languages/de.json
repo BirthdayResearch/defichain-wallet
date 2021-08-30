@@ -57,16 +57,16 @@
     "Scan recipient QR": "QR-Code des Empfängers scannen",
     "Balance": "Guthaben",
     "Enter an amount": "Betrag eingeben",
-    "UTXO vs Token, what is the difference?": "UTXO vs Token, what is the difference?",
-    "CONVERT {{symbol}}": "CONVERT {{symbol}}",
-    "TO {{symbol}}": "TO {{symbol}}"
+    "UTXO vs Token, what is the difference?": "UXTO gegenüber Token, worin liegt der Unterschied?",
+    "CONVERT {{symbol}}": "UMWANDELN {{symbol}}",
+    "TO {{symbol}}": "IN {{symbol}}"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "DFI-Konvertierung bestätigen",
     "YOU ARE CONVERTING": "YOU ARE CONVERTING",
-    "AFTER CONVERSION, YOU WILL HAVE:": "AFTER CONVERSION, YOU WILL HAVE:",
+    "AFTER CONVERSION, YOU WILL HAVE:": "NACH DER KONVERTIERUNG ERHÄLTST DU:",
     "Estimated fee": "Geschätzte Gebühr",
-    "CONVERT": "CONVERT"
+    "CONVERT": "UMWANDELN"
   },
   "screens/SettingsNavigator": {
     "Settings": "Einstellungen"
@@ -135,7 +135,7 @@
     "AVAILABLE OPTIONS": "VERFÜGBARE OPTIONEN",
     "Send to other wallet": "Auf andere Wallet senden",
     "Receive": "Empfangen",
-    "Convert to {{symbol}}": "Convert to {{symbol}}"
+    "Convert to {{symbol}}": "Umwandeln in {{symbol}}"
   },
   "screens/TokensVsUtxoScreen": {
     "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "DFI existiert in zwei Formen - UTXO und Token, die je nach Verwendung austauschbar sind. Mit der App kannst du leicht zwischen den beiden Arten wechseln.",
@@ -332,17 +332,17 @@
     "Swapping Token": "Tausche Token"
   },
   "screens/UnlockWallet": {
-    "Enter passcode": "Enter passcode",
+    "Enter passcode": "Passworteingabe",
     "CANCEL": "ABBRECHEN",
-    "Please enter passcode to securely sign your transaction": "Please enter passcode to securely sign your transaction"
+    "Please enter passcode to securely sign your transaction": "Gib bitte das Passwort ein, um die Transaktion freizugeben"
   },
   "screens/TransactionAuthorization": {
-    "Signing...": "Signing..."
+    "Signing...": "Freigabe..."
   },
   "components/CreateWalletIndicator": {
-    "Recovery": "Recovery",
-    "Verify": "Verify",
-    "Secure": "Secure",
-    "Restore": "Restore"
+    "Recovery": "Zeige 24 Worte an",
+    "Verify": "Bestätige",
+    "Secure": "Sichere",
+    "Restore": "Zeige 24 Worte an"
   }
 }
