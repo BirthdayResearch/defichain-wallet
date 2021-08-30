@@ -3,7 +3,7 @@ import { JellyfishWallet, WalletHdNodeProvider } from '@defichain/jellyfish-wall
 import { MnemonicHdNode } from '@defichain/jellyfish-wallet-mnemonic'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import React, { useCallback, useEffect, useState } from 'react'
-import { ActivityIndicator, Platform, SafeAreaView } from 'react-native'
+import { Platform, SafeAreaView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../api'
 import {
@@ -15,7 +15,7 @@ import {
 } from '../api/wallet'
 import { View } from '../components'
 import { PinTextInput } from '../components/PinTextInput'
-import { ThemedText, ThemedTouchableOpacity, ThemedView } from '../components/themed'
+import { ThemedActivityIndicator, ThemedText, ThemedTouchableOpacity, ThemedView } from '../components/themed'
 import { WalletAlert } from '../components/WalletAlert'
 import { useNetworkContext } from '../contexts/NetworkContext'
 import { useThemeContext } from '../contexts/ThemeProvider'
@@ -315,7 +315,7 @@ export function TransactionAuthorization (): JSX.Element | null {
               >
                 {translate('screens/PinConfirmation', `${attemptsRemaining === 1
                   ? 'Last attempt or your wallet will be unlinked for your security'
-                  : 'Incorrect passcode. %{attemptsRemaining} attempts remaining'}`, { attemptsRemaining: `${attemptsRemaining}` })}
+                  : 'Incorrect passcode. {{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining })}
               </ThemedText>
               )
             : null
@@ -327,9 +327,9 @@ export function TransactionAuthorization (): JSX.Element | null {
                 light={tailwind('text-error-500')} dark={tailwind('text-darkerror-500')} testID='pin_attempt_warning'
                 style={tailwind('text-center text-sm font-bold mt-5')}
               >
-                {translate('components/TransactionAuthorization', `${attemptsRemaining === 1
+                {translate('screens/PinConfirmation', `${attemptsRemaining === 1
                   ? 'Last attempt or your wallet will be unlinked for your security'
-                  : '%{attemptsRemaining} attempts remaining'}`, { attemptsRemaining: `${attemptsRemaining}` })}
+                  : '{{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining })}
               </ThemedText>
               )
             : null
@@ -343,7 +343,7 @@ function Loading ({ message }: { message?: string }): JSX.Element | null {
   if (message === undefined) return null
   return (
     <View style={tailwind('flex-row justify-center p-2')}>
-      <ActivityIndicator color='#FF00AF' />
+      <ThemedActivityIndicator />
       <ThemedText style={tailwind('ml-2')}>{message}</ThemedText>
     </View>
   )

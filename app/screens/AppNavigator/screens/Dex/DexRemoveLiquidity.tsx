@@ -184,7 +184,7 @@ function AmountSlider (props: { current: number, onChange: (percentage: string) 
         <ThemedText
           light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
           style={tailwind('text-sm')}
-        >{translate('components', 'All')}
+        >{translate('components/slider', 'All')}
         </ThemedText>
       </TouchableOpacity>
     </ThemedView>
