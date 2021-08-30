@@ -23,13 +23,13 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
         message: translate('screens/CreateMnemonicWallet', 'If you leave this screen, you will be provided with a new set of 24 recovery words. Do you want to proceed?'),
         buttons: [
           {
-            text: 'Cancel',
+            text: translate('screens/CreateMnemonicWallet', 'Cancel'),
             style: 'cancel',
             onPress: () => {
             }
           },
           {
-            text: 'Yes',
+            text: translate('screens/CreateMnemonicWallet', 'Yes'),
             style: 'destructive',
             onPress: () => navigation.dispatch(e.data.action)
           }
