@@ -16,11 +16,7 @@ import { NumberRow } from '../../../../../components/NumberRow'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
-import {
-  ThemedScrollView,
-  ThemedText,
-  ThemedView
-} from '../../../../../components/themed'
+import { ThemedScrollView, ThemedText, ThemedView } from '../../../../../components/themed'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { usePoolPairsAPI } from '../../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'

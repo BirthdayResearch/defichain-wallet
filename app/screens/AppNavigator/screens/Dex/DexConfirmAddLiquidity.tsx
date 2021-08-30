@@ -141,11 +141,11 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         rightHandElements={[{ value: percentage.times(100).toFixed(8), suffix: '%', testID: 'percentage_pool' }]}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', `Pooled ${aSymbol}`)}
+        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${aSymbol}` })}
         rightHandElements={[{ value: tokenA.reserve, suffix: ` ${tokenA.symbol}`, testID: 'pooled_a' }]}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', `Pooled ${bSymbol}`)}
+        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${bSymbol}` })}
         rightHandElements={[{ value: tokenB.reserve, suffix: ` ${tokenB.symbol}`, testID: 'pooled_b' }]}
       />
       <NumberRow
