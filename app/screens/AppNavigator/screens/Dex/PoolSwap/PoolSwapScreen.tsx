@@ -1,31 +1,34 @@
-import { CTransactionSegWit, PoolSwap } from '@defichain/jellyfish-transaction'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { MaterialIcons } from '@expo/vector-icons'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
-import { ScrollView, TouchableOpacity, View } from 'react-native'
+import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { useDispatch, useSelector } from 'react-redux'
-import { Dispatch } from 'redux'
+import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
-import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
-import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
+import { IconButton } from '../../../../../components/IconButton'
+import { getNativeIcon } from '../../../../../components/icons/assets'
+import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
+import { NumberRow } from '../../../../../components/NumberRow'
+import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
-import { useWallet } from '../../../../../contexts/WalletContext'
+import { ThemedScrollView, ThemedText, ThemedView } from '../../../../../components/themed'
+import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
+import { usePoolPairsAPI } from '../../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
-import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
+import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
+import { hasTxQueued } from '../../../../../store/transaction_queue'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
-import LoadingScreen from '../../../../LoadingNavigator/LoadingScreen'
 import { DexParamList } from '../DexNavigator'
+import { SlippageTolerance } from './components/SlippageTolerance'
 
-interface DerivedTokenState {
+export interface DerivedTokenState {
   id: string
   amount: string
   symbol: string
@@ -34,24 +37,42 @@ interface DerivedTokenState {
 type Props = StackScreenProps<DexParamList, 'PoolSwapScreen'>
 
 export function PoolSwapScreen ({ route }: Props): JSX.Element {
-  const poolpair = route.params.poolpair
+  const client = useWhaleApiClient()
+  const pairs = usePoolPairsAPI()
+  const [poolpair, setPoolPair] = useState<PoolPairData>()
+  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const [tokenAForm, tokenBForm] = ['tokenA', 'tokenB']
+  const navigation = useNavigation<NavigationProp<DexParamList>>()
+
+  useEffect(() => {
+    client.fee.estimate()
+      .then((f) => setFee(new BigNumber(f)))
+      .catch(Logging.error)
+  }, [])
 
   // props derived state
   const [tokenA, setTokenA] = useState<DerivedTokenState>()
   const [tokenB, setTokenB] = useState<DerivedTokenState>()
+  const [isComputing, setIsComputing] = useState<boolean>(false)
+  const [slippage, setSlippage] = useState<number>(0.03)
+  const [aToBPrice, setAToBPrice] = useState<BigNumber>()
 
   // component UI state
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
 
-  const account = useWallet().get(0)
-  const dispatch = useDispatch()
+  useEffect(() => {
+    const pair = pairs.find((v) => v.data.id === route.params.poolpair.id)
+    if (pair !== undefined) {
+      setPoolPair(pair.data)
+    }
+  }, [pairs, route.params.poolpair])
 
   function onSubmit (): void {
-    if (hasPendingJob) return
-    if (tokenA === undefined || tokenB === undefined) {
+    if (hasPendingJob || hasPendingBroadcastJob) return
+    if (tokenA === undefined || tokenB === undefined || poolpair === undefined) {
       return
     }
 
@@ -65,82 +86,116 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         fromAmount: new BigNumber((getValues()[tokenAForm])),
         toAmount: new BigNumber((getValues()[tokenBForm]))
       }
-      constructSignedSwapAndSend(account, swap, dispatch)
-        .catch(e => {
-          Logging.error(e)
-        })
+      navigation.navigate('ConfirmPoolSwapScreen', {
+        tokenA,
+        tokenB,
+        swap,
+        fee,
+        pair: poolpair,
+        slippage
+      })
     }
+  }
+
+  function updatePoolPairPrice (tokenAId: string, poolpair: PoolPairData): void {
+    const aToBPrice = tokenAId === poolpair.tokenA.id
+      ? new BigNumber(poolpair.tokenB.reserve).div(poolpair.tokenA.reserve)
+      : new BigNumber(poolpair.tokenA.reserve).div(poolpair.tokenB.reserve)
+    setAToBPrice(aToBPrice)
   }
 
   const swapToken = useCallback(async (): Promise<void> => {
-    setTokenA(tokenB)
-    setTokenB(tokenA)
-    const { [tokenAForm]: currentA, [tokenBForm]: currentB } = getValues()
-    setValue(tokenAForm, currentB)
-    await trigger(tokenAForm)
-    setValue(tokenBForm, currentA)
-    await trigger(tokenBForm)
-  }, [tokenA, tokenB])
+    if (tokenB !== undefined && tokenA !== undefined) {
+      const tokenAId = tokenB.id
+      setTokenA(tokenB)
+      setTokenB(tokenA)
+      setValue(tokenAForm, '')
+      await trigger(tokenAForm)
+      setValue(tokenBForm, '')
+      await trigger(tokenBForm)
+      if (poolpair !== undefined) {
+        updatePoolPairPrice(tokenAId, poolpair)
+      }
+    }
+  }, [tokenA, tokenB, poolpair])
 
   useEffect(() => {
-    const [tokenASymbol, tokenBSymbol] = poolpair.symbol.split('-') as [string, string]
-    const a = tokens.find((token) => token.id === poolpair.tokenA.id) ?? {
-      id: poolpair.tokenA.id,
-      amount: '0',
-      symbol: tokenASymbol
+    if (poolpair !== undefined) {
+      let [tokenASymbol, tokenBSymbol] = poolpair.symbol.split('-') as [string, string]
+      let [tokenAId, tokenBId] = [poolpair.tokenA.id, poolpair.tokenB.id]
+      if (tokenA !== undefined) {
+        [tokenASymbol, tokenAId] = [tokenA.symbol, tokenA.id]
+      }
+      if (tokenB !== undefined) {
+        [tokenBSymbol, tokenBId] = [tokenB.symbol, tokenB.id]
+      }
+      const a = tokens.find((token) => token.id === tokenAId) ?? {
+        id: tokenAId,
+        amount: '0',
+        symbol: tokenASymbol
+      }
+      setTokenA(a)
+      const b = tokens.find((token) => token.id === tokenBId) ?? {
+        id: tokenBId,
+        amount: '0',
+        symbol: tokenBSymbol
+      }
+      setTokenB(b)
+      updatePoolPairPrice(tokenAId, poolpair)
     }
-    setTokenA(a)
-    const b = tokens.find((token) => token.id === poolpair.tokenB.id) ?? {
-      id: poolpair.tokenB.id,
-      amount: '0',
-      symbol: tokenBSymbol
-    }
-    setTokenB(b)
-  }, [route.params.poolpair, JSON.stringify(tokens)])
+  }, [JSON.stringify(tokens), poolpair])
 
-  if (tokenA === undefined || tokenB === undefined) {
-    return <LoadingScreen />
+  if (tokenA === undefined || tokenB === undefined || poolpair === undefined || aToBPrice === undefined) {
+    return <></>
   }
 
-  const aToBPrice = tokenA.id === poolpair.tokenA.id
-    ? new BigNumber(poolpair.tokenB.reserve).div(poolpair.tokenA.reserve)
-    : new BigNumber(poolpair.tokenA.reserve).div(poolpair.tokenB.reserve)
-
   return (
-    <ScrollView style={tailwind('bg-gray-100')}>
+    <ThemedScrollView>
       <TokenRow
+        isDisabled={false}
         token={tokenA} control={control} controlName={tokenAForm}
         title={`${translate('screens/PoolSwapScreen', 'SWAP')} ${tokenA.symbol}`}
         onChangeFromAmount={async (amount) => {
+          setIsComputing(true)
           amount = isNaN(+amount) ? '0' : amount
           setValue(tokenAForm, amount)
           await trigger(tokenAForm)
-          setValue(tokenBForm, aToBPrice.times(amount !== undefined && amount !== '' ? amount : 0).toFixed(8))
+          const reserveA = getReserveAmount(tokenA.id, poolpair)
+          setValue(tokenBForm, calculateEstimatedAmount(amount, reserveA, aToBPrice.toFixed(8)).toFixed(8))
           await trigger(tokenBForm)
+          setIsComputing(false)
         }}
         maxAmount={tokenA.amount}
       />
-      <TouchableOpacity style={tailwind('justify-center items-center mt-6')} onPress={swapToken} testID='swap_button'>
-        <MaterialIcons name='swap-vert' size={28} style={tailwind('text-primary')} />
-      </TouchableOpacity>
+      <View style={tailwind('justify-center items-center mt-6')}>
+        <IconButton
+          testID='swap_button'
+          onPress={swapToken}
+          iconType='MaterialIcons'
+          iconName='swap-vert'
+          iconSize={24}
+        />
+      </View>
       <TokenRow
+        isDisabled
         token={tokenB} control={control} controlName={tokenBForm}
         title={`${translate('screens/PoolSwapScreen', 'TO')} ${tokenB.symbol}`}
         maxAmount={aToBPrice.times(getValues()[tokenAForm]).toFixed(8)}
       />
+      <SlippageTolerance slippage={slippage} setSlippage={(amount) => setSlippage(amount)} />
       {
-        (new BigNumber(getValues()[tokenAForm]).isGreaterThan(0) && new BigNumber(getValues()[tokenBForm]).isGreaterThan(0)) &&
+        !isComputing && (new BigNumber(getValues()[tokenAForm]).isGreaterThan(0) && new BigNumber(getValues()[tokenBForm]).isGreaterThan(0)) &&
           <SwapSummary
             poolpair={poolpair} tokenA={tokenA} tokenB={tokenB} tokenAAmount={getValues()[tokenAForm]}
             tokenBAmount={getValues()[tokenBForm]}
           />
       }
       <Button
-        disabled={!isValid || hasPendingJob}
-        label={translate('screens/PoolSwapScreen', 'SWAP')}
-        title='Swap' onPress={onSubmit} testID='button_submit'
+        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
+        label={translate('screens/PoolSwapScreen', 'CONTINUE')}
+        title='CONTINUE' onPress={onSubmit} testID='button_submit'
       />
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 
@@ -152,11 +207,12 @@ interface TokenForm {
   maxAmount?: string
   onChangeFromAmount?: (amount: string) => void
   title: string
+  isDisabled: boolean
 }
 
 function TokenRow (form: TokenForm): JSX.Element {
-  const { token, control, onChangeFromAmount, title, controlName, enableMaxButton = true } = form
-  const Icon = getTokenIcon(token.symbol)
+  const { token, control, onChangeFromAmount, title, controlName, enableMaxButton = true, isDisabled } = form
+  const Icon = getNativeIcon(token.symbol)
   const rules: { required: boolean, pattern: RegExp, validate: any, max?: string } = {
     required: true,
     pattern: /^\d*\.?\d*$/,
@@ -174,42 +230,55 @@ function TokenRow (form: TokenForm): JSX.Element {
         control={control}
         rules={rules}
         render={({ field: { onBlur, onChange, value } }) => (
-          <View style={tailwind('flex-row w-full border-b border-gray-100')}>
-            <TextInput
-              style={tailwind('flex-grow p-4 bg-white')}
+          <ThemedView
+            style={tailwind('flex-row w-full')} light={tailwind('bg-white border-b border-gray-200')}
+            dark={tailwind('bg-gray-800 border-b border-gray-700')}
+          >
+            <NumberTextInput
+              style={tailwind('flex-grow p-4')}
               autoCapitalize='none'
               onBlur={onBlur}
+              editable={!isDisabled}
               onChange={(e) => {
-                if (onChangeFromAmount !== undefined) {
-                  onChangeFromAmount(e.nativeEvent.text)
-                } else onChange(e)
+                if (!isDisabled) {
+                  if (onChangeFromAmount !== undefined) {
+                    onChangeFromAmount(e.nativeEvent.text)
+                  } else onChange(e)
+                }
               }}
               value={value}
-              keyboardType='numeric'
-              placeholder={translate('screens/PoolSwapScreen', 'Enter an amount')}
+              placeholder={isDisabled ? undefined : translate('screens/PoolSwapScreen', 'Enter an amount')}
               testID={`text_input_${controlName}`}
             />
-            <View style={tailwind('flex-row bg-white pr-4 items-center')}>
+            <ThemedView
+              light={tailwind('bg-white')}
+              dark={tailwind('bg-gray-800')} style={tailwind('flex-row pr-4 items-center')}
+            >
               <Icon />
-              <Text style={tailwind('ml-2')}>{token.symbol}</Text>
-            </View>
-          </View>
+              <InputIconLabel label={token.symbol} screenType={IconLabelScreenType.DEX} />
+            </ThemedView>
+          </ThemedView>
         )}
         name={controlName}
         defaultValue=''
       />
-      <View style={tailwind('flex-row w-full bg-white px-4 items-center')}>
-        <View style={tailwind('flex-1 flex-row py-4')}>
-          <Text>{translate('screens/PoolSwapScreen', 'Balance: ')}</Text>
+      <ThemedView
+        style={tailwind('flex-row w-full bg-white px-4 items-center')}
+        light={tailwind('bg-white border-b border-gray-200')}
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      >
+        <View style={tailwind('flex-1 flex-row py-4 flex-wrap mr-2')}>
+          <ThemedText>{translate('screens/PoolSwapScreen', 'Balance: ')}</ThemedText>
           <NumberFormat
             value={token.amount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
             renderText={(value) => (
-              <Text
+              <ThemedText
                 testID={`text_balance_${controlName}`}
-                style={tailwind('text-gray-500')}
+                light={tailwind('text-gray-500')}
+                dark={tailwind('text-gray-300')}
               >
                 {value}
-              </Text>
+              </ThemedText>
             )}
           />
         </View>
@@ -228,35 +297,8 @@ function TokenRow (form: TokenForm): JSX.Element {
           )
         }
 
-      </View>
+      </ThemedView>
     </>
-  )
-}
-
-function PriceRow ({
-  testID,
-  title,
-  values
-}: { testID: string, title: string, values: Array<{ amount: string, symbol: string }> }): JSX.Element {
-  return (
-    <View style={tailwind('flex-row w-full border-b border-gray-100 bg-white p-4')}>
-      <Text>{title}</Text>
-      <View style={tailwind('flex-col flex-grow')}>
-        {
-          values.map((token, index) => (
-            <NumberFormat
-              key={index}
-              value={token.amount} decimalScale={8} thousandSeparator
-              displayType='text' suffix={` ${token.symbol}`}
-              renderText={(value) => (
-                <Text testID={`text_price_row_${testID}_${index}`} style={tailwind('text-gray-500 text-right ml-1')}>
-                  {value}
-                </Text>
-              )}
-            />))
-        }
-      </View>
-    </View>
   )
 }
 
@@ -268,71 +310,46 @@ interface SwapSummaryItems {
   tokenBAmount: string
 }
 
-function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, tokenBAmount }: SwapSummaryItems): JSX.Element {
-  const reserveA = tokenA.id === poolpair.tokenA.id ? poolpair.tokenA.reserve : poolpair.tokenB.reserve
-  const reserveB = tokenB.id === poolpair.tokenB.id ? poolpair.tokenB.reserve : poolpair.tokenA.reserve
-  const price = [{
-    amount: new BigNumber(reserveA).div(reserveB).toFixed(8),
-    symbol: `${tokenA.symbol} per ${tokenB.symbol}`
-  },
-  { amount: new BigNumber(reserveB).div(reserveA).toFixed(8), symbol: `${tokenB.symbol} per ${tokenA.symbol}` }]
+function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount }: SwapSummaryItems): JSX.Element {
+  const reserveA = getReserveAmount(tokenA.id, poolpair)
+  const reserveB = getReserveAmount(tokenB.id, poolpair)
+  const priceA = new BigNumber(reserveA).div(reserveB).toFixed(8)
+  const priceB = new BigNumber(reserveB).div(reserveA).toFixed(8)
+  const estimated = calculateEstimatedAmount(tokenAAmount, reserveA, priceB).toFixed(8)
   return (
     <View style={tailwind('mt-4')}>
-      <PriceRow
-        testID='price'
-        title={translate('screens/PoolSwapScreen', 'Price')}
-        values={price}
+      <NumberRow
+        lhs={translate('screens/PoolSwapScreen', 'Price')}
+        rightHandElements={[{
+          testID: 'price_a',
+          value: priceA,
+          suffix: ` ${tokenA.symbol} per ${tokenB.symbol}`
+        }, {
+          testID: 'price_b',
+          value: priceB,
+          suffix: ` ${tokenB.symbol} per ${tokenA.symbol}`
+        }]}
       />
-      <PriceRow
-        testID='estimated'
-        title={translate('screens/PoolSwapScreen', 'Estimated to receive')}
-        values={[{ amount: new BigNumber(tokenAAmount).times(price[1].amount).toFixed(8), symbol: tokenB.symbol }]}
-      />
-      <PriceRow
-        testID='minimum'
-        title={translate('screens/PoolSwapScreen', 'Minimum to receive')}
-        values={[{ amount: new BigNumber(tokenBAmount).toFixed(8), symbol: tokenB.symbol }]}
-      />
-      <PriceRow
-        testID='fee'
-        title={translate('screens/PoolSwapScreen', 'Liquidity provider fee')}
-        values={[{ amount: '0.001', symbol: 'DFI' }]}
+      <NumberRow
+        lhs={translate('screens/PoolSwapScreen', 'Estimated to receive')}
+        rightHandElements={[
+          {
+            value: estimated,
+            suffix: ` ${tokenB.symbol}`,
+            testID: 'estimated'
+          }
+        ]}
       />
     </View>
   )
 }
 
-interface DexForm {
-  fromToken: DerivedTokenState
-  toToken: DerivedTokenState
-  fromAmount: BigNumber
-  toAmount: BigNumber
+function calculateEstimatedAmount (tokenAAmount: string, reserveA: string, price: string): BigNumber {
+  tokenAAmount = tokenAAmount !== undefined && tokenAAmount !== '' ? tokenAAmount : '0'
+  const slippage = (new BigNumber(1).minus(new BigNumber(tokenAAmount).div(reserveA)))
+  return new BigNumber(tokenAAmount).times(price).times(slippage)
 }
 
-async function constructSignedSwapAndSend (
-  account: WhaleWalletAccount, // must be both owner and recipient for simplicity
-  dexForm: DexForm,
-  dispatch: Dispatch<any>
-): Promise<void> {
-  const maxPrice = dexForm.fromAmount.div(dexForm.toAmount).decimalPlaces(8)
-  const signer = async (): Promise<CTransactionSegWit> => {
-    const builder = account.withTransactionBuilder()
-    const script = await account.getScript()
-
-    const swap: PoolSwap = {
-      fromScript: script,
-      toScript: script,
-      fromTokenId: Number(dexForm.fromToken.id),
-      toTokenId: Number(dexForm.toToken.id),
-      fromAmount: dexForm.fromAmount,
-      maxPrice
-    }
-    const dfTx = await builder.dex.poolSwap(swap, script)
-    return new CTransactionSegWit(dfTx)
-  }
-
-  dispatch(transactionQueue.actions.push({
-    sign: signer,
-    title: `${translate('screens/PoolSwapScreen', 'Swapping Token')}`
-  }))
+function getReserveAmount (id: string, poolpair: PoolPairData): string {
+  return id === poolpair.tokenA.id ? poolpair.tokenA.reserve : poolpair.tokenB.reserve
 }

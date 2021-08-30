@@ -1,15 +1,23 @@
-import { MaterialIcons } from '@expo/vector-icons'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackScreenProps } from '@react-navigation/stack'
+import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useCallback, useEffect, useState } from 'react'
-import { FlatList, RefreshControl, TouchableOpacity } from 'react-native'
+import { RefreshControl } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
-import { Text, View } from '../../../../components'
-import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { View } from '../../../../components'
+import { getNativeIcon } from '../../../../components/icons/assets'
 import { SectionTitle } from '../../../../components/SectionTitle'
-import { useWalletAddressContext } from '../../../../contexts/WalletAddressContext'
+import {
+  ThemedFlatList,
+  ThemedIcon,
+  ThemedText,
+  ThemedTouchableOpacity,
+  ThemedView
+} from '../../../../components/themed'
+import { useWalletContext } from '../../../../contexts/WalletContext'
+import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { fetchTokens, useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { ocean } from '../../../../store/ocean'
@@ -23,25 +31,25 @@ type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
-  const { address } = useWalletAddressContext()
+  const { address } = useWalletContext()
   const [refreshing, setRefreshing] = useState(false)
   const dispatch = useDispatch()
+  const { wallets } = useWalletPersistenceContext()
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
-  }, [height])
+  }, [height, wallets])
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
     await fetchTokens(client, address, dispatch)
     setRefreshing(false)
-  }, [])
+  }, [address])
 
   const tokens = useTokensAPI()
   return (
-    <FlatList
+    <ThemedFlatList
       testID='balances_list'
-      style={tailwind('bg-gray-100')}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
@@ -49,74 +57,71 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       renderItem={({ item }) =>
         <BalanceItemRow
           token={item} key={item.symbol}
-          onPress={() => navigation.navigate('TokenDetail', { token: item })}
+          onPress={() => navigation.navigate({ name: 'TokenDetail', params: { token: item }, merge: true })}
         />}
-      ItemSeparatorComponent={() => <View style={tailwind('h-px bg-gray-100')} />}
-      ListHeaderComponent={
-        <>
-          {/* TODO(thedoublejay) display when summary is available
-          <View style={tailwind('flex-row py-3 bg-white border-b border-gray-200')}>
-            <BalanceActionButton
-              icon='arrow-downward' title='RECEIVE'
-              onPress={() => navigation.navigate('Receive')}
-            />
-          </View> */}
-          <SectionTitle testID='balances_title' text={translate('screens/BalancesScreen', 'BALANCE DETAILS')} />
-        </>
-      }
+      ItemSeparatorComponent={() => <ThemedView
+        style={tailwind('h-px')} light={tailwind('bg-gray-100')}
+        dark={tailwind('bg-gray-700')}
+                                    />}
+      ListHeaderComponent={(
+        <SectionTitle
+          testID='balances_title'
+          text={translate('screens/BalancesScreen', 'BALANCE DETAILS')}
+        />
+      )}
     />
   )
 }
 
 function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () => void }): JSX.Element {
-  const Icon = getTokenIcon(token.avatarSymbol)
-
+  const Icon = getNativeIcon(token.avatarSymbol)
+  const testID = `balances_row_${token.id}`
   return (
-    <TouchableOpacity
-      onPress={onPress} testID={`balances_row_${token.id}`}
-      style={tailwind('bg-white py-4 pl-4 pr-2 flex-row justify-between items-center')}
+    <ThemedTouchableOpacity
+      onPress={onPress} testID={testID}
+      style={tailwind('py-4 pl-4 pr-2 flex-row justify-between items-center')}
+      light={tailwind('bg-white')}
+      dark={tailwind('bg-gray-800')}
     >
-      <View style={tailwind('flex-row items-center flex-auto')}>
-        <Icon />
+      <View style={tailwind('flex-row items-center flex-grow')}>
+        <Icon testID={`${testID}_icon`} />
         <View style={tailwind('mx-3 flex-auto')}>
-          <Text style={tailwind('font-medium')}>{token.displaySymbol}</Text>
-          <Text
+          <ThemedText
+            testID={`${testID}_symbol`}
+            style={tailwind('font-medium')}
+            light={tailwind('text-black')}
+            dark={tailwind('text-gray-200')}
+          >{token.displaySymbol}
+          </ThemedText>
+          <ThemedText
+            testID={`${testID}_name`}
             numberOfLines={1}
             ellipsizeMode='tail'
             style={tailwind('text-sm font-medium text-gray-600')}
+            light={tailwind('text-gray-600')}
+            dark={tailwind('text-gray-400')}
           >{token.name}
-          </Text>
+          </ThemedText>
         </View>
-        <NumberFormat
-          value={token.amount} decimalScale={4} thousandSeparator displayType='text'
-          renderText={(value) =>
-            <View style={tailwind('flex-row items-center')}>
-              <Text style={tailwind('mr-2')} testID={`balances_row_${token.id}_amount`}>
-                {value}
-              </Text>
-              <MaterialIcons name='chevron-right' size={24} />
-            </View>}
-        />
+        <View style={tailwind('flex-row items-center')}>
+          <NumberFormat
+            value={new BigNumber(token.amount).toFixed(8)} decimalScale={8} thousandSeparator displayType='text'
+            renderText={(value) =>
+              <>
+                <ThemedText
+                  style={tailwind('mr-2 flex-wrap')} light={tailwind('text-black')}
+                  dark={tailwind('text-gray-200')} testID={`${testID}_amount`}
+                >
+                  {value}
+                </ThemedText>
+                <ThemedIcon
+                  iconType='MaterialIcons' name='chevron-right' size={24}
+                  light={tailwind('text-black')} dark={tailwind('text-gray-200')}
+                />
+              </>}
+          />
+        </View>
       </View>
-    </TouchableOpacity>
+    </ThemedTouchableOpacity>
   )
 }
-
-/* function BalanceActionButton (props: {
-  icon: React.ComponentProps<typeof MaterialIcons>['name']
-  title: string
-  onPress: () => void
-}): JSX.Element {
-  return (
-    <TouchableOpacity
-      testID={`button_${props.title}`}
-      style={[tailwind('px-2 py-1.5 ml-3 flex-row items-center border border-gray-300 rounded')]}
-      onPress={props.onPress}
-    >
-      <MaterialIcons name={props.icon} size={20} color={PrimaryColor} />
-      <Text style={tailwind('mx-1 text-primary')}>
-        {translate('screens/BalancesScreen', props.title)}
-      </Text>
-    </TouchableOpacity>
-  )
-} */

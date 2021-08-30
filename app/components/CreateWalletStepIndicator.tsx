@@ -1,8 +1,10 @@
 import React from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
 import { Text, View } from '.'
+import { useThemeContext } from '../contexts/ThemeProvider'
 import { tailwind } from '../tailwind'
 import { translate } from '../translations'
+import { ThemedText } from './themed'
 
 interface StepIndicatorProps {
   current: number
@@ -12,14 +14,14 @@ interface StepIndicatorProps {
 }
 
 export const CREATE_STEPS = [
-  translate('components/CreateWalletIndicator', 'recovery'),
-  translate('components/CreateWalletIndicator', 'verify'),
-  translate('components/CreateWalletIndicator', 'passcode')
+  translate('components/CreateWalletIndicator', 'Recovery'),
+  translate('components/CreateWalletIndicator', 'Verify'),
+  translate('components/CreateWalletIndicator', 'Secure')
 ]
 
 export const RESTORE_STEPS = [
-  translate('components/CreateWalletIndicator', 'restore'),
-  translate('components/CreateWalletIndicator', 'passcode')
+  translate('components/CreateWalletIndicator', 'Restore'),
+  translate('components/CreateWalletIndicator', 'Secure')
 ]
 
 /**
@@ -30,6 +32,7 @@ export const RESTORE_STEPS = [
  * @returns {JSX.Element}
  */
 export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Element {
+  const { isLight } = useThemeContext()
   const { current, total, style: containerViewStyle, steps = [] } = props
   if (total === undefined && steps.length === 0) {
     throw Error('Invalid prop for CreateWalletStepIndicator')
@@ -43,68 +46,69 @@ export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Eleme
   function following (): JSX.Element[] {
     const arr: JSX.Element[] = []
     for (let i = 1; i < totalStep; i++) {
-      const iconStyle = current >= i + 1 ? 'bg-primary' : 'bg-gray-100'
+      const iconStyle = isLight ? (current >= i + 1 ? 'bg-primary-500' : 'bg-gray-100') : (current >= i + 1 ? 'bg-darkprimary-400' : 'bg-gray-600')
       arr.push(
         <View
           key={i * 2}
           style={tailwind(`h-1 flex-grow mt-3.5 ${iconStyle}`)}
         />)
-      arr.push(<StepNode key={i * 2 + 1} step={i + 1} current={current} />)
-    }
-    return arr
-  }
-
-  function descriptions (): JSX.Element[] {
-    const arr: JSX.Element[] = []
-    for (let i = 0; i < steps.length; i++) {
-      let textStyle = ''
-      if (current === i + 1) {
-        textStyle = 'text-primary'
-      } else {
-        textStyle = 'text-gray-500'
-      }
-      arr.push(
-        <View key={i}>
-          <Text style={tailwind(`text-center text-sm font-medium ${textStyle}`)}>{steps[i]}</Text>
-        </View>
-      )
+      arr.push(<StepNode key={i * 2 + 1} step={i + 1} current={current} content={steps[i]} isLight={isLight} />)
     }
     return arr
   }
 
   return (
     <View style={[tailwind('flex-col justify-center items-center w-full'), containerViewStyle]}>
-      <View style={[tailwind('flex-row justify-center w-9/12')]}>
-        <StepNode step={1} current={current} />
+      <View style={[tailwind('flex-row justify-center w-9/12 h-14')]}>
+        <StepNode step={1} current={current} content={steps[0]} isLight={isLight} />
         {following()}
-      </View>
-      <View style={[tailwind('flex-row justify-between w-10/12 mt-1 font-medium pl-2')]}>
-        {descriptions()}
       </View>
     </View>
   )
 }
 
-function StepNode (props: { step: number, current: number }): JSX.Element {
+function getStepNodeStyle (isLight: boolean, current: number, step: number): { stepperStyle: string, textStyle: string } {
   let stepperStyle
   let textStyle
-  if (props.current === props.step) {
-    stepperStyle = 'bg-primary bg-opacity-10 border border-primary'
-    textStyle = 'text-primary'
-  } else if (props.current > props.step) {
-    stepperStyle = 'bg-primary border border-primary'
+  if (current === step) {
+    stepperStyle = isLight ? 'bg-primary-500 bg-opacity-10 border border-primary-500' : 'bg-darkprimary-300 border border-darkprimary-600'
+    textStyle = isLight ? 'text-primary-500' : 'text-darkprimary-700'
+  } else if (current > step) {
+    stepperStyle = isLight ? 'bg-primary-500 border border-primary-500' : 'bg-darkprimary-500 border border-darkprimary-600'
     textStyle = 'text-white'
   } else {
-    stepperStyle = 'bg-transparent border border-gray-200'
-    textStyle = 'text-gray-500'
+    stepperStyle = isLight ? 'bg-transparent border border-gray-200' : 'bg-gray-700 border border-gray-200'
+    textStyle = isLight ? 'text-gray-500' : 'text-gray-400'
   }
+  return {
+    stepperStyle, textStyle
+  }
+}
+
+function StepNode (props: { step: number, current: number, content: string, isLight: boolean }): JSX.Element {
+  const { stepperStyle, textStyle } = getStepNodeStyle(props.isLight, props.current, props.step)
   return (
     <View style={tailwind('flex-col')}>
       <View
-        style={tailwind(`h-8 w-8 rounded-2xl justify-center items-center ${stepperStyle}`)}
+        style={tailwind(`h-8 w-8 rounded-2xl justify-center items-center relative ${stepperStyle}`)}
       >
-        <Text style={tailwind(`${textStyle} font-medium`)}>{props.step}</Text>
+        <Text style={tailwind(`${textStyle} font-medium absolute`)}>{props.step}</Text>
+        <Description step={props.step} current={props.current} content={props.content} />
       </View>
     </View>
+  )
+}
+
+function Description (props: { step: number, current: number, content: string }): JSX.Element {
+  return (
+    <ThemedText
+      light={tailwind(props.current === props.step ? 'text-primary-500' : 'text-gray-500')}
+      dark={tailwind(props.current === props.step ? 'text-darkprimary-400' : 'text-gray-400')}
+      style={[
+        tailwind('text-center text-sm font-medium top-9 absolute w-20')
+      ]}
+    >
+      {props.content}
+    </ThemedText>
   )
 }

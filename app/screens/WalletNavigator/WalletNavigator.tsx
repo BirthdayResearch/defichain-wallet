@@ -1,15 +1,18 @@
 import { LinkingOptions, NavigationContainer, NavigationContainerRef } from '@react-navigation/native'
+import { Theme } from '@react-navigation/native/lib/typescript/src/types'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as Linking from 'expo-linking'
 import * as React from 'react'
 import { HeaderFont } from '../../components'
-import { DeFiChainTheme } from '../../constants/Theme'
+import { HeaderTitle } from '../../components/HeaderTitle'
+import { getDefaultTheme } from '../../constants/Theme'
+import { useThemeContext } from '../../contexts/ThemeProvider'
 import { translate } from '../../translations'
 import { CreateMnemonicWallet } from './screens/CreateWallet/CreateMnemonicWallet'
 import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
 import { GuidelinesRecoveryWords } from './screens/CreateWallet/GuidelinesRecoveryWords'
-import { PinConfirmation } from './screens/CreateWallet/PinConfirmationScreen'
-import { PinCreationScreen } from './screens/CreateWallet/PinCreationScreen'
+import { PinConfirmation } from './screens/CreateWallet/PinConfirmation'
+import { PinCreation } from './screens/CreateWallet/PinCreation'
 import { VerifyMnemonicWallet } from './screens/CreateWallet/VerifyMnemonicWallet'
 import { Onboarding } from './screens/Onboarding'
 import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
@@ -39,7 +42,7 @@ export interface WalletParamList {
 
 const WalletStack = createStackNavigator<WalletParamList>()
 
-const LinkingConfiguration: LinkingOptions = {
+const LinkingConfiguration: LinkingOptions<ReactNavigation.RootParamList> = {
   prefixes: [Linking.makeUrl('/')],
   config: {
     screens: {
@@ -56,8 +59,9 @@ const LinkingConfiguration: LinkingOptions = {
 }
 
 export function WalletNavigator (): JSX.Element {
-  const navigationRef = React.useRef<NavigationContainerRef>(null)
-
+  const { isLight } = useThemeContext()
+  const navigationRef = React.useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null)
+  const DeFiChainTheme: Theme = getDefaultTheme(isLight)
   return (
     <NavigationContainer linking={LinkingConfiguration} ref={navigationRef} theme={DeFiChainTheme}>
       <WalletStack.Navigator initialRouteName='Setup' screenOptions={{ headerTitleStyle: HeaderFont }}>
@@ -72,7 +76,7 @@ export function WalletNavigator (): JSX.Element {
           name='CreateWalletGuidelines'
           component={CreateWalletGuidelines}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Guidelines'),
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Guidelines')} />,
             headerBackTitleVisible: false
           }}
         />
@@ -80,7 +84,7 @@ export function WalletNavigator (): JSX.Element {
           name='GuidelinesRecoveryWords'
           component={GuidelinesRecoveryWords}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Learn More'),
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Learn More')} />,
             headerBackTitleVisible: false
           }}
         />
@@ -88,7 +92,7 @@ export function WalletNavigator (): JSX.Element {
           name='CreateMnemonicWallet'
           component={CreateMnemonicWallet}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Display recovery words'),
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Display recovery words')} />,
             headerBackTitleVisible: false
           }}
         />
@@ -96,7 +100,7 @@ export function WalletNavigator (): JSX.Element {
           name='VerifyMnemonicWallet'
           component={VerifyMnemonicWallet}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Verify words'),
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Verify words')} />,
             headerBackTitleVisible: false
           }}
         />
@@ -104,15 +108,15 @@ export function WalletNavigator (): JSX.Element {
           name='RestoreMnemonicWallet'
           component={RestoreMnemonicWallet}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Restore Wallet'),
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Restore Wallet')} />,
             headerBackTitleVisible: false
           }}
         />
         <WalletStack.Screen
           name='PinCreation'
-          component={PinCreationScreen}
+          component={PinCreation}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Create a passcode'),
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Create a passcode')} />,
             headerBackTitleVisible: false
           }}
         />
@@ -120,7 +124,7 @@ export function WalletNavigator (): JSX.Element {
           name='PinConfirmation'
           component={PinConfirmation}
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Verify passcode'),
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Verify passcode')} />,
             headerBackTitleVisible: false
           }}
         />

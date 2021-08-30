@@ -1,22 +1,21 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
-import { MaterialIcons } from '@expo/vector-icons'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 'react-native'
+import { Animated, Linking, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { Text } from '..'
-import { Logging } from '@api'
-import { useDeFiScanContext } from '@contexts/DeFiScanContext'
-import { useWalletAddressContext } from '@contexts/WalletAddressContext'
-import { useWallet } from '@contexts/WalletContext'
-import { useWhaleApiClient } from '@contexts/WhaleContext'
-import { getEnvironment } from '@environment'
-import { fetchTokens } from '@hooks/wallet/TokensAPI'
-import { RootState } from '@store'
-import { firstTransactionSelector, ocean, OceanTransaction } from '@store/ocean'
-import { tailwind } from '@tailwind'
-import { translate } from '@translations'
+import { Logging } from '../../api'
+import { useDeFiScanContext } from '../../contexts/DeFiScanContext'
+import { useThemeContext } from '../../contexts/ThemeProvider'
+import { useWalletContext } from '../../contexts/WalletContext'
+import { useWhaleApiClient } from '../../contexts/WhaleContext'
+import { getEnvironment } from '../../environment'
+import { fetchTokens } from '../../hooks/wallet/TokensAPI'
+import { RootState } from '../../store'
+import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
+import { tailwind } from '../../tailwind'
+import { translate } from '../../translations'
+import { ThemedActivityIndicator, ThemedIcon, ThemedText } from '../themed'
 
 const MAX_AUTO_RETRY = 1
 const MAX_TIMEOUT = 300000
@@ -77,12 +76,12 @@ async function waitForTxConfirmation (id: string, client: WhaleApiClient): Promi
 
 /**
  * @description - Global component to be used for async calls, network errors etc. This component is positioned above the bottom tab.
- * Need to get the height of bottom tab via `useBottomTabBarHeight()` hook to be called on screen.
+ *  Need to get the height of bottom tab via `useBottomTabBarHeight()` hook to be called on screen.
  * */
 export function OceanInterface (): JSX.Element | null {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
-  const walletContext = useWallet()
+  const { wallet, address } = useWalletContext()
   const { getTransactionUrl } = useDeFiScanContext()
 
   // store
@@ -91,9 +90,8 @@ export function OceanInterface (): JSX.Element | null {
   const slideAnim = useRef(new Animated.Value(0)).current
   // state
   const [tx, setTx] = useState<OceanTransaction | undefined>(transaction)
-  const [err, setError] = useState<Error | undefined>(e)
+  const [err, setError] = useState<string | undefined>(e?.message)
   const [txUrl, setTxUrl] = useState<string | undefined>()
-  const { address } = useWalletAddressContext()
 
   const dismissDrawer = useCallback(() => {
     setTx(undefined)
@@ -112,7 +110,7 @@ export function OceanInterface (): JSX.Element | null {
       broadcastTransaction(transaction.tx, client)
         .then(async () => {
           try {
-            setTxUrl(getTransactionUrl(transaction.tx.txId))
+            setTxUrl(getTransactionUrl(transaction.tx.txId, transaction.tx.toHex()))
           } catch (e) {
             Logging.error(e)
           }
@@ -120,6 +118,9 @@ export function OceanInterface (): JSX.Element | null {
             ...transaction,
             title: translate('screens/OceanInterface', 'Waiting for confirmation')
           })
+          if (transaction.postAction !== undefined) {
+            transaction.postAction()
+          }
           let title
           try {
             await waitForTxConfirmation(transaction.tx.txId, client)
@@ -136,7 +137,7 @@ export function OceanInterface (): JSX.Element | null {
         })
         .catch((e: Error) => {
           const errMsg = `${e.message}. Txid: ${transaction.tx.txId}`
-          setError(new Error(errMsg))
+          setError(errMsg)
           Logging.error(e)
         })
         .finally(() => {
@@ -144,29 +145,41 @@ export function OceanInterface (): JSX.Element | null {
           fetchTokens(client, address, dispatch)
         }) // remove the job as soon as completion
     }
-  }, [transaction, walletContext])
+  }, [transaction, wallet, address])
 
-  if (tx === undefined) {
+  // If there are any explicit errors to be displayed
+  useEffect(() => {
+    if (e !== undefined) {
+      setError(e.message)
+      Animated.timing(slideAnim, { toValue: height, duration: 200, useNativeDriver: false }).start()
+    }
+  }, [e])
+
+  if (tx === undefined && err === undefined) {
     return null
   }
 
+  const { isLight } = useThemeContext()
+  const currentTheme = `${isLight ? 'bg-white border-t border-gray-200' : 'bg-gray-800 border-t border-gray-700'}`
   return (
     <Animated.View
-      style={[tailwind('bg-white px-5 py-3 flex-row absolute w-full items-center border-t border-gray-200 z-10'), {
+      style={[tailwind('px-5 py-3 flex-row absolute w-full items-center z-10', currentTheme), {
         bottom: slideAnim,
         height: 75
       }]}
     >
       {
         err !== undefined
-          ? <TransactionError errMsg={err.message} onClose={dismissDrawer} />
+          ? <TransactionError errMsg={err} onClose={dismissDrawer} />
           : (
-            <TransactionDetail
-              broadcasted={tx.broadcasted}
-              title={tx.title} txid={tx.tx.txId} txUrl={txUrl}
-              onClose={dismissDrawer}
-            />
-          )
+              tx !== undefined && (
+                <TransactionDetail
+                  broadcasted={tx.broadcasted}
+                  title={tx.title} txid={tx.tx.txId} txUrl={txUrl}
+                  onClose={dismissDrawer}
+                />
+              )
+            )
       }
     </Animated.View>
   )
@@ -179,18 +192,22 @@ function TransactionDetail ({
   onClose,
   title
 }: { broadcasted: boolean, txid?: string, txUrl?: string, onClose: () => void, title?: string }): JSX.Element {
-  title = title ?? translate('screens/OceanInterface', 'Signing...')
+  title = title ?? translate('screens/OceanInterface', 'Broadcasting...')
   return (
     <>
       {
-        !broadcasted ? <ActivityIndicator style={tailwind('text-primary')} />
-          : <MaterialIcons name='check-circle' size={20} style={tailwind('text-success')} />
+        !broadcasted
+          ? <ThemedActivityIndicator />
+          : <ThemedIcon
+              iconType='MaterialIcons' name='check-circle' size={20} light={tailwind('text-success-500')}
+              dark={tailwind('text-darksuccess-500')}
+            />
       }
       <View style={tailwind('flex-auto mx-6 justify-center items-center text-center')}>
-        <Text
+        <ThemedText
           style={tailwind('text-sm font-bold')}
         >{title}
-        </Text>
+        </ThemedText>
         {
           txid !== undefined && txUrl !== undefined &&
             <TransactionIDButton txid={txid} onPress={async () => await gotoExplorer(txUrl)} />
@@ -203,21 +220,25 @@ function TransactionDetail ({
   )
 }
 
-function TransactionError ({ errMsg, onClose }: { errMsg: string | undefined, onClose: () => void }): JSX.Element {
+function TransactionError ({ errMsg, onClose }: { errMsg: string, onClose: () => void }): JSX.Element {
+  const err = errorMessageMapping(errMsg)
   return (
     <>
-      <MaterialIcons name='error' size={20} color='#ff0000' />
+      <ThemedIcon
+        iconType='MaterialIcons' name='error' size={20} light={tailwind('text-error-500')}
+        dark={tailwind('text-darkerror')}
+      />
       <View style={tailwind('flex-auto mx-2 justify-center items-center text-center')}>
-        <Text
+        <ThemedText
           style={tailwind('text-sm font-bold')}
-        >{`${translate('screens/OceanInterface', 'An error has occurred')}`}
-        </Text>
-        <Text
+        >{`${translate('screens/OceanInterface', `Error Code: ${err.code}`)}`}
+        </ThemedText>
+        <ThemedText
           style={tailwind('text-sm font-bold')}
           numberOfLines={1}
           ellipsizeMode='tail'
-        >{errMsg}
-        </Text>
+        >{translate('screens/OceanInterface', err.message)}
+        </ThemedText>
       </View>
       <TransactionCloseButton onPress={onClose} />
     </>
@@ -227,16 +248,20 @@ function TransactionError ({ errMsg, onClose }: { errMsg: string | undefined, on
 function TransactionIDButton ({ txid, onPress }: { txid: string, onPress?: () => void }): JSX.Element {
   return (
     <TouchableOpacity
-      testID='oceanNetwork_explorer' style={tailwind('flex-row p-1 items-center')}
+      testID='oceanNetwork_explorer' style={tailwind('flex-row p-1 items-center max-w-full')}
       onPress={onPress}
     >
-      <Text
-        style={tailwind('text-sm font-medium mr-1 text-primary')} numberOfLines={1}
+      <ThemedText
+        light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
+        style={tailwind('text-sm font-medium mr-1')} numberOfLines={1}
         ellipsizeMode='tail'
       >
         {txid}
-      </Text>
-      <MaterialIcons name='open-in-new' size={18} style={tailwind('text-primary')} />
+      </ThemedText>
+      <ThemedIcon
+        iconType='MaterialIcons' name='open-in-new' size={18} light={tailwind('text-primary-500')}
+        dark={tailwind('text-darkprimary-500')}
+      />
     </TouchableOpacity>
   )
 }
@@ -247,9 +272,48 @@ function TransactionCloseButton (props: { onPress: () => void }): JSX.Element {
       testID='oceanInterface_close' onPress={props.onPress}
       style={tailwind('px-2 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
     >
-      <Text style={tailwind('text-sm text-primary')}>
+      <ThemedText
+        style={tailwind('text-sm')} light={tailwind('text-primary-500')}
+        dark={tailwind('text-darkprimary-500')}
+      >
         {translate('screens/OceanInterface', 'OK')}
-      </Text>
+      </ThemedText>
     </TouchableOpacity>
   )
+}
+
+enum ErrorCodes {
+  UnknownError = 0,
+  InsufficientUTXO = 1,
+  InsufficientBalance = 2,
+  PoolSwapHigher = 3,
+}
+
+interface ErrorMapping {
+  code: ErrorCodes
+  message: string
+}
+
+function errorMessageMapping (err: string): ErrorMapping {
+  if (err === 'not enough balance after combing all prevouts') {
+    return {
+      code: ErrorCodes.InsufficientUTXO,
+      message: 'Insufficient UTXO DFI'
+    }
+  } else if (err.includes('amount') && err.includes('is less than')) {
+    return {
+      code: ErrorCodes.InsufficientBalance,
+      message: 'Not enough balance'
+    }
+  } else if (err.includes('Price is higher than indicated.')) {
+    return {
+      code: ErrorCodes.PoolSwapHigher,
+      message: 'Price is higher than indicated'
+    }
+  }
+
+  return {
+    code: ErrorCodes.UnknownError,
+    message: err
+  }
 }

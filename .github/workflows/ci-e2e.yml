@@ -1,0 +1,57 @@
+name: CI E2E
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * *'
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  main:
+    name: Cypress
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    strategy:
+      fail-fast: false # https://github.com/cypress-io/github-action/issues/48
+      matrix:
+        containers: [ 1, 2, 3, 4, 5, 6 ]
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+
+      - name: Setup Playground
+        run: docker-compose -f docker-compose.yml up -d
+
+      - uses: actions/setup-node@25316bbc1f10ac9d8798711f44914b1cf3c4e954
+        with:
+          node-version: 15
+          cache: 'npm'
+
+      - run: npm ci
+
+      - run: .github/workflows/ci/wait-for http://localhost:3001/_actuator/probes/liveness -t 120
+      - run: .github/workflows/ci/wait-for http://localhost:3002/_actuator/probes/liveness -t 120
+      - run: .github/workflows/ci/wait-for http://localhost:19551/ping -t 120
+
+      - uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
+        with:
+          install: false
+          record: true
+          parallel: true
+          start: npm run start:web
+          wait-on: 'http://localhost:19006'
+          browser: chrome
+          spec: cypress/integration/**
+          tag: ${{ github.event_name }}
+        env:
+          CYPRESS_E2E: true
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: codecov/codecov-action@5a8bb4701eca7ba3673f21664b887f652c58d0a3

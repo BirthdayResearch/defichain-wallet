@@ -1,23 +1,22 @@
 import { PlaygroundApiClient, PlaygroundRpcClient } from '@defichain/playground-api-client'
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
-import { Logging, StorageAPI } from '../api'
-import { EnvironmentNetwork, getEnvironment, isPlayground } from '../environment'
+import React, { createContext, useContext, useMemo } from 'react'
+import { EnvironmentNetwork, isPlayground } from '../environment'
 import { useNetworkContext } from './NetworkContext'
 
-interface Playground {
+interface PlaygroundContextI {
   rpc: PlaygroundRpcClient
   api: PlaygroundApiClient
 }
 
-const PlaygroundContext = createContext<Playground | undefined>(undefined)
+const PlaygroundContext = createContext<PlaygroundContextI | undefined>(undefined)
 
-export function usePlaygroundContext (): Playground {
+export function usePlaygroundContext (): PlaygroundContextI {
   const context = useContext(PlaygroundContext)
   if (context !== undefined) {
     return context
   }
 
-  throw new Error('attempting to usePlaygroundContext without useConnectedPlayground()')
+  throw new Error('Playground not configured')
 }
 
 export function PlaygroundProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
@@ -38,39 +37,6 @@ export function PlaygroundProvider (props: React.PropsWithChildren<any>): JSX.El
       {props.children}
     </PlaygroundContext.Provider>
   )
-}
-
-/**
- * hooks to find connected playground if available
- * @return boolean when completed or found connected playground
- */
-export function useConnectedPlayground (): boolean {
-  const environment = getEnvironment()
-  const [isLoaded, setLoaded] = useState(false)
-
-  useEffect(() => {
-    async function findPlayground (): Promise<void> {
-      for (const network of environment.networks.filter(isPlayground)) {
-        if (await isConnected(network)) {
-          await StorageAPI.setNetwork(network)
-          break
-        }
-      }
-
-      setLoaded(true)
-    }
-
-    findPlayground().catch(Logging.error)
-  }, [])
-
-  return isLoaded
-}
-
-async function isConnected (network: EnvironmentNetwork): Promise<boolean> {
-  const client = newPlaygroundClient(network)
-  return await client.playground.info()
-    .then(() => true)
-    .catch(() => false)
 }
 
 function newPlaygroundClient (network: EnvironmentNetwork): PlaygroundApiClient {

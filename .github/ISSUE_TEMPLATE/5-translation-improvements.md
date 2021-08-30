@@ -1,6 +1,6 @@
 ---
 name: Translation improvements
-about: Suggest a translation improvement for DeFi Wallet
+about: Suggest a translation improvement for DeFiChain Wallet
 labels: 'kind/chore,area/translations'
 ---
 

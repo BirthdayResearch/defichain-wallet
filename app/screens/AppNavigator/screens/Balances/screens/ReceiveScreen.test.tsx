@@ -7,8 +7,8 @@ import { RootState } from "../../../../../store";
 import { wallet } from "../../../../../store/wallet";
 import { ReceiveScreen } from "./ReceiveScreen";
 
-jest.mock("../../../../../contexts/WalletAddressContext", () => ({
-  useWalletAddressContext: () => {
+jest.mock("../../../../../contexts/WalletContext", () => ({
+  useWalletContext: () => {
     return {
       address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d'
     }
@@ -19,12 +19,16 @@ jest.mock("expo-clipboard", () => ({
   setString: jest.fn()
 }))
 
+
+jest.mock("../../../../../contexts/ThemeProvider")
+
 describe('receive page', () => {
   it('should match snapshot', async () => {
     const initialState: Partial<RootState> = {
       wallet: {
         utxoBalance: '77',
-        tokens: []
+        tokens: [],
+        poolpairs: []
       }
     };
     const store = configureStore({
@@ -44,7 +48,8 @@ describe('receive page', () => {
     const initialState: Partial<RootState> = {
       wallet: {
         utxoBalance: '77',
-        tokens: []
+        tokens: [],
+        poolpairs: []
       }
     };
     const store = configureStore({
@@ -60,6 +65,30 @@ describe('receive page', () => {
     const rendered = render(component)
     const copyButton = await rendered.findByTestId('copy_button')
     fireEvent.press(copyButton)
+    expect(spy).toHaveBeenCalled()
+  })
+
+  it('should trigger share', async () => {
+    const initialState: Partial<RootState> = {
+      wallet: {
+        utxoBalance: '77',
+        tokens: [],
+        poolpairs: []
+      }
+    };
+    const store = configureStore({
+      preloadedState: initialState,
+      reducer: { wallet: wallet.reducer }
+    })
+    const component = (
+      <Provider store={store}>
+        <ReceiveScreen />
+      </Provider>
+    );
+    const spy = jest.spyOn(Clipboard, 'setString')
+    const rendered = render(component)
+    const share_button = await rendered.findByTestId('share_button')
+    fireEvent.press(share_button)
     expect(spy).toHaveBeenCalled()
   })
 })

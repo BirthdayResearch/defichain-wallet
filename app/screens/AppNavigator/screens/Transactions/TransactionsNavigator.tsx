@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
-import { HeaderFont } from '../../../../components/Text'
+import { HeaderFont } from '../../../../components'
+import { HeaderTitle } from '../../../../components/HeaderTitle'
 import { translate } from '../../../../translations'
 import { VMTransaction } from './screens/stateProcessor'
 import { TransactionDetailScreen } from './screens/TransactionDetailScreen'
@@ -20,21 +21,21 @@ const TransactionsStack = createStackNavigator<TransactionsParamList>()
 export function TransactionsNavigator (): JSX.Element {
   return (
     <TransactionsStack.Navigator
-      initialRouteName='Transactions'
+      initialRouteName='TransactionsScreen'
       screenOptions={{ headerTitleStyle: HeaderFont }}
     >
       <TransactionsStack.Screen
-        name='Transactions'
+        name='TransactionsScreen'
         component={TransactionsScreen}
         options={{
-          headerTitle: translate('screens/TransactionsScreen', 'Transactions')
+          headerTitle: () => <HeaderTitle text={translate('screens/TransactionsScreen', 'Transactions')} />
         }}
       />
       <TransactionsStack.Screen
         name='TransactionDetail'
         component={TransactionDetailScreen}
         options={{
-          headerTitle: translate('screens/TransactionsDetailScreen', 'Transaction'),
+          headerTitle: () => <HeaderTitle text={translate('screens/TransactionsDetailScreen', 'Transaction')} />,
           headerBackTitleVisible: false
         }}
       />

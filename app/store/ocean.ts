@@ -5,6 +5,7 @@ export interface OceanTransaction {
   broadcasted: boolean
   tx: CTransactionSegWit
   title?: string
+  postAction?: () => any
 }
 
 export interface OceanState {
@@ -15,7 +16,7 @@ export interface OceanState {
 
 const initialState: OceanState = {
   transactions: [],
-  height: 49,
+  height: 0,
   err: undefined
 }
 

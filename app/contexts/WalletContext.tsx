@@ -1,106 +1,62 @@
-import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
-import { MnemonicProviderData } from '@defichain/jellyfish-wallet-mnemonic'
-import React, { createContext, PropsWithChildren, useContext, useMemo, useState } from 'react'
-
-import {
-  initWhaleWallet,
-  MnemonicEncrypted,
-  MnemonicUnprotected,
-  WalletPersistenceData,
-  WalletType,
-  WhaleWallet
-} from '../api/wallet'
+import { JellyfishWallet, WalletHdNode } from '@defichain/jellyfish-wallet'
+import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
+import React, { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react'
+import { Logging } from '../api'
+import { initJellyfishWallet } from '../api/wallet'
 import { useNetworkContext } from './NetworkContext'
+import { useWalletNodeContext } from './WalletNodeProvider'
 import { useWhaleApiClient } from './WhaleContext'
 
-interface EncryptedWalletInterface {
-  // provider demand passcode/biometric UI
-  prompt: () => Promise<string>
+interface WalletContextI {
+  /**
+   * The entire HD Wallet, powered by @defichain/jellyfish-wallet
+   */
+  wallet: JellyfishWallet<WhaleWalletAccount, WalletHdNode>
+  /**
+   * Default account of the above wallet
+   */
+  account: WhaleWalletAccount
+  /**
+   * Default address of the above wallet
+   */
+  address: string
 }
 
-interface EncryptedWalletUIContext {
-  provide: (ewi: EncryptedWalletInterface) => void
-}
+const WalletContext = createContext<WalletContextI>(undefined as any)
 
-const WalletContext = createContext<WhaleWallet>(undefined as any)
-const EncryptedWalletContext = createContext<EncryptedWalletUIContext>(undefined as any)
-
-export function useWallet (): WhaleWallet {
+export function useWalletContext (): WalletContextI {
   return useContext(WalletContext)
 }
 
-export function useEncryptedWalletUI (): EncryptedWalletUIContext {
-  return useContext(EncryptedWalletContext)
-}
-
-interface WalletProviderProps<T> extends PropsWithChildren<any> {
-  data: WalletPersistenceData<T>
-}
-
-/**
- * Automatically determine the correct WalletProvider to use based on the wallet type.
- */
-export function WalletProvider (props: WalletProviderProps<any>): JSX.Element | null {
-  if (props.data.type === WalletType.MNEMONIC_UNPROTECTED) {
-    return (
-      <MnemonicUnprotectedProvider {...props}>
-        {props.children}
-      </MnemonicUnprotectedProvider>
-    )
-  }
-
-  if (props.data.type === WalletType.MNEMONIC_ENCRYPTED) {
-    return (
-      <MnemonicEncryptedProvider {...props}>
-        {props.children}
-      </MnemonicEncryptedProvider>
-    )
-  }
-
-  throw new Error(`wallet type: ${props.data.type as string} not available`)
-}
-
-function MnemonicUnprotectedProvider (props: WalletProviderProps<MnemonicProviderData>): JSX.Element | null {
+export function WalletContextProvider (props: PropsWithChildren<{}>): JSX.Element | null {
+  const { provider } = useWalletNodeContext()
+  const [address, setAddress] = useState<string>()
   const { network } = useNetworkContext()
   const client = useWhaleApiClient()
 
   const wallet = useMemo(() => {
-    const provider = MnemonicUnprotected.initProvider(props.data, network)
-    return initWhaleWallet(provider, network, client)
-  }, [])
+    return initJellyfishWallet(provider, network, client)
+  }, [provider, network, client])
+
+  useEffect(() => {
+    wallet.get(0).getAddress().then(value => {
+      setAddress(value)
+    }).catch(Logging.error)
+  }, [wallet])
+
+  if (address === undefined) {
+    return null
+  }
+
+  const context: WalletContextI = {
+    wallet: wallet,
+    account: wallet.get(0),
+    address: address
+  }
 
   return (
-    <WalletContext.Provider value={wallet}>
+    <WalletContext.Provider value={context}>
       {props.children}
-    </WalletContext.Provider>
-  )
-}
-
-function MnemonicEncryptedProvider (props: WalletProviderProps<EncryptedProviderData>): JSX.Element | null {
-  const { network } = useNetworkContext()
-  const client = useWhaleApiClient()
-  const [promptUI, setPromptUI] = useState<EncryptedWalletInterface>({
-    prompt: async () => {
-      throw new Error('Prompt UI not ready')
-    }
-  })
-
-  const wallet = useMemo(() => {
-    const provider = MnemonicEncrypted.initProvider(props.data, network, promptUI)
-    return initWhaleWallet(provider, network, client)
-  }, [promptUI])
-
-  const encryptedWalletInterface: EncryptedWalletUIContext = {
-    provide: (ewi: EncryptedWalletInterface) => {
-      setPromptUI(ewi)
-    }
-  }
-
-  return (
-    <WalletContext.Provider value={wallet}>
-      <EncryptedWalletContext.Provider value={encryptedWalletInterface}>
-        {props.children}
-      </EncryptedWalletContext.Provider>
     </WalletContext.Provider>
   )
 }

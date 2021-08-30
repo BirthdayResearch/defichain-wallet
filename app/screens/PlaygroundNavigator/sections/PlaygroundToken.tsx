@@ -1,15 +1,14 @@
 import { TokenInfo } from '@defichain/jellyfish-api-core/dist/category/token'
 import { PlaygroundRpcClient } from '@defichain/playground-api-client'
 import React, { useEffect, useState } from 'react'
-import { Text, View } from '../../../components'
+import { View } from '../../../components'
 import { usePlaygroundContext } from '../../../contexts/PlaygroundContext'
-import { useWallet } from '../../../contexts/WalletContext'
-import { tailwind } from '../../../tailwind'
+import { useWalletContext } from '../../../contexts/WalletContext'
 import { PlaygroundAction } from '../components/PlaygroundAction'
-import { PlaygroundStatus } from '../components/PlaygroundStatus'
+import { PlaygroundTitle } from '../components/PlaygroundTitle'
 
 export function PlaygroundToken (): JSX.Element | null {
-  const wallet = useWallet()
+  const { wallet } = useWalletContext()
   const { rpc, api } = usePlaygroundContext()
   const [status, setStatus] = useState<string>('loading')
   const [tokens, setTokens] = useState<PlaygroundTokenInfo[]>([])
@@ -21,7 +20,7 @@ export function PlaygroundToken (): JSX.Element | null {
     }).catch(() => {
       setStatus('error')
     })
-  }, [])
+  }, [wallet])
 
   const actions = tokens.filter(({ symbol }) => symbol !== 'DFI').map(token => {
     return (
@@ -41,16 +40,14 @@ export function PlaygroundToken (): JSX.Element | null {
 
   return (
     <View>
-      <View style={tailwind('flex-row flex items-center')}>
-        <Text style={tailwind('text-xl font-bold')}>Token</Text>
-        <View style={tailwind('ml-2')}>
-          <PlaygroundStatus
-            online={status === 'online'}
-            loading={status === 'loading'}
-            error={status === 'error'}
-          />
-        </View>
-      </View>
+      <PlaygroundTitle
+        title='Token' status={{
+          online: status === 'online',
+          loading: status === 'loading',
+          error: status === 'error'
+        }}
+      />
+
       <PlaygroundAction
         key='0'
         testID='playground_token_DFI'
@@ -62,6 +59,7 @@ export function PlaygroundToken (): JSX.Element | null {
           })
         }}
       />
+
       {actions}
     </View>
   )

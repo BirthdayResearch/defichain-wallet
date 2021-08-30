@@ -1,30 +1,26 @@
 import { NavigationContainer } from '@react-navigation/native'
+import { Theme } from '@react-navigation/native/lib/typescript/src/types'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { useNetworkContext } from '../contexts/NetworkContext'
-import { isPlayground } from '../environment'
+import { getDefaultTheme } from '../constants/Theme'
+import { useThemeContext } from '../contexts/ThemeProvider'
 import { tailwind } from '../tailwind'
 import { PlaygroundNavigator } from './PlaygroundNavigator/PlaygroundNavigator'
 import { RootNavigator } from './RootNavigator'
 
 export function Main (): JSX.Element {
-  const { network } = useNetworkContext()
-  const playground = isPlayground(network)
-
+  const { isLight } = useThemeContext()
+  const DeFiChainTheme: Theme = getDefaultTheme(isLight)
   return (
     <View style={tailwind('flex-row flex-1 justify-center items-center bg-black')}>
       <View style={styles.phone}>
         <RootNavigator />
       </View>
-      {
-        playground ? (
-          <View style={[styles.phone, tailwind('bg-white ml-2')]}>
-            <NavigationContainer>
-              <PlaygroundNavigator />
-            </NavigationContainer>
-          </View>
-        ) : null
-      }
+      <View style={[styles.phone, tailwind('bg-white ml-2')]}>
+        <NavigationContainer theme={DeFiChainTheme}>
+          <PlaygroundNavigator />
+        </NavigationContainer>
+      </View>
     </View>
   )
 }

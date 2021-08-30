@@ -1,23 +1,25 @@
-import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import Slider from '@react-native-community/slider'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { useCallback, useState } from 'react'
-import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
-import NumberFormat from 'react-number-format'
-import { useDispatch, useSelector } from 'react-redux'
-import { Dispatch } from 'redux'
+import { useEffect, useState } from 'react'
+import { Platform, StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
+import { useSelector } from 'react-redux'
 import { Logging } from '../../../../api'
-import { Text, View } from '../../../../components'
+import { View } from '../../../../components'
 import { Button } from '../../../../components/Button'
-import { getTokenIcon } from '../../../../components/icons/tokens/_index'
+import { NumberRow } from '../../../../components/NumberRow'
+import { NumberTextInput } from '../../../../components/NumberTextInput'
+import { SectionTitle } from '../../../../components/SectionTitle'
+import { ThemedScrollView, ThemedText, ThemedView } from '../../../../components/themed'
+import { TokenBalanceRow } from '../../../../components/TokenBalanceRow'
+import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../store'
-import { hasTxQueued, transactionQueue } from '../../../../store/transaction_queue'
+import { hasTxQueued as hasBroadcastQueued } from '../../../../store/ocean'
+import { hasTxQueued } from '../../../../store/transaction_queue'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { DexParamList } from './DexNavigator'
@@ -25,23 +27,30 @@ import { DexParamList } from './DexNavigator'
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
 export function RemoveLiquidityScreen (props: Props): JSX.Element {
+  const client = useWhaleApiClient()
+  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const isIOS = Platform.OS === 'ios'
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   // this component state
   const [tokenAAmount, setTokenAAmount] = useState<BigNumber>(new BigNumber(0))
   const [tokenBAmount, setTokenBAmount] = useState<BigNumber>(new BigNumber(0))
+  const [valid, setValidity] = useState(false)
+  const [inputHeight, setInputHeight] = useState(24)
   // ratio, before times 100
-  const [percentage, setPercentage] = useState<string>('0') // for display
+  const [percentage, setPercentage] = useState<string>('')
   const [amount, setAmount] = useState<BigNumber>(new BigNumber(0)) // to construct tx
+  const navigation = useNavigation<NavigationProp<DexParamList>>()
 
   // gather required data
   const tokens = useTokensAPI()
-  const { pair } = props.route.params as any
+  const { pair } = props.route.params
   const [aSymbol, bSymbol] = pair.symbol.split('-') as [string, string]
   const lmToken = tokens.find(token => token.symbol === pair.symbol) as AddressToken
-  const tokenAPerLmToken = new BigNumber(pair.tokenA.reserve).div(pair.totalLiquidity.token)
-  const tokenBPerLmToken = new BigNumber(pair.tokenB.reserve).div(pair.totalLiquidity.token)
+  const tokenAPerLmToken = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
+  const tokenBPerLmToken = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
 
-  const setSliderPercentage = useCallback((percentage: number) => {
+  const setInputPercentage = (percentage: string): void => {
     // this must round down, avoid attempt remove more than selected (or even available)
     const toRemove = new BigNumber(percentage).div(100).times(lmToken.amount).decimalPlaces(8, BigNumber.ROUND_DOWN)
     const ratioToTotal = toRemove.div(pair.totalLiquidity.token)
@@ -51,125 +60,134 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
     setAmount(toRemove)
     setTokenAAmount(tokenA)
     setTokenBAmount(tokenB)
-    setPercentage(new BigNumber(percentage).toFixed(2))
+    setPercentage(percentage)
+  }
+
+  const removeLiquidity = (): void => {
+    if (hasPendingJob || hasPendingBroadcastJob) {
+      return
+    }
+    navigation.navigate('RemoveLiquidityConfirmScreen', { amount, pair, tokenAAmount, tokenBAmount, fee })
+  }
+
+  useEffect(() => {
+    client.fee.estimate()
+      .then((f) => setFee(new BigNumber(f)))
+      .catch(Logging.error)
+  }, [])
+
+  useEffect(() => {
+    setValidity(
+      new BigNumber(percentage).isGreaterThan(new BigNumber(0)) &&
+      new BigNumber(percentage).isLessThanOrEqualTo(new BigNumber(100)) &&
+      !hasPendingJob &&
+      !hasPendingBroadcastJob
+    )
   }, [percentage])
 
-  const dispatch = useDispatch()
-
-  const removeLiquidity = useCallback(() => {
-    if (hasPendingJob) return
-    constructSignedRemoveLiqAndSend(
-      Number(pair.id),
-      amount,
-      dispatch
-    ).catch(e => {
-      Logging.error(e)
-    })
-  }, [amount])
-
   return (
-    <ScrollView style={tailwind('w-full flex-col flex-1 bg-gray-100')}>
-      <View style={tailwind('w-full bg-white mt-8')}>
-        <View style={tailwind('w-full flex-row p-4')}>
-          <Text
-            style={tailwind('flex-1 font-semibold')}
-          >{translate('screens/RemoveLiquidity', 'Amount of liquidity to remove')}
-          </Text>
-          <Text testID='text_slider_percentage' style={tailwind('text-right')}>{percentage}%</Text>
-        </View>
+    <ThemedScrollView style={tailwind('w-full flex-col flex-1')}>
+      <ThemedView style={tailwind('w-full mt-8')}>
+        <ThemedView
+          light={tailwind('bg-white border-b border-gray-200')}
+          dark={tailwind('bg-gray-800 border-b border-gray-700')} style={tailwind('w-full flex-row p-4 items-stretch')}
+        >
+          <ThemedText
+            style={tailwind('w-2/4 font-semibold flex-1')}
+          >{translate('screens/RemoveLiquidity', 'Amount to remove')}
+          </ThemedText>
+          <NumberTextInput
+            testID='text_input_percentage'
+            style={[
+              tailwind('text-right w-2/4 p-0 mr-0.5'),
+              isIOS && tailwind('-mt-0.5'),
+              {
+                height: Math.max(24, inputHeight)
+              }
+            ]}
+            placeholder={translate('screens/RemoveLiquidity', 'Enter an amount ')}
+            value={percentage}
+            multiline
+            onContentSizeChange={event => {
+              setInputHeight(event.nativeEvent.contentSize.height)
+            }}
+            onChange={(event) => {
+              setInputPercentage(event.nativeEvent.text)
+            }}
+          />
+          <ThemedText>%</ThemedText>
+        </ThemedView>
         <AmountSlider
           current={Number(percentage)}
           viewStyle={tailwind('p-4')}
-          onChange={setSliderPercentage}
+          onChange={setInputPercentage}
         />
-      </View>
-      <View style={tailwind('w-full bg-white mt-8 mb-4')}>
-        <CoinAmountRow symbol={aSymbol} amount={tokenAAmount} />
-        <CoinAmountRow symbol={bSymbol} amount={tokenBAmount} />
-        <View style={tailwind('bg-white p-2 border-t border-gray-200 flex-row items-start w-full')}>
-          <View style={tailwind('flex-1 ml-2')}>
-            <Text style={tailwind('font-medium')}>{translate('screens/AddLiquidity', 'Price')}</Text>
-          </View>
-          <View style={tailwind('flex-1 mr-2')}>
-            <NumberFormat
-              value={tokenAPerLmToken.toNumber()} decimalScale={8} thousandSeparator displayType='text'
-              suffix={` ${aSymbol}`}
-              renderText={(val) => (
-                <Text
-                  testID='text_a_to_b_price'
-                  style={tailwind('font-medium text-right text-gray-500')}
-                >
-                  {val}
-                </Text>
-              )}
-            />
-            <NumberFormat
-              value={tokenBPerLmToken.toNumber()} decimalScale={8} thousandSeparator displayType='text'
-              suffix={` ${bSymbol}`}
-              renderText={(val) => (
-                <Text
-                  testID='text_b_to_a_price'
-                  style={tailwind('font-medium text-right text-gray-500')}
-                >
-                  {val}
-                </Text>
-              )}
-            />
-          </View>
-        </View>
-      </View>
+      </ThemedView>
+      <SectionTitle text={translate('screens/RemoveLiquidity', 'YOU ARE REMOVING')} testID='remove_liq_title' />
+      <ThemedView
+        light={tailwind('bg-white')}
+        dark={tailwind('bg-gray-800')} style={tailwind('w-full mb-4')}
+      >
+        <TokenBalanceRow iconType={aSymbol} lhs={aSymbol} rhs={{ value: tokenAAmount.toFixed(8), testID: 'price_a' }} />
+        <TokenBalanceRow iconType={bSymbol} lhs={bSymbol} rhs={{ value: tokenBAmount.toFixed(8), testID: 'price_b' }} />
+        <NumberRow
+          lhs={translate('screens/AddLiquidity', 'Price')}
+          rightHandElements={[
+            {
+              value: tokenAPerLmToken.toFixed(8),
+              testID: 'text_a_to_b_price',
+              suffix: ` ${bSymbol} per ${aSymbol}`
+            },
+            {
+              value: tokenBPerLmToken.toFixed(8),
+              testID: 'text_b_to_a_price',
+              suffix: ` ${aSymbol} per ${bSymbol}`
+            }
+          ]}
+        />
+      </ThemedView>
       <ContinueButton
-        enabled={Number(percentage) !== 0 && !hasPendingJob}
+        enabled={valid}
         onPress={removeLiquidity}
       />
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 
-function AmountSlider (props: { current: number, onChange: (percentage: number) => void, viewStyle: StyleProp<ViewStyle> }): JSX.Element {
+function AmountSlider (props: { current: number, onChange: (percentage: string) => void, viewStyle: StyleProp<ViewStyle> }): JSX.Element {
   return (
-    <View style={[tailwind('flex-row items-center border-t border-gray-200'), props.viewStyle]}>
-      <TouchableOpacity testID='button_slider_min' onPress={() => props.onChange(0)}>
-        <Text style={tailwind('text-gray-500 text-sm')}>{translate('components/slider', 'None')}</Text>
+    <ThemedView
+      light={tailwind('bg-white border-b border-gray-200')}
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      style={[tailwind('flex-row items-center'), props.viewStyle]}
+    >
+      <TouchableOpacity testID='button_slider_min' onPress={() => props.onChange('0.00')}>
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-300')}
+          style={tailwind(' text-sm')}
+        >{translate('components/slider', 'None')}
+        </ThemedText>
       </TouchableOpacity>
       <View style={tailwind('flex-1 ml-4 mr-4')}>
         <Slider
           testID='slider_remove_liq_percentage'
-          value={props.current}
+          value={isNaN(props.current) ? 0 : props.current}
           minimumValue={0}
           maximumValue={100}
           minimumTrackTintColor='#ff00af'
           thumbTintColor='#ff00af'
-          onValueChange={(val) => props.onChange(val)}
+          onSlidingComplete={(val) => props.onChange(new BigNumber(val).toFixed(2))}
         />
       </View>
-      <TouchableOpacity testID='button_slider_max' onPress={() => props.onChange(100)}>
-        <Text style={tailwind('text-gray-500 text-sm')}>{translate('components', 'All')}</Text>
+      <TouchableOpacity testID='button_slider_max' onPress={() => props.onChange('100.00')}>
+        <ThemedText
+          light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
+          style={tailwind('text-sm')}
+        >{translate('components/slider', 'All')}
+        </ThemedText>
       </TouchableOpacity>
-    </View>
-  )
-}
-
-function CoinAmountRow (props: { symbol: string, amount: BigNumber }): JSX.Element {
-  const TokenIcon = getTokenIcon(props.symbol)
-  return (
-    <View style={tailwind('flex-row items-center border-t border-gray-200 p-2')}>
-      <View style={tailwind('flex-row flex-1 items-center justify-start')}>
-        <TokenIcon style={tailwind('ml-2')} />
-        <Text testID={`remove_liq_symbol_${props.symbol}`} style={tailwind('ml-2')}>{props.symbol}</Text>
-      </View>
-      <NumberFormat
-        value={props.amount.toNumber()} decimalScale={8} thousandSeparator displayType='text'
-        renderText={(value) => (
-          <Text
-            testID={`text_coin_amount_${props.symbol}`}
-            style={tailwind('flex-1 text-right text-gray-500 mr-2')}
-          >
-            {value}
-          </Text>
-        )}
-      />
-    </View>
+    </ThemedView>
   )
 }
 
@@ -181,28 +199,8 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
         title='continue'
         disabled={!props.enabled}
         onPress={props.onPress}
-        label={translate('components/Button', 'REMOVE')}
+        label={translate('components/Button', 'CONTINUE')}
       />
     </View>
   )
-}
-
-async function constructSignedRemoveLiqAndSend (tokenId: number, amount: BigNumber, dispatch: Dispatch<any>): Promise<void> {
-  const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
-    const builder = account.withTransactionBuilder()
-    const script = await account.getScript()
-
-    const removeLiq = {
-      script,
-      tokenId,
-      amount
-    }
-    const dfTx = await builder.liqPool.removeLiquidity(removeLiq, script)
-    return new CTransactionSegWit(dfTx)
-  }
-
-  dispatch(transactionQueue.actions.push({
-    sign: signer,
-    title: `${translate('screens/RemoveLiquidity', 'Removing Liquidity')}`
-  }))
 }

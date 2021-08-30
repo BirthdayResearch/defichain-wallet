@@ -4,17 +4,23 @@ exports[`empty transaction should match snapshot 1`] = `
 <RCTScrollView
   refreshControl={
     <RefreshControlMock
-      refreshing={false}
+      onRefresh={[Function]}
+      refreshing={true}
     />
   }
   style={
-    Object {
-      "paddingBottom": 8,
-      "paddingLeft": 32,
-      "paddingRight": 32,
-      "paddingTop": 128,
-      "textAlign": "center",
-    }
+    Array [
+      Object {
+        "paddingBottom": 8,
+        "paddingLeft": 32,
+        "paddingRight": 32,
+        "paddingTop": 128,
+        "textAlign": "center",
+      },
+      Object {
+        "backgroundColor": "rgba(245, 245, 245, 1)",
+      },
+    ]
   }
   testID="empty_transaction"
 >
@@ -30,14 +36,19 @@ exports[`empty transaction should match snapshot 1`] = `
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Object {
-            "fontFamily": "SemiBoldFont",
-            "fontSize": 24,
-            "fontWeight": "600",
-            "lineHeight": 32,
-            "paddingBottom": 8,
-            "textAlign": "center",
-          },
+          Array [
+            Object {
+              "fontFamily": "SemiBoldFont",
+              "fontSize": 24,
+              "fontWeight": "600",
+              "lineHeight": 32,
+              "paddingBottom": 8,
+              "textAlign": "center",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
         ]
       }
     >
@@ -52,17 +63,22 @@ exports[`empty transaction should match snapshot 1`] = `
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Object {
-            "fontSize": 14,
-            "lineHeight": 20,
-            "opacity": 0.6,
-            "paddingBottom": 64,
-            "textAlign": "center",
-          },
+          Array [
+            Object {
+              "fontSize": 14,
+              "lineHeight": 20,
+              "opacity": 0.6,
+              "paddingBottom": 64,
+              "textAlign": "center",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
         ]
       }
     >
-      Start transacting with your wallet. All transactions made will be displayed here.
+      Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.
     </Text>
     <View
       accessible={true}
@@ -76,19 +92,11 @@ exports[`empty transaction should match snapshot 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         Object {
-          "backgroundColor": "rgba(255, 0, 175, 0.1)",
-          "borderBottomColor": "rgba(255, 0, 175, 0.2)",
+          "backgroundColor": "rgba(255, 229, 247, 1)",
           "borderBottomLeftRadius": 4,
           "borderBottomRightRadius": 4,
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(255, 0, 175, 0.2)",
-          "borderLeftWidth": 1,
-          "borderRightColor": "rgba(255, 0, 175, 0.2)",
-          "borderRightWidth": 1,
-          "borderTopColor": "rgba(255, 0, 175, 0.2)",
           "borderTopLeftRadius": 4,
           "borderTopRightRadius": 4,
-          "borderTopWidth": 1,
           "flexDirection": "row",
           "justifyContent": "center",
           "marginBottom": 16,

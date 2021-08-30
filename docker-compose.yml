@@ -25,6 +25,7 @@ services:
       -rpcbind=0.0.0.0
       -rpcuser=playground
       -rpcpassword=playground
+      -rpcworkqueue=512
       -masternode_operator=mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy
       -regtest=1
       -jellyfish_regtest=1
@@ -42,7 +43,7 @@ services:
       -eunospayaheight=7
 
   defi-playground:
-    image: ghcr.io/defich/playground:0.8.3
+    image: ghcr.io/defich/playground:0.8.6
     depends_on:
       - defi-blockchain
     ports:
@@ -55,7 +56,7 @@ services:
       - "traefik.http.routers.playground.entrypoints=web"
 
   defi-whale:
-    image: ghcr.io/defich/whale:0.8.5
+    image: ghcr.io/defich/whale:0.8.9
     depends_on:
       - defi-blockchain
     ports:

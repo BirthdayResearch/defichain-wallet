@@ -26,9 +26,9 @@ export function WhaleProvider (props: React.PropsWithChildren<any>): JSX.Element
 function newWhaleClient (network: EnvironmentNetwork): WhaleApiClient {
   switch (network) {
     case EnvironmentNetwork.MainNet:
-      return new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'mainnet' })
+      return new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'mainnet', version: 'v0' })
     case EnvironmentNetwork.TestNet:
-      return new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'testnet' })
+      return new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'testnet', version: 'v0' })
     case EnvironmentNetwork.RemotePlayground:
       return new WhaleApiClient({ url: 'https://playground.defichain.com', network: 'regtest' })
     case EnvironmentNetwork.LocalPlayground:

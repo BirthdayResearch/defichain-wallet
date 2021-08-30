@@ -5,7 +5,7 @@ import {
   IBMPlexSans_600SemiBold,
   IBMPlexSans_700Bold
 } from '@expo-google-fonts/ibm-plex-sans'
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import * as Font from 'expo-font'
 import { useEffect, useState } from 'react'
 
@@ -28,6 +28,7 @@ export function useCachedResources (): boolean {
 async function loadResourcesAndDataAsync (): Promise<void> {
   try {
     await Font.loadAsync({
+      ...MaterialCommunityIcons.font,
       ...MaterialIcons.font,
       LightFont: IBMPlexSans_300Light,
       RegularFont: IBMPlexSans_400Regular,

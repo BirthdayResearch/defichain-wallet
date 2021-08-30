@@ -1,8 +1,13 @@
-import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
-import { Linking, ScrollView, View } from 'react-native'
-import { Text } from '../../../../../components'
+import { Linking, View } from 'react-native'
+import {
+  ThemedIcon,
+  ThemedScrollView,
+  ThemedText,
+  ThemedTouchableOpacity,
+  ThemedView
+} from '../../../../../components/themed'
 import { useDeFiScanContext } from '../../../../../contexts/DeFiScanContext'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
@@ -15,25 +20,26 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
   const { tx } = props.route.params
   const { getTransactionUrl } = useDeFiScanContext()
 
-  const grayDivider = <View style={tailwind('bg-gray-100 w-full h-4')} />
   const RenderRow = (lhs: string, rhs: string): JSX.Element => {
     return (
-      <ScrollView testID={`transaction-detail-${lhs.toLowerCase()}`}>
-        {grayDivider}
-        <View style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full p-4')}>
+      <ThemedScrollView testID={`transaction-detail-${lhs.toLowerCase()}`}>
+        <ThemedView
+          light={tailwind('bg-white border-b border-gray-200')}
+          dark={tailwind('bg-gray-800 border-b border-gray-700')}
+          style={tailwind('p-2 flex-row items-center w-full p-4 mt-4')}
+        >
           <View style={tailwind('w-1/2 flex-1')}>
-            <Text style={tailwind('font-medium')}>{lhs}</Text>
+            <ThemedText style={tailwind('font-medium')}>{lhs}</ThemedText>
           </View>
           <View style={tailwind('w-1/2 flex-1')}>
-            <Text style={tailwind('font-medium text-right text-gray-600')}>{rhs}</Text>
+            <ThemedText style={tailwind('font-medium text-right')}>{rhs}</ThemedText>
           </View>
-        </View>
-      </ScrollView>
+        </ThemedView>
+      </ThemedScrollView>
     )
   }
 
   const onTxidUrlPressed = React.useCallback(async () => {
-    // TODO(ivan-zynesis): new explorer URL linking
     const url = getTransactionUrl(tx.txid)
     await Linking.openURL(url)
   }, [])
@@ -45,22 +51,29 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
       {RenderRow('Amount', translate('screens/TransactionDetailScreen', tx.amount))}
       {RenderRow('Block', translate('screens/TransactionDetailScreen', `${tx.block}`))}
       {RenderRow('Date', translate('screens/TransactionDetailScreen', `${formatBlockTime(tx.medianTime)}`))}
-      {grayDivider}
-      <View
+      <ThemedTouchableOpacity
         testID='transaction-detail-explorer-url'
-        style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full p-4')}
+        style={tailwind('p-2 flex-row items-center w-full p-4 mt-4')}
+        onPress={onTxidUrlPressed}
       >
         <View style={tailwind('flex-1 flex-row flex-initial')}>
           <View style={tailwind('flex-1')}>
-            <Text style={tailwind('flex-1 font-medium text-sm text-gray-500')}>
-              {translate('screens/TransactionDetailScreen', tx.txid)}
-            </Text>
+            <ThemedText
+              light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
+              style={tailwind('font-medium text-sm')}
+            >
+              {tx.txid}
+            </ThemedText>
           </View>
           <View style={tailwind('ml-2 flex-grow-0 justify-center')}>
-            <MaterialIcons name='open-in-new' size={24} style={tailwind('text-primary')} onPress={onTxidUrlPressed} />
+            <ThemedIcon
+              iconType='MaterialIcons' light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
+              name='open-in-new'
+              size={24}
+            />
           </View>
         </View>
-      </View>
+      </ThemedTouchableOpacity>
     </View>
   )
 }

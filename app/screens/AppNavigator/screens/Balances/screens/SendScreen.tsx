@@ -1,73 +1,37 @@
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
-import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction'
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
-import { ScrollView, TouchableOpacity, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { useDispatch, useSelector } from 'react-redux'
-import { Dispatch } from 'redux'
+import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
-import { Text, TextInput } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
-import { getTokenIcon } from '../../../../../components/icons/tokens/_index'
+import { getNativeIcon } from '../../../../../components/icons/assets'
+import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
+import { NumberRow } from '../../../../../components/NumberRow'
+import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
+import {
+  ThemedIcon,
+  ThemedText,
+  ThemedTextInput,
+  ThemedTouchableOpacity,
+  ThemedView
+} from '../../../../../components/themed'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
-import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
+import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
+import { hasTxQueued } from '../../../../../store/transaction_queue'
 import { WalletToken } from '../../../../../store/wallet'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
-
-interface SendForm {
-  amount: BigNumber
-  address: string
-  token: AddressToken
-  networkName: NetworkName
-}
-
-async function send ({
-  address,
-  token,
-  amount,
-  networkName
-}: SendForm, dispatch: Dispatch<any>): Promise<void> {
-  try {
-    const to = DeFiAddress.from(networkName, address).getScript()
-
-    const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
-      const script = await account.getScript()
-      const builder = account.withTransactionBuilder()
-
-      let signed: TransactionSegWit
-      if (token.symbol === 'DFI') {
-        signed = await builder.utxo.send(amount, to, script)
-      } else {
-        signed = await builder.account.accountToAccount({
-          from: script,
-          to: [{ script: to, balances: [{ token: +token.id, amount }] }]
-        }, script)
-      }
-      return new CTransactionSegWit(signed)
-    }
-
-    dispatch(transactionQueue.actions.push({
-      sign: signer,
-      title: `${translate('screens/SendScreen', 'Sending')} ${token.symbol}`
-    }))
-  } catch (e) {
-    Logging.error(e)
-  }
-}
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -77,13 +41,14 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const tokens = useTokensAPI()
   const [token, setToken] = useState(route.params.token)
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
-  const dispatch = useDispatch()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
 
   useEffect(() => {
-    client.fee.estimate().then((f) => setFee(new BigNumber(f))).catch((e) => Logging.error(e))
+    client.fee.estimate()
+      .then((f) => setFee(new BigNumber(f)))
+      .catch(Logging.error)
   }, [])
 
   useEffect(() => {
@@ -94,33 +59,41 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   }, [JSON.stringify(tokens)])
 
   async function onSubmit (): Promise<void> {
-    if (hasPendingJob) {
+    if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
-    setIsSubmitting(true)
     if (isValid) {
       const values = getValues()
-      await send({
-        address: values.address,
-        token,
-        amount: new BigNumber(values.amount),
-        networkName
-      }, dispatch)
+      navigation.navigate({
+        name: 'SendConfirmationScreen',
+        params: {
+          destination: values.address,
+          token,
+          amount: new BigNumber(values.amount),
+          fee
+        },
+        merge: true
+      })
     }
-    setIsSubmitting(false)
   }
 
   return (
-    <ScrollView style={tailwind('bg-gray-100')}>
+    <ScrollView>
       <AddressRow
         control={control}
         networkName={networkName}
-        onQrButtonPress={() => navigation.navigate('BarCodeScanner', {
-          onQrScanned: value => setValue('address', value)
+        onQrButtonPress={() => navigation.navigate({
+          name: 'BarCodeScanner',
+          params: {
+            onQrScanned: async (value) => {
+              setValue('address', value)
+              await trigger('address')
+            }
+          },
+          merge: true
         })}
       />
       <AmountRow
-        fee={fee}
         token={token}
         control={control}
         onAmountButtonPress={async (amount) => {
@@ -130,21 +103,18 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
       />
       {
         fee !== undefined && (
-          <View style={tailwind('flex-row w-full bg-white p-4 mt-6')}>
-            <View style={tailwind('flex-grow')}>
-              <Text>{translate('screens/SendScreen', 'Transaction fee')}</Text>
-            </View>
-            <NumberFormat
-              value={fee.toString()} decimalScale={8} thousandSeparator displayType='text' suffix=' DFI'
-              renderText={(value) => <Text testID='transaction_fee' style={tailwind('text-gray-500')}>{value}</Text>}
+          <View style={tailwind('mt-6')}>
+            <NumberRow
+              lhs={translate('screens/SendScreen', 'Estimated fee')}
+              rightHandElements={[{ value: fee.toString(), suffix: ' DFI (UTXO)', testID: 'transaction_fee' }]}
             />
           </View>
         )
       }
       <Button
         testID='send_submit_button'
-        disabled={!isValid || isSubmitting || hasPendingJob}
-        label={translate('screens/SendScreen', 'SEND')}
+        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
+        label={translate('screens/SendScreen', 'CONTINUE')}
         title='Send' onPress={onSubmit}
       />
     </ScrollView>
@@ -172,22 +142,28 @@ function AddressRow ({
         }}
         render={({ field: { value, onBlur, onChange } }) => (
           <View style={tailwind('flex-row w-full')}>
-            <TextInput
+            <ThemedTextInput
               testID='address_input'
-              style={tailwind('flex-grow p-4 bg-white')}
+              style={tailwind('w-4/5 flex-grow p-4 pr-0')}
               autoCapitalize='none'
               value={value}
               onBlur={onBlur}
               onChangeText={onChange}
               placeholder={translate('screens/SendScreen', 'Enter an address')}
+              multiline
             />
-            <TouchableOpacity
+            <ThemedTouchableOpacity
               testID='qr_code_button'
-              style={tailwind('w-14 p-4 bg-white')}
+              light={tailwind('bg-white')}
+              dark={tailwind('bg-gray-800')}
+              style={tailwind('w-14 p-4')}
               onPress={onQrButtonPress}
             >
-              <MaterialIcons name='qr-code-scanner' size={24} style={tailwind('text-primary')} />
-            </TouchableOpacity>
+              <ThemedIcon
+                iconType='MaterialIcons' name='qr-code-scanner' size={24} light={tailwind('text-primary-500')}
+                dark={tailwind('text-darkprimary-500')}
+              />
+            </ThemedTouchableOpacity>
           </View>
         )}
         name='address'
@@ -201,12 +177,11 @@ interface AmountForm {
   control: Control
   token: WalletToken
   onAmountButtonPress: (amount: string) => void
-  fee: BigNumber
 }
 
-function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): JSX.Element {
-  const Icon = getTokenIcon(token.avatarSymbol)
-  let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(fee).toFixed(8) : token.amount
+function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.Element {
+  const Icon = getNativeIcon(token.avatarSymbol)
+  let maxAmount = token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
   return (
     <>
@@ -225,32 +200,46 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
           }
         }}
         render={({ field: { onBlur, onChange, value } }) => (
-          <View style={tailwind('flex-row w-full border-b border-gray-100')}>
-            <TextInput
+          <ThemedView
+            style={tailwind('flex-row w-full')} light={tailwind('bg-white border-b border-gray-200')}
+            dark={tailwind('bg-gray-800 border-b border-gray-700')}
+          >
+            <NumberTextInput
               testID='amount_input'
-              style={tailwind('flex-grow p-4 bg-white')}
+              style={tailwind('flex-grow p-4')}
               autoCapitalize='none'
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              keyboardType='numeric'
               placeholder={translate('screens/SendScreen', 'Enter an amount')}
             />
-            <View style={tailwind('flex-row bg-white pr-4 items-center')}>
+            <ThemedView
+              style={tailwind('flex-row pr-4 items-center')} light={tailwind('bg-white')}
+              dark={tailwind('bg-gray-800')}
+            >
               <Icon />
-              <Text testID='token_symbol' style={tailwind('ml-2')}>{token.symbol}</Text>
-            </View>
-          </View>
+              <InputIconLabel testID='token_symbol' label={token.symbol} screenType={IconLabelScreenType.Balance} />
+            </ThemedView>
+          </ThemedView>
         )}
         name='amount'
         defaultValue=''
       />
-      <View style={tailwind('flex-row w-full bg-white px-4 items-center')}>
-        <View style={tailwind('flex-1 flex-row py-4')}>
-          <Text>{translate('screens/SendScreen', 'Balance: ')}</Text>
+      <ThemedView
+        style={tailwind('flex-row w-full px-4 items-center')} light={tailwind('bg-white border-b border-gray-200')}
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      >
+        <View style={tailwind('flex-1 flex-row py-4 flex-wrap mr-2')}>
+          <ThemedText>{translate('screens/SendScreen', 'Balance: ')}</ThemedText>
           <NumberFormat
             value={maxAmount} decimalScale={8} thousandSeparator displayType='text' suffix={` ${token.symbol}`}
-            renderText={(value) => <Text testID='max_value' style={tailwind('text-gray-500')}>{value}</Text>}
+            renderText={(value) => (
+              <ThemedText
+                testID='max_value' light={tailwind('text-gray-500')}
+                dark={tailwind('text-gray-300')}
+              >{value}
+              </ThemedText>
+            )}
           />
         </View>
         <SetAmountButton
@@ -258,7 +247,7 @@ function AmountRow ({ token, control, onAmountButtonPress, fee }: AmountForm): J
           amount={new BigNumber(maxAmount)}
         />
         <SetAmountButton type={AmountButtonTypes.max} onPress={onAmountButtonPress} amount={new BigNumber(maxAmount)} />
-      </View>
+      </ThemedView>
     </>
   )
 }

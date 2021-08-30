@@ -1,20 +1,19 @@
 import * as SplashScreen from 'expo-splash-screen'
 import React from 'react'
-import { Provider as StoreProvider } from 'react-redux'
 import './_shim'
 import { Logging } from './app/api'
+import { DeFiScanProvider } from './app/contexts/DeFiScanContext'
 import { NetworkProvider } from './app/contexts/NetworkContext'
-import { PlaygroundProvider, useConnectedPlayground } from './app/contexts/PlaygroundContext'
+import { StatsProvider } from './app/contexts/StatsProvider'
+import { StoreProvider } from './app/contexts/StoreProvider'
+import { ThemeProvider, useTheme } from './app/contexts/ThemeProvider'
 import { WalletPersistenceProvider } from './app/contexts/WalletPersistenceContext'
 import { WhaleProvider } from './app/contexts/WhaleContext'
 import { useCachedResources } from './app/hooks/useCachedResources'
+import ConnectionBoundary from './app/screens/ConnectionBoundary/ConnectionBoundary'
 import ErrorBoundary from './app/screens/ErrorBoundary/ErrorBoundary'
 import { Main } from './app/screens/Main'
-import { store } from './app/store'
 import { initI18n } from './app/translations'
-import { DeFiScanProvider } from './app/contexts/DeFiScanContext'
-
-initI18n()
 
 /**
  * Loads
@@ -22,13 +21,11 @@ initI18n()
  * - CachedPlaygroundClient
  */
 export default function App (): JSX.Element | null {
-  const isLoaded: boolean[] = [
-    useCachedResources(),
-    // find a connected playground at app load
-    useConnectedPlayground()
-  ]
+  initI18n()
+  const isLoaded = useCachedResources()
+  const { isThemeLoaded } = useTheme()
 
-  if (isLoaded.includes(false)) {
+  if (!isLoaded && !isThemeLoaded) {
     SplashScreen.preventAutoHideAsync()
       .catch(Logging.error)
     return null
@@ -39,19 +36,23 @@ export default function App (): JSX.Element | null {
 
   return (
     <ErrorBoundary>
-      <NetworkProvider>
-        <PlaygroundProvider>
+      <ConnectionBoundary>
+        <NetworkProvider>
           <WhaleProvider>
-            <WalletPersistenceProvider>
-              <DeFiScanProvider>
-                <StoreProvider store={store}>
-                  <Main />
+            <DeFiScanProvider>
+              <WalletPersistenceProvider>
+                <StoreProvider>
+                  <StatsProvider>
+                    <ThemeProvider>
+                      <Main />
+                    </ThemeProvider>
+                  </StatsProvider>
                 </StoreProvider>
-              </DeFiScanProvider>
-            </WalletPersistenceProvider>
+              </WalletPersistenceProvider>
+            </DeFiScanProvider>
           </WhaleProvider>
-        </PlaygroundProvider>
-      </NetworkProvider>
+        </NetworkProvider>
+      </ConnectionBoundary>
     </ErrorBoundary>
   )
 }

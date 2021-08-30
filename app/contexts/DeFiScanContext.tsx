@@ -2,25 +2,25 @@ import React, { createContext, useContext, useMemo } from 'react'
 import { EnvironmentNetwork } from '../environment'
 import { useNetworkContext } from './NetworkContext'
 
-interface DeFiScan {
-  getTransactionUrl: (txid: string) => string
+interface DeFiScanContextI {
+  getTransactionUrl: (txid: string, rawtx?: string) => string
 }
 
-const DeFiScanContext = createContext<DeFiScan>(undefined as any)
+const DeFiScanContext = createContext<DeFiScanContextI>(undefined as any)
 
-export function useDeFiScanContext (): DeFiScan {
+export function useDeFiScanContext (): DeFiScanContextI {
   return useContext(DeFiScanContext)
 }
 
 export function DeFiScanProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
 
-  const context = useMemo(() => {
-    const getTransactionUrl = (txid: string): string => {
-      return getTxURLByNetwork(network, txid)
+  const context: DeFiScanContextI = useMemo(() => {
+    return {
+      getTransactionUrl: (txid: string, rawtx?: string): string => {
+        return getTxURLByNetwork(network, txid, rawtx)
+      }
     }
-
-    return { getTransactionUrl }
   }, [network])
 
   return (
@@ -30,7 +30,7 @@ export function DeFiScanProvider (props: React.PropsWithChildren<any>): JSX.Elem
   )
 }
 
-function getTxURLByNetwork (network: EnvironmentNetwork, txid: string): string {
+function getTxURLByNetwork (network: EnvironmentNetwork, txid: string, rawtx?: string): string {
   let baseUrl = `https://defiscan.live/transactions/${txid}`
 
   switch (network) {
@@ -39,14 +39,22 @@ function getTxURLByNetwork (network: EnvironmentNetwork, txid: string): string {
       break
 
     case EnvironmentNetwork.TestNet:
-      baseUrl = `${baseUrl}?network=${EnvironmentNetwork.TestNet}`
+      baseUrl += `?network=${EnvironmentNetwork.TestNet}`
       break
 
     case EnvironmentNetwork.LocalPlayground:
     case EnvironmentNetwork.RemotePlayground:
-      baseUrl = `${baseUrl}?network=${EnvironmentNetwork.RemotePlayground}`
+      baseUrl += `?network=${EnvironmentNetwork.RemotePlayground}`
       break
   }
 
-  return baseUrl.toString()
+  if (typeof rawtx === 'string' && rawtx.length !== 0) {
+    if (network === EnvironmentNetwork.MainNet) {
+      baseUrl += `?rawtx=${rawtx}`
+    } else {
+      baseUrl += `&rawtx=${rawtx}`
+    }
+  }
+
+  return baseUrl
 }

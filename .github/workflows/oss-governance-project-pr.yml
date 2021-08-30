@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.sender.type == 'User' && github.event.pull_request.head.repo.full_name == github.repository
     steps:
-      - uses: actions/github-script@a3e7071a34d7e1f219a8a4de9a5e0a34d1ee1293
+      - uses: actions/github-script@f891eff65186019cbb3f7190c4590bc0a1b76fbc
         with:
           github-token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           script: |
