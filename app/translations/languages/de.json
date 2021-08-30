@@ -63,7 +63,7 @@
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "DFI-Konvertierung bestätigen",
-    "YOU ARE CONVERTING": "YOU ARE CONVERTING",
+    "YOU ARE CONVERTING": "AM KONVERTIEREN",
     "AFTER CONVERSION, YOU WILL HAVE:": "NACH DER KONVERTIERUNG ERHÄLTST DU:",
     "Estimated fee": "Geschätzte Gebühr",
     "CONVERT": "UMWANDELN"
