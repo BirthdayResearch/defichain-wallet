@@ -1,3 +1,5 @@
+import BigNumber from 'bignumber.js'
+
 function setupWallet (): void {
   cy.createEmptyWallet(true)
   cy.getByTestID('bottom_tab_dex').click()
@@ -115,7 +117,11 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     cy.getByTestID('b_amount_unit').contains('BTC')
     cy.getByTestID('b_amount').contains(oldAmount)
     cy.getByTestID('percentage_pool').contains('0.50000000%')
+    cy.getByTestID('text_fee').should('exist')
     cy.getByTestID('button_confirm_add').click().wait(3000)
+    // Check for authorization page description
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Adding ${new BigNumber(oldAmount).toFixed(8)} DFI - ${new BigNumber(oldAmount).toFixed(8)} BTC`)
     // Cancel send on authorisation page
     cy.getByTestID('cancel_authorization').contains('CANCEL').click()
     cy.getByTestID('button_cancel_add').click()
@@ -128,7 +134,11 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     cy.getByTestID('b_amount_unit').contains('BTC')
     cy.getByTestID('b_amount').contains(newAmount)
     cy.getByTestID('percentage_pool').contains('1.00000000%')
+    cy.getByTestID('text_fee').should('exist')
     cy.getByTestID('button_confirm_add').click().wait(3000)
+    // Check for authorization page description
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Adding ${new BigNumber(newAmount).toFixed(8)} DFI - ${new BigNumber(newAmount).toFixed(8)} BTC`)
     cy.closeOceanInterface()
   })
 })

@@ -133,6 +133,8 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
   })
 
   it('should be able to remove correct liquidity when user cancel a tx and updated some inputs', function () {
+    const oldAmount = '5.00000000'
+    const newAmount = '10.00000000'
     cy.getByTestID('text_input_percentage').clear().type('50')
     cy.getByTestID('price_a').invoke('text').then((value) => {
       expect(new BigNumber(value).toNumber()).be.gte(new BigNumber('0.49').toNumber())
@@ -145,12 +147,16 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
     cy.getByTestID('button_continue_remove_liq').click()
 
     cy.getByTestID('confirm_title').should('have.text', 'YOU ARE REMOVING')
-    cy.getByTestID('text_remove_amount').should('have.text', '5.00000000 DFI-ETH')
+    cy.getByTestID('text_remove_amount').should('have.text', `${oldAmount} DFI-ETH`)
     cy.getByTestID('a_amount').should('exist')
     cy.getByTestID('b_amount').should('exist')
+    cy.getByTestID('text_fee').should('exist')
     cy.getByTestID('price_a').contains('100.00000000 ETH per DFI')
     cy.getByTestID('price_b').contains('0.01000000 DFI per ETH')
     cy.getByTestID('button_confirm_remove').click().wait(2000)
+    // Check for authorization page description
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Removing ${new BigNumber(oldAmount).toFixed(8)} DFI-ETH`)
 
     // Cancel send on authorisation page
     cy.getByTestID('cancel_authorization').contains('CANCEL').click()
@@ -168,10 +174,14 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
     cy.getByTestID('button_continue_remove_liq').click()
 
     cy.getByTestID('confirm_title').should('have.text', 'YOU ARE REMOVING')
-    cy.getByTestID('text_remove_amount').should('have.text', '10.00000000 DFI-ETH')
+    cy.getByTestID('text_remove_amount').should('have.text', `${newAmount} DFI-ETH`)
     cy.getByTestID('a_amount').should('exist')
     cy.getByTestID('b_amount').should('exist')
+    cy.getByTestID('text_fee').should('exist')
     cy.getByTestID('button_confirm_remove').click().wait(2000)
+    // Check for authorization page description
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Removing ${new BigNumber(newAmount).toFixed(8)} DFI-ETH`)
     cy.closeOceanInterface()
   })
 })

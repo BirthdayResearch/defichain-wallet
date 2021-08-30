@@ -1,3 +1,5 @@
+import BigNumber from 'bignumber.js'
+
 function createDFIWallet (): void {
   cy.createEmptyWallet(true)
   cy
@@ -109,7 +111,7 @@ context('Wallet - Convert UTXO to Account', function () {
     cy.getByTestID('balances_row_0_amount').contains('11')
   })
 
-  it('should be able to convert correct amount when user cancel a tx and updated some inputs for account to UTXO conversion', function () {
+  it('should be able to convert correct amount when user cancel a tx and updated some inputs for UTXO to Account conversion', function () {
     const oldAmount = '1'
     const newAmount = '2'
     createDFIWallet()
@@ -119,7 +121,10 @@ context('Wallet - Convert UTXO to Account', function () {
     cy.getByTestID('button_cancel_convert').click()
     cy.getByTestID('text_input_convert_from_input').should('exist').should('have.value', oldAmount)
     cy.getByTestID('button_continue_convert').click()
-    cy.getByTestID('button_confirm_convert').click()
+    cy.getByTestID('button_confirm_convert').click().wait(2000)
+    // Check for authorization page description
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Converting ${new BigNumber(oldAmount).toFixed(8)} UTXO to Token`)
 
     // Cancel send on authorisation page
     cy.getByTestID('cancel_authorization').contains('CANCEL').click()
@@ -130,6 +135,9 @@ context('Wallet - Convert UTXO to Account', function () {
     // Confirm convert
     cy.getByTestID('button_confirm_convert').should('not.have.attr', 'disabled')
     cy.getByTestID('button_confirm_convert').click()
+    // Check for authorization page description
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Converting ${new BigNumber(newAmount).toFixed(8)} UTXO to Token`)
     cy.closeOceanInterface().wait(5000)
 
     cy.getByTestID('balances_row_0_utxo_amount').contains('17.999') // 20 - 2 - fee
@@ -138,7 +146,7 @@ context('Wallet - Convert UTXO to Account', function () {
 })
 
 context('Wallet - Convert Account to UTXO', function () {
-  it('should test UTXO to account conversion', function () {
+  it('should test Account to UTXO conversion', function () {
     createDFIWallet()
     cy.getByTestID('button_convert_mode_toggle').click().wait(4000)
     cy.getByTestID('text_input_convert_from_input').clear().type('1')
@@ -156,7 +164,7 @@ context('Wallet - Convert Account to UTXO', function () {
     cy.getByTestID('balances_row_0_amount').contains('9')
   })
 
-  it('should be able to convert correct amount when user cancel a tx and updated some inputs for UTXO to account conversion', function () {
+  it('should be able to convert correct amount when user cancel a tx and updated some inputs for Account to UTXO conversion', function () {
     const oldAmount = '1'
     const newAmount = '2'
     createDFIWallet()
@@ -169,8 +177,10 @@ context('Wallet - Convert Account to UTXO', function () {
 
     cy.getByTestID('button_continue_convert').click()
 
-    cy.getByTestID('button_confirm_convert').click()
-
+    cy.getByTestID('button_confirm_convert').click().wait(2000)
+    // Check for authorization page description
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Converting ${new BigNumber(oldAmount).toFixed(8)} Token to UTXO`)
     // Cancel send on authorisation page
     cy.getByTestID('cancel_authorization').contains('CANCEL').click()
     cy.getByTestID('button_cancel_convert').click()
@@ -180,6 +190,9 @@ context('Wallet - Convert Account to UTXO', function () {
     // Confirm convert
     cy.getByTestID('button_confirm_convert').should('not.have.attr', 'disabled')
     cy.getByTestID('button_confirm_convert').click()
+    // Check for authorization page description
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Converting ${new BigNumber(newAmount).toFixed(8)} Token to UTXO`)
     cy.closeOceanInterface().wait(5000)
 
     cy.getByTestID('balances_row_0_utxo_amount').contains('21.999') // 20 + 2 - fee
