@@ -131,7 +131,7 @@ function PoolPairRowYour ({ data, onAdd, onRemove, pair }: {data: AddressToken, 
   // assume defid will trim the dust values too
   const tokenATotal = ratioToTotal.times(pair?.tokenA.reserve ?? 0).decimalPlaces(8, BigNumber.ROUND_DOWN)
   const tokenBTotal = ratioToTotal.times(pair?.tokenB.reserve ?? 0).decimalPlaces(8, BigNumber.ROUND_DOWN)
-  console.log(tokenATotal, tokenBTotal)
+
   return (
     <ThemedView
       testID='pool_pair_row_your' style={tailwind('p-4')} light={tailwind('bg-white border-b border-gray-200')}
