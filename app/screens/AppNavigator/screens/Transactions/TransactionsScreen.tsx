@@ -101,9 +101,17 @@ export function TransactionsScreen (): JSX.Element {
       testID='transactions_screen_list'
       style={tailwind('w-full')}
       data={transactions}
-      renderItem={TransactionRow(navigation)}
+      renderItem={
+        ({ item, index }: {item: VMTransaction, index: number}) => (
+          <TransactionRow
+            navigation={navigation}
+            item={item}
+            index={index}
+          />
+        )
+      }
       keyExtractor={(item) => item.id}
-      ListFooterComponent={typeof loadMoreToken === 'string' ? LoadMore(onLoadMore) : undefined}
+      ListFooterComponent={typeof loadMoreToken === 'string' ? <LoadMore onPress={onLoadMore} /> : undefined}
       refreshControl={
         <RefreshControl
           refreshing={loadingState === 'loadingMore'}
@@ -114,67 +122,65 @@ export function TransactionsScreen (): JSX.Element {
   )
 }
 
-function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (row: { item: VMTransaction, index: number }) => JSX.Element {
-  return (row: { item: VMTransaction, index: number }): JSX.Element => {
-    const {
-      color,
-      iconName,
-      amount,
-      desc,
-      medianTime,
-      token
-    } = row.item
+function TransactionRow ({ navigation, item, index }: {navigation: NavigationProp<TransactionsParamList>, item: VMTransaction, index: number }): JSX.Element {
+  const {
+    color,
+    iconName,
+    amount,
+    desc,
+    medianTime,
+    token
+  } = item
 
-    const rowId = `transaction_row_${row.index}`
-    return (
-      <ThemedTouchableOpacity
-        testID={rowId}
-        key={row.item.id}
-        light={tailwind('bg-white border-b border-gray-200')}
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
-        style={tailwind('flex-row w-full h-16 p-2 items-center')}
-        onPress={() => {
-          navigation.navigate({
-            name: 'TransactionDetail', params: { tx: row.item }, merge: true
-          })
-        }}
-      >
-        <View style={tailwind('w-8 justify-center items-center')}>
-          <MaterialIcons name={iconName} size={24} color={color} />
+  const rowId = `transaction_row_${index}`
+  return (
+    <ThemedTouchableOpacity
+      testID={rowId}
+      key={item.id}
+      light={tailwind('bg-white border-b border-gray-200')}
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      style={tailwind('flex-row w-full h-16 p-2 items-center')}
+      onPress={() => {
+        navigation.navigate({
+          name: 'TransactionDetail', params: { tx: item }, merge: true
+        })
+      }}
+    >
+      <View style={tailwind('w-8 justify-center items-center')}>
+        <MaterialIcons name={iconName} size={24} color={color} />
+      </View>
+      <View style={tailwind('flex-1 flex-row justify-center items-center')}>
+        <View style={tailwind('flex-auto flex-col ml-3 justify-center')}>
+          <ThemedText style={tailwind('font-medium')}>{translate('screens/TransactionsScreen', desc)}</ThemedText>
+          <ThemedText
+            style={tailwind('text-xs text-gray-600')}
+          >{formatBlockTime(medianTime)}
+          </ThemedText>
         </View>
-        <View style={tailwind('flex-1 flex-row justify-center items-center')}>
-          <View style={tailwind('flex-auto flex-col ml-3 justify-center')}>
-            <ThemedText style={tailwind('font-medium')}>{translate('screens/TransactionsScreen', desc)}</ThemedText>
-            <ThemedText
-              style={tailwind('text-xs text-gray-600')}
-            >{formatBlockTime(medianTime)}
-            </ThemedText>
+        <View style={tailwind('flex-row ml-3 w-32 justify-end items-center')}>
+          <NumberFormat
+            value={amount} decimalScale={8} thousandSeparator displayType='text'
+            renderText={(value) => (
+              <ThemedText
+                numberOfLines={1} ellipsizeMode='tail'
+                style={{ color }}
+              >{value}
+              </ThemedText>
+            )}
+          />
+          <View style={tailwind('ml-2 items-start')}>
+            <ThemedText style={tailwind('flex-shrink font-medium text-gray-600')}>{token}</ThemedText>
           </View>
-          <View style={tailwind('flex-row ml-3 w-32 justify-end items-center')}>
-            <NumberFormat
-              value={amount} decimalScale={8} thousandSeparator displayType='text'
-              renderText={(value) => (
-                <ThemedText
-                  numberOfLines={1} ellipsizeMode='tail'
-                  style={{ color }}
-                >{value}
-                </ThemedText>
-              )}
-            />
-            <View style={tailwind('ml-2 items-start')}>
-              <ThemedText style={tailwind('flex-shrink font-medium text-gray-600')}>{token}</ThemedText>
-            </View>
-          </View>
         </View>
-        <View style={tailwind('w-8 justify-center items-center')}>
-          <ThemedIcon iconType='MaterialIcons' name='chevron-right' size={24} style={tailwind('opacity-60')} />
-        </View>
-      </ThemedTouchableOpacity>
-    )
-  }
+      </View>
+      <View style={tailwind('w-8 justify-center items-center')}>
+        <ThemedIcon iconType='MaterialIcons' name='chevron-right' size={24} style={tailwind('opacity-60')} />
+      </View>
+    </ThemedTouchableOpacity>
+  )
 }
 
-function LoadMore (onPress: () => void): JSX.Element | null {
+function LoadMore ({ onPress }: {onPress: () => void}): JSX.Element | null {
   return (
     <View style={tailwind('flex-1 items-center justify-center w-full m-1')}>
       <TouchableOpacity
