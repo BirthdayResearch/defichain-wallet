@@ -148,8 +148,9 @@ async function send ({
 
       let signed: TransactionSegWit
       if (token.symbol === 'DFI') {
-        if (amount.gte(token.amount)) signed = await builder.utxo.sendAll(to)
-        else signed = await builder.utxo.send(amount, to, script)
+        /* if (amount.gte(token.amount)) signed = await builder.utxo.sendAll(to)
+        else */
+        signed = await builder.utxo.send(amount, to, script)
       } else {
         signed = await builder.account.accountToAccount({
           from: script,
