@@ -190,7 +190,7 @@ context('Wallet - Send - Max Values', function () {
       cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.closeOceanInterface()
       cy.getByTestID('bottom_tab_balances').click()
-      cy.getByTestID('balances_row_0_utxo_amount').contains('0.00000000')
+      cy.getByTestID('balances_row_0_utxo_amount').contains('0.09')
     })
 
     it(`should check if exist on other side ${address}`, function () {
