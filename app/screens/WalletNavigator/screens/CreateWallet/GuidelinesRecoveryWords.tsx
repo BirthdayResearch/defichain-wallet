@@ -5,7 +5,10 @@ import { translate } from '../../../../translations'
 
 export function GuidelinesRecoveryWords (): JSX.Element {
   return (
-    <ThemedScrollView light={tailwind('bg-white')} dark={tailwind('bg-gray-900')} style={tailwind('flex-1 p-4 pt-6')}>
+    <ThemedScrollView
+      light={tailwind('bg-white')} dark={tailwind('bg-gray-900')}
+      style={tailwind('flex-1 p-4 pt-6')}
+    >
       <ThemedText
         style={tailwind('text-lg font-semibold')}
       >{translate('screens/GuidelinesRecoveryWords', 'What are recovery words?')}
@@ -23,7 +26,7 @@ export function GuidelinesRecoveryWords (): JSX.Element {
       >{translate('screens/GuidelinesRecoveryWords', 'If you lose your recovery words, you will not be able to restore your wallet, and you will lose access to your wallet and funds.')}
       </ThemedText>
       <ThemedText
-        style={tailwind('mt-5')}
+        style={tailwind('mt-5 mb-12')}
       >{translate('screens/GuidelinesRecoveryWords', 'It is important that you write down your recovery words legibly and in the correct order. Store your recovery words safely and securely, away from prying eyes. You may want to think about keeping it safe from fire as well.')}
       </ThemedText>
     </ThemedScrollView>

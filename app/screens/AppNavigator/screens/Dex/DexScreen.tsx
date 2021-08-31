@@ -4,14 +4,14 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { View } from '../../../../components'
+import { IconButton } from '../../../../components/IconButton'
 import { getNativeIcon } from '../../../../components/icons/assets'
 import { SectionTitle } from '../../../../components/SectionTitle'
 import { SkeletonLoader, SkeletonLoaderScreen } from '../../../../components/SkeletonLoader'
-import { ThemedIcon, ThemedSectionList, ThemedText, ThemedView } from '../../../../components/themed'
+import { ThemedSectionList, ThemedText, ThemedView } from '../../../../components/themed'
 import { usePoolPairsAPI } from '../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
@@ -61,15 +61,21 @@ export function DexScreen (): JSX.Element {
         const poolPairData = pairs.find(pr => pr.data.symbol === (item.data as AddressToken).symbol)
         switch (item.type) {
           case 'your':
-            return PoolPairRowYour(item.data, () => {
-              onAdd((poolPairData as DexItem<PoolPairData>).data)
-            }, () => {
-              onRemove((poolPairData as DexItem<PoolPairData>).data)
-            }, poolPairData?.data)
+            return (
+              <PoolPairRowYour
+                data={item.data}
+                onAdd={() => onAdd((poolPairData as DexItem<PoolPairData>).data)}
+                onRemove={() => onRemove((poolPairData as DexItem<PoolPairData>).data)}
+                pair={poolPairData?.data}
+              />
+            )
           case 'available':
-            return PoolPairRowAvailable(item.data,
-              () => onAdd(item.data),
-              () => navigation.navigate({ name: 'PoolSwap', params: { poolpair: item.data }, merge: true })
+            return (
+              <PoolPairRowAvailable
+                data={item.data}
+                onAdd={() => onAdd(item.data)}
+                onSwap={() => navigation.navigate({ name: 'PoolSwap', params: { poolpair: item.data }, merge: true })}
+              />
             )
           default:
             return <></>
@@ -95,7 +101,6 @@ export function DexScreen (): JSX.Element {
                 </ThemedText>
               </ThemedView>
             )
-
           case SectionKey.AvailablePoolPair:
             return (
               <>
@@ -103,6 +108,8 @@ export function DexScreen (): JSX.Element {
                 {isEmpty(section.data) && <SkeletonLoader row={3} screen={SkeletonLoaderScreen.Dex} />}
               </>
             )
+          default:
+            return <></>
         }
       }}
       keyExtractor={(item, index) => `${index}`}
@@ -115,7 +122,12 @@ interface DexItem<T> {
   data: T
 }
 
-function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () => void, pair?: PoolPairData): JSX.Element {
+function PoolPairRowYour ({
+  data,
+  onAdd,
+  onRemove,
+  pair
+}: { data: AddressToken, onAdd: () => void, onRemove: () => void, pair?: PoolPairData }): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
   const IconA = getNativeIcon(symbolA)
   const IconB = getNativeIcon(symbolB)
@@ -163,7 +175,11 @@ function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () =>
   )
 }
 
-function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: () => void): JSX.Element {
+function PoolPairRowAvailable ({
+  data,
+  onAdd,
+  onSwap
+}: { data: PoolPairData, onAdd: () => void, onSwap: () => void }): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
   const IconA = getNativeIcon(symbolA)
   const IconB = getNativeIcon(symbolB)
@@ -206,18 +222,16 @@ function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: ()
   )
 }
 
-function PoolPairLiqBtn (props: { name: React.ComponentProps<typeof MaterialIcons>['name'], pair: string, onPress?: () => void }): JSX.Element {
+function PoolPairLiqBtn (props: { name: React.ComponentProps<typeof MaterialIcons>['name'], pair: string, onPress: () => void }): JSX.Element {
   return (
-    <TouchableOpacity
+    <IconButton
       testID={`pool_pair_${props.name}_${props.pair}`}
-      style={tailwind('p-1 border border-gray-300 rounded mr-2')}
       onPress={props.onPress}
-    >
-      <ThemedIcon
-        iconType='MaterialIcons' size={24} name={props.name} light={tailwind('text-primary-500')}
-        dark={tailwind('text-darkprimary-500')}
-      />
-    </TouchableOpacity>
+      iconType='MaterialIcons'
+      iconName={props.name}
+      iconSize={24}
+      style={tailwind('mr-2')}
+    />
   )
 }
 
@@ -227,7 +241,7 @@ function PoolPairInfoLine (props: { symbol: string, reserve: string, row: string
       <ThemedText
         light={tailwind('text-black')} dark={tailwind('text-gray-400')}
         style={tailwind('text-sm font-medium mb-1')}
-      >Pooled {props.symbol}
+      >{translate('screens/DexScreen', 'Pooled {{symbol}}', { symbol: props.symbol })}
       </ThemedText>
       <NumberFormat
         suffix={` ${props.symbol}`}

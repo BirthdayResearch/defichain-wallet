@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Share, TouchableOpacity, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 import { Logging } from '../../../../../api'
-import { ThemedIcon, ThemedText, ThemedView } from '../../../../../components/themed'
+import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '../../../../../components/themed'
 import { useThemeContext } from '../../../../../contexts/ThemeProvider'
 import { useWalletContext } from '../../../../../contexts/WalletContext'
 import { tailwind } from '../../../../../tailwind'
@@ -77,9 +77,11 @@ export function ReceiveScreen (): JSX.Element {
               </ThemedView>
               )
             : (
-              <TouchableOpacity
+              <ThemedTouchableOpacity
+                light={tailwind('border-gray-200')}
+                dark={tailwind('border-gray-500')}
                 testID='copy_button'
-                style={tailwind('flex flex-grow flex-row justify-center text-center items-center p-3 border border-gray-200')}
+                style={tailwind('flex flex-grow flex-row justify-center text-center items-center p-3 border')}
                 onPress={() => {
                   setIsCopied(true)
                   copyToClipboard(address)
@@ -98,7 +100,7 @@ export function ReceiveScreen (): JSX.Element {
                   light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
                 >{translate('screens/ReceiveScreen', 'COPY TO CLIPBOARD')}
                 </ThemedText>
-              </TouchableOpacity>
+              </ThemedTouchableOpacity>
               )
         }
         <TouchableOpacity

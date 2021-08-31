@@ -437,6 +437,7 @@ exports[`create wallet guidelines should match snapshot 1`] = `
           "borderTopWidth": 0,
           "flexDirection": "row",
           "justifyContent": "center",
+          "marginBottom": 32,
           "marginLeft": 0,
           "marginRight": 0,
           "marginTop": 32,

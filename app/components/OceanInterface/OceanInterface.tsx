@@ -2,7 +2,7 @@ import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 'react-native'
+import { Animated, Linking, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../../api'
 import { useDeFiScanContext } from '../../contexts/DeFiScanContext'
@@ -15,7 +15,7 @@ import { RootState } from '../../store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
 import { tailwind } from '../../tailwind'
 import { translate } from '../../translations'
-import { ThemedIcon, ThemedText } from '../themed'
+import { ThemedActivityIndicator, ThemedIcon, ThemedText } from '../themed'
 
 const MAX_AUTO_RETRY = 1
 const MAX_TIMEOUT = 300000
@@ -197,7 +197,7 @@ function TransactionDetail ({
     <>
       {
         !broadcasted
-          ? <ActivityIndicator color='#FF00AF' />
+          ? <ThemedActivityIndicator />
           : <ThemedIcon
               iconType='MaterialIcons' name='check-circle' size={20} light={tailwind('text-success-500')}
               dark={tailwind('text-darksuccess-500')}

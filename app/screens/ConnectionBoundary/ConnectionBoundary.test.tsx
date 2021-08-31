@@ -1,6 +1,8 @@
-import * as React from 'react'
 import { render } from '@testing-library/react-native'
+import * as React from 'react'
 import ConnectionBoundary from './ConnectionBoundary'
+
+jest.mock('../../contexts/ThemeProvider')
 
 jest.mock('@react-native-community/netinfo', () => ({
   useNetInfo: jest.fn()
