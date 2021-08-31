@@ -1,5 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
+import { useCallback } from 'react'
 import { Linking, View } from 'react-native'
 import {
   ThemedIcon,
@@ -44,10 +45,10 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
     )
   }
 
-  const onTxidUrlPressed = React.useCallback(async () => {
+  const onTxidUrlPressed = useCallback(async () => {
     const url = getTransactionUrl(tx.txid)
     await Linking.openURL(url)
-  }, [])
+  }, [tx?.txid, getTransactionUrl])
 
   return (
     <View>
