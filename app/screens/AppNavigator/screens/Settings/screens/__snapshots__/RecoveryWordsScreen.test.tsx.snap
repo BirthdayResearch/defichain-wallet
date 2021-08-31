@@ -44,11 +44,9 @@ exports[`recovery word screen should match snapshot 1`] = `
     </Text>
     <View
       style={
-        Array [
-          Object {
-            "paddingBottom": 48,
-          },
-        ]
+        Object {
+          "paddingBottom": 48,
+        }
       }
     >
       <View

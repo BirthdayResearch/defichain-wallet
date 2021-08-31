@@ -10,7 +10,10 @@ describe('input icon label', () => {
     it(`should match the output in ${type} screen`, () => {
       const tokenSymbol = 'DFI'
       const component = (
-        <InputIconLabel label={tokenSymbol} screenType={type} />
+        <InputIconLabel
+          label={tokenSymbol}
+          screenType={type}
+        />
       )
       const rendered = render(component)
       expect(rendered.toJSON()).toMatchSnapshot()

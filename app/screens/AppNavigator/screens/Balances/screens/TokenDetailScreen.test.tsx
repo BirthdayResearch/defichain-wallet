@@ -69,7 +69,10 @@ describe('token detail screen', () => {
     const spy = jest.spyOn(navigation, 'navigate')
     const component = (
       <Provider store={store}>
-        <TokenDetailScreen navigation={navigation} route={route} />
+        <TokenDetailScreen
+          navigation={navigation}
+          route={route}
+        />
       </Provider>
     )
     const rendered = render(component)
@@ -110,7 +113,10 @@ describe('token detail screen', () => {
     const spy = jest.spyOn(navigation, 'navigate')
     const component = (
       <Provider store={store}>
-        <TokenDetailScreen navigation={navigation} route={route} />
+        <TokenDetailScreen
+          navigation={navigation}
+          route={route}
+        />
       </Provider>
     )
     const rendered = render(component)
@@ -151,7 +157,10 @@ describe('token detail screen', () => {
     const spy = jest.spyOn(navigation, 'navigate')
     const component = (
       <Provider store={store}>
-        <TokenDetailScreen navigation={navigation} route={route} />
+        <TokenDetailScreen
+          navigation={navigation}
+          route={route}
+        />
       </Provider>
     )
     const rendered = render(component)

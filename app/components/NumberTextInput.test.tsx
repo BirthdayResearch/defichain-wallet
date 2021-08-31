@@ -15,7 +15,11 @@ describe('NumberTextInput', () => {
       (Platform as any).OS = os;
       (Localization as any).decimalSeparator = '.'
       const component = (
-        <NumberTextInput value='123' editable placeholder='Enter an amount' />
+        <NumberTextInput
+          editable
+          placeholder='Enter an amount'
+          value='123'
+        />
       )
       const rendered = render(component)
       expect(rendered.toJSON()).toMatchSnapshot()
@@ -25,7 +29,11 @@ describe('NumberTextInput', () => {
       (Platform as any).OS = os;
       (Localization as any).decimalSeparator = ','
       const component = (
-        <NumberTextInput value='123' editable placeholder='Enter an amount' />
+        <NumberTextInput
+          editable
+          placeholder='Enter an amount'
+          value='123'
+        />
       )
       const rendered = render(component)
       expect(rendered.toJSON()).toMatchSnapshot()
@@ -35,7 +43,11 @@ describe('NumberTextInput', () => {
       (Platform as any).OS = os;
       (Localization as any).decimalSeparator = ' '
       const component = (
-        <NumberTextInput value='123' editable placeholder='Enter an amount' />
+        <NumberTextInput
+          editable
+          placeholder='Enter an amount'
+          value='123'
+        />
       )
       const rendered = render(component)
       expect(rendered.toJSON()).toMatchSnapshot()

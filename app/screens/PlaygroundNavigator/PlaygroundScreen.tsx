@@ -13,9 +13,14 @@ import { PlaygroundWallet } from './sections/PlaygroundWallet'
 
 export function PlaygroundScreen (): JSX.Element {
   return (
-    <ThemedScrollView style={tailwind('pb-16')} contentInsetAdjustmentBehavior='always'>
+    <ThemedScrollView
+      contentInsetAdjustmentBehavior='always'
+      style={tailwind('pb-16')}
+    >
       <PlaygroundConnection />
+
       <PlaygroundWallet />
+
       <PlaygroundWalletSection />
     </ThemedScrollView>
   )
@@ -37,6 +42,7 @@ function PlaygroundWalletSection (): JSX.Element | null {
     <WalletNodeProvider data={wallets[0]}>
       <WalletContextProvider>
         <PlaygroundUTXO />
+
         <PlaygroundToken />
       </WalletContextProvider>
     </WalletNodeProvider>

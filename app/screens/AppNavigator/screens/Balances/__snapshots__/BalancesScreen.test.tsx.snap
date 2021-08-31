@@ -92,19 +92,17 @@ exports[`balances page should match snapshot 1`] = `
               "lineHeight": 24,
             },
             Array [
-              Array [
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                  "fontFamily": "MediumFont",
-                  "fontSize": 12,
-                  "fontWeight": "500",
-                  "lineHeight": 16,
-                  "paddingBottom": 16,
-                  "paddingLeft": 16,
-                  "paddingRight": 16,
-                  "paddingTop": 24,
-                },
-              ],
+              Object {
+                "color": "rgba(115, 115, 115, 1)",
+                "fontFamily": "MediumFont",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 16,
+                "paddingBottom": 16,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "paddingTop": 24,
+              },
               Object {
                 "backgroundColor": "rgba(245, 245, 245, 1)",
                 "color": "rgba(115, 115, 115, 1)",
@@ -148,13 +146,11 @@ exports[`balances page should match snapshot 1`] = `
       >
         <View
           style={
-            Array [
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "flexGrow": 1,
-              },
-            ]
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "flexGrow": 1,
+            }
           }
         >
           <RNSVGSvgView
@@ -240,15 +236,13 @@ exports[`balances page should match snapshot 1`] = `
           </RNSVGSvgView>
           <View
             style={
-              Array [
-                Object {
-                  "flexBasis": "auto",
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "marginLeft": 12,
-                  "marginRight": 12,
-                },
-              ]
+              Object {
+                "flexBasis": "auto",
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "marginLeft": 12,
+                "marginRight": 12,
+              }
             }
           >
             <Text
@@ -305,12 +299,10 @@ exports[`balances page should match snapshot 1`] = `
           </View>
           <View
             style={
-              Array [
-                Object {
-                  "alignItems": "center",
-                  "flexDirection": "row",
-                },
-              ]
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              }
             }
           >
             <Text
@@ -385,13 +377,11 @@ exports[`balances page should match snapshot 1`] = `
       >
         <View
           style={
-            Array [
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "flexGrow": 1,
-              },
-            ]
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "flexGrow": 1,
+            }
           }
         >
           <RNSVGSvgView
@@ -477,15 +467,13 @@ exports[`balances page should match snapshot 1`] = `
           </RNSVGSvgView>
           <View
             style={
-              Array [
-                Object {
-                  "flexBasis": "auto",
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "marginLeft": 12,
-                  "marginRight": 12,
-                },
-              ]
+              Object {
+                "flexBasis": "auto",
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "marginLeft": 12,
+                "marginRight": 12,
+              }
             }
           >
             <Text
@@ -542,12 +530,10 @@ exports[`balances page should match snapshot 1`] = `
           </View>
           <View
             style={
-              Array [
-                Object {
-                  "alignItems": "center",
-                  "flexDirection": "row",
-                },
-              ]
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              }
             }
           >
             <Text
@@ -622,13 +608,11 @@ exports[`balances page should match snapshot 1`] = `
       >
         <View
           style={
-            Array [
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "flexGrow": 1,
-              },
-            ]
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "flexGrow": 1,
+            }
           }
         >
           <RNSVGSvgView
@@ -714,15 +698,13 @@ exports[`balances page should match snapshot 1`] = `
           </RNSVGSvgView>
           <View
             style={
-              Array [
-                Object {
-                  "flexBasis": "auto",
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "marginLeft": 12,
-                  "marginRight": 12,
-                },
-              ]
+              Object {
+                "flexBasis": "auto",
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "marginLeft": 12,
+                "marginRight": 12,
+              }
             }
           >
             <Text
@@ -779,12 +761,10 @@ exports[`balances page should match snapshot 1`] = `
           </View>
           <View
             style={
-              Array [
-                Object {
-                  "alignItems": "center",
-                  "flexDirection": "row",
-                },
-              ]
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              }
             }
           >
             <Text

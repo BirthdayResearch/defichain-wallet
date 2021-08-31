@@ -18,8 +18,8 @@ export function PlaygroundNavigator (): JSX.Element {
     <PlaygroundProvider>
       <PlaygroundStack.Navigator screenOptions={{ headerTitleStyle: HeaderFont, presentation: 'modal' }}>
         <PlaygroundStack.Screen
-          name='PlaygroundScreen'
           component={PlaygroundScreen}
+          name='PlaygroundScreen'
           options={{
             headerTitle: () => <HeaderTitle text='DeFi Testing' />,
             headerBackTitleVisible: false

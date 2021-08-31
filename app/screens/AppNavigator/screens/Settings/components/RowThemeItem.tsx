@@ -13,23 +13,26 @@ export function RowThemeItem (): JSX.Element {
   const [isDark, setIsDark] = useState<boolean>(!isLight)
   return (
     <ThemedView
-      testID='theme_row'
-      style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
-      light={tailwind('bg-white border-b border-gray-200')}
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      light={tailwind('bg-white border-b border-gray-200')}
+      style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
+      testID='theme_row'
     >
       <ThemedText
-        style={tailwind('font-medium')} light={tailwind('text-black')}
         dark={tailwind('text-white text-opacity-90')}
+        light={tailwind('text-black')}
+        style={tailwind('font-medium')}
       >
         {translate('screens/Settings', 'Theme')}
       </ThemedText>
+
       <View style={tailwind('flex-row items-center')}>
         <MaterialCommunityIcons
-          style={tailwind('mr-2 text-gray-300', { 'text-yellow-400': isLight })}
           name='white-balance-sunny'
           size={20}
+          style={tailwind('mr-2 text-gray-300', { 'text-yellow-400': isLight })}
         />
+
         <Switch
           onValueChange={async (v) => {
             const newTheme = v ? 'dark' : 'light'
@@ -37,13 +40,14 @@ export function RowThemeItem (): JSX.Element {
             setIsDark(newTheme === 'dark')
             await ThemePersistence.set(newTheme)
           }}
-          value={isDark}
           testID='theme_switch'
+          value={isDark}
         />
+
         <MaterialCommunityIcons
-          style={tailwind('ml-2 text-gray-300', { 'text-yellow-400': !isLight })}
           name='moon-waning-crescent'
           size={20}
+          style={tailwind('ml-2 text-gray-300', { 'text-yellow-400': !isLight })}
         />
       </View>
     </ThemedView>

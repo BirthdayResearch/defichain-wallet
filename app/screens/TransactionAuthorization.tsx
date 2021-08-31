@@ -59,6 +59,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   const { clearWallets } = useWalletPersistenceContext()
   const { network } = useNetworkContext()
   const whaleApiClient = useWhaleApiClient()
+  const { isLight } = useThemeContext()
 
   // store
   const dispatch = useDispatch()
@@ -244,12 +245,9 @@ export function TransactionAuthorization (): JSX.Element | null {
     return null
   }
 
-  const { isLight } = useThemeContext()
   return (
     <SafeAreaView
-      style={[
-        tailwind('w-full h-full flex-col', `${isLight ? 'bg-white' : 'bg-gray-900'}`)
-      ]}
+      style={tailwind('w-full h-full flex-col', `${isLight ? 'bg-white' : 'bg-gray-900'}`)}
     >
       <View
         style={{
@@ -259,61 +257,80 @@ export function TransactionAuthorization (): JSX.Element | null {
         }}
       >
         <ThemedTouchableOpacity
-          testID='cancel_authorization' style={tailwind('p-4')}
           onPress={onCancel}
+          style={tailwind('p-4')}
+          testID='cancel_authorization'
         >
           <ThemedText
-            light={tailwind('text-primary-500')}
             dark={tailwind('text-darkprimary-500')}
+            light={tailwind('text-primary-500')}
             style={tailwind('font-bold')}
-          >{translate('components/UnlockWallet', 'CANCEL')}
+          >
+            {translate('components/UnlockWallet', 'CANCEL')}
           </ThemedText>
         </ThemedTouchableOpacity>
       </View>
+
       <ThemedView
-        light={tailwind('bg-white')} dark={tailwind('bg-gray-900')}
+        dark={tailwind('bg-gray-900')}
+        light={tailwind('bg-white')}
         style={tailwind('w-full flex-1 flex-col mt-8')}
       >
         <ThemedText
           style={tailwind('text-center text-xl font-bold')}
-        >{translate('screens/UnlockWallet', 'Enter passcode')}
+        >
+          {translate('screens/UnlockWallet', 'Enter passcode')}
         </ThemedText>
+
         <View style={tailwind('p-4 px-8 text-sm text-center mb-6')}>
           <ThemedText
             testID='txn_authorization_message'
-            light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
+            dark={tailwind('text-gray-400')}
+            light={tailwind('text-gray-500')}
             style={tailwind('p-4 px-8 text-sm text-center mb-2')}
-          >{message}
+          >
+            {message}
           </ThemedText>
+
           {
             transaction?.description !== undefined && (
               <ThemedText
                 testID='txn_authorization_description'
-                light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
+                dark={tailwind('text-gray-400')}
+                light={tailwind('text-gray-500')}
                 style={tailwind('text-sm text-center')}
-              >{transaction.description}
+              >
+                {transaction.description}
               </ThemedText>
             )
           }
         </View>
+
         {
           status === 'PIN' && (
             <PinTextInput
-              cellCount={PIN_LENGTH} onChange={(pin) => {
+              cellCount={PIN_LENGTH}
+              onChange={(pin) => {
                 onPinInput(pin)
-              }} value={pin} testID='pin_authorize'
+              }}
+              testID='pin_authorize'
+              value={pin}
             />
           )
         }
+
         <Loading
           message={status === 'SIGNING' ? loadingMessage : undefined}
         />
+
         {// upon retry: show remaining attempt allowed
           (isRetry && attemptsRemaining !== undefined && attemptsRemaining !== MAX_PASSCODE_ATTEMPT)
             ? (
               <ThemedText
-                light={tailwind('text-error-500')} dark={tailwind('text-darkerror-500')} testID='pin_attempt_error'
+                dark={tailwind('text-darkerror-500')}
+                light={tailwind('text-error-500')}
                 style={tailwind('text-center text-sm font-bold mt-5')}
+                testID='pin_attempt_error'
               >
                 {translate('screens/PinConfirmation', `${attemptsRemaining === 1
                   ? 'Last attempt or your wallet will be unlinked for your security'
@@ -322,12 +339,15 @@ export function TransactionAuthorization (): JSX.Element | null {
               )
             : null
         }
+
         {// on first time: warn user there were accumulated error attempt counter
           (!isRetry && attemptsRemaining !== undefined && attemptsRemaining !== MAX_PASSCODE_ATTEMPT)
             ? (
               <ThemedText
-                light={tailwind('text-error-500')} dark={tailwind('text-darkerror-500')} testID='pin_attempt_warning'
+                dark={tailwind('text-darkerror-500')}
+                light={tailwind('text-error-500')}
                 style={tailwind('text-center text-sm font-bold mt-5')}
+                testID='pin_attempt_warning'
               >
                 {translate('screens/PinConfirmation', `${attemptsRemaining === 1
                   ? 'Last attempt or your wallet will be unlinked for your security'
@@ -342,11 +362,16 @@ export function TransactionAuthorization (): JSX.Element | null {
 }
 
 function Loading ({ message }: { message?: string }): JSX.Element | null {
-  if (message === undefined) return null
+  if (message === undefined) {
+    return null
+  }
   return (
     <View style={tailwind('flex-row justify-center p-2')}>
       <ThemedActivityIndicator />
-      <ThemedText style={tailwind('ml-2')}>{message}</ThemedText>
+
+      <ThemedText style={tailwind('ml-2')}>
+        {message}
+      </ThemedText>
     </View>
   )
 }

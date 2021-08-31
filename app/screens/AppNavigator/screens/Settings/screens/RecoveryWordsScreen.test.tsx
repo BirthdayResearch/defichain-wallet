@@ -14,7 +14,10 @@ describe('recovery word screen', () => {
         words: ['bunker', 'layer', 'kid', 'involve', 'flight', 'figure', 'gauge', 'ticket', 'final', 'beach', 'basic', 'aspect', 'exit', 'slow', 'high', 'aerobic', 'sister', 'device', 'bullet', 'twin', 'profit', 'scale', 'sell', 'find']
       }
     }
-    const rendered = render(<RecoveryWordsScreen route={route} navigation={navigation} />)
+    const rendered = render(<RecoveryWordsScreen
+      navigation={navigation}
+      route={route}
+                            />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })

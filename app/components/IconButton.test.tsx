@@ -11,10 +11,14 @@ describe('icon button', () => {
   buttonName.forEach(name => {
     it(`should match snapshot of button with ${name} icon`, async () => {
       const onPress = jest.fn()
-      const rendered = render(<IconButton
-        testID='test' onPress={onPress} iconType='MaterialIcons' iconName={name}
-        iconSize={24}
-                              />)
+      const rendered = render(
+        <IconButton
+          iconName={name}
+          iconSize={24}
+          iconType='MaterialIcons'
+          onPress={onPress}
+          testID='test'
+        />)
       expect(rendered.toJSON()).toMatchSnapshot()
     })
   })

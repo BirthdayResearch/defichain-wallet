@@ -10,7 +10,10 @@ describe('barcode scanner', () => {
     }
     const route: any = {}
     const component = (
-      <BarCodeScanner navigation={navigation} route={route} />
+      <BarCodeScanner
+        navigation={navigation}
+        route={route}
+      />
     )
     const rendered = render(component)
     expect(rendered.toJSON()).toMatchSnapshot()

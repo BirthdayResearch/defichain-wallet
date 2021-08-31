@@ -68,34 +68,42 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
   return (
     <ThemedScrollView style={tailwind('pb-4')}>
       <SummaryTitle
-        title={translate('screens/ConvertConfirmScreen', 'YOU ARE CONVERTING')}
-        testID='text_convert_amount' amount={amount}
+        amount={amount}
         suffix={` ${mode === 'utxosToAccount' ? 'DFI (UTXO)' : 'DFI (Token)'}`}
+        testID='text_convert_amount'
+        title={translate('screens/ConvertConfirmScreen', 'YOU ARE CONVERTING')}
       />
+
       <SectionTitle
-        text={translate('screens/ConvertConfirmScreen', 'AFTER CONVERSION, YOU WILL HAVE:')}
         testID='title_conversion_detail'
+        text={translate('screens/ConvertConfirmScreen', 'AFTER CONVERSION, YOU WILL HAVE:')}
       />
+
       <TokenBalanceRow
         iconType={sourceUnit === 'UTXO' ? '_UTXO' : 'DFI'}
         lhs={translate('screens/ConvertConfirmScreen', sourceUnit)}
         rhs={{ value: sourceBalance.toFixed(8), testID: 'source_amount' }}
       />
+
       <TokenBalanceRow
         iconType={targetUnit === 'UTXO' ? '_UTXO' : 'DFI'}
         lhs={translate('screens/ConvertConfirmScreen', targetUnit)}
         rhs={{ value: targetBalance.toFixed(8), testID: 'target_amount' }}
       />
+
       <View style={tailwind('mt-4')}>
         <NumberRow
           lhs={translate('screens/ConvertConfirmScreen', 'Estimated fee')}
           rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
         />
       </View>
+
       <SubmitButtonGroup
-        onSubmit={onSubmit} onCancel={onCancel} title='convert'
-        label={translate('screens/ConvertConfirmScreen', 'CONVERT')}
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        label={translate('screens/ConvertConfirmScreen', 'CONVERT')}
+        onCancel={onCancel}
+        onSubmit={onSubmit}
+        title='convert'
       />
     </ThemedScrollView>
   )

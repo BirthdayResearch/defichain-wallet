@@ -23,11 +23,17 @@ export function ThemedIcon (props: ThemedIconProps): JSX.Element {
     ...otherProps
   } = props
   if (iconType === 'MaterialIcons') {
-    return <MaterialIcons style={[style, isLight ? light : dark]} {...otherProps} />
+    return (
+      <MaterialIcons
+        style={[style, isLight ? light : dark]}
+        {...otherProps}
+      />
+    )
   } else if (iconType === 'MaterialCommunityIcons') {
     return (
       <MaterialCommunityIcons
-        style={[style, isLight ? light : dark]} {...otherProps}
+        style={[style, isLight ? light : dark]}
+        {...otherProps}
       />
     )
   } else {

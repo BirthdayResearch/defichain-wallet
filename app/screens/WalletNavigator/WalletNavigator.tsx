@@ -63,66 +63,80 @@ export function WalletNavigator (): JSX.Element {
   const navigationRef = React.useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null)
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
   return (
-    <NavigationContainer linking={LinkingConfiguration} ref={navigationRef} theme={DeFiChainTheme}>
-      <WalletStack.Navigator initialRouteName='Setup' screenOptions={{ headerTitleStyle: HeaderFont }}>
+    <NavigationContainer
+      linking={LinkingConfiguration}
+      ref={navigationRef}
+      theme={DeFiChainTheme}
+    >
+      <WalletStack.Navigator
+        initialRouteName='Setup'
+        screenOptions={{ headerTitleStyle: HeaderFont }}
+      >
         <WalletStack.Screen
-          name='Onboarding'
           component={Onboarding}
+          name='Onboarding'
           options={{
             headerShown: false
           }}
         />
+
         <WalletStack.Screen
-          name='CreateWalletGuidelines'
           component={CreateWalletGuidelines}
+          name='CreateWalletGuidelines'
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Guidelines')} />,
             headerBackTitleVisible: false
           }}
         />
+
         <WalletStack.Screen
-          name='GuidelinesRecoveryWords'
           component={GuidelinesRecoveryWords}
+          name='GuidelinesRecoveryWords'
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Learn More')} />,
             headerBackTitleVisible: false
           }}
         />
+
         <WalletStack.Screen
-          name='CreateMnemonicWallet'
           component={CreateMnemonicWallet}
+          name='CreateMnemonicWallet'
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Display recovery words')} />,
             headerBackTitleVisible: false
           }}
         />
+
         <WalletStack.Screen
-          name='VerifyMnemonicWallet'
           component={VerifyMnemonicWallet}
+          name='VerifyMnemonicWallet'
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Verify words')} />,
             headerBackTitleVisible: false
           }}
         />
+
         <WalletStack.Screen
-          name='RestoreMnemonicWallet'
           component={RestoreMnemonicWallet}
+          name='RestoreMnemonicWallet'
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Restore Wallet')} />,
             headerBackTitleVisible: false
           }}
         />
+
         <WalletStack.Screen
-          name='PinCreation'
           component={PinCreation}
+          name='PinCreation'
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Create a passcode')} />,
             headerBackTitleVisible: false
           }}
         />
+
         <WalletStack.Screen
-          name='PinConfirmation'
           component={PinConfirmation}
+          name='PinConfirmation'
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Verify passcode')} />,
             headerBackTitleVisible: false

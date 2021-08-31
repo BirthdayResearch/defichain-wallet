@@ -16,9 +16,12 @@ interface InputIconLabelProps {
 export function InputIconLabel (props: InputIconLabelProps): JSX.Element {
   return (
     <ThemedText
-      testID={props.testID} light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
+      dark={tailwind('text-gray-400')}
+      light={tailwind('text-gray-500')}
       style={tailwind('ml-2 text-right')}
-    >{getSymbolLabel(props.label, props.screenType)}
+      testID={props.testID}
+    >
+      {getSymbolLabel(props.label, props.screenType)}
     </ThemedText>
   )
 }

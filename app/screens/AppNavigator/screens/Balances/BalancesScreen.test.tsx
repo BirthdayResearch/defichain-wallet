@@ -75,7 +75,10 @@ describe('balances page', () => {
     const route: any = {}
     const component = (
       <Provider store={store}>
-        <BalancesScreen navigation={navigation} route={route} />
+        <BalancesScreen
+          navigation={navigation}
+          route={route}
+        />
       </Provider>
     )
     const rendered = render(component)
@@ -127,7 +130,10 @@ describe('balances page', () => {
     const spy = jest.spyOn(navigation, 'navigate')
     const component = (
       <Provider store={store}>
-        <BalancesScreen navigation={navigation} route={route} />
+        <BalancesScreen
+          navigation={navigation}
+          route={route}
+        />
       </Provider>
     )
     const rendered = render(component)

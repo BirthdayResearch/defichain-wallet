@@ -52,15 +52,27 @@ export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Eleme
           key={i * 2}
           style={tailwind(`h-1 flex-grow mt-3.5 ${iconStyle}`)}
         />)
-      arr.push(<StepNode key={i * 2 + 1} step={i + 1} current={current} content={steps[i]} isLight={isLight} />)
+      arr.push(<StepNode
+        content={steps[i]}
+        current={current}
+        isLight={isLight}
+        key={i * 2 + 1}
+        step={i + 1}
+               />)
     }
     return arr
   }
 
   return (
     <View style={[tailwind('flex-col justify-center items-center w-full'), containerViewStyle]}>
-      <View style={[tailwind('flex-row justify-center w-9/12 h-14')]}>
-        <StepNode step={1} current={current} content={steps[0]} isLight={isLight} />
+      <View style={tailwind('flex-row justify-center w-9/12 h-14')}>
+        <StepNode
+          content={steps[0]}
+          current={current}
+          isLight={isLight}
+          step={1}
+        />
+
         {following()}
       </View>
     </View>
@@ -92,8 +104,15 @@ function StepNode (props: { step: number, current: number, content: string, isLi
       <View
         style={tailwind(`h-8 w-8 rounded-2xl justify-center items-center relative ${stepperStyle}`)}
       >
-        <Text style={tailwind(`${textStyle} font-medium absolute`)}>{props.step}</Text>
-        <Description step={props.step} current={props.current} content={props.content} />
+        <Text style={tailwind(`${textStyle} font-medium absolute`)}>
+          {props.step}
+        </Text>
+
+        <Description
+          content={props.content}
+          current={props.current}
+          step={props.step}
+        />
       </View>
     </View>
   )
@@ -102,11 +121,9 @@ function StepNode (props: { step: number, current: number, content: string, isLi
 function Description (props: { step: number, current: number, content: string }): JSX.Element {
   return (
     <ThemedText
-      light={tailwind(props.current === props.step ? 'text-primary-500' : 'text-gray-500')}
       dark={tailwind(props.current === props.step ? 'text-darkprimary-400' : 'text-gray-400')}
-      style={[
-        tailwind('text-center text-sm font-medium top-9 absolute w-20')
-      ]}
+      light={tailwind(props.current === props.step ? 'text-primary-500' : 'text-gray-500')}
+      style={tailwind('text-center text-sm font-medium top-9 absolute w-20')}
     >
       {props.content}
     </ThemedText>

@@ -13,17 +13,18 @@ export function PlaygroundWallet (): JSX.Element | null {
 
   return (
     <View>
-      <PlaygroundTitle title='Wallet' status={{ online: wallets.length > 0, offline: wallets.length === 0 }} />
-
-      <PlaygroundAction
-        testID='playground_wallet_clear'
-        title='Clear stored mnemonic seed'
-        onPress={clearWallets}
+      <PlaygroundTitle
+        status={{ online: wallets.length > 0, offline: wallets.length === 0 }}
+        title='Wallet'
       />
 
       <PlaygroundAction
-        testID='playground_wallet_abandon'
-        title='Setup an unprotected wallet with abandon x23 + art as the 24 word'
+        onPress={clearWallets}
+        testID='playground_wallet_clear'
+        title='Clear stored mnemonic seed'
+      />
+
+      <PlaygroundAction
         onPress={async () => {
           await updateNetwork(network)
           const data = await MnemonicUnprotected.toData([
@@ -31,11 +32,11 @@ export function PlaygroundWallet (): JSX.Element | null {
           ], network)
           await setWallet(data)
         }}
+        testID='playground_wallet_abandon'
+        title='Setup an unprotected wallet with abandon x23 + art as the 24 word'
       />
 
       <PlaygroundAction
-        testID='playground_wallet_abandon_encrypted'
-        title='Setup an encrypted wallet with abandon x23 + art as the 24 word with 000000 passcode'
         onPress={async () => {
           await updateNetwork(network)
           const data = await MnemonicEncrypted.toData([
@@ -43,11 +44,11 @@ export function PlaygroundWallet (): JSX.Element | null {
           ], network, '000000')
           await setWallet(data)
         }}
+        testID='playground_wallet_abandon_encrypted'
+        title='Setup an encrypted wallet with abandon x23 + art as the 24 word with 000000 passcode'
       />
 
       <PlaygroundAction
-        testID='playground_wallet_random'
-        title='Setup an encrypted wallet with a random seed using 000000 passcode'
         onPress={async () => {
           await updateNetwork(network)
           const words = MnemonicUnprotected.generateWords()
@@ -55,6 +56,8 @@ export function PlaygroundWallet (): JSX.Element | null {
           await setWallet(encrypted)
           await MnemonicStorage.set(words, '000000')
         }}
+        testID='playground_wallet_random'
+        title='Setup an encrypted wallet with a random seed using 000000 passcode'
       />
     </View>
   )

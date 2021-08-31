@@ -9,7 +9,10 @@ describe('create wallet guidelines', () => {
       navigate: jest.fn()
     }
     const route: any = {}
-    const rendered = render(<CreateWalletGuidelines navigation={navigation} route={route} />)
+    const rendered = render(<CreateWalletGuidelines
+      navigation={navigation}
+      route={route}
+                            />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })
