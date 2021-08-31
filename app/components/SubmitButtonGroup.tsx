@@ -21,18 +21,21 @@ export function SubmitButtonGroup ({
   return (
     <View>
       <Button
-        testID={`button_confirm_${title}`}
         disabled={isDisabled}
         label={label}
-        title={title} onPress={onSubmit}
+        onPress={onSubmit}
+        testID={`button_confirm_${title}`}
+        title={title}
       />
+
       <Button
-        testID={`button_cancel_${title}`}
         disabled={isDisabled}
-        label={translate('screens/common', 'CANCEL')}
-        title='cancel' onPress={onCancel}
         fill='flat'
+        label={translate('screens/common', 'CANCEL')}
         margin='m-4 mt-0'
+        onPress={onCancel}
+        testID={`button_cancel_${title}`}
+        title='cancel'
       />
     </View>
   )

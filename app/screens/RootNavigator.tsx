@@ -25,6 +25,7 @@ export function RootNavigator (): JSX.Element {
     <WalletNodeProvider data={wallets[0]}>
       <WalletContextProvider>
         <TransactionAuthorization />
+
         <AppNavigator />
       </WalletContextProvider>
     </WalletNodeProvider>

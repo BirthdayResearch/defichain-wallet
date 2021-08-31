@@ -98,19 +98,17 @@ exports[`token detail screen should accept DST 1`] = `
             "lineHeight": 24,
           },
           Array [
-            Array [
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-                "fontFamily": "MediumFont",
-                "fontSize": 12,
-                "fontWeight": "500",
-                "lineHeight": 16,
-                "paddingBottom": 16,
-                "paddingLeft": 16,
-                "paddingRight": 16,
-                "paddingTop": 24,
-              },
-            ],
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+              "fontFamily": "MediumFont",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 24,
+            },
             Object {
               "backgroundColor": "rgba(245, 245, 245, 1)",
               "color": "rgba(115, 115, 115, 1)",
@@ -428,19 +426,17 @@ exports[`token detail screen should accept Token DFI 1`] = `
             "lineHeight": 24,
           },
           Array [
-            Array [
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-                "fontFamily": "MediumFont",
-                "fontSize": 12,
-                "fontWeight": "500",
-                "lineHeight": 16,
-                "paddingBottom": 16,
-                "paddingLeft": 16,
-                "paddingRight": 16,
-                "paddingTop": 24,
-              },
-            ],
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+              "fontFamily": "MediumFont",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 24,
+            },
             Object {
               "backgroundColor": "rgba(245, 245, 245, 1)",
               "color": "rgba(115, 115, 115, 1)",
@@ -656,19 +652,17 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
             "lineHeight": 24,
           },
           Array [
-            Array [
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-                "fontFamily": "MediumFont",
-                "fontSize": 12,
-                "fontWeight": "500",
-                "lineHeight": 16,
-                "paddingBottom": 16,
-                "paddingLeft": 16,
-                "paddingRight": 16,
-                "paddingTop": 24,
-              },
-            ],
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+              "fontFamily": "MediumFont",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 24,
+            },
             Object {
               "backgroundColor": "rgba(245, 245, 245, 1)",
               "color": "rgba(115, 115, 115, 1)",

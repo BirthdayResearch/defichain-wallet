@@ -22,24 +22,30 @@ export function SlippageTolerance ({
 
   return (
     <>
-      <SectionTitle text={translate('screens/SlippageTolerance', 'SLIPPAGE TOLERANCE')} testID='title_slippage' />
+      <SectionTitle
+        testID='title_slippage'
+        text={translate('screens/SlippageTolerance', 'SLIPPAGE TOLERANCE')}
+      />
+
       <ThemedView
-        style={tailwind('flex-row p-4')} light={tailwind('bg-white border-b border-gray-200')}
         dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        light={tailwind('bg-white border-b border-gray-200')}
+        style={tailwind('flex-row p-4')}
       >
         {
           percentageList.map((p) => (
             <TouchableOpacity
-              testID={`slippage_${p.label}`}
               key={p.label}
-              style={tailwind(`${buttonStyles} ${slippage === p.amount ? activeStyle : ''}`)}
               onPress={() => onSetSlippage(p.amount)}
+              style={tailwind(`${buttonStyles} ${slippage === p.amount ? activeStyle : ''}`)}
+              testID={`slippage_${p.label}`}
             >
               <ThemedText
-                light={tailwind(`${slippage === p.amount ? 'text-white' : ''}`)}
                 dark={tailwind(`${slippage === p.amount ? 'text-gray-200' : ''}`)}
+                light={tailwind(`${slippage === p.amount ? 'text-white' : ''}`)}
                 style={tailwind('font-medium text-primary-500')}
-              >{p.label}
+              >
+                {p.label}
               </ThemedText>
             </TouchableOpacity>
           ))

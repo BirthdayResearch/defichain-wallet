@@ -25,15 +25,16 @@ export function TransactionsNavigator (): JSX.Element {
       screenOptions={{ headerTitleStyle: HeaderFont }}
     >
       <TransactionsStack.Screen
-        name='TransactionsScreen'
         component={TransactionsScreen}
+        name='TransactionsScreen'
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/TransactionsScreen', 'Transactions')} />
         }}
       />
+
       <TransactionsStack.Screen
-        name='TransactionDetail'
         component={TransactionDetailScreen}
+        name='TransactionDetail'
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/TransactionsDetailScreen', 'Transaction')} />,
           headerBackTitleVisible: false

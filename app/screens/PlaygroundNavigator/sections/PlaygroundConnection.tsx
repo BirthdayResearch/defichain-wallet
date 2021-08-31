@@ -15,19 +15,35 @@ export function PlaygroundConnection (): JSX.Element {
 
   return (
     <View>
-      <PlaygroundTitle title='Connection' status={{ online: connected, offline: !connected }} />
+      <PlaygroundTitle
+        status={{ online: connected, offline: !connected }}
+        title='Connection'
+      />
 
-      <ThemedView style={tailwind('px-4 py-4')} light={tailwind('bg-white')} dark={tailwind('bg-gray-800')}>
+      <ThemedView
+        dark={tailwind('bg-gray-800')}
+        light={tailwind('bg-white')}
+        style={tailwind('px-4 py-4')}
+      >
         <Text>
           <ThemedText style={tailwind('font-medium')}>
             Network:
           </ThemedText>
+
           <ThemedText
             testID='playground_active_network'
-          > {network}
+          >
+            {' '}
+
+            {network}
           </ThemedText>
         </Text>
-        <ThemedText>Blocks: {count === 0 ? '...' : count}</ThemedText>
+
+        <ThemedText>
+          Blocks:
+          {count === 0 ? '...' : count}
+        </ThemedText>
+
         {
           isPlayground(network) && (
             <ThemedText style={tailwind('mt-2 text-sm')}>

@@ -46,17 +46,7 @@ export function DexScreen (): JSX.Element {
 
   return (
     <ThemedSectionList
-      testID='liquidity_screen_list'
-      sections={[
-        {
-          key: SectionKey.YourLiquidity,
-          data: yourLPTokens as Array<DexItem<any>>
-        },
-        {
-          key: SectionKey.AvailablePoolPair,
-          data: pairs
-        }
-      ]}
+      keyExtractor={(item, index) => `${index}`}
       renderItem={({ item }): JSX.Element => {
         const poolPairData = pairs.find(pr => pr.data.symbol === (item.data as AddressToken).symbol)
         switch (item.type) {
@@ -86,13 +76,17 @@ export function DexScreen (): JSX.Element {
           case SectionKey.YourLiquidity:
             if (!isEmpty(section.data)) {
               return (
-                <SectionTitle text={translate('screens/DexScreen', section.key)} testID='liq_title' />
+                <SectionTitle
+                  testID='liq_title'
+                  text={translate('screens/DexScreen', section.key)}
+                />
               )
             }
             return (
               <ThemedView
-                style={tailwind('px-4 pt-4 pb-2')} light={tailwind('bg-gray-100')}
                 dark={tailwind('bg-gray-900')}
+                light={tailwind('bg-gray-100')}
+                style={tailwind('px-4 pt-4 pb-2')}
               >
                 <ThemedText style={tailwind('text-base font-medium')}>
                   {
@@ -104,15 +98,32 @@ export function DexScreen (): JSX.Element {
           case SectionKey.AvailablePoolPair:
             return (
               <>
-                <SectionTitle text={translate('screens/DexScreen', section.key)} testID={section.key} />
-                {isEmpty(section.data) && <SkeletonLoader row={3} screen={SkeletonLoaderScreen.Dex} />}
+                <SectionTitle
+                  testID={section.key}
+                  text={translate('screens/DexScreen', section.key)}
+                />
+
+                {isEmpty(section.data) && <SkeletonLoader
+                  row={3}
+                  screen={SkeletonLoaderScreen.Dex}
+                                          />}
               </>
             )
           default:
             return <></>
         }
       }}
-      keyExtractor={(item, index) => `${index}`}
+      sections={[
+        {
+          key: SectionKey.YourLiquidity,
+          data: yourLPTokens as Array<DexItem<any>>
+        },
+        {
+          key: SectionKey.AvailablePoolPair,
+          data: pairs
+        }
+      ]}
+      testID='liquidity_screen_list'
     />
   )
 }
@@ -139,33 +150,67 @@ function PoolPairRowYour ({
 
   return (
     <ThemedView
-      testID='pool_pair_row_your' style={tailwind('p-4')} light={tailwind('bg-white border-b border-gray-200')}
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      light={tailwind('bg-white border-b border-gray-200')}
+      style={tailwind('p-4')}
+      testID='pool_pair_row_your'
     >
       <View style={tailwind('flex-row items-center justify-between')}>
         <View style={tailwind('flex-row items-center')}>
-          <IconA width={32} height={32} />
-          <IconB width={32} height={32} style={tailwind('-ml-3 mr-3')} />
-          <ThemedText style={tailwind('text-lg font-bold')}>{data.symbol}</ThemedText>
+          <IconA
+            height={32}
+            width={32}
+          />
+
+          <IconB
+            height={32}
+            style={tailwind('-ml-3 mr-3')}
+            width={32}
+          />
+
+          <ThemedText style={tailwind('text-lg font-bold')}>
+            {data.symbol}
+          </ThemedText>
         </View>
+
         <View style={tailwind('flex-row -mr-3')}>
-          <PoolPairLiqBtn name='add' onPress={onAdd} pair={data.symbol} />
-          <PoolPairLiqBtn name='remove' onPress={onRemove} pair={data.symbol} />
+          <PoolPairLiqBtn
+            name='add'
+            onPress={onAdd}
+            pair={data.symbol}
+          />
+
+          <PoolPairLiqBtn
+            name='remove'
+            onPress={onRemove}
+            pair={data.symbol}
+          />
         </View>
       </View>
 
       <View style={tailwind('mt-4')}>
         <PoolPairInfoLine
-          symbol={data.symbol} reserve={data.amount} row='your' decimalScale={8}
+          decimalScale={8}
+          reserve={data.amount}
+          row='your'
+          symbol={data.symbol}
         />
+
         {
           pair !== undefined && (
             <>
               <PoolPairInfoLine
-                symbol={symbolA} reserve={tokenATotal.toFixed(8)} row='tokenA' decimalScale={8}
+                decimalScale={8}
+                reserve={tokenATotal.toFixed(8)}
+                row='tokenA'
+                symbol={symbolA}
               />
+
               <PoolPairInfoLine
-                symbol={symbolB} reserve={tokenBTotal.toFixed(8)} row='tokenB' decimalScale={8}
+                decimalScale={8}
+                reserve={tokenBTotal.toFixed(8)}
+                row='tokenB'
+                symbol={symbolB}
               />
             </>
           )
@@ -186,36 +231,69 @@ function PoolPairRowAvailable ({
 
   return (
     <ThemedView
-      testID='pool_pair_row' style={tailwind('p-4')} light={tailwind('bg-white border-b border-gray-200')}
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      light={tailwind('bg-white border-b border-gray-200')}
+      style={tailwind('p-4')}
+      testID='pool_pair_row'
     >
       <View style={tailwind('flex-row items-center justify-between')}>
         <View style={tailwind('flex-row items-center')}>
-          <IconA width={32} height={32} />
-          <IconB width={32} height={32} style={tailwind('-ml-3 mr-3')} />
+          <IconA
+            height={32}
+            width={32}
+          />
+
+          <IconB
+            height={32}
+            style={tailwind('-ml-3 mr-3')}
+            width={32}
+          />
+
           <ThemedText
-            testID={`your_symbol_${symbolA}-${symbolB}`}
             style={tailwind('text-lg font-bold')}
-          >{data.symbol}
+            testID={`your_symbol_${symbolA}-${symbolB}`}
+          >
+            {data.symbol}
           </ThemedText>
         </View>
 
         <View style={tailwind('flex-row -mr-2')}>
-          <PoolPairLiqBtn name='add' onPress={onAdd} pair={data.symbol} />
-          <PoolPairLiqBtn name='swap-horiz' onPress={onSwap} pair={data.symbol} />
+          <PoolPairLiqBtn
+            name='add'
+            onPress={onAdd}
+            pair={data.symbol}
+          />
+
+          <PoolPairLiqBtn
+            name='swap-horiz'
+            onPress={onSwap}
+            pair={data.symbol}
+          />
         </View>
       </View>
 
       <View style={tailwind('mt-4')}>
         {
           data.apr?.total !== undefined &&
-            <PoolPairAPR symbol={`${symbolA}-${symbolB}`} apr={data.apr.total} row='apr' />
+            <PoolPairAPR
+              apr={data.apr.total}
+              row='apr'
+              symbol={`${symbolA}-${symbolB}`}
+            />
         }
+
         <PoolPairInfoLine
-          symbol={symbolA} reserve={data.tokenA.reserve} row='available' decimalScale={2}
+          decimalScale={2}
+          reserve={data.tokenA.reserve}
+          row='available'
+          symbol={symbolA}
         />
+
         <PoolPairInfoLine
-          symbol={symbolB} reserve={data.tokenB.reserve} row='available' decimalScale={2}
+          decimalScale={2}
+          reserve={data.tokenB.reserve}
+          row='available'
+          symbol={symbolB}
         />
       </View>
     </ThemedView>
@@ -225,12 +303,12 @@ function PoolPairRowAvailable ({
 function PoolPairLiqBtn (props: { name: React.ComponentProps<typeof MaterialIcons>['name'], pair: string, onPress: () => void }): JSX.Element {
   return (
     <IconButton
-      testID={`pool_pair_${props.name}_${props.pair}`}
-      onPress={props.onPress}
-      iconType='MaterialIcons'
       iconName={props.name}
       iconSize={24}
+      iconType='MaterialIcons'
+      onPress={props.onPress}
       style={tailwind('mr-2')}
+      testID={`pool_pair_${props.name}_${props.pair}`}
     />
   )
 }
@@ -239,22 +317,29 @@ function PoolPairInfoLine (props: { symbol: string, reserve: string, row: string
   return (
     <View style={tailwind('flex-row justify-between')}>
       <ThemedText
-        light={tailwind('text-black')} dark={tailwind('text-gray-400')}
+        dark={tailwind('text-gray-400')}
+        light={tailwind('text-black')}
         style={tailwind('text-sm font-medium mb-1')}
-      >{translate('screens/DexScreen', 'Pooled {{symbol}}', { symbol: props.symbol })}
+      >
+        {translate('screens/DexScreen', 'Pooled {{symbol}}', { symbol: props.symbol })}
       </ThemedText>
+
       <NumberFormat
-        suffix={` ${props.symbol}`}
-        value={props.reserve} decimalScale={props.decimalScale} thousandSeparator displayType='text'
+        decimalScale={props.decimalScale}
+        displayType='text'
         renderText={value => {
           return (
             <ThemedText
-              testID={`${props.row}_${props.symbol}`}
               style={tailwind('text-sm')}
-            >{value}
+              testID={`${props.row}_${props.symbol}`}
+            >
+              {value}
             </ThemedText>
           )
         }}
+        suffix={` ${props.symbol}`}
+        thousandSeparator
+        value={props.reserve}
       />
     </View>
   )
@@ -264,23 +349,29 @@ function PoolPairAPR (props: { symbol: string, apr: number, row: string }): JSX.
   return (
     <View style={tailwind('flex-row justify-between items-end')}>
       <ThemedText
-        light={tailwind('text-black')} dark={tailwind('text-gray-400')}
+        dark={tailwind('text-gray-400')}
+        light={tailwind('text-black')}
         style={tailwind('text-sm font-medium mb-1')}
-      >{translate('screens/DexScreen', 'APR')}
+      >
+        {translate('screens/DexScreen', 'APR')}
       </ThemedText>
+
       <NumberFormat
-        suffix='%'
-        value={new BigNumber(isNaN(props.apr) ? 0 : props.apr).times(100).toFixed(2)} decimalScale={2} thousandSeparator
+        decimalScale={2}
         displayType='text'
         renderText={value => {
           return (
             <ThemedText
-              testID={`${props.row}_${props.symbol}`}
               style={tailwind('text-xl')}
-            >{value}
+              testID={`${props.row}_${props.symbol}`}
+            >
+              {value}
             </ThemedText>
           )
         }}
+        suffix='%'
+        thousandSeparator
+        value={new BigNumber(isNaN(props.apr) ? 0 : props.apr).times(100).toFixed(2)}
       />
     </View>
   )

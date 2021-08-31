@@ -14,5 +14,10 @@ export function ThemedTouchableOpacity (props: ThemedTouchableOpacityProps): JSX
     dark = tailwind('bg-gray-800 border-b border-gray-700'),
     ...otherProps
   } = props
-  return <TouchableOpacity style={[style, isLight ? light : dark]} {...otherProps} />
+  return (
+    <TouchableOpacity
+      style={[style, isLight ? light : dark]}
+      {...otherProps}
+    />
+  )
 }

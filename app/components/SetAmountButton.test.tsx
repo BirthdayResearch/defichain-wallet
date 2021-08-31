@@ -12,7 +12,11 @@ describe('set amount button', () => {
     it(`should match styling of set amount button type ${type}`, () => {
       const onPress = jest.fn()
       const component = (
-        <SetAmountButton type={type} amount={buttonAmount} onPress={onPress} />
+        <SetAmountButton
+          amount={buttonAmount}
+          onPress={onPress}
+          type={type}
+        />
       )
       const rendered = render(component)
       expect(rendered.toJSON()).toMatchSnapshot()

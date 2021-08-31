@@ -11,12 +11,16 @@ export function NetworkSelectionScreen (): JSX.Element {
   return (
     <View testID='network_selection_screen'>
       <SectionTitle
-        text={translate('screens/NetworkSelectionScreen', 'NETWORK')}
         testID='network_selection_screen_title'
+        text={translate('screens/NetworkSelectionScreen', 'NETWORK')}
       />
+
       {
         networks.map((network, index) => (
-          <RowNetworkItem key={index} network={network} />
+          <RowNetworkItem
+            key={index}
+            network={network}
+          />
         ))
       }
     </View>

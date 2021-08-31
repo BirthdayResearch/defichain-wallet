@@ -9,7 +9,10 @@
   ],
   "extends": [
     "standard-with-typescript",
-    "standard-jsx"
+    "standard-jsx",
+    "plugin:react/recommended",
+    "plugin:react-native/all",
+    "plugin:react-hooks/recommended"
   ],
   "ignorePatterns": [
     "*.json",
@@ -39,7 +42,11 @@
             "before": true,
             "after": true
           }
-        ]
+        ],
+        "react-native/no-inline-styles": "warn",
+        "react-native/no-color-literals": "warn",
+        "react/display-name": "off",
+        "react-native/no-raw-text": "warn"
       },
       "excludedFiles": [
         "*.test.ts",

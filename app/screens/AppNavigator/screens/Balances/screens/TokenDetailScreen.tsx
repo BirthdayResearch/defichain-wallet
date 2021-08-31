@@ -33,39 +33,47 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
   return (
     <ThemedScrollView>
       <SummaryTitle
+        amount={new BigNumber(token.amount)}
+        suffix={` ${token.symbol}`}
+        testID='token_detail_amount'
         title={translate('screens/TokenDetailScreen', 'AMOUNT BALANCE')}
-        amount={new BigNumber(token.amount)} suffix={` ${token.symbol}`} testID='token_detail_amount'
       />
+
       <SectionTitle
-        text={translate('screens/TokenDetailScreen', 'AVAILABLE OPTIONS')}
         testID='title_available_options'
+        text={translate('screens/TokenDetailScreen', 'AVAILABLE OPTIONS')}
       />
+
       {
         token.id !== '0' && (
           <>
             <TokenActionRow
-              testID='send_button'
-              title={translate('screens/TokenDetailScreen', 'Send to other wallet')} icon='arrow-upward'
+              icon='arrow-upward'
               onPress={() => navigation.navigate({ name: 'Send', params: { token }, merge: true })}
+              testID='send_button'
+              title={translate('screens/TokenDetailScreen', 'Send to other wallet')}
             />
+
             <TokenActionRow
-              testID='receive_button'
-              title={`${translate('screens/TokenDetailScreen', 'Receive')} ${token.displaySymbol}`}
               icon='arrow-downward'
               onPress={() => navigation.navigate('Receive')}
+              testID='receive_button'
+              title={`${translate('screens/TokenDetailScreen', 'Receive')} ${token.displaySymbol}`}
             />
           </>
         )
       }
+
       {
         token.symbol === 'DFI' && (
           <TokenActionRow
-            testID='convert_button'
-            title={`${translate('screens/TokenDetailScreen', 'Convert to {{symbol}}', { symbol: `${token.id === '0_utxo' ? 'Token' : 'UTXO'}` })}`}
-            icon='swap-vert' onPress={() => {
+            icon='swap-vert'
+            onPress={() => {
               const mode: ConversionMode = token.id === '0_utxo' ? 'utxosToAccount' : 'accountToUtxos'
               navigation.navigate({ name: 'Convert', params: { mode }, merge: true })
             }}
+            testID='convert_button'
+            title={`${translate('screens/TokenDetailScreen', 'Convert to {{symbol}}', { symbol: `${token.id === '0_utxo' ? 'Token' : 'UTXO'}` })}`}
           />
         )
       }
@@ -76,17 +84,27 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
 function TokenActionRow ({ title, icon, onPress, testID }: TokenActionItems): JSX.Element {
   return (
     <ThemedTouchableOpacity
-      testID={testID} onPress={onPress}
+      onPress={onPress}
       style={tailwind('flex-row py-4 pl-4 pr-2 bg-white border-b border-gray-200')}
+      testID={testID}
     >
       <ThemedIcon
-        iconType='MaterialIcons' name={icon} size={24} light={tailwind('text-primary-500')}
         dark={tailwind('text-darkprimary-500')}
+        iconType='MaterialIcons'
+        light={tailwind('text-primary-500')}
+        name={icon}
+        size={24}
       />
+
       <ThemedText style={tailwind('flex-grow ml-2')}>
         {title}
       </ThemedText>
-      <ThemedIcon iconType='MaterialIcons' name='chevron-right' size={24} />
+
+      <ThemedIcon
+        iconType='MaterialIcons'
+        name='chevron-right'
+        size={24}
+      />
     </ThemedTouchableOpacity>
   )
 }

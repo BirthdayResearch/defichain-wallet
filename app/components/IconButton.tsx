@@ -15,16 +15,16 @@ interface IconButtonProps extends TouchableOpacityProps {
 export function IconButton (props: IconButtonProps): JSX.Element {
   return (
     <ThemedTouchableOpacity
-      light={tailwind('border border-gray-300 rounded bg-white')}
       dark={tailwind('border border-gray-400 rounded bg-gray-900')}
-      style={[tailwind('p-1'), props.style]}
+      light={tailwind('border border-gray-300 rounded bg-white')}
       onPress={props.onPress}
+      style={[tailwind('p-1'), props.style]}
       testID={props.testID}
     >
       <ThemedIcon
-        light={tailwind('text-primary-500')}
         dark={tailwind('text-darkprimary-500')}
         iconType={props.iconType}
+        light={tailwind('text-primary-500')}
         name={props.iconName}
         size={props.iconSize}
       />

@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react-native'
 import * as React from 'react'
+import { Text } from 'react-native'
 import ConnectionBoundary from './ConnectionBoundary'
 
 jest.mock('../../contexts/ThemeProvider')
@@ -23,7 +24,12 @@ describe('offline screen', () => {
   })
 
   it('should return null when online', async () => {
-    const tree = render(<ConnectionBoundary><h1>Child Component</h1></ConnectionBoundary>).toJSON()
+    const tree = render(
+      <ConnectionBoundary>
+        <Text>
+          Child Component
+        </Text>
+      </ConnectionBoundary>).toJSON()
     expect(tree).toMatchSnapshot()
   })
 })

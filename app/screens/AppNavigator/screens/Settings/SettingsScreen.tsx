@@ -67,20 +67,48 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   }, [walletContext.wallets[0]])
 
   return (
-    <ThemedScrollView style={tailwind('flex-1 pb-8')} testID='setting_screen'>
-      <SectionTitle text={translate('screens/Settings', 'NETWORK')} testID='network_title' />
+    <ThemedScrollView
+      style={tailwind('flex-1 pb-8')}
+      testID='setting_screen'
+    >
+      <SectionTitle
+        testID='network_title'
+        text={translate('screens/Settings', 'NETWORK')}
+      />
+
       <SelectedNetworkItem
-        network={network} onPress={() => {
+        network={network}
+        onPress={() => {
           navigation.navigate('NetworkSelectionScreen')
         }}
       />
-      <SectionTitle text={translate('screens/Settings', 'SECURITY')} testID='security_title' />
-      <SecurityRow testID='view_recovery_words' label='Recovery Words' onPress={revealRecoveryWords} />
+
+      <SectionTitle
+        testID='security_title'
+        text={translate('screens/Settings', 'SECURITY')}
+      />
+
+      <SecurityRow
+        label='Recovery Words'
+        onPress={revealRecoveryWords}
+        testID='view_recovery_words'
+      />
+
       {
-        isEncrypted && <SecurityRow testID='view_change_passcode' label='Change Passcode' onPress={changePasscode} />
+        isEncrypted && <SecurityRow
+          label='Change Passcode'
+          onPress={changePasscode}
+          testID='view_change_passcode'
+                       />
       }
+
       <RowThemeItem />
-      <RowNavigateItem pageName='AboutScreen' title='About' />
+
+      <RowNavigateItem
+        pageName='AboutScreen'
+        title='About'
+      />
+
       <RowExitWalletItem />
     </ThemedScrollView>
   )
@@ -89,17 +117,18 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
 function SelectedNetworkItem ({ network, onPress }: { network: EnvironmentNetwork, onPress: () => void }): JSX.Element {
   return (
     <ThemedTouchableOpacity
-      testID='button_selected_network'
-      style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
       onPress={onPress}
+      style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
+      testID='button_selected_network'
     >
       <ThemedText style={tailwind('font-medium')}>
         {network}
       </ThemedText>
+
       <ThemedIcon
         iconType='MaterialIcons'
-        size={24}
         name='chevron-right'
+        size={24}
       />
     </ThemedTouchableOpacity>
   )
@@ -128,20 +157,23 @@ function RowExitWalletItem (): JSX.Element {
 
   return (
     <ThemedTouchableOpacity
+      onPress={onExitWallet}
+      style={tailwind('flex flex-row p-4 mt-8 items-center')}
       testID='setting_exit_wallet'
-      onPress={onExitWallet} style={tailwind('flex flex-row p-4 mt-8 items-center')}
     >
       <ThemedIcon
+        dark={tailwind('text-darkprimary-500')}
         iconType='MaterialIcons'
-        name='exit-to-app'
-        style={[tailwind('self-center mr-2'), { transform: [{ scaleX: -1 }] }]}
-        size={24}
         light={tailwind('text-primary-500')}
-        dark={tailwind('text-darkprimary-500')}
+        name='exit-to-app'
+        size={24}
+        style={[tailwind('self-center mr-2'), { transform: [{ scaleX: -1 }] }]}
       />
+
       <ThemedText
-        style={tailwind('font-medium')} light={tailwind('text-primary-500')}
         dark={tailwind('text-darkprimary-500')}
+        light={tailwind('text-primary-500')}
+        style={tailwind('font-medium')}
       >
         {translate('screens/Settings', 'UNLINK WALLET')}
       </ThemedText>
@@ -152,13 +184,14 @@ function RowExitWalletItem (): JSX.Element {
 function SecurityRow ({ testID, label, onPress }: { testID: string, label: string, onPress: () => void }): JSX.Element {
   return (
     <ThemedTouchableOpacity
-      testID={testID}
-      style={tailwind('flex p-4 pr-2 flex-row items-center justify-between')}
       onPress={onPress}
+      style={tailwind('flex p-4 pr-2 flex-row items-center justify-between')}
+      testID={testID}
     >
       <ThemedText style={tailwind('font-medium')}>
         {translate('screens/Settings', label)}
       </ThemedText>
+
       <ThemedIcon
         iconType='MaterialIcons'
         name='chevron-right'
@@ -172,15 +205,21 @@ function RowNavigateItem ({ pageName, title }: { pageName: string, title: string
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
   return (
     <ThemedTouchableOpacity
-      testID={`setting_navigate_${title}`}
       onPress={() => {
         navigation.navigate(pageName)
-      }} style={tailwind('flex flex-row p-4 pr-2 mt-4 items-center')}
+      }}
+      style={tailwind('flex flex-row p-4 pr-2 mt-4 items-center')}
+      testID={`setting_navigate_${title}`}
     >
       <ThemedText style={tailwind('font-medium flex-grow')}>
         {translate('screens/Settings', title)}
       </ThemedText>
-      <ThemedIcon iconType='MaterialIcons' name='chevron-right' size={24} />
+
+      <ThemedIcon
+        iconType='MaterialIcons'
+        name='chevron-right'
+        size={24}
+      />
     </ThemedTouchableOpacity>
   )
 }

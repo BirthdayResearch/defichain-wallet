@@ -22,6 +22,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
   const [recoveryWords] = useState<number[]>(Array.from(Array(24), (v, i) => i + 1))
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [inputRefMap, setInputRefMap] = useState<Array<React.RefObject<TextInput>>>([])
+  const { isLight } = useThemeContext()
 
   useEffect(() => {
     recoveryWords.forEach((r) => {
@@ -95,7 +96,6 @@ export function RestoreMnemonicWallet (): JSX.Element {
     }
   }
 
-  const { isLight } = useThemeContext()
   const light = 'text-gray-700 bg-white'
   const dark = 'text-white bg-gray-800'
   return (
@@ -105,53 +105,48 @@ export function RestoreMnemonicWallet (): JSX.Element {
         steps={RESTORE_STEPS}
         style={tailwind('py-4 px-1')}
       />
+
       <View style={tailwind('justify-center p-4')}>
         <ThemedText
-          light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
+          dark={tailwind('text-gray-400')}
+          light={tailwind('text-gray-500')}
           style={tailwind('font-medium text-sm text-center')}
         >
           {translate('screens/RestoreWallet', 'Please provide your 24 recovery words to regain access to your wallet.')}
         </ThemedText>
       </View>
+
       <ThemedView>
         <SectionTitle
-          text={translate('screens/RestoreWallet', 'ENTER THE CORRECT WORD')}
           testID='recover_title'
+          text={translate('screens/RestoreWallet', 'ENTER THE CORRECT WORD')}
         />
       </ThemedView>
+
       {
         recoveryWords.map((order) => (
           <Controller
-            key={order}
             control={control}
-            rules={{
-              required: true,
-              pattern: /^[a-z]+$/
-            }}
+            defaultValue=''
+            key={order}
+            name={`recover_word_${order}`}
             render={({ field: { value, onBlur, onChange }, fieldState: { invalid, isTouched } }) => (
               <ThemedView
+                dark={tailwind('bg-gray-800 border-b border-gray-700')}
                 light={tailwind('bg-white border-b border-gray-200')}
-                dark={tailwind('bg-gray-800 border-b border-gray-700')} style={tailwind('flex-row w-full')}
+                style={tailwind('flex-row w-full')}
               >
-                <ThemedText style={tailwind('p-4 font-semibold w-20 pr-0')}>{`#${order}`}</ThemedText>
+                <ThemedText style={tailwind('p-4 font-semibold w-20 pr-0')}>
+                  {`#${order}`}
+                </ThemedText>
+
                 <TextInput
-                  ref={inputRefMap[order]}
-                  testID={`recover_word_${order}`}
-                  placeholderTextColor={isLight
-                    ? `${invalid && isTouched
-                      ? 'rgba(255, 0, 0, 1)'
-                      : 'rgba(0, 0, 0, 0.4)'}`
-                    : `${invalid && isTouched ? 'rgba(255, 0, 0, 1)' : '#828282'}`}
-                  style={tailwind(`flex-grow p-4 pl-0 ${invalid && isTouched ? 'text-error-500' : `${isLight ? light : dark}`}`)}
                   autoCapitalize='none'
                   autoCompleteType='off'
-                  value={value}
+                  blurOnSubmit={false}
+                  keyboardType='default'
                   onBlur={onBlur}
                   onChangeText={onChange}
-                  keyboardType='default'
-                  placeholder={translate('screens/SendScreen', `Enter word #${order}`)}
-                  returnKeyType={order === 24 ? 'done' : 'next'}
-                  blurOnSubmit={false}
                   onSubmitEditing={async () => {
                     if (inputRefMap[order + 1] !== undefined) {
                       inputRefMap[order + 1].current?.focus()
@@ -159,18 +154,34 @@ export function RestoreMnemonicWallet (): JSX.Element {
                       await onRestore()
                     }
                   }}
+                  placeholder={translate('screens/SendScreen', `Enter word #${order}`)}
+                  placeholderTextColor={isLight
+                    ? `${invalid && isTouched
+                      ? 'rgba(255, 0, 0, 1)'
+                      : 'rgba(0, 0, 0, 0.4)'}`
+                    : `${invalid && isTouched ? 'rgba(255, 0, 0, 1)' : '#828282'}`}
+                  ref={inputRefMap[order]}
+                  returnKeyType={order === 24 ? 'done' : 'next'}
+                  style={tailwind(`flex-grow p-4 pl-0 ${invalid && isTouched ? 'text-error-500' : `${isLight ? light : dark}`}`)}
+                  testID={`recover_word_${order}`}
+                  value={value}
                 />
               </ThemedView>
             )}
-            name={`recover_word_${order}`}
-            defaultValue=''
+            rules={{
+              required: true,
+              pattern: /^[a-z]+$/
+            }}
           />
         ))
       }
+
       <Button
-        title='recover_wallet' onPress={onRestore} testID='recover_wallet_button'
         disabled={!isValid || isSubmitting}
         label={translate('screens/RestoreWallet', 'RESTORE WALLET')}
+        onPress={onRestore}
+        testID='recover_wallet_button'
+        title='recover_wallet'
       />
     </KeyboardAwareScrollView>
   )

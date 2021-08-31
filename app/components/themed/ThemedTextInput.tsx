@@ -17,7 +17,8 @@ export function ThemedTextInput (props: ThemedTextInputProps): JSX.Element {
   return (
     <TextInput
       placeholderTextColor={isLight ? 'rgba(0, 0, 0, 0.4)' : '#828282'}
-      style={[style, isLight ? light : dark]} {...otherProps}
+      style={[style, isLight ? light : dark]}
+      {...otherProps}
     />
   )
 }

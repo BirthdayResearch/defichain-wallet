@@ -68,14 +68,17 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
   return (
     <ThemedScrollView style={tailwind('pb-4')}>
       <SummaryTitle
-        title={translate('screens/PoolSwapConfirmScreen', 'YOU ARE SWAPPING')}
-        testID='text_swap_amount' amount={swap.fromAmount}
+        amount={swap.fromAmount}
         suffix={` ${tokenA.symbol}`}
+        testID='text_swap_amount'
+        title={translate('screens/PoolSwapConfirmScreen', 'YOU ARE SWAPPING')}
       />
+
       <SectionTitle
-        text={translate('screens/PoolSwapConfirmScreen', 'ESTIMATED BALANCE AFTER SWAP')}
         testID='title_swap_detail'
+        text={translate('screens/PoolSwapConfirmScreen', 'ESTIMATED BALANCE AFTER SWAP')}
       />
+
       <TokenBalanceRow
         iconType={tokenA.symbol}
         lhs={tokenA.symbol}
@@ -84,6 +87,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
           testID: 'source_amount'
         }}
       />
+
       <TokenBalanceRow
         iconType={tokenB.symbol}
         lhs={tokenB.symbol}
@@ -92,10 +96,12 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
           testID: 'target_amount'
         }}
       />
+
       <SectionTitle
-        text={translate('screens/PoolSwapConfirmScreen', 'TRANSACTION DETAILS')}
         testID='title_tx_detail'
+        text={translate('screens/PoolSwapConfirmScreen', 'TRANSACTION DETAILS')}
       />
+
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', 'Slippage Tolerance')}
         rightHandElements={[{
@@ -104,14 +110,18 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
           testID: 'slippage_fee'
         }]}
       />
+
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated fee')}
         rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
       />
+
       <SubmitButtonGroup
-        onSubmit={onSubmit} onCancel={onCancel} title='swap'
-        label={translate('screens/PoolSwapConfirmScreen', 'SWAP')}
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        label={translate('screens/PoolSwapConfirmScreen', 'SWAP')}
+        onCancel={onCancel}
+        onSubmit={onSubmit}
+        title='swap'
       />
     </ThemedScrollView>
   )

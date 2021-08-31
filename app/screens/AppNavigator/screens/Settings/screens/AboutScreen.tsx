@@ -39,22 +39,40 @@ export function AboutScreen (): JSX.Element {
   return (
     <ThemedScrollView>
       <View style={tailwind('flex-1 items-center justify-center p-8')}>
-        <AppIcon testID='app_logo' width={100} height={100} />
+        <AppIcon
+          height={100}
+          testID='app_logo'
+          width={100}
+        />
+
         <ThemedText style={tailwind('text-2xl font-bold mt-3')}>
           {translate('screens/AboutScreen', 'DeFiChain Wallet')}
         </ThemedText>
+
         <ThemedText style={tailwind('text-base font-light text-black')}>
           {`v${nativeApplicationVersion ?? '0.0.0'}`}
         </ThemedText>
+
         <View style={tailwind('flex-row justify-center pt-5')}>
           {
-            SOCIAL_LINKS.map((link) => <SocialIcon {...link} key={link.testID} />)
+            SOCIAL_LINKS.map((link) => <SocialIcon
+              {...link}
+              key={link.testID}
+                                       />)
           }
         </View>
       </View>
-      <SectionTitle text={translate('screens/AboutScreen', 'LINKS')} testID='links_title' />
+
+      <SectionTitle
+        testID='links_title'
+        text={translate('screens/AboutScreen', 'LINKS')}
+      />
+
       {
-        ABOUT_LINKS.map((link) => <LinkItemRow {...link} key={link.testID} />)
+        ABOUT_LINKS.map((link) => <LinkItemRow
+          {...link}
+          key={link.testID}
+                                  />)
       }
     </ThemedScrollView>
   )
@@ -70,12 +88,13 @@ function LinkItemRow ({ title, url, testID }: AboutScreenLinks): JSX.Element {
 
   return (
     <ThemedTouchableOpacity
-      style={tailwind('flex-row p-4 items-center')}
       onPress={handlePress}
+      style={tailwind('flex-row p-4 items-center')}
       testID={testID}
     >
       <ThemedText
-        light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
+        dark={tailwind('text-darkprimary-500')}
+        light={tailwind('text-primary-500')}
         style={tailwind('font-semibold')}
       >
         {translate('screens/AboutScreen', title)}
@@ -94,11 +113,15 @@ function SocialIcon ({ iconName, url, testID }: AboutScreenSocialLinks): JSX.Ele
 
   return (
     <TouchableOpacity
-      style={tailwind('bg-primary-500 justify-center items-center rounded-full w-8 h-8 mx-2')}
       onPress={handlePress}
+      style={tailwind('bg-primary-500 justify-center items-center rounded-full w-8 h-8 mx-2')}
       testID={testID}
     >
-      <MaterialCommunityIcons name={iconName} size={20} style={tailwind('text-gray-100 pl-px')} />
+      <MaterialCommunityIcons
+        name={iconName}
+        size={20}
+        style={tailwind('text-gray-100 pl-px')}
+      />
     </TouchableOpacity>
   )
 }

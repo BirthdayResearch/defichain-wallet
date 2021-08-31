@@ -14,24 +14,33 @@ interface SummaryTitleItems {
 export function SummaryTitle ({ title, amount, suffix, testID }: SummaryTitleItems): JSX.Element {
   return (
     <ThemedView
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      light={tailwind('bg-white border-b border-gray-300')}
       style={tailwind('flex-col px-4 py-8 mb-4 justify-center items-center')}
-      light={tailwind('bg-white border-b border-gray-300')} dark={tailwind('bg-gray-800 border-b border-gray-700')}
     >
       <ThemedText
-        light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')} testID='confirm_title'
+        dark={tailwind('text-gray-400')}
+        light={tailwind('text-gray-500')}
         style={tailwind('text-xs')}
+        testID='confirm_title'
       >
         {title}
       </ThemedText>
+
       <NumberFormat
-        value={amount.toFixed(8)} decimalScale={8} thousandSeparator displayType='text' suffix={suffix}
+        decimalScale={8}
+        displayType='text'
         renderText={(value) => (
           <ThemedText
-            testID={testID}
             style={tailwind('text-2xl font-bold flex-wrap')}
-          >{value}
+            testID={testID}
+          >
+            {value}
           </ThemedText>
         )}
+        suffix={suffix}
+        thousandSeparator
+        value={amount.toFixed(8)}
       />
     </ThemedView>
   )
