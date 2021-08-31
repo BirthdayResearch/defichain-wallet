@@ -18,7 +18,6 @@ import { useCallback, useEffect, useState } from 'react'
 import { RefreshControl } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
-import { ThemedScrollView } from '../../../../components/themed'
 import { BalanceParamList } from './BalancesNavigator'
 import { BuyWithFiat } from './BuyWithFiat'
 
@@ -44,8 +43,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
   const tokens = useTokensAPI()
   return (
-    <ThemedScrollView>
-      <BuyWithFiat />
+    <>
+      <ThemedView>
+        <BuyWithFiat />
+      </ThemedView>
       <ThemedFlatList
         ItemSeparatorComponent={() => (
           <ThemedView
@@ -75,7 +76,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           />}
         testID='balances_list'
       />
-    </ThemedScrollView>
+    </>
   )
 }
 

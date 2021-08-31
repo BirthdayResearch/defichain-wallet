@@ -22,7 +22,8 @@
   "screens/BalancesScreen": {
     "Balances": "Guthaben",
     "RECEIVE": "EMPFANGEN",
-    "BALANCE DETAILS": "DETAILS GUTHABEN"
+    "BALANCE DETAILS": "DETAILS GUTHABEN",
+    "BUY WITH FIAT": "MIT FIAT KAUFEN"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
