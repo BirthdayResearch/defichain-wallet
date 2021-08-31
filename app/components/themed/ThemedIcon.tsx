@@ -1,8 +1,8 @@
+import { useThemeContext } from '@contexts/ThemeProvider'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { IconProps } from '@expo/vector-icons/build/createIconSet'
+import { tailwind } from '@tailwind'
 import React from 'react'
-import { useThemeContext } from '../../contexts/ThemeProvider'
-import { tailwind } from '../../tailwind'
 import { ThemedProps } from './index'
 
 type IconType = 'MaterialCommunityIcons' | 'MaterialIcons'

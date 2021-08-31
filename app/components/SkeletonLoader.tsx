@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { DexSkeletonLoader } from './skeletonLoaders/DexSkeletonLoader'
-import { TransactionSkeletonLoader } from './skeletonLoaders/TransactionSkeletonLoader'
 import { MnemonicWordSkeletonLoader } from './skeletonLoaders/MnemonicWordSkeletonLoader'
+import { TransactionSkeletonLoader } from './skeletonLoaders/TransactionSkeletonLoader'
 
 interface SkeletonLoaderProp {
   row: number

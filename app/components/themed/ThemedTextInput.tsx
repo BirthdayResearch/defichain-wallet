@@ -1,7 +1,7 @@
+import { useThemeContext } from '@contexts/ThemeProvider'
+import { tailwind } from '@tailwind'
 import React from 'react'
 import { TextInput } from 'react-native'
-import { useThemeContext } from '../../contexts/ThemeProvider'
-import { tailwind } from '../../tailwind'
 import { ThemedProps } from './index'
 
 type ThemedTextInputProps = TextInput['props'] & ThemedProps
