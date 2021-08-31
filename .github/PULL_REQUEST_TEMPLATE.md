@@ -1,5 +1,15 @@
 <!--  Thanks for sending a pull request! -->
 
+#### Developer Checklist:
+- [ ] Tested on iOS/Android device (e.g, No crashes, library supported etc.)
+- [ ] No console errors on web
+- [ ] Tested on Light mode and Dark Mode*
+- [ ] Unit tests*
+- [ ] Added e2e tests*
+- [ ] Added translations*
+
+_* If applicable_
+
 #### What kind of PR is this?:
 <!-- Use one of the following kinds:
 /kind feature
