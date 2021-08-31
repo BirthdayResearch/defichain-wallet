@@ -1,7 +1,10 @@
 <!--  Thanks for sending a pull request! -->
 
 #### Developer Checklist:
-<!--  Before requesting for code review, please ensure that the following tasks are completed. -->
+<!--  
+Merging into the main branch implies your code is ready for production. Before requesting for code review, 
+please ensure that the following tasks are completed. Otherwise, keep the PR drafted.
+-->
 
 - [ ] Read your code changes at least once
 - [ ] Tested on iOS/Android device (e.g, No crashes, library supported etc.)
