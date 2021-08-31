@@ -18,13 +18,20 @@ export default function ConnectionBoundary (props: React.PropsWithChildren<any>)
 function ConnectionErrorComponent (): JSX.Element {
   return (
     <ThemedView
-      testID='connection_error'
       style={tailwind('flex-1 items-center justify-center px-8')}
+      testID='connection_error'
     >
-      <ThemedIcon iconType='MaterialIcons' name='error' size={44} style={tailwind('pb-5 text-center')} />
+      <ThemedIcon
+        iconType='MaterialIcons'
+        name='error'
+        size={44}
+        style={tailwind('pb-5 text-center')}
+      />
+
       <ThemedText style={tailwind('text-2xl pb-2 font-semibold text-center')}>
         {translate('screens/ConnectionBoundary', 'Network error')}
       </ThemedText>
+
       <ThemedText style={tailwind('text-sm pb-16 text-center opacity-60')}>
         {translate('screens/ConnectionBoundary', 'Please check your internet connection and try again')}
       </ThemedText>

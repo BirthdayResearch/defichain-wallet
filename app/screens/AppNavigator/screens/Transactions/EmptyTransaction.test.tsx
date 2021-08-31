@@ -11,8 +11,11 @@ describe('empty transaction', () => {
       navigate: jest.fn()
     }
     const rendered = render(<EmptyTransaction
-      navigation={navigation} handleRefresh={() => {
-      }} key='1' loadingStatus='loading'
+      handleRefresh={() => {
+      }}
+      key='1'
+      loadingStatus='loading'
+      navigation={navigation}
                             />)
     expect(rendered.toJSON()).toMatchSnapshot()
     const receiveButton = await rendered.findByTestId('button_receive_coins')

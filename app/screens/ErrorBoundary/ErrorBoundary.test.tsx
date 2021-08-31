@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native'
 import * as React from 'react'
-import { View } from 'react-native'
+import { Text, View } from 'react-native'
 import ErrorBoundary from './ErrorBoundary'
 
 describe('ErrorBoundary', () => {
@@ -19,7 +19,12 @@ describe('ErrorBoundary', () => {
 
   describe('when there is no error', () => {
     it('<ErrorBoundary /> should render children components', () => {
-      const tree = render(<ErrorBoundary><h1>Child Component</h1></ErrorBoundary>).toJSON()
+      const tree = render(
+        <ErrorBoundary>
+          <Text>
+            'Child Component'
+          </Text>
+        </ErrorBoundary>).toJSON()
       expect(tree).toMatchSnapshot()
     })
   })
@@ -28,7 +33,9 @@ describe('ErrorBoundary', () => {
     it('<ErrorBoundary /> should render when there is an error', () => {
       const wrapper = render(
         <ErrorBoundary>
-          <View>{errorMock}</View>
+          <View>
+            {errorMock}
+          </View>
         </ErrorBoundary>
       )
       expect(wrapper).toMatchSnapshot()

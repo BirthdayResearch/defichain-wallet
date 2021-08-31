@@ -3,19 +3,17 @@
 exports[`ErrorBoundary when there is an error <ErrorBoundary /> should render when there is an error 1`] = `
 <View
   style={
-    Array [
-      Object {
-        "alignItems": "center",
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-        "justifyContent": "center",
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 16,
-      },
-    ]
+    Object {
+      "alignItems": "center",
+      "flexBasis": "0%",
+      "flexGrow": 1,
+      "flexShrink": 1,
+      "justifyContent": "center",
+      "paddingBottom": 16,
+      "paddingLeft": 16,
+      "paddingRight": 16,
+      "paddingTop": 16,
+    }
   }
 >
   <RNSVGSvgView
@@ -135,7 +133,7 @@ exports[`ErrorBoundary when there is an error <ErrorBoundary /> should render wh
 `;
 
 exports[`ErrorBoundary when there is no error <ErrorBoundary /> should render children components 1`] = `
-<h1>
-  Child Component
-</h1>
+<Text>
+  'Child Component'
+</Text>
 `;

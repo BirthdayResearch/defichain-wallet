@@ -35,7 +35,7 @@ function getTxURLByNetwork (network: EnvironmentNetwork, txid: string, rawtx?: s
 
   switch (network) {
     case EnvironmentNetwork.MainNet:
-      // no-op: network param not required for MainNet
+    // no-op: network param not required for MainNet
       break
 
     case EnvironmentNetwork.TestNet:

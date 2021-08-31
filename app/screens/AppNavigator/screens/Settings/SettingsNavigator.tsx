@@ -33,8 +33,8 @@ export function SettingsNavigator (): JSX.Element {
   return (
     <SettingsStack.Navigator screenOptions={{ headerTitleStyle: HeaderFont }}>
       <SettingsStack.Screen
-        name='SettingsScreen'
         component={SettingsScreen}
+        name='SettingsScreen'
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/SettingsNavigator', 'Settings')} />,
           headerRightContainerStyle: tailwind('px-2 py-2'),
@@ -44,56 +44,65 @@ export function SettingsNavigator (): JSX.Element {
               testID='settings_community_button'
             >
               <ThemedIcon
-                iconType='MaterialIcons' name='help-outline' size={24} light={tailwind('text-primary-500')}
                 dark={tailwind('text-darkprimary-500')}
+                iconType='MaterialIcons'
+                light={tailwind('text-primary-500')}
+                name='help-outline'
+                size={24}
               />
             </TouchableOpacity>
           )
         }}
       />
+
       <SettingsStack.Screen
-        name='CommunityScreen'
         component={CommunityScreen}
+        name='CommunityScreen'
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/CommunityScreen', 'Community')} />,
           headerBackTitleVisible: false
         }}
       />
+
       <SettingsStack.Screen
-        name='RecoveryWordsScreen'
         component={RecoveryWordsScreen}
+        name='RecoveryWordsScreen'
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/Settings', 'Recovery Words')} />,
           headerBackTitleVisible: false
         }}
       />
+
       <SettingsStack.Screen
-        name='AboutScreen'
         component={AboutScreen}
+        name='AboutScreen'
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/AboutScreen', 'About')} />,
           headerBackTitleVisible: false
         }}
       />
+
       <SettingsStack.Screen
-        name='ChangePinScreen'
         component={ChangePinScreen}
+        name='ChangePinScreen'
         options={{
           headerTitle: translate('screens/AboutScreen', 'Create new passcode'),
           headerBackTitleVisible: false
         }}
       />
+
       <SettingsStack.Screen
-        name='ConfirmPinScreen'
         component={ConfirmPinScreen}
+        name='ConfirmPinScreen'
         options={{
           headerTitle: translate('screens/ConfirmPinScreen', 'Verify passcode'),
           headerBackTitleVisible: false
         }}
       />
+
       <SettingsStack.Screen
-        name='NetworkSelectionScreen'
         component={NetworkSelectionScreen}
+        name='NetworkSelectionScreen'
         options={{
           headerTitle: translate('screens/NetworkSelectionScreen', 'Select network'),
           headerBackTitleVisible: false

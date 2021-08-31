@@ -78,7 +78,7 @@ exports[`offline screen should match snapshot when offline 1`] = `
 `;
 
 exports[`offline screen should return null when online 1`] = `
-<h1>
+<Text>
   Child Component
-</h1>
+</Text>
 `;

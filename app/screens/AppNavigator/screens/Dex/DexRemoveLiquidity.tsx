@@ -89,15 +89,25 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
     <ThemedScrollView style={tailwind('w-full flex-col flex-1')}>
       <ThemedView style={tailwind('w-full mt-8')}>
         <ThemedView
+          dark={tailwind('bg-gray-800 border-b border-gray-700')}
           light={tailwind('bg-white border-b border-gray-200')}
-          dark={tailwind('bg-gray-800 border-b border-gray-700')} style={tailwind('w-full flex-row p-4 items-stretch')}
+          style={tailwind('w-full flex-row p-4 items-stretch')}
         >
           <ThemedText
             style={tailwind('w-2/4 font-semibold flex-1')}
-          >{translate('screens/RemoveLiquidity', 'Amount to remove')}
+          >
+            {translate('screens/RemoveLiquidity', 'Amount to remove')}
           </ThemedText>
+
           <NumberTextInput
-            testID='text_input_percentage'
+            multiline
+            onChange={(event) => {
+              setInputPercentage(event.nativeEvent.text)
+            }}
+            onContentSizeChange={event => {
+              setInputHeight(event.nativeEvent.contentSize.height)
+            }}
+            placeholder={translate('screens/RemoveLiquidity', 'Enter an amount ')}
             style={[
               tailwind('text-right w-2/4 p-0 mr-0.5'),
               isIOS && tailwind('-mt-0.5'),
@@ -105,31 +115,44 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
                 height: Math.max(24, inputHeight)
               }
             ]}
-            placeholder={translate('screens/RemoveLiquidity', 'Enter an amount ')}
+            testID='text_input_percentage'
             value={percentage}
-            multiline
-            onContentSizeChange={event => {
-              setInputHeight(event.nativeEvent.contentSize.height)
-            }}
-            onChange={(event) => {
-              setInputPercentage(event.nativeEvent.text)
-            }}
           />
-          <ThemedText>%</ThemedText>
+
+          <ThemedText>
+            %
+          </ThemedText>
         </ThemedView>
+
         <AmountSlider
           current={Number(percentage)}
-          viewStyle={tailwind('p-4')}
           onChange={setInputPercentage}
+          viewStyle={tailwind('p-4')}
         />
       </ThemedView>
-      <SectionTitle text={translate('screens/RemoveLiquidity', 'YOU ARE REMOVING')} testID='remove_liq_title' />
+
+      <SectionTitle
+        testID='remove_liq_title'
+        text={translate('screens/RemoveLiquidity', 'YOU ARE REMOVING')}
+      />
+
       <ThemedView
+        dark={tailwind('bg-gray-800')}
         light={tailwind('bg-white')}
-        dark={tailwind('bg-gray-800')} style={tailwind('w-full mb-4')}
+        style={tailwind('w-full mb-4')}
       >
-        <TokenBalanceRow iconType={aSymbol} lhs={aSymbol} rhs={{ value: tokenAAmount.toFixed(8), testID: 'price_a' }} />
-        <TokenBalanceRow iconType={bSymbol} lhs={bSymbol} rhs={{ value: tokenBAmount.toFixed(8), testID: 'price_b' }} />
+        <TokenBalanceRow
+          iconType={aSymbol}
+          lhs={aSymbol}
+          rhs={{ value: tokenAAmount.toFixed(8), testID: 'price_a' }}
+        />
+
+        <TokenBalanceRow
+          iconType={bSymbol}
+          lhs={bSymbol}
+          rhs={{ value: tokenBAmount.toFixed(8), testID: 'price_b' }}
+        />
+
         <NumberRow
           lhs={translate('screens/AddLiquidity', 'Price')}
           rightHandElements={[
@@ -146,6 +169,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
           ]}
         />
       </ThemedView>
+
       <ContinueButton
         enabled={valid}
         onPress={removeLiquidity}
@@ -157,34 +181,45 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
 function AmountSlider (props: { current: number, onChange: (percentage: string) => void, viewStyle: StyleProp<ViewStyle> }): JSX.Element {
   return (
     <ThemedView
-      light={tailwind('bg-white border-b border-gray-200')}
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      light={tailwind('bg-white border-b border-gray-200')}
       style={[tailwind('flex-row items-center'), props.viewStyle]}
     >
-      <TouchableOpacity testID='button_slider_min' onPress={() => props.onChange('0.00')}>
+      <TouchableOpacity
+        onPress={() => props.onChange('0.00')}
+        testID='button_slider_min'
+      >
         <ThemedText
-          light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-300')}
+          light={tailwind('text-gray-500')}
           style={tailwind(' text-sm')}
-        >{translate('components/slider', 'None')}
+        >
+          {translate('components/slider', 'None')}
         </ThemedText>
       </TouchableOpacity>
+
       <View style={tailwind('flex-1 ml-4 mr-4')}>
         <Slider
-          testID='slider_remove_liq_percentage'
-          value={isNaN(props.current) ? 0 : props.current}
-          minimumValue={0}
           maximumValue={100}
           minimumTrackTintColor='#ff00af'
-          thumbTintColor='#ff00af'
+          minimumValue={0}
           onSlidingComplete={(val) => props.onChange(new BigNumber(val).toFixed(2))}
+          testID='slider_remove_liq_percentage'
+          thumbTintColor='#ff00af'
+          value={isNaN(props.current) ? 0 : props.current}
         />
       </View>
-      <TouchableOpacity testID='button_slider_max' onPress={() => props.onChange('100.00')}>
+
+      <TouchableOpacity
+        onPress={() => props.onChange('100.00')}
+        testID='button_slider_max'
+      >
         <ThemedText
-          light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
+          dark={tailwind('text-gray-400')}
+          light={tailwind('text-gray-500')}
           style={tailwind('text-sm')}
-        >{translate('components/slider', 'All')}
+        >
+          {translate('components/slider', 'All')}
         </ThemedText>
       </TouchableOpacity>
     </ThemedView>
@@ -195,11 +230,11 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
   return (
     <View style={tailwind('m-2')}>
       <Button
+        disabled={!props.enabled}
+        label={translate('components/Button', 'CONTINUE')}
+        onPress={props.onPress}
         testID='button_continue_remove_liq'
         title='continue'
-        disabled={!props.enabled}
-        onPress={props.onPress}
-        label={translate('components/Button', 'CONTINUE')}
       />
     </View>
   )

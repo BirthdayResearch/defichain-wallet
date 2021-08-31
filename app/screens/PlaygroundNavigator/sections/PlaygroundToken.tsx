@@ -26,14 +26,14 @@ export function PlaygroundToken (): JSX.Element | null {
     return (
       <PlaygroundAction
         key={token.id}
-        testID={`playground_token_${token.symbol}`}
-        title={`Top up 10.0 ${token.symbol} to Wallet`}
         onPress={async () => {
           const address = await wallet.get(0).getAddress()
           await rpc.call('sendtokenstoaddress', [{}, {
             [address]: `10@${token.symbol}`
           }], 'number')
         }}
+        testID={`playground_token_${token.symbol}`}
+        title={`Top up 10.0 ${token.symbol} to Wallet`}
       />
     )
   })
@@ -41,23 +41,24 @@ export function PlaygroundToken (): JSX.Element | null {
   return (
     <View>
       <PlaygroundTitle
-        title='Token' status={{
+        status={{
           online: status === 'online',
           loading: status === 'loading',
           error: status === 'error'
         }}
+        title='Token'
       />
 
       <PlaygroundAction
         key='0'
-        testID='playground_token_DFI'
-        title='Top up 10.0 DFI to Wallet'
         onPress={async () => {
           await api.wallet.sendTokenDfiToAddress({
             amount: '10',
             address: await wallet.get(0).getAddress()
           })
         }}
+        testID='playground_token_DFI'
+        title='Top up 10.0 DFI to Wallet'
       />
 
       {actions}

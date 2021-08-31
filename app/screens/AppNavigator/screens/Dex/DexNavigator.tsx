@@ -41,42 +41,48 @@ export function DexNavigator (): JSX.Element {
       screenOptions={{ headerTitleStyle: HeaderFont, headerBackTitleVisible: false }}
     >
       <DexStack.Screen
-        name='DexScreen'
         component={DexScreen}
+        name='DexScreen'
         options={{ headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Decentralized Exchange')} /> }}
       />
+
       <DexStack.Screen
-        name='AddLiquidity'
         component={AddLiquidityScreen}
+        name='AddLiquidity'
         options={{ headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Add Liquidity')} /> }}
       />
+
       <DexStack.Screen
-        name='ConfirmAddLiquidity'
         component={ConfirmAddLiquidityScreen}
+        name='ConfirmAddLiquidity'
         options={{ headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Add Liquidity')} /> }}
       />
+
       <DexStack.Screen
-        name='RemoveLiquidity'
         component={RemoveLiquidityScreen}
+        name='RemoveLiquidity'
         options={{ headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Remove Liquidity')} /> }}
       />
+
       <DexStack.Screen
-        name='RemoveLiquidityConfirmScreen'
         component={RemoveLiquidityConfirmScreen}
+        name='RemoveLiquidityConfirmScreen'
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Confirm removal')} />
         }}
       />
+
       <DexStack.Screen
-        name='PoolSwap'
         component={PoolSwapScreen}
+        name='PoolSwap'
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Decentralized Exchange')} />
         }}
       />
+
       <DexStack.Screen
-        name='ConfirmPoolSwapScreen'
         component={ConfirmPoolSwapScreen}
+        name='ConfirmPoolSwapScreen'
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Confirm swap')} />
         }}

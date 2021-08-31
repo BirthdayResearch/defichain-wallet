@@ -44,9 +44,9 @@ export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Ele
 
   return (
     <ThemedTouchableOpacity
-      testID={`button_network_${props.network}`}
-      style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
       onPress={onPress}
+      style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
+      testID={`button_network_${props.network}`}
     >
       <ThemedText style={tailwind('font-medium')}>
         {props.network}
@@ -56,9 +56,12 @@ export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Ele
         props.network === network &&
         (
           <ThemedIcon
+            dark={tailwind('text-darkprimary-500')}
             iconType='MaterialIcons'
-            testID={`button_network_${props.network}_check`} size={24} name='check'
-            light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
+            light={tailwind('text-primary-500')}
+            name='check'
+            size={24}
+            testID={`button_network_${props.network}_check`}
           />
         )
       }
