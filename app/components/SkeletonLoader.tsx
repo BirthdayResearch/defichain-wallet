@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { DexSkeletonLoader } from './skeletonLoaders/DexSkeletonLoader'
 import { TransactionSkeletonLoader } from './skeletonLoaders/TransactionSkeletonLoader'
+import { MnemonicWordSkeletonLoader } from './skeletonLoaders/MnemonicWordSkeletonLoader'
 
 interface SkeletonLoaderProp {
   row: number
@@ -9,7 +10,8 @@ interface SkeletonLoaderProp {
 
 export enum SkeletonLoaderScreen {
   'Dex' = 'Dex',
-  'Transaction' = 'Transaction'
+  'Transaction' = 'Transaction',
+  'MnemonicWord' = 'MnemonicWord'
 }
 
 export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
@@ -30,6 +32,14 @@ export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
         <>
           {skeletonRow.map(i => (
             <TransactionSkeletonLoader key={i} />
+          ))}
+        </>
+      )
+    case SkeletonLoaderScreen.MnemonicWord:
+      return (
+        <>
+          {skeletonRow.map(i => (
+            <MnemonicWordSkeletonLoader key={i} />
           ))}
         </>
       )
