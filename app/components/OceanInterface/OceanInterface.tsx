@@ -160,7 +160,7 @@ export function OceanInterface (): JSX.Element | null {
     return null
   }
 
-  const currentTheme = `${isLight ? 'bg-white border-t border-gray-200' : 'bg-gray-800 border-t border-gray-700'}`
+  const currentTheme = `${isLight ? 'bg-white border-t border-gray-200' : 'bg-blue-800 border-t border-blue-900'}`
   return (
     <Animated.View
       style={[tailwind('px-5 py-3 flex-row absolute w-full items-center z-10', currentTheme), {

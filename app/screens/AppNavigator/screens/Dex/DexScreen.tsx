@@ -84,7 +84,7 @@ export function DexScreen (): JSX.Element {
             }
             return (
               <ThemedView
-                dark={tailwind('bg-gray-900')}
+                dark={tailwind('bg-blue-900')}
                 light={tailwind('bg-gray-100')}
                 style={tailwind('px-4 pt-4 pb-2')}
               >
@@ -152,7 +152,7 @@ function PoolPairRowYour ({
 
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      dark={tailwind('bg-blue-800 border-b border-blue-900')}
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('p-4')}
       testID='pool_pair_row_your'
@@ -233,7 +233,7 @@ function PoolPairRowAvailable ({
 
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      dark={tailwind('bg-blue-800 border-b border-blue-900')}
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('p-4')}
       testID='pool_pair_row'

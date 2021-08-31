@@ -54,7 +54,7 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
 
   return (
     <ThemedScrollView
-      dark={tailwind('bg-gray-900')}
+      dark={tailwind('bg-blue-900')}
       light={tailwind('bg-white')}
       style={tailwind('flex-1')}
     >
@@ -91,7 +91,7 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
 function RecoveryWordRow (props: { index: number, word: string }): JSX.Element {
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      dark={tailwind('bg-blue-800 border-b border-blue-900')}
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('p-4 flex-row')}
     >

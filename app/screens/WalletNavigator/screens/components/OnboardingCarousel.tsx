@@ -9,6 +9,7 @@ import { AppIcon } from '../../../../components/icons/AppIcon'
 import { ThemedText } from '../../../../components/themed'
 import { useThemeContext } from '../../../../contexts/ThemeProvider'
 import { tailwind } from '../../../../tailwind'
+import { theme } from '../../../../tailwind.config'
 import { translate } from '../../../../translations'
 
 interface CarouselImage {
@@ -102,8 +103,8 @@ export function OnboardingCarousel (): JSX.Element {
       autoplayLoopKeepAnimation
       data={slides}
       index={0}
-      paginationActiveColor={isLight ? 'rgba(0, 0, 0, 0.8)' : '#D4D4D4'}
-      paginationDefaultColor={isLight ? 'rgba(0, 0, 0, 0.1)' : '#262626'}
+      paginationActiveColor={isLight ? 'rgba(0, 0, 0, 0.8)' : '#FFFFFF'}
+      paginationDefaultColor={isLight ? 'rgba(0, 0, 0, 0.1)' : theme.extend.colors.dgray[500]}
       paginationStyleItem={tailwind('h-2.5 w-2.5 mx-1.5')}
       renderItem={({ item }) => (
         <View style={{ width }}>

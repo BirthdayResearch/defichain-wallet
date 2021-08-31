@@ -143,7 +143,7 @@ function TransactionRow ({
   const rowId = `transaction_row_${index}`
   return (
     <ThemedTouchableOpacity
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      dark={tailwind('bg-blue-800 border-b border-blue-900')}
       key={item.id}
       light={tailwind('bg-white border-b border-gray-200')}
       onPress={() => {

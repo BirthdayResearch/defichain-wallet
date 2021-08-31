@@ -109,7 +109,7 @@ function SocialIcon ({ iconName, url, testID }: AboutScreenSocialLinks): JSX.Ele
   return (
     <TouchableOpacity
       onPress={handlePress}
-      style={tailwind('bg-primary-500 justify-center items-center rounded-full w-8 h-8 mx-2')}
+      style={tailwind('bg-darkprimary-500 justify-center items-center rounded-full w-8 h-8 mx-2')}
       testID={testID}
     >
       <MaterialCommunityIcons

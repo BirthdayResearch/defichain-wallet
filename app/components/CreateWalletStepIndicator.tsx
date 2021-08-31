@@ -46,7 +46,7 @@ export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Eleme
   function following (): JSX.Element[] {
     const arr: JSX.Element[] = []
     for (let i = 1; i < totalStep; i++) {
-      const iconStyle = isLight ? (current >= i + 1 ? 'bg-primary-500' : 'bg-gray-100') : (current >= i + 1 ? 'bg-darkprimary-400' : 'bg-gray-600')
+      const iconStyle = isLight ? (current >= i + 1 ? 'bg-primary-500' : 'bg-gray-100') : (current >= i + 1 ? 'bg-dgray-500' : 'bg-gray-600')
       arr.push(
         <View
           key={i * 2}
@@ -84,8 +84,8 @@ function getStepNodeStyle (isLight: boolean, current: number, step: number): { s
   let stepperStyle
   let textStyle
   if (current === step) {
-    stepperStyle = isLight ? 'bg-primary-500 bg-opacity-10 border border-primary-500' : 'bg-darkprimary-300 border border-darkprimary-600'
-    textStyle = isLight ? 'text-primary-500' : 'text-darkprimary-700'
+    stepperStyle = isLight ? 'bg-primary-500 bg-opacity-10 border border-primary-500' : 'bg-dgray-500 border border-dgray-500'
+    textStyle = isLight ? 'text-primary-500' : 'text-blue-900'
   } else if (current > step) {
     stepperStyle = isLight ? 'bg-primary-500 border border-primary-500' : 'bg-darkprimary-500 border border-darkprimary-600'
     textStyle = 'text-white'
@@ -122,7 +122,7 @@ function StepNode (props: { step: number, current: number, content: string, isLi
 function Description (props: { step: number, current: number, content: string }): JSX.Element {
   return (
     <ThemedText
-      dark={tailwind(props.current === props.step ? 'text-darkprimary-400' : 'text-gray-400')}
+      dark={tailwind(props.current === props.step ? 'text-white' : 'text-gray-400')}
       light={tailwind(props.current === props.step ? 'text-primary-500' : 'text-gray-500')}
       style={tailwind('text-center text-sm font-medium top-9 absolute w-20')}
     >

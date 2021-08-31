@@ -18,6 +18,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { RefreshControl } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
+import { ThemedScrollView } from '../../../../components/themed'
 import { BalanceParamList } from './BalancesNavigator'
 import { BuyWithFiat } from './BuyWithFiat'
 
@@ -43,7 +44,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
   const tokens = useTokensAPI()
   return (
-    <>
+    <ThemedScrollView>
       <BuyWithFiat />
       <ThemedFlatList
         ItemSeparatorComponent={() => (
@@ -74,7 +75,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           />}
         testID='balances_list'
       />
-    </>
+    </ThemedScrollView>
   )
 }
 
@@ -83,7 +84,7 @@ function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () =
   const testID = `balances_row_${token.id}`
   return (
     <ThemedTouchableOpacity
-      dark={tailwind('bg-gray-800')}
+      dark={tailwind('bg-blue-800')}
       light={tailwind('bg-white')}
       onPress={onPress}
       style={tailwind('py-4 pl-4 pr-2 flex-row justify-between items-center')}

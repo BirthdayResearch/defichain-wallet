@@ -94,9 +94,9 @@ export function RestoreMnemonicWallet (): JSX.Element {
   }
 
   const light = 'text-gray-700 bg-white'
-  const dark = 'text-white bg-gray-800'
+  const dark = 'text-white bg-blue-800'
   return (
-    <KeyboardAwareScrollView style={tailwind(`${isLight ? 'bg-white' : 'bg-gray-900'}`)}>
+    <KeyboardAwareScrollView style={tailwind(`${isLight ? 'bg-white' : 'bg-blue-900'}`)}>
       <CreateWalletStepIndicator
         current={1}
         steps={RESTORE_STEPS}
@@ -129,7 +129,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
               name={`recover_word_${order}`}
               render={({ field: { value, onBlur, onChange }, fieldState: { invalid, isTouched } }) => (
                 <ThemedView
-                  dark={tailwind('bg-gray-800 border-b border-gray-700')}
+                  dark={tailwind('bg-blue-800 border-b border-blue-900')}
                   light={tailwind('bg-white border-b border-gray-200')}
                   style={tailwind('flex-row w-full')}
                 >

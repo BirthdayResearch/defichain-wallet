@@ -11,7 +11,7 @@ export function ThemedTextInput (props: ThemedTextInputProps): JSX.Element {
   const {
     style,
     light = tailwind('text-gray-700 bg-white'),
-    dark = tailwind('text-white bg-gray-800'),
+    dark = tailwind('text-white bg-blue-800'),
     ...otherProps
   } = props
   return (

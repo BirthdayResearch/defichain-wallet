@@ -21,7 +21,7 @@ export function PlaygroundConnection (): JSX.Element {
       />
 
       <ThemedView
-        dark={tailwind('bg-gray-800')}
+        dark={tailwind('bg-blue-800')}
         light={tailwind('bg-white')}
         style={tailwind('px-4 py-4')}
       >

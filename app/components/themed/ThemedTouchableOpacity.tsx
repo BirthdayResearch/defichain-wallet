@@ -11,7 +11,7 @@ export function ThemedTouchableOpacity (props: ThemedTouchableOpacityProps): JSX
   const {
     style,
     light = tailwind('bg-white border-b border-gray-200'),
-    dark = tailwind('bg-gray-800 border-b border-gray-700'),
+    dark = tailwind('bg-blue-800 border-b border-blue-900'),
     ...otherProps
   } = props
   return (

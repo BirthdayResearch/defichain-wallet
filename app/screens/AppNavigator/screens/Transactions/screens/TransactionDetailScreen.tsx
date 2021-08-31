@@ -22,7 +22,7 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
     return (
       <ThemedScrollView testID={`transaction-detail-${lhs.toLowerCase()}`}>
         <ThemedView
-          dark={tailwind('bg-gray-800 border-b border-gray-700')}
+          dark={tailwind('bg-blue-800 border-b border-blue-900')}
           light={tailwind('bg-white border-b border-gray-200')}
           style={tailwind('p-2 flex-row items-center w-full p-4 mt-4')}
         >

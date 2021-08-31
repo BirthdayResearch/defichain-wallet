@@ -89,7 +89,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
     <ThemedScrollView style={tailwind('w-full flex-col flex-1')}>
       <ThemedView style={tailwind('w-full mt-8')}>
         <ThemedView
-          dark={tailwind('bg-gray-800 border-b border-gray-700')}
+          dark={tailwind('bg-blue-800 border-b border-blue-900')}
           light={tailwind('bg-white border-b border-gray-200')}
           style={tailwind('w-full flex-row p-4 items-stretch')}
         >
@@ -137,7 +137,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
       />
 
       <ThemedView
-        dark={tailwind('bg-gray-800')}
+        dark={tailwind('bg-blue-800')}
         light={tailwind('bg-white')}
         style={tailwind('w-full mb-4')}
       >
@@ -181,7 +181,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
 function AmountSlider (props: { current: number, onChange: (percentage: string) => void, viewStyle: StyleProp<ViewStyle> }): JSX.Element {
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      dark={tailwind('bg-blue-800 border-b border-blue-900')}
       light={tailwind('bg-white border-b border-gray-200')}
       style={[tailwind('flex-row items-center'), props.viewStyle]}
     >

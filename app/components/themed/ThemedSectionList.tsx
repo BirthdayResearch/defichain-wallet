@@ -11,7 +11,7 @@ export function ThemedSectionList (props: ThemedSectionListProps): JSX.Element {
   const {
     style,
     light = tailwind('bg-gray-100'),
-    dark = tailwind('bg-gray-900'),
+    dark = tailwind('bg-blue-900'),
     ...otherProps
   } = props
 

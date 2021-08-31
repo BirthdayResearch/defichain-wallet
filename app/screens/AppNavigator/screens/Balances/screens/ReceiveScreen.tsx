@@ -40,7 +40,7 @@ export function ReceiveScreen (): JSX.Element {
       </ThemedText>
 
       <ThemedView
-        dark={tailwind('bg-gray-800')}
+        dark={tailwind('bg-blue-800')}
         light={tailwind('bg-white')}
         style={tailwind('flex justify-center items-center p-5')}
       >
@@ -69,7 +69,7 @@ export function ReceiveScreen (): JSX.Element {
       </ThemedView>
 
       <ThemedView
-        dark={tailwind('bg-gray-900')}
+        dark={tailwind('bg-blue-900')}
         light={tailwind('bg-white')}
         style={tailwind('flex flex-col p-4')}
       >

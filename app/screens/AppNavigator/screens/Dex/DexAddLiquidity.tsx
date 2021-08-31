@@ -164,7 +164,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
       />
 
       <ThemedView
-        dark={tailwind('bg-gray-800')}
+        dark={tailwind('bg-blue-800')}
         light={tailwind('bg-white')}
         style={tailwind('flex-col w-full items-center')}
       >
@@ -188,7 +188,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
         </View>
 
         <ThemedView
-          dark={tailwind('border-t border-gray-700')}
+          dark={tailwind('border-t border-blue-900')}
           light={tailwind('border-t border-gray-200')}
           style={tailwind('w-full px-4 py-2 flex-row items-center')}
         >
