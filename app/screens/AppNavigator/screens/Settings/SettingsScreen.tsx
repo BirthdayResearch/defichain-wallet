@@ -15,7 +15,7 @@ import * as React from 'react'
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { MnemonicStorage } from '../../../../api/wallet/mnemonic_storage'
-import { RowThemeItem } from './components/RowThemeItem'
+// import { RowThemeItem } from './components/RowThemeItem'
 import { SettingsParamList } from './SettingsNavigator'
 
 type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
@@ -117,7 +117,8 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         pageName='AboutScreen'
         title='About'
       />
-      <RowThemeItem />
+      {/* TODO(david): re-enable */}
+      {/* <RowThemeItem /> */}
       <RowExitWalletItem />
     </ThemedScrollView>
   )

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { ColorSchemeName, useColorScheme } from 'react-native'
+import { ColorSchemeName } from 'react-native'
 import { Logging } from '../api'
 import { ThemePersistence } from '../api/persistence/theme_storage'
 
@@ -9,17 +9,17 @@ interface ThemeLoader {
 }
 
 export function useTheme (): ThemeLoader {
-  const colorScheme = useColorScheme()
+  // const colorScheme = useColorScheme() //  TODO(david): re-enable
   const [isThemeLoaded, setIsThemeLoaded] = useState<boolean>(false)
-  const [theme, setTheme] = useState<NonNullable<ColorSchemeName>>('light')
+  const [theme, setTheme] = useState<NonNullable<ColorSchemeName>>('dark')
 
   useEffect(() => {
     ThemePersistence.get().then((t) => {
-      let currentTheme: NonNullable<ColorSchemeName> = 'light'
+      let currentTheme: NonNullable<ColorSchemeName> = 'dark'
       if (t !== null && t !== undefined) {
         currentTheme = t as NonNullable<ColorSchemeName>
-      } else if (colorScheme !== null && colorScheme !== undefined) {
-        currentTheme = colorScheme
+      // } else if (colorScheme !== null && colorScheme !== undefined) {
+      //   currentTheme = colorScheme
       }
       setTheme(currentTheme)
     }).catch((err) => Logging.error(err)).finally(() => setIsThemeLoaded(true))
