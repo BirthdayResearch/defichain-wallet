@@ -145,7 +145,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
       />
 
       <ThemedView
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        dark={tailwind('bg-blue-800 border-b border-blue-900')}
         light={tailwind('bg-white border-b border-gray-200')}
         style={tailwind('flex-row w-full items-center pl-4 pr-4')}
       >
@@ -164,7 +164,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
       </ThemedView>
 
       <ThemedView
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        dark={tailwind('bg-blue-800 border-b border-blue-900')}
         light={tailwind('bg-white border-b border-gray-200')}
         style={tailwind('w-full px-4 flex-row items-center')}
       >
@@ -227,7 +227,7 @@ function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: str
       />
 
       <ThemedView
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        dark={tailwind('bg-blue-800 border-b border-blue-900')}
         light={tailwind('bg-white border-b border-gray-200')}
         style={tailwind('w-full px-4 flex-row items-center')}
       >

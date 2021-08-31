@@ -155,7 +155,7 @@ function AddressRow ({
             />
 
             <ThemedTouchableOpacity
-              dark={tailwind('bg-gray-800')}
+              dark={tailwind('bg-blue-800')}
               light={tailwind('bg-white')}
               onPress={onQrButtonPress}
               style={tailwind('w-14 p-4')}
@@ -205,7 +205,7 @@ function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.El
         name='amount'
         render={({ field: { onBlur, onChange, value } }) => (
           <ThemedView
-            dark={tailwind('bg-gray-800 border-b border-gray-700')}
+            dark={tailwind('bg-blue-800 border-b border-blue-900')}
             light={tailwind('bg-white border-b border-gray-200')}
             style={tailwind('flex-row w-full')}
           >
@@ -220,7 +220,7 @@ function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.El
             />
 
             <ThemedView
-              dark={tailwind('bg-gray-800')}
+              dark={tailwind('bg-blue-800')}
               light={tailwind('bg-white')}
               style={tailwind('flex-row pr-4 items-center')}
             >
@@ -245,7 +245,7 @@ function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.El
       />
 
       <ThemedView
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        dark={tailwind('bg-blue-800 border-b border-blue-900')}
         light={tailwind('bg-white border-b border-gray-200')}
         style={tailwind('flex-row w-full px-4 items-center')}
       >

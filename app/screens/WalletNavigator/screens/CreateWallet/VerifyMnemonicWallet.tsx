@@ -90,7 +90,7 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
 
   return (
     <ThemedScrollView
-      dark={tailwind('bg-gray-900')}
+      dark={tailwind('bg-blue-900')}
       light={tailwind('bg-white')}
       style={tailwind('flex-1')}
     >
@@ -148,7 +148,7 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
   const activeButton = isLight ? 'bg-primary-50' : 'bg-darkprimary-500'
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      dark={tailwind('bg-blue-800 border-b border-blue-900')}
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('p-4 py-6')}
     >
@@ -172,7 +172,7 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
         {
           words.map((w, i) => (
             <ThemedTouchableOpacity
-              dark={tailwind(`${selectedWord === w ? activeButton : 'bg-gray-400'}`)}
+              dark={tailwind(`${selectedWord === w ? activeButton : 'bg-dgray-500'}`)}
               key={`${w}_${i}`}
               light={tailwind(`${selectedWord === w ? activeButton : 'bg-gray-100'}`)}
               onPress={() => {

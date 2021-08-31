@@ -255,7 +255,7 @@ function TokenRow (form: TokenForm): JSX.Element {
         name={controlName}
         render={({ field: { onBlur, onChange, value } }) => (
           <ThemedView
-            dark={tailwind('bg-gray-800 border-b border-gray-700')}
+            dark={tailwind('bg-blue-800 border-b border-blue-900')}
             light={tailwind('bg-white border-b border-gray-200')}
             style={tailwind('flex-row w-full')}
           >
@@ -279,7 +279,7 @@ function TokenRow (form: TokenForm): JSX.Element {
             />
 
             <ThemedView
-              dark={tailwind('bg-gray-800')}
+              dark={tailwind('bg-blue-800')}
               light={tailwind('bg-white')}
               style={tailwind('flex-row pr-4 items-center')}
             >
@@ -296,7 +296,7 @@ function TokenRow (form: TokenForm): JSX.Element {
       />
 
       <ThemedView
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        dark={tailwind('bg-blue-800 border-b border-blue-900')}
         light={tailwind('bg-white border-b border-gray-200')}
         style={tailwind('flex-row w-full bg-white px-4 items-center')}
       >

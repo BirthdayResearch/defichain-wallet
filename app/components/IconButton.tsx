@@ -15,7 +15,7 @@ interface IconButtonProps extends TouchableOpacityProps {
 export function IconButton (props: IconButtonProps): JSX.Element {
   return (
     <ThemedTouchableOpacity
-      dark={tailwind('border border-gray-400 rounded bg-gray-900')}
+      dark={tailwind('border border-gray-400 rounded bg-blue-900')}
       light={tailwind('border border-gray-300 rounded bg-white')}
       onPress={props.onPress}
       style={[tailwind('p-1'), props.style]}

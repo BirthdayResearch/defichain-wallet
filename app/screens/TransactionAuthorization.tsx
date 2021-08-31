@@ -247,7 +247,7 @@ export function TransactionAuthorization (): JSX.Element | null {
 
   return (
     <SafeAreaView
-      style={tailwind('w-full h-full flex-col', `${isLight ? 'bg-white' : 'bg-gray-900'}`)}
+      style={tailwind('w-full h-full flex-col', `${isLight ? 'bg-white' : 'bg-blue-900'}`)}
     >
       <View
         style={{
@@ -272,7 +272,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       </View>
 
       <ThemedView
-        dark={tailwind('bg-gray-900')}
+        dark={tailwind('bg-blue-900')}
         light={tailwind('bg-white')}
         style={tailwind('w-full flex-1 flex-col mt-8')}
       >
