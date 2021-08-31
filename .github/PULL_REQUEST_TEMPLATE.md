@@ -9,7 +9,7 @@ please ensure that the following tasks are completed. Otherwise, keep the PR dra
 - [ ] Read your code changes at least once
 - [ ] Tested on iOS/Android device (e.g, No crashes, library supported etc.)
 - [ ] No console errors on web
-- [ ] Tested on Light mode and Dark Mode*
+- [ ] Tested on Light mode and Dark mode*
 - [ ] Your UI implementation visually matched the rendered design*
 - [ ] Unit tests*
 - [ ] Added e2e tests*
