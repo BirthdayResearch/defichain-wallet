@@ -46,7 +46,14 @@ export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Eleme
   function following (): JSX.Element[] {
     const arr: JSX.Element[] = []
     for (let i = 1; i < totalStep; i++) {
-      const iconStyle = isLight ? (current >= i + 1 ? 'bg-primary-500' : 'bg-gray-100') : (current >= i + 1 ? 'bg-dgray-500' : 'bg-gray-600')
+      let iconStyle
+      if (current === i + 1) {
+        iconStyle = isLight ? 'bg-primary-500' : 'bg-dgray-500'
+      } else if (current > i + 1) {
+        iconStyle = isLight ? 'bg-primary-500' : 'bg-darkprimary-500'
+      } else {
+        iconStyle = isLight ? 'bg-gray-100' : 'bg-gray-700'
+      }
       arr.push(
         <View
           key={i * 2}

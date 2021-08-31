@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "DeFiChain Wallet",
+    "name": "DFX Wallet",
     "description": "DeFi Blockchain Light Wallet for iOS, Android & Web.",
     "slug": "wallet",
-    "owner": "defichain",
+    "owner": "dfxag",
     "version": "0.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/images/icon.png",

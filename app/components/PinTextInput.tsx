@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
     width: 20
   },
   filledCell: {
-    borderColor: theme.extend.colors.darkprimary[500],
     backgroundColor: theme.extend.colors.darkprimary[500],
+    borderColor: theme.extend.colors.darkprimary[500],
     borderRadius: 10
   },
   focusCell: {

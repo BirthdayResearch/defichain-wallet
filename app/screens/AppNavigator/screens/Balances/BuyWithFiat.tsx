@@ -14,6 +14,7 @@ import { translate } from '../../../../translations'
 import { Button } from '../../../../components/Button'
 import createHash from 'create-hash'
 import varuint from 'varuint-bitcoin'
+import * as Localization from 'expo-localization'
 
 export function BuyWithFiat (): JSX.Element {
   const { network } = useNetworkContext()
@@ -47,8 +48,9 @@ export function BuyWithFiat (): JSX.Element {
 
   async function onMessageSigned (signature: Buffer): Promise<void> {
     const sig = signature.toString('base64')
+    const lang = Localization.locale.split('-').find(() => true) ?? 'de'
 
-    const url = `https://payment.dfx.swiss/login?address=${address}&signature=${sig}&walletId=0&lang=en`
+    const url = `https://payment.dfx.swiss/login?address=${address}&signature=${sig}&walletId=0&lang=${lang}`
     await Linking.openURL(url)
   }
 
