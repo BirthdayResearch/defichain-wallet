@@ -1,6 +1,8 @@
 <!--  Thanks for sending a pull request! -->
 
 #### Developer Checklist:
+<!--  Before requesting for code review, please ensure that the following tasks are completed. -->
+
 - [ ] Tested on iOS/Android device (e.g, No crashes, library supported etc.)
 - [ ] No console errors on web
 - [ ] Tested on Light mode and Dark Mode*
