@@ -198,7 +198,7 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
         },
       ]
     }
-    vbHeight={150}
+    vbHeight={47}
     vbWidth={400}
     width="100%"
   >
@@ -226,20 +226,27 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
           name="mnemonic_word-animated-diff"
         >
           <RNSVGRect
-            height="191"
-            rx="0"
-            ry="0"
-            width="73"
-            x="-1"
-            y="-18"
+            height="33"
+            rx="3"
+            ry="3"
+            width="290"
+            x="70"
+            y="3"
           />
-          <RNSVGRect
-            height="222"
-            rx="0"
-            ry="0"
-            width="504"
-            x="80"
-            y="1"
+          <RNSVGCircle
+            cx="20"
+            cy="20"
+            matrix={
+              Array [
+                1,
+                0,
+                -0,
+                1,
+                20,
+                0,
+              ]
+            }
+            r="20"
           />
         </RNSVGClipPath>
         <RNSVGLinearGradient

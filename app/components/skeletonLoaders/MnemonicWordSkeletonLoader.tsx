@@ -1,5 +1,5 @@
 import * as React from 'react'
-import ContentLoader, { IContentLoaderProps, Rect } from 'react-content-loader/native'
+import ContentLoader, { IContentLoaderProps, Rect, Circle } from 'react-content-loader/native'
 import { useThemeContext } from '../../contexts/ThemeProvider'
 import { tailwind } from '../../tailwind'
 import { ThemedView } from '../themed'
@@ -17,14 +17,14 @@ export function MnemonicWordSkeletonLoader (props: JSX.IntrinsicAttributes & ICo
         speed={2}
         width='100%'
         height={47}
-        viewBox='0 0 400 150'
+        viewBox='0 0 400 47'
         preserveAspectRatio='xMidYMid slice'
         backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}
         foregroundColor={isLight ? '#ffffff' : '#4a4a4a'}
         {...props}
       >
-        <Rect x='-1' y='-18' rx='0' ry='0' width='73' height='191' />
-        <Rect x='80' y='1' rx='0' ry='0' width='504' height='222' />
+        <Rect x='70' y='3' rx='3' ry='3' width='290' height='33' />
+        <Circle x='20' cx='20' cy='20' r='20' />
       </ContentLoader>
     </ThemedView>
   )
