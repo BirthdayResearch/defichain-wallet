@@ -47,21 +47,17 @@ const { width } = Platform.OS === 'web' ? { width: '375px' } : Dimensions.get('w
 export function InitialSlide (): JSX.Element {
   return (
     <View style={tailwind('flex-1 items-center justify-center p-8')}>
-      <AppIcon
-        height={100}
-        width={100}
-      />
-
-      <ThemedText style={tailwind('text-2xl font-bold mt-3')}>
-        {translate('screens/OnboardingCarousel', 'DeFiChain Wallet')}
+      <AppIcon width={150} height={100} />
+      <ThemedText style={tailwind('text-2xl font-bold')}>
+        {translate('screens/OnboardingCarousel', 'Wallet')}
       </ThemedText>
 
       <ThemedText
-        dark={tailwind('text-gray-400')}
         light={tailwind('text-gray-500')}
-        style={tailwind('text-base font-medium mt-1')}
+        dark={tailwind('text-gray-400')}
+        style={tailwind('text-center font-medium mt-10')}
       >
-        {translate('screens/OnboardingCarousel', 'Native DeFi for Bitcoin')}
+        {translate('screens/OnboardingCarousel', 'A wallet dedicated to the native decentralized finance for bitcoin.')}
       </ThemedText>
     </View>
   )

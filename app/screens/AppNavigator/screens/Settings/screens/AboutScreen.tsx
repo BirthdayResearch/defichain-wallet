@@ -39,14 +39,9 @@ export function AboutScreen (): JSX.Element {
   return (
     <ThemedScrollView>
       <View style={tailwind('flex-1 items-center justify-center p-8')}>
-        <AppIcon
-          height={100}
-          testID='app_logo'
-          width={100}
-        />
-
-        <ThemedText style={tailwind('text-2xl font-bold mt-3')}>
-          {translate('screens/AboutScreen', 'DeFiChain Wallet')}
+        <AppIcon testID='app_logo' width={150} height={100} />
+        <ThemedText style={tailwind('text-2xl font-bold')}>
+          {translate('screens/AboutScreen', 'Wallet')}
         </ThemedText>
 
         <ThemedText style={tailwind('text-base font-light text-black')}>
