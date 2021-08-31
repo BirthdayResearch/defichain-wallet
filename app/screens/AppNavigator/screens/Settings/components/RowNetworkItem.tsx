@@ -1,12 +1,12 @@
+import { ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import { WalletAlert } from '@components/WalletAlert'
+import { useNetworkContext } from '@contexts/NetworkContext'
+import { EnvironmentNetwork, isPlayground } from '@environment'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import * as React from 'react'
 import { useCallback } from 'react'
-import { ThemedIcon, ThemedText, ThemedTouchableOpacity } from '../../../../../components/themed'
-import { WalletAlert } from '../../../../../components/WalletAlert'
-import { useNetworkContext } from '../../../../../contexts/NetworkContext'
-import { EnvironmentNetwork, isPlayground } from '../../../../../environment'
-import { tailwind } from '../../../../../tailwind'
-import { translate } from '../../../../../translations'
 import { SettingsParamList } from '../SettingsNavigator'
 
 export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
@@ -19,7 +19,6 @@ export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Ele
         navigation.navigate('Playground')
       }
     } else {
-      // TODO(@thedoublejay) Update to pass params for translations
       WalletAlert({
         title: translate('screens/Settings', 'Network Switch'),
         message: translate(
@@ -37,10 +36,9 @@ export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Ele
             }
           }
         ]
-      }
-      )
+      })
     }
-  }, [network])
+  }, [props.network, network, navigation, updateNetwork])
 
   return (
     <ThemedTouchableOpacity

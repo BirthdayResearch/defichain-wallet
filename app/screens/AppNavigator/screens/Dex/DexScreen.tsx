@@ -103,10 +103,12 @@ export function DexScreen (): JSX.Element {
                   text={translate('screens/DexScreen', section.key)}
                 />
 
-                {isEmpty(section.data) && <SkeletonLoader
-                  row={3}
-                  screen={SkeletonLoaderScreen.Dex}
-                                          />}
+                {isEmpty(section.data) && (
+                  <SkeletonLoader
+                    row={3}
+                    screen={SkeletonLoaderScreen.Dex}
+                  />
+                )}
               </>
             )
           default:

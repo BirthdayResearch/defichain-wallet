@@ -1,20 +1,20 @@
+import { Logging } from '@api'
+import { SectionTitle } from '@components/SectionTitle'
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import { WalletAlert } from '@components/WalletAlert'
+import { useNetworkContext } from '@contexts/NetworkContext'
+import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
+import { EnvironmentNetwork } from '@environment'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
+import { authentication, Authentication } from '@store/authentication'
+import { ocean } from '@store/ocean'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import * as React from 'react'
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
-import { Logging } from '../../../../api'
 import { MnemonicStorage } from '../../../../api/wallet/mnemonic_storage'
-import { SectionTitle } from '../../../../components/SectionTitle'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '../../../../components/themed'
-import { WalletAlert } from '../../../../components/WalletAlert'
-import { useNetworkContext } from '../../../../contexts/NetworkContext'
-import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
-import { EnvironmentNetwork } from '../../../../environment'
-import { authentication, Authentication } from '../../../../store/authentication'
-import { ocean } from '../../../../store/ocean'
-import { tailwind } from '../../../../tailwind'
-import { translate } from '../../../../translations'
 import { RowThemeItem } from './components/RowThemeItem'
 import { SettingsParamList } from './SettingsNavigator'
 
@@ -24,7 +24,8 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   const { network } = useNetworkContext()
   const dispatch = useDispatch()
   const walletContext = useWalletPersistenceContext()
-  const isEncrypted = walletContext.wallets[0].type === 'MNEMONIC_ENCRYPTED'
+  const wallet = walletContext.wallets[0]
+  const isEncrypted = wallet.type === 'MNEMONIC_ENCRYPTED'
 
   const revealRecoveryWords = useCallback(() => {
     if (!isEncrypted) {
@@ -42,10 +43,10 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       loading: translate('screens/Settings', 'Loading...')
     }
     dispatch(authentication.actions.prompt(auth))
-  }, [walletContext.wallets[0]])
+  }, [dispatch, isEncrypted, navigation])
 
   const changePasscode = useCallback(() => {
-    if (walletContext.wallets[0].type !== 'MNEMONIC_ENCRYPTED') {
+    if (wallet.type !== 'MNEMONIC_ENCRYPTED') {
       return
     }
 
@@ -64,7 +65,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
     }
 
     dispatch(authentication.actions.prompt(auth))
-  }, [walletContext.wallets[0]])
+  }, [wallet, dispatch, navigation])
 
   return (
     <ThemedScrollView
@@ -95,11 +96,13 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       />
 
       {
-        isEncrypted && <SecurityRow
-          label='Change Passcode'
-          onPress={changePasscode}
-          testID='view_change_passcode'
-                       />
+        isEncrypted && (
+          <SecurityRow
+            label='Change Passcode'
+            onPress={changePasscode}
+            testID='view_change_passcode'
+          />
+        )
       }
 
       <RowThemeItem />
