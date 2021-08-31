@@ -63,13 +63,15 @@ describe('wallet reducer', () => {
           id: '0',
           reserve: '1000',
           blockCommission: '0',
-          symbol: 'DFI'
+          symbol: 'DFI',
+          displaySymbol: 'dDFI'
         },
         tokenB: {
           id: '3',
           reserve: '10000000',
           blockCommission: '0',
-          symbol: 'USDT'
+          symbol: 'USDT',
+          displaySymbol: 'dUSDT'
         },
         priceRatio: {
           ab: '0.0001',
@@ -98,8 +100,17 @@ describe('wallet reducer', () => {
   })
 
   it('should able to select tokens with default DFIs', () => {
-    const actual = tokensSelector({ ...initialState, utxoBalance: '77' })
-    expect(actual).toStrictEqual([{ ...utxoDFI, amount: '77.00000000' }, { ...tokenDFI, amount: '0' }])
+    const actual = tokensSelector({
+      ...initialState,
+      utxoBalance: '77'
+    })
+    expect(actual).toStrictEqual([{
+      ...utxoDFI,
+      amount: '77.00000000'
+    }, {
+      ...tokenDFI,
+      amount: '0'
+    }])
   })
 
   it('should able to select tokens with existing DFI Token', () => {
@@ -120,6 +131,9 @@ describe('wallet reducer', () => {
       tokens: [{ ...utxoDFI }, { ...tokenDFI }, { ...btc }]
     }
     const actual = tokensSelector(state)
-    expect(actual).toStrictEqual([{ ...utxoDFI, amount: '77.00000000' }, { ...tokenDFI }, { ...btc }])
+    expect(actual).toStrictEqual([{
+      ...utxoDFI,
+      amount: '77.00000000'
+    }, { ...tokenDFI }, { ...btc }])
   })
 })

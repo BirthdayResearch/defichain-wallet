@@ -1,10 +1,10 @@
 import * as React from 'react'
-import ContentLoader, { Circle, Rect } from 'react-content-loader/native'
+import ContentLoader, { Circle, IContentLoaderProps, Rect } from 'react-content-loader/native'
 import { useThemeContext } from '../../contexts/ThemeProvider'
 import { tailwind } from '../../tailwind'
 import { ThemedView } from '../themed'
 
-export function TransactionSkeletonLoader (): JSX.Element {
+export function TransactionSkeletonLoader (props: JSX.IntrinsicAttributes & IContentLoaderProps & { children?: React.ReactNode }): JSX.Element {
   const { isLight } = useThemeContext()
   return (
     <ThemedView
@@ -21,6 +21,7 @@ export function TransactionSkeletonLoader (): JSX.Element {
         speed={2}
         viewBox='0 0 344 47'
         width='100%'
+        {...props}
       >
         <Circle
           cx='17'

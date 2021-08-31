@@ -29,14 +29,17 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
 
   const revealRecoveryWords = useCallback(() => {
     if (!isEncrypted) {
-      // TODO: alert(mnemonic phrase only get encrypted and stored if for encrypted type)
       return
     }
 
     const auth: Authentication<string[]> = {
       consume: async passphrase => await MnemonicStorage.get(passphrase),
       onAuthenticated: async (words) => {
-        navigation.navigate({ name: 'RecoveryWordsScreen', params: { words }, merge: true })
+        navigation.navigate({
+          name: 'RecoveryWordsScreen',
+          params: { words },
+          merge: true
+        })
       },
       onError: e => Logging.error(e),
       message: translate('screens/Settings', 'To continue viewing your recovery words, we need you to enter your passcode.'),
@@ -54,7 +57,12 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       consume: async passphrase => await MnemonicStorage.get(passphrase),
       onAuthenticated: async words => {
         navigation.navigate({
-          name: 'ChangePinScreen', params: { words, pinLength: 6 }, merge: true
+          name: 'ChangePinScreen',
+          params: {
+            words,
+            pinLength: 6
+          },
+          merge: true
         })
       },
       onError: (e) => {
@@ -105,19 +113,20 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         )
       }
 
-      <RowThemeItem />
-
       <RowNavigateItem
         pageName='AboutScreen'
         title='About'
       />
-
+      <RowThemeItem />
       <RowExitWalletItem />
     </ThemedScrollView>
   )
 }
 
-function SelectedNetworkItem ({ network, onPress }: { network: EnvironmentNetwork, onPress: () => void }): JSX.Element {
+function SelectedNetworkItem ({
+  network,
+  onPress
+}: { network: EnvironmentNetwork, onPress: () => void }): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={onPress}
@@ -184,7 +193,11 @@ function RowExitWalletItem (): JSX.Element {
   )
 }
 
-function SecurityRow ({ testID, label, onPress }: { testID: string, label: string, onPress: () => void }): JSX.Element {
+function SecurityRow ({
+  testID,
+  label,
+  onPress
+}: { testID: string, label: string, onPress: () => void }): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={onPress}
@@ -204,7 +217,10 @@ function SecurityRow ({ testID, label, onPress }: { testID: string, label: strin
   )
 }
 
-function RowNavigateItem ({ pageName, title }: { pageName: string, title: string }): JSX.Element {
+function RowNavigateItem ({
+  pageName,
+  title
+}: { pageName: string, title: string }): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
   return (
     <ThemedTouchableOpacity
