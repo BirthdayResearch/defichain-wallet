@@ -1,7 +1,7 @@
-import { render } from "@testing-library/react-native";
+import { render } from '@testing-library/react-native'
 import * as React from 'react'
-import { AppIcon } from "../AppIcon";
-import { getNativeIcon } from "./index";
+import { AppIcon } from '../AppIcon'
+import { getNativeIcon } from './index'
 
 jest.mock('randomcolor', () => jest.fn().mockReturnValue('#ffffff'))
 
@@ -16,8 +16,8 @@ describe('token icons', () => {
     })
   })
 
-  it(`<AppIcon /> should match snapshot`, () => {
+  it('<AppIcon /> should match snapshot', () => {
     const tree = render(<AppIcon />).toJSON()
     expect(tree).toMatchSnapshot()
   })
-});
+})

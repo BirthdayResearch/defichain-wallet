@@ -1,6 +1,8 @@
-import { render } from "@testing-library/react-native"
+import { render } from '@testing-library/react-native'
 import * as React from 'react'
-import ConnectionBoundary from "./ConnectionBoundary"
+import ConnectionBoundary from './ConnectionBoundary'
+
+jest.mock('../../contexts/ThemeProvider')
 
 jest.mock('@react-native-community/netinfo', () => ({
   useNetInfo: jest.fn()
@@ -21,7 +23,7 @@ describe('offline screen', () => {
   })
 
   it('should return null when online', async () => {
-    const tree = render(<ConnectionBoundary children={<h1>Child Component</h1>} />).toJSON()
+    const tree = render(<ConnectionBoundary><h1>Child Component</h1></ConnectionBoundary>).toJSON()
     expect(tree).toMatchSnapshot()
   })
 })

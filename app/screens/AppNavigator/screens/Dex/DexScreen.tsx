@@ -61,15 +61,21 @@ export function DexScreen (): JSX.Element {
         const poolPairData = pairs.find(pr => pr.data.symbol === (item.data as AddressToken).symbol)
         switch (item.type) {
           case 'your':
-            return PoolPairRowYour(item.data, () => {
-              onAdd((poolPairData as DexItem<PoolPairData>).data)
-            }, () => {
-              onRemove((poolPairData as DexItem<PoolPairData>).data)
-            }, poolPairData?.data)
+            return (
+              <PoolPairRowYour
+                data={item.data}
+                onAdd={() => onAdd((poolPairData as DexItem<PoolPairData>).data)}
+                onRemove={() => onRemove((poolPairData as DexItem<PoolPairData>).data)}
+                pair={poolPairData?.data}
+              />
+            )
           case 'available':
-            return PoolPairRowAvailable(item.data,
-              () => onAdd(item.data),
-              () => navigation.navigate({ name: 'PoolSwap', params: { poolpair: item.data }, merge: true })
+            return (
+              <PoolPairRowAvailable
+                data={item.data}
+                onAdd={() => onAdd(item.data)}
+                onSwap={() => navigation.navigate({ name: 'PoolSwap', params: { poolpair: item.data }, merge: true })}
+              />
             )
           default:
             return <></>
@@ -95,7 +101,6 @@ export function DexScreen (): JSX.Element {
                 </ThemedText>
               </ThemedView>
             )
-
           case SectionKey.AvailablePoolPair:
             return (
               <>
@@ -103,6 +108,8 @@ export function DexScreen (): JSX.Element {
                 {isEmpty(section.data) && <SkeletonLoader row={3} screen={SkeletonLoaderScreen.Dex} />}
               </>
             )
+          default:
+            return <></>
         }
       }}
       keyExtractor={(item, index) => `${index}`}
@@ -115,7 +122,12 @@ interface DexItem<T> {
   data: T
 }
 
-function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () => void, pair?: PoolPairData): JSX.Element {
+function PoolPairRowYour ({
+  data,
+  onAdd,
+  onRemove,
+  pair
+}: { data: AddressToken, onAdd: () => void, onRemove: () => void, pair?: PoolPairData }): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
   const IconA = getNativeIcon(symbolA)
   const IconB = getNativeIcon(symbolB)
@@ -163,7 +175,11 @@ function PoolPairRowYour (data: AddressToken, onAdd: () => void, onRemove: () =>
   )
 }
 
-function PoolPairRowAvailable (data: PoolPairData, onAdd: () => void, onSwap: () => void): JSX.Element {
+function PoolPairRowAvailable ({
+  data,
+  onAdd,
+  onSwap
+}: { data: PoolPairData, onAdd: () => void, onSwap: () => void }): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
   const IconA = getNativeIcon(symbolA)
   const IconB = getNativeIcon(symbolB)

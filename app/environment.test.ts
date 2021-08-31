@@ -1,5 +1,5 @@
 import * as Updates from 'expo-updates'
-import { EnvironmentName, EnvironmentNetwork, environments, getEnvironment, isPlayground } from "./environment";
+import { EnvironmentName, EnvironmentNetwork, environments, getEnvironment, isPlayground } from './environment'
 
 jest.mock('expo-updates')
 

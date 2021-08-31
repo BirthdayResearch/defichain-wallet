@@ -8,12 +8,24 @@
   ],
   "ignorePatterns": [
     "*.json",
-    "**/*.test.ts",
-    "**/*.test.tsx",
     "cypress/support/*.ts"
   ],
-  "rules": {
-    "import/no-default-export": "warn"
-  },
-  "overrides": []
+  "overrides": [
+    // Js and Typescript files
+    {
+      "files": [".js", "*.ts", "*.tsx"],
+      "rules": {
+        "import/no-default-export": "warn"
+      },
+      "excludedFiles": ["*.test.ts", "*.test.tsx"]
+    },
+    // Unit test files
+    {
+      "files": [ "*.test.ts", "*.test.tsx"],
+      "plugins": ["jest"],
+      "extends": [
+        "plugin:jest/recommended"
+      ]
+    }
+  ]
 }

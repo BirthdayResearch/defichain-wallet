@@ -36,23 +36,23 @@ export default function App (): JSX.Element | null {
 
   return (
     <ErrorBoundary>
-      <ConnectionBoundary>
-        <NetworkProvider>
-          <WhaleProvider>
-            <DeFiScanProvider>
-              <WalletPersistenceProvider>
-                <StoreProvider>
-                  <StatsProvider>
-                    <ThemeProvider>
+      <NetworkProvider>
+        <WhaleProvider>
+          <DeFiScanProvider>
+            <WalletPersistenceProvider>
+              <StoreProvider>
+                <StatsProvider>
+                  <ThemeProvider>
+                    <ConnectionBoundary>
                       <Main />
-                    </ThemeProvider>
-                  </StatsProvider>
-                </StoreProvider>
-              </WalletPersistenceProvider>
-            </DeFiScanProvider>
-          </WhaleProvider>
-        </NetworkProvider>
-      </ConnectionBoundary>
+                    </ConnectionBoundary>
+                  </ThemeProvider>
+                </StatsProvider>
+              </StoreProvider>
+            </WalletPersistenceProvider>
+          </DeFiScanProvider>
+        </WhaleProvider>
+      </NetworkProvider>
     </ErrorBoundary>
   )
 }

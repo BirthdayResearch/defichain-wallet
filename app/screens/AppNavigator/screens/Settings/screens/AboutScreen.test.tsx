@@ -1,9 +1,9 @@
-import { fireEvent, render } from "@testing-library/react-native"
+import { fireEvent, render } from '@testing-library/react-native'
 import * as React from 'react'
 import { Linking } from 'react-native'
-import { AboutScreen } from "./AboutScreen";
+import { AboutScreen } from './AboutScreen'
 
-jest.mock("../../../../../contexts/ThemeProvider")
+jest.mock('../../../../../contexts/ThemeProvider')
 
 it('<AboutScreen /> should match snapshot', async () => {
   const tree = render(<AboutScreen />)
@@ -12,4 +12,3 @@ it('<AboutScreen /> should match snapshot', async () => {
   fireEvent.press(privacyPolicy)
   expect(Linking.canOpenURL).toBeCalled()
 })
-

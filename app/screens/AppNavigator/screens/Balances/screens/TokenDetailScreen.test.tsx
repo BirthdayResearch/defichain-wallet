@@ -1,13 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { fireEvent, render } from "@testing-library/react-native";
-import * as React from "react";
-import { Provider } from "react-redux";
-import { RootState } from "../../../../../store";
-import { wallet } from "../../../../../store/wallet";
-import { TokenDetailScreen } from "./TokenDetailScreen";
+import { configureStore } from '@reduxjs/toolkit'
+import { fireEvent, render } from '@testing-library/react-native'
+import * as React from 'react'
+import { Provider } from 'react-redux'
+import { RootState } from '../../../../../store'
+import { wallet } from '../../../../../store/wallet'
+import { TokenDetailScreen } from './TokenDetailScreen'
 
-jest.mock("../../../../../contexts/ThemeProvider")
-jest.mock("../../../../../hooks/wallet/TokensAPI", () => ({
+jest.mock('../../../../../contexts/ThemeProvider')
+jest.mock('../../../../../hooks/wallet/TokensAPI', () => ({
   useTokensAPI: () => [
     {
       id: '0_utxo',
@@ -35,7 +35,7 @@ jest.mock("../../../../../hooks/wallet/TokensAPI", () => ({
       amount: '100000',
       name: 'Bitcoin'
     }]
-}));
+}))
 
 describe('token detail screen', () => {
   it('should accept DST', async () => {
@@ -45,13 +45,13 @@ describe('token detail screen', () => {
         utxoBalance: '77',
         tokens: []
       }
-    };
+    }
     const store = configureStore({
       preloadedState: initialState,
       reducer: { wallet: wallet.reducer }
     })
     const navigation: any = {
-      navigate: jest.fn(),
+      navigate: jest.fn()
     }
     const route: any = {
       params: {
@@ -71,7 +71,7 @@ describe('token detail screen', () => {
       <Provider store={store}>
         <TokenDetailScreen navigation={navigation} route={route} />
       </Provider>
-    );
+    )
     const rendered = render(component)
     const sendButton = await rendered.findByTestId('send_button')
     fireEvent.press(sendButton)
@@ -86,13 +86,13 @@ describe('token detail screen', () => {
         utxoBalance: '77',
         tokens: []
       }
-    };
+    }
     const store = configureStore({
       preloadedState: initialState,
       reducer: { wallet: wallet.reducer }
     })
     const navigation: any = {
-      navigate: jest.fn(),
+      navigate: jest.fn()
     }
     const route: any = {
       params: {
@@ -112,7 +112,7 @@ describe('token detail screen', () => {
       <Provider store={store}>
         <TokenDetailScreen navigation={navigation} route={route} />
       </Provider>
-    );
+    )
     const rendered = render(component)
     const receiveButton = await rendered.findByTestId('receive_button')
     fireEvent.press(receiveButton)
@@ -127,13 +127,13 @@ describe('token detail screen', () => {
         utxoBalance: '77',
         tokens: []
       }
-    };
+    }
     const store = configureStore({
       preloadedState: initialState,
       reducer: { wallet: wallet.reducer }
     })
     const navigation: any = {
-      navigate: jest.fn(),
+      navigate: jest.fn()
     }
     const route: any = {
       params: {
@@ -153,7 +153,7 @@ describe('token detail screen', () => {
       <Provider store={store}>
         <TokenDetailScreen navigation={navigation} route={route} />
       </Provider>
-    );
+    )
     const rendered = render(component)
     const convertButton = await rendered.findByTestId('convert_button')
     fireEvent.press(convertButton)

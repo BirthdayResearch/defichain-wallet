@@ -1,7 +1,7 @@
-import { MnemonicProviderData } from "@defichain/jellyfish-wallet-mnemonic";
-import { EnvironmentNetwork } from "../../../environment";
-import { WalletPersistenceData, WalletType } from "../persistence";
-import { MnemonicUnprotected } from "./mnemonic_unprotected";
+import { MnemonicProviderData } from '@defichain/jellyfish-wallet-mnemonic'
+import { EnvironmentNetwork } from '../../../environment'
+import { WalletPersistenceData, WalletType } from '../persistence'
+import { MnemonicUnprotected } from './mnemonic_unprotected'
 
 beforeEach(() => {
   jest.clearAllMocks()
@@ -10,7 +10,7 @@ beforeEach(() => {
 describe('getMnemonicHdNodeProvider', () => {
   it('should get provider (abandon x23)', async () => {
     const data: WalletPersistenceData<MnemonicProviderData> = {
-      version: "v1",
+      version: 'v1',
       type: WalletType.MNEMONIC_UNPROTECTED,
       raw: {
         words: ['abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'],
@@ -39,7 +39,7 @@ describe('addMnemonicHdNodeProvider', () => {
     ], EnvironmentNetwork.LocalPlayground)
 
     expect(data).toStrictEqual({
-      version: "v1",
+      version: 'v1',
       type: WalletType.MNEMONIC_UNPROTECTED,
       raw: {
         words: ['abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'],
@@ -53,7 +53,7 @@ describe('addMnemonicHdNodeProvider', () => {
     const words = 'void come effort suffer camp survey warrior heavy shoot primary clutch crush open amazing screen patrol group space point ten exist slush involve unfold'.split(' ')
 
     expect(MnemonicUnprotected.toData(words, EnvironmentNetwork.LocalPlayground)).toStrictEqual({
-      version: "v1",
+      version: 'v1',
       type: WalletType.MNEMONIC_UNPROTECTED,
       raw: {
         words: words,
@@ -63,7 +63,6 @@ describe('addMnemonicHdNodeProvider', () => {
     })
   })
 })
-
 
 it('should generate random mnemonic words 100000 times', () => {
   const total = 100000
