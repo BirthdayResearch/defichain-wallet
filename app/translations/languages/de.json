@@ -337,12 +337,12 @@
     "Please enter passcode to securely sign your transaction": "Gib bitte das Passwort ein, um die Transaktion freizugeben"
   },
   "screens/TransactionAuthorization": {
-    "Signing...": "Freigabe..."
+    "Signing...": "Freigabe läuft..."
   },
   "components/CreateWalletIndicator": {
-    "Recovery": "Zeige 24 Worte an",
+    "Recovery": "Stelle wieder her",
     "Verify": "Bestätige",
     "Secure": "Sichere",
-    "Restore": "Zeige 24 Worte an"
+    "Restore": "Stelle wieder her"
   }
 }
