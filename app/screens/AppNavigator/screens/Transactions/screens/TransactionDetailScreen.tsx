@@ -20,7 +20,7 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
   const { tx } = props.route.params
   const { getTransactionUrl } = useDeFiScanContext()
 
-  const RenderRow = (lhs: string, rhs: string): JSX.Element => {
+  const RenderRow = ({ lhs, rhs }: { lhs: string, rhs: string }): JSX.Element => {
     return (
       <ThemedScrollView testID={`transaction-detail-${lhs.toLowerCase()}`}>
         <ThemedView
@@ -46,11 +46,11 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
 
   return (
     <View>
-      {RenderRow('Type', translate('screens/TransactionDetailScreen', tx.desc))}
+      <RenderRow lhs='Type' rhs={translate('screens/TransactionDetailScreen', tx.desc)} />
+      <RenderRow lhs='Amount' rhs={translate('screens/TransactionDetailScreen', tx.amount)} />
+      <RenderRow lhs='Block' rhs={translate('screens/TransactionDetailScreen', `${tx.block}`)} />
+      <RenderRow lhs='Date' rhs={translate('screens/TransactionDetailScreen', `${formatBlockTime(tx.medianTime)}`)} />
       {/* TODO(@ivan-zynesis): handle different transaction type other than sent/receive */}
-      {RenderRow('Amount', translate('screens/TransactionDetailScreen', tx.amount))}
-      {RenderRow('Block', translate('screens/TransactionDetailScreen', `${tx.block}`))}
-      {RenderRow('Date', translate('screens/TransactionDetailScreen', `${formatBlockTime(tx.medianTime)}`))}
       <ThemedTouchableOpacity
         testID='transaction-detail-explorer-url'
         style={tailwind('p-2 flex-row items-center w-full p-4 mt-4')}

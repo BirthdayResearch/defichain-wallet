@@ -44,7 +44,6 @@ export function ConvertScreen (props: Props): JSX.Element {
   const [targetToken, setTargetToken] = useState<ConversionIO>()
   const [convAmount, setConvAmount] = useState<string>('0')
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
-
   const [amount, setAmount] = useState<string>('')
 
   useEffect(() => {
@@ -122,12 +121,12 @@ function getDFIBalances (mode: ConversionMode, tokens: AddressToken[]): [source:
   const targetUnit = mode === 'utxosToAccount' ? 'Token' : 'UTXO'
 
   return [
-    { ...source, unit: sourceUnit },
+    { ...source, unit: sourceUnit, amount: getConvertibleUtxoAmount(mode, source) },
     { ...target, unit: targetUnit }
   ]
 }
 
-function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' | 'output', unit: string, current: string, balance: BigNumber, onChange?: (amount: string) => void }): JSX.Element {
+function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' | 'output', unit: 'UTXO' | 'Token', current: string, balance: BigNumber, onChange: (amount: string) => void }): JSX.Element {
   const iconType = props.unit === 'UTXO' ? '_UTXO' : 'DFI'
   const titlePrefix = props.mode === 'input' ? 'CONVERT' : 'TO'
   const title = `${translate('screens/ConvertScreen', `${titlePrefix} {{symbol}}`, { symbol: props.unit })}`
@@ -147,9 +146,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
           style={tailwind('flex-1 mr-4 text-gray-500 px-1 py-4')}
           editable={props.mode === 'input'}
           onChange={event => {
-            if (props.onChange !== undefined) {
-              props.onChange(event.nativeEvent.text)
-            }
+            props.onChange(event.nativeEvent.text)
           }}
         />
         <DFIIcon />
@@ -173,9 +170,9 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
             )}
           />
         </View>
-        {props.mode === 'input' && props.onChange &&
+        {props.mode === 'input' &&
           <SetAmountButton type={AmountButtonTypes.half} onPress={props.onChange} amount={props.balance} />}
-        {props.mode === 'input' && props.onChange &&
+        {props.mode === 'input' &&
           <SetAmountButton type={AmountButtonTypes.max} onPress={props.onChange} amount={props.balance} />}
       </ThemedView>
     </View>
@@ -246,7 +243,7 @@ function TokenVsUtxosInfo (): JSX.Element {
       />
       <ThemedText
         light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
-        style={tailwind('ml-1 text-sm font-medium')}
+        style={tailwind('ml-1 text-sm font-medium px-1')}
       >{translate('screens/ConvertScreen', 'UTXO vs Token, what is the difference?')}
       </ThemedText>
     </TouchableOpacity>
@@ -255,4 +252,14 @@ function TokenVsUtxosInfo (): JSX.Element {
 
 function canConvert (amount: string, balance: string): boolean {
   return new BigNumber(balance).gte(amount) && !(new BigNumber(amount).isZero()) && (new BigNumber(amount).isPositive())
+}
+
+function getConvertibleUtxoAmount (mode: ConversionMode, source: AddressToken): string {
+  if (mode === 'accountToUtxos') {
+    return source.amount
+  }
+
+  const utxoToReserve = '0.1'
+  const leftover = new BigNumber(source.amount).minus(new BigNumber(utxoToReserve))
+  return leftover.isLessThan(0) ? '0' : leftover.toFixed()
 }

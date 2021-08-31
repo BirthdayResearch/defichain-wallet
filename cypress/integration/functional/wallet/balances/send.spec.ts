@@ -262,16 +262,16 @@ context('Wallet - Send - Max Values', function () {
       cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
       cy.getByTestID('send_submit_button').click()
       cy.getByTestID('confirm_title').contains('YOU ARE SENDING')
-      cy.getByTestID('text_send_amount').contains('10.00000000 DFI')
+      cy.getByTestID('text_send_amount').contains('9.90000000 DFI')
       cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.closeOceanInterface()
       cy.getByTestID('bottom_tab_balances').click()
-      cy.getByTestID('balances_row_0_utxo_amount').contains('0.00000000')
+      cy.getByTestID('balances_row_0_utxo_amount').contains('0.09')
     })
 
     it(`should check if exist on other side ${address}`, function () {
       cy.wrap(whale.address.getBalance(address)).then((response) => {
-        expect(response).contains('9.9999')
+        expect(response).contains('9.90000000')
       })
     })
   })

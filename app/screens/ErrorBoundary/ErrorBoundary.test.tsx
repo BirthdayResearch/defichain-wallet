@@ -1,11 +1,10 @@
 import { render } from '@testing-library/react-native'
 import * as React from 'react'
-import { View } from "react-native";
+import { View } from 'react-native'
 import ErrorBoundary from './ErrorBoundary'
 
 describe('ErrorBoundary', () => {
-
-  let consoleErrorSpy: jest.SpyInstance;
+  let consoleErrorSpy: jest.SpyInstance
   let errorMock: Error
 
   beforeAll(() => {
@@ -20,7 +19,7 @@ describe('ErrorBoundary', () => {
 
   describe('when there is no error', () => {
     it('<ErrorBoundary /> should render children components', () => {
-      const tree = render(<ErrorBoundary children={<h1>Child Component</h1>} />).toJSON()
+      const tree = render(<ErrorBoundary><h1>Child Component</h1></ErrorBoundary>).toJSON()
       expect(tree).toMatchSnapshot()
     })
   })
@@ -36,4 +35,3 @@ describe('ErrorBoundary', () => {
     })
   })
 })
-

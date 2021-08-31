@@ -6,6 +6,7 @@ export enum IconLabelScreenType {
   Balance,
   DEX
 }
+
 interface InputIconLabelProps {
   testID?: string
   label: string
