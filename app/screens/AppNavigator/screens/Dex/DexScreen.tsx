@@ -122,7 +122,12 @@ interface DexItem<T> {
   data: T
 }
 
-function PoolPairRowYour ({ data, onAdd, onRemove, pair }: {data: AddressToken, onAdd: () => void, onRemove: () => void, pair?: PoolPairData}): JSX.Element {
+function PoolPairRowYour ({
+  data,
+  onAdd,
+  onRemove,
+  pair
+}: { data: AddressToken, onAdd: () => void, onRemove: () => void, pair?: PoolPairData }): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
   const IconA = getNativeIcon(symbolA)
   const IconB = getNativeIcon(symbolB)
@@ -170,7 +175,11 @@ function PoolPairRowYour ({ data, onAdd, onRemove, pair }: {data: AddressToken, 
   )
 }
 
-function PoolPairRowAvailable ({ data, onAdd, onSwap }: {data: PoolPairData, onAdd: () => void, onSwap: () => void}): JSX.Element {
+function PoolPairRowAvailable ({
+  data,
+  onAdd,
+  onSwap
+}: { data: PoolPairData, onAdd: () => void, onSwap: () => void }): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
   const IconA = getNativeIcon(symbolA)
   const IconB = getNativeIcon(symbolB)

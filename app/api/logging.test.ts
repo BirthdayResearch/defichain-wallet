@@ -1,4 +1,4 @@
-import { Logging } from "./logging";
+import { Logging } from './logging'
 
 const error = jest.spyOn(Logging, 'error')
 const info = jest.spyOn(Logging, 'info')

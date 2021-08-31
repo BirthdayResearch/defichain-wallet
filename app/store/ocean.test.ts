@@ -1,6 +1,5 @@
-import { CTransactionSegWit } from "@defichain/jellyfish-transaction";
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet';
-import { SmartBuffer } from "smart-buffer";
+import { CTransactionSegWit } from '@defichain/jellyfish-transaction'
+import { SmartBuffer } from 'smart-buffer'
 import { ocean, OceanState, OceanTransaction } from './ocean'
 
 describe('ocean reducer', () => {
@@ -19,7 +18,7 @@ describe('ocean reducer', () => {
       transactions: [],
       err: undefined,
       height: 0
-    });
+    })
   })
 
   it('should handle queueTransaction and popTransaction', () => {
@@ -27,30 +26,38 @@ describe('ocean reducer', () => {
     const buffer = SmartBuffer.fromBuffer(Buffer.from(v2, 'hex'))
     const signed = new CTransactionSegWit(buffer)
     const payload: Omit<OceanTransaction, 'broadcasted'> = { title: 'Sending', tx: signed }
-    const addedTransaction = ocean.reducer(initialState, ocean.actions.queueTransaction(payload));
-    expect(addedTransaction).toStrictEqual({ transactions: [{
-      ...payload,
-      broadcasted: false
-    }], err: undefined, height: 0 })
-    const actual = ocean.reducer(addedTransaction, ocean.actions.queueTransaction(payload));
+    const addedTransaction = ocean.reducer(initialState, ocean.actions.queueTransaction(payload))
+    expect(addedTransaction).toStrictEqual({
+      transactions: [{
+        ...payload,
+        broadcasted: false
+      }],
+      err: undefined,
+      height: 0
+    })
+    const actual = ocean.reducer(addedTransaction, ocean.actions.queueTransaction(payload))
 
-    const pop = ocean.reducer(actual, ocean.actions.popTransaction());
-    expect(pop).toStrictEqual({ transactions: [{
-      ...payload,
-      broadcasted: false
-    }], err: undefined, height: 0 })
-    const removed = ocean.reducer(pop, ocean.actions.popTransaction());
+    const pop = ocean.reducer(actual, ocean.actions.popTransaction())
+    expect(pop).toStrictEqual({
+      transactions: [{
+        ...payload,
+        broadcasted: false
+      }],
+      err: undefined,
+      height: 0
+    })
+    const removed = ocean.reducer(pop, ocean.actions.popTransaction())
     expect(removed).toStrictEqual({ transactions: [], err: undefined, height: 0 })
   })
 
   it('should handle setError', () => {
     const err = new Error('An error has occurred')
-    const actual = ocean.reducer(initialState, ocean.actions.setError(err));
+    const actual = ocean.reducer(initialState, ocean.actions.setError(err))
     expect(actual).toStrictEqual({ transactions: [], err, height: 0 })
   })
 
   it('should setHeight', () => {
-    const actual = ocean.reducer(initialState, ocean.actions.setHeight(77));
+    const actual = ocean.reducer(initialState, ocean.actions.setHeight(77))
     expect(actual).toStrictEqual({ transactions: [], err: undefined, height: 77 })
   })
 })

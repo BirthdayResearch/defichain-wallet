@@ -1,9 +1,9 @@
-import { MnemonicProviderData } from "@defichain/jellyfish-wallet-mnemonic";
-import { WhaleApiClient } from "@defichain/whale-api-client";
-import { EnvironmentNetwork } from "../../environment";
-import { initJellyfishWallet } from "./index";
-import { WalletPersistenceData, WalletType } from "./persistence";
-import { MnemonicUnprotected } from "./provider/mnemonic_unprotected";
+import { MnemonicProviderData } from '@defichain/jellyfish-wallet-mnemonic'
+import { WhaleApiClient } from '@defichain/whale-api-client'
+import { EnvironmentNetwork } from '../../environment'
+import { initJellyfishWallet } from './index'
+import { WalletPersistenceData, WalletType } from './persistence'
+import { MnemonicUnprotected } from './provider/mnemonic_unprotected'
 
 beforeEach(async () => {
   jest.clearAllMocks()
@@ -14,7 +14,7 @@ const client = new WhaleApiClient({ url: 'http://localhost:19553', network: 'reg
 
 it('should initJellyfishWallet', async () => {
   const data: WalletPersistenceData<MnemonicProviderData> = {
-    version: "v1",
+    version: 'v1',
     type: WalletType.MNEMONIC_UNPROTECTED,
     raw: {
       words: ['abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art'],

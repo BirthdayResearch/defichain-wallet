@@ -102,7 +102,7 @@ export function TransactionsScreen (): JSX.Element {
       style={tailwind('w-full')}
       data={transactions}
       renderItem={
-        ({ item, index }: {item: VMTransaction, index: number}) => (
+        ({ item, index }: { item: VMTransaction, index: number }) => (
           <TransactionRow
             navigation={navigation}
             item={item}
@@ -122,7 +122,11 @@ export function TransactionsScreen (): JSX.Element {
   )
 }
 
-function TransactionRow ({ navigation, item, index }: {navigation: NavigationProp<TransactionsParamList>, item: VMTransaction, index: number }): JSX.Element {
+function TransactionRow ({
+  navigation,
+  item,
+  index
+}: { navigation: NavigationProp<TransactionsParamList>, item: VMTransaction, index: number }): JSX.Element {
   const {
     color,
     iconName,
@@ -180,7 +184,7 @@ function TransactionRow ({ navigation, item, index }: {navigation: NavigationPro
   )
 }
 
-function LoadMore ({ onPress }: {onPress: () => void}): JSX.Element | null {
+function LoadMore ({ onPress }: { onPress: () => void }): JSX.Element | null {
   return (
     <View style={tailwind('flex-1 items-center justify-center w-full m-1')}>
       <TouchableOpacity

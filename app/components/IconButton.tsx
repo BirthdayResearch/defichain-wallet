@@ -5,6 +5,7 @@ import { tailwind } from '../tailwind'
 import { ThemedIcon, ThemedTouchableOpacity } from './themed'
 
 type IconType = 'MaterialCommunityIcons' | 'MaterialIcons'
+
 interface IconButtonProps extends TouchableOpacityProps {
   iconName: React.ComponentProps<typeof MaterialIcons>['name'] | React.ComponentProps<typeof MaterialCommunityIcons>['name']
   iconType: IconType

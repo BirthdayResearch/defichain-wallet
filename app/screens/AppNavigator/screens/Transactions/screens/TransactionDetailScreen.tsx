@@ -20,7 +20,7 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
   const { tx } = props.route.params
   const { getTransactionUrl } = useDeFiScanContext()
 
-  const RenderRow = ({ lhs, rhs }: {lhs: string, rhs: string}): JSX.Element => {
+  const RenderRow = ({ lhs, rhs }: { lhs: string, rhs: string }): JSX.Element => {
     return (
       <ThemedScrollView testID={`transaction-detail-${lhs.toLowerCase()}`}>
         <ThemedView

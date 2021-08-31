@@ -1,5 +1,5 @@
-import { EnvironmentNetwork } from "../../environment";
-import { getBip32Option } from "./network";
+import { EnvironmentNetwork } from '../../environment'
+import { getBip32Option } from './network'
 
 it('should resolve bip32 option for MainNet', () => {
   const bip32Options = getBip32Option(EnvironmentNetwork.MainNet)
