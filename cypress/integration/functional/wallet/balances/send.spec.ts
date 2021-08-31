@@ -94,8 +94,9 @@ context('Wallet - Send', function () {
         cy.getByTestID('max_value').invoke('text').then((balanceValue) => {
           const balance = balanceValue.replace(' DFI', '')
           const sendAmount = '1'
+          const slippage = '0.1'
           cy.getByTestID('amount_input').clear().type(sendAmount)
-          cy.getByTestID('send_submit_button').click()
+          cy.getByTestID('send_submit_button').click().wait(1000)
           // Check txn value
           cy.getByTestID('text_amount').invoke('text').then((textAmount) => {
             const amount = textAmount.replace(' DFI', '')
@@ -115,7 +116,7 @@ context('Wallet - Send', function () {
           // Check computed pending balance
           cy.getByTestID('text_balance').invoke('text').then((pendingBalanceValue) => {
             const pendingBalance = pendingBalanceValue.replace(' DFI', '')
-            expect(new BigNumber(balance).minus(transactionFee).minus(sendAmount).toFixed(8)).eq(pendingBalance)
+            expect(new BigNumber(balance).plus(slippage).minus(transactionFee).minus(sendAmount).toFixed(8)).eq(pendingBalance)
           })
         })
       })
