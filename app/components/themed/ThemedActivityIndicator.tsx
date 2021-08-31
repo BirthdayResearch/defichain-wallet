@@ -1,6 +1,6 @@
+import { useThemeContext } from '@contexts/ThemeProvider'
 import React from 'react'
 import { ActivityIndicator, ActivityIndicatorProps } from 'react-native'
-import { useThemeContext } from '../../contexts/ThemeProvider'
 import { ThemedProps } from './index'
 
 type ThemedTextProps = ActivityIndicatorProps & ThemedProps

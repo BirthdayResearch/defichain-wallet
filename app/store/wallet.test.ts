@@ -63,13 +63,15 @@ describe('wallet reducer', () => {
           id: '0',
           reserve: '1000',
           blockCommission: '0',
-          symbol: 'DFI'
+          symbol: 'DFI',
+          displaySymbol: 'dDFI'
         },
         tokenB: {
           id: '3',
           reserve: '10000000',
           blockCommission: '0',
-          symbol: 'USDT'
+          symbol: 'USDT',
+          displaySymbol: 'dUSDT'
         },
         priceRatio: {
           ab: '0.0001',

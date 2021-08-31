@@ -231,7 +231,7 @@ function SecurityRow ({
   testID,
   label,
   onPress
-}: { disabled?: boolean, testID: string, label: string, onPress: () => void }): JSX.Element | null {
+}: { testID: string, label: string, onPress: () => void }): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={onPress}

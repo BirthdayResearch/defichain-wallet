@@ -1,17 +1,11 @@
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { useDeFiScanContext } from '@contexts/DeFiScanContext'
 import { StackScreenProps } from '@react-navigation/stack'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import * as React from 'react'
 import { useCallback } from 'react'
 import { Linking, View } from 'react-native'
-import {
-  ThemedIcon,
-  ThemedScrollView,
-  ThemedText,
-  ThemedTouchableOpacity,
-  ThemedView
-} from '../../../../../components/themed'
-import { useDeFiScanContext } from '../../../../../contexts/DeFiScanContext'
-import { tailwind } from '../../../../../tailwind'
-import { translate } from '../../../../../translations'
 import { TransactionsParamList } from '../TransactionsNavigator'
 import { formatBlockTime } from '../TransactionsScreen'
 

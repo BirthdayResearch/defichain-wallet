@@ -61,6 +61,6 @@ context('Wallet - Change Passcode', () => {
   it('should not display on unencrypted mnemonic wallet', function () {
     cy.createEmptyWallet(false)
     cy.getByTestID('bottom_tab_settings').click()
-    cy.getByTestID('view_change_passcode').should('have.attr', 'disabled')
+    cy.getByTestID('view_change_passcode').should('not.exist')
   })
 })

@@ -1,7 +1,7 @@
+import { useThemeContext } from '@contexts/ThemeProvider'
+import { tailwind } from '@tailwind'
 import React from 'react'
 import { View } from 'react-native'
-import { useThemeContext } from '../../contexts/ThemeProvider'
-import { tailwind } from '../../tailwind'
 import { ThemedProps } from './index'
 
 type ThemedViewProps = View['props'] & ThemedProps

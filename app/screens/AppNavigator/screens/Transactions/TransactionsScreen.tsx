@@ -1,19 +1,19 @@
+import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
+import { useThemeContext } from '@contexts/ThemeProvider'
+import { useWalletContext } from '@contexts/WalletContext'
+import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { RootState } from '@store'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import dayjs from 'dayjs'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { RefreshControl, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
-import { SkeletonLoader, SkeletonLoaderScreen } from '../../../../components/SkeletonLoader'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity } from '../../../../components/themed'
-import { useThemeContext } from '../../../../contexts/ThemeProvider'
-import { useWalletContext } from '../../../../contexts/WalletContext'
-import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
-import { RootState } from '../../../../store'
-import { tailwind } from '../../../../tailwind'
-import { translate } from '../../../../translations'
 import { EmptyTransaction } from './EmptyTransaction'
 import { activitiesToViewModel, VMTransaction } from './screens/stateProcessor'
 import { TransactionsParamList } from './TransactionsNavigator'
@@ -62,8 +62,8 @@ export function TransactionsScreen (): JSX.Element {
         setLoadMoreToken(addActivities.nextToken)
         setLoadingState('success')
       }).catch(() => {
-        setLoadingState('error')
-      })
+      setLoadingState('error')
+    })
   }
 
   const onLoadMore = (): void => {

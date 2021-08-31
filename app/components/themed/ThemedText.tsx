@@ -1,6 +1,6 @@
+import { useThemeContext } from '@contexts/ThemeProvider'
+import { tailwind } from '@tailwind'
 import React from 'react'
-import { useThemeContext } from '../../contexts/ThemeProvider'
-import { tailwind } from '../../tailwind'
 import { Text, TextProps } from '../Text'
 import { ThemedProps } from './index'
 

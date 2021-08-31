@@ -16,10 +16,7 @@ describe('transaction reducer', () => {
   })
 
   it('should handle push and pop', () => {
-    const payload = {
-      sign: null,
-      title: 'Sample Transaction'
-    }
+    const payload = { sign: null, title: 'Sample Transaction' }
     const actual = transactionQueue.reducer(initialState, transactionQueue.actions.push(payload))
     expect(actual).toStrictEqual({ transactions: [payload] })
     const pop = transactionQueue.reducer(initialState, transactionQueue.actions.pop())
@@ -38,7 +35,8 @@ describe('transaction reducer', () => {
     expect(hasQueue).toStrictEqual(true)
     const actual = first({
       ...initialState,
-      transactions: [payload]
+      transactions:
+        [payload]
     })
     expect(actual).toStrictEqual(payload)
   })
