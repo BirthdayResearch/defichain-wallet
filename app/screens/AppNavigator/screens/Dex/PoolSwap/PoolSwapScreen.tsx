@@ -1,30 +1,30 @@
+import { Logging } from '@api'
+import { Button } from '@components/Button'
+import { IconButton } from '@components/IconButton'
+import { getNativeIcon } from '@components/icons/assets'
+import { IconLabelScreenType, InputIconLabel } from '@components/InputIconLabel'
+import { NumberRow } from '@components/NumberRow'
+import { NumberTextInput } from '@components/NumberTextInput'
+import { SectionTitle } from '@components/SectionTitle'
+import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
+import { ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
+import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
+import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
+import { RootState } from '@store'
+import { hasTxQueued } from '@store/transaction_queue'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
-import { Logging } from '../../../../../api'
-import { Button } from '../../../../../components/Button'
-import { IconButton } from '../../../../../components/IconButton'
-import { getNativeIcon } from '../../../../../components/icons/assets'
-import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
-import { NumberRow } from '../../../../../components/NumberRow'
-import { NumberTextInput } from '../../../../../components/NumberTextInput'
-import { SectionTitle } from '../../../../../components/SectionTitle'
-import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
-import { ThemedScrollView, ThemedText, ThemedView } from '../../../../../components/themed'
-import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
-import { usePoolPairsAPI } from '../../../../../hooks/wallet/PoolPairsAPI'
-import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
-import { RootState } from '../../../../../store'
 import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
-import { hasTxQueued } from '../../../../../store/transaction_queue'
-import { tailwind } from '../../../../../tailwind'
-import { translate } from '../../../../../translations'
 import { DexParamList } from '../DexNavigator'
 import { SlippageTolerance } from './components/SlippageTolerance'
 
@@ -119,7 +119,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         updatePoolPairPrice(tokenAId, poolpair)
       }
     }
-  }, [tokenA, tokenB, poolpair])
+  }, [tokenA, tokenB, poolpair, setValue, tokenAForm, tokenBForm, trigger])
 
   useEffect(() => {
     if (poolpair !== undefined) {

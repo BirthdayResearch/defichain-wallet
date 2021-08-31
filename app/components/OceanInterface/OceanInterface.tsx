@@ -98,7 +98,7 @@ export function OceanInterface (): JSX.Element | null {
     setTx(undefined)
     setError(undefined)
     slideAnim.setValue(0)
-  }, [])
+  }, [slideAnim])
 
   useEffect(() => {
     // last available job will remained in this UI state until get dismissed
@@ -170,21 +170,23 @@ export function OceanInterface (): JSX.Element | null {
     >
       {
         err !== undefined
-          ? <TransactionError
+          ? (
+            <TransactionError
               errMsg={err}
               onClose={dismissDrawer}
             />
+          )
           : (
-              tx !== undefined && (
-                <TransactionDetail
-                  broadcasted={tx.broadcasted}
-                  onClose={dismissDrawer}
-                  title={tx.title}
-                  txUrl={txUrl}
-                  txid={tx.tx.txId}
-                />
-              )
+            tx !== undefined && (
+              <TransactionDetail
+                broadcasted={tx.broadcasted}
+                onClose={dismissDrawer}
+                title={tx.title}
+                txUrl={txUrl}
+                txid={tx.tx.txId}
+              />
             )
+          )
       }
     </Animated.View>
   )
@@ -203,13 +205,15 @@ function TransactionDetail ({
       {
         !broadcasted
           ? <ThemedActivityIndicator />
-          : <ThemedIcon
+          : (
+            <ThemedIcon
               dark={tailwind('text-darksuccess-500')}
               iconType='MaterialIcons'
               light={tailwind('text-success-500')}
               name='check-circle'
               size={20}
             />
+          )
       }
 
       <View style={tailwind('flex-auto mx-6 justify-center items-center text-center')}>
