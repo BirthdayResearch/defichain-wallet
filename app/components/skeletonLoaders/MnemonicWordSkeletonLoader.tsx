@@ -1,7 +1,7 @@
+import { useThemeContext } from '@contexts/ThemeProvider'
+import { tailwind } from '@tailwind'
 import * as React from 'react'
-import ContentLoader, { IContentLoaderProps, Rect, Circle } from 'react-content-loader/native'
-import { useThemeContext } from '../../contexts/ThemeProvider'
-import { tailwind } from '../../tailwind'
+import ContentLoader, { Circle, IContentLoaderProps, Rect } from 'react-content-loader/native'
 import { ThemedView } from '../themed'
 
 export function MnemonicWordSkeletonLoader (props: JSX.IntrinsicAttributes & IContentLoaderProps & { children?: React.ReactNode }): JSX.Element {

@@ -1,16 +1,16 @@
+import { Button } from '@components/Button'
+import { CREATE_STEPS, CreateWalletStepIndicator } from '@components/CreateWalletStepIndicator'
+import { View } from '@components/index'
+import { ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { WalletAlert } from '@components/WalletAlert'
+import { useThemeContext } from '@contexts/ThemeProvider'
+import { getEnvironment } from '@environment'
 import { StackScreenProps } from '@react-navigation/stack'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import { shuffle } from 'lodash'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { View } from '../../../../components'
-import { Button } from '../../../../components/Button'
-import { CREATE_STEPS, CreateWalletStepIndicator } from '../../../../components/CreateWalletStepIndicator'
-import { ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '../../../../components/themed'
-import { WalletAlert } from '../../../../components/WalletAlert'
-import { useThemeContext } from '../../../../contexts/ThemeProvider'
-import { getEnvironment } from '../../../../environment'
-import { tailwind } from '../../../../tailwind'
-import { translate } from '../../../../translations'
 import { WalletParamList } from '../../WalletNavigator'
 
 type Props = StackScreenProps<WalletParamList, 'VerifyMnemonicWallet'>
@@ -38,7 +38,10 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
       const counter = 3 * i
       selectedWords[randomNumber] = ''
       const words = shuffle([recoveryWords[randomNumber], recoveryWords[others[counter]], recoveryWords[others[counter + 1]], recoveryWords[others[counter + 2]]])
-      randomWords.push({ index: randomNumber, words })
+      randomWords.push({
+        index: randomNumber,
+        words
+      })
     })
     setSelectedWords([...selectedWords])
     setRandomWords([...randomWords])
