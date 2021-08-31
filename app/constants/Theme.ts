@@ -1,5 +1,6 @@
 import { DarkTheme, DefaultTheme } from '@react-navigation/native'
 import { Theme } from '@react-navigation/native/lib/typescript/src/types'
+import { theme } from '../tailwind.config'
 
 export function getDefaultTheme (isLight: boolean): Theme {
   const defaultTheme = isLight ? DefaultTheme : DarkTheme
@@ -7,9 +8,9 @@ export function getDefaultTheme (isLight: boolean): Theme {
     ...defaultTheme,
     colors: {
       ...defaultTheme.colors,
-      primary: isLight ? '#ff00af' : '#EE2CB1',
-      card: isLight ? defaultTheme.colors.card : '#262626',
-      border: isLight ? defaultTheme.colors.border : '#404040'
+      primary: isLight ? theme.extend.colors.primary[500] : theme.extend.colors.darkprimary[500],
+      card: isLight ? defaultTheme.colors.card : theme.extend.colors.blue[900],
+      border: isLight ? defaultTheme.colors.border : theme.extend.colors.blue[800]
     }
   }
 }

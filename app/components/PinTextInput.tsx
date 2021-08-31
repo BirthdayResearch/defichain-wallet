@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { CodeField, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field'
 import { tailwind } from '../tailwind'
+import { theme } from '../tailwind.config'
 
 export interface PinTextInputItem {
   cellCount: number
@@ -74,12 +75,12 @@ const styles = StyleSheet.create({
     width: 20
   },
   filledCell: {
-    backgroundColor: '#ff00af',
-    borderColor: '#ff00af',
+    borderColor: theme.extend.colors.darkprimary[500],
+    backgroundColor: theme.extend.colors.darkprimary[500],
     borderRadius: 10
   },
   focusCell: {
-    borderColor: '#ff00af',
+    borderColor: theme.extend.colors.darkprimary[500],
     borderRadius: 10
   }
 })
