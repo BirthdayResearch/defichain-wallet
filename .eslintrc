@@ -2,6 +2,11 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "plugins": [
+    "react",
+    "react-native",
+    "react-hooks"
+  ],
   "extends": [
     "standard-with-typescript",
     "standard-jsx"
@@ -13,16 +18,43 @@
   "overrides": [
     // Js and Typescript files
     {
-      "files": [".js", "*.ts", "*.tsx"],
+      "files": [
+        ".js",
+        "*.ts",
+        "*.tsx"
+      ],
       "rules": {
-        "import/no-default-export": "warn"
+        "import/no-default-export": "warn",
+        "curly": [
+          "error",
+          "all"
+        ],
+        "brace-style": [
+          "error",
+          "1tbs"
+        ],
+        "keyword-spacing": [
+          "error",
+          {
+            "before": true,
+            "after": true
+          }
+        ]
       },
-      "excludedFiles": ["*.test.ts", "*.test.tsx"]
+      "excludedFiles": [
+        "*.test.ts",
+        "*.test.tsx"
+      ]
     },
     // Unit test files
     {
-      "files": [ "*.test.ts", "*.test.tsx"],
-      "plugins": ["jest"],
+      "files": [
+        "*.test.ts",
+        "*.test.tsx"
+      ],
+      "plugins": [
+        "jest"
+      ],
       "extends": [
         "plugin:jest/recommended"
       ]

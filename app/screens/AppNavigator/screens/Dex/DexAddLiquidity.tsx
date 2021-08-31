@@ -47,7 +47,9 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
 
   const buildSummary = useCallback((ref: EditingAmount, amountString: string): void => {
     const refAmount = amountString.length === 0 || isNaN(+amountString) ? new BigNumber(0) : new BigNumber(amountString)
-    if (pair === undefined) return
+    if (pair === undefined) {
+      return
+    }
     if (ref === 'primary') {
       setTokenAAmount(amountString)
       setTokenBAmount(refAmount.times(pair.aToBRate).toFixed(8))
@@ -60,7 +62,9 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   }, [pair])
 
   useEffect(() => {
-    if (pair === undefined) return
+    if (pair === undefined) {
+      return
+    }
     setCanContinue(canAddLiquidity(
       pair,
       new BigNumber(tokenAAmount),
@@ -87,8 +91,12 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
         aToBRate: new BigNumber(poolpair.tokenB.reserve).div(poolpair.tokenA.reserve),
         bToARate: new BigNumber(poolpair.tokenA.reserve).div(poolpair.tokenB.reserve)
       })
-      if (addressTokenA !== undefined) setBalanceA(new BigNumber(addressTokenA.amount))
-      if (addressTokenB !== undefined) setBalanceB(new BigNumber(addressTokenB.amount))
+      if (addressTokenA !== undefined) {
+        setBalanceA(new BigNumber(addressTokenA.amount))
+      }
+      if (addressTokenB !== undefined) {
+        setBalanceB(new BigNumber(addressTokenB.amount))
+      }
     }
   }, [props.route.params.pair, JSON.stringify(tokens), pairs])
 

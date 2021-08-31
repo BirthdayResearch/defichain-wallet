@@ -340,7 +340,9 @@ export function TransactionAuthorization (): JSX.Element | null {
 }
 
 function Loading ({ message }: { message?: string }): JSX.Element | null {
-  if (message === undefined) return null
+  if (message === undefined) {
+    return null
+  }
   return (
     <View style={tailwind('flex-row justify-center p-2')}>
       <ThemedActivityIndicator />

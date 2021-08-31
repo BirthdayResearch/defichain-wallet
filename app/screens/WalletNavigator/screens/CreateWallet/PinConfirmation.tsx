@@ -31,7 +31,9 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
   const [spinnerMessage, setSpinnerMessage] = useState<string>()
 
   function verifyPin (input: string): void {
-    if (input.length !== pin.length) return
+    if (input.length !== pin.length) {
+      return
+    }
     if (input !== pin) {
       setNewPin('')
       setInvalid(true)

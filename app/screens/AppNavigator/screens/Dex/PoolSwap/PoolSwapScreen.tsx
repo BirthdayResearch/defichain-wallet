@@ -71,7 +71,9 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   }, [pairs, route.params.poolpair])
 
   function onSubmit (): void {
-    if (hasPendingJob || hasPendingBroadcastJob) return
+    if (hasPendingJob || hasPendingBroadcastJob) {
+      return
+    }
     if (tokenA === undefined || tokenB === undefined || poolpair === undefined) {
       return
     }
@@ -243,7 +245,9 @@ function TokenRow (form: TokenForm): JSX.Element {
                 if (!isDisabled) {
                   if (onChangeFromAmount !== undefined) {
                     onChangeFromAmount(e.nativeEvent.text)
-                  } else onChange(e)
+                  } else {
+                    onChange(e)
+                  }
                 }
               }}
               value={value}
