@@ -21,8 +21,8 @@ interface AboutScreenSocialLinks {
 }
 
 const ABOUT_LINKS: AboutScreenLinks[] = [
-  { testID: 'white_paper', title: 'White Paper', url: 'https://defichain.com/white-paper/' },
-  { testID: 'privacy_policy_button', title: 'Privacy Policy', url: 'https://defichain.com/privacy-policy/' },
+  { testID: 'white_paper', title: 'DeFiChain White Paper', url: 'https://defichain.com/white-paper/' },
+  { testID: 'privacy_policy_button', title: 'Privacy Policy', url: 'https://dfx.swiss/datenschutz.html' },
   {
     testID: 'licenses_button',
     title: 'Licenses',
@@ -31,8 +31,8 @@ const ABOUT_LINKS: AboutScreenLinks[] = [
 ]
 
 const SOCIAL_LINKS: AboutScreenSocialLinks[] = [
-  { testID: 'youtube_social', iconName: 'youtube', url: 'https://www.youtube.com/channel/UCL635AjCJe6gNOD7Awlv4ug' },
-  { testID: 'twitter_social', iconName: 'twitter', url: 'https://twitter.com/defichain' }
+  { testID: 'youtube_social', iconName: 'youtube', url: 'https://www.youtube.com/channel/UCYvgdByyzqBeuSMSEdv9SMg' },
+  { testID: 'twitter_social', iconName: 'twitter', url: 'https://twitter.com/DFX_Swiss' }
 ]
 
 export function AboutScreen (): JSX.Element {
