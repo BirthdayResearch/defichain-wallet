@@ -86,29 +86,37 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   return (
     <ThemedScrollView style={tailwind('pb-4')}>
       <SummaryTitle
-        title={translate('screens/SendConfirmationScreen', 'YOU ARE SENDING')} testID='text_send_amount'
-        amount={amount} suffix={` ${token.symbol}`}
+        amount={amount}
+        suffix={` ${token.symbol}`}
+        testID='text_send_amount'
+        title={translate('screens/SendConfirmationScreen', 'YOU ARE SENDING')}
       />
+
       <SectionTitle
-        text={translate('screens/SendConfirmationScreen', 'TRANSACTION DETAILS')}
         testID='title_transaction_detail'
+        text={translate('screens/SendConfirmationScreen', 'TRANSACTION DETAILS')}
       />
+
       <TextRow
         lhs={translate('screens/SendConfirmationScreen', 'Address')}
         rhs={{ value: destination, testID: 'text_destination' }}
       />
+
       <TextRow
         lhs={translate('screens/SendConfirmationScreen', 'Network')}
         rhs={{ value: network.network, testID: 'text_network' }}
       />
+
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Amount')}
         rightHandElements={[{ value: amount.toFixed(8), suffix: ` ${token.symbol}`, testID: 'text_amount' }]}
       />
+
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Estimated fee')}
         rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
       />
+
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Remaining balance')}
         rightHandElements={[{
@@ -117,10 +125,13 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
           testID: 'text_balance'
         }]}
       />
+
       <SubmitButtonGroup
-        onSubmit={onSubmit} onCancel={onCancel} title='send'
-        label={translate('screens/SendConfirmationScreen', 'SEND')}
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        label={translate('screens/SendConfirmationScreen', 'SEND')}
+        onCancel={onCancel}
+        onSubmit={onSubmit}
+        title='send'
       />
     </ThemedScrollView>
   )
@@ -148,8 +159,9 @@ async function send ({
 
       let signed: TransactionSegWit
       if (token.symbol === 'DFI') {
-        if (amount.gte(token.amount)) signed = await builder.utxo.sendAll(to)
-        else signed = await builder.utxo.send(amount, to, script)
+        /* if (amount.gte(token.amount)) signed = await builder.utxo.sendAll(to)
+        else */
+        signed = await builder.utxo.send(amount, to, script)
       } else {
         signed = await builder.account.accountToAccount({
           from: script,

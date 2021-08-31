@@ -2,6 +2,7 @@ import * as SplashScreen from 'expo-splash-screen'
 import React from 'react'
 import './_shim'
 import { Logging } from './app/api'
+import { AppStateContextProvider } from './app/contexts/AppStateContext'
 import { DeFiScanProvider } from './app/contexts/DeFiScanContext'
 import { LocalAuthContextProvider } from './app/contexts/LocalAuthContext'
 import { NetworkProvider } from './app/contexts/NetworkContext'
@@ -15,7 +16,6 @@ import ConnectionBoundary from './app/screens/ConnectionBoundary/ConnectionBound
 import ErrorBoundary from './app/screens/ErrorBoundary/ErrorBoundary'
 import { Main } from './app/screens/Main'
 import { initI18n } from './app/translations'
-import { AppStateContextProvider } from './app/contexts/AppStateContext'
 
 /**
  * Loads
@@ -39,25 +39,25 @@ export default function App (): JSX.Element | null {
   return (
     <ErrorBoundary>
       <AppStateContextProvider>
-        <ConnectionBoundary>
-          <LocalAuthContextProvider>
-            <NetworkProvider>
-              <WhaleProvider>
-                <DeFiScanProvider>
-                  <WalletPersistenceProvider>
-                    <StoreProvider>
-                      <StatsProvider>
-                        <ThemeProvider>
+        <LocalAuthContextProvider>
+          <NetworkProvider>
+            <WhaleProvider>
+              <DeFiScanProvider>
+                <WalletPersistenceProvider>
+                  <StoreProvider>
+                    <StatsProvider>
+                      <ThemeProvider>
+                        <ConnectionBoundary>
                           <Main />
-                        </ThemeProvider>
-                      </StatsProvider>
-                    </StoreProvider>
-                  </WalletPersistenceProvider>
-                </DeFiScanProvider>
-              </WhaleProvider>
-            </NetworkProvider>
-          </LocalAuthContextProvider>
-        </ConnectionBoundary>
+                        </ConnectionBoundary>
+                      </ThemeProvider>
+                    </StatsProvider>
+                  </StoreProvider>
+                </WalletPersistenceProvider>
+              </DeFiScanProvider>
+            </WhaleProvider>
+          </NetworkProvider>
+        </LocalAuthContextProvider>
       </AppStateContextProvider>
     </ErrorBoundary>
   )

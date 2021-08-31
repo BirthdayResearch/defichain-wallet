@@ -23,13 +23,13 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
         message: translate('screens/CreateMnemonicWallet', 'If you leave this screen, you will be provided with a new set of 24 recovery words. Do you want to proceed?'),
         buttons: [
           {
-            text: 'Cancel',
+            text: translate('screens/CreateMnemonicWallet', 'Cancel'),
             style: 'cancel',
             onPress: () => {
             }
           },
           {
-            text: 'Yes',
+            text: translate('screens/CreateMnemonicWallet', 'Yes'),
             style: 'destructive',
             onPress: () => navigation.dispatch(e.data.action)
           }
@@ -53,21 +53,36 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
   }
 
   return (
-    <ThemedScrollView light={tailwind('bg-white')} dark={tailwind('bg-gray-900')} style={tailwind('flex-1')}>
+    <ThemedScrollView
+      dark={tailwind('bg-gray-900')}
+      light={tailwind('bg-white')}
+      style={tailwind('flex-1')}
+    >
       <CreateWalletStepIndicator
         current={1}
         steps={CREATE_STEPS}
         style={tailwind('py-4 px-1')}
       />
+
       <ThemedText style={tailwind('font-semibold text-base p-4 text-center')}>
         {translate('screens/CreateMnemonicWallet', 'Take note of the words in their correct order')}
       </ThemedText>
+
       {words.map((word, index) => {
-        return <RecoveryWordRow word={word} index={index} key={index} />
+        return (
+          <RecoveryWordRow
+            index={index}
+            key={index}
+            word={word}
+          />
+        )
       })}
+
       <Button
-        title='verify button' onPress={onContinue} testID='verify_button'
         label={translate('screens/CreateMnemonicWallet', 'VERIFY WORDS')}
+        onPress={onContinue}
+        testID='verify_button'
+        title='verify button'
       />
     </ThemedScrollView>
   )
@@ -76,13 +91,21 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
 function RecoveryWordRow (props: { index: number, word: string }): JSX.Element {
   return (
     <ThemedView
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
       light={tailwind('bg-white border-b border-gray-200')}
-      dark={tailwind('bg-gray-800 border-b border-gray-700')} style={tailwind('p-4 flex-row')}
+      style={tailwind('p-4 flex-row')}
     >
-      <ThemedText testID={`word_${props.index + 1}_number`} style={[tailwind('w-12 font-semibold')]}>
+      <ThemedText
+        style={tailwind('w-12 font-semibold')}
+        testID={`word_${props.index + 1}_number`}
+      >
         {`${props.index + 1}.`}
       </ThemedText>
-      <ThemedText testID={`word_${props.index + 1}`} style={tailwind('flex-grow font-semibold')}>
+
+      <ThemedText
+        style={tailwind('flex-grow font-semibold')}
+        testID={`word_${props.index + 1}`}
+      >
         {props.word}
       </ThemedText>
     </ThemedView>

@@ -117,28 +117,24 @@ exports[`create wallet guidelines should match snapshot 1`] = `
     </View>
     <View
       style={
-        Array [
-          Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "marginBottom": 12,
-            "marginTop": 12,
-          },
-        ]
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "marginBottom": 12,
+          "marginTop": 12,
+        }
       }
     >
       <Text />
       <View
         style={
-          Array [
-            Object {
-              "flexBasis": "auto",
-              "flexDirection": "column",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "marginLeft": 24,
-            },
-          ]
+          Object {
+            "flexBasis": "auto",
+            "flexDirection": "column",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "marginLeft": 24,
+          }
         }
       >
         <Text
@@ -192,28 +188,24 @@ exports[`create wallet guidelines should match snapshot 1`] = `
     </View>
     <View
       style={
-        Array [
-          Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "marginBottom": 12,
-            "marginTop": 12,
-          },
-        ]
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "marginBottom": 12,
+          "marginTop": 12,
+        }
       }
     >
       <Text />
       <View
         style={
-          Array [
-            Object {
-              "flexBasis": "auto",
-              "flexDirection": "column",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "marginLeft": 24,
-            },
-          ]
+          Object {
+            "flexBasis": "auto",
+            "flexDirection": "column",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "marginLeft": 24,
+          }
         }
       >
         <Text
@@ -267,28 +259,24 @@ exports[`create wallet guidelines should match snapshot 1`] = `
     </View>
     <View
       style={
-        Array [
-          Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "marginBottom": 12,
-            "marginTop": 12,
-          },
-        ]
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "marginBottom": 12,
+          "marginTop": 12,
+        }
       }
     >
       <Text />
       <View
         style={
-          Array [
-            Object {
-              "flexBasis": "auto",
-              "flexDirection": "column",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "marginLeft": 24,
-            },
-          ]
+          Object {
+            "flexBasis": "auto",
+            "flexDirection": "column",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "marginLeft": 24,
+          }
         }
       >
         <Text
@@ -342,14 +330,12 @@ exports[`create wallet guidelines should match snapshot 1`] = `
     </View>
     <View
       style={
-        Array [
-          Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "marginBottom": 16,
-            "marginTop": 16,
-          },
-        ]
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "marginBottom": 16,
+          "marginTop": 16,
+        }
       }
     >
       <RCTSwitch
@@ -377,14 +363,12 @@ exports[`create wallet guidelines should match snapshot 1`] = `
       />
       <View
         style={
-          Array [
-            Object {
-              "flexBasis": "auto",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "marginLeft": 16,
-            },
-          ]
+          Object {
+            "flexBasis": "auto",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "marginLeft": 16,
+          }
         }
       >
         <Text
@@ -437,6 +421,7 @@ exports[`create wallet guidelines should match snapshot 1`] = `
           "borderTopWidth": 0,
           "flexDirection": "row",
           "justifyContent": "center",
+          "marginBottom": 32,
           "marginLeft": 0,
           "marginRight": 0,
           "marginTop": 32,

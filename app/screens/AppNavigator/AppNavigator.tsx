@@ -22,10 +22,20 @@ export function AppNavigator (): JSX.Element {
   const { isLight } = useThemeContext()
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
   return (
-    <NavigationContainer linking={LinkingConfiguration} theme={DeFiChainTheme}>
+    <NavigationContainer
+      linking={LinkingConfiguration}
+      theme={DeFiChainTheme}
+    >
       <App.Navigator screenOptions={{ headerShown: false }}>
-        <App.Screen name='App' component={BottomTabNavigator} />
-        <App.Screen name='Playground' component={PlaygroundNavigator} />
+        <App.Screen
+          component={BottomTabNavigator}
+          name='App'
+        />
+
+        <App.Screen
+          component={PlaygroundNavigator}
+          name='Playground'
+        />
       </App.Navigator>
     </NavigationContainer>
   )

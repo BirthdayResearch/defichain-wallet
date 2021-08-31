@@ -27,10 +27,10 @@ export function PinTextInput ({ cellCount, testID, value, onChange }: PinTextInp
     const hasValue = symbol !== undefined && symbol !== ''
     return (
       <View
-        testID={`${testID}_${index}`}
         key={index}
-        style={[styles.cell, hasValue && styles.filledCell, isFocused && styles.focusCell, index === 0 && { marginLeft: 0 }]}
         onLayout={getCellOnLayoutHandler(index)}
+        style={[styles.cell, hasValue && styles.filledCell, isFocused && styles.focusCell, index === 0 && { marginLeft: 0 }]}
+        testID={`${testID}_${index}`}
       />
     )
   }
@@ -40,14 +40,14 @@ export function PinTextInput ({ cellCount, testID, value, onChange }: PinTextInp
       <CodeField
         ref={ref}
         {...props}
-        value={value}
-        onChangeText={onChange}
+        autoFocus={autofocus}
         cellCount={cellCount}
         keyboardType='number-pad'
-        textContentType='oneTimeCode'
+        onChangeText={onChange}
         renderCell={renderCell}
         testID={testID}
-        autoFocus={autofocus}
+        textContentType='oneTimeCode'
+        value={value}
       />
     </View>
   )
@@ -55,31 +55,31 @@ export function PinTextInput ({ cellCount, testID, value, onChange }: PinTextInp
 
 const styles = StyleSheet.create({
   cell: {
-    width: 20,
-    height: 20,
-    lineHeight: 20,
-    fontSize: 20,
-    fontWeight: '500',
-    textAlign: 'center',
-    marginLeft: 25,
-    borderRadius: 10,
+    alignItems: 'center',
     backgroundColor: '#ffffff',
     borderColor: 'rgba(0, 0, 0, 0.2)',
+    borderRadius: 10,
     borderStyle: 'solid',
     borderWidth: 1,
     display: 'flex',
+    fontSize: 20,
+    fontWeight: '500',
+    height: 20,
     justifyContent: 'center',
-    alignItems: 'center',
+    lineHeight: 20,
+    marginLeft: 25,
+    paddingLeft: 1,
     paddingTop: 1,
-    paddingLeft: 1
+    textAlign: 'center',
+    width: 20
   },
-  focusCell: {
+  filledCell: {
+    backgroundColor: '#ff00af',
     borderColor: '#ff00af',
     borderRadius: 10
   },
-  filledCell: {
+  focusCell: {
     borderColor: '#ff00af',
-    backgroundColor: '#ff00af',
     borderRadius: 10
   }
 })

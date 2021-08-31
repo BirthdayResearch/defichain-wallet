@@ -1,21 +1,21 @@
+import { Logging } from '@api'
+import { useDeFiScanContext } from '@contexts/DeFiScanContext'
+import { useThemeContext } from '@contexts/ThemeProvider'
+import { useWalletContext } from '@contexts/WalletContext'
+import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
+import { getEnvironment } from '@environment'
+import { fetchTokens } from '@hooks/wallet/TokensAPI'
+import { RootState } from '@store'
+import { firstTransactionSelector, ocean, OceanTransaction } from '@store/ocean'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ActivityIndicator, Animated, Linking, TouchableOpacity, View } from 'react-native'
+import { Animated, Linking, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { Logging } from '../../api'
-import { useDeFiScanContext } from '../../contexts/DeFiScanContext'
-import { useThemeContext } from '../../contexts/ThemeProvider'
-import { useWalletContext } from '../../contexts/WalletContext'
-import { useWhaleApiClient } from '../../contexts/WhaleContext'
-import { getEnvironment } from '../../environment'
-import { fetchTokens } from '../../hooks/wallet/TokensAPI'
-import { RootState } from '../../store'
-import { firstTransactionSelector, ocean, OceanTransaction } from '../../store/ocean'
-import { tailwind } from '../../tailwind'
-import { translate } from '../../translations'
-import { ThemedIcon, ThemedText } from '../themed'
+import { ThemedActivityIndicator, ThemedIcon, ThemedText } from '../themed'
 
 const MAX_AUTO_RETRY = 1
 const MAX_TIMEOUT = 300000
@@ -83,6 +83,7 @@ export function OceanInterface (): JSX.Element | null {
   const client = useWhaleApiClient()
   const { wallet, address } = useWalletContext()
   const { getTransactionUrl } = useDeFiScanContext()
+  const { isLight } = useThemeContext()
 
   // store
   const { height, err: e } = useSelector((state: RootState) => state.ocean)
@@ -97,7 +98,7 @@ export function OceanInterface (): JSX.Element | null {
     setTx(undefined)
     setError(undefined)
     slideAnim.setValue(0)
-  }, [])
+  }, [slideAnim])
 
   useEffect(() => {
     // last available job will remained in this UI state until get dismissed
@@ -159,7 +160,6 @@ export function OceanInterface (): JSX.Element | null {
     return null
   }
 
-  const { isLight } = useThemeContext()
   const currentTheme = `${isLight ? 'bg-white border-t border-gray-200' : 'bg-gray-800 border-t border-gray-700'}`
   return (
     <Animated.View
@@ -170,16 +170,23 @@ export function OceanInterface (): JSX.Element | null {
     >
       {
         err !== undefined
-          ? <TransactionError errMsg={err} onClose={dismissDrawer} />
+          ? (
+            <TransactionError
+              errMsg={err}
+              onClose={dismissDrawer}
+            />
+          )
           : (
-              tx !== undefined && (
-                <TransactionDetail
-                  broadcasted={tx.broadcasted}
-                  title={tx.title} txid={tx.tx.txId} txUrl={txUrl}
-                  onClose={dismissDrawer}
-                />
-              )
+            tx !== undefined && (
+              <TransactionDetail
+                broadcasted={tx.broadcasted}
+                onClose={dismissDrawer}
+                title={tx.title}
+                txUrl={txUrl}
+                txid={tx.tx.txId}
+              />
             )
+          )
       }
     </Animated.View>
   )
@@ -197,22 +204,34 @@ function TransactionDetail ({
     <>
       {
         !broadcasted
-          ? <ActivityIndicator color='#FF00AF' />
-          : <ThemedIcon
-              iconType='MaterialIcons' name='check-circle' size={20} light={tailwind('text-success-500')}
+          ? <ThemedActivityIndicator />
+          : (
+            <ThemedIcon
               dark={tailwind('text-darksuccess-500')}
+              iconType='MaterialIcons'
+              light={tailwind('text-success-500')}
+              name='check-circle'
+              size={20}
             />
+          )
       }
+
       <View style={tailwind('flex-auto mx-6 justify-center items-center text-center')}>
         <ThemedText
           style={tailwind('text-sm font-bold')}
-        >{title}
+        >
+          {title}
         </ThemedText>
+
         {
           txid !== undefined && txUrl !== undefined &&
-            <TransactionIDButton txid={txid} onPress={async () => await gotoExplorer(txUrl)} />
+            <TransactionIDButton
+              onPress={async () => await gotoExplorer(txUrl)}
+              txid={txid}
+            />
         }
       </View>
+
       {
         broadcasted && <TransactionCloseButton onPress={onClose} />
       }
@@ -225,21 +244,29 @@ function TransactionError ({ errMsg, onClose }: { errMsg: string, onClose: () =>
   return (
     <>
       <ThemedIcon
-        iconType='MaterialIcons' name='error' size={20} light={tailwind('text-error-500')}
         dark={tailwind('text-darkerror')}
+        iconType='MaterialIcons'
+        light={tailwind('text-error-500')}
+        name='error'
+        size={20}
       />
+
       <View style={tailwind('flex-auto mx-2 justify-center items-center text-center')}>
         <ThemedText
           style={tailwind('text-sm font-bold')}
-        >{`${translate('screens/OceanInterface', `Error Code: ${err.code}`)}`}
+        >
+          {translate('screens/OceanInterface', `Error Code: ${err.code}`)}
         </ThemedText>
+
         <ThemedText
-          style={tailwind('text-sm font-bold')}
-          numberOfLines={1}
           ellipsizeMode='tail'
-        >{translate('screens/OceanInterface', err.message)}
+          numberOfLines={1}
+          style={tailwind('text-sm font-bold')}
+        >
+          {translate('screens/OceanInterface', err.message)}
         </ThemedText>
       </View>
+
       <TransactionCloseButton onPress={onClose} />
     </>
   )
@@ -248,19 +275,26 @@ function TransactionError ({ errMsg, onClose }: { errMsg: string, onClose: () =>
 function TransactionIDButton ({ txid, onPress }: { txid: string, onPress?: () => void }): JSX.Element {
   return (
     <TouchableOpacity
-      testID='oceanNetwork_explorer' style={tailwind('flex-row p-1 items-center max-w-full')}
       onPress={onPress}
+      style={tailwind('flex-row p-1 items-center max-w-full')}
+      testID='oceanNetwork_explorer'
     >
       <ThemedText
-        light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
-        style={tailwind('text-sm font-medium mr-1')} numberOfLines={1}
+        dark={tailwind('text-darkprimary-500')}
         ellipsizeMode='tail'
+        light={tailwind('text-primary-500')}
+        numberOfLines={1}
+        style={tailwind('text-sm font-medium mr-1')}
       >
         {txid}
       </ThemedText>
+
       <ThemedIcon
-        iconType='MaterialIcons' name='open-in-new' size={18} light={tailwind('text-primary-500')}
         dark={tailwind('text-darkprimary-500')}
+        iconType='MaterialIcons'
+        light={tailwind('text-primary-500')}
+        name='open-in-new'
+        size={18}
       />
     </TouchableOpacity>
   )
@@ -269,12 +303,14 @@ function TransactionIDButton ({ txid, onPress }: { txid: string, onPress?: () =>
 function TransactionCloseButton (props: { onPress: () => void }): JSX.Element {
   return (
     <TouchableOpacity
-      testID='oceanInterface_close' onPress={props.onPress}
+      onPress={props.onPress}
       style={tailwind('px-2 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
+      testID='oceanInterface_close'
     >
       <ThemedText
-        style={tailwind('text-sm')} light={tailwind('text-primary-500')}
         dark={tailwind('text-darkprimary-500')}
+        light={tailwind('text-primary-500')}
+        style={tailwind('text-sm')}
       >
         {translate('screens/OceanInterface', 'OK')}
       </ThemedText>

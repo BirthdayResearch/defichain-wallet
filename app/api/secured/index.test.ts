@@ -1,6 +1,6 @@
-import * as ExpoSecureStore from "expo-secure-store";
-import { EnvironmentNetwork } from "../../environment";
-import { SecuredStoreAPI } from "./index";
+import * as ExpoSecureStore from 'expo-secure-store'
+import { EnvironmentNetwork } from '../../environment'
+import { SecuredStoreAPI } from './index'
 
 // TODO(fuxingloh): 'jest-expo' only test native (provider.native.ts) by default, need to improve testing capability
 
@@ -16,27 +16,27 @@ describe('network', () => {
   it('should default to Local', async () => {
     expect(await SecuredStoreAPI.getNetwork()).toBe(EnvironmentNetwork.LocalPlayground)
     expect(getItem).toBeCalled()
-  });
+  })
 
   it('should call setItem', async () => {
     await SecuredStoreAPI.setNetwork(EnvironmentNetwork.RemotePlayground)
     expect(setItem).toBeCalled()
-  });
+  })
 
-  it('should get Local', async () => {
+  it('should get Local Playground', async () => {
     getItem.mockResolvedValue(EnvironmentNetwork.LocalPlayground)
     expect(await SecuredStoreAPI.getNetwork()).toBe(EnvironmentNetwork.LocalPlayground)
-  });
+  })
 
-  it('should get Local', async () => {
+  it('should get Local RemotePlayground', async () => {
     getItem.mockResolvedValue(EnvironmentNetwork.RemotePlayground)
     expect(await SecuredStoreAPI.getNetwork()).toBe(EnvironmentNetwork.RemotePlayground)
-  });
+  })
 
   it.skip('should errored as network is not part of environment', async () => {
     await expect(SecuredStoreAPI.setNetwork(EnvironmentNetwork.MainNet))
       .rejects.toThrow('network is not part of environment')
-  });
+  })
 })
 
 describe('item', () => {
@@ -77,7 +77,7 @@ describe('byte length validation', () => {
     expect(setItem).toBeCalledWith('Development.Local.key', '0000000000100000000020000000003000000000400000000050000000006000000000700000000080000000009000000000')
   })
 
-  function generateText (length: number, sequence: string) {
+  function generateText (length: number, sequence: string): string {
     let text = ''
     for (let i = 0; i < length; i++) {
       text += sequence
@@ -119,7 +119,6 @@ describe('byte length validation', () => {
       await SecuredStoreAPI.setItem('key', text)
       expect(setItem).toBeCalledWith('Development.Local.key', text)
     })
-
 
     it('should error if 2049 byte length', async () => {
       const text = generateText(683, '好')

@@ -32,12 +32,15 @@ export function Button (props: ButtonProps): JSX.Element {
   return (
     <TouchableOpacity
       {...props}
-      style={[tailwind(`${margin} p-3 rounded flex-row justify-center ${buttonStyle} ${props.disabled === true ? disabledStyle : ''}`)]}
+      style={tailwind(`${margin} p-3 rounded flex-row justify-center ${buttonStyle} ${props.disabled === true ? disabledStyle : ''}`)}
     >
       {
         props.label !== undefined &&
-          <Text style={(tailwind(`${textStyle} font-bold`))}>{props.label}</Text>
+          <Text style={(tailwind(`${textStyle} font-bold`))}>
+            {props.label}
+          </Text>
       }
+
       {
         props.children
       }

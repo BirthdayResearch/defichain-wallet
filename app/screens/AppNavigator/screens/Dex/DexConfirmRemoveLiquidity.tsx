@@ -73,14 +73,17 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
   return (
     <ThemedScrollView style={tailwind('pb-4')}>
       <SummaryTitle
-        title={translate('screens/ConfirmRemoveLiquidity', 'YOU ARE REMOVING')}
-        testID='text_remove_amount' amount={amount}
+        amount={amount}
         suffix={` ${pair.symbol}`}
+        testID='text_remove_amount'
+        title={translate('screens/ConfirmRemoveLiquidity', 'YOU ARE REMOVING')}
       />
+
       <SectionTitle
-        text={translate('screens/ConfirmRemoveLiquidity', 'ESTIMATED AMOUNT TO RECEIVE')}
         testID='title_remove_detail'
+        text={translate('screens/ConfirmRemoveLiquidity', 'ESTIMATED AMOUNT TO RECEIVE')}
       />
+
       <TokenBalanceRow
         iconType={aSymbol}
         lhs={aSymbol}
@@ -89,6 +92,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
           testID: 'a_amount'
         }}
       />
+
       <TokenBalanceRow
         iconType={bSymbol}
         lhs={bSymbol}
@@ -97,10 +101,12 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
           testID: 'b_amount'
         }}
       />
+
       <SectionTitle
-        text={translate('screens/ConfirmRemoveLiquidity', 'TRANSACTION DETAILS')}
         testID='title_tx_detail'
+        text={translate('screens/ConfirmRemoveLiquidity', 'TRANSACTION DETAILS')}
       />
+
       <NumberRow
         lhs={translate('screens/ConfirmRemoveLiquidity', 'Price')}
         rightHandElements={[
@@ -108,14 +114,18 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
           { value: bToARate.toFixed(8), suffix: ` ${aSymbol} per ${bSymbol}`, testID: 'price_b' }
         ]}
       />
+
       <NumberRow
         lhs={translate('screens/ConfirmRemoveLiquidity', 'Estimated fee')}
         rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
       />
+
       <SubmitButtonGroup
-        onSubmit={onSubmit} onCancel={onCancel} title='remove'
-        label={translate('screens/ConfirmRemoveLiquidity', 'REMOVE')}
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        label={translate('screens/ConfirmRemoveLiquidity', 'REMOVE')}
+        onCancel={onCancel}
+        onSubmit={onSubmit}
+        title='remove'
       />
     </ThemedScrollView>
   )

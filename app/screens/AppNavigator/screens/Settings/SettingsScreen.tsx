@@ -1,28 +1,22 @@
+import { Logging } from '@api'
+import { Switch } from '@components/index'
+import { SectionTitle } from '@components/SectionTitle'
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { WalletAlert } from '@components/WalletAlert'
+import { useLocalAuthContext } from '@contexts/LocalAuthContext'
+import { useNetworkContext } from '@contexts/NetworkContext'
+import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
+import { EnvironmentNetwork } from '@environment'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
+import { authentication, Authentication } from '@store/authentication'
+import { ocean } from '@store/ocean'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import * as React from 'react'
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
-import { Logging } from '../../../../api'
 import { MnemonicStorage } from '../../../../api/wallet/mnemonic_storage'
-import { Switch } from '../../../../components'
-import { SectionTitle } from '../../../../components/SectionTitle'
-import {
-  ThemedIcon,
-  ThemedScrollView,
-  ThemedText,
-  ThemedTouchableOpacity,
-  ThemedView
-} from '../../../../components/themed'
-import { WalletAlert } from '../../../../components/WalletAlert'
-import { useLocalAuthContext } from '../../../../contexts/LocalAuthContext'
-import { useNetworkContext } from '../../../../contexts/NetworkContext'
-import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
-import { EnvironmentNetwork } from '../../../../environment'
-import { authentication, Authentication } from '../../../../store/authentication'
-import { ocean } from '../../../../store/ocean'
-import { tailwind } from '../../../../tailwind'
-import { translate } from '../../../../translations'
 import { RowThemeItem } from './components/RowThemeItem'
 import { SettingsParamList } from './SettingsNavigator'
 
@@ -43,14 +37,18 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
     const auth: Authentication<string[]> = {
       consume: async passphrase => await MnemonicStorage.get(passphrase),
       onAuthenticated: async (words) => {
-        navigation.navigate({ name: 'RecoveryWordsScreen', params: { words }, merge: true })
+        navigation.navigate({
+          name: 'RecoveryWordsScreen',
+          params: { words },
+          merge: true
+        })
       },
       onError: e => Logging.error(e),
       message: translate('screens/Settings', 'To continue viewing your recovery words, we need you to enter your passcode.'),
       loading: translate('screens/Settings', 'Loading...')
     }
     dispatch(authentication.actions.prompt(auth))
-  }, [walletContext.wallets[0]])
+  }, [dispatch, isEncrypted, navigation])
 
   const changePasscode = useCallback(() => {
     if (!isEncrypted) {
@@ -61,7 +59,12 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       consume: async passphrase => await MnemonicStorage.get(passphrase),
       onAuthenticated: async words => {
         navigation.navigate({
-          name: 'ChangePinScreen', params: { words, pinLength: 6 }, merge: true
+          name: 'ChangePinScreen',
+          params: {
+            words,
+            pinLength: 6
+          },
+          merge: true
         })
       },
       onError: (e) => {
@@ -72,29 +75,46 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
     }
 
     dispatch(authentication.actions.prompt(auth))
-  }, [walletContext.wallets[0]])
+  }, [walletContext.wallets[0], dispatch, navigation])
 
   return (
-    <ThemedScrollView style={tailwind('flex-1 pb-8')} testID='setting_screen'>
-      <SectionTitle text={translate('screens/Settings', 'NETWORK')} testID='network_title' />
+    <ThemedScrollView
+      style={tailwind('flex-1 pb-8')}
+      testID='setting_screen'
+    >
+      <SectionTitle
+        testID='network_title'
+        text={translate('screens/Settings', 'NETWORK')}
+      />
+
       <SelectedNetworkItem
-        network={network} onPress={() => {
+        network={network}
+        onPress={() => {
           navigation.navigate('NetworkSelectionScreen')
         }}
       />
-      <SectionTitle text={translate('screens/Settings', 'SECURITY')} testID='security_title' />
-      <SecurityRow
-        disabled={!isEncrypted}
-        testID='view_recovery_words'
-        label='Recovery Words'
-        onPress={revealRecoveryWords}
+
+      <SectionTitle
+        testID='security_title'
+        text={translate('screens/Settings', 'SECURITY')}
       />
-      <SecurityRow
-        disabled={!isEncrypted}
-        testID='view_change_passcode'
-        label='Change Passcode'
-        onPress={changePasscode}
-      />
+
+      {
+        isEncrypted && (
+          <>
+            <SecurityRow
+              label='Recovery Words'
+              onPress={revealRecoveryWords}
+              testID='view_recovery_words'
+            />
+            <SecurityRow
+              label='Change Passcode'
+              onPress={changePasscode}
+              testID='view_change_passcode'
+            />
+          </>
+        )
+      }
       <PrivacyLockToggle
         disabled={!localAuth.isDeviceProtected}
         value={localAuth.isPrivacyLock}
@@ -102,27 +122,34 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
           await localAuth.togglePrivacyLock()
         }}
       />
-      <RowNavigateItem pageName='AboutScreen' title='About' />
+      <RowNavigateItem
+        pageName='AboutScreen'
+        title='About'
+      />
       <RowThemeItem />
       <RowExitWalletItem />
     </ThemedScrollView>
   )
 }
 
-function SelectedNetworkItem ({ network, onPress }: { network: EnvironmentNetwork, onPress: () => void }): JSX.Element {
+function SelectedNetworkItem ({
+  network,
+  onPress
+}: { network: EnvironmentNetwork, onPress: () => void }): JSX.Element {
   return (
     <ThemedTouchableOpacity
-      testID='button_selected_network'
-      style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
       onPress={onPress}
+      style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
+      testID='button_selected_network'
     >
       <ThemedText style={tailwind('font-medium')}>
         {network}
       </ThemedText>
+
       <ThemedIcon
         iconType='MaterialIcons'
-        size={24}
         name='chevron-right'
+        size={24}
       />
     </ThemedTouchableOpacity>
   )
@@ -151,20 +178,23 @@ function RowExitWalletItem (): JSX.Element {
 
   return (
     <ThemedTouchableOpacity
+      onPress={onExitWallet}
+      style={tailwind('flex flex-row p-4 mt-8 items-center')}
       testID='setting_exit_wallet'
-      onPress={onExitWallet} style={tailwind('flex flex-row p-4 mt-8 items-center')}
     >
       <ThemedIcon
+        dark={tailwind('text-darkprimary-500')}
         iconType='MaterialIcons'
-        name='exit-to-app'
-        style={[tailwind('self-center mr-2'), { transform: [{ scaleX: -1 }] }]}
-        size={24}
         light={tailwind('text-primary-500')}
-        dark={tailwind('text-darkprimary-500')}
+        name='exit-to-app'
+        size={24}
+        style={[tailwind('self-center mr-2'), { transform: [{ scaleX: -1 }] }]}
       />
+
       <ThemedText
-        style={tailwind('font-medium')} light={tailwind('text-primary-500')}
         dark={tailwind('text-darkprimary-500')}
+        light={tailwind('text-primary-500')}
+        style={tailwind('font-medium')}
       >
         {translate('screens/Settings', 'UNLINK WALLET')}
       </ThemedText>
@@ -172,7 +202,11 @@ function RowExitWalletItem (): JSX.Element {
   )
 }
 
-function PrivacyLockToggle ({ disabled = false, value, onToggle }: { disabled?: boolean, value: boolean, onToggle: (newValue: boolean) => void }): JSX.Element {
+function PrivacyLockToggle ({
+  disabled = false,
+  value,
+  onToggle
+}: { disabled?: boolean, value: boolean, onToggle: (newValue: boolean) => void }): JSX.Element {
   const textStyleProp = disabled ? { color: 'gray' } : {}
   return (
     <ThemedView
@@ -193,17 +227,21 @@ function PrivacyLockToggle ({ disabled = false, value, onToggle }: { disabled?: 
   )
 }
 
-function SecurityRow ({ disabled = false, testID, label, onPress }: { disabled?: boolean, testID: string, label: string, onPress: () => void }): JSX.Element | null {
+function SecurityRow ({
+  testID,
+  label,
+  onPress
+}: { disabled?: boolean, testID: string, label: string, onPress: () => void }): JSX.Element | null {
   return (
     <ThemedTouchableOpacity
-      disabled={disabled}
-      testID={testID}
-      style={tailwind('flex p-4 pr-2 flex-row items-center justify-between')}
       onPress={onPress}
+      style={tailwind('flex p-4 pr-2 flex-row items-center justify-between')}
+      testID={testID}
     >
       <ThemedText style={tailwind('font-medium')}>
         {translate('screens/Settings', label)}
       </ThemedText>
+
       <ThemedIcon
         iconType='MaterialIcons'
         name='chevron-right'
@@ -213,19 +251,28 @@ function SecurityRow ({ disabled = false, testID, label, onPress }: { disabled?:
   )
 }
 
-function RowNavigateItem ({ pageName, title }: { pageName: string, title: string }): JSX.Element {
+function RowNavigateItem ({
+  pageName,
+  title
+}: { pageName: string, title: string }): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
   return (
     <ThemedTouchableOpacity
-      testID={`setting_navigate_${title}`}
       onPress={() => {
         navigation.navigate(pageName)
-      }} style={tailwind('flex flex-row p-4 pr-2 mt-4 items-center')}
+      }}
+      style={tailwind('flex flex-row p-4 pr-2 mt-4 items-center')}
+      testID={`setting_navigate_${title}`}
     >
       <ThemedText style={tailwind('font-medium flex-grow')}>
         {translate('screens/Settings', title)}
       </ThemedText>
-      <ThemedIcon iconType='MaterialIcons' name='chevron-right' size={24} />
+
+      <ThemedIcon
+        iconType='MaterialIcons'
+        name='chevron-right'
+        size={24}
+      />
     </ThemedTouchableOpacity>
   )
 }

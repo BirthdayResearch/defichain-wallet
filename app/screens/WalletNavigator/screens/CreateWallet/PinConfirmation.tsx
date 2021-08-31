@@ -1,6 +1,5 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
-import { ActivityIndicator } from 'react-native'
 import { Logging } from '../../../../api'
 import { MnemonicEncrypted } from '../../../../api/wallet'
 import { MnemonicStorage } from '../../../../api/wallet/mnemonic_storage'
@@ -11,7 +10,7 @@ import {
   RESTORE_STEPS
 } from '../../../../components/CreateWalletStepIndicator'
 import { PinTextInput } from '../../../../components/PinTextInput'
-import { ThemedScrollView, ThemedText } from '../../../../components/themed'
+import { ThemedActivityIndicator, ThemedScrollView, ThemedText } from '../../../../components/themed'
 import { useNetworkContext } from '../../../../contexts/NetworkContext'
 import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
 import { tailwind } from '../../../../tailwind'
@@ -30,7 +29,9 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
   const [spinnerMessage, setSpinnerMessage] = useState<string>()
 
   function verifyPin (input: string): void {
-    if (input.length !== pin.length) return
+    if (input.length !== pin.length) {
+      return
+    }
     if (input !== pin) {
       setNewPin('')
       setInvalid(true)
@@ -53,7 +54,8 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollView
-      light={tailwind('bg-white')} dark={tailwind('bg-gray-900')}
+      dark={tailwind('bg-gray-900')}
+      light={tailwind('bg-white')}
       style={tailwind('w-full flex-1 flex-col')}
     >
       <CreateWalletStepIndicator
@@ -61,37 +63,49 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
         steps={type === 'create' ? CREATE_STEPS : RESTORE_STEPS}
         style={tailwind('py-4 px-1')}
       />
+
       <View style={tailwind('px-6 py-4 mb-6')}>
         <ThemedText
           style={tailwind('text-center font-semibold')}
-        >{translate('screens/PinConfirmation', 'Enter your passcode again to verify')}
+        >
+          {translate('screens/PinConfirmation', 'Enter your passcode again to verify')}
         </ThemedText>
       </View>
+
       <PinTextInput
-        cellCount={6} testID='pin_confirm_input' value={newPin} onChange={(pin) => {
+        cellCount={6}
+        onChange={(pin) => {
           setNewPin(pin)
           verifyPin(pin)
         }}
+        testID='pin_confirm_input'
+        value={newPin}
       />
+
       <View style={tailwind('flex-row justify-center mt-6')}>
         {
           (spinnerMessage !== undefined)
             ? (
-              <View style={tailwind('items-center')}>
-                <ActivityIndicator color='#FF00AF' style={tailwind('mb-4')} />
+              <View style={tailwind('items-center px-4')}>
+                <ThemedActivityIndicator style={tailwind('mb-4')} />
+
                 <ThemedText
-                  style={tailwind('ml-2 font-semibold text-sm text-center w-4/5')}
-                >{spinnerMessage}
+                  style={tailwind('ml-2 font-semibold text-sm text-center w-4/6 px-4')}
+                >
+                  {spinnerMessage}
                 </ThemedText>
               </View>
               )
             : null
         }
+
         {
           invalid && (
             <ThemedText
-              light={tailwind('text-error-500')} dark={tailwind('text-darkerror-500')} testID='wrong_passcode_text'
+              dark={tailwind('text-darkerror-500')}
+              light={tailwind('text-error-500')}
               style={tailwind('text-center font-semibold text-sm')}
+              testID='wrong_passcode_text'
             >
               {translate('screens/PinConfirmation', 'Wrong passcode entered')}
             </ThemedText>

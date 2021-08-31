@@ -28,21 +28,37 @@ export function ChangePinScreen ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollView
-      testID='screen_create_pin'
+      dark={tailwind('bg-gray-900')}
+      light={tailwind('bg-white')}
       style={tailwind('w-full flex-1 flex-col')}
+      testID='screen_create_pin'
     >
       <View style={tailwind('px-6 py-4 mb-8 mt-8')}>
         <ThemedText
           style={tailwind('text-center font-semibold')}
-        >{translate('screens/ChangePinScreen', 'Create new passcode for your wallet')}
+        >
+          {translate('screens/ChangePinScreen', 'Create new passcode for your wallet')}
         </ThemedText>
       </View>
-      <PinTextInput cellCount={6} testID='pin_input' value={newPin} onChange={setNewPin} />
+
+      <PinTextInput
+        cellCount={6}
+        onChange={setNewPin}
+        testID='pin_input'
+        value={newPin}
+      />
+
       <View style={tailwind('p-4 flex-row mt-2 mb-8 justify-center items-center')}>
-        <ThemedIcon iconType='MaterialIcons' name='lock-outline' size={18} />
+        <ThemedIcon
+          iconType='MaterialIcons'
+          name='lock-outline'
+          size={18}
+        />
+
         <ThemedText
           style={tailwind('text-center text-sm font-semibold ml-2')}
-        >{translate('screens/PinCreation', 'Keep your passcode private')}
+        >
+          {translate('screens/PinCreation', 'Keep your passcode private')}
         </ThemedText>
       </View>
     </ThemedScrollView>

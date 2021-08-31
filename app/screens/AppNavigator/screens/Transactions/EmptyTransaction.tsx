@@ -16,31 +16,37 @@ interface EmptyTransactionProps {
 export function EmptyTransaction (props: EmptyTransactionProps): JSX.Element {
   return (
     <ThemedScrollView
-      testID='empty_transaction'
-      style={tailwind('px-8 pt-32 pb-2 text-center')}
       refreshControl={
         <RefreshControl
-          refreshing={props.loadingStatus === 'loading'}
           onRefresh={props.handleRefresh}
+          refreshing={props.loadingStatus === 'loading'}
         />
       }
+      style={tailwind('px-8 pt-32 pb-2 text-center')}
+      testID='empty_transaction'
     >
       <ThemedIcon
-        iconType='MaterialIcons' light={tailwind('text-black')} dark={tailwind('text-white')} name='assignment-late'
+        dark={tailwind('text-white')}
+        iconType='MaterialIcons'
+        light={tailwind('text-black')}
+        name='assignment-late'
         size={44}
         style={tailwind('pb-5 text-center')}
       />
+
       <ThemedText style={tailwind('text-2xl pb-2 font-semibold text-center')}>
         {translate('screens/TransactionsScreen', 'No transactions yet')}
       </ThemedText>
+
       <ThemedText style={tailwind('text-sm pb-16 text-center opacity-60')}>
         {translate('screens/TransactionsScreen', 'Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.')}
       </ThemedText>
+
       <Button
+        label={translate('screens/TransactionsScreen', 'RECEIVE COINS')}
+        onPress={() => props.navigation.navigate('Receive')}
         testID='button_receive_coins'
         title='Receive Coins'
-        onPress={() => props.navigation.navigate('Receive')}
-        label={translate('screens/TransactionsScreen', 'RECEIVE COINS')}
       />
     </ThemedScrollView>
   )

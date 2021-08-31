@@ -33,27 +33,43 @@ export function PinCreation ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollView
-      light={tailwind('bg-white')} dark={tailwind('bg-gray-900')}
-      testID='screen_create_pin'
+      dark={tailwind('bg-gray-900')}
+      light={tailwind('bg-white')}
       style={tailwind('w-full flex-1 flex-col')}
+      testID='screen_create_pin'
     >
       <CreateWalletStepIndicator
         current={type === 'create' ? 3 : 2}
         steps={type === 'create' ? CREATE_STEPS : RESTORE_STEPS}
         style={tailwind('py-4 px-1')}
       />
+
       <View style={tailwind('px-6 py-4 mb-12')}>
         <ThemedText
           style={tailwind('text-center font-semibold')}
-        >{translate('screens/PinCreation', `Well done! Your wallet is ${type === 'create' ? 'created' : 'restored'}. Keep your wallet private and secure by creating a passcode for it.`)}
+        >
+          {translate('screens/PinCreation', `Well done! Your wallet is ${type === 'create' ? 'created' : 'restored'}. Keep your wallet private and secure by creating a passcode for it.`)}
         </ThemedText>
       </View>
-      <PinTextInput cellCount={6} testID='pin_input' value={newPin} onChange={setNewPin} />
+
+      <PinTextInput
+        cellCount={6}
+        onChange={setNewPin}
+        testID='pin_input'
+        value={newPin}
+      />
+
       <View style={tailwind('p-4 flex-row mt-2 mb-8 justify-center items-center')}>
-        <ThemedIcon iconType='MaterialIcons' name='lock-outline' size={18} />
+        <ThemedIcon
+          iconType='MaterialIcons'
+          name='lock-outline'
+          size={18}
+        />
+
         <ThemedText
           style={tailwind('text-center text-sm font-semibold ml-2')}
-        >{translate('screens/PinCreation', 'Keep your passcode private')}
+        >
+          {translate('screens/PinCreation', 'Keep your passcode private')}
         </ThemedText>
       </View>
     </ThemedScrollView>

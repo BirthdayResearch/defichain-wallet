@@ -3,8 +3,8 @@ import { WalletContextProvider } from '../contexts/WalletContext'
 import { WalletNodeProvider } from '../contexts/WalletNodeProvider'
 import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
 import { AppNavigator } from './AppNavigator/AppNavigator'
-import { TransactionAuthorization } from './TransactionAuthorization'
 import { PrivacyLock } from './PrivacyLock'
+import { TransactionAuthorization } from './TransactionAuthorization'
 import { WalletNavigator } from './WalletNavigator/WalletNavigator'
 
 /**
@@ -27,6 +27,7 @@ export function RootNavigator (): JSX.Element {
       <WalletContextProvider>
         <PrivacyLock />
         <TransactionAuthorization />
+
         <AppNavigator />
       </WalletContextProvider>
     </WalletNodeProvider>

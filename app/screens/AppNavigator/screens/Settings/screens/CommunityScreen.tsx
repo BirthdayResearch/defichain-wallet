@@ -17,28 +17,38 @@ import { translate } from '../../../../../translations'
 export function CommunityScreen (): JSX.Element {
   return (
     <ThemedFlatList
-      data={Communities}
-      ListHeaderComponent={
-        <SectionTitle
-          text={translate('screens/CommunityScreen', 'CONNECT WITH THE COMMUNITY:')}
-          testID='community_title'
-        />
+      ItemSeparatorComponent={
+        () => (
+          <ThemedView
+            dark={tailwind('bg-gray-700')}
+            light={tailwind('bg-gray-100')}
+            style={tailwind('h-px')}
+          />
+        )
       }
       ListFooterComponent={
         <View style={tailwind('items-center py-6 px-4')}>
           <ThemedText style={tailwind('text-xs font-normal')}>
             {translate('screens/CommunityScreen', 'DeFiChain is a community-driven and open project.')}
           </ThemedText>
+
           <ThemedText style={tailwind('text-xs font-normal')}>
             {translate('screens/CommunityScreen', 'The DeFiChain Foundation does not provide direct support.')}
           </ThemedText>
         </View>
       }
-      ItemSeparatorComponent={
-        () => <ThemedView style={tailwind('h-px')} light={tailwind('bg-gray-100')} dark={tailwind('bg-gray-700')} />
+      ListHeaderComponent={
+        <SectionTitle
+          testID='community_title'
+          text={translate('screens/CommunityScreen', 'CONNECT WITH THE COMMUNITY:')}
+        />
       }
+      data={Communities}
       renderItem={({ item }) => (
-        <CommunityItemRow key={item.id} {...item} />
+        <CommunityItemRow
+          key={item.id}
+          {...item}
+        />
       )}
       testID='community_flat_list'
     />
@@ -74,14 +84,18 @@ function CommunityItemRow ({ id, title, url, icon }: CommunityItem): JSX.Element
 
   return (
     <ThemedTouchableOpacity
-      style={tailwind('flex-row p-4 items-center')}
       onPress={handlePress}
+      style={tailwind('flex-row p-4 items-center')}
       testID={id}
     >
       <ThemedIcon
-        iconType='MaterialCommunityIcons' name={icon} size={24} light={tailwind('text-primary-500')}
         dark={tailwind('text-darkprimary-500')}
+        iconType='MaterialCommunityIcons'
+        light={tailwind('text-primary-500')}
+        name={icon}
+        size={24}
       />
+
       <ThemedText style={tailwind('ml-2')}>
         {translate('screens/CommunityScreen', title)}
       </ThemedText>

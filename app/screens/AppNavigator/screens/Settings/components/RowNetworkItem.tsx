@@ -1,12 +1,12 @@
+import { ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import { WalletAlert } from '@components/WalletAlert'
+import { useNetworkContext } from '@contexts/NetworkContext'
+import { EnvironmentNetwork, isPlayground } from '@environment'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import * as React from 'react'
 import { useCallback } from 'react'
-import { ThemedIcon, ThemedText, ThemedTouchableOpacity } from '../../../../../components/themed'
-import { WalletAlert } from '../../../../../components/WalletAlert'
-import { useNetworkContext } from '../../../../../contexts/NetworkContext'
-import { EnvironmentNetwork, isPlayground } from '../../../../../environment'
-import { tailwind } from '../../../../../tailwind'
-import { translate } from '../../../../../translations'
 import { SettingsParamList } from '../SettingsNavigator'
 
 export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
@@ -22,7 +22,7 @@ export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Ele
       WalletAlert({
         title: translate('screens/Settings', 'Network Switch'),
         message: translate(
-          'screens/Settings', `You are about to switch to ${props.network}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?`),
+          'screens/Settings', 'You are about to switch to {{network}}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?', { network: props.network }),
         buttons: [
           {
             text: translate('screens/Settings', 'No'),
@@ -36,16 +36,15 @@ export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Ele
             }
           }
         ]
-      }
-      )
+      })
     }
-  }, [network])
+  }, [props.network, network, navigation, updateNetwork])
 
   return (
     <ThemedTouchableOpacity
-      testID={`button_network_${props.network}`}
-      style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
       onPress={onPress}
+      style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
+      testID={`button_network_${props.network}`}
     >
       <ThemedText style={tailwind('font-medium')}>
         {props.network}
@@ -55,9 +54,12 @@ export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Ele
         props.network === network &&
         (
           <ThemedIcon
+            dark={tailwind('text-darkprimary-500')}
             iconType='MaterialIcons'
-            testID={`button_network_${props.network}_check`} size={24} name='check'
-            light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
+            light={tailwind('text-primary-500')}
+            name='check'
+            size={24}
+            testID={`button_network_${props.network}_check`}
           />
         )
       }

@@ -122,6 +122,7 @@ exports[`recovery words guidelines should match snapshot 1`] = `
           },
           Array [
             Object {
+              "marginBottom": 48,
               "marginTop": 20,
             },
             Object {

@@ -16,6 +16,7 @@ export function Main (): JSX.Element {
       <View style={styles.phone}>
         <RootNavigator />
       </View>
+
       <View style={[styles.phone, tailwind('bg-white ml-2')]}>
         <NavigationContainer theme={DeFiChainTheme}>
           <PlaygroundNavigator />
@@ -30,7 +31,7 @@ export function Main (): JSX.Element {
  */
 const styles = StyleSheet.create({
   phone: {
-    width: 375,
-    height: 667
+    height: 667,
+    width: 375
   }
 })

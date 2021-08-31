@@ -17,7 +17,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:1.8.1
+    image: defi/defichain:1.8.2
     command: >
       defid
       -printtoconsole
@@ -56,7 +56,7 @@ services:
       - "traefik.http.routers.playground.entrypoints=web"
 
   defi-whale:
-    image: ghcr.io/defich/whale:0.8.9
+    image: ghcr.io/defich/whale:0.9.1
     depends_on:
       - defi-blockchain
     ports:

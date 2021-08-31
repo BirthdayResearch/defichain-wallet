@@ -10,12 +10,25 @@
     "noEmit": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "strict": true
+    "strict": true,		
+		"baseUrl": "app",
+		"paths": {
+			"@api": ["api"],
+			"@assets": ["assets/*"],
+			"@constants": ["constants"],
+			"@contexts/*": ["contexts/*"],
+			"@components/*": ["components/*"],			
+			"@environment": ["environment"],
+			"@hooks/*": ["hooks/*"],
+			"@screens/*": ["screens/*"],
+			"@store": ["store"],
+			"@store/*": ["store/*"],			
+			"@translations": ["translations"],
+			"@tailwind": ["tailwind"]			
+		}
   },
   "extends": "expo/tsconfig.base",
   "exclude": [
-    "node_modules",
-    "**/*.test.ts",
-    "**/*.test.tsx"
+    "node_modules"
   ]
 }

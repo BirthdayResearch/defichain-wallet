@@ -26,31 +26,33 @@ export function PlaygroundUTXO (): JSX.Element {
   return (
     <View>
       <PlaygroundTitle
-        title='UTXO' status={{
+        status={{
           online: status === 'online',
           loading: status === 'loading',
           error: status === 'error'
         }}
+        title='UTXO'
       />
 
       {status === 'online'
         ? (
           <>
             <PlaygroundAction
-              testID='playground_wallet_top_up'
-              title='Top up 10 DFI UTXO to Wallet'
               onPress={async () => {
                 const address = await wallet.get(0).getAddress()
                 await rpc.wallet.sendToAddress(address, 10)
               }}
+              testID='playground_wallet_top_up'
+              title='Top up 10 DFI UTXO to Wallet'
             />
+
             <PlaygroundAction
-              testID='playground_wallet_fetch_balances'
-              title='Fetch Balances'
               onPress={async () => {
                 const address = await wallet.get(0).getAddress()
                 fetchTokens(whaleApiClient, address, dispatch)
               }}
+              testID='playground_wallet_fetch_balances'
+              title='Fetch Balances'
             />
           </>
           )

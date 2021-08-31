@@ -9,6 +9,7 @@ export function Main (): JSX.Element {
   return (
     <SafeAreaProvider>
       <RootNavigator />
+
       <StatusBar style={isLight ? 'dark' : 'light'} />
     </SafeAreaProvider>
   )

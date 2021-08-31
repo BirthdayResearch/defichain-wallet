@@ -39,61 +39,92 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
   const [isEnabled, setIsEnabled] = useState(false)
   const toggleSwitch = (): void => setIsEnabled(previousState => !previousState)
   return (
-    <ThemedScrollView light={tailwind('bg-white')} dark={tailwind('bg-gray-900')} style={tailwind('flex-1 p-4 pt-6')}>
+    <ThemedScrollView
+      dark={tailwind('bg-gray-900')}
+      light={tailwind('bg-white')}
+      style={tailwind('flex-1 p-4 pt-6')}
+    >
       <ThemedText
         style={tailwind('text-lg font-semibold')}
-      >{translate('screens/Guidelines', 'Creating a wallet')}
+      >
+        {translate('screens/Guidelines', 'Creating a wallet')}
       </ThemedText>
+
       <ThemedText
-        light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
+        dark={tailwind('text-gray-400')}
+        light={tailwind('text-gray-500')}
         style={tailwind('mt-1 text-sm font-medium')}
-      >{translate('screens/Guidelines', 'Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.')}
+      >
+        {translate('screens/Guidelines', 'Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.')}
       </ThemedText>
+
       <TouchableOpacity
-        style={tailwind('mb-2')} onPress={() => navigation.navigate('GuidelinesRecoveryWords')}
+        onPress={() => navigation.navigate('GuidelinesRecoveryWords')}
+        style={tailwind('mb-2')}
         testID='recovery_words_button'
       >
         <ThemedText
-          light={tailwind('text-primary-500')} dark={tailwind('text-darkprimary-500')}
+          dark={tailwind('text-darkprimary-500')}
+          light={tailwind('text-primary-500')}
           style={tailwind('font-medium text-sm')}
-        >{translate('screens/Guidelines', 'Learn more about recovery words')}
+        >
+          {translate('screens/Guidelines', 'Learn more about recovery words')}
         </ThemedText>
       </TouchableOpacity>
+
       {
         guidelines.map((g, i) => (
-          <View key={i} style={tailwind('flex-row items-center my-3')}>
-            <ThemedIcon iconType='MaterialIcons' name={g.icon} size={32} />
+          <View
+            key={i}
+            style={tailwind('flex-row items-center my-3')}
+          >
+            <ThemedIcon
+              iconType='MaterialIcons'
+              name={g.icon}
+              size={32}
+            />
+
             <View style={tailwind('flex-col flex-auto ml-6')}>
-              <ThemedText style={tailwind('font-medium')}>{translate('screens/Guidelines', g.title)}</ThemedText>
+              <ThemedText style={tailwind('font-medium')}>
+                {translate('screens/Guidelines', g.title)}
+              </ThemedText>
+
               <ThemedText
-                light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
-                style={tailwind('text-sm')}
+                dark={tailwind('text-gray-400')}
+                light={tailwind('text-gray-500')}
                 numberOfLines={4}
-              >{translate('screens/Guidelines', g.subtitle)}
+                style={tailwind('text-sm')}
+              >
+                {translate('screens/Guidelines', g.subtitle)}
               </ThemedText>
             </View>
           </View>
         ))
       }
+
       <View style={tailwind('flex-row items-center my-4')}>
         <Switch
           onValueChange={toggleSwitch}
-          value={isEnabled}
           testID='guidelines_switch'
+          value={isEnabled}
         />
+
         <View style={tailwind('flex-auto ml-4')}>
           <ThemedText
             style={tailwind('text-sm font-medium')}
-          >{translate('screens/Guidelines', 'I understand it is my responsibility to keep my recovery words secure, and losing them will result in the irrecoverable loss of my wallet funds.')}
+          >
+            {translate('screens/Guidelines', 'I understand it is my responsibility to keep my recovery words secure, and losing them will result in the irrecoverable loss of my wallet funds.')}
           </ThemedText>
         </View>
       </View>
+
       <Button
         disabled={!isEnabled}
-        margin='mx-0 mt-8'
-        onPress={() => navigation.navigate('CreateMnemonicWallet')} title='create mnemonic words'
-        testID='create_recovery_words_button'
         label={translate('screens/Guidelines', 'SHOW MY 24 RECOVERY WORDS')}
+        margin='mx-0 mt-8 mb-8'
+        onPress={() => navigation.navigate('CreateMnemonicWallet')}
+        testID='create_recovery_words_button'
+        title='create mnemonic words'
       />
     </ThemedScrollView>
   )

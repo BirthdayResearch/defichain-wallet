@@ -99,16 +99,22 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   }
 
   return (
-    <ThemedScrollView testID='confirm-root' style={tailwind('pb-4')}>
+    <ThemedScrollView
+      style={tailwind('pb-4')}
+      testID='confirm-root'
+    >
       <SummaryTitle
-        title={translate('screens/ConfirmAddLiq', 'YOU ARE ADDING')}
-        testID='text_add_amount' amount={lmTokenAmount}
+        amount={lmTokenAmount}
         suffix={` ${symbol}`}
+        testID='text_add_amount'
+        title={translate('screens/ConfirmAddLiq', 'YOU ARE ADDING')}
       />
+
       <SectionTitle
-        text={translate('screens/ConfirmAddLiq', 'AMOUNT TO SUPPLY')}
         testID='title_add_detail'
+        text={translate('screens/ConfirmAddLiq', 'AMOUNT TO SUPPLY')}
       />
+
       <TokenBalanceRow
         iconType={aSymbol}
         lhs={aSymbol}
@@ -117,6 +123,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
           testID: 'a_amount'
         }}
       />
+
       <TokenBalanceRow
         iconType={bSymbol}
         lhs={bSymbol}
@@ -125,10 +132,12 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
           testID: 'b_amount'
         }}
       />
+
       <SectionTitle
-        text={translate('screens/ConfirmAddLiq', 'TRANSACTION DETAILS')}
         testID='title_tx_detail'
+        text={translate('screens/ConfirmAddLiq', 'TRANSACTION DETAILS')}
       />
+
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Price')}
         rightHandElements={[
@@ -136,26 +145,33 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
           { value: bToARate.toFixed(8), suffix: ` ${aSymbol} per ${bSymbol}`, testID: 'price_b' }
         ]}
       />
+
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Share of pool')}
         rightHandElements={[{ value: percentage.times(100).toFixed(8), suffix: '%', testID: 'percentage_pool' }]}
       />
+
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', `Pooled ${aSymbol}`)}
+        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${aSymbol}` })}
         rightHandElements={[{ value: tokenA.reserve, suffix: ` ${tokenA.symbol}`, testID: 'pooled_a' }]}
       />
+
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', `Pooled ${bSymbol}`)}
+        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${bSymbol}` })}
         rightHandElements={[{ value: tokenB.reserve, suffix: ` ${tokenB.symbol}`, testID: 'pooled_b' }]}
       />
+
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Estimated fee')}
         rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
       />
+
       <SubmitButtonGroup
-        onSubmit={addLiquidity} onCancel={onCancel} title='add'
-        label={translate('screens/ConfirmAddLiq', 'ADD')}
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        label={translate('screens/ConfirmAddLiq', 'ADD')}
+        onCancel={onCancel}
+        onSubmit={addLiquidity}
+        title='add'
       />
     </ThemedScrollView>
   )

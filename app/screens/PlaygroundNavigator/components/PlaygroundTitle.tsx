@@ -15,6 +15,7 @@ export function PlaygroundTitle (props: PlaygroundTitleProps): JSX.Element {
       <ThemedText style={tailwind('text-lg font-semibold mr-2')}>
         {props.title}
       </ThemedText>
+
       <PlaygroundStatus {...props.status} />
     </View>
   )

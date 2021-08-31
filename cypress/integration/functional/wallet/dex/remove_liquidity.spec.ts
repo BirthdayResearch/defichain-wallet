@@ -7,11 +7,13 @@ context('Wallet - DEX - Remove Liquidity', () => {
 
     cy.getByTestID('bottom_tab_dex').click().wait(1000)
 
-    const list = cy.getByTestID('liquidity_screen_list').wait(2000)
-    list.getByTestID('pool_pair_row_your').should('have.length', 1)
+    // const list = cy.getByTestID('liquidity_screen_list').wait(2000)
+    cy.getByTestID('liquidity_screen_list').wait(2000)
+      .getByTestID('pool_pair_row_your').should('have.length', 1)
 
-    const row = list.getByTestID('pool_pair_row_your').first()
-    row.invoke('text').should(text => expect(text).to.contains('10.00000000 DFI-ETH'))
+    cy.getByTestID('liquidity_screen_list')
+      .wait(2000).getByTestID('pool_pair_row_your').first()
+      .invoke('text').should(text => expect(text).to.contains('10.00000000 DFI-ETH'))
 
     cy.getByTestID('pool_pair_remove_DFI-ETH').click().wait(1000)
 
