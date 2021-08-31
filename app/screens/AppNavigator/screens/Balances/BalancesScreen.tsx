@@ -1,29 +1,23 @@
+import { getNativeIcon } from '@components/icons/assets'
+import { View } from '@components/index'
+import { SectionTitle } from '@components/SectionTitle'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { useWalletContext } from '@contexts/WalletContext'
+import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
+import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { fetchTokens, useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackScreenProps } from '@react-navigation/stack'
+import { ocean } from '@store/ocean'
+import { WalletToken } from '@store/wallet'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useCallback, useEffect, useState } from 'react'
 import { RefreshControl } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
-import { View } from '../../../../components'
-import { getNativeIcon } from '../../../../components/icons/assets'
-import { SectionTitle } from '../../../../components/SectionTitle'
-import {
-  ThemedFlatList,
-  ThemedIcon,
-  ThemedText,
-  ThemedTouchableOpacity,
-  ThemedView
-} from '../../../../components/themed'
-import { useWalletContext } from '../../../../contexts/WalletContext'
-import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
-import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
-import { fetchTokens, useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
-import { ocean } from '../../../../store/ocean'
-import { WalletToken } from '../../../../store/wallet'
-import { tailwind } from '../../../../tailwind'
-import { translate } from '../../../../translations'
 import { BalanceParamList } from './BalancesNavigator'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
@@ -44,16 +38,18 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     setRefreshing(true)
     await fetchTokens(client, address, dispatch)
     setRefreshing(false)
-  }, [address])
+  }, [address, client, dispatch])
 
   const tokens = useTokensAPI()
   return (
     <ThemedFlatList
-      ItemSeparatorComponent={() => <ThemedView
-        dark={tailwind('bg-gray-700')}
-        light={tailwind('bg-gray-100')}
-        style={tailwind('h-px')}
-                                    />}
+      ItemSeparatorComponent={() => (
+        <ThemedView
+          dark={tailwind('bg-gray-700')}
+          light={tailwind('bg-gray-100')}
+          style={tailwind('h-px')}
+        />
+      )}
       ListHeaderComponent={(
         <SectionTitle
           testID='balances_title'

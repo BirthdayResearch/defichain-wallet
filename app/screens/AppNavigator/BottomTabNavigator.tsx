@@ -39,11 +39,13 @@ export function BottomTabNavigator (): JSX.Element {
           name={translate('BottomTabNavigator', 'Balances')}
           options={{
             tabBarTestID: 'bottom_tab_balances',
-            tabBarIcon: ({ color }) => <MaterialIcons
-              color={color}
-              name='account-balance-wallet'
-              size={24}
-                                       />
+            tabBarIcon: ({ color }) => (
+              <MaterialIcons
+                color={color}
+                name='account-balance-wallet'
+                size={24}
+              />
+            )
           }}
         />
 
@@ -52,11 +54,13 @@ export function BottomTabNavigator (): JSX.Element {
           name={translate('BottomTabNavigator', 'DEX')}
           options={{
             tabBarTestID: 'bottom_tab_dex',
-            tabBarIcon: ({ color }) => <MaterialIcons
-              color={color}
-              name='pie-chart'
-              size={24}
-                                       />
+            tabBarIcon: ({ color }) => (
+              <MaterialIcons
+                color={color}
+                name='pie-chart'
+                size={24}
+              />
+            )
           }}
         />
 
@@ -65,11 +69,13 @@ export function BottomTabNavigator (): JSX.Element {
           name={translate('BottomTabNavigator', 'Transactions')}
           options={{
             tabBarTestID: 'bottom_tab_transactions',
-            tabBarIcon: ({ color }) => <MaterialIcons
-              color={color}
-              name='history'
-              size={24}
-                                       />
+            tabBarIcon: ({ color }) => (
+              <MaterialIcons
+                color={color}
+                name='history'
+                size={24}
+              />
+            )
           }}
         />
 
@@ -78,11 +84,13 @@ export function BottomTabNavigator (): JSX.Element {
           name={translate('BottomTabNavigator', 'Settings')}
           options={{
             tabBarTestID: 'bottom_tab_settings',
-            tabBarIcon: ({ color }) => <MaterialIcons
-              color={color}
-              name='settings'
-              size={24}
-                                       />
+            tabBarIcon: ({ color }) => (
+              <MaterialIcons
+                color={color}
+                name='settings'
+                size={24}
+              />
+            )
           }}
         />
       </BottomTab.Navigator>

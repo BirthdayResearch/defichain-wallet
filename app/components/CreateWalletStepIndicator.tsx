@@ -52,13 +52,14 @@ export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Eleme
           key={i * 2}
           style={tailwind(`h-1 flex-grow mt-3.5 ${iconStyle}`)}
         />)
-      arr.push(<StepNode
-        content={steps[i]}
-        current={current}
-        isLight={isLight}
-        key={i * 2 + 1}
-        step={i + 1}
-               />)
+      arr.push(
+        <StepNode
+          content={steps[i]}
+          current={current}
+          isLight={isLight}
+          key={i * 2 + 1}
+          step={i + 1}
+        />)
     }
     return arr
   }

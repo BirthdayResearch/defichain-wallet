@@ -18,11 +18,13 @@ export function CommunityScreen (): JSX.Element {
   return (
     <ThemedFlatList
       ItemSeparatorComponent={
-        () => <ThemedView
-          dark={tailwind('bg-gray-700')}
-          light={tailwind('bg-gray-100')}
-          style={tailwind('h-px')}
-              />
+        () => (
+          <ThemedView
+            dark={tailwind('bg-gray-700')}
+            light={tailwind('bg-gray-100')}
+            style={tailwind('h-px')}
+          />
+        )
       }
       ListFooterComponent={
         <View style={tailwind('items-center py-6 px-4')}>
