@@ -1,3 +1,4 @@
+import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { validateMnemonicSentence } from '@defichain/jellyfish-wallet-mnemonic'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as React from 'react'
@@ -66,10 +67,6 @@ export function RestoreMnemonicWallet (): JSX.Element {
     }
   }, [navigation, isDirty])
 
-  if (inputRefMap.length < 24) {
-    return <></>
-  }
-
   async function onRestore (): Promise<void> {
     setIsSubmitting(true)
     const words = Object.values(getValues())
@@ -123,58 +120,58 @@ export function RestoreMnemonicWallet (): JSX.Element {
         />
       </ThemedView>
 
-      {
-        recoveryWords.map((order) => (
-          <Controller
-            control={control}
-            defaultValue=''
-            key={order}
-            name={`recover_word_${order}`}
-            render={({ field: { value, onBlur, onChange }, fieldState: { invalid, isTouched } }) => (
-              <ThemedView
-                dark={tailwind('bg-gray-800 border-b border-gray-700')}
-                light={tailwind('bg-white border-b border-gray-200')}
-                style={tailwind('flex-row w-full')}
-              >
-                <ThemedText style={tailwind('p-4 font-semibold w-20 pr-0')}>
-                  {`#${order}`}
-                </ThemedText>
+      {recoveryWords.map((order) => (
+        (inputRefMap?.[order] != null)
+          ? (<Controller
+              control={control}
+              defaultValue=''
+              key={order}
+              name={`recover_word_${order}`}
+              render={({ field: { value, onBlur, onChange }, fieldState: { invalid, isTouched } }) => (
+                <ThemedView
+                  dark={tailwind('bg-gray-800 border-b border-gray-700')}
+                  light={tailwind('bg-white border-b border-gray-200')}
+                  style={tailwind('flex-row w-full')}
+                >
+                  <ThemedText style={tailwind('p-4 font-semibold w-20 pr-0')}>
+                    {`#${order}`}
+                  </ThemedText>
 
-                <TextInput
-                  autoCapitalize='none'
-                  autoCompleteType='off'
-                  blurOnSubmit={false}
-                  keyboardType='default'
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  onSubmitEditing={async () => {
-                    if (inputRefMap[order + 1] !== undefined) {
-                      inputRefMap[order + 1].current?.focus()
-                    } else {
-                      await onRestore()
-                    }
-                  }}
-                  placeholder={translate('screens/SendScreen', `Enter word #${order}`)}
-                  placeholderTextColor={isLight
-                    ? `${invalid && isTouched
-                      ? 'rgba(255, 0, 0, 1)'
-                      : 'rgba(0, 0, 0, 0.4)'}`
-                    : `${invalid && isTouched ? 'rgba(255, 0, 0, 1)' : '#828282'}`}
-                  ref={inputRefMap[order]}
-                  returnKeyType={order === 24 ? 'done' : 'next'}
-                  style={tailwind(`flex-grow p-4 pl-0 ${invalid && isTouched ? 'text-error-500' : `${isLight ? light : dark}`}`)}
-                  testID={`recover_word_${order}`}
-                  value={value}
-                />
-              </ThemedView>
-            )}
-            rules={{
-              required: true,
-              pattern: /^[a-z]+$/
-            }}
-          />
-        ))
-      }
+                  <TextInput
+                    autoCapitalize='none'
+                    autoCompleteType='off'
+                    blurOnSubmit={false}
+                    keyboardType='default'
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    onSubmitEditing={async () => {
+                      if (inputRefMap[order + 1] !== undefined) {
+                        inputRefMap[order + 1].current?.focus()
+                      } else {
+                        await onRestore()
+                      }
+                    }}
+                    placeholder={translate('screens/SendScreen', `Enter word #${order}`)}
+                    placeholderTextColor={isLight
+                      ? `${invalid && isTouched
+                        ? 'rgba(255, 0, 0, 1)'
+                        : 'rgba(0, 0, 0, 0.4)'}`
+                      : `${invalid && isTouched ? 'rgba(255, 0, 0, 1)' : '#828282'}`}
+                    ref={inputRefMap[order]}
+                    returnKeyType={order === 24 ? 'done' : 'next'}
+                    style={tailwind(`flex-grow p-4 pl-0 ${invalid && isTouched ? 'text-error-500' : `${isLight ? light : dark}`}`)}
+                    testID={`recover_word_${order}`}
+                    value={value}
+                  />
+                </ThemedView>
+              )}
+              rules={{
+                required: true,
+                pattern: /^[a-z]+$/
+              }}
+             />)
+          : <SkeletonLoader key={order} row={1} screen={SkeletonLoaderScreen.MnemonicWord} />
+      ))}
 
       <Button
         disabled={!isValid || isSubmitting}

@@ -26,7 +26,9 @@ context('Wallet - Settings', () => {
 
   it('should stay in setting screen when clicked on negative action', function () {
     cy.getByTestID('setting_exit_wallet').click()
-    cy.on('window:confirm', () => { return false })
+    cy.on('window:confirm', () => {
+      return false
+    })
     cy.getByTestID('setting_screen').should('exist')
   })
 
