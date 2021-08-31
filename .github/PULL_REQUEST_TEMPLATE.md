@@ -3,6 +3,7 @@
 #### Developer Checklist:
 <!--  Before requesting for code review, please ensure that the following tasks are completed. -->
 
+- [ ] Read your code changes at least once
 - [ ] Tested on iOS/Android device (e.g, No crashes, library supported etc.)
 - [ ] No console errors on web
 - [ ] Tested on Light mode and Dark Mode*
