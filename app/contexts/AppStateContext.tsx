@@ -59,7 +59,9 @@ export function AppStateContextProvider (props: React.PropsWithChildren<any>): J
       return id
     },
     removeListener: (id: number) => {
-      if (listenerRef.current === null) return
+      if (listenerRef.current === null) {
+        return
+      }
       if (listenerRef.current[id] !== undefined) {
         // eslint-disable-next-line
         delete listenerRef.current[id]
@@ -76,6 +78,8 @@ export function AppStateContextProvider (props: React.PropsWithChildren<any>): J
 
 function getNewSerialNumber (existing: number[]): number {
   let i = 0
-  while (existing.includes(i)) i++
+  while (existing.includes(i)) {
+    i++
+  }
   return i
 }

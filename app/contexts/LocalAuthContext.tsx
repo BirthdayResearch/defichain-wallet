@@ -1,7 +1,7 @@
+import { Logging } from '@api'
 import * as LocalAuthentication from 'expo-local-authentication'
-import { AuthenticationType, SecurityLevel, LocalAuthenticationOptions } from 'expo-local-authentication'
+import { AuthenticationType, LocalAuthenticationOptions, SecurityLevel } from 'expo-local-authentication'
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
-import { Logging } from '../api'
 import { PrivacyLockPersistence } from '../api/wallet/privacy_lock'
 
 export interface LocalAuthContext {
@@ -61,7 +61,9 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
   }, [])
 
   const setPrivacyLock = useCallback(async (value: boolean, options?: LocalAuthenticationOptions) => {
-    if (isPrivacyLock as boolean === value) return
+    if (isPrivacyLock as boolean === value) {
+      return
+    }
     await _authenticate(options)
     await PrivacyLockPersistence.set(value)
     setIsPrivacyLock(value)
@@ -85,13 +87,17 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
     isDeviceProtected,
     isPrivacyLock: isPrivacyLock === true,
     privacyLock: async (options) => {
-      if (!hasHardware || !(isPrivacyLock !== undefined && isPrivacyLock)) return
+      if (!hasHardware || !(isPrivacyLock !== undefined && isPrivacyLock)) {
+        return
+      }
       await _authenticate(options)
     },
     enablePrivacyLock: async (options) => await setPrivacyLock(true, options),
     disablePrivacyLock: async (options) => await setPrivacyLock(false, options),
     togglePrivacyLock: async (options) => {
-      if (isPrivacyLock === true) return await context.disablePrivacyLock(options)
+      if (isPrivacyLock === true) {
+        return await context.disablePrivacyLock(options)
+      }
       return await context.enablePrivacyLock(options)
     }
   }

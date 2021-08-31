@@ -1,4 +1,4 @@
-import { EnvironmentName, getEnvironment } from '../environment'
+import { EnvironmentName, getEnvironment } from '@environment'
 import { SecuredStoreAPI } from './secured'
 
 const KEYS = {
@@ -20,10 +20,14 @@ async function forceRequireReauthenticate (): Promise<void> {
 
 async function shouldReauthenticate (): Promise<boolean> {
   const forced = await SecuredStoreAPI.getItem(KEYS.force) === 'TRUE'
-  if (forced) return true
+  if (forced) {
+    return true
+  }
 
   const lastActive = await SecuredStoreAPI.getItem(KEYS.timestamp)
-  if (lastActive === null) return false
+  if (lastActive === null) {
+    return false
+  }
   return Number(lastActive) + getTimeoutPeriod() < Date.now()
 }
 

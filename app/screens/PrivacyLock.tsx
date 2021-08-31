@@ -1,9 +1,9 @@
+import { Logging } from '@api'
+import { SimplifiedAppStateStatus, useAppStateContext } from '@contexts/AppStateContext'
+import { LocalAuthContext, useLocalAuthContext } from '@contexts/LocalAuthContext'
 import { useCallback, useEffect } from 'react'
 import { BackHandler } from 'react-native'
-import { Logging } from '../api'
 import { AppLastActiveTimestamp } from '../api/app_last_active'
-import { SimplifiedAppStateStatus, useAppStateContext } from '../contexts/AppStateContext'
-import { useLocalAuthContext, LocalAuthContext } from '../contexts/LocalAuthContext'
 
 export function PrivacyLock (): JSX.Element | null {
   const localAuth = useLocalAuthContext()
@@ -17,7 +17,9 @@ export function PrivacyLock (): JSX.Element | null {
     } else if (localAuth.isPrivacyLock) {
       AppLastActiveTimestamp.shouldReauthenticate()
         .then(async authReq => {
-          if (authReq) authenticateOrExit(localAuth)
+          if (authReq) {
+            authenticateOrExit(localAuth)
+          }
         })
         .catch(error => Logging.error(error))
     }
@@ -46,7 +48,8 @@ function authenticateOrExit (localAuth: LocalAuthContext): void {
     .then(async () => {
       try {
         await AppLastActiveTimestamp.removeForceAuth()
-      } catch (e) { /* value not found in secure-store, unable to delete */ }
+      } catch (e) { /* value not found in secure-store, unable to delete */
+      }
     })
     .catch(async () => {
       await AppLastActiveTimestamp.forceRequireReauthenticate()
