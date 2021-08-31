@@ -88,7 +88,7 @@ context('Wallet - Send', function () {
       })
     })
 
-    it.skip('should be able to check txn details and compute pending balance', function () {
+    it('should be able to check txn details and compute pending balance', function () {
       cy.getByTestID('transaction_fee').invoke('text').then(transactionValue => {
         const transactionFee = transactionValue.replace(' DFI (UTXO)', '')
         cy.getByTestID('max_value').invoke('text').then((balanceValue) => {
@@ -96,7 +96,8 @@ context('Wallet - Send', function () {
           const sendAmount = '1'
           const slippage = '0.1'
           cy.getByTestID('amount_input').clear().type(sendAmount)
-          cy.getByTestID('send_submit_button').click().wait(1000)
+          cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
+          cy.getByTestID('send_submit_button').click()
           // Check txn value
           cy.getByTestID('text_amount').invoke('text').then((textAmount) => {
             const amount = textAmount.replace(' DFI', '')
@@ -105,17 +106,18 @@ context('Wallet - Send', function () {
             cy.getByTestID('header_active_network').first().invoke('text').then((headerNetworkValue) => {
               cy.getByTestID('text_network').invoke('text').then((networkValue) => {
                 expect(headerNetworkValue).eq(networkValue)
-              })
-              // Check txn value
-              cy.getByTestID('text_fee').invoke('text').then((textFeeValue) => {
-                const textFee = textFeeValue.replace(' DFI (UTXO)', '')
-                expect(new BigNumber(transactionFee).toFixed(8)).eq(new BigNumber(textFee).toFixed(8))
-                // Check computed pending balance
-                cy.getByTestID('text_balance').invoke('text').then((pendingBalanceValue) => {
-                  const pendingBalance = pendingBalanceValue.replace(' DFI', '')
-                  expect(new BigNumber(balance).plus(slippage)
-                    .minus(transactionFee).minus(sendAmount).toFixed(8)
-                  ).eq(pendingBalance)
+                // Check txn value
+                cy.getByTestID('text_fee').invoke('text').then((textFeeValue) => {
+                  const textFee = textFeeValue.replace(' DFI (UTXO)', '')
+                  expect(new BigNumber(transactionFee).toFixed(8)).eq(new BigNumber(textFee).toFixed(8))
+                  // Check computed pending balance
+                  cy.getByTestID('text_balance').invoke('text').then((pendingBalanceValue) => {
+                    const pendingBalance = pendingBalanceValue.replace(' DFI', '')
+                    expect(new BigNumber(balance).plus(slippage)
+                      .minus(transactionFee).minus(sendAmount).toFixed(8)
+                    ).eq(pendingBalance)
+                    cy.getByTestID('button_cancel_send').click()
+                  })
                 })
               })
             })
