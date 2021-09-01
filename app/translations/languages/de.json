@@ -6,7 +6,8 @@
     "Verify words": "Bestätige die Worte",
     "Restore Wallet": "Stelle die Wallet wieder her",
     "Create a passcode": "Erstelle ein Passwort",
-    "Verify passcode": "Bestätige das Passwort"
+    "Verify passcode": "Bestätige das Passwort",
+		"Network": "Netzwerk"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
@@ -344,5 +345,8 @@
     "Verify": "Bestätige",
     "Secure": "Sichere",
     "Restore": "Zeige 24 Worte an"
-  }
+  },
+	"screens/OnboardingNetworkSelectScreen": {
+		"SELECT NETWORK": "NETZWERKAUSWAHL"
+	}
 }
