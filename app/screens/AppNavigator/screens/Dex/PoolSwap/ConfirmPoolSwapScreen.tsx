@@ -160,8 +160,13 @@ async function constructSignedSwapAndSend (
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
-      title: `${translate('screens/PoolSwapScreen', 'Swapping Token')}`,
-      description: `${translate('screens/PoolSwapScreen', `Swapping ${dexForm.fromAmount.toFixed(8)} ${dexForm.fromToken.symbol} to ${dexForm.toAmount.toFixed(8)} ${dexForm.toToken.symbol}`)}`,
+      title: translate('screens/PoolSwapConfirmScreen', 'Swapping Token'),
+      description: translate('screens/PoolSwapConfirmScreen', 'Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}', {
+        amountA: dexForm.fromAmount.toFixed(8),
+        symbolA: dexForm.fromToken.symbol,
+        amountB: dexForm.toAmount.toFixed(8),
+        symbolB: dexForm.toToken.symbol
+      }),
       postAction
     }))
   } catch (e) {

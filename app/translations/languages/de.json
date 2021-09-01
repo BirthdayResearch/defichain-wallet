@@ -50,7 +50,8 @@
     "Estimated fee": "Geschätzte Gebühr",
     "Remaining balance": "Verbleibendes Guthaben",
     "SEND": "SENDEN",
-    "Sending": "Senden"
+    "Sending": "Senden",
+    "Sending {{amount}} {{symbol}}": "Senden {{amount}} {{symbol}}"
   },
   "screens/ConvertScreen": {
     "Convert DFI": "DFI konvertieren",
@@ -66,7 +67,9 @@
     "YOU ARE CONVERTING": "AM KONVERTIEREN",
     "AFTER CONVERSION, YOU WILL HAVE:": "NACH DER KONVERTIERUNG ERHÄLTST DU:",
     "Estimated fee": "Geschätzte Gebühr",
-    "CONVERT": "UMWANDELN"
+    "CONVERT": "UMWANDELN",
+    "Converting DFI": "Konvertieren von DFI",
+    "Converting {{amount}} {{symbolA}} to {{symbolB}}": "Konvertieren {{amount}} {{symbolA}} zu {{symbolB}}"
   },
   "screens/SettingsNavigator": {
     "Settings": "Einstellungen"
@@ -286,7 +289,8 @@
     "Estimated fee": "Geschätzte Gebühr",
     "ADD": "HINZUFÜGEN",
     "Adding Liquidity": "Füge Liquidität hinzu",
-    "Pooled {{symbol}}": "Im Pool {{symbol}}"
+    "Pooled {{symbol}}": "Im Pool {{symbol}}",
+    "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "Hinzufügen {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}"
   },
   "screens/ConfirmRemoveLiquidity": {
     "YOU ARE REMOVING": "DU ENTFERNST",
@@ -301,7 +305,8 @@
     "Amount to remove": "Zu entfernender Betrag",
     "Enter an amount ": "Gib einen Betrag an ",
     "YOU ARE REMOVING": "DU ENTFERNST",
-    "Price": "Preis"
+    "Price": "Preis",
+    "Removing {{amount}} {{symbol}}":"Entfernen {{amount}} {{symbol}}"
   },
   "components/slider": {
     "None": "Keine",
@@ -329,7 +334,8 @@
     "Slippage Tolerance": "Slippage Toleranz",
     "Estimated fee": "Geschätzte Gebühr",
     "SWAP": "TAUSCH",
-    "Swapping Token": "Tausche Token"
+    "Swapping Token": "Tausche Token",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Hinzufügen {{amountA}} {{symbolA}} zu {{amountB}} {{symbolB}}"
   },
   "screens/UnlockWallet": {
     "Enter passcode": "Passworteingabe",
