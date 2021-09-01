@@ -54,17 +54,17 @@
     "Sending {{amount}} {{symbol}}": "Sende {{amount}} {{symbol}}"
   },
   "screens/ConvertScreen": {
-    "Convert DFI": "DFI konvertieren",
+    "Convert DFI": "Wandle DFI um",
     "Scan recipient QR": "QR-Code des Empfängers scannen",
     "Balance": "Guthaben",
     "Enter an amount": "Betrag eingeben",
-    "UTXO vs Token, what is the difference?": "UXTO gegenüber Token, worin liegt der Unterschied?",
-    "CONVERT {{symbol}}": "{{symbol}} UMWANDELN",
+    "UTXO vs Token, what is the difference?": "UXTO ggü. Token, worin liegt der Unterschied?",
+    "CONVERT {{symbol}}": "UMWANDELN {{symbol}}",
     "TO {{symbol}}": "IN {{symbol}}"
   },
   "screens/ConvertConfirmScreen": {
-    "Confirm DFI Conversion": "DFI-Konvertierung bestätigen",
-    "YOU ARE CONVERTING": "AM KONVERTIEREN",
+    "Confirm DFI Conversion": "Bestätige DFI Konvertierung",
+    "YOU ARE CONVERTING": "DU WANDELST UM",
     "AFTER CONVERSION, YOU WILL HAVE:": "NACH DER KONVERTIERUNG ERHÄLTST DU:",
     "Estimated fee": "Geschätzte Gebühr",
     "CONVERT": "UMWANDELN",
@@ -96,7 +96,7 @@
     "NETWORK": "NETZWERK",
     "To update your passcode, we need you to enter your current passcode.": "Um dein Passwort zu ändern ist das bisherige Passwort einzugeben.",
     "Verifying passcode...": "Passwort bestätigen...",
-    "To continue viewing your recovery words, we need you to enter your passcode.": "Um weiterhin deinen Wiederherstellungssatz anzuzeigen Passwort eingeben.",
+    "To continue viewing your recovery words, we need you to enter your passcode.": "Um erneut deinen Wiederherstellungssatz anzuzeigen, Passwort eingeben.",
     "Loading...": "Lädt...",
     "Network Switch": "Netzwerk wechseln",
     "No": "Nein",
@@ -136,13 +136,13 @@
   "screens/TokenDetailScreen": {
     "AMOUNT BALANCE": "Guthabenbetrag",
     "AVAILABLE OPTIONS": "VERFÜGBARE OPTIONEN",
-    "Send to other wallet": "Auf andere Wallet senden",
-    "Receive": "Empfangen",
+    "Send to other wallet": "An andere Wallet senden",
+    "Receive": "Empfange",
     "Convert to {{symbol}}": "Umwandeln in {{symbol}}"
   },
   "screens/TokensVsUtxoScreen": {
     "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "DFI existiert in zwei Formen - UTXO und Token, die je nach Verwendung austauschbar sind. Mit der App kannst du leicht zwischen den beiden Arten wechseln.",
-    "UTXO DFI is the main form DFI and is used for core cryptocurrency purposes like send, receive and fees. DFI tokens are used for DeFi functions such as swaps and liquidity mining.": "UTXO DFI ist die Hauptform von DFI und wird für zentrale Kryptowährungszwecke wie Senden, Empfangen und Gebühren verwendet. DFI-Token werden für DeFi-Funktionen wie Tauschgeschäfte und Liquiditätsmining verwendet.",
+    "UTXO DFI is the main form DFI and is used for core cryptocurrency purposes like send, receive and fees. DFI tokens are used for DeFi functions such as swaps and liquidity mining.": "UTXO DFI ist das primäre DFI-Format und wird für zentrale Kryptowährungszwecke wie Senden, Empfangen und Gebühren verwendet. DFI-Token werden für DeFi-Funktionen wie Tauschgeschäfte und Liquiditätsmining verwendet.",
     "Your DFI balance includes both UTXO and tokens.": "Dein DFI-Guthaben umfasst sowohl UTXO als auch Token.",
     "Core crypto services": "Zentrale Kryptodienste",
     "Send to other wallets": "An andere Wallets senden",
@@ -343,12 +343,12 @@
     "Please enter passcode to securely sign your transaction": "Gib bitte das Passwort ein, um die Transaktion freizugeben"
   },
   "screens/TransactionAuthorization": {
-    "Signing...": "Freigabe..."
+    "Signing...": "Freigabe läuft..."
   },
   "components/CreateWalletIndicator": {
-    "Recovery": "Zeige 24 Worte an",
+    "Recovery": "Stelle wieder her",
     "Verify": "Bestätige",
     "Secure": "Sichere",
-    "Restore": "Zeige 24 Worte an"
+    "Restore": "Stelle wieder her"
   }
 }
