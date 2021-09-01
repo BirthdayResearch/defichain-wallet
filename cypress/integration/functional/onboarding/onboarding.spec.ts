@@ -33,8 +33,30 @@ context('Onboarding', () => {
     cy.getByTestID('guidelines_switch').should('exist')
   })
 
+  it('should be able to change network in create wallet page', function () {
+    cy.getByTestID('create_wallet_button').click()
+    cy.url().should('include', 'wallet/onboarding/guidelines')
+    cy.getByTestID('header_active_network').first().click()
+    cy.getByTestID('onboarding_network_selection_screen').should('exist')
+    cy.getByTestID('button_network_Playground').click()
+    cy.on('window:confirm', () => {
+    })
+    cy.getByTestID('header_active_network').contains('Playground')
+  })
+
   it('should redirect to restore wallet page', function () {
     cy.getByTestID('restore_wallet_button').click()
     cy.url().should('include', 'wallet/mnemonic/restore')
+  })
+
+  it('should be able to change network in restore wallet page', function () {
+    cy.getByTestID('restore_wallet_button').click()
+    cy.url().should('include', 'wallet/mnemonic/restore')
+    cy.getByTestID('header_active_network').first().click()
+    cy.getByTestID('onboarding_network_selection_screen').should('exist')
+    cy.getByTestID('button_network_Playground').click()
+    cy.on('window:confirm', () => {
+    })
+    cy.getByTestID('header_active_network').contains('Playground')
   })
 })

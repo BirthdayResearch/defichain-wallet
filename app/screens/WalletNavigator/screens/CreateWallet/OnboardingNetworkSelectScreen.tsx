@@ -9,9 +9,9 @@ export function OnboardingNetworkSelectScreen (): JSX.Element {
   const networks = getEnvironment().networks
 
   return (
-    <View testID='wallet_network_selection_screen'>
+    <View testID='onboarding_network_selection_screen'>
       <SectionTitle
-        testID='wallet_network_selection_screen_title'
+        testID='onboarding_network_selection_screen_title'
         text={translate('screens/NetworkSelectionScreen', 'SELECT NETWORK')}
       />
 
