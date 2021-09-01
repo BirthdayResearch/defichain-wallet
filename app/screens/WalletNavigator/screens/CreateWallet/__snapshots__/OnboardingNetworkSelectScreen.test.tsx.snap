@@ -2,7 +2,7 @@
 
 exports[`network selection screen should render 1`] = `
 <View
-  testID="wallet_network_selection_screen"
+  testID="onboarding_network_selection_screen"
 >
   <Text
     style={
@@ -32,7 +32,7 @@ exports[`network selection screen should render 1`] = `
         ],
       ]
     }
-    testID="wallet_network_selection_screen_title"
+    testID="onboarding_network_selection_screen_title"
   >
     SELECT NETWORK
   </Text>
