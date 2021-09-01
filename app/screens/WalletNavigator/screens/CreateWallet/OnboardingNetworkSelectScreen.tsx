@@ -12,7 +12,7 @@ export function OnboardingNetworkSelectScreen (): JSX.Element {
     <View testID='onboarding_network_selection_screen'>
       <SectionTitle
         testID='onboarding_network_selection_screen_title'
-        text={translate('screens/NetworkSelectionScreen', 'SELECT NETWORK')}
+        text={translate('screens/OnboardingNetworkSelectScreen', 'SELECT NETWORK')}
       />
 
       {
