@@ -1,5 +1,5 @@
 import React from 'react'
-import { Platform, View } from 'react-native'
+import { Platform, TouchableOpacity, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { useNetworkContext } from '../contexts/NetworkContext'
 import { RootState } from '../store'
@@ -30,9 +30,13 @@ export function ConnectionStatus (): JSX.Element {
   )
 }
 
-export function HeaderTitle ({ text, testID }: { text: string, testID?: string }): JSX.Element {
+export function HeaderTitle ({ text, testID, onPress }: { text: string, testID?: string, onPress?: () => void }): JSX.Element {
   return (
-    <View style={tailwind(`flex-col ${Platform.OS === 'ios' ? 'items-center' : ''}`)}>
+    <TouchableOpacity
+      disabled={typeof onPress === 'undefined'}
+      onPress={onPress}
+      style={tailwind(`flex-col ${Platform.OS === 'ios' ? 'items-center' : ''}`)}
+    >
       <ThemedText
         dark={tailwind('text-white text-opacity-90')}
         light={tailwind('text-black')}
@@ -43,6 +47,6 @@ export function HeaderTitle ({ text, testID }: { text: string, testID?: string }
       </ThemedText>
 
       <ConnectionStatus />
-    </View>
+    </TouchableOpacity>
   )
 }

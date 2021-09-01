@@ -14,6 +14,7 @@ import { GuidelinesRecoveryWords } from './screens/CreateWallet/GuidelinesRecove
 import { PinConfirmation } from './screens/CreateWallet/PinConfirmation'
 import { PinCreation } from './screens/CreateWallet/PinCreation'
 import { VerifyMnemonicWallet } from './screens/CreateWallet/VerifyMnemonicWallet'
+import { OnboardingNetworkSelectScreen } from './screens/CreateWallet/OnboardingNetworkSelectScreen'
 import { Onboarding } from './screens/Onboarding'
 import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
 
@@ -22,6 +23,7 @@ type PinCreationType = 'create' | 'restore'
 export interface WalletParamList {
   WalletOnboardingScreen: undefined
   CreateMnemonicWallet: undefined
+  WalletNetworkSelectScreen: undefined
   VerifyMnemonicWallet: {
     words: string[]
   }
@@ -47,6 +49,7 @@ const LinkingConfiguration: LinkingOptions<ReactNavigation.RootParamList> = {
   config: {
     screens: {
       Onboarding: 'wallet/onboarding',
+      OnboardingNetworkSelectScreen: 'wallet/mnemonic/network',
       CreateMnemonicWallet: 'wallet/mnemonic/create',
       CreateWalletGuidelines: 'wallet/onboarding/guidelines',
       GuidelinesRecoveryWords: 'wallet/onboarding/guidelines/recovery',
@@ -62,6 +65,10 @@ export function WalletNavigator (): JSX.Element {
   const { isLight } = useThemeContext()
   const navigationRef = React.useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null)
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
+  const goToNetworkSelect = (): void => {
+    navigationRef.current?.navigate({ name: 'OnboardingNetworkSelectScreen' })
+  }
+
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
@@ -84,7 +91,16 @@ export function WalletNavigator (): JSX.Element {
           component={CreateWalletGuidelines}
           name='CreateWalletGuidelines'
           options={{
-            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Guidelines')} />,
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Guidelines')} onPress={goToNetworkSelect} />,
+            headerBackTitleVisible: false
+          }}
+        />
+
+        <WalletStack.Screen
+          component={OnboardingNetworkSelectScreen}
+          name='OnboardingNetworkSelectScreen'
+          options={{
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Network')} />,
             headerBackTitleVisible: false
           }}
         />
@@ -120,7 +136,7 @@ export function WalletNavigator (): JSX.Element {
           component={RestoreMnemonicWallet}
           name='RestoreMnemonicWallet'
           options={{
-            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Restore Wallet')} />,
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Restore Wallet')} onPress={goToNetworkSelect} />,
             headerBackTitleVisible: false
           }}
         />
