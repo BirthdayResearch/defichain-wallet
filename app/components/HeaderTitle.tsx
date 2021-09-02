@@ -4,7 +4,32 @@ import { useSelector } from 'react-redux'
 import { useNetworkContext } from '../contexts/NetworkContext'
 import { RootState } from '../store'
 import { tailwind } from '../tailwind'
-import { ThemedText } from './themed'
+import { ThemedIcon, ThemedText } from './themed'
+
+type SubHeadingType = 'None' | 'Status' | 'NetworkSelect'
+
+export function HeaderTitle ({ text, subHeadingType, testID, onPress }: { text: string, subHeadingType: SubHeadingType, testID?: string, onPress?: () => void }): JSX.Element {
+  return (
+    <TouchableOpacity
+      disabled={subHeadingType !== 'NetworkSelect'}
+      onPress={onPress}
+      style={tailwind(`flex-col ${Platform.OS === 'ios' ? 'items-center' : ''}`)}
+    >
+      <ThemedText
+        dark={tailwind('text-white text-opacity-90')}
+        light={tailwind('text-black')}
+        style={tailwind('font-semibold leading-5')}
+        testID={testID}
+      >
+        {text}
+      </ThemedText>
+
+      {subHeadingType === 'None' && <></>}
+      {subHeadingType === 'Status' && <ConnectionStatus />}
+      {subHeadingType === 'NetworkSelect' && <HeaderNetworkSelect />}
+    </TouchableOpacity>
+  )
+}
 
 export function ConnectionStatus (): JSX.Element {
   const { network } = useNetworkContext()
@@ -30,23 +55,30 @@ export function ConnectionStatus (): JSX.Element {
   )
 }
 
-export function HeaderTitle ({ text, testID, onPress }: { text: string, testID?: string, onPress?: () => void }): JSX.Element {
-  return (
-    <TouchableOpacity
-      disabled={typeof onPress === 'undefined'}
-      onPress={onPress}
-      style={tailwind(`flex-col ${Platform.OS === 'ios' ? 'items-center' : ''}`)}
-    >
-      <ThemedText
-        dark={tailwind('text-white text-opacity-90')}
-        light={tailwind('text-black')}
-        style={tailwind('font-semibold leading-5')}
-        testID={testID}
-      >
-        {text}
-      </ThemedText>
+function HeaderNetworkSelect (): JSX.Element {
+  const { network } = useNetworkContext()
 
-      <ConnectionStatus />
-    </TouchableOpacity>
+  return (
+    <View style={tailwind('flex-row items-center')}>
+      <ThemedIcon
+        iconType='MaterialIcons'
+        name='wifi-tethering'
+        size={16}
+        style={tailwind('mr-1.5')}
+        dark={tailwind('text-white text-opacity-70')}
+        light={tailwind('text-gray-600')}
+      />
+
+      <View style={tailwind('h-full')}>
+        <ThemedText
+          dark={tailwind('text-white text-opacity-70')}
+          light={tailwind('text-gray-600')}
+          style={tailwind('text-xs font-semibold leading-4')}
+          testID='header_active_network'
+        >
+          {network}
+        </ThemedText>
+      </View>
+    </View>
   )
 }
