@@ -200,11 +200,16 @@ async function constructSignedAddLiqAndSend (
     const dfTx = await builder.liqPool.addLiquidity(addLiq, script)
     return new CTransactionSegWit(dfTx)
   }
-  const message = `Adding ${addLiqForm.tokenAAmount.toFixed(8)} ${addLiqForm.tokenASymbol} - ${addLiqForm.tokenBAmount.toFixed(8)} ${addLiqForm.tokenBSymbol}`
+
   dispatch(transactionQueue.actions.push({
     sign: signer,
-    title: `${translate('screens/ConfirmLiquidity', 'Adding Liquidity')}`,
-    description: `${translate('screens/ConfirmLiquidity', message)}`,
+    title: translate('screens/ConfirmAddLiq', 'Adding Liquidity'),
+    description: translate('screens/ConfirmAddLiq', 'Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}', {
+      amountA: addLiqForm.tokenAAmount.toFixed(8),
+      symbolA: addLiqForm.tokenASymbol,
+      amountB: addLiqForm.tokenBAmount.toFixed(8),
+      symbolB: addLiqForm.tokenBSymbol
+    }),
     postAction
   }))
 }
