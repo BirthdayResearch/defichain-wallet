@@ -8,7 +8,7 @@ import { ThemedIcon, ThemedText } from './themed'
 
 type SubHeadingType = 'None' | 'Status' | 'NetworkSelect'
 
-export function HeaderTitle ({ text, subHeadingType, testID, onPress }: { text: string, subHeadingType: SubHeadingType, testID?: string, onPress?: () => void }): JSX.Element {
+export function HeaderTitle ({ text, subHeadingType = 'Status', testID, onPress }: { text: string, subHeadingType?: SubHeadingType, testID?: string, onPress?: () => void }): JSX.Element {
   return (
     <TouchableOpacity
       disabled={subHeadingType !== 'NetworkSelect'}
