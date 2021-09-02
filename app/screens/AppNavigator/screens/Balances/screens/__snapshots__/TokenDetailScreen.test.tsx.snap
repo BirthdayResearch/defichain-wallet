@@ -85,7 +85,7 @@ exports[`token detail screen should accept DST 1`] = `
         }
         testID="token_detail_amount"
       >
-        100,000.00000000 BTC
+        100,000.00000000 dBTC
       </Text>
     </View>
     <Text
@@ -296,7 +296,7 @@ exports[`token detail screen should accept DST 1`] = `
           ]
         }
       >
-        Receive undefined
+        Receive dBTC
       </Text>
       <Text
         allowFontScaling={false}
@@ -413,7 +413,7 @@ exports[`token detail screen should accept Token DFI 1`] = `
         }
         testID="token_detail_amount"
       >
-        100,000.00000000 DFI
+        100,000.00000000 DFI (Token)
       </Text>
     </View>
     <Text
@@ -639,7 +639,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
         }
         testID="token_detail_amount"
       >
-        100,000.00000000 DFI
+        100,000.00000000 DFI (UTXO)
       </Text>
     </View>
     <Text
@@ -850,7 +850,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
           ]
         }
       >
-        Receive undefined
+        Receive DFI (UTXO)
       </Text>
       <Text
         allowFontScaling={false}
