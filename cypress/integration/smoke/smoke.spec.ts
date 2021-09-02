@@ -122,7 +122,7 @@ context('Mainnet - Wallet', () => {
       cy.getByTestID('balances_list').should('exist')
       cy.checkBalanceRow('0_utxo', { name: 'DeFiChain', amount: '10.00000000', symbol: 'DFI (UTXO)' })
       cy.checkBalanceRow('0', { name: 'DeFiChain', amount: 10, symbol: 'DFI (Token)' }, true)
-      cy.checkBalanceRow('7', { name: 'Default Defi token-Playground ETH', amount: '10.00000000', symbol: 'DFI-dETH' })
+      cy.checkBalanceRow('7', { name: 'Default Defi token-Playground ETH', amount: '10.00000000', symbol: 'DFI-ETH' })
     })
 
     it('should have correct poolpairs', function () {
