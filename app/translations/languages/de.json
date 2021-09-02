@@ -353,6 +353,7 @@
     "Restore": "Stelle wieder her"
   },
 	"screens/OnboardingNetworkSelectScreen": {
-		"SELECT NETWORK": "NETZWERKAUSWAHL"
+		"SELECT NETWORK": "NETZWERKAUSWAHL",
+    "You are about to switch to {{network}}. Do you want to proceed?": "Du wechselst zu {{network}}. Möchtest du fortfahren?"
 	}
 }
