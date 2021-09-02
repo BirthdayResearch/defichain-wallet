@@ -1,3 +1,4 @@
+import { useNetworkContext } from '@contexts/NetworkContext'
 import * as React from 'react'
 import { View } from 'react-native'
 import { SectionTitle } from '../../../../../components/SectionTitle'
@@ -7,6 +8,7 @@ import { RowNetworkItem } from '../components/RowNetworkItem'
 
 export function NetworkSelectionScreen (): JSX.Element {
   const networks = getEnvironment().networks
+  const { network } = useNetworkContext()
 
   return (
     <View testID='network_selection_screen'>
@@ -16,10 +18,12 @@ export function NetworkSelectionScreen (): JSX.Element {
       />
 
       {
-        networks.map((network, index) => (
+        networks.map((option, index) => (
           <RowNetworkItem
             key={index}
-            network={network}
+            network={option}
+            alertMessage={translate(
+              'screens/Settings', 'You are about to switch to {{network}}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?', { network: network })}
           />
         ))
       }
