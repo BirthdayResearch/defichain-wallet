@@ -227,7 +227,7 @@ function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.El
               <Icon />
 
               <InputIconLabel
-                label={token.symbol}
+                label={token.displaySymbol}
                 screenType={IconLabelScreenType.Balance}
                 testID='token_symbol'
               />
@@ -266,7 +266,7 @@ function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.El
                 {value}
               </ThemedText>
             )}
-            suffix={` ${token.symbol}`}
+            suffix={` ${token.displaySymbol}`}
             thousandSeparator
             value={maxAmount}
           />

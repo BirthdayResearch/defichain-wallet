@@ -143,13 +143,13 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
       >
         <TokenBalanceRow
           iconType={aSymbol}
-          lhs={aSymbol}
+          lhs={pair?.tokenA?.displaySymbol}
           rhs={{ value: tokenAAmount.toFixed(8), testID: 'price_a' }}
         />
 
         <TokenBalanceRow
           iconType={bSymbol}
-          lhs={bSymbol}
+          lhs={pair?.tokenB?.displaySymbol}
           rhs={{ value: tokenBAmount.toFixed(8), testID: 'price_b' }}
         />
 
@@ -159,12 +159,12 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
             {
               value: tokenAPerLmToken.toFixed(8),
               testID: 'text_a_to_b_price',
-              suffix: ` ${bSymbol} per ${aSymbol}`
+              suffix: ` ${pair?.tokenB?.displaySymbol} per ${pair?.tokenA?.displaySymbol}`
             },
             {
               value: tokenBPerLmToken.toFixed(8),
               testID: 'text_b_to_a_price',
-              suffix: ` ${aSymbol} per ${bSymbol}`
+              suffix: ` ${pair?.tokenA?.displaySymbol} per ${pair?.tokenB?.displaySymbol}`
             }
           ]}
         />

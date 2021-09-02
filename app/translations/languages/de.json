@@ -50,7 +50,7 @@
     "Estimated fee": "Geschätzte Gebühr",
     "Remaining balance": "Verbleibendes Guthaben",
     "SEND": "SENDEN",
-    "Sending": "Senden",
+    "Sending": "Senden {{symbol}}",
     "Sending {{amount}} {{symbol}}": "Senden {{amount}} {{symbol}}"
   },
   "screens/ConvertScreen": {

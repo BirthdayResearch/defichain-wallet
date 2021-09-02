@@ -54,8 +54,8 @@ export function DexScreen (): JSX.Element {
             return (
               <PoolPairRowYour
                 data={item.data}
-                onAdd={() => onAdd((poolPairData as DexItem<PoolPairData>).data)}
-                onRemove={() => onRemove((poolPairData as DexItem<PoolPairData>).data)}
+                onAdd={() => onAdd((poolPairData as DexItem<PoolPairData>)?.data)}
+                onRemove={() => onRemove((poolPairData as DexItem<PoolPairData>)?.data)}
                 pair={poolPairData?.data}
               />
             )
@@ -146,6 +146,9 @@ function PoolPairRowYour ({
   const IconB = getNativeIcon(symbolB)
   const toRemove = new BigNumber(1).times(data.amount).decimalPlaces(8, BigNumber.ROUND_DOWN)
   const ratioToTotal = toRemove.div(pair?.totalLiquidity?.token ?? 1)
+  const symbol = (pair?.tokenA != null && pair?.tokenB != null)
+                ? `${pair?.tokenA?.displaySymbol}-${pair?.tokenB?.displaySymbol}`
+                : data.symbol
   // assume defid will trim the dust values too
   const tokenATotal = ratioToTotal.times(pair?.tokenA.reserve ?? 0).decimalPlaces(8, BigNumber.ROUND_DOWN)
   const tokenBTotal = ratioToTotal.times(pair?.tokenB.reserve ?? 0).decimalPlaces(8, BigNumber.ROUND_DOWN)
@@ -171,7 +174,7 @@ function PoolPairRowYour ({
           />
 
           <ThemedText style={tailwind('text-lg font-bold')}>
-            {data.symbol}
+            {symbol}
           </ThemedText>
         </View>
 
@@ -195,7 +198,7 @@ function PoolPairRowYour ({
           decimalScale={8}
           reserve={data.amount}
           row='your'
-          symbol={data.symbol}
+          symbol={symbol}
         />
 
         {
@@ -205,14 +208,14 @@ function PoolPairRowYour ({
                 decimalScale={8}
                 reserve={tokenATotal.toFixed(8)}
                 row='tokenA'
-                symbol={symbolA}
+                symbol={pair?.tokenA?.displaySymbol}
               />
 
               <PoolPairInfoLine
                 decimalScale={8}
                 reserve={tokenBTotal.toFixed(8)}
                 row='tokenB'
-                symbol={symbolB}
+                symbol={pair?.tokenB?.displaySymbol}
               />
             </>
           )
@@ -230,6 +233,9 @@ function PoolPairRowAvailable ({
   const [symbolA, symbolB] = data.symbol.split('-')
   const IconA = getNativeIcon(symbolA)
   const IconB = getNativeIcon(symbolB)
+  const symbol = (data?.tokenA != null && data?.tokenB != null)
+                ? `${data?.tokenA?.displaySymbol}-${data?.tokenB?.displaySymbol}`
+                : data.symbol
 
   return (
     <ThemedView
@@ -255,7 +261,7 @@ function PoolPairRowAvailable ({
             style={tailwind('text-lg font-bold')}
             testID={`your_symbol_${symbolA}-${symbolB}`}
           >
-            {data.symbol}
+            {symbol}
           </ThemedText>
         </View>
 
@@ -280,22 +286,22 @@ function PoolPairRowAvailable ({
             <PoolPairAPR
               apr={data.apr.total}
               row='apr'
-              symbol={`${symbolA}-${symbolB}`}
+              symbol={symbol}
             />
         }
 
         <PoolPairInfoLine
           decimalScale={2}
-          reserve={data.tokenA.reserve}
+          reserve={data?.tokenA.reserve}
           row='available'
-          symbol={symbolA}
+          symbol={data?.tokenA.displaySymbol}
         />
 
         <PoolPairInfoLine
           decimalScale={2}
-          reserve={data.tokenB.reserve}
+          reserve={data?.tokenB.reserve}
           row='available'
-          symbol={symbolB}
+          symbol={data?.tokenB.displaySymbol}
         />
       </View>
     </ThemedView>

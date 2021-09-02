@@ -50,7 +50,7 @@ export const wallet = createSlice({
   reducers: {
     setTokens: (state, action: PayloadAction<AddressToken[]>) => {
       state.tokens = action.payload.map((t) => {
-        let displaySymbol = t.symbol
+        let displaySymbol = t.displaySymbol
         let avatarSymbol = t.symbol
         if (t.id === '0') {
           t.name = 'DeFiChain'

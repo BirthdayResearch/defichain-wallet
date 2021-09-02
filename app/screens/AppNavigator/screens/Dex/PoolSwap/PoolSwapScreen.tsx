@@ -32,6 +32,7 @@ export interface DerivedTokenState {
   id: string
   amount: string
   symbol: string
+  displaySymbol: string
 }
 
 type Props = StackScreenProps<DexParamList, 'PoolSwapScreen'>
@@ -125,22 +126,25 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     if (poolpair !== undefined) {
       let [tokenASymbol, tokenBSymbol] = poolpair.symbol.split('-') as [string, string]
       let [tokenAId, tokenBId] = [poolpair.tokenA.id, poolpair.tokenB.id]
+      let [tokenADisplaySymbol, tokenBDisplaySymbol] = [poolpair.tokenA.displaySymbol, poolpair.tokenB.displaySymbol]
       if (tokenA !== undefined) {
-        [tokenASymbol, tokenAId] = [tokenA.symbol, tokenA.id]
+        [tokenASymbol, tokenAId, tokenADisplaySymbol] = [tokenA.symbol, tokenA.id, tokenA.displaySymbol]
       }
       if (tokenB !== undefined) {
-        [tokenBSymbol, tokenBId] = [tokenB.symbol, tokenB.id]
+        [tokenBSymbol, tokenBId, tokenBDisplaySymbol] = [tokenB.symbol, tokenB.id, tokenB.displaySymbol]
       }
       const a = tokens.find((token) => token.id === tokenAId) ?? {
         id: tokenAId,
         amount: '0',
-        symbol: tokenASymbol
+        symbol: tokenASymbol,
+        displaySymbol: tokenADisplaySymbol
       }
       setTokenA(a)
       const b = tokens.find((token) => token.id === tokenBId) ?? {
         id: tokenBId,
         amount: '0',
-        symbol: tokenBSymbol
+        symbol: tokenBSymbol,
+        displaySymbol: tokenBDisplaySymbol
       }
       setTokenB(b)
       updatePoolPairPrice(tokenAId, poolpair)
@@ -168,7 +172,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           await trigger(tokenBForm)
           setIsComputing(false)
         }}
-        title={`${translate('screens/PoolSwapScreen', 'SWAP')} ${tokenA.symbol}`}
+        title={`${translate('screens/PoolSwapScreen', 'SWAP')} ${tokenA.displaySymbol}`}
         token={tokenA}
       />
 
@@ -187,7 +191,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         controlName={tokenBForm}
         isDisabled
         maxAmount={aToBPrice.times(getValues()[tokenAForm]).toFixed(8)}
-        title={`${translate('screens/PoolSwapScreen', 'TO')} ${tokenB.symbol}`}
+        title={`${translate('screens/PoolSwapScreen', 'TO')} ${tokenB.displaySymbol}`}
         token={tokenB}
       />
 
@@ -242,6 +246,7 @@ function TokenRow (form: TokenForm): JSX.Element {
   if (form.maxAmount !== undefined) {
     rules.max = form.maxAmount
   }
+
   return (
     <>
       <SectionTitle
@@ -286,7 +291,7 @@ function TokenRow (form: TokenForm): JSX.Element {
               <Icon />
 
               <InputIconLabel
-                label={token.symbol}
+                label={token.displaySymbol}
                 screenType={IconLabelScreenType.DEX}
               />
             </ThemedView>
@@ -317,7 +322,7 @@ function TokenRow (form: TokenForm): JSX.Element {
                 {value}
               </ThemedText>
             )}
-            suffix={` ${token.symbol}`}
+            suffix={` ${token.displaySymbol}`}
             thousandSeparator
             value={token.amount}
           />
@@ -367,11 +372,11 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount }: SwapSummaryIte
         rightHandElements={[{
           testID: 'price_a',
           value: priceA,
-          suffix: ` ${tokenA.symbol} per ${tokenB.symbol}`
+          suffix: ` ${tokenA.displaySymbol} per ${tokenB.displaySymbol}`
         }, {
           testID: 'price_b',
           value: priceB,
-          suffix: ` ${tokenB.symbol} per ${tokenA.symbol}`
+          suffix: ` ${tokenB.displaySymbol} per ${tokenA.displaySymbol}`
         }]}
       />
 
@@ -380,7 +385,7 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount }: SwapSummaryIte
         rightHandElements={[
           {
             value: estimated,
-            suffix: ` ${tokenB.symbol}`,
+            suffix: ` ${tokenB.displaySymbol}`,
             testID: 'estimated'
           }
         ]}
