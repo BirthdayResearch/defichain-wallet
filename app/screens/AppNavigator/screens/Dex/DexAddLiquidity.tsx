@@ -268,7 +268,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
         rightHandElements={[{
           value: pair.tokenA.reserve,
           suffix: '',
-          testID: `pooled_${pair.aSymbol}`
+          testID: `pooled_${pair?.tokenA?.displaySymbol}`
         }]}
       />
 
@@ -277,7 +277,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
         rightHandElements={[{
           value: pair.tokenB.reserve,
           suffix: '',
-          testID: `pooled_${pair.bSymbol}`
+          testID: `pooled_${pair?.tokenB?.displaySymbol}`
         }]}
       />
     </View>

@@ -18,8 +18,8 @@ context('Wallet - Balances', () => {
     cy.getByTestID('balances_list').should('exist')
     cy.checkBalanceRow('0_utxo', { name: 'DeFiChain', amount: '10.00000000', symbol: 'DFI (UTXO)' })
     cy.checkBalanceRow('0', { name: 'DeFiChain', amount: '10.00000000', symbol: 'DFI (Token)' })
-    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', symbol: 'BTC' })
-    cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', symbol: 'ETH' })
+    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', symbol: 'dBTC' })
+    cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', symbol: 'dETH' })
   })
 
   it('should redirect to receive page', function () {

@@ -11,14 +11,14 @@ function createAddLiquidityToWallet (): void {
 
   cy.getByTestID('liquidity_screen_list')
     .wait(2000).getByTestID('pool_pair_row_your').first()
-    .invoke('text').should(text => expect(text).to.contains('10.00000000 DFI-ETH'))
+    .invoke('text').should(text => expect(text).to.contains('10.00000000 DFI-dETH'))
 
-  cy.getByTestID('pool_pair_remove_DFI-ETH').click().wait(1000)
+  cy.getByTestID('pool_pair_remove_DFI-dETH').click().wait(1000)
 
   cy.getByTestID('price_a').contains('0.00000000')
   cy.getByTestID('price_a_unit').contains('DFI')
   cy.getByTestID('price_b').contains('0.00000000')
-  cy.getByTestID('price_b_unit').contains('ETH')
+  cy.getByTestID('price_b_unit').contains('dETH')
 }
 
 context('Wallet - DEX - Remove Liquidity', () => {
@@ -29,7 +29,7 @@ context('Wallet - DEX - Remove Liquidity', () => {
   after(function () {
     // Remove added liquidity
     cy.getByTestID('bottom_tab_dex').click().wait(1000)
-    cy.getByTestID('pool_pair_remove_DFI-ETH').click().wait(1000)
+    cy.getByTestID('pool_pair_remove_DFI-dETH').click().wait(1000)
     cy.getByTestID('button_slider_max').click().wait(1000)
     cy.getByTestID('button_continue_remove_liq').click()
     cy.getByTestID('button_confirm_remove').click().wait(2000)
@@ -38,8 +38,8 @@ context('Wallet - DEX - Remove Liquidity', () => {
 
   it('should display price based on pool tokenA:tokenB ratio regardless removal amount', function () {
     cy.wait(1000)
-    cy.getByTestID('text_a_to_b_price').contains('100.00000000 ETH per DFI')
-    cy.getByTestID('text_b_to_a_price').contains('0.01000000 DFI per ETH')
+    cy.getByTestID('text_a_to_b_price').contains('100.00000000 dETH per DFI')
+    cy.getByTestID('text_b_to_a_price').contains('0.01000000 DFI per dETH')
   })
 
   // // unable to trigger slider change event for react: https://github.com/cypress-io/cypress/issues/1570
@@ -89,7 +89,7 @@ context('Wallet - DEX - Remove Liquidity', () => {
     cy.getByTestID('price_a').contains('0.00000000')
     cy.getByTestID('price_a_unit').contains('DFI')
     cy.getByTestID('price_b').contains('0.00000000')
-    cy.getByTestID('price_b_unit').contains('ETH')
+    cy.getByTestID('price_b_unit').contains('dETH')
 
     cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
   })
@@ -113,18 +113,18 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
       cy.getByTestID('price_a_unit').contains('DFI')
       cy.getByTestID('price_b').invoke('text').then((valueB) => {
         expect(new BigNumber(valueB).toNumber()).be.gte(new BigNumber('99').toNumber())
-        cy.getByTestID('price_b_unit').contains('ETH')
+        cy.getByTestID('price_b_unit').contains('dETH')
         cy.getByTestID('button_continue_remove_liq').click()
         cy.getByTestID('button_cancel_remove').click()
         cy.getByTestID('button_slider_max').should('exist')
         cy.getByTestID('button_continue_remove_liq').click()
 
         cy.getByTestID('confirm_title').should('have.text', 'YOU ARE REMOVING')
-        cy.getByTestID('text_remove_amount').should('have.text', '10.00000000 DFI-ETH')
+        cy.getByTestID('text_remove_amount').should('have.text', '10.00000000 DFI-dETH')
         cy.getByTestID('a_amount').should('have.text', new BigNumber(valueA).toFixed(8))
         cy.getByTestID('b_amount').should('have.text', new BigNumber(valueB).toFixed(8))
-        cy.getByTestID('price_a').contains('100.00000000 ETH per DFI')
-        cy.getByTestID('price_b').contains('0.01000000 DFI per ETH')
+        cy.getByTestID('price_a').contains('100.00000000 dETH per DFI')
+        cy.getByTestID('price_b').contains('0.01000000 DFI per dETH')
         cy.getByTestID('button_confirm_remove').click().wait(2000)
         cy.closeOceanInterface()
       })
@@ -142,20 +142,20 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
     cy.getByTestID('price_b').invoke('text').then((value) => {
       expect(new BigNumber(value).toNumber()).be.gte(new BigNumber('49').toNumber())
     })
-    cy.getByTestID('price_b_unit').contains('ETH')
+    cy.getByTestID('price_b_unit').contains('dETH')
     cy.getByTestID('button_continue_remove_liq').click()
 
     cy.getByTestID('confirm_title').should('have.text', 'YOU ARE REMOVING')
-    cy.getByTestID('text_remove_amount').should('have.text', `${oldAmount} DFI-ETH`)
+    cy.getByTestID('text_remove_amount').should('have.text', `${oldAmount} DFI-dETH`)
     cy.getByTestID('a_amount').should('exist')
     cy.getByTestID('b_amount').should('exist')
     cy.getByTestID('text_fee').should('exist')
-    cy.getByTestID('price_a').contains('100.00000000 ETH per DFI')
-    cy.getByTestID('price_b').contains('0.01000000 DFI per ETH')
+    cy.getByTestID('price_a').contains('100.00000000 dETH per DFI')
+    cy.getByTestID('price_b').contains('0.01000000 DFI per dETH')
     cy.getByTestID('button_confirm_remove').click().wait(2000)
     // Check for authorization page description
     cy.getByTestID('txn_authorization_description')
-      .contains(`Removing ${new BigNumber(oldAmount).toFixed(8)} DFI-ETH`)
+      .contains(`Removing ${new BigNumber(oldAmount).toFixed(8)} DFI-dETH`)
 
     // Cancel send on authorisation page
     cy.getByTestID('cancel_authorization').contains('CANCEL').click()
@@ -169,18 +169,18 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
     cy.getByTestID('price_b').invoke('text').then((value) => {
       expect(new BigNumber(value).toNumber()).be.gte(new BigNumber('99').toNumber())
     })
-    cy.getByTestID('price_b_unit').contains('ETH')
+    cy.getByTestID('price_b_unit').contains('dETH')
     cy.getByTestID('button_continue_remove_liq').click()
 
     cy.getByTestID('confirm_title').should('have.text', 'YOU ARE REMOVING')
-    cy.getByTestID('text_remove_amount').should('have.text', `${newAmount} DFI-ETH`)
+    cy.getByTestID('text_remove_amount').should('have.text', `${newAmount} DFI-dETH`)
     cy.getByTestID('a_amount').should('exist')
     cy.getByTestID('b_amount').should('exist')
     cy.getByTestID('text_fee').should('exist')
     cy.getByTestID('button_confirm_remove').click().wait(2000)
     // Check for authorization page description
     cy.getByTestID('txn_authorization_description')
-      .contains(`Removing ${new BigNumber(newAmount).toFixed(8)} DFI-ETH`)
+      .contains(`Removing ${new BigNumber(newAmount).toFixed(8)} DFI-dETH`)
     cy.closeOceanInterface()
   })
 })

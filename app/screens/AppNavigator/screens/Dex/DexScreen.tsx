@@ -182,13 +182,13 @@ function PoolPairRowYour ({
           <PoolPairLiqBtn
             name='add'
             onPress={onAdd}
-            pair={data.symbol}
+            pair={symbol}
           />
 
           <PoolPairLiqBtn
             name='remove'
             onPress={onRemove}
-            pair={data.symbol}
+            pair={symbol}
           />
         </View>
       </View>
@@ -259,7 +259,7 @@ function PoolPairRowAvailable ({
 
           <ThemedText
             style={tailwind('text-lg font-bold')}
-            testID={`your_symbol_${symbolA}-${symbolB}`}
+            testID={`your_symbol_${symbol}`}
           >
             {symbol}
           </ThemedText>
@@ -269,13 +269,13 @@ function PoolPairRowAvailable ({
           <PoolPairLiqBtn
             name='add'
             onPress={onAdd}
-            pair={data.symbol}
+            pair={symbol}
           />
 
           <PoolPairLiqBtn
             name='swap-horiz'
             onPress={onSwap}
-            pair={data.symbol}
+            pair={symbol}
           />
         </View>
       </View>

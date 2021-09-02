@@ -12,10 +12,10 @@ context('Wallet - Send Preview/Confirmation', () => {
   })
 
   it('should preview send detail', () => {
-    cy.getByTestID('text_send_amount').invoke('text').should(t => expect(t).equal('1.23400000 BTC'))
+    cy.getByTestID('text_send_amount').invoke('text').should(t => expect(t).equal('1.23400000 dBTC'))
     cy.getByTestID('text_destination').invoke('text').should(t => expect(t).equal('bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9'))
     cy.getByTestID('text_network').invoke('text').should(t => expect(t).equal('Local'))
-    cy.getByTestID('text_amount').invoke('text').should(t => expect(t).equal('1.23400000 BTC'))
+    cy.getByTestID('text_amount').invoke('text').should(t => expect(t).equal('1.23400000 dBTC'))
     cy.getByTestID('button_confirm_send').should('not.have.attr', 'disabled')
   })
 })
