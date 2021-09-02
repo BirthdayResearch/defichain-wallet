@@ -7,7 +7,7 @@
     "Restore Wallet": "Stelle die Wallet wieder her",
     "Create a passcode": "Erstelle ein Passwort",
     "Verify passcode": "Bestätige das Passwort",
-		"Network": "Netzwerk"
+		"Select network": "Netzwerkauswahl"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
