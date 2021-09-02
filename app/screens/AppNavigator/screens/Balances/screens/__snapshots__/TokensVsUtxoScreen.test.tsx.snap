@@ -230,6 +230,9 @@ exports[`tokens vs utxo screen should render 1`] = `
                 },
                 Array [
                   Object {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
                     "fontFamily": "MediumFont",
                     "fontSize": 14,
                     "fontWeight": "500",
@@ -266,6 +269,9 @@ exports[`tokens vs utxo screen should render 1`] = `
                 },
                 Array [
                   Object {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
                     "fontFamily": "MediumFont",
                     "fontSize": 14,
                     "fontWeight": "500",
@@ -302,6 +308,9 @@ exports[`tokens vs utxo screen should render 1`] = `
                 },
                 Array [
                   Object {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
                     "fontFamily": "MediumFont",
                     "fontSize": 14,
                     "fontWeight": "500",
@@ -338,6 +347,9 @@ exports[`tokens vs utxo screen should render 1`] = `
                 },
                 Array [
                   Object {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
                     "fontFamily": "MediumFont",
                     "fontSize": 14,
                     "fontWeight": "500",
@@ -466,6 +478,9 @@ exports[`tokens vs utxo screen should render 1`] = `
                 },
                 Array [
                   Object {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
                     "fontFamily": "MediumFont",
                     "fontSize": 14,
                     "fontWeight": "500",
@@ -502,6 +517,9 @@ exports[`tokens vs utxo screen should render 1`] = `
                 },
                 Array [
                   Object {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
                     "fontFamily": "MediumFont",
                     "fontSize": 14,
                     "fontWeight": "500",
@@ -538,6 +556,9 @@ exports[`tokens vs utxo screen should render 1`] = `
                 },
                 Array [
                   Object {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
                     "fontFamily": "MediumFont",
                     "fontSize": 14,
                     "fontWeight": "500",
