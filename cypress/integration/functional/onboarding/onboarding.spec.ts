@@ -39,7 +39,8 @@ context('Onboarding', () => {
     cy.getByTestID('header_active_network').first().click()
     cy.getByTestID('onboarding_network_selection_screen').should('exist')
     cy.getByTestID('button_network_Playground').click()
-    cy.on('window:confirm', () => {
+    cy.on('window:confirm', (message: string) => {
+      expect(message).to.include('Playground')
     })
     cy.getByTestID('header_active_network').contains('Playground')
   })
@@ -55,7 +56,8 @@ context('Onboarding', () => {
     cy.getByTestID('header_active_network').first().click()
     cy.getByTestID('onboarding_network_selection_screen').should('exist')
     cy.getByTestID('button_network_Playground').click()
-    cy.on('window:confirm', () => {
+    cy.on('window:confirm', (message: string) => {
+      expect(message).to.include('Playground')
     })
     cy.getByTestID('header_active_network').contains('Playground')
   })
