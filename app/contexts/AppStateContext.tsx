@@ -18,35 +18,29 @@ export function useAppStateContext (): AppStateContextI {
 export function AppStateContextProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   // DO NOT use `useState`, these are meant for appstate monitoring
   // re-render side effect is undesireable
-  const listenerRef = useRef<{ [key: number]: AppStateListener } | null>(null)
+  const listenerRef = useRef<{ [key: number]: AppStateListener }>({})
   const prevState = useRef<AppStateStatus>('active') // first mounted
 
-  // all useCallback / useEffect in this context provider MUST have ZERO dependencies, to remain predictable
   const emit = useCallback((nextState: SimplifiedAppStateStatus) => {
-    const listeners = Object.values(listenerRef.current ?? {})
+    const listeners = Object.values(listenerRef.current)
     prevState.current = nextState
     listeners.forEach(l => l(nextState))
   }, [])
 
-  const appStateHandler = useCallback((nextState: AppStateStatus) => {
-    // detect state change
-    if (nextState === 'background' || nextState === 'inactive') {
-      if (prevState.current === 'active') {
-        emit('background')
-      }
-    } else if (nextState === 'active') {
-      if (prevState.current === 'background') {
-        emit('active')
-      }
-    }
-  }, [])
-
   useEffect(() => {
-    const cb = (ns: AppStateStatus): void => {
-      appStateHandler(ns)
+    const handler = (nextState: AppStateStatus): void => {
+      if (nextState === 'background' || nextState === 'inactive') {
+        if (prevState.current === 'active') {
+          emit('background')
+        }
+      } else if (nextState === 'active') {
+        if (prevState.current === 'background') {
+          emit('active')
+        }
+      }
     }
-    AppState.addEventListener('change', cb)
-    return () => AppState.removeEventListener('change', cb)
+    AppState.addEventListener('change', handler)
+    return () => AppState.removeEventListener('change', handler)
   }, [])
 
   const context: AppStateContextI = {
@@ -54,15 +48,12 @@ export function AppStateContextProvider (props: React.PropsWithChildren<any>): J
       const existing = Object.keys(listenerRef)
       const id = getNewSerialNumber(existing.map(s => Number(s)))
       listenerRef.current = {
-        ...(listenerRef.current ?? {}),
+        ...listenerRef.current,
         [id]: l
       }
       return id
     },
     removeListener: (id: number) => {
-      if (listenerRef.current === null) {
-        return
-      }
       if (listenerRef.current[id] !== undefined) {
         // eslint-disable-next-line
         delete listenerRef.current[id]
