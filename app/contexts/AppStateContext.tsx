@@ -4,15 +4,15 @@ import { AppState, AppStateStatus } from 'react-native'
 export type SimplifiedAppStateStatus = 'active' | 'background'
 export type AppStateListener = (status: SimplifiedAppStateStatus) => void
 
-export interface AppStateContext {
+export interface AppStateContextI {
   addListener: (listener: AppStateListener) => number
   removeListener: (id: number) => void
 }
 
-const appStateContext = createContext<AppStateContext>(undefined as any)
+const AppStateContext = createContext<AppStateContextI>(undefined as any)
 
-export function useAppStateContext (): AppStateContext {
-  return useContext(appStateContext)
+export function useAppStateContext (): AppStateContextI {
+  return useContext(AppStateContext)
 }
 
 export function AppStateContextProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
@@ -22,20 +22,21 @@ export function AppStateContextProvider (props: React.PropsWithChildren<any>): J
   const prevState = useRef<AppStateStatus>('active') // first mounted
 
   // all useCallback / useEffect in this context provider MUST have ZERO dependencies, to remain predictable
-  const emit = useCallback((listeners: AppStateListener[], nextState: SimplifiedAppStateStatus) => {
-    prevState.current = nextState // simplify iOS lifecyle, skipping `inactive` as transition state
+  const emit = useCallback((nextState: SimplifiedAppStateStatus) => {
+    const listeners = Object.values(listenerRef.current ?? {})
+    prevState.current = nextState
     listeners.forEach(l => l(nextState))
   }, [])
 
   const appStateHandler = useCallback((nextState: AppStateStatus) => {
-    const listeners = Object.values(listenerRef.current ?? {})
+    // detect state change
     if (nextState === 'background' || nextState === 'inactive') {
       if (prevState.current === 'active') {
-        emit(listeners, 'background')
+        emit('background')
       }
     } else if (nextState === 'active') {
       if (prevState.current === 'background') {
-        emit(listeners, 'active')
+        emit('active')
       }
     }
   }, [])
@@ -48,7 +49,7 @@ export function AppStateContextProvider (props: React.PropsWithChildren<any>): J
     return () => AppState.removeEventListener('change', cb)
   }, [])
 
-  const context: AppStateContext = {
+  const context: AppStateContextI = {
     addListener: l => {
       const existing = Object.keys(listenerRef)
       const id = getNewSerialNumber(existing.map(s => Number(s)))
@@ -70,16 +71,16 @@ export function AppStateContextProvider (props: React.PropsWithChildren<any>): J
   }
 
   return (
-    <appStateContext.Provider value={context}>
+    <AppStateContext.Provider value={context}>
       {props.children}
-    </appStateContext.Provider>
+    </AppStateContext.Provider>
   )
 }
 
 function getNewSerialNumber (existing: number[]): number {
   let i = 0
   while (existing.includes(i)) {
-    i++
+    i = Math.floor(Math.random() * 1000)
   }
   return i
 }
