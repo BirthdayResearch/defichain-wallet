@@ -1,9 +1,10 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
-import { ScrollView, TouchableOpacity } from 'react-native'
-import { Text, View, Switch } from '../../../../components'
+import { TouchableOpacity } from 'react-native'
+import { Switch, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
+import { ThemedIcon, ThemedScrollView, ThemedText } from '../../../../components/themed'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { WalletParamList } from '../../WalletNavigator'
@@ -18,7 +19,7 @@ interface GuidelineItem {
 
 const guidelines: GuidelineItem[] = [
   {
-    title: 'Write the words in paper',
+    title: 'Write the words on paper',
     subtitle: 'Take note of their correct spelling and correct order.',
     icon: 'create'
   },
@@ -38,56 +39,93 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
   const [isEnabled, setIsEnabled] = useState(false)
   const toggleSwitch = (): void => setIsEnabled(previousState => !previousState)
   return (
-    <ScrollView style={tailwind('flex-1 bg-white p-4 pt-6')}>
-      <Text style={tailwind('text-lg font-semibold')}>{translate('screens/Guidelines', 'Creating a wallet')}</Text>
-      <Text
-        style={tailwind('mt-1 text-sm font-medium text-gray-500')}
-      >{translate('screens/Guidelines', 'Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.')}
-      </Text>
+    <ThemedScrollView
+      dark={tailwind('bg-gray-900')}
+      light={tailwind('bg-white')}
+      style={tailwind('flex-1 p-4 pt-6')}
+    >
+      <ThemedText
+        style={tailwind('text-lg font-semibold')}
+      >
+        {translate('screens/Guidelines', 'Creating a wallet')}
+      </ThemedText>
+
+      <ThemedText
+        dark={tailwind('text-gray-400')}
+        light={tailwind('text-gray-500')}
+        style={tailwind('mt-1 text-sm font-medium')}
+      >
+        {translate('screens/Guidelines', 'Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.')}
+      </ThemedText>
+
       <TouchableOpacity
-        style={tailwind('mb-2')} onPress={() => navigation.navigate('GuidelinesRecoveryWords')}
+        onPress={() => navigation.navigate('GuidelinesRecoveryWords')}
+        style={tailwind('mb-2')}
         testID='recovery_words_button'
       >
-        <Text
-          style={tailwind('text-primary font-medium text-sm')}
-        >{translate('screens/Guidelines', 'Learn more about recovery words')}
-        </Text>
+        <ThemedText
+          dark={tailwind('text-darkprimary-500')}
+          light={tailwind('text-primary-500')}
+          style={tailwind('font-medium text-sm')}
+        >
+          {translate('screens/Guidelines', 'Learn more about recovery words')}
+        </ThemedText>
       </TouchableOpacity>
+
       {
         guidelines.map((g, i) => (
-          <View key={i} style={tailwind('flex-row items-center my-3')}>
-            <MaterialIcons name={g.icon} size={32} />
+          <View
+            key={i}
+            style={tailwind('flex-row items-center my-3')}
+          >
+            <ThemedIcon
+              iconType='MaterialIcons'
+              name={g.icon}
+              size={32}
+            />
+
             <View style={tailwind('flex-col flex-auto ml-6')}>
-              <Text style={tailwind('font-medium')}>{translate('screens/Guidelines', g.title)}</Text>
-              <Text
-                style={tailwind('text-sm text-gray-500')}
+              <ThemedText style={tailwind('font-medium')}>
+                {translate('screens/Guidelines', g.title)}
+              </ThemedText>
+
+              <ThemedText
+                dark={tailwind('text-gray-400')}
+                light={tailwind('text-gray-500')}
                 numberOfLines={4}
-              >{translate('screens/Guidelines', g.subtitle)}
-              </Text>
+                style={tailwind('text-sm')}
+              >
+                {translate('screens/Guidelines', g.subtitle)}
+              </ThemedText>
             </View>
           </View>
         ))
       }
+
       <View style={tailwind('flex-row items-center my-4')}>
         <Switch
           onValueChange={toggleSwitch}
-          value={isEnabled}
           testID='guidelines_switch'
+          value={isEnabled}
         />
+
         <View style={tailwind('flex-auto ml-4')}>
-          <Text
+          <ThemedText
             style={tailwind('text-sm font-medium')}
-          >{translate('screens/Guidelines', 'I understand it is my responsibility to keep my recovery words secure, and losing them will result in the irrecoverable loss of my wallet funds.')}
-          </Text>
+          >
+            {translate('screens/Guidelines', 'I understand it is my responsibility to keep my recovery words secure, and losing them will result in the irrecoverable loss of my wallet funds.')}
+          </ThemedText>
         </View>
       </View>
+
       <Button
         disabled={!isEnabled}
-        margin='mx-0 mt-8'
-        onPress={() => navigation.navigate('CreateMnemonicWallet')} title='create mnemonic words'
-        testID='create_recovery_words_button'
         label={translate('screens/Guidelines', 'SHOW MY 24 RECOVERY WORDS')}
+        margin='mx-0 mt-8 mb-8'
+        onPress={() => navigation.navigate('CreateMnemonicWallet')}
+        testID='create_recovery_words_button'
+        title='create mnemonic words'
       />
-    </ScrollView>
+    </ThemedScrollView>
   )
 }

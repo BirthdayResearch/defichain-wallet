@@ -10,11 +10,15 @@ exports[`input icon label should match the output in 0 screen 1`] = `
         "fontWeight": "400",
         "lineHeight": 24,
       },
-      Object {
-        "color": "rgba(107, 114, 128, 1)",
-        "marginLeft": 8,
-        "textAlign": "right",
-      },
+      Array [
+        Object {
+          "marginLeft": 8,
+          "textAlign": "right",
+        },
+        Object {
+          "color": "rgba(115, 115, 115, 1)",
+        },
+      ],
     ]
   }
 >
@@ -32,11 +36,15 @@ exports[`input icon label should match the output in 1 screen 1`] = `
         "fontWeight": "400",
         "lineHeight": 24,
       },
-      Object {
-        "color": "rgba(107, 114, 128, 1)",
-        "marginLeft": 8,
-        "textAlign": "right",
-      },
+      Array [
+        Object {
+          "marginLeft": 8,
+          "textAlign": "right",
+        },
+        Object {
+          "color": "rgba(115, 115, 115, 1)",
+        },
+      ],
     ]
   }
 >

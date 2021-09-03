@@ -22,3 +22,23 @@ Usage: `Fixes #<issue number>`, or `Fixes (paste link of issue)`.
 Fixes #
 
 #### Additional comments?:
+
+#### Developer Checklist:
+<!--  
+Merging into the main branch implies your code is ready for production. 
+Before requesting for code review, please ensure that the following tasks 
+are completed. Otherwise, keep the PR drafted.
+-->
+
+- [ ] Read your code changes at least once
+- [ ] Tested on iOS/Android device (e.g, No crashes, library supported etc.)
+- [ ] No console errors on web
+- [ ] Tested on Light mode and Dark mode*
+- [ ] Your UI implementation visually matched the rendered design*
+- [ ] Unit tests*
+- [ ] Added e2e tests*
+- [ ] Added translations*
+
+<!-- 
+* If applicable 
+-->

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Text, View } from '../../../components'
+import { ThemedText, ThemedView } from '../../../components/themed'
 import { useNetworkContext } from '../../../contexts/NetworkContext'
 import { isPlayground } from '../../../environment'
 import { RootState } from '../../../store'
@@ -14,24 +15,45 @@ export function PlaygroundConnection (): JSX.Element {
 
   return (
     <View>
-      <PlaygroundTitle title='Connection' status={{ online: connected, offline: !connected }} />
+      <PlaygroundTitle
+        status={{ online: connected, offline: !connected }}
+        title='Connection'
+      />
 
-      <View style={tailwind('px-4 py-4 bg-white')}>
-        <Text style={tailwind('font-medium')}>
-          Network: <Text testID='playground_active_network'>{network}</Text>
-        </Text>
+      <ThemedView
+        dark={tailwind('bg-gray-800')}
+        light={tailwind('bg-white')}
+        style={tailwind('px-4 py-4')}
+      >
         <Text>
-          Blocks: {count === 0 ? '...' : count}
+          <ThemedText style={tailwind('font-medium')}>
+            Network:
+          </ThemedText>
+
+          <ThemedText
+            testID='playground_active_network'
+          >
+            {' '}
+
+            {network}
+          </ThemedText>
         </Text>
 
-        {isPlayground(network) ? (
-          <Text style={tailwind('mt-2 text-sm')}>
-            DeFi Playground is a specialized testing blockchain isolated from MainNet for testing DeFi applications.
-            Assets are not real, it can be minted by anyone. Blocks are generated every 3 seconds, the chain resets
-            daily.
-          </Text>
-        ) : null}
-      </View>
+        <ThemedText>
+          Blocks:
+          {count === 0 ? '...' : count}
+        </ThemedText>
+
+        {
+          isPlayground(network) && (
+            <ThemedText style={tailwind('mt-2 text-sm')}>
+              DeFi Playground is a specialized testing blockchain isolated from MainNet for testing DeFi applications.
+              Assets are not real, it can be minted by anyone. Blocks are generated every 3 seconds, the chain resets
+              daily.
+            </ThemedText>
+          )
+        }
+      </ThemedView>
     </View>
   )
 }

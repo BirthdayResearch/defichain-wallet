@@ -16,9 +16,11 @@ export function ErrorDisplayComponent (): JSX.Element {
   return (
     <View style={tailwind('flex-1 items-center justify-center p-4')}>
       <AppIcon />
+
       <Text style={tailwind('text-xl font-bold mt-3')}>
         {translate('screens/ErrorBoundary', 'Something went wrong')}
       </Text>
+
       <Text style={tailwind('text-sm text-gray-400 font-bold mt-3 text-center')}>
         {translate('screens/ErrorBoundary', 'The app ran into a problem and could not recover. Please restart your application.')}
       </Text>

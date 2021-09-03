@@ -1,13 +1,12 @@
-import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import { Text } from '../../../../components'
 import { BarCodeScanner } from '../../../../components/BarCodeScanner'
 import { ConnectionStatus, HeaderTitle } from '../../../../components/HeaderTitle'
 import { getNativeIcon } from '../../../../components/icons/assets'
+import { ThemedText } from '../../../../components/themed'
 import { WalletToken } from '../../../../store/wallet'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -48,27 +47,25 @@ export interface BalanceParamList {
 }
 
 function BalanceActionButton (props: {
-  icon?: React.ComponentProps<typeof MaterialIcons>['name']
   title?: string
   onPress: () => void
   testID: string
 }): JSX.Element {
   return (
     <TouchableOpacity
-      testID={props.testID}
-      style={[tailwind('px-2 py-1.5 ml-3 flex-row items-center')]}
       onPress={props.onPress}
+      style={tailwind('px-2 py-1.5 ml-3 flex-row items-center')}
+      testID={props.testID}
     >
       {
-        props.icon !== undefined && (
-          <MaterialIcons name={props.icon} size={20} style={tailwind('text-primary')} />
-        )
-      }
-      {
         props.title !== undefined && (
-          <Text style={tailwind('mx-1 text-primary font-semibold')}>
+          <ThemedText
+            dark={tailwind('text-darkprimary-500')}
+            light={tailwind('text-primary-500')}
+            style={tailwind('mx-1 font-semibold')}
+          >
             {translate('screens/BalancesScreen', props.title)}
-          </Text>
+          </ThemedText>
         )
       }
     </TouchableOpacity>
@@ -82,46 +79,51 @@ export function BalancesNavigator (): JSX.Element {
   return (
     <BalanceStack.Navigator initialRouteName='BalancesScreen'>
       <BalanceStack.Screen
-        name='BalancesScreen'
         component={BalancesScreen}
+        name='BalancesScreen'
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/BalancesScreen', 'Balances')} />,
           headerBackTitleVisible: false,
           headerRight: () => (
             <BalanceActionButton
-              testID='header_receive_balance' title='RECEIVE'
               onPress={() => navigation.navigate('Receive')}
+              testID='header_receive_balance'
+              title='RECEIVE'
             />
           )
         }}
       />
+
       <BalanceStack.Screen
-        name='Receive'
         component={ReceiveScreen}
+        name='Receive'
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/ReceiveScreen', 'Receive')} />,
           headerBackTitleVisible: false
         }}
       />
+
       <BalanceStack.Screen
-        name='Send'
         component={SendScreen}
+        name='Send'
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/SendScreen', 'Send')} />,
           headerBackTitleVisible: false
         }}
       />
+
       <BalanceStack.Screen
-        name='SendConfirmationScreen'
         component={SendConfirmationScreen}
+        name='SendConfirmationScreen'
         options={{
           headerBackTitleVisible: false,
           headerTitle: () => <HeaderTitle text={translate('screens/SendConfirmationScreen', 'Confirm Send')} />
         }}
       />
+
       <BalanceStack.Screen
-        name='TokenDetail'
         component={TokenDetailScreen}
+        name='TokenDetail'
         options={({ route }: { route: any }) => ({
           headerBackTitleVisible: false,
           headerTitle: () => {
@@ -130,8 +132,12 @@ export function BalancesNavigator (): JSX.Element {
             return (
               <View style={tailwind('flex-row items-center')}>
                 <Icon />
+
                 <View style={tailwind('flex-col ml-2')}>
-                  <Text style={tailwind('font-semibold')}>{token.displaySymbol}</Text>
+                  <ThemedText style={tailwind('font-semibold')}>
+                    {token.displaySymbol}
+                  </ThemedText>
+
                   <ConnectionStatus />
                 </View>
               </View>
@@ -139,35 +145,39 @@ export function BalancesNavigator (): JSX.Element {
           }
         })}
       />
+
       <BalanceStack.Screen
-        name='Convert'
         component={ConvertScreen}
+        name='Convert'
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/ConvertScreen', 'Convert DFI')} />,
           headerBackTitleVisible: false
         }}
       />
+
       <BalanceStack.Screen
-        name='ConvertConfirmationScreen'
         component={ConvertConfirmationScreen}
+        name='ConvertConfirmationScreen'
         options={{
           headerBackTitleVisible: false,
           headerTitle: () => <HeaderTitle text={translate('screens/ConvertConfirmScreen', 'Confirm DFI Conversion')} />
         }}
       />
+
       <BalanceStack.Screen
-        name='BarCodeScanner'
         component={BarCodeScanner}
+        name='BarCodeScanner'
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/ConvertScreen', 'Scan recipient QR')} />,
           headerBackTitleVisible: false
         }}
       />
+
       <BalanceStack.Screen
-        name='TokensVsUtxo'
         component={TokensVsUtxoScreen}
+        name='TokensVsUtxo'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/ConvertScreen', 'Token vs UTXO')} />,
+          headerTitle: () => <HeaderTitle text={translate('screens/ConvertScreen', 'UTXO vs Token')} />,
           headerBackTitleVisible: false
         }}
       />

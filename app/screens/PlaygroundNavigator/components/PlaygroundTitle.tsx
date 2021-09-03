@@ -1,5 +1,6 @@
 import React from 'react'
-import { Text, View } from '../../../components'
+import { View } from '../../../components'
+import { ThemedText } from '../../../components/themed'
 import { tailwind } from '../../../tailwind'
 import { PlaygroundStatus, PlaygroundStatusProps } from './PlaygroundStatus'
 
@@ -11,9 +12,10 @@ interface PlaygroundTitleProps {
 export function PlaygroundTitle (props: PlaygroundTitleProps): JSX.Element {
   return (
     <View style={tailwind('px-4 py-1 mb-1 mt-4 flex-row flex items-center')}>
-      <Text style={tailwind('text-lg font-semibold mr-2')}>
+      <ThemedText style={tailwind('text-lg font-semibold mr-2')}>
         {props.title}
-      </Text>
+      </ThemedText>
+
       <PlaygroundStatus {...props.status} />
     </View>
   )

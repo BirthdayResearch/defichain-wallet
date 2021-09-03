@@ -1,7 +1,9 @@
-import { fireEvent, render } from "@testing-library/react-native"
+import { fireEvent, render } from '@testing-library/react-native'
 import * as React from 'react'
 import { Linking } from 'react-native'
-import { CommunityScreen } from "./CommunityScreen";
+import { CommunityScreen } from './CommunityScreen'
+
+jest.mock('../../../../../contexts/ThemeProvider')
 
 it('<CommunityScreen /> should match snapshot', async () => {
   const tree = render(<CommunityScreen />)
@@ -10,4 +12,3 @@ it('<CommunityScreen /> should match snapshot', async () => {
   fireEvent.press(receiveButton)
   expect(Linking.canOpenURL).toBeCalled()
 })
-

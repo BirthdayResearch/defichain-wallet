@@ -1,14 +1,12 @@
-import { MaterialIcons } from '@expo/vector-icons'
+import { ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import { WalletAlert } from '@components/WalletAlert'
+import { useNetworkContext } from '@contexts/NetworkContext'
+import { EnvironmentNetwork, isPlayground } from '@environment'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import * as React from 'react'
 import { useCallback } from 'react'
-import { TouchableOpacity } from 'react-native'
-import { Text } from '../../../../../components'
-import { WalletAlert } from '../../../../../components/WalletAlert'
-import { useNetworkContext } from '../../../../../contexts/NetworkContext'
-import { EnvironmentNetwork, isPlayground } from '../../../../../environment'
-import { tailwind } from '../../../../../tailwind'
-import { translate } from '../../../../../translations'
 import { SettingsParamList } from '../SettingsNavigator'
 
 export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
@@ -24,7 +22,7 @@ export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Ele
       WalletAlert({
         title: translate('screens/Settings', 'Network Switch'),
         message: translate(
-          'screens/Settings', `You are about to switch to ${props.network}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?`),
+          'screens/Settings', 'You are about to switch to {{network}}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?', { network: props.network }),
         buttons: [
           {
             text: translate('screens/Settings', 'No'),
@@ -33,33 +31,38 @@ export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Ele
           {
             text: translate('screens/Settings', 'Yes'),
             style: 'destructive',
-            onPress: async () => await updateNetwork(props.network)
+            onPress: async () => {
+              await updateNetwork(props.network)
+            }
           }
         ]
-      }
-      )
+      })
     }
-  }, [network])
+  }, [props.network, network, navigation, updateNetwork])
 
   return (
-    <TouchableOpacity
-      testID={`button_network_${props.network}`}
-      style={tailwind('flex flex-row p-4 pr-2 bg-white items-center justify-between border-b border-gray-200')}
+    <ThemedTouchableOpacity
       onPress={onPress}
+      style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
+      testID={`button_network_${props.network}`}
     >
-      <Text style={tailwind('font-medium')}>
+      <ThemedText style={tailwind('font-medium')}>
         {props.network}
-      </Text>
+      </ThemedText>
 
       {
         props.network === network &&
         (
-          <MaterialIcons
-            testID={`button_network_${props.network}_check`} size={24} name='check'
-            style={tailwind('text-primary')}
+          <ThemedIcon
+            dark={tailwind('text-darkprimary-500')}
+            iconType='MaterialIcons'
+            light={tailwind('text-primary-500')}
+            name='check'
+            size={24}
+            testID={`button_network_${props.network}_check`}
           />
         )
       }
-    </TouchableOpacity>
+    </ThemedTouchableOpacity>
   )
 }

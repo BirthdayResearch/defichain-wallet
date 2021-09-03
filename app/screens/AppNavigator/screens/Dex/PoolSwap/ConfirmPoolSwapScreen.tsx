@@ -4,16 +4,14 @@ import { NavigationProp, StackActions, useNavigation } from '@react-navigation/n
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
-import { ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
-import {
-  ConfirmTitle,
-  NumberRow,
-  SubmitButtonGroup,
-  TokenBalanceRow
-} from '../../../../../components/ConfirmComponents'
+import { NumberRow } from '../../../../../components/NumberRow'
 import { SectionTitle } from '../../../../../components/SectionTitle'
+import { SubmitButtonGroup } from '../../../../../components/SubmitButtonGroup'
+import { SummaryTitle } from '../../../../../components/SummaryTitle'
+import { ThemedScrollView } from '../../../../../components/themed'
+import { TokenBalanceRow } from '../../../../../components/TokenBalanceRow'
 import { RootState } from '../../../../../store'
 import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
 import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
@@ -68,16 +66,19 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
   }
 
   return (
-    <ScrollView style={tailwind('bg-gray-100 pb-4')}>
-      <ConfirmTitle
-        title={translate('screens/PoolSwapConfirmScreen', 'YOU ARE SWAPPING')}
-        testID='text_swap_amount' amount={swap.fromAmount}
+    <ThemedScrollView style={tailwind('pb-4')}>
+      <SummaryTitle
+        amount={swap.fromAmount}
         suffix={` ${tokenA.symbol}`}
+        testID='text_swap_amount'
+        title={translate('screens/PoolSwapConfirmScreen', 'YOU ARE SWAPPING')}
       />
+
       <SectionTitle
-        text={translate('screens/PoolSwapConfirmScreen', 'ESTIMATED BALANCE AFTER SWAP')}
         testID='title_swap_detail'
+        text={translate('screens/PoolSwapConfirmScreen', 'ESTIMATED BALANCE AFTER SWAP')}
       />
+
       <TokenBalanceRow
         iconType={tokenA.symbol}
         lhs={tokenA.symbol}
@@ -86,6 +87,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
           testID: 'source_amount'
         }}
       />
+
       <TokenBalanceRow
         iconType={tokenB.symbol}
         lhs={tokenB.symbol}
@@ -94,10 +96,12 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
           testID: 'target_amount'
         }}
       />
+
       <SectionTitle
-        text={translate('screens/PoolSwapConfirmScreen', 'TRANSACTION DETAILS')}
         testID='title_tx_detail'
+        text={translate('screens/PoolSwapConfirmScreen', 'TRANSACTION DETAILS')}
       />
+
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', 'Slippage Tolerance')}
         rightHandElements={[{
@@ -106,16 +110,20 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
           testID: 'slippage_fee'
         }]}
       />
+
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated fee')}
         rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
       />
+
       <SubmitButtonGroup
-        onSubmit={onSubmit} onCancel={onCancel} title='swap'
-        label={translate('screens/PoolSwapConfirmScreen', 'SWAP')}
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        label={translate('screens/PoolSwapConfirmScreen', 'SWAP')}
+        onCancel={onCancel}
+        onSubmit={onSubmit}
+        title='swap'
       />
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 
@@ -152,8 +160,13 @@ async function constructSignedSwapAndSend (
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
-      title: `${translate('screens/PoolSwapScreen', 'Swapping Token')}`,
-      description: `${translate('screens/PoolSwapScreen', `Swapping ${dexForm.fromAmount.toFixed(8)} ${dexForm.fromToken.symbol} to ${dexForm.toAmount.toFixed(8)} ${dexForm.toToken.symbol}`)}`,
+      title: translate('screens/PoolSwapConfirmScreen', 'Swapping Token'),
+      description: translate('screens/PoolSwapConfirmScreen', 'Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}', {
+        amountA: dexForm.fromAmount.toFixed(8),
+        symbolA: dexForm.fromToken.symbol,
+        amountB: dexForm.toAmount.toFixed(8),
+        symbolB: dexForm.toToken.symbol
+      }),
       postAction
     }))
   } catch (e) {

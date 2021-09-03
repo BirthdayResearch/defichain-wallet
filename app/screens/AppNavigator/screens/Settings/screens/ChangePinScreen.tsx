@@ -1,11 +1,9 @@
-import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
-import React, { useState } from 'react'
-import { ScrollView } from 'react-native'
-import { Text, View } from '../../../../../components'
-import { Button } from '../../../../../components/Button'
+import React, { useEffect, useState } from 'react'
+import { View } from '../../../../../components'
 import { PinTextInput } from '../../../../../components/PinTextInput'
+import { ThemedIcon, ThemedScrollView, ThemedText } from '../../../../../components/themed'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { SettingsParamList } from '../SettingsNavigator'
@@ -17,37 +15,52 @@ export function ChangePinScreen ({ route }: Props): JSX.Element {
   const { pinLength, words } = route.params
   const [newPin, setNewPin] = useState('')
 
+  useEffect(() => {
+    if (newPin.length !== pinLength) {
+      return
+    }
+
+    setNewPin('')
+    navigation.navigate({
+      name: 'ConfirmPinScreen', params: { words, pin: newPin }, merge: true
+    })
+  }, [newPin])
+
   return (
-    <ScrollView
+    <ThemedScrollView
+      dark={tailwind('bg-gray-900')}
+      light={tailwind('bg-white')}
+      style={tailwind('w-full flex-1 flex-col')}
       testID='screen_create_pin'
-      style={tailwind('w-full flex-1 flex-col bg-white')}
     >
       <View style={tailwind('px-6 py-4 mb-8 mt-8')}>
-        <Text
+        <ThemedText
           style={tailwind('text-center font-semibold')}
-        >{translate('screens/ChangePinScreen', 'Create new passcode for your wallet')}
-        </Text>
+        >
+          {translate('screens/ChangePinScreen', 'Create new passcode for your wallet')}
+        </ThemedText>
       </View>
-      <PinTextInput cellCount={6} testID='pin_input' value={newPin} onChange={setNewPin} />
-      <View style={tailwind('p-4 flex-row mt-2 mb-8 justify-center items-center')}>
-        <MaterialIcons name='lock-outline' size={18} />
-        <Text
-          style={tailwind('text-center text-sm font-semibold ml-2')}
-        >{translate('screens/PinCreation', 'Keep your passcode private')}
-        </Text>
-      </View>
-      <Button
-        testID='change_pin_button'
-        label={translate('screens/PinCreation', 'CHANGE PASSCODE')}
-        title='create-pin'
-        disabled={newPin.length !== pinLength}
-        onPress={() => {
-          setNewPin('')
-          navigation.navigate({
-            name: 'ConfirmPinScreen', params: { words, pin: newPin }, merge: true
-          })
-        }}
+
+      <PinTextInput
+        cellCount={6}
+        onChange={setNewPin}
+        testID='pin_input'
+        value={newPin}
       />
-    </ScrollView>
+
+      <View style={tailwind('p-4 flex-row mt-2 mb-8 justify-center items-center')}>
+        <ThemedIcon
+          iconType='MaterialIcons'
+          name='lock-outline'
+          size={18}
+        />
+
+        <ThemedText
+          style={tailwind('text-center text-sm font-semibold ml-2')}
+        >
+          {translate('screens/PinCreation', 'Keep your passcode private')}
+        </ThemedText>
+      </View>
+    </ThemedScrollView>
   )
 }

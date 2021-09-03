@@ -1,14 +1,13 @@
+import { SectionTitle } from '@components/SectionTitle'
+import { SummaryTitle } from '@components/SummaryTitle'
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { MaterialIcons } from '@expo/vector-icons'
+import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { StackScreenProps } from '@react-navigation/stack'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
-import { ScrollView, TouchableOpacity } from 'react-native'
-import { Text } from '../../../../../components'
-import { ConfirmTitle } from '../../../../../components/ConfirmComponents'
-import { SectionTitle } from '../../../../../components/SectionTitle'
-import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
-import { tailwind } from '../../../../../tailwind'
-import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
 
@@ -32,59 +31,80 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
   }, [JSON.stringify(tokens)])
 
   return (
-    <ScrollView style={tailwind('bg-gray-100')}>
-      <ConfirmTitle
+    <ThemedScrollView>
+      <SummaryTitle
+        amount={new BigNumber(token.amount)}
+        suffix={` ${token.symbol}`}
+        testID='token_detail_amount'
         title={translate('screens/TokenDetailScreen', 'AMOUNT BALANCE')}
-        amount={new BigNumber(token.amount)} suffix={` ${token.symbol}`} testID='token_detail_amount'
       />
+
       <SectionTitle
-        text={translate('screens/TokenDetailScreen', 'AVAILABLE OPTIONS')}
         testID='title_available_options'
+        text={translate('screens/TokenDetailScreen', 'AVAILABLE OPTIONS')}
       />
+
       {
         token.id !== '0' && (
           <>
             <TokenActionRow
-              testID='send_button'
-              title={translate('screens/TokenDetailScreen', 'Send to other wallet')} icon='arrow-upward'
+              icon='arrow-upward'
               onPress={() => navigation.navigate({ name: 'Send', params: { token }, merge: true })}
+              testID='send_button'
+              title={translate('screens/TokenDetailScreen', 'Send to other wallet')}
             />
+
             <TokenActionRow
-              testID='receive_button'
-              title={`${translate('screens/TokenDetailScreen', 'Receive')} ${token.displaySymbol}`}
               icon='arrow-downward'
               onPress={() => navigation.navigate('Receive')}
+              testID='receive_button'
+              title={`${translate('screens/TokenDetailScreen', 'Receive')} ${token.displaySymbol}`}
             />
           </>
         )
       }
+
       {
         token.symbol === 'DFI' && (
           <TokenActionRow
-            testID='convert_button'
-            title={`${translate('screens/TokenDetailScreen', `Convert to ${token.id === '0_utxo' ? 'Token' : 'UTXO'}`)}`}
-            icon='swap-vert' onPress={() => {
+            icon='swap-vert'
+            onPress={() => {
               const mode: ConversionMode = token.id === '0_utxo' ? 'utxosToAccount' : 'accountToUtxos'
               navigation.navigate({ name: 'Convert', params: { mode }, merge: true })
             }}
+            testID='convert_button'
+            title={`${translate('screens/TokenDetailScreen', 'Convert to {{symbol}}', { symbol: `${token.id === '0_utxo' ? 'Token' : 'UTXO'}` })}`}
           />
         )
       }
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 
 function TokenActionRow ({ title, icon, onPress, testID }: TokenActionItems): JSX.Element {
   return (
-    <TouchableOpacity
-      testID={testID} onPress={onPress}
+    <ThemedTouchableOpacity
+      onPress={onPress}
       style={tailwind('flex-row py-4 pl-4 pr-2 bg-white border-b border-gray-200')}
+      testID={testID}
     >
-      <MaterialIcons name={icon} size={24} style={tailwind('text-primary')} />
-      <Text style={tailwind('flex-grow ml-2')}>
+      <ThemedIcon
+        dark={tailwind('text-darkprimary-500')}
+        iconType='MaterialIcons'
+        light={tailwind('text-primary-500')}
+        name={icon}
+        size={24}
+      />
+
+      <ThemedText style={tailwind('flex-grow ml-2')}>
         {title}
-      </Text>
-      <MaterialIcons name='chevron-right' size={24} />
-    </TouchableOpacity>
+      </ThemedText>
+
+      <ThemedIcon
+        iconType='MaterialIcons'
+        name='chevron-right'
+        size={24}
+      />
+    </ThemedTouchableOpacity>
   )
 }

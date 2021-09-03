@@ -1,11 +1,10 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { useEffect } from 'react'
-import { ScrollView } from 'react-native'
 import { MnemonicUnprotected } from '../../../../api/wallet'
-import { Text, View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { CREATE_STEPS, CreateWalletStepIndicator } from '../../../../components/CreateWalletStepIndicator'
+import { ThemedScrollView, ThemedText, ThemedView } from '../../../../components/themed'
 import { WalletAlert } from '../../../../components/WalletAlert'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
@@ -24,13 +23,13 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
         message: translate('screens/CreateMnemonicWallet', 'If you leave this screen, you will be provided with a new set of 24 recovery words. Do you want to proceed?'),
         buttons: [
           {
-            text: 'Cancel',
+            text: translate('screens/CreateMnemonicWallet', 'Cancel'),
             style: 'cancel',
             onPress: () => {
             }
           },
           {
-            text: 'Yes',
+            text: translate('screens/CreateMnemonicWallet', 'Yes'),
             style: 'destructive',
             onPress: () => navigation.dispatch(e.data.action)
           }
@@ -54,35 +53,61 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
   }
 
   return (
-    <ScrollView style={tailwind('flex-1 bg-white')}>
+    <ThemedScrollView
+      dark={tailwind('bg-gray-900')}
+      light={tailwind('bg-white')}
+      style={tailwind('flex-1')}
+    >
       <CreateWalletStepIndicator
         current={1}
         steps={CREATE_STEPS}
         style={tailwind('py-4 px-1')}
       />
-      <Text style={tailwind('font-semibold text-base p-4 text-center')}>
+
+      <ThemedText style={tailwind('font-semibold text-base p-4 text-center')}>
         {translate('screens/CreateMnemonicWallet', 'Take note of the words in their correct order')}
-      </Text>
+      </ThemedText>
+
       {words.map((word, index) => {
-        return <RecoveryWordRow word={word} index={index} key={index} />
+        return (
+          <RecoveryWordRow
+            index={index}
+            key={index}
+            word={word}
+          />
+        )
       })}
+
       <Button
-        title='verify button' onPress={onContinue} testID='verify_button'
         label={translate('screens/CreateMnemonicWallet', 'VERIFY WORDS')}
+        onPress={onContinue}
+        testID='verify_button'
+        title='verify button'
       />
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 
 function RecoveryWordRow (props: { index: number, word: string }): JSX.Element {
   return (
-    <View style={tailwind('bg-white p-4 flex-row border-b border-gray-200')}>
-      <Text testID={`word_${props.index + 1}_number`} style={[tailwind('w-12 font-semibold')]}>
+    <ThemedView
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      light={tailwind('bg-white border-b border-gray-200')}
+      style={tailwind('p-4 flex-row')}
+    >
+      <ThemedText
+        style={tailwind('w-12 font-semibold')}
+        testID={`word_${props.index + 1}_number`}
+      >
         {`${props.index + 1}.`}
-      </Text>
-      <Text testID={`word_${props.index + 1}`} style={tailwind('flex-grow font-semibold')}>
+      </ThemedText>
+
+      <ThemedText
+        style={tailwind('flex-grow font-semibold')}
+        testID={`word_${props.index + 1}`}
+      >
         {props.word}
-      </Text>
-    </View>
+      </ThemedText>
+    </ThemedView>
   )
 }

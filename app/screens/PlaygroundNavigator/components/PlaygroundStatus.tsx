@@ -11,16 +11,41 @@ export interface PlaygroundStatusProps {
 
 export function PlaygroundStatus (props: PlaygroundStatusProps): JSX.Element {
   if (props.online !== undefined && props.online) {
-    return <View testID='playground_status_indicator' style={tailwind('h-3 w-3 rounded-full bg-green-500')} />
+    return (
+      <View
+        style={tailwind('h-3 w-3 rounded-full bg-green-500')}
+        testID='playground_status_indicator'
+      />
+    )
   }
   if (props.offline !== undefined && props.offline) {
-    return <View testID='playground_status_indicator' style={tailwind('h-3 w-3 rounded-full bg-red-500')} />
+    return (
+      <View
+        style={tailwind('h-3 w-3 rounded-full bg-red-500')}
+        testID='playground_status_indicator'
+      />
+    )
   }
   if (props.loading !== undefined && props.loading) {
-    return <View testID='playground_status_indicator' style={tailwind('h-3 w-3 rounded-full bg-blue-500')} />
+    return (
+      <View
+        style={tailwind('h-3 w-3 rounded-full bg-blue-500')}
+        testID='playground_status_indicator'
+      />
+    )
   }
   if (props.error !== undefined && props.error) {
-    return <View testID='playground_status_indicator' style={tailwind('h-3 w-3 rounded-full bg-yellow-500')} />
+    return (
+      <View
+        style={tailwind('h-3 w-3 rounded-full bg-yellow-500')}
+        testID='playground_status_indicator'
+      />
+    )
   }
-  return <View testID='playground_status_indicator' style={tailwind('h-3 w-3 rounded-full bg-gray-500')} />
+  return (
+    <View
+      style={tailwind('h-3 w-3 rounded-full bg-gray-500')}
+      testID='playground_status_indicator'
+    />
+  )
 }

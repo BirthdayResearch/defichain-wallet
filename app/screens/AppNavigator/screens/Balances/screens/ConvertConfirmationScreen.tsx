@@ -4,16 +4,15 @@ import { NavigationProp, StackActions, useNavigation } from '@react-navigation/n
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
-import {
-  ConfirmTitle,
-  NumberRow,
-  SubmitButtonGroup,
-  TokenBalanceRow
-} from '../../../../../components/ConfirmComponents'
+import { NumberRow } from '../../../../../components/NumberRow'
 import { SectionTitle } from '../../../../../components/SectionTitle'
+import { SubmitButtonGroup } from '../../../../../components/SubmitButtonGroup'
+import { SummaryTitle } from '../../../../../components/SummaryTitle'
+import { ThemedScrollView } from '../../../../../components/themed'
+import { TokenBalanceRow } from '../../../../../components/TokenBalanceRow'
 import { RootState } from '../../../../../store'
 import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
 import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
@@ -67,38 +66,46 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
   }
 
   return (
-    <ScrollView style={tailwind('bg-gray-100 pb-4')}>
-      <ConfirmTitle
-        title={translate('screens/ConvertConfirmationScreen', 'YOU ARE CONVERTING')}
-        testID='text_convert_amount' amount={amount}
+    <ThemedScrollView style={tailwind('pb-4')}>
+      <SummaryTitle
+        amount={amount}
         suffix={` ${mode === 'utxosToAccount' ? 'DFI (UTXO)' : 'DFI (Token)'}`}
+        testID='text_convert_amount'
+        title={translate('screens/ConvertConfirmScreen', 'YOU ARE CONVERTING')}
       />
+
       <SectionTitle
-        text={translate('screens/ConvertConfirmationScreen', 'AFTER CONVERSION, YOU WILL HAVE:')}
         testID='title_conversion_detail'
+        text={translate('screens/ConvertConfirmScreen', 'AFTER CONVERSION, YOU WILL HAVE:')}
       />
+
       <TokenBalanceRow
         iconType={sourceUnit === 'UTXO' ? '_UTXO' : 'DFI'}
-        lhs={translate('screens/ConvertConfirmationScreen', sourceUnit)}
+        lhs={translate('screens/ConvertConfirmScreen', sourceUnit)}
         rhs={{ value: sourceBalance.toFixed(8), testID: 'source_amount' }}
       />
+
       <TokenBalanceRow
         iconType={targetUnit === 'UTXO' ? '_UTXO' : 'DFI'}
-        lhs={translate('screens/ConvertConfirmationScreen', targetUnit)}
+        lhs={translate('screens/ConvertConfirmScreen', targetUnit)}
         rhs={{ value: targetBalance.toFixed(8), testID: 'target_amount' }}
       />
+
       <View style={tailwind('mt-4')}>
         <NumberRow
-          lhs={translate('screens/ConvertConfirmationScreen', 'Estimated fee')}
+          lhs={translate('screens/ConvertConfirmScreen', 'Estimated fee')}
           rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
         />
       </View>
+
       <SubmitButtonGroup
-        onSubmit={onSubmit} onCancel={onCancel} title='convert'
-        label={translate('screens/SendConfirmationScreen', 'CONVERT')}
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        label={translate('screens/ConvertConfirmScreen', 'CONVERT')}
+        onCancel={onCancel}
+        onSubmit={onSubmit}
+        title='convert'
       />
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 
@@ -134,8 +141,11 @@ async function constructSignedConversionAndSend ({
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
-      title: `${translate('screens/ConvertScreen', 'Converting DFI')}`,
-      description: `${translate('screens/ConvertScreen', `Converting ${amount.toFixed(8)} ${mode === 'utxosToAccount' ? 'UTXO to Token' : 'Token to UTXO'}`)}`,
+      title: translate('screens/ConvertConfirmScreen', 'Converting DFI'),
+      description: translate('screens/ConvertConfirmScreen', 'Converting {{amount}} {{symbolA}} to {{symbolB}}', {
+        amount: amount.toFixed(8),
+        ...(mode === 'utxosToAccount' ? { symbolA: 'UTXO', symbolB: 'Token' } : { symbolA: 'Token', symbolB: 'UTXO' })
+      }),
       postAction
     }))
   } catch (e) {

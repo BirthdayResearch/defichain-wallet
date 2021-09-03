@@ -1,23 +1,25 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { fireEvent, render } from "@testing-library/react-native"
+import { configureStore } from '@reduxjs/toolkit'
+import { fireEvent, render } from '@testing-library/react-native'
 import * as Clipboard from 'expo-clipboard'
 import * as React from 'react'
-import { Provider } from "react-redux";
-import { RootState } from "../../../../../store";
-import { wallet } from "../../../../../store/wallet";
-import { ReceiveScreen } from "./ReceiveScreen";
+import { Provider } from 'react-redux'
+import { RootState } from '../../../../../store'
+import { wallet } from '../../../../../store/wallet'
+import { ReceiveScreen } from './ReceiveScreen'
 
-jest.mock("../../../../../contexts/WalletContext", () => ({
+jest.mock('../../../../../contexts/WalletContext', () => ({
   useWalletContext: () => {
     return {
       address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d'
     }
   }
-}));
+}))
 
-jest.mock("expo-clipboard", () => ({
+jest.mock('expo-clipboard', () => ({
   setString: jest.fn()
 }))
+
+jest.mock('../../../../../contexts/ThemeProvider')
 
 describe('receive page', () => {
   it('should match snapshot', async () => {
@@ -27,7 +29,7 @@ describe('receive page', () => {
         tokens: [],
         poolpairs: []
       }
-    };
+    }
     const store = configureStore({
       preloadedState: initialState,
       reducer: { wallet: wallet.reducer }
@@ -36,7 +38,7 @@ describe('receive page', () => {
       <Provider store={store}>
         <ReceiveScreen />
       </Provider>
-    );
+    )
     const rendered = render(component)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
@@ -48,7 +50,7 @@ describe('receive page', () => {
         tokens: [],
         poolpairs: []
       }
-    };
+    }
     const store = configureStore({
       preloadedState: initialState,
       reducer: { wallet: wallet.reducer }
@@ -57,7 +59,7 @@ describe('receive page', () => {
       <Provider store={store}>
         <ReceiveScreen />
       </Provider>
-    );
+    )
     const spy = jest.spyOn(Clipboard, 'setString')
     const rendered = render(component)
     const copyButton = await rendered.findByTestId('copy_button')
@@ -72,7 +74,7 @@ describe('receive page', () => {
         tokens: [],
         poolpairs: []
       }
-    };
+    }
     const store = configureStore({
       preloadedState: initialState,
       reducer: { wallet: wallet.reducer }
@@ -81,12 +83,11 @@ describe('receive page', () => {
       <Provider store={store}>
         <ReceiveScreen />
       </Provider>
-    );
+    )
     const spy = jest.spyOn(Clipboard, 'setString')
     const rendered = render(component)
-    const share_button = await rendered.findByTestId('share_button')
-    fireEvent.press(share_button)
+    const shareButton = await rendered.findByTestId('share_button')
+    fireEvent.press(shareButton)
     expect(spy).toHaveBeenCalled()
   })
 })
-

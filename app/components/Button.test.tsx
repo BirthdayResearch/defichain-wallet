@@ -1,8 +1,9 @@
-import { fireEvent, render } from "@testing-library/react-native";
-import * as React from "react";
-import { Text } from "react-native";
-import { Button } from "./Button";
+import { fireEvent, render } from '@testing-library/react-native'
+import * as React from 'react'
+import { Text } from 'react-native'
+import { Button } from './Button'
 
+jest.mock('../contexts/ThemeProvider')
 const buttonFill = ['fill', 'outline', 'flat']
 const buttonColor = ['primary', 'secondary']
 
@@ -11,12 +12,24 @@ describe('button', () => {
     buttonColor.forEach(color => {
       it(`should match styling of button type ${fill}-${color}`, () => {
         const onPress = jest.fn()
-        const enabled = render(<Button fill={fill} color={color} disabled={false} title={'Test'}
-                                       label={'Submit'} onPress={onPress} />).toJSON()
+        const enabled = render(<Button
+          color={color}
+          disabled={false}
+          fill={fill}
+          label='Submit'
+          onPress={onPress}
+          title='Test'
+                               />).toJSON()
         expect(enabled).toMatchSnapshot()
 
-        const disabled = render(<Button fill={fill} color={color} disabled={true} title={'Test'}
-                                        label={'Submit'} onPress={onPress} />).toJSON()
+        const disabled = render(<Button
+          color={color}
+          disabled
+          fill={fill}
+          label='Submit'
+          onPress={onPress}
+          title='Test'
+                                />).toJSON()
         expect(disabled).toMatchSnapshot()
       })
     })
@@ -25,8 +38,16 @@ describe('button', () => {
   it('should be clickable', async () => {
     const onPress = jest.fn()
     const component = (
-      <Button onPress={onPress} title={'Submit'} children={<Text>Hello World</Text>} testID={'primary_button'} />
-    );
+      <Button
+        onPress={onPress}
+        testID='primary_button'
+        title='Submit'
+      >
+        <Text>
+          Hello World
+        </Text>
+      </Button>
+    )
     const rendered = render(component)
     const receiveButton = await rendered.findByTestId('primary_button')
     fireEvent.press(receiveButton)
@@ -37,9 +58,17 @@ describe('button', () => {
   it('should not be clickable when disabled', async () => {
     const onPress = jest.fn()
     const component = (
-      <Button disabled={true} onPress={onPress} title={'Submit'} children={<Text>Hello World</Text>}
-              testID={'primary_button'} />
-    );
+      <Button
+        disabled
+        onPress={onPress}
+        testID='primary_button'
+        title='Submit'
+      >
+        <Text>
+          Hello World
+        </Text>
+      </Button>
+    )
     const rendered = render(component)
     const receiveButton = await rendered.findByTestId('primary_button')
     fireEvent.press(receiveButton)

@@ -1,38 +1,54 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import * as React from 'react'
 import { useCallback } from 'react'
-import { FlatList, Linking, TouchableOpacity } from 'react-native'
-import { Text, View } from '../../../../../components'
+import { Linking } from 'react-native'
+import { View } from '../../../../../components'
 import { SectionTitle } from '../../../../../components/SectionTitle'
+import {
+  ThemedFlatList,
+  ThemedIcon,
+  ThemedText,
+  ThemedTouchableOpacity,
+  ThemedView
+} from '../../../../../components/themed'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 
 export function CommunityScreen (): JSX.Element {
   return (
-    <FlatList
-      style={tailwind('bg-gray-100')}
-      data={Communities}
-      ListHeaderComponent={
-        <SectionTitle
-          text={translate('screens/CommunityScreen', 'CONNECT WITH THE COMMUNITY:')}
-          testID='community_title'
-        />
+    <ThemedFlatList
+      ItemSeparatorComponent={
+        () => (
+          <ThemedView
+            dark={tailwind('bg-gray-700')}
+            light={tailwind('bg-gray-100')}
+            style={tailwind('h-px')}
+          />
+        )
       }
       ListFooterComponent={
         <View style={tailwind('items-center py-6 px-4')}>
-          <Text style={tailwind('text-gray-400 text-xs font-normal')}>
+          <ThemedText style={tailwind('text-xs font-normal')}>
             {translate('screens/CommunityScreen', 'DeFiChain is a community-driven and open project.')}
-          </Text>
-          <Text style={tailwind('text-gray-400 text-xs font-normal')}>
+          </ThemedText>
+
+          <ThemedText style={tailwind('text-xs font-normal')}>
             {translate('screens/CommunityScreen', 'The DeFiChain Foundation does not provide direct support.')}
-          </Text>
+          </ThemedText>
         </View>
       }
-      ItemSeparatorComponent={
-        () => <View style={tailwind('h-px bg-gray-100')} />
+      ListHeaderComponent={
+        <SectionTitle
+          testID='community_title'
+          text={translate('screens/CommunityScreen', 'CONNECT WITH THE COMMUNITY:')}
+        />
       }
+      data={Communities}
       renderItem={({ item }) => (
-        <CommunityItemRow key={item.id} {...item} />
+        <CommunityItemRow
+          key={item.id}
+          {...item}
+        />
       )}
       testID='community_flat_list'
     />
@@ -51,7 +67,7 @@ const Communities: CommunityItem[] = [
   { id: 'faq', title: 'Frequently Asked Questions', url: 'https://defichain.com/learn/#faq', icon: 'help-circle' },
   { id: 'tg_en', title: 'Telegram (EN)', url: 'https://t.me/defiblockchain', icon: 'telegram' },
   { id: 'tg_de', title: 'Telegram (DE)', url: 'https://t.me/defiblockchain_DE', icon: 'telegram' },
-  { id: 'tg_announcement', title: 'Telegram (Announcement)', url: 'https://t.me/defichain_announcements', icon: 'telegram' },
+  { id: 'announcements', title: 'Announcements', url: 'https://t.me/defichain_announcements', icon: 'telegram' },
   { id: 'wechat', title: 'WeChat', url: 'http://weixin.qq.com/r/0xz07DzEdmEJrXiP90nB', icon: 'wechat' },
   { id: 'reddit', title: 'Reddit Community', url: 'https://www.reddit.com/r/defiblockchain/', icon: 'reddit' },
   { id: 'website', title: 'Official Website', url: 'https://defichain.com/', icon: 'web' },
@@ -67,15 +83,22 @@ function CommunityItemRow ({ id, title, url, icon }: CommunityItem): JSX.Element
   }, [url])
 
   return (
-    <TouchableOpacity
-      style={tailwind('flex-row bg-white p-4 items-center')}
+    <ThemedTouchableOpacity
       onPress={handlePress}
+      style={tailwind('flex-row p-4 items-center')}
       testID={id}
     >
-      <MaterialCommunityIcons name={icon} size={24} style={tailwind('text-primary')} />
-      <Text style={tailwind('ml-2')}>
+      <ThemedIcon
+        dark={tailwind('text-darkprimary-500')}
+        iconType='MaterialCommunityIcons'
+        light={tailwind('text-primary-500')}
+        name={icon}
+        size={24}
+      />
+
+      <ThemedText style={tailwind('ml-2')}>
         {translate('screens/CommunityScreen', title)}
-      </Text>
-    </TouchableOpacity>
+      </ThemedText>
+    </ThemedTouchableOpacity>
   )
 }

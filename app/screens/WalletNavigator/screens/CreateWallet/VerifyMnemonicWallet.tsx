@@ -1,15 +1,16 @@
+import { Button } from '@components/Button'
+import { CREATE_STEPS, CreateWalletStepIndicator } from '@components/CreateWalletStepIndicator'
+import { View } from '@components/index'
+import { ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { WalletAlert } from '@components/WalletAlert'
+import { useThemeContext } from '@contexts/ThemeProvider'
+import { getEnvironment } from '@environment'
 import { StackScreenProps } from '@react-navigation/stack'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import { shuffle } from 'lodash'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { ScrollView, TouchableOpacity } from 'react-native'
-import { Text, View } from '../../../../components'
-import { Button } from '../../../../components/Button'
-import { CREATE_STEPS, CreateWalletStepIndicator } from '../../../../components/CreateWalletStepIndicator'
-import { WalletAlert } from '../../../../components/WalletAlert'
-import { getEnvironment } from '../../../../environment'
-import { tailwind } from '../../../../tailwind'
-import { translate } from '../../../../translations'
 import { WalletParamList } from '../../WalletNavigator'
 
 type Props = StackScreenProps<WalletParamList, 'VerifyMnemonicWallet'>
@@ -24,11 +25,6 @@ const HARDCODED_PIN_LENGTH = 6
 export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element {
   const recoveryWords = route.params.words
 
-  if (!Array.isArray(recoveryWords) || recoveryWords === undefined) {
-    navigation.navigate('CreateMnemonicWallet')
-    return <></>
-  }
-
   const [selectedWords, setSelectedWords] = useState<string[]>([...recoveryWords])
   const [randomWords, setRandomWords] = useState<VerifyMnemonicItem[]>([])
   const [isValid, setValid] = useState<boolean>(false)
@@ -42,11 +38,19 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
       const counter = 3 * i
       selectedWords[randomNumber] = ''
       const words = shuffle([recoveryWords[randomNumber], recoveryWords[others[counter]], recoveryWords[others[counter + 1]], recoveryWords[others[counter + 2]]])
-      randomWords.push({ index: randomNumber, words })
+      randomWords.push({
+        index: randomNumber,
+        words
+      })
     })
     setSelectedWords([...selectedWords])
     setRandomWords([...randomWords])
   }, [JSON.stringify(recoveryWords)])
+
+  if (!Array.isArray(recoveryWords) || recoveryWords === undefined) {
+    navigation.navigate('CreateMnemonicWallet')
+    return <></>
+  }
 
   function navigateToPinCreation (): void {
     navigation.navigate({
@@ -85,40 +89,49 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
   }
 
   return (
-    <ScrollView style={tailwind('flex-1 bg-white')}>
+    <ThemedScrollView
+      dark={tailwind('bg-gray-900')}
+      light={tailwind('bg-white')}
+      style={tailwind('flex-1')}
+    >
       <CreateWalletStepIndicator
         current={2}
         steps={CREATE_STEPS}
         style={tailwind('py-4 px-1')}
       />
-      <Text style={tailwind('pt-4 font-semibold text-base px-4 text-center')}>
+
+      <ThemedText style={tailwind('pt-4 font-semibold text-base px-4 text-center')}>
         {translate('screens/VerifyMnemonicWallet', 'Verify what you wrote as correct.')}
-      </Text>
-      <Text style={tailwind('font-semibold text-base px-4 text-center')}>
+      </ThemedText>
+
+      <ThemedText style={tailwind('font-semibold text-base px-4 mb-4 text-center')}>
         {translate('screens/VerifyMnemonicWallet', 'Answer the questions to proceed.')}
-      </Text>
+      </ThemedText>
 
       {randomWords.map((n, index) => (
         <RecoveryWordRow
+          index={n.index}
+          key={index}
           lineNumber={index}
-          words={n.words} index={n.index} key={index} onWordSelect={(word) => {
+          onWordSelect={(word) => {
             selectedWords[n.index] = word
             setSelectedWords([...selectedWords])
             setValid(!selectedWords.some((w) => w === ''))
           }}
+          words={n.words}
         />
       ))}
 
       <Button
-        disabled={!isValid}
-        onPress={onVerify}
         delayLongPress={1000}
-        onLongPress={debugBypass}
-        title='verify mnemonic'
-        testID='verify_words_button'
+        disabled={!isValid}
         label={translate('screens/VerifyMnemonicWallet', 'VERIFY')}
+        onLongPress={debugBypass}
+        onPress={onVerify}
+        testID='verify_words_button'
+        title='verify mnemonic'
       />
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 
@@ -131,34 +144,54 @@ interface RecoveryWordItem {
 
 function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWordItem): JSX.Element {
   const [selectedWord, setSelectedWord] = useState<string>()
-  const activeButton = 'bg-primary bg-opacity-10 border border-primary border-opacity-20'
+  const { isLight } = useThemeContext()
+  const activeButton = isLight ? 'bg-primary-50' : 'bg-darkprimary-500'
   return (
-    <View style={tailwind('bg-white p-4 py-6 border-b border-gray-200')}>
+    <ThemedView
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      light={tailwind('bg-white border-b border-gray-200')}
+      style={tailwind('p-4 py-6')}
+    >
       <View style={tailwind('flex-row')}>
-        <Text style={tailwind('text-gray-600')}>
+        <ThemedText style={tailwind('text-gray-600')}>
           {translate('screens/VerifyMnemonicWallet', 'What is word ')}
-        </Text>
-        <Text testID={`line_${lineNumber}`} style={tailwind('text-black font-semibold')}>
+        </ThemedText>
+
+        <ThemedText
+          style={tailwind('text-black font-semibold')}
+          testID={`line_${lineNumber}`}
+        >
           {`#${index + 1}?`}
-        </Text>
+        </ThemedText>
       </View>
-      <View style={tailwind('flex-row mt-4 mb-2')} testID={`recovery_word_row_${index}`}>
+
+      <View
+        style={tailwind('flex-row mt-4 mb-2')}
+        testID={`recovery_word_row_${index}`}
+      >
         {
           words.map((w, i) => (
-            <TouchableOpacity
-              style={tailwind(`rounded border ${selectedWord === w ? activeButton : 'bg-gray-100 border-gray-100'} p-1 px-2 mr-3`)}
+            <ThemedTouchableOpacity
+              dark={tailwind(`${selectedWord === w ? activeButton : 'bg-gray-400'}`)}
               key={`${w}_${i}`}
-              testID={`line_${lineNumber}_${w}`}
+              light={tailwind(`${selectedWord === w ? activeButton : 'bg-gray-100'}`)}
               onPress={() => {
                 setSelectedWord(w)
                 onWordSelect(w)
               }}
+              style={tailwind('rounded p-2 px-3 mr-3')}
+              testID={`line_${lineNumber}_${w}`}
             >
-              <Text style={tailwind(`${selectedWord === w ? 'text-primary' : 'text-black'} font-semibold`)}>{w}</Text>
-            </TouchableOpacity>
+              <ThemedText
+                dark={tailwind(`${selectedWord === w ? 'text-white' : 'text-black'} font-semibold`)}
+                light={tailwind(`${selectedWord === w ? 'text-primary-500' : 'text-black'} font-semibold`)}
+              >
+                {w}
+              </ThemedText>
+            </ThemedTouchableOpacity>
           ))
         }
       </View>
-    </View>
+    </ThemedView>
   )
 }

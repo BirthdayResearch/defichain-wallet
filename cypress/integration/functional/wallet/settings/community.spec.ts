@@ -20,8 +20,8 @@ const communityLinks = [
     url: 'https://t.me/defiblockchain_DE'
   },
   {
-    id: 'tg_announcement',
-    title: 'Telegram (Announcement)',
+    id: 'announcements',
+    title: 'Announcements',
     url: 'https://t.me/defichain_announcements'
   },
   {
@@ -49,10 +49,8 @@ context('Wallet - Settings - Community', () => {
   })
 
   it('should display all community links', function () {
-    const flatList = cy.getByTestID('community_flat_list')
-
     communityLinks.forEach((item) => {
-      flatList.getByTestID(item.id).should('exist').contains(item.title)
+      cy.getByTestID('community_flat_list').getByTestID(item.id).should('exist').contains(item.title)
     })
   })
 })

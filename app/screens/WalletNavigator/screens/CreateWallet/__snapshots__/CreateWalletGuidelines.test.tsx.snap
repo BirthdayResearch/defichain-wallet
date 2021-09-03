@@ -3,16 +3,20 @@
 exports[`create wallet guidelines should match snapshot 1`] = `
 <RCTScrollView
   style={
-    Object {
-      "backgroundColor": "rgba(255, 255, 255, 1)",
-      "flexBasis": "0%",
-      "flexGrow": 1,
-      "flexShrink": 1,
-      "paddingBottom": 16,
-      "paddingLeft": 16,
-      "paddingRight": 16,
-      "paddingTop": 24,
-    }
+    Array [
+      Object {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 24,
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
   }
 >
   <View>
@@ -25,12 +29,17 @@ exports[`create wallet guidelines should match snapshot 1`] = `
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Object {
-            "fontFamily": "SemiBoldFont",
-            "fontSize": 18,
-            "fontWeight": "600",
-            "lineHeight": 28,
-          },
+          Array [
+            Object {
+              "fontFamily": "SemiBoldFont",
+              "fontSize": 18,
+              "fontWeight": "600",
+              "lineHeight": 28,
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
         ]
       }
     >
@@ -45,14 +54,18 @@ exports[`create wallet guidelines should match snapshot 1`] = `
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Object {
-            "color": "rgba(107, 114, 128, 1)",
-            "fontFamily": "MediumFont",
-            "fontSize": 14,
-            "fontWeight": "500",
-            "lineHeight": 20,
-            "marginTop": 4,
-          },
+          Array [
+            Object {
+              "fontFamily": "MediumFont",
+              "fontSize": 14,
+              "fontWeight": "500",
+              "lineHeight": 20,
+              "marginTop": 4,
+            },
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
         ]
       }
     >
@@ -85,13 +98,17 @@ exports[`create wallet guidelines should match snapshot 1`] = `
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontSize": 14,
-              "fontWeight": "500",
-              "lineHeight": 20,
-            },
+            Array [
+              Object {
+                "fontFamily": "MediumFont",
+                "fontSize": 14,
+                "fontWeight": "500",
+                "lineHeight": 20,
+              },
+              Object {
+                "color": "rgba(255, 0, 175, 1)",
+              },
+            ],
           ]
         }
       >
@@ -100,28 +117,24 @@ exports[`create wallet guidelines should match snapshot 1`] = `
     </View>
     <View
       style={
-        Array [
-          Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "marginBottom": 12,
-            "marginTop": 12,
-          },
-        ]
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "marginBottom": 12,
+          "marginTop": 12,
+        }
       }
     >
       <Text />
       <View
         style={
-          Array [
-            Object {
-              "flexBasis": "auto",
-              "flexDirection": "column",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "marginLeft": 24,
-            },
-          ]
+          Object {
+            "flexBasis": "auto",
+            "flexDirection": "column",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "marginLeft": 24,
+          }
         }
       >
         <Text
@@ -133,14 +146,19 @@ exports[`create wallet guidelines should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
-                "fontFamily": "MediumFont",
-                "fontWeight": "500",
-              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
             ]
           }
         >
-          Write the words in paper
+          Write the words on paper
         </Text>
         <Text
           numberOfLines={4}
@@ -152,11 +170,15 @@ exports[`create wallet guidelines should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
-                "color": "rgba(107, 114, 128, 1)",
-                "fontSize": 14,
-                "lineHeight": 20,
-              },
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
             ]
           }
         >
@@ -166,28 +188,24 @@ exports[`create wallet guidelines should match snapshot 1`] = `
     </View>
     <View
       style={
-        Array [
-          Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "marginBottom": 12,
-            "marginTop": 12,
-          },
-        ]
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "marginBottom": 12,
+          "marginTop": 12,
+        }
       }
     >
       <Text />
       <View
         style={
-          Array [
-            Object {
-              "flexBasis": "auto",
-              "flexDirection": "column",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "marginLeft": 24,
-            },
-          ]
+          Object {
+            "flexBasis": "auto",
+            "flexDirection": "column",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "marginLeft": 24,
+          }
         }
       >
         <Text
@@ -199,10 +217,15 @@ exports[`create wallet guidelines should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
-                "fontFamily": "MediumFont",
-                "fontWeight": "500",
-              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
             ]
           }
         >
@@ -218,11 +241,15 @@ exports[`create wallet guidelines should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
-                "color": "rgba(107, 114, 128, 1)",
-                "fontSize": 14,
-                "lineHeight": 20,
-              },
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
             ]
           }
         >
@@ -232,28 +259,24 @@ exports[`create wallet guidelines should match snapshot 1`] = `
     </View>
     <View
       style={
-        Array [
-          Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "marginBottom": 12,
-            "marginTop": 12,
-          },
-        ]
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "marginBottom": 12,
+          "marginTop": 12,
+        }
       }
     >
       <Text />
       <View
         style={
-          Array [
-            Object {
-              "flexBasis": "auto",
-              "flexDirection": "column",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "marginLeft": 24,
-            },
-          ]
+          Object {
+            "flexBasis": "auto",
+            "flexDirection": "column",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "marginLeft": 24,
+          }
         }
       >
         <Text
@@ -265,10 +288,15 @@ exports[`create wallet guidelines should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
-                "fontFamily": "MediumFont",
-                "fontWeight": "500",
-              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
             ]
           }
         >
@@ -284,11 +312,15 @@ exports[`create wallet guidelines should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
-                "color": "rgba(107, 114, 128, 1)",
-                "fontSize": 14,
-                "lineHeight": 20,
-              },
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
             ]
           }
         >
@@ -298,14 +330,12 @@ exports[`create wallet guidelines should match snapshot 1`] = `
     </View>
     <View
       style={
-        Array [
-          Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "marginBottom": 16,
-            "marginTop": 16,
-          },
-        ]
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "marginBottom": 16,
+          "marginTop": 16,
+        }
       }
     >
       <RCTSwitch
@@ -333,14 +363,12 @@ exports[`create wallet guidelines should match snapshot 1`] = `
       />
       <View
         style={
-          Array [
-            Object {
-              "flexBasis": "auto",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "marginLeft": 16,
-            },
-          ]
+          Object {
+            "flexBasis": "auto",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "marginLeft": 16,
+          }
         }
       >
         <Text
@@ -352,12 +380,17 @@ exports[`create wallet guidelines should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
-                "fontFamily": "MediumFont",
-                "fontSize": 14,
-                "fontWeight": "500",
-                "lineHeight": 20,
-              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
             ]
           }
         >
@@ -377,22 +410,18 @@ exports[`create wallet guidelines should match snapshot 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         Object {
-          "backgroundColor": "rgba(0, 0, 0, 0.2)",
-          "borderBottomColor": "rgba(255, 0, 175, 0.2)",
+          "backgroundColor": "rgba(229, 229, 229, 1)",
           "borderBottomLeftRadius": 4,
           "borderBottomRightRadius": 4,
           "borderBottomWidth": 0,
-          "borderLeftColor": "rgba(255, 0, 175, 0.2)",
           "borderLeftWidth": 0,
-          "borderRightColor": "rgba(255, 0, 175, 0.2)",
           "borderRightWidth": 0,
-          "borderTopColor": "rgba(255, 0, 175, 0.2)",
           "borderTopLeftRadius": 4,
           "borderTopRightRadius": 4,
           "borderTopWidth": 0,
-          "color": "rgba(255, 255, 255, 0.05)",
           "flexDirection": "row",
           "justifyContent": "center",
+          "marginBottom": 32,
           "marginLeft": 0,
           "marginRight": 0,
           "marginTop": 32,
@@ -415,7 +444,7 @@ exports[`create wallet guidelines should match snapshot 1`] = `
               "lineHeight": 24,
             },
             Object {
-              "color": "rgba(255, 255, 255, 0.2)",
+              "color": "rgba(163, 163, 163, 1)",
               "fontFamily": "BoldFont",
               "fontWeight": "700",
             },

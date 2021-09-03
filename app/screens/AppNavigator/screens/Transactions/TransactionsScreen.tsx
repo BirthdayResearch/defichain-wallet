@@ -1,20 +1,24 @@
+import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
+import { useThemeContext } from '@contexts/ThemeProvider'
+import { useWalletContext } from '@contexts/WalletContext'
+import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { RootState } from '@store'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import dayjs from 'dayjs'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
+import { RefreshControl, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
-import { Text } from '../../../../components'
-import { useWalletContext } from '../../../../contexts/WalletContext'
-import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
-import { RootState } from '../../../../store'
-import { tailwind } from '../../../../tailwind'
-import { translate } from '../../../../translations'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity } from '../../../../components/themed'
 import { EmptyTransaction } from './EmptyTransaction'
 import { activitiesToViewModel, VMTransaction } from './screens/stateProcessor'
 import { TransactionsParamList } from './TransactionsNavigator'
+
+type LoadingState = 'idle' | 'loading' | 'loadingMore' | 'success' | 'background' | 'error'
 
 export function formatBlockTime (date: number): string {
   return dayjs(date * 1000).format('MMM D, h:mm a')
@@ -23,123 +27,207 @@ export function formatBlockTime (date: number): string {
 export function TransactionsScreen (): JSX.Element {
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
+  const { isLight } = useThemeContext()
   const navigation = useNavigation<NavigationProp<TransactionsParamList>>()
   const blocks = useSelector((state: RootState) => state.block.count)
+  const [transactions, setTransactions] = useState<VMTransaction[]>([])
+  const [loadingState, setLoadingState] = useState<LoadingState>('idle')
+  const [loadMoreToken, setLoadMoreToken] = useState<string | undefined>(undefined)
 
-  const [activities, setAddressActivities] = useState<VMTransaction[]>([])
-  const [loadingStatus, setLoadingStatus] = useState('initial') // page status
-  const [nextToken, setNextToken] = useState<string | undefined>(undefined)
-  const [hasNext, setHasNext] = useState<boolean>(false)
-  // const [error, setError] = useState<Error|undefined>(undefined) // TODO: render error
+  useEffect(() => {
+    // onload
+    if (loadingState === 'idle') {
+      setLoadingState('loading')
+      loadData()
+    }
+  }, [])
 
-  const loadData = (nextToken?: string | undefined): void => {
-    if (loadingStatus === 'loading') return
-    setLoadingStatus('loading')
-    client.address.listTransaction(address, undefined, nextToken)
+  useEffect(() => {
+    // background update
+    if (loadingState === 'success' || loadingState === 'error') {
+      setLoadingState('background')
+      loadData()
+    }
+  }, [address, blocks])
+
+  const loadData = (loadMoreToken?: string | undefined): void => {
+    client.address.listTransaction(address, undefined, loadMoreToken)
       .then(async addActivities => {
-        const newRows = activitiesToViewModel(addActivities)
-        if (nextToken !== undefined) {
-          setAddressActivities([...activities, ...newRows])
+        if (typeof loadMoreToken === 'string') {
+          setTransactions(transactions.concat(activitiesToViewModel(addActivities, isLight)))
         } else {
-          setAddressActivities([...newRows])
+          setTransactions(activitiesToViewModel(addActivities, isLight))
         }
-        setHasNext(addActivities.hasNext)
-        setNextToken(addActivities.nextToken as string)
-        setLoadingStatus('idle')
+
+        setLoadMoreToken(addActivities.nextToken)
+        setLoadingState('success')
       }).catch(() => {
-        setLoadingStatus('error')
-      })
+      setLoadingState('error')
+    })
   }
 
   const onLoadMore = (): void => {
-    loadData(nextToken)
+    if (loadingState === 'success' || loadingState === 'error') {
+      loadData(loadMoreToken)
+    }
   }
 
-  useEffect(() => {
-    loadData()
-  }, [address, blocks])
+  const onRefresh = (): void => {
+    setLoadingState('loadingMore')
+    loadData(loadMoreToken)
+  }
 
-  if (activities.length === 0) {
+  if (transactions.length === 0 &&
+    (loadingState === 'success' || loadingState === 'background')) {
     return (
       <EmptyTransaction
-        navigation={navigation}
         handleRefresh={loadData}
-        loadingStatus={loadingStatus}
+        loadingStatus={loadingState}
+        navigation={navigation}
       />
     )
   }
 
+  if (loadingState === 'loading') {
+    return (
+      <SkeletonLoader
+        row={3}
+        screen={SkeletonLoaderScreen.Transaction}
+      />
+    )
+  }
+  // TODO(kyleleow): render error screen
   return (
-    <FlatList
-      testID='transactions_screen_list' style={tailwind('w-full')} data={activities}
-      renderItem={TransactionRow(navigation)} keyExtractor={(item) => item.id}
-      ListFooterComponent={hasNext ? LoadMore(onLoadMore) : undefined}
-      refreshControl={<RefreshControl refreshing={loadingStatus === 'loading'} onRefresh={loadData} />}
+    <ThemedFlatList
+      ListFooterComponent={typeof loadMoreToken === 'string' ? <LoadMore onPress={onLoadMore} /> : undefined}
+      data={transactions}
+      keyExtractor={(item) => item.id}
+      refreshControl={
+        <RefreshControl
+          onRefresh={onRefresh}
+          refreshing={loadingState === 'loadingMore'}
+        />
+      }
+      renderItem={
+        ({
+          item,
+          index
+        }: { item: VMTransaction, index: number }) => (
+          <TransactionRow
+            index={index}
+            item={item}
+            navigation={navigation}
+          />
+        )
+      }
+      style={tailwind('w-full')}
+      testID='transactions_screen_list'
     />
   )
 }
 
-function TransactionRow (navigation: NavigationProp<TransactionsParamList>): (row: { item: VMTransaction, index: number }) => JSX.Element {
-  return (row: { item: VMTransaction, index: number }): JSX.Element => {
-    const {
-      color,
-      iconName,
-      amount,
-      desc,
-      medianTime,
-      token
-    } = row.item
+function TransactionRow ({
+  navigation,
+  item,
+  index
+}: { navigation: NavigationProp<TransactionsParamList>, item: VMTransaction, index: number }): JSX.Element {
+  const {
+    color,
+    iconName,
+    amount,
+    desc,
+    medianTime,
+    token
+  } = item
 
-    const rowId = `transaction_row_${row.index}`
-    return (
-      <TouchableOpacity
-        testID={rowId}
-        key={row.item.id}
-        style={tailwind('flex-row w-full h-16 bg-white p-2 border-b border-gray-200 items-center')}
-        onPress={() => {
-          navigation.navigate({
-            name: 'TransactionDetail', params: { tx: row.item }, merge: true
-          })
-        }}
-      >
-        <View style={tailwind('w-8 justify-center items-center')}>
-          <MaterialIcons name={iconName} size={24} color={color} />
+  const rowId = `transaction_row_${index}`
+  return (
+    <ThemedTouchableOpacity
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      key={item.id}
+      light={tailwind('bg-white border-b border-gray-200')}
+      onPress={() => {
+        navigation.navigate({
+          name: 'TransactionDetail',
+          params: { tx: item },
+          merge: true
+        })
+      }}
+      style={tailwind('flex-row w-full h-16 p-2 items-center')}
+      testID={rowId}
+    >
+      <View style={tailwind('w-8 justify-center items-center')}>
+        <MaterialIcons
+          color={color}
+          name={iconName}
+          size={24}
+        />
+      </View>
+
+      <View style={tailwind('flex-1 flex-row justify-center items-center')}>
+        <View style={tailwind('flex-auto flex-col ml-3 justify-center')}>
+          <ThemedText style={tailwind('font-medium')}>
+            {translate('screens/TransactionsScreen', desc)}
+          </ThemedText>
+
+          <ThemedText
+            style={tailwind('text-xs text-gray-600')}
+          >
+            {formatBlockTime(medianTime)}
+          </ThemedText>
         </View>
-        <View style={tailwind('flex-1 flex-row justify-center items-center')}>
-          <View style={tailwind('flex-auto flex-col ml-3 justify-center')}>
-            <Text style={tailwind('font-medium')}>{translate('screens/TransactionsScreen', desc)}</Text>
-            <Text
-              style={tailwind('text-xs text-gray-600')}
-            >{formatBlockTime(medianTime)}
-            </Text>
+
+        <View style={tailwind('flex-row ml-3 w-32 justify-end items-center')}>
+          <NumberFormat
+            decimalScale={8}
+            displayType='text'
+            renderText={(value) => (
+              <ThemedText
+                ellipsizeMode='tail'
+                numberOfLines={1}
+                style={{ color }}
+              >
+                {value}
+              </ThemedText>
+            )}
+            thousandSeparator
+            value={amount}
+          />
+
+          <View style={tailwind('ml-2 items-start')}>
+            <ThemedText style={tailwind('flex-shrink font-medium text-gray-600')}>
+              {token}
+            </ThemedText>
           </View>
-          <View style={tailwind('flex-row ml-3 w-32 justify-end items-center')}>
-            <NumberFormat
-              value={amount} decimalScale={8} thousandSeparator displayType='text'
-              renderText={(value) => <Text numberOfLines={1} ellipsizeMode='tail' style={{ color }}>{value}</Text>}
-            />
-            <View style={tailwind('ml-2 items-start')}>
-              <Text style={tailwind('flex-shrink font-medium text-gray-600')}>{token}</Text>
-            </View>
-          </View>
         </View>
-        <View style={tailwind('w-8 justify-center items-center')}>
-          <MaterialIcons name='chevron-right' size={24} style={tailwind('text-black opacity-60')} />
-        </View>
-      </TouchableOpacity>
-    )
-  }
+      </View>
+
+      <View style={tailwind('w-8 justify-center items-center')}>
+        <ThemedIcon
+          iconType='MaterialIcons'
+          name='chevron-right'
+          size={24}
+          style={tailwind('opacity-60')}
+        />
+      </View>
+    </ThemedTouchableOpacity>
+  )
 }
 
-function LoadMore (onPress: () => void): JSX.Element | null {
+function LoadMore ({ onPress }: { onPress: () => void }): JSX.Element | null {
   return (
     <View style={tailwind('flex-1 items-center justify-center w-full m-1')}>
       <TouchableOpacity
-        testID='transactions_list_loadmore'
         onPress={onPress}
         style={tailwind('p-2')}
+        testID='transactions_list_loadmore'
       >
-        <Text style={tailwind('text-primary')}>{translate('screens/TransactionsScreen', 'LOAD MORE')}</Text>
+        <ThemedText
+          dark={tailwind('text-darkprimary-500')}
+          light={tailwind('text-primary-500')}
+        >
+          {translate('screens/TransactionsScreen', 'LOAD MORE')}
+        </ThemedText>
       </TouchableOpacity>
     </View>
   )

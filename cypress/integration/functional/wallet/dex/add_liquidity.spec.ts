@@ -1,26 +1,30 @@
+import BigNumber from 'bignumber.js'
+
+function setupWallet (): void {
+  cy.createEmptyWallet(true)
+  cy.getByTestID('bottom_tab_dex').click()
+  cy.sendDFItoWallet()
+    .sendDFITokentoWallet()
+    .sendTokenToWallet(['BTC']).wait(3000)
+
+  cy.getByTestID('bottom_tab_dex').click()
+  cy.getByTestID('pool_pair_add_DFI-BTC').click()
+  cy.wait(100)
+  cy.getByTestID('token_balance_primary').contains('10')
+  cy.getByTestID('token_balance_secondary').contains('10')
+}
+
 context('Wallet - DEX - Add Liquidity', () => {
   before(function () {
-    cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_dex').click()
-    cy.sendDFItoWallet()
-      .sendDFITokentoWallet()
-      .sendTokenToWallet(['BTC']).wait(3000)
-
-    cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('pool_pair_add_DFI-BTC').click()
-    cy.wait(100)
-    cy.getByTestID('token_balance_primary').contains('10')
-    cy.getByTestID('token_balance_secondary').contains('10')
+    setupWallet()
   })
 
   it('should update both token and build summary when click on max amount button', function () {
     cy.getByTestID('MAX_amount_button').first().click()
     cy.getByTestID('token_input_primary').should('have.value', '10.00000000')
     cy.getByTestID('token_input_secondary').should('have.value', '10.00000000')
-    cy.getByTestID('a_per_b_price').contains('1.00000000')
-    cy.getByTestID('a_per_b_unit').contains('BTC per DFI')
-    cy.getByTestID('b_per_a_price').contains('1.00000000')
-    cy.getByTestID('b_per_a_unit').contains('DFI per BTC')
+    cy.getByTestID('a_per_b_price').contains('1.00000000 BTC per DFI')
+    cy.getByTestID('b_per_a_price').contains('1.00000000 DFI per BTC')
     cy.getByTestID('share_of_pool').contains('1.00000000%')
   })
 
@@ -29,10 +33,8 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('50%_amount_button').first().click()
     cy.getByTestID('token_input_primary').should('have.value', '5.00000000')
     cy.getByTestID('token_input_secondary').should('have.value', '5.00000000')
-    cy.getByTestID('a_per_b_price').contains('1.00000000')
-    cy.getByTestID('a_per_b_unit').contains('BTC per DFI')
-    cy.getByTestID('b_per_a_price').contains('1.00000000')
-    cy.getByTestID('b_per_a_unit').contains('DFI per BTC')
+    cy.getByTestID('a_per_b_price').contains('1.00000000 BTC per DFI')
+    cy.getByTestID('b_per_a_price').contains('1.00000000 DFI per BTC')
     cy.getByTestID('share_of_pool').contains('0.50000000%')
   })
 
@@ -43,10 +45,8 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('token_input_primary').clear().type('3')
     cy.getByTestID('token_input_secondary').should('have.value', '3.00000000')
 
-    cy.getByTestID('a_per_b_price').contains('1.00000000')
-    cy.getByTestID('a_per_b_unit').contains('BTC per DFI')
-    cy.getByTestID('b_per_a_price').contains('1.00000000')
-    cy.getByTestID('b_per_a_unit').contains('DFI per BTC')
+    cy.getByTestID('a_per_b_price').contains('1.00000000 BTC per DFI')
+    cy.getByTestID('b_per_a_price').contains('1.00000000 DFI per BTC')
     cy.getByTestID('share_of_pool').contains('0.30000000%')
   })
 
@@ -55,10 +55,8 @@ context('Wallet - DEX - Add Liquidity', () => {
 
     cy.getByTestID('token_input_primary').should('have.value', '2.00000000')
 
-    cy.getByTestID('a_per_b_price').contains('1.00000000')
-    cy.getByTestID('a_per_b_unit').contains('BTC per DFI')
-    cy.getByTestID('b_per_a_price').contains('1.00000000')
-    cy.getByTestID('b_per_a_unit').contains('DFI per BTC')
+    cy.getByTestID('a_per_b_price').contains('1.00000000 BTC per DFI')
+    cy.getByTestID('b_per_a_price').contains('1.00000000 DFI per BTC')
     cy.getByTestID('share_of_pool').contains('0.20000000%')
     cy.getByTestID('button_continue_add_liq').click()
   })
@@ -69,8 +67,30 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('a_amount').contains('2.00000000')
     cy.getByTestID('b_amount_unit').contains('BTC')
     cy.getByTestID('b_amount').contains('2.00000000')
-    cy.getByTestID('percentage_pool').contains('0.20000000 %')
+    cy.getByTestID('percentage_pool').contains('0.20000000%')
     cy.getByTestID('button_cancel_add').click()
+  })
+})
+
+context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
+  beforeEach(function () {
+    setupWallet()
+  })
+
+  afterEach(function () {
+    cy.getByTestID('your_DFI-BTC').contains('10.00000000 DFI-BTC')
+    cy.getByTestID('tokenA_DFI').contains('9.99999999 DFI')
+    cy.getByTestID('tokenB_BTC').contains('9.99999999 BTC')
+
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('balances_row_6').should('exist')
+    // Remove added liquidity
+    cy.getByTestID('bottom_tab_dex').click()
+    cy.getByTestID('pool_pair_remove_DFI-BTC').click()
+    cy.getByTestID('button_slider_max').click().wait(1000)
+    cy.getByTestID('button_continue_remove_liq').click()
+    cy.getByTestID('button_confirm_remove').click().wait(2000)
+    cy.closeOceanInterface()
   })
 
   it('should have updated confirm info', function () {
@@ -81,17 +101,44 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('a_amount').contains('10.00000000')
     cy.getByTestID('b_amount_unit').contains('BTC')
     cy.getByTestID('b_amount').contains('10.00000000')
-    cy.getByTestID('percentage_pool').contains('1.00000000 %')
+    cy.getByTestID('percentage_pool').contains('1.00000000%')
     cy.getByTestID('button_confirm_add').click().wait(3000)
     cy.closeOceanInterface()
   })
 
-  it('should have displayed pooled info', function () {
-    cy.getByTestID('your_DFI-BTC').contains('10.00000000 DFI-BTC')
-    cy.getByTestID('tokenA_DFI').contains('9.99999999 DFI')
-    cy.getByTestID('tokenB_BTC').contains('9.99999999 BTC')
-
-    cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('balances_row_6').should('exist')
+  it('should be able to add correct liquidity when user cancel a tx and updated some inputs', function () {
+    const oldAmount = '5.00000000'
+    const newAmount = '10.00000000'
+    cy.getByTestID('token_input_primary').clear().type(oldAmount)
+    cy.getByTestID('button_continue_add_liq').click()
+    cy.getByTestID('text_add_amount').contains(`${oldAmount} DFI-BTC`)
+    cy.getByTestID('a_amount_unit').contains('DFI')
+    cy.getByTestID('a_amount').contains(oldAmount)
+    cy.getByTestID('b_amount_unit').contains('BTC')
+    cy.getByTestID('b_amount').contains(oldAmount)
+    cy.getByTestID('percentage_pool').contains('0.50000000%')
+    cy.getByTestID('text_fee').should('exist')
+    cy.getByTestID('button_confirm_add').click().wait(3000)
+    // Check for authorization page description
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Adding ${new BigNumber(oldAmount).toFixed(8)} DFI - ${new BigNumber(oldAmount).toFixed(8)} BTC`)
+    // Cancel send on authorisation page
+    cy.getByTestID('cancel_authorization').contains('CANCEL').click()
+    cy.getByTestID('button_cancel_add').click()
+    // Update the input amount
+    cy.getByTestID('token_input_primary').clear().type(newAmount)
+    cy.getByTestID('button_continue_add_liq').click()
+    cy.getByTestID('text_add_amount').contains(`${newAmount} DFI-BTC`)
+    cy.getByTestID('a_amount_unit').contains('DFI')
+    cy.getByTestID('a_amount').contains(newAmount)
+    cy.getByTestID('b_amount_unit').contains('BTC')
+    cy.getByTestID('b_amount').contains(newAmount)
+    cy.getByTestID('percentage_pool').contains('1.00000000%')
+    cy.getByTestID('text_fee').should('exist')
+    cy.getByTestID('button_confirm_add').click().wait(3000)
+    // Check for authorization page description
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Adding ${new BigNumber(newAmount).toFixed(8)} DFI - ${new BigNumber(newAmount).toFixed(8)} BTC`)
+    cy.closeOceanInterface()
   })
 })

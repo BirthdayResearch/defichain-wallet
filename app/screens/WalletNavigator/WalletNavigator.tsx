@@ -1,10 +1,12 @@
 import { LinkingOptions, NavigationContainer, NavigationContainerRef } from '@react-navigation/native'
+import { Theme } from '@react-navigation/native/lib/typescript/src/types'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as Linking from 'expo-linking'
 import * as React from 'react'
 import { HeaderFont } from '../../components'
 import { HeaderTitle } from '../../components/HeaderTitle'
-import { DeFiChainTheme } from '../../constants/Theme'
+import { getDefaultTheme } from '../../constants/Theme'
+import { useThemeContext } from '../../contexts/ThemeProvider'
 import { translate } from '../../translations'
 import { CreateMnemonicWallet } from './screens/CreateWallet/CreateMnemonicWallet'
 import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
@@ -57,69 +59,84 @@ const LinkingConfiguration: LinkingOptions<ReactNavigation.RootParamList> = {
 }
 
 export function WalletNavigator (): JSX.Element {
+  const { isLight } = useThemeContext()
   const navigationRef = React.useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null)
-
+  const DeFiChainTheme: Theme = getDefaultTheme(isLight)
   return (
-    <NavigationContainer linking={LinkingConfiguration} ref={navigationRef} theme={DeFiChainTheme}>
-      <WalletStack.Navigator initialRouteName='Setup' screenOptions={{ headerTitleStyle: HeaderFont }}>
+    <NavigationContainer
+      linking={LinkingConfiguration}
+      ref={navigationRef}
+      theme={DeFiChainTheme}
+    >
+      <WalletStack.Navigator
+        initialRouteName='Setup'
+        screenOptions={{ headerTitleStyle: HeaderFont }}
+      >
         <WalletStack.Screen
-          name='Onboarding'
           component={Onboarding}
+          name='Onboarding'
           options={{
             headerShown: false
           }}
         />
+
         <WalletStack.Screen
-          name='CreateWalletGuidelines'
           component={CreateWalletGuidelines}
+          name='CreateWalletGuidelines'
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Guidelines')} />,
             headerBackTitleVisible: false
           }}
         />
+
         <WalletStack.Screen
-          name='GuidelinesRecoveryWords'
           component={GuidelinesRecoveryWords}
+          name='GuidelinesRecoveryWords'
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Learn More')} />,
             headerBackTitleVisible: false
           }}
         />
+
         <WalletStack.Screen
-          name='CreateMnemonicWallet'
           component={CreateMnemonicWallet}
+          name='CreateMnemonicWallet'
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Display recovery words')} />,
             headerBackTitleVisible: false
           }}
         />
+
         <WalletStack.Screen
-          name='VerifyMnemonicWallet'
           component={VerifyMnemonicWallet}
+          name='VerifyMnemonicWallet'
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Verify words')} />,
             headerBackTitleVisible: false
           }}
         />
+
         <WalletStack.Screen
-          name='RestoreMnemonicWallet'
           component={RestoreMnemonicWallet}
+          name='RestoreMnemonicWallet'
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Restore Wallet')} />,
             headerBackTitleVisible: false
           }}
         />
+
         <WalletStack.Screen
-          name='PinCreation'
           component={PinCreation}
+          name='PinCreation'
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Create a passcode')} />,
             headerBackTitleVisible: false
           }}
         />
+
         <WalletStack.Screen
-          name='PinConfirmation'
           component={PinConfirmation}
+          name='PinConfirmation'
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Verify passcode')} />,
             headerBackTitleVisible: false

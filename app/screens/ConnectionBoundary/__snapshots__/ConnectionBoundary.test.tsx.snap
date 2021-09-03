@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`offline screen should match snapshot when offline 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "justifyContent": "center",
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+      Object {
+        "backgroundColor": "rgba(245, 245, 245, 1)",
+      },
+    ]
+  }
+  testID="connection_error"
+>
+  <Text />
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Array [
+          Object {
+            "fontFamily": "SemiBoldFont",
+            "fontSize": 24,
+            "fontWeight": "600",
+            "lineHeight": 32,
+            "paddingBottom": 8,
+            "textAlign": "center",
+          },
+          Object {
+            "color": "rgba(0, 0, 0, 1)",
+          },
+        ],
+      ]
+    }
+  >
+    Network error
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Array [
+          Object {
+            "fontSize": 14,
+            "lineHeight": 20,
+            "opacity": 0.6,
+            "paddingBottom": 64,
+            "textAlign": "center",
+          },
+          Object {
+            "color": "rgba(0, 0, 0, 1)",
+          },
+        ],
+      ]
+    }
+  >
+    Please check your internet connection and try again
+  </Text>
+</View>
+`;
+
+exports[`offline screen should return null when online 1`] = `
+<Text>
+  Child Component
+</Text>
+`;

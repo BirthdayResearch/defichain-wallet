@@ -1,17 +1,18 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { fireEvent, render } from "@testing-library/react-native"
+import { configureStore } from '@reduxjs/toolkit'
+import { fireEvent, render } from '@testing-library/react-native'
 import * as React from 'react'
-import { Provider } from "react-redux";
-import { RootState } from "../../../../store";
-import { wallet } from "../../../../store/wallet";
-import { BalancesScreen } from "./BalancesScreen";
+import { Provider } from 'react-redux'
+import { RootState } from '../../../../store'
+import { wallet } from '../../../../store/wallet'
+import { BalancesScreen } from './BalancesScreen'
 
 jest.mock('@react-navigation/bottom-tabs', () => ({
   useBottomTabBarHeight: () => 49
 }))
 jest.mock('randomcolor', () => jest.fn().mockReturnValue('#ffffff'))
+jest.mock('../../../../contexts/ThemeProvider')
 
-jest.mock("../../../../hooks/wallet/TokensAPI", () => ({
+jest.mock('../../../../hooks/wallet/TokensAPI', () => ({
   useTokensAPI: () => [{
     id: '0',
     symbol: 'DFI',
@@ -29,32 +30,32 @@ jest.mock("../../../../hooks/wallet/TokensAPI", () => ({
     amount: '777',
     name: 'Bitcoin'
   },
-    {
-      id: '2',
-      symbol: 'ETH',
-      symbolKey: 'ETH',
-      isDAT: true,
-      isLPS: false,
-      amount: '555',
-      name: 'Ethereum'
-    }]
-}));
+  {
+    id: '2',
+    symbol: 'ETH',
+    symbolKey: 'ETH',
+    isDAT: true,
+    isLPS: false,
+    amount: '555',
+    name: 'Ethereum'
+  }]
+}))
 
-jest.mock("../../../../contexts/WalletContext", () => ({
+jest.mock('../../../../contexts/WalletContext', () => ({
   useWalletContext: () => {
     return {
       address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d'
     }
   }
-}));
+}))
 
-jest.mock("../../../../contexts/WalletPersistenceContext", () => ({
+jest.mock('../../../../contexts/WalletPersistenceContext', () => ({
   useWalletPersistenceContext: () => {
     return {
       wallets: []
     }
   }
-}));
+}))
 
 describe('balances page', () => {
   it('should match snapshot', async () => {
@@ -63,25 +64,28 @@ describe('balances page', () => {
         utxoBalance: '77',
         tokens: []
       }
-    };
+    }
     const store = configureStore({
       preloadedState: initialState,
       reducer: { wallet: wallet.reducer }
     })
     const navigation: any = {
-      navigate: jest.fn(),
+      navigate: jest.fn()
     }
     const route: any = {}
     const component = (
       <Provider store={store}>
-        <BalancesScreen navigation={navigation} route={route} />
+        <BalancesScreen
+          navigation={navigation}
+          route={route}
+        />
       </Provider>
-    );
+    )
     const rendered = render(component)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 
-  /*it.skip('should display navigation buttons', async () => {
+  /* it.skip('should display navigation buttons', async () => {
     const initialState: Partial<RootState> = {
       wallet: {
         utxoBalance: '77',
@@ -106,7 +110,7 @@ describe('balances page', () => {
     const receiveButton = await rendered.findByTestId('button_RECEIVE')
     fireEvent.press(receiveButton)
     expect(spy).toHaveBeenCalled()
-  })*/
+  }) */
 
   it('should navigate to token detail page', async () => {
     const initialState: Partial<RootState> = {
@@ -114,25 +118,27 @@ describe('balances page', () => {
         utxoBalance: '77',
         tokens: []
       }
-    };
+    }
     const store = configureStore({
       preloadedState: initialState,
       reducer: { wallet: wallet.reducer }
     })
     const navigation: any = {
-      navigate: jest.fn(),
+      navigate: jest.fn()
     }
     const route: any = {}
     const spy = jest.spyOn(navigation, 'navigate')
     const component = (
       <Provider store={store}>
-        <BalancesScreen navigation={navigation} route={route} />
+        <BalancesScreen
+          navigation={navigation}
+          route={route}
+        />
       </Provider>
-    );
+    )
     const rendered = render(component)
     const receiveButton = await rendered.findByTestId('balances_row_0')
     fireEvent.press(receiveButton)
     expect(spy).toHaveBeenCalled()
   })
 })
-

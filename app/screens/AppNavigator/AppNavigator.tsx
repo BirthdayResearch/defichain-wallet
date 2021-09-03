@@ -1,8 +1,10 @@
 import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
+import { Theme } from '@react-navigation/native/lib/typescript/src/types'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as Linking from 'expo-linking'
 import * as React from 'react'
-import { DeFiChainTheme } from '../../constants/Theme'
+import { getDefaultTheme } from '../../constants/Theme'
+import { useThemeContext } from '../../contexts/ThemeProvider'
 import { PlaygroundNavigator } from '../PlaygroundNavigator/PlaygroundNavigator'
 import { AppLinking, BottomTabNavigator } from './BottomTabNavigator'
 
@@ -17,11 +19,23 @@ export interface AppParamList {
 }
 
 export function AppNavigator (): JSX.Element {
+  const { isLight } = useThemeContext()
+  const DeFiChainTheme: Theme = getDefaultTheme(isLight)
   return (
-    <NavigationContainer linking={LinkingConfiguration} theme={DeFiChainTheme}>
+    <NavigationContainer
+      linking={LinkingConfiguration}
+      theme={DeFiChainTheme}
+    >
       <App.Navigator screenOptions={{ headerShown: false }}>
-        <App.Screen name='App' component={BottomTabNavigator} />
-        <App.Screen name='Playground' component={PlaygroundNavigator} />
+        <App.Screen
+          component={BottomTabNavigator}
+          name='App'
+        />
+
+        <App.Screen
+          component={PlaygroundNavigator}
+          name='Playground'
+        />
       </App.Navigator>
     </NavigationContainer>
   )

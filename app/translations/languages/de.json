@@ -1,8 +1,354 @@
 {
+  "screens/WalletNavigator": {
+    "Guidelines": "Richtlinien",
+    "Learn More": "Erfahre mehr",
+    "Display recovery words": "Zeige Wiederherstellungssatz an",
+    "Verify words": "Bestätige die Worte",
+    "Restore Wallet": "Stelle die Wallet wieder her",
+    "Create a passcode": "Erstelle ein Passwort",
+    "Verify passcode": "Bestätige das Passwort"
+  },
+  "screens/DexScreen": {
+    "Decentralized Exchange": "Dezentrale Börse",
+    "Add Liquidity": "Liquidität hinzufügen",
+    "Remove Liquidity": "Liquidität entfernen",
+    "Confirm removal": "Bestätige die Rücknahme",
+    "Confirm swap": "Bestätige den Umtausch",
+    "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Wähle eines der folgenden Handelspaare aus, füge somit der dezentralen Börse (DEX) Liquidität hinzu und erhalte umgehend Gebühren und Gewinnausschüttungen von jährlich bis zu 100%.",
+    "YOUR LIQUIDITY": "VON DIR BEREITGESTELLTE LIQUIDITÄT",
+    "AVAILABLE POOL PAIR": "VERFÜGBARES LIQUIDITY POOL-HANDELSPAAR",
+    "Pooled {{symbol}}": "Im Pool {{symbol}}"
+  },
+  "screens/BalancesScreen": {
+    "Balances": "Guthaben",
+    "RECEIVE": "EMPFANGEN",
+    "BALANCE DETAILS": "DETAILS GUTHABEN"
+  },
+  "screens/ReceiveScreen": {
+    "Receive": "Empfangen",
+    "Use this address to receive DFI or any DST": "Verwende diese Adresse, um DFI oder DST zu empfangen",
+    "Copied to Clipboard": "In die Zwischenablage kopiert",
+    "COPY TO CLIPBOARD": "IN DIE ZWISCHENABLAGE KOPIEREN",
+    "SHARE": "TEILEN"
+  },
+  "screens/SendScreen": {
+    "Send": "Senden",
+    "Estimated fee": "Geschätzte Gebühr",
+    "CONTINUE": "FORTSETZEN",
+    "TO ADDRESS": "AN ADRESSE",
+    "Enter an address": "Gib eine Adresse ein",
+    "Enter an amount": "Gib eine Menge ein",
+    "Balance: ": "Guthaben: "
+  },
+  "screens/SendConfirmationScreen": {
+    "Confirm Send": "Senden bestätigen",
+    "YOU ARE SENDING": "DU SENDEST",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "Address": "Adresse",
+    "Network": "Netzwerk",
+    "Amount": "Menge",
+    "Estimated fee": "Geschätzte Gebühr",
+    "Remaining balance": "Verbleibendes Guthaben",
+    "SEND": "SENDEN",
+    "Sending": "Senden",
+    "Sending {{amount}} {{symbol}}": "Sende {{amount}} {{symbol}}"
+  },
+  "screens/ConvertScreen": {
+    "Convert DFI": "Wandle DFI um",
+    "Scan recipient QR": "QR-Code des Empfängers scannen",
+    "Balance": "Guthaben",
+    "Enter an amount": "Betrag eingeben",
+    "UTXO vs Token, what is the difference?": "UXTO ggü. Token, worin liegt der Unterschied?",
+    "CONVERT {{symbol}}": "UMWANDELN {{symbol}}",
+    "TO {{symbol}}": "IN {{symbol}}"
+  },
+  "screens/ConvertConfirmScreen": {
+    "Confirm DFI Conversion": "Bestätige DFI Konvertierung",
+    "YOU ARE CONVERTING": "DU WANDELST UM",
+    "AFTER CONVERSION, YOU WILL HAVE:": "NACH DER KONVERTIERUNG ERHÄLTST DU:",
+    "Estimated fee": "Geschätzte Gebühr",
+    "CONVERT": "UMWANDELN",
+    "Converting DFI": "Konvertieren von DFI",
+    "Converting {{amount}} {{symbolA}} to {{symbolB}}": "Wandle {{amount}} {{symbolA}} in {{symbolB}} um"
+  },
+  "screens/SettingsNavigator": {
+    "Settings": "Einstellungen"
+  },
+  "screens/CommunityScreen": {
+    "Community": "Community",
+    "CONNECT WITH THE COMMUNITY:": "VERBINDE DICH MIT DER COMMUNITY:",
+    "DeFiChain is a community-driven and open project.": "DeFiChain ist ein offenes Gemeinschaftsprojekt.",
+    "The DeFiChain Foundation does not provide direct support.": "Das Gründungskonsortium der DeFiChain stellt keinen direkten Support zur Verfügung.",
+    "Report an issue on Github": "Erstelle ein Thema auf Github",
+    "Frequently Asked Questions": " Häufig gestellte Fragen",
+    "Announcements": "Bekanntgaben",
+    "Official Website": "Offizielle Webseite"
+  },
+  "screens/Settings": {
+    "Recovery Words": "Wiederherstellungssatz",
+    "Are you sure you want to unlink your wallet?": "Möchtest du wirklich deine Wallet abmelden?",
+    "You will need to use your recovery words the next time you want to get back to your wallet.": "Möchtest du dann das nächste Mal deine Wallet aufrufen, wird es notwendig sein, deinen Wiederherstellungssatz einzugeben.",
+    "Cancel": "Abbrechen",
+    "Unlink Wallet": "Wallet abmelden",
+    "UNLINK WALLET": "WALLET ABMELDEN",
+    "Change Passcode": "Passwort ändern",
+    "About": "Über",
+    "NETWORK": "NETZWERK",
+    "To update your passcode, we need you to enter your current passcode.": "Um dein Passwort zu ändern ist das bisherige Passwort einzugeben.",
+    "Verifying passcode...": "Passwort bestätigen...",
+    "To continue viewing your recovery words, we need you to enter your passcode.": "Um erneut deinen Wiederherstellungssatz anzuzeigen, Passwort eingeben.",
+    "Loading...": "Lädt...",
+    "Network Switch": "Netzwerk wechseln",
+    "No": "Nein",
+    "Yes": "Ja",
+    "You are about to switch to {{network}}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?": "Du wechselst zu {{network}}. Falls es in diesem Netzwerk keine Wallet gibt, wirst du zum Startbildschirm zurück geleitet. Möchtest du fortfahren?",
+    "Theme": "Thema"
+  },
+  "screens/AboutScreen": {
+    "About": "Über",
+    "Create new passcode": "Erstelle neues Passwort",
+    "Verify passcode": "Bestätige Passwort",
+    "LINKS": "LINKS",
+    "White Paper": "White Paper",
+    "Privacy Policy": "Datenschutz",
+    "Licenses": "Benutzungsrechte"
+  },
+  "screens/NetworkSelectionScreen": {
+    "NETWORK": "NETZWERK",
+    "Select network": "Netzwerkauswahl"
+  },
+  "screens/TransactionsScreen": {
+    "Transactions": "Transaktionen",
+    "No transactions yet": "Noch keine Transaktionen",
+    "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "Beginne, mit deiner Wallet Transaktionen auszuführen. Alle ausgeführten UXTO Transaktionen werden hier angezeigt. Weitere Transaktionstypen werden noch nicht unterstützt.",
+    "RECEIVE COINS": "EMPFANGE COINS",
+    "LOAD MORE": "WEITERE LADEN"
+  },
+  "screens/TransactionDetailScreen": {
+    "Type": "Typ",
+    "Amount": "Betrag",
+    "Block": "Block",
+    "Date": "Datum"
+  },
+  "screens/TransactionsDetailScreen": {
+    "Transactions": "Transaktionen"
+  },
+  "screens/TokenDetailScreen": {
+    "AMOUNT BALANCE": "Guthabenbetrag",
+    "AVAILABLE OPTIONS": "VERFÜGBARE OPTIONEN",
+    "Send to other wallet": "An andere Wallet senden",
+    "Receive": "Empfange",
+    "Convert to {{symbol}}": "Umwandeln in {{symbol}}"
+  },
+  "screens/TokensVsUtxoScreen": {
+    "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "DFI existiert in zwei Formen - UTXO und Token, die je nach Verwendung austauschbar sind. Mit der App kannst du leicht zwischen den beiden Arten wechseln.",
+    "UTXO DFI is the main form DFI and is used for core cryptocurrency purposes like send, receive and fees. DFI tokens are used for DeFi functions such as swaps and liquidity mining.": "UTXO DFI ist das primäre DFI-Format und wird für zentrale Kryptowährungszwecke wie Senden, Empfangen und Gebühren verwendet. DFI-Token werden für DeFi-Funktionen wie Tauschgeschäfte und Liquiditätsmining verwendet.",
+    "Your DFI balance includes both UTXO and tokens.": "Dein DFI-Guthaben umfasst sowohl UTXO als auch Token.",
+    "Core crypto services": "Zentrale Kryptodienste",
+    "Send to other wallets": "An andere Wallets senden",
+    "Receive tokens": "Token empfangen",
+    "Service fees": "Servicegebühr",
+    "DeFi services": "DeFi-Dienste",
+    "Liquidity mining": "Liquiditätsmining",
+    "Atomic Swaps": "Atomic Swaps"
+  },
+  "screens/Onboarding": {
+    "CREATE A WALLET": "EINE WALLET ERSTELLEN",
+    "RESTORE WALLET": "WALLET WIEDERHERSTELLEN"
+  },
+  "screens/OnboardingCarousel": {
+    "Native DeFi for Bitcoin": "Natives DeFi für Bitcoin",
+    "Take full control": "Übernimm volle Kontrolle",
+    "of your digital assets": "über deine digitalen Vermögenswerte",
+    "Nobody owns your keys and wallet except you.": "Niemand, außer dir, besitzt deine Schlüssel und dein Wallet.",
+    "Unlock the highest": "Erschließe das höchste",
+    "potential of your finances": "Potenzial deiner Finanzen",
+    "Transact, liquidity mine, swap and many more features as a fully-decentralized wallet": "Transferieren, Liquiditätsmining, Tauschgeschäfte und viele weitere Funktionen als vollständig dezentralisierte Wallet",
+    "Earn high yields": "Erwirtschafte hohe Rendite",
+    "of up to 90% with DEX": "von bis zu 90% mit der DEX",
+    "Supply liquidity to BTC, ETH, and many other pool pairs. You can also withdraw anytime!": "Liefere Liquidität für BTC, ETH und viele andere Pool-Paare. Du kannst sie auch jederzeit wieder abheben!"
+  },
+  "screens/CreateMnemonicWallet": {
+    "Exit screen": "Ansicht verlassen",
+    "If you leave this screen, you will be provided with a new set of 24 recovery words. Do you want to proceed?": "Wenn du diese Ansicht verlässt, wird ein neuer 24 Worte - Wiederherstellungsschlüssel generiert. Möchtest du fortfahren?",
+    "Cancel": "Abbrechen",
+    "Yes": "Ja",
+    "Take note of the words in their correct order": "Notiere die Worte in der korrekten Reihenfolge",
+    "VERIFY WORDS": "BESTÄTIGE DIE WORTE"
+  },
+  "screens/Guidelines": {
+    "Creating a wallet": "Erstellen einer Wallet",
+    "Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.": "Bevor du eine Wallet erstellt hast, sieht du zunächst 24 Worte. Behalte sie für dich und bewahre sie sicher auf.",
+    "Learn more about recovery words": "Erfahre mehr über den Wiederherstellungssatz",
+    "I understand it is my responsibility to keep my recovery words secure, and losing them will result in the irrecoverable loss of my wallet funds.": "Ich verstehe, dass die Verantwortung, meinen Wiederherstellungssatz, die Seed Phrase sicher aufzubewahren, bei mir liegt. Der Verlust dieses Schlüssels hat den unwiederbringlichen Verlust der Guthaben auf dieser Wallet zur Folge.",
+    "SHOW MY 24 RECOVERY WORDS": "ZEIGE 24 WIEDERHERSTELLUNGSWORTE AN",
+    "Write the words on paper": "Schreibe die Wörter auf Papier",
+    "Take note of their correct spelling and correct order.": "Achte dabei auf die korrekte Schreibweise und die richtige Reihenfolge.",
+    "Secure them in a safe space": "Verstaue sie an einem sicheren Platz",
+    "Store them offline and in a safe place.": "Bewahre sie offline und an einem geschützten Ort auf.",
+    "Keep them private": "Behalte sie für dich",
+    "Don’t share to anyone. Keep the recovery words only to yourself.": "Teile sie niemandem mit. Nur du solltest den Wiederherstellungsatz kennen."
+  },
+  "screens/GuidelinesRecoveryWords": {
+    "What are recovery words?": "Was ist der Wiederherstellungssatz (Seed Phrase)?",
+    "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard.": "Deine einmaligen 24 Worte des Wiederherstellungsschlüssels sind eine visuell lesbare Darstellung des privaten Schlüssels deiner Wallet. Diese wurden aus einer Sammlung von 2048 Worten im BIP-39 Standard erstellt.",
+    "You will need your recovery words to restore your wallet on, for example, a new mobile device. Think of them as keys to your wallet and funds.": "Den Wiederherstellungssatz brauchst du, um z.B. deine Wallet auf einem neuen Mobilgerät wiederherzustellen. Betrachte sie als den Schlüssel zu deiner Wallet und deinen Guthaben darauf.",
+    "If you lose your recovery words, you will not be able to restore your wallet, and you will lose access to your wallet and funds.": "Falls du den Wiederherstellungssatz verlierst, wird es nicht möglich sein, deine Wallet wiederherzustellen und der Zugang zu deiner Wallet und den Guthaben ist nicht mehr möglich.",
+    "It is important that you write down your recovery words legibly and in the correct order. Store your recovery words safely and securely, away from prying eyes. You may want to think about keeping it safe from fire as well.": "Es ist wichtig, dass du die Wörter zur Wiederherstellung deutlich lesbar in der exakten Reihenfolge notierst.  Bewahre den Wiederherstellungssatz sicher auf, vor fremden Blicken geschützt. Ein feuerfester Wandtresor kann hierbei durchaus Sinn machen."
+  },
+  "screens/PinConfirmation": {
+    "It may take a few seconds to securely encrypt your wallet...": "Es kann ein paar Sekunden dauern bis deine Wallet sicher verschlüsselt ist...",
+    "Enter your passcode again to verify": " Erneute Passworteingabe zur Bestätigung",
+    "Wrong passcode entered": "Passwort fehlerhaft",
+    "Wallet Unlinked": "Wallet nicht verknüpft",
+    "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.": "Deine Walletverknüpfung wurde aus Sicherheitsgründen wegen mehrmaliger fehlerhafter Passworteingabe aufgehoben. Bitte nutze den Wiederherstellungssatz, um die Wallet wiederherzustellen und zu öffnen.",
+    "Close": "Schließen",
+    "Last attempt or your wallet will be unlinked for your security": "Letzter Versuch, bevor deine Walletverknüpfung aufgehoben wird",
+    "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "Passwort fehlerhaft. {{attemptsRemaining}} verbleibende Versuche",
+    "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} verbleibende Versuche"
+  },
+  "screens/PinCreation": {
+    "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "Erfolgreich! Die Wallet ist erstellt. Schütze sie vor fremden Einblicken und sichere die Wallet, indem du jetzt ein Passwort erstellst.",
+    "Well done! Your wallet is restored. Keep your wallet private and secure by creating a passcode for it.": "Erfolgreich! Deine Wallet ist wiederhergestellt. Schütze sie vor fremden Einblicken und sichere die Wallet, indem du jetzt ein Passwort erstellst.",
+    "Keep your passcode private": "Behalte dein Passwort für dich",
+    "CREATE PASSCODE": "PASSWORT ERSTELLEN",
+    "CHANGE PASSCODE": "PASSWORT ÄNDERN"
+  },
+  "screens/VerifyMnemonicWallet": {
+    "Invalid selection. Please ensure you have written down your 24 words.": "Auswahl ungültig. Bitte versichere dich, dass du die 24 Wörter notiert hast.",
+    "Go back": "Zurück",
+    "Verify what you wrote as correct.": "Bestätige die Eingabe.",
+    "Answer the questions to proceed.": "Um fortzufahren, beantworte folgende Fragen.",
+    "VERIFY": "BESTÄTIGE",
+    "What is word ": "Wie lautet das Wort "
+  },
+  "screens/RestoreWallet": {
+    "Discard changes?": "Veränderungen verwerfen?",
+    "You have unsaved changes. Are you sure to discard them and leave the screen?": "Du hast ungesicherte Eingaben. Möchtest du sie wirklich verwerfen und die Ansicht verlassen?",
+    "Error": "Fehler",
+    "The recovery words you have entered are invalid. Please double check and try again.": "Der Wiederherstellungssatz, den du eingegeben hast, ist ungültig. Bitte überprüfe und versuche es erneut.",
+    "Please provide your 24 recovery words to regain access to your wallet.": "Bitte füge die 24 Worte deines Wiederherstellungssatzes ein, um wieder Zugang zu deiner Wallet zu erlangen.",
+    "ENTER THE CORRECT WORD": "FÜGE DAS RICHTIGE WORT EIN",
+    "RESTORE WALLET": "WALLET WIEDERHERSTELLEN"
+  },
+  "screens/ErrorBoundary": {
+    "Something went wrong": "Etwas ging schief",
+    "The app ran into a problem and could not recover. Please restart your application.": "Die App hatte ein Problem und konnte nicht wiederhergestellt werden. Bitte starte die Anwendung erneut."
+  },
+  "screens/ConnectionBoundary": {
+    "Network error": "Netzwerk Fehler",
+    "Please check your internet connection and try again": "Bitte überprüfe deine Internetverbindung und versuche es erneut"
+  },
   "BottomTabNavigator": {
     "Balances": "Guthaben",
     "Liquidity": "Liquidität",
     "Transactions": "Transaktionen",
     "Settings": "Einstellungen"
+  },
+  "screens/OceanInterface": {
+    "Waiting for confirmation": "Warte auf Bestätigung",
+    "Transaction Completed": "Transaktion ausgeführt",
+    "Sent but not confirmed": "Gesendet aber nicht bestätigt",
+    "Broadcasting...": "Übertrage...",
+    "OK": "OK",
+    "Insufficient UTXO DFI": "Nicht ausreichend UTXO DFI",
+    "Not enough balance": "Guthaben zu niedrig",
+    "Price is higher than indicated": "Preis höher als angezeigt"
+  },
+  "components/BarCodeScanner": {
+    "Requesting for camera permission": "Kameranutzung erlauben",
+    "You have denied the permission request to use your camera": "Du hast der Kameranutzung nicht zugestimmt"
+  },
+  "components/max": {
+    "HALF": "1/2",
+    "MAX": "MAX"
+  },
+  "screens/common": {
+    "CANCEL": "ABBRECHEN"
+  },
+  "screens/ChangePinScreen": {
+    "Create new passcode for your wallet": "Erstelle neues Passwort für deine Wallet"
+  },
+  "screens/RecoveryWordsScreen": {
+    "Keep your recovery words safe and private": "Sichere deinen Wiederherstellungssatz und bewahre ihn sicher auf"
+  },
+  "screens/AddLiquidity": {
+    "Enter an amount": "Betrag eingeben",
+    "Balance": "Guthaben",
+    "per": "pro",
+    "Share of pool": "Anteil am Gesamtpool",
+    "Pooled": "Im Pool",
+    "Price": "Preis"
+  },
+  "screens/ConfirmAddLiq": {
+    "YOU ARE ADDING": "DU FÜGST HINZU",
+    "AMOUNT TO SUPPLY": "FÜGE SUMME HINZU",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
+    "Price": "Preis",
+    "Share of pool": "Anteil am Gesamtpool",
+    "Estimated fee": "Geschätzte Gebühr",
+    "ADD": "HINZUFÜGEN",
+    "Adding Liquidity": "Füge Liquidität hinzu",
+    "Pooled {{symbol}}": "Im Pool {{symbol}}",
+    "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "Füge {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} hinzu"
+  },
+  "screens/ConfirmRemoveLiquidity": {
+    "YOU ARE REMOVING": "DU ENTFERNST",
+    "ESTIMATED AMOUNT TO RECEIVE": "GESCHÄTZTER ZU ERHALTENDER BETRAG",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
+    "Price": "Preis",
+    "Estimated fee": "Geschätzte Gebühr",
+    "REMOVE": "ENTFERNEN"
+  },
+  "screens/RemoveLiquidity": {
+    "Removing Liquidity": "Entferne Liquidität",
+    "Amount to remove": "Zu entfernender Betrag",
+    "Enter an amount ": "Gib einen Betrag an ",
+    "YOU ARE REMOVING": "DU ENTFERNST",
+    "Price": "Preis",
+    "Removing {{amount}} {{symbol}}":"Entferne {{amount}} {{symbol}}"
+  },
+  "components/slider": {
+    "None": "Keine",
+    "All": "Alle"
+  },
+  "components/Button": {
+    "CONTINUE": "FORTFAHREN"
+  },
+  "screens/SlippageTolerance": {
+    "SLIPPAGE TOLERANCE": "SLIPPAGE TOLERANZ"
+  },
+  "screens/PoolSwapScreen": {
+    "SWAP": "TAUSCH",
+    "TO": "GEGEN",
+    "CONTINUE": "FORTFAHREN",
+    "Enter an amount": "Gib eine Menge ein",
+    "Price": "Preis",
+    "Estimated to receive": "Vorraussichtlich wird empfangen",
+    "Balance: ": "Guthaben: "
+  },
+  "screens/PoolSwapConfirmScreen": {
+    "YOU ARE SWAPPING": "DU TAUSCHST",
+    "ESTIMATED BALANCE AFTER SWAP": "GESCHÄTZTES GUTHABEN NACH DEM TAUSCH",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
+    "Slippage Tolerance": "Slippage Toleranz",
+    "Estimated fee": "Geschätzte Gebühr",
+    "SWAP": "TAUSCH",
+    "Swapping Token": "Tausche Token",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}"
+  },
+  "screens/UnlockWallet": {
+    "Enter passcode": "Passworteingabe",
+    "CANCEL": "ABBRECHEN",
+    "Please enter passcode to securely sign your transaction": "Gib bitte das Passwort ein, um die Transaktion freizugeben"
+  },
+  "screens/TransactionAuthorization": {
+    "Signing...": "Freigabe läuft..."
+  },
+  "components/CreateWalletIndicator": {
+    "Recovery": "Stelle wieder her",
+    "Verify": "Bestätige",
+    "Secure": "Sichere",
+    "Restore": "Stelle wieder her"
   }
 }

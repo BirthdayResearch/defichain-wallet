@@ -1,10 +1,10 @@
-import { MaterialIcons } from '@expo/vector-icons'
 import * as Clipboard from 'expo-clipboard'
 import React, { useState } from 'react'
 import { Share, TouchableOpacity, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 import { Logging } from '../../../../../api'
-import { Text } from '../../../../../components'
+import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '../../../../../components/themed'
+import { useThemeContext } from '../../../../../contexts/ThemeProvider'
 import { useWalletContext } from '../../../../../contexts/WalletContext'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
@@ -20,6 +20,7 @@ export async function onShare (address: string): Promise<void> {
 }
 
 export function ReceiveScreen (): JSX.Element {
+  const { isLight } = useThemeContext()
   const { address } = useWalletContext()
   const [isCopied, setIsCopied] = useState<boolean>(false)
 
@@ -28,78 +29,133 @@ export function ReceiveScreen (): JSX.Element {
   }
 
   return (
-    <View
-      testID='receive_screen'
+    <ThemedView
       style={tailwind('flex flex-1 w-full relative')}
+      testID='receive_screen'
     >
-      <Text
+      <ThemedText
         style={tailwind('p-4 font-medium')}
-      >{translate('screens/ReceiveScreen', 'Use this address to receive DFI or any DST')}
-      </Text>
-      <View style={tailwind('bg-white flex justify-center items-center p-5')}>
-        <View testID='qr_code_container' style={tailwind('mb-5')}>
+      >
+        {translate('screens/ReceiveScreen', 'Use this address to receive DFI or any DST')}
+      </ThemedText>
+
+      <ThemedView
+        dark={tailwind('bg-gray-800')}
+        light={tailwind('bg-white')}
+        style={tailwind('flex justify-center items-center p-5')}
+      >
+        <View
+          style={tailwind('mb-5')}
+          testID='qr_code_container'
+        >
           <QRCode
-            value={address}
+            backgroundColor={isLight ? 'white' : 'black'}
+            color={isLight ? 'black' : 'white'}
             size={200}
+            value={address}
           />
         </View>
-        <Text
-          selectable
-          testID='address_text'
-          style={tailwind('text-gray-500 font-medium text-center')}
+
+        <ThemedText
+          dark={tailwind('text-gray-100')}
+          light={tailwind('text-gray-500')}
           numberOfLines={2}
-        >{address}
-        </Text>
-      </View>
-      <View style={tailwind('bg-white flex flex-col p-4')}>
+          selectable
+          style={tailwind('font-medium text-center')}
+          testID='address_text'
+        >
+          {address}
+        </ThemedText>
+      </ThemedView>
+
+      <ThemedView
+        dark={tailwind('bg-gray-900')}
+        light={tailwind('bg-white')}
+        style={tailwind('flex flex-col p-4')}
+      >
         {
-          isCopied ? (
-            <View
-              style={tailwind('flex flex-grow flex-row justify-center text-center items-center border border-white border-opacity-0 p-3')}
-            >
-              <MaterialIcons name='check' size={20} style={tailwind('self-center text-success')} />
-              <Text
-                style={tailwind('ml-1 uppercase font-medium text-success')}
-              >{translate('screens/ReceiveScreen', 'Copied to Clipboard')}
-              </Text>
-            </View>
-          ) : (
-            <TouchableOpacity
-              testID='copy_button'
-              style={tailwind('flex flex-grow flex-row justify-center text-center items-center p-3 border border-gray-200')}
-              onPress={() => {
-                setIsCopied(true)
-                copyToClipboard(address)
-                setTimeout(() => {
-                  setIsCopied(false)
-                }, 1500)
-              }}
-            >
-              <MaterialIcons
-                style={tailwind('self-center text-primary')} name='content-copy' size={18}
-              />
-              <Text
-                style={tailwind('ml-2 uppercase font-medium text-primary')}
-              >{translate('screens/ReceiveScreen', 'COPY TO CLIPBOARD')}
-              </Text>
-            </TouchableOpacity>
-          )
+          isCopied
+            ? (
+              <ThemedView
+                style={tailwind('flex flex-grow flex-row justify-center text-center items-center border border-white border-opacity-0 p-3')}
+              >
+                <ThemedIcon
+                  dark={tailwind('text-darksuccess-500')}
+                  iconType='MaterialIcons'
+                  light={tailwind('text-success-500')}
+                  name='check'
+                  size={20}
+                  style={tailwind('self-center')}
+                />
+
+                <ThemedText
+                  dark={tailwind('text-darksuccess-500')}
+                  light={tailwind('text-success-500')}
+                  style={tailwind('ml-1 uppercase font-medium')}
+                >
+                  {translate('screens/ReceiveScreen', 'Copied to Clipboard')}
+                </ThemedText>
+              </ThemedView>
+              )
+            : (
+              <ThemedTouchableOpacity
+                dark={tailwind('border-gray-500')}
+                light={tailwind('border-gray-200')}
+                onPress={() => {
+                  setIsCopied(true)
+                  copyToClipboard(address)
+                  setTimeout(() => {
+                    setIsCopied(false)
+                  }, 1500)
+                }}
+                style={tailwind('flex flex-grow flex-row justify-center text-center items-center p-3 border')}
+                testID='copy_button'
+              >
+                <ThemedIcon
+                  dark={tailwind('text-darkprimary-500')}
+                  iconType='MaterialIcons'
+                  light={tailwind('text-primary-500')}
+                  name='content-copy'
+                  size={18}
+                  style={tailwind('self-center')}
+                />
+
+                <ThemedText
+                  dark={tailwind('text-darkprimary-500')}
+                  light={tailwind('text-primary-500')}
+                  style={tailwind('ml-2 uppercase font-medium')}
+                >
+                  {translate('screens/ReceiveScreen', 'COPY TO CLIPBOARD')}
+                </ThemedText>
+              </ThemedTouchableOpacity>
+              )
         }
+
         <TouchableOpacity
-          testID='share_button' style={tailwind('flex flex-row flex-grow justify-center items-center p-3 mt-2')}
           onPress={async () => {
             await onShare(address)
           }}
+          style={tailwind('flex flex-row flex-grow justify-center items-center p-3 mt-2')}
+          testID='share_button'
         >
-          <MaterialIcons
-            style={tailwind('self-center text-primary')} name='share' size={18}
+          <ThemedIcon
+            dark={tailwind('text-darkprimary-500')}
+            iconType='MaterialIcons'
+            light={tailwind('text-primary-500')}
+            name='share'
+            size={18}
+            style={tailwind('self-center')}
           />
-          <Text
-            style={tailwind('ml-2 uppercase font-medium text-primary')}
-          >{translate('screens/ReceiveScreen', 'SHARE')}
-          </Text>
+
+          <ThemedText
+            dark={tailwind('text-darkprimary-500')}
+            light={tailwind('text-primary-500')}
+            style={tailwind('ml-2 uppercase font-medium')}
+          >
+            {translate('screens/ReceiveScreen', 'SHARE')}
+          </ThemedText>
         </TouchableOpacity>
-      </View>
-    </View>
+      </ThemedView>
+    </ThemedView>
   )
 }

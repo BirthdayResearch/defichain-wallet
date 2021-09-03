@@ -10,7 +10,8 @@ export function Text (props: TextProps): JSX.Element {
   const { style, ...otherProps } = props
   return (
     <DefaultText
-      style={[tailwind('font-normal text-base'), style]} {...otherProps}
+      style={[tailwind('font-normal text-base'), style]}
+      {...otherProps}
     />
   )
 }

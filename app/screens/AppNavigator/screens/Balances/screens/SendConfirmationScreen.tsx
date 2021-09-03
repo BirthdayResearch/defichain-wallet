@@ -7,11 +7,14 @@ import { NavigationProp, StackActions, useNavigation } from '@react-navigation/n
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
-import { ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
-import { ConfirmTitle, NumberRow, SubmitButtonGroup, TextRow } from '../../../../../components/ConfirmComponents'
+import { NumberRow } from '../../../../../components/NumberRow'
 import { SectionTitle } from '../../../../../components/SectionTitle'
+import { SubmitButtonGroup } from '../../../../../components/SubmitButtonGroup'
+import { SummaryTitle } from '../../../../../components/SummaryTitle'
+import { TextRow } from '../../../../../components/TextRow'
+import { ThemedScrollView } from '../../../../../components/themed'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
@@ -81,31 +84,39 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   }, [JSON.stringify(tokens)])
 
   return (
-    <ScrollView style={tailwind('bg-gray-100 pb-4')}>
-      <ConfirmTitle
-        title={translate('screens/SendConfirmationScreen', 'YOU ARE SENDING')} testID='text_send_amount'
-        amount={amount} suffix={` ${token.symbol}`}
+    <ThemedScrollView style={tailwind('pb-4')}>
+      <SummaryTitle
+        amount={amount}
+        suffix={` ${token.symbol}`}
+        testID='text_send_amount'
+        title={translate('screens/SendConfirmationScreen', 'YOU ARE SENDING')}
       />
+
       <SectionTitle
-        text={translate('screens/SendConfirmationScreen', 'TRANSACTION DETAILS')}
         testID='title_transaction_detail'
+        text={translate('screens/SendConfirmationScreen', 'TRANSACTION DETAILS')}
       />
+
       <TextRow
         lhs={translate('screens/SendConfirmationScreen', 'Address')}
         rhs={{ value: destination, testID: 'text_destination' }}
       />
+
       <TextRow
         lhs={translate('screens/SendConfirmationScreen', 'Network')}
         rhs={{ value: network.network, testID: 'text_network' }}
       />
+
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Amount')}
         rightHandElements={[{ value: amount.toFixed(8), suffix: ` ${token.symbol}`, testID: 'text_amount' }]}
       />
+
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Estimated fee')}
         rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
       />
+
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Remaining balance')}
         rightHandElements={[{
@@ -114,12 +125,15 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
           testID: 'text_balance'
         }]}
       />
+
       <SubmitButtonGroup
-        onSubmit={onSubmit} onCancel={onCancel} title='send'
-        label={translate('screens/SendConfirmationScreen', 'SEND')}
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        label={translate('screens/SendConfirmationScreen', 'SEND')}
+        onCancel={onCancel}
+        onSubmit={onSubmit}
+        title='send'
       />
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 
@@ -145,6 +159,8 @@ async function send ({
 
       let signed: TransactionSegWit
       if (token.symbol === 'DFI') {
+        /* if (amount.gte(token.amount)) signed = await builder.utxo.sendAll(to)
+        else */
         signed = await builder.utxo.send(amount, to, script)
       } else {
         signed = await builder.account.accountToAccount({
@@ -157,8 +173,8 @@ async function send ({
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
-      title: `${translate('screens/SendScreen', 'Sending')} ${token.symbol}`,
-      description: `${translate('screens/SendScreen', `Sending ${amount.toFixed(8)} ${token.symbol}`)}`,
+      title: `${translate('screens/SendConfirmationScreen', 'Sending')} ${token.symbol}`,
+      description: translate('screens/SendConfirmationScreen', 'Sending {{amount}} {{symbol}}', { amount: amount.toFixed(8), symbol: token.symbol }),
       postAction
     }))
   } catch (e) {

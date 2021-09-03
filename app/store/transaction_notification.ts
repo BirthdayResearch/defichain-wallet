@@ -2,7 +2,7 @@ import { WhaleApiClient } from '@defichain/whale-api-client'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '.'
-import { Logging } from '../api'
+import { Logging } from '@api'
 
 type SubscriberCallback = (result: Transaction) => Promise<void>
 

@@ -1,11 +1,12 @@
 import React from 'react'
-import { Text } from './Text'
 import { tailwind } from '../tailwind'
+import { ThemedText } from './themed'
 
 export enum IconLabelScreenType {
   Balance,
   DEX
 }
+
 interface InputIconLabelProps {
   testID?: string
   label: string
@@ -14,7 +15,14 @@ interface InputIconLabelProps {
 
 export function InputIconLabel (props: InputIconLabelProps): JSX.Element {
   return (
-    <Text testID={props.testID} style={tailwind('ml-2 text-gray-500 text-right')}>{getSymbolLabel(props.label, props.screenType)}</Text>
+    <ThemedText
+      dark={tailwind('text-gray-400')}
+      light={tailwind('text-gray-500')}
+      style={tailwind('ml-2 text-right')}
+      testID={props.testID}
+    >
+      {getSymbolLabel(props.label, props.screenType)}
+    </ThemedText>
   )
 }
 

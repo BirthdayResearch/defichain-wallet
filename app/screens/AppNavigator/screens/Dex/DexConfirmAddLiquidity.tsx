@@ -6,12 +6,15 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Logging } from '../../../../api'
-import { ConfirmTitle, NumberRow, SubmitButtonGroup, TokenBalanceRow } from '../../../../components/ConfirmComponents'
+import { NumberRow } from '../../../../components/NumberRow'
 import { SectionTitle } from '../../../../components/SectionTitle'
+import { SubmitButtonGroup } from '../../../../components/SubmitButtonGroup'
+import { SummaryTitle } from '../../../../components/SummaryTitle'
+import { ThemedScrollView } from '../../../../components/themed'
+import { TokenBalanceRow } from '../../../../components/TokenBalanceRow'
 import { RootState } from '../../../../store'
 import { hasTxQueued as hasBroadcastQueued } from '../../../../store/ocean'
 import { hasTxQueued, transactionQueue } from '../../../../store/transaction_queue'
@@ -96,16 +99,22 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   }
 
   return (
-    <ScrollView testID='confirm-root' style={tailwind('bg-gray-100 pb-4')}>
-      <ConfirmTitle
-        title={translate('screens/ConfirmAddLiq', 'YOU ARE ADDING')}
-        testID='text_add_amount' amount={lmTokenAmount}
+    <ThemedScrollView
+      style={tailwind('pb-4')}
+      testID='confirm-root'
+    >
+      <SummaryTitle
+        amount={lmTokenAmount}
         suffix={` ${symbol}`}
+        testID='text_add_amount'
+        title={translate('screens/ConfirmAddLiq', 'YOU ARE ADDING')}
       />
+
       <SectionTitle
-        text={translate('screens/ConfirmAddLiq', 'AMOUNT TO SUPPLY')}
         testID='title_add_detail'
+        text={translate('screens/ConfirmAddLiq', 'AMOUNT TO SUPPLY')}
       />
+
       <TokenBalanceRow
         iconType={aSymbol}
         lhs={aSymbol}
@@ -114,6 +123,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
           testID: 'a_amount'
         }}
       />
+
       <TokenBalanceRow
         iconType={bSymbol}
         lhs={bSymbol}
@@ -122,10 +132,12 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
           testID: 'b_amount'
         }}
       />
+
       <SectionTitle
-        text={translate('screens/ConfirmAddLiq', 'TRANSACTION DETAILS')}
         testID='title_tx_detail'
+        text={translate('screens/ConfirmAddLiq', 'TRANSACTION DETAILS')}
       />
+
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Price')}
         rightHandElements={[
@@ -133,28 +145,35 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
           { value: bToARate.toFixed(8), suffix: ` ${aSymbol} per ${bSymbol}`, testID: 'price_b' }
         ]}
       />
+
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Share of pool')}
-        rightHandElements={[{ value: percentage.times(100).toFixed(8), suffix: ' %', testID: 'percentage_pool' }]}
+        rightHandElements={[{ value: percentage.times(100).toFixed(8), suffix: '%', testID: 'percentage_pool' }]}
       />
+
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', `Pooled ${aSymbol}`)}
+        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${aSymbol}` })}
         rightHandElements={[{ value: tokenA.reserve, suffix: ` ${tokenA.symbol}`, testID: 'pooled_a' }]}
       />
+
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', `Pooled ${bSymbol}`)}
+        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${bSymbol}` })}
         rightHandElements={[{ value: tokenB.reserve, suffix: ` ${tokenB.symbol}`, testID: 'pooled_b' }]}
       />
+
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Estimated fee')}
         rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
       />
+
       <SubmitButtonGroup
-        onSubmit={addLiquidity} onCancel={onCancel} title='add'
-        label={translate('screens/ConfirmAddLiq', 'ADD')}
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        label={translate('screens/ConfirmAddLiq', 'ADD')}
+        onCancel={onCancel}
+        onSubmit={addLiquidity}
+        title='add'
       />
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 
@@ -181,11 +200,16 @@ async function constructSignedAddLiqAndSend (
     const dfTx = await builder.liqPool.addLiquidity(addLiq, script)
     return new CTransactionSegWit(dfTx)
   }
-  const message = `Adding ${addLiqForm.tokenAAmount.toFixed(8)} ${addLiqForm.tokenASymbol} - ${addLiqForm.tokenBAmount.toFixed(8)} ${addLiqForm.tokenBSymbol}`
+
   dispatch(transactionQueue.actions.push({
     sign: signer,
-    title: `${translate('screens/ConfirmLiquidity', 'Adding Liquidity')}`,
-    description: `${translate('screens/ConfirmLiquidity', message)}`,
+    title: translate('screens/ConfirmAddLiq', 'Adding Liquidity'),
+    description: translate('screens/ConfirmAddLiq', 'Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}', {
+      amountA: addLiqForm.tokenAAmount.toFixed(8),
+      symbolA: addLiqForm.tokenASymbol,
+      amountB: addLiqForm.tokenBAmount.toFixed(8),
+      symbolB: addLiqForm.tokenBSymbol
+    }),
     postAction
   }))
 }

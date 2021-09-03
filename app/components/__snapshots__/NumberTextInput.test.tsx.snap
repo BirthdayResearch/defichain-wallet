@@ -16,7 +16,12 @@ exports[`NumberTextInput should match snapshot with OS android period comma loca
         "fontWeight": "400",
         "lineHeight": 24,
       },
-      undefined,
+      Array [
+        undefined,
+        Object {
+          "color": "rgba(64, 64, 64, 1)",
+        },
+      ],
     ]
   }
   underlineColorAndroid="transparent"
@@ -40,7 +45,12 @@ exports[`NumberTextInput should match snapshot with OS android period decimal lo
         "fontWeight": "400",
         "lineHeight": 24,
       },
-      undefined,
+      Array [
+        undefined,
+        Object {
+          "color": "rgba(64, 64, 64, 1)",
+        },
+      ],
     ]
   }
   underlineColorAndroid="transparent"
@@ -64,7 +74,12 @@ exports[`NumberTextInput should match snapshot with OS android period unknown lo
         "fontWeight": "400",
         "lineHeight": 24,
       },
-      undefined,
+      Array [
+        undefined,
+        Object {
+          "color": "rgba(64, 64, 64, 1)",
+        },
+      ],
     ]
   }
   underlineColorAndroid="transparent"
@@ -88,7 +103,12 @@ exports[`NumberTextInput should match snapshot with OS ios period comma locale 1
         "fontWeight": "400",
         "lineHeight": 24,
       },
-      undefined,
+      Array [
+        undefined,
+        Object {
+          "color": "rgba(64, 64, 64, 1)",
+        },
+      ],
     ]
   }
   underlineColorAndroid="transparent"
@@ -112,7 +132,12 @@ exports[`NumberTextInput should match snapshot with OS ios period decimal locale
         "fontWeight": "400",
         "lineHeight": 24,
       },
-      undefined,
+      Array [
+        undefined,
+        Object {
+          "color": "rgba(64, 64, 64, 1)",
+        },
+      ],
     ]
   }
   underlineColorAndroid="transparent"
@@ -136,7 +161,12 @@ exports[`NumberTextInput should match snapshot with OS ios period unknown locale
         "fontWeight": "400",
         "lineHeight": 24,
       },
-      undefined,
+      Array [
+        undefined,
+        Object {
+          "color": "rgba(64, 64, 64, 1)",
+        },
+      ],
     ]
   }
   underlineColorAndroid="transparent"

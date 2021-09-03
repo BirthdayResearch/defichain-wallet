@@ -2,18 +2,71 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "plugins": [
+    "react",
+    "react-native",
+    "react-hooks"
+  ],
   "extends": [
     "standard-with-typescript",
-    "standard-jsx"
+    "standard-jsx",
+    "plugin:react/recommended",
+    "plugin:react-native/all",
+    "plugin:react-hooks/recommended"
   ],
   "ignorePatterns": [
     "*.json",
-    "**/*.test.ts",
-    "**/*.test.tsx",
     "cypress/support/*.ts"
   ],
-  "rules": {
-    "import/no-default-export": "warn"
-  },
-  "overrides": []
+  "overrides": [
+    // Js and Typescript files
+    {
+      "files": [
+        ".js",
+        "*.ts",
+        "*.tsx"
+      ],
+      "rules": {
+        "import/no-default-export": "warn",
+        "curly": [
+          "error",
+          "all"
+        ],
+        "brace-style": [
+          "error",
+          "1tbs"
+        ],
+        "keyword-spacing": [
+          "error",
+          {
+            "before": true,
+            "after": true
+          }
+        ],
+        "react-native/no-inline-styles": "warn",
+        "react-native/no-color-literals": "warn",
+        "react/display-name": "off",
+        "react-native/no-raw-text": "warn",
+        "indent": "off",
+        "@typescript-eslint/indent": "off"
+      },
+      "excludedFiles": [
+        "*.test.ts",
+        "*.test.tsx"
+      ]
+    },
+    // Unit test files
+    {
+      "files": [
+        "*.test.ts",
+        "*.test.tsx"
+      ],
+      "plugins": [
+        "jest"
+      ],
+      "extends": [
+        "plugin:jest/recommended"
+      ]
+    }
+  ]
 }

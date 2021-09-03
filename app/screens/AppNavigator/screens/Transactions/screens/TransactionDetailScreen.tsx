@@ -1,11 +1,11 @@
-import { MaterialIcons } from '@expo/vector-icons'
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { useDeFiScanContext } from '@contexts/DeFiScanContext'
 import { StackScreenProps } from '@react-navigation/stack'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import * as React from 'react'
-import { Linking, ScrollView, TouchableOpacity, View } from 'react-native'
-import { Text } from '../../../../../components'
-import { useDeFiScanContext } from '../../../../../contexts/DeFiScanContext'
-import { tailwind } from '../../../../../tailwind'
-import { translate } from '../../../../../translations'
+import { useCallback } from 'react'
+import { Linking, View } from 'react-native'
 import { TransactionsParamList } from '../TransactionsNavigator'
 import { formatBlockTime } from '../TransactionsScreen'
 
@@ -15,52 +15,89 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
   const { tx } = props.route.params
   const { getTransactionUrl } = useDeFiScanContext()
 
-  const grayDivider = <View style={tailwind('bg-gray-100 w-full h-4')} />
-  const RenderRow = (lhs: string, rhs: string): JSX.Element => {
+  function RenderRow ({
+    lhs,
+    rhs
+  }: { lhs: string, rhs: string }): JSX.Element {
     return (
-      <ScrollView testID={`transaction-detail-${lhs.toLowerCase()}`}>
-        {grayDivider}
-        <View style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full p-4')}>
+      <ThemedScrollView testID={`transaction-detail-${lhs.toLowerCase()}`}>
+        <ThemedView
+          dark={tailwind('bg-gray-800 border-b border-gray-700')}
+          light={tailwind('bg-white border-b border-gray-200')}
+          style={tailwind('p-2 flex-row items-center w-full p-4 mt-4')}
+        >
           <View style={tailwind('w-1/2 flex-1')}>
-            <Text style={tailwind('font-medium')}>{lhs}</Text>
+            <ThemedText style={tailwind('font-medium')}>
+              {lhs}
+            </ThemedText>
           </View>
+
           <View style={tailwind('w-1/2 flex-1')}>
-            <Text style={tailwind('font-medium text-right text-gray-600')}>{rhs}</Text>
+            <ThemedText style={tailwind('font-medium text-right')}>
+              {rhs}
+            </ThemedText>
           </View>
-        </View>
-      </ScrollView>
+        </ThemedView>
+      </ThemedScrollView>
     )
   }
 
-  const onTxidUrlPressed = React.useCallback(async () => {
+  const onTxidUrlPressed = useCallback(async () => {
     const url = getTransactionUrl(tx.txid)
     await Linking.openURL(url)
-  }, [])
+  }, [tx?.txid, getTransactionUrl])
 
   return (
     <View>
-      {RenderRow('Type', translate('screens/TransactionDetailScreen', tx.desc))}
+      <RenderRow
+        lhs='Type'
+        rhs={translate('screens/TransactionDetailScreen', tx.desc)}
+      />
+
+      <RenderRow
+        lhs='Amount'
+        rhs={translate('screens/TransactionDetailScreen', tx.amount)}
+      />
+
+      <RenderRow
+        lhs='Block'
+        rhs={translate('screens/TransactionDetailScreen', `${tx.block}`)}
+      />
+
+      <RenderRow
+        lhs='Date'
+        rhs={translate('screens/TransactionDetailScreen', `${formatBlockTime(tx.medianTime)}`)}
+      />
+
       {/* TODO(@ivan-zynesis): handle different transaction type other than sent/receive */}
-      {RenderRow('Amount', translate('screens/TransactionDetailScreen', tx.amount))}
-      {RenderRow('Block', translate('screens/TransactionDetailScreen', `${tx.block}`))}
-      {RenderRow('Date', translate('screens/TransactionDetailScreen', `${formatBlockTime(tx.medianTime)}`))}
-      {grayDivider}
-      <TouchableOpacity
-        testID='transaction-detail-explorer-url'
-        style={tailwind('bg-white p-2 border-b border-gray-200 flex-row items-center w-full p-4')}
+
+      <ThemedTouchableOpacity
         onPress={onTxidUrlPressed}
+        style={tailwind('p-2 flex-row items-center w-full p-4 mt-4')}
+        testID='transaction-detail-explorer-url'
       >
         <View style={tailwind('flex-1 flex-row flex-initial')}>
           <View style={tailwind('flex-1')}>
-            <Text style={tailwind('text-primary font-medium text-sm')}>
+            <ThemedText
+              dark={tailwind('text-darkprimary-500')}
+              light={tailwind('text-primary-500')}
+              style={tailwind('font-medium text-sm')}
+            >
               {tx.txid}
-            </Text>
+            </ThemedText>
           </View>
+
           <View style={tailwind('ml-2 flex-grow-0 justify-center')}>
-            <MaterialIcons name='open-in-new' size={24} style={tailwind('text-primary')} />
+            <ThemedIcon
+              dark={tailwind('text-darkprimary-500')}
+              iconType='MaterialIcons'
+              light={tailwind('text-primary-500')}
+              name='open-in-new'
+              size={24}
+            />
           </View>
         </View>
-      </TouchableOpacity>
+      </ThemedTouchableOpacity>
     </View>
   )
 }

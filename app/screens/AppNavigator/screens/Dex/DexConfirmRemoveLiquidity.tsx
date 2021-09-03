@@ -5,11 +5,14 @@ import { NavigationProp, StackActions, useNavigation } from '@react-navigation/n
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
-import { ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import { ConfirmTitle, NumberRow, SubmitButtonGroup, TokenBalanceRow } from '../../../../components/ConfirmComponents'
+import { NumberRow } from '../../../../components/NumberRow'
 import { SectionTitle } from '../../../../components/SectionTitle'
+import { SubmitButtonGroup } from '../../../../components/SubmitButtonGroup'
+import { SummaryTitle } from '../../../../components/SummaryTitle'
+import { ThemedScrollView } from '../../../../components/themed'
+import { TokenBalanceRow } from '../../../../components/TokenBalanceRow'
 import { RootState } from '../../../../store'
 import { hasTxQueued as hasBroadcastQueued } from '../../../../store/ocean'
 import { hasTxQueued, transactionQueue } from '../../../../store/transaction_queue'
@@ -68,16 +71,19 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
   }
 
   return (
-    <ScrollView style={tailwind('bg-gray-100 pb-4')}>
-      <ConfirmTitle
-        title={translate('screens/ConfirmRemoveLiquidity', 'YOU ARE REMOVING')}
-        testID='text_remove_amount' amount={amount}
+    <ThemedScrollView style={tailwind('pb-4')}>
+      <SummaryTitle
+        amount={amount}
         suffix={` ${pair.symbol}`}
+        testID='text_remove_amount'
+        title={translate('screens/ConfirmRemoveLiquidity', 'YOU ARE REMOVING')}
       />
+
       <SectionTitle
-        text={translate('screens/ConfirmRemoveLiquidity', 'ESTIMATED AMOUNT TO RECEIVE')}
         testID='title_remove_detail'
+        text={translate('screens/ConfirmRemoveLiquidity', 'ESTIMATED AMOUNT TO RECEIVE')}
       />
+
       <TokenBalanceRow
         iconType={aSymbol}
         lhs={aSymbol}
@@ -86,6 +92,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
           testID: 'a_amount'
         }}
       />
+
       <TokenBalanceRow
         iconType={bSymbol}
         lhs={bSymbol}
@@ -94,10 +101,12 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
           testID: 'b_amount'
         }}
       />
+
       <SectionTitle
-        text={translate('screens/ConfirmRemoveLiquidity', 'TRANSACTION DETAILS')}
         testID='title_tx_detail'
+        text={translate('screens/ConfirmRemoveLiquidity', 'TRANSACTION DETAILS')}
       />
+
       <NumberRow
         lhs={translate('screens/ConfirmRemoveLiquidity', 'Price')}
         rightHandElements={[
@@ -105,16 +114,20 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
           { value: bToARate.toFixed(8), suffix: ` ${aSymbol} per ${bSymbol}`, testID: 'price_b' }
         ]}
       />
+
       <NumberRow
         lhs={translate('screens/ConfirmRemoveLiquidity', 'Estimated fee')}
         rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
       />
+
       <SubmitButtonGroup
-        onSubmit={onSubmit} onCancel={onCancel} title='remove'
-        label={translate('screens/ConfirmRemoveLiquidity', 'REMOVE')}
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        label={translate('screens/ConfirmRemoveLiquidity', 'REMOVE')}
+        onCancel={onCancel}
+        onSubmit={onSubmit}
+        title='remove'
       />
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 
@@ -136,8 +149,11 @@ async function constructSignedRemoveLiqAndSend (pair: PoolPairData, amount: BigN
 
   dispatch(transactionQueue.actions.push({
     sign: signer,
-    title: `${translate('screens/RemoveLiquidity', 'Removing Liquidity')}`,
-    description: `${translate('screens/RemoveLiquidity', `Removing ${amount.toFixed(8)} ${symbol}`)}`,
+    title: translate('screens/RemoveLiquidity', 'Removing Liquidity'),
+    description: translate('screens/RemoveLiquidity', 'Removing {{amount}} {{symbol}}', {
+      symbol: symbol,
+      amount: amount.toFixed(8)
+    }),
     postAction
   }))
 }

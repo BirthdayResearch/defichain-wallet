@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { useNetworkContext } from '../contexts/NetworkContext'
 import { RootState } from '../store'
 import { tailwind } from '../tailwind'
-import { Text } from './Text'
+import { ThemedText } from './themed'
 
 export function ConnectionStatus (): JSX.Element {
   const { network } = useNetworkContext()
@@ -12,13 +12,19 @@ export function ConnectionStatus (): JSX.Element {
   return (
     <View style={tailwind('flex-row items-center')}>
       <View
-        testID='header_status_indicator'
         style={tailwind(`h-2 w-2 rounded-full ${connected ? 'bg-green-500' : 'bg-red-500'} mr-1.5`)}
+        testID='header_status_indicator'
       />
+
       <View style={tailwind('h-full')}>
-        <Text testID='header_active_network' style={tailwind('text-xs opacity-60 font-semibold leading-4')}>
+        <ThemedText
+          dark={tailwind('text-white text-opacity-70')}
+          light={tailwind('text-gray-600')}
+          style={tailwind('text-xs font-semibold leading-4')}
+          testID='header_active_network'
+        >
           {network}
-        </Text>
+        </ThemedText>
       </View>
     </View>
   )
@@ -27,9 +33,15 @@ export function ConnectionStatus (): JSX.Element {
 export function HeaderTitle ({ text, testID }: { text: string, testID?: string }): JSX.Element {
   return (
     <View style={tailwind(`flex-col ${Platform.OS === 'ios' ? 'items-center' : ''}`)}>
-      <Text testID={testID} style={tailwind('font-semibold leading-5')}>
+      <ThemedText
+        dark={tailwind('text-white text-opacity-90')}
+        light={tailwind('text-black')}
+        style={tailwind('font-semibold leading-5')}
+        testID={testID}
+      >
         {text}
-      </Text>
+      </ThemedText>
+
       <ConnectionStatus />
     </View>
   )

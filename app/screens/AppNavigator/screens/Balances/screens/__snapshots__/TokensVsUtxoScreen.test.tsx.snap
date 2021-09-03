@@ -9,10 +9,14 @@ exports[`tokens vs utxo screen should render 1`] = `
     }
   }
   style={
-    Object {
-      "backgroundColor": "rgba(255, 255, 255, 1)",
-      "height": "100%",
-    }
+    Array [
+      Object {
+        "height": "100%",
+      },
+      Object {
+        "backgroundColor": "rgba(245, 245, 245, 1)",
+      },
+    ]
   }
   testID="token_vs_utxo_screen"
 >
@@ -20,11 +24,11 @@ exports[`tokens vs utxo screen should render 1`] = `
     <View
       style={
         Object {
-          "borderBottomColor": "rgba(229, 231, 235, 1)",
+          "borderBottomColor": "rgba(229, 229, 229, 1)",
           "borderBottomWidth": 2,
-          "borderLeftColor": "rgba(229, 231, 235, 1)",
-          "borderRightColor": "rgba(229, 231, 235, 1)",
-          "borderTopColor": "rgba(229, 231, 235, 1)",
+          "borderLeftColor": "rgba(229, 229, 229, 1)",
+          "borderRightColor": "rgba(229, 229, 229, 1)",
+          "borderTopColor": "rgba(229, 229, 229, 1)",
           "paddingLeft": 16,
           "paddingRight": 16,
           "paddingTop": 24,
@@ -40,10 +44,14 @@ exports[`tokens vs utxo screen should render 1`] = `
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
-              "paddingBottom": 24,
-            },
+            Array [
+              Object {
+                "paddingBottom": 24,
+              },
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
           ]
         }
       >
@@ -58,10 +66,14 @@ exports[`tokens vs utxo screen should render 1`] = `
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
-              "paddingBottom": 24,
-            },
+            Array [
+              Object {
+                "paddingBottom": 24,
+              },
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
           ]
         }
       >
@@ -76,10 +88,14 @@ exports[`tokens vs utxo screen should render 1`] = `
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
-              "paddingBottom": 16,
-            },
+            Array [
+              Object {
+                "paddingBottom": 16,
+              },
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
           ]
         }
       >
@@ -100,11 +116,11 @@ exports[`tokens vs utxo screen should render 1`] = `
       <View
         style={
           Object {
-            "borderBottomColor": "rgba(229, 231, 235, 1)",
-            "borderLeftColor": "rgba(229, 231, 235, 1)",
-            "borderRightColor": "rgba(229, 231, 235, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
             "borderRightWidth": 2,
-            "borderTopColor": "rgba(229, 231, 235, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
             "paddingBottom": 20,
             "paddingLeft": 16,
             "paddingRight": 16,
@@ -178,10 +194,15 @@ exports[`tokens vs utxo screen should render 1`] = `
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Object {
-                  "fontSize": 18,
-                  "lineHeight": 28,
-                },
+                Array [
+                  Object {
+                    "fontSize": 18,
+                    "lineHeight": 28,
+                  },
+                  Object {
+                    "color": "rgba(0, 0, 0, 1)",
+                  },
+                ],
               ]
             }
           >
@@ -207,12 +228,20 @@ exports[`tokens vs utxo screen should render 1`] = `
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Object {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 14,
-                  "fontWeight": "500",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "fontFamily": "MediumFont",
+                    "fontSize": 14,
+                    "fontWeight": "500",
+                    "lineHeight": 20,
+                  },
+                  Object {
+                    "color": "rgba(0, 0, 0, 1)",
+                  },
+                ],
               ]
             }
           >
@@ -238,12 +267,20 @@ exports[`tokens vs utxo screen should render 1`] = `
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Object {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 14,
-                  "fontWeight": "500",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "fontFamily": "MediumFont",
+                    "fontSize": 14,
+                    "fontWeight": "500",
+                    "lineHeight": 20,
+                  },
+                  Object {
+                    "color": "rgba(0, 0, 0, 1)",
+                  },
+                ],
               ]
             }
           >
@@ -269,12 +306,20 @@ exports[`tokens vs utxo screen should render 1`] = `
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Object {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 14,
-                  "fontWeight": "500",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "fontFamily": "MediumFont",
+                    "fontSize": 14,
+                    "fontWeight": "500",
+                    "lineHeight": 20,
+                  },
+                  Object {
+                    "color": "rgba(0, 0, 0, 1)",
+                  },
+                ],
               ]
             }
           >
@@ -300,12 +345,20 @@ exports[`tokens vs utxo screen should render 1`] = `
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Object {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 14,
-                  "fontWeight": "500",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "fontFamily": "MediumFont",
+                    "fontSize": 14,
+                    "fontWeight": "500",
+                    "lineHeight": 20,
+                  },
+                  Object {
+                    "color": "rgba(0, 0, 0, 1)",
+                  },
+                ],
               ]
             }
           >
@@ -389,10 +442,15 @@ exports[`tokens vs utxo screen should render 1`] = `
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Object {
-                  "fontSize": 18,
-                  "lineHeight": 28,
-                },
+                Array [
+                  Object {
+                    "fontSize": 18,
+                    "lineHeight": 28,
+                  },
+                  Object {
+                    "color": "rgba(0, 0, 0, 1)",
+                  },
+                ],
               ]
             }
           >
@@ -418,12 +476,20 @@ exports[`tokens vs utxo screen should render 1`] = `
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Object {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 14,
-                  "fontWeight": "500",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "fontFamily": "MediumFont",
+                    "fontSize": 14,
+                    "fontWeight": "500",
+                    "lineHeight": 20,
+                  },
+                  Object {
+                    "color": "rgba(0, 0, 0, 1)",
+                  },
+                ],
               ]
             }
           >
@@ -449,12 +515,20 @@ exports[`tokens vs utxo screen should render 1`] = `
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Object {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 14,
-                  "fontWeight": "500",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "fontFamily": "MediumFont",
+                    "fontSize": 14,
+                    "fontWeight": "500",
+                    "lineHeight": 20,
+                  },
+                  Object {
+                    "color": "rgba(0, 0, 0, 1)",
+                  },
+                ],
               ]
             }
           >
@@ -480,12 +554,20 @@ exports[`tokens vs utxo screen should render 1`] = `
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Object {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 14,
-                  "fontWeight": "500",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "fontFamily": "MediumFont",
+                    "fontSize": 14,
+                    "fontWeight": "500",
+                    "lineHeight": 20,
+                  },
+                  Object {
+                    "color": "rgba(0, 0, 0, 1)",
+                  },
+                ],
               ]
             }
           >
