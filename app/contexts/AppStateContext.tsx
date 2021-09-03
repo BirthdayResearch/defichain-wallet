@@ -29,14 +29,12 @@ export function AppStateContextProvider (props: React.PropsWithChildren<any>): J
 
   useEffect(() => {
     const handler = (nextState: AppStateStatus): void => {
-      if (nextState === 'background' || nextState === 'inactive') {
-        if (prevState.current === 'active') {
+      if (prevState.current === 'active') {
+        if (nextState === 'background' || nextState === 'inactive') {
           emit('background')
         }
-      } else if (nextState === 'active') {
-        if (prevState.current === 'background') {
-          emit('active')
-        }
+      } else if (nextState === 'active') { // prev = background
+        emit('active')
       }
     }
     AppState.addEventListener('change', handler)

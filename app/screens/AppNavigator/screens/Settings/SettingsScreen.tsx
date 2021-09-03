@@ -3,8 +3,9 @@ import { Switch } from '@components/index'
 import { SectionTitle } from '@components/SectionTitle'
 import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
-import { useLocalAuthContext } from '@contexts/LocalAuthContext'
+import { usePrivacyLockContext } from '@contexts/LocalAuthContext'
 import { useNetworkContext } from '@contexts/NetworkContext'
+import { useWalletNodeContext } from '@contexts/WalletNodeProvider'
 import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
 import { EnvironmentNetwork } from '@environment'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
@@ -26,8 +27,9 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   const { network } = useNetworkContext()
   const dispatch = useDispatch()
   const walletContext = useWalletPersistenceContext()
-  const { isEncrypted } = walletContext
-  const localAuth = useLocalAuthContext()
+  const localAuth = usePrivacyLockContext()
+  const { data: { type } } = useWalletNodeContext()
+  const isEncrypted = type === 'MNEMONIC_ENCRYPTED'
 
   const revealRecoveryWords = useCallback(() => {
     if (!isEncrypted) {
@@ -117,7 +119,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       }
       <PrivacyLockToggle
         disabled={!localAuth.isDeviceProtected}
-        value={localAuth.isPrivacyLock}
+        value={localAuth.isEnabled}
         onToggle={async () => {
           await localAuth.togglePrivacyLock()
         }}

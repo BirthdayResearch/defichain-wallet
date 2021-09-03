@@ -4,7 +4,7 @@ import './_shim'
 import { Logging } from './app/api'
 import { AppStateContextProvider } from './app/contexts/AppStateContext'
 import { DeFiScanProvider } from './app/contexts/DeFiScanContext'
-import { LocalAuthContextProvider } from './app/contexts/LocalAuthContext'
+import { PrivacyLockContextProvider } from './app/contexts/LocalAuthContext'
 import { NetworkProvider } from './app/contexts/NetworkContext'
 import { StatsProvider } from './app/contexts/StatsProvider'
 import { StoreProvider } from './app/contexts/StoreProvider'
@@ -39,7 +39,7 @@ export default function App (): JSX.Element | null {
   return (
     <ErrorBoundary>
       <AppStateContextProvider>
-        <LocalAuthContextProvider>
+        <PrivacyLockContextProvider>
           <NetworkProvider>
             <WhaleProvider>
               <DeFiScanProvider>
@@ -57,7 +57,7 @@ export default function App (): JSX.Element | null {
               </DeFiScanProvider>
             </WhaleProvider>
           </NetworkProvider>
-        </LocalAuthContextProvider>
+        </PrivacyLockContextProvider>
       </AppStateContextProvider>
     </ErrorBoundary>
   )

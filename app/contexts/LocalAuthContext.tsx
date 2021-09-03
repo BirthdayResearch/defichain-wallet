@@ -4,7 +4,7 @@ import { AuthenticationType, LocalAuthenticationOptions, SecurityLevel } from 'e
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { PrivacyLockPersistence } from '../api/wallet/privacy_lock'
 
-export interface LocalAuthContext {
+export interface PrivacyLockContextI {
   // user's hardware condition, external
   fetchHardwareStatus: () => void // not likely needed, in case user change device's security setting
   hasHardware: boolean
@@ -13,20 +13,19 @@ export interface LocalAuthContext {
   isDeviceProtected: boolean
 
   // API
-  isPrivacyLock: boolean
-  privacyLock: (options?: LocalAuthenticationOptions) => Promise<void>
-  enablePrivacyLock: (options?: LocalAuthenticationOptions) => Promise<void>
-  disablePrivacyLock: (options?: LocalAuthenticationOptions) => Promise<void>
+  isEnabled: boolean
+  prompt: (options?: LocalAuthenticationOptions) => Promise<void>
+  setEnabled: (enabled: boolean, options?: LocalAuthenticationOptions) => Promise<void>
   togglePrivacyLock: (options?: LocalAuthenticationOptions) => Promise<void>
 }
 
-const localAuthContext = createContext<LocalAuthContext>(undefined as any)
+const PrivacyLockContext = createContext<PrivacyLockContextI>(undefined as any)
 
-export function useLocalAuthContext (): LocalAuthContext {
-  return useContext(localAuthContext)
+export function usePrivacyLockContext (): PrivacyLockContextI {
+  return useContext(PrivacyLockContext)
 }
 
-export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
+export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const [hasHardware, setHasHardware] = useState<boolean>(false)
   const [securityLevel, setSecurityLevel] = useState<SecurityLevel>(SecurityLevel.NONE)
   const [biometricHardwares, setBiometricHardwares] = useState<AuthenticationType[]>([])
@@ -52,23 +51,6 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
       })
   }, [])
 
-  // native expo-local-authenticate
-  const _authenticate = useCallback(async (options?: LocalAuthenticationOptions) => {
-    const result = await LocalAuthentication.authenticateAsync(options)
-    if (!result.success) {
-      throw new Error(result.error)
-    }
-  }, [])
-
-  const setPrivacyLock = useCallback(async (value: boolean, options?: LocalAuthenticationOptions) => {
-    if (isPrivacyLock as boolean === value) {
-      return
-    }
-    await _authenticate(options)
-    await PrivacyLockPersistence.set(value)
-    setIsPrivacyLock(value)
-  }, [isPrivacyLock])
-
   useEffect(() => {
     fetchHardwareStatus()
     PrivacyLockPersistence.isEnabled()
@@ -79,32 +61,49 @@ export function LocalAuthContextProvider (props: React.PropsWithChildren<any>): 
       })
   }, [/* only load from persistence layer once */])
 
-  const context: LocalAuthContext = {
+  const context: PrivacyLockContextI = {
     fetchHardwareStatus,
     hasHardware,
     hardwareSecurityLevel: securityLevel,
     supportedTypes: biometricHardwares,
     isDeviceProtected,
-    isPrivacyLock: isPrivacyLock === true,
-    privacyLock: async (options) => {
+    isEnabled: isPrivacyLock === true,
+    prompt: async (options) => {
       if (!hasHardware || !(isPrivacyLock !== undefined && isPrivacyLock)) {
         return
       }
       await _authenticate(options)
     },
-    enablePrivacyLock: async (options) => await setPrivacyLock(true, options),
-    disablePrivacyLock: async (options) => await setPrivacyLock(false, options),
-    togglePrivacyLock: async (options) => {
-      if (isPrivacyLock === true) {
-        return await context.disablePrivacyLock(options)
+    setEnabled: async (enabled, options) => {
+      await _authenticate(options)
+      if (isPrivacyLock as boolean === enabled) {
+        return
       }
-      return await context.enablePrivacyLock(options)
+      await _authenticate(options)
+      await PrivacyLockPersistence.set(enabled)
+      setIsPrivacyLock(enabled)
+    },
+    togglePrivacyLock: async (options) => {
+      if (isPrivacyLock === undefined) {
+        return
+      }
+      return await context.setEnabled(!isPrivacyLock)
     }
   }
 
+  if (isPrivacyLock === undefined) {
+    return null
+  }
   return (
-    <localAuthContext.Provider value={context}>
+    <PrivacyLockContext.Provider value={context}>
       {props.children}
-    </localAuthContext.Provider>
+    </PrivacyLockContext.Provider>
   )
+}
+
+async function _authenticate (options?: LocalAuthenticationOptions): Promise<void> {
+  const result = await LocalAuthentication.authenticateAsync(options)
+  if (!result.success) {
+    throw new Error(result.error)
+  }
 }

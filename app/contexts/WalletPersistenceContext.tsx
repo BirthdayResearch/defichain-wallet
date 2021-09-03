@@ -1,12 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Logging } from '../api'
-import { WalletPersistence, WalletPersistenceData, WalletType } from '../api/wallet'
+import { WalletPersistence, WalletPersistenceData } from '../api/wallet'
 import { useNetworkContext } from './NetworkContext'
 
 interface WalletPersistenceContextI {
   isLoaded: boolean
   wallets: Array<WalletPersistenceData<any>>
-  isEncrypted: boolean
   /**
    * @param {WalletPersistenceData} data to set, only 1 wallet is supported for now
    */
@@ -41,7 +40,6 @@ export function WalletPersistenceProvider (props: React.PropsWithChildren<any>):
   const management: WalletPersistenceContextI = {
     isLoaded,
     wallets: dataList,
-    isEncrypted: dataList[0]?.type === WalletType.MNEMONIC_ENCRYPTED,
     async setWallet (data: WalletPersistenceData<any>): Promise<void> {
       await WalletPersistence.set([data])
       setDataList(await WalletPersistence.get())
