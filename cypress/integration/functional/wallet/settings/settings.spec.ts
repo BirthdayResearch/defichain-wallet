@@ -17,6 +17,15 @@ context('Wallet - Settings', () => {
     })
   })
 
+  it('should be abled to change language in language selection screen', function () {
+    cy.getByTestID('setting_navigate_language_selection').click()
+    cy.getByTestID('button_language_Deutsch').click()
+    cy.on('window:confirm', (message: string) => {
+      expect(message).to.include('Deutsch')
+    })
+    cy.getByTestID('bottom_tab_balances').contains('Guthaben').should('exist')
+  })
+
   it('should exit wallet when clicked on positive action', function () {
     cy.getByTestID('setting_exit_wallet').click()
     cy.on('window:confirm', () => {})
