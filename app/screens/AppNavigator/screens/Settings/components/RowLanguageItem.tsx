@@ -53,7 +53,6 @@ export function RowLanguageItem (props: { language: EnvironmentLanguage }): JSX.
     >
       <ThemedText style={tailwind('font-medium')}>
         {props.language}
-        {/* {useTranslate('screens/LanguageSelectionScreen','Select language')}  */}
       </ThemedText>
 
       {
