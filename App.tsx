@@ -13,7 +13,7 @@ import { useCachedResources } from './app/hooks/useCachedResources'
 import ConnectionBoundary from './app/screens/ConnectionBoundary/ConnectionBoundary'
 import ErrorBoundary from './app/screens/ErrorBoundary/ErrorBoundary'
 import { Main } from './app/screens/Main'
-import { initI18n } from './app/translations'
+import { LanguageProvider, useLanguage } from '@contexts/LanguageProvider'
 
 /**
  * Loads
@@ -21,11 +21,11 @@ import { initI18n } from './app/translations'
  * - CachedPlaygroundClient
  */
 export default function App (): JSX.Element | null {
-  initI18n()
   const isLoaded = useCachedResources()
   const { isThemeLoaded } = useTheme()
+  const { isLanguageLoaded } = useLanguage()
 
-  if (!isLoaded && !isThemeLoaded) {
+  if (!isLoaded && !isThemeLoaded && !isLanguageLoaded) {
     SplashScreen.preventAutoHideAsync()
       .catch(Logging.error)
     return null
@@ -43,9 +43,11 @@ export default function App (): JSX.Element | null {
               <StoreProvider>
                 <StatsProvider>
                   <ThemeProvider>
-                    <ConnectionBoundary>
-                      <Main />
-                    </ConnectionBoundary>
+                    <LanguageProvider>
+                      <ConnectionBoundary>
+                        <Main />
+                      </ConnectionBoundary>
+                    </LanguageProvider>
                   </ThemeProvider>
                 </StatsProvider>
               </StoreProvider>
