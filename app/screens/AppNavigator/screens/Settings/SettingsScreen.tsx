@@ -5,7 +5,6 @@ import { WalletAlert } from '@components/WalletAlert'
 import { useNetworkContext } from '@contexts/NetworkContext'
 import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
 import { EnvironmentNetwork } from '@environment'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import { authentication, Authentication } from '@store/authentication'
 import { ocean } from '@store/ocean'
@@ -13,6 +12,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import * as React from 'react'
 import { useCallback } from 'react'
+import { View } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { MnemonicStorage } from '../../../../api/wallet/mnemonic_storage'
 import { RowThemeItem } from './components/RowThemeItem'
@@ -97,7 +97,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         text={translate('screens/Settings', 'SECURITY')}
       />
 
-      <SecurityRow
+      <NavigateItemRow
         label='Recovery Words'
         onPress={revealRecoveryWords}
         testID='view_recovery_words'
@@ -105,7 +105,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
 
       {
         isEncrypted && (
-          <SecurityRow
+          <NavigateItemRow
             label='Change Passcode'
             onPress={changePasscode}
             testID='view_change_passcode'
@@ -113,11 +113,18 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         )
       }
 
-      <RowNavigateItem
-        pageName='AboutScreen'
-        title='About'
+      <View style={tailwind('mt-4')} />
+      <NavigateItemRow
+        testID='setting_navigate_About'
+        label='About'
+        onPress={() => navigation.navigate('AboutScreen')}
       />
       <RowThemeItem />
+      <NavigateItemRow
+        testID='setting_navigate_language_selection'
+        label='Language'
+        onPress={() => navigation.navigate('LanguageSelectionScreen')}
+      />
       <RowExitWalletItem />
     </ThemedScrollView>
   )
@@ -193,7 +200,7 @@ function RowExitWalletItem (): JSX.Element {
   )
 }
 
-function SecurityRow ({
+function NavigateItemRow ({
   testID,
   label,
   onPress
@@ -206,32 +213,6 @@ function SecurityRow ({
     >
       <ThemedText style={tailwind('font-medium')}>
         {translate('screens/Settings', label)}
-      </ThemedText>
-
-      <ThemedIcon
-        iconType='MaterialIcons'
-        name='chevron-right'
-        size={24}
-      />
-    </ThemedTouchableOpacity>
-  )
-}
-
-function RowNavigateItem ({
-  pageName,
-  title
-}: { pageName: string, title: string }): JSX.Element {
-  const navigation = useNavigation<NavigationProp<SettingsParamList>>()
-  return (
-    <ThemedTouchableOpacity
-      onPress={() => {
-        navigation.navigate(pageName)
-      }}
-      style={tailwind('flex flex-row p-4 pr-2 mt-4 items-center')}
-      testID={`setting_navigate_${title}`}
-    >
-      <ThemedText style={tailwind('font-medium flex-grow')}>
-        {translate('screens/Settings', title)}
       </ThemedText>
 
       <ThemedIcon

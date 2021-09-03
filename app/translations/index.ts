@@ -1,5 +1,7 @@
-import * as Localization from 'expo-localization'
+import { useLanguageContext } from '@contexts/LanguageProvider'
+import { EnvironmentLanguage } from '@environment'
 import i18n, { TranslateOptions } from 'i18n-js'
+import { useEffect, useState } from 'react'
 import de from './languages/de.json'
 import zhHans from './languages/zh-Hans.json'
 import zhHant from './languages/zh-Hant.json'
@@ -43,7 +45,6 @@ export function initI18n (): void {
     'zh-Hans': deepEncode(zhHans),
     'zh-Hant': deepEncode(zhHant)
   }
-  i18n.locale = Localization.locale
   i18n.fallbacks = true
 }
 
@@ -81,4 +82,26 @@ function deepEncode (obj: any): any {
  */
 export function encodeScope (text: string): string {
   return Buffer.from(text).toString('base64')
+}
+
+export function getLocaleByLanguageName (languageName: EnvironmentLanguage): string {
+  switch (languageName) {
+    case EnvironmentLanguage.English:
+      return 'en'
+
+    case EnvironmentLanguage.German:
+      return 'de'
+  }
+}
+
+// TODO(kyleleow): re-assess usage, currently not used anywhere
+export const useTranslate = (path: string, text: string): string => {
+  const { language } = useLanguageContext()
+  const [translatedText, setTranslatedText] = useState('')
+
+  useEffect(() => {
+    setTranslatedText(translate(path, text))
+  }, [language])
+
+  return translatedText.length === 0 ? translate(path, text) : translatedText
 }
