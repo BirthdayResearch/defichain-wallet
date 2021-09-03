@@ -3,6 +3,10 @@
 exports[`environments should match Development 1`] = `
 Object {
   "debug": true,
+  "languages": Array [
+    "English",
+    "Deutsch",
+  ],
   "name": "Development",
   "networks": Array [
     "Local",
@@ -16,6 +20,10 @@ Object {
 exports[`environments should match Preview 1`] = `
 Object {
   "debug": true,
+  "languages": Array [
+    "English",
+    "Deutsch",
+  ],
   "name": "Preview",
   "networks": Array [
     "Playground",
@@ -28,6 +36,10 @@ Object {
 exports[`environments should match Production 1`] = `
 Object {
   "debug": false,
+  "languages": Array [
+    "English",
+    "Deutsch",
+  ],
   "name": "Production",
   "networks": Array [
     "MainNet",
