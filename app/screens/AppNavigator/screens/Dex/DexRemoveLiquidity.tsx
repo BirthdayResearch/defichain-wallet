@@ -45,7 +45,6 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   // gather required data
   const tokens = useTokensAPI()
   const { pair } = props.route.params
-  const [aSymbol, bSymbol] = pair.symbol.split('-') as [string, string]
   const lmToken = tokens.find(token => token.symbol === pair.symbol) as AddressToken
   const tokenAPerLmToken = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
   const tokenBPerLmToken = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
@@ -142,13 +141,13 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         style={tailwind('w-full mb-4')}
       >
         <TokenBalanceRow
-          iconType={aSymbol}
+          iconType={pair?.tokenA?.displaySymbol}
           lhs={pair?.tokenA?.displaySymbol}
           rhs={{ value: tokenAAmount.toFixed(8), testID: 'price_a' }}
         />
 
         <TokenBalanceRow
-          iconType={bSymbol}
+          iconType={pair?.tokenB?.displaySymbol}
           lhs={pair?.tokenB?.displaySymbol}
           rhs={{ value: tokenBAmount.toFixed(8), testID: 'price_b' }}
         />

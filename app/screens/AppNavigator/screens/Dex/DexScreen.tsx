@@ -51,14 +51,22 @@ export function DexScreen (): JSX.Element {
         const poolPairData = pairs.find(pr => pr.data.symbol === (item.data as AddressToken).symbol)
         switch (item.type) {
           case 'your':
-            return (
-              <PoolPairRowYour
-                data={item.data}
-                onAdd={() => onAdd((poolPairData as DexItem<PoolPairData>)?.data)}
-                onRemove={() => onRemove((poolPairData as DexItem<PoolPairData>)?.data)}
-                pair={poolPairData?.data}
-              />
-            )
+            if (poolPairData?.data != null) {
+              return (
+                <PoolPairRowYour
+                  data={item.data}
+                  onAdd={() => onAdd((poolPairData as DexItem<PoolPairData>)?.data)}
+                  onRemove={() => onRemove((poolPairData as DexItem<PoolPairData>)?.data)}
+                  pair={poolPairData?.data}
+                />
+                )
+              }
+              return (
+                <SkeletonLoader
+                  row={1}
+                  screen={SkeletonLoaderScreen.Dex}
+                />
+              )
           case 'available':
             return (
               <PoolPairRowAvailable
@@ -141,14 +149,15 @@ function PoolPairRowYour ({
   onRemove,
   pair
 }: { data: AddressToken, onAdd: () => void, onRemove: () => void, pair?: PoolPairData }): JSX.Element {
-  const [symbolA, symbolB] = data.symbol.split('-')
+  const [symbolA, symbolB] = (pair?.tokenA != null && pair?.tokenB != null)
+                            ? [pair.tokenA.displaySymbol, pair.tokenB.displaySymbol]
+                            : data.symbol.split('-')
   const IconA = getNativeIcon(symbolA)
   const IconB = getNativeIcon(symbolB)
   const toRemove = new BigNumber(1).times(data.amount).decimalPlaces(8, BigNumber.ROUND_DOWN)
   const ratioToTotal = toRemove.div(pair?.totalLiquidity?.token ?? 1)
-  const symbol = (pair?.tokenA != null && pair?.tokenB != null)
-                ? `${pair.tokenA.displaySymbol}-${pair.tokenB.displaySymbol}`
-                : data.symbol
+  const symbol = `${symbolA}-${symbolB}`
+
   // assume defid will trim the dust values too
   const tokenATotal = ratioToTotal.times(pair?.tokenA.reserve ?? 0).decimalPlaces(8, BigNumber.ROUND_DOWN)
   const tokenBTotal = ratioToTotal.times(pair?.tokenB.reserve ?? 0).decimalPlaces(8, BigNumber.ROUND_DOWN)
@@ -230,12 +239,12 @@ function PoolPairRowAvailable ({
   onAdd,
   onSwap
 }: { data: PoolPairData, onAdd: () => void, onSwap: () => void }): JSX.Element {
-  const [symbolA, symbolB] = data.symbol.split('-')
+  const [symbolA, symbolB] = (data?.tokenA != null && data?.tokenB != null)
+                            ? [data.tokenA.displaySymbol, data.tokenB.displaySymbol]
+                            : data.symbol.split('-')
   const IconA = getNativeIcon(symbolA)
   const IconB = getNativeIcon(symbolB)
-  const symbol = (data?.tokenA != null && data?.tokenB != null)
-                ? `${data?.tokenA?.displaySymbol}-${data?.tokenB?.displaySymbol}`
-                : data.symbol
+  const symbol = `${symbolA}-${symbolB}`
 
   return (
     <ThemedView

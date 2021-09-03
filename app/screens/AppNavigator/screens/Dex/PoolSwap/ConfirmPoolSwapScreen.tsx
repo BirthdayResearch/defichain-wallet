@@ -80,7 +80,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
       />
 
       <TokenBalanceRow
-        iconType={tokenA.symbol}
+        iconType={tokenA.displaySymbol}
         lhs={tokenA.displaySymbol}
         rhs={{
           value: BigNumber.max(new BigNumber(tokenA.amount).minus(swap.fromAmount), 0).toFixed(8),
@@ -89,7 +89,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
       />
 
       <TokenBalanceRow
-        iconType={tokenB.symbol}
+        iconType={tokenB.displaySymbol}
         lhs={tokenB.displaySymbol}
         rhs={{
           value: BigNumber.max(new BigNumber(tokenB.amount).plus(swap.toAmount), 0).toFixed(8),

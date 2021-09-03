@@ -28,7 +28,6 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
     amount, fee,
     tokenAAmount, tokenBAmount
   } = route.params
-  const [aSymbol, bSymbol] = pair.symbol.split('-') as [string, string]
   const aToBRate = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
   const bToARate = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
   const symbol = (pair?.tokenA != null && pair?.tokenB != null)
@@ -88,7 +87,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
       />
 
       <TokenBalanceRow
-        iconType={aSymbol}
+        iconType={pair?.tokenA?.displaySymbol}
         lhs={pair?.tokenA?.displaySymbol}
         rhs={{
           value: BigNumber.max(tokenAAmount, 0).toFixed(8),
@@ -97,7 +96,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
       />
 
       <TokenBalanceRow
-        iconType={bSymbol}
+        iconType={pair?.tokenB?.displaySymbol}
         lhs={pair?.tokenB?.displaySymbol}
         rhs={{
           value: BigNumber.max(tokenBAmount, 0).toFixed(8),

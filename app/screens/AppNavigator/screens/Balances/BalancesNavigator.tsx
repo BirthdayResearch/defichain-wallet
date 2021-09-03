@@ -1,3 +1,4 @@
+import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
@@ -7,7 +8,6 @@ import { BarCodeScanner } from '../../../../components/BarCodeScanner'
 import { ConnectionStatus, HeaderTitle } from '../../../../components/HeaderTitle'
 import { getNativeIcon } from '../../../../components/icons/assets'
 import { ThemedText } from '../../../../components/themed'
-import { WalletToken } from '../../../../store/wallet'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
 import { BalancesScreen } from './BalancesScreen'
@@ -22,14 +22,14 @@ import { TokensVsUtxoScreen } from './screens/TokensVsUtxoScreen'
 export interface BalanceParamList {
   BalancesScreen: undefined
   ReceiveScreen: undefined
-  SendScreen: { token: WalletToken }
+  SendScreen: { token: AddressToken }
   SendConfirmationScreen: {
-    token: WalletToken
+    token: AddressToken
     destination: string
     amount: BigNumber
     fee: BigNumber
   }
-  TokenDetailScreen: { token: WalletToken }
+  TokenDetailScreen: { token: AddressToken }
   ConvertScreen: { mode: ConversionMode }
   ConvertConfirmationScreen: {
     amount: BigNumber
@@ -128,7 +128,7 @@ export function BalancesNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: () => {
             const token = route?.params?.token
-            const Icon = getNativeIcon(token.avatarSymbol)
+            const Icon = getNativeIcon(token.displaySymbol)
             return (
               <View style={tailwind('flex-row items-center')}>
                 <Icon />
