@@ -77,7 +77,7 @@ context('Mainnet - Wallet', () => {
   })
 
   context('Restore - Mnemonic Verification', () => {
-    it.only('should be able to restore mnemonic words', function () {
+    it('should be able to restore mnemonic words', function () {
       cy.getByTestID('bottom_tab_settings').click()
       cy.getByTestID('setting_exit_wallet').click()
       cy.restoreMnemonicWords(settingsRecoveryWords)
