@@ -6,7 +6,7 @@ import { Button } from './Button'
 interface SubmitButtonGroupItems {
   isDisabled: boolean
   title: string
-  label: string
+  label: string | JSX.Element
   onSubmit: () => Promise<void>
   onCancel: () => void
 }

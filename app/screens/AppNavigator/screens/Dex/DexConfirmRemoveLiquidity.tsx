@@ -2,6 +2,7 @@ import { CTransactionSegWit } from '@defichain/jellyfish-transaction'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
+import { ThemedTextActivityIndicator } from '@components/themed/ThemedTextActivityIndicator'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
@@ -122,7 +123,9 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/ConfirmRemoveLiquidity', 'REMOVE')}
+        label={isSubmitting
+          ? <ThemedTextActivityIndicator message={translate('screens/ConfirmRemoveLiquidity', 'Removing Liquidity')} />
+          : translate('screens/ConfirmRemoveLiquidity', 'REMOVE')}
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='remove'

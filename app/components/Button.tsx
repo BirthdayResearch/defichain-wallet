@@ -7,7 +7,7 @@ import { Text } from './Text'
 interface ButtonProps extends React.PropsWithChildren<TouchableOpacityProps> {
   color?: 'primary' | 'secondary'
   fill?: 'fill' | 'outline' | 'flat'
-  label?: string
+  label?: string | JSX.Element
   margin?: string
   title?: string
 }

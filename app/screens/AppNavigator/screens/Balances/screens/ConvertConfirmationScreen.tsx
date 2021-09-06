@@ -1,6 +1,7 @@
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
+import { ThemedTextActivityIndicator } from '@components/themed/ThemedTextActivityIndicator'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
@@ -100,7 +101,11 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/ConvertConfirmScreen', 'CONVERT')}
+        label={
+          isSubmitting
+          ? <ThemedTextActivityIndicator message={translate('screens/ConvertConfirmScreen', 'CONVERTING')} />
+          : translate('screens/ConvertConfirmScreen', 'CONVERT')
+        }
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='convert'

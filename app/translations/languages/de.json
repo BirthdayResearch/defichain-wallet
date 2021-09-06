@@ -68,6 +68,7 @@
     "AFTER CONVERSION, YOU WILL HAVE:": "NACH DER KONVERTIERUNG ERHÄLTST DU:",
     "Estimated fee": "Geschätzte Gebühr",
     "CONVERT": "UMWANDELN",
+    "CONVERTING": "CONVERTING",
     "Converting DFI": "Konvertieren von DFI",
     "Converting {{amount}} {{symbolA}} to {{symbolB}}": "Wandle {{amount}} {{symbolA}} in {{symbolB}} um"
   },
