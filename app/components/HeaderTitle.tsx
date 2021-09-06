@@ -6,7 +6,7 @@ import { RootState } from '../store'
 import { tailwind } from '../tailwind'
 import { ThemedIcon, ThemedText } from './themed'
 
-type SubHeadingType = 'None' | 'Status' | 'NetworkSelect'
+type SubHeadingType = 'Status' | 'NetworkSelect'
 
 export function HeaderTitle ({ text, subHeadingType = 'Status', testID, onPress }: { text: string, subHeadingType?: SubHeadingType, testID?: string, onPress?: () => void }): JSX.Element {
   return (
@@ -24,7 +24,6 @@ export function HeaderTitle ({ text, subHeadingType = 'Status', testID, onPress 
         {text}
       </ThemedText>
 
-      {subHeadingType === 'None' && <></>}
       {subHeadingType === 'Status' && <ConnectionStatus />}
       {subHeadingType === 'NetworkSelect' && <HeaderNetworkSelect />}
     </TouchableOpacity>
