@@ -3,16 +3,25 @@ import { View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { ThemedActivityIndicator } from './ThemedActivityIndicator'
 import { ThemedText } from './ThemedText'
+import { ThemedProps } from '.'
 
-export function ThemedTextActivityIndicator ({ message }: { message?: string }): JSX.Element | null {
+interface ThemedTextActivityIndicatorProps extends ThemedProps {
+  message?: string
+}
+
+export function ThemedTextActivityIndicator ({ message, light, dark }: ThemedTextActivityIndicatorProps): JSX.Element | null {
   if (message === undefined) {
     return null
   }
 
   return (
-    <View style={tailwind('flex-row justify-center p-2')}>
+    <View style={tailwind('flex-row justify-center')}>
       <ThemedActivityIndicator />
-      <ThemedText style={tailwind('ml-2')}>
+      <ThemedText
+        style={tailwind('ml-2')}
+        light={light}
+        dark={dark}
+      >
         {message}
       </ThemedText>
     </View>

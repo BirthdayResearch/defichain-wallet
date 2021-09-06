@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`themed text activity should match snapshot 1`] = `
+<View
+  style={
+    Object {
+      "flexDirection": "row",
+      "justifyContent": "center",
+    }
+  }
+>
+  <ActivityIndicator
+    animating={true}
+    color="#ff00af"
+    hidesWhenStopped={true}
+    size="small"
+  />
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Array [
+          Object {
+            "marginLeft": 8,
+          },
+          Object {
+            "color": "rgba(0, 0, 0, 1)",
+          },
+        ],
+      ]
+    }
+  >
+    Hello World
+  </Text>
+</View>
+`;

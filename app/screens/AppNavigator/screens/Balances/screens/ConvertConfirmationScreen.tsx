@@ -103,7 +103,11 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={
           isSubmitting
-          ? <ThemedTextActivityIndicator message={translate('screens/ConvertConfirmScreen', 'CONVERTING')} />
+          ? <ThemedTextActivityIndicator
+              message={translate('screens/ConvertConfirmScreen', 'CONVERTING')}
+              dark={tailwind('text-gray-500 font-bold')}
+              light={tailwind('text-gray-400 font-bold')}
+            />
           : translate('screens/ConvertConfirmScreen', 'CONVERT')
         }
         onCancel={onCancel}

@@ -170,7 +170,11 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={isSubmitting
-          ? <ThemedTextActivityIndicator message={translate('screens/ConfirmAddLiq', 'Adding Liquidity')} />
+          ? <ThemedTextActivityIndicator
+              message={translate('screens/ConfirmAddLiq', 'Adding Liquidity')}
+              dark={tailwind('text-gray-500 font-bold')}
+              light={tailwind('text-gray-400 font-bold')}
+            />
           : translate('screens/ConfirmAddLiq', 'ADD')}
         onCancel={onCancel}
         onSubmit={addLiquidity}

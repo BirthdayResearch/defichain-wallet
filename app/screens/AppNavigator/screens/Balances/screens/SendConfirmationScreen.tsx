@@ -131,7 +131,11 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={
           isSubmitting
-            ? <ThemedTextActivityIndicator message={translate('screens/SendConfirmationScreen', 'Sending')} />
+            ? <ThemedTextActivityIndicator
+                message={translate('screens/SendConfirmationScreen', 'Sending')}
+                dark={tailwind('text-gray-500 font-bold')}
+                light={tailwind('text-gray-400 font-bold')}
+              />
             : translate('screens/SendConfirmationScreen', 'SEND')
         }
         onCancel={onCancel}
