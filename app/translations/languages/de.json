@@ -103,7 +103,7 @@
     "Yes": "Ja",
     "You are about to switch to {{network}}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?": "Du wechselst zu {{network}}. Falls es in diesem Netzwerk keine Wallet gibt, wirst du zum Startbildschirm zurück geleitet. Möchtest du fortfahren?",
     "Theme": "Thema",
-    "You are about to change your language to {{language}}. Do you want to proceed?": "You are about to change your language to {{language}}. Do you want to proceed?"
+    "You are about to change your language to {{language}}. Do you want to proceed?": "Du bist dabei, deine Sprache auf {{language}} umzustellen. Möchtest du fortfahren?"
   },
   "screens/AboutScreen": {
     "About": "Über",
@@ -353,7 +353,7 @@
     "Restore": "Stelle wieder her"
   },
   "screens/LanguageSelectionScreen": {
-    "LANGUAGE": "LANGUAGE",
-    "Select language": "Select language)"
+    "LANGUAGE": "SPRACHE",
+    "Select language": "Sprache auswählen"
   }
 }
