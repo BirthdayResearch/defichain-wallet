@@ -12,9 +12,9 @@ import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { authentication, Authentication } from '../../../../store/authentication'
 import { translate } from '../../../../translations'
 import { Button } from '../../../../components/Button'
-import createHash from 'create-hash'
-import varuint from 'varuint-bitcoin'
 import * as Localization from 'expo-localization'
+import { signAsync } from 'bitcoinjs-message'
+import { getEnvironment } from '@environment'
 
 export function BuyWithFiat (): JSX.Element {
   const { network } = useNetworkContext()
@@ -49,44 +49,22 @@ export function BuyWithFiat (): JSX.Element {
   async function onMessageSigned (signature: Buffer): Promise<void> {
     const sig = signature.toString('base64')
     const lang = Localization.locale.split('-').find(() => true) ?? 'de'
+    const baseUrl = getEnvironment().dfxPaymentUrl
 
-    const url = `https://payment.dfx.swiss/login?address=${address}&signature=${sig}&walletId=0&lang=${lang}`
+    const url = `${baseUrl}/login?address=${encodeURIComponent(address)}&signature=${encodeURIComponent(sig)}&walletId=0&lang=${lang}`
     await Linking.openURL(url)
   }
 
   async function signMessage (provider: WalletHdNodeProvider<MnemonicHdNode>): Promise<Buffer> {
-    const wallet = initJellyfishWallet(provider, network, whaleApiClient)
+    const account = initJellyfishWallet(provider, network, whaleApiClient).get(0)
 
+    const privKey = await account.privateKey()
     const messagePrefix = getJellyfishNetwork(network).messagePrefix
     const message = `By signing this message, you confirm that you are the sole owner of the provided DeFiChain address and are in possession of its private key. Your ID: ${address}`
       .split(' ')
       .join('_')
-    const hash = magicHash(message, messagePrefix)
-    return await wallet.get(0).sign(hash)
-  }
 
-  function magicHash (message: string, messagePrefix: string): Buffer {
-    const messagePrefixBuffer = Buffer.from(messagePrefix, 'utf8')
-    const messageBuffer = Buffer.from(message, 'utf8')
-
-    const messageVISize = varuint.encodingLength(messageBuffer.length)
-    const buffer = Buffer.allocUnsafe(
-      messagePrefixBuffer.length + messageVISize + messageBuffer.length
-    )
-    messagePrefixBuffer.copy(buffer, 0)
-    varuint.encode(messageBuffer.length, buffer, messagePrefixBuffer.length)
-    messageBuffer.copy(buffer, messagePrefixBuffer.length + messageVISize)
-    return hash256(buffer)
-  }
-
-  function sha256 (b: Buffer): Buffer {
-    return createHash('sha256')
-      .update(b)
-      .digest()
-  }
-
-  function hash256 (buffer: Buffer): Buffer {
-    return sha256(sha256(buffer))
+    return await signAsync(message, privKey, true, messagePrefix)
   }
 
   return (
