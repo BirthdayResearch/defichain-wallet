@@ -19,7 +19,7 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
@@ -106,7 +106,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     setAToBPrice(aToBPrice)
   }
 
-  const swapToken = useCallback(async (): Promise<void> => {
+  const swapToken = async (): Promise<void> => {
     if (tokenB !== undefined && tokenA !== undefined) {
       const tokenAId = tokenB.id
       setTokenA(tokenB)
@@ -119,7 +119,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         updatePoolPairPrice(tokenAId, poolpair)
       }
     }
-  }, [tokenA, tokenB, poolpair, setValue, tokenAForm, tokenBForm, trigger])
+  }
 
   useEffect(() => {
     if (poolpair !== undefined) {
