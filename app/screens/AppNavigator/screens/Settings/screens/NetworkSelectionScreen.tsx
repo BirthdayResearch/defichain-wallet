@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { getEnvironment } from '../../../../../environment'
 import { translate } from '../../../../../translations'
-import { RowNetworkItem } from '../components/RowNetworkItem'
+import { RowNetworkItem } from '../../../../../components/RowNetworkItem'
 
 export function NetworkSelectionScreen (): JSX.Element {
   const networks = getEnvironment().networks
@@ -20,6 +20,8 @@ export function NetworkSelectionScreen (): JSX.Element {
           <RowNetworkItem
             key={index}
             network={network}
+            alertMessage={translate(
+              'screens/Settings', 'You are about to switch to {{network}}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?', { network: network })}
           />
         ))
       }
