@@ -75,7 +75,6 @@ export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>)
       await _authenticate(options)
     },
     setEnabled: async (enabled, options) => {
-      await _authenticate(options)
       if (isPrivacyLock as boolean === enabled) {
         return
       }
