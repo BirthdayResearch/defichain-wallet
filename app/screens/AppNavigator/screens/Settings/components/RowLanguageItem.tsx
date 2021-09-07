@@ -6,15 +6,13 @@ import { EnvironmentLanguage } from '@environment'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
 import { getLocaleByLanguageName, translate } from '@translations'
-
 import * as React from 'react'
-import { useCallback } from 'react'
 import { SettingsParamList } from '../SettingsNavigator'
 
 export function RowLanguageItem (props: { language: EnvironmentLanguage }): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
   const { language, setLanguage } = useLanguageContext()
-  const onPress = useCallback(async () => {
+  const onPress = async (): Promise<void> => {
     if (getLocaleByLanguageName(props.language) === language) {
       return
     }
@@ -39,7 +37,7 @@ export function RowLanguageItem (props: { language: EnvironmentLanguage }): JSX.
         }
       ]
     })
-  }, [language])
+  }
 
   const isLanguageSelected = (language: EnvironmentLanguage, languageStored: string): boolean => {
     return getLocaleByLanguageName(language) === languageStored.slice(0, 2)
