@@ -72,6 +72,52 @@ context('Wallet - DEX - Add Liquidity', () => {
   })
 })
 
+context('Wallet - DEX - Combine Add and Confirm Liquidity Spec', () => {
+  before(function () {
+    setupWallet()
+  })
+
+  it('should get disabled submit button when value is zero', function () {
+    cy.getByTestID('token_input_primary').clear().type('0')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'disabled')
+    cy.getByTestID('token_input_secondary').clear().type('0')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'disabled')
+  })
+
+  it('should get disabled submit button when value is nan', function () {
+    cy.getByTestID('token_input_primary').clear().type('test value')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'disabled')
+    cy.getByTestID('token_input_secondary').clear().type('test value')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'disabled')
+  })
+
+  it('should get disabled submit button when value is more than input token A and token B', function () {
+    cy.getByTestID('token_input_primary').clear().type('20.00000000')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'disabled')
+    cy.getByTestID('token_input_secondary').clear().type('15.00000000')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'disabled')
+  })
+
+  it('should get disabled submit button when max for token A, while token B doesn\'t have enough balanceB', function () {
+    cy.sendDFITokentoWallet().wait(3000)
+    cy.getByTestID('MAX_amount_button').first().click()
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'disabled')
+  })
+
+  it('should get disabled submit button when max for token B, while token A doesn\'t have enough balanceB', function () {
+    cy.sendTokenToWallet(['BTC']).sendTokenToWallet(['BTC']).wait(3000)
+    cy.getByTestID('MAX_amount_button').eq(1).click()
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'disabled')
+  })
+
+  it('should get redirect to confirm page after clicking on continue', function () {
+    cy.getByTestID('MAX_amount_button').first().click()
+    cy.getByTestID('button_continue_add_liq').should('not.have.attr', 'disabled')
+    cy.getByTestID('button_continue_add_liq').click()
+    cy.url().should('include', 'DEX/ConfirmAddLiquidity')
+  })
+})
+
 context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
   beforeEach(function () {
     setupWallet()
