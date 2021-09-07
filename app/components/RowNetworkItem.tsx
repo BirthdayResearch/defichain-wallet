@@ -3,21 +3,24 @@ import { WalletAlert } from '@components/WalletAlert'
 import { useNetworkContext } from '@contexts/NetworkContext'
 import { EnvironmentNetwork, isPlayground } from '@environment'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { SettingsParamList } from '@screens/AppNavigator/screens/Settings/SettingsNavigator'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import * as React from 'react'
-import { useCallback } from 'react'
-import { SettingsParamList } from '../screens/AppNavigator/screens/Settings/SettingsNavigator'
 
 interface RowNetworkItemProps {
   network: EnvironmentNetwork
   alertMessage: string
 }
+
 export function RowNetworkItem (props: RowNetworkItemProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
-  const { network, updateNetwork } = useNetworkContext()
+  const {
+    network,
+    updateNetwork
+  } = useNetworkContext()
 
-  const onPress = useCallback(async () => {
+  const onPress = async (): Promise<void> => {
     if (props.network === network) {
       if (isPlayground(props.network)) {
         navigation.navigate('Playground')
@@ -41,7 +44,7 @@ export function RowNetworkItem (props: RowNetworkItemProps): JSX.Element {
         ]
       })
     }
-  }, [props.network, props.alertMessage, network, navigation, updateNetwork])
+  }
 
   return (
     <ThemedTouchableOpacity
