@@ -70,7 +70,7 @@ export function WalletNavigator (): JSX.Element {
   const { isLight } = useThemeContext()
   const navigationRef = React.useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null)
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
-  const { updateMnemonicWords } = useWalletMnemonicConext()
+  const { generateMnemonicWords } = useWalletMnemonicConext()
 
   const goToNetworkSelect = (): void => {
     navigationRef.current?.navigate({ name: 'OnboardingNetworkSelectScreen' })
@@ -90,7 +90,7 @@ export function WalletNavigator (): JSX.Element {
           text: translate('screens/WalletNavigator', 'Refresh'),
           style: 'destructive',
           onPress: async () => {
-            updateMnemonicWords()
+            generateMnemonicWords()
           }
         }
       ]

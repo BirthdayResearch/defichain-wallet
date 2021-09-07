@@ -3,7 +3,8 @@ import { MnemonicUnprotected } from '../api/wallet'
 
 interface WalletMnemonicI {
   mnemonicWords: string[]
-  updateMnemonicWords: () => void
+  generateMnemonicWords: () => void
+  flushMnemonicWords: () => void
 }
 
 const WalletMnemonic = createContext<WalletMnemonicI>(undefined as any)
@@ -21,8 +22,11 @@ export function WalletMnemonicProvider (props: React.PropsWithChildren<any>): JS
 
   const context: WalletMnemonicI = {
     mnemonicWords: mnemonicWords,
-    updateMnemonicWords (): void {
+    generateMnemonicWords (): void {
       setWords(getMenmonicSet())
+    },
+    flushMnemonicWords (): void {
+      setWords([])
     }
   }
 

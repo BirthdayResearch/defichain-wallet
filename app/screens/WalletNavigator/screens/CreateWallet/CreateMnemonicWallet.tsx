@@ -14,7 +14,7 @@ import { WalletParamList } from '../../WalletNavigator'
 type Props = StackScreenProps<WalletParamList, 'CreateMnemonicWallet'>
 
 export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
-  const { mnemonicWords, updateMnemonicWords } = useWalletMnemonicConext()
+  const { mnemonicWords, generateMnemonicWords, flushMnemonicWords } = useWalletMnemonicConext()
   const [words, setWords] = useState<string[]>([])
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
   }, [mnemonicWords])
 
   useEffect(() => {
-    updateMnemonicWords()
+    generateMnemonicWords()
     navigation.addListener('beforeRemove', (e) => {
       e.preventDefault()
       WalletAlert({
@@ -48,6 +48,7 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
       })
     })
     return () => {
+      flushMnemonicWords()
       navigation.removeListener('beforeRemove', () => {
       })
     }

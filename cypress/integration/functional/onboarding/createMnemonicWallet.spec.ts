@@ -71,7 +71,7 @@ context('Onboarding - Create Mnemonic Wallet', () => {
 
 context('Onboarding - Create Mnemonic Wallet with refresh recovery word', () => {
   const recoveryWords: string[] = []
-  const oldEecoveryWords: string[] = []
+  const oldRecoveryWords: string[] = []
 
   beforeEach(() => {
     cy.restoreLocalStorage()
@@ -92,7 +92,7 @@ context('Onboarding - Create Mnemonic Wallet with refresh recovery word', () => 
       cy.getByTestID(`word_${i + 1}`).should('exist')
       cy.getByTestID(`word_${i + 1}_number`).should('exist').contains(`${i + 1}.`)
       cy.getByTestID(`word_${i + 1}`).then(($txt: any) => {
-        oldEecoveryWords.push($txt[0].textContent)
+        oldRecoveryWords.push($txt[0].textContent)
       })
     }).then(() => {
       cy.getByTestID('reset_recovery_word_button').click().wait(3000)
@@ -101,13 +101,19 @@ context('Onboarding - Create Mnemonic Wallet with refresh recovery word', () => 
         cy.getByTestID(`word_${i + 1}_number`).should('exist').contains(`${i + 1}.`)
         cy.getByTestID(`word_${i + 1}`).then(($txt: any) => {
           recoveryWords.push($txt[0].textContent)
-          expect(oldEecoveryWords[i]).not.eq($txt[0].textContent)
+          expect(oldRecoveryWords[i]).not.eq($txt[0].textContent)
         })
       }).then(() => {
         cy.getByTestID('verify_button').should('not.have.attr', 'disabled')
         cy.getByTestID('verify_button').click()
         cy.selectMnemonicWords(recoveryWords)
+        cy.setupPinCode()
       })
     })
+  })
+
+  it('should be able to restore refreshed mnemonic words', function () {
+    cy.exitWallet()
+    cy.restoreMnemonicWords(recoveryWords)
   })
 })
