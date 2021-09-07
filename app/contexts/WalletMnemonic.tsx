@@ -17,11 +17,7 @@ const getMenmonicSet = (): string[] => {
 }
 
 export function WalletMnemonicProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
-  const [mnemonicWords, setWords] = useState<string[]>(getMenmonicSet())
-
-  if (mnemonicWords?.length === 0) {
-    return null
-  }
+  const [mnemonicWords, setWords] = useState<string[]>([])
 
   const context: WalletMnemonicI = {
     mnemonicWords: mnemonicWords,
