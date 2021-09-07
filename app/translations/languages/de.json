@@ -23,7 +23,7 @@
   "screens/BalancesScreen": {
     "Balances": "Guthaben",
     "RECEIVE": "EMPFANGEN",
-    "BALANCE DETAILS": "DETAILS GUTHABEN"
+    "PORTFOLIO": "PORTFOLIO"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",

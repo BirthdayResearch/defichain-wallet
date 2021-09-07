@@ -53,7 +53,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       ListHeaderComponent={(
         <SectionTitle
           testID='balances_title'
-          text={translate('screens/BalancesScreen', 'BALANCE DETAILS')}
+          text={translate('screens/BalancesScreen', 'PORTFOLIO')}
         />
       )}
       data={tokens}
