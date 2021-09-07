@@ -80,7 +80,7 @@ export function WalletNavigator (): JSX.Element {
     WalletAlert({
       title: translate('screens/WalletNavigator', 'Refresh recovery words'),
       message: translate(
-        'screens/WalletNavigator', 'You are about to generate new set of recovery words. Continue?'),
+        'screens/WalletNavigator', 'You are about to generate a new set of recovery words. Continue?'),
       buttons: [
         {
           text: translate('screens/WalletNavigator', 'Cancel'),

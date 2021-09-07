@@ -7,7 +7,11 @@
     "Restore Wallet": "Stelle die Wallet wieder her",
     "Create a passcode": "Erstelle ein Passwort",
     "Verify passcode": "Bestätige das Passwort",
-		"Select network": "Netzwerkauswahl"
+		"Select network": "Netzwerkauswahl",
+    "Cancel": "Abbrechen",
+    "Refresh": "Erneuern",
+    "Refresh recovery words": "Erneuere Wiederherstellungssatz",
+    "You are about to generate a new set of recovery words. Continue?": "Du generierst einen neuen Satz Wiederherstellungswörter. Möchtest du fortfahren?"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
