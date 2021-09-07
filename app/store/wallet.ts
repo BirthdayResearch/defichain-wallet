@@ -3,14 +3,9 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
 
-export interface WalletToken extends AddressToken {
-  displaySymbol: string
-  avatarSymbol: string
-}
-
 export interface WalletState {
   utxoBalance: string
-  tokens: WalletToken[]
+  tokens: AddressToken[]
   poolpairs: DexItem[]
 }
 
@@ -25,7 +20,7 @@ const initialState: WalletState = {
   poolpairs: []
 }
 
-const tokenDFI: WalletToken = {
+const tokenDFI: AddressToken = {
   id: '0',
   symbol: 'DFI',
   symbolKey: 'DFI',
@@ -33,15 +28,29 @@ const tokenDFI: WalletToken = {
   isLPS: false,
   amount: '0',
   name: 'DeFiChain',
-  displaySymbol: 'DFI (Token)',
-  avatarSymbol: 'DFI'
+  displaySymbol: 'DFI (Token)'
 }
 
-const utxoDFI: WalletToken = {
+const utxoDFI: AddressToken = {
   ...tokenDFI,
   id: '0_utxo',
-  displaySymbol: 'DFI (UTXO)',
-  avatarSymbol: '_UTXO'
+  displaySymbol: 'DFI (UTXO)'
+}
+
+const setTokenDetails = (t: AddressToken): AddressToken => {
+  let displaySymbol = t.displaySymbol
+  if (t.id === '0') {
+    t.name = 'DeFiChain'
+    displaySymbol = 'DFI (Token)'
+  }
+  if (t.id === '0_utxo') {
+    displaySymbol = 'DFI (UTXO)'
+  }
+  if (t.isLPS) {
+    const [tokenA, tokenB] = t.symbol?.split('-')
+    displaySymbol = tokenA === 'DFI' ? `${tokenA}-d${tokenB}` : `d${tokenA}-${tokenB}`
+  }
+  return { ...t, displaySymbol }
 }
 
 export const wallet = createSlice({
@@ -49,19 +58,7 @@ export const wallet = createSlice({
   initialState,
   reducers: {
     setTokens: (state, action: PayloadAction<AddressToken[]>) => {
-      state.tokens = action.payload.map((t) => {
-        let displaySymbol = t.symbol
-        let avatarSymbol = t.symbol
-        if (t.id === '0') {
-          t.name = 'DeFiChain'
-          displaySymbol = 'DFI (Token)'
-        }
-        if (t.id === '0_utxo') {
-          displaySymbol = 'DFI (UTXO)'
-          avatarSymbol = '_UTXO'
-        }
-        return { ...t, displaySymbol, avatarSymbol }
-      })
+      state.tokens = action.payload.map(setTokenDetails)
     },
     setUtxoBalance: (state, action: PayloadAction<string>) => {
       state.utxoBalance = action.payload

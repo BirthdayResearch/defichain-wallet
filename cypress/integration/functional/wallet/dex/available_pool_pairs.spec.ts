@@ -30,20 +30,20 @@ context('Wallet - DEX - Available Pool Pairs', () => {
   it('should have DFI-BTC PoolPair as 1st', () => {
     cy.getByTestID('liquidity_screen_list').getByTestID('pool_pair_row').first()
       .invoke('text').should(text => {
-        expect(text).to.contains('DFI-BTC')
+        expect(text).to.contains('DFI-dBTC')
         expect(text).to.contains('Pooled DFI')
-        expect(text).to.contains('Pooled BTC')
+        expect(text).to.contains('Pooled dBTC')
       })
-    cy.getByTestID('apr_DFI-BTC').should('exist')
+    cy.getByTestID('apr_DFI-dBTC').should('exist')
   })
 
   it('should have DFI-USDT PoolPair as 3rd', () => {
     cy.getByTestID('liquidity_screen_list').getByTestID('pool_pair_row').eq(2)
       .invoke('text').should(text => {
-        expect(text).to.contains('DFI-USDT')
+        expect(text).to.contains('DFI-dUSDT')
         expect(text).to.contains('Pooled DFI')
-        expect(text).to.contains('Pooled USDT')
+        expect(text).to.contains('Pooled dUSDT')
       })
-    cy.getByTestID('apr_DFI-USDT').should('exist')
+    cy.getByTestID('apr_DFI-dUSDT').should('exist')
   })
 })
