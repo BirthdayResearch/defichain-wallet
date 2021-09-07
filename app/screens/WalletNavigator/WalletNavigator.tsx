@@ -1,8 +1,13 @@
+import { ThemedIcon } from '@components/themed'
+import { WalletAlert } from '@components/WalletAlert'
+import { useWalletMnemonicConext } from '@contexts/WalletMnemonic'
 import { LinkingOptions, NavigationContainer, NavigationContainerRef } from '@react-navigation/native'
 import { Theme } from '@react-navigation/native/lib/typescript/src/types'
 import { createStackNavigator } from '@react-navigation/stack'
+import { tailwind } from '@tailwind'
 import * as Linking from 'expo-linking'
 import * as React from 'react'
+import { TouchableOpacity } from 'react-native'
 import { HeaderFont } from '../../components'
 import { HeaderTitle } from '../../components/HeaderTitle'
 import { getDefaultTheme } from '../../constants/Theme'
@@ -65,8 +70,31 @@ export function WalletNavigator (): JSX.Element {
   const { isLight } = useThemeContext()
   const navigationRef = React.useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null)
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
+  const { updateMnemonicWords } = useWalletMnemonicConext()
+
   const goToNetworkSelect = (): void => {
     navigationRef.current?.navigate({ name: 'OnboardingNetworkSelectScreen' })
+  }
+
+  const resetRecoveryWord = (): void => {
+    WalletAlert({
+      title: translate('screens/WalletNavigator', 'Refresh recovery words'),
+      message: translate(
+        'screens/WalletNavigator', 'You are about to generate new set of recovery words. Continue?'),
+      buttons: [
+        {
+          text: translate('screens/WalletNavigator', 'Cancel'),
+          style: 'cancel'
+        },
+        {
+          text: translate('screens/WalletNavigator', 'Refresh'),
+          style: 'destructive',
+          onPress: async () => {
+            updateMnemonicWords()
+          }
+        }
+      ]
+    })
   }
 
   return (
@@ -119,6 +147,21 @@ export function WalletNavigator (): JSX.Element {
           name='CreateMnemonicWallet'
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Display recovery words')} />,
+            headerRightContainerStyle: tailwind('px-2 py-2'),
+            headerRight: (): JSX.Element => (
+              <TouchableOpacity
+                onPress={resetRecoveryWord}
+                testID='reset_recovery_word_button'
+              >
+                <ThemedIcon
+                  dark={tailwind('text-darkprimary-500')}
+                  iconType='MaterialIcons'
+                  light={tailwind('text-primary-500')}
+                  name='refresh'
+                  size={24}
+                />
+              </TouchableOpacity>
+            ),
             headerBackTitleVisible: false
           }}
         />

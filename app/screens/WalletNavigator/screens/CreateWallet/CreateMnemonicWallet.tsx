@@ -1,7 +1,8 @@
+import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
+import { useWalletMnemonicConext } from '@contexts/WalletMnemonic'
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
-import { useEffect } from 'react'
-import { MnemonicUnprotected } from '../../../../api/wallet'
+import { useEffect, useState } from 'react'
 import { Button } from '../../../../components/Button'
 import { CREATE_STEPS, CreateWalletStepIndicator } from '../../../../components/CreateWalletStepIndicator'
 import { ThemedScrollView, ThemedText, ThemedView } from '../../../../components/themed'
@@ -13,9 +14,19 @@ import { WalletParamList } from '../../WalletNavigator'
 type Props = StackScreenProps<WalletParamList, 'CreateMnemonicWallet'>
 
 export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
-  const words = MnemonicUnprotected.generateWords()
+  const { mnemonicWords, updateMnemonicWords } = useWalletMnemonicConext()
+  const [words, setWords] = useState<string[]>([])
 
   useEffect(() => {
+    setWords([])
+    // to show animation for setting new mnemonic
+    setTimeout(() => {
+      setWords(mnemonicWords)
+    }, 1000)
+  }, [mnemonicWords])
+
+  useEffect(() => {
+    updateMnemonicWords()
     navigation.addListener('beforeRemove', (e) => {
       e.preventDefault()
       WalletAlert({
@@ -68,7 +79,8 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
         {translate('screens/CreateMnemonicWallet', 'Take note of the words in their correct order')}
       </ThemedText>
 
-      {words.map((word, index) => {
+      {(words.length > 0)
+        ? words.map((word, index) => {
         return (
           <RecoveryWordRow
             index={index}
@@ -76,7 +88,8 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
             word={word}
           />
         )
-      })}
+      })
+      : <SkeletonLoader row={10} screen={SkeletonLoaderScreen.MnemonicWord} />}
 
       <Button
         label={translate('screens/CreateMnemonicWallet', 'VERIFY WORDS')}
