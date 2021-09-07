@@ -1,5 +1,5 @@
+import { AppLanguage } from '@constants/Language'
 import { useLanguageContext } from '@contexts/LanguageProvider'
-import { EnvironmentLanguage } from '@environment'
 import i18n, { TranslateOptions } from 'i18n-js'
 import { useEffect, useState } from 'react'
 import de from './languages/de.json'
@@ -84,12 +84,12 @@ export function encodeScope (text: string): string {
   return Buffer.from(text).toString('base64')
 }
 
-export function getLocaleByLanguageName (languageName: EnvironmentLanguage): string {
+export function getLocaleByLanguageName (languageName: AppLanguage): string {
   switch (languageName) {
-    case EnvironmentLanguage.English:
+    case AppLanguage.English:
       return 'en'
 
-    case EnvironmentLanguage.German:
+    case AppLanguage.German:
       return 'de'
   }
 }

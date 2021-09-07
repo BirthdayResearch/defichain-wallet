@@ -1,15 +1,15 @@
 import { LanguagePersistence } from '@api'
 import { ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
+import { AppLanguage } from '@constants/Language'
 import { useLanguageContext } from '@contexts/LanguageProvider'
-import { EnvironmentLanguage } from '@environment'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
 import { getLocaleByLanguageName, translate } from '@translations'
 import * as React from 'react'
 import { SettingsParamList } from '../SettingsNavigator'
 
-export function RowLanguageItem (props: { language: EnvironmentLanguage }): JSX.Element {
+export function RowLanguageItem (props: { language: AppLanguage }): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
   const { language, setLanguage } = useLanguageContext()
   const onPress = async (): Promise<void> => {
@@ -39,7 +39,7 @@ export function RowLanguageItem (props: { language: EnvironmentLanguage }): JSX.
     })
   }
 
-  const isLanguageSelected = (language: EnvironmentLanguage, languageStored: string): boolean => {
+  const isLanguageSelected = (language: AppLanguage, languageStored: string): boolean => {
     return getLocaleByLanguageName(language) === languageStored.slice(0, 2)
   }
 

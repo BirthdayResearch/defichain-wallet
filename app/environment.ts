@@ -15,17 +15,10 @@ export enum EnvironmentName {
   Preview = 'Preview',
   Development = 'Development',
 }
-
-export enum EnvironmentLanguage {
-  English = 'English',
-  German = 'Deutsch'
-}
-
 interface Environment {
   name: EnvironmentName
   debug: boolean
   networks: EnvironmentNetwork[]
-  languages: EnvironmentLanguage[]
 }
 
 export const environments: Record<EnvironmentName, Environment> = {
@@ -36,10 +29,6 @@ export const environments: Record<EnvironmentName, Environment> = {
       EnvironmentNetwork.MainNet,
       EnvironmentNetwork.TestNet,
       EnvironmentNetwork.RemotePlayground
-    ],
-    languages: [
-      EnvironmentLanguage.English,
-      EnvironmentLanguage.German
     ]
   },
   Preview: {
@@ -49,10 +38,6 @@ export const environments: Record<EnvironmentName, Environment> = {
       EnvironmentNetwork.RemotePlayground,
       EnvironmentNetwork.TestNet,
       EnvironmentNetwork.MainNet
-    ],
-    languages: [
-      EnvironmentLanguage.English,
-      EnvironmentLanguage.German
     ]
   },
   Development: {
@@ -63,10 +48,6 @@ export const environments: Record<EnvironmentName, Environment> = {
       EnvironmentNetwork.RemotePlayground,
       EnvironmentNetwork.TestNet,
       EnvironmentNetwork.MainNet
-    ],
-    languages: [
-      EnvironmentLanguage.English,
-      EnvironmentLanguage.German
     ]
   }
 }
