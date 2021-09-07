@@ -28,11 +28,10 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
     amount, fee,
     tokenAAmount, tokenBAmount
   } = route.params
-  const [aSymbol, bSymbol] = pair.symbol.split('-') as [string, string]
   const aToBRate = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
   const bToARate = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
   const symbol = (pair?.tokenA != null && pair?.tokenB != null)
-                ? `${pair?.tokenA?.displaySymbol}-${pair?.tokenB?.displaySymbol}`
+                ? `${pair.tokenA.displaySymbol}-${pair.tokenB.displaySymbol}`
                 : pair.symbol
   const dispatch = useDispatch()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -88,7 +87,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
       />
 
       <TokenBalanceRow
-        iconType={aSymbol}
+        iconType={pair?.tokenA?.displaySymbol}
         lhs={pair?.tokenA?.displaySymbol}
         rhs={{
           value: BigNumber.max(tokenAAmount, 0).toFixed(8),
@@ -97,7 +96,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
       />
 
       <TokenBalanceRow
-        iconType={bSymbol}
+        iconType={pair?.tokenB?.displaySymbol}
         lhs={pair?.tokenB?.displaySymbol}
         rhs={{
           value: BigNumber.max(tokenBAmount, 0).toFixed(8),
@@ -137,7 +136,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
 async function constructSignedRemoveLiqAndSend (pair: PoolPairData, amount: BigNumber, dispatch: Dispatch<any>, postAction: () => void): Promise<void> {
   const tokenId = Number(pair.id)
   const symbol = (pair?.tokenA != null && pair?.tokenB != null)
-                  ? `${pair?.tokenA?.displaySymbol}-${pair?.tokenB?.displaySymbol}`
+                  ? `${pair.tokenA.displaySymbol}-${pair.tokenB.displaySymbol}`
                   : pair.symbol
 
     const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {

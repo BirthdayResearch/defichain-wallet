@@ -46,7 +46,6 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   } = props.route.params.summary
   const pair = props.route.params.pair
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [aSymbol, bSymbol] = symbol.split('-') as [string, string]
   const pairSymbol = (tokenA?.displaySymbol != null && tokenB?.displaySymbol != null)
                     ? `${tokenA?.displaySymbol}-${tokenB?.displaySymbol}`
                     : symbol
@@ -119,7 +118,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       />
 
       <TokenBalanceRow
-        iconType={aSymbol}
+        iconType={tokenA?.displaySymbol}
         lhs={tokenA?.displaySymbol}
         rhs={{
           value: BigNumber.max(tokenAAmount, 0).toFixed(8),
@@ -128,7 +127,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       />
 
       <TokenBalanceRow
-        iconType={bSymbol}
+        iconType={tokenB?.displaySymbol}
         lhs={tokenB?.displaySymbol}
         rhs={{
           value: BigNumber.max(tokenBAmount, 0).toFixed(8),

@@ -235,7 +235,7 @@ interface TokenForm {
 
 function TokenRow (form: TokenForm): JSX.Element {
   const { token, control, onChangeFromAmount, title, controlName, enableMaxButton = true, isDisabled } = form
-  const Icon = getNativeIcon(token.symbol)
+  const Icon = getNativeIcon(token.displaySymbol)
   const rules: { required: boolean, pattern: RegExp, validate: any, max?: string } = {
     required: true,
     pattern: /^\d*\.?\d*$/,

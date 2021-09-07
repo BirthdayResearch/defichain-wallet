@@ -3,14 +3,9 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
 
-export interface WalletToken extends AddressToken {
-  displaySymbol: string
-  avatarSymbol: string
-}
-
 export interface WalletState {
   utxoBalance: string
-  tokens: WalletToken[]
+  tokens: AddressToken[]
   poolpairs: DexItem[]
 }
 
@@ -25,7 +20,7 @@ const initialState: WalletState = {
   poolpairs: []
 }
 
-const tokenDFI: WalletToken = {
+const tokenDFI: AddressToken = {
   id: '0',
   symbol: 'DFI',
   symbolKey: 'DFI',
@@ -33,15 +28,13 @@ const tokenDFI: WalletToken = {
   isLPS: false,
   amount: '0',
   name: 'DeFiChain',
-  displaySymbol: 'DFI (Token)',
-  avatarSymbol: 'DFI'
+  displaySymbol: 'DFI (Token)'
 }
 
-const utxoDFI: WalletToken = {
+const utxoDFI: AddressToken = {
   ...tokenDFI,
   id: '0_utxo',
-  displaySymbol: 'DFI (UTXO)',
-  avatarSymbol: '_UTXO'
+  displaySymbol: 'DFI (UTXO)'
 }
 
 export const wallet = createSlice({
@@ -51,16 +44,14 @@ export const wallet = createSlice({
     setTokens: (state, action: PayloadAction<AddressToken[]>) => {
       state.tokens = action.payload.map((t) => {
         let displaySymbol = t.displaySymbol
-        let avatarSymbol = t.symbol
         if (t.id === '0') {
           t.name = 'DeFiChain'
           displaySymbol = 'DFI (Token)'
         }
         if (t.id === '0_utxo') {
           displaySymbol = 'DFI (UTXO)'
-          avatarSymbol = '_UTXO'
         }
-        return { ...t, displaySymbol, avatarSymbol }
+        return { ...t, displaySymbol }
       })
     },
     setUtxoBalance: (state, action: PayloadAction<string>) => {
