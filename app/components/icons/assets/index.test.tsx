@@ -5,7 +5,7 @@ import { getNativeIcon } from './index'
 
 jest.mock('randomcolor', () => jest.fn().mockReturnValue('#ffffff'))
 
-const icons = ['DFI', 'FAKE', 'BCH', 'BTC', 'DOGE', 'ETH', 'LTC', 'USDT', '_UTXO', 'USDC', 'dBTC']
+const icons = ['_UTXO', 'DFI', 'DFI (UTXO)', 'DFI (Token)', 'BTC', 'dBCH', 'dBTC', 'dDFI', 'dDOGE', 'dETH', 'dLTC', 'dUSDT', 'dUSDC', 'FAKE']
 
 describe('token icons', () => {
   icons.forEach(icon => {

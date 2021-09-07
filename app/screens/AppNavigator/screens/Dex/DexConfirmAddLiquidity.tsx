@@ -46,7 +46,9 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   } = props.route.params.summary
   const pair = props.route.params.pair
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [aSymbol, bSymbol] = symbol.split('-') as [string, string]
+  const pairSymbol = (tokenA?.displaySymbol != null && tokenB?.displaySymbol != null)
+                    ? `${tokenA?.displaySymbol}-${tokenB?.displaySymbol}`
+                    : symbol
   const aToBRate = new BigNumber(tokenB.reserve).div(tokenA.reserve)
   const bToARate = new BigNumber(tokenA.reserve).div(tokenB.reserve)
   const lmTokenAmount = percentage.times(totalLiquidity.token)
@@ -74,10 +76,10 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     setIsSubmitting(true)
     constructSignedAddLiqAndSend(
       {
-        tokenASymbol: tokenA.symbol,
+        tokenASymbol: tokenA.displaySymbol,
         tokenAId: Number(tokenA.id),
         tokenAAmount,
-        tokenBSymbol: tokenB.symbol,
+        tokenBSymbol: tokenB.displaySymbol,
         tokenBId: Number(tokenB.id),
         tokenBAmount
       },
@@ -105,7 +107,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     >
       <SummaryTitle
         amount={lmTokenAmount}
-        suffix={` ${symbol}`}
+        suffix={` ${pairSymbol}`}
         testID='text_add_amount'
         title={translate('screens/ConfirmAddLiq', 'YOU ARE ADDING')}
       />
@@ -116,8 +118,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       />
 
       <TokenBalanceRow
-        iconType={aSymbol}
-        lhs={aSymbol}
+        iconType={tokenA?.displaySymbol}
+        lhs={tokenA?.displaySymbol}
         rhs={{
           value: BigNumber.max(tokenAAmount, 0).toFixed(8),
           testID: 'a_amount'
@@ -125,8 +127,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       />
 
       <TokenBalanceRow
-        iconType={bSymbol}
-        lhs={bSymbol}
+        iconType={tokenB?.displaySymbol}
+        lhs={tokenB?.displaySymbol}
         rhs={{
           value: BigNumber.max(tokenBAmount, 0).toFixed(8),
           testID: 'b_amount'
@@ -141,8 +143,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Price')}
         rightHandElements={[
-          { value: aToBRate.toFixed(8), suffix: ` ${bSymbol} per ${aSymbol}`, testID: 'price_a' },
-          { value: bToARate.toFixed(8), suffix: ` ${aSymbol} per ${bSymbol}`, testID: 'price_b' }
+          { value: aToBRate.toFixed(8), suffix: ` ${tokenB?.displaySymbol} per ${tokenA?.displaySymbol}`, testID: 'price_a' },
+          { value: bToARate.toFixed(8), suffix: ` ${tokenA?.displaySymbol} per ${tokenB?.displaySymbol}`, testID: 'price_b' }
         ]}
       />
 
@@ -152,13 +154,13 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       />
 
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${aSymbol}` })}
-        rightHandElements={[{ value: tokenA.reserve, suffix: ` ${tokenA.symbol}`, testID: 'pooled_a' }]}
+        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${tokenA?.displaySymbol}` })}
+        rightHandElements={[{ value: tokenA.reserve, suffix: ` ${tokenA.displaySymbol}`, testID: 'pooled_a' }]}
       />
 
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${bSymbol}` })}
-        rightHandElements={[{ value: tokenB.reserve, suffix: ` ${tokenB.symbol}`, testID: 'pooled_b' }]}
+        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${tokenB?.displaySymbol}` })}
+        rightHandElements={[{ value: tokenB.reserve, suffix: ` ${tokenB.displaySymbol}`, testID: 'pooled_b' }]}
       />
 
       <NumberRow
