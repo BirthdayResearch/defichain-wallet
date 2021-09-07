@@ -3,17 +3,24 @@ import { WalletAlert } from '@components/WalletAlert'
 import { useNetworkContext } from '@contexts/NetworkContext'
 import { EnvironmentNetwork, isPlayground } from '@environment'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { SettingsParamList } from '@screens/AppNavigator/screens/Settings/SettingsNavigator'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import * as React from 'react'
-import { useCallback } from 'react'
-import { SettingsParamList } from '../SettingsNavigator'
 
-export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Element {
+interface RowNetworkItemProps {
+  network: EnvironmentNetwork
+  alertMessage: string
+}
+
+export function RowNetworkItem (props: RowNetworkItemProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
-  const { network, updateNetwork } = useNetworkContext()
+  const {
+    network,
+    updateNetwork
+  } = useNetworkContext()
 
-  const onPress = useCallback(async () => {
+  const onPress = async (): Promise<void> => {
     if (props.network === network) {
       if (isPlayground(props.network)) {
         navigation.navigate('Playground')
@@ -21,8 +28,7 @@ export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Ele
     } else {
       WalletAlert({
         title: translate('screens/Settings', 'Network Switch'),
-        message: translate(
-          'screens/Settings', 'You are about to switch to {{network}}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?', { network: props.network }),
+        message: props.alertMessage,
         buttons: [
           {
             text: translate('screens/Settings', 'No'),
@@ -38,7 +44,7 @@ export function RowNetworkItem (props: { network: EnvironmentNetwork }): JSX.Ele
         ]
       })
     }
-  }, [props.network, network, navigation, updateNetwork])
+  }
 
   return (
     <ThemedTouchableOpacity
