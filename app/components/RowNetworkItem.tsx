@@ -7,7 +7,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import * as React from 'react'
 import { useCallback } from 'react'
-import { SettingsParamList } from '../SettingsNavigator'
+import { SettingsParamList } from '../screens/AppNavigator/screens/Settings/SettingsNavigator'
 
 interface RowNetworkItemProps {
   network: EnvironmentNetwork

@@ -1,6 +1,6 @@
 import { SectionTitle } from '@components/SectionTitle'
 import { getEnvironment } from '@environment'
-import { RowNetworkItem } from '@screens/AppNavigator/screens/Settings/components/RowNetworkItem'
+import { RowNetworkItem } from '@components/RowNetworkItem'
 import { translate } from '@translations'
 import * as React from 'react'
 import { View } from 'react-native'

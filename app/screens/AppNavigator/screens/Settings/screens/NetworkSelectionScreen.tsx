@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { SectionTitle } from '../../../../../components/SectionTitle'
 import { getEnvironment } from '../../../../../environment'
 import { translate } from '../../../../../translations'
-import { RowNetworkItem } from '../components/RowNetworkItem'
+import { RowNetworkItem } from '../../../../../components/RowNetworkItem'
 
 export function NetworkSelectionScreen (): JSX.Element {
   const networks = getEnvironment().networks
