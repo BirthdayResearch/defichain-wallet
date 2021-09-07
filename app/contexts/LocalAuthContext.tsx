@@ -69,7 +69,7 @@ export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>)
     isDeviceProtected,
     isEnabled: isPrivacyLock === true,
     prompt: async (options) => {
-      if (!hasHardware || !(isPrivacyLock !== undefined && isPrivacyLock)) {
+      if (!isDeviceProtected || !(isPrivacyLock !== undefined && isPrivacyLock)) {
         return
       }
       await _authenticate(options)
