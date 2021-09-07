@@ -84,7 +84,7 @@ function ComparisonRow (props: {label: string}): JSX.Element {
       />
 
       <ThemedText
-        style={tailwind('text-sm font-medium')}
+        style={tailwind('text-sm font-medium flex-1')}
       >
         {translate('screens/TokensVsUtxoScreen', props.label)}
       </ThemedText>

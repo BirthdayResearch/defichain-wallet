@@ -1,16 +1,22 @@
+import BigNumber from 'bignumber.js'
+
+function setupWallet (): void {
+  cy.createEmptyWallet(true)
+  cy.getByTestID('bottom_tab_dex').click()
+  cy.sendDFItoWallet()
+    .sendDFITokentoWallet()
+    .sendTokenToWallet(['BTC']).wait(3000)
+
+  cy.getByTestID('bottom_tab_dex').click()
+  cy.getByTestID('pool_pair_add_DFI-BTC').click()
+  cy.wait(100)
+  cy.getByTestID('token_balance_primary').contains('10')
+  cy.getByTestID('token_balance_secondary').contains('10')
+}
+
 context('Wallet - DEX - Add Liquidity', () => {
   before(function () {
-    cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_dex').click()
-    cy.sendDFItoWallet()
-      .sendDFITokentoWallet()
-      .sendTokenToWallet(['BTC']).wait(3000)
-
-    cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('pool_pair_add_DFI-BTC').click()
-    cy.wait(100)
-    cy.getByTestID('token_balance_primary').contains('10')
-    cy.getByTestID('token_balance_secondary').contains('10')
+    setupWallet()
   })
 
   it('should update both token and build summary when click on max amount button', function () {
@@ -64,6 +70,74 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('percentage_pool').contains('0.20000000%')
     cy.getByTestID('button_cancel_add').click()
   })
+})
+
+context('Wallet - DEX - Combine Add and Confirm Liquidity Spec', () => {
+  before(function () {
+    setupWallet()
+  })
+
+  it('should get disabled submit button when value is zero', function () {
+    cy.getByTestID('token_input_primary').clear().type('0')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'disabled')
+    cy.getByTestID('token_input_secondary').clear().type('0')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'disabled')
+  })
+
+  it('should get disabled submit button when value is nan', function () {
+    cy.getByTestID('token_input_primary').clear().type('test value')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'disabled')
+    cy.getByTestID('token_input_secondary').clear().type('test value')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'disabled')
+  })
+
+  it('should get disabled submit button when value is more than input token A and token B', function () {
+    cy.getByTestID('token_input_primary').clear().type('20.00000000')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'disabled')
+    cy.getByTestID('token_input_secondary').clear().type('15.00000000')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'disabled')
+  })
+
+  it('should get disabled submit button when max for token A, while token B doesn\'t have enough balanceB', function () {
+    cy.sendDFITokentoWallet().wait(3000)
+    cy.getByTestID('MAX_amount_button').first().click()
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'disabled')
+  })
+
+  it('should get disabled submit button when max for token B, while token A doesn\'t have enough balanceB', function () {
+    cy.sendTokenToWallet(['BTC']).sendTokenToWallet(['BTC']).wait(3000)
+    cy.getByTestID('MAX_amount_button').eq(1).click()
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'disabled')
+  })
+
+  it('should get redirect to confirm page after clicking on continue', function () {
+    cy.getByTestID('MAX_amount_button').first().click()
+    cy.getByTestID('button_continue_add_liq').should('not.have.attr', 'disabled')
+    cy.getByTestID('button_continue_add_liq').click()
+    cy.url().should('include', 'DEX/ConfirmAddLiquidity')
+  })
+})
+
+context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
+  beforeEach(function () {
+    setupWallet()
+  })
+
+  afterEach(function () {
+    cy.getByTestID('your_DFI-BTC').contains('10.00000000 DFI-BTC')
+    cy.getByTestID('tokenA_DFI').contains('9.99999999 DFI')
+    cy.getByTestID('tokenB_BTC').contains('9.99999999 BTC')
+
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('balances_row_6').should('exist')
+    // Remove added liquidity
+    cy.getByTestID('bottom_tab_dex').click()
+    cy.getByTestID('pool_pair_remove_DFI-BTC').click()
+    cy.getByTestID('button_slider_max').click().wait(1000)
+    cy.getByTestID('button_continue_remove_liq').click()
+    cy.getByTestID('button_confirm_remove').click().wait(2000)
+    cy.closeOceanInterface()
+  })
 
   it('should have updated confirm info', function () {
     cy.getByTestID('token_input_primary').clear().type('10')
@@ -78,12 +152,39 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.closeOceanInterface()
   })
 
-  it('should have displayed pooled info', function () {
-    cy.getByTestID('your_DFI-BTC').contains('10.00000000 DFI-BTC')
-    cy.getByTestID('tokenA_DFI').contains('9.99999999 DFI')
-    cy.getByTestID('tokenB_BTC').contains('9.99999999 BTC')
-
-    cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('balances_row_6').should('exist')
+  it('should be able to add correct liquidity when user cancel a tx and updated some inputs', function () {
+    const oldAmount = '5.00000000'
+    const newAmount = '10.00000000'
+    cy.getByTestID('token_input_primary').clear().type(oldAmount)
+    cy.getByTestID('button_continue_add_liq').click()
+    cy.getByTestID('text_add_amount').contains(`${oldAmount} DFI-BTC`)
+    cy.getByTestID('a_amount_unit').contains('DFI')
+    cy.getByTestID('a_amount').contains(oldAmount)
+    cy.getByTestID('b_amount_unit').contains('BTC')
+    cy.getByTestID('b_amount').contains(oldAmount)
+    cy.getByTestID('percentage_pool').contains('0.50000000%')
+    cy.getByTestID('text_fee').should('exist')
+    cy.getByTestID('button_confirm_add').click().wait(3000)
+    // Check for authorization page description
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Adding ${new BigNumber(oldAmount).toFixed(8)} DFI - ${new BigNumber(oldAmount).toFixed(8)} BTC`)
+    // Cancel send on authorisation page
+    cy.getByTestID('cancel_authorization').contains('CANCEL').click()
+    cy.getByTestID('button_cancel_add').click()
+    // Update the input amount
+    cy.getByTestID('token_input_primary').clear().type(newAmount)
+    cy.getByTestID('button_continue_add_liq').click()
+    cy.getByTestID('text_add_amount').contains(`${newAmount} DFI-BTC`)
+    cy.getByTestID('a_amount_unit').contains('DFI')
+    cy.getByTestID('a_amount').contains(newAmount)
+    cy.getByTestID('b_amount_unit').contains('BTC')
+    cy.getByTestID('b_amount').contains(newAmount)
+    cy.getByTestID('percentage_pool').contains('1.00000000%')
+    cy.getByTestID('text_fee').should('exist')
+    cy.getByTestID('button_confirm_add').click().wait(3000)
+    // Check for authorization page description
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Adding ${new BigNumber(newAmount).toFixed(8)} DFI - ${new BigNumber(newAmount).toFixed(8)} BTC`)
+    cy.closeOceanInterface()
   })
 })

@@ -149,8 +149,11 @@ async function constructSignedRemoveLiqAndSend (pair: PoolPairData, amount: BigN
 
   dispatch(transactionQueue.actions.push({
     sign: signer,
-    title: `${translate('screens/RemoveLiquidity', 'Removing Liquidity')}`,
-    description: `${translate('screens/RemoveLiquidity', `Removing ${amount.toFixed(8)} ${symbol}`)}`,
+    title: translate('screens/RemoveLiquidity', 'Removing Liquidity'),
+    description: translate('screens/RemoveLiquidity', 'Removing {{amount}} {{symbol}}', {
+      symbol: symbol,
+      amount: amount.toFixed(8)
+    }),
     postAction
   }))
 }
