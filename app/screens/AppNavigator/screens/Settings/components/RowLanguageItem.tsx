@@ -5,8 +5,9 @@ import { AppLanguage } from '@constants/Language'
 import { useLanguageContext } from '@contexts/LanguageProvider'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
-import { getLocaleByLanguageName, translate } from '@translations'
+import { getLanguageName, getLocaleByLanguageName, translate } from '@translations'
 import * as React from 'react'
+import { View } from 'react-native'
 import { SettingsParamList } from '../SettingsNavigator'
 
 export function RowLanguageItem (props: { language: AppLanguage }): JSX.Element {
@@ -49,10 +50,14 @@ export function RowLanguageItem (props: { language: AppLanguage }): JSX.Element 
       style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
       testID={`button_language_${props.language}`}
     >
-      <ThemedText style={tailwind('font-medium')}>
-        {props.language}
-      </ThemedText>
-
+      <View>
+        <ThemedText style={tailwind('font-medium')}>
+          {getLanguageName(props.language)}
+        </ThemedText>
+        <ThemedText style={tailwind('text-sm text-gray-500')}>
+          {translate('screens/Settings', props.language)}
+        </ThemedText>
+      </View>
       {
         isLanguageSelected(props.language, language) &&
         (

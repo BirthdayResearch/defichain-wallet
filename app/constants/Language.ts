@@ -1,6 +1,6 @@
 export enum AppLanguage {
   English = 'English',
-  German = 'Deutsch'
+  German = 'German'
 }
 
 export function getAppLanguages (): string[] {

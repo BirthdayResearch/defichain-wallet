@@ -1,7 +1,5 @@
 import { AppLanguage } from '@constants/Language'
-import { useLanguageContext } from '@contexts/LanguageProvider'
 import i18n, { TranslateOptions } from 'i18n-js'
-import { useEffect, useState } from 'react'
 import de from './languages/de.json'
 import zhHans from './languages/zh-Hans.json'
 import zhHant from './languages/zh-Hant.json'
@@ -84,8 +82,11 @@ export function encodeScope (text: string): string {
   return Buffer.from(text).toString('base64')
 }
 
-export function getLocaleByLanguageName (languageName: AppLanguage): string {
-  switch (languageName) {
+/**
+ * Return the language short code
+ */
+export function getLocaleByLanguageName (language: AppLanguage): string {
+  switch (language) {
     case AppLanguage.English:
       return 'en'
 
@@ -94,14 +95,15 @@ export function getLocaleByLanguageName (languageName: AppLanguage): string {
   }
 }
 
-// TODO(kyleleow): re-assess usage, currently not used anywhere
-export const useTranslate = (path: string, text: string): string => {
-  const { language } = useLanguageContext()
-  const [translatedText, setTranslatedText] = useState('')
+/**
+ * Return the name of language that is independent of current selected language
+ */
+export function getLanguageName (language: AppLanguage): string {
+  switch (language) {
+    case AppLanguage.English:
+      return 'English'
 
-  useEffect(() => {
-    setTranslatedText(translate(path, text))
-  }, [language])
-
-  return translatedText.length === 0 ? translate(path, text) : translatedText
+    case AppLanguage.German:
+      return 'Deutsch'
+  }
 }
