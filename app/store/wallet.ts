@@ -37,22 +37,28 @@ const utxoDFI: AddressToken = {
   displaySymbol: 'DFI (UTXO)'
 }
 
+const setTokenDetails = (t: AddressToken): AddressToken => {
+  let displaySymbol = t.displaySymbol
+  if (t.id === '0') {
+    t.name = 'DeFiChain'
+    displaySymbol = 'DFI (Token)'
+  }
+  if (t.id === '0_utxo') {
+    displaySymbol = 'DFI (UTXO)'
+  }
+  if (t.isLPS) {
+    const [tokenA, tokenB] = t.symbol?.split('-')
+    displaySymbol = tokenA === 'DFI' ? `${tokenA}-d${tokenB}` : `d${tokenA}-${tokenB}`
+  }
+  return { ...t, displaySymbol }
+}
+
 export const wallet = createSlice({
   name: 'wallet',
   initialState,
   reducers: {
     setTokens: (state, action: PayloadAction<AddressToken[]>) => {
-      state.tokens = action.payload.map((t) => {
-        let displaySymbol = t.displaySymbol
-        if (t.id === '0') {
-          t.name = 'DeFiChain'
-          displaySymbol = 'DFI (Token)'
-        }
-        if (t.id === '0_utxo') {
-          displaySymbol = 'DFI (UTXO)'
-        }
-        return { ...t, displaySymbol }
-      })
+      state.tokens = action.payload.map(setTokenDetails)
     },
     setUtxoBalance: (state, action: PayloadAction<string>) => {
       state.utxoBalance = action.payload
