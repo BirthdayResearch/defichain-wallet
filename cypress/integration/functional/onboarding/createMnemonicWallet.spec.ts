@@ -72,14 +72,15 @@ context('Onboarding - Create Mnemonic Wallet', () => {
 context('Onboarding - Create Mnemonic Wallet with refresh recovery word', () => {
   const recoveryWords: string[] = []
   const oldRecoveryWords: string[] = []
+  const settingsRecoveryWords: string[] = []
 
-  beforeEach(() => {
+  before(() => {
     cy.restoreLocalStorage()
     cy.visit('/')
     cy.exitWallet()
   })
 
-  afterEach(() => {
+  after(() => {
     cy.saveLocalStorage()
   })
 
@@ -112,8 +113,13 @@ context('Onboarding - Create Mnemonic Wallet with refresh recovery word', () => 
     })
   })
 
+  it('should be able to verify refreshed mnemonic from settings page', function () {
+    cy.verifyMnemonicOnSettingsPage(settingsRecoveryWords, recoveryWords)
+  })
+
   it('should be able to restore refreshed mnemonic words', function () {
     cy.exitWallet()
+    cy.visit('/')
     cy.restoreMnemonicWords(recoveryWords)
   })
 })
