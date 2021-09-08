@@ -1,8 +1,8 @@
 import { ThemedIcon } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
-import { LinkingOptions, NavigationContainer, NavigationContainerRef } from '@react-navigation/native'
+import { LinkingOptions, NavigationContainer, NavigationContainerRef, RouteProp } from '@react-navigation/native'
 import { Theme } from '@react-navigation/native/lib/typescript/src/types'
-import { createStackNavigator } from '@react-navigation/stack'
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import * as Linking from 'expo-linking'
 import * as React from 'react'
@@ -96,6 +96,13 @@ export function WalletNavigator (): JSX.Element {
     })
   }
 
+  const CreateMnemonicWalletWrapper = (
+    props: JSX.IntrinsicAttributes &
+    { navigation: StackNavigationProp<WalletParamList, 'CreateMnemonicWallet'>, route: RouteProp<WalletParamList, 'CreateMnemonicWallet'> } &
+    React.RefAttributes<unknown>): JSX.Element => {
+      return (<CreateMnemonicWallet {...props} ref={createMnemonicWalletRef} />)
+  }
+
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
@@ -142,7 +149,7 @@ export function WalletNavigator (): JSX.Element {
         />
 
         <WalletStack.Screen
-          component={(props) => <CreateMnemonicWallet {...props} ref={createMnemonicWalletRef} />}
+          component={CreateMnemonicWalletWrapper}
           name='CreateMnemonicWallet'
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Display recovery words')} />,
