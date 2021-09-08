@@ -1,3 +1,4 @@
+import { InfoText } from '@components/InfoText'
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
@@ -113,6 +114,8 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
           </View>
         )
       }
+
+      <InfoText text={translate('screens/SendScreen', 'You can only send UTXOs of DFI. Wallet will ensure your transaction proceeds by automatically convert DFI to UTXO')} />
 
       <Button
         disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
