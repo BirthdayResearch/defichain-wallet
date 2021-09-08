@@ -118,7 +118,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
         )
       }
 
-      {isUTXO(token) && <InfoText testID='send_info_text' text={translate('screens/SendScreen', 'You can only send UTXOs of DFI. Wallet will ensure your transaction proceeds by automatically convert DFI to UTXO')} />}
+      {isUTXO(token) && <InfoText testID='send_info_text' text={translate('screens/SendScreen', 'A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.')} />}
 
       <Button
         disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
