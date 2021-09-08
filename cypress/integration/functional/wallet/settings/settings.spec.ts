@@ -19,7 +19,9 @@ context('Wallet - Settings', () => {
 
   it('should be abled to change language in language selection screen', function () {
     cy.getByTestID('setting_navigate_language_selection').click()
-    cy.getByTestID('button_language_Deutsch').click()
+    cy.getByTestID('language_option').contains('Deutsch')
+    cy.getByTestID('language_option_description').contains('German')
+    cy.getByTestID('button_language_German').click()
     cy.on('window:confirm', (message: string) => {
       expect(message).to.include('Deutsch')
     })

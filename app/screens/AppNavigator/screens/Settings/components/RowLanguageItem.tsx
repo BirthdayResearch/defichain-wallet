@@ -21,7 +21,7 @@ export function RowLanguageItem (props: { language: AppLanguage }): JSX.Element 
     WalletAlert({
       title: translate('screens/Settings', 'Language Switch'),
       message: translate(
-        'screens/Settings', 'You are about to change your language to {{language}}. Do you want to proceed?', { language: props.language }),
+        'screens/Settings', 'You are about to change your language to {{language}}. Do you want to proceed?', { language: getLanguageName(props.language) }),
       buttons: [
         {
           text: translate('screens/Settings', 'No'),
@@ -51,10 +51,10 @@ export function RowLanguageItem (props: { language: AppLanguage }): JSX.Element 
       testID={`button_language_${props.language}`}
     >
       <View>
-        <ThemedText style={tailwind('font-medium')}>
+        <ThemedText testID='language_option' style={tailwind('font-medium')}>
           {getLanguageName(props.language)}
         </ThemedText>
-        <ThemedText style={tailwind('text-sm text-gray-500')}>
+        <ThemedText testID='language_option_description' style={tailwind('text-sm text-gray-500')}>
           {translate('screens/Settings', props.language)}
         </ThemedText>
       </View>
