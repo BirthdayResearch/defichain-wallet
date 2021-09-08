@@ -2,7 +2,7 @@ import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader
 import { StackScreenProps } from '@react-navigation/stack'
 import { MnemonicUnprotected } from '../../../../api/wallet'
 import * as React from 'react'
-import { useEffect, useState } from 'react'
+import { forwardRef, useEffect, useState, useImperativeHandle } from 'react'
 import { Button } from '../../../../components/Button'
 import { CREATE_STEPS, CreateWalletStepIndicator } from '../../../../components/CreateWalletStepIndicator'
 import { ThemedScrollView, ThemedText, ThemedView } from '../../../../components/themed'
@@ -17,11 +17,11 @@ export interface CreateMnemonicWalletHandle {
   getMnemonicWords: () => void
 }
 
-export const CreateMnemonicWallet = React.forwardRef(
+export const CreateMnemonicWallet = forwardRef(
   function ({ navigation }: Props, ref: React.Ref<unknown> | undefined): JSX.Element {
     const [words, setWords] = useState<string[]>(MnemonicUnprotected.generateWords())
 
-    React.useImperativeHandle(ref, () => ({
+    useImperativeHandle(ref, () => ({
       getMnemonicWords () {
         setWords([])
         setTimeout(() => {
