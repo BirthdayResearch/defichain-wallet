@@ -41,7 +41,7 @@ module.exports = {
           600: '#D10000'
         },
         warning: {
-          50: '#FFF0E1',
+          50: '#FFFAF4',
           200: '#FFD2A3',
           300: '#FFBE7B',
           500: '#FF9629',
