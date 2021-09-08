@@ -12,7 +12,6 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import * as React from 'react'
 import { useCallback } from 'react'
-import { View } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { MnemonicStorage } from '../../../../api/wallet/mnemonic_storage'
 import { RowThemeItem } from './components/RowThemeItem'
@@ -113,7 +112,10 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         )
       }
 
-      <View style={tailwind('mt-4')} />
+      <SectionTitle
+        testID='addtional_options_title'
+        text={translate('screens/Settings', 'ADDITIONAL OPTIONS')}
+      />
       <NavigateItemRow
         testID='setting_navigate_About'
         label='About'
