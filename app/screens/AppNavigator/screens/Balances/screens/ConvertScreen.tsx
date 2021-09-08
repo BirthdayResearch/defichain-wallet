@@ -1,3 +1,4 @@
+import { InfoText } from '@components/InfoText'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -102,6 +103,8 @@ export function ConvertScreen (props: Props): JSX.Element {
       />
 
       <TokenVsUtxosInfo />
+
+      {isUtxoToAccount(mode) && <InfoText text={translate('screens/ConvertScreen', 'A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.')} style={tailwind('mt-0')} />}
 
       <Button
         disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob || hasPendingBroadcastJob}
@@ -319,4 +322,8 @@ function getConvertibleUtxoAmount (mode: ConversionMode, source: AddressToken): 
   const utxoToReserve = '0.1'
   const leftover = new BigNumber(source.amount).minus(new BigNumber(utxoToReserve))
   return leftover.isLessThan(0) ? '0' : leftover.toFixed()
+}
+
+function isUtxoToAccount (mode: ConversionMode): boolean {
+  return mode === 'utxosToAccount'
 }
