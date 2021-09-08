@@ -40,7 +40,7 @@
     "Enter an address": "Gib eine Adresse ein",
     "Enter an amount": "Gib eine Menge ein",
     "Balance: ": "Guthaben: ",
-    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees."
+    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0,1 DFI (UTXO)) ist für Gebühren reserviert."
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Senden bestätigen",
