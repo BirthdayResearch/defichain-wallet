@@ -157,7 +157,6 @@ async function constructSignedConversionAndSend ({
       }),
       postAction
     }))
-    return await new Promise(resolve => setTimeout(resolve, 2000))
   } catch (e) {
     Logging.error(e)
   }
