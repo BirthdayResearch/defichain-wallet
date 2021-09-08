@@ -8,7 +8,7 @@ context('Wallet - DEX - Pool Swap without balance', () => {
 
   it('should be able to validate empty form', function () {
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('pool_pair_swap-horiz_DFI-LTC').click()
+    cy.getByTestID('pool_pair_swap-horiz_DFI-dLTC').click()
     cy.getByTestID('button_submit').should('have.attr', 'disabled')
   })
 })
@@ -21,12 +21,12 @@ context('Wallet - DEX - Pool Swap with balance', () => {
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('pool_pair_swap-horiz_DFI-LTC').click()
+    cy.getByTestID('pool_pair_swap-horiz_DFI-dLTC').click()
   })
 
   it('should be able to click swap button', function () {
     cy.getByTestID('text_balance_tokenA').contains('10.00000000 DFI')
-    cy.getByTestID('text_balance_tokenB').contains('10.00000000 LTC')
+    cy.getByTestID('text_balance_tokenB').contains('10.00000000 dLTC')
     cy.getByTestID('swap_button').click().wait(4000)
   })
 
@@ -35,7 +35,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
     // Valid form
     cy.getByTestID('text_input_tokenA').type('1')
     cy.getByTestID('estimated').then(($txt: any) => {
-      const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
+      const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
       cy.getByTestID('button_submit').should('not.have.attr', 'disabled')
 
@@ -55,7 +55,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
     cy.getByTestID('MAX_amount_button').click().wait(3000)
     cy.getByTestID('text_input_tokenA').should('have.value', '10.00000000')
     cy.getByTestID('estimated').then(($txt: any) => {
-      const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
+      const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
     })
   })
@@ -64,7 +64,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
     cy.getByTestID('50%_amount_button').click().wait(500)
     cy.getByTestID('text_input_tokenA').should('have.value', '5.00000000').wait(3000)
     cy.getByTestID('estimated').then(($txt: any) => {
-      const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
+      const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
       cy.getByTestID('slippage_10%').click()
     })
@@ -79,14 +79,14 @@ context('Wallet - DEX - Pool Swap with balance Confirm Txn', () => {
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('pool_pair_swap-horiz_DFI-LTC').click()
+    cy.getByTestID('pool_pair_swap-horiz_DFI-dLTC').click()
   })
 
   it('should be able to swap', function () {
     cy.getByTestID('text_input_tokenA').clear().type('10')
     cy.getByTestID('slippage_10%').click()
     cy.getByTestID('estimated').then(($txt: any) => {
-      const tokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
+      const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
       cy.getByTestID('button_submit').click()
       cy.getByTestID('slippage_fee').contains('10%')
       cy.getByTestID('confirm_title').contains('YOU ARE SWAPPING')
@@ -97,7 +97,7 @@ context('Wallet - DEX - Pool Swap with balance Confirm Txn', () => {
       cy.getByTestID('balances_row_4').should('exist')
 
       cy.getByTestID('balances_row_4_amount').then(($txt: any) => {
-        const balanceAmount = $txt[0].textContent.replace(' LTC', '').replace(',', '')
+        const balanceAmount = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
         expect(new BigNumber(balanceAmount).toNumber()).be.gte(new BigNumber(tokenValue).toNumber())
       })
     })
@@ -107,7 +107,7 @@ context('Wallet - DEX - Pool Swap with balance Confirm Txn', () => {
     cy.getByTestID('text_input_tokenA').clear().type('1')
     cy.getByTestID('slippage_1%').click()
     cy.getByTestID('estimated').then(($txt: any) => {
-      $txt[0].textContent.replace(' LTC', '').replace(',', '')
+      $txt[0].textContent.replace(' dLTC', '').replace(',', '')
       cy.getByTestID('button_submit').click()
       cy.getByTestID('slippage_fee').contains('1%')
       cy.getByTestID('confirm_title').contains('YOU ARE SWAPPING')
@@ -119,7 +119,7 @@ context('Wallet - DEX - Pool Swap with balance Confirm Txn', () => {
       cy.getByTestID('text_input_tokenA').clear().type('10')
       cy.getByTestID('slippage_10%').click()
       cy.getByTestID('estimated').then(($txt: any) => {
-        const updatedTokenValue = $txt[0].textContent.replace(' LTC', '').replace(',', '')
+        const updatedTokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
         cy.getByTestID('button_submit').click()
         cy.getByTestID('slippage_fee').contains('10%')
         cy.getByTestID('confirm_title').contains('YOU ARE SWAPPING')
@@ -130,7 +130,7 @@ context('Wallet - DEX - Pool Swap with balance Confirm Txn', () => {
         cy.getByTestID('balances_row_4').should('exist')
 
         cy.getByTestID('balances_row_4_amount').then(($txt: any) => {
-          const balanceAmount = $txt[0].textContent.replace(' LTC', '').replace(',', '')
+          const balanceAmount = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
           expect(new BigNumber(balanceAmount).toNumber()).be.gte(new BigNumber(updatedTokenValue).toNumber())
         })
       })

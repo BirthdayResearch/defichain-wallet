@@ -2,6 +2,7 @@ import { SvgProps } from 'react-native-svg'
 import { _Default } from './_Default'
 import { dBCH } from './dBCH'
 import { dBTC } from './dBTC'
+import { BTC } from './BTC'
 import { dDFI } from './dDFI'
 import { dDOGE } from './dDOGE'
 import { dETH } from './dETH'
@@ -13,20 +14,16 @@ import { dUSDT } from './dUSDT'
 const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   _UTXO: DFI,
   DFI: dDFI,
-  BCH: dBCH,
+  'DFI (UTXO)': DFI,
+  'DFI (Token)': dDFI,
+  BTC: BTC,
   dBCH: dBCH,
-  BTC: dBTC,
   dBTC: dBTC,
   dDFI: dDFI,
-  DOGE: dDOGE,
   dDOGE: dDOGE,
-  ETH: dETH,
   dETH: dETH,
-  LTC: dLTC,
   dLTC: dLTC,
-  USDT: dUSDT,
   dUSDT: dUSDT,
-  USDC: dUSDC,
   dUSDC: dUSDC
 }
 

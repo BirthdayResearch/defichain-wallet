@@ -88,7 +88,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
     <ThemedScrollView style={tailwind('pb-4')}>
       <SummaryTitle
         amount={amount}
-        suffix={` ${token.symbol}`}
+        suffix={` ${token.displaySymbol}`}
         testID='text_send_amount'
         title={translate('screens/SendConfirmationScreen', 'YOU ARE SENDING')}
       />
@@ -110,7 +110,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
 
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Amount')}
-        rightHandElements={[{ value: amount.toFixed(8), suffix: ` ${token.symbol}`, testID: 'text_amount' }]}
+        rightHandElements={[{ value: amount.toFixed(8), suffix: ` ${token.displaySymbol}`, testID: 'text_amount' }]}
       />
 
       <NumberRow
@@ -122,7 +122,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         lhs={translate('screens/SendConfirmationScreen', 'Remaining balance')}
         rightHandElements={[{
           value: BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)).minus(fee.toFixed(8)), 0).toFixed(8),
-          suffix: ` ${token.symbol}`,
+          suffix: ` ${token.displaySymbol}`,
           testID: 'text_balance'
         }]}
       />
@@ -182,8 +182,8 @@ async function send ({
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
-      title: `${translate('screens/SendConfirmationScreen', 'Sending')} ${token.symbol}`,
-      description: translate('screens/SendConfirmationScreen', 'Sending {{amount}} {{symbol}}', { amount: amount.toFixed(8), symbol: token.symbol }),
+      title: translate('screens/SendConfirmationScreen', 'Sending', { symbol: token.displaySymbol }),
+      description: translate('screens/SendConfirmationScreen', 'Sending {{amount}} {{symbol}}', { amount: amount.toFixed(8), symbol: token.displaySymbol }),
       postAction
     }))
   } catch (e) {

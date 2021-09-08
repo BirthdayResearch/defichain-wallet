@@ -35,10 +35,11 @@ export function Button (props: ButtonProps): JSX.Element {
       style={tailwind(`${margin} p-3 rounded flex-row justify-center ${buttonStyle} ${props.disabled === true ? disabledStyle : ''}`)}
     >
       {
-        props.label !== undefined &&
+        props.label !== undefined && (
           <Text style={(tailwind(`${textStyle} font-bold`))}>
             {props.label}
           </Text>
+        )
       }
 
       {

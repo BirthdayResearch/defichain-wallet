@@ -1,5 +1,6 @@
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
+import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
@@ -28,7 +29,6 @@ import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
 import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
 import { hasTxQueued } from '../../../../../store/transaction_queue'
-import { WalletToken } from '../../../../../store/wallet'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
@@ -184,12 +184,12 @@ function AddressRow ({
 
 interface AmountForm {
   control: Control
-  token: WalletToken
+  token: AddressToken
   onAmountButtonPress: (amount: string) => void
 }
 
 function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.Element {
-  const Icon = getNativeIcon(token.avatarSymbol)
+  const Icon = getNativeIcon(token.displaySymbol)
   let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(0.1).toFixed(8) : token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
   return (
@@ -227,7 +227,7 @@ function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.El
               <Icon />
 
               <InputIconLabel
-                label={token.symbol}
+                label={token.displaySymbol}
                 screenType={IconLabelScreenType.Balance}
                 testID='token_symbol'
               />
@@ -266,7 +266,7 @@ function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.El
                 {value}
               </ThemedText>
             )}
-            suffix={` ${token.symbol}`}
+            suffix={` ${token.displaySymbol}`}
             thousandSeparator
             value={maxAmount}
           />

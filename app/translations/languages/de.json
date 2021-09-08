@@ -6,7 +6,8 @@
     "Verify words": "Bestätige die Worte",
     "Restore Wallet": "Stelle die Wallet wieder her",
     "Create a passcode": "Erstelle ein Passwort",
-    "Verify passcode": "Bestätige das Passwort"
+    "Verify passcode": "Bestätige das Passwort",
+		"Select network": "Netzwerkauswahl"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
@@ -22,7 +23,7 @@
   "screens/BalancesScreen": {
     "Balances": "Guthaben",
     "RECEIVE": "EMPFANGEN",
-    "BALANCE DETAILS": "DETAILS GUTHABEN"
+    "PORTFOLIO": "PORTFOLIO"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
@@ -50,7 +51,7 @@
     "Estimated fee": "Geschätzte Gebühr",
     "Remaining balance": "Verbleibendes Guthaben",
     "SEND": "SENDEN",
-    "Sending": "Senden",
+    "Sending": "Senden {{symbol}}",
     "Sending {{amount}} {{symbol}}": "Sende {{amount}} {{symbol}}"
   },
   "screens/ConvertScreen": {
@@ -58,7 +59,7 @@
     "Scan recipient QR": "QR-Code des Empfängers scannen",
     "Balance": "Guthaben",
     "Enter an amount": "Betrag eingeben",
-    "UTXO vs Token, what is the difference?": "UXTO ggü. Token, worin liegt der Unterschied?",
+    "UTXO vs Token, what is the difference?": "UXTO vs Token, worin liegt der Unterschied?",
     "CONVERT {{symbol}}": "UMWANDELN {{symbol}}",
     "TO {{symbol}}": "IN {{symbol}}"
   },
@@ -97,7 +98,7 @@
     "NETWORK": "NETZWERK",
     "To update your passcode, we need you to enter your current passcode.": "Um dein Passwort zu ändern ist das bisherige Passwort einzugeben.",
     "Verifying passcode...": "Passwort bestätigen...",
-    "To continue viewing your recovery words, we need you to enter your passcode.": "Um erneut deinen Wiederherstellungssatz anzuzeigen, Passwort eingeben.",
+    "To continue viewing your recovery words, we need you to enter your passcode.": "Gib bitte dein Passwort ein um erneut deine Wiederherstellungswörter anzuzeigen.",
     "Loading...": "Lädt...",
     "Network Switch": "Netzwerk wechseln",
     "No": "Nein",
@@ -137,7 +138,7 @@
   "screens/TokenDetailScreen": {
     "AMOUNT BALANCE": "Guthabenbetrag",
     "AVAILABLE OPTIONS": "VERFÜGBARE OPTIONEN",
-    "Send to other wallet": "An andere Wallet senden",
+    "Send to other wallet": "Auf andere Wallet senden",
     "Receive": "Empfange",
     "Convert to {{symbol}}": "Umwandeln in {{symbol}}"
   },
@@ -351,5 +352,9 @@
     "Verify": "Bestätige",
     "Secure": "Sichere",
     "Restore": "Stelle wieder her"
-  }
+  },
+	"screens/OnboardingNetworkSelectScreen": {
+		"SELECT NETWORK": "NETZWERKAUSWAHL",
+    "You are about to switch to {{network}}. Do you want to proceed?": "Du wechselst zu {{network}}. Möchtest du fortfahren?"
+	}
 }
