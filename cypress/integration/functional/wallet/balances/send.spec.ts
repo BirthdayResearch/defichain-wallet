@@ -59,6 +59,10 @@ context('Wallet - Send', function () {
       cy.getByTestID('token_symbol').should('contain', 'DFI')
     })
 
+    it('should contain info text when sending UTXO', function () {
+      cy.getByTestID('send_info_text').should('be.visible')
+    })
+
     it('should be able to compute for max values', function () {
       cy.getByTestID('transaction_fee').then(($txt: any) => {
         const transactionFee = $txt[0].textContent.replace(' DFI (UTXO)', '')
