@@ -23,17 +23,17 @@ function ConnectionErrorComponent (): JSX.Element {
     >
       <ThemedIcon
         iconType='MaterialIcons'
-        name='error'
+        name='wifi-off'
         size={44}
         style={tailwind('pb-5 text-center')}
       />
 
       <ThemedText style={tailwind('text-2xl pb-2 font-semibold text-center')}>
-        {translate('screens/ConnectionBoundary', 'Network error')}
+        {translate('screens/ConnectionBoundary', 'Connection problem')}
       </ThemedText>
 
       <ThemedText style={tailwind('text-sm pb-16 text-center opacity-60')}>
-        {translate('screens/ConnectionBoundary', 'Please check your internet connection and try again')}
+        {translate('screens/ConnectionBoundary', 'There seems to be a problem with the connection. Check your network and try again.')}
       </ThemedText>
     </ThemedView>
   )
