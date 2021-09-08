@@ -88,6 +88,7 @@ exports[`language selection screen should render 1`] = `
             ],
           ]
         }
+        testID="language_option"
       >
         English
       </Text>
@@ -112,6 +113,7 @@ exports[`language selection screen should render 1`] = `
             ],
           ]
         }
+        testID="language_option_description"
       >
         English
       </Text>
@@ -170,6 +172,7 @@ exports[`language selection screen should render 1`] = `
             ],
           ]
         }
+        testID="language_option"
       >
         Deutsch
       </Text>
@@ -194,6 +197,7 @@ exports[`language selection screen should render 1`] = `
             ],
           ]
         }
+        testID="language_option_description"
       >
         German
       </Text>
