@@ -27,7 +27,7 @@ context('Wallet - Pool Pair Rewards', () => {
 
     it('should receive LP tokens DFI tokens and receive rewards', function () {
       cy.sendDFItoWallet()
-        .sendTokenToWallet(['DFI-BTC']).wait(10000)
+        .sendTokenToWallet(['BTC-DFI']).wait(10000)
       cy.getByTestID('balances_row_0').should('exist')
       cy.getByTestID('balances_row_0_amount').then(($txt: any) => {
         const balanceAmount = $txt[0].textContent.replace(' DFI', '').replace(',', '')

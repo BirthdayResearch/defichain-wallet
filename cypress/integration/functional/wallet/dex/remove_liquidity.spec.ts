@@ -1,32 +1,45 @@
+import BigNumber from 'bignumber.js'
+
+function createAddLiquidityToWallet (): void {
+  cy.createEmptyWallet(true)
+
+  cy.getByTestID('bottom_tab_settings').click()
+  cy.sendDFItoWallet().sendTokenToWallet(['ETH-DFI']).wait(3000)
+  cy.getByTestID('bottom_tab_dex').click().wait(1000)
+  cy.getByTestID('liquidity_screen_list').wait(2000)
+    .getByTestID('pool_pair_row_your').should('have.length', 1)
+
+  cy.getByTestID('liquidity_screen_list')
+    .wait(2000).getByTestID('pool_pair_row_your').first()
+    .invoke('text').should(text => expect(text).to.contains('10.00000000 dETH-DFI'))
+
+  cy.getByTestID('pool_pair_remove_dETH-DFI').click().wait(1000)
+
+  cy.getByTestID('price_a').contains('0.00000000')
+  cy.getByTestID('price_a_unit').contains('dETH')
+  cy.getByTestID('price_b').contains('0.00000000')
+  cy.getByTestID('price_b_unit').contains('DFI')
+}
+
 context('Wallet - DEX - Remove Liquidity', () => {
   before(function () {
-    cy.createEmptyWallet(true)
+    createAddLiquidityToWallet()
+  })
 
-    cy.getByTestID('bottom_tab_settings').click()
-    cy.sendDFItoWallet().sendTokenToWallet(['DFI-ETH']).wait(3000)
-
+  after(function () {
+    // Remove added liquidity
     cy.getByTestID('bottom_tab_dex').click().wait(1000)
-
-    // const list = cy.getByTestID('liquidity_screen_list').wait(2000)
-    cy.getByTestID('liquidity_screen_list').wait(2000)
-      .getByTestID('pool_pair_row_your').should('have.length', 1)
-
-    cy.getByTestID('liquidity_screen_list')
-      .wait(2000).getByTestID('pool_pair_row_your').first()
-      .invoke('text').should(text => expect(text).to.contains('10.00000000 DFI-ETH'))
-
-    cy.getByTestID('pool_pair_remove_DFI-ETH').click().wait(1000)
-
-    cy.getByTestID('price_a').contains('0.00000000')
-    cy.getByTestID('price_a_unit').contains('DFI')
-    cy.getByTestID('price_b').contains('0.00000000')
-    cy.getByTestID('price_b_unit').contains('ETH')
+    cy.getByTestID('pool_pair_remove_dETH-DFI').click().wait(1000)
+    cy.getByTestID('button_slider_max').click().wait(1000)
+    cy.getByTestID('button_continue_remove_liq').click()
+    cy.getByTestID('button_confirm_remove').click().wait(2000)
+    cy.closeOceanInterface()
   })
 
   it('should display price based on pool tokenA:tokenB ratio regardless removal amount', function () {
     cy.wait(1000)
-    cy.getByTestID('text_a_to_b_price').contains('100.00000000 ETH per DFI')
-    cy.getByTestID('text_b_to_a_price').contains('0.01000000 DFI per ETH')
+    cy.getByTestID('text_a_to_b_price').contains('0.01000000 DFI per dETH')
+    cy.getByTestID('text_b_to_a_price').contains('100.00000000 dETH per DFI')
   })
 
   // // unable to trigger slider change event for react: https://github.com/cypress-io/cypress/issues/1570
@@ -74,37 +87,100 @@ context('Wallet - DEX - Remove Liquidity', () => {
       expect(text).to.equal('0.00')
     })
     cy.getByTestID('price_a').contains('0.00000000')
-    cy.getByTestID('price_a_unit').contains('DFI')
+    cy.getByTestID('price_a_unit').contains('dETH')
     cy.getByTestID('price_b').contains('0.00000000')
-    cy.getByTestID('price_b_unit').contains('ETH')
+    cy.getByTestID('price_b_unit').contains('DFI')
 
     cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+  })
+})
+
+context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
+  beforeEach(function () {
+    createAddLiquidityToWallet()
+  })
+
+  afterEach(function () {
+    cy.getByTestID('pool_pair_row_your').should('not.exist')
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('balances_row_7').should('not.exist')
   })
 
   it('Should be able to remove liquidity', function () {
     cy.getByTestID('button_slider_max').click().wait(1000)
-    cy.getByTestID('price_a').contains('1.00000000')
-    cy.getByTestID('price_a_unit').contains('DFI')
-    cy.getByTestID('price_b').contains('100.00000000')
-    cy.getByTestID('price_b_unit').contains('ETH')
-    cy.getByTestID('button_continue_remove_liq').click()
-    cy.getByTestID('button_cancel_remove').click()
-    cy.getByTestID('button_slider_max').should('exist')
+    cy.getByTestID('price_a').invoke('text').then((valueA) => {
+      expect(new BigNumber(valueA).toNumber()).be.gte(new BigNumber('99').toNumber())
+      cy.getByTestID('price_a_unit').contains('dETH')
+      cy.getByTestID('price_b').invoke('text').then((valueB) => {
+        expect(new BigNumber(valueB).toNumber()).be.gte(new BigNumber('0.99').toNumber())
+        cy.getByTestID('price_b_unit').contains('DFI')
+        cy.getByTestID('button_continue_remove_liq').click()
+        cy.getByTestID('button_cancel_remove').click()
+        cy.getByTestID('button_slider_max').should('exist')
+        cy.getByTestID('button_continue_remove_liq').click()
+
+        cy.getByTestID('confirm_title').should('have.text', 'YOU ARE REMOVING')
+        cy.getByTestID('text_remove_amount').should('have.text', '10.00000000 dETH-DFI')
+        cy.getByTestID('a_amount').should('have.text', new BigNumber(valueA).toFixed(8))
+        cy.getByTestID('b_amount').should('have.text', new BigNumber(valueB).toFixed(8))
+        cy.getByTestID('price_a').contains('0.01000000 DFI per dETH')
+        cy.getByTestID('price_b').contains('100.00000000 dETH per DFI')
+        cy.getByTestID('button_confirm_remove').click().wait(2000)
+        cy.closeOceanInterface()
+      })
+    })
+  })
+
+  it('should be able to remove correct liquidity when user cancel a tx and updated some inputs', function () {
+    const oldAmount = '5.00000000'
+    const newAmount = '10.00000000'
+    cy.getByTestID('text_input_percentage').clear().type('50')
+    cy.getByTestID('price_a').invoke('text').then((value) => {
+      expect(new BigNumber(value).toNumber()).be.gte(new BigNumber('49').toNumber())
+    })
+    cy.getByTestID('price_a_unit').contains('dETH')
+    cy.getByTestID('price_b').invoke('text').then((value) => {
+      expect(new BigNumber(value).toNumber()).be.gte(new BigNumber('0.49').toNumber())
+    })
+    cy.getByTestID('price_b_unit').contains('DFI')
     cy.getByTestID('button_continue_remove_liq').click()
 
     cy.getByTestID('confirm_title').should('have.text', 'YOU ARE REMOVING')
-    cy.getByTestID('text_remove_amount').should('have.text', '10.00000000 DFI-ETH')
-    cy.getByTestID('a_amount').should('have.text', '1.00000000')
-    cy.getByTestID('b_amount').should('have.text', '100.00000000')
-    cy.getByTestID('price_a').contains('100.00000000 ETH per DFI')
-    cy.getByTestID('price_b').contains('0.01000000 DFI per ETH')
+    cy.getByTestID('text_remove_amount').should('have.text', `${oldAmount} dETH-DFI`)
+    cy.getByTestID('a_amount').should('exist')
+    cy.getByTestID('b_amount').should('exist')
+    cy.getByTestID('text_fee').should('exist')
+    cy.getByTestID('price_a').contains('0.01000000 DFI per dETH')
+    cy.getByTestID('price_b').contains('100.00000000 dETH per DFI')
     cy.getByTestID('button_confirm_remove').click().wait(2000)
-    cy.closeOceanInterface()
-  })
+    // Check for authorization page description
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Removing ${new BigNumber(oldAmount).toFixed(8)} dETH-DFI`)
 
-  it('Should be able to verify if liquidity is removed', function () {
-    cy.getByTestID('pool_pair_row_your').should('not.exist')
-    cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('balances_row_7').should('not.exist')
+    // Cancel send on authorisation page
+    cy.getByTestID('cancel_authorization').contains('CANCEL').click()
+    cy.getByTestID('button_cancel_remove').click()
+    // Update input values
+    cy.getByTestID('text_input_percentage').clear().type('100')
+    cy.getByTestID('price_a').invoke('text').then((value) => {
+      expect(new BigNumber(value).toNumber()).be.gte(new BigNumber('99').toNumber())
+    })
+    cy.getByTestID('price_a_unit').contains('dETH')
+    cy.getByTestID('price_b').invoke('text').then((value) => {
+      expect(new BigNumber(value).toNumber()).be.gte(new BigNumber('0.99').toNumber())
+    })
+    cy.getByTestID('price_b_unit').contains('DFI')
+    cy.getByTestID('button_continue_remove_liq').click()
+
+    cy.getByTestID('confirm_title').should('have.text', 'YOU ARE REMOVING')
+    cy.getByTestID('text_remove_amount').should('have.text', `${newAmount} dETH-DFI`)
+    cy.getByTestID('a_amount').should('exist')
+    cy.getByTestID('b_amount').should('exist')
+    cy.getByTestID('text_fee').should('exist')
+    cy.getByTestID('button_confirm_remove').click().wait(2000)
+    // Check for authorization page description
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Removing ${new BigNumber(newAmount).toFixed(8)} dETH-DFI`)
+    cy.closeOceanInterface()
   })
 })

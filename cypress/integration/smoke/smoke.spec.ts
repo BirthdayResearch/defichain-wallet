@@ -36,7 +36,7 @@ context('Mainnet - Wallet', () => {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
-      .sendTokenToWallet(['BTC', 'DFI-ETH']).wait(3000)
+      .sendTokenToWallet(['BTC', 'ETH-DFI']).wait(3000)
     cy.verifyWalletAddress('regtest', localAddress)
   })
 
@@ -120,14 +120,26 @@ context('Mainnet - Wallet', () => {
       cy.fetchWalletBalance()
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_list').should('exist')
-      cy.checkBalanceRow('0_utxo', { name: 'DeFiChain', amount: '10.00000000', symbol: 'DFI (UTXO)' })
-      cy.checkBalanceRow('0', { name: 'DeFiChain', amount: 10, symbol: 'DFI (Token)' }, true)
-      cy.checkBalanceRow('7', { name: 'Default Defi token-Playground ETH', amount: '10.00000000', symbol: 'DFI-ETH' })
+      cy.checkBalanceRow('0_utxo', {
+        name: 'DeFiChain',
+        amount: '10.00000000',
+        symbol: 'DFI (UTXO)'
+      })
+      cy.checkBalanceRow('0', {
+        name: 'DeFiChain',
+        amount: 10,
+        symbol: 'DFI (Token)'
+      }, true)
+      cy.checkBalanceRow('7', {
+        name: 'Playground ETH-Default Defi token',
+        amount: '10.00000000',
+        symbol: 'dETH-DFI'
+      })
     })
 
     it('should have correct poolpairs', function () {
       cy.getByTestID('bottom_tab_dex').click()
-      cy.getByTestID('your_DFI-ETH').contains('10.00000000 DFI-ETH')
+      cy.getByTestID('your_dETH-DFI').contains('10.00000000 dETH-DFI')
       cy.getByTestID('bottom_tab_balances').click()
     })
 
@@ -166,11 +178,11 @@ context('Mainnet - Wallet - Pool Pair Values', () => {
       const available: PoolPairData[] = pairs.map(data => ({ type: 'available', data: data }))
       available.forEach((pair) => {
         const data: PoolPairData = pair.data
-        const [symbolA, symbolB] = data.symbol.split('-')
-        cy.getByTestID(`your_symbol_${data.symbol}`).contains(data.symbol)
-        cy.getByTestID(`apr_${data.symbol}`).contains(`${new BigNumber(data.apr.total).times(100).toFixed(2)}%`)
-        cy.getByTestID(`available_${symbolA}`).contains(`${new BigNumber(new BigNumber(data.tokenA.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)
-        cy.getByTestID(`available_${symbolB}`).contains(`${new BigNumber(new BigNumber(data.tokenB.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)
+        const symbol = `${data.tokenA.displaySymbol}-${data.tokenB.displaySymbol}`
+        cy.getByTestID(`your_symbol_${symbol}`).contains(symbol)
+        cy.getByTestID(`apr_${symbol}`).contains(`${new BigNumber(data.apr.total).times(100).toFixed(2)}%`)
+        cy.getByTestID(`available_${data.tokenA.displaySymbol}`).contains(`${new BigNumber(new BigNumber(data.tokenA.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)
+        cy.getByTestID(`available_${data.tokenB.displaySymbol}`).contains(`${new BigNumber(new BigNumber(data.tokenB.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)
       })
     })
   })

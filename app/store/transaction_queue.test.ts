@@ -24,10 +24,20 @@ describe('transaction reducer', () => {
   })
 
   it('should able to select first and check queue transaction', () => {
-    const payload = { sign: null, title: 'Sample Transaction' }
-    const hasQueue = hasTxQueued({ ...initialState, transactions: [payload] })
+    const payload = {
+      sign: null,
+      title: 'Sample Transaction'
+    }
+    const hasQueue = hasTxQueued({
+      ...initialState,
+      transactions: [payload]
+    })
     expect(hasQueue).toStrictEqual(true)
-    const actual = first({ ...initialState, transactions: [payload] })
+    const actual = first({
+      ...initialState,
+      transactions:
+        [payload]
+    })
     expect(actual).toStrictEqual(payload)
   })
 })

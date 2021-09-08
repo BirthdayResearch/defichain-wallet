@@ -1,17 +1,11 @@
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { useDeFiScanContext } from '@contexts/DeFiScanContext'
 import { StackScreenProps } from '@react-navigation/stack'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import * as React from 'react'
 import { useCallback } from 'react'
 import { Linking, View } from 'react-native'
-import {
-  ThemedIcon,
-  ThemedScrollView,
-  ThemedText,
-  ThemedTouchableOpacity,
-  ThemedView
-} from '../../../../../components/themed'
-import { useDeFiScanContext } from '../../../../../contexts/DeFiScanContext'
-import { tailwind } from '../../../../../tailwind'
-import { translate } from '../../../../../translations'
 import { TransactionsParamList } from '../TransactionsNavigator'
 import { formatBlockTime } from '../TransactionsScreen'
 
@@ -21,7 +15,10 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
   const { tx } = props.route.params
   const { getTransactionUrl } = useDeFiScanContext()
 
-  function RenderRow ({ lhs, rhs }: { lhs: string, rhs: string }): JSX.Element {
+  function RenderRow ({
+    lhs,
+    rhs
+  }: { lhs: string, rhs: string }): JSX.Element {
     return (
       <ThemedScrollView testID={`transaction-detail-${lhs.toLowerCase()}`}>
         <ThemedView

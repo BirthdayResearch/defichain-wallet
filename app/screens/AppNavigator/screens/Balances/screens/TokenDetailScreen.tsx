@@ -1,13 +1,13 @@
+import { SectionTitle } from '@components/SectionTitle'
+import { SummaryTitle } from '@components/SummaryTitle'
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { MaterialIcons } from '@expo/vector-icons'
+import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { StackScreenProps } from '@react-navigation/stack'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
-import { SectionTitle } from '../../../../../components/SectionTitle'
-import { SummaryTitle } from '../../../../../components/SummaryTitle'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '../../../../../components/themed'
-import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
-import { tailwind } from '../../../../../tailwind'
-import { translate } from '../../../../../translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
 
@@ -34,7 +34,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
     <ThemedScrollView>
       <SummaryTitle
         amount={new BigNumber(token.amount)}
-        suffix={` ${token.symbol}`}
+        suffix={` ${token.displaySymbol}`}
         testID='token_detail_amount'
         title={translate('screens/TokenDetailScreen', 'AMOUNT BALANCE')}
       />
