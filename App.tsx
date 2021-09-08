@@ -20,6 +20,8 @@ import { LanguageProvider, useLanguage } from '@contexts/LanguageProvider'
  * - CachedResources
  * - CachedPlaygroundClient
  */
+
+// eslint-disable-next-line import/no-default-export
 export default function App (): JSX.Element | null {
   const isLoaded = useCachedResources()
   const { isThemeLoaded } = useTheme()
