@@ -11,6 +11,7 @@ import { AboutScreen } from './screens/AboutScreen'
 import { ChangePinScreen } from './screens/ChangePinScreen'
 import { CommunityScreen } from './screens/CommunityScreen'
 import { ConfirmPinScreen } from './screens/ConfirmPinScreen'
+import { LanguageSelectionScreen } from './screens/LanguageSelectionScreen'
 import { NetworkSelectionScreen } from './screens/NetworkSelectionScreen'
 import { RecoveryWordsScreen } from './screens/RecoveryWordsScreen'
 import { SettingsScreen } from './SettingsScreen'
@@ -105,6 +106,15 @@ export function SettingsNavigator (): JSX.Element {
         name='NetworkSelectionScreen'
         options={{
           headerTitle: translate('screens/NetworkSelectionScreen', 'Select network'),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <SettingsStack.Screen
+        component={LanguageSelectionScreen}
+        name='LanguageSelectionScreen'
+        options={{
+          headerTitle: translate('screens/LanguageSelectionScreen', 'Select language'),
           headerBackTitleVisible: false
         }}
       />

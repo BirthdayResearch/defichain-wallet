@@ -15,7 +15,6 @@ export enum EnvironmentName {
   Preview = 'Preview',
   Development = 'Development',
 }
-
 interface Environment {
   name: EnvironmentName
   debug: boolean
