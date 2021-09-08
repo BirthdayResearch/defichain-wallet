@@ -14,13 +14,13 @@ import ConnectionBoundary from './app/screens/ConnectionBoundary/ConnectionBound
 import ErrorBoundary from './app/screens/ErrorBoundary/ErrorBoundary'
 import { Main } from './app/screens/Main'
 import { initI18n } from './app/translations'
-import { WalletMnemonicProvider } from '@contexts/WalletMnemonic'
 
 /**
  * Loads
  * - CachedResources
  * - CachedPlaygroundClient
  */
+
 // eslint-disable-next-line import/no-default-export
 export default function App (): JSX.Element | null {
   initI18n()
@@ -43,15 +43,13 @@ export default function App (): JSX.Element | null {
           <DeFiScanProvider>
             <WalletPersistenceProvider>
               <StoreProvider>
-                <WalletMnemonicProvider>
-                  <StatsProvider>
-                    <ThemeProvider>
-                      <ConnectionBoundary>
-                        <Main />
-                      </ConnectionBoundary>
-                    </ThemeProvider>
-                  </StatsProvider>
-                </WalletMnemonicProvider>
+                <StatsProvider>
+                  <ThemeProvider>
+                    <ConnectionBoundary>
+                      <Main />
+                    </ConnectionBoundary>
+                  </ThemeProvider>
+                </StatsProvider>
               </StoreProvider>
             </WalletPersistenceProvider>
           </DeFiScanProvider>

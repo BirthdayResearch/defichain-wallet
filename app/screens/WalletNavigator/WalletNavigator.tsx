@@ -1,6 +1,5 @@
 import { ThemedIcon } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
-import { useWalletMnemonicConext } from '@contexts/WalletMnemonic'
 import { LinkingOptions, NavigationContainer, NavigationContainerRef } from '@react-navigation/native'
 import { Theme } from '@react-navigation/native/lib/typescript/src/types'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -13,7 +12,7 @@ import { HeaderTitle } from '../../components/HeaderTitle'
 import { getDefaultTheme } from '../../constants/Theme'
 import { useThemeContext } from '../../contexts/ThemeProvider'
 import { translate } from '../../translations'
-import { CreateMnemonicWallet } from './screens/CreateWallet/CreateMnemonicWallet'
+import { CreateMnemonicWallet, CreateMnemonicWalletHandle } from './screens/CreateWallet/CreateMnemonicWallet'
 import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
 import { GuidelinesRecoveryWords } from './screens/CreateWallet/GuidelinesRecoveryWords'
 import { PinConfirmation } from './screens/CreateWallet/PinConfirmation'
@@ -69,8 +68,8 @@ const LinkingConfiguration: LinkingOptions<ReactNavigation.RootParamList> = {
 export function WalletNavigator (): JSX.Element {
   const { isLight } = useThemeContext()
   const navigationRef = React.useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null)
+  const createMnemonicWalletRef = React.useRef<CreateMnemonicWalletHandle>()
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
-  const { generateMnemonicWords } = useWalletMnemonicConext()
 
   const goToNetworkSelect = (): void => {
     navigationRef.current?.navigate({ name: 'OnboardingNetworkSelectScreen' })
@@ -90,7 +89,7 @@ export function WalletNavigator (): JSX.Element {
           text: translate('screens/WalletNavigator', 'Refresh'),
           style: 'destructive',
           onPress: async () => {
-            generateMnemonicWords()
+            createMnemonicWalletRef?.current?.getMnemonicWords()
           }
         }
       ]
@@ -143,7 +142,7 @@ export function WalletNavigator (): JSX.Element {
         />
 
         <WalletStack.Screen
-          component={CreateMnemonicWallet}
+          component={(props) => <CreateMnemonicWallet {...props} ref={createMnemonicWalletRef} />}
           name='CreateMnemonicWallet'
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Display recovery words')} />,
