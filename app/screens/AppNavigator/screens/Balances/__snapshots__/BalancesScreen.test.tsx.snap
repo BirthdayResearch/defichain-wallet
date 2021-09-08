@@ -6,7 +6,7 @@ exports[`balances page should match snapshot 1`] = `
   ListHeaderComponent={
     <SectionTitle
       testID="balances_title"
-      text="BALANCE DETAILS"
+      text="PORTFOLIO"
     />
   }
   data={
@@ -112,7 +112,7 @@ exports[`balances page should match snapshot 1`] = `
         }
         testID="balances_title"
       >
-        BALANCE DETAILS
+        PORTFOLIO
       </Text>
     </View>
     <View

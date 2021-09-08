@@ -69,7 +69,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
     <ThemedScrollView style={tailwind('pb-4')}>
       <SummaryTitle
         amount={swap.fromAmount}
-        suffix={` ${tokenA.symbol}`}
+        suffix={` ${tokenA.displaySymbol}`}
         testID='text_swap_amount'
         title={translate('screens/PoolSwapConfirmScreen', 'YOU ARE SWAPPING')}
       />
@@ -80,8 +80,8 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
       />
 
       <TokenBalanceRow
-        iconType={tokenA.symbol}
-        lhs={tokenA.symbol}
+        iconType={tokenA.displaySymbol}
+        lhs={tokenA.displaySymbol}
         rhs={{
           value: BigNumber.max(new BigNumber(tokenA.amount).minus(swap.fromAmount), 0).toFixed(8),
           testID: 'source_amount'
@@ -89,8 +89,8 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
       />
 
       <TokenBalanceRow
-        iconType={tokenB.symbol}
-        lhs={tokenB.symbol}
+        iconType={tokenB.displaySymbol}
+        lhs={tokenB.displaySymbol}
         rhs={{
           value: BigNumber.max(new BigNumber(tokenB.amount).plus(swap.toAmount), 0).toFixed(8),
           testID: 'target_amount'
@@ -163,9 +163,9 @@ async function constructSignedSwapAndSend (
       title: translate('screens/PoolSwapConfirmScreen', 'Swapping Token'),
       description: translate('screens/PoolSwapConfirmScreen', 'Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}', {
         amountA: dexForm.fromAmount.toFixed(8),
-        symbolA: dexForm.fromToken.symbol,
+        symbolA: dexForm.fromToken.displaySymbol,
         amountB: dexForm.toAmount.toFixed(8),
-        symbolB: dexForm.toToken.symbol
+        symbolB: dexForm.toToken.displaySymbol
       }),
       postAction
     }))

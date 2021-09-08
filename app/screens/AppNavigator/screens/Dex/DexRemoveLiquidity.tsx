@@ -45,7 +45,6 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   // gather required data
   const tokens = useTokensAPI()
   const { pair } = props.route.params
-  const [aSymbol, bSymbol] = pair.symbol.split('-') as [string, string]
   const lmToken = tokens.find(token => token.symbol === pair.symbol) as AddressToken
   const tokenAPerLmToken = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
   const tokenBPerLmToken = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
@@ -142,14 +141,14 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         style={tailwind('w-full mb-4')}
       >
         <TokenBalanceRow
-          iconType={aSymbol}
-          lhs={aSymbol}
+          iconType={pair?.tokenA?.displaySymbol}
+          lhs={pair?.tokenA?.displaySymbol}
           rhs={{ value: tokenAAmount.toFixed(8), testID: 'price_a' }}
         />
 
         <TokenBalanceRow
-          iconType={bSymbol}
-          lhs={bSymbol}
+          iconType={pair?.tokenB?.displaySymbol}
+          lhs={pair?.tokenB?.displaySymbol}
           rhs={{ value: tokenBAmount.toFixed(8), testID: 'price_b' }}
         />
 
@@ -159,12 +158,12 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
             {
               value: tokenAPerLmToken.toFixed(8),
               testID: 'text_a_to_b_price',
-              suffix: ` ${bSymbol} per ${aSymbol}`
+              suffix: ` ${pair?.tokenB?.displaySymbol} per ${pair?.tokenA?.displaySymbol}`
             },
             {
               value: tokenBPerLmToken.toFixed(8),
               testID: 'text_b_to_a_price',
-              suffix: ` ${aSymbol} per ${bSymbol}`
+              suffix: ` ${pair?.tokenA?.displaySymbol} per ${pair?.tokenB?.displaySymbol}`
             }
           ]}
         />

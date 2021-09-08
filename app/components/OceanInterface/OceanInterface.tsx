@@ -346,6 +346,11 @@ function errorMessageMapping (err: string): ErrorMapping {
       code: ErrorCodes.PoolSwapHigher,
       message: 'Price is higher than indicated'
     }
+  } else if (err.includes('no prevouts available to create a transaction')) {
+    return {
+      code: ErrorCodes.InsufficientUTXO,
+      message: 'Insufficient UTXO DFI'
+    }
   }
 
   return {
