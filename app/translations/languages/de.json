@@ -109,7 +109,8 @@
     "English": "Englisch",
     "German": "Deutsch",
     "Switch Language": "Sprache ändern",
-    "ADDITIONAL OPTIONS": "WEITERE OPTIONEN"
+    "ADDITIONAL OPTIONS": "WEITERE OPTIONEN",
+    "SECURITY": "SICHERHEITSEINSTELLUNGEN"
   },
   "screens/AboutScreen": {
     "About": "Über",
