@@ -102,13 +102,9 @@ exports[`language selection screen should render 1`] = `
               "lineHeight": 24,
             },
             Array [
+              undefined,
               Object {
                 "color": "rgba(115, 115, 115, 1)",
-                "fontSize": 14,
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
               },
             ],
           ]
@@ -186,13 +182,9 @@ exports[`language selection screen should render 1`] = `
               "lineHeight": 24,
             },
             Array [
+              undefined,
               Object {
                 "color": "rgba(115, 115, 115, 1)",
-                "fontSize": 14,
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
               },
             ],
           ]
