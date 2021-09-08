@@ -36,7 +36,7 @@ context('Mainnet - Wallet', () => {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
-      .sendTokenToWallet(['BTC', 'DFI-ETH']).wait(3000)
+      .sendTokenToWallet(['BTC', 'ETH-DFI']).wait(3000)
     cy.verifyWalletAddress('regtest', localAddress)
   })
 
@@ -120,14 +120,26 @@ context('Mainnet - Wallet', () => {
       cy.fetchWalletBalance()
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_list').should('exist')
-      cy.checkBalanceRow('0_utxo', { name: 'DeFiChain', amount: '10.00000000', symbol: 'DFI (UTXO)' })
-      cy.checkBalanceRow('0', { name: 'DeFiChain', amount: 10, symbol: 'DFI (Token)' }, true)
-      cy.checkBalanceRow('7', { name: 'Default Defi token-Playground ETH', amount: '10.00000000', symbol: 'DFI-dETH' })
+      cy.checkBalanceRow('0_utxo', {
+        name: 'DeFiChain',
+        amount: '10.00000000',
+        symbol: 'DFI (UTXO)'
+      })
+      cy.checkBalanceRow('0', {
+        name: 'DeFiChain',
+        amount: 10,
+        symbol: 'DFI (Token)'
+      }, true)
+      cy.checkBalanceRow('7', {
+        name: 'Default Defi token-Playground ETH',
+        amount: '10.00000000',
+        symbol: 'dETH-DFI'
+      })
     })
 
     it('should have correct poolpairs', function () {
       cy.getByTestID('bottom_tab_dex').click()
-      cy.getByTestID('your_DFI-dETH').contains('10.00000000 DFI-dETH')
+      cy.getByTestID('your_dETH-DFI').contains('10.00000000 dETH-DFI')
       cy.getByTestID('bottom_tab_balances').click()
     })
 
