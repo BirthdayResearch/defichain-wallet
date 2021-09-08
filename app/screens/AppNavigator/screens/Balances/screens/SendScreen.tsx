@@ -45,6 +45,9 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const isUTXO = (token: AddressToken): boolean => {
+    return token.id === '0_utxo'
+  }
 
   useEffect(() => {
     client.fee.estimate()
@@ -115,7 +118,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
         )
       }
 
-      <InfoText text={translate('screens/SendScreen', 'You can only send UTXOs of DFI. Wallet will ensure your transaction proceeds by automatically convert DFI to UTXO')} />
+      {isUTXO(token) && <InfoText testID='send_info_text' text={translate('screens/SendScreen', 'You can only send UTXOs of DFI. Wallet will ensure your transaction proceeds by automatically convert DFI to UTXO')} />}
 
       <Button
         disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
