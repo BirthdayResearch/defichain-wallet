@@ -66,7 +66,8 @@
     "Enter an amount": "Betrag eingeben",
     "UTXO vs Token, what is the difference?": "UXTO vs Token, worin liegt der Unterschied?",
     "CONVERT {{symbol}}": "UMWANDELN {{symbol}}",
-    "TO {{symbol}}": "IN {{symbol}}"
+    "TO {{symbol}}": "IN {{symbol}}",
+    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert."
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Bestätige DFI Konvertierung",
