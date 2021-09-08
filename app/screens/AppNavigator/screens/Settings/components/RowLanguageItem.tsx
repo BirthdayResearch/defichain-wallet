@@ -1,11 +1,10 @@
 import { LanguagePersistence } from '@api'
 import { ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
-import { AppLanguage } from '@constants/Language'
 import { useLanguageContext } from '@contexts/LanguageProvider'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
-import { getLanguageName, getLocaleByLanguageName, translate } from '@translations'
+import { AppLanguage, getLanguageName, getLocaleByLanguageName, translate } from '@translations'
 import * as React from 'react'
 import { View } from 'react-native'
 import { SettingsParamList } from '../SettingsNavigator'
@@ -54,7 +53,11 @@ export function RowLanguageItem (props: { language: AppLanguage }): JSX.Element 
         <ThemedText testID='language_option' style={tailwind('font-medium')}>
           {getLanguageName(props.language)}
         </ThemedText>
-        <ThemedText testID='language_option_description' style={tailwind('text-sm text-gray-500')}>
+        <ThemedText
+          testID='language_option_description'
+          dark={tailwind('text-gray-400')}
+          light={tailwind('text-gray-500')}
+        >
           {translate('screens/Settings', props.language)}
         </ThemedText>
       </View>

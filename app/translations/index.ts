@@ -1,4 +1,3 @@
-import { AppLanguage } from '@constants/Language'
 import i18n, { TranslateOptions } from 'i18n-js'
 import de from './languages/de.json'
 import zhHans from './languages/zh-Hans.json'
@@ -106,4 +105,16 @@ export function getLanguageName (language: AppLanguage): string {
     case AppLanguage.German:
       return 'Deutsch'
   }
+}
+
+export enum AppLanguage {
+  English = 'English',
+  German = 'German'
+}
+
+export function getAppLanguages (): AppLanguage[] {
+  return [
+    AppLanguage.English,
+    AppLanguage.German
+  ]
 }

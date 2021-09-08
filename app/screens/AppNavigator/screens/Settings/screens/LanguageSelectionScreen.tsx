@@ -1,6 +1,5 @@
 import { SectionTitle } from '@components/SectionTitle'
-import { getAppLanguages } from '@constants/Language'
-import { translate } from '@translations'
+import { getAppLanguages, translate } from '@translations'
 import * as React from 'react'
 import { View } from 'react-native'
 import { RowLanguageItem } from '../components/RowLanguageItem'
