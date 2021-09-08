@@ -1,3 +1,4 @@
+import { InfoText } from '@components/InfoText'
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
@@ -44,6 +45,9 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const isUTXO = (token: AddressToken): boolean => {
+    return token.id === '0_utxo'
+  }
 
   useEffect(() => {
     client.fee.estimate()
@@ -113,6 +117,8 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
           </View>
         )
       }
+
+      {isUTXO(token) && <InfoText testID='send_info_text' text={translate('screens/SendScreen', 'A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.')} />}
 
       <Button
         disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
