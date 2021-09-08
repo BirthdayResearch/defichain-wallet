@@ -125,8 +125,8 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
 
   afterEach(function () {
     cy.getByTestID('your_dBTC-DFI').contains('10.00000000 dBTC-DFI')
-    cy.getByTestID('tokenA_DFI').contains('9.99999999 DFI')
-    cy.getByTestID('tokenB_dBTC').contains('9.99999999 dBTC')
+    cy.getByTestID('tokenA_dBTC').contains('9.99999999 dBTC')
+    cy.getByTestID('tokenB_DFI').contains('9.99999999 DFI')
 
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_row_6').should('exist')
@@ -161,14 +161,14 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     cy.getByTestID('text_add_amount').contains(`${oldAmount} dBTC-DFI`)
     cy.getByTestID('a_amount_unit').contains('dBTC')
     cy.getByTestID('a_amount').contains(oldAmount)
-    cy.getByTestID('b_amount_unit').contains('BTC')
+    cy.getByTestID('b_amount_unit').contains('DFI')
     cy.getByTestID('b_amount').contains(oldAmount)
     cy.getByTestID('percentage_pool').contains('0.50000000%')
     cy.getByTestID('text_fee').should('exist')
     cy.getByTestID('button_confirm_add').click().wait(3000)
     // Check for authorization page description
     cy.getByTestID('txn_authorization_description')
-      .contains(`Adding ${new BigNumber(oldAmount).toFixed(8)} DFI - ${new BigNumber(oldAmount).toFixed(8)} dBTC`)
+      .contains(`Adding ${new BigNumber(oldAmount).toFixed(8)} dBTC - ${new BigNumber(oldAmount).toFixed(8)} DFI`)
     // Cancel send on authorisation page
     cy.getByTestID('cancel_authorization').contains('CANCEL').click()
     cy.getByTestID('button_cancel_add').click()
@@ -185,7 +185,7 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     cy.getByTestID('button_confirm_add').click().wait(3000)
     // Check for authorization page description
     cy.getByTestID('txn_authorization_description')
-      .contains(`Adding ${new BigNumber(newAmount).toFixed(8)} DFI - ${new BigNumber(newAmount).toFixed(8)} dBTC`)
+      .contains(`Adding ${new BigNumber(newAmount).toFixed(8)} dBTC - ${new BigNumber(newAmount).toFixed(8)} DFI`)
     cy.closeOceanInterface()
   })
 })
