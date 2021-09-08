@@ -130,7 +130,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={
-          isSubmitting
+          isSubmitting || hasPendingJob || hasPendingBroadcastJob
             ? <ThemedTextActivityIndicator
                 message={translate('screens/SendConfirmationScreen', 'Sending')}
                 dark={tailwind('text-gray-500 font-bold')}

@@ -119,13 +119,15 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={isSubmitting
+        label={
+          isSubmitting || hasPendingJob || hasPendingBroadcastJob
           ? <ThemedTextActivityIndicator
               message={translate('screens/PoolSwapConfirmScreen', 'Swapping Token')}
               dark={tailwind('text-gray-500 font-bold')}
               light={tailwind('text-gray-400 font-bold')}
             />
-          : translate('screens/PoolSwapConfirmScreen', 'SWAP')}
+          : translate('screens/PoolSwapConfirmScreen', 'SWAP')
+        }
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='swap'

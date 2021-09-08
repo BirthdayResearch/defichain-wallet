@@ -75,7 +75,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       return
     }
     setIsSubmitting(true)
-    constructSignedAddLiqAndSend(
+    await constructSignedAddLiqAndSend(
       {
         tokenASymbol: tokenA.displaySymbol,
         tokenAId: Number(tokenA.id),
@@ -86,9 +86,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       },
       dispatch,
       postAction
-    ).catch(e => {
-      Logging.error(e)
-    }).finally(() => setIsSubmitting(false))
+    )
+    setIsSubmitting(false)
   }
 
   function onCancel (): void {
@@ -171,13 +170,15 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={isSubmitting
+        label={
+          isSubmitting || hasPendingJob || hasPendingBroadcastJob
           ? <ThemedTextActivityIndicator
               message={translate('screens/ConfirmAddLiq', 'Adding Liquidity')}
               dark={tailwind('text-gray-500 font-bold')}
               light={tailwind('text-gray-400 font-bold')}
             />
-          : translate('screens/ConfirmAddLiq', 'ADD')}
+          : translate('screens/ConfirmAddLiq', 'ADD')
+        }
         onCancel={onCancel}
         onSubmit={addLiquidity}
         title='add'
@@ -191,34 +192,38 @@ async function constructSignedAddLiqAndSend (
   dispatch: Dispatch<any>,
   postAction: () => void
 ): Promise<void> {
-  const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
-    const builder = account.withTransactionBuilder()
-    const script = await account.getScript()
+  try {
+    const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
+      const builder = account.withTransactionBuilder()
+      const script = await account.getScript()
 
-    const addLiq = {
-      from: [{
-        script,
-        balances: [
-          { token: addLiqForm.tokenAId, amount: addLiqForm.tokenAAmount },
-          { token: addLiqForm.tokenBId, amount: addLiqForm.tokenBAmount }
-        ]
-      }],
-      shareAddress: script
+      const addLiq = {
+        from: [{
+          script,
+          balances: [
+            { token: addLiqForm.tokenAId, amount: addLiqForm.tokenAAmount },
+            { token: addLiqForm.tokenBId, amount: addLiqForm.tokenBAmount }
+          ]
+        }],
+        shareAddress: script
+      }
+
+      const dfTx = await builder.liqPool.addLiquidity(addLiq, script)
+      return new CTransactionSegWit(dfTx)
     }
 
-    const dfTx = await builder.liqPool.addLiquidity(addLiq, script)
-    return new CTransactionSegWit(dfTx)
+    dispatch(transactionQueue.actions.push({
+      sign: signer,
+      title: translate('screens/ConfirmAddLiq', 'Adding Liquidity'),
+      description: translate('screens/ConfirmAddLiq', 'Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}', {
+        amountA: addLiqForm.tokenAAmount.toFixed(8),
+        symbolA: addLiqForm.tokenASymbol,
+        amountB: addLiqForm.tokenBAmount.toFixed(8),
+        symbolB: addLiqForm.tokenBSymbol
+      }),
+      postAction
+    }))
+  } catch (e) {
+    Logging.error(e)
   }
-
-  dispatch(transactionQueue.actions.push({
-    sign: signer,
-    title: translate('screens/ConfirmAddLiq', 'Adding Liquidity'),
-    description: translate('screens/ConfirmAddLiq', 'Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}', {
-      amountA: addLiqForm.tokenAAmount.toFixed(8),
-      symbolA: addLiqForm.tokenASymbol,
-      amountB: addLiqForm.tokenBAmount.toFixed(8),
-      symbolB: addLiqForm.tokenBSymbol
-    }),
-    postAction
-  }))
 }

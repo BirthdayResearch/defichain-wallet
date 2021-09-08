@@ -102,7 +102,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={
-          isSubmitting
+          isSubmitting || hasPendingJob || hasPendingBroadcastJob
           ? <ThemedTextActivityIndicator
               message={translate('screens/ConvertConfirmScreen', 'CONVERTING')}
               dark={tailwind('text-gray-500 font-bold')}
@@ -157,6 +157,7 @@ async function constructSignedConversionAndSend ({
       }),
       postAction
     }))
+    return await new Promise(resolve => setTimeout(resolve, 2000))
   } catch (e) {
     Logging.error(e)
   }

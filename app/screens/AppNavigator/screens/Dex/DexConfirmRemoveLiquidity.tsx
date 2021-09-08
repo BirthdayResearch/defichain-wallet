@@ -125,13 +125,15 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={isSubmitting
+        label={
+          isSubmitting || hasPendingJob || hasPendingBroadcastJob
           ? <ThemedTextActivityIndicator
               message={translate('screens/ConfirmRemoveLiquidity', 'Removing Liquidity')}
               dark={tailwind('text-gray-500 font-bold')}
               light={tailwind('text-gray-400 font-bold')}
             />
-          : translate('screens/ConfirmRemoveLiquidity', 'REMOVE')}
+          : translate('screens/ConfirmRemoveLiquidity', 'REMOVE')
+        }
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='remove'
