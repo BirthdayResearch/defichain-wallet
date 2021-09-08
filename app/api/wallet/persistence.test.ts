@@ -13,6 +13,16 @@ beforeEach(() => {
 })
 
 describe('WalletPersistence.get()', () => {
+  it('should throw error if fail to retrieve any wallet', async () => {
+    getItem
+      .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
+      .mockResolvedValueOnce('1')
+      .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
+      .mockResolvedValueOnce(null)
+
+    await (expect(WalletPersistence.get()).rejects.toThrowError(`WALLET.count=${1} but 0 doesn't exist`))
+  })
+
   it('should get empty', async () => {
     getItem
       .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)

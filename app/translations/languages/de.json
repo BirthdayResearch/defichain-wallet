@@ -27,7 +27,7 @@
   "screens/BalancesScreen": {
     "Balances": "Guthaben",
     "RECEIVE": "EMPFANGEN",
-    "BALANCE DETAILS": "DETAILS GUTHABEN"
+    "PORTFOLIO": "PORTFOLIO"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
@@ -55,7 +55,7 @@
     "Estimated fee": "Geschätzte Gebühr",
     "Remaining balance": "Verbleibendes Guthaben",
     "SEND": "SENDEN",
-    "Sending": "Senden",
+    "Sending": "Senden {{symbol}}",
     "Sending {{amount}} {{symbol}}": "Sende {{amount}} {{symbol}}"
   },
   "screens/ConvertScreen": {
