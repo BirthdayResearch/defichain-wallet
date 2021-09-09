@@ -8,7 +8,6 @@ import { useNetworkContext } from '@contexts/NetworkContext'
 import { useWalletNodeContext } from '@contexts/WalletNodeProvider'
 import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
 import { EnvironmentNetwork } from '@environment'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import { authentication, Authentication } from '@store/authentication'
 import { ocean } from '@store/ocean'
@@ -100,23 +99,6 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         testID='security_title'
         text={translate('screens/Settings', 'SECURITY')}
       />
-
-      {
-        isEncrypted && (
-          <>
-            <SecurityRow
-              label='Recovery Words'
-              onPress={revealRecoveryWords}
-              testID='view_recovery_words'
-            />
-            <SecurityRow
-              label='Change Passcode'
-              onPress={changePasscode}
-              testID='view_change_passcode'
-            />
-          </>
-        )
-      }
       <PrivacyLockToggle
         disabled={!localAuth.isDeviceProtected}
         value={localAuth.isEnabled}
@@ -124,11 +106,37 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
           await localAuth.togglePrivacyLock()
         }}
       />
-      <RowNavigateItem
-        pageName='AboutScreen'
-        title='About'
+      {
+        isEncrypted && (
+          <>
+            <NavigateItemRow
+              label='Recovery Words'
+              onPress={revealRecoveryWords}
+              testID='view_recovery_words'
+            />
+            <NavigateItemRow
+              label='Change Passcode'
+              onPress={changePasscode}
+              testID='view_change_passcode'
+            />
+          </>
+        )
+      }
+      <SectionTitle
+        testID='addtional_options_title'
+        text={translate('screens/Settings', 'ADDITIONAL OPTIONS')}
+      />
+      <NavigateItemRow
+        testID='setting_navigate_About'
+        label='About'
+        onPress={() => navigation.navigate('AboutScreen')}
       />
       <RowThemeItem />
+      <NavigateItemRow
+        testID='setting_navigate_language_selection'
+        label='Language'
+        onPress={() => navigation.navigate('LanguageSelectionScreen')}
+      />
       <RowExitWalletItem />
     </ThemedScrollView>
   )
@@ -229,7 +237,7 @@ function PrivacyLockToggle ({
   )
 }
 
-function SecurityRow ({
+function NavigateItemRow ({
   testID,
   label,
   onPress
@@ -242,32 +250,6 @@ function SecurityRow ({
     >
       <ThemedText style={tailwind('font-medium')}>
         {translate('screens/Settings', label)}
-      </ThemedText>
-
-      <ThemedIcon
-        iconType='MaterialIcons'
-        name='chevron-right'
-        size={24}
-      />
-    </ThemedTouchableOpacity>
-  )
-}
-
-function RowNavigateItem ({
-  pageName,
-  title
-}: { pageName: string, title: string }): JSX.Element {
-  const navigation = useNavigation<NavigationProp<SettingsParamList>>()
-  return (
-    <ThemedTouchableOpacity
-      onPress={() => {
-        navigation.navigate(pageName)
-      }}
-      style={tailwind('flex flex-row p-4 pr-2 mt-4 items-center')}
-      testID={`setting_navigate_${title}`}
-    >
-      <ThemedText style={tailwind('font-medium flex-grow')}>
-        {translate('screens/Settings', title)}
       </ThemedText>
 
       <ThemedIcon

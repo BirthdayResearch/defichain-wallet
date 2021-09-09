@@ -46,7 +46,7 @@ exports[`offline screen should match snapshot when offline 1`] = `
       ]
     }
   >
-    Network error
+    Connection problem
   </Text>
   <Text
     style={
@@ -72,7 +72,7 @@ exports[`offline screen should match snapshot when offline 1`] = `
       ]
     }
   >
-    Please check your internet connection and try again
+    There seems to be a problem with the connection. Check your network and try again.
   </Text>
 </View>
 `;

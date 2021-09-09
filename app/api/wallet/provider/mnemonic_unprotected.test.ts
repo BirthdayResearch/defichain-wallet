@@ -8,6 +8,22 @@ beforeEach(() => {
 })
 
 describe('getMnemonicHdNodeProvider', () => {
+  it('should throw error when wallet type is not unprotected or version is not v1', () => {
+    const data: WalletPersistenceData<MnemonicProviderData> = {
+      version: 'v1',
+      type: WalletType.MNEMONIC_ENCRYPTED,
+      raw: {
+        words: [],
+        privKey: '',
+        chainCode: ''
+      }
+    }
+    const options = EnvironmentNetwork.LocalPlayground
+    expect(() => {
+      MnemonicUnprotected.initProvider(data, options)
+    }).toThrowError('Unexpected WalletPersistenceData')
+  })
+
   it('should get provider (abandon x23)', async () => {
     const data: WalletPersistenceData<MnemonicProviderData> = {
       version: 'v1',

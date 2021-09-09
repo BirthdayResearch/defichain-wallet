@@ -42,7 +42,7 @@ class EncryptedMnemonicStorage {
    */
   async get (passphrase: string): Promise<string[]> {
     const encrypted = await SecuredStoreAPI.getItem(KEY)
-    if (encrypted === null) {
+    if (encrypted === null || encrypted === undefined) {
       throw new Error('NO_MNEMONIC_BACKUP')
     }
 

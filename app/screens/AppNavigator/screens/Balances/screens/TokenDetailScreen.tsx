@@ -34,7 +34,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
     <ThemedScrollView>
       <SummaryTitle
         amount={new BigNumber(token.amount)}
-        suffix={` ${token.symbol}`}
+        suffix={` ${token.displaySymbol}`}
         testID='token_detail_amount'
         title={translate('screens/TokenDetailScreen', 'AMOUNT BALANCE')}
       />

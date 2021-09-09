@@ -1,33 +1,35 @@
 import * as SplashScreen from 'expo-splash-screen'
 import React from 'react'
 import './_shim'
-import { Logging } from './app/api'
-import { AppStateContextProvider } from './app/contexts/AppStateContext'
-import { DeFiScanProvider } from './app/contexts/DeFiScanContext'
-import { PrivacyLockContextProvider } from './app/contexts/LocalAuthContext'
-import { NetworkProvider } from './app/contexts/NetworkContext'
-import { StatsProvider } from './app/contexts/StatsProvider'
-import { StoreProvider } from './app/contexts/StoreProvider'
-import { ThemeProvider, useTheme } from './app/contexts/ThemeProvider'
-import { WalletPersistenceProvider } from './app/contexts/WalletPersistenceContext'
-import { WhaleProvider } from './app/contexts/WhaleContext'
-import { useCachedResources } from './app/hooks/useCachedResources'
+import { Logging } from '@api'
+import { AppStateContextProvider } from '@contexts/AppStateContext'
+import { DeFiScanProvider } from '@contexts/DeFiScanContext'
+import { PrivacyLockContextProvider } from '@contexts/LocalAuthContext'
+import { NetworkProvider } from '@contexts/NetworkContext'
+import { StatsProvider } from '@contexts/StatsProvider'
+import { StoreProvider } from '@contexts/StoreProvider'
+import { ThemeProvider, useTheme } from '@contexts/ThemeProvider'
+import { WalletPersistenceProvider } from '@contexts/WalletPersistenceContext'
+import { WhaleProvider } from '@contexts/WhaleContext'
+import { useCachedResources } from '@hooks/useCachedResources'
 import ConnectionBoundary from './app/screens/ConnectionBoundary/ConnectionBoundary'
 import ErrorBoundary from './app/screens/ErrorBoundary/ErrorBoundary'
-import { Main } from './app/screens/Main'
-import { initI18n } from './app/translations'
+import { Main } from '@screens/Main'
+import { LanguageProvider, useLanguage } from '@contexts/LanguageProvider'
 
 /**
  * Loads
  * - CachedResources
  * - CachedPlaygroundClient
  */
+
+// eslint-disable-next-line import/no-default-export
 export default function App (): JSX.Element | null {
-  initI18n()
   const isLoaded = useCachedResources()
   const { isThemeLoaded } = useTheme()
+  const { isLanguageLoaded } = useLanguage()
 
-  if (!isLoaded && !isThemeLoaded) {
+  if (!isLoaded && !isThemeLoaded && !isLanguageLoaded) {
     SplashScreen.preventAutoHideAsync()
       .catch(Logging.error)
     return null
@@ -47,9 +49,11 @@ export default function App (): JSX.Element | null {
                   <StoreProvider>
                     <StatsProvider>
                       <ThemeProvider>
-                        <ConnectionBoundary>
-                          <Main />
-                        </ConnectionBoundary>
+                        <LanguageProvider>
+                          <ConnectionBoundary>
+                            <Main />
+                          </ConnectionBoundary>
+                        </LanguageProvider>
                       </ThemeProvider>
                     </StatsProvider>
                   </StoreProvider>

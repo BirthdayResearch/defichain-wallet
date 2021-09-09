@@ -112,7 +112,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
         onChange={(amount) => {
           buildSummary('primary', amount)
         }}
-        symbol={pair.aSymbol}
+        symbol={pair?.tokenA?.displaySymbol}
         type='primary'
       />
 
@@ -122,7 +122,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
         onChange={(amount) => {
           buildSummary('secondary', amount)
         }}
-        symbol={pair.bSymbol}
+        symbol={pair?.tokenB?.displaySymbol}
         type='secondary'
       />
 
@@ -156,6 +156,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
 
 function TokenInput (props: { symbol: string, balance: BigNumber, current: string, type: EditingAmount, onChange: (amount: string) => void }): JSX.Element {
   const TokenIcon = getNativeIcon(props.symbol)
+
   return (
     <View>
       <SectionTitle
@@ -244,11 +245,11 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
         lhs={translate('screens/AddLiquidity', 'Price')}
         rightHandElements={[{
           value: pair.aToBRate.toFixed(8),
-          suffix: ` ${pair.bSymbol} ${translate('screens/AddLiquidity', 'per')} ${pair.aSymbol}`,
+          suffix: ` ${pair?.tokenB?.displaySymbol} ${translate('screens/AddLiquidity', 'per')} ${pair?.tokenA?.displaySymbol}`,
           testID: 'a_per_b_price'
         }, {
           value: pair.bToARate.toFixed(8),
-          suffix: ` ${pair.aSymbol} ${translate('screens/AddLiquidity', 'per')} ${pair.bSymbol}`,
+          suffix: ` ${pair?.tokenA?.displaySymbol} ${translate('screens/AddLiquidity', 'per')} ${pair?.tokenB?.displaySymbol}`,
           testID: 'b_per_a_price'
         }]}
       />
@@ -263,20 +264,20 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
       />
 
       <NumberRow
-        lhs={`${translate('screens/AddLiquidity', 'Pooled')} ${pair.aSymbol}`}
+        lhs={`${translate('screens/AddLiquidity', 'Pooled')} ${pair?.tokenA?.displaySymbol}`}
         rightHandElements={[{
           value: pair.tokenA.reserve,
           suffix: '',
-          testID: `pooled_${pair.aSymbol}`
+          testID: `pooled_${pair?.tokenA?.displaySymbol}`
         }]}
       />
 
       <NumberRow
-        lhs={`${translate('screens/AddLiquidity', 'Pooled')} ${pair.bSymbol}`}
+        lhs={`${translate('screens/AddLiquidity', 'Pooled')} ${pair?.tokenB?.displaySymbol}`}
         rightHandElements={[{
           value: pair.tokenB.reserve,
           suffix: '',
-          testID: `pooled_${pair.bSymbol}`
+          testID: `pooled_${pair?.tokenB?.displaySymbol}`
         }]}
       />
     </View>
