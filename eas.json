@@ -12,8 +12,8 @@
         "releaseStatus": "draft"
       },
       "ios": {
-        "appleId": "REPLACE_APPLE_ID",
-        "ascAppId": "REPLACE_ASC_APP_ID"
+        "appleId": "EAS_APPLE_ID",
+        "ascAppId": "EAS_ASC_APP_ID"
       }
     }
   }
