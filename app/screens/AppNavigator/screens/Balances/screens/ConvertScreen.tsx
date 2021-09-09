@@ -104,7 +104,7 @@ export function ConvertScreen (props: Props): JSX.Element {
 
       <TokenVsUtxosInfo />
 
-      {isUtxoToAccount(mode) && <InfoText text={translate('screens/ConvertScreen', 'A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.')} style={tailwind('mt-0')} />}
+      {isUtxoToAccount(mode) && <InfoText testID='convert_info_text' text={translate('screens/ConvertScreen', 'A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.')} style={tailwind('mt-0')} />}
 
       <Button
         disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob || hasPendingBroadcastJob}

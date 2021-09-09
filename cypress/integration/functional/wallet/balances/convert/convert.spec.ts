@@ -57,6 +57,10 @@ context('Wallet - Convert DFI', () => {
     cy.getByTestID('target_balance').contains(29.9)
   })
 
+  it('should display info on reserved UTXO when UTXO to account conversion', function () {
+    cy.getByTestID('convert_info_text').should('be.visible')
+  })
+
   it('should test amount buttons when account to UTXO conversion', function () {
     cy.getByTestID('button_convert_mode_toggle').click().wait(4000)
     cy.getByTestID('50%_amount_button').click()
