@@ -3,5 +3,18 @@
     "release": {
       "releaseChannel": "production"
     }
+  },
+  "submit": {
+    "release": {
+      "android": {
+        "serviceAccountKeyPath": "./ANDROID_SERVICE_ACCOUNT.json",
+        "track": "internal",
+        "releaseStatus": "draft"
+      },
+      "ios": {
+        "appleId": "EAS_APPLE_ID",
+        "ascAppId": "EAS_ASC_APP_ID"
+      }
+    }
   }
 }
