@@ -4,7 +4,6 @@ import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-tran
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
-import { ThemedTextActivityIndicator } from '@components/themed/ThemedTextActivityIndicator'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
@@ -129,15 +128,9 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={
-          isSubmitting || hasPendingJob || hasPendingBroadcastJob
-            ? <ThemedTextActivityIndicator
-                message={translate('screens/SendConfirmationScreen', 'Sending')}
-                dark={tailwind('text-gray-500 font-bold')}
-                light={tailwind('text-gray-400 font-bold')}
-              />
-            : translate('screens/SendConfirmationScreen', 'SEND')
-        }
+        label={translate('screens/SendConfirmationScreen', 'SEND')}
+        isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        submittingLabel={translate('screens/SendConfirmationScreen', 'Sending')}
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='send'

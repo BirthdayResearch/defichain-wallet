@@ -1,7 +1,6 @@
 import { CTransactionSegWit, PoolSwap } from '@defichain/jellyfish-transaction/dist'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
-import { ThemedTextActivityIndicator } from '@components/themed/ThemedTextActivityIndicator'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
@@ -119,15 +118,9 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={
-          isSubmitting || hasPendingJob || hasPendingBroadcastJob
-          ? <ThemedTextActivityIndicator
-              message={translate('screens/PoolSwapConfirmScreen', 'Swapping Token')}
-              dark={tailwind('text-gray-500 font-bold')}
-              light={tailwind('text-gray-400 font-bold')}
-            />
-          : translate('screens/PoolSwapConfirmScreen', 'SWAP')
-        }
+        label={translate('screens/PoolSwapConfirmScreen', 'SWAP')}
+        isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        submittingLabel={translate('screens/PoolSwapConfirmScreen', 'Swapping Token')}
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='swap'

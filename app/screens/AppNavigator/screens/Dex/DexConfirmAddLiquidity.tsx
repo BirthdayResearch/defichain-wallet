@@ -2,7 +2,6 @@ import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
-import { ThemedTextActivityIndicator } from '@components/themed/ThemedTextActivityIndicator'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
@@ -170,15 +169,9 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={
-          isSubmitting || hasPendingJob || hasPendingBroadcastJob
-          ? <ThemedTextActivityIndicator
-              message={translate('screens/ConfirmAddLiq', 'Adding Liquidity')}
-              dark={tailwind('text-gray-500 font-bold')}
-              light={tailwind('text-gray-400 font-bold')}
-            />
-          : translate('screens/ConfirmAddLiq', 'ADD')
-        }
+        label={translate('screens/ConfirmAddLiq', 'ADD')}
+        isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        submittingLabel={translate('screens/ConfirmAddLiq', 'Adding Liquidity')}
         onCancel={onCancel}
         onSubmit={addLiquidity}
         title='add'
