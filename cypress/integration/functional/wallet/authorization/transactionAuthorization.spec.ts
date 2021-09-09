@@ -1,4 +1,5 @@
 context('Wallet - Transaction Authorization with Error', () => {
+  const MAX_PASSCODE_ATTEMPT = 3
   beforeEach(() => {
     cy.restoreLocalStorage()
   })
@@ -33,7 +34,7 @@ context('Wallet - Transaction Authorization with Error', () => {
 
   it('should not reset attempts on cancel', function () {
     cy.getByTestID('button_confirm_convert').click().wait(2000)
-    Array.from(Array(3), (v, i) => i + 1).forEach(() => {
+    Array.from(Array(MAX_PASSCODE_ATTEMPT - 1), (v, i) => i + 1).forEach(() => {
       cy.getByTestID('pin_authorize').type('696969').wait(1000)
     })
     cy.getByTestID('cancel_authorization').click()
@@ -48,7 +49,7 @@ context('Wallet - Transaction Authorization with Error', () => {
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_settings').click()
     cy.getByTestID('view_recovery_words').click().wait(3000)
-    Array.from(Array(3), (v, i) => i + 1).forEach(() => {
+    Array.from(Array(MAX_PASSCODE_ATTEMPT - 1), (v, i) => i + 1).forEach(() => {
       cy.getByTestID('pin_authorize').type('696969').wait(1000)
     })
     cy.getByTestID('cancel_authorization').click()
@@ -61,6 +62,7 @@ context('Wallet - Transaction Authorization with Error', () => {
 })
 
 context('Wallet - Transaction Authorization', () => {
+  const MAX_PASSCODE_ATTEMPT = 3
   beforeEach(() => {
     cy.restoreLocalStorage()
   })
@@ -94,7 +96,7 @@ context('Wallet - Transaction Authorization', () => {
       cy.getByTestID('amount_input').clear().type('1')
       cy.getByTestID('send_submit_button').click()
       cy.getByTestID('button_confirm_send').click().wait(3000)
-      Array.from(Array(4), (v, i) => i + 1).forEach(() => {
+      Array.from(Array(MAX_PASSCODE_ATTEMPT), (v, i) => i + 1).forEach(() => {
         cy.getByTestID('pin_authorize').type('696969').wait(1000)
       })
       cy.on('window:confirm', () => {})
@@ -113,7 +115,7 @@ context('Wallet - Transaction Authorization', () => {
       cy.getByTestID('amount_input').clear().type('1')
       cy.getByTestID('send_submit_button').click()
       cy.getByTestID('button_confirm_send').click().wait(3000)
-      Array.from(Array(3), (v, i) => i + 1).forEach(() => {
+      Array.from(Array(MAX_PASSCODE_ATTEMPT - 1), (v, i) => i + 1).forEach(() => {
         cy.getByTestID('pin_authorize').type('696969').wait(1000)
       })
       cy.closeOceanInterface()
@@ -145,7 +147,7 @@ context('Wallet - Transaction Authorization', () => {
     })
 
     it('should be able to exit failed retries', function () {
-      Array.from(Array(4), (v, i) => i + 1).forEach(() => {
+      Array.from(Array(MAX_PASSCODE_ATTEMPT), (v, i) => i + 1).forEach(() => {
         cy.getByTestID('pin_authorize').type('696969').wait(2000)
       })
       cy.on('window:confirm', () => {})
@@ -156,7 +158,7 @@ context('Wallet - Transaction Authorization', () => {
       cy.createEmptyWallet(true).wait(4000)
       cy.getByTestID('bottom_tab_settings').click()
       cy.getByTestID('view_recovery_words').click()
-      Array.from(Array(3), (v, i) => i + 1).forEach(() => {
+      Array.from(Array(MAX_PASSCODE_ATTEMPT - 1), (v, i) => i + 1).forEach(() => {
         cy.getByTestID('pin_authorize').type('696969').wait(1000)
       })
       cy.getByTestID('pin_authorize').type('000000').wait(1000)

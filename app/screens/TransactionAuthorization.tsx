@@ -29,7 +29,7 @@ import { DfTxSigner, first, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 
-const MAX_PASSCODE_ATTEMPT = 4 // allowed 3 failures
+const MAX_PASSCODE_ATTEMPT = 3 // allowed 2 failures
 const PIN_LENGTH = 6
 const DEFAULT_MESSAGES = {
   message: translate('screens/UnlockWallet', 'Please enter passcode to securely sign your transaction'),
