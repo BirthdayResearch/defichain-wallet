@@ -56,7 +56,7 @@
     "Estimated fee": "Geschätzte Gebühr",
     "Remaining balance": "Verbleibendes Guthaben",
     "SEND": "SENDEN",
-    "SENDING": "SENDING",
+    "SENDING": "WIRD GESENDET",
     "Sending": "Senden {{symbol}}",
     "Sending {{amount}} {{symbol}}": "Sende {{amount}} {{symbol}}"
   },
@@ -305,7 +305,7 @@
     "Estimated fee": "Geschätzte Gebühr",
     "ADD": "HINZUFÜGEN",
     "Adding Liquidity": "Füge Liquidität hinzu",
-    "ADDING": "ADDING",
+    "ADDING": "WIRD HINZUGEFÜGT",
     "Pooled {{symbol}}": "Im Pool {{symbol}}",
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "Füge {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} hinzu"
   },
@@ -319,12 +319,12 @@
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "Entferne Liquidität",
-    "REMOVING": "REMOVING",
+    "REMOVING": "WIRD ENTFERNT",
     "Amount to remove": "Zu entfernender Betrag",
     "Enter an amount ": "Gib einen Betrag an ",
     "YOU ARE REMOVING": "DU ENTFERNST",
     "Price": "Preis",
-    "Removing {{amount}} {{symbol}}":"Entferne {{amount}} {{symbol}}"
+    "Removing {{amount}} {{symbol}}": "Entferne {{amount}} {{symbol}}"
   },
   "components/slider": {
     "None": "Keine",
@@ -352,7 +352,7 @@
     "Slippage Tolerance": "Slippage Toleranz",
     "Estimated fee": "Geschätzte Gebühr",
     "SWAP": "TAUSCH",
-    "SWAPPING": "SWAPPING",
+    "SWAPPING": "WIRD GETAUSCHT",
     "Swapping Token": "Tausche Token",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}"
   },
