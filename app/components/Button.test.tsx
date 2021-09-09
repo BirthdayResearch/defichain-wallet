@@ -1,36 +1,52 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import * as React from 'react'
 import { Text } from 'react-native'
-import { Button } from './Button'
+import { Button, ButtonColorType, ButtonFillType } from './Button'
 
 jest.mock('../contexts/ThemeProvider')
-const buttonFill = ['fill', 'outline', 'flat']
-const buttonColor = ['primary', 'secondary']
+
+const buttonFill: ButtonFillType[] = ['fill', 'outline', 'flat']
+const buttonColor: ButtonColorType[] = ['primary', 'secondary']
 
 describe('button', () => {
   buttonFill.forEach(fill => {
     buttonColor.forEach(color => {
       it(`should match styling of button type ${fill}-${color}`, () => {
         const onPress = jest.fn()
-        const enabled = render(<Button
-          color={color}
-          disabled={false}
-          fill={fill}
-          label='Submit'
-          onPress={onPress}
-          title='Test'
-                               />).toJSON()
+        const enabled = render(
+          <Button
+            color={color}
+            disabled={false}
+            fill={fill}
+            label='Submit'
+            onPress={onPress}
+            title='Test'
+          />).toJSON()
         expect(enabled).toMatchSnapshot()
 
-        const disabled = render(<Button
-          color={color}
-          disabled
-          fill={fill}
-          label='Submit'
-          onPress={onPress}
-          title='Test'
-                                />).toJSON()
+        const disabled = render(
+          <Button
+            color={color}
+            disabled
+            fill={fill}
+            label='Submit'
+            onPress={onPress}
+            title='Test'
+          />).toJSON()
         expect(disabled).toMatchSnapshot()
+
+        const submitting = render(
+          <Button
+            color={color}
+            disabled
+            isSubmitting
+            submittingLabel='Submitting'
+            fill={fill}
+            label='Submit'
+            onPress={onPress}
+            title='Test'
+          />).toJSON()
+        expect(submitting).toMatchSnapshot()
       })
     })
   })
