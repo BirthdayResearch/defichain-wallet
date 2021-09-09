@@ -68,3 +68,58 @@ context('Onboarding - Create Mnemonic Wallet', () => {
     })
   })
 })
+
+context('Onboarding - Create Mnemonic Wallet with refresh recovery word', () => {
+  const recoveryWords: string[] = []
+  const oldRecoveryWords: string[] = []
+  const settingsRecoveryWords: string[] = []
+
+  before(() => {
+    cy.restoreLocalStorage()
+    cy.visit('/')
+    cy.exitWallet()
+  })
+
+  after(() => {
+    cy.saveLocalStorage()
+  })
+
+  it('should refresh recovery word', function () {
+    cy.getByTestID('create_wallet_button').click()
+    cy.getByTestID('guidelines_switch').click()
+    cy.getByTestID('create_recovery_words_button').click()
+    cy.url().should('include', 'wallet/mnemonic/create')
+    cy.wrap(Array.from(Array(24), (v, i) => i)).each((el, i: number) => {
+      cy.getByTestID(`word_${i + 1}`).should('exist')
+      cy.getByTestID(`word_${i + 1}_number`).should('exist').contains(`${i + 1}.`)
+      cy.getByTestID(`word_${i + 1}`).then(($txt: any) => {
+        oldRecoveryWords.push($txt[0].textContent)
+      })
+    }).then(() => {
+      cy.getByTestID('reset_recovery_word_button').click().wait(3000)
+      cy.wrap(Array.from(Array(24), (v, i) => i)).each((el, i: number) => {
+        cy.getByTestID(`word_${i + 1}`).should('exist')
+        cy.getByTestID(`word_${i + 1}_number`).should('exist').contains(`${i + 1}.`)
+        cy.getByTestID(`word_${i + 1}`).then(($txt: any) => {
+          recoveryWords.push($txt[0].textContent)
+          expect(oldRecoveryWords[i]).not.eq($txt[0].textContent)
+        })
+      }).then(() => {
+        cy.getByTestID('verify_button').should('not.have.attr', 'disabled')
+        cy.getByTestID('verify_button').click()
+        cy.selectMnemonicWords(recoveryWords)
+        cy.setupPinCode()
+      })
+    })
+  })
+
+  it('should be able to verify refreshed mnemonic from settings page', function () {
+    cy.verifyMnemonicOnSettingsPage(settingsRecoveryWords, recoveryWords)
+  })
+
+  it('should be able to restore refreshed mnemonic words', function () {
+    cy.exitWallet()
+    cy.visit('/')
+    cy.restoreMnemonicWords(recoveryWords)
+  })
+})
