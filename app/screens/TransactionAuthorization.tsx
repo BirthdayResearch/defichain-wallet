@@ -5,7 +5,7 @@ import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Platform, SafeAreaView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { Logging } from '../api'
+import { Logging } from '@api'
 import {
   initJellyfishWallet,
   MnemonicEncrypted,
@@ -14,20 +14,20 @@ import {
   WalletType
 } from '../api/wallet'
 import { View } from '../components'
-import { PinTextInput } from '../components/PinTextInput'
+import { PinTextInput } from '@components/PinTextInput'
 import { ThemedActivityIndicator, ThemedText, ThemedTouchableOpacity, ThemedView } from '../components/themed'
-import { WalletAlert } from '../components/WalletAlert'
-import { useNetworkContext } from '../contexts/NetworkContext'
-import { useThemeContext } from '../contexts/ThemeProvider'
-import { useWalletNodeContext } from '../contexts/WalletNodeProvider'
-import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
-import { useWhaleApiClient } from '../contexts/WhaleContext'
-import { RootState } from '../store'
-import { Authentication, authentication as authenticationStore } from '../store/authentication'
-import { ocean } from '../store/ocean'
-import { DfTxSigner, first, transactionQueue } from '../store/transaction_queue'
-import { tailwind } from '../tailwind'
-import { translate } from '../translations'
+import { WalletAlert } from '@components/WalletAlert'
+import { useNetworkContext } from '@contexts/NetworkContext'
+import { useThemeContext } from '@contexts/ThemeProvider'
+import { useWalletNodeContext } from '@contexts/WalletNodeProvider'
+import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
+import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { RootState } from '@store'
+import { Authentication, authentication as authenticationStore } from '@store/authentication'
+import { ocean } from '@store/ocean'
+import { DfTxSigner, first, transactionQueue } from '@store/transaction_queue'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 
 const MAX_PASSCODE_ATTEMPT = 4 // allowed 3 failures
 const PIN_LENGTH = 6
@@ -247,16 +247,18 @@ export function TransactionAuthorization (): JSX.Element | null {
 
   return (
     <SafeAreaView
-      style={tailwind('w-full h-full flex-col', `${isLight ? 'bg-white' : 'bg-gray-900'}`)}
+      style={tailwind('w-full h-full flex-col', `${isLight ? 'bg-gray-100' : 'bg-gray-800'}`)}
     >
       <View
         style={{
           paddingTop: Platform.select({
-            android: 20
+            android: 25
           })
         }}
       >
         <ThemedTouchableOpacity
+          dark={tailwind('bg-gray-800 border-b border-gray-700')}
+          light={tailwind('bg-gray-100 border-b border-gray-200')}
           onPress={onCancel}
           style={tailwind('p-4')}
           testID='cancel_authorization'
@@ -274,7 +276,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       <ThemedView
         dark={tailwind('bg-gray-900')}
         light={tailwind('bg-white')}
-        style={tailwind('w-full flex-1 flex-col mt-8')}
+        style={tailwind('w-full flex-1 flex-col pt-8')}
       >
         <ThemedText
           style={tailwind('text-center text-xl font-bold')}
