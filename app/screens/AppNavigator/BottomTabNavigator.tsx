@@ -1,9 +1,9 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import * as React from 'react'
-import { OceanInterface } from '../../components/OceanInterface/OceanInterface'
-import { tailwind } from '../../tailwind'
-import { translate } from '../../translations'
+import { OceanInterface } from '@components/OceanInterface/OceanInterface'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 
 import { BalancesNavigator } from './screens/Balances/BalancesNavigator'
 import { DexNavigator } from './screens/Dex/DexNavigator'
@@ -57,7 +57,7 @@ export function BottomTabNavigator (): JSX.Element {
             tabBarIcon: ({ color }) => (
               <MaterialIcons
                 color={color}
-                name='pie-chart'
+                name='swap-horiz'
                 size={24}
               />
             )
