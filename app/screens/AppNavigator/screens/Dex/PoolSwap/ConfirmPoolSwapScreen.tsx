@@ -120,7 +120,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/PoolSwapConfirmScreen', 'SWAP')}
         isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        submittingLabel={translate('screens/PoolSwapConfirmScreen', 'Swapping Token')}
+        submittingLabel={translate('screens/PoolSwapConfirmScreen', 'SWAPPING')}
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='swap'

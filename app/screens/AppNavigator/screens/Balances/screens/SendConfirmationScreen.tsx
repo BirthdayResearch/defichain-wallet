@@ -130,7 +130,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/SendConfirmationScreen', 'SEND')}
         isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        submittingLabel={translate('screens/SendConfirmationScreen', 'Sending')}
+        submittingLabel={translate('screens/SendConfirmationScreen', 'SENDING')}
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='send'

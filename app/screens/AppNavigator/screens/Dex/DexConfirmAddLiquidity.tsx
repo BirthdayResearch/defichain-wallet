@@ -171,7 +171,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/ConfirmAddLiq', 'ADD')}
         isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        submittingLabel={translate('screens/ConfirmAddLiq', 'Adding Liquidity')}
+        submittingLabel={translate('screens/ConfirmAddLiq', 'ADDING')}
         onCancel={onCancel}
         onSubmit={addLiquidity}
         title='add'
