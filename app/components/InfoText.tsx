@@ -10,16 +10,19 @@ interface InfoTextProp extends ThemedProps, TextProps {
 export function InfoText (props: InfoTextProp): JSX.Element {
   const {
     style,
-    light = tailwind('text-gray-600'),
-    dark = tailwind('text-gray-300'),
+    light = tailwind('bg-warning-50'),
+    dark = tailwind('bg-darkwarning-50'),
     ...otherProps
   } = props
 
   return (
     <ThemedView
-      style={tailwind('rounded m-4 mb-0 p-2 flex-row')}
-      light={tailwind('bg-warning-50')}
-      dark={tailwind('bg-darkwarning-50')}
+      style={[
+        tailwind('rounded m-4 mb-0 p-2 flex-row'),
+        style
+      ]}
+      light={light}
+      dark={dark}
     >
       <ThemedIcon
         iconType='MaterialIcons'
@@ -29,12 +32,9 @@ export function InfoText (props: InfoTextProp): JSX.Element {
         dark={tailwind('text-darkwarning-500')}
       />
       <ThemedText
-        style={[
-          tailwind('text-xs pl-2 font-medium flex-1'),
-          style
-        ]}
-        light={light}
-        dark={dark}
+        style={tailwind('text-xs pl-2 font-medium flex-1')}
+        light={tailwind('text-gray-600')}
+        dark={tailwind('text-gray-300')}
         {...otherProps}
       >
         {props.text}

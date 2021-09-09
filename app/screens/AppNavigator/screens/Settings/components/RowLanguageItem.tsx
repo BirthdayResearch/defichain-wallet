@@ -57,6 +57,7 @@ export function RowLanguageItem (props: { language: AppLanguage }): JSX.Element 
           testID='language_option_description'
           dark={tailwind('text-gray-400')}
           light={tailwind('text-gray-500')}
+          style={tailwind('text-sm')}
         >
           {translate('screens/Settings', props.language)}
         </ThemedText>
