@@ -2,7 +2,7 @@
  * Centralize logging/error reporting for log abstraction
  */
 export const Logging = {
-  error (error: Error): void {
+  error (error: any): void {
     console.error(error)
   },
   info (message: string): void {

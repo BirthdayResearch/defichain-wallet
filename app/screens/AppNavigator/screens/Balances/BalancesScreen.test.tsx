@@ -2,8 +2,8 @@ import { configureStore } from '@reduxjs/toolkit'
 import { fireEvent, render } from '@testing-library/react-native'
 import * as React from 'react'
 import { Provider } from 'react-redux'
-import { RootState } from '../../../../store'
-import { wallet } from '../../../../store/wallet'
+import { RootState } from '@store'
+import { wallet } from '@store/wallet'
 import { BalancesScreen } from './BalancesScreen'
 
 jest.mock('@react-navigation/bottom-tabs', () => ({
@@ -62,7 +62,8 @@ describe('balances page', () => {
     const initialState: Partial<RootState> = {
       wallet: {
         utxoBalance: '77',
-        tokens: []
+        tokens: [],
+        poolpairs: []
       }
     }
     const store = configureStore({
@@ -85,38 +86,12 @@ describe('balances page', () => {
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 
-  /* it.skip('should display navigation buttons', async () => {
-    const initialState: Partial<RootState> = {
-      wallet: {
-        utxoBalance: '77',
-        tokens: []
-      }
-    };
-    const store = configureStore({
-      preloadedState: initialState,
-      reducer: { wallet: wallet.reducer }
-    })
-    const navigation: any = {
-      navigate: jest.fn(),
-    }
-    const route: any = {}
-    const spy = jest.spyOn(navigation, 'navigate')
-    const component = (
-      <Provider store={store}>
-        <BalancesScreen navigation={navigation} route={route} />
-      </Provider>
-    );
-    const rendered = render(component)
-    const receiveButton = await rendered.findByTestId('button_RECEIVE')
-    fireEvent.press(receiveButton)
-    expect(spy).toHaveBeenCalled()
-  }) */
-
   it('should navigate to token detail page', async () => {
     const initialState: Partial<RootState> = {
       wallet: {
         utxoBalance: '77',
-        tokens: []
+        tokens: [],
+        poolpairs: []
       }
     }
     const store = configureStore({

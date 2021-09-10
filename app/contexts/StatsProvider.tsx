@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Logging } from '../api'
-import { isPlayground } from '../environment'
-import { RootState } from '../store'
-import { block } from '../store/block'
+import { Logging } from '@api'
+import { isPlayground } from '@environment'
+import { RootState } from '@store'
+import { block } from '@store/block'
 import { useNetworkContext } from './NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
 
@@ -19,7 +19,7 @@ export function StatsProvider (props: React.PropsWithChildren<any>): JSX.Element
     // TODO: https://reactnative.dev/docs/appstate refactor to support app app refreshing
     //  isPolling is a good indicator of background polling
     //  we can use AppState to suspend and activate polling based on user activity
-    let intervalID: number
+    let intervalID: NodeJS.Timeout
 
     function refresh (): void {
       dispatch(block.actions.setPolling(true))
