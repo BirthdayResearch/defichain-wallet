@@ -147,7 +147,7 @@ export function WalletNavigator (): JSX.Element {
           component={GuidelinesRecoveryWords}
           name='GuidelinesRecoveryWords'
           options={{
-            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Learn More')} />,
+            headerTitle: translate('screens/WalletNavigator', 'Recovery Words FAQs'),
             presentation: 'modal',
             headerLeft: (): JSX.Element => (
               <TouchableOpacity
