@@ -2,13 +2,13 @@ import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader
 import { StackScreenProps } from '@react-navigation/stack'
 import { MnemonicUnprotected } from '../../../../api/wallet'
 import * as React from 'react'
-import { forwardRef, useEffect, useState, useImperativeHandle } from 'react'
-import { Button } from '../../../../components/Button'
-import { CREATE_STEPS, CreateWalletStepIndicator } from '../../../../components/CreateWalletStepIndicator'
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
+import { Button } from '@components/Button'
+import { CREATE_STEPS, CreateWalletStepIndicator } from '@components/CreateWalletStepIndicator'
 import { ThemedScrollView, ThemedText, ThemedView } from '../../../../components/themed'
-import { WalletAlert } from '../../../../components/WalletAlert'
-import { tailwind } from '../../../../tailwind'
-import { translate } from '../../../../translations'
+import { WalletAlert } from '@components/WalletAlert'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import { WalletParamList } from '../../WalletNavigator'
 
 type Props = StackScreenProps<WalletParamList, 'CreateMnemonicWallet'>
@@ -19,7 +19,11 @@ export interface CreateMnemonicWalletHandle {
 
 export const CreateMnemonicWallet = forwardRef(
   function ({ navigation }: Props, ref: React.Ref<unknown> | undefined): JSX.Element {
-    const [words, setWords] = useState<string[]>(MnemonicUnprotected.generateWords())
+    const [words, setWords] = useState<string[]>([])
+
+    useEffect(() => {
+      setWords(MnemonicUnprotected.generateWords())
+    }, [])
 
     useImperativeHandle(ref, () => ({
       getMnemonicWords () {
@@ -85,15 +89,15 @@ export const CreateMnemonicWallet = forwardRef(
 
         {(words.length > 0)
           ? words.map((word, index) => {
-          return (
-            <RecoveryWordRow
-              index={index}
-              key={index}
-              word={word}
-            />
-          )
-        })
-        : <SkeletonLoader row={10} screen={SkeletonLoaderScreen.MnemonicWord} />}
+            return (
+              <RecoveryWordRow
+                index={index}
+                key={index}
+                word={word}
+              />
+            )
+          })
+          : <SkeletonLoader row={10} screen={SkeletonLoaderScreen.MnemonicWord} />}
 
         <Button
           label={translate('screens/CreateMnemonicWallet', 'VERIFY WORDS')}
