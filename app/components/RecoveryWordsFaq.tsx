@@ -40,6 +40,7 @@ export function RecoveryWordFaq (): JSX.Element {
   return (
     <ThemedScrollView
       contentContainerStyle={tailwind('p-6 pb-8')}
+      testID='recovery_words_faq'
     >
       <ThemedText
         style={tailwind('text-lg font-semibold')}
