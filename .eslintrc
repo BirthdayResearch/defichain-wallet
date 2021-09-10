@@ -1,5 +1,4 @@
 {
-  "root": true,
   "parserOptions": {
     "project": "./tsconfig.json"
   },
@@ -17,7 +16,7 @@
   ],
   "ignorePatterns": [
     "*.json",
-    "cypress/**/*.ts"
+    "cypress/support/*.ts"
   ],
   "overrides": [
     // Js and Typescript files
