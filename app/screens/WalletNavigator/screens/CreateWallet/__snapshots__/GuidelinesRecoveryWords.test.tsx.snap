@@ -2,19 +2,19 @@
 
 exports[`recovery words guidelines should match snapshot 1`] = `
 <RCTScrollView
+  contentContainerStyle={
+    Object {
+      "paddingBottom": 32,
+      "paddingLeft": 24,
+      "paddingRight": 24,
+      "paddingTop": 24,
+    }
+  }
   style={
     Array [
+      undefined,
       Object {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 24,
-      },
-      Object {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "backgroundColor": "rgba(245, 245, 245, 1)",
       },
     ]
   }
@@ -43,7 +43,7 @@ exports[`recovery words guidelines should match snapshot 1`] = `
         ]
       }
     >
-      What are recovery words?
+      Recovery words
     </Text>
     <Text
       style={
@@ -56,6 +56,8 @@ exports[`recovery words guidelines should match snapshot 1`] = `
           },
           Array [
             Object {
+              "fontSize": 14,
+              "lineHeight": 20,
               "marginTop": 8,
             },
             Object {
@@ -65,7 +67,7 @@ exports[`recovery words guidelines should match snapshot 1`] = `
         ]
       }
     >
-      Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard.
+      Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.
     </Text>
     <Text
       style={
@@ -78,62 +80,649 @@ exports[`recovery words guidelines should match snapshot 1`] = `
           },
           Array [
             Object {
-              "marginTop": 20,
+              "fontFamily": "MediumFont",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+              "marginTop": 32,
             },
             Object {
-              "color": "rgba(0, 0, 0, 1)",
+              "color": "rgba(163, 163, 163, 1)",
             },
           ],
         ]
       }
     >
-      You will need your recovery words to restore your wallet on, for example, a new mobile device. Think of them as keys to your wallet and funds.
+      FREQUENTLY ASKED QUESTIONS
     </Text>
-    <Text
+    <View
       style={
         Array [
           Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
+            "borderBottomLeftRadius": 8,
+            "borderBottomRightRadius": 8,
+            "borderBottomWidth": 1,
+            "borderLeftWidth": 1,
+            "borderRightWidth": 1,
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "borderTopWidth": 1,
+            "marginTop": 8,
+            "overflow": "hidden",
           },
-          Array [
-            Object {
-              "marginTop": 20,
-            },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
-            },
-          ],
-        ]
-      }
-    >
-      If you lose your recovery words, you will not be able to restore your wallet, and you will lose access to your wallet and funds.
-    </Text>
-    <Text
-      style={
-        Array [
           Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
           },
-          Array [
-            Object {
-              "marginBottom": 48,
-              "marginTop": 20,
-            },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
-            },
-          ],
         ]
       }
     >
-      It is important that you write down your recovery words legibly and in the correct order. Store your recovery words safely and securely, away from prying eyes. You may want to think about keeping it safe from fire as well.
-    </Text>
+      <View
+        style={
+          Object {
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            Object {
+              "expanded": false,
+            }
+          }
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+        >
+          <View
+            style={
+              Array [
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingBottom": 16,
+                    "paddingLeft": 16,
+                    "paddingRight": 16,
+                    "paddingTop": 16,
+                  },
+                  Object {
+                    "borderBottomWidth": 1,
+                  },
+                  false,
+                ],
+                Object {
+                  "backgroundColor": "rgba(255, 255, 255, 1)",
+                  "borderBottomColor": "rgba(229, 229, 229, 1)",
+                  "borderLeftColor": "rgba(229, 229, 229, 1)",
+                  "borderRightColor": "rgba(229, 229, 229, 1)",
+                  "borderTopColor": "rgba(229, 229, 229, 1)",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Array [
+                      Object {
+                        "flexBasis": "0%",
+                        "flexGrow": 1,
+                        "flexShrink": 1,
+                        "fontSize": 14,
+                        "lineHeight": 20,
+                      },
+                      false,
+                    ],
+                    Object {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              What happens if I lose my recovery words?
+            </Text>
+            <Text />
+          </View>
+        </View>
+        <View
+          pointerEvents="none"
+          style={
+            Object {
+              "height": 0,
+              "overflow": "hidden",
+            }
+          }
+        >
+          <View
+            forwardedRef={[Function]}
+            onLayout={[Function]}
+            style={Object {}}
+          >
+            <View
+              style={
+                Array [
+                  Array [
+                    Object {
+                      "paddingBottom": 16,
+                      "paddingLeft": 16,
+                      "paddingRight": 16,
+                      "paddingTop": 0,
+                    },
+                    false,
+                  ],
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderBottomColor": "rgba(229, 229, 229, 1)",
+                    "borderLeftColor": "rgba(229, 229, 229, 1)",
+                    "borderRightColor": "rgba(229, 229, 229, 1)",
+                    "borderTopColor": "rgba(229, 229, 229, 1)",
+                  },
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "color": "rgba(82, 82, 82, 1)",
+                        "fontSize": 14,
+                        "lineHeight": 20,
+                      },
+                      Object {
+                        "color": "rgba(0, 0, 0, 1)",
+                      },
+                    ],
+                  ]
+                }
+              >
+                Once you lose your recovery words, you will not be able to restore your wallet and any funds within it. We encourage you to be responsible with your recovery words.
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            Object {
+              "expanded": false,
+            }
+          }
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+        >
+          <View
+            style={
+              Array [
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingBottom": 16,
+                    "paddingLeft": 16,
+                    "paddingRight": 16,
+                    "paddingTop": 16,
+                  },
+                  Object {
+                    "borderBottomWidth": 1,
+                  },
+                  false,
+                ],
+                Object {
+                  "backgroundColor": "rgba(255, 255, 255, 1)",
+                  "borderBottomColor": "rgba(229, 229, 229, 1)",
+                  "borderLeftColor": "rgba(229, 229, 229, 1)",
+                  "borderRightColor": "rgba(229, 229, 229, 1)",
+                  "borderTopColor": "rgba(229, 229, 229, 1)",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Array [
+                      Object {
+                        "flexBasis": "0%",
+                        "flexGrow": 1,
+                        "flexShrink": 1,
+                        "fontSize": 14,
+                        "lineHeight": 20,
+                      },
+                      false,
+                    ],
+                    Object {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Can I use the 24-word from xxx that I created from xxx?
+            </Text>
+            <Text />
+          </View>
+        </View>
+        <View
+          pointerEvents="none"
+          style={
+            Object {
+              "height": 0,
+              "overflow": "hidden",
+            }
+          }
+        >
+          <View
+            forwardedRef={[Function]}
+            onLayout={[Function]}
+            style={Object {}}
+          >
+            <View
+              style={
+                Array [
+                  Array [
+                    Object {
+                      "paddingBottom": 16,
+                      "paddingLeft": 16,
+                      "paddingRight": 16,
+                      "paddingTop": 0,
+                    },
+                    false,
+                  ],
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderBottomColor": "rgba(229, 229, 229, 1)",
+                    "borderLeftColor": "rgba(229, 229, 229, 1)",
+                    "borderRightColor": "rgba(229, 229, 229, 1)",
+                    "borderTopColor": "rgba(229, 229, 229, 1)",
+                  },
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "color": "rgba(82, 82, 82, 1)",
+                        "fontSize": 14,
+                        "lineHeight": 20,
+                      },
+                      Object {
+                        "color": "rgba(0, 0, 0, 1)",
+                      },
+                    ],
+                  ]
+                }
+              >
+                No, reusing 24-word from another computer, phone tablet, software, hardware, wallet provider will only be as secure as where you re-used it from.
+
+You can only trust the 24-word if you can trust the device/app that generated it.
+
+You must only enter the 24-word into a device that you trust isn't tamper with.
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            Object {
+              "expanded": false,
+            }
+          }
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+        >
+          <View
+            style={
+              Array [
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingBottom": 16,
+                    "paddingLeft": 16,
+                    "paddingRight": 16,
+                    "paddingTop": 16,
+                  },
+                  Object {
+                    "borderBottomWidth": 1,
+                  },
+                  false,
+                ],
+                Object {
+                  "backgroundColor": "rgba(255, 255, 255, 1)",
+                  "borderBottomColor": "rgba(229, 229, 229, 1)",
+                  "borderLeftColor": "rgba(229, 229, 229, 1)",
+                  "borderRightColor": "rgba(229, 229, 229, 1)",
+                  "borderTopColor": "rgba(229, 229, 229, 1)",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Array [
+                      Object {
+                        "flexBasis": "0%",
+                        "flexGrow": 1,
+                        "flexShrink": 1,
+                        "fontSize": 14,
+                        "lineHeight": 20,
+                      },
+                      false,
+                    ],
+                    Object {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Can someone help me if I lose my recovery words?
+            </Text>
+            <Text />
+          </View>
+        </View>
+        <View
+          pointerEvents="none"
+          style={
+            Object {
+              "height": 0,
+              "overflow": "hidden",
+            }
+          }
+        >
+          <View
+            forwardedRef={[Function]}
+            onLayout={[Function]}
+            style={Object {}}
+          >
+            <View
+              style={
+                Array [
+                  Array [
+                    Object {
+                      "paddingBottom": 16,
+                      "paddingLeft": 16,
+                      "paddingRight": 16,
+                      "paddingTop": 0,
+                    },
+                    false,
+                  ],
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderBottomColor": "rgba(229, 229, 229, 1)",
+                    "borderLeftColor": "rgba(229, 229, 229, 1)",
+                    "borderRightColor": "rgba(229, 229, 229, 1)",
+                    "borderTopColor": "rgba(229, 229, 229, 1)",
+                  },
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "color": "rgba(82, 82, 82, 1)",
+                        "fontSize": 14,
+                        "lineHeight": 20,
+                      },
+                      Object {
+                        "color": "rgba(0, 0, 0, 1)",
+                      },
+                    ],
+                  ]
+                }
+              >
+                No. You are the only one who has the access to your recovery words. No one is responsible and liable for it except you.
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            Object {
+              "expanded": false,
+            }
+          }
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+        >
+          <View
+            style={
+              Array [
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingBottom": 16,
+                    "paddingLeft": 16,
+                    "paddingRight": 16,
+                    "paddingTop": 16,
+                  },
+                  false,
+                  false,
+                ],
+                Object {
+                  "backgroundColor": "rgba(255, 255, 255, 1)",
+                  "borderBottomColor": "rgba(229, 229, 229, 1)",
+                  "borderLeftColor": "rgba(229, 229, 229, 1)",
+                  "borderRightColor": "rgba(229, 229, 229, 1)",
+                  "borderTopColor": "rgba(229, 229, 229, 1)",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Array [
+                      Object {
+                        "flexBasis": "0%",
+                        "flexGrow": 1,
+                        "flexShrink": 1,
+                        "fontSize": 14,
+                        "lineHeight": 20,
+                      },
+                      false,
+                    ],
+                    Object {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Why is it recommended to keep my recovery words offline and in paper?
+            </Text>
+            <Text />
+          </View>
+        </View>
+        <View
+          pointerEvents="none"
+          style={
+            Object {
+              "height": 0,
+              "overflow": "hidden",
+            }
+          }
+        >
+          <View
+            forwardedRef={[Function]}
+            onLayout={[Function]}
+            style={Object {}}
+          >
+            <View
+              style={
+                Array [
+                  Array [
+                    Object {
+                      "paddingBottom": 16,
+                      "paddingLeft": 16,
+                      "paddingRight": 16,
+                      "paddingTop": 0,
+                    },
+                    false,
+                  ],
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderBottomColor": "rgba(229, 229, 229, 1)",
+                    "borderLeftColor": "rgba(229, 229, 229, 1)",
+                    "borderRightColor": "rgba(229, 229, 229, 1)",
+                    "borderTopColor": "rgba(229, 229, 229, 1)",
+                  },
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "color": "rgba(82, 82, 82, 1)",
+                        "fontSize": 14,
+                        "lineHeight": 20,
+                      },
+                      Object {
+                        "color": "rgba(0, 0, 0, 1)",
+                      },
+                    ],
+                  ]
+                }
+              >
+                Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
   </View>
 </RCTScrollView>
 `;
