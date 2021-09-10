@@ -153,7 +153,6 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     cy.closeOceanInterface()
   })
 
-  // sample
   it('should be able to add correct liquidity when user cancel a tx and updated some inputs', function () {
     const oldAmount = '5.00000000'
     const newAmount = '10.00000000'
