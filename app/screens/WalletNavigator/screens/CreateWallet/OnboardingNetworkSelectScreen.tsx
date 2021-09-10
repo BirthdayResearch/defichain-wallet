@@ -3,13 +3,13 @@ import { getEnvironment } from '@environment'
 import { RowNetworkItem } from '@components/RowNetworkItem'
 import { translate } from '@translations'
 import * as React from 'react'
-import { View } from 'react-native'
+import { ThemedScrollView } from '@components/themed'
 
 export function OnboardingNetworkSelectScreen (): JSX.Element {
   const networks = getEnvironment().networks
 
   return (
-    <View testID='onboarding_network_selection_screen'>
+    <ThemedScrollView testID='onboarding_network_selection_screen'>
       <SectionTitle
         testID='onboarding_network_selection_screen_title'
         text={translate('screens/OnboardingNetworkSelectScreen', 'SELECT NETWORK')}
@@ -25,6 +25,6 @@ export function OnboardingNetworkSelectScreen (): JSX.Element {
           />
         ))
       }
-    </View>
+    </ThemedScrollView>
   )
 }

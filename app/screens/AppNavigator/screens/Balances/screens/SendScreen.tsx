@@ -6,7 +6,7 @@ import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
@@ -19,6 +19,7 @@ import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import {
   ThemedIcon,
+  ThemedScrollView,
   ThemedText,
   ThemedTextInput,
   ThemedTouchableOpacity,
@@ -82,7 +83,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   }
 
   return (
-    <ScrollView>
+    <ThemedScrollView>
       <AddressRow
         control={control}
         networkName={networkName}
@@ -127,7 +128,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
         testID='send_submit_button'
         title='Send'
       />
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 

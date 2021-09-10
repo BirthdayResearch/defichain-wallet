@@ -48,7 +48,7 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
   }, [tx?.txid, getTransactionUrl])
 
   return (
-    <View>
+    <ThemedScrollView>
       <RenderRow
         lhs='Type'
         rhs={translate('screens/TransactionDetailScreen', tx.desc)}
@@ -98,6 +98,6 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
           </View>
         </View>
       </ThemedTouchableOpacity>
-    </View>
+    </ThemedScrollView>
   )
 }

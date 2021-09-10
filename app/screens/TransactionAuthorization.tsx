@@ -257,7 +257,7 @@ export function TransactionAuthorization (): JSX.Element | null {
         }}
       >
         <ThemedTouchableOpacity
-          dark={tailwind('bg-gray-800 border-b border-gray-700')}
+          dark={tailwind('bg-blue-900 border-b border-gray-700')}
           light={tailwind('bg-gray-100 border-b border-gray-200')}
           onPress={onCancel}
           style={tailwind('p-4')}
