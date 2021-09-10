@@ -1,7 +1,7 @@
 {
   "screens/WalletNavigator": {
     "Guidelines": "Richtlinien",
-    "Learn More": "Erfahre mehr",
+    "Recovery Words FAQs": "Recovery Words FAQs",
     "Display recovery words": "Zeige Wiederherstellungssatz an",
     "Verify words": "Bestätige die Worte",
     "Restore Wallet": "Stelle die Wallet wieder her",
@@ -11,7 +11,8 @@
     "Cancel": "Abbrechen",
     "Refresh": "Erneuern",
     "Refresh recovery words": "Erneuere Wiederherstellungssatz",
-    "You are about to generate a new set of recovery words. Continue?": "Du generierst einen neuen Satz Wiederherstellungswörter. Möchtest du fortfahren?"
+    "You are about to generate a new set of recovery words. Continue?": "Du generierst einen neuen Satz Wiederherstellungswörter. Möchtest du fortfahren?",
+    "CLOSE": "CLOSE"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
@@ -203,13 +204,6 @@
     "Keep them private": "Behalte sie für dich",
     "Don’t share to anyone. Keep the recovery words only to yourself.": "Teile sie niemandem mit. Nur du solltest den Wiederherstellungsatz kennen."
   },
-  "screens/GuidelinesRecoveryWords": {
-    "What are recovery words?": "Was ist der Wiederherstellungssatz (Seed Phrase)?",
-    "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard.": "Deine einmaligen 24 Worte des Wiederherstellungsschlüssels sind eine visuell lesbare Darstellung des privaten Schlüssels deiner Wallet. Diese wurden aus einer Sammlung von 2048 Worten im BIP-39 Standard erstellt.",
-    "You will need your recovery words to restore your wallet on, for example, a new mobile device. Think of them as keys to your wallet and funds.": "Den Wiederherstellungssatz brauchst du, um z.B. deine Wallet auf einem neuen Mobilgerät wiederherzustellen. Betrachte sie als den Schlüssel zu deiner Wallet und deinen Guthaben darauf.",
-    "If you lose your recovery words, you will not be able to restore your wallet, and you will lose access to your wallet and funds.": "Falls du den Wiederherstellungssatz verlierst, wird es nicht möglich sein, deine Wallet wiederherzustellen und der Zugang zu deiner Wallet und den Guthaben ist nicht mehr möglich.",
-    "It is important that you write down your recovery words legibly and in the correct order. Store your recovery words safely and securely, away from prying eyes. You may want to think about keeping it safe from fire as well.": "Es ist wichtig, dass du die Wörter zur Wiederherstellung deutlich lesbar in der exakten Reihenfolge notierst.  Bewahre den Wiederherstellungssatz sicher auf, vor fremden Blicken geschützt. Ein feuerfester Wandtresor kann hierbei durchaus Sinn machen."
-  },
   "screens/PinConfirmation": {
     "It may take a few seconds to securely encrypt your wallet...": "Es kann ein paar Sekunden dauern bis deine Wallet sicher verschlüsselt ist...",
     "Enter your passcode again to verify": " Erneute Passworteingabe zur Bestätigung",
@@ -372,5 +366,18 @@
 	"screens/OnboardingNetworkSelectScreen": {
 		"SELECT NETWORK": "NETZWERKAUSWAHL",
     "You are about to switch to {{network}}. Do you want to proceed?": "Du wechselst zu {{network}}. Möchtest du fortfahren?"
-	}
+	},
+  "components/RecoveryWordFaq": {
+    "What happens if I lose my recovery words?": "What happens if I lose my recovery words?",
+    "Once you lose your recovery words, you will not be able to restore your wallet and any funds within it. We encourage you to be responsible with your recovery words.": "Once you lose your recovery words, you will not be able to restore your wallet and any funds within it. We encourage you to be responsible with your recovery words.",
+    "Can I use the 24-word from xxx that I created from xxx?": "Can I use the 24-word from xxx that I created from xxx?",
+    "No, reusing 24-word from another computer, phone tablet, software, hardware, wallet provider will only be as secure as where you re-used it from.\n\nYou can only trust the 24-word if you can trust the device/app that generated it.\n\nYou must only enter the 24-word into a device that you trust isn't tamper with.": "No, reusing 24-word from another computer, phone tablet, software, hardware, wallet provider will only be as secure as where you re-used it from.\n\nYou can only trust the 24-word if you can trust the device/app that generated it.\n\nYou must only enter the 24-word into a device that you trust isn't tamper with.",
+    "Can someone help me if I lose my recovery words?": "Can someone help me if I lose my recovery words?",
+    "No. You are the only one who has the access to your recovery words. No one is responsible and liable for it except you.": "No. You are the only one who has the access to your recovery words. No one is responsible and liable for it except you.",
+    "Why is it recommended to keep my recovery words offline and in paper?": "Why is it recommended to keep my recovery words offline and in paper?",
+    "Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.": "Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.",
+    "Recovery words": "Recovery words",
+    "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.",
+    "FREQUENTLY ASKED QUESTIONS": "FREQUENTLY ASKED QUESTIONS"
+  }
 }
