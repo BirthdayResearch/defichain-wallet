@@ -1,11 +1,14 @@
 {
+  "root": true,
   "parserOptions": {
     "project": "./tsconfig.json"
   },
   "plugins": [
     "cypress"
   ],
-  "ignorePatterns": [],
+  "extends": [
+    "standard-with-typescript"
+  ],
   "rules": {
     "cypress/no-assigning-return-values": "error",
     "cypress/no-unnecessary-waiting": "off",

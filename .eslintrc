@@ -1,8 +1,8 @@
 {
+  "root": true,
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "root": true,
   "plugins": [
     "react",
     "react-native",

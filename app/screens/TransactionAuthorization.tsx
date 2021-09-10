@@ -391,7 +391,6 @@ async function execWithAutoRetries (promptPromise: () => Promise<any>, onAutoRet
   }
 }
 
-// sample commit
 // store/transactionQueue execution
 async function signTransaction (tx: DfTxSigner, account: WhaleWalletAccount, onAutoRetry: (attempts: number) => Promise<void>, retries: number = 0): Promise<CTransactionSegWit> {
   return await execWithAutoRetries(async () => (await tx.sign(account)), onAutoRetry, retries)

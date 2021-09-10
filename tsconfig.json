@@ -53,7 +53,6 @@
   },
   "extends": "expo/tsconfig.base",
   "exclude": [
-    "node_modules",
-    "cypress"
+    "node_modules"
   ]
 }
