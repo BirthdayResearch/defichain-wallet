@@ -64,15 +64,14 @@ export function RecoveryWordFaq (): JSX.Element {
 
       <Accordion
         containerStyle={[tailwind('border rounded-lg mt-2 overflow-hidden'), isLight ? tailwind('bg-white border-gray-200') : tailwind('bg-black border-gray-700')]}
-        sectionContainerStyle={isLight ? tailwind('border-gray-200') : tailwind('border-gray-700')}
         underlayColor='transparent'
         sections={faqContent}
-        renderHeader={(prop, _index, isActive) => {
+        renderHeader={(prop, index, isActive) => {
           return (
             <ThemedView
-              light={tailwind('bg-white border-gray-200')}
+              light={tailwind('border-gray-200')}
               dark={tailwind('border-gray-700')}
-              style={[tailwind('p-4 flex-row items-center justify-between'), !isActive && !isLastContent(_index) && tailwind('border-b'), isActive && tailwind('pb-1')]}
+              style={[tailwind('p-4 flex-row items-center justify-between'), !isActive && !isLastContent(index) && tailwind('border-b'), isActive && tailwind('pb-1')]}
             >
               <ThemedText
                 style={[
@@ -95,15 +94,17 @@ export function RecoveryWordFaq (): JSX.Element {
 
           )
         }}
-        renderContent={(prop, _index, isActive) => {
+        renderContent={(prop, index, isActive) => {
           return (
             <ThemedView
-              style={[tailwind('p-4 pt-0'), isActive && !isLastContent(_index) && tailwind('border-b')]}
-              light={tailwind('bg-transparent border-gray-200')}
+              style={[tailwind('p-4 pt-0'), isActive && !isLastContent(index) && tailwind('border-b')]}
+              light={tailwind('border-gray-200')}
               dark={tailwind('border-gray-700')}
             >
               <ThemedText
-                style={tailwind('text-sm text-gray-600')}
+                style={tailwind('text-sm')}
+                light={tailwind('text-gray-600')}
+                dark={tailwind('text-gray-300')}
               >
                 {prop.content}
               </ThemedText>
