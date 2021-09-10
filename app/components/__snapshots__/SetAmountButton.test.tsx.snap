@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`set amount button should match styling of set amount button type half 1`] = `
+exports[`set amount button should match styling of set amount button type 50% 1`] = `
 <View
   accessible={true}
   focusable={true}
@@ -26,6 +26,7 @@ exports[`set amount button should match styling of set amount button type half 1
       "borderTopRightRadius": 4,
       "borderTopWidth": 1,
       "display": "flex",
+      "marginRight": 4,
       "opacity": 1,
       "paddingBottom": 6,
       "paddingLeft": 8,
@@ -33,7 +34,7 @@ exports[`set amount button should match styling of set amount button type half 1
       "paddingTop": 6,
     }
   }
-  testID="half_amount_button"
+  testID="50%_amount_button"
 >
   <Text
     style={
@@ -57,12 +58,12 @@ exports[`set amount button should match styling of set amount button type half 1
       ]
     }
   >
-    half
+    50%
   </Text>
 </View>
 `;
 
-exports[`set amount button should match styling of set amount button type max 1`] = `
+exports[`set amount button should match styling of set amount button type MAX 1`] = `
 <View
   accessible={true}
   focusable={true}
@@ -95,7 +96,7 @@ exports[`set amount button should match styling of set amount button type max 1`
       "paddingTop": 6,
     }
   }
-  testID="max_amount_button"
+  testID="MAX_amount_button"
 >
   <Text
     style={
@@ -119,7 +120,7 @@ exports[`set amount button should match styling of set amount button type max 1`
       ]
     }
   >
-    max
+    MAX
   </Text>
 </View>
 `;

@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js'
 
 export interface WalletState {
   utxoBalance: string
-  tokens: AddressToken[]
+  tokens: WalletToken[]
   poolpairs: DexItem[]
 }
 export interface WalletToken extends AddressToken {

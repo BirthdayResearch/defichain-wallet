@@ -2,8 +2,8 @@ import { configureStore } from '@reduxjs/toolkit'
 import { fireEvent, render } from '@testing-library/react-native'
 import * as React from 'react'
 import { Provider } from 'react-redux'
-import { RootState } from '../../../../../store'
-import { wallet } from '../../../../../store/wallet'
+import { RootState } from '@store'
+import { wallet } from '@store/wallet'
 import { TokenDetailScreen } from './TokenDetailScreen'
 
 jest.mock('../../../../../contexts/ThemeProvider')
@@ -44,9 +44,9 @@ describe('token detail screen', () => {
   it('should accept DST', async () => {
     const initialState: Partial<RootState> = {
       wallet: {
-        address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
         utxoBalance: '77',
-        tokens: []
+        tokens: [],
+        poolpairs: []
       }
     }
     const store = configureStore({
@@ -89,9 +89,9 @@ describe('token detail screen', () => {
   it('should accept UTXO DFI', async () => {
     const initialState: Partial<RootState> = {
       wallet: {
-        address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
         utxoBalance: '77',
-        tokens: []
+        tokens: [],
+        poolpairs: []
       }
     }
     const store = configureStore({
@@ -134,9 +134,9 @@ describe('token detail screen', () => {
   it('should accept Token DFI', async () => {
     const initialState: Partial<RootState> = {
       wallet: {
-        address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d',
         utxoBalance: '77',
-        tokens: []
+        tokens: [],
+        poolpairs: []
       }
     }
     const store = configureStore({
