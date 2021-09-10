@@ -18,6 +18,7 @@ exports[`recovery words guidelines should match snapshot 1`] = `
       },
     ]
   }
+  testID="recovery_words_faq"
 >
   <View>
     <Text
@@ -121,14 +122,7 @@ exports[`recovery words guidelines should match snapshot 1`] = `
       }
     >
       <View
-        style={
-          Object {
-            "borderBottomColor": "rgba(229, 229, 229, 1)",
-            "borderLeftColor": "rgba(229, 229, 229, 1)",
-            "borderRightColor": "rgba(229, 229, 229, 1)",
-            "borderTopColor": "rgba(229, 229, 229, 1)",
-          }
-        }
+        style={Object {}}
       >
         <View
           accessibilityState={
@@ -165,7 +159,6 @@ exports[`recovery words guidelines should match snapshot 1`] = `
                   false,
                 ],
                 Object {
-                  "backgroundColor": "rgba(255, 255, 255, 1)",
                   "borderBottomColor": "rgba(229, 229, 229, 1)",
                   "borderLeftColor": "rgba(229, 229, 229, 1)",
                   "borderRightColor": "rgba(229, 229, 229, 1)",
@@ -233,7 +226,6 @@ exports[`recovery words guidelines should match snapshot 1`] = `
                     false,
                   ],
                   Object {
-                    "backgroundColor": "transparent",
                     "borderBottomColor": "rgba(229, 229, 229, 1)",
                     "borderLeftColor": "rgba(229, 229, 229, 1)",
                     "borderRightColor": "rgba(229, 229, 229, 1)",
@@ -253,12 +245,11 @@ exports[`recovery words guidelines should match snapshot 1`] = `
                     },
                     Array [
                       Object {
-                        "color": "rgba(82, 82, 82, 1)",
                         "fontSize": 14,
                         "lineHeight": 20,
                       },
                       Object {
-                        "color": "rgba(0, 0, 0, 1)",
+                        "color": "rgba(82, 82, 82, 1)",
                       },
                     ],
                   ]
@@ -271,14 +262,7 @@ exports[`recovery words guidelines should match snapshot 1`] = `
         </View>
       </View>
       <View
-        style={
-          Object {
-            "borderBottomColor": "rgba(229, 229, 229, 1)",
-            "borderLeftColor": "rgba(229, 229, 229, 1)",
-            "borderRightColor": "rgba(229, 229, 229, 1)",
-            "borderTopColor": "rgba(229, 229, 229, 1)",
-          }
-        }
+        style={Object {}}
       >
         <View
           accessibilityState={
@@ -315,7 +299,6 @@ exports[`recovery words guidelines should match snapshot 1`] = `
                   false,
                 ],
                 Object {
-                  "backgroundColor": "rgba(255, 255, 255, 1)",
                   "borderBottomColor": "rgba(229, 229, 229, 1)",
                   "borderLeftColor": "rgba(229, 229, 229, 1)",
                   "borderRightColor": "rgba(229, 229, 229, 1)",
@@ -383,7 +366,6 @@ exports[`recovery words guidelines should match snapshot 1`] = `
                     false,
                   ],
                   Object {
-                    "backgroundColor": "transparent",
                     "borderBottomColor": "rgba(229, 229, 229, 1)",
                     "borderLeftColor": "rgba(229, 229, 229, 1)",
                     "borderRightColor": "rgba(229, 229, 229, 1)",
@@ -403,12 +385,11 @@ exports[`recovery words guidelines should match snapshot 1`] = `
                     },
                     Array [
                       Object {
-                        "color": "rgba(82, 82, 82, 1)",
                         "fontSize": 14,
                         "lineHeight": 20,
                       },
                       Object {
-                        "color": "rgba(0, 0, 0, 1)",
+                        "color": "rgba(82, 82, 82, 1)",
                       },
                     ],
                   ]
@@ -425,14 +406,7 @@ You must only enter the 24-word into a device that you trust isn't tamper with.
         </View>
       </View>
       <View
-        style={
-          Object {
-            "borderBottomColor": "rgba(229, 229, 229, 1)",
-            "borderLeftColor": "rgba(229, 229, 229, 1)",
-            "borderRightColor": "rgba(229, 229, 229, 1)",
-            "borderTopColor": "rgba(229, 229, 229, 1)",
-          }
-        }
+        style={Object {}}
       >
         <View
           accessibilityState={
@@ -469,7 +443,6 @@ You must only enter the 24-word into a device that you trust isn't tamper with.
                   false,
                 ],
                 Object {
-                  "backgroundColor": "rgba(255, 255, 255, 1)",
                   "borderBottomColor": "rgba(229, 229, 229, 1)",
                   "borderLeftColor": "rgba(229, 229, 229, 1)",
                   "borderRightColor": "rgba(229, 229, 229, 1)",
@@ -537,7 +510,6 @@ You must only enter the 24-word into a device that you trust isn't tamper with.
                     false,
                   ],
                   Object {
-                    "backgroundColor": "transparent",
                     "borderBottomColor": "rgba(229, 229, 229, 1)",
                     "borderLeftColor": "rgba(229, 229, 229, 1)",
                     "borderRightColor": "rgba(229, 229, 229, 1)",
@@ -557,12 +529,11 @@ You must only enter the 24-word into a device that you trust isn't tamper with.
                     },
                     Array [
                       Object {
-                        "color": "rgba(82, 82, 82, 1)",
                         "fontSize": 14,
                         "lineHeight": 20,
                       },
                       Object {
-                        "color": "rgba(0, 0, 0, 1)",
+                        "color": "rgba(82, 82, 82, 1)",
                       },
                     ],
                   ]
@@ -575,14 +546,7 @@ You must only enter the 24-word into a device that you trust isn't tamper with.
         </View>
       </View>
       <View
-        style={
-          Object {
-            "borderBottomColor": "rgba(229, 229, 229, 1)",
-            "borderLeftColor": "rgba(229, 229, 229, 1)",
-            "borderRightColor": "rgba(229, 229, 229, 1)",
-            "borderTopColor": "rgba(229, 229, 229, 1)",
-          }
-        }
+        style={Object {}}
       >
         <View
           accessibilityState={
@@ -617,7 +581,6 @@ You must only enter the 24-word into a device that you trust isn't tamper with.
                   false,
                 ],
                 Object {
-                  "backgroundColor": "rgba(255, 255, 255, 1)",
                   "borderBottomColor": "rgba(229, 229, 229, 1)",
                   "borderLeftColor": "rgba(229, 229, 229, 1)",
                   "borderRightColor": "rgba(229, 229, 229, 1)",
@@ -685,7 +648,6 @@ You must only enter the 24-word into a device that you trust isn't tamper with.
                     false,
                   ],
                   Object {
-                    "backgroundColor": "transparent",
                     "borderBottomColor": "rgba(229, 229, 229, 1)",
                     "borderLeftColor": "rgba(229, 229, 229, 1)",
                     "borderRightColor": "rgba(229, 229, 229, 1)",
@@ -705,12 +667,11 @@ You must only enter the 24-word into a device that you trust isn't tamper with.
                     },
                     Array [
                       Object {
-                        "color": "rgba(82, 82, 82, 1)",
                         "fontSize": 14,
                         "lineHeight": 20,
                       },
                       Object {
-                        "color": "rgba(0, 0, 0, 1)",
+                        "color": "rgba(82, 82, 82, 1)",
                       },
                     ],
                   ]
