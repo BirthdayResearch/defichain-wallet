@@ -7,7 +7,11 @@
     "Restore Wallet": "Stelle die Wallet wieder her",
     "Create a passcode": "Erstelle ein Passwort",
     "Verify passcode": "Bestätige das Passwort",
-		"Select network": "Netzwerkauswahl"
+		"Select network": "Netzwerkauswahl",
+    "Cancel": "Abbrechen",
+    "Refresh": "Erneuern",
+    "Refresh recovery words": "Erneuere Wiederherstellungssatz",
+    "You are about to generate a new set of recovery words. Continue?": "Du generierst einen neuen Satz Wiederherstellungswörter. Möchtest du fortfahren?"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
@@ -40,7 +44,8 @@
     "TO ADDRESS": "AN ADRESSE",
     "Enter an address": "Gib eine Adresse ein",
     "Enter an amount": "Gib eine Menge ein",
-    "Balance: ": "Guthaben: "
+    "Balance: ": "Guthaben: ",
+    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert."
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Senden bestätigen",
@@ -52,6 +57,7 @@
     "Estimated fee": "Geschätzte Gebühr",
     "Remaining balance": "Verbleibendes Guthaben",
     "SEND": "SENDEN",
+    "SENDING": "WIRD GESENDET",
     "Sending": "Senden {{symbol}}",
     "Sending {{amount}} {{symbol}}": "Sende {{amount}} {{symbol}}"
   },
@@ -62,7 +68,8 @@
     "Enter an amount": "Betrag eingeben",
     "UTXO vs Token, what is the difference?": "UXTO vs Token, worin liegt der Unterschied?",
     "CONVERT {{symbol}}": "UMWANDELN {{symbol}}",
-    "TO {{symbol}}": "IN {{symbol}}"
+    "TO {{symbol}}": "IN {{symbol}}",
+    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert."
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Bestätige DFI Konvertierung",
@@ -70,6 +77,7 @@
     "AFTER CONVERSION, YOU WILL HAVE:": "NACH DER KONVERTIERUNG ERHÄLTST DU:",
     "Estimated fee": "Geschätzte Gebühr",
     "CONVERT": "UMWANDELN",
+    "CONVERTING": "WANDLE UM",
     "Converting DFI": "Konvertieren von DFI",
     "Converting {{amount}} {{symbolA}} to {{symbolB}}": "Wandle {{amount}} {{symbolA}} in {{symbolB}} um"
   },
@@ -104,7 +112,14 @@
     "No": "Nein",
     "Yes": "Ja",
     "You are about to switch to {{network}}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?": "Du wechselst zu {{network}}. Falls es in diesem Netzwerk keine Wallet gibt, wirst du zum Startbildschirm zurück geleitet. Möchtest du fortfahren?",
-    "Theme": "Thema"
+    "Theme": "Thema",
+    "You are about to change your language to {{language}}. Do you want to proceed?": "Du bist dabei, deine Sprache auf {{language}} umzustellen. Möchtest du fortfahren?",
+    "Language": "Sprache",
+    "English": "Englisch",
+    "German": "Deutsch",
+    "Switch Language": "Sprache ändern",
+    "ADDITIONAL OPTIONS": "WEITERE OPTIONEN",
+    "SECURITY": "SICHERHEITSEINSTELLUNGEN"
   },
   "screens/AboutScreen": {
     "About": "Über",
@@ -238,8 +253,8 @@
     "The app ran into a problem and could not recover. Please restart your application.": "Die App hatte ein Problem und konnte nicht wiederhergestellt werden. Bitte starte die Anwendung erneut."
   },
   "screens/ConnectionBoundary": {
-    "Network error": "Netzwerk Fehler",
-    "Please check your internet connection and try again": "Bitte überprüfe deine Internetverbindung und versuche es erneut"
+    "Connection problem": "Verbindungsproblem",
+    "There seems to be a problem with the connection. Check your network and try again.": "Ein Problem mit der Internetverbindung ist aufgetreten. Überprüfe deine Datenverbindung und versuche es erneut."
   },
   "BottomTabNavigator": {
     "Balances": "Guthaben",
@@ -291,6 +306,7 @@
     "Estimated fee": "Geschätzte Gebühr",
     "ADD": "HINZUFÜGEN",
     "Adding Liquidity": "Füge Liquidität hinzu",
+    "ADDING": "WIRD HINZUGEFÜGT",
     "Pooled {{symbol}}": "Im Pool {{symbol}}",
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "Füge {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} hinzu"
   },
@@ -304,11 +320,12 @@
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "Entferne Liquidität",
+    "REMOVING": "WIRD ENTFERNT",
     "Amount to remove": "Zu entfernender Betrag",
     "Enter an amount ": "Gib einen Betrag an ",
     "YOU ARE REMOVING": "DU ENTFERNST",
     "Price": "Preis",
-    "Removing {{amount}} {{symbol}}":"Entferne {{amount}} {{symbol}}"
+    "Removing {{amount}} {{symbol}}": "Entferne {{amount}} {{symbol}}"
   },
   "components/slider": {
     "None": "Keine",
@@ -336,6 +353,7 @@
     "Slippage Tolerance": "Slippage Toleranz",
     "Estimated fee": "Geschätzte Gebühr",
     "SWAP": "TAUSCH",
+    "SWAPPING": "WIRD GETAUSCHT",
     "Swapping Token": "Tausche Token",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}"
   },
@@ -352,6 +370,10 @@
     "Verify": "Bestätige",
     "Secure": "Sichere",
     "Restore": "Stelle wieder her"
+  },
+  "screens/LanguageSelectionScreen": {
+    "LANGUAGE": "SPRACHE",
+    "Select language": "Sprache auswählen"
   },
 	"screens/OnboardingNetworkSelectScreen": {
 		"SELECT NETWORK": "NETZWERKAUSWAHL",

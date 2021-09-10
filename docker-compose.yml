@@ -17,7 +17,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:1.8.2
+    image: defi/defichain:1.8.3
     command: >
       defid
       -printtoconsole
@@ -43,7 +43,7 @@ services:
       -eunospayaheight=7
 
   defi-playground:
-    image: ghcr.io/defich/playground:0.8.6
+    image: ghcr.io/defich/playground:0.9.0
     depends_on:
       - defi-blockchain
     ports:

@@ -5,11 +5,11 @@ import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedV
 import { useWalletContext } from '@contexts/WalletContext'
 import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { fetchTokens, useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackScreenProps } from '@react-navigation/stack'
 import { ocean } from '@store/ocean'
+import { WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
@@ -80,8 +80,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   )
 }
 
-function BalanceItemRow ({ token, onPress }: { token: AddressToken, onPress: () => void }): JSX.Element {
-  const Icon = getNativeIcon(token.displaySymbol)
+function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () => void }): JSX.Element {
+  const Icon = getNativeIcon(token.avatarSymbol)
   const testID = `balances_row_${token.id}`
   return (
     <ThemedTouchableOpacity

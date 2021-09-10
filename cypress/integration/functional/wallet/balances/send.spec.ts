@@ -19,7 +19,7 @@ context('Wallet - Send', function () {
   const addresses = ['bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9', '2MxnNb1MYSZvS3c26d4gC7gXsNMkB83UoXB', 'n1xjm9oekw98Rfb3Mv4ApyhwxC5kMuHnCo']
   before(function () {
     cy.createEmptyWallet(true)
-    cy.sendDFItoWallet().sendTokenToWallet(['BTC', 'DFI-BTC']).wait(3000)
+    cy.sendDFItoWallet().sendTokenToWallet(['BTC', 'BTC-DFI']).wait(3000)
     cy.getByTestID('bottom_tab_balances').click()
   })
 
@@ -57,6 +57,10 @@ context('Wallet - Send', function () {
     it('should be able to display elements', function () {
       cy.getByTestID('qr_code_button').should('be.visible')
       cy.getByTestID('token_symbol').should('contain', 'DFI')
+    })
+
+    it('should contain info text when sending UTXO', function () {
+      cy.getByTestID('send_info_text').should('be.visible')
     })
 
     it('should be able to compute for max values', function () {
@@ -219,7 +223,7 @@ context('Wallet - Send', function () {
     })
   })
 
-  describe('DFI-BTC', function () {
+  describe('BTC-DFI', function () {
     addresses.forEach(function (address) {
       it(`should be able to send to address ${address}`, function () {
         cy.getByTestID('bottom_tab_balances').click()
@@ -234,7 +238,7 @@ context('Wallet - Send', function () {
         cy.closeOceanInterface()
         cy.getByTestID('balances_row_6_amount').should('not.exist')
 
-        cy.sendTokenToWallet(['DFI-BTC']).wait(3000)
+        cy.sendTokenToWallet(['BTC-DFI']).wait(3000)
       })
     })
   })

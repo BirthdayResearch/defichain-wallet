@@ -166,7 +166,7 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
       </View>
 
       <View
-        style={tailwind('flex-row mt-4 mb-2')}
+        style={tailwind('flex-row mt-4 -mb-1 -mr-3 flex-wrap')}
         testID={`recovery_word_row_${index}`}
       >
         {
@@ -179,7 +179,7 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
                 setSelectedWord(w)
                 onWordSelect(w)
               }}
-              style={tailwind('rounded p-2 px-3 mr-3')}
+              style={tailwind('rounded p-2 px-3 mr-3 mb-3')}
               testID={`line_${lineNumber}_${w}`}
             >
               <ThemedText

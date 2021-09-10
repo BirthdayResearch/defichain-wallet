@@ -15,7 +15,7 @@
 		"paths": {
 			"@api": ["api"],
 			"@assets": ["assets/*"],
-			"@constants": ["constants"],
+			"@constants/*": ["constants/*"],
 			"@contexts/*": ["contexts/*"],
 			"@components/*": ["components/*"],			
 			"@environment": ["environment"],

@@ -1,4 +1,3 @@
-import * as Localization from 'expo-localization'
 import i18n, { TranslateOptions } from 'i18n-js'
 import de from './languages/de.json'
 import zhHans from './languages/zh-Hans.json'
@@ -43,7 +42,6 @@ export function initI18n (): void {
     'zh-Hans': deepEncode(zhHans),
     'zh-Hant': deepEncode(zhHant)
   }
-  i18n.locale = Localization.locale
   i18n.fallbacks = true
 }
 
@@ -81,4 +79,42 @@ function deepEncode (obj: any): any {
  */
 export function encodeScope (text: string): string {
   return Buffer.from(text).toString('base64')
+}
+
+/**
+ * Return the language short code
+ */
+export function getLocaleByLanguageName (language: AppLanguage): string {
+  switch (language) {
+    case AppLanguage.English:
+      return 'en'
+
+    case AppLanguage.German:
+      return 'de'
+  }
+}
+
+/**
+ * Return the name of language that is independent of current selected language
+ */
+export function getLanguageName (language: AppLanguage): string {
+  switch (language) {
+    case AppLanguage.English:
+      return 'English'
+
+    case AppLanguage.German:
+      return 'Deutsch'
+  }
+}
+
+export enum AppLanguage {
+  English = 'English',
+  German = 'German'
+}
+
+export function getAppLanguages (): AppLanguage[] {
+  return [
+    AppLanguage.English,
+    AppLanguage.German
+  ]
 }

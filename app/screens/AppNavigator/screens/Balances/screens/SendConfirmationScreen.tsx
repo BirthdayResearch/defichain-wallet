@@ -1,10 +1,10 @@
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction/dist'
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
+import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -129,6 +129,8 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/SendConfirmationScreen', 'SEND')}
+        isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        submittingLabel={translate('screens/SendConfirmationScreen', 'SENDING')}
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='send'
@@ -140,7 +142,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
 interface SendForm {
   amount: BigNumber
   address: string
-  token: AddressToken
+  token: WalletToken
   networkName: NetworkName
 }
 

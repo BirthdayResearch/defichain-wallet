@@ -8,7 +8,7 @@ context('Wallet - DEX - Pool Swap without balance', () => {
 
   it('should be able to validate empty form', function () {
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('pool_pair_swap-horiz_DFI-dLTC').click()
+    cy.getByTestID('pool_pair_swap-horiz_dLTC-DFI').click()
     cy.getByTestID('button_submit').should('have.attr', 'disabled')
   })
 })
@@ -21,17 +21,16 @@ context('Wallet - DEX - Pool Swap with balance', () => {
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('pool_pair_swap-horiz_DFI-dLTC').click()
+    cy.getByTestID('pool_pair_swap-horiz_dLTC-DFI').click()
   })
 
   it('should be able to click swap button', function () {
-    cy.getByTestID('text_balance_tokenA').contains('10.00000000 DFI')
-    cy.getByTestID('text_balance_tokenB').contains('10.00000000 dLTC')
+    cy.getByTestID('text_balance_tokenA').contains('10.00000000 dLTC')
+    cy.getByTestID('text_balance_tokenB').contains('10.00000000 DFI')
     cy.getByTestID('swap_button').click().wait(4000)
   })
 
   it('should be able to validate form', function () {
-    cy.getByTestID('swap_button').click().wait(4000)
     // Valid form
     cy.getByTestID('text_input_tokenA').type('1')
     cy.getByTestID('estimated').then(($txt: any) => {
@@ -79,10 +78,11 @@ context('Wallet - DEX - Pool Swap with balance Confirm Txn', () => {
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('pool_pair_swap-horiz_DFI-dLTC').click()
+    cy.getByTestID('pool_pair_swap-horiz_dLTC-DFI').click()
   })
 
   it('should be able to swap', function () {
+    cy.getByTestID('swap_button').click().wait(4000)
     cy.getByTestID('text_input_tokenA').clear().type('10')
     cy.getByTestID('slippage_10%').click()
     cy.getByTestID('estimated').then(($txt: any) => {
@@ -104,6 +104,7 @@ context('Wallet - DEX - Pool Swap with balance Confirm Txn', () => {
   })
 
   it('should be able to swap correctly when user cancel a tx and updated some inputs', function () {
+    cy.getByTestID('swap_button').click().wait(4000)
     cy.getByTestID('text_input_tokenA').clear().type('1')
     cy.getByTestID('slippage_1%').click()
     cy.getByTestID('estimated').then(($txt: any) => {
