@@ -25,7 +25,7 @@ jobs:
           cache: 'npm'
 
       - run: npm ci
-      - run: tsc
+      - run: tsc --project tsconfig.production.json
       - run: npx --no-install eslint app App.tsx
 
   unit:
