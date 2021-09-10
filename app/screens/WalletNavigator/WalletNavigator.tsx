@@ -148,7 +148,6 @@ export function WalletNavigator (): JSX.Element {
           name='GuidelinesRecoveryWords'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'Recovery Words FAQs'),
-            presentation: 'modal',
             headerLeft: (): JSX.Element => (
               <TouchableOpacity
                 onPress={closeModal}
