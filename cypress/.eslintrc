@@ -1,6 +1,13 @@
 {
+  "root": true,
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "plugins": [
     "cypress"
+  ],
+  "extends": [
+    "standard-with-typescript"
   ],
   "rules": {
     "cypress/no-assigning-return-values": "error",

@@ -1,4 +1,4 @@
-import { first, hasTxQueued, TransactionQueue, transactionQueue } from './transaction_queue'
+import { DfTxSigner, first, hasTxQueued, TransactionQueue, transactionQueue } from './transaction_queue'
 
 describe('transaction reducer', () => {
   let initialState: TransactionQueue
@@ -16,7 +16,10 @@ describe('transaction reducer', () => {
   })
 
   it('should handle push and pop', () => {
-    const payload = { sign: null, title: 'Sample Transaction' }
+    const payload: DfTxSigner = {
+      sign: null as any,
+      title: 'Sample Transaction'
+    }
     const actual = transactionQueue.reducer(initialState, transactionQueue.actions.push(payload))
     expect(actual).toStrictEqual({ transactions: [payload] })
     const pop = transactionQueue.reducer(initialState, transactionQueue.actions.pop())
@@ -24,8 +27,8 @@ describe('transaction reducer', () => {
   })
 
   it('should able to select first and check queue transaction', () => {
-    const payload = {
-      sign: null,
+    const payload: DfTxSigner = {
+      sign: null as any,
       title: 'Sample Transaction'
     }
     const hasQueue = hasTxQueued({
