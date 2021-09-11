@@ -190,7 +190,6 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         control={control}
         controlName={tokenBForm}
         isDisabled
-        maxAmount={aToBPrice.times(getValues()[tokenAForm]).toFixed(8)}
         title={`${translate('screens/PoolSwapScreen', 'TO')} ${tokenB.displaySymbol}`}
         token={tokenB}
       />
