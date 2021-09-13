@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView } from './themed'
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView, ThemedSectionTitle } from './themed'
 import Accordion from 'react-native-collapsible/Accordion'
 import { tailwind } from '@tailwind'
 import { useThemeContext } from '@contexts/ThemeProvider'
-import { SectionTitle } from './SectionTitle'
 
 interface AccordionProps {
   testID?: string
@@ -34,13 +33,12 @@ export function WalletAccordion (props: AccordionProps): JSX.Element {
     <ThemedScrollView
       testID={props.testID}
     >
-      <SectionTitle
+      <ThemedSectionTitle
         style={tailwind('mt-8 text-xs font-medium')}
         light={tailwind('text-gray-400')}
         dark={tailwind('text-gray-500')}
-      >
-        {props.title}
-      </SectionTitle>
+        text={props.title}
+      />
 
       <Accordion
         containerStyle={[tailwind('border rounded-lg mt-2 overflow-hidden'), isLight ? tailwind('bg-white border-gray-200') : tailwind('bg-black border-gray-700')]}

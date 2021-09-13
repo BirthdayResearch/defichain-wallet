@@ -14,9 +14,8 @@ import { Button } from '../../../../../components/Button'
 import { IconButton } from '../../../../../components/IconButton'
 import { getNativeIcon } from '../../../../../components/icons/assets'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
-import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView } from '../../../../../components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView, ThemedSectionTitle } from '../../../../../components/themed'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
@@ -142,7 +141,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
 
   return (
     <View style={[tailwind('flex-col w-full'), props.style]}>
-      <SectionTitle
+      <ThemedSectionTitle
         testID={`text_input_convert_from_${props.mode}_text`}
         text={title.toUpperCase()}
       />
@@ -224,7 +223,7 @@ function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: str
 
   return (
     <View style={[tailwind('flex-col w-full'), props.style]}>
-      <SectionTitle
+      <ThemedSectionTitle
         testID='text_input_convert_from_to_text'
         text={title}
       />

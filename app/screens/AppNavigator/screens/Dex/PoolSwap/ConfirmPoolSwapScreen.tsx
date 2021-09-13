@@ -7,10 +7,9 @@ import React, { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { NumberRow } from '../../../../../components/NumberRow'
-import { SectionTitle } from '../../../../../components/SectionTitle'
 import { SubmitButtonGroup } from '../../../../../components/SubmitButtonGroup'
 import { SummaryTitle } from '../../../../../components/SummaryTitle'
-import { ThemedScrollView } from '../../../../../components/themed'
+import { ThemedScrollView, ThemedSectionTitle } from '../../../../../components/themed'
 import { TokenBalanceRow } from '../../../../../components/TokenBalanceRow'
 import { RootState } from '../../../../../store'
 import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
@@ -74,7 +73,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         title={translate('screens/PoolSwapConfirmScreen', 'YOU ARE SWAPPING')}
       />
 
-      <SectionTitle
+      <ThemedSectionTitle
         testID='title_swap_detail'
         text={translate('screens/PoolSwapConfirmScreen', 'ESTIMATED BALANCE AFTER SWAP')}
       />
@@ -97,7 +96,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         }}
       />
 
-      <SectionTitle
+      <ThemedSectionTitle
         testID='title_tx_detail'
         text={translate('screens/PoolSwapConfirmScreen', 'TRANSACTION DETAILS')}
       />

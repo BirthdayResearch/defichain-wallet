@@ -10,11 +10,10 @@ import React, { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { NumberRow } from '../../../../../components/NumberRow'
-import { SectionTitle } from '../../../../../components/SectionTitle'
 import { SubmitButtonGroup } from '../../../../../components/SubmitButtonGroup'
 import { SummaryTitle } from '../../../../../components/SummaryTitle'
 import { TextRow } from '../../../../../components/TextRow'
-import { ThemedScrollView } from '../../../../../components/themed'
+import { ThemedScrollView, ThemedSectionTitle } from '../../../../../components/themed'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
@@ -92,7 +91,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         title={translate('screens/SendConfirmationScreen', 'YOU ARE SENDING')}
       />
 
-      <SectionTitle
+      <ThemedSectionTitle
         testID='title_transaction_detail'
         text={translate('screens/SendConfirmationScreen', 'TRANSACTION DETAILS')}
       />

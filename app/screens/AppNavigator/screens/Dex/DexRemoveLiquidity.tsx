@@ -12,8 +12,7 @@ import { View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { NumberRow } from '../../../../components/NumberRow'
 import { NumberTextInput } from '../../../../components/NumberTextInput'
-import { SectionTitle } from '../../../../components/SectionTitle'
-import { ThemedScrollView, ThemedText, ThemedView } from '../../../../components/themed'
+import { ThemedScrollView, ThemedText, ThemedView, ThemedSectionTitle } from '../../../../components/themed'
 import { TokenBalanceRow } from '../../../../components/TokenBalanceRow'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
@@ -130,7 +129,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         />
       </ThemedView>
 
-      <SectionTitle
+      <ThemedSectionTitle
         testID='remove_liq_title'
         text={translate('screens/RemoveLiquidity', 'YOU ARE REMOVING')}
       />

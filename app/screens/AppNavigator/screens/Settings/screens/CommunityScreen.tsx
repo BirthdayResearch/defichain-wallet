@@ -3,13 +3,13 @@ import * as React from 'react'
 import { useCallback } from 'react'
 import { Linking } from 'react-native'
 import { View } from '../../../../../components'
-import { SectionTitle } from '../../../../../components/SectionTitle'
 import {
   ThemedFlatList,
   ThemedIcon,
   ThemedText,
   ThemedTouchableOpacity,
-  ThemedView
+  ThemedView,
+  ThemedSectionTitle
 } from '../../../../../components/themed'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
@@ -38,7 +38,7 @@ export function CommunityScreen (): JSX.Element {
         </View>
       }
       ListHeaderComponent={
-        <SectionTitle
+        <ThemedSectionTitle
           testID='community_title'
           text={translate('screens/CommunityScreen', 'CONNECT WITH THE COMMUNITY:')}
         />

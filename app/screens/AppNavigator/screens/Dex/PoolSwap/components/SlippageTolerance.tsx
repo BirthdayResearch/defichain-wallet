@@ -1,7 +1,6 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
-import { SectionTitle } from '../../../../../../components/SectionTitle'
-import { ThemedText, ThemedView } from '../../../../../../components/themed'
+import { ThemedText, ThemedView, ThemedSectionTitle } from '../../../../../../components/themed'
 import { tailwind } from '../../../../../../tailwind'
 import { translate } from '../../../../../../translations'
 
@@ -22,7 +21,7 @@ export function SlippageTolerance ({
 
   return (
     <>
-      <SectionTitle
+      <ThemedSectionTitle
         testID='title_slippage'
         text={translate('screens/SlippageTolerance', 'SLIPPAGE TOLERANCE')}
       />
