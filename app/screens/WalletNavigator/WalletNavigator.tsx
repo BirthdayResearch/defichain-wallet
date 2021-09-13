@@ -56,7 +56,7 @@ const LinkingConfiguration: LinkingOptions<ReactNavigation.RootParamList> = {
       OnboardingNetworkSelectScreen: 'wallet/mnemonic/network',
       CreateMnemonicWallet: 'wallet/mnemonic/create',
       CreateWalletGuidelines: 'wallet/onboarding/guidelines',
-      GuidelinesRecoveryWords: 'wallet/onboarding/guidelines/recovery',
+      RecoveryWordsFaq: 'wallet/onboarding/guidelines/recovery',
       VerifyMnemonicWallet: 'wallet/mnemonic/create/verify',
       RestoreMnemonicWallet: 'wallet/mnemonic/restore',
       PinCreation: 'wallet/pin/create',
