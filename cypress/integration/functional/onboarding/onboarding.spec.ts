@@ -20,6 +20,7 @@ context('Onboarding', () => {
     cy.getByTestID('recovery_words_button').click()
     cy.url().should('include', 'wallet/onboarding/guidelines/recovery')
     cy.getByTestID('recovery_words_faq').should('exist')
+    cy.getByTestID('recovery_words_faq_accordion').should('exist')
     cy.go('back')
 
     cy.getByTestID('create_recovery_words_button').should('have.attr', 'disabled')
