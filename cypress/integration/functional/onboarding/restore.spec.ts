@@ -47,7 +47,8 @@ context('Onboarding - Restore Wallet', () => {
       cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(255, 0, 0)')
 
       cy.getByTestID(`recover_word_${index + 1}`).clear().type(word).blur()
-      cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(64, 64, 64)')
+      const color = localStorage.getItem('WALLET.THEME') !== 'light' ? 'rgb(255, 255, 255)' : 'rgb(64, 64, 64)'
+      cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', color)
     })
   })
 
