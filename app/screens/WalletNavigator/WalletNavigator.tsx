@@ -14,7 +14,7 @@ import { useThemeContext } from '../../contexts/ThemeProvider'
 import { translate } from '../../translations'
 import { CreateMnemonicWallet, CreateMnemonicWalletHandle } from './screens/CreateWallet/CreateMnemonicWallet'
 import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
-import { GuidelinesRecoveryWords } from './screens/CreateWallet/GuidelinesRecoveryWords'
+import { RecoveryWordsFaq } from './screens/CreateWallet/RecoveryWordsFaq'
 import { PinConfirmation } from './screens/CreateWallet/PinConfirmation'
 import { PinCreation } from './screens/CreateWallet/PinCreation'
 import { VerifyMnemonicWallet } from './screens/CreateWallet/VerifyMnemonicWallet'
@@ -114,7 +114,7 @@ export function WalletNavigator (): JSX.Element {
       theme={DeFiChainTheme}
     >
       <WalletStack.Navigator
-        initialRouteName='Setup'
+        initialRouteName='Onboarding'
         screenOptions={{ headerTitleStyle: HeaderFont }}
       >
         <WalletStack.Screen
@@ -144,8 +144,8 @@ export function WalletNavigator (): JSX.Element {
         />
 
         <WalletStack.Screen
-          component={GuidelinesRecoveryWords}
-          name='GuidelinesRecoveryWords'
+          component={RecoveryWordsFaq}
+          name='RecoveryWordsFaq'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'Recovery Words FAQs'),
             headerLeft: (): JSX.Element => (
