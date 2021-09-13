@@ -105,6 +105,7 @@ exports[`recovery words faq should match snapshot 1`] = `
               ],
             ]
           }
+          text="FREQUENTLY ASKED QUESTIONS"
         >
           FREQUENTLY ASKED QUESTIONS
         </Text>

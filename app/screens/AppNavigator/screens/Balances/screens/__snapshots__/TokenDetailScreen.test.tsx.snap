@@ -117,6 +117,7 @@ exports[`token detail screen should accept DST 1`] = `
         ]
       }
       testID="title_available_options"
+      text="AVAILABLE OPTIONS"
     >
       AVAILABLE OPTIONS
     </Text>
@@ -445,6 +446,7 @@ exports[`token detail screen should accept Token DFI 1`] = `
         ]
       }
       testID="title_available_options"
+      text="AVAILABLE OPTIONS"
     >
       AVAILABLE OPTIONS
     </Text>
@@ -671,6 +673,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
         ]
       }
       testID="title_available_options"
+      text="AVAILABLE OPTIONS"
     >
       AVAILABLE OPTIONS
     </Text>

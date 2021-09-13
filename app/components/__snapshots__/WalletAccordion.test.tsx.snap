@@ -35,6 +35,7 @@ exports[`wallet accordion should render 1`] = `
           ],
         ]
       }
+      text="foo"
     >
       foo
     </Text>

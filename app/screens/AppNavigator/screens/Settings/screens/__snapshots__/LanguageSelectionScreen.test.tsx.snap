@@ -33,6 +33,7 @@ exports[`language selection screen should render 1`] = `
       ]
     }
     testID="language_selection_screen_title"
+    text="LANGUAGE"
   >
     LANGUAGE
   </Text>
