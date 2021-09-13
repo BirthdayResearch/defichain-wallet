@@ -92,10 +92,12 @@ Cypress.Commands.add('verifyMnemonicOnSettingsPage', function (settingsRecoveryW
 
 Cypress.Commands.add('restoreMnemonicWords', (recoveryWords: string[]) => {
   cy.getByTestID('restore_wallet_button').click()
-  const color = localStorage.getItem('WALLET.THEME') !== 'light' ? 'rgb(255, 255, 255)' : 'rgb(64, 64, 64)'
   recoveryWords.forEach((word, index: number) => {
     cy.getByTestID(`recover_word_${index + 1}`).clear().type(word).blur()
-    cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', color)
+    cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color').then((color) => {
+      // To support dark and light mode
+      expect(['rgb(64, 64, 64)', 'rgb(255, 255, 255)']).contain(color)
+    })
   })
   cy.getByTestID('recover_wallet_button').should('not.have.attr', 'disabled')
   cy.getByTestID('recover_wallet_button').click()
