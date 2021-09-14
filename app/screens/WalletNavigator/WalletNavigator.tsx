@@ -8,10 +8,10 @@ import * as Linking from 'expo-linking'
 import * as React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { HeaderFont } from '../../components'
-import { HeaderTitle } from '../../components/HeaderTitle'
-import { getDefaultTheme } from '../../constants/Theme'
-import { useThemeContext } from '../../contexts/ThemeProvider'
-import { translate } from '../../translations'
+import { HeaderTitle } from '@components/HeaderTitle'
+import { getDefaultTheme } from '@constants/Theme'
+import { useThemeContext } from '@contexts/ThemeProvider'
+import { translate } from '@translations'
 import { CreateMnemonicWallet, CreateMnemonicWalletHandle } from './screens/CreateWallet/CreateMnemonicWallet'
 import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
 import { RecoveryWordsFaq } from './screens/CreateWallet/RecoveryWordsFaq'
@@ -72,6 +72,8 @@ export function WalletNavigator (): JSX.Element {
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
 
   const goToNetworkSelect = (): void => {
+    // @ts-expect-error
+    // TODO(kyleleow) update typings
     navigationRef.current?.navigate({ name: 'OnboardingNetworkSelectScreen' })
   }
 

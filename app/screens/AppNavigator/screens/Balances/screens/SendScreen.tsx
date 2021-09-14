@@ -1,8 +1,8 @@
 import { InfoText } from '@components/InfoText'
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { StackScreenProps } from '@react-navigation/stack'
+import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
@@ -45,7 +45,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const isUTXO = (token: AddressToken): boolean => {
+  const isUTXO = (token: WalletToken): boolean => {
     return token.id === '0_utxo'
   }
 
@@ -190,12 +190,12 @@ function AddressRow ({
 
 interface AmountForm {
   control: Control
-  token: AddressToken
+  token: WalletToken
   onAmountButtonPress: (amount: string) => void
 }
 
 function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.Element {
-  const Icon = getNativeIcon(token.displaySymbol)
+  const Icon = getNativeIcon(token.avatarSymbol)
   let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(0.1).toFixed(8) : token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
   return (

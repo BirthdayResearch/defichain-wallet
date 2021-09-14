@@ -7,6 +7,8 @@ interface SubmitButtonGroupItems {
   isDisabled: boolean
   title: string
   label: string
+  isSubmitting?: boolean
+  submittingLabel?: string
   onSubmit: () => Promise<void>
   onCancel: () => void
 }
@@ -15,6 +17,8 @@ export function SubmitButtonGroup ({
   isDisabled,
   title,
   label,
+  isSubmitting,
+  submittingLabel,
   onSubmit,
   onCancel
 }: SubmitButtonGroupItems): JSX.Element {
@@ -26,6 +30,8 @@ export function SubmitButtonGroup ({
         onPress={onSubmit}
         testID={`button_confirm_${title}`}
         title={title}
+        isSubmitting={isSubmitting}
+        submittingLabel={submittingLabel}
       />
 
       <Button

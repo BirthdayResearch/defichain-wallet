@@ -1,6 +1,6 @@
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { TouchableOpacity, View } from 'react-native'
@@ -22,14 +22,14 @@ import { TokensVsUtxoScreen } from './screens/TokensVsUtxoScreen'
 export interface BalanceParamList {
   BalancesScreen: undefined
   ReceiveScreen: undefined
-  SendScreen: { token: AddressToken }
+  SendScreen: { token: WalletToken }
   SendConfirmationScreen: {
-    token: AddressToken
+    token: WalletToken
     destination: string
     amount: BigNumber
     fee: BigNumber
   }
-  TokenDetailScreen: { token: AddressToken }
+  TokenDetailScreen: { token: WalletToken }
   ConvertScreen: { mode: ConversionMode }
   ConvertConfirmationScreen: {
     amount: BigNumber
@@ -128,7 +128,7 @@ export function BalancesNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: () => {
             const token = route?.params?.token
-            const Icon = getNativeIcon(token.displaySymbol)
+            const Icon = getNativeIcon(token.avatarSymbol)
             return (
               <View style={tailwind('flex-row items-center')}>
                 <Icon />

@@ -100,6 +100,8 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/ConvertConfirmScreen', 'CONVERT')}
+        isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        submittingLabel={translate('screens/ConvertConfirmScreen', 'CONVERTING')}
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='convert'

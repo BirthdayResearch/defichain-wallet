@@ -5,8 +5,11 @@ import BigNumber from 'bignumber.js'
 
 export interface WalletState {
   utxoBalance: string
-  tokens: AddressToken[]
+  tokens: WalletToken[]
   poolpairs: DexItem[]
+}
+export interface WalletToken extends AddressToken {
+  avatarSymbol: string
 }
 
 export interface DexItem {
@@ -20,7 +23,7 @@ const initialState: WalletState = {
   poolpairs: []
 }
 
-const tokenDFI: AddressToken = {
+const tokenDFI: WalletToken = {
   id: '0',
   symbol: 'DFI',
   symbolKey: 'DFI',
@@ -28,17 +31,20 @@ const tokenDFI: AddressToken = {
   isLPS: false,
   amount: '0',
   name: 'DeFiChain',
-  displaySymbol: 'DFI (Token)'
+  displaySymbol: 'DFI (Token)',
+  avatarSymbol: 'DFI (Token)'
 }
 
-const utxoDFI: AddressToken = {
+const utxoDFI: WalletToken = {
   ...tokenDFI,
   id: '0_utxo',
-  displaySymbol: 'DFI (UTXO)'
+  displaySymbol: 'DFI (UTXO)',
+  avatarSymbol: 'DFI (UTXO)'
 }
 
-const setTokenDetails = (t: AddressToken): AddressToken => {
+const setTokenDetails = (t: AddressToken): WalletToken => {
   let displaySymbol = t.displaySymbol
+  let avatarSymbol = t.displaySymbol
   if (t.id === '0') {
     t.name = 'DeFiChain'
     displaySymbol = 'DFI (Token)'
@@ -49,8 +55,9 @@ const setTokenDetails = (t: AddressToken): AddressToken => {
   if (t.isLPS) {
     const [tokenA, tokenB] = t.symbol?.split('-')
     displaySymbol = tokenA === 'DFI' ? `${tokenA}-d${tokenB}` : `d${tokenA}-${tokenB}`
+    avatarSymbol = t.symbol
   }
-  return { ...t, displaySymbol }
+  return { ...t, displaySymbol, avatarSymbol }
 }
 
 export const wallet = createSlice({
