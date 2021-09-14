@@ -86,7 +86,7 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
-    "@cypress/code-coverage": "^3.9.9",
+    "@cypress/code-coverage": "^3.9.11",
     "@expo/metro-config": "^0.1.82",
     "@testing-library/cypress": "^8.0.1",
     "@testing-library/react-hooks": "^7.0.2",
