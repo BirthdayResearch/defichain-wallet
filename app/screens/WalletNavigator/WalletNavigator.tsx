@@ -1,4 +1,4 @@
-import { ThemedIcon, ThemedText } from '@components/themed'
+import { ThemedIcon } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
 import { LinkingOptions, NavigationContainer, NavigationContainerRef, RouteProp } from '@react-navigation/native'
 import { Theme } from '@react-navigation/native/lib/typescript/src/types'
@@ -98,10 +98,6 @@ export function WalletNavigator (): JSX.Element {
     })
   }
 
-  const closeModal = (): void => {
-    navigationRef.current?.goBack()
-  }
-
   const CreateMnemonicWalletWrapper = (
     props: JSX.IntrinsicAttributes &
     { navigation: StackNavigationProp<WalletParamList, 'CreateMnemonicWallet'>, route: RouteProp<WalletParamList, 'CreateMnemonicWallet'> } &
@@ -150,20 +146,7 @@ export function WalletNavigator (): JSX.Element {
           name='RecoveryWordsFaq'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'Recovery Words FAQs'),
-            headerLeft: (): JSX.Element => (
-              <TouchableOpacity
-                onPress={closeModal}
-                testID='close_modal_button'
-              >
-                <ThemedText
-                  light={tailwind('text-primary-500')}
-                  dark={tailwind('text-darkprimary-500')}
-                  style={tailwind('ml-4 font-medium')}
-                >
-                  {translate('screens/WalletNavigator', 'CLOSE')}
-                </ThemedText>
-              </TouchableOpacity>
-            )
+            headerBackTitleVisible: false
           }}
         />
 
