@@ -1,7 +1,6 @@
 import { getNativeIcon } from '@components/icons/assets'
 import { View } from '@components/index'
-import { SectionTitle } from '@components/SectionTitle'
-import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView, ThemedSectionTitle } from '@components/themed'
 import { useWalletContext } from '@contexts/WalletContext'
 import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
@@ -51,7 +50,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         />
       )}
       ListHeaderComponent={(
-        <SectionTitle
+        <ThemedSectionTitle
           testID='balances_title'
           text={translate('screens/BalancesScreen', 'PORTFOLIO')}
         />

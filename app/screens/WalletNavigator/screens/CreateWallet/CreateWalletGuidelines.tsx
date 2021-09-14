@@ -59,7 +59,7 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
       </ThemedText>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('GuidelinesRecoveryWords')}
+        onPress={() => navigation.navigate('RecoveryWordsFaq')}
         style={tailwind('mb-2')}
         testID='recovery_words_button'
       >

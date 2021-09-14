@@ -11,9 +11,8 @@ import { getNativeIcon } from '../../../../components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '../../../../components/InputIconLabel'
 import { NumberRow } from '../../../../components/NumberRow'
 import { NumberTextInput } from '../../../../components/NumberTextInput'
-import { SectionTitle } from '../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
-import { ThemedScrollView, ThemedText, ThemedView } from '../../../../components/themed'
+import { ThemedScrollView, ThemedText, ThemedView, ThemedSectionTitle } from '../../../../components/themed'
 import { usePoolPairsAPI } from '../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
@@ -159,7 +158,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
 
   return (
     <View>
-      <SectionTitle
+      <ThemedSectionTitle
         testID={`token_input_${props.type}_title`}
         text={translate('screens/AddLiquidity', `TOKEN ${props.type === 'primary' ? 'A' : 'B'}`)}
       />
