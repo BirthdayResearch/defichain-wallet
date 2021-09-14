@@ -249,6 +249,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
         ]
       }
       testID="links_title"
+      text="LINKS"
     >
       LINKS
     </Text>

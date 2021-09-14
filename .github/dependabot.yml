@@ -11,6 +11,8 @@ updates:
       - dependency-name: "@defichain/*"
       - dependency-name: "@expo/*"
       - dependency-name: "@react-native-async-storage/async-storage"
+      - dependency-name: "@react-native-community/netinfo"
+      - dependency-name: "@react-native-community/slider"
       - dependency-name: "@react-native-masked-view/masked-view"
       - dependency-name: "@react-navigation/*"
       - dependency-name: "expo"

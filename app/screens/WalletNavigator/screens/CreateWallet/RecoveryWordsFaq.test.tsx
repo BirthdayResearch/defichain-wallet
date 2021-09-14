@@ -1,11 +1,11 @@
 import { render } from '@testing-library/react-native'
 import * as React from 'react'
-import { GuidelinesRecoveryWords } from './GuidelinesRecoveryWords'
+import { RecoveryWordsFaq } from './RecoveryWordsFaq'
 
 jest.mock('../../../../contexts/ThemeProvider')
-describe('recovery words guidelines', () => {
+describe('recovery words faq', () => {
   it('should match snapshot', () => {
-    const rendered = render(<GuidelinesRecoveryWords />)
+    const rendered = render(<RecoveryWordsFaq />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })

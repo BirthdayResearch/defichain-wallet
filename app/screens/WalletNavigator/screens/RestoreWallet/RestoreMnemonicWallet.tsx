@@ -9,8 +9,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { CreateWalletStepIndicator, RESTORE_STEPS } from '../../../../components/CreateWalletStepIndicator'
-import { SectionTitle } from '../../../../components/SectionTitle'
-import { ThemedText, ThemedView } from '../../../../components/themed'
+import { ThemedText, ThemedView, ThemedSectionTitle } from '../../../../components/themed'
 import { WalletAlert } from '../../../../components/WalletAlert'
 import { useThemeContext } from '../../../../contexts/ThemeProvider'
 import { tailwind } from '../../../../tailwind'
@@ -114,7 +113,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
       </View>
 
       <ThemedView>
-        <SectionTitle
+        <ThemedSectionTitle
           testID='recover_title'
           text={translate('screens/RestoreWallet', 'ENTER THE CORRECT WORD')}
         />

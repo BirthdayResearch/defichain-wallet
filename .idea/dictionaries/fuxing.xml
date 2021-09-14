@@ -136,6 +136,7 @@
       <w>modifiedfee</w>
       <w>multisig</w>
       <w>nblocks</w>
+      <w>netinfo</w>
       <w>networkhashps</w>
       <w>nextblockhash</w>
       <w>nmasternode</w>
