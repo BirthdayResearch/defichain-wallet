@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ErrorBoundary <NetworkDetails /> should render components 1`] = `
+exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
 <RCTScrollView
   data={
     Array [
@@ -185,33 +185,42 @@ exports[`ErrorBoundary <NetworkDetails /> should render components 1`] = `
           >
             Network
           </Text>
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <Text
+              style={
                 Array [
                   Object {
-                    "color": "rgba(82, 82, 82, 1)",
-                    "fontFamily": "MediumFont",
-                    "fontSize": 14,
-                    "fontWeight": "500",
-                    "lineHeight": 20,
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
                   },
-                  Object {
-                    "color": "rgba(82, 82, 82, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="network_value"
-          >
-            Playground
-          </Text>
+                  Array [
+                    Object {
+                      "color": "rgba(82, 82, 82, 1)",
+                      "fontFamily": "MediumFont",
+                      "fontSize": 14,
+                      "fontWeight": "500",
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "color": "rgba(82, 82, 82, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="network_value"
+            >
+              Playground
+            </Text>
+          </View>
         </View>
       </RCTScrollView>
     </View>
@@ -271,30 +280,13 @@ exports[`ErrorBoundary <NetworkDetails /> should render components 1`] = `
           >
             Status
           </Text>
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "color": "rgba(82, 82, 82, 1)",
-                    "fontFamily": "MediumFont",
-                    "fontSize": 14,
-                    "fontWeight": "500",
-                    "lineHeight": 20,
-                  },
-                  Object {
-                    "color": "rgba(82, 82, 82, 1)",
-                  },
-                ],
-              ]
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              }
             }
-            testID="status_value"
           >
             <View
               style={
@@ -311,8 +303,34 @@ exports[`ErrorBoundary <NetworkDetails /> should render components 1`] = `
               }
               testID="status_icon_network"
             />
-            Connected
-          </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "color": "rgba(82, 82, 82, 1)",
+                      "fontFamily": "MediumFont",
+                      "fontSize": 14,
+                      "fontWeight": "500",
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "color": "rgba(82, 82, 82, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="status_value"
+            >
+              Connected
+            </Text>
+          </View>
         </View>
       </RCTScrollView>
     </View>
@@ -414,33 +432,42 @@ exports[`ErrorBoundary <NetworkDetails /> should render components 1`] = `
           >
             Last Sync
           </Text>
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <Text
+              style={
                 Array [
                   Object {
-                    "color": "rgba(82, 82, 82, 1)",
-                    "fontFamily": "MediumFont",
-                    "fontSize": 14,
-                    "fontWeight": "500",
-                    "lineHeight": 20,
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
                   },
-                  Object {
-                    "color": "rgba(82, 82, 82, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="last_sync_value"
-          >
-            Sep 14, 5:36 pm
-          </Text>
+                  Array [
+                    Object {
+                      "color": "rgba(82, 82, 82, 1)",
+                      "fontFamily": "MediumFont",
+                      "fontSize": 14,
+                      "fontWeight": "500",
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "color": "rgba(82, 82, 82, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="last_sync_value"
+            >
+              Sep 14, 5:36 pm
+            </Text>
+          </View>
         </View>
       </RCTScrollView>
     </View>
@@ -500,33 +527,42 @@ exports[`ErrorBoundary <NetworkDetails /> should render components 1`] = `
           >
             Block Height
           </Text>
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <Text
+              style={
                 Array [
                   Object {
-                    "color": "rgba(82, 82, 82, 1)",
-                    "fontFamily": "MediumFont",
-                    "fontSize": 14,
-                    "fontWeight": "500",
-                    "lineHeight": 20,
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
                   },
-                  Object {
-                    "color": "rgba(82, 82, 82, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="block_height_value"
-          >
-            2000
-          </Text>
+                  Array [
+                    Object {
+                      "color": "rgba(82, 82, 82, 1)",
+                      "fontFamily": "MediumFont",
+                      "fontSize": 14,
+                      "fontWeight": "500",
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "color": "rgba(82, 82, 82, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="block_height_value"
+            >
+              2000
+            </Text>
+          </View>
         </View>
       </RCTScrollView>
     </View>
@@ -586,33 +622,42 @@ exports[`ErrorBoundary <NetworkDetails /> should render components 1`] = `
           >
             Total Masternode
           </Text>
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <Text
+              style={
                 Array [
                   Object {
-                    "color": "rgba(82, 82, 82, 1)",
-                    "fontFamily": "MediumFont",
-                    "fontSize": 14,
-                    "fontWeight": "500",
-                    "lineHeight": 20,
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
                   },
-                  Object {
-                    "color": "rgba(82, 82, 82, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="total_masterenode_value"
-          >
-            10
-          </Text>
+                  Array [
+                    Object {
+                      "color": "rgba(82, 82, 82, 1)",
+                      "fontFamily": "MediumFont",
+                      "fontSize": 14,
+                      "fontWeight": "500",
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "color": "rgba(82, 82, 82, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="total_masterenode_value"
+            >
+              10
+            </Text>
+          </View>
         </View>
       </RCTScrollView>
     </View>
