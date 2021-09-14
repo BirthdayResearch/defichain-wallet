@@ -7,19 +7,19 @@ declare global {
        * @description Start onboarding mnemonic wallet process
        * @param {string[]} recoveryWords - pass an empty array to be filled later
        */
-      startCreateMnemonicWallet (recoveryWords: string[]): Chainable<Element>
+      startCreateMnemonicWallet: (recoveryWords: string[]) => Chainable<Element>
 
       /**
        * @description Select mnemonic words from Verify Step
        * @param {string[]} recoveryWords - list of recoveryWords
        * @example cy.selectMnemonicWords(recoveryWords)
        */
-      selectMnemonicWords (recoveryWords: string[]): Chainable<Element>
+      selectMnemonicWords: (recoveryWords: string[]) => Chainable<Element>
 
       /**
        * @description Setup pin code from Onboarding
        */
-      setupPinCode (): Chainable<Element>
+      setupPinCode: () => Chainable<Element>
 
       /**
        * @description Verify created mnemonic words in Settings Page
@@ -27,14 +27,14 @@ declare global {
        * @param {string[]} recoveryWords - recovery words from create page
        * @example cy.verifyMnemonicOnSettingsPage(settingsRecoveryWords, recoveryWords)
        */
-      verifyMnemonicOnSettingsPage (settingsRecoveryWords: string[], recoveryWords: string[]): Chainable<Element>
+      verifyMnemonicOnSettingsPage: (settingsRecoveryWords: string[], recoveryWords: string[]) => Chainable<Element>
 
       /**
        * @description Restore wallet using mnemonic words
        * @param {string[]} recoveryWords - recovery words to restore
        * @example cy.restoreMnemonicWords(recoveryWords)
        */
-      restoreMnemonicWords (recoveryWords: string[]): Chainable<Element>
+      restoreMnemonicWords: (recoveryWords: string[]) => Chainable<Element>
     }
   }
 }
@@ -44,7 +44,7 @@ Cypress.Commands.add('startCreateMnemonicWallet', (recoveryWords: string[]) => {
   cy.getByTestID('guidelines_switch').click()
   cy.getByTestID('create_recovery_words_button').click()
   cy.url().should('include', 'wallet/mnemonic/create')
-  cy.wrap(Array.from(Array(24), (v, i) => i)).each((el, i) => {
+  cy.wrap(Array.from(Array(24), (v, i) => i)).each((el, i: number) => {
     cy.getByTestID(`word_${i + 1}`).should('exist')
     cy.getByTestID(`word_${i + 1}_number`).should('exist').contains(`${i + 1}.`)
     cy.getByTestID(`word_${i + 1}`).then(($txt: any) => {
@@ -68,7 +68,7 @@ Cypress.Commands.add('selectMnemonicWords', (recoveryWords: string[]) => {
 })
 
 Cypress.Commands.add('setupPinCode', () => {
-  cy.getByTestID('pin_input').type('000000')  
+  cy.getByTestID('pin_input').type('000000')
   cy.getByTestID('pin_confirm_input').type('777777').wait(1000)
   cy.getByTestID('wrong_passcode_text').should('exist')
   cy.getByTestID('pin_confirm_input').type('000000')
@@ -79,7 +79,7 @@ Cypress.Commands.add('verifyMnemonicOnSettingsPage', function (settingsRecoveryW
   cy.getByTestID('bottom_tab_settings').click()
   cy.getByTestID('view_recovery_words').click().wait(3000)
   cy.getByTestID('pin_authorize').type('000000')
-  cy.wrap(Array.from(Array(24), (v, i) => i)).each((el, i) => {
+  cy.wrap(Array.from(Array(24), (v, i) => i)).each((el, i: number) => {
     cy.getByTestID(`word_${i + 1}`).should('exist')
     cy.getByTestID(`word_${i + 1}_number`).should('exist').contains(`${i + 1}.`)
     cy.getByTestID(`word_${i + 1}`).then(($txt: any) => {
@@ -92,13 +92,13 @@ Cypress.Commands.add('verifyMnemonicOnSettingsPage', function (settingsRecoveryW
 
 Cypress.Commands.add('restoreMnemonicWords', (recoveryWords: string[]) => {
   cy.getByTestID('restore_wallet_button').click()
-  recoveryWords.forEach((word, index) => {
+  recoveryWords.forEach((word, index: number) => {
     cy.getByTestID(`recover_word_${index + 1}`).clear().type(word).blur()
     cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(64, 64, 64)')
   })
   cy.getByTestID('recover_wallet_button').should('not.have.attr', 'disabled')
   cy.getByTestID('recover_wallet_button').click()
-  cy.getByTestID('pin_input').type('000000')  
+  cy.getByTestID('pin_input').type('000000')
   cy.getByTestID('pin_confirm_input').type('000000')
   cy.getByTestID('balances_list').should('exist')
 })

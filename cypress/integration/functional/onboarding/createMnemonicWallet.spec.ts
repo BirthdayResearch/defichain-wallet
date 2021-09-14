@@ -60,9 +60,7 @@ context('Onboarding - Create Mnemonic Wallet', () => {
       cy.exitWallet()
       cy.restoreMnemonicWords(settingsRecoveryWords)
     })
-  })
 
-  context('Settings - On Restore - Mnemonic Verification', () => {
     it('should be able to verify mnemonic from settings page', function () {
       cy.verifyMnemonicOnSettingsPage([], recoveryWords)
     })
@@ -75,12 +73,15 @@ context('Onboarding - Create Mnemonic Wallet with refresh recovery word', () => 
   const settingsRecoveryWords: string[] = []
 
   before(() => {
-    cy.restoreLocalStorage()
-    cy.visit('/')
     cy.exitWallet()
+    cy.visit('/')
   })
 
-  after(() => {
+  beforeEach(() => {
+    cy.restoreLocalStorage()
+  })
+
+  afterEach(() => {
     cy.saveLocalStorage()
   })
 
@@ -102,9 +103,9 @@ context('Onboarding - Create Mnemonic Wallet with refresh recovery word', () => 
         cy.getByTestID(`word_${i + 1}_number`).should('exist').contains(`${i + 1}.`)
         cy.getByTestID(`word_${i + 1}`).then(($txt: any) => {
           recoveryWords.push($txt[0].textContent)
-          expect(oldRecoveryWords[i]).not.eq($txt[0].textContent)
         })
       }).then(() => {
+        expect(oldRecoveryWords).not.deep.equal(recoveryWords)
         cy.getByTestID('verify_button').should('not.have.attr', 'disabled')
         cy.getByTestID('verify_button').click()
         cy.selectMnemonicWords(recoveryWords)
@@ -117,9 +118,14 @@ context('Onboarding - Create Mnemonic Wallet with refresh recovery word', () => 
     cy.verifyMnemonicOnSettingsPage(settingsRecoveryWords, recoveryWords)
   })
 
-  it('should be able to restore refreshed mnemonic words', function () {
-    cy.exitWallet()
-    cy.visit('/')
-    cy.restoreMnemonicWords(recoveryWords)
+  context('Restore - Refreshed Mnemonic Verification', () => {
+    it('should be able to restore refreshed mnemonic words', function () {
+      cy.exitWallet()
+      cy.restoreMnemonicWords(settingsRecoveryWords)
+    })
+
+    it('should be able to verify refreshed mnemonic from settings page', function () {
+      cy.verifyMnemonicOnSettingsPage([], recoveryWords)
+    })
   })
 })
