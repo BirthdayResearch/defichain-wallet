@@ -18,7 +18,7 @@ export function LanguageSelectionScreen (): JSX.Element {
         languages.map((language, index) => (
           <RowLanguageItem
             key={index}
-            language={language}
+            languageItem={language}
           />
         ))
       }

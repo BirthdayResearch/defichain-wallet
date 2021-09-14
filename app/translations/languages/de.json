@@ -7,7 +7,7 @@
     "Restore Wallet": "Stelle die Wallet wieder her",
     "Create a passcode": "Erstelle ein Passwort",
     "Verify passcode": "Bestätige das Passwort",
-		"Select network": "Netzwerkauswahl",
+    "Select network": "Netzwerkauswahl",
     "Cancel": "Abbrechen",
     "Refresh": "Erneuern",
     "Refresh recovery words": "Erneuere Wiederherstellungssatz",
@@ -116,6 +116,8 @@
     "Language": "Sprache",
     "English": "Englisch",
     "German": "Deutsch",
+    "Chinese (Simplified)": "Chinese (Simplified)",
+    "Chinese (Traditional)": "Chinese (Traditional)",
     "Switch Language": "Sprache ändern",
     "ADDITIONAL OPTIONS": "WEITERE OPTIONEN",
     "SECURITY": "SICHERHEITSEINSTELLUNGEN"
@@ -374,8 +376,8 @@
     "LANGUAGE": "SPRACHE",
     "Select language": "Sprache auswählen"
   },
-	"screens/OnboardingNetworkSelectScreen": {
-		"SELECT NETWORK": "NETZWERKAUSWAHL",
+  "screens/OnboardingNetworkSelectScreen": {
+    "SELECT NETWORK": "NETZWERKAUSWAHL",
     "You are about to switch to {{network}}. Do you want to proceed?": "Du wechselst zu {{network}}. Möchtest du fortfahren?"
-	}
+  }
 }
