@@ -16,6 +16,8 @@ jest.mock('../../../../../contexts/NetworkContext', () => ({
   }
 }))
 
+jest.mock('dayjs', () => () => ({ format: () => 'Sep 14, 9:07 pm' }))
+
 describe('NetworkDetails', () => {
   it('<NetworkDetails /> should render components', () => {
     const initialState: Partial<RootState> = {

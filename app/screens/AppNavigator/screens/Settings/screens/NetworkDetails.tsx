@@ -20,13 +20,10 @@ interface StatItemProps {
   testID: string
 }
 
-export function formatTime (date: string): string {
-  return dayjs(date).format('MMM D, h:mm a')
-}
-
 export const NetworkDetails = (): JSX.Element | null => {
   const { network } = useNetworkContext()
   const { connected, count: blockCount, masterNodeCount, lastSync } = useSelector((state: RootState) => state.block)
+  const syncFormattedDate = (lastSync != null) ? dayjs(lastSync).format('MMM D, h:mm a') : ''
 
   const statsData = [
     {
@@ -52,7 +49,7 @@ export const NetworkDetails = (): JSX.Element | null => {
       data: [
         {
           label: translate('screens/NetworkDetails', 'Last Sync'),
-          status: (lastSync != null) ? formatTime(lastSync) : '',
+          status: syncFormattedDate,
           testID: 'last_sync'
         }, {
           label: translate('screens/NetworkDetails', 'Block Height'),
