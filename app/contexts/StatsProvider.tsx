@@ -24,10 +24,14 @@ export function StatsProvider (props: React.PropsWithChildren<any>): JSX.Element
     function refresh (): void {
       dispatch(block.actions.setPolling(true))
       api.stats.get().then(({ count }) => {
-        dispatch(block.actions.updateBlock({ count: count.blocks }))
+        dispatch(block.actions.updateBlockDetails({
+          count: count.blocks,
+          masterNodeCount: count.masternodes,
+          lastSync: new Date().toString()
+        }))
         dispatch(block.actions.setConnected(true))
       }).catch((err) => {
-        dispatch(block.actions.updateBlock({ count: 0 }))
+        dispatch(block.actions.updateBlockDetails({ count: 0, masterNodeCount: 0 }))
         dispatch(block.actions.setConnected(false))
         Logging.error(err)
       })

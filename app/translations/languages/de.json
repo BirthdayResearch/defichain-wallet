@@ -8,6 +8,7 @@
     "Create a passcode": "Erstelle ein Passwort",
     "Verify passcode": "Bestätige das Passwort",
     "Select network": "Netzwerkauswahl",
+    "Wallet Network": "Wallet Netzwerk",
     "Cancel": "Abbrechen",
     "Refresh": "Erneuern",
     "Refresh recovery words": "Erneuere Wiederherstellungssatz",
@@ -332,6 +333,17 @@
     "YOU ARE REMOVING": "DU ENTFERNST",
     "Price": "Preis",
     "Removing {{amount}} {{symbol}}": "Entferne {{amount}} {{symbol}}"
+  },
+  "screens/NetworkDetails": {
+    "Network": "Netzwerk",
+    "Status": "Status",
+    "Connected": "Verbunden",
+    "Disconnected": "Nicht verbunden",
+    "Last Sync": "Letzte Synchronisierung",
+    "Block Height": "Blockhöhe",
+    "Total Masternode": "Anzahl an Masternodes",
+    "YOU ARE CURRENTLY CONNECTED TO": "DU BIST GERADE VERBUNDEN MIT",
+    "NETWORK DETAILS": "NETZWERK DETAILS"
   },
   "components/slider": {
     "None": "Keine",

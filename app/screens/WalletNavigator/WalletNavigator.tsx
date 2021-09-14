@@ -21,6 +21,7 @@ import { VerifyMnemonicWallet } from './screens/CreateWallet/VerifyMnemonicWalle
 import { OnboardingNetworkSelectScreen } from './screens/CreateWallet/OnboardingNetworkSelectScreen'
 import { Onboarding } from './screens/Onboarding'
 import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
+import { NetworkDetails } from '@screens/NetworkDetails/NetworkDetails'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -54,6 +55,7 @@ const LinkingConfiguration: LinkingOptions<ReactNavigation.RootParamList> = {
     screens: {
       Onboarding: 'wallet/onboarding',
       OnboardingNetworkSelectScreen: 'wallet/mnemonic/network',
+      NetworkDetails: 'wallet/mnemonic/networkDetails',
       CreateMnemonicWallet: 'wallet/mnemonic/create',
       CreateWalletGuidelines: 'wallet/onboarding/guidelines',
       RecoveryWordsFaq: 'wallet/onboarding/guidelines/recovery',
@@ -75,6 +77,11 @@ export function WalletNavigator (): JSX.Element {
     // @ts-expect-error
     // TODO(kyleleow) update typings
     navigationRef.current?.navigate({ name: 'OnboardingNetworkSelectScreen' })
+  }
+
+  const goToNetworkDetails = (): void => {
+    // @ts-expect-error
+    navigationRef.current?.navigate({ name: 'NetworkDetails' })
   }
 
   const resetRecoveryWord = (): void => {
@@ -142,6 +149,15 @@ export function WalletNavigator (): JSX.Element {
         />
 
         <WalletStack.Screen
+          component={NetworkDetails}
+          name='NetworkDetails'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'Wallet Network'),
+            headerBackTitleVisible: false
+          }}
+        />
+
+        <WalletStack.Screen
           component={RecoveryWordsFaq}
           name='RecoveryWordsFaq'
           options={{
@@ -154,7 +170,7 @@ export function WalletNavigator (): JSX.Element {
           component={CreateMnemonicWalletWrapper}
           name='CreateMnemonicWallet'
           options={{
-            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Display recovery words')} />,
+            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Display recovery words')} subHeadingType='NetworkDetails' onPress={goToNetworkDetails} />,
             headerRightContainerStyle: tailwind('px-2 py-2'),
             headerRight: (): JSX.Element => (
               <TouchableOpacity

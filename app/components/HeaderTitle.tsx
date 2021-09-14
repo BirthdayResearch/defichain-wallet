@@ -6,7 +6,7 @@ import { RootState } from '../store'
 import { tailwind } from '../tailwind'
 import { ThemedIcon, ThemedText } from './themed'
 
-type SubHeadingType = 'Status' | 'NetworkSelect'
+type SubHeadingType = 'Status' | 'NetworkSelect' | 'NetworkDetails'
 
 export function HeaderTitle ({
   text,
@@ -16,7 +16,7 @@ export function HeaderTitle ({
 }: { text: string, subHeadingType?: SubHeadingType, testID?: string, onPress?: () => void }): JSX.Element {
   return (
     <TouchableOpacity
-      disabled={subHeadingType !== 'NetworkSelect'}
+      disabled={subHeadingType === undefined || subHeadingType === 'Status'}
       onPress={onPress}
       style={tailwind(`flex-col ${Platform.OS === 'ios' ? 'items-center' : ''}`)}
     >
@@ -44,7 +44,6 @@ export function ConnectionStatus (): JSX.Element {
         style={tailwind(`h-2 w-2 rounded-full ${connected ? 'bg-green-500' : 'bg-red-500'} mr-1.5`)}
         testID='header_status_indicator'
       />
-
       <View style={tailwind('h-full')}>
         <ThemedText
           dark={tailwind('text-white text-opacity-70')}
