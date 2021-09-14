@@ -250,7 +250,9 @@
     "Please provide your 24 recovery words to regain access to your wallet.": "Bitte füge die 24 Worte deines Wiederherstellungssatzes ein, um wieder Zugang zu deiner Wallet zu erlangen.",
     "ENTER THE CORRECT WORD": "FÜGE DAS RICHTIGE WORT EIN",
     "RESTORE WALLET": "WALLET WIEDERHERSTELLEN",
-    "Enter word #{{order}}": "Enter word #{{order}}"
+    "Enter word #{{order}}": "Enter word #{{order}}",
+    "Cancel": "Abbrechen",
+    "Discard": "Verwerfen"
   },
   "screens/ErrorBoundary": {
     "Something went wrong": "Etwas ging schief",

@@ -54,13 +54,13 @@ export function RestoreMnemonicWallet (): JSX.Element {
         message: translate('screens/RestoreWallet', 'You have unsaved changes. Are you sure to discard them and leave the screen?'),
         buttons: [
           {
-            text: 'Cancel',
+            text: translate('screens/RestoreWallet', 'Cancel'),
             style: 'cancel',
             onPress: () => {
             }
           },
           {
-            text: 'Discard',
+            text: translate('screens/RestoreWallet', 'Discard'),
             style: 'destructive',
             onPress: () => navigation.dispatch(e.data.action)
           }
