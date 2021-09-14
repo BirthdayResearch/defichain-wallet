@@ -42,7 +42,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
     </View>
   }
   ListHeaderComponent={
-    <SectionTitle
+    <ThemedSectionTitle
       testID="community_title"
       text="CONNECT WITH THE COMMUNITY:"
     />
@@ -169,6 +169,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           ]
         }
         testID="community_title"
+        text="CONNECT WITH THE COMMUNITY:"
       >
         CONNECT WITH THE COMMUNITY:
       </Text>
