@@ -4,7 +4,7 @@ exports[`balances page should match snapshot 1`] = `
 <RCTScrollView
   ItemSeparatorComponent={[Function]}
   ListHeaderComponent={
-    <SectionTitle
+    <ThemedSectionTitle
       testID="balances_title"
       text="PORTFOLIO"
     />
@@ -111,6 +111,7 @@ exports[`balances page should match snapshot 1`] = `
           ]
         }
         testID="balances_title"
+        text="PORTFOLIO"
       >
         PORTFOLIO
       </Text>

@@ -1,6 +1,11 @@
-import { SectionTitle } from '@components/SectionTitle'
 import { SummaryTitle } from '@components/SummaryTitle'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import {
+  ThemedIcon,
+  ThemedScrollView,
+  ThemedSectionTitle,
+  ThemedText,
+  ThemedTouchableOpacity
+} from '@components/themed'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -39,7 +44,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
         title={translate('screens/TokenDetailScreen', 'AMOUNT BALANCE')}
       />
 
-      <SectionTitle
+      <ThemedSectionTitle
         testID='title_available_options'
         text={translate('screens/TokenDetailScreen', 'AVAILABLE OPTIONS')}
       />
