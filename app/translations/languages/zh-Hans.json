@@ -44,7 +44,8 @@
     "Enter an address": "请输入接收方地址",
     "Enter an amount": "请输入资金数量",
     "Balance: ": "总资金",
-    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要预留一些可使用的 UTXO (0.1 DFI (UTXO)) 作为费用"
+    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要预留一些可使用的 UTXO (0.1 DFI (UTXO)) 作为费用",
+    "SEND": "移出资金"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "确认发出",
@@ -120,7 +121,8 @@
     "Chinese (Traditional)": "繁體中文",
     "Switch Language": "切换语言",
     "ADDITIONAL OPTIONS": "更多选项",
-    "SECURITY": "安全设定"
+    "SECURITY": "安全设定",
+    "Privacy Lock": "隐私锁定"
   },
   "screens/AboutScreen": {
     "About": "关于",
@@ -247,7 +249,8 @@
     "The recovery words you have entered are invalid. Please double check and try again.": "您输入的恢复字组并不完全正确. 请再次确认并重试.",
     "Please provide your 24 recovery words to regain access to your wallet.": "请输入您的24字恢复字组.",
     "ENTER THE CORRECT WORD": "请输入正确的拼字",
-    "RESTORE WALLET": "恢复钱包"
+    "RESTORE WALLET": "恢复钱包",
+    "Enter word #": "输入字 #"
   },
   "screens/ErrorBoundary": {
     "Something went wrong": "出了些问题",

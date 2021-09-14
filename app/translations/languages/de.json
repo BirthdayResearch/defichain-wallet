@@ -44,7 +44,8 @@
     "Enter an address": "Gib eine Adresse ein",
     "Enter an amount": "Gib eine Menge ein",
     "Balance: ": "Guthaben: ",
-    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert."
+    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
+    "SEND": "SENDEN"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Senden bestätigen",
@@ -120,7 +121,8 @@
     "Chinese (Traditional)": "Chinese (Traditional)",
     "Switch Language": "Sprache ändern",
     "ADDITIONAL OPTIONS": "WEITERE OPTIONEN",
-    "SECURITY": "SICHERHEITSEINSTELLUNGEN"
+    "SECURITY": "SICHERHEITSEINSTELLUNGEN",
+    "Privacy Lock": "App-Passwortschutz"
   },
   "screens/AboutScreen": {
     "About": "Über",
@@ -247,7 +249,8 @@
     "The recovery words you have entered are invalid. Please double check and try again.": "Der Wiederherstellungssatz, den du eingegeben hast, ist ungültig. Bitte überprüfe und versuche es erneut.",
     "Please provide your 24 recovery words to regain access to your wallet.": "Bitte füge die 24 Worte deines Wiederherstellungssatzes ein, um wieder Zugang zu deiner Wallet zu erlangen.",
     "ENTER THE CORRECT WORD": "FÜGE DAS RICHTIGE WORT EIN",
-    "RESTORE WALLET": "WALLET WIEDERHERSTELLEN"
+    "RESTORE WALLET": "WALLET WIEDERHERSTELLEN",
+    "Enter word #": "Enter word #"
   },
   "screens/ErrorBoundary": {
     "Something went wrong": "Etwas ging schief",
