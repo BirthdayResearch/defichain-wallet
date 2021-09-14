@@ -16,7 +16,7 @@ export function _Default (symbol: string): (props: SvgProps) => JSX.Element {
       seed: symbol,
       alpha: 100
     })
-    const first = symbol?.substring(0, 1) ?? 'T'
+    const first = symbol?.substring(0, 1)?.toUpperCase() ?? 'T'
 
     return (
       <Svg

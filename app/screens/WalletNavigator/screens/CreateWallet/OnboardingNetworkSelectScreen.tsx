@@ -1,4 +1,4 @@
-import { SectionTitle } from '@components/SectionTitle'
+import { ThemedSectionTitle } from '@components/themed'
 import { getEnvironment } from '@environment'
 import { RowNetworkItem } from '@components/RowNetworkItem'
 import { translate } from '@translations'
@@ -10,7 +10,7 @@ export function OnboardingNetworkSelectScreen (): JSX.Element {
 
   return (
     <View testID='onboarding_network_selection_screen'>
-      <SectionTitle
+      <ThemedSectionTitle
         testID='onboarding_network_selection_screen_title'
         text={translate('screens/OnboardingNetworkSelectScreen', 'SELECT NETWORK')}
       />

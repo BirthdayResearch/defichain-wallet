@@ -1,3 +1,4 @@
+import { ThemedScrollView, ThemedSectionTitle } from '@components/themed'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
@@ -8,10 +9,8 @@ import { View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { NumberRow } from '../../../../../components/NumberRow'
-import { SectionTitle } from '../../../../../components/SectionTitle'
 import { SubmitButtonGroup } from '../../../../../components/SubmitButtonGroup'
 import { SummaryTitle } from '../../../../../components/SummaryTitle'
-import { ThemedScrollView } from '../../../../../components/themed'
 import { TokenBalanceRow } from '../../../../../components/TokenBalanceRow'
 import { RootState } from '../../../../../store'
 import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
@@ -74,7 +73,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
         title={translate('screens/ConvertConfirmScreen', 'YOU ARE CONVERTING')}
       />
 
-      <SectionTitle
+      <ThemedSectionTitle
         testID='title_conversion_detail'
         text={translate('screens/ConvertConfirmScreen', 'AFTER CONVERSION, YOU WILL HAVE:')}
       />
@@ -101,6 +100,8 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/ConvertConfirmScreen', 'CONVERT')}
+        isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        submittingLabel={translate('screens/ConvertConfirmScreen', 'CONVERTING')}
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='convert'

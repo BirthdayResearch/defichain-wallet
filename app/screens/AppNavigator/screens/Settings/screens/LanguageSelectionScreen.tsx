@@ -1,4 +1,4 @@
-import { SectionTitle } from '@components/SectionTitle'
+import { ThemedSectionTitle } from '@components/themed/ThemedSectionTitle'
 import { getAppLanguages, translate } from '@translations'
 import * as React from 'react'
 import { View } from 'react-native'
@@ -9,7 +9,7 @@ export function LanguageSelectionScreen (): JSX.Element {
 
   return (
     <View testID='language_selection_screen'>
-      <SectionTitle
+      <ThemedSectionTitle
         testID='language_selection_screen_title'
         text={translate('screens/LanguageSelectionScreen', 'LANGUAGE')}
       />
@@ -18,7 +18,7 @@ export function LanguageSelectionScreen (): JSX.Element {
         languages.map((language, index) => (
           <RowLanguageItem
             key={index}
-            language={language}
+            languageItem={language}
           />
         ))
       }

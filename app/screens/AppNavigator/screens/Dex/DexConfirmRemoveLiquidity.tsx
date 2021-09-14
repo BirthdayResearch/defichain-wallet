@@ -8,10 +8,9 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { NumberRow } from '../../../../components/NumberRow'
-import { SectionTitle } from '../../../../components/SectionTitle'
 import { SubmitButtonGroup } from '../../../../components/SubmitButtonGroup'
 import { SummaryTitle } from '../../../../components/SummaryTitle'
-import { ThemedScrollView } from '../../../../components/themed'
+import { ThemedScrollView, ThemedSectionTitle } from '../../../../components/themed'
 import { TokenBalanceRow } from '../../../../components/TokenBalanceRow'
 import { RootState } from '../../../../store'
 import { hasTxQueued as hasBroadcastQueued } from '../../../../store/ocean'
@@ -83,7 +82,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         title={translate('screens/ConfirmRemoveLiquidity', 'YOU ARE REMOVING')}
       />
 
-      <SectionTitle
+      <ThemedSectionTitle
         testID='title_remove_detail'
         text={translate('screens/ConfirmRemoveLiquidity', 'ESTIMATED AMOUNT TO RECEIVE')}
       />
@@ -106,7 +105,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         }}
       />
 
-      <SectionTitle
+      <ThemedSectionTitle
         testID='title_tx_detail'
         text={translate('screens/ConfirmRemoveLiquidity', 'TRANSACTION DETAILS')}
       />
@@ -135,6 +134,8 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/ConfirmRemoveLiquidity', 'REMOVE')}
+        isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        submittingLabel={translate('screens/ConfirmRemoveLiquidity', 'REMOVING')}
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='remove'

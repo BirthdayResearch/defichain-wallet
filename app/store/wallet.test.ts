@@ -1,10 +1,9 @@
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import { DexItem, tokensSelector, wallet, WalletState } from './wallet'
+import { DexItem, tokensSelector, wallet, WalletState, WalletToken } from './wallet'
 
 describe('wallet reducer', () => {
   let initialState: WalletState
-  let tokenDFI: AddressToken
-  let utxoDFI: AddressToken
+  let tokenDFI: WalletToken
+  let utxoDFI: WalletToken
 
   beforeEach(() => {
     initialState = {
@@ -20,13 +19,15 @@ describe('wallet reducer', () => {
       name: 'DeFiChain',
       symbol: 'DFI',
       symbolKey: 'DFI',
-      displaySymbol: 'DFI (Token)'
+      displaySymbol: 'DFI (Token)',
+      avatarSymbol: 'DFI (Token)'
     }
     utxoDFI = {
       ...tokenDFI,
       amount: '0',
       id: '0_utxo',
-      displaySymbol: 'DFI (UTXO)'
+      displaySymbol: 'DFI (UTXO)',
+      avatarSymbol: 'DFI (UTXO)'
     }
   })
 
@@ -39,7 +40,7 @@ describe('wallet reducer', () => {
   })
 
   it('should handle setTokens', () => {
-    const tokens: AddressToken[] = [tokenDFI, utxoDFI]
+    const tokens: WalletToken[] = [tokenDFI, utxoDFI]
     const actual = wallet.reducer(initialState, wallet.actions.setTokens(tokens))
     expect(actual.tokens).toStrictEqual(tokens)
   })
@@ -121,7 +122,8 @@ describe('wallet reducer', () => {
       symbol: 'BTC',
       symbolKey: 'BTC',
       amount: '1',
-      displaySymbol: 'BTC'
+      displaySymbol: 'BTC',
+      avatarSymbol: 'BTC'
     }
     const state = {
       ...initialState,

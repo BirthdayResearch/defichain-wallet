@@ -33,6 +33,7 @@ exports[`network selection screen should render 1`] = `
       ]
     }
     testID="onboarding_network_selection_screen_title"
+    text="SELECT NETWORK"
   >
     SELECT NETWORK
   </Text>

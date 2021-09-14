@@ -1,20 +1,19 @@
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction/dist'
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
+import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { NumberRow } from '../../../../../components/NumberRow'
-import { SectionTitle } from '../../../../../components/SectionTitle'
 import { SubmitButtonGroup } from '../../../../../components/SubmitButtonGroup'
 import { SummaryTitle } from '../../../../../components/SummaryTitle'
 import { TextRow } from '../../../../../components/TextRow'
-import { ThemedScrollView } from '../../../../../components/themed'
+import { ThemedScrollView, ThemedSectionTitle } from '../../../../../components/themed'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
@@ -92,7 +91,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         title={translate('screens/SendConfirmationScreen', 'YOU ARE SENDING')}
       />
 
-      <SectionTitle
+      <ThemedSectionTitle
         testID='title_transaction_detail'
         text={translate('screens/SendConfirmationScreen', 'TRANSACTION DETAILS')}
       />
@@ -133,6 +132,8 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/SendConfirmationScreen', 'SEND')}
+        isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        submittingLabel={translate('screens/SendConfirmationScreen', 'SENDING')}
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='send'
@@ -144,7 +145,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
 interface SendForm {
   amount: BigNumber
   address: string
-  token: AddressToken
+  token: WalletToken
   networkName: NetworkName
 }
 

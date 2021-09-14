@@ -86,18 +86,32 @@ jobs:
 
       - run: sleep 10s
 
-      - name: EAS Submit - iOS
-        run: eas submit --platform ios --latest --asc-app-id ${{ secrets.ASC_APP_ID }} --apple-id ${{ secrets.APPLE_ID }}
-        env:
-          EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
-
-      - run: echo "$ANDROID_SERVICE_ACCOUNT_JSON" > ANDROID_SERVICE_ACCOUNT.json
+      - name: EAS Submit - Android - Setup
+        run: echo "$ANDROID_SERVICE_ACCOUNT_JSON" > ANDROID_SERVICE_ACCOUNT.json
         env:
           ANDROID_SERVICE_ACCOUNT_JSON: ${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON }}
 
-      - name: EAS Submit - Android
-        run: eas submit --platform android --latest --release-status=draft --key=ANDROID_SERVICE_ACCOUNT.json
+      - name: EAS Submit - Android - Submit
+        run: eas submit --platform android --latest
 
-      - name: EAS Submit - Android (Cleanup)
+      - name: EAS Submit - Android - Cleanup
         run: rm ANDROID_SERVICE_ACCOUNT.json
+        if: always()
+
+      # TODO(fuxingloh): replace this in the future
+      - name: EAS Submit - iOS - Setup
+        run: |
+          sed -i "s/EAS_APPLE_ID/$APPLE_ID/" eas.json
+          sed -i "s/EAS_ASC_APP_ID/$ASC_APP_ID/" eas.json
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          ASC_APP_ID: ${{ secrets.ASC_APP_ID }}
+
+      - name: EAS Submit - iOS - Submit
+        run: eas submit --platform ios --latest
+        env:
+          EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
+
+      - name: EAS Submit - iOS - Cleanup
+        run: rm eas.json
         if: always()

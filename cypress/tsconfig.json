@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "strict": true,
     "target": "esnext",
     "lib": [
       "esnext",

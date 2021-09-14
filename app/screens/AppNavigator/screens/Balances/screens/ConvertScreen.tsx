@@ -1,3 +1,4 @@
+import { InfoText } from '@components/InfoText'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -13,9 +14,14 @@ import { Button } from '../../../../../components/Button'
 import { IconButton } from '../../../../../components/IconButton'
 import { getNativeIcon } from '../../../../../components/icons/assets'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
-import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView } from '../../../../../components/themed'
+import {
+  ThemedIcon,
+  ThemedScrollView,
+  ThemedSectionTitle,
+  ThemedText,
+  ThemedView
+} from '../../../../../components/themed'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'
@@ -103,6 +109,12 @@ export function ConvertScreen (props: Props): JSX.Element {
 
       <TokenVsUtxosInfo />
 
+      {isUtxoToAccount(mode) && <InfoText
+        testID='convert_info_text'
+        text={translate('screens/ConvertScreen', 'A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.')}
+        style={tailwind('mt-0')}
+                                />}
+
       <Button
         disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob || hasPendingBroadcastJob}
         label={translate('components/Button', 'CONTINUE')}
@@ -139,7 +151,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
 
   return (
     <View style={[tailwind('flex-col w-full'), props.style]}>
-      <SectionTitle
+      <ThemedSectionTitle
         testID={`text_input_convert_from_${props.mode}_text`}
         text={title.toUpperCase()}
       />
@@ -221,7 +233,7 @@ function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: str
 
   return (
     <View style={[tailwind('flex-col w-full'), props.style]}>
-      <SectionTitle
+      <ThemedSectionTitle
         testID='text_input_convert_from_to_text'
         text={title}
       />
@@ -319,4 +331,8 @@ function getConvertibleUtxoAmount (mode: ConversionMode, source: AddressToken): 
   const utxoToReserve = '0.1'
   const leftover = new BigNumber(source.amount).minus(new BigNumber(utxoToReserve))
   return leftover.isLessThan(0) ? '0' : leftover.toFixed()
+}
+
+function isUtxoToAccount (mode: ConversionMode): boolean {
+  return mode === 'utxosToAccount'
 }

@@ -1,7 +1,13 @@
 import { Logging } from '@api'
+import {
+  ThemedIcon,
+  ThemedScrollView,
+  ThemedSectionTitle,
+  ThemedText,
+  ThemedTouchableOpacity,
+  ThemedView
+} from '@components/themed'
 import { Switch } from '@components/index'
-import { SectionTitle } from '@components/SectionTitle'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
 import { usePrivacyLockContext } from '@contexts/LocalAuthContext'
 import { useNetworkContext } from '@contexts/NetworkContext'
@@ -83,7 +89,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       style={tailwind('flex-1 pb-8')}
       testID='setting_screen'
     >
-      <SectionTitle
+      <ThemedSectionTitle
         testID='network_title'
         text={translate('screens/Settings', 'NETWORK')}
       />
@@ -95,7 +101,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         }}
       />
 
-      <SectionTitle
+      <ThemedSectionTitle
         testID='security_title'
         text={translate('screens/Settings', 'SECURITY')}
       />
@@ -122,7 +128,8 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
           </>
         )
       }
-      <SectionTitle
+
+      <ThemedSectionTitle
         testID='addtional_options_title'
         text={translate('screens/Settings', 'ADDITIONAL OPTIONS')}
       />

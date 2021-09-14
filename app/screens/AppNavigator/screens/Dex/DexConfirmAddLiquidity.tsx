@@ -10,10 +10,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Logging } from '../../../../api'
 import { NumberRow } from '../../../../components/NumberRow'
-import { SectionTitle } from '../../../../components/SectionTitle'
 import { SubmitButtonGroup } from '../../../../components/SubmitButtonGroup'
 import { SummaryTitle } from '../../../../components/SummaryTitle'
-import { ThemedScrollView } from '../../../../components/themed'
+import { ThemedScrollView, ThemedSectionTitle } from '../../../../components/themed'
 import { TokenBalanceRow } from '../../../../components/TokenBalanceRow'
 import { RootState } from '../../../../store'
 import { hasTxQueued as hasBroadcastQueued } from '../../../../store/ocean'
@@ -74,7 +73,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       return
     }
     setIsSubmitting(true)
-    constructSignedAddLiqAndSend(
+    await constructSignedAddLiqAndSend(
       {
         tokenASymbol: tokenA.displaySymbol,
         tokenAId: Number(tokenA.id),
@@ -85,9 +84,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       },
       dispatch,
       postAction
-    ).catch(e => {
-      Logging.error(e)
-    }).finally(() => setIsSubmitting(false))
+    )
+    setIsSubmitting(false)
   }
 
   function onCancel (): void {
@@ -112,7 +110,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         title={translate('screens/ConfirmAddLiq', 'YOU ARE ADDING')}
       />
 
-      <SectionTitle
+      <ThemedSectionTitle
         testID='title_add_detail'
         text={translate('screens/ConfirmAddLiq', 'AMOUNT TO SUPPLY')}
       />
@@ -135,7 +133,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         }}
       />
 
-      <SectionTitle
+      <ThemedSectionTitle
         testID='title_tx_detail'
         text={translate('screens/ConfirmAddLiq', 'TRANSACTION DETAILS')}
       />
@@ -187,6 +185,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/ConfirmAddLiq', 'ADD')}
+        isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        submittingLabel={translate('screens/ConfirmAddLiq', 'ADDING')}
         onCancel={onCancel}
         onSubmit={addLiquidity}
         title='add'
@@ -200,34 +200,44 @@ async function constructSignedAddLiqAndSend (
   dispatch: Dispatch<any>,
   postAction: () => void
 ): Promise<void> {
-  const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
-    const builder = account.withTransactionBuilder()
-    const script = await account.getScript()
+  try {
+    const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
+      const builder = account.withTransactionBuilder()
+      const script = await account.getScript()
 
-    const addLiq = {
-      from: [{
-        script,
-        balances: [
-          { token: addLiqForm.tokenAId, amount: addLiqForm.tokenAAmount },
-          { token: addLiqForm.tokenBId, amount: addLiqForm.tokenBAmount }
-        ]
-      }],
-      shareAddress: script
+      const addLiq = {
+        from: [{
+          script,
+          balances: [
+            {
+              token: addLiqForm.tokenAId,
+              amount: addLiqForm.tokenAAmount
+            },
+            {
+              token: addLiqForm.tokenBId,
+              amount: addLiqForm.tokenBAmount
+            }
+          ]
+        }],
+        shareAddress: script
+      }
+
+      const dfTx = await builder.liqPool.addLiquidity(addLiq, script)
+      return new CTransactionSegWit(dfTx)
     }
 
-    const dfTx = await builder.liqPool.addLiquidity(addLiq, script)
-    return new CTransactionSegWit(dfTx)
+    dispatch(transactionQueue.actions.push({
+      sign: signer,
+      title: translate('screens/ConfirmAddLiq', 'Adding Liquidity'),
+      description: translate('screens/ConfirmAddLiq', 'Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}', {
+        amountA: addLiqForm.tokenAAmount.toFixed(8),
+        symbolA: addLiqForm.tokenASymbol,
+        amountB: addLiqForm.tokenBAmount.toFixed(8),
+        symbolB: addLiqForm.tokenBSymbol
+      }),
+      postAction
+    }))
+  } catch (e) {
+    Logging.error(e)
   }
-
-  dispatch(transactionQueue.actions.push({
-    sign: signer,
-    title: translate('screens/ConfirmAddLiq', 'Adding Liquidity'),
-    description: translate('screens/ConfirmAddLiq', 'Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}', {
-      amountA: addLiqForm.tokenAAmount.toFixed(8),
-      symbolA: addLiqForm.tokenASymbol,
-      amountB: addLiqForm.tokenBAmount.toFixed(8),
-      symbolB: addLiqForm.tokenBSymbol
-    }),
-    postAction
-  }))
 }

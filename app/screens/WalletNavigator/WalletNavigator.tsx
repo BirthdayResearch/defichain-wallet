@@ -8,13 +8,13 @@ import * as Linking from 'expo-linking'
 import * as React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { HeaderFont } from '../../components'
-import { HeaderTitle } from '../../components/HeaderTitle'
-import { getDefaultTheme } from '../../constants/Theme'
-import { useThemeContext } from '../../contexts/ThemeProvider'
-import { translate } from '../../translations'
+import { HeaderTitle } from '@components/HeaderTitle'
+import { getDefaultTheme } from '@constants/Theme'
+import { useThemeContext } from '@contexts/ThemeProvider'
+import { translate } from '@translations'
 import { CreateMnemonicWallet, CreateMnemonicWalletHandle } from './screens/CreateWallet/CreateMnemonicWallet'
 import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
-import { GuidelinesRecoveryWords } from './screens/CreateWallet/GuidelinesRecoveryWords'
+import { RecoveryWordsFaq } from './screens/CreateWallet/RecoveryWordsFaq'
 import { PinConfirmation } from './screens/CreateWallet/PinConfirmation'
 import { PinCreation } from './screens/CreateWallet/PinCreation'
 import { VerifyMnemonicWallet } from './screens/CreateWallet/VerifyMnemonicWallet'
@@ -56,7 +56,7 @@ const LinkingConfiguration: LinkingOptions<ReactNavigation.RootParamList> = {
       OnboardingNetworkSelectScreen: 'wallet/mnemonic/network',
       CreateMnemonicWallet: 'wallet/mnemonic/create',
       CreateWalletGuidelines: 'wallet/onboarding/guidelines',
-      GuidelinesRecoveryWords: 'wallet/onboarding/guidelines/recovery',
+      RecoveryWordsFaq: 'wallet/onboarding/guidelines/recovery',
       VerifyMnemonicWallet: 'wallet/mnemonic/create/verify',
       RestoreMnemonicWallet: 'wallet/mnemonic/restore',
       PinCreation: 'wallet/pin/create',
@@ -72,6 +72,8 @@ export function WalletNavigator (): JSX.Element {
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
 
   const goToNetworkSelect = (): void => {
+    // @ts-expect-error
+    // TODO(kyleleow) update typings
     navigationRef.current?.navigate({ name: 'OnboardingNetworkSelectScreen' })
   }
 
@@ -110,7 +112,7 @@ export function WalletNavigator (): JSX.Element {
       theme={DeFiChainTheme}
     >
       <WalletStack.Navigator
-        initialRouteName='Setup'
+        initialRouteName='Onboarding'
         screenOptions={{ headerTitleStyle: HeaderFont }}
       >
         <WalletStack.Screen
@@ -140,10 +142,10 @@ export function WalletNavigator (): JSX.Element {
         />
 
         <WalletStack.Screen
-          component={GuidelinesRecoveryWords}
-          name='GuidelinesRecoveryWords'
+          component={RecoveryWordsFaq}
+          name='RecoveryWordsFaq'
           options={{
-            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Learn More')} />,
+            headerTitle: translate('screens/WalletNavigator', 'Recovery Words FAQs'),
             headerBackTitleVisible: false
           }}
         />

@@ -1,15 +1,21 @@
 import { getNativeIcon } from '@components/icons/assets'
 import { View } from '@components/index'
-import { SectionTitle } from '@components/SectionTitle'
-import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import {
+  ThemedFlatList,
+  ThemedIcon,
+  ThemedSectionTitle,
+  ThemedText,
+  ThemedTouchableOpacity,
+  ThemedView
+} from '@components/themed'
 import { useWalletContext } from '@contexts/WalletContext'
 import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { fetchTokens, useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackScreenProps } from '@react-navigation/stack'
 import { ocean } from '@store/ocean'
+import { WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
@@ -51,7 +57,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         />
       )}
       ListHeaderComponent={(
-        <SectionTitle
+        <ThemedSectionTitle
           testID='balances_title'
           text={translate('screens/BalancesScreen', 'PORTFOLIO')}
         />
@@ -77,8 +83,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 function BalanceItemRow ({
   token,
   onPress
-}: { token: AddressToken, onPress: () => void }): JSX.Element {
-  const Icon = getNativeIcon(token.displaySymbol)
+}: { token: WalletToken, onPress: () => void }): JSX.Element {
+  const Icon = getNativeIcon(token.avatarSymbol)
   const testID = `balances_row_${token.id}`
   return (
     <ThemedTouchableOpacity

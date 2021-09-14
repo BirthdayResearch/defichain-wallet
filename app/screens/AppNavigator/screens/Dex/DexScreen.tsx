@@ -9,9 +9,8 @@ import { useSelector } from 'react-redux'
 import { View } from '../../../../components'
 import { IconButton } from '../../../../components/IconButton'
 import { getNativeIcon } from '../../../../components/icons/assets'
-import { SectionTitle } from '../../../../components/SectionTitle'
 import { SkeletonLoader, SkeletonLoaderScreen } from '../../../../components/SkeletonLoader'
-import { ThemedSectionList, ThemedText, ThemedView } from '../../../../components/themed'
+import { ThemedSectionList, ThemedSectionTitle, ThemedText, ThemedView } from '../../../../components/themed'
 import { usePoolPairsAPI } from '../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
@@ -88,7 +87,7 @@ export function DexScreen (): JSX.Element {
           case SectionKey.YourLiquidity:
             if (!isEmpty(section.data)) {
               return (
-                <SectionTitle
+                <ThemedSectionTitle
                   testID='liq_title'
                   text={translate('screens/DexScreen', section.key)}
                 />
@@ -110,7 +109,7 @@ export function DexScreen (): JSX.Element {
           case SectionKey.AvailablePoolPair:
             return (
               <>
-                <SectionTitle
+                <ThemedSectionTitle
                   testID={section.key}
                   text={translate('screens/DexScreen', section.key)}
                 />
