@@ -1,5 +1,11 @@
 import { Logging } from '@api'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedSectionTitle } from '@components/themed'
+import {
+  ThemedIcon,
+  ThemedScrollView,
+  ThemedSectionTitle,
+  ThemedText,
+  ThemedTouchableOpacity
+} from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
 import { useNetworkContext } from '@contexts/NetworkContext'
 import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'

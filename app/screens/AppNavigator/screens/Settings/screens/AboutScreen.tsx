@@ -3,7 +3,12 @@ import { nativeApplicationVersion } from 'expo-application'
 import React, { useCallback } from 'react'
 import { Linking, TouchableOpacity, View } from 'react-native'
 import { AppIcon } from '../../../../../components/icons/AppIcon'
-import { ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedSectionTitle } from '../../../../../components/themed'
+import {
+  ThemedScrollView,
+  ThemedSectionTitle,
+  ThemedText,
+  ThemedTouchableOpacity
+} from '../../../../../components/themed'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 

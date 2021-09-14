@@ -15,7 +15,13 @@ import { IconButton } from '../../../../../components/IconButton'
 import { getNativeIcon } from '../../../../../components/icons/assets'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView, ThemedSectionTitle } from '../../../../../components/themed'
+import {
+  ThemedIcon,
+  ThemedScrollView,
+  ThemedSectionTitle,
+  ThemedText,
+  ThemedView
+} from '../../../../../components/themed'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
 import { RootState } from '../../../../../store'

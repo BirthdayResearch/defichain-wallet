@@ -1,6 +1,6 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
-import { ThemedText, ThemedView, ThemedSectionTitle } from '../../../../../../components/themed'
+import { ThemedSectionTitle, ThemedText, ThemedView } from '../../../../../../components/themed'
 import { tailwind } from '../../../../../../tailwind'
 import { translate } from '../../../../../../translations'
 

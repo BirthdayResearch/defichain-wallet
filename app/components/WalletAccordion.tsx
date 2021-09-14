@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView, ThemedSectionTitle } from './themed'
+import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from './themed'
 import Accordion from 'react-native-collapsible/Accordion'
 import { tailwind } from '@tailwind'
 import { useThemeContext } from '@contexts/ThemeProvider'

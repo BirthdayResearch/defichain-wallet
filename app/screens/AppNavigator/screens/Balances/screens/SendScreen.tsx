@@ -18,11 +18,11 @@ import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import {
   ThemedIcon,
+  ThemedSectionTitle,
   ThemedText,
   ThemedTextInput,
   ThemedTouchableOpacity,
-  ThemedView,
-  ThemedSectionTitle
+  ThemedView
 } from '../../../../../components/themed'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'

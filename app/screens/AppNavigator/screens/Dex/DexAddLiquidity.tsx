@@ -12,7 +12,7 @@ import { IconLabelScreenType, InputIconLabel } from '../../../../components/Inpu
 import { NumberRow } from '../../../../components/NumberRow'
 import { NumberTextInput } from '../../../../components/NumberTextInput'
 import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
-import { ThemedScrollView, ThemedText, ThemedView, ThemedSectionTitle } from '../../../../components/themed'
+import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '../../../../components/themed'
 import { usePoolPairsAPI } from '../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'

@@ -6,10 +6,10 @@ import { View } from '../../../../../components'
 import {
   ThemedFlatList,
   ThemedIcon,
+  ThemedSectionTitle,
   ThemedText,
   ThemedTouchableOpacity,
-  ThemedView,
-  ThemedSectionTitle
+  ThemedView
 } from '../../../../../components/themed'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'

@@ -1,5 +1,11 @@
 import { SummaryTitle } from '@components/SummaryTitle'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedSectionTitle } from '@components/themed'
+import {
+  ThemedIcon,
+  ThemedScrollView,
+  ThemedSectionTitle,
+  ThemedText,
+  ThemedTouchableOpacity
+} from '@components/themed'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { StackScreenProps } from '@react-navigation/stack'

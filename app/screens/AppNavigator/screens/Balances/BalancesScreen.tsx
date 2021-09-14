@@ -1,6 +1,13 @@
 import { getNativeIcon } from '@components/icons/assets'
 import { View } from '@components/index'
-import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView, ThemedSectionTitle } from '@components/themed'
+import {
+  ThemedFlatList,
+  ThemedIcon,
+  ThemedSectionTitle,
+  ThemedText,
+  ThemedTouchableOpacity,
+  ThemedView
+} from '@components/themed'
 import { useWalletContext } from '@contexts/WalletContext'
 import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '@contexts/WhaleContext'

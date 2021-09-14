@@ -7,7 +7,7 @@
     "Restore Wallet": "Stelle die Wallet wieder her",
     "Create a passcode": "Erstelle ein Passwort",
     "Verify passcode": "Bestätige das Passwort",
-		"Select network": "Netzwerkauswahl",
+    "Select network": "Netzwerkauswahl",
     "Cancel": "Abbrechen",
     "Refresh": "Erneuern",
     "Refresh recovery words": "Erneuere Wiederherstellungssatz",
@@ -44,7 +44,8 @@
     "Enter an address": "Gib eine Adresse ein",
     "Enter an amount": "Gib eine Menge ein",
     "Balance: ": "Guthaben: ",
-    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert."
+    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
+    "SEND": "SENDEN"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Senden bestätigen",
@@ -116,9 +117,12 @@
     "Language": "Sprache",
     "English": "Englisch",
     "German": "Deutsch",
+    "Chinese (Simplified)": "Chinese (Simplified)",
+    "Chinese (Traditional)": "Chinese (Traditional)",
     "Switch Language": "Sprache ändern",
     "ADDITIONAL OPTIONS": "WEITERE OPTIONEN",
-    "SECURITY": "SICHERHEITSEINSTELLUNGEN"
+    "SECURITY": "SICHERHEITSEINSTELLUNGEN",
+    "Privacy Lock": "App-Passwortschutz"
   },
   "screens/AboutScreen": {
     "About": "Über",
@@ -205,6 +209,13 @@
     "Keep them private": "Behalte sie für dich",
     "Don’t share to anyone. Keep the recovery words only to yourself.": "Teile sie niemandem mit. Nur du solltest den Wiederherstellungsatz kennen."
   },
+  "screens/GuidelinesRecoveryWords": {
+    "What are recovery words?": "Was ist der Wiederherstellungssatz (Seed Phrase)?",
+    "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard.": "Deine einmaligen 24 Worte des Wiederherstellungsschlüssels sind eine visuell lesbare Darstellung des privaten Schlüssels deiner Wallet. Diese wurden aus einer Sammlung von 2048 Worten im BIP-39 Standard erstellt.",
+    "You will need your recovery words to restore your wallet on, for example, a new mobile device. Think of them as keys to your wallet and funds.": "Den Wiederherstellungssatz brauchst du, um z.B. deine Wallet auf einem neuen Mobilgerät wiederherzustellen. Betrachte sie als den Schlüssel zu deiner Wallet und deinen Guthaben darauf.",
+    "If you lose your recovery words, you will not be able to restore your wallet, and you will lose access to your wallet and funds.": "Falls du den Wiederherstellungssatz verlierst, wird es nicht möglich sein, deine Wallet wiederherzustellen und der Zugang zu deiner Wallet und den Guthaben ist nicht mehr möglich.",
+    "It is important that you write down your recovery words legibly and in the correct order. Store your recovery words safely and securely, away from prying eyes. You may want to think about keeping it safe from fire as well.": "Es ist wichtig, dass du die Wörter zur Wiederherstellung deutlich lesbar in der exakten Reihenfolge notierst.  Bewahre den Wiederherstellungssatz sicher auf, vor fremden Blicken geschützt. Ein feuerfester Wandtresor kann hierbei durchaus Sinn machen."
+  },
   "screens/PinConfirmation": {
     "It may take a few seconds to securely encrypt your wallet...": "Es kann ein paar Sekunden dauern bis deine Wallet sicher verschlüsselt ist...",
     "Enter your passcode again to verify": " Erneute Passworteingabe zur Bestätigung",
@@ -238,7 +249,10 @@
     "The recovery words you have entered are invalid. Please double check and try again.": "Der Wiederherstellungssatz, den du eingegeben hast, ist ungültig. Bitte überprüfe und versuche es erneut.",
     "Please provide your 24 recovery words to regain access to your wallet.": "Bitte füge die 24 Worte deines Wiederherstellungssatzes ein, um wieder Zugang zu deiner Wallet zu erlangen.",
     "ENTER THE CORRECT WORD": "FÜGE DAS RICHTIGE WORT EIN",
-    "RESTORE WALLET": "WALLET WIEDERHERSTELLEN"
+    "RESTORE WALLET": "WALLET WIEDERHERSTELLEN",
+    "Enter word #{{order}}": "Enter word #{{order}}",
+    "Cancel": "Abbrechen",
+    "Discard": "Verwerfen"
   },
   "screens/ErrorBoundary": {
     "Something went wrong": "Etwas ging schief",
@@ -367,10 +381,10 @@
     "LANGUAGE": "SPRACHE",
     "Select language": "Sprache auswählen"
   },
-	"screens/OnboardingNetworkSelectScreen": {
-		"SELECT NETWORK": "NETZWERKAUSWAHL",
+  "screens/OnboardingNetworkSelectScreen": {
+    "SELECT NETWORK": "NETZWERKAUSWAHL",
     "You are about to switch to {{network}}. Do you want to proceed?": "Du wechselst zu {{network}}. Möchtest du fortfahren?"
-	},
+  },
   "components/RecoveryWordFaq": {
     "What happens if I lose my recovery words?": "Was passiert, wenn ich meinen Wiederherstellungssatz verliere?",
     "Once you lose your recovery words, you will not be able to restore your wallet and any funds within it. We encourage you to be responsible with your recovery words.": "Wenn du deinen Wiederherstellungssatz verlierst, kannst du deine Wallet und alle darin enthaltenen Guthaben nicht mehr wiederherstellen. Wir empfehlen dir, verantwortungsvoll mit deinem Wiederherstellungssatz umzugehen.",
