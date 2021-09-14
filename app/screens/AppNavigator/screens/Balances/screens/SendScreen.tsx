@@ -14,7 +14,6 @@ import { Button } from '../../../../../components/Button'
 import { getNativeIcon } from '../../../../../components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
 import { NumberRow } from '../../../../../components/NumberRow'
-import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import {
   ThemedIcon,
@@ -22,7 +21,8 @@ import {
   ThemedText,
   ThemedTextInput,
   ThemedTouchableOpacity,
-  ThemedView
+  ThemedView,
+  ThemedNumericInput
 } from '../../../../../components/themed'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
@@ -215,7 +215,7 @@ function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.El
             light={tailwind('bg-white border-b border-gray-200')}
             style={tailwind('flex-row w-full')}
           >
-            <NumberTextInput
+            <ThemedNumericInput
               autoCapitalize='none'
               onBlur={onBlur}
               onChangeText={onChange}

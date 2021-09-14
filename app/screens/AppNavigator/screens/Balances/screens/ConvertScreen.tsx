@@ -13,14 +13,14 @@ import { View } from '../../../../../components'
 import { Button } from '../../../../../components/Button'
 import { IconButton } from '../../../../../components/IconButton'
 import { getNativeIcon } from '../../../../../components/icons/assets'
-import { NumberTextInput } from '../../../../../components/NumberTextInput'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import {
   ThemedIcon,
   ThemedScrollView,
   ThemedSectionTitle,
   ThemedText,
-  ThemedView
+  ThemedView,
+  ThemedNumericInput
 } from '../../../../../components/themed'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
@@ -157,7 +157,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
         light={tailwind('bg-white border-b border-gray-200')}
         style={tailwind('flex-row w-full items-center pl-4 pr-4')}
       >
-        <NumberTextInput
+        <ThemedNumericInput
           editable={props.mode === 'input'}
           onChange={event => {
             props.onChange(event.nativeEvent.text)

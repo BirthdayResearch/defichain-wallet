@@ -4,9 +4,8 @@ import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '@components/InputIconLabel'
 import { NumberRow } from '@components/NumberRow'
-import { NumberTextInput } from '@components/NumberTextInput'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
-import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
+import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView, ThemedNumericInput } from '@components/themed'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
@@ -262,7 +261,7 @@ function TokenRow (form: TokenForm): JSX.Element {
             light={tailwind('bg-white border-b border-gray-200')}
             style={tailwind('flex-row w-full')}
           >
-            <NumberTextInput
+            <ThemedNumericInput
               autoCapitalize='none'
               editable={!isDisabled}
               onBlur={onBlur}

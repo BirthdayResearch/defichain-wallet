@@ -10,9 +10,8 @@ import { Button } from '../../../../components/Button'
 import { getNativeIcon } from '../../../../components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '../../../../components/InputIconLabel'
 import { NumberRow } from '../../../../components/NumberRow'
-import { NumberTextInput } from '../../../../components/NumberTextInput'
 import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
-import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '../../../../components/themed'
+import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView, ThemedNumericInput } from '../../../../components/themed'
 import { usePoolPairsAPI } from '../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
@@ -169,7 +168,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
         style={tailwind('flex-col w-full items-center')}
       >
         <View style={tailwind('w-full flex-row items-center')}>
-          <NumberTextInput
+          <ThemedNumericInput
             onChangeText={txt => props.onChange(txt)}
             placeholder={translate('screens/AddLiquidity', 'Enter an amount')}
             style={tailwind('flex-1 mr-4 p-4')}
