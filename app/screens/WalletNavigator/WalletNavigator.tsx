@@ -21,6 +21,7 @@ import { VerifyMnemonicWallet } from './screens/CreateWallet/VerifyMnemonicWalle
 import { OnboardingNetworkSelectScreen } from './screens/CreateWallet/OnboardingNetworkSelectScreen'
 import { Onboarding } from './screens/Onboarding'
 import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
+import { PasscodeFaq } from './screens/CreateWallet/PasscodeFaq'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -60,7 +61,8 @@ const LinkingConfiguration: LinkingOptions<ReactNavigation.RootParamList> = {
       VerifyMnemonicWallet: 'wallet/mnemonic/create/verify',
       RestoreMnemonicWallet: 'wallet/mnemonic/restore',
       PinCreation: 'wallet/pin/create',
-      PinConfirmation: 'wallet/pin/confirm'
+      PinConfirmation: 'wallet/pin/confirm',
+      PasscodeFaq: 'wallet/pin/faq'
     }
   }
 }
@@ -206,6 +208,15 @@ export function WalletNavigator (): JSX.Element {
           name='PinConfirmation'
           options={{
             headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Verify passcode')} />,
+            headerBackTitleVisible: false
+          }}
+        />
+
+        <WalletStack.Screen
+          component={PasscodeFaq}
+          name='PasscodeFaq'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'Passcode FAQs'),
             headerBackTitleVisible: false
           }}
         />
