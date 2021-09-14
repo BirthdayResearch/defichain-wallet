@@ -38,7 +38,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
         "data": Array [
           Object {
             "label": "Last Sync",
-            "status": "Sep 14, 5:36 pm",
+            "status": "Sep 14, 9:07 pm",
             "testID": "last_sync",
           },
           Object {
@@ -465,7 +465,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
               }
               testID="last_sync_value"
             >
-              Sep 14, 5:36 pm
+              Sep 14, 9:07 pm
             </Text>
           </View>
         </View>

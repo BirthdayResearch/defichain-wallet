@@ -22,7 +22,7 @@ describe('NetworkDetails', () => {
       block: {
         count: 2000,
         masterNodeCount: 10,
-        lastSync: 'Tue Sep 14 2021 17:36:16 GMT+0530',
+        lastSync: 'Tue, 14 Sep 2021 15:37:10 GMT',
         connected: true,
         isPolling: true
       }
