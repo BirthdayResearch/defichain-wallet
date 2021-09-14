@@ -3,12 +3,12 @@ import { Provider } from 'react-redux'
 import { render } from '@testing-library/react-native'
 import * as React from 'react'
 import { NetworkDetails } from './NetworkDetails'
-import { RootState } from '../../store'
+import { RootState } from '../../../../../store'
 import { block } from '@store/block'
 
-jest.mock('../../contexts/ThemeProvider')
+jest.mock('../../../../../contexts/ThemeProvider')
 
-jest.mock('../../contexts/NetworkContext', () => ({
+jest.mock('../../../../../contexts/NetworkContext', () => ({
   useNetworkContext: () => {
     return {
       network: 'Playground'

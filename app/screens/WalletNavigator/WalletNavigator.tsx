@@ -21,7 +21,7 @@ import { VerifyMnemonicWallet } from './screens/CreateWallet/VerifyMnemonicWalle
 import { OnboardingNetworkSelectScreen } from './screens/CreateWallet/OnboardingNetworkSelectScreen'
 import { Onboarding } from './screens/Onboarding'
 import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
-import { NetworkDetails } from '@screens/NetworkDetails/NetworkDetails'
+import { NetworkDetails } from '@screens/AppNavigator/screens/Settings/screens/NetworkDetails'
 
 type PinCreationType = 'create' | 'restore'
 

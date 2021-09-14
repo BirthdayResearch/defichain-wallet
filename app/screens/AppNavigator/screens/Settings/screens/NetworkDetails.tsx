@@ -3,10 +3,10 @@ import { RootState } from '@store'
 import React from 'react'
 import dayjs from 'dayjs'
 import { useSelector } from 'react-redux'
-import { View } from '../../components'
-import { ThemedText, ThemedSectionTitle, ThemedSectionList, ThemedScrollView } from '../../components/themed'
-import { tailwind } from '../../tailwind'
-import { translate } from '../../translations'
+import { View } from '../../../../../components'
+import { ThemedText, ThemedSectionTitle, ThemedSectionList, ThemedScrollView } from '../../../../../components/themed'
+import { tailwind } from '../../../../../tailwind'
+import { translate } from '../../../../../translations'
 
 enum NETWORK {
   ConnectedStatus = 'YOU ARE CURRENTLY CONNECTED TO',
@@ -25,9 +25,8 @@ export function formatTime (date: string): string {
 }
 
 export const NetworkDetails = (): JSX.Element | null => {
-  const { connected, count: blockCount, masterNodeCount, lastSync } = useSelector((state: RootState) => state.block)
-
   const { network } = useNetworkContext()
+  const { connected, count: blockCount, masterNodeCount, lastSync } = useSelector((state: RootState) => state.block)
 
   const statsData = [
     {
