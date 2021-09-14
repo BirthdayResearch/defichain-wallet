@@ -250,7 +250,7 @@
     "Please provide your 24 recovery words to regain access to your wallet.": "請輸入您的24字恢復字組.",
     "ENTER THE CORRECT WORD": "請輸入正確的拼字",
     "RESTORE WALLET": "恢復錢包",
-    "Enter word #": "輸入字 #"
+    "Enter word #{{order}}": "輸入字 #{{order}}"
   },
   "screens/ErrorBoundary": {
     "Something went wrong": "出了些問題",
