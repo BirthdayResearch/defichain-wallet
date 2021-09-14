@@ -11,7 +11,8 @@
     "Cancel": "Abbrechen",
     "Refresh": "Erneuern",
     "Refresh recovery words": "Erneuere Wiederherstellungssatz",
-    "You are about to generate a new set of recovery words. Continue?": "Du generierst einen neuen Satz Wiederherstellungswörter. Möchtest du fortfahren?"
+    "You are about to generate a new set of recovery words. Continue?": "Du generierst einen neuen Satz Wiederherstellungswörter. Möchtest du fortfahren?",
+    "Passcode FAQs": "Passcode FAQs"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
@@ -232,7 +233,8 @@
     "Well done! Your wallet is restored. Keep your wallet private and secure by creating a passcode for it.": "Erfolgreich! Deine Wallet ist wiederhergestellt. Schütze sie vor fremden Einblicken und sichere die Wallet, indem du jetzt ein Passwort erstellst.",
     "Keep your passcode private": "Behalte dein Passwort für dich",
     "CREATE PASSCODE": "PASSWORT ERSTELLEN",
-    "CHANGE PASSCODE": "PASSWORT ÄNDERN"
+    "CHANGE PASSCODE": "PASSWORT ÄNDERN",
+    "Learn more about passcode": "Learn more about passcode"
   },
   "screens/VerifyMnemonicWallet": {
     "Invalid selection. Please ensure you have written down your 24 words.": "Auswahl ungültig. Bitte versichere dich, dass du die 24 Wörter notiert hast.",
@@ -397,5 +399,10 @@
     "Recovery words": "Wiederherstellungssatz",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Deine einzigartigen 24 Wiederherstellungswörter, die aus einer Liste von 2048 Wörtern im BIP-39-Standard generiert werden, sind eine für Menschen lesbare Darstellung deines privaten Schlüssels. Sie verhindern jegliche Versuche, die Sicherheit deiner Wallet zu knacken, z.B. durch Brute-Force-Attacken.",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
+  },
+  "components/PasscodeFaq": {
+    "What happens if I forgot my passcode?": "What happens if I forgot my passcode?",
+    "Am I allowed to change my passcode?": "Am I allowed to change my passcode?",
+    "Can I use the 24-word that I created from another wallet?": "Can I use the 24-word that I created from another wallet?"
   }
 }
