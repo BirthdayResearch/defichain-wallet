@@ -1,8 +1,9 @@
 import { SimplifiedAppStateStatus, useAppStateContext } from '@contexts/AppStateContext'
 import { PrivacyLockContextI, usePrivacyLockContext } from '@contexts/LocalAuthContext'
 import { EnvironmentName, getEnvironment } from '@environment'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { BackHandler } from 'react-native'
+import { Logging } from '@api'
 
 const APP_LAST_ACTIVE: { force: boolean, timestamp?: number } = {
   force: false
@@ -23,7 +24,7 @@ function shouldReauthenticate (): boolean {
   return lastActive + timeout < Date.now()
 }
 
-export function PrivacyLock (): JSX.Element | null {
+export function PrivacyLock (): JSX.Element {
   const privacyLock = usePrivacyLockContext()
   const appState = useAppStateContext()
 
@@ -51,7 +52,7 @@ export function PrivacyLock (): JSX.Element | null {
     }
   }, [])
 
-  return null // simplified, not "hiding" UI when authenticating
+  return <></>
 }
 
 function authenticateOrExit (privacyLockContext: PrivacyLockContextI): void {
@@ -61,11 +62,12 @@ function authenticateOrExit (privacyLockContext: PrivacyLockContextI): void {
       try {
         APP_LAST_ACTIVE.force = false
       } catch (e) { /* value not found in secure-store, unable to delete */
+        Logging.error(e)
       }
     })
-    .catch(async () => {
+    .catch(async (e) => {
+      Logging.error(e)
       APP_LAST_ACTIVE.force = true
-      BackHandler.exitApp()
     })
     .finally(() => backHandler.remove())
 }
