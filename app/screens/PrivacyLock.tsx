@@ -1,8 +1,6 @@
-// import { Logging } from '@api'
 import { SimplifiedAppStateStatus, useAppStateContext } from '@contexts/AppStateContext'
 import { PrivacyLockContextI, usePrivacyLockContext } from '@contexts/LocalAuthContext'
 import { EnvironmentName, getEnvironment } from '@environment'
-// import { AppLastActiveTimestamp } from 'api/app_last_active'
 import { useEffect } from 'react'
 import { BackHandler } from 'react-native'
 
@@ -32,20 +30,10 @@ export function PrivacyLock (): JSX.Element | null {
   const handler = (nextState: SimplifiedAppStateStatus): void => {
     if (nextState === 'background') {
       APP_LAST_ACTIVE.timestamp = Date.now()
-      // AppLastActiveTimestamp.set()
-      //   .then()
-      //   .catch(error => Logging.error(error))
     } else if (privacyLock.isEnabled) {
       if (shouldReauthenticate()) {
         authenticateOrExit(privacyLock)
       }
-      // AppLastActiveTimestamp.shouldReauthenticate()
-      //   .then(async authReq => {
-      //     if (authReq) {
-      //       authenticateOrExit(privacyLock)
-      //     }
-      //   })
-      //   .catch(error => Logging.error(error))
     }
   }
 
@@ -72,13 +60,11 @@ function authenticateOrExit (privacyLockContext: PrivacyLockContextI): void {
     .then(async () => {
       try {
         APP_LAST_ACTIVE.force = false
-        // await AppLastActiveTimestamp.removeForceAuth()
       } catch (e) { /* value not found in secure-store, unable to delete */
       }
     })
     .catch(async () => {
       APP_LAST_ACTIVE.force = true
-      // await AppLastActiveTimestamp.forceRequireReauthenticate()
       BackHandler.exitApp()
     })
     .finally(() => backHandler.remove())
