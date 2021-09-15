@@ -8,15 +8,10 @@ context('Wallet - Privacy Lock', () => {
   it('should be disabled by default for new wallet, action = enable', function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_settings').click()
-    cy.getByTestID('text_privacy_lock').should('exist').contains('Privacy Lock')
-    cy.getByTestID('switch_privacy_lock').should('exist')
-    cy.getByTestID('switch_privacy_lock').within(() => {
-      cy.get('input').should('have.attr', 'disabled')
-      cy.get('input').should('not.be.checked')
-    })
+    cy.getByTestID('switch_privacy_lock').should('not.exist')
   })
 
-  it('wallet independent, when enabled, action = disable', function () {
+  it.skip('wallet independent, when enabled, action = disable', function () {
     enablePrivacyLock()
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_settings').click()
