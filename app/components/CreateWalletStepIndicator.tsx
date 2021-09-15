@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
 import { Text, View } from '.'
-import { useThemeContext } from '../contexts/ThemeProvider'
-import { tailwind } from '../tailwind'
-import { translate } from '../translations'
+import { useThemeContext } from '@contexts/ThemeProvider'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import { ThemedText } from './themed'
 
 interface StepIndicatorProps {
@@ -14,14 +14,14 @@ interface StepIndicatorProps {
 }
 
 export const CREATE_STEPS = [
-  translate('components/CreateWalletIndicator', 'Recovery'),
-  translate('components/CreateWalletIndicator', 'Verify'),
-  translate('components/CreateWalletIndicator', 'Secure')
+  'Recovery',
+  'Verify',
+  'Secure'
 ]
 
 export const RESTORE_STEPS = [
-  translate('components/CreateWalletIndicator', 'Restore'),
-  translate('components/CreateWalletIndicator', 'Secure')
+  'Restore',
+  'Secure'
 ]
 
 /**
@@ -33,7 +33,12 @@ export const RESTORE_STEPS = [
  */
 export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Element {
   const { isLight } = useThemeContext()
-  const { current, total, style: containerViewStyle, steps = [] } = props
+  const {
+    current,
+    total,
+    style: containerViewStyle,
+    steps = []
+  } = props
   if (total === undefined && steps.length === 0) {
     throw Error('Invalid prop for CreateWalletStepIndicator')
   }
@@ -94,12 +99,16 @@ function getStepNodeStyle (isLight: boolean, current: number, step: number): { s
     textStyle = isLight ? 'text-gray-500' : 'text-gray-400'
   }
   return {
-    stepperStyle, textStyle
+    stepperStyle,
+    textStyle
   }
 }
 
 function StepNode (props: { step: number, current: number, content: string, isLight: boolean }): JSX.Element {
-  const { stepperStyle, textStyle } = getStepNodeStyle(props.isLight, props.current, props.step)
+  const {
+    stepperStyle,
+    textStyle
+  } = getStepNodeStyle(props.isLight, props.current, props.step)
   return (
     <View style={tailwind('flex-col')}>
       <View
@@ -126,7 +135,7 @@ function Description (props: { step: number, current: number, content: string })
       light={tailwind(props.current === props.step ? 'text-primary-500' : 'text-gray-500')}
       style={tailwind('text-center text-sm font-medium top-9 absolute w-20')}
     >
-      {props.content}
+      {translate('components/CreateWalletIndicator', props.content)}
     </ThemedText>
   )
 }
