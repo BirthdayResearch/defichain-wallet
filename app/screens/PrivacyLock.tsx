@@ -4,6 +4,8 @@ import { EnvironmentName, getEnvironment } from '@environment'
 import React, { useEffect } from 'react'
 import { BackHandler } from 'react-native'
 import { Logging } from '@api'
+import { ThemedView } from '@components/themed'
+import { tailwind } from '@tailwind'
 
 const APP_LAST_ACTIVE: { force: boolean, timestamp?: number } = {
   force: false
@@ -52,7 +54,16 @@ export function PrivacyLock (): JSX.Element {
     }
   }, [])
 
-  return <></>
+  if (privacyLock.isAuthenticating) {
+    return (
+      <ThemedView
+        style={tailwind('h-full w-full')} light={tailwind('bg-gray-200')}
+        dark={tailwind('bg-gray-900')}
+      />
+    )
+  } else {
+    return <></>
+  }
 }
 
 function authenticateOrExit (privacyLockContext: PrivacyLockContextI): void {
@@ -69,5 +80,8 @@ function authenticateOrExit (privacyLockContext: PrivacyLockContextI): void {
       Logging.error(e)
       APP_LAST_ACTIVE.force = true
     })
-    .finally(() => backHandler.remove())
+    .finally(() => {
+      privacyLockContext.setIsAuthenticating(false)
+      backHandler.remove()
+    })
 }

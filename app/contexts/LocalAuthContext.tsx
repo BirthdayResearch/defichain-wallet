@@ -11,6 +11,8 @@ export interface PrivacyLockContextI {
   hardwareSecurityLevel: SecurityLevel
   supportedTypes: AuthenticationType[]
   isDeviceProtected: boolean
+  isAuthenticating: boolean
+  setIsAuthenticating: (isAuthenticating: boolean) => void
 
   // API
   isEnabled: boolean
@@ -31,6 +33,7 @@ export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>)
   const [biometricHardwares, setBiometricHardwares] = useState<AuthenticationType[]>([])
   const [isDeviceProtected, setIsDeviceProtected] = useState<boolean>(false)
   const [isPrivacyLock, setIsPrivacyLock] = useState<boolean>()
+  const [isAuthenticating, setIsAuthenticating] = useState<boolean>(false)
 
   const fetchHardwareStatus = (): void => {
     LocalAuthentication.hasHardwareAsync()
@@ -68,10 +71,13 @@ export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>)
     supportedTypes: biometricHardwares,
     isDeviceProtected,
     isEnabled: isPrivacyLock === true,
+    isAuthenticating,
+    setIsAuthenticating,
     prompt: async (options) => {
       if (!isDeviceProtected || !(isPrivacyLock !== undefined && isPrivacyLock)) {
         return
       }
+      setIsAuthenticating(true)
       await _authenticate(options)
     },
     setEnabled: async (enabled, options) => {
