@@ -20,7 +20,7 @@ import {
   ThemedSectionTitle,
   ThemedText,
   ThemedView,
-  ThemedNumericInput
+  ThemedTextInput
 } from '../../../../../components/themed'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
@@ -157,7 +157,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
         light={tailwind('bg-white border-b border-gray-200')}
         style={tailwind('flex-row w-full items-center pl-4 pr-4')}
       >
-        <ThemedNumericInput
+        <ThemedTextInput
           editable={props.mode === 'input'}
           onChange={event => {
             props.onChange(event.nativeEvent.text)

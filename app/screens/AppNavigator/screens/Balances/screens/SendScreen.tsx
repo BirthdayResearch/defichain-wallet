@@ -1,28 +1,23 @@
 import { InfoText } from '@components/InfoText'
+import { WalletTextInput } from '@components/WalletTextInput'
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { StackScreenProps } from '@react-navigation/stack'
 import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
-import { Control, Controller, useForm } from 'react-hook-form'
+import { Control, Controller, FieldValues, useForm, UseFormGetValues, UseFormReset } from 'react-hook-form'
 import { ScrollView, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { Button } from '../../../../../components/Button'
-import { getNativeIcon } from '../../../../../components/icons/assets'
-import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
-import { NumberRow } from '../../../../../components/NumberRow'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import {
   ThemedIcon,
-  ThemedSectionTitle,
   ThemedText,
-  ThemedTextInput,
   ThemedTouchableOpacity,
-  ThemedView,
-  ThemedNumericInput
+  ThemedView
 } from '../../../../../components/themed'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
@@ -41,7 +36,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const client = useWhaleApiClient()
   const tokens = useTokensAPI()
   const [token, setToken] = useState(route.params.token)
-  const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
+  const { control, setValue, formState: { isValid }, getValues, trigger, reset } = useForm({ mode: 'onChange' })
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -82,7 +77,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   }
 
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={tailwind('px-4 py-8')}>
       <AddressRow
         control={control}
         networkName={networkName}
@@ -101,24 +96,20 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
       <AmountRow
         control={control}
         onAmountButtonPress={async (amount) => {
-          setValue('amount', amount)
+          setValue('amount', amount, { shouldDirty: true })
           await trigger('amount')
         }}
+        reset={reset}
+        getValues={getValues}
         token={token}
       />
 
-      {
-        fee !== undefined && (
-          <View style={tailwind('mt-6')}>
-            <NumberRow
-              lhs={translate('screens/SendScreen', 'Estimated fee')}
-              rightHandElements={[{ value: fee.toString(), suffix: ' DFI (UTXO)', testID: 'transaction_fee' }]}
-            />
-          </View>
-        )
-      }
-
-      {isUTXO(token) && <InfoText testID='send_info_text' text={translate('screens/SendScreen', 'A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.')} />}
+      {isUTXO(token) &&
+        <InfoText
+          testID='send_info_text'
+          text={translate('screens/SendScreen', 'A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.')}
+          style={tailwind('mx-0')}
+        />}
 
       <Button
         disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
@@ -126,7 +117,16 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
         onPress={onSubmit}
         testID='send_submit_button'
         title='Send'
+        margin='mt-14'
       />
+
+      <ThemedText
+        light={tailwind('text-gray-600')}
+        dark={tailwind('text-gray-300')}
+        style={tailwind('mt-4 text-center')}
+      >
+        {translate('screens/SendScreen', 'See full details in next page to confirm ')}
+      </ThemedText>
     </ScrollView>
   )
 }
@@ -138,43 +138,40 @@ function AddressRow ({
 }: { control: Control, networkName: NetworkName, onQrButtonPress: () => void }): JSX.Element {
   return (
     <>
-      <ThemedSectionTitle
-        testID='title_to_address'
-        text={translate('screens/SendScreen', 'TO ADDRESS')}
-      />
-
       <Controller
         control={control}
         defaultValue=''
         name='address'
         render={({ field: { value, onBlur, onChange } }) => (
-          <View style={tailwind('flex-row w-full')}>
-            <ThemedTextInput
+          <View style={tailwind('flex-row w-full mb-6')}>
+            <WalletTextInput
               autoCapitalize='none'
               multiline
               onBlur={onBlur}
               onChangeText={onChange}
-              placeholder={translate('screens/SendScreen', 'Enter an address')}
-              style={tailwind('w-4/5 flex-grow p-4 pr-0')}
+              placeholder={translate('screens/SendScreen', 'Paste wallet address here')}
+              style={tailwind('w-4/5 flex-grow pb-1')}
               testID='address_input'
               value={value}
-            />
-
-            <ThemedTouchableOpacity
-              dark={tailwind('bg-gray-800')}
-              light={tailwind('bg-white')}
-              onPress={onQrButtonPress}
-              style={tailwind('w-14 p-4')}
-              testID='qr_code_button'
+              title={translate('screens/SendScreen', 'Where do you want to send?')}
+              inputType='default'
             >
-              <ThemedIcon
-                dark={tailwind('text-darkprimary-500')}
-                iconType='MaterialIcons'
-                light={tailwind('text-primary-500')}
-                name='qr-code-scanner'
-                size={24}
-              />
-            </ThemedTouchableOpacity>
+              <ThemedTouchableOpacity
+                dark={tailwind('bg-gray-800')}
+                light={tailwind('bg-white')}
+                onPress={onQrButtonPress}
+                style={tailwind('w-9 p-1.5')}
+                testID='qr_code_button'
+              >
+                <ThemedIcon
+                  dark={tailwind('text-darkprimary-500')}
+                  iconType='MaterialIcons'
+                  light={tailwind('text-primary-500')}
+                  name='qr-code-scanner'
+                  size={24}
+                />
+              </ThemedTouchableOpacity>
+            </WalletTextInput>
           </View>
         )}
         rules={{
@@ -191,53 +188,57 @@ function AddressRow ({
 interface AmountForm {
   control: Control
   token: WalletToken
+  reset: UseFormReset<FieldValues>
+  getValues: UseFormGetValues<FieldValues>
   onAmountButtonPress: (amount: string) => void
 }
 
-function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.Element {
-  const Icon = getNativeIcon(token.avatarSymbol)
+function AmountRow ({ token, control, reset, getValues, onAmountButtonPress }: AmountForm): JSX.Element {
   let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(0.1).toFixed(8) : token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
   return (
     <>
-      <ThemedSectionTitle
-        testID='title_send'
-        text={translate('screens/SendScreen', 'SEND')}
-      />
-
       <Controller
         control={control}
         defaultValue=''
         name='amount'
-        render={({ field: { onBlur, onChange, value } }) => (
+        render={({ field: { onChange, value }, fieldState: { isDirty } }) => (
           <ThemedView
-            dark={tailwind('bg-gray-800 border-b border-gray-700')}
-            light={tailwind('bg-white border-b border-gray-200')}
+            dark={tailwind('bg-transparent')}
+            light={tailwind('bg-transparent')}
             style={tailwind('flex-row w-full')}
           >
-            <ThemedNumericInput
+            <WalletTextInput
               autoCapitalize='none'
-              onBlur={onBlur}
               onChangeText={onChange}
               placeholder={translate('screens/SendScreen', 'Enter an amount')}
-              style={tailwind('flex-grow p-4')}
+              style={tailwind('flex-1 pb-1')}
               testID='amount_input'
               value={value}
-            />
-
-            <ThemedView
-              dark={tailwind('bg-gray-800')}
-              light={tailwind('bg-white')}
-              style={tailwind('flex-row pr-4 items-center')}
+              displayClearButton={true && isDirty}
+              onClearButtonPress={() => reset({ ...getValues(), amount: '' })}
+              title={translate('screens/SendScreen', 'How much do you want to send?')}
+              inputType='numeric'
             >
-              <Icon />
+              <ThemedView
+                dark={tailwind('bg-gray-800')}
+                light={tailwind('bg-white')}
+                style={tailwind('flex-row items-center')}
+              >
+                <SetAmountButton
+                  amount={new BigNumber(maxAmount)}
+                  onPress={onAmountButtonPress}
+                  type={AmountButtonTypes.half}
+                />
 
-              <InputIconLabel
-                label={token.displaySymbol}
-                screenType={IconLabelScreenType.Balance}
-                testID='token_symbol'
-              />
-            </ThemedView>
+                <SetAmountButton
+                  amount={new BigNumber(maxAmount)}
+                  onPress={onAmountButtonPress}
+                  type={AmountButtonTypes.max}
+                />
+              </ThemedView>
+            </WalletTextInput>
+
           </ThemedView>
         )}
         rules={{
@@ -250,46 +251,31 @@ function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.El
         }}
       />
 
-      <ThemedView
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
-        light={tailwind('bg-white border-b border-gray-200')}
-        style={tailwind('flex-row w-full px-4 items-center')}
-      >
-        <View style={tailwind('flex-1 flex-row py-4 flex-wrap mr-2')}>
-          <ThemedText>
-            {translate('screens/SendScreen', 'Balance: ')}
-          </ThemedText>
+      <View style={tailwind('flex-1 flex-row flex-wrap mt-1')}>
+        <ThemedText
+          light={tailwind('text-gray-400')}
+          dark={tailwind('text-gray-500')}
+        >
+          {translate('screens/SendScreen', 'Available: ')}
+        </ThemedText>
 
-          <NumberFormat
-            decimalScale={8}
-            displayType='text'
-            renderText={(value) => (
-              <ThemedText
-                dark={tailwind('text-gray-300')}
-                light={tailwind('text-gray-500')}
-                testID='max_value'
-              >
-                {value}
-              </ThemedText>
+        <NumberFormat
+          decimalScale={8}
+          displayType='text'
+          renderText={(value) => (
+            <ThemedText
+              light={tailwind('text-gray-700')}
+              dark={tailwind('text-gray-200')}
+              testID='max_value'
+            >
+              {value}
+            </ThemedText>
             )}
-            suffix={` ${token.displaySymbol}`}
-            thousandSeparator
-            value={maxAmount}
-          />
-        </View>
-
-        <SetAmountButton
-          amount={new BigNumber(maxAmount)}
-          onPress={onAmountButtonPress}
-          type={AmountButtonTypes.half}
+          suffix={` ${token.displaySymbol}`}
+          thousandSeparator
+          value={maxAmount}
         />
-
-        <SetAmountButton
-          amount={new BigNumber(maxAmount)}
-          onPress={onAmountButtonPress}
-          type={AmountButtonTypes.max}
-        />
-      </ThemedView>
+      </View>
     </>
   )
 }

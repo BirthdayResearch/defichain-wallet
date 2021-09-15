@@ -2,20 +2,20 @@ import { render } from '@testing-library/react-native'
 import * as Localization from 'expo-localization'
 import * as React from 'react'
 import { Platform } from 'react-native'
-import { ThemedNumericInput } from './ThemedNumericInput'
+import { ThemedTextInput } from './ThemedTextInput'
 
 jest.mock('../contexts/ThemeProvider')
 jest.mock('expo-localization')
 
 const platform = ['ios', 'android']
 
-describe('numeric input', () => {
+describe('text input', () => {
   platform.forEach((os) => {
     it(`should match snapshot with OS ${os} period decimal locale`, () => {
       (Platform as any).OS = os;
       (Localization as any).decimalSeparator = '.'
       const component = (
-        <ThemedNumericInput
+        <ThemedTextInput
           editable
           placeholder='Enter an amount'
           value='123'
@@ -29,7 +29,7 @@ describe('numeric input', () => {
       (Platform as any).OS = os;
       (Localization as any).decimalSeparator = ','
       const component = (
-        <ThemedNumericInput
+        <ThemedTextInput
           editable
           placeholder='Enter an amount'
           value='123'
@@ -43,7 +43,7 @@ describe('numeric input', () => {
       (Platform as any).OS = os;
       (Localization as any).decimalSeparator = ' '
       const component = (
-        <ThemedNumericInput
+        <ThemedTextInput
           editable
           placeholder='Enter an amount'
           value='123'

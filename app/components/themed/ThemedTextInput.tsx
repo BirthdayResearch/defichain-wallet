@@ -1,24 +1,31 @@
-import { useThemeContext } from '@contexts/ThemeProvider'
-import { tailwind } from '@tailwind'
+import * as Localization from 'expo-localization'
 import React from 'react'
-import { TextInput } from 'react-native'
-import { ThemedProps } from './index'
+import { KeyboardTypeOptions, Platform, TextInputProps } from 'react-native'
+import { useThemeContext } from '../../contexts/ThemeProvider'
+import { tailwind } from '../../tailwind'
+import { TextInput } from '../index'
 
-type ThemedTextInputProps = TextInput['props'] & ThemedProps
-
-export function ThemedTextInput (props: ThemedTextInputProps): JSX.Element {
+export function ThemedTextInput (props: React.PropsWithChildren<TextInputProps>): JSX.Element {
   const { isLight } = useThemeContext()
   const {
     style,
-    light = tailwind('text-gray-700 bg-white'),
-    dark = tailwind('text-white bg-gray-800'),
+    keyboardType,
     ...otherProps
-  } = props
+} = props
+
+  const getKeyboardType = (): KeyboardTypeOptions | undefined => {
+    if (keyboardType === 'numeric' && Platform.OS === 'ios' && Localization.decimalSeparator !== '.') {
+      return 'default'
+    }
+    return keyboardType
+  }
+
   return (
     <TextInput
       placeholderTextColor={isLight ? 'rgba(0, 0, 0, 0.4)' : '#828282'}
-      style={[style, isLight ? light : dark]}
+      style={[style, tailwind(isLight ? 'text-gray-700' : 'text-white')]}
       {...otherProps}
+      keyboardType={getKeyboardType()}
     />
   )
 }
