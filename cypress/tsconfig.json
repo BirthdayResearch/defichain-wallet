@@ -11,16 +11,9 @@
     "types": [
       "cypress",
       "@testing-library/cypress"
-    ],
-    "rootDirs": [
-      ".",
-      "node_modules"
-    ],
-    "baseUrl": ".",
-    "paths": {
-      "react-native": ["react-native-web"]
-    }
+    ]
   },
-  "include": ["**/*.ts"],
-  "extends": "../tsconfig"
+  "include": [
+    "**/*.ts"
+  ]
 }

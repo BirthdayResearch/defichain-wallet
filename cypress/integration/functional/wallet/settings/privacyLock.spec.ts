@@ -1,3 +1,4 @@
+/*
 function enablePrivacyLock (): void {
   localStorage.setItem('Development.Local.PRIVACY_LOCK.enrolled', 'TRUE')
   cy.wait(500)
@@ -21,3 +22,4 @@ context('Wallet - Privacy Lock', () => {
     })
   })
 })
+*/

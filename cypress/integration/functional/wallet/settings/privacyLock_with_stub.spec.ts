@@ -1,12 +1,13 @@
+/*
 // import * as LocalAuthentication from 'expo-local-authentication'
 
 context.skip('Wallet - Privacy Lock', () => {
   before(function () {
-    /**
+    /!**
      * FIXME:
      * stub LocalAuthentication require recompile
      * error: `require appropriate loader` when local authentication import direct from react-native
-     */
+     *!/
     // cy.stub(LocalAuthentication, 'hasHardwareAsync').returns(true)
     // cy.stub(LocalAuthentication, 'getEnrolledLevelAsync').returns(1) // 0: unprotected, 1: pin, 2: biometric
     // cy.stub(LocalAuthentication, 'authenticateAsync').returns({ success: true })
@@ -37,3 +38,4 @@ context.skip('Wallet - Privacy Lock', () => {
     })
   })
 })
+*/
