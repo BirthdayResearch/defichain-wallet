@@ -3,7 +3,7 @@ import { SimplifiedAppStateStatus, useAppStateContext } from '@contexts/AppState
 import { PrivacyLockContextI, usePrivacyLockContext } from '@contexts/LocalAuthContext'
 import { EnvironmentName, getEnvironment } from '@environment'
 // import { AppLastActiveTimestamp } from 'api/app_last_active'
-import { useCallback, useEffect } from 'react'
+import { useEffect } from 'react'
 import { BackHandler } from 'react-native'
 
 const APP_LAST_ACTIVE: { force: boolean, timestamp?: number } = {
@@ -29,7 +29,7 @@ export function PrivacyLock (): JSX.Element | null {
   const privacyLock = usePrivacyLockContext()
   const appState = useAppStateContext()
 
-  const handler = useCallback((nextState: SimplifiedAppStateStatus) => {
+  const handler = (nextState: SimplifiedAppStateStatus): void => {
     if (nextState === 'background') {
       APP_LAST_ACTIVE.timestamp = Date.now()
       // AppLastActiveTimestamp.set()
@@ -47,7 +47,7 @@ export function PrivacyLock (): JSX.Element | null {
       //   })
       //   .catch(error => Logging.error(error))
     }
-  }, [privacyLock.isEnabled])
+  }
 
   // authenticate once during cold start
   useEffect(() => {
@@ -56,7 +56,7 @@ export function PrivacyLock (): JSX.Element | null {
   }, [handler])
 
   // this run only ONCE on fresh start
-  // isPrivacyLock change in-app should not retrigger9
+  // isPrivacyLock change in-app should not re-triggered
   useEffect(() => {
     if (privacyLock.isEnabled) {
       authenticateOrExit(privacyLock)

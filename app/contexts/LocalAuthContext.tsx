@@ -1,7 +1,7 @@
 import { Logging } from '@api'
 import * as LocalAuthentication from 'expo-local-authentication'
 import { AuthenticationType, LocalAuthenticationOptions, SecurityLevel } from 'expo-local-authentication'
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { PrivacyLockPersistence } from '../api/wallet/privacy_lock'
 
 export interface PrivacyLockContextI {
@@ -32,7 +32,7 @@ export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>)
   const [isDeviceProtected, setIsDeviceProtected] = useState<boolean>(false)
   const [isPrivacyLock, setIsPrivacyLock] = useState<boolean>()
 
-  const fetchHardwareStatus = useCallback(() => {
+  const fetchHardwareStatus = (): void => {
     LocalAuthentication.hasHardwareAsync()
       .then(async hasHardware => {
         if (!hasHardware) {
@@ -49,7 +49,7 @@ export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>)
         Logging.error(error)
         setHasHardware(false)
       })
-  }, [])
+  }
 
   useEffect(() => {
     fetchHardwareStatus()
@@ -82,7 +82,7 @@ export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>)
       await PrivacyLockPersistence.set(enabled)
       setIsPrivacyLock(enabled)
     },
-    togglePrivacyLock: async (options) => {
+    togglePrivacyLock: async () => {
       if (isPrivacyLock === undefined) {
         return
       }

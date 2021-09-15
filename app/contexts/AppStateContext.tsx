@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext, useEffect, useRef } from 'react'
+import React, { createContext, useContext, useEffect, useRef } from 'react'
 import { AppState, AppStateStatus } from 'react-native'
 
 export type SimplifiedAppStateStatus = 'active' | 'background'
@@ -17,15 +17,15 @@ export function useAppStateContext (): AppStateContextI {
 
 export function AppStateContextProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   // DO NOT use `useState`, these are meant for appstate monitoring
-  // re-render side effect is undesireable
+  // re-render side effect is undesirable
   const listenerRef = useRef<{ [key: number]: AppStateListener }>({})
   const prevState = useRef<AppStateStatus>('active') // first mounted
 
-  const emit = useCallback((nextState: SimplifiedAppStateStatus) => {
+  const emit = (nextState: SimplifiedAppStateStatus): void => {
     const listeners = Object.values(listenerRef.current)
     prevState.current = nextState
     listeners.forEach(l => l(nextState))
-  }, [])
+  }
 
   useEffect(() => {
     const handler = (nextState: AppStateStatus): void => {
