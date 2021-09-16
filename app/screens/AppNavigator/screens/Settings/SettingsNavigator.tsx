@@ -12,6 +12,7 @@ import { ChangePinScreen } from './screens/ChangePinScreen'
 import { CommunityScreen } from './screens/CommunityScreen'
 import { ConfirmPinScreen } from './screens/ConfirmPinScreen'
 import { LanguageSelectionScreen } from './screens/LanguageSelectionScreen'
+import { NetworkDetails } from './screens/NetworkDetails'
 import { NetworkSelectionScreen } from './screens/NetworkSelectionScreen'
 import { RecoveryWordsScreen } from './screens/RecoveryWordsScreen'
 import { SettingsScreen } from './SettingsScreen'
@@ -115,6 +116,15 @@ export function SettingsNavigator (): JSX.Element {
         name='LanguageSelectionScreen'
         options={{
           headerTitle: translate('screens/LanguageSelectionScreen', 'Select language'),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <SettingsStack.Screen
+        component={NetworkDetails}
+        name='NetworkDetails'
+        options={{
+          headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
           headerBackTitleVisible: false
         }}
       />

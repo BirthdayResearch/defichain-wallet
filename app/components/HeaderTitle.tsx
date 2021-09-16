@@ -1,3 +1,5 @@
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import React from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { useSelector } from 'react-redux'
@@ -6,31 +8,42 @@ import { RootState } from '../store'
 import { tailwind } from '../tailwind'
 import { ThemedIcon, ThemedText } from './themed'
 
-type SubHeadingType = 'Status' | 'NetworkSelect' | 'NetworkDetails'
+type SubHeadingType = 'Status' | 'NetworkSelect'
 
 export function HeaderTitle ({
   text,
   subHeadingType = 'Status',
   testID,
-  onPress
-}: { text: string, subHeadingType?: SubHeadingType, testID?: string, onPress?: () => void }): JSX.Element {
+  onPress,
+  children
+}: { text?: string, subHeadingType?: SubHeadingType, testID?: string, onPress?: () => void, children?: JSX.Element }): JSX.Element {
+  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+
+  const goToNetworkDetails = (): void => {
+    navigation.navigate('NetworkDetails')
+  }
+
   return (
     <TouchableOpacity
-      disabled={subHeadingType === undefined || subHeadingType === 'Status'}
-      onPress={onPress}
+      disabled={subHeadingType === undefined}
+      onPress={onPress ?? goToNetworkDetails}
       style={tailwind(`flex-col ${Platform.OS === 'ios' ? 'items-center' : ''}`)}
     >
-      <ThemedText
-        dark={tailwind('text-white text-opacity-90')}
-        light={tailwind('text-black')}
-        style={tailwind('font-semibold leading-5')}
-        testID={testID}
-      >
-        {text}
-      </ThemedText>
+      {text !== undefined &&
+        <>
+          <ThemedText
+            dark={tailwind('text-white text-opacity-90')}
+            light={tailwind('text-black')}
+            style={tailwind('font-semibold leading-5')}
+            testID={testID}
+          >
+            {text}
+          </ThemedText>
 
-      {subHeadingType === 'Status' && <ConnectionStatus />}
-      {subHeadingType === 'NetworkSelect' && <HeaderNetworkSelect />}
+          {subHeadingType === 'Status' && <ConnectionStatus />}
+          {subHeadingType === 'NetworkSelect' && <HeaderNetworkSelect />}
+        </>}
+      {children}
     </TouchableOpacity>
   )
 }

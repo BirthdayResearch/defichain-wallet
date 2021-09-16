@@ -10,6 +10,7 @@ import { getNativeIcon } from '../../../../components/icons/assets'
 import { ThemedText } from '../../../../components/themed'
 import { tailwind } from '../../../../tailwind'
 import { translate } from '../../../../translations'
+import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { BalancesScreen } from './BalancesScreen'
 import { ConvertConfirmationScreen } from './screens/ConvertConfirmationScreen'
 import { ConversionMode, ConvertScreen } from './screens/ConvertScreen'
@@ -130,17 +131,19 @@ export function BalancesNavigator (): JSX.Element {
             const token = route?.params?.token
             const Icon = getNativeIcon(token.avatarSymbol)
             return (
-              <View style={tailwind('flex-row items-center')}>
-                <Icon />
+              <HeaderTitle>
+                <View style={tailwind('flex-row items-center')}>
+                  <Icon />
 
-                <View style={tailwind('flex-col ml-2')}>
-                  <ThemedText style={tailwind('font-semibold')}>
-                    {token.displaySymbol}
-                  </ThemedText>
+                  <View style={tailwind('flex-col ml-2')}>
+                    <ThemedText style={tailwind('font-semibold')}>
+                      {token.displaySymbol}
+                    </ThemedText>
 
-                  <ConnectionStatus />
+                    <ConnectionStatus />
+                  </View>
                 </View>
-              </View>
+              </HeaderTitle>
             )
           }
         })}
@@ -178,6 +181,15 @@ export function BalancesNavigator (): JSX.Element {
         name='TokensVsUtxo'
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/ConvertScreen', 'UTXO vs Token')} />,
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={NetworkDetails}
+        name='NetworkDetails'
+        options={{
+          headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
           headerBackTitleVisible: false
         }}
       />

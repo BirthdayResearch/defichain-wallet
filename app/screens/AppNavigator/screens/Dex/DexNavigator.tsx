@@ -5,6 +5,7 @@ import * as React from 'react'
 import { HeaderFont } from '../../../../components'
 import { HeaderTitle } from '../../../../components/HeaderTitle'
 import { translate } from '../../../../translations'
+import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { AddLiquidityScreen } from './DexAddLiquidity'
 import { AddLiquiditySummary, ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
 import { RemoveLiquidityConfirmScreen } from './DexConfirmRemoveLiquidity'
@@ -85,6 +86,15 @@ export function DexNavigator (): JSX.Element {
         name='ConfirmPoolSwapScreen'
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Confirm swap')} />
+        }}
+      />
+
+      <DexStack.Screen
+        component={NetworkDetails}
+        name='NetworkDetails'
+        options={{
+          headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
+          headerBackTitleVisible: false
         }}
       />
     </DexStack.Navigator>

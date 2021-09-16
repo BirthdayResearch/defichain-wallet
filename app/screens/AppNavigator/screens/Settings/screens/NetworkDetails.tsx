@@ -4,7 +4,7 @@ import React from 'react'
 import dayjs from 'dayjs'
 import { useSelector } from 'react-redux'
 import { View } from '../../../../../components'
-import { ThemedText, ThemedSectionTitle, ThemedSectionList, ThemedScrollView } from '../../../../../components/themed'
+import { ThemedText, ThemedSectionTitle, ThemedSectionList, ThemedScrollView, ThemedView } from '../../../../../components/themed'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 
@@ -20,9 +20,9 @@ interface StatItemProps {
   testID: string
 }
 
-export const NetworkDetails = (): JSX.Element | null => {
+export function NetworkDetails (): JSX.Element {
   const { network } = useNetworkContext()
-  const { connected, count: blockCount, masterNodeCount, lastSync } = useSelector((state: RootState) => state.block)
+  const { connected, count: blockCount, masternodeCount, lastSync } = useSelector((state: RootState) => state.block)
   const syncFormattedDate = (lastSync != null) ? dayjs(lastSync).format('MMM D, h:mm a') : ''
 
   const statsData = [
@@ -48,60 +48,62 @@ export const NetworkDetails = (): JSX.Element | null => {
       key: NETWORK.NetworkDetails,
       data: [
         {
-          label: translate('screens/NetworkDetails', 'Last Sync'),
+          label: translate('screens/NetworkDetails', 'Last synced'),
           status: syncFormattedDate,
           testID: 'last_sync'
         }, {
-          label: translate('screens/NetworkDetails', 'Block Height'),
+          label: translate('screens/NetworkDetails', 'Block height'),
           status: blockCount,
           testID: 'block_height'
         }, {
-          label: translate('screens/NetworkDetails', 'Total Masternode'),
-          status: masterNodeCount,
-          testID: 'total_masterenode'
+          label: translate('screens/NetworkDetails', 'Total Masternodes'),
+          status: masternodeCount,
+          testID: 'total_masternodes'
         }
       ]
     }
   ]
 
   return (
-    <ThemedSectionList
-      keyExtractor={(item: StatItemProps, index: number) => `${index}`}
-      renderItem={({ item }): JSX.Element => {
-       return <StatItemRow {...item} />
-      }}
-      renderSectionHeader={({ section }) => {
-        switch (section.key) {
-          case NETWORK.ConnectedStatus:
-            return (
-              <ThemedSectionTitle
-                testID='network_detail_title'
-                text={translate('screens/NetworkDetails', section.key)}
-              />
-            )
-          case NETWORK.NetworkDetails:
-            return (
-              <ThemedSectionTitle
-                testID={section.key}
-                text={translate('screens/NetworkDetails', section.key)}
-              />
-            )
-          default:
-            return <></>
-        }
-      }}
-      sections={statsData}
-      testID='liquidity_screen_list'
-    />
+    <ThemedScrollView testID='network_details'>
+      <ThemedSectionList
+        keyExtractor={(item: StatItemProps, index: number) => `${index}`}
+        renderItem={({ item }): JSX.Element => {
+         return <StatItemRow {...item} />
+        }}
+        renderSectionHeader={({ section }) => {
+          switch (section.key) {
+            case NETWORK.ConnectedStatus:
+              return (
+                <ThemedSectionTitle
+                  testID='network_detail_title'
+                  text={translate('screens/NetworkDetails', section.key)}
+                />
+              )
+            case NETWORK.NetworkDetails:
+              return (
+                <ThemedSectionTitle
+                  testID={section.key}
+                  text={translate('screens/NetworkDetails', section.key)}
+                />
+              )
+            default:
+              return <></>
+          }
+        }}
+        sections={statsData}
+        testID='network_detail_screen_list'
+      />
+    </ThemedScrollView>
   )
 }
 
 function StatItemRow ({ label, status, testID, statusIcon }: StatItemProps): JSX.Element {
   return (
-    <ThemedScrollView
+    <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
       light={tailwind('bg-white border-b border-gray-200')}
-      contentContainerStyle={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
+      style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
     >
       <ThemedText
         dark={tailwind('text-gray-200')}
@@ -112,7 +114,11 @@ function StatItemRow ({ label, status, testID, statusIcon }: StatItemProps): JSX
         {label}
       </ThemedText>
 
-      <View style={tailwind('flex-row items-center')}>
+      <ThemedView
+        dark={tailwind('text-gray-400')}
+        light={tailwind('text-gray-600')}
+        style={tailwind('flex-row items-center')}
+      >
         {statusIcon}
         <ThemedText
           dark={tailwind('text-gray-400')}
@@ -122,7 +128,7 @@ function StatItemRow ({ label, status, testID, statusIcon }: StatItemProps): JSX
         >
           {status}
         </ThemedText>
-      </View>
-    </ThemedScrollView>
+      </ThemedView>
+    </ThemedView>
   )
 }

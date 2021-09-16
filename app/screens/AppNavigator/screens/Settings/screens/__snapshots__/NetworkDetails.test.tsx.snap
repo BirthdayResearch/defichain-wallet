@@ -2,82 +2,6 @@
 
 exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
 <RCTScrollView
-  data={
-    Array [
-      Object {
-        "data": Array [
-          Object {
-            "label": "Network",
-            "status": "Playground",
-            "testID": "network",
-          },
-          Object {
-            "label": "Status",
-            "status": "Connected",
-            "statusIcon": <View
-              style={
-                Object {
-                  "backgroundColor": "rgba(16, 185, 129, 1)",
-                  "borderBottomLeftRadius": 9999,
-                  "borderBottomRightRadius": 9999,
-                  "borderTopLeftRadius": 9999,
-                  "borderTopRightRadius": 9999,
-                  "height": 8,
-                  "marginRight": 6,
-                  "width": 8,
-                }
-              }
-              testID="status_icon_network"
-            />,
-            "testID": "status",
-          },
-        ],
-        "key": "YOU ARE CURRENTLY CONNECTED TO",
-      },
-      Object {
-        "data": Array [
-          Object {
-            "label": "Last Sync",
-            "status": "Sep 14, 9:07 pm",
-            "testID": "last_sync",
-          },
-          Object {
-            "label": "Block Height",
-            "status": 2000,
-            "testID": "block_height",
-          },
-          Object {
-            "label": "Total Masternode",
-            "status": 10,
-            "testID": "total_masterenode",
-          },
-        ],
-        "key": "NETWORK DETAILS",
-      },
-    ]
-  }
-  disableVirtualization={false}
-  getItem={[Function]}
-  getItemCount={[Function]}
-  horizontal={false}
-  initialNumToRender={10}
-  keyExtractor={[Function]}
-  maxToRenderPerBatch={10}
-  onContentSizeChange={[Function]}
-  onEndReachedThreshold={2}
-  onLayout={[Function]}
-  onMomentumScrollEnd={[Function]}
-  onScroll={[Function]}
-  onScrollBeginDrag={[Function]}
-  onScrollEndDrag={[Function]}
-  renderItem={[Function]}
-  scrollEventThrottle={50}
-  stickyHeaderIndices={
-    Array [
-      0,
-      4,
-    ]
-  }
   style={
     Array [
       undefined,
@@ -86,81 +10,103 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       },
     ]
   }
-  testID="liquidity_screen_list"
-  updateCellsBatchingPeriod={50}
-  windowSize={21}
+  testID="network_details"
 >
   <View>
-    <View
-      onLayout={[Function]}
-      style={null}
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
+    <RCTScrollView
+      data={
+        Array [
+          Object {
+            "data": Array [
               Object {
-                "color": "rgba(115, 115, 115, 1)",
-                "fontFamily": "MediumFont",
-                "fontSize": 12,
-                "fontWeight": "500",
-                "lineHeight": 16,
-                "paddingBottom": 16,
-                "paddingLeft": 16,
-                "paddingRight": 16,
-                "paddingTop": 24,
+                "label": "Network",
+                "status": "Playground",
+                "testID": "network",
               },
               Object {
-                "backgroundColor": "rgba(245, 245, 245, 1)",
-                "color": "rgba(115, 115, 115, 1)",
+                "label": "Status",
+                "status": "Connected",
+                "statusIcon": <View
+                  style={
+                    Object {
+                      "backgroundColor": "rgba(16, 185, 129, 1)",
+                      "borderBottomLeftRadius": 9999,
+                      "borderBottomRightRadius": 9999,
+                      "borderTopLeftRadius": 9999,
+                      "borderTopRightRadius": 9999,
+                      "height": 8,
+                      "marginRight": 6,
+                      "width": 8,
+                    }
+                  }
+                  testID="status_icon_network"
+                />,
+                "testID": "status",
               },
             ],
-          ]
-        }
-        testID="network_detail_title"
-        text="YOU ARE CURRENTLY CONNECTED TO"
-      >
-        YOU ARE CURRENTLY CONNECTED TO
-      </Text>
-    </View>
-    <View
-      onLayout={[Function]}
-      style={null}
-    >
-      <RCTScrollView
-        contentContainerStyle={
+            "key": "YOU ARE CURRENTLY CONNECTED TO",
+          },
           Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 8,
-            "paddingTop": 16,
-          }
-        }
-        style={
-          Array [
-            undefined,
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
-            },
-          ]
-        }
-      >
-        <View>
+            "data": Array [
+              Object {
+                "label": "Last synced",
+                "status": "Sep 14, 9:07 pm",
+                "testID": "last_sync",
+              },
+              Object {
+                "label": "Block height",
+                "status": 2000,
+                "testID": "block_height",
+              },
+              Object {
+                "label": "Total Masternodes",
+                "status": 10,
+                "testID": "total_masternodes",
+              },
+            ],
+            "key": "NETWORK DETAILS",
+          },
+        ]
+      }
+      disableVirtualization={false}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      horizontal={false}
+      initialNumToRender={10}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      onContentSizeChange={[Function]}
+      onEndReachedThreshold={2}
+      onLayout={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      stickyHeaderIndices={
+        Array [
+          0,
+          4,
+        ]
+      }
+      style={
+        Array [
+          undefined,
+          Object {
+            "backgroundColor": "rgba(245, 245, 245, 1)",
+          },
+        ]
+      }
+      testID="network_detail_screen_list"
+      updateCellsBatchingPeriod={50}
+      windowSize={21}
+    >
+      <View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
           <Text
             style={
               Array [
@@ -172,25 +118,55 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
                 },
                 Array [
                   Object {
+                    "color": "rgba(115, 115, 115, 1)",
                     "fontFamily": "MediumFont",
+                    "fontSize": 12,
                     "fontWeight": "500",
+                    "lineHeight": 16,
+                    "paddingBottom": 16,
+                    "paddingLeft": 16,
+                    "paddingRight": 16,
+                    "paddingTop": 24,
                   },
                   Object {
-                    "color": "rgba(0, 0, 0, 1)",
+                    "backgroundColor": "rgba(245, 245, 245, 1)",
+                    "color": "rgba(115, 115, 115, 1)",
                   },
                 ],
               ]
             }
-            testID="network_label"
+            testID="network_detail_title"
+            text="YOU ARE CURRENTLY CONNECTED TO"
           >
-            Network
+            YOU ARE CURRENTLY CONNECTED TO
           </Text>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
           <View
             style={
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-              }
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingBottom": 16,
+                  "paddingLeft": 16,
+                  "paddingRight": 8,
+                  "paddingTop": 16,
+                },
+                Object {
+                  "backgroundColor": "rgba(255, 255, 255, 1)",
+                  "borderBottomColor": "rgba(229, 229, 229, 1)",
+                  "borderBottomWidth": 1,
+                  "borderLeftColor": "rgba(229, 229, 229, 1)",
+                  "borderRightColor": "rgba(229, 229, 229, 1)",
+                  "borderTopColor": "rgba(229, 229, 229, 1)",
+                },
+              ]
             }
           >
             <Text
@@ -204,105 +180,90 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
                   },
                   Array [
                     Object {
-                      "color": "rgba(82, 82, 82, 1)",
                       "fontFamily": "MediumFont",
-                      "fontSize": 14,
                       "fontWeight": "500",
-                      "lineHeight": 20,
                     },
                     Object {
-                      "color": "rgba(82, 82, 82, 1)",
+                      "color": "rgba(0, 0, 0, 1)",
                     },
                   ],
                 ]
               }
-              testID="network_value"
+              testID="network_label"
             >
-              Playground
+              Network
             </Text>
-          </View>
-        </View>
-      </RCTScrollView>
-    </View>
-    <View
-      onLayout={[Function]}
-      style={null}
-    >
-      <RCTScrollView
-        contentContainerStyle={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 8,
-            "paddingTop": 16,
-          }
-        }
-        style={
-          Array [
-            undefined,
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
-            },
-          ]
-        }
-      >
-        <View>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontFamily": "MediumFont",
-                    "fontWeight": "500",
-                  },
-                  Object {
-                    "color": "rgba(0, 0, 0, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="status_label"
-          >
-            Status
-          </Text>
-          <View
-            style={
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-              }
-            }
-          >
             <View
               style={
-                Object {
-                  "backgroundColor": "rgba(16, 185, 129, 1)",
-                  "borderBottomLeftRadius": 9999,
-                  "borderBottomRightRadius": 9999,
-                  "borderTopLeftRadius": 9999,
-                  "borderTopRightRadius": 9999,
-                  "height": 8,
-                  "marginRight": 6,
-                  "width": 8,
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                  },
+                  Object {
+                    "color": "rgba(82, 82, 82, 1)",
+                  },
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "color": "rgba(82, 82, 82, 1)",
+                        "fontFamily": "MediumFont",
+                        "fontSize": 14,
+                        "fontWeight": "500",
+                        "lineHeight": 20,
+                      },
+                      Object {
+                        "color": "rgba(82, 82, 82, 1)",
+                      },
+                    ],
+                  ]
                 }
-              }
-              testID="status_icon_network"
-            />
+                testID="network_value"
+              >
+                Playground
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingBottom": 16,
+                  "paddingLeft": 16,
+                  "paddingRight": 8,
+                  "paddingTop": 16,
+                },
+                Object {
+                  "backgroundColor": "rgba(255, 255, 255, 1)",
+                  "borderBottomColor": "rgba(229, 229, 229, 1)",
+                  "borderBottomWidth": 1,
+                  "borderLeftColor": "rgba(229, 229, 229, 1)",
+                  "borderRightColor": "rgba(229, 229, 229, 1)",
+                  "borderTopColor": "rgba(229, 229, 229, 1)",
+                },
+              ]
+            }
+          >
             <Text
               style={
                 Array [
@@ -314,100 +275,85 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
                   },
                   Array [
                     Object {
-                      "color": "rgba(82, 82, 82, 1)",
                       "fontFamily": "MediumFont",
-                      "fontSize": 14,
                       "fontWeight": "500",
-                      "lineHeight": 20,
                     },
                     Object {
-                      "color": "rgba(82, 82, 82, 1)",
+                      "color": "rgba(0, 0, 0, 1)",
                     },
                   ],
                 ]
               }
-              testID="status_value"
+              testID="status_label"
             >
-              Connected
+              Status
             </Text>
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                  },
+                  Object {
+                    "color": "rgba(82, 82, 82, 1)",
+                  },
+                ]
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "backgroundColor": "rgba(16, 185, 129, 1)",
+                    "borderBottomLeftRadius": 9999,
+                    "borderBottomRightRadius": 9999,
+                    "borderTopLeftRadius": 9999,
+                    "borderTopRightRadius": 9999,
+                    "height": 8,
+                    "marginRight": 6,
+                    "width": 8,
+                  }
+                }
+                testID="status_icon_network"
+              />
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "color": "rgba(82, 82, 82, 1)",
+                        "fontFamily": "MediumFont",
+                        "fontSize": 14,
+                        "fontWeight": "500",
+                        "lineHeight": 20,
+                      },
+                      Object {
+                        "color": "rgba(82, 82, 82, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="status_value"
+              >
+                Connected
+              </Text>
+            </View>
           </View>
         </View>
-      </RCTScrollView>
-    </View>
-    <View
-      onLayout={[Function]}
-      style={null}
-    />
-    <View
-      onLayout={[Function]}
-      style={null}
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-                "fontFamily": "MediumFont",
-                "fontSize": 12,
-                "fontWeight": "500",
-                "lineHeight": 16,
-                "paddingBottom": 16,
-                "paddingLeft": 16,
-                "paddingRight": 16,
-                "paddingTop": 24,
-              },
-              Object {
-                "backgroundColor": "rgba(245, 245, 245, 1)",
-                "color": "rgba(115, 115, 115, 1)",
-              },
-            ],
-          ]
-        }
-        testID="NETWORK DETAILS"
-        text="NETWORK DETAILS"
-      >
-        NETWORK DETAILS
-      </Text>
-    </View>
-    <View
-      onLayout={[Function]}
-      style={null}
-    >
-      <RCTScrollView
-        contentContainerStyle={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 8,
-            "paddingTop": 16,
-          }
-        }
-        style={
-          Array [
-            undefined,
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
-            },
-          ]
-        }
-      >
-        <View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        />
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
           <Text
             style={
               Array [
@@ -419,120 +365,55 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
                 },
                 Array [
                   Object {
+                    "color": "rgba(115, 115, 115, 1)",
                     "fontFamily": "MediumFont",
+                    "fontSize": 12,
                     "fontWeight": "500",
+                    "lineHeight": 16,
+                    "paddingBottom": 16,
+                    "paddingLeft": 16,
+                    "paddingRight": 16,
+                    "paddingTop": 24,
                   },
                   Object {
-                    "color": "rgba(0, 0, 0, 1)",
+                    "backgroundColor": "rgba(245, 245, 245, 1)",
+                    "color": "rgba(115, 115, 115, 1)",
                   },
                 ],
               ]
             }
-            testID="last_sync_label"
+            testID="NETWORK DETAILS"
+            text="NETWORK DETAILS"
           >
-            Last Sync
+            NETWORK DETAILS
           </Text>
-          <View
-            style={
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-              }
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "color": "rgba(82, 82, 82, 1)",
-                      "fontFamily": "MediumFont",
-                      "fontSize": 14,
-                      "fontWeight": "500",
-                      "lineHeight": 20,
-                    },
-                    Object {
-                      "color": "rgba(82, 82, 82, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="last_sync_value"
-            >
-              Sep 14, 9:07 pm
-            </Text>
-          </View>
         </View>
-      </RCTScrollView>
-    </View>
-    <View
-      onLayout={[Function]}
-      style={null}
-    >
-      <RCTScrollView
-        contentContainerStyle={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 8,
-            "paddingTop": 16,
-          }
-        }
-        style={
-          Array [
-            undefined,
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
-            },
-          ]
-        }
-      >
-        <View>
-          <Text
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
             style={
               Array [
                 Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingBottom": 16,
+                  "paddingLeft": 16,
+                  "paddingRight": 8,
+                  "paddingTop": 16,
                 },
-                Array [
-                  Object {
-                    "fontFamily": "MediumFont",
-                    "fontWeight": "500",
-                  },
-                  Object {
-                    "color": "rgba(0, 0, 0, 1)",
-                  },
-                ],
+                Object {
+                  "backgroundColor": "rgba(255, 255, 255, 1)",
+                  "borderBottomColor": "rgba(229, 229, 229, 1)",
+                  "borderBottomWidth": 1,
+                  "borderLeftColor": "rgba(229, 229, 229, 1)",
+                  "borderRightColor": "rgba(229, 229, 229, 1)",
+                  "borderTopColor": "rgba(229, 229, 229, 1)",
+                },
               ]
-            }
-            testID="block_height_label"
-          >
-            Block Height
-          </Text>
-          <View
-            style={
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-              }
             }
           >
             <Text
@@ -546,88 +427,88 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
                   },
                   Array [
                     Object {
-                      "color": "rgba(82, 82, 82, 1)",
                       "fontFamily": "MediumFont",
-                      "fontSize": 14,
                       "fontWeight": "500",
-                      "lineHeight": 20,
                     },
                     Object {
-                      "color": "rgba(82, 82, 82, 1)",
+                      "color": "rgba(0, 0, 0, 1)",
                     },
                   ],
                 ]
               }
-              testID="block_height_value"
+              testID="last_sync_label"
             >
-              2000
+              Last synced
             </Text>
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                  },
+                  Object {
+                    "color": "rgba(82, 82, 82, 1)",
+                  },
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "color": "rgba(82, 82, 82, 1)",
+                        "fontFamily": "MediumFont",
+                        "fontSize": 14,
+                        "fontWeight": "500",
+                        "lineHeight": 20,
+                      },
+                      Object {
+                        "color": "rgba(82, 82, 82, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="last_sync_value"
+              >
+                Sep 14, 9:07 pm
+              </Text>
+            </View>
           </View>
         </View>
-      </RCTScrollView>
-    </View>
-    <View
-      onLayout={[Function]}
-      style={null}
-    >
-      <RCTScrollView
-        contentContainerStyle={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 8,
-            "paddingTop": 16,
-          }
-        }
-        style={
-          Array [
-            undefined,
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
-            },
-          ]
-        }
-      >
-        <View>
-          <Text
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
             style={
               Array [
                 Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingBottom": 16,
+                  "paddingLeft": 16,
+                  "paddingRight": 8,
+                  "paddingTop": 16,
                 },
-                Array [
-                  Object {
-                    "fontFamily": "MediumFont",
-                    "fontWeight": "500",
-                  },
-                  Object {
-                    "color": "rgba(0, 0, 0, 1)",
-                  },
-                ],
+                Object {
+                  "backgroundColor": "rgba(255, 255, 255, 1)",
+                  "borderBottomColor": "rgba(229, 229, 229, 1)",
+                  "borderBottomWidth": 1,
+                  "borderLeftColor": "rgba(229, 229, 229, 1)",
+                  "borderRightColor": "rgba(229, 229, 229, 1)",
+                  "borderTopColor": "rgba(229, 229, 229, 1)",
+                },
               ]
-            }
-            testID="total_masterenode_label"
-          >
-            Total Masternode
-          </Text>
-          <View
-            style={
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-              }
             }
           >
             <Text
@@ -641,30 +522,163 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
                   },
                   Array [
                     Object {
-                      "color": "rgba(82, 82, 82, 1)",
                       "fontFamily": "MediumFont",
-                      "fontSize": 14,
                       "fontWeight": "500",
-                      "lineHeight": 20,
                     },
                     Object {
-                      "color": "rgba(82, 82, 82, 1)",
+                      "color": "rgba(0, 0, 0, 1)",
                     },
                   ],
                 ]
               }
-              testID="total_masterenode_value"
+              testID="block_height_label"
             >
-              10
+              Block height
             </Text>
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                  },
+                  Object {
+                    "color": "rgba(82, 82, 82, 1)",
+                  },
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "color": "rgba(82, 82, 82, 1)",
+                        "fontFamily": "MediumFont",
+                        "fontSize": 14,
+                        "fontWeight": "500",
+                        "lineHeight": 20,
+                      },
+                      Object {
+                        "color": "rgba(82, 82, 82, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="block_height_value"
+              >
+                2000
+              </Text>
+            </View>
           </View>
         </View>
-      </RCTScrollView>
-    </View>
-    <View
-      onLayout={[Function]}
-      style={null}
-    />
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingBottom": 16,
+                  "paddingLeft": 16,
+                  "paddingRight": 8,
+                  "paddingTop": 16,
+                },
+                Object {
+                  "backgroundColor": "rgba(255, 255, 255, 1)",
+                  "borderBottomColor": "rgba(229, 229, 229, 1)",
+                  "borderBottomWidth": 1,
+                  "borderLeftColor": "rgba(229, 229, 229, 1)",
+                  "borderRightColor": "rgba(229, 229, 229, 1)",
+                  "borderTopColor": "rgba(229, 229, 229, 1)",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontFamily": "MediumFont",
+                      "fontWeight": "500",
+                    },
+                    Object {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="total_masternodes_label"
+            >
+              Total Masternodes
+            </Text>
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                  },
+                  Object {
+                    "color": "rgba(82, 82, 82, 1)",
+                  },
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "color": "rgba(82, 82, 82, 1)",
+                        "fontFamily": "MediumFont",
+                        "fontSize": 14,
+                        "fontWeight": "500",
+                        "lineHeight": 20,
+                      },
+                      Object {
+                        "color": "rgba(82, 82, 82, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="total_masternodes_value"
+              >
+                10
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        />
+      </View>
+    </RCTScrollView>
   </View>
 </RCTScrollView>
 `;

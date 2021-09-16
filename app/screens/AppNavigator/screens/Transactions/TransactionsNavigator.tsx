@@ -3,6 +3,7 @@ import * as React from 'react'
 import { HeaderFont } from '../../../../components'
 import { HeaderTitle } from '../../../../components/HeaderTitle'
 import { translate } from '../../../../translations'
+import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { VMTransaction } from './screens/stateProcessor'
 import { TransactionDetailScreen } from './screens/TransactionDetailScreen'
 import { TransactionsScreen } from './TransactionsScreen'
@@ -37,6 +38,15 @@ export function TransactionsNavigator (): JSX.Element {
         name='TransactionDetail'
         options={{
           headerTitle: () => <HeaderTitle text={translate('screens/TransactionsDetailScreen', 'Transaction')} />,
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <TransactionsStack.Screen
+        component={NetworkDetails}
+        name='NetworkDetails'
+        options={{
+          headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
           headerBackTitleVisible: false
         }}
       />

@@ -334,6 +334,18 @@
     "Price": "价格",
     "Removing {{amount}} {{symbol}}": "退出 {{amount}} {{symbol}}"
   },
+  "screens/NetworkDetails": {
+    "Wallet Network": "钱包网络",
+    "Network": "网络",
+    "Status": "状况",
+    "Connected": "已连接",
+    "Disconnected": "没有连接",
+    "Last synced": "上次同步",
+    "Block height": "区块高度",
+    "Total masternodes": "总主节点",
+    "YOU ARE CURRENTLY CONNECTED TO": "现在你已连接到",
+    "NETWORK DETAILS": "网络资料"
+  },
   "components/slider": {
     "None": "无",
     "All": "所有"

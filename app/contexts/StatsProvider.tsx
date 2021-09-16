@@ -26,12 +26,12 @@ export function StatsProvider (props: React.PropsWithChildren<any>): JSX.Element
       api.stats.get().then(({ count }) => {
         dispatch(block.actions.updateBlockDetails({
           count: count.blocks,
-          masterNodeCount: count.masternodes,
+          masternodeCount: count.masternodes,
           lastSync: new Date().toString()
         }))
         dispatch(block.actions.setConnected(true))
       }).catch((err) => {
-        dispatch(block.actions.updateBlockDetails({ count: 0, masterNodeCount: 0 }))
+        dispatch(block.actions.updateBlockDetails({ count: 0, masternodeCount: 0 }))
         dispatch(block.actions.setConnected(false))
         Logging.error(err)
       })

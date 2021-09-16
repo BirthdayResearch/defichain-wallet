@@ -23,7 +23,7 @@ describe('NetworkDetails', () => {
     const initialState: Partial<RootState> = {
       block: {
         count: 2000,
-        masterNodeCount: 10,
+        masternodeCount: 10,
         lastSync: 'Tue, 14 Sep 2021 15:37:10 GMT',
         connected: true,
         isPolling: true

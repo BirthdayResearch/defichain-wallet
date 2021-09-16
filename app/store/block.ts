@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface BlockState {
   count?: number
-  masterNodeCount?: number
+  masternodeCount?: number
   lastSync?: string
   connected: boolean
   isPolling: boolean
@@ -10,7 +10,7 @@ export interface BlockState {
 
 const initialState: BlockState = {
   count: undefined,
-  masterNodeCount: undefined,
+  masternodeCount: undefined,
   lastSync: undefined,
   connected: false,
   isPolling: false
@@ -20,9 +20,9 @@ export const block = createSlice({
   name: 'block',
   initialState,
   reducers: {
-    updateBlockDetails: (state, action: PayloadAction<{ count: number, masterNodeCount: number, lastSync?: string}>) => {
+    updateBlockDetails: (state, action: PayloadAction<{ count: number, masternodeCount: number, lastSync?: string}>) => {
       state.count = action.payload.count
-      state.masterNodeCount = action.payload.masterNodeCount
+      state.masternodeCount = action.payload.masternodeCount
       if (action.payload.lastSync != null) {
         state.lastSync = action.payload.lastSync
       }
