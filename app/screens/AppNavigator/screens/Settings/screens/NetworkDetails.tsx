@@ -60,18 +60,13 @@ function NetworkStatusRow ({ connected }: {connected: boolean}): JSX.Element {
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('flex flex-row p-4 items-center justify-between w-full')}
     >
-      <ThemedText
-        dark={tailwind('text-gray-200')}
-        light={tailwind('text-black')}
-        style={tailwind('font-medium')}
-        testID='status_label'
-      >
+      <ThemedText style={tailwind('font-medium')}>
         {translate('screens/NetworkDetails', 'Status')}
       </ThemedText>
 
       <ThemedView
         dark={tailwind('text-gray-400')}
-        light={tailwind('text-gray-600')}
+        light={tailwind('text-gray-500')}
         style={tailwind('flex-row items-center')}
       >
         <View

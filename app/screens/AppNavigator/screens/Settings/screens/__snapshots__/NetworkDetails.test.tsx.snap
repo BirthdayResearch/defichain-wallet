@@ -183,7 +183,6 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
             ],
           ]
         }
-        testID="status_label"
       >
         Status
       </Text>
@@ -195,7 +194,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
               "flexDirection": "row",
             },
             Object {
-              "color": "rgba(82, 82, 82, 1)",
+              "color": "rgba(115, 115, 115, 1)",
             },
           ]
         }
@@ -226,14 +225,12 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
               },
               Array [
                 Object {
-                  "color": "rgba(82, 82, 82, 1)",
                   "fontFamily": "MediumFont",
-                  "fontSize": 14,
                   "fontWeight": "500",
-                  "lineHeight": 20,
+                  "textAlign": "right",
                 },
                 Object {
-                  "color": "rgba(82, 82, 82, 1)",
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
