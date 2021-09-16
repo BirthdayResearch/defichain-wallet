@@ -15,8 +15,9 @@ export function HeaderTitle ({
   subHeadingType = 'Status',
   testID,
   onPress,
+  disabled,
   children
-}: { text?: string, subHeadingType?: SubHeadingType, testID?: string, onPress?: () => void, children?: JSX.Element }): JSX.Element {
+}: { text?: string, subHeadingType?: SubHeadingType, testID?: string, onPress?: () => void, disabled?: boolean, children?: JSX.Element }): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
 
   const goToNetworkDetails = (): void => {
@@ -25,7 +26,7 @@ export function HeaderTitle ({
 
   return (
     <TouchableOpacity
-      disabled={subHeadingType === undefined}
+      disabled={disabled}
       onPress={onPress ?? goToNetworkDetails}
       style={tailwind(`flex-col ${Platform.OS === 'ios' ? 'items-center' : ''}`)}
     >
