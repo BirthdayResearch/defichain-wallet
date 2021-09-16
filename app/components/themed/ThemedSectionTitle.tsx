@@ -14,7 +14,7 @@ export function ThemedSectionTitle (props: SectionTitleProp): JSX.Element {
   const {
     style = tailwind('p-4 pt-6 text-xs text-gray-500 font-medium'),
     light = tailwind('bg-gray-100 text-gray-500'),
-    dark = tailwind('bg-gray-900 text-gray-500'),
+    dark = tailwind('bg-blue-900 text-gray-500'),
     ...otherProps
   } = props
 

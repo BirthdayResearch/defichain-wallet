@@ -28,11 +28,11 @@ export function CommunityScreen (): JSX.Element {
       }
       ListFooterComponent={
         <View style={tailwind('items-center py-6 px-4')}>
-          <ThemedText style={tailwind('text-xs font-normal')}>
+          <ThemedText style={tailwind('text-xs text-center font-normal')}>
             {translate('screens/CommunityScreen', 'DeFiChain is a community-driven and open project.')}
           </ThemedText>
 
-          <ThemedText style={tailwind('text-xs font-normal')}>
+          <ThemedText style={tailwind('text-xs text-center font-normal')}>
             {translate('screens/CommunityScreen', 'The DeFiChain Foundation does not provide direct support.')}
           </ThemedText>
         </View>
