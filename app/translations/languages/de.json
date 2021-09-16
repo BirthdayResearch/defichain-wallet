@@ -18,7 +18,7 @@
     "Add Liquidity": "Liquidität hinzufügen",
     "Remove Liquidity": "Liquidität entfernen",
     "Confirm removal": "Bestätige die Rücknahme",
-    "Confirm swap": "Bestätige den Umtausch",
+    "Confirm swap": "Bestätige den Um",
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Wähle unten ein Pool-Paar aus, stelle Liquidität für den Betrieb der dezentralen Börse (DEX) bereit und beginne, Gebühren und jährliche Renditen von bis zu 100% zu verdienen. Du kannst jederzeit Liquidität entfernen.",
     "YOUR LIQUIDITY": "VON DIR BEREITGESTELLTE LIQUIDITÄT",
     "AVAILABLE POOL PAIR": "VERFÜGBARES LIQUIDITY POOL-HANDELSPAAR",
@@ -62,12 +62,12 @@
     "Sending {{amount}} {{symbol}}": "Sende {{amount}} {{symbol}}"
   },
   "screens/ConvertScreen": {
-    "Convert DFI": "Wandle DFI um",
+    "Convert DFI": "DFI umwandeln",
     "Scan recipient QR": "QR-Code des Empfängers scannen",
     "Balance": "Guthaben",
     "Enter an amount": "Betrag eingeben",
     "UTXO vs Token, what is the difference?": "UXTO vs Token, worin liegt der Unterschied?",
-    "CONVERT {{symbol}}": "UMWANDELN {{symbol}}",
+    "CONVERT {{symbol}}": "{{symbol}} UMWANDELN",
     "TO {{symbol}}": "IN {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert."
   },
@@ -156,7 +156,7 @@
   "screens/TokenDetailScreen": {
     "AMOUNT BALANCE": "Guthabenbetrag",
     "AVAILABLE OPTIONS": "VERFÜGBARE OPTIONEN",
-    "Send to other wallet": "Auf andere Wallet senden",
+    "Send to other wallet": "An andere Wallet senden",
     "Receive": "Empfange",
     "Convert to {{symbol}}": "Umwandeln in {{symbol}}"
   },
@@ -344,7 +344,7 @@
     "SLIPPAGE TOLERANCE": "SLIPPAGE TOLERANZ"
   },
   "screens/PoolSwapScreen": {
-    "SWAP": "TAUSCH",
+    "SWAP": "TAUSCHE",
     "TO": "GEGEN",
     "CONTINUE": "FORTFAHREN",
     "Enter an amount": "Gib eine Menge ein",
@@ -358,7 +358,7 @@
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Slippage Tolerance": "Slippage Toleranz",
     "Estimated fee": "Geschätzte Gebühr",
-    "SWAP": "TAUSCH",
+    "SWAP": "TAUSCHE",
     "SWAPPING": "WIRD GETAUSCHT",
     "Swapping Token": "Tausche Token",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}"
