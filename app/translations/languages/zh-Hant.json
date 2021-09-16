@@ -1,3 +1,389 @@
 {
-
+  "screens/WalletNavigator": {
+    "Guidelines": "指導方針",
+    "Learn More": "了解更多",
+    "Display recovery words": "顯示恢復字組",
+    "Verify words": "確認字組",
+    "Restore Wallet": "恢復錢包",
+    "Create a passcode": "創建密碼",
+    "Verify passcode": "確認密碼",
+    "Select network": "選擇網絡",
+    "Cancel": "取消",
+    "Refresh": "刷新",
+    "Refresh recovery words": "刷新恢復字組",
+    "You are about to generate a new set of recovery words. Continue?": "您正進行產生新的恢復字組，確認要繼續？"
+  },
+  "screens/DexScreen": {
+    "Decentralized Exchange": "去中心化交易所",
+    "Add Liquidity": "增加流動資金",
+    "Remove Liquidity": "退出流動資金",
+    "Confirm removal": "確認退出",
+    "Confirm swap": "確認兌換",
+    "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "為以下去中心化交易所配對池提供流動資金，並獲得高利率的區塊獎勵回報.",
+    "YOUR LIQUIDITY": "您的資金",
+    "AVAILABLE POOL PAIR": "開放使用的流動池配對",
+    "Pooled {{symbol}}": "池中總 {{symbol}} 數量"
+  },
+  "screens/BalancesScreen": {
+    "Balances": "我的資產",
+    "RECEIVE": "接收",
+    "PORTFOLIO": "資產組合"
+  },
+  "screens/ReceiveScreen": {
+    "Receive": "接收",
+    "Use this address to receive DFI or any DST": "請用這個地址接收DFI或DST",
+    "Copied to Clipboard": "已經複製",
+    "COPY TO CLIPBOARD": "複製到剪貼板",
+    "SHARE": "轉發"
+  },
+  "screens/SendScreen": {
+    "Send": "移出資金",
+    "Estimated fee": "所需費用（大約）",
+    "CONTINUE": "繼續",
+    "TO ADDRESS": "發送到這個地址",
+    "Enter an address": "請輸入接收方地址",
+    "Enter an amount": "請輸入資金數量",
+    "Balance: ": "總資金 ",
+    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要預留一些可使用的 UTXO (0.1 DFI (UTXO)) 作為費用",
+    "SEND": "移出資金"
+  },
+  "screens/SendConfirmationScreen": {
+    "Confirm Send": "確認發出",
+    "YOU ARE SENDING": "您正要發出資金",
+    "TRANSACTION DETAILS": "交易明細",
+    "Address": "地址",
+    "Network": "網絡",
+    "Amount": "資金數量",
+    "Estimated fee": "所需費用（大約）",
+    "Remaining balance": "交易後餘額",
+    "SEND": "發出",
+    "SENDING": "正在發出",
+    "Sending": "正轉出 {{symbol}}",
+    "Sending {{amount}} {{symbol}}": "正轉出 {{amount}} {{symbol}}"
+  },
+  "screens/ConvertScreen": {
+    "Convert DFI": "轉換 DFI",
+    "Scan recipient QR": "掃一掃 QR 二維條碼",
+    "Balance": "總資金",
+    "Enter an amount": "輸入數量",
+    "UTXO vs Token, what is the difference?": "UXTO和代幣的區別是什麼？",
+    "CONVERT {{symbol}}": "轉換 {{symbol}}",
+    "TO {{symbol}}": "至 {{symbol}}",
+    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要預留一些可使用的 UTXO (0.1 DFI (UTXO)) 作為費用"
+  },
+  "screens/ConvertConfirmScreen": {
+    "Confirm DFI Conversion": "確認要轉換 DFI",
+    "YOU ARE CONVERTING": "您正要轉換",
+    "AFTER CONVERSION, YOU WILL HAVE:": "轉換後您會有",
+    "Estimated fee": "所需費用（大約）",
+    "CONVERT": "轉換",
+    "CONVERTING": "正在轉換",
+    "Converting DFI": "轉換 DFI",
+    "Converting {{amount}} {{symbolA}} to {{symbolB}}": "轉換 {{amount}} {{symbolA}} 至 {{symbolB}} "
+  },
+  "screens/SettingsNavigator": {
+    "Settings": "設定"
+  },
+  "screens/CommunityScreen": {
+    "Community": "社區",
+    "CONNECT WITH THE COMMUNITY:": "參與社區",
+    "DeFiChain is a community-driven and open project.": "遞飛鏈 DeFiChain 是個社區優先、開源項目",
+    "The DeFiChain Foundation does not provide direct support.": "此項目是完全去中心化的，並沒有提供客服",
+    "Report an issue on Github": "向 Github 開啟議題",
+    "Frequently Asked Questions": "常見問題",
+    "Announcements": "最新公告",
+    "Official Website": "官網"
+  },
+  "screens/Settings": {
+    "Recovery Words": "恢復字組",
+    "Are you sure you want to unlink your wallet?": "您是否確認要解除錢包鏈接?",
+    "You will need to use your recovery words the next time you want to get back to your wallet.": "請留意，您下次回道錢包時需要恢復字組",
+    "Cancel": "取消",
+    "Unlink Wallet": "解除錢包鏈接",
+    "UNLINK WALLET": "解除錢包鏈接",
+    "Change Passcode": "更換密碼",
+    "About": "關於",
+    "NETWORK": "網絡",
+    "To update your passcode, we need you to enter your current passcode.": "需要使用目前的密碼才能更換密碼",
+    "Verifying passcode...": "正在確認密碼...",
+    "To continue viewing your recovery words, we need you to enter your passcode.": "請輸入您的密碼即可繼續查看您的恢復字組",
+    "Loading...": "請稍等...",
+    "Network Switch": "切換網絡",
+    "No": "不要",
+    "Yes": "好的",
+    "You are about to switch to {{network}}. If there is no existing wallet on this network, you will be redirected to Onboarding screen. Do you want to proceed?": "您正要轉換至 {{network}}. 如果這個網絡沒有現有的錢包，您會切換到導覽首頁，確認並繼續？",
+    "Theme": "主題",
+    "You are about to change your language to {{language}}. Do you want to proceed?": "您正要切換至 {{language}} . 確認並繼續",
+    "Language": "語言",
+    "English": "英語",
+    "German": "德語",
+    "Chinese (Simplified)": "简体中文",
+    "Chinese (Traditional)": "繁體中文",
+    "Switch Language": "切換語言",
+    "ADDITIONAL OPTIONS": "更多選項",
+    "SECURITY": "安全設定",
+    "Privacy Lock": "隱私鎖定"
+  },
+  "screens/AboutScreen": {
+    "About": "關於",
+    "Create new passcode": "創建新密碼",
+    "Verify passcode": "確認密碼",
+    "LINKS": "網址鏈結",
+    "White Paper": "遞飛鏈白皮書",
+    "Privacy Policy": "隱私條款",
+    "Licenses": "授權"
+  },
+  "screens/NetworkSelectionScreen": {
+    "NETWORK": "網絡",
+    "Select network": "切換網絡"
+  },
+  "screens/TransactionsScreen": {
+    "Transactions": "交易紀錄",
+    "No transactions yet": "還沒有交易紀錄",
+    "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "您能開始從錢包做交易. 所有 UXTO 交易都會在這裡顯示.目前還不提供其他交易類型.",
+    "RECEIVE COINS": "接收的貨幣",
+    "LOAD MORE": "查看更多交易紀錄"
+  },
+  "screens/TransactionDetailScreen": {
+    "Type": "交易類型",
+    "Amount": "資金數量",
+    "Block": "區塊",
+    "Date": "時間"
+  },
+  "screens/TransactionsDetailScreen": {
+    "Transactions": "交易"
+  },
+  "screens/TokenDetailScreen": {
+    "AMOUNT BALANCE": "數量總額",
+    "AVAILABLE OPTIONS": "可使用的功能",
+    "Send to other wallet": "發送到其他地址",
+    "Receive": "接收",
+    "Convert to {{symbol}}": "轉換至 {{symbol}}"
+  },
+  "screens/TokensVsUtxoScreen": {
+    "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "DFI 有兩種形式 - UTXO 和代幣, 兩者可依據使用做互換. 這個程序可以進行互換.",
+    "UTXO DFI is the main form DFI and is used for core cryptocurrency purposes like send, receive and fees. DFI tokens are used for DeFi functions such as swaps and liquidity mining.": "UTXO DFI 是 DFI 的主要形式，用來做接收、發送、費用和其他加密貨幣功能. DFI 代幣適用於 DeFi 功能如兌換或流動性挖礦.",
+    "Your DFI balance includes both UTXO and tokens.": "您的 DFI 總資金含 UTXO 和代幣形式",
+    "Core crypto services": "主要加密服務",
+    "Send to other wallets": "發送到其他地址",
+    "Receive tokens": "接收代幣",
+    "Service fees": "服務費用",
+    "DeFi services": "DeFi 服務",
+    "Liquidity mining": "流動性挖礦",
+    "Atomic Swaps": "原子交換"
+  },
+  "screens/Onboarding": {
+    "CREATE A WALLET": "創建錢包",
+    "RESTORE WALLET": "恢復錢包"
+  },
+  "screens/OnboardingCarousel": {
+    "Native DeFi for Bitcoin": "比特幣生態原生 DeFi",
+    "Take full control": "掌控",
+    "of your digital assets": "您擁有的數位資產",
+    "Nobody owns your keys and wallet except you.": "除了您之外沒有任何人能控制您的私鑰.",
+    "Unlock the highest": "釋放最高潜力的",
+    "potential of your finances": "金融理財和資產回報",
+    "Transact, liquidity mine, swap and many more features as a fully-decentralized wallet": "雙方交易、流動性挖礦、兌換和其他去中心化錢包功能.",
+    "Earn high yields": "本項目從未做任何融資，",
+    "of up to 90% with DEX": "以先來先得的社區參與方式收穫，目前高回報率高達 90% ",
+    "Supply liquidity to BTC, ETH, and many other pool pairs. You can also withdraw anytime!": "為流動性池提供 BTC、ETH和其他流動池配對，並獲得區塊獎勵. 您可以隨時取出獎勵！"
+  },
+  "screens/CreateMnemonicWallet": {
+    "Exit screen": "離開頁面",
+    "If you leave this screen, you will be provided with a new set of 24 recovery words. Do you want to proceed?": "如果您離開此頁，您會產生新的24字恢復字組. 確認要繼續？",
+    "Cancel": "取消",
+    "Yes": "是的",
+    "Take note of the words in their correct order": "請注意每個字的正確順序排列",
+    "VERIFY WORDS": "確認字組"
+  },
+  "screens/Guidelines": {
+    "Creating a wallet": "創建錢包",
+    "Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.": "在創建錢包錢，螢幕會顯示您的 24個字的恢復字組，請確保保管好這些字組.",
+    "Learn more about recovery words": "了解更多關於「恢復字組」",
+    "I understand it is my responsibility to keep my recovery words secure, and losing them will result in the irrecoverable loss of my wallet funds.": "我了解保管好我的恢復字組是我的個人責任，也了解當丟失了之後是無法還原錢包，造成可能性的資金損失.",
+    "SHOW MY 24 RECOVERY WORDS": "請顯示我的恢復字組",
+    "Write the words on paper": "請寫下所有字",
+    "Take note of their correct spelling and correct order.": "注意每個字的順序排列和拼字",
+    "Secure them in a safe space": "請保管好恢復字組",
+    "Store them offline and in a safe place.": "建議使用線下，不在光線下或潮濕的地方.",
+    "Keep them private": "請保密您的字組",
+    "Don’t share to anyone. Keep the recovery words only to yourself.": "不要將這恢復字組讓別人知道"
+  },
+  "screens/GuidelinesRecoveryWords": {
+    "What are recovery words?": "「恢復字組」是什麼?",
+    "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard.": "您獨特的24個恢復字代表可讀的錢包私鑰，是由BIP-39標準中的2048個字列表生成.",
+    "You will need your recovery words to restore your wallet on, for example, a new mobile device. Think of them as keys to your wallet and funds.": "您需要使用恢復字組在新的手機上恢復錢包，可以把這個關聯想像成您的錢包和資金的鑰匙.",
+    "If you lose your recovery words, you will not be able to restore your wallet, and you will lose access to your wallet and funds.": "如果您丟失字組，您就不能恢復錢包，也會丟失錢包所有資料和資金.",
+    "It is important that you write down your recovery words legibly and in the correct order. Store your recovery words safely and securely, away from prying eyes. You may want to think about keeping it safe from fire as well.": "請注意：記下恢復字組和字組排列是非常重要的.請保管好，避免他人能看到，放在一個防潮濕、防水火、或任何對字組有害的環境"
+  },
+  "screens/PinConfirmation": {
+    "It may take a few seconds to securely encrypt your wallet...": "需要一些時間進行錢包加密",
+    "Enter your passcode again to verify": "請再次輸入密碼確認",
+    "Wrong passcode entered": "密碼錯誤",
+    "Wallet Unlinked": "錢包已解開",
+    "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.": "您輸入了多次錯誤的密碼，為了安全，目前錢包已解開鏈接. 請用恢復自組以還原和重設錢包.",
+    "Close": "關閉",
+    "Last attempt or your wallet will be unlinked for your security": "最後一次可輸入密碼，為了安全，如果不通過，您的錢包會解開鏈接",
+    "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "密碼錯誤. 您還剩 {{attemptsRemaining}} 次可輸入密碼",
+    "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} 次可輸入密碼"
+  },
+  "screens/PinCreation": {
+    "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "恭喜您創建新錢包！接著請創建密碼以維持安全保護.",
+    "Well done! Your wallet is restored. Keep your wallet private and secure by creating a passcode for it.": "恭喜您恢復錢包！接著請創建密碼以維持安全保護.",
+    "Keep your passcode private": "請保管私人密碼",
+    "CREATE PASSCODE": "創建密碼",
+    "CHANGE PASSCODE": "更換密碼"
+  },
+  "screens/VerifyMnemonicWallet": {
+    "Invalid selection. Please ensure you have written down your 24 words.": "選擇的字組錯誤. 請確認您已經寫下正確的字和順序.",
+    "Go back": "回到上一頁",
+    "Verify what you wrote as correct.": "接下來要確認您寫下正確的字組.",
+    "Answer the questions to proceed.": "請回答以下問題.",
+    "VERIFY": "確認",
+    "What is word ": "這個號碼對上的字是什麼"
+  },
+  "screens/RestoreWallet": {
+    "Discard changes?": "放棄更改？",
+    "You have unsaved changes. Are you sure to discard them and leave the screen?": "您有未儲存的更改. 您確認您要捨棄更改？",
+    "Error": "錯誤",
+    "The recovery words you have entered are invalid. Please double check and try again.": "您輸入的恢復字組並不完全正確. 請再次確認並重試.",
+    "Please provide your 24 recovery words to regain access to your wallet.": "請輸入您的24字恢復字組.",
+    "ENTER THE CORRECT WORD": "請輸入正確的拼字",
+    "RESTORE WALLET": "恢復錢包",
+    "Enter word #{{order}}": "輸入字 #{{order}}",
+    "Cancel": "取消",
+    "Discard": "放棄"
+  },
+  "screens/ErrorBoundary": {
+    "Something went wrong": "出了些問題",
+    "The app ran into a problem and could not recover. Please restart your application.": "此程序出了一些問題，關掉後請重新啟動程序."
+  },
+  "screens/ConnectionBoundary": {
+    "Connection problem": "網絡連接出了問題",
+    "There seems to be a problem with the connection. Check your network and try again.": "網絡連接不良，請查看網絡設定後重試."
+  },
+  "BottomTabNavigator": {
+    "Balances": "總資金",
+    "Liquidity": "流動",
+    "Transactions": "交易",
+    "Settings": "設置",
+    "DEX": "去中心化交易所"
+  },
+  "screens/OceanInterface": {
+    "Waiting for confirmation": "正在確認",
+    "Transaction Completed": "交易成功",
+    "Sent but not confirmed": "已發出尚未完全確認",
+    "Broadcasting...": "傳送...",
+    "OK": "好了",
+    "Insufficient UTXO DFI": "不足夠的 UTXO DFI",
+    "Not enough balance": "餘額不足",
+    "Price is higher than indicated": "價格高於指示"
+  },
+  "components/BarCodeScanner": {
+    "Requesting for camera permission": "請許可程序使用相機",
+    "You have denied the permission request to use your camera": "您已經否認相機功能"
+  },
+  "components/max": {
+    "HALF": "一半",
+    "MAX": "最高值"
+  },
+  "screens/common": {
+    "CANCEL": "取消"
+  },
+  "screens/ChangePinScreen": {
+    "Create new passcode for your wallet": "為您的錢包創建新的密碼"
+  },
+  "screens/RecoveryWordsScreen": {
+    "Keep your recovery words safe and private": "請保管好您的恢復字組"
+  },
+  "screens/AddLiquidity": {
+    "Enter an amount": "輸入資金量",
+    "Balance": "總資金",
+    "per": "每",
+    "Share of pool": "流動池股份",
+    "Pooled": "池中",
+    "Price": "價格"
+  },
+  "screens/ConfirmAddLiq": {
+    "YOU ARE ADDING": "您正要增加流動資金",
+    "AMOUNT TO SUPPLY": "提供的流動資金量",
+    "TRANSACTION DETAILS": "交易明細",
+    "Price": "價格",
+    "Share of pool": "流動池股份",
+    "Estimated fee": "所需費用（大約）",
+    "ADD": "增加",
+    "Adding Liquidity": "增加流動資金",
+    "ADDING": "增加",
+    "Pooled {{symbol}}": "池中總 {{symbol}}",
+    "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "向 {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} 配對增加流動資金"
+  },
+  "screens/ConfirmRemoveLiquidity": {
+    "YOU ARE REMOVING": "您正要退出",
+    "ESTIMATED AMOUNT TO RECEIVE": "您大約會收到",
+    "TRANSACTION DETAILS": "交易明細",
+    "Price": "價格",
+    "Estimated fee": "所需費用（大約）",
+    "REMOVE": "退出"
+  },
+  "screens/RemoveLiquidity": {
+    "Removing Liquidity": "退出流動資金",
+    "REMOVING": "退出",
+    "Amount to remove": "退出數量",
+    "Enter an amount ": "請輸入數量",
+    "YOU ARE REMOVING": "您正要退出",
+    "Price": "價格",
+    "Removing {{amount}} {{symbol}}": "退出 {{amount}} {{symbol}}"
+  },
+  "components/slider": {
+    "None": "無",
+    "All": "所有"
+  },
+  "components/Button": {
+    "CONTINUE": "繼續"
+  },
+  "screens/SlippageTolerance": {
+    "SLIPPAGE TOLERANCE": "交易滑價"
+  },
+  "screens/PoolSwapScreen": {
+    "SWAP": "兌換",
+    "TO": "至",
+    "CONTINUE": "繼續",
+    "Enter an amount": "請輸入數量",
+    "Price": "價格",
+    "Estimated to receive": "您大約會收到",
+    "Balance: ": "總資產餘額: "
+  },
+  "screens/PoolSwapConfirmScreen": {
+    "YOU ARE SWAPPING": "您正要兌換",
+    "ESTIMATED BALANCE AFTER SWAP": "兌換後的總餘額",
+    "TRANSACTION DETAILS": "交易明細",
+    "Slippage Tolerance": "交易滑價",
+    "Estimated fee": "所需費用（大約）",
+    "SWAP": "兌換",
+    "SWAPPING": "兌換",
+    "Swapping Token": "兌換代幣",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兌換 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}"
+  },
+  "screens/UnlockWallet": {
+    "Enter passcode": "請輸入密碼",
+    "CANCEL": "取消",
+    "Please enter passcode to securely sign your transaction": "請輸入密碼以安全地簽下您的交易"
+  },
+  "screens/TransactionAuthorization": {
+    "Signing...": "您正在為此交易授權..."
+  },
+  "components/CreateWalletIndicator": {
+    "Recovery": "恢復",
+    "Verify": "確認",
+    "Secure": "安全",
+    "Restore": "還原"
+  },
+  "screens/LanguageSelectionScreen": {
+    "LANGUAGE": "語言",
+    "Select language": "切換語言"
+  },
+  "screens/OnboardingNetworkSelectScreen": {
+    "SELECT NETWORK": "切換網絡",
+    "You are about to switch to {{network}}. Do you want to proceed?": "您正要切換至 {{network}}，確認並繼續？"
+  }
 }

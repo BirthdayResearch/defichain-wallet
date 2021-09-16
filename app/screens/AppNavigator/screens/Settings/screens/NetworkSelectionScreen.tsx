@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SectionTitle } from '../../../../../components/SectionTitle'
+import { ThemedSectionTitle } from '../../../../../components/themed/ThemedSectionTitle'
 import { getEnvironment } from '../../../../../environment'
 import { translate } from '../../../../../translations'
 import { RowNetworkItem } from '../../../../../components/RowNetworkItem'
@@ -10,7 +10,7 @@ export function NetworkSelectionScreen (): JSX.Element {
 
   return (
     <ThemedScrollView testID='network_selection_screen'>
-      <SectionTitle
+      <ThemedSectionTitle
         testID='network_selection_screen_title'
         text={translate('screens/NetworkSelectionScreen', 'NETWORK')}
       />

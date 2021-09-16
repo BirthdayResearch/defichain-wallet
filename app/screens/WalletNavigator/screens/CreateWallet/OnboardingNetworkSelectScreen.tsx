@@ -1,16 +1,15 @@
-import { SectionTitle } from '@components/SectionTitle'
+import { ThemedScrollView, ThemedSectionTitle } from '@components/themed'
 import { getEnvironment } from '@environment'
 import { RowNetworkItem } from '@components/RowNetworkItem'
 import { translate } from '@translations'
 import * as React from 'react'
-import { ThemedScrollView } from '@components/themed'
 
 export function OnboardingNetworkSelectScreen (): JSX.Element {
   const networks = getEnvironment().networks
 
   return (
     <ThemedScrollView testID='onboarding_network_selection_screen'>
-      <SectionTitle
+      <ThemedSectionTitle
         testID='onboarding_network_selection_screen_title'
         text={translate('screens/OnboardingNetworkSelectScreen', 'SELECT NETWORK')}
       />

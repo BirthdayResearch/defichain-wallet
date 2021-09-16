@@ -81,40 +81,40 @@ export function encodeScope (text: string): string {
   return Buffer.from(text).toString('base64')
 }
 
-/**
- * Return the language short code
- */
-export function getLocaleByLanguageName (language: AppLanguage): string {
-  switch (language) {
-    case AppLanguage.English:
-      return 'en'
-
-    case AppLanguage.German:
-      return 'de'
-  }
-}
-
-/**
- * Return the name of language that is independent of current selected language
- */
-export function getLanguageName (language: AppLanguage): string {
-  switch (language) {
-    case AppLanguage.English:
-      return 'English'
-
-    case AppLanguage.German:
-      return 'Deutsch'
-  }
-}
-
 export enum AppLanguage {
   English = 'English',
-  German = 'German'
+  German = 'German',
+  ChineseSimplified = 'Chinese (Simplified)',
+  ChineseTraditional = 'Chinese (Traditional)',
 }
 
-export function getAppLanguages (): AppLanguage[] {
+export interface AppLanguageItem {
+  language: AppLanguage
+  displayName: string
+  locale: string
+}
+
+export function getAppLanguages (): AppLanguageItem[] {
   return [
-    AppLanguage.English,
-    AppLanguage.German
+    {
+      language: AppLanguage.English,
+      displayName: 'English',
+      locale: 'en'
+    },
+    {
+      language: AppLanguage.German,
+      displayName: 'Deutsch',
+      locale: 'de'
+    },
+    {
+      language: AppLanguage.ChineseSimplified,
+      displayName: '简体中文',
+      locale: 'zh-Hans'
+    },
+    {
+      language: AppLanguage.ChineseTraditional,
+      displayName: '繁體中文',
+      locale: 'zh-Hant'
+    }
   ]
 }

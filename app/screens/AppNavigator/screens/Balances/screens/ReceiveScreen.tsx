@@ -15,7 +15,7 @@ export async function onShare (address: string): Promise<void> {
       message: address
     })
   } catch (error) {
-    Logging.error(error.message)
+    Logging.error(error)
   }
 }
 

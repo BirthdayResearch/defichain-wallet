@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react-native'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
-import { SetAmountButton } from './SetAmountButton'
+import { AmountButtonTypes, SetAmountButton } from './SetAmountButton'
 
 jest.mock('../contexts/ThemeProvider')
-const buttonType: Array<'half' | 'max'> = ['half', 'max']
+const buttonType: AmountButtonTypes[] = [AmountButtonTypes.half, AmountButtonTypes.max]
 const buttonAmount = new BigNumber(10)
 
 describe('set amount button', () => {

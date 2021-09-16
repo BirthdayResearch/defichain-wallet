@@ -15,11 +15,11 @@ import { getNativeIcon } from '../../../../../components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '../../../../../components/InputIconLabel'
 import { NumberRow } from '../../../../../components/NumberRow'
 import { NumberTextInput } from '../../../../../components/NumberTextInput'
-import { SectionTitle } from '../../../../../components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '../../../../../components/SetAmountButton'
 import {
   ThemedIcon,
   ThemedScrollView,
+  ThemedSectionTitle,
   ThemedText,
   ThemedTextInput,
   ThemedTouchableOpacity,
@@ -139,7 +139,7 @@ function AddressRow ({
 }: { control: Control, networkName: NetworkName, onQrButtonPress: () => void }): JSX.Element {
   return (
     <>
-      <SectionTitle
+      <ThemedSectionTitle
         testID='title_to_address'
         text={translate('screens/SendScreen', 'TO ADDRESS')}
       />
@@ -201,7 +201,7 @@ function AmountRow ({ token, control, onAmountButtonPress }: AmountForm): JSX.El
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
   return (
     <>
-      <SectionTitle
+      <ThemedSectionTitle
         testID='title_send'
         text={translate('screens/SendScreen', 'SEND')}
       />

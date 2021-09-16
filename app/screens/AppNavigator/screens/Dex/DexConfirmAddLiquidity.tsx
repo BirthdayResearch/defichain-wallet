@@ -10,10 +10,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Logging } from '../../../../api'
 import { NumberRow } from '../../../../components/NumberRow'
-import { SectionTitle } from '../../../../components/SectionTitle'
 import { SubmitButtonGroup } from '../../../../components/SubmitButtonGroup'
 import { SummaryTitle } from '../../../../components/SummaryTitle'
-import { ThemedScrollView } from '../../../../components/themed'
+import { ThemedScrollView, ThemedSectionTitle } from '../../../../components/themed'
 import { TokenBalanceRow } from '../../../../components/TokenBalanceRow'
 import { RootState } from '../../../../store'
 import { hasTxQueued as hasBroadcastQueued } from '../../../../store/ocean'
@@ -111,7 +110,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         title={translate('screens/ConfirmAddLiq', 'YOU ARE ADDING')}
       />
 
-      <SectionTitle
+      <ThemedSectionTitle
         testID='title_add_detail'
         text={translate('screens/ConfirmAddLiq', 'AMOUNT TO SUPPLY')}
       />
@@ -134,7 +133,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         }}
       />
 
-      <SectionTitle
+      <ThemedSectionTitle
         testID='title_tx_detail'
         text={translate('screens/ConfirmAddLiq', 'TRANSACTION DETAILS')}
       />

@@ -5,9 +5,8 @@ import { getNativeIcon } from '@components/icons/assets'
 import { IconLabelScreenType, InputIconLabel } from '@components/InputIconLabel'
 import { NumberRow } from '@components/NumberRow'
 import { NumberTextInput } from '@components/NumberTextInput'
-import { SectionTitle } from '@components/SectionTitle'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
-import { ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
+import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
@@ -190,7 +189,6 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         control={control}
         controlName={tokenBForm}
         isDisabled
-        maxAmount={aToBPrice.times(getValues()[tokenAForm]).toFixed(8)}
         title={`${translate('screens/PoolSwapScreen', 'TO')} ${tokenB.displaySymbol}`}
         token={tokenB}
       />
@@ -249,7 +247,7 @@ function TokenRow (form: TokenForm): JSX.Element {
 
   return (
     <>
-      <SectionTitle
+      <ThemedSectionTitle
         testID={`text_input_${title}`}
         text={title}
       />

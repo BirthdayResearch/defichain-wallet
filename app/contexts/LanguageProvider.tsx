@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import * as Localization from 'expo-localization'
 import i18n from 'i18n-js'
-import { Logging } from '../api'
-import { LanguagePersistence } from '../api/persistence/language_storage'
+import { LanguagePersistence, Logging } from '@api'
 
 interface LanguageLoader {
   isLanguageLoaded: boolean

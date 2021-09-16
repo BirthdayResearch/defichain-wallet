@@ -84,19 +84,19 @@ export const CreateMnemonicWallet = forwardRef(
         </ThemedText>
 
         {(words.length > 0)
-          ? words.map((word, index) => {
-          return (
+          ? words.map((word, index) => (
             <RecoveryWordRow
-              index={index}
               key={index}
+              index={index}
               word={word}
             />
           )
-        })
+        )
         : <SkeletonLoader row={10} screen={SkeletonLoaderScreen.MnemonicWord} />}
 
         <Button
           label={translate('screens/CreateMnemonicWallet', 'VERIFY WORDS')}
+          disabled={words.length === 0}
           onPress={onContinue}
           testID='verify_button'
           title='verify button'
@@ -106,7 +106,7 @@ export const CreateMnemonicWallet = forwardRef(
   }
 )
 
-function RecoveryWordRow (props: { index: number, word: string }): JSX.Element {
+function RecoveryWordRow (props: { index: number, word: string, key: number }): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-blue-800 border-b border-blue-900')}

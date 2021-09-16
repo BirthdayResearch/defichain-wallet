@@ -3,8 +3,12 @@ import { nativeApplicationVersion } from 'expo-application'
 import React, { useCallback } from 'react'
 import { Linking, TouchableOpacity, View } from 'react-native'
 import { AppIcon } from '../../../../../components/icons/AppIcon'
-import { SectionTitle } from '../../../../../components/SectionTitle'
-import { ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '../../../../../components/themed'
+import {
+  ThemedScrollView,
+  ThemedSectionTitle,
+  ThemedText,
+  ThemedTouchableOpacity
+} from '../../../../../components/themed'
 import { tailwind } from '../../../../../tailwind'
 import { translate } from '../../../../../translations'
 
@@ -58,7 +62,7 @@ export function AboutScreen (): JSX.Element {
         </View>
       </View>
 
-      <SectionTitle
+      <ThemedSectionTitle
         testID='links_title'
         text={translate('screens/AboutScreen', 'LINKS')}
       />

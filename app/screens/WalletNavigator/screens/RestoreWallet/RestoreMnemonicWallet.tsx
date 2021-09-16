@@ -6,20 +6,26 @@ import { createRef, useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { TextInput } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { View } from '../../../../components'
-import { Button } from '../../../../components/Button'
-import { CreateWalletStepIndicator, RESTORE_STEPS } from '../../../../components/CreateWalletStepIndicator'
-import { SectionTitle } from '../../../../components/SectionTitle'
-import { ThemedText, ThemedView } from '../../../../components/themed'
-import { WalletAlert } from '../../../../components/WalletAlert'
-import { useThemeContext } from '../../../../contexts/ThemeProvider'
-import { tailwind } from '../../../../tailwind'
-import { translate } from '../../../../translations'
+import { View } from '@components/index'
+import { Button } from '@components/Button'
+import { CreateWalletStepIndicator, RESTORE_STEPS } from '@components/CreateWalletStepIndicator'
+import { ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
+import { WalletAlert } from '@components/WalletAlert'
+import { useThemeContext } from '@contexts/ThemeProvider'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import { WalletParamList } from '../../WalletNavigator'
 
 export function RestoreMnemonicWallet (): JSX.Element {
   const navigation = useNavigation<NavigationProp<WalletParamList>>()
-  const { control, formState: { isValid, isDirty }, getValues } = useForm({ mode: 'onChange' })
+  const {
+    control,
+    formState: {
+      isValid,
+      isDirty
+    },
+    getValues
+  } = useForm({ mode: 'onChange' })
   const [recoveryWords] = useState<number[]>(Array.from(Array(24), (v, i) => i + 1))
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [inputRefMap, setInputRefMap] = useState<Array<React.RefObject<TextInput>>>([])
@@ -48,13 +54,13 @@ export function RestoreMnemonicWallet (): JSX.Element {
         message: translate('screens/RestoreWallet', 'You have unsaved changes. Are you sure to discard them and leave the screen?'),
         buttons: [
           {
-            text: 'Cancel',
+            text: translate('screens/RestoreWallet', 'Cancel'),
             style: 'cancel',
             onPress: () => {
             }
           },
           {
-            text: 'Discard',
+            text: translate('screens/RestoreWallet', 'Discard'),
             style: 'destructive',
             onPress: () => navigation.dispatch(e.data.action)
           }
@@ -114,7 +120,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
       </View>
 
       <ThemedView>
-        <SectionTitle
+        <ThemedSectionTitle
           testID='recover_title'
           text={translate('screens/RestoreWallet', 'ENTER THE CORRECT WORD')}
         />
@@ -151,7 +157,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
                         await onRestore()
                       }
                     }}
-                    placeholder={translate('screens/SendScreen', `Enter word #${order}`)}
+                    placeholder={translate('screens/RestoreWallet', 'Enter word #{{order}}', { order })}
                     placeholderTextColor={isLight
                       ? `${invalid && isTouched
                         ? 'rgba(255, 0, 0, 1)'

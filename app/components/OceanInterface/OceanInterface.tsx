@@ -47,7 +47,7 @@ async function waitForTxConfirmation (id: string, client: WhaleApiClient): Promi
   let start = initialTime
 
   return await new Promise((resolve, reject) => {
-    let intervalID: number
+    let intervalID: NodeJS.Timeout
     const callTransaction = (): void => {
       client.transactions.get(id).then((tx) => {
         if (intervalID !== undefined) {
