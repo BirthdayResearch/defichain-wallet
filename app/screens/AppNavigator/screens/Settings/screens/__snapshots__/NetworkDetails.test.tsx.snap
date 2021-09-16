@@ -13,672 +13,572 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
   testID="network_details"
 >
   <View>
-    <RCTScrollView
-      data={
-        Array [
-          Object {
-            "data": Array [
-              Object {
-                "label": "Network",
-                "status": "Playground",
-                "testID": "network",
-              },
-              Object {
-                "label": "Status",
-                "status": "Connected",
-                "statusIcon": <View
-                  style={
-                    Object {
-                      "backgroundColor": "rgba(16, 185, 129, 1)",
-                      "borderBottomLeftRadius": 9999,
-                      "borderBottomRightRadius": 9999,
-                      "borderTopLeftRadius": 9999,
-                      "borderTopRightRadius": 9999,
-                      "height": 8,
-                      "marginRight": 6,
-                      "width": 8,
-                    }
-                  }
-                  testID="status_icon_network"
-                />,
-                "testID": "status",
-              },
-            ],
-            "key": "YOU ARE CURRENTLY CONNECTED TO",
-          },
-          Object {
-            "data": Array [
-              Object {
-                "label": "Last synced",
-                "status": "Sep 14, 9:07 pm",
-                "testID": "last_sync",
-              },
-              Object {
-                "label": "Block height",
-                "status": 2000,
-                "testID": "block_height",
-              },
-              Object {
-                "label": "Total Masternodes",
-                "status": 10,
-                "testID": "total_masternodes",
-              },
-            ],
-            "key": "NETWORK DETAILS",
-          },
-        ]
-      }
-      disableVirtualization={false}
-      getItem={[Function]}
-      getItemCount={[Function]}
-      horizontal={false}
-      initialNumToRender={10}
-      keyExtractor={[Function]}
-      maxToRenderPerBatch={10}
-      onContentSizeChange={[Function]}
-      onEndReachedThreshold={2}
-      onLayout={[Function]}
-      onMomentumScrollEnd={[Function]}
-      onScroll={[Function]}
-      onScrollBeginDrag={[Function]}
-      onScrollEndDrag={[Function]}
-      renderItem={[Function]}
-      scrollEventThrottle={50}
-      stickyHeaderIndices={
-        Array [
-          0,
-          4,
-        ]
-      }
+    <Text
       style={
         Array [
-          undefined,
           Object {
-            "backgroundColor": "rgba(245, 245, 245, 1)",
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+              "fontFamily": "MediumFont",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 24,
+            },
+            Object {
+              "backgroundColor": "rgba(245, 245, 245, 1)",
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
+      }
+      testID="current_connection_detail_title"
+      text="YOU ARE CURRENTLY CONNECTED TO"
+    >
+      YOU ARE CURRENTLY CONNECTED TO
+    </Text>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+            "flexDirection": "row",
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+            "width": "100%",
+          },
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
           },
         ]
       }
-      testID="network_detail_screen_list"
-      updateCellsBatchingPeriod={50}
-      windowSize={21}
     >
-      <View>
-        <View
-          onLayout={[Function]}
-          style={null}
-        >
-          <Text
-            style={
+      <View
+        style={
+          Object {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
               Array [
                 Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
                 },
-                Array [
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                    "fontFamily": "MediumFont",
-                    "fontSize": 12,
-                    "fontWeight": "500",
-                    "lineHeight": 16,
-                    "paddingBottom": 16,
-                    "paddingLeft": 16,
-                    "paddingRight": 16,
-                    "paddingTop": 24,
-                  },
-                  Object {
-                    "backgroundColor": "rgba(245, 245, 245, 1)",
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="network_detail_title"
-            text="YOU ARE CURRENTLY CONNECTED TO"
-          >
-            YOU ARE CURRENTLY CONNECTED TO
-          </Text>
-        </View>
-        <View
-          onLayout={[Function]}
-          style={null}
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
+            ]
+          }
         >
-          <View
-            style={
-              Array [
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "flexDirection": "row",
-                  "justifyContent": "space-between",
-                  "paddingBottom": 16,
-                  "paddingLeft": 16,
-                  "paddingRight": 8,
-                  "paddingTop": 16,
-                },
-                Object {
-                  "backgroundColor": "rgba(255, 255, 255, 1)",
-                  "borderBottomColor": "rgba(229, 229, 229, 1)",
-                  "borderBottomWidth": 1,
-                  "borderLeftColor": "rgba(229, 229, 229, 1)",
-                  "borderRightColor": "rgba(229, 229, 229, 1)",
-                  "borderTopColor": "rgba(229, 229, 229, 1)",
-                },
-              ]
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontFamily": "MediumFont",
-                      "fontWeight": "500",
-                    },
-                    Object {
-                      "color": "rgba(0, 0, 0, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="network_label"
-            >
-              Network
-            </Text>
-            <View
-              style={
-                Array [
-                  Object {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                  },
-                  Object {
-                    "color": "rgba(82, 82, 82, 1)",
-                  },
-                ]
-              }
-            >
-              <Text
-                style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
-                    Array [
-                      Object {
-                        "color": "rgba(82, 82, 82, 1)",
-                        "fontFamily": "MediumFont",
-                        "fontSize": 14,
-                        "fontWeight": "500",
-                        "lineHeight": 20,
-                      },
-                      Object {
-                        "color": "rgba(82, 82, 82, 1)",
-                      },
-                    ],
-                  ]
-                }
-                testID="network_value"
-              >
-                Playground
-              </Text>
-            </View>
-          </View>
-        </View>
-        <View
-          onLayout={[Function]}
-          style={null}
-        >
-          <View
-            style={
-              Array [
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "flexDirection": "row",
-                  "justifyContent": "space-between",
-                  "paddingBottom": 16,
-                  "paddingLeft": 16,
-                  "paddingRight": 8,
-                  "paddingTop": 16,
-                },
-                Object {
-                  "backgroundColor": "rgba(255, 255, 255, 1)",
-                  "borderBottomColor": "rgba(229, 229, 229, 1)",
-                  "borderBottomWidth": 1,
-                  "borderLeftColor": "rgba(229, 229, 229, 1)",
-                  "borderRightColor": "rgba(229, 229, 229, 1)",
-                  "borderTopColor": "rgba(229, 229, 229, 1)",
-                },
-              ]
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontFamily": "MediumFont",
-                      "fontWeight": "500",
-                    },
-                    Object {
-                      "color": "rgba(0, 0, 0, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="status_label"
-            >
-              Status
-            </Text>
-            <View
-              style={
-                Array [
-                  Object {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                  },
-                  Object {
-                    "color": "rgba(82, 82, 82, 1)",
-                  },
-                ]
-              }
-            >
-              <View
-                style={
-                  Object {
-                    "backgroundColor": "rgba(16, 185, 129, 1)",
-                    "borderBottomLeftRadius": 9999,
-                    "borderBottomRightRadius": 9999,
-                    "borderTopLeftRadius": 9999,
-                    "borderTopRightRadius": 9999,
-                    "height": 8,
-                    "marginRight": 6,
-                    "width": 8,
-                  }
-                }
-                testID="status_icon_network"
-              />
-              <Text
-                style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
-                    Array [
-                      Object {
-                        "color": "rgba(82, 82, 82, 1)",
-                        "fontFamily": "MediumFont",
-                        "fontSize": 14,
-                        "fontWeight": "500",
-                        "lineHeight": 20,
-                      },
-                      Object {
-                        "color": "rgba(82, 82, 82, 1)",
-                      },
-                    ],
-                  ]
-                }
-                testID="status_value"
-              >
-                Connected
-              </Text>
-            </View>
-          </View>
-        </View>
-        <View
-          onLayout={[Function]}
-          style={null}
-        />
-        <View
-          onLayout={[Function]}
-          style={null}
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                    "fontFamily": "MediumFont",
-                    "fontSize": 12,
-                    "fontWeight": "500",
-                    "lineHeight": 16,
-                    "paddingBottom": 16,
-                    "paddingLeft": 16,
-                    "paddingRight": 16,
-                    "paddingTop": 24,
-                  },
-                  Object {
-                    "backgroundColor": "rgba(245, 245, 245, 1)",
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="NETWORK DETAILS"
-            text="NETWORK DETAILS"
-          >
-            NETWORK DETAILS
-          </Text>
-        </View>
-        <View
-          onLayout={[Function]}
-          style={null}
-        >
-          <View
-            style={
-              Array [
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "flexDirection": "row",
-                  "justifyContent": "space-between",
-                  "paddingBottom": 16,
-                  "paddingLeft": 16,
-                  "paddingRight": 8,
-                  "paddingTop": 16,
-                },
-                Object {
-                  "backgroundColor": "rgba(255, 255, 255, 1)",
-                  "borderBottomColor": "rgba(229, 229, 229, 1)",
-                  "borderBottomWidth": 1,
-                  "borderLeftColor": "rgba(229, 229, 229, 1)",
-                  "borderRightColor": "rgba(229, 229, 229, 1)",
-                  "borderTopColor": "rgba(229, 229, 229, 1)",
-                },
-              ]
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontFamily": "MediumFont",
-                      "fontWeight": "500",
-                    },
-                    Object {
-                      "color": "rgba(0, 0, 0, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="last_sync_label"
-            >
-              Last synced
-            </Text>
-            <View
-              style={
-                Array [
-                  Object {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                  },
-                  Object {
-                    "color": "rgba(82, 82, 82, 1)",
-                  },
-                ]
-              }
-            >
-              <Text
-                style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
-                    Array [
-                      Object {
-                        "color": "rgba(82, 82, 82, 1)",
-                        "fontFamily": "MediumFont",
-                        "fontSize": 14,
-                        "fontWeight": "500",
-                        "lineHeight": 20,
-                      },
-                      Object {
-                        "color": "rgba(82, 82, 82, 1)",
-                      },
-                    ],
-                  ]
-                }
-                testID="last_sync_value"
-              >
-                Sep 14, 9:07 pm
-              </Text>
-            </View>
-          </View>
-        </View>
-        <View
-          onLayout={[Function]}
-          style={null}
-        >
-          <View
-            style={
-              Array [
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "flexDirection": "row",
-                  "justifyContent": "space-between",
-                  "paddingBottom": 16,
-                  "paddingLeft": 16,
-                  "paddingRight": 8,
-                  "paddingTop": 16,
-                },
-                Object {
-                  "backgroundColor": "rgba(255, 255, 255, 1)",
-                  "borderBottomColor": "rgba(229, 229, 229, 1)",
-                  "borderBottomWidth": 1,
-                  "borderLeftColor": "rgba(229, 229, 229, 1)",
-                  "borderRightColor": "rgba(229, 229, 229, 1)",
-                  "borderTopColor": "rgba(229, 229, 229, 1)",
-                },
-              ]
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontFamily": "MediumFont",
-                      "fontWeight": "500",
-                    },
-                    Object {
-                      "color": "rgba(0, 0, 0, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="block_height_label"
-            >
-              Block height
-            </Text>
-            <View
-              style={
-                Array [
-                  Object {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                  },
-                  Object {
-                    "color": "rgba(82, 82, 82, 1)",
-                  },
-                ]
-              }
-            >
-              <Text
-                style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
-                    Array [
-                      Object {
-                        "color": "rgba(82, 82, 82, 1)",
-                        "fontFamily": "MediumFont",
-                        "fontSize": 14,
-                        "fontWeight": "500",
-                        "lineHeight": 20,
-                      },
-                      Object {
-                        "color": "rgba(82, 82, 82, 1)",
-                      },
-                    ],
-                  ]
-                }
-                testID="block_height_value"
-              >
-                2000
-              </Text>
-            </View>
-          </View>
-        </View>
-        <View
-          onLayout={[Function]}
-          style={null}
-        >
-          <View
-            style={
-              Array [
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "flexDirection": "row",
-                  "justifyContent": "space-between",
-                  "paddingBottom": 16,
-                  "paddingLeft": 16,
-                  "paddingRight": 8,
-                  "paddingTop": 16,
-                },
-                Object {
-                  "backgroundColor": "rgba(255, 255, 255, 1)",
-                  "borderBottomColor": "rgba(229, 229, 229, 1)",
-                  "borderBottomWidth": 1,
-                  "borderLeftColor": "rgba(229, 229, 229, 1)",
-                  "borderRightColor": "rgba(229, 229, 229, 1)",
-                  "borderTopColor": "rgba(229, 229, 229, 1)",
-                },
-              ]
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontFamily": "MediumFont",
-                      "fontWeight": "500",
-                    },
-                    Object {
-                      "color": "rgba(0, 0, 0, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="total_masternodes_label"
-            >
-              Total Masternodes
-            </Text>
-            <View
-              style={
-                Array [
-                  Object {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                  },
-                  Object {
-                    "color": "rgba(82, 82, 82, 1)",
-                  },
-                ]
-              }
-            >
-              <Text
-                style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
-                    Array [
-                      Object {
-                        "color": "rgba(82, 82, 82, 1)",
-                        "fontFamily": "MediumFont",
-                        "fontSize": 14,
-                        "fontWeight": "500",
-                        "lineHeight": 20,
-                      },
-                      Object {
-                        "color": "rgba(82, 82, 82, 1)",
-                      },
-                    ],
-                  ]
-                }
-                testID="total_masternodes_value"
-              >
-                10
-              </Text>
-            </View>
-          </View>
-        </View>
-        <View
-          onLayout={[Function]}
-          style={null}
-        />
+          Network
+        </Text>
       </View>
-    </RCTScrollView>
+      <View
+        style={
+          Object {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
+                  "textAlign": "right",
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+          testID="network"
+        >
+          Playground
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+            "width": "100%",
+          },
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "MediumFont",
+                "fontWeight": "500",
+              },
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+          ]
+        }
+        testID="status_label"
+      >
+        Status
+      </Text>
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            },
+            Object {
+              "color": "rgba(82, 82, 82, 1)",
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            Object {
+              "backgroundColor": "rgba(16, 185, 129, 1)",
+              "borderBottomLeftRadius": 9999,
+              "borderBottomRightRadius": 9999,
+              "borderTopLeftRadius": 9999,
+              "borderTopRightRadius": 9999,
+              "height": 12,
+              "marginRight": 6,
+              "width": 12,
+            }
+          }
+          testID="status_icon_network"
+        />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "color": "rgba(82, 82, 82, 1)",
+                  "fontFamily": "MediumFont",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(82, 82, 82, 1)",
+                },
+              ],
+            ]
+          }
+          testID="status_value"
+        >
+          Connected
+        </Text>
+      </View>
+    </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+              "fontFamily": "MediumFont",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 24,
+            },
+            Object {
+              "backgroundColor": "rgba(245, 245, 245, 1)",
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
+      }
+      testID="network_detail_title"
+      text="NETWORK DETAILS"
+    >
+      NETWORK DETAILS
+    </Text>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+            "flexDirection": "row",
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+            "width": "100%",
+          },
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Last synced
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
+                  "textAlign": "right",
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+          testID="last_sync"
+        >
+          Sep 14, 9:07 pm
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+            "flexDirection": "row",
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+            "width": "100%",
+          },
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Block height
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flexBasis": "0%",
+            "flexDirection": "column",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "color": "rgba(115, 115, 115, 1)",
+                    "flexWrap": "wrap",
+                    "fontFamily": "MediumFont",
+                    "fontWeight": "500",
+                    "textAlign": "right",
+                  },
+                  Object {
+                    "color": "rgba(115, 115, 115, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="block_height"
+          >
+            2,000
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+            "flexDirection": "row",
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+            "width": "100%",
+          },
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Total Masternodes
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flexBasis": "0%",
+            "flexDirection": "column",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "color": "rgba(115, 115, 115, 1)",
+                    "flexWrap": "wrap",
+                    "fontFamily": "MediumFont",
+                    "fontWeight": "500",
+                    "textAlign": "right",
+                  },
+                  Object {
+                    "color": "rgba(115, 115, 115, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="total_masternodes"
+          >
+            10
+          </Text>
+        </View>
+      </View>
+    </View>
   </View>
 </RCTScrollView>
 `;
