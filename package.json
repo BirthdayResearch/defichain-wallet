@@ -106,7 +106,7 @@
     "@types/react-test-renderer": "^17.0.1",
     "babel-plugin-istanbul": "^6.0.0",
     "cypress": "^8.4.0",
-    "cypress-image-diff-js": "^1.14.0",
+    "cypress-image-diff-js": "^1.14.3",
     "eas-cli": "^0.27.1",
     "eslint-config-standard-with-typescript": "^21.0.1",
     "eslint-plugin-cypress": "^2.11.3",
