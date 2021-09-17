@@ -1,4 +1,5 @@
 import { InfoText } from '@components/InfoText'
+import { InputHelperText } from '@components/InputHelperText'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
@@ -7,8 +8,7 @@ import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
 import { Control, Controller, FieldValues, useForm, UseFormGetValues, UseFormReset } from 'react-hook-form'
-import { ScrollView, View } from 'react-native'
-import NumberFormat from 'react-number-format'
+import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
 import { Button } from '../../../../../components/Button'
@@ -17,7 +17,8 @@ import {
   ThemedIcon,
   ThemedText,
   ThemedTouchableOpacity,
-  ThemedView
+  ThemedView,
+  ThemedScrollView
 } from '../../../../../components/themed'
 import { useNetworkContext } from '../../../../../contexts/NetworkContext'
 import { useWhaleApiClient } from '../../../../../contexts/WhaleContext'
@@ -77,7 +78,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   }
 
   return (
-    <ScrollView contentContainerStyle={tailwind('px-4 py-8')}>
+    <ThemedScrollView contentContainerStyle={tailwind('px-4 py-8')}>
       <AddressRow
         control={control}
         networkName={networkName}
@@ -108,7 +109,6 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
         <InfoText
           testID='send_info_text'
           text={translate('screens/SendScreen', 'A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.')}
-          style={tailwind('mx-0')}
         />}
 
       <Button
@@ -127,7 +127,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
       >
         {translate('screens/SendScreen', 'See full details in next page to confirm ')}
       </ThemedText>
-    </ScrollView>
+    </ThemedScrollView>
   )
 }
 
@@ -154,6 +154,7 @@ function AddressRow ({
               testID='address_input'
               value={value}
               title={translate('screens/SendScreen', 'Where do you want to send?')}
+              titleTestID='title_to_address'
               inputType='default'
             >
               <ThemedTouchableOpacity
@@ -218,6 +219,7 @@ function AmountRow ({ token, control, reset, getValues, onAmountButtonPress }: A
               displayClearButton={true && isDirty}
               onClearButtonPress={() => reset({ ...getValues(), amount: '' })}
               title={translate('screens/SendScreen', 'How much do you want to send?')}
+              titleTestID='title_send'
               inputType='numeric'
             >
               <ThemedView
@@ -251,31 +253,12 @@ function AmountRow ({ token, control, reset, getValues, onAmountButtonPress }: A
         }}
       />
 
-      <View style={tailwind('flex-1 flex-row flex-wrap mt-1')}>
-        <ThemedText
-          light={tailwind('text-gray-400')}
-          dark={tailwind('text-gray-500')}
-        >
-          {translate('screens/SendScreen', 'Available: ')}
-        </ThemedText>
-
-        <NumberFormat
-          decimalScale={8}
-          displayType='text'
-          renderText={(value) => (
-            <ThemedText
-              light={tailwind('text-gray-700')}
-              dark={tailwind('text-gray-200')}
-              testID='max_value'
-            >
-              {value}
-            </ThemedText>
-            )}
-          suffix={` ${token.displaySymbol}`}
-          thousandSeparator
-          value={maxAmount}
-        />
-      </View>
+      <InputHelperText
+        testID='max_value'
+        label={translate('screens/SendScreen', 'Available: ')}
+        content={maxAmount}
+        suffix={token.displaySymbol}
+      />
     </>
   )
 }

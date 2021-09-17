@@ -9,6 +9,7 @@ type InputType = 'default' | 'numeric'
 interface IWalletTextInputProps {
   inputType: InputType
   title?: string
+  titleTestID?: string
   valid?: boolean
   inlineValidationText?: string
   displayClearButton?: boolean
@@ -21,6 +22,7 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
   const {
     inputType,
     title,
+    titleTestID,
     valid,
     inlineValidationText,
     displayClearButton = false,
@@ -28,7 +30,7 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
     children,
     style,
     ...otherProps
-} = props
+  } = props
 
   const isInvalid = (): boolean => {
     return valid === false
@@ -50,6 +52,7 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
         <ThemedSectionTitle
           light={tailwind('text-gray-700')}
           dark={tailwind('text-gray-200')}
+          testID={titleTestID}
           text={title}
           style={tailwind('text-base')}
         />}
