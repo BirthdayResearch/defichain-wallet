@@ -20,6 +20,8 @@ describe('getMnemonicHdNodeProvider for encrypted mnemonic', () => {
     }
     const options = EnvironmentNetwork.LocalPlayground
     const prompt = { prompt: jest.fn() }
-    expect(() => { MnemonicEncrypted.initProvider(data, options, prompt) }).toThrowError('Unexpected WalletPersistenceData')
+    expect(() => {
+      MnemonicEncrypted.initProvider(data, options, prompt)
+    }).toThrowError('Unexpected WalletPersistenceData')
   })
 })

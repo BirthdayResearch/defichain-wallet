@@ -24,14 +24,16 @@ type Props = StackScreenProps<DexParamList, 'ConfirmRemoveLiquidity'>
 export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
   const {
     pair,
-    amount, fee,
-    tokenAAmount, tokenBAmount
+    amount,
+    fee,
+    tokenAAmount,
+    tokenBAmount
   } = route.params
   const aToBRate = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
   const bToARate = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
   const symbol = (pair?.tokenA != null && pair?.tokenB != null)
-                ? `${pair.tokenA.displaySymbol}-${pair.tokenB.displaySymbol}`
-                : pair.symbol
+    ? `${pair.tokenA.displaySymbol}-${pair.tokenB.displaySymbol}`
+    : pair.symbol
   const dispatch = useDispatch()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -111,8 +113,16 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
       <NumberRow
         lhs={translate('screens/ConfirmRemoveLiquidity', 'Price')}
         rightHandElements={[
-          { value: aToBRate.toFixed(8), suffix: ` ${pair?.tokenB?.displaySymbol} per ${pair?.tokenA?.displaySymbol}`, testID: 'price_a' },
-          { value: bToARate.toFixed(8), suffix: ` ${pair?.tokenA?.displaySymbol} per ${pair?.tokenB?.displaySymbol}`, testID: 'price_b' }
+          {
+            value: aToBRate.toFixed(8),
+            suffix: ` ${pair?.tokenB?.displaySymbol} per ${pair?.tokenA?.displaySymbol}`,
+            testID: 'price_a'
+          },
+          {
+            value: bToARate.toFixed(8),
+            suffix: ` ${pair?.tokenA?.displaySymbol} per ${pair?.tokenB?.displaySymbol}`,
+            testID: 'price_b'
+          }
         ]}
       />
 
@@ -137,10 +147,10 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
 async function constructSignedRemoveLiqAndSend (pair: PoolPairData, amount: BigNumber, dispatch: Dispatch<any>, postAction: () => void): Promise<void> {
   const tokenId = Number(pair.id)
   const symbol = (pair?.tokenA != null && pair?.tokenB != null)
-                  ? `${pair.tokenA.displaySymbol}-${pair.tokenB.displaySymbol}`
-                  : pair.symbol
+    ? `${pair.tokenA.displaySymbol}-${pair.tokenB.displaySymbol}`
+    : pair.symbol
 
-    const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
+  const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
     const builder = account.withTransactionBuilder()
     const script = await account.getScript()
 

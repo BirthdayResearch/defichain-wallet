@@ -38,7 +38,7 @@ export function ConfirmPinScreen ({ route }: Props): JSX.Element {
     }
 
     const copy = { words, network, pin }
-    setSpinnerMessage(translate('screens/PinConfirmation', 'It may take a few seconds to securely encrypt your wallet...'))
+    setSpinnerMessage(translate('screens/PinConfirmation', 'It may take a few seconds to update your passcode...'))
     setTimeout(() => {
       MnemonicEncrypted.toData(copy.words, copy.network, copy.pin)
         .then(async encrypted => {

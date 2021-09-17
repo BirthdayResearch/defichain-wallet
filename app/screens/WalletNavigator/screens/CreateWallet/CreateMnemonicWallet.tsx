@@ -2,7 +2,7 @@ import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader
 import { StackScreenProps } from '@react-navigation/stack'
 import { MnemonicUnprotected } from '../../../../api/wallet'
 import * as React from 'react'
-import { forwardRef, useEffect, useState, useImperativeHandle } from 'react'
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 import { Button } from '../../../../components/Button'
 import { CREATE_STEPS, CreateWalletStepIndicator } from '../../../../components/CreateWalletStepIndicator'
 import { ThemedScrollView, ThemedText, ThemedView } from '../../../../components/themed'
@@ -90,9 +90,9 @@ export const CreateMnemonicWallet = forwardRef(
               index={index}
               word={word}
             />
+            )
           )
-        )
-        : <SkeletonLoader row={10} screen={SkeletonLoaderScreen.MnemonicWord} />}
+          : <SkeletonLoader row={10} screen={SkeletonLoaderScreen.MnemonicWord} />}
 
         <Button
           label={translate('screens/CreateMnemonicWallet', 'VERIFY WORDS')}

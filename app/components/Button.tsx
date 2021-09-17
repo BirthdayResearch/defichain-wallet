@@ -7,6 +7,7 @@ import { ThemedActivityIndicator } from './themed/ThemedActivityIndicator'
 
 export type ButtonColorType = 'primary' | 'secondary'
 export type ButtonFillType = 'fill' | 'outline' | 'flat'
+
 interface ButtonProps extends React.PropsWithChildren<TouchableOpacityProps> {
   color?: ButtonColorType
   fill?: ButtonFillType

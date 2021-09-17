@@ -102,9 +102,9 @@ export function WalletNavigator (): JSX.Element {
 
   const CreateMnemonicWalletWrapper = (
     props: JSX.IntrinsicAttributes &
-    { navigation: StackNavigationProp<WalletParamList, 'CreateMnemonicWallet'>, route: RouteProp<WalletParamList, 'CreateMnemonicWallet'> } &
-    React.RefAttributes<unknown>): JSX.Element => {
-      return (<CreateMnemonicWallet {...props} ref={createMnemonicWalletRef} />)
+      { navigation: StackNavigationProp<WalletParamList, 'CreateMnemonicWallet'>, route: RouteProp<WalletParamList, 'CreateMnemonicWallet'> } &
+      React.RefAttributes<unknown>): JSX.Element => {
+    return (<CreateMnemonicWallet {...props} ref={createMnemonicWalletRef} />)
   }
 
   return (
