@@ -41,7 +41,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
           ],
         ]
       }
-      testID="current_connection_detail_title"
+      testID="network_details_current_connection"
       text="YOU ARE CURRENTLY CONNECTED TO"
     >
       YOU ARE CURRENTLY CONNECTED TO
@@ -132,7 +132,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
               ],
             ]
           }
-          testID="network"
+          testID="network_details_network"
         >
           Playground
         </Text>
@@ -212,7 +212,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
               "width": 12,
             }
           }
-          testID="status_icon_network"
+          testID="network_details_status_icon"
         />
         <Text
           style={
@@ -235,7 +235,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
               ],
             ]
           }
-          testID="status_value"
+          testID="network_details_status_value"
         >
           Connected
         </Text>
@@ -269,7 +269,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
           ],
         ]
       }
-      testID="network_detail_title"
+      testID="network_details_block_info"
       text="NETWORK DETAILS"
     >
       NETWORK DETAILS
@@ -360,7 +360,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
               ],
             ]
           }
-          testID="last_sync"
+          testID="network_details_last_sync"
         >
           Sep 14, 9:07 pm
         </Text>
@@ -464,7 +464,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
                 ],
               ]
             }
-            testID="block_height"
+            testID="network_details_block_height"
           >
             2,000
           </Text>
@@ -569,7 +569,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
                 ],
               ]
             }
-            testID="total_masternodes"
+            testID="network_details_total_masternodes"
           >
             10
           </Text>

@@ -36,6 +36,7 @@ export interface DexParamList {
 const DexStack = createStackNavigator<DexParamList>()
 
 export function DexNavigator (): JSX.Element {
+  const hederContainerTestId = 'dex_header_container'
   return (
     <DexStack.Navigator
       initialRouteName='DexScreen'
@@ -44,32 +45,32 @@ export function DexNavigator (): JSX.Element {
       <DexStack.Screen
         component={DexScreen}
         name='DexScreen'
-        options={{ headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Decentralized Exchange')} /> }}
+        options={{ headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Decentralized Exchange')} containerTestID={hederContainerTestId} /> }}
       />
 
       <DexStack.Screen
         component={AddLiquidityScreen}
         name='AddLiquidity'
-        options={{ headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Add Liquidity')} /> }}
+        options={{ headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Add Liquidity')} containerTestID={hederContainerTestId} /> }}
       />
 
       <DexStack.Screen
         component={ConfirmAddLiquidityScreen}
         name='ConfirmAddLiquidity'
-        options={{ headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Add Liquidity')} /> }}
+        options={{ headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Add Liquidity')} containerTestID={hederContainerTestId} /> }}
       />
 
       <DexStack.Screen
         component={RemoveLiquidityScreen}
         name='RemoveLiquidity'
-        options={{ headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Remove Liquidity')} /> }}
+        options={{ headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Remove Liquidity')} containerTestID={hederContainerTestId} /> }}
       />
 
       <DexStack.Screen
         component={RemoveLiquidityConfirmScreen}
         name='RemoveLiquidityConfirmScreen'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Confirm removal')} />
+          headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Confirm removal')} containerTestID={hederContainerTestId} />
         }}
       />
 
@@ -77,7 +78,7 @@ export function DexNavigator (): JSX.Element {
         component={PoolSwapScreen}
         name='PoolSwap'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Decentralized Exchange')} />
+          headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Decentralized Exchange')} containerTestID={hederContainerTestId} />
         }}
       />
 
@@ -85,7 +86,7 @@ export function DexNavigator (): JSX.Element {
         component={ConfirmPoolSwapScreen}
         name='ConfirmPoolSwapScreen'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Confirm swap')} />
+          headerTitle: () => <HeaderTitle text={translate('screens/DexScreen', 'Confirm swap')} containerTestID={hederContainerTestId} />
         }}
       />
 

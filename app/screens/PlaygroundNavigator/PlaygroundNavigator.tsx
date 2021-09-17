@@ -21,7 +21,7 @@ export function PlaygroundNavigator (): JSX.Element {
           component={PlaygroundScreen}
           name='PlaygroundScreen'
           options={{
-            headerTitle: () => <HeaderTitle text='DeFi Testing' />,
+            headerTitle: () => <HeaderTitle text='DeFi Testing' containerTestID='playground_header_container' />,
             headerBackTitleVisible: false
           }}
         />

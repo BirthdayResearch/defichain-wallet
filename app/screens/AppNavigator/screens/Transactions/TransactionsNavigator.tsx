@@ -20,6 +20,8 @@ export interface TransactionsParamList {
 const TransactionsStack = createStackNavigator<TransactionsParamList>()
 
 export function TransactionsNavigator (): JSX.Element {
+  const hederContainerTestId = 'transactions_header_container'
+
   return (
     <TransactionsStack.Navigator
       initialRouteName='TransactionsScreen'
@@ -29,7 +31,7 @@ export function TransactionsNavigator (): JSX.Element {
         component={TransactionsScreen}
         name='TransactionsScreen'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/TransactionsScreen', 'Transactions')} />
+          headerTitle: () => <HeaderTitle text={translate('screens/TransactionsScreen', 'Transactions')} containerTestID={hederContainerTestId} />
         }}
       />
 
@@ -37,7 +39,7 @@ export function TransactionsNavigator (): JSX.Element {
         component={TransactionDetailScreen}
         name='TransactionDetail'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/TransactionsDetailScreen', 'Transaction')} />,
+          headerTitle: () => <HeaderTitle text={translate('screens/TransactionsDetailScreen', 'Transaction')} containerTestID={hederContainerTestId} />,
           headerBackTitleVisible: false
         }}
       />

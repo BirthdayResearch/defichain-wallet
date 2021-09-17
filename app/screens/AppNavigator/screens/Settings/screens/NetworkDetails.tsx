@@ -19,35 +19,35 @@ export function NetworkDetails (): JSX.Element {
     <ThemedScrollView testID='network_details'>
 
       <ThemedSectionTitle
-        testID='current_connection_detail_title'
+        testID='network_details_current_connection'
         text={translate('screens/NetworkDetails', 'YOU ARE CURRENTLY CONNECTED TO')}
       />
 
       <TextRow
         lhs={translate('screens/NetworkDetails', 'Network')}
-        rhs={{ value: network, testID: 'network' }}
+        rhs={{ value: network, testID: 'network_details_network' }}
       />
 
       <NetworkStatusRow connected={connected} />
 
       <ThemedSectionTitle
-        testID='network_detail_title'
+        testID='network_details_block_info'
         text={translate('screens/NetworkDetails', 'NETWORK DETAILS')}
       />
 
       <TextRow
         lhs={translate('screens/NetworkDetails', 'Last synced')}
-        rhs={{ value: syncFormattedDate, testID: 'last_sync' }}
+        rhs={{ value: syncFormattedDate, testID: 'network_details_last_sync' }}
       />
 
       <NumberRow
         lhs={translate('screens/NetworkDetails', 'Block height')}
-        rightHandElements={[{ value: blockCount ?? '', testID: 'block_height' }]}
+        rightHandElements={[{ value: blockCount ?? '', testID: 'network_details_block_height' }]}
       />
 
       <NumberRow
         lhs={translate('screens/NetworkDetails', 'Total masternodes')}
-        rightHandElements={[{ value: masternodeCount ?? '', testID: 'total_masternodes' }]}
+        rightHandElements={[{ value: masternodeCount ?? '', testID: 'network_details_total_masternodes' }]}
       />
     </ThemedScrollView>
   )
@@ -71,13 +71,13 @@ function NetworkStatusRow ({ connected }: {connected: boolean}): JSX.Element {
       >
         <View
           style={tailwind(`h-3 w-3 rounded-full ${connected ? 'bg-green-500' : 'bg-red-500'} mr-1.5`)}
-          testID='status_icon_network'
+          testID='network_details_status_icon'
         />
         <ThemedText
           dark={tailwind('text-gray-400')}
           light={tailwind('text-gray-500')}
           style={tailwind('font-medium text-right')}
-          testID='status_value'
+          testID='network_details_status_value'
         >
           {translate('screens/NetworkDetails', connected ? 'Connected' : 'Disconnected')}
         </ThemedText>

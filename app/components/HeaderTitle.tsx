@@ -10,14 +10,25 @@ import { ThemedIcon, ThemedText } from './themed'
 
 type SubHeadingType = 'Status' | 'NetworkSelect'
 
+interface HeaderTitleProps {
+  text?: string
+  subHeadingType?: SubHeadingType
+  testID?: string
+  containerTestID?: string
+  onPress?: () => void
+  disabled?: boolean
+  children?: JSX.Element
+}
+
 export function HeaderTitle ({
   text,
   subHeadingType = 'Status',
   testID,
   onPress,
   disabled,
+  containerTestID,
   children
-}: { text?: string, subHeadingType?: SubHeadingType, testID?: string, onPress?: () => void, disabled?: boolean, children?: JSX.Element }): JSX.Element {
+}: HeaderTitleProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
 
   const goToNetworkDetails = (): void => {
@@ -28,6 +39,7 @@ export function HeaderTitle ({
     <TouchableOpacity
       disabled={disabled}
       onPress={onPress ?? goToNetworkDetails}
+      testID={containerTestID}
       style={tailwind(`flex-col ${Platform.OS === 'ios' ? 'items-center' : ''}`)}
     >
       {text !== undefined &&

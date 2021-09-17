@@ -31,14 +31,14 @@ const SettingsStack = createStackNavigator<SettingsParamList>()
 
 export function SettingsNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
-
+  const hederContainerTestId = 'setting_header_container'
   return (
     <SettingsStack.Navigator screenOptions={{ headerTitleStyle: HeaderFont }}>
       <SettingsStack.Screen
         component={SettingsScreen}
         name='SettingsScreen'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/SettingsNavigator', 'Settings')} />,
+          headerTitle: () => <HeaderTitle text={translate('screens/SettingsNavigator', 'Settings')} containerTestID={hederContainerTestId} />,
           headerRightContainerStyle: tailwind('px-2 py-2'),
           headerRight: (): JSX.Element => (
             <TouchableOpacity
@@ -61,7 +61,7 @@ export function SettingsNavigator (): JSX.Element {
         component={CommunityScreen}
         name='CommunityScreen'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/CommunityScreen', 'Community')} />,
+          headerTitle: () => <HeaderTitle text={translate('screens/CommunityScreen', 'Community')} containerTestID={hederContainerTestId} />,
           headerBackTitleVisible: false
         }}
       />
@@ -70,7 +70,7 @@ export function SettingsNavigator (): JSX.Element {
         component={RecoveryWordsScreen}
         name='RecoveryWordsScreen'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/Settings', 'Recovery Words')} />,
+          headerTitle: () => <HeaderTitle text={translate('screens/Settings', 'Recovery Words')} containerTestID={hederContainerTestId} />,
           headerBackTitleVisible: false
         }}
       />
@@ -79,7 +79,7 @@ export function SettingsNavigator (): JSX.Element {
         component={AboutScreen}
         name='AboutScreen'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/AboutScreen', 'About')} />,
+          headerTitle: () => <HeaderTitle text={translate('screens/AboutScreen', 'About')} containerTestID={hederContainerTestId} />,
           headerBackTitleVisible: false
         }}
       />
