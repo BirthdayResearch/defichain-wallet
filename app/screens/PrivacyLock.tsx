@@ -18,7 +18,7 @@ function shouldReauthenticate (): boolean {
 
   const lastActive = APP_LAST_ACTIVE.timestamp
   if (lastActive === undefined) {
-    return false
+    return true
   }
 
   const env = getEnvironment()
