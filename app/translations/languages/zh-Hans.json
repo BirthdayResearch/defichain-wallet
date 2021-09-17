@@ -46,7 +46,7 @@
     "Paste wallet address here": "Paste wallet address here",
     "Where do you want to send?": "Where do you want to send?",
     "How much do you want to send?": "How much do you want to send?",
-    "Available: ": "Available: "
+    "Available": "Available"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "确认发出",
@@ -66,11 +66,14 @@
     "Convert DFI": "转换 DFI",
     "Scan recipient QR": "扫一扫 QR 二维条码",
     "Balance": "总资金",
-    "Enter an amount": "输入数量",
     "UTXO vs Token, what is the difference?": "UXTO和代币的区别是什么？",
     "CONVERT {{symbol}}": "转换 {{symbol}}",
     "TO {{symbol}}": "至 {{symbol}}",
-    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要预留一些可使用的 UTXO (0.1 DFI (UTXO)) 作为费用"
+    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要预留一些可使用的 UTXO (0.1 DFI (UTXO)) 作为费用",
+    "How much {{symbol}} to convert?": "How much {{symbol}} to convert?",
+    "Available": "Available",
+    "After conversion, you will receive": "After conversion, you will receive",
+    "Review full transaction details in the next screen": "Review full transaction details in the next screen"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "确认要转换 DFI",

@@ -46,7 +46,7 @@
     "Paste wallet address here": "Paste wallet address here",
     "Where do you want to send?": "Where do you want to send?",
     "How much do you want to send?": "How much do you want to send?",
-    "Available: ": "Available: "
+    "Available": "Available"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Senden bestätigen",
@@ -66,11 +66,14 @@
     "Convert DFI": "Wandle DFI um",
     "Scan recipient QR": "QR-Code des Empfängers scannen",
     "Balance": "Guthaben",
-    "Enter an amount": "Betrag eingeben",
     "UTXO vs Token, what is the difference?": "UXTO vs Token, worin liegt der Unterschied?",
     "CONVERT {{symbol}}": "UMWANDELN {{symbol}}",
     "TO {{symbol}}": "IN {{symbol}}",
-    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert."
+    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
+    "How much {{symbol}} to convert?": "How much {{symbol}} to convert?",
+    "Available": "Available",
+    "After conversion, you will receive": "After conversion, you will receive",
+    "Review full transaction details in the next screen": "Review full transaction details in the next screen"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Bestätige DFI Konvertierung",
