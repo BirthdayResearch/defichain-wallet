@@ -524,7 +524,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
             ]
           }
         >
-          Total Masternodes
+          Total masternodes
         </Text>
       </View>
       <View

@@ -46,7 +46,7 @@ export function NetworkDetails (): JSX.Element {
       />
 
       <NumberRow
-        lhs={translate('screens/NetworkDetails', 'Total Masternodes')}
+        lhs={translate('screens/NetworkDetails', 'Total masternodes')}
         rightHandElements={[{ value: masternodeCount ?? '', testID: 'total_masternodes' }]}
       />
     </ThemedScrollView>
