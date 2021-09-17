@@ -80,7 +80,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   )
 }
 
-function BalanceItemRow ({ token, onPress }: { token: WalletToken, onPress: () => void }): JSX.Element {
+function BalanceItemRow ({
+  token,
+  onPress
+}: { token: WalletToken, onPress: () => void }): JSX.Element {
   const Icon = getNativeIcon(token.avatarSymbol)
   const testID = `balances_row_${token.id}`
   return (

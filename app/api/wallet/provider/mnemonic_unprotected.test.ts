@@ -19,7 +19,9 @@ describe('getMnemonicHdNodeProvider', () => {
       }
     }
     const options = EnvironmentNetwork.LocalPlayground
-    expect(() => { MnemonicUnprotected.initProvider(data, options) }).toThrowError('Unexpected WalletPersistenceData')
+    expect(() => {
+      MnemonicUnprotected.initProvider(data, options)
+    }).toThrowError('Unexpected WalletPersistenceData')
   })
 
   it('should get provider (abandon x23)', async () => {

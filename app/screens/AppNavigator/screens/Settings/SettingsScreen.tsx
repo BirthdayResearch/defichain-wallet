@@ -4,10 +4,14 @@ import {
   ThemedScrollView,
   ThemedSectionTitle,
   ThemedText,
-  ThemedTouchableOpacity
+  ThemedTouchableOpacity,
+  ThemedView
 } from '@components/themed'
+import { Switch } from '@components/index'
 import { WalletAlert } from '@components/WalletAlert'
+import { usePrivacyLockContext } from '@contexts/LocalAuthContext'
 import { useNetworkContext } from '@contexts/NetworkContext'
+import { useWalletNodeContext } from '@contexts/WalletNodeProvider'
 import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
 import { EnvironmentNetwork } from '@environment'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -28,8 +32,9 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   const { network } = useNetworkContext()
   const dispatch = useDispatch()
   const walletContext = useWalletPersistenceContext()
-  const wallet = walletContext.wallets[0]
-  const isEncrypted = wallet.type === 'MNEMONIC_ENCRYPTED'
+  const localAuth = usePrivacyLockContext()
+  const { data: { type } } = useWalletNodeContext()
+  const isEncrypted = type === 'MNEMONIC_ENCRYPTED'
 
   const revealRecoveryWords = useCallback(() => {
     if (!isEncrypted) {
@@ -53,7 +58,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   }, [dispatch, isEncrypted, navigation])
 
   const changePasscode = useCallback(() => {
-    if (wallet.type !== 'MNEMONIC_ENCRYPTED') {
+    if (!isEncrypted) {
       return
     }
 
@@ -77,7 +82,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
     }
 
     dispatch(authentication.actions.prompt(auth))
-  }, [wallet, dispatch, navigation])
+  }, [walletContext.wallets[0], dispatch, navigation])
 
   return (
     <ThemedScrollView
@@ -100,20 +105,30 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         testID='security_title'
         text={translate('screens/Settings', 'SECURITY')}
       />
-
-      <NavigateItemRow
-        label='Recovery Words'
-        onPress={revealRecoveryWords}
-        testID='view_recovery_words'
-      />
-
+      {
+        localAuth.isDeviceProtected && (
+          <PrivacyLockToggle
+            value={localAuth.isEnabled}
+            onToggle={async () => {
+              await localAuth.togglePrivacyLock()
+            }}
+          />
+        )
+      }
       {
         isEncrypted && (
-          <NavigateItemRow
-            label='Change Passcode'
-            onPress={changePasscode}
-            testID='view_change_passcode'
-          />
+          <>
+            <NavigateItemRow
+              label='Recovery Words'
+              onPress={revealRecoveryWords}
+              testID='view_recovery_words'
+            />
+            <NavigateItemRow
+              label='Change Passcode'
+              onPress={changePasscode}
+              testID='view_change_passcode'
+            />
+          </>
         )
       }
 
@@ -204,6 +219,28 @@ function RowExitWalletItem (): JSX.Element {
         {translate('screens/Settings', 'UNLINK WALLET')}
       </ThemedText>
     </ThemedTouchableOpacity>
+  )
+}
+
+function PrivacyLockToggle ({
+  value,
+  onToggle
+}: { disabled?: boolean, value: boolean, onToggle: (newValue: boolean) => void }): JSX.Element {
+  return (
+    <ThemedView
+      light={tailwind('bg-white border-b border-gray-200')}
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      style={tailwind('flex p-4 pr-2 flex-row items-center justify-between')}
+    >
+      <ThemedText testID='text_privacy_lock' style={tailwind('font-medium')}>
+        {translate('screens/Settings', 'Privacy Lock')}
+      </ThemedText>
+      <Switch
+        onValueChange={onToggle}
+        value={value}
+        testID='switch_privacy_lock'
+      />
+    </ThemedView>
   )
 }
 

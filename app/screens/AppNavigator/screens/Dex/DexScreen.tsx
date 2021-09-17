@@ -58,20 +58,24 @@ export function DexScreen (): JSX.Element {
                   onRemove={() => onRemove((poolPairData as DexItem<PoolPairData>)?.data)}
                   pair={poolPairData?.data}
                 />
-                )
-              }
-              return (
-                <SkeletonLoader
-                  row={1}
-                  screen={SkeletonLoaderScreen.Dex}
-                />
               )
+            }
+            return (
+              <SkeletonLoader
+                row={1}
+                screen={SkeletonLoaderScreen.Dex}
+              />
+            )
           case 'available':
             return (
               <PoolPairRowAvailable
                 data={item.data}
                 onAdd={() => onAdd(item.data)}
-                onSwap={() => navigation.navigate({ name: 'PoolSwap', params: { poolpair: item.data }, merge: true })}
+                onSwap={() => navigation.navigate({
+                  name: 'PoolSwap',
+                  params: { poolpair: item.data },
+                  merge: true
+                })}
               />
             )
           default:
@@ -149,8 +153,8 @@ function PoolPairRowYour ({
   pair
 }: { data: AddressToken, onAdd: () => void, onRemove: () => void, pair?: PoolPairData }): JSX.Element {
   const [symbolA, symbolB] = (pair?.tokenA != null && pair?.tokenB != null)
-                            ? [pair.tokenA.displaySymbol, pair.tokenB.displaySymbol]
-                            : data.symbol.split('-')
+    ? [pair.tokenA.displaySymbol, pair.tokenB.displaySymbol]
+    : data.symbol.split('-')
   const IconA = getNativeIcon(symbolA)
   const IconB = getNativeIcon(symbolB)
   const toRemove = new BigNumber(1).times(data.amount).decimalPlaces(8, BigNumber.ROUND_DOWN)
@@ -239,8 +243,8 @@ function PoolPairRowAvailable ({
   onSwap
 }: { data: PoolPairData, onAdd: () => void, onSwap: () => void }): JSX.Element {
   const [symbolA, symbolB] = (data?.tokenA != null && data?.tokenB != null)
-                            ? [data.tokenA.displaySymbol, data.tokenB.displaySymbol]
-                            : data.symbol.split('-')
+    ? [data.tokenA.displaySymbol, data.tokenB.displaySymbol]
+    : data.symbol.split('-')
   const IconA = getNativeIcon(symbolA)
   const IconB = getNativeIcon(symbolB)
   const symbol = `${symbolA}-${symbolB}`

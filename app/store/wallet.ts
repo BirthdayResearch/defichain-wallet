@@ -8,6 +8,7 @@ export interface WalletState {
   tokens: WalletToken[]
   poolpairs: DexItem[]
 }
+
 export interface WalletToken extends AddressToken {
   avatarSymbol: string
 }
@@ -57,7 +58,11 @@ const setTokenDetails = (t: AddressToken): WalletToken => {
     displaySymbol = tokenA === 'DFI' ? `${tokenA}-d${tokenB}` : `d${tokenA}-${tokenB}`
     avatarSymbol = t.symbol
   }
-  return { ...t, displaySymbol, avatarSymbol }
+  return {
+    ...t,
+    displaySymbol,
+    avatarSymbol
+  }
 }
 
 export const wallet = createSlice({
