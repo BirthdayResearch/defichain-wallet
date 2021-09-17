@@ -300,12 +300,14 @@
     "Keep your recovery words safe and private": "Sichere deinen Wiederherstellungssatz und bewahre ihn sicher auf"
   },
   "screens/AddLiquidity": {
-    "Enter an amount": "Betrag eingeben",
     "Balance": "Guthaben",
     "per": "pro",
     "Share of pool": "Anteil am Gesamtpool",
     "Pooled": "Im Pool",
-    "Price": "Preis"
+    "Price": "Preis",
+    "See full details in next page to confirm": "See full details in next page to confirm",
+    "How much {{symbol}} to supply?": "How much {{symbol}} to supply?",
+    "Available": "Available"
   },
   "screens/ConfirmAddLiq": {
     "YOU ARE ADDING": "DU FÜGST HINZU",

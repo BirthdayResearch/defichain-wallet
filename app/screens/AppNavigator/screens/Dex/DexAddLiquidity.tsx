@@ -168,7 +168,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
     >
       <WalletTextInput
         onChangeText={txt => props.onChange(txt)}
-        placeholder={translate('screens/AddLiquidity', '0.00')}
+        placeholder='0.00'
         style={tailwind('flex-1 mr-4')}
         testID={`token_input_${props.type}`}
         value={props.current}
@@ -249,7 +249,7 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
   return (
     <Button
       disabled={!props.enabled}
-      label={translate('screens/SendScreen', 'CONTINUE')}
+      label={translate('components/Button', 'CONTINUE')}
       onPress={props.onPress}
       testID='button_continue_add_liq'
       title='Continue'
