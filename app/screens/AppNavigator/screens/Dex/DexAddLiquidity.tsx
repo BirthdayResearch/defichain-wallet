@@ -1,17 +1,16 @@
+import { InputHelperText } from '@components/InputHelperText'
+import { WalletTextInput } from '@components/WalletTextInput'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useCallback, useEffect, useState } from 'react'
-import NumberFormat from 'react-number-format'
 import { View } from '../../../../components'
 import { Button } from '../../../../components/Button'
-import { getNativeIcon } from '../../../../components/icons/assets'
-import { IconLabelScreenType, InputIconLabel } from '../../../../components/InputIconLabel'
 import { NumberRow } from '../../../../components/NumberRow'
 import { AmountButtonTypes, SetAmountButton } from '../../../../components/SetAmountButton'
-import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView, ThemedTextInput } from '../../../../components/themed'
+import { ThemedScrollView, ThemedView, ThemedText } from '../../../../components/themed'
 import { usePoolPairsAPI } from '../../../../hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
 import { tailwind } from '../../../../tailwind'
@@ -103,7 +102,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   }
 
   return (
-    <ThemedScrollView style={tailwind('w-full flex-col flex-1')}>
+    <ThemedScrollView contentContainerStyle={tailwind('px-4 py-8')} style={tailwind('w-full flex-col flex-1')}>
       <TokenInput
         balance={balanceA}
         current={tokenAAmount}
@@ -148,89 +147,53 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
           })
         }}
       />
+
+      <ThemedText
+        light={tailwind('text-gray-600')}
+        dark={tailwind('text-gray-300')}
+        style={tailwind('mt-4 text-center')}
+      >
+        {translate('screens/AddLiquidity', 'See full details in next page to confirm')}
+      </ThemedText>
     </ThemedScrollView>
   )
 }
 
 function TokenInput (props: { symbol: string, balance: BigNumber, current: string, type: EditingAmount, onChange: (amount: string) => void }): JSX.Element {
-  const TokenIcon = getNativeIcon(props.symbol)
-
   return (
-    <View>
-      <ThemedSectionTitle
-        testID={`token_input_${props.type}_title`}
-        text={translate('screens/AddLiquidity', `TOKEN ${props.type === 'primary' ? 'A' : 'B'}`)}
-      />
-
-      <ThemedView
-        dark={tailwind('bg-gray-800')}
-        light={tailwind('bg-white')}
-        style={tailwind('flex-col w-full items-center')}
+    <ThemedView
+      dark={tailwind('bg-transparent')}
+      light={tailwind('bg-transparent')}
+      style={tailwind('flex-col w-full')}
+    >
+      <WalletTextInput
+        onChangeText={txt => props.onChange(txt)}
+        placeholder={translate('screens/AddLiquidity', '0.00')}
+        style={tailwind('flex-1 mr-4')}
+        testID={`token_input_${props.type}`}
+        value={props.current}
+        title={translate('screens/AddLiquidity', 'How much {{symbol}} to supply?', { symbol: props.symbol })}
+        titleTestID={`token_input_${props.type}_title`}
+        inputType='numeric'
       >
-        <View style={tailwind('w-full flex-row items-center')}>
-          <ThemedTextInput
-            onChangeText={txt => props.onChange(txt)}
-            placeholder={translate('screens/AddLiquidity', 'Enter an amount')}
-            style={tailwind('flex-1 mr-4 p-4')}
-            testID={`token_input_${props.type}`}
-            value={props.current}
-          />
-
-          <View style={tailwind('justify-center flex-row items-center pr-4')}>
-            <TokenIcon />
-
-            <InputIconLabel
-              label={props.symbol}
-              screenType={IconLabelScreenType.DEX}
-            />
-          </View>
-        </View>
-
-        <ThemedView
-          dark={tailwind('border-t border-gray-700')}
-          light={tailwind('border-t border-gray-200')}
-          style={tailwind('w-full px-4 py-2 flex-row items-center')}
-        >
-          <View style={tailwind('flex-row flex-1 flex-wrap mr-2')}>
-            <ThemedText>
-              {translate('screens/AddLiquidity', 'Balance')}
-              :
-
-              {' '}
-            </ThemedText>
-
-            <NumberFormat
-              decimalScale={8}
-              displayType='text'
-              renderText={(value) => (
-                <ThemedText
-                  dark={tailwind('text-gray-300')}
-                  light={tailwind('text-gray-500')}
-                  testID={`token_balance_${props.type}`}
-                >
-                  {value}
-                </ThemedText>
-              )}
-              suffix={` ${props.symbol}`}
-              thousandSeparator
-              value={props.balance.toFixed(8)}
-            />
-          </View>
-
-          <SetAmountButton
-            amount={props.balance}
-            onPress={props.onChange}
-            type={AmountButtonTypes.half}
-          />
-
-          <SetAmountButton
-            amount={props.balance}
-            onPress={props.onChange}
-            type={AmountButtonTypes.max}
-          />
-        </ThemedView>
-      </ThemedView>
-    </View>
+        <SetAmountButton
+          amount={props.balance}
+          onPress={props.onChange}
+          type={AmountButtonTypes.half}
+        />
+        <SetAmountButton
+          amount={props.balance}
+          onPress={props.onChange}
+          type={AmountButtonTypes.max}
+        />
+      </WalletTextInput>
+      <InputHelperText
+        testID={`token_balance_${props.type}`}
+        label={`${translate('screens/AddLiquidity', 'Available')}: `}
+        content={props.balance.toFixed(8)}
+        suffix={` ${props.symbol}`}
+      />
+    </ThemedView>
   )
 }
 
@@ -284,15 +247,14 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
 
 function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
   return (
-    <View style={tailwind('m-3')}>
-      <Button
-        disabled={!props.enabled}
-        label={translate('screens/SendScreen', 'CONTINUE')}
-        onPress={props.onPress}
-        testID='button_continue_add_liq'
-        title='Continue'
-      />
-    </View>
+    <Button
+      disabled={!props.enabled}
+      label={translate('screens/SendScreen', 'CONTINUE')}
+      onPress={props.onPress}
+      testID='button_continue_add_liq'
+      title='Continue'
+      margin='mt-12 mx-0'
+    />
   )
 }
 
