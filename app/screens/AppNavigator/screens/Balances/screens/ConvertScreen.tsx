@@ -180,7 +180,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
       </ThemedView>
       <InputHelperText
         testID='source_balance'
-        label={translate('screens/ConvertScreen', 'Available: ')}
+        label={`${translate('screens/ConvertScreen', 'Available')}: `}
         content={props.balance.toFixed(8)}
         suffix=' DFI'
       />

@@ -255,7 +255,7 @@ function AmountRow ({ token, control, reset, getValues, onAmountButtonPress }: A
 
       <InputHelperText
         testID='max_value'
-        label={translate('screens/SendScreen', 'Available: ')}
+        label={`${translate('screens/SendScreen', 'Available')}: `}
         content={maxAmount}
         suffix={` ${token.displaySymbol}`}
       />
