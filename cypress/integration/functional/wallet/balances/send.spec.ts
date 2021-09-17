@@ -56,7 +56,6 @@ context('Wallet - Send', function () {
 
     it('should be able to display elements', function () {
       cy.getByTestID('qr_code_button').should('be.visible')
-      cy.getByTestID('token_symbol').should('contain', 'DFI')
     })
 
     it('should contain info text when sending UTXO', function () {
