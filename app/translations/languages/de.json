@@ -39,13 +39,14 @@
   "screens/SendScreen": {
     "Send": "Senden",
     "Estimated fee": "Geschätzte Gebühr",
-    "CONTINUE": "FORTSETZEN",
-    "TO ADDRESS": "AN ADRESSE",
-    "Enter an address": "Gib eine Adresse ein",
-    "Enter an amount": "Gib eine Menge ein",
-    "Balance: ": "Guthaben: ",
+    "CONTINUE": "FORTSETZEN",                
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
-    "SEND": "SENDEN"
+    "SEND": "SENDEN",
+    "See full details in next page to confirm": "See full details in next page to confirm",
+    "Paste wallet address here": "Paste wallet address here",
+    "Where do you want to send?": "Where do you want to send?",
+    "How much do you want to send?": "How much do you want to send?",
+    "Available: ": "Available: "
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Senden bestätigen",

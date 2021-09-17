@@ -40,12 +40,13 @@
     "Send": "移出資金",
     "Estimated fee": "所需費用（大約）",
     "CONTINUE": "繼續",
-    "TO ADDRESS": "發送到這個地址",
-    "Enter an address": "請輸入接收方地址",
-    "Enter an amount": "請輸入資金數量",
-    "Balance: ": "總資金 ",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要預留一些可使用的 UTXO (0.1 DFI (UTXO)) 作為費用",
-    "SEND": "移出資金"
+    "SEND": "移出資金",
+    "See full details in next page to confirm": "See full details in next page to confirm",
+    "Paste wallet address here": "Paste wallet address here",
+    "Where do you want to send?": "Where do you want to send?",
+    "How much do you want to send?": "How much do you want to send?",
+    "Available: ": "Available: "
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "確認發出",
