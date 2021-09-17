@@ -54,7 +54,7 @@ export function PrivacyLock (): JSX.Element {
     }
   }, [])
 
-  if (privacyLock.isAuthenticating) {
+  if (privacyLock.isAuthenticating || APP_LAST_ACTIVE.force) {
     return (
       <ThemedView
         style={tailwind('h-full w-full')} light={tailwind('bg-gray-200')}
