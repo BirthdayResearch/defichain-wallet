@@ -125,7 +125,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
         dark={tailwind('text-gray-300')}
         style={tailwind('mt-4 text-center')}
       >
-        {translate('screens/SendScreen', 'See full details in next page to confirm ')}
+        {translate('screens/SendScreen', 'See full details in next page to confirm')}
       </ThemedText>
     </ThemedScrollView>
   )
@@ -212,7 +212,7 @@ function AmountRow ({ token, control, reset, getValues, onAmountButtonPress }: A
             <WalletTextInput
               autoCapitalize='none'
               onChangeText={onChange}
-              placeholder={translate('screens/SendScreen', 'Enter an amount')}
+              placeholder='0.00'
               style={tailwind('flex-1 pb-1')}
               testID='amount_input'
               value={value}
@@ -257,7 +257,7 @@ function AmountRow ({ token, control, reset, getValues, onAmountButtonPress }: A
         testID='max_value'
         label={translate('screens/SendScreen', 'Available: ')}
         content={maxAmount}
-        suffix={token.displaySymbol}
+        suffix={` ${token.displaySymbol}`}
       />
     </>
   )

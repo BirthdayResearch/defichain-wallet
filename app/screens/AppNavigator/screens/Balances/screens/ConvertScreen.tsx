@@ -182,7 +182,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
         testID='source_balance'
         label={translate('screens/ConvertScreen', 'Available: ')}
         content={props.balance.toFixed(8)}
-        suffix='DFI'
+        suffix=' DFI'
       />
     </View>
   )
