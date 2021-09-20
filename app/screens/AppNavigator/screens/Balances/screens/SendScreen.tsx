@@ -1,5 +1,6 @@
 import { InfoText } from '@components/InfoText'
 import { InputHelperText } from '@components/InputHelperText'
+import { NumberRow } from '@components/NumberRow'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
@@ -7,7 +8,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
-import { Control, Controller, FieldValues, useForm, UseFormGetValues, UseFormReset } from 'react-hook-form'
+import { Control, Controller, FieldValues, useForm, UseFormSetValue } from 'react-hook-form'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Logging } from '../../../../../api'
@@ -37,7 +38,9 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const client = useWhaleApiClient()
   const tokens = useTokensAPI()
   const [token, setToken] = useState(route.params.token)
-  const { control, setValue, formState: { isValid }, getValues, trigger, reset } = useForm({ mode: 'onChange' })
+  const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({
+    mode: 'onChange'
+  })
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -86,12 +89,13 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
           name: 'BarCodeScanner',
           params: {
             onQrScanned: async (value) => {
-              setValue('address', value)
+              setValue('address', value, { shouldDirty: true })
               await trigger('address')
             }
           },
           merge: true
         })}
+        setValue={setValue}
       />
 
       <AmountRow
@@ -100,8 +104,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
           setValue('amount', amount, { shouldDirty: true })
           await trigger('amount')
         }}
-        reset={reset}
-        getValues={getValues}
+        setValue={setValue}
         token={token}
       />
 
@@ -110,6 +113,17 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
           testID='send_info_text'
           text={translate('screens/SendScreen', 'A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.')}
         />}
+
+      {
+        fee !== undefined && (
+          <View style={tailwind('mt-6')}>
+            <NumberRow
+              lhs={translate('screens/SendScreen', 'Estimated fee')}
+              rightHandElements={[{ value: fee.toString(), suffix: ' DFI (UTXO)', testID: 'transaction_fee' }]}
+            />
+          </View>
+        )
+      }
 
       <Button
         disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
@@ -134,13 +148,15 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
 function AddressRow ({
   control,
   networkName,
-  onQrButtonPress
-}: { control: Control, networkName: NetworkName, onQrButtonPress: () => void }): JSX.Element {
+  onQrButtonPress,
+  setValue
+}: { control: Control, networkName: NetworkName, onQrButtonPress: () => void, setValue: UseFormSetValue<FieldValues>}): JSX.Element {
+  const defaultValue = ''
   return (
     <>
       <Controller
         control={control}
-        defaultValue=''
+        defaultValue={defaultValue}
         name='address'
         render={({ field: { value, onBlur, onChange } }) => (
           <View style={tailwind('flex-row w-full mb-6')}>
@@ -153,6 +169,8 @@ function AddressRow ({
               style={tailwind('w-4/5 flex-grow pb-1')}
               testID='address_input'
               value={value}
+              displayClearButton={value !== defaultValue}
+              onClearButtonPress={() => setValue('address', defaultValue)}
               title={translate('screens/SendScreen', 'Where do you want to send?')}
               titleTestID='title_to_address'
               inputType='default'
@@ -189,21 +207,21 @@ function AddressRow ({
 interface AmountForm {
   control: Control
   token: WalletToken
-  reset: UseFormReset<FieldValues>
-  getValues: UseFormGetValues<FieldValues>
+  setValue: UseFormSetValue<FieldValues>
   onAmountButtonPress: (amount: string) => void
 }
 
-function AmountRow ({ token, control, reset, getValues, onAmountButtonPress }: AmountForm): JSX.Element {
+function AmountRow ({ token, control, setValue, onAmountButtonPress }: AmountForm): JSX.Element {
   let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(0.1).toFixed(8) : token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
+  const defaultValue = ''
   return (
     <>
       <Controller
         control={control}
-        defaultValue=''
+        defaultValue={defaultValue}
         name='amount'
-        render={({ field: { onChange, value }, fieldState: { isDirty } }) => (
+        render={({ field: { onChange, value } }) => (
           <ThemedView
             dark={tailwind('bg-transparent')}
             light={tailwind('bg-transparent')}
@@ -213,11 +231,11 @@ function AmountRow ({ token, control, reset, getValues, onAmountButtonPress }: A
               autoCapitalize='none'
               onChangeText={onChange}
               placeholder='0.00'
-              style={tailwind('flex-1 pb-1')}
+              style={tailwind('flex-1 items-baseline')}
               testID='amount_input'
               value={value}
-              displayClearButton={true && isDirty}
-              onClearButtonPress={() => reset({ ...getValues(), amount: '' })}
+              displayClearButton={value !== defaultValue}
+              onClearButtonPress={() => setValue('amount', defaultValue)}
               title={translate('screens/SendScreen', 'How much do you want to send?')}
               titleTestID='title_send'
               inputType='numeric'
