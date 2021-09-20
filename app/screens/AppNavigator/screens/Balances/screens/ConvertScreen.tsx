@@ -167,7 +167,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
           onChange={event => {
             props.onChange(event.nativeEvent.text)
           }}
-          placeholder='0.00'
+          placeholder={translate('screens/ConvertScreen', 'Enter an amount')}
           style={tailwind('flex-1 text-gray-500 px-1')}
           testID={`text_input_convert_from_${props.mode}`}
           value={props.current}

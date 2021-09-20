@@ -46,6 +46,7 @@
     "Paste wallet address here": "Wallet Adresse eingeben",
     "Where do you want to send?": "Wohin möchtest du senden?",
     "How much do you want to send?": "Wie viel möchtest du senden?",
+    "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar"
   },
   "screens/SendConfirmationScreen": {
@@ -71,6 +72,7 @@
     "TO {{symbol}}": "IN {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
     "How much {{symbol}} to convert?": "Wieviele {{symbol}} umzuwandeln?",
+    "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
     "After conversion, you will receive": "Nach der Konvertierung erhältst du",
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion"
@@ -307,6 +309,7 @@
     "Price": "Preis",
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
     "How much {{symbol}} to supply?": "Wie viele {{symbol}} hinzufügen?",
+    "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar"
   },
   "screens/ConfirmAddLiq": {

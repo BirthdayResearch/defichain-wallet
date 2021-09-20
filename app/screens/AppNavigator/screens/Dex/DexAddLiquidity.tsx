@@ -168,7 +168,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
     >
       <WalletTextInput
         onChangeText={txt => props.onChange(txt)}
-        placeholder='0.00'
+        placeholder={translate('screens/AddLiquidity', 'Enter an amount')}
         style={tailwind('flex-1')}
         testID={`token_input_${props.type}`}
         value={props.current}

@@ -46,6 +46,7 @@
     "Paste wallet address here": "请输入并确认地址无误",
     "Where do you want to send?": "您想发送到哪里?",
     "How much do you want to send?": "您想发送多少资金?",
+    "Enter an amount": "请输入数量",
     "Available": "可发送资金"
   },
   "screens/SendConfirmationScreen": {
@@ -71,6 +72,7 @@
     "TO {{symbol}}": "至 {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要预留一些可使用的 UTXO (0.1 DFI (UTXO)) 作为费用",
     "How much {{symbol}} to convert?": "您要转换多少 {{symbol}}?",
+    "Enter an amount": "请输入数量",
     "Available": "可转换资金",
     "After conversion, you will receive": "转换后您会收到",
     "Review full transaction details in the next screen": "您想提供多少 {{symbol}} 流动资金"
@@ -308,6 +310,7 @@
     "Price": "价格",
     "Review full transaction details in the next screen": "请在下一步确认交易明细",
     "How much {{symbol}} to supply?": "您想提供多少 {{symbol}} 流动资金?",
+    "Enter an amount": "请输入数量",
     "Available": "可提供资金"
   },
   "screens/ConfirmAddLiq": {

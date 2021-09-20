@@ -237,7 +237,7 @@ function AmountRow ({ token, control, setValue, onAmountButtonPress }: AmountFor
             <WalletTextInput
               autoCapitalize='none'
               onChangeText={onChange}
-              placeholder='0.00'
+              placeholder={translate('screens/SendScreen', 'Enter an amount')}
               style={tailwind('flex-1 items-baseline')}
               testID='amount_input'
               value={value}
