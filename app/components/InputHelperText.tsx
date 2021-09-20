@@ -12,6 +12,7 @@ interface InputHelperTextProps {
 export function InputHelperText (props: InputHelperTextProps): JSX.Element {
   return (
     <ThemedView
+      testID={props.testID}
       light={tailwind('bg-transparent')}
       dark={tailwind('bg-transparent')}
       style={tailwind('flex-1 flex-row flex-wrap mt-1 mb-4 text-sm')}
