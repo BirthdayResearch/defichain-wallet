@@ -23,7 +23,7 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
     inputType,
     title,
     titleTestID,
-    valid,
+    valid = true,
     inlineValidationText,
     displayClearButton = false,
     onClearButtonPress,
@@ -32,9 +32,6 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
     ...otherProps
   } = props
 
-  const isInvalid = (): boolean => {
-    return valid === false
-  }
   const hasInlineValidation = (): boolean => {
     return inlineValidationText !== undefined
   }
@@ -57,8 +54,8 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
           style={tailwind('text-base')}
         />}
       <ThemedView
-        light={tailwind(`bg-white ${isInvalid() ? 'border-error-500' : (isFocus ? 'border-primary-300' : 'border-gray-300')}`)}
-        dark={tailwind(`bg-gray-800 ${isInvalid() ? 'border-darkerror-500' : (isFocus ? 'border-darkprimary-300' : 'border-gray-600')}`)}
+        light={tailwind(`bg-white ${!valid ? 'border-error-500' : (isFocus ? 'border-primary-300' : 'border-gray-300')}`)}
+        dark={tailwind(`bg-gray-800 ${!valid ? 'border-darkerror-500' : (isFocus ? 'border-darkprimary-300' : 'border-gray-600')}`)}
         style={tailwind('flex-col w-full border rounded mt-2')}
       >
         <ThemedView
