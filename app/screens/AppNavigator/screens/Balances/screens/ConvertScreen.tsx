@@ -99,6 +99,7 @@ export function ConvertScreen (props: Props): JSX.Element {
         style={tailwind('mt-1')}
         unit={sourceToken.unit}
         title={translate('screens/ConvertScreen', 'How much {{symbol}} to convert?', { symbol: sourceToken.unit })}
+        onClearButtonPress={() => setAmount('')}
       />
 
       <ToggleModeButton onPress={() => setMode(mode === 'utxosToAccount' ? 'accountToUtxos' : 'utxosToAccount')} />
@@ -149,7 +150,7 @@ function getDFIBalances (mode: ConversionMode, tokens: AddressToken[]): [source:
   ]
 }
 
-function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' | 'output', unit: 'UTXO' | 'Token', current: string, balance: BigNumber, onChange: (amount: string) => void, title: string }): JSX.Element {
+function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' | 'output', unit: 'UTXO' | 'Token', current: string, balance: BigNumber, onChange: (amount: string) => void, title: string, onClearButtonPress: () => void }): JSX.Element {
   return (
     <View style={[tailwind('flex-col w-full'), props.style]}>
       <ThemedView
@@ -163,12 +164,14 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
             props.onChange(event.nativeEvent.text)
           }}
           placeholder='0.00'
-          style={tailwind('flex-1 mr-4 text-gray-500 px-1')}
+          style={tailwind('flex-1 text-gray-500 px-1')}
           testID={`text_input_convert_from_${props.mode}`}
           value={props.current}
           inputType='numeric'
           title={props.title}
           titleTestID={`text_input_convert_from_${props.mode}_text`}
+          displayClearButton={props.current !== ''}
+          onClearButtonPress={props.onClearButtonPress}
         >
           {props.mode === 'input' &&
             <SetAmountButton

@@ -111,6 +111,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
         }}
         symbol={pair?.tokenA?.displaySymbol}
         type='primary'
+        onClearButtonPress={() => setTokenAAmount('')}
       />
 
       <TokenInput
@@ -121,6 +122,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
         }}
         symbol={pair?.tokenB?.displaySymbol}
         type='secondary'
+        onClearButtonPress={() => setTokenBAmount('')}
       />
 
       <Summary
@@ -159,7 +161,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   )
 }
 
-function TokenInput (props: { symbol: string, balance: BigNumber, current: string, type: EditingAmount, onChange: (amount: string) => void }): JSX.Element {
+function TokenInput (props: { symbol: string, balance: BigNumber, current: string, type: EditingAmount, onChange: (amount: string) => void, onClearButtonPress: () => void }): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-transparent')}
@@ -169,12 +171,14 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
       <WalletTextInput
         onChangeText={txt => props.onChange(txt)}
         placeholder='0.00'
-        style={tailwind('flex-1 mr-4')}
+        style={tailwind('flex-1')}
         testID={`token_input_${props.type}`}
         value={props.current}
         title={translate('screens/AddLiquidity', 'How much {{symbol}} to supply?', { symbol: props.symbol })}
         titleTestID={`token_input_${props.type}_title`}
         inputType='numeric'
+        displayClearButton={props.current !== ''}
+        onClearButtonPress={props.onClearButtonPress}
       >
         <SetAmountButton
           amount={props.balance}
