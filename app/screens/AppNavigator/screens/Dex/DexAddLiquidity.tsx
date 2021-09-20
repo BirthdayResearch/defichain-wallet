@@ -155,7 +155,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
         dark={tailwind('text-gray-300')}
         style={tailwind('mt-4 text-center')}
       >
-        {translate('screens/AddLiquidity', 'See full details in next page to confirm')}
+        {translate('screens/AddLiquidity', 'Review full transaction details in the next screen')}
       </ThemedText>
     </ThemedScrollView>
   )

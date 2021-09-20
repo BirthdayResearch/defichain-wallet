@@ -147,7 +147,7 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
         dark={tailwind('text-gray-300')}
         style={tailwind('mt-4 text-center')}
       >
-        {translate('screens/SendScreen', 'See full details in next page to confirm')}
+        {translate('screens/SendScreen', 'Review full transaction details in the next screen')}
       </ThemedText>
     </ThemedScrollView>
   )

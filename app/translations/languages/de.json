@@ -42,7 +42,7 @@
     "CONTINUE": "FORTSETZEN",                
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
     "SEND": "SENDEN",
-    "See full details in next page to confirm": "See full details in next page to confirm",
+    "Review full transaction details in the next screen": "Review full transaction details in the next screen",
     "Paste wallet address here": "Paste wallet address here",
     "Where do you want to send?": "Where do you want to send?",
     "How much do you want to send?": "How much do you want to send?",
@@ -305,7 +305,7 @@
     "Share of pool": "Anteil am Gesamtpool",
     "Pooled": "Im Pool",
     "Price": "Preis",
-    "See full details in next page to confirm": "See full details in next page to confirm",
+    "Review full transaction details in the next screen": "Review full transaction details in the next screen",
     "How much {{symbol}} to supply?": "How much {{symbol}} to supply?",
     "Available": "Available"
   },
