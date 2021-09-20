@@ -42,11 +42,11 @@
     "CONTINUE": "FORTSETZEN",                
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
     "SEND": "SENDEN",
-    "Review full transaction details in the next screen": "Review full transaction details in the next screen",
-    "Paste wallet address here": "Paste wallet address here",
-    "Where do you want to send?": "Where do you want to send?",
-    "How much do you want to send?": "How much do you want to send?",
-    "Available": "Available"
+    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
+    "Paste wallet address here": "Wallet Adresse eingeben",
+    "Where do you want to send?": "Wohin möchtest du senden?",
+    "How much do you want to send?": "Wie viel möchtest du senden?",
+    "Available": "Verfügbar"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Senden bestätigen",
@@ -70,10 +70,10 @@
     "CONVERT {{symbol}}": "{{symbol}} UMWANDELN",
     "TO {{symbol}}": "IN {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
-    "How much {{symbol}} to convert?": "How much {{symbol}} to convert?",
-    "Available": "Available",
-    "After conversion, you will receive": "After conversion, you will receive",
-    "Review full transaction details in the next screen": "Review full transaction details in the next screen"
+    "How much {{symbol}} to convert?": "Wieviele {{symbol}} umzuwandeln?",
+    "Available": "Verfügbar",
+    "After conversion, you will receive": "Nach der Konvertierung erhältst du",
+    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Bestätige DFI Konvertierung",
@@ -305,9 +305,9 @@
     "Share of pool": "Anteil am Gesamtpool",
     "Pooled": "Im Pool",
     "Price": "Preis",
-    "Review full transaction details in the next screen": "Review full transaction details in the next screen",
-    "How much {{symbol}} to supply?": "How much {{symbol}} to supply?",
-    "Available": "Available"
+    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
+    "How much {{symbol}} to supply?": "Wie viele {{symbol}} hinzufügen?",
+    "Available": "Verfügbar"
   },
   "screens/ConfirmAddLiq": {
     "YOU ARE ADDING": "DU FÜGST HINZU",
