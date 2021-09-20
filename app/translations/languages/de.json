@@ -333,6 +333,18 @@
     "Price": "Preis",
     "Removing {{amount}} {{symbol}}": "Entferne {{amount}} {{symbol}}"
   },
+  "screens/NetworkDetails": {
+    "Wallet Network": "Wallet Netzwerk",
+    "Network": "Netzwerk",
+    "Status": "Status",
+    "Connected": "Verbunden",
+    "Disconnected": "Nicht verbunden",
+    "Last synced": "Zuletzt synchronisiert",
+    "Block height": "Blockhöhe",
+    "Total Masternodes": "Anzahl an Masternodes",
+    "YOU ARE CURRENTLY CONNECTED TO": "DU BIST GERADE VERBUNDEN MIT",
+    "NETWORK DETAILS": "NETZWERK DETAILS"
+  },
   "components/slider": {
     "None": "Keine",
     "All": "Alle"

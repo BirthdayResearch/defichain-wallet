@@ -1,3 +1,5 @@
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import React from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { useSelector } from 'react-redux'
@@ -8,29 +10,53 @@ import { ThemedIcon, ThemedText } from './themed'
 
 type SubHeadingType = 'Status' | 'NetworkSelect'
 
+interface HeaderTitleProps {
+  text?: string
+  subHeadingType?: SubHeadingType
+  testID?: string
+  containerTestID?: string
+  onPress?: () => void
+  disabled?: boolean
+  children?: JSX.Element
+}
+
 export function HeaderTitle ({
   text,
   subHeadingType = 'Status',
   testID,
-  onPress
-}: { text: string, subHeadingType?: SubHeadingType, testID?: string, onPress?: () => void }): JSX.Element {
+  onPress,
+  disabled,
+  containerTestID,
+  children
+}: HeaderTitleProps): JSX.Element {
+  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+
+  const goToNetworkDetails = (): void => {
+    navigation.navigate('NetworkDetails')
+  }
+
   return (
     <TouchableOpacity
-      disabled={subHeadingType !== 'NetworkSelect'}
-      onPress={onPress}
+      disabled={disabled}
+      onPress={onPress ?? goToNetworkDetails}
+      testID={containerTestID}
       style={tailwind(`flex-col ${Platform.OS === 'ios' ? 'items-center' : ''}`)}
     >
-      <ThemedText
-        dark={tailwind('text-white text-opacity-90')}
-        light={tailwind('text-black')}
-        style={tailwind('font-semibold leading-5')}
-        testID={testID}
-      >
-        {text}
-      </ThemedText>
+      {text !== undefined &&
+        <>
+          <ThemedText
+            dark={tailwind('text-white text-opacity-90')}
+            light={tailwind('text-black')}
+            style={tailwind('font-semibold leading-5')}
+            testID={testID}
+          >
+            {text}
+          </ThemedText>
 
-      {subHeadingType === 'Status' && <ConnectionStatus />}
-      {subHeadingType === 'NetworkSelect' && <HeaderNetworkSelect />}
+          {subHeadingType === 'Status' && <ConnectionStatus />}
+          {subHeadingType === 'NetworkSelect' && <HeaderNetworkSelect />}
+        </>}
+      {children}
     </TouchableOpacity>
   )
 }
@@ -44,7 +70,6 @@ export function ConnectionStatus (): JSX.Element {
         style={tailwind(`h-2 w-2 rounded-full ${connected ? 'bg-green-500' : 'bg-red-500'} mr-1.5`)}
         testID='header_status_indicator'
       />
-
       <View style={tailwind('h-full')}>
         <ThemedText
           dark={tailwind('text-white text-opacity-70')}
