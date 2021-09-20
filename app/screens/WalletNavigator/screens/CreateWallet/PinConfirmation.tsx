@@ -1,4 +1,3 @@
-// import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
 import { Logging } from '../../../../api'
@@ -23,7 +22,6 @@ type Props = StackScreenProps<WalletParamList, 'PinConfirmation'>
 export function PinConfirmation ({ route }: Props): JSX.Element {
   const { network } = useNetworkContext()
   const { setWallet } = useWalletPersistenceContext()
-  // const navigation = useNavigation<NavigationProp<WalletParamList>>()
   const { pin, words, type } = route.params
   const [newPin, setNewPin] = useState('')
 

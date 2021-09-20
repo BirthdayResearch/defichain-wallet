@@ -1,8 +1,9 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
-import { HeaderFont } from '../../../../components'
-import { HeaderTitle } from '../../../../components/HeaderTitle'
-import { translate } from '../../../../translations'
+import { HeaderFont } from '@components/Text'
+import { HeaderTitle } from '@components/HeaderTitle'
+import { translate } from '@translations'
+import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { VMTransaction } from './screens/stateProcessor'
 import { TransactionDetailScreen } from './screens/TransactionDetailScreen'
 import { TransactionsScreen } from './TransactionsScreen'
@@ -19,6 +20,8 @@ export interface TransactionsParamList {
 const TransactionsStack = createStackNavigator<TransactionsParamList>()
 
 export function TransactionsNavigator (): JSX.Element {
+  const headerContainerTestId = 'transactions_header_container'
+
   return (
     <TransactionsStack.Navigator
       initialRouteName='TransactionsScreen'
@@ -28,7 +31,12 @@ export function TransactionsNavigator (): JSX.Element {
         component={TransactionsScreen}
         name='TransactionsScreen'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/TransactionsScreen', 'Transactions')} />
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/TransactionsScreen', 'Transactions')}
+              containerTestID={headerContainerTestId}
+            />
+          )
         }}
       />
 
@@ -36,7 +44,21 @@ export function TransactionsNavigator (): JSX.Element {
         component={TransactionDetailScreen}
         name='TransactionDetail'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/TransactionsDetailScreen', 'Transaction')} />,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/TransactionsDetailScreen', 'Transaction')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <TransactionsStack.Screen
+        component={NetworkDetails}
+        name='NetworkDetails'
+        options={{
+          headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
           headerBackTitleVisible: false
         }}
       />

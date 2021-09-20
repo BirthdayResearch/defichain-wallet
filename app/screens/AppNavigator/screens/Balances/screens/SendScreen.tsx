@@ -38,9 +38,13 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
   const client = useWhaleApiClient()
   const tokens = useTokensAPI()
   const [token, setToken] = useState(route.params.token)
-  const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({
-    mode: 'onChange'
-  })
+  const {
+    control,
+    setValue,
+    formState: { isValid },
+    getValues,
+    trigger
+  } = useForm({ mode: 'onChange' })
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -119,7 +123,11 @@ export function SendScreen ({ route, navigation }: Props): JSX.Element {
           <View style={tailwind('mt-6')}>
             <NumberRow
               lhs={translate('screens/SendScreen', 'Estimated fee')}
-              rightHandElements={[{ value: fee.toString(), suffix: ' DFI (UTXO)', testID: 'transaction_fee' }]}
+              rightHandElements={[{
+                value: fee.toString(),
+                suffix: ' DFI (UTXO)',
+                testID: 'transaction_fee'
+              }]}
             />
           </View>
         )

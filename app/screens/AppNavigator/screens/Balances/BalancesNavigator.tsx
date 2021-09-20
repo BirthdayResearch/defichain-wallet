@@ -4,12 +4,13 @@ import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import { BarCodeScanner } from '../../../../components/BarCodeScanner'
-import { ConnectionStatus, HeaderTitle } from '../../../../components/HeaderTitle'
-import { getNativeIcon } from '../../../../components/icons/assets'
-import { ThemedText } from '../../../../components/themed'
-import { tailwind } from '../../../../tailwind'
-import { translate } from '../../../../translations'
+import { BarCodeScanner } from '@components/BarCodeScanner'
+import { ConnectionStatus, HeaderTitle } from '@components/HeaderTitle'
+import { getNativeIcon } from '@components/icons/assets'
+import { ThemedText } from '@components/themed'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
+import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { BalancesScreen } from './BalancesScreen'
 import { ConvertConfirmationScreen } from './screens/ConvertConfirmationScreen'
 import { ConversionMode, ConvertScreen } from './screens/ConvertScreen'
@@ -76,13 +77,19 @@ const BalanceStack = createStackNavigator<BalanceParamList>()
 
 export function BalancesNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+  const headerContainerTestId = 'balances_header_container'
   return (
     <BalanceStack.Navigator initialRouteName='BalancesScreen'>
       <BalanceStack.Screen
         component={BalancesScreen}
         name='BalancesScreen'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/BalancesScreen', 'Balances')} />,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/BalancesScreen', 'Balances')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
           headerBackTitleVisible: false,
           headerRight: () => (
             <BalanceActionButton
@@ -98,7 +105,12 @@ export function BalancesNavigator (): JSX.Element {
         component={ReceiveScreen}
         name='Receive'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/ReceiveScreen', 'Receive')} />,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ReceiveScreen', 'Receive')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
           headerBackTitleVisible: false
         }}
       />
@@ -107,7 +119,12 @@ export function BalancesNavigator (): JSX.Element {
         component={SendScreen}
         name='Send'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/SendScreen', 'Send')} />,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/SendScreen', 'Send')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
           headerBackTitleVisible: false
         }}
       />
@@ -116,8 +133,13 @@ export function BalancesNavigator (): JSX.Element {
         component={SendConfirmationScreen}
         name='SendConfirmationScreen'
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => <HeaderTitle text={translate('screens/SendConfirmationScreen', 'Confirm Send')} />
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/SendConfirmationScreen', 'Confirm Send')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
         }}
       />
 
@@ -125,24 +147,26 @@ export function BalancesNavigator (): JSX.Element {
         component={TokenDetailScreen}
         name='TokenDetail'
         options={({ route }: { route: any }) => ({
-          headerBackTitleVisible: false,
           headerTitle: () => {
             const token = route?.params?.token
             const Icon = getNativeIcon(token.avatarSymbol)
             return (
-              <View style={tailwind('flex-row items-center')}>
-                <Icon />
+              <HeaderTitle containerTestID={headerContainerTestId}>
+                <View style={tailwind('flex-row items-center')}>
+                  <Icon />
 
-                <View style={tailwind('flex-col ml-2')}>
-                  <ThemedText style={tailwind('font-semibold')}>
-                    {token.displaySymbol}
-                  </ThemedText>
+                  <View style={tailwind('flex-col ml-2')}>
+                    <ThemedText style={tailwind('font-semibold')}>
+                      {token.displaySymbol}
+                    </ThemedText>
 
-                  <ConnectionStatus />
+                    <ConnectionStatus />
+                  </View>
                 </View>
-              </View>
+              </HeaderTitle>
             )
-          }
+          },
+          headerBackTitleVisible: false
         })}
       />
 
@@ -150,7 +174,12 @@ export function BalancesNavigator (): JSX.Element {
         component={ConvertScreen}
         name='Convert'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/ConvertScreen', 'Convert DFI')} />,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ConvertScreen', 'Convert DFI')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
           headerBackTitleVisible: false
         }}
       />
@@ -160,7 +189,12 @@ export function BalancesNavigator (): JSX.Element {
         name='ConvertConfirmationScreen'
         options={{
           headerBackTitleVisible: false,
-          headerTitle: () => <HeaderTitle text={translate('screens/ConvertConfirmScreen', 'Confirm DFI Conversion')} />
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ConvertConfirmScreen', 'Confirm DFI Conversion')}
+              containerTestID={headerContainerTestId}
+            />
+          )
         }}
       />
 
@@ -168,7 +202,12 @@ export function BalancesNavigator (): JSX.Element {
         component={BarCodeScanner}
         name='BarCodeScanner'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/ConvertScreen', 'Scan recipient QR')} />,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ConvertScreen', 'Scan recipient QR')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
           headerBackTitleVisible: false
         }}
       />
@@ -177,7 +216,21 @@ export function BalancesNavigator (): JSX.Element {
         component={TokensVsUtxoScreen}
         name='TokensVsUtxo'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/ConvertScreen', 'UTXO vs Token')} />,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ConvertScreen', 'UTXO vs Token')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={NetworkDetails}
+        name='NetworkDetails'
+        options={{
+          headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
           headerBackTitleVisible: false
         }}
       />

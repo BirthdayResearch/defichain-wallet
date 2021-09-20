@@ -39,13 +39,13 @@ context('Wallet - DEX - Pool Swap with balance', () => {
       cy.getByTestID('button_submit').should('not.have.attr', 'disabled')
 
       // Invalid tokenA - NaN, more than Max, zero
-      cy.getByTestID('text_input_tokenA').clear().type('a')
+      cy.getByTestID('text_input_tokenA').clear().type('a').blur().wait(100)
       cy.getByTestID('text_input_tokenA').should('have.value', '0')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(0).toFixed(8))
       cy.getByTestID('button_submit').should('have.attr', 'disabled')
-      cy.getByTestID('text_input_tokenA').clear().type('15')
+      cy.getByTestID('text_input_tokenA').clear().type('15').blur().wait(100)
       cy.getByTestID('button_submit').should('have.attr', 'disabled')
-      cy.getByTestID('text_input_tokenA').clear().type('0')
+      cy.getByTestID('text_input_tokenA').clear().type('0').blur().wait(100)
       cy.getByTestID('button_submit').should('have.attr', 'disabled')
     })
   })

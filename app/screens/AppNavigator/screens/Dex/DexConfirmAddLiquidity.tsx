@@ -46,8 +46,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const pair = props.route.params.pair
   const [isSubmitting, setIsSubmitting] = useState(false)
   const pairSymbol = (tokenA?.displaySymbol != null && tokenB?.displaySymbol != null)
-                    ? `${tokenA?.displaySymbol}-${tokenB?.displaySymbol}`
-                    : symbol
+    ? `${tokenA?.displaySymbol}-${tokenB?.displaySymbol}`
+    : symbol
   const aToBRate = new BigNumber(tokenB.reserve).div(tokenA.reserve)
   const bToARate = new BigNumber(tokenA.reserve).div(tokenB.reserve)
   const lmTokenAmount = percentage.times(totalLiquidity.token)
@@ -141,8 +141,16 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Price')}
         rightHandElements={[
-          { value: aToBRate.toFixed(8), suffix: ` ${tokenB?.displaySymbol} per ${tokenA?.displaySymbol}`, testID: 'price_a' },
-          { value: bToARate.toFixed(8), suffix: ` ${tokenA?.displaySymbol} per ${tokenB?.displaySymbol}`, testID: 'price_b' }
+          {
+            value: aToBRate.toFixed(8),
+            suffix: ` ${tokenB?.displaySymbol} per ${tokenA?.displaySymbol}`,
+            testID: 'price_a'
+          },
+          {
+            value: bToARate.toFixed(8),
+            suffix: ` ${tokenA?.displaySymbol} per ${tokenB?.displaySymbol}`,
+            testID: 'price_b'
+          }
         ]}
       />
 
@@ -153,12 +161,20 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${tokenA?.displaySymbol}` })}
-        rightHandElements={[{ value: tokenA.reserve, suffix: ` ${tokenA.displaySymbol}`, testID: 'pooled_a' }]}
+        rightHandElements={[{
+          value: tokenA.reserve,
+          suffix: ` ${tokenA.displaySymbol}`,
+          testID: 'pooled_a'
+        }]}
       />
 
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${tokenB?.displaySymbol}` })}
-        rightHandElements={[{ value: tokenB.reserve, suffix: ` ${tokenB.displaySymbol}`, testID: 'pooled_b' }]}
+        rightHandElements={[{
+          value: tokenB.reserve,
+          suffix: ` ${tokenB.displaySymbol}`,
+          testID: 'pooled_b'
+        }]}
       />
 
       <NumberRow
@@ -193,8 +209,14 @@ async function constructSignedAddLiqAndSend (
         from: [{
           script,
           balances: [
-            { token: addLiqForm.tokenAId, amount: addLiqForm.tokenAAmount },
-            { token: addLiqForm.tokenBId, amount: addLiqForm.tokenBAmount }
+            {
+              token: addLiqForm.tokenAId,
+              amount: addLiqForm.tokenAAmount
+            },
+            {
+              token: addLiqForm.tokenBId,
+              amount: addLiqForm.tokenBAmount
+            }
           ]
         }],
         shareAddress: script

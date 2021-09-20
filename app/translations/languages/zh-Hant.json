@@ -340,6 +340,18 @@
     "Price": "價格",
     "Removing {{amount}} {{symbol}}": "退出 {{amount}} {{symbol}}"
   },
+  "screens/NetworkDetails": {
+    "Wallet Network": "錢包網絡",
+    "Network": "網絡",
+    "Status": "狀況",
+    "Connected": "已連接",
+    "Disconnected": "沒有連接",
+    "Last synced": "上次同步",
+    "Block height": "區塊高度",
+    "Total Masternodes": "總主節點",
+    "YOU ARE CURRENTLY CONNECTED TO": "現在你已連接到",
+    "NETWORK DETAILS": "網絡資料"
+  },
   "components/slider": {
     "None": "無",
     "All": "所有"

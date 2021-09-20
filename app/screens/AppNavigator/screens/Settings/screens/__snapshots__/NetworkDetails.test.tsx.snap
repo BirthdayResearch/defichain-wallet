@@ -1,0 +1,586 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
+<RCTScrollView
+  style={
+    Array [
+      undefined,
+      Object {
+        "backgroundColor": "rgba(245, 245, 245, 1)",
+      },
+    ]
+  }
+  testID="network_details"
+>
+  <View>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+              "fontFamily": "MediumFont",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 24,
+            },
+            Object {
+              "backgroundColor": "rgba(245, 245, 245, 1)",
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
+      }
+      testID="network_details_current_connection"
+      text="YOU ARE CURRENTLY CONNECTED TO"
+    >
+      YOU ARE CURRENTLY CONNECTED TO
+    </Text>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+            "flexDirection": "row",
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+            "width": "100%",
+          },
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Network
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
+                  "textAlign": "right",
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+          testID="network_details_network"
+        >
+          Playground
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+            "width": "100%",
+          },
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "MediumFont",
+                "fontWeight": "500",
+              },
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        Status
+      </Text>
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            },
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            Object {
+              "backgroundColor": "rgba(16, 185, 129, 1)",
+              "borderBottomLeftRadius": 9999,
+              "borderBottomRightRadius": 9999,
+              "borderTopLeftRadius": 9999,
+              "borderTopRightRadius": 9999,
+              "height": 12,
+              "marginRight": 6,
+              "width": 12,
+            }
+          }
+          testID="network_details_status_icon"
+        />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Array [
+                  Object {
+                    "fontFamily": "MediumFont",
+                    "fontWeight": "500",
+                    "textAlign": "right",
+                  },
+                  Object {
+                    "lineHeight": 20,
+                  },
+                ],
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+          testID="network_details_status_value"
+        >
+          Connected
+        </Text>
+      </View>
+    </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+              "fontFamily": "MediumFont",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 24,
+            },
+            Object {
+              "backgroundColor": "rgba(245, 245, 245, 1)",
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
+      }
+      testID="network_details_block_info"
+      text="NETWORK DETAILS"
+    >
+      NETWORK DETAILS
+    </Text>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+            "flexDirection": "row",
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+            "width": "100%",
+          },
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Last synced
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
+                  "textAlign": "right",
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+          testID="network_details_last_sync"
+        >
+          Sep 14, 9:07 pm
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+            "flexDirection": "row",
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+            "width": "100%",
+          },
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Block height
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flexBasis": "0%",
+            "flexDirection": "column",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "color": "rgba(115, 115, 115, 1)",
+                    "flexWrap": "wrap",
+                    "fontFamily": "MediumFont",
+                    "fontWeight": "500",
+                    "textAlign": "right",
+                  },
+                  Object {
+                    "color": "rgba(115, 115, 115, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="network_details_block_height"
+          >
+            2,000
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+            "flexDirection": "row",
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+            "width": "100%",
+          },
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Total Masternodes
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flexBasis": "0%",
+            "flexDirection": "column",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "color": "rgba(115, 115, 115, 1)",
+                    "flexWrap": "wrap",
+                    "fontFamily": "MediumFont",
+                    "fontWeight": "500",
+                    "textAlign": "right",
+                  },
+                  Object {
+                    "color": "rgba(115, 115, 115, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="network_details_total_masternodes"
+          >
+            10
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;

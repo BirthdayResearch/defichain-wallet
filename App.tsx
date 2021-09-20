@@ -1,18 +1,20 @@
 import * as SplashScreen from 'expo-splash-screen'
 import React from 'react'
 import './_shim'
-import { Logging } from './app/api'
-import { DeFiScanProvider } from './app/contexts/DeFiScanContext'
-import { NetworkProvider } from './app/contexts/NetworkContext'
-import { StatsProvider } from './app/contexts/StatsProvider'
-import { StoreProvider } from './app/contexts/StoreProvider'
-import { ThemeProvider, useTheme } from './app/contexts/ThemeProvider'
-import { WalletPersistenceProvider } from './app/contexts/WalletPersistenceContext'
-import { WhaleProvider } from './app/contexts/WhaleContext'
-import { useCachedResources } from './app/hooks/useCachedResources'
+import { Logging } from '@api'
+import { AppStateContextProvider } from '@contexts/AppStateContext'
+import { DeFiScanProvider } from '@contexts/DeFiScanContext'
+import { PrivacyLockContextProvider } from '@contexts/LocalAuthContext'
+import { NetworkProvider } from '@contexts/NetworkContext'
+import { StatsProvider } from '@contexts/StatsProvider'
+import { StoreProvider } from '@contexts/StoreProvider'
+import { ThemeProvider, useTheme } from '@contexts/ThemeProvider'
+import { WalletPersistenceProvider } from '@contexts/WalletPersistenceContext'
+import { WhaleProvider } from '@contexts/WhaleContext'
+import { useCachedResources } from '@hooks/useCachedResources'
 import ConnectionBoundary from './app/screens/ConnectionBoundary/ConnectionBoundary'
 import ErrorBoundary from './app/screens/ErrorBoundary/ErrorBoundary'
-import { Main } from './app/screens/Main'
+import { Main } from '@screens/Main'
 import { LanguageProvider, useLanguage } from '@contexts/LanguageProvider'
 
 /**
@@ -38,25 +40,29 @@ export default function App (): JSX.Element | null {
 
   return (
     <ErrorBoundary>
-      <NetworkProvider>
-        <WhaleProvider>
-          <DeFiScanProvider>
-            <WalletPersistenceProvider>
-              <StoreProvider>
-                <StatsProvider>
-                  <ThemeProvider>
-                    <LanguageProvider>
-                      <ConnectionBoundary>
-                        <Main />
-                      </ConnectionBoundary>
-                    </LanguageProvider>
-                  </ThemeProvider>
-                </StatsProvider>
-              </StoreProvider>
-            </WalletPersistenceProvider>
-          </DeFiScanProvider>
-        </WhaleProvider>
-      </NetworkProvider>
+      <AppStateContextProvider>
+        <PrivacyLockContextProvider>
+          <NetworkProvider>
+            <WhaleProvider>
+              <DeFiScanProvider>
+                <WalletPersistenceProvider>
+                  <StoreProvider>
+                    <StatsProvider>
+                      <ThemeProvider>
+                        <LanguageProvider>
+                          <ConnectionBoundary>
+                            <Main />
+                          </ConnectionBoundary>
+                        </LanguageProvider>
+                      </ThemeProvider>
+                    </StatsProvider>
+                  </StoreProvider>
+                </WalletPersistenceProvider>
+              </DeFiScanProvider>
+            </WhaleProvider>
+          </NetworkProvider>
+        </PrivacyLockContextProvider>
+      </AppStateContextProvider>
     </ErrorBoundary>
   )
 }

@@ -108,7 +108,11 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
 
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Amount')}
-        rightHandElements={[{ value: amount.toFixed(8), suffix: ` ${token.displaySymbol}`, testID: 'text_amount' }]}
+        rightHandElements={[{
+          value: amount.toFixed(8),
+          suffix: ` ${token.displaySymbol}`,
+          testID: 'text_amount'
+        }]}
       />
 
       <NumberRow
@@ -175,7 +179,10 @@ async function send ({
     dispatch(transactionQueue.actions.push({
       sign: signer,
       title: translate('screens/SendConfirmationScreen', 'Sending', { symbol: token.displaySymbol }),
-      description: translate('screens/SendConfirmationScreen', 'Sending {{amount}} {{symbol}}', { amount: amount.toFixed(8), symbol: token.displaySymbol }),
+      description: translate('screens/SendConfirmationScreen', 'Sending {{amount}} {{symbol}}', {
+        amount: amount.toFixed(8),
+        symbol: token.displaySymbol
+      }),
       postAction
     }))
   } catch (e) {

@@ -130,7 +130,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   }, [])
 
   const onTaskCompletion = (): void => {
-    setPin('') // cached PIN cleared upon each task completion
+    setPin('')
     setIsRetry(false)
     setMessage(DEFAULT_MESSAGES.message)
     setLoadingMessage(DEFAULT_MESSAGES.loadingMessage)
@@ -234,7 +234,7 @@ export function TransactionAuthorization (): JSX.Element | null {
     }
   }, [transaction, wallet, status, authentication, attemptsRemaining])
 
-  // auto resolve promptPassphrase promise using cached pin if available
+  // auto resolve with cached pin if any
   useEffect(() => {
     if (status === 'PIN' && pin.length === PIN_LENGTH) {
       onPinInput(pin)
