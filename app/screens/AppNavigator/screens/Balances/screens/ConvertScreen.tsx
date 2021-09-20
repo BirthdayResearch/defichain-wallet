@@ -129,7 +129,7 @@ export function ConvertScreen (props: Props): JSX.Element {
       <ThemedText
         light={tailwind('text-gray-600')}
         dark={tailwind('text-gray-300')}
-        style={tailwind('mt-4 text-center')}
+        style={tailwind('mt-4 text-center text-sm')}
       >
         {translate('screens/ConvertScreen', 'Review full transaction details in the next screen')}
       </ThemedText>
