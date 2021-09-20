@@ -17,13 +17,13 @@ context('Wallet - Settings', () => {
     })
   })
 
-  it('should be abled to change language in language selection screen', function () {
+  it('should be able to change language in language selection screen', function () {
     cy.getByTestID('setting_navigate_language_selection').click()
     cy.getByTestID('language_option').contains('Deutsch')
     cy.getByTestID('language_option_description').contains('German')
     cy.getByTestID('button_language_German').click()
     cy.on('window:confirm', (message: string) => {
-      expect(message).to.include('Deutsch')
+      expect(message).to.include('German')
     })
     cy.getByTestID('bottom_tab_balances').contains('Guthaben').should('exist')
   })
