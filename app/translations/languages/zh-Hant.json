@@ -1,7 +1,7 @@
 {
   "screens/WalletNavigator": {
     "Guidelines": "指導方針",
-    "Learn More": "了解更多",
+    "Recovery Words FAQ": "恢復字組常見問題",
     "Display recovery words": "顯示恢復字組",
     "Verify words": "確認字組",
     "Restore Wallet": "恢復錢包",
@@ -397,5 +397,18 @@
   "screens/OnboardingNetworkSelectScreen": {
     "SELECT NETWORK": "切換網絡",
     "You are about to switch to {{network}}. Do you want to proceed?": "您正要切換至 {{network}}，確認並繼續？"
+  },
+  "components/RecoveryWordFaq": {
+    "What happens if I lose my recovery words?": "如果我遺失了恢復字組會怎樣？",
+    "Once you lose your recovery words, you will not be able to restore your wallet and any funds within it. We encourage you to be responsible with your recovery words.": "如果遺失恢復字組, 使用者將無法恢復錢包及所儲存的資產。建議使用者必須好好保管及存放。",
+    "Can I use the 24-words from xxx that I created from xxx?": "如果我的24單詞是透過 xxx 產生，可以使用嗎？",
+    "You can only reuse the 24-words only if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.SWISS (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per computer / device / app is encouraged.": "Du kannst lediglich 24 Wörter verwenden, die aus der Jellyfish Entwicklerumgebung stammen.\n\nKompatibel sind die DeFiChain Wallet (Android/iOS) und DFX.SWISS (Android/iOS).\n\nAllerdings wird sehr davon abgeraten, die Wörter wiederzuverwenden. Deine 24 Wörter sind nur so sicher wie die Anwendung / das Gerät, die / das sie erzeugt. Grundsätzlich wird pro Computer / Gerät / App jeweils ein eigener Wiederherstellungssatz empfohlen.",
+    "Can someone help me if I lose my recovery words?": "如果我遺失了恢復字組可以求助於別人嗎？",
+    "No. You have sole access to your recovery words. No one is responsible and liable for it except you.": "不建議。個人的24個單詞是不應該透露給任可人。除了自己，沒有人有責任和義務給你保管。",
+    "Why is it recommended to keep my recovery words offline and on paper?": "為何建議用離線方式或紙張來紀錄保存 24個單詞？",
+    "Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.": "Die Speicherung in digitalen Netzen könnte sie für Hacker zugänglich machen. Am besten ist es, sie auf Papier zu schreiben und sie sicher und vor Einblicken geschützt aufzubewahren.",
+    "Recovery words": "恢復字組",
+    "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "你的連續顯示24個英文單詞是指儲存在錢包的private key，它由2048個單字所產生的，支持BIP-39 標準的錢包。就算整個硬體錢包被盗或入侵，仍然可以確保安全的。",
+    "FREQUENTLY ASKED QUESTIONS": "常見問題"
   }
 }

@@ -153,7 +153,7 @@ export function WalletNavigator (): JSX.Element {
           component={RecoveryWordsFaq}
           name='RecoveryWordsFaq'
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Recovery Words FAQs'),
+            headerTitle: translate('screens/WalletNavigator', 'Recovery Words FAQ'),
             headerBackTitleVisible: false
           }}
         />
