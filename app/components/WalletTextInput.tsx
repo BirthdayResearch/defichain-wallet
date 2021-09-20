@@ -75,7 +75,13 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
             keyboardType={inputType}
             {...otherProps}
           />
-          {hasClearButton() && <ClearButton onPress={onClearButtonPress} />}
+          {
+            hasClearButton() &&
+              <ClearButton
+                onPress={onClearButtonPress}
+                testID={props.testID !== undefined ? `${props.testID}_clear_button` : undefined}
+              />
+          }
           {children}
         </ThemedView>
       </ThemedView>
@@ -93,9 +99,10 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
   )
 }
 
-function ClearButton (props: {onPress?: () => void}): JSX.Element {
+function ClearButton (props: {onPress?: () => void, testID?: string}): JSX.Element {
   return (
     <ThemedTouchableOpacity
+      testID={props.testID}
       light={tailwind('bg-gray-800')}
       dark={tailwind('bg-gray-100')}
       style={tailwind('mx-2 border-0 rounded-full')}

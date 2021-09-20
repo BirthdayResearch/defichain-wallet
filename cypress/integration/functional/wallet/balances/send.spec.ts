@@ -39,9 +39,13 @@ context('Wallet - Send', function () {
       cy.getByTestID('address_input').type(addresses[0])
       cy.getByTestID('amount_input').type('0.1')
       cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
+      cy.getByTestID('amount_input_clear_button').click()
+      cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
 
       // Invalid address
       cy.getByTestID('address_input').type('z')
+      cy.getByTestID('send_submit_button').should('have.attr', 'disabled')
+      cy.getByTestID('address_input_clear_button').click()
       cy.getByTestID('send_submit_button').should('have.attr', 'disabled')
 
       // Invalid amount - Character, over max amount, zero
