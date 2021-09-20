@@ -4,7 +4,7 @@ import { ThemedView, ThemedText, ThemedTextInput, ThemedTouchableOpacity, Themed
 import { tailwind } from '@tailwind'
 
 type WalletTextInputProps = React.PropsWithChildren<TextInputProps> & IWalletTextInputProps
-type InputType = 'default' | 'numeric'
+export type InputType = 'default' | 'numeric'
 
 interface IWalletTextInputProps {
   inputType: InputType
