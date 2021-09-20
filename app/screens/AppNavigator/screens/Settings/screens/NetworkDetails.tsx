@@ -3,16 +3,21 @@ import { RootState } from '@store'
 import React from 'react'
 import dayjs from 'dayjs'
 import { useSelector } from 'react-redux'
-import { View } from '../../../../../components'
-import { ThemedText, ThemedSectionTitle, ThemedScrollView, ThemedView } from '../../../../../components/themed'
-import { tailwind } from '../../../../../tailwind'
-import { translate } from '../../../../../translations'
+import { View } from '@components/index'
+import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import { TextRow } from '@components/TextRow'
 import { NumberRow } from '@components/NumberRow'
 
 export function NetworkDetails (): JSX.Element {
   const { network } = useNetworkContext()
-  const { connected, count: blockCount, masternodeCount, lastSync } = useSelector((state: RootState) => state.block)
+  const {
+    connected,
+    count: blockCount,
+    masternodeCount,
+    lastSync
+  } = useSelector((state: RootState) => state.block)
   const syncFormattedDate = (lastSync != null) ? dayjs(lastSync).format('MMM D, h:mm a') : ''
 
   return (
@@ -46,8 +51,11 @@ export function NetworkDetails (): JSX.Element {
       />
 
       <NumberRow
-        lhs={translate('screens/NetworkDetails', 'Total masternodes')}
-        rightHandElements={[{ value: masternodeCount ?? '', testID: 'network_details_total_masternodes' }]}
+        lhs={translate('screens/NetworkDetails', 'Total Masternodes')}
+        rightHandElements={[{
+          value: masternodeCount ?? '',
+          testID: 'network_details_total_masternodes'
+        }]}
       />
     </ThemedScrollView>
   )
@@ -76,7 +84,7 @@ function NetworkStatusRow ({ connected }: {connected: boolean}): JSX.Element {
         <ThemedText
           dark={tailwind('text-gray-400')}
           light={tailwind('text-gray-500')}
-          style={tailwind('font-medium text-right')}
+          style={[tailwind('font-medium text-right'), { lineHeight: 20 }]}
           testID='network_details_status_value'
         >
           {translate('screens/NetworkDetails', connected ? 'Connected' : 'Disconnected')}

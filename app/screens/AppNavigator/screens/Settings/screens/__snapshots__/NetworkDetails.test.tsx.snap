@@ -224,11 +224,16 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
                 "lineHeight": 24,
               },
               Array [
-                Object {
-                  "fontFamily": "MediumFont",
-                  "fontWeight": "500",
-                  "textAlign": "right",
-                },
+                Array [
+                  Object {
+                    "fontFamily": "MediumFont",
+                    "fontWeight": "500",
+                    "textAlign": "right",
+                  },
+                  Object {
+                    "lineHeight": 20,
+                  },
+                ],
                 Object {
                   "color": "rgba(115, 115, 115, 1)",
                 },
@@ -524,7 +529,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
             ]
           }
         >
-          Total masternodes
+          Total Masternodes
         </Text>
       </View>
       <View

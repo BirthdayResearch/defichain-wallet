@@ -71,7 +71,7 @@ export function WalletNavigator (): JSX.Element {
   const navigationRef = React.useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null)
   const createMnemonicWalletRef = React.useRef<CreateMnemonicWalletHandle>()
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
-  const hederContainerTestId = 'wallet_header_container'
+  const headerContainerTestId = 'wallet_header_container'
 
   const goToNetworkSelect = (): void => {
     // @ts-expect-error
@@ -129,7 +129,13 @@ export function WalletNavigator (): JSX.Element {
           component={CreateWalletGuidelines}
           name='CreateWalletGuidelines'
           options={{
-            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Guidelines')} subHeadingType='NetworkSelect' onPress={goToNetworkSelect} containerTestID={hederContainerTestId} />,
+            headerTitle: () => (
+              <HeaderTitle
+                text={translate('screens/WalletNavigator', 'Guidelines')}
+                subHeadingType='NetworkSelect' onPress={goToNetworkSelect}
+                containerTestID={headerContainerTestId}
+              />
+            ),
             headerBackTitleVisible: false
           }}
         />
@@ -156,7 +162,12 @@ export function WalletNavigator (): JSX.Element {
           component={CreateMnemonicWalletWrapper}
           name='CreateMnemonicWallet'
           options={{
-            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Display recovery words')} containerTestID={hederContainerTestId} />,
+            headerTitle: () => (
+              <HeaderTitle
+                text={translate('screens/WalletNavigator', 'Display recovery words')}
+                containerTestID={headerContainerTestId}
+              />
+            ),
             headerRightContainerStyle: tailwind('px-2 py-2'),
             headerRight: (): JSX.Element => (
               <TouchableOpacity
@@ -180,7 +191,12 @@ export function WalletNavigator (): JSX.Element {
           component={VerifyMnemonicWallet}
           name='VerifyMnemonicWallet'
           options={{
-            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Verify words')} containerTestID={hederContainerTestId} />,
+            headerTitle: () => (
+              <HeaderTitle
+                text={translate('screens/WalletNavigator', 'Verify words')}
+                containerTestID={headerContainerTestId}
+              />
+            ),
             headerBackTitleVisible: false
           }}
         />
@@ -189,7 +205,13 @@ export function WalletNavigator (): JSX.Element {
           component={RestoreMnemonicWallet}
           name='RestoreMnemonicWallet'
           options={{
-            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Restore Wallet')} subHeadingType='NetworkSelect' onPress={goToNetworkSelect} containerTestID={hederContainerTestId} />,
+            headerTitle: () => (
+              <HeaderTitle
+                text={translate('screens/WalletNavigator', 'Restore Wallet')}
+                subHeadingType='NetworkSelect' onPress={goToNetworkSelect}
+                containerTestID={headerContainerTestId}
+              />
+            ),
             headerBackTitleVisible: false
           }}
         />
@@ -198,7 +220,12 @@ export function WalletNavigator (): JSX.Element {
           component={PinCreation}
           name='PinCreation'
           options={{
-            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Create a passcode')} containerTestID={hederContainerTestId} />,
+            headerTitle: () => (
+              <HeaderTitle
+                text={translate('screens/WalletNavigator', 'Create a passcode')}
+                containerTestID={headerContainerTestId}
+              />
+            ),
             headerBackTitleVisible: false
           }}
         />
@@ -207,7 +234,12 @@ export function WalletNavigator (): JSX.Element {
           component={PinConfirmation}
           name='PinConfirmation'
           options={{
-            headerTitle: () => <HeaderTitle text={translate('screens/WalletNavigator', 'Verify passcode')} containerTestID={hederContainerTestId} />,
+            headerTitle: () => (
+              <HeaderTitle
+                text={translate('screens/WalletNavigator', 'Verify passcode')}
+                containerTestID={headerContainerTestId}
+              />
+            ),
             headerBackTitleVisible: false
           }}
         />

@@ -1,8 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
-import { HeaderFont } from '../../../../components'
-import { HeaderTitle } from '../../../../components/HeaderTitle'
-import { translate } from '../../../../translations'
+import { HeaderFont } from '@components/Text'
+import { HeaderTitle } from '@components/HeaderTitle'
+import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { VMTransaction } from './screens/stateProcessor'
 import { TransactionDetailScreen } from './screens/TransactionDetailScreen'
@@ -20,7 +20,7 @@ export interface TransactionsParamList {
 const TransactionsStack = createStackNavigator<TransactionsParamList>()
 
 export function TransactionsNavigator (): JSX.Element {
-  const hederContainerTestId = 'transactions_header_container'
+  const headerContainerTestId = 'transactions_header_container'
 
   return (
     <TransactionsStack.Navigator
@@ -31,7 +31,12 @@ export function TransactionsNavigator (): JSX.Element {
         component={TransactionsScreen}
         name='TransactionsScreen'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/TransactionsScreen', 'Transactions')} containerTestID={hederContainerTestId} />
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/TransactionsScreen', 'Transactions')}
+              containerTestID={headerContainerTestId}
+            />
+          )
         }}
       />
 
@@ -39,7 +44,12 @@ export function TransactionsNavigator (): JSX.Element {
         component={TransactionDetailScreen}
         name='TransactionDetail'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/TransactionsDetailScreen', 'Transaction')} containerTestID={hederContainerTestId} />,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/TransactionsDetailScreen', 'Transaction')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
           headerBackTitleVisible: false
         }}
       />

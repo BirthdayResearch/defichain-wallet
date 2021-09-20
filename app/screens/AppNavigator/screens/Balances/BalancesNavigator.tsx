@@ -4,12 +4,12 @@ import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import { BarCodeScanner } from '../../../../components/BarCodeScanner'
-import { ConnectionStatus, HeaderTitle } from '../../../../components/HeaderTitle'
-import { getNativeIcon } from '../../../../components/icons/assets'
-import { ThemedText } from '../../../../components/themed'
-import { tailwind } from '../../../../tailwind'
-import { translate } from '../../../../translations'
+import { BarCodeScanner } from '@components/BarCodeScanner'
+import { ConnectionStatus, HeaderTitle } from '@components/HeaderTitle'
+import { getNativeIcon } from '@components/icons/assets'
+import { ThemedText } from '@components/themed'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { BalancesScreen } from './BalancesScreen'
 import { ConvertConfirmationScreen } from './screens/ConvertConfirmationScreen'
@@ -77,14 +77,19 @@ const BalanceStack = createStackNavigator<BalanceParamList>()
 
 export function BalancesNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
-  const hederContainerTestId = 'balances_header_container'
+  const headerContainerTestId = 'balances_header_container'
   return (
     <BalanceStack.Navigator initialRouteName='BalancesScreen'>
       <BalanceStack.Screen
         component={BalancesScreen}
         name='BalancesScreen'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/BalancesScreen', 'Balances')} containerTestID={hederContainerTestId} />,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/BalancesScreen', 'Balances')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
           headerBackTitleVisible: false,
           headerRight: () => (
             <BalanceActionButton
@@ -100,7 +105,12 @@ export function BalancesNavigator (): JSX.Element {
         component={ReceiveScreen}
         name='Receive'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/ReceiveScreen', 'Receive')} containerTestID={hederContainerTestId} />,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ReceiveScreen', 'Receive')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
           headerBackTitleVisible: false
         }}
       />
@@ -109,7 +119,12 @@ export function BalancesNavigator (): JSX.Element {
         component={SendScreen}
         name='Send'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/SendScreen', 'Send')} containerTestID={hederContainerTestId} />,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/SendScreen', 'Send')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
           headerBackTitleVisible: false
         }}
       />
@@ -118,7 +133,12 @@ export function BalancesNavigator (): JSX.Element {
         component={SendConfirmationScreen}
         name='SendConfirmationScreen'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/SendConfirmationScreen', 'Confirm Send')} containerTestID={hederContainerTestId} />,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/SendConfirmationScreen', 'Confirm Send')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
           headerBackTitleVisible: false
         }}
       />
@@ -131,7 +151,7 @@ export function BalancesNavigator (): JSX.Element {
             const token = route?.params?.token
             const Icon = getNativeIcon(token.avatarSymbol)
             return (
-              <HeaderTitle containerTestID={hederContainerTestId}>
+              <HeaderTitle containerTestID={headerContainerTestId}>
                 <View style={tailwind('flex-row items-center')}>
                   <Icon />
 
@@ -154,7 +174,12 @@ export function BalancesNavigator (): JSX.Element {
         component={ConvertScreen}
         name='Convert'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/ConvertScreen', 'Convert DFI')} containerTestID={hederContainerTestId} />,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ConvertScreen', 'Convert DFI')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
           headerBackTitleVisible: false
         }}
       />
@@ -164,7 +189,12 @@ export function BalancesNavigator (): JSX.Element {
         name='ConvertConfirmationScreen'
         options={{
           headerBackTitleVisible: false,
-          headerTitle: () => <HeaderTitle text={translate('screens/ConvertConfirmScreen', 'Confirm DFI Conversion')} containerTestID={hederContainerTestId} />
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ConvertConfirmScreen', 'Confirm DFI Conversion')}
+              containerTestID={headerContainerTestId}
+            />
+          )
         }}
       />
 
@@ -172,7 +202,12 @@ export function BalancesNavigator (): JSX.Element {
         component={BarCodeScanner}
         name='BarCodeScanner'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/ConvertScreen', 'Scan recipient QR')} containerTestID={hederContainerTestId} />,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ConvertScreen', 'Scan recipient QR')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
           headerBackTitleVisible: false
         }}
       />
@@ -181,7 +216,12 @@ export function BalancesNavigator (): JSX.Element {
         component={TokensVsUtxoScreen}
         name='TokensVsUtxo'
         options={{
-          headerTitle: () => <HeaderTitle text={translate('screens/ConvertScreen', 'UTXO vs Token')} containerTestID={hederContainerTestId} />,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ConvertScreen', 'UTXO vs Token')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
           headerBackTitleVisible: false
         }}
       />
