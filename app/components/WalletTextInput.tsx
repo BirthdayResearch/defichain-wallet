@@ -83,7 +83,7 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
         </ThemedView>
       </ThemedView>
       {
-        hasInlineValidation() &&
+        hasInlineValidation() && !valid &&
           <ThemedText
             light={tailwind('text-error-500')}
             dark={tailwind('text-darkerror-500')}
