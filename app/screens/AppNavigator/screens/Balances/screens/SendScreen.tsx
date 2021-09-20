@@ -166,12 +166,11 @@ function AddressRow ({
         control={control}
         defaultValue={defaultValue}
         name='address'
-        render={({ field: { value, onBlur, onChange } }) => (
+        render={({ field: { value, onChange } }) => (
           <View style={tailwind('flex-row w-full mb-6')}>
             <WalletTextInput
               autoCapitalize='none'
               multiline
-              onBlur={onBlur}
               onChangeText={onChange}
               placeholder={translate('screens/SendScreen', 'Paste wallet address here')}
               style={tailwind('w-4/5 flex-grow pb-1')}
