@@ -11,8 +11,7 @@ import { Logging } from '../../../../api'
 import { View } from '../../../../components'
 import { Button } from '../../../../components/Button'
 import { NumberRow } from '../../../../components/NumberRow'
-import { NumberTextInput } from '../../../../components/NumberTextInput'
-import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '../../../../components/themed'
+import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView, ThemedTextInput } from '../../../../components/themed'
 import { TokenBalanceRow } from '../../../../components/TokenBalanceRow'
 import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { useTokensAPI } from '../../../../hooks/wallet/TokensAPI'
@@ -97,7 +96,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
             {translate('screens/RemoveLiquidity', 'Amount to remove')}
           </ThemedText>
 
-          <NumberTextInput
+          <ThemedTextInput
             multiline
             onChange={(event) => {
               setInputPercentage(event.nativeEvent.text)

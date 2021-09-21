@@ -18,7 +18,7 @@ export function InfoText (props: InfoTextProp): JSX.Element {
   return (
     <ThemedView
       style={[
-        tailwind('rounded m-4 mb-0 p-2 flex-row'),
+        tailwind('rounded p-2 flex-row'),
         style
       ]}
       light={light}

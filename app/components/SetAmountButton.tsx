@@ -26,7 +26,7 @@ export function SetAmountButton (props: SetAmountButtonProps): JSX.Element {
         props.onPress(props.type === AmountButtonTypes.half ? props.amount.div(2).toFixed(decimalPlace) : props.amount.toFixed(decimalPlace))
       }}
       style={[
-        tailwind('flex px-2 py-1.5 rounded'),
+        tailwind('flex px-2 py-1 rounded'),
         props.type === AmountButtonTypes.half && tailwind('mr-1')
       ]}
       testID={`${props.type}_amount_button`}
