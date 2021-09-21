@@ -28,5 +28,5 @@ web-build/
 .DS_Store
 
 # Cypress
-/mobile-app/cypress/screenshots
-/mobile-app/cypress/videos
+/cypress/screenshots
+/cypress/videos

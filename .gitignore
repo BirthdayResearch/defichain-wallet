@@ -44,7 +44,3 @@ web-build/
 
 # macOS
 .DS_Store
-
-# Cypress
-/mobile-app/cypress/screenshots
-/mobile-app/cypress/videos
