@@ -406,7 +406,7 @@
     "Can someone help me if I lose my recovery words?": "如果我遺失了恢復字組可以求助於別人嗎？",
     "No. You have sole access to your recovery words. No one is responsible and liable for it except you.": "不建議。個人的24個單詞是不應該透露給任可人。除了自己，沒有人有責任和義務給你保管。",
     "Why is it recommended to keep my recovery words offline and on paper?": "為何建議用離線方式或紙張來紀錄保存 24個單詞？",
-    "Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.": "Die Speicherung in digitalen Netzen könnte sie für Hacker zugänglich machen. Am besten ist es, sie auf Papier zu schreiben und sie sicher und vor Einblicken geschützt aufzubewahren.",
+    "Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.": "儲存24單詞在數字網絡會有較高的機會給駭客入侵及盗取。最理想的是用紙張記錄和保存。",
     "Recovery words": "恢復字組",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "你的連續顯示24個英文單詞是指儲存在錢包的private key，它由2048個單字所產生的，支持BIP-39 標準的錢包。就算整個硬體錢包被盗或入侵，仍然可以確保安全的。",
     "FREQUENTLY ASKED QUESTIONS": "常見問題"
