@@ -28,10 +28,10 @@ exports[`set amount button should match styling of set amount button type 50% 1`
       "display": "flex",
       "marginRight": 4,
       "opacity": 1,
-      "paddingBottom": 6,
+      "paddingBottom": 4,
       "paddingLeft": 8,
       "paddingRight": 8,
-      "paddingTop": 6,
+      "paddingTop": 4,
     }
   }
   testID="50%_amount_button"
@@ -90,10 +90,10 @@ exports[`set amount button should match styling of set amount button type MAX 1`
       "borderTopWidth": 1,
       "display": "flex",
       "opacity": 1,
-      "paddingBottom": 6,
+      "paddingBottom": 4,
       "paddingLeft": 8,
       "paddingRight": 8,
-      "paddingTop": 6,
+      "paddingTop": 4,
     }
   }
   testID="MAX_amount_button"

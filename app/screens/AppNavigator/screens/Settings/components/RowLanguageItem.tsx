@@ -24,7 +24,7 @@ export function RowLanguageItem ({ languageItem }: { languageItem: AppLanguageIt
     WalletAlert({
       title: translate('screens/Settings', 'Switch Language'),
       message: translate(
-        'screens/Settings', 'You are about to change your language to {{language}}. Do you want to proceed?', { language: languageItem.displayName }),
+        'screens/Settings', 'You are about to change your language to {{language}}. Do you want to proceed?', { language: translate('screens/Settings', languageItem.language) }),
       buttons: [
         {
           text: translate('screens/Settings', 'No'),
