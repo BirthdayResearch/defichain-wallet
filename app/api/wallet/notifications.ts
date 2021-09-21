@@ -57,16 +57,18 @@ class NotificationsService {
    * @param {{ key: string]: unknown }} data
    */
   async send ({ title, body, data = {} }: {title: string, body: string, data?: { [key: string]: unknown } }): Promise<void> {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title,
-        body,
-        data,
-        sound: 'default'
-      },
-      trigger: null
+    if (this.status === PermissionStatus.GRANTED) {
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title,
+          body,
+          data,
+          sound: 'default'
+        },
+        trigger: null
       })
     }
+  }
 }
 
 export const WalletNotifications = new NotificationsService()
