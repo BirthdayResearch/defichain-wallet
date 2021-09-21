@@ -1,5 +1,5 @@
 # IntelliJ
-.idea/shelf
+../.idea/shelf
 !.idea/inspectionProfiles/
 !.idea/dictionaries/
 !.idea/codeStyles/

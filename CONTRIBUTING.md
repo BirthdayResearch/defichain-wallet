@@ -26,9 +26,9 @@ The benefits of this design allows:
 
 Type | Location
 ---- | ----------------------------------------
-ui   | [app/screens/**.test.ts](app/screens)
-api  | [app/hooks/**.test.ts](app/hooks)
-e2e  | [cypress/integration/functional](./cypress/integration/functional)
+ui   | [app/screens/**.test.ts](mobile-app/app/screens)
+api  | [app/hooks/**.test.ts](mobile-app/app/hooks)
+e2e  | [cypress/integration/functional](mobile-app/cypress/integration/functional)
 
 ### Element should have `testID` attributes
 
