@@ -1,4 +1,5 @@
-import React from 'react'
+import { WalletNotifications } from './../api/wallet/notifications'
+import React, { useEffect } from 'react'
 import { WalletContextProvider } from '../contexts/WalletContext'
 import { WalletNodeProvider } from '../contexts/WalletNodeProvider'
 import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
@@ -12,6 +13,10 @@ import { WalletNavigator } from './WalletNavigator/WalletNavigator'
  */
 export function RootNavigator (): JSX.Element {
   const { wallets, isLoaded } = useWalletPersistenceContext()
+
+  useEffect(() => {
+    void WalletNotifications.register()
+  }, [])
 
   // To prevent flicker on start of app, while API is not yet called
   if (!isLoaded) {

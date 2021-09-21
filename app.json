@@ -38,6 +38,16 @@
     },
     "web": {
       "favicon": "./app/assets/images/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./app/assets/images/adaptive-icon.png",
+          "color": "#FFFFFF",
+          "mode": "production"
+        }
+      ]
+    ]
   }
 }
