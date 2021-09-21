@@ -12,9 +12,9 @@ import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
 import { authentication, Authentication } from '../../../../store/authentication'
 import { translate } from '../../../../translations'
 import { Button } from '../../../../components/Button'
-import * as Localization from 'expo-localization'
 import { signAsync } from 'bitcoinjs-message'
 import { getEnvironment } from '@environment'
+import { useLanguage } from '@contexts/LanguageProvider'
 
 export function BuyWithFiat (): JSX.Element {
   const { network } = useNetworkContext()
@@ -22,6 +22,7 @@ export function BuyWithFiat (): JSX.Element {
   const { data: providerData } = useWalletNodeContext()
   const whaleApiClient = useWhaleApiClient()
   const dispatch = useDispatch()
+  const { language } = useLanguage()
 
   // TODO(davidleomay): use useCallback?
   async function onBuyWithFiat (): Promise<void> {
@@ -48,7 +49,7 @@ export function BuyWithFiat (): JSX.Element {
 
   async function onMessageSigned (signature: Buffer): Promise<void> {
     const sig = signature.toString('base64')
-    const lang = Localization.locale.split('-').find(() => true) ?? 'de'
+    const lang = language.split('-').find(() => true) ?? 'de'
     const baseUrl = getEnvironment().dfxPaymentUrl
 
     const url = `${baseUrl}/login?address=${encodeURIComponent(address)}&signature=${encodeURIComponent(sig)}&walletId=0&lang=${lang}`
