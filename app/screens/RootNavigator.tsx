@@ -4,7 +4,7 @@ import { WalletNodeProvider } from '../contexts/WalletNodeProvider'
 import { useWalletPersistenceContext } from '../contexts/WalletPersistenceContext'
 import { AppNavigator } from './AppNavigator/AppNavigator'
 import { PrivacyLock } from './PrivacyLock'
-import { TransactionAuthorization } from './TransactionAuthorization'
+import { TransactionAuthorization } from './TransactionAuthorization/TransactionAuthorization'
 import { WalletNavigator } from './WalletNavigator/WalletNavigator'
 
 /**
