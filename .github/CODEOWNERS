@@ -4,19 +4,19 @@
 /.github/                                       @fuxingloh
 /.husky/                                        @fuxingloh @thedoublejay
 
-/app/                                           @fuxingloh @thedoublejay @ivan-zynesis @kyleleow
-/app/api                                        @fuxingloh @thedoublejay @ivan-zynesis
+/wallet-app/app/                                @fuxingloh @thedoublejay @ivan-zynesis @kyleleow
+/wallet-app/app/api                             @fuxingloh @thedoublejay @ivan-zynesis
 
-/app/assets                                     @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow
-/app/translations                               @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow
-/cypress                                        @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow
+/wallet-app/app/assets                          @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow
+/wallet-app/app/translations                    @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow
+/wallet-app/cypress                             @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow
 
 /.codeclimate.yml                               @fuxingloh @thedoublejay
 /.versionrc.js                                  @fuxingloh @thedoublejay
-/_shim.js                                       @fuxingloh @thedoublejay
+/wallet-app/_shim.js                            @fuxingloh @thedoublejay
 /app.json                                       @fuxingloh @thedoublejay
-/App.tsx                                        @fuxingloh @thedoublejay
-/cypress.json                                   @fuxingloh @thedoublejay
+/wallet-app/App.tsx                             @fuxingloh @thedoublejay
+/wallet-app/cypress.json                        @fuxingloh @thedoublejay
 /docker-compose.yml                             @fuxingloh @thedoublejay
 /eas.json                                       @fuxingloh @thedoublejay
 /netlify.toml                                   @fuxingloh @thedoublejay

@@ -9,32 +9,32 @@ labels:
   - label: area/api
     sync: true
     matcher:
-      files: "app/api/**"
+      files: "wallet-app/app/api/**"
 
   - label: area/assets
     sync: true
     matcher:
-      files: "app/assets/**"
+      files: "wallet-app/app/assets/**"
 
   - label: area/contexts
     sync: true
     matcher:
-      files: "app/contexts/**"
+      files: "wallet-app/app/contexts/**"
 
   - label: area/hooks
     sync: true
     matcher:
-      files: "app/hooks/**"
+      files: "wallet-app/app/hooks/**"
 
   - label: area/store
     sync: true
     matcher:
-      files: "app/store/**"
+      files: "wallet-app/app/store/**"
 
   - label: area/translations
     sync: true
     matcher:
-      files: "app/translations/**"
+      files: "wallet-app/app/translations/**"
 
   - label: area/e2e
     sync: true
@@ -45,10 +45,10 @@ labels:
     sync: true
     matcher:
       files:
-        - "app/screens/**"
-        - "app/components/**"
+        - "wallet-app/app/screens/**"
+        - "wallet-app/app/components/**"
 
   - label: area/playground
     sync: true
     matcher:
-      files: "app/screens/PlaygroundNavigator/**"
+      files: "wallet-app/app/screens/PlaygroundNavigator/**"
