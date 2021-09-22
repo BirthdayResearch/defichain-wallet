@@ -14,7 +14,7 @@ DeFi Blockchain Light Wallet for iOS, Android & Web.
 
 ## Releases
 
-DeFiChain Wallet has 3 releases channel and unique environment for each of those channel. [`app/environment.ts`](/app/environment.ts) carries the environment state for those releases channel.
+DeFiChain Wallet has 3 releases channel and unique environment for each of those channel. [`app/environment.ts`](/mobile-app/app/environment.ts) carries the environment state for those releases channel.
 
 <details>
 <summary><b>Production</b></summary>

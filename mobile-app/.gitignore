@@ -1,0 +1,32 @@
+# node_modules
+node_modules
+
+# dist & pack
+dist
+*.tgz
+
+# debug log
+lerna-debug.log
+
+coverage
+reports
+.nyc_output
+jest-coverage
+cypress-coverage
+
+.expo/*
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+
+# macOS
+.DS_Store
+
+# Cypress
+/cypress/screenshots
+/cypress/videos

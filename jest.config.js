@@ -1,7 +1,7 @@
 module.exports = {
   preset: 'jest-expo',
   testPathIgnorePatterns: [
-    'cypress/.*'
+    'mobile-app/cypress/.*'
   ],
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',

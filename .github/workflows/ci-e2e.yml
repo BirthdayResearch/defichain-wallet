@@ -47,8 +47,9 @@ jobs:
           start: npm run start:web
           wait-on: 'http://localhost:19006'
           browser: chrome
-          spec: cypress/integration/**
+          spec: mobile-app/cypress/integration/**
           tag: ${{ github.event_name }}
+          project: ./mobile-app
         env:
           CYPRESS_E2E: true
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
