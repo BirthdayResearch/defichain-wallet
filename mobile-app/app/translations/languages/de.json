@@ -279,7 +279,7 @@
     "Waiting for confirmation": "Warte auf Bestätigung",
     "Transaction Completed": "Transaktion ausgeführt",
     "Transaction Error": "Fehler bei der Transaktion",
-    "Transaction ID: {{txid}}": "Transaktions-ID: {{txid}}",
+    "Transaction ID: {{txid}}": "Transaktions ID: {{txid}}",
     "Sent but not confirmed": "Gesendet aber nicht bestätigt",
     "Broadcasting...": "Übertrage...",
     "OK": "OK",
