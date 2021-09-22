@@ -24,6 +24,7 @@ updates:
       - dependency-name: "expo-linking"
       - dependency-name: "expo-local-authentication"
       - dependency-name: "expo-localization"
+      - dependency-name: "expo-notifications"
       - dependency-name: "expo-random"
       - dependency-name: "expo-secure-store"
       - dependency-name: "expo-splash-screen"
