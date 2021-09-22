@@ -1,7 +1,7 @@
 {
   "screens/WalletNavigator": {
     "Guidelines": "Richtlinien",
-    "Recovery Words FAQs": "Wiederherstellungssatz FAQ",
+    "Recovery Words FAQ": "Wiederherstellungssatz FAQ",
     "Display recovery words": "Zeige Wiederherstellungssatz an",
     "Verify words": "Bestätige die Worte",
     "Restore Wallet": "Stelle die Wallet wieder her",
@@ -128,7 +128,8 @@
     "Switch Language": "Sprache ändern",
     "ADDITIONAL OPTIONS": "WEITERE OPTIONEN",
     "SECURITY": "SICHERHEITSEINSTELLUNGEN",
-    "Privacy Lock": "App-Passwortschutz"
+    "Privacy Lock": "App-Passwortschutz",
+    "Auto-locks wallet if there is no activity for 1 min.": "Automatische Wallet-Sperre bei 1 Min. Inaktivität"
   },
   "screens/AboutScreen": {
     "About": "Über",
@@ -410,7 +411,7 @@
     "What happens if I lose my recovery words?": "Was passiert, wenn ich meinen Wiederherstellungssatz verliere?",
     "Once you lose your recovery words, you will not be able to restore your wallet and any funds within it. We encourage you to be responsible with your recovery words.": "Wenn du deinen Wiederherstellungssatz verlierst, kannst du deine Wallet und alle darin enthaltenen Guthaben nicht mehr wiederherstellen. Wir empfehlen dir, verantwortungsvoll mit deinem Wiederherstellungssatz umzugehen.",
     "Can I use the 24-words from xxx that I created from xxx?": "Kann ich die 24 Wörter aus xxx verwenden, die ich mit xxx erstellt habe?",
-    "No, reusing 24-words from another computer, phone tablet, software, hardware, wallet provider will only be as secure as where you re-used it from.\n\nYou can only trust the 24-word if you can trust the device/app that generated it.\n\nYou must only enter the 24-word into a device that you trust isn't tamper with.": "Nein, die Wiederverwendung von 24 Wörtern von anderen Computern, Smartphones, Tablets, Anwendungen, Geräten oder Wallet-Anbietern ist nur so sicher wie die Anwendung oder das Gerät, von der/dem sie stammen.\n\nDu kannst den 24 Wörtern nur trauen, wenn du der Anwendung/dem Gerät, die/das sie erzeugt hat, vertrauen kannst.\n\nDu darfst die 24 Wörter nur in ein Gerät eingeben, dem du vertraust, dass es nicht manipuliert wird.",
+    "You can only reuse the 24-words only if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.SWISS (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per computer / device / app is encouraged.": "Du kannst lediglich 24 Wörter verwenden, die aus der Jellyfish Entwicklerumgebung stammen.\n\nKompatibel sind die DeFiChain Wallet (Android/iOS) und DFX.SWISS (Android/iOS).\n\nAllerdings wird sehr davon abgeraten, die Wörter wiederzuverwenden. Deine 24 Wörter sind nur so sicher wie die Anwendung / das Gerät, die / das sie erzeugt. Grundsätzlich wird pro Computer / Gerät / App jeweils ein eigener Wiederherstellungssatz empfohlen.",
     "Can someone help me if I lose my recovery words?": "Kann mir jemand helfen, wenn ich meinen Wiederherstellungssatz verliere?",
     "No. You have sole access to your recovery words. No one is responsible and liable for it except you.": "Nein. Du hast alleinigen Zugriff auf deinen Wiederherstellungssatz. Niemand außer dir ist dafür verantwortlich und haftbar.",
     "Why is it recommended to keep my recovery words offline and on paper?": "Warum ist es ratsam, meinen Wiederherstellungssatz offline und auf Papier festzuhalten?",
