@@ -31,15 +31,16 @@
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
-    "Use this address to receive DFI or any DST": "Verwende diese Adresse, um DFI oder DST zu empfangen",
-    "Copied to Clipboard": "In die Zwischenablage kopiert",
-    "COPY TO CLIPBOARD": "IN DIE ZWISCHENABLAGE KOPIEREN",
-    "SHARE": "TEILEN"
+    "Use QR or Wallet Address to receive any DST or DFI": "Verwende diese Adresse, um DFI oder DST zu empfangen",
+    "COPIED": "KOPIERT",
+    "COPY": "KOPIEREN",
+    "SHARE": "TEILEN",
+    "WALLET ADDRESS": "WALLET-ADRESSE"
   },
   "screens/SendScreen": {
     "Send": "Senden",
     "Estimated fee": "Geschätzte Gebühr",
-    "CONTINUE": "FORTSETZEN",                
+    "CONTINUE": "FORTSETZEN",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
     "SEND": "SENDEN",
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
@@ -341,7 +342,8 @@
     "Enter an amount ": "Gib einen Betrag an ",
     "YOU ARE REMOVING": "DU ENTFERNST",
     "Price": "Preis",
-    "Removing {{amount}} {{symbol}}": "Entferne {{amount}} {{symbol}}"
+    "Removing {{amount}} {{symbol}}": "Entferne {{amount}} {{symbol}}",
+    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "Wallet Netzwerk",
@@ -372,7 +374,8 @@
     "Enter an amount": "Gib eine Menge ein",
     "Price": "Preis",
     "Estimated to receive": "Vorraussichtlich wird empfangen",
-    "Balance: ": "Guthaben: "
+    "Balance: ": "Guthaben: ",
+    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion"
   },
   "screens/PoolSwapConfirmScreen": {
     "YOU ARE SWAPPING": "DU TAUSCHST",
