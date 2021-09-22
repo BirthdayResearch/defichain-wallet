@@ -128,7 +128,8 @@
     "Switch Language": "切换语言",
     "ADDITIONAL OPTIONS": "更多选项",
     "SECURITY": "安全设定",
-    "Privacy Lock": "隐私锁定"
+    "Privacy Lock": "隐私锁定",
+    "Auto-locks wallet if there is no activity for 1 min.": "钱包如静止超过 1 分钟，会自动上锁。"
   },
   "screens/AboutScreen": {
     "About": "关于",

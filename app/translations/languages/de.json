@@ -128,7 +128,8 @@
     "Switch Language": "Sprache ändern",
     "ADDITIONAL OPTIONS": "WEITERE OPTIONEN",
     "SECURITY": "SICHERHEITSEINSTELLUNGEN",
-    "Privacy Lock": "App-Passwortschutz"
+    "Privacy Lock": "App-Passwortschutz",
+    "Auto-locks wallet if there is no activity for 1 min.": "Automatische Wallet-Sperre bei 1 Min. Inaktivität"
   },
   "screens/AboutScreen": {
     "About": "Über",
