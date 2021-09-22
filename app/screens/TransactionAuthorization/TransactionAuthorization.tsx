@@ -3,7 +3,6 @@ import { JellyfishWallet, WalletHdNodeProvider } from '@defichain/jellyfish-wall
 import { MnemonicHdNode } from '@defichain/jellyfish-wallet-mnemonic'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Platform, SafeAreaView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '@api'
 import {
@@ -12,13 +11,9 @@ import {
   MnemonicUnprotected,
   PasscodeAttemptCounter,
   WalletType
-} from '../api/wallet'
-import { View } from '../components'
-import { PinTextInput } from '@components/PinTextInput'
-import { ThemedActivityIndicator, ThemedText, ThemedTouchableOpacity, ThemedView } from '../components/themed'
+} from '../../api/wallet'
 import { WalletAlert } from '@components/WalletAlert'
 import { useNetworkContext } from '@contexts/NetworkContext'
-import { useThemeContext } from '@contexts/ThemeProvider'
 import { useWalletNodeContext } from '@contexts/WalletNodeProvider'
 import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
@@ -26,8 +21,8 @@ import { RootState } from '@store'
 import { Authentication, authentication as authenticationStore } from '@store/authentication'
 import { ocean } from '@store/ocean'
 import { DfTxSigner, first, transactionQueue } from '@store/transaction_queue'
-import { tailwind } from '@tailwind'
 import { translate } from '@translations'
+import { PasscodePrompt } from './PasscodePrompt'
 
 const MAX_PASSCODE_ATTEMPT = 3 // allowed 2 failures
 const PIN_LENGTH = 6
@@ -48,7 +43,7 @@ let PASSPHRASE_PROMISE_PROXY: {
 const INVALID_HASH = 'invalid hash'
 const USER_CANCELED = 'USER_CANCELED'
 
-type Status = 'INIT' | 'IDLE' | 'BLOCK' | 'PIN' | 'SIGNING'
+export type Status = 'INIT' | 'IDLE' | 'BLOCK' | 'PIN' | 'SIGNING'
 
 /**
  * The main UI page transaction signing logic interact with encrypted wallet context
@@ -59,7 +54,6 @@ export function TransactionAuthorization (): JSX.Element | null {
   const { clearWallets } = useWalletPersistenceContext()
   const { network } = useNetworkContext()
   const whaleApiClient = useWhaleApiClient()
-  const { isLight } = useThemeContext()
 
   // store
   const dispatch = useDispatch()
@@ -246,135 +240,19 @@ export function TransactionAuthorization (): JSX.Element | null {
   }
 
   return (
-    <SafeAreaView
-      style={tailwind('w-full h-full flex-col', `${isLight ? 'bg-gray-100' : 'bg-gray-800'}`)}
-    >
-      <View
-        style={{
-          paddingTop: Platform.select({
-            android: 25
-          })
-        }}
-      >
-        <ThemedTouchableOpacity
-          dark={tailwind('bg-gray-800 border-b border-gray-700')}
-          light={tailwind('bg-gray-100 border-b border-gray-200')}
-          onPress={onCancel}
-          style={tailwind('p-4')}
-          testID='cancel_authorization'
-        >
-          <ThemedText
-            dark={tailwind('text-darkprimary-500')}
-            light={tailwind('text-primary-500')}
-            style={tailwind('font-bold')}
-          >
-            {translate('components/UnlockWallet', 'CANCEL')}
-          </ThemedText>
-        </ThemedTouchableOpacity>
-      </View>
-
-      <ThemedView
-        dark={tailwind('bg-gray-900')}
-        light={tailwind('bg-white')}
-        style={tailwind('w-full flex-1 flex-col pt-8')}
-      >
-        <ThemedText
-          style={tailwind('text-center text-xl font-bold')}
-        >
-          {translate('screens/UnlockWallet', 'Enter passcode')}
-        </ThemedText>
-
-        <View style={tailwind('p-4 px-8 text-sm text-center mb-6')}>
-          <ThemedText
-            testID='txn_authorization_message'
-            dark={tailwind('text-gray-400')}
-            light={tailwind('text-gray-500')}
-            style={tailwind('p-4 px-8 text-sm text-center mb-2')}
-          >
-            {message}
-          </ThemedText>
-
-          {
-            transaction?.description !== undefined && (
-              <ThemedText
-                testID='txn_authorization_description'
-                dark={tailwind('text-gray-400')}
-                light={tailwind('text-gray-500')}
-                style={tailwind('text-sm text-center')}
-              >
-                {transaction.description}
-              </ThemedText>
-            )
-          }
-        </View>
-
-        {
-          status === 'PIN' && (
-            <PinTextInput
-              cellCount={PIN_LENGTH}
-              onChange={(pin) => {
-                onPinInput(pin)
-              }}
-              testID='pin_authorize'
-              value={pin}
-            />
-          )
-        }
-
-        <Loading
-          message={status === 'SIGNING' ? loadingMessage : undefined}
-        />
-
-        {// upon retry: show remaining attempt allowed
-          (isRetry && attemptsRemaining !== undefined && attemptsRemaining !== MAX_PASSCODE_ATTEMPT)
-            ? (
-              <ThemedText
-                dark={tailwind('text-darkerror-500')}
-                light={tailwind('text-error-500')}
-                style={tailwind('text-center text-sm font-bold mt-5')}
-                testID='pin_attempt_error'
-              >
-                {translate('screens/PinConfirmation', `${attemptsRemaining === 1
-                  ? 'Last attempt or your wallet will be unlinked for your security'
-                  : 'Incorrect passcode. {{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining })}
-              </ThemedText>
-              )
-            : null
-        }
-
-        {// on first time: warn user there were accumulated error attempt counter
-          (!isRetry && attemptsRemaining !== undefined && attemptsRemaining !== MAX_PASSCODE_ATTEMPT)
-            ? (
-              <ThemedText
-                dark={tailwind('text-darkerror-500')}
-                light={tailwind('text-error-500')}
-                style={tailwind('text-center text-sm font-bold mt-5')}
-                testID='pin_attempt_warning'
-              >
-                {translate('screens/PinConfirmation', `${attemptsRemaining === 1
-                  ? 'Last attempt or your wallet will be unlinked for your security'
-                  : '{{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining })}
-              </ThemedText>
-              )
-            : null
-        }
-      </ThemedView>
-    </SafeAreaView>
-  )
-}
-
-function Loading ({ message }: { message?: string }): JSX.Element | null {
-  if (message === undefined) {
-    return null
-  }
-  return (
-    <View style={tailwind('flex-row justify-center p-2')}>
-      <ThemedActivityIndicator />
-
-      <ThemedText style={tailwind('ml-2')}>
-        {message}
-      </ThemedText>
-    </View>
+    <PasscodePrompt
+      onCancel={onCancel}
+      message={translate('screens/UnlockWallet', message)}
+      transaction={transaction}
+      status={status}
+      pinLength={PIN_LENGTH}
+      onPinInput={onPinInput}
+      pin={pin}
+      loadingMessage={translate('screens/TransactionAuthorization', loadingMessage)}
+      isRetry={isRetry}
+      attemptsRemaining={attemptsRemaining}
+      maxPasscodeAttempt={MAX_PASSCODE_ATTEMPT}
+    />
   )
 }
 
