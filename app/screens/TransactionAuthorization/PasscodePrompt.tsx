@@ -8,7 +8,7 @@ import React from 'react'
 import { Platform, SafeAreaView, View } from 'react-native'
 import { Status } from './TransactionAuthorization'
 
-interface TransactionAuthorizationUIProps {
+interface PasscodePromptProps {
   onCancel: () => void
   message: string
   transaction: DfTxSigner
@@ -22,7 +22,7 @@ interface TransactionAuthorizationUIProps {
   maxPasscodeAttempt: number
 }
 
-export function TransactionAuthorizationUI (props: TransactionAuthorizationUIProps): JSX.Element {
+export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
   const { isLight } = useThemeContext()
 
   return (

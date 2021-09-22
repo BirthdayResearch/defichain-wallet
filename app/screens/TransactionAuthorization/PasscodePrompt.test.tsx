@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react-native'
 import React from 'react'
 import { Status } from './TransactionAuthorization'
-import { TransactionAuthorizationUI } from './TransactionAuthorizationUI'
+import { PasscodePrompt } from './PasscodePrompt'
 
 jest.mock('../../contexts/ThemeProvider')
 const StatusTypes: Status[] = ['INIT', 'IDLE', 'BLOCK', 'PIN', 'SIGNING']
@@ -15,7 +15,7 @@ describe('transaction authorization screen', () => {
       const onCancel = jest.fn
       const onPinInput = jest.fn
       const rendered = render(
-        <TransactionAuthorizationUI
+        <PasscodePrompt
           onCancel={onCancel}
           message='foo'
           transaction={mockTransaction}

@@ -22,7 +22,7 @@ import { Authentication, authentication as authenticationStore } from '@store/au
 import { ocean } from '@store/ocean'
 import { DfTxSigner, first, transactionQueue } from '@store/transaction_queue'
 import { translate } from '@translations'
-import { TransactionAuthorizationUI } from './TransactionAuthorizationUI'
+import { PasscodePrompt } from './PasscodePrompt'
 
 const MAX_PASSCODE_ATTEMPT = 3 // allowed 2 failures
 const PIN_LENGTH = 6
@@ -240,7 +240,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   }
 
   return (
-    <TransactionAuthorizationUI
+    <PasscodePrompt
       onCancel={onCancel}
       message={translate('screens/UnlockWallet', message)}
       transaction={transaction}
