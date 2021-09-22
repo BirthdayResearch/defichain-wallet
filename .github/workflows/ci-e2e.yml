@@ -47,7 +47,7 @@ jobs:
           start: npm run start:web
           wait-on: 'http://localhost:19006'
           browser: chrome
-          spec: cypress/integration/**
+          spec: wallet-app/cypress/integration/**
           tag: ${{ github.event_name }}
         env:
           CYPRESS_E2E: true

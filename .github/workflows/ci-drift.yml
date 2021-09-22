@@ -24,7 +24,7 @@ jobs:
       - run: npm ci
 
       - name: "Drift Detection: tailwind.config.js"
-        working-directory: app
+        working-directory: wallet-app/app
         run: |
           export BEFORE=$(openssl sha1 styles.json | sed 's/^.* //')
           npx create-tailwind-rn
