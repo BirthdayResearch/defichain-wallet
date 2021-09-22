@@ -40,12 +40,14 @@
     "Send": "移出資金",
     "Estimated fee": "所需費用（大約）",
     "CONTINUE": "繼續",
-    "TO ADDRESS": "發送到這個地址",
-    "Enter an address": "請輸入接收方地址",
-    "Enter an amount": "請輸入資金數量",
-    "Balance: ": "總資金 ",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要預留一些可使用的 UTXO (0.1 DFI (UTXO)) 作為費用",
-    "SEND": "移出資金"
+    "SEND": "移出資金",
+    "Review full transaction details in the next screen": "請在下一步確認交易明細",
+    "Paste wallet address here": "請輸入並確認地址無誤",
+    "Where do you want to send?": "您想發送到哪裡?",
+    "How much do you want to send?": "您想發送多少資金?",
+    "Enter an amount": "請輸入數量",
+    "Available": "可發送資金"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "確認發出",
@@ -65,11 +67,15 @@
     "Convert DFI": "轉換 DFI",
     "Scan recipient QR": "掃一掃 QR 二維條碼",
     "Balance": "總資金",
-    "Enter an amount": "輸入數量",
     "UTXO vs Token, what is the difference?": "UXTO和代幣的區別是什麼？",
     "CONVERT {{symbol}}": "轉換 {{symbol}}",
     "TO {{symbol}}": "至 {{symbol}}",
-    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要預留一些可使用的 UTXO (0.1 DFI (UTXO)) 作為費用"
+    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要預留一些可使用的 UTXO (0.1 DFI (UTXO)) 作為費用",
+    "How much {{symbol}} to convert?": "您要轉換多少{{symbol}}?",
+    "Enter an amount": "請輸入數量",
+    "Available": "可轉換資金",
+    "After conversion, you will receive": "轉換後您會收到",
+    "Review full transaction details in the next screen": "請在下一步確認交易明細"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "確認要轉換 DFI",
@@ -297,12 +303,15 @@
     "Keep your recovery words safe and private": "請保管好您的恢復字組"
   },
   "screens/AddLiquidity": {
-    "Enter an amount": "輸入資金量",
     "Balance": "總資金",
     "per": "每",
     "Share of pool": "流動池股份",
     "Pooled": "池中",
-    "Price": "價格"
+    "Price": "價格",
+    "Review full transaction details in the next screen": "請在下一步確認交易明細",
+    "How much {{symbol}} to supply?": "您想提供多少 {{symbol}} 流動資金?",
+    "Enter an amount": "請輸入數量",
+    "Available": "可提供資金"
   },
   "screens/ConfirmAddLiq": {
     "YOU ARE ADDING": "您正要增加流動資金",

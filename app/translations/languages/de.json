@@ -39,13 +39,15 @@
   "screens/SendScreen": {
     "Send": "Senden",
     "Estimated fee": "Geschätzte Gebühr",
-    "CONTINUE": "FORTSETZEN",
-    "TO ADDRESS": "AN ADRESSE",
-    "Enter an address": "Gib eine Adresse ein",
-    "Enter an amount": "Gib eine Menge ein",
-    "Balance: ": "Guthaben: ",
+    "CONTINUE": "FORTSETZEN",                
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
-    "SEND": "SENDEN"
+    "SEND": "SENDEN",
+    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
+    "Paste wallet address here": "Wallet Adresse eingeben",
+    "Where do you want to send?": "Wohin möchtest du senden?",
+    "How much do you want to send?": "Wie viel möchtest du senden?",
+    "Enter an amount": "Gib eine Menge ein",
+    "Available": "Verfügbar"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Senden bestätigen",
@@ -65,11 +67,15 @@
     "Convert DFI": "DFI umwandeln",
     "Scan recipient QR": "QR-Code des Empfängers scannen",
     "Balance": "Guthaben",
-    "Enter an amount": "Betrag eingeben",
     "UTXO vs Token, what is the difference?": "UXTO vs Token, worin liegt der Unterschied?",
     "CONVERT {{symbol}}": "{{symbol}} UMWANDELN",
     "TO {{symbol}}": "IN {{symbol}}",
-    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert."
+    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
+    "How much {{symbol}} to convert?": "Wieviele {{symbol}} umzuwandeln?",
+    "Enter an amount": "Gib eine Menge ein",
+    "Available": "Verfügbar",
+    "After conversion, you will receive": "Nach der Konvertierung erhältst du",
+    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Bestätige DFI Konvertierung",
@@ -296,12 +302,15 @@
     "Keep your recovery words safe and private": "Sichere deinen Wiederherstellungssatz und bewahre ihn sicher auf"
   },
   "screens/AddLiquidity": {
-    "Enter an amount": "Betrag eingeben",
     "Balance": "Guthaben",
     "per": "pro",
     "Share of pool": "Anteil am Gesamtpool",
     "Pooled": "Im Pool",
-    "Price": "Preis"
+    "Price": "Preis",
+    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
+    "How much {{symbol}} to supply?": "Wie viele {{symbol}} hinzufügen?",
+    "Enter an amount": "Gib eine Menge ein",
+    "Available": "Verfügbar"
   },
   "screens/ConfirmAddLiq": {
     "YOU ARE ADDING": "DU FÜGST HINZU",
