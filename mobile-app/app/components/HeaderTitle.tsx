@@ -3,9 +3,9 @@ import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/Balance
 import React from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { useSelector } from 'react-redux'
-import { useNetworkContext } from '../contexts/NetworkContext'
-import { RootState } from '../store'
-import { tailwind } from '../tailwind'
+import { useNetworkContext } from '@contexts/NetworkContext'
+import { RootState } from '@store'
+import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedText } from './themed'
 
 type SubHeadingType = 'Status' | 'NetworkSelect'

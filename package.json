@@ -2,13 +2,20 @@
   "name": "@defichain/wallet",
   "private": true,
   "license": "MIT",
+  "main": "./mobile-app/AppEntry.js",
   "scripts": {
     "prepare": "husky install",
-    "playground:start": "docker-compose rm -fsv && docker-compose up"
+    "lint": "eslint ./mobile-app/app ./mobile-app/App.tsx ./mobile-app/cypress/integration --fix",
+    "start": "expo start",
+    "start:android": "expo start --android",
+    "start:ios": "expo start --ios",
+    "start:web": "expo start --web",
+    "playground:start": "docker-compose rm -fsv && docker-compose up",
+    "test:ci": "jest --ci --coverage",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --headless --browser chrome",
+    "react-devtools:open": "react-devtools"
   },
-  "workspaces": [
-    "mobile-app"
-  ],
   "dependencies": {
     "@defichain/jellyfish-address": ">=0.43.0",
     "@defichain/jellyfish-api-core": ">=0.43.0",
@@ -21,43 +28,123 @@
     "@defichain/playground-api-client": ">=0.9.1",
     "@defichain/whale-api-client": ">=0.9.3",
     "@defichain/whale-api-wallet": ">=0.9.3",
+    "@expo-google-fonts/ibm-plex-sans": "^0.2.0",
+    "@expo/vector-icons": "^12.0.0",
+    "@expo/webpack-config": "~0.12.63",
+    "@react-native-async-storage/async-storage": "~1.15.0",
+    "@react-native-community/netinfo": "6.0.0",
+    "@react-native-community/slider": "3.0.3",
+    "@react-native-masked-view/masked-view": "0.2.4",
+    "@react-navigation/bottom-tabs": "^6.0.4",
+    "@react-navigation/native": "^6.0.2",
+    "@react-navigation/stack": "^6.0.6",
     "@reduxjs/toolkit": "^1.6.1",
     "bignumber.js": "^9.0.1",
     "buffer": "^6.0.3",
     "classnames": "^2.3.1",
     "dayjs": "^1.10.7",
+    "expo": "^42.0.0",
+    "expo-asset": "~8.3.3",
+    "expo-barcode-scanner": "~10.2.2",
+    "expo-cli": "^4.9.1",
+    "expo-clipboard": "~1.1.0",
+    "expo-constants": "~11.0.1",
+    "expo-crypto": "~9.2.0",
+    "expo-font": "~9.2.1",
+    "expo-linking": "~2.3.1",
+    "expo-local-authentication": "~11.1.1",
+    "expo-localization": "~10.2.0",
+    "expo-random": "~11.2.0",
+    "expo-secure-store": "~10.2.0",
+    "expo-splash-screen": "~0.11.2",
+    "expo-status-bar": "~1.0.4",
+    "expo-updates": "~0.8.2",
+    "expo-web-browser": "~9.2.0",
     "i18n-js": "^3.8.0",
+    "install": "^0.13.0",
     "lodash": "^4.17.21",
+    "react": "16.13.1",
+    "react-content-loader": "^6.0.3",
+    "react-devtools": "^4.18.0",
+    "react-dom": "16.13.1",
+    "react-hook-form": "^7.15.3",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native-collapsible": "^1.6.0",
+    "react-native-confirmation-code-field": "^7.1.0",
+    "react-native-gesture-handler": "~1.10.2",
+    "react-native-keyboard-aware-scroll-view": "^0.9.4",
+    "react-native-loading-spinner-overlay": "^2.0.0",
+    "react-native-qrcode-svg": "^6.1.1",
+    "react-native-reanimated": "^2.2.2",
+    "react-native-safe-area-context": "3.2.0",
+    "react-native-screens": "~3.4.0",
+    "react-native-svg": "12.1.1",
+    "react-native-swiper-flatlist": "^3.0.14",
+    "react-native-web": "~0.13.12",
     "react-number-format": "^4.6.4",
     "react-redux": "^7.2.4",
     "smart-buffer": "^4.1.0",
     "stream-browserify": "^3.0.0",
+    "tailwind-rn": "^3.0.1",
     "tailwindcss": "^2.2.15"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
     "@cypress/code-coverage": "^3.9.11",
+    "@expo/metro-config": "^0.1.82",
     "@testing-library/cypress": "^8.0.1",
     "@testing-library/react-hooks": "^7.0.2",
+    "@testing-library/react-native": "^7.2.0",
     "@types/i18n-js": "^3.8.2",
     "@types/jest": "^26.0.24",
     "@types/lodash": "^4.14.173",
     "@types/randomcolor": "^0.5.6",
+    "@types/react": "~16.9.35",
+    "@types/react-native": "~0.63.2",
+    "@types/react-native-loading-spinner-overlay": "^0.5.3",
     "@types/react-redux": "^7.1.18",
     "@types/react-test-renderer": "^17.0.1",
     "babel-plugin-istanbul": "^6.0.0",
     "cypress": "^8.4.0",
     "cypress-image-diff-js": "^1.14.3",
+    "eas-cli": "^0.27.1",
+    "eslint-config-standard-with-typescript": "^21.0.1",
+    "eslint-plugin-cypress": "^2.11.3",
+    "eslint-plugin-jest": "^24.4.0",
+    "eslint-plugin-react": "^7.25.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-react-native": "^3.11.0",
     "husky": "^7.0.1",
+    "jest-expo": "^42.0.0",
     "lint-staged": "^11.1.1",
     "randomcolor": "^0.6.2",
     "react-test-renderer": "~16.13.1",
     "standard-version": "^9.3.1",
-    "ts-standard": "^10.0.0"
+    "standard-version-expo": "^1.0.3",
+    "ts-standard": "^10.0.0",
+    "typescript": "~4.0.0"
   },
   "lint-staged": {
-    "mobile-app/*.{ts,tsx,js}": [
-      "npm run lint --workspace=mobile-app"
+    "*.{ts,tsx,js}": [
+      "npm run lint"
+    ]
+  },
+  "standard-version": {
+    "skip": {
+      "changelog": true,
+      "tag": true
+    }
+  },
+  "nyc": {
+    "report-dir": "cypress-coverage",
+    "all": true,
+    "include": [
+      "app/**"
+    ],
+    "exclude": [
+      "**.test.ts",
+      "**.test.tsx",
+      "**.snap"
     ]
   }
 }

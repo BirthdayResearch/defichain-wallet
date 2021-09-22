@@ -4,14 +4,17 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { View } from '.'
-import { Logging } from '../api'
-import { BalanceParamList } from '../screens/AppNavigator/screens/Balances/BalancesNavigator'
-import { translate } from '../translations'
+import { Logging } from '@api'
+import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
+import { translate } from '@translations'
 import { ThemedText } from './themed'
 
 type Props = StackScreenProps<BalanceParamList, 'BarCodeScanner'>
 
-export function BarCodeScanner ({ route, navigation }: Props): JSX.Element {
+export function BarCodeScanner ({
+  route,
+  navigation
+}: Props): JSX.Element {
   // null => undetermined
   const [hasPermission, setHasPermission] = useState<boolean | null>(null)
   const [value, setValue] = useState<string>()

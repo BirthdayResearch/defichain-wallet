@@ -1,5 +1,4 @@
-
-import { EnvironmentNetwork } from '../../environment'
+import { EnvironmentNetwork } from '@environment'
 import { getBip32Option } from './network'
 
 it('should resolve bip32 option for MainNet', () => {

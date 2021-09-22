@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { View } from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
-import { tailwind } from '../tailwind'
-import { translate } from '../translations'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 
 export default function LoadingScreen (props: { message?: string }): JSX.Element {
   const { message } = props

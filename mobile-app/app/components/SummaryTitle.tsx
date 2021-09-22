@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js'
 import React from 'react'
 import NumberFormat from 'react-number-format'
-import { tailwind } from '../tailwind'
+import { tailwind } from '@tailwind'
 import { ThemedText, ThemedView } from './themed'
 
 interface SummaryTitleItems {

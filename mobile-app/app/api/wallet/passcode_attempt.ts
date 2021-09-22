@@ -1,4 +1,4 @@
-import { SecuredStoreAPI } from '../secured'
+import { SecuredStoreAPI } from '@api'
 
 const KEY = 'PASSCODE_ATTEMPT.count'
 

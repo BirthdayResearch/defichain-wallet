@@ -1,8 +1,8 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
-import { ThemedSectionTitle, ThemedText, ThemedView } from '../../../../../../components/themed'
-import { tailwind } from '../../../../../../tailwind'
-import { translate } from '../../../../../../translations'
+import { ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 
 export function SlippageTolerance ({
   slippage,

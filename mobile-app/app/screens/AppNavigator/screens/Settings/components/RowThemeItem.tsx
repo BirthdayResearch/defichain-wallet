@@ -1,15 +1,18 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import * as React from 'react'
 import { useState } from 'react'
-import { ThemePersistence } from '../../../../../api/persistence/theme_storage'
-import { Switch, View } from '../../../../../components'
-import { ThemedText, ThemedView } from '../../../../../components/themed'
-import { useThemeContext } from '../../../../../contexts/ThemeProvider'
-import { tailwind } from '../../../../../tailwind'
-import { translate } from '../../../../../translations'
+import { ThemePersistence } from '@api'
+import { Switch, View } from '@components/index'
+import { ThemedText, ThemedView } from '@components/themed'
+import { useThemeContext } from '@contexts/ThemeProvider'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 
 export function RowThemeItem (): JSX.Element {
-  const { setTheme, isLight } = useThemeContext()
+  const {
+    setTheme,
+    isLight
+  } = useThemeContext()
   const [isDark, setIsDark] = useState<boolean>(!isLight)
   return (
     <ThemedView

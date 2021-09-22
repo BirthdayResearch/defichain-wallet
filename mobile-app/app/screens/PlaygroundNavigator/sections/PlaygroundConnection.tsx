@@ -1,11 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Text, View } from '../../../components'
-import { ThemedText, ThemedView } from '../../../components/themed'
-import { useNetworkContext } from '../../../contexts/NetworkContext'
-import { isPlayground } from '../../../environment'
-import { RootState } from '../../../store'
-import { tailwind } from '../../../tailwind'
+import { ThemedText, ThemedView } from '@components/themed'
+import { useNetworkContext } from '@contexts/NetworkContext'
+import { isPlayground } from '@environment'
+import { RootState } from '@store'
+import { tailwind } from '@tailwind'
 import { PlaygroundTitle } from '../components/PlaygroundTitle'
 
 export function PlaygroundConnection (): JSX.Element {

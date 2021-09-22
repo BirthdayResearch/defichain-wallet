@@ -1,6 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
-import { tailwind } from '../../../tailwind'
+import { tailwind } from '@tailwind'
 
 export interface PlaygroundStatusProps {
   loading?: boolean

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { Logging } from '../api'
+import { Logging } from '@api'
 import { WalletPersistence, WalletPersistenceData } from '../api/wallet'
 import { useNetworkContext } from './NetworkContext'
 

@@ -1,8 +1,8 @@
 import * as Localization from 'expo-localization'
 import React from 'react'
 import { KeyboardTypeOptions, Platform, TextInputProps } from 'react-native'
-import { useThemeContext } from '../../contexts/ThemeProvider'
-import { tailwind } from '../../tailwind'
+import { useThemeContext } from '@contexts/ThemeProvider'
+import { tailwind } from '@tailwind'
 import { TextInput } from '../index'
 
 export function ThemedTextInput (props: React.PropsWithChildren<TextInputProps>): JSX.Element {
@@ -11,7 +11,7 @@ export function ThemedTextInput (props: React.PropsWithChildren<TextInputProps>)
     style,
     keyboardType,
     ...otherProps
-} = props
+  } = props
 
   const getKeyboardType = (): KeyboardTypeOptions | undefined => {
     if (keyboardType === 'numeric' && Platform.OS === 'ios' && Localization.decimalSeparator !== '.') {

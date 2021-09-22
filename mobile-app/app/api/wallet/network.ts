@@ -1,6 +1,6 @@
 import { MainNet, Network, RegTest, TestNet } from '@defichain/jellyfish-network'
 import { Bip32Options } from '@defichain/jellyfish-wallet-mnemonic'
-import { EnvironmentNetwork } from '../../environment'
+import { EnvironmentNetwork } from '@environment'
 
 export function getJellyfishNetwork (network: EnvironmentNetwork): Network {
   switch (network) {

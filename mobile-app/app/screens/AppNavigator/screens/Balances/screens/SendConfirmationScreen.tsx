@@ -8,26 +8,30 @@ import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Logging } from '../../../../../api'
-import { NumberRow } from '../../../../../components/NumberRow'
-import { SubmitButtonGroup } from '../../../../../components/SubmitButtonGroup'
-import { SummaryTitle } from '../../../../../components/SummaryTitle'
-import { TextRow } from '../../../../../components/TextRow'
-import { ThemedScrollView, ThemedSectionTitle } from '../../../../../components/themed'
-import { useNetworkContext } from '../../../../../contexts/NetworkContext'
-import { useTokensAPI } from '../../../../../hooks/wallet/TokensAPI'
-import { RootState } from '../../../../../store'
-import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
-import { hasTxQueued, transactionQueue } from '../../../../../store/transaction_queue'
-import { tailwind } from '../../../../../tailwind'
-import { translate } from '../../../../../translations'
+import { Logging } from '@api'
+import { NumberRow } from '@components/NumberRow'
+import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
+import { SummaryTitle } from '@components/SummaryTitle'
+import { TextRow } from '@components/TextRow'
+import { ThemedScrollView, ThemedSectionTitle } from '@components/themed'
+import { useNetworkContext } from '@contexts/NetworkContext'
+import { useTokensAPI } from '@hooks/wallet/TokensAPI'
+import { RootState } from '@store'
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 
 type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
 
 export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   const network = useNetworkContext()
-  const { destination, amount, fee } = route.params
+  const {
+    destination,
+    amount,
+    fee
+  } = route.params
   const [token, setToken] = useState(route.params.token)
   const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))

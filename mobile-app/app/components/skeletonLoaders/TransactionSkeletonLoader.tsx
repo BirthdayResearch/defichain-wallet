@@ -1,7 +1,7 @@
 import * as React from 'react'
 import ContentLoader, { Circle, IContentLoaderProps, Rect } from 'react-content-loader/native'
-import { useThemeContext } from '../../contexts/ThemeProvider'
-import { tailwind } from '../../tailwind'
+import { useThemeContext } from '@contexts/ThemeProvider'
+import { tailwind } from '@tailwind'
 import { ThemedView } from '../themed'
 
 export function TransactionSkeletonLoader (props: JSX.IntrinsicAttributes & IContentLoaderProps & { children?: React.ReactNode }): JSX.Element {

@@ -1,7 +1,7 @@
 import { JellyfishWallet, WalletHdNode, WalletHdNodeProvider } from '@defichain/jellyfish-wallet'
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { WhaleWalletAccount, WhaleWalletAccountProvider } from '@defichain/whale-api-wallet'
-import { EnvironmentNetwork } from '../../environment'
+import { EnvironmentNetwork } from '@environment'
 import { getJellyfishNetwork } from './network'
 
 export function initJellyfishWallet (provider: WalletHdNodeProvider<WalletHdNode>, network: EnvironmentNetwork, client: WhaleApiClient): JellyfishWallet<WhaleWalletAccount, WalletHdNode> {

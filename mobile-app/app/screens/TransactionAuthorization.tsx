@@ -15,7 +15,7 @@ import {
 } from '../api/wallet'
 import { View } from '../components'
 import { PinTextInput } from '@components/PinTextInput'
-import { ThemedActivityIndicator, ThemedText, ThemedTouchableOpacity, ThemedView } from '../components/themed'
+import { ThemedActivityIndicator, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
 import { useNetworkContext } from '@contexts/NetworkContext'
 import { useThemeContext } from '@contexts/ThemeProvider'

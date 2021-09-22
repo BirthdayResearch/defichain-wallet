@@ -1,6 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
-import { tailwind } from '../tailwind'
+import { tailwind } from '@tailwind'
 import { ThemedText, ThemedView } from './themed'
 
 export function TextRow (props: { lhs: string, rhs: { value: string, testID: string } }): JSX.Element {

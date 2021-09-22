@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Logging } from '../../api'
-import { useWalletContext } from '../../contexts/WalletContext'
-import { useWhaleApiClient } from '../../contexts/WhaleContext'
-import { RootState } from '../../store'
-import { DexItem, wallet } from '../../store/wallet'
+import { Logging } from '@api'
+import { useWalletContext } from '@contexts/WalletContext'
+import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { RootState } from '@store'
+import { DexItem, wallet } from '@store/wallet'
 
 export function usePoolPairsAPI (): DexItem[] {
   const client = useWhaleApiClient()

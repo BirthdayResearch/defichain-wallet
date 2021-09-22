@@ -11,18 +11,12 @@ import { Logging } from '@api'
 import { View } from '@components/index'
 import { Button } from '@components/Button'
 import { NumberRow } from '@components/NumberRow'
-import {
-  ThemedScrollView,
-  ThemedSectionTitle,
-  ThemedText,
-  ThemedTextInput,
-  ThemedView
-} from '../../../../components/themed'
+import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedTextInput, ThemedView } from '@components/themed'
 import { TokenBalanceRow } from '@components/TokenBalanceRow'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { RootState } from '@store'
-import { hasTxQueued as hasBroadcastQueued } from '../../../../store/ocean'
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'

@@ -1,6 +1,6 @@
 import * as ExpoSecureStore from 'expo-secure-store'
-import { EnvironmentNetwork } from '../../environment'
-import { SecuredStoreAPI } from './index'
+import { EnvironmentNetwork } from '@environment'
+import { SecuredStoreAPI } from '@api'
 
 // TODO(fuxingloh): 'jest-expo' only test native (provider.native.ts) by default, need to improve testing capability
 

@@ -11,12 +11,18 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "strict": true,
-    "baseUrl": "app",
+    "baseUrl": "mobile-app/app",
     "paths": {
       "@api": [
         "api"
       ],
+      "@api/*": [
+        "api/*"
+      ],
       "@assets": [
+        "assets"
+      ],
+      "@assets/*": [
         "assets/*"
       ],
       "@constants/*": [

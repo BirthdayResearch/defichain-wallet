@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text as DefaultText } from 'react-native'
-import { tailwind } from '../tailwind'
+import { tailwind } from '@tailwind'
 
 export const HeaderFont = tailwind('font-semibold')
 

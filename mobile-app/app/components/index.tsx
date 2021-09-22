@@ -1,6 +1,6 @@
 import React from 'react'
 import { Switch as DefaultSwitch, TextInput as DefaultTextInput, View as DefaultView } from 'react-native'
-import { tailwind } from '../tailwind'
+import { tailwind } from '@tailwind'
 
 export function View (props: DefaultView['props']): JSX.Element {
   const { style, ...otherProps } = props

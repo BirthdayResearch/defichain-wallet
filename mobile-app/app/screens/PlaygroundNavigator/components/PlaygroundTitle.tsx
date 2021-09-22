@@ -1,7 +1,7 @@
 import React from 'react'
-import { View } from '../../../components'
-import { ThemedText } from '../../../components/themed'
-import { tailwind } from '../../../tailwind'
+import { View } from '@components/index'
+import { ThemedText } from '@components/themed'
+import { tailwind } from '@tailwind'
 import { PlaygroundStatus, PlaygroundStatusProps } from './PlaygroundStatus'
 
 interface PlaygroundTitleProps {

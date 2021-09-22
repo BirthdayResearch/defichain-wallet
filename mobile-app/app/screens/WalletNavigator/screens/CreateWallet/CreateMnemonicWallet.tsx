@@ -1,6 +1,6 @@
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { StackScreenProps } from '@react-navigation/stack'
-import { MnemonicUnprotected } from '../../../../api/wallet'
+import { MnemonicUnprotected } from '@api/wallet'
 import * as React from 'react'
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 import { Button } from '@components/Button'

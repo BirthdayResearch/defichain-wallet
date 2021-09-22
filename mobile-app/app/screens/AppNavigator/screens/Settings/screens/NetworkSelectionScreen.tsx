@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { View } from 'react-native'
-import { ThemedSectionTitle } from '../../../../../components/themed/ThemedSectionTitle'
-import { getEnvironment } from '../../../../../environment'
-import { translate } from '../../../../../translations'
-import { RowNetworkItem } from '../../../../../components/RowNetworkItem'
+import { ThemedSectionTitle } from '@components/themed/ThemedSectionTitle'
+import { getEnvironment } from '@environment'
+import { translate } from '@translations'
+import { RowNetworkItem } from '@components/RowNetworkItem'
 
 export function NetworkSelectionScreen (): JSX.Element {
   const networks = getEnvironment().networks

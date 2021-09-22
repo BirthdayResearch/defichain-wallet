@@ -22,7 +22,7 @@ import { translate } from '@translations'
 import * as React from 'react'
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
-import { MnemonicStorage } from '../../../../api/wallet/mnemonic_storage'
+import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { RowThemeItem } from './components/RowThemeItem'
 import { SettingsParamList } from './SettingsNavigator'
 

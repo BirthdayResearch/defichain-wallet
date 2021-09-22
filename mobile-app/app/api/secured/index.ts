@@ -1,4 +1,4 @@
-import { EnvironmentNetwork, getEnvironment } from '../../environment'
+import { EnvironmentNetwork, getEnvironment } from '@environment'
 import { StorageProvider } from './provider'
 
 /**

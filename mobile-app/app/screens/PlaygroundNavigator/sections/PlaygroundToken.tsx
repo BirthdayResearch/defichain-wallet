@@ -1,15 +1,18 @@
 import { TokenInfo } from '@defichain/jellyfish-api-core/dist/category/token'
 import { PlaygroundRpcClient } from '@defichain/playground-api-client'
 import React, { useEffect, useState } from 'react'
-import { View } from '../../../components'
-import { usePlaygroundContext } from '../../../contexts/PlaygroundContext'
-import { useWalletContext } from '../../../contexts/WalletContext'
+import { View } from '@components/index'
+import { usePlaygroundContext } from '@contexts/PlaygroundContext'
+import { useWalletContext } from '@contexts/WalletContext'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundTitle } from '../components/PlaygroundTitle'
 
 export function PlaygroundToken (): JSX.Element | null {
   const { wallet } = useWalletContext()
-  const { rpc, api } = usePlaygroundContext()
+  const {
+    rpc,
+    api
+  } = usePlaygroundContext()
   const [status, setStatus] = useState<string>('loading')
   const [tokens, setTokens] = useState<PlaygroundTokenInfo[]>([])
 

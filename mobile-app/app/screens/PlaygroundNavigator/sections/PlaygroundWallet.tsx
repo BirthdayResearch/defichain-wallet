@@ -1,15 +1,22 @@
 import React from 'react'
 import { MnemonicEncrypted, MnemonicUnprotected } from '../../../api/wallet'
-import { MnemonicStorage } from '../../../api/wallet/mnemonic_storage'
-import { View } from '../../../components'
-import { useNetworkContext } from '../../../contexts/NetworkContext'
-import { useWalletPersistenceContext } from '../../../contexts/WalletPersistenceContext'
+import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
+import { View } from '@components/index'
+import { useNetworkContext } from '@contexts/NetworkContext'
+import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundTitle } from '../components/PlaygroundTitle'
 
 export function PlaygroundWallet (): JSX.Element | null {
-  const { wallets, clearWallets, setWallet } = useWalletPersistenceContext()
-  const { network, updateNetwork } = useNetworkContext()
+  const {
+    wallets,
+    clearWallets,
+    setWallet
+  } = useWalletPersistenceContext()
+  const {
+    network,
+    updateNetwork
+  } = useNetworkContext()
 
   return (
     <View>

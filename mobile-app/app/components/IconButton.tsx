@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import * as React from 'react'
 import { TouchableOpacityProps } from 'react-native'
-import { tailwind } from '../tailwind'
+import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedTouchableOpacity } from './themed'
 
 type IconType = 'MaterialCommunityIcons' | 'MaterialIcons'

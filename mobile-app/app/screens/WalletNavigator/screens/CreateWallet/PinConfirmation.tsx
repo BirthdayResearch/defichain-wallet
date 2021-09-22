@@ -1,28 +1,28 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
-import { Logging } from '../../../../api'
-import { MnemonicEncrypted } from '../../../../api/wallet'
-import { MnemonicStorage } from '../../../../api/wallet/mnemonic_storage'
-import { View } from '../../../../components'
-import {
-  CREATE_STEPS,
-  CreateWalletStepIndicator,
-  RESTORE_STEPS
-} from '../../../../components/CreateWalletStepIndicator'
-import { PinTextInput } from '../../../../components/PinTextInput'
-import { ThemedActivityIndicator, ThemedScrollView, ThemedText } from '../../../../components/themed'
-import { useNetworkContext } from '../../../../contexts/NetworkContext'
-import { useWalletPersistenceContext } from '../../../../contexts/WalletPersistenceContext'
-import { tailwind } from '../../../../tailwind'
-import { translate } from '../../../../translations'
-import { WalletParamList } from '../../WalletNavigator'
+import { Logging } from '@api'
+import { MnemonicEncrypted } from '@api/wallet'
+import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
+import { View } from '@components/index'
+import { CREATE_STEPS, CreateWalletStepIndicator, RESTORE_STEPS } from '@components/CreateWalletStepIndicator'
+import { PinTextInput } from '@components/PinTextInput'
+import { ThemedActivityIndicator, ThemedScrollView, ThemedText } from '@components/themed'
+import { useNetworkContext } from '@contexts/NetworkContext'
+import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
+import { WalletParamList } from '@screens/WalletNavigator/WalletNavigator'
 
 type Props = StackScreenProps<WalletParamList, 'PinConfirmation'>
 
 export function PinConfirmation ({ route }: Props): JSX.Element {
   const { network } = useNetworkContext()
   const { setWallet } = useWalletPersistenceContext()
-  const { pin, words, type } = route.params
+  const {
+    pin,
+    words,
+    type
+  } = route.params
   const [newPin, setNewPin] = useState('')
 
   const [invalid, setInvalid] = useState<boolean>(false)

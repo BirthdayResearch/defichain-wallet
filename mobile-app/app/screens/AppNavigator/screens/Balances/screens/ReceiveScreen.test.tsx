@@ -3,8 +3,8 @@ import { fireEvent, render } from '@testing-library/react-native'
 import * as Clipboard from 'expo-clipboard'
 import * as React from 'react'
 import { Provider } from 'react-redux'
-import { RootState } from '../../../../../store'
-import { wallet } from '../../../../../store/wallet'
+import { RootState } from '@store'
+import { wallet } from '@store/wallet'
 import { ReceiveScreen } from './ReceiveScreen'
 
 jest.mock('../../../../../contexts/WalletContext', () => ({

@@ -19,7 +19,7 @@ DeFiChain Wallet has 3 releases channel and unique environment for each of those
 <details>
 <summary><b>Production</b></summary>
 
-Created by Expo Application Service and configured in [`eas.json`](/mobile-app/eas.json), it creates a native build
+Created by Expo Application Service and configured in [`eas.json`](/eas.json), it creates a native build
 with [`release-publish.yml`](/.github/workflows/eas-publish.yml) workflow on type "published". Builds can only be
 triggered by DeFiChain engineers, they are automatically uploaded into native app store for distribution.
 

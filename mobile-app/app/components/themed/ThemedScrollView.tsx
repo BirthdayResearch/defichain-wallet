@@ -4,9 +4,9 @@ import React from 'react'
 import { ScrollView } from 'react-native'
 import { ThemedProps } from './index'
 
-type ThemedScrolViewProps = ScrollView['props'] & ThemedProps
+type ThemedScrollViewProps = ScrollView['props'] & ThemedProps
 
-export function ThemedScrollView (props: ThemedScrolViewProps): JSX.Element {
+export function ThemedScrollView (props: ThemedScrollViewProps): JSX.Element {
   const { isLight } = useThemeContext()
   const {
     style,

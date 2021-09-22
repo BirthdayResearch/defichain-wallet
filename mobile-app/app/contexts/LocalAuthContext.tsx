@@ -2,7 +2,7 @@ import { Logging } from '@api'
 import * as LocalAuthentication from 'expo-local-authentication'
 import { AuthenticationType, LocalAuthenticationOptions, SecurityLevel } from 'expo-local-authentication'
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { PrivacyLockPersistence } from '../api/wallet/privacy_lock'
+import { PrivacyLockPersistence } from '@api/wallet/privacy_lock'
 
 export interface PrivacyLockContextI {
   // user's hardware condition, external

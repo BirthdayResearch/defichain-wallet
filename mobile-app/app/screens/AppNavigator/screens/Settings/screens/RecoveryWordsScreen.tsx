@@ -1,9 +1,9 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
-import { View } from '../../../../../components'
-import { ThemedScrollView, ThemedText, ThemedView } from '../../../../../components/themed'
-import { tailwind } from '../../../../../tailwind'
-import { translate } from '../../../../../translations'
+import { View } from '@components/index'
+import { ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import { SettingsParamList } from '../SettingsNavigator'
 
 type Props = StackScreenProps<SettingsParamList, 'RecoveryWordsScreen'>

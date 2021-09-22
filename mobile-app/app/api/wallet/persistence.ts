@@ -1,4 +1,4 @@
-import { SecuredStoreAPI } from '../secured'
+import { SecuredStoreAPI } from '@api'
 
 export enum WalletType {
   MNEMONIC_UNPROTECTED = 'MNEMONIC_UNPROTECTED',

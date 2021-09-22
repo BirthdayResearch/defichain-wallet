@@ -1,7 +1,7 @@
 import { PrivateKeyEncryption, Scrypt } from '@defichain/jellyfish-wallet-encrypted'
 import { entropyAsMnemonic, mnemonicAsEntropy } from '@defichain/jellyfish-wallet-mnemonic'
 import { getRandomBytes } from 'expo-random'
-import { SecuredStoreAPI } from '../secured'
+import { SecuredStoreAPI } from '@api'
 
 const KEY = 'ENCRYPTED_MNEMONIC_STORAGE.entropy'
 

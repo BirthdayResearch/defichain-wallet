@@ -1,8 +1,8 @@
 import { NetworkName } from '@defichain/jellyfish-network'
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { Logging, SecuredStoreAPI } from '../api'
-import { getJellyfishNetwork } from '../api/wallet'
-import { EnvironmentNetwork } from '../environment'
+import { Logging, SecuredStoreAPI } from '@api'
+import { getJellyfishNetwork } from '@api/wallet'
+import { EnvironmentNetwork } from '@environment'
 
 interface NetworkContextI {
   network: EnvironmentNetwork

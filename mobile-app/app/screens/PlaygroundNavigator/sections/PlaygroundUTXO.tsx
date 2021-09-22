@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { View } from '../../../components'
-import { usePlaygroundContext } from '../../../contexts/PlaygroundContext'
-import { useWalletContext } from '../../../contexts/WalletContext'
-import { useWhaleApiClient } from '../../../contexts/WhaleContext'
-import { fetchTokens } from '../../../hooks/wallet/TokensAPI'
+import { View } from '@components/index'
+import { usePlaygroundContext } from '@contexts/PlaygroundContext'
+import { useWalletContext } from '@contexts/WalletContext'
+import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { fetchTokens } from '@hooks/wallet/TokensAPI'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundTitle } from '../components/PlaygroundTitle'
 
@@ -12,7 +12,10 @@ export function PlaygroundUTXO (): JSX.Element {
   const { wallet } = useWalletContext()
   const whaleApiClient = useWhaleApiClient()
   const dispatch = useDispatch()
-  const { api, rpc } = usePlaygroundContext()
+  const {
+    api,
+    rpc
+  } = usePlaygroundContext()
   const [status, setStatus] = useState<string>('loading')
 
   useEffect(() => {
