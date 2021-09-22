@@ -3,8 +3,8 @@ import { Provider } from 'react-redux'
 import { render } from '@testing-library/react-native'
 import * as React from 'react'
 import { NetworkDetails } from './NetworkDetails'
-import { RootState } from '../../../../../store'
-import { block } from 'mobile-app/app/store/block'
+import { RootState } from '@store'
+import { block } from '@store/block'
 
 jest.mock('../../../../../contexts/ThemeProvider')
 

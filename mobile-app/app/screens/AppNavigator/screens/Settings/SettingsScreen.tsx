@@ -199,7 +199,7 @@ function RowExitWalletItem (): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={onExitWallet}
-      style={tailwind('flex flex-row p-4 mt-8 items-center')}
+      style={tailwind('flex flex-row p-4 mt-8 mb-8 items-center')}
       testID='setting_exit_wallet'
     >
       <ThemedIcon
@@ -227,20 +227,29 @@ function PrivacyLockToggle ({
   onToggle
 }: { disabled?: boolean, value: boolean, onToggle: (newValue: boolean) => void }): JSX.Element {
   return (
-    <ThemedView
-      light={tailwind('bg-white border-b border-gray-200')}
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      style={tailwind('flex p-4 pr-2 flex-row items-center justify-between')}
-    >
-      <ThemedText testID='text_privacy_lock' style={tailwind('font-medium')}>
-        {translate('screens/Settings', 'Privacy Lock')}
+    <>
+      <ThemedView
+        light={tailwind('bg-white border-b border-gray-200')}
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        style={tailwind('flex p-4 pr-2 flex-row items-center justify-between')}
+      >
+        <ThemedText testID='text_privacy_lock' style={tailwind('font-medium')}>
+          {translate('screens/Settings', 'Privacy Lock')}
+        </ThemedText>
+        <Switch
+          onValueChange={onToggle}
+          value={value}
+          testID='switch_privacy_lock'
+        />
+      </ThemedView>
+      <ThemedText
+        light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-400')}
+        style={tailwind('p-4 pt-2 mb-4 text-xs font-medium')}
+      >
+        {translate('screens/Settings', 'Auto-locks wallet if there is no activity for 1 min.')}
       </ThemedText>
-      <Switch
-        onValueChange={onToggle}
-        value={value}
-        testID='switch_privacy_lock'
-      />
-    </ThemedView>
+    </>
   )
 }
 
