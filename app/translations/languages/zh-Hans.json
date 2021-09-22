@@ -75,7 +75,7 @@
     "Enter an amount": "请输入数量",
     "Available": "可转换资金",
     "After conversion, you will receive": "转换后您会收到",
-    "Review full transaction details in the next screen": "您想提供多少 {{symbol}} 流动资金"
+    "Review full transaction details in the next screen": "请在下一步确认交易明细"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "确认要转换 DFI",
