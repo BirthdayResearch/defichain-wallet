@@ -134,8 +134,8 @@ export function OceanInterface (): JSX.Element | null {
           }
 
           notificationObj = {
-            title,
-            body: `Txid: ${transaction.tx.txId}`
+            title: translate('screens/OceanInterface', title),
+            body: translate('screens/OceanInterface', 'Transaction ID: {{txid}}', { txid: transaction.tx.txId })
           }
 
           setTx({
@@ -146,9 +146,10 @@ export function OceanInterface (): JSX.Element | null {
         })
         .catch((e: Error) => {
           const errMsg = `${e.message}. Txid: ${transaction.tx.txId}`
+          const err = errorMessageMapping(errMsg)
           notificationObj = {
             title: translate('screens/OceanInterface', 'Transaction Error'),
-            body: errMsg
+            body: translate('screens/OceanInterface', err.message)
           }
           setError(errMsg)
           Logging.error(e)

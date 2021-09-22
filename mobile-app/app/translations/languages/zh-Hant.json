@@ -280,6 +280,7 @@
     "Waiting for confirmation": "正在確認",
     "Transaction Completed": "交易成功",
     "Transaction Error": "交易有錯誤",
+    "Transaction ID: {{txid}}": "交易 ID: {{txid}}",
     "Sent but not confirmed": "已發出尚未完全確認",
     "Broadcasting...": "傳送...",
     "OK": "好了",
