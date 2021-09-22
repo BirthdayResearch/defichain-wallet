@@ -12,7 +12,7 @@ import { RootState } from '@store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '@store/ocean'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { WalletNotifications, SendNotificationProps } from '../../api/wallet/notifications'
+import { WalletNotifications } from '../../api/wallet/notifications'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Animated, Linking, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -109,7 +109,6 @@ export function OceanInterface (): JSX.Element | null {
         ...transaction,
         broadcasted: false
       })
-      let notificationObj: SendNotificationProps
       broadcastTransaction(transaction.tx, client)
         .then(async () => {
           try {
@@ -132,11 +131,10 @@ export function OceanInterface (): JSX.Element | null {
             Logging.error(e)
             title = 'Sent but not confirmed'
           }
-
-          notificationObj = {
+          void WalletNotifications.send({
             title: translate('screens/OceanInterface', title),
             body: translate('screens/OceanInterface', 'Transaction ID: {{txid}}', { txid: transaction.tx.txId })
-          }
+          })
 
           setTx({
             ...transaction,
@@ -147,17 +145,14 @@ export function OceanInterface (): JSX.Element | null {
         .catch((e: Error) => {
           const errMsg = `${e.message}. Txid: ${transaction.tx.txId}`
           const err = errorMessageMapping(errMsg)
-          notificationObj = {
+          void WalletNotifications.send({
             title: translate('screens/OceanInterface', 'Transaction Error'),
             body: translate('screens/OceanInterface', err.message)
-          }
+          })
           setError(errMsg)
           Logging.error(e)
         })
         .finally(() => {
-          if ((notificationObj.title !== '') && (notificationObj.body !== '')) {
-            void WalletNotifications.send(notificationObj)
-          }
           dispatch(ocean.actions.popTransaction())
           fetchTokens(client, address, dispatch)
         }) // remove the job as soon as completion

@@ -2,17 +2,17 @@ import * as Notifications from 'expo-notifications'
 import { Platform } from 'react-native'
 import { PermissionStatus } from 'expo-modules-core'
 
-export interface SendNotificationProps {
+export interface SendNotificationData {
   title: string
   body: string
-  data?: { [key: string]: unknown }
+  data?: { [key: string]: string | object }
 }
 
 /**
  * Wallet push notification implementation light wallet
  */
 class NotificationsService {
-  status: PermissionStatus | undefined
+  status?: PermissionStatus
 
    /**
    * Register notifications permission for app.
@@ -40,10 +40,10 @@ class NotificationsService {
         finalStatus = status
       }
 
+      this.status = finalStatus
       if (finalStatus !== PermissionStatus.GRANTED) {
         return
       }
-      this.status = finalStatus
       if (Platform.OS === 'android') {
         await Notifications.setNotificationChannelAsync('default', {
           name: 'default',
@@ -60,7 +60,7 @@ class NotificationsService {
    * @param {string} body
    * @param {{ key: string]: unknown }} data
    */
-  async send ({ title, body, data = {} }: SendNotificationProps): Promise<void> {
+  async send ({ title, body, data = {} }: SendNotificationData): Promise<void> {
     if (this.status === PermissionStatus.GRANTED) {
       await Notifications.scheduleNotificationAsync({
         content: {
