@@ -28,7 +28,6 @@ import { ocean } from '@store/ocean'
 import { DfTxSigner, first, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { WalletNotifications } from '../api/wallet/notifications'
 
 const MAX_PASSCODE_ATTEMPT = 3 // allowed 2 failures
 const PIN_LENGTH = 6
@@ -185,12 +184,6 @@ export function TransactionAuthorization (): JSX.Element | null {
         .then(async signedTx => {
           // case 1: success
           await resetPasscodeCounter()
-          if (transaction?.title != null && transaction?.description != null) {
-            await WalletNotifications.send({
-              title: transaction?.title,
-              body: transaction?.description
-            })
-          }
           dispatch(ocean.actions.queueTransaction({ tx: signedTx, postAction: transaction.postAction })) // push signed result for broadcasting
         })
         .catch(async e => {

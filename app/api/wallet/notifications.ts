@@ -2,7 +2,7 @@ import * as Notifications from 'expo-notifications'
 import { Platform } from 'react-native'
 import { PermissionStatus } from 'expo-modules-core'
 
-interface SendNotificationProps {
+export interface SendNotificationProps {
   title: string
   body: string
   data?: { [key: string]: unknown }
