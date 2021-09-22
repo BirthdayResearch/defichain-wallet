@@ -26,7 +26,7 @@ jobs:
 
       - run: npm ci
       - run: tsc --project tsconfig.production.json
-      - run: npm run lint
+      - run: npx --no-install eslint ./mobile-app/app ./mobile-app/App.tsx
 
   unit:
     name: Unit Test
