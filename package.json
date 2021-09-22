@@ -2,10 +2,10 @@
   "name": "@defichain/wallet",
   "private": true,
   "license": "MIT",
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "./mobile-app/AppEntry.js",
   "scripts": {
     "prepare": "husky install",
-    "lint": "eslint app App.tsx cypress/integration --fix",
+    "lint": "eslint ./mobile-app/app ./mobile-app/App.tsx --fix",
     "start": "expo start",
     "start:android": "expo start --android",
     "start:ios": "expo start --ios",
@@ -127,7 +127,6 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js}": [
-      "npm run lint"
     ]
   },
   "standard-version": {
@@ -140,7 +139,7 @@
     "report-dir": "cypress-coverage",
     "all": true,
     "include": [
-      "app/**"
+      "mobile-app/app/**"
     ],
     "exclude": [
       "**.test.ts",

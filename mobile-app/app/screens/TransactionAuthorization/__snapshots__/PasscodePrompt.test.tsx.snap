@@ -1,0 +1,1103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`transaction authorization screen should match snapshot of status: BLOCK 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+  style={
+    Object {
+      "backgroundColor": "rgba(245, 245, 245, 1)",
+      "flexDirection": "column",
+      "height": "100%",
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "paddingTop": undefined,
+      }
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(245, 245, 245, 1)",
+          "borderBottomColor": "rgba(229, 229, 229, 1)",
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(229, 229, 229, 1)",
+          "borderRightColor": "rgba(229, 229, 229, 1)",
+          "borderTopColor": "rgba(229, 229, 229, 1)",
+          "opacity": 1,
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 16,
+        }
+      }
+      testID="cancel_authorization"
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "BoldFont",
+                "fontWeight": "700",
+              },
+              Object {
+                "color": "rgba(255, 0, 175, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        CANCEL
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "flexBasis": "0%",
+          "flexDirection": "column",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "paddingTop": 32,
+          "width": "100%",
+        },
+        Object {
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "BoldFont",
+              "fontSize": 20,
+              "fontWeight": "700",
+              "lineHeight": 28,
+              "textAlign": "center",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Enter passcode
+    </Text>
+    <View
+      style={
+        Object {
+          "fontSize": 14,
+          "lineHeight": 20,
+          "marginBottom": 24,
+          "paddingBottom": 16,
+          "paddingLeft": 32,
+          "paddingRight": 32,
+          "paddingTop": 16,
+          "textAlign": "center",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 20,
+                "marginBottom": 8,
+                "paddingBottom": 16,
+                "paddingLeft": 32,
+                "paddingRight": 32,
+                "paddingTop": 16,
+                "textAlign": "center",
+              },
+              Object {
+                "color": "rgba(115, 115, 115, 1)",
+              },
+            ],
+          ]
+        }
+        testID="txn_authorization_message"
+      >
+        foo
+      </Text>
+    </View>
+  </View>
+</RCTSafeAreaView>
+`;
+
+exports[`transaction authorization screen should match snapshot of status: IDLE 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+  style={
+    Object {
+      "backgroundColor": "rgba(245, 245, 245, 1)",
+      "flexDirection": "column",
+      "height": "100%",
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "paddingTop": undefined,
+      }
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(245, 245, 245, 1)",
+          "borderBottomColor": "rgba(229, 229, 229, 1)",
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(229, 229, 229, 1)",
+          "borderRightColor": "rgba(229, 229, 229, 1)",
+          "borderTopColor": "rgba(229, 229, 229, 1)",
+          "opacity": 1,
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 16,
+        }
+      }
+      testID="cancel_authorization"
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "BoldFont",
+                "fontWeight": "700",
+              },
+              Object {
+                "color": "rgba(255, 0, 175, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        CANCEL
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "flexBasis": "0%",
+          "flexDirection": "column",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "paddingTop": 32,
+          "width": "100%",
+        },
+        Object {
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "BoldFont",
+              "fontSize": 20,
+              "fontWeight": "700",
+              "lineHeight": 28,
+              "textAlign": "center",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Enter passcode
+    </Text>
+    <View
+      style={
+        Object {
+          "fontSize": 14,
+          "lineHeight": 20,
+          "marginBottom": 24,
+          "paddingBottom": 16,
+          "paddingLeft": 32,
+          "paddingRight": 32,
+          "paddingTop": 16,
+          "textAlign": "center",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 20,
+                "marginBottom": 8,
+                "paddingBottom": 16,
+                "paddingLeft": 32,
+                "paddingRight": 32,
+                "paddingTop": 16,
+                "textAlign": "center",
+              },
+              Object {
+                "color": "rgba(115, 115, 115, 1)",
+              },
+            ],
+          ]
+        }
+        testID="txn_authorization_message"
+      >
+        foo
+      </Text>
+    </View>
+  </View>
+</RCTSafeAreaView>
+`;
+
+exports[`transaction authorization screen should match snapshot of status: INIT 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+  style={
+    Object {
+      "backgroundColor": "rgba(245, 245, 245, 1)",
+      "flexDirection": "column",
+      "height": "100%",
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "paddingTop": undefined,
+      }
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(245, 245, 245, 1)",
+          "borderBottomColor": "rgba(229, 229, 229, 1)",
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(229, 229, 229, 1)",
+          "borderRightColor": "rgba(229, 229, 229, 1)",
+          "borderTopColor": "rgba(229, 229, 229, 1)",
+          "opacity": 1,
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 16,
+        }
+      }
+      testID="cancel_authorization"
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "BoldFont",
+                "fontWeight": "700",
+              },
+              Object {
+                "color": "rgba(255, 0, 175, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        CANCEL
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "flexBasis": "0%",
+          "flexDirection": "column",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "paddingTop": 32,
+          "width": "100%",
+        },
+        Object {
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "BoldFont",
+              "fontSize": 20,
+              "fontWeight": "700",
+              "lineHeight": 28,
+              "textAlign": "center",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Enter passcode
+    </Text>
+    <View
+      style={
+        Object {
+          "fontSize": 14,
+          "lineHeight": 20,
+          "marginBottom": 24,
+          "paddingBottom": 16,
+          "paddingLeft": 32,
+          "paddingRight": 32,
+          "paddingTop": 16,
+          "textAlign": "center",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 20,
+                "marginBottom": 8,
+                "paddingBottom": 16,
+                "paddingLeft": 32,
+                "paddingRight": 32,
+                "paddingTop": 16,
+                "textAlign": "center",
+              },
+              Object {
+                "color": "rgba(115, 115, 115, 1)",
+              },
+            ],
+          ]
+        }
+        testID="txn_authorization_message"
+      >
+        foo
+      </Text>
+    </View>
+  </View>
+</RCTSafeAreaView>
+`;
+
+exports[`transaction authorization screen should match snapshot of status: PIN 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+  style={
+    Object {
+      "backgroundColor": "rgba(245, 245, 245, 1)",
+      "flexDirection": "column",
+      "height": "100%",
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "paddingTop": undefined,
+      }
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(245, 245, 245, 1)",
+          "borderBottomColor": "rgba(229, 229, 229, 1)",
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(229, 229, 229, 1)",
+          "borderRightColor": "rgba(229, 229, 229, 1)",
+          "borderTopColor": "rgba(229, 229, 229, 1)",
+          "opacity": 1,
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 16,
+        }
+      }
+      testID="cancel_authorization"
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "BoldFont",
+                "fontWeight": "700",
+              },
+              Object {
+                "color": "rgba(255, 0, 175, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        CANCEL
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "flexBasis": "0%",
+          "flexDirection": "column",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "paddingTop": 32,
+          "width": "100%",
+        },
+        Object {
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "BoldFont",
+              "fontSize": 20,
+              "fontWeight": "700",
+              "lineHeight": 28,
+              "textAlign": "center",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Enter passcode
+    </Text>
+    <View
+      style={
+        Object {
+          "fontSize": 14,
+          "lineHeight": 20,
+          "marginBottom": 24,
+          "paddingBottom": 16,
+          "paddingLeft": 32,
+          "paddingRight": 32,
+          "paddingTop": 16,
+          "textAlign": "center",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 20,
+                "marginBottom": 8,
+                "paddingBottom": 16,
+                "paddingLeft": 32,
+                "paddingRight": 32,
+                "paddingTop": 16,
+                "textAlign": "center",
+              },
+              Object {
+                "color": "rgba(115, 115, 115, 1)",
+              },
+            ],
+          ]
+        }
+        testID="txn_authorization_message"
+      >
+        foo
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "marginBottom": 16,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#ffffff",
+                "borderColor": "rgba(0, 0, 0, 0.2)",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              Object {
+                "backgroundColor": "#ff00af",
+                "borderColor": "#ff00af",
+                "borderRadius": 10,
+              },
+              false,
+              Object {
+                "marginLeft": 0,
+              },
+            ]
+          }
+          testID="pin_authorize_0"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#ffffff",
+                "borderColor": "rgba(0, 0, 0, 0.2)",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              Object {
+                "backgroundColor": "#ff00af",
+                "borderColor": "#ff00af",
+                "borderRadius": 10,
+              },
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_1"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#ffffff",
+                "borderColor": "rgba(0, 0, 0, 0.2)",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              Object {
+                "backgroundColor": "#ff00af",
+                "borderColor": "#ff00af",
+                "borderRadius": 10,
+              },
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_2"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#ffffff",
+                "borderColor": "rgba(0, 0, 0, 0.2)",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              false,
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_3"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#ffffff",
+                "borderColor": "rgba(0, 0, 0, 0.2)",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              false,
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_4"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#ffffff",
+                "borderColor": "rgba(0, 0, 0, 0.2)",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              false,
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_5"
+        />
+        <TextInput
+          allowFontScaling={true}
+          autoCapitalize="characters"
+          autoCorrect={false}
+          autoFocus={true}
+          blurOnSubmit={false}
+          caretHidden={true}
+          clearButtonMode="never"
+          disableFullscreenUI={true}
+          keyboardType="number-pad"
+          maxLength={6}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          onFocus={[Function]}
+          onPressOut={[Function]}
+          rejectResponderTermination={true}
+          spellCheck={false}
+          style={
+            Object {
+              "bottom": 0,
+              "fontSize": 1,
+              "left": 0,
+              "opacity": 0.01,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            }
+          }
+          testID="pin_authorize"
+          textContentType="oneTimeCode"
+          underlineColorAndroid="transparent"
+          value="foo"
+        />
+      </View>
+    </View>
+  </View>
+</RCTSafeAreaView>
+`;
+
+exports[`transaction authorization screen should match snapshot of status: SIGNING 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+  style={
+    Object {
+      "backgroundColor": "rgba(245, 245, 245, 1)",
+      "flexDirection": "column",
+      "height": "100%",
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "paddingTop": undefined,
+      }
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(245, 245, 245, 1)",
+          "borderBottomColor": "rgba(229, 229, 229, 1)",
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(229, 229, 229, 1)",
+          "borderRightColor": "rgba(229, 229, 229, 1)",
+          "borderTopColor": "rgba(229, 229, 229, 1)",
+          "opacity": 1,
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 16,
+        }
+      }
+      testID="cancel_authorization"
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "BoldFont",
+                "fontWeight": "700",
+              },
+              Object {
+                "color": "rgba(255, 0, 175, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        CANCEL
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "flexBasis": "0%",
+          "flexDirection": "column",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "paddingTop": 32,
+          "width": "100%",
+        },
+        Object {
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "BoldFont",
+              "fontSize": 20,
+              "fontWeight": "700",
+              "lineHeight": 28,
+              "textAlign": "center",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Enter passcode
+    </Text>
+    <View
+      style={
+        Object {
+          "fontSize": 14,
+          "lineHeight": 20,
+          "marginBottom": 24,
+          "paddingBottom": 16,
+          "paddingLeft": 32,
+          "paddingRight": 32,
+          "paddingTop": 16,
+          "textAlign": "center",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 20,
+                "marginBottom": 8,
+                "paddingBottom": 16,
+                "paddingLeft": 32,
+                "paddingRight": 32,
+                "paddingTop": 16,
+                "textAlign": "center",
+              },
+              Object {
+                "color": "rgba(115, 115, 115, 1)",
+              },
+            ],
+          ]
+        }
+        testID="txn_authorization_message"
+      >
+        foo
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "paddingBottom": 8,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 8,
+        }
+      }
+    >
+      <ActivityIndicator
+        animating={true}
+        color="#ff00af"
+        hidesWhenStopped={true}
+        size="small"
+      />
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "marginLeft": 8,
+              },
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        foo
+      </Text>
+    </View>
+  </View>
+</RCTSafeAreaView>
+`;
