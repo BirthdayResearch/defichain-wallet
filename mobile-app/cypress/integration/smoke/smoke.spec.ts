@@ -139,6 +139,7 @@ context('Mainnet - Wallet', () => {
 
     it('should have correct poolpairs', function () {
       cy.getByTestID('bottom_tab_dex').click()
+      cy.getByTestID('close_dex_guidelines').click()
       cy.getByTestID('your_dETH-DFI').contains('10.00000000 dETH-DFI')
       cy.getByTestID('bottom_tab_balances').click()
     })
@@ -171,6 +172,7 @@ context('Mainnet - Wallet - Pool Pair Values', () => {
     cy.createEmptyWallet(true)
     whale = new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'mainnet', version: 'v0' })
     cy.getByTestID('bottom_tab_dex').click()
+    cy.getByTestID('close_dex_guidelines').click()
   })
 
   it('should verify poolpair values', function () {

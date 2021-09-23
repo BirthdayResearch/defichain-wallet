@@ -82,8 +82,16 @@ export function DexNavigator (): JSX.Element {
                 name='close'
                 size={24}
               />
-            </TouchableOpacity>
-          )
+            </TouchableOpacity>)
+          }}
+        />
+        <DexStack.Screen
+          component={NetworkDetails}
+          name='NetworkDetails'
+          options={{
+            headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
+            headerBackTitleVisible: false,
+            headerBackTestID: 'network_details_header_back'
         }}
         />
       </DexStack.Navigator>
@@ -191,7 +199,8 @@ export function DexNavigator (): JSX.Element {
         name='NetworkDetails'
         options={{
           headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
-          headerBackTitleVisible: false
+          headerBackTitleVisible: false,
+          headerBackTestID: 'network_details_header_back'
         }}
       />
     </DexStack.Navigator>
