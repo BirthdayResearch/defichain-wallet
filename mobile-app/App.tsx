@@ -16,6 +16,7 @@ import ConnectionBoundary from '@screens/ConnectionBoundary/ConnectionBoundary'
 import ErrorBoundary from '@screens/ErrorBoundary/ErrorBoundary'
 import { Main } from '@screens/Main'
 import { LanguageProvider, useLanguage } from '@contexts/LanguageProvider'
+import { DexProvider } from '@contexts/DexContext'
 
 /**
  * Loads
@@ -48,13 +49,15 @@ export default function App (): JSX.Element | null {
                 <WalletPersistenceProvider>
                   <StoreProvider>
                     <StatsProvider>
-                      <ThemeProvider>
-                        <LanguageProvider>
-                          <ConnectionBoundary>
-                            <Main />
-                          </ConnectionBoundary>
-                        </LanguageProvider>
-                      </ThemeProvider>
+                      <DexProvider>
+                        <ThemeProvider>
+                          <LanguageProvider>
+                            <ConnectionBoundary>
+                              <Main />
+                            </ConnectionBoundary>
+                          </LanguageProvider>
+                        </ThemeProvider>
+                      </DexProvider>
                     </StatsProvider>
                   </StoreProvider>
                 </WalletPersistenceProvider>

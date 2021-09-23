@@ -13,6 +13,12 @@ import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
 import { DexScreen } from './DexScreen'
 import { ConfirmPoolSwapScreen, DexForm } from './PoolSwap/ConfirmPoolSwapScreen'
 import { DerivedTokenState, PoolSwapScreen } from './PoolSwap/PoolSwapScreen'
+import { DexGuidelines } from './DexGuidelines'
+import { useDexProvider } from '@contexts/DexContext'
+import { NavigationProp, useNavigation } from '@react-navigation/core'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { ThemedIcon } from '@components/themed'
+import { tailwind } from '@tailwind'
 
 export interface DexParamList {
   DexScreen: undefined
@@ -36,11 +42,58 @@ export interface DexParamList {
 const DexStack = createStackNavigator<DexParamList>()
 
 export function DexNavigator (): JSX.Element {
+  const { displayGuidelines, setDisplayGuidelines } = useDexProvider()
+  const navigation = useNavigation<NavigationProp<DexParamList>>()
+
   const headerContainerTestId = 'dex_header_container'
+  const screenOptions = { headerTitleStyle: HeaderFont, headerBackTitleVisible: false }
+
+  if (displayGuidelines) {
+    const onDexGuidelinesClose = async (): Promise<void> => {
+      await setDisplayGuidelines(false)
+      navigation.navigate('DexScreen')
+    }
+
+    return (
+      <DexStack.Navigator
+        initialRouteName='DexGuidelines'
+        screenOptions={screenOptions}
+      >
+        <DexStack.Screen
+          component={DexGuidelines}
+          name='DexGuidelines'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexGuidelines', 'Guidelines')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerRightContainerStyle: tailwind('px-2 py-2'),
+          headerRight: (): JSX.Element => (
+            <TouchableOpacity
+              onPress={onDexGuidelinesClose}
+              testID='close_dex_guideline'
+            >
+              <ThemedIcon
+                dark={tailwind('text-gray-400')}
+                light={tailwind('text-gray-500')}
+                iconType='MaterialIcons'
+                name='close'
+                size={24}
+              />
+            </TouchableOpacity>
+          )
+        }}
+        />
+      </DexStack.Navigator>
+    )
+  }
+
   return (
     <DexStack.Navigator
       initialRouteName='DexScreen'
-      screenOptions={{ headerTitleStyle: HeaderFont, headerBackTitleVisible: false }}
+      screenOptions={screenOptions}
     >
       <DexStack.Screen
         component={DexScreen}
