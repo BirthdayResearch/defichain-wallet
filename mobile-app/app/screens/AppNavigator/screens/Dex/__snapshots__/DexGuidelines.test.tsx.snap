@@ -18,6 +18,7 @@ exports[`Dex guide should match snapshot 1`] = `
       },
     ]
   }
+  testID="dex_guidelines_screen"
 >
   <View>
     <Text

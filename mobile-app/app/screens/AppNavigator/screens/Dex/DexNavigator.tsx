@@ -16,7 +16,7 @@ import { DerivedTokenState, PoolSwapScreen } from './PoolSwap/PoolSwapScreen'
 import { DexGuidelines } from './DexGuidelines'
 import { useDexProvider } from '@contexts/DexContext'
 import { NavigationProp, useNavigation } from '@react-navigation/core'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { TouchableOpacity } from 'react-native'
 import { ThemedIcon } from '@components/themed'
 import { tailwind } from '@tailwind'
 
@@ -47,13 +47,13 @@ export function DexNavigator (): JSX.Element {
 
   const headerContainerTestId = 'dex_header_container'
   const screenOptions = { headerTitleStyle: HeaderFont, headerBackTitleVisible: false }
+  const onDexGuidelinesClose = async (): Promise<void> => {
+    console.log('closing')
+    await setDisplayGuidelines(false)
+    navigation.navigate('DexScreen')
+  }
 
   if (displayGuidelines) {
-    const onDexGuidelinesClose = async (): Promise<void> => {
-      await setDisplayGuidelines(false)
-      navigation.navigate('DexScreen')
-    }
-
     return (
       <DexStack.Navigator
         initialRouteName='DexGuidelines'
@@ -73,7 +73,7 @@ export function DexNavigator (): JSX.Element {
           headerRight: (): JSX.Element => (
             <TouchableOpacity
               onPress={onDexGuidelinesClose}
-              testID='close_dex_guideline'
+              testID='header_close_dex_guidelines'
             >
               <ThemedIcon
                 dark={tailwind('text-gray-400')}

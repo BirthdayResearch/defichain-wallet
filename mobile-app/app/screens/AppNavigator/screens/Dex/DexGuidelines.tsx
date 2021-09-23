@@ -49,6 +49,7 @@ export function DexGuidelines ({ navigation }: Props): JSX.Element {
       dark={tailwind('bg-gray-900')}
       light={tailwind('bg-white')}
       style={tailwind('flex-1 p-4 pt-6')}
+      testID='dex_guidelines_screen'
     >
       <ThemedText
         style={tailwind('text-lg font-semibold')}
