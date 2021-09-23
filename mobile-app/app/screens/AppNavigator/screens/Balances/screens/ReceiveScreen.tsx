@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Share, TouchableOpacity, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 import { Logging } from '@api'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
 import { useThemeContext } from '@contexts/ThemeProvider'
 import { useWalletContext } from '@contexts/WalletContext'
 import { tailwind } from '@tailwind'
@@ -79,13 +79,13 @@ export function ReceiveScreen (): JSX.Element {
       </ThemedView>
 
       <ThemedView
-        style={tailwind('flex flex-row mt-6 mb-8 items-center')}
+        style={tailwind('flex flex-row mt-6 mb-8')}
       >
         {
           isCopied
             ? (
               <ThemedView
-                style={tailwind('flex flex-grow flex-row justify-center text-center items-center border border-white border-opacity-0 p-3')}
+                style={tailwind('flex flex-1 flex-row justify-center text-center items-center')}
               >
                 <ThemedIcon
                   dark={tailwind('text-darksuccess-500')}
@@ -106,9 +106,7 @@ export function ReceiveScreen (): JSX.Element {
               </ThemedView>
               )
             : (
-              <ThemedTouchableOpacity
-                dark={tailwind('border-gray-500')}
-                light={tailwind('border-gray-200')}
+              <TouchableOpacity
                 onPress={() => {
                   setIsCopied(true)
                   copyToClipboard(address)
@@ -116,7 +114,7 @@ export function ReceiveScreen (): JSX.Element {
                     setIsCopied(false)
                   }, 1500)
                 }}
-                style={tailwind('flex flex-grow flex-row justify-center text-center items-center p-3')}
+                style={tailwind('flex flex-1 flex-row justify-center text-center items-center')}
                 testID='copy_button'
               >
                 <ThemedIcon
@@ -135,7 +133,7 @@ export function ReceiveScreen (): JSX.Element {
                 >
                   {translate('screens/ReceiveScreen', 'COPY')}
                 </ThemedText>
-              </ThemedTouchableOpacity>
+              </TouchableOpacity>
               )
         }
 
@@ -143,7 +141,7 @@ export function ReceiveScreen (): JSX.Element {
           onPress={async () => {
             await onShare(address)
           }}
-          style={tailwind('flex flex-grow flex-row justify-center items-center p-3')}
+          style={tailwind('flex flex-1 flex-row justify-center text-center items-center')}
           testID='share_button'
         >
           <ThemedIcon
