@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Share, TouchableOpacity, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 import { Logging } from '@api'
-import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
 import { useThemeContext } from '@contexts/ThemeProvider'
 import { useWalletContext } from '@contexts/WalletContext'
 import { tailwind } from '@tailwind'
@@ -29,55 +29,63 @@ export function ReceiveScreen (): JSX.Element {
   }
 
   return (
-    <ThemedView
-      style={tailwind('flex flex-1 w-full relative')}
+    <ThemedScrollView
+      style={tailwind('px-8 pt-2 flex flex-1 w-full relative')}
       testID='receive_screen'
     >
       <ThemedText
-        style={tailwind('p-4 font-medium')}
+        style={tailwind('p-4 font-medium text-center')}
       >
-        {translate('screens/ReceiveScreen', 'Use this address to receive DFI or any DST')}
+        {translate('screens/ReceiveScreen', 'Use QR or Wallet Address to receive any DST or DFI')}
       </ThemedText>
 
       <ThemedView
         dark={tailwind('bg-gray-800')}
         light={tailwind('bg-white')}
-        style={tailwind('flex justify-center items-center p-5')}
+        style={tailwind('flex justify-center items-center p-5 rounded-lg')}
       >
         <View
-          style={tailwind('mb-5')}
+          style={tailwind('mb-8')}
           testID='qr_code_container'
         >
           <QRCode
             backgroundColor={isLight ? 'white' : 'black'}
             color={isLight ? 'black' : 'white'}
-            size={200}
+            size={260}
             value={address}
           />
         </View>
 
         <ThemedText
           dark={tailwind('text-gray-100')}
-          light={tailwind('text-gray-500')}
+          light={tailwind('text-gray-900')}
           numberOfLines={2}
           selectable
-          style={tailwind('font-medium text-center')}
+          style={tailwind('font-semibold text-lg text-center')}
           testID='address_text'
         >
           {address}
         </ThemedText>
+        <ThemedText
+          dark={tailwind('text-gray-400')}
+          light={tailwind('text-gray-500')}
+          numberOfLines={2}
+          selectable
+          style={tailwind('font-medium my-2 text-center text-xs')}
+          testID='wallet_address'
+        >
+          {translate('screens/ReceiveScreen', 'WALLET ADDRESS')}
+        </ThemedText>
       </ThemedView>
 
       <ThemedView
-        dark={tailwind('bg-gray-900')}
-        light={tailwind('bg-white')}
-        style={tailwind('flex flex-col p-4')}
+        style={tailwind('flex flex-row mt-6 mb-8')}
       >
         {
           isCopied
             ? (
               <ThemedView
-                style={tailwind('flex flex-grow flex-row justify-center text-center items-center border border-white border-opacity-0 p-3')}
+                style={tailwind('flex flex-1 flex-row justify-center text-center items-center')}
               >
                 <ThemedIcon
                   dark={tailwind('text-darksuccess-500')}
@@ -93,14 +101,12 @@ export function ReceiveScreen (): JSX.Element {
                   light={tailwind('text-success-500')}
                   style={tailwind('ml-1 uppercase font-medium')}
                 >
-                  {translate('screens/ReceiveScreen', 'Copied to Clipboard')}
+                  {translate('screens/ReceiveScreen', 'COPIED')}
                 </ThemedText>
               </ThemedView>
               )
             : (
-              <ThemedTouchableOpacity
-                dark={tailwind('border-gray-500')}
-                light={tailwind('border-gray-200')}
+              <TouchableOpacity
                 onPress={() => {
                   setIsCopied(true)
                   copyToClipboard(address)
@@ -108,7 +114,7 @@ export function ReceiveScreen (): JSX.Element {
                     setIsCopied(false)
                   }, 1500)
                 }}
-                style={tailwind('flex flex-grow flex-row justify-center text-center items-center p-3 border')}
+                style={tailwind('flex flex-1 flex-row justify-center text-center items-center')}
                 testID='copy_button'
               >
                 <ThemedIcon
@@ -125,9 +131,9 @@ export function ReceiveScreen (): JSX.Element {
                   light={tailwind('text-primary-500')}
                   style={tailwind('ml-2 uppercase font-medium')}
                 >
-                  {translate('screens/ReceiveScreen', 'COPY TO CLIPBOARD')}
+                  {translate('screens/ReceiveScreen', 'COPY')}
                 </ThemedText>
-              </ThemedTouchableOpacity>
+              </TouchableOpacity>
               )
         }
 
@@ -135,7 +141,7 @@ export function ReceiveScreen (): JSX.Element {
           onPress={async () => {
             await onShare(address)
           }}
-          style={tailwind('flex flex-row flex-grow justify-center items-center p-3 mt-2')}
+          style={tailwind('flex flex-1 flex-row justify-center text-center items-center')}
           testID='share_button'
         >
           <ThemedIcon
@@ -156,6 +162,6 @@ export function ReceiveScreen (): JSX.Element {
           </ThemedText>
         </TouchableOpacity>
       </ThemedView>
-    </ThemedView>
+    </ThemedScrollView>
   )
 }
