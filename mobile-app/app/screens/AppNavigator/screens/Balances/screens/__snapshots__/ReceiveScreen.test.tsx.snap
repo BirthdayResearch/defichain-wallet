@@ -224,7 +224,6 @@ exports[`receive page should match snapshot 1`] = `
       style={
         Array [
           Object {
-            "alignItems": "center",
             "display": "flex",
             "flexDirection": "row",
             "marginBottom": 32,
@@ -249,19 +248,13 @@ exports[`receive page should match snapshot 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "borderBottomColor": "rgba(229, 229, 229, 1)",
-            "borderLeftColor": "rgba(229, 229, 229, 1)",
-            "borderRightColor": "rgba(229, 229, 229, 1)",
-            "borderTopColor": "rgba(229, 229, 229, 1)",
             "display": "flex",
+            "flexBasis": "0%",
             "flexDirection": "row",
             "flexGrow": 1,
+            "flexShrink": 1,
             "justifyContent": "center",
             "opacity": 1,
-            "paddingBottom": 12,
-            "paddingLeft": 12,
-            "paddingRight": 12,
-            "paddingTop": 12,
             "textAlign": "center",
           }
         }
@@ -308,14 +301,13 @@ exports[`receive page should match snapshot 1`] = `
           Object {
             "alignItems": "center",
             "display": "flex",
+            "flexBasis": "0%",
             "flexDirection": "row",
             "flexGrow": 1,
+            "flexShrink": 1,
             "justifyContent": "center",
             "opacity": 1,
-            "paddingBottom": 12,
-            "paddingLeft": 12,
-            "paddingRight": 12,
-            "paddingTop": 12,
+            "textAlign": "center",
           }
         }
         testID="share_button"
