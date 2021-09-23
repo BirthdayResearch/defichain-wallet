@@ -17,6 +17,14 @@ const initialState: TransactionQueue = {
   transactions: []
 }
 
+export type CompositeDfTxSigner = DfTxSigner[]
+export interface JobQueue {
+  jobs: CompositeDfTxSigner[]
+}
+const initialJobQueue: JobQueue = {
+  jobs: []
+}
+
 export const transactionQueue = createSlice({
   name: 'tx_queue',
   initialState,
@@ -31,5 +39,20 @@ export const transactionQueue = createSlice({
   }
 })
 
+export const jobQueue = createSlice({
+  name: 'comp_tx_queue',
+  initialState: initialJobQueue,
+  reducers: {
+    push: (state, action: PayloadAction<CompositeDfTxSigner>) => {
+      state.jobs = [...state.jobs, action.payload]
+    },
+    pop: (state) => {
+      state.jobs.shift()
+      state.jobs = [...state.jobs]
+    }
+  }
+})
+
 export const first = createSelector((state: TransactionQueue) => state.transactions, (transactions) => transactions[0])
 export const hasTxQueued = createSelector((state: TransactionQueue) => state.transactions, (transactions) => transactions.length > 0)
+export const firstJob = createSelector((state: JobQueue) => state.jobs, (jobs) => jobs[0])

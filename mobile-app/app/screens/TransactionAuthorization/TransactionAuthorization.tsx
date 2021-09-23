@@ -20,7 +20,7 @@ import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { RootState } from '@store'
 import { Authentication, authentication as authenticationStore } from '@store/authentication'
 import { ocean } from '@store/ocean'
-import { DfTxSigner, first, transactionQueue } from '@store/transaction_queue'
+import { DfTxSigner, first, firstJob, transactionQueue } from '@store/transaction_queue'
 import { translate } from '@translations'
 import { PasscodePrompt } from './PasscodePrompt'
 
@@ -59,6 +59,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   const dispatch = useDispatch()
   const transaction = useSelector((state: RootState) => first(state.transactionQueue))
   const authentication = useSelector((state: RootState) => state.authentication.authentication)
+  const job = useSelector((state: RootState) => firstJob(state.jobs))
 
   // computed state
   const [status, emitEvent] = useState<Status>('INIT')
@@ -170,6 +171,25 @@ export function TransactionAuthorization (): JSX.Element | null {
     }
 
     const retries = MAX_PASSCODE_ATTEMPT - attemptsRemaining
+
+    // replace transaction signing using this block
+    if (job !== undefined && wallet !== undefined) {
+      if (job.length > 0) {
+        const signAndBroadast = async (index: number): Promise<void> => {
+          if (index >= job.length) return
+          const signer = job[index]
+          // TODO: promisify entire sign and broadcast into here
+          await signTransaction(signer, wallet.get(0), onRetry, retries)
+          return await signAndBroadast(index++)
+        }
+
+        signAndBroadast(0)
+          .then(() => { /* reset counter,etc */ })
+          .catch(e => Logging.error(e))
+          .finally(() => { /* pop job from queue */ })
+      }
+    }
+
     if (transaction !== undefined && // any tx queued
       wallet !== undefined // just in case any data stuck in store
     ) {
