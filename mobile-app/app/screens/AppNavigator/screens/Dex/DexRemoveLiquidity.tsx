@@ -177,6 +177,14 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         enabled={valid}
         onPress={removeLiquidity}
       />
+
+      <ThemedText
+        light={tailwind('text-gray-600')}
+        dark={tailwind('text-gray-300')}
+        style={tailwind('mb-8 text-center text-sm')}
+      >
+        {translate('screens/RemoveLiquidity', 'Review full transaction details in the next screen')}
+      </ThemedText>
     </ThemedScrollView>
   )
 }
@@ -231,7 +239,7 @@ function AmountSlider (props: { current: number, onChange: (percentage: string) 
 
 function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
   return (
-    <View style={tailwind('m-2')}>
+    <View style={tailwind('mx-2')}>
       <Button
         disabled={!props.enabled}
         label={translate('components/Button', 'CONTINUE')}

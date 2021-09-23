@@ -43,10 +43,11 @@
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
-    "Use this address to receive DFI or any DST": "请用这个地址接收DFI或DST",
-    "Copied to Clipboard": "已经复制",
-    "COPY TO CLIPBOARD": "复制到剪贴板",
-    "SHARE": "转发"
+    "Use QR or Wallet Address to receive any DST or DFI": "请用 QR 码或地址接收递飞链 DST 或 DFI",
+    "COPIED": "复制到剪贴板",
+    "COPY": "复制地址",
+    "SHARE": "转发地址",
+    "WALLET ADDRESS": "钱包地址"
   },
   "screens/SendScreen": {
     "Send": "移出资金",
@@ -354,7 +355,8 @@
     "Enter an amount ": "请输入数量",
     "YOU ARE REMOVING": "您正要退出",
     "Price": "价格",
-    "Removing {{amount}} {{symbol}}": "退出 {{amount}} {{symbol}}"
+    "Removing {{amount}} {{symbol}}": "退出 {{amount}} {{symbol}}",
+    "Review full transaction details in the next screen": "请在下一步确认交易明细"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "钱包网络",
@@ -385,7 +387,8 @@
     "Enter an amount": "请输入数量",
     "Price": "价格",
     "Estimated to receive": "您大约会收到",
-    "Balance: ": "总资产余额: "
+    "Balance: ": "总资产余额: ",
+    "Review full transaction details in the next screen": "请在下一步确认交易明细"
   },
   "screens/PoolSwapConfirmScreen": {
     "YOU ARE SWAPPING": "您正要兑换",
