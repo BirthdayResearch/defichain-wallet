@@ -31,10 +31,10 @@
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
-    "Use QR or Wallet Address to receive any DST or DFI": "請用這個地址接收DFI或DST",
-    "COPIED": "已經複製",
-    "COPY": "複製到剪貼板",
-    "SHARE": "轉發",
+    "Use QR or Wallet Address to receive any DST or DFI": "請用 QR 碼或地址接收遞飛鏈 DST 或 DFI",
+    "COPIED": "複製到剪貼板",
+    "COPY": "複製地址",
+    "SHARE": "轉發地址",
     "WALLET ADDRESS": "錢包地址"
   },
   "screens/SendScreen": {

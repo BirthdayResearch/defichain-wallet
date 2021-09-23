@@ -31,11 +31,11 @@
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
-    "Use QR or Wallet Address to receive any DST or DFI": "Verwende diese Adresse, um DFI oder DST zu empfangen",
+    "Use QR or Wallet Address to receive any DST or DFI": "Zum Empfang von DST oder DFI QR Code oder Wallet Adresse nutzen",
     "COPIED": "KOPIERT",
     "COPY": "KOPIEREN",
     "SHARE": "TEILEN",
-    "WALLET ADDRESS": "WALLET-ADRESSE"
+    "WALLET ADDRESS": "WALLET ADRESSE"
   },
   "screens/SendScreen": {
     "Send": "Senden",
