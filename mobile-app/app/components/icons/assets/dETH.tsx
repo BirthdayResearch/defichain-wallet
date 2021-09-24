@@ -6,6 +6,7 @@ export function dETH (props: SvgProps): JSX.Element {
     <Svg
       height={32}
       width={32}
+      viewBox='0 0 32 32'
       {...props}
     >
       <Circle
