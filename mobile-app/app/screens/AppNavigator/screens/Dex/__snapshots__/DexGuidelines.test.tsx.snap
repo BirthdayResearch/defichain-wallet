@@ -82,7 +82,31 @@ exports[`Dex guide should match snapshot 1`] = `
         }
       }
     >
-      <Text />
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 32,
+            },
+            Array [
+              undefined,
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+            Object {
+              "fontFamily": "material",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
       <View
         style={
           Object {
@@ -153,7 +177,31 @@ exports[`Dex guide should match snapshot 1`] = `
         }
       }
     >
-      <Text />
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 32,
+            },
+            Array [
+              undefined,
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+            Object {
+              "fontFamily": "material",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
       <View
         style={
           Object {
@@ -224,7 +272,31 @@ exports[`Dex guide should match snapshot 1`] = `
         }
       }
     >
-      <Text />
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 32,
+            },
+            Array [
+              undefined,
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+            Object {
+              "fontFamily": "material",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
       <View
         style={
           Object {

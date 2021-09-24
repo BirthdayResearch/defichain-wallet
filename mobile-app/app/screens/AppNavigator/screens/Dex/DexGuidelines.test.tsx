@@ -1,19 +1,18 @@
-import { render } from '@testing-library/react-native'
+import { render, waitFor } from '@testing-library/react-native'
 import * as React from 'react'
 import { DexGuidelines } from './DexGuidelines'
 
 jest.mock('../../../../contexts/ThemeProvider')
-jest.mock('../../../../contexts/DexContext', () => ({
-  useDexProvider: () => {
-    return {
-      displayGuidelines: true,
-      setDisplayGuidelines: jest.fn
+jest.mock('../../../../api', () => ({
+  DisplayDexGuidelinesPersistence: {
+    get: async () => {
+      return true
     }
   }
 }))
 
 describe('Dex guide', () => {
-  it('should match snapshot', () => {
+  it('should match snapshot', async () => {
     const navigation: any = {
       navigate: jest.fn()
     }
@@ -24,6 +23,7 @@ describe('Dex guide', () => {
         route={route}
       />
     )
+    await waitFor(() => rendered.toJSON() !== null)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })

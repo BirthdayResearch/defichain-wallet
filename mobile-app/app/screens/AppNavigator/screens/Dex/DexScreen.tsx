@@ -4,6 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
+import { useEffect, useState } from 'react'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { View } from '@components/index'
@@ -16,6 +17,7 @@ import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
+import { DisplayDexGuidelinesPersistence, Logging } from '@api'
 
 enum SectionKey {
   YourLiquidity = 'YOUR LIQUIDITY',
@@ -24,6 +26,7 @@ enum SectionKey {
 
 export function DexScreen (): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const tokens = useTokensAPI()
   const pairs = usePoolPairsAPI()
   const yourLPTokens = useSelector(() => tokens.filter(({ isLPS }) => isLPS).map(data => ({
@@ -41,6 +44,21 @@ export function DexScreen (): JSX.Element {
 
   const isEmpty = (data: any[]): boolean => {
     return data.length === 0
+  }
+
+  useEffect(() => {
+    DisplayDexGuidelinesPersistence.get()
+    .then((shouldDisplayGuidelines: boolean) => {
+      if (shouldDisplayGuidelines) {
+        navigation.navigate('DexGuidelines')
+      }
+    })
+    .catch((err) => Logging.error(err))
+    .finally(() => setIsLoaded(true))
+  }, [])
+
+  if (!isLoaded) {
+    return <></>
   }
 
   return (
