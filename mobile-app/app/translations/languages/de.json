@@ -375,8 +375,11 @@
     "SLIPPAGE TOLERANCE": "SLIPPAGE TOLERANZ"
   },
   "screens/PoolSwapScreen": {
-    "SWAP": "TAUSCHE",
-    "TO": "GEGEN",
+    "Swap": "Tausche",
+    "How much {{token}} do you want to swap?": "Wie viele {{token}} möchtest du umtauschen?",
+    "Available": "Verfügbar",
+    "After": "Danach",
+    "You have": "Du hast aktuell",
     "CONTINUE": "FORTFAHREN",
     "Enter an amount": "Gib eine Menge ein",
     "Price": "Preis",

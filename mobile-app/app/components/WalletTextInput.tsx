@@ -27,6 +27,7 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
     inlineValidationText,
     displayClearButton = false,
     onClearButtonPress,
+    editable = true,
     children,
     style,
     ...otherProps
@@ -54,13 +55,13 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
           style={tailwind('text-base')}
         />}
       <ThemedView
-        light={tailwind(`bg-white ${!valid ? 'border-error-500' : (isFocus ? 'border-primary-300' : 'border-gray-300')}`)}
-        dark={tailwind(`bg-gray-800 ${!valid ? 'border-darkerror-500' : (isFocus ? 'border-darkprimary-300' : 'border-gray-600')}`)}
+        light={tailwind(`bg-white ${!valid ? 'border-error-500' : (isFocus ? 'border-primary-300' : 'border-gray-300')}`)} // disabled border color is the same regardless of theme
+        dark={tailwind(`bg-gray-800 ${!valid ? 'border-darkerror-500' : (isFocus ? 'border-darkprimary-300' : (editable ? 'border-gray-600' : 'border-gray-800'))}`)}
         style={tailwind('flex-col w-full border rounded mt-2')}
       >
         <ThemedView
-          light={tailwind('bg-transparent')}
-          dark={tailwind('bg-transparent')}
+          light={tailwind(`${editable ? 'bg-transparent' : 'bg-gray-200'}`)}
+          dark={tailwind(`${editable ? 'bg-transparent' : 'bg-gray-900'}`)}
           style={tailwind('flex-row items-center p-2')}
         >
           <ThemedTextInput
@@ -70,6 +71,7 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
               setIsFocus(false)
             }}
             keyboardType={inputType}
+            editable={editable}
             {...otherProps}
           />
           {
@@ -102,7 +104,7 @@ function ClearButton (props: {onPress?: () => void, testID?: string}): JSX.Eleme
       testID={props.testID}
       light={tailwind('bg-gray-800')}
       dark={tailwind('bg-gray-100')}
-      style={tailwind('mx-2 border-0 rounded-full')}
+      style={tailwind('mx-3 border-0 rounded-full')}
       onPress={props.onPress}
     >
       <ThemedIcon

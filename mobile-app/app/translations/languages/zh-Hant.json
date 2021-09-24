@@ -376,9 +376,12 @@
   "screens/SlippageTolerance": {
     "SLIPPAGE TOLERANCE": "交易滑價"
   },
-  "screens/PoolSwapScreen": {
-    "SWAP": "兌換",
-    "TO": "至",
+  "screens/PoolSwapScreen": {    
+    "Swap": "兌換",
+    "How much {{token}} do you want to swap?": "你要兌換多少  {{token}}？",
+    "Available": "可兌換資金",
+    "After": "兌換後",
+    "You have": "你現有",
     "CONTINUE": "繼續",
     "Enter an amount": "請輸入數量",
     "Price": "價格",
