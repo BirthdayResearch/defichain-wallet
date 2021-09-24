@@ -93,7 +93,7 @@
   },
   "screens/CommunityScreen": {
     "Community": "Community",
-    "CONNECT WITH THE COMMUNITY:": "VERBINDE DICH MIT DER COMMUNITY:",
+    "CONNECT WITH THE COMMUNITY": "VERBINDE DICH MIT DER COMMUNITY",
     "DeFiChain is a community-driven and open project.": "DeFiChain ist ein offenes Gemeinschaftsprojekt.",
     "The DeFiChain Foundation does not provide direct support.": "Das Gründungskonsortium der DeFiChain stellt keinen direkten Support zur Verfügung.",
     "Report an issue on Github": "Erstelle ein Thema auf Github",
@@ -139,7 +139,14 @@
     "LINKS": "LINKS",
     "White Paper": "White Paper",
     "Privacy Policy": "Datenschutz",
-    "Licenses": "Benutzungsrechte"
+    "Licenses": "Benutzungsrechte",
+    "Knowledge base": "Wissensdatenbank",
+    "Common questions and support documents": "Häufige Fragen und Support-Dokumente",
+    "Participate with active community": "An aktiver Community teilnehmen",
+    "Report in Github, discuss in Reddit and Telegram": "In Github melden, in Reddit und Telegram thematisch diskutieren",
+    "Track transactions, tokens and DEX pairs": "Nachverfolgung von Transaktionen, Token und DEX-Handelspaaren",
+    "View official website": "Offizielle Website anzeigen",
+    "Learn more about the blockchain": "Erfahre mehr über die Blockchain"
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "NETZWERK",

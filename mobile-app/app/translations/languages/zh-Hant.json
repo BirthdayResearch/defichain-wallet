@@ -93,7 +93,7 @@
   },
   "screens/CommunityScreen": {
     "Community": "社區",
-    "CONNECT WITH THE COMMUNITY:": "參與社區",
+    "CONNECT WITH THE COMMUNITY": "參與社區",
     "DeFiChain is a community-driven and open project.": "遞飛鏈 DeFiChain 是個社區優先、開源項目",
     "The DeFiChain Foundation does not provide direct support.": "此項目是完全去中心化的，並沒有提供客服",
     "Report an issue on Github": "向 Github 開啟議題",
@@ -139,7 +139,15 @@
     "LINKS": "網址鏈結",
     "White Paper": "遞飛鏈白皮書",
     "Privacy Policy": "隱私條款",
-    "Licenses": "授權"
+    "Licenses": "授權",
+    "Knowledge base": "資訊庫",
+    "Common questions and support documents": "常見問題和支援文件",
+    "Participate with active community": "參與活躍的遞飛鏈社區",
+    "Report in Github, discuss in Reddit and Telegram": "在 GitHub提交反饋、電報群和其他社區提問討論",
+    "Track transactions, tokens and DEX pairs": "審查交易、代幣、和去中心化配對",
+    "View official website": "前往遞飛鏈官網",
+    "Learn more about the blockchain": "了解更多關於遞飛鏈區塊鏈和相關資訊",
+    "DeFiChain Explorer": "遞飛鏈瀏覽器"
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "網絡",
