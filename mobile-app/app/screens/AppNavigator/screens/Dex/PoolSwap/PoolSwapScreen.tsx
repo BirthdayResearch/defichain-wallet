@@ -330,7 +330,7 @@ function TokenRow (form: TokenForm): JSX.Element {
               }
             }}
             placeholder={isDisabled ? undefined : translate('screens/PoolSwapScreen', 'Enter an amount')}
-            style={tailwind('flex-grow')}
+            style={tailwind('flex-1')}
             testID={`text_input_${controlName}`}
             value={value}
             displayClearButton={(value !== defaultValue) && !isDisabled}
@@ -358,8 +358,8 @@ function TokenRow (form: TokenForm): JSX.Element {
             {
               !enableMaxButton && (
                 <>
-                  <Icon />
-                  <ThemedText style={tailwind('px-1')}>
+                  <Icon style={tailwind('px-1')} />
+                  <ThemedText>
                     {token.displaySymbol}
                   </ThemedText>
                 </>
