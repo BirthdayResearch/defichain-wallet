@@ -242,7 +242,12 @@ function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: str
 
 function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
   return (
-    <View style={tailwind('flex-row justify-center items-center mt-2')}>
+    <View style={tailwind('justify-center items-center mt-2')}>
+      <ThemedView
+        light={tailwind('border-gray-200')}
+        dark={tailwind('border-gray-700')}
+        style={tailwind('border-b w-full relative top-2/4')}
+      />
       <IconButton
         iconName='swap-vert'
         iconSize={24}
