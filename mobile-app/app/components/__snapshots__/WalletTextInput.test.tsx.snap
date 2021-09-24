@@ -84,6 +84,7 @@ exports[`wallet text input should render with default keyboard 1`] = `
     >
       <TextInput
         allowFontScaling={true}
+        editable={true}
         keyboardType="default"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -224,6 +225,7 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
     >
       <TextInput
         allowFontScaling={true}
+        editable={true}
         keyboardType="default"
         onBlur={[Function]}
         onFocus={[Function]}
