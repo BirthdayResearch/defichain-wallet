@@ -369,10 +369,10 @@
   },
   "screens/PoolSwapScreen": {
     "Swap": "Tausche",
-    "How much {{token}} do you want to swap?": "How much {{token}} do you want to swap?",
+    "How much {{token}} do you want to swap?": "Wie viele {{token}} möchtest du umtauschen?",
     "Available": "Verfügbar",
-    "After": "After",
-    "You have": "You have",
+    "After": "Danach",
+    "You have": "Du hast aktuell",
     "CONTINUE": "FORTFAHREN",
     "Enter an amount": "Gib eine Menge ein",
     "Price": "Preis",
