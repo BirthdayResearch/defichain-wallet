@@ -200,7 +200,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           token={tokenA}
         />
         <InputHelperText
-          testID='text_balance_tokenAForm'
+          testID={`text_balance_${tokenAForm}`}
           label={`${translate('screens/PoolSwapScreen', 'Available')}: `}
           content={tokenA.amount}
           suffix={` ${tokenA.displaySymbol}`}
@@ -231,7 +231,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           enableMaxButton={false}
         />
         <InputHelperText
-          testID='text_balance_tokenBForm'
+          testID={`text_balance_${tokenBForm}`}
           label={`${translate('screens/PoolSwapScreen', 'You have')} `}
           content={tokenB.amount}
           suffix={` ${tokenB.displaySymbol}`}
