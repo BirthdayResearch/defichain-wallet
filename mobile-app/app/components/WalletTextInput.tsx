@@ -27,6 +27,7 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
     inlineValidationText,
     displayClearButton = false,
     onClearButtonPress,
+    editable = true,
     children,
     style,
     ...otherProps
@@ -59,8 +60,8 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
         style={tailwind('flex-col w-full border rounded mt-2')}
       >
         <ThemedView
-          light={tailwind('bg-transparent')}
-          dark={tailwind('bg-transparent')}
+          light={tailwind(`${editable ? 'bg-transparent' : 'bg-gray-200'}`)}
+          dark={tailwind(`${editable ? 'bg-transparent' : 'bg-gray-700'}`)}
           style={tailwind('flex-row items-center p-2')}
         >
           <ThemedTextInput
@@ -70,6 +71,7 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
               setIsFocus(false)
             }}
             keyboardType={inputType}
+            editable={editable}
             {...otherProps}
           />
           {
@@ -102,7 +104,7 @@ function ClearButton (props: {onPress?: () => void, testID?: string}): JSX.Eleme
       testID={props.testID}
       light={tailwind('bg-gray-800')}
       dark={tailwind('bg-gray-100')}
-      style={tailwind('mx-2 border-0 rounded-full')}
+      style={tailwind('mx-3 border-0 rounded-full')}
       onPress={props.onPress}
     >
       <ThemedIcon

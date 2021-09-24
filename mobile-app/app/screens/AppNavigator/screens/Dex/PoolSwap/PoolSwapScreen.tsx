@@ -358,8 +358,8 @@ function TokenRow (form: TokenForm): JSX.Element {
             {
               !enableMaxButton && (
                 <>
-                  <Icon style={tailwind('px-1')} />
-                  <ThemedText>
+                  <Icon />
+                  <ThemedText style={tailwind('pl-2')}>
                     {token.displaySymbol}
                   </ThemedText>
                 </>
