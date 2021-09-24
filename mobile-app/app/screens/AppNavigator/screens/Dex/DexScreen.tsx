@@ -18,6 +18,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { DisplayDexGuidelinesPersistence, Logging } from '@api'
+import { DexGuidelines } from './DexGuidelines'
 
 enum SectionKey {
   YourLiquidity = 'YOUR LIQUIDITY',
@@ -27,6 +28,7 @@ enum SectionKey {
 export function DexScreen (): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
+  const [displayGuidelines, setDisplayGuidelines] = useState<boolean>(true)
   const tokens = useTokensAPI()
   const pairs = usePoolPairsAPI()
   const yourLPTokens = useSelector(() => tokens.filter(({ isLPS }) => isLPS).map(data => ({
@@ -49,16 +51,23 @@ export function DexScreen (): JSX.Element {
   useEffect(() => {
     DisplayDexGuidelinesPersistence.get()
     .then((shouldDisplayGuidelines: boolean) => {
-      if (shouldDisplayGuidelines) {
-        navigation.navigate('DexGuidelines')
-      }
+      setDisplayGuidelines(shouldDisplayGuidelines)
     })
     .catch((err) => Logging.error(err))
     .finally(() => setIsLoaded(true))
   }, [])
 
+  const onGuidelinesClose = async (): Promise<void> => {
+    await DisplayDexGuidelinesPersistence.set(false)
+    setDisplayGuidelines(false)
+  }
+
   if (!isLoaded) {
     return <></>
+  }
+
+  if (displayGuidelines) {
+    return <DexGuidelines onClose={onGuidelinesClose} />
   }
 
   return (

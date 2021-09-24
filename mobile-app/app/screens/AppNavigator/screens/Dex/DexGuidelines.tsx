@@ -1,16 +1,14 @@
 import { MaterialIcons } from '@expo/vector-icons'
-import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
-import { useEffect, useState } from 'react'
 import { View } from '@components/index'
 import { Button } from '@components/Button'
 import { ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { DexParamList } from './DexNavigator'
-import { DisplayDexGuidelinesPersistence, Logging } from '@api'
 
-type Props = StackScreenProps<DexParamList, 'DexGuidelines'>
+interface Props {
+  onClose: () => void
+}
 
 interface GuidelineItem {
   icon: React.ComponentProps<typeof MaterialIcons>['name']
@@ -19,20 +17,7 @@ interface GuidelineItem {
 }
 
 // TODO (Harsh): handle language change bug, when user change the language, sometime it didnt get update the satic page
-export function DexGuidelines ({ navigation }: Props): JSX.Element {
-  const [isLoaded, setIsLoaded] = useState<boolean>(false)
-
-  useEffect(() => {
-    DisplayDexGuidelinesPersistence.get()
-    .then((shouldDisplayGuidelines: boolean) => {
-      if (!shouldDisplayGuidelines) {
-        navigation.navigate('DexScreen')
-      }
-    })
-    .catch((err) => Logging.error(err))
-    .finally(() => setIsLoaded(true))
-  }, [])
-
+export function DexGuidelines ({ onClose }: Props): JSX.Element {
   const guidelines: GuidelineItem[] = [
     {
       title: 'Add liquidity',
@@ -50,15 +35,6 @@ export function DexGuidelines ({ navigation }: Props): JSX.Element {
       icon: 'account-balance-wallet'
     }
   ]
-
-  const onClose = async (): Promise<void> => {
-    await DisplayDexGuidelinesPersistence.set(false)
-    navigation.navigate('DexScreen')
-  }
-
-  if (!isLoaded) {
-    return <></>
-  }
 
   return (
     <ThemedScrollView

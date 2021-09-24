@@ -13,7 +13,6 @@ import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
 import { DexScreen } from './DexScreen'
 import { ConfirmPoolSwapScreen, DexForm } from './PoolSwap/ConfirmPoolSwapScreen'
 import { DerivedTokenState, PoolSwapScreen } from './PoolSwap/PoolSwapScreen'
-import { DexGuidelines } from './DexGuidelines'
 
 export interface DexParamList {
   DexScreen: undefined
@@ -54,20 +53,6 @@ export function DexNavigator (): JSX.Element {
               containerTestID={headerContainerTestId}
             />
           )
-        }}
-      />
-
-      <DexStack.Screen
-        component={DexGuidelines}
-        name='DexGuidelines'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexGuidelines', 'Guidelines')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
-          headerLeft: () => null
         }}
       />
 

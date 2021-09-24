@@ -178,17 +178,18 @@ context('Wallet - Network detail screen - with wallet context go back check', ()
     cy.url().should('include', 'app/balances')
   })
 
-  it('should get back to the dex guideline page when network detail called from dex page', function () {
+  it('should get back to the dex guideline page when network detail called from dex guideline page', function () {
     cy.getByTestID('bottom_tab_dex').click().wait(3000)
-    cy.url().should('include', 'app/DEX/DexGuidelines')
+    cy.url().should('include', 'app/DEX/DexScreen')
+    cy.getByTestID('dex_guidelines_screen').should('exist')
     cy.getByTestID('dex_header_container').filter(':visible').click().wait(3000)
     cy.getByTestID('network_details_header_back').click()
-    cy.url().should('include', 'app/DEX/DexGuidelines')
+    cy.url().should('include', 'app/DEX/DexScreen')
   })
 
   it('should get back to the dex page when network detail called from dex page', function () {
     cy.getByTestID('bottom_tab_dex').filter(':visible').click().wait(3000)
-    cy.url().should('include', 'app/DEX/DexGuidelines')
+    cy.url().should('include', 'app/DEX/DexScreen')
     cy.getByTestID('close_dex_guidelines').click().wait(3000)
     cy.url().should('include', 'app/DEX/DexScreen')
     cy.getByTestID('dex_header_container').filter(':visible').click().wait(3000)
@@ -203,6 +204,7 @@ context('Wallet - Network detail screen - with wallet context go back check', ()
     cy.getByTestID('network_details_header_back').click()
     cy.url().should('include', 'app/transactions')
   })
+
   it('should get back to the setting page when network detail called from setting page', function () {
     cy.getByTestID('bottom_tab_settings').filter(':visible').click().wait(3000)
     cy.url().should('include', 'app/settings')
