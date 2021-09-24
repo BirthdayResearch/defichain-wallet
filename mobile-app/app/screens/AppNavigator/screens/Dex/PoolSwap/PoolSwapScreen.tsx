@@ -17,7 +17,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
-import { Control, Controller, FieldValues, useForm, UseFormSetValue } from 'react-hook-form'
+import { Control, Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -197,7 +197,6 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           setIsComputing(false)
         }}
         token={tokenA}
-        setValue={setValue}
       />
 
       <View style={tailwind('justify-center items-center py-2 px-4')}>
@@ -221,7 +220,6 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         isDisabled
         title={translate('screens/PoolSwapScreen', 'After')}
         token={tokenB}
-        setValue={setValue}
         enableMaxButton={false}
       />
 
@@ -269,7 +267,6 @@ interface TokenForm {
   onChangeFromAmount?: (amount: string) => void
   title: string
   isDisabled: boolean
-  setValue: UseFormSetValue<FieldValues>
 }
 
 function TokenRow (form: TokenForm): JSX.Element {
@@ -280,8 +277,7 @@ function TokenRow (form: TokenForm): JSX.Element {
     title,
     controlName,
     enableMaxButton,
-    isDisabled,
-    setValue
+    isDisabled
   } = form
   const Icon = getNativeIcon(token.displaySymbol)
   const rules: { required: boolean, pattern: RegExp, validate: any, max?: string } = {
@@ -327,7 +323,7 @@ function TokenRow (form: TokenForm): JSX.Element {
               testID={`text_input_${controlName}`}
               value={value}
               displayClearButton={(value !== defaultValue) && !isDisabled}
-              onClearButtonPress={() => setValue(controlName, defaultValue)}
+              onClearButtonPress={() => onChangeFromAmount?.(defaultValue)}
               title={title}
               inputType='numeric'
             >
