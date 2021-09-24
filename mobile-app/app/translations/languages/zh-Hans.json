@@ -369,8 +369,11 @@
     "SLIPPAGE TOLERANCE": "交易滑点"
   },
   "screens/PoolSwapScreen": {
-    "SWAP": "兑换",
-    "TO": "至",
+    "Swap": "兑换",
+    "How much {{token}} do you want to swap?": "你要兑换多少  {{token}}？",
+    "Available": "可兑换资金",
+    "After": "兑换后",
+    "You have": "你现有",
     "CONTINUE": "继续",
     "Enter an amount": "请输入数量",
     "Price": "价格",
