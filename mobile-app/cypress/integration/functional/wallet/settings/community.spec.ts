@@ -28,11 +28,6 @@ const communityLinks = [
     id: 'wechat',
     title: 'WeChat',
     url: 'http://weixin.qq.com/r/0xz07DzEdmEJrXiP90nB'
-  },
-  {
-    id: 'reddit',
-    title: 'Reddit Community',
-    url: 'https://www.reddit.com/r/defiblockchain/'
   }
 ]
 
