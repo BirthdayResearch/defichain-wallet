@@ -334,7 +334,7 @@ function PoolPairActionButton (props: { name: React.ComponentProps<typeof Materi
       iconSize={16}
       iconType='MaterialIcons'
       onPress={props.onPress}
-      style={tailwind('mr-2 flex-wrap mb-4')}
+      style={tailwind('mr-2 mb-4')}
       testID={`pool_pair_${props.name}_${props.pair}`}
       iconLabel={props.label}
     />
