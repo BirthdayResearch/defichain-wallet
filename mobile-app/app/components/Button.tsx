@@ -49,7 +49,7 @@ export function Button (props: ButtonProps): JSX.Element {
         text !== undefined && (
           <>
             {isSubmitting && <ThemedActivityIndicator />}
-            <Text style={(tailwind(`${textStyle} font-bold`))}>
+            <Text style={(tailwind(`${textStyle} font-bold text-center`))}>
               {text}
             </Text>
           </>

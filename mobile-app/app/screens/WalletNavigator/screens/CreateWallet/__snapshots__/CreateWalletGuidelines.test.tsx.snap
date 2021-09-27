@@ -447,6 +447,7 @@ exports[`create wallet guidelines should match snapshot 1`] = `
               "color": "rgba(163, 163, 163, 1)",
               "fontFamily": "BoldFont",
               "fontWeight": "700",
+              "textAlign": "center",
             },
           ]
         }

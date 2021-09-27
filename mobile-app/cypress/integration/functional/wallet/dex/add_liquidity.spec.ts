@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js'
 function setupWallet (): void {
   cy.createEmptyWallet(true)
   cy.getByTestID('bottom_tab_dex').click()
+  cy.getByTestID('close_dex_guidelines').click()
   cy.sendDFItoWallet()
     .sendDFITokentoWallet()
     .sendTokenToWallet(['BTC']).wait(3000)
