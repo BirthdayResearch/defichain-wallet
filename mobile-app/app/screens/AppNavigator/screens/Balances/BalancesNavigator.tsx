@@ -231,7 +231,8 @@ export function BalancesNavigator (): JSX.Element {
         name='NetworkDetails'
         options={{
           headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
-          headerBackTitleVisible: false
+          headerBackTitleVisible: false,
+          headerBackTestID: 'network_details_header_back'
         }}
       />
     </BalanceStack.Navigator>

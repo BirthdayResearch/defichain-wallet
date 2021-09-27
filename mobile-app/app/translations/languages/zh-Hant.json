@@ -24,6 +24,18 @@
     "AVAILABLE POOL PAIR": "開放使用的流動池配對",
     "Pooled {{symbol}}": "池中總 {{symbol}} 數量"
   },
+  "screens/DexGuidelines": {
+    "Guidelines": "指導方針",
+    "CONTINUE": "繼續",
+    "Decentralized Exchange": "去中心化交易所",
+    "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "將您的貨幣提供給 DEX 去中心化交易所，並獲得高達三位數百分比的年回報率",
+    "Add liquidity": "增加流動資金",
+    "Swap tokens": "兌換貨幣",
+    "Withdraw at any time": "隨時能從流動性池中取出貨幣",
+    "Earn high yields by supplying token pairs to the liquidity pool.": "提供流動池配對貨幣並獲得高回報率",
+    "Conveniently swap participating tokens within the liquidity pool.": "方便地在流動池裡兌換貨幣",
+    "You have full control over your tokens unlike any other.": "您能完全掌控貨幣"
+  },
   "screens/BalancesScreen": {
     "Balances": "我的資產",
     "RECEIVE": "接收",
@@ -31,10 +43,11 @@
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
-    "Use this address to receive DFI or any DST": "請用這個地址接收DFI或DST",
-    "Copied to Clipboard": "已經複製",
-    "COPY TO CLIPBOARD": "複製到剪貼板",
-    "SHARE": "轉發"
+    "Use QR or Wallet Address to receive any DST or DFI": "請用 QR 碼或地址接收遞飛鏈 DST 或 DFI",
+    "COPIED": "複製到剪貼板",
+    "COPY": "複製地址",
+    "SHARE": "轉發地址",
+    "WALLET ADDRESS": "錢包地址"
   },
   "screens/SendScreen": {
     "Send": "移出資金",
@@ -92,7 +105,7 @@
   },
   "screens/CommunityScreen": {
     "Community": "社區",
-    "CONNECT WITH THE COMMUNITY:": "參與社區",
+    "CONNECT WITH THE COMMUNITY": "參與社區",
     "DeFiChain is a community-driven and open project.": "遞飛鏈 DeFiChain 是個社區優先、開源項目",
     "The DeFiChain Foundation does not provide direct support.": "此項目是完全去中心化的，並沒有提供客服",
     "Report an issue on Github": "向 Github 開啟議題",
@@ -138,7 +151,15 @@
     "LINKS": "網址鏈結",
     "White Paper": "遞飛鏈白皮書",
     "Privacy Policy": "隱私條款",
-    "Licenses": "授權"
+    "Licenses": "授權",
+    "Knowledge base": "資訊庫",
+    "Common questions and support documents": "常見問題和支援文件",
+    "Participate with active community": "參與活躍的遞飛鏈社區",
+    "Report in Github, discuss in Reddit and Telegram": "在 GitHub提交反饋、電報群和其他社區提問討論",
+    "Track transactions, tokens and DEX pairs": "審查交易、代幣、和去中心化配對",
+    "View official website": "前往遞飛鏈官網",
+    "Learn more about the blockchain": "了解更多關於遞飛鏈區塊鏈和相關資訊",
+    "DeFiChain Explorer": "遞飛鏈瀏覽器"
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "網絡",
@@ -344,7 +365,8 @@
     "Enter an amount ": "請輸入數量",
     "YOU ARE REMOVING": "您正要退出",
     "Price": "價格",
-    "Removing {{amount}} {{symbol}}": "退出 {{amount}} {{symbol}}"
+    "Removing {{amount}} {{symbol}}": "退出 {{amount}} {{symbol}}",
+    "Review full transaction details in the next screen": "請在下一步確認交易明細"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "錢包網絡",
@@ -368,14 +390,18 @@
   "screens/SlippageTolerance": {
     "SLIPPAGE TOLERANCE": "交易滑價"
   },
-  "screens/PoolSwapScreen": {
-    "SWAP": "兌換",
-    "TO": "至",
+  "screens/PoolSwapScreen": {    
+    "Swap": "兌換",
+    "How much {{token}} do you want to swap?": "你要兌換多少  {{token}}？",
+    "Available": "可兌換資金",
+    "After": "兌換後",
+    "You have": "你現有",
     "CONTINUE": "繼續",
     "Enter an amount": "請輸入數量",
     "Price": "價格",
     "Estimated to receive": "您大約會收到",
-    "Balance: ": "總資產餘額: "
+    "Balance: ": "總資產餘額: ",
+    "Review full transaction details in the next screen": "請在下一步確認交易明細"
   },
   "screens/PoolSwapConfirmScreen": {
     "YOU ARE SWAPPING": "您正要兌換",

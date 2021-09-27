@@ -28,16 +28,6 @@ const communityLinks = [
     id: 'wechat',
     title: 'WeChat',
     url: 'http://weixin.qq.com/r/0xz07DzEdmEJrXiP90nB'
-  },
-  {
-    id: 'reddit',
-    title: 'Reddit Community',
-    url: 'https://www.reddit.com/r/defiblockchain/'
-  },
-  {
-    id: 'website',
-    title: 'Official Website',
-    url: 'https://defichain.com/'
   }
 ]
 
@@ -45,7 +35,8 @@ context('Wallet - Settings - Community', () => {
   beforeEach(function () {
     cy.createEmptyWallet()
     cy.getByTestID('bottom_tab_settings').click()
-    cy.getByTestID('settings_community_button').click()
+    cy.getByTestID('setting_navigate_About').click()
+    cy.getByTestID('community_link').click()
   })
 
   it('should display all community links', function () {

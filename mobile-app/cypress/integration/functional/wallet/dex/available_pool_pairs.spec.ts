@@ -1,6 +1,7 @@
 context('Wallet - DEX - Available Pool Pairs', () => {
   beforeEach(function () {
     cy.createEmptyWallet()
+    localStorage.setItem('WALLET.DISPLAY_DEXGUIDELINES', 'false')
     cy.getByTestID('bottom_tab_dex').click()
   })
 

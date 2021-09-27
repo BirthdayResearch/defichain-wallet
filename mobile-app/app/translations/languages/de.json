@@ -24,6 +24,18 @@
     "AVAILABLE POOL PAIR": "VERFÜGBARES LIQUIDITY POOL-HANDELSPAAR",
     "Pooled {{symbol}}": "Im Pool {{symbol}}"
   },
+  "screens/DexGuidelines": {
+    "Guidelines": "Richtlinien",
+    "CONTINUE": "FORTSETZEN",
+    "Decentralized Exchange": "Dezentrale Börse",
+    "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "Nimm teil am Liquidität Bereitstellen für den Betrieb der dezentralen Börse (DEX). Gebrauche deine Token, um hohe Renditen zu erzielen (bis zu 100%).",
+    "Add liquidity": "Liquidität hinzufügen",
+    "Swap tokens": "Tausche Token",
+    "Withdraw at any time": "Entfernen der Liquidität zu jeder Zeit",
+    "Earn high yields by supplying token pairs to the liquidity pool.": "Erziele hohe Erträge durch die Bereitstellung von Handelspaaren zum Liquidity Pool.",
+    "Conveniently swap participating tokens within the liquidity pool.": "Bequemer Umtausch von im Liquidity Pool vertretenen Token.",
+    "You have full control over your tokens unlike any other.": "Nur du hast volle Kontrolle über deine Token."
+  },
   "screens/BalancesScreen": {
     "Balances": "Guthaben",
     "RECEIVE": "EMPFANGEN",
@@ -31,15 +43,16 @@
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
-    "Use this address to receive DFI or any DST": "Verwende diese Adresse, um DFI oder DST zu empfangen",
-    "Copied to Clipboard": "In die Zwischenablage kopiert",
-    "COPY TO CLIPBOARD": "IN DIE ZWISCHENABLAGE KOPIEREN",
-    "SHARE": "TEILEN"
+    "Use QR or Wallet Address to receive any DST or DFI": "Zum Empfang von DST oder DFI QR Code oder Wallet Adresse nutzen",
+    "COPIED": "KOPIERT",
+    "COPY": "KOPIEREN",
+    "SHARE": "TEILEN",
+    "WALLET ADDRESS": "WALLET ADRESSE"
   },
   "screens/SendScreen": {
     "Send": "Senden",
     "Estimated fee": "Geschätzte Gebühr",
-    "CONTINUE": "FORTSETZEN",                
+    "CONTINUE": "FORTSETZEN",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
     "SEND": "SENDEN",
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
@@ -92,7 +105,7 @@
   },
   "screens/CommunityScreen": {
     "Community": "Community",
-    "CONNECT WITH THE COMMUNITY:": "VERBINDE DICH MIT DER COMMUNITY:",
+    "CONNECT WITH THE COMMUNITY": "VERBINDE DICH MIT DER COMMUNITY",
     "DeFiChain is a community-driven and open project.": "DeFiChain ist ein offenes Gemeinschaftsprojekt.",
     "The DeFiChain Foundation does not provide direct support.": "Das Gründungskonsortium der DeFiChain stellt keinen direkten Support zur Verfügung.",
     "Report an issue on Github": "Erstelle ein Thema auf Github",
@@ -138,7 +151,14 @@
     "LINKS": "LINKS",
     "White Paper": "White Paper",
     "Privacy Policy": "Datenschutz",
-    "Licenses": "Benutzungsrechte"
+    "Licenses": "Benutzungsrechte",
+    "Knowledge base": "Wissensdatenbank",
+    "Common questions and support documents": "Häufige Fragen und Support-Dokumente",
+    "Participate with active community": "An aktiver Community teilnehmen",
+    "Report in Github, discuss in Reddit and Telegram": "In Github melden, in Reddit und Telegram thematisch diskutieren",
+    "Track transactions, tokens and DEX pairs": "Nachverfolgung von Transaktionen, Token und DEX-Handelspaaren",
+    "View official website": "Offizielle Website anzeigen",
+    "Learn more about the blockchain": "Erfahre mehr über die Blockchain"
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "NETZWERK",
@@ -207,7 +227,7 @@
     "Creating a wallet": "Erstellen einer Wallet",
     "Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.": "Bevor du eine Wallet erstellt hast, sieht du zunächst 24 Worte. Behalte sie für dich und bewahre sie sicher auf.",
     "Learn more about recovery words": "Erfahre mehr über den Wiederherstellungssatz",
-    "I understand it is my responsibility to keep my recovery words secure, and losing them will result in the irrecoverable loss of my wallet funds.": "Ich verstehe, dass die Verantwortung, meinen Wiederherstellungssatz, die Seed Phrase sicher aufzubewahren, bei mir liegt. Der Verlust dieses Schlüssels hat den unwiederbringlichen Verlust der Guthaben auf dieser Wallet zur Folge.",
+    "I understand it is my responsibility to keep my recovery words secure, and losing them will result in the irrecoverable loss of my wallet funds.": "Ich verstehe, dass die Verantwortung, meinen Wiederherstellungssatz sicher aufzubewahren, bei mir liegt. Der Verlust dieses Schlüssels hat den unwiederbringlichen Verlust der Guthaben auf dieser Wallet zur Folge.",
     "SHOW MY 24 RECOVERY WORDS": "ZEIGE 24 WIEDERHERSTELLUNGSWORTE AN",
     "Write the words on paper": "Schreibe die Wörter auf Papier",
     "Take note of their correct spelling and correct order.": "Achte dabei auf die korrekte Schreibweise und die richtige Reihenfolge.",
@@ -343,7 +363,8 @@
     "Enter an amount ": "Gib einen Betrag an ",
     "YOU ARE REMOVING": "DU ENTFERNST",
     "Price": "Preis",
-    "Removing {{amount}} {{symbol}}": "Entferne {{amount}} {{symbol}}"
+    "Removing {{amount}} {{symbol}}": "Entferne {{amount}} {{symbol}}",
+    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "Wallet Netzwerk",
@@ -368,13 +389,17 @@
     "SLIPPAGE TOLERANCE": "SLIPPAGE TOLERANZ"
   },
   "screens/PoolSwapScreen": {
-    "SWAP": "TAUSCHE",
-    "TO": "GEGEN",
+    "Swap": "Tausche",
+    "How much {{token}} do you want to swap?": "Wie viele {{token}} möchtest du umtauschen?",
+    "Available": "Verfügbar",
+    "After": "Danach",
+    "You have": "Du hast aktuell",
     "CONTINUE": "FORTFAHREN",
     "Enter an amount": "Gib eine Menge ein",
     "Price": "Preis",
     "Estimated to receive": "Vorraussichtlich wird empfangen",
-    "Balance: ": "Guthaben: "
+    "Balance: ": "Guthaben: ",
+    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion"
   },
   "screens/PoolSwapConfirmScreen": {
     "YOU ARE SWAPPING": "DU TAUSCHST",

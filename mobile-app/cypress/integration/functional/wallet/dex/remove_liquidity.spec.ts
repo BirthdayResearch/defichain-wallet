@@ -6,6 +6,7 @@ function createAddLiquidityToWallet (): void {
   cy.getByTestID('bottom_tab_settings').click()
   cy.sendDFItoWallet().sendTokenToWallet(['ETH-DFI']).wait(3000)
   cy.getByTestID('bottom_tab_dex').click().wait(1000)
+  cy.getByTestID('close_dex_guidelines').click()
   cy.getByTestID('liquidity_screen_list').wait(2000)
     .getByTestID('pool_pair_row_your').should('have.length', 1)
 

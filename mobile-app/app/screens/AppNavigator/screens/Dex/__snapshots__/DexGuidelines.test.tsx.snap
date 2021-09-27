@@ -1,0 +1,416 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dex guide should match snapshot 1`] = `
+<RCTScrollView
+  style={
+    Array [
+      Object {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 24,
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
+  }
+  testID="dex_guidelines_screen"
+>
+  <View>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "SemiBoldFont",
+              "fontSize": 18,
+              "fontWeight": "600",
+              "lineHeight": 28,
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Decentralized Exchange
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "MediumFont",
+              "fontSize": 14,
+              "fontWeight": "500",
+              "lineHeight": 20,
+              "marginBottom": 16,
+              "marginTop": 4,
+            },
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).
+    </Text>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "marginBottom": 16,
+          "marginTop": 16,
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 32,
+            },
+            Array [
+              undefined,
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+            Object {
+              "fontFamily": "material",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+      <View
+        style={
+          Object {
+            "flexBasis": "auto",
+            "flexDirection": "column",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "marginLeft": 24,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Add liquidity
+        </Text>
+        <Text
+          numberOfLines={4}
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Earn high yields by supplying token pairs to the liquidity pool.
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "marginBottom": 16,
+          "marginTop": 16,
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 32,
+            },
+            Array [
+              undefined,
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+            Object {
+              "fontFamily": "material",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+      <View
+        style={
+          Object {
+            "flexBasis": "auto",
+            "flexDirection": "column",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "marginLeft": 24,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Swap tokens
+        </Text>
+        <Text
+          numberOfLines={4}
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Conveniently swap participating tokens within the liquidity pool.
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "marginBottom": 16,
+          "marginTop": 16,
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 32,
+            },
+            Array [
+              undefined,
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+            Object {
+              "fontFamily": "material",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+      <View
+        style={
+          Object {
+            "flexBasis": "auto",
+            "flexDirection": "column",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "marginLeft": 24,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Withdraw at any time
+        </Text>
+        <Text
+          numberOfLines={4}
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          You have full control over your tokens unlike any other.
+        </Text>
+      </View>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(255, 229, 247, 1)",
+          "borderBottomLeftRadius": 4,
+          "borderBottomRightRadius": 4,
+          "borderTopLeftRadius": 4,
+          "borderTopRightRadius": 4,
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "marginBottom": 32,
+          "marginLeft": 0,
+          "marginRight": 0,
+          "marginTop": 40,
+          "opacity": 1,
+          "paddingBottom": 12,
+          "paddingLeft": 12,
+          "paddingRight": 12,
+          "paddingTop": 12,
+        }
+      }
+      testID="close_dex_guidelines"
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Object {
+              "color": "rgba(255, 0, 175, 1)",
+              "fontFamily": "BoldFont",
+              "fontWeight": "700",
+              "textAlign": "center",
+            },
+          ]
+        }
+      >
+        CONTINUE
+      </Text>
+    </View>
+  </View>
+</RCTScrollView>
+`;
