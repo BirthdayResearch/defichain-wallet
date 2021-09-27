@@ -140,7 +140,7 @@ context('Mainnet - Wallet', () => {
     it('should have correct poolpairs', function () {
       cy.getByTestID('bottom_tab_dex').click()
       cy.getByTestID('close_dex_guidelines').click()
-      cy.getByTestID('your_dETH – DFI').contains('10.00000000')
+      cy.getByTestID('your_dETH-DFI').contains('10.00000000 dETH-DFI')
       cy.getByTestID('bottom_tab_balances').click()
     })
 
@@ -180,7 +180,7 @@ context('Mainnet - Wallet - Pool Pair Values', () => {
       const available: PoolPairData[] = pairs.map(data => ({ type: 'available', data: data }))
       available.forEach((pair) => {
         const data: PoolPairData = pair.data
-        const symbol = `${data.tokenA.displaySymbol} – ${data.tokenB.displaySymbol}`
+        const symbol = `${data.tokenA.displaySymbol}-${data.tokenB.displaySymbol}`
         cy.getByTestID(`your_symbol_${symbol}`).contains(symbol)
         cy.getByTestID(`apr_${symbol}`).contains(`${new BigNumber(data.apr.total).times(100).toFixed(2)}%`)
         cy.getByTestID(`available_${data.tokenA.displaySymbol}`).contains(`${new BigNumber(new BigNumber(data.tokenA.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)

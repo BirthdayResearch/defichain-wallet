@@ -9,7 +9,7 @@ function setupWallet (): void {
     .sendTokenToWallet(['BTC']).wait(3000)
 
   cy.getByTestID('bottom_tab_dex').click()
-  cy.getByTestID('pool_pair_add_dBTC – DFI').click()
+  cy.getByTestID('pool_pair_add_dBTC-DFI').click()
   cy.wait(100)
   cy.getByTestID('token_balance_primary').contains('10')
   cy.getByTestID('token_balance_secondary').contains('10')
@@ -132,16 +132,16 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
   })
 
   afterEach(function () {
-    cy.getByTestID('your_dBTC – DFI').contains('10.00000000')
-    cy.getByTestID('tokenA_dBTC').contains('9.99999999')
-    cy.getByTestID('tokenB_DFI').contains('9.99999999')
+    cy.getByTestID('your_dBTC-DFI').contains('10.00000000 dBTC-DFI')
+    cy.getByTestID('tokenA_dBTC').contains('9.99999999 dBTC')
+    cy.getByTestID('tokenB_DFI').contains('9.99999999 DFI')
 
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_row_6').should('exist')
     cy.getByTestID('balances_row_6_symbol').contains('dBTC-DFI')
     // Remove added liquidity
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('pool_pair_remove_dBTC – DFI').click()
+    cy.getByTestID('pool_pair_remove_dBTC-DFI').click()
     cy.getByTestID('button_slider_max').click().wait(1000)
     cy.getByTestID('button_continue_remove_liq').click()
     cy.getByTestID('button_confirm_remove').click().wait(2000)
