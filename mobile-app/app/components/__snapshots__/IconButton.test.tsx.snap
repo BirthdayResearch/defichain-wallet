@@ -13,6 +13,7 @@ exports[`icon button should match snapshot of button with add icon 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Object {
+      "alignItems": "center",
       "backgroundColor": "rgba(255, 255, 255, 1)",
       "borderBottomColor": "rgba(212, 212, 212, 1)",
       "borderBottomLeftRadius": 4,
@@ -26,6 +27,7 @@ exports[`icon button should match snapshot of button with add icon 1`] = `
       "borderTopLeftRadius": 4,
       "borderTopRightRadius": 4,
       "borderTopWidth": 1,
+      "flexDirection": "row",
       "opacity": 1,
       "paddingBottom": 4,
       "paddingLeft": 4,
@@ -76,6 +78,7 @@ exports[`icon button should match snapshot of button with remove icon 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Object {
+      "alignItems": "center",
       "backgroundColor": "rgba(255, 255, 255, 1)",
       "borderBottomColor": "rgba(212, 212, 212, 1)",
       "borderBottomLeftRadius": 4,
@@ -89,6 +92,7 @@ exports[`icon button should match snapshot of button with remove icon 1`] = `
       "borderTopLeftRadius": 4,
       "borderTopRightRadius": 4,
       "borderTopWidth": 1,
+      "flexDirection": "row",
       "opacity": 1,
       "paddingBottom": 4,
       "paddingLeft": 4,
@@ -139,6 +143,7 @@ exports[`icon button should match snapshot of button with swap-horiz icon 1`] = 
   onStartShouldSetResponder={[Function]}
   style={
     Object {
+      "alignItems": "center",
       "backgroundColor": "rgba(255, 255, 255, 1)",
       "borderBottomColor": "rgba(212, 212, 212, 1)",
       "borderBottomLeftRadius": 4,
@@ -152,6 +157,7 @@ exports[`icon button should match snapshot of button with swap-horiz icon 1`] = 
       "borderTopLeftRadius": 4,
       "borderTopRightRadius": 4,
       "borderTopWidth": 1,
+      "flexDirection": "row",
       "opacity": 1,
       "paddingBottom": 4,
       "paddingLeft": 4,
@@ -202,6 +208,7 @@ exports[`icon button should match snapshot of button with swap-vert icon 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Object {
+      "alignItems": "center",
       "backgroundColor": "rgba(255, 255, 255, 1)",
       "borderBottomColor": "rgba(212, 212, 212, 1)",
       "borderBottomLeftRadius": 4,
@@ -215,6 +222,7 @@ exports[`icon button should match snapshot of button with swap-vert icon 1`] = `
       "borderTopLeftRadius": 4,
       "borderTopRightRadius": 4,
       "borderTopWidth": 1,
+      "flexDirection": "row",
       "opacity": 1,
       "paddingBottom": 4,
       "paddingLeft": 4,

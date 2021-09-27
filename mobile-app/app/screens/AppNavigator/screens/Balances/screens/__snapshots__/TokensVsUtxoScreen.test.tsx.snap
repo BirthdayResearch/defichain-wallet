@@ -140,10 +140,14 @@ exports[`tokens vs utxo screen should render 1`] = `
           }
         >
           <RNSVGSvgView
+            align="xMidYMid"
             bbHeight={32}
             bbWidth={32}
             focusable={false}
             height={32}
+            meetOrSlice={0}
+            minX={0}
+            minY={0}
             style={
               Array [
                 Object {
@@ -160,6 +164,8 @@ exports[`tokens vs utxo screen should render 1`] = `
                 },
               ]
             }
+            vbHeight={32}
+            vbWidth={32}
             width={32}
           >
             <RNSVGGroup>
@@ -388,10 +394,14 @@ exports[`tokens vs utxo screen should render 1`] = `
           }
         >
           <RNSVGSvgView
+            align="xMidYMid"
             bbHeight={32}
             bbWidth={32}
             focusable={false}
             height={32}
+            meetOrSlice={0}
+            minX={0}
+            minY={0}
             style={
               Array [
                 Object {
@@ -408,6 +418,8 @@ exports[`tokens vs utxo screen should render 1`] = `
                 },
               ]
             }
+            vbHeight={32}
+            vbWidth={32}
             width={32}
           >
             <RNSVGGroup>
