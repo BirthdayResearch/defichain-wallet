@@ -14,7 +14,7 @@ function createAddLiquidityToWallet (): void {
     .wait(2000).getByTestID('pool_pair_row_your').first()
     .invoke('text').should(text => expect(text).to.contains('10.00000000 dETH-DFI'))
 
-  cy.getByTestID('pool_pair_remove_dETH-DFI').click().wait(1000)
+  cy.getByTestID('pool_pair_remove_dETH – DFI').click().wait(1000)
 
   cy.getByTestID('price_a').contains('0.00000000')
   cy.getByTestID('price_a_unit').contains('dETH')
@@ -30,7 +30,7 @@ context('Wallet - DEX - Remove Liquidity', () => {
   after(function () {
     // Remove added liquidity
     cy.getByTestID('bottom_tab_dex').click().wait(1000)
-    cy.getByTestID('pool_pair_remove_dETH-DFI').click().wait(1000)
+    cy.getByTestID('pool_pair_remove_dETH – DFI').click().wait(1000)
     cy.getByTestID('button_slider_max').click().wait(1000)
     cy.getByTestID('button_continue_remove_liq').click()
     cy.getByTestID('button_confirm_remove').click().wait(2000)

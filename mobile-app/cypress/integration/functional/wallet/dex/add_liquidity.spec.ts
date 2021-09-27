@@ -9,7 +9,7 @@ function setupWallet (): void {
     .sendTokenToWallet(['BTC']).wait(3000)
 
   cy.getByTestID('bottom_tab_dex').click()
-  cy.getByTestID('pool_pair_add_dBTC-DFI').click()
+  cy.getByTestID('pool_pair_add_dBTC – DFI').click()
   cy.wait(100)
   cy.getByTestID('token_balance_primary').contains('10')
   cy.getByTestID('token_balance_secondary').contains('10')
