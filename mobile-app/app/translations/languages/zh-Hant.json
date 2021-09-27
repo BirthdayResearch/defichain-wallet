@@ -15,14 +15,19 @@
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "去中心化交易所",
-    "Add Liquidity": "增加流動資金",
+    "ADD LIQUIDITY": "增加流動資金",
     "Remove Liquidity": "退出流動資金",
     "Confirm removal": "確認退出",
     "Confirm swap": "確認兌換",
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "為以下去中心化交易所配對池提供流動資金，並獲得高利率的區塊獎勵回報.",
     "YOUR LIQUIDITY": "您的資金",
-    "AVAILABLE POOL PAIR": "開放使用的流動池配對",
-    "Pooled {{symbol}}": "池中總 {{symbol}} 數量"
+    "AVAILABLE POOL PAIRS": "開放使用的流動池配對",
+    "Pooled {{symbol}}": "池中總 {{symbol}} 數量",
+    "Total pooled {{symbol}}": "池中總 {{symbol}} 數量",
+    "Your pooled {{symbol}}": "您的池中總 {{symbol}} 數量",
+    "SWAP TOKENS": "兌換貨幣",
+    "REMOVE": "退出",
+    "APR": "APR"
   },
   "screens/DexGuidelines": {
     "Guidelines": "指導方針",
