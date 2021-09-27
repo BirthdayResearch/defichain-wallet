@@ -2,10 +2,9 @@ import { Logging } from '@api'
 import { Button } from '@components/Button'
 import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
-import { IconLabelScreenType, InputIconLabel } from '@components/InputIconLabel'
 import { NumberRow } from '@components/NumberRow'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
-import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedTextInput, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
@@ -20,11 +19,12 @@ import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
-import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { DexParamList } from '../DexNavigator'
 import { SlippageTolerance } from './components/SlippageTolerance'
+import { WalletTextInput } from '@components/WalletTextInput'
+import { InputHelperText } from '@components/InputHelperText'
 
 export interface DerivedTokenState {
   id: string
@@ -61,6 +61,29 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
 
   // component UI state
   const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
+  const ScreenTitle = (props: {tokenA: DerivedTokenState, tokenB: DerivedTokenState}): JSX.Element => {
+    const TokenAIcon = getNativeIcon(props.tokenA.displaySymbol)
+    const TokenBIcon = getNativeIcon(props.tokenB.displaySymbol)
+
+    return (
+      <ThemedView
+        light={tailwind('bg-transparent')}
+        dark={tailwind('bg-transparent')}
+        style={tailwind('flex-row items-center pb-4')}
+      >
+        <ThemedSectionTitle
+          testID='text_input_swap'
+          text={translate('screens/PoolSwapScreen', 'Swap')}
+          light={tailwind('text-gray-900')}
+          dark={tailwind('text-gray-50')}
+          style={tailwind('text-xl font-semibold pr-2')}
+        />
+        <TokenAIcon />
+        <ThemedIcon iconType='MaterialIcons' name='arrow-right-alt' size={24} style={tailwind('px-1')} />
+        <TokenBIcon />
+      </ThemedView>
+    )
+  }
 
   useEffect(() => {
     const pair = pairs.find((v) => v.data.id === route.params.poolpair.id)
@@ -155,26 +178,40 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollView>
-      <TokenRow
-        control={control}
-        controlName={tokenAForm}
-        isDisabled={false}
-        maxAmount={tokenA.amount}
-        onChangeFromAmount={async (amount) => {
-          setIsComputing(true)
-          amount = isNaN(+amount) ? '0' : amount
-          setValue(tokenAForm, amount)
-          await trigger(tokenAForm)
-          const reserveA = getReserveAmount(tokenA.id, poolpair)
-          setValue(tokenBForm, calculateEstimatedAmount(amount, reserveA, aToBPrice.toFixed(8)).toFixed(8))
-          await trigger(tokenBForm)
-          setIsComputing(false)
-        }}
-        title={`${translate('screens/PoolSwapScreen', 'SWAP')} ${tokenA.displaySymbol}`}
-        token={tokenA}
-      />
-
-      <View style={tailwind('justify-center items-center mt-6')}>
+      <View style={tailwind('px-4 pb-0 pt-7')}>
+        <ScreenTitle tokenA={tokenA} tokenB={tokenB} />
+        <TokenRow
+          control={control}
+          controlName={tokenAForm}
+          isDisabled={false}
+          title={translate('screens/PoolSwapScreen', 'How much {{token}} do you want to swap?', { token: tokenA.displaySymbol })}
+          maxAmount={tokenA.amount}
+          enableMaxButton
+          onChangeFromAmount={async (amount) => {
+            setIsComputing(true)
+            amount = isNaN(+amount) ? '0' : amount
+            setValue(tokenAForm, amount)
+            await trigger(tokenAForm)
+            const reserveA = getReserveAmount(tokenA.id, poolpair)
+            setValue(tokenBForm, calculateEstimatedAmount(amount, reserveA, aToBPrice.toFixed(8)).toFixed(8))
+            await trigger(tokenBForm)
+            setIsComputing(false)
+          }}
+          token={tokenA}
+        />
+        <InputHelperText
+          testID={`text_balance_${tokenAForm}`}
+          label={`${translate('screens/PoolSwapScreen', 'Available')}: `}
+          content={tokenA.amount}
+          suffix={` ${tokenA.displaySymbol}`}
+        />
+      </View>
+      <View style={tailwind('justify-center items-center py-2 px-4')}>
+        <ThemedView
+          light={tailwind('border-gray-200')}
+          dark={tailwind('border-gray-700')}
+          style={tailwind('border-b w-full relative top-2/4')}
+        />
         <IconButton
           iconName='swap-vert'
           iconSize={24}
@@ -184,14 +221,22 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         />
       </View>
 
-      <TokenRow
-        control={control}
-        controlName={tokenBForm}
-        isDisabled
-        title={`${translate('screens/PoolSwapScreen', 'TO')} ${tokenB.displaySymbol}`}
-        token={tokenB}
-      />
-
+      <View style={tailwind('p-4 pb-0')}>
+        <TokenRow
+          control={control}
+          controlName={tokenBForm}
+          isDisabled
+          title={translate('screens/PoolSwapScreen', 'After')}
+          token={tokenB}
+          enableMaxButton={false}
+        />
+        <InputHelperText
+          testID={`text_balance_${tokenBForm}`}
+          label={`${translate('screens/PoolSwapScreen', 'You have')} `}
+          content={tokenB.amount}
+          suffix={` ${tokenB.displaySymbol}`}
+        />
+      </View>
       <SlippageTolerance
         setSlippage={(amount) => setSlippage(amount)}
         slippage={slippage}
@@ -231,7 +276,7 @@ interface TokenForm {
   control: Control
   controlName: string
   token: DerivedTokenState
-  enableMaxButton?: boolean
+  enableMaxButton: boolean
   maxAmount?: string
   onChangeFromAmount?: (amount: string) => void
   title: string
@@ -245,7 +290,7 @@ function TokenRow (form: TokenForm): JSX.Element {
     onChangeFromAmount,
     title,
     controlName,
-    enableMaxButton = true,
+    enableMaxButton,
     isDisabled
   } = form
   const Icon = getNativeIcon(token.displaySymbol)
@@ -256,111 +301,75 @@ function TokenRow (form: TokenForm): JSX.Element {
       greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
     }
   }
+  const defaultValue = ''
   if (form.maxAmount !== undefined) {
     rules.max = form.maxAmount
   }
 
   return (
-    <>
-      <ThemedSectionTitle
-        testID={`text_input_${title}`}
-        text={title}
-      />
-
-      <Controller
-        control={control}
-        defaultValue=''
-        name={controlName}
-        render={({ field: { onBlur, onChange, value } }) => (
-          <ThemedView
-            dark={tailwind('bg-gray-800 border-b border-gray-700')}
-            light={tailwind('bg-white border-b border-gray-200')}
-            style={tailwind('flex-row w-full')}
-          >
-            <ThemedTextInput
-              autoCapitalize='none'
-              editable={!isDisabled}
-              onBlur={onBlur}
-              onChange={(e) => {
-                if (!isDisabled) {
-                  if (onChangeFromAmount !== undefined) {
-                    onChangeFromAmount(e.nativeEvent.text)
-                  } else {
-                    onChange(e)
-                  }
+    <Controller
+      control={control}
+      defaultValue={defaultValue}
+      name={controlName}
+      render={({ field: { onChange, value } }) => (
+        <ThemedView
+          dark={tailwind('bg-transparent')}
+          light={tailwind('bg-transparent')}
+          style={tailwind('flex-row w-full')}
+        >
+          <WalletTextInput
+            autoCapitalize='none'
+            editable={!isDisabled}
+            onChange={(e) => {
+              if (!isDisabled) {
+                if (onChangeFromAmount !== undefined) {
+                  onChangeFromAmount(e.nativeEvent.text)
+                } else {
+                  onChange(e)
                 }
-              }}
-              placeholder={isDisabled ? undefined : translate('screens/PoolSwapScreen', 'Enter an amount')}
-              style={tailwind('flex-grow p-4')}
-              testID={`text_input_${controlName}`}
-              value={value}
-            />
+              }
+            }}
+            placeholder={isDisabled ? undefined : translate('screens/PoolSwapScreen', 'Enter an amount')}
+            style={tailwind('flex-1')}
+            testID={`text_input_${controlName}`}
+            value={value}
+            displayClearButton={(value !== defaultValue) && !isDisabled}
+            onClearButtonPress={() => onChangeFromAmount?.(defaultValue)}
+            title={title}
+            inputType='numeric'
+          >
+            {
+              (enableMaxButton && onChangeFromAmount !== undefined) && (
+                <>
+                  <SetAmountButton
+                    amount={new BigNumber(token.amount)}
+                    onPress={onChangeFromAmount}
+                    type={AmountButtonTypes.half}
+                  />
 
-            <ThemedView
-              dark={tailwind('bg-gray-800')}
-              light={tailwind('bg-white')}
-              style={tailwind('flex-row pr-4 items-center')}
-            >
-              <Icon />
-
-              <InputIconLabel
-                label={token.displaySymbol}
-                screenType={IconLabelScreenType.DEX}
-              />
-            </ThemedView>
-          </ThemedView>
-        )}
-        rules={rules}
-      />
-
-      <ThemedView
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
-        light={tailwind('bg-white border-b border-gray-200')}
-        style={tailwind('flex-row w-full bg-white px-4 items-center')}
-      >
-        <View style={tailwind('flex-1 flex-row py-4 flex-wrap mr-2')}>
-          <ThemedText>
-            {translate('screens/PoolSwapScreen', 'Balance: ')}
-          </ThemedText>
-
-          <NumberFormat
-            decimalScale={8}
-            displayType='text'
-            renderText={(value) => (
-              <ThemedText
-                dark={tailwind('text-gray-300')}
-                light={tailwind('text-gray-500')}
-                testID={`text_balance_${controlName}`}
-              >
-                {value}
-              </ThemedText>
-            )}
-            suffix={` ${token.displaySymbol}`}
-            thousandSeparator
-            value={token.amount}
-          />
-        </View>
-
-        {
-          (enableMaxButton != null && onChangeFromAmount !== undefined) && (
-            <>
-              <SetAmountButton
-                amount={new BigNumber(token.amount)}
-                onPress={onChangeFromAmount}
-                type={AmountButtonTypes.half}
-              />
-
-              <SetAmountButton
-                amount={new BigNumber(token.amount)}
-                onPress={onChangeFromAmount}
-                type={AmountButtonTypes.max}
-              />
-            </>
-          )
-        }
-
-      </ThemedView>
-    </>
+                  <SetAmountButton
+                    amount={new BigNumber(token.amount)}
+                    onPress={onChangeFromAmount}
+                    type={AmountButtonTypes.max}
+                  />
+                </>
+              )
+            }
+            {
+              !enableMaxButton && (
+                <>
+                  <Icon />
+                  <ThemedText style={tailwind('pl-2')}>
+                    {token.displaySymbol}
+                  </ThemedText>
+                </>
+              )
+            }
+          </WalletTextInput>
+        </ThemedView>
+      )}
+      rules={rules}
+    />
   )
 }
 

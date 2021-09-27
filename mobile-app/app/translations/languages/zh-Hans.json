@@ -105,7 +105,7 @@
   },
   "screens/CommunityScreen": {
     "Community": "社区",
-    "CONNECT WITH THE COMMUNITY:": "参与社区",
+    "CONNECT WITH THE COMMUNITY": "参与社区",
     "DeFiChain is a community-driven and open project.": "递飞链 DeFiChain 是个社区优先、开源项目",
     "The DeFiChain Foundation does not provide direct support.": "此项目是完全去中心化的，并没有提供客服",
     "Report an issue on Github": "向 Github 开启议题",
@@ -151,7 +151,15 @@
     "LINKS": "网址链结",
     "White Paper": "递飞链白皮书",
     "Privacy Policy": "隐私条款",
-    "Licenses": "授权"
+    "Licenses": "授权",
+    "Knowledge base": "资讯库",
+    "Common questions and support documents": "常见问题和支援文件",
+    "Participate with active community": "参与活跃的递飞链社区",
+    "Report in Github, discuss in Reddit and Telegram": "在 GitHub提交反馈、电报群和其他社区提问讨论",
+    "Track transactions, tokens and DEX pairs": "审查交易、代币、和去中心化配对",
+    "View official website": "前往递飞链官网",
+    "Learn more about the blockchain": "了解更多关于递飞链区块链和相关资讯",
+    "DeFiChain Explorer": "递飞链浏览器"
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "网络",
@@ -381,8 +389,11 @@
     "SLIPPAGE TOLERANCE": "交易滑点"
   },
   "screens/PoolSwapScreen": {
-    "SWAP": "兑换",
-    "TO": "至",
+    "Swap": "兑换",
+    "How much {{token}} do you want to swap?": "你要兑换多少  {{token}}？",
+    "Available": "可兑换资金",
+    "After": "兑换后",
+    "You have": "你现有",
     "CONTINUE": "继续",
     "Enter an amount": "请输入数量",
     "Price": "价格",

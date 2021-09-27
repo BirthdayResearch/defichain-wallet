@@ -3,6 +3,10 @@ import * as React from 'react'
 import { Linking } from 'react-native'
 import { AboutScreen } from './AboutScreen'
 
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: jest.fn()
+}))
+
 jest.mock('../../../../../contexts/ThemeProvider')
 
 it('<AboutScreen /> should match snapshot', async () => {
