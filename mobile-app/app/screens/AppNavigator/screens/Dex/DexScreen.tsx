@@ -22,7 +22,7 @@ import { DexGuidelines } from './DexGuidelines'
 
 enum SectionKey {
   YourLiquidity = 'YOUR LIQUIDITY',
-  AvailablePoolPair = 'AVAILABLE POOL PAIR'
+  AvailablePoolPair = 'AVAILABLE POOL PAIRS'
 }
 
 export function DexScreen (): JSX.Element {
@@ -128,19 +128,7 @@ export function DexScreen (): JSX.Element {
                 />
               )
             }
-            return (
-              <ThemedView
-                dark={tailwind('bg-gray-900')}
-                light={tailwind('bg-gray-100')}
-                style={tailwind('px-4 pt-4 pb-2')}
-              >
-                <ThemedText style={tailwind('text-base font-medium')}>
-                  {
-                    translate('screens/DexScreen', 'Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.')
-                  }
-                </ThemedText>
-              </ThemedView>
-            )
+            return <></>
           case SectionKey.AvailablePoolPair:
             return (
               <>
@@ -190,8 +178,6 @@ function PoolPairRowYour ({
   const [symbolA, symbolB] = (pair?.tokenA != null && pair?.tokenB != null)
     ? [pair.tokenA.displaySymbol, pair.tokenB.displaySymbol]
     : data.symbol.split('-')
-  const IconA = getNativeIcon(symbolA)
-  const IconB = getNativeIcon(symbolB)
   const toRemove = new BigNumber(1).times(data.amount).decimalPlaces(8, BigNumber.ROUND_DOWN)
   const ratioToTotal = toRemove.div(pair?.totalLiquidity?.token ?? 1)
   const symbol = `${symbolA}-${symbolB}`
@@ -209,43 +195,20 @@ function PoolPairRowYour ({
     >
       <View style={tailwind('flex-row items-center justify-between')}>
         <View style={tailwind('flex-row items-center')}>
-          <IconA
-            height={32}
-            width={32}
-          />
-
-          <IconB
-            height={32}
-            style={tailwind('-ml-3 mr-3')}
-            width={32}
-          />
-
+          <PoolPairIcon symbolA={symbolA} symbolB={symbolB} />
           <ThemedText style={tailwind('text-lg font-bold')}>
             {symbol}
           </ThemedText>
         </View>
-
-        <View style={tailwind('flex-row -mr-3')}>
-          <PoolPairLiqBtn
-            name='add'
-            onPress={onAdd}
-            pair={symbol}
-          />
-
-          <PoolPairLiqBtn
-            name='remove'
-            onPress={onRemove}
-            pair={symbol}
-          />
-        </View>
       </View>
 
-      <View style={tailwind('mt-4')}>
+      <View style={tailwind('mt-4 -mb-1')}>
         <PoolPairInfoLine
           decimalScale={8}
           reserve={data.amount}
           row='your'
           symbol={symbol}
+          label='Pooled'
         />
 
         {
@@ -256,6 +219,7 @@ function PoolPairRowYour ({
                 reserve={tokenATotal.toFixed(8)}
                 row='tokenA'
                 symbol={pair?.tokenA?.displaySymbol}
+                label='Your pooled'
               />
 
               <PoolPairInfoLine
@@ -263,10 +227,27 @@ function PoolPairRowYour ({
                 reserve={tokenBTotal.toFixed(8)}
                 row='tokenB'
                 symbol={pair?.tokenB?.displaySymbol}
+                label='Your pooled'
               />
             </>
           )
         }
+      </View>
+
+      <View style={tailwind('flex-row mt-4')}>
+        <PoolPairActionButton
+          name='add'
+          onPress={onAdd}
+          pair={symbol}
+          label={translate('screens/DexScreen', 'ADD LIQUIDITY')}
+        />
+
+        <PoolPairActionButton
+          name='remove'
+          onPress={onRemove}
+          pair={symbol}
+          label={translate('screens/DexScreen', 'REMOVE')}
+        />
       </View>
     </ThemedView>
   )
@@ -280,9 +261,7 @@ function PoolPairRowAvailable ({
   const [symbolA, symbolB] = (data?.tokenA != null && data?.tokenB != null)
     ? [data.tokenA.displaySymbol, data.tokenB.displaySymbol]
     : data.symbol.split('-')
-  const IconA = getNativeIcon(symbolA)
-  const IconB = getNativeIcon(symbolB)
-  const symbol = `${symbolA}-${symbolB}`
+  const symbol = `${symbolA} – ${symbolB}`
 
   return (
     <ThemedView
@@ -293,55 +272,31 @@ function PoolPairRowAvailable ({
     >
       <View style={tailwind('flex-row items-center justify-between')}>
         <View style={tailwind('flex-row items-center')}>
-          <IconA
-            height={32}
-            width={32}
-          />
-
-          <IconB
-            height={32}
-            style={tailwind('-ml-3 mr-3')}
-            width={32}
-          />
-
+          <PoolPairIcon symbolA={symbolA} symbolB={symbolB} />
           <ThemedText
-            style={tailwind('text-lg font-bold')}
+            style={tailwind('text-base font-bold')}
             testID={`your_symbol_${symbol}`}
           >
             {symbol}
           </ThemedText>
         </View>
-
-        <View style={tailwind('flex-row -mr-2')}>
-          <PoolPairLiqBtn
-            name='add'
-            onPress={onAdd}
-            pair={symbol}
-          />
-
-          <PoolPairLiqBtn
-            name='swap-horiz'
-            onPress={onSwap}
-            pair={symbol}
-          />
-        </View>
+        {
+            data.apr?.total !== undefined &&
+              <PoolPairAPR
+                apr={data.apr.total}
+                row='apr'
+                symbol={symbol}
+              />
+          }
       </View>
 
-      <View style={tailwind('mt-4')}>
-        {
-          data.apr?.total !== undefined &&
-            <PoolPairAPR
-              apr={data.apr.total}
-              row='apr'
-              symbol={symbol}
-            />
-        }
-
+      <View style={tailwind('mt-4 -mb-1')}>
         <PoolPairInfoLine
           decimalScale={2}
           reserve={data?.tokenA.reserve}
           row='available'
           symbol={data?.tokenA.displaySymbol}
+          label='Total pooled'
         />
 
         <PoolPairInfoLine
@@ -349,66 +304,92 @@ function PoolPairRowAvailable ({
           reserve={data?.tokenB.reserve}
           row='available'
           symbol={data?.tokenB.displaySymbol}
+          label='Total pooled'
+        />
+      </View>
+
+      <View style={tailwind('flex-row mt-4')}>
+        <PoolPairActionButton
+          name='add'
+          onPress={onAdd}
+          pair={symbol}
+          label={translate('screens/DexScreen', 'ADD LIQUIDITY')}
+        />
+
+        <PoolPairActionButton
+          name='swap-horiz'
+          onPress={onSwap}
+          pair={symbol}
+          label={translate('screens/DexScreen', 'SWAP TOKENS')}
         />
       </View>
     </ThemedView>
   )
 }
 
-function PoolPairLiqBtn (props: { name: React.ComponentProps<typeof MaterialIcons>['name'], pair: string, onPress: () => void }): JSX.Element {
+function PoolPairActionButton (props: { name: React.ComponentProps<typeof MaterialIcons>['name'], pair: string, onPress: () => void, label: string }): JSX.Element {
   return (
     <IconButton
       iconName={props.name}
-      iconSize={24}
+      iconSize={16}
       iconType='MaterialIcons'
       onPress={props.onPress}
       style={tailwind('mr-2')}
       testID={`pool_pair_${props.name}_${props.pair}`}
+      iconLabel={props.label}
     />
   )
 }
 
-function PoolPairInfoLine (props: { symbol: string, reserve: string, row: string, decimalScale: number }): JSX.Element {
+function PoolPairInfoLine (props: { symbol: string, reserve: string, row: string, decimalScale: number, label: string }): JSX.Element {
+  const Icon = getNativeIcon(props.symbol)
+
   return (
-    <View style={tailwind('flex-row justify-between')}>
+    <View style={tailwind('flex-row justify-between mb-1')}>
       <ThemedText
         dark={tailwind('text-gray-400')}
-        light={tailwind('text-black')}
-        style={tailwind('text-sm font-medium mb-1')}
+        light={tailwind('text-gray-500')}
+        style={tailwind('text-sm font-normal')}
       >
-        {translate('screens/DexScreen', 'Pooled {{symbol}}', { symbol: props.symbol })}
+        {translate('screens/DexScreen', `${props.label} {{symbol}}`, { symbol: props.symbol })}
       </ThemedText>
 
-      <NumberFormat
-        decimalScale={props.decimalScale}
-        displayType='text'
-        renderText={value => {
-          return (
-            <ThemedText
-              style={tailwind('text-sm')}
-              testID={`${props.row}_${props.symbol}`}
-            >
-              {value}
-            </ThemedText>
-          )
-        }}
-        suffix={` ${props.symbol}`}
-        thousandSeparator
-        value={props.reserve}
-      />
+      <View style={tailwind('flex-row items-center')}>
+        <NumberFormat
+          decimalScale={props.decimalScale}
+          displayType='text'
+          renderText={value => {
+            return (
+              <ThemedText
+                style={tailwind('text-sm')}
+                testID={`${props.row}_${props.symbol}`}
+              >
+                {value}
+              </ThemedText>
+            )
+          }}
+          thousandSeparator
+          value={props.reserve}
+        />
+        <Icon height={16} width={16} style={tailwind('ml-1')} />
+      </View>
     </View>
   )
 }
 
 function PoolPairAPR (props: { symbol: string, apr: number, row: string }): JSX.Element {
   return (
-    <View style={tailwind('flex-row justify-between items-end')}>
+    <ThemedView
+      light={tailwind('bg-gray-100')}
+      dark={tailwind('bg-gray-900')}
+      style={tailwind('flex-row justify-between items-baseline px-2 py-1 rounded')}
+    >
       <ThemedText
         dark={tailwind('text-gray-400')}
-        light={tailwind('text-black')}
-        style={tailwind('text-sm font-medium mb-1')}
+        light={tailwind('text-gray-500')}
+        style={tailwind('text-xs font-medium')}
       >
-        {translate('screens/DexScreen', 'APR')}
+        {`${translate('screens/DexScreen', 'APR')}: `}
       </ThemedText>
 
       <NumberFormat
@@ -417,7 +398,7 @@ function PoolPairAPR (props: { symbol: string, apr: number, row: string }): JSX.
         renderText={value => {
           return (
             <ThemedText
-              style={tailwind('text-xl')}
+              style={tailwind('font-semibold text-sm')}
               testID={`${props.row}_${props.symbol}`}
             >
               {value}
@@ -428,6 +409,27 @@ function PoolPairAPR (props: { symbol: string, apr: number, row: string }): JSX.
         thousandSeparator
         value={new BigNumber(isNaN(props.apr) ? 0 : props.apr).times(100).toFixed(2)}
       />
-    </View>
+    </ThemedView>
+  )
+}
+
+function PoolPairIcon (props: { symbolA: string, symbolB: string}): JSX.Element {
+  const IconA = getNativeIcon(props.symbolA)
+  const IconB = getNativeIcon(props.symbolB)
+
+  return (
+    <>
+      <IconA
+        height={24}
+        width={24}
+        style={tailwind('relative z-10 -mt-3')}
+      />
+
+      <IconB
+        height={24}
+        width={24}
+        style={tailwind('-ml-3 mt-3 mr-3')}
+      />
+    </>
   )
 }
