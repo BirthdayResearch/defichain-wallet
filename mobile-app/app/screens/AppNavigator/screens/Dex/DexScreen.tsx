@@ -190,7 +190,7 @@ function PoolPairRowYour ({
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
       light={tailwind('bg-white border-b border-gray-200')}
-      style={tailwind('p-4')}
+      style={tailwind('p-4 pb-0')}
       testID='pool_pair_row_your'
     >
       <View style={tailwind('flex-row items-center justify-between')}>
@@ -234,7 +234,7 @@ function PoolPairRowYour ({
         }
       </View>
 
-      <View style={tailwind('flex-row mt-4')}>
+      <View style={tailwind('flex-row mt-4 flex-wrap -mr-2')}>
         <PoolPairActionButton
           name='add'
           onPress={onAdd}
@@ -267,7 +267,7 @@ function PoolPairRowAvailable ({
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
       light={tailwind('bg-white border-b border-gray-200')}
-      style={tailwind('p-4')}
+      style={tailwind('p-4 pb-0')}
       testID='pool_pair_row'
     >
       <View style={tailwind('flex-row items-center justify-between')}>
@@ -308,7 +308,7 @@ function PoolPairRowAvailable ({
         />
       </View>
 
-      <View style={tailwind('flex-row mt-4')}>
+      <View style={tailwind('flex-row mt-4 flex-wrap')}>
         <PoolPairActionButton
           name='add'
           onPress={onAdd}
@@ -334,7 +334,7 @@ function PoolPairActionButton (props: { name: React.ComponentProps<typeof Materi
       iconSize={16}
       iconType='MaterialIcons'
       onPress={props.onPress}
-      style={tailwind('mr-2')}
+      style={tailwind('mr-2 flex-wrap mb-4')}
       testID={`pool_pair_${props.name}_${props.pair}`}
       iconLabel={props.label}
     />
