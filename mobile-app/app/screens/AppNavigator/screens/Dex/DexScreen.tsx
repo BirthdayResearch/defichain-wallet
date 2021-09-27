@@ -180,7 +180,7 @@ function PoolPairRowYour ({
     : data.symbol.split('-')
   const toRemove = new BigNumber(1).times(data.amount).decimalPlaces(8, BigNumber.ROUND_DOWN)
   const ratioToTotal = toRemove.div(pair?.totalLiquidity?.token ?? 1)
-  const symbol = `${symbolA} – ${symbolB}`
+  const symbol = `${symbolA}-${symbolB}`
 
   // assume defid will trim the dust values too
   const tokenATotal = ratioToTotal.times(pair?.tokenA.reserve ?? 0).decimalPlaces(8, BigNumber.ROUND_DOWN)
@@ -261,7 +261,7 @@ function PoolPairRowAvailable ({
   const [symbolA, symbolB] = (data?.tokenA != null && data?.tokenB != null)
     ? [data.tokenA.displaySymbol, data.tokenB.displaySymbol]
     : data.symbol.split('-')
-  const symbol = `${symbolA} – ${symbolB}`
+  const symbol = `${symbolA}-${symbolB}`
 
   return (
     <ThemedView
