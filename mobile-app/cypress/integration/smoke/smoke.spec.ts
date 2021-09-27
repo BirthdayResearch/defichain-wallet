@@ -140,7 +140,7 @@ context('Mainnet - Wallet', () => {
     it('should have correct poolpairs', function () {
       cy.getByTestID('bottom_tab_dex').click()
       cy.getByTestID('close_dex_guidelines').click()
-      cy.getByTestID('your_dETH-DFI').contains('10.00000000 dETH-DFI')
+      cy.getByTestID('your_dETH – DFI').contains('10.00000000')
       cy.getByTestID('bottom_tab_balances').click()
     })
 
