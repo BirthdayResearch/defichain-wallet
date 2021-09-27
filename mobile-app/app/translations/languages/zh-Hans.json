@@ -27,7 +27,7 @@
     "Your pooled {{symbol}}": "您的池中总 {{symbol}} 数量",
     "SWAP TOKENS": "兑换货币",
     "REMOVE": "退出",
-    "APR": "APR"
+    "APR": "回报率"
   },
   "screens/DexGuidelines": {
     "Guidelines": "指导方针",
