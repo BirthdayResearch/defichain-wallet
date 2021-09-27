@@ -12,7 +12,7 @@ function createAddLiquidityToWallet (): void {
 
   cy.getByTestID('liquidity_screen_list')
     .wait(2000).getByTestID('pool_pair_row_your').first()
-    .invoke('text').should(text => expect(text).to.contains('10.00000000 dETH-DFI'))
+    .invoke('text').should(text => expect(text).to.contains('dETH – DFI10.00000000'))
 
   cy.getByTestID('pool_pair_remove_dETH – DFI').click().wait(1000)
 
