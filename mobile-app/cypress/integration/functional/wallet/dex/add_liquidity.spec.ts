@@ -132,9 +132,9 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
   })
 
   afterEach(function () {
-    cy.getByTestID('your_dBTC-DFI').contains('10.00000000 dBTC-DFI')
-    cy.getByTestID('tokenA_dBTC').contains('9.99999999 dBTC')
-    cy.getByTestID('tokenB_DFI').contains('9.99999999 DFI')
+    cy.getByTestID('your_dBTC-DFI').contains('10.00000000')
+    cy.getByTestID('tokenA_dBTC').contains('9.99999999')
+    cy.getByTestID('tokenB_DFI').contains('9.99999999')
 
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_row_6').should('exist')
