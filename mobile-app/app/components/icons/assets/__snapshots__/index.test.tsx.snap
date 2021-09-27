@@ -74,10 +74,14 @@ exports[`token icons <AppIcon /> should match snapshot 1`] = `
 
 exports[`token icons getNativeIcon("_UTXO") should get <Icon_UTXO /> snapshot 1`] = `
 <RNSVGSvgView
+  align="xMidYMid"
   bbHeight={32}
   bbWidth={32}
   focusable={false}
   height={32}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
   style={
     Array [
       Object {
@@ -91,6 +95,8 @@ exports[`token icons getNativeIcon("_UTXO") should get <Icon_UTXO /> snapshot 1`
       },
     ]
   }
+  vbHeight={32}
+  vbWidth={32}
   width={32}
 >
   <RNSVGGroup>
@@ -120,10 +126,14 @@ exports[`token icons getNativeIcon("_UTXO") should get <Icon_UTXO /> snapshot 1`
 
 exports[`token icons getNativeIcon("BTC") should get <IconBTC /> snapshot 1`] = `
 <RNSVGSvgView
+  align="xMidYMid"
   bbHeight={32}
   bbWidth={32}
   focusable={false}
   height={32}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
   style={
     Array [
       Object {
@@ -137,6 +147,8 @@ exports[`token icons getNativeIcon("BTC") should get <IconBTC /> snapshot 1`] = 
       },
     ]
   }
+  vbHeight={32}
+  vbWidth={32}
   width={32}
 >
   <RNSVGGroup>
@@ -164,10 +176,14 @@ exports[`token icons getNativeIcon("BTC") should get <IconBTC /> snapshot 1`] = 
 
 exports[`token icons getNativeIcon("DFI (Token)") should get <IconDFI (Token) /> snapshot 1`] = `
 <RNSVGSvgView
+  align="xMidYMid"
   bbHeight={32}
   bbWidth={32}
   focusable={false}
   height={32}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
   style={
     Array [
       Object {
@@ -181,6 +197,8 @@ exports[`token icons getNativeIcon("DFI (Token)") should get <IconDFI (Token) />
       },
     ]
   }
+  vbHeight={32}
+  vbWidth={32}
   width={32}
 >
   <RNSVGGroup>
@@ -210,10 +228,14 @@ exports[`token icons getNativeIcon("DFI (Token)") should get <IconDFI (Token) />
 
 exports[`token icons getNativeIcon("DFI (UTXO)") should get <IconDFI (UTXO) /> snapshot 1`] = `
 <RNSVGSvgView
+  align="xMidYMid"
   bbHeight={32}
   bbWidth={32}
   focusable={false}
   height={32}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
   style={
     Array [
       Object {
@@ -227,6 +249,8 @@ exports[`token icons getNativeIcon("DFI (UTXO)") should get <IconDFI (UTXO) /> s
       },
     ]
   }
+  vbHeight={32}
+  vbWidth={32}
   width={32}
 >
   <RNSVGGroup>
@@ -256,10 +280,14 @@ exports[`token icons getNativeIcon("DFI (UTXO)") should get <IconDFI (UTXO) /> s
 
 exports[`token icons getNativeIcon("DFI") should get <IconDFI /> snapshot 1`] = `
 <RNSVGSvgView
+  align="xMidYMid"
   bbHeight={32}
   bbWidth={32}
   focusable={false}
   height={32}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
   style={
     Array [
       Object {
@@ -273,6 +301,8 @@ exports[`token icons getNativeIcon("DFI") should get <IconDFI /> snapshot 1`] = 
       },
     ]
   }
+  vbHeight={32}
+  vbWidth={32}
   width={32}
 >
   <RNSVGGroup>
@@ -385,10 +415,14 @@ exports[`token icons getNativeIcon("FAKE") should get <IconFAKE /> snapshot 1`] 
 
 exports[`token icons getNativeIcon("dBCH") should get <IcondBCH /> snapshot 1`] = `
 <RNSVGSvgView
+  align="xMidYMid"
   bbHeight={32}
   bbWidth={32}
   focusable={false}
   height={32}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
   style={
     Array [
       Object {
@@ -402,6 +436,8 @@ exports[`token icons getNativeIcon("dBCH") should get <IcondBCH /> snapshot 1`] 
       },
     ]
   }
+  vbHeight={32}
+  vbWidth={32}
   width={32}
 >
   <RNSVGGroup>
@@ -431,10 +467,14 @@ exports[`token icons getNativeIcon("dBCH") should get <IcondBCH /> snapshot 1`] 
 
 exports[`token icons getNativeIcon("dBTC") should get <IcondBTC /> snapshot 1`] = `
 <RNSVGSvgView
+  align="xMidYMid"
   bbHeight={32}
   bbWidth={32}
   focusable={false}
   height={32}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
   style={
     Array [
       Object {
@@ -448,6 +488,8 @@ exports[`token icons getNativeIcon("dBTC") should get <IcondBTC /> snapshot 1`] 
       },
     ]
   }
+  vbHeight={32}
+  vbWidth={32}
   width={32}
 >
   <RNSVGGroup>
@@ -475,10 +517,14 @@ exports[`token icons getNativeIcon("dBTC") should get <IcondBTC /> snapshot 1`] 
 
 exports[`token icons getNativeIcon("dDFI") should get <IcondDFI /> snapshot 1`] = `
 <RNSVGSvgView
+  align="xMidYMid"
   bbHeight={32}
   bbWidth={32}
   focusable={false}
   height={32}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
   style={
     Array [
       Object {
@@ -492,6 +538,8 @@ exports[`token icons getNativeIcon("dDFI") should get <IcondDFI /> snapshot 1`] 
       },
     ]
   }
+  vbHeight={32}
+  vbWidth={32}
   width={32}
 >
   <RNSVGGroup>
@@ -521,10 +569,14 @@ exports[`token icons getNativeIcon("dDFI") should get <IcondDFI /> snapshot 1`] 
 
 exports[`token icons getNativeIcon("dDOGE") should get <IcondDOGE /> snapshot 1`] = `
 <RNSVGSvgView
+  align="xMidYMid"
   bbHeight={32}
   bbWidth={32}
   focusable={false}
   height={32}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
   style={
     Array [
       Object {
@@ -538,6 +590,8 @@ exports[`token icons getNativeIcon("dDOGE") should get <IcondDOGE /> snapshot 1`
       },
     ]
   }
+  vbHeight={32}
+  vbWidth={32}
   width={32}
 >
   <RNSVGGroup>
@@ -5138,10 +5192,14 @@ exports[`token icons getNativeIcon("dDOGE") should get <IcondDOGE /> snapshot 1`
 
 exports[`token icons getNativeIcon("dETH") should get <IcondETH /> snapshot 1`] = `
 <RNSVGSvgView
+  align="xMidYMid"
   bbHeight={32}
   bbWidth={32}
   focusable={false}
   height={32}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
   style={
     Array [
       Object {
@@ -5155,6 +5213,8 @@ exports[`token icons getNativeIcon("dETH") should get <IcondETH /> snapshot 1`] 
       },
     ]
   }
+  vbHeight={32}
+  vbWidth={32}
   width={32}
 >
   <RNSVGGroup>
@@ -5224,10 +5284,14 @@ exports[`token icons getNativeIcon("dETH") should get <IcondETH /> snapshot 1`] 
 
 exports[`token icons getNativeIcon("dLTC") should get <IcondLTC /> snapshot 1`] = `
 <RNSVGSvgView
+  align="xMidYMid"
   bbHeight={32}
   bbWidth={32}
   focusable={false}
   height={32}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
   style={
     Array [
       Object {
@@ -5241,6 +5305,8 @@ exports[`token icons getNativeIcon("dLTC") should get <IcondLTC /> snapshot 1`] 
       },
     ]
   }
+  vbHeight={32}
+  vbWidth={32}
   width={32}
 >
   <RNSVGGroup>
@@ -5268,10 +5334,14 @@ exports[`token icons getNativeIcon("dLTC") should get <IcondLTC /> snapshot 1`] 
 
 exports[`token icons getNativeIcon("dUSDC") should get <IcondUSDC /> snapshot 1`] = `
 <RNSVGSvgView
+  align="xMidYMid"
   bbHeight={32}
   bbWidth={32}
   focusable={false}
   height={32}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
   style={
     Array [
       Object {
@@ -5285,6 +5355,8 @@ exports[`token icons getNativeIcon("dUSDC") should get <IcondUSDC /> snapshot 1`
       },
     ]
   }
+  vbHeight={32}
+  vbWidth={32}
   width={32}
 >
   <RNSVGGroup>
@@ -5330,10 +5402,14 @@ exports[`token icons getNativeIcon("dUSDC") should get <IcondUSDC /> snapshot 1`
 
 exports[`token icons getNativeIcon("dUSDT") should get <IcondUSDT /> snapshot 1`] = `
 <RNSVGSvgView
+  align="xMidYMid"
   bbHeight={32}
   bbWidth={32}
   focusable={false}
   height={32}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
   style={
     Array [
       Object {
@@ -5347,6 +5423,8 @@ exports[`token icons getNativeIcon("dUSDT") should get <IcondUSDT /> snapshot 1`
       },
     ]
   }
+  vbHeight={32}
+  vbWidth={32}
   width={32}
 >
   <RNSVGGroup>

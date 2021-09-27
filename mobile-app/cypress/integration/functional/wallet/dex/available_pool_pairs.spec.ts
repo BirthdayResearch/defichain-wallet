@@ -32,8 +32,8 @@ context('Wallet - DEX - Available Pool Pairs', () => {
     cy.getByTestID('liquidity_screen_list').getByTestID('pool_pair_row').first()
       .invoke('text').should(text => {
         expect(text).to.contains('dBTC-DFI')
-        expect(text).to.contains('Pooled DFI')
-        expect(text).to.contains('Pooled dBTC')
+        expect(text).to.contains('Total pooled DFI')
+        expect(text).to.contains('Total pooled dBTC')
       })
     cy.getByTestID('apr_dBTC-DFI').should('exist')
   })
@@ -42,9 +42,9 @@ context('Wallet - DEX - Available Pool Pairs', () => {
     cy.getByTestID('liquidity_screen_list').getByTestID('pool_pair_row').eq(2)
       .invoke('text').should(text => {
         expect(text).to.contains('dUSDT-DFI')
-        expect(text).to.contains('Pooled DFI')
-        expect(text).to.contains('Pooled dUSDT')
+        expect(text).to.contains('Total pooled DFI')
+        expect(text).to.contains('Total pooled dUSDT')
       })
-    cy.getByTestID('apr_dBTC-DFI').should('exist')
+    cy.getByTestID('apr_dUSDT-DFI').should('exist')
   })
 })
