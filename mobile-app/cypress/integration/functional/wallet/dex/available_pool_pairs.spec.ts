@@ -1,8 +1,8 @@
 context('Wallet - DEX - Available Pool Pairs', () => {
   beforeEach(function () {
     cy.createEmptyWallet()
+    localStorage.setItem('WALLET.DISPLAY_DEXGUIDELINES', 'false')
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('close_dex_guidelines').click()
   })
 
   it('should display skeleton loader when API has yet to return', () => {
