@@ -61,6 +61,7 @@ exports[`Dex guide should match snapshot 1`] = `
               "fontSize": 14,
               "fontWeight": "500",
               "lineHeight": 20,
+              "marginBottom": 16,
               "marginTop": 4,
             },
             Object {
@@ -77,8 +78,8 @@ exports[`Dex guide should match snapshot 1`] = `
         Object {
           "alignItems": "center",
           "flexDirection": "row",
-          "marginBottom": 12,
-          "marginTop": 12,
+          "marginBottom": 16,
+          "marginTop": 16,
         }
       }
     >
@@ -172,8 +173,8 @@ exports[`Dex guide should match snapshot 1`] = `
         Object {
           "alignItems": "center",
           "flexDirection": "row",
-          "marginBottom": 12,
-          "marginTop": 12,
+          "marginBottom": 16,
+          "marginTop": 16,
         }
       }
     >
@@ -267,8 +268,8 @@ exports[`Dex guide should match snapshot 1`] = `
         Object {
           "alignItems": "center",
           "flexDirection": "row",
-          "marginBottom": 12,
-          "marginTop": 12,
+          "marginBottom": 16,
+          "marginTop": 16,
         }
       }
     >
@@ -379,7 +380,7 @@ exports[`Dex guide should match snapshot 1`] = `
           "marginBottom": 32,
           "marginLeft": 0,
           "marginRight": 0,
-          "marginTop": 32,
+          "marginTop": 40,
           "opacity": 1,
           "paddingBottom": 12,
           "paddingLeft": 12,
@@ -406,7 +407,7 @@ exports[`Dex guide should match snapshot 1`] = `
           ]
         }
       >
-        CLOSE
+        CONTINUE
       </Text>
     </View>
   </View>

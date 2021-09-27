@@ -52,7 +52,7 @@ export function DexGuidelines ({ onClose }: Props): JSX.Element {
       <ThemedText
         dark={tailwind('text-gray-400')}
         light={tailwind('text-gray-500')}
-        style={tailwind('mt-1 text-sm font-medium')}
+        style={tailwind('mt-1 text-sm font-medium mb-4')}
       >
         {translate('screens/DexGuidelines', 'Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).')}
       </ThemedText>
@@ -61,7 +61,7 @@ export function DexGuidelines ({ onClose }: Props): JSX.Element {
         guidelines.map((g, i) => (
           <View
             key={i}
-            style={tailwind('flex-row items-center my-3')}
+            style={tailwind('flex-row items-center my-4')}
           >
             <ThemedIcon
               iconType='MaterialIcons'
@@ -88,11 +88,11 @@ export function DexGuidelines ({ onClose }: Props): JSX.Element {
       }
 
       <Button
-        label={translate('screens/DexGuidelines', 'CLOSE')}
-        margin='mx-0 mt-8 mb-8'
+        label={translate('screens/DexGuidelines', 'CONTINUE')}
+        margin='mx-0 mt-10 mb-8'
         onPress={onClose}
         testID='close_dex_guidelines'
-        title={translate('screens/DexGuidelines', 'CLOSE')}
+        title={translate('screens/DexGuidelines', 'CONTINUE')}
       />
     </ThemedScrollView>
   )

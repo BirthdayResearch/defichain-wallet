@@ -26,7 +26,7 @@
   },
   "screens/DexGuidelines": {
     "Guidelines": "Richtlinien",
-    "CLOSE": "SCHLIESSEN",
+    "CONTINUE": "FORTSETZEN",
     "Decentralized Exchange": "Dezentrale Börse",
     "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "Nimm teil am Liquidität Bereitstellen für den Betrieb der dezentralen Börse (DEX). Gebrauche deine Token, um hohe Renditen zu erzielen (bis zu 100%).",
     "Add liquidity": "Liquidität hinzufügen",

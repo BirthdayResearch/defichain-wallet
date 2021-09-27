@@ -26,7 +26,7 @@
   },
   "screens/DexGuidelines": {
     "Guidelines": "指导方针",
-    "CLOSE": "关闭",
+    "CONTINUE": "继续",
     "Decentralized Exchange": "去中心化交易所",
     "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "将您的货币提供给 DEX 去中心化交易所，并获得高达三位数百分比的年回报率",
     "Add liquidity": "增加流动资金",

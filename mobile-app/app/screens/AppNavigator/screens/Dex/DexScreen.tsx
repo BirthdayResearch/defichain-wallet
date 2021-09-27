@@ -37,11 +37,19 @@ export function DexScreen (): JSX.Element {
   })))
 
   const onAdd = (data: PoolPairData): void => {
-    navigation.navigate({ name: 'AddLiquidity', params: { pair: data }, merge: true })
+    navigation.navigate({
+      name: 'AddLiquidity',
+      params: { pair: data },
+      merge: true
+    })
   }
 
   const onRemove = (data: PoolPairData): void => {
-    navigation.navigate({ name: 'RemoveLiquidity', params: { pair: data }, merge: true })
+    navigation.navigate({
+      name: 'RemoveLiquidity',
+      params: { pair: data },
+      merge: true
+    })
   }
 
   const isEmpty = (data: any[]): boolean => {
@@ -50,11 +58,11 @@ export function DexScreen (): JSX.Element {
 
   useEffect(() => {
     DisplayDexGuidelinesPersistence.get()
-    .then((shouldDisplayGuidelines: boolean) => {
-      setDisplayGuidelines(shouldDisplayGuidelines)
-    })
-    .catch((err) => Logging.error(err))
-    .finally(() => setIsLoaded(true))
+      .then((shouldDisplayGuidelines: boolean) => {
+        setDisplayGuidelines(shouldDisplayGuidelines)
+      })
+      .catch((err) => Logging.error(err))
+      .finally(() => setIsLoaded(true))
   }, [])
 
   const onGuidelinesClose = async (): Promise<void> => {
