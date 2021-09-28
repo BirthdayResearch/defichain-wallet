@@ -195,11 +195,9 @@
     "Transactions": "交易"
   },
   "screens/TokenDetailScreen": {
-    "AMOUNT BALANCE": "數量總額",
-    "AVAILABLE OPTIONS": "可使用的功能",
-    "Send to other wallet": "發送到其他地址",
-    "Receive": "接收",
-    "Convert to {{symbol}}": "轉換至 {{symbol}}"
+    "SEND": "移出資金",
+    "RECEIVE": "接收",
+    "CONVERT": "轉換"
   },
   "screens/TokensVsUtxoScreen": {
     "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "DFI 有兩種形式 - UTXO 和代幣, 兩者可依據使用做互換. 這個程序可以進行互換.",

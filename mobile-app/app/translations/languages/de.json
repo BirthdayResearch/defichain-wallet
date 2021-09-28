@@ -193,12 +193,10 @@
   "screens/TransactionsDetailScreen": {
     "Transactions": "Transaktionen"
   },
-  "screens/TokenDetailScreen": {
-    "AMOUNT BALANCE": "Guthabenbetrag",
-    "AVAILABLE OPTIONS": "VERFÜGBARE OPTIONEN",
-    "Send to other wallet": "An andere Wallet senden",
-    "Receive": "Empfange",
-    "Convert to {{symbol}}": "Umwandeln in {{symbol}}"
+  "screens/TokenDetailScreen": {        
+    "RECEIVE": "EMPFANGE",    
+    "SEND": "SENDEN",
+    "CONVERT": "UMWANDELN"
   },
   "screens/TokensVsUtxoScreen": {
     "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "DFI existiert in zwei Formen - UTXO und Token, die je nach Verwendung austauschbar sind. Mit der App kannst du leicht zwischen den beiden Arten wechseln.",
