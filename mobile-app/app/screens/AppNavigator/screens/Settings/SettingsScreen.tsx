@@ -237,7 +237,7 @@ function PrivacyLockToggle ({
       >
         <ThemedText testID='text_privacy_lock' style={tailwind('font-medium')}>
           {authenticationName !== undefined &&
-            `${translate('screens/Settings', 'Secure with')} ${translate('screens/Settings', authenticationName)}`}
+            translate('screens/Settings', 'Secure with {{option}}', { option: translate('screens/Settings', authenticationName) })}
         </ThemedText>
         <Switch
           onValueChange={onToggle}
