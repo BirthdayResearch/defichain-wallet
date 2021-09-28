@@ -7,6 +7,7 @@ import { PrivacyLock } from './PrivacyLock'
 import { TransactionAuthorization } from './TransactionAuthorization/TransactionAuthorization'
 import { WalletNavigator } from './WalletNavigator/WalletNavigator'
 import { WalletNotifications } from '@api/wallet/notifications'
+import { Logging, NotificationPersistence } from '@api'
 
 /**
  * Top Root Level Wallet State to control what screen to show
@@ -18,7 +19,12 @@ export function RootNavigator (): JSX.Element {
   } = useWalletPersistenceContext()
 
   useEffect(() => {
-    void WalletNotifications.register()
+    NotificationPersistence.get().then((networkPreferences) => {
+      if (networkPreferences?.length !== 0) {
+        void WalletNotifications.register()
+        WalletNotifications.setEnabledNotificationTypes(networkPreferences)
+      }
+    }).catch((err) => Logging.error(err))
   }, [])
 
   // To prevent flicker on start of app, while API is not yet called

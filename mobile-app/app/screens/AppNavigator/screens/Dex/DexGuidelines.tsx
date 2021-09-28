@@ -16,7 +16,6 @@ interface GuidelineItem {
   subtitle: string
 }
 
-// TODO (Harsh): handle language change bug, when user change the language, sometime it didnt get update the satic page
 export function DexGuidelines ({ onClose }: Props): JSX.Element {
   const guidelines: GuidelineItem[] = [
     {

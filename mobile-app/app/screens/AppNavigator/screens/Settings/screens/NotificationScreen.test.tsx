@@ -1,4 +1,4 @@
-import { AppNotificationTypesI, NotificationType } from '@api/persistence/notifiction_storage'
+import { AppNotificationTypesI, NotificationType } from '@api/persistence/notification_storage'
 import { render } from '@testing-library/react-native'
 import * as React from 'react'
 import { NotificationScreen, RowNotificationItem } from './NotificationScreen'
@@ -10,11 +10,7 @@ jest.mock('@react-navigation/native', () => ({
 jest.mock('@api', () => ({
   NotificationPersistence: {
     get: async () => {
-      return [{
-        type: 'TRANSACTION',
-        displayName: 'Transactions',
-        value: true
-      }]
+      return ['TRANSACTION']
     }
   }
 }))

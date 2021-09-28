@@ -7,27 +7,51 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { Logging, NotificationPersistence } from '@api'
-import { AppNotificationTypesI, NotificationType } from '@api/persistence/notifiction_storage'
+import { AppNotificationTypesI, NotificationType } from '@api/persistence/notification_storage'
 import { WalletNotifications } from '@api/wallet/notifications'
+
+const AppNotificationTypes: Array<{
+  type: NotificationType
+  displayName: string
+}> = [
+  {
+    type: NotificationType.TRANSACTION,
+    displayName: 'Transactions'
+  }
+]
+
+function notificationParser (preferences: NotificationType[]): AppNotificationTypesI[] {
+  return AppNotificationTypes.map(({ type, displayName }) => {
+    const value = preferences.includes(type)
+    return { type, displayName, value }
+  }, {})
+}
 
 export function NotificationScreen (): JSX.Element {
   const [notificationsTypes, setNotificationsTypes] = useState<AppNotificationTypesI[]>([])
+  const [enabledNotifications, setEnabledNotifications] = useState<NotificationType[]>([])
 
   useEffect(() => {
     NotificationPersistence.get()
-      .then((notificationsT) => {
-        setNotificationsTypes(notificationsT)
+      .then((notifications) => {
+        setEnabledNotifications(notifications)
+        setNotificationsTypes(notificationParser(notifications))
       })
       .catch((err) => Logging.error(err))
   }, [])
 
-  const onPreferanceChange = async (type: NotificationType, value: boolean): Promise<void> => {
-    const updatedPreferance: AppNotificationTypesI[] = notificationsTypes.map((eachType) => {
+  const onPreferenceChange = async (type: NotificationType, value: boolean): Promise<void> => {
+    const updatedPreference: AppNotificationTypesI[] = notificationsTypes.map((eachType) => {
       return type === eachType.type ? { ...eachType, value } : eachType
     })
-    setNotificationsTypes(updatedPreferance)
-    await NotificationPersistence.set(updatedPreferance)
-    WalletNotifications.setAllowedNotificationTypes(updatedPreferance)
+    setNotificationsTypes(updatedPreference)
+    const updatedNotifications: NotificationType[] = value ? [...enabledNotifications, type] : enabledNotifications.filter(e => e !== type)
+    await NotificationPersistence.set(updatedNotifications)
+    // check wallet notification is register or not, if not then register
+    if (WalletNotifications.status === undefined) {
+      await WalletNotifications.register()
+    }
+    WalletNotifications.setEnabledNotificationTypes(updatedNotifications)
   }
 
   return (
@@ -39,7 +63,7 @@ export function NotificationScreen (): JSX.Element {
         />
 
         {notificationsTypes.map((eachType: AppNotificationTypesI) => (
-          <RowNotificationItem key={eachType.type} item={eachType} onChange={onPreferanceChange} />
+          <RowNotificationItem key={eachType.type} item={eachType} onChange={onPreferenceChange} />
         ))}
 
         <View style={tailwind('p-4')}>
