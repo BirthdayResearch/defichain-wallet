@@ -154,7 +154,7 @@
     "device's lock": "Gerätesperre",
     "face recognition": "Gesichtserkennung",
     "fingerprint": "Fingerabdruck",
-    "iris scan": "Iris-Erfassung"
+    "iris scan": "Irisscan"
   },
   "screens/AboutScreen": {
     "About": "Über",
