@@ -17,6 +17,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Animated, Linking, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { ThemedActivityIndicator, ThemedIcon, ThemedText } from '../themed'
+import { NotificationType } from '@api/persistence/notifiction_storage'
 
 const MAX_AUTO_RETRY = 1
 const MAX_TIMEOUT = 300000
@@ -132,6 +133,7 @@ export function OceanInterface (): JSX.Element | null {
             title = 'Sent but not confirmed'
           }
           void WalletNotifications.send({
+            type: NotificationType.TRANSACTION,
             title: translate('screens/OceanInterface', title),
             body: translate('screens/OceanInterface', 'Transaction ID: {{txid}}', { txid: transaction.tx.txId })
           })
@@ -146,6 +148,7 @@ export function OceanInterface (): JSX.Element | null {
           const errMsg = `${e.message}. Txid: ${transaction.tx.txId}`
           const err = errorMessageMapping(errMsg)
           void WalletNotifications.send({
+            type: NotificationType.TRANSACTION,
             title: translate('screens/OceanInterface', 'Transaction Error'),
             body: translate('screens/OceanInterface', err.message)
           })

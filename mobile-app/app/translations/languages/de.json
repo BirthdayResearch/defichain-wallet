@@ -103,6 +103,12 @@
   "screens/SettingsNavigator": {
     "Settings": "Einstellungen"
   },
+  "screens/NotificationScreen": {
+    "Push notifications": "Push-Benachrichtigungen",
+    "Transactions": "Transaktionen",
+    "APP NOTIFICATIONS": "APP-BENACHRICHTIGUNGEN",
+    "Show a notification for your in-app transactions.": "Zeige eine Benachrichtigung für deine In-App-Transaktionen an."
+  },
   "screens/CommunityScreen": {
     "Community": "Community",
     "CONNECT WITH THE COMMUNITY": "VERBINDE DICH MIT DER COMMUNITY",
@@ -142,7 +148,8 @@
     "ADDITIONAL OPTIONS": "WEITERE OPTIONEN",
     "SECURITY": "SICHERHEITSEINSTELLUNGEN",
     "Privacy Lock": "App-Passwortschutz",
-    "Auto-locks wallet if there is no activity for 1 min.": "Automatische Wallet-Sperre bei 1 Min. Inaktivität"
+    "Auto-locks wallet if there is no activity for 1 min.": "Automatische Wallet-Sperre bei 1 Min. Inaktivität",
+    "Push notifications": "Push-Benachrichtigungen"
   },
   "screens/AboutScreen": {
     "About": "Über",

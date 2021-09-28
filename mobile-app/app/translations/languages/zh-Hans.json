@@ -103,6 +103,12 @@
   "screens/SettingsNavigator": {
     "Settings": "设定"
   },
+  "screens/NotificationScreen": {
+    "Push notifications": "推送通知",
+    "Transactions": "交易",
+    "APP NOTIFICATIONS": "应用程式通知",
+    "Show a notification for your in-app transactions.": "在应用程式内显示交易通知"
+  },
   "screens/CommunityScreen": {
     "Community": "社区",
     "CONNECT WITH THE COMMUNITY": "参与社区",
@@ -142,7 +148,8 @@
     "ADDITIONAL OPTIONS": "更多选项",
     "SECURITY": "安全设定",
     "Privacy Lock": "隐私锁定",
-    "Auto-locks wallet if there is no activity for 1 min.": "钱包如静止超过 1 分钟，会自动上锁。"
+    "Auto-locks wallet if there is no activity for 1 min.": "钱包如静止超过 1 分钟，会自动上锁。",
+    "Push notifications": "推送通知"
   },
   "screens/AboutScreen": {
     "About": "关于",

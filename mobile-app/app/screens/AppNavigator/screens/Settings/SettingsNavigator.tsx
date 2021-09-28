@@ -12,6 +12,7 @@ import { NetworkDetails } from './screens/NetworkDetails'
 import { NetworkSelectionScreen } from './screens/NetworkSelectionScreen'
 import { RecoveryWordsScreen } from './screens/RecoveryWordsScreen'
 import { SettingsScreen } from './SettingsScreen'
+import { NotificationScreen } from './screens/NotificationScreen'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
@@ -116,6 +117,15 @@ export function SettingsNavigator (): JSX.Element {
         name='LanguageSelectionScreen'
         options={{
           headerTitle: translate('screens/LanguageSelectionScreen', 'Select language'),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <SettingsStack.Screen
+        component={NotificationScreen}
+        name='NotificationScreen'
+        options={{
+          headerTitle: translate('screens/NotificationScreen', 'Push notifications'),
           headerBackTitleVisible: false
         }}
       />

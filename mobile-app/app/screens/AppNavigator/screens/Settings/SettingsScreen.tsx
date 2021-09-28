@@ -141,6 +141,11 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         label='About'
         onPress={() => navigation.navigate('AboutScreen')}
       />
+      <NavigateItemRow
+        testID='setting_notification'
+        label='Push notifications'
+        onPress={() => navigation.navigate('NotificationScreen')}
+      />
       <RowThemeItem />
       <NavigateItemRow
         testID='setting_navigate_language_selection'

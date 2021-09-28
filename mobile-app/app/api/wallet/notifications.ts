@@ -1,10 +1,12 @@
 import * as Notifications from 'expo-notifications'
 import { Platform } from 'react-native'
 import { PermissionStatus } from 'expo-modules-core'
+import { AppNotificationTypesI, NotificationPersistence, NotificationType } from '@api/persistence/notifiction_storage'
 
 export interface SendNotificationData {
   title: string
   body: string
+  type: NotificationType
   data?: { [key: string]: string | object }
 }
 
@@ -13,6 +15,7 @@ export interface SendNotificationData {
  */
 class NotificationsService {
   status?: PermissionStatus
+  allowedNotificationTypes: NotificationType[] = []
 
    /**
    * Register notifications permission for app.
@@ -25,6 +28,12 @@ class NotificationsService {
         shouldSetBadge: false
       })
     })
+
+    // Set initial allowed notification type preferance
+    const networkPreferances = await NotificationPersistence.get()
+    if (networkPreferances?.length !== 0) {
+      this.setAllowedNotificationTypes(networkPreferances)
+    }
 
     if (Platform.OS !== 'web') {
       const { status: existingStatus } = await Notifications.getPermissionsAsync()
@@ -55,13 +64,26 @@ class NotificationsService {
   }
 
   /**
-   * Register notifications permission for app.
+   * Set allowed notifications type in the app.
+   * @param {NotificationType []} notificationTypes
+   */
+  setAllowedNotificationTypes (notificationTypes?: AppNotificationTypesI[]): void {
+    this.allowedNotificationTypes = (notificationTypes ?? []).reduce<NotificationType []>((final, current: AppNotificationTypesI) => {
+      if (current.value) {
+        final.push(current.type)
+      }
+      return final
+    }, [])
+  }
+
+  /**
+   * Send notifications for app.
    * @param {string} title
    * @param {string} body
    * @param {{ key: string]: unknown }} data
    */
-  async send ({ title, body, data = {} }: SendNotificationData): Promise<void> {
-    if (this.status === PermissionStatus.GRANTED) {
+  async send ({ type, title, body, data = {} }: SendNotificationData): Promise<void> {
+    if (this.status === PermissionStatus.GRANTED && this.allowedNotificationTypes.includes(type)) {
       await Notifications.scheduleNotificationAsync({
         content: {
           title,
