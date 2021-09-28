@@ -154,7 +154,15 @@
     "SECURITY": "安全設定",
     "Privacy Lock": "隱私鎖定",
     "Auto-locks wallet if there is no activity for 1 min.": "錢包如静止超過 1 分鐘，會自動上鎖。",
-    "Push notifications": "推送通知"
+    "Push notifications": "推送通知",
+    "Secure with {{option}}": "Secure with {{option}}",
+    "device's passcode": "device's passcode",
+    "Face ID": "Face ID",
+    "Touch ID": "Touch ID",
+    "device's lock": "device's lock",
+    "face recognition": "face recognition",
+    "fingerprint": "fingerprint",
+    "iris scan": "iris scan"
   },
   "screens/AboutScreen": {
     "About": "關於",

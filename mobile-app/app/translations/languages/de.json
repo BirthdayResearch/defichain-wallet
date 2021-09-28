@@ -154,7 +154,15 @@
     "SECURITY": "SICHERHEITSEINSTELLUNGEN",
     "Privacy Lock": "App-Passwortschutz",
     "Auto-locks wallet if there is no activity for 1 min.": "Automatische Wallet-Sperre bei 1 Min. Inaktivität",
-    "Push notifications": "Push-Benachrichtigungen"
+    "Push notifications": "Push-Benachrichtigungen",
+    "Secure with {{option}}": "Secure with {{option}}",
+    "device's passcode": "device's passcode",
+    "Face ID": "Face ID",
+    "Touch ID": "Touch ID",
+    "device's lock": "device's lock",
+    "face recognition": "face recognition",
+    "fingerprint": "fingerprint",
+    "iris scan": "iris scan"
   },
   "screens/AboutScreen": {
     "About": "Über",

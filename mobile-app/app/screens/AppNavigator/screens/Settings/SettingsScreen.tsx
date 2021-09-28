@@ -112,6 +112,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
             onToggle={async () => {
               await localAuth.togglePrivacyLock()
             }}
+            authenticationName={localAuth.getAuthenticationNaming()}
           />
         )
       }
@@ -229,8 +230,9 @@ function RowExitWalletItem (): JSX.Element {
 
 function PrivacyLockToggle ({
   value,
-  onToggle
-}: { disabled?: boolean, value: boolean, onToggle: (newValue: boolean) => void }): JSX.Element {
+  onToggle,
+  authenticationName
+}: { disabled?: boolean, value: boolean, onToggle: (newValue: boolean) => void, authenticationName?: string }): JSX.Element {
   return (
     <>
       <ThemedView
@@ -239,7 +241,8 @@ function PrivacyLockToggle ({
         style={tailwind('flex p-4 pr-2 flex-row items-center justify-between')}
       >
         <ThemedText testID='text_privacy_lock' style={tailwind('font-medium')}>
-          {translate('screens/Settings', 'Privacy Lock')}
+          {authenticationName !== undefined &&
+            translate('screens/Settings', 'Secure with {{option}}', { option: translate('screens/Settings', authenticationName) })}
         </ThemedText>
         <Switch
           onValueChange={onToggle}

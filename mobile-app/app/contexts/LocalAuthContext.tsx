@@ -3,6 +3,7 @@ import * as LocalAuthentication from 'expo-local-authentication'
 import { AuthenticationType, LocalAuthenticationOptions, SecurityLevel } from 'expo-local-authentication'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { PrivacyLockPersistence } from '@api/wallet/privacy_lock'
+import { Platform } from 'react-native'
 
 export interface PrivacyLockContextI {
   // user's hardware condition, external
@@ -13,6 +14,7 @@ export interface PrivacyLockContextI {
   isDeviceProtected: boolean
   isAuthenticating: boolean
   setIsAuthenticating: (isAuthenticating: boolean) => void
+  getAuthenticationNaming: () => string | undefined
 
   // API
   isEnabled: boolean
@@ -93,6 +95,39 @@ export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>)
         return
       }
       return await context.setEnabled(!isPrivacyLock)
+    },
+    getAuthenticationNaming: () => {
+      if (Platform.OS === 'ios') {
+        switch (securityLevel) {
+          case SecurityLevel.SECRET:
+            return 'device\'s lock'
+
+          case SecurityLevel.BIOMETRIC:
+            if (biometricHardwares.includes(AuthenticationType.FACIAL_RECOGNITION)) {
+              return 'Face ID'
+            } else if (biometricHardwares.includes(AuthenticationType.FINGERPRINT)) {
+              return 'Touch ID'
+            } else {
+              // no-op for iris scanner(android-only)
+            }
+        }
+      } else if (Platform.OS === 'android') {
+        switch (securityLevel) {
+          case SecurityLevel.SECRET:
+            return 'device\'s lock'
+
+          case SecurityLevel.BIOMETRIC:
+            if (biometricHardwares.includes(AuthenticationType.FACIAL_RECOGNITION)) {
+              return 'face recognition'
+            } else if (biometricHardwares.includes(AuthenticationType.FINGERPRINT)) {
+              return 'fingerprint'
+            } else {
+              return 'iris scan'
+            }
+        }
+      } else {
+        // no-op: does not handle other devices
+      }
     }
   }
 
