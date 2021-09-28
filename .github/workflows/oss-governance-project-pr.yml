@@ -10,17 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.sender.type == 'User' && github.event.pull_request.head.repo.full_name == github.repository
     steps:
-      - uses: actions/github-script@deb7ae927cc19ae3a8b57293dd5cd2f16171e1e2
+      - uses: actions/github-script@441359b1a30438de65712c2fbca0abe4816fa667
         with:
           github-token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           script: |
-            github.projects.createCard({
+            github.rest.projects.createCard({
               column_id: 14389251,
               content_id: context.payload.pull_request.id,
               content_type: 'PullRequest',
             });
 
-            github.issues.addAssignees({
+            github.rest.issues.addAssignees({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
