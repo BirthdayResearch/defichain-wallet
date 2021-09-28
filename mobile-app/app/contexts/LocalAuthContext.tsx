@@ -100,7 +100,7 @@ export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>)
       if (Platform.OS === 'ios') {
         switch (securityLevel) {
           case SecurityLevel.SECRET:
-            return 'device\'s passcode'
+            return 'device\'s lock'
 
           case SecurityLevel.BIOMETRIC:
             if (biometricHardwares.includes(AuthenticationType.FACIAL_RECOGNITION)) {
