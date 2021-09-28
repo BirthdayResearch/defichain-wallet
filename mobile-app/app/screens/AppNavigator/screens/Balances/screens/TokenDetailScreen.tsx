@@ -1,27 +1,22 @@
-import { SummaryTitle } from '@components/SummaryTitle'
+import { View } from '@components/'
+import { IconButton } from '@components/IconButton'
+import { getNativeIcon } from '@components/icons/assets'
 import {
-  ThemedIcon,
   ThemedScrollView,
-  ThemedSectionTitle,
   ThemedText,
-  ThemedTouchableOpacity
+  ThemedView
 } from '@components/themed'
-import { MaterialIcons } from '@expo/vector-icons'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { StackScreenProps } from '@react-navigation/stack'
+import { WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
+import NumberFormat from 'react-number-format'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
 
-interface TokenActionItems {
-  title: string
-  icon: React.ComponentProps<typeof MaterialIcons>['name']
-  onPress: () => void
-  testID: string
-}
 type Props = StackScreenProps<BalanceParamList, 'TokenDetailScreen'>
 
 export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
@@ -37,87 +32,108 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
 
   return (
     <ThemedScrollView>
-      <SummaryTitle
-        amount={new BigNumber(token.amount)}
-        suffix={` ${token.displaySymbol}`}
-        testID='token_detail_amount'
-        title={translate('screens/TokenDetailScreen', 'AMOUNT BALANCE')}
-      />
-
-      <ThemedSectionTitle
-        testID='title_available_options'
-        text={translate('screens/TokenDetailScreen', 'AVAILABLE OPTIONS')}
-      />
-
-      {
-        token.id !== '0' && (
-          <>
-            <TokenActionRow
-              icon='arrow-upward'
-              onPress={() => navigation.navigate({
-                name: 'Send',
-                params: { token },
-                merge: true
-              })}
-              testID='send_button'
-              title={translate('screens/TokenDetailScreen', 'Send to other wallet')}
+      <TokenSummary token={token} />
+      <ThemedView
+        light={tailwind('bg-white border-gray-200')}
+        dark={tailwind('bg-black border-gray-700')}
+        style={tailwind('flex-row flex-wrap px-4 pb-6 border-b')}
+      >
+        {
+          token.id !== '0' && (
+            <>
+              <IconButton
+                iconName='arrow-upward'
+                iconType='MaterialIcons'
+                iconSize={16}
+                iconLabel={translate('screens/TokenDetailScreen', 'SEND')}
+                style={tailwind('mr-2 p-2')}
+                onPress={() => navigation.navigate({
+                  name: 'Send',
+                  params: { token },
+                  merge: true
+                })}
+                testID='send_button'
+                disabled={new BigNumber(token.amount).isZero()}
+              />
+              <IconButton
+                iconName='arrow-downward'
+                iconType='MaterialIcons'
+                iconSize={16}
+                iconLabel={translate('screens/TokenDetailScreen', 'RECEIVE')}
+                style={tailwind('mr-2 p-2')}
+                onPress={() => navigation.navigate('Receive')}
+                testID='receive_button'
+              />
+            </>
+          )
+        }
+        {
+          token.symbol === 'DFI' && (
+            <IconButton
+              iconName='swap-vert'
+              iconType='MaterialIcons'
+              iconSize={16}
+              iconLabel={translate('screens/TokenDetailScreen', 'CONVERT')}
+              style={tailwind('p-2')}
+              onPress={() => {
+                const mode: ConversionMode = token.id === '0_utxo' ? 'utxosToAccount' : 'accountToUtxos'
+                navigation.navigate({
+                  name: 'Convert',
+                  params: { mode },
+                  merge: true
+                })
+              }}
+              testID='convert_button'
             />
-
-            <TokenActionRow
-              icon='arrow-downward'
-              onPress={() => navigation.navigate('Receive')}
-              testID='receive_button'
-              title={`${translate('screens/TokenDetailScreen', 'Receive')} ${token.displaySymbol}`}
-            />
-          </>
-        )
-      }
-
-      {
-        token.symbol === 'DFI' && (
-          <TokenActionRow
-            icon='swap-vert'
-            onPress={() => {
-              const mode: ConversionMode = token.id === '0_utxo' ? 'utxosToAccount' : 'accountToUtxos'
-              navigation.navigate({
-                name: 'Convert',
-                params: { mode },
-                merge: true
-              })
-            }}
-            testID='convert_button'
-            title={`${translate('screens/TokenDetailScreen', 'Convert to {{symbol}}', { symbol: `${token.id === '0_utxo' ? 'Token' : 'UTXO'}` })}`}
-          />
-        )
-      }
+          )
+        }
+      </ThemedView>
     </ThemedScrollView>
   )
 }
 
-function TokenActionRow ({ title, icon, onPress, testID }: TokenActionItems): JSX.Element {
+function TokenSummary (props: { token: WalletToken}): JSX.Element {
+  const Icon = getNativeIcon(props.token.symbol)
+
   return (
-    <ThemedTouchableOpacity
-      onPress={onPress}
-      style={tailwind('flex-row py-4 pl-4 pr-2 bg-white border-b border-gray-200')}
-      testID={testID}
+    <ThemedView
+      light={tailwind('bg-white')}
+      dark={tailwind('bg-black')}
+      style={tailwind('px-4 pt-6')}
     >
-      <ThemedIcon
-        dark={tailwind('text-darkprimary-500')}
-        iconType='MaterialIcons'
-        light={tailwind('text-primary-500')}
-        name={icon}
-        size={24}
-      />
+      <View style={tailwind('flex-row items-center mb-1')}>
+        <Icon height={24} width={24} style={tailwind('mr-2')} />
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-500')}
+        >
+          {props.token.name}
+        </ThemedText>
+      </View>
 
-      <ThemedText style={tailwind('flex-grow ml-2')}>
-        {title}
-      </ThemedText>
-
-      <ThemedIcon
-        iconType='MaterialIcons'
-        name='chevron-right'
-        size={24}
-      />
-    </ThemedTouchableOpacity>
+      <View style={tailwind('flex-row items-center mb-4')}>
+        <NumberFormat
+          decimalScale={8}
+          displayType='text'
+          renderText={(value) => (
+            <ThemedText
+              style={tailwind('text-2xl font-bold flex-wrap mr-1')}
+              testID='token_detail_amount'
+            >
+              {value}
+            </ThemedText>
+          )}
+          thousandSeparator
+          value={new BigNumber(props.token.amount).toFixed(8)}
+        />
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-500')}
+          style={tailwind('text-sm')}
+        >
+          {props.token.displaySymbol}
+        </ThemedText>
+      </View>
+    </ThemedView>
   )
 }
