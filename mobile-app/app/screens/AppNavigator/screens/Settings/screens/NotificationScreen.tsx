@@ -10,7 +10,7 @@ import { Logging, NotificationPersistence } from '@api'
 import { AppNotificationTypesI, NotificationType } from '@api/persistence/notification_storage'
 import { WalletNotifications } from '@api/wallet/notifications'
 
-const AppNotificationTypes: Array<{
+const appNotificationTypes: Array<{
   type: NotificationType
   displayName: string
 }> = [
@@ -21,10 +21,10 @@ const AppNotificationTypes: Array<{
 ]
 
 function notificationParser (preferences: NotificationType[]): AppNotificationTypesI[] {
-  return AppNotificationTypes.map(({ type, displayName }) => {
+  return appNotificationTypes.map(({ type, displayName }) => {
     const value = preferences.includes(type)
     return { type, displayName, value }
-  }, {})
+  })
 }
 
 export function NotificationScreen (): JSX.Element {
