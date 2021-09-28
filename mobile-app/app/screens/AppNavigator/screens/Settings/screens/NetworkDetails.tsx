@@ -7,7 +7,7 @@ import NumberFormat from 'react-number-format'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Linking } from 'react-native'
 import { View } from '@components/index'
-import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { TextRow } from '@components/TextRow'
@@ -114,27 +114,38 @@ function BlocksInfoRow ({ blockCount }: {blockCount?: number}): JSX.Element {
       <ThemedText style={tailwind('font-medium')}>
         {translate('screens/NetworkDetails', 'Block height')}
       </ThemedText>
-      <View style={tailwind('flex-1')}>
+      <View style={tailwind('flex-row items-center')}>
         <TouchableOpacity
           onPress={onBlockUrlPressed}
           testID='block_detail_explorer_url'
         >
-          <NumberFormat
-            decimalScale={8}
-            displayType='text'
-            renderText={(val: string) => (
-              <ThemedText
-                dark={tailwind('text-gray-400')}
-                light={tailwind('text-gray-500')}
-                style={tailwind('flex-wrap font-medium text-right text-gray-500')}
-                testID='network_details_block_height'
-              >
-                {val}
-              </ThemedText>
+          <View style={tailwind('flex-row items-center')}>
+            <NumberFormat
+              decimalScale={8}
+              displayType='text'
+              renderText={(val: string) => (
+                <ThemedText
+                  dark={tailwind('text-gray-400')}
+                  light={tailwind('text-gray-500')}
+                  style={tailwind('flex-wrap font-medium text-right text-gray-500')}
+                  testID='network_details_block_height'
+                >
+                  {val}
+                </ThemedText>
             )}
-            thousandSeparator
-            value={blockCount}
-          />
+              thousandSeparator
+              value={blockCount}
+            />
+            <View style={tailwind('ml-2 flex-grow-0 justify-center')}>
+              <ThemedIcon
+                dark={tailwind('text-darkprimary-500')}
+                iconType='MaterialIcons'
+                light={tailwind('text-primary-500')}
+                name='open-in-new'
+                size={24}
+              />
+            </View>
+          </View>
         </TouchableOpacity>
       </View>
     </ThemedView>
