@@ -1,3 +1,4 @@
+import { AppNotificationTypesI, NotificationType } from '@api/persistence/notifiction_storage'
 import { render } from '@testing-library/react-native'
 import * as React from 'react'
 import { NotificationScreen, RowNotificationItem } from './NotificationScreen'
@@ -28,8 +29,8 @@ describe('Notification screen', () => {
   })
 
   it('should render row notification item', async () => {
-    const item = {
-      type: 'TRANSACTION',
+    const item: AppNotificationTypesI = {
+      type: NotificationType.TRANSACTION,
       displayName: 'Transactions',
       value: true
     }
