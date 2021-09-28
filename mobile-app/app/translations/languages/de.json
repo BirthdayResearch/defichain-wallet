@@ -148,7 +148,7 @@
     "SECURITY": "SICHERHEITSEINSTELLUNGEN",
     "Privacy Lock": "App-Passwortschutz",
     "Auto-locks wallet if there is no activity for 1 min.": "Automatische Wallet-Sperre bei 1 Min. Inaktivität",
-    "Secure with": "Secure with",
+    "Secure with {{option}}": "Secure with {{option}}",
     "device's passcode": "device's passcode",
     "Face ID": "Face ID",
     "Touch ID": "Touch ID",
