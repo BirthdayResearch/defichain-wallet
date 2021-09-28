@@ -1,4 +1,4 @@
-import { View } from '@components/'
+import { View } from '@components/index'
 import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
 import {
