@@ -1,14 +1,18 @@
 import { useNetworkContext } from '@contexts/NetworkContext'
 import { RootState } from '@store'
-import React from 'react'
+import * as React from 'react'
 import dayjs from 'dayjs'
 import { useSelector } from 'react-redux'
+import NumberFormat from 'react-number-format'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { Linking } from 'react-native'
 import { View } from '@components/index'
 import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { TextRow } from '@components/TextRow'
 import { NumberRow } from '@components/NumberRow'
+import { useDeFiScanContext } from '@contexts/DeFiScanContext'
 
 export function NetworkDetails (): JSX.Element {
   const { network } = useNetworkContext()
@@ -45,10 +49,7 @@ export function NetworkDetails (): JSX.Element {
         rhs={{ value: syncFormattedDate, testID: 'network_details_last_sync' }}
       />
 
-      <NumberRow
-        lhs={translate('screens/NetworkDetails', 'Block height')}
-        rightHandElements={[{ value: blockCount ?? '', testID: 'network_details_block_height' }]}
-      />
+      <BlocksInfoRow blockCount={blockCount} />
 
       <NumberRow
         lhs={translate('screens/NetworkDetails', 'Total Masternodes')}
@@ -90,6 +91,52 @@ function NetworkStatusRow ({ connected }: {connected: boolean}): JSX.Element {
           {translate('screens/NetworkDetails', connected ? 'Connected' : 'Disconnected')}
         </ThemedText>
       </ThemedView>
+    </ThemedView>
+  )
+}
+
+function BlocksInfoRow ({ blockCount }: {blockCount?: number}): JSX.Element {
+  const { getBlocksUrl } = useDeFiScanContext()
+
+  const onBlockUrlPressed = async (): Promise<void> => {
+    if (blockCount !== undefined) {
+      const url = getBlocksUrl(blockCount)
+      await Linking.openURL(url)
+    }
+  }
+
+  return (
+    <ThemedView
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      light={tailwind('bg-white border-b border-gray-200')}
+      style={tailwind('flex flex-row p-4 items-center justify-between w-full')}
+    >
+      <ThemedText style={tailwind('font-medium')}>
+        {translate('screens/NetworkDetails', 'Block height')}
+      </ThemedText>
+      <View style={tailwind('flex-1')}>
+        <TouchableOpacity
+          onPress={onBlockUrlPressed}
+          testID='block_detail_explorer_url'
+        >
+          <NumberFormat
+            decimalScale={8}
+            displayType='text'
+            renderText={(val: string) => (
+              <ThemedText
+                dark={tailwind('text-gray-400')}
+                light={tailwind('text-gray-500')}
+                style={tailwind('flex-wrap font-medium text-right text-gray-500')}
+                testID='network_details_block_height'
+              >
+                {val}
+              </ThemedText>
+            )}
+            thousandSeparator
+            value={blockCount}
+          />
+        </TouchableOpacity>
+      </View>
     </ThemedView>
   )
 }
