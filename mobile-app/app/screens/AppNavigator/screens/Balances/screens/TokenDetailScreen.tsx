@@ -1,9 +1,11 @@
 import { View } from '@components/index'
-import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
 import {
+  ThemedIcon,
   ThemedScrollView,
+  ThemedSectionTitle,
   ThemedText,
+  ThemedTouchableOpacity,
   ThemedView
 } from '@components/themed'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
@@ -16,7 +18,14 @@ import React, { useEffect, useState } from 'react'
 import NumberFormat from 'react-number-format'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
+import { MaterialIcons } from '@expo/vector-icons'
 
+interface TokenActionItems {
+  title: string
+  icon: React.ComponentProps<typeof MaterialIcons>['name']
+  onPress: () => void
+  testID: string
+}
 type Props = StackScreenProps<BalanceParamList, 'TokenDetailScreen'>
 
 export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
@@ -33,61 +42,52 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
   return (
     <ThemedScrollView>
       <TokenSummary token={token} />
-      <ThemedView
-        light={tailwind('bg-white border-gray-200')}
-        dark={tailwind('bg-black border-gray-700')}
-        style={tailwind('flex-row flex-wrap px-4 pb-6 border-b')}
-      >
-        {
-          token.id !== '0' && (
-            <>
-              <IconButton
-                iconName='arrow-upward'
-                iconType='MaterialIcons'
-                iconSize={16}
-                iconLabel={translate('screens/TokenDetailScreen', 'SEND')}
-                style={tailwind('mr-2 p-2')}
-                onPress={() => navigation.navigate({
-                  name: 'Send',
-                  params: { token },
-                  merge: true
-                })}
-                testID='send_button'
-                disabled={new BigNumber(token.amount).isZero()}
-              />
-              <IconButton
-                iconName='arrow-downward'
-                iconType='MaterialIcons'
-                iconSize={16}
-                iconLabel={translate('screens/TokenDetailScreen', 'RECEIVE')}
-                style={tailwind('mr-2 p-2')}
-                onPress={() => navigation.navigate('Receive')}
-                testID='receive_button'
-              />
-            </>
-          )
-        }
-        {
-          token.symbol === 'DFI' && (
-            <IconButton
-              iconName='swap-vert'
-              iconType='MaterialIcons'
-              iconSize={16}
-              iconLabel={translate('screens/TokenDetailScreen', 'CONVERT')}
-              style={tailwind('p-2')}
-              onPress={() => {
-                const mode: ConversionMode = token.id === '0_utxo' ? 'utxosToAccount' : 'accountToUtxos'
-                navigation.navigate({
-                  name: 'Convert',
-                  params: { mode },
-                  merge: true
-                })
-              }}
-              testID='convert_button'
+      <ThemedSectionTitle
+        testID='title_available_options'
+        text={translate('screens/TokenDetailScreen', 'AVAILABLE OPTIONS')}
+      />
+
+      {
+        token.id !== '0' && (
+          <>
+            <TokenActionRow
+              icon='arrow-upward'
+              onPress={() => navigation.navigate({
+                name: 'Send',
+                params: { token },
+                merge: true
+              })}
+              testID='send_button'
+              title={translate('screens/TokenDetailScreen', 'Send to other wallet')}
             />
-          )
-        }
-      </ThemedView>
+
+            <TokenActionRow
+              icon='arrow-downward'
+              onPress={() => navigation.navigate('Receive')}
+              testID='receive_button'
+              title={`${translate('screens/TokenDetailScreen', 'Receive')} ${token.displaySymbol}`}
+            />
+          </>
+        )
+      }
+
+      {
+        token.symbol === 'DFI' && (
+          <TokenActionRow
+            icon='swap-vert'
+            onPress={() => {
+              const mode: ConversionMode = token.id === '0_utxo' ? 'utxosToAccount' : 'accountToUtxos'
+              navigation.navigate({
+                name: 'Convert',
+                params: { mode },
+                merge: true
+              })
+            }}
+            testID='convert_button'
+            title={`${translate('screens/TokenDetailScreen', 'Convert to {{symbol}}', { symbol: `${token.id === '0_utxo' ? 'Token' : 'UTXO'}` })}`}
+          />
+        )
+      }
     </ThemedScrollView>
   )
 }
@@ -135,5 +135,33 @@ function TokenSummary (props: { token: WalletToken}): JSX.Element {
         </ThemedText>
       </View>
     </ThemedView>
+  )
+}
+
+function TokenActionRow ({ title, icon, onPress, testID }: TokenActionItems): JSX.Element {
+  return (
+    <ThemedTouchableOpacity
+      onPress={onPress}
+      style={tailwind('flex-row py-4 pl-4 pr-2 bg-white border-b border-gray-200')}
+      testID={testID}
+    >
+      <ThemedIcon
+        dark={tailwind('text-darkprimary-500')}
+        iconType='MaterialIcons'
+        light={tailwind('text-primary-500')}
+        name={icon}
+        size={24}
+      />
+
+      <ThemedText style={tailwind('flex-grow ml-2')}>
+        {title}
+      </ThemedText>
+
+      <ThemedIcon
+        iconType='MaterialIcons'
+        name='chevron-right'
+        size={24}
+      />
+    </ThemedTouchableOpacity>
   )
 }
