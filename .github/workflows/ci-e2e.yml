@@ -28,7 +28,7 @@ jobs:
       - name: Setup Playground
         run: docker-compose -f docker-compose.yml up -d
 
-      - uses: actions/setup-node@25316bbc1f10ac9d8798711f44914b1cf3c4e954
+      - uses: actions/setup-node@270253e841af726300e85d718a5f606959b2903c
         with:
           node-version: 15
           cache: 'npm'
