@@ -1,20 +1,24 @@
-import { SummaryTitle } from '@components/SummaryTitle'
+import { View } from '@components/index'
+import { getNativeIcon } from '@components/icons/assets'
 import {
   ThemedIcon,
   ThemedScrollView,
   ThemedSectionTitle,
   ThemedText,
-  ThemedTouchableOpacity
+  ThemedTouchableOpacity,
+  ThemedView
 } from '@components/themed'
-import { MaterialIcons } from '@expo/vector-icons'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { StackScreenProps } from '@react-navigation/stack'
+import { WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
+import NumberFormat from 'react-number-format'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
+import { MaterialIcons } from '@expo/vector-icons'
 
 interface TokenActionItems {
   title: string
@@ -37,13 +41,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
 
   return (
     <ThemedScrollView>
-      <SummaryTitle
-        amount={new BigNumber(token.amount)}
-        suffix={` ${token.displaySymbol}`}
-        testID='token_detail_amount'
-        title={translate('screens/TokenDetailScreen', 'AMOUNT BALANCE')}
-      />
-
+      <TokenSummary token={token} />
       <ThemedSectionTitle
         testID='title_available_options'
         text={translate('screens/TokenDetailScreen', 'AVAILABLE OPTIONS')}
@@ -91,6 +89,52 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
         )
       }
     </ThemedScrollView>
+  )
+}
+
+function TokenSummary (props: { token: WalletToken}): JSX.Element {
+  const Icon = getNativeIcon(props.token.avatarSymbol)
+
+  return (
+    <ThemedView
+      light={tailwind('bg-white')}
+      dark={tailwind('bg-gray-800')}
+      style={tailwind('px-4 pt-6')}
+    >
+      <View style={tailwind('flex-row items-center mb-1')}>
+        <Icon height={24} width={24} style={tailwind('mr-2')} />
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+        >
+          {props.token.name}
+        </ThemedText>
+      </View>
+
+      <View style={tailwind('flex-row items-center mb-4')}>
+        <NumberFormat
+          decimalScale={8}
+          displayType='text'
+          renderText={(value) => (
+            <ThemedText
+              style={tailwind('text-2xl font-bold flex-wrap mr-1')}
+              testID='token_detail_amount'
+            >
+              {value}
+            </ThemedText>
+          )}
+          thousandSeparator
+          value={new BigNumber(props.token.amount).toFixed(8)}
+        />
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+          style={tailwind('text-sm')}
+        >
+          {props.token.displaySymbol}
+        </ThemedText>
+      </View>
+    </ThemedView>
   )
 }
 
