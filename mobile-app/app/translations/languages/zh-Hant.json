@@ -153,9 +153,7 @@
     "Face ID": "Face ID",
     "Touch ID": "Touch ID",
     "device's lock": "device's lock",
-    "face recognition": "face recognition",
-    "fingerprint": "fingerprint",
-    "iris scan": "iris scan"
+    "biometric": "biometric"
   },
   "screens/AboutScreen": {
     "About": "關於",
