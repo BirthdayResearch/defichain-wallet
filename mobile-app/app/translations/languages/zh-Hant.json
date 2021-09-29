@@ -153,7 +153,7 @@
     "Face ID": "Face ID",
     "Touch ID": "Touch ID",
     "device's lock": "device's lock",
-    "biometric authentication": "biometric authentication"
+    "biometric": "biometric"
   },
   "screens/AboutScreen": {
     "About": "關於",
