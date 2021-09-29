@@ -80,7 +80,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         suffix={` ${symbol}`}
         suffixType='text'
         testID='text_remove_amount'
-        title={translate('screens/ConfirmRemoveLiquidity', 'YOU ARE REMOVING')}
+        title={translate('screens/ConfirmRemoveLiquidity', 'You are removing')}
       />
 
       <ThemedSectionTitle
