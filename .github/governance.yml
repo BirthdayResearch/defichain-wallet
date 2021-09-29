@@ -130,11 +130,11 @@ issue:
       ignore_case: true
       label: 'version/$CAPTURED'
 
-    - regex: '* iOS *'
+    - regex: ' *iOS *'
       label: 'platform/ios'
       ignore_case: true
 
-    - regex: '* Android *'
+    - regex: ' *Android *'
       label: 'platform/android'
       ignore_case: true
 
