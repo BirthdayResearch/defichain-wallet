@@ -105,7 +105,7 @@ function TokenSummary (props: { token: WalletToken}): JSX.Element {
         <Icon height={24} width={24} style={tailwind('mr-2')} />
         <ThemedText
           light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
         >
           {props.token.name}
         </ThemedText>
@@ -128,7 +128,7 @@ function TokenSummary (props: { token: WalletToken}): JSX.Element {
         />
         <ThemedText
           light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
           style={tailwind('text-sm')}
         >
           {props.token.displaySymbol}
