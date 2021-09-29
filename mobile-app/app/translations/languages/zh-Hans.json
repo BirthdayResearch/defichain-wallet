@@ -69,7 +69,7 @@
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "确认发出",
-    "YOU ARE SENDING": "您正要发出资金",
+    "You are sending": "您正要发出资金",
     "TRANSACTION DETAILS": "交易明細",
     "Address": "地址",
     "Network": "网络",
@@ -97,7 +97,7 @@
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "确认要转换 DFI",
-    "YOU ARE CONVERTING": "您正要转换",
+    "You are converting": "您正要转换",
     "AFTER CONVERSION, YOU WILL HAVE:": "转换后您会有",
     "Estimated fee": "所需费用（大约）",
     "CONVERT": "转换",
@@ -349,7 +349,7 @@
     "Available": "可提供资金"
   },
   "screens/ConfirmAddLiq": {
-    "YOU ARE ADDING": "您正要增加流动资金",
+    "You are adding": "您正要增加流动资金",
     "AMOUNT TO SUPPLY": "提供的流动资金量",
     "TRANSACTION DETAILS": "交易明細",
     "Price": "价格",
@@ -415,7 +415,7 @@
     "Review full transaction details in the next screen": "请在下一步确认交易明细"
   },
   "screens/PoolSwapConfirmScreen": {
-    "YOU ARE SWAPPING": "您正要兑换",
+    "You are swapping": "您正要兑换",
     "ESTIMATED BALANCE AFTER SWAP": "兑换后的总余额",
     "TRANSACTION DETAILS": "交易明細",
     "Slippage Tolerance": "交易滑点",
