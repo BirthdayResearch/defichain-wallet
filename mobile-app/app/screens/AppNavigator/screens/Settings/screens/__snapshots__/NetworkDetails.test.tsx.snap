@@ -375,8 +375,10 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       style={
         Array [
           Object {
-            "alignItems": "flex-start",
+            "alignItems": "center",
+            "display": "flex",
             "flexDirection": "row",
+            "justifyContent": "space-between",
             "paddingBottom": 16,
             "paddingLeft": 16,
             "paddingRight": 16,
@@ -394,85 +396,101 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
         ]
       }
     >
-      <View
+      <Text
         style={
-          Object {
-            "flexBasis": "0%",
-            "flexGrow": 1,
-            "flexShrink": 1,
-          }
-        }
-      >
-        <Text
-          style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
             Array [
               Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
+                "fontFamily": "MediumFont",
+                "fontWeight": "500",
               },
-              Array [
-                Object {
-                  "fontFamily": "MediumFont",
-                  "fontWeight": "500",
-                },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          Block height
-        </Text>
-      </View>
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        Block height
+      </Text>
       <View
         style={
           Object {
-            "flexBasis": "0%",
-            "flexDirection": "column",
-            "flexGrow": 1,
-            "flexShrink": 1,
+            "alignItems": "center",
+            "flexDirection": "row",
           }
         }
       >
         <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
+              "opacity": 1,
             }
           }
+          testID="block_detail_explorer_url"
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <Text
+              style={
                 Array [
                   Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                    "flexWrap": "wrap",
-                    "fontFamily": "MediumFont",
-                    "fontWeight": "500",
-                    "textAlign": "right",
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
                   },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="network_details_block_height"
-          >
-            2,000
-          </Text>
+                  Array [
+                    Object {
+                      "color": "rgba(115, 115, 115, 1)",
+                      "flexWrap": "wrap",
+                      "fontFamily": "MediumFont",
+                      "fontWeight": "500",
+                      "textAlign": "right",
+                    },
+                    Object {
+                      "color": "rgba(255, 0, 175, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="network_details_block_height"
+            >
+              2,000
+            </Text>
+            <View
+              style={
+                Object {
+                  "flexGrow": 0,
+                  "justifyContent": "center",
+                  "marginLeft": 8,
+                }
+              }
+            >
+              <Text />
+            </View>
+          </View>
         </View>
       </View>
     </View>
