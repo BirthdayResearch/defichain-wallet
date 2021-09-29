@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { TextInputProps } from 'react-native'
-import { ThemedView, ThemedText, ThemedTextInput, ThemedIcon, ThemedSectionTitle } from '@components/themed'
+import { Platform, TextInputProps } from 'react-native'
+import { ThemedView, ThemedText, ThemedTextInput, ThemedIcon, ThemedSectionTitle, ThemedTouchableOpacity } from '@components/themed'
 import { tailwind } from '@tailwind'
 
 type WalletTextInputProps = React.PropsWithChildren<TextInputProps> & IWalletTextInputProps
@@ -100,21 +100,26 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
 
 function ClearButton (props: {onPress?: () => void, testID?: string}): JSX.Element {
   return (
-    <ThemedView
+    <ThemedTouchableOpacity
       testID={props.testID}
-      light={tailwind('bg-gray-800')}
-      dark={tailwind('bg-gray-100')}
-      style={tailwind('mx-3 border-0 rounded-full')}
+      light={tailwind('bg-transparent')}
+      dark={tailwind('bg-transparent')}
+      style={tailwind('relative py-0.5 px-2')}
+      onPress={props.onPress}
     >
+      <ThemedView
+        light={tailwind('bg-gray-800')}
+        dark={tailwind('bg-gray-100')}
+        style={tailwind('top-2 left-3 rounded-full absolute w-9/12 h-3/6 -z-1', { 'w-5/12': Platform.OS === 'web' })}
+      />
       <ThemedIcon
         iconType='MaterialIcons'
         name='cancel'
         size={28}
         light={tailwind('text-gray-100')}
-        dark={tailwind('text-gray-800')}
-        style={tailwind('-m-4 p-2.5')}
-        onPress={props.onPress}
+        dark={tailwind('text-gray-700')}
       />
-    </ThemedView>
+
+    </ThemedTouchableOpacity>
   )
 }
