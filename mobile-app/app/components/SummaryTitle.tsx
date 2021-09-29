@@ -54,6 +54,7 @@ export function SummaryTitle (props: SummaryTitleProps): JSX.Element {
             light={tailwind('text-gray-500')}
             dark={tailwind('text-gray-400')}
             style={tailwind('font-sm')}
+            testID={`${props.testID}_suffix`}
           >
             {props.suffix}
           </ThemedText>}

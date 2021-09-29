@@ -112,12 +112,14 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
           height={16}
           width={16}
           style={tailwind('relative z-10 -mt-2')}
+          testID={`text_add_amount_suffix_${tokenA.displaySymbol}`}
         />
 
         <TokenBIcon
           height={16}
           width={16}
           style={tailwind('-ml-2 mt-2 mr-2')}
+          testID={`text_add_amount_suffix_${tokenB.displaySymbol}`}
         />
       </SummaryTitle>
 
