@@ -122,7 +122,7 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
 
         cy.getByTestID('confirm_title').should('have.text', 'You are removing')
         cy.getByTestID('text_remove_amount').should('have.text', '10.00000000')
-        cy.getByTestID('text_remove_amount_suffix').should('have.text', 'dETH-DFI')
+        cy.getByTestID('text_remove_amount_suffix').should('have.text', ' dETH-DFI')
         cy.getByTestID('a_amount').should('have.text', new BigNumber(valueA).toFixed(8))
         cy.getByTestID('b_amount').should('have.text', new BigNumber(valueB).toFixed(8))
         cy.getByTestID('price_a').contains('0.01000000 DFI per dETH')
@@ -149,7 +149,7 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
 
     cy.getByTestID('confirm_title').should('have.text', 'You are removing')
     cy.getByTestID('text_remove_amount').should('have.text', oldAmount)
-    cy.getByTestID('text_remove_amount_suffix').should('have.text', 'dETH-DFI')
+    cy.getByTestID('text_remove_amount_suffix').should('have.text', ' dETH-DFI')
     cy.getByTestID('a_amount').should('exist')
     cy.getByTestID('b_amount').should('exist')
     cy.getByTestID('text_fee').should('exist')
@@ -177,7 +177,7 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
 
     cy.getByTestID('confirm_title').should('have.text', 'You are removing')
     cy.getByTestID('text_remove_amount').should('have.text', newAmount)
-    cy.getByTestID('text_remove_amount_suffix').should('have.text', 'dETH-DFI')
+    cy.getByTestID('text_remove_amount_suffix').should('have.text', ' dETH-DFI')
     cy.getByTestID('a_amount').should('exist')
     cy.getByTestID('b_amount').should('exist')
     cy.getByTestID('text_fee').should('exist')
