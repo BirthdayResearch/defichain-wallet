@@ -117,7 +117,7 @@ export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>)
             return 'device\'s lock'
 
           case SecurityLevel.BIOMETRIC:
-            return 'biometric authentication'
+            return 'biometric'
         }
       } else {
         // no-op: does not handle other devices
