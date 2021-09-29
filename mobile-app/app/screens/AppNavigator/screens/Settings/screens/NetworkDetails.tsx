@@ -4,8 +4,7 @@ import * as React from 'react'
 import dayjs from 'dayjs'
 import { useSelector } from 'react-redux'
 import NumberFormat from 'react-number-format'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { Linking } from 'react-native'
+import { TouchableOpacity, Linking } from 'react-native'
 import { View } from '@components/index'
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -125,8 +124,8 @@ function BlocksInfoRow ({ blockCount }: {blockCount?: number}): JSX.Element {
               displayType='text'
               renderText={(val: string) => (
                 <ThemedText
-                  dark={tailwind('text-gray-400')}
-                  light={tailwind('text-gray-500')}
+                  dark={tailwind('text-darkprimary-500')}
+                  light={tailwind('text-primary-500')}
                   style={tailwind('flex-wrap font-medium text-right text-gray-500')}
                   testID='network_details_block_height'
                 >
