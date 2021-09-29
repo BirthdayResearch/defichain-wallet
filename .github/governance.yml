@@ -125,16 +125,16 @@ issue:
         owner: true
 
   captures:
-    - regex: ' *v(\d+\.\d+\.\d+) *'
+    - regex: '\W*v?(\d+\.\d+\.\d+)\W*'
       github_release: true
       ignore_case: true
       label: 'version/$CAPTURED'
 
-    - regex: ' *iOS *'
+    - regex: '\W*iOS\W*'
       label: 'platform/ios'
       ignore_case: true
 
-    - regex: ' *Android *'
+    - regex: '\W*Android\W*'
       label: 'platform/android'
       ignore_case: true
 
