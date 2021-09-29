@@ -427,72 +427,71 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
           }
         }
       >
-        <RNGestureHandlerButton
-          collapsable={false}
-          onGestureEvent={[Function]}
-          onGestureHandlerEvent={[Function]}
-          onGestureHandlerStateChange={[Function]}
-          onHandlerStateChange={[Function]}
-          rippleColor={0}
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
           testID="block_detail_explorer_url"
         >
           <View
-            accessible={true}
             style={
               Object {
-                "opacity": 1,
+                "alignItems": "center",
+                "flexDirection": "row",
               }
             }
           >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "color": "rgba(115, 115, 115, 1)",
+                      "flexWrap": "wrap",
+                      "fontFamily": "MediumFont",
+                      "fontWeight": "500",
+                      "textAlign": "right",
+                    },
+                    Object {
+                      "color": "rgba(255, 0, 175, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="network_details_block_height"
+            >
+              2,000
+            </Text>
             <View
               style={
                 Object {
-                  "alignItems": "center",
-                  "flexDirection": "row",
+                  "flexGrow": 0,
+                  "justifyContent": "center",
+                  "marginLeft": 8,
                 }
               }
             >
-              <Text
-                style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
-                    Array [
-                      Object {
-                        "color": "rgba(115, 115, 115, 1)",
-                        "flexWrap": "wrap",
-                        "fontFamily": "MediumFont",
-                        "fontWeight": "500",
-                        "textAlign": "right",
-                      },
-                      Object {
-                        "color": "rgba(115, 115, 115, 1)",
-                      },
-                    ],
-                  ]
-                }
-                testID="network_details_block_height"
-              >
-                2,000
-              </Text>
-              <View
-                style={
-                  Object {
-                    "flexGrow": 0,
-                    "justifyContent": "center",
-                    "marginLeft": 8,
-                  }
-                }
-              >
-                <Text />
-              </View>
+              <Text />
             </View>
           </View>
-        </RNGestureHandlerButton>
+        </View>
       </View>
     </View>
     <View
