@@ -152,9 +152,7 @@
     "Face ID": "Face ID",
     "Touch ID": "Touch ID",
     "device's lock": "Gerätesperre",
-    "face recognition": "Gesichtserkennung",
-    "fingerprint": "Fingerabdruck",
-    "iris scan": "Irisscan"
+    "biometric authentication": "biometric authentication"    
   },
   "screens/AboutScreen": {
     "About": "Über",
