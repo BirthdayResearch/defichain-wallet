@@ -4,12 +4,12 @@
 /.github/                                       @fuxingloh
 /.husky/                                        @fuxingloh @thedoublejay
 
-/mobile-app/app/                                @fuxingloh @thedoublejay @ivan-zynesis @kyleleow
+/mobile-app/app/                                @fuxingloh @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864
 /mobile-app/app/api                             @fuxingloh @thedoublejay @ivan-zynesis
 
-/mobile-app/app/assets                          @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow
-/mobile-app/app/translations                    @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow
-/mobile-app/cypress                             @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow
+/mobile-app/app/assets                          @fuxingloh @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864
+/mobile-app/app/translations                    @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864
+/mobile-app/cypress                             @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864
 
 /.codeclimate.yml                               @fuxingloh @thedoublejay
 /.versionrc.js                                  @fuxingloh @thedoublejay
@@ -28,7 +28,7 @@ package.json                                    @fuxingloh @thedoublejay
 package-lock.json                               @fuxingloh @thedoublejay
 tsconfig.json                                   @fuxingloh @thedoublejay
 
-BETA_TESTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow
-CONTRIBUTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow
-README.md                                       @fuxingloh @thedoublejay @izzycsy @kyleleow
+BETA_TESTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864
+CONTRIBUTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864
+README.md                                       @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864
 LICENSE                                         @fuxingloh
