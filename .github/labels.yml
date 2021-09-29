@@ -90,6 +90,12 @@
 - color: fbca04
   name: area/settings
 
+# Platform
+- color: 0d1d49
+  name: platform/ios
+- color: 0d1d49
+  name: platform/android
+
 # Priority
 - color: d93f0b
   name: priority/urgent-now

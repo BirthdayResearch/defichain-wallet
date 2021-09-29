@@ -124,6 +124,20 @@ issue:
         member: true
         owner: true
 
+  captures:
+    - regex: ' *v(\d+\.\d+\.\d+) *'
+      github_release: true
+      ignore_case: true
+      label: 'version/$CAPTURED'
+
+    - regex: '* iOS *'
+      label: 'platform/ios'
+      ignore_case: true
+
+    - regex: '* Android *'
+      label: 'platform/android'
+      ignore_case: true
+
 pull_request:
   labels:
     - prefix: kind
