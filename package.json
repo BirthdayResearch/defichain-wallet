@@ -2,7 +2,7 @@
   "name": "@defichain/wallet",
   "private": true,
   "license": "MIT",
-  "main": "index.js",
+  "main": "mobile-app/index.js",
   "scripts": {
     "prepare": "husky install",
     "lint": "eslint ./mobile-app/app ./mobile-app/App.tsx ./mobile-app/cypress/integration --fix",
