@@ -68,7 +68,7 @@ exports[`token detail screen should accept DST 1`] = `
             <RNSVGCircle
               cx={16}
               cy={16}
-              fill={859983781}
+              fill={869461865}
               propList={
                 Array [
                   "fill",
@@ -81,7 +81,7 @@ exports[`token detail screen should accept DST 1`] = `
               content={null}
               dx={Array []}
               dy={Array []}
-              fill={4278915731}
+              fill={4289070821}
               font={
                 Object {
                   "fontSize": "24",
@@ -510,7 +510,7 @@ exports[`token detail screen should accept Token DFI 1`] = `
             <RNSVGCircle
               cx={16}
               cy={16}
-              fill={860147938}
+              fill={856110007}
               propList={
                 Array [
                   "fill",
@@ -523,7 +523,7 @@ exports[`token detail screen should accept Token DFI 1`] = `
               content={null}
               dx={Array []}
               dy={Array []}
-              fill={4278294151}
+              fill={4288545824}
               font={
                 Object {
                   "fontSize": "24",
@@ -850,7 +850,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
             <RNSVGCircle
               cx={16}
               cy={16}
-              fill={861271154}
+              fill={870900768}
               propList={
                 Array [
                   "fill",
@@ -863,7 +863,7 @@ exports[`token detail screen should accept UTXO DFI 1`] = `
               content={null}
               dx={Array []}
               dy={Array []}
-              fill={4293056530}
+              fill={4293395061}
               font={
                 Object {
                   "fontSize": "24",
