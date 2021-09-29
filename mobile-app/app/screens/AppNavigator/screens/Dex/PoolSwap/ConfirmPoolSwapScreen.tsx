@@ -75,9 +75,9 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         testID='text_swap_amount'
         title={translate('screens/PoolSwapConfirmScreen', 'You are swapping')}
       >
-        <TokenAIcon />
+        <TokenAIcon height={24} width={24} style={tailwind('ml-1')} />
         <ThemedIcon iconType='MaterialIcons' name='arrow-right-alt' size={24} style={tailwind('px-1')} />
-        <TokenBIcon />
+        <TokenBIcon height={24} width={24} />
       </SummaryTitle>
 
       <ThemedSectionTitle
