@@ -93,7 +93,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
 }
 
 function TokenSummary (props: { token: WalletToken}): JSX.Element {
-  const Icon = getNativeIcon(props.token.symbol)
+  const Icon = getNativeIcon(props.token.avatarSymbol)
 
   return (
     <ThemedView
