@@ -90,9 +90,10 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
     <ThemedScrollView style={tailwind('pb-4')}>
       <SummaryTitle
         amount={amount}
-        suffix={` ${token.displaySymbol}`}
+        suffix={token.displaySymbol}
+        suffixType='text'
         testID='text_send_amount'
-        title={translate('screens/SendConfirmationScreen', 'YOU ARE SENDING')}
+        title={translate('screens/SendConfirmationScreen', 'You are sending')}
       />
 
       <ThemedSectionTitle
