@@ -7,7 +7,7 @@
     "version": "0.0.0",
     "orientation": "portrait",
     "icon": "./mobile-app/app/assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "dfc",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./mobile-app/app/assets/images/splash.png",
@@ -34,7 +34,21 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.defichain.app",
-      "versionCode": 0
+      "versionCode": 0,
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": [
+            {
+              "scheme": "dfc"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ]
     },
     "web": {
       "favicon": "./mobile-app/app/assets/images/favicon.png"

@@ -1,7 +1,9 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { nativeApplicationVersion } from 'expo-application'
 import React from 'react'
-import { Linking, TouchableOpacity, View } from 'react-native'
+import * as Linking from 'expo-linking'
+import * as WebBrowser from 'expo-web-browser'
+import { TouchableOpacity, View } from 'react-native'
 import { AppIcon } from '@components/icons/AppIcon'
 import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -173,6 +175,8 @@ async function openURL (url: string): Promise<void> {
   const supported = await Linking.canOpenURL(url)
   if (supported) {
     await Linking.openURL(url)
+  } else {
+    await WebBrowser.openBrowserAsync(url)
   }
 }
 

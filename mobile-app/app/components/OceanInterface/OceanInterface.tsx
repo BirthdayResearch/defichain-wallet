@@ -13,9 +13,10 @@ import { firstTransactionSelector, ocean, OceanTransaction } from '@store/ocean'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Animated, Linking, TouchableOpacity, View } from 'react-native'
+import { Animated, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { ThemedActivityIndicator, ThemedIcon, ThemedText } from '../themed'
+import * as Linking from 'expo-linking'
 
 const MAX_AUTO_RETRY = 1
 const MAX_TIMEOUT = 300000
