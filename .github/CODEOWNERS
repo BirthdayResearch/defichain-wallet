@@ -1,7 +1,7 @@
 # Define individuals that are responsible for code in a repository.
 # More details are here: https://help.github.com/articles/about-codeowners/
 
-/.github/                                       @fuxingloh
+/.github/                                       @fuxingloh @thedoublejay
 /.husky/                                        @fuxingloh @thedoublejay
 
 /mobile-app/app/                                @fuxingloh @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864
