@@ -1,37 +1,41 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, ViewProps } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
 import { ThemedText, ThemedView } from './themed'
 
+type INumberRowProps = React.PropsWithChildren<ViewProps> & NumberRowProps
+type SuffixType = 'text' | 'component'
+interface NumberRowProps {
+  lhs: string
+  rightHandElements: NumberRowRightElement[]
+}
 interface NumberRowRightElement {
   value: string | number
   suffix?: string
   testID: string
+  suffixType: SuffixType
 }
 
-export function NumberRow ({
-  lhs,
-  rightHandElements
-}: { lhs: string, rightHandElements: NumberRowRightElement[] }): JSX.Element {
+export function NumberRow (props: INumberRowProps): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('p-4 flex-row items-start w-full')}
     >
-      <View style={tailwind('w-4/12')}>
-        <ThemedText style={tailwind('font-medium')}>
-          {lhs}
+      <View style={tailwind('w-6/12')}>
+        <ThemedText style={tailwind('text-sm')}>
+          {props.lhs}
         </ThemedText>
       </View>
 
       <View style={tailwind('flex-1 flex-col')}>
         {
-          rightHandElements.map((rhs, index) => (
+          props.rightHandElements.map((rhs, index) => (
             <View
               key={index}
-              style={tailwind('flex-1')}
+              style={tailwind('flex-1 flex-row ml-4 justify-end flex-wrap items-center')}
             >
               <NumberFormat
                 decimalScale={8}
@@ -40,16 +44,30 @@ export function NumberRow ({
                   <ThemedText
                     dark={tailwind('text-gray-400')}
                     light={tailwind('text-gray-500')}
-                    style={tailwind('flex-wrap font-medium text-right text-gray-500')}
+                    style={tailwind('text-sm text-right text-gray-500')}
                     testID={rhs.testID}
                   >
                     {val}
                   </ThemedText>
                 )}
-                suffix={rhs.suffix}
                 thousandSeparator
                 value={rhs.value}
               />
+              {
+                rhs.suffixType === 'text' &&
+                  <ThemedText
+                    light={tailwind('text-gray-500')}
+                    dark={tailwind('text-gray-400')}
+                    style={tailwind('text-sm')}
+                    testID={`${rhs.testID}_suffix`}
+                  >
+                    {rhs.suffix}
+                  </ThemedText>
+              }
+              {
+                rhs.suffixType === 'component' &&
+                (props.children)
+              }
             </View>
           ))
         }
