@@ -20,7 +20,7 @@ export function NumberRow ({
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('p-4 flex-row items-start w-full')}
     >
-      <View style={tailwind('flex-1')}>
+      <View style={tailwind('w-4/12')}>
         <ThemedText style={tailwind('font-medium')}>
           {lhs}
         </ThemedText>
