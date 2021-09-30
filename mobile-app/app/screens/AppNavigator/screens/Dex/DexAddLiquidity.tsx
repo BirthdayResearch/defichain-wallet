@@ -10,12 +10,13 @@ import { View } from '@components/index'
 import { Button } from '@components/Button'
 import { NumberRow } from '@components/NumberRow'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
-import { ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
+import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
+import { getNativeIcon } from '@components/icons/assets'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -102,59 +103,63 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   }
 
   return (
-    <ThemedScrollView contentContainerStyle={tailwind('px-4 py-8')} style={tailwind('w-full flex-col flex-1')}>
-      <TokenInput
-        balance={balanceA}
-        current={tokenAAmount}
-        onChange={(amount) => {
-          buildSummary('primary', amount)
-        }}
-        symbol={pair?.tokenA?.displaySymbol}
-        type='primary'
-      />
+    <ThemedScrollView contentContainerStyle={tailwind('py-8')} style={tailwind('w-full flex-col flex-1')}>
+      <View style={tailwind('px-4')}>
+        <TokenInput
+          balance={balanceA}
+          current={tokenAAmount}
+          onChange={(amount) => {
+            buildSummary('primary', amount)
+          }}
+          symbol={pair?.tokenA?.displaySymbol}
+          type='primary'
+        />
 
-      <TokenInput
-        balance={balanceB}
-        current={tokenBAmount}
-        onChange={(amount) => {
-          buildSummary('secondary', amount)
-        }}
-        symbol={pair?.tokenB?.displaySymbol}
-        type='secondary'
-      />
+        <TokenInput
+          balance={balanceB}
+          current={tokenBAmount}
+          onChange={(amount) => {
+            buildSummary('secondary', amount)
+          }}
+          symbol={pair?.tokenB?.displaySymbol}
+          type='secondary'
+        />
+      </View>
 
       <Summary
         pair={pair}
         sharePercentage={sharePercentage}
       />
 
-      <ContinueButton
-        enabled={canContinue}
-        onPress={() => {
-          navigation.navigate({
-            name: 'ConfirmAddLiquidity',
-            params: {
-              summary: {
-                ...pair,
-                fee: new BigNumber(0.0001),
-                tokenAAmount: new BigNumber(tokenAAmount),
-                tokenBAmount: new BigNumber(tokenBAmount),
-                percentage: sharePercentage
+      <View style={tailwind('px-4')}>
+        <ContinueButton
+          enabled={canContinue}
+          onPress={() => {
+            navigation.navigate({
+              name: 'ConfirmAddLiquidity',
+              params: {
+                summary: {
+                  ...pair,
+                  fee: new BigNumber(0.0001),
+                  tokenAAmount: new BigNumber(tokenAAmount),
+                  tokenBAmount: new BigNumber(tokenBAmount),
+                  percentage: sharePercentage
+                },
+                pair
               },
-              pair
-            },
-            merge: true
-          })
-        }}
-      />
+              merge: true
+            })
+          }}
+        />
 
-      <ThemedText
-        light={tailwind('text-gray-600')}
-        dark={tailwind('text-gray-300')}
-        style={tailwind('mt-4 text-center text-sm')}
-      >
-        {translate('screens/AddLiquidity', 'Review full transaction details in the next screen')}
-      </ThemedText>
+        <ThemedText
+          light={tailwind('text-gray-600')}
+          dark={tailwind('text-gray-300')}
+          style={tailwind('mt-4 text-center text-sm')}
+        >
+          {translate('screens/AddLiquidity', 'Review full transaction details in the next screen')}
+        </ThemedText>
+      </View>
     </ThemedScrollView>
   )
 }
@@ -201,48 +206,73 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
 
 function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }): JSX.Element {
   const { pair, sharePercentage } = props
+  const TokenAIcon = getNativeIcon(pair.tokenA.displaySymbol)
+  const TokenBIcon = getNativeIcon(pair.tokenB.displaySymbol)
 
   return (
-    <View style={tailwind('flex-col w-full items-center mt-4')}>
+    <View style={tailwind('flex-col w-full mt-4')}>
+      <ThemedSectionTitle
+        testID='title_add_detail'
+        text={translate('screens/AddLiquidity', 'PRICE DETAILS')}
+        style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
+      />
       <NumberRow
-        lhs={translate('screens/AddLiquidity', 'Price')}
+        lhs={translate('screens/AddLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
         rightHandElements={[{
           value: pair.aToBRate.toFixed(8),
-          suffix: ` ${pair?.tokenB?.displaySymbol} ${translate('screens/AddLiquidity', 'per')} ${pair?.tokenA?.displaySymbol}`,
-          testID: 'a_per_b_price'
-        }, {
-          value: pair.bToARate.toFixed(8),
-          suffix: ` ${pair?.tokenA?.displaySymbol} ${translate('screens/AddLiquidity', 'per')} ${pair?.tokenB?.displaySymbol}`,
-          testID: 'b_per_a_price'
+          testID: 'a_per_b_price',
+          suffixType: 'component'
         }]}
-      />
+      >
+        <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
+      <NumberRow
+        lhs={translate('screens/AddLiquidity', '{{tokenB}} price per {{tokenA}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
+        rightHandElements={[{
+          value: pair.bToARate.toFixed(8),
+          testID: 'b_per_a_price',
+          suffixType: 'component'
+        }]}
+      >
+        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
 
+      <ThemedSectionTitle
+        testID='title_add_detail'
+        text={translate('screens/AddLiquidity', 'TRANSACTION DETAILS')}
+      />
       <NumberRow
         lhs={translate('screens/AddLiquidity', 'Share of pool')}
         rightHandElements={[{
           value: sharePercentage.times(100).toFixed(8),
           suffix: '%',
-          testID: 'share_of_pool'
+          testID: 'share_of_pool',
+          suffixType: 'text'
         }]}
       />
 
       <NumberRow
-        lhs={`${translate('screens/AddLiquidity', 'Pooled')} ${pair?.tokenA?.displaySymbol}`}
+        lhs={translate('screens/AddLiquidity', 'Your pooled {{token}}', { token: pair?.tokenA?.displaySymbol })}
         rightHandElements={[{
           value: pair.tokenA.reserve,
-          suffix: '',
-          testID: `pooled_${pair?.tokenA?.displaySymbol}`
+          testID: `pooled_${pair?.tokenA?.displaySymbol}`,
+          suffixType: 'component'
         }]}
-      />
+      >
+        <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
 
       <NumberRow
-        lhs={`${translate('screens/AddLiquidity', 'Pooled')} ${pair?.tokenB?.displaySymbol}`}
+        lhs={translate('screens/AddLiquidity', 'Your pooled {{token}}', { token: pair?.tokenB?.displaySymbol })}
         rightHandElements={[{
           value: pair.tokenB.reserve,
           suffix: '',
-          testID: `pooled_${pair?.tokenB?.displaySymbol}`
+          testID: `pooled_${pair?.tokenB?.displaySymbol}`,
+          suffixType: 'component'
         }]}
-      />
+      >
+        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
     </View>
   )
 }
