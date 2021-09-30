@@ -1,7 +1,7 @@
 import { SimplifiedAppStateStatus, useAppStateContext } from '@contexts/AppStateContext'
 import { PrivacyLockContextI, usePrivacyLockContext } from '@contexts/LocalAuthContext'
 import { EnvironmentName, getEnvironment } from '@environment'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BackHandler } from 'react-native'
 import { Logging } from '@api'
 import { ThemedView } from '@components/themed'
@@ -29,12 +29,14 @@ function shouldReauthenticate (): boolean {
 export function PrivacyLock (): JSX.Element {
   const privacyLock = usePrivacyLockContext()
   const appState = useAppStateContext()
+  const [isPrompting, setIsPrompting] = useState(false)
 
   const handler = (nextState: SimplifiedAppStateStatus): void => {
     if (nextState === 'background') {
       APP_LAST_ACTIVE.timestamp = Date.now()
     } else if (privacyLock.isEnabled) {
-      if (shouldReauthenticate()) {
+      if (shouldReauthenticate() && !isPrompting) {
+        setIsPrompting(true)
         authenticateOrExit(privacyLock)
       }
     }
@@ -49,7 +51,10 @@ export function PrivacyLock (): JSX.Element {
   // this run only ONCE on fresh start
   // isPrivacyLock change in-app should not re-triggered
   useEffect(() => {
-    authenticateOrExit(privacyLock)
+    if (privacyLock.isEnabled && !isPrompting) {
+      setIsPrompting(true)
+      authenticateOrExit(privacyLock)
+    }
   }, [])
 
   if (privacyLock.isAuthenticating || APP_LAST_ACTIVE.force) {
