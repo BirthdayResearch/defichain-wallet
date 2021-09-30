@@ -11,27 +11,32 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  version:
-    name: Version
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.version.outputs.result }}
-    steps:
-      - uses: actions/checkout@v2.2.0
-        with:
-          fetch-depth: 0 # Required due to the weg Git works, without it this action won't be able to find any or the correct tags
-      - uses: "WyriHaximus/github-action-get-previous-tag@8656db79964f6757c940965c172d371ceedc8a7f"
-        id: version
-        with:
-          fallback: 1.0.0
-
   eas-build:
     name: EAS Build
     environment: EAS Release
     runs-on: ubuntu-latest
-    needs: [ version ]
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+        with:
+          fetch-depth: 0 # Required due to the weg Git works, without it this action won't be able to find any or the correct tags
+
+      - uses: "WyriHaximus/github-action-get-previous-tag@8656db79964f6757c940965c172d371ceedc8a7f"
+        id: previoustag
+        with:
+          fallback: 1.0.0
+
+      - uses: actions/github-script@441359b1a30438de65712c2fbca0abe4816fa667
+        id: version
+        with:
+          script: |
+            const semver = steps.previoustag.outputs.tag.replace('v', '')
+            if (semver.match(/^[0-9]+\.[0-9]+\.[0-9]+$/)) {
+              return semver
+            }
+
+            throw new Error('not semver')
+          result-encoding: string
+
       - uses: actions/setup-node@270253e841af726300e85d718a5f606959b2903c
         with:
           node-version: 15
@@ -48,7 +53,7 @@ jobs:
       - run: |
           git config --global user.email "github-bot@defichain.com"
           git config --global user.name "defichain-bot"
-          npx standard-version --release-as ${{needs.version.outputs.tag}}
+          npx standard-version --release-as ${{steps.version.outputs.result}}
 
       - name: EAS Build - iOS & Android
         run: eas build --platform all --non-interactive --wait --profile preview
