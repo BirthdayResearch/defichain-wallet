@@ -10,7 +10,11 @@ beforeEach(async () => {
 })
 
 const network = EnvironmentNetwork.LocalPlayground
-const client = new WhaleApiClient({ url: 'http://localhost:19553', network: 'regtest' })
+const client = new WhaleApiClient({
+  url: 'http://localhost:19553',
+  network: 'regtest',
+  version: 'v0'
+})
 
 it('should initJellyfishWallet', async () => {
   const data: WalletPersistenceData<MnemonicProviderData> = {
