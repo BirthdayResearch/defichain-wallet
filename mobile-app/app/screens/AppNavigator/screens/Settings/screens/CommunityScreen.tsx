@@ -12,8 +12,7 @@ import {
 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import * as Linking from 'expo-linking'
-import * as WebBrowser from 'expo-web-browser'
+import { openURL } from '@api/linking'
 
 export function CommunityScreen (): JSX.Element {
   return (
@@ -98,12 +97,7 @@ function CommunityItemRow ({
   icon
 }: CommunityItem): JSX.Element {
   const handlePress = useCallback(async () => {
-    const supported = await Linking.canOpenURL(url)
-    if (supported) {
-      await Linking.openURL(url)
-    } else {
-      await WebBrowser.openBrowserAsync(url)
-    }
+    await openURL(url)
   }, [url])
 
   return (

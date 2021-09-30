@@ -7,7 +7,7 @@
     "version": "0.10.10",
     "orientation": "portrait",
     "icon": "./mobile-app/app/assets/images/icon.png",
-    "scheme": "dfc",
+    "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./mobile-app/app/assets/images/splash.png",
@@ -34,35 +34,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.defichain.app",
-      "versionCode": 420001010,
-      "intentFilters": [
-        {
-          "action": "VIEW",
-          "data": [
-            {
-              "scheme": "https",
-              "host": "www.youtube.com",
-              "pathPrefix": "/channel/"
-            },
-            {
-              "scheme": "https",
-              "host": "*.twitter.com"
-            },
-            {
-              "scheme": "https",
-              "host": "*.reddit.com"
-            },
-            {
-              "scheme": "https",
-              "host": "*.github.com"
-            }
-          ],
-          "category": [
-            "BROWSABLE",
-            "DEFAULT"
-          ]
-        }
-      ]
+      "versionCode": 420001010
     },
     "web": {
       "favicon": "./mobile-app/app/assets/images/favicon.png"

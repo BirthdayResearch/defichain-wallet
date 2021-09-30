@@ -16,7 +16,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Animated, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { ThemedActivityIndicator, ThemedIcon, ThemedText } from '../themed'
-import * as Linking from 'expo-linking'
+import { openURL } from '@api/linking'
 
 const MAX_AUTO_RETRY = 1
 const MAX_TIMEOUT = 300000
@@ -25,10 +25,7 @@ const INTERVAL_TIME = 5000
 async function gotoExplorer (txUrl: string): Promise<void> {
   // TODO(thedoublejay) explorer URL
   // TODO (future improvement): this page should support in mempool, to be confirm
-  const supported = await Linking.canOpenURL(txUrl)
-  if (supported) {
-    await Linking.openURL(txUrl)
-  }
+  await openURL(txUrl)
 }
 
 async function broadcastTransaction (tx: CTransactionSegWit, client: WhaleApiClient, retries: number = 0): Promise<string> {
