@@ -19,8 +19,7 @@ import NumberFormat from 'react-number-format'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
 import { MaterialIcons } from '@expo/vector-icons'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { Linking } from 'react-native'
+import { Linking, TouchableOpacity } from 'react-native'
 import { useDeFiScanContext } from '@contexts/DeFiScanContext'
 
 interface TokenActionItems {
