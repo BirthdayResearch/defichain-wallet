@@ -43,16 +43,19 @@ context('Wallet - Token Detail', () => {
     cy.getByTestID('convert_button').should('not.exist')
   })
 
-  it.only('should not able to redirect to defiscan for utxoDFI', function () {
+  it('should able to redirect to defiscan for utxoDFI', function () {
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
     cy.getByTestID('balances_row_0_utxo').should('exist')
     cy.getByTestID('balances_row_0_utxo_amount').contains(10)
     cy.getByTestID('balances_row_0_utxo').click().wait(3000)
-    cy.getByTestID('token_detail_explorer_url').should('not.exist')
+    cy.getByTestID('token_detail_explorer_url').should('exist')
+    cy.getByTestID('token_detail_explorer_url').click().wait(3000)
+    cy.url().should('include', 'https://defiscan.live/tokens/0')
+    cy.go('back')
   })
 
-  it.only('should able to redirect to defiscan for BTC', function () {
+  it('should able to redirect to defiscan for BTC', function () {
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
     cy.getByTestID('balances_row_1').should('exist')
