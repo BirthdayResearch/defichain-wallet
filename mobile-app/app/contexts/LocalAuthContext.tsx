@@ -117,13 +117,7 @@ export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>)
             return 'device\'s lock'
 
           case SecurityLevel.BIOMETRIC:
-            if (biometricHardwares.includes(AuthenticationType.FACIAL_RECOGNITION)) {
-              return 'face recognition'
-            } else if (biometricHardwares.includes(AuthenticationType.FINGERPRINT)) {
-              return 'fingerprint'
-            } else {
-              return 'iris scan'
-            }
+            return 'biometric'
         }
       } else {
         // no-op: does not handle other devices

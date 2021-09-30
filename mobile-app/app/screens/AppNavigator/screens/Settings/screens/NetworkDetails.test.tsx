@@ -16,6 +16,14 @@ jest.mock('../../../../../contexts/NetworkContext', () => ({
   }
 }))
 
+jest.mock('../../../../../contexts/DeFiScanContext', () => ({
+  useDeFiScanContext: () => {
+    return {
+      getBlocksUrl: jest.fn
+    }
+  }
+}))
+
 jest.mock('dayjs', () => () => ({ format: () => 'Sep 14, 9:07 pm' }))
 
 describe('NetworkDetails', () => {
