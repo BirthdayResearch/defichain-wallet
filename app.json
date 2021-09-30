@@ -34,7 +34,35 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.defichain.app",
-      "versionCode": 420001011
+      "versionCode": 420001011,
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": [
+            {
+              "scheme": "https",
+              "host": "www.youtube.com",
+              "pathPrefix": "/channel/"
+            },
+            {
+              "scheme": "https",
+              "host": "*.twitter.com"
+            },
+            {
+              "scheme": "https",
+              "host": "*.reddit.com"
+            },
+            {
+              "scheme": "https",
+              "host": "*.github.com"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ]
     },
     "web": {
       "favicon": "./mobile-app/app/assets/images/favicon.png"
