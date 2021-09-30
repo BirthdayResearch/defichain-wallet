@@ -19,6 +19,9 @@ import NumberFormat from 'react-number-format'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
 import { MaterialIcons } from '@expo/vector-icons'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { Linking } from 'react-native'
+import { useDeFiScanContext } from '@contexts/DeFiScanContext'
 
 interface TokenActionItems {
   title: string
@@ -94,6 +97,12 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
 
 function TokenSummary (props: { token: WalletToken}): JSX.Element {
   const Icon = getNativeIcon(props.token.avatarSymbol)
+  const { getTokenUrl } = useDeFiScanContext()
+
+  const onTokenUrlPressed = async (): Promise<void> => {
+    const url = getTokenUrl(props.token.id)
+    await Linking.openURL(url)
+  }
 
   return (
     <ThemedView
@@ -103,12 +112,39 @@ function TokenSummary (props: { token: WalletToken}): JSX.Element {
     >
       <View style={tailwind('flex-row items-center mb-1')}>
         <Icon height={24} width={24} style={tailwind('mr-2')} />
-        <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
-        >
-          {props.token.name}
-        </ThemedText>
+        {props.token.id === '0_utxo'
+        ? (
+          <ThemedText
+            light={tailwind('text-gray-500')}
+            dark={tailwind('text-gray-400')}
+          >
+            {props.token.name}
+          </ThemedText>
+            )
+        : (
+          <TouchableOpacity
+            onPress={onTokenUrlPressed}
+            testID='token_detail_explorer_url'
+          >
+            <View style={tailwind('flex-row items-center')}>
+              <ThemedText
+                dark={tailwind('text-darkprimary-500')}
+                light={tailwind('text-primary-500')}
+              >
+                {props.token.name}
+              </ThemedText>
+              <View style={tailwind('ml-2 flex-grow-0 justify-center')}>
+                <ThemedIcon
+                  dark={tailwind('text-darkprimary-500')}
+                  iconType='MaterialIcons'
+                  light={tailwind('text-primary-500')}
+                  name='open-in-new'
+                  size={16}
+                />
+              </View>
+            </View>
+          </TouchableOpacity>
+        )}
       </View>
 
       <View style={tailwind('flex-row items-center mb-4')}>
