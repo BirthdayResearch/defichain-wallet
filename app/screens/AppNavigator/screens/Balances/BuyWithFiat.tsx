@@ -49,10 +49,11 @@ export function BuyWithFiat (): JSX.Element {
 
   async function onMessageSigned (signature: Buffer): Promise<void> {
     const sig = signature.toString('base64')
+    const walletId = 1
     const lang = language.split('-').find(() => true) ?? 'de'
     const baseUrl = getEnvironment().dfxPaymentUrl
 
-    const url = `${baseUrl}/login?address=${encodeURIComponent(address)}&signature=${encodeURIComponent(sig)}&walletId=0&lang=${lang}`
+    const url = `${baseUrl}/login?address=${encodeURIComponent(address)}&signature=${encodeURIComponent(sig)}&walletId=${walletId}&lang=${lang}`
     await Linking.openURL(url)
   }
 
