@@ -20,6 +20,7 @@ import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
+import { getNativeIcon } from '@components/icons/assets'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -40,14 +41,10 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     tokenAAmount,
     tokenB,
     tokenBAmount,
-    symbol,
     totalLiquidity
   } = props.route.params.summary
   const pair = props.route.params.pair
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const pairSymbol = (tokenA?.displaySymbol != null && tokenB?.displaySymbol != null)
-    ? `${tokenA?.displaySymbol}-${tokenB?.displaySymbol}`
-    : symbol
   const aToBRate = new BigNumber(tokenB.reserve).div(tokenA.reserve)
   const bToARate = new BigNumber(tokenA.reserve).div(tokenB.reserve)
   const lmTokenAmount = percentage.times(totalLiquidity.token)
@@ -58,6 +55,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       navigation.dispatch(StackActions.popToTop())
     }
   }
+  const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
+  const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
 
   useEffect(() => {
     setIsOnPage(true)
@@ -105,10 +104,24 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     >
       <SummaryTitle
         amount={lmTokenAmount}
-        suffix={` ${pairSymbol}`}
+        suffixType='component'
         testID='text_add_amount'
-        title={translate('screens/ConfirmAddLiq', 'YOU ARE ADDING')}
-      />
+        title={translate('screens/ConfirmAddLiq', 'You are adding')}
+      >
+        <TokenAIcon
+          height={16}
+          width={16}
+          style={tailwind('relative z-10 -mt-2')}
+          testID={`text_add_amount_suffix_${tokenA.displaySymbol}`}
+        />
+
+        <TokenBIcon
+          height={16}
+          width={16}
+          style={tailwind('-ml-2 mt-2 mr-2')}
+          testID={`text_add_amount_suffix_${tokenB.displaySymbol}`}
+        />
+      </SummaryTitle>
 
       <ThemedSectionTitle
         testID='title_add_detail'

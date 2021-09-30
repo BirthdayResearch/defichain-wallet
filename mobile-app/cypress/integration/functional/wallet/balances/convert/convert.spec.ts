@@ -84,8 +84,10 @@ context('Wallet - Convert DFI', () => {
 
     cy.getByTestID('button_continue_convert').click()
 
-    cy.getByTestID('confirm_title').contains('YOU ARE CONVERTING')
-    cy.getByTestID('text_convert_amount').contains('1.00000000 DFI (Token)')
+    cy.getByTestID('confirm_title').contains('You are converting')
+    cy.getByTestID('text_convert_amount').contains('1.00000000')
+    cy.getByTestID('convert_amount_source_suffix').contains('Token')
+    cy.getByTestID('convert_amount_target_suffix').contains('UTXO')
     cy.getByTestID('source_amount').contains('9.00000000')
     cy.getByTestID('source_amount_unit').contains('Token')
     cy.getByTestID('target_amount').contains('21.00000000')
@@ -103,7 +105,9 @@ context('Wallet - Convert DFI', () => {
     cy.getByTestID('text_input_convert_from_input').should('exist')
 
     cy.getByTestID('button_continue_convert').click()
-    cy.getByTestID('text_convert_amount').contains('1.00000000 DFI (UTXO)')
+    cy.getByTestID('text_convert_amount').contains('1.00000000')
+    cy.getByTestID('convert_amount_source_suffix').contains('UTXO')
+    cy.getByTestID('convert_amount_target_suffix').contains('Token')
     cy.getByTestID('source_amount').contains('18.90000000')
     cy.getByTestID('source_amount_unit').contains('UTXO')
     cy.getByTestID('target_amount').contains('11.00000000')
