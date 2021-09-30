@@ -2,11 +2,6 @@
   "build": {
     "release": {
       "releaseChannel": "production"
-    },
-    "preview": {
-      "android": {
-        "buildType": "apk"
-      }
     }
   },
   "submit": {
