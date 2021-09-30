@@ -1,6 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import * as React from 'react'
-import { useCallback } from 'react'
 import { View } from 'react-native'
 import {
   ThemedFlatList,
@@ -96,9 +95,9 @@ function CommunityItemRow ({
   url,
   icon
 }: CommunityItem): JSX.Element {
-  const handlePress = useCallback(async () => {
+  const handlePress = async (): Promise<void> => {
     await openURL(url)
-  }, [url])
+  }
 
   return (
     <ThemedTouchableOpacity
