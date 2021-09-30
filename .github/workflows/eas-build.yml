@@ -17,17 +17,13 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.result }}
     steps:
-      - uses: actions/github-script@441359b1a30438de65712c2fbca0abe4816fa667
+      - uses: actions/checkout@v2.2.0
+        with:
+          fetch-depth: 0 # Required due to the weg Git works, without it this action won't be able to find any or the correct tags
+      - uses: "WyriHaximus/github-action-get-previous-tag@8656db79964f6757c940965c172d371ceedc8a7f"
         id: version
         with:
-          script: |
-            const semver = context.ref.replace('refs/tags/v', '')
-            if (semver.match(/^[0-9]+\.[0-9]+\.[0-9]+$/)) {
-              return semver
-            }
-
-            throw new Error('not semver')
-          result-encoding: string
+          fallback: 1.0.0
 
   eas-build:
     name: EAS Build
@@ -52,7 +48,7 @@ jobs:
       - run: |
           git config --global user.email "github-bot@defichain.com"
           git config --global user.name "defichain-bot"
-          npx standard-version --release-as ${{needs.version.outputs.version}}
+          npx standard-version --release-as ${{needs.version.outputs.tag}}
 
       - name: EAS Build - iOS & Android
         run: eas build --platform all --non-interactive --wait --profile preview
