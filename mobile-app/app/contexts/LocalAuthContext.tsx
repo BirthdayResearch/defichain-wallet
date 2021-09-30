@@ -36,6 +36,8 @@ export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>)
   const [isDeviceProtected, setIsDeviceProtected] = useState<boolean>(false)
   const [isPrivacyLock, setIsPrivacyLock] = useState<boolean>()
   const [isAuthenticating, setIsAuthenticating] = useState<boolean>(false)
+  const [isLocalAuthLoaded, setIsLocalAuthLoaded] = useState<boolean>(false)
+  const [isDevicePersistenceLoaded, setIsDevicePersistenceLoaded] = useState<boolean>(false)
 
   const fetchHardwareStatus = (): void => {
     LocalAuthentication.hasHardwareAsync()
@@ -49,10 +51,12 @@ export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>)
         setBiometricHardwares(await LocalAuthentication.supportedAuthenticationTypesAsync())
         setIsDeviceProtected(security !== SecurityLevel.NONE)
         setHasHardware(hasHardware) // last, also used as flag indicated hardware check completed
+        setIsLocalAuthLoaded(true)
       })
       .catch(error => {
         Logging.error(error)
         setHasHardware(false)
+        setIsLocalAuthLoaded(true)
       })
   }
 
@@ -63,6 +67,9 @@ export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>)
       .catch(error => {
         Logging.error(error)
         setIsPrivacyLock(false)
+      })
+      .finally(() => {
+        setIsDevicePersistenceLoaded(true)
       })
   }, [/* only load from persistence layer once */])
 
@@ -125,7 +132,7 @@ export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>)
     }
   }
 
-  if (isPrivacyLock === undefined) {
+  if (isPrivacyLock === undefined || !(isLocalAuthLoaded && isDevicePersistenceLoaded)) {
     return null
   }
   return (

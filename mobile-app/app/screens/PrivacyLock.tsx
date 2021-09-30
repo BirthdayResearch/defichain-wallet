@@ -49,7 +49,9 @@ export function PrivacyLock (): JSX.Element {
   // this run only ONCE on fresh start
   // isPrivacyLock change in-app should not re-triggered
   useEffect(() => {
-    authenticateOrExit(privacyLock)
+    if (privacyLock.isEnabled) {
+      authenticateOrExit(privacyLock)
+    }
   }, [])
 
   if (privacyLock.isAuthenticating || APP_LAST_ACTIVE.force) {
