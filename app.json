@@ -37,10 +37,24 @@
       "versionCode": 420001010,
       "intentFilters": [
         {
+          "autoVerify": true,
           "action": "VIEW",
           "data": [
             {
-              "scheme": "dfc"
+              "scheme": "https",
+              "host": "*.youtube.com"
+            },
+            {
+              "scheme": "https",
+              "host": "*.twitter.com"
+            },
+            {
+              "scheme": "https",
+              "host": "*.reddit.com"
+            },
+            {
+              "scheme": "https",
+              "host": "*.github.com"
             }
           ],
           "category": [
