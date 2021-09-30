@@ -42,8 +42,17 @@ context('Wallet - Token Detail', () => {
     cy.getByTestID('receive_button').should('exist')
     cy.getByTestID('convert_button').should('not.exist')
   })
+})
+
+context('Wallet - Token Detail Defiscan redirection', () => {
+  beforeEach(function () {
+    cy.createEmptyWallet(true)
+    cy.getByTestID('bottom_tab_settings').click()
+  })
 
   it('should able to redirect to defiscan for utxoDFI', function () {
+    cy.sendDFItoWallet().wait(10000)
+    cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
     cy.getByTestID('balances_row_0_utxo').should('exist')
@@ -56,6 +65,8 @@ context('Wallet - Token Detail', () => {
   })
 
   it('should able to redirect to defiscan for BTC', function () {
+    cy.sendTokenToWallet(['BTC']).wait(10000)
+    cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
     cy.getByTestID('balances_row_1').should('exist')
