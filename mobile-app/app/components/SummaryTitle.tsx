@@ -3,45 +3,68 @@ import React from 'react'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
 import { ThemedText, ThemedView } from './themed'
+import { View } from '.'
+import { ViewProps } from 'react-native'
 
-interface SummaryTitleItems {
+type SummaryTitleProps = React.PropsWithChildren<ViewProps> & ISummaryTitleProps
+type SuffixType = 'text' | 'component'
+
+interface ISummaryTitleProps {
   title: string
   amount: BigNumber
-  suffix: string
+  suffixType: SuffixType
+  suffix?: string
   testID: string
 }
 
-export function SummaryTitle ({ title, amount, suffix, testID }: SummaryTitleItems): JSX.Element {
+export function SummaryTitle (props: SummaryTitleProps): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
       light={tailwind('bg-white border-b border-gray-300')}
-      style={tailwind('flex-col px-4 py-8 mb-4 justify-center items-center')}
+      style={tailwind('flex-col px-4 py-8 mb-4')}
     >
       <ThemedText
         dark={tailwind('text-gray-400')}
         light={tailwind('text-gray-500')}
-        style={tailwind('text-xs')}
+        style={tailwind('text-sm')}
         testID='confirm_title'
       >
-        {title}
+        {props.title}
       </ThemedText>
 
-      <NumberFormat
-        decimalScale={8}
-        displayType='text'
-        renderText={(value) => (
+      <View style={tailwind('flex-row items-center')}>
+        <NumberFormat
+          decimalScale={8}
+          displayType='text'
+          renderText={(value) => (
+            <ThemedText
+              style={tailwind('text-2xl font-bold flex-wrap pr-1')}
+              testID={props.testID}
+            >
+              {value}
+            </ThemedText>
+          )}
+          thousandSeparator
+          value={props.amount.toFixed(8)}
+        />
+
+        {props.suffixType === 'text' &&
           <ThemedText
-            style={tailwind('text-2xl font-bold flex-wrap')}
-            testID={testID}
+            light={tailwind('text-gray-500')}
+            dark={tailwind('text-gray-400')}
+            style={tailwind('font-sm')}
+            testID={`${props.testID}_suffix`}
           >
-            {value}
-          </ThemedText>
-        )}
-        suffix={suffix}
-        thousandSeparator
-        value={amount.toFixed(8)}
-      />
+            {props.suffix}
+          </ThemedText>}
+
+        {
+          props.suffixType === 'component' &&
+          (props.children)
+        }
+
+      </View>
     </ThemedView>
   )
 }

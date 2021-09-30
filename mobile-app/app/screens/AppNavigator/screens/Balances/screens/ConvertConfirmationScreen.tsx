@@ -1,4 +1,4 @@
-import { ThemedScrollView, ThemedSectionTitle } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText } from '@components/themed'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
@@ -76,10 +76,29 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
     <ThemedScrollView style={tailwind('pb-4')}>
       <SummaryTitle
         amount={amount}
-        suffix={` ${mode === 'utxosToAccount' ? 'DFI (UTXO)' : 'DFI (Token)'}`}
+        suffix={mode === 'utxosToAccount' ? 'DFI (UTXO)' : 'DFI (Token)'}
+        suffixType='component'
         testID='text_convert_amount'
-        title={translate('screens/ConvertConfirmScreen', 'YOU ARE CONVERTING')}
-      />
+        title={translate('screens/ConvertConfirmScreen', 'You are converting')}
+      >
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+          style={tailwind('font-sm')}
+          testID='convert_amount_source_suffix'
+        >
+          {sourceUnit}
+        </ThemedText>
+        <ThemedIcon iconType='MaterialIcons' name='arrow-right-alt' size={24} style={tailwind('px-1')} />
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+          style={tailwind('font-sm')}
+          testID='convert_amount_target_suffix'
+        >
+          {targetUnit}
+        </ThemedText>
+      </SummaryTitle>
 
       <ThemedSectionTitle
         testID='title_conversion_detail'

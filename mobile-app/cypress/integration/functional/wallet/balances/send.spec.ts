@@ -144,7 +144,7 @@ context('Wallet - Send', function () {
         cy.getByTestID('amount_input').clear().type('1')
         cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
         cy.getByTestID('send_submit_button').click()
-        cy.getByTestID('confirm_title').contains('YOU ARE SENDING')
+        cy.getByTestID('confirm_title').contains('You are sending')
         // Cancel button
         cy.getByTestID('button_cancel_send').click()
         cy.getByTestID('address_input').should('exist')
@@ -175,7 +175,7 @@ context('Wallet - Send', function () {
       cy.getByTestID('amount_input').clear().type(oldAmount)
       cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
       cy.getByTestID('send_submit_button').click()
-      cy.getByTestID('confirm_title').contains('YOU ARE SENDING')
+      cy.getByTestID('confirm_title').contains('You are sending')
       cy.getByTestID('button_confirm_send').click().wait(3000)
       // Check for authorization page description
       cy.getByTestID('txn_authorization_description')
@@ -197,7 +197,7 @@ context('Wallet - Send', function () {
       // Check address and amount in confirm send page
       cy.getByTestID('address_input').should('have.value', newAddress)
       cy.getByTestID('amount_input').should('have.value', newAmount)
-      cy.getByTestID('confirm_title').contains('YOU ARE SENDING')
+      cy.getByTestID('confirm_title').contains('You are sending')
       cy.getByTestID('button_confirm_send').click().wait(3000)
       // Check for authorization page description
       cy.getByTestID('txn_authorization_description')
@@ -273,8 +273,9 @@ context('Wallet - Send - Max Values', function () {
       cy.getByTestID('MAX_amount_button').click()
       cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
       cy.getByTestID('send_submit_button').click()
-      cy.getByTestID('confirm_title').contains('YOU ARE SENDING')
-      cy.getByTestID('text_send_amount').contains('9.90000000 DFI (UTXO)')
+      cy.getByTestID('confirm_title').contains('You are sending')
+      cy.getByTestID('text_send_amount').contains('9.90000000')
+      cy.getByTestID('text_send_amount_suffix').contains('DFI (UTXO)')
       cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.closeOceanInterface()
       cy.getByTestID('bottom_tab_balances').click()

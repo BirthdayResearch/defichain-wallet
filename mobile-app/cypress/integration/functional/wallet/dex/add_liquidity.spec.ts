@@ -65,7 +65,9 @@ context('Wallet - DEX - Add Liquidity', () => {
   })
 
   it('should have correct confirm info', function () {
-    cy.getByTestID('text_add_amount').contains('2.00000000 dBTC-DFI')
+    cy.getByTestID('text_add_amount').contains('2.00000000')
+    cy.getByTestID('text_add_amount_suffix_dBTC').should('exist')
+    cy.getByTestID('text_add_amount_suffix_DFI').should('exist')
     cy.getByTestID('a_amount_unit').contains('dBTC')
     cy.getByTestID('a_amount').contains('2.00000000')
     cy.getByTestID('b_amount_unit').contains('DFI')
@@ -151,7 +153,9 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
   it('should have updated confirm info', function () {
     cy.getByTestID('token_input_primary').type('10')
     cy.getByTestID('button_continue_add_liq').click()
-    cy.getByTestID('text_add_amount').contains('10.00000000 dBTC-DFI')
+    cy.getByTestID('text_add_amount').contains('10.00000000')
+    cy.getByTestID('text_add_amount_suffix_dBTC').should('exist')
+    cy.getByTestID('text_add_amount_suffix_DFI').should('exist')
     cy.getByTestID('a_amount_unit').contains('dBTC')
     cy.getByTestID('a_amount').contains('10.00000000')
     cy.getByTestID('b_amount_unit').contains('DFI')
@@ -166,7 +170,9 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     const newAmount = '10.00000000'
     cy.getByTestID('token_input_primary').type(oldAmount)
     cy.getByTestID('button_continue_add_liq').click()
-    cy.getByTestID('text_add_amount').contains(`${oldAmount} dBTC-DFI`)
+    cy.getByTestID('text_add_amount').contains(`${oldAmount}`)
+    cy.getByTestID('text_add_amount_suffix_dBTC').should('exist')
+    cy.getByTestID('text_add_amount_suffix_DFI').should('exist')
     cy.getByTestID('a_amount_unit').contains('dBTC')
     cy.getByTestID('a_amount').contains(oldAmount)
     cy.getByTestID('b_amount_unit').contains('DFI')
@@ -184,7 +190,9 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     cy.getByTestID('token_input_primary_clear_button').click()
     cy.getByTestID('token_input_primary').type(newAmount)
     cy.getByTestID('button_continue_add_liq').click()
-    cy.getByTestID('text_add_amount').contains(`${newAmount} dBTC-DFI`)
+    cy.getByTestID('text_add_amount').contains(`${newAmount}`)
+    cy.getByTestID('text_add_amount_suffix_dBTC').should('exist')
+    cy.getByTestID('text_add_amount_suffix_DFI').should('exist')
     cy.getByTestID('a_amount_unit').contains('dBTC')
     cy.getByTestID('a_amount').contains(newAmount)
     cy.getByTestID('b_amount_unit').contains('DFI')
