@@ -5,9 +5,11 @@ import { useNetworkContext } from './NetworkContext'
 interface DeFiScanContextI {
   getTransactionUrl: (txid: string, rawtx?: string) => string
   getBlocksUrl: (blockCount: number) => string
+  getTokenUrl: (tokenId: number | string) => string
 }
 
 const DeFiScanContext = createContext<DeFiScanContextI>(undefined as any)
+const baseDefiScanUrl = 'https://defiscan.live'
 
 export function useDeFiScanContext (): DeFiScanContextI {
   return useContext(DeFiScanContext)
@@ -23,6 +25,9 @@ export function DeFiScanProvider (props: React.PropsWithChildren<any>): JSX.Elem
       },
       getBlocksUrl: (blockCount: number) => {
         return getBlocksURLByNetwork(network, blockCount)
+      },
+      getTokenUrl: (tokenId: number | string) => {
+        return getTokenURLByNetwork(network, tokenId)
       }
     }
   }, [network])
@@ -51,7 +56,7 @@ function getNetworkParams (network: EnvironmentNetwork): string {
 }
 
 function getTxURLByNetwork (network: EnvironmentNetwork, txid: string, rawtx?: string): string {
-  let baseUrl = `https://defiscan.live/transactions/${txid}`
+  let baseUrl = `${baseDefiScanUrl}/transactions/${txid}`
 
   baseUrl += getNetworkParams(network)
 
@@ -67,6 +72,11 @@ function getTxURLByNetwork (network: EnvironmentNetwork, txid: string, rawtx?: s
 }
 
 function getBlocksURLByNetwork (network: EnvironmentNetwork, blockCount: number): string {
-  const baseUrl = `https://defiscan.live/blocks/${blockCount}${getNetworkParams(network)}`
+  const baseUrl = `${baseDefiScanUrl}/blocks/${blockCount}${getNetworkParams(network)}`
+  return baseUrl
+}
+
+function getTokenURLByNetwork (network: EnvironmentNetwork, tokenId: number | string): string {
+  const baseUrl = `${baseDefiScanUrl}/tokens/${tokenId}${getNetworkParams(network)}`
   return baseUrl
 }

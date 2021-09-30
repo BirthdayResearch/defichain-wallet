@@ -7,6 +7,11 @@ import { wallet } from '@store/wallet'
 import { TokenDetailScreen } from './TokenDetailScreen'
 
 jest.mock('../../../../../contexts/ThemeProvider')
+jest.mock('../../../../../contexts/DeFiScanContext', () => ({
+  useDeFiScanContext: () => ({
+    getTokenUrl: jest.fn
+  })
+}))
 jest.mock('../../../../../hooks/wallet/TokensAPI', () => ({
   useTokensAPI: () => [
     {
