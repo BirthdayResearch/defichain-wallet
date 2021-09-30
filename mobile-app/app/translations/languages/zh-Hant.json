@@ -69,7 +69,7 @@
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "確認發出",
-    "YOU ARE SENDING": "您正要發出資金",
+    "You are sending": "您正要發出資金",
     "TRANSACTION DETAILS": "交易明細",
     "Address": "地址",
     "Network": "網絡",
@@ -97,7 +97,7 @@
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "確認要轉換 DFI",
-    "YOU ARE CONVERTING": "您正要轉換",
+    "You are converting": "您正要轉換",
     "AFTER CONVERSION, YOU WILL HAVE:": "轉換後您會有",
     "Estimated fee": "所需費用（大約）",
     "CONVERT": "轉換",
@@ -160,9 +160,7 @@
     "Face ID": "Face ID",
     "Touch ID": "Touch ID",
     "device's lock": "device's lock",
-    "face recognition": "face recognition",
-    "fingerprint": "fingerprint",
-    "iris scan": "iris scan"
+    "biometric": "biometric"
   },
   "screens/AboutScreen": {
     "About": "關於",
@@ -358,7 +356,7 @@
     "Available": "可提供資金"
   },
   "screens/ConfirmAddLiq": {
-    "YOU ARE ADDING": "您正要增加流動資金",
+    "You are adding": "您正要增加流動資金",
     "AMOUNT TO SUPPLY": "提供的流動資金量",
     "TRANSACTION DETAILS": "交易明細",
     "Price": "價格",
@@ -424,7 +422,7 @@
     "Review full transaction details in the next screen": "請在下一步確認交易明細"
   },
   "screens/PoolSwapConfirmScreen": {
-    "YOU ARE SWAPPING": "您正要兌換",
+    "You are swapping": "您正要兌換",
     "ESTIMATED BALANCE AFTER SWAP": "兌換後的總餘額",
     "TRANSACTION DETAILS": "交易明細",
     "Slippage Tolerance": "交易滑價",

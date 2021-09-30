@@ -78,9 +78,9 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           dark={tailwind('text-gray-50')}
           style={tailwind('text-xl font-semibold pr-2')}
         />
-        <TokenAIcon />
+        <TokenAIcon height={24} width={24} />
         <ThemedIcon iconType='MaterialIcons' name='arrow-right-alt' size={24} style={tailwind('px-1')} />
-        <TokenBIcon />
+        <TokenBIcon height={24} width={24} />
       </ThemedView>
     )
   }

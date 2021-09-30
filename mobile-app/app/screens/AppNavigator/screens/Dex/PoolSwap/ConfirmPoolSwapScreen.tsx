@@ -9,7 +9,7 @@ import { Logging } from '@api'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
-import { ThemedScrollView, ThemedSectionTitle } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedSectionTitle } from '@components/themed'
 import { TokenBalanceRow } from '@components/TokenBalanceRow'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -18,6 +18,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from '../DexNavigator'
 import { DerivedTokenState } from './PoolSwapScreen'
+import { getNativeIcon } from '@components/icons/assets'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmPoolSwapScreen'>
 
@@ -41,6 +42,8 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
       navigation.dispatch(StackActions.popToTop())
     }
   }
+  const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
+  const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
 
   useEffect(() => {
     setIsOnPage(true)
@@ -68,10 +71,14 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
     <ThemedScrollView style={tailwind('pb-4')}>
       <SummaryTitle
         amount={swap.fromAmount}
-        suffix={` ${tokenA.displaySymbol}`}
+        suffixType='component'
         testID='text_swap_amount'
-        title={translate('screens/PoolSwapConfirmScreen', 'YOU ARE SWAPPING')}
-      />
+        title={translate('screens/PoolSwapConfirmScreen', 'You are swapping')}
+      >
+        <TokenAIcon height={24} width={24} style={tailwind('ml-1')} />
+        <ThemedIcon iconType='MaterialIcons' name='arrow-right-alt' size={24} style={tailwind('px-1')} />
+        <TokenBIcon height={24} width={24} />
+      </SummaryTitle>
 
       <ThemedSectionTitle
         testID='title_swap_detail'

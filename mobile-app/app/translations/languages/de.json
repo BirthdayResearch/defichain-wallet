@@ -69,7 +69,7 @@
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Senden bestätigen",
-    "YOU ARE SENDING": "DU SENDEST",
+    "You are sending": "Du sendest",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Address": "Adresse",
     "Network": "Netzwerk",
@@ -97,7 +97,7 @@
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Bestätige DFI Konvertierung",
-    "YOU ARE CONVERTING": "DU WANDELST UM",
+    "You are converting": "Du wandelst um",
     "AFTER CONVERSION, YOU WILL HAVE:": "NACH DER KONVERTIERUNG ERHÄLTST DU:",
     "Estimated fee": "Geschätzte Gebühr",
     "CONVERT": "UMWANDELN",
@@ -155,14 +155,12 @@
     "Privacy Lock": "App-Passwortschutz",
     "Auto-locks wallet if there is no activity for 1 min.": "Automatische Wallet-Sperre bei 1 Min. Inaktivität",
     "Push notifications": "Push-Benachrichtigungen",
-    "Secure with {{option}}": "Secure with {{option}}",
+    "Secure with {{option}}": "Sichern durch {{option}}",
     "device's passcode": "device's passcode",
     "Face ID": "Face ID",
     "Touch ID": "Touch ID",
-    "device's lock": "device's lock",
-    "face recognition": "face recognition",
-    "fingerprint": "fingerprint",
-    "iris scan": "iris scan"
+    "device's lock": "Gerätesperre",
+    "biometric": "biometrische"
   },
   "screens/AboutScreen": {
     "About": "Über",
@@ -356,7 +354,7 @@
     "Available": "Verfügbar"
   },
   "screens/ConfirmAddLiq": {
-    "YOU ARE ADDING": "DU FÜGST HINZU",
+    "You are adding": "Du fügst hinzu",
     "AMOUNT TO SUPPLY": "FÜGE SUMME HINZU",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Price": "Preis",
@@ -422,7 +420,7 @@
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion"
   },
   "screens/PoolSwapConfirmScreen": {
-    "YOU ARE SWAPPING": "DU TAUSCHST",
+    "You are swapping": "Du tauschst",
     "ESTIMATED BALANCE AFTER SWAP": "GESCHÄTZTES GUTHABEN NACH DEM TAUSCH",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Slippage Tolerance": "Slippage Toleranz",
