@@ -172,7 +172,8 @@ export function AboutScreen (): JSX.Element {
 }
 
 async function openURL (url: string): Promise<void> {
-  const supported = await Linking.canOpenURL(url)
+  const createdURL = Linking.createURL(url)
+  const supported = await Linking.canOpenURL(createdURL)
   if (supported) {
     await Linking.openURL(url)
   } else {

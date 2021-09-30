@@ -37,12 +37,12 @@
       "versionCode": 420001010,
       "intentFilters": [
         {
-          "autoVerify": true,
           "action": "VIEW",
           "data": [
             {
               "scheme": "https",
-              "host": "*.youtube.com"
+              "host": "www.youtube.com",
+              "pathPrefix": "/channel/"
             },
             {
               "scheme": "https",
