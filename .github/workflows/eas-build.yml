@@ -29,7 +29,8 @@ jobs:
         id: version
         with:
           script: |
-            const semver = ${{steps.previoustag.outputs.tag}}.toString().replace('v', '')
+            const tag = '' + ${{steps.previoustag.outputs.tag}}
+            const semver = tag.replace('v', '')
             if (semver.match(/^[0-9]+\.[0-9]+\.[0-9]+$/)) {
               return semver
             }
