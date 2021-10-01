@@ -387,31 +387,49 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount }: SwapSummaryIte
   const priceA = new BigNumber(reserveA).div(reserveB).toFixed(8)
   const priceB = new BigNumber(reserveB).div(reserveA).toFixed(8)
   const estimated = calculateEstimatedAmount(tokenAAmount, reserveA, priceB).toFixed(8)
+  const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
+  const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
+
   return (
     <View style={tailwind('mt-4')}>
+      <ThemedSectionTitle
+        testID='title_add_detail'
+        text={translate('screens/AddLiquidity', 'TRANSACTION DETAILS')}
+        style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
+      />
       <NumberRow
-        lhs={translate('screens/PoolSwapScreen', 'Price')}
+        lhs={translate('screens/PoolSwapScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
         rightHandElements={[{
           testID: 'price_a',
           value: priceA,
-          suffix: ` ${tokenA.displaySymbol} per ${tokenB.displaySymbol}`
-        }, {
+          suffixType: 'component'
+        }]}
+      >
+        <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
+      <NumberRow
+        lhs={translate('screens/PoolSwapScreen', '{{tokenB}} price per {{tokenA}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
+        rightHandElements={[{
           testID: 'price_b',
           value: priceB,
-          suffix: ` ${tokenB.displaySymbol} per ${tokenA.displaySymbol}`
+          suffixType: 'component'
         }]}
-      />
+      >
+        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
 
       <NumberRow
         lhs={translate('screens/PoolSwapScreen', 'Estimated to receive')}
         rightHandElements={[
           {
             value: estimated,
-            suffix: ` ${tokenB.displaySymbol}`,
-            testID: 'estimated'
+            testID: 'estimated',
+            suffixType: 'component'
           }
         ]}
-      />
+      >
+        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
     </View>
   )
 }
