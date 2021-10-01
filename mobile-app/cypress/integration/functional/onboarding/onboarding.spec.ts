@@ -76,3 +76,25 @@ context('Onboarding - Welcome Page', () => {
     })
   })
 })
+
+context('Onboarding - Guidelines Page', () => {
+  THEMES.forEach((theme) => {
+    it(`should match guidelines ${theme} snapshot`, function () {
+      cy.visit('/')
+      cy.setTheme(theme)
+      cy.getByTestID('create_wallet_button').click()
+      cy.getByTestID('main_screen').compareSnapshot(`onboarding-guidelines-screen-${theme}`, 0.2)
+    })
+  })
+})
+
+context('Onboarding - Recovery Page', () => {
+  THEMES.forEach((theme) => {
+    it(`should match guidelines ${theme} snapshot`, function () {
+      cy.visit('/')
+      cy.setTheme(theme)
+      cy.getByTestID('restore_wallet_button').click()
+      cy.getByTestID('main_screen').compareSnapshot(`onboarding-recovery-screen-${theme}`, 0.2)
+    })
+  })
+})
