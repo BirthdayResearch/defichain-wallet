@@ -15,6 +15,9 @@
     "cypress/no-unnecessary-waiting": "off",
     "cypress/assertion-before-screenshot": "warn",
     "cypress/no-force": "error",
-    "cypress/no-async-tests": "error"
+    "cypress/no-async-tests": "error",
+    "@typescript-eslint/method-signature-style": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/no-var-requires": "off"
   }
 }

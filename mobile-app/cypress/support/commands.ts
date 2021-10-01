@@ -2,7 +2,8 @@ import '@testing-library/cypress/add-commands'
 import './onboardingCommands'
 import './walletCommands'
 
-// @ts-ignore
+export const THEMES = ['light', 'dark']
+// @ts-expect-error
 const compareSnapshotCommand = require('cypress-image-diff-js/dist/command')
 compareSnapshotCommand()
 
@@ -107,6 +108,11 @@ declare global {
        * @description Compare snapshot from image
        */
       compareSnapshot (element?: string): Chainable<Element>
+
+      /**
+       * @description Set theme
+       */
+      setTheme (theme: string): Chainable<Element>
     }
   }
 }
@@ -156,21 +162,27 @@ Cypress.Commands.add('fetchWalletBalance', () => {
 
 Cypress.Commands.add('switchNetwork', (network: string) => {
   cy.getByTestID('bottom_tab_settings').click()
-	cy.getByTestID('button_selected_network').click()
+  cy.getByTestID('button_selected_network').click()
   cy.getByTestID(`button_network_${network}`).click()
-	cy.on('window:confirm', () => {})
+  cy.on('window:confirm', () => {
+  })
 })
 
-let LOCAL_STORAGE_MEMORY = {};
+const LOCAL_STORAGE_MEMORY = {}
 
 Cypress.Commands.add('saveLocalStorage', () => {
   Object.keys(localStorage).forEach(key => {
-    LOCAL_STORAGE_MEMORY[key] = localStorage[key];
-  });
-});
+    LOCAL_STORAGE_MEMORY[key] = localStorage[key]
+  })
+})
 
 Cypress.Commands.add('restoreLocalStorage', () => {
   Object.keys(LOCAL_STORAGE_MEMORY).forEach(key => {
-    localStorage.setItem(key, LOCAL_STORAGE_MEMORY[key]);
-  });
-});
+    localStorage.setItem(key, LOCAL_STORAGE_MEMORY[key])
+  })
+})
+
+Cypress.Commands.add('setTheme', (theme: string) => {
+  localStorage.setItem('WALLET.THEME', theme)
+  cy.reload().wait(5000)
+})

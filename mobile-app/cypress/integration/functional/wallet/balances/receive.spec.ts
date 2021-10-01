@@ -1,3 +1,5 @@
+import { THEMES } from '../../../../support/commands'
+
 context('Wallet - Receive', () => {
   before(function () {
     cy.createEmptyWallet(true)
@@ -36,5 +38,18 @@ context('Wallet - Receive - QR Code - Check', () => {
 
   it('should match QR code', function () {
     cy.getByTestID('qr_code_container').compareSnapshot('qr-code-container')
+  })
+})
+
+context('Wallet - Receive - Snapshot - Check', () => {
+  THEMES.forEach((theme) => {
+    it(`should match ${theme} snapshot`, function () {
+      cy.createEmptyWallet()
+      cy.setTheme(theme)
+      cy.getByTestID('balances_list').should('exist')
+      cy.getByTestID('balances_row_0_utxo').click()
+      cy.getByTestID('receive_button').click()
+      cy.getByTestID('main_screen').compareSnapshot(`receive-screen-${theme}`)
+    })
   })
 })

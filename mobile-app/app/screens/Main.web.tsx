@@ -13,7 +13,7 @@ export function Main (): JSX.Element {
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
   return (
     <View style={tailwind('flex-row flex-1 justify-center items-center bg-black')}>
-      <View style={styles.phone}>
+      <View style={styles.phone} testID='main_screen'>
         <RootNavigator />
       </View>
 
