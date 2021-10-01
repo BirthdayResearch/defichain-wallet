@@ -72,7 +72,7 @@ context('Onboarding - Welcome Page', () => {
     it(`should match ${theme} snapshot`, function () {
       cy.visit('/')
       cy.setTheme(theme)
-      cy.getByTestID('main_screen').compareSnapshot(`onboarding-welcome-screen-${theme}`)
+      cy.getByTestID('main_screen').compareSnapshot(`onboarding-welcome-screen-${theme}`, 0.2)
     })
   })
 })

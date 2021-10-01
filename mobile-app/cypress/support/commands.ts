@@ -107,7 +107,7 @@ declare global {
       /**
        * @description Compare snapshot from image
        */
-      compareSnapshot (element?: string): Chainable<Element>
+      compareSnapshot (element?: string, threshold?: number): Chainable<Element>
 
       /**
        * @description Set theme

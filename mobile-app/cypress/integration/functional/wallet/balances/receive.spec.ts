@@ -49,7 +49,7 @@ context('Wallet - Receive - Snapshot - Check', () => {
       cy.getByTestID('balances_list').should('exist')
       cy.getByTestID('balances_row_0_utxo').click()
       cy.getByTestID('receive_button').click()
-      cy.getByTestID('main_screen').compareSnapshot(`receive-screen-${theme}`)
+      cy.getByTestID('main_screen').compareSnapshot(`receive-screen-${theme}`, 0.2)
     })
   })
 })
