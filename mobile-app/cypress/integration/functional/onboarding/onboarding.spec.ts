@@ -1,3 +1,5 @@
+import { THEMES } from '../../../support/commands'
+
 context('Onboarding', () => {
   beforeEach(function () {
     cy.visit('/')
@@ -62,5 +64,15 @@ context('Onboarding', () => {
       expect(message).to.include('Playground')
     })
     cy.getByTestID('header_active_network').contains('Playground')
+  })
+})
+
+context('Onboarding - Welcome Page', () => {
+  THEMES.forEach((theme) => {
+    it(`should match ${theme} snapshot`, function () {
+      cy.visit('/')
+      cy.setTheme(theme)
+      cy.getByTestID('main_screen').compareSnapshot(`onboarding-welcome-screen-${theme}`)
+    })
   })
 })
