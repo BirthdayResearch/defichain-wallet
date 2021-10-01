@@ -22,8 +22,8 @@ jobs:
         id: version
         with:
           script: |
-            const date = new Date()
-            const build = '0.0.' + date.toISOString().replace(/[^0-9]/g, '')
+            const [date] = new Date().toISOString().split('T')
+            const build = '0.0.' + date.replace(/[^0-9]/g, '')
             console.log(build)
             return build
 
