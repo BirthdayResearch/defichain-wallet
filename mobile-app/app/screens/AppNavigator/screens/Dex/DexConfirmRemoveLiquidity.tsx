@@ -18,6 +18,7 @@ import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
+import { getNativeIcon } from '@components/icons/assets'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmRemoveLiquidity'>
 
@@ -40,6 +41,9 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
+  const TokenAIcon = getNativeIcon(pair.tokenA.displaySymbol)
+  const TokenBIcon = getNativeIcon(pair.tokenB.displaySymbol)
+  const FeeToken = getNativeIcon('DFI')
 
   const postAction = (): void => {
     if (isOnPage) {
@@ -112,25 +116,36 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
       />
 
       <NumberRow
-        lhs={translate('screens/ConfirmRemoveLiquidity', 'Price')}
+        lhs={translate('screens/ConfirmRemoveLiquidity', '{{tokenB}} price per {{tokenA}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
         rightHandElements={[
-          {
-            value: aToBRate.toFixed(8),
-            suffix: ` ${pair?.tokenB?.displaySymbol} per ${pair?.tokenA?.displaySymbol}`,
-            testID: 'price_a'
-          },
-          {
-            value: bToARate.toFixed(8),
-            suffix: ` ${pair?.tokenA?.displaySymbol} per ${pair?.tokenB?.displaySymbol}`,
-            testID: 'price_b'
-          }
-        ]}
-      />
+            {
+              value: aToBRate.toFixed(8),
+              testID: 'price_a',
+              suffixType: 'component'
+            }
+          ]}
+      >
+        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
+      <NumberRow
+        lhs={translate('screens/ConfirmRemoveLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
+        rightHandElements={[
+            {
+              value: bToARate.toFixed(8),
+              testID: 'price_b',
+              suffixType: 'component'
+            }
+          ]}
+      >
+        <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
 
       <NumberRow
         lhs={translate('screens/ConfirmRemoveLiquidity', 'Estimated fee')}
-        rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
-      />
+        rightHandElements={[{ value: fee.toFixed(8), testID: 'text_fee', suffixType: 'component' }]}
+      >
+        <FeeToken width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
