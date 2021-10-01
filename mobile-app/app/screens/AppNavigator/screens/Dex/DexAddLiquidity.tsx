@@ -212,7 +212,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
   return (
     <View style={tailwind('flex-col w-full mt-4')}>
       <ThemedSectionTitle
-        testID='title_add_detail'
+        testID='title_price_detail'
         text={translate('screens/AddLiquidity', 'PRICE DETAILS')}
         style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
       />
