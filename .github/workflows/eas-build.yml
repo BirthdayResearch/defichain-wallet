@@ -3,6 +3,8 @@ name: EAS Build
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
@@ -15,24 +17,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
-        with:
-          fetch-depth: 0 # Required due to the weg Git works, without it this action won't be able to find any or the correct tags
-
-      - uses: "WyriHaximus/github-action-get-previous-tag@8656db79964f6757c940965c172d371ceedc8a7f"
-        id: previoustag
-        with:
-          fallback: 1.0.0
 
       - uses: actions/github-script@441359b1a30438de65712c2fbca0abe4816fa667
         id: version
         with:
           script: |
-            const semver = '${{steps.previoustag.outputs.tag}}'.replace('v', '')
-            if (semver.match(/^[0-9]+\.[0-9]+\.[0-9]+$/)) {
-              return semver
-            }
+            const [date] = new Date().toISOString().split('T')
+            const build = '0.0.' + date.replace(/[^0-9]/g, '')
+            console.log(build)
+            return build
 
-            throw new Error('not semver')
           result-encoding: string
 
       - uses: actions/setup-node@270253e841af726300e85d718a5f606959b2903c

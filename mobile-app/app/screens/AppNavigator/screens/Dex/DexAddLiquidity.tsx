@@ -169,7 +169,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
       <WalletTextInput
         onChangeText={txt => props.onChange(txt)}
         placeholder={translate('screens/AddLiquidity', 'Enter an amount')}
-        style={tailwind('flex-1')}
+        style={tailwind('flex-grow w-2/5')}
         testID={`token_input_${props.type}`}
         value={props.current}
         title={translate('screens/AddLiquidity', 'How much {{symbol}} to supply?', { symbol: props.symbol })}
