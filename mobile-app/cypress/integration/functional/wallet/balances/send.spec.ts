@@ -8,7 +8,8 @@ context('Wallet - Send', function () {
     const network = localStorage.getItem('Development.NETWORK')
     whale = new WhaleApiClient({
       url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
-      network: 'regtest'
+      network: 'regtest',
+      version: 'v0'
     })
   })
 
@@ -255,7 +256,8 @@ context('Wallet - Send - Max Values', function () {
     const network = localStorage.getItem('Development.NETWORK')
     whale = new WhaleApiClient({
       url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
-      network: 'regtest'
+      network: 'regtest',
+      version: 'v0'
     })
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().wait(3000)
