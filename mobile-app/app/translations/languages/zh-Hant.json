@@ -410,7 +410,10 @@
     "Price": "價格",
     "Estimated to receive": "您大約會收到",
     "Balance: ": "總資產餘額: ",
-    "Review full transaction details in the next screen": "請在下一步確認交易明細"
+    "Review full transaction details in the next screen": "請在下一步確認交易明細",
+    "TRANSACTION DETAILS": "交易明細",
+    "Estimated fee": "所需費用（大約）",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "您正要兌換",
@@ -421,7 +424,9 @@
     "SWAP": "兌換",
     "SWAPPING": "兌換",
     "Swapping Token": "兌換代幣",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兌換 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}"
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兌換 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "{{token}} balance": "{{token}} balance"
   },
   "screens/UnlockWallet": {
     "Enter passcode": "請輸入密碼",

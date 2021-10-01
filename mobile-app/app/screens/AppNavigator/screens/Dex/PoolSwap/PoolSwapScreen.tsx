@@ -401,7 +401,7 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee }: SwapSumma
     <View style={tailwind('mt-4')}>
       <ThemedSectionTitle
         testID='title_add_detail'
-        text={translate('screens/AddLiquidity', 'TRANSACTION DETAILS')}
+        text={translate('screens/PoolSwapScreen', 'TRANSACTION DETAILS')}
         style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
       />
       <NumberRow

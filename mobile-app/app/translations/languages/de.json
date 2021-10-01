@@ -407,7 +407,10 @@
     "Price": "Preis",
     "Estimated to receive": "Vorraussichtlich wird empfangen",
     "Balance: ": "Guthaben: ",
-    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion"
+    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "Estimated fee": "Geschätzte Gebühr",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Du tauschst",
@@ -418,7 +421,9 @@
     "SWAP": "TAUSCHE",
     "SWAPPING": "WIRD GETAUSCHT",
     "Swapping Token": "Tausche Token",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}"
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "{{token}} balance": "{{token}} balance"
   },
   "screens/UnlockWallet": {
     "Enter passcode": "Passworteingabe",

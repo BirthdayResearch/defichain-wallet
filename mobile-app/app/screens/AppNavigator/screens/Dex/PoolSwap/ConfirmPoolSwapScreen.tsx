@@ -122,7 +122,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         }]}
       />
       <NumberRow
-        lhs={translate('screens/PoolSwapScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
+        lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
         rightHandElements={[{
           testID: 'price_a',
           value: priceRateA,
@@ -132,7 +132,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
       <NumberRow
-        lhs={translate('screens/PoolSwapScreen', '{{tokenB}} price per {{tokenA}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
+        lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenB}} price per {{tokenA}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
         rightHandElements={[{
           testID: 'price_b',
           value: priceRateB,
