@@ -110,10 +110,7 @@ function ClearButton (props: {onPress?: () => void, testID?: string}): JSX.Eleme
       <ThemedView
         light={tailwind('bg-gray-800')}
         dark={tailwind('bg-gray-100')}
-        style={[
-          tailwind('top-2 left-3 rounded-full absolute w-9/12 -z-1', { 'w-5/12': Platform.OS === 'web' }),
-          { height: 16 }
-        ]}
+        style={tailwind('top-2 left-3 rounded-full absolute w-9/12 h-4 -z-1', { 'w-5/12': Platform.OS === 'web' })}
       />
       <ThemedIcon
         iconType='MaterialIcons'
