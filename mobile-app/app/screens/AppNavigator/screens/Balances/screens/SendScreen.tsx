@@ -170,7 +170,7 @@ function AddressRow ({
               multiline
               onChangeText={onChange}
               placeholder={translate('screens/SendScreen', 'Paste wallet address here')}
-              style={tailwind('w-4/5 flex-grow pb-1')}
+              style={tailwind('w-3/5 flex-grow pb-1')}
               testID='address_input'
               value={value}
               displayClearButton={value !== defaultValue}
@@ -235,7 +235,7 @@ function AmountRow ({ token, control, setValue, onAmountButtonPress }: AmountFor
               autoCapitalize='none'
               onChangeText={onChange}
               placeholder={translate('screens/SendScreen', 'Enter an amount')}
-              style={tailwind('flex-1 items-baseline')}
+              style={tailwind('flex-grow w-2/5')}
               testID='amount_input'
               value={value}
               displayClearButton={value !== defaultValue}
