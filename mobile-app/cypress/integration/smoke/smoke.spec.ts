@@ -131,7 +131,7 @@ context('Mainnet - Wallet', () => {
         symbol: 'DFI (Token)'
       }, true)
       cy.checkBalanceRow('7', {
-        name: 'Playground ETH-Default Defi token',
+        name: 'Playground ETH-DeFiChain',
         amount: '10.00000000',
         symbol: 'dETH-DFI'
       })
