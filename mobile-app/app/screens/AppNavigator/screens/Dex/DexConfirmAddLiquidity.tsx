@@ -13,7 +13,6 @@ import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
 import { ThemedScrollView, ThemedSectionTitle } from '@components/themed'
-import { TokenBalanceRow } from '@components/TokenBalanceRow'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
@@ -57,6 +56,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   }
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
+  const FeeIcon = getNativeIcon('DFI')
 
   useEffect(() => {
     setIsOnPage(true)
@@ -128,72 +128,93 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         text={translate('screens/ConfirmAddLiq', 'AMOUNT TO SUPPLY')}
       />
 
-      <TokenBalanceRow
-        iconType={tokenA?.displaySymbol}
-        lhs={tokenA?.displaySymbol}
-        rhs={{
+      <NumberRow
+        lhs={tokenA.displaySymbol}
+        rightHandElements={[{
+          testID: 'a_amount',
           value: BigNumber.max(tokenAAmount, 0).toFixed(8),
-          testID: 'a_amount'
-        }}
-      />
-
-      <TokenBalanceRow
-        iconType={tokenB?.displaySymbol}
-        lhs={tokenB?.displaySymbol}
-        rhs={{
+          suffixType: 'component'
+        }]}
+      >
+        <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
+      <NumberRow
+        lhs={tokenB.displaySymbol}
+        rightHandElements={[{
+          testID: 'b_amount',
           value: BigNumber.max(tokenBAmount, 0).toFixed(8),
-          testID: 'b_amount'
-        }}
+          suffixType: 'component'
+        }]}
+      >
+        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
+
+      <ThemedSectionTitle
+        testID='title_tx_detail'
+        text={translate('screens/ConfirmAddLiq', 'PRICE DETAILS')}
       />
+      <NumberRow
+        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
+        rightHandElements={[
+          {
+            value: aToBRate.toFixed(8),
+            testID: 'price_a',
+            suffixType: 'component'
+          }
+        ]}
+      >
+        <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
+      <NumberRow
+        lhs={translate('screens/ConfirmAddLiq', '{{tokenB}} price per {{tokenA}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
+        rightHandElements={[
+          {
+            value: bToARate.toFixed(8),
+            testID: 'price_b',
+            suffixType: 'component'
+          }
+        ]}
+      >
+        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
 
       <ThemedSectionTitle
         testID='title_tx_detail'
         text={translate('screens/ConfirmAddLiq', 'TRANSACTION DETAILS')}
       />
-
-      <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Price')}
-        rightHandElements={[
-          {
-            value: aToBRate.toFixed(8),
-            suffix: ` ${tokenB?.displaySymbol} per ${tokenA?.displaySymbol}`,
-            testID: 'price_a'
-          },
-          {
-            value: bToARate.toFixed(8),
-            suffix: ` ${tokenA?.displaySymbol} per ${tokenB?.displaySymbol}`,
-            testID: 'price_b'
-          }
-        ]}
-      />
-
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Share of pool')}
-        rightHandElements={[{ value: percentage.times(100).toFixed(8), suffix: '%', testID: 'percentage_pool' }]}
+        rightHandElements={[{ value: percentage.times(100).toFixed(8), suffix: '%', testID: 'percentage_pool', suffixType: 'text' }]}
       />
 
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${tokenA?.displaySymbol}` })}
+        lhs={translate('screens/ConfirmAddLiq', 'Your pooled {{symbol}}', { symbol: `${tokenA?.displaySymbol}` })}
         rightHandElements={[{
           value: tokenA.reserve,
-          suffix: ` ${tokenA.displaySymbol}`,
-          testID: 'pooled_a'
+          testID: 'pooled_a',
+          suffixType: 'component'
         }]}
-      />
+      >
+        <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
 
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${tokenB?.displaySymbol}` })}
+        lhs={translate('screens/ConfirmAddLiq', 'Your pooled {{symbol}}', { symbol: `${tokenB?.displaySymbol}` })}
         rightHandElements={[{
           value: tokenB.reserve,
-          suffix: ` ${tokenB.displaySymbol}`,
-          testID: 'pooled_b'
+          testID: 'pooled_b',
+          suffixType: 'component'
         }]}
-      />
+      >
+        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
 
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Estimated fee')}
-        rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
-      />
+        rightHandElements={[{ value: fee.toFixed(8), testID: 'text_fee', suffixType: 'component' }]}
+      >
+        <FeeIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
