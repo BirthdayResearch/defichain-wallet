@@ -250,6 +250,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
             tokenAAmount={getValues()[tokenAForm]}
             tokenB={tokenB}
             tokenBAmount={getValues()[tokenBForm]}
+            fee={fee.toFixed(8)}
           />
       }
 
@@ -379,9 +380,10 @@ interface SwapSummaryItems {
   tokenB: DerivedTokenState
   tokenAAmount: string
   tokenBAmount: string
+  fee: string
 }
 
-function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount }: SwapSummaryItems): JSX.Element {
+function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee }: SwapSummaryItems): JSX.Element {
   const reserveA = getReserveAmount(tokenA.id, poolpair)
   const reserveB = getReserveAmount(tokenB.id, poolpair)
   const priceA = new BigNumber(reserveA).div(reserveB).toFixed(8)
@@ -389,6 +391,7 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount }: SwapSummaryIte
   const estimated = calculateEstimatedAmount(tokenAAmount, reserveA, priceB).toFixed(8)
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
+  const FeeIcon = getNativeIcon('DFI')
 
   return (
     <View style={tailwind('mt-4')}>
@@ -417,7 +420,6 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount }: SwapSummaryIte
       >
         <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
-
       <NumberRow
         lhs={translate('screens/PoolSwapScreen', 'Estimated to receive')}
         rightHandElements={[
@@ -429,6 +431,18 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount }: SwapSummaryIte
         ]}
       >
         <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
+      <NumberRow
+        lhs={translate('screens/PoolSwapScreen', 'Estimated fee')}
+        rightHandElements={[
+          {
+            value: fee,
+            testID: 'estimated_fee',
+            suffixType: 'component'
+          }
+        ]}
+      >
+        <FeeIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
     </View>
   )
