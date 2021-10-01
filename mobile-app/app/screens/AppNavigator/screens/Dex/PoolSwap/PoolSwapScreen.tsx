@@ -102,6 +102,8 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
 
     const atA = poolpair.tokenA.id === tokenA?.id ? poolpair.tokenA : poolpair.tokenB
     const atB = poolpair.tokenA.id === tokenB?.id ? poolpair.tokenA : poolpair.tokenB
+    const priceRateA = getPriceRate(getReserveAmount(tokenA.id, poolpair), getReserveAmount(tokenB.id, poolpair))
+    const priceRateB = getPriceRate(getReserveAmount(tokenB.id, poolpair), getReserveAmount(tokenA.id, poolpair))
 
     if (atA !== undefined && atB !== undefined && isValid) {
       const swap = {
@@ -116,7 +118,9 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         swap,
         fee,
         pair: poolpair,
-        slippage
+        slippage,
+        priceRateA,
+        priceRateB
       })
     }
   }
@@ -386,8 +390,8 @@ interface SwapSummaryItems {
 function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee }: SwapSummaryItems): JSX.Element {
   const reserveA = getReserveAmount(tokenA.id, poolpair)
   const reserveB = getReserveAmount(tokenB.id, poolpair)
-  const priceA = new BigNumber(reserveA).div(reserveB).toFixed(8)
-  const priceB = new BigNumber(reserveB).div(reserveA).toFixed(8)
+  const priceA = getPriceRate(reserveA, reserveB)
+  const priceB = getPriceRate(reserveB, reserveA)
   const estimated = calculateEstimatedAmount(tokenAAmount, reserveA, priceB).toFixed(8)
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
@@ -456,4 +460,8 @@ function calculateEstimatedAmount (tokenAAmount: string, reserveA: string, price
 
 function getReserveAmount (id: string, poolpair: PoolPairData): string {
   return id === poolpair.tokenA.id ? poolpair.tokenA.reserve : poolpair.tokenB.reserve
+}
+
+function getPriceRate (reserveA: string, reserveB: string): string {
+  return new BigNumber(reserveA).div(reserveB).toFixed(8)
 }

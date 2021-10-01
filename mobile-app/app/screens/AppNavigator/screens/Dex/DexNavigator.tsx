@@ -24,6 +24,8 @@ export interface DexParamList {
     fee: BigNumber
     pair: PoolPairData
     slippage: number
+    priceRateA: string
+    priceRateB: string
   }
   AddLiquidity: { pair: PoolPairData }
   ConfirmAddLiquidity: { pair: PoolPairData, summary: AddLiquiditySummary }

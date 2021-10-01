@@ -10,7 +10,6 @@ import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle } from '@components/themed'
-import { TokenBalanceRow } from '@components/TokenBalanceRow'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
@@ -29,7 +28,9 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
     fee,
     swap,
     pair,
-    slippage
+    slippage,
+    priceRateA,
+    priceRateB
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -44,6 +45,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
   }
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
+  const FeeIcon = getNativeIcon('DFI')
 
   useEffect(() => {
     setIsOnPage(true)
@@ -84,24 +86,26 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         testID='title_swap_detail'
         text={translate('screens/PoolSwapConfirmScreen', 'ESTIMATED BALANCE AFTER SWAP')}
       />
-
-      <TokenBalanceRow
-        iconType={tokenA.displaySymbol}
-        lhs={tokenA.displaySymbol}
-        rhs={{
+      <NumberRow
+        lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenA}} balance', { tokenA: tokenA.displaySymbol })}
+        rightHandElements={[{
+          testID: 'source_amount',
           value: BigNumber.max(new BigNumber(tokenA.amount).minus(swap.fromAmount), 0).toFixed(8),
-          testID: 'source_amount'
-        }}
-      />
-
-      <TokenBalanceRow
-        iconType={tokenB.displaySymbol}
-        lhs={tokenB.displaySymbol}
-        rhs={{
+          suffixType: 'component'
+        }]}
+      >
+        <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
+      <NumberRow
+        lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenB}} balance', { tokenB: tokenB.displaySymbol })}
+        rightHandElements={[{
+          testID: 'target_amount',
           value: BigNumber.max(new BigNumber(tokenB.amount).plus(swap.toAmount), 0).toFixed(8),
-          testID: 'target_amount'
-        }}
-      />
+          suffixType: 'component'
+        }]}
+      >
+        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
 
       <ThemedSectionTitle
         testID='title_tx_detail'
@@ -113,18 +117,40 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         rightHandElements={[{
           value: new BigNumber(slippage).times(100).toFixed(),
           suffix: '%',
-          testID: 'slippage_fee'
+          testID: 'slippage_fee',
+          suffixType: 'text'
         }]}
       />
-
+      <NumberRow
+        lhs={translate('screens/PoolSwapScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
+        rightHandElements={[{
+          testID: 'price_a',
+          value: priceRateA,
+          suffixType: 'component'
+        }]}
+      >
+        <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
+      <NumberRow
+        lhs={translate('screens/PoolSwapScreen', '{{tokenB}} price per {{tokenA}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
+        rightHandElements={[{
+          testID: 'price_b',
+          value: priceRateB,
+          suffixType: 'component'
+        }]}
+      >
+        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated fee')}
-        rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
-      />
+        rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee', suffixType: 'component' }]}
+      >
+        <FeeIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/PoolSwapConfirmScreen', 'SWAP')}
+        label={translate('screens/PoolSwapConfirmScreen', 'CONFIRM SWAP')}
         isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         submittingLabel={translate('screens/PoolSwapConfirmScreen', 'SWAPPING')}
         onCancel={onCancel}
