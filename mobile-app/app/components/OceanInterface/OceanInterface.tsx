@@ -242,7 +242,7 @@ function TransactionError ({ errMsg, onClose }: { errMsg: string, onClose: () =>
   return (
     <>
       <ThemedIcon
-        dark={tailwind('text-darkerror')}
+        dark={tailwind('text-darkerror-500')}
         iconType='MaterialIcons'
         light={tailwind('text-error-500')}
         name='error'
