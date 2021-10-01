@@ -34,7 +34,30 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.defichain.app",
-      "versionCode": 0
+      "versionCode": 0,
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": {
+            "scheme": "https"
+          },
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        },
+        {
+          "autoVerify": true,
+          "action": "VIEW",
+          "data": {
+            "scheme": "http"
+          },
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ]
     },
     "web": {
       "favicon": "./mobile-app/app/assets/images/favicon.png"
