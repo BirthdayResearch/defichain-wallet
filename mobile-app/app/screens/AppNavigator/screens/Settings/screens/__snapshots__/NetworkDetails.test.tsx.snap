@@ -29,7 +29,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
               "fontSize": 12,
               "fontWeight": "500",
               "lineHeight": 16,
-              "paddingBottom": 16,
+              "paddingBottom": 8,
               "paddingLeft": 16,
               "paddingRight": 16,
               "paddingTop": 24,
@@ -262,7 +262,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
               "fontSize": 12,
               "fontWeight": "500",
               "lineHeight": 16,
-              "paddingBottom": 16,
+              "paddingBottom": 8,
               "paddingLeft": 16,
               "paddingRight": 16,
               "paddingTop": 24,
@@ -520,7 +520,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       <View
         style={
           Object {
-            "width": "33.333333%",
+            "width": "50%",
           }
         }
       >
@@ -535,8 +535,8 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
               },
               Array [
                 Object {
-                  "fontFamily": "MediumFont",
-                  "fontWeight": "500",
+                  "fontSize": 14,
+                  "lineHeight": 20,
                 },
                 Object {
                   "color": "rgba(0, 0, 0, 1)",
@@ -561,9 +561,14 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
         <View
           style={
             Object {
+              "alignItems": "center",
               "flexBasis": "0%",
+              "flexDirection": "row",
               "flexGrow": 1,
               "flexShrink": 1,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-end",
+              "marginLeft": 16,
             }
           }
         >
@@ -579,9 +584,8 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
                 Array [
                   Object {
                     "color": "rgba(115, 115, 115, 1)",
-                    "flexWrap": "wrap",
-                    "fontFamily": "MediumFont",
-                    "fontWeight": "500",
+                    "fontSize": 14,
+                    "lineHeight": 20,
                     "textAlign": "right",
                   },
                   Object {
