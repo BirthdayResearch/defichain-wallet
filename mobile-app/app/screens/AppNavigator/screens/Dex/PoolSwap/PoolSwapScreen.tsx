@@ -330,7 +330,7 @@ function TokenRow (form: TokenForm): JSX.Element {
               }
             }}
             placeholder={isDisabled ? undefined : translate('screens/PoolSwapScreen', 'Enter an amount')}
-            style={tailwind('flex-1')}
+            style={tailwind('flex-grow w-2/5')}
             testID={`text_input_${controlName}`}
             value={value}
             displayClearButton={(value !== defaultValue) && !isDisabled}
