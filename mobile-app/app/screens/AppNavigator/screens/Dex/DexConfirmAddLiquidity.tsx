@@ -150,7 +150,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       </NumberRow>
 
       <ThemedSectionTitle
-        testID='title_tx_detail'
+        testID='title_price_detail'
         text={translate('screens/ConfirmAddLiq', 'PRICE DETAILS')}
       />
       <NumberRow

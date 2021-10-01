@@ -77,7 +77,7 @@ export function DexNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/DexScreen', 'Add Liquidity')}
+              text={translate('screens/DexScreen', 'Confirm Add Liquidity')}
               containerTestID={headerContainerTestId}
             />
           )
@@ -103,7 +103,7 @@ export function DexNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/DexScreen', 'Confirm removal')}
+              text={translate('screens/DexScreen', 'Confirm Removal')}
               containerTestID={headerContainerTestId}
             />
           )
@@ -129,7 +129,7 @@ export function DexNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/DexScreen', 'Confirm swap')}
+              text={translate('screens/DexScreen', 'Confirm Swap')}
               containerTestID={headerContainerTestId}
             />
           )
