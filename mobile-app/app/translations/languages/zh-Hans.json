@@ -360,12 +360,13 @@
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "向 {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} 配对增加流动资金"
   },
   "screens/ConfirmRemoveLiquidity": {
-    "YOU ARE REMOVING": "您正要退出",
+    "You are removing": "您正要退出",
     "ESTIMATED AMOUNT TO RECEIVE": "您大约会收到",
     "TRANSACTION DETAILS": "交易明細",
     "Price": "价格",
     "Estimated fee": "所需费用（大约）",
-    "REMOVE": "退出"
+    "REMOVE": "退出",
+    "{{tokenA}} price per {{tokenB}}":"{{tokenA}} price per {{tokenB}}"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "退出流动资金",

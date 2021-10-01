@@ -357,12 +357,13 @@
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "Füge {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} hinzu"
   },
   "screens/ConfirmRemoveLiquidity": {
-    "YOU ARE REMOVING": "DU ENTFERNST",
+    "You are removing": "Du entfernst",
     "ESTIMATED AMOUNT TO RECEIVE": "GESCHÄTZTER ZU ERHALTENDER BETRAG",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Price": "Preis",
     "Estimated fee": "Geschätzte Gebühr",
-    "REMOVE": "ENTFERNEN"
+    "REMOVE": "ENTFERNEN",
+    "{{tokenA}} price per {{tokenB}}":"{{tokenA}} price per {{tokenB}}"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "Entferne Liquidität",
