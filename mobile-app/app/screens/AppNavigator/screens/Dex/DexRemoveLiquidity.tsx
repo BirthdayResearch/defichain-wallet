@@ -114,6 +114,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
             ]}
             testID='text_input_percentage'
             value={percentage}
+            keyboardType='numeric'
           />
 
           <ThemedText>
