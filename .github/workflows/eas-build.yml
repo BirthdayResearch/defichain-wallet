@@ -1,0 +1,49 @@
+name: EAS Build
+
+on:
+  push:
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  eas-build:
+    name: EAS Build
+    environment: EAS Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+
+      - uses: actions/github-script@441359b1a30438de65712c2fbca0abe4816fa667
+        id: version
+        with:
+          script: |
+            const [date] = new Date().toISOString().split('T')
+            const build = '0.0.' + date.replace(/[^0-9]/g, '')
+            console.log(build)
+            return build
+
+          result-encoding: string
+
+      - uses: actions/setup-node@270253e841af726300e85d718a5f606959b2903c
+        with:
+          node-version: 15
+
+      - uses: expo/expo-github-action@c3c02de017ef8cf6152daee160e8a47a2340a5e5
+        with:
+          eas-version: latest
+          expo-version: 4.x
+          packager: npm
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - run: npm ci
+
+      - run: |
+          git config --global user.email "github-bot@defichain.com"
+          git config --global user.name "defichain-bot"
+          npx standard-version --release-as ${{steps.version.outputs.result}}
+
+      - name: EAS Build - iOS & Android
+        run: eas build --platform all --non-interactive --wait --profile preview
