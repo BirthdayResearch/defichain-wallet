@@ -55,6 +55,7 @@ const setTokenDetails = (t: AddressToken): WalletToken => {
   }
   if (t.isLPS) {
     const [tokenA, tokenB] = t.symbol?.split('-')
+    t.name = t.name.replace('Default Defi token', 'DeFiChain')
     displaySymbol = tokenA === 'DFI' ? `${tokenA}-d${tokenB}` : `d${tokenA}-${tokenB}`
     avatarSymbol = t.symbol
   }
