@@ -415,7 +415,7 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee }: SwapSumma
         <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
       <NumberRow
-        lhs={translate('screens/PoolSwapScreen', '{{tokenB}} price per {{tokenA}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
+        lhs={translate('screens/PoolSwapScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenB.displaySymbol, tokenB: tokenA.displaySymbol })}
         rhs={{
           testID: 'price_b',
           value: priceB,

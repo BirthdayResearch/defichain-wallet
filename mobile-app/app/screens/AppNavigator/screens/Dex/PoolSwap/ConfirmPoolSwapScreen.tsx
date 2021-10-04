@@ -87,7 +87,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         text={translate('screens/PoolSwapConfirmScreen', 'ESTIMATED BALANCE AFTER SWAP')}
       />
       <NumberRow
-        lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenA}} balance', { tokenA: tokenA.displaySymbol })}
+        lhs={translate('screens/PoolSwapConfirmScreen', '{{token}} balance', { token: tokenA.displaySymbol })}
         rhs={{
           testID: 'source_amount',
           value: BigNumber.max(new BigNumber(tokenA.amount).minus(swap.fromAmount), 0).toFixed(8),
@@ -97,7 +97,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
       <NumberRow
-        lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenB}} balance', { tokenB: tokenB.displaySymbol })}
+        lhs={translate('screens/PoolSwapConfirmScreen', '{{token}} balance', { token: tokenB.displaySymbol })}
         rhs={{
           testID: 'target_amount',
           value: BigNumber.max(new BigNumber(tokenB.amount).plus(swap.toAmount), 0).toFixed(8),
@@ -132,7 +132,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
       <NumberRow
-        lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenB}} price per {{tokenA}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
+        lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenB.displaySymbol, tokenB: tokenA.displaySymbol })}
         rhs={{
           testID: 'price_b',
           value: priceRateB,

@@ -164,7 +164,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', '{{tokenB}} price per {{tokenA}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
+        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenB.displaySymbol, tokenB: tokenA.displaySymbol })}
         rhs={{
           value: bToARate.toFixed(8),
           testID: 'price_b',

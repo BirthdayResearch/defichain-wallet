@@ -227,7 +227,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
         <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
       <NumberRow
-        lhs={translate('screens/AddLiquidity', '{{tokenB}} price per {{tokenA}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
+        lhs={translate('screens/AddLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenB.displaySymbol, tokenB: pair.tokenA.displaySymbol })}
         rhs={{
           value: pair.bToARate.toFixed(8),
           testID: 'b_per_a_price',
