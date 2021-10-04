@@ -15,7 +15,7 @@ interface NumberRowRightElement {
   value: string | number
   suffix?: string
   testID: string
-  suffixType: SuffixType
+  suffixType?: SuffixType
 }
 
 export function NumberRow (props: INumberRowProps): JSX.Element {

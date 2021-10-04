@@ -54,8 +54,7 @@ export function NetworkDetails (): JSX.Element {
         lhs={translate('screens/NetworkDetails', 'Total Masternodes')}
         rightHandElements={[{
           value: masternodeCount ?? '',
-          testID: 'network_details_total_masternodes',
-          suffixType: 'text'
+          testID: 'network_details_total_masternodes'
         }]}
         textStyle={tailwind('font-medium text-base')}
       />
