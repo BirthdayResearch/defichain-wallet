@@ -21,7 +21,6 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
-import { getNativeIcon } from '@components/icons/assets'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
@@ -47,8 +46,6 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   const lmToken = tokens.find(token => token.symbol === pair.symbol) as AddressToken
   const tokenAPerLmToken = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
   const tokenBPerLmToken = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
-  const TokenAIcon = getNativeIcon(pair.tokenA.displaySymbol)
-  const TokenBIcon = getNativeIcon(pair.tokenB.displaySymbol)
 
   const setInputPercentage = (percentage: string): void => {
     // this must round down, avoid attempt remove more than selected (or even available)
@@ -169,21 +166,19 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
           rhs={{
             value: tokenAPerLmToken.toFixed(8),
             testID: 'text_a_to_b_price',
-            suffixType: 'component'
+            suffixType: 'text',
+            suffix: pair.tokenB.displaySymbol
           }}
-        >
-          <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
-        </NumberRow>
+        />
         <NumberRow
           lhs={translate('screens/AddLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
           rhs={{
             value: tokenBPerLmToken.toFixed(8),
             testID: 'text_b_to_a_price',
-            suffixType: 'component'
+            suffixType: 'text',
+            suffix: pair.tokenA.displaySymbol
           }}
-        >
-          <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
-        </NumberRow>
+        />
       </ThemedView>
 
       <ContinueButton
