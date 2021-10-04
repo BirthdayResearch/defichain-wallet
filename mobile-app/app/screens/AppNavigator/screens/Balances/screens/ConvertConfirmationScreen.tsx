@@ -84,7 +84,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
         <ThemedText
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
-          style={tailwind('font-sm')}
+          style={tailwind('text-sm')}
           testID='convert_amount_source_suffix'
         >
           {sourceUnit}
@@ -93,7 +93,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
         <ThemedText
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
-          style={tailwind('font-sm')}
+          style={tailwind('text-sm')}
           testID='convert_amount_target_suffix'
         >
           {targetUnit}
