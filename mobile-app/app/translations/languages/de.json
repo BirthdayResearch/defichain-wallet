@@ -16,7 +16,8 @@
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
     "ADD LIQUIDITY": "LIQUIDITÄT HINZUFÜGEN",
-    "Confirm Add Liquidity": "Confirm Add Liquidity",
+    "Add liquidity": "Liquidität hinzufügen",
+    "Confirm Add Liquidity": "Liquidität hinzufügen bestätigen",
     "Remove Liquidity": "Liquidität entfernen",
     "Confirm removal": "Bestätige die Rücknahme",
     "Confirm swap": "Bestätige den Umtausch",
@@ -80,7 +81,8 @@
     "SEND": "SENDEN",
     "SENDING": "WIRD GESENDET",
     "Sending": "Senden {{symbol}}",
-    "Sending {{amount}} {{symbol}}": "Sende {{amount}} {{symbol}}"
+    "Sending {{amount}} {{symbol}}": "Sende {{amount}} {{symbol}}",
+    "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN"
   },
   "screens/ConvertScreen": {
     "Convert DFI": "DFI umwandeln",
@@ -106,9 +108,10 @@
     "Converting DFI": "Konvertieren von DFI",
     "Converting {{amount}} {{symbolA}} to {{symbolB}}": "Wandle {{amount}} {{symbolA}} in {{symbolB}} um",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
-    "Transaction type": "Transaction type",
+    "Transaction type": "Transaktionsart",
     "Convert": "Umwandeln",
-    "{{token}} to receive": "{{token}} to receive"
+    "{{token}} to receive": "Zu erhaltende {{token}}",
+    "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN"
   },
   "screens/SettingsNavigator": {
     "Settings": "Einstellungen"
@@ -347,10 +350,10 @@
     "How much {{symbol}} to supply?": "Wie viele {{symbol}} hinzufügen?",
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
-    "PRICE DETAILS": "PRICE DETAILS",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "PRICE DETAILS": "PREISDETAILS",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",    
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
-    "Your pooled {{token}}": "Your pooled {{token}}"
+    "Your pooled {{token}}": "Deine {{token}} im Pool"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "Du fügst hinzu",
@@ -364,9 +367,9 @@
     "ADDING": "WIRD HINZUGEFÜGT",
     "Pooled {{symbol}}": "Im Pool {{symbol}}",
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "Füge {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} hinzu",
-    "PRICE DETAILS": "PRICE DETAILS",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
-    "Your pooled {{token}}": "Your pooled {{token}}"
+    "PRICE DETAILS": "PREISDETAILS",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
+    "Your pooled {{symbol}}": "Deine {{symbol}} im Pool"
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "Du entfernst",
@@ -375,7 +378,7 @@
     "Price": "Preis",
     "Estimated fee": "Geschätzte Gebühr",
     "REMOVE": "ENTFERNEN",
-    "{{tokenA}} price per {{tokenB}}":"{{tokenA}} price per {{tokenB}}"
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}"    
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "Entferne Liquidität",
@@ -386,8 +389,8 @@
     "Price": "Preis",
     "Removing {{amount}} {{symbol}}": "Entferne {{amount}} {{symbol}}",
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
-    "PRICE DETAILS": "PRICE DETAILS",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}"
+    "PRICE DETAILS": "PREISDETAILS",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "Wallet Netzwerk",
@@ -425,7 +428,7 @@
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Estimated fee": "Geschätzte Gebühr",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}"
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Du tauschst",
@@ -437,9 +440,9 @@
     "SWAPPING": "WIRD GETAUSCHT",
     "Swapping Token": "Tausche Token",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
-    "{{token}} balance": "{{token}} balance",
-    "CONFIRM SWAP": "CONFIRM SWAP"
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
+    "{{token}} balance": "{{token}} Saldo",
+    "CONFIRM SWAP": "BESTÄTIGE DEN UMTAUSCH"
   },
   "screens/UnlockWallet": {
     "Enter passcode": "Passworteingabe",

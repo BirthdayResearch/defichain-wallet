@@ -16,6 +16,7 @@
   "screens/DexScreen": {
     "Decentralized Exchange": "去中心化交易所",
     "ADD LIQUIDITY": "增加流動資金",
+    "Add liquidity": "增加流動資金",
     "Confirm Add Liquidity": "Confirm Add Liquidity",
     "Remove Liquidity": "退出流動資金",
     "Confirm removal": "確認退出",
@@ -80,7 +81,8 @@
     "SEND": "發出",
     "SENDING": "正在發出",
     "Sending": "正轉出 {{symbol}}",
-    "Sending {{amount}} {{symbol}}": "正轉出 {{amount}} {{symbol}}"
+    "Sending {{amount}} {{symbol}}": "正轉出 {{amount}} {{symbol}}",
+    "CONFIRM TRANSACTION": "CONFIRM TRANSACTION"
   },
   "screens/ConvertScreen": {
     "Convert DFI": "轉換 DFI",
@@ -108,7 +110,8 @@
     "TRANSACTION DETAILS": "交易明細",
     "Transaction type": "Transaction type",
     "Convert": "轉換",
-    "{{token}} to receive": "{{token}} to receive"
+    "{{token}} to receive": "{{token}} to receive",
+    "CONFIRM TRANSACTION": "CONFIRM TRANSACTION"
   },
   "screens/SettingsNavigator": {
     "Settings": "設定"
@@ -442,7 +445,7 @@
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兌換 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
     "{{token}} balance": "{{token}} balance",
-    "CONFIRM SWAP": "CONFIRM SWAP"
+    "CONFIRM SWAP": "確認兌換"
   },
   "screens/UnlockWallet": {
     "Enter passcode": "請輸入密碼",
