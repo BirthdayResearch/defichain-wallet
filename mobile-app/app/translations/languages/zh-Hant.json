@@ -98,12 +98,16 @@
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "確認要轉換 DFI",
     "You are converting": "您正要轉換",
-    "AFTER CONVERSION, YOU WILL HAVE:": "轉換後您會有",
+    "AFTER CONVERSION, YOU WILL HAVE": "轉換後您會有",
     "Estimated fee": "所需費用（大約）",
     "CONVERT": "轉換",
     "CONVERTING": "正在轉換",
     "Converting DFI": "轉換 DFI",
-    "Converting {{amount}} {{symbolA}} to {{symbolB}}": "轉換 {{amount}} {{symbolA}} 至 {{symbolB}} "
+    "Converting {{amount}} {{symbolA}} to {{symbolB}}": "轉換 {{amount}} {{symbolA}} 至 {{symbolB}} ",
+    "TRANSACTION DETAILS": "交易明細",
+    "Transaction type": "Transaction type",
+    "Convert": "轉換",
+    "{{token}} to receive": "{{token}} to receive"
   },
   "screens/SettingsNavigator": {
     "Settings": "設定"

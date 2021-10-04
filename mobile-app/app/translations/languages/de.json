@@ -98,12 +98,16 @@
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Bestätige DFI Konvertierung",
     "You are converting": "Du wandelst um",
-    "AFTER CONVERSION, YOU WILL HAVE:": "NACH DER KONVERTIERUNG ERHÄLTST DU:",
+    "AFTER CONVERSION, YOU WILL HAVE": "NACH DER KONVERTIERUNG ERHÄLTST DU",
     "Estimated fee": "Geschätzte Gebühr",
     "CONVERT": "UMWANDELN",
     "CONVERTING": "WANDLE UM",
     "Converting DFI": "Konvertieren von DFI",
-    "Converting {{amount}} {{symbolA}} to {{symbolB}}": "Wandle {{amount}} {{symbolA}} in {{symbolB}} um"
+    "Converting {{amount}} {{symbolA}} to {{symbolB}}": "Wandle {{amount}} {{symbolA}} in {{symbolB}} um",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "Transaction type": "Transaction type",
+    "Convert": "Umwandeln",
+    "{{token}} to receive": "{{token}} to receive"
   },
   "screens/SettingsNavigator": {
     "Settings": "Einstellungen"
@@ -346,7 +350,7 @@
   "screens/ConfirmAddLiq": {
     "You are adding": "Du fügst hinzu",
     "AMOUNT TO SUPPLY": "FÜGE SUMME HINZU",
-    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Price": "Preis",
     "Share of pool": "Anteil am Gesamtpool",
     "Estimated fee": "Geschätzte Gebühr",
@@ -359,7 +363,7 @@
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "Du entfernst",
     "ESTIMATED AMOUNT TO RECEIVE": "GESCHÄTZTER ZU ERHALTENDER BETRAG",
-    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Price": "Preis",
     "Estimated fee": "Geschätzte Gebühr",
     "REMOVE": "ENTFERNEN",
@@ -416,7 +420,7 @@
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Du tauschst",
     "ESTIMATED BALANCE AFTER SWAP": "GESCHÄTZTES GUTHABEN NACH DEM TAUSCH",
-    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Slippage Tolerance": "Slippage Toleranz",
     "Estimated fee": "Geschätzte Gebühr",
     "SWAP": "TAUSCHE",
