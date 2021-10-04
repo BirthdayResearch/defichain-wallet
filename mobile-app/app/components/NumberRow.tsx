@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, ViewProps } from 'react-native'
+import { StyleProp, TextStyle, View, ViewProps } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
 import { ThemedText, ThemedView } from './themed'
@@ -9,6 +9,7 @@ type SuffixType = 'text' | 'component'
 interface NumberRowProps {
   lhs: string
   rightHandElements: NumberRowRightElement[]
+  textStyle?: StyleProp<TextStyle>
 }
 interface NumberRowRightElement {
   value: string | number
@@ -25,7 +26,7 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
       style={tailwind('p-4 flex-row items-start w-full')}
     >
       <View style={tailwind('w-6/12')}>
-        <ThemedText style={tailwind('text-sm')}>
+        <ThemedText style={[tailwind('text-sm'), props.textStyle]}>
           {props.lhs}
         </ThemedText>
       </View>
@@ -44,7 +45,7 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
                   <ThemedText
                     dark={tailwind('text-gray-400')}
                     light={tailwind('text-gray-500')}
-                    style={tailwind('text-sm text-right text-gray-500')}
+                    style={[tailwind('text-sm text-right'), props.textStyle]}
                     testID={rhs.testID}
                   >
                     {val}
