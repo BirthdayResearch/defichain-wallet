@@ -393,9 +393,6 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee }: SwapSumma
   const priceA = getPriceRate(reserveA, reserveB)
   const priceB = getPriceRate(reserveB, reserveA)
   const estimated = calculateEstimatedAmount(tokenAAmount, reserveA, priceB).toFixed(8)
-  const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
-  const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
-  const FeeIcon = getNativeIcon('DFI')
 
   return (
     <View style={tailwind('mt-4')}>
@@ -409,41 +406,37 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee }: SwapSumma
         rhs={{
           testID: 'price_a',
           value: priceA,
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: tokenA.displaySymbol
         }}
-      >
-        <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
       <NumberRow
         lhs={translate('screens/PoolSwapScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenB.displaySymbol, tokenB: tokenA.displaySymbol })}
         rhs={{
           testID: 'price_b',
           value: priceB,
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: tokenB.displaySymbol
         }}
-      >
-        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
       <NumberRow
         lhs={translate('screens/PoolSwapScreen', 'Estimated to receive')}
         rhs={{
           value: estimated,
           testID: 'estimated',
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: tokenB.displaySymbol
         }}
-      >
-        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
       <NumberRow
         lhs={translate('screens/PoolSwapScreen', 'Estimated fee')}
         rhs={{
           value: fee,
           testID: 'estimated_fee',
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: 'DFI (UTXO)'
         }}
-      >
-        <FeeIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
     </View>
   )
 }

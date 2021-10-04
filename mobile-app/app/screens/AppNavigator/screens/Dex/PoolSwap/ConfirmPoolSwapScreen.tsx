@@ -45,7 +45,6 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
   }
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
-  const FeeIcon = getNativeIcon('DFI')
 
   useEffect(() => {
     setIsOnPage(true)
@@ -91,21 +90,19 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         rhs={{
           testID: 'source_amount',
           value: BigNumber.max(new BigNumber(tokenA.amount).minus(swap.fromAmount), 0).toFixed(8),
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: tokenA.displaySymbol
         }}
-      >
-        <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', '{{token}} balance', { token: tokenB.displaySymbol })}
         rhs={{
           testID: 'target_amount',
           value: BigNumber.max(new BigNumber(tokenB.amount).plus(swap.toAmount), 0).toFixed(8),
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: tokenB.displaySymbol
         }}
-      >
-        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
 
       <ThemedSectionTitle
         testID='title_tx_detail'
@@ -126,27 +123,23 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         rhs={{
           testID: 'price_a',
           value: priceRateA,
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: tokenA.displaySymbol
         }}
-      >
-        <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenB.displaySymbol, tokenB: tokenA.displaySymbol })}
         rhs={{
           testID: 'price_b',
           value: priceRateB,
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: tokenB.displaySymbol
         }}
-      >
-        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated fee')}
-        rhs={{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee', suffixType: 'component' }}
-      >
-        <FeeIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffixType: 'component', suffix: 'DFI (UTXO)' }}
+      />
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
