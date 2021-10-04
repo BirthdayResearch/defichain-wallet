@@ -25,14 +25,14 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('p-4 flex-row items-start w-full')}
     >
-      <View style={tailwind('w-6/12')}>
+      <View style={tailwind('w-5/12')}>
         <ThemedText style={[tailwind('text-sm'), props.textStyle]} testID={`${props.rhs.testID}_label`}>
           {props.lhs}
         </ThemedText>
       </View>
 
       <View
-        style={tailwind('flex-1 flex-row ml-4 justify-end flex-wrap items-center')}
+        style={tailwind('flex-1 flex-row justify-end flex-wrap items-center')}
       >
         <NumberFormat
           decimalScale={8}
@@ -55,7 +55,7 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
             <ThemedText
               light={tailwind('text-gray-500')}
               dark={tailwind('text-gray-400')}
-              style={tailwind('text-sm')}
+              style={tailwind('text-sm ml-1')}
               testID={`${props.rhs.testID}_suffix`}
             >
               {props.rhs.suffix}
