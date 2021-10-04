@@ -72,9 +72,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       <View
         style={
           Object {
-            "flexBasis": "0%",
-            "flexGrow": 1,
-            "flexShrink": 1,
+            "width": "41.666667%",
           }
         }
       >
@@ -311,9 +309,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       <View
         style={
           Object {
-            "flexBasis": "0%",
-            "flexGrow": 1,
-            "flexShrink": 1,
+            "width": "41.666667%",
           }
         }
       >
@@ -532,7 +528,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       <View
         style={
           Object {
-            "width": "50%",
+            "width": "41.666667%",
           }
         }
       >
@@ -579,7 +575,6 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
             "flexShrink": 1,
             "flexWrap": "wrap",
             "justifyContent": "flex-end",
-            "marginLeft": 16,
           }
         }
       >
