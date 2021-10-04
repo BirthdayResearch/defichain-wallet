@@ -67,7 +67,7 @@
     "react-content-loader": "^6.0.3",
     "react-devtools": "^4.18.0",
     "react-dom": "16.13.1",
-    "react-hook-form": "^7.15.3",
+    "react-hook-form": "^7.17.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-collapsible": "^1.6.0",
     "react-native-confirmation-code-field": "^7.1.0",
