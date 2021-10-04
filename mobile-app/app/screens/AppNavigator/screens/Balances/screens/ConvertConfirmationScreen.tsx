@@ -18,7 +18,6 @@ import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
 import { TextRow } from '@components/TextRow'
-import { getNativeIcon } from '@components/icons/assets'
 
 type Props = StackScreenProps<BalanceParamList, 'ConvertConfirmationScreen'>
 
@@ -43,7 +42,6 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
       navigation.dispatch(StackActions.popToTop())
     }
   }
-  const FeeIcon = getNativeIcon('_UTXO')
 
   useEffect(() => {
     setIsOnPage(true)
@@ -123,10 +121,13 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
       />
       <NumberRow
         lhs={translate('screens/ConvertConfirmScreen', 'Estimated fee')}
-        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffixType: 'component' }}
-      >
-        <FeeIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+        rhs={{
+          value: fee.toFixed(8),
+          testID: 'text_fee',
+          suffixType: 'text',
+          suffix: ' DFI (UTXO)'
+        }}
+      />
 
       <ThemedSectionTitle
         testID='title_conversion_detail'

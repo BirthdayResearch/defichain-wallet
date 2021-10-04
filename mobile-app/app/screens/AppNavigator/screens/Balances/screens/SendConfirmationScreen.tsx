@@ -22,7 +22,6 @@ import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
-import { getNativeIcon } from '@components/icons/assets'
 
 type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
 
@@ -46,8 +45,6 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       navigation.dispatch(StackActions.popToTop())
     }
   }
-  const FeeIcon = getNativeIcon('_UTXO')
-  const TokenIcon = getNativeIcon(token.avatarSymbol)
 
   useEffect(() => {
     setIsOnPage(true)
@@ -121,29 +118,30 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         rhs={{
           value: amount.toFixed(8),
           testID: 'text_amount',
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: `${token.displaySymbol}`
         }}
-      >
-        <TokenIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
 
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Estimated fee')}
-        rhs={{ value: fee.toFixed(8), suffixType: 'component', testID: 'text_fee' }}
-      >
-        <FeeIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+        rhs={{
+          value: fee.toFixed(8),
+          testID: 'text_fee',
+          suffixType: 'text',
+          suffix: `${token.displaySymbol}`
+        }}
+      />
 
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Remaining balance')}
         rhs={{
           value: BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)).minus(fee.toFixed(8)), 0).toFixed(8),
-          suffixType: 'component',
-          testID: 'text_balance'
+          testID: 'text_balance',
+          suffixType: 'text',
+          suffix: `${token.displaySymbol}`
         }}
-      >
-        <TokenIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
