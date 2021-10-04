@@ -24,6 +24,14 @@ context('Mainnet - Wallet', () => {
     address: ''
   }
 
+  before(() => {
+    cy.createEmptyWallet(true)
+    cy.switchNetwork('Local')
+    cy.sendDFItoWallet()
+      .sendDFITokentoWallet()
+      .sendTokenToWallet(['BTC', 'ETH-DFI']).wait(3000)
+  })
+
   beforeEach(() => {
     cy.restoreLocalStorage()
   })
@@ -33,15 +41,11 @@ context('Mainnet - Wallet', () => {
   })
 
   it('should store values of local wallet', function () {
-    cy.createEmptyWallet(true)
-    cy.sendDFItoWallet()
-      .sendDFITokentoWallet()
-      .sendTokenToWallet(['BTC', 'ETH-DFI']).wait(3000)
     cy.verifyWalletAddress('regtest', localAddress)
   })
 
   it('should have MainNet', function () {
-    cy.isNetworkConnected('Local')
+    cy.isNetworkConnected('Local').wait(3000)
     cy.switchNetwork('MainNet')
   })
 

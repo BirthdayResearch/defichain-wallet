@@ -4,10 +4,9 @@ function sendWithNewPin (): void {
   cy.getByTestID('balances_row_0_utxo').click()
   cy.getByTestID('send_button').click()
   cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
-  cy.getByTestID('amount_input').clear().type('1')
+  cy.getByTestID('amount_input').clear().type('1').wait(1000)
   cy.getByTestID('send_submit_button').click()
   cy.getByTestID('button_confirm_send').click().wait(3000)
-  cy.getByTestID('pin_authorize').type('000000').wait(3000)
   cy.closeOceanInterface('696969')
 }
 
@@ -19,14 +18,6 @@ function nonTransactionNewPin (): void {
 }
 
 context('Wallet - Change Passcode', () => {
-  beforeEach(() => {
-    cy.restoreLocalStorage()
-  })
-
-  afterEach(() => {
-    cy.saveLocalStorage()
-  })
-
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(10000)
@@ -34,6 +25,14 @@ context('Wallet - Change Passcode', () => {
     cy.getByTestID('balances_list').should('exist')
     cy.getByTestID('balances_row_0_utxo').should('exist')
     cy.getByTestID('balances_row_0_utxo_amount').contains(10)
+  })
+
+  beforeEach(() => {
+    cy.restoreLocalStorage()
+  })
+
+  afterEach(() => {
+    cy.saveLocalStorage()
   })
 
   it('should be able to change passcode', function () {

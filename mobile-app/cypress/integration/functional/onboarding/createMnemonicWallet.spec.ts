@@ -38,7 +38,7 @@ context('Onboarding - Create Mnemonic Wallet', () => {
       cy.getByTestID(`word_${i}`).should('exist')
       cy.getByTestID(`word_${i}_number`).should('exist').contains(`${i}.`)
     })
-    cy.getByTestID('verify_button').click()
+    cy.getByTestID('verify_button').click().wait(3000)
   })
 
   it('should be able to select correct words', function () {
@@ -73,8 +73,8 @@ context('Onboarding - Create Mnemonic Wallet with refresh recovery word', () => 
   const settingsRecoveryWords: string[] = []
 
   before(() => {
-    cy.exitWallet()
     cy.visit('/')
+    cy.exitWallet()
   })
 
   beforeEach(() => {
