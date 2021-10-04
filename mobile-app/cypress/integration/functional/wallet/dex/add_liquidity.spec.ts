@@ -28,7 +28,8 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('a_per_b_price_label').contains('dBTC price per DFI')
     cy.getByTestID('b_per_a_price').contains('1.00000000')
     cy.getByTestID('b_per_a_price_label').contains('DFI price per dBTC')
-    cy.getByTestID('share_of_pool').contains('1.00000000%')
+    cy.getByTestID('share_of_pool').contains('1.00000000')
+    cy.getByTestID('share_of_pool_suffix').contains('%')
   })
 
   it('should update both token and build summary when click on half amount button', function () {
@@ -40,7 +41,8 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('a_per_b_price_label').contains('dBTC price per DFI')
     cy.getByTestID('b_per_a_price').contains('1.00000000')
     cy.getByTestID('b_per_a_price_label').contains('DFI price per dBTC')
-    cy.getByTestID('share_of_pool').contains('0.50000000%')
+    cy.getByTestID('share_of_pool').contains('0.50000000')
+    cy.getByTestID('share_of_pool_suffix').contains('%')
   })
 
   it('should update both token and build summary base on primary token input', function () {
@@ -55,7 +57,8 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('a_per_b_price_label').contains('dBTC price per DFI')
     cy.getByTestID('b_per_a_price').contains('1.00000000')
     cy.getByTestID('b_per_a_price_label').contains('DFI price per dBTC')
-    cy.getByTestID('share_of_pool').contains('0.30000000%')
+    cy.getByTestID('share_of_pool').contains('0.30000000')
+    cy.getByTestID('share_of_pool_suffix').contains('%')
   })
 
   it('should update both token and build summary base on secondary token input', function () {
@@ -68,7 +71,8 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('a_per_b_price_label').contains('dBTC price per DFI')
     cy.getByTestID('b_per_a_price').contains('1.00000000')
     cy.getByTestID('b_per_a_price_label').contains('DFI price per dBTC')
-    cy.getByTestID('share_of_pool').contains('0.20000000%')
+    cy.getByTestID('share_of_pool').contains('0.20000000')
+    cy.getByTestID('share_of_pool_suffix').contains('%')
     cy.getByTestID('button_continue_add_liq').click()
   })
 
@@ -80,7 +84,8 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('a_amount').contains('2.00000000')
     cy.getByTestID('a_amount_label').contains('DFI')
     cy.getByTestID('b_amount').contains('2.00000000')
-    cy.getByTestID('percentage_pool').contains('0.20000000%')
+    cy.getByTestID('percentage_pool').contains('0.20000000')
+    cy.getByTestID('percentage_pool_suffix').contains('%')
     cy.getByTestID('button_cancel_add').click()
   })
 })
@@ -169,6 +174,7 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     cy.getByTestID('b_amount_label').contains('DFI')
     cy.getByTestID('b_amount').contains('10.00000000')
     cy.getByTestID('percentage_pool').contains('1.00000000%')
+    cy.getByTestID('percentage_pool_suffix').contains('%')
     cy.getByTestID('button_confirm_add').click().wait(3000)
     cy.closeOceanInterface()
   })
@@ -185,7 +191,8 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     cy.getByTestID('a_amount').contains(oldAmount)
     cy.getByTestID('b_amount_label').contains('DFI')
     cy.getByTestID('b_amount').contains(oldAmount)
-    cy.getByTestID('percentage_pool').contains('0.50000000%')
+    cy.getByTestID('percentage_pool').contains('0.50000000')
+    cy.getByTestID('percentage_pool_suffix').contains('%')
     cy.getByTestID('text_fee').should('exist')
     cy.getByTestID('button_confirm_add').click().wait(3000)
     // Check for authorization page description
@@ -205,7 +212,8 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     cy.getByTestID('a_amount').contains(newAmount)
     cy.getByTestID('b_amount_label').contains('DFI')
     cy.getByTestID('b_amount').contains(newAmount)
-    cy.getByTestID('percentage_pool').contains('1.00000000%')
+    cy.getByTestID('percentage_pool').contains('1.00000000')
+    cy.getByTestID('percentage_pool_suffix').contains('%')
     cy.getByTestID('text_fee').should('exist')
     cy.getByTestID('button_confirm_add').click().wait(3000)
     // Check for authorization page description
