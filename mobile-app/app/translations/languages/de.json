@@ -16,6 +16,7 @@
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
     "ADD LIQUIDITY": "LIQUIDITÄT HINZUFÜGEN",
+    "Confirm Add Liquidity": "Confirm Add Liquidity",
     "Remove Liquidity": "Liquidität entfernen",
     "Confirm removal": "Bestätige die Rücknahme",
     "Confirm swap": "Bestätige den Umtausch",

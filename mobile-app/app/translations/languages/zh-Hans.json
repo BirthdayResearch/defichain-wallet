@@ -16,6 +16,7 @@
   "screens/DexScreen": {
     "Decentralized Exchange": "去中心化交易所",
     "ADD LIQUIDITY": "增加流动资金",
+    "Confirm Add Liquidity": "Confirm Add Liquidity",
     "Remove Liquidity": "退出流动资金",
     "Confirm removal": "确认退出",
     "Confirm swap": "确认兑换",
