@@ -147,7 +147,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/SendConfirmationScreen', 'SEND')}
+        label={translate('screens/SendConfirmationScreen', 'CONFIRM TRANSACTION')}
         isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         submittingLabel={translate('screens/SendConfirmationScreen', 'SENDING')}
         onCancel={onCancel}
