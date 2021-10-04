@@ -56,7 +56,6 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   }
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
-  const FeeIcon = getNativeIcon('DFI')
 
   useEffect(() => {
     setIsOnPage(true)
@@ -133,21 +132,19 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         rhs={{
           testID: 'a_amount',
           value: BigNumber.max(tokenAAmount, 0).toFixed(8),
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: tokenA.displaySymbol
         }}
-      >
-        <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
       <NumberRow
         lhs={tokenB.displaySymbol}
         rhs={{
           testID: 'b_amount',
           value: BigNumber.max(tokenBAmount, 0).toFixed(8),
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: tokenB.displaySymbol
         }}
-      >
-        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
 
       <ThemedSectionTitle
         testID='title_price_detail'
@@ -158,21 +155,19 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         rhs={{
           value: aToBRate.toFixed(8),
           testID: 'price_a',
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: tokenA.displaySymbol
         }}
-      >
-        <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenB.displaySymbol, tokenB: tokenA.displaySymbol })}
         rhs={{
           value: bToARate.toFixed(8),
           testID: 'price_b',
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: tokenB.displaySymbol
         }}
-      >
-        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
 
       <ThemedSectionTitle
         testID='title_tx_detail'
@@ -188,29 +183,24 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         rhs={{
           value: tokenA.reserve,
           testID: 'pooled_a',
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: tokenA.displaySymbol
         }}
-      >
-        <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
-
+      />
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Your pooled {{symbol}}', { symbol: `${tokenB?.displaySymbol}` })}
         rhs={{
           value: tokenB.reserve,
           testID: 'pooled_b',
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: tokenB.displaySymbol
         }}
-      >
-        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
 
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Estimated fee')}
-        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffixType: 'component' }}
-      >
-        <FeeIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffixType: 'text', suffix: 'DFI (UTXO)' }}
+      />
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}

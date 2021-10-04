@@ -16,7 +16,6 @@ import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
-import { getNativeIcon } from '@components/icons/assets'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -206,8 +205,6 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
 
 function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }): JSX.Element {
   const { pair, sharePercentage } = props
-  const TokenAIcon = getNativeIcon(pair.tokenA.displaySymbol)
-  const TokenBIcon = getNativeIcon(pair.tokenB.displaySymbol)
 
   return (
     <View style={tailwind('flex-col w-full mt-4')}>
@@ -221,21 +218,19 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
         rhs={{
           value: pair.aToBRate.toFixed(8),
           testID: 'a_per_b_price',
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: pair.tokenA.displaySymbol
         }}
-      >
-        <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
       <NumberRow
         lhs={translate('screens/AddLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenB.displaySymbol, tokenB: pair.tokenA.displaySymbol })}
         rhs={{
           value: pair.bToARate.toFixed(8),
           testID: 'b_per_a_price',
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: pair.tokenB.displaySymbol
         }}
-      >
-        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
 
       <ThemedSectionTitle
         testID='title_add_detail'
@@ -256,23 +251,20 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
         rhs={{
           value: pair.tokenA.reserve,
           testID: `pooled_${pair?.tokenA?.displaySymbol}`,
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: pair?.tokenA?.displaySymbol
         }}
-      >
-        <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
 
       <NumberRow
         lhs={translate('screens/AddLiquidity', 'Your pooled {{token}}', { token: pair?.tokenB?.displaySymbol })}
         rhs={{
           value: pair.tokenB.reserve,
-          suffix: '',
           testID: `pooled_${pair?.tokenB?.displaySymbol}`,
-          suffixType: 'component'
+          suffixType: 'text',
+          suffix: pair?.tokenB?.displaySymbol
         }}
-      >
-        <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
-      </NumberRow>
+      />
     </View>
   )
 }
