@@ -348,7 +348,11 @@
     "Review full transaction details in the next screen": "请在下一步确认交易明细",
     "How much {{symbol}} to supply?": "您想提供多少 {{symbol}} 流动资金?",
     "Enter an amount": "请输入数量",
-    "Available": "可提供资金"
+    "Available": "可提供资金",
+    "PRICE DETAILS": "PRICE DETAILS",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "TRANSACTION DETAILS": "交易明細",
+    "Your pooled {{token}}": "Your pooled {{token}}"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "您正要增加流动资金",
@@ -361,7 +365,10 @@
     "Adding Liquidity": "增加流动资金",
     "ADDING": "增加",
     "Pooled {{symbol}}": "池中总 {{symbol}}",
-    "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "向 {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} 配对增加流动资金"
+    "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "向 {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} 配对增加流动资金",
+    "PRICE DETAILS": "PRICE DETAILS",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "Your pooled {{token}}": "Your pooled {{token}}"
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "您正要退出",
@@ -380,7 +387,9 @@
     "YOU ARE REMOVING": "您正要退出",
     "Price": "价格",
     "Removing {{amount}} {{symbol}}": "退出 {{amount}} {{symbol}}",
-    "Review full transaction details in the next screen": "请在下一步确认交易明细"
+    "Review full transaction details in the next screen": "请在下一步确认交易明细",
+    "PRICE DETAILS": "PRICE DETAILS",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "钱包网络",
@@ -431,7 +440,8 @@
     "Swapping Token": "兑换代币",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兑换 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
-    "{{token}} balance": "{{token}} balance"
+    "{{token}} balance": "{{token}} balance",
+    "CONFIRM SWAP": "CONFIRM SWAP"
   },
   "screens/UnlockWallet": {
     "Enter passcode": "请输入密码",

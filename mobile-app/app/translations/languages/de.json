@@ -345,7 +345,11 @@
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
     "How much {{symbol}} to supply?": "Wie viele {{symbol}} hinzufügen?",
     "Enter an amount": "Gib eine Menge ein",
-    "Available": "Verfügbar"
+    "Available": "Verfügbar",
+    "PRICE DETAILS": "PRICE DETAILS",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "Your pooled {{token}}": "Your pooled {{token}}"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "Du fügst hinzu",
@@ -358,7 +362,10 @@
     "Adding Liquidity": "Füge Liquidität hinzu",
     "ADDING": "WIRD HINZUGEFÜGT",
     "Pooled {{symbol}}": "Im Pool {{symbol}}",
-    "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "Füge {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} hinzu"
+    "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "Füge {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} hinzu",
+    "PRICE DETAILS": "PRICE DETAILS",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "Your pooled {{token}}": "Your pooled {{token}}"
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "Du entfernst",
@@ -377,7 +384,9 @@
     "YOU ARE REMOVING": "DU ENTFERNST",
     "Price": "Preis",
     "Removing {{amount}} {{symbol}}": "Entferne {{amount}} {{symbol}}",
-    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion"
+    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
+    "PRICE DETAILS": "PRICE DETAILS",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "Wallet Netzwerk",
@@ -428,7 +437,8 @@
     "Swapping Token": "Tausche Token",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
-    "{{token}} balance": "{{token}} balance"
+    "{{token}} balance": "{{token}} balance",
+    "CONFIRM SWAP": "CONFIRM SWAP"
   },
   "screens/UnlockWallet": {
     "Enter passcode": "Passworteingabe",

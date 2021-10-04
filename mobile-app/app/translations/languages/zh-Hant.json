@@ -348,7 +348,11 @@
     "Review full transaction details in the next screen": "請在下一步確認交易明細",
     "How much {{symbol}} to supply?": "您想提供多少 {{symbol}} 流動資金?",
     "Enter an amount": "請輸入數量",
-    "Available": "可提供資金"
+    "Available": "可提供資金",
+    "PRICE DETAILS": "PRICE DETAILS",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "TRANSACTION DETAILS": "交易明細",
+    "Your pooled {{token}}": "Your pooled {{token}}"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "您正要增加流動資金",
@@ -361,7 +365,10 @@
     "Adding Liquidity": "增加流動資金",
     "ADDING": "增加",
     "Pooled {{symbol}}": "池中總 {{symbol}}",
-    "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "向 {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} 配對增加流動資金"
+    "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "向 {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} 配對增加流動資金",
+    "PRICE DETAILS": "PRICE DETAILS",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "Your pooled {{token}}": "Your pooled {{token}}"
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "您正要退出",
@@ -380,7 +387,9 @@
     "YOU ARE REMOVING": "您正要退出",
     "Price": "價格",
     "Removing {{amount}} {{symbol}}": "退出 {{amount}} {{symbol}}",
-    "Review full transaction details in the next screen": "請在下一步確認交易明細"
+    "Review full transaction details in the next screen": "請在下一步確認交易明細",
+    "PRICE DETAILS": "PRICE DETAILS",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "錢包網絡",
@@ -431,7 +440,8 @@
     "Swapping Token": "兌換代幣",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兌換 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
-    "{{token}} balance": "{{token}} balance"
+    "{{token}} balance": "{{token}} balance",
+    "CONFIRM SWAP": "CONFIRM SWAP"
   },
   "screens/UnlockWallet": {
     "Enter passcode": "請輸入密碼",
