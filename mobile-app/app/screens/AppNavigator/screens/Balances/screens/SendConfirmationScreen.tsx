@@ -22,6 +22,7 @@ import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
+import { getNativeIcon } from '@components/icons/assets'
 
 type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
 
@@ -45,6 +46,8 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       navigation.dispatch(StackActions.popToTop())
     }
   }
+  const FeeIcon = getNativeIcon('_UTXO')
+  const TokenIcon = getNativeIcon(token.avatarSymbol)
 
   useEffect(() => {
     setIsOnPage(true)
@@ -104,35 +107,43 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       <TextRow
         lhs={translate('screens/SendConfirmationScreen', 'Address')}
         rhs={{ value: destination, testID: 'text_destination' }}
+        textStyle={tailwind('text-sm font-normal')}
       />
 
       <TextRow
         lhs={translate('screens/SendConfirmationScreen', 'Network')}
         rhs={{ value: network.network, testID: 'text_network' }}
+        textStyle={tailwind('text-sm font-normal')}
       />
 
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Amount')}
         rightHandElements={[{
           value: amount.toFixed(8),
-          suffix: ` ${token.displaySymbol}`,
-          testID: 'text_amount'
+          testID: 'text_amount',
+          suffixType: 'component'
         }]}
-      />
+      >
+        <TokenIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
 
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Estimated fee')}
-        rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
-      />
+        rightHandElements={[{ value: fee.toFixed(8), suffixType: 'component', testID: 'text_fee' }]}
+      >
+        <FeeIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
 
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Remaining balance')}
         rightHandElements={[{
           value: BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)).minus(fee.toFixed(8)), 0).toFixed(8),
-          suffix: ` ${token.displaySymbol}`,
+          suffixType: 'component',
           testID: 'text_balance'
         }]}
-      />
+      >
+        <TokenIcon width={16} height={16} style={tailwind('ml-1')} />
+      </NumberRow>
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
