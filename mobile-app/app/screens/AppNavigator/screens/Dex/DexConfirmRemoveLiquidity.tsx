@@ -117,32 +117,28 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
 
       <NumberRow
         lhs={translate('screens/ConfirmRemoveLiquidity', '{{tokenB}} price per {{tokenA}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
-        rightHandElements={[
-            {
-              value: aToBRate.toFixed(8),
-              testID: 'price_a',
-              suffixType: 'component'
-            }
-          ]}
+        rhs={{
+          value: aToBRate.toFixed(8),
+          testID: 'price_a',
+          suffixType: 'component'
+        }}
       >
         <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
       <NumberRow
         lhs={translate('screens/ConfirmRemoveLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
-        rightHandElements={[
-            {
-              value: bToARate.toFixed(8),
-              testID: 'price_b',
-              suffixType: 'component'
-            }
-          ]}
+        rhs={{
+          value: bToARate.toFixed(8),
+          testID: 'price_b',
+          suffixType: 'component'
+        }}
       >
         <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
 
       <NumberRow
         lhs={translate('screens/ConfirmRemoveLiquidity', 'Estimated fee')}
-        rightHandElements={[{ value: fee.toFixed(8), testID: 'text_fee', suffixType: 'component' }]}
+        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffixType: 'component' }}
       >
         <FeeToken width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>

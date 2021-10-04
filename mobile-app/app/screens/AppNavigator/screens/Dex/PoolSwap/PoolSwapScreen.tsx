@@ -406,45 +406,41 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee }: SwapSumma
       />
       <NumberRow
         lhs={translate('screens/PoolSwapScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
-        rightHandElements={[{
+        rhs={{
           testID: 'price_a',
           value: priceA,
           suffixType: 'component'
-        }]}
+        }}
       >
         <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
       <NumberRow
         lhs={translate('screens/PoolSwapScreen', '{{tokenB}} price per {{tokenA}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
-        rightHandElements={[{
+        rhs={{
           testID: 'price_b',
           value: priceB,
           suffixType: 'component'
-        }]}
+        }}
       >
         <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
       <NumberRow
         lhs={translate('screens/PoolSwapScreen', 'Estimated to receive')}
-        rightHandElements={[
-          {
-            value: estimated,
-            testID: 'estimated',
-            suffixType: 'component'
-          }
-        ]}
+        rhs={{
+          value: estimated,
+          testID: 'estimated',
+          suffixType: 'component'
+        }}
       >
         <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
       <NumberRow
         lhs={translate('screens/PoolSwapScreen', 'Estimated fee')}
-        rightHandElements={[
-          {
-            value: fee,
-            testID: 'estimated_fee',
-            suffixType: 'component'
-          }
-        ]}
+        rhs={{
+          value: fee,
+          testID: 'estimated_fee',
+          suffixType: 'component'
+        }}
       >
         <FeeIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>

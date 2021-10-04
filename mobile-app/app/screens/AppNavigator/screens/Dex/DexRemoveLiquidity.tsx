@@ -166,25 +166,21 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         />
         <NumberRow
           lhs={translate('screens/AddLiquidity', '{{tokenB}} price per {{tokenA}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
-          rightHandElements={[
-            {
-              value: tokenAPerLmToken.toFixed(8),
-              testID: 'text_a_to_b_price',
-              suffixType: 'component'
-            }
-          ]}
+          rhs={{
+            value: tokenAPerLmToken.toFixed(8),
+            testID: 'text_a_to_b_price',
+            suffixType: 'component'
+          }}
         >
           <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
         </NumberRow>
         <NumberRow
           lhs={translate('screens/AddLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
-          rightHandElements={[
-            {
-              value: tokenBPerLmToken.toFixed(8),
-              testID: 'text_b_to_a_price',
-              suffixType: 'component'
-            }
-          ]}
+          rhs={{
+            value: tokenBPerLmToken.toFixed(8),
+            testID: 'text_b_to_a_price',
+            suffixType: 'component'
+          }}
         >
           <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
         </NumberRow>

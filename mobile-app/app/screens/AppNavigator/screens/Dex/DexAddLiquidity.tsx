@@ -218,21 +218,21 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
       />
       <NumberRow
         lhs={translate('screens/AddLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
-        rightHandElements={[{
+        rhs={{
           value: pair.aToBRate.toFixed(8),
           testID: 'a_per_b_price',
           suffixType: 'component'
-        }]}
+        }}
       >
         <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
       <NumberRow
         lhs={translate('screens/AddLiquidity', '{{tokenB}} price per {{tokenA}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
-        rightHandElements={[{
+        rhs={{
           value: pair.bToARate.toFixed(8),
           testID: 'b_per_a_price',
           suffixType: 'component'
-        }]}
+        }}
       >
         <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
@@ -243,33 +243,33 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
       />
       <NumberRow
         lhs={translate('screens/AddLiquidity', 'Share of pool')}
-        rightHandElements={[{
+        rhs={{
           value: sharePercentage.times(100).toFixed(8),
           suffix: '%',
           testID: 'share_of_pool',
           suffixType: 'text'
-        }]}
+        }}
       />
 
       <NumberRow
         lhs={translate('screens/AddLiquidity', 'Your pooled {{token}}', { token: pair?.tokenA?.displaySymbol })}
-        rightHandElements={[{
+        rhs={{
           value: pair.tokenA.reserve,
           testID: `pooled_${pair?.tokenA?.displaySymbol}`,
           suffixType: 'component'
-        }]}
+        }}
       >
         <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
 
       <NumberRow
         lhs={translate('screens/AddLiquidity', 'Your pooled {{token}}', { token: pair?.tokenB?.displaySymbol })}
-        rightHandElements={[{
+        rhs={{
           value: pair.tokenB.reserve,
           suffix: '',
           testID: `pooled_${pair?.tokenB?.displaySymbol}`,
           suffixType: 'component'
-        }]}
+        }}
       >
         <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>

@@ -130,21 +130,21 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 
       <NumberRow
         lhs={tokenA.displaySymbol}
-        rightHandElements={[{
+        rhs={{
           testID: 'a_amount',
           value: BigNumber.max(tokenAAmount, 0).toFixed(8),
           suffixType: 'component'
-        }]}
+        }}
       >
         <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
       <NumberRow
         lhs={tokenB.displaySymbol}
-        rightHandElements={[{
+        rhs={{
           testID: 'b_amount',
           value: BigNumber.max(tokenBAmount, 0).toFixed(8),
           suffixType: 'component'
-        }]}
+        }}
       >
         <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
@@ -155,25 +155,21 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       />
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
-        rightHandElements={[
-          {
-            value: aToBRate.toFixed(8),
-            testID: 'price_a',
-            suffixType: 'component'
-          }
-        ]}
+        rhs={{
+          value: aToBRate.toFixed(8),
+          testID: 'price_a',
+          suffixType: 'component'
+        }}
       >
         <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', '{{tokenB}} price per {{tokenA}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
-        rightHandElements={[
-          {
-            value: bToARate.toFixed(8),
-            testID: 'price_b',
-            suffixType: 'component'
-          }
-        ]}
+        rhs={{
+          value: bToARate.toFixed(8),
+          testID: 'price_b',
+          suffixType: 'component'
+        }}
       >
         <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
@@ -184,34 +180,34 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       />
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Share of pool')}
-        rightHandElements={[{ value: percentage.times(100).toFixed(8), suffix: '%', testID: 'percentage_pool', suffixType: 'text' }]}
+        rhs={{ value: percentage.times(100).toFixed(8), suffix: '%', testID: 'percentage_pool', suffixType: 'text' }}
       />
 
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Your pooled {{symbol}}', { symbol: `${tokenA?.displaySymbol}` })}
-        rightHandElements={[{
+        rhs={{
           value: tokenA.reserve,
           testID: 'pooled_a',
           suffixType: 'component'
-        }]}
+        }}
       >
         <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
 
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Your pooled {{symbol}}', { symbol: `${tokenB?.displaySymbol}` })}
-        rightHandElements={[{
+        rhs={{
           value: tokenB.reserve,
           testID: 'pooled_b',
           suffixType: 'component'
-        }]}
+        }}
       >
         <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
 
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Estimated fee')}
-        rightHandElements={[{ value: fee.toFixed(8), testID: 'text_fee', suffixType: 'component' }]}
+        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffixType: 'component' }}
       >
         <FeeIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>

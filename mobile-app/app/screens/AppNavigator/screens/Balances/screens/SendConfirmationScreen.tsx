@@ -118,29 +118,29 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
 
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Amount')}
-        rightHandElements={[{
+        rhs={{
           value: amount.toFixed(8),
           testID: 'text_amount',
           suffixType: 'component'
-        }]}
+        }}
       >
         <TokenIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
 
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Estimated fee')}
-        rightHandElements={[{ value: fee.toFixed(8), suffixType: 'component', testID: 'text_fee' }]}
+        rhs={{ value: fee.toFixed(8), suffixType: 'component', testID: 'text_fee' }}
       >
         <FeeIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
 
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Remaining balance')}
-        rightHandElements={[{
+        rhs={{
           value: BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)).minus(fee.toFixed(8)), 0).toFixed(8),
           suffixType: 'component',
           testID: 'text_balance'
-        }]}
+        }}
       >
         <TokenIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>

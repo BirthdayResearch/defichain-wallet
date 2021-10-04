@@ -116,16 +116,14 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
       />
       <NumberRow
         lhs={translate('screens/ConvertConfirmScreen', '{{token}} to receive', { token: targetUnit })}
-        rightHandElements={[
-          {
-            value: amount.toFixed(8),
-            testID: 'token_to_receive_amount'
-          }
-        ]}
+        rhs={{
+          value: amount.toFixed(8),
+          testID: 'token_to_receive_amount'
+        }}
       />
       <NumberRow
         lhs={translate('screens/ConvertConfirmScreen', 'Estimated fee')}
-        rightHandElements={[{ value: fee.toFixed(8), testID: 'text_fee', suffixType: 'component' }]}
+        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffixType: 'component' }}
       >
         <FeeIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
@@ -137,21 +135,17 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
 
       <NumberRow
         lhs={translate('screens/ConvertConfirmScreen', sourceUnit)}
-        rightHandElements={[
-          {
-            value: sourceBalance.toFixed(8),
-            testID: 'source_amount'
-          }
-        ]}
+        rhs={{
+          value: sourceBalance.toFixed(8),
+          testID: 'source_amount'
+        }}
       />
       <NumberRow
         lhs={translate('screens/ConvertConfirmScreen', targetUnit)}
-        rightHandElements={[
-          {
-            value: targetBalance.toFixed(8),
-            testID: 'target_amount'
-          }
-        ]}
+        rhs={{
+          value: targetBalance.toFixed(8),
+          testID: 'target_amount'
+        }}
       />
 
       <SubmitButtonGroup

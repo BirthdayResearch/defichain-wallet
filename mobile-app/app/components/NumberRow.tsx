@@ -8,7 +8,7 @@ type INumberRowProps = React.PropsWithChildren<ViewProps> & NumberRowProps
 type SuffixType = 'text' | 'component'
 interface NumberRowProps {
   lhs: string
-  rightHandElements: NumberRowRightElement[]
+  rhs: NumberRowRightElement
   textStyle?: StyleProp<TextStyle>
 }
 interface NumberRowRightElement {
@@ -26,51 +26,44 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
       style={tailwind('p-4 flex-row items-start w-full')}
     >
       <View style={tailwind('w-6/12')}>
-        <ThemedText style={[tailwind('text-sm'), props.textStyle]}>
+        <ThemedText style={[tailwind('text-sm'), props.textStyle]} testID={`${props.rhs.testID}_label`}>
           {props.lhs}
         </ThemedText>
       </View>
 
-      <View style={tailwind('flex-1 flex-col')}>
-        {
-          props.rightHandElements.map((rhs, index) => (
-            <View
-              key={index}
-              style={tailwind('flex-1 flex-row ml-4 justify-end flex-wrap items-center')}
+      <View
+        style={tailwind('flex-1 flex-row ml-4 justify-end flex-wrap items-center')}
+      >
+        <NumberFormat
+          decimalScale={8}
+          displayType='text'
+          renderText={(val: string) => (
+            <ThemedText
+              dark={tailwind('text-gray-400')}
+              light={tailwind('text-gray-500')}
+              style={[tailwind('text-sm text-right'), props.textStyle]}
+              testID={props.rhs.testID}
             >
-              <NumberFormat
-                decimalScale={8}
-                displayType='text'
-                renderText={(val: string) => (
-                  <ThemedText
-                    dark={tailwind('text-gray-400')}
-                    light={tailwind('text-gray-500')}
-                    style={[tailwind('text-sm text-right'), props.textStyle]}
-                    testID={rhs.testID}
-                  >
-                    {val}
-                  </ThemedText>
-                )}
-                thousandSeparator
-                value={rhs.value}
-              />
-              {
-                rhs.suffixType === 'text' &&
-                  <ThemedText
-                    light={tailwind('text-gray-500')}
-                    dark={tailwind('text-gray-400')}
-                    style={tailwind('text-sm')}
-                    testID={`${rhs.testID}_suffix`}
-                  >
-                    {rhs.suffix}
-                  </ThemedText>
-              }
-              {
-                rhs.suffixType === 'component' &&
-                (props.children)
-              }
-            </View>
-          ))
+              {val}
+            </ThemedText>
+          )}
+          thousandSeparator
+          value={props.rhs.value}
+        />
+        {
+          props.rhs.suffixType === 'text' &&
+            <ThemedText
+              light={tailwind('text-gray-500')}
+              dark={tailwind('text-gray-400')}
+              style={tailwind('text-sm')}
+              testID={`${props.rhs.testID}_suffix`}
+            >
+              {props.rhs.suffix}
+            </ThemedText>
+        }
+        {
+          props.rhs.suffixType === 'component' &&
+          (props.children)
         }
       </View>
     </ThemedView>

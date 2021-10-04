@@ -88,21 +88,21 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
       />
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenA}} balance', { tokenA: tokenA.displaySymbol })}
-        rightHandElements={[{
+        rhs={{
           testID: 'source_amount',
           value: BigNumber.max(new BigNumber(tokenA.amount).minus(swap.fromAmount), 0).toFixed(8),
           suffixType: 'component'
-        }]}
+        }}
       >
         <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenB}} balance', { tokenB: tokenB.displaySymbol })}
-        rightHandElements={[{
+        rhs={{
           testID: 'target_amount',
           value: BigNumber.max(new BigNumber(tokenB.amount).plus(swap.toAmount), 0).toFixed(8),
           suffixType: 'component'
-        }]}
+        }}
       >
         <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
@@ -114,36 +114,36 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
 
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', 'Slippage Tolerance')}
-        rightHandElements={[{
+        rhs={{
           value: new BigNumber(slippage).times(100).toFixed(),
           suffix: '%',
           testID: 'slippage_fee',
           suffixType: 'text'
-        }]}
+        }}
       />
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
-        rightHandElements={[{
+        rhs={{
           testID: 'price_a',
           value: priceRateA,
           suffixType: 'component'
-        }]}
+        }}
       >
         <TokenAIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenB}} price per {{tokenA}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
-        rightHandElements={[{
+        rhs={{
           testID: 'price_b',
           value: priceRateB,
           suffixType: 'component'
-        }]}
+        }}
       >
         <TokenBIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated fee')}
-        rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee', suffixType: 'component' }]}
+        rhs={{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee', suffixType: 'component' }}
       >
         <FeeIcon width={16} height={16} style={tailwind('ml-1')} />
       </NumberRow>
