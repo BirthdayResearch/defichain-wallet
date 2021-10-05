@@ -76,7 +76,6 @@ context('Wallet - Transaction Authorization', () => {
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
     cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
-    cy.getByTestID('convert_dfi_button').click()
     cy.getByTestID('send_dfi_button').click()
   })
 
