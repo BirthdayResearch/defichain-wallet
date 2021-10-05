@@ -7,8 +7,8 @@
 /mobile-app/app/                                @fuxingloh @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864
 /mobile-app/app/api                             @fuxingloh @thedoublejay @ivan-zynesis
 
-/mobile-app/app/assets                          @fuxingloh @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864
-/mobile-app/app/translations                    @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864
+/shared/assets                                  @fuxingloh @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864
+/shared/translations                            @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864
 /mobile-app/cypress                             @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864
 
 /.codeclimate.yml                               @fuxingloh @thedoublejay
