@@ -127,7 +127,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
         rhs={{
           value: fee.toFixed(8),
           testID: 'text_fee',
-          suffix: ' DFI (UTXO)'
+          suffix: 'DFI (UTXO)'
         }}
       />
 

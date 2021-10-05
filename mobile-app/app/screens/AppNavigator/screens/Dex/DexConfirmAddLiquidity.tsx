@@ -200,7 +200,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 
       <EstimatedFeeInfo
         lhs={translate('screens/ConfirmAddLiq', 'Estimated fee')}
-        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffix: ' DFI (UTXO)' }}
+        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffix: 'DFI (UTXO)' }}
       />
 
       <SubmitButtonGroup

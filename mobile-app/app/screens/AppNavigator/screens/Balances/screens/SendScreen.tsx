@@ -122,7 +122,7 @@ export function SendScreen ({
               lhs={translate('screens/SendScreen', 'Estimated fee')}
               rhs={{
                 value: fee.toString(),
-                suffix: ' DFI (UTXO)',
+                suffix: 'DFI (UTXO)',
                 testID: 'transaction_fee'
               }}
             />

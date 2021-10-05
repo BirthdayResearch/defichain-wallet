@@ -129,7 +129,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         rhs={{
           value: fee.toFixed(8),
           testID: 'text_fee',
-          suffix: ` ${token.displaySymbol}`
+          suffix: token.displaySymbol
         }}
       />
 

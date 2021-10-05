@@ -29,9 +29,9 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
 
   useEffect(() => {
     return () => {
-      // if (Platform.OS !== 'web') {
+      if (Platform.OS !== 'web') {
         bottomSheetModalRef.current?.close()
-      // }
+      }
     }
   }, [])
 
