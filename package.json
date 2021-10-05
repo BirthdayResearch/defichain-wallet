@@ -139,7 +139,8 @@
     "report-dir": "cypress-coverage",
     "all": true,
     "include": [
-      "mobile-app/app/**"
+      "mobile-app/app/**",
+      "shared/**"
     ],
     "exclude": [
       "**.test.ts",
