@@ -95,12 +95,19 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           refreshing={refreshing}
         />
       }
-      renderItem={({ item }) =>
-        <BalanceItemRow
-          key={item.symbol}
-          onPress={() => navigation.navigate({ name: 'TokenDetail', params: { token: item }, merge: true })}
-          token={item}
-        />}
+      renderItem={({ item }) => {
+        if (item.id === '0_utxo' || item.id === '0') {
+          return (<></>)
+        }
+
+        return (
+          <BalanceItemRow
+            key={item.symbol}
+            onPress={() => navigation.navigate({ name: 'TokenDetail', params: { token: item }, merge: true })}
+            token={item}
+          />
+        )
+      }}
       testID='balances_list'
     />
   )
@@ -194,13 +201,14 @@ function DFIBalanceCard (props: DFIBalanceCardProps): JSX.Element {
       light={tailwind('bg-white border-gray-100')}
       dark={tailwind('bg-gray-800')}
       style={tailwind('mx-2 mt-4 rounded-lg flex-1')}
+      testID='dfi_balance_card'
     >
       <ImageBackground source={props.isLight ? DFIBackground : DFIBackgroundDark} style={tailwind('flex-1 rounded-lg overflow-hidden')} resizeMode='cover' resizeMethod='scale'>
         <View style={tailwind('flex-col flex-1 mx-4 mt-5 mb-4')}>
           <View style={tailwind('flex-row pb-3 items-center')}>
             <DFIIcon width={24} height={24} style={tailwind('mr-2')} />
-            <ThemedText style={tailwind('pr-9 text-lg font-bold')}>DFI</ThemedText>
-            <ThemedText>{totalDFI} DFI</ThemedText>
+            <ThemedText style={tailwind('pr-9 text-lg font-bold')} testID='total_dfi_label'>DFI</ThemedText>
+            <ThemedText testID='total_dfi_amount'>{totalDFI} DFI</ThemedText>
           </View>
 
           <View style={tailwind('flex-row pb-1.5')}>
@@ -208,6 +216,7 @@ function DFIBalanceCard (props: DFIBalanceCardProps): JSX.Element {
               light={tailwind('text-gray-500')}
               dark={tailwind('text-gray-400')}
               style={tailwind('pr-16 text-sm')}
+              testID='dfi_utxo_label'
             >
               UTXO
             </ThemedText>
@@ -215,6 +224,7 @@ function DFIBalanceCard (props: DFIBalanceCardProps): JSX.Element {
               light={tailwind('text-gray-500')}
               dark={tailwind('text-gray-400')}
               style={tailwind('text-sm')}
+              testID='dfi_utxo_amount'
             >
               {new BigNumber(props.utxo.amount).toFixed(8)}
             </ThemedText>
@@ -225,6 +235,7 @@ function DFIBalanceCard (props: DFIBalanceCardProps): JSX.Element {
               light={tailwind('text-gray-500')}
               dark={tailwind('text-gray-400')}
               style={tailwind('pr-14 text-sm')}
+              testID='dfi_utxo_label'
             >
               Token
             </ThemedText>
@@ -232,6 +243,7 @@ function DFIBalanceCard (props: DFIBalanceCardProps): JSX.Element {
               light={tailwind('text-gray-500')}
               dark={tailwind('text-gray-400')}
               style={tailwind('pl-1.5 text-sm')}
+              testID='dfi_token_amount'
             >
               {new BigNumber(props.token.amount).toFixed(8)}
             </ThemedText>
