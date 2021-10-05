@@ -110,7 +110,7 @@
     "eas-cli": "^0.29.1",
     "eslint-config-standard-with-typescript": "^21.0.1",
     "eslint-plugin-cypress": "^2.11.3",
-    "eslint-plugin-jest": "^24.4.0",
+    "eslint-plugin-jest": "^24.5.2",
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-react-native": "^3.11.0",
