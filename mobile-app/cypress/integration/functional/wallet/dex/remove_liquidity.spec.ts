@@ -39,8 +39,10 @@ context('Wallet - DEX - Remove Liquidity', () => {
 
   it('should display price based on pool tokenA:tokenB ratio regardless removal amount', function () {
     cy.wait(1000)
-    cy.getByTestID('text_a_to_b_price').contains('0.01000000 DFI per dETH')
-    cy.getByTestID('text_b_to_a_price').contains('100.00000000 dETH per DFI')
+    cy.getByTestID('text_a_to_b_price').contains('0.01000000')
+    cy.getByTestID('text_a_to_b_price_label').contains('DFI price per dETH')
+    cy.getByTestID('text_b_to_a_price').contains('100.00000000')
+    cy.getByTestID('text_b_to_a_price_label').contains('dETH price per DFI')
   })
 
   // // unable to trigger slider change event for react: https://github.com/cypress-io/cypress/issues/1570
@@ -125,8 +127,10 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
         cy.getByTestID('text_remove_amount_suffix').should('have.text', ' dETH-DFI')
         cy.getByTestID('a_amount').should('have.text', new BigNumber(valueA).toFixed(8))
         cy.getByTestID('b_amount').should('have.text', new BigNumber(valueB).toFixed(8))
-        cy.getByTestID('price_a').contains('0.01000000 DFI per dETH')
-        cy.getByTestID('price_b').contains('100.00000000 dETH per DFI')
+        cy.getByTestID('price_a').contains('0.01000000')
+        cy.getByTestID('price_a_label').contains('DFI price per dETH')
+        cy.getByTestID('price_b').contains('100.00000000')
+        cy.getByTestID('price_b_label').contains('dETH price per DFI')
         cy.getByTestID('button_confirm_remove').click().wait(2000)
         cy.closeOceanInterface()
       })
@@ -153,8 +157,10 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
     cy.getByTestID('a_amount').should('exist')
     cy.getByTestID('b_amount').should('exist')
     cy.getByTestID('text_fee').should('exist')
-    cy.getByTestID('price_a').contains('0.01000000 DFI per dETH')
-    cy.getByTestID('price_b').contains('100.00000000 dETH per DFI')
+    cy.getByTestID('price_a').contains('0.01000000')
+    cy.getByTestID('price_a_label').contains('DFI price per dETH')
+    cy.getByTestID('price_b').contains('100.00000000')
+    cy.getByTestID('price_b_label').contains('dETH price per DFI')
     cy.getByTestID('button_confirm_remove').click().wait(2000)
     // Check for authorization page description
     cy.getByTestID('txn_authorization_description')
