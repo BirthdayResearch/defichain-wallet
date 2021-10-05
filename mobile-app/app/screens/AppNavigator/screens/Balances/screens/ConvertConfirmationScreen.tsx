@@ -8,7 +8,6 @@ import React, { Dispatch, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '@api'
-import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
 import { TokenBalanceRow } from '@components/TokenBalanceRow'
@@ -19,6 +18,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
+import { EstimatedFeeInfo } from '@components/EstimationInfo'
 
 type Props = StackScreenProps<BalanceParamList, 'ConvertConfirmationScreen'>
 
@@ -84,7 +84,6 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
         <ThemedText
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
-          style={tailwind('font-sm')}
           testID='convert_amount_source_suffix'
         >
           {sourceUnit}
@@ -93,7 +92,6 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
         <ThemedText
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
-          style={tailwind('font-sm')}
           testID='convert_amount_target_suffix'
         >
           {targetUnit}
@@ -118,9 +116,9 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
       />
 
       <View style={tailwind('mt-4')}>
-        <NumberRow
+        <EstimatedFeeInfo
           lhs={translate('screens/ConvertConfirmScreen', 'Estimated fee')}
-          rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
+          rightHandElements={{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }}
         />
       </View>
 

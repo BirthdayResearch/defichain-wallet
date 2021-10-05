@@ -18,7 +18,8 @@ module.exports = function (api) {
           '@tailwind': './mobile-app/app/tailwind'
         }
       }
-    ]
+    ],
+    'react-native-reanimated/plugin'
   ]
 
   if (process.env.CYPRESS_E2E) {

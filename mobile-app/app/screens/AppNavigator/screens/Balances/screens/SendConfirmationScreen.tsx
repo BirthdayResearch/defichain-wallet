@@ -22,6 +22,7 @@ import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
+import { EstimatedFeeInfo } from '@components/EstimationInfo'
 
 type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
 
@@ -120,9 +121,9 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         }]}
       />
 
-      <NumberRow
+      <EstimatedFeeInfo
         lhs={translate('screens/SendConfirmationScreen', 'Estimated fee')}
-        rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
+        rightHandElements={{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }}
       />
 
       <NumberRow

@@ -41,6 +41,10 @@
     "Conveniently swap participating tokens within the liquidity pool.": "Bequemer Umtausch von im Liquidity Pool vertretenen Token.",
     "You have full control over your tokens unlike any other.": "Nur du hast volle Kontrolle über deine Token."
   },
+  "screens/EstimatedFeeInfo": {
+    "Estimated fee": "Geschätzte Gebühr",
+    "Each transaction will subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "Jede Transaktion unterliegt einer geringen Gebühr. Der Betrag kann je nach Auslastung des Netzwerks variieren."
+  },
   "screens/BalancesScreen": {
     "Balances": "Guthaben",
     "RECEIVE": "EMPFANGEN",
