@@ -27,8 +27,12 @@ import { PasscodePrompt } from './PasscodePrompt'
 const MAX_PASSCODE_ATTEMPT = 3 // allowed 2 failures
 const PIN_LENGTH = 6
 const DEFAULT_MESSAGES = {
-  message: translate('screens/UnlockWallet', 'Please enter passcode to securely sign your transaction'),
-  loadingMessage: translate('screens/TransactionAuthorization', 'Signing...')
+  message: 'Enter passcode to continue',
+  loadingMessage: 'Signing your transaction...',
+  authorizedTransactionMessage: {
+    title: 'Transaction authorized',
+    description: 'Please wait as your transaction is prepared'
+  }
 }
 
 /**
@@ -43,7 +47,7 @@ let PASSPHRASE_PROMISE_PROXY: {
 const INVALID_HASH = 'invalid hash'
 const USER_CANCELED = 'USER_CANCELED'
 
-export type Status = 'INIT' | 'IDLE' | 'BLOCK' | 'PIN' | 'SIGNING'
+export type Status = 'INIT' | 'IDLE' | 'BLOCK' | 'PIN' | 'SIGNING' | 'AUTHORIZED'
 
 /**
  * The main UI page transaction signing logic interact with encrypted wallet context
@@ -178,6 +182,7 @@ export function TransactionAuthorization (): JSX.Element | null {
         .then(async signedTx => {
           // case 1: success
           await resetPasscodeCounter()
+          emitEvent('AUTHORIZED')
           dispatch(ocean.actions.queueTransaction({ tx: signedTx, postAction: transaction.postAction })) // push signed result for broadcasting
         })
         .catch(async e => {
@@ -194,8 +199,10 @@ export function TransactionAuthorization (): JSX.Element | null {
         })
         .catch(e => Logging.error(e)) // not expect logic reach here
         .finally(() => {
-          dispatch(transactionQueue.actions.pop()) // remove job
-          onTaskCompletion()
+          setTimeout(() => {
+            dispatch(transactionQueue.actions.pop()) // remove job
+            onTaskCompletion()
+          }, 2000)
         })
     } else if (authentication !== undefined) {
       emitEvent('BLOCK') // prevent any re-render trigger (between IDLE and PIN)
@@ -249,6 +256,12 @@ export function TransactionAuthorization (): JSX.Element | null {
       onPinInput={onPinInput}
       pin={pin}
       loadingMessage={translate('screens/TransactionAuthorization', loadingMessage)}
+      authorizedTransactionMessage={
+        {
+          title: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.title),
+          description: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.description)
+        }
+      }
       isRetry={isRetry}
       attemptsRemaining={attemptsRemaining}
       maxPasscodeAttempt={MAX_PASSCODE_ATTEMPT}
