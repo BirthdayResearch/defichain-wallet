@@ -235,7 +235,7 @@ function DFIBalanceCard (props: DFIBalanceCardProps): JSX.Element {
               light={tailwind('text-gray-500')}
               dark={tailwind('text-gray-400')}
               style={tailwind('pr-14 text-sm')}
-              testID='dfi_utxo_label'
+              testID='dfi_token_label'
             >
               Token
             </ThemedText>

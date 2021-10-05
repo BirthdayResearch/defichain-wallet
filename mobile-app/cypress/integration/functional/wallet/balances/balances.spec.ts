@@ -37,11 +37,13 @@ context('Wallet - Balances', () => {
   })
 
   it('should be able to navigate to convert dfi page', function () {
+    cy.go('back')
     cy.getByTestID('convert_dfi_button').click()
     cy.getByTestID('convert_screen').should('exist')
   })
 
   it('should be able to navigate to send dfi page', function () {
+    cy.go('back')
     cy.getByTestID('send_dfi_button').click()
     cy.getByTestID('send_screen').should('exist')
   })

@@ -121,7 +121,7 @@ context('Mainnet - Wallet', () => {
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_list').should('exist')
       cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
-      cy.getByTestID('dfi_token_amount').contains('10.00000000')
+      cy.getByTestID('dfi_token_amount').contains('10')
       cy.getByTestID('total_dfi_amount').contains('20.00000000')
       cy.checkBalanceRow('7', {
         name: 'Playground ETH-DeFiChain',
