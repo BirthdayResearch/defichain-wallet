@@ -139,6 +139,7 @@ exports[`balances page should match snapshot 1`] = `
             },
           ]
         }
+        testID="dfi_balance_card"
       >
         <View
           accessibilityIgnoresInvertColors={true}
@@ -274,6 +275,7 @@ exports[`balances page should match snapshot 1`] = `
                     ],
                   ]
                 }
+                testID="total_dfi_label"
               >
                 DFI
               </Text>
@@ -294,6 +296,7 @@ exports[`balances page should match snapshot 1`] = `
                     ],
                   ]
                 }
+                testID="total_dfi_amount"
               >
                 77.00000000
                  DFI
@@ -328,6 +331,7 @@ exports[`balances page should match snapshot 1`] = `
                     ],
                   ]
                 }
+                testID="dfi_utxo_label"
               >
                 UTXO
               </Text>
@@ -351,6 +355,7 @@ exports[`balances page should match snapshot 1`] = `
                     ],
                   ]
                 }
+                testID="dfi_utxo_amount"
               >
                 77.00000000
               </Text>
@@ -387,6 +392,7 @@ exports[`balances page should match snapshot 1`] = `
                     ],
                   ]
                 }
+                testID="dfi_utxo_label"
               >
                 Token
               </Text>
@@ -411,6 +417,7 @@ exports[`balances page should match snapshot 1`] = `
                     ],
                   ]
                 }
+                testID="dfi_token_amount"
               >
                 0.00000000
               </Text>
@@ -458,7 +465,7 @@ exports[`balances page should match snapshot 1`] = `
                       "paddingTop": 4,
                     }
                   }
-                  testID="swap_button"
+                  testID="convert_dfi_button"
                 >
                   <Text />
                 </View>
@@ -496,7 +503,7 @@ exports[`balances page should match snapshot 1`] = `
                       "paddingTop": 4,
                     }
                   }
-                  testID="send_button"
+                  testID="send_dfi_button"
                 >
                   <Text />
                 </View>
@@ -543,220 +550,6 @@ exports[`balances page should match snapshot 1`] = `
       onLayout={[Function]}
       style={null}
     >
-      <View
-        accessible={true}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "alignItems": "center",
-            "backgroundColor": "rgba(255, 255, 255, 1)",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "opacity": 1,
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 8,
-            "paddingTop": 16,
-          }
-        }
-        testID="balances_row_0"
-      >
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "flexDirection": "row",
-              "flexGrow": 1,
-            }
-          }
-        >
-          <RNSVGSvgView
-            align="xMidYMid"
-            bbHeight={32}
-            bbWidth={32}
-            focusable={false}
-            height={32}
-            meetOrSlice={0}
-            minX={0}
-            minY={0}
-            style={
-              Array [
-                Object {
-                  "backgroundColor": "transparent",
-                  "borderWidth": 0,
-                },
-                Object {
-                  "flex": 0,
-                  "height": 32,
-                  "width": 32,
-                },
-              ]
-            }
-            testID="balances_row_0_icon"
-            vbHeight={32}
-            vbWidth={32}
-            width={32}
-          >
-            <RNSVGGroup>
-              <RNSVGCircle
-                cx={16}
-                cy={16}
-                fill={4294967295}
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-                r={16}
-              />
-              <RNSVGText
-                alignmentBaseline="central"
-                content={null}
-                dx={Array []}
-                dy={Array []}
-                fill={4294967295}
-                font={
-                  Object {
-                    "fontSize": "24",
-                    "fontWeight": "bolder",
-                    "textAnchor": "middle",
-                  }
-                }
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-                rotate={Array []}
-                x={
-                  Array [
-                    "50%",
-                  ]
-                }
-                y={
-                  Array [
-                    "50%",
-                  ]
-                }
-              >
-                <RNSVGTSpan
-                  content="T"
-                  dx={Array []}
-                  dy={Array []}
-                  font={Object {}}
-                  rotate={Array []}
-                  x={Array []}
-                  y={Array []}
-                />
-              </RNSVGText>
-            </RNSVGGroup>
-          </RNSVGSvgView>
-          <View
-            style={
-              Object {
-                "flexBasis": "auto",
-                "flexGrow": 1,
-                "flexShrink": 1,
-                "marginLeft": 12,
-                "marginRight": 12,
-              }
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontFamily": "MediumFont",
-                      "fontWeight": "500",
-                    },
-                    Object {
-                      "color": "rgba(0, 0, 0, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="balances_row_0_symbol"
-            />
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={1}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "color": "rgba(82, 82, 82, 1)",
-                      "fontFamily": "MediumFont",
-                      "fontSize": 14,
-                      "fontWeight": "500",
-                      "lineHeight": 20,
-                    },
-                    Object {
-                      "color": "rgba(82, 82, 82, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="balances_row_0_name"
-            >
-              Defi
-            </Text>
-          </View>
-          <View
-            style={
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-              }
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "flexWrap": "wrap",
-                      "marginRight": 8,
-                    },
-                    Object {
-                      "color": "rgba(0, 0, 0, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="balances_row_0_amount"
-            >
-              23.00000000
-            </Text>
-            <Text />
-          </View>
-        </View>
-      </View>
       <View
         style={
           Array [

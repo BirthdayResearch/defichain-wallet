@@ -112,8 +112,8 @@ describe('balances page', () => {
       </Provider>
     )
     const rendered = render(component)
-    const receiveButton = await rendered.findByTestId('balances_row_0')
-    fireEvent.press(receiveButton)
+    const btcBalanceRow = await rendered.findByTestId('balances_row_1')
+    fireEvent.press(btcBalanceRow)
     expect(spy).toHaveBeenCalled()
   })
 })

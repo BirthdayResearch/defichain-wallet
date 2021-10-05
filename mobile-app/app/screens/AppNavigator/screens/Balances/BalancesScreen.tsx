@@ -254,7 +254,7 @@ function DFIBalanceCard (props: DFIBalanceCardProps): JSX.Element {
                 iconSize={24}
                 iconType='MaterialIcons'
                 onPress={props.onConvertPress}
-                testID='swap_button'
+                testID='convert_dfi_button'
                 style={tailwind('mr-2')}
               />
               <IconButton
@@ -262,7 +262,7 @@ function DFIBalanceCard (props: DFIBalanceCardProps): JSX.Element {
                 iconSize={24}
                 iconType='MaterialIcons'
                 onPress={props.onSendPress}
-                testID='send_button'
+                testID='send_dfi_button'
               />
             </View>
           </View>
