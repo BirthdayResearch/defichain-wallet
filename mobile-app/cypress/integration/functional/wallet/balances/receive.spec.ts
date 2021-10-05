@@ -7,8 +7,7 @@ context('Wallet - Receive', () => {
 
   it('should display valid address when clicked', function () {
     cy.getByTestID('balances_list').should('exist')
-    cy.getByTestID('balances_row_0_utxo').click()
-    cy.getByTestID('receive_button').click()
+    cy.getByTestID('header_receive_balance').click()
   })
 
   it('should get address value and validate', function () {
@@ -30,8 +29,7 @@ context('Wallet - Receive - QR Code - Check', () => {
   before(function () {
     cy.createEmptyWallet()
     cy.getByTestID('balances_list').should('exist')
-    cy.getByTestID('balances_row_0_utxo').click()
-    cy.getByTestID('receive_button').click()
+    cy.getByTestID('header_receive_balance').click()
   })
 
   it('should match QR code', function () {
