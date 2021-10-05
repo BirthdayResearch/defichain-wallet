@@ -392,7 +392,7 @@ exports[`balances page should match snapshot 1`] = `
                     ],
                   ]
                 }
-                testID="dfi_utxo_label"
+                testID="dfi_token_label"
               >
                 Token
               </Text>
