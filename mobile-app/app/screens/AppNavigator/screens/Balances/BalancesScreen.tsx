@@ -58,7 +58,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const onConvertPress = (): void => {
     navigation.navigate({
       name: 'Convert',
-      params: { mode: 'utxoToAccount' },
+      params: { mode: 'utxosToAccount' },
       merge: true
     })
   }
