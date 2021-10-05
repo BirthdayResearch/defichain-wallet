@@ -113,24 +113,27 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
       />
 
       <NumberRow
-        lhs={translate('screens/ConfirmRemoveLiquidity', 'Price')}
-        rightHandElements={[
-          {
-            value: aToBRate.toFixed(8),
-            suffix: ` ${pair?.tokenB?.displaySymbol} per ${pair?.tokenA?.displaySymbol}`,
-            testID: 'price_a'
-          },
-          {
-            value: bToARate.toFixed(8),
-            suffix: ` ${pair?.tokenA?.displaySymbol} per ${pair?.tokenB?.displaySymbol}`,
-            testID: 'price_b'
-          }
-        ]}
+        lhs={translate('screens/ConfirmRemoveLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenB.displaySymbol, tokenB: pair.tokenA.displaySymbol })}
+        rhs={{
+          value: aToBRate.toFixed(8),
+          testID: 'price_a',
+          suffixType: 'text',
+          suffix: pair.tokenB.displaySymbol
+        }}
+      />
+      <NumberRow
+        lhs={translate('screens/ConfirmRemoveLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
+        rhs={{
+          value: bToARate.toFixed(8),
+          testID: 'price_b',
+          suffixType: 'text',
+          suffix: pair.tokenA.displaySymbol
+        }}
       />
 
       <EstimatedFeeInfo
         lhs={translate('screens/ConfirmRemoveLiquidity', 'Estimated fee')}
-        rightHandElements={{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }}
+        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffix: ' DFI (UTXO)' }}
       />
 
       <SubmitButtonGroup

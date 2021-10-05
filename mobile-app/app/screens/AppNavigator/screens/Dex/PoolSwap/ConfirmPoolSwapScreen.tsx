@@ -10,7 +10,6 @@ import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle } from '@components/themed'
-import { TokenBalanceRow } from '@components/TokenBalanceRow'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
@@ -30,7 +29,9 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
     fee,
     swap,
     pair,
-    slippage
+    slippage,
+    priceRateA,
+    priceRateB
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -85,22 +86,22 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         testID='title_swap_detail'
         text={translate('screens/PoolSwapConfirmScreen', 'ESTIMATED BALANCE AFTER SWAP')}
       />
-
-      <TokenBalanceRow
-        iconType={tokenA.displaySymbol}
-        lhs={tokenA.displaySymbol}
+      <NumberRow
+        lhs={translate('screens/PoolSwapConfirmScreen', '{{token}} balance', { token: tokenA.displaySymbol })}
         rhs={{
+          testID: 'source_amount',
           value: BigNumber.max(new BigNumber(tokenA.amount).minus(swap.fromAmount), 0).toFixed(8),
-          testID: 'source_amount'
+          suffixType: 'text',
+          suffix: tokenA.displaySymbol
         }}
       />
-
-      <TokenBalanceRow
-        iconType={tokenB.displaySymbol}
-        lhs={tokenB.displaySymbol}
+      <NumberRow
+        lhs={translate('screens/PoolSwapConfirmScreen', '{{token}} balance', { token: tokenB.displaySymbol })}
         rhs={{
+          testID: 'target_amount',
           value: BigNumber.max(new BigNumber(tokenB.amount).plus(swap.toAmount), 0).toFixed(8),
-          testID: 'target_amount'
+          suffixType: 'text',
+          suffix: tokenB.displaySymbol
         }}
       />
 
@@ -111,21 +112,40 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
 
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', 'Slippage Tolerance')}
-        rightHandElements={[{
+        rhs={{
           value: new BigNumber(slippage).times(100).toFixed(),
           suffix: '%',
-          testID: 'slippage_fee'
-        }]}
+          testID: 'slippage_fee',
+          suffixType: 'text'
+        }}
+      />
+      <NumberRow
+        lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
+        rhs={{
+          testID: 'price_a',
+          value: priceRateA,
+          suffixType: 'text',
+          suffix: tokenA.displaySymbol
+        }}
+      />
+      <NumberRow
+        lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenB.displaySymbol, tokenB: tokenA.displaySymbol })}
+        rhs={{
+          testID: 'price_b',
+          value: priceRateB,
+          suffixType: 'text',
+          suffix: tokenB.displaySymbol
+        }}
       />
 
       <EstimatedFeeInfo
         lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated fee')}
-        rightHandElements={{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }}
+        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffix: ' DFI (UTXO)' }}
       />
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/PoolSwapConfirmScreen', 'SWAP')}
+        label={translate('screens/PoolSwapConfirmScreen', 'CONFIRM SWAP')}
         isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         submittingLabel={translate('screens/PoolSwapConfirmScreen', 'SWAPPING')}
         onCancel={onCancel}

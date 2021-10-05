@@ -120,7 +120,7 @@ export function SendScreen ({
           <View style={tailwind('mt-6')}>
             <EstimatedFeeInfo
               lhs={translate('screens/SendScreen', 'Estimated fee')}
-              rightHandElements={{
+              rhs={{
                 value: fee.toString(),
                 suffix: ' DFI (UTXO)',
                 testID: 'transaction_fee'

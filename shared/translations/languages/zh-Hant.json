@@ -16,6 +16,8 @@
   "screens/DexScreen": {
     "Decentralized Exchange": "去中心化交易所",
     "ADD LIQUIDITY": "增加流動資金",
+    "Add liquidity": "增加流動資金",
+    "Confirm Add Liquidity": "Confirm Add Liquidity",
     "Remove Liquidity": "退出流動資金",
     "Confirm removal": "確認退出",
     "Confirm swap": "確認兌換",
@@ -83,7 +85,8 @@
     "SEND": "發出",
     "SENDING": "正在發出",
     "Sending": "正轉出 {{symbol}}",
-    "Sending {{amount}} {{symbol}}": "正轉出 {{amount}} {{symbol}}"
+    "Sending {{amount}} {{symbol}}": "正轉出 {{amount}} {{symbol}}",
+    "CONFIRM TRANSACTION": "CONFIRM TRANSACTION"
   },
   "screens/ConvertScreen": {
     "Convert DFI": "轉換 DFI",
@@ -102,12 +105,17 @@
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "確認要轉換 DFI",
     "You are converting": "您正要轉換",
-    "AFTER CONVERSION, YOU WILL HAVE:": "轉換後您會有",
+    "AFTER CONVERSION, YOU WILL HAVE": "轉換後您會有",
     "Estimated fee": "所需費用（大約）",
     "CONVERT": "轉換",
     "CONVERTING": "正在轉換",
     "Converting DFI": "轉換 DFI",
-    "Converting {{amount}} {{symbolA}} to {{symbolB}}": "轉換 {{amount}} {{symbolA}} 至 {{symbolB}} "
+    "Converting {{amount}} {{symbolA}} to {{symbolB}}": "轉換 {{amount}} {{symbolA}} 至 {{symbolB}} ",
+    "TRANSACTION DETAILS": "交易明細",
+    "Transaction type": "Transaction type",
+    "Convert": "轉換",
+    "{{token}} to receive": "{{token}} to receive",
+    "CONFIRM TRANSACTION": "CONFIRM TRANSACTION"
   },
   "screens/SettingsNavigator": {
     "Settings": "設定"
@@ -348,7 +356,11 @@
     "Review full transaction details in the next screen": "請在下一步確認交易明細",
     "How much {{symbol}} to supply?": "您想提供多少 {{symbol}} 流動資金?",
     "Enter an amount": "請輸入數量",
-    "Available": "可提供資金"
+    "Available": "可提供資金",
+    "PRICE DETAILS": "PRICE DETAILS",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "TRANSACTION DETAILS": "交易明細",
+    "Your pooled {{token}}": "Your pooled {{token}}"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "您正要增加流動資金",
@@ -361,15 +373,19 @@
     "Adding Liquidity": "增加流動資金",
     "ADDING": "增加",
     "Pooled {{symbol}}": "池中總 {{symbol}}",
-    "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "向 {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} 配對增加流動資金"
+    "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "向 {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} 配對增加流動資金",
+    "PRICE DETAILS": "PRICE DETAILS",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "Your pooled {{token}}": "Your pooled {{token}}"
   },
   "screens/ConfirmRemoveLiquidity": {
-    "YOU ARE REMOVING": "您正要退出",
+    "You are removing": "您正要退出",
     "ESTIMATED AMOUNT TO RECEIVE": "您大約會收到",
     "TRANSACTION DETAILS": "交易明細",
     "Price": "價格",
     "Estimated fee": "所需費用（大約）",
-    "REMOVE": "退出"
+    "REMOVE": "退出",
+    "{{tokenA}} price per {{tokenB}}":"{{tokenA}} price per {{tokenB}}"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "退出流動資金",
@@ -379,7 +395,9 @@
     "YOU ARE REMOVING": "您正要退出",
     "Price": "價格",
     "Removing {{amount}} {{symbol}}": "退出 {{amount}} {{symbol}}",
-    "Review full transaction details in the next screen": "請在下一步確認交易明細"
+    "Review full transaction details in the next screen": "請在下一步確認交易明細",
+    "PRICE DETAILS": "PRICE DETAILS",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "錢包網絡",
@@ -414,7 +432,10 @@
     "Price": "價格",
     "Estimated to receive": "您大約會收到",
     "Balance: ": "總資產餘額: ",
-    "Review full transaction details in the next screen": "請在下一步確認交易明細"
+    "Review full transaction details in the next screen": "請在下一步確認交易明細",
+    "TRANSACTION DETAILS": "交易明細",
+    "Estimated fee": "所需費用（大約）",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "您正要兌換",
@@ -425,7 +446,10 @@
     "SWAP": "兌換",
     "SWAPPING": "兌換",
     "Swapping Token": "兌換代幣",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兌換 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}"
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兌換 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "{{token}} balance": "{{token}} balance",
+    "CONFIRM SWAP": "確認兌換"
   },
   "screens/UnlockWallet": {
     "Enter passcode": "請輸入密碼",

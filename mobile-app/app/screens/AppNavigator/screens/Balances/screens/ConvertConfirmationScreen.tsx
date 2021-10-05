@@ -5,12 +5,10 @@ import { NavigationProp, StackActions, useNavigation } from '@react-navigation/n
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
-import { View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '@api'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
-import { TokenBalanceRow } from '@components/TokenBalanceRow'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
@@ -19,6 +17,8 @@ import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
 import { EstimatedFeeInfo } from '@components/EstimationInfo'
+import { TextRow } from '@components/TextRow'
+import { NumberRow } from '@components/NumberRow'
 
 type Props = StackScreenProps<BalanceParamList, 'ConvertConfirmationScreen'>
 
@@ -84,6 +84,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
         <ThemedText
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
+          style={tailwind('text-sm')}
           testID='convert_amount_source_suffix'
         >
           {sourceUnit}
@@ -92,6 +93,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
         <ThemedText
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
+          style={tailwind('text-sm')}
           testID='convert_amount_target_suffix'
         >
           {targetUnit}
@@ -99,32 +101,59 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
       </SummaryTitle>
 
       <ThemedSectionTitle
+        testID='title_conversion_transaction_detail'
+        text={translate('screens/ConvertConfirmScreen', 'TRANSACTION DETAILS')}
+      />
+
+      <TextRow
+        lhs={translate('screens/ConvertConfirmScreen', 'Transaction type')}
+        rhs={{
+          value: translate('screens/ConvertConfirmScreen', 'Convert'),
+          testID: 'transaction_type'
+        }}
+        textStyle={tailwind('text-sm font-normal')}
+      />
+
+      <NumberRow
+        lhs={translate('screens/ConvertConfirmScreen', '{{token}} to receive', { token: targetUnit })}
+        rhs={{
+          value: amount.toFixed(8),
+          testID: 'token_to_receive_amount'
+        }}
+      />
+
+      <EstimatedFeeInfo
+        lhs={translate('screens/ConvertConfirmScreen', 'Estimated fee')}
+        rhs={{
+          value: fee.toFixed(8),
+          testID: 'text_fee',
+          suffix: ' DFI (UTXO)'
+        }}
+      />
+
+      <ThemedSectionTitle
         testID='title_conversion_detail'
-        text={translate('screens/ConvertConfirmScreen', 'AFTER CONVERSION, YOU WILL HAVE:')}
+        text={translate('screens/ConvertConfirmScreen', 'AFTER CONVERSION, YOU WILL HAVE')}
       />
 
-      <TokenBalanceRow
-        iconType={sourceUnit === 'UTXO' ? '_UTXO' : 'DFI'}
+      <NumberRow
         lhs={translate('screens/ConvertConfirmScreen', sourceUnit)}
-        rhs={{ value: sourceBalance.toFixed(8), testID: 'source_amount' }}
+        rhs={{
+          value: sourceBalance.toFixed(8),
+          testID: 'source_amount'
+        }}
       />
-
-      <TokenBalanceRow
-        iconType={targetUnit === 'UTXO' ? '_UTXO' : 'DFI'}
+      <NumberRow
         lhs={translate('screens/ConvertConfirmScreen', targetUnit)}
-        rhs={{ value: targetBalance.toFixed(8), testID: 'target_amount' }}
+        rhs={{
+          value: targetBalance.toFixed(8),
+          testID: 'target_amount'
+        }}
       />
-
-      <View style={tailwind('mt-4')}>
-        <EstimatedFeeInfo
-          lhs={translate('screens/ConvertConfirmScreen', 'Estimated fee')}
-          rightHandElements={{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }}
-        />
-      </View>
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/ConvertConfirmScreen', 'CONVERT')}
+        label={translate('screens/ConvertConfirmScreen', 'CONFIRM TRANSACTION')}
         isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         submittingLabel={translate('screens/ConvertConfirmScreen', 'CONVERTING')}
         onCancel={onCancel}

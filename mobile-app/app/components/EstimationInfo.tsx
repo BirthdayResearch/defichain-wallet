@@ -14,8 +14,8 @@ interface EstimatedFeeElement {
 
 export function EstimatedFeeInfo ({
   lhs,
-  rightHandElements
-}: { lhs: string, rightHandElements: EstimatedFeeElement }): JSX.Element {
+  rhs
+}: { lhs: string, rhs: EstimatedFeeElement }): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
@@ -61,10 +61,7 @@ export function EstimatedFeeInfo ({
               </ThemedText>
 
             </ThemedView>
-            <ThemedView
-              style={tailwind('')}
-              testID='estimated_fee_heading'
-            >
+            <ThemedView testID='estimated_fee_description'>
               <ThemedText>
                 {translate('screens/EstimatedFeeInfo', 'Each transaction will subject to a small amount of fees. The amount may vary depending on the network’s congestion.')}
               </ThemedText>
@@ -85,14 +82,14 @@ export function EstimatedFeeInfo ({
                 dark={tailwind('text-gray-400')}
                 light={tailwind('text-gray-500')}
                 style={tailwind('flex-wrap font-medium text-right text-gray-500')}
-                testID={rightHandElements.testID}
+                testID={rhs.testID}
               >
                 {val}
               </ThemedText>
             )}
-            suffix={rightHandElements.suffix}
+            suffix={rhs.suffix}
             thousandSeparator
-            value={rightHandElements.value}
+            value={rhs.value}
           />
         </View>
       </View>

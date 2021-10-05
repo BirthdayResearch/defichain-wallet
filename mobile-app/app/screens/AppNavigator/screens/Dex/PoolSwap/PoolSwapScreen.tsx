@@ -102,6 +102,8 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
 
     const atA = poolpair.tokenA.id === tokenA?.id ? poolpair.tokenA : poolpair.tokenB
     const atB = poolpair.tokenA.id === tokenB?.id ? poolpair.tokenA : poolpair.tokenB
+    const priceRateA = getPriceRate(getReserveAmount(tokenA.id, poolpair), getReserveAmount(tokenB.id, poolpair))
+    const priceRateB = getPriceRate(getReserveAmount(tokenB.id, poolpair), getReserveAmount(tokenA.id, poolpair))
 
     if (atA !== undefined && atB !== undefined && isValid) {
       const swap = {
@@ -116,7 +118,9 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         swap,
         fee,
         pair: poolpair,
-        slippage
+        slippage,
+        priceRateA,
+        priceRateB
       })
     }
   }
@@ -250,6 +254,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
             tokenAAmount={getValues()[tokenAForm]}
             tokenB={tokenB}
             tokenBAmount={getValues()[tokenBForm]}
+            fee={fee.toFixed(8)}
           />
       }
 
@@ -379,38 +384,58 @@ interface SwapSummaryItems {
   tokenB: DerivedTokenState
   tokenAAmount: string
   tokenBAmount: string
+  fee: string
 }
 
-function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount }: SwapSummaryItems): JSX.Element {
+function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee }: SwapSummaryItems): JSX.Element {
   const reserveA = getReserveAmount(tokenA.id, poolpair)
   const reserveB = getReserveAmount(tokenB.id, poolpair)
-  const priceA = new BigNumber(reserveA).div(reserveB).toFixed(8)
-  const priceB = new BigNumber(reserveB).div(reserveA).toFixed(8)
+  const priceA = getPriceRate(reserveA, reserveB)
+  const priceB = getPriceRate(reserveB, reserveA)
   const estimated = calculateEstimatedAmount(tokenAAmount, reserveA, priceB).toFixed(8)
+
   return (
     <View style={tailwind('mt-4')}>
+      <ThemedSectionTitle
+        testID='title_add_detail'
+        text={translate('screens/PoolSwapScreen', 'TRANSACTION DETAILS')}
+        style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
+      />
       <NumberRow
-        lhs={translate('screens/PoolSwapScreen', 'Price')}
-        rightHandElements={[{
+        lhs={translate('screens/PoolSwapScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
+        rhs={{
           testID: 'price_a',
           value: priceA,
-          suffix: ` ${tokenA.displaySymbol} per ${tokenB.displaySymbol}`
-        }, {
+          suffixType: 'text',
+          suffix: tokenA.displaySymbol
+        }}
+      />
+      <NumberRow
+        lhs={translate('screens/PoolSwapScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenB.displaySymbol, tokenB: tokenA.displaySymbol })}
+        rhs={{
           testID: 'price_b',
           value: priceB,
-          suffix: ` ${tokenB.displaySymbol} per ${tokenA.displaySymbol}`
-        }]}
+          suffixType: 'text',
+          suffix: tokenB.displaySymbol
+        }}
       />
-
       <NumberRow
         lhs={translate('screens/PoolSwapScreen', 'Estimated to receive')}
-        rightHandElements={[
-          {
-            value: estimated,
-            suffix: ` ${tokenB.displaySymbol}`,
-            testID: 'estimated'
-          }
-        ]}
+        rhs={{
+          value: estimated,
+          testID: 'estimated',
+          suffixType: 'text',
+          suffix: tokenB.displaySymbol
+        }}
+      />
+      <NumberRow
+        lhs={translate('screens/PoolSwapScreen', 'Estimated fee')}
+        rhs={{
+          value: fee,
+          testID: 'estimated_fee',
+          suffixType: 'text',
+          suffix: 'DFI (UTXO)'
+        }}
       />
     </View>
   )
@@ -424,4 +449,8 @@ function calculateEstimatedAmount (tokenAAmount: string, reserveA: string, price
 
 function getReserveAmount (id: string, poolpair: PoolPairData): string {
   return id === poolpair.tokenA.id ? poolpair.tokenA.reserve : poolpair.tokenB.reserve
+}
+
+function getPriceRate (reserveA: string, reserveB: string): string {
+  return new BigNumber(reserveA).div(reserveB).toFixed(8)
 }

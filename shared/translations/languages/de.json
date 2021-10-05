@@ -16,6 +16,8 @@
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
     "ADD LIQUIDITY": "LIQUIDITÄT HINZUFÜGEN",
+    "Add liquidity": "Liquidität hinzufügen",
+    "Confirm Add Liquidity": "Liquidität hinzufügen bestätigen",
     "Remove Liquidity": "Liquidität entfernen",
     "Confirm removal": "Bestätige die Rücknahme",
     "Confirm swap": "Bestätige den Umtausch",
@@ -83,7 +85,8 @@
     "SEND": "SENDEN",
     "SENDING": "WIRD GESENDET",
     "Sending": "Senden {{symbol}}",
-    "Sending {{amount}} {{symbol}}": "Sende {{amount}} {{symbol}}"
+    "Sending {{amount}} {{symbol}}": "Sende {{amount}} {{symbol}}",
+    "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN"
   },
   "screens/ConvertScreen": {
     "Convert DFI": "DFI umwandeln",
@@ -102,12 +105,17 @@
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Bestätige DFI Konvertierung",
     "You are converting": "Du wandelst um",
-    "AFTER CONVERSION, YOU WILL HAVE:": "NACH DER KONVERTIERUNG ERHÄLTST DU:",
+    "AFTER CONVERSION, YOU WILL HAVE": "NACH DER KONVERTIERUNG ERHÄLTST DU",
     "Estimated fee": "Geschätzte Gebühr",
     "CONVERT": "UMWANDELN",
     "CONVERTING": "WANDLE UM",
     "Converting DFI": "Konvertieren von DFI",
-    "Converting {{amount}} {{symbolA}} to {{symbolB}}": "Wandle {{amount}} {{symbolA}} in {{symbolB}} um"
+    "Converting {{amount}} {{symbolA}} to {{symbolB}}": "Wandle {{amount}} {{symbolA}} in {{symbolB}} um",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "Transaction type": "Transaktionsart",
+    "Convert": "Umwandeln",
+    "{{token}} to receive": "Zu erhaltende {{token}}",
+    "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN"
   },
   "screens/SettingsNavigator": {
     "Settings": "Einstellungen"
@@ -165,7 +173,7 @@
     "LINKS": "LINKS",
     "White Paper": "White Paper",
     "Privacy Policy": "Datenschutz",
-    "Licenses": "Benutzungsrechte",
+    "Licenses": "Lizenzen",
     "Knowledge base": "Wissensdatenbank",
     "Common questions and support documents": "Häufige Fragen und Support-Dokumente",
     "Participate with active community": "An aktiver Community teilnehmen",
@@ -345,12 +353,16 @@
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
     "How much {{symbol}} to supply?": "Wie viele {{symbol}} hinzufügen?",
     "Enter an amount": "Gib eine Menge ein",
-    "Available": "Verfügbar"
+    "Available": "Verfügbar",
+    "PRICE DETAILS": "PREISDETAILS",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",    
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "Your pooled {{token}}": "Deine {{token}} im Pool"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "Du fügst hinzu",
     "AMOUNT TO SUPPLY": "FÜGE SUMME HINZU",
-    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Price": "Preis",
     "Share of pool": "Anteil am Gesamtpool",
     "Estimated fee": "Geschätzte Gebühr",
@@ -358,15 +370,19 @@
     "Adding Liquidity": "Füge Liquidität hinzu",
     "ADDING": "WIRD HINZUGEFÜGT",
     "Pooled {{symbol}}": "Im Pool {{symbol}}",
-    "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "Füge {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} hinzu"
+    "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "Füge {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} hinzu",
+    "PRICE DETAILS": "PREISDETAILS",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
+    "Your pooled {{symbol}}": "Deine {{symbol}} im Pool"
   },
   "screens/ConfirmRemoveLiquidity": {
-    "YOU ARE REMOVING": "DU ENTFERNST",
+    "You are removing": "Du entfernst",
     "ESTIMATED AMOUNT TO RECEIVE": "GESCHÄTZTER ZU ERHALTENDER BETRAG",
-    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Price": "Preis",
     "Estimated fee": "Geschätzte Gebühr",
-    "REMOVE": "ENTFERNEN"
+    "REMOVE": "ENTFERNEN",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}"    
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "Entferne Liquidität",
@@ -376,7 +392,9 @@
     "YOU ARE REMOVING": "DU ENTFERNST",
     "Price": "Preis",
     "Removing {{amount}} {{symbol}}": "Entferne {{amount}} {{symbol}}",
-    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion"
+    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
+    "PRICE DETAILS": "PREISDETAILS",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "Wallet Netzwerk",
@@ -411,18 +429,24 @@
     "Price": "Preis",
     "Estimated to receive": "Vorraussichtlich wird empfangen",
     "Balance: ": "Guthaben: ",
-    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion"
+    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "Estimated fee": "Geschätzte Gebühr",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Du tauschst",
     "ESTIMATED BALANCE AFTER SWAP": "GESCHÄTZTES GUTHABEN NACH DEM TAUSCH",
-    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Slippage Tolerance": "Slippage Toleranz",
     "Estimated fee": "Geschätzte Gebühr",
     "SWAP": "TAUSCHE",
     "SWAPPING": "WIRD GETAUSCHT",
     "Swapping Token": "Tausche Token",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}"
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
+    "{{token}} balance": "{{token}} Saldo",
+    "CONFIRM SWAP": "BESTÄTIGE DEN UMTAUSCH"
   },
   "screens/UnlockWallet": {
     "Enter passcode": "Passworteingabe",
