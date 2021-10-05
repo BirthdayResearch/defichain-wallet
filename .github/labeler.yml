@@ -34,7 +34,7 @@ labels:
   - label: area/translations
     sync: true
     matcher:
-      files: "mobile-app/app/translations/**"
+      files: "./shared/translations/**"
 
   - label: area/e2e
     sync: true
