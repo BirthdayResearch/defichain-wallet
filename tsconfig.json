@@ -20,10 +20,10 @@
         "api/*"
       ],
       "@assets": [
-        "assets"
+        "../../shared/assets"
       ],
       "@assets/*": [
-        "assets/*"
+        "../../shared/assets/*"
       ],
       "@constants/*": [
         "constants/*"
@@ -44,10 +44,10 @@
         "screens/*"
       ],
       "@store": [
-        "store"
+        "../../shared/store"
       ],
       "@store/*": [
-        "store/*"
+        "../../shared/store/*"
       ],
       "@translations": [
         "../../shared/translations"
