@@ -19,7 +19,7 @@ import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedVie
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { RootState } from '@store'
-import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'

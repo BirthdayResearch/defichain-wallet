@@ -6,14 +6,14 @@ module.exports = function (api) {
       {
         alias: {
           '@api': './mobile-app/app/api',
-          '@assets': './mobile-app/app/assets',
+          '@assets': './shared/assets',
           '@constants': './mobile-app/app/constants',
           '@contexts': './mobile-app/app/contexts',
           '@components': './mobile-app/app/components',
           '@environment': './mobile-app/app/environment',
           '@hooks': './mobile-app/app/hooks',
           '@screens': './mobile-app/app/screens',
-          '@store': './mobile-app/app/store',
+          '@store': './shared/store',
           '@translations': './shared/translations',
           '@tailwind': './mobile-app/app/tailwind'
         }
