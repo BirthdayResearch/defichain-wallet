@@ -448,7 +448,11 @@
     "Enter Passcode": "Passwort eingeben",
     "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
     "CANCEL": "ABBRECHEN",
-    "Please enter passcode to securely sign your transaction": "Gib bitte das Passwort ein, um die Transaktion freizugeben"
+    "Please enter passcode to securely sign your transaction": "Gib bitte das Passwort ein, um die Transaktion freizugeben",
+    "Access granted": "Zugriff gewährt",
+    "You may now proceed": "Du kannst nun fortfahren",
+    "Sign to verify access": "Signieren, um den Zugriff zu bestätigen\n",
+    "Verifying access": "Zugriff wird verifiziert"
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Transaktion freigeben",

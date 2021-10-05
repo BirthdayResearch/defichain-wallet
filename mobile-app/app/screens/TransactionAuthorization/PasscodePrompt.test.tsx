@@ -25,6 +25,7 @@ describe('transaction authorization screen', () => {
           pin='foo'
           loadingMessage='foo'
           authorizedTransactionMessage={{ title: 'foo', description: 'bar' }}
+          grantedAccessMessage={{ title: 'foo', description: 'bar' }}
           isRetry
           attemptsRemaining={3}
           maxPasscodeAttempt={3}

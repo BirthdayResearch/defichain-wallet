@@ -18,6 +18,7 @@ interface PasscodePromptProps {
   pin: string
   loadingMessage: string
   authorizedTransactionMessage: {title: string, description: string}
+  grantedAccessMessage: {title: string, description: string}
   isRetry: boolean
   attemptsRemaining: number
   maxPasscodeAttempt: number
@@ -60,17 +61,17 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
         style={tailwind('w-full flex-1 flex-col pt-8')}
       >
 
-        {props.status === 'AUTHORIZED'
-          ? <SuccessMessage message={props.authorizedTransactionMessage} />
+        {['AUTHORIZED', 'ACCESS_GRANTED'].includes(props.status)
+          ? <SuccessMessage message={props.status === 'AUTHORIZED' ? props.authorizedTransactionMessage : props.grantedAccessMessage} />
           : (
             <ThemedView
               light={tailwind('bg-white')}
             >
               <ThemedText
-                style={tailwind('text-center text-xl font-bold')}
+                style={tailwind('text-center text-xl font-bold px-1')}
               >
                 {props.transaction === undefined
-                  ? translate('screens/UnlockWallet', 'Enter Passcode')
+                  ? translate('screens/UnlockWallet', 'Sign to verify access')
                   : translate('screens/TransactionAuthorization', 'Sign Transaction')}
               </ThemedText>
 
@@ -165,14 +166,14 @@ function SuccessMessage ({ message }: { message?: {title: string, description: s
         dark={tailwind('text-darksuccess-500')}
         iconType='MaterialIcons'
         light={tailwind('text-success-500')}
-        name='check-circle'
+        name='check-circle-outline'
         size={26}
       />
       <ThemedText style={tailwind('text-center text-xl font-bold mt-5')}>
         {message.title}
       </ThemedText>
 
-      <ThemedText style={tailwind('ml-2 mt-2')}>
+      <ThemedText style={tailwind('ml-2 text-sm')}>
         {message.description}
       </ThemedText>
     </View>
@@ -187,7 +188,7 @@ function Loading ({ message }: { message?: string }): JSX.Element | null {
     <View style={tailwind('flex-row justify-center p-2')}>
       <ThemedActivityIndicator />
 
-      <ThemedText style={tailwind('ml-2')}>
+      <ThemedText style={tailwind('ml-2 text-sm')}>
         {message}
       </ThemedText>
     </View>

@@ -32,6 +32,10 @@ const DEFAULT_MESSAGES = {
   authorizedTransactionMessage: {
     title: 'Transaction authorized',
     description: 'Please wait as your transaction is prepared'
+  },
+  grantedAccessMessage: {
+    title: 'Access granted',
+    description: 'You may now proceed'
   }
 }
 
@@ -47,7 +51,7 @@ let PASSPHRASE_PROMISE_PROXY: {
 const INVALID_HASH = 'invalid hash'
 const USER_CANCELED = 'USER_CANCELED'
 
-export type Status = 'INIT' | 'IDLE' | 'BLOCK' | 'PIN' | 'SIGNING' | 'AUTHORIZED'
+export type Status = 'INIT' | 'IDLE' | 'BLOCK' | 'PIN' | 'SIGNING' | 'AUTHORIZED' | 'ACCESS_GRANTED'
 
 /**
  * The main UI page transaction signing logic interact with encrypted wallet context
@@ -208,12 +212,13 @@ export function TransactionAuthorization (): JSX.Element | null {
       emitEvent('BLOCK') // prevent any re-render trigger (between IDLE and PIN)
 
       setMessage(authentication.message)
-      setLoadingMessage(authentication.loading)
+      setLoadingMessage('Verifying access')
 
       authenticateFor(onPrompt, authentication, onRetry, retries)
         .then(async () => {
           // case 1: success
           await resetPasscodeCounter()
+          emitEvent('ACCESS_GRANTED')
         })
         .catch(async e => {
           if (e.message === INVALID_HASH) {
@@ -229,8 +234,10 @@ export function TransactionAuthorization (): JSX.Element | null {
         })
         .catch(e => Logging.error(e))
         .finally(() => {
-          dispatch(authenticationStore.actions.dismiss())
-          onTaskCompletion()
+          setTimeout(() => {
+            dispatch(authenticationStore.actions.dismiss())
+            onTaskCompletion()
+          }, 2000)
         })
     }
   }, [transaction, wallet, status, authentication, attemptsRemaining])
@@ -260,6 +267,12 @@ export function TransactionAuthorization (): JSX.Element | null {
         {
           title: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.title),
           description: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.description)
+        }
+      }
+      grantedAccessMessage={
+        {
+          title: translate('screens/UnlockWallet', DEFAULT_MESSAGES.grantedAccessMessage.title),
+          description: translate('screens/UnlockWallet', DEFAULT_MESSAGES.grantedAccessMessage.description)
         }
       }
       isRetry={isRetry}

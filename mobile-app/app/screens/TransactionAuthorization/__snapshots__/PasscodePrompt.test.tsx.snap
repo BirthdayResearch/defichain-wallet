@@ -122,7 +122,7 @@ exports[`transaction authorization screen should match snapshot of status: AUTHO
           ]
         }
       >
-        
+        
       </Text>
       <Text
         style={
@@ -162,8 +162,9 @@ exports[`transaction authorization screen should match snapshot of status: AUTHO
             },
             Array [
               Object {
+                "fontSize": 14,
+                "lineHeight": 20,
                 "marginLeft": 8,
-                "marginTop": 8,
               },
               Object {
                 "color": "rgba(0, 0, 0, 1)",
@@ -291,6 +292,8 @@ exports[`transaction authorization screen should match snapshot of status: BLOCK
                 "fontSize": 20,
                 "fontWeight": "700",
                 "lineHeight": 28,
+                "paddingLeft": 4,
+                "paddingRight": 4,
                 "textAlign": "center",
               },
               Object {
@@ -464,6 +467,8 @@ exports[`transaction authorization screen should match snapshot of status: IDLE 
                 "fontSize": 20,
                 "fontWeight": "700",
                 "lineHeight": 28,
+                "paddingLeft": 4,
+                "paddingRight": 4,
                 "textAlign": "center",
               },
               Object {
@@ -613,6 +618,8 @@ exports[`transaction authorization screen should match snapshot of status: INIT 
                 "fontSize": 20,
                 "fontWeight": "700",
                 "lineHeight": 28,
+                "paddingLeft": 4,
+                "paddingRight": 4,
                 "textAlign": "center",
               },
               Object {
@@ -786,6 +793,8 @@ exports[`transaction authorization screen should match snapshot of status: PIN 1
                 "fontSize": 20,
                 "fontWeight": "700",
                 "lineHeight": 28,
+                "paddingLeft": 4,
+                "paddingRight": 4,
                 "textAlign": "center",
               },
               Object {
@@ -1205,6 +1214,8 @@ exports[`transaction authorization screen should match snapshot of status: SIGNI
                 "fontSize": 20,
                 "fontWeight": "700",
                 "lineHeight": 28,
+                "paddingLeft": 4,
+                "paddingRight": 4,
                 "textAlign": "center",
               },
               Object {
@@ -1290,6 +1301,8 @@ exports[`transaction authorization screen should match snapshot of status: SIGNI
               },
               Array [
                 Object {
+                  "fontSize": 14,
+                  "lineHeight": 20,
                   "marginLeft": 8,
                 },
                 Object {
