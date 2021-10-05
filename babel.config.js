@@ -14,7 +14,7 @@ module.exports = function (api) {
           '@hooks': './mobile-app/app/hooks',
           '@screens': './mobile-app/app/screens',
           '@store': './mobile-app/app/store',
-          '@translations': './mobile-app/app/translations',
+          '@translations': './shared/translations',
           '@tailwind': './mobile-app/app/tailwind'
         }
       }

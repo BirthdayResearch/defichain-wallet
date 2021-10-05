@@ -52,10 +52,11 @@ export function NetworkDetails (): JSX.Element {
 
       <NumberRow
         lhs={translate('screens/NetworkDetails', 'Total Masternodes')}
-        rightHandElements={[{
+        rhs={{
           value: masternodeCount ?? '',
           testID: 'network_details_total_masternodes'
-        }]}
+        }}
+        textStyle={tailwind('font-medium text-base')}
       />
     </ThemedScrollView>
   )

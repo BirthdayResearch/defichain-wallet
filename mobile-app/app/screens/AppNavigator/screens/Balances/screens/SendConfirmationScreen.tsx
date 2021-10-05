@@ -104,39 +104,48 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       <TextRow
         lhs={translate('screens/SendConfirmationScreen', 'Address')}
         rhs={{ value: destination, testID: 'text_destination' }}
+        textStyle={tailwind('text-sm font-normal')}
       />
 
       <TextRow
         lhs={translate('screens/SendConfirmationScreen', 'Network')}
         rhs={{ value: network.network, testID: 'text_network' }}
+        textStyle={tailwind('text-sm font-normal')}
       />
 
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Amount')}
-        rightHandElements={[{
+        rhs={{
           value: amount.toFixed(8),
-          suffix: ` ${token.displaySymbol}`,
-          testID: 'text_amount'
-        }]}
+          testID: 'text_amount',
+          suffixType: 'text',
+          suffix: `${token.displaySymbol}`
+        }}
       />
 
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Estimated fee')}
-        rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
+        rhs={{
+          value: fee.toFixed(8),
+          testID: 'text_fee',
+          suffixType: 'text',
+          suffix: `${token.displaySymbol}`
+        }}
       />
 
       <NumberRow
         lhs={translate('screens/SendConfirmationScreen', 'Remaining balance')}
-        rightHandElements={[{
+        rhs={{
           value: BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)).minus(fee.toFixed(8)), 0).toFixed(8),
-          suffix: ` ${token.displaySymbol}`,
-          testID: 'text_balance'
-        }]}
+          testID: 'text_balance',
+          suffixType: 'text',
+          suffix: `${token.displaySymbol}`
+        }}
       />
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/SendConfirmationScreen', 'SEND')}
+        label={translate('screens/SendConfirmationScreen', 'CONFIRM TRANSACTION')}
         isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         submittingLabel={translate('screens/SendConfirmationScreen', 'SENDING')}
         onCancel={onCancel}

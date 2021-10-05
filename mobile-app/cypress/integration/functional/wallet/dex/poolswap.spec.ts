@@ -94,7 +94,8 @@ context('Wallet - DEX - Pool Swap with balance Confirm Txn', () => {
     cy.getByTestID('estimated').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
       cy.getByTestID('button_submit').click()
-      cy.getByTestID('slippage_fee').contains('10%')
+      cy.getByTestID('slippage_fee').contains('10')
+      cy.getByTestID('slippage_fee_suffix').contains('%')
       cy.getByTestID('confirm_title').contains('You are swapping')
       cy.getByTestID('button_confirm_swap').click().wait(3000)
       cy.closeOceanInterface()
@@ -116,7 +117,8 @@ context('Wallet - DEX - Pool Swap with balance Confirm Txn', () => {
     cy.getByTestID('estimated').then(($txt: any) => {
       $txt[0].textContent.replace(' dLTC', '').replace(',', '')
       cy.getByTestID('button_submit').click()
-      cy.getByTestID('slippage_fee').contains('1%')
+      cy.getByTestID('slippage_fee').contains('1')
+      cy.getByTestID('slippage_fee_suffix').contains('%')
       cy.getByTestID('confirm_title').contains('You are swapping')
       cy.getByTestID('button_confirm_swap').click().wait(3000)
       // Cancel send on authorisation page
@@ -129,7 +131,8 @@ context('Wallet - DEX - Pool Swap with balance Confirm Txn', () => {
       cy.getByTestID('estimated').then(($txt: any) => {
         const updatedTokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
         cy.getByTestID('button_submit').click()
-        cy.getByTestID('slippage_fee').contains('10%')
+        cy.getByTestID('slippage_fee').contains('10')
+        cy.getByTestID('slippage_fee_suffix').contains('%')
         cy.getByTestID('confirm_title').contains('You are swapping')
         cy.getByTestID('button_confirm_swap').click().wait(3000)
         cy.closeOceanInterface()

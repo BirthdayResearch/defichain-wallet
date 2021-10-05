@@ -50,7 +50,7 @@
         "store/*"
       ],
       "@translations": [
-        "translations"
+        "../../shared/translations"
       ],
       "@tailwind": [
         "tailwind"
