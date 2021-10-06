@@ -88,7 +88,7 @@
     "Convert DFI": "DFI umwandeln",
     "Scan recipient QR": "QR-Code des Empfängers scannen",
     "Balance": "Guthaben",
-    "UTXO vs Token, what is the difference?": "UXTO vs Token, worin liegt der Unterschied?",
+    "UTXO vs Token, what is the difference?": "UTXO vs Token, worin liegt der Unterschied?",
     "CONVERT {{symbol}}": "{{symbol}} UMWANDELN",
     "TO {{symbol}}": "IN {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
@@ -480,6 +480,6 @@
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
   },
   "components/DFIBalanceCard": {
-    "Learn more about UTXO and tokens": "Learn more about UTXO and tokens"
+    "Learn more about UTXO and tokens": "Erfahre mehr über UTXO und Token"
   }
 }
