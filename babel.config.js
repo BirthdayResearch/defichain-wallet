@@ -10,7 +10,7 @@ module.exports = function (api) {
           '@constants': './shared/constants',
           '@contexts': './mobile-app/app/contexts',
           '@components': './mobile-app/app/components',
-          '@environment': './mobile-app/app/environment',
+          '@environment': './shared/environment',
           '@hooks': './mobile-app/app/hooks',
           '@screens': './mobile-app/app/screens',
           '@store': './shared/store',

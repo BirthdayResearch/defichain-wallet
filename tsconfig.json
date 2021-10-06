@@ -35,7 +35,7 @@
         "components/*"
       ],
       "@environment": [
-        "environment"
+        "../../shared/environment"
       ],
       "@hooks/*": [
         "hooks/*"
