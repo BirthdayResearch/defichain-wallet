@@ -7,7 +7,7 @@ module.exports = function (api) {
         alias: {
           '@api': './mobile-app/app/api',
           '@assets': './shared/assets',
-          '@constants': './mobile-app/app/constants',
+          '@constants': './shared/constants',
           '@contexts': './mobile-app/app/contexts',
           '@components': './mobile-app/app/components',
           '@environment': './mobile-app/app/environment',
