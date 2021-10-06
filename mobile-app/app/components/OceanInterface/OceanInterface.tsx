@@ -17,6 +17,7 @@ import { Animated, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { ThemedActivityIndicator, ThemedIcon, ThemedText } from '../themed'
 import { openURL } from '@api/linking'
+import * as Updates from 'expo-updates'
 
 const MAX_AUTO_RETRY = 1
 const MAX_TIMEOUT = 300000
@@ -41,7 +42,7 @@ async function broadcastTransaction (tx: CTransactionSegWit, client: WhaleApiCli
 }
 
 async function waitForTxConfirmation (id: string, client: WhaleApiClient): Promise<Transaction> {
-  const initialTime = getEnvironment().debug ? 5000 : 30000
+  const initialTime = getEnvironment(Updates.releaseChannel).debug ? 5000 : 30000
   let start = initialTime
 
   return await new Promise((resolve, reject) => {

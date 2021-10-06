@@ -1,7 +1,4 @@
-import * as Updates from 'expo-updates'
-import { EnvironmentName, EnvironmentNetwork, environments, getEnvironment, isPlayground } from './environment'
-
-jest.mock('expo-updates')
+import { EnvironmentName, EnvironmentNetwork, environments, getEnvironment, isPlayground } from '@environment'
 
 describe('environments', () => {
   it('should match Production', () => {
@@ -27,21 +24,19 @@ describe('environments', () => {
 })
 
 it('should match development for default', () => {
-  const env = getEnvironment()
+  const env = getEnvironment('development')
   expect(env.name).toStrictEqual(EnvironmentName.Development)
 })
 
 it('should match Remote Playground on Production environment', () => {
-  (Updates as any).releaseChannel = 'production'
-  const env = getEnvironment()
+  const env = getEnvironment('production')
   expect(env.name).toStrictEqual(EnvironmentName.Production)
   // To be changed to MainNet on launch
   expect(env.networks[0]).toStrictEqual(EnvironmentNetwork.MainNet)
 })
 
 it('should match Remote Playground on prerelease environment', () => {
-  (Updates as any).releaseChannel = 'prerelease'
-  const env = getEnvironment()
+  const env = getEnvironment('prerelease')
   expect(env.name).toStrictEqual(EnvironmentName.Preview)
   expect(env.networks[0]).toStrictEqual(EnvironmentNetwork.RemotePlayground)
 })

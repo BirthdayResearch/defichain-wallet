@@ -1,5 +1,3 @@
-import * as Updates from 'expo-updates'
-
 /**
  * Network supported in this environment
  */
@@ -15,6 +13,7 @@ export enum EnvironmentName {
   Preview = 'Preview',
   Development = 'Development',
 }
+
 interface Environment {
   name: EnvironmentName
   debug: boolean
@@ -55,9 +54,7 @@ export const environments: Record<EnvironmentName, Environment> = {
 /**
  * @return Environment of current Wallet, checked via expo release channels
  */
-export function getEnvironment (): Environment {
-  const channel = Updates.releaseChannel
-
+export function getEnvironment (channel: string): Environment {
   if (channel === 'production') {
     return environments[EnvironmentName.Production]
   }

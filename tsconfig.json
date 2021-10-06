@@ -35,10 +35,16 @@
         "components/*"
       ],
       "@environment": [
-        "environment"
+        "../../shared/environment"
       ],
       "@hooks/*": [
         "hooks/*"
+      ],
+      "@shared-api": [
+        "../../shared/api"
+      ],
+      "@shared-api/*": [
+        "../../shared/api/*"
       ],
       "@screens/*": [
         "screens/*"
