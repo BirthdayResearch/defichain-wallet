@@ -25,7 +25,7 @@ import DFIBackgroundDark from '@assets/images/DFI_balance_background_dark.png'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useCallback, useEffect, useState } from 'react'
-import { ImageBackground, RefreshControl } from 'react-native'
+import { ImageBackground, RefreshControl, TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
@@ -69,6 +69,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       merge: true
     })
   }
+  const onUtxoVsTokenPress = (): void => {
+    navigation.navigate('TokensVsUtxo')
+  }
 
   return (
     <ThemedFlatList
@@ -81,7 +84,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       )}
       ListHeaderComponent={(
         <>
-          <DFIBalanceCard utxo={DFIUtxo} token={DFIToken} isLight={isLight} onConvertPress={onConvertPress} onSendPress={onSendPress} />
+          <DFIBalanceCard utxo={DFIUtxo} token={DFIToken} isLight={isLight} onConvertPress={onConvertPress} onSendPress={onSendPress} onUtxoVsTokenPress={onUtxoVsTokenPress} />
           <ThemedSectionTitle
             testID='balances_title'
             text={translate('screens/BalancesScreen', 'PORTFOLIO')}
@@ -189,6 +192,7 @@ interface DFIBalanceCardProps {
   token: WalletToken
   onConvertPress: () => void
   onSendPress: () => void
+  onUtxoVsTokenPress: () => void
   isLight: boolean
 }
 
@@ -247,7 +251,10 @@ function DFIBalanceCard (props: DFIBalanceCardProps): JSX.Element {
             >
               {new BigNumber(props.token.amount).toFixed(8)}
             </ThemedText>
+          </View>
 
+          <View style={tailwind('flex-row')}>
+            <UtxoVsTokensInfo onPress={props.onUtxoVsTokenPress} />
             <View style={tailwind('flex-row flex-grow justify-end')}>
               <IconButton
                 iconName='swap-vert'
@@ -269,5 +276,31 @@ function DFIBalanceCard (props: DFIBalanceCardProps): JSX.Element {
         </View>
       </ImageBackground>
     </ThemedView>
+  )
+}
+
+function UtxoVsTokensInfo (props: {onPress: () => void}): JSX.Element {
+  return (
+    <TouchableOpacity
+      onPress={props.onPress}
+      style={tailwind('flex-row items-end justify-start w-9/12')}
+      testID='token_vs_utxo_info'
+    >
+      <ThemedIcon
+        dark={tailwind('text-darkprimary-500')}
+        iconType='MaterialIcons'
+        light={tailwind('text-primary-500')}
+        name='help'
+        size={16}
+      />
+
+      <ThemedText
+        dark={tailwind('text-darkprimary-500')}
+        light={tailwind('text-primary-500')}
+        style={tailwind('ml-1 text-xs font-medium px-1')}
+      >
+        {translate('screens/ConvertScreen', 'Learn more about UTXO and tokens')}
+      </ThemedText>
+    </TouchableOpacity>
   )
 }
