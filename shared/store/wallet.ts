@@ -100,21 +100,10 @@ export const tokensSelector = createSelector([rawTokensSelector, (state: WalletS
   return t
 }))
 
-export const DFITokenSelector = createSelector((state: WalletState) => state.tokens, (tokens) => {
-  let dfiToken = tokens.find(token => token.id === '0')
-  if (dfiToken === undefined) {
-    dfiToken = tokenDFI
-  }
-  return dfiToken
+export const DFITokenSelector = createSelector(tokensSelector, tokens => {
+  return tokens.find(token => token.id === '0') ?? tokenDFI
 })
 
-export const DFIUtxoSelector = createSelector([rawTokensSelector, (state: WalletState) => state.utxoBalance], (tokens, utxoBalance) => {
-  let dfiUtxo = tokens.find(token => token.id === '0_utxo')
-  if (dfiUtxo === undefined) {
-    dfiUtxo = utxoDFI
-  }
-  return {
-    ...dfiUtxo,
-    amount: new BigNumber(utxoBalance).toFixed(8)
-  }
+export const DFIUtxoSelector = createSelector(tokensSelector, tokens => {
+  return tokens.find(token => token.id === '0_utxo') ?? utxoDFI
 })
