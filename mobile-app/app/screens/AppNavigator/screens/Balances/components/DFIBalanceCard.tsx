@@ -166,7 +166,7 @@ function UtxoVsTokensInfo (props: {onPress: () => void}): JSX.Element {
         light={tailwind('text-primary-500')}
         style={tailwind('ml-1 text-xs font-medium px-1')}
       >
-        {translate('components/DFIBalanceCard', 'Learn more about UTXO and tokens')}
+        {translate('components/DFIBalanceCard', 'Learn more about UTXO and Token')}
       </ThemedText>
     </TouchableOpacity>
   )
