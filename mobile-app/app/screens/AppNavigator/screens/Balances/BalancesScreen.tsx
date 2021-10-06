@@ -84,7 +84,14 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       )}
       ListHeaderComponent={(
         <>
-          <DFIBalanceCard utxo={DFIUtxo} token={DFIToken} isLight={isLight} onConvertPress={onConvertPress} onSendPress={onSendPress} onUtxoVsTokenPress={onUtxoVsTokenPress} />
+          <DFIBalanceCard
+            utxo={DFIUtxo}
+            token={DFIToken}
+            isLight={isLight}
+            onConvertPress={onConvertPress}
+            onSendPress={onSendPress}
+            onUtxoVsTokenPress={onUtxoVsTokenPress}
+          />
           <ThemedSectionTitle
             testID='balances_title'
             text={translate('screens/BalancesScreen', 'PORTFOLIO')}
@@ -207,7 +214,12 @@ function DFIBalanceCard (props: DFIBalanceCardProps): JSX.Element {
       style={tailwind('mx-2 mt-4 rounded-lg flex-1')}
       testID='dfi_balance_card'
     >
-      <ImageBackground source={props.isLight ? DFIBackground : DFIBackgroundDark} style={tailwind('flex-1 rounded-lg overflow-hidden')} resizeMode='cover' resizeMethod='scale'>
+      <ImageBackground
+        source={props.isLight ? DFIBackground : DFIBackgroundDark}
+        style={tailwind('flex-1 rounded-lg overflow-hidden')}
+        resizeMode='cover'
+        resizeMethod='scale'
+      >
         <View style={tailwind('flex-col flex-1 mx-4 mt-5 mb-4')}>
           <View style={tailwind('flex-row pb-3 items-center')}>
             <DFIIcon width={24} height={24} style={tailwind('mr-2')} />
