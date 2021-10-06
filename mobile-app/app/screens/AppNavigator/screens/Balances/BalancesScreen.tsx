@@ -14,9 +14,8 @@ import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { fetchTokens, useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackScreenProps } from '@react-navigation/stack'
-import { RootState } from '@store'
 import { ocean } from '@store/ocean'
-import { DFITokenSelector, DFIUtxoSelector, WalletToken } from '@store/wallet'
+import { WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
@@ -24,7 +23,7 @@ import * as React from 'react'
 import { useCallback, useEffect, useState } from 'react'
 import { RefreshControl } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
 import { DFIBalanceCard } from './components/DFIBalanceCard'
 
@@ -49,9 +48,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch])
 
   const tokens = useTokensAPI()
-  const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
-  const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
-
   return (
     <ThemedFlatList
       ItemSeparatorComponent={() => (
@@ -63,10 +59,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       )}
       ListHeaderComponent={(
         <>
-          <DFIBalanceCard
-            utxo={DFIUtxo}
-            token={DFIToken}
-          />
+          <DFIBalanceCard />
           <ThemedSectionTitle
             testID='balances_title'
             text={translate('screens/BalancesScreen', 'PORTFOLIO')}

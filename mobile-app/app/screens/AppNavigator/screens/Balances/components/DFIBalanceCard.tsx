@@ -1,7 +1,7 @@
 import { useThemeContext } from '@contexts/ThemeProvider'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
-import { WalletToken } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
@@ -14,16 +14,15 @@ import { ThemedView, ThemedText, ThemedIcon } from '@components/themed'
 import { View } from '@components'
 import { getNativeIcon } from '@components/icons/assets'
 import NumberFormat from 'react-number-format'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
 
-interface DFIBalanceCardProps {
-  utxo: WalletToken
-  token: WalletToken
-}
-
-export function DFIBalanceCard (props: DFIBalanceCardProps): JSX.Element {
+export function DFIBalanceCard (): JSX.Element {
+  const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
+  const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const DFIIcon = getNativeIcon('_UTXO')
   const { isLight } = useThemeContext()
-  const totalDFI = new BigNumber(props.utxo.amount).plus(new BigNumber(props.token.amount)).toFixed(8)
+  const totalDFI = new BigNumber(DFIUtxo.amount).plus(new BigNumber(DFIToken.amount)).toFixed(8)
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
 
   return (
@@ -47,6 +46,7 @@ export function DFIBalanceCard (props: DFIBalanceCardProps): JSX.Element {
               value={totalDFI}
               thousandSeparator
               decimalScale={8}
+              fixedDecimalScale
               displayType='text'
               renderText={value =>
                 <ThemedText testID='total_dfi_amount'>{value} DFI</ThemedText>}
@@ -63,9 +63,10 @@ export function DFIBalanceCard (props: DFIBalanceCardProps): JSX.Element {
               UTXO
             </ThemedText>
             <NumberFormat
-              value={props.utxo.amount}
+              value={DFIUtxo.amount}
               thousandSeparator
               decimalScale={8}
+              fixedDecimalScale
               displayType='text'
               renderText={value =>
                 <ThemedText
@@ -89,9 +90,10 @@ export function DFIBalanceCard (props: DFIBalanceCardProps): JSX.Element {
               Token
             </ThemedText>
             <NumberFormat
-              value={props.token.amount}
+              value={DFIToken.amount}
               thousandSeparator
               decimalScale={8}
+              fixedDecimalScale
               displayType='text'
               renderText={value =>
                 <ThemedText
@@ -126,7 +128,7 @@ export function DFIBalanceCard (props: DFIBalanceCardProps): JSX.Element {
                 iconType='MaterialIcons'
                 onPress={() => navigation.navigate({
                   name: 'Send',
-                  params: { token: props.utxo },
+                  params: { token: DFIUtxo },
                   merge: true
                 })}
                 testID='send_dfi_button'
