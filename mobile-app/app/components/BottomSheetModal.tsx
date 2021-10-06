@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useCallback, useRef, useEffect } from 'react'
+import React, { ReactElement, useCallback, useRef, useEffect } from 'react'
 import { tailwind } from '@tailwind'
 import { TouchableOpacity, View, Platform } from 'react-native'
 import { BottomSheetModal as Modal, BottomSheetModalProps, useBottomSheetModal } from '@gorhom/bottom-sheet'
@@ -6,7 +6,7 @@ import { useThemeContext } from '@contexts/ThemeProvider'
 import { ThemedProps } from './themed'
 
 type Props = ThemedProps & BottomSheetModalProps & {
-  triggerComponent: ReactNode
+  triggerComponent: ReactElement
   children: ReactElement
 }
 
