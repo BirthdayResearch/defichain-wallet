@@ -39,72 +39,77 @@ export function DFIBalanceCard (): JSX.Element {
         resizeMethod='scale'
       >
         <View style={tailwind('flex-col flex-1 mx-4 mt-5 mb-4')}>
-          <View style={tailwind('flex-row pb-3 items-center')}>
-            <DFIIcon width={24} height={24} style={tailwind('mr-2')} />
-            <ThemedText style={tailwind('pr-9 text-lg font-bold')} testID='total_dfi_label'>DFI</ThemedText>
-            <NumberFormat
-              value={totalDFI}
-              thousandSeparator
-              decimalScale={8}
-              fixedDecimalScale
-              displayType='text'
-              renderText={value =>
-                <ThemedText testID='total_dfi_amount'>{value} DFI</ThemedText>}
-            />
-          </View>
+          <View style={tailwind('flex-row')}>
+            <View>
+              <View style={tailwind('flex-row mb-3 items-center')}>
+                <DFIIcon width={24} height={24} style={tailwind('mr-2')} />
+                <ThemedText style={tailwind('pr-9 text-lg font-bold')} testID='total_dfi_label'>DFI</ThemedText>
+              </View>
 
-          <View style={tailwind('flex-row pb-1.5')}>
-            <ThemedText
-              light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
-              style={tailwind('pr-16 text-sm')}
-              testID='dfi_utxo_label'
-            >
-              UTXO
-            </ThemedText>
-            <NumberFormat
-              value={DFIUtxo.amount}
-              thousandSeparator
-              decimalScale={8}
-              fixedDecimalScale
-              displayType='text'
-              renderText={value =>
-                <ThemedText
-                  light={tailwind('text-gray-500')}
-                  dark={tailwind('text-gray-400')}
-                  style={tailwind('text-sm')}
-                  testID='dfi_utxo_amount'
-                >
-                  {value}
-                </ThemedText>}
-            />
-          </View>
+              <ThemedText
+                light={tailwind('text-gray-500')}
+                dark={tailwind('text-gray-400')}
+                style={tailwind('pr-14 text-sm pb-1.5')}
+                testID='dfi_utxo_label'
+              >
+                UTXO
+              </ThemedText>
 
-          <View style={tailwind('flex-row items-center flex-1')}>
-            <ThemedText
-              light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
-              style={tailwind('pr-14 text-sm')}
-              testID='dfi_token_label'
-            >
-              Token
-            </ThemedText>
-            <NumberFormat
-              value={DFIToken.amount}
-              thousandSeparator
-              decimalScale={8}
-              fixedDecimalScale
-              displayType='text'
-              renderText={value =>
-                <ThemedText
-                  light={tailwind('text-gray-500')}
-                  dark={tailwind('text-gray-400')}
-                  style={tailwind('pl-1.5 text-sm')}
-                  testID='dfi_token_amount'
-                >
-                  {value}
-                </ThemedText>}
-            />
+              <ThemedText
+                light={tailwind('text-gray-500')}
+                dark={tailwind('text-gray-400')}
+                style={tailwind('pr-12 text-sm')}
+                testID='dfi_token_label'
+              >
+                Token
+              </ThemedText>
+            </View>
+
+            <View style={tailwind('pt-0.5')}>
+              <NumberFormat
+                value={totalDFI}
+                thousandSeparator
+                decimalScale={8}
+                fixedDecimalScale
+                displayType='text'
+                renderText={value =>
+                  <ThemedText testID='total_dfi_amount' style={tailwind('pb-3.5')}>{value} DFI</ThemedText>}
+              />
+
+              <NumberFormat
+                value={DFIUtxo.amount}
+                thousandSeparator
+                decimalScale={8}
+                fixedDecimalScale
+                displayType='text'
+                renderText={value =>
+                  <ThemedText
+                    light={tailwind('text-gray-500')}
+                    dark={tailwind('text-gray-400')}
+                    style={tailwind('text-sm pb-1.5')}
+                    testID='dfi_utxo_amount'
+                  >
+                    {value}
+                  </ThemedText>}
+              />
+
+              <NumberFormat
+                value={DFIToken.amount}
+                thousandSeparator
+                decimalScale={8}
+                fixedDecimalScale
+                displayType='text'
+                renderText={value =>
+                  <ThemedText
+                    light={tailwind('text-gray-500')}
+                    dark={tailwind('text-gray-400')}
+                    style={tailwind('text-sm')}
+                    testID='dfi_token_amount'
+                  >
+                    {value}
+                  </ThemedText>}
+              />
+            </View>
           </View>
 
           <View style={tailwind('flex-row')}>
