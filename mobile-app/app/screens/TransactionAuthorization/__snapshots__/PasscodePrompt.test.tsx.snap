@@ -311,10 +311,8 @@ exports[`transaction authorization screen should match snapshot of status: BLOCK
             "fontSize": 14,
             "lineHeight": 20,
             "marginBottom": 24,
-            "paddingBottom": 16,
             "paddingLeft": 32,
             "paddingRight": 32,
-            "paddingTop": 16,
             "textAlign": "center",
           }
         }
@@ -333,10 +331,10 @@ exports[`transaction authorization screen should match snapshot of status: BLOCK
                   "fontSize": 14,
                   "lineHeight": 20,
                   "marginBottom": 8,
-                  "paddingBottom": 16,
+                  "paddingBottom": 8,
                   "paddingLeft": 32,
                   "paddingRight": 32,
-                  "paddingTop": 16,
+                  "paddingTop": 8,
                   "textAlign": "center",
                 },
                 Object {
@@ -486,10 +484,8 @@ exports[`transaction authorization screen should match snapshot of status: IDLE 
             "fontSize": 14,
             "lineHeight": 20,
             "marginBottom": 24,
-            "paddingBottom": 16,
             "paddingLeft": 32,
             "paddingRight": 32,
-            "paddingTop": 16,
             "textAlign": "center",
           }
         }
@@ -508,10 +504,10 @@ exports[`transaction authorization screen should match snapshot of status: IDLE 
                   "fontSize": 14,
                   "lineHeight": 20,
                   "marginBottom": 8,
-                  "paddingBottom": 16,
+                  "paddingBottom": 8,
                   "paddingLeft": 32,
                   "paddingRight": 32,
-                  "paddingTop": 16,
+                  "paddingTop": 8,
                   "textAlign": "center",
                 },
                 Object {
@@ -637,10 +633,8 @@ exports[`transaction authorization screen should match snapshot of status: INIT 
             "fontSize": 14,
             "lineHeight": 20,
             "marginBottom": 24,
-            "paddingBottom": 16,
             "paddingLeft": 32,
             "paddingRight": 32,
-            "paddingTop": 16,
             "textAlign": "center",
           }
         }
@@ -659,10 +653,10 @@ exports[`transaction authorization screen should match snapshot of status: INIT 
                   "fontSize": 14,
                   "lineHeight": 20,
                   "marginBottom": 8,
-                  "paddingBottom": 16,
+                  "paddingBottom": 8,
                   "paddingLeft": 32,
                   "paddingRight": 32,
-                  "paddingTop": 16,
+                  "paddingTop": 8,
                   "textAlign": "center",
                 },
                 Object {
@@ -812,10 +806,8 @@ exports[`transaction authorization screen should match snapshot of status: PIN 1
             "fontSize": 14,
             "lineHeight": 20,
             "marginBottom": 24,
-            "paddingBottom": 16,
             "paddingLeft": 32,
             "paddingRight": 32,
-            "paddingTop": 16,
             "textAlign": "center",
           }
         }
@@ -834,10 +826,10 @@ exports[`transaction authorization screen should match snapshot of status: PIN 1
                   "fontSize": 14,
                   "lineHeight": 20,
                   "marginBottom": 8,
-                  "paddingBottom": 16,
+                  "paddingBottom": 8,
                   "paddingLeft": 32,
                   "paddingRight": 32,
-                  "paddingTop": 16,
+                  "paddingTop": 8,
                   "textAlign": "center",
                 },
                 Object {
@@ -1233,10 +1225,8 @@ exports[`transaction authorization screen should match snapshot of status: SIGNI
             "fontSize": 14,
             "lineHeight": 20,
             "marginBottom": 24,
-            "paddingBottom": 16,
             "paddingLeft": 32,
             "paddingRight": 32,
-            "paddingTop": 16,
             "textAlign": "center",
           }
         }
@@ -1255,10 +1245,10 @@ exports[`transaction authorization screen should match snapshot of status: SIGNI
                   "fontSize": 14,
                   "lineHeight": 20,
                   "marginBottom": 8,
-                  "paddingBottom": 16,
+                  "paddingBottom": 8,
                   "paddingLeft": 32,
                   "paddingRight": 32,
-                  "paddingTop": 16,
+                  "paddingTop": 8,
                   "textAlign": "center",
                 },
                 Object {

@@ -75,12 +75,12 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
                   : translate('screens/TransactionAuthorization', 'Sign Transaction')}
               </ThemedText>
 
-              <View style={tailwind('p-4 px-8 text-sm text-center mb-6')}>
+              <View style={tailwind('px-8 text-sm text-center mb-6')}>
                 <ThemedText
                   testID='txn_authorization_message'
                   dark={tailwind('text-gray-400')}
                   light={tailwind('text-gray-500')}
-                  style={tailwind('p-4 px-8 text-sm text-center mb-2')}
+                  style={tailwind('p-2 px-8 text-sm text-center mb-2')}
                 >
                   {props.message}
                 </ThemedText>
