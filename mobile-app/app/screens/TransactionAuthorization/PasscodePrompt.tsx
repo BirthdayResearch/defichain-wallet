@@ -61,8 +61,8 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
         style={tailwind('w-full flex-1 flex-col pt-8')}
       >
 
-        {['AUTHORIZED', 'ACCESS_GRANTED'].includes(props.status)
-          ? <SuccessMessage message={props.status === 'AUTHORIZED' ? props.authorizedTransactionMessage : props.grantedAccessMessage} />
+        {props.status === 'AUTHORIZED'
+          ? <SuccessMessage message={props.transaction === undefined ? props.grantedAccessMessage : props.authorizedTransactionMessage} />
           : (
             <ThemedView
               light={tailwind('bg-white')}

@@ -51,7 +51,7 @@ let PASSPHRASE_PROMISE_PROXY: {
 const INVALID_HASH = 'invalid hash'
 const USER_CANCELED = 'USER_CANCELED'
 
-export type Status = 'INIT' | 'IDLE' | 'BLOCK' | 'PIN' | 'SIGNING' | 'AUTHORIZED' | 'ACCESS_GRANTED'
+export type Status = 'INIT' | 'IDLE' | 'BLOCK' | 'PIN' | 'SIGNING' | 'AUTHORIZED'
 
 /**
  * The main UI page transaction signing logic interact with encrypted wallet context
@@ -212,13 +212,13 @@ export function TransactionAuthorization (): JSX.Element | null {
       emitEvent('BLOCK') // prevent any re-render trigger (between IDLE and PIN)
 
       setMessage(authentication.message)
-      setLoadingMessage('Verifying access')
+      setLoadingMessage(authentication.loading)
 
       authenticateFor(onPrompt, authentication, onRetry, retries)
         .then(async () => {
           // case 1: success
           await resetPasscodeCounter()
-          emitEvent('ACCESS_GRANTED')
+          emitEvent('AUTHORIZED')
         })
         .catch(async e => {
           if (e.message === INVALID_HASH) {

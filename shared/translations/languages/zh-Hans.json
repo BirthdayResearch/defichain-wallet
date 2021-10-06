@@ -138,8 +138,6 @@
     "NETWORK": "网络",
     "To update your passcode, we need you to enter your current passcode.": "需要使用目前的密码才能更换密码",
     "Verifying passcode...": "正在确认密码...",
-    "To continue viewing your recovery words, we need you to enter your passcode.": "请输入您的密码即可继续查看您的恢复字组",
-    "Loading...": "请稍等...",
     "Network Switch": "切换网络",
     "No": "不要",
     "Yes": "好的",
@@ -161,7 +159,8 @@
     "Face ID": "Face ID",
     "Touch ID": "Touch ID",
     "device's lock": "device's lock",
-    "biometric": "biometric"
+    "biometric": "biometric",
+    "Enter passcode to continue": "输入密码后可继续"
   },
   "screens/AboutScreen": {
     "About": "关于",
