@@ -481,5 +481,8 @@
     "Recovery words": "恢复字组",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "你的连续显示24个英文单词是指储存在钱包的private key，它由2048个单字所产生的，支持BIP-39 标准的钱包。就算整个硬体钱包被盗或入侵，仍然可以确保安全的。",
     "FREQUENTLY ASKED QUESTIONS": "常见问题"
+  },
+  "components/DFIBalanceCard": {
+    "Learn more about UTXO and tokens": "了解 UTXO 和代币区别"
   }
 }
