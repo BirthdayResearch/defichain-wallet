@@ -44,7 +44,9 @@ context('Wallet - Convert DFI', () => {
   })
 
   it('should click tokens vs info screen', function () {
-    cy.getByTestID('token_vs_utxo_info').click()
+    cy.getByTestID('convert_screen').within(() => {
+      cy.getByTestID('token_vs_utxo_info').click()
+    })
     cy.getByTestID('token_vs_utxo_screen').should('exist')
     cy.go('back')
   })
