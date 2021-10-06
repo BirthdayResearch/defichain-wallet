@@ -182,7 +182,7 @@ context('Wallet - Send', function () {
       cy.getByTestID('txn_authorization_description')
         .contains(`Sending ${new BigNumber(oldAmount).toFixed(8)} DFI (UTXO)`)
       // Cancel send on authorisation page
-      cy.getByTestID('cancel_authorization').contains('CANCEL').click()
+      cy.getByTestID('cancel_authorization').click()
       // Check for correct amount
       cy.getByTestID('text_amount').contains(oldAmount)
       // Cancel button

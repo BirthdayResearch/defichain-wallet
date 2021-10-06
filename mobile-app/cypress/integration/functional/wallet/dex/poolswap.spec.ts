@@ -122,7 +122,7 @@ context('Wallet - DEX - Pool Swap with balance Confirm Txn', () => {
       cy.getByTestID('confirm_title').contains('You are swapping')
       cy.getByTestID('button_confirm_swap').click().wait(3000)
       // Cancel send on authorisation page
-      cy.getByTestID('cancel_authorization').contains('CANCEL').click()
+      cy.getByTestID('cancel_authorization').click()
       cy.getByTestID('button_cancel_swap').click()
       // Update input values
       cy.getByTestID('text_input_tokenA_clear_button').click()
