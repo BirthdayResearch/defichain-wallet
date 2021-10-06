@@ -18,7 +18,7 @@ import { translate } from '@translations'
 import { DexParamList } from '../DexNavigator'
 import { DerivedTokenState } from './PoolSwapScreen'
 import { getNativeIcon } from '@components/icons/assets'
-import { EstimatedFeeInfo } from '@components/EstimationInfo'
+import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmPoolSwapScreen'>
 

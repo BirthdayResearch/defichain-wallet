@@ -16,7 +16,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
-import { EstimatedFeeInfo } from '@components/EstimationInfo'
+import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { TextRow } from '@components/TextRow'
 import { NumberRow } from '@components/NumberRow'
 

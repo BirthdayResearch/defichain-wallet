@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode, useCallback, useRef, useEffect } from 'react'
 import { tailwind } from '@tailwind'
 import { TouchableOpacity, View, Platform } from 'react-native'
-import { BottomSheetModal as Modal, BottomSheetModalProps } from '@gorhom/bottom-sheet'
+import { BottomSheetModal as Modal, BottomSheetModalProps, useBottomSheetModal } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@contexts/ThemeProvider'
 import { ThemedProps } from './themed'
 
@@ -12,25 +12,26 @@ type Props = ThemedProps & BottomSheetModalProps & {
 
 export const BottomSheetModal = (props: Props): JSX.Element => {
   const bottomSheetModalRef = useRef<Modal>(null)
+  const { dismiss } = useBottomSheetModal()
   const { isLight } = useThemeContext()
   const {
     name,
     style,
-    index = 1,
+    children,
     triggerComponent,
     snapPoints = ['100%', '50%'],
     light = tailwind('bg-gray-100 text-black'),
     dark = tailwind('bg-gray-900 text-white text-opacity-90')
   } = props
 
-  const handlePresentModalPress = useCallback(() => {
+  const openModal = useCallback(() => {
     bottomSheetModalRef.current?.present()
   }, [])
 
   useEffect(() => {
     return () => {
       if (Platform.OS !== 'web') {
-        bottomSheetModalRef.current?.close()
+        dismiss(name)
       }
     }
   }, [])
@@ -41,13 +42,10 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
 
   return (
     <View>
-      <TouchableOpacity
-        onPress={handlePresentModalPress}
-      >
+      <TouchableOpacity onPress={openModal}>
         {triggerComponent}
       </TouchableOpacity>
       <Modal
-        index={index}
         name={name}
         ref={bottomSheetModalRef}
         style={style}
@@ -55,7 +53,7 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
         stackBehavior='replace'
         backgroundStyle={[isLight ? light : dark]}
       >
-        {props.children}
+        {children}
       </Modal>
     </View>
   )
