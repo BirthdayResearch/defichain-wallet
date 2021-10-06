@@ -88,7 +88,7 @@
     "Convert DFI": "轉換 DFI",
     "Scan recipient QR": "掃一掃 QR 二維條碼",
     "Balance": "總資金",
-    "UTXO vs Token, what is the difference?": "UXTO和代幣的區別是什麼？",
+    "UTXO vs Token, what is the difference?": "UTXO和代幣的區別是什麼？",
     "CONVERT {{symbol}}": "轉換 {{symbol}}",
     "TO {{symbol}}": "至 {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要預留一些可使用的 UTXO (0.1 DFI (UTXO)) 作為費用",
@@ -187,7 +187,7 @@
   "screens/TransactionsScreen": {
     "Transactions": "交易紀錄",
     "No transactions yet": "還沒有交易紀錄",
-    "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "您能開始從錢包做交易. 所有 UXTO 交易都會在這裡顯示.目前還不提供其他交易類型.",
+    "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "您能開始從錢包做交易. 所有 UTXO 交易都會在這裡顯示.目前還不提供其他交易類型.",
     "RECEIVE COINS": "接收的貨幣",
     "LOAD MORE": "查看更多交易紀錄"
   },
