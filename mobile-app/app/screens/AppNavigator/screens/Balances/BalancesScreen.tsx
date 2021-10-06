@@ -48,6 +48,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch])
 
   const tokens = useTokensAPI()
+  const nonDfiTokens = tokens.filter(token =>
+    token.id !== '0_utxo' && token.id !== '0'
+  )
+
   return (
     <ThemedFlatList
       ItemSeparatorComponent={() => (
@@ -60,13 +64,14 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       ListHeaderComponent={(
         <>
           <DFIBalanceCard />
-          <ThemedSectionTitle
-            testID='balances_title'
-            text={translate('screens/BalancesScreen', 'PORTFOLIO')}
-          />
+          {nonDfiTokens.length !== 0 &&
+            <ThemedSectionTitle
+              testID='balances_title'
+              text={translate('screens/BalancesScreen', 'PORTFOLIO')}
+            />}
         </>
       )}
-      data={tokens}
+      data={nonDfiTokens}
       refreshControl={
         <RefreshControl
           onRefresh={onRefresh}
@@ -74,10 +79,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         />
       }
       renderItem={({ item }) => {
-        if (item.id === '0_utxo' || item.id === '0') {
-          return (<></>)
-        }
-
         return (
           <BalanceItemRow
             key={item.symbol}
