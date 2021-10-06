@@ -448,12 +448,15 @@
     "CONFIRM SWAP": "確認兌換"
   },
   "screens/UnlockWallet": {
-    "Enter passcode": "請輸入密碼",
-    "CANCEL": "取消",
+    "Enter Passcode": "請輸入密碼",
+    "Enter passcode to continue": "輸入密碼後可繼續",
     "Please enter passcode to securely sign your transaction": "請輸入密碼以安全地簽下您的交易"
   },
   "screens/TransactionAuthorization": {
-    "Signing...": "您正在為此交易授權..."
+    "Sign Transaction": "簽署交易",
+    "Signing your transaction...": "正在簽署交易...",
+    "Transaction authorized": "授權交易",
+    "Please wait as your transaction is prepared": "正在準備交易，請稍候"
   },
   "components/CreateWalletIndicator": {
     "Recovery": "恢復",
