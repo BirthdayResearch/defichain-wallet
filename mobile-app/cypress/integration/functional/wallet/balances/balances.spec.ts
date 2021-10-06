@@ -47,6 +47,12 @@ context('Wallet - Balances', () => {
     cy.getByTestID('send_dfi_button').click()
     cy.getByTestID('send_screen').should('exist')
   })
+
+  it('should be able to navigate to utxo vs token page', function () {
+    cy.go('back')
+    cy.getByTestID('token_vs_utxo_info').click()
+    cy.getByTestID('token_vs_utxo_screen').should('exist')
+  })
 })
 
 context('Wallet - Balances - Failed API', () => {
