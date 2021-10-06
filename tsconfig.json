@@ -31,6 +31,9 @@
       "@contexts/*": [
         "contexts/*"
       ],
+      "@components": [
+        "components"
+      ],
       "@components/*": [
         "components/*"
       ],
