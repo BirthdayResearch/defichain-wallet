@@ -380,7 +380,7 @@
     "Price": "價格",
     "Estimated fee": "所需費用（大約）",
     "REMOVE": "退出",
-    "{{tokenA}} price per {{tokenB}}":"{{tokenA}} price per {{tokenB}}"
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "退出流動資金",
@@ -416,7 +416,7 @@
   "screens/SlippageTolerance": {
     "SLIPPAGE TOLERANCE": "交易滑價"
   },
-  "screens/PoolSwapScreen": {    
+  "screens/PoolSwapScreen": {
     "Swap": "兌換",
     "How much {{token}} do you want to swap?": "你要兌換多少  {{token}}？",
     "Available": "可兌換資金",
@@ -450,7 +450,7 @@
     "Enter Passcode": "請輸入密碼",
     "Enter passcode to continue": "輸入密碼後可繼續",
     "Please enter passcode to securely sign your transaction": "請輸入密碼以安全地簽下您的交易",
-    "Access Granted": "已授予訪問權限",
+    "Access granted": "已授予訪問權限",
     "You may now proceed": "你現在可以繼續",
     "Sign to verify access": "簽名確認訪問權限"
   },

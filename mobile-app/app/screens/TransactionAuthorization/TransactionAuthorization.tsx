@@ -38,6 +38,7 @@ const DEFAULT_MESSAGES = {
     description: 'You may now proceed'
   }
 }
+const SUCCESS_DISPLAY_TIMEOUT_IN_MS = 2000
 
 /**
  * useRef() working well on web but not on mobile
@@ -206,7 +207,7 @@ export function TransactionAuthorization (): JSX.Element | null {
           setTimeout(() => {
             dispatch(transactionQueue.actions.pop()) // remove job
             onTaskCompletion()
-          }, 2000)
+          }, SUCCESS_DISPLAY_TIMEOUT_IN_MS)
         })
     } else if (authentication !== undefined) {
       emitEvent('BLOCK') // prevent any re-render trigger (between IDLE and PIN)
@@ -237,7 +238,7 @@ export function TransactionAuthorization (): JSX.Element | null {
           setTimeout(() => {
             dispatch(authenticationStore.actions.dismiss())
             onTaskCompletion()
-          }, 2000)
+          }, SUCCESS_DISPLAY_TIMEOUT_IN_MS)
         })
     }
   }, [transaction, wallet, status, authentication, attemptsRemaining])
