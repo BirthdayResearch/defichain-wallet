@@ -30,7 +30,7 @@ export function EstimatedFeeInfo ({
 
           <BottomSheetModal
             name='EstimatedFeeInfo'
-            snapPoints={['50%', '50%']}
+            snapPoints={['30%', '50%']}
             triggerComponent={
               <ThemedIcon
                 size={16}
