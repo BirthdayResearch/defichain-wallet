@@ -6,6 +6,7 @@ import { BackHandler } from 'react-native'
 import { Logging } from '@api'
 import { ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
+import * as Updates from 'expo-updates'
 
 const APP_LAST_ACTIVE: { force: boolean, timestamp?: number } = {
   force: false
@@ -21,7 +22,7 @@ function shouldReauthenticate (): boolean {
     return true
   }
 
-  const env = getEnvironment()
+  const env = getEnvironment(Updates.releaseChannel)
   const timeout = env.name === EnvironmentName.Development ? 3000 : 60000
   return lastActive + timeout < Date.now()
 }
