@@ -1,6 +1,0 @@
-{
-  "baseUrl": "http://localhost:19006",
-  "integrationFolder": "mobile-app/cypress/integration",
-  "pluginsFile":"mobile-app/cypress/plugins",
-  "supportFile":"mobile-app/cypress/support"
-}
