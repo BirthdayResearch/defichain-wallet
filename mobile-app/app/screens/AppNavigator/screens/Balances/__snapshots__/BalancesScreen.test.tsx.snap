@@ -6,10 +6,6 @@ exports[`balances page should match snapshot 1`] = `
   ListHeaderComponent={
     <React.Fragment>
       <DFIBalanceCard
-        isLight={true}
-        onConvertPress={[Function]}
-        onSendPress={[Function]}
-        onUtxoVsTokenPress={[Function]}
         token={
           Object {
             "amount": "0",
@@ -420,7 +416,7 @@ exports[`balances page should match snapshot 1`] = `
                 }
                 testID="dfi_token_amount"
               >
-                0.00000000
+                77.00000000
               </Text>
             </View>
             <View

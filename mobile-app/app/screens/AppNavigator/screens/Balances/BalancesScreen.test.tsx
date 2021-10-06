@@ -57,6 +57,10 @@ jest.mock('../../../../contexts/WalletPersistenceContext', () => ({
   }
 }))
 
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: jest.fn()
+}))
+
 describe('balances page', () => {
   it('should match snapshot', async () => {
     const initialState: Partial<RootState> = {
