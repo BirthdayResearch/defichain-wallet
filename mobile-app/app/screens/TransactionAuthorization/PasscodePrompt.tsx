@@ -46,8 +46,8 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
           testID='cancel_authorization'
         >
           <ThemedIcon
-            dark={tailwind('text-darkprimary-500 text-white')}
-            light={tailwind('text-primary-500 text-black')}
+            dark={tailwind('text-white')}
+            light={tailwind('text-black')}
             iconType='MaterialIcons'
             name='close'
             size={26}
