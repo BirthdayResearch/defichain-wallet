@@ -5,34 +5,7 @@ exports[`balances page should match snapshot 1`] = `
   ItemSeparatorComponent={[Function]}
   ListHeaderComponent={
     <React.Fragment>
-      <DFIBalanceCard
-        token={
-          Object {
-            "amount": "0",
-            "avatarSymbol": "DFI (Token)",
-            "displaySymbol": "DFI (Token)",
-            "id": "0",
-            "isDAT": true,
-            "isLPS": false,
-            "name": "DeFiChain",
-            "symbol": "DFI",
-            "symbolKey": "DFI",
-          }
-        }
-        utxo={
-          Object {
-            "amount": "77.00000000",
-            "avatarSymbol": "DFI (UTXO)",
-            "displaySymbol": "DFI (UTXO)",
-            "id": "0_utxo",
-            "isDAT": true,
-            "isLPS": false,
-            "name": "DeFiChain",
-            "symbol": "DFI",
-            "symbolKey": "DFI",
-          }
-        }
-      />
+      <DFIBalanceCard />
       <ThemedSectionTitle
         testID="balances_title"
         text="PORTFOLIO"
@@ -416,7 +389,7 @@ exports[`balances page should match snapshot 1`] = `
                 }
                 testID="dfi_token_amount"
               >
-                77.00000000
+                0.00000000
               </Text>
             </View>
             <View

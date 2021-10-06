@@ -1,4 +1,5 @@
 import React from 'react'
+import * as redux from 'react-redux'
 import { render } from '@testing-library/react-native'
 import { DFIBalanceCard } from './DFIBalanceCard'
 
@@ -31,7 +32,10 @@ describe('DFI Balance Card', () => {
       displaySymbol: 'DFI (UTXO)',
       avatarSymbol: 'DFI (UTXO)'
     }
-    const rendered = render(<DFIBalanceCard token={dfiToken} utxo={dfiUtxo} />)
+    const spy = jest.spyOn(redux, 'useSelector')
+    spy.mockReturnValueOnce(dfiToken)
+    spy.mockReturnValueOnce(dfiUtxo)
+    const rendered = render(<DFIBalanceCard />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })
