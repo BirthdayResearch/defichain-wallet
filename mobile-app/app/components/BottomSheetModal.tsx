@@ -21,7 +21,7 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
     triggerComponent,
     snapPoints = ['100%', '50%'],
     light = tailwind('bg-gray-100 text-black'),
-    dark = tailwind('bg-gray-900 text-white text-opacity-90')
+    dark = tailwind('bg-gray-600 text-white text-opacity-90')
   } = props
 
   const openModal = useCallback(() => {

@@ -41,8 +41,8 @@ export function EstimatedFeeInfo ({
               />
           }
           >
-            <ThemedView style={tailwind('p-4')}>
-              <ThemedView
+            <View style={tailwind('p-4')}>
+              <View
                 testID='estimated_fee_heading'
                 style={tailwind('flex-row mb-3 items-center')}
               >
@@ -61,13 +61,13 @@ export function EstimatedFeeInfo ({
                   {translate('screens/EstimatedFeeInfo', 'Estimated Fee')}
                 </ThemedText>
 
-              </ThemedView>
-              <ThemedView testID='estimated_fee_description'>
+              </View>
+              <View testID='estimated_fee_description'>
                 <ThemedText>
                   {translate('screens/EstimatedFeeInfo', 'Each transaction will subject to a small amount of fees. The amount may vary depending on the network’s congestion.')}
                 </ThemedText>
-              </ThemedView>
-            </ThemedView>
+              </View>
+            </View>
           </BottomSheetModal>
         </View>
       </View>
