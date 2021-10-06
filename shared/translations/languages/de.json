@@ -185,7 +185,7 @@
   "screens/TransactionsScreen": {
     "Transactions": "Transaktionen",
     "No transactions yet": "Noch keine Transaktionen",
-    "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "Beginne, mit deiner Wallet Transaktionen auszuführen. Alle ausgeführten UXTO Transaktionen werden hier angezeigt. Weitere Transaktionstypen werden noch nicht unterstützt.",
+    "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "Beginne, mit deiner Wallet Transaktionen auszuführen. Alle ausgeführten UTXO Transaktionen werden hier angezeigt. Weitere Transaktionstypen werden noch nicht unterstützt.",
     "RECEIVE COINS": "EMPFANGE COINS",
     "LOAD MORE": "WEITERE LADEN"
   },
