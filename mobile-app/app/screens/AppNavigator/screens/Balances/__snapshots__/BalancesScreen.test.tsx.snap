@@ -438,7 +438,7 @@ exports[`balances page should match snapshot 1`] = `
                     ]
                   }
                 >
-                  Learn more about UTXO and tokens
+                  Learn more about UTXO and Token
                 </Text>
               </View>
               <View
