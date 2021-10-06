@@ -16,6 +16,10 @@ export function EstimatedFeeInfo ({
   lhs,
   rhs
 }: { lhs: string, rhs: EstimatedFeeElement }): JSX.Element {
+  const feeInfo = {
+    title: translate('screens/EstimatedFeeInfo', 'Estimated Fee'),
+    message: translate('screens/EstimatedFeeInfo', 'Each transaction will subject to a small amount of fees. The amount may vary depending on the network’s congestion.')
+  }
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
@@ -31,6 +35,7 @@ export function EstimatedFeeInfo ({
           <BottomSheetModal
             name='EstimatedFeeInfo'
             snapPoints={['30%', '50%']}
+            alertInfo={feeInfo}
             triggerComponent={
               <ThemedIcon
                 size={16}
@@ -58,13 +63,13 @@ export function EstimatedFeeInfo ({
                   light={tailwind('text-black')}
                   style={tailwind('ml-1 text-xl font-semibold')}
                 >
-                  {translate('screens/EstimatedFeeInfo', 'Estimated Fee')}
+                  {feeInfo.title}
                 </ThemedText>
 
               </View>
               <View testID='estimated_fee_description'>
                 <ThemedText>
-                  {translate('screens/EstimatedFeeInfo', 'Each transaction will subject to a small amount of fees. The amount may vary depending on the network’s congestion.')}
+                  {feeInfo.message}
                 </ThemedText>
               </View>
             </View>

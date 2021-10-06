@@ -4,10 +4,12 @@ import { TouchableOpacity, View, Platform } from 'react-native'
 import { BottomSheetModal as Modal, BottomSheetModalProps, useBottomSheetModal } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@contexts/ThemeProvider'
 import { ThemedProps } from './themed'
+import { WalletAlert } from './WalletAlert'
 
 type Props = ThemedProps & BottomSheetModalProps & {
   triggerComponent: ReactElement
   children: ReactElement
+  alertInfo?: { title: string, message: string }
 }
 
 export const BottomSheetModal = (props: Props): JSX.Element => {
@@ -19,42 +21,46 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
     style,
     children,
     triggerComponent,
+    alertInfo,
     snapPoints = ['100%', '50%'],
     light = tailwind('bg-gray-100 text-black'),
     dark = tailwind('bg-gray-600 text-white text-opacity-90')
   } = props
+  const isWeb = Platform.OS === 'web'
 
   const openModal = useCallback(() => {
-    bottomSheetModalRef.current?.present()
+    if (!isWeb) {
+      bottomSheetModalRef.current?.present()
+    } else if (alertInfo != null) {
+      WalletAlert(alertInfo)
+    }
   }, [])
 
   useEffect(() => {
     return () => {
-      if (Platform.OS !== 'web') {
+      if (!isWeb) {
         dismiss(name)
       }
     }
   }, [])
-
-  if (Platform.OS === 'web') {
-    return <></>
-  }
 
   return (
     <View>
       <TouchableOpacity onPress={openModal}>
         {triggerComponent}
       </TouchableOpacity>
-      <Modal
-        name={name}
-        ref={bottomSheetModalRef}
-        style={style}
-        snapPoints={snapPoints}
-        stackBehavior='replace'
-        backgroundStyle={[isLight ? light : dark]}
-      >
-        {children}
-      </Modal>
+      {!isWeb && (
+        <Modal
+          name={name}
+          ref={bottomSheetModalRef}
+          style={style}
+          snapPoints={snapPoints}
+          stackBehavior='replace'
+          backgroundStyle={[isLight ? light : dark]}
+        >
+          {children}
+        </Modal>
+      )}
     </View>
   )
 }
