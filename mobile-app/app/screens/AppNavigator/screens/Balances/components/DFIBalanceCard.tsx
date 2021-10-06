@@ -89,7 +89,7 @@ export function DFIBalanceCard (props: DFIBalanceCardProps): JSX.Element {
               Token
             </ThemedText>
             <NumberFormat
-              value={props.utxo.amount}
+              value={props.token.amount}
               thousandSeparator
               decimalScale={8}
               displayType='text'
@@ -159,7 +159,7 @@ function UtxoVsTokensInfo (props: {onPress: () => void}): JSX.Element {
         light={tailwind('text-primary-500')}
         style={tailwind('ml-1 text-xs font-medium px-1')}
       >
-        {translate('screens/DFIBalanceCard', 'Learn more about UTXO and tokens')}
+        {translate('components/DFIBalanceCard', 'Learn more about UTXO and tokens')}
       </ThemedText>
     </TouchableOpacity>
   )
