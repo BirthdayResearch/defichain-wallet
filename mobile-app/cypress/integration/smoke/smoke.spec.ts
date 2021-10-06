@@ -58,8 +58,9 @@ context('Mainnet - Wallet', () => {
   })
 
   it('should have displayed default tokens', function () {
-    cy.checkBalanceRow('0_utxo', { name: 'DeFiChain', amount: '0.00000000', symbol: 'DFI (UTXO)' })
-    cy.checkBalanceRow('0', { name: 'DeFiChain', amount: '0.00000000', symbol: 'DFI (Token)' })
+    cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
+    cy.getByTestID('dfi_token_amount').contains('0.00000000')
+    cy.getByTestID('total_dfi_amount').contains('0.00000000')
   })
 
   context('Settings - Mnemonic Verification', () => {
@@ -101,8 +102,7 @@ context('Mainnet - Wallet', () => {
       cy.reload()
       cy.isNetworkConnected('MainNet')
       cy.getByTestID('bottom_tab_balances').click()
-      cy.getByTestID('balances_row_0_utxo').click()
-      cy.getByTestID('receive_button').click()
+      cy.getByTestID('header_receive_balance').click()
       cy.getByTestID('address_text').then(($txt: any) => {
         const address = $txt[0].textContent
         expect(address).eq(mainnetAddress.address)
@@ -120,16 +120,9 @@ context('Mainnet - Wallet', () => {
       cy.fetchWalletBalance()
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_list').should('exist')
-      cy.checkBalanceRow('0_utxo', {
-        name: 'DeFiChain',
-        amount: '10.00000000',
-        symbol: 'DFI (UTXO)'
-      })
-      cy.checkBalanceRow('0', {
-        name: 'DeFiChain',
-        amount: 10,
-        symbol: 'DFI (Token)'
-      }, true)
+      cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
+      cy.getByTestID('dfi_token_amount').contains('10')
+      cy.getByTestID('total_dfi_amount').contains('20')
       cy.checkBalanceRow('7', {
         name: 'Playground ETH-DeFiChain',
         amount: '10.00000000',
@@ -146,8 +139,7 @@ context('Mainnet - Wallet', () => {
 
     it('should have correct address', function () {
       cy.getByTestID('bottom_tab_balances').click()
-      cy.getByTestID('balances_row_0_utxo').click()
-      cy.getByTestID('receive_button').click()
+      cy.getByTestID('header_receive_balance').click()
       cy.getByTestID('address_text').then(($txt: any) => {
         const address = $txt[0].textContent
         expect(address).eq(localAddress.address)

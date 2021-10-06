@@ -88,7 +88,7 @@
     "Convert DFI": "轉換 DFI",
     "Scan recipient QR": "掃一掃 QR 二維條碼",
     "Balance": "總資金",
-    "UTXO vs Token, what is the difference?": "UXTO和代幣的區別是什麼？",
+    "UTXO vs Token, what is the difference?": "UTXO和代幣的區別是什麼？",
     "CONVERT {{symbol}}": "轉換 {{symbol}}",
     "TO {{symbol}}": "至 {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要預留一些可使用的 UTXO (0.1 DFI (UTXO)) 作為費用",
@@ -187,7 +187,7 @@
   "screens/TransactionsScreen": {
     "Transactions": "交易紀錄",
     "No transactions yet": "還沒有交易紀錄",
-    "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "您能開始從錢包做交易. 所有 UXTO 交易都會在這裡顯示.目前還不提供其他交易類型.",
+    "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "您能開始從錢包做交易. 所有 UTXO 交易都會在這裡顯示.目前還不提供其他交易類型.",
     "RECEIVE COINS": "接收的貨幣",
     "LOAD MORE": "查看更多交易紀錄"
   },
@@ -481,5 +481,8 @@
     "Recovery words": "恢復字組",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "你的連續顯示24個英文單詞是指儲存在錢包的private key，它由2048個單字所產生的，支持BIP-39 標準的錢包。就算整個硬體錢包被盗或入侵，仍然可以確保安全的。",
     "FREQUENTLY ASKED QUESTIONS": "常見問題"
+  },
+  "components/DFIBalanceCard": {
+    "Learn more about UTXO and Token": "了解 UTXO 和代幣區別"
   }
 }

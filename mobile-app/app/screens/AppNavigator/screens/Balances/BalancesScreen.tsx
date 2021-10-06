@@ -25,6 +25,7 @@ import { RefreshControl } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
+import { DFIBalanceCard } from './components/DFIBalanceCard'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -47,6 +48,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch])
 
   const tokens = useTokensAPI()
+  const nonDfiTokens = tokens.filter(token =>
+    token.id !== '0_utxo' && token.id !== '0'
+  )
+
   return (
     <ThemedFlatList
       ItemSeparatorComponent={() => (
@@ -57,24 +62,31 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         />
       )}
       ListHeaderComponent={(
-        <ThemedSectionTitle
-          testID='balances_title'
-          text={translate('screens/BalancesScreen', 'PORTFOLIO')}
-        />
+        <>
+          <DFIBalanceCard />
+          {nonDfiTokens.length !== 0 &&
+            <ThemedSectionTitle
+              testID='balances_title'
+              text={translate('screens/BalancesScreen', 'PORTFOLIO')}
+            />}
+        </>
       )}
-      data={tokens}
+      data={nonDfiTokens}
       refreshControl={
         <RefreshControl
           onRefresh={onRefresh}
           refreshing={refreshing}
         />
       }
-      renderItem={({ item }) =>
-        <BalanceItemRow
-          key={item.symbol}
-          onPress={() => navigation.navigate({ name: 'TokenDetail', params: { token: item }, merge: true })}
-          token={item}
-        />}
+      renderItem={({ item }) => {
+        return (
+          <BalanceItemRow
+            key={item.symbol}
+            onPress={() => navigation.navigate({ name: 'TokenDetail', params: { token: item }, merge: true })}
+            token={item}
+          />
+        )
+      }}
       testID='balances_list'
     />
   )

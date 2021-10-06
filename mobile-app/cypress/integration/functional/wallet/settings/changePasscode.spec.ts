@@ -1,8 +1,7 @@
 function sendWithNewPin (): void {
   cy.getByTestID('bottom_tab_balances').click()
   cy.getByTestID('balances_list').should('exist')
-  cy.getByTestID('balances_row_0_utxo').click()
-  cy.getByTestID('send_button').click()
+  cy.getByTestID('send_dfi_button').click()
   cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
   cy.getByTestID('amount_input').clear().type('1')
   cy.getByTestID('send_submit_button').click()
@@ -32,8 +31,7 @@ context('Wallet - Change Passcode', () => {
     cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(10000)
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
-    cy.getByTestID('balances_row_0_utxo').should('exist')
-    cy.getByTestID('balances_row_0_utxo_amount').contains(10)
+    cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
   })
 
   it('should be able to change passcode', function () {
