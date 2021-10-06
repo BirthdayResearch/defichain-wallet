@@ -12,6 +12,7 @@ module.exports = function (api) {
           '@components': './mobile-app/app/components',
           '@environment': './shared/environment',
           '@hooks': './mobile-app/app/hooks',
+          '@shared-api': './shared/api',
           '@screens': './mobile-app/app/screens',
           '@store': './shared/store',
           '@translations': './shared/translations',

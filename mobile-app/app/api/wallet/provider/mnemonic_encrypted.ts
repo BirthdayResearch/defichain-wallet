@@ -7,7 +7,7 @@ import {
 } from '@defichain/jellyfish-wallet-encrypted'
 import { getRandomBytes } from 'expo-random'
 import { EnvironmentNetwork } from '@environment'
-import { getBip32Option } from '../network'
+import { getBip32Option } from '@shared-api/wallet/network'
 import { WalletPersistenceData, WalletType } from '../persistence'
 
 // BIP38 default, 16k, 8, 8

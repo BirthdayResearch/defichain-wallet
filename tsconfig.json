@@ -40,6 +40,12 @@
       "@hooks/*": [
         "hooks/*"
       ],
+      "@shared-api": [
+        "../../shared/api"
+      ],
+      "@shared-api/*": [
+        "../../shared/api/*"
+      ],
       "@screens/*": [
         "screens/*"
       ],
