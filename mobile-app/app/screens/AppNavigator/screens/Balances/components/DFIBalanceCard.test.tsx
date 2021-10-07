@@ -32,9 +32,21 @@ describe('DFI Balance Card', () => {
       displaySymbol: 'DFI (UTXO)',
       avatarSymbol: 'DFI (UTXO)'
     }
+    const unifiedDFI = {
+      id: '0_unified',
+      symbol: 'DFI',
+      symbolKey: 'DFI',
+      isDAT: true,
+      isLPS: false,
+      amount: '131.347011',
+      name: 'DeFiChain',
+      displaySymbol: 'DFI',
+      avatarSymbol: 'DFI'
+    }
     const spy = jest.spyOn(redux, 'useSelector')
     spy.mockReturnValueOnce(dfiToken)
     spy.mockReturnValueOnce(dfiUtxo)
+    spy.mockReturnValueOnce(unifiedDFI)
     const rendered = render(<DFIBalanceCard />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
