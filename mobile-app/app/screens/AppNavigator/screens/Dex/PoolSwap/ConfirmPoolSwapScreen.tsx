@@ -138,7 +138,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
       />
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated fee')}
-        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffixType: 'text', suffix: 'DFI (UTXO)' }}
+        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffixType: 'text', suffix: 'DFI' }}
       />
 
       <SubmitButtonGroup

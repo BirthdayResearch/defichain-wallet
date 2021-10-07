@@ -112,7 +112,7 @@ export function SendScreen ({
       {isUTXO(token) &&
         <InfoText
           testID='send_info_text'
-          text={translate('screens/SendScreen', 'A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.')}
+          text={translate('screens/SendScreen', 'A small UTXO amount (0.1 DFI) is reserved for fees.')}
         />}
 
       {
@@ -122,7 +122,7 @@ export function SendScreen ({
               lhs={translate('screens/SendScreen', 'Estimated fee')}
               rhs={{
                 value: fee.toString(),
-                suffix: ' DFI (UTXO)',
+                suffix: ' DFI',
                 testID: 'transaction_fee'
               }}
             />
