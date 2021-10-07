@@ -25,6 +25,7 @@ import { DexParamList } from '../DexNavigator'
 import { SlippageTolerance } from './components/SlippageTolerance'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { InputHelperText } from '@components/InputHelperText'
+import { WalletToken } from '@store/wallet'
 
 export interface DerivedTokenState {
   id: string
@@ -147,6 +148,15 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     }
   }
 
+  const getAddressTokenById = (poolpairTokenId: string): WalletToken | undefined => {
+    return tokens.find(token => {
+      if (poolpairTokenId === '0' || poolpairTokenId === '0_utxo') {
+        return token.id === '0_unified'
+      }
+      return token.id === poolpairTokenId
+    })
+  }
+
   useEffect(() => {
     if (poolpair !== undefined) {
       let [tokenASymbol, tokenBSymbol] = poolpair.symbol.split('-') as [string, string]
@@ -158,14 +168,14 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       if (tokenB !== undefined) {
         [tokenBSymbol, tokenBId, tokenBDisplaySymbol] = [tokenB.symbol, tokenB.id, tokenB.displaySymbol]
       }
-      const a = tokens.find((token) => token.id === tokenAId) ?? {
+      const a = getAddressTokenById(tokenAId) ?? {
         id: tokenAId,
         amount: '0',
         symbol: tokenASymbol,
         displaySymbol: tokenADisplaySymbol
       }
       setTokenA(a)
-      const b = tokens.find((token) => token.id === tokenBId) ?? {
+      const b = getAddressTokenById(tokenBId) ?? {
         id: tokenBId,
         amount: '0',
         symbol: tokenBSymbol,
@@ -434,7 +444,7 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee }: SwapSumma
           value: fee,
           testID: 'estimated_fee',
           suffixType: 'text',
-          suffix: 'DFI (UTXO)'
+          suffix: 'DFI'
         }}
       />
     </View>

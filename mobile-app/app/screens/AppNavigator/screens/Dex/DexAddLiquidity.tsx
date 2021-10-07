@@ -16,6 +16,7 @@ import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
+import { WalletToken } from '@store/wallet'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -58,6 +59,15 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     }
   }, [pair])
 
+  const getAddressTokenById = (poolpairTokenId: string): WalletToken | undefined => {
+    return tokens.find(token => {
+      if (poolpairTokenId === '0' || poolpairTokenId === '0_utxo') {
+        return token.id === '0_unified'
+      }
+      return token.id === poolpairTokenId
+    })
+  }
+
   useEffect(() => {
     if (pair === undefined) {
       return
@@ -77,8 +87,8 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     const poolpair = pairs.find((p) => p.data.id === poolPairData.id)?.data
     if (poolpair !== undefined) {
       const [aSymbol, bSymbol] = poolpair.symbol.split('-')
-      const addressTokenA = tokens.find(at => at.id === poolpair.tokenA.id)
-      const addressTokenB = tokens.find(at => at.id === poolpair.tokenB.id)
+      const addressTokenA = getAddressTokenById(poolpair.tokenA.id)
+      const addressTokenB = getAddressTokenById(poolpair.tokenB.id)
 
       // side effect to state
       setPair({
