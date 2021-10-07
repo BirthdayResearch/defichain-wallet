@@ -1,4 +1,4 @@
-import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
@@ -73,31 +73,37 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollView style={tailwind('pb-4')}>
-      <SummaryTitle
-        amount={amount}
-        suffix={mode === 'utxosToAccount' ? 'DFI (UTXO)' : 'DFI (Token)'}
-        suffixType='component'
-        testID='text_convert_amount'
-        title={translate('screens/ConvertConfirmScreen', 'You are converting')}
+      <ThemedView
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        light={tailwind('bg-white border-b border-gray-300')}
+        style={tailwind('flex-col px-4 py-8 mb-4')}
       >
-        <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
-          style={tailwind('text-sm')}
-          testID='convert_amount_source_suffix'
+        <SummaryTitle
+          amount={amount}
+          suffix={mode === 'utxosToAccount' ? 'DFI (UTXO)' : 'DFI (Token)'}
+          suffixType='component'
+          testID='text_convert_amount'
+          title={translate('screens/ConvertConfirmScreen', 'You are converting')}
         >
-          {sourceUnit}
-        </ThemedText>
-        <ThemedIcon iconType='MaterialIcons' name='arrow-right-alt' size={24} style={tailwind('px-1')} />
-        <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
-          style={tailwind('text-sm')}
-          testID='convert_amount_target_suffix'
-        >
-          {targetUnit}
-        </ThemedText>
-      </SummaryTitle>
+          <ThemedText
+            light={tailwind('text-gray-500')}
+            dark={tailwind('text-gray-400')}
+            style={tailwind('text-sm')}
+            testID='convert_amount_source_suffix'
+          >
+            {sourceUnit}
+          </ThemedText>
+          <ThemedIcon iconType='MaterialIcons' name='arrow-right-alt' size={24} style={tailwind('px-1')} />
+          <ThemedText
+            light={tailwind('text-gray-500')}
+            dark={tailwind('text-gray-400')}
+            style={tailwind('text-sm')}
+            testID='convert_amount_target_suffix'
+          >
+            {targetUnit}
+          </ThemedText>
+        </SummaryTitle>
+      </ThemedView>
 
       <ThemedSectionTitle
         testID='title_conversion_transaction_detail'

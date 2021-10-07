@@ -4,7 +4,7 @@ import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-tran
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
-import { WalletToken } from '@store/wallet'
+import { DFITokenSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,7 +13,7 @@ import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
 import { TextRow } from '@components/TextRow'
-import { ThemedScrollView, ThemedSectionTitle } from '@components/themed'
+import { ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
 import { useNetworkContext } from '@contexts/NetworkContext'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { RootState } from '@store'
@@ -22,6 +22,7 @@ import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
+import { ConversionTag } from '@components/ConversionTag'
 
 type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
 
@@ -45,11 +46,19 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       navigation.dispatch(StackActions.popToTop())
     }
   }
+  const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
+  const [isConversionRequired, setIsConversionRequired] = useState(false)
 
   useEffect(() => {
     setIsOnPage(true)
     return () => {
       setIsOnPage(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (token.id === '0_unified' && amount.isGreaterThan(new BigNumber(DFIToken.amount))) {
+      setIsConversionRequired(true)
     }
   }, [])
 
@@ -88,13 +97,20 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollView style={tailwind('pb-4')}>
-      <SummaryTitle
-        amount={amount}
-        suffix={token.displaySymbol}
-        suffixType='text'
-        testID='text_send_amount'
-        title={translate('screens/SendConfirmationScreen', 'You are sending')}
-      />
+      <ThemedView
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        light={tailwind('bg-white border-b border-gray-300')}
+        style={tailwind('flex-col px-4 py-8 mb-4')}
+      >
+        <SummaryTitle
+          amount={amount}
+          suffix={token.displaySymbol}
+          suffixType='text'
+          testID='text_send_amount'
+          title={translate('screens/SendConfirmationScreen', 'You are sending')}
+        />
+        {isConversionRequired && <ConversionTag />}
+      </ThemedView>
 
       <ThemedSectionTitle
         testID='title_transaction_detail'

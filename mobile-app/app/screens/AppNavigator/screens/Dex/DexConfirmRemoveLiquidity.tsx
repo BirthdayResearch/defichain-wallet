@@ -10,7 +10,7 @@ import { Dispatch } from 'redux'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
-import { ThemedScrollView, ThemedSectionTitle } from '@components/themed'
+import { ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
 import { TokenBalanceRow } from '@components/TokenBalanceRow'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -75,13 +75,19 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollView style={tailwind('pb-4')}>
-      <SummaryTitle
-        amount={amount}
-        suffix={` ${symbol}`}
-        suffixType='text'
-        testID='text_remove_amount'
-        title={translate('screens/ConfirmRemoveLiquidity', 'You are removing')}
-      />
+      <ThemedView
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        light={tailwind('bg-white border-b border-gray-300')}
+        style={tailwind('flex-col px-4 py-8 mb-4')}
+      >
+        <SummaryTitle
+          amount={amount}
+          suffix={` ${symbol}`}
+          suffixType='text'
+          testID='text_remove_amount'
+          title={translate('screens/ConfirmRemoveLiquidity', 'You are removing')}
+        />
+      </ThemedView>
 
       <ThemedSectionTitle
         testID='title_remove_detail'

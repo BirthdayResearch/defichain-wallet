@@ -9,7 +9,7 @@ import { Logging } from '@api'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
-import { ThemedIcon, ThemedScrollView, ThemedSectionTitle } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
@@ -18,6 +18,8 @@ import { translate } from '@translations'
 import { DexParamList } from '../DexNavigator'
 import { DerivedTokenState } from './PoolSwapScreen'
 import { getNativeIcon } from '@components/icons/assets'
+import { DFIUtxoSelector } from '@store/wallet'
+import { ConversionTag } from '@components/ConversionTag'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmPoolSwapScreen'>
 
@@ -45,6 +47,8 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
   }
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
+  const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
+  const [isConversionRequired, setIsConversionRequired] = useState(false)
 
   useEffect(() => {
     setIsOnPage(true)
@@ -52,6 +56,21 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
       setIsOnPage(false)
     }
   }, [])
+
+  useEffect(() => {
+    const poolswapDFIAmount = getPoolswapDFIAmount(tokenA, tokenB)
+    if (new BigNumber(poolswapDFIAmount).isGreaterThan(new BigNumber(DFIUtxo.amount))) {
+      setIsConversionRequired(true)
+    }
+  }, [])
+
+  const getPoolswapDFIAmount = (tokenA: DerivedTokenState, tokenB: DerivedTokenState): string => {
+    if (tokenA.id === '0_unified') {
+      return tokenA.amount
+    } else {
+      return tokenB.amount
+    }
+  }
 
   async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
@@ -70,16 +89,23 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollView style={tailwind('pb-4')}>
-      <SummaryTitle
-        amount={swap.fromAmount}
-        suffixType='component'
-        testID='text_swap_amount'
-        title={translate('screens/PoolSwapConfirmScreen', 'You are swapping')}
+      <ThemedView
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        light={tailwind('bg-white border-b border-gray-300')}
+        style={tailwind('flex-col px-4 py-8 mb-4')}
       >
-        <TokenAIcon height={24} width={24} style={tailwind('ml-1')} />
-        <ThemedIcon iconType='MaterialIcons' name='arrow-right-alt' size={24} style={tailwind('px-1')} />
-        <TokenBIcon height={24} width={24} />
-      </SummaryTitle>
+        <SummaryTitle
+          amount={swap.fromAmount}
+          suffixType='component'
+          testID='text_swap_amount'
+          title={translate('screens/PoolSwapConfirmScreen', 'You are swapping')}
+        >
+          <TokenAIcon height={24} width={24} style={tailwind('ml-1')} />
+          <ThemedIcon iconType='MaterialIcons' name='arrow-right-alt' size={24} style={tailwind('px-1')} />
+          <TokenBIcon height={24} width={24} />
+        </SummaryTitle>
+        {isConversionRequired && <ConversionTag />}
+      </ThemedView>
 
       <ThemedSectionTitle
         testID='title_swap_detail'

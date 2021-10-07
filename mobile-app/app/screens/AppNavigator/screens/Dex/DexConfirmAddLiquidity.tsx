@@ -12,7 +12,7 @@ import { Logging } from '@api'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
-import { ThemedScrollView, ThemedSectionTitle } from '@components/themed'
+import { ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
@@ -20,6 +20,8 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { getNativeIcon } from '@components/icons/assets'
+import { DFIUtxoSelector } from '@store/wallet'
+import { ConversionTag } from '@components/ConversionTag'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -56,11 +58,19 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   }
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
+  const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
+  const [isConversionRequired, setIsConversionRequired] = useState(false)
 
   useEffect(() => {
     setIsOnPage(true)
     return () => {
       setIsOnPage(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (tokenBAmount.isGreaterThan(new BigNumber(DFIUtxo.amount))) {
+      setIsConversionRequired(true)
     }
   }, [])
 
@@ -101,27 +111,33 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       style={tailwind('pb-4')}
       testID='confirm-root'
     >
-      <SummaryTitle
-        amount={lmTokenAmount}
-        suffixType='component'
-        testID='text_add_amount'
-        title={translate('screens/ConfirmAddLiq', 'You are adding')}
+      <ThemedView
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        light={tailwind('bg-white border-b border-gray-300')}
+        style={tailwind('flex-col px-4 py-8 mb-4')}
       >
-        <TokenAIcon
-          height={16}
-          width={16}
-          style={tailwind('relative z-10 -mt-2')}
-          testID={`text_add_amount_suffix_${tokenA.displaySymbol}`}
-        />
+        <SummaryTitle
+          amount={lmTokenAmount}
+          suffixType='component'
+          testID='text_add_amount'
+          title={translate('screens/ConfirmAddLiq', 'You are adding')}
+        >
+          <TokenAIcon
+            height={16}
+            width={16}
+            style={tailwind('relative z-10 -mt-2')}
+            testID={`text_add_amount_suffix_${tokenA.displaySymbol}`}
+          />
 
-        <TokenBIcon
-          height={16}
-          width={16}
-          style={tailwind('-ml-2 mt-2 mr-2')}
-          testID={`text_add_amount_suffix_${tokenB.displaySymbol}`}
-        />
-      </SummaryTitle>
-
+          <TokenBIcon
+            height={16}
+            width={16}
+            style={tailwind('-ml-2 mt-2 mr-2')}
+            testID={`text_add_amount_suffix_${tokenB.displaySymbol}`}
+          />
+        </SummaryTitle>
+        {isConversionRequired && <ConversionTag />}
+      </ThemedView>
       <ThemedSectionTitle
         testID='title_add_detail'
         text={translate('screens/ConfirmAddLiq', 'AMOUNT TO SUPPLY')}

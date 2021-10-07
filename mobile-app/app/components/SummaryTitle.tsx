@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js'
 import React from 'react'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
-import { ThemedText, ThemedView } from './themed'
+import { ThemedText } from './themed'
 import { View } from '.'
 import { ViewProps } from 'react-native'
 
@@ -19,11 +19,7 @@ interface ISummaryTitleProps {
 
 export function SummaryTitle (props: SummaryTitleProps): JSX.Element {
   return (
-    <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-300')}
-      style={tailwind('flex-col px-4 py-8 mb-4')}
-    >
+    <>
       <ThemedText
         dark={tailwind('text-gray-400')}
         light={tailwind('text-gray-500')}
@@ -65,6 +61,6 @@ export function SummaryTitle (props: SummaryTitleProps): JSX.Element {
         }
 
       </View>
-    </ThemedView>
+    </>
   )
 }
