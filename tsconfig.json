@@ -20,10 +20,10 @@
         "api/*"
       ],
       "@assets": [
-        "assets"
+        "../../shared/assets"
       ],
       "@assets/*": [
-        "assets/*"
+        "../../shared/assets/*"
       ],
       "@constants/*": [
         "constants/*"
@@ -31,23 +31,32 @@
       "@contexts/*": [
         "contexts/*"
       ],
+      "@components": [
+        "components"
+      ],
       "@components/*": [
         "components/*"
       ],
       "@environment": [
-        "environment"
+        "../../shared/environment"
       ],
       "@hooks/*": [
         "hooks/*"
+      ],
+      "@shared-api": [
+        "../../shared/api"
+      ],
+      "@shared-api/*": [
+        "../../shared/api/*"
       ],
       "@screens/*": [
         "screens/*"
       ],
       "@store": [
-        "store"
+        "../../shared/store"
       ],
       "@store/*": [
-        "store/*"
+        "../../shared/store/*"
       ],
       "@translations": [
         "../../shared/translations"

@@ -27,9 +27,8 @@ context('Wallet - Send', function () {
   describe('DFI UTXO', function () {
     it('should be able redirect to QR screen page', function () {
       cy.getByTestID('balances_list').should('exist')
-      cy.getByTestID('balances_row_0_utxo').should('exist')
-      cy.getByTestID('balances_row_0_utxo_amount').contains(10).click()
-      cy.getByTestID('send_button').click()
+      cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
+      cy.getByTestID('send_dfi_button').click()
       cy.getByTestID('qr_code_button').click()
       cy.url().should('include', 'app/BarCodeScanner')
       cy.go('back')
@@ -138,9 +137,8 @@ context('Wallet - Send', function () {
       it(`should be able to send to address ${address}`, function () {
         cy.getByTestID('bottom_tab_balances').click()
         cy.getByTestID('balances_list').should('exist')
-        cy.getByTestID('balances_row_0_utxo').should('exist')
-        cy.getByTestID('balances_row_0_utxo_amount').click()
-        cy.getByTestID('send_button').click()
+        cy.getByTestID('dfi_balance_card').should('exist')
+        cy.getByTestID('send_dfi_button').click()
         cy.getByTestID('address_input').clear().type(address)
         cy.getByTestID('amount_input').clear().type('1')
         cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
@@ -169,9 +167,8 @@ context('Wallet - Send', function () {
       const newAmount = '2'
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_list').should('exist')
-      cy.getByTestID('balances_row_0_utxo').should('exist')
-      cy.getByTestID('balances_row_0_utxo_amount').click()
-      cy.getByTestID('send_button').click()
+      cy.getByTestID('dfi_balance_card').should('exist')
+      cy.getByTestID('send_dfi_button').click()
       cy.getByTestID('address_input').clear().type(oldAddress)
       cy.getByTestID('amount_input').clear().type(oldAmount)
       cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
@@ -268,9 +265,8 @@ context('Wallet - Send - Max Values', function () {
     it(`should be able to send to address ${address}`, function () {
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_list').should('exist')
-      cy.getByTestID('balances_row_0_utxo').should('exist')
-      cy.getByTestID('balances_row_0_utxo_amount').click()
-      cy.getByTestID('send_button').click()
+      cy.getByTestID('dfi_balance_card').should('exist')
+      cy.getByTestID('send_dfi_button').click()
       cy.getByTestID('address_input').clear().type(address)
       cy.getByTestID('MAX_amount_button').click()
       cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
@@ -281,7 +277,7 @@ context('Wallet - Send - Max Values', function () {
       cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.closeOceanInterface()
       cy.getByTestID('bottom_tab_balances').click()
-      cy.getByTestID('balances_row_0_utxo_amount').contains('0.09')
+      cy.getByTestID('dfi_utxo_amount').contains('0.09')
     })
 
     it(`should check if exist on other side ${address}`, function () {

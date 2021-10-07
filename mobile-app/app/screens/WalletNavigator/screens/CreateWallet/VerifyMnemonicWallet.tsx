@@ -12,6 +12,7 @@ import { shuffle } from 'lodash'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { WalletParamList } from '../../WalletNavigator'
+import * as Updates from 'expo-updates'
 
 type Props = StackScreenProps<WalletParamList, 'VerifyMnemonicWallet'>
 
@@ -83,7 +84,7 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
   }
 
   function debugBypass (): void {
-    if (getEnvironment().debug) {
+    if (getEnvironment(Updates.releaseChannel).debug) {
       navigateToPinCreation()
     }
   }

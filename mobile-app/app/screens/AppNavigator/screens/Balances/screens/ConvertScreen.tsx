@@ -19,7 +19,7 @@ import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedVie
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { RootState } from '@store'
-import { hasTxQueued as hasBroadcastQueued } from '../../../../../store/ocean'
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -84,7 +84,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   }
 
   return (
-    <ThemedScrollView style={tailwind('w-full flex-col flex-1 px-4 py-8')}>
+    <ThemedScrollView style={tailwind('w-full flex-col flex-1 px-4 py-8')} testID='convert_screen'>
       <ConversionIOCard
         balance={new BigNumber(sourceToken.amount)}
         current={amount}

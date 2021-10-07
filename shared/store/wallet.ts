@@ -99,3 +99,11 @@ export const tokensSelector = createSelector([rawTokensSelector, (state: WalletS
   }
   return t
 }))
+
+export const DFITokenSelector = createSelector(tokensSelector, tokens => {
+  return tokens.find(token => token.id === '0') ?? tokenDFI
+})
+
+export const DFIUtxoSelector = createSelector(tokensSelector, tokens => {
+  return tokens.find(token => token.id === '0_utxo') ?? utxoDFI
+})

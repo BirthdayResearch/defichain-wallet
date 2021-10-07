@@ -1,6 +1,6 @@
 import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
-import { MnemonicEncrypted } from './mnemonic_encrypted'
-import { EnvironmentNetwork } from '../../../environment'
+import { MnemonicEncrypted } from '@api/wallet'
+import { EnvironmentNetwork } from '@environment'
 import { WalletPersistenceData, WalletType } from '../persistence'
 
 beforeEach(() => {
