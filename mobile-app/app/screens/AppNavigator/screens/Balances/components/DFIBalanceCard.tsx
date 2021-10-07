@@ -1,10 +1,9 @@
 import { useThemeContext } from '@contexts/ThemeProvider'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
-import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, unifiedDFISelector } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import BigNumber from 'bignumber.js'
 import React from 'react'
 import { ImageBackground, TouchableOpacity } from 'react-native'
 import DFIBackground from '@assets/images/DFI_balance_background.png'
@@ -20,9 +19,9 @@ import { RootState } from '@store'
 export function DFIBalanceCard (): JSX.Element {
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
+  const DFIUnified = useSelector((state: RootState) => unifiedDFISelector(state.wallet))
   const DFIIcon = getNativeIcon('_UTXO')
   const { isLight } = useThemeContext()
-  const totalDFI = new BigNumber(DFIUtxo.amount).plus(new BigNumber(DFIToken.amount)).toFixed(8)
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
 
   return (
@@ -67,7 +66,7 @@ export function DFIBalanceCard (): JSX.Element {
 
             <View style={tailwind('pt-0.5')}>
               <NumberFormat
-                value={totalDFI}
+                value={DFIUnified.amount}
                 thousandSeparator
                 decimalScale={8}
                 fixedDecimalScale
@@ -133,7 +132,7 @@ export function DFIBalanceCard (): JSX.Element {
                 iconType='MaterialIcons'
                 onPress={() => navigation.navigate({
                   name: 'Send',
-                  params: { token: DFIUtxo },
+                  params: { token: DFIUnified },
                   merge: true
                 })}
                 testID='send_dfi_button'
