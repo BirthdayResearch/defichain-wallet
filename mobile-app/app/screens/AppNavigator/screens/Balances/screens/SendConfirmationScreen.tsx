@@ -4,7 +4,7 @@ import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-tran
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
-import { DFITokenSelector, WalletToken } from '@store/wallet'
+import { DFIUtxoSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -46,7 +46,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       navigation.dispatch(StackActions.popToTop())
     }
   }
-  const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
+  const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const [isConversionRequired, setIsConversionRequired] = useState(false)
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   }, [])
 
   useEffect(() => {
-    if (token.id === '0_unified' && amount.isGreaterThan(new BigNumber(DFIToken.amount))) {
+    if (token.id === '0_unified' && amount.isGreaterThan(new BigNumber(DFIUtxo.amount))) {
       setIsConversionRequired(true)
     }
   }, [])

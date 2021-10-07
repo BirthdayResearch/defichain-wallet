@@ -20,7 +20,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { getNativeIcon } from '@components/icons/assets'
-import { DFIUtxoSelector } from '@store/wallet'
+import { DFITokenSelector } from '@store/wallet'
 import { ConversionTag } from '@components/ConversionTag'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
@@ -58,7 +58,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   }
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
-  const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
+  const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const [isConversionRequired, setIsConversionRequired] = useState(false)
 
   useEffect(() => {
@@ -69,7 +69,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   }, [])
 
   useEffect(() => {
-    if (tokenBAmount.isGreaterThan(new BigNumber(DFIUtxo.amount))) {
+    if (tokenBAmount.isGreaterThan(new BigNumber(DFIToken.amount))) {
       setIsConversionRequired(true)
     }
   }, [])

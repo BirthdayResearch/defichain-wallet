@@ -18,7 +18,7 @@ import { translate } from '@translations'
 import { DexParamList } from '../DexNavigator'
 import { DerivedTokenState } from './PoolSwapScreen'
 import { getNativeIcon } from '@components/icons/assets'
-import { DFIUtxoSelector } from '@store/wallet'
+import { DFITokenSelector } from '@store/wallet'
 import { ConversionTag } from '@components/ConversionTag'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmPoolSwapScreen'>
@@ -47,7 +47,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
   }
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
-  const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
+  const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const [isConversionRequired, setIsConversionRequired] = useState(false)
 
   useEffect(() => {
@@ -58,17 +58,18 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
   }, [])
 
   useEffect(() => {
-    const poolswapDFIAmount = getPoolswapDFIAmount(tokenA, tokenB)
-    if (new BigNumber(poolswapDFIAmount).isGreaterThan(new BigNumber(DFIUtxo.amount))) {
+    const poolswapDFIAmount = getPoolswapDFIAmount(swap)
+    console.log(poolswapDFIAmount.toFixed(8), DFIToken.amount)
+    if (poolswapDFIAmount.isGreaterThan(new BigNumber(DFIToken.amount))) {
       setIsConversionRequired(true)
     }
   }, [])
 
-  const getPoolswapDFIAmount = (tokenA: DerivedTokenState, tokenB: DerivedTokenState): string => {
-    if (tokenA.id === '0_unified') {
-      return tokenA.amount
+  const getPoolswapDFIAmount = (swap: DexForm): BigNumber => {
+    if (swap.fromToken.id === '0_unified') {
+      return swap.fromAmount
     } else {
-      return tokenB.amount
+      return swap.toAmount
     }
   }
 
