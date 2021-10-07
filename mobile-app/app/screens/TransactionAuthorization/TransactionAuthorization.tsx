@@ -101,6 +101,12 @@ export function TransactionAuthorization (): JSX.Element | null {
       PASSPHRASE_PROMISE_PROXY.reject(new Error(USER_CANCELED))
       // remove proxied promised, allow next prompt() call
       PASSPHRASE_PROMISE_PROXY = undefined
+    } else if (status === 'AUTHORIZED') {
+      PASSPHRASE_PROMISE_PROXY = undefined
+      transaction === undefined
+        ? dispatch(authenticationStore.actions.dismiss())
+        : dispatch(transactionQueue.actions.pop())
+      onTaskCompletion()
     }
   }, [PASSPHRASE_PROMISE_PROXY, PASSPHRASE_PROMISE_PROXY?.reject])
 
@@ -186,8 +192,8 @@ export function TransactionAuthorization (): JSX.Element | null {
       signTransaction(transaction, wallet.get(0), onRetry, retries)
         .then(async signedTx => {
           // case 1: success
-          await resetPasscodeCounter()
           emitEvent('AUTHORIZED')
+          await resetPasscodeCounter()
           dispatch(ocean.actions.queueTransaction({ tx: signedTx, postAction: transaction.postAction })) // push signed result for broadcasting
         })
         .catch(async e => {
@@ -200,26 +206,28 @@ export function TransactionAuthorization (): JSX.Element | null {
             // case 4: unknown error type
             dispatch(ocean.actions.setError(e))
           }
-          // case 3: canceled, no special handling required
+
+          // case 3: canceled
+          throw new Error('canceled error') // pass to last catch so all cases will complete task
         })
-        .catch(e => Logging.error(e)) // not expect logic reach here
-        .finally(() => {
-          setTimeout(() => {
-            dispatch(transactionQueue.actions.pop()) // remove job
-            onTaskCompletion()
-          }, SUCCESS_DISPLAY_TIMEOUT_IN_MS)
+        .catch(e => {
+          dispatch(transactionQueue.actions.pop()) // remove job
+          onTaskCompletion()
+
+          if (e.message !== 'canceled error') { // no need to log if user cancels
+            Logging.error(e)
+          }
         })
     } else if (authentication !== undefined) {
       emitEvent('BLOCK') // prevent any re-render trigger (between IDLE and PIN)
-
       setMessage(authentication.message)
       setLoadingMessage(authentication.loading)
 
       authenticateFor(onPrompt, authentication, onRetry, retries)
         .then(async () => {
           // case 1: success
-          await resetPasscodeCounter()
           emitEvent('AUTHORIZED')
+          await resetPasscodeCounter()
         })
         .catch(async e => {
           if (e.message === INVALID_HASH) {
@@ -231,14 +239,17 @@ export function TransactionAuthorization (): JSX.Element | null {
             // case 4: unknown error type
             authentication.onError(e)
           }
-          // case 3: canceled, no handling required atm
+
+          // case 3: canceled
+          throw new Error('canceled error') // pass to last catch so all cases will complete task
         })
-        .catch(e => Logging.error(e))
-        .finally(() => {
-          setTimeout(() => {
+        .catch(e => {
             dispatch(authenticationStore.actions.dismiss())
             onTaskCompletion()
-          }, SUCCESS_DISPLAY_TIMEOUT_IN_MS)
+
+          if (e.message !== 'canceled error') { // no need to log if user cancels
+            Logging.error(e)
+          }
         })
     }
   }, [transaction, wallet, status, authentication, attemptsRemaining])
@@ -249,6 +260,19 @@ export function TransactionAuthorization (): JSX.Element | null {
       onPinInput(pin)
     }
   }, [status, pin])
+
+  // reset UI after n seconds
+  useEffect(() => {
+    if (status === 'AUTHORIZED') {
+      setTimeout(() => {
+    transaction === undefined
+          ? dispatch(authenticationStore.actions.dismiss())
+          : dispatch(transactionQueue.actions.pop())
+        PASSPHRASE_PROMISE_PROXY = undefined
+        onTaskCompletion()
+      }, SUCCESS_DISPLAY_TIMEOUT_IN_MS)
+    }
+  }, [status])
 
   if (status === 'INIT' || status === 'IDLE' || status === 'BLOCK') {
     return null
