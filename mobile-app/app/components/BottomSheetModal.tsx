@@ -62,7 +62,7 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
           stackBehavior='replace'
           backgroundStyle={[isLight ? light : dark]}
           backdropComponent={({ style }: BottomSheetBackgroundProps) => (
-            <View style={[style, tailwind(`${isLight ? 'bg-black bg-opacity-70' : 'bg-gray-800 bg-opacity-60'}`)]} />
+            <View style={[style, tailwind('bg-black bg-opacity-60')]} />
           )}
           backgroundComponent={({ style }: BottomSheetBackgroundProps) => (
             <View style={[style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'} border-t`)]} />
