@@ -164,7 +164,6 @@ exports[`transaction authorization screen should match snapshot of status: AUTHO
               Object {
                 "fontSize": 14,
                 "lineHeight": 20,
-                "marginLeft": 8,
                 "textAlign": "center",
               },
               Object {
