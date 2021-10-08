@@ -20,11 +20,12 @@ export function EstimatedFeeInfo ({
     title: translate('screens/EstimatedFeeInfo', 'Estimated Fee'),
     message: translate('screens/EstimatedFeeInfo', 'Each transaction will subject to a small amount of fees. The amount may vary depending on the network’s congestion.')
   }
+
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
       light={tailwind('bg-white border-b border-gray-200')}
-      style={tailwind('p-4 flex-row items-start w-full')}
+      style={tailwind('py-4 px-6 flex-row items-start w-full')}
     >
       <View style={tailwind('w-5/12')}>
         <View style={tailwind('flex-row items-center justify-start')}>
@@ -39,10 +40,10 @@ export function EstimatedFeeInfo ({
             triggerComponent={
               <ThemedIcon
                 size={16}
-                name='info'
+                name='info-outline'
                 iconType='MaterialIcons'
-                light={tailwind('text-warning-500')}
-                dark={tailwind('text-darkwarning-500')}
+                dark={tailwind('text-gray-200')}
+                light={tailwind('text-gray-700')}
               />
           }
           >
@@ -52,23 +53,27 @@ export function EstimatedFeeInfo ({
                 style={tailwind('flex-row mb-3 items-center')}
               >
                 <ThemedIcon
-                  size={24}
-                  name='info'
+                  size={20}
+                  name='info-outline'
                   iconType='MaterialIcons'
-                  light={tailwind('text-warning-500')}
-                  dark={tailwind('text-darkwarning-500')}
+                  dark={tailwind('text-gray-200')}
+                  light={tailwind('text-gray-700')}
                 />
                 <ThemedText
-                  dark={tailwind('text-white text-opacity-90')}
-                  light={tailwind('text-black')}
-                  style={tailwind('ml-1 text-xl font-semibold')}
+                  dark={tailwind('text-gray-50')}
+                  light={tailwind('text-gray-900')}
+                  style={tailwind('ml-2 text-2xl font-semibold')}
                 >
                   {feeInfo.title}
                 </ThemedText>
 
               </View>
               <View testID='estimated_fee_description'>
-                <ThemedText>
+                <ThemedText
+                  style={tailwind('text-base')}
+                  dark={tailwind('text-gray-200')}
+                  light={tailwind('text-gray-700')}
+                >
                   {feeInfo.message}
                 </ThemedText>
               </View>
