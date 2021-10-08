@@ -24,8 +24,11 @@ import { useCallback, useEffect, useState } from 'react'
 import { RefreshControl } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
+import { ToggleBalancesPersistence } from '@api/persistence/toggle_balances_storage'
 import { BalanceParamList } from './BalancesNavigator'
 import { DFIBalanceCard } from './components/DFIBalanceCard'
+
+const HIDDEN_BALANCE_TEXT = '****'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -33,19 +36,35 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
-  const [refreshing, setRefreshing] = useState(false)
-  const dispatch = useDispatch()
   const { wallets } = useWalletPersistenceContext()
+
+  const dispatch = useDispatch()
+
+  const [refreshing, setRefreshing] = useState(false)
+  const [isBalancesDisplayed, setIsBalanceDisplayed] = useState<boolean>()
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
   }, [height, wallets])
+
+  useEffect(() => {
+    void (async () => {
+      const isBalanceDisplayedStorage = await ToggleBalancesPersistence.get() === 'TRUE' ? 'FALSE' : 'TRUE'
+      setIsBalanceDisplayed(isBalanceDisplayedStorage === 'TRUE')
+    })()
+  }, [])
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
     await fetchTokens(client, address, dispatch)
     setRefreshing(false)
   }, [address, client, dispatch])
+
+  const onToggleDisplayBalances = async (): Promise<void> => {
+    const isBalanceDisplayedStorage = await ToggleBalancesPersistence.get()
+    await ToggleBalancesPersistence.set(isBalanceDisplayedStorage === 'TRUE' ? 'FALSE' : 'TRUE')
+    setIsBalanceDisplayed(isBalanceDisplayedStorage === 'TRUE')
+  }
 
   const tokens = useTokensAPI()
   const nonDfiTokens = tokens.filter(token =>
@@ -65,10 +84,39 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         <>
           <DFIBalanceCard />
           {nonDfiTokens.length !== 0 &&
-            <ThemedSectionTitle
-              testID='balances_title'
-              text={translate('screens/BalancesScreen', 'PORTFOLIO')}
-            />}
+            <ThemedView
+              style={tailwind('flex flex-row justify-between')}
+            >
+              <ThemedSectionTitle
+                testID='balances_title'
+                text={translate('screens/BalancesScreen', 'PORTFOLIO')}
+              />
+              <ThemedTouchableOpacity
+                testID='toggle_balance'
+                light={tailwind('bg-transparent')}
+                dark={tailwind('bg-transparent')}
+                style={tailwind('flex flex-row pt-4 pr-4 items-center')}
+                onPress={onToggleDisplayBalances}
+              >
+                <ThemedIcon
+                  iconType='MaterialIcons'
+                  dark={tailwind('text-gray-200')}
+                  light={tailwind('text-black')}
+                  style={tailwind('self-center pr-1')}
+                  name={`${isBalancesDisplayed === true ? 'visibility' : 'visibility-off'}`}
+                  size={15}
+                  testID='toggle_balance_icon'
+                />
+                <ThemedText
+                  dark={tailwind('text-gray-500')}
+                  light={tailwind('text-gray-500')}
+                  style={tailwind('text-xs font-medium')}
+                  testID='toggle_balance_text'
+                >
+                  {translate('screens/BalancesScreen', `${isBalancesDisplayed === true ? 'Hide' : 'Show'} balances`)}
+                </ThemedText>
+              </ThemedTouchableOpacity>
+            </ThemedView>}
         </>
       )}
       data={nonDfiTokens}
@@ -84,6 +132,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             key={item.symbol}
             onPress={() => navigation.navigate({ name: 'TokenDetail', params: { token: item }, merge: true })}
             token={item}
+            isBalanceDisplayed={isBalancesDisplayed === true}
           />
         )
       }}
@@ -93,9 +142,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 }
 
 function BalanceItemRow ({
+  isBalanceDisplayed,
   token,
   onPress
-}: { token: WalletToken, onPress: () => void }): JSX.Element {
+}: { isBalanceDisplayed: boolean, token: WalletToken, onPress: () => void }): JSX.Element {
   const Icon = getNativeIcon(token.avatarSymbol)
   const testID = `balances_row_${token.id}`
   return (
@@ -143,7 +193,7 @@ function BalanceItemRow ({
                   style={tailwind('mr-2 flex-wrap')}
                   testID={`${testID}_amount`}
                 >
-                  {value}
+                  {isBalanceDisplayed ? value : HIDDEN_BALANCE_TEXT}
                 </ThemedText>
 
                 <ThemedIcon
