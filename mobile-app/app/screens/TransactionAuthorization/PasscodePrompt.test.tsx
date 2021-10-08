@@ -4,7 +4,7 @@ import { Status } from './TransactionAuthorization'
 import { PasscodePrompt } from './PasscodePrompt'
 
 jest.mock('../../contexts/ThemeProvider')
-const StatusTypes: Status[] = ['INIT', 'IDLE', 'BLOCK', 'PIN', 'SIGNING']
+const StatusTypes: Status[] = ['INIT', 'IDLE', 'BLOCK', 'PIN', 'SIGNING', 'AUTHORIZED']
 
 describe('transaction authorization screen', () => {
   StatusTypes.forEach(type => {
@@ -24,6 +24,8 @@ describe('transaction authorization screen', () => {
           onPinInput={onPinInput}
           pin='foo'
           loadingMessage='foo'
+          authorizedTransactionMessage={{ title: 'foo', description: 'bar' }}
+          grantedAccessMessage={{ title: 'foo', description: 'bar' }}
           isRetry
           attemptsRemaining={3}
           maxPasscodeAttempt={3}

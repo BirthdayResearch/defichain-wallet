@@ -138,8 +138,6 @@
     "NETWORK": "网络",
     "To update your passcode, we need you to enter your current passcode.": "需要使用目前的密码才能更换密码",
     "Verifying passcode...": "正在确认密码...",
-    "To continue viewing your recovery words, we need you to enter your passcode.": "请输入您的密码即可继续查看您的恢复字组",
-    "Loading...": "请稍等...",
     "Network Switch": "切换网络",
     "No": "不要",
     "Yes": "好的",
@@ -161,7 +159,8 @@
     "Face ID": "Face ID",
     "Touch ID": "Touch ID",
     "device's lock": "device's lock",
-    "biometric": "biometric"
+    "biometric": "biometric",
+    "Enter passcode to continue": "输入密码后可继续"
   },
   "screens/AboutScreen": {
     "About": "关于",
@@ -381,7 +380,7 @@
     "Price": "价格",
     "Estimated fee": "所需费用（大约）",
     "REMOVE": "退出",
-    "{{tokenA}} price per {{tokenB}}":"{{tokenA}} price per {{tokenB}}"
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "退出流动资金",
@@ -448,12 +447,19 @@
     "CONFIRM SWAP": "确认兑换"
   },
   "screens/UnlockWallet": {
-    "Enter passcode": "请输入密码",
-    "CANCEL": "取消",
-    "Please enter passcode to securely sign your transaction": "请输入密码以安全地签下您的交易"
+    "Enter Passcode": "请输入密码",
+    "Enter passcode to continue": "输入密码后可继续",
+    "Please enter passcode to securely sign your transaction": "请输入密码以安全地签下您的交易",
+    "Access granted": "已授予访问权限",
+    "You may now proceed": "你现在可以继续",
+    "Sign to verify access": "签名确认访问权限"
   },
   "screens/TransactionAuthorization": {
-    "Signing...": "您正在为此交易授权..."
+    "Sign Transaction": "签署交易",
+    "Signing your transaction...": "正在签署交易",
+    "Verifying access": "验证访问权限",
+    "Transaction authorized": "已授權交易",
+    "Please wait as your transaction is prepared": "正在准备交易，请稍候"
   },
   "components/CreateWalletIndicator": {
     "Recovery": "恢复",

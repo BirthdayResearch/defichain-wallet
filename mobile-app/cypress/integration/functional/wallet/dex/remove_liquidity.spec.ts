@@ -167,7 +167,7 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
       .contains(`Removing ${new BigNumber(oldAmount).toFixed(8)} dETH-DFI`)
 
     // Cancel send on authorisation page
-    cy.getByTestID('cancel_authorization').contains('CANCEL').click()
+    cy.getByTestID('cancel_authorization').click()
     cy.getByTestID('button_cancel_remove').click()
     // Update input values
     cy.getByTestID('text_input_percentage').clear().type('100')
