@@ -1,7 +1,7 @@
 import React, { ReactElement, useCallback, useRef, useEffect } from 'react'
 import { tailwind } from '@tailwind'
 import { TouchableOpacity, View, Platform } from 'react-native'
-import { BottomSheetModal as Modal, BottomSheetModalProps, useBottomSheetModal } from '@gorhom/bottom-sheet'
+import { BottomSheetBackgroundProps, BottomSheetModal as Modal, BottomSheetModalProps, useBottomSheetModal } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@contexts/ThemeProvider'
 import { ThemedIcon, ThemedProps } from './themed'
 import { WalletAlert } from './WalletAlert'
@@ -61,10 +61,10 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
           snapPoints={snapPoints}
           stackBehavior='replace'
           backgroundStyle={[isLight ? light : dark]}
-          backdropComponent={({ style }: BottomSheetModalProps) => (
-            <View style={[style, tailwind(`${isLight ? 'bg-white' : 'bg-gray-800'} bg-opacity-60`)]} />
+          backdropComponent={({ style }: BottomSheetBackgroundProps) => (
+            <View style={[style, tailwind(`${isLight ? 'bg-black bg-opacity-70' : 'bg-gray-800 bg-opacity-60'}`)]} />
           )}
-          backgroundComponent={({ style }: BottomSheetModalProps) => (
+          backgroundComponent={({ style }: BottomSheetBackgroundProps) => (
             <View style={[style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'} border-t`)]} />
           )}
         >
