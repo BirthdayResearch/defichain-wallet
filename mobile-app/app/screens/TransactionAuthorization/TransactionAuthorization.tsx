@@ -39,6 +39,7 @@ const DEFAULT_MESSAGES = {
   }
 }
 const SUCCESS_DISPLAY_TIMEOUT_IN_MS = 2000
+const CANCELED_ERROR = 'canceled error'
 
 /**
  * useRef() working well on web but not on mobile
@@ -208,13 +209,13 @@ export function TransactionAuthorization (): JSX.Element | null {
           }
 
           // case 3: canceled
-          throw new Error('canceled error') // pass to last catch so all cases will complete task
+          throw new Error(CANCELED_ERROR) // pass to last catch so all cases will complete task
         })
         .catch(e => {
           dispatch(transactionQueue.actions.pop()) // remove job
           onTaskCompletion()
 
-          if (e.message !== 'canceled error') { // no need to log if user cancels
+          if (e.message !== CANCELED_ERROR) { // no need to log if user cancels
             Logging.error(e)
           }
         })
@@ -241,13 +242,13 @@ export function TransactionAuthorization (): JSX.Element | null {
           }
 
           // case 3: canceled
-          throw new Error('canceled error') // pass to last catch so all cases will complete task
+          throw new Error(CANCELED_ERROR) // pass to last catch so all cases will complete task
         })
         .catch(e => {
             dispatch(authenticationStore.actions.dismiss())
             onTaskCompletion()
 
-          if (e.message !== 'canceled error') { // no need to log if user cancels
+          if (e.message !== CANCELED_ERROR) { // no need to log if user cancels
             Logging.error(e)
           }
         })

@@ -173,7 +173,7 @@ function SuccessMessage ({ message }: { message?: {title: string, description: s
         {message.title}
       </ThemedText>
 
-      <ThemedText style={tailwind('ml-2 text-sm')}>
+      <ThemedText style={tailwind('ml-2 text-sm text-center')}>
         {message.description}
       </ThemedText>
     </View>
