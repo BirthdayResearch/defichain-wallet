@@ -18,6 +18,7 @@ import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
 import { TextRow } from '@components/TextRow'
+import { TransactionResultsRow } from '@components/TransactionResultsRow'
 
 type Props = StackScreenProps<BalanceParamList, 'ConvertConfirmationScreen'>
 
@@ -135,24 +136,17 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
         }}
       />
 
-      <ThemedSectionTitle
-        testID='title_conversion_detail'
-        text={translate('screens/ConvertConfirmScreen', 'AFTER CONVERSION, YOU WILL HAVE')}
-      />
-
-      <NumberRow
-        lhs={translate('screens/ConvertConfirmScreen', sourceUnit)}
-        rhs={{
-          value: sourceBalance.toFixed(8),
-          testID: 'source_amount'
-        }}
-      />
-      <NumberRow
-        lhs={translate('screens/ConvertConfirmScreen', targetUnit)}
-        rhs={{
-          value: targetBalance.toFixed(8),
-          testID: 'target_amount'
-        }}
+      <TransactionResultsRow
+        tokens={[
+          {
+            symbol: sourceUnit,
+            value: sourceUnit === 'UTXO' ? sourceBalance.minus(fee).toFixed(8) : sourceBalance.toFixed(8)
+          },
+          {
+            symbol: targetUnit,
+            value: targetUnit === 'UTXO' ? targetBalance.minus(fee).toFixed(8) : targetBalance.toFixed(8)
+          }
+        ]}
       />
 
       <SubmitButtonGroup

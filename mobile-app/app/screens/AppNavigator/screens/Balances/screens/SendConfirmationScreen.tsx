@@ -23,6 +23,8 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionTag } from '@components/ConversionTag'
+import { ConversionDetailsRow } from '@components/ConversionDetailsRow'
+import { TransactionResultsRow } from '@components/TransactionResultsRow'
 
 type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
 
@@ -48,7 +50,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   }
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const [isConversionRequired, setIsConversionRequired] = useState(false)
-
+  const expectedBalance = BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)).minus(fee.toFixed(8)), 0).toFixed(8)
   useEffect(() => {
     setIsOnPage(true)
     return () => {
@@ -118,6 +120,14 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       />
 
       <TextRow
+        lhs={translate('screens/SendConfirmationScreen', 'Transaction type')}
+        rhs={{
+          value: isConversionRequired ? translate('screens/SendConfirmationScreen', 'Convert & send') : translate('screens/SendConfirmationScreen', 'Send'),
+          testID: 'text_transaction_type'
+        }}
+        textStyle={tailwind('text-sm font-normal')}
+      />
+      <TextRow
         lhs={translate('screens/SendConfirmationScreen', 'Address')}
         rhs={{ value: destination, testID: 'text_destination' }}
         textStyle={tailwind('text-sm font-normal')}
@@ -135,7 +145,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
           value: amount.toFixed(8),
           testID: 'text_amount',
           suffixType: 'text',
-          suffix: `${token.displaySymbol}`
+          suffix: token.displaySymbol
         }}
       />
 
@@ -145,18 +155,24 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
           value: fee.toFixed(8),
           testID: 'text_fee',
           suffixType: 'text',
-          suffix: `${token.displaySymbol}`
+          suffix: token.displaySymbol
         }}
       />
 
-      <NumberRow
-        lhs={translate('screens/SendConfirmationScreen', 'Remaining balance')}
-        rhs={{
-          value: BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)).minus(fee.toFixed(8)), 0).toFixed(8),
-          testID: 'text_balance',
-          suffixType: 'text',
-          suffix: `${token.displaySymbol}`
-        }}
+      {isConversionRequired &&
+        <ConversionDetailsRow
+          utxoBalance='0'
+          tokenBalance={expectedBalance}
+        />}
+
+      <TransactionResultsRow
+        tokens={[
+          {
+            symbol: token.displaySymbol,
+            value: expectedBalance,
+            suffix: token.displaySymbol
+          }
+        ]}
       />
 
       <SubmitButtonGroup
