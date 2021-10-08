@@ -3,7 +3,7 @@ import { tailwind } from '@tailwind'
 import { TouchableOpacity, View, Platform } from 'react-native'
 import { BottomSheetModal as Modal, BottomSheetModalProps, useBottomSheetModal } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@contexts/ThemeProvider'
-import { ThemedProps } from './themed'
+import { ThemedIcon, ThemedProps } from './themed'
 import { WalletAlert } from './WalletAlert'
 
 type Props = ThemedProps & BottomSheetModalProps & {
@@ -36,11 +36,15 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
     }
   }, [])
 
+  const closeModal = useCallback(() => {
+    if (!isWeb) {
+      dismiss(name)
+    }
+  }, [])
+
   useEffect(() => {
     return () => {
-      if (!isWeb) {
-        dismiss(name)
-      }
+      closeModal()
     }
   }, [])
 
@@ -52,12 +56,23 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
       {!isWeb && (
         <Modal
           name={name}
-          ref={bottomSheetModalRef}
           style={style}
+          ref={bottomSheetModalRef}
           snapPoints={snapPoints}
           stackBehavior='replace'
           backgroundStyle={[isLight ? light : dark]}
         >
+          <View style={tailwind('font-medium w-full px-2 items-end')}>
+            <TouchableOpacity onPress={closeModal}>
+              <ThemedIcon
+                size={24}
+                name='close'
+                iconType='MaterialIcons'
+                dark={tailwind('text-white text-opacity-70')}
+                light={tailwind('text-gray-600')}
+              />
+            </TouchableOpacity>
+          </View>
           {children}
         </Modal>
       )}

@@ -46,7 +46,7 @@ export function EstimatedFeeInfo ({
               />
           }
           >
-            <View style={tailwind('p-4')}>
+            <View style={tailwind('p-4 pt-0')}>
               <View
                 testID='estimated_fee_heading'
                 style={tailwind('flex-row mb-3 items-center')}
