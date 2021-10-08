@@ -128,3 +128,18 @@ export const DFIUtxoSelector = createSelector(tokensSelector, tokens => {
 export const unifiedDFISelector = createSelector(tokensSelector, tokens => {
   return tokens.find(token => token.id === '0_unified') ?? unifiedDFI
 })
+
+const selectTokenId = (state: WalletState, tokenId: string): string => tokenId
+
+/**
+ * Get single token by `id` from wallet store.
+ * To get DFI Token or DFI UTXO, use `DFITokenSelector` or `DFIUtxoSelector` instead
+ */
+export const tokenSelector = createSelector([tokensSelector, selectTokenId], (tokens, tokenId) => {
+  return tokens.find(token => {
+    if (tokenId === '0' || tokenId === '0_utxo') {
+      return token.id === '0_unified'
+    }
+    return token.id === tokenId
+  })
+})
