@@ -61,10 +61,11 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
           snapPoints={snapPoints}
           stackBehavior='replace'
           backgroundStyle={[isLight ? light : dark]}
+          backdropComponent={({ style }: BottomSheetModalProps) => (
+            <View style={[style, tailwind(`${isLight ? 'bg-white' : 'bg-gray-800'} bg-opacity-60`)]} />
+          )}
           backgroundComponent={({ style }: BottomSheetModalProps) => (
-            <View
-              style={[style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'} border-t`)]}
-            />
+            <View style={[style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'} border-t`)]} />
           )}
         >
           <View style={tailwind('font-medium w-full px-2 items-end')}>
