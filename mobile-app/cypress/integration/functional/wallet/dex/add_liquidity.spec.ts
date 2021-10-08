@@ -199,7 +199,7 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     cy.getByTestID('txn_authorization_description')
       .contains(`Adding ${new BigNumber(oldAmount).toFixed(8)} dBTC - ${new BigNumber(oldAmount).toFixed(8)} DFI`)
     // Cancel send on authorisation page
-    cy.getByTestID('cancel_authorization').contains('CANCEL').click()
+    cy.getByTestID('cancel_authorization').click()
     cy.getByTestID('button_cancel_add').click()
     // Update the input amount
     cy.getByTestID('token_input_primary_clear_button').click()

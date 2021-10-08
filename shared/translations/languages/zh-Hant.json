@@ -142,8 +142,6 @@
     "NETWORK": "網絡",
     "To update your passcode, we need you to enter your current passcode.": "需要使用目前的密碼才能更換密碼",
     "Verifying passcode...": "正在確認密碼...",
-    "To continue viewing your recovery words, we need you to enter your passcode.": "請輸入您的密碼即可繼續查看您的恢復字組",
-    "Loading...": "請稍等...",
     "Network Switch": "切換網絡",
     "No": "不要",
     "Yes": "好的",
@@ -165,7 +163,8 @@
     "Face ID": "Face ID",
     "Touch ID": "Touch ID",
     "device's lock": "device's lock",
-    "biometric": "biometric"
+    "biometric": "biometric",
+    "Enter passcode to continue": "输入密码后可继续"
   },
   "screens/AboutScreen": {
     "About": "關於",
@@ -385,7 +384,7 @@
     "Price": "價格",
     "Estimated fee": "所需費用（大約）",
     "REMOVE": "退出",
-    "{{tokenA}} price per {{tokenB}}":"{{tokenA}} price per {{tokenB}}"
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "退出流動資金",
@@ -421,7 +420,7 @@
   "screens/SlippageTolerance": {
     "SLIPPAGE TOLERANCE": "交易滑價"
   },
-  "screens/PoolSwapScreen": {    
+  "screens/PoolSwapScreen": {
     "Swap": "兌換",
     "How much {{token}} do you want to swap?": "你要兌換多少  {{token}}？",
     "Available": "可兌換資金",
@@ -452,12 +451,19 @@
     "CONFIRM SWAP": "確認兌換"
   },
   "screens/UnlockWallet": {
-    "Enter passcode": "請輸入密碼",
-    "CANCEL": "取消",
-    "Please enter passcode to securely sign your transaction": "請輸入密碼以安全地簽下您的交易"
+    "Enter Passcode": "請輸入密碼",
+    "Enter passcode to continue": "輸入密碼後可繼續",
+    "Please enter passcode to securely sign your transaction": "請輸入密碼以安全地簽下您的交易",
+    "Access granted": "已授予訪問權限",
+    "You may now proceed": "你現在可以繼續",
+    "Sign to verify access": "簽名確認訪問權限"
   },
   "screens/TransactionAuthorization": {
-    "Signing...": "您正在為此交易授權..."
+    "Sign Transaction": "簽署交易",
+    "Signing your transaction...": "正在簽署交易...",
+    "Transaction authorized": "授權交易",
+    "Please wait as your transaction is prepared": "正在準備交易，請稍候",
+    "Verifying access": "驗證訪問權限"
   },
   "components/CreateWalletIndicator": {
     "Recovery": "恢復",

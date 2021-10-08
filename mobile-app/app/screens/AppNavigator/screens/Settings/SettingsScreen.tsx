@@ -51,8 +51,8 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         })
       },
       onError: e => Logging.error(e),
-      message: translate('screens/Settings', 'To continue viewing your recovery words, we need you to enter your passcode.'),
-      loading: translate('screens/Settings', 'Loading...')
+      message: translate('screens/Settings', 'Enter passcode to continue'),
+      loading: translate('screens/Settings', 'Verifying access')
     }
     dispatch(authentication.actions.prompt(auth))
   }, [dispatch, isEncrypted, navigation])
@@ -77,8 +77,8 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       onError: (e) => {
         dispatch(ocean.actions.setError(e))
       },
-      message: translate('screens/Settings', 'To update your passcode, we need you to enter your current passcode.'),
-      loading: translate('screens/Settings', 'Verifying passcode...')
+      message: translate('screens/Settings', 'Enter passcode to continue'),
+      loading: translate('screens/Settings', 'Verifying access')
     }
 
     dispatch(authentication.actions.prompt(auth))
