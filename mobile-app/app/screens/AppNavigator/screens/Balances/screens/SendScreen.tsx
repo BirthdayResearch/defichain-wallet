@@ -82,7 +82,7 @@ export function SendScreen ({
   }
 
   return (
-    <ThemedScrollView contentContainerStyle={tailwind('px-4 py-8')}>
+    <ThemedScrollView contentContainerStyle={tailwind('px-4 py-8')} testID='send_screen'>
       <AddressRow
         control={control}
         networkName={networkName}

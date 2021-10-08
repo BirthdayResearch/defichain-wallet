@@ -57,6 +57,10 @@ jest.mock('../../../../contexts/WalletPersistenceContext', () => ({
   }
 }))
 
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: jest.fn()
+}))
+
 describe('balances page', () => {
   it('should match snapshot', async () => {
     const initialState: Partial<RootState> = {
@@ -112,8 +116,8 @@ describe('balances page', () => {
       </Provider>
     )
     const rendered = render(component)
-    const receiveButton = await rendered.findByTestId('balances_row_0')
-    fireEvent.press(receiveButton)
+    const btcBalanceRow = await rendered.findByTestId('balances_row_1')
+    fireEvent.press(btcBalanceRow)
     expect(spy).toHaveBeenCalled()
   })
 })

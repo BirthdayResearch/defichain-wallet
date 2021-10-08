@@ -92,7 +92,7 @@
     "Convert DFI": "DFI umwandeln",
     "Scan recipient QR": "QR-Code des Empfängers scannen",
     "Balance": "Guthaben",
-    "UTXO vs Token, what is the difference?": "UXTO vs Token, worin liegt der Unterschied?",
+    "UTXO vs Token, what is the difference?": "UTXO vs Token, worin liegt der Unterschied?",
     "CONVERT {{symbol}}": "{{symbol}} UMWANDELN",
     "TO {{symbol}}": "IN {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
@@ -189,7 +189,7 @@
   "screens/TransactionsScreen": {
     "Transactions": "Transaktionen",
     "No transactions yet": "Noch keine Transaktionen",
-    "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "Beginne, mit deiner Wallet Transaktionen auszuführen. Alle ausgeführten UXTO Transaktionen werden hier angezeigt. Weitere Transaktionstypen werden noch nicht unterstützt.",
+    "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "Beginne, mit deiner Wallet Transaktionen auszuführen. Alle ausgeführten UTXO Transaktionen werden hier angezeigt. Weitere Transaktionstypen werden noch nicht unterstützt.",
     "RECEIVE COINS": "EMPFANGE COINS",
     "LOAD MORE": "WEITERE LADEN"
   },
@@ -482,5 +482,8 @@
     "Recovery words": "Wiederherstellungssatz",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Deine einzigartigen 24 Wiederherstellungswörter, die aus einer Liste von 2048 Wörtern im BIP-39-Standard generiert werden, sind eine für Menschen lesbare Darstellung deines privaten Schlüssels. Sie verhindern jegliche Versuche, die Sicherheit deiner Wallet zu knacken, z.B. durch Brute-Force-Attacken.",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
+  },
+  "components/DFIBalanceCard": {
+    "Learn more about UTXO and Token": "Erfahre mehr über UTXO und Token"
   }
 }

@@ -4,8 +4,8 @@ import {
   MnemonicProviderData
 } from '@defichain/jellyfish-wallet-mnemonic'
 import { getRandomBytes } from 'expo-random'
-import { EnvironmentNetwork } from '../../../environment'
-import { getBip32Option } from '../network'
+import { EnvironmentNetwork } from '@environment'
+import { getBip32Option } from '@shared-api/wallet/network'
 import { WalletPersistenceData, WalletType } from '../persistence'
 
 function initProvider (data: WalletPersistenceData<MnemonicProviderData>, network: EnvironmentNetwork): MnemonicHdNodeProvider {
