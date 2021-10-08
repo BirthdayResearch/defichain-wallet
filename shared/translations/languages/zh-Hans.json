@@ -458,7 +458,7 @@
     "Sign Transaction": "签署交易",
     "Signing your transaction...": "正在签署交易",
     "Verifying access": "验证访问权限",
-    "Transaction authorized": "授权交易",
+    "Transaction authorized": "已授權交易",
     "Please wait as your transaction is prepared": "正在准备交易，请稍候"
   },
   "components/CreateWalletIndicator": {
