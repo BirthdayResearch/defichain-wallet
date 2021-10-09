@@ -1,6 +1,5 @@
 import { InfoText } from '@components/InfoText'
 import { InputHelperText } from '@components/InputHelperText'
-import { NumberRow } from '@components/NumberRow'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
@@ -24,6 +23,7 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
+import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -118,11 +118,11 @@ export function SendScreen ({
       {
         fee !== undefined && (
           <View style={tailwind('mt-6')}>
-            <NumberRow
+            <EstimatedFeeInfo
               lhs={translate('screens/SendScreen', 'Estimated fee')}
               rhs={{
                 value: fee.toString(),
-                suffix: ' DFI (UTXO)',
+                suffix: 'DFI (UTXO)',
                 testID: 'transaction_fee'
               }}
             />

@@ -20,6 +20,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { getNativeIcon } from '@components/icons/assets'
+import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -197,9 +198,9 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         }}
       />
 
-      <NumberRow
+      <EstimatedFeeInfo
         lhs={translate('screens/ConfirmAddLiq', 'Estimated fee')}
-        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffixType: 'text', suffix: 'DFI (UTXO)' }}
+        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffix: 'DFI (UTXO)' }}
       />
 
       <SubmitButtonGroup

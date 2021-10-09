@@ -18,6 +18,7 @@ import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
+import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmRemoveLiquidity'>
 
@@ -130,9 +131,9 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         }}
       />
 
-      <NumberRow
+      <EstimatedFeeInfo
         lhs={translate('screens/ConfirmRemoveLiquidity', 'Estimated fee')}
-        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffixType: 'text', suffix: 'DFI (UTXO)' }}
+        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffix: 'DFI (UTXO)' }}
       />
 
       <SubmitButtonGroup
