@@ -6,10 +6,89 @@ exports[`balances page should match snapshot 1`] = `
   ListHeaderComponent={
     <React.Fragment>
       <DFIBalanceCard />
-      <ThemedSectionTitle
-        testID="balances_title"
-        text="PORTFOLIO"
-      />
+      <ThemedView
+        style={
+          Object {
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <ThemedSectionTitle
+          testID="balances_title"
+          text="PORTFOLIO"
+        />
+        <ThemedTouchableOpacity
+          dark={
+            Object {
+              "backgroundColor": "transparent",
+            }
+          }
+          light={
+            Object {
+              "backgroundColor": "transparent",
+            }
+          }
+          onPress={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+              "flexDirection": "row",
+              "paddingRight": 16,
+              "paddingTop": 16,
+            }
+          }
+          testID="toggle_balance"
+        >
+          <ThemedIcon
+            dark={
+              Object {
+                "color": "rgba(229, 229, 229, 1)",
+              }
+            }
+            iconType="MaterialIcons"
+            light={
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              }
+            }
+            name="visibility-off"
+            size={15}
+            style={
+              Object {
+                "alignSelf": "center",
+                "paddingRight": 4,
+              }
+            }
+            testID="toggle_balance_icon"
+          />
+          <ThemedText
+            dark={
+              Object {
+                "color": "rgba(115, 115, 115, 1)",
+              }
+            }
+            light={
+              Object {
+                "color": "rgba(115, 115, 115, 1)",
+              }
+            }
+            style={
+              Object {
+                "fontFamily": "MediumFont",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 16,
+              }
+            }
+            testID="toggle_balance_text"
+          >
+            Show balances
+          </ThemedText>
+        </ThemedTouchableOpacity>
+      </ThemedView>
     </React.Fragment>
   }
   data={
@@ -411,7 +490,31 @@ exports[`balances page should match snapshot 1`] = `
                 }
                 testID="token_vs_utxo_info"
               >
-                <Text />
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    Array [
+                      Object {
+                        "color": undefined,
+                        "fontSize": 16,
+                      },
+                      Array [
+                        undefined,
+                        Object {
+                          "color": "rgba(255, 0, 175, 1)",
+                        },
+                      ],
+                      Object {
+                        "fontFamily": "material",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
+                      },
+                      Object {},
+                    ]
+                  }
+                >
+                  
+                </Text>
                 <Text
                   style={
                     Array [
@@ -487,7 +590,31 @@ exports[`balances page should match snapshot 1`] = `
                   }
                   testID="convert_dfi_button"
                 >
-                  <Text />
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      Array [
+                        Object {
+                          "color": undefined,
+                          "fontSize": 24,
+                        },
+                        Array [
+                          undefined,
+                          Object {
+                            "color": "rgba(255, 0, 175, 1)",
+                          },
+                        ],
+                        Object {
+                          "fontFamily": "material",
+                          "fontStyle": "normal",
+                          "fontWeight": "normal",
+                        },
+                        Object {},
+                      ]
+                    }
+                  >
+                    
+                  </Text>
                 </View>
                 <View
                   accessible={true}
@@ -525,46 +652,164 @@ exports[`balances page should match snapshot 1`] = `
                   }
                   testID="send_dfi_button"
                 >
-                  <Text />
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      Array [
+                        Object {
+                          "color": undefined,
+                          "fontSize": 24,
+                        },
+                        Array [
+                          undefined,
+                          Object {
+                            "color": "rgba(255, 0, 175, 1)",
+                          },
+                        ],
+                        Object {
+                          "fontFamily": "material",
+                          "fontStyle": "normal",
+                          "fontWeight": "normal",
+                        },
+                        Object {},
+                      ]
+                    }
+                  >
+                    
+                  </Text>
                 </View>
               </View>
             </View>
           </View>
         </View>
       </View>
-      <Text
+      <View
         style={
           Array [
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
             },
-            Array [
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-                "fontFamily": "MediumFont",
-                "fontSize": 12,
-                "fontWeight": "500",
-                "lineHeight": 16,
-                "paddingBottom": 8,
-                "paddingLeft": 16,
-                "paddingRight": 16,
-                "paddingTop": 24,
-              },
-              Object {
-                "backgroundColor": "rgba(245, 245, 245, 1)",
-                "color": "rgba(115, 115, 115, 1)",
-              },
-            ],
+            Object {
+              "backgroundColor": "rgba(245, 245, 245, 1)",
+            },
           ]
         }
-        testID="balances_title"
-        text="PORTFOLIO"
       >
-        PORTFOLIO
-      </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                  "fontFamily": "MediumFont",
+                  "fontSize": 12,
+                  "fontWeight": "500",
+                  "lineHeight": 16,
+                  "paddingBottom": 8,
+                  "paddingLeft": 16,
+                  "paddingRight": 16,
+                  "paddingTop": 24,
+                },
+                Object {
+                  "backgroundColor": "rgba(245, 245, 245, 1)",
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+          testID="balances_title"
+          text="PORTFOLIO"
+        >
+          PORTFOLIO
+        </Text>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "display": "flex",
+              "flexDirection": "row",
+              "opacity": 1,
+              "paddingRight": 16,
+              "paddingTop": 16,
+            }
+          }
+          testID="toggle_balance"
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              Array [
+                Object {
+                  "color": undefined,
+                  "fontSize": 15,
+                },
+                Array [
+                  Object {
+                    "alignSelf": "center",
+                    "paddingRight": 4,
+                  },
+                  Object {
+                    "color": "rgba(0, 0, 0, 1)",
+                  },
+                ],
+                Object {
+                  "fontFamily": "material",
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                },
+                Object {},
+              ]
+            }
+            testID="toggle_balance_icon"
+          >
+            
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "fontFamily": "MediumFont",
+                    "fontSize": 12,
+                    "fontWeight": "500",
+                    "lineHeight": 16,
+                  },
+                  Object {
+                    "color": "rgba(115, 115, 115, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="toggle_balance_text"
+          >
+            Show balances
+          </Text>
+        </View>
+      </View>
     </View>
     <View
       onLayout={[Function]}
@@ -778,9 +1023,33 @@ exports[`balances page should match snapshot 1`] = `
               }
               testID="balances_row_1_amount"
             >
-              777.00000000
+              ****
             </Text>
-            <Text />
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": undefined,
+                    "fontSize": 24,
+                  },
+                  Array [
+                    undefined,
+                    Object {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
+                  Object {
+                    "fontFamily": "material",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  Object {},
+                ]
+              }
+            >
+              
+            </Text>
           </View>
         </View>
       </View>
@@ -1009,9 +1278,33 @@ exports[`balances page should match snapshot 1`] = `
               }
               testID="balances_row_2_amount"
             >
-              555.00000000
+              ****
             </Text>
-            <Text />
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": undefined,
+                    "fontSize": 24,
+                  },
+                  Array [
+                    undefined,
+                    Object {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
+                  Object {
+                    "fontFamily": "material",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  Object {},
+                ]
+              }
+            >
+              
+            </Text>
           </View>
         </View>
       </View>

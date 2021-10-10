@@ -26,8 +26,16 @@ context('Wallet - Balances', () => {
 
   it('should display BTC and ETH with correct amounts', function () {
     cy.getByTestID('balances_list').should('exist')
+    cy.getByTestID('toggle_balance').click()
     cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', symbol: 'dBTC' })
     cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', symbol: 'dETH' })
+  })
+
+  it('should hide all BTC and ETH amounts on toggle', function () {
+    cy.getByTestID('toggle_balance').click()
+    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '****', symbol: 'dBTC' })
+    cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '****', symbol: 'dETH' })
+    cy.getByTestID('toggle_balance_text').contains('Show balances')
   })
 
   it('should redirect to receive page', function () {
