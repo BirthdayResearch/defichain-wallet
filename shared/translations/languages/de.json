@@ -46,7 +46,9 @@
   "screens/BalancesScreen": {
     "Balances": "Guthaben",
     "RECEIVE": "EMPFANGEN",
-    "PORTFOLIO": "PORTFOLIO"
+    "PORTFOLIO": "PORTFOLIO",
+    "Show balances": "Guthaben sichtbar machen",
+    "Hide balances": "Guthaben verbergen"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",

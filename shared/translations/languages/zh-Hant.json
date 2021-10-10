@@ -46,7 +46,9 @@
   "screens/BalancesScreen": {
     "Balances": "我的資產",
     "RECEIVE": "接收",
-    "PORTFOLIO": "資產組合"
+    "PORTFOLIO": "資產組合",
+    "Show balances": "顯示結餘",
+    "Hide balances": "隱藏結餘"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
