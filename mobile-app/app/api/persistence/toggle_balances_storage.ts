@@ -2,12 +2,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const KEY = 'WALLET.TOGGLE_BALANCES'
 
-async function set (isBalanceDisplayed: string): Promise<void> {
-  await AsyncStorage.setItem(KEY, isBalanceDisplayed)
+async function set (isBalanceDisplayed: boolean): Promise<void> {
+  await AsyncStorage.setItem(KEY, isBalanceDisplayed ? 'TRUE' : 'FALSE')
 }
 
-async function get (): Promise<string | null> {
-  return await AsyncStorage.getItem(KEY)
+async function get (): Promise<boolean> {
+  return await AsyncStorage.getItem(KEY) === 'TRUE'
 }
 
 export const ToggleBalancesPersistence = {

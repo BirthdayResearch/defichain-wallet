@@ -41,7 +41,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const dispatch = useDispatch()
 
   const [refreshing, setRefreshing] = useState(false)
-  const [isBalancesDisplayed, setIsBalanceDisplayed] = useState<boolean>()
+  const [isBalancesDisplayed, setIsBalancesDisplayed] = useState(false)
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
@@ -49,8 +49,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
   useEffect(() => {
     void (async () => {
-      const isBalanceDisplayedStorage = await ToggleBalancesPersistence.get() === 'TRUE' ? 'FALSE' : 'TRUE'
-      setIsBalanceDisplayed(isBalanceDisplayedStorage === 'TRUE')
+      setIsBalancesDisplayed(await ToggleBalancesPersistence.get())
     })()
   }, [])
 
@@ -61,9 +60,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch])
 
   const onToggleDisplayBalances = async (): Promise<void> => {
-    const isBalanceDisplayedStorage = await ToggleBalancesPersistence.get()
-    await ToggleBalancesPersistence.set(isBalanceDisplayedStorage === 'TRUE' ? 'FALSE' : 'TRUE')
-    setIsBalanceDisplayed(isBalanceDisplayedStorage === 'TRUE')
+    setIsBalancesDisplayed(!isBalancesDisplayed)
+    await ToggleBalancesPersistence.set(!isBalancesDisplayed)
   }
 
   const tokens = useTokensAPI()
@@ -103,7 +101,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
                   dark={tailwind('text-gray-200')}
                   light={tailwind('text-black')}
                   style={tailwind('self-center pr-1')}
-                  name={`${isBalancesDisplayed === true ? 'visibility' : 'visibility-off'}`}
+                  name={`${isBalancesDisplayed ? 'visibility' : 'visibility-off'}`}
                   size={15}
                   testID='toggle_balance_icon'
                 />
@@ -113,7 +111,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
                   style={tailwind('text-xs font-medium')}
                   testID='toggle_balance_text'
                 >
-                  {translate('screens/BalancesScreen', `${isBalancesDisplayed === true ? 'Hide' : 'Show'} balances`)}
+                  {translate('screens/BalancesScreen', `${isBalancesDisplayed ? 'Hide' : 'Show'} balances`)}
                 </ThemedText>
               </ThemedTouchableOpacity>
             </ThemedView>}
@@ -132,7 +130,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             key={item.symbol}
             onPress={() => navigation.navigate({ name: 'TokenDetail', params: { token: item }, merge: true })}
             token={item}
-            isBalanceDisplayed={isBalancesDisplayed === true}
+            isBalancesDisplayed={isBalancesDisplayed}
           />
         )
       }}
@@ -142,10 +140,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 }
 
 function BalanceItemRow ({
-  isBalanceDisplayed,
+  isBalancesDisplayed,
   token,
   onPress
-}: { isBalanceDisplayed: boolean, token: WalletToken, onPress: () => void }): JSX.Element {
+}: { isBalancesDisplayed: boolean, token: WalletToken, onPress: () => void }): JSX.Element {
   const Icon = getNativeIcon(token.avatarSymbol)
   const testID = `balances_row_${token.id}`
   return (
@@ -193,7 +191,7 @@ function BalanceItemRow ({
                   style={tailwind('mr-2 flex-wrap')}
                   testID={`${testID}_amount`}
                 >
-                  {isBalanceDisplayed ? value : HIDDEN_BALANCE_TEXT}
+                  {isBalancesDisplayed ? value : HIDDEN_BALANCE_TEXT}
                 </ThemedText>
 
                 <ThemedIcon
