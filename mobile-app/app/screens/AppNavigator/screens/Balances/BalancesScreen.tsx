@@ -41,7 +41,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const dispatch = useDispatch()
 
   const [refreshing, setRefreshing] = useState(false)
-  const [isBalancesDisplayed, setIsBalancesDisplayed] = useState(false)
+  const [isBalancesDisplayed, setIsBalancesDisplayed] = useState(true)
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
