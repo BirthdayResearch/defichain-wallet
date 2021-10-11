@@ -24,11 +24,9 @@ import { useCallback, useEffect, useState } from 'react'
 import { RefreshControl } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
-import { ToggleBalancesPersistence } from '@api/persistence/toggle_balances_storage'
 import { BalanceParamList } from './BalancesNavigator'
 import { DFIBalanceCard } from './components/DFIBalanceCard'
-
-const HIDDEN_BALANCE_TEXT = '*****'
+import { useToggleBalance } from '@hooks/useToggleBalance'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -41,28 +39,21 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const dispatch = useDispatch()
 
   const [refreshing, setRefreshing] = useState(false)
-  const [isBalancesDisplayed, setIsBalancesDisplayed] = useState(true)
+  const {
+    isBalancesDisplayed,
+    toggleBalance: onToggleDisplayBalances,
+    hiddenBalanceText
+  } = useToggleBalance()
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
   }, [height, wallets])
-
-  useEffect(() => {
-    void (async () => {
-      setIsBalancesDisplayed(await ToggleBalancesPersistence.get())
-    })()
-  }, [])
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
     await fetchTokens(client, address, dispatch)
     setRefreshing(false)
   }, [address, client, dispatch])
-
-  const onToggleDisplayBalances = async (): Promise<void> => {
-    setIsBalancesDisplayed(!isBalancesDisplayed)
-    await ToggleBalancesPersistence.set(!isBalancesDisplayed)
-  }
 
   const tokens = useTokensAPI()
   const nonDfiTokens = tokens.filter(token =>
@@ -89,7 +80,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         </ThemedText>)}
       ListHeaderComponent={(
         <>
-          <DFIBalanceCard isBalancesDisplayed={isBalancesDisplayed} hiddenBalancesText={HIDDEN_BALANCE_TEXT} />
+          <DFIBalanceCard isBalancesDisplayed={isBalancesDisplayed} hiddenBalancesText={hiddenBalanceText} />
 
           <ThemedView
             style={tailwind('flex flex-row justify-between')}
@@ -140,6 +131,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             onPress={() => navigation.navigate({ name: 'TokenDetail', params: { token: item }, merge: true })}
             token={item}
             isBalancesDisplayed={isBalancesDisplayed}
+            hiddenBalanceText={hiddenBalanceText}
           />
         )
       }}
@@ -150,9 +142,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
 function BalanceItemRow ({
   isBalancesDisplayed,
+  hiddenBalanceText,
   token,
   onPress
-}: { isBalancesDisplayed: boolean, token: WalletToken, onPress: () => void }): JSX.Element {
+}: { isBalancesDisplayed: boolean, hiddenBalanceText: string, token: WalletToken, onPress: () => void }): JSX.Element {
   const Icon = getNativeIcon(token.avatarSymbol)
   const testID = `balances_row_${token.id}`
   return (
@@ -199,7 +192,7 @@ function BalanceItemRow ({
                   style={tailwind('mr-2 flex-wrap')}
                   testID={`${testID}_amount`}
                 >
-                  {isBalancesDisplayed ? value : HIDDEN_BALANCE_TEXT}
+                  {isBalancesDisplayed ? value : hiddenBalanceText}
                 </ThemedText>
 
                 <ThemedIcon
