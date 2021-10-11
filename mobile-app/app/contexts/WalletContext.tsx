@@ -3,7 +3,7 @@ import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import React, { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react'
 import { Logging } from '@api'
 import { initJellyfishWallet } from '@api/wallet'
-import { useNetworkContext } from './NetworkContext'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletNodeContext } from './WalletNodeProvider'
 import { useWhaleApiClient } from './WhaleContext'
 

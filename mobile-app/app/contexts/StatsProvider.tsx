@@ -4,7 +4,7 @@ import { Logging } from '@api'
 import { isPlayground } from '@environment'
 import { RootState } from '@store'
 import { block } from '@store/block'
-import { useNetworkContext } from './NetworkContext'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
 
 export function StatsProvider (props: React.PropsWithChildren<any>): JSX.Element | null {

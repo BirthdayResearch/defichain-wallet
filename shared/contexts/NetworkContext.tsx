@@ -1,6 +1,5 @@
 import { NetworkName } from '@defichain/jellyfish-network'
-import React, { createContext, useContext, useEffect, useState } from 'react'
-import { Logging, SecuredStoreAPI } from '@api'
+import React, { createContext, useContext, useEffect, useState, PropsWithChildren } from 'react'
 import { getJellyfishNetwork } from '@api/wallet'
 import { EnvironmentNetwork } from '@environment'
 
@@ -16,15 +15,26 @@ export function useNetworkContext (): NetworkContextI {
   return useContext(NetworkContext)
 }
 
-export function NetworkProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
+type NetworkProviderI = PropsWithChildren<any> &{
+  api: {
+    getNetwork: () => Promise<EnvironmentNetwork>
+    setNetwork: (network: EnvironmentNetwork) => Promise<void>
+  }
+  log: {
+    error: (error: any) => void
+  }
+}
+
+export function NetworkProvider (props: NetworkProviderI): JSX.Element | null {
   const [network, setNetwork] = useState<EnvironmentNetwork>()
   const [networkName, setNetworkName] = useState<NetworkName>()
+  const { api, log } = props
 
   useEffect(() => {
-    SecuredStoreAPI.getNetwork().then(async value => {
+    api.getNetwork().then(async (value: EnvironmentNetwork) => {
       setNetworkName(getJellyfishNetwork(value).name)
       setNetwork(value)
-    }).catch(Logging.error)
+    }).catch(log.error)
   }, [])
 
   if (network === undefined || networkName === undefined) {
@@ -35,7 +45,7 @@ export function NetworkProvider (props: React.PropsWithChildren<any>): JSX.Eleme
     network: network,
     networkName: networkName,
     async updateNetwork (value: EnvironmentNetwork): Promise<void> {
-      await SecuredStoreAPI.setNetwork(value)
+      await api.setNetwork(value)
       setNetworkName(getJellyfishNetwork(value).name)
       setNetwork(value)
     }

@@ -3,7 +3,7 @@ import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
 import { MnemonicProviderData } from '@defichain/jellyfish-wallet-mnemonic'
 import React, { createContext, PropsWithChildren, useContext, useMemo } from 'react'
 import { MnemonicEncrypted, MnemonicUnprotected, WalletPersistenceData, WalletType } from '../api/wallet'
-import { useNetworkContext } from './NetworkContext'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
 
 interface WalletNodeContextI {
   provider: WalletHdNodeProvider<WalletHdNode>

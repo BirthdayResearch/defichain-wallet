@@ -1,4 +1,4 @@
-import { useNetworkContext } from '@contexts/NetworkContext'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { RootState } from '@store'
 import * as React from 'react'
 import dayjs from 'dayjs'

@@ -1,11 +1,11 @@
 import * as SplashScreen from 'expo-splash-screen'
 import React from 'react'
 import './_shim'
-import { Logging } from '@api'
+import { Logging, SecuredStoreAPI } from '@api'
 import { AppStateContextProvider } from '@contexts/AppStateContext'
 import { DeFiScanProvider } from '@shared-contexts/DeFiScanContext'
 import { PrivacyLockContextProvider } from '@contexts/LocalAuthContext'
-import { NetworkProvider } from '@contexts/NetworkContext'
+import { NetworkProvider } from '@shared-contexts/NetworkContext'
 import { StatsProvider } from '@contexts/StatsProvider'
 import { StoreProvider } from '@contexts/StoreProvider'
 import { ThemeProvider, useTheme } from '@contexts/ThemeProvider'
@@ -42,7 +42,7 @@ export default function App (): JSX.Element | null {
     <ErrorBoundary>
       <AppStateContextProvider>
         <PrivacyLockContextProvider>
-          <NetworkProvider>
+          <NetworkProvider api={SecuredStoreAPI} log={Logging}>
             <WhaleProvider>
               <DeFiScanProvider>
                 <WalletPersistenceProvider>

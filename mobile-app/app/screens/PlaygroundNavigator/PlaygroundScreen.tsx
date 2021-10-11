@@ -1,6 +1,6 @@
 import React from 'react'
 import { ThemedScrollView } from '@components/themed'
-import { useNetworkContext } from '@contexts/NetworkContext'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { WalletContextProvider } from '@contexts/WalletContext'
 import { WalletNodeProvider } from '@contexts/WalletNodeProvider'
 import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'

@@ -13,7 +13,7 @@ import {
   WalletType
 } from '../../api/wallet'
 import { WalletAlert } from '@components/WalletAlert'
-import { useNetworkContext } from '@contexts/NetworkContext'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletNodeContext } from '@contexts/WalletNodeProvider'
 import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
