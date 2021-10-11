@@ -48,7 +48,8 @@
     "RECEIVE": "接收",
     "PORTFOLIO": "資產組合",
     "Show balances": "顯示結餘",
-    "Hide balances": "隱藏結餘"
+    "Hide balances": "隱藏結餘",
+    "You do not have any other tokens.": "你現在沒有其他代幣"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
