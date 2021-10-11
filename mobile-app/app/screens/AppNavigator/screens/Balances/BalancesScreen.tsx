@@ -10,7 +10,7 @@ import {
 } from '@components/themed'
 import { useWalletContext } from '@contexts/WalletContext'
 import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
-import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { fetchTokens, useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackScreenProps } from '@react-navigation/stack'

@@ -5,7 +5,7 @@ import { Logging } from '@api'
 import { initJellyfishWallet } from '@api/wallet'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletNodeContext } from './WalletNodeProvider'
-import { useWhaleApiClient } from './WhaleContext'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 
 interface WalletContextI {
   /**

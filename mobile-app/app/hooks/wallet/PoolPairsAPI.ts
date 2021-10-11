@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '@api'
 import { useWalletContext } from '@contexts/WalletContext'
-import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
 import { DexItem, wallet } from '@store/wallet'
 

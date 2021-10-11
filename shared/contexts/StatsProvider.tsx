@@ -4,7 +4,7 @@ import { isPlayground } from '@environment'
 import { RootState } from '@store'
 import { block } from '@store/block'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { useWhaleApiClient } from '../../mobile-app/app/contexts/WhaleContext'
+import { useWhaleApiClient } from './WhaleContext'
 
 type StatsProviderI = PropsWithChildren<any> &{
   log: {

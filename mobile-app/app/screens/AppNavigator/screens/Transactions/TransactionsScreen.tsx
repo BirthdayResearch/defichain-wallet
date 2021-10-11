@@ -1,7 +1,7 @@
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { useThemeContext } from '@contexts/ThemeProvider'
 import { useWalletContext } from '@contexts/WalletContext'
-import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RootState } from '@store'
