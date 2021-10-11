@@ -1,5 +1,4 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -20,7 +19,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { getNativeIcon } from '@components/icons/assets'
-import { DFITokenSelector, tokenSelector } from '@store/wallet'
+import { DFITokenSelector, WalletToken } from '@store/wallet'
 import { ConversionTag } from '@components/ConversionTag'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
@@ -29,11 +28,13 @@ import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
-export interface AddLiquiditySummary extends PoolPairData {
+export interface AddLiquiditySummary {
   fee: BigNumber // stick to whatever estimation/calculation done on previous page
   tokenAAmount: BigNumber
   tokenBAmount: BigNumber
   percentage: BigNumber // to add
+  tokenA?: WalletToken // snapshot token A amount to compute ending balance
+  tokenB?: WalletToken // snapshot token B amount to compute ending balance
 }
 
 export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
@@ -45,14 +46,13 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     tokenA,
     tokenAAmount,
     tokenB,
-    tokenBAmount,
-    totalLiquidity
+    tokenBAmount
   } = props.route.params.summary
   const pair = props.route.params.pair
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const aToBRate = new BigNumber(tokenB.reserve).div(tokenA.reserve)
-  const bToARate = new BigNumber(tokenA.reserve).div(tokenB.reserve)
-  const lmTokenAmount = percentage.times(totalLiquidity.token)
+  const aToBRate = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
+  const bToARate = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
+  const lmTokenAmount = percentage.times(pair.totalLiquidity.token)
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const postAction = (): void => {
@@ -60,12 +60,10 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       navigation.dispatch(StackActions.popToTop())
     }
   }
-  const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
-  const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
+  const TokenAIcon = getNativeIcon(pair.tokenA.displaySymbol)
+  const TokenBIcon = getNativeIcon(pair.tokenB.displaySymbol)
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const [isConversionRequired, setIsConversionRequired] = useState(false)
-  const TokenA = useSelector((state: RootState) => tokenSelector(state.wallet, tokenA.id))
-  const TokenB = useSelector((state: RootState) => tokenSelector(state.wallet, tokenB.id))
 
   useEffect(() => {
     setIsOnPage(true)
@@ -89,11 +87,11 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     setIsSubmitting(true)
     await constructSignedAddLiqAndSend(
       {
-        tokenASymbol: tokenA.displaySymbol,
-        tokenAId: Number(tokenA.id),
+        tokenASymbol: pair.tokenA.displaySymbol,
+        tokenAId: Number(pair.tokenA.id),
         tokenAAmount,
-        tokenBSymbol: tokenB.displaySymbol,
-        tokenBId: Number(tokenB.id),
+        tokenBSymbol: pair.tokenB.displaySymbol,
+        tokenBId: Number(pair.tokenB.id),
         tokenBAmount
       },
       dispatch,
@@ -132,14 +130,14 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
             height={16}
             width={16}
             style={tailwind('relative z-10 -mt-2')}
-            testID={`text_add_amount_suffix_${tokenA.displaySymbol}`}
+            testID={`text_add_amount_suffix_${pair.tokenA.displaySymbol}`}
           />
 
           <TokenBIcon
             height={16}
             width={16}
             style={tailwind('-ml-2 mt-2 mr-2')}
-            testID={`text_add_amount_suffix_${tokenB.displaySymbol}`}
+            testID={`text_add_amount_suffix_${pair.tokenB.displaySymbol}`}
           />
         </SummaryTitle>
         {isConversionRequired && <ConversionTag />}
@@ -163,21 +161,21 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       />
 
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Your pooled {{symbol}}', { symbol: `${tokenA?.displaySymbol}` })}
+        lhs={translate('screens/ConfirmAddLiq', 'Your pooled {{symbol}}', { symbol: `${pair.tokenA?.displaySymbol}` })}
         rhs={{
-          value: tokenA.reserve,
+          value: pair.tokenA.reserve,
           testID: 'pooled_a',
           suffixType: 'text',
-          suffix: tokenA.displaySymbol
+          suffix: pair.tokenA.displaySymbol
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Your pooled {{symbol}}', { symbol: `${tokenB?.displaySymbol}` })}
+        lhs={translate('screens/ConfirmAddLiq', 'Your pooled {{symbol}}', { symbol: `${pair.tokenB?.displaySymbol}` })}
         rhs={{
-          value: tokenB.reserve,
+          value: pair.tokenB.reserve,
           testID: 'pooled_b',
           suffixType: 'text',
-          suffix: tokenB.displaySymbol
+          suffix: pair.tokenB.displaySymbol
         }}
       />
 
@@ -192,21 +190,21 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       />
 
       <NumberRow
-        lhs={tokenA.displaySymbol}
+        lhs={pair.tokenA.displaySymbol}
         rhs={{
           testID: 'a_amount',
           value: BigNumber.max(tokenAAmount, 0).toFixed(8),
           suffixType: 'text',
-          suffix: tokenA.displaySymbol
+          suffix: pair.tokenA.displaySymbol
         }}
       />
       <NumberRow
-        lhs={tokenB.displaySymbol}
+        lhs={pair.tokenB.displaySymbol}
         rhs={{
           testID: 'b_amount',
           value: BigNumber.max(tokenBAmount, 0).toFixed(8),
           suffixType: 'text',
-          suffix: tokenB.displaySymbol
+          suffix: pair.tokenB.displaySymbol
         }}
       />
 
@@ -215,41 +213,41 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         text={translate('screens/ConfirmAddLiq', 'PRICE DETAILS')}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
+        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
         rhs={{
           value: aToBRate.toFixed(8),
           testID: 'price_a',
           suffixType: 'text',
-          suffix: tokenA.displaySymbol
+          suffix: pair.tokenA.displaySymbol
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenB.displaySymbol, tokenB: tokenA.displaySymbol })}
+        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenB.displaySymbol, tokenB: pair.tokenA.displaySymbol })}
         rhs={{
           value: bToARate.toFixed(8),
           testID: 'price_b',
           suffixType: 'text',
-          suffix: tokenB.displaySymbol
+          suffix: pair.tokenB.displaySymbol
         }}
       />
 
       {isConversionRequired &&
         <ConversionDetailsRow
-          utxoBalance={new BigNumber(TokenB?.amount ?? 0).minus(tokenBAmount).minus(fee).toFixed(8)}
+          utxoBalance={new BigNumber(tokenB?.amount ?? 0).minus(tokenBAmount).minus(fee).toFixed(8)}
           tokenBalance='0'
         />}
 
       <TransactionResultsRow
         tokens={[
           {
-            symbol: tokenA.displaySymbol,
-            value: new BigNumber(TokenA?.amount ?? 0).minus(tokenAAmount).toFixed(8),
-            suffix: tokenA.displaySymbol
+            symbol: pair.tokenA.displaySymbol,
+            value: new BigNumber(tokenA?.amount ?? 0).minus(tokenAAmount).toFixed(8),
+            suffix: pair.tokenA.displaySymbol
           },
           {
-            symbol: tokenB.displaySymbol,
-            value: new BigNumber(TokenB?.amount ?? 0).minus(tokenBAmount).minus(fee).toFixed(8),
-            suffix: tokenB.displaySymbol
+            symbol: pair.tokenB.displaySymbol,
+            value: new BigNumber(tokenB?.amount ?? 0).minus(tokenBAmount).minus(fee).toFixed(8),
+            suffix: pair.tokenB.displaySymbol
           }
         ]}
       />

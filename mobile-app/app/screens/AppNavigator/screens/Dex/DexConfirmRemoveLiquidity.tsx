@@ -11,7 +11,6 @@ import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
 import { ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
-import { TokenBalanceRow } from '@components/TokenBalanceRow'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
@@ -19,6 +18,8 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { TextRow } from '@components/TextRow'
+import { TransactionResultsRow } from '@components/TransactionResultsRow'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmRemoveLiquidity'>
 
@@ -28,7 +29,9 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
     amount,
     fee,
     tokenAAmount,
-    tokenBAmount
+    tokenBAmount,
+    tokenA,
+    tokenB
   } = route.params
   const aToBRate = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
   const bToARate = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
@@ -91,33 +94,52 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
       </ThemedView>
 
       <ThemedSectionTitle
-        testID='title_remove_detail'
-        text={translate('screens/ConfirmRemoveLiquidity', 'ESTIMATED AMOUNT TO RECEIVE')}
-      />
-
-      <TokenBalanceRow
-        iconType={pair?.tokenA?.displaySymbol}
-        lhs={pair?.tokenA?.displaySymbol}
-        rhs={{
-          value: BigNumber.max(tokenAAmount, 0).toFixed(8),
-          testID: 'a_amount'
-        }}
-      />
-
-      <TokenBalanceRow
-        iconType={pair?.tokenB?.displaySymbol}
-        lhs={pair?.tokenB?.displaySymbol}
-        rhs={{
-          value: BigNumber.max(tokenBAmount, 0).toFixed(8),
-          testID: 'b_amount'
-        }}
-      />
-
-      <ThemedSectionTitle
         testID='title_tx_detail'
         text={translate('screens/ConfirmRemoveLiquidity', 'TRANSACTION DETAILS')}
       />
 
+      <TextRow
+        lhs={translate('screens/ConfirmRemoveLiquidity', 'Transaction type')}
+        rhs={{
+          value: translate('screens/ConfirmRemoveLiquidity', 'Remove liquidity'),
+          testID: 'text_transaction_type'
+        }}
+        textStyle={tailwind('text-sm font-normal')}
+      />
+
+      <EstimatedFeeInfo
+        lhs={translate('screens/ConfirmRemoveLiquidity', 'Estimated fee')}
+        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffix: 'DFI' }}
+      />
+
+      <ThemedSectionTitle
+        testID='title_remove_detail'
+        text={translate('screens/ConfirmRemoveLiquidity', 'ESTIMATED AMOUNT TO RECEIVE')}
+      />
+
+      <NumberRow
+        lhs={pair?.tokenA?.displaySymbol}
+        rhs={{
+          testID: 'a_amount',
+          value: BigNumber.max(tokenAAmount, 0).toFixed(8),
+          suffixType: 'text',
+          suffix: pair?.tokenA?.displaySymbol
+        }}
+      />
+      <NumberRow
+        lhs={pair?.tokenB?.displaySymbol}
+        rhs={{
+          testID: 'b_amount',
+          value: BigNumber.max(tokenBAmount, 0).toFixed(8),
+          suffixType: 'text',
+          suffix: pair?.tokenB?.displaySymbol
+        }}
+      />
+
+      <ThemedSectionTitle
+        testID='title_price_detail'
+        text={translate('screens/ConfirmRemoveLiquidity', 'PRICE DETAILS')}
+      />
       <NumberRow
         lhs={translate('screens/ConfirmRemoveLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenB.displaySymbol, tokenB: pair.tokenA.displaySymbol })}
         rhs={{
@@ -137,9 +159,19 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         }}
       />
 
-      <EstimatedFeeInfo
-        lhs={translate('screens/ConfirmRemoveLiquidity', 'Estimated fee')}
-        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffix: 'DFI' }}
+      <TransactionResultsRow
+        tokens={[
+          {
+            symbol: pair.tokenA.displaySymbol,
+            value: new BigNumber(tokenA.amount).plus(tokenAAmount).toFixed(8),
+            suffix: pair.tokenA.displaySymbol
+          },
+          {
+            symbol: pair.tokenB.displaySymbol,
+            value: new BigNumber(tokenB.amount).plus(tokenBAmount).minus(fee).toFixed(8),
+            suffix: pair.tokenB.displaySymbol
+          }
+        ]}
       />
 
       <SubmitButtonGroup

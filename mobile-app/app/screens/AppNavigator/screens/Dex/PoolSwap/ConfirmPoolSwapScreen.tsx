@@ -21,6 +21,9 @@ import { getNativeIcon } from '@components/icons/assets'
 import { DFITokenSelector } from '@store/wallet'
 import { ConversionTag } from '@components/ConversionTag'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { TextRow } from '@components/TextRow'
+import { ConversionDetailsRow } from '@components/ConversionDetailsRow'
+import { TransactionResultsRow } from '@components/TransactionResultsRow'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmPoolSwapScreen'>
 
@@ -60,7 +63,6 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
 
   useEffect(() => {
     const poolswapDFIAmount = getPoolswapDFIAmount(swap)
-    console.log(poolswapDFIAmount.toFixed(8), DFIToken.amount)
     if (poolswapDFIAmount.isGreaterThan(new BigNumber(DFIToken.amount))) {
       setIsConversionRequired(true)
     }
@@ -110,41 +112,35 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
       </ThemedView>
 
       <ThemedSectionTitle
-        testID='title_swap_detail'
-        text={translate('screens/PoolSwapConfirmScreen', 'ESTIMATED BALANCE AFTER SWAP')}
-      />
-      <NumberRow
-        lhs={translate('screens/PoolSwapConfirmScreen', '{{token}} balance', { token: tokenA.displaySymbol })}
-        rhs={{
-          testID: 'source_amount',
-          value: BigNumber.max(new BigNumber(tokenA.amount).minus(swap.fromAmount), 0).toFixed(8),
-          suffixType: 'text',
-          suffix: tokenA.displaySymbol
-        }}
-      />
-      <NumberRow
-        lhs={translate('screens/PoolSwapConfirmScreen', '{{token}} balance', { token: tokenB.displaySymbol })}
-        rhs={{
-          testID: 'target_amount',
-          value: BigNumber.max(new BigNumber(tokenB.amount).plus(swap.toAmount), 0).toFixed(8),
-          suffixType: 'text',
-          suffix: tokenB.displaySymbol
-        }}
-      />
-
-      <ThemedSectionTitle
         testID='title_tx_detail'
         text={translate('screens/PoolSwapConfirmScreen', 'TRANSACTION DETAILS')}
       />
 
-      <NumberRow
-        lhs={translate('screens/PoolSwapConfirmScreen', 'Slippage Tolerance')}
+      <TextRow
+        lhs={translate('screens/PoolSwapConfirmScreen', 'Transaction type')}
         rhs={{
-          value: new BigNumber(slippage).times(100).toFixed(),
-          suffix: '%',
-          testID: 'slippage_fee',
-          suffixType: 'text'
+          value: isConversionRequired ? translate('screens/PoolSwapConfirmScreen', 'Convert & swap') : translate('screens/PoolSwapConfirmScreen', 'Swap'),
+          testID: 'text_transaction_type'
         }}
+        textStyle={tailwind('text-sm font-normal')}
+      />
+      <NumberRow
+        lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated to receive')}
+        rhs={{
+          testID: 'estimated_to_receive',
+          value: swap.toAmount.toFixed(8),
+          suffixType: 'text',
+          suffix: swap.toToken.displaySymbol
+        }}
+      />
+      <EstimatedFeeInfo
+        lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated fee')}
+        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffix: 'DFI' }}
+      />
+
+      <ThemedSectionTitle
+        testID='title_price_details'
+        text={translate('screens/PoolSwapConfirmScreen', 'PRICE DETAILS')}
       />
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
@@ -164,10 +160,35 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
           suffix: tokenB.displaySymbol
         }}
       />
+      <NumberRow
+        lhs={translate('screens/PoolSwapConfirmScreen', 'Slippage Tolerance')}
+        rhs={{
+          value: new BigNumber(slippage).times(100).toFixed(),
+          suffix: '%',
+          testID: 'slippage_fee',
+          suffixType: 'text'
+        }}
+      />
 
-      <EstimatedFeeInfo
-        lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated fee')}
-        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffix: 'DFI' }}
+      {isConversionRequired &&
+        <ConversionDetailsRow
+          utxoBalance={new BigNumber(tokenB?.amount ?? 0).minus(tokenB.amount).minus(fee).toFixed(8)}
+          tokenBalance='0'
+        />}
+
+      <TransactionResultsRow
+        tokens={[
+          {
+            symbol: tokenA.displaySymbol,
+            value: BigNumber.max(new BigNumber(tokenA.amount).minus(swap.fromAmount), 0).toFixed(8),
+            suffix: tokenA.displaySymbol
+          },
+          {
+            symbol: tokenB.displaySymbol,
+            value: BigNumber.max(new BigNumber(tokenB.amount).plus(swap.toAmount), 0).toFixed(8),
+            suffix: tokenB.displaySymbol
+          }
+        ]}
       />
 
       <SubmitButtonGroup
