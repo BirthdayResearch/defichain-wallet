@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useMemo } from 'react'
 import { EnvironmentNetwork } from '@environment'
-import { useNetworkContext } from './NetworkContext'
+import { useNetworkContext } from '@contexts/NetworkContext'
 
 interface DeFiScanContextI {
   getTransactionUrl: (txid: string, rawtx?: string) => string

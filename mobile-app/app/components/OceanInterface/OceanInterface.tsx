@@ -1,5 +1,5 @@
 import { Logging } from '@api'
-import { useDeFiScanContext } from '@contexts/DeFiScanContext'
+import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { useThemeContext } from '@contexts/ThemeProvider'
 import { useWalletContext } from '@contexts/WalletContext'
 import { useWhaleApiClient } from '@contexts/WhaleContext'

@@ -11,7 +11,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { TextRow } from '@components/TextRow'
 import { NumberRow } from '@components/NumberRow'
-import { useDeFiScanContext } from '@contexts/DeFiScanContext'
+import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 
 export function NetworkDetails (): JSX.Element {
   const { network } = useNetworkContext()

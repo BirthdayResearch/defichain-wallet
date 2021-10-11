@@ -20,7 +20,7 @@ import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
 import { MaterialIcons } from '@expo/vector-icons'
 import { Linking, TouchableOpacity } from 'react-native'
-import { useDeFiScanContext } from '@contexts/DeFiScanContext'
+import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 
 interface TokenActionItems {
   title: string

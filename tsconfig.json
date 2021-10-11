@@ -49,6 +49,12 @@
       "@shared-api/*": [
         "../../shared/api/*"
       ],
+      "@shared-contexts": [
+        "../../shared/contexts"
+      ],
+      "@shared-contexts/*": [
+        "../../shared/contexts/*"
+      ],
       "@screens/*": [
         "screens/*"
       ],
