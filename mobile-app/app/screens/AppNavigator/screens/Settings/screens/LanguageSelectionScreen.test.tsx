@@ -6,7 +6,7 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn()
 }))
 
-jest.mock('../../../../../contexts/LanguageProvider', () => ({
+jest.mock('@shared-contexts/LanguageProvider', () => ({
   useLanguageContext: () => {
     return {
       language: 'en'

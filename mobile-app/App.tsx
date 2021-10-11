@@ -1,7 +1,7 @@
 import * as SplashScreen from 'expo-splash-screen'
 import React from 'react'
 import './_shim'
-import { Logging, SecuredStoreAPI } from '@api'
+import { Logging, SecuredStoreAPI, LanguagePersistence } from '@api'
 import { AppStateContextProvider } from '@contexts/AppStateContext'
 import { DeFiScanProvider } from '@shared-contexts/DeFiScanContext'
 import { PrivacyLockContextProvider } from '@contexts/LocalAuthContext'
@@ -15,7 +15,7 @@ import { useCachedResources } from '@hooks/useCachedResources'
 import ConnectionBoundary from '@screens/ConnectionBoundary/ConnectionBoundary'
 import ErrorBoundary from '@screens/ErrorBoundary/ErrorBoundary'
 import { Main } from '@screens/Main'
-import { LanguageProvider, useLanguage } from '@contexts/LanguageProvider'
+import { LanguageProvider, useLanguage } from '@shared-contexts/LanguageProvider'
 
 /**
  * Loads
@@ -27,7 +27,7 @@ import { LanguageProvider, useLanguage } from '@contexts/LanguageProvider'
 export default function App (): JSX.Element | null {
   const isLoaded = useCachedResources()
   const { isThemeLoaded } = useTheme()
-  const { isLanguageLoaded } = useLanguage()
+  const { isLanguageLoaded } = useLanguage({ api: LanguagePersistence, log: Logging })
 
   if (!isLoaded && !isThemeLoaded && !isLanguageLoaded) {
     SplashScreen.preventAutoHideAsync()
@@ -49,7 +49,7 @@ export default function App (): JSX.Element | null {
                   <StoreProvider>
                     <StatsProvider>
                       <ThemeProvider>
-                        <LanguageProvider>
+                        <LanguageProvider api={LanguagePersistence} log={Logging}>
                           <ConnectionBoundary>
                             <Main />
                           </ConnectionBoundary>
