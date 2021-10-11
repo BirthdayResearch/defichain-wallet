@@ -6,9 +6,9 @@ import { NetworkDetails } from './NetworkDetails'
 import { RootState } from '@store'
 import { block } from '@store/block'
 
-jest.mock('../../../../../contexts/ThemeProvider')
+jest.mock('@contexts/ThemeProvider')
 
-jest.mock('../../../../../contexts/NetworkContext', () => ({
+jest.mock('@shared-contexts/NetworkContext', () => ({
   useNetworkContext: () => {
     return {
       network: 'Playground'
@@ -16,7 +16,7 @@ jest.mock('../../../../../contexts/NetworkContext', () => ({
   }
 }))
 
-jest.mock('../../../../../contexts/DeFiScanContext', () => ({
+jest.mock('@shared-contexts/DeFiScanContext', () => ({
   useDeFiScanContext: () => {
     return {
       getBlocksUrl: jest.fn

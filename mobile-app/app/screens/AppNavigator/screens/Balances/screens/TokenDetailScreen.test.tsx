@@ -6,13 +6,13 @@ import { RootState } from '@store'
 import { wallet } from '@store/wallet'
 import { TokenDetailScreen } from './TokenDetailScreen'
 
-jest.mock('../../../../../contexts/ThemeProvider')
-jest.mock('../../../../../contexts/DeFiScanContext', () => ({
+jest.mock('@contexts/ThemeProvider')
+jest.mock('@shared-contexts/DeFiScanContext', () => ({
   useDeFiScanContext: () => ({
     getTokenUrl: jest.fn
   })
 }))
-jest.mock('../../../../../hooks/wallet/TokensAPI', () => ({
+jest.mock('@hooks/wallet/TokensAPI', () => ({
   useTokensAPI: () => [
     {
       id: '0_utxo',
