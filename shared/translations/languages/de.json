@@ -43,6 +43,10 @@
     "Conveniently swap participating tokens within the liquidity pool.": "Bequemer Umtausch von im Liquidity Pool vertretenen Token.",
     "You have full control over your tokens unlike any other.": "Nur du hast volle Kontrolle über deine Token."
   },
+  "screens/EstimatedFeeInfo": {
+    "Estimated fee": "Geschätzte Gebühr",
+    "Each transaction will subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "Jede Transaktion unterliegt einer geringen Gebühr. Der Betrag kann je nach Auslastung des Netzwerks variieren."
+  },
   "screens/BalancesScreen": {
     "Balances": "Guthaben",
     "RECEIVE": "EMPFANGEN",
@@ -138,8 +142,6 @@
     "NETWORK": "NETZWERK",
     "To update your passcode, we need you to enter your current passcode.": "Um dein Passwort zu ändern ist das bisherige Passwort einzugeben.",
     "Verifying passcode...": "Passwort bestätigen...",
-    "To continue viewing your recovery words, we need you to enter your passcode.": "Gib bitte dein Passwort ein um erneut deine Wiederherstellungswörter anzuzeigen.",
-    "Loading...": "Lädt...",
     "Network Switch": "Netzwerk wechseln",
     "No": "Nein",
     "Yes": "Ja",
@@ -160,7 +162,8 @@
     "Face ID": "Face ID",
     "Touch ID": "Touch ID",
     "device's lock": "Gerätesperre",
-    "biometric": "biometrische"
+    "biometric": "biometrische",
+    "Enter passcode to continue": "Passwort eingeben, um fortzufahren"
   },
   "screens/AboutScreen": {
     "About": "Über",
@@ -445,12 +448,19 @@
     "CONFIRM SWAP": "BESTÄTIGE DEN UMTAUSCH"
   },
   "screens/UnlockWallet": {
-    "Enter passcode": "Passworteingabe",
-    "CANCEL": "ABBRECHEN",
-    "Please enter passcode to securely sign your transaction": "Gib bitte das Passwort ein, um die Transaktion freizugeben"
+    "Enter Passcode": "Passwort eingeben",
+    "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
+    "Please enter passcode to securely sign your transaction": "Gib bitte das Passwort ein, um die Transaktion freizugeben",
+    "Access granted": "Zugriff gewährt",
+    "You may now proceed": "Du kannst nun fortfahren",
+    "Sign to verify access": "Signieren, um den Zugriff zu bestätigen"
   },
   "screens/TransactionAuthorization": {
-    "Signing...": "Freigabe läuft..."
+    "Sign Transaction": "Transaktion freigeben",
+    "Signing your transaction...": "Transaktionsfreigabe...",
+    "Transaction authorized": "Transaktion genehmigt",
+    "Please wait as your transaction is prepared": "Bitte warten, während die Transaktion vorbereitet wird",
+    "Verifying access": "Zugriff wird verifiziert"
   },
   "components/CreateWalletIndicator": {
     "Recovery": "Stelle wieder her",

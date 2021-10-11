@@ -20,6 +20,7 @@ import { DerivedTokenState } from './PoolSwapScreen'
 import { getNativeIcon } from '@components/icons/assets'
 import { DFITokenSelector } from '@store/wallet'
 import { ConversionTag } from '@components/ConversionTag'
+import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmPoolSwapScreen'>
 
@@ -163,9 +164,10 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
           suffix: tokenB.displaySymbol
         }}
       />
-      <NumberRow
+
+      <EstimatedFeeInfo
         lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated fee')}
-        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffixType: 'text', suffix: 'DFI' }}
+        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffix: 'DFI' }}
       />
 
       <SubmitButtonGroup

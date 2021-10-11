@@ -43,6 +43,10 @@
     "Conveniently swap participating tokens within the liquidity pool.": "方便地在流动池里兑换货币",
     "You have full control over your tokens unlike any other.": "您能完全掌控货币"
   },
+  "screens/EstimatedFeeInfo": {
+    "Estimated fee": "所需费用（大约）",
+    "Each transaction will subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "每笔交易需要支付少量的费用. 金额可能因网络拥挤程度而异."
+  },
   "screens/BalancesScreen": {
     "Balances": "我的资产",
     "RECEIVE": "接收",
@@ -138,8 +142,6 @@
     "NETWORK": "网络",
     "To update your passcode, we need you to enter your current passcode.": "需要使用目前的密码才能更换密码",
     "Verifying passcode...": "正在确认密码...",
-    "To continue viewing your recovery words, we need you to enter your passcode.": "请输入您的密码即可继续查看您的恢复字组",
-    "Loading...": "请稍等...",
     "Network Switch": "切换网络",
     "No": "不要",
     "Yes": "好的",
@@ -161,7 +163,8 @@
     "Face ID": "Face ID",
     "Touch ID": "Touch ID",
     "device's lock": "device's lock",
-    "biometric": "biometric"
+    "biometric": "biometric",
+    "Enter passcode to continue": "输入密码后可继续"
   },
   "screens/AboutScreen": {
     "About": "关于",
@@ -381,7 +384,7 @@
     "Price": "价格",
     "Estimated fee": "所需费用（大约）",
     "REMOVE": "退出",
-    "{{tokenA}} price per {{tokenB}}":"{{tokenA}} price per {{tokenB}}"
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "退出流动资金",
@@ -448,12 +451,19 @@
     "CONFIRM SWAP": "确认兑换"
   },
   "screens/UnlockWallet": {
-    "Enter passcode": "请输入密码",
-    "CANCEL": "取消",
-    "Please enter passcode to securely sign your transaction": "请输入密码以安全地签下您的交易"
+    "Enter Passcode": "请输入密码",
+    "Enter passcode to continue": "输入密码后可继续",
+    "Please enter passcode to securely sign your transaction": "请输入密码以安全地签下您的交易",
+    "Access granted": "已授予访问权限",
+    "You may now proceed": "你现在可以继续",
+    "Sign to verify access": "签名确认访问权限"
   },
   "screens/TransactionAuthorization": {
-    "Signing...": "您正在为此交易授权..."
+    "Sign Transaction": "签署交易",
+    "Signing your transaction...": "正在签署交易",
+    "Verifying access": "验证访问权限",
+    "Transaction authorized": "已授權交易",
+    "Please wait as your transaction is prepared": "正在准备交易，请稍候"
   },
   "components/CreateWalletIndicator": {
     "Recovery": "恢复",

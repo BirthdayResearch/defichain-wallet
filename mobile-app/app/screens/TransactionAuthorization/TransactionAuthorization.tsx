@@ -27,9 +27,19 @@ import { PasscodePrompt } from './PasscodePrompt'
 const MAX_PASSCODE_ATTEMPT = 3 // allowed 2 failures
 const PIN_LENGTH = 6
 const DEFAULT_MESSAGES = {
-  message: translate('screens/UnlockWallet', 'Please enter passcode to securely sign your transaction'),
-  loadingMessage: translate('screens/TransactionAuthorization', 'Signing...')
+  message: 'Enter passcode to continue',
+  loadingMessage: 'Signing your transaction...',
+  authorizedTransactionMessage: {
+    title: 'Transaction authorized',
+    description: 'Please wait as your transaction is prepared'
+  },
+  grantedAccessMessage: {
+    title: 'Access granted',
+    description: 'You may now proceed'
+  }
 }
+const SUCCESS_DISPLAY_TIMEOUT_IN_MS = 2000
+const CANCELED_ERROR = 'canceled error'
 
 /**
  * useRef() working well on web but not on mobile
@@ -43,7 +53,7 @@ let PASSPHRASE_PROMISE_PROXY: {
 const INVALID_HASH = 'invalid hash'
 const USER_CANCELED = 'USER_CANCELED'
 
-export type Status = 'INIT' | 'IDLE' | 'BLOCK' | 'PIN' | 'SIGNING'
+export type Status = 'INIT' | 'IDLE' | 'BLOCK' | 'PIN' | 'SIGNING' | 'AUTHORIZED'
 
 /**
  * The main UI page transaction signing logic interact with encrypted wallet context
@@ -92,6 +102,12 @@ export function TransactionAuthorization (): JSX.Element | null {
       PASSPHRASE_PROMISE_PROXY.reject(new Error(USER_CANCELED))
       // remove proxied promised, allow next prompt() call
       PASSPHRASE_PROMISE_PROXY = undefined
+    } else if (status === 'AUTHORIZED') {
+      PASSPHRASE_PROMISE_PROXY = undefined
+      transaction === undefined
+        ? dispatch(authenticationStore.actions.dismiss())
+        : dispatch(transactionQueue.actions.pop())
+      onTaskCompletion()
     }
   }, [PASSPHRASE_PROMISE_PROXY, PASSPHRASE_PROMISE_PROXY?.reject])
 
@@ -177,6 +193,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       signTransaction(transaction, wallet.get(0), onRetry, retries)
         .then(async signedTx => {
           // case 1: success
+          emitEvent('AUTHORIZED')
           await resetPasscodeCounter()
           dispatch(ocean.actions.queueTransaction({ tx: signedTx, postAction: transaction.postAction })) // push signed result for broadcasting
         })
@@ -190,22 +207,27 @@ export function TransactionAuthorization (): JSX.Element | null {
             // case 4: unknown error type
             dispatch(ocean.actions.setError(e))
           }
-          // case 3: canceled, no special handling required
+
+          // case 3: canceled
+          throw new Error(CANCELED_ERROR) // pass to last catch so all cases will complete task
         })
-        .catch(e => Logging.error(e)) // not expect logic reach here
-        .finally(() => {
+        .catch(e => {
           dispatch(transactionQueue.actions.pop()) // remove job
           onTaskCompletion()
+
+          if (e.message !== CANCELED_ERROR) { // no need to log if user cancels
+            Logging.error(e)
+          }
         })
     } else if (authentication !== undefined) {
       emitEvent('BLOCK') // prevent any re-render trigger (between IDLE and PIN)
-
       setMessage(authentication.message)
       setLoadingMessage(authentication.loading)
 
       authenticateFor(onPrompt, authentication, onRetry, retries)
         .then(async () => {
           // case 1: success
+          emitEvent('AUTHORIZED')
           await resetPasscodeCounter()
         })
         .catch(async e => {
@@ -218,12 +240,17 @@ export function TransactionAuthorization (): JSX.Element | null {
             // case 4: unknown error type
             authentication.onError(e)
           }
-          // case 3: canceled, no handling required atm
+
+          // case 3: canceled
+          throw new Error(CANCELED_ERROR) // pass to last catch so all cases will complete task
         })
-        .catch(e => Logging.error(e))
-        .finally(() => {
-          dispatch(authenticationStore.actions.dismiss())
-          onTaskCompletion()
+        .catch(e => {
+            dispatch(authenticationStore.actions.dismiss())
+            onTaskCompletion()
+
+          if (e.message !== CANCELED_ERROR) { // no need to log if user cancels
+            Logging.error(e)
+          }
         })
     }
   }, [transaction, wallet, status, authentication, attemptsRemaining])
@@ -234,6 +261,19 @@ export function TransactionAuthorization (): JSX.Element | null {
       onPinInput(pin)
     }
   }, [status, pin])
+
+  // reset UI after n seconds
+  useEffect(() => {
+    if (status === 'AUTHORIZED') {
+      setTimeout(() => {
+    transaction === undefined
+          ? dispatch(authenticationStore.actions.dismiss())
+          : dispatch(transactionQueue.actions.pop())
+        PASSPHRASE_PROMISE_PROXY = undefined
+        onTaskCompletion()
+      }, SUCCESS_DISPLAY_TIMEOUT_IN_MS)
+    }
+  }, [status])
 
   if (status === 'INIT' || status === 'IDLE' || status === 'BLOCK') {
     return null
@@ -249,6 +289,18 @@ export function TransactionAuthorization (): JSX.Element | null {
       onPinInput={onPinInput}
       pin={pin}
       loadingMessage={translate('screens/TransactionAuthorization', loadingMessage)}
+      authorizedTransactionMessage={
+        {
+          title: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.title),
+          description: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.description)
+        }
+      }
+      grantedAccessMessage={
+        {
+          title: translate('screens/UnlockWallet', DEFAULT_MESSAGES.grantedAccessMessage.title),
+          description: translate('screens/UnlockWallet', DEFAULT_MESSAGES.grantedAccessMessage.description)
+        }
+      }
       isRetry={isRetry}
       attemptsRemaining={attemptsRemaining}
       maxPasscodeAttempt={MAX_PASSCODE_ATTEMPT}

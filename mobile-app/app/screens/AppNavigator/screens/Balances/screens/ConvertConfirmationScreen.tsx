@@ -7,7 +7,6 @@ import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '@api'
-import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
 import { RootState } from '@store'
@@ -17,8 +16,10 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
+import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
+import { NumberRow } from '@components/NumberRow'
 
 type Props = StackScreenProps<BalanceParamList, 'ConvertConfirmationScreen'>
 
@@ -119,6 +120,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
+
       <NumberRow
         lhs={translate('screens/ConvertConfirmScreen', '{{token}} to receive', { token: targetUnit })}
         rhs={{
@@ -126,13 +128,13 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
           testID: 'token_to_receive_amount'
         }}
       />
-      <NumberRow
+
+      <EstimatedFeeInfo
         lhs={translate('screens/ConvertConfirmScreen', 'Estimated fee')}
         rhs={{
           value: fee.toFixed(8),
           testID: 'text_fee',
-          suffixType: 'text',
-          suffix: ' DFI (UTXO)'
+          suffix: 'DFI'
         }}
       />
 

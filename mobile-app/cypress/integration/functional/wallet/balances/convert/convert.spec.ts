@@ -150,7 +150,7 @@ context('Wallet - Convert UTXO to Account', function () {
       .contains(`Converting ${new BigNumber(oldAmount).toFixed(8)} UTXO to Token`)
 
     // Cancel send on authorisation page
-    cy.getByTestID('cancel_authorization').contains('CANCEL').click()
+    cy.getByTestID('cancel_authorization').click()
     cy.getByTestID('button_cancel_convert').click()
     // Update the input amount
     cy.getByTestID('text_input_convert_from_input').clear().type(newAmount)
@@ -205,7 +205,7 @@ context('Wallet - Convert Account to UTXO', function () {
     cy.getByTestID('txn_authorization_description')
       .contains(`Converting ${new BigNumber(oldAmount).toFixed(8)} Token to UTXO`)
     // Cancel send on authorisation page
-    cy.getByTestID('cancel_authorization').contains('CANCEL').click()
+    cy.getByTestID('cancel_authorization').click()
     cy.getByTestID('button_cancel_convert').click()
     // Update the input amount
     cy.getByTestID('text_input_convert_from_input').clear().type(newAmount)

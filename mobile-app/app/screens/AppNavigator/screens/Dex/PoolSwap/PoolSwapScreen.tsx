@@ -26,6 +26,7 @@ import { SlippageTolerance } from './components/SlippageTolerance'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { InputHelperText } from '@components/InputHelperText'
 import { WalletToken } from '@store/wallet'
+import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 
 export interface DerivedTokenState {
   id: string
@@ -438,12 +439,11 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee }: SwapSumma
           suffix: tokenB.displaySymbol
         }}
       />
-      <NumberRow
+      <EstimatedFeeInfo
         lhs={translate('screens/PoolSwapScreen', 'Estimated fee')}
         rhs={{
           value: fee,
           testID: 'estimated_fee',
-          suffixType: 'text',
           suffix: 'DFI'
         }}
       />
