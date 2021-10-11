@@ -35,7 +35,7 @@ describe('DFI Balance Card', () => {
     const spy = jest.spyOn(redux, 'useSelector')
     spy.mockReturnValueOnce(dfiToken)
     spy.mockReturnValueOnce(dfiUtxo)
-    const rendered = render(<DFIBalanceCard />)
+    const rendered = render(<DFIBalanceCard isBalancesDisplayed hiddenBalancesText='*****' />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })
