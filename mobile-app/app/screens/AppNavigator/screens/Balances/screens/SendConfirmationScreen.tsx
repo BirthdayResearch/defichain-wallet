@@ -49,7 +49,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
     }
   }
   const [isConversionRequired, setIsConversionRequired] = useState(false)
-  const expectedBalance = BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)).minus(fee.toFixed(8)), 0).toFixed(8)
+  const expectedBalance = BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)), 0).toFixed(8)
   useEffect(() => {
     setIsOnPage(true)
     return () => {
