@@ -4,7 +4,7 @@ import { WalletTextInput } from '@components/WalletTextInput'
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { StackScreenProps } from '@react-navigation/stack'
-import { WalletToken } from '@store/wallet'
+import { DFIUtxoSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
 import { Control, Controller, FieldValues, useForm, UseFormSetValue } from 'react-hook-form'
@@ -48,6 +48,7 @@ export function SendScreen ({
   const isUTXO = (token: WalletToken): boolean => {
     return token.id === '0_utxo'
   }
+  const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
 
   useEffect(() => {
     client.fee.estimate()
@@ -74,7 +75,8 @@ export function SendScreen ({
           destination: values.address,
           token,
           amount: new BigNumber(values.amount),
-          fee
+          fee,
+          DFIUtxo
         },
         merge: true
       })

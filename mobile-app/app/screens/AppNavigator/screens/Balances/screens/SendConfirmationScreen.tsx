@@ -4,7 +4,7 @@ import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-tran
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
-import { DFIUtxoSelector, WalletToken } from '@store/wallet'
+import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,7 +15,6 @@ import { SummaryTitle } from '@components/SummaryTitle'
 import { TextRow } from '@components/TextRow'
 import { ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
 import { useNetworkContext } from '@contexts/NetworkContext'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
@@ -32,12 +31,12 @@ type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
 export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   const network = useNetworkContext()
   const {
+    token,
     destination,
     amount,
-    fee
+    fee,
+    DFIUtxo
   } = route.params
-  const [token, setToken] = useState(route.params.token)
-  const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const dispatch = useDispatch()
@@ -49,7 +48,6 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       navigation.dispatch(StackActions.popToTop())
     }
   }
-  const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const [isConversionRequired, setIsConversionRequired] = useState(false)
   const expectedBalance = BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)).minus(fee.toFixed(8)), 0).toFixed(8)
   useEffect(() => {
@@ -90,13 +88,6 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       })
     }
   }
-
-  useEffect(() => {
-    const t = tokens.find((t) => t.id === token.id)
-    if (t !== undefined) {
-      setToken({ ...t })
-    }
-  }, [JSON.stringify(tokens)])
 
   return (
     <ThemedScrollView style={tailwind('pb-4')}>

@@ -21,6 +21,7 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
+import { tokenSelector } from '@store/wallet'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
@@ -46,6 +47,8 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   const lmToken = tokens.find(token => token.symbol === pair.symbol) as AddressToken
   const tokenAPerLmToken = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
   const tokenBPerLmToken = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
+  const tokenA = useSelector((state: RootState) => tokenSelector(state.wallet, pair.tokenA.id))
+  const tokenB = useSelector((state: RootState) => tokenSelector(state.wallet, pair.tokenB.id))
 
   const setInputPercentage = (percentage: string): void => {
     // this must round down, avoid attempt remove more than selected (or even available)
@@ -64,7 +67,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
-    navigation.navigate('RemoveLiquidityConfirmScreen', { amount, pair, tokenAAmount, tokenBAmount, fee })
+    navigation.navigate('RemoveLiquidityConfirmScreen', { amount, pair, tokenAAmount, tokenBAmount, fee, tokenA, tokenB })
   }
 
   useEffect(() => {

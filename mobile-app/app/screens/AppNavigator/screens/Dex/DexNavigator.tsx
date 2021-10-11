@@ -13,6 +13,7 @@ import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
 import { DexScreen } from './DexScreen'
 import { ConfirmPoolSwapScreen, DexForm } from './PoolSwap/ConfirmPoolSwapScreen'
 import { DerivedTokenState, PoolSwapScreen } from './PoolSwap/PoolSwapScreen'
+import { WalletToken } from '@store/wallet'
 
 export interface DexParamList {
   DexScreen: undefined
@@ -30,7 +31,15 @@ export interface DexParamList {
   AddLiquidity: { pair: PoolPairData }
   ConfirmAddLiquidity: { pair: PoolPairData, summary: AddLiquiditySummary }
   RemoveLiquidity: { pair: PoolPairData }
-  ConfirmRemoveLiquidity: { amount: BigNumber, fee: BigNumber, pair: PoolPairData, tokenAAmount: string, tokenBAmount: string }
+  ConfirmRemoveLiquidity: {
+    amount: BigNumber
+    fee: BigNumber
+    pair: PoolPairData
+    tokenAAmount: string
+    tokenBAmount: string
+    tokenA: WalletToken
+    tokenB: WalletToken
+  }
 
   [key: string]: undefined | object
 }

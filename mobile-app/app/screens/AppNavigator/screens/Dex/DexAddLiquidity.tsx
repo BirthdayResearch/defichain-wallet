@@ -16,7 +16,9 @@ import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
-import { WalletToken } from '@store/wallet'
+import { tokenSelector, WalletToken } from '@store/wallet'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -32,6 +34,8 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const pairs = usePoolPairsAPI()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const tokens = useTokensAPI()
+  const tokenA = useSelector((state: RootState) => tokenSelector(state.wallet, props.route.params.pair.tokenA.id))
+  const tokenB = useSelector((state: RootState) => tokenSelector(state.wallet, props.route.params.pair.tokenA.id))
 
   // this component UI state
   const [tokenAAmount, setTokenAAmount] = useState<string>('')
@@ -148,11 +152,12 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
               name: 'ConfirmAddLiquidity',
               params: {
                 summary: {
-                  ...pair,
                   fee: new BigNumber(0.0001),
                   tokenAAmount: new BigNumber(tokenAAmount),
                   tokenBAmount: new BigNumber(tokenBAmount),
-                  percentage: sharePercentage
+                  percentage: sharePercentage,
+                  tokenA: tokenA,
+                  tokenB: tokenB
                 },
                 pair
               },
