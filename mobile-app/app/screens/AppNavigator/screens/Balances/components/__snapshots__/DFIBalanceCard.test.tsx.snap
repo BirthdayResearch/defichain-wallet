@@ -254,7 +254,6 @@ exports[`DFI Balance Card should match snapshot 1`] = `
             }
             testID="total_dfi_amount"
           >
-            131.34701100
              DFI
           </Text>
           <Text
@@ -279,9 +278,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
               ]
             }
             testID="dfi_utxo_amount"
-          >
-            7.89101100
-          </Text>
+          />
           <Text
             style={
               Array [
@@ -303,9 +300,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
               ]
             }
             testID="dfi_token_amount"
-          >
-            123.45600000
-          </Text>
+          />
         </View>
       </View>
       <View

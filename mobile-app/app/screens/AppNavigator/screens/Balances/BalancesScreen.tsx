@@ -28,7 +28,7 @@ import { ToggleBalancesPersistence } from '@api/persistence/toggle_balances_stor
 import { BalanceParamList } from './BalancesNavigator'
 import { DFIBalanceCard } from './components/DFIBalanceCard'
 
-const HIDDEN_BALANCE_TEXT = '****'
+const HIDDEN_BALANCE_TEXT = '*****'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -78,43 +78,52 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           style={tailwind('h-px')}
         />
       )}
+      ListEmptyComponent={() => (
+        <ThemedText
+          dark={tailwind('text-gray-500')}
+          light={tailwind('text-gray-500')}
+          style={tailwind('text-xs font-medium ml-4 mt-2')}
+          testID='empty_token_text'
+        >
+          {translate('screens/BalancesScreen', 'You do not have any other tokens.')}
+        </ThemedText>)}
       ListHeaderComponent={(
         <>
-          <DFIBalanceCard />
-          {nonDfiTokens.length !== 0 &&
-            <ThemedView
-              style={tailwind('flex flex-row justify-between')}
+          <DFIBalanceCard isBalancesDisplayed={isBalancesDisplayed} hiddenBalancesText={HIDDEN_BALANCE_TEXT} />
+
+          <ThemedView
+            style={tailwind('flex flex-row justify-between')}
+          >
+            <ThemedSectionTitle
+              testID='balances_title'
+              text={translate('screens/BalancesScreen', 'PORTFOLIO')}
+            />
+            <ThemedTouchableOpacity
+              testID='toggle_balance'
+              light={tailwind('bg-transparent')}
+              dark={tailwind('bg-transparent')}
+              style={tailwind('flex flex-row pt-4 pr-4 items-center')}
+              onPress={onToggleDisplayBalances}
             >
-              <ThemedSectionTitle
-                testID='balances_title'
-                text={translate('screens/BalancesScreen', 'PORTFOLIO')}
+              <ThemedIcon
+                iconType='MaterialIcons'
+                dark={tailwind('text-gray-200')}
+                light={tailwind('text-black')}
+                style={tailwind('self-center pr-1')}
+                name={`${isBalancesDisplayed ? 'visibility' : 'visibility-off'}`}
+                size={15}
+                testID='toggle_balance_icon'
               />
-              <ThemedTouchableOpacity
-                testID='toggle_balance'
-                light={tailwind('bg-transparent')}
-                dark={tailwind('bg-transparent')}
-                style={tailwind('flex flex-row pt-4 pr-4 items-center')}
-                onPress={onToggleDisplayBalances}
+              <ThemedText
+                dark={tailwind('text-gray-500')}
+                light={tailwind('text-gray-500')}
+                style={tailwind('text-xs font-medium')}
+                testID='toggle_balance_text'
               >
-                <ThemedIcon
-                  iconType='MaterialIcons'
-                  dark={tailwind('text-gray-200')}
-                  light={tailwind('text-black')}
-                  style={tailwind('self-center pr-1')}
-                  name={`${isBalancesDisplayed ? 'visibility' : 'visibility-off'}`}
-                  size={15}
-                  testID='toggle_balance_icon'
-                />
-                <ThemedText
-                  dark={tailwind('text-gray-500')}
-                  light={tailwind('text-gray-500')}
-                  style={tailwind('text-xs font-medium')}
-                  testID='toggle_balance_text'
-                >
-                  {translate('screens/BalancesScreen', `${isBalancesDisplayed ? 'Hide' : 'Show'} balances`)}
-                </ThemedText>
-              </ThemedTouchableOpacity>
-            </ThemedView>}
+                {translate('screens/BalancesScreen', `${isBalancesDisplayed ? 'Hide' : 'Show'} balances`)}
+              </ThemedText>
+            </ThemedTouchableOpacity>
+          </ThemedView>
         </>
       )}
       data={nonDfiTokens}
@@ -166,7 +175,6 @@ function BalanceItemRow ({
           >
             {token.displaySymbol}
           </ThemedText>
-
           <ThemedText
             dark={tailwind('text-gray-400')}
             ellipsizeMode='tail'

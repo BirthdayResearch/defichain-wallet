@@ -3,9 +3,13 @@
 exports[`balances page should match snapshot 1`] = `
 <RCTScrollView
   ItemSeparatorComponent={[Function]}
+  ListEmptyComponent={[Function]}
   ListHeaderComponent={
     <React.Fragment>
-      <DFIBalanceCard />
+      <DFIBalanceCard
+        hiddenBalancesText="*****"
+        isBalancesDisplayed={false}
+      />
       <ThemedView
         style={
           Object {
@@ -408,7 +412,7 @@ exports[`balances page should match snapshot 1`] = `
                   }
                   testID="total_dfi_amount"
                 >
-                  77.00000000
+                  *****
                    DFI
                 </Text>
                 <Text
@@ -434,7 +438,7 @@ exports[`balances page should match snapshot 1`] = `
                   }
                   testID="dfi_utxo_amount"
                 >
-                  77.00000000
+                  *****
                 </Text>
                 <Text
                   style={
@@ -458,7 +462,7 @@ exports[`balances page should match snapshot 1`] = `
                   }
                   testID="dfi_token_amount"
                 >
-                  0.00000000
+                  *****
                 </Text>
               </View>
             </View>
@@ -1023,7 +1027,7 @@ exports[`balances page should match snapshot 1`] = `
               }
               testID="balances_row_1_amount"
             >
-              ****
+              *****
             </Text>
             <Text
               allowFontScaling={false}
@@ -1278,7 +1282,7 @@ exports[`balances page should match snapshot 1`] = `
               }
               testID="balances_row_2_amount"
             >
-              ****
+              *****
             </Text>
             <Text
               allowFontScaling={false}

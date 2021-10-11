@@ -17,7 +17,12 @@ import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 
-export function DFIBalanceCard (): JSX.Element {
+interface DFIBalanceCardProps {
+  isBalancesDisplayed: boolean
+  hiddenBalancesText: string
+}
+
+export function DFIBalanceCard ({ isBalancesDisplayed, hiddenBalancesText }: DFIBalanceCardProps): JSX.Element {
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const DFIIcon = getNativeIcon('_UTXO')
@@ -73,7 +78,7 @@ export function DFIBalanceCard (): JSX.Element {
                 fixedDecimalScale
                 displayType='text'
                 renderText={value =>
-                  <ThemedText testID='total_dfi_amount' style={tailwind('pb-3.5')}>{value} DFI</ThemedText>}
+                  <ThemedText testID='total_dfi_amount' style={tailwind('pb-3.5')}>{isBalancesDisplayed ? value : hiddenBalancesText} DFI</ThemedText>}
               />
 
               <NumberFormat
@@ -89,7 +94,7 @@ export function DFIBalanceCard (): JSX.Element {
                     style={tailwind('text-sm pb-1.5')}
                     testID='dfi_utxo_amount'
                   >
-                    {value}
+                    {isBalancesDisplayed ? value : hiddenBalancesText}
                   </ThemedText>}
               />
 
@@ -106,7 +111,7 @@ export function DFIBalanceCard (): JSX.Element {
                     style={tailwind('text-sm')}
                     testID='dfi_token_amount'
                   >
-                    {value}
+                    {isBalancesDisplayed ? value : hiddenBalancesText}
                   </ThemedText>}
               />
             </View>
