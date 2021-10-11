@@ -49,7 +49,7 @@
     "PORTFOLIO": "PORTFOLIO",
     "Show balances": "Guthaben sichtbar machen",
     "Hide balances": "Guthaben verbergen",
-    "You do not have any other tokens.": Keine weiteren Token in deinem Bestand."
+    "You do not have any other tokens.": "Keine weiteren Token in deinem Bestand."
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
