@@ -1,4 +1,3 @@
-import { InfoText } from '@components/InfoText'
 import { InputHelperText } from '@components/InputHelperText'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { DeFiAddress } from '@defichain/jellyfish-address'
@@ -24,6 +23,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -45,9 +45,6 @@ export function SendScreen ({
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const isUTXO = (token: WalletToken): boolean => {
-    return token.id === '0_utxo'
-  }
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
 
   useEffect(() => {
@@ -84,38 +81,36 @@ export function SendScreen ({
   }
 
   return (
-    <ThemedScrollView contentContainerStyle={tailwind('px-4 py-8')} testID='send_screen'>
-      <AddressRow
-        control={control}
-        networkName={networkName}
-        onQrButtonPress={() => navigation.navigate({
-          name: 'BarCodeScanner',
-          params: {
-            onQrScanned: async (value) => {
-              setValue('address', value, { shouldDirty: true })
-              await trigger('address')
-            }
-          },
-          merge: true
-        })}
-        setValue={setValue}
-      />
+    <ThemedScrollView contentContainerStyle={tailwind('py-8')} testID='send_screen'>
+      <View style={tailwind('px-4')}>
+        <AddressRow
+          control={control}
+          networkName={networkName}
+          onQrButtonPress={() => navigation.navigate({
+            name: 'BarCodeScanner',
+            params: {
+              onQrScanned: async (value) => {
+                setValue('address', value, { shouldDirty: true })
+                await trigger('address')
+              }
+            },
+            merge: true
+          })}
+          setValue={setValue}
+        />
 
-      <AmountRow
-        control={control}
-        onAmountButtonPress={async (amount) => {
-          setValue('amount', amount, { shouldDirty: true })
-          await trigger('amount')
-        }}
-        setValue={setValue}
-        token={token}
-      />
+        <AmountRow
+          control={control}
+          onAmountButtonPress={async (amount) => {
+            setValue('amount', amount, { shouldDirty: true })
+            await trigger('amount')
+          }}
+          setValue={setValue}
+          token={token}
+        />
 
-      {isUTXO(token) &&
-        <InfoText
-          testID='send_info_text'
-          text={translate('screens/SendScreen', 'A small UTXO amount (0.1 DFI) is reserved for fees.')}
-        />}
+        <ReservedDFIInfoText />
+      </View>
 
       {
         fee !== undefined && (
@@ -131,6 +126,13 @@ export function SendScreen ({
           </View>
         )
       }
+      <ThemedText
+        light={tailwind('text-gray-600')}
+        dark={tailwind('text-gray-300')}
+        style={tailwind('mt-2 mx-4 text-sm')}
+      >
+        {translate('screens/SendScreen', 'Review full transaction details in the next screen')}
+      </ThemedText>
 
       <Button
         disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
@@ -138,16 +140,8 @@ export function SendScreen ({
         onPress={onSubmit}
         testID='send_submit_button'
         title='Send'
-        margin='mt-14'
+        margin='mt-14 mx-4'
       />
-
-      <ThemedText
-        light={tailwind('text-gray-600')}
-        dark={tailwind('text-gray-300')}
-        style={tailwind('mt-4 text-center text-sm')}
-      >
-        {translate('screens/SendScreen', 'Review full transaction details in the next screen')}
-      </ThemedText>
     </ThemedScrollView>
   )
 }

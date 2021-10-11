@@ -1,4 +1,3 @@
-import { InfoText } from '@components/InfoText'
 import { InputHelperText } from '@components/InputHelperText'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
@@ -8,7 +7,6 @@ import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
-import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { Logging } from '@api'
 import { View } from '@components/index'
@@ -24,6 +22,8 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
+import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
+import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<BalanceParamList, 'ConvertScreen'>
@@ -84,33 +84,53 @@ export function ConvertScreen (props: Props): JSX.Element {
   }
 
   return (
-    <ThemedScrollView style={tailwind('w-full flex-col flex-1 px-4 py-8')} testID='convert_screen'>
-      <ConversionIOCard
-        balance={new BigNumber(sourceToken.amount)}
-        current={amount}
-        mode='input'
-        onChange={setAmount}
-        style={tailwind('mt-1')}
-        unit={sourceToken.unit}
-        title={translate('screens/ConvertScreen', 'How much {{symbol}} to convert?', { symbol: sourceToken.unit })}
-        onClearButtonPress={() => setAmount('')}
+    <ThemedScrollView style={tailwind('w-full flex-col flex-1 py-8')} testID='convert_screen'>
+      <View style={tailwind('px-4')}>
+        <ConversionIOCard
+          balance={new BigNumber(sourceToken.amount)}
+          current={amount}
+          mode='input'
+          onChange={setAmount}
+          style={tailwind('mt-1')}
+          unit={sourceToken.unit}
+          title={translate('screens/ConvertScreen', 'How much {{symbol}} to convert?', { symbol: sourceToken.unit })}
+          onClearButtonPress={() => setAmount('')}
+        />
+
+        <ToggleModeButton onPress={() => setMode(mode === 'utxosToAccount' ? 'accountToUtxos' : 'utxosToAccount')} />
+
+        <ConversionReceiveCard
+          amount={new BigNumber(convAmount).toFixed(8)}
+          balance={BigNumber.maximum(new BigNumber(targetToken.amount).plus(convAmount), 0).toFixed(8)}
+          unit={targetToken.unit}
+          title={translate('screens/ConvertScreen', 'After conversion, you will receive')}
+        />
+
+        <TokenVsUtxosInfo />
+
+        {isUtxoToAccount(mode) && <ReservedDFIInfoText style={tailwind('mt-0')} />}
+      </View>
+
+      <ThemedSectionTitle
+        testID='title_transaction_details'
+        text={translate('screens/ConvertScreen', 'TRANSACTION DETAILS')}
+        style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
       />
-
-      <ToggleModeButton onPress={() => setMode(mode === 'utxosToAccount' ? 'accountToUtxos' : 'utxosToAccount')} />
-
-      <ConversionReceiveCard
-        current={BigNumber.maximum(new BigNumber(targetToken.amount).plus(convAmount), 0).toFixed(8)}
-        unit={targetToken.unit}
-        title={translate('screens/ConvertScreen', 'After conversion, you will receive')}
+      <EstimatedFeeInfo
+        lhs={translate('screens/ConvertScreen', 'Estimated fee')}
+        rhs={{
+          value: fee.toString(),
+          suffix: ' DFI',
+          testID: 'transaction_fee'
+        }}
       />
-
-      <TokenVsUtxosInfo />
-
-      {isUtxoToAccount(mode) && <InfoText
-        testID='convert_info_text'
-        text={translate('screens/ConvertScreen', 'A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.')}
-        style={tailwind('mt-0')}
-                                />}
+      <ThemedText
+        light={tailwind('text-gray-600')}
+        dark={tailwind('text-gray-300')}
+        style={tailwind('mt-2 px-4 text-sm')}
+      >
+        {translate('screens/ConvertScreen', 'Review full transaction details in the next screen')}
+      </ThemedText>
 
       <Button
         disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob || hasPendingBroadcastJob}
@@ -118,15 +138,8 @@ export function ConvertScreen (props: Props): JSX.Element {
         onPress={() => convert(sourceToken, targetToken)}
         testID='button_continue_convert'
         title='Convert'
-        margin='mt-8'
+        margin='mt-14 mx-4'
       />
-      <ThemedText
-        light={tailwind('text-gray-600')}
-        dark={tailwind('text-gray-300')}
-        style={tailwind('mt-4 text-center text-sm')}
-      >
-        {translate('screens/ConvertScreen', 'Review full transaction details in the next screen')}
-      </ThemedText>
     </ThemedScrollView>
   )
 }
@@ -196,46 +209,21 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
   )
 }
 
-function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: string, current: string, title: string }): JSX.Element {
+function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: string, amount: string, balance: string, title: string }): JSX.Element {
   return (
-    <View style={[tailwind('flex-col w-full'), props.style]}>
-      <ThemedSectionTitle
-        testID='text_input_convert_from_to_text'
-        text={props.title}
+    <View style={[tailwind('flex-col w-full mt-6'), props.style]}>
+      <WalletTextInput
+        editable={false}
+        title={props.title}
+        inputType='numeric'
+        value={`${props.amount} ${props.unit}`}
       />
-
-      <ThemedView
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
-        light={tailwind('bg-white border-b border-gray-200')}
-        style={tailwind('w-full px-4 flex-row items-center')}
-      >
-        <View style={tailwind('flex flex-row flex-1 px-1 py-4 flex-wrap mr-2')}>
-          <ThemedText>
-            {translate('screens/ConvertScreen', 'Balance')}
-            :
-
-            {' '}
-          </ThemedText>
-
-          <NumberFormat
-            decimalScale={8}
-            displayType='text'
-            renderText={(value: string) => (
-              <ThemedText
-                dark={tailwind('text-white text-opacity-70')}
-                light={tailwind('text-gray-500')}
-                style={tailwind('font-medium')}
-                testID='target_balance'
-              >
-                {value}
-              </ThemedText>
-            )}
-            suffix=' DFI'
-            thousandSeparator
-            value={props.current}
-          />
-        </View>
-      </ThemedView>
+      <InputHelperText
+        testID='target_balance'
+        label={`${translate('screens/ConvertScreen', 'You will have')}: `}
+        content={props.balance}
+        suffix={` ${props.unit}`}
+      />
     </View>
   )
 }
