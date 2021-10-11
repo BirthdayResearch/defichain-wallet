@@ -1,14 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, PropsWithChildren } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Logging } from '@api'
 import { isPlayground } from '@environment'
 import { RootState } from '@store'
 import { block } from '@store/block'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { useWhaleApiClient } from './WhaleContext'
+import { useWhaleApiClient } from '../../mobile-app/app/contexts/WhaleContext'
 
-export function StatsProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
+type StatsProviderI = PropsWithChildren<any> &{
+  log: {
+    error: (error: any) => void
+  }
+}
+
+export function StatsProvider (props: StatsProviderI): JSX.Element | null {
   const { network } = useNetworkContext()
+  const { log } = props
   const isPolling = useSelector((state: RootState) => state.block.isPolling)
   const api = useWhaleApiClient()
   const interval: number = isPlayground(network) ? 3000 : 30000
@@ -33,7 +39,7 @@ export function StatsProvider (props: React.PropsWithChildren<any>): JSX.Element
       }).catch((err) => {
         dispatch(block.actions.updateBlockDetails({ count: 0, masternodeCount: 0 }))
         dispatch(block.actions.setConnected(false))
-        Logging.error(err)
+        log.error(err)
       })
     }
 

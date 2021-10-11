@@ -6,7 +6,7 @@ import { AppStateContextProvider } from '@contexts/AppStateContext'
 import { DeFiScanProvider } from '@shared-contexts/DeFiScanContext'
 import { PrivacyLockContextProvider } from '@contexts/LocalAuthContext'
 import { NetworkProvider } from '@shared-contexts/NetworkContext'
-import { StatsProvider } from '@contexts/StatsProvider'
+import { StatsProvider } from '@shared-contexts/StatsProvider'
 import { StoreProvider } from '@contexts/StoreProvider'
 import { ThemeProvider, useTheme } from '@contexts/ThemeProvider'
 import { WalletPersistenceProvider } from '@contexts/WalletPersistenceContext'
@@ -47,7 +47,7 @@ export default function App (): JSX.Element | null {
               <DeFiScanProvider>
                 <WalletPersistenceProvider>
                   <StoreProvider>
-                    <StatsProvider>
+                    <StatsProvider log={Logging}>
                       <ThemeProvider>
                         <LanguageProvider api={LanguagePersistence} log={Logging}>
                           <ConnectionBoundary>
