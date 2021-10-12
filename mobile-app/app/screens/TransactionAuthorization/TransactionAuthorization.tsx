@@ -161,8 +161,8 @@ export function TransactionAuthorization (): JSX.Element | null {
       await resetPasscodeCounter()
     } else {
       onConfirmation = () => {
-        setTransactionStatus(TransactionStatus.MULTI_TX)
         dispatch(transactionQueue.actions.pop())
+        setTransactionStatus(TransactionStatus.MULTI_TX)
       }
     }
     dispatch(ocean.actions.queueTransaction({
@@ -294,7 +294,7 @@ export function TransactionAuthorization (): JSX.Element | null {
     }
   }, [transactionStatus])
 
-  if ([TransactionStatus.INIT, TransactionStatus.IDLE, TransactionStatus.BLOCK, TransactionStatus.MULTI_TX].includes(transactionStatus)) {
+  if ([TransactionStatus.INIT, TransactionStatus.IDLE, TransactionStatus.BLOCK].includes(transactionStatus)) {
     return null
   }
 
