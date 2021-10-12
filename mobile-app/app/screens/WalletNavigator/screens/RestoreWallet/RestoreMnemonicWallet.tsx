@@ -127,7 +127,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
               name={`recover_word_${order}`}
               render={({ field: { value, onChange }, fieldState: { invalid, isTouched } }) => (
                 <ThemedView
-                  dark={tailwind('bg-gray-800')}
+                  dark={tailwind('bg-gray-900')}
                   light={tailwind('bg-white')}
                   style={tailwind('flex-row items-center')}
                 >
