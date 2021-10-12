@@ -154,21 +154,21 @@ export function TransactionAuthorization (): JSX.Element | null {
     setWallet(initJellyfishWallet(provider, network, whaleApiClient))
   }
 
-  const onPinSuccess = async (postAction: any, signedTx: CTransactionSegWit, isLastTX: boolean): Promise<void> => {
-    let linkedAction
+  const onPinSuccess = async (onBroadcast: any, signedTx: CTransactionSegWit, isLastTX: boolean): Promise<void> => {
+    let onConfirmation
     if (isLastTX) {
       setTransactionStatus(TransactionStatus.AUTHORIZED)
       await resetPasscodeCounter()
     } else {
-      linkedAction = () => {
+      onConfirmation = () => {
         setTransactionStatus(TransactionStatus.MULTI_TX)
         dispatch(transactionQueue.actions.pop())
       }
     }
     dispatch(ocean.actions.queueTransaction({
       tx: signedTx,
-      postAction,
-      linkedAction
+      onBroadcast,
+      onConfirmation
     })) // push signed result for broadcasting
   }
 
@@ -187,10 +187,11 @@ export function TransactionAuthorization (): JSX.Element | null {
   }, [providerData, network, whaleApiClient])
 
   /**
-   * Currently serving
-   * 1. consume pending to sign store/TransactionQueue
-   * 2. generic authentication job store/Authentication
-   */
+   * @description This is where the magic happens. It serves two types of transactions
+   * 1. Wallet Transactions (e.g, Send, Add Liquidity, Pool Swap etc.)
+   * 2. Non-wallet transactions (e.g, Reveal recovery words, change app passcode)
+   * If you're curious where the passcode validation is triggered, see - https://github.com/DeFiCh/jellyfish/blob/fe270b737705ad33242a9ec3f8896b2f8f5052c8/packages/jellyfish-wallet-encrypted/src/hd_node.ts#L87
+   * */
   useEffect(() => {
     if (transactionStatus !== TransactionStatus.IDLE && transactionStatus !== TransactionStatus.MULTI_TX) {
       // wait for prompt UI is ready again
@@ -202,6 +203,7 @@ export function TransactionAuthorization (): JSX.Element | null {
     }
 
     const retries = MAX_PASSCODE_ATTEMPT - attemptsRemaining
+    // Wallet Transactions
     if (transaction !== undefined && // any tx queued
       wallet !== undefined // just in case any data stuck in store
     ) {
@@ -234,6 +236,7 @@ export function TransactionAuthorization (): JSX.Element | null {
           }
         })
     } else if (authentication !== undefined) {
+      // Non-wallet transactions
       setTransactionStatus(TransactionStatus.BLOCK) // prevent any re-render trigger (between IDLE and PIN)
       setMessage(authentication.message)
       setLoadingMessage(authentication.loading)
@@ -276,7 +279,9 @@ export function TransactionAuthorization (): JSX.Element | null {
     }
   }, [transactionStatus, pin])
 
-  // reset UI after n seconds
+  /**
+   * @description When the transaction has been TransactionStatus.AUTHORIZED, show the completion screen after SUCCESS_DISPLAY_TIMEOUT_IN_MS
+   * */
   useEffect(() => {
     if (transactionStatus === TransactionStatus.AUTHORIZED) {
       setTimeout(() => {
@@ -289,7 +294,7 @@ export function TransactionAuthorization (): JSX.Element | null {
     }
   }, [transactionStatus])
 
-  if ([TransactionStatus.INIT, TransactionStatus.IDLE, TransactionStatus.BLOCK].includes(transactionStatus)) {
+  if ([TransactionStatus.INIT, TransactionStatus.IDLE, TransactionStatus.BLOCK, TransactionStatus.MULTI_TX].includes(transactionStatus)) {
     return null
   }
 

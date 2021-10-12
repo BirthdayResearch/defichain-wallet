@@ -5,8 +5,9 @@ export interface OceanTransaction {
   broadcasted: boolean
   tx: CTransactionSegWit
   title?: string
-  postAction?: () => any
-  linkedAction?: () => any
+  onBroadcast?: () => any
+  onConfirmation?: () => any
+  onError?: () => any
 }
 
 export interface OceanState {
