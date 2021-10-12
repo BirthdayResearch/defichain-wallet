@@ -142,6 +142,10 @@ export function OceanInterface (): JSX.Element | null {
         })
         .finally(() => {
           dispatch(ocean.actions.popTransaction())
+          // trigger next action for Transaction Authorization
+          if (transaction.linkedAction !== undefined) {
+            transaction.linkedAction()
+          }
           fetchTokens(client, address, dispatch)
         }) // remove the job as soon as completion
     }

@@ -6,6 +6,7 @@ export interface OceanTransaction {
   tx: CTransactionSegWit
   title?: string
   postAction?: () => any
+  linkedAction?: () => any
 }
 
 export interface OceanState {

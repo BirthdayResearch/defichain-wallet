@@ -23,6 +23,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { dfiConversionCrafter } from '@api/wallet/dfi_converter'
 
 type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
 
@@ -104,13 +105,19 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
 
       <TextRow
         lhs={translate('screens/SendConfirmationScreen', 'Address')}
-        rhs={{ value: destination, testID: 'text_destination' }}
+        rhs={{
+          value: destination,
+          testID: 'text_destination'
+        }}
         textStyle={tailwind('text-sm font-normal')}
       />
 
       <TextRow
         lhs={translate('screens/SendConfirmationScreen', 'Network')}
-        rhs={{ value: network.network, testID: 'text_network' }}
+        rhs={{
+          value: network.network,
+          testID: 'text_network'
+        }}
         textStyle={tailwind('text-sm font-normal')}
       />
 
@@ -184,12 +191,20 @@ async function send ({
       } else {
         signed = await builder.account.accountToAccount({
           from: script,
-          to: [{ script: to, balances: [{ token: +token.id, amount }] }]
+          to: [{
+            script: to,
+            balances: [{
+              token: +token.id,
+              amount
+            }]
+          }]
         }, script)
       }
       return new CTransactionSegWit(signed)
     }
 
+    dispatch(transactionQueue.actions.push(dfiConversionCrafter(new BigNumber(0.1), 'accountToUtxos', () => {
+    })))
     dispatch(transactionQueue.actions.push({
       sign: signer,
       title: translate('screens/SendConfirmationScreen', 'Sending', { symbol: token.displaySymbol }),
