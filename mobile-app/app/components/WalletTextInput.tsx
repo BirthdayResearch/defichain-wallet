@@ -18,7 +18,7 @@ interface IWalletTextInputProps {
   containerStyle?: string
 }
 
-export const WalletTextInput = forwardRef<React.Ref<any>, WalletTextInputProps>(function (props: WalletTextInputProps, ref: React.Ref<any>): JSX.Element {
+export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (props: WalletTextInputProps, ref: React.Ref<any>): JSX.Element {
   const [isFocus, setIsFocus] = useState(false)
   const {
     inputType,
