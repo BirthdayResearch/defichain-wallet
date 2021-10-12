@@ -20,6 +20,7 @@ import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { Logging } from '@api'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
+import { WalletToken } from '@store/wallet'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
