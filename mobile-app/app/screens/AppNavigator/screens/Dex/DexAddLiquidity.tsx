@@ -16,9 +16,10 @@ import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
-import { tokenSelector, WalletToken } from '@store/wallet'
-import { useSelector } from 'react-redux'
-import { RootState } from '@store'
+import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { Logging } from '@api'
+import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -34,14 +35,14 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const pairs = usePoolPairsAPI()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const tokens = useTokensAPI()
-  const tokenA = useSelector((state: RootState) => tokenSelector(state.wallet, props.route.params.pair.tokenA.id))
-  const tokenB = useSelector((state: RootState) => tokenSelector(state.wallet, props.route.params.pair.tokenA.id))
+  const client = useWhaleApiClient()
 
   // this component UI state
   const [tokenAAmount, setTokenAAmount] = useState<string>('')
   const [tokenBAmount, setTokenBAmount] = useState<string>('')
   const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
   const [canContinue, setCanContinue] = useState(false)
+  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   // derived from props
   const [balanceA, setBalanceA] = useState(new BigNumber(0))
   const [balanceB, setBalanceB] = useState(new BigNumber(0))
@@ -73,6 +74,12 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   }
 
   useEffect(() => {
+    client.fee.estimate()
+      .then((f) => setFee(new BigNumber(f)))
+      .catch(Logging.error)
+  }, [])
+
+  useEffect(() => {
     if (pair === undefined) {
       return
     }
@@ -89,6 +96,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   useEffect(() => {
     const { pair: poolPairData } = props.route.params
     const poolpair = pairs.find((p) => p.data.id === poolPairData.id)?.data
+    const reservedDfi = 0.1
     if (poolpair !== undefined) {
       const [aSymbol, bSymbol] = poolpair.symbol.split('-')
       const addressTokenA = getAddressTokenById(poolpair.tokenA.id)
@@ -103,10 +111,10 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
         bToARate: new BigNumber(poolpair.tokenA.reserve).div(poolpair.tokenB.reserve)
       })
       if (addressTokenA !== undefined) {
-        setBalanceA(new BigNumber(addressTokenA.amount))
+        setBalanceA(addressTokenA.id === '0_unified' ? new BigNumber(addressTokenA.amount).minus(reservedDfi) : new BigNumber(addressTokenA.amount))
       }
       if (addressTokenB !== undefined) {
-        setBalanceB(new BigNumber(addressTokenB.amount))
+        setBalanceB(addressTokenB.id === '0_unified' ? new BigNumber(addressTokenB.amount).minus(reservedDfi) : new BigNumber(addressTokenB.amount))
       }
     }
   }, [props.route.params.pair, JSON.stringify(tokens), pairs])
@@ -137,11 +145,13 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
           symbol={pair?.tokenB?.displaySymbol}
           type='secondary'
         />
+        <ReservedDFIInfoText />
       </View>
 
       <Summary
         pair={pair}
         sharePercentage={sharePercentage}
+        fee={fee}
       />
 
       <View style={tailwind('px-4')}>
@@ -156,8 +166,8 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
                   tokenAAmount: new BigNumber(tokenAAmount),
                   tokenBAmount: new BigNumber(tokenBAmount),
                   percentage: sharePercentage,
-                  tokenA: tokenA,
-                  tokenB: tokenB
+                  tokenABalance: balanceA,
+                  tokenBBalance: balanceB
                 },
                 pair
               },
@@ -218,7 +228,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
   )
 }
 
-function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }): JSX.Element {
+function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber, fee: BigNumber }): JSX.Element {
   const { pair, sharePercentage } = props
 
   return (
@@ -279,6 +289,10 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber }):
           suffixType: 'text',
           suffix: pair?.tokenB?.displaySymbol
         }}
+      />
+      <EstimatedFeeInfo
+        lhs={translate('screens/AddLiquidity', 'Estimated fee')}
+        rhs={{ value: props.fee.toFixed(8), testID: 'text_fee', suffix: 'DFI' }}
       />
     </View>
   )
