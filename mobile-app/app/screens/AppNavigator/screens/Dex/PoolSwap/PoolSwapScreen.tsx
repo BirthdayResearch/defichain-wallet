@@ -27,6 +27,7 @@ import { WalletTextInput } from '@components/WalletTextInput'
 import { InputHelperText } from '@components/InputHelperText'
 import { WalletToken } from '@store/wallet'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 
 export interface DerivedTokenState {
   id: string
@@ -252,7 +253,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           control={control}
           controlName={tokenBForm}
           isDisabled
-          title={translate('screens/PoolSwapScreen', 'After')}
+          title={translate('screens/PoolSwapScreen', 'You will receive')}
           token={tokenB}
           enableMaxButton={false}
         />
@@ -262,6 +263,8 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           content={tokenB.amount}
           suffix={` ${tokenB.displaySymbol}`}
         />
+
+        <ReservedDFIInfoText />
       </View>
       <SlippageTolerance
         setSlippage={(amount) => setSlippage(amount)}
