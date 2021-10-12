@@ -296,7 +296,6 @@
     "Error": "Fehler",
     "The recovery words you have entered are invalid. Please double check and try again.": "Der Wiederherstellungssatz, den du eingegeben hast, ist ungültig. Bitte überprüfe und versuche es erneut.",
     "Please provide your 24 recovery words to regain access to your wallet.": "Bitte füge die 24 Worte deines Wiederherstellungssatzes ein, um wieder Zugang zu deiner Wallet zu erlangen.",
-    "ENTER THE CORRECT WORD": "FÜGE DAS RICHTIGE WORT EIN",
     "RESTORE WALLET": "WALLET WIEDERHERSTELLEN",
     "Enter word #{{order}}": "Wort #{{order}} eingeben",
     "Cancel": "Abbrechen",

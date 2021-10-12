@@ -1,11 +1,11 @@
 import * as Localization from 'expo-localization'
-import React from 'react'
-import { KeyboardTypeOptions, Platform, TextInputProps } from 'react-native'
+import React, { forwardRef } from 'react'
+import { KeyboardTypeOptions, Platform, TextInput, TextInputProps } from 'react-native'
 import { useThemeContext } from '@contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
-import { TextInput } from '../index'
 
-export function ThemedTextInput (props: React.PropsWithChildren<TextInputProps>): JSX.Element {
+export const ThemedTextInput = forwardRef(
+  function (props: React.PropsWithChildren<TextInputProps>, ref: React.Ref<any>): JSX.Element {
   const { isLight } = useThemeContext()
   const {
     style,
@@ -24,8 +24,9 @@ export function ThemedTextInput (props: React.PropsWithChildren<TextInputProps>)
     <TextInput
       placeholderTextColor={isLight ? 'rgba(0, 0, 0, 0.4)' : '#828282'}
       style={[style, tailwind(isLight ? 'text-gray-700' : 'text-white')]}
+      ref={ref}
       {...otherProps}
       keyboardType={getKeyboardType()}
     />
   )
-}
+})

@@ -298,7 +298,6 @@
     "Error": "错误",
     "The recovery words you have entered are invalid. Please double check and try again.": "您输入的恢复字组并不完全正确. 请再次确认并重试.",
     "Please provide your 24 recovery words to regain access to your wallet.": "请输入您的24字恢复字组.",
-    "ENTER THE CORRECT WORD": "请输入正确的拼字",
     "RESTORE WALLET": "恢复钱包",
     "Enter word #{{order}}": "输入字 #{{order}}",
     "Cancel": "取消",
