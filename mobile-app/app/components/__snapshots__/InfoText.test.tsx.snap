@@ -8,8 +8,12 @@ exports[`info text should match snapshot 1`] = `
         Object {
           "borderBottomLeftRadius": 4,
           "borderBottomRightRadius": 4,
+          "borderBottomWidth": 1,
+          "borderLeftWidth": 1,
+          "borderRightWidth": 1,
           "borderTopLeftRadius": 4,
           "borderTopRightRadius": 4,
+          "borderTopWidth": 1,
           "flexDirection": "row",
           "paddingBottom": 8,
           "paddingLeft": 8,
@@ -20,6 +24,10 @@ exports[`info text should match snapshot 1`] = `
       ],
       Object {
         "backgroundColor": "rgba(255, 250, 244, 1)",
+        "borderBottomColor": "rgba(255, 210, 163, 1)",
+        "borderLeftColor": "rgba(255, 210, 163, 1)",
+        "borderRightColor": "rgba(255, 210, 163, 1)",
+        "borderTopColor": "rgba(255, 210, 163, 1)",
       },
     ]
   }
