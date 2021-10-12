@@ -8,7 +8,7 @@ import { CREATE_STEPS, CreateWalletStepIndicator, RESTORE_STEPS } from '@compone
 import { PinTextInput } from '@components/PinTextInput'
 import { ThemedActivityIndicator, ThemedScrollView, ThemedText } from '@components/themed'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
+import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '@screens/WalletNavigator/WalletNavigator'

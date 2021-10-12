@@ -9,7 +9,7 @@ import { NetworkProvider } from '@shared-contexts/NetworkContext'
 import { StatsProvider } from '@shared-contexts/StatsProvider'
 import { StoreProvider } from '@contexts/StoreProvider'
 import { ThemeProvider, useTheme } from '@shared-contexts/ThemeProvider'
-import { WalletPersistenceProvider } from '@contexts/WalletPersistenceContext'
+import { WalletPersistenceProvider } from '@shared-contexts/WalletPersistenceContext'
 import { WhaleProvider } from '@shared-contexts/WhaleContext'
 import { useCachedResources } from '@hooks/useCachedResources'
 import ConnectionBoundary from '@screens/ConnectionBoundary/ConnectionBoundary'
@@ -18,6 +18,7 @@ import { Main } from '@screens/Main'
 import { LanguageProvider, useLanguage } from '@shared-contexts/LanguageProvider'
 import * as Localization from 'expo-localization'
 import { useColorScheme } from 'react-native'
+import { WalletPersistence } from '@api/wallet'
 
 /**
  * Loads
@@ -49,7 +50,7 @@ export default function App (): JSX.Element | null {
           <NetworkProvider api={SecuredStoreAPI} log={Logging} locale={Localization.locale}>
             <WhaleProvider>
               <DeFiScanProvider>
-                <WalletPersistenceProvider>
+                <WalletPersistenceProvider api={WalletPersistence} log={Logging}>
                   <StoreProvider>
                     <StatsProvider log={Logging}>
                       <ThemeProvider api={ThemePersistence} log={Logging} colorScheme={colorScheme}>

@@ -47,7 +47,7 @@ jest.mock('../../../../hooks/wallet/TokensAPI', () => ({
   }]
 }))
 
-jest.mock('../../../../contexts/WalletContext', () => ({
+jest.mock('@shared-contexts/WalletContext', () => ({
   useWalletContext: () => {
     return {
       address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d'
@@ -55,7 +55,7 @@ jest.mock('../../../../contexts/WalletContext', () => ({
   }
 }))
 
-jest.mock('../../../../contexts/WalletPersistenceContext', () => ({
+jest.mock('@shared-contexts/WalletPersistenceContext', () => ({
   useWalletPersistenceContext: () => {
     return {
       wallets: []

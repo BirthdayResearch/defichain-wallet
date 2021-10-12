@@ -8,8 +8,8 @@ import {
   ThemedTouchableOpacity,
   ThemedView
 } from '@components/themed'
-import { useWalletContext } from '@contexts/WalletContext'
-import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { fetchTokens, useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'

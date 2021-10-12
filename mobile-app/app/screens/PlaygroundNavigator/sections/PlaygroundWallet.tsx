@@ -3,7 +3,7 @@ import { MnemonicEncrypted, MnemonicUnprotected } from '../../../api/wallet'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { View } from '@components/index'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
+import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundTitle } from '../components/PlaygroundTitle'
 

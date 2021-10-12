@@ -9,13 +9,12 @@ import {
   initJellyfishWallet,
   MnemonicEncrypted,
   MnemonicUnprotected,
-  PasscodeAttemptCounter,
-  WalletType
+  PasscodeAttemptCounter
 } from '../../api/wallet'
 import { WalletAlert } from '@components/WalletAlert'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { useWalletNodeContext } from '@contexts/WalletNodeProvider'
-import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
+import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
+import { useWalletPersistenceContext, WalletType } from '@shared-contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
 import { Authentication, authentication as authenticationStore } from '@store/authentication'

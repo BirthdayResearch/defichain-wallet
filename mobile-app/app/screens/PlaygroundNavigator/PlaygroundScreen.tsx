@@ -1,15 +1,16 @@
 import React from 'react'
 import { ThemedScrollView } from '@components/themed'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { WalletContextProvider } from '@contexts/WalletContext'
-import { WalletNodeProvider } from '@contexts/WalletNodeProvider'
-import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
+import { WalletContextProvider } from '@shared-contexts/WalletContext'
+import { WalletNodeProvider } from '@shared-contexts/WalletNodeProvider'
+import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
 import { isPlayground } from '@environment'
 import { tailwind } from '@tailwind'
 import { PlaygroundConnection } from './sections/PlaygroundConnection'
 import { PlaygroundToken } from './sections/PlaygroundToken'
 import { PlaygroundUTXO } from './sections/PlaygroundUTXO'
 import { PlaygroundWallet } from './sections/PlaygroundWallet'
+import { Logging } from '@api'
 
 export function PlaygroundScreen (): JSX.Element {
   return (
@@ -40,7 +41,7 @@ function PlaygroundWalletSection (): JSX.Element | null {
 
   return (
     <WalletNodeProvider data={wallets[0]}>
-      <WalletContextProvider>
+      <WalletContextProvider log={Logging}>
         <PlaygroundUTXO />
 
         <PlaygroundToken />

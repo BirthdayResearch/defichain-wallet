@@ -1,17 +1,18 @@
+import React, { createContext, PropsWithChildren, useContext, useMemo } from 'react'
 import { WalletHdNode, WalletHdNodeProvider } from '@defichain/jellyfish-wallet'
 import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
 import { MnemonicProviderData } from '@defichain/jellyfish-wallet-mnemonic'
-import React, { createContext, PropsWithChildren, useContext, useMemo } from 'react'
-import { MnemonicEncrypted, MnemonicUnprotected, WalletPersistenceData, WalletType } from '../api/wallet'
-import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { useNetworkContext } from './NetworkContext'
+import { WalletPersistenceDataI, WalletType } from './WalletPersistenceContext'
+import { MnemonicEncrypted, MnemonicUnprotected } from '../../mobile-app/app/api/wallet'
 
 interface WalletNodeContextI {
   provider: WalletHdNodeProvider<WalletHdNode>
   /**
-   * Raw WalletPersistenceData that is included in WalletHdNodeProvider<WalletHdNode>
+   * Raw WalletPersistenceDataI that is included in WalletHdNodeProvider<WalletHdNode>
    * No risk of including it in context as it's part of the provider.
    */
-  data: WalletPersistenceData<any>
+  data: WalletPersistenceDataI<any>
 }
 
 const WalletNodeContext = createContext<WalletNodeContextI>(undefined as any)
@@ -21,7 +22,7 @@ export function useWalletNodeContext (): WalletNodeContextI {
 }
 
 interface WalletNodeProviderProps<T> extends PropsWithChildren<any> {
-  data: WalletPersistenceData<T>
+  data: WalletPersistenceDataI<T>
 }
 
 /**

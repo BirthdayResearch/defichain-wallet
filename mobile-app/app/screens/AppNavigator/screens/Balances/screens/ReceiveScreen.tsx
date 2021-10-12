@@ -5,7 +5,7 @@ import QRCode from 'react-native-qrcode-svg'
 import { Logging } from '@api'
 import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { useWalletContext } from '@contexts/WalletContext'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 

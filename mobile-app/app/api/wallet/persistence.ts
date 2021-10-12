@@ -1,22 +1,10 @@
 import { SecuredStoreAPI } from '@api'
+import { WalletPersistenceDataI } from '@shared-contexts/WalletPersistenceContext'
 
-export enum WalletType {
-  MNEMONIC_UNPROTECTED = 'MNEMONIC_UNPROTECTED',
-  MNEMONIC_ENCRYPTED = 'MNEMONIC_ENCRYPTED'
-}
-
-export interface WalletPersistenceData<T> {
-  type: WalletType
-  /* To migrate between app version upgrade */
-  version: 'v1'
-  /* Raw Data encoded in WalletType specified format */
-  raw: T
-}
-
-async function get (): Promise<Array<WalletPersistenceData<any>>> {
+async function get (): Promise<Array<WalletPersistenceDataI<any>>> {
   const count: string = await SecuredStoreAPI.getItem('WALLET.count') ?? '0'
 
-  const list: Array<WalletPersistenceData<any>> = []
+  const list: Array<WalletPersistenceDataI<any>> = []
   for (let i = 0; i < parseInt(count); i++) {
     const data = await SecuredStoreAPI.getItem(`WALLET.${i}`)
     if (data === null) {
@@ -31,7 +19,7 @@ async function get (): Promise<Array<WalletPersistenceData<any>>> {
 /**
  * @param wallets to set, override previous set wallet
  */
-async function set (wallets: Array<WalletPersistenceData<any>>): Promise<void> {
+async function set (wallets: Array<WalletPersistenceDataI<any>>): Promise<void> {
   await clear()
 
   for (let i = 0; i < wallets.length; i++) {

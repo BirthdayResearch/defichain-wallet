@@ -1,7 +1,7 @@
 import { Logging } from '@api'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { useWalletContext } from '@contexts/WalletContext'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleApiClient } from '@defichain/whale-api-client'
