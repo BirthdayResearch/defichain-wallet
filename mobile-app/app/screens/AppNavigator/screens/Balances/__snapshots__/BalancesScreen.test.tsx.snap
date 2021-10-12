@@ -8,7 +8,7 @@ exports[`balances page should match snapshot 1`] = `
     <React.Fragment>
       <DFIBalanceCard
         hiddenBalancesText="*****"
-        isBalancesDisplayed={false}
+        isBalancesDisplayed={true}
       />
       <ThemedView
         style={
@@ -58,7 +58,7 @@ exports[`balances page should match snapshot 1`] = `
                 "color": "rgba(0, 0, 0, 1)",
               }
             }
-            name="visibility-off"
+            name="visibility"
             size={15}
             style={
               Object {
@@ -89,7 +89,7 @@ exports[`balances page should match snapshot 1`] = `
             }
             testID="toggle_balance_text"
           >
-            Show balances
+            Hide balances
           </ThemedText>
         </ThemedTouchableOpacity>
       </ThemedView>
@@ -412,7 +412,7 @@ exports[`balances page should match snapshot 1`] = `
                   }
                   testID="total_dfi_amount"
                 >
-                  *****
+                  77.00000000
                    DFI
                 </Text>
                 <Text
@@ -438,7 +438,7 @@ exports[`balances page should match snapshot 1`] = `
                   }
                   testID="dfi_utxo_amount"
                 >
-                  *****
+                  77.00000000
                 </Text>
                 <Text
                   style={
@@ -462,7 +462,7 @@ exports[`balances page should match snapshot 1`] = `
                   }
                   testID="dfi_token_amount"
                 >
-                  *****
+                  0.00000000
                 </Text>
               </View>
             </View>
@@ -784,7 +784,7 @@ exports[`balances page should match snapshot 1`] = `
             }
             testID="toggle_balance_icon"
           >
-            
+            
           </Text>
           <Text
             style={
@@ -810,7 +810,7 @@ exports[`balances page should match snapshot 1`] = `
             }
             testID="toggle_balance_text"
           >
-            Show balances
+            Hide balances
           </Text>
         </View>
       </View>
@@ -1027,7 +1027,7 @@ exports[`balances page should match snapshot 1`] = `
               }
               testID="balances_row_1_amount"
             >
-              *****
+              777.00000000
             </Text>
             <Text
               allowFontScaling={false}
@@ -1282,7 +1282,7 @@ exports[`balances page should match snapshot 1`] = `
               }
               testID="balances_row_2_amount"
             >
-              *****
+              555.00000000
             </Text>
             <Text
               allowFontScaling={false}
