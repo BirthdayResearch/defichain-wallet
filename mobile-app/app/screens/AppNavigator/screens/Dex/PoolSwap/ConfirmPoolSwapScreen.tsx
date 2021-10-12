@@ -38,6 +38,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
     priceRateA,
     priceRateB
   } = route.params
+  const [tokenDFI, setTokenDFI] = useState(route.params.tokenB)
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const dispatch = useDispatch()
@@ -63,12 +64,17 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
 
   useEffect(() => {
     const poolswapDFIAmount = getPoolswapDFIAmount(swap)
-    if (poolswapDFIAmount.isGreaterThan(new BigNumber(DFIToken.amount))) {
+    if (swap.fromToken.id === '0_unified' && poolswapDFIAmount.isGreaterThan(new BigNumber(DFIToken.amount))) {
       setIsConversionRequired(true)
+    }
+    if (swap.fromToken.id === '0_unified') {
+      setTokenDFI(tokenA)
+    } else {
+      setTokenDFI(tokenB)
     }
   }, [])
 
-  const getPoolswapDFIAmount = (swap: DexForm): BigNumber => {
+  function getPoolswapDFIAmount (swap: DexForm): BigNumber {
     if (swap.fromToken.id === '0_unified') {
       return swap.fromAmount
     } else {
@@ -172,8 +178,8 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
 
       {isConversionRequired &&
         <ConversionDetailsRow
-          utxoBalance={new BigNumber(tokenB?.amount ?? 0).minus(tokenB.amount).minus(fee).toFixed(8)}
-          tokenBalance='0'
+          utxoBalance={new BigNumber(tokenDFI.amount ?? 0).minus(getPoolswapDFIAmount(swap)).toFixed(8)}
+          tokenBalance={new BigNumber(0).toFixed(8)}
         />}
 
       <TransactionResultsRow
