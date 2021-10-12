@@ -82,6 +82,7 @@ export function PinCreation ({ route }: Props): JSX.Element {
         light={tailwind('border-0')}
         dark={tailwind('border-0')}
         style={tailwind('w-4/5')}
+        testID='passcode_faq_link'
       >
         <ThemedText
           style={tailwind('text-center text-sm font-semibold')}
