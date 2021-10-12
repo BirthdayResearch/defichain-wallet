@@ -158,6 +158,17 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     })
   }
 
+  const deductReservedDfi = (token: DerivedTokenState): DerivedTokenState => {
+    const reservedDfi = 0.1
+    if (token.id === '0_unified') {
+      return {
+        ...token,
+        amount: BigNumber.max(new BigNumber(token.amount).minus(reservedDfi), 0).toFixed(8)
+      }
+    }
+    return token
+  }
+
   useEffect(() => {
     if (poolpair !== undefined) {
       let [tokenASymbol, tokenBSymbol] = poolpair.symbol.split('-') as [string, string]
@@ -175,14 +186,14 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         symbol: tokenASymbol,
         displaySymbol: tokenADisplaySymbol
       }
-      setTokenA(a)
+      setTokenA(deductReservedDfi(a))
       const b = getAddressTokenById(tokenBId) ?? {
         id: tokenBId,
         amount: '0',
         symbol: tokenBSymbol,
         displaySymbol: tokenBDisplaySymbol
       }
-      setTokenB(b)
+      setTokenB(deductReservedDfi(b))
       updatePoolPairPrice(tokenAId, poolpair)
     }
   }, [JSON.stringify(tokens), poolpair])
@@ -374,7 +385,7 @@ function TokenRow (form: TokenForm): JSX.Element {
             {
               !enableMaxButton && (
                 <>
-                  <Icon />
+                  <Icon height={20} width={20} />
                   <ThemedText style={tailwind('pl-2')}>
                     {token.displaySymbol}
                   </ThemedText>
