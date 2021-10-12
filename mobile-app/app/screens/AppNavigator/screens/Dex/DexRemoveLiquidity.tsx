@@ -140,14 +140,18 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         lhs={pair.tokenA.displaySymbol}
         rhs={{
           value: tokenAAmount.toFixed(8),
-          testID: 'price_a'
+          testID: 'price_a',
+          suffixType: 'text',
+          suffix: pair.tokenA.displaySymbol
         }}
       />
       <NumberRow
         lhs={pair.tokenB.displaySymbol}
         rhs={{
           value: tokenBAmount.toFixed(8),
-          testID: 'price_b'
+          testID: 'price_b',
+          suffixType: 'text',
+          suffix: pair.tokenB.displaySymbol
         }}
       />
       <ThemedSectionTitle
