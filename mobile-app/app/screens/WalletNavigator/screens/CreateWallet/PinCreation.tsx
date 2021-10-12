@@ -87,6 +87,7 @@ export function PinCreation ({ route }: Props): JSX.Element {
         <ThemedText
           style={tailwind('text-center text-sm font-semibold')}
           light={tailwind('text-primary-500')}
+          dark={tailwind('text-darkprimary-500')}
         >
           {translate('screens/PinCreation', 'Learn more about passcode')}
         </ThemedText>
