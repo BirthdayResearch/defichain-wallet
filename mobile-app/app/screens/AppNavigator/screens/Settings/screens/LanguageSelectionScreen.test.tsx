@@ -14,7 +14,13 @@ jest.mock('@shared-contexts/LanguageProvider', () => ({
   }
 }))
 
-jest.mock('../../../../../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider', () => ({
+  useThemeContext: () => {
+    return {
+      isLight: true
+    }
+  }
+}))
 
 describe('language selection screen', () => {
   it('should render', async () => {

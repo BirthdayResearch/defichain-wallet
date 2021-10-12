@@ -6,7 +6,13 @@ import { NetworkDetails } from './NetworkDetails'
 import { RootState } from '@store'
 import { block } from '@store/block'
 
-jest.mock('@contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider', () => ({
+  useThemeContext: () => {
+    return {
+      isLight: true
+    }
+  }
+}))
 
 jest.mock('@shared-contexts/NetworkContext', () => ({
   useNetworkContext: () => {

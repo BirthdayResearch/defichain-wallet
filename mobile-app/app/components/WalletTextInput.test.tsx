@@ -2,7 +2,13 @@ import { render } from '@testing-library/react-native'
 import React from 'react'
 import { WalletTextInput, InputType } from './WalletTextInput'
 
-jest.mock('../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider', () => ({
+  useThemeContext: () => {
+    return {
+      isLight: true
+    }
+  }
+}))
 const WalletInputType: InputType[] = ['default', 'numeric']
 
 describe('wallet text input', () => {

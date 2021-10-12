@@ -3,7 +3,13 @@ import * as React from 'react'
 import { Linking } from 'react-native'
 import { CommunityScreen } from './CommunityScreen'
 
-jest.mock('../../../../../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider', () => ({
+  useThemeContext: () => {
+    return {
+      isLight: true
+    }
+  }
+}))
 
 it('<CommunityScreen /> should match snapshot', async () => {
   const tree = render(<CommunityScreen />)

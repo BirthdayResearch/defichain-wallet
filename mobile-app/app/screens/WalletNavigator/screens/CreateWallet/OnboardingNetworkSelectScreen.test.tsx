@@ -14,7 +14,13 @@ jest.mock('@shared-contexts/NetworkContext', () => ({
   }
 }))
 
-jest.mock('@contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider', () => ({
+  useThemeContext: () => {
+    return {
+      isLight: true
+    }
+  }
+}))
 
 describe('network selection screen', () => {
   it('should render', async () => {

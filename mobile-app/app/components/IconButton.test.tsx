@@ -5,7 +5,13 @@ import { IconButton } from './IconButton'
 
 const buttonName: Array<React.ComponentProps<typeof MaterialIcons>['name']> = ['swap-vert', 'swap-horiz', 'add', 'remove']
 
-jest.mock('../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider', () => ({
+  useThemeContext: () => {
+    return {
+      isLight: true
+    }
+  }
+}))
 
 describe('icon button', () => {
   buttonName.forEach(name => {

@@ -2,7 +2,13 @@ import { render } from '@testing-library/react-native'
 import * as React from 'react'
 import { EstimatedFeeInfo } from './EstimatedFeeInfo'
 
-jest.mock('../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider', () => ({
+  useThemeContext: () => {
+    return {
+      isLight: true
+    }
+  }
+}))
 
 jest.mock('./BottomSheetModal', () => ({
   BottomSheetModal: () => <></>

@@ -3,7 +3,13 @@ import * as React from 'react'
 import { EmptyTransaction } from './EmptyTransaction'
 
 jest.mock('@react-navigation/native')
-jest.mock('../../../../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider', () => ({
+  useThemeContext: () => {
+    return {
+      isLight: true
+    }
+  }
+}))
 
 describe('empty transaction', () => {
   it('should match snapshot', async () => {

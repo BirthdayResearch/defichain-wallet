@@ -19,7 +19,13 @@ jest.mock('expo-clipboard', () => ({
   setString: jest.fn()
 }))
 
-jest.mock('../../../../../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider', () => ({
+  useThemeContext: () => {
+    return {
+      isLight: true
+    }
+  }
+}))
 
 describe('receive page', () => {
   it('should match snapshot', async () => {

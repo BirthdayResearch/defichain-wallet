@@ -3,7 +3,13 @@ import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { AmountButtonTypes, SetAmountButton } from './SetAmountButton'
 
-jest.mock('../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider', () => ({
+  useThemeContext: () => {
+    return {
+      isLight: true
+    }
+  }
+}))
 const buttonType: AmountButtonTypes[] = [AmountButtonTypes.half, AmountButtonTypes.max]
 const buttonAmount = new BigNumber(10)
 

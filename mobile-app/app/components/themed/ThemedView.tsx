@@ -1,4 +1,4 @@
-import { useThemeContext } from '@contexts/ThemeProvider'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import React from 'react'
 import { View } from 'react-native'

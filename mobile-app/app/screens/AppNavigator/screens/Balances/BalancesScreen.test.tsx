@@ -10,7 +10,13 @@ jest.mock('@react-navigation/bottom-tabs', () => ({
   useBottomTabBarHeight: () => 49
 }))
 jest.mock('randomcolor', () => jest.fn().mockReturnValue('#ffffff'))
-jest.mock('../../../../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider', () => ({
+  useThemeContext: () => {
+    return {
+      isLight: true
+    }
+  }
+}))
 
 jest.mock('../../../../hooks/wallet/TokensAPI', () => ({
   useTokensAPI: () => [{

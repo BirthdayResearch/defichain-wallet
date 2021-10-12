@@ -4,7 +4,13 @@ import { DexSkeletonLoader } from './DexSkeletonLoader'
 import { MnemonicWordSkeletonLoader } from './MnemonicWordSkeletonLoader'
 import { TransactionSkeletonLoader } from './TransactionSkeletonLoader'
 
-jest.mock('../../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider', () => ({
+  useThemeContext: () => {
+    return {
+      isLight: true
+    }
+  }
+}))
 
 describe('Skeleton Loader', () => {
   it('should match snapshot of dex skeleton loader', async () => {

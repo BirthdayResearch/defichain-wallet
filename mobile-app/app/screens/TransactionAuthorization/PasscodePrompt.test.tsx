@@ -3,7 +3,13 @@ import React from 'react'
 import { Status } from './TransactionAuthorization'
 import { PasscodePrompt } from './PasscodePrompt'
 
-jest.mock('../../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider', () => ({
+  useThemeContext: () => {
+    return {
+      isLight: true
+    }
+  }
+}))
 const StatusTypes: Status[] = ['INIT', 'IDLE', 'BLOCK', 'PIN', 'SIGNING', 'AUTHORIZED']
 
 describe('transaction authorization screen', () => {

@@ -2,7 +2,13 @@ import { render } from '@testing-library/react-native'
 import * as React from 'react'
 import { IconLabelScreenType, InputIconLabel } from './InputIconLabel'
 
-jest.mock('../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider', () => ({
+  useThemeContext: () => {
+    return {
+      isLight: true
+    }
+  }
+}))
 const screenType = [IconLabelScreenType.Balance, IconLabelScreenType.DEX]
 
 describe('input icon label', () => {

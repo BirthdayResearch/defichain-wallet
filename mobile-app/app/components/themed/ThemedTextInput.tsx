@@ -1,7 +1,7 @@
 import * as Localization from 'expo-localization'
 import React from 'react'
 import { KeyboardTypeOptions, Platform, TextInputProps } from 'react-native'
-import { useThemeContext } from '@contexts/ThemeProvider'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { TextInput } from '../index'
 
