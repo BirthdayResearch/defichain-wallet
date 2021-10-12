@@ -2,7 +2,7 @@ import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
@@ -23,7 +23,8 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
-import { dfiConversionCrafter } from '@api/wallet/dfi_converter'
+import { dfiConversionCrafter } from '@api/transaction/dfi_converter'
+import { onBroadcast } from '@api/transaction/transaction_commands'
 
 type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
 
@@ -42,11 +43,6 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
-  const postAction = (): void => {
-    if (isOnPage) {
-      navigation.dispatch(StackActions.popToTop())
-    }
-  }
 
   useEffect(() => {
     setIsOnPage(true)
@@ -65,7 +61,9 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       token,
       amount,
       networkName: network.networkName
-    }, dispatch, postAction)
+    }, dispatch, () => {
+      onBroadcast(isOnPage, navigation)
+    })
     setIsSubmitting(false)
   }
 
@@ -175,7 +173,7 @@ async function send ({
   token,
   amount,
   networkName
-}: SendForm, dispatch: Dispatch<any>, postAction: () => void): Promise<void> {
+}: SendForm, dispatch: Dispatch<any>, onBroadcast: () => void): Promise<void> {
   try {
     const to = DeFiAddress.from(networkName, address).getScript()
 
@@ -212,7 +210,7 @@ async function send ({
         amount: amount.toFixed(8),
         symbol: token.displaySymbol
       }),
-      postAction
+      onBroadcast
     }))
   } catch (e) {
     Logging.error(e)

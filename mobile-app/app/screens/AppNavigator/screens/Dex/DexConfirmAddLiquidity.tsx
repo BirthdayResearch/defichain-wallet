@@ -1,7 +1,7 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
@@ -21,6 +21,7 @@ import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { getNativeIcon } from '@components/icons/assets'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { onBroadcast } from '@api/transaction/transaction_commands'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -50,11 +51,6 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const lmTokenAmount = percentage.times(totalLiquidity.token)
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
-  const postAction = (): void => {
-    if (isOnPage) {
-      navigation.dispatch(StackActions.popToTop())
-    }
-  }
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
 
@@ -82,7 +78,9 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         tokenBAmount
       },
       dispatch,
-      postAction
+      () => {
+        onBroadcast(isOnPage, navigation)
+      }
     )
     setIsSubmitting(false)
   }
@@ -152,7 +150,10 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         text={translate('screens/ConfirmAddLiq', 'PRICE DETAILS')}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
+        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', {
+          tokenA: tokenA.displaySymbol,
+          tokenB: tokenB.displaySymbol
+        })}
         rhs={{
           value: aToBRate.toFixed(8),
           testID: 'price_a',
@@ -161,7 +162,10 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenB.displaySymbol, tokenB: tokenA.displaySymbol })}
+        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', {
+          tokenA: tokenB.displaySymbol,
+          tokenB: tokenA.displaySymbol
+        })}
         rhs={{
           value: bToARate.toFixed(8),
           testID: 'price_b',
@@ -176,7 +180,12 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       />
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Share of pool')}
-        rhs={{ value: percentage.times(100).toFixed(8), suffix: '%', testID: 'percentage_pool', suffixType: 'text' }}
+        rhs={{
+          value: percentage.times(100).toFixed(8),
+          suffix: '%',
+          testID: 'percentage_pool',
+          suffixType: 'text'
+        }}
       />
 
       <NumberRow
@@ -200,7 +209,11 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 
       <EstimatedFeeInfo
         lhs={translate('screens/ConfirmAddLiq', 'Estimated fee')}
-        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffix: 'DFI (UTXO)' }}
+        rhs={{
+          value: fee.toFixed(8),
+          testID: 'text_fee',
+          suffix: 'DFI (UTXO)'
+        }}
       />
 
       <SubmitButtonGroup
@@ -219,7 +232,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 async function constructSignedAddLiqAndSend (
   addLiqForm: { tokenASymbol: string, tokenAId: number, tokenAAmount: BigNumber, tokenBSymbol: string, tokenBId: number, tokenBAmount: BigNumber },
   dispatch: Dispatch<any>,
-  postAction: () => void
+  onBroadcast: () => void
 ): Promise<void> {
   try {
     const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
@@ -256,7 +269,7 @@ async function constructSignedAddLiqAndSend (
         amountB: addLiqForm.tokenBAmount.toFixed(8),
         symbolB: addLiqForm.tokenBSymbol
       }),
-      postAction
+      onBroadcast
     }))
   } catch (e) {
     Logging.error(e)

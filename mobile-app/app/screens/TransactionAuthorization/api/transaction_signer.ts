@@ -5,7 +5,7 @@ import { CTransactionSegWit } from '@defichain/jellyfish-transaction'
 import { Authentication } from '@store/authentication'
 import { WalletAlert } from '@components/WalletAlert'
 import { translate } from '@translations'
-import { INVALID_HASH, MAX_PASSCODE_ATTEMPT } from '@screens/TransactionAuthorization/TransactionAuthorization'
+import { INVALID_HASH, MAX_PASSCODE_ATTEMPT } from '@screens/TransactionAuthorization/api/transaction_types'
 
 export async function execWithAutoRetries (promptPromise: () => Promise<any>, onAutoRetry: (attempts: number) => Promise<void>, retries: number = 0): Promise<any> {
   try {
