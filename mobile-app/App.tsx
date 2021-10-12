@@ -16,6 +16,7 @@ import ConnectionBoundary from '@screens/ConnectionBoundary/ConnectionBoundary'
 import ErrorBoundary from '@screens/ErrorBoundary/ErrorBoundary'
 import { Main } from '@screens/Main'
 import { LanguageProvider, useLanguage } from '@shared-contexts/LanguageProvider'
+import * as Localization from 'expo-localization'
 
 /**
  * Loads
@@ -27,7 +28,7 @@ import { LanguageProvider, useLanguage } from '@shared-contexts/LanguageProvider
 export default function App (): JSX.Element | null {
   const isLoaded = useCachedResources()
   const { isThemeLoaded } = useTheme()
-  const { isLanguageLoaded } = useLanguage({ api: LanguagePersistence, log: Logging })
+  const { isLanguageLoaded } = useLanguage({ api: LanguagePersistence, log: Logging, locale: Localization.locale })
 
   if (!isLoaded && !isThemeLoaded && !isLanguageLoaded) {
     SplashScreen.preventAutoHideAsync()
@@ -42,7 +43,7 @@ export default function App (): JSX.Element | null {
     <ErrorBoundary>
       <AppStateContextProvider>
         <PrivacyLockContextProvider>
-          <NetworkProvider api={SecuredStoreAPI} log={Logging}>
+          <NetworkProvider api={SecuredStoreAPI} log={Logging} locale={Localization.locale}>
             <WhaleProvider>
               <DeFiScanProvider>
                 <WalletPersistenceProvider>

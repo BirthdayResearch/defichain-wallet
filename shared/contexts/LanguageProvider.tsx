@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useState, PropsWithChildren } from 'react'
-import * as Localization from 'expo-localization'
 import i18n from 'i18n-js'
 
 interface LanguageLoader {
@@ -15,10 +14,10 @@ interface LanguageContextI {
   log: {
     error: (error: any) => void
   }
+  locale: string
 }
 
-export function useLanguage ({ api, log }: LanguageContextI): LanguageLoader {
-  const locale = Localization.locale
+export function useLanguage ({ api, log, locale }: LanguageContextI): LanguageLoader {
   const defaultLanguage = 'en'
   const [isLanguageLoaded, setIsLanguageLoaded] = useState<boolean>(false)
   const [language, setLanguage] = useState<NonNullable<string>>(defaultLanguage)
@@ -59,8 +58,8 @@ export function useLanguageContext (): Language {
 }
 
 export function LanguageProvider (props: LanguageContextI & PropsWithChildren<any>): JSX.Element | null {
-  const { api, log } = props
-  const { language } = useLanguage({ api, log })
+  const { api, log, locale } = props
+  const { language } = useLanguage({ api, log, locale })
   const [currentLanguage, setCurrentLanguage] = useState<NonNullable<string>>(language)
 
   useEffect(() => {
