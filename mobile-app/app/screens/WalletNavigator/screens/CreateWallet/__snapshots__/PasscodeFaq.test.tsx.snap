@@ -68,9 +68,7 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
         ]
       }
     >
-      Your passcode is used to authorize any transaction happening in your wallet. They are a six-digit numeric code that will be asked from you every time.
-
-Keep your passcode private and secure. You are responsible for your own security.
+      Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.
     </Text>
     <RCTScrollView
       style={
@@ -270,9 +268,7 @@ Keep your passcode private and secure. You are responsible for your own security
                       ]
                     }
                   >
-                    Your passcode is your own responsibility and no one, aside from you, knows your passcode.
-
-It is important that you take care of your passcode and to change them from time to time.
+                    Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.
                   </Text>
                 </View>
               </View>
@@ -351,7 +347,7 @@ It is important that you take care of your passcode and to change them from time
                     ]
                   }
                 >
-                  Am I allowed to change my passcode?
+                  Can I change my passcode?
                 </Text>
                 <Text />
               </View>
@@ -412,7 +408,7 @@ It is important that you take care of your passcode and to change them from time
                       ]
                     }
                   >
-                    Yes, you can change your passcode from your settings in-app. We recommend you to change your passcode regularly for maximum security.
+                    Yes, you can change your passcode from your settings in-app. We recommend changing of passcode regularly for maximum security.
                   </Text>
                 </View>
               </View>
@@ -489,7 +485,7 @@ It is important that you take care of your passcode and to change them from time
                     ]
                   }
                 >
-                  Is my passcode the same as with phone pin code?
+                  Is passcode the same as phone PIN code?
                 </Text>
                 <Text />
               </View>
@@ -550,7 +546,7 @@ It is important that you take care of your passcode and to change them from time
                       ]
                     }
                   >
-                    Your passcode is only for DeFiChain wallet.
+                    Your passcode is valid only for DeFiChain wallet.
                   </Text>
                 </View>
               </View>
