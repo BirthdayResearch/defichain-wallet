@@ -280,6 +280,14 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           />
       }
 
+      <ThemedText
+        light={tailwind('text-gray-600')}
+        dark={tailwind('text-gray-300')}
+        style={tailwind('pt-2 pb-8 px-4 text-sm')}
+      >
+        {translate('screens/PoolSwapScreen', 'Review full transaction details in the next screen')}
+      </ThemedText>
+
       <Button
         disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/PoolSwapScreen', 'CONTINUE')}
@@ -287,14 +295,6 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         testID='button_submit'
         title='CONTINUE'
       />
-
-      <ThemedText
-        light={tailwind('text-gray-600')}
-        dark={tailwind('text-gray-300')}
-        style={tailwind('mb-8 text-center text-sm')}
-      >
-        {translate('screens/PoolSwapScreen', 'Review full transaction details in the next screen')}
-      </ThemedText>
     </ThemedScrollView>
   )
 }

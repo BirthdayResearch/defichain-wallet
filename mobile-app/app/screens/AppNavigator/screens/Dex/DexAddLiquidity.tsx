@@ -155,6 +155,14 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
         fee={fee}
       />
 
+      <ThemedText
+        light={tailwind('text-gray-600')}
+        dark={tailwind('text-gray-300')}
+        style={tailwind('pt-4 pb-8 px-4 text-sm')}
+      >
+        {translate('screens/AddLiquidity', 'Review full transaction details in the next screen')}
+      </ThemedText>
+
       <View style={tailwind('px-4')}>
         <ContinueButton
           enabled={canContinue}
@@ -176,14 +184,6 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
             })
           }}
         />
-
-        <ThemedText
-          light={tailwind('text-gray-600')}
-          dark={tailwind('text-gray-300')}
-          style={tailwind('mt-4 text-center text-sm')}
-        >
-          {translate('screens/AddLiquidity', 'Review full transaction details in the next screen')}
-        </ThemedText>
       </View>
     </ThemedScrollView>
   )
@@ -307,7 +307,7 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
       onPress={props.onPress}
       testID='button_continue_add_liq'
       title='Continue'
-      margin='mt-12 mx-0'
+      margin='mt-8 mx-0'
     />
   )
 }
