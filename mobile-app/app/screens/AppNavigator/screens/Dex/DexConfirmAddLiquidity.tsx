@@ -19,7 +19,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { getNativeIcon } from '@components/icons/assets'
-import { DFITokenSelector, WalletToken } from '@store/wallet'
+import { DFITokenSelector } from '@store/wallet'
 import { ConversionTag } from '@components/ConversionTag'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
@@ -30,11 +30,11 @@ type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
 export interface AddLiquiditySummary {
   fee: BigNumber // stick to whatever estimation/calculation done on previous page
-  tokenAAmount: BigNumber
-  tokenBAmount: BigNumber
+  tokenAAmount: BigNumber // transaction amount
+  tokenBAmount: BigNumber // transaction amount
   percentage: BigNumber // to add
-  tokenA?: WalletToken // snapshot token A amount to compute ending balance
-  tokenB?: WalletToken // snapshot token B amount to compute ending balance
+  tokenABalance: BigNumber // token A balance (after deducting 0.1 DFI if DFI)
+  tokenBBalance: BigNumber // token B balance (after deducting 0.1 DFI if DFI)
 }
 
 export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
@@ -43,9 +43,9 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const {
     fee,
     percentage,
-    tokenA,
+    tokenABalance,
     tokenAAmount,
-    tokenB,
+    tokenBBalance,
     tokenBAmount
   } = props.route.params.summary
   const pair = props.route.params.pair
@@ -233,7 +233,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 
       {isConversionRequired &&
         <ConversionDetailsRow
-          utxoBalance={new BigNumber(tokenB?.amount ?? 0).minus(tokenBAmount).minus(fee).toFixed(8)}
+          utxoBalance={tokenBBalance.minus(tokenBAmount).toFixed(8)}
           tokenBalance='0'
         />}
 
@@ -241,12 +241,12 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         tokens={[
           {
             symbol: pair.tokenA.displaySymbol,
-            value: new BigNumber(tokenA?.amount ?? 0).minus(tokenAAmount).toFixed(8),
+            value: tokenABalance.minus(tokenAAmount).toFixed(8),
             suffix: pair.tokenA.displaySymbol
           },
           {
             symbol: pair.tokenB.displaySymbol,
-            value: new BigNumber(tokenB?.amount ?? 0).minus(tokenBAmount).minus(fee).toFixed(8),
+            value: tokenBBalance.minus(tokenBAmount).toFixed(8),
             suffix: pair.tokenB.displaySymbol
           }
         ]}
