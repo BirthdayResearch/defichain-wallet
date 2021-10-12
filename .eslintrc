@@ -16,7 +16,7 @@
   ],
   "ignorePatterns": [
     "*.json",
-    "cypress/support/*.ts"
+    "./mobile-app/cypress/support/*.ts"
   ],
   "overrides": [
     // Js and Typescript files

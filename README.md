@@ -14,7 +14,7 @@ DeFi Blockchain Light Wallet for iOS, Android & Web.
 
 ## Releases
 
-DeFiChain Wallet has 3 releases channel and unique environment for each of those channel. [`app/environment.ts`](/app/environment.ts) carries the environment state for those releases channel.
+DeFiChain Wallet has 3 releases channel and unique environment for each of those channel. [`shared/environment.ts`](/shared/environment.ts) carries the environment state for those releases channel.
 
 <details>
 <summary><b>Production</b></summary>
@@ -62,10 +62,9 @@ npm install
 ### Project Structure
 
 ```txt
-wallet/
+mobile-app/
 ├─ .github/
 ├─ app/
-│  ├─ assets/
 │  ├─ components/
 │  ├─ contexts/
 │  ├─ hooks/
@@ -73,10 +72,12 @@ wallet/
 │  ├─ screens/
 │  │  ├─ ...Navigator/
 │  │  └─ Main.tsx
-│  ├─ store/
-│  └─ translations/
-│     └─ languages/
 └─ cypress/
+shared/
+├─ assets/
+├─ store/
+└─ translations/
+   └─ languages/
 ```
 
 DeFiChain Wallet project is structured with 3 core directories. Each pull request will likely carry significant changes
@@ -86,13 +87,13 @@ Directory               | Description
 ------------------------|-------------
 `/.github`              | GitHub Workflow for shift left automation
 `/app/api`              | API and middlewares logic for application, for non-UI logic only
-`/app/assets`           | assets of the project that can be loaded at startup
+`/shared/assets`        | assets of the project that can be loaded at startup
 `/app/components`       | top level components for a atomic shared design language
 `/app/contexts`         | shared contexts for application, non-UI logic
 `/app/hooks`            | shared hooks for application, for UI logic only
 `/app/screens`          | screens hierarchy tree matching directory hierarchy tree
-`/app/store`            | global state that is used at least more than once in screens, for UI logic only
-`/app/translations`     | various language translations
+`/shared/store`         | global state that is used at least more than once in screens, for UI logic only
+`/shared/translations`  | various language translations
 `/cypress`              | E2E tested facilitated through web testing technologies
 
 ### Testing

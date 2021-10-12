@@ -13,7 +13,7 @@ exclude_patterns:
   - "dist/"
   - "**/node_modules/"
   - "**/cypress/"
-  - "**/app/assets/"
+  - "**/shared/assets/"
   - "**/app/components/icons"
   - "**/*.test.ts"
   - "**/*.test.tsx"

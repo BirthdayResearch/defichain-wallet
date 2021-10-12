@@ -19,21 +19,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
-      - uses: actions/setup-node@25316bbc1f10ac9d8798711f44914b1cf3c4e954
+      - uses: actions/setup-node@270253e841af726300e85d718a5f606959b2903c
         with:
           node-version: 15
           cache: 'npm'
 
       - run: npm ci
       - run: tsc --project tsconfig.production.json
-      - run: npx --no-install eslint app App.tsx
+      - run: npx --no-install eslint ./mobile-app/app ./mobile-app/App.tsx
 
   unit:
     name: Unit Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
-      - uses: actions/setup-node@25316bbc1f10ac9d8798711f44914b1cf3c4e954
+      - uses: actions/setup-node@270253e841af726300e85d718a5f606959b2903c
         with:
           node-version: 15
           cache: 'npm'
@@ -41,6 +41,6 @@ jobs:
       - run: npm ci
       - run: npm run test:ci
 
-      - uses: codecov/codecov-action@5a8bb4701eca7ba3673f21664b887f652c58d0a3
+      - uses: codecov/codecov-action@f32b3a3741e1053eb607407145bc9619351dc93b
         with:
           fail_ci_if_error: true

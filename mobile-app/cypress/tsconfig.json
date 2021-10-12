@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "esnext",
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "types": [
+      "cypress",
+      "@testing-library/cypress"
+    ]
+  },
+  "include": [
+    "**/*.ts"
+  ]
+}

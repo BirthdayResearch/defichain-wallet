@@ -1,0 +1,1163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`button should be clickable 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(255, 229, 247, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+  testID="primary_button"
+>
+  <Text>
+    Hello World
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type fill-primary 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(255, 229, 247, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(255, 0, 175, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submit
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type fill-primary 2`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(163, 163, 163, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submit
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type fill-primary 3`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <ActivityIndicator
+    animating={true}
+    color="#ff00af"
+    hidesWhenStopped={true}
+    size="small"
+  />
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(163, 163, 163, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "marginLeft": 8,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submitting
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type fill-secondary 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(232, 222, 255, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(91, 15, 255, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submit
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type fill-secondary 2`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(163, 163, 163, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submit
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type fill-secondary 3`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <ActivityIndicator
+    animating={true}
+    color="#ff00af"
+    hidesWhenStopped={true}
+    size="small"
+  />
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(163, 163, 163, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "marginLeft": 8,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submitting
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type flat-primary 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "transparent",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(255, 0, 175, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submit
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type flat-primary 2`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(163, 163, 163, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submit
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type flat-primary 3`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <ActivityIndicator
+    animating={true}
+    color="#ff00af"
+    hidesWhenStopped={true}
+    size="small"
+  />
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(163, 163, 163, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "marginLeft": 8,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submitting
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type flat-secondary 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "transparent",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(91, 15, 255, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submit
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type flat-secondary 2`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(163, 163, 163, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submit
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type flat-secondary 3`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <ActivityIndicator
+    animating={true}
+    color="#ff00af"
+    hidesWhenStopped={true}
+    size="small"
+  />
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(163, 163, 163, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "marginLeft": 8,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submitting
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type outline-primary 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "transparent",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(255, 0, 175, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submit
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type outline-primary 2`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(163, 163, 163, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submit
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type outline-primary 3`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <ActivityIndicator
+    animating={true}
+    color="#ff00af"
+    hidesWhenStopped={true}
+    size="small"
+  />
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(163, 163, 163, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "marginLeft": 8,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submitting
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type outline-secondary 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "transparent",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(91, 15, 255, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submit
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type outline-secondary 2`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(163, 163, 163, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submit
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type outline-secondary 3`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <ActivityIndicator
+    animating={true}
+    color="#ff00af"
+    hidesWhenStopped={true}
+    size="small"
+  />
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(163, 163, 163, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "marginLeft": 8,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submitting
+  </Text>
+</View>
+`;
+
+exports[`button should not be clickable when disabled 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+  testID="primary_button"
+>
+  <Text>
+    Hello World
+  </Text>
+</View>
+`;

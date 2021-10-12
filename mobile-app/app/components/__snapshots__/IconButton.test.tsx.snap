@@ -1,0 +1,237 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`icon button should match snapshot of button with add icon 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "rgba(255, 255, 255, 1)",
+      "borderBottomColor": "rgba(212, 212, 212, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 1,
+      "borderLeftColor": "rgba(212, 212, 212, 1)",
+      "borderLeftWidth": 1,
+      "borderRightColor": "rgba(212, 212, 212, 1)",
+      "borderRightWidth": 1,
+      "borderTopColor": "rgba(212, 212, 212, 1)",
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 1,
+      "flexDirection": "row",
+      "opacity": 1,
+      "paddingBottom": 4,
+      "paddingLeft": 4,
+      "paddingRight": 4,
+      "paddingTop": 4,
+    }
+  }
+  testID="test"
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      Array [
+        Object {
+          "color": undefined,
+          "fontSize": 24,
+        },
+        Array [
+          undefined,
+          Object {
+            "color": "rgba(255, 0, 175, 1)",
+          },
+        ],
+        Object {
+          "fontFamily": "material",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        Object {},
+      ]
+    }
+  >
+    
+  </Text>
+</View>
+`;
+
+exports[`icon button should match snapshot of button with remove icon 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "rgba(255, 255, 255, 1)",
+      "borderBottomColor": "rgba(212, 212, 212, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 1,
+      "borderLeftColor": "rgba(212, 212, 212, 1)",
+      "borderLeftWidth": 1,
+      "borderRightColor": "rgba(212, 212, 212, 1)",
+      "borderRightWidth": 1,
+      "borderTopColor": "rgba(212, 212, 212, 1)",
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 1,
+      "flexDirection": "row",
+      "opacity": 1,
+      "paddingBottom": 4,
+      "paddingLeft": 4,
+      "paddingRight": 4,
+      "paddingTop": 4,
+    }
+  }
+  testID="test"
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      Array [
+        Object {
+          "color": undefined,
+          "fontSize": 24,
+        },
+        Array [
+          undefined,
+          Object {
+            "color": "rgba(255, 0, 175, 1)",
+          },
+        ],
+        Object {
+          "fontFamily": "material",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        Object {},
+      ]
+    }
+  >
+    
+  </Text>
+</View>
+`;
+
+exports[`icon button should match snapshot of button with swap-horiz icon 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "rgba(255, 255, 255, 1)",
+      "borderBottomColor": "rgba(212, 212, 212, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 1,
+      "borderLeftColor": "rgba(212, 212, 212, 1)",
+      "borderLeftWidth": 1,
+      "borderRightColor": "rgba(212, 212, 212, 1)",
+      "borderRightWidth": 1,
+      "borderTopColor": "rgba(212, 212, 212, 1)",
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 1,
+      "flexDirection": "row",
+      "opacity": 1,
+      "paddingBottom": 4,
+      "paddingLeft": 4,
+      "paddingRight": 4,
+      "paddingTop": 4,
+    }
+  }
+  testID="test"
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      Array [
+        Object {
+          "color": undefined,
+          "fontSize": 24,
+        },
+        Array [
+          undefined,
+          Object {
+            "color": "rgba(255, 0, 175, 1)",
+          },
+        ],
+        Object {
+          "fontFamily": "material",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        Object {},
+      ]
+    }
+  >
+    
+  </Text>
+</View>
+`;
+
+exports[`icon button should match snapshot of button with swap-vert icon 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "rgba(255, 255, 255, 1)",
+      "borderBottomColor": "rgba(212, 212, 212, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 1,
+      "borderLeftColor": "rgba(212, 212, 212, 1)",
+      "borderLeftWidth": 1,
+      "borderRightColor": "rgba(212, 212, 212, 1)",
+      "borderRightWidth": 1,
+      "borderTopColor": "rgba(212, 212, 212, 1)",
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 1,
+      "flexDirection": "row",
+      "opacity": 1,
+      "paddingBottom": 4,
+      "paddingLeft": 4,
+      "paddingRight": 4,
+      "paddingTop": 4,
+    }
+  }
+  testID="test"
+>
+  <Text />
+</View>
+`;

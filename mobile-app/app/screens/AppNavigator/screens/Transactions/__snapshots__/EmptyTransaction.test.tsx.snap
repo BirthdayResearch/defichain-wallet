@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`empty transaction should match snapshot 1`] = `
+<RCTScrollView
+  refreshControl={
+    <RefreshControlMock
+      onRefresh={[Function]}
+      refreshing={true}
+    />
+  }
+  style={
+    Array [
+      Object {
+        "paddingBottom": 8,
+        "paddingLeft": 32,
+        "paddingRight": 32,
+        "paddingTop": 128,
+        "textAlign": "center",
+      },
+      Object {
+        "backgroundColor": "rgba(245, 245, 245, 1)",
+      },
+    ]
+  }
+  testID="empty_transaction"
+>
+  <RCTRefreshControl />
+  <View>
+    <Text />
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "SemiBoldFont",
+              "fontSize": 24,
+              "fontWeight": "600",
+              "lineHeight": 32,
+              "paddingBottom": 8,
+              "textAlign": "center",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      No transactions yet
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontSize": 14,
+              "lineHeight": 20,
+              "opacity": 0.6,
+              "paddingBottom": 64,
+              "textAlign": "center",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.
+    </Text>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(255, 229, 247, 1)",
+          "borderBottomLeftRadius": 4,
+          "borderBottomRightRadius": 4,
+          "borderTopLeftRadius": 4,
+          "borderTopRightRadius": 4,
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "marginBottom": 16,
+          "marginLeft": 16,
+          "marginRight": 16,
+          "marginTop": 32,
+          "opacity": 1,
+          "paddingBottom": 12,
+          "paddingLeft": 12,
+          "paddingRight": 12,
+          "paddingTop": 12,
+        }
+      }
+      testID="button_receive_coins"
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Object {
+              "color": "rgba(255, 0, 175, 1)",
+              "fontFamily": "BoldFont",
+              "fontWeight": "700",
+              "textAlign": "center",
+            },
+          ]
+        }
+      >
+        RECEIVE COINS
+      </Text>
+    </View>
+  </View>
+</RCTScrollView>
+`;

@@ -15,7 +15,7 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.result }}
     steps:
-      - uses: actions/github-script@f891eff65186019cbb3f7190c4590bc0a1b76fbc
+      - uses: actions/github-script@441359b1a30438de65712c2fbca0abe4816fa667
         id: version
         with:
           script: |
@@ -35,7 +35,7 @@ jobs:
     needs: [ version ]
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
-      - uses: actions/setup-node@25316bbc1f10ac9d8798711f44914b1cf3c4e954
+      - uses: actions/setup-node@270253e841af726300e85d718a5f606959b2903c
         with:
           node-version: 15
 
@@ -63,7 +63,7 @@ jobs:
     needs: [ version ]
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
-      - uses: actions/setup-node@25316bbc1f10ac9d8798711f44914b1cf3c4e954
+      - uses: actions/setup-node@270253e841af726300e85d718a5f606959b2903c
         with:
           node-version: 15
 

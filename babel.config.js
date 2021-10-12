@@ -5,20 +5,22 @@ module.exports = function (api) {
       'module-resolver',
       {
         alias: {
-          '@api': './app/api',
-          '@assets': './app/assets',
-          '@constants': './app/constants',
-          '@contexts': './app/contexts',
-          '@components': './app/components',
-          '@environment': './app/environment',
-          '@hooks': './app/hooks',
-          '@screens': './app/screens',
-          '@store': './app/store',
-          '@translations': './app/translations',
-          '@tailwind': './app/tailwind'
+          '@api': './mobile-app/app/api',
+          '@assets': './shared/assets',
+          '@constants': './mobile-app/app/constants',
+          '@contexts': './mobile-app/app/contexts',
+          '@components': './mobile-app/app/components',
+          '@environment': './shared/environment',
+          '@hooks': './mobile-app/app/hooks',
+          '@shared-api': './shared/api',
+          '@screens': './mobile-app/app/screens',
+          '@store': './shared/store',
+          '@translations': './shared/translations',
+          '@tailwind': './mobile-app/app/tailwind'
         }
       }
-    ]
+    ],
+    'react-native-reanimated/plugin'
   ]
 
   if (process.env.CYPRESS_E2E) {

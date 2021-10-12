@@ -28,7 +28,7 @@ jobs:
       - name: Setup Playground
         run: docker-compose -f docker-compose.yml up -d
 
-      - uses: actions/setup-node@25316bbc1f10ac9d8798711f44914b1cf3c4e954
+      - uses: actions/setup-node@270253e841af726300e85d718a5f606959b2903c
         with:
           node-version: 15
           cache: 'npm'
@@ -47,11 +47,12 @@ jobs:
           start: npm run start:web
           wait-on: 'http://localhost:19006'
           browser: chrome
-          spec: cypress/integration/**
+          spec: mobile-app/cypress/integration/**
           tag: ${{ github.event_name }}
+          project: ./mobile-app
         env:
           CYPRESS_E2E: true
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: codecov/codecov-action@5a8bb4701eca7ba3673f21664b887f652c58d0a3
+      - uses: codecov/codecov-action@f32b3a3741e1053eb607407145bc9619351dc93b
