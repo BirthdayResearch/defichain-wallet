@@ -7,7 +7,8 @@ async function set (isBalanceDisplayed: boolean): Promise<void> {
 }
 
 async function get (): Promise<boolean> {
-  return ['true', null].includes(await AsyncStorage.getItem(KEY))
+  const val = await AsyncStorage.getItem(KEY)
+  return val !== 'false'
 }
 
 export const ToggleBalancesPersistence = {
