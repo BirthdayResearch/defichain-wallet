@@ -1,8 +1,12 @@
 {
   "extends": "expo/tsconfig.base",
+  "include": [
+    "mobile-app",
+    "shared",
+  ],
   "exclude": [
     "node_modules",
-    "website"
+    "mobile-app/cypress"
   ],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
