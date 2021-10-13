@@ -9,6 +9,9 @@
   "extends": [
     "standard-with-typescript"
   ],
+  "ignorePatterns": [
+    "/support/*.ts"
+  ],
   "rules": {
     "@typescript-eslint/no-namespace": "off",
     "cypress/no-assigning-return-values": "error",

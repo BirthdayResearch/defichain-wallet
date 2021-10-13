@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prepare": "husky install",
-    "lint": "eslint ./mobile-app/app ./mobile-app/App.tsx ./mobile-app/cypress/integration --fix",
+    "lint": "eslint . --fix",
     "start": "expo start",
     "start:android": "expo start --android",
     "start:ios": "expo start --ios",
@@ -127,7 +127,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js}": [
-      "npm run lint"
+      "eslint --fix"
     ]
   },
   "standard-version": {
