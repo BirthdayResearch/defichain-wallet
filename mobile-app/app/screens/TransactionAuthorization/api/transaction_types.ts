@@ -26,7 +26,6 @@ export enum TransactionStatus {
   PIN = 'PIN',
   SIGNING = 'SIGNING',
   AUTHORIZED = 'AUTHORIZED',
-  MULTI_TX = 'MULTI_TX'
 }
 
 export interface PromptPromiseI {

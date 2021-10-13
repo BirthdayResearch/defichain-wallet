@@ -56,7 +56,6 @@ export function TransactionAuthorization (): JSX.Element | null {
   const whaleApiClient = useWhaleApiClient()
   const dispatch = useDispatch()
   const transaction = useSelector((state: RootState) => first(state.transactionQueue))
-  const transactions = useSelector((state: RootState) => state.transactionQueue.transactions)
   const authentication = useSelector((state: RootState) => state.authentication.authentication)
 
   const [transactionStatus, setTransactionStatus] = useState<TransactionStatus>(TransactionStatus.INIT)
@@ -154,21 +153,12 @@ export function TransactionAuthorization (): JSX.Element | null {
     setWallet(initJellyfishWallet(provider, network, whaleApiClient))
   }
 
-  const onPinSuccess = async (onBroadcast: any, signedTx: CTransactionSegWit, isLastTX: boolean): Promise<void> => {
-    let onConfirmation
-    if (isLastTX) {
-      setTransactionStatus(TransactionStatus.AUTHORIZED)
-      await resetPasscodeCounter()
-    } else {
-      onConfirmation = () => {
-        dispatch(transactionQueue.actions.pop())
-        setTransactionStatus(TransactionStatus.MULTI_TX)
-      }
-    }
+  const onPinSuccess = async (onBroadcast: any, signedTx: CTransactionSegWit): Promise<void> => {
+    setTransactionStatus(TransactionStatus.AUTHORIZED)
+    await resetPasscodeCounter()
     dispatch(ocean.actions.queueTransaction({
       tx: signedTx,
-      onBroadcast,
-      onConfirmation
+      onBroadcast
     })) // push signed result for broadcasting
   }
 
@@ -193,7 +183,7 @@ export function TransactionAuthorization (): JSX.Element | null {
    * If you're curious where the passcode validation is triggered, see - https://github.com/DeFiCh/jellyfish/blob/fe270b737705ad33242a9ec3f8896b2f8f5052c8/packages/jellyfish-wallet-encrypted/src/hd_node.ts#L87
    * */
   useEffect(() => {
-    if (transactionStatus !== TransactionStatus.IDLE && transactionStatus !== TransactionStatus.MULTI_TX) {
+    if (transactionStatus !== TransactionStatus.IDLE) {
       // wait for prompt UI is ready again
       return
     }
@@ -211,7 +201,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       signTransaction(transaction, wallet.get(0), onRetry, retries)
         .then(async signedTx => {
           // case 1: success
-          await onPinSuccess(transaction.onBroadcast, signedTx, transactions.length === 1)
+          await onPinSuccess(transaction.onBroadcast, signedTx)
         })
         .catch(async e => {
           if (e.message === INVALID_HASH) {

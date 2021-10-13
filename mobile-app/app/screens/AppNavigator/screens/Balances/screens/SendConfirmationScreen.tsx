@@ -23,7 +23,6 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
-import { dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { onBroadcast } from '@api/transaction/transaction_commands'
 
 type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
@@ -201,8 +200,6 @@ async function send ({
       return new CTransactionSegWit(signed)
     }
 
-    dispatch(transactionQueue.actions.push(dfiConversionCrafter(new BigNumber(0.1), 'accountToUtxos', () => {
-    })))
     dispatch(transactionQueue.actions.push({
       sign: signer,
       title: translate('screens/SendConfirmationScreen', 'Sending', { symbol: token.displaySymbol }),
