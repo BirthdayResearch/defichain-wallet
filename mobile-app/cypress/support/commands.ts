@@ -2,7 +2,7 @@ import '@testing-library/cypress/add-commands'
 import './onboardingCommands'
 import './walletCommands'
 
-// @ts-ignore
+/* eslint-disable @typescript-eslint/no-var-requires */
 const compareSnapshotCommand = require('cypress-image-diff-js/dist/command')
 compareSnapshotCommand()
 
@@ -39,79 +39,80 @@ declare global {
        * @description Custom command to select DOM element by data-testid attribute.
        * @example cy.getByTestID('settings')
        */
-      getByTestID (value: string): Chainable<Element>
+      getByTestID: (value: string) => Chainable<Element>
 
       /**
        * @description Redirects to main page and creates an empty wallet for testing. Useful on starts of tests.
        * @param {boolean} [isRandom=false] default = false, creates randomly generated mnemonic seed or abandon x23
        * @example cy.createEmptyWallet(isRandom?: boolean)
        */
-      createEmptyWallet (isRandom?: boolean): Chainable<Element>
+      createEmptyWallet: (isRandom?: boolean) => Chainable<Element>
 
       /**
        * @description Sends UTXO DFI to wallet.
        * @example cy.sendDFItoWallet().wait(4000)
        */
-      sendDFItoWallet (): Chainable<Element>
+      sendDFItoWallet: () => Chainable<Element>
 
       /**
        * @description Sends DFI Token to wallet.
        * @example cy.sendDFITokentoWallet().wait(4000)
        */
-      sendDFITokentoWallet (): Chainable<Element>
+      sendDFITokentoWallet: () => Chainable<Element>
 
       /**
        * @description Sends token to wallet. Accepts a list of token symbols to be sent.
        * @param {string[]} tokens to be sent
        * @example cy.sendTokenToWallet(['BTC', 'ETH']).wait(4000)
        */
-      sendTokenToWallet (tokens: string[]): Chainable<Element>
+      sendTokenToWallet: (tokens: string[]) => Chainable<Element>
 
       /**
        * @description Wait for the ocean interface to be confirmed then close the drawer
        * @param {string} pin - accepts optional pin
        * @example cy.closeOceanInterface('000000')
        */
-      closeOceanInterface (pin?: string): Chainable<Element>
+      closeOceanInterface: (pin?: string) => Chainable<Element>
 
       /**
        * @description Exit current wallet
        * @example cy.exitWallet()
        */
-      exitWallet (): Chainable<Element>
+      exitWallet: () => Chainable<Element>
 
       /**
        * @description Fetch wallet balance
        * @example cy.fetchWalletBalance()
        */
-      fetchWalletBalance (): Chainable<Element>
+      fetchWalletBalance: () => Chainable<Element>
 
       /**
        * @description Switch networks via app
        * @param {string} network to be used
        * @example cy.switchToMainnet('MainNet')
        */
-      switchNetwork (network: string): Chainable<Element>
+      switchNetwork: (network: string) => Chainable<Element>
 
       /**
        * @description Stores local storage for dependent tests
        */
-      saveLocalStorage (): Chainable<Element>
+      saveLocalStorage: () => Chainable<Element>
 
       /**
        * @description Restores local storage for dependent tests
        */
-      restoreLocalStorage (): Chainable<Element>
+      restoreLocalStorage: () => Chainable<Element>
 
       /**
        * @description Compare snapshot from image
        */
-      compareSnapshot (element?: string): Chainable<Element>
+      compareSnapshot: (element?: string) => Chainable<Element>
     }
   }
 }
 
-Cypress.Commands.add('getByTestID', (selector, ...args) => {
+Cypress.Commands.add('getByTestID', (selector: string, ...args) => {
+  /* eslint-disable @typescript-eslint/restrict-template-expressions */
   return cy.get(`[data-testid=${Cypress.$.escapeSelector(selector)}]`, ...args)
 })
 
@@ -156,21 +157,21 @@ Cypress.Commands.add('fetchWalletBalance', () => {
 
 Cypress.Commands.add('switchNetwork', (network: string) => {
   cy.getByTestID('bottom_tab_settings').click()
-	cy.getByTestID('button_selected_network').click()
+  cy.getByTestID('button_selected_network').click()
   cy.getByTestID(`button_network_${network}`).click()
-	cy.on('window:confirm', () => {})
+  cy.on('window:confirm', () => {})
 })
 
-let LOCAL_STORAGE_MEMORY = {};
+const LOCAL_STORAGE_MEMORY = {}
 
 Cypress.Commands.add('saveLocalStorage', () => {
   Object.keys(localStorage).forEach(key => {
-    LOCAL_STORAGE_MEMORY[key] = localStorage[key];
-  });
-});
+    LOCAL_STORAGE_MEMORY[key] = localStorage[key]
+  })
+})
 
 Cypress.Commands.add('restoreLocalStorage', () => {
   Object.keys(LOCAL_STORAGE_MEMORY).forEach(key => {
-    localStorage.setItem(key, LOCAL_STORAGE_MEMORY[key]);
-  });
-});
+    localStorage.setItem(key, LOCAL_STORAGE_MEMORY[key])
+  })
+})
