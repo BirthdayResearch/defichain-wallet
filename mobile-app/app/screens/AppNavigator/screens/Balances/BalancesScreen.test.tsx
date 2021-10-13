@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { fireEvent, render, waitFor } from '@testing-library/react-native'
+import { fireEvent, render } from '@testing-library/react-native'
 import * as React from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Provider } from 'react-redux'
 import { RootState } from '@store'
 import { wallet } from '@store/wallet'
@@ -58,13 +57,16 @@ jest.mock('../../../../contexts/WalletPersistenceContext', () => ({
   }
 }))
 
-jest.mock('@react-navigation/native', () => ({
-  useNavigation: jest.fn()
+jest.mock('../../../../contexts/DisplayBalancesContext', () => ({
+  useDisplayBalancesContext: () => {
+    return {
+      isBalancesDisplayed: true
+    }
+  }
 }))
 
-jest.mock('@react-native-async-storage/async-storage', () => ({
-  setItem: jest.fn(),
-  getItem: jest.fn()
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: jest.fn()
 }))
 
 describe('balances page', () => {
@@ -93,9 +95,6 @@ describe('balances page', () => {
       </Provider>
     )
     const rendered = render(component)
-    await waitFor(() => {
-      expect(AsyncStorage.getItem).toBeCalledWith('WALLET.TOGGLE_BALANCES')
-    })
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 

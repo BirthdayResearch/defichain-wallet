@@ -1,6 +1,7 @@
 import { getNativeIcon } from '@components/icons/assets'
 import { View } from '@components/index'
 import {
+  ThemedBalanceText,
   ThemedFlatList,
   ThemedIcon,
   ThemedSectionTitle,
@@ -8,6 +9,7 @@ import {
   ThemedTouchableOpacity,
   ThemedView
 } from '@components/themed'
+import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@contexts/WalletContext'
 import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
@@ -26,7 +28,6 @@ import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
 import { DFIBalanceCard } from './components/DFIBalanceCard'
-import { useToggleBalance } from '@hooks/useToggleBalance'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -35,15 +36,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const { wallets } = useWalletPersistenceContext()
+  const { isBalancesDisplayed, toggleDisplayBalances: onToggleDisplayBalances } = useDisplayBalancesContext()
 
   const dispatch = useDispatch()
 
   const [refreshing, setRefreshing] = useState(false)
-  const {
-    isBalancesDisplayed,
-    toggleBalance: onToggleDisplayBalances,
-    hiddenBalanceText
-  } = useToggleBalance()
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
@@ -80,8 +77,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         </ThemedText>)}
       ListHeaderComponent={(
         <>
-          <DFIBalanceCard isBalancesDisplayed={isBalancesDisplayed} hiddenBalancesText={hiddenBalanceText} />
-
+          <DFIBalanceCard />
           <ThemedView
             style={tailwind('flex flex-row justify-between')}
           >
@@ -130,8 +126,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             key={item.symbol}
             onPress={() => navigation.navigate({ name: 'TokenDetail', params: { token: item }, merge: true })}
             token={item}
-            isBalancesDisplayed={isBalancesDisplayed}
-            hiddenBalanceText={hiddenBalanceText}
           />
         )
       }}
@@ -141,11 +135,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 }
 
 function BalanceItemRow ({
-  isBalancesDisplayed,
-  hiddenBalanceText,
   token,
   onPress
-}: { isBalancesDisplayed: boolean, hiddenBalanceText: string, token: WalletToken, onPress: () => void }): JSX.Element {
+}: { token: WalletToken, onPress: () => void }): JSX.Element {
   const Icon = getNativeIcon(token.avatarSymbol)
   const testID = `balances_row_${token.id}`
   return (
@@ -179,22 +171,19 @@ function BalanceItemRow ({
             {token.name}
           </ThemedText>
         </View>
-
         <View style={tailwind('flex-row items-center')}>
           <NumberFormat
             decimalScale={8}
             displayType='text'
             renderText={(value) =>
               <>
-                <ThemedText
+                <ThemedBalanceText
                   dark={tailwind('text-gray-200')}
                   light={tailwind('text-black')}
                   style={tailwind('mr-2 flex-wrap')}
                   testID={`${testID}_amount`}
-                >
-                  {isBalancesDisplayed ? value : hiddenBalanceText}
-                </ThemedText>
-
+                  value={value}
+                />
                 <ThemedIcon
                   dark={tailwind('text-gray-200')}
                   iconType='MaterialIcons'

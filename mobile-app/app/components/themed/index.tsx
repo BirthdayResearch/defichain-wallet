@@ -5,6 +5,7 @@ export interface ThemedProps {
 
 export * from './ThemedView'
 export * from './ThemedScrollView'
+export * from './ThemedBalanceText'
 export * from './ThemedText'
 export * from './ThemedTouchableOpacity'
 export * from './ThemedFlatList'

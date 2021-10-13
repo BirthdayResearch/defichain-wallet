@@ -6,10 +6,7 @@ exports[`balances page should match snapshot 1`] = `
   ListEmptyComponent={[Function]}
   ListHeaderComponent={
     <React.Fragment>
-      <DFIBalanceCard
-        hiddenBalancesText="*****"
-        isBalancesDisplayed={true}
-      />
+      <DFIBalanceCard />
       <ThemedView
         style={
           Object {
@@ -34,7 +31,6 @@ exports[`balances page should match snapshot 1`] = `
               "backgroundColor": "transparent",
             }
           }
-          onPress={[Function]}
           style={
             Object {
               "alignItems": "center",
@@ -412,8 +408,7 @@ exports[`balances page should match snapshot 1`] = `
                   }
                   testID="total_dfi_amount"
                 >
-                  77.00000000
-                   DFI
+                  77.00000000 DFI
                 </Text>
                 <Text
                   style={
@@ -438,7 +433,7 @@ exports[`balances page should match snapshot 1`] = `
                   }
                   testID="dfi_utxo_amount"
                 >
-                  77.00000000
+                  77.00000000 
                 </Text>
                 <Text
                   style={
@@ -462,7 +457,7 @@ exports[`balances page should match snapshot 1`] = `
                   }
                   testID="dfi_token_amount"
                 >
-                  0.00000000
+                  0.00000000 
                 </Text>
               </View>
             </View>
@@ -494,31 +489,7 @@ exports[`balances page should match snapshot 1`] = `
                 }
                 testID="token_vs_utxo_info"
               >
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    Array [
-                      Object {
-                        "color": undefined,
-                        "fontSize": 16,
-                      },
-                      Array [
-                        undefined,
-                        Object {
-                          "color": "rgba(255, 0, 175, 1)",
-                        },
-                      ],
-                      Object {
-                        "fontFamily": "material",
-                        "fontStyle": "normal",
-                        "fontWeight": "normal",
-                      },
-                      Object {},
-                    ]
-                  }
-                >
-                  
-                </Text>
+                <Text />
                 <Text
                   style={
                     Array [
@@ -594,31 +565,7 @@ exports[`balances page should match snapshot 1`] = `
                   }
                   testID="convert_dfi_button"
                 >
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      Array [
-                        Object {
-                          "color": undefined,
-                          "fontSize": 24,
-                        },
-                        Array [
-                          undefined,
-                          Object {
-                            "color": "rgba(255, 0, 175, 1)",
-                          },
-                        ],
-                        Object {
-                          "fontFamily": "material",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                        Object {},
-                      ]
-                    }
-                  >
-                    
-                  </Text>
+                  <Text />
                 </View>
                 <View
                   accessible={true}
@@ -656,31 +603,7 @@ exports[`balances page should match snapshot 1`] = `
                   }
                   testID="send_dfi_button"
                 >
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      Array [
-                        Object {
-                          "color": undefined,
-                          "fontSize": 24,
-                        },
-                        Array [
-                          undefined,
-                          Object {
-                            "color": "rgba(255, 0, 175, 1)",
-                          },
-                        ],
-                        Object {
-                          "fontFamily": "material",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                        Object {},
-                      ]
-                    }
-                  >
-                    
-                  </Text>
+                  <Text />
                 </View>
               </View>
             </View>
@@ -736,7 +659,7 @@ exports[`balances page should match snapshot 1`] = `
         </Text>
         <View
           accessible={true}
-          focusable={true}
+          focusable={false}
           onClick={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
@@ -757,35 +680,7 @@ exports[`balances page should match snapshot 1`] = `
           }
           testID="toggle_balance"
         >
-          <Text
-            allowFontScaling={false}
-            style={
-              Array [
-                Object {
-                  "color": undefined,
-                  "fontSize": 15,
-                },
-                Array [
-                  Object {
-                    "alignSelf": "center",
-                    "paddingRight": 4,
-                  },
-                  Object {
-                    "color": "rgba(0, 0, 0, 1)",
-                  },
-                ],
-                Object {
-                  "fontFamily": "material",
-                  "fontStyle": "normal",
-                  "fontWeight": "normal",
-                },
-                Object {},
-              ]
-            }
-            testID="toggle_balance_icon"
-          >
-            
-          </Text>
+          <Text />
           <Text
             style={
               Array [
@@ -1027,33 +922,9 @@ exports[`balances page should match snapshot 1`] = `
               }
               testID="balances_row_1_amount"
             >
-              777.00000000
+              777.00000000 
             </Text>
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": undefined,
-                    "fontSize": 24,
-                  },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "rgba(0, 0, 0, 1)",
-                    },
-                  ],
-                  Object {
-                    "fontFamily": "material",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
-              }
-            >
-              
-            </Text>
+            <Text />
           </View>
         </View>
       </View>
@@ -1282,33 +1153,9 @@ exports[`balances page should match snapshot 1`] = `
               }
               testID="balances_row_2_amount"
             >
-              555.00000000
+              555.00000000 
             </Text>
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": undefined,
-                    "fontSize": 24,
-                  },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "rgba(0, 0, 0, 1)",
-                    },
-                  ],
-                  Object {
-                    "fontFamily": "material",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
-              }
-            >
-              
-            </Text>
+            <Text />
           </View>
         </View>
       </View>

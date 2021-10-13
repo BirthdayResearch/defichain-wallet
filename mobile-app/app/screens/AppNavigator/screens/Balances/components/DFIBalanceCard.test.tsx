@@ -4,6 +4,13 @@ import { render } from '@testing-library/react-native'
 import { DFIBalanceCard } from './DFIBalanceCard'
 
 jest.mock('../../../../../contexts/ThemeProvider')
+jest.mock('../../../../../contexts/DisplayBalancesContext', () => ({
+  useDisplayBalancesContext: () => {
+    return {
+      isBalancesDisplayed: true
+    }
+  }
+}))
 jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn()
 }))
@@ -35,7 +42,7 @@ describe('DFI Balance Card', () => {
     const spy = jest.spyOn(redux, 'useSelector')
     spy.mockReturnValueOnce(dfiToken)
     spy.mockReturnValueOnce(dfiUtxo)
-    const rendered = render(<DFIBalanceCard isBalancesDisplayed hiddenBalancesText='*****' />)
+    const rendered = render(<DFIBalanceCard />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })

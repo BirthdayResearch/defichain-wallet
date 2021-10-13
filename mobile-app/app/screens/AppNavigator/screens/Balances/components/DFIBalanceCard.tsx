@@ -10,19 +10,14 @@ import { ImageBackground, TouchableOpacity } from 'react-native'
 import DFIBackground from '@assets/images/DFI_balance_background.png'
 import DFIBackgroundDark from '@assets/images/DFI_balance_background_dark.png'
 import { IconButton } from '@components/IconButton'
-import { ThemedView, ThemedText, ThemedIcon } from '@components/themed'
+import { ThemedBalanceText, ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { View } from '@components'
 import { getNativeIcon } from '@components/icons/assets'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 
-interface DFIBalanceCardProps {
-  isBalancesDisplayed: boolean
-  hiddenBalancesText: string
-}
-
-export function DFIBalanceCard ({ isBalancesDisplayed, hiddenBalancesText }: DFIBalanceCardProps): JSX.Element {
+export function DFIBalanceCard (): JSX.Element {
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const DFIIcon = getNativeIcon('_UTXO')
@@ -78,7 +73,12 @@ export function DFIBalanceCard ({ isBalancesDisplayed, hiddenBalancesText }: DFI
                 fixedDecimalScale
                 displayType='text'
                 renderText={value =>
-                  <ThemedText testID='total_dfi_amount' style={tailwind('pb-3.5')}>{isBalancesDisplayed ? value : hiddenBalancesText} DFI</ThemedText>}
+                  <ThemedBalanceText
+                    testID='total_dfi_amount'
+                    style={tailwind('pb-3.5')}
+                    symbol='DFI'
+                    value={value}
+                  />}
               />
 
               <NumberFormat
@@ -88,14 +88,13 @@ export function DFIBalanceCard ({ isBalancesDisplayed, hiddenBalancesText }: DFI
                 fixedDecimalScale
                 displayType='text'
                 renderText={value =>
-                  <ThemedText
+                  <ThemedBalanceText
                     light={tailwind('text-gray-500')}
                     dark={tailwind('text-gray-400')}
                     style={tailwind('text-sm pb-1.5')}
                     testID='dfi_utxo_amount'
-                  >
-                    {isBalancesDisplayed ? value : hiddenBalancesText}
-                  </ThemedText>}
+                    value={value}
+                  />}
               />
 
               <NumberFormat
@@ -105,14 +104,13 @@ export function DFIBalanceCard ({ isBalancesDisplayed, hiddenBalancesText }: DFI
                 fixedDecimalScale
                 displayType='text'
                 renderText={value =>
-                  <ThemedText
+                  <ThemedBalanceText
                     light={tailwind('text-gray-500')}
                     dark={tailwind('text-gray-400')}
                     style={tailwind('text-sm')}
                     testID='dfi_token_amount'
-                  >
-                    {isBalancesDisplayed ? value : hiddenBalancesText}
-                  </ThemedText>}
+                    value={value}
+                  />}
               />
             </View>
           </View>
