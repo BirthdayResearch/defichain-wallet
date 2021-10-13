@@ -1,4 +1,7 @@
 {
+  "include": [
+    "**/*.ts"
+  ],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
@@ -12,8 +15,5 @@
       "cypress",
       "@testing-library/cypress"
     ]
-  },
-  "include": [
-    "**/*.ts"
-  ]
+  }
 }
