@@ -21,7 +21,7 @@ export function ThemedBalanceText ({ symbol, testID, value, ...otherProps }: The
       testID={testID}
       {...otherProps}
     >
-      {`${isBalancesDisplayed ? value : hiddenBalanceText} ${symbol ?? ''}`}
+      {`${isBalancesDisplayed ? value : hiddenBalanceText} ${symbol ?? ''}`.trim()}
     </ThemedText>
   )
 }

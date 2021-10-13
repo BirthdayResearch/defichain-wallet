@@ -433,7 +433,7 @@ exports[`balances page should match snapshot 1`] = `
                   }
                   testID="dfi_utxo_amount"
                 >
-                  77.00000000 
+                  77.00000000
                 </Text>
                 <Text
                   style={
@@ -457,7 +457,7 @@ exports[`balances page should match snapshot 1`] = `
                   }
                   testID="dfi_token_amount"
                 >
-                  0.00000000 
+                  0.00000000
                 </Text>
               </View>
             </View>
@@ -922,7 +922,7 @@ exports[`balances page should match snapshot 1`] = `
               }
               testID="balances_row_1_amount"
             >
-              777.00000000 
+              777.00000000
             </Text>
             <Text />
           </View>
@@ -1153,7 +1153,7 @@ exports[`balances page should match snapshot 1`] = `
               }
               testID="balances_row_2_amount"
             >
-              555.00000000 
+              555.00000000
             </Text>
             <Text />
           </View>
