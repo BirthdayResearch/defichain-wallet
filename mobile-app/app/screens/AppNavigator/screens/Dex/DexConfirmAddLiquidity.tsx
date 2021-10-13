@@ -1,5 +1,4 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -24,13 +23,6 @@ import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { onBroadcast } from '@api/transaction/transaction_commands'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
-
-export interface AddLiquiditySummary extends PoolPairData {
-  fee: BigNumber // stick to whatever estimation/calculation done on previous page
-  tokenAAmount: BigNumber
-  tokenBAmount: BigNumber
-  percentage: BigNumber // to add
-}
 
 export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))

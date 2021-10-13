@@ -7,7 +7,7 @@ import { HeaderTitle } from '@components/HeaderTitle'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { AddLiquidityScreen } from './DexAddLiquidity'
-import { AddLiquiditySummary, ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
+import { ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
 import { RemoveLiquidityConfirmScreen } from './DexConfirmRemoveLiquidity'
 import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
 import { DexScreen } from './DexScreen'
@@ -35,6 +35,13 @@ export interface DexParamList {
   [key: string]: undefined | object
 }
 
+export interface AddLiquiditySummary extends PoolPairData {
+  fee: BigNumber
+  tokenAAmount: BigNumber
+  tokenBAmount: BigNumber
+  percentage: BigNumber
+}
+
 const DexStack = createStackNavigator<DexParamList>()
 
 export function DexNavigator (): JSX.Element {
@@ -43,7 +50,10 @@ export function DexNavigator (): JSX.Element {
   return (
     <DexStack.Navigator
       initialRouteName='DexScreen'
-      screenOptions={{ headerTitleStyle: HeaderFont, headerBackTitleVisible: false }}
+      screenOptions={{
+        headerTitleStyle: HeaderFont,
+        headerBackTitleVisible: false
+      }}
     >
       <DexStack.Screen
         component={DexScreen}
