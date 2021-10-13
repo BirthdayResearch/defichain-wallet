@@ -3,13 +3,7 @@ import * as redux from 'react-redux'
 import { render } from '@testing-library/react-native'
 import { DFIBalanceCard } from './DFIBalanceCard'
 
-jest.mock('@shared-contexts/ThemeProvider', () => ({
-  useThemeContext: () => {
-    return {
-      isLight: true
-    }
-  }
-}))
+jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn()
 }))

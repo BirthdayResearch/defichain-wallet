@@ -6,21 +6,8 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn()
 }))
 
-jest.mock('@shared-contexts/LanguageProvider', () => ({
-  useLanguageContext: () => {
-    return {
-      language: 'en'
-    }
-  }
-}))
-
-jest.mock('@shared-contexts/ThemeProvider', () => ({
-  useThemeContext: () => {
-    return {
-      isLight: true
-    }
-  }
-}))
+jest.mock('@shared-contexts/LanguageProvider')
+jest.mock('@shared-contexts/ThemeProvider')
 
 describe('language selection screen', () => {
   it('should render', async () => {

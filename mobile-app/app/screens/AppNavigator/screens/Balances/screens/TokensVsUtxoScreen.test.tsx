@@ -2,13 +2,7 @@ import { render } from '@testing-library/react-native'
 import * as React from 'react'
 import { TokensVsUtxoScreen } from './TokensVsUtxoScreen'
 
-jest.mock('@shared-contexts/ThemeProvider', () => ({
-  useThemeContext: () => {
-    return {
-      isLight: true
-    }
-  }
-}))
+jest.mock('@shared-contexts/ThemeProvider')
 describe('tokens vs utxo screen', () => {
   it('should render', async () => {
     const component = (

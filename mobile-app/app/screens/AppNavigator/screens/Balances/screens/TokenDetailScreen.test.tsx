@@ -6,18 +6,9 @@ import { RootState } from '@store'
 import { wallet } from '@store/wallet'
 import { TokenDetailScreen } from './TokenDetailScreen'
 
-jest.mock('@shared-contexts/ThemeProvider', () => ({
-  useThemeContext: () => {
-    return {
-      isLight: true
-    }
-  }
-}))
-jest.mock('@shared-contexts/DeFiScanContext', () => ({
-  useDeFiScanContext: () => ({
-    getTokenUrl: jest.fn
-  })
-}))
+jest.mock('@shared-contexts/ThemeProvider')
+jest.mock('@shared-contexts/DeFiScanContext')
+
 jest.mock('@hooks/wallet/TokensAPI', () => ({
   useTokensAPI: () => [
     {

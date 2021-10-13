@@ -3,13 +3,7 @@ import * as React from 'react'
 
 import LoadingScreen from './LoadingScreen'
 
-jest.mock('@shared-contexts/ThemeProvider', () => ({
-  useThemeContext: () => {
-    return {
-      isLight: true
-    }
-  }
-}))
+jest.mock('@shared-contexts/ThemeProvider')
 it('<LoadingScreen/> should display default text', () => {
   const { getByText } = render(<LoadingScreen />)
 

@@ -6,21 +6,8 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn()
 }))
 
-jest.mock('@shared-contexts/NetworkContext', () => ({
-  useNetworkContext: () => {
-    return {
-      network: 'Playground'
-    }
-  }
-}))
-
-jest.mock('@shared-contexts/ThemeProvider', () => ({
-  useThemeContext: () => {
-    return {
-      isLight: true
-    }
-  }
-}))
+jest.mock('@shared-contexts/NetworkContext')
+jest.mock('@shared-contexts/ThemeProvider')
 
 describe('network selection screen', () => {
   it('should render', async () => {

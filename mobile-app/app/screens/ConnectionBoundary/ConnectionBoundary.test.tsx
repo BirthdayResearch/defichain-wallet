@@ -3,13 +3,7 @@ import * as React from 'react'
 import { Text } from 'react-native'
 import ConnectionBoundary from './ConnectionBoundary'
 
-jest.mock('@shared-contexts/ThemeProvider', () => ({
-  useThemeContext: () => {
-    return {
-      isLight: true
-    }
-  }
-}))
+jest.mock('@shared-contexts/ThemeProvider')
 
 jest.mock('@react-native-community/netinfo', () => ({
   useNetInfo: jest.fn()

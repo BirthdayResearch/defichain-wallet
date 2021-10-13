@@ -10,13 +10,7 @@ jest.mock('@react-navigation/bottom-tabs', () => ({
   useBottomTabBarHeight: () => 49
 }))
 jest.mock('randomcolor', () => jest.fn().mockReturnValue('#ffffff'))
-jest.mock('@shared-contexts/ThemeProvider', () => ({
-  useThemeContext: () => {
-    return {
-      isLight: true
-    }
-  }
-}))
+jest.mock('@shared-contexts/ThemeProvider')
 
 jest.mock('../../../../hooks/wallet/TokensAPI', () => ({
   useTokensAPI: () => [{
@@ -47,21 +41,8 @@ jest.mock('../../../../hooks/wallet/TokensAPI', () => ({
   }]
 }))
 
-jest.mock('@shared-contexts/WalletContext', () => ({
-  useWalletContext: () => {
-    return {
-      address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d'
-    }
-  }
-}))
-
-jest.mock('@shared-contexts/WalletPersistenceContext', () => ({
-  useWalletPersistenceContext: () => {
-    return {
-      wallets: []
-    }
-  }
-}))
+jest.mock('@shared-contexts/WalletContext')
+jest.mock('@shared-contexts/WalletPersistenceContext')
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn()

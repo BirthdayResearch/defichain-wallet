@@ -2,13 +2,7 @@ import { render, waitFor } from '@testing-library/react-native'
 import * as React from 'react'
 import { DexGuidelines } from './DexGuidelines'
 
-jest.mock('@shared-contexts/ThemeProvider', () => ({
-  useThemeContext: () => {
-    return {
-      isLight: true
-    }
-  }
-}))
+jest.mock('@shared-contexts/ThemeProvider')
 
 describe('Dex guide', () => {
   it('should match snapshot', async () => {

@@ -2,13 +2,7 @@ import { render } from '@testing-library/react-native'
 import * as React from 'react'
 import { CreateWalletGuidelines } from './CreateWalletGuidelines'
 
-jest.mock('@shared-contexts/ThemeProvider', () => ({
-  useThemeContext: () => {
-    return {
-      isLight: true
-    }
-  }
-}))
+jest.mock('@shared-contexts/ThemeProvider')
 describe('create wallet guidelines', () => {
   it('should match snapshot', () => {
     const navigation: any = {
