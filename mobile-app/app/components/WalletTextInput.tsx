@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { forwardRef, useState } from 'react'
 import { Platform, TextInputProps } from 'react-native'
 import { ThemedView, ThemedText, ThemedTextInput, ThemedIcon, ThemedSectionTitle, ThemedTouchableOpacity } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -15,9 +15,10 @@ interface IWalletTextInputProps {
   displayClearButton?: boolean
   onClearButtonPress?: () => void
   displayFocusStyle?: boolean
+  containerStyle?: string
 }
 
-export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
+export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (props: WalletTextInputProps, ref: React.Ref<any>): JSX.Element {
   const [isFocus, setIsFocus] = useState(false)
   const {
     inputType,
@@ -29,6 +30,7 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
     onClearButtonPress,
     editable = true,
     children,
+    containerStyle,
     style,
     ...otherProps
   } = props
@@ -44,7 +46,7 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
     <ThemedView
       light={tailwind('bg-transparent')}
       dark={tailwind('bg-transparent')}
-      style={tailwind('flex-col w-full')}
+      style={tailwind(`${containerStyle ?? 'w-full flex-col'}`)}
     >
       {title !== undefined &&
         <ThemedSectionTitle
@@ -67,10 +69,9 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
           <ThemedTextInput
             style={style}
             onFocus={() => setIsFocus(true)}
-            onBlur={() => {
-              setIsFocus(false)
-            }}
+            onBlur={() => setIsFocus(false)}
             keyboardType={inputType}
+            ref={ref}
             editable={editable}
             {...otherProps}
           />
@@ -96,7 +97,7 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
       }
     </ThemedView>
   )
-}
+})
 
 function ClearButton (props: {onPress?: () => void, testID?: string}): JSX.Element {
   return (
