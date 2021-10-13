@@ -51,7 +51,10 @@
   "screens/BalancesScreen": {
     "Balances": "我的资产",
     "RECEIVE": "接收",
-    "PORTFOLIO": "资产组合"
+    "PORTFOLIO": "资产组合",
+    "Show balances": "显示总资产",
+    "Hide balances": "隐藏总资产",
+    "You do not have any other tokens.": "你现在没有其他代币"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",

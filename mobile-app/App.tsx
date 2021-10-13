@@ -4,6 +4,7 @@ import './_shim'
 import { Logging } from '@api'
 import { AppStateContextProvider } from '@contexts/AppStateContext'
 import { DeFiScanProvider } from '@contexts/DeFiScanContext'
+import { DisplayBalancesProvider } from '@contexts/DisplayBalancesContext'
 import { PrivacyLockContextProvider } from '@contexts/LocalAuthContext'
 import { NetworkProvider } from '@contexts/NetworkContext'
 import { StatsProvider } from '@contexts/StatsProvider'
@@ -50,9 +51,11 @@ export default function App (): JSX.Element | null {
                     <StatsProvider>
                       <ThemeProvider>
                         <LanguageProvider>
-                          <ConnectionBoundary>
-                            <Main />
-                          </ConnectionBoundary>
+                          <DisplayBalancesProvider>
+                            <ConnectionBoundary>
+                              <Main />
+                            </ConnectionBoundary>
+                          </DisplayBalancesProvider>
                         </LanguageProvider>
                       </ThemeProvider>
                     </StatsProvider>
