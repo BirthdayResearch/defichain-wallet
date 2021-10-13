@@ -3,14 +3,13 @@
 # DeFiChain Wallet Website
 
 This is **NOT** DeFiChain Web Wallet, this is an accompanying website to the DeFiChain wallet. It provides the uncapped
-fullstack ability to DeFiChain Wallet. With this website, it creates an online real estate for DeFiChain Wallet to
-communicate beyond the native platforms we support.
+full-stack ability to DeFiChain Wallet. This website creates an online real estate for DeFiChain Wallet to communicate
+beyond the native platforms we support.
 
-Purposes includes:
-
+Purpose includes:
 - Landing for DeFiChain Wallet
 - Static FAQ resources
-- `/api/*` upstream link for native wallet to pull information.
+- `/api/*` upstream link for the native wallet to pull information.
 
 ## Developing
 
