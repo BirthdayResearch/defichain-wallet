@@ -10,7 +10,10 @@
     "next/core-web-vitals"
   ],
   "ignorePatterns": [
-    "*.json"
+    "*.json",
+    "/next-env.d.ts",
+    "/next-sitemap.js",
+    "/*.config.js"
   ],
   "rules": {
     "@typescript-eslint/no-non-null-assertion": "off",
