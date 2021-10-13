@@ -18,7 +18,8 @@ module.exports = {
     '!**/_shim.js',
     '!**/screens/PlaygroundNavigator/**',
     '!**/cypress-coverage/**',
-    '!**/jest-coverage/**'
+    '!**/jest-coverage/**',
+    '!**/website/**'
   ],
   coverageDirectory: 'jest-coverage'
 }
