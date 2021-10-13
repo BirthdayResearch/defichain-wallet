@@ -7,6 +7,7 @@ full-stack ability to DeFiChain Wallet. This website creates an online real esta
 beyond the native platforms we support.
 
 Purpose includes:
+
 - Landing for DeFiChain Wallet
 - Static FAQ resources
 - `/api/*` upstream link for the native wallet to pull information.
@@ -18,7 +19,8 @@ npm install
 ```
 
 This `./website` is not part of the main mono-repo project structure. This website has its own `package-lock.json`
-and `node_modules` that is isolated for its own use.
+and `node_modules` that is isolated for its own use. It uses its own `eslint` and `lint-staged` setup (husky and
+lint-staged piggyback the hoisted installation).
 
 ### Project Structure
 

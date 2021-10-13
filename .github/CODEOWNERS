@@ -30,7 +30,6 @@ metro.config.js                                 @fuxingloh @thedoublejay
 package.json                                    @fuxingloh @thedoublejay
 package-lock.json                               @fuxingloh @thedoublejay
 tsconfig.json                                   @fuxingloh @thedoublejay
-tsconfig.production.json                        @fuxingloh @thedoublejay
 
 BETA_TESTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864
 CONTRIBUTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864
