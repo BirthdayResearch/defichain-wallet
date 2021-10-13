@@ -2,7 +2,6 @@
 [![wallet](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/count/oqk3fk/main&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/oqk3fk/runs)
 [![codecov](https://codecov.io/gh/DeFiCh/wallet/branch/main/graph/badge.svg?token=83SCBQBEVJ)](https://codecov.io/gh/DeFiCh/wallet)
 [![Maintainability](https://api.codeclimate.com/v1/badges/30297425fadcab8fbba4/maintainability)](https://codeclimate.com/github/DeFiCh/wallet/maintainability)
-[![TS-Standard](https://badgen.net/badge/code%20style/ts-standard/blue?icon=typescript)](https://github.com/standard/ts-standard)
 <div>
   <a href="https://apps.apple.com/us/app/defichain-wallet/id1572472820"><img width="130" height="50" src="/.github/images/app_store.svg" alt="app store" /></a>
   <a href='https://play.google.com/store/apps/details?id=com.defichain.app'><img width="130" height="50" alt='Get it on Google Play' src='/.github/images/play_store.svg'/></a>

@@ -1,0 +1,49 @@
+{
+  "name": "@defich/wallet-website",
+  "version": "0.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=14.x"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "lint": "eslint . --fix",
+    "build": "next build",
+    "postbuild": "next-sitemap",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.4.1",
+    "@tailwindcss/line-clamp": "^0.2.2",
+    "bignumber.js": "^9.0.1",
+    "classnames": "^2.3.1",
+    "date-fns": "^2.25.0",
+    "lodash": "^4.17.21",
+    "next": "11.1.2",
+    "next-sitemap": "^1.6.179",
+    "nextjs-progressbar": "^0.0.11",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-icons": "^4.3.1",
+    "react-number-format": "^4.7.3",
+    "react-schemaorg": "^2.0.0",
+    "schema-dts": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.175",
+    "@types/react": "17.0.29",
+    "autoprefixer": "^10.3.7",
+    "eslint": "7.32.0",
+    "eslint-config-next": "^11.1.2",
+    "eslint-config-standard-jsx": "^10.0.0",
+    "eslint-config-standard-with-typescript": "^21.0.1",
+    "postcss": "^8.3.9",
+    "tailwindcss": "^2.2.16",
+    "typescript": "4.4.3"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js}": [
+      "eslint --fix"
+    ]
+  }
+}

@@ -11,7 +11,8 @@
     "Cancel": "取消",
     "Refresh": "刷新",
     "Refresh recovery words": "刷新恢復字組",
-    "You are about to generate a new set of recovery words. Continue?": "您正進行產生新的恢復字組，確認要繼續？"
+    "You are about to generate a new set of recovery words. Continue?": "您正進行產生新的恢復字組，確認要繼續？",
+    "Passcode FAQ": "Passcode FAQ"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "去中心化交易所",
@@ -50,7 +51,10 @@
   "screens/BalancesScreen": {
     "Balances": "我的資產",
     "RECEIVE": "接收",
-    "PORTFOLIO": "資產組合"
+    "PORTFOLIO": "資產組合",
+    "Show balances": "顯示總資產",
+    "Hide balances": "隱藏總資產",
+    "You do not have any other tokens.": "你現在沒有其他代幣"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
@@ -282,7 +286,8 @@
     "Well done! Your wallet is restored. Keep your wallet private and secure by creating a passcode for it.": "恭喜您恢復錢包！接著請創建密碼以維持安全保護.",
     "Keep your passcode private": "請保管私人密碼",
     "CREATE PASSCODE": "創建密碼",
-    "CHANGE PASSCODE": "更換密碼"
+    "CHANGE PASSCODE": "更換密碼",
+    "Learn more about passcode": "Learn more about passcode"
   },
   "screens/VerifyMnemonicWallet": {
     "Invalid selection. Please ensure you have written down your 24 words.": "選擇的字組錯誤. 請確認您已經寫下正確的字和順序.",
@@ -298,7 +303,6 @@
     "Error": "錯誤",
     "The recovery words you have entered are invalid. Please double check and try again.": "您輸入的恢復字組並不完全正確. 請再次確認並重試.",
     "Please provide your 24 recovery words to regain access to your wallet.": "請輸入您的24字恢復字組.",
-    "ENTER THE CORRECT WORD": "請輸入正確的拼字",
     "RESTORE WALLET": "恢復錢包",
     "Enter word #{{order}}": "輸入字 #{{order}}",
     "Cancel": "取消",
@@ -491,6 +495,17 @@
     "Recovery words": "恢復字組",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "你的連續顯示24個英文單詞是指儲存在錢包的private key，它由2048個單字所產生的，支持BIP-39 標準的錢包。就算整個硬體錢包被盗或入侵，仍然可以確保安全的。",
     "FREQUENTLY ASKED QUESTIONS": "常見問題"
+  },
+  "components/PasscodeFaq": {
+    "Passcode": "Passcode",
+    "Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.",
+    "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "What happens if I forgot my passcode?",
+    "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.",
+    "Can I change my passcode?": "Can I change my passcode?",
+    "Yes, you can change your passcode from your settings in-app. We recommend changing of passcode regularly for maximum security.": "Yes, you can change your passcode from your settings in-app. We recommend changing of passcode regularly for maximum security.",
+    "Is passcode the same as phone PIN code?": "Is passcode the same as phone PIN code?",
+    "Your passcode is valid only for DeFiChain wallet.": "Your passcode is valid only for DeFiChain wallet.",
+    "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
   },
   "components/DFIBalanceCard": {
     "Learn more about UTXO and Token": "了解 UTXO 和代幣區別"

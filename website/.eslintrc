@@ -1,0 +1,55 @@
+{
+  "root": true,
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "extends": [
+    "standard-with-typescript",
+    "standard-jsx",
+    "next",
+    "next/core-web-vitals"
+  ],
+  "ignorePatterns": [
+    "*.json",
+    "/next-env.d.ts",
+    "/next-sitemap.js",
+    "/*.config.js"
+  ],
+  "rules": {
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "curly": [
+      "error",
+      "all"
+    ],
+    "brace-style": [
+      "error",
+      "1tbs"
+    ],
+    "func-style": [
+      2,
+      "declaration"
+    ],
+    "no-void": "off",
+    "import/no-default-export": "error",
+    "multiline-ternary": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        "name": "next/head",
+        "message": "Please use @components/commons/Head instead."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/pages/**/*.tsx",
+        "src/pages/**/*.ts"
+      ],
+      "rules": {
+        "import/no-default-export": "off",
+        "import/prefer-default-export": "error"
+      }
+    }
+  ]
+}

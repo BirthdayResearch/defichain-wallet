@@ -4,6 +4,7 @@ import './_shim'
 import { Logging, SecuredStoreAPI, LanguagePersistence, ThemePersistence } from '@api'
 import { AppStateContextProvider } from '@contexts/AppStateContext'
 import { DeFiScanProvider } from '@shared-contexts/DeFiScanContext'
+import { DisplayBalancesProvider } from '@contexts/DisplayBalancesContext'
 import { PrivacyLockContextProvider } from '@contexts/LocalAuthContext'
 import { NetworkProvider } from '@shared-contexts/NetworkContext'
 import { StatsProvider } from '@shared-contexts/StatsProvider'
@@ -55,9 +56,11 @@ export default function App (): JSX.Element | null {
                     <StatsProvider log={Logging}>
                       <ThemeProvider api={ThemePersistence} log={Logging} colorScheme={colorScheme}>
                         <LanguageProvider api={LanguagePersistence} log={Logging}>
-                          <ConnectionBoundary>
-                            <Main />
-                          </ConnectionBoundary>
+                          <DisplayBalancesProvider>
+                            <ConnectionBoundary>
+                              <Main />
+                            </ConnectionBoundary>
+                          </DisplayBalancesProvider>
                         </LanguageProvider>
                       </ThemeProvider>
                     </StatsProvider>

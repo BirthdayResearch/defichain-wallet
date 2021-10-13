@@ -44,6 +44,14 @@ jest.mock('../../../../hooks/wallet/TokensAPI', () => ({
 jest.mock('@shared-contexts/WalletContext')
 jest.mock('@shared-contexts/WalletPersistenceContext')
 
+jest.mock('../../../../contexts/DisplayBalancesContext', () => ({
+  useDisplayBalancesContext: () => {
+    return {
+      isBalancesDisplayed: true
+    }
+  }
+}))
+
 jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn()
 }))
