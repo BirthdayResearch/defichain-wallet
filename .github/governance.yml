@@ -37,6 +37,7 @@ issue:
       list:
         - core
         - workflow
+        - website
         - api
         - assets
         - contexts

@@ -11,6 +11,9 @@
 /shared/translations                            @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864
 /mobile-app/cypress                             @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864
 
+/website                                        @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864
+/website/src/pages/api                          @fuxingloh @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864
+
 /.codeclimate.yml                               @fuxingloh @thedoublejay
 /.versionrc.js                                  @fuxingloh @thedoublejay
 /mobile-app/_shim.js                            @fuxingloh @thedoublejay
@@ -19,14 +22,15 @@
 /mobile-app/cypress.json                        @fuxingloh @thedoublejay
 /docker-compose.yml                             @fuxingloh @thedoublejay
 /eas.json                                       @fuxingloh @thedoublejay
-/netlify.toml                                   @fuxingloh @thedoublejay
 
+netlify.toml                                    @fuxingloh @thedoublejay
 babel.config.js                                 @fuxingloh @thedoublejay
 jest.config.js                                  @fuxingloh @thedoublejay
 metro.config.js                                 @fuxingloh @thedoublejay
 package.json                                    @fuxingloh @thedoublejay
 package-lock.json                               @fuxingloh @thedoublejay
 tsconfig.json                                   @fuxingloh @thedoublejay
+tsconfig.production.json                        @fuxingloh @thedoublejay
 
 BETA_TESTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864
 CONTRIBUTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864

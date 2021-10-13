@@ -90,6 +90,12 @@
 - color: fbca04
   name: area/settings
 
+# Area - Website
+- color: fbca04
+  name: area/website
+- color: fbca04
+  name: area/website/api
+
 # Platform
 - color: 0d1d49
   name: platform/ios
