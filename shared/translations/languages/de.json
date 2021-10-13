@@ -11,7 +11,8 @@
     "Cancel": "Abbrechen",
     "Refresh": "Erneuern",
     "Refresh recovery words": "Erneuere Wiederherstellungssatz",
-    "You are about to generate a new set of recovery words. Continue?": "Du generierst einen neuen Satz Wiederherstellungswörter. Möchtest du fortfahren?"
+    "You are about to generate a new set of recovery words. Continue?": "Du generierst einen neuen Satz Wiederherstellungswörter. Möchtest du fortfahren?",
+    "Passcode FAQ": "Passwort FAQ"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
@@ -280,7 +281,8 @@
     "Well done! Your wallet is restored. Keep your wallet private and secure by creating a passcode for it.": "Erfolgreich! Deine Wallet ist wiederhergestellt. Schütze sie vor fremden Einblicken und sichere die Wallet, indem du jetzt ein Passwort erstellst.",
     "Keep your passcode private": "Behalte dein Passwort für dich",
     "CREATE PASSCODE": "PASSWORT ERSTELLEN",
-    "CHANGE PASSCODE": "PASSWORT ÄNDERN"
+    "CHANGE PASSCODE": "PASSWORT ÄNDERN",
+    "Learn more about passcode": "Erfahre mehr über das Passwort"
   },
   "screens/VerifyMnemonicWallet": {
     "Invalid selection. Please ensure you have written down your 24 words.": "Auswahl ungültig. Bitte versichere dich, dass du die 24 Wörter notiert hast.",
@@ -487,6 +489,17 @@
     "Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.": "Die Speicherung in digitalen Netzen könnte sie für Hacker zugänglich machen. Am besten ist es, sie auf Papier zu schreiben und sie sicher und vor Einblicken geschützt aufzubewahren.",
     "Recovery words": "Wiederherstellungssatz",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Deine einzigartigen 24 Wiederherstellungswörter, die aus einer Liste von 2048 Wörtern im BIP-39-Standard generiert werden, sind eine für Menschen lesbare Darstellung deines privaten Schlüssels. Sie verhindern jegliche Versuche, die Sicherheit deiner Wallet zu knacken, z.B. durch Brute-Force-Attacken.",
+    "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
+  },
+  "components/PasscodeFaq": {
+    "Passcode": "Passwort",
+    "Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Dein sechsstelliger numerischer Code, den du selbst festlegst, wird zur Autorisierung aller Transaktionen verwendet. Bewahre dein Passwort vor Einblicken und Zugriff geschützt und sicher auf. Du bist selbst für deine Sicherheit verantwortlich.",
+    "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "Was passiert, wenn ich mein Passwort vergessen habe? Kann mir jemand helfen, mein Passwort wiederherzustellen?",
+    "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Du bist für dein Passwort verantwortlich, daher kennt es niemand außer dir. Es ist wichtig, dass du dein Passwort sicher aufbewahrst und es von Zeit zu Zeit änderst.",
+    "Can I change my passcode?": "Kann ich mein Passwort ändern?",
+    "Yes, you can change your passcode from your settings in-app. We recommend changing of passcode regularly for maximum security.": "Ja, du kannst dein Passwort in den Einstellungen in der App ändern. Wir empfehlen, das Passwort regelmäßig zu ändern, um maximale Sicherheit zu gewährleisten.",
+    "Is passcode the same as phone PIN code?": "Ist das Passwort dasselbe wie der Telefon-PIN-Code?",
+    "Your passcode is valid only for DeFiChain wallet.": "Dein Passwort ist nur für die DeFiChain-Wallet gültig.",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
   },
   "components/DFIBalanceCard": {
