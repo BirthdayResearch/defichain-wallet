@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { View } from '@components/index'
 import { CREATE_STEPS, CreateWalletStepIndicator, RESTORE_STEPS } from '@components/CreateWalletStepIndicator'
 import { PinTextInput } from '@components/PinTextInput'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import { ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '../../WalletNavigator'
@@ -63,25 +63,11 @@ export function PinCreation ({ route }: Props): JSX.Element {
         value={newPin}
       />
 
-      <View style={tailwind('p-4 flex-row mt-2 mb-8 justify-center items-center')}>
-        <ThemedIcon
-          iconType='MaterialIcons'
-          name='lock-outline'
-          size={18}
-        />
-
-        <ThemedText
-          style={tailwind('text-center text-sm font-semibold ml-2')}
-        >
-          {translate('screens/PinCreation', 'Keep your passcode private')}
-        </ThemedText>
-      </View>
-
       <ThemedTouchableOpacity
         onPress={goToPasscodeFaq}
         light={tailwind('border-0')}
         dark={tailwind('border-0')}
-        style={tailwind('w-4/5')}
+        style={tailwind('w-4/5 pt-6')}
         testID='passcode_faq_link'
       >
         <ThemedText
