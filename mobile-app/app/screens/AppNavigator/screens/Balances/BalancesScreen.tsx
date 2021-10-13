@@ -1,7 +1,6 @@
 import { getNativeIcon } from '@components/icons/assets'
 import { View } from '@components/index'
 import {
-  ThemedBalanceText,
   ThemedFlatList,
   ThemedIcon,
   ThemedSectionTitle,
@@ -27,7 +26,7 @@ import { RefreshControl } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
-import { DFIBalanceCard } from './components/DFIBalanceCard'
+import { BalanceText, DFIBalanceCard } from './components'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -176,7 +175,7 @@ function BalanceItemRow ({
             displayType='text'
             renderText={(value) =>
               <>
-                <ThemedBalanceText
+                <BalanceText
                   dark={tailwind('text-gray-200')}
                   light={tailwind('text-black')}
                   style={tailwind('mr-2 flex-wrap')}

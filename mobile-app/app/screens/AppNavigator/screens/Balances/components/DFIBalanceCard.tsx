@@ -10,12 +10,13 @@ import { ImageBackground, TouchableOpacity } from 'react-native'
 import DFIBackground from '@assets/images/DFI_balance_background.png'
 import DFIBackgroundDark from '@assets/images/DFI_balance_background_dark.png'
 import { IconButton } from '@components/IconButton'
-import { ThemedBalanceText, ThemedIcon, ThemedText, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { View } from '@components'
 import { getNativeIcon } from '@components/icons/assets'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
+import { BalanceText } from './BalanceText'
 
 export function DFIBalanceCard (): JSX.Element {
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
@@ -73,7 +74,7 @@ export function DFIBalanceCard (): JSX.Element {
                 fixedDecimalScale
                 displayType='text'
                 renderText={value =>
-                  <ThemedBalanceText
+                  <BalanceText
                     testID='total_dfi_amount'
                     style={tailwind('pb-3.5')}
                     symbol='DFI'
@@ -88,7 +89,7 @@ export function DFIBalanceCard (): JSX.Element {
                 fixedDecimalScale
                 displayType='text'
                 renderText={value =>
-                  <ThemedBalanceText
+                  <BalanceText
                     light={tailwind('text-gray-500')}
                     dark={tailwind('text-gray-400')}
                     style={tailwind('text-sm pb-1.5')}
@@ -104,7 +105,7 @@ export function DFIBalanceCard (): JSX.Element {
                 fixedDecimalScale
                 displayType='text'
                 renderText={value =>
-                  <ThemedBalanceText
+                  <BalanceText
                     light={tailwind('text-gray-500')}
                     dark={tailwind('text-gray-400')}
                     style={tailwind('text-sm')}

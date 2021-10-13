@@ -1,16 +1,16 @@
 import React from 'react'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { ThemedText } from '@components/themed/ThemedText'
-import { ThemedProps } from '@components/themed/index'
+import { ThemedProps } from '@components/themed'
 import { TextProps } from '@components'
 
-interface ThemedBalanceTextProps {
+interface BalanceTextProps {
   testID?: string
   symbol?: string
   value: string
 }
 
-export function ThemedBalanceText ({ symbol, testID, value, ...otherProps }: ThemedBalanceTextProps & ThemedProps & TextProps): JSX.Element {
+export function BalanceText ({ symbol, testID, value, ...otherProps }: BalanceTextProps & ThemedProps & TextProps): JSX.Element {
   const {
     isBalancesDisplayed,
     hiddenBalanceText
