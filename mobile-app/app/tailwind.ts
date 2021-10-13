@@ -31,7 +31,9 @@ const fonts = {
  * If you want to use extend tailwind, please edit 'tailwind.config.js' and run 'npx create-tailwind-rn'
  * in this directory after you have edited the file.
  */
-const created = create({ ...styles, ...fonts })
+const tailwindStyles = { ...styles, ...fonts }
+const created = create(tailwindStyles)
+const tailwindStyleNames = Object.keys(tailwindStyles)
 
 /**
  * Allows to use custom tailwind classes.
@@ -48,7 +50,16 @@ const created = create({ ...styles, ...fonts })
  * @param {...Argument[]} args
  */
 export function tailwind (...args: Argument[]): { [key: string]: string } {
+  validateTailwindClass(classNames(args).split(' '))
   return created.tailwind(classNames(args))
+}
+
+function validateTailwindClass (args: string[]): void {
+  args.forEach(arg => {
+    if (arg.length !== 0 && !tailwindStyleNames.includes(arg)) {
+      throw Error(`Unsupported tailwind class: ${arg}`)
+    }
+  })
 }
 
 export const getColor = created.getColor
