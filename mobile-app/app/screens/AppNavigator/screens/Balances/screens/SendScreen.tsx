@@ -6,13 +6,13 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { DFIUtxoSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
-import { Control, Controller, FieldValues, useForm, UseFormSetValue } from 'react-hook-form'
+import { Control, Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Logging } from '@api'
 import { Button } from '@components/Button'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { useNetworkContext } from '@contexts/NetworkContext'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
@@ -23,7 +23,8 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
-import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
+import { ConversionInfoText } from '@components/ConversionInfoText'
+import { NumberRow } from '@components/NumberRow'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -38,7 +39,7 @@ export function SendScreen ({
   const {
     control,
     setValue,
-    formState: { isValid },
+    formState,
     getValues,
     trigger
   } = useForm({ mode: 'onChange' })
@@ -46,6 +47,7 @@ export function SendScreen ({
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
+  const [isConversionRequired, setIsConversionRequired] = useState(false)
 
   useEffect(() => {
     client.fee.estimate()
@@ -60,11 +62,24 @@ export function SendScreen ({
     }
   }, [JSON.stringify(tokens)])
 
+  useEffect(() => {
+    const amountValue = new BigNumber(getValues('amount'))
+    const reservedDFI = 0.1
+    if (token.id === '0_unified' &&
+     !amountValue.isNaN() &&
+     amountValue.isGreaterThan(new BigNumber(DFIUtxo.amount)) &&
+     amountValue.plus(reservedDFI).isLessThanOrEqualTo(token.amount)) {
+      setIsConversionRequired(true)
+    } else {
+      setIsConversionRequired(false)
+    }
+  }, [formState])
+
   async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
-    if (isValid) {
+    if (formState.isValid) {
       const values = getValues()
       navigation.navigate({
         name: 'SendConfirmationScreen',
@@ -96,7 +111,10 @@ export function SendScreen ({
             },
             merge: true
           })}
-          setValue={setValue}
+          onClearButtonPress={async () => {
+            setValue('address', '')
+            await trigger('address')
+          }}
         />
 
         <AmountRow
@@ -105,21 +123,39 @@ export function SendScreen ({
             setValue('amount', amount, { shouldDirty: true })
             await trigger('amount')
           }}
-          setValue={setValue}
+          onClearButtonPress={async () => {
+            setValue('amount', '')
+            await trigger('amount')
+          }}
           token={token}
-        />
 
-        <ReservedDFIInfoText />
+        />
+        {isConversionRequired &&
+          <ConversionInfoText />}
       </View>
 
       {
         fee !== undefined && (
-          <View style={tailwind('mt-6')}>
+          <View style={tailwind()}>
+            <ThemedSectionTitle
+              text={translate('screens/SendScreen', 'TRANSACTION DETAILS')}
+            />
+            {isConversionRequired &&
+              <NumberRow
+                lhs={translate('screens/SendScreen', 'Amount to be converted')}
+                rhs={{
+                  value: new BigNumber(getValues('amount')).minus(DFIUtxo.amount).toFixed(8),
+                  testID: 'text_amount_to_convert',
+                  suffixType: 'text',
+                  suffix: token.displaySymbol
+                }}
+              />}
+
             <EstimatedFeeInfo
               lhs={translate('screens/SendScreen', 'Estimated fee')}
               rhs={{
                 value: fee.toString(),
-                suffix: ' DFI',
+                suffix: 'DFI',
                 testID: 'transaction_fee'
               }}
             />
@@ -135,7 +171,7 @@ export function SendScreen ({
       </ThemedText>
 
       <Button
-        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
+        disabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/SendScreen', 'CONTINUE')}
         onPress={onSubmit}
         testID='send_submit_button'
@@ -150,8 +186,8 @@ function AddressRow ({
   control,
   networkName,
   onQrButtonPress,
-  setValue
-}: { control: Control, networkName: NetworkName, onQrButtonPress: () => void, setValue: UseFormSetValue<FieldValues>}): JSX.Element {
+  onClearButtonPress
+}: { control: Control, networkName: NetworkName, onQrButtonPress: () => void, onClearButtonPress: () => void}): JSX.Element {
   const defaultValue = ''
   return (
     <>
@@ -164,13 +200,13 @@ function AddressRow ({
             <WalletTextInput
               autoCapitalize='none'
               multiline
-              onChangeText={onChange}
+              onChange={onChange}
               placeholder={translate('screens/SendScreen', 'Paste wallet address here')}
               style={tailwind('w-3/5 flex-grow pb-1')}
               testID='address_input'
               value={value}
               displayClearButton={value !== defaultValue}
-              onClearButtonPress={() => setValue('address', defaultValue)}
+              onClearButtonPress={onClearButtonPress}
               title={translate('screens/SendScreen', 'Where do you want to send?')}
               titleTestID='title_to_address'
               inputType='default'
@@ -207,11 +243,11 @@ function AddressRow ({
 interface AmountForm {
   control: Control
   token: WalletToken
-  setValue: UseFormSetValue<FieldValues>
   onAmountButtonPress: (amount: string) => void
+  onClearButtonPress: () => void
 }
 
-function AmountRow ({ token, control, setValue, onAmountButtonPress }: AmountForm): JSX.Element {
+function AmountRow ({ token, control, onAmountButtonPress, onClearButtonPress }: AmountForm): JSX.Element {
   let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(0.1).toFixed(8) : token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
   const defaultValue = ''
@@ -229,13 +265,13 @@ function AmountRow ({ token, control, setValue, onAmountButtonPress }: AmountFor
           >
             <WalletTextInput
               autoCapitalize='none'
-              onChangeText={onChange}
+              onChange={onChange}
               placeholder={translate('screens/SendScreen', 'Enter an amount')}
               style={tailwind('flex-grow w-2/5')}
               testID='amount_input'
               value={value}
               displayClearButton={value !== defaultValue}
-              onClearButtonPress={() => setValue('amount', defaultValue)}
+              onClearButtonPress={onClearButtonPress}
               title={translate('screens/SendScreen', 'How much do you want to send?')}
               titleTestID='title_send'
               inputType='numeric'
