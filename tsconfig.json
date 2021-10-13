@@ -1,4 +1,9 @@
 {
+  "extends": "expo/tsconfig.base",
+  "exclude": [
+    "node_modules",
+    "website"
+  ],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "jsx": "react-native",
@@ -65,9 +70,5 @@
         "tailwind"
       ]
     }
-  },
-  "extends": "expo/tsconfig.base",
-  "exclude": [
-    "node_modules"
-  ]
+  }
 }
