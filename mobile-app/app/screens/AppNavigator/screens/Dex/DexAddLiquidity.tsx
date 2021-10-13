@@ -19,8 +19,10 @@ import { DexParamList } from './DexNavigator'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { Logging } from '@api'
-import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
-import { WalletToken } from '@store/wallet'
+import { DFITokenSelector, unifiedDFISelector, WalletToken } from '@store/wallet'
+import { ConversionInfoText } from '@components/ConversionInfoText'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -37,6 +39,8 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const tokens = useTokensAPI()
   const client = useWhaleApiClient()
+  const DFIUnified = useSelector((state: RootState) => unifiedDFISelector(state.wallet))
+  const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
 
   // this component UI state
   const [tokenAAmount, setTokenAAmount] = useState<string>('')
@@ -44,11 +48,12 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
   const [canContinue, setCanContinue] = useState(false)
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
+  const [isConversionRequired, setIsConversionRequired] = useState(false)
   // derived from props
   const [balanceA, setBalanceA] = useState(new BigNumber(0))
   const [balanceB, setBalanceB] = useState(new BigNumber(0))
   const [pair, setPair] = useState<ExtPoolPairData>()
-
+  const [amountToConvert, setAmountToConvert] = useState(new BigNumber(0))
   const buildSummary = useCallback((ref: EditingAmount, amountString: string): void => {
     const refAmount = amountString.length === 0 || isNaN(+amountString) ? new BigNumber(0) : new BigNumber(amountString)
     if (pair === undefined) {
@@ -74,6 +79,24 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     })
   }
 
+  const validateConversion = (): void => {
+    if (pair === undefined) {
+      return
+    }
+    const dfiAmount = pair.tokenA.id === '0' ? new BigNumber(tokenAAmount) : new BigNumber(tokenBAmount)
+    const unifiedAmount = new BigNumber(DFIUnified.amount)
+    const reservedDFI = 0.1
+    if (!dfiAmount.isNaN() &&
+     dfiAmount.isGreaterThan(DFIToken.amount) &&
+     dfiAmount.plus(reservedDFI).isLessThanOrEqualTo(unifiedAmount)
+    ) {
+      setIsConversionRequired(true)
+      setAmountToConvert(new BigNumber(pair.tokenA.id === '0' ? tokenAAmount : tokenBAmount).minus(DFIToken.amount))
+    } else {
+      setIsConversionRequired(false)
+    }
+  }
+
   useEffect(() => {
     client.fee.estimate()
       .then((f) => setFee(new BigNumber(f)))
@@ -91,6 +114,8 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
       balanceA,
       balanceB
     ))
+
+    validateConversion()
   }, [pair, tokenAAmount, tokenBAmount, balanceA, balanceB])
 
   // prop/global state change
@@ -146,13 +171,18 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
           symbol={pair?.tokenB?.displaySymbol}
           type='secondary'
         />
-        <ReservedDFIInfoText />
+        {isConversionRequired && <ConversionInfoText />}
       </View>
 
-      <Summary
+      <PriceDetailsSection
+        pair={pair}
+      />
+      <TransactionDetailsSection
         pair={pair}
         sharePercentage={sharePercentage}
         fee={fee}
+        isConversionRequired={isConversionRequired}
+        amountToConvert={amountToConvert}
       />
 
       <ThemedText
@@ -160,7 +190,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
         dark={tailwind('text-gray-300')}
         style={tailwind('pt-4 pb-8 px-4 text-sm')}
       >
-        {translate('screens/AddLiquidity', 'Review full transaction details in the next screen')}
+        {translate('screens/AddLiquidity', 'Authorize transaction in the next screen to convert')}
       </ThemedText>
 
       <View style={tailwind('px-4')}>
@@ -229,11 +259,10 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
   )
 }
 
-function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber, fee: BigNumber }): JSX.Element {
-  const { pair, sharePercentage } = props
-
+function PriceDetailsSection (props: {pair: ExtPoolPairData}): JSX.Element {
+  const { pair } = props
   return (
-    <View style={tailwind('flex-col w-full mt-4')}>
+    <>
       <ThemedSectionTitle
         testID='title_price_detail'
         text={translate('screens/AddLiquidity', 'PRICE DETAILS')}
@@ -257,11 +286,28 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber, fe
           suffix: pair.tokenB.displaySymbol
         }}
       />
+    </>
+  )
+}
+function TransactionDetailsSection (props: { pair: ExtPoolPairData, sharePercentage: BigNumber, fee: BigNumber, isConversionRequired: boolean, amountToConvert: BigNumber }): JSX.Element {
+  const { pair, sharePercentage, isConversionRequired } = props
 
+  return (
+    <>
       <ThemedSectionTitle
         testID='title_add_detail'
         text={translate('screens/AddLiquidity', 'TRANSACTION DETAILS')}
       />
+      {isConversionRequired &&
+        <NumberRow
+          lhs={translate('screens/SendScreen', 'Amount to be converted')}
+          rhs={{
+            value: props.amountToConvert.toFixed(8),
+            testID: 'text_amount_to_convert',
+            suffixType: 'text',
+            suffix: 'DFI'
+          }}
+        />}
       <NumberRow
         lhs={translate('screens/AddLiquidity', 'Share of pool')}
         rhs={{
@@ -295,7 +341,7 @@ function Summary (props: { pair: ExtPoolPairData, sharePercentage: BigNumber, fe
         lhs={translate('screens/AddLiquidity', 'Estimated fee')}
         rhs={{ value: props.fee.toFixed(8), testID: 'text_fee', suffix: 'DFI' }}
       />
-    </View>
+    </>
   )
 }
 
