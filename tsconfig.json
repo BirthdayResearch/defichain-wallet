@@ -5,8 +5,7 @@
     "shared",
   ],
   "exclude": [
-    "node_modules",
-    "mobile-app/cypress"
+    "node_modules"
   ],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
