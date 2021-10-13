@@ -76,7 +76,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
 
   async function onRestore (): Promise<void> {
     setIsSubmitting(true)
-    const words = Object.values(getValues()).map(x => x.trim())
+    const words = Object.values(getValues())
     if (isValid && validateMnemonicSentence(words)) {
       setIsSubmitting(false)
       navigation.navigate({
@@ -129,7 +129,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
                 <ThemedView
                   dark={tailwind('bg-gray-900')}
                   light={tailwind('bg-white')}
-                  style={tailwind('flex-row items-center')}
+                  style={tailwind('flex-row items-center mb-3')}
                 >
                   <ThemedText style={tailwind('mx-3 mt-1 text-sm w-6 text-center')}>
                     {`${order}.`}
