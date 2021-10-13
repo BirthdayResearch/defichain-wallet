@@ -1,9 +1,5 @@
 {
   "extends": "expo/tsconfig.base",
-  "include": [
-    "mobile-app",
-    "shared",
-  ],
   "exclude": [
     "node_modules"
   ],
