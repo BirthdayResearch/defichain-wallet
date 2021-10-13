@@ -94,7 +94,7 @@
 - color: fbca04
   name: area/website
 - color: fbca04
-  name: area/website/api
+  name: area/website-api
 
 # Platform
 - color: 0d1d49

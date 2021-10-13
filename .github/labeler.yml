@@ -11,7 +11,7 @@ labels:
     matcher:
       files: "website/**"
 
-  - label: area/website/api
+  - label: area/website-api
     sync: true
     matcher:
       files: "website/src/api/**"
