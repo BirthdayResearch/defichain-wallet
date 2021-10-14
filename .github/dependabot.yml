@@ -44,14 +44,6 @@ updates:
       - dependency-name: "jest-expo"
     versioning-strategy: 'increase'
 
-  - package-ecosystem: 'npm'
-    directory: '/website'
-    schedule:
-      interval: "daily"
-    labels:
-      - "kind/dependencies"
-    versioning-strategy: 'increase'
-
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

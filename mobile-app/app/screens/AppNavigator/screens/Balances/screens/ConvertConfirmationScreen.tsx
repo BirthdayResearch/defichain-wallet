@@ -18,7 +18,7 @@ import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { NumberRow } from '@components/NumberRow'
-import { onBroadcast } from '@api/transaction/transaction_commands'
+import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { dfiConversionCrafter } from '@api/transaction/dfi_converter'
 
 type Props = StackScreenProps<BalanceParamList, 'ConvertConfirmationScreen'>
@@ -56,7 +56,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
       mode,
       amount
     }, dispatch, () => {
-      onBroadcast(isOnPage, navigation)
+      onTransactionBroadcast(isOnPage, navigation)
     })
     setIsSubmitting(false)
   }

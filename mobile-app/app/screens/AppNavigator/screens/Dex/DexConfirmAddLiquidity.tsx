@@ -25,7 +25,7 @@ import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { ConversionDetailsRow } from '@components/ConversionDetailsRow'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
-import { onBroadcast } from '@api/transaction/transaction_commands'
+import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -83,7 +83,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       },
       dispatch,
       () => {
-        onBroadcast(isOnPage, navigation)
+        onTransactionBroadcast(isOnPage, navigation)
       }
     )
     setIsSubmitting(false)
