@@ -3,7 +3,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import React, { useEffect, useState } from 'react'
 import { View } from '@components/index'
 import { PinTextInput } from '@components/PinTextInput'
-import { ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { SettingsParamList } from '../SettingsNavigator'
@@ -29,6 +29,10 @@ export function ChangePinScreen ({ route }: Props): JSX.Element {
     })
   }, [newPin])
 
+  const goToPasscodeFaq = (): void => {
+    navigation.navigate('PasscodeFaq')
+  }
+
   return (
     <ThemedScrollView
       dark={tailwind('bg-gray-900')}
@@ -51,7 +55,7 @@ export function ChangePinScreen ({ route }: Props): JSX.Element {
         value={newPin}
       />
 
-      <View style={tailwind('p-4 flex-row mt-2 mb-8 justify-center items-center')}>
+      <View style={tailwind('p-4 flex-row mt-2 justify-center items-center')}>
         <ThemedIcon
           iconType='MaterialIcons'
           name='lock-outline'
@@ -64,6 +68,21 @@ export function ChangePinScreen ({ route }: Props): JSX.Element {
           {translate('screens/PinCreation', 'Keep your passcode private')}
         </ThemedText>
       </View>
+      <ThemedTouchableOpacity
+        onPress={goToPasscodeFaq}
+        light={tailwind('border-0')}
+        dark={tailwind('border-0')}
+        style={tailwind('p-4 flex-row mt-2 mb-8 justify-center items-center')}
+        testID='passcode_faq_link'
+      >
+        <ThemedText
+          style={tailwind('text-center text-sm font-semibold')}
+          light={tailwind('text-primary-500')}
+          dark={tailwind('text-darkprimary-500')}
+        >
+          {translate('screens/PinCreation', 'Learn more about passcode')}
+        </ThemedText>
+      </ThemedTouchableOpacity>
     </ThemedScrollView>
   )
 }

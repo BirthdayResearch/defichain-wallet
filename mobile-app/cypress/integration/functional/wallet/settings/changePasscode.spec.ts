@@ -34,6 +34,16 @@ context('Wallet - Change Passcode', () => {
     cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
   })
 
+  it('should be able to go passcode FAQ', function () {
+    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('view_change_passcode').click()
+    cy.getByTestID('pin_authorize').type('000000').wait(3000)
+    cy.getByTestID('passcode_faq_link').click()
+    cy.url().should('include', 'app/PasscodeFaq')
+    cy.go('back')
+    cy.url().should('include', '/app/ChangePinScreen')
+  })
+
   it('should be able to change passcode', function () {
     cy.changePasscode()
   })
