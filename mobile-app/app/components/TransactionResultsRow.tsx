@@ -25,10 +25,10 @@ export function TransactionResultsRow (props: TransactionResultsRowProps): JSX.E
         props.tokens.map((token, index) => (
           <NumberRow
             key={index}
-            lhs={translate('components/TransactionResultsRow', 'Ending {{symbol}}', { symbol: token.symbol })}
+            lhs={translate('components/TransactionResultsRow', 'Resulting {{symbol}}', { symbol: token.symbol })}
             rhs={{
               value: token.value,
-              testID: token.testID ?? `ending_${token.symbol}`,
+              testID: token.testID ?? `resulting_${token.symbol}`,
               suffixType: 'text',
               suffix: token.suffix
             }}

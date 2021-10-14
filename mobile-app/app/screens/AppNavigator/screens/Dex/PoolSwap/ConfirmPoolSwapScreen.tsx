@@ -212,8 +212,8 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/PoolSwapConfirmScreen', 'CONFIRM SWAP')}
-        isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        submittingLabel={translate('screens/PoolSwapConfirmScreen', 'SWAPPING')}
+        isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        processingLabel={translate('screens/PoolSwapConfirmScreen', 'SWAPPING')}
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='swap'
