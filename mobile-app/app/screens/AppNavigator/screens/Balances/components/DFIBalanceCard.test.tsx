@@ -4,6 +4,13 @@ import { render } from '@testing-library/react-native'
 import { DFIBalanceCard } from './DFIBalanceCard'
 
 jest.mock('../../../../../contexts/ThemeProvider')
+jest.mock('../../../../../contexts/DisplayBalancesContext', () => ({
+  useDisplayBalancesContext: () => {
+    return {
+      isBalancesDisplayed: true
+    }
+  }
+}))
 jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn()
 }))
