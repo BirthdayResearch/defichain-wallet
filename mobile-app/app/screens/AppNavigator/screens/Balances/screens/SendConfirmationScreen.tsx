@@ -61,7 +61,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       amount,
       networkName: network.networkName
     }, dispatch, () => {
-      onTransactionBroadcast(isOnPage, navigation)
+      onTransactionBroadcast(isOnPage, navigation.dispatch)
     })
     setIsSubmitting(false)
   }
