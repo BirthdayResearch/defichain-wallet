@@ -16,8 +16,7 @@
   ],
   "ignorePatterns": [
     "/*.config.js",
-    "*.json",
-    "website"
+    "*.json"
   ],
   "overrides": [
     // Js and Typescript files

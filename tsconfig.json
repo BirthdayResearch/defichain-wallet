@@ -1,8 +1,7 @@
 {
   "extends": "expo/tsconfig.base",
   "exclude": [
-    "node_modules",
-    "website"
+    "node_modules"
   ],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,

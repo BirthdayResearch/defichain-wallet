@@ -3,6 +3,9 @@
   "private": true,
   "license": "MIT",
   "main": "index.js",
+  "workspaces": [
+    "./website"
+  ],
   "scripts": {
     "prepare": "husky install",
     "lint": "eslint . --fix",
@@ -17,17 +20,17 @@
     "react-devtools:open": "react-devtools"
   },
   "dependencies": {
-    "@defichain/jellyfish-address": ">=0.47.0",
-    "@defichain/jellyfish-api-core": ">=0.47.0",
-    "@defichain/jellyfish-network": ">=0.47.0",
-    "@defichain/jellyfish-transaction": ">=0.47.0",
-    "@defichain/jellyfish-transaction-builder": ">=0.47.0",
-    "@defichain/jellyfish-wallet": ">=0.47.0",
-    "@defichain/jellyfish-wallet-encrypted": ">=0.47.0",
-    "@defichain/jellyfish-wallet-mnemonic": ">=0.47.0",
-    "@defichain/playground-api-client": ">=0.10.0",
-    "@defichain/whale-api-client": ">=0.9.3",
-    "@defichain/whale-api-wallet": ">=0.9.3",
+    "@defichain/jellyfish-address": "0.47.0",
+    "@defichain/jellyfish-api-core": "0.47.0",
+    "@defichain/jellyfish-network": "0.47.0",
+    "@defichain/jellyfish-transaction": "0.47.0",
+    "@defichain/jellyfish-transaction-builder": "0.47.0",
+    "@defichain/jellyfish-wallet": "0.47.0",
+    "@defichain/jellyfish-wallet-encrypted": "0.47.0",
+    "@defichain/jellyfish-wallet-mnemonic": "0.47.0",
+    "@defichain/playground-api-client": "0.10.0",
+    "@defichain/whale-api-client": "0.9.3",
+    "@defichain/whale-api-wallet": "0.9.3",
     "@expo-google-fonts/ibm-plex-sans": "^0.2.0",
     "@expo/vector-icons": "^12.0.0",
     "@expo/webpack-config": "~0.12.63",
