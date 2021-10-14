@@ -99,6 +99,7 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
             light={tailwind('text-error-500')}
             dark={tailwind('text-darkerror-500')}
             style={tailwind('text-sm my-1')}
+            testID={props.testID !== undefined ? `${props.testID}_error` : undefined}
           >
             {inlineValidationText}
           </ThemedText>

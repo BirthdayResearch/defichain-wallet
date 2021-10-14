@@ -127,6 +127,7 @@ exports[`wallet text input should render with default keyboard 1`] = `
         ],
       ]
     }
+    testID="testID_error"
   >
     invalid
   </Text>
@@ -260,6 +261,7 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
         ],
       ]
     }
+    testID="testID_error"
   >
     invalid
   </Text>
