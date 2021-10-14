@@ -105,7 +105,8 @@ export function OceanInterface (): JSX.Element | null {
       Animated.timing(slideAnim, { toValue: height, duration: 200, useNativeDriver: false }).start()
       setTx({
         ...transaction,
-        broadcasted: false
+        broadcasted: false,
+        title: 'Preparing for broadcast'
       })
       broadcastTransaction(transaction.tx, client)
         .then(async () => {
@@ -116,7 +117,7 @@ export function OceanInterface (): JSX.Element | null {
           }
           setTx({
             ...transaction,
-            title: translate('screens/OceanInterface', 'Waiting for confirmation')
+            title: translate('screens/OceanInterface', 'Waiting for transaction')
           })
           if (transaction.postAction !== undefined) {
             transaction.postAction()
@@ -215,7 +216,7 @@ function TransactionDetail ({
           )
       }
 
-      <View style={tailwind('flex-auto mx-6 justify-center items-center text-center')}>
+      <View style={tailwind('flex-auto px-4 justify-center')}>
         <ThemedText
           style={tailwind('text-sm font-bold')}
         >
@@ -232,7 +233,7 @@ function TransactionDetail ({
       </View>
 
       {
-        broadcasted && <TransactionCloseButton onPress={onClose} />
+        broadcasted && txUrl !== undefined && <TransactionCloseButton buttonText='VIEW' onPress={async () => await gotoExplorer(txUrl)} />
       }
     </>
   )
@@ -250,7 +251,7 @@ function TransactionError ({ errMsg, onClose }: { errMsg: string, onClose: () =>
         size={20}
       />
 
-      <View style={tailwind('flex-auto mx-2 justify-center items-center text-center')}>
+      <View style={tailwind('flex-auto mx-3 justify-center')}>
         <ThemedText
           style={tailwind('text-sm font-bold')}
         >
@@ -266,7 +267,7 @@ function TransactionError ({ errMsg, onClose }: { errMsg: string, onClose: () =>
         </ThemedText>
       </View>
 
-      <TransactionCloseButton onPress={onClose} />
+      <TransactionCloseButton buttonText='OK' onPress={onClose} />
     </>
   )
 }
@@ -275,7 +276,7 @@ function TransactionIDButton ({ txid, onPress }: { txid: string, onPress?: () =>
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={tailwind('flex-row p-1 items-center max-w-full')}
+      style={tailwind('flex-row pt-1 items-center max-w-full')}
       testID='oceanNetwork_explorer'
     >
       <ThemedText
@@ -299,19 +300,19 @@ function TransactionIDButton ({ txid, onPress }: { txid: string, onPress?: () =>
   )
 }
 
-function TransactionCloseButton (props: { onPress: () => void }): JSX.Element {
+function TransactionCloseButton (props: { buttonText: 'OK' | 'VIEW', onPress: () => void }): JSX.Element {
   return (
     <TouchableOpacity
       onPress={props.onPress}
-      style={tailwind('px-2 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
+      style={tailwind('px-2 ml-3 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
       testID='oceanInterface_close'
     >
       <ThemedText
-        dark={tailwind('text-darkprimary-500')}
-        light={tailwind('text-primary-500')}
-        style={tailwind('text-sm')}
+        dark={tailwind('font-medium text-darkprimary-500')}
+        light={tailwind('font-medium text-primary-500')}
+        style={tailwind('text-sm ')}
       >
-        {translate('screens/OceanInterface', 'OK')}
+        {translate('screens/OceanInterface', props.buttonText)}
       </ThemedText>
     </TouchableOpacity>
   )
