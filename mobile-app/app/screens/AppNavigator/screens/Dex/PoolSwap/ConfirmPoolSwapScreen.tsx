@@ -84,7 +84,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
     }
     setIsSubmitting(true)
     await constructSignedSwapAndSend(swap, slippage, dispatch, () => {
-      onTransactionBroadcast(isOnPage, navigation)
+      onTransactionBroadcast(isOnPage, navigation.dispatch)
     })
     setIsSubmitting(false)
   }

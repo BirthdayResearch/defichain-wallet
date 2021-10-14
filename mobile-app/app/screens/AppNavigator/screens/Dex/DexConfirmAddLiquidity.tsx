@@ -83,7 +83,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       },
       dispatch,
       () => {
-        onTransactionBroadcast(isOnPage, navigation)
+        onTransactionBroadcast(isOnPage, navigation.dispatch)
       }
     )
     setIsSubmitting(false)

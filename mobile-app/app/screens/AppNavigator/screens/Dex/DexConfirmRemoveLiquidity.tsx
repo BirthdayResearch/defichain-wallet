@@ -60,7 +60,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
     }
     setIsSubmitting(true)
     await constructSignedRemoveLiqAndSend(pair, amount, dispatch, () => {
-      onTransactionBroadcast(isOnPage, navigation)
+      onTransactionBroadcast(isOnPage, navigation.dispatch)
     })
     setIsSubmitting(false)
   }
