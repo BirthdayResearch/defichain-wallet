@@ -29,7 +29,10 @@ export interface BalanceParamList {
     destination: string
     amount: BigNumber
     fee: BigNumber
-    DFIUtxo: WalletToken
+    DFIUtxo?: WalletToken
+    DFIToken?: WalletToken
+    isConversionRequired?: boolean
+    conversionAmount?: BigNumber
   }
   TokenDetailScreen: { token: WalletToken }
   ConvertScreen: { mode: ConversionMode }
