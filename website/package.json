@@ -2,9 +2,6 @@
   "name": "@defich/wallet-website",
   "version": "0.0.0",
   "private": true,
-  "engines": {
-    "node": ">=14.x"
-  },
   "scripts": {
     "dev": "next dev",
     "lint": "eslint . --fix",
@@ -33,17 +30,9 @@
     "@types/lodash": "^4.14.175",
     "@types/react": "17.0.29",
     "autoprefixer": "^10.3.7",
-    "eslint": "7.32.0",
     "eslint-config-next": "^11.1.2",
-    "eslint-config-standard-jsx": "^10.0.0",
-    "eslint-config-standard-with-typescript": "^21.0.1",
     "postcss": "^8.3.9",
     "tailwindcss": "^2.2.16",
     "typescript": "4.4.3"
-  },
-  "lint-staged": {
-    "*.{ts,tsx,js}": [
-      "eslint --fix"
-    ]
   }
 }
