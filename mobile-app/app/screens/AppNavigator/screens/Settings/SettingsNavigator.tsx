@@ -12,6 +12,7 @@ import { NetworkDetails } from './screens/NetworkDetails'
 import { NetworkSelectionScreen } from './screens/NetworkSelectionScreen'
 import { RecoveryWordsScreen } from './screens/RecoveryWordsScreen'
 import { SettingsScreen } from './SettingsScreen'
+import { PasscodeFaq } from '@screens/WalletNavigator/screens/CreateWallet/PasscodeFaq'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
@@ -127,6 +128,15 @@ export function SettingsNavigator (): JSX.Element {
           headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
           headerBackTitleVisible: false,
           headerBackTestID: 'network_details_header_back'
+        }}
+      />
+
+      <SettingsStack.Screen
+        component={PasscodeFaq}
+        name='PasscodeFaq'
+        options={{
+          headerTitle: translate('screens/WalletNavigator', 'Passcode FAQ'),
+          headerBackTitleVisible: false
         }}
       />
     </SettingsStack.Navigator>
