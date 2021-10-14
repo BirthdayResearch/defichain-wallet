@@ -2,7 +2,7 @@ import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
@@ -23,6 +23,7 @@ import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 
 type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
 
@@ -42,11 +43,6 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
-  const postAction = (): void => {
-    if (isOnPage) {
-      navigation.dispatch(StackActions.popToTop())
-    }
-  }
 
   useEffect(() => {
     setIsOnPage(true)
@@ -65,7 +61,9 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       token,
       amount,
       networkName: network.networkName
-    }, dispatch, postAction, logger)
+    }, dispatch, () => {
+      onTransactionBroadcast(isOnPage, navigation.dispatch)
+    }, logger)
     setIsSubmitting(false)
   }
 
@@ -105,13 +103,19 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
 
       <TextRow
         lhs={translate('screens/SendConfirmationScreen', 'Address')}
-        rhs={{ value: destination, testID: 'text_destination' }}
+        rhs={{
+          value: destination,
+          testID: 'text_destination'
+        }}
         textStyle={tailwind('text-sm font-normal')}
       />
 
       <TextRow
         lhs={translate('screens/SendConfirmationScreen', 'Network')}
-        rhs={{ value: network.network, testID: 'text_network' }}
+        rhs={{
+          value: network.network,
+          testID: 'text_network'
+        }}
         textStyle={tailwind('text-sm font-normal')}
       />
 
@@ -169,7 +173,7 @@ async function send ({
   token,
   amount,
   networkName
-}: SendForm, dispatch: Dispatch<any>, postAction: () => void, logger: NativeLoggingProps): Promise<void> {
+}: SendForm, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
   try {
     const to = DeFiAddress.from(networkName, address).getScript()
 
@@ -185,7 +189,13 @@ async function send ({
       } else {
         signed = await builder.account.accountToAccount({
           from: script,
-          to: [{ script: to, balances: [{ token: +token.id, amount }] }]
+          to: [{
+            script: to,
+            balances: [{
+              token: +token.id,
+              amount
+            }]
+          }]
         }, script)
       }
       return new CTransactionSegWit(signed)
@@ -198,7 +208,7 @@ async function send ({
         amount: amount.toFixed(8),
         symbol: token.displaySymbol
       }),
-      postAction
+      onBroadcast
     }))
   } catch (e) {
     logger.error(e)

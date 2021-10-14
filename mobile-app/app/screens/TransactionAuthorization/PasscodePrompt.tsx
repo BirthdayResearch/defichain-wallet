@@ -6,19 +6,19 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import React from 'react'
 import { Platform, SafeAreaView, View } from 'react-native'
-import { Status } from './TransactionAuthorization'
+import { TransactionStatus } from '@screens/TransactionAuthorization/api/transaction_types'
 
 interface PasscodePromptProps {
   onCancel: () => void
   message: string
   transaction: DfTxSigner
-  status: Status
+  status: TransactionStatus
   pinLength: number
   onPinInput: (pin: string) => void
   pin: string
   loadingMessage: string
-  authorizedTransactionMessage: {title: string, description: string}
-  grantedAccessMessage: {title: string, description: string}
+  authorizedTransactionMessage: { title: string, description: string }
+  grantedAccessMessage: { title: string, description: string }
   isRetry: boolean
   attemptsRemaining: number
   maxPasscodeAttempt: number
@@ -61,8 +61,12 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
         style={tailwind('w-full flex-1 flex-col pt-8')}
       >
 
-        {props.status === 'AUTHORIZED'
-          ? <SuccessMessage message={props.transaction === undefined ? props.grantedAccessMessage : props.authorizedTransactionMessage} />
+        {props.status === TransactionStatus.AUTHORIZED
+          ? (
+            <SuccessMessage
+              message={props.transaction === undefined ? props.grantedAccessMessage : props.authorizedTransactionMessage}
+            />
+          )
           : (
             <ThemedView
               light={tailwind('bg-white')}
@@ -86,21 +90,21 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
                 </ThemedText>
 
                 {
-                props.transaction?.description !== undefined && (
-                  <ThemedText
-                    testID='txn_authorization_description'
-                    dark={tailwind('text-gray-400')}
-                    light={tailwind('text-gray-500')}
-                    style={tailwind('text-sm text-center')}
-                  >
-                    {props.transaction.description}
-                  </ThemedText>
-                )
-              }
+                  props.transaction?.description !== undefined && (
+                    <ThemedText
+                      testID='txn_authorization_description'
+                      dark={tailwind('text-gray-400')}
+                      light={tailwind('text-gray-500')}
+                      style={tailwind('text-sm text-center')}
+                    >
+                      {props.transaction.description}
+                    </ThemedText>
+                  )
+                }
               </View>
 
               {
-                props.status === 'PIN' && (
+                props.status === TransactionStatus.PIN && (
                   <PinTextInput
                     cellCount={props.pinLength}
                     onChange={(pin) => {
@@ -113,49 +117,49 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
               }
 
               <Loading
-                message={props.status === 'SIGNING' ? props.loadingMessage : undefined}
+                message={props.status === TransactionStatus.SIGNING ? props.loadingMessage : undefined}
               />
 
               {// upon retry: show remaining attempt allowed
-              (props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt)
-                ? (
-                  <ThemedText
-                    dark={tailwind('text-darkerror-500')}
-                    light={tailwind('text-error-500')}
-                    style={tailwind('text-center text-sm font-bold mt-5')}
-                    testID='pin_attempt_error'
-                  >
-                    {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
-                      ? 'Last attempt or your wallet will be unlinked for your security'
-                      : 'Incorrect passcode. {{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
-                  </ThemedText>
-                )
-                : null
-            }
+                (props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt)
+                  ? (
+                    <ThemedText
+                      dark={tailwind('text-darkerror-500')}
+                      light={tailwind('text-error-500')}
+                      style={tailwind('text-center text-sm font-bold mt-5')}
+                      testID='pin_attempt_error'
+                    >
+                      {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
+                        ? 'Last attempt or your wallet will be unlinked for your security'
+                        : 'Incorrect passcode. {{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
+                    </ThemedText>
+                  )
+                  : null
+              }
 
               {// on first time: warn user there were accumulated error attempt counter
-              (!props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt)
-                ? (
-                  <ThemedText
-                    dark={tailwind('text-darkerror-500')}
-                    light={tailwind('text-error-500')}
-                    style={tailwind('text-center text-sm font-bold mt-5')}
-                    testID='pin_attempt_warning'
-                  >
-                    {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
-                      ? 'Last attempt or your wallet will be unlinked for your security'
-                      : '{{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
-                  </ThemedText>
-                )
-                : null
-            }
+                (!props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt)
+                  ? (
+                    <ThemedText
+                      dark={tailwind('text-darkerror-500')}
+                      light={tailwind('text-error-500')}
+                      style={tailwind('text-center text-sm font-bold mt-5')}
+                      testID='pin_attempt_warning'
+                    >
+                      {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
+                        ? 'Last attempt or your wallet will be unlinked for your security'
+                        : '{{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
+                    </ThemedText>
+                  )
+                  : null
+              }
             </ThemedView>)}
       </ThemedView>
     </SafeAreaView>
   )
 }
 
-function SuccessMessage ({ message }: { message?: {title: string, description: string}}): JSX.Element | null {
+function SuccessMessage ({ message }: { message?: { title: string, description: string } }): JSX.Element | null {
   if (message === undefined) {
     return null
   }

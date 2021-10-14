@@ -1,7 +1,6 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
@@ -21,15 +20,9 @@ import { DexParamList } from './DexNavigator'
 import { getNativeIcon } from '@components/icons/assets'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
-
-export interface AddLiquiditySummary extends PoolPairData {
-  fee: BigNumber // stick to whatever estimation/calculation done on previous page
-  tokenAAmount: BigNumber
-  tokenBAmount: BigNumber
-  percentage: BigNumber // to add
-}
 
 export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -51,11 +44,6 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const logger = useLogger()
-  const postAction = (): void => {
-    if (isOnPage) {
-      navigation.dispatch(StackActions.popToTop())
-    }
-  }
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
 
@@ -83,7 +71,9 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         tokenBAmount
       },
       dispatch,
-      postAction,
+      () => {
+        onTransactionBroadcast(isOnPage, navigation.dispatch)
+      },
       logger
     )
     setIsSubmitting(false)
@@ -154,7 +144,10 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         text={translate('screens/ConfirmAddLiq', 'PRICE DETAILS')}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
+        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', {
+          tokenA: tokenA.displaySymbol,
+          tokenB: tokenB.displaySymbol
+        })}
         rhs={{
           value: aToBRate.toFixed(8),
           testID: 'price_a',
@@ -163,7 +156,10 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenB.displaySymbol, tokenB: tokenA.displaySymbol })}
+        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', {
+          tokenA: tokenB.displaySymbol,
+          tokenB: tokenA.displaySymbol
+        })}
         rhs={{
           value: bToARate.toFixed(8),
           testID: 'price_b',
@@ -178,7 +174,12 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       />
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Share of pool')}
-        rhs={{ value: percentage.times(100).toFixed(8), suffix: '%', testID: 'percentage_pool', suffixType: 'text' }}
+        rhs={{
+          value: percentage.times(100).toFixed(8),
+          suffix: '%',
+          testID: 'percentage_pool',
+          suffixType: 'text'
+        }}
       />
 
       <NumberRow
@@ -202,7 +203,11 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 
       <EstimatedFeeInfo
         lhs={translate('screens/ConfirmAddLiq', 'Estimated fee')}
-        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffix: 'DFI (UTXO)' }}
+        rhs={{
+          value: fee.toFixed(8),
+          testID: 'text_fee',
+          suffix: 'DFI (UTXO)'
+        }}
       />
 
       <SubmitButtonGroup
@@ -221,7 +226,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 async function constructSignedAddLiqAndSend (
   addLiqForm: { tokenASymbol: string, tokenAId: number, tokenAAmount: BigNumber, tokenBSymbol: string, tokenBId: number, tokenBAmount: BigNumber },
   dispatch: Dispatch<any>,
-  postAction: () => void,
+  onBroadcast: () => void,
   logger: NativeLoggingProps
 ): Promise<void> {
   try {
@@ -259,7 +264,7 @@ async function constructSignedAddLiqAndSend (
         amountB: addLiqForm.tokenBAmount.toFixed(8),
         symbolB: addLiqForm.tokenBSymbol
       }),
-      postAction
+      onBroadcast
     }))
   } catch (e) {
     logger.error(e)

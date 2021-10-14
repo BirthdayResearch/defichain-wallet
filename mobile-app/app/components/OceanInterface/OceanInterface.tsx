@@ -119,8 +119,8 @@ export function OceanInterface (): JSX.Element | null {
             ...transaction,
             title: translate('screens/OceanInterface', 'Waiting for confirmation')
           })
-          if (transaction.postAction !== undefined) {
-            transaction.postAction()
+          if (transaction.onBroadcast !== undefined) {
+            transaction.onBroadcast()
           }
           let title
           try {
@@ -135,11 +135,17 @@ export function OceanInterface (): JSX.Element | null {
             broadcasted: true,
             title: translate('screens/OceanInterface', title)
           })
+          if (transaction.onConfirmation !== undefined) {
+            transaction.onConfirmation()
+          }
         })
         .catch((e: Error) => {
           const errMsg = `${e.message}. Txid: ${transaction.tx.txId}`
           setError(errMsg)
           logger.error(e)
+          if (transaction.onError !== undefined) {
+            transaction.onError()
+          }
         })
         .finally(() => {
           dispatch(ocean.actions.popTransaction())

@@ -2,7 +2,7 @@ import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { JellyfishWallet, WalletHdNodeProvider } from '@defichain/jellyfish-wallet'
 import { MnemonicHdNode } from '@defichain/jellyfish-wallet-mnemonic'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   initJellyfishWallet,
@@ -10,73 +10,66 @@ import {
   MnemonicUnprotected,
   PasscodeAttemptCounter
 } from '../../api/wallet'
-import { WalletAlert } from '@components/WalletAlert'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
 import { useWalletPersistenceContext, WalletType } from '@shared-contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
-import { Authentication, authentication as authenticationStore } from '@store/authentication'
+import { authentication as authenticationStore } from '@store/authentication'
 import { ocean } from '@store/ocean'
-import { DfTxSigner, first, transactionQueue } from '@store/transaction_queue'
+import { first, transactionQueue } from '@store/transaction_queue'
 import { translate } from '@translations'
 import { PasscodePrompt } from './PasscodePrompt'
-import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
-
-const MAX_PASSCODE_ATTEMPT = 3 // allowed 2 failures
-const PIN_LENGTH = 6
-const DEFAULT_MESSAGES = {
-  message: 'Enter passcode to continue',
-  loadingMessage: 'Signing your transaction...',
-  authorizedTransactionMessage: {
-    title: 'Transaction authorized',
-    description: 'Please wait as your transaction is prepared'
-  },
-  grantedAccessMessage: {
-    title: 'Access granted',
-    description: 'You may now proceed'
-  }
-}
-const SUCCESS_DISPLAY_TIMEOUT_IN_MS = 2000
-const CANCELED_ERROR = 'canceled error'
-
-/**
- * useRef() working well on web but not on mobile
- * (do not resolve/reject func ref do not survive re-render, any UI state update)
- */
-let PASSPHRASE_PROMISE_PROXY: {
-  resolve: (pass: string) => void
-  reject: (e: Error) => void
-} | undefined
-
-const INVALID_HASH = 'invalid hash'
-const USER_CANCELED = 'USER_CANCELED'
-
-export type Status = 'INIT' | 'IDLE' | 'BLOCK' | 'PIN' | 'SIGNING' | 'AUTHORIZED'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import {
+  alertUnlinkWallet,
+  authenticateFor,
+  signTransaction
+} from '@screens/TransactionAuthorization/api/transaction_signer'
+import {
+  CANCELED_ERROR,
+  DEFAULT_MESSAGES,
+  INVALID_HASH,
+  MAX_PASSCODE_ATTEMPT,
+  PASSCODE_LENGTH,
+  PromptPromiseI,
+  SUCCESS_DISPLAY_TIMEOUT_IN_MS,
+  TransactionStatus,
+  USER_CANCELED
+} from '@screens/TransactionAuthorization/api/transaction_types'
 
 /**
- * The main UI page transaction signing logic interact with encrypted wallet context
+ * @description - Passcode prompt promise that resolves the pin to the wallet
+ * */
+let PROMPT_PIN_PROMISE: PromptPromiseI | undefined
+
+/**
+ * @description - Main component to handle all authorizations for Transactions. All transaction validation logic happens here.
+ * This file is imported in RootNavigator.
+ * @see - PasscodePrompt.tsx for UI of Prompt
  */
 export function TransactionAuthorization (): JSX.Element | null {
-  // context
   const { data: providerData } = useWalletNodeContext()
   const { clearWallets } = useWalletPersistenceContext()
   const { network } = useNetworkContext()
   const whaleApiClient = useWhaleApiClient()
   const logger = useLogger()
-
-  // store
   const dispatch = useDispatch()
   const transaction = useSelector((state: RootState) => first(state.transactionQueue))
   const authentication = useSelector((state: RootState) => state.authentication.authentication)
 
-  // computed state
-  const [status, emitEvent] = useState<Status>('INIT')
+  const [transactionStatus, setTransactionStatus] = useState<TransactionStatus>(TransactionStatus.INIT)
   const [attemptsRemaining, setAttemptsRemaining] = useState<number>(MAX_PASSCODE_ATTEMPT)
   const [pin, setPin] = useState<string>('')
   const [isRetry, setIsRetry] = useState(false)
 
-  // wallet with (provider with prompting UI attached)
+  /**
+   * This is one of the most important state of this component.
+   * 1. We initialize a JellyFishWallet and attach a promise to it (https://github.com/DeFiCh/jellyfish/blob/fe270b737705ad33242a9ec3f8896b2f8f5052c8/packages/jellyfish-wallet-encrypted/src/hd_node.ts#L122)
+   * 2. We attach the PROMPT_PIN_PROMISE from this component that will resolve the passcode to the JellyFish wallet
+   * 3. It acts as a "general" promise that gets resolved once passcode input is complete
+   * 4. Take note on the word "complete". Meaning, it's not yet validated/verified that it's the actual passcode.
+   */
   const [wallet, setWallet] = useState<JellyfishWallet<WhaleWalletAccount, MnemonicHdNode>>()
 
   // messages
@@ -84,85 +77,98 @@ export function TransactionAuthorization (): JSX.Element | null {
   const [loadingMessage, setLoadingMessage] = useState(DEFAULT_MESSAGES.loadingMessage)
 
   // generic callbacks
-  const onPinInput = useCallback((pin: string): void => {
-    if (pin.length === PIN_LENGTH && PASSPHRASE_PROMISE_PROXY !== undefined) {
-      const resolve = PASSPHRASE_PROMISE_PROXY.resolve
+  const onPinInput = (inputPin: string): void => {
+    if (inputPin.length === PASSCODE_LENGTH && PROMPT_PIN_PROMISE !== undefined) {
+      const resolve = PROMPT_PIN_PROMISE.resolve
       setTimeout(() => {
-        resolve(pin)
+        resolve(inputPin)
         // remove proxied promised, allow next prompt() call
-        PASSPHRASE_PROMISE_PROXY = undefined
+        PROMPT_PIN_PROMISE = undefined
       }, 50)
-      emitEvent('SIGNING')
+      setTransactionStatus(TransactionStatus.SIGNING)
     }
-    setPin(pin)
-  }, [PASSPHRASE_PROMISE_PROXY, PASSPHRASE_PROMISE_PROXY?.resolve])
+    setPin(inputPin)
+  }
 
-  const onCancel = useCallback((): void => {
-    if (PASSPHRASE_PROMISE_PROXY !== undefined) {
-      PASSPHRASE_PROMISE_PROXY.reject(new Error(USER_CANCELED))
+  const onCancel = (): void => {
+    if (PROMPT_PIN_PROMISE !== undefined) {
+      PROMPT_PIN_PROMISE.reject(new Error(USER_CANCELED))
       // remove proxied promised, allow next prompt() call
-      PASSPHRASE_PROMISE_PROXY = undefined
-    } else if (status === 'AUTHORIZED') {
-      PASSPHRASE_PROMISE_PROXY = undefined
+      PROMPT_PIN_PROMISE = undefined
+    } else if (transactionStatus === TransactionStatus.AUTHORIZED) {
+      PROMPT_PIN_PROMISE = undefined
       transaction === undefined
         ? dispatch(authenticationStore.actions.dismiss())
         : dispatch(transactionQueue.actions.pop())
       onTaskCompletion()
     }
-  }, [PASSPHRASE_PROMISE_PROXY, PASSPHRASE_PROMISE_PROXY?.reject])
+  }
 
-  const onRetry = useCallback(async (attempts: number) => {
+  const onRetry = async (attempts: number): Promise<void> => {
     setPin('')
     setIsRetry(true)
     setAttemptsRemaining(MAX_PASSCODE_ATTEMPT - attempts)
     await PasscodeAttemptCounter.set(attempts)
-  }, [attemptsRemaining])
+  }
 
-  const onPrompt = useCallback(async () => {
-    if (PASSPHRASE_PROMISE_PROXY !== undefined) {
+  const onPrompt = async (): Promise<string> => {
+    if (PROMPT_PIN_PROMISE !== undefined) {
       throw new Error('prompt UI occupied')
     }
     return await new Promise<string>((resolve, reject) => {
       // passphrase prompt is meant for authorizing single transaction regardless
       // caller should not prompt for next transaction before one is completed
       // proxy the promise, wait for user input
-      PASSPHRASE_PROMISE_PROXY = {
-        resolve, reject
+      PROMPT_PIN_PROMISE = {
+        resolve,
+        reject
       }
       // setPin('') // do not reset, keep pin cached until onTaskCompletion
-      emitEvent('PIN')
+      setTransactionStatus(TransactionStatus.PIN)
     })
-  }, [])
+  }
 
-  const resetPasscodeCounter = useCallback(async () => {
+  const resetPasscodeCounter = async (): Promise<void> => {
     setAttemptsRemaining(MAX_PASSCODE_ATTEMPT)
     await PasscodeAttemptCounter.set(0)
-  }, [])
+  }
 
   const onTaskCompletion = (): void => {
     setPin('')
     setIsRetry(false)
     setMessage(DEFAULT_MESSAGES.message)
     setLoadingMessage(DEFAULT_MESSAGES.loadingMessage)
-    emitEvent('IDLE') // very last step, open up for next task
+    setTransactionStatus(TransactionStatus.IDLE) // very last step, open up for next task
   }
 
-  // mandatory UI initialization
-  useEffect(() => {
+  const setupNewWallet = (passcodePromptPromise: () => Promise<string>): void => {
     let provider: WalletHdNodeProvider<MnemonicHdNode>
     if (providerData.type === WalletType.MNEMONIC_UNPROTECTED) {
       provider = MnemonicUnprotected.initProvider(providerData, network)
     } else if (providerData.type === WalletType.MNEMONIC_ENCRYPTED) {
-      provider = MnemonicEncrypted.initProvider(providerData, network, { prompt: onPrompt })
+      provider = MnemonicEncrypted.initProvider(providerData, network, { prompt: passcodePromptPromise })
     } else {
       throw new Error('Missing wallet provider data handler')
     }
     setWallet(initJellyfishWallet(provider, network, whaleApiClient))
+  }
 
+  const onPinSuccess = async (onBroadcast: any, signedTx: CTransactionSegWit): Promise<void> => {
+    setTransactionStatus(TransactionStatus.AUTHORIZED)
+    await resetPasscodeCounter()
+    dispatch(ocean.actions.queueTransaction({
+      tx: signedTx,
+      onBroadcast
+    })) // push signed result for broadcasting
+  }
+
+  // mandatory UI initialization
+  useEffect(() => {
+    setupNewWallet(onPrompt)
     PasscodeAttemptCounter.get()
       .then(counter => {
         setAttemptsRemaining(MAX_PASSCODE_ATTEMPT - counter)
-        emitEvent('IDLE')
+        setTransactionStatus(TransactionStatus.IDLE)
       })
       .catch(error => {
         logger.error(error)
@@ -171,12 +177,13 @@ export function TransactionAuthorization (): JSX.Element | null {
   }, [providerData, network, whaleApiClient])
 
   /**
-   * Currently serving
-   * 1. consume pending to sign store/TransactionQueue
-   * 2. generic authentication job store/Authentication
-   */
+   * @description This is where the magic happens. It serves two types of transactions
+   * 1. Wallet Transactions (e.g, Send, Add Liquidity, Pool Swap etc.)
+   * 2. Non-wallet transactions (e.g, Reveal recovery words, change app passcode)
+   * If you're curious where the passcode validation is triggered, see - https://github.com/DeFiCh/jellyfish/blob/fe270b737705ad33242a9ec3f8896b2f8f5052c8/packages/jellyfish-wallet-encrypted/src/hd_node.ts#L87
+   * */
   useEffect(() => {
-    if (status !== 'IDLE') {
+    if (transactionStatus !== TransactionStatus.IDLE) {
       // wait for prompt UI is ready again
       return
     }
@@ -186,16 +193,15 @@ export function TransactionAuthorization (): JSX.Element | null {
     }
 
     const retries = MAX_PASSCODE_ATTEMPT - attemptsRemaining
+    // Wallet Transactions
     if (transaction !== undefined && // any tx queued
       wallet !== undefined // just in case any data stuck in store
     ) {
-      emitEvent('BLOCK') // prevent any re-render trigger (between IDLE and PIN)
+      setTransactionStatus(TransactionStatus.BLOCK) // prevent any re-render trigger (between IDLE and PIN)
       signTransaction(transaction, wallet.get(0), onRetry, retries, logger)
         .then(async signedTx => {
           // case 1: success
-          emitEvent('AUTHORIZED')
-          await resetPasscodeCounter()
-          dispatch(ocean.actions.queueTransaction({ tx: signedTx, postAction: transaction.postAction })) // push signed result for broadcasting
+          await onPinSuccess(transaction.onBroadcast, signedTx)
         })
         .catch(async e => {
           if (e.message === INVALID_HASH) {
@@ -220,14 +226,15 @@ export function TransactionAuthorization (): JSX.Element | null {
           }
         })
     } else if (authentication !== undefined) {
-      emitEvent('BLOCK') // prevent any re-render trigger (between IDLE and PIN)
+      // Non-wallet transactions
+      setTransactionStatus(TransactionStatus.BLOCK) // prevent any re-render trigger (between IDLE and PIN)
       setMessage(authentication.message)
       setLoadingMessage(authentication.loading)
 
       authenticateFor(onPrompt, authentication, onRetry, retries, logger)
         .then(async () => {
           // case 1: success
-          emitEvent('AUTHORIZED')
+          setTransactionStatus(TransactionStatus.AUTHORIZED)
           await resetPasscodeCounter()
         })
         .catch(async e => {
@@ -245,37 +252,39 @@ export function TransactionAuthorization (): JSX.Element | null {
           throw new Error(CANCELED_ERROR) // pass to last catch so all cases will complete task
         })
         .catch(e => {
-            dispatch(authenticationStore.actions.dismiss())
-            onTaskCompletion()
+          dispatch(authenticationStore.actions.dismiss())
+          onTaskCompletion()
 
           if (e.message !== CANCELED_ERROR) { // no need to log if user cancels
             logger.error(e)
           }
         })
     }
-  }, [transaction, wallet, status, authentication, attemptsRemaining])
+  }, [transaction, wallet, transactionStatus, authentication, attemptsRemaining])
 
   // auto resolve with cached pin if any
   useEffect(() => {
-    if (status === 'PIN' && pin.length === PIN_LENGTH) {
+    if (transactionStatus === TransactionStatus.PIN && pin.length === PASSCODE_LENGTH) {
       onPinInput(pin)
     }
-  }, [status, pin])
+  }, [transactionStatus, pin])
 
-  // reset UI after n seconds
+  /**
+   * @description When the transaction has been TransactionStatus.AUTHORIZED, show the completion screen after SUCCESS_DISPLAY_TIMEOUT_IN_MS
+   * */
   useEffect(() => {
-    if (status === 'AUTHORIZED') {
+    if (transactionStatus === TransactionStatus.AUTHORIZED) {
       setTimeout(() => {
-    transaction === undefined
+        transaction === undefined
           ? dispatch(authenticationStore.actions.dismiss())
           : dispatch(transactionQueue.actions.pop())
-        PASSPHRASE_PROMISE_PROXY = undefined
+        PROMPT_PIN_PROMISE = undefined
         onTaskCompletion()
       }, SUCCESS_DISPLAY_TIMEOUT_IN_MS)
     }
-  }, [status])
+  }, [transactionStatus])
 
-  if (status === 'INIT' || status === 'IDLE' || status === 'BLOCK') {
+  if ([TransactionStatus.INIT, TransactionStatus.IDLE, TransactionStatus.BLOCK].includes(transactionStatus)) {
     return null
   }
 
@@ -284,8 +293,8 @@ export function TransactionAuthorization (): JSX.Element | null {
       onCancel={onCancel}
       message={translate('screens/UnlockWallet', message)}
       transaction={transaction}
-      status={status}
-      pinLength={PIN_LENGTH}
+      status={transactionStatus}
+      pinLength={PASSCODE_LENGTH}
       onPinInput={onPinInput}
       pin={pin}
       loadingMessage={translate('screens/TransactionAuthorization', loadingMessage)}
@@ -306,52 +315,4 @@ export function TransactionAuthorization (): JSX.Element | null {
       maxPasscodeAttempt={MAX_PASSCODE_ATTEMPT}
     />
   )
-}
-
-async function execWithAutoRetries (promptPromise: () => Promise<any>, onAutoRetry: (attempts: number) => Promise<void>, retries: number = 0, logger: NativeLoggingProps): Promise<any> {
-  try {
-    return await promptPromise()
-  } catch (e: any) {
-    logger.error(e)
-    if (e.message === INVALID_HASH && ++retries < MAX_PASSCODE_ATTEMPT) {
-      await onAutoRetry(retries)
-      return await execWithAutoRetries(promptPromise, onAutoRetry, retries, logger)
-    }
-    throw e
-  }
-}
-
-// store/transactionQueue execution
-async function signTransaction (tx: DfTxSigner, account: WhaleWalletAccount, onAutoRetry: (attempts: number) => Promise<void>, retries: number = 0, logger: NativeLoggingProps): Promise<CTransactionSegWit> {
-  return await execWithAutoRetries(async () => (await tx.sign(account)), onAutoRetry, retries, logger)
-}
-
-// store/authentication execution
-async function authenticateFor<T> (
-  promptPassphrase: () => Promise<string>,
-  authentication: Authentication<T>,
-  onAutoRetry: (attempts: number) => Promise<void>,
-  retries: number = 0,
-  logger: NativeLoggingProps
-): Promise<void> {
-  const customJob = async (): Promise<void> => {
-    const passphrase = await promptPassphrase()
-    const result = await authentication.consume(passphrase)
-    return await authentication.onAuthenticated(result)
-  }
-
-  return await execWithAutoRetries(customJob, onAutoRetry, retries, logger)
-}
-
-function alertUnlinkWallet (): void {
-  WalletAlert({
-    title: translate('screens/PinConfirmation', 'Wallet Unlinked'),
-    message: translate('screens/PinConfirmation', 'Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.'),
-    buttons: [
-      {
-        text: translate('screens/PinConfirmation', 'Close'),
-        style: 'destructive'
-      }
-    ]
-  })
 }

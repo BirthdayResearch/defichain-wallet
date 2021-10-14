@@ -1,7 +1,5 @@
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText } from '@components/themed'
-import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction/dist'
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
@@ -19,6 +17,8 @@ import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { TextRow } from '@components/TextRow'
 import { NumberRow } from '@components/NumberRow'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
+import { dfiConversionCrafter } from '@api/transaction/dfi_converter'
 
 type Props = StackScreenProps<BalanceParamList, 'ConvertConfirmationScreen'>
 
@@ -39,11 +39,6 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const logger = useLogger()
-  const postAction = (): void => {
-    if (isOnPage) {
-      navigation.dispatch(StackActions.popToTop())
-    }
-  }
 
   useEffect(() => {
     setIsOnPage(true)
@@ -57,7 +52,12 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
       return
     }
     setIsSubmitting(true)
-    await constructSignedConversionAndSend({ mode, amount }, dispatch, postAction, logger)
+    await constructSignedConversionAndSend({
+      mode,
+      amount
+    }, dispatch, () => {
+      onTransactionBroadcast(isOnPage, navigation.dispatch)
+    }, logger)
     setIsSubmitting(false)
   }
 
@@ -168,42 +168,9 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
 async function constructSignedConversionAndSend ({
   mode,
   amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, postAction: () => void, logger: NativeLoggingProps): Promise<void> {
+}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
   try {
-    const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
-      const script = await account.getScript()
-      const builder = account.withTransactionBuilder()
-      let signed: TransactionSegWit
-      if (mode === 'utxosToAccount') {
-        signed = await builder.account.utxosToAccount({
-          to: [{
-            script,
-            balances: [
-              { token: 0, amount }
-            ]
-          }]
-        }, script)
-      } else {
-        signed = await builder.account.accountToUtxos({
-          from: script,
-          balances: [
-            { token: 0, amount }
-          ],
-          mintingOutputsStart: 2 // 0: DfTx, 1: change, 2: minted utxos (mandated by jellyfish-tx)
-        }, script)
-      }
-      return new CTransactionSegWit(signed)
-    }
-
-    dispatch(transactionQueue.actions.push({
-      sign: signer,
-      title: translate('screens/ConvertConfirmScreen', 'Converting DFI'),
-      description: translate('screens/ConvertConfirmScreen', 'Converting {{amount}} {{symbolA}} to {{symbolB}}', {
-        amount: amount.toFixed(8),
-        ...(mode === 'utxosToAccount' ? { symbolA: 'UTXO', symbolB: 'Token' } : { symbolA: 'Token', symbolB: 'UTXO' })
-      }),
-      postAction
-    }))
+    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast)))
   } catch (e) {
     logger.error(e)
   }
