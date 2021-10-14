@@ -23,7 +23,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
-import { onBroadcast } from '@api/transaction/transaction_commands'
+import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 
 type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
 
@@ -61,7 +61,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       amount,
       networkName: network.networkName
     }, dispatch, () => {
-      onBroadcast(isOnPage, navigation)
+      onTransactionBroadcast(isOnPage, navigation)
     })
     setIsSubmitting(false)
   }

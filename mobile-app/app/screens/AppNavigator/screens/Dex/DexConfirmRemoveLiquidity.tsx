@@ -19,7 +19,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
-import { onBroadcast } from '@api/transaction/transaction_commands'
+import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmRemoveLiquidity'>
 
@@ -56,7 +56,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
     }
     setIsSubmitting(true)
     await constructSignedRemoveLiqAndSend(pair, amount, dispatch, () => {
-      onBroadcast(isOnPage, navigation)
+      onTransactionBroadcast(isOnPage, navigation)
     })
     setIsSubmitting(false)
   }

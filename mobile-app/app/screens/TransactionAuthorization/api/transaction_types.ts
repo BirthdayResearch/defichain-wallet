@@ -20,12 +20,12 @@ export const SUCCESS_DISPLAY_TIMEOUT_IN_MS = 2000
 export const CANCELED_ERROR = 'canceled error'
 
 export enum TransactionStatus {
-  INIT = 'INIT',
-  IDLE = 'IDLE',
-  BLOCK = 'BLOCK',
-  PIN = 'PIN',
-  SIGNING = 'SIGNING',
-  AUTHORIZED = 'AUTHORIZED',
+  INIT,
+  IDLE,
+  BLOCK,
+  PIN,
+  SIGNING,
+  AUTHORIZED
 }
 
 export interface PromptPromiseI {
