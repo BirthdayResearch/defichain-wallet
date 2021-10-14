@@ -49,7 +49,7 @@ export function ConversionBreakdown (props: ConversionBreakdownProps): JSX.Eleme
         }}
       />
       <NumberRow
-        lhs={translate('components/ConversionBreakdown', 'Resulting Token')}
+        lhs={translate('components/ConversionBreakdown', 'Resulting Tokens')}
         rhs={{
           value: new BigNumber(props.dfiToken?.amount ?? 0).plus(props.mode === 'utxosToAccount' ? amount : 0).toFixed(8),
           testID: 'text_amount'
