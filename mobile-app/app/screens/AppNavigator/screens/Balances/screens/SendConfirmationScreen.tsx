@@ -8,7 +8,6 @@ import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Logging } from '@api'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
@@ -23,6 +22,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
 
@@ -34,6 +34,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
     fee
   } = route.params
   const [token, setToken] = useState(route.params.token)
+  const logger = useLogger()
   const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -64,7 +65,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       token,
       amount,
       networkName: network.networkName
-    }, dispatch, postAction)
+    }, dispatch, postAction, logger)
     setIsSubmitting(false)
   }
 
@@ -168,7 +169,7 @@ async function send ({
   token,
   amount,
   networkName
-}: SendForm, dispatch: Dispatch<any>, postAction: () => void): Promise<void> {
+}: SendForm, dispatch: Dispatch<any>, postAction: () => void, logger: NativeLoggingProps): Promise<void> {
   try {
     const to = DeFiAddress.from(networkName, address).getScript()
 
@@ -200,6 +201,6 @@ async function send ({
       postAction
     }))
   } catch (e) {
-    Logging.error(e)
+    logger.error(e)
   }
 }

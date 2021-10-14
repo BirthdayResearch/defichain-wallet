@@ -4,7 +4,6 @@ import { MnemonicHdNode } from '@defichain/jellyfish-wallet-mnemonic'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Logging } from '@api'
 import {
   initJellyfishWallet,
   MnemonicEncrypted,
@@ -22,6 +21,7 @@ import { ocean } from '@store/ocean'
 import { DfTxSigner, first, transactionQueue } from '@store/transaction_queue'
 import { translate } from '@translations'
 import { PasscodePrompt } from './PasscodePrompt'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 const MAX_PASSCODE_ATTEMPT = 3 // allowed 2 failures
 const PIN_LENGTH = 6
@@ -63,6 +63,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   const { clearWallets } = useWalletPersistenceContext()
   const { network } = useNetworkContext()
   const whaleApiClient = useWhaleApiClient()
+  const logger = useLogger()
 
   // store
   const dispatch = useDispatch()
@@ -164,7 +165,7 @@ export function TransactionAuthorization (): JSX.Element | null {
         emitEvent('IDLE')
       })
       .catch(error => {
-        Logging.error(error)
+        logger.error(error)
         throw error
       })
   }, [providerData, network, whaleApiClient])
@@ -189,7 +190,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       wallet !== undefined // just in case any data stuck in store
     ) {
       emitEvent('BLOCK') // prevent any re-render trigger (between IDLE and PIN)
-      signTransaction(transaction, wallet.get(0), onRetry, retries)
+      signTransaction(transaction, wallet.get(0), onRetry, retries, logger)
         .then(async signedTx => {
           // case 1: success
           emitEvent('AUTHORIZED')
@@ -215,7 +216,7 @@ export function TransactionAuthorization (): JSX.Element | null {
           onTaskCompletion()
 
           if (e.message !== CANCELED_ERROR) { // no need to log if user cancels
-            Logging.error(e)
+            logger.error(e)
           }
         })
     } else if (authentication !== undefined) {
@@ -223,7 +224,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       setMessage(authentication.message)
       setLoadingMessage(authentication.loading)
 
-      authenticateFor(onPrompt, authentication, onRetry, retries)
+      authenticateFor(onPrompt, authentication, onRetry, retries, logger)
         .then(async () => {
           // case 1: success
           emitEvent('AUTHORIZED')
@@ -248,7 +249,7 @@ export function TransactionAuthorization (): JSX.Element | null {
             onTaskCompletion()
 
           if (e.message !== CANCELED_ERROR) { // no need to log if user cancels
-            Logging.error(e)
+            logger.error(e)
           }
         })
     }
@@ -307,22 +308,22 @@ export function TransactionAuthorization (): JSX.Element | null {
   )
 }
 
-async function execWithAutoRetries (promptPromise: () => Promise<any>, onAutoRetry: (attempts: number) => Promise<void>, retries: number = 0): Promise<any> {
+async function execWithAutoRetries (promptPromise: () => Promise<any>, onAutoRetry: (attempts: number) => Promise<void>, retries: number = 0, logger: NativeLoggingProps): Promise<any> {
   try {
     return await promptPromise()
   } catch (e: any) {
-    Logging.error(e)
+    logger.error(e)
     if (e.message === INVALID_HASH && ++retries < MAX_PASSCODE_ATTEMPT) {
       await onAutoRetry(retries)
-      return await execWithAutoRetries(promptPromise, onAutoRetry, retries)
+      return await execWithAutoRetries(promptPromise, onAutoRetry, retries, logger)
     }
     throw e
   }
 }
 
 // store/transactionQueue execution
-async function signTransaction (tx: DfTxSigner, account: WhaleWalletAccount, onAutoRetry: (attempts: number) => Promise<void>, retries: number = 0): Promise<CTransactionSegWit> {
-  return await execWithAutoRetries(async () => (await tx.sign(account)), onAutoRetry, retries)
+async function signTransaction (tx: DfTxSigner, account: WhaleWalletAccount, onAutoRetry: (attempts: number) => Promise<void>, retries: number = 0, logger: NativeLoggingProps): Promise<CTransactionSegWit> {
+  return await execWithAutoRetries(async () => (await tx.sign(account)), onAutoRetry, retries, logger)
 }
 
 // store/authentication execution
@@ -330,7 +331,8 @@ async function authenticateFor<T> (
   promptPassphrase: () => Promise<string>,
   authentication: Authentication<T>,
   onAutoRetry: (attempts: number) => Promise<void>,
-  retries: number = 0
+  retries: number = 0,
+  logger: NativeLoggingProps
 ): Promise<void> {
   const customJob = async (): Promise<void> => {
     const passphrase = await promptPassphrase()
@@ -338,7 +340,7 @@ async function authenticateFor<T> (
     return await authentication.onAuthenticated(result)
   }
 
-  return await execWithAutoRetries(customJob, onAutoRetry, retries)
+  return await execWithAutoRetries(customJob, onAutoRetry, retries, logger)
 }
 
 function alertUnlinkWallet (): void {

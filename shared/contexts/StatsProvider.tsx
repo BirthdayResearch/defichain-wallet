@@ -5,16 +5,11 @@ import { RootState } from '@store'
 import { block } from '@store/block'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
-type StatsProviderI = PropsWithChildren<any> &{
-  log: {
-    error: (error: any) => void
-  }
-}
-
-export function StatsProvider (props: StatsProviderI): JSX.Element | null {
+export function StatsProvider (props: PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
-  const { log } = props
+  const logger = useLogger()
   const isPolling = useSelector((state: RootState) => state.block.isPolling)
   const api = useWhaleApiClient()
   const interval: number = isPlayground(network) ? 3000 : 30000
@@ -39,7 +34,7 @@ export function StatsProvider (props: StatsProviderI): JSX.Element | null {
       }).catch((err) => {
         dispatch(block.actions.updateBlockDetails({ count: 0, masternodeCount: 0 }))
         dispatch(block.actions.setConnected(false))
-        log.error(err)
+        logger.error(err)
       })
     }
 

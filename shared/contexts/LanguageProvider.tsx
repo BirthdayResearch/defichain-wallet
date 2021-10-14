@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, PropsWithChildren } from 'react'
 import i18n from 'i18n-js'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 interface LanguageLoader {
   isLanguageLoaded: boolean
@@ -11,14 +12,12 @@ interface LanguageContextI {
     get: () => Promise<string | null>
     set: (language: NonNullable<string>) => Promise<void>
   }
-  log: {
-    error: (error: any) => void
-  }
   locale: string
 }
 
-export function useLanguage ({ api, log, locale }: LanguageContextI): LanguageLoader {
+export function useLanguage ({ api, locale }: LanguageContextI): LanguageLoader {
   const defaultLanguage = 'en'
+  const logger = useLogger()
   const [isLanguageLoaded, setIsLanguageLoaded] = useState<boolean>(false)
   const [language, setLanguage] = useState<NonNullable<string>>(defaultLanguage)
 
@@ -32,7 +31,7 @@ export function useLanguage ({ api, log, locale }: LanguageContextI): LanguageLo
       }
       setLanguage(currentLanguage)
     })
-    .catch((err) => log.error(err))
+    .catch((err) => logger.error(err))
     .finally(() => setIsLanguageLoaded(true))
   }, [])
 
@@ -58,8 +57,8 @@ export function useLanguageContext (): Language {
 }
 
 export function LanguageProvider (props: LanguageContextI & PropsWithChildren<any>): JSX.Element | null {
-  const { api, log, locale } = props
-  const { language } = useLanguage({ api, log, locale })
+  const { api, locale } = props
+  const { language } = useLanguage({ api, locale })
   const [currentLanguage, setCurrentLanguage] = useState<NonNullable<string>>(language)
 
   useEffect(() => {

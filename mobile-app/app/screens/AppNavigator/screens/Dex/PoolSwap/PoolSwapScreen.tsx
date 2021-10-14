@@ -1,4 +1,3 @@
-import { Logging } from '@api'
 import { Button } from '@components/Button'
 import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
@@ -26,6 +25,7 @@ import { SlippageTolerance } from './components/SlippageTolerance'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { InputHelperText } from '@components/InputHelperText'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 export interface DerivedTokenState {
   id: string
@@ -37,6 +37,7 @@ export interface DerivedTokenState {
 type Props = StackScreenProps<DexParamList, 'PoolSwapScreen'>
 
 export function PoolSwapScreen ({ route }: Props): JSX.Element {
+  const logger = useLogger()
   const client = useWhaleApiClient()
   const pairs = usePoolPairsAPI()
   const [poolpair, setPoolPair] = useState<PoolPairData>()
@@ -50,7 +51,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   useEffect(() => {
     client.fee.estimate()
       .then((f) => setFee(new BigNumber(f)))
-      .catch(Logging.error)
+      .catch(logger.error)
   }, [])
 
   // props derived state

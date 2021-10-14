@@ -8,7 +8,6 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Logging } from '@api'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
@@ -21,6 +20,7 @@ import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { getNativeIcon } from '@components/icons/assets'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -50,6 +50,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const lmTokenAmount = percentage.times(totalLiquidity.token)
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
+  const logger = useLogger()
   const postAction = (): void => {
     if (isOnPage) {
       navigation.dispatch(StackActions.popToTop())
@@ -82,7 +83,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         tokenBAmount
       },
       dispatch,
-      postAction
+      postAction,
+      logger
     )
     setIsSubmitting(false)
   }
@@ -219,7 +221,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 async function constructSignedAddLiqAndSend (
   addLiqForm: { tokenASymbol: string, tokenAId: number, tokenAAmount: BigNumber, tokenBSymbol: string, tokenBId: number, tokenBAmount: BigNumber },
   dispatch: Dispatch<any>,
-  postAction: () => void
+  postAction: () => void,
+  logger: NativeLoggingProps
 ): Promise<void> {
   try {
     const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
@@ -259,6 +262,6 @@ async function constructSignedAddLiqAndSend (
       postAction
     }))
   } catch (e) {
-    Logging.error(e)
+    logger.error(e)
   }
 }

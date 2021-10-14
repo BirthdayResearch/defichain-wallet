@@ -7,7 +7,6 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { Platform, StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import { useSelector } from 'react-redux'
-import { Logging } from '@api'
 import { View } from '@components/index'
 import { Button } from '@components/Button'
 import { NumberRow } from '@components/NumberRow'
@@ -21,10 +20,12 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
 export function RemoveLiquidityScreen (props: Props): JSX.Element {
+  const logger = useLogger()
   const client = useWhaleApiClient()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -70,7 +71,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   useEffect(() => {
     client.fee.estimate()
       .then((f) => setFee(new BigNumber(f)))
-      .catch(Logging.error)
+      .catch(logger.error)
   }, [])
 
   useEffect(() => {

@@ -5,6 +5,7 @@ import { useNetworkContext } from './NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
 import { useWalletNodeContext } from './WalletNodeProvider'
 import { initJellyfishWallet } from '@api/wallet'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 interface WalletContextI {
   /**
@@ -27,14 +28,8 @@ export function useWalletContext (): WalletContextI {
   return useContext(WalletContext)
 }
 
-interface WalletContextProviderI extends PropsWithChildren<{}>{
-  log: {
-    error: (error: any) => void
-  }
-}
-
-export function WalletContextProvider (props: WalletContextProviderI): JSX.Element | null {
-  const { log } = props
+export function WalletContextProvider (props: PropsWithChildren): JSX.Element | null {
+  const logger = useLogger()
   const { provider } = useWalletNodeContext()
   const [address, setAddress] = useState<string>()
   const { network } = useNetworkContext()
@@ -48,7 +43,7 @@ export function WalletContextProvider (props: WalletContextProviderI): JSX.Eleme
     wallet.get(0).getAddress().then(value => {
       setAddress(value)
     })
-    .catch(log.error)
+    .catch(logger.error)
   }, [wallet])
 
   if (address === undefined) {

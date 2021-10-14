@@ -1,3 +1,4 @@
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
 interface ThemeLoader {
@@ -12,13 +13,11 @@ interface ThemeContextI {
     get: () => Promise<string | null>
     set: (language: NonNullable<ColorSchemeName>) => Promise<void>
   }
-  log: {
-    error: (error: any) => void
-  }
   colorScheme?: ColorSchemeName
 }
 
-export function useTheme ({ api, log, colorScheme }: ThemeContextI): ThemeLoader {
+export function useTheme ({ api, colorScheme }: ThemeContextI): ThemeLoader {
+  const logger = useLogger()
   const [isThemeLoaded, setIsThemeLoaded] = useState<boolean>(false)
   const [theme, setTheme] = useState<NonNullable<ColorSchemeName>>('light')
 
@@ -32,7 +31,7 @@ export function useTheme ({ api, log, colorScheme }: ThemeContextI): ThemeLoader
       }
       setTheme(currentTheme)
     })
-    .catch(log.error)
+    .catch(logger?.error)
     .finally(() => setIsThemeLoaded(true))
   }, [])
 
@@ -55,8 +54,8 @@ export function useThemeContext (): Theme {
 }
 
 export function ThemeProvider (props: ThemeContextI & React.PropsWithChildren<any>): JSX.Element | null {
-  const { api, log, colorScheme } = props
-  const { theme } = useTheme({ api, log, colorScheme })
+  const { api, colorScheme } = props
+  const { theme } = useTheme({ api, colorScheme })
   const [currentTheme, setTheme] = useState<NonNullable<ColorSchemeName>>(theme)
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import * as SplashScreen from 'expo-splash-screen'
 import React from 'react'
 import './_shim'
-import { Logging, SecuredStoreAPI, LanguagePersistence, ThemePersistence } from '@api'
+import { SecuredStoreAPI, LanguagePersistence, ThemePersistence } from '@api'
 import { AppStateContextProvider } from '@contexts/AppStateContext'
 import { DeFiScanProvider } from '@shared-contexts/DeFiScanContext'
 import { DisplayBalancesProvider } from '@contexts/DisplayBalancesContext'
@@ -20,6 +20,7 @@ import { LanguageProvider, useLanguage } from '@shared-contexts/LanguageProvider
 import * as Localization from 'expo-localization'
 import { useColorScheme } from 'react-native'
 import { WalletPersistence } from '@api/wallet'
+import { NativeLoggingProvider, useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 /**
  * Loads
@@ -31,46 +32,49 @@ import { WalletPersistence } from '@api/wallet'
 export default function App (): JSX.Element | null {
   const isLoaded = useCachedResources()
   const colorScheme = useColorScheme()
+  const logger = useLogger()
 
-  const { isThemeLoaded } = useTheme({ api: ThemePersistence, log: Logging, colorScheme })
-  const { isLanguageLoaded } = useLanguage({ api: LanguagePersistence, log: Logging, locale: Localization.locale })
+  const { isThemeLoaded } = useTheme({ api: ThemePersistence, colorScheme })
+  const { isLanguageLoaded } = useLanguage({ api: LanguagePersistence, locale: Localization.locale })
 
   if (!isLoaded && !isThemeLoaded && !isLanguageLoaded) {
     SplashScreen.preventAutoHideAsync()
-      .catch(Logging.error)
+      .catch(logger.error)
     return null
   }
 
   SplashScreen.hideAsync()
-    .catch(Logging.error)
+    .catch(logger.error)
 
   return (
-    <ErrorBoundary>
-      <AppStateContextProvider>
-        <PrivacyLockContextProvider>
-          <NetworkProvider api={SecuredStoreAPI} log={Logging} locale={Localization.locale}>
-            <WhaleProvider>
-              <DeFiScanProvider>
-                <WalletPersistenceProvider api={WalletPersistence} log={Logging}>
-                  <StoreProvider>
-                    <StatsProvider log={Logging}>
-                      <ThemeProvider api={ThemePersistence} log={Logging} colorScheme={colorScheme}>
-                        <LanguageProvider api={LanguagePersistence} log={Logging}>
-                          <DisplayBalancesProvider>
-                            <ConnectionBoundary>
-                              <Main />
-                            </ConnectionBoundary>
-                          </DisplayBalancesProvider>
-                        </LanguageProvider>
-                      </ThemeProvider>
-                    </StatsProvider>
-                  </StoreProvider>
-                </WalletPersistenceProvider>
-              </DeFiScanProvider>
-            </WhaleProvider>
-          </NetworkProvider>
-        </PrivacyLockContextProvider>
-      </AppStateContextProvider>
-    </ErrorBoundary>
+    <NativeLoggingProvider>
+      <ErrorBoundary>
+        <AppStateContextProvider>
+          <PrivacyLockContextProvider>
+            <NetworkProvider api={SecuredStoreAPI} locale={Localization.locale}>
+              <WhaleProvider>
+                <DeFiScanProvider>
+                  <WalletPersistenceProvider api={WalletPersistence}>
+                    <StoreProvider>
+                      <StatsProvider>
+                        <ThemeProvider api={ThemePersistence} colorScheme={colorScheme}>
+                          <LanguageProvider api={LanguagePersistence}>
+                            <DisplayBalancesProvider>
+                              <ConnectionBoundary>
+                                <Main />
+                              </ConnectionBoundary>
+                            </DisplayBalancesProvider>
+                          </LanguageProvider>
+                        </ThemeProvider>
+                      </StatsProvider>
+                    </StoreProvider>
+                  </WalletPersistenceProvider>
+                </DeFiScanProvider>
+              </WhaleProvider>
+            </NetworkProvider>
+          </PrivacyLockContextProvider>
+        </AppStateContextProvider>
+      </ErrorBoundary>
+    </NativeLoggingProvider>
   )
 }

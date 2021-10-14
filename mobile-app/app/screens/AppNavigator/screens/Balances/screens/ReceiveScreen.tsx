@@ -2,24 +2,25 @@ import * as Clipboard from 'expo-clipboard'
 import React, { useState } from 'react'
 import { Share, TouchableOpacity, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
-import { Logging } from '@api'
 import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 
-export async function onShare (address: string): Promise<void> {
+export async function onShare (address: string, logger: NativeLoggingProps): Promise<void> {
   try {
     await Share.share({
       message: address
     })
   } catch (error) {
-    Logging.error(error)
+    logger.error(error)
   }
 }
 
 export function ReceiveScreen (): JSX.Element {
+  const logger = useLogger()
   const { isLight } = useThemeContext()
   const { address } = useWalletContext()
   const [isCopied, setIsCopied] = useState<boolean>(false)
@@ -139,7 +140,7 @@ export function ReceiveScreen (): JSX.Element {
 
         <TouchableOpacity
           onPress={async () => {
-            await onShare(address)
+            await onShare(address, logger)
           }}
           style={tailwind('flex flex-1 flex-row justify-center text-center items-center')}
           testID='share_button'

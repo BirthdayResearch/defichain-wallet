@@ -2,6 +2,7 @@ import { NetworkName } from '@defichain/jellyfish-network'
 import React, { createContext, useContext, useEffect, useState, PropsWithChildren } from 'react'
 import { getJellyfishNetwork } from '@api/wallet'
 import { EnvironmentNetwork } from '@environment'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 interface NetworkContextI {
   network: EnvironmentNetwork
@@ -20,21 +21,19 @@ type NetworkProviderI = PropsWithChildren<any> &{
     getNetwork: () => Promise<EnvironmentNetwork>
     setNetwork: (network: EnvironmentNetwork) => Promise<void>
   }
-  log: {
-    error: (error: any) => void
-  }
 }
 
 export function NetworkProvider (props: NetworkProviderI): JSX.Element | null {
   const [network, setNetwork] = useState<EnvironmentNetwork>()
   const [networkName, setNetworkName] = useState<NetworkName>()
-  const { api, log } = props
+  const logger = useLogger()
+  const { api } = props
 
   useEffect(() => {
     api.getNetwork().then(async (value: EnvironmentNetwork) => {
       setNetworkName(getJellyfishNetwork(value).name)
       setNetwork(value)
-    }).catch(log.error)
+    }).catch(logger.error)
   }, [])
 
   if (network === undefined || networkName === undefined) {

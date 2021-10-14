@@ -1,4 +1,3 @@
-import { Logging } from '@api'
 import {
   ThemedIcon,
   ThemedScrollView,
@@ -25,10 +24,12 @@ import { useDispatch } from 'react-redux'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { RowThemeItem } from './components/RowThemeItem'
 import { SettingsParamList } from './SettingsNavigator'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
 
 export function SettingsScreen ({ navigation }: Props): JSX.Element {
+  const logger = useLogger()
   const { network } = useNetworkContext()
   const dispatch = useDispatch()
   const walletContext = useWalletPersistenceContext()
@@ -50,7 +51,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
           merge: true
         })
       },
-      onError: e => Logging.error(e),
+      onError: e => logger.error(e),
       message: translate('screens/Settings', 'Enter passcode to continue'),
       loading: translate('screens/Settings', 'Verifying access')
     }

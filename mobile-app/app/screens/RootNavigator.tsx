@@ -7,7 +7,7 @@ import { PrivacyLock } from './PrivacyLock'
 import { TransactionAuthorization } from './TransactionAuthorization/TransactionAuthorization'
 import { WalletNavigator } from './WalletNavigator/WalletNavigator'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import { Logging } from '@api'
+
 /**
  * Top Root Level Wallet State to control what screen to show
  */
@@ -28,7 +28,7 @@ export function RootNavigator (): JSX.Element {
 
   return (
     <WalletNodeProvider data={wallets[0]}>
-      <WalletContextProvider log={Logging}>
+      <WalletContextProvider>
         <PrivacyLock />
         <TransactionAuthorization />
 

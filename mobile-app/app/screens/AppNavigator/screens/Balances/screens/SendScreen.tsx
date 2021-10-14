@@ -10,7 +10,6 @@ import React, { useEffect, useState } from 'react'
 import { Control, Controller, FieldValues, useForm, UseFormSetValue } from 'react-hook-form'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
-import { Logging } from '@api'
 import { Button } from '@components/Button'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
@@ -24,6 +23,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -31,6 +31,7 @@ export function SendScreen ({
   route,
   navigation
 }: Props): JSX.Element {
+  const logger = useLogger()
   const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
   const tokens = useTokensAPI()
@@ -52,7 +53,7 @@ export function SendScreen ({
   useEffect(() => {
     client.fee.estimate()
       .then((f) => setFee(new BigNumber(f)))
-      .catch(Logging.error)
+      .catch(logger.error)
   }, [])
 
   useEffect(() => {

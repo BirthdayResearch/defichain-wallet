@@ -1,3 +1,4 @@
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import React, { createContext, useContext, useEffect, useState, PropsWithChildren } from 'react'
 import { useNetworkContext } from './NetworkContext'
 
@@ -41,13 +42,11 @@ interface WalletPersistenceProviderI {
     get: () => Promise<Array<WalletPersistenceDataI<any>>>
     set: (wallets: Array<WalletPersistenceDataI<any>>) => Promise<void>
   }
-  log: {
-    error: (error: any) => void
-  }
 }
 
 export function WalletPersistenceProvider (props: WalletPersistenceProviderI & PropsWithChildren<any>): JSX.Element | null {
-  const { api, log } = props
+  const { api } = props
+  const logger = useLogger()
   const { network } = useNetworkContext()
   const [isLoaded, setIsLoaded] = useState(false)
   const [dataList, setDataList] = useState<Array<WalletPersistenceDataI<any>>>([])
@@ -56,7 +55,7 @@ export function WalletPersistenceProvider (props: WalletPersistenceProviderI & P
     api.get().then((dataList: Array<WalletPersistenceDataI<any>>) => {
       setDataList(dataList)
     })
-    .catch(log.error)
+    .catch(logger.error)
     .finally(() => setIsLoaded(true))
   }, [network]) // api is network dependent
 

@@ -6,7 +6,6 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Logging } from '@api'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
 import { RootState } from '@store'
@@ -19,6 +18,7 @@ import { ConversionMode } from './ConvertScreen'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { TextRow } from '@components/TextRow'
 import { NumberRow } from '@components/NumberRow'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 type Props = StackScreenProps<BalanceParamList, 'ConvertConfirmationScreen'>
 
@@ -38,6 +38,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
+  const logger = useLogger()
   const postAction = (): void => {
     if (isOnPage) {
       navigation.dispatch(StackActions.popToTop())
@@ -56,7 +57,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
       return
     }
     setIsSubmitting(true)
-    await constructSignedConversionAndSend({ mode, amount }, dispatch, postAction)
+    await constructSignedConversionAndSend({ mode, amount }, dispatch, postAction, logger)
     setIsSubmitting(false)
   }
 
@@ -167,7 +168,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
 async function constructSignedConversionAndSend ({
   mode,
   amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, postAction: () => void): Promise<void> {
+}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, postAction: () => void, logger: NativeLoggingProps): Promise<void> {
   try {
     const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
       const script = await account.getScript()
@@ -204,6 +205,6 @@ async function constructSignedConversionAndSend ({
       postAction
     }))
   } catch (e) {
-    Logging.error(e)
+    logger.error(e)
   }
 }

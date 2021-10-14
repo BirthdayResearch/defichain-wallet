@@ -5,7 +5,6 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Logging } from '@api'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
@@ -19,6 +18,7 @@ import { DexParamList } from '../DexNavigator'
 import { DerivedTokenState } from './PoolSwapScreen'
 import { getNativeIcon } from '@components/icons/assets'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmPoolSwapScreen'>
 
@@ -39,6 +39,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
+  const logger = useLogger()
   const postAction = (): void => {
     if (isOnPage) {
       navigation.dispatch(StackActions.popToTop())
@@ -59,7 +60,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
       return
     }
     setIsSubmitting(true)
-    await constructSignedSwapAndSend(swap, slippage, dispatch, postAction)
+    await constructSignedSwapAndSend(swap, slippage, dispatch, postAction, logger)
     setIsSubmitting(false)
   }
 
@@ -167,7 +168,8 @@ async function constructSignedSwapAndSend (
   dexForm: DexForm,
   slippage: number,
   dispatch: Dispatch<any>,
-  postAction: () => void
+  postAction: () => void,
+  logger: NativeLoggingProps
 ): Promise<void> {
   try {
     const maxPrice = dexForm.fromAmount.div(dexForm.toAmount).times(1 + slippage).decimalPlaces(8)
@@ -199,6 +201,6 @@ async function constructSignedSwapAndSend (
       postAction
     }))
   } catch (e) {
-    Logging.error(e)
+    logger.error(e)
   }
 }

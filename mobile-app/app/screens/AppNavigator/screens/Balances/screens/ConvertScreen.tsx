@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react'
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
-import { Logging } from '@api'
 import { View } from '@components/index'
 import { Button } from '@components/Button'
 import { IconButton } from '@components/IconButton'
@@ -24,6 +23,7 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<BalanceParamList, 'ConvertScreen'>
@@ -34,6 +34,7 @@ interface ConversionIO extends AddressToken {
 
 export function ConvertScreen (props: Props): JSX.Element {
   const client = useWhaleApiClient()
+  const logger = useLogger()
   // global state
   const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -49,7 +50,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   useEffect(() => {
     client.fee.estimate()
       .then((f) => setFee(new BigNumber(f)))
-      .catch(Logging.error)
+      .catch(logger.error)
   }, [])
 
   useEffect(() => {
