@@ -28,7 +28,7 @@ export function useWalletContext (): WalletContextI {
   return useContext(WalletContext)
 }
 
-export function WalletContextProvider (props: PropsWithChildren): JSX.Element | null {
+export function WalletContextProvider (props: PropsWithChildren<any>): JSX.Element | null {
   const logger = useLogger()
   const { provider } = useWalletNodeContext()
   const [address, setAddress] = useState<string>()

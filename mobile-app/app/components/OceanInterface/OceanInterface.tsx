@@ -143,7 +143,7 @@ export function OceanInterface (): JSX.Element | null {
         })
         .finally(() => {
           dispatch(ocean.actions.popTransaction())
-          fetchTokens(client, address, dispatch)
+          fetchTokens(client, address, dispatch, logger)
         }) // remove the job as soon as completion
     }
   }, [transaction, wallet, address])

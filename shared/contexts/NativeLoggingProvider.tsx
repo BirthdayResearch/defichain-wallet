@@ -6,7 +6,7 @@ export interface NativeLoggingProps {
   info: (message: string) => void
 }
 
-const NativeLoggingContext = createContext<NativeLoggingProps>({})
+const NativeLoggingContext = createContext<NativeLoggingProps>({} as any)
 
 /**
  * NativeLoggingContext Context wrapped within <NativeLoggingProvider>

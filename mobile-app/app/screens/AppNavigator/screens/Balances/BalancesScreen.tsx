@@ -27,10 +27,12 @@ import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
 import { BalanceText, DFIBalanceCard } from './components'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
+  const logger = useLogger()
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
@@ -46,7 +48,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
-    await fetchTokens(client, address, dispatch)
+    await fetchTokens(client, address, dispatch, logger)
     setRefreshing(false)
   }, [address, client, dispatch])
 
