@@ -56,7 +56,7 @@ services:
       - "traefik.http.routers.playground.entrypoints=web"
 
   defi-whale:
-    image: ghcr.io/defich/whale:0.10.0
+    image: ghcr.io/defich/whale:0.11.4
     depends_on:
       - defi-blockchain
     ports:

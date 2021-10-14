@@ -254,8 +254,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
             }
             testID="total_dfi_amount"
           >
-            131.34701100
-             DFI
+            131.34701100 DFI
           </Text>
           <Text
             style={

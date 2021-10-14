@@ -7,14 +7,19 @@ export interface BalanceTokenDetail {
 context('Wallet - Balances', () => {
   before(function () {
     cy.createEmptyWallet(true)
+    cy.sendDFItoWallet().wait(3000)
     cy.getByTestID('bottom_tab_settings').click()
-    cy.sendDFItoWallet()
-      .sendDFITokentoWallet()
-      .sendTokenToWallet(['BTC', 'ETH']).wait(3000)
     cy.getByTestID('bottom_tab_balances').click()
   })
 
+  it('should display no tokens text', function () {
+    cy.getByTestID('toggle_balance_text').should('have.text', 'Hide balances')
+    cy.getByTestID('empty_token_text').should('have.text', 'You do not have any other tokens.')
+  })
+
   it('should display dfi utxo and dfi token with correct amount', function () {
+    cy.sendDFITokentoWallet()
+      .sendTokenToWallet(['BTC', 'ETH']).wait(3000)
     cy.getByTestID('dfi_balance_card').should('exist')
     cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
     cy.getByTestID('dfi_utxo_label').contains('UTXO')
@@ -28,6 +33,16 @@ context('Wallet - Balances', () => {
     cy.getByTestID('balances_list').should('exist')
     cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', symbol: 'dBTC' })
     cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', symbol: 'dETH' })
+  })
+
+  it('should hide all DFI, BTC and ETH amounts on toggle', function () {
+    cy.getByTestID('toggle_balance').click()
+    cy.getByTestID('total_dfi_amount').should('have.text', '***** DFI')
+    cy.getByTestID('dfi_utxo_amount').should('have.text', '*****')
+    cy.getByTestID('dfi_token_amount').should('have.text', '*****')
+    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '*****', symbol: 'dBTC' })
+    cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '*****', symbol: 'dETH' })
+    cy.getByTestID('toggle_balance_text').contains('Show balances')
   })
 
   it('should redirect to receive page', function () {

@@ -9,18 +9,10 @@ exports[`text input should match snapshot with OS android period comma locale 1`
   rejectResponderTermination={true}
   style={
     Array [
+      undefined,
       Object {
-        "fontFamily": "RegularFont",
-        "fontSize": 16,
-        "fontWeight": "400",
-        "lineHeight": 24,
+        "color": "rgba(64, 64, 64, 1)",
       },
-      Array [
-        undefined,
-        Object {
-          "color": "rgba(64, 64, 64, 1)",
-        },
-      ],
     ]
   }
   underlineColorAndroid="transparent"
@@ -37,18 +29,10 @@ exports[`text input should match snapshot with OS android period decimal locale 
   rejectResponderTermination={true}
   style={
     Array [
+      undefined,
       Object {
-        "fontFamily": "RegularFont",
-        "fontSize": 16,
-        "fontWeight": "400",
-        "lineHeight": 24,
+        "color": "rgba(64, 64, 64, 1)",
       },
-      Array [
-        undefined,
-        Object {
-          "color": "rgba(64, 64, 64, 1)",
-        },
-      ],
     ]
   }
   underlineColorAndroid="transparent"
@@ -65,18 +49,10 @@ exports[`text input should match snapshot with OS android period unknown locale 
   rejectResponderTermination={true}
   style={
     Array [
+      undefined,
       Object {
-        "fontFamily": "RegularFont",
-        "fontSize": 16,
-        "fontWeight": "400",
-        "lineHeight": 24,
+        "color": "rgba(64, 64, 64, 1)",
       },
-      Array [
-        undefined,
-        Object {
-          "color": "rgba(64, 64, 64, 1)",
-        },
-      ],
     ]
   }
   underlineColorAndroid="transparent"
@@ -93,18 +69,10 @@ exports[`text input should match snapshot with OS ios period comma locale 1`] = 
   rejectResponderTermination={true}
   style={
     Array [
+      undefined,
       Object {
-        "fontFamily": "RegularFont",
-        "fontSize": 16,
-        "fontWeight": "400",
-        "lineHeight": 24,
+        "color": "rgba(64, 64, 64, 1)",
       },
-      Array [
-        undefined,
-        Object {
-          "color": "rgba(64, 64, 64, 1)",
-        },
-      ],
     ]
   }
   underlineColorAndroid="transparent"
@@ -121,18 +89,10 @@ exports[`text input should match snapshot with OS ios period decimal locale 1`] 
   rejectResponderTermination={true}
   style={
     Array [
+      undefined,
       Object {
-        "fontFamily": "RegularFont",
-        "fontSize": 16,
-        "fontWeight": "400",
-        "lineHeight": 24,
+        "color": "rgba(64, 64, 64, 1)",
       },
-      Array [
-        undefined,
-        Object {
-          "color": "rgba(64, 64, 64, 1)",
-        },
-      ],
     ]
   }
   underlineColorAndroid="transparent"
@@ -149,18 +109,10 @@ exports[`text input should match snapshot with OS ios period unknown locale 1`] 
   rejectResponderTermination={true}
   style={
     Array [
+      undefined,
       Object {
-        "fontFamily": "RegularFont",
-        "fontSize": 16,
-        "fontWeight": "400",
-        "lineHeight": 24,
+        "color": "rgba(64, 64, 64, 1)",
       },
-      Array [
-        undefined,
-        Object {
-          "color": "rgba(64, 64, 64, 1)",
-        },
-      ],
     ]
   }
   underlineColorAndroid="transparent"
