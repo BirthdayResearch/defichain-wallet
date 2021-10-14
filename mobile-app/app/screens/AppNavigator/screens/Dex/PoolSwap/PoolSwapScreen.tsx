@@ -25,9 +25,9 @@ import { DexParamList } from '../DexNavigator'
 import { SlippageTolerance } from './components/SlippageTolerance'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { InputHelperText } from '@components/InputHelperText'
-import { WalletToken } from '@store/wallet'
+import { DFITokenSelector, WalletToken } from '@store/wallet'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
-import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
+import { ConversionInfoText } from '@components/ConversionInfoText'
 
 export interface DerivedTokenState {
   id: string
@@ -48,6 +48,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const [tokenAForm, tokenBForm] = ['tokenA', 'tokenB']
   const navigation = useNavigation<NavigationProp<DexParamList>>()
+  const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
 
   useEffect(() => {
     client.fee.estimate()
@@ -63,7 +64,8 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const [aToBPrice, setAToBPrice] = useState<BigNumber>()
 
   // component UI state
-  const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
+  const { control, setValue, formState, getValues, trigger } = useForm({ mode: 'onChange' })
+  const [isConversionRequired, setIsConversionRequired] = useState(false)
   const ScreenTitle = (props: {tokenA: DerivedTokenState, tokenB: DerivedTokenState}): JSX.Element => {
     const TokenAIcon = getNativeIcon(props.tokenA.displaySymbol)
     const TokenBIcon = getNativeIcon(props.tokenB.displaySymbol)
@@ -108,7 +110,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     const priceRateA = getPriceRate(getReserveAmount(tokenA.id, poolpair), getReserveAmount(tokenB.id, poolpair))
     const priceRateB = getPriceRate(getReserveAmount(tokenB.id, poolpair), getReserveAmount(tokenA.id, poolpair))
 
-    if (atA !== undefined && atB !== undefined && isValid) {
+    if (atA !== undefined && atB !== undefined && formState.isValid) {
       const swap = {
         fromToken: tokenA,
         toToken: tokenB,
@@ -199,6 +201,20 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     }
   }, [JSON.stringify(tokens), poolpair])
 
+  useEffect(() => {
+    if (tokenA?.id !== '0_unified') {
+      return
+    }
+    const swapAmount = new BigNumber(getValues(tokenAForm))
+    if (!swapAmount.isNaN() &&
+      swapAmount.isGreaterThan(new BigNumber(DFIToken.amount)) &&
+      swapAmount.isLessThanOrEqualTo(tokenA.amount)) {
+        setIsConversionRequired(true)
+    } else {
+      setIsConversionRequired(false)
+    }
+  }, [formState])
+
   if (tokenA === undefined || tokenB === undefined || poolpair === undefined || aToBPrice === undefined) {
     return <></>
   }
@@ -264,7 +280,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           suffix={` ${tokenB.displaySymbol}`}
         />
 
-        <ReservedDFIInfoText />
+        {isConversionRequired && <ConversionInfoText />}
       </View>
       <SlippageTolerance
         setSlippage={(amount) => setSlippage(amount)}
@@ -280,6 +296,8 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
             tokenB={tokenB}
             tokenBAmount={getValues()[tokenBForm]}
             fee={fee.toFixed(8)}
+            isConversionRequired={isConversionRequired}
+            amountToConvert={new BigNumber(tokenA.amount).minus(DFIToken.amount).toFixed(8)}
           />
       }
 
@@ -292,7 +310,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       </ThemedText>
 
       <Button
-        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
+        disabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/PoolSwapScreen', 'CONTINUE')}
         onPress={onSubmit}
         testID='button_submit'
@@ -410,9 +428,11 @@ interface SwapSummaryItems {
   tokenAAmount: string
   tokenBAmount: string
   fee: string
+  isConversionRequired: boolean
+  amountToConvert: string
 }
 
-function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee }: SwapSummaryItems): JSX.Element {
+function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee, isConversionRequired, amountToConvert }: SwapSummaryItems): JSX.Element {
   const reserveA = getReserveAmount(tokenA.id, poolpair)
   const reserveB = getReserveAmount(tokenB.id, poolpair)
   const priceA = getPriceRate(reserveA, reserveB)
@@ -426,6 +446,16 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee }: SwapSumma
         text={translate('screens/PoolSwapScreen', 'TRANSACTION DETAILS')}
         style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
       />
+      {isConversionRequired &&
+        <NumberRow
+          lhs={translate('screens/PoolSwapScreen', 'Amount to be converted')}
+          rhs={{
+            testID: 'amount_to_convert',
+            value: amountToConvert,
+            suffixType: 'text',
+            suffix: tokenA.displaySymbol
+          }}
+        />}
       <NumberRow
         lhs={translate('screens/PoolSwapScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
         rhs={{
