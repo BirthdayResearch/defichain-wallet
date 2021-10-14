@@ -322,13 +322,16 @@
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "Warte auf Bestätigung",
-    "Transaction Completed": "Transaktion ausgeführt",
+    "Transaction completed": "Transaktion abgeschlossen",
     "Sent but not confirmed": "Gesendet aber nicht bestätigt",
     "Broadcasting...": "Übertrage...",
     "OK": "OK",
     "Insufficient UTXO DFI": "Nicht ausreichend UTXO DFI",
     "Not enough balance": "Guthaben zu niedrig",
-    "Price is higher than indicated": "Preis höher als angezeigt"
+    "Price is higher than indicated": "Preis höher als angezeigt",
+    "VIEW": "ANSICHT",
+    "Preparing broadcast": "Übertragung wird vorbereitet",
+    "Waiting for transaction": "Warten auf Transaktion"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Kameranutzung erlauben",

@@ -325,7 +325,7 @@
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "正在确认",
-    "Transaction Completed": "交易成功",
+    "Transaction completed": "交易成功",
     "Sent but not confirmed": "已发出尚未完全确认",
     "Broadcasting...": "播送...",
     "OK": "好了",

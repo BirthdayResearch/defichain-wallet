@@ -106,7 +106,7 @@ export function OceanInterface (): JSX.Element | null {
       setTx({
         ...transaction,
         broadcasted: false,
-        title: 'Preparing for broadcast'
+        title: 'Preparing broadcast'
       })
       broadcastTransaction(transaction.tx, client)
         .then(async () => {
@@ -125,7 +125,7 @@ export function OceanInterface (): JSX.Element | null {
           let title
           try {
             await waitForTxConfirmation(transaction.tx.txId, client)
-            title = 'Transaction Completed'
+            title = 'Transaction completed'
           } catch (e) {
             Logging.error(e)
             title = 'Sent but not confirmed'
