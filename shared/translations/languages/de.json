@@ -304,7 +304,9 @@
     "RESTORE WALLET": "WALLET WIEDERHERSTELLEN",
     "Enter word #{{order}}": "Wort #{{order}} eingeben",
     "Cancel": "Abbrechen",
-    "Discard": "Verwerfen"
+    "Discard": "Verwerfen",
+    "Required field is missing": "Erforderliches Feld fehlt",
+    "Uppercase, numbers and special characters are not allowed": "Großbuchstaben, Zahlen und Sonderzeichen sind nicht erlaubt."
   },
   "screens/ErrorBoundary": {
     "Something went wrong": "Etwas ging schief",
