@@ -1,24 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { AnnouncementData, AnnouncementText } from '@shared-types/website'
-import Cors from 'cors'
-
-const cors = Cors({
-  methods: ['GET', 'HEAD']
-})
-
-// Helper method to wait for a middleware to execute before continuing
-// And to throw an error when an error happens in a middleware
-async function runMiddleware (req: NextApiRequest, res: NextApiResponse, fn: any): Promise<any> {
-  return await new Promise((resolve, reject) => {
-    fn(req, res, (result: any) => {
-      if (result instanceof Error) {
-        return reject(result)
-      }
-
-      return resolve(result)
-    })
-  })
-}
 
 export function createAnnouncement (lang: AnnouncementText, minVersion: string, maxVersion?: string): AnnouncementData {
   return {
@@ -30,9 +11,8 @@ export function createAnnouncement (lang: AnnouncementText, minVersion: string, 
   }
 }
 
-export default async function handle (req: NextApiRequest, res: NextApiResponse<AnnouncementData[]>): Promise<void> {
+export default function handle (req: NextApiRequest, res: NextApiResponse<AnnouncementData[]>): void {
   // TODO(wallet-team): https://nextjs.org/docs/api-routes/introduction
-  await runMiddleware(req, res, cors)
   res.status(200).json([
     createAnnouncement({
       en: 'Guidelines',
