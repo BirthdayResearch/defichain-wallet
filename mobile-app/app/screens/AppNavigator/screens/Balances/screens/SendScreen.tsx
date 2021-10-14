@@ -167,7 +167,9 @@ export function SendScreen ({
         dark={tailwind('text-gray-300')}
         style={tailwind('mt-2 mx-4 text-sm')}
       >
-        {translate('screens/SendScreen', 'Authorize transaction in the next screen to convert')}
+        {isConversionRequired
+          ? translate('screens/SendScreen', 'Authorize transaction in the next screen to convert')
+          : translate('screens/SendScreen', 'Review full transaction details in the next screen')}
       </ThemedText>
 
       <Button

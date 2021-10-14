@@ -190,7 +190,9 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
         dark={tailwind('text-gray-300')}
         style={tailwind('pt-4 pb-8 px-4 text-sm')}
       >
-        {translate('screens/AddLiquidity', 'Authorize transaction in the next screen to convert')}
+        {isConversionRequired
+          ? translate('screens/AddLiquidity', 'Authorize transaction in the next screen to convert')
+          : translate('screens/AddLiquidity', 'Review full transaction details in the next screen')}
       </ThemedText>
 
       <View style={tailwind('px-4')}>
@@ -300,7 +302,7 @@ function TransactionDetailsSection (props: { pair: ExtPoolPairData, sharePercent
       />
       {isConversionRequired &&
         <NumberRow
-          lhs={translate('screens/SendScreen', 'Amount to be converted')}
+          lhs={translate('screens/AddLiquidity', 'Amount to be converted')}
           rhs={{
             value: props.amountToConvert.toFixed(8),
             testID: 'text_amount_to_convert',

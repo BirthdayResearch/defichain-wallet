@@ -306,7 +306,9 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         dark={tailwind('text-gray-300')}
         style={tailwind('pt-2 pb-8 px-4 text-sm')}
       >
-        {translate('screens/PoolSwapScreen', 'Review full transaction details in the next screen')}
+        {isConversionRequired
+          ? translate('screens/PoolSwapScreen', 'Authorize transaction in the next screen to convert')
+          : translate('screens/PoolSwapScreen', 'Review full transaction details in the next screen')}
       </ThemedText>
 
       <Button
