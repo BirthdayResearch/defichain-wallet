@@ -1,6 +1,6 @@
 import { CTransactionSegWit, PoolSwap } from '@defichain/jellyfish-transaction/dist'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
@@ -19,6 +19,7 @@ import { DexParamList } from '../DexNavigator'
 import { DerivedTokenState } from './PoolSwapScreen'
 import { getNativeIcon } from '@components/icons/assets'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmPoolSwapScreen'>
 
@@ -39,11 +40,6 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
-  const postAction = (): void => {
-    if (isOnPage) {
-      navigation.dispatch(StackActions.popToTop())
-    }
-  }
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
 
@@ -59,13 +55,19 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
       return
     }
     setIsSubmitting(true)
-    await constructSignedSwapAndSend(swap, slippage, dispatch, postAction)
+    await constructSignedSwapAndSend(swap, slippage, dispatch, () => {
+      onTransactionBroadcast(isOnPage, navigation.dispatch)
+    })
     setIsSubmitting(false)
   }
 
   function onCancel (): void {
     if (!isSubmitting) {
-      navigation.navigate({ name: 'PoolSwap', params: { pair }, merge: true })
+      navigation.navigate({
+        name: 'PoolSwap',
+        params: { pair },
+        merge: true
+      })
     }
   }
 
@@ -120,7 +122,10 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         }}
       />
       <NumberRow
-        lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
+        lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenA}} price per {{tokenB}}', {
+          tokenA: tokenA.displaySymbol,
+          tokenB: tokenB.displaySymbol
+        })}
         rhs={{
           testID: 'price_a',
           value: priceRateA,
@@ -129,7 +134,10 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         }}
       />
       <NumberRow
-        lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenB.displaySymbol, tokenB: tokenA.displaySymbol })}
+        lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenA}} price per {{tokenB}}', {
+          tokenA: tokenB.displaySymbol,
+          tokenB: tokenA.displaySymbol
+        })}
         rhs={{
           testID: 'price_b',
           value: priceRateB,
@@ -140,7 +148,11 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
 
       <EstimatedFeeInfo
         lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated fee')}
-        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffix: 'DFI (UTXO)' }}
+        rhs={{
+          value: fee.toFixed(8),
+          testID: 'text_fee',
+          suffix: 'DFI (UTXO)'
+        }}
       />
 
       <SubmitButtonGroup
@@ -167,7 +179,7 @@ async function constructSignedSwapAndSend (
   dexForm: DexForm,
   slippage: number,
   dispatch: Dispatch<any>,
-  postAction: () => void
+  onBroadcast: () => void
 ): Promise<void> {
   try {
     const maxPrice = dexForm.fromAmount.div(dexForm.toAmount).times(1 + slippage).decimalPlaces(8)
@@ -196,7 +208,7 @@ async function constructSignedSwapAndSend (
         amountB: dexForm.toAmount.toFixed(8),
         symbolB: dexForm.toToken.displaySymbol
       }),
-      postAction
+      onBroadcast
     }))
   } catch (e) {
     Logging.error(e)
