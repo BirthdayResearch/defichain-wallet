@@ -99,7 +99,7 @@ export function OceanInterface (): JSX.Element | null {
       setTx({
         ...transaction,
         broadcasted: false,
-        title: 'Preparing broadcast'
+        title: translate('screens/OceanInterface', 'Preparing broadcast')
       })
       broadcastTransaction(transaction.tx, client)
         .then(async () => {

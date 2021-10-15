@@ -331,7 +331,9 @@
     "OK": "好了",
     "Insufficient UTXO DFI": "不足够的 UTXO DFI",
     "Not enough balance": "余额不足",
-    "Price is higher than indicated": "价格高于指示"
+    "Price is higher than indicated": "价格高于指示",
+    "Preparing broadcast": "准备传输",
+    "Waiting for transaction": "等待交易"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "请许可程序使用相机",
