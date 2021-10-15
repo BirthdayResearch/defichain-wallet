@@ -19,13 +19,12 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { getNativeIcon } from '@components/icons/assets'
-import { DFITokenSelector } from '@store/wallet'
 import { ConversionTag } from '@components/ConversionTag'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
-import { ConversionDetailsRow } from '@components/ConversionDetailsRow'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
+import { ConversionBreakdown } from '@components/ConversionBreakdown'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -41,6 +40,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     tokenBAmount
   } = props.route.params.summary
   const pair = props.route.params.pair
+  const { conversion } = props.route.params
+  const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const aToBRate = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
   const bToARate = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
@@ -49,8 +50,6 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const TokenAIcon = getNativeIcon(pair.tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(pair.tokenB.displaySymbol)
-  const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
-  const [isConversionRequired, setIsConversionRequired] = useState(false)
 
   useEffect(() => {
     setIsOnPage(true)
@@ -58,14 +57,6 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       setIsOnPage(false)
     }
   }, [])
-
-  useEffect(() => {
-    if (tokenBAmount.isGreaterThan(new BigNumber(DFIToken.amount))) {
-      setIsConversionRequired(true)
-    }
-  }, [])
-
-  const dispatch = useDispatch()
 
   async function addLiquidity (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
@@ -129,9 +120,16 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
             testID={`text_add_amount_suffix_${pair.tokenB.displaySymbol}`}
           />
         </SummaryTitle>
-        {isConversionRequired && <ConversionTag />}
+        {conversion?.isConversionRequired === true && <ConversionTag />}
       </ThemedView>
 
+      {conversion?.isConversionRequired === true &&
+        <ConversionBreakdown
+          dfiUtxo={conversion?.DFIUtxo}
+          dfiToken={conversion?.DFIToken}
+          amount={conversion?.conversionAmount}
+          mode='utxosToAccount'
+        />}
       <ThemedSectionTitle
         testID='title_tx_detail'
         text={translate('screens/ConfirmAddLiq', 'TRANSACTION DETAILS')}
@@ -139,7 +137,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       <TextRow
         lhs={translate('screens/ConfirmAddLiq', 'Transaction type')}
         rhs={{
-          value: isConversionRequired ? translate('screens/ConfirmAddLiq', 'Convert & add liquidity') : translate('screens/ConfirmAddLiq', 'Add liquidity'),
+          value: conversion?.isConversionRequired === true ? translate('screens/ConfirmAddLiq', 'Convert & add liquidity') : translate('screens/ConfirmAddLiq', 'Add liquidity'),
           testID: 'text_transaction_type'
         }}
         textStyle={tailwind('text-sm font-normal')}
@@ -234,12 +232,6 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
           suffix: pair.tokenB.displaySymbol
         }}
       />
-
-      {isConversionRequired &&
-        <ConversionDetailsRow
-          utxoBalance={tokenBBalance.minus(tokenBAmount).toFixed(8)}
-          tokenBalance='0'
-        />}
 
       <TransactionResultsRow
         tokens={[
