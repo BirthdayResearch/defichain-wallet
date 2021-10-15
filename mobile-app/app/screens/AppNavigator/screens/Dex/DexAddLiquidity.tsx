@@ -254,7 +254,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
       <InputHelperText
         testID={`token_balance_${props.type}`}
         label={`${translate('screens/AddLiquidity', 'Available')}: `}
-        content={props.balance.toFixed(8)}
+        content={BigNumber.max(props.balance, 0).toFixed(8)}
         suffix={` ${props.symbol}`}
       />
     </ThemedView>
