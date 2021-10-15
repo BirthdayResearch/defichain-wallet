@@ -26,6 +26,7 @@ import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { ConversionBreakdown } from '@components/ConversionBreakdown'
+import { UnsavedChangesAlert } from '@components/UnsavedChangesAlert'
 
 type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
 
@@ -45,6 +46,15 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const expectedBalance = BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)), 0).toFixed(8)
+
+  useEffect(() => {
+    const onBeforeRemove = navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault()
+      UnsavedChangesAlert(navigation.dispatch, e.data.action)
+    })
+    return onBeforeRemove
+  }, [navigation])
+
   useEffect(() => {
     setIsOnPage(true)
     return () => {

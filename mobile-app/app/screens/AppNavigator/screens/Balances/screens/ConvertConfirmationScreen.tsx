@@ -20,6 +20,7 @@ import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { NumberRow } from '@components/NumberRow'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { dfiConversionCrafter } from '@api/transaction/dfi_converter'
+import { UnsavedChangesAlert } from '@components/UnsavedChangesAlert'
 
 type Props = StackScreenProps<BalanceParamList, 'ConvertConfirmationScreen'>
 
@@ -39,6 +40,14 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
+
+  useEffect(() => {
+    const onBeforeRemove = navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault()
+      UnsavedChangesAlert(navigation.dispatch, e.data.action)
+    })
+    return onBeforeRemove
+  }, [navigation])
 
   useEffect(() => {
     setIsOnPage(true)

@@ -21,6 +21,7 @@ import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
+import { UnsavedChangesAlert } from '@components/UnsavedChangesAlert'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmRemoveLiquidity'>
 
@@ -46,6 +47,14 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const reservedDfi = 0.1
+
+  useEffect(() => {
+    const onBeforeRemove = navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault()
+      UnsavedChangesAlert(navigation.dispatch, e.data.action)
+    })
+    return onBeforeRemove
+  }, [navigation])
 
   useEffect(() => {
     setIsOnPage(true)
