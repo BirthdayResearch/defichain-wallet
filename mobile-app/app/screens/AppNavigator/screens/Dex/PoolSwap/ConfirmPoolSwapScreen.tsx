@@ -24,7 +24,6 @@ import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { ConversionBreakdown } from '@components/ConversionBreakdown'
-import { UnsavedChangesAlert } from '@components/UnsavedChangesAlert'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmPoolSwapScreen'>
 
@@ -48,14 +47,6 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
-
-  useEffect(() => {
-    const onBeforeRemove = navigation.addListener('beforeRemove', (e) => {
-      e.preventDefault()
-      UnsavedChangesAlert(navigation.dispatch, e.data.action)
-    })
-    return onBeforeRemove
-  }, [navigation])
 
   useEffect(() => {
     setIsOnPage(true)
