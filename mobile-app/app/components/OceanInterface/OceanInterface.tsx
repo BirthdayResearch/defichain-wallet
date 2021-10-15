@@ -239,7 +239,7 @@ function TransactionDetail ({
       </View>
 
       {
-        broadcasted && txUrl !== undefined && <TransactionCloseButton buttonText='VIEW' onPress={async () => await gotoExplorer(txUrl)} />
+        broadcasted && <TransactionCloseButton onPress={onClose} />
       }
     </>
   )
@@ -273,7 +273,7 @@ function TransactionError ({ errMsg, onClose }: { errMsg: string, onClose: () =>
         </ThemedText>
       </View>
 
-      <TransactionCloseButton buttonText='OK' onPress={onClose} />
+      <TransactionCloseButton onPress={onClose} />
     </>
   )
 }
@@ -306,7 +306,7 @@ function TransactionIDButton ({ txid, onPress }: { txid: string, onPress?: () =>
   )
 }
 
-function TransactionCloseButton (props: { buttonText: 'OK' | 'VIEW', onPress: () => void }): JSX.Element {
+function TransactionCloseButton (props: { onPress: () => void }): JSX.Element {
   return (
     <TouchableOpacity
       onPress={props.onPress}
@@ -318,7 +318,7 @@ function TransactionCloseButton (props: { buttonText: 'OK' | 'VIEW', onPress: ()
         light={tailwind('font-medium text-primary-500')}
         style={tailwind('text-sm ')}
       >
-        {translate('screens/OceanInterface', props.buttonText)}
+        {translate('screens/OceanInterface', 'OK')}
       </ThemedText>
     </TouchableOpacity>
   )

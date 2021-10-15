@@ -329,7 +329,6 @@
     "Insufficient UTXO DFI": "Nicht ausreichend UTXO DFI",
     "Not enough balance": "Guthaben zu niedrig",
     "Price is higher than indicated": "Preis höher als angezeigt",
-    "VIEW": "ANSICHT",
     "Preparing broadcast": "Übertragung wird vorbereitet",
     "Waiting for transaction": "Warten auf Transaktion"
   },
