@@ -28,6 +28,7 @@ export interface DexParamList {
     slippage: number
     priceRateA: string
     priceRateB: string
+    conversion?: ConversionParam
   }
   AddLiquidity: { pair: PoolPairData }
   ConfirmAddLiquidity: {

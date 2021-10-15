@@ -12,22 +12,24 @@ import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import { RootState } from '@store'
-import { hasTxQueued } from '@store/transaction_queue'
+import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
-import React, { useEffect, useState } from 'react'
+import React, { Dispatch, useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { DexParamList } from '../DexNavigator'
 import { SlippageTolerance } from './components/SlippageTolerance'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { InputHelperText } from '@components/InputHelperText'
-import { DFITokenSelector, WalletToken } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, WalletToken } from '@store/wallet'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { ConversionInfoText } from '@components/ConversionInfoText'
+import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
+import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 
 export interface DerivedTokenState {
   id: string
@@ -44,11 +46,13 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const [poolpair, setPoolPair] = useState<PoolPairData>()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const tokens = useTokensAPI()
+  const dispatch = useDispatch()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const [tokenAForm, tokenBForm] = ['tokenA', 'tokenB']
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
+  const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
 
   useEffect(() => {
     client.fee.estimate()
@@ -66,6 +70,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   // component UI state
   const { control, setValue, formState, getValues, trigger } = useForm({ mode: 'onChange' })
   const [isConversionRequired, setIsConversionRequired] = useState(false)
+  const [conversionAmount, setConversionAmount] = useState(new BigNumber(0))
   const ScreenTitle = (props: {tokenA: DerivedTokenState, tokenB: DerivedTokenState}): JSX.Element => {
     const TokenAIcon = getNativeIcon(props.tokenA.displaySymbol)
     const TokenBIcon = getNativeIcon(props.tokenB.displaySymbol)
@@ -97,7 +102,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     }
   }, [pairs, route.params.poolpair])
 
-  function onSubmit (): void {
+  async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
@@ -110,13 +115,40 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     const priceRateA = getPriceRate(getReserveAmount(tokenA.id, poolpair), getReserveAmount(tokenB.id, poolpair))
     const priceRateB = getPriceRate(getReserveAmount(tokenB.id, poolpair), getReserveAmount(tokenA.id, poolpair))
 
-    if (atA !== undefined && atB !== undefined && formState.isValid) {
-      const swap = {
-        fromToken: tokenA,
-        toToken: tokenB,
-        fromAmount: new BigNumber((getValues()[tokenAForm])),
-        toAmount: new BigNumber((getValues()[tokenBForm]))
-      }
+    if (atA === undefined || atB === undefined || !formState.isValid) {
+      return
+    }
+
+    const swap = {
+      fromToken: tokenA,
+      toToken: tokenB,
+      fromAmount: new BigNumber((getValues()[tokenAForm])),
+      toAmount: new BigNumber((getValues()[tokenBForm]))
+    }
+
+    if (isConversionRequired) {
+      await constructSignedConversionAndPoolswap({
+        mode: 'utxosToAccount',
+        amount: conversionAmount
+      }, dispatch, () => {
+        navigation.navigate('ConfirmPoolSwapScreen', {
+          tokenA,
+          tokenB,
+          swap,
+          fee,
+          pair: poolpair,
+          slippage,
+          priceRateA,
+          priceRateB,
+          conversion: {
+            isConversionRequired,
+            DFIToken,
+            DFIUtxo,
+            conversionAmount
+          }
+        })
+      })
+    } else {
       navigation.navigate('ConfirmPoolSwapScreen', {
         tokenA,
         tokenB,
@@ -209,11 +241,12 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     if (!swapAmount.isNaN() &&
       swapAmount.isGreaterThan(new BigNumber(DFIToken.amount)) &&
       swapAmount.isLessThanOrEqualTo(tokenA.amount)) {
+        setConversionAmount(swapAmount.minus(DFIToken.amount))
         setIsConversionRequired(true)
     } else {
       setIsConversionRequired(false)
     }
-  }, [formState])
+  }, [getValues(tokenAForm)])
 
   if (tokenA === undefined || tokenB === undefined || poolpair === undefined || aToBPrice === undefined) {
     return <></>
@@ -248,6 +281,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           content={tokenA.amount}
           suffix={` ${tokenA.displaySymbol}`}
         />
+        {tokenA.id === '0_unified' && <ReservedDFIInfoText />}
       </View>
       <View style={tailwind('justify-center items-center py-2 px-4')}>
         <ThemedView
@@ -279,7 +313,6 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           content={tokenB.amount}
           suffix={` ${tokenB.displaySymbol}`}
         />
-
         {isConversionRequired && <ConversionInfoText />}
       </View>
       <SlippageTolerance
@@ -297,7 +330,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
             tokenBAmount={getValues()[tokenBForm]}
             fee={fee.toFixed(8)}
             isConversionRequired={isConversionRequired}
-            amountToConvert={new BigNumber(tokenA.amount).minus(DFIToken.amount).toFixed(8)}
+            conversionAmount={conversionAmount}
           />
       }
 
@@ -431,10 +464,10 @@ interface SwapSummaryItems {
   tokenBAmount: string
   fee: string
   isConversionRequired: boolean
-  amountToConvert: string
+  conversionAmount: BigNumber
 }
 
-function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee, isConversionRequired, amountToConvert }: SwapSummaryItems): JSX.Element {
+function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee, isConversionRequired, conversionAmount }: SwapSummaryItems): JSX.Element {
   const reserveA = getReserveAmount(tokenA.id, poolpair)
   const reserveB = getReserveAmount(tokenB.id, poolpair)
   const priceA = getPriceRate(reserveA, reserveB)
@@ -453,7 +486,7 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee, isConversio
           lhs={translate('screens/PoolSwapScreen', 'Amount to be converted')}
           rhs={{
             testID: 'amount_to_convert',
-            value: amountToConvert,
+            value: conversionAmount.toFixed(8),
             suffixType: 'text',
             suffix: tokenA.displaySymbol
           }}
@@ -509,4 +542,15 @@ function getReserveAmount (id: string, poolpair: PoolPairData): string {
 
 function getPriceRate (reserveA: string, reserveB: string): string {
   return new BigNumber(reserveA).div(reserveB).toFixed(8)
+}
+
+async function constructSignedConversionAndPoolswap ({
+  mode,
+  amount
+}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void): Promise<void> {
+  try {
+    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast)))
+  } catch (e) {
+    Logging.error(e)
+  }
 }

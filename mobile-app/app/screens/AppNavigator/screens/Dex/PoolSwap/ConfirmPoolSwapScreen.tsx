@@ -18,13 +18,12 @@ import { translate } from '@translations'
 import { DexParamList } from '../DexNavigator'
 import { DerivedTokenState } from './PoolSwapScreen'
 import { getNativeIcon } from '@components/icons/assets'
-import { DFITokenSelector } from '@store/wallet'
 import { ConversionTag } from '@components/ConversionTag'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { TextRow } from '@components/TextRow'
-import { ConversionDetailsRow } from '@components/ConversionDetailsRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
+import { ConversionBreakdown } from '@components/ConversionBreakdown'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmPoolSwapScreen'>
 
@@ -39,7 +38,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
     priceRateA,
     priceRateB
   } = route.params
-  const [tokenDFI, setTokenDFI] = useState(route.params.tokenB)
+  const { conversion } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const dispatch = useDispatch()
@@ -48,8 +47,6 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
-  const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
-  const [isConversionRequired, setIsConversionRequired] = useState(false)
 
   useEffect(() => {
     setIsOnPage(true)
@@ -57,26 +54,6 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
       setIsOnPage(false)
     }
   }, [])
-
-  useEffect(() => {
-    const poolswapDFIAmount = getPoolswapDFIAmount(swap)
-    if (swap.fromToken.id === '0_unified' && poolswapDFIAmount.isGreaterThan(new BigNumber(DFIToken.amount))) {
-      setIsConversionRequired(true)
-    }
-    if (swap.fromToken.id === '0_unified') {
-      setTokenDFI(tokenA)
-    } else {
-      setTokenDFI(tokenB)
-    }
-  }, [])
-
-  function getPoolswapDFIAmount (swap: DexForm): BigNumber {
-    if (swap.fromToken.id === '0_unified') {
-      return swap.fromAmount
-    } else {
-      return swap.toAmount
-    }
-  }
 
   async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
@@ -116,9 +93,16 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
           <ThemedIcon iconType='MaterialIcons' name='arrow-right-alt' size={24} style={tailwind('px-1')} />
           <TokenBIcon height={24} width={24} />
         </SummaryTitle>
-        {isConversionRequired && <ConversionTag />}
+        {conversion?.isConversionRequired === true && <ConversionTag />}
       </ThemedView>
 
+      {conversion?.isConversionRequired === true &&
+        <ConversionBreakdown
+          dfiUtxo={conversion?.DFIUtxo}
+          dfiToken={conversion?.DFIToken}
+          amount={conversion?.conversionAmount}
+          mode='utxosToAccount'
+        />}
       <ThemedSectionTitle
         testID='title_tx_detail'
         text={translate('screens/PoolSwapConfirmScreen', 'TRANSACTION DETAILS')}
@@ -127,7 +111,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
       <TextRow
         lhs={translate('screens/PoolSwapConfirmScreen', 'Transaction type')}
         rhs={{
-          value: isConversionRequired ? translate('screens/PoolSwapConfirmScreen', 'Convert & swap') : translate('screens/PoolSwapConfirmScreen', 'Swap'),
+          value: conversion?.isConversionRequired === true ? translate('screens/PoolSwapConfirmScreen', 'Convert & swap') : translate('screens/PoolSwapConfirmScreen', 'Swap'),
           testID: 'text_transaction_type'
         }}
         textStyle={tailwind('text-sm font-normal')}
@@ -187,12 +171,6 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
           suffixType: 'text'
         }}
       />
-
-      {isConversionRequired &&
-        <ConversionDetailsRow
-          utxoBalance={new BigNumber(tokenDFI.amount ?? 0).minus(getPoolswapDFIAmount(swap)).toFixed(8)}
-          tokenBalance={new BigNumber(0).toFixed(8)}
-        />}
 
       <TransactionResultsRow
         tokens={[
