@@ -132,7 +132,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
                   light={tailwind('bg-white')}
                   style={tailwind('flex-row pb-1')}
                 >
-                  <ThemedText style={tailwind('mx-3 mt-3 text-sm w-6 text-center')}>
+                  <ThemedText style={tailwind('mx-3 mt-4 text-sm w-6 text-center')}>
                     {`${order}.`}
                   </ThemedText>
                   <WalletTextInput
@@ -140,6 +140,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
                     autoCompleteType='off'
                     blurOnSubmit={false}
                     onBlur={async () => {
+                      onChange(value.trim())
                       await trigger(name)
                     }}
                     inputType='default'
