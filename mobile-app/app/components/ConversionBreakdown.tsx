@@ -27,7 +27,7 @@ export function ConversionBreakdown (props: ConversionBreakdownProps): JSX.Eleme
         text={translate('components/ConversionBreakdown', 'CONVERSION DETAILS')}
       />
       <TextRow
-        lhs={translate('screens/ConversionBreakdown', 'Network')}
+        lhs={translate('screens/ConversionBreakdown', 'Conversion type')}
         rhs={{
           value: conversionType,
           testID: 'conversion_type'
