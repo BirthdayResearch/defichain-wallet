@@ -22,7 +22,6 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionTag } from '@components/ConversionTag'
-import { ConversionDetailsRow } from '@components/ConversionDetailsRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
@@ -37,10 +36,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
     destination,
     amount,
     fee,
-    DFIUtxo,
-    DFIToken,
-    isConversionRequired,
-    conversionAmount
+    conversion
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -98,14 +94,14 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
           testID='text_send_amount'
           title={translate('screens/SendConfirmationScreen', 'You are sending')}
         />
-        {isConversionRequired === true && <ConversionTag />}
+        {conversion?.isConversionRequired === true && <ConversionTag />}
       </ThemedView>
 
-      {isConversionRequired === true &&
+      {conversion?.isConversionRequired === true &&
         <ConversionBreakdown
-          dfiUtxo={DFIUtxo}
-          dfiToken={DFIToken}
-          amount={conversionAmount}
+          dfiUtxo={conversion?.DFIUtxo}
+          dfiToken={conversion?.DFIToken}
+          amount={conversion?.conversionAmount}
           mode='accountToUtxos'
         />}
       <ThemedSectionTitle
@@ -116,7 +112,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       <TextRow
         lhs={translate('screens/SendConfirmationScreen', 'Transaction type')}
         rhs={{
-          value: isConversionRequired === true ? translate('screens/SendConfirmationScreen', 'Convert & send') : translate('screens/SendConfirmationScreen', 'Send'),
+          value: conversion?.isConversionRequired === true ? translate('screens/SendConfirmationScreen', 'Convert & send') : translate('screens/SendConfirmationScreen', 'Send'),
           testID: 'text_transaction_type'
         }}
         textStyle={tailwind('text-sm font-normal')}
@@ -158,12 +154,6 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
           suffix: token.displaySymbol
         }}
       />
-
-      {isConversionRequired === true &&
-        <ConversionDetailsRow
-          utxoBalance='0'
-          tokenBalance={expectedBalance}
-        />}
 
       <TransactionResultsRow
         tokens={[

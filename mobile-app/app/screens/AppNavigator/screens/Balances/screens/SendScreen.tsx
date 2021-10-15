@@ -26,6 +26,7 @@ import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { NumberRow } from '@components/NumberRow'
 import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
+import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -89,7 +90,7 @@ export function SendScreen ({
     if (formState.isValid && isConversionRequired) {
       await constructSignedConversionAndSend({
         mode: 'accountToUtxos',
-        amount: new BigNumber(conversionAmount)
+        amount: conversionAmount
       }, dispatch, () => {
         navigation.navigate({
           name: 'SendConfirmationScreen',
@@ -98,10 +99,12 @@ export function SendScreen ({
             token,
             amount: new BigNumber(values.amount),
             fee,
-            DFIUtxo,
-            DFIToken,
-            isConversionRequired,
-            conversionAmount
+            conversion: {
+              DFIUtxo,
+              DFIToken,
+              isConversionRequired,
+              conversionAmount
+            }
           },
           merge: true
         })
@@ -160,7 +163,10 @@ export function SendScreen ({
           token={token}
         />
         {isConversionRequired &&
-          <ConversionInfoText />}
+          <View style={tailwind('mb-2')}>
+            <ConversionInfoText />
+          </View>}
+        <ReservedDFIInfoText />
       </View>
 
       {
