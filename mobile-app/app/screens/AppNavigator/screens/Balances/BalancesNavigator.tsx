@@ -29,10 +29,7 @@ export interface BalanceParamList {
     destination: string
     amount: BigNumber
     fee: BigNumber
-    DFIUtxo?: WalletToken
-    DFIToken?: WalletToken
-    isConversionRequired?: boolean
-    conversionAmount?: BigNumber
+    conversion?: ConversionParam
   }
   TokenDetailScreen: { token: WalletToken }
   ConvertScreen: { mode: ConversionMode }
@@ -49,6 +46,13 @@ export interface BalanceParamList {
   TokenVsUtxoScreen: undefined
 
   [key: string]: undefined | object
+}
+
+export interface ConversionParam {
+  isConversionRequired: boolean
+  conversionAmount: BigNumber
+  DFIUtxo: WalletToken
+  DFIToken: WalletToken
 }
 
 function BalanceActionButton (props: {
