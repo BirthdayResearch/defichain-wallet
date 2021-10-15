@@ -306,7 +306,9 @@
     "RESTORE WALLET": "恢復錢包",
     "Enter word #{{order}}": "輸入字 #{{order}}",
     "Cancel": "取消",
-    "Discard": "放棄"
+    "Discard": "放棄",
+    "Required field is missing": "缺少必要填入的字欄",
+    "Uppercase, numbers and special characters are not allowed": "不允許使用大寫字母、數字和特殊字符"
   },
   "screens/ErrorBoundary": {
     "Something went wrong": "出了些問題",
