@@ -30,7 +30,6 @@ const tokenDFI: WalletToken = {
   symbolKey: 'DFI',
   isDAT: true,
   isLPS: false,
-
   amount: '0',
   name: 'DeFiChain',
   displaySymbol: 'DFI (Token)',
