@@ -1,5 +1,5 @@
 import { getNativeIcon } from '@components/icons/assets'
-import { View } from '@components/index'
+import { View } from '@components'
 import {
   ThemedFlatList,
   ThemedIcon,
@@ -26,7 +26,7 @@ import { RefreshControl } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
-import { BalanceText, DFIBalanceCard } from './components'
+import { Announcements, BalanceText, DFIBalanceCard } from './components'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -75,6 +75,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         </ThemedText>)}
       ListHeaderComponent={(
         <>
+          <Announcements />
           <DFIBalanceCard />
           <ThemedView
             style={tailwind('flex flex-row justify-between')}
