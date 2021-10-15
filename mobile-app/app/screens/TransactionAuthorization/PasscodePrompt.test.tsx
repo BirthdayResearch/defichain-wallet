@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react-native'
 import React from 'react'
-import { Status } from './TransactionAuthorization'
 import { PasscodePrompt } from './PasscodePrompt'
+import { TransactionStatus } from '@screens/TransactionAuthorization/api/transaction_types'
 
 jest.mock('../../contexts/ThemeProvider')
-const StatusTypes: Status[] = ['INIT', 'IDLE', 'BLOCK', 'PIN', 'SIGNING', 'AUTHORIZED']
+const StatusTypes: TransactionStatus[] = [TransactionStatus.INIT, TransactionStatus.IDLE, TransactionStatus.BLOCK, TransactionStatus.PIN, TransactionStatus.SIGNING, TransactionStatus.AUTHORIZED]
 
 describe('transaction authorization screen', () => {
   StatusTypes.forEach(type => {
@@ -24,8 +24,14 @@ describe('transaction authorization screen', () => {
           onPinInput={onPinInput}
           pin='foo'
           loadingMessage='foo'
-          authorizedTransactionMessage={{ title: 'foo', description: 'bar' }}
-          grantedAccessMessage={{ title: 'foo', description: 'bar' }}
+          authorizedTransactionMessage={{
+            title: 'foo',
+            description: 'bar'
+          }}
+          grantedAccessMessage={{
+            title: 'foo',
+            description: 'bar'
+          }}
           isRetry
           attemptsRemaining={3}
           maxPasscodeAttempt={3}

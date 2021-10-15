@@ -39,7 +39,7 @@ declare global {
        * @description Custom command to select DOM element by data-testid attribute.
        * @example cy.getByTestID('settings')
        */
-      getByTestID: (value: string) => Chainable<Element>
+      getByTestID: (value: string, opts?: any) => Chainable<Element>
 
       /**
        * @description Redirects to main page and creates an empty wallet for testing. Useful on starts of tests.
@@ -111,9 +111,10 @@ declare global {
   }
 }
 
-Cypress.Commands.add('getByTestID', (selector: string, ...args) => {
+Cypress.Commands.add('getByTestID', (selector: string, opts?: any) => {
   /* eslint-disable @typescript-eslint/restrict-template-expressions */
-  return cy.get(`[data-testid=${Cypress.$.escapeSelector(selector)}]`, ...args)
+  const args = opts != null ? opts : { timeout: 10000 }
+  return cy.get(`[data-testid=${Cypress.$.escapeSelector(selector)}]`, args)
 })
 
 Cypress.Commands.add('createEmptyWallet', (isRandom: boolean = false) => {

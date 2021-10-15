@@ -6,7 +6,9 @@ export interface DfTxSigner {
   sign: (account: WhaleWalletAccount) => Promise<CTransactionSegWit>
   title?: string
   description?: string
-  postAction?: () => any
+  onBroadcast?: () => any
+  onConfirmation?: () => any
+  onError?: () => any
 }
 
 export interface TransactionQueue {
