@@ -14,6 +14,7 @@ import { DexScreen } from './DexScreen'
 import { ConfirmPoolSwapScreen, DexForm } from './PoolSwap/ConfirmPoolSwapScreen'
 import { DerivedTokenState, PoolSwapScreen } from './PoolSwap/PoolSwapScreen'
 import { WalletToken } from '@store/wallet'
+import { ConversionParam } from '../Balances/BalancesNavigator'
 
 export interface DexParamList {
   DexScreen: undefined
@@ -29,7 +30,11 @@ export interface DexParamList {
     priceRateB: string
   }
   AddLiquidity: { pair: PoolPairData }
-  ConfirmAddLiquidity: { pair: PoolPairData, summary: AddLiquiditySummary }
+  ConfirmAddLiquidity: {
+    pair: PoolPairData
+    summary: AddLiquiditySummary
+    conversion?: ConversionParam
+  }
   RemoveLiquidity: { pair: PoolPairData }
   ConfirmRemoveLiquidity: {
     amount: BigNumber
