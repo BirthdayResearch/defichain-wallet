@@ -53,6 +53,12 @@
       "@shared-api/*": [
         "../../shared/api/*"
       ],
+      "@shared-types": [
+        "../../shared/types"
+      ],
+      "@shared-types/*": [
+        "../../shared/types/*"
+      ],
       "@screens/*": [
         "screens/*"
       ],
