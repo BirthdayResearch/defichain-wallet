@@ -217,6 +217,7 @@ function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: str
         title={props.title}
         inputType='numeric'
         value={`${props.amount} ${props.unit}`}
+        style={tailwind('h-8')}
       />
       <InputHelperText
         testID='target_balance'
