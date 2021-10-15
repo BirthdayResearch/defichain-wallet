@@ -233,11 +233,11 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
           symbol={pair?.tokenB?.displaySymbol}
           type='secondary'
         />
+        <ReservedDFIInfoText />
         {isConversionRequired &&
-          <View style={tailwind('mb-2')}>
+          <View style={tailwind('mt-2')}>
             <ConversionInfoText />
           </View>}
-        <ReservedDFIInfoText />
       </View>
 
       <PriceDetailsSection

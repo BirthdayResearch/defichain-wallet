@@ -164,11 +164,12 @@ export function SendScreen ({
           }}
           token={token}
         />
+
+        <ReservedDFIInfoText />
         {isConversionRequired &&
-          <View style={tailwind('mb-2')}>
+          <View style={tailwind('mt-2')}>
             <ConversionInfoText />
           </View>}
-        <ReservedDFIInfoText />
       </View>
 
       {
