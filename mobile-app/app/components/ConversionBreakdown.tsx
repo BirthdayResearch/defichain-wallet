@@ -19,7 +19,7 @@ export function ConversionBreakdown (props: ConversionBreakdownProps): JSX.Eleme
   const {
     amount = new BigNumber(0)
   } = props
-  const conversionType = props.mode === 'accountToUtxos' ? 'UTXO → Token' : 'Token → UTXO'
+  const conversionType = props.mode === 'accountToUtxos' ? 'Token → UTXO' : 'UTXO → Token'
   return (
     <>
       <ThemedSectionTitle
