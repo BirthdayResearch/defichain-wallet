@@ -69,9 +69,11 @@ export function SendScreen ({
   }, [JSON.stringify(tokens)])
 
   useEffect(() => {
+    if (token.id !== '0_unified') {
+      return
+    }
     const amountValue = new BigNumber(getValues('amount'))
-    if (token.id === '0_unified' &&
-     !amountValue.isNaN() &&
+    if (!amountValue.isNaN() &&
      amountValue.plus(reservedDFI).isGreaterThan(new BigNumber(DFIUtxo.amount)) &&
      amountValue.plus(reservedDFI).isLessThanOrEqualTo(token.amount)) {
       setConversionAmount(amountValue.minus(DFIUtxo.amount).plus((reservedDFI)))

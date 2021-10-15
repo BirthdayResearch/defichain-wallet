@@ -109,7 +109,11 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
       return
     }
 
-    if (canContinue && isConversionRequired && pair !== undefined) {
+    if (!canContinue || pair === undefined) {
+      return
+    }
+
+    if (isConversionRequired) {
       await constructSignedConversionAndAddLiquidity({
         mode: 'utxosToAccount',
         amount: conversionAmount
@@ -136,7 +140,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
           merge: true
         })
       })
-    } else if (canContinue && pair !== undefined) {
+    } else {
       navigation.navigate({
         name: 'ConfirmAddLiquidity',
         params: {
