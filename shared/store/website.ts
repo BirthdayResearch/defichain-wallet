@@ -7,7 +7,14 @@ export const websiteSlice = createApi({
   }),
   endpoints: builder => ({
     getAnnouncements: builder.query({
-      query: () => '/announcements'
+      query: () => ({
+        url: '/announcements',
+        method: 'GET',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          mode: 'no-cors'
+        }
+      })
     })
   })
 })
