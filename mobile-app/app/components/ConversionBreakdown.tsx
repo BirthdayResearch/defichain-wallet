@@ -17,7 +17,7 @@ interface ConversionBreakdownProps {
 
 export function ConversionBreakdown (props: ConversionBreakdownProps): JSX.Element {
   const {
-    amount = 0
+    amount = new BigNumber(0)
   } = props
   const conversionType = props.mode === 'accountToUtxos' ? 'UTXO → Token' : 'Token → UTXO'
   return (
@@ -44,14 +44,14 @@ export function ConversionBreakdown (props: ConversionBreakdownProps): JSX.Eleme
       <NumberRow
         lhs={translate('components/ConversionBreakdown', 'Resulting UTXO')}
         rhs={{
-          value: new BigNumber(props.dfiUtxo?.amount ?? 0).plus(props.mode === 'accountToUtxos' ? amount : 0).toFixed(8),
+          value: new BigNumber(props.dfiUtxo?.amount ?? 0).plus(props.mode === 'accountToUtxos' ? amount : amount.negated()).toFixed(8),
           testID: 'text_amount'
         }}
       />
       <NumberRow
         lhs={translate('components/ConversionBreakdown', 'Resulting Tokens')}
         rhs={{
-          value: new BigNumber(props.dfiToken?.amount ?? 0).plus(props.mode === 'utxosToAccount' ? amount : 0).toFixed(8),
+          value: new BigNumber(props.dfiToken?.amount ?? 0).plus(props.mode === 'utxosToAccount' ? amount : amount.negated()).toFixed(8),
           testID: 'text_amount'
         }}
       />
