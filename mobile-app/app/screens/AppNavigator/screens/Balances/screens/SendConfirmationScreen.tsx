@@ -157,16 +157,6 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         }}
       />
 
-      <NumberRow
-        lhs={translate('screens/SendConfirmationScreen', 'Estimated cost')}
-        rhs={{
-          value: amount.plus(fee).toFixed(8),
-          testID: 'text_cost',
-          suffixType: 'text',
-          suffix: token.displaySymbol
-        }}
-      />
-
       <TransactionResultsRow
         tokens={[
           {
