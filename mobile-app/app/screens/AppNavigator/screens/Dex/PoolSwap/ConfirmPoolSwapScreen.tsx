@@ -11,7 +11,7 @@ import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
 import { RootState } from '@store'
-import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -41,6 +41,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
   const { conversion } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
@@ -74,6 +75,16 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         merge: true
       })
     }
+  }
+
+  function getSubmitLabel (): string {
+    if (!hasPendingBroadcastJob && !hasPendingJob) {
+      return 'CONFIRM TRANSACTION'
+    }
+    if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
+      return currentBroadcastJob.submitButtonLabel
+    }
+    return 'SWAPPING'
   }
 
   return (
@@ -191,7 +202,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/PoolSwapConfirmScreen', 'CONFIRM SWAP')}
         isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        processingLabel={translate('screens/PoolSwapConfirmScreen', 'SWAPPING')}
+        processingLabel={translate('screens/PoolSwapConfirmScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='swap'

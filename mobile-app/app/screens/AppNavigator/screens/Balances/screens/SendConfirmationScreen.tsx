@@ -16,7 +16,7 @@ import { TextRow } from '@components/TextRow'
 import { ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
 import { useNetworkContext } from '@contexts/NetworkContext'
 import { RootState } from '@store'
-import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -40,6 +40,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
@@ -79,6 +80,16 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         merge: true
       })
     }
+  }
+
+  function getSubmitLabel (): string {
+    if (!hasPendingBroadcastJob && !hasPendingJob) {
+      return 'CONFIRM TRANSACTION'
+    }
+    if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
+      return currentBroadcastJob.submitButtonLabel
+    }
+    return 'SENDING'
   }
 
   return (
@@ -170,7 +181,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/SendConfirmationScreen', 'CONFIRM TRANSACTION')}
         isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        processingLabel={isSubmitting ? translate('screens/SendConfirmationScreen', 'SENDING') : translate('screens/SendConfirmationScreen', 'CONVERTING')}
+        processingLabel={translate('screens/SendConfirmationScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='send'

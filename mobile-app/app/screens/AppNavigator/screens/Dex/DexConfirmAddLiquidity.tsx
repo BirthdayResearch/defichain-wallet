@@ -13,7 +13,7 @@ import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
 import { ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
 import { RootState } from '@store'
-import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -31,6 +31,7 @@ type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const {
     fee,
     percentage,
@@ -88,6 +89,16 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         merge: true
       })
     }
+  }
+
+  function getSubmitLabel (): string {
+    if (!hasPendingBroadcastJob && !hasPendingJob) {
+      return 'CONFIRM TRANSACTION'
+    }
+    if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
+      return currentBroadcastJob.submitButtonLabel
+    }
+    return 'ADDING'
   }
 
   return (
@@ -250,9 +261,9 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/ConfirmAddLiq', 'ADD')}
+        label={translate('screens/ConfirmAddLiq', 'CONFIRM TRANSACTION')}
         isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        processingLabel={translate('screens/ConfirmAddLiq', 'ADDING')}
+        processingLabel={translate('screens/ConfirmAddLiq', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={addLiquidity}
         title='add'
