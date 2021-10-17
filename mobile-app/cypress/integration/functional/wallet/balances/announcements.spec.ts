@@ -59,6 +59,7 @@ context('Wallet - Balances - Announcements', () => {
       body: sampleAnnouncements
     })
     cy.reload()
+    cy.getByTestID('playground_wallet_random').click()
     cy.getByTestID('announcements_banner').should('exist')
     cy.getByTestID('announcements_text').should('contain', 'Richtlinien')
   })
