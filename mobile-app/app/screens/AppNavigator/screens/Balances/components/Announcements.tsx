@@ -17,9 +17,7 @@ export function Announcements (): JSX.Element {
   } = useLanguageContext()
   if (isSuccess && announcements !== undefined && announcements?.length > 0) {
     const announcement = findAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', announcements, language)
-    if (announcement === undefined || announcement === '') {
-      return <></>
-    } else {
+    if (announcement !== undefined && announcement !== '') {
       return (
         <ThemedView
           style={tailwind('px-4 py-3 flex-row items-center')} light={tailwind('bg-warning-50')}
@@ -32,9 +30,8 @@ export function Announcements (): JSX.Element {
         </ThemedView>
       )
     }
-  } else {
-    return <></>
   }
+  return <></>
 }
 
 function findAnnouncementForVersion (version: string, announcements: AnnouncementData[], language: string): string {
