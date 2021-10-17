@@ -20,11 +20,12 @@ export function Announcements (): JSX.Element {
     if (announcement !== undefined && announcement !== '') {
       return (
         <ThemedView
+          testID='announcements_banner'
           style={tailwind('px-4 py-3 flex-row items-center')} light={tailwind('bg-warning-50')}
           dark={tailwind('bg-darkwarning-50')}
         >
           <ThemedIcon style={tailwind('mr-2')} iconType='MaterialIcons' name='campaign' size={22} />
-          <ThemedText style={tailwind('text-xs flex-auto')}>
+          <ThemedText style={tailwind('text-xs flex-auto')} testID='announcements_text'>
             {announcement}
           </ThemedText>
         </ThemedView>
