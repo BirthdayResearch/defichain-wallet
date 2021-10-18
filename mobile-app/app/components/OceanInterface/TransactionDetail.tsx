@@ -4,7 +4,8 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { openURL } from '@api/linking'
 import { ThemedActivityIndicator, ThemedIcon, ThemedText } from '@components/themed'
-import { TransactionCloseButton, TransactionIDButton } from '@components/OceanInterface'
+import { TransactionCloseButton } from './TransactionCloseButton'
+import { TransactionIDButton } from './TransactionIDButton'
 
 interface TransactionDetailProps {
   broadcasted: boolean
