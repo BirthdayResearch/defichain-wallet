@@ -28,7 +28,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
 
   it('should be able to click swap button', function () {
     cy.getByTestID('text_balance_tokenA').contains('10.00000000 dLTC')
-    cy.getByTestID('text_balance_tokenB').contains('10.00000000 DFI')
+    cy.getByTestID('text_balance_tokenB').contains('20.00000000 DFI')
     cy.getByTestID('swap_button').click().wait(4000)
   })
 
@@ -48,7 +48,8 @@ context('Wallet - DEX - Pool Swap with balance', () => {
       cy.getByTestID('button_submit').should('have.attr', 'disabled')
       cy.getByTestID('text_input_tokenA_clear_button').click()
       cy.getByTestID('text_input_tokenA').type('15').blur().wait(100)
-      cy.getByTestID('button_submit').should('have.attr', 'disabled')
+      cy.getByTestID('conversion_info_text').should('exist')
+      cy.getByTestID('button_submit').should('not.have.attr', 'disabled')
       cy.getByTestID('text_input_tokenA_clear_button').click()
       cy.getByTestID('text_input_tokenA').type('0').blur().wait(100)
       cy.getByTestID('button_submit').should('have.attr', 'disabled')
@@ -57,7 +58,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
 
   it('should be able to click max', function () {
     cy.getByTestID('MAX_amount_button').click().wait(3000)
-    cy.getByTestID('text_input_tokenA').should('have.value', '10.00000000')
+    cy.getByTestID('text_input_tokenA').should('have.value', '19.90000000')
     cy.getByTestID('estimated').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
@@ -66,7 +67,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
 
   it('should be able to click half', function () {
     cy.getByTestID('50%_amount_button').click().wait(500)
-    cy.getByTestID('text_input_tokenA').should('have.value', '5.00000000').wait(3000)
+    cy.getByTestID('text_input_tokenA').should('have.value', '9.95000000').wait(3000)
     cy.getByTestID('estimated').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
