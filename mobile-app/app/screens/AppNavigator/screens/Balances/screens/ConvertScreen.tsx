@@ -214,6 +214,7 @@ function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: str
     <View style={[tailwind('flex-col w-full mt-6'), props.style]}>
       <WalletTextInput
         editable={false}
+        titleTestID='text_input_convert_from_to_text'
         title={props.title}
         inputType='numeric'
         value={`${props.amount} ${props.unit}`}

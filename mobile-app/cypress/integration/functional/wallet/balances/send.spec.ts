@@ -108,23 +108,16 @@ context('Wallet - Send', function () {
           cy.getByTestID('text_amount').invoke('text').then((textAmount) => {
             const amount = textAmount.replace(' DFI', '')
             expect(new BigNumber(amount).toFixed(8)).eq(new BigNumber(sendAmount).toFixed(8))
-            // Check network value
-            cy.getByTestID('header_active_network').first().invoke('text').then((headerNetworkValue) => {
-              cy.getByTestID('text_network').invoke('text').then((networkValue) => {
-                expect(headerNetworkValue).eq(networkValue)
-                // Check txn value
-                cy.getByTestID('text_fee').invoke('text').then((textFeeValue) => {
-                  const textFee = textFeeValue.replace(' DFI', '')
-                  expect(new BigNumber(transactionFee).toFixed(8)).eq(new BigNumber(textFee).toFixed(8))
-                  // Check computed pending balance
-                  cy.getByTestID('text_balance').invoke('text').then((pendingBalanceValue) => {
-                    const pendingBalance = pendingBalanceValue.replace(' DFI', '')
-                    expect(new BigNumber(balance).plus(slippage)
-                      .minus(transactionFee).minus(sendAmount).toFixed(8)
-                    ).eq(pendingBalance)
-                    cy.getByTestID('button_cancel_send').click()
-                  })
-                })
+            cy.getByTestID('text_fee').invoke('text').then((textFeeValue) => {
+              const textFee = textFeeValue.replace(' DFI', '')
+              expect(new BigNumber(transactionFee).toFixed(8)).eq(new BigNumber(textFee).toFixed(8))
+              // Check computed pending balance
+              cy.getByTestID('text_balance').invoke('text').then((pendingBalanceValue) => {
+                const pendingBalance = pendingBalanceValue.replace(' DFI', '')
+                expect(new BigNumber(balance).plus(slippage)
+                  .minus(transactionFee).minus(sendAmount).toFixed(8)
+                ).eq(pendingBalance)
+                cy.getByTestID('button_cancel_send').click()
               })
             })
           })
