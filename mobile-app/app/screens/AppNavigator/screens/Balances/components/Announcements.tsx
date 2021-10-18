@@ -35,19 +35,20 @@ export function Announcements (): JSX.Element {
   return <></>
 }
 
-function findAnnouncementForVersion (version: string, announcements: AnnouncementData[], language: string): string {
-  let announcementForVersion = ''
-  announcements.forEach((announcement) => {
+function findAnnouncementForVersion (version: string, announcements: AnnouncementData[], language: string): string | undefined {
+  for (const announcement of announcements) {
     const {
       min,
       max
     } = announcement.version
+    
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     const range = max !== undefined ? `${min} - ${max}` : `>=${min}`
     if (satisfies(version, range)) {
       const lang: any = announcement.lang
-      announcementForVersion = lang[language] ?? lang.en
+      return lang[language] ?? lang.en
     }
-  })
-  return announcementForVersion
+  }
+
+  return undefined
 }
