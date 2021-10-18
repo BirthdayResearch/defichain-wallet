@@ -239,6 +239,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
       />
 
       <ThemedText
+        testID='transaction_details_hint_text'
         light={tailwind('text-gray-600')}
         dark={tailwind('text-gray-300')}
         style={tailwind('pt-4 pb-8 px-4 text-sm')}
