@@ -60,7 +60,7 @@ Cypress.Commands.add('selectMnemonicWords', (recoveryWords: string[]) => {
   Array.from(Array(6), (v, i) => i + 1).forEach((key, index) => {
     cy.getByTestID(`line_${index}`).then(($txt: any) => {
       const wordIndex = (+$txt[0].textContent.replace('?', '').replace('#', '')) - 1
-      cy.getByTestID(`line_${index}_${recoveryWords[wordIndex]}`).click()
+      cy.getByTestID(`line_${index}_${recoveryWords[wordIndex]}`).first().click()
     })
   })
   cy.getByTestID('verify_words_button').should('not.have.attr', 'disabled')

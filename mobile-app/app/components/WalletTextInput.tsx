@@ -16,6 +16,7 @@ interface IWalletTextInputProps {
   onClearButtonPress?: () => void
   displayFocusStyle?: boolean
   containerStyle?: string
+  onBlur?: () => void
 }
 
 export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (props: WalletTextInputProps, ref: React.Ref<any>): JSX.Element {
@@ -32,6 +33,7 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
     children,
     containerStyle,
     style,
+    onBlur,
     ...otherProps
   } = props
 
@@ -69,7 +71,13 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
           <ThemedTextInput
             style={style}
             onFocus={() => setIsFocus(true)}
-            onBlur={() => setIsFocus(false)}
+            onBlur={() => {
+              if (onBlur != null) {
+                onBlur()
+              }
+
+              setIsFocus(false)
+            }}
             keyboardType={inputType}
             ref={ref}
             editable={editable}
@@ -91,6 +99,7 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
             light={tailwind('text-error-500')}
             dark={tailwind('text-darkerror-500')}
             style={tailwind('text-sm my-1')}
+            testID={props.testID !== undefined ? `${props.testID}_error` : undefined}
           >
             {inlineValidationText}
           </ThemedText>

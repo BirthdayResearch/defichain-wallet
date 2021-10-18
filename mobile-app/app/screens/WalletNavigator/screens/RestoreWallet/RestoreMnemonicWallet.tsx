@@ -25,7 +25,8 @@ export function RestoreMnemonicWallet (): JSX.Element {
       isValid,
       isDirty
     },
-    getValues
+    getValues,
+    trigger
   } = useForm({ mode: 'onChange' })
   const [recoveryWords] = useState<number[]>(Array.from(Array(24), (v, i) => i + 1))
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -125,19 +126,23 @@ export function RestoreMnemonicWallet (): JSX.Element {
               defaultValue=''
               key={order}
               name={`recover_word_${order}`}
-              render={({ field: { value, onChange }, fieldState: { invalid, isTouched } }) => (
+              render={({ field: { name, value, onChange }, fieldState: { invalid, isTouched, error } }) => (
                 <ThemedView
                   dark={tailwind('bg-gray-900')}
                   light={tailwind('bg-white')}
-                  style={tailwind('flex-row items-center mb-3')}
+                  style={tailwind('flex-row pb-1')}
                 >
-                  <ThemedText style={tailwind('mx-3 mt-1 text-sm w-6 text-center')}>
+                  <ThemedText style={tailwind('mx-3 mt-4 text-sm w-6 text-center')}>
                     {`${order}.`}
                   </ThemedText>
                   <WalletTextInput
                     autoCapitalize='none'
                     autoCompleteType='off'
                     blurOnSubmit={false}
+                    onBlur={async () => {
+                      onChange(value.trim())
+                      await trigger(name)
+                    }}
                     inputType='default'
                     keyboardType='default'
                     onChangeText={onChange}
@@ -161,12 +166,21 @@ export function RestoreMnemonicWallet (): JSX.Element {
                     valid={!invalid}
                     testID={`recover_word_${order}`}
                     value={value}
+                    inlineValidationText={error?.message}
                   />
                 </ThemedView>
               )}
               rules={{
-                required: true,
-                pattern: /^[a-z]+$/
+                validate: (value) => {
+                  const trimmedValue = value.trim()
+                    if (trimmedValue === undefined || trimmedValue === '') {
+                      return translate('screens/RestoreWallet', 'Required field is missing')
+                    } else if (!/^[a-z]+$/.test(trimmedValue)) {
+                      return translate('screens/RestoreWallet', 'Uppercase, numbers and special characters are not allowed')
+                    }
+
+                    return true
+                }
               }}
              />)
           : <SkeletonLoader key={order} row={1} screen={SkeletonLoaderScreen.MnemonicWord} />
