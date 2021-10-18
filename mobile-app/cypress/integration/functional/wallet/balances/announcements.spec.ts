@@ -6,10 +6,7 @@ context('Wallet - Balances - Announcements', () => {
       'zh-Hans': '指导方针',
       'zh-Hant': '指導方針'
     },
-    version: {
-      min: '0.0.0',
-      max: '0.12.0'
-    }
+    version: '0.0.0 - 0.12.0'
   }, {
     lang: {
       en: 'Refresh',
@@ -17,7 +14,7 @@ context('Wallet - Balances - Announcements', () => {
       'zh-Hans': '刷新',
       'zh-Hant': '刷新'
     },
-    version: { min: '0.12.1' }
+    version: '>=0.12.1'
   }]
 
   beforeEach(function () {

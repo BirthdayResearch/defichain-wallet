@@ -26,7 +26,9 @@ import { RefreshControl } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
-import { Announcements, BalanceText, DFIBalanceCard } from './components'
+import { Announcements } from './components/Announcements'
+import { BalanceText } from './components/BalanceText'
+import { DFIBalanceCard } from './components/DFIBalanceCard'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -35,7 +37,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const { wallets } = useWalletPersistenceContext()
-  const { isBalancesDisplayed, toggleDisplayBalances: onToggleDisplayBalances } = useDisplayBalancesContext()
+  const {
+    isBalancesDisplayed,
+    toggleDisplayBalances: onToggleDisplayBalances
+  } = useDisplayBalancesContext()
 
   const dispatch = useDispatch()
   const [refreshing, setRefreshing] = useState(false)

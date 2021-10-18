@@ -1,36 +1,31 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { AnnouncementData, AnnouncementText } from '@shared-types/website'
-import runMiddleware from '../middleware'
+import { AnnouncementData } from '@shared-types/website'
 import Cors from 'cors'
+import { runMiddleware } from '../../../utils/middleware'
 
 export const cors = Cors({
   methods: ['GET', 'HEAD']
 })
 
-export function createAnnouncement (lang: AnnouncementText, minVersion: string, maxVersion?: string): AnnouncementData {
-  return {
-    lang,
-    version: {
-      min: minVersion,
-      max: maxVersion
-    }
-  }
-}
-
 export default async function handle (req: NextApiRequest, res: NextApiResponse<AnnouncementData[]>): Promise<void> {
   await runMiddleware(req, res, cors)
-  res.json([
-    createAnnouncement({
+  res.json([{
+    lang: {
       en: 'Guidelines',
       de: 'Richtlinien',
       'zh-Hans': '指导方针',
       'zh-Hant': '指導方針'
-    }, '0.0.0', '0.12.0'),
-    createAnnouncement({
+    },
+    version: '0.0.0 - 0.12.0'
+  },
+  {
+    lang: {
       en: 'Refresh',
       de: 'Erneuern',
       'zh-Hans': '刷新',
       'zh-Hant': '刷新'
-    }, '0.12.1')
+    },
+    version: '>=0.12.1'
+  }
   ])
 }

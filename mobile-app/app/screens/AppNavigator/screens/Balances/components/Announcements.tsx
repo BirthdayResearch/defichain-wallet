@@ -37,14 +37,7 @@ export function Announcements (): JSX.Element {
 
 function findAnnouncementForVersion (version: string, announcements: AnnouncementData[], language: string): string | undefined {
   for (const announcement of announcements) {
-    const {
-      min,
-      max
-    } = announcement.version
-    
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    const range = max !== undefined ? `${min} - ${max}` : `>=${min}`
-    if (satisfies(version, range)) {
+    if (satisfies(version, announcement.version)) {
       const lang: any = announcement.lang
       return lang[language] ?? lang.en
     }
