@@ -161,12 +161,12 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         tokens={[
           {
             symbol: pair.tokenA.displaySymbol,
-            value: new BigNumber(tokenA.amount).plus(tokenAAmount).toFixed(8),
+            value: new BigNumber(tokenA?.amount ?? 0).plus(tokenAAmount).toFixed(8),
             suffix: pair.tokenA.displaySymbol
           },
           {
             symbol: pair.tokenB.displaySymbol,
-            value: new BigNumber(tokenB.amount).plus(tokenBAmount).minus(reservedDfi).toFixed(8),
+            value: new BigNumber(tokenB?.amount ?? 0).plus(tokenBAmount).minus(reservedDfi).toFixed(8),
             suffix: pair.tokenB.displaySymbol
           }
         ]}

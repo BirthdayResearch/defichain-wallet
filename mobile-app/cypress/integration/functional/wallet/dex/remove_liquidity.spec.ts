@@ -17,9 +17,9 @@ function createAddLiquidityToWallet (): void {
   cy.getByTestID('pool_pair_remove_dETH-DFI').click().wait(1000)
 
   cy.getByTestID('price_a').contains('0.00000000')
-  cy.getByTestID('price_a_unit').contains('dETH')
+  cy.getByTestID('price_a_suffix').contains('dETH')
   cy.getByTestID('price_b').contains('0.00000000')
-  cy.getByTestID('price_b_unit').contains('DFI')
+  cy.getByTestID('price_b_suffix').contains('DFI')
 }
 
 context('Wallet - DEX - Remove Liquidity', () => {
@@ -90,9 +90,9 @@ context('Wallet - DEX - Remove Liquidity', () => {
       expect(text).to.equal('0.00')
     })
     cy.getByTestID('price_a').contains('0.00000000')
-    cy.getByTestID('price_a_unit').contains('dETH')
+    cy.getByTestID('price_a_suffix').contains('dETH')
     cy.getByTestID('price_b').contains('0.00000000')
-    cy.getByTestID('price_b_unit').contains('DFI')
+    cy.getByTestID('price_b_suffix').contains('DFI')
 
     cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
   })
@@ -113,10 +113,10 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
     cy.getByTestID('button_slider_max').click().wait(1000)
     cy.getByTestID('price_a').invoke('text').then((valueA) => {
       expect(new BigNumber(valueA).toNumber()).be.gte(new BigNumber('99').toNumber())
-      cy.getByTestID('price_a_unit').contains('dETH')
+      cy.getByTestID('price_a_suffix').contains('dETH')
       cy.getByTestID('price_b').invoke('text').then((valueB) => {
         expect(new BigNumber(valueB).toNumber()).be.gte(new BigNumber('0.99').toNumber())
-        cy.getByTestID('price_b_unit').contains('DFI')
+        cy.getByTestID('price_b_suffix').contains('DFI')
         cy.getByTestID('button_continue_remove_liq').click()
         cy.getByTestID('button_cancel_remove').click()
         cy.getByTestID('button_slider_max').should('exist')
@@ -144,11 +144,11 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
     cy.getByTestID('price_a').invoke('text').then((value) => {
       expect(new BigNumber(value).toNumber()).be.gte(new BigNumber('49').toNumber())
     })
-    cy.getByTestID('price_a_unit').contains('dETH')
+    cy.getByTestID('price_a_suffix').contains('dETH')
     cy.getByTestID('price_b').invoke('text').then((value) => {
       expect(new BigNumber(value).toNumber()).be.gte(new BigNumber('0.49').toNumber())
     })
-    cy.getByTestID('price_b_unit').contains('DFI')
+    cy.getByTestID('price_b_suffix').contains('DFI')
     cy.getByTestID('button_continue_remove_liq').click()
 
     cy.getByTestID('confirm_title').should('have.text', 'You are removing')
@@ -174,11 +174,11 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
     cy.getByTestID('price_a').invoke('text').then((value) => {
       expect(new BigNumber(value).toNumber()).be.gte(new BigNumber('99').toNumber())
     })
-    cy.getByTestID('price_a_unit').contains('dETH')
+    cy.getByTestID('price_a_suffix').contains('dETH')
     cy.getByTestID('price_b').invoke('text').then((value) => {
       expect(new BigNumber(value).toNumber()).be.gte(new BigNumber('0.99').toNumber())
     })
-    cy.getByTestID('price_b_unit').contains('DFI')
+    cy.getByTestID('price_b_suffix').contains('DFI')
     cy.getByTestID('button_continue_remove_liq').click()
 
     cy.getByTestID('confirm_title').should('have.text', 'You are removing')

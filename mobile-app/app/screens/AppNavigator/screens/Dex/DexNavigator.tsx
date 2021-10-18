@@ -43,8 +43,8 @@ export interface DexParamList {
     pair: PoolPairData
     tokenAAmount: string
     tokenBAmount: string
-    tokenA: WalletToken
-    tokenB: WalletToken
+    tokenA?: WalletToken
+    tokenB?: WalletToken
   }
 
   [key: string]: undefined | object
