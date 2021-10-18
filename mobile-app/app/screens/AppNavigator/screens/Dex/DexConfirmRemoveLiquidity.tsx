@@ -1,7 +1,7 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
@@ -19,6 +19,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmRemoveLiquidity'>
 
@@ -42,12 +43,6 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
 
-  const postAction = (): void => {
-    if (isOnPage) {
-      navigation.dispatch(StackActions.popToTop())
-    }
-  }
-
   useEffect(() => {
     setIsOnPage(true)
     return () => {
@@ -60,7 +55,9 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
       return
     }
     setIsSubmitting(true)
-    await constructSignedRemoveLiqAndSend(pair, amount, dispatch, postAction)
+    await constructSignedRemoveLiqAndSend(pair, amount, dispatch, () => {
+      onTransactionBroadcast(isOnPage, navigation.dispatch)
+    })
     setIsSubmitting(false)
   }
 
@@ -149,7 +146,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
   )
 }
 
-async function constructSignedRemoveLiqAndSend (pair: PoolPairData, amount: BigNumber, dispatch: Dispatch<any>, postAction: () => void): Promise<void> {
+async function constructSignedRemoveLiqAndSend (pair: PoolPairData, amount: BigNumber, dispatch: Dispatch<any>, onBroadcast: () => void): Promise<void> {
   const tokenId = Number(pair.id)
   const symbol = (pair?.tokenA != null && pair?.tokenB != null)
     ? `${pair.tokenA.displaySymbol}-${pair.tokenB.displaySymbol}`
@@ -175,6 +172,6 @@ async function constructSignedRemoveLiqAndSend (pair: PoolPairData, amount: BigN
       symbol: symbol,
       amount: amount.toFixed(8)
     }),
-    postAction
+    onBroadcast
   }))
 }
