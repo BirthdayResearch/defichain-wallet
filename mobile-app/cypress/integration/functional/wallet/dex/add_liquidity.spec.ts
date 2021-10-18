@@ -118,6 +118,7 @@ context('Wallet - DEX - Combine Add and Confirm Liquidity Spec', () => {
     cy.getByTestID('button_continue_add_liq').should('have.attr', 'disabled')
     cy.getByTestID('token_input_secondary_clear_button').click()
     cy.getByTestID('token_input_secondary').type('15.00000000')
+    cy.getByTestID('conversion_info_text').should('exist')
     cy.getByTestID('button_continue_add_liq').should('have.attr', 'disabled')
   })
 
