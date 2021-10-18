@@ -19,7 +19,15 @@
     "jsx": "preserve",
     "baseUrl": "src",
     "paths": {
-      "@components/*": ["components/*"],
+      "@components/*": [
+        "components/*"
+      ],
+      "@shared-types": [
+        "../../shared/types"
+      ],
+      "@shared-types/*": [
+        "../../shared/types/*"
+      ]
     }
   },
   "include": [

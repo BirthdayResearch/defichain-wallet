@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import { authentication } from './authentication'
 import { block } from './block'
 import { ocean } from './ocean'
 import { transactionQueue } from './transaction_queue'
 import { wallet } from './wallet'
+import { websiteSlice } from '@store/website'
 
 /**
  * RootState for DeFiChain Wallet App
@@ -22,11 +23,11 @@ export function initializeStore () {
       wallet: wallet.reducer,
       ocean: ocean.reducer,
       transactionQueue: transactionQueue.reducer,
-      authentication: authentication.reducer
+      authentication: authentication.reducer,
+      [websiteSlice.reducerPath]: websiteSlice.reducer
     },
-    middleware: [
-      ...getDefaultMiddleware({ serializableCheck: false })
-    ]
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware({ serializableCheck: false }).concat(websiteSlice.middleware)
   })
 }
 
