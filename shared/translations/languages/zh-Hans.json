@@ -18,7 +18,7 @@
     "Decentralized Exchange": "去中心化交易所",
     "ADD LIQUIDITY": "增加流动资金",
     "Add liquidity": "增加流动资金",
-    "Confirm Add Liquidity": "Confirm Add Liquidity",
+    "Confirm Add Liquidity": "确认增加流动资金",
     "Remove Liquidity": "退出流动资金",
     "Confirm removal": "确认退出",
     "Confirm swap": "确认兑换",
@@ -75,10 +75,13 @@
     "Where do you want to send?": "您想发送到哪里?",
     "How much do you want to send?": "您想发送多少资金?",
     "Enter an amount": "请输入数量",
-    "Available": "可发送资金"
+    "Available": "可发送资金",
+    "Amount to be converted": "要转换的金额",
+    "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "确认发出",
+    "CONFIRM SEND": "确认发出",
     "You are sending": "您正要发出资金",
     "TRANSACTION DETAILS": "交易明細",
     "Address": "地址",
@@ -90,7 +93,8 @@
     "SENDING": "正在发出",
     "Sending": "正转出 {{symbol}}",
     "Sending {{amount}} {{symbol}}": "正转出 {{amount}} {{symbol}}",
-    "CONFIRM TRANSACTION": "CONFIRM TRANSACTION"
+    "CONFIRM TRANSACTION": "CONFIRM TRANSACTION",
+    "Convert & send": "转换并发送"
   },
   "screens/ConvertScreen": {
     "Convert DFI": "转换 DFI",
@@ -104,7 +108,8 @@
     "Enter an amount": "请输入数量",
     "Available": "可转换资金",
     "After conversion, you will receive": "转换后您会收到",
-    "Review full transaction details in the next screen": "请在下一步确认交易明细"
+    "Review full transaction details in the next screen": "请在下一步确认交易明细",
+    "Estimated fee": "所需费用（大约）"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "确认要转换 DFI",
@@ -116,7 +121,7 @@
     "Converting DFI": "转换 DFI",
     "Converting {{amount}} {{symbolA}} to {{symbolB}}": "转换 {{amount}} {{symbolA}} 至 {{symbolB}} ",
     "TRANSACTION DETAILS": "交易明細",
-    "Transaction type": "Transaction type",
+    "Transaction type": "交易类型",
     "Convert": "转换",
     "{{token}} to receive": "{{token}} to receive",
     "CONFIRM TRANSACTION": "CONFIRM TRANSACTION"
@@ -367,7 +372,10 @@
     "PRICE DETAILS": "PRICE DETAILS",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
     "TRANSACTION DETAILS": "交易明細",
-    "Your pooled {{token}}": "Your pooled {{token}}"
+    "Your pooled {{token}}": "Your pooled {{token}}",
+    "Amount to be converted": "要转换的金额",
+    "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换",
+    "Estimated fee": "所需费用（大约）"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "您正要增加流动资金",
@@ -383,7 +391,11 @@
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "向 {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} 配对增加流动资金",
     "PRICE DETAILS": "PRICE DETAILS",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
-    "Your pooled {{token}}": "Your pooled {{token}}"
+    "Your pooled {{token}}": "Your pooled {{token}}",
+    "Transaction type": "交易类型",
+    "Add liquidity": "增加流动资金",
+    "Convert & add liquidity": "转换并增加流动资金",
+    "CONFIRM ADD LIQUIDITY": "确认增加流动资金"
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "您正要退出",
@@ -442,7 +454,9 @@
     "Review full transaction details in the next screen": "请在下一步确认交易明细",
     "TRANSACTION DETAILS": "交易明細",
     "Estimated fee": "所需费用（大约）",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}"
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "Amount to be converted": "要转换的金额",
+    "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "您正要兑换",
@@ -456,7 +470,10 @@
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兑换 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
     "{{token}} balance": "{{token}} balance",
-    "CONFIRM SWAP": "确认兑换"
+    "CONFIRM SWAP": "确认兑换",
+    "Transaction type": "交易类型",
+    "Swap": "兑换",
+    "Convert & swap": "转换并兑换"
   },
   "screens/UnlockWallet": {
     "Enter Passcode": "请输入密码",
@@ -516,5 +533,22 @@
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要预留一些可使用的 UTXO (0.1 DFI) 作为费用"
+  },
+  "components/ConversionInfoText": {
+    "Conversion will be required. Your passcode will be asked to authorize both transactions.": "将需要转换。您需要以 App 密码授权兑换交易"
+  },
+  "components/ConversionTag": {
+    "Conversion required": "需要转换"
+  },
+  "components/ConversionBreakdown": {
+    "CONVERSION DETAILS": "转换细节",
+    "Conversion type": "转换类型",
+    "Amount to convert": "要转换的金额",
+    "Resulting {{token}}": "转换后 {{token}}",
+    "Amount above are prior to transaction": "以上金额为交易前的金额"
+  },
+  "components/TransactionResultsRow": {
+    "TRANSACTION RESULTS": "交易结果",
+    "Resulting {{symbol}}": "转换后 {{symbol}}"
   }
 }

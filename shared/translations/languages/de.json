@@ -93,7 +93,8 @@
     "SENDING": "WIRD GESENDET",
     "Sending": "Senden {{symbol}}",
     "Sending {{amount}} {{symbol}}": "Sende {{amount}} {{symbol}}",
-    "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN"
+    "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN",
+    "Convert & send": "Umrechnen & senden"
   },
   "screens/ConvertScreen": {
     "Convert DFI": "DFI umwandeln",
@@ -390,7 +391,7 @@
     "Your pooled {{symbol}}": "Deine {{symbol}} im Pool",
     "Transaction type": "Transaktionsart",
     "Add liquidity": "Liquidität hinzufügen",
-    "Convert & add liquidity": "Convert & add liquidity",
+    "Convert & add liquidity": "Umrechnen & Liquidität hinzufügen",
     "CONFIRM ADD LIQUIDITY": "LIQUIDITÄT HINZUFÜGEN BESTÄTIGEN"
   },
   "screens/ConfirmRemoveLiquidity": {
@@ -469,7 +470,7 @@
     "CONFIRM SWAP": "BESTÄTIGE DEN UMTAUSCH",
     "Transaction type": "Transaktionsart",
     "Swap": "Tausche",
-    "Confirm & swap": "Confirm & swap"
+    "Convert & swap": "Umrechnen & tauschen"
   },
   "screens/UnlockWallet": {
     "Enter Passcode": "Passwort eingeben",
@@ -534,17 +535,17 @@
     "Conversion will be required. Your passcode will be asked to authorize both transactions.": "Eine Konvertierung ist erforderlich. Du wirst nach deinem Passwort gefragt, um beide Transaktionen frei zu geben."
   },
   "components/ConversionTag": {
-    "Conversion required": "Conversion required"
+    "Conversion required": "Konvertierung erforderlich"
   },
   "components/ConversionBreakdown": {
-    "CONVERSION DETAILS": "CONVERSION DETAILS",
+    "CONVERSION DETAILS": "UMRECHNUNGSDETAILS",
     "Conversion type": "Art der Konvertierung",
     "Amount to convert": "Umzuwandelnder Betrag",
     "Resulting {{token}}": "Zu erhaltende {{token}}",
     "Amount above are prior to transaction": "Die oben genannten Beträge geben die Werte vor der Transaktion wieder"
   },
   "components/TransactionResultsRow": {
-    "TRANSACTION RESULTS": "TRANSACTION RESULTS",
+    "TRANSACTION RESULTS": "TRANSAKTIONSERGEBNISSE",
     "Resulting {{symbol}}": "Zu erhaltende {{symbol}}"
   }
 }
