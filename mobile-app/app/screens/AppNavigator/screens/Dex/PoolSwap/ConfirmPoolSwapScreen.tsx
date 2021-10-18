@@ -233,8 +233,8 @@ async function constructSignedSwapAndSend (
       const swap: PoolSwap = {
         fromScript: script,
         toScript: script,
-        fromTokenId: Number(dexForm.fromToken.id),
-        toTokenId: Number(dexForm.toToken.id),
+        fromTokenId: Number(dexForm.fromToken.id === '0_unified' ? '0' : dexForm.fromToken.id),
+        toTokenId: Number(dexForm.toToken.id === '0_unified' ? '0' : dexForm.toToken.id),
         fromAmount: dexForm.fromAmount,
         maxPrice
       }
