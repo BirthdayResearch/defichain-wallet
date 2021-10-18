@@ -13,6 +13,9 @@ import { NetworkSelectionScreen } from './screens/NetworkSelectionScreen'
 import { RecoveryWordsScreen } from './screens/RecoveryWordsScreen'
 import { SettingsScreen } from './SettingsScreen'
 import { PasscodeFaq } from '@screens/WalletNavigator/screens/CreateWallet/PasscodeFaq'
+import { KnowledgeBaseScreen } from './screens/KnowledgeBaseScreen'
+import { RecoveryWordsFaq } from '@screens/WalletNavigator/screens/CreateWallet/RecoveryWordsFaq'
+import { TokensVsUtxoScreen } from '../Balances/screens/TokensVsUtxoScreen'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
@@ -40,6 +43,20 @@ export function SettingsNavigator (): JSX.Element {
               containerTestID={headerContainerTestId}
             />
           )
+        }}
+      />
+
+      <SettingsStack.Screen
+        component={KnowledgeBaseScreen}
+        name='KnowledgeBaseScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/AboutScreen', 'Knowledge base')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
         }}
       />
 
@@ -135,7 +152,40 @@ export function SettingsNavigator (): JSX.Element {
         component={PasscodeFaq}
         name='PasscodeFaq'
         options={{
-          headerTitle: translate('screens/WalletNavigator', 'Passcode FAQ'),
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/WalletNavigator', 'Passcode FAQ')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <SettingsStack.Screen
+        component={RecoveryWordsFaq}
+        name='RecoveryWordsFaq'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/WalletNavigator', 'Recovery Words FAQ')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <SettingsStack.Screen
+        component={TokensVsUtxoScreen}
+        name='TokensVsUtxo'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ConvertScreen', 'UTXO vs Token')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
           headerBackTitleVisible: false
         }}
       />
