@@ -1,5 +1,18 @@
 import BigNumber from 'bignumber.js'
 
+function setupWalletForConversion (): void {
+  cy.createEmptyWallet(true)
+  cy.getByTestID('bottom_tab_dex').click().wait(3000)
+  cy.getByTestID('close_dex_guidelines').click()
+  cy.sendDFItoWallet()
+    .sendDFITokentoWallet().wait(3000)
+
+  cy.getByTestID('bottom_tab_dex').click().wait(3000)
+  cy.getByTestID('pool_pair_swap-horiz_dBTC-DFI').click()
+  cy.wait(100)
+  cy.getByTestID('text_balance_tokenB').contains('20')
+}
+
 context('Wallet - DEX - Pool Swap without balance', () => {
   before(function () {
     cy.createEmptyWallet(true)
@@ -166,5 +179,37 @@ context('Wallet - DEX - Pool Swap failed api', () => {
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
     cy.getByTestID('pool_pair_row').should('not.exist')
+  })
+})
+
+context('Wallet - DEX - Pool Swap with Conversion', () => {
+  beforeEach(function () {
+    setupWalletForConversion()
+  })
+
+  it('should be able to display conversion info', function () {
+    cy.getByTestID('swap_button').click()
+    cy.getByTestID('text_balance_tokenA').contains('19.90000000')
+    cy.getByTestID('text_input_tokenA').type('11.00000000')
+    cy.getByTestID('conversion_info_text').should('exist')
+    cy.getByTestID('conversion_info_text').should('contain', 'Conversion will be required. Your passcode will be asked to authorize both transactions.')
+    cy.getByTestID('amount_to_convert_label').contains('Amount to be converted')
+    cy.getByTestID('amount_to_convert').contains('1.00000000')
+    cy.getByTestID('transaction_details_hint_text').contains('Authorize transaction in the next screen to convert')
+  })
+
+  it('should trigger convert and add liquidity', function () {
+    cy.getByTestID('swap_button').click()
+    cy.getByTestID('text_input_tokenA').type('11.00000000')
+    cy.getByTestID('button_submit').click()
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Converting ${new BigNumber('1').toFixed(8)} UTXO to Token`)
+    cy.closeOceanInterface().wait(3000)
+    cy.getByTestID('conversion_tag').should('exist')
+
+    cy.getByTestID('text_swap_amount').should('contain', '11.00000000')
+    cy.validateConversionDetails(false, '1.00000000', '9.00000000', '11.00000000')
+    cy.getByTestID('button_confirm_swap').click().wait(3000)
+    cy.closeOceanInterface()
   })
 })
