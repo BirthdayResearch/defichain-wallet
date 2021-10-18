@@ -26,7 +26,7 @@ import { WalletTextInput } from '@components/WalletTextInput'
 import { InputHelperText } from '@components/InputHelperText'
 import { DFITokenSelector, DFIUtxoSelector, WalletToken } from '@store/wallet'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
-import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
@@ -155,7 +155,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
             conversionAmount
           }
         })
-      })
+      }, logger)
     } else {
       navigation.navigate('ConfirmPoolSwapScreen', {
         tokenA,
@@ -529,10 +529,10 @@ function getPriceRate (reserveA: string, reserveB: string): string {
 async function constructSignedConversionAndPoolswap ({
   mode,
   amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void): Promise<void> {
+}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
   try {
     dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
   } catch (e) {
-    Logging.error(e)
+    logger.error(e)
   }
 }

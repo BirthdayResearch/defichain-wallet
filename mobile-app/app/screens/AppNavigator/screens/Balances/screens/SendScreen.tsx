@@ -9,7 +9,6 @@ import React, { Dispatch, useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { Logging } from '@api'
 import { Button } from '@components/Button'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import {
@@ -30,7 +29,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
-import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { NumberRow } from '@components/NumberRow'
 import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
@@ -109,7 +108,7 @@ export function SendScreen ({
           },
           merge: true
         })
-      })
+      }, logger)
     } else if (formState.isValid) {
       const values = getValues()
       navigation.navigate({
@@ -364,10 +363,10 @@ function AmountRow ({ token, control, onAmountChange, onClearButtonPress }: Amou
 async function constructSignedConversionAndSend ({
   mode,
   amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void): Promise<void> {
+}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
   try {
     dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
   } catch (e) {
-    Logging.error(e)
+    logger.error(e)
   }
 }
