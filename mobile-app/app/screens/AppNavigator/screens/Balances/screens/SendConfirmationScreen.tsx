@@ -13,35 +13,39 @@ import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
 import { TextRow } from '@components/TextRow'
-import { ThemedScrollView, ThemedSectionTitle } from '@components/themed'
+import { ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
 import { useNetworkContext } from '@contexts/NetworkContext'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { RootState } from '@store'
-import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
+import { ConversionTag } from '@components/ConversionTag'
+import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
+import { ConversionBreakdown } from '@components/ConversionBreakdown'
 
 type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
 
 export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   const network = useNetworkContext()
   const {
+    token,
     destination,
     amount,
-    fee
+    fee,
+    conversion
   } = route.params
-  const [token, setToken] = useState(route.params.token)
-  const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
+  const expectedBalance = BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)), 0).toFixed(8)
 
   useEffect(() => {
     setIsOnPage(true)
@@ -78,28 +82,53 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
     }
   }
 
-  useEffect(() => {
-    const t = tokens.find((t) => t.id === token.id)
-    if (t !== undefined) {
-      setToken({ ...t })
+  function getSubmitLabel (): string {
+    if (!hasPendingBroadcastJob && !hasPendingJob) {
+      return 'CONFIRM SEND'
     }
-  }, [JSON.stringify(tokens)])
+    if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
+      return currentBroadcastJob.submitButtonLabel
+    }
+    return 'SENDING'
+  }
 
   return (
     <ThemedScrollView style={tailwind('pb-4')}>
-      <SummaryTitle
-        amount={amount}
-        suffix={token.displaySymbol}
-        suffixType='text'
-        testID='text_send_amount'
-        title={translate('screens/SendConfirmationScreen', 'You are sending')}
-      />
+      <ThemedView
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        light={tailwind('bg-white border-b border-gray-300')}
+        style={tailwind('flex-col px-4 py-8 mb-4')}
+      >
+        <SummaryTitle
+          amount={amount}
+          suffix={token.displaySymbol}
+          suffixType='text'
+          testID='text_send_amount'
+          title={translate('screens/SendConfirmationScreen', 'You are sending')}
+        />
+        {conversion?.isConversionRequired === true && <ConversionTag />}
+      </ThemedView>
 
+      {conversion?.isConversionRequired === true &&
+        <ConversionBreakdown
+          dfiUtxo={conversion?.DFIUtxo}
+          dfiToken={conversion?.DFIToken}
+          amount={conversion?.conversionAmount}
+          mode='accountToUtxos'
+        />}
       <ThemedSectionTitle
         testID='title_transaction_detail'
         text={translate('screens/SendConfirmationScreen', 'TRANSACTION DETAILS')}
       />
 
+      <TextRow
+        lhs={translate('screens/SendConfirmationScreen', 'Transaction type')}
+        rhs={{
+          value: conversion?.isConversionRequired === true ? translate('screens/SendConfirmationScreen', 'Convert & send') : translate('screens/SendConfirmationScreen', 'Send'),
+          testID: 'text_transaction_type'
+        }}
+        textStyle={tailwind('text-sm font-normal')}
+      />
       <TextRow
         lhs={translate('screens/SendConfirmationScreen', 'Address')}
         rhs={{
@@ -109,22 +138,13 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         textStyle={tailwind('text-sm font-normal')}
       />
 
-      <TextRow
-        lhs={translate('screens/SendConfirmationScreen', 'Network')}
-        rhs={{
-          value: network.network,
-          testID: 'text_network'
-        }}
-        textStyle={tailwind('text-sm font-normal')}
-      />
-
       <NumberRow
-        lhs={translate('screens/SendConfirmationScreen', 'Amount')}
+        lhs={translate('screens/SendConfirmationScreen', 'Amount to send')}
         rhs={{
           value: amount.toFixed(8),
           testID: 'text_amount',
           suffixType: 'text',
-          suffix: `${token.displaySymbol}`
+          suffix: token.displaySymbol
         }}
       />
 
@@ -137,21 +157,21 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         }}
       />
 
-      <NumberRow
-        lhs={translate('screens/SendConfirmationScreen', 'Remaining balance')}
-        rhs={{
-          value: BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)).minus(fee.toFixed(8)), 0).toFixed(8),
-          testID: 'text_balance',
-          suffixType: 'text',
-          suffix: `${token.displaySymbol}`
-        }}
+      <TransactionResultsRow
+        tokens={[
+          {
+            symbol: token.displaySymbol,
+            value: expectedBalance,
+            suffix: token.displaySymbol
+          }
+        ]}
       />
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/SendConfirmationScreen', 'CONFIRM TRANSACTION')}
-        isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        submittingLabel={translate('screens/SendConfirmationScreen', 'SENDING')}
+        label={translate('screens/SendConfirmationScreen', 'CONFIRM SEND')}
+        isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        processingLabel={translate('screens/SendConfirmationScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='send'
