@@ -105,14 +105,14 @@ context('Wallet - Send', function () {
           cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
           cy.getByTestID('send_submit_button').click()
           // Check txn value
-          cy.getByTestID('text_amount').invoke('text').then((textAmount) => {
+          cy.getByTestID('text_send_amount').invoke('text').then((textAmount) => {
             const amount = textAmount.replace(' DFI', '')
             expect(new BigNumber(amount).toFixed(8)).eq(new BigNumber(sendAmount).toFixed(8))
             cy.getByTestID('text_fee').invoke('text').then((textFeeValue) => {
               const textFee = textFeeValue.replace(' DFI', '')
               expect(new BigNumber(transactionFee).toFixed(8)).eq(new BigNumber(textFee).toFixed(8))
               // Check computed pending balance
-              cy.getByTestID('text_balance').invoke('text').then((pendingBalanceValue) => {
+              cy.getByTestID('resulting_DFI').invoke('text').then((pendingBalanceValue) => {
                 const pendingBalance = pendingBalanceValue.replace(' DFI', '')
                 expect(new BigNumber(balance).plus(slippage)
                   .minus(transactionFee).minus(sendAmount).toFixed(8)
@@ -275,6 +275,56 @@ context('Wallet - Send - Max Values', function () {
     it(`should check if exist on other side ${address}`, function () {
       cy.wrap(whale.address.getBalance(address)).then((response) => {
         expect(response).contains('9.90000000')
+      })
+    })
+  })
+})
+
+context('Wallet - Send - with Conversion', function () {
+  let whale: WhaleApiClient
+
+  const addresses = ['bcrt1qh5callw3zuxtnks96ejtekwue04jtnm84f04fn', 'bcrt1q6ey8k3w0ll3cn5sg628nxthymd3une2my04j4n']
+  beforeEach(function () {
+    const network = localStorage.getItem('Development.NETWORK')
+    whale = new WhaleApiClient({
+      url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
+      network: 'regtest',
+      version: 'v0'
+    })
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet().sendDFITokentoWallet().wait(3000)
+    cy.getByTestID('bottom_tab_balances').click()
+  })
+
+  addresses.forEach(function (address) {
+    it(`should be able to send to address ${address}`, function () {
+      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('balances_list').should('exist')
+      cy.getByTestID('dfi_balance_card').should('exist')
+      cy.getByTestID('send_dfi_button').click()
+      cy.getByTestID('address_input').clear().type(address)
+      cy.getByTestID('transaction_details_info_text').should('contain', 'Review full transaction details in the next screen')
+      cy.getByTestID('amount_input').type('12')
+      cy.getByTestID('conversion_info_text').should('exist')
+      cy.getByTestID('conversion_info_text').should('contain', 'Conversion will be required. Your passcode will be asked to authorize both transactions.')
+      cy.getByTestID('text_amount_to_convert_label').should('exist')
+      cy.getByTestID('text_amount_to_convert_label').should('contain', 'Amount to be converted')
+      cy.getByTestID('text_amount_to_convert').should('contain', '2.10000000')
+      cy.getByTestID('transaction_details_info_text').should('contain', 'Authorize transaction in the next screen to convert')
+      cy.getByTestID('send_submit_button').click()
+      cy.getByTestID('txn_authorization_description')
+        .contains(`Converting ${new BigNumber('2.1').toFixed(8)} Token to UTXO`)
+      cy.closeOceanInterface().wait(3000)
+      cy.getByTestID('conversion_tag').should('exist')
+      cy.getByTestID('text_send_amount').should('contain', '12.00000000')
+      cy.validateConversionDetails(true, '2.10000000', '12.10000000', '7.90000000')
+      cy.getByTestID('button_confirm_send').click().wait(3000)
+      cy.closeOceanInterface()
+    })
+
+    it(`should check if exist on other side ${address}`, function () {
+      cy.wrap(whale.address.getBalance(address)).then((response) => {
+        expect(response).contains('12.00000000')
       })
     })
   })

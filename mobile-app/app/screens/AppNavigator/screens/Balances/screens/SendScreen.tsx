@@ -12,7 +12,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '@api'
 import { Button } from '@components/Button'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
-import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import {
+  ThemedIcon,
+  ThemedScrollView,
+  ThemedSectionTitle,
+  ThemedText,
+  ThemedTouchableOpacity,
+  ThemedView
+} from '@components/themed'
 import { useNetworkContext } from '@contexts/NetworkContext'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
@@ -191,6 +198,7 @@ export function SendScreen ({
         )
       }
       <ThemedText
+        testID='transaction_details_info_text'
         light={tailwind('text-gray-600')}
         dark={tailwind('text-gray-300')}
         style={tailwind('mt-2 mx-4 text-sm')}

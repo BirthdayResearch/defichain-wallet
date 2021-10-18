@@ -38,27 +38,28 @@ export function ConversionBreakdown (props: ConversionBreakdownProps): JSX.Eleme
         lhs={translate('components/ConversionBreakdown', 'Amount to convert')}
         rhs={{
           value: props.amount?.toFixed(8) ?? 0,
-          testID: 'text_amount'
+          testID: 'amount_to_convert'
         }}
       />
       <NumberRow
         lhs={translate('components/ConversionBreakdown', 'Resulting UTXO')}
         rhs={{
           value: new BigNumber(props.dfiUtxo?.amount ?? 0).plus(props.mode === 'accountToUtxos' ? amount : amount.negated()).toFixed(8),
-          testID: 'text_amount'
+          testID: 'resulting_utxo'
         }}
       />
       <NumberRow
         lhs={translate('components/ConversionBreakdown', 'Resulting Tokens')}
         rhs={{
           value: new BigNumber(props.dfiToken?.amount ?? 0).plus(props.mode === 'utxosToAccount' ? amount : amount.negated()).toFixed(8),
-          testID: 'text_amount'
+          testID: 'resulting_token'
         }}
       />
       <ThemedText
         light={tailwind('text-gray-600')}
         dark={tailwind('text-gray-300')}
         style={tailwind('mt-2 mx-4 text-sm')}
+        testID='conversion_breakdown_text'
       >
         {translate('components/ConversionBreakdown', 'Amount above are prior to transaction')}
       </ThemedText>
