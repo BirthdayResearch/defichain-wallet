@@ -11,6 +11,7 @@ jest.mock('@react-navigation/bottom-tabs', () => ({
 }))
 jest.mock('randomcolor', () => jest.fn().mockReturnValue('#ffffff'))
 jest.mock('@shared-contexts/ThemeProvider')
+jest.mock('@shared-contexts/LanguageProvider')
 
 jest.mock('../../../../hooks/wallet/TokensAPI', () => ({
   useTokensAPI: () => [{

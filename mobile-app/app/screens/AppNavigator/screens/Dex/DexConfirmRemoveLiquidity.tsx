@@ -10,8 +10,7 @@ import { Dispatch } from 'redux'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
-import { ThemedScrollView, ThemedSectionTitle } from '@components/themed'
-import { TokenBalanceRow } from '@components/TokenBalanceRow'
+import { ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
@@ -19,6 +18,8 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { TextRow } from '@components/TextRow'
+import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmRemoveLiquidity'>
@@ -29,7 +30,9 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
     amount,
     fee,
     tokenAAmount,
-    tokenBAmount
+    tokenBAmount,
+    tokenA,
+    tokenB
   } = route.params
   const aToBRate = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
   const bToARate = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
@@ -42,6 +45,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
+  const reservedDfi = 0.1
 
   useEffect(() => {
     setIsOnPage(true)
@@ -73,12 +77,37 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollView style={tailwind('pb-4')}>
-      <SummaryTitle
-        amount={amount}
-        suffix={` ${symbol}`}
-        suffixType='text'
-        testID='text_remove_amount'
-        title={translate('screens/ConfirmRemoveLiquidity', 'You are removing')}
+      <ThemedView
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        light={tailwind('bg-white border-b border-gray-300')}
+        style={tailwind('flex-col px-4 py-8 mb-4')}
+      >
+        <SummaryTitle
+          amount={amount}
+          suffix={` ${symbol}`}
+          suffixType='text'
+          testID='text_remove_amount'
+          title={translate('screens/ConfirmRemoveLiquidity', 'You are removing')}
+        />
+      </ThemedView>
+
+      <ThemedSectionTitle
+        testID='title_tx_detail'
+        text={translate('screens/ConfirmRemoveLiquidity', 'TRANSACTION DETAILS')}
+      />
+
+      <TextRow
+        lhs={translate('screens/ConfirmRemoveLiquidity', 'Transaction type')}
+        rhs={{
+          value: translate('screens/ConfirmRemoveLiquidity', 'Remove liquidity'),
+          testID: 'text_transaction_type'
+        }}
+        textStyle={tailwind('text-sm font-normal')}
+      />
+
+      <EstimatedFeeInfo
+        lhs={translate('screens/ConfirmRemoveLiquidity', 'Estimated fee')}
+        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffix: 'DFI' }}
       />
 
       <ThemedSectionTitle
@@ -86,29 +115,29 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         text={translate('screens/ConfirmRemoveLiquidity', 'ESTIMATED AMOUNT TO RECEIVE')}
       />
 
-      <TokenBalanceRow
-        iconType={pair?.tokenA?.displaySymbol}
+      <NumberRow
         lhs={pair?.tokenA?.displaySymbol}
         rhs={{
+          testID: 'a_amount',
           value: BigNumber.max(tokenAAmount, 0).toFixed(8),
-          testID: 'a_amount'
+          suffixType: 'text',
+          suffix: pair?.tokenA?.displaySymbol
         }}
       />
-
-      <TokenBalanceRow
-        iconType={pair?.tokenB?.displaySymbol}
+      <NumberRow
         lhs={pair?.tokenB?.displaySymbol}
         rhs={{
+          testID: 'b_amount',
           value: BigNumber.max(tokenBAmount, 0).toFixed(8),
-          testID: 'b_amount'
+          suffixType: 'text',
+          suffix: pair?.tokenB?.displaySymbol
         }}
       />
 
       <ThemedSectionTitle
-        testID='title_tx_detail'
-        text={translate('screens/ConfirmRemoveLiquidity', 'TRANSACTION DETAILS')}
+        testID='title_price_detail'
+        text={translate('screens/ConfirmRemoveLiquidity', 'PRICE DETAILS')}
       />
-
       <NumberRow
         lhs={translate('screens/ConfirmRemoveLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenB.displaySymbol, tokenB: pair.tokenA.displaySymbol })}
         rhs={{
@@ -128,16 +157,26 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         }}
       />
 
-      <EstimatedFeeInfo
-        lhs={translate('screens/ConfirmRemoveLiquidity', 'Estimated fee')}
-        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffix: 'DFI (UTXO)' }}
+      <TransactionResultsRow
+        tokens={[
+          {
+            symbol: pair.tokenA.displaySymbol,
+            value: new BigNumber(tokenA?.amount ?? 0).plus(tokenAAmount).toFixed(8),
+            suffix: pair.tokenA.displaySymbol
+          },
+          {
+            symbol: pair.tokenB.displaySymbol,
+            value: new BigNumber(tokenB?.amount ?? 0).plus(tokenBAmount).minus(reservedDfi).toFixed(8),
+            suffix: pair.tokenB.displaySymbol
+          }
+        ]}
       />
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/ConfirmRemoveLiquidity', 'REMOVE')}
-        isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        submittingLabel={translate('screens/ConfirmRemoveLiquidity', 'REMOVING')}
+        isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        processingLabel={translate('screens/ConfirmRemoveLiquidity', 'REMOVING')}
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='remove'

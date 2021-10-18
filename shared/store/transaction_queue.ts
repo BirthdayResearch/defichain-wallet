@@ -9,6 +9,7 @@ export interface DfTxSigner {
   onBroadcast?: () => any
   onConfirmation?: () => any
   onError?: () => any
+  submitButtonLabel?: string
 }
 
 export interface TransactionQueue {

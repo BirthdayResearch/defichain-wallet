@@ -59,6 +59,12 @@
       "@shared-contexts/*": [
         "../../shared/contexts/*"
       ],
+      "@shared-types": [
+        "../../shared/types"
+      ],
+      "@shared-types/*": [
+        "../../shared/types/*"
+      ],
       "@screens/*": [
         "screens/*"
       ],

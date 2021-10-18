@@ -34,6 +34,15 @@ declare global {
        * @example cy.changePasscode()
        */
       changePasscode: () => Chainable<Element>
+
+      /**
+       * @description Validate Conversion details
+       * @param {boolean} isTokenToUTXO
+       * @param amountToConvert
+       * @param resultingUTXO
+       * @param resultingToken
+       */
+      validateConversionDetails: (isTokenToUTXO: boolean, amountToConvert: string, resultingUTXO: string, resultingToken: string) => Chainable<Element>
     }
   }
 }
@@ -79,4 +88,14 @@ Cypress.Commands.add('changePasscode', () => {
   cy.getByTestID('pin_confirm_input').type('777777').wait(3000)
   cy.getByTestID('wrong_passcode_text').should('exist')
   cy.getByTestID('pin_confirm_input').type('696969').wait(3000)
+})
+
+Cypress.Commands.add('validateConversionDetails', (isTokenToUTXO: boolean, amountToConvert: string, resultingUTXO: string, resultingToken: string) => {
+  cy.getByTestID('conversion_tag').should('exist')
+  cy.getByTestID('title_conversion_detail').should('contain', 'CONVERSION DETAILS')
+  cy.getByTestID('conversion_type').should('contain', isTokenToUTXO ? 'Token → UTXO' : 'UTXO → Token')
+  cy.getByTestID('amount_to_convert').should('contain', amountToConvert)
+  cy.getByTestID('resulting_utxo').should('contain', resultingUTXO)
+  cy.getByTestID('resulting_token').should('contain', resultingToken)
+  cy.getByTestID('conversion_breakdown_text').should('contain', 'Amount above are prior to transaction')
 })

@@ -153,12 +153,13 @@ export function TransactionAuthorization (): JSX.Element | null {
     setWallet(initJellyfishWallet(provider, network, whaleApiClient))
   }
 
-  const onPinSuccess = async (onBroadcast: any, signedTx: CTransactionSegWit): Promise<void> => {
+  const onPinSuccess = async (onBroadcast: any, signedTx: CTransactionSegWit, submitButtonLabel?: string): Promise<void> => {
     setTransactionStatus(TransactionStatus.AUTHORIZED)
     await resetPasscodeCounter()
     dispatch(ocean.actions.queueTransaction({
       tx: signedTx,
-      onBroadcast
+      onBroadcast,
+      submitButtonLabel
     })) // push signed result for broadcasting
   }
 
@@ -201,7 +202,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       signTransaction(transaction, wallet.get(0), onRetry, retries, logger)
         .then(async signedTx => {
           // case 1: success
-          await onPinSuccess(transaction.onBroadcast, signedTx)
+          await onPinSuccess(transaction.onBroadcast, signedTx, transaction.submitButtonLabel)
         })
         .catch(async e => {
           if (e.message === INVALID_HASH) {

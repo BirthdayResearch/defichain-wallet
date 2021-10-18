@@ -12,7 +12,23 @@ function setupWallet (): void {
   cy.getByTestID('pool_pair_add_dBTC-DFI').click()
   cy.wait(100)
   cy.getByTestID('token_balance_primary').contains('10')
-  cy.getByTestID('token_balance_secondary').contains('10')
+  cy.getByTestID('token_balance_secondary').contains('19.9')
+}
+
+function setupWalletForConversion (): void {
+  cy.createEmptyWallet(true)
+  cy.getByTestID('bottom_tab_dex').click()
+  cy.getByTestID('close_dex_guidelines').click()
+  cy.sendDFItoWallet()
+    .sendDFITokentoWallet()
+    .sendTokenToWallet(['BTC']).wait(3000)
+    .sendTokenToWallet(['BTC']).wait(3000)
+
+  cy.getByTestID('bottom_tab_dex').click()
+  cy.getByTestID('pool_pair_add_dBTC-DFI').click()
+  cy.wait(100)
+  cy.getByTestID('token_balance_primary').contains('20')
+  cy.getByTestID('token_balance_secondary').contains('19.9')
 }
 
 context('Wallet - DEX - Add Liquidity', () => {
@@ -219,6 +235,35 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     // Check for authorization page description
     cy.getByTestID('txn_authorization_description')
       .contains(`Adding ${new BigNumber(newAmount).toFixed(8)} dBTC - ${new BigNumber(newAmount).toFixed(8)} DFI`)
+    cy.closeOceanInterface()
+  })
+})
+
+context('Wallet - DEX - Add Liquidity with Conversion', () => {
+  beforeEach(function () {
+    setupWalletForConversion()
+  })
+
+  it('should be able to display conversion info', function () {
+    cy.getByTestID('token_input_secondary').type('11')
+    cy.getByTestID('conversion_info_text').should('exist')
+    cy.getByTestID('conversion_info_text').should('contain', 'Conversion will be required. Your passcode will be asked to authorize both transactions.')
+    cy.getByTestID('text_amount_to_convert_label').contains('Amount to be converted')
+    cy.getByTestID('text_amount_to_convert').contains('1.00000000')
+    cy.getByTestID('transaction_details_hint_text').contains('Authorize transaction in the next screen to convert')
+  })
+
+  it('should trigger convert and add liquidity', function () {
+    cy.getByTestID('token_input_primary').type('11')
+    cy.getByTestID('button_continue_add_liq').click()
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Converting ${new BigNumber('1').toFixed(8)} UTXO to Token`)
+    cy.closeOceanInterface().wait(3000)
+    cy.getByTestID('conversion_tag').should('exist')
+
+    cy.getByTestID('text_add_amount').should('contain', '11.00000000')
+    cy.validateConversionDetails(false, '1.00000000', '9.00000000', '11.00000000')
+    cy.getByTestID('button_confirm_add').click().wait(3000)
     cy.closeOceanInterface()
   })
 })

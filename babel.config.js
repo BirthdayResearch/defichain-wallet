@@ -14,6 +14,7 @@ module.exports = function (api) {
           '@hooks': './mobile-app/app/hooks',
           '@shared-api': './shared/api',
           '@shared-contexts': './shared/contexts',
+          '@shared-types': './shared/types',
           '@screens': './mobile-app/app/screens',
           '@store': './shared/store',
           '@translations': './shared/translations',

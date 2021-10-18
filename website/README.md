@@ -44,7 +44,7 @@ website/
 └─ src/
    ├─ components/
    ├─ pages/
-   │  ├─ api/releases.ts   (JSON API)
+   │  ├─ api/v0/announcements.ts   (JSON API)
    │  └─ index.tsx         (SSR/SSG/SPA Web Page)
    ├─ public/
    └─ style/
