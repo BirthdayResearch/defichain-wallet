@@ -36,6 +36,7 @@ export function useConversion (props: useConversionProps): ConversionResult {
 
   useEffect(() => {
     if (type === 'others') {
+      setIsConversionRequired(false)
       return
     }
 
