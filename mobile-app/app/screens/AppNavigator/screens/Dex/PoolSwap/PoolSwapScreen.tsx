@@ -30,6 +30,7 @@ import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
+import { useConversion } from '@hooks/wallet/Conversion'
 
 export interface DerivedTokenState {
   id: string
@@ -53,6 +54,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
+  const reservedDfi = 0.1
 
   useEffect(() => {
     client.fee.estimate()
@@ -69,8 +71,13 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
 
   // component UI state
   const { control, setValue, formState, getValues, trigger } = useForm({ mode: 'onChange' })
-  const [isConversionRequired, setIsConversionRequired] = useState(false)
-  const [conversionAmount, setConversionAmount] = useState(new BigNumber(0))
+  const { isConversionRequired, conversionAmount } = useConversion({
+    inputToken: {
+      type: tokenA?.id === '0_unified' ? 'token' : 'others',
+      amount: new BigNumber(getValues(tokenAForm))
+    },
+    deps: [getValues(tokenAForm), JSON.stringify(tokens)]
+  })
   const ScreenTitle = (props: {tokenA: DerivedTokenState, tokenB: DerivedTokenState}): JSX.Element => {
     const TokenAIcon = getNativeIcon(props.tokenA.displaySymbol)
     const TokenBIcon = getNativeIcon(props.tokenB.displaySymbol)
@@ -193,17 +200,6 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     })
   }
 
-  const deductReservedDfi = (token: DerivedTokenState): DerivedTokenState => {
-    const reservedDfi = 0.1
-    if (token.id === '0_unified') {
-      return {
-        ...token,
-        amount: BigNumber.max(new BigNumber(token.amount).minus(reservedDfi), 0).toFixed(8)
-      }
-    }
-    return token
-  }
-
   useEffect(() => {
     if (poolpair !== undefined) {
       let [tokenASymbol, tokenBSymbol] = poolpair.symbol.split('-') as [string, string]
@@ -221,32 +217,17 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         symbol: tokenASymbol,
         displaySymbol: tokenADisplaySymbol
       }
-      setTokenA(deductReservedDfi(a))
+      setTokenA(a)
       const b = getAddressTokenById(tokenBId) ?? {
         id: tokenBId,
         amount: '0',
         symbol: tokenBSymbol,
         displaySymbol: tokenBDisplaySymbol
       }
-      setTokenB(deductReservedDfi(b))
+      setTokenB(b)
       updatePoolPairPrice(tokenAId, poolpair)
     }
   }, [JSON.stringify(tokens), poolpair])
-
-  useEffect(() => {
-    if (tokenA?.id !== '0_unified') {
-      return
-    }
-    const swapAmount = new BigNumber(getValues(tokenAForm))
-    if (!swapAmount.isNaN() &&
-      swapAmount.isGreaterThan(new BigNumber(DFIToken.amount)) &&
-      swapAmount.isLessThanOrEqualTo(tokenA.amount)) {
-        setConversionAmount(swapAmount.minus(DFIToken.amount))
-        setIsConversionRequired(true)
-    } else {
-      setIsConversionRequired(false)
-    }
-  }, [getValues(tokenAForm)])
 
   if (tokenA === undefined || tokenB === undefined || poolpair === undefined || aToBPrice === undefined) {
     return <></>
@@ -261,7 +242,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           controlName={tokenAForm}
           isDisabled={false}
           title={translate('screens/PoolSwapScreen', 'How much {{token}} do you want to swap?', { token: tokenA.displaySymbol })}
-          maxAmount={tokenA.amount}
+          maxAmount={tokenA.id === '0_unified' ? new BigNumber(tokenA.amount).minus(reservedDfi).toFixed(8) : tokenA.amount}
           enableMaxButton
           onChangeFromAmount={async (amount) => {
             setIsComputing(true)
@@ -379,15 +360,13 @@ function TokenRow (form: TokenForm): JSX.Element {
   const Icon = getNativeIcon(token.displaySymbol)
   const rules: { required: boolean, pattern: RegExp, validate: any, max?: string } = {
     required: true,
+    max: form.maxAmount,
     pattern: /^\d*\.?\d*$/,
     validate: {
       greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
     }
   }
   const defaultValue = ''
-  if (form.maxAmount !== undefined) {
-    rules.max = form.maxAmount
-  }
 
   return (
     <Controller

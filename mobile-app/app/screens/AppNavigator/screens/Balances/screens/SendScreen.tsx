@@ -27,6 +27,7 @@ import { ConversionInfoText } from '@components/ConversionInfoText'
 import { NumberRow } from '@components/NumberRow'
 import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
+import { useConversion } from '@hooks/wallet/Conversion'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -51,9 +52,13 @@ export function SendScreen ({
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
-  const [isConversionRequired, setIsConversionRequired] = useState(false)
-  const [conversionAmount, setConversionAmount] = useState(new BigNumber('0'))
-  const reservedDFI = 0.1
+  const { isConversionRequired, conversionAmount } = useConversion({
+    inputToken: {
+      type: token.id === '0_unified' ? 'utxo' : 'others',
+      amount: new BigNumber(getValues('amount'))
+    },
+    deps: [getValues('amount'), JSON.stringify(token)]
+  })
 
   useEffect(() => {
     client.fee.estimate()
@@ -67,21 +72,6 @@ export function SendScreen ({
       setToken({ ...t })
     }
   }, [JSON.stringify(tokens)])
-
-  useEffect(() => {
-    if (token.id !== '0_unified') {
-      return
-    }
-    const amountValue = new BigNumber(getValues('amount'))
-    if (!amountValue.isNaN() &&
-     amountValue.plus(reservedDFI).isGreaterThan(new BigNumber(DFIUtxo.amount)) &&
-     amountValue.plus(reservedDFI).isLessThanOrEqualTo(token.amount)) {
-      setConversionAmount(amountValue.minus(DFIUtxo.amount).plus((reservedDFI)))
-      setIsConversionRequired(true)
-    } else {
-      setIsConversionRequired(false)
-    }
-  }, [getValues('amount')])
 
   async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
@@ -290,7 +280,8 @@ interface AmountForm {
 }
 
 function AmountRow ({ token, control, onAmountChange, onClearButtonPress }: AmountForm): JSX.Element {
-  let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(0.1).toFixed(8) : token.amount
+  const reservedDFI = 0.1
+  let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(reservedDFI).toFixed(8) : token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
   const defaultValue = ''
   return (
