@@ -304,7 +304,9 @@
     "RESTORE WALLET": "WALLET WIEDERHERSTELLEN",
     "Enter word #{{order}}": "Wort #{{order}} eingeben",
     "Cancel": "Abbrechen",
-    "Discard": "Verwerfen"
+    "Discard": "Verwerfen",
+    "Required field is missing": "Erforderliches Feld fehlt",
+    "Uppercase, numbers and special characters are not allowed": "Großbuchstaben, Zahlen und Sonderzeichen sind nicht erlaubt."
   },
   "screens/ErrorBoundary": {
     "Something went wrong": "Etwas ging schief",
@@ -322,13 +324,15 @@
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "Warte auf Bestätigung",
-    "Transaction Completed": "Transaktion ausgeführt",
+    "Transaction completed": "Transaktion abgeschlossen",
     "Sent but not confirmed": "Gesendet aber nicht bestätigt",
     "Broadcasting...": "Übertrage...",
     "OK": "OK",
     "Insufficient UTXO DFI": "Nicht ausreichend UTXO DFI",
     "Not enough balance": "Guthaben zu niedrig",
-    "Price is higher than indicated": "Preis höher als angezeigt"
+    "Price is higher than indicated": "Preis höher als angezeigt",
+    "Preparing broadcast": "Übertragung wird vorbereitet",
+    "Waiting for transaction": "Warten auf Transaktion"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Kameranutzung erlauben",
