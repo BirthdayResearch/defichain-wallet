@@ -93,7 +93,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 
   function getSubmitLabel (): string {
     if (!hasPendingBroadcastJob && !hasPendingJob) {
-      return 'CONFIRM TRANSACTION'
+      return 'CONFIRM ADD LIQUIDITY'
     }
     if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
       return currentBroadcastJob.submitButtonLabel
@@ -261,7 +261,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/ConfirmAddLiq', 'CONFIRM TRANSACTION')}
+        label={translate('screens/ConfirmAddLiq', 'CONFIRM ADD LIQUIDITY')}
         isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         processingLabel={translate('screens/ConfirmAddLiq', getSubmitLabel())}
         onCancel={onCancel}

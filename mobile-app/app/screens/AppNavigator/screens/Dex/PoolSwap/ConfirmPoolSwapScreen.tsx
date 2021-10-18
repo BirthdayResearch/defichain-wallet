@@ -79,7 +79,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
 
   function getSubmitLabel (): string {
     if (!hasPendingBroadcastJob && !hasPendingJob) {
-      return 'CONFIRM TRANSACTION'
+      return 'CONFIRM SWAP'
     }
     if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
       return currentBroadcastJob.submitButtonLabel

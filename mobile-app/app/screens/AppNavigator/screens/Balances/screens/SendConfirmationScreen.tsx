@@ -84,7 +84,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
 
   function getSubmitLabel (): string {
     if (!hasPendingBroadcastJob && !hasPendingJob) {
-      return 'CONFIRM TRANSACTION'
+      return 'CONFIRM SEND'
     }
     if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
       return currentBroadcastJob.submitButtonLabel
@@ -169,7 +169,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/SendConfirmationScreen', 'CONFIRM TRANSACTION')}
+        label={translate('screens/SendConfirmationScreen', 'CONFIRM SEND')}
         isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         processingLabel={translate('screens/SendConfirmationScreen', getSubmitLabel())}
         onCancel={onCancel}
