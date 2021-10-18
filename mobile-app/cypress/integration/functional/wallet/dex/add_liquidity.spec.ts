@@ -12,7 +12,7 @@ function setupWallet (): void {
   cy.getByTestID('pool_pair_add_dBTC-DFI').click()
   cy.wait(100)
   cy.getByTestID('token_balance_primary').contains('10')
-  cy.getByTestID('token_balance_secondary').contains('10')
+  cy.getByTestID('token_balance_secondary').contains('19.9')
 }
 
 context('Wallet - DEX - Add Liquidity', () => {
