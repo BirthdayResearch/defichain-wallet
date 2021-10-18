@@ -88,9 +88,9 @@ Array [
             ],
           ]
         }
-        testID="ending_utxo_balance_label"
+        testID="resulting_utxo_balance_label"
       >
-        Ending UTXO
+        Resulting UTXO
       </Text>
     </View>
     <View
@@ -130,7 +130,7 @@ Array [
             ],
           ]
         }
-        testID="ending_utxo_balance"
+        testID="resulting_utxo_balance"
       >
         10.00000000
       </Text>
@@ -189,9 +189,9 @@ Array [
             ],
           ]
         }
-        testID="ending_token_balance_label"
+        testID="resulting_token_balance_label"
       >
-        Ending Tokens
+        Resulting Tokens
       </Text>
     </View>
     <View
@@ -231,7 +231,7 @@ Array [
             ],
           ]
         }
-        testID="ending_token_balance"
+        testID="resulting_token_balance"
       >
         0.00000001
       </Text>

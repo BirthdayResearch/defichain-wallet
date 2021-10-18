@@ -88,9 +88,9 @@ Array [
             ],
           ]
         }
-        testID="ending_DFI_label"
+        testID="resulting_DFI_label"
       >
-        Ending DFI
+        Resulting DFI
       </Text>
     </View>
     <View
@@ -130,7 +130,7 @@ Array [
             ],
           ]
         }
-        testID="ending_DFI"
+        testID="resulting_DFI"
       >
         0.00000001
       </Text>
@@ -155,7 +155,7 @@ Array [
             ],
           ]
         }
-        testID="ending_DFI_suffix"
+        testID="resulting_DFI_suffix"
       >
         DFI
       </Text>
@@ -214,9 +214,9 @@ Array [
             ],
           ]
         }
-        testID="ending_dBTC_label"
+        testID="resulting_dBTC_label"
       >
-        Ending dBTC
+        Resulting dBTC
       </Text>
     </View>
     <View
@@ -256,7 +256,7 @@ Array [
             ],
           ]
         }
-        testID="ending_dBTC"
+        testID="resulting_dBTC"
       >
         0.00000001
       </Text>
@@ -281,7 +281,7 @@ Array [
             ],
           ]
         }
-        testID="ending_dBTC_suffix"
+        testID="resulting_dBTC_suffix"
       >
         dBTC
       </Text>
