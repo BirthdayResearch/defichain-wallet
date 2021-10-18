@@ -259,7 +259,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         <InputHelperText
           testID={`text_balance_${tokenAForm}`}
           label={`${translate('screens/PoolSwapScreen', 'Available')}: `}
-          content={tokenA.amount}
+          content={tokenA.id === '0_unified' ? new BigNumber(tokenA.amount).minus(reservedDfi).toFixed(8) : tokenA.amount}
           suffix={` ${tokenA.displaySymbol}`}
         />
         {tokenA.id === '0_unified' && <ReservedDFIInfoText />}
@@ -355,12 +355,13 @@ function TokenRow (form: TokenForm): JSX.Element {
     title,
     controlName,
     enableMaxButton,
-    isDisabled
+    isDisabled,
+    maxAmount
   } = form
   const Icon = getNativeIcon(token.displaySymbol)
   const rules: { required: boolean, pattern: RegExp, validate: any, max?: string } = {
     required: true,
-    max: form.maxAmount,
+    max: maxAmount,
     pattern: /^\d*\.?\d*$/,
     validate: {
       greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
@@ -404,13 +405,13 @@ function TokenRow (form: TokenForm): JSX.Element {
               (enableMaxButton && onChangeFromAmount !== undefined) && (
                 <>
                   <SetAmountButton
-                    amount={new BigNumber(token.amount)}
+                    amount={new BigNumber(maxAmount ?? '0')}
                     onPress={onChangeFromAmount}
                     type={AmountButtonTypes.half}
                   />
 
                   <SetAmountButton
-                    amount={new BigNumber(token.amount)}
+                    amount={new BigNumber(maxAmount ?? '0')}
                     onPress={onChangeFromAmount}
                     type={AmountButtonTypes.max}
                   />
