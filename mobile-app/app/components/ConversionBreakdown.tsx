@@ -27,7 +27,7 @@ export function ConversionBreakdown (props: ConversionBreakdownProps): JSX.Eleme
         text={translate('components/ConversionBreakdown', 'CONVERSION DETAILS')}
       />
       <TextRow
-        lhs={translate('screens/ConversionBreakdown', 'Conversion type')}
+        lhs={translate('components/ConversionBreakdown', 'Conversion type')}
         rhs={{
           value: conversionType,
           testID: 'conversion_type'
@@ -42,14 +42,14 @@ export function ConversionBreakdown (props: ConversionBreakdownProps): JSX.Eleme
         }}
       />
       <NumberRow
-        lhs={translate('components/ConversionBreakdown', 'Resulting UTXO')}
+        lhs={translate('components/ConversionBreakdown', 'Resulting {{token}}', { token: 'UTXO' })}
         rhs={{
           value: new BigNumber(props.dfiUtxo?.amount ?? 0).plus(props.mode === 'accountToUtxos' ? amount : amount.negated()).toFixed(8),
           testID: 'resulting_utxo'
         }}
       />
       <NumberRow
-        lhs={translate('components/ConversionBreakdown', 'Resulting Tokens')}
+        lhs={translate('components/ConversionBreakdown', 'Resulting {{token}}', { token: 'Tokens' })}
         rhs={{
           value: new BigNumber(props.dfiToken?.amount ?? 0).plus(props.mode === 'utxosToAccount' ? amount : amount.negated()).toFixed(8),
           testID: 'resulting_token'
