@@ -62,7 +62,7 @@ context('Wallet - Convert DFI', () => {
   })
 
   it('should display info on reserved UTXO when UTXO to account conversion', function () {
-    cy.getByTestID('convert_info_text').should('be.visible')
+    cy.getByTestID('reserved_info_text').should('be.visible')
   })
 
   it('should test amount buttons when account to UTXO conversion', function () {

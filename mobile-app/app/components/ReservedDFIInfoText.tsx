@@ -10,7 +10,7 @@ interface ReservedDFIInfoTextProps {
 export function ReservedDFIInfoText (props: ReservedDFIInfoTextProps): JSX.Element {
   return (
     <InfoText
-      testID='convert_info_text'
+      testID='reserved_info_text'
       text={translate('components/ReservedDFIInfoText', 'A small UTXO amount (0.1 DFI) is reserved for fees.')}
       style={props.style}
     />
