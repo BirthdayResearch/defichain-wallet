@@ -17,7 +17,7 @@ export function Announcements (): JSX.Element {
   } = useLanguageContext()
   if (isSuccess && announcements !== undefined && announcements?.length > 0) {
     const announcement = findAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', announcements, language)
-    if (announcement !== undefined && announcement !== '') {
+    if (announcement !== undefined) {
       return (
         <ThemedView
           testID='announcements_banner'

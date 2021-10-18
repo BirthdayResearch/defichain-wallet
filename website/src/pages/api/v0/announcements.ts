@@ -9,23 +9,5 @@ export const cors = Cors({
 
 export default async function handle (req: NextApiRequest, res: NextApiResponse<AnnouncementData[]>): Promise<void> {
   await runMiddleware(req, res, cors)
-  res.json([{
-    lang: {
-      en: 'Guidelines',
-      de: 'Richtlinien',
-      'zh-Hans': '指导方针',
-      'zh-Hant': '指導方針'
-    },
-    version: '0.0.0 - 0.12.0'
-  },
-  {
-    lang: {
-      en: 'Refresh',
-      de: 'Erneuern',
-      'zh-Hans': '刷新',
-      'zh-Hant': '刷新'
-    },
-    version: '>=0.12.1'
-  }
-  ])
+  res.json([])
 }
