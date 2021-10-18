@@ -549,7 +549,7 @@ async function constructSignedConversionAndPoolswap ({
   amount
 }: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void): Promise<void> {
   try {
-    dispatch(transactionQueue.actions.push({ ...dfiConversionCrafter(amount, mode, onBroadcast), submitButtonLabel: 'CONVERTING' }))
+    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
   } catch (e) {
     Logging.error(e)
   }

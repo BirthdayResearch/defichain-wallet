@@ -37,7 +37,7 @@ export async function dfiConversionSigner (account: WhaleWalletAccount, amount: 
   return new CTransactionSegWit(signed)
 }
 
-export function dfiConversionCrafter (amount: BigNumber, mode: ConversionMode, onBroadcast: () => any): DfTxSigner {
+export function dfiConversionCrafter (amount: BigNumber, mode: ConversionMode, onBroadcast: () => any, submitButtonLabel?: string): DfTxSigner {
   return {
     sign: async (account: WhaleWalletAccount) => await dfiConversionSigner(account, amount, mode),
     title: translate('screens/ConvertConfirmScreen', 'Converting DFI'),
@@ -53,6 +53,7 @@ export function dfiConversionCrafter (amount: BigNumber, mode: ConversionMode, o
           symbolB: 'UTXO'
         })
     }),
-    onBroadcast
+    onBroadcast,
+    submitButtonLabel
   }
 }
