@@ -187,6 +187,12 @@
     "Learn more about the blockchain": "了解更多關於遞飛鏈區塊鏈和相關資訊",
     "DeFiChain Explorer": "遞飛鏈瀏覽器"
   },
+  "screens/KnowledgeBase": {
+    "LEARN ABOUT": "關於",
+    "Recovery words": "恢復字組",
+    "Passcode": "密碼",
+    "UTXO vs Token": "UTXO 和代幣區別"
+  },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "網絡",
     "Select network": "切換網絡"

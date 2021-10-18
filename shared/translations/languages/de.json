@@ -185,6 +185,12 @@
     "View official website": "Offizielle Website anzeigen",
     "Learn more about the blockchain": "Erfahre mehr über die Blockchain"
   },
+  "screens/KnowledgeBase": {
+    "LEARN ABOUT": "LERNE ETWAS ÜBER",
+    "Recovery words": "Wiederherstellungssatz",
+    "Passcode": "Passwort",
+    "UTXO vs Token": "UTXO vs Token"
+  },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "NETZWERK",
     "Select network": "Netzwerkauswahl"
