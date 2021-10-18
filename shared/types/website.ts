@@ -7,8 +7,8 @@ export interface AnnouncementText {
 
 export interface AnnouncementData {
   lang: AnnouncementText
-  version: {
-    min: string
-    max?: string
-  }
+  /**
+   * Versioned matching represented as semver satisfies
+   */
+  version: string
 }
