@@ -94,7 +94,7 @@ context('Wallet - Send', function () {
       })
     })
 
-    it('should be able to check txn details and compute pending balance', function () {
+    it.skip('should be able to check txn details and compute pending balance', function () {
       cy.getByTestID('transaction_fee').invoke('text').then(transactionValue => {
         const transactionFee = transactionValue.replace(' DFI', '')
         cy.getByTestID('max_value').invoke('text').then((balanceValue) => {
