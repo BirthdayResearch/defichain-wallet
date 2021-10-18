@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { translate } from '@translations'
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedText } from '@components/themed'
-import { TransactionCloseButton } from '@components/OceanInterface'
+import { TransactionCloseButton } from './TransactionCloseButton'
 
 interface TransactionErrorProps {
   errMsg: string

@@ -16,7 +16,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Animated } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import * as Updates from 'expo-updates'
-import { TransactionDetail, TransactionError } from '@components/OceanInterface'
+import { TransactionDetail } from './TransactionDetail'
+import { TransactionError } from './TransactionError'
 
 const MAX_AUTO_RETRY = 1
 const MAX_TIMEOUT = 300000
