@@ -87,7 +87,7 @@
     "react-native-web": "~0.13.12",
     "react-number-format": "^4.6.4",
     "react-redux": "^7.2.4",
-    "semver": "^5.7.1",
+    "semver": "^7.3.5",
     "smart-buffer": "^4.1.0",
     "stream-browserify": "^3.0.0",
     "tailwind-rn": "^3.0.1",
