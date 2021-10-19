@@ -490,7 +490,7 @@
     "Sign Transaction": "Transaktion freigeben",
     "Signing your transaction...": "Transaktionsfreigabe...",
     "Transaction authorized": "Transaktion genehmigt",
-    "Please wait as your transaction is prepared": "Bitte warten, während die Transaktion vorbereitet wird",
+    "Please wait while your transaction is being prepared": "Bitte warten, während die Transaktion vorbereitet wird",
     "Verifying access": "Zugriff wird verifiziert"
   },
   "components/CreateWalletIndicator": {
