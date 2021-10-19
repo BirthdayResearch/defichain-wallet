@@ -8,7 +8,7 @@ export const DEFAULT_MESSAGES = {
   loadingMessage: 'Signing your transaction...',
   authorizedTransactionMessage: {
     title: 'Transaction authorized',
-    description: 'Please wait as your transaction is prepared'
+    description: 'Please wait while your transaction is being prepared'
   },
   grantedAccessMessage: {
     title: 'Access granted',
