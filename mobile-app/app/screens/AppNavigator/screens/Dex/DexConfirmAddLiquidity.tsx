@@ -24,7 +24,8 @@ import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
-import { ConversionBreakdown } from '@components/ConversionBreakdown'
+import { View } from '@components'
+import { InfoText } from '@components/InfoText'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -109,7 +110,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       <ThemedView
         dark={tailwind('bg-gray-800 border-b border-gray-700')}
         light={tailwind('bg-white border-b border-gray-300')}
-        style={tailwind('flex-col px-4 py-8 mb-4')}
+        style={tailwind('flex-col px-4 py-8')}
       >
         <SummaryTitle
           amount={lmTokenAmount}
@@ -134,13 +135,6 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         {conversion?.isConversionRequired === true && <ConversionTag />}
       </ThemedView>
 
-      {conversion?.isConversionRequired === true &&
-        <ConversionBreakdown
-          dfiUtxo={conversion?.DFIUtxo}
-          dfiToken={conversion?.DFIToken}
-          amount={conversion?.conversionAmount}
-          mode='utxosToAccount'
-        />}
       <ThemedSectionTitle
         testID='title_tx_detail'
         text={translate('screens/ConfirmAddLiq', 'TRANSACTION DETAILS')}
@@ -258,6 +252,15 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
           }
         ]}
       />
+
+      {conversion?.isConversionRequired === true && (
+        <View style={tailwind('p-4 mt-2')}>
+          <InfoText
+            testID='conversion_warning_info_text'
+            text={translate('components/ConversionInfoText', 'Please wait as we convert tokens for your transaction. Conversions are irreversible.')}
+          />
+        </View>
+      )}
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
