@@ -152,8 +152,8 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
       <NumberRow
         lhs={translate('screens/AddLiquidity', '{{tokenB}} price in {{tokenA}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
         rhs={{
-          value: tokenAPerLmToken.toFixed(8),
-          testID: 'text_a_to_b_price',
+          value: tokenBPerLmToken.toFixed(8),
+          testID: 'text_b_to_a_price',
           suffixType: 'text',
           suffix: `${pair.tokenA.symbol} per ${pair.tokenB.symbol}`
         }}
@@ -161,8 +161,8 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
       <NumberRow
         lhs={translate('screens/AddLiquidity', '{{tokenA} price in {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
         rhs={{
-          value: tokenBPerLmToken.toFixed(8),
-          testID: 'text_b_to_a_price',
+          value: tokenAPerLmToken.toFixed(8),
+          testID: 'text_a_to_b_price',
           suffixType: 'text',
           suffix: `${pair.tokenB.symbol} per ${pair.tokenA.symbol}`
         }}
