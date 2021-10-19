@@ -11,7 +11,10 @@ interface IWalletTextInputProps {
   title?: string
   titleTestID?: string
   valid?: boolean
-  inlineValidationText?: string
+  inlineText?: {
+    type: 'error' | 'helper'
+    text?: string | JSX.Element
+  }
   displayClearButton?: boolean
   onClearButtonPress?: () => void
   displayFocusStyle?: boolean
@@ -26,7 +29,7 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
     title,
     titleTestID,
     valid = true,
-    inlineValidationText,
+    inlineText,
     displayClearButton = false,
     onClearButtonPress,
     editable = true,
@@ -37,9 +40,6 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
     ...otherProps
   } = props
 
-  const hasInlineValidation = (): boolean => {
-    return inlineValidationText !== undefined
-  }
   const hasClearButton = (): boolean => {
     return (displayClearButton) && (onClearButtonPress !== undefined)
   }
@@ -66,7 +66,7 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
         <ThemedView
           light={tailwind(`${editable ? 'bg-transparent' : 'bg-gray-200'}`)}
           dark={tailwind(`${editable ? 'bg-transparent' : 'bg-gray-900'}`)}
-          style={tailwind('flex-row items-center p-2')}
+          style={tailwind('flex-row items-center p-2 justify-between')}
         >
           <ThemedTextInput
             style={style}
@@ -94,16 +94,28 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
         </ThemedView>
       </ThemedView>
       {
-        hasInlineValidation() && !valid &&
+        inlineText?.type === 'error' && !valid &&
           <ThemedText
             light={tailwind('text-error-500')}
             dark={tailwind('text-darkerror-500')}
             style={tailwind('text-sm my-1')}
             testID={props.testID !== undefined ? `${props.testID}_error` : undefined}
           >
-            {inlineValidationText}
+            {inlineText?.text}
           </ThemedText>
       }
+      {inlineText?.type === 'helper' && typeof inlineText?.text === 'string' &&
+        <ThemedText
+          light={tailwind('text-error-500')}
+          dark={tailwind('text-darkerror-500')}
+          style={tailwind('text-sm my-1')}
+          testID={props.testID !== undefined ? `${props.testID}_error` : undefined}
+        >
+          {inlineText?.text}
+        </ThemedText>}
+
+      {inlineText?.type === 'helper' && typeof inlineText?.text !== 'string' && inlineText?.text}
+
     </ThemedView>
   )
 })

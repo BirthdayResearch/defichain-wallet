@@ -125,12 +125,20 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
         cy.getByTestID('confirm_title').should('have.text', 'You are removing')
         cy.getByTestID('text_remove_amount').should('have.text', '10.00000000')
         cy.getByTestID('text_remove_amount_suffix').should('have.text', ' dETH-DFI')
+
+        // Transaction Details section
+        cy.getByTestID('transaction_type').should('have.text', 'Remove liquidity')
+
+        // Estimated Amount to Receive section
+        cy.getByTestID('price_a').contains('0.01000000 ETH per DFI')
+        cy.getByTestID('price_a_label').contains('DFI price in dETH')
+        cy.getByTestID('price_b').contains('100.00000000 DFI per ETH')
+        cy.getByTestID('price_b_label').contains('dETH price in DFI')
+
+        // Price Details section
         cy.getByTestID('a_amount').should('have.text', new BigNumber(valueA).toFixed(8))
         cy.getByTestID('b_amount').should('have.text', new BigNumber(valueB).toFixed(8))
-        cy.getByTestID('price_a').contains('0.01000000')
-        cy.getByTestID('price_a_label').contains('DFI price per dETH')
-        cy.getByTestID('price_b').contains('100.00000000')
-        cy.getByTestID('price_b_label').contains('dETH price per DFI')
+
         cy.getByTestID('button_confirm_remove').click().wait(2000)
         cy.closeOceanInterface()
       })
