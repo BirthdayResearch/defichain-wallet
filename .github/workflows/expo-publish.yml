@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: 15
 
-      - uses: expo/expo-github-action@c3c02de017ef8cf6152daee160e8a47a2340a5e5
+      - uses: expo/expo-github-action@b099f17d588e23df069b60d39ca1e21327066a4f
         with:
           expo-version: 4.x
           expo-cache: true
