@@ -13,6 +13,8 @@ import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
 import { DexScreen } from './DexScreen'
 import { ConfirmPoolSwapScreen, DexForm } from './PoolSwap/ConfirmPoolSwapScreen'
 import { DerivedTokenState, PoolSwapScreen } from './PoolSwap/PoolSwapScreen'
+import { WalletToken } from '@store/wallet'
+import { ConversionParam } from '../Balances/BalancesNavigator'
 
 export interface DexParamList {
   DexScreen: undefined
@@ -26,20 +28,35 @@ export interface DexParamList {
     slippage: number
     priceRateA: string
     priceRateB: string
+    conversion?: ConversionParam
   }
   AddLiquidity: { pair: PoolPairData }
-  ConfirmAddLiquidity: { pair: PoolPairData, summary: AddLiquiditySummary }
+  ConfirmAddLiquidity: {
+    pair: PoolPairData
+    summary: AddLiquiditySummary
+    conversion?: ConversionParam
+  }
   RemoveLiquidity: { pair: PoolPairData }
-  ConfirmRemoveLiquidity: { amount: BigNumber, fee: BigNumber, pair: PoolPairData, tokenAAmount: string, tokenBAmount: string }
+  ConfirmRemoveLiquidity: {
+    amount: BigNumber
+    fee: BigNumber
+    pair: PoolPairData
+    tokenAAmount: string
+    tokenBAmount: string
+    tokenA?: WalletToken
+    tokenB?: WalletToken
+  }
 
   [key: string]: undefined | object
 }
 
-export interface AddLiquiditySummary extends PoolPairData {
-  fee: BigNumber
-  tokenAAmount: BigNumber
-  tokenBAmount: BigNumber
-  percentage: BigNumber
+export interface AddLiquiditySummary {
+  fee: BigNumber // stick to whatever estimation/calculation done on previous page
+  tokenAAmount: BigNumber // transaction amount
+  tokenBAmount: BigNumber // transaction amount
+  percentage: BigNumber // to add
+  tokenABalance: BigNumber // token A balance (after deducting 0.1 DFI if DFI)
+  tokenBBalance: BigNumber // token B balance (after deducting 0.1 DFI if DFI)
 }
 
 const DexStack = createStackNavigator<DexParamList>()

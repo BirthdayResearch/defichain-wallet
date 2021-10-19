@@ -42,6 +42,7 @@ module.exports = {
         },
         warning: {
           50: '#FFFAF4',
+          100: '#FFF5EA',
           200: '#FFD2A3',
           300: '#FFBE7B',
           500: '#FF9629',
@@ -58,6 +59,9 @@ module.exports = {
           700: '#404040',
           800: '#262626',
           900: '#171717'
+        },
+        orange: {
+
         },
         darkprimary: {
           50: '#fcf4fa',
@@ -101,6 +105,7 @@ module.exports = {
         },
         darkwarning: {
           50: '#382301',
+          100: '#7D4E05',
           200: '#FFE7C2',
           300: '#FFD99D',
           500: '#FF9F0A',

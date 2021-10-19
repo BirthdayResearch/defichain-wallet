@@ -5,6 +5,7 @@ export interface OceanTransaction {
   broadcasted: boolean
   tx: CTransactionSegWit
   title?: string
+  submitButtonLabel?: string
   onBroadcast?: () => any
   onConfirmation?: () => any
   onError?: () => any

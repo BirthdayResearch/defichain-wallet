@@ -9,17 +9,21 @@ import { Logging } from '@api'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
-import { ThemedIcon, ThemedScrollView, ThemedSectionTitle } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
 import { RootState } from '@store'
-import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from '../DexNavigator'
 import { DerivedTokenState } from './PoolSwapScreen'
 import { getNativeIcon } from '@components/icons/assets'
+import { ConversionTag } from '@components/ConversionTag'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { TextRow } from '@components/TextRow'
+import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
+import { ConversionBreakdown } from '@components/ConversionBreakdown'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmPoolSwapScreen'>
 
@@ -34,8 +38,10 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
     priceRateA,
     priceRateB
   } = route.params
+  const { conversion } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
@@ -71,55 +77,77 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
     }
   }
 
+  function getSubmitLabel (): string {
+    if (!hasPendingBroadcastJob && !hasPendingJob) {
+      return 'CONFIRM SWAP'
+    }
+    if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
+      return currentBroadcastJob.submitButtonLabel
+    }
+    return 'SWAPPING'
+  }
+
   return (
     <ThemedScrollView style={tailwind('pb-4')}>
-      <SummaryTitle
-        amount={swap.fromAmount}
-        suffixType='component'
-        testID='text_swap_amount'
-        title={translate('screens/PoolSwapConfirmScreen', 'You are swapping')}
+      <ThemedView
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        light={tailwind('bg-white border-b border-gray-300')}
+        style={tailwind('flex-col px-4 py-8 mb-4')}
       >
-        <TokenAIcon height={24} width={24} style={tailwind('ml-1')} />
-        <ThemedIcon iconType='MaterialIcons' name='arrow-right-alt' size={24} style={tailwind('px-1')} />
-        <TokenBIcon height={24} width={24} />
-      </SummaryTitle>
+        <SummaryTitle
+          amount={swap.fromAmount}
+          suffixType='component'
+          testID='text_swap_amount'
+          title={translate('screens/PoolSwapConfirmScreen', 'You are swapping')}
+        >
+          <TokenAIcon height={24} width={24} style={tailwind('ml-1')} />
+          <ThemedIcon iconType='MaterialIcons' name='arrow-right-alt' size={24} style={tailwind('px-1')} />
+          <TokenBIcon height={24} width={24} />
+        </SummaryTitle>
+        {conversion?.isConversionRequired === true && <ConversionTag />}
+      </ThemedView>
 
-      <ThemedSectionTitle
-        testID='title_swap_detail'
-        text={translate('screens/PoolSwapConfirmScreen', 'ESTIMATED BALANCE AFTER SWAP')}
-      />
-      <NumberRow
-        lhs={translate('screens/PoolSwapConfirmScreen', '{{token}} balance', { token: tokenA.displaySymbol })}
-        rhs={{
-          testID: 'source_amount',
-          value: BigNumber.max(new BigNumber(tokenA.amount).minus(swap.fromAmount), 0).toFixed(8),
-          suffixType: 'text',
-          suffix: tokenA.displaySymbol
-        }}
-      />
-      <NumberRow
-        lhs={translate('screens/PoolSwapConfirmScreen', '{{token}} balance', { token: tokenB.displaySymbol })}
-        rhs={{
-          testID: 'target_amount',
-          value: BigNumber.max(new BigNumber(tokenB.amount).plus(swap.toAmount), 0).toFixed(8),
-          suffixType: 'text',
-          suffix: tokenB.displaySymbol
-        }}
-      />
-
+      {conversion?.isConversionRequired === true &&
+        <ConversionBreakdown
+          dfiUtxo={conversion?.DFIUtxo}
+          dfiToken={conversion?.DFIToken}
+          amount={conversion?.conversionAmount}
+          mode='utxosToAccount'
+        />}
       <ThemedSectionTitle
         testID='title_tx_detail'
         text={translate('screens/PoolSwapConfirmScreen', 'TRANSACTION DETAILS')}
       />
 
-      <NumberRow
-        lhs={translate('screens/PoolSwapConfirmScreen', 'Slippage Tolerance')}
+      <TextRow
+        lhs={translate('screens/PoolSwapConfirmScreen', 'Transaction type')}
         rhs={{
-          value: new BigNumber(slippage).times(100).toFixed(),
-          suffix: '%',
-          testID: 'slippage_fee',
-          suffixType: 'text'
+          value: conversion?.isConversionRequired === true ? translate('screens/PoolSwapConfirmScreen', 'Convert & swap') : translate('screens/PoolSwapConfirmScreen', 'Swap'),
+          testID: 'text_transaction_type'
         }}
+        textStyle={tailwind('text-sm font-normal')}
+      />
+      <NumberRow
+        lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated to receive')}
+        rhs={{
+          testID: 'estimated_to_receive',
+          value: swap.toAmount.toFixed(8),
+          suffixType: 'text',
+          suffix: swap.toToken.displaySymbol
+        }}
+      />
+      <EstimatedFeeInfo
+        lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated fee')}
+        rhs={{
+          value: fee.toFixed(8),
+          testID: 'text_fee',
+          suffix: 'DFI'
+        }}
+      />
+
+      <ThemedSectionTitle
+        testID='title_price_details'
+        text={translate('screens/PoolSwapConfirmScreen', 'PRICE DETAILS')}
       />
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', '{{tokenA}} price per {{tokenB}}', {
@@ -145,21 +173,36 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
           suffix: tokenB.displaySymbol
         }}
       />
-
-      <EstimatedFeeInfo
-        lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated fee')}
+      <NumberRow
+        lhs={translate('screens/PoolSwapConfirmScreen', 'Slippage Tolerance')}
         rhs={{
-          value: fee.toFixed(8),
-          testID: 'text_fee',
-          suffix: 'DFI (UTXO)'
+          value: new BigNumber(slippage).times(100).toFixed(),
+          suffix: '%',
+          testID: 'slippage_fee',
+          suffixType: 'text'
         }}
+      />
+
+      <TransactionResultsRow
+        tokens={[
+          {
+            symbol: tokenA.displaySymbol,
+            value: BigNumber.max(new BigNumber(tokenA.amount).minus(swap.fromAmount), 0).toFixed(8),
+            suffix: tokenA.displaySymbol
+          },
+          {
+            symbol: tokenB.displaySymbol,
+            value: BigNumber.max(new BigNumber(tokenB.amount).plus(swap.toAmount), 0).toFixed(8),
+            suffix: tokenB.displaySymbol
+          }
+        ]}
       />
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/PoolSwapConfirmScreen', 'CONFIRM SWAP')}
-        isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        submittingLabel={translate('screens/PoolSwapConfirmScreen', 'SWAPPING')}
+        isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        processingLabel={translate('screens/PoolSwapConfirmScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='swap'
@@ -190,8 +233,8 @@ async function constructSignedSwapAndSend (
       const swap: PoolSwap = {
         fromScript: script,
         toScript: script,
-        fromTokenId: Number(dexForm.fromToken.id),
-        toTokenId: Number(dexForm.toToken.id),
+        fromTokenId: Number(dexForm.fromToken.id === '0_unified' ? '0' : dexForm.fromToken.id),
+        toTokenId: Number(dexForm.toToken.id === '0_unified' ? '0' : dexForm.toToken.id),
         fromAmount: dexForm.fromAmount,
         maxPrice
       }

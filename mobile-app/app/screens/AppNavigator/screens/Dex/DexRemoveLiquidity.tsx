@@ -12,7 +12,6 @@ import { View } from '@components/index'
 import { Button } from '@components/Button'
 import { NumberRow } from '@components/NumberRow'
 import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedTextInput, ThemedView } from '@components/themed'
-import { TokenBalanceRow } from '@components/TokenBalanceRow'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { RootState } from '@store'
@@ -21,6 +20,7 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
+import { tokenSelector } from '@store/wallet'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
@@ -46,6 +46,8 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   const lmToken = tokens.find(token => token.symbol === pair.symbol) as AddressToken
   const tokenAPerLmToken = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
   const tokenBPerLmToken = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
+  const tokenA = useSelector((state: RootState) => tokenSelector(state.wallet, pair.tokenA.id))
+  const tokenB = useSelector((state: RootState) => tokenSelector(state.wallet, pair.tokenB.id))
 
   const setInputPercentage = (percentage: string): void => {
     // this must round down, avoid attempt remove more than selected (or even available)
@@ -64,7 +66,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
-    navigation.navigate('RemoveLiquidityConfirmScreen', { amount, pair, tokenAAmount, tokenBAmount, fee })
+    navigation.navigate('RemoveLiquidityConfirmScreen', { amount, pair, tokenAAmount, tokenBAmount, fee, tokenA, tokenB })
   }
 
   useEffect(() => {
@@ -134,65 +136,58 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         text={translate('screens/RemoveLiquidity', 'YOU ARE REMOVING')}
       />
 
-      <ThemedView
-        dark={tailwind('bg-gray-800')}
-        light={tailwind('bg-white')}
-        style={tailwind('w-full mb-4')}
+      <NumberRow
+        lhs={pair.tokenA.displaySymbol}
+        rhs={{
+          value: tokenAAmount.toFixed(8),
+          testID: 'price_a',
+          suffixType: 'text',
+          suffix: pair.tokenA.displaySymbol
+        }}
+      />
+      <NumberRow
+        lhs={pair.tokenB.displaySymbol}
+        rhs={{
+          value: tokenBAmount.toFixed(8),
+          testID: 'price_b',
+          suffixType: 'text',
+          suffix: pair.tokenB.displaySymbol
+        }}
+      />
+      <ThemedSectionTitle
+        testID='remove_liq_price_details_title'
+        text={translate('screens/RemoveLiquidity', 'PRICE DETAILS')}
+      />
+      <NumberRow
+        lhs={translate('screens/AddLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenB.displaySymbol, tokenB: pair.tokenA.displaySymbol })}
+        rhs={{
+          value: tokenAPerLmToken.toFixed(8),
+          testID: 'text_a_to_b_price',
+          suffixType: 'text',
+          suffix: pair.tokenB.displaySymbol
+        }}
+      />
+      <NumberRow
+        lhs={translate('screens/AddLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
+        rhs={{
+          value: tokenBPerLmToken.toFixed(8),
+          testID: 'text_b_to_a_price',
+          suffixType: 'text',
+          suffix: pair.tokenA.displaySymbol
+        }}
+      />
+      <ThemedText
+        light={tailwind('text-gray-600')}
+        dark={tailwind('text-gray-300')}
+        style={tailwind('pt-2 pb-8 px-4 text-sm')}
       >
-        <TokenBalanceRow
-          iconType={pair?.tokenA?.displaySymbol}
-          lhs={pair?.tokenA?.displaySymbol}
-          rhs={{
-            value: tokenAAmount.toFixed(8),
-            testID: 'price_a'
-          }}
-        />
-
-        <TokenBalanceRow
-          iconType={pair?.tokenB?.displaySymbol}
-          lhs={pair?.tokenB?.displaySymbol}
-          rhs={{
-            value: tokenBAmount.toFixed(8),
-            testID: 'price_b'
-          }}
-        />
-
-        <ThemedSectionTitle
-          testID='remove_liq_price_details_title'
-          text={translate('screens/RemoveLiquidity', 'PRICE DETAILS')}
-        />
-        <NumberRow
-          lhs={translate('screens/AddLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenB.displaySymbol, tokenB: pair.tokenA.displaySymbol })}
-          rhs={{
-            value: tokenAPerLmToken.toFixed(8),
-            testID: 'text_a_to_b_price',
-            suffixType: 'text',
-            suffix: pair.tokenB.displaySymbol
-          }}
-        />
-        <NumberRow
-          lhs={translate('screens/AddLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
-          rhs={{
-            value: tokenBPerLmToken.toFixed(8),
-            testID: 'text_b_to_a_price',
-            suffixType: 'text',
-            suffix: pair.tokenA.displaySymbol
-          }}
-        />
-      </ThemedView>
+        {translate('screens/RemoveLiquidity', 'Review full transaction details in the next screen')}
+      </ThemedText>
 
       <ContinueButton
         enabled={valid}
         onPress={removeLiquidity}
       />
-
-      <ThemedText
-        light={tailwind('text-gray-600')}
-        dark={tailwind('text-gray-300')}
-        style={tailwind('mb-8 text-center text-sm')}
-      >
-        {translate('screens/RemoveLiquidity', 'Review full transaction details in the next screen')}
-      </ThemedText>
     </ThemedScrollView>
   )
 }
@@ -247,14 +242,12 @@ function AmountSlider (props: { current: number, onChange: (percentage: string) 
 
 function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
   return (
-    <View style={tailwind('mx-2')}>
-      <Button
-        disabled={!props.enabled}
-        label={translate('components/Button', 'CONTINUE')}
-        onPress={props.onPress}
-        testID='button_continue_remove_liq'
-        title='continue'
-      />
-    </View>
+    <Button
+      disabled={!props.enabled}
+      label={translate('components/Button', 'CONTINUE')}
+      onPress={props.onPress}
+      testID='button_continue_remove_liq'
+      title='continue'
+    />
   )
 }

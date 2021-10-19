@@ -75,10 +75,13 @@
     "Where do you want to send?": "Wohin möchtest du senden?",
     "How much do you want to send?": "Wie viel möchtest du senden?",
     "Enter an amount": "Gib eine Menge ein",
-    "Available": "Verfügbar"
+    "Available": "Verfügbar",
+    "Amount to be converted": "Umzuwandelnder Betrag",
+    "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Senden bestätigen",
+    "CONFIRM SEND": "SENDEN BESTÄTIGEN",
     "You are sending": "Du sendest",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Address": "Adresse",
@@ -90,7 +93,8 @@
     "SENDING": "WIRD GESENDET",
     "Sending": "Senden {{symbol}}",
     "Sending {{amount}} {{symbol}}": "Sende {{amount}} {{symbol}}",
-    "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN"
+    "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN",
+    "Convert & send": "Umrechnen & senden"
   },
   "screens/ConvertScreen": {
     "Convert DFI": "DFI umwandeln",
@@ -104,7 +108,8 @@
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
     "After conversion, you will receive": "Nach der Konvertierung erhältst du",
-    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion"
+    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
+    "Estimated fee": "Geschätzte Gebühr"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Bestätige DFI Konvertierung",
@@ -184,6 +189,12 @@
     "Track transactions, tokens and DEX pairs": "Nachverfolgung von Transaktionen, Token und DEX-Handelspaaren",
     "View official website": "Offizielle Website anzeigen",
     "Learn more about the blockchain": "Erfahre mehr über die Blockchain"
+  },
+  "screens/KnowledgeBase": {
+    "LEARN ABOUT": "LERNE ETWAS ÜBER",
+    "Recovery words": "Wiederherstellungssatz",
+    "Passcode": "Passwort",
+    "UTXO vs Token": "UTXO vs Token"
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "NETZWERK",
@@ -364,7 +375,10 @@
     "PRICE DETAILS": "PREISDETAILS",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",    
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
-    "Your pooled {{token}}": "Deine {{token}} im Pool"
+    "Your pooled {{token}}": "Deine {{token}} im Pool",
+    "Amount to be converted": "Umzuwandelnder Betrag",
+    "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
+    "Estimated fee": "Geschätzte Gebühr"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "Du fügst hinzu",
@@ -380,7 +394,11 @@
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "Füge {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} hinzu",
     "PRICE DETAILS": "PREISDETAILS",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
-    "Your pooled {{symbol}}": "Deine {{symbol}} im Pool"
+    "Your pooled {{symbol}}": "Deine {{symbol}} im Pool",
+    "Transaction type": "Transaktionsart",
+    "Add liquidity": "Liquidität hinzufügen",
+    "Convert & add liquidity": "Umrechnen & Liquidität hinzufügen",
+    "CONFIRM ADD LIQUIDITY": "LIQUIDITÄT HINZUFÜGEN BESTÄTIGEN"
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "Du entfernst",
@@ -439,7 +457,9 @@
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Estimated fee": "Geschätzte Gebühr",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}"
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
+    "Amount to be converted": "Umzuwandelnder Betrag",
+    "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Du tauschst",
@@ -453,7 +473,10 @@
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
     "{{token}} balance": "{{token}} Saldo",
-    "CONFIRM SWAP": "BESTÄTIGE DEN UMTAUSCH"
+    "CONFIRM SWAP": "BESTÄTIGE DEN UMTAUSCH",
+    "Transaction type": "Transaktionsart",
+    "Swap": "Tausche",
+    "Convert & swap": "Umrechnen & tauschen"
   },
   "screens/UnlockWallet": {
     "Enter Passcode": "Passwort eingeben",
@@ -510,5 +533,25 @@
   },
   "components/DFIBalanceCard": {
     "Learn more about UTXO and Token": "Erfahre mehr über UTXO und Token"
+  },
+  "components/ReservedDFIInfoText": {
+    "A small UTXO amount (0.1 DFI) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI) ist für Gebühren reserviert."
+  },
+  "components/ConversionInfoText": {
+    "Conversion will be required. Your passcode will be asked to authorize both transactions.": "Eine Konvertierung ist erforderlich. Du wirst nach deinem Passwort gefragt, um beide Transaktionen frei zu geben."
+  },
+  "components/ConversionTag": {
+    "Conversion required": "Konvertierung erforderlich"
+  },
+  "components/ConversionBreakdown": {
+    "CONVERSION DETAILS": "UMRECHNUNGSDETAILS",
+    "Conversion type": "Art der Konvertierung",
+    "Amount to convert": "Umzuwandelnder Betrag",
+    "Resulting {{token}}": "Zu erhaltende {{token}}",
+    "Amount above are prior to transaction": "Die oben genannten Beträge geben die Werte vor der Transaktion wieder"
+  },
+  "components/TransactionResultsRow": {
+    "TRANSACTION RESULTS": "TRANSAKTIONSERGEBNISSE",
+    "Resulting {{symbol}}": "Zu erhaltende {{symbol}}"
   }
 }

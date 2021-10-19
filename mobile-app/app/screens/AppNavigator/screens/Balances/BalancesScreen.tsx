@@ -57,7 +57,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
   const tokens = useTokensAPI()
   const nonDfiTokens = tokens.filter(token =>
-    token.id !== '0_utxo' && token.id !== '0'
+    token.symbol !== 'DFI'
   )
 
   return (

@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Conversion tag should match snapshot 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignSelf": "flex-start",
+        "borderBottomLeftRadius": 4,
+        "borderBottomRightRadius": 4,
+        "borderTopLeftRadius": 4,
+        "borderTopRightRadius": 4,
+        "flexDirection": "row",
+        "marginTop": 8,
+        "paddingBottom": 6,
+        "paddingLeft": 6,
+        "paddingRight": 6,
+        "paddingTop": 6,
+      },
+      Object {
+        "backgroundColor": "rgba(255, 245, 234, 1)",
+      },
+    ]
+  }
+  testID="conversion_tag"
+>
+  <Text />
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Array [
+          Object {
+            "fontFamily": "MediumFont",
+            "fontSize": 12,
+            "fontWeight": "500",
+            "lineHeight": 16,
+          },
+          Object {
+            "color": "rgba(115, 115, 115, 1)",
+          },
+        ],
+      ]
+    }
+  >
+    Conversion required
+  </Text>
+</View>
+`;

@@ -10,15 +10,15 @@ interface InfoTextProp extends ThemedProps, TextProps {
 export function InfoText (props: InfoTextProp): JSX.Element {
   const {
     style,
-    light = tailwind('bg-warning-50'),
-    dark = tailwind('bg-darkwarning-50'),
+    light = tailwind('bg-warning-50 border-warning-200'),
+    dark = tailwind('bg-darkwarning-50 border-darkwarning-200'),
     ...otherProps
   } = props
 
   return (
     <ThemedView
       style={[
-        tailwind('rounded p-2 flex-row'),
+        tailwind('rounded p-2 flex-row border'),
         style
       ]}
       light={light}

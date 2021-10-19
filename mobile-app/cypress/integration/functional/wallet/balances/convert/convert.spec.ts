@@ -62,7 +62,7 @@ context('Wallet - Convert DFI', () => {
   })
 
   it('should display info on reserved UTXO when UTXO to account conversion', function () {
-    cy.getByTestID('convert_info_text').should('be.visible')
+    cy.getByTestID('reserved_info_text').should('be.visible')
   })
 
   it('should test amount buttons when account to UTXO conversion', function () {
@@ -88,10 +88,10 @@ context('Wallet - Convert DFI', () => {
     cy.getByTestID('text_convert_amount').contains('1.00000000')
     cy.getByTestID('convert_amount_source_suffix').contains('Token')
     cy.getByTestID('convert_amount_target_suffix').contains('UTXO')
-    cy.getByTestID('source_amount').contains('9.00000000')
-    cy.getByTestID('source_amount_label').contains('Token')
-    cy.getByTestID('target_amount').contains('21.00000000')
-    cy.getByTestID('target_amount_label').contains('UTXO')
+    cy.getByTestID('resulting_Token').contains('9.00000000')
+    cy.getByTestID('resulting_Token_label').contains('Token')
+    cy.getByTestID('resulting_UTXO').contains('21.00000000')
+    cy.getByTestID('resulting_UTXO_label').contains('UTXO')
     cy.getByTestID('text_fee').should('exist')
     cy.getByTestID('button_cancel_convert').click()
   })
@@ -108,10 +108,10 @@ context('Wallet - Convert DFI', () => {
     cy.getByTestID('text_convert_amount').contains('1.00000000')
     cy.getByTestID('convert_amount_source_suffix').contains('UTXO')
     cy.getByTestID('convert_amount_target_suffix').contains('Token')
-    cy.getByTestID('source_amount').contains('18.90000000')
-    cy.getByTestID('source_amount_label').contains('UTXO')
-    cy.getByTestID('target_amount').contains('11.00000000')
-    cy.getByTestID('target_amount_label').contains('Token')
+    cy.getByTestID('resulting_UTXO').contains('18.90000000')
+    cy.getByTestID('resulting_UTXO_label').contains('UTXO')
+    cy.getByTestID('resulting_Token').contains('11.00000000')
+    cy.getByTestID('resulting_Token_label').contains('Token')
     cy.getByTestID('text_fee').should('exist')
   })
 })
