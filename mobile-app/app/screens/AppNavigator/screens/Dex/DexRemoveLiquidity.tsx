@@ -110,6 +110,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
               setInputPercentage(event.nativeEvent.text)
             }}
             testID='text_input_percentage'
+            placeholder={translate('screens/RemoveLiquidity', 'Enter an amount ')}
             value={percentage}
             keyboardType='numeric'
             containerStyle='w-full'
