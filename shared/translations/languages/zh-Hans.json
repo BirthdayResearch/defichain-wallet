@@ -541,7 +541,8 @@
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要预留一些可使用的 UTXO (0.1 DFI) 作为费用"
   },
   "components/ConversionInfoText": {
-    "Conversion will be required. Your passcode will be asked to authorize both transactions.": "将需要转换。您需要以 App 密码授权兑换交易"
+    "Conversion will be required. Your passcode will be asked to authorize both transactions.": "将需要转换。您需要以 App 密码授权兑换交易",
+    "Please wait as we convert tokens for your transaction. Conversions are irreversible.": "正在为您的交易转换代币，请稍候。转换过程是不可逆转的。"
   },
   "components/ConversionTag": {
     "Conversion required": "需要转换"
