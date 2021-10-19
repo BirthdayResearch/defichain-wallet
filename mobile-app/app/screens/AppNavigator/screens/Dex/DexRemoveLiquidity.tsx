@@ -113,7 +113,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
             value={percentage}
             keyboardType='numeric'
             containerStyle='w-full'
-            style={tailwind('w-full')}
+            style={tailwind('flex-grow')}
             inlineText={{
               type: 'helper',
               text: <HelperText displayedPercentage={displayedPercentage} />
@@ -240,7 +240,7 @@ function HelperText (props: {displayedPercentage: string}): JSX.Element {
     >
       <ThemedText style={tailwind('text-sm')}>{`${translate('screens/RemoveLiquidity', 'You are removing')} `}</ThemedText>
       <ThemedText style={tailwind('text-sm font-semibold')}>{`${props.displayedPercentage}% `}</ThemedText>
-      <ThemedText style={tailwind('text-sm')}>from liquidity pool</ThemedText>
+      <ThemedText style={tailwind('text-sm')}>{translate('screens/RemoveLiquidity', 'from liquidity pool')}</ThemedText>
     </ThemedView>
   )
 }
