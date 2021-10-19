@@ -192,6 +192,12 @@
     "Learn more about the blockchain": "了解更多关于递飞链区块链和相关资讯",
     "DeFiChain Explorer": "递飞链浏览器"
   },
+  "screens/KnowledgeBase": {
+    "LEARN ABOUT": "关于",
+    "Recovery words": "恢复字组",
+    "Passcode": "密码",
+    "UTXO vs Token": "UTXO 和代币区别"
+  },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "网络",
     "Select network": "切换网络"

@@ -32,6 +32,13 @@ interface AboutLinks {
 
 const MAIN_LINKS: AboutScreenLinks[] = [
   {
+    testID: 'knowledge_base_link',
+    title: 'Knowledge base',
+    subtitle: 'Common questions and support documents',
+    iconName: 'help-circle-outline',
+    onPress: (navigation) => navigation.navigate('KnowledgeBaseScreen')
+  },
+  {
     testID: 'community_link',
     title: 'Participate with active community',
     subtitle: 'Report in Github, discuss in Reddit and Telegram',
