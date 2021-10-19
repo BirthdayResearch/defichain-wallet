@@ -139,21 +139,21 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         text={translate('screens/ConfirmRemoveLiquidity', 'PRICE DETAILS')}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmRemoveLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenB.displaySymbol, tokenB: pair.tokenA.displaySymbol })}
+        lhs={translate('screens/ConfirmRemoveLiquidity', '{{tokenB}} price in {{tokenA}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
         rhs={{
           value: aToBRate.toFixed(8),
           testID: 'price_a',
           suffixType: 'text',
-          suffix: pair.tokenB.displaySymbol
+          suffix: `${pair.tokenA.symbol} per ${pair.tokenB.symbol}`
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmRemoveLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
+        lhs={translate('screens/ConfirmRemoveLiquidity', '{{tokenA}} price in {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
         rhs={{
           value: bToARate.toFixed(8),
           testID: 'price_b',
           suffixType: 'text',
-          suffix: pair.tokenA.displaySymbol
+          suffix: `${pair.tokenB.symbol} per ${pair.tokenA.symbol}`
         }}
       />
 
