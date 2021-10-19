@@ -262,7 +262,6 @@ context('Wallet - DEX - Add Liquidity with Conversion', () => {
     cy.getByTestID('conversion_tag').should('exist')
 
     cy.getByTestID('text_add_amount').should('contain', '11.00000000')
-    cy.validateConversionDetails(false, '1.00000000', '9.00000000', '11.00000000')
     cy.getByTestID('button_confirm_add').click().wait(3000)
     cy.closeOceanInterface()
   })

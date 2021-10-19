@@ -317,7 +317,6 @@ context('Wallet - Send - with Conversion', function () {
       cy.closeOceanInterface().wait(3000)
       cy.getByTestID('conversion_tag').should('exist')
       cy.getByTestID('text_send_amount').should('contain', '12.00000000')
-      cy.validateConversionDetails(true, '2.10000000', '12.10000000', '7.90000000')
       cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.closeOceanInterface()
     })
