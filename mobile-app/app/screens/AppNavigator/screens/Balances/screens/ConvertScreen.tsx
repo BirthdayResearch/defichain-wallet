@@ -114,7 +114,7 @@ export function ConvertScreen (props: Props): JSX.Element {
       <ThemedSectionTitle
         testID='title_transaction_details'
         text={translate('screens/ConvertScreen', 'TRANSACTION DETAILS')}
-        style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
+        style={tailwind('px-4 mt-6 pb-2 text-xs text-gray-500 font-medium')}
       />
       <EstimatedFeeInfo
         lhs={translate('screens/ConvertScreen', 'Estimated fee')}
@@ -138,7 +138,7 @@ export function ConvertScreen (props: Props): JSX.Element {
         onPress={() => convert(sourceToken, targetToken)}
         testID='button_continue_convert'
         title='Convert'
-        margin='mt-14 mx-4'
+        margin='my-14 mx-4'
       />
     </ThemedScrollView>
   )
