@@ -79,8 +79,8 @@ context('Onboarding - Create Mnemonic Wallet with refresh recovery word', () => 
   const settingsRecoveryWords: string[] = []
 
   before(() => {
-    cy.exitWallet()
     cy.visit('/')
+    cy.exitWallet()
   })
 
   beforeEach(() => {
