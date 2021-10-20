@@ -38,10 +38,10 @@ context('Wallet - DEX - Remove Liquidity', () => {
   it('should display price based on pool tokenA:tokenB ratio regardless removal amount', function () {
     cy.wait(1000)
     cy.getByTestID('text_a_to_b_price').contains('0.01000000')
-    cy.getByTestID('text_a_to_b_price_suffix').should('have.text', 'DFI per ETH')
+    cy.getByTestID('text_a_to_b_price_suffix').should('have.text', 'DFI per dETH')
     cy.getByTestID('text_a_to_b_price_label').contains('dETH price in DFI')
     cy.getByTestID('text_b_to_a_price').contains('100.00000000')
-    cy.getByTestID('text_b_to_a_price_suffix').should('have.text', 'ETH per DFI')
+    cy.getByTestID('text_b_to_a_price_suffix').should('have.text', 'dETH per DFI')
     cy.getByTestID('text_b_to_a_price_label').contains('DFI price in dETH')
   })
 
@@ -161,10 +161,10 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
     cy.getByTestID('text_fee').should('exist')
     cy.getByTestID('price_a').contains('0.01000000')
     cy.getByTestID('price_a_label').contains('dETH price in DFI')
-    cy.getByTestID('price_a_suffix').should('have.text', 'DFI per ETH')
+    cy.getByTestID('price_a_suffix').should('have.text', 'DFI per dETH')
     cy.getByTestID('price_b').contains('100.00000000')
     cy.getByTestID('price_b_label').contains('DFI price in dETH')
-    cy.getByTestID('price_b_suffix').should('have.text', 'ETH per DFI')
+    cy.getByTestID('price_b_suffix').should('have.text', 'dETH per DFI')
 
     cy.getByTestID('button_confirm_remove').click().wait(2000)
     // Check for authorization page description

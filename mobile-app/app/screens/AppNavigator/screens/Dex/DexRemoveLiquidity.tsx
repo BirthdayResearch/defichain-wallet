@@ -156,7 +156,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
           value: tokenBPerLmToken.toFixed(8),
           testID: 'text_b_to_a_price',
           suffixType: 'text',
-          suffix: `${pair.tokenA.symbol} per ${pair.tokenB.symbol}`
+          suffix: `${pair.tokenA.displaySymbol} per ${pair.tokenB.displaySymbol}`
         }}
       />
       <NumberRow
@@ -165,7 +165,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
           value: tokenAPerLmToken.toFixed(8),
           testID: 'text_a_to_b_price',
           suffixType: 'text',
-          suffix: `${pair.tokenB.symbol} per ${pair.tokenA.symbol}`
+          suffix: `${pair.tokenB.displaySymbol} per ${pair.tokenA.displaySymbol}`
         }}
       />
       <ThemedText

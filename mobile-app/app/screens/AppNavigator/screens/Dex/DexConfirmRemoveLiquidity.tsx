@@ -144,7 +144,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
           value: bToARate.toFixed(8),
           testID: 'price_b',
           suffixType: 'text',
-          suffix: `${pair.tokenA.symbol} per ${pair.tokenB.symbol}`
+          suffix: `${pair.tokenA.displaySymbol} per ${pair.tokenB.displaySymbol}`
         }}
       />
       <NumberRow
@@ -153,7 +153,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
           value: aToBRate.toFixed(8),
           testID: 'price_a',
           suffixType: 'text',
-          suffix: `${pair.tokenB.symbol} per ${pair.tokenA.symbol}`
+          suffix: `${pair.tokenB.displaySymbol} per ${pair.tokenA.displaySymbol}`
         }}
       />
 
