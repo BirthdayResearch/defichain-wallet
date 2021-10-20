@@ -18,7 +18,10 @@ describe('wallet text input', () => {
           testID='testID'
           value={value}
           valid={false}
-          inlineValidationText='invalid'
+          inlineText={{
+            type: 'error',
+            text: 'invalid'
+          }}
           inputType={type}
           displayClearButton={value !== ''}
           onClearButtonPress={onClear}
