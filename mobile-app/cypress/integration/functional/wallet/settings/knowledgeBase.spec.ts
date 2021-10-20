@@ -1,7 +1,7 @@
 context('Wallet - Settings', () => {
   before(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('header_settings').click()
     cy.getByTestID('setting_navigate_About').click()
     cy.getByTestID('knowledge_base_link').should('exist').click()
   })

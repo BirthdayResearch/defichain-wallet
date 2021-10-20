@@ -1,7 +1,7 @@
 context('Wallet - Settings', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('header_settings').click()
   })
 
   it('should navigate to network selection when clicked on selected network', function () {

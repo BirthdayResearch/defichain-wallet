@@ -11,7 +11,7 @@ function sendWithNewPin (): void {
 }
 
 function nonTransactionNewPin (): void {
-  cy.getByTestID('bottom_tab_settings').click()
+  cy.getByTestID('header_settings').click()
   cy.getByTestID('view_recovery_words').click()
   cy.getByTestID('pin_authorize').type('696969').wait(3000)
   cy.getByTestID('recovery_word_screen').should('exist')
@@ -35,7 +35,7 @@ context('Wallet - Change Passcode', () => {
   })
 
   it('should be able to go passcode FAQ', function () {
-    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('header_settings').click()
     cy.getByTestID('view_change_passcode').click()
     cy.getByTestID('pin_authorize').type('000000').wait(3000)
     cy.getByTestID('passcode_faq_link').click()
@@ -68,7 +68,7 @@ context('Wallet - Change Passcode', () => {
 
   it('should not display on unencrypted mnemonic wallet', function () {
     cy.createEmptyWallet(false)
-    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('header_settings').click()
     cy.getByTestID('view_change_passcode').should('not.exist')
   })
 })
