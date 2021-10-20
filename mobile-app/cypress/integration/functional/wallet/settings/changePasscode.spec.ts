@@ -11,6 +11,7 @@ function sendWithNewPin (): void {
 }
 
 function nonTransactionNewPin (): void {
+  cy.getByTestID('bottom_tab_balances').click()
   cy.getByTestID('header_settings').click()
   cy.getByTestID('view_recovery_words').click()
   cy.getByTestID('pin_authorize').type('696969').wait(3000)
@@ -39,9 +40,9 @@ context('Wallet - Change Passcode', () => {
     cy.getByTestID('view_change_passcode').click()
     cy.getByTestID('pin_authorize').type('000000').wait(3000)
     cy.getByTestID('passcode_faq_link').click()
-    cy.url().should('include', 'app/PasscodeFaq')
+    cy.url().should('include', 'app/Settings/PasscodeFaq')
     cy.go('back')
-    cy.url().should('include', '/app/ChangePinScreen')
+    cy.url().should('include', '/app/Settings/ChangePinScreen')
   })
 
   it('should be able to change passcode', function () {

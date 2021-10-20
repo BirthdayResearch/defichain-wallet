@@ -81,6 +81,7 @@ Cypress.Commands.add('checkBalanceRow', (id: string, details: BalanceTokenDetail
 })
 
 Cypress.Commands.add('changePasscode', () => {
+  cy.getByTestID('bottom_tab_balances').click()
   cy.getByTestID('header_settings').click()
   cy.getByTestID('view_change_passcode').click()
   cy.getByTestID('pin_authorize').type('000000').wait(3000)
