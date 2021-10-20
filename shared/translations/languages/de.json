@@ -20,7 +20,7 @@
     "Add liquidity": "Liquidität hinzufügen",
     "Confirm Add Liquidity": "Liquidität hinzufügen bestätigen",
     "Remove Liquidity": "Liquidität entfernen",
-    "Confirm removal": "Bestätige die Rücknahme",
+    "Confirm Removal": "Entfernen bestätigen",
     "Confirm swap": "Bestätige den Umtausch",
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Wähle unten ein Pool-Paar aus, stelle Liquidität für den Betrieb der dezentralen Börse (DEX) bereit und beginne, Gebühren und jährliche Renditen von bis zu 100% zu verdienen. Du kannst jederzeit Liquidität entfernen.",
     "YOUR LIQUIDITY": "VON DIR BEREITGESTELLTE LIQUIDITÄT",
@@ -407,7 +407,13 @@
     "Price": "Preis",
     "Estimated fee": "Geschätzte Gebühr",
     "REMOVE": "ENTFERNEN",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}"    
+    "PRICE DETAILS": "PREISDETAILS",
+    "{{symbolA}} per {{symbolB}}": "{{symbolA}} pro {{symbolB}}",
+    "{{symbolB}} per {{symbolA}}": "{{symbolB}} pro {{symbolA}}",
+    "{{tokenA}} price in {{tokenB}}": "{{tokenA}}-Preis in {{tokenB}}",
+    "{{tokenB}} price in {{tokenA}}": "{{tokenB}}-Preis in {{tokenA}}",
+    "Transaction type": "Transaktions-Typ",
+    "Remove liquidity": "Liquidität entfernen"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "Entferne Liquidität",
@@ -419,7 +425,13 @@
     "Removing {{amount}} {{symbol}}": "Entferne {{amount}} {{symbol}}",
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
     "PRICE DETAILS": "PREISDETAILS",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}"
+    "{{symbolA}} per {{symbolB}}": "{{symbolA}} pro {{symbolB}}",
+    "{{symbolB}} per {{symbolA}}": "{{symbolB}} pro {{symbolA}}",
+    "{{tokenA}} price in {{tokenB}}": "{{tokenA}}-Preis in {{tokenB}}",
+    "{{tokenB}} price in {{tokenA}}": "{{tokenB}}-Preis in {{tokenA}}",
+    "Drag or enter amount to remove": "Wähle den Betrag oder gib den zu entfernenden Betrag ein",
+    "You are removing": "Du entnimmst",
+    "from liquidity pool": "aus dem Liquiditätspool"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "Wallet Netzwerk",
@@ -435,7 +447,7 @@
   },
   "components/slider": {
     "None": "Keine",
-    "All": "Alle"
+    "Max": "Max"
   },
   "components/Button": {
     "CONTINUE": "FORTFAHREN"
@@ -490,7 +502,7 @@
     "Sign Transaction": "Transaktion freigeben",
     "Signing your transaction...": "Transaktionsfreigabe...",
     "Transaction authorized": "Transaktion genehmigt",
-    "Please wait while your transaction is being prepared": "Bitte warten, während die Transaktion vorbereitet wird",
+    "Please wait while your transaction is being prepared": "Please wait while your transaction is being prepared",
     "Verifying access": "Zugriff wird verifiziert"
   },
   "components/CreateWalletIndicator": {
