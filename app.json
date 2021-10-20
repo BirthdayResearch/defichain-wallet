@@ -1,7 +1,6 @@
 {
   "expo": {
     "name": "DeFiChain Wallet",
-    "sdkVersion": "43.0.0",
     "description": "DeFi Blockchain Light Wallet for iOS, Android & Web.",
     "slug": "wallet",
     "owner": "defichain",

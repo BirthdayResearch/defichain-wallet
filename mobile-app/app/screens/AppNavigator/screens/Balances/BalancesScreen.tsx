@@ -1,8 +1,8 @@
 import { getNativeIcon } from '@components/icons/assets'
-import { View } from '@components/index'
+import { View } from '@components'
 import {
-  ThemedFlatList,
   ThemedIcon,
+  ThemedScrollView,
   ThemedSectionTitle,
   ThemedText,
   ThemedTouchableOpacity,
@@ -18,15 +18,17 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { ocean } from '@store/ocean'
 import { WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
-import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useCallback, useEffect, useState } from 'react'
-import { RefreshControl } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
-import { BalanceText, DFIBalanceCard } from './components'
+import { BalanceText } from './components/BalanceText'
+import { Announcements } from '@screens/AppNavigator/screens/Balances/components/Announcements'
+import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
+import { translate } from '@translations'
+import { RefreshControl } from 'react-native'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -35,7 +37,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const { wallets } = useWalletPersistenceContext()
-  const { isBalancesDisplayed, toggleDisplayBalances: onToggleDisplayBalances } = useDisplayBalancesContext()
+  const {
+    isBalancesDisplayed,
+    toggleDisplayBalances: onToggleDisplayBalances
+  } = useDisplayBalancesContext()
 
   const dispatch = useDispatch()
   const [refreshing, setRefreshing] = useState(false)
@@ -51,84 +56,82 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch])
 
   const tokens = useTokensAPI()
-  const nonDfiTokens = tokens.filter(token =>
-    token.id !== '0_utxo' && token.id !== '0'
+  const dstTokens = tokens.filter(token =>
+    token.symbol !== 'DFI'
   )
 
   return (
-    <ThemedFlatList
-      ItemSeparatorComponent={() => (
-        <ThemedView
-          dark={tailwind('bg-gray-700')}
-          light={tailwind('bg-gray-100')}
-          style={tailwind('h-px')}
-        />
-      )}
-      ListEmptyComponent={() => (
-        <ThemedText
-          dark={tailwind('text-gray-500')}
-          light={tailwind('text-gray-500')}
-          style={tailwind('text-xs font-medium ml-4 mt-2')}
-          testID='empty_token_text'
-        >
-          {translate('screens/BalancesScreen', 'You do not have any other tokens.')}
-        </ThemedText>)}
-      ListHeaderComponent={(
-        <>
-          <DFIBalanceCard />
-          <ThemedView
-            style={tailwind('flex flex-row justify-between')}
-          >
-            <ThemedSectionTitle
-              testID='balances_title'
-              text={translate('screens/BalancesScreen', 'PORTFOLIO')}
-            />
-            <ThemedTouchableOpacity
-              testID='toggle_balance'
-              light={tailwind('bg-transparent')}
-              dark={tailwind('bg-transparent')}
-              style={tailwind('flex flex-row pt-4 pr-4 items-center')}
-              onPress={onToggleDisplayBalances}
-            >
-              <ThemedIcon
-                iconType='MaterialIcons'
-                dark={tailwind('text-gray-200')}
-                light={tailwind('text-black')}
-                style={tailwind('self-center pr-1')}
-                name={`${isBalancesDisplayed ? 'visibility' : 'visibility-off'}`}
-                size={15}
-                testID='toggle_balance_icon'
-              />
-              <ThemedText
-                dark={tailwind('text-gray-500')}
-                light={tailwind('text-gray-500')}
-                style={tailwind('text-xs font-medium')}
-                testID='toggle_balance_text'
-              >
-                {translate('screens/BalancesScreen', `${isBalancesDisplayed ? 'Hide' : 'Show'} balances`)}
-              </ThemedText>
-            </ThemedTouchableOpacity>
-          </ThemedView>
-        </>
-      )}
-      data={nonDfiTokens}
+    <ThemedScrollView
+      contentContainerStyle={tailwind('pb-8')} testID='balances_list'
       refreshControl={
         <RefreshControl
           onRefresh={onRefresh}
           refreshing={refreshing}
         />
       }
-      renderItem={({ item }) => {
-        return (
-          <BalanceItemRow
-            key={item.symbol}
-            onPress={() => navigation.navigate({ name: 'TokenDetail', params: { token: item }, merge: true })}
-            token={item}
+    >
+      <Announcements />
+      <DFIBalanceCard />
+      <ThemedView
+        style={tailwind('flex flex-row justify-between')}
+      >
+        <ThemedSectionTitle
+          testID='balances_title'
+          text={translate('screens/BalancesScreen', 'PORTFOLIO')}
+        />
+        <ThemedTouchableOpacity
+          testID='toggle_balance'
+          light={tailwind('bg-transparent')}
+          dark={tailwind('bg-transparent')}
+          style={tailwind('flex flex-row pt-4 pr-4 items-center')}
+          onPress={onToggleDisplayBalances}
+        >
+          <ThemedIcon
+            iconType='MaterialIcons'
+            dark={tailwind('text-gray-200')}
+            light={tailwind('text-black')}
+            style={tailwind('self-center pr-1')}
+            name={`${isBalancesDisplayed ? 'visibility' : 'visibility-off'}`}
+            size={15}
+            testID='toggle_balance_icon'
           />
-        )
-      }}
-      testID='balances_list'
-    />
+          <ThemedText
+            dark={tailwind('text-gray-500')}
+            light={tailwind('text-gray-500')}
+            style={tailwind('text-xs font-medium')}
+            testID='toggle_balance_text'
+          >
+            {translate('screens/BalancesScreen', `${isBalancesDisplayed ? 'Hide' : 'Show'} balances`)}
+          </ThemedText>
+        </ThemedTouchableOpacity>
+      </ThemedView>
+      {
+        dstTokens.length === 0
+          ? (
+            <ThemedText
+              dark={tailwind('text-gray-500')}
+              light={tailwind('text-gray-500')}
+              style={tailwind('text-xs font-medium ml-4 mt-2')}
+              testID='empty_token_text'
+            >
+              {translate('screens/BalancesScreen', 'You do not have any other tokens.')}
+            </ThemedText>
+          )
+          : (
+            dstTokens.map((item) => (
+              <BalanceItemRow
+                key={item.symbol}
+                onPress={() => navigation.navigate({
+                  name: 'TokenDetail',
+                  params: { token: item },
+                  merge: true
+                })}
+                token={item}
+              />
+            ))
+          )
+      }
+    </ThemedScrollView>
   )
 }
 
@@ -140,8 +143,8 @@ function BalanceItemRow ({
   const testID = `balances_row_${token.id}`
   return (
     <ThemedTouchableOpacity
-      dark={tailwind('bg-gray-800')}
-      light={tailwind('bg-white')}
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      light={tailwind('bg-white border-b border-gray-100')}
       onPress={onPress}
       style={tailwind('py-4 pl-4 pr-2 flex-row justify-between items-center')}
       testID={testID}

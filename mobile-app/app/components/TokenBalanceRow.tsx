@@ -14,8 +14,6 @@ export function TokenBalanceRow (props: { lhs: string, rhs: { value: string | nu
       style={tailwind('p-4 flex-row items-center w-full')}
     >
       <View style={tailwind('flex-1 flex-row items-center')}>
-        <TokenIcon style={tailwind('mr-2')} />
-
         <ThemedText
           style={tailwind('font-medium')}
           testID={`${props.rhs.testID}_unit`}
@@ -24,7 +22,7 @@ export function TokenBalanceRow (props: { lhs: string, rhs: { value: string | nu
         </ThemedText>
       </View>
 
-      <View style={tailwind('flex-1')}>
+      <View style={tailwind('flex-row items-center')}>
         <NumberFormat
           decimalScale={8}
           displayType='text'
@@ -32,7 +30,7 @@ export function TokenBalanceRow (props: { lhs: string, rhs: { value: string | nu
             <ThemedText
               dark={tailwind('text-gray-400')}
               light={tailwind('text-gray-500')}
-              style={tailwind('flex-wrap font-medium text-right')}
+              style={tailwind('flex-wrap font-medium text-right mr-1')}
               testID={props.rhs.testID}
             >
               {val}
@@ -41,6 +39,7 @@ export function TokenBalanceRow (props: { lhs: string, rhs: { value: string | nu
           thousandSeparator
           value={props.rhs.value}
         />
+        <TokenIcon style={tailwind('mt-0.5')} height={17} width={17} />
       </View>
     </ThemedView>
   )

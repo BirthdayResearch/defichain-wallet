@@ -40,7 +40,6 @@ context('Wallet - Send', function () {
       cy.getByTestID('amount_input').type('0.1')
       cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
       cy.getByTestID('amount_input_clear_button').click()
-      cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
 
       // Invalid address
       cy.getByTestID('address_input').type('z')
@@ -63,14 +62,14 @@ context('Wallet - Send', function () {
     })
 
     it('should contain info text when sending UTXO', function () {
-      cy.getByTestID('send_info_text').should('be.visible')
+      cy.getByTestID('reserved_info_text').should('be.visible')
     })
 
     it('should be able to compute for max values', function () {
       cy.getByTestID('transaction_fee').then(($txt: any) => {
-        const transactionFee = $txt[0].textContent.replace(' DFI (UTXO)', '')
+        const transactionFee = $txt[0].textContent.replace(' DFI', '')
         cy.getByTestID('max_value').then(($txt: any) => {
-          const maxValue = $txt[0].textContent.replace(' DFI (UTXO)', '')
+          const maxValue = $txt[0].textContent.replace(' DFI', '')
           expect(new BigNumber(transactionFee).plus(maxValue).toFixed(0)).eq('10')
           cy.getByTestID('amount_input').clear()
           cy.getByTestID('MAX_amount_button').click()
@@ -82,9 +81,9 @@ context('Wallet - Send', function () {
 
     it('should be able to compute half of max values', function () {
       cy.getByTestID('transaction_fee').then(($txt: any) => {
-        const transactionFee = $txt[0].textContent.replace(' DFI (UTXO)', '')
+        const transactionFee = $txt[0].textContent.replace(' DFI', '')
         cy.getByTestID('max_value').then(($txt: any) => {
-          const maxValue = $txt[0].textContent.replace(' DFI (UTXO)', '')
+          const maxValue = $txt[0].textContent.replace(' DFI', '')
           const halfValue = new BigNumber(maxValue).div(2)
           expect(new BigNumber(halfValue).multipliedBy(2).plus(transactionFee).toFixed(0)).eq('10')
           cy.getByTestID('amount_input').clear()
@@ -95,37 +94,30 @@ context('Wallet - Send', function () {
       })
     })
 
-    it('should be able to check txn details and compute pending balance', function () {
+    it.skip('should be able to check txn details and compute pending balance', function () {
       cy.getByTestID('transaction_fee').invoke('text').then(transactionValue => {
-        const transactionFee = transactionValue.replace(' DFI (UTXO)', '')
+        const transactionFee = transactionValue.replace(' DFI', '')
         cy.getByTestID('max_value').invoke('text').then((balanceValue) => {
-          const balance = balanceValue.replace(' DFI (UTXO)', '')
+          const balance = balanceValue.replace(' DFI', '')
           const sendAmount = '1'
           const slippage = '0.1'
           cy.getByTestID('amount_input').clear().type(sendAmount)
           cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
           cy.getByTestID('send_submit_button').click()
           // Check txn value
-          cy.getByTestID('text_amount').invoke('text').then((textAmount) => {
-            const amount = textAmount.replace(' DFI (UTXO)', '')
+          cy.getByTestID('text_send_amount').invoke('text').then((textAmount) => {
+            const amount = textAmount.replace(' DFI', '')
             expect(new BigNumber(amount).toFixed(8)).eq(new BigNumber(sendAmount).toFixed(8))
-            // Check network value
-            cy.getByTestID('header_active_network').first().invoke('text').then((headerNetworkValue) => {
-              cy.getByTestID('text_network').invoke('text').then((networkValue) => {
-                expect(headerNetworkValue).eq(networkValue)
-                // Check txn value
-                cy.getByTestID('text_fee').invoke('text').then((textFeeValue) => {
-                  const textFee = textFeeValue.replace(' DFI (UTXO)', '')
-                  expect(new BigNumber(transactionFee).toFixed(8)).eq(new BigNumber(textFee).toFixed(8))
-                  // Check computed pending balance
-                  cy.getByTestID('text_balance').invoke('text').then((pendingBalanceValue) => {
-                    const pendingBalance = pendingBalanceValue.replace(' DFI (UTXO)', '')
-                    expect(new BigNumber(balance).plus(slippage)
-                      .minus(transactionFee).minus(sendAmount).toFixed(8)
-                    ).eq(pendingBalance)
-                    cy.getByTestID('button_cancel_send').click()
-                  })
-                })
+            cy.getByTestID('text_fee').invoke('text').then((textFeeValue) => {
+              const textFee = textFeeValue.replace(' DFI', '')
+              expect(new BigNumber(transactionFee).toFixed(8)).eq(new BigNumber(textFee).toFixed(8))
+              // Check computed pending balance
+              cy.getByTestID('resulting_DFI').invoke('text').then((pendingBalanceValue) => {
+                const pendingBalance = pendingBalanceValue.replace(' DFI', '')
+                expect(new BigNumber(balance).plus(slippage)
+                  .minus(transactionFee).minus(sendAmount).toFixed(8)
+                ).eq(pendingBalance)
+                cy.getByTestID('button_cancel_send').click()
               })
             })
           })
@@ -177,7 +169,7 @@ context('Wallet - Send', function () {
       cy.getByTestID('button_confirm_send').click().wait(3000)
       // Check for authorization page description
       cy.getByTestID('txn_authorization_description')
-        .contains(`Sending ${new BigNumber(oldAmount).toFixed(8)} DFI (UTXO)`)
+        .contains(`Sending ${new BigNumber(oldAmount).toFixed(8)} DFI`)
       // Cancel send on authorisation page
       cy.getByTestID('cancel_authorization').click()
       // Check for correct amount
@@ -199,7 +191,7 @@ context('Wallet - Send', function () {
       cy.getByTestID('button_confirm_send').click().wait(3000)
       // Check for authorization page description
       cy.getByTestID('txn_authorization_description')
-        .contains(`Sending ${new BigNumber(newAmount).toFixed(8)} DFI (UTXO)`)
+        .contains(`Sending ${new BigNumber(newAmount).toFixed(8)} DFI`)
       cy.closeOceanInterface()
     })
   })
@@ -273,7 +265,7 @@ context('Wallet - Send - Max Values', function () {
       cy.getByTestID('send_submit_button').click()
       cy.getByTestID('confirm_title').contains('You are sending')
       cy.getByTestID('text_send_amount').contains('9.90000000')
-      cy.getByTestID('text_send_amount_suffix').contains('DFI (UTXO)')
+      cy.getByTestID('text_send_amount_suffix').contains('DFI')
       cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.closeOceanInterface()
       cy.getByTestID('bottom_tab_balances').click()
@@ -283,6 +275,55 @@ context('Wallet - Send - Max Values', function () {
     it(`should check if exist on other side ${address}`, function () {
       cy.wrap(whale.address.getBalance(address)).then((response) => {
         expect(response).contains('9.90000000')
+      })
+    })
+  })
+})
+
+context('Wallet - Send - with Conversion', function () {
+  let whale: WhaleApiClient
+
+  const addresses = ['bcrt1qh5callw3zuxtnks96ejtekwue04jtnm84f04fn', 'bcrt1q6ey8k3w0ll3cn5sg628nxthymd3une2my04j4n']
+  beforeEach(function () {
+    const network = localStorage.getItem('Development.NETWORK')
+    whale = new WhaleApiClient({
+      url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
+      network: 'regtest',
+      version: 'v0'
+    })
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet().sendDFITokentoWallet().wait(3000)
+    cy.getByTestID('bottom_tab_balances').click()
+  })
+
+  addresses.forEach(function (address) {
+    it(`should be able to send to address ${address}`, function () {
+      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('balances_list').should('exist')
+      cy.getByTestID('dfi_balance_card').should('exist')
+      cy.getByTestID('send_dfi_button').click()
+      cy.getByTestID('address_input').clear().type(address)
+      cy.getByTestID('transaction_details_info_text').should('contain', 'Review full transaction details in the next screen')
+      cy.getByTestID('amount_input').type('12')
+      cy.getByTestID('conversion_info_text').should('exist')
+      cy.getByTestID('conversion_info_text').should('contain', 'Conversion will be required. Your passcode will be asked to authorize both transactions.')
+      cy.getByTestID('text_amount_to_convert_label').should('exist')
+      cy.getByTestID('text_amount_to_convert_label').should('contain', 'Amount to be converted')
+      cy.getByTestID('text_amount_to_convert').should('contain', '2.10000000')
+      cy.getByTestID('transaction_details_info_text').should('contain', 'Authorize transaction in the next screen to convert')
+      cy.getByTestID('send_submit_button').click()
+      cy.getByTestID('txn_authorization_description')
+        .contains(`Converting ${new BigNumber('2.1').toFixed(8)} Token to UTXO`)
+      cy.closeOceanInterface().wait(3000)
+      cy.getByTestID('conversion_tag').should('exist')
+      cy.getByTestID('text_send_amount').should('contain', '12.00000000')
+      cy.getByTestID('button_confirm_send').click().wait(3000)
+      cy.closeOceanInterface()
+    })
+
+    it(`should check if exist on other side ${address}`, function () {
+      cy.wrap(whale.address.getBalance(address)).then((response) => {
+        expect(response).contains('12.00000000')
       })
     })
   })

@@ -4,6 +4,7 @@ describe('wallet reducer', () => {
   let initialState: WalletState
   let tokenDFI: WalletToken
   let utxoDFI: WalletToken
+  let unifiedDFI: WalletToken
 
   beforeEach(() => {
     initialState = {
@@ -28,6 +29,13 @@ describe('wallet reducer', () => {
       id: '0_utxo',
       displaySymbol: 'DFI (UTXO)',
       avatarSymbol: 'DFI (UTXO)'
+    }
+    unifiedDFI = {
+      ...tokenDFI,
+      amount: '0',
+      id: '0_unified',
+      displaySymbol: 'DFI',
+      avatarSymbol: 'DFI'
     }
   })
 
@@ -110,6 +118,9 @@ describe('wallet reducer', () => {
     }, {
       ...tokenDFI,
       amount: '0'
+    }, {
+      ...unifiedDFI,
+      amount: '77.00000000'
     }])
   })
 
@@ -128,12 +139,19 @@ describe('wallet reducer', () => {
     const state = {
       ...initialState,
       utxoBalance: '77.00000000',
-      tokens: [{ ...utxoDFI }, { ...tokenDFI }, { ...btc }]
+      tokens: [{ ...utxoDFI }, { ...tokenDFI }, { ...unifiedDFI }, { ...btc }]
     }
     const actual = tokensSelector(state)
-    expect(actual).toStrictEqual([{
-      ...utxoDFI,
-      amount: '77.00000000'
-    }, { ...tokenDFI }, { ...btc }])
+    expect(actual).toStrictEqual([
+      {
+        ...utxoDFI,
+        amount: '77.00000000'
+      },
+      { ...tokenDFI },
+      {
+        ...unifiedDFI,
+        amount: '100077.00000000'
+      },
+      { ...btc }])
   })
 })
