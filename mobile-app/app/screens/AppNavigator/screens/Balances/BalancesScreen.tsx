@@ -56,7 +56,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch])
 
   const tokens = useTokensAPI()
-  const nonDfiTokens = tokens.filter(token =>
+  const dstTokens = tokens.filter(token =>
     token.symbol !== 'DFI'
   )
 
@@ -106,7 +106,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         </ThemedTouchableOpacity>
       </ThemedView>
       {
-        nonDfiTokens.length === 0
+        dstTokens.length === 0
           ? (
             <ThemedText
               dark={tailwind('text-gray-500')}
@@ -118,7 +118,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             </ThemedText>
           )
           : (
-            nonDfiTokens.map((item) => (
+            dstTokens.map((item) => (
               <BalanceItemRow
                 key={item.symbol}
                 onPress={() => navigation.navigate({

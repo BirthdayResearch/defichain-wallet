@@ -493,7 +493,7 @@
     "Sign Transaction": "簽署交易",
     "Signing your transaction...": "正在簽署交易...",
     "Transaction authorized": "授權交易",
-    "Please wait while your transaction is being prepared": "正在準備交易，請稍候",
+    "Please wait while your transaction is being prepared": "請稍候，您的交易正在準備中",
     "Verifying access": "驗證訪問權限"
   },
   "components/CreateWalletIndicator": {
