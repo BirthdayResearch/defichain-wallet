@@ -55,7 +55,7 @@ export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): J
   )
 }
 
-function errorMessageMapping (err: string): ErrorMapping {
+export function errorMessageMapping (err: string): ErrorMapping {
   if (err === 'not enough balance after combing all prevouts') {
     return {
       code: ErrorCodes.InsufficientUTXO,

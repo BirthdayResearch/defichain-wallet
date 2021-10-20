@@ -18,7 +18,7 @@ import { Animated } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import * as Updates from 'expo-updates'
 import { TransactionDetail } from './TransactionDetail'
-import { TransactionError } from './TransactionError'
+import { errorMessageMapping, TransactionError } from './TransactionError'
 import { NotificationType } from '@api/persistence/notification_storage'
 
 const MAX_AUTO_RETRY = 1
