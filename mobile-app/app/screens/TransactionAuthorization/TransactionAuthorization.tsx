@@ -370,7 +370,7 @@ export function TransactionAuthorization (): JSX.Element | null {
               onCancel()
             }
           }}
-          enablePanDownToClose
+          enablePanDownToClose={transactionStatus !== TransactionStatus.BLOCK && transactionStatus !== TransactionStatus.SIGNING}
         >
           <PasscodePrompt
             onCancel={onCancel}
