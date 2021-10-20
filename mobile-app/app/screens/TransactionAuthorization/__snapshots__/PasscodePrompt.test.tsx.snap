@@ -5,7 +5,6 @@ exports[`transaction authorization screen should match snapshot of status: 0 1`]
   emulateUnlessSupported={true}
   style={
     Object {
-      "backgroundColor": "rgba(245, 245, 245, 1)",
       "flexDirection": "column",
       "height": "100%",
       "width": "100%",
@@ -13,38 +12,26 @@ exports[`transaction authorization screen should match snapshot of status: 0 1`]
   }
 >
   <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "paddingTop": undefined,
+        "alignItems": "flex-end",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "marginRight": 16,
+        "opacity": 1,
       }
     }
+    testID="cancel_authorization"
   >
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "display": "flex",
-          "flexDirection": "row-reverse",
-          "opacity": 1,
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "paddingTop": 16,
-        }
-      }
-      testID="cancel_authorization"
-    >
-      <Text />
-    </View>
+    <Text />
   </View>
   <View
     style={
@@ -54,7 +41,6 @@ exports[`transaction authorization screen should match snapshot of status: 0 1`]
           "flexDirection": "column",
           "flexGrow": 1,
           "flexShrink": 1,
-          "paddingTop": 32,
           "width": "100%",
         },
         Object {
@@ -154,7 +140,6 @@ exports[`transaction authorization screen should match snapshot of status: 1 1`]
   emulateUnlessSupported={true}
   style={
     Object {
-      "backgroundColor": "rgba(245, 245, 245, 1)",
       "flexDirection": "column",
       "height": "100%",
       "width": "100%",
@@ -162,62 +147,50 @@ exports[`transaction authorization screen should match snapshot of status: 1 1`]
   }
 >
   <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "paddingTop": undefined,
+        "alignItems": "flex-end",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "marginRight": 16,
+        "opacity": 1,
       }
     }
+    testID="cancel_authorization"
   >
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+    <Text
+      allowFontScaling={false}
       style={
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "display": "flex",
-          "flexDirection": "row-reverse",
-          "opacity": 1,
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "paddingTop": 16,
-        }
-      }
-      testID="cancel_authorization"
-    >
-      <Text
-        allowFontScaling={false}
-        style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 26,
+          },
           Array [
+            undefined,
             Object {
-              "color": undefined,
-              "fontSize": 26,
+              "color": "rgba(0, 0, 0, 1)",
             },
-            Array [
-              undefined,
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-            Object {
-              "fontFamily": "material",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            Object {},
-          ]
-        }
-      >
-        
-      </Text>
-    </View>
+          ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
   </View>
   <View
     style={
@@ -227,7 +200,6 @@ exports[`transaction authorization screen should match snapshot of status: 1 1`]
           "flexDirection": "column",
           "flexGrow": 1,
           "flexShrink": 1,
-          "paddingTop": 32,
           "width": "100%",
         },
         Object {
@@ -327,7 +299,6 @@ exports[`transaction authorization screen should match snapshot of status: 2 1`]
   emulateUnlessSupported={true}
   style={
     Object {
-      "backgroundColor": "rgba(245, 245, 245, 1)",
       "flexDirection": "column",
       "height": "100%",
       "width": "100%",
@@ -335,62 +306,50 @@ exports[`transaction authorization screen should match snapshot of status: 2 1`]
   }
 >
   <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "paddingTop": undefined,
+        "alignItems": "flex-end",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "marginRight": 16,
+        "opacity": 1,
       }
     }
+    testID="cancel_authorization"
   >
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+    <Text
+      allowFontScaling={false}
       style={
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "display": "flex",
-          "flexDirection": "row-reverse",
-          "opacity": 1,
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "paddingTop": 16,
-        }
-      }
-      testID="cancel_authorization"
-    >
-      <Text
-        allowFontScaling={false}
-        style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 26,
+          },
           Array [
+            undefined,
             Object {
-              "color": undefined,
-              "fontSize": 26,
+              "color": "rgba(0, 0, 0, 1)",
             },
-            Array [
-              undefined,
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-            Object {
-              "fontFamily": "material",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            Object {},
-          ]
-        }
-      >
-        
-      </Text>
-    </View>
+          ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
   </View>
   <View
     style={
@@ -400,7 +359,6 @@ exports[`transaction authorization screen should match snapshot of status: 2 1`]
           "flexDirection": "column",
           "flexGrow": 1,
           "flexShrink": 1,
-          "paddingTop": 32,
           "width": "100%",
         },
         Object {
@@ -500,7 +458,6 @@ exports[`transaction authorization screen should match snapshot of status: 3 1`]
   emulateUnlessSupported={true}
   style={
     Object {
-      "backgroundColor": "rgba(245, 245, 245, 1)",
       "flexDirection": "column",
       "height": "100%",
       "width": "100%",
@@ -508,62 +465,50 @@ exports[`transaction authorization screen should match snapshot of status: 3 1`]
   }
 >
   <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "paddingTop": undefined,
+        "alignItems": "flex-end",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "marginRight": 16,
+        "opacity": 1,
       }
     }
+    testID="cancel_authorization"
   >
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+    <Text
+      allowFontScaling={false}
       style={
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "display": "flex",
-          "flexDirection": "row-reverse",
-          "opacity": 1,
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "paddingTop": 16,
-        }
-      }
-      testID="cancel_authorization"
-    >
-      <Text
-        allowFontScaling={false}
-        style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 26,
+          },
           Array [
+            undefined,
             Object {
-              "color": undefined,
-              "fontSize": 26,
+              "color": "rgba(0, 0, 0, 1)",
             },
-            Array [
-              undefined,
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-            Object {
-              "fontFamily": "material",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            Object {},
-          ]
-        }
-      >
-        
-      </Text>
-    </View>
+          ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
   </View>
   <View
     style={
@@ -573,7 +518,6 @@ exports[`transaction authorization screen should match snapshot of status: 3 1`]
           "flexDirection": "column",
           "flexGrow": 1,
           "flexShrink": 1,
-          "paddingTop": 32,
           "width": "100%",
         },
         Object {
@@ -919,7 +863,6 @@ exports[`transaction authorization screen should match snapshot of status: 4 1`]
   emulateUnlessSupported={true}
   style={
     Object {
-      "backgroundColor": "rgba(245, 245, 245, 1)",
       "flexDirection": "column",
       "height": "100%",
       "width": "100%",
@@ -927,62 +870,50 @@ exports[`transaction authorization screen should match snapshot of status: 4 1`]
   }
 >
   <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "paddingTop": undefined,
+        "alignItems": "flex-end",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "marginRight": 16,
+        "opacity": 1,
       }
     }
+    testID="cancel_authorization"
   >
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+    <Text
+      allowFontScaling={false}
       style={
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "display": "flex",
-          "flexDirection": "row-reverse",
-          "opacity": 1,
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "paddingTop": 16,
-        }
-      }
-      testID="cancel_authorization"
-    >
-      <Text
-        allowFontScaling={false}
-        style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 26,
+          },
           Array [
+            undefined,
             Object {
-              "color": undefined,
-              "fontSize": 26,
+              "color": "rgba(0, 0, 0, 1)",
             },
-            Array [
-              undefined,
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-            Object {
-              "fontFamily": "material",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            Object {},
-          ]
-        }
-      >
-        
-      </Text>
-    </View>
+          ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
   </View>
   <View
     style={
@@ -992,7 +923,6 @@ exports[`transaction authorization screen should match snapshot of status: 4 1`]
           "flexDirection": "column",
           "flexGrow": 1,
           "flexShrink": 1,
-          "paddingTop": 32,
           "width": "100%",
         },
         Object {
@@ -1135,7 +1065,6 @@ exports[`transaction authorization screen should match snapshot of status: 5 1`]
   emulateUnlessSupported={true}
   style={
     Object {
-      "backgroundColor": "rgba(245, 245, 245, 1)",
       "flexDirection": "column",
       "height": "100%",
       "width": "100%",
@@ -1143,62 +1072,50 @@ exports[`transaction authorization screen should match snapshot of status: 5 1`]
   }
 >
   <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "paddingTop": undefined,
+        "alignItems": "flex-end",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "marginRight": 16,
+        "opacity": 1,
       }
     }
+    testID="cancel_authorization"
   >
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+    <Text
+      allowFontScaling={false}
       style={
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "display": "flex",
-          "flexDirection": "row-reverse",
-          "opacity": 1,
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "paddingTop": 16,
-        }
-      }
-      testID="cancel_authorization"
-    >
-      <Text
-        allowFontScaling={false}
-        style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 26,
+          },
           Array [
+            undefined,
             Object {
-              "color": undefined,
-              "fontSize": 26,
+              "color": "rgba(0, 0, 0, 1)",
             },
-            Array [
-              undefined,
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-            Object {
-              "fontFamily": "material",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            Object {},
-          ]
-        }
-      >
-        
-      </Text>
-    </View>
+          ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
   </View>
   <View
     style={
@@ -1208,7 +1125,6 @@ exports[`transaction authorization screen should match snapshot of status: 5 1`]
           "flexDirection": "column",
           "flexGrow": 1,
           "flexShrink": 1,
-          "paddingTop": 32,
           "width": "100%",
         },
         Object {
