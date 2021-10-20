@@ -4,9 +4,10 @@ import { RowNetworkItem } from '@components/RowNetworkItem'
 import { translate } from '@translations'
 import * as React from 'react'
 import { View } from 'react-native'
+import * as Updates from 'expo-updates'
 
 export function OnboardingNetworkSelectScreen (): JSX.Element {
-  const networks = getEnvironment().networks
+  const networks = getEnvironment(Updates.releaseChannel).networks
 
   return (
     <View testID='onboarding_network_selection_screen'>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { forwardRef, useState } from 'react'
 import { Platform, TextInputProps } from 'react-native'
 import { ThemedView, ThemedText, ThemedTextInput, ThemedIcon, ThemedSectionTitle, ThemedTouchableOpacity } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -11,31 +11,35 @@ interface IWalletTextInputProps {
   title?: string
   titleTestID?: string
   valid?: boolean
-  inlineValidationText?: string
+  inlineText?: {
+    type: 'error' | 'helper'
+    text?: string | JSX.Element
+  }
   displayClearButton?: boolean
   onClearButtonPress?: () => void
   displayFocusStyle?: boolean
+  containerStyle?: string
+  onBlur?: () => void
 }
 
-export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
+export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (props: WalletTextInputProps, ref: React.Ref<any>): JSX.Element {
   const [isFocus, setIsFocus] = useState(false)
   const {
     inputType,
     title,
     titleTestID,
     valid = true,
-    inlineValidationText,
+    inlineText,
     displayClearButton = false,
     onClearButtonPress,
     editable = true,
     children,
+    containerStyle,
     style,
+    onBlur,
     ...otherProps
   } = props
 
-  const hasInlineValidation = (): boolean => {
-    return inlineValidationText !== undefined
-  }
   const hasClearButton = (): boolean => {
     return (displayClearButton) && (onClearButtonPress !== undefined)
   }
@@ -44,7 +48,7 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
     <ThemedView
       light={tailwind('bg-transparent')}
       dark={tailwind('bg-transparent')}
-      style={tailwind('flex-col w-full')}
+      style={tailwind(`${containerStyle ?? 'w-full flex-col'}`)}
     >
       {title !== undefined &&
         <ThemedSectionTitle
@@ -62,15 +66,20 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
         <ThemedView
           light={tailwind(`${editable ? 'bg-transparent' : 'bg-gray-200'}`)}
           dark={tailwind(`${editable ? 'bg-transparent' : 'bg-gray-900'}`)}
-          style={tailwind('flex-row items-center p-2')}
+          style={tailwind('flex-row items-center p-2 justify-between')}
         >
           <ThemedTextInput
             style={style}
             onFocus={() => setIsFocus(true)}
             onBlur={() => {
+              if (onBlur != null) {
+                onBlur()
+              }
+
               setIsFocus(false)
             }}
             keyboardType={inputType}
+            ref={ref}
             editable={editable}
             {...otherProps}
           />
@@ -85,18 +94,31 @@ export function WalletTextInput (props: WalletTextInputProps): JSX.Element {
         </ThemedView>
       </ThemedView>
       {
-        hasInlineValidation() && !valid &&
+        inlineText?.type === 'error' && !valid &&
           <ThemedText
             light={tailwind('text-error-500')}
             dark={tailwind('text-darkerror-500')}
             style={tailwind('text-sm my-1')}
+            testID={props.testID !== undefined ? `${props.testID}_error` : undefined}
           >
-            {inlineValidationText}
+            {inlineText?.text}
           </ThemedText>
       }
+      {inlineText?.type === 'helper' && typeof inlineText?.text === 'string' &&
+        <ThemedText
+          light={tailwind('text-error-500')}
+          dark={tailwind('text-darkerror-500')}
+          style={tailwind('text-sm my-1')}
+          testID={props.testID !== undefined ? `${props.testID}_error` : undefined}
+        >
+          {inlineText?.text}
+        </ThemedText>}
+
+      {inlineText?.type === 'helper' && typeof inlineText?.text !== 'string' && inlineText?.text}
+
     </ThemedView>
   )
-}
+})
 
 function ClearButton (props: {onPress?: () => void, testID?: string}): JSX.Element {
   return (
@@ -110,7 +132,7 @@ function ClearButton (props: {onPress?: () => void, testID?: string}): JSX.Eleme
       <ThemedView
         light={tailwind('bg-gray-800')}
         dark={tailwind('bg-gray-100')}
-        style={tailwind('top-2 left-3 rounded-full absolute w-9/12 h-3/6 -z-1', { 'w-5/12': Platform.OS === 'web' })}
+        style={tailwind('top-2 left-3 rounded-full absolute w-9/12 h-4 -z-1', { 'w-5/12': Platform.OS === 'web' })}
       />
       <ThemedIcon
         iconType='MaterialIcons'

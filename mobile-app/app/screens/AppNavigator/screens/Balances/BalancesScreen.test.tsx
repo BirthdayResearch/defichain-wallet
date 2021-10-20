@@ -11,6 +11,7 @@ jest.mock('@react-navigation/bottom-tabs', () => ({
 }))
 jest.mock('randomcolor', () => jest.fn().mockReturnValue('#ffffff'))
 jest.mock('../../../../contexts/ThemeProvider')
+jest.mock('../../../../contexts/LanguageProvider')
 
 jest.mock('../../../../hooks/wallet/TokensAPI', () => ({
   useTokensAPI: () => [{
@@ -55,6 +56,18 @@ jest.mock('../../../../contexts/WalletPersistenceContext', () => ({
       wallets: []
     }
   }
+}))
+
+jest.mock('../../../../contexts/DisplayBalancesContext', () => ({
+  useDisplayBalancesContext: () => {
+    return {
+      isBalancesDisplayed: true
+    }
+  }
+}))
+
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: jest.fn()
 }))
 
 describe('balances page', () => {
@@ -112,8 +125,8 @@ describe('balances page', () => {
       </Provider>
     )
     const rendered = render(component)
-    const receiveButton = await rendered.findByTestId('balances_row_0')
-    fireEvent.press(receiveButton)
+    const btcBalanceRow = await rendered.findByTestId('balances_row_1')
+    fireEvent.press(btcBalanceRow)
     expect(spy).toHaveBeenCalled()
   })
 })

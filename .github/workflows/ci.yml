@@ -2,8 +2,6 @@ name: CI
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 1 * * *'
   push:
     branches: [ main ]
   pull_request:
@@ -18,21 +16,21 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: actions/checkout@1e204e9a9253d643386038d443f96446fa156a97
       - uses: actions/setup-node@270253e841af726300e85d718a5f606959b2903c
         with:
           node-version: 15
           cache: 'npm'
 
       - run: npm ci
-      - run: tsc --project tsconfig.production.json
-      - run: npx --no-install eslint ./mobile-app/app ./mobile-app/App.tsx
+      - run: tsc --project mobile-app/tsconfig.json
+      - run: npx --no-install eslint .
 
   unit:
     name: Unit Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: actions/checkout@1e204e9a9253d643386038d443f96446fa156a97
       - uses: actions/setup-node@270253e841af726300e85d718a5f606959b2903c
         with:
           node-version: 15

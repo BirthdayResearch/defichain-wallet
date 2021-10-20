@@ -7,12 +7,14 @@ import { HeaderTitle } from '@components/HeaderTitle'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { AddLiquidityScreen } from './DexAddLiquidity'
-import { AddLiquiditySummary, ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
+import { ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
 import { RemoveLiquidityConfirmScreen } from './DexConfirmRemoveLiquidity'
 import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
 import { DexScreen } from './DexScreen'
 import { ConfirmPoolSwapScreen, DexForm } from './PoolSwap/ConfirmPoolSwapScreen'
 import { DerivedTokenState, PoolSwapScreen } from './PoolSwap/PoolSwapScreen'
+import { WalletToken } from '@store/wallet'
+import { ConversionParam } from '../Balances/BalancesNavigator'
 
 export interface DexParamList {
   DexScreen: undefined
@@ -24,13 +26,37 @@ export interface DexParamList {
     fee: BigNumber
     pair: PoolPairData
     slippage: number
+    priceRateA: string
+    priceRateB: string
+    conversion?: ConversionParam
   }
   AddLiquidity: { pair: PoolPairData }
-  ConfirmAddLiquidity: { pair: PoolPairData, summary: AddLiquiditySummary }
+  ConfirmAddLiquidity: {
+    pair: PoolPairData
+    summary: AddLiquiditySummary
+    conversion?: ConversionParam
+  }
   RemoveLiquidity: { pair: PoolPairData }
-  ConfirmRemoveLiquidity: { amount: BigNumber, fee: BigNumber, pair: PoolPairData, tokenAAmount: string, tokenBAmount: string }
+  ConfirmRemoveLiquidity: {
+    amount: BigNumber
+    fee: BigNumber
+    pair: PoolPairData
+    tokenAAmount: string
+    tokenBAmount: string
+    tokenA?: WalletToken
+    tokenB?: WalletToken
+  }
 
   [key: string]: undefined | object
+}
+
+export interface AddLiquiditySummary {
+  fee: BigNumber // stick to whatever estimation/calculation done on previous page
+  tokenAAmount: BigNumber // transaction amount
+  tokenBAmount: BigNumber // transaction amount
+  percentage: BigNumber // to add
+  tokenABalance: BigNumber // token A balance (after deducting 0.1 DFI if DFI)
+  tokenBBalance: BigNumber // token B balance (after deducting 0.1 DFI if DFI)
 }
 
 const DexStack = createStackNavigator<DexParamList>()
@@ -41,7 +67,10 @@ export function DexNavigator (): JSX.Element {
   return (
     <DexStack.Navigator
       initialRouteName='DexScreen'
-      screenOptions={{ headerTitleStyle: HeaderFont, headerBackTitleVisible: false }}
+      screenOptions={{
+        headerTitleStyle: HeaderFont,
+        headerBackTitleVisible: false
+      }}
     >
       <DexStack.Screen
         component={DexScreen}
@@ -75,7 +104,7 @@ export function DexNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/DexScreen', 'Add Liquidity')}
+              text={translate('screens/DexScreen', 'Confirm Add Liquidity')}
               containerTestID={headerContainerTestId}
             />
           )
@@ -101,7 +130,7 @@ export function DexNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/DexScreen', 'Confirm removal')}
+              text={translate('screens/DexScreen', 'Confirm Removal')}
               containerTestID={headerContainerTestId}
             />
           )
@@ -127,7 +156,7 @@ export function DexNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/DexScreen', 'Confirm swap')}
+              text={translate('screens/DexScreen', 'Confirm Swap')}
               containerTestID={headerContainerTestId}
             />
           )

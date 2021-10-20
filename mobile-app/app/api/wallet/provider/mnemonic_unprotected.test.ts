@@ -1,7 +1,7 @@
 import { MnemonicProviderData } from '@defichain/jellyfish-wallet-mnemonic'
-import { EnvironmentNetwork } from '../../../environment'
+import { EnvironmentNetwork } from '@environment'
 import { WalletPersistenceData, WalletType } from '../persistence'
-import { MnemonicUnprotected } from './mnemonic_unprotected'
+import { MnemonicUnprotected } from '@api/wallet'
 
 beforeEach(() => {
   jest.clearAllMocks()

@@ -12,19 +12,25 @@ import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import { RootState } from '@store'
-import { hasTxQueued } from '@store/transaction_queue'
+import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
-import React, { useEffect, useState } from 'react'
+import React, { Dispatch, useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { DexParamList } from '../DexNavigator'
 import { SlippageTolerance } from './components/SlippageTolerance'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { InputHelperText } from '@components/InputHelperText'
+import { DFITokenSelector, DFIUtxoSelector, WalletToken } from '@store/wallet'
+import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { ConversionInfoText } from '@components/ConversionInfoText'
+import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
+import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
+import { useConversion } from '@hooks/wallet/Conversion'
 
 export interface DerivedTokenState {
   id: string
@@ -41,10 +47,14 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const [poolpair, setPoolPair] = useState<PoolPairData>()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const tokens = useTokensAPI()
+  const dispatch = useDispatch()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const [tokenAForm, tokenBForm] = ['tokenA', 'tokenB']
   const navigation = useNavigation<NavigationProp<DexParamList>>()
+  const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
+  const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
+  const reservedDfi = 0.1
 
   useEffect(() => {
     client.fee.estimate()
@@ -60,7 +70,14 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const [aToBPrice, setAToBPrice] = useState<BigNumber>()
 
   // component UI state
-  const { control, setValue, formState: { isValid }, getValues, trigger } = useForm({ mode: 'onChange' })
+  const { control, setValue, formState, getValues, trigger } = useForm({ mode: 'onChange' })
+  const { isConversionRequired, conversionAmount } = useConversion({
+    inputToken: {
+      type: tokenA?.id === '0_unified' ? 'token' : 'others',
+      amount: new BigNumber(getValues(tokenAForm))
+    },
+    deps: [getValues(tokenAForm), JSON.stringify(tokens)]
+  })
   const ScreenTitle = (props: {tokenA: DerivedTokenState, tokenB: DerivedTokenState}): JSX.Element => {
     const TokenAIcon = getNativeIcon(props.tokenA.displaySymbol)
     const TokenBIcon = getNativeIcon(props.tokenB.displaySymbol)
@@ -92,7 +109,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     }
   }, [pairs, route.params.poolpair])
 
-  function onSubmit (): void {
+  async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
@@ -102,21 +119,52 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
 
     const atA = poolpair.tokenA.id === tokenA?.id ? poolpair.tokenA : poolpair.tokenB
     const atB = poolpair.tokenA.id === tokenB?.id ? poolpair.tokenA : poolpair.tokenB
+    const priceRateA = getPriceRate(getReserveAmount(tokenA.id, poolpair), getReserveAmount(tokenB.id, poolpair))
+    const priceRateB = getPriceRate(getReserveAmount(tokenB.id, poolpair), getReserveAmount(tokenA.id, poolpair))
 
-    if (atA !== undefined && atB !== undefined && isValid) {
-      const swap = {
-        fromToken: tokenA,
-        toToken: tokenB,
-        fromAmount: new BigNumber((getValues()[tokenAForm])),
-        toAmount: new BigNumber((getValues()[tokenBForm]))
-      }
+    if (atA === undefined || atB === undefined || !formState.isValid) {
+      return
+    }
+
+    const swap = {
+      fromToken: tokenA,
+      toToken: tokenB,
+      fromAmount: new BigNumber((getValues()[tokenAForm])),
+      toAmount: new BigNumber((getValues()[tokenBForm]))
+    }
+
+    if (isConversionRequired) {
+      await constructSignedConversionAndPoolswap({
+        mode: 'utxosToAccount',
+        amount: conversionAmount
+      }, dispatch, () => {
+        navigation.navigate('ConfirmPoolSwapScreen', {
+          tokenA,
+          tokenB,
+          swap,
+          fee,
+          pair: poolpair,
+          slippage,
+          priceRateA,
+          priceRateB,
+          conversion: {
+            isConversionRequired,
+            DFIToken,
+            DFIUtxo,
+            conversionAmount
+          }
+        })
+      })
+    } else {
       navigation.navigate('ConfirmPoolSwapScreen', {
         tokenA,
         tokenB,
         swap,
         fee,
         pair: poolpair,
-        slippage
+        slippage,
+        priceRateA,
+        priceRateB
       })
     }
   }
@@ -143,6 +191,15 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     }
   }
 
+  const getAddressTokenById = (poolpairTokenId: string): WalletToken | undefined => {
+    return tokens.find(token => {
+      if (poolpairTokenId === '0' || poolpairTokenId === '0_utxo') {
+        return token.id === '0_unified'
+      }
+      return token.id === poolpairTokenId
+    })
+  }
+
   useEffect(() => {
     if (poolpair !== undefined) {
       let [tokenASymbol, tokenBSymbol] = poolpair.symbol.split('-') as [string, string]
@@ -154,14 +211,14 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       if (tokenB !== undefined) {
         [tokenBSymbol, tokenBId, tokenBDisplaySymbol] = [tokenB.symbol, tokenB.id, tokenB.displaySymbol]
       }
-      const a = tokens.find((token) => token.id === tokenAId) ?? {
+      const a = getAddressTokenById(tokenAId) ?? {
         id: tokenAId,
         amount: '0',
         symbol: tokenASymbol,
         displaySymbol: tokenADisplaySymbol
       }
       setTokenA(a)
-      const b = tokens.find((token) => token.id === tokenBId) ?? {
+      const b = getAddressTokenById(tokenBId) ?? {
         id: tokenBId,
         amount: '0',
         symbol: tokenBSymbol,
@@ -185,7 +242,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           controlName={tokenAForm}
           isDisabled={false}
           title={translate('screens/PoolSwapScreen', 'How much {{token}} do you want to swap?', { token: tokenA.displaySymbol })}
-          maxAmount={tokenA.amount}
+          maxAmount={tokenA.id === '0_unified' ? new BigNumber(tokenA.amount).minus(reservedDfi).toFixed(8) : tokenA.amount}
           enableMaxButton
           onChangeFromAmount={async (amount) => {
             setIsComputing(true)
@@ -202,9 +259,10 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         <InputHelperText
           testID={`text_balance_${tokenAForm}`}
           label={`${translate('screens/PoolSwapScreen', 'Available')}: `}
-          content={tokenA.amount}
+          content={tokenA.id === '0_unified' ? new BigNumber(tokenA.amount).minus(reservedDfi).toFixed(8) : tokenA.amount}
           suffix={` ${tokenA.displaySymbol}`}
         />
+        {tokenA.id === '0_unified' && <ReservedDFIInfoText />}
       </View>
       <View style={tailwind('justify-center items-center py-2 px-4')}>
         <ThemedView
@@ -226,7 +284,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           control={control}
           controlName={tokenBForm}
           isDisabled
-          title={translate('screens/PoolSwapScreen', 'After')}
+          title={translate('screens/PoolSwapScreen', 'You will receive')}
           token={tokenB}
           enableMaxButton={false}
         />
@@ -236,6 +294,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           content={tokenB.amount}
           suffix={` ${tokenB.displaySymbol}`}
         />
+        {isConversionRequired && <ConversionInfoText />}
       </View>
       <SlippageTolerance
         setSlippage={(amount) => setSlippage(amount)}
@@ -250,24 +309,30 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
             tokenAAmount={getValues()[tokenAForm]}
             tokenB={tokenB}
             tokenBAmount={getValues()[tokenBForm]}
+            fee={fee.toFixed(8)}
+            isConversionRequired={isConversionRequired}
+            conversionAmount={conversionAmount}
           />
       }
 
+      <ThemedText
+        testID='transaction_details_hint_text'
+        light={tailwind('text-gray-600')}
+        dark={tailwind('text-gray-300')}
+        style={tailwind('pt-2 pb-8 px-4 text-sm')}
+      >
+        {isConversionRequired
+          ? translate('screens/PoolSwapScreen', 'Authorize transaction in the next screen to convert')
+          : translate('screens/PoolSwapScreen', 'Review full transaction details in the next screen')}
+      </ThemedText>
+
       <Button
-        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
+        disabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/PoolSwapScreen', 'CONTINUE')}
         onPress={onSubmit}
         testID='button_submit'
         title='CONTINUE'
       />
-
-      <ThemedText
-        light={tailwind('text-gray-600')}
-        dark={tailwind('text-gray-300')}
-        style={tailwind('mb-8 text-center text-sm')}
-      >
-        {translate('screens/PoolSwapScreen', 'Review full transaction details in the next screen')}
-      </ThemedText>
     </ThemedScrollView>
   )
 }
@@ -291,20 +356,19 @@ function TokenRow (form: TokenForm): JSX.Element {
     title,
     controlName,
     enableMaxButton,
-    isDisabled
+    isDisabled,
+    maxAmount
   } = form
   const Icon = getNativeIcon(token.displaySymbol)
   const rules: { required: boolean, pattern: RegExp, validate: any, max?: string } = {
     required: true,
+    max: maxAmount,
     pattern: /^\d*\.?\d*$/,
     validate: {
       greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
     }
   }
   const defaultValue = ''
-  if (form.maxAmount !== undefined) {
-    rules.max = form.maxAmount
-  }
 
   return (
     <Controller
@@ -330,7 +394,7 @@ function TokenRow (form: TokenForm): JSX.Element {
               }
             }}
             placeholder={isDisabled ? undefined : translate('screens/PoolSwapScreen', 'Enter an amount')}
-            style={tailwind('flex-1')}
+            style={tailwind('flex-grow w-2/5')}
             testID={`text_input_${controlName}`}
             value={value}
             displayClearButton={(value !== defaultValue) && !isDisabled}
@@ -342,13 +406,13 @@ function TokenRow (form: TokenForm): JSX.Element {
               (enableMaxButton && onChangeFromAmount !== undefined) && (
                 <>
                   <SetAmountButton
-                    amount={new BigNumber(token.amount)}
+                    amount={new BigNumber(maxAmount ?? '0')}
                     onPress={onChangeFromAmount}
                     type={AmountButtonTypes.half}
                   />
 
                   <SetAmountButton
-                    amount={new BigNumber(token.amount)}
+                    amount={new BigNumber(maxAmount ?? '0')}
                     onPress={onChangeFromAmount}
                     type={AmountButtonTypes.max}
                   />
@@ -358,7 +422,7 @@ function TokenRow (form: TokenForm): JSX.Element {
             {
               !enableMaxButton && (
                 <>
-                  <Icon />
+                  <Icon height={20} width={20} />
                   <ThemedText style={tailwind('pl-2')}>
                     {token.displaySymbol}
                   </ThemedText>
@@ -379,38 +443,69 @@ interface SwapSummaryItems {
   tokenB: DerivedTokenState
   tokenAAmount: string
   tokenBAmount: string
+  fee: string
+  isConversionRequired: boolean
+  conversionAmount: BigNumber
 }
 
-function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount }: SwapSummaryItems): JSX.Element {
+function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee, isConversionRequired, conversionAmount }: SwapSummaryItems): JSX.Element {
   const reserveA = getReserveAmount(tokenA.id, poolpair)
   const reserveB = getReserveAmount(tokenB.id, poolpair)
-  const priceA = new BigNumber(reserveA).div(reserveB).toFixed(8)
-  const priceB = new BigNumber(reserveB).div(reserveA).toFixed(8)
+  const priceA = getPriceRate(reserveA, reserveB)
+  const priceB = getPriceRate(reserveB, reserveA)
   const estimated = calculateEstimatedAmount(tokenAAmount, reserveA, priceB).toFixed(8)
+
   return (
     <View style={tailwind('mt-4')}>
+      <ThemedSectionTitle
+        testID='title_add_detail'
+        text={translate('screens/PoolSwapScreen', 'TRANSACTION DETAILS')}
+        style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
+      />
+      {isConversionRequired &&
+        <NumberRow
+          lhs={translate('screens/PoolSwapScreen', 'Amount to be converted')}
+          rhs={{
+            testID: 'amount_to_convert',
+            value: conversionAmount.toFixed(8),
+            suffixType: 'text',
+            suffix: tokenA.displaySymbol
+          }}
+        />}
       <NumberRow
-        lhs={translate('screens/PoolSwapScreen', 'Price')}
-        rightHandElements={[{
+        lhs={translate('screens/PoolSwapScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
+        rhs={{
           testID: 'price_a',
           value: priceA,
-          suffix: ` ${tokenA.displaySymbol} per ${tokenB.displaySymbol}`
-        }, {
+          suffixType: 'text',
+          suffix: tokenA.displaySymbol
+        }}
+      />
+      <NumberRow
+        lhs={translate('screens/PoolSwapScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenB.displaySymbol, tokenB: tokenA.displaySymbol })}
+        rhs={{
           testID: 'price_b',
           value: priceB,
-          suffix: ` ${tokenB.displaySymbol} per ${tokenA.displaySymbol}`
-        }]}
+          suffixType: 'text',
+          suffix: tokenB.displaySymbol
+        }}
       />
-
       <NumberRow
         lhs={translate('screens/PoolSwapScreen', 'Estimated to receive')}
-        rightHandElements={[
-          {
-            value: estimated,
-            suffix: ` ${tokenB.displaySymbol}`,
-            testID: 'estimated'
-          }
-        ]}
+        rhs={{
+          value: estimated,
+          testID: 'estimated',
+          suffixType: 'text',
+          suffix: tokenB.displaySymbol
+        }}
+      />
+      <EstimatedFeeInfo
+        lhs={translate('screens/PoolSwapScreen', 'Estimated fee')}
+        rhs={{
+          value: fee,
+          testID: 'estimated_fee',
+          suffix: 'DFI'
+        }}
       />
     </View>
   )
@@ -424,4 +519,19 @@ function calculateEstimatedAmount (tokenAAmount: string, reserveA: string, price
 
 function getReserveAmount (id: string, poolpair: PoolPairData): string {
   return id === poolpair.tokenA.id ? poolpair.tokenA.reserve : poolpair.tokenB.reserve
+}
+
+function getPriceRate (reserveA: string, reserveB: string): string {
+  return new BigNumber(reserveA).div(reserveB).toFixed(8)
+}
+
+async function constructSignedConversionAndPoolswap ({
+  mode,
+  amount
+}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void): Promise<void> {
+  try {
+    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
+  } catch (e) {
+    Logging.error(e)
+  }
 }

@@ -4,17 +4,17 @@ checks:
   similar-code:
     enabled: true
     config:
-      threshold: 150
+      threshold: 175
   method-lines:
     config:
-      threshold: 50
+      threshold: 100
 
 exclude_patterns:
   - "dist/"
   - "**/node_modules/"
   - "**/cypress/"
-  - "**/app/assets/"
-  - "**/app/components/icons"
+  - "**/shared/assets/"
+  - "**/components/icons"
   - "**/*.test.ts"
   - "**/*.test.tsx"
   - "**/*.d.ts"

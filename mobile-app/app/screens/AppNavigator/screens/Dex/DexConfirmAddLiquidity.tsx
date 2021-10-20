@@ -1,7 +1,6 @@
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
@@ -12,51 +11,47 @@ import { Logging } from '@api'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
-import { ThemedScrollView, ThemedSectionTitle } from '@components/themed'
-import { TokenBalanceRow } from '@components/TokenBalanceRow'
+import { ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
 import { RootState } from '@store'
-import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { getNativeIcon } from '@components/icons/assets'
+import { ConversionTag } from '@components/ConversionTag'
+import { TextRow } from '@components/TextRow'
+import { TransactionResultsRow } from '@components/TransactionResultsRow'
+import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
+import { View } from '@components'
+import { InfoText } from '@components/InfoText'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
-
-export interface AddLiquiditySummary extends PoolPairData {
-  fee: BigNumber // stick to whatever estimation/calculation done on previous page
-  tokenAAmount: BigNumber
-  tokenBAmount: BigNumber
-  percentage: BigNumber // to add
-}
 
 export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const {
     fee,
     percentage,
-    tokenA,
+    tokenABalance,
     tokenAAmount,
-    tokenB,
-    tokenBAmount,
-    totalLiquidity
+    tokenBBalance,
+    tokenBAmount
   } = props.route.params.summary
   const pair = props.route.params.pair
+  const { conversion } = props.route.params
+  const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const aToBRate = new BigNumber(tokenB.reserve).div(tokenA.reserve)
-  const bToARate = new BigNumber(tokenA.reserve).div(tokenB.reserve)
-  const lmTokenAmount = percentage.times(totalLiquidity.token)
+  const aToBRate = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
+  const bToARate = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
+  const lmTokenAmount = percentage.times(pair.totalLiquidity.token)
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
-  const postAction = (): void => {
-    if (isOnPage) {
-      navigation.dispatch(StackActions.popToTop())
-    }
-  }
-  const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
-  const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
+  const TokenAIcon = getNativeIcon(pair.tokenA.displaySymbol)
+  const TokenBIcon = getNativeIcon(pair.tokenB.displaySymbol)
 
   useEffect(() => {
     setIsOnPage(true)
@@ -65,8 +60,6 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     }
   }, [])
 
-  const dispatch = useDispatch()
-
   async function addLiquidity (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
@@ -74,15 +67,17 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     setIsSubmitting(true)
     await constructSignedAddLiqAndSend(
       {
-        tokenASymbol: tokenA.displaySymbol,
-        tokenAId: Number(tokenA.id),
+        tokenASymbol: pair.tokenA.displaySymbol,
+        tokenAId: Number(pair.tokenA.id),
         tokenAAmount,
-        tokenBSymbol: tokenB.displaySymbol,
-        tokenBId: Number(tokenB.id),
+        tokenBSymbol: pair.tokenB.displaySymbol,
+        tokenBId: Number(pair.tokenB.id),
         tokenBAmount
       },
       dispatch,
-      postAction
+      () => {
+        onTransactionBroadcast(isOnPage, navigation.dispatch)
+      }
     )
     setIsSubmitting(false)
   }
@@ -97,109 +92,181 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     }
   }
 
+  function getSubmitLabel (): string {
+    if (!hasPendingBroadcastJob && !hasPendingJob) {
+      return 'CONFIRM ADD LIQUIDITY'
+    }
+    if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
+      return currentBroadcastJob.submitButtonLabel
+    }
+    return 'ADDING'
+  }
+
   return (
     <ThemedScrollView
       style={tailwind('pb-4')}
       testID='confirm-root'
     >
-      <SummaryTitle
-        amount={lmTokenAmount}
-        suffixType='component'
-        testID='text_add_amount'
-        title={translate('screens/ConfirmAddLiq', 'You are adding')}
+      <ThemedView
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        light={tailwind('bg-white border-b border-gray-300')}
+        style={tailwind('flex-col px-4 py-8')}
       >
-        <TokenAIcon
-          height={16}
-          width={16}
-          style={tailwind('relative z-10 -mt-2')}
-          testID={`text_add_amount_suffix_${tokenA.displaySymbol}`}
-        />
+        <SummaryTitle
+          amount={lmTokenAmount}
+          suffixType='component'
+          testID='text_add_amount'
+          title={translate('screens/ConfirmAddLiq', 'You are adding')}
+        >
+          <TokenAIcon
+            height={16}
+            width={16}
+            style={tailwind('relative z-10 -mt-2')}
+            testID={`text_add_amount_suffix_${pair.tokenA.displaySymbol}`}
+          />
 
-        <TokenBIcon
-          height={16}
-          width={16}
-          style={tailwind('-ml-2 mt-2 mr-2')}
-          testID={`text_add_amount_suffix_${tokenB.displaySymbol}`}
-        />
-      </SummaryTitle>
+          <TokenBIcon
+            height={16}
+            width={16}
+            style={tailwind('-ml-2 mt-2 mr-2')}
+            testID={`text_add_amount_suffix_${pair.tokenB.displaySymbol}`}
+          />
+        </SummaryTitle>
+        {conversion?.isConversionRequired === true && <ConversionTag />}
+      </ThemedView>
+
+      <ThemedSectionTitle
+        testID='title_tx_detail'
+        text={translate('screens/ConfirmAddLiq', 'TRANSACTION DETAILS')}
+      />
+      <TextRow
+        lhs={translate('screens/ConfirmAddLiq', 'Transaction type')}
+        rhs={{
+          value: conversion?.isConversionRequired === true ? translate('screens/ConfirmAddLiq', 'Convert & add liquidity') : translate('screens/ConfirmAddLiq', 'Add liquidity'),
+          testID: 'text_transaction_type'
+        }}
+        textStyle={tailwind('text-sm font-normal')}
+      />
+      <NumberRow
+        lhs={translate('screens/ConfirmAddLiq', 'Share of pool')}
+        rhs={{
+          value: percentage.times(100).toFixed(8),
+          suffix: '%',
+          testID: 'percentage_pool',
+          suffixType: 'text'
+        }}
+      />
+
+      <NumberRow
+        lhs={translate('screens/ConfirmAddLiq', 'Your pooled {{symbol}}', { symbol: `${pair.tokenA?.displaySymbol}` })}
+        rhs={{
+          value: pair.tokenA.reserve,
+          testID: 'pooled_a',
+          suffixType: 'text',
+          suffix: pair.tokenA.displaySymbol
+        }}
+      />
+      <NumberRow
+        lhs={translate('screens/ConfirmAddLiq', 'Your pooled {{symbol}}', { symbol: `${pair.tokenB?.displaySymbol}` })}
+        rhs={{
+          value: pair.tokenB.reserve,
+          testID: 'pooled_b',
+          suffixType: 'text',
+          suffix: pair.tokenB.displaySymbol
+        }}
+      />
+
+      <EstimatedFeeInfo
+        lhs={translate('screens/ConfirmAddLiq', 'Estimated fee')}
+        rhs={{
+          value: fee.toFixed(8),
+          testID: 'text_fee',
+          suffix: 'DFI'
+        }}
+      />
 
       <ThemedSectionTitle
         testID='title_add_detail'
         text={translate('screens/ConfirmAddLiq', 'AMOUNT TO SUPPLY')}
       />
 
-      <TokenBalanceRow
-        iconType={tokenA?.displaySymbol}
-        lhs={tokenA?.displaySymbol}
+      <NumberRow
+        lhs={pair.tokenA.displaySymbol}
         rhs={{
+          testID: 'a_amount',
           value: BigNumber.max(tokenAAmount, 0).toFixed(8),
-          testID: 'a_amount'
+          suffixType: 'text',
+          suffix: pair.tokenA.displaySymbol
         }}
       />
-
-      <TokenBalanceRow
-        iconType={tokenB?.displaySymbol}
-        lhs={tokenB?.displaySymbol}
+      <NumberRow
+        lhs={pair.tokenB.displaySymbol}
         rhs={{
+          testID: 'b_amount',
           value: BigNumber.max(tokenBAmount, 0).toFixed(8),
-          testID: 'b_amount'
+          suffixType: 'text',
+          suffix: pair.tokenB.displaySymbol
         }}
       />
 
       <ThemedSectionTitle
-        testID='title_tx_detail'
-        text={translate('screens/ConfirmAddLiq', 'TRANSACTION DETAILS')}
+        testID='title_price_detail'
+        text={translate('screens/ConfirmAddLiq', 'PRICE DETAILS')}
+      />
+      <NumberRow
+        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', {
+          tokenA: pair.tokenA.displaySymbol,
+          tokenB: pair.tokenB.displaySymbol
+        })}
+        rhs={{
+          value: aToBRate.toFixed(8),
+          testID: 'price_a',
+          suffixType: 'text',
+          suffix: pair.tokenA.displaySymbol
+        }}
+      />
+      <NumberRow
+        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', {
+          tokenA: pair.tokenB.displaySymbol,
+          tokenB: pair.tokenA.displaySymbol
+        })}
+        rhs={{
+          value: bToARate.toFixed(8),
+          testID: 'price_b',
+          suffixType: 'text',
+          suffix: pair.tokenB.displaySymbol
+        }}
       />
 
-      <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Price')}
-        rightHandElements={[
+      <TransactionResultsRow
+        tokens={[
           {
-            value: aToBRate.toFixed(8),
-            suffix: ` ${tokenB?.displaySymbol} per ${tokenA?.displaySymbol}`,
-            testID: 'price_a'
+            symbol: pair.tokenA.displaySymbol,
+            value: tokenABalance.minus(tokenAAmount).toFixed(8),
+            suffix: pair.tokenA.displaySymbol
           },
           {
-            value: bToARate.toFixed(8),
-            suffix: ` ${tokenA?.displaySymbol} per ${tokenB?.displaySymbol}`,
-            testID: 'price_b'
+            symbol: pair.tokenB.displaySymbol,
+            value: tokenBBalance.minus(tokenBAmount).toFixed(8),
+            suffix: pair.tokenB.displaySymbol
           }
         ]}
       />
 
-      <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Share of pool')}
-        rightHandElements={[{ value: percentage.times(100).toFixed(8), suffix: '%', testID: 'percentage_pool' }]}
-      />
-
-      <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${tokenA?.displaySymbol}` })}
-        rightHandElements={[{
-          value: tokenA.reserve,
-          suffix: ` ${tokenA.displaySymbol}`,
-          testID: 'pooled_a'
-        }]}
-      />
-
-      <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${tokenB?.displaySymbol}` })}
-        rightHandElements={[{
-          value: tokenB.reserve,
-          suffix: ` ${tokenB.displaySymbol}`,
-          testID: 'pooled_b'
-        }]}
-      />
-
-      <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Estimated fee')}
-        rightHandElements={[{ value: fee.toFixed(8), suffix: ' DFI (UTXO)', testID: 'text_fee' }]}
-      />
+      {conversion?.isConversionRequired === true && (
+        <View style={tailwind('p-4 mt-2')}>
+          <InfoText
+            testID='conversion_warning_info_text'
+            text={translate('components/ConversionInfoText', 'Please wait as we convert tokens for your transaction. Conversions are irreversible.')}
+          />
+        </View>
+      )}
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/ConfirmAddLiq', 'ADD')}
-        isSubmitting={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        submittingLabel={translate('screens/ConfirmAddLiq', 'ADDING')}
+        label={translate('screens/ConfirmAddLiq', 'CONFIRM ADD LIQUIDITY')}
+        isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        processingLabel={translate('screens/ConfirmAddLiq', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={addLiquidity}
         title='add'
@@ -211,7 +278,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 async function constructSignedAddLiqAndSend (
   addLiqForm: { tokenASymbol: string, tokenAId: number, tokenAAmount: BigNumber, tokenBSymbol: string, tokenBId: number, tokenBAmount: BigNumber },
   dispatch: Dispatch<any>,
-  postAction: () => void
+  onBroadcast: () => void
 ): Promise<void> {
   try {
     const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
@@ -248,7 +315,7 @@ async function constructSignedAddLiqAndSend (
         amountB: addLiqForm.tokenBAmount.toFixed(8),
         symbolB: addLiqForm.tokenBSymbol
       }),
-      postAction
+      onBroadcast
     }))
   } catch (e) {
     Logging.error(e)

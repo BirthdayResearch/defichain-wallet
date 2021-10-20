@@ -6,6 +6,16 @@ labels:
     matcher:
       files: ".github/**"
 
+  - label: area/website
+    sync: true
+    matcher:
+      files: "website/**"
+
+  - label: area/website-api
+    sync: true
+    matcher:
+      files: "website/src/api/**"
+
   - label: area/api
     sync: true
     matcher:
@@ -14,7 +24,7 @@ labels:
   - label: area/assets
     sync: true
     matcher:
-      files: "mobile-app/app/assets/**"
+      files: "shared/assets/**"
 
   - label: area/contexts
     sync: true
@@ -29,12 +39,12 @@ labels:
   - label: area/store
     sync: true
     matcher:
-      files: "mobile-app/app/store/**"
+      files: "shared/store/**"
 
   - label: area/translations
     sync: true
     matcher:
-      files: "mobile-app/app/translations/**"
+      files: "shared/translations/**"
 
   - label: area/e2e
     sync: true

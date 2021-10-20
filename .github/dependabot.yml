@@ -3,8 +3,7 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: 'weekly'
-      day: 'thursday'
+      interval: "daily"
     labels:
       - "kind/dependencies"
     ignore:
@@ -44,6 +43,7 @@ updates:
       - dependency-name: "@types/react-native"
       - dependency-name: "typescript"
       - dependency-name: "jest-expo"
+    versioning-strategy: 'increase'
 
   - package-ecosystem: "github-actions"
     directory: "/"

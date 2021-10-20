@@ -6,11 +6,11 @@
     "owner": "defichain",
     "version": "0.0.0",
     "orientation": "portrait",
-    "icon": "./mobile-app/app/assets/images/icon.png",
+    "icon": "./shared/assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./mobile-app/app/assets/images/splash.png",
+      "image": "./shared/assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -30,14 +30,37 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./mobile-app/app/assets/images/adaptive-icon.png",
+        "foregroundImage": "./shared/assets/images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.defichain.app",
-      "versionCode": 0
+      "versionCode": 0,
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": {
+            "scheme": "https"
+          },
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        },
+        {
+          "autoVerify": true,
+          "action": "VIEW",
+          "data": {
+            "scheme": "http"
+          },
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ]
     },
     "web": {
-      "favicon": "./mobile-app/app/assets/images/favicon.png"
+      "favicon": "./shared/assets/images/favicon.png"
     },
     "plugins": [
       [

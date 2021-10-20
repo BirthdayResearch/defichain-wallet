@@ -6,19 +6,22 @@ module.exports = function (api) {
       {
         alias: {
           '@api': './mobile-app/app/api',
-          '@assets': './mobile-app/app/assets',
+          '@assets': './shared/assets',
           '@constants': './mobile-app/app/constants',
           '@contexts': './mobile-app/app/contexts',
           '@components': './mobile-app/app/components',
-          '@environment': './mobile-app/app/environment',
+          '@environment': './shared/environment',
           '@hooks': './mobile-app/app/hooks',
+          '@shared-api': './shared/api',
+          '@shared-types': './shared/types',
           '@screens': './mobile-app/app/screens',
-          '@store': './mobile-app/app/store',
-          '@translations': './mobile-app/app/translations',
+          '@store': './shared/store',
+          '@translations': './shared/translations',
           '@tailwind': './mobile-app/app/tailwind'
         }
       }
-    ]
+    ],
+    'react-native-reanimated/plugin'
   ]
 
   if (process.env.CYPRESS_E2E) {

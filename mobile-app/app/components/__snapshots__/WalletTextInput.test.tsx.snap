@@ -71,6 +71,7 @@ exports[`wallet text input should render with default keyboard 1`] = `
           Object {
             "alignItems": "center",
             "flexDirection": "row",
+            "justifyContent": "space-between",
             "paddingBottom": 8,
             "paddingLeft": 8,
             "paddingRight": 8,
@@ -93,18 +94,10 @@ exports[`wallet text input should render with default keyboard 1`] = `
         rejectResponderTermination={true}
         style={
           Array [
+            undefined,
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+              "color": "rgba(64, 64, 64, 1)",
             },
-            Array [
-              undefined,
-              Object {
-                "color": "rgba(64, 64, 64, 1)",
-              },
-            ],
           ]
         }
         testID="testID"
@@ -135,6 +128,7 @@ exports[`wallet text input should render with default keyboard 1`] = `
         ],
       ]
     }
+    testID="testID_error"
   >
     invalid
   </Text>
@@ -212,6 +206,7 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
           Object {
             "alignItems": "center",
             "flexDirection": "row",
+            "justifyContent": "space-between",
             "paddingBottom": 8,
             "paddingLeft": 8,
             "paddingRight": 8,
@@ -234,18 +229,10 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
         rejectResponderTermination={true}
         style={
           Array [
+            undefined,
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+              "color": "rgba(64, 64, 64, 1)",
             },
-            Array [
-              undefined,
-              Object {
-                "color": "rgba(64, 64, 64, 1)",
-              },
-            ],
           ]
         }
         testID="testID"
@@ -276,6 +263,7 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
         ],
       ]
     }
+    testID="testID_error"
   >
     invalid
   </Text>

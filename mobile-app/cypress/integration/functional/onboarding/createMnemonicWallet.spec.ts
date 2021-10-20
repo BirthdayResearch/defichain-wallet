@@ -45,6 +45,12 @@ context('Onboarding - Create Mnemonic Wallet', () => {
     cy.selectMnemonicWords(recoveryWords)
   })
 
+  it('should be able to navigate to passcode FAQ screen', function () {
+    cy.getByTestID('passcode_faq_link').click()
+    cy.getByTestID('passcode_faq').should('exist')
+    cy.go('back')
+  })
+
   it('should be able to verify and set pincode', function () {
     cy.setupPinCode()
   })
@@ -73,8 +79,8 @@ context('Onboarding - Create Mnemonic Wallet with refresh recovery word', () => 
   const settingsRecoveryWords: string[] = []
 
   before(() => {
-    cy.exitWallet()
     cy.visit('/')
+    cy.exitWallet()
   })
 
   beforeEach(() => {
