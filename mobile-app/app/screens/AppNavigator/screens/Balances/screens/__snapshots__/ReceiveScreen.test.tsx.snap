@@ -76,7 +76,7 @@ exports[`receive page should match snapshot 1`] = `
       <View
         style={
           Object {
-            "marginBottom": 32,
+            "marginBottom": 16,
           }
         }
         testID="qr_code_container"
