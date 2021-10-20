@@ -17,7 +17,7 @@ context('Onboarding - Create Mnemonic Wallet', () => {
   })
 
   it('should have disabled button for verify words', function () {
-    cy.getByTestID('verify_words_button').should('have.attr', 'disabled')
+    cy.getByTestID('verify_words_button').should('have.attr', 'aria-disabled')
   })
 
   it('should select incorrect words', function () {

@@ -17,7 +17,7 @@ context('Wallet - Privacy Lock', () => {
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_settings').click()
     cy.getByTestID('switch_privacy_lock').within(() => {
-      cy.get('input').should('have.attr', 'disabled')
+      cy.get('input').should('have.attr', 'aria-disabled')
       cy.get('input').should('be.checked')
     })
   })
