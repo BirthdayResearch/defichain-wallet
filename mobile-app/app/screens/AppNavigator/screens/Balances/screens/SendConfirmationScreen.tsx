@@ -25,7 +25,8 @@ import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
-import { ConversionBreakdown } from '@components/ConversionBreakdown'
+import { InfoText } from '@components/InfoText'
+import { View } from '@components'
 
 type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
 
@@ -98,7 +99,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       <ThemedView
         dark={tailwind('bg-gray-800 border-b border-gray-700')}
         light={tailwind('bg-white border-b border-gray-300')}
-        style={tailwind('flex-col px-4 py-8 mb-4')}
+        style={tailwind('flex-col px-4 py-8')}
       >
         <SummaryTitle
           amount={amount}
@@ -110,13 +111,6 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         {conversion?.isConversionRequired === true && <ConversionTag />}
       </ThemedView>
 
-      {conversion?.isConversionRequired === true &&
-        <ConversionBreakdown
-          dfiUtxo={conversion?.DFIUtxo}
-          dfiToken={conversion?.DFIToken}
-          amount={conversion?.conversionAmount}
-          mode='accountToUtxos'
-        />}
       <ThemedSectionTitle
         testID='title_transaction_detail'
         text={translate('screens/SendConfirmationScreen', 'TRANSACTION DETAILS')}
@@ -167,6 +161,15 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
           }
         ]}
       />
+
+      {conversion?.isConversionRequired === true && (
+        <View style={tailwind('p-4 mt-2')}>
+          <InfoText
+            testID='conversion_warning_info_text'
+            text={translate('components/ConversionInfoText', 'Please wait as we convert tokens for your transaction. Conversions are irreversible.')}
+          />
+        </View>
+      )}
 
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}

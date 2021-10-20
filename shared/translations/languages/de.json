@@ -190,6 +190,12 @@
     "View official website": "Offizielle Website anzeigen",
     "Learn more about the blockchain": "Erfahre mehr über die Blockchain"
   },
+  "screens/KnowledgeBase": {
+    "LEARN ABOUT": "LERNE ETWAS ÜBER",
+    "Recovery words": "Wiederherstellungssatz",
+    "Passcode": "Passwort",
+    "UTXO vs Token": "UTXO vs Token"
+  },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "NETZWERK",
     "Select network": "Netzwerkauswahl"
@@ -484,7 +490,7 @@
     "Sign Transaction": "Transaktion freigeben",
     "Signing your transaction...": "Transaktionsfreigabe...",
     "Transaction authorized": "Transaktion genehmigt",
-    "Please wait as your transaction is prepared": "Bitte warten, während die Transaktion vorbereitet wird",
+    "Please wait while your transaction is being prepared": "Bitte warten, während die Transaktion vorbereitet wird",
     "Verifying access": "Zugriff wird verifiziert"
   },
   "components/CreateWalletIndicator": {
@@ -532,7 +538,8 @@
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI) ist für Gebühren reserviert."
   },
   "components/ConversionInfoText": {
-    "Conversion will be required. Your passcode will be asked to authorize both transactions.": "Eine Konvertierung ist erforderlich. Du wirst nach deinem Passwort gefragt, um beide Transaktionen frei zu geben."
+    "Conversion will be required. Your passcode will be asked to authorize both transactions.": "Eine Konvertierung ist erforderlich. Du wirst nach deinem Passwort gefragt, um beide Transaktionen frei zu geben.",
+    "Please wait as we convert tokens for your transaction. Conversions are irreversible.": "Warte bitte, während wir Token für deine Transaktion umwandeln. Konvertierungen sind nicht umkehrbar."
   },
   "components/ConversionTag": {
     "Conversion required": "Konvertierung erforderlich"

@@ -192,6 +192,12 @@
     "Learn more about the blockchain": "了解更多关于递飞链区块链和相关资讯",
     "DeFiChain Explorer": "递飞链浏览器"
   },
+  "screens/KnowledgeBase": {
+    "LEARN ABOUT": "关于",
+    "Recovery words": "恢复字组",
+    "Passcode": "密码",
+    "UTXO vs Token": "UTXO 和代币区别"
+  },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "网络",
     "Select network": "切换网络"
@@ -488,7 +494,7 @@
     "Signing your transaction...": "正在签署交易",
     "Verifying access": "验证访问权限",
     "Transaction authorized": "已授權交易",
-    "Please wait as your transaction is prepared": "正在准备交易，请稍候"
+    "Please wait while your transaction is being prepared": "请稍候，您的交易正在准备中"
   },
   "components/CreateWalletIndicator": {
     "Recovery": "恢复",
@@ -535,7 +541,8 @@
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要预留一些可使用的 UTXO (0.1 DFI) 作为费用"
   },
   "components/ConversionInfoText": {
-    "Conversion will be required. Your passcode will be asked to authorize both transactions.": "将需要转换。您需要以 App 密码授权兑换交易"
+    "Conversion will be required. Your passcode will be asked to authorize both transactions.": "将需要转换。您需要以 App 密码授权兑换交易",
+    "Please wait as we convert tokens for your transaction. Conversions are irreversible.": "正在为您的交易转换代币，请稍候。转换过程是不可逆转的。"
   },
   "components/ConversionTag": {
     "Conversion required": "需要转换"

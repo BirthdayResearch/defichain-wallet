@@ -166,7 +166,10 @@ export function RestoreMnemonicWallet (): JSX.Element {
                     valid={!invalid}
                     testID={`recover_word_${order}`}
                     value={value}
-                    inlineValidationText={error?.message}
+                    inlineText={{
+                      type: 'error',
+                      text: error?.message
+                    }}
                   />
                 </ThemedView>
               )}

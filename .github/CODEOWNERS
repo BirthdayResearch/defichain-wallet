@@ -4,15 +4,15 @@
 /.github/                                       @fuxingloh @thedoublejay
 /.husky/                                        @fuxingloh @thedoublejay
 
-/mobile-app/app/                                @fuxingloh @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864
+/mobile-app/app/                                @fuxingloh @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864 @pierregee
 /mobile-app/app/api                             @fuxingloh @thedoublejay @ivan-zynesis
 
-/shared/assets                                  @fuxingloh @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864
-/shared/translations                            @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864
-/mobile-app/cypress                             @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864
+/shared/assets                                  @fuxingloh @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864 @pierregee
+/shared/translations                            @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864 @pierregee
+/mobile-app/cypress                             @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864 @pierregee
 
-/website                                        @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864
-/website/src/pages/api                          @fuxingloh @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864
+/website                                        @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864 @pierregee
+/website/src/pages/api                          @fuxingloh @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864 @pierregee
 
 /.codeclimate.yml                               @fuxingloh @thedoublejay
 /.versionrc.js                                  @fuxingloh @thedoublejay
@@ -31,7 +31,7 @@ package.json                                    @fuxingloh @thedoublejay
 package-lock.json                               @fuxingloh @thedoublejay
 tsconfig.json                                   @fuxingloh @thedoublejay
 
-BETA_TESTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864
-CONTRIBUTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864
-README.md                                       @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864
+BETA_TESTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee
+CONTRIBUTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee
+README.md                                       @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee
 LICENSE                                         @fuxingloh
