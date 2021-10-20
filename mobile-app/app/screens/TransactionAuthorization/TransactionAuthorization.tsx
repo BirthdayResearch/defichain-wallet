@@ -359,6 +359,7 @@ export function TransactionAuthorization (): JSX.Element | null {
           name={modalName}
           ref={bottomSheetModalRef}
           snapPoints={getSnapPoints()}
+          handleComponent={null}
           backdropComponent={(backdropProps: BottomSheetBackgroundProps) => (
             <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
           )}
@@ -370,7 +371,7 @@ export function TransactionAuthorization (): JSX.Element | null {
               onCancel()
             }
           }}
-          enablePanDownToClose={transactionStatus !== TransactionStatus.BLOCK && transactionStatus !== TransactionStatus.SIGNING}
+          enablePanDownToClose={false}
         >
           <PasscodePrompt
             onCancel={onCancel}

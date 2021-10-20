@@ -32,7 +32,7 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
         dark={tailwind('bg-gray-900')}
         light={tailwind('bg-white')}
         onPress={props.onCancel}
-        style={tailwind('items-end pr-2')}
+        style={tailwind('items-end pt-2 pr-2')}
         testID='cancel_authorization'
         disabled={props.status === TransactionStatus.BLOCK || props.status === TransactionStatus.SIGNING}
       >
