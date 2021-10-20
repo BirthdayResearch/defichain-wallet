@@ -25,8 +25,8 @@ exports[`transaction authorization screen should match snapshot of status: 0 1`]
       Object {
         "alignItems": "flex-end",
         "backgroundColor": "rgba(255, 255, 255, 1)",
-        "marginRight": 16,
         "opacity": 1,
+        "paddingRight": 16,
       }
     }
     testID="cancel_authorization"
@@ -160,8 +160,8 @@ exports[`transaction authorization screen should match snapshot of status: 1 1`]
       Object {
         "alignItems": "flex-end",
         "backgroundColor": "rgba(255, 255, 255, 1)",
-        "marginRight": 16,
         "opacity": 1,
+        "paddingRight": 16,
       }
     }
     testID="cancel_authorization"
@@ -319,8 +319,8 @@ exports[`transaction authorization screen should match snapshot of status: 2 1`]
       Object {
         "alignItems": "flex-end",
         "backgroundColor": "rgba(255, 255, 255, 1)",
-        "marginRight": 16,
         "opacity": 1,
+        "paddingRight": 16,
       }
     }
     testID="cancel_authorization"
@@ -478,8 +478,8 @@ exports[`transaction authorization screen should match snapshot of status: 3 1`]
       Object {
         "alignItems": "flex-end",
         "backgroundColor": "rgba(255, 255, 255, 1)",
-        "marginRight": 16,
         "opacity": 1,
+        "paddingRight": 16,
       }
     }
     testID="cancel_authorization"
@@ -883,8 +883,8 @@ exports[`transaction authorization screen should match snapshot of status: 4 1`]
       Object {
         "alignItems": "flex-end",
         "backgroundColor": "rgba(255, 255, 255, 1)",
-        "marginRight": 16,
         "opacity": 1,
+        "paddingRight": 16,
       }
     }
     testID="cancel_authorization"
@@ -1085,8 +1085,8 @@ exports[`transaction authorization screen should match snapshot of status: 5 1`]
       Object {
         "alignItems": "flex-end",
         "backgroundColor": "rgba(255, 255, 255, 1)",
-        "marginRight": 16,
         "opacity": 1,
+        "paddingRight": 16,
       }
     }
     testID="cancel_authorization"
