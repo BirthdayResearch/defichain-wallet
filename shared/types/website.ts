@@ -12,3 +12,7 @@ export interface AnnouncementData {
    */
   version: string
 }
+
+export interface FeatureFlag {
+  loans: boolean
+}

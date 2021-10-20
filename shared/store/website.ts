@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { AnnouncementData } from '@shared-types/website'
+import { AnnouncementData, FeatureFlag } from '@shared-types/website'
 
 export const websiteSlice = createApi({
   reducerPath: 'website',
@@ -16,8 +16,21 @@ export const websiteSlice = createApi({
           mode: 'no-cors'
         }
       })
+    }),
+    getFeatureFlags: builder.query<FeatureFlag[], any>({
+      query: () => ({
+        url: '/featureFlags',
+        method: 'GET',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          mode: 'no-cors'
+        }
+      })
     })
   })
 })
 
-export const { useGetAnnouncementsQuery } = websiteSlice
+export const {
+  useGetAnnouncementsQuery,
+  useGetFeatureFlagsQuery
+} = websiteSlice
