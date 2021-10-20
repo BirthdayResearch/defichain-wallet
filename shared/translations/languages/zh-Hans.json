@@ -494,7 +494,7 @@
     "Signing your transaction...": "正在签署交易",
     "Verifying access": "验证访问权限",
     "Transaction authorized": "已授權交易",
-    "Please wait as your transaction is prepared": "正在准备交易，请稍候"
+    "Please wait while your transaction is being prepared": "请稍候，您的交易正在准备中"
   },
   "components/CreateWalletIndicator": {
     "Recovery": "恢复",

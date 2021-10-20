@@ -71,6 +71,7 @@ exports[`wallet text input should render with default keyboard 1`] = `
           Object {
             "alignItems": "center",
             "flexDirection": "row",
+            "justifyContent": "space-between",
             "paddingBottom": 8,
             "paddingLeft": 8,
             "paddingRight": 8,
@@ -205,6 +206,7 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
           Object {
             "alignItems": "center",
             "flexDirection": "row",
+            "justifyContent": "space-between",
             "paddingBottom": 8,
             "paddingLeft": 8,
             "paddingRight": 8,
