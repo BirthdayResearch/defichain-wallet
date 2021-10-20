@@ -14,5 +14,7 @@ export interface AnnouncementData {
 }
 
 export interface FeatureFlag {
-  loans: boolean
+  name: string
+  version: string
+  stage: 'alpha' | 'beta' | 'public'
 }

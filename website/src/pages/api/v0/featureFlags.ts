@@ -9,5 +9,9 @@ export const cors = Cors({
 
 export default async function handle (req: NextApiRequest, res: NextApiResponse<FeatureFlag[]>): Promise<void> {
   await runMiddleware(req, res, cors)
-  res.json([{ loans: false }])
+  res.json([{
+    name: 'Loans',
+    stage: 'alpha',
+    version: '>=0.12.0'
+  }])
 }
