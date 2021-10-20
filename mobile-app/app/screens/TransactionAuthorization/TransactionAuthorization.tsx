@@ -2,7 +2,7 @@ import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { JellyfishWallet, WalletHdNodeProvider } from '@defichain/jellyfish-wallet'
 import { MnemonicHdNode } from '@defichain/jellyfish-wallet-mnemonic'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '@api'
 import {
@@ -38,6 +38,11 @@ import {
   TransactionStatus,
   USER_CANCELED
 } from '@screens/TransactionAuthorization/api/transaction_types'
+import { BottomSheetBackgroundProps, BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet'
+import { tailwind } from '@tailwind'
+import { View } from '@components'
+import { Platform } from 'react-native'
+import { useThemeContext } from '@contexts/ThemeProvider'
 
 /**
  * @description - Passcode prompt promise that resolves the pin to the wallet
@@ -62,6 +67,18 @@ export function TransactionAuthorization (): JSX.Element | null {
   const [attemptsRemaining, setAttemptsRemaining] = useState<number>(MAX_PASSCODE_ATTEMPT)
   const [pin, setPin] = useState<string>('')
   const [isRetry, setIsRetry] = useState(false)
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+  const { dismiss } = useBottomSheetModal()
+  const modalName = 'PasscodePromptModal'
+  const getSnapPoints = (): string[] => {
+    if (Platform.OS === 'ios') {
+      return ['65%'] // ios measures space without keyboard
+    } else if (Platform.OS === 'android') {
+      return ['50%'] // android measure space by including keyboard
+    }
+    return []
+  }
+  const { isLight } = useThemeContext()
 
   /**
    * This is one of the most important state of this component.
@@ -75,6 +92,14 @@ export function TransactionAuthorization (): JSX.Element | null {
   // messages
   const [message, setMessage] = useState(DEFAULT_MESSAGES.message)
   const [loadingMessage, setLoadingMessage] = useState(DEFAULT_MESSAGES.loadingMessage)
+
+  const closeModal = useCallback(() => {
+    dismiss(modalName)
+  }, [])
+
+  const openModal = useCallback(() => {
+    bottomSheetModalRef.current?.present()
+  }, [])
 
   // generic callbacks
   const onPinInput = (inputPin: string): void => {
@@ -102,6 +127,11 @@ export function TransactionAuthorization (): JSX.Element | null {
         : dispatch(transactionQueue.actions.pop())
       onTaskCompletion()
     }
+
+    setTimeout(() => {
+      // adding arbitrary timeout to fix modal not closing in Android
+      closeModal()
+    }, 300)
   }
 
   const onRetry = async (attempts: number): Promise<void> => {
@@ -134,6 +164,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   }
 
   const onTaskCompletion = (): void => {
+    closeModal()
     setPin('')
     setIsRetry(false)
     setMessage(DEFAULT_MESSAGES.message)
@@ -285,35 +316,88 @@ export function TransactionAuthorization (): JSX.Element | null {
     }
   }, [transactionStatus])
 
+  useEffect(() => {
+    if (![TransactionStatus.INIT, TransactionStatus.IDLE, TransactionStatus.BLOCK].includes(transactionStatus)) {
+      openModal()
+    }
+  }, [transactionStatus])
+
   if ([TransactionStatus.INIT, TransactionStatus.IDLE, TransactionStatus.BLOCK].includes(transactionStatus)) {
     return null
   }
 
   return (
-    <PasscodePrompt
-      onCancel={onCancel}
-      message={translate('screens/UnlockWallet', message)}
-      transaction={transaction}
-      status={transactionStatus}
-      pinLength={PASSCODE_LENGTH}
-      onPinInput={onPinInput}
-      pin={pin}
-      loadingMessage={translate('screens/TransactionAuthorization', loadingMessage)}
-      authorizedTransactionMessage={
-        {
-          title: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.title),
-          description: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.description)
-        }
-      }
-      grantedAccessMessage={
-        {
-          title: translate('screens/UnlockWallet', DEFAULT_MESSAGES.grantedAccessMessage.title),
-          description: translate('screens/UnlockWallet', DEFAULT_MESSAGES.grantedAccessMessage.description)
-        }
-      }
-      isRetry={isRetry}
-      attemptsRemaining={attemptsRemaining}
-      maxPasscodeAttempt={MAX_PASSCODE_ATTEMPT}
-    />
+    <>
+      {Platform.OS === 'web' &&
+        <PasscodePrompt
+          onCancel={onCancel}
+          message={translate('screens/UnlockWallet', message)}
+          transaction={transaction}
+          status={transactionStatus}
+          pinLength={PASSCODE_LENGTH}
+          onPinInput={onPinInput}
+          pin={pin}
+          loadingMessage={translate('screens/TransactionAuthorization', loadingMessage)}
+          authorizedTransactionMessage={
+            {
+              title: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.title),
+              description: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.description)
+            }
+          }
+          grantedAccessMessage={
+            {
+              title: translate('screens/UnlockWallet', DEFAULT_MESSAGES.grantedAccessMessage.title),
+              description: translate('screens/UnlockWallet', DEFAULT_MESSAGES.grantedAccessMessage.description)
+            }
+          }
+          isRetry={isRetry}
+          attemptsRemaining={attemptsRemaining}
+          maxPasscodeAttempt={MAX_PASSCODE_ATTEMPT}
+        />}
+      {Platform.OS !== 'web' &&
+        <BottomSheetModal
+          name={modalName}
+          ref={bottomSheetModalRef}
+          snapPoints={getSnapPoints()}
+          backdropComponent={(backdropProps: BottomSheetBackgroundProps) => (
+            <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
+          )}
+          backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
+            <View {...backgroundProps} style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-900 border-gray-700'} border-t rounded`)]} />
+          )}
+          onChange={(index) => {
+            if (index === -1) {
+              onCancel()
+            }
+          }}
+          enablePanDownToClose
+        >
+          <PasscodePrompt
+            onCancel={onCancel}
+            message={translate('screens/UnlockWallet', message)}
+            transaction={transaction}
+            status={transactionStatus}
+            pinLength={PASSCODE_LENGTH}
+            onPinInput={onPinInput}
+            pin={pin}
+            loadingMessage={translate('screens/TransactionAuthorization', loadingMessage)}
+            authorizedTransactionMessage={
+                {
+                  title: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.title),
+                  description: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.description)
+                }
+              }
+            grantedAccessMessage={
+                {
+                  title: translate('screens/UnlockWallet', DEFAULT_MESSAGES.grantedAccessMessage.title),
+                  description: translate('screens/UnlockWallet', DEFAULT_MESSAGES.grantedAccessMessage.description)
+                }
+              }
+            isRetry={isRetry}
+            attemptsRemaining={attemptsRemaining}
+            maxPasscodeAttempt={MAX_PASSCODE_ATTEMPT}
+          />
+        </BottomSheetModal>}
+    </>
   )
 }

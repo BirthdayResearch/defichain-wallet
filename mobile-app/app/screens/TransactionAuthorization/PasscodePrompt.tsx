@@ -1,11 +1,10 @@
 import { PinTextInput } from '@components/PinTextInput'
 import { ThemedActivityIndicator, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
-import { useThemeContext } from '@contexts/ThemeProvider'
 import { DfTxSigner } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import React from 'react'
-import { Platform, SafeAreaView, View } from 'react-native'
+import { SafeAreaView, View } from 'react-native'
 import { TransactionStatus } from '@screens/TransactionAuthorization/api/transaction_types'
 
 interface PasscodePromptProps {
@@ -25,40 +24,30 @@ interface PasscodePromptProps {
 }
 
 export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
-  const { isLight } = useThemeContext()
-
   return (
     <SafeAreaView
-      style={tailwind('w-full h-full flex-col', `${isLight ? 'bg-gray-100' : 'bg-gray-800'}`)}
+      style={tailwind('w-full h-full flex-col')}
     >
-      <View
-        style={{
-          paddingTop: Platform.select({
-            android: 25
-          })
-        }}
+      <ThemedTouchableOpacity
+        dark={tailwind('bg-gray-900')}
+        light={tailwind('bg-white')}
+        onPress={props.onCancel}
+        style={tailwind('items-end mr-4')}
+        testID='cancel_authorization'
       >
-        <ThemedTouchableOpacity
-          dark={tailwind('bg-gray-900')}
-          light={tailwind('bg-white')}
-          onPress={props.onCancel}
-          style={tailwind('flex flex-row-reverse p-4')}
-          testID='cancel_authorization'
-        >
-          <ThemedIcon
-            dark={tailwind('text-white')}
-            light={tailwind('text-black')}
-            iconType='MaterialIcons'
-            name='close'
-            size={26}
-          />
-        </ThemedTouchableOpacity>
-      </View>
+        <ThemedIcon
+          dark={tailwind('text-white')}
+          light={tailwind('text-black')}
+          iconType='MaterialIcons'
+          name='close'
+          size={26}
+        />
+      </ThemedTouchableOpacity>
 
       <ThemedView
         dark={tailwind('bg-gray-900')}
         light={tailwind('bg-white')}
-        style={tailwind('w-full flex-1 flex-col pt-8')}
+        style={tailwind('w-full flex-1 flex-col')}
       >
 
         {props.status === TransactionStatus.AUTHORIZED
