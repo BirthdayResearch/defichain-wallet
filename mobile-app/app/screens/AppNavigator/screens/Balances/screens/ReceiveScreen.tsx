@@ -45,7 +45,7 @@ export function ReceiveScreen (): JSX.Element {
         style={tailwind('flex justify-center items-center p-5 rounded-lg')}
       >
         <View
-          style={tailwind('mb-8')}
+          style={tailwind('mb-4')}
           testID='qr_code_container'
         >
           <QRCode

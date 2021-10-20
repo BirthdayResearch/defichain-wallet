@@ -92,7 +92,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         <ThemedText
           style={tailwind('text-base ml-4 mb-2')}
         >
-          {translate('screens/RemoveLiquidity', 'How much do you want to remove?')}
+          {translate('screens/RemoveLiquidity', 'Drag or enter amount to remove')}
         </ThemedText>
         <AmountSlider
           current={Number(percentage)}
@@ -151,21 +151,21 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         text={translate('screens/RemoveLiquidity', 'PRICE DETAILS')}
       />
       <NumberRow
-        lhs={translate('screens/AddLiquidity', '{{tokenB}} price in {{tokenA}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
+        lhs={translate('screens/RemoveLiquidity', '{{tokenB}} price in {{tokenA}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
         rhs={{
           value: tokenBPerLmToken.toFixed(8),
           testID: 'text_b_to_a_price',
           suffixType: 'text',
-          suffix: `${pair.tokenA.displaySymbol} per ${pair.tokenB.displaySymbol}`
+          suffix: translate('screens/RemoveLiquidity', '{{symbolA}} per {{symbolB}}', { symbolA: pair.tokenA.displaySymbol, symbolB: pair.tokenB.displaySymbol })
         }}
       />
       <NumberRow
-        lhs={translate('screens/AddLiquidity', '{{tokenA} price in {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
+        lhs={translate('screens/RemoveLiquidity', '{{tokenA}} price in {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
         rhs={{
           value: tokenAPerLmToken.toFixed(8),
           testID: 'text_a_to_b_price',
           suffixType: 'text',
-          suffix: `${pair.tokenB.displaySymbol} per ${pair.tokenA.displaySymbol}`
+          suffix: translate('screens/RemoveLiquidity', '{{symbolB}} per {{symbolA}}', { symbolB: pair.tokenB.displaySymbol, symbolA: pair.tokenA.displaySymbol })
         }}
       />
       <ThemedText
