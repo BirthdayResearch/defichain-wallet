@@ -39,13 +39,7 @@ export function Tabs (props: TabsProps): JSX.Element {
                 light={tailwind('bg-white')}
                 dark={tailwind('bg-gray-800')}
               >
-                <ThemedText
-                  light={tailwind({ 'text-gray-200': tab.disabled, 'text-gray-500': !tab.isActive && !tab.disabled, 'text-black': tab.isActive })}
-                  dark={tailwind({ 'text-gray-700': tab.disabled, 'text-gray-400': !tab.isActive && !tab.disabled, 'text-white': tab.isActive })}
-                  style={tailwind('text-base pb-3 text-center ', { 'font-semibold': tab.isActive })}
-                >
-                  {translate('components/tabs', tab.label)}
-                </ThemedText>
+                <TabLabel tab={tab} />
               </ThemedView>
             </ThemedTouchableOpacity>
           </View>
@@ -74,13 +68,7 @@ export function Tabs (props: TabsProps): JSX.Element {
               onPress={tab.handleOnPress}
               disabled={tab.disabled}
             >
-              <ThemedText
-                light={tailwind({ 'text-gray-200': tab.disabled, 'text-gray-500': !tab.isActive && !tab.disabled, 'text-black': tab.isActive })}
-                dark={tailwind({ 'text-gray-700': tab.disabled, 'text-gray-400': !tab.isActive && !tab.disabled, 'text-white': tab.isActive })}
-                style={tailwind('text-base pb-3 text-center', { 'font-semibold': tab.isActive })}
-              >
-                {translate('components/tabs', tab.label)}
-              </ThemedText>
+              <TabLabel tab={tab} />
             </ThemedTouchableOpacity>
           ))}
         </ThemedScrollView>
@@ -93,4 +81,16 @@ export function Tabs (props: TabsProps): JSX.Element {
   }
 
   return (<ScrollableTabs />)
+}
+
+function TabLabel (props: {tab: TabOption}): JSX.Element {
+  return (
+    <ThemedText
+      light={tailwind({ 'text-gray-200': props.tab.disabled, 'text-gray-500': !props.tab.isActive && !props.tab.disabled, 'text-black': props.tab.isActive })}
+      dark={tailwind({ 'text-gray-700': props.tab.disabled, 'text-gray-400': !props.tab.isActive && !props.tab.disabled, 'text-white': props.tab.isActive })}
+      style={tailwind('text-base pb-3 text-center', { 'font-semibold': props.tab.isActive })}
+    >
+      {translate('components/tabs', props.tab.label)}
+    </ThemedText>
+  )
 }
