@@ -50,7 +50,7 @@ exports[`Tabs component should match snapshot with 2 tabs 1`] = `
       <View
         style={
           Array [
-            Object {},
+            undefined,
             Object {
               "backgroundColor": "rgba(255, 255, 255, 1)",
             },
@@ -122,7 +122,7 @@ exports[`Tabs component should match snapshot with 2 tabs 1`] = `
       <View
         style={
           Array [
-            Object {},
+            undefined,
             Object {
               "backgroundColor": "rgba(255, 255, 255, 1)",
             },
