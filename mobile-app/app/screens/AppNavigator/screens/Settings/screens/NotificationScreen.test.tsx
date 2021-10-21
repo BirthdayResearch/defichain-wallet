@@ -15,7 +15,7 @@ jest.mock('@api', () => ({
   }
 }))
 
-jest.mock('../../../../../contexts/ThemeProvider')
+jest.mock('@contexts/ThemeProvider')
 
 describe('Notification screen', () => {
   it('should render', async () => {

@@ -80,8 +80,12 @@ export function NotificationScreen (): JSX.Element {
   )
 }
 
-export const RowNotificationItem = (
-  { item, onChange }: {item: AppNotificationTypesI, onChange: (type: NotificationType, value: boolean) => void}): JSX.Element => {
+interface RowNotificationItemProps {
+  item: AppNotificationTypesI
+  onChange: (type: NotificationType, value: boolean) => void
+}
+
+export function RowNotificationItem ({ item, onChange }: RowNotificationItemProps): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
