@@ -109,7 +109,8 @@ export function BalancesNavigator (): JSX.Element {
           headerLeft: () => (
             <ThemedTouchableOpacity
               onPress={() => navigation.navigate('Settings')}
-              style={tailwind('border-none')}
+              light={tailwind('border-none')}
+              dark={tailwind('border-none')}
               testID='header_settings'
             >
               <ThemedIcon

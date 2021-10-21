@@ -35,6 +35,7 @@ export function SettingsNavigator (): JSX.Element {
     <SettingsStack.Navigator
       screenOptions={{
         headerTitleStyle: HeaderFont,
+        headerBackTitleVisible: false,
         headerTitleAlign: 'center'
       }}
     >

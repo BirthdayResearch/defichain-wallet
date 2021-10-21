@@ -10,6 +10,7 @@ context('Wallet - Pool Pair Rewards', () => {
     cy.createEmptyWallet(true)
     cy.verifyWalletAddress('regtest', walletA)
     cy.verifyMnemonicOnSettingsPage(walletA.recoveryWords, walletA.recoveryWords)
+    cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('header_settings').click()
     cy.getByTestID('setting_exit_wallet').click()
   })
