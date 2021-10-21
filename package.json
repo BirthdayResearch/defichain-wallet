@@ -4,7 +4,8 @@
   "license": "MIT",
   "main": "index.js",
   "workspaces": [
-    "./website"
+    "./website",
+    "./desktop-app"
   ],
   "scripts": {
     "prepare": "husky install",
