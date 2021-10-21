@@ -41,6 +41,7 @@ export function PlaygroundConnection (): JSX.Element {
 
         <ThemedText>
           Blocks:
+          {' '}
           {count === 0 ? '...' : count}
         </ThemedText>
 
