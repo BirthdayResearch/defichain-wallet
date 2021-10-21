@@ -38,7 +38,6 @@ export function Tabs (props: TabsProps): JSX.Element {
               <ThemedView
                 light={tailwind('bg-white')}
                 dark={tailwind('bg-gray-800')}
-                style={tailwind('')}
               >
                 <ThemedText
                   light={tailwind({ 'text-gray-200': tab.disabled, 'text-gray-500': !tab.isActive && !tab.disabled, 'text-black': tab.isActive })}
