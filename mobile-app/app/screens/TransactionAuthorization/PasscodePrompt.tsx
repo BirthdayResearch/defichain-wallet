@@ -4,8 +4,11 @@ import { DfTxSigner } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import React from 'react'
-import { SafeAreaView, View } from 'react-native'
+import { Platform, SafeAreaView, View } from 'react-native'
 import { TransactionStatus } from '@screens/TransactionAuthorization/api/transaction_types'
+import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal } from '@gorhom/bottom-sheet'
+import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
+import { useThemeContext } from '@contexts/ThemeProvider'
 
 interface PasscodePromptProps {
   onCancel: () => void
@@ -21,37 +24,51 @@ interface PasscodePromptProps {
   isRetry: boolean
   attemptsRemaining: number
   maxPasscodeAttempt: number
+  promptModalName: string
+  modalRef: React.RefObject<BottomSheetModalMethods>
+  onModalCancel: () => void
 }
 
 export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
-  return (
-    <SafeAreaView
-      style={tailwind('w-full h-full flex-col')}
-    >
-      <ThemedTouchableOpacity
-        dark={tailwind('bg-gray-900')}
-        light={tailwind('bg-white')}
-        onPress={props.onCancel}
-        style={tailwind('items-end pt-2 pr-2')}
-        testID='cancel_authorization'
-        disabled={props.status === TransactionStatus.BLOCK || props.status === TransactionStatus.SIGNING}
-      >
-        <ThemedIcon
-          dark={tailwind('text-white')}
-          light={tailwind('text-black')}
-          iconType='MaterialIcons'
-          name='close'
-          size={26}
-        />
-      </ThemedTouchableOpacity>
+  const { isLight } = useThemeContext()
+  const getSnapPoints = (): string[] => {
+    if (Platform.OS === 'ios') {
+      return ['65%'] // ios measures space without keyboard
+    } else if (Platform.OS === 'android') {
+      return ['50%'] // android measure space by including keyboard
+    }
+    return []
+  }
 
-      <ThemedView
-        dark={tailwind('bg-gray-900')}
-        light={tailwind('bg-white')}
-        style={tailwind('w-full flex-1 flex-col')}
+  const PromptContent = (): JSX.Element => {
+    return (
+      <SafeAreaView
+        style={tailwind('w-full h-full flex-col')}
       >
+        <ThemedTouchableOpacity
+          dark={tailwind('bg-gray-900')}
+          light={tailwind('bg-white')}
+          onPress={props.onCancel}
+          style={tailwind('items-end pt-2 pr-2')}
+          testID='cancel_authorization'
+          disabled={props.status === TransactionStatus.BLOCK || props.status === TransactionStatus.SIGNING}
+        >
+          <ThemedIcon
+            dark={tailwind('text-white')}
+            light={tailwind('text-black')}
+            iconType='MaterialIcons'
+            name='close'
+            size={26}
+          />
+        </ThemedTouchableOpacity>
 
-        {props.status === TransactionStatus.AUTHORIZED
+        <ThemedView
+          dark={tailwind('bg-gray-900')}
+          light={tailwind('bg-white')}
+          style={tailwind('w-full flex-1 flex-col')}
+        >
+
+          {props.status === TransactionStatus.AUTHORIZED
           ? (
             <SuccessMessage
               message={props.transaction === undefined ? props.grantedAccessMessage : props.authorizedTransactionMessage}
@@ -144,8 +161,39 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
                   : null
               }
             </ThemedView>)}
-      </ThemedView>
-    </SafeAreaView>
+        </ThemedView>
+      </SafeAreaView>
+    )
+  }
+  return (
+    <>
+      {
+        Platform.OS !== 'web'
+        ? (
+          <BottomSheetModal
+            name={props.promptModalName}
+            ref={props.modalRef}
+            snapPoints={getSnapPoints()}
+            handleComponent={null}
+            backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
+              <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
+            )}
+            backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
+              <View {...backgroundProps} style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-900 border-gray-700'} border-t rounded`)]} />
+            )}
+            onChange={(index) => {
+              if (index === -1) {
+                props.onModalCancel()
+              }
+            }}
+            enablePanDownToClose={false}
+          >
+            <PromptContent />
+          </BottomSheetModal>
+        )
+        : <PromptContent />
+      }
+    </>
   )
 }
 

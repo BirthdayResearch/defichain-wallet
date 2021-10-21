@@ -38,11 +38,7 @@ import {
   TransactionStatus,
   USER_CANCELED
 } from '@screens/TransactionAuthorization/api/transaction_types'
-import { BottomSheetBackgroundProps, BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet'
-import { tailwind } from '@tailwind'
-import { View } from '@components'
-import { Platform } from 'react-native'
-import { useThemeContext } from '@contexts/ThemeProvider'
+import { BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet'
 
 /**
  * @description - Passcode prompt promise that resolves the pin to the wallet
@@ -70,15 +66,6 @@ export function TransactionAuthorization (): JSX.Element | null {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
   const { dismiss } = useBottomSheetModal()
   const modalName = 'PasscodePromptModal'
-  const getSnapPoints = (): string[] => {
-    if (Platform.OS === 'ios') {
-      return ['65%'] // ios measures space without keyboard
-    } else if (Platform.OS === 'android') {
-      return ['50%'] // android measure space by including keyboard
-    }
-    return []
-  }
-  const { isLight } = useThemeContext()
 
   /**
    * This is one of the most important state of this component.
@@ -327,78 +314,33 @@ export function TransactionAuthorization (): JSX.Element | null {
   }
 
   return (
-    <>
-      {Platform.OS === 'web' &&
-        <PasscodePrompt
-          onCancel={onCancel}
-          message={translate('screens/UnlockWallet', message)}
-          transaction={transaction}
-          status={transactionStatus}
-          pinLength={PASSCODE_LENGTH}
-          onPinInput={onPinInput}
-          pin={pin}
-          loadingMessage={translate('screens/TransactionAuthorization', loadingMessage)}
-          authorizedTransactionMessage={
-            {
-              title: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.title),
-              description: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.description)
-            }
-          }
-          grantedAccessMessage={
-            {
-              title: translate('screens/UnlockWallet', DEFAULT_MESSAGES.grantedAccessMessage.title),
-              description: translate('screens/UnlockWallet', DEFAULT_MESSAGES.grantedAccessMessage.description)
-            }
-          }
-          isRetry={isRetry}
-          attemptsRemaining={attemptsRemaining}
-          maxPasscodeAttempt={MAX_PASSCODE_ATTEMPT}
-        />}
-      {Platform.OS !== 'web' &&
-        <BottomSheetModal
-          name={modalName}
-          ref={bottomSheetModalRef}
-          snapPoints={getSnapPoints()}
-          handleComponent={null}
-          backdropComponent={(backdropProps: BottomSheetBackgroundProps) => (
-            <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
-          )}
-          backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
-            <View {...backgroundProps} style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-900 border-gray-700'} border-t rounded`)]} />
-          )}
-          onChange={(index) => {
-            if (index === -1) {
-              onCancel()
-            }
-          }}
-          enablePanDownToClose={false}
-        >
-          <PasscodePrompt
-            onCancel={onCancel}
-            message={translate('screens/UnlockWallet', message)}
-            transaction={transaction}
-            status={transactionStatus}
-            pinLength={PASSCODE_LENGTH}
-            onPinInput={onPinInput}
-            pin={pin}
-            loadingMessage={translate('screens/TransactionAuthorization', loadingMessage)}
-            authorizedTransactionMessage={
-                {
-                  title: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.title),
-                  description: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.description)
-                }
-              }
-            grantedAccessMessage={
-                {
-                  title: translate('screens/UnlockWallet', DEFAULT_MESSAGES.grantedAccessMessage.title),
-                  description: translate('screens/UnlockWallet', DEFAULT_MESSAGES.grantedAccessMessage.description)
-                }
-              }
-            isRetry={isRetry}
-            attemptsRemaining={attemptsRemaining}
-            maxPasscodeAttempt={MAX_PASSCODE_ATTEMPT}
-          />
-        </BottomSheetModal>}
-    </>
+    <PasscodePrompt
+      onCancel={onCancel}
+      message={translate('screens/UnlockWallet', message)}
+      transaction={transaction}
+      status={transactionStatus}
+      pinLength={PASSCODE_LENGTH}
+      onPinInput={onPinInput}
+      pin={pin}
+      loadingMessage={translate('screens/TransactionAuthorization', loadingMessage)}
+      authorizedTransactionMessage={
+        {
+          title: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.title),
+          description: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.description)
+        }
+      }
+      grantedAccessMessage={
+        {
+          title: translate('screens/UnlockWallet', DEFAULT_MESSAGES.grantedAccessMessage.title),
+          description: translate('screens/UnlockWallet', DEFAULT_MESSAGES.grantedAccessMessage.description)
+        }
+      }
+      isRetry={isRetry}
+      attemptsRemaining={attemptsRemaining}
+      maxPasscodeAttempt={MAX_PASSCODE_ATTEMPT}
+      modalRef={bottomSheetModalRef}
+      promptModalName={modalName}
+      onModalCancel={closeModal}
+    />
   )
 }
