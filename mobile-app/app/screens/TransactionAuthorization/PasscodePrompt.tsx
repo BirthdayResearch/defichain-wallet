@@ -51,7 +51,7 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
           onPress={props.onCancel}
           style={tailwind('items-end pt-2 pr-2')}
           testID='cancel_authorization'
-          disabled={props.status === TransactionStatus.BLOCK || props.status === TransactionStatus.SIGNING}
+          disabled={[TransactionStatus.BLOCK, TransactionStatus.SIGNING].includes(props.status)}
         >
           <ThemedIcon
             dark={tailwind('text-white')}
@@ -165,35 +165,32 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
       </SafeAreaView>
     )
   }
+
+  if (Platform.OS === 'web') {
+    return (<PromptContent />)
+  }
+
   return (
-    <>
-      {
-        Platform.OS !== 'web'
-        ? (
-          <BottomSheetModal
-            name={props.promptModalName}
-            ref={props.modalRef}
-            snapPoints={getSnapPoints()}
-            handleComponent={null}
-            backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
-              <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
-            )}
-            backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
-              <View {...backgroundProps} style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-900 border-gray-700'} border-t rounded`)]} />
-            )}
-            onChange={(index) => {
-              if (index === -1) {
-                props.onModalCancel()
-              }
-            }}
-            enablePanDownToClose={false}
-          >
-            <PromptContent />
-          </BottomSheetModal>
-        )
-        : <PromptContent />
-      }
-    </>
+    <BottomSheetModal
+      name={props.promptModalName}
+      ref={props.modalRef}
+      snapPoints={getSnapPoints()}
+      handleComponent={null}
+      backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
+        <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
+      )}
+      backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
+        <View {...backgroundProps} style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-900 border-gray-700'} border-t rounded`)]} />
+      )}
+      onChange={(index) => {
+        if (index === -1) {
+          props.onModalCancel()
+        }
+      }}
+      enablePanDownToClose={false}
+    >
+      <PromptContent />
+    </BottomSheetModal>
   )
 }
 
