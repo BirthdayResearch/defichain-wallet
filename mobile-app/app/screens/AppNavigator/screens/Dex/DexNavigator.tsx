@@ -18,7 +18,7 @@ import { ConversionParam } from '../Balances/BalancesNavigator'
 
 export interface DexParamList {
   DexScreen: undefined
-  PoolSwapScreen: { poolpair: PoolPairData }
+  PoolSwapScreen: { pair: PoolPairData }
   ConfirmPoolSwapScreen: {
     tokenA: DerivedTokenState
     tokenB: DerivedTokenState
