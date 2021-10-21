@@ -1,3 +1,5 @@
+import { getAppLanguages } from '../../../../../../shared/translations'
+
 context('Wallet - DEX - guidelines', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
@@ -18,5 +20,40 @@ context('Wallet - DEX - guidelines', () => {
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('bottom_tab_dex').click()
     cy.url().should('include', 'app/DEX/DexScreen')
+  })
+})
+
+context.only('Wallet - DEX - guidelines translation check', () => {
+  before(function () {
+    cy.createEmptyWallet(true)
+  })
+  const languages = getAppLanguages().filter(({ locale }: { locale: string }) => locale !== 'en')
+  languages.forEach(function ({ language, locale }: { language: string, locale: string}) {
+    context.only(`Translation check for ${language}`, () => {
+      before(function () {
+        cy.switchLanguage(language)
+        cy.getByTestID('bottom_tab_dex').click()
+        cy.getByTestID('dex_guidelines_screen').should('exist')
+      })
+      const texts = [
+        {
+          path: ['Add liquidity'],
+          testID: 'add_liquidity_title'
+        },
+        {
+          path: ['Swap tokens'],
+          testID: 'swap_token_title'
+        },
+        {
+          path: ['Withdraw at any time'],
+          testID: 'withdraw_title'
+        }
+      ]
+      it(`should verify translation for text element in ${language}`, function () {
+        texts.forEach(function (text) {
+          cy.checkLnTextContent(locale, text.testID, 'screens/DexGuidelines', ...text.path)
+        })
+      })
+    })
   })
 })

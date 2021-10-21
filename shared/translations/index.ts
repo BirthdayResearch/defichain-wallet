@@ -36,13 +36,17 @@ let init = false
  */
 export function initI18n (): void {
   init = true
-  i18n.translations = {
+  i18n.translations = getTranslations()
+  i18n.fallbacks = true
+}
+
+export function getTranslations (): { [locale: string]: object} {
+  return {
     en: {},
     de: deepEncode(de),
     'zh-Hans': deepEncode(zhHans),
     'zh-Hant': deepEncode(zhHant)
   }
-  i18n.fallbacks = true
 }
 
 /**
