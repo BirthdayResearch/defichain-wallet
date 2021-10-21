@@ -4,7 +4,7 @@ import React from 'react'
 import { ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from './themed'
 
 interface TabsProps {
-  tabs: TabOption[]
+  tabSections: TabOption[]
 }
 
 interface TabOption {
@@ -18,14 +18,14 @@ export function Tabs (props: TabsProps): JSX.Element {
   return (
     <>
       {
-        props.tabs.length === 2
+        props.tabSections.length === 2
           ? (
             <ThemedView
               light={tailwind('bg-white')}
               dark={tailwind('bg-gray-800')}
               style={tailwind('flex flex-row pt-3')}
             >
-              {props.tabs.map((tab, index) => (
+              {props.tabSections.map((tab, index) => (
                 <View
                   key={index}
                   style={tailwind('w-2/4 flex items-center')}
@@ -65,7 +65,7 @@ export function Tabs (props: TabsProps): JSX.Element {
                 style={tailwind('flex flex-row -mr-6 flex-1')}
                 showsHorizontalScrollIndicator={false}
               >
-                {props.tabs.map((tab, index) => (
+                {props.tabSections.map((tab, index) => (
                   <ThemedTouchableOpacity
                     key={index}
                     light={tailwind('border-b-2', { 'border-primary-500': tab.isActive })}
