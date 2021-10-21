@@ -45,7 +45,7 @@ context('Wallet - Settings', () => {
 
   it('should navigate to about page', function () {
     cy.getByTestID('setting_navigate_About').click()
-    cy.url().should('include', 'app/AboutScreen')
+    cy.url().should('include', 'app/Settings/AboutScreen')
     cy.getByTestID('app_logo').should('exist')
   })
 })

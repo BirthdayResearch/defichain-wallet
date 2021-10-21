@@ -76,6 +76,7 @@ Cypress.Commands.add('setupPinCode', () => {
 
 Cypress.Commands.add('verifyMnemonicOnSettingsPage', function (settingsRecoveryWords: string[], recoveryWords: string[]) {
   cy.getByTestID('balances_list').should('exist')
+  cy.getByTestID('bottom_tab_balances').click()
   cy.getByTestID('header_settings').click()
   cy.getByTestID('view_recovery_words').click().wait(3000)
   cy.getByTestID('pin_authorize').type('000000')

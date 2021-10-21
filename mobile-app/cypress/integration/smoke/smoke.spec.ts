@@ -79,6 +79,7 @@ context('Mainnet - Wallet', () => {
 
   context('Restore - Mnemonic Verification', () => {
     it('should be able to restore mnemonic words', function () {
+      cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('header_settings').click()
       cy.getByTestID('setting_exit_wallet').click()
       cy.restoreMnemonicWords(settingsRecoveryWords)
@@ -87,6 +88,7 @@ context('Mainnet - Wallet', () => {
 
   context('Wallet - Verify Wallet Address', () => {
     it('should be have selected valid network', function () {
+      cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('header_settings').click()
       cy.getByTestID('button_selected_network').contains('MainNet').should('exist')
     })
