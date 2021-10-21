@@ -1,8 +1,9 @@
 import '@testing-library/cypress/add-commands'
 import { get } from 'lodash'
-import { getTranslations } from '../../../shared/translations'
+import { AppLanguageItem, getTranslations, getAppLanguages } from '../../../shared/translations'
 
 const translation = getTranslations()
+const languages = getAppLanguages().filter(({ locale }: { locale: string }) => locale !== 'en')
 
 declare global {
   namespace Cypress {
@@ -20,7 +21,7 @@ declare global {
        * @param {string} text to be used
        * @example cy.switchLanguage('German')
        */
-       checkLnTextContent: (language: string, testId: string, ...translationPath: string[]) => Chainable<Element>
+       checkLnTextContent: (init: () => void, texts: { testID: string, path: string[] }[]) => Chainable<Element>
     }
   }
 }
@@ -33,6 +34,12 @@ Cypress.Commands.add('switchLanguage', (language: string) => {
   cy.on('window:confirm', () => {})
 })
 
-Cypress.Commands.add('checkLnTextContent', (language: string, testId: string, ...translationPath: string[]) => {
-  cy.getByTestID(testId).should('have.text', get(translation, [language, ...translationPath]))
+Cypress.Commands.add('checkLnTextContent', (init: () => void, texts ) => {
+  languages.forEach(function ({ language, locale }: AppLanguageItem) {
+    cy.switchLanguage(language)
+    init()
+    texts.forEach(function (text: {testID: string, path: string[]}) {
+      cy.getByTestID(text.testID).should('have.text', get(translation, [locale, ...text.path]))
+    })
+  })
 })
