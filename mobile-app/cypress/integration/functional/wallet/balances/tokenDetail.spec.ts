@@ -4,7 +4,8 @@ context('Wallet - Token Detail', () => {
     cy.getByTestID('bottom_tab_settings').click()
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
-      .sendTokenToWallet(['BTC']).wait(10000)
+      .sendTokenToWallet(['BTC'])
+      .wait(10000)
     cy.getByTestID('bottom_tab_balances').click()
   })
 
@@ -17,6 +18,9 @@ context('Wallet - Token Detail', () => {
     cy.getByTestID('send_button').should('exist')
     cy.getByTestID('receive_button').should('exist')
     cy.getByTestID('convert_button').should('not.exist')
+    cy.getByTestID('add_liquidity_button').should('exist')
+    cy.getByTestID('remove_liquidity_button').should('not.exist')
+    cy.getByTestID('swap_button').should('exist')
   })
 })
 

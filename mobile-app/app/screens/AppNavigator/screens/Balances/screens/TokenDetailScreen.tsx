@@ -130,7 +130,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
       {
         !token.isLPS && pair !== undefined && (
           <TokenActionRow
-            icon='add'
+            icon='swap-horiz'
             onPress={() => onNavigate({
               destination: 'PoolSwap',
               pair

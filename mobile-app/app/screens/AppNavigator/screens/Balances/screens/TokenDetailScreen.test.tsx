@@ -4,6 +4,7 @@ import * as React from 'react'
 import { Provider } from 'react-redux'
 import { RootState } from '@store'
 import { wallet } from '@store/wallet'
+import { block } from '@store/block'
 import { TokenDetailScreen } from './TokenDetailScreen'
 
 jest.mock('../../../../../contexts/ThemeProvider')
@@ -12,6 +13,14 @@ jest.mock('../../../../../contexts/DeFiScanContext', () => ({
     getTokenUrl: jest.fn
   })
 }))
+jest.mock('../../../../../contexts/WalletContext', () => ({
+  useWalletContext: () => {
+    return {
+      address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d'
+    }
+  }
+}))
+
 jest.mock('../../../../../hooks/wallet/TokensAPI', () => ({
   useTokensAPI: () => [
     {
@@ -55,11 +64,16 @@ describe('token detail screen', () => {
         utxoBalance: '77',
         tokens: [],
         poolpairs: []
+      },
+      block: {
+        count: 2000,
+        connected: true,
+        isPolling: true
       }
     }
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { wallet: wallet.reducer }
+      reducer: { wallet: wallet.reducer, block: block.reducer }
     })
     const navigation: any = {
       navigate: jest.fn()
@@ -101,11 +115,16 @@ describe('token detail screen', () => {
         utxoBalance: '77',
         tokens: [],
         poolpairs: []
+      },
+      block: {
+        count: 2000,
+        connected: true,
+        isPolling: true
       }
     }
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { wallet: wallet.reducer }
+      reducer: { wallet: wallet.reducer, block: block.reducer }
     })
     const navigation: any = {
       navigate: jest.fn()
@@ -146,11 +165,16 @@ describe('token detail screen', () => {
         utxoBalance: '77',
         tokens: [],
         poolpairs: []
+      },
+      block: {
+        count: 2000,
+        connected: true,
+        isPolling: true
       }
     }
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { wallet: wallet.reducer }
+      reducer: { wallet: wallet.reducer, block: block.reducer }
     })
     const navigation: any = {
       navigate: jest.fn()
