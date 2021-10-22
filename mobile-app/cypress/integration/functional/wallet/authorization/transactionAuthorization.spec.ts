@@ -46,7 +46,7 @@ context('Wallet - Transaction Authorization with Error', () => {
 
   it('should not reset attempts on cancel - non transaction UI', function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('header_settings').click()
     cy.getByTestID('view_recovery_words').click().wait(3000)
     Array.from(Array(MAX_PASSCODE_ATTEMPT - 1), (v, i) => i + 1).forEach(() => {
       cy.getByTestID('pin_authorize').type('696969').wait(1000)
@@ -133,7 +133,7 @@ context('Wallet - Transaction Authorization', () => {
   context('Non-Transaction Authorization', () => {
     it('should be prompt non-signing authorization', function () {
       cy.createEmptyWallet(true).wait(4000)
-      cy.getByTestID('bottom_tab_settings').click()
+      cy.getByTestID('header_settings').click()
       cy.getByTestID('view_recovery_words').click()
     })
 
@@ -152,7 +152,7 @@ context('Wallet - Transaction Authorization', () => {
 
     it('should clear attempt on success', function () {
       cy.createEmptyWallet(true).wait(4000)
-      cy.getByTestID('bottom_tab_settings').click()
+      cy.getByTestID('header_settings').click()
       cy.getByTestID('view_recovery_words').click()
       Array.from(Array(MAX_PASSCODE_ATTEMPT - 1), (v, i) => i + 1).forEach(() => {
         cy.getByTestID('pin_authorize').type('696969').wait(1000)

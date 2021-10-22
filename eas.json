@@ -1,6 +1,6 @@
 {
   "build": {
-    "release": {
+    "production": {
       "releaseChannel": "production"
     },
     "preview": {
@@ -13,7 +13,7 @@
     }
   },
   "submit": {
-    "release": {
+    "production": {
       "android": {
         "serviceAccountKeyPath": "./ANDROID_SERVICE_ACCOUNT.json",
         "track": "internal",

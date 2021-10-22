@@ -135,7 +135,8 @@ context('Wallet - Network detail screen - with wallet context', () => {
   })
 
   it('should check network detail by switching network', function () {
-    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('header_settings').click()
     cy.getByTestID('button_selected_network').should('exist').wait(3000)
     cy.getByTestID('header_active_network').first().invoke('text').then((network) => {
       cy.getByTestID('header_status_indicator').should('have.css', 'background-color').then((statusBgColor) => {
@@ -147,7 +148,7 @@ context('Wallet - Network detail screen - with wallet context', () => {
         cy.getByTestID('button_network_Playground').click().wait(3000)
         cy.exitWallet()
         cy.createEmptyWallet(true)
-        cy.getByTestID('bottom_tab_settings').click()
+        cy.getByTestID('header_settings').click()
         cy.getByTestID('button_selected_network').should('exist').wait(3000)
         cy.getByTestID('header_active_network').first().invoke('text').then((updatedNetwork) => {
           cy.getByTestID('header_status_indicator').should('have.css', 'background-color').then((updatedStatusBgColor) => {
@@ -162,8 +163,9 @@ context('Wallet - Network detail screen - with wallet context', () => {
     })
   })
 
-  it('should able to click block height and redirect it to defiscan', function () {
-    cy.getByTestID('bottom_tab_settings').click()
+  it('should be able to click block height and redirect it to defiscan', function () {
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('header_settings').click()
     cy.getByTestID('setting_header_container').filter(':visible').click()
     cy.getByTestID('network_details_block_height').first().invoke('text').then((blockHeight) => {
       const blockH: string = blockHeight.replace(',', '')
@@ -216,10 +218,11 @@ context('Wallet - Network detail screen - with wallet context go back check', ()
   })
 
   it('should get back to the setting page when network detail called from setting page', function () {
-    cy.getByTestID('bottom_tab_settings').filter(':visible').click().wait(3000)
-    cy.url().should('include', 'app/settings')
+    cy.getByTestID('bottom_tab_balances').click().wait(3000)
+    cy.getByTestID('header_settings').filter(':visible').click().wait(3000)
+    cy.url().should('include', 'app/Settings')
     cy.getByTestID('setting_header_container').filter(':visible').click().wait(3000)
     cy.getByTestID('network_details_header_back').click()
-    cy.url().should('include', 'app/settings')
+    cy.url().should('include', 'app/Settings')
   })
 })
