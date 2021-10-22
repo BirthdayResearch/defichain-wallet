@@ -21,7 +21,7 @@ export function Tabs (props: TabsProps): JSX.Element {
       <ThemedView
         light={tailwind('bg-white')}
         dark={tailwind('bg-gray-800')}
-        style={tailwind('flex flex-row pt-3 h-12')}
+        style={tailwind('flex flex-row pt-3')}
       >
         {props.tabSections.map((tab, index) => (
           <View
