@@ -2,7 +2,7 @@ import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { JellyfishWallet, WalletHdNodeProvider } from '@defichain/jellyfish-wallet'
 import { MnemonicHdNode } from '@defichain/jellyfish-wallet-mnemonic'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logging } from '@api'
 import {
@@ -38,6 +38,7 @@ import {
   TransactionStatus,
   USER_CANCELED
 } from '@screens/TransactionAuthorization/api/transaction_types'
+import { BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet'
 
 /**
  * @description - Passcode prompt promise that resolves the pin to the wallet
@@ -62,6 +63,9 @@ export function TransactionAuthorization (): JSX.Element | null {
   const [attemptsRemaining, setAttemptsRemaining] = useState<number>(MAX_PASSCODE_ATTEMPT)
   const [pin, setPin] = useState<string>('')
   const [isRetry, setIsRetry] = useState(false)
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+  const { dismiss } = useBottomSheetModal()
+  const modalName = 'PasscodePromptModal'
 
   /**
    * This is one of the most important state of this component.
@@ -75,6 +79,14 @@ export function TransactionAuthorization (): JSX.Element | null {
   // messages
   const [message, setMessage] = useState(DEFAULT_MESSAGES.message)
   const [loadingMessage, setLoadingMessage] = useState(DEFAULT_MESSAGES.loadingMessage)
+
+  const closeModal = useCallback(() => {
+    dismiss(modalName)
+  }, [])
+
+  const openModal = useCallback(() => {
+    bottomSheetModalRef.current?.present()
+  }, [])
 
   // generic callbacks
   const onPinInput = (inputPin: string): void => {
@@ -102,6 +114,11 @@ export function TransactionAuthorization (): JSX.Element | null {
         : dispatch(transactionQueue.actions.pop())
       onTaskCompletion()
     }
+
+    setTimeout(() => {
+      // adding arbitrary timeout to fix modal not closing in Android
+      closeModal()
+    }, 300)
   }
 
   const onRetry = async (attempts: number): Promise<void> => {
@@ -134,6 +151,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   }
 
   const onTaskCompletion = (): void => {
+    closeModal()
     setPin('')
     setIsRetry(false)
     setMessage(DEFAULT_MESSAGES.message)
@@ -285,6 +303,12 @@ export function TransactionAuthorization (): JSX.Element | null {
     }
   }, [transactionStatus])
 
+  useEffect(() => {
+    if (![TransactionStatus.INIT, TransactionStatus.IDLE, TransactionStatus.BLOCK].includes(transactionStatus)) {
+      openModal()
+    }
+  }, [transactionStatus])
+
   if ([TransactionStatus.INIT, TransactionStatus.IDLE, TransactionStatus.BLOCK].includes(transactionStatus)) {
     return null
   }
@@ -314,6 +338,9 @@ export function TransactionAuthorization (): JSX.Element | null {
       isRetry={isRetry}
       attemptsRemaining={attemptsRemaining}
       maxPasscodeAttempt={MAX_PASSCODE_ATTEMPT}
+      modalRef={bottomSheetModalRef}
+      promptModalName={modalName}
+      onModalCancel={closeModal}
     />
   )
 }

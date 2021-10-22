@@ -30,7 +30,7 @@ context('Wallet - DEX - Pool Swap without balance', () => {
 context('Wallet - DEX - Pool Swap with balance', () => {
   before(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('header_settings').click()
     cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['LTC']).wait(3000)
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
@@ -92,7 +92,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
 context('Wallet - DEX - Pool Swap with balance Confirm Txn', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('header_settings').click()
     cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['LTC']).wait(3000)
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()

@@ -32,7 +32,13 @@ const SettingsStack = createStackNavigator<SettingsParamList>()
 export function SettingsNavigator (): JSX.Element {
   const headerContainerTestId = 'setting_header_container'
   return (
-    <SettingsStack.Navigator screenOptions={{ headerTitleStyle: HeaderFont }}>
+    <SettingsStack.Navigator
+      screenOptions={{
+        headerTitleStyle: HeaderFont,
+        headerBackTitleVisible: false,
+        headerTitleAlign: 'center'
+      }}
+    >
       <SettingsStack.Screen
         component={SettingsScreen}
         name='SettingsScreen'
