@@ -28,26 +28,25 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
       style={tailwind('px-2 pt-4 -mb-4')}
       data={props.loans}
       numColumns={2}
-      renderItem={({ item, index }) => (
-        <>
-          {index !== props.loans.length - 1 &&
-            (
+      renderItem={({ item, index }): JSX.Element => {
+        if (index !== props.loans.length - 1) {
+          return (
+            <LoadCard
+              key={index}
+              {...item}
+            />
+          )
+        } else {
+          return (
+            <View style={{ flex: 0.5 }}>
               <LoadCard
                 key={index}
                 {...item}
               />
-            )}
-          {index === props.loans.length - 1 &&
-            (
-              <View style={{ flex: 0.5 }}>
-                <LoadCard
-                  key={index}
-                  {...item}
-                />
-              </View>
-            )}
-        </>
-      )}
+            </View>
+          )
+        }
+      }}
     />
   )
 }
