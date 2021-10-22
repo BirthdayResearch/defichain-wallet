@@ -17,6 +17,7 @@ export interface LoanCardOptions {
   price: BigNumber
   isVerified: boolean
   interestRate: BigNumber
+  onPress: () => void
 }
 
 type PriceType = 'ACTIVE' | 'NEXT'
@@ -55,12 +56,14 @@ function LoadCard ({
   loanName,
   priceType,
   price,
-  interestRate
+  interestRate,
+  onPress
 }: LoanCardOptions): JSX.Element {
   const LoanIcon = getNativeIcon(loanName)
   return (
     <ThemedTouchableOpacity
       style={tailwind('p-4 mx-2 mb-4 rounded flex-1')}
+      onPress={onPress}
     >
       <View style={tailwind('flex-row items-center pb-2')}>
         <LoanIcon width={24} height={24} style={tailwind('mr-2')} />
