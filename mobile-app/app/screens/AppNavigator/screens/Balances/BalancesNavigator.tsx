@@ -7,7 +7,7 @@ import { TouchableOpacity, View } from 'react-native'
 import { BarCodeScanner } from '@components/BarCodeScanner'
 import { ConnectionStatus, HeaderTitle } from '@components/HeaderTitle'
 import { getNativeIcon } from '@components/icons/assets'
-import { ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import { ThemedIcon, ThemedText } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { SettingsNavigator } from '../Settings/SettingsNavigator'
@@ -107,21 +107,19 @@ export function BalancesNavigator (): JSX.Element {
         name='BalancesScreen'
         options={{
           headerLeft: () => (
-            <ThemedTouchableOpacity
+            <TouchableOpacity
               onPress={() => navigation.navigate('Settings')}
-              light={tailwind('border-none')}
-              dark={tailwind('border-none')}
               testID='header_settings'
             >
               <ThemedIcon
                 iconType='MaterialIcons'
                 name='settings'
-                size={24}
+                size={28}
                 style={tailwind('ml-2')}
                 light={tailwind('text-primary-500')}
                 dark={tailwind('text-primary-500')}
               />
-            </ThemedTouchableOpacity>
+            </TouchableOpacity>
           ),
           headerTitle: () => (
             <HeaderTitle
