@@ -27,7 +27,8 @@ declare global {
 
 
 Cypress.Commands.add('switchLanguage', (language: string) => {
-  cy.getByTestID('bottom_tab_settings').click()
+  cy.getByTestID('bottom_tab_balances').click()
+  cy.getByTestID('header_settings').click()
   cy.getByTestID('setting_navigate_language_selection').click()
   cy.getByTestID(`button_language_${language}`).click()
   cy.on('window:confirm', () => {})
