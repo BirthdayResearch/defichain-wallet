@@ -5,6 +5,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import NumberFormat from 'react-number-format'
 import { View } from 'react-native'
+import { getNativeIcon } from './icons/assets'
 
 interface LoanCardsProps {
   loans: LoanCardOptions[]
@@ -23,15 +24,28 @@ type PriceType = 'ACTIVE' | 'NEXT'
 export function LoanCards (props: LoanCardsProps): JSX.Element {
   return (
     <ThemedFlatList
-      // contentContainerStyle
-      style={tailwind('p-4 -mr-4')}
+      style={tailwind('px-2 pt-4 -mb-4')}
       data={props.loans}
       numColumns={2}
       renderItem={({ item, index }) => (
-        <LoadCard
-          key={index}
-          {...item}
-        />
+        <>
+          {index !== props.loans.length - 1 &&
+            (
+              <LoadCard
+                key={index}
+                {...item}
+              />
+            )}
+          {index === props.loans.length - 1 &&
+            (
+              <View style={[tailwind(''), { flex: 0.5 }]}>
+                <LoadCard
+                  key={index}
+                  {...item}
+                />
+              </View>
+            )}
+        </>
       )}
     />
   )
@@ -43,12 +57,16 @@ function LoadCard ({
   price,
   interestRate
 }: LoanCardOptions): JSX.Element {
+  const LoanIcon = getNativeIcon(loanName)
   return (
     <ThemedView
       light={tailwind('bg-white')}
-      style={tailwind('p-4 mr-4 mb-4 flex-1 rounded')}
+      style={[tailwind('p-4 mx-2 mb-4 rounded'), { flex: 1 }]}
     >
-      <ThemedText style={tailwind('font-semibold pb-2')}>{loanName}</ThemedText>
+      <View style={tailwind('flex-row items-center pb-2')}>
+        <LoanIcon width={24} height={24} style={tailwind('mr-2')} />
+        <ThemedText style={tailwind('font-semibold')}>{loanName}</ThemedText>
+      </View>
       <ThemedText
         light={tailwind('text-gray-500')}
         style={tailwind('text-xs')}
