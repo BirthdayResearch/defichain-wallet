@@ -9,7 +9,7 @@ context('Onboarding - Restore Wallet', () => {
   })
 
   it('should have disabled button', function () {
-    cy.getByTestID('recover_wallet_button').should('have.attr', 'disabled')
+    cy.getByTestID('recover_wallet_button').should('have.attr', 'aria-disabled')
   })
 
   it('should not prompt when navigate back without filling any recovery word', function () {

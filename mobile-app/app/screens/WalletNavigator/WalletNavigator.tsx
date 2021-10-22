@@ -85,7 +85,7 @@ export function WalletNavigator (): JSX.Element {
     >
       <WalletStack.Navigator
         initialRouteName='Onboarding'
-        screenOptions={{ headerTitleStyle: HeaderFont }}
+        screenOptions={{ headerTitleStyle: HeaderFont, headerTitleAlign: 'center' }}
       >
         <WalletStack.Screen
           component={Onboarding}

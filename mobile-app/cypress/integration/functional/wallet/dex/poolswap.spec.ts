@@ -23,14 +23,14 @@ context('Wallet - DEX - Pool Swap without balance', () => {
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
     cy.getByTestID('pool_pair_swap-horiz_dLTC-DFI').click()
-    cy.getByTestID('button_submit').should('have.attr', 'disabled')
+    cy.getByTestID('button_submit').should('have.attr', 'aria-disabled')
   })
 })
 
 context('Wallet - DEX - Pool Swap with balance', () => {
   before(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('header_settings').click()
     cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['LTC']).wait(3000)
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
@@ -58,14 +58,14 @@ context('Wallet - DEX - Pool Swap with balance', () => {
       cy.getByTestID('text_input_tokenA').type('a').blur().wait(100)
       cy.getByTestID('text_input_tokenA').should('have.value', '0')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(0).toFixed(8))
-      cy.getByTestID('button_submit').should('have.attr', 'disabled')
+      cy.getByTestID('button_submit').should('have.attr', 'aria-disabled')
       cy.getByTestID('text_input_tokenA_clear_button').click()
       cy.getByTestID('text_input_tokenA').type('15').blur().wait(100)
       cy.getByTestID('conversion_info_text').should('exist')
       cy.getByTestID('button_submit').should('not.have.attr', 'disabled')
       cy.getByTestID('text_input_tokenA_clear_button').click()
       cy.getByTestID('text_input_tokenA').type('0').blur().wait(100)
-      cy.getByTestID('button_submit').should('have.attr', 'disabled')
+      cy.getByTestID('button_submit').should('have.attr', 'aria-disabled')
     })
   })
 
@@ -92,7 +92,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
 context('Wallet - DEX - Pool Swap with balance Confirm Txn', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('header_settings').click()
     cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['LTC']).wait(3000)
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()

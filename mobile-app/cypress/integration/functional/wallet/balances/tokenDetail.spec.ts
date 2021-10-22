@@ -1,7 +1,7 @@
 context('Wallet - Token Detail', () => {
   before(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('header_settings').click()
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
       .sendTokenToWallet(['BTC']).wait(10000)
@@ -20,10 +20,10 @@ context('Wallet - Token Detail', () => {
   })
 })
 
-context('Wallet - Token Detail Defiscan redirection', () => {
+context.only('Wallet - Token Detail Defiscan redirection', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('header_settings').click()
   })
 
   it('should able to redirect to defiscan for BTC', function () {
@@ -35,8 +35,5 @@ context('Wallet - Token Detail Defiscan redirection', () => {
     cy.getByTestID('balances_row_1_amount').contains(10)
     cy.getByTestID('balances_row_1').click().wait(3000)
     cy.getByTestID('token_detail_explorer_url').should('exist')
-    cy.getByTestID('token_detail_explorer_url').click().wait(3000)
-    cy.url().should('include', 'https://defiscan.live/tokens/1')
-    cy.go('back')
   })
 })
