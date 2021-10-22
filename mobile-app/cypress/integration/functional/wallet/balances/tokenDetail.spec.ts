@@ -1,7 +1,7 @@
 context('Wallet - Token Detail', () => {
   before(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('header_settings').click()
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
       .sendTokenToWallet(['BTC']).wait(10000)
@@ -23,7 +23,7 @@ context('Wallet - Token Detail', () => {
 context.only('Wallet - Token Detail Defiscan redirection', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('header_settings').click()
   })
 
   it('should able to redirect to defiscan for BTC', function () {

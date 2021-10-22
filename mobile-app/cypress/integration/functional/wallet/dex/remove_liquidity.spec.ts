@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js'
 function createAddLiquidityToWallet (): void {
   cy.createEmptyWallet(true)
 
-  cy.getByTestID('bottom_tab_settings').click()
+  cy.getByTestID('header_settings').click()
   cy.sendDFItoWallet().sendTokenToWallet(['ETH-DFI']).wait(3000)
   cy.getByTestID('bottom_tab_dex').click().wait(1000)
   cy.getByTestID('close_dex_guidelines').click()
