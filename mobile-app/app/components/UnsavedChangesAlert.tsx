@@ -1,4 +1,4 @@
-import { NavigationProp, NavigationAction } from '@react-navigation/core'
+import { NavigationAction, NavigationProp } from '@react-navigation/native'
 import { translate } from '@translations'
 import { WalletAlert } from './WalletAlert'
 
