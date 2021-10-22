@@ -522,7 +522,7 @@ exports[`balances page should match snapshot 1`] = `
             ],
           ]
         }
-        testID="balances_title"
+        testID="text-translation-screens/BalancesScreen=PORTFOLIO"
         text="PORTFOLIO"
       >
         PORTFOLIO
@@ -573,7 +573,7 @@ exports[`balances page should match snapshot 1`] = `
               ],
             ]
           }
-          testID="toggle_balance_text"
+          testID="text-translation-screens/BalancesScreen=Hide balances"
         >
           Hide balances
         </Text>

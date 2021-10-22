@@ -76,7 +76,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         style={tailwind('flex flex-row justify-between')}
       >
         <ThemedSectionTitle
-          testID='balances_title'
+          testID='text-translation-screens/BalancesScreen=PORTFOLIO'
           text={translate('screens/BalancesScreen', 'PORTFOLIO')}
         />
         <ThemedTouchableOpacity
@@ -99,7 +99,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             dark={tailwind('text-gray-500')}
             light={tailwind('text-gray-500')}
             style={tailwind('text-xs font-medium')}
-            testID='toggle_balance_text'
+            testID={`text-translation-screens/BalancesScreen=${isBalancesDisplayed ? 'Hide' : 'Show'} balances`}
           >
             {translate('screens/BalancesScreen', `${isBalancesDisplayed ? 'Hide' : 'Show'} balances`)}
           </ThemedText>
@@ -112,7 +112,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
               dark={tailwind('text-gray-500')}
               light={tailwind('text-gray-500')}
               style={tailwind('text-xs font-medium ml-4 mt-2')}
-              testID='empty_token_text'
+              testID='text-translation-screens/BalancesScreen=You do not have any other tokens.'
             >
               {translate('screens/BalancesScreen', 'You do not have any other tokens.')}
             </ThemedText>

@@ -43,6 +43,7 @@ exports[`Dex guide should match snapshot 1`] = `
           ],
         ]
       }
+      testID="text-translation-screens/DexGuidelines=Decentralized Exchange"
     >
       Decentralized Exchange
     </Text>
@@ -70,6 +71,7 @@ exports[`Dex guide should match snapshot 1`] = `
           ],
         ]
       }
+      testID="text-translation-screens/DexGuidelines=Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%)."
     >
       Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).
     </Text>
@@ -139,6 +141,7 @@ exports[`Dex guide should match snapshot 1`] = `
               ],
             ]
           }
+          testID="text-translation-screens/DexGuidelines=Add liquidity"
         >
           Add liquidity
         </Text>
@@ -163,6 +166,7 @@ exports[`Dex guide should match snapshot 1`] = `
               ],
             ]
           }
+          testID="text-translation-screens/DexGuidelines=Earn high yields by supplying token pairs to the liquidity pool."
         >
           Earn high yields by supplying token pairs to the liquidity pool.
         </Text>
@@ -234,6 +238,7 @@ exports[`Dex guide should match snapshot 1`] = `
               ],
             ]
           }
+          testID="text-translation-screens/DexGuidelines=Swap tokens"
         >
           Swap tokens
         </Text>
@@ -258,6 +263,7 @@ exports[`Dex guide should match snapshot 1`] = `
               ],
             ]
           }
+          testID="text-translation-screens/DexGuidelines=Conveniently swap participating tokens within the liquidity pool."
         >
           Conveniently swap participating tokens within the liquidity pool.
         </Text>
@@ -329,6 +335,7 @@ exports[`Dex guide should match snapshot 1`] = `
               ],
             ]
           }
+          testID="text-translation-screens/DexGuidelines=Withdraw at any time"
         >
           Withdraw at any time
         </Text>
@@ -353,6 +360,7 @@ exports[`Dex guide should match snapshot 1`] = `
               ],
             ]
           }
+          testID="text-translation-screens/DexGuidelines=You have full control over your tokens unlike any other."
         >
           You have full control over your tokens unlike any other.
         </Text>

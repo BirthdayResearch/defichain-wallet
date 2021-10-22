@@ -13,8 +13,8 @@ context('Wallet - Balances', () => {
   })
 
   it('should display no tokens text', function () {
-    cy.getByTestID('toggle_balance_text').should('have.text', 'Hide balances')
-    cy.getByTestID('empty_token_text').should('have.text', 'You do not have any other tokens.')
+    cy.getByTestID('text-translation-screens/BalancesScreen=Hide balances').should('have.text', 'Hide balances')
+    cy.getByTestID('text-translation-screens/BalancesScreen=You do not have any other tokens.').should('have.text', 'You do not have any other tokens.')
   })
 
   it('should display dfi utxo and dfi token with correct amount', function () {
@@ -42,7 +42,7 @@ context('Wallet - Balances', () => {
     cy.getByTestID('dfi_token_amount').should('have.text', '*****')
     cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '*****', symbol: 'dBTC' })
     cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '*****', symbol: 'dETH' })
-    cy.getByTestID('toggle_balance_text').contains('Show balances')
+    cy.getByTestID('text-translation-screens/BalancesScreen=Show balances').contains('Show balances')
   })
 
   it('should redirect to receive page', function () {
@@ -86,5 +86,18 @@ context('Wallet - Balances - Failed API', () => {
     cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('total_dfi_amount').contains('0.00000000')
+  })
+})
+
+context('Wallet - Balances translation check', () => {
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFITokentoWallet().sendTokenToWallet(['BTC', 'ETH']).wait(3000)
+  })
+
+  it('should verify all translation for Balances', function () {
+    cy.checkLnTextContent((): void => {
+      cy.getByTestID('bottom_tab_balances').click()
+    }, 'screens/BalancesScreen')
   })
 })
