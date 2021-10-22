@@ -13,9 +13,7 @@ interface Props {
 interface GuidelineItem {
   icon: React.ComponentProps<typeof MaterialIcons>['name']
   title: string
-  titleKey: string
   subtitle: string
-  subtitleKey: string
 }
 
 // TODO (Harsh): handle language change bug, when user change the language, sometime it didnt get update the satic page
@@ -23,23 +21,17 @@ export function DexGuidelines ({ onClose }: Props): JSX.Element {
   const guidelines: GuidelineItem[] = [
     {
       title: 'Add liquidity',
-      titleKey: 'add_liquidity_title',
       subtitle: 'Earn high yields by supplying token pairs to the liquidity pool.',
-      subtitleKey: 'add_liquidity_subtitle',
       icon: 'add'
     },
     {
       title: 'Swap tokens',
-      titleKey: 'swap_token_title',
       subtitle: 'Conveniently swap participating tokens within the liquidity pool.',
-      subtitleKey: 'swap_token_subtitle',
       icon: 'swap-horiz'
     },
     {
       title: 'Withdraw at any time',
-      titleKey: 'withdraw_title',
       subtitle: 'You have full control over your tokens unlike any other.',
-      subtitleKey: 'withdraw_subtitle_title',
       icon: 'account-balance-wallet'
     }
   ]
@@ -53,6 +45,7 @@ export function DexGuidelines ({ onClose }: Props): JSX.Element {
     >
       <ThemedText
         style={tailwind('text-lg font-semibold')}
+        testID='text-translation-screens/DexGuidelines=Decentralized Exchange'
       >
         {translate('screens/DexGuidelines', 'Decentralized Exchange')}
       </ThemedText>
@@ -61,6 +54,7 @@ export function DexGuidelines ({ onClose }: Props): JSX.Element {
         dark={tailwind('text-gray-400')}
         light={tailwind('text-gray-500')}
         style={tailwind('mt-1 text-sm font-medium mb-4')}
+        testID='text-translation-screens/DexGuidelines=Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).'
       >
         {translate('screens/DexGuidelines', 'Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).')}
       </ThemedText>
@@ -78,7 +72,7 @@ export function DexGuidelines ({ onClose }: Props): JSX.Element {
             />
 
             <View style={tailwind('flex-col flex-auto ml-6')}>
-              <ThemedText style={tailwind('font-medium')} testID={g.titleKey}>
+              <ThemedText style={tailwind('font-medium')} testID={`text-translation-screens/DexGuidelines=${g.title}`}>
                 {translate('screens/DexGuidelines', g.title)}
               </ThemedText>
 
@@ -87,7 +81,7 @@ export function DexGuidelines ({ onClose }: Props): JSX.Element {
                 light={tailwind('text-gray-500')}
                 numberOfLines={4}
                 style={tailwind('text-sm')}
-                testID={g.subtitleKey}
+                testID={`text-translation-screens/DexGuidelines=${g.subtitle}`}
               >
                 {translate('screens/DexGuidelines', g.subtitle)}
               </ThemedText>

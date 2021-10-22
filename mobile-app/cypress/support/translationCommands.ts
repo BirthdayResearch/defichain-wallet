@@ -16,12 +16,11 @@ declare global {
       switchLanguage: (language: string) => Chainable<Element>
       /**
        * @description Check text content
-       * @param {string} language to be used
+       * @param {visitScreen} function contains steps to redirect to the screen
        * @param {screen} screen name to be used
-       * @param {string} text to be used
-       * @example cy.switchLanguage('German')
+       * @example cy.switchLanguage(() => { cy.getByTestID('bottom_tab_dex').click() }, 'screens/DexScreen')
        */
-       checkLnTextContent: (init: () => void, texts: { testID: string, path: string[] }[]) => Chainable<Element>
+       checkLnTextContent: (visitScreen: () => void, screen: string ) => Chainable<Element>
     }
   }
 }
@@ -34,12 +33,18 @@ Cypress.Commands.add('switchLanguage', (language: string) => {
   cy.on('window:confirm', () => {})
 })
 
-Cypress.Commands.add('checkLnTextContent', (init: () => void, texts ) => {
+Cypress.Commands.add('checkLnTextContent', (visitScreen: () => void, screen: string ) => {
   languages.forEach(function ({ language, locale }: AppLanguageItem) {
     cy.switchLanguage(language)
-    init()
-    texts.forEach(function (text: {testID: string, path: string[]}) {
-      cy.getByTestID(text.testID).should('have.text', get(translation, [locale, ...text.path]))
+    visitScreen()
+    const keyPrefix = `text-translation-${screen}=`
+    cy.get(`[data-testid*="${keyPrefix}"]`).each(function ($el) {
+      const text = $el.text()
+      const testID = $el.attr('data-testid')
+      if (testID) {
+        const translationKey = testID.replace(keyPrefix, '')
+        expect(text).eq(get(translation, [locale, screen, translationKey]))
+      }
     })
   })
 })

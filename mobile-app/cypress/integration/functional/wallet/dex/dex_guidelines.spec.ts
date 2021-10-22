@@ -21,30 +21,15 @@ context('Wallet - DEX - guidelines', () => {
   })
 })
 
-context.only('Wallet - DEX - guidelines translation check', () => {
+context('Wallet - DEX - guidelines translation check', () => {
   before(function () {
     cy.createEmptyWallet(true)
   })
 
-  it('should verify translation for DEX - guidelines', function () {
-    const init = (): void => {
+  it('should verify all translation for DEX - guidelines', function () {
+    cy.checkLnTextContent((): void => {
       cy.getByTestID('bottom_tab_dex').click()
       cy.getByTestID('dex_guidelines_screen').should('exist')
-    }
-    const texts = [
-      {
-        path: ['screens/DexGuidelines', 'Add liquidity'],
-        testID: 'add_liquidity_title'
-      },
-      {
-        path: ['screens/DexGuidelines', 'Swap tokens'],
-        testID: 'swap_token_title'
-      },
-      {
-        path: ['screens/DexGuidelines', 'Withdraw at any time'],
-        testID: 'withdraw_title'
-      }
-    ]
-    cy.checkLnTextContent(init, texts)
+    }, 'screens/DexGuidelines')
   })
 })
