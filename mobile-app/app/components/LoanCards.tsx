@@ -1,6 +1,6 @@
 import React from 'react'
 import BigNumber from 'bignumber.js'
-import { ThemedFlatList, ThemedIcon, ThemedText, ThemedView } from './themed'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity } from './themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import NumberFormat from 'react-number-format'
@@ -38,7 +38,7 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
             )}
           {index === props.loans.length - 1 &&
             (
-              <View style={[tailwind(''), { flex: 0.5 }]}>
+              <View style={{ flex: 0.5 }}>
                 <LoadCard
                   key={index}
                   {...item}
@@ -59,9 +59,8 @@ function LoadCard ({
 }: LoanCardOptions): JSX.Element {
   const LoanIcon = getNativeIcon(loanName)
   return (
-    <ThemedView
-      light={tailwind('bg-white')}
-      style={[tailwind('p-4 mx-2 mb-4 rounded'), { flex: 1 }]}
+    <ThemedTouchableOpacity
+      style={tailwind('p-4 mx-2 mb-4 rounded flex-1')}
     >
       <View style={tailwind('flex-row items-center pb-2')}>
         <LoanIcon width={24} height={24} style={tailwind('mr-2')} />
@@ -69,6 +68,7 @@ function LoadCard ({
       </View>
       <ThemedText
         light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-400')}
         style={tailwind('text-xs')}
       >
         {priceType === 'ACTIVE' ? translate('components/LoanCard', 'Active Price') : translate('components/LoanCard', 'Next Price')}
@@ -94,6 +94,7 @@ function LoadCard ({
       />
       <ThemedText
         light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-400')}
         style={tailwind('text-xs')}
       >
         {translate('components/LoanCard', 'Interest')}
@@ -111,6 +112,6 @@ function LoadCard ({
         value={new BigNumber(interestRate).toFixed(2)}
         suffix='%'
       />
-    </ThemedView>
+    </ThemedTouchableOpacity>
   )
 }
