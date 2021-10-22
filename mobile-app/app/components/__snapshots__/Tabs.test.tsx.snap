@@ -7,7 +7,6 @@ exports[`Tabs component should match snapshot with 2 tabs 1`] = `
       Object {
         "display": "flex",
         "flexDirection": "row",
-        "height": 48,
         "paddingTop": 12,
       },
       Object {
