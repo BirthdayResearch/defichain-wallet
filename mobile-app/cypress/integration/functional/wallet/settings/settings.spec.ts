@@ -1,7 +1,7 @@
 context('Wallet - Settings', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('header_settings').click()
   })
 
   it('should navigate to network selection when clicked on selected network', function () {
@@ -45,7 +45,7 @@ context('Wallet - Settings', () => {
 
   it('should navigate to about page', function () {
     cy.getByTestID('setting_navigate_About').click()
-    cy.url().should('include', 'app/AboutScreen')
+    cy.url().should('include', 'app/Settings/AboutScreen')
     cy.getByTestID('app_logo').should('exist')
   })
 })

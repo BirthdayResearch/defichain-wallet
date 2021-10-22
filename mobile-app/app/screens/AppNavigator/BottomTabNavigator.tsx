@@ -7,7 +7,6 @@ import { translate } from '@translations'
 
 import { BalancesNavigator } from './screens/Balances/BalancesNavigator'
 import { DexNavigator } from './screens/Dex/DexNavigator'
-import { SettingsNavigator } from './screens/Settings/SettingsNavigator'
 import { TransactionsNavigator } from './screens/Transactions/TransactionsNavigator'
 
 export interface BottomTabParamList {
@@ -79,20 +78,6 @@ export function BottomTabNavigator (): JSX.Element {
           }}
         />
 
-        <BottomTab.Screen
-          component={SettingsNavigator}
-          name={translate('BottomTabNavigator', 'Settings')}
-          options={{
-            tabBarTestID: 'bottom_tab_settings',
-            tabBarIcon: ({ color }) => (
-              <MaterialIcons
-                color={color}
-                name='settings'
-                size={24}
-              />
-            )
-          }}
-        />
       </BottomTab.Navigator>
     </>
   )
