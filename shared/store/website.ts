@@ -19,7 +19,7 @@ export const websiteSlice = createApi({
     }),
     getFeatureFlags: builder.query<FeatureFlag[], any>({
       query: () => ({
-        url: '/featureFlags',
+        url: '/settings/flags',
         method: 'GET',
         headers: {
           'Access-Control-Allow-Origin': '*',
