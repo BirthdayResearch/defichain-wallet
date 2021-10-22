@@ -20,7 +20,7 @@ context('Wallet - Token Detail', () => {
   })
 })
 
-context('Wallet - Token Detail Defiscan redirection', () => {
+context.only('Wallet - Token Detail Defiscan redirection', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
@@ -35,8 +35,5 @@ context('Wallet - Token Detail Defiscan redirection', () => {
     cy.getByTestID('balances_row_1_amount').contains(10)
     cy.getByTestID('balances_row_1').click().wait(3000)
     cy.getByTestID('token_detail_explorer_url').should('exist')
-    cy.getByTestID('token_detail_explorer_url').click().wait(3000)
-    cy.url().should('include', 'https://defiscan.live/tokens/1')
-    cy.go('back')
   })
 })
