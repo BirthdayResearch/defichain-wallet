@@ -14,6 +14,7 @@ export interface AnnouncementData {
 }
 
 export interface FeatureFlag {
+  id: string
   name: string
   version: string
   stage: 'alpha' | 'beta' | 'public'
