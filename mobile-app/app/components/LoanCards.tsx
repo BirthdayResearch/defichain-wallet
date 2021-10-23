@@ -28,6 +28,7 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
       style={tailwind('px-2 pt-4 -mb-4')}
       data={props.loans}
       numColumns={2}
+      keyExtractor={(_item, index) => index.toString()}
       renderItem={({ item, index }): JSX.Element => {
         if (index !== props.loans.length - 1) {
           return (
@@ -38,7 +39,7 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
           )
         } else {
           return (
-            <View style={{ flex: 0.5 }}>
+            <View style={{ flexBasis: '50%' }}>
               <LoadCard
                 key={index}
                 {...item}

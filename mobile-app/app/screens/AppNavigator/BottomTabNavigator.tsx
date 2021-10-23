@@ -1,12 +1,12 @@
+import * as React from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import * as React from 'react'
-import { OceanInterface } from '@components/OceanInterface/OceanInterface'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-
+import { OceanInterface } from '@components/OceanInterface/OceanInterface'
 import { BalancesNavigator } from './screens/Balances/BalancesNavigator'
 import { DexNavigator } from './screens/Dex/DexNavigator'
+import { LoansNavigator } from './screens/Loans/LoansNavigator'
 import { TransactionsNavigator } from './screens/Transactions/TransactionsNavigator'
 
 export interface BottomTabParamList {
@@ -57,6 +57,21 @@ export function BottomTabNavigator (): JSX.Element {
               <MaterialIcons
                 color={color}
                 name='swap-horiz'
+                size={24}
+              />
+            )
+          }}
+        />
+
+        <BottomTab.Screen
+          component={LoansNavigator}
+          name={translate('BottomTabNavigator', 'Loans')}
+          options={{
+            tabBarTestID: 'bottom_tab_loans',
+            tabBarIcon: ({ color }) => (
+              <MaterialIcons
+                color={color}
+                name='credit-card'
                 size={24}
               />
             )
