@@ -32,7 +32,7 @@ jobs:
       - run: npm ci
       - run: expo publish --release-channel=pr-preview-${{ github.event.number }}
 
-      - uses: marocchino/sticky-pull-request-comment@82e7a0d3c51217201b3fedc4ddde6632e969a477
+      - uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443
         with:
           GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           header: wallet-preview
