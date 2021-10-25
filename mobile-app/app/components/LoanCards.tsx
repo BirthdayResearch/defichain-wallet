@@ -26,7 +26,8 @@ type PriceType = 'ACTIVE' | 'NEXT'
 export function LoanCards (props: LoanCardsProps): JSX.Element {
   return (
     <ThemedFlatList
-      style={tailwind('px-2 pt-4 -mb-4')}
+      contentContainerStyle={tailwind('pb-6')}
+      style={tailwind('px-2 pt-4')}
       data={props.loans}
       numColumns={2}
       renderItem={({ item, index }): JSX.Element => {
