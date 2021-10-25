@@ -15,7 +15,7 @@ interface TabOption {
   handleOnPress: () => void
 }
 
-export function Tabs (props: TabsProps): JSX.Element {
+const Tabs = React.memo((props: TabsProps): JSX.Element => {
   const FixedTab = (): JSX.Element => {
     return (
       <ThemedView
@@ -81,7 +81,7 @@ export function Tabs (props: TabsProps): JSX.Element {
   }
 
   return (<ScrollableTabs />)
-}
+})
 
 function TabLabel (props: {tab: TabOption}): JSX.Element {
   return (
@@ -94,3 +94,5 @@ function TabLabel (props: {tab: TabOption}): JSX.Element {
     </ThemedText>
   )
 }
+
+export { Tabs }
