@@ -20,7 +20,7 @@ context('Wallet - Token Detail', () => {
   })
 })
 
-context.only('Wallet - Token Detail Defiscan redirection', () => {
+context('Wallet - Token Detail Defiscan redirection', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
