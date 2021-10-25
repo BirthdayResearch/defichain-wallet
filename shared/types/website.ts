@@ -19,3 +19,7 @@ export interface FeatureFlag {
   version: string
   stage: 'alpha' | 'beta' | 'public'
 }
+
+export type FEATURE_FLAG_ID = 'loan'
+
+export type FEATURE_FLAG_STAGE = 'alpha' | 'beta' | 'public'

@@ -5,9 +5,7 @@ import { EnvironmentName, getEnvironment } from '@environment'
 import * as Updates from 'expo-updates'
 import { useEffect, useState } from 'react'
 import { Platform } from 'react-native'
-
-type FEATURE_FLAG_ID = 'loan'
-type FEATURE_FLAG_STAGE = 'alpha' | 'beta' | 'public'
+import { FEATURE_FLAG_ID, FEATURE_FLAG_STAGE } from '@shared-types/website'
 
 export function useFeatureFlag (featureId: FEATURE_FLAG_ID): boolean {
   const {
@@ -26,9 +24,9 @@ export function useFeatureFlag (featureId: FEATURE_FLAG_ID): boolean {
     setFeatureAvailable(
       featureFlags.some((flag) => {
         if (Platform.OS !== 'web') {
-          return satisfies(appVersion, flag.version) && flag.id === featureId && matchEnvironment(flag.stage)
+          return satisfies(appVersion, flag.version) && flag.id === featureId && matchStage(flag.stage)
         } else {
-          return flag.id === featureId && matchEnvironment(flag.stage)
+          return flag.id === featureId && matchStage(flag.stage)
         }
       })
     )
@@ -37,15 +35,11 @@ export function useFeatureFlag (featureId: FEATURE_FLAG_ID): boolean {
   return isFeatureAvailable
 }
 
-function matchEnvironment (featureFlagStage: FEATURE_FLAG_STAGE): boolean {
-  if (featureFlagStage === 'public') {
-    return true
-  } else if (featureFlagStage === 'beta' && getEnvironment(Updates.releaseChannel).name === EnvironmentName.Preview) {
-    return true
-  } else if (featureFlagStage === 'alpha' && getEnvironment(Updates.releaseChannel).debug) {
-    return true
-  } else {
-    console.log('failed matchEnvironment')
+function matchStage (featureFlagStage: FEATURE_FLAG_STAGE): boolean {
+  if ((featureFlagStage === 'alpha' && !getEnvironment(Updates.releaseChannel).debug) ||
+    (featureFlagStage === 'beta' && getEnvironment(Updates.releaseChannel).name !== EnvironmentName.Preview)) {
     return false
+  } else {
+    return true
   }
 }

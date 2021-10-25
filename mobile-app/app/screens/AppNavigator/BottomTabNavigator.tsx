@@ -23,7 +23,7 @@ export interface BottomTabParamList {
 const BottomTab = createBottomTabNavigator<BottomTabParamList>()
 
 export function BottomTabNavigator (): JSX.Element {
-  const loanFeature = useFeatureFlag('loan')
+  const isLoanDisplayed = useFeatureFlag('loan')
   return (
     <>
       <OceanInterface />
@@ -66,7 +66,7 @@ export function BottomTabNavigator (): JSX.Element {
           }}
         />
 
-        {loanFeature &&
+        {isLoanDisplayed &&
           <BottomTab.Screen
             component={LoansNavigator}
             name={translate('BottomTabNavigator', 'Loans')}
