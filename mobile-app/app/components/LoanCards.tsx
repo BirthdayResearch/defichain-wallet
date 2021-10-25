@@ -32,7 +32,6 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
         if (index !== props.loans.length - 1) {
           return (
             <LoadCard
-              key={index}
               {...item}
             />
           )
@@ -40,13 +39,13 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
           return (
             <View style={{ flex: 0.5 }}>
               <LoadCard
-                key={index}
                 {...item}
               />
             </View>
           )
         }
       }}
+      keyExtractor={(_item, index) => index.toString()}
     />
   )
 }
