@@ -1,4 +1,8 @@
 context('Wallet - Loans', () => {
+  beforeEach(function () {
+    cy.createEmptyWallet(true)
+  })
+
   it('should have loans in bottom tab navigator', function () {
     cy.getByTestID('bottom_tab_loans').should('exist')
   })

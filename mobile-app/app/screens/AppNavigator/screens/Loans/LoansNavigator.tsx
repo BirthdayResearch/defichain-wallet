@@ -8,7 +8,6 @@ import { LoansScreen } from './LoansScreen'
 
 export interface LoanParamList {
   LoansScreen: undefined
-
   [key: string]: undefined | object
 }
 
