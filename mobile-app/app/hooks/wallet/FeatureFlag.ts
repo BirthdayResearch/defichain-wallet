@@ -3,6 +3,8 @@ import { useGetFeatureFlagsQuery } from '@store/website'
 import { satisfies } from 'semver'
 import { EnvironmentName, getEnvironment } from '@environment'
 import * as Updates from 'expo-updates'
+import { useEffect, useState } from 'react'
+import { Platform } from 'react-native'
 
 type FEATURE_FLAG_ID = 'loan'
 type FEATURE_FLAG_STAGE = 'alpha' | 'beta' | 'public'
@@ -13,14 +15,26 @@ export function useFeatureFlag (featureId: FEATURE_FLAG_ID): boolean {
     isSuccess
   } = useGetFeatureFlagsQuery({})
   const appVersion = nativeApplicationVersion ?? '0.0.0'
+  const [isFeatureAvailable, setFeatureAvailable] = useState(false)
 
-  if (!isSuccess || featureFlags === undefined) {
-    return false
-  }
+  useEffect(() => {
+    if (!isSuccess || featureFlags === undefined) {
+      setFeatureAvailable(false)
+      return
+    }
 
-  return featureFlags.some((flag) => {
-    return satisfies(appVersion, flag.version) && flag.id === featureId && matchEnvironment(flag.stage)
-  })
+    setFeatureAvailable(
+      featureFlags.some((flag) => {
+        if (Platform.OS !== 'web') {
+          return satisfies(appVersion, flag.version) && flag.id === featureId && matchEnvironment(flag.stage)
+        } else {
+          return flag.id === featureId && matchEnvironment(flag.stage)
+        }
+      })
+    )
+  }, [featureFlags, isSuccess])
+
+  return isFeatureAvailable
 }
 
 function matchEnvironment (featureFlagStage: FEATURE_FLAG_STAGE): boolean {
@@ -31,6 +45,7 @@ function matchEnvironment (featureFlagStage: FEATURE_FLAG_STAGE): boolean {
   } else if (featureFlagStage === 'alpha' && getEnvironment(Updates.releaseChannel).debug) {
     return true
   } else {
+    console.log('failed matchEnvironment')
     return false
   }
 }
