@@ -2,8 +2,23 @@ import { LoanCardOptions, LoanCards } from '@components/LoanCards'
 import React from 'react'
 import BigNumber from 'bignumber.js'
 import { ThemedView } from '@components/themed'
+import { Tabs } from '@components/Tabs'
 
 export function LoansScreen (): JSX.Element {
+  const tabsList = [
+    {
+      label: 'Browse loans',
+      isActive: true,
+      disabled: false,
+      handleOnPress: () => {}
+    },
+    {
+      label: 'Your vaults',
+      isActive: false,
+      disabled: true,
+      handleOnPress: () => {}
+    }
+  ]
   const loans: LoanCardOptions[] = [
     {
       loanName: 'BTC',
@@ -31,8 +46,9 @@ export function LoansScreen (): JSX.Element {
     }
   ]
   return (
-    <ThemedView>
-      <LoanCards loans={loans} />
+    <ThemedView testID='loans_screen'>
+      <Tabs tabSections={tabsList} testID='loans_tabs' />
+      <LoanCards loans={loans} testID='loans_cards' />
     </ThemedView>
   )
 }
