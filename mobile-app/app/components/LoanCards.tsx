@@ -9,6 +9,7 @@ import { getNativeIcon } from './icons/assets'
 
 interface LoanCardsProps {
   loans: LoanCardOptions[]
+  testID?: string
 }
 
 export interface LoanCardOptions {
@@ -46,6 +47,7 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
         }
       }}
       keyExtractor={(_item, index) => index.toString()}
+      testID={props.testID}
     />
   )
 }
