@@ -9,7 +9,7 @@ import { BalancesNavigator } from './screens/Balances/BalancesNavigator'
 import { DexNavigator } from './screens/Dex/DexNavigator'
 import { TransactionsNavigator } from './screens/Transactions/TransactionsNavigator'
 import { LoansNavigator } from './screens/Loans/LoansNavigator'
-import { useFeatureFlag } from '@hooks/wallet/FeatureFlag'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 export interface BottomTabParamList {
   Balances: undefined
@@ -23,7 +23,7 @@ export interface BottomTabParamList {
 const BottomTab = createBottomTabNavigator<BottomTabParamList>()
 
 export function BottomTabNavigator (): JSX.Element {
-  const isLoanDisplayed = useFeatureFlag('loan')
+  const { isLoansDisplayed } = useFeatureFlagContext()
   return (
     <>
       <OceanInterface />
@@ -66,7 +66,7 @@ export function BottomTabNavigator (): JSX.Element {
           }}
         />
 
-        {isLoanDisplayed &&
+        {isLoansDisplayed &&
           <BottomTab.Screen
             component={LoansNavigator}
             name={translate('BottomTabNavigator', 'Loans')}
