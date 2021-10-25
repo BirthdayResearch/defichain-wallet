@@ -21,8 +21,7 @@ export function useFeatureFlagContext (): FeatureFlagContextI {
 export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const {
     data: featureFlags,
-    isSuccess,
-    isLoading
+    isSuccess
   } = useGetFeatureFlagsQuery({})
   const appVersion = nativeApplicationVersion ?? '0.0.0'
   const [isLoansDisplayed, setIsLoansDisplayed] = useState<boolean>()
@@ -43,7 +42,6 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
   }
 
   useEffect(() => {
-    console.log('use effect', featureFlags, isSuccess, isLoading)
     if (!isSuccess || featureFlags === undefined) {
       setIsLoansDisplayed(false)
       setIsAuctionDisplayed(false)
