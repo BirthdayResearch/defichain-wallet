@@ -457,7 +457,7 @@
     "CONTINUE": "繼續"
   },
   "screens/SlippageTolerance": {
-    "SLIPPAGE TOLERANCE": "交易滑價"
+    "Slippage Tolerance": "交易滑價"
   },
   "screens/PoolSwapScreen": {
     "Swap": "兌換",

@@ -453,7 +453,7 @@
     "CONTINUE": "FORTFAHREN"
   },
   "screens/SlippageTolerance": {
-    "SLIPPAGE TOLERANCE": "SLIPPAGE TOLERANZ"
+    "Slippage yolerance": "Slippage Toleranz"
   },
   "screens/PoolSwapScreen": {
     "Swap": "Tausche",

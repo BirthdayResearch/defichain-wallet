@@ -8,6 +8,7 @@ import { WalletAlert } from './WalletAlert'
 
 type Props = ThemedProps & BottomSheetModalProps & {
   triggerComponent: ReactElement
+  containerStyle?: string
   children: ReactElement
   alertInfo?: { title: string, message: string }
 }
@@ -20,11 +21,13 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
     name,
     style,
     children,
+    containerStyle,
     triggerComponent,
     alertInfo,
     snapPoints = ['100%', '50%'],
     light = tailwind('bg-gray-100 text-black'),
-    dark = tailwind('bg-gray-600 text-white text-opacity-90')
+    dark = tailwind('bg-gray-600 text-white text-opacity-90'),
+    ...otherModalProps
   } = props
   const isWeb = Platform.OS === 'web'
 
@@ -50,7 +53,7 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
 
   return (
     <View>
-      <TouchableOpacity onPress={openModal}>
+      <TouchableOpacity onPress={openModal} style={tailwind(containerStyle)}>
         {triggerComponent}
       </TouchableOpacity>
       {!isWeb && (
@@ -67,6 +70,7 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
           backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
             <View {...backgroundProps} style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'} border-t rounded`)]} />
           )}
+          {...otherModalProps}
         >
           <View style={tailwind('font-medium w-full px-2 items-end')}>
             <TouchableOpacity onPress={closeModal}>
