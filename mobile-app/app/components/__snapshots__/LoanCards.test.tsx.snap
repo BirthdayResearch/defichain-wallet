@@ -2,6 +2,11 @@
 
 exports[`loan cards should match snapshot 1`] = `
 <RCTScrollView
+  contentContainerStyle={
+    Object {
+      "paddingBottom": 24,
+    }
+  }
   data={
     Array [
       Object {
@@ -51,7 +56,6 @@ exports[`loan cards should match snapshot 1`] = `
   style={
     Array [
       Object {
-        "marginBottom": -16,
         "paddingLeft": 8,
         "paddingRight": 8,
         "paddingTop": 16,
