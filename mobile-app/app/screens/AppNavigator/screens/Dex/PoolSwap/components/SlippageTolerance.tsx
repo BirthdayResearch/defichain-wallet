@@ -166,7 +166,7 @@ function SlippageHeader (): JSX.Element {
           iconType='MaterialIcons'
           dark={tailwind('text-gray-200')}
           light={tailwind('text-gray-700')}
-          style={tailwind('mr-2 mt-0.5')}
+          style={tailwind('mr-2')}
         />
         <ThemedText
           dark={tailwind('text-gray-50')}
@@ -238,7 +238,7 @@ function SlippageSelector ({ slippage, onSubmitSlippage, isCustomSlippage }: Sli
 
   return (
     <>
-      <View style={tailwind('flex-row mb-3')}>
+      <View style={[tailwind('flex-row mb-3 flex-wrap'), { rowGap: '8px' }]}>
         {percentageList.map((value) => (
           <SlippageButton
             key={value}
