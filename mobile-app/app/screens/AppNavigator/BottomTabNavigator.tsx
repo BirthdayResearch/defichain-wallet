@@ -8,6 +8,8 @@ import { translate } from '@translations'
 import { BalancesNavigator } from './screens/Balances/BalancesNavigator'
 import { DexNavigator } from './screens/Dex/DexNavigator'
 import { TransactionsNavigator } from './screens/Transactions/TransactionsNavigator'
+import { LoansNavigator } from './screens/Loans/LoansNavigator'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 export interface BottomTabParamList {
   Balances: undefined
@@ -21,6 +23,7 @@ export interface BottomTabParamList {
 const BottomTab = createBottomTabNavigator<BottomTabParamList>()
 
 export function BottomTabNavigator (): JSX.Element {
+  const { isLoansDisplayed } = useFeatureFlagContext()
   return (
     <>
       <OceanInterface />
@@ -62,6 +65,22 @@ export function BottomTabNavigator (): JSX.Element {
             )
           }}
         />
+
+        {isLoansDisplayed &&
+          <BottomTab.Screen
+            component={LoansNavigator}
+            name={translate('BottomTabNavigator', 'Loans')}
+            options={{
+              tabBarTestID: 'bottom_tab_loans',
+              tabBarIcon: ({ color }) => (
+                <MaterialIcons
+                  color={color}
+                  name='credit-card'
+                  size={24}
+                />
+              )
+            }}
+          />}
 
         <BottomTab.Screen
           component={TransactionsNavigator}

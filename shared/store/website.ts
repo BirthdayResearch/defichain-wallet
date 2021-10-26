@@ -32,5 +32,6 @@ export const websiteSlice = createApi({
 
 export const {
   useGetAnnouncementsQuery,
-  useGetFeatureFlagsQuery
+  useGetFeatureFlagsQuery,
+  usePrefetch
 } = websiteSlice
