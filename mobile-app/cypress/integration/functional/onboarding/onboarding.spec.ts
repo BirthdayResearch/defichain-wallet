@@ -14,7 +14,7 @@ context('Onboarding', () => {
   it('should be able to create wallet', function () {
     cy.getByTestID('create_wallet_button').click()
     cy.url().should('include', 'wallet/onboarding/guidelines')
-    cy.getByTestID('create_recovery_words_button').should('have.attr', 'disabled')
+    cy.getByTestID('create_recovery_words_button').should('have.attr', 'aria-disabled')
 
     // Learn More Recovery
     cy.getByTestID('recovery_words_button').click()
@@ -23,7 +23,7 @@ context('Onboarding', () => {
     cy.getByTestID('recovery_words_faq_accordion').should('exist')
     cy.go('back')
 
-    cy.getByTestID('create_recovery_words_button').should('have.attr', 'disabled')
+    cy.getByTestID('create_recovery_words_button').should('have.attr', 'aria-disabled')
     cy.getByTestID('guidelines_switch').click()
     cy.getByTestID('create_recovery_words_button').should('not.have.attr', 'disabled')
     cy.getByTestID('create_recovery_words_button').click()
