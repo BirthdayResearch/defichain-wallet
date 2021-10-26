@@ -72,6 +72,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
   const onNavigate = ({ destination, pair }: {destination: 'AddLiquidity' | 'RemoveLiquidity' | 'PoolSwap', pair: PoolPairData}): void => {
     navigation.navigate('DEX', {
       screen: destination,
+      initial: false,
       params: { pair },
       merge: true
     })
