@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Platform, TouchableOpacity } from 'react-native'
-import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
+import BigNumber from 'bignumber.js'
+import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
+import { useBottomSheetInternal, useBottomSheetModal } from '@gorhom/bottom-sheet'
+import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { Button } from '@components/Button'
 import { View } from '@components'
 import { BottomSheetModal } from '@components/BottomSheetModal'
-import NumberFormat from 'react-number-format'
-import BigNumber from 'bignumber.js'
-import { useBottomSheetModal } from '@gorhom/bottom-sheet'
 
 const SLIPPAGE_WARNING = 'Slippage rate changes occur within a transaction. Select preferred slippage rate.'
 const SLIPPAGE_MODAL_NAME = 'SlippageTolerance'
@@ -263,20 +263,28 @@ function SlippageSelector ({ slippage, onSubmitSlippage, isCustomSlippage }: Sli
           light={tailwind('bg-transparent')}
           style={tailwind('flex-row w-full')}
         >
-          <WalletTextInput
-            onChangeText={onSlippageChange}
-            keyboardType='numeric'
-            autoCapitalize='none'
-            placeholder='0.00%'
-            style={tailwind('flex-grow h-8')}
-            testID='slippage_input'
-            value={selectedSlippage !== undefined ? selectedSlippage.toString() : ''}
-            displayClearButton={selectedSlippage !== undefined}
-            onClearButtonPress={() => setSelectedSlippage('')}
-            inputType='numeric'
-            valid={isSlippageValid()}
-            inlineText={error}
-          />
+          {Platform.OS === 'web'
+          ? <WalletTextInput
+              onChangeText={onSlippageChange}
+              keyboardType='numeric'
+              autoCapitalize='none'
+              placeholder='0.00%'
+              style={tailwind('flex-grow h-8')}
+              testID='slippage_input'
+              value={selectedSlippage !== undefined ? selectedSlippage.toString() : ''}
+              displayClearButton={selectedSlippage !== undefined}
+              onClearButtonPress={() => setSelectedSlippage('')}
+              inputType='numeric'
+              valid={isSlippageValid()}
+              inlineText={error}
+            />
+          : (<BottomSheetInput
+              onSlippageChange={onSlippageChange}
+              selectedSlippage={selectedSlippage}
+              setSelectedSlippage={setSelectedSlippage}
+              isSlippageValid={isSlippageValid}
+              error={error}
+             />)}
         </ThemedView>
       )}
 
@@ -301,4 +309,56 @@ function SlippageSelector ({ slippage, onSubmitSlippage, isCustomSlippage }: Sli
       />
     </>
   )
+}
+
+interface BottomSheetInputProps {
+  onSlippageChange: (value: string) => void
+  setSelectedSlippage: (value: string) => void
+  isSlippageValid: () => boolean
+  selectedSlippage: string
+  error: {
+    type: 'error' | 'helper'
+    text?: string
+  } | undefined
+}
+
+/**
+ * This automatically adjust the snap points when opening the native keyboard in mobile inside the Bottom Sheet Modal
+ * @reference: https://gorhom.github.io/react-native-bottom-sheet/keyboard-handling/
+*/
+const BottomSheetInput = (props: BottomSheetInputProps): JSX.Element => {
+  const { onSlippageChange, selectedSlippage, setSelectedSlippage, isSlippageValid, error } = props
+  const { shouldHandleKeyboardEvents } = useBottomSheetInternal()
+
+  const handleOnFocus = useCallback(
+    () => {
+      shouldHandleKeyboardEvents.value = true
+    },
+    [shouldHandleKeyboardEvents]
+  )
+  const handleOnBlur = useCallback(
+    () => {
+      shouldHandleKeyboardEvents.value = false
+    },
+    [shouldHandleKeyboardEvents]
+  )
+
+  return (
+    <WalletTextInput
+      onChangeText={onSlippageChange}
+      keyboardType='numeric'
+      autoCapitalize='none'
+      placeholder='0.00%'
+      style={tailwind('flex-grow h-8')}
+      testID='slippage_input'
+      value={selectedSlippage !== undefined ? selectedSlippage.toString() : ''}
+      displayClearButton={selectedSlippage !== undefined}
+      onClearButtonPress={() => setSelectedSlippage('')}
+      inputType='numeric'
+      valid={isSlippageValid()}
+      inlineText={error}
+      onFocus={handleOnFocus}
+      onBlur={handleOnBlur}
+    />
+)
 }
