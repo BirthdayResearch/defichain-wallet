@@ -35,7 +35,7 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
       return undefined
     }
 
-    return featureFlags.some((flag) => {
+    return (featureFlags ?? []).some((flag) => {
       if (Platform.OS !== 'web') {
         return satisfies(appVersion, flag.version) && flag.id === featureId && matchStage(flag.stage)
       } else {
