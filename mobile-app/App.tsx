@@ -51,14 +51,14 @@ export default function App (): JSX.Element | null {
       <ErrorBoundary>
         <AppStateContextProvider>
           <PrivacyLockContextProvider>
-            <NetworkProvider api={SecuredStoreAPI} locale={Localization.locale}>
+            <NetworkProvider api={SecuredStoreAPI}>
               <WhaleProvider>
                 <DeFiScanProvider>
                   <WalletPersistenceProvider api={WalletPersistence}>
                     <StoreProvider>
                       <StatsProvider>
                         <ThemeProvider api={ThemePersistence} colorScheme={colorScheme}>
-                          <LanguageProvider api={LanguagePersistence}>
+                          <LanguageProvider api={LanguagePersistence} locale={Localization.locale}>
                             <DisplayBalancesProvider>
                               <ConnectionBoundary>
                                 <Main />

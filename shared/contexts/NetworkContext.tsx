@@ -23,7 +23,7 @@ export interface NetworkProviderProps extends PropsWithChildren<{}> {
   }
 }
 
-export function NetworkProvider (props: NetworkProviderI): JSX.Element | null {
+export function NetworkProvider (props: NetworkProviderProps): JSX.Element | null {
   const [network, setNetwork] = useState<EnvironmentNetwork>()
   const [networkName, setNetworkName] = useState<NetworkName>()
   const logger = useLogger()
