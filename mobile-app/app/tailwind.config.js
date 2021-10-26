@@ -85,7 +85,7 @@ module.exports = {
           900: '#3f337d'
         },
         darksuccess: {
-          50: '#F5FDF6',
+          50: '#0B3812',
           200: '#CCF5D2',
           300: '#ADEFB7',
           500: '#32D74B',
