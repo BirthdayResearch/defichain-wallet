@@ -1,6 +1,6 @@
 import { EnvironmentName, getEnvironment } from '@environment'
 import { FEATURE_FLAG_ID, FEATURE_FLAG_STAGE } from '@shared-types/website'
-import { useGetFeatureFlagsQuery } from '@store/website'
+import { useGetFeatureFlagsQuery, usePrefetch } from '@store/website'
 import { nativeApplicationVersion } from 'expo-application'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
@@ -21,11 +21,14 @@ export function useFeatureFlagContext (): FeatureFlagContextI {
 export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const {
     data: featureFlags,
-    isSuccess
+    isSuccess,
+    isLoading
   } = useGetFeatureFlagsQuery({})
+  const prefetchPage = usePrefetch('getFeatureFlags')
   const appVersion = nativeApplicationVersion ?? '0.0.0'
   const [isLoansDisplayed, setIsLoansDisplayed] = useState<boolean>()
   const [isAuctionDisplayed, setIsAuctionDisplayed] = useState<boolean>()
+  prefetchPage({}, { force: true })
 
   function isFeatureAvailable (featureId: FEATURE_FLAG_ID): boolean | undefined {
     if (featureFlags === undefined) {
@@ -52,7 +55,7 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
     setIsAuctionDisplayed(isFeatureAvailable('auction'))
   }, [featureFlags, isSuccess])
 
-  if (isLoansDisplayed === undefined || isAuctionDisplayed === undefined) {
+  if (isLoading || isLoansDisplayed === undefined || isAuctionDisplayed === undefined) {
     return null
   }
 
