@@ -14,18 +14,12 @@ export function TokenIconGroup (props: {symbols: string[]}): JSX.Element {
         props.symbols.map((symbol, index) => {
           if (index <= 2) {
             return (
-              <SymbolIcon
-                key={index.toString()}
-                symbol={symbol}
-                styleProps={{
-                  style: [
-                    tailwind('relative'),
-                    {
-                      left: index * 8
-                    }
-                  ]
-                }}
-              />
+              <View style={[tailwind('bg-white rounded-full p-px relative'), { left: index * -9 }]}>
+                <SymbolIcon
+                  key={index.toString()}
+                  symbol={symbol}
+                />
+              </View>
             )
           } else {
             return (<></>)
@@ -34,7 +28,7 @@ export function TokenIconGroup (props: {symbols: string[]}): JSX.Element {
       }
       {additionalIcon.gt(0) &&
         (
-          <ThemedText>
+          <ThemedText style={tailwind('relative -left-3.5 text-xs font-medium')}>
             + {additionalIcon.toFixed()}
           </ThemedText>
         )}

@@ -28,40 +28,46 @@ type VaultAction = 'CREATE_COLLATERAL' | 'VIEW_LOANS'
 export function VaultCard (props: VaultCardProps): JSX.Element {
   return (
     <ThemedView
-      light={tailwind('bg-white rounded')}
-      style={tailwind('p-4')}
+      light={tailwind('bg-white')}
+      dark={tailwind('bg-gray-800')}
+      style={tailwind('p-4 rounded')}
     >
-      <View style={tailwind('flex flex-row items-center')}>
-        <View
-          style={tailwind('bg-gray-100 w-8 h-8 rounded-full flex items-center justify-center mr-2')}
-        >
-          <ThemedIcon
-            iconType='MaterialIcons'
-            name='shield'
-            size={14}
-            light={tailwind('text-gray-600')}
-          />
-        </View>
-        <View style={tailwind('flex flex-col')}>
-          <View style={tailwind('flex flex-row items-baseline')}>
-            <ThemedText style={tailwind('font-semibold')}>
-              {props.vaultAddress}
-            </ThemedText>
-            {props.status !== undefined &&
-              (
-                <VaultStatusTag status={props.status} />
-              )}
+      <View style={tailwind('flex flex-row')}>
+        <View style={tailwind('flex flex-row items-center')}>
+          <ThemedView
+            light={tailwind('bg-gray-100')}
+            dark={tailwind('bg-gray-700')}
+            style={tailwind('w-8 h-8 rounded-full flex items-center justify-center mr-2')}
+          >
+            <ThemedIcon
+              iconType='MaterialIcons'
+              name='shield'
+              size={14}
+              light={tailwind('text-gray-600')}
+              dark={tailwind('text-gray-300')}
+            />
+          </ThemedView>
+          <View style={tailwind('flex flex-col')}>
+            <View style={tailwind('flex flex-row items-baseline')}>
+              <ThemedText style={tailwind('font-semibold')}>
+                {props.vaultAddress}
+              </ThemedText>
+              {props.status !== undefined &&
+                (
+                  <VaultStatusTag status={props.status} />
+                )}
+            </View>
+            <View style={tailwind('flex flex-row')}>
+              <ThemedText style={tailwind('text-xs')}>
+                {translate('components/VaultCard', 'Collaterals:')}
+              </ThemedText>
+              <TokenIconGroup symbols={props.collaterals} />
+            </View>
           </View>
-          <View style={tailwind('flex flex-row')}>
-            <ThemedText style={tailwind('text-xs')}>
-              {translate('components/VaultCard', 'Collaterals:')}
-            </ThemedText>
-            <TokenIconGroup symbols={props.collaterals} />
-          </View>
         </View>
-      </View>
-      <View>
-        {/* arrow icon */}
+        <View>
+          <ThemedIcon iconType='MaterialIcons' name='chevron-right' size={20} style={tailwind('mt-1')} />
+        </View>
       </View>
     </ThemedView>
   )
@@ -84,7 +90,7 @@ function VaultStatusTag (props: {status: VaultStatus}): JSX.Element {
           'bg-darksuccess-50': props.status === VaultStatus.Safe
         }
       )}
-      style={tailwind('rounded-xl')}
+      style={tailwind('rounded-xl mx-2')}
     >
       {props.status === VaultStatus.Locked &&
         (
