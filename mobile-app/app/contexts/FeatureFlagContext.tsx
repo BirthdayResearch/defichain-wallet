@@ -28,7 +28,7 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
   const appVersion = nativeApplicationVersion ?? '0.0.0'
   const [isLoansDisplayed, setIsLoansDisplayed] = useState<boolean>()
   const [isAuctionDisplayed, setIsAuctionDisplayed] = useState<boolean>()
-  prefetchPage({}, { force: true })
+  prefetchPage({})
 
   function isFeatureAvailable (featureId: FEATURE_FLAG_ID): boolean | undefined {
     if (featureFlags === undefined) {
