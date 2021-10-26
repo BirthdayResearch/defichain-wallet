@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Platform, TouchableOpacity } from 'react-native'
 import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -11,17 +11,25 @@ import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { useBottomSheetModal } from '@gorhom/bottom-sheet'
 
-interface SlippageToleranceP {
+const SLIPPAGE_WARNING = 'Slippage rate changes occur within a transaction. Select preferred slippage rate.'
+const SLIPPAGE_MODAL_NAME = 'SlippageTolerance'
+
+interface SlippageToleranceProps {
   slippage: number
   setSlippage: (slippage: number) => void
 }
 
-export function SlippageTolerance (props: SlippageToleranceP): JSX.Element {
-  const { slippage, setSlippage } = props
-  const [isCustomSlippage, setIsCustomSlippage] = useState<boolean>(false)
-  const [isSelectorOpen, setIsSelectorOpen] = useState<boolean>(false)
-  const modalName = 'SlippageTolerance'
+export function SlippageTolerance ({ slippage, setSlippage }: SlippageToleranceProps): JSX.Element {
   const { dismiss } = useBottomSheetModal()
+  const [isCustomSlippage, setIsCustomSlippage] = useState(false)
+  const [isSelectorOpen, setIsSelectorOpen] = useState(false)
+
+  const onSubmitSlippage = (val: number, isCustom: boolean): void => {
+    setIsCustomSlippage(isCustom)
+    setSlippage(val)
+    setIsSelectorOpen(false)
+    dismiss(SLIPPAGE_MODAL_NAME)
+  }
 
   return (
     <>
@@ -34,23 +42,28 @@ export function SlippageTolerance (props: SlippageToleranceP): JSX.Element {
           <ThemedText
             dark={tailwind('text-gray-200')}
             light={tailwind('text-black')}
-            testID='title_slippage'
+            testID='slippage_title'
           >
             {translate('screens/SlippageTolerance', 'Slippage Tolerance')}
           </ThemedText>
         </View>
         <View style={tailwind('flex-row items-center')}>
-
           {Platform.OS === 'web'
           ? (
-            <TouchableOpacity onPress={() => setIsSelectorOpen(true)} style={tailwind('flex-row')}>
+            <TouchableOpacity
+              onPress={() => {
+                setIsSelectorOpen(true)
+              }}
+              style={tailwind('flex-row')}
+              testID='slippage_select'
+            >
               <SelectedValue slippage={slippage} />
             </TouchableOpacity>
           )
           : (
             <BottomSheetModal
-              name={modalName}
-              snapPoints={['60%']}
+              name={SLIPPAGE_MODAL_NAME}
+              snapPoints={['55%']}
               containerStyle='flex-row justify-between items-center'
               triggerComponent={<SelectedValue slippage={slippage} />}
             >
@@ -63,11 +76,7 @@ export function SlippageTolerance (props: SlippageToleranceP): JSX.Element {
                 <SlippageSelector
                   slippage={slippage}
                   isCustomSlippage={isCustomSlippage}
-                  onSubmitSlippage={(val, isCustom) => {
-                    setIsCustomSlippage(isCustom)
-                    setSlippage(val)
-                    dismiss(modalName)
-                  }}
+                  onSubmitSlippage={onSubmitSlippage}
                 />
               </ThemedView>
             </BottomSheetModal>
@@ -81,14 +90,11 @@ export function SlippageTolerance (props: SlippageToleranceP): JSX.Element {
           light={tailwind('bg-white border-b border-gray-200')}
           style={tailwind('p-4')}
         >
+          <SlippageHeader />
           <SlippageSelector
             slippage={slippage}
             isCustomSlippage={isCustomSlippage}
-            onSubmitSlippage={(val, isCustom) => {
-              setIsCustomSlippage(isCustom)
-              setIsSelectorOpen(false)
-              setSlippage(val)
-            }}
+            onSubmitSlippage={onSubmitSlippage}
           />
         </ThemedView>
       )}
@@ -109,7 +115,7 @@ function SlippageButton ({ onPress, isActive, label }: { onPress: () => void, is
       <ThemedText
         dark={tailwind(`${isActive ? 'text-gray-200' : ''}`)}
         light={tailwind(`${isActive ? 'text-white' : ''}`)}
-        style={tailwind('font-medium text-primary-500')}
+        style={tailwind('text-primary-500 text-sm')}
       >
         {label}
       </ThemedText>
@@ -117,7 +123,7 @@ function SlippageButton ({ onPress, isActive, label }: { onPress: () => void, is
   )
 }
 
-const SelectedValue = ({ slippage }: { slippage: number }): JSX.Element => {
+function SelectedValue ({ slippage }: { slippage: number }): JSX.Element {
   return (
     <NumberFormat
       decimalScale={8}
@@ -130,7 +136,7 @@ const SelectedValue = ({ slippage }: { slippage: number }): JSX.Element => {
             style={tailwind('text-base text-right')}
             testID='slippage_value'
           >
-            {val}
+            {val}%
           </ThemedText>
           <ThemedIcon
             dark={tailwind('text-gray-200')}
@@ -152,12 +158,20 @@ function SlippageHeader (): JSX.Element {
     <>
       <View
         testID='slippage_tolerance_heading'
-        style={tailwind('flex-row mb-3 items-center')}
+        style={tailwind('flex-row mb-3 items-center ')}
       >
+        <ThemedIcon
+          size={20}
+          name='info-outline'
+          iconType='MaterialIcons'
+          dark={tailwind('text-gray-200')}
+          light={tailwind('text-gray-700')}
+          style={tailwind('mr-2 mt-0.5')}
+        />
         <ThemedText
           dark={tailwind('text-gray-50')}
           light={tailwind('text-gray-900')}
-          style={tailwind('text-2xl font-semibold')}
+          style={tailwind(`${Platform.OS === 'web' ? 'text-base' : 'text-2xl'} font-semibold`)}
         >
           {translate('screens/SlippageTolerance', 'Slippage Tolerance')}
         </ThemedText>
@@ -168,56 +182,72 @@ function SlippageHeader (): JSX.Element {
           dark={tailwind('text-gray-200')}
           light={tailwind('text-gray-700')}
         >
-          {translate('screens/SlippageTolerance', 'Slippage are rate changes that occur within an order transaction. Choose how much of this slippage you are willing to accept.')}
+          {translate('screens/SlippageTolerance', SLIPPAGE_WARNING)}
         </ThemedText>
       </View>
     </>
   )
 }
 
-interface SlippageSelectorP {
+interface SlippageSelectorProps {
   isCustomSlippage: boolean
   slippage: number
   onSubmitSlippage: (val: number, isCustomSlippage: boolean) => void
 }
 
-const SlippageSelector = ({ slippage, onSubmitSlippage, isCustomSlippage }: SlippageSelectorP): JSX.Element => {
-  const [selectedSlippage, setSelectedSlippage] = useState<number>(slippage)
-  const [isCustom, setIsCustom] = useState<boolean>(isCustomSlippage)
-  const [customSlippage, setCustomSlippage] = useState<string>(isCustom ? new BigNumber(slippage).times(100).toString() : '')
-  const percentageList = [
-    { label: '1%', value: 0.01 },
-    { label: '3%', value: 0.03 },
-    { label: '5%', value: 0.05 },
-    { label: '10%', value: 0.1 },
-    { label: '20%', value: 0.2 }
-  ]
+function SlippageSelector ({ slippage, onSubmitSlippage, isCustomSlippage }: SlippageSelectorProps): JSX.Element {
+  const percentageList = ['1', '3', '5', '10', '20']
+  const [selectedSlippage, setSelectedSlippage] = useState(slippage.toString())
+  const [isCustom, setIsCustom] = useState(isCustomSlippage)
+  const [isRiskWarningDisplayed, setIsRiskWarningDisplayed] = useState(false)
+  const [error, setError] = useState<{
+    type: 'error' | 'helper'
+    text?: string
+  } | undefined>()
 
-  const onSetSlippage = (): void => {
-    let value = selectedSlippage
-    if (isCustom) {
-      value = new BigNumber(customSlippage).div(100).toNumber()
+  const onSlippageChange = (value: string): void => {
+    setSelectedSlippage(value.toString())
+  }
+
+  const isSlippageValid = (): boolean => {
+    return error === undefined || error?.type === 'helper'
+  }
+
+  const validateSlippage = (value: string): void => {
+    if (value === undefined || value === '') {
+      setError({
+        type: 'error',
+        text: translate('screens/SlippageTolerance', 'Required field is missing')
+      })
+      return
+    } else if (!(new BigNumber(value).gte(0) && new BigNumber(value).lte(100))) {
+      setError({
+        type: 'error',
+        text: translate('screens/SlippageTolerance', 'This field must be from 0-100%')
+      })
+      return
     }
-    return onSubmitSlippage(value, isCustom)
+
+    setError(undefined)
   }
 
-  const isDisabled = (): boolean => {
-    const value: number | string = isCustom ? customSlippage : selectedSlippage
-    return !(new BigNumber(value).gte(0) && new BigNumber(value).lte(100))
-  }
+  useEffect(() => {
+    validateSlippage(selectedSlippage)
+    setIsRiskWarningDisplayed((new BigNumber(selectedSlippage).gte(20) && new BigNumber(selectedSlippage).lte(100)))
+  }, [selectedSlippage])
 
   return (
     <>
       <View style={tailwind('flex-row mb-3')}>
-        {percentageList.map((p) => (
+        {percentageList.map((value) => (
           <SlippageButton
-            key={p.label}
+            key={value}
             onPress={() => {
               setIsCustom(false)
-              setSelectedSlippage(p.value)
+              setSelectedSlippage(value)
             }}
-            isActive={!isCustom && selectedSlippage === p.value}
-            label={p.label}
+            isActive={!isCustom && selectedSlippage === value}
+            label={`${value}%`}
           />
               ))}
         <SlippageButton
@@ -228,26 +258,44 @@ const SlippageSelector = ({ slippage, onSubmitSlippage, isCustomSlippage }: Slip
       </View>
 
       {isCustom && (
-        <WalletTextInput
-          onChangeText={(value) => {
-            setCustomSlippage(value)
-          }}
-          keyboardType='numeric'
-          autoCapitalize='none'
-          placeholder='0.00%'
-          style={tailwind('flex-grow h-8')}
-          testID='slippage_input'
-          value={customSlippage}
-          displayClearButton={customSlippage !== ''}
-          onClearButtonPress={() => setCustomSlippage('')}
-          inputType='numeric'
-        />
+        <ThemedView
+          dark={tailwind('bg-transparent')}
+          light={tailwind('bg-transparent')}
+          style={tailwind('flex-row w-full')}
+        >
+          <WalletTextInput
+            onChangeText={onSlippageChange}
+            keyboardType='numeric'
+            autoCapitalize='none'
+            placeholder='0.00%'
+            style={tailwind('flex-grow h-8')}
+            testID='slippage_input'
+            value={selectedSlippage !== undefined ? selectedSlippage.toString() : ''}
+            displayClearButton={selectedSlippage !== undefined}
+            onClearButtonPress={() => setSelectedSlippage('')}
+            inputType='numeric'
+            valid={isSlippageValid()}
+            inlineText={error}
+          />
+        </ThemedView>
       )}
 
+      {isRiskWarningDisplayed && (
+        <ThemedText
+          light={tailwind('text-error-500')}
+          dark={tailwind('text-darkerror-500')}
+          style={tailwind('text-sm mt-1')}
+          testID='slippage_warning'
+        >
+          {translate('screens/SlippageTolerance', 'Proceed at your own risk')}
+        </ThemedText>
+      )}
       <Button
-        disabled={isDisabled()}
+        disabled={!isSlippageValid()}
         label={translate('screens/SlippageTolerance', 'USE THIS SLIPPAGE TOLERANCE')}
-        onPress={onSetSlippage}
+        onPress={() => {
+          onSubmitSlippage(parseInt(selectedSlippage), isCustomSlippage)
+        }}
         testID='button_tolerance_submit'
         title={translate('screens/SlippageTolerance', 'USE THIS SLIPPAGE TOLERANCE')}
       />

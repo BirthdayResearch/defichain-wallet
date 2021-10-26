@@ -84,8 +84,35 @@ context('Wallet - DEX - Pool Swap with balance', () => {
     cy.getByTestID('estimated').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
-      cy.getByTestID('slippage_10%').click()
     })
+  })
+
+  it('should be able to use/validate custom slippage tolerance', function () {
+    cy.getByTestID('slippage_select').click()
+    cy.getByTestID('slippage_1%').should('exist')
+
+    // Slippage warning
+    cy.getByTestID('slippage_Custom').click()
+    cy.getByTestID('slippage_input').clear().type('21')
+    cy.getByTestID('slippage_warning').should('exist')
+    cy.getByTestID('slippage_input').clear().type('5')
+    cy.getByTestID('slippage_warning').should('not.exist')
+
+    // Slippage validation
+    cy.getByTestID('slippage_Custom').click()
+    cy.getByTestID('slippage_input').should('have.value', '5')
+    cy.getByTestID('slippage_input').clear().type('101')
+    cy.getByTestID('slippage_input_error').should('have.text', 'This field must be from 0-100%')
+    cy.getByTestID('slippage_input').clear()
+    cy.getByTestID('slippage_input_error').should('have.text', 'Required field is missing')
+    cy.getByTestID('slippage_input').clear().type('-1')
+    cy.getByTestID('slippage_input_error').should('have.text', 'This field must be from 0-100%')
+    cy.getByTestID('slippage_input').clear().type('a1')
+    cy.getByTestID('slippage_input_error').should('have.text', 'This field must be from 0-100%')
+    cy.getByTestID('button_tolerance_submit').should('have.attr', 'disabled')
+
+    cy.getByTestID('slippage_input').clear().type('25')
+    cy.getByTestID('button_tolerance_submit').click()
   })
 })
 

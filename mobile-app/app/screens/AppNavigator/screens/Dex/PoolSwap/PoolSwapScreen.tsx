@@ -66,7 +66,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const [tokenA, setTokenA] = useState<DerivedTokenState>()
   const [tokenB, setTokenB] = useState<DerivedTokenState>()
   const [isComputing, setIsComputing] = useState<boolean>(false)
-  const [slippage, setSlippage] = useState<number>(0.03)
+  const [slippage, setSlippage] = useState(3)
   const [aToBPrice, setAToBPrice] = useState<BigNumber>()
 
   // component UI state
@@ -110,6 +110,8 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   }, [pairs, route.params.poolpair])
 
   async function onSubmit (): Promise<void> {
+    const slippageInDecimal = slippage / 100
+
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
@@ -144,7 +146,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           swap,
           fee,
           pair: poolpair,
-          slippage,
+          slippage: slippageInDecimal,
           priceRateA,
           priceRateB,
           conversion: {
@@ -162,7 +164,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         swap,
         fee,
         pair: poolpair,
-        slippage,
+        slippage: slippageInDecimal,
         priceRateA,
         priceRateB
       })
@@ -300,7 +302,6 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         setSlippage={(amount) => setSlippage(amount)}
         slippage={slippage}
       />
-
       {
         !isComputing && (new BigNumber(getValues()[tokenAForm]).isGreaterThan(0) && new BigNumber(getValues()[tokenBForm]).isGreaterThan(0)) &&
           <SwapSummary
