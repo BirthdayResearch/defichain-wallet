@@ -243,7 +243,7 @@ function TokenActionRow ({ title, icon, onPress, testID }: TokenActionItems): JS
   return (
     <ThemedTouchableOpacity
       onPress={onPress}
-      style={tailwind('flex-row py-4 pl-4 pr-2 bg-white border-b border-gray-200')}
+      style={tailwind('flex-row py-4 pl-4 pr-2 bg-white border-b items-center border-gray-200')}
       testID={testID}
     >
       <ThemedIcon
