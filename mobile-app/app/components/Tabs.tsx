@@ -81,7 +81,12 @@ const Tabs = React.memo((props: TabsProps): JSX.Element => {
   }
 
   return (<ScrollableTabs />)
-})
+}, comparisonFn)
+
+function comparisonFn (prevProps: TabsProps, nextProps: TabsProps): boolean {
+  // compare objects by stringify which won't compare functions
+  return JSON.stringify(prevProps.tabSections) === JSON.stringify(nextProps.tabSections)
+}
 
 function TabLabel (props: {tab: TabOption}): JSX.Element {
   return (
