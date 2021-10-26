@@ -337,7 +337,8 @@
     "Liquidity": "流动",
     "Transactions": "交易",
     "Settings": "设置",
-    "DEX": "去中心化交易所"
+    "DEX": "去中心化交易所",
+    "Loans": "贷款"
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "正在确认",
@@ -573,5 +574,17 @@
   "components/TransactionResultsRow": {
     "TRANSACTION RESULTS": "交易结果",
     "Resulting {{symbol}}": "转换后 {{symbol}}"
+  },
+  "screens/LoansScreen": {
+    "Loans": "贷款"
+  },
+  "components/tabs": {
+    "Browse loans": "浏览贷款选项",
+    "Your vaults": "你的金库"
+  },
+  "components/LoanCard": {
+    "Active Price": "目前活跃价格",
+    "Next Price": "下一个价格",
+    "Interest": "利息"
   }
 }

@@ -334,7 +334,8 @@
     "Balances": "Guthaben",
     "Liquidity": "Liquidität",
     "Transactions": "Transaktionen",
-    "Settings": "Einstellungen"
+    "Settings": "Einstellungen",
+    "Loans": "Darlehen"
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "Warte auf Bestätigung",
@@ -570,5 +571,17 @@
   "components/TransactionResultsRow": {
     "TRANSACTION RESULTS": "TRANSAKTIONSERGEBNISSE",
     "Resulting {{symbol}}": "Zu erhaltende {{symbol}}"
+  },
+  "screens/LoansScreen": {
+    "Loans": "Darlehen"
+  },
+  "components/tabs": {
+    "Browse loans": "Darlehen durchsuchen",
+    "Your vaults": "Deine Sicherheitendepots"
+  },
+  "components/LoanCard": {
+    "Active Price": "Aktueller Preis",
+    "Next Price": "Nächster Preis",
+    "Interest": "Zins"
   }
 }

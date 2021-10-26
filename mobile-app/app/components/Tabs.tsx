@@ -6,6 +6,7 @@ import { ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from
 
 interface TabsProps {
   tabSections: TabOption[]
+  testID?: string
 }
 
 interface TabOption {
@@ -22,6 +23,7 @@ export function Tabs (props: TabsProps): JSX.Element {
         light={tailwind('bg-white')}
         dark={tailwind('bg-gray-800')}
         style={tailwind('flex flex-row pt-3')}
+        testID={props.testID}
       >
         {props.tabSections.map((tab, index) => (
           <View
