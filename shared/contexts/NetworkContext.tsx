@@ -16,7 +16,7 @@ export function useNetworkContext (): NetworkContextI {
   return useContext(NetworkContext)
 }
 
-type NetworkProviderI = PropsWithChildren<any> &{
+export interface NetworkProviderProps extends PropsWithChildren<{}> {
   api: {
     getNetwork: () => Promise<EnvironmentNetwork>
     setNetwork: (network: EnvironmentNetwork) => Promise<void>
