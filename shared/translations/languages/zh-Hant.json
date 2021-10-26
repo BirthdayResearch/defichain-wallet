@@ -457,7 +457,10 @@
     "CONTINUE": "繼續"
   },
   "screens/SlippageTolerance": {
-    "Slippage Tolerance": "交易滑價"
+    "Slippage Tolerance": "交易滑價",
+    "Slippage rate changes occur within a transaction. Select preferred slippage rate.": "滑點率變化會在交易中發生。 選擇您的首選滑點率。",
+    "Custom": "自訂",
+    "USE THIS SLIPPAGE TOLERANCE": "使用此滑點限制範圍"
   },
   "screens/PoolSwapScreen": {
     "Swap": "兌換",

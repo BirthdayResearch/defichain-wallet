@@ -453,7 +453,10 @@
     "CONTINUE": "FORTFAHREN"
   },
   "screens/SlippageTolerance": {
-    "Slippage yolerance": "Slippage Toleranz"
+    "Slippage Tolerance": "Slippage Toleranz",
+    "Slippage rate changes occur within a transaction. Select preferred slippage rate.": "Änderungen der Slippage-Rate erfolgen innerhalb einer Transaktion. Wähle die bevorzugte Slippage-Toleranz.",
+    "Custom": "Benutzerdefiniert",
+    "USE THIS SLIPPAGE TOLERANCE": "SLIPPAGE-TOLERANZ VERWENDEN"
   },
   "screens/PoolSwapScreen": {
     "Swap": "Tausche",
