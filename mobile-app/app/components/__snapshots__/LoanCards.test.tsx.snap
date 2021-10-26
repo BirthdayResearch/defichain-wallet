@@ -2,6 +2,14 @@
 
 exports[`loan cards should match snapshot 1`] = `
 <RCTScrollView
+  contentContainerStyle={
+    Object {
+      "paddingBottom": 8,
+      "paddingLeft": 8,
+      "paddingRight": 8,
+      "paddingTop": 16,
+    }
+  }
   data={
     Array [
       Object {
@@ -50,12 +58,7 @@ exports[`loan cards should match snapshot 1`] = `
   stickyHeaderIndices={Array []}
   style={
     Array [
-      Object {
-        "marginBottom": -16,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 16,
-      },
+      undefined,
       Object {
         "backgroundColor": "rgba(245, 245, 245, 1)",
       },

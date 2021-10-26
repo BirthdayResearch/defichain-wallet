@@ -17,6 +17,7 @@ import ConnectionBoundary from '@screens/ConnectionBoundary/ConnectionBoundary'
 import ErrorBoundary from '@screens/ErrorBoundary/ErrorBoundary'
 import { Main } from '@screens/Main'
 import { LanguageProvider, useLanguage } from '@contexts/LanguageProvider'
+import { FeatureFlagProvider } from '@contexts/FeatureFlagContext'
 
 /**
  * Loads
@@ -53,7 +54,9 @@ export default function App (): JSX.Element | null {
                         <LanguageProvider>
                           <DisplayBalancesProvider>
                             <ConnectionBoundary>
-                              <Main />
+                              <FeatureFlagProvider>
+                                <Main />
+                              </FeatureFlagProvider>
                             </ConnectionBoundary>
                           </DisplayBalancesProvider>
                         </LanguageProvider>
