@@ -68,6 +68,7 @@ export function DexNavigator (): JSX.Element {
     <DexStack.Navigator
       initialRouteName='DexScreen'
       screenOptions={{
+        headerTitleAlign: 'center',
         headerTitleStyle: HeaderFont,
         headerBackTitleVisible: false
       }}

@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js'
 function createAddLiquidityToWallet (): void {
   cy.createEmptyWallet(true)
 
-  cy.getByTestID('bottom_tab_settings').click()
+  cy.getByTestID('header_settings').click()
   cy.sendDFItoWallet().sendTokenToWallet(['ETH-DFI']).wait(3000)
   cy.getByTestID('bottom_tab_dex').click().wait(1000)
   cy.getByTestID('close_dex_guidelines').click()
@@ -55,20 +55,20 @@ context('Wallet - DEX - Remove Liquidity', () => {
   // })
 
   it('should disable continue button by default', () => {
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
   })
 
   it('should disable continue button when input is invalid', () => {
     cy.getByTestID('text_input_percentage').clear().type('0')
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
     cy.getByTestID('text_input_percentage').clear().type('123')
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
     cy.getByTestID('text_input_percentage').clear().type('100.000000000001')
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
     cy.getByTestID('text_input_percentage').clear().type('1.23.456.789')
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
     cy.getByTestID('text_input_percentage').clear().type('cake')
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
   })
 
   it('should be able to continue when input valid percentage', () => {
@@ -92,7 +92,7 @@ context('Wallet - DEX - Remove Liquidity', () => {
     cy.getByTestID('price_a').contains('0.00000000')
     cy.getByTestID('price_b').contains('0.00000000')
 
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
   })
 })
 

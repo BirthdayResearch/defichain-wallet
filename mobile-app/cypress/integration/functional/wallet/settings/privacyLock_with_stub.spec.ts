@@ -15,7 +15,7 @@ context.skip('Wallet - Privacy Lock', () => {
 
   it('should be able to enable privacy lock', function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('header_settings').click()
     cy.getByTestID('text_privacy_lock').should('exist').contains('Privacy Lock')
     cy.getByTestID('switch_privacy_lock').should('exist')
 
@@ -31,7 +31,7 @@ context.skip('Wallet - Privacy Lock', () => {
 
   it('should be able to disable privacy lock', function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('header_settings').click()
     cy.getByTestID('switch_privacy_lock').click()
     cy.getByTestID('switch_privacy_lock').within(() => {
       cy.get('input').should('not.be.checked')
