@@ -21,6 +21,7 @@ import * as Localization from 'expo-localization'
 import { useColorScheme } from 'react-native'
 import { WalletPersistence } from '@api/wallet'
 import { NativeLoggingProvider, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { FeatureFlagProvider } from '@contexts/FeatureFlagContext'
 
 /**
  * Loads
@@ -61,7 +62,9 @@ export default function App (): JSX.Element | null {
                           <LanguageProvider api={LanguagePersistence} locale={Localization.locale}>
                             <DisplayBalancesProvider>
                               <ConnectionBoundary>
-                                <Main />
+                                <FeatureFlagProvider>
+                                  <Main />
+                                </FeatureFlagProvider>
                               </ConnectionBoundary>
                             </DisplayBalancesProvider>
                           </LanguageProvider>
