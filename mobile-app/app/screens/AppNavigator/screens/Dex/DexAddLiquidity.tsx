@@ -369,7 +369,7 @@ function TransactionDetailsSection (props: { pair: ExtPoolPairData, sharePercent
       />
 
       <NumberRow
-        lhs={translate('screens/AddLiquidity', 'Pooled {{token}}', { token: pair?.tokenB?.displaySymbol })}
+        lhs={translate('screens/AddLiquidity', 'Pooled {{symbol}}', { symbol: pair?.tokenB?.displaySymbol })}
         rhs={{
           value: pair.tokenB.reserve,
           testID: `pooled_${pair?.tokenB?.displaySymbol}`,
