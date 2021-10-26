@@ -7,7 +7,7 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
-import { View } from '@components/index'
+import { View } from '@components'
 import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
@@ -110,7 +110,7 @@ export function DexScreen (): JSX.Element {
                 onAdd={() => onAdd(item.data)}
                 onSwap={() => navigation.navigate({
                   name: 'PoolSwap',
-                  params: { poolpair: item.data },
+                  params: { pair: item.data },
                   merge: true
                 })}
               />
