@@ -4,6 +4,7 @@ import { ThemedIcon, ThemedText, ThemedView } from './themed'
 import { tailwind } from '@tailwind'
 import { View } from '@components'
 import { translate } from '@translations'
+import { TokenIconGroup } from './TokenIconGroup'
 
 interface VaultCardProps {
   vaultAddress: string
@@ -55,7 +56,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
             <ThemedText style={tailwind('text-xs')}>
               {translate('components/VaultCard', 'Collaterals:')}
             </ThemedText>
-            <CollateralsTokensIconGroup collaterals={props.collaterals} />
+            <TokenIconGroup symbols={props.collaterals} />
           </View>
         </View>
       </View>
@@ -115,11 +116,5 @@ function VaultStatusTag (props: {status: VaultStatus}): JSX.Element {
         {translate('components/VaultCard', props.status)}
       </ThemedText>
     </ThemedView>
-  )
-}
-
-function CollateralsTokensIconGroup (props: {collaterals: string[]}): JSX.Element {
-  return (
-    <View />
   )
 }

@@ -9,13 +9,13 @@ import { ThemedText } from './themed'
 export function TokenIconGroup (props: {symbols: string[]}): JSX.Element {
   const additionalIcon = BigNumber.max(props.symbols.length - 3, 0)
   return (
-    <View>
+    <View style={tailwind('flex flex-row mx-1')}>
       {
         props.symbols.map((symbol, index) => {
-          if (index <= 3) {
+          if (index <= 2) {
             return (
               <SymbolIcon
-                key={index}
+                key={index.toString()}
                 symbol={symbol}
                 styleProps={{
                   style: [
@@ -32,15 +32,18 @@ export function TokenIconGroup (props: {symbols: string[]}): JSX.Element {
           }
         })
       }
-      <ThemedText>
-        + {additionalIcon}
-      </ThemedText>
+      {additionalIcon.gt(0) &&
+        (
+          <ThemedText>
+            + {additionalIcon.toFixed()}
+          </ThemedText>
+        )}
     </View>
 
   )
 }
 
-function SymbolIcon (props: {symbol: string, styleProps: SvgProps}): JSX.Element {
+function SymbolIcon (props: {symbol: string, styleProps?: SvgProps}): JSX.Element {
   const Icon = getNativeIcon(props.symbol)
   return (
     <Icon width={16} height={16} {...props.styleProps} />
