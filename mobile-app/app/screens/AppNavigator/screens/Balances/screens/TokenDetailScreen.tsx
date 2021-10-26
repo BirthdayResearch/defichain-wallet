@@ -53,7 +53,7 @@ const usePoolPairToken = (tokenParam: WalletToken): { pair: PoolPairData | undef
         return p.data.id === token.id
       }
       // get pair with same id if token passed is not LP
-      return token.id === p.data.tokenA.id || token.symbol === p.data.tokenB.id
+      return token.id === p.data.tokenA.id || token.id === p.data.tokenB.id
     })?.data
 
     if (poolpair !== undefined) {
