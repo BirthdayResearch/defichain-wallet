@@ -373,12 +373,13 @@
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
     "PRICE DETAILS": "PREISDETAILS",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",    
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Your pooled {{token}}": "Deine {{token}} im Pool",
     "Amount to be converted": "Umzuwandelnder Betrag",
     "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
-    "Estimated fee": "Geschätzte Gebühr"
+    "Estimated fee": "Geschätzte Gebühr",
+    "Pooled {{symbol}}": "Im Pool {{symbol}}"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "Du fügst hinzu",

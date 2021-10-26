@@ -158,7 +158,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       />
 
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Your pooled {{symbol}}', { symbol: `${pair.tokenA?.displaySymbol}` })}
+        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${pair.tokenA?.displaySymbol}` })}
         rhs={{
           value: pair.tokenA.reserve,
           testID: 'pooled_a',
@@ -167,7 +167,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Your pooled {{symbol}}', { symbol: `${pair.tokenB?.displaySymbol}` })}
+        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${pair.tokenB?.displaySymbol}` })}
         rhs={{
           value: pair.tokenB.reserve,
           testID: 'pooled_b',
