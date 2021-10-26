@@ -11,19 +11,18 @@ export function TokenIconGroup (props: {symbols: string[]}): JSX.Element {
   return (
     <View style={tailwind('flex flex-row mx-1')}>
       {
-        props.symbols.map((symbol, index) => {
+        props.symbols.map((symbol, index): JSX.Element | null => {
           if (index <= 2) {
             return (
-              <View style={[tailwind('bg-white rounded-full p-px relative'), { left: index * -9 }]}>
+              <View key={symbol} style={[tailwind('bg-white rounded-full p-px relative'), { left: index * -9 }]}>
                 <SymbolIcon
-                  key={index.toString()}
+                  key={symbol}
                   symbol={symbol}
                 />
               </View>
             )
-          } else {
-            return (<></>)
           }
+          return null
         })
       }
       {additionalIcon.gt(0) &&

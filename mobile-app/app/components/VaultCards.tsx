@@ -32,7 +32,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
       dark={tailwind('bg-gray-800')}
       style={tailwind('p-4 rounded')}
     >
-      <View style={tailwind('flex flex-row')}>
+      <View style={tailwind('flex flex-row justify-between')}>
         <View style={tailwind('flex flex-row items-center')}>
           <ThemedView
             light={tailwind('bg-gray-100')}
@@ -49,7 +49,11 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
           </ThemedView>
           <View style={tailwind('flex flex-col')}>
             <View style={tailwind('flex flex-row items-baseline')}>
-              <ThemedText style={tailwind('font-semibold')}>
+              <ThemedText
+                style={tailwind('font-semibold w-44 flex-shrink')}
+                numberOfLines={1}
+                ellipsizeMode='middle'
+              >
                 {props.vaultAddress}
               </ThemedText>
               {props.status !== undefined &&
@@ -90,7 +94,7 @@ function VaultStatusTag (props: {status: VaultStatus}): JSX.Element {
           'bg-darksuccess-50': props.status === VaultStatus.Safe
         }
       )}
-      style={tailwind('rounded-xl mx-2')}
+      style={tailwind('rounded-xl mx-2 flex flex-row items-center')}
     >
       {props.status === VaultStatus.Locked &&
         (
@@ -100,6 +104,7 @@ function VaultStatusTag (props: {status: VaultStatus}): JSX.Element {
             size={14}
             light={tailwind('text-gray-100')}
             dark={tailwind('text-gray-800')}
+            style={tailwind('ml-2')}
           />
         )}
       <ThemedText
@@ -112,12 +117,12 @@ function VaultStatusTag (props: {status: VaultStatus}): JSX.Element {
         )}
         dark={tailwind(
           {
-            'text-gray-100': props.status === VaultStatus.Locked,
+            'text-gray-800': props.status === VaultStatus.Locked,
             'text-darkwarning-600': props.status === VaultStatus.AtRisk,
             'text-darksuccess-600': props.status === VaultStatus.Safe
           }
         )}
-        style={tailwind('px-2 py-1 font-medium text-xs')}
+        style={tailwind('px-2 py-1 font-medium text-xs', { 'pl-1': props.status === VaultStatus.Locked })}
       >
         {translate('components/VaultCard', props.status)}
       </ThemedText>
