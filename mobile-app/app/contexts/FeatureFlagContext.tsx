@@ -22,24 +22,27 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
   const {
     data: featureFlags,
     isSuccess,
-    isLoading
+    isLoading,
+    isError
   } = useGetFeatureFlagsQuery({})
   const prefetchPage = usePrefetch('getFeatureFlags')
   const appVersion = nativeApplicationVersion ?? '0.0.0'
-  const [isLoansDisplayed, setIsLoansDisplayed] = useState<boolean>()
-  const [isAuctionDisplayed, setIsAuctionDisplayed] = useState<boolean>()
-  prefetchPage({})
+  const [isLoansDisplayed, setIsLoansDisplayed] = useState<boolean>(false)
+  const [isAuctionDisplayed, setIsAuctionDisplayed] = useState<boolean>(false)
+  if (!isError) {
+    prefetchPage({})
+  }
 
-  function isFeatureAvailable (featureId: FEATURE_FLAG_ID): boolean | undefined {
-    if (featureFlags === undefined) {
-      return undefined
+  function isFeatureAvailable (featureId: FEATURE_FLAG_ID): boolean {
+    if (featureFlags === undefined || featureFlags?.some === undefined) {
+      return false
     }
 
-    return (featureFlags ?? []).some((flag) => {
+    return featureFlags.some((flag) => {
       if (Platform.OS !== 'web') {
-        return satisfies(appVersion, flag.version) && flag.id === featureId && matchStage(flag.stage)
+        return satisfies(appVersion, flag.version) && flag.id === featureId && checkFeatureStage(flag.stage)
       } else {
-        return flag.id === featureId && matchStage(flag.stage)
+        return flag.id === featureId && checkFeatureStage(flag.stage)
       }
     })
   }
@@ -55,13 +58,13 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
     setIsAuctionDisplayed(isFeatureAvailable('auction'))
   }, [featureFlags, isSuccess])
 
-  if (isLoading || isLoansDisplayed === undefined || isAuctionDisplayed === undefined) {
+  if (isLoading) {
     return null
   }
 
   const context: FeatureFlagContextI = {
-    isLoansDisplayed: isLoansDisplayed,
-    isAuctionDisplayed: isAuctionDisplayed
+    isLoansDisplayed,
+    isAuctionDisplayed
   }
 
   return (
@@ -71,10 +74,7 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
   )
 }
 
-function matchStage (featureFlagStage: FEATURE_FLAG_STAGE): boolean {
-  if ((featureFlagStage === 'alpha' && !getEnvironment(Updates.releaseChannel).debug) ||
-    (featureFlagStage === 'beta' && getEnvironment(Updates.releaseChannel).name !== EnvironmentName.Preview)) {
-    return false
-  }
-  return true
+function checkFeatureStage (featureFlagStage: FEATURE_FLAG_STAGE): boolean {
+  return !((featureFlagStage === 'alpha' && !getEnvironment(Updates.releaseChannel).debug) ||
+    (featureFlagStage === 'beta' && getEnvironment(Updates.releaseChannel).name !== EnvironmentName.Preview))
 }
