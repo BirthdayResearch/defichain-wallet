@@ -381,7 +381,8 @@
     "Your pooled {{token}}": "Your pooled {{token}}",
     "Amount to be converted": "要轉換的金額",
     "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換",
-    "Estimated fee": "所需費用（大約）"
+    "Estimated fee": "所需費用（大約）",
+    "Pooled {{symbol}}": "池中總 {{symbol}}"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "您正要增加流動資金",
