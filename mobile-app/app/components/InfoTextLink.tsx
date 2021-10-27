@@ -12,7 +12,7 @@ interface InfoTextCTAProps {
   textStyle?: StyleProp<TextStyle>
 }
 
-export function InfoTextCTA (props: InfoTextCTAProps): JSX.Element {
+export function InfoTextLink (props: InfoTextCTAProps): JSX.Element {
   return (
     <TouchableOpacity
       onPress={props.onPress}

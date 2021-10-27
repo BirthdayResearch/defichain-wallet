@@ -15,7 +15,7 @@ import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { BalanceText } from './BalanceText'
-import { InfoTextCTA } from '@components/InfoTextCTA'
+import { InfoTextLink } from '@components/InfoTextLink'
 
 export function DFIBalanceCard (): JSX.Element {
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
@@ -116,7 +116,7 @@ export function DFIBalanceCard (): JSX.Element {
           </View>
 
           <View style={tailwind('flex-row')}>
-            <InfoTextCTA
+            <InfoTextLink
               onPress={() => navigation.navigate('TokensVsUtxo')}
               text='Learn more about UTXO and Token'
               containerStyle={tailwind('w-9/12')}

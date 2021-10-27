@@ -24,7 +24,7 @@ import { BalanceParamList } from '../BalancesNavigator'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { InfoTextCTA } from '@components/InfoTextCTA'
+import { InfoTextLink } from '@components/InfoTextLink'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<BalanceParamList, 'ConvertScreen'>
@@ -108,7 +108,7 @@ export function ConvertScreen (props: Props): JSX.Element {
           title={translate('screens/ConvertScreen', 'After conversion, you will receive')}
         />
 
-        <InfoTextCTA
+        <InfoTextLink
           text='UTXO vs Token, what is the difference?'
           textStyle={tailwind('text-sm')}
           containerStyle={tailwind('my-4')}

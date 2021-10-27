@@ -4,7 +4,7 @@ import { Button } from '@components/Button'
 import { ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { InfoTextCTA } from '@components/InfoTextCTA'
+import { InfoTextLink } from '@components/InfoTextLink'
 import { View } from '@components'
 
 interface EmptyVaultProps {
@@ -54,7 +54,7 @@ export function EmptyVault (props: EmptyVaultProps): JSX.Element {
         margin='m-0 mb-8'
       />
       <View style={tailwind('flex items-center')}>
-        <InfoTextCTA
+        <InfoTextLink
           onPress={goToVaultsFaq}
           text='Learn more about vaults'
           testId='empty_vault_learn_more'
