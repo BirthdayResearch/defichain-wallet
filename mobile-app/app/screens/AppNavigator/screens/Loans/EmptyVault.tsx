@@ -1,16 +1,13 @@
-import { NavigationProp } from '@react-navigation/core'
 import * as React from 'react'
 import { RefreshControl } from 'react-native'
 import { Button } from '@components/Button'
 import { ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { LoanParamList } from './LoansNavigator'
 import { InfoTextCTA } from '@components/InfoTextCTA'
 import { View } from '@components'
 
 interface EmptyVaultProps {
-  navigation: NavigationProp<LoanParamList>
   handleRefresh: (nextToken?: string | undefined) => void
   loadingStatus: string
 }
