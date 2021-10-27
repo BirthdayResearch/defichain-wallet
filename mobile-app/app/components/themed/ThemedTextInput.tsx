@@ -1,7 +1,7 @@
 import * as Localization from 'expo-localization'
 import React, { forwardRef } from 'react'
 import { KeyboardTypeOptions, Platform, TextInput, TextInputProps } from 'react-native'
-import { useThemeContext } from '@contexts/ThemeProvider'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 
 export const ThemedTextInput = forwardRef(

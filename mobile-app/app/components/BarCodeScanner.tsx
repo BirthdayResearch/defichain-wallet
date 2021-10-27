@@ -4,10 +4,10 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { View } from '.'
-import { Logging } from '@api'
 import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { translate } from '@translations'
 import { ThemedText } from './themed'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 type Props = StackScreenProps<BalanceParamList, 'BarCodeScanner'>
 
@@ -18,6 +18,7 @@ export function BarCodeScanner ({
   // null => undetermined
   const [hasPermission, setHasPermission] = useState<boolean | null>(null)
   const [value, setValue] = useState<string>()
+  const logger = useLogger()
 
   // to ensure callback only can be fired once as value change
   useEffect(() => {
@@ -39,7 +40,7 @@ export function BarCodeScanner ({
             break
         }
       })
-      .catch(e => Logging.error(e))
+      .catch(logger.error)
   }, [])
 
   if (hasPermission === null) {

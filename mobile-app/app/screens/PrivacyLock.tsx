@@ -3,10 +3,10 @@ import { PrivacyLockContextI, usePrivacyLockContext } from '@contexts/LocalAuthC
 import { EnvironmentName, getEnvironment } from '@environment'
 import React, { useEffect } from 'react'
 import { BackHandler } from 'react-native'
-import { Logging } from '@api'
 import { ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import * as Updates from 'expo-updates'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 const APP_LAST_ACTIVE: { force: boolean, timestamp?: number } = {
   force: false
@@ -30,13 +30,14 @@ function shouldReauthenticate (): boolean {
 export function PrivacyLock (): JSX.Element {
   const privacyLock = usePrivacyLockContext()
   const appState = useAppStateContext()
+  const logger = useLogger()
 
   const handler = (nextState: SimplifiedAppStateStatus): void => {
     if (nextState === 'background') {
       APP_LAST_ACTIVE.timestamp = Date.now()
     } else if (privacyLock.isEnabled) {
       if (shouldReauthenticate()) {
-        authenticateOrExit(privacyLock)
+        authenticateOrExit(privacyLock, logger)
       }
     }
   }
@@ -51,7 +52,7 @@ export function PrivacyLock (): JSX.Element {
   // isPrivacyLock change in-app should not re-triggered
   useEffect(() => {
     if (privacyLock.isEnabled) {
-      authenticateOrExit(privacyLock)
+      authenticateOrExit(privacyLock, logger)
     }
   }, [])
 
@@ -67,18 +68,18 @@ export function PrivacyLock (): JSX.Element {
   }
 }
 
-function authenticateOrExit (privacyLockContext: PrivacyLockContextI): void {
+function authenticateOrExit (privacyLockContext: PrivacyLockContextI, logger: NativeLoggingProps): void {
   const backHandler = BackHandler.addEventListener('hardwareBackPress', () => null)
   privacyLockContext.prompt()
     .then(async () => {
       try {
         APP_LAST_ACTIVE.force = false
       } catch (e) { /* value not found in secure-store, unable to delete */
-        Logging.error(e)
+        logger.error(e)
       }
     })
     .catch(async (e) => {
-      Logging.error(e)
+      logger.error(e)
       APP_LAST_ACTIVE.force = true
     })
     .finally(() => {

@@ -1,21 +1,22 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
-import { Logging } from '@api'
 import { MnemonicEncrypted } from '@api/wallet'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { View } from '@components/index'
 import { CREATE_STEPS, CreateWalletStepIndicator, RESTORE_STEPS } from '@components/CreateWalletStepIndicator'
 import { PinTextInput } from '@components/PinTextInput'
 import { ThemedActivityIndicator, ThemedScrollView, ThemedText } from '@components/themed'
-import { useNetworkContext } from '@contexts/NetworkContext'
-import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '@screens/WalletNavigator/WalletNavigator'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 type Props = StackScreenProps<WalletParamList, 'PinConfirmation'>
 
 export function PinConfirmation ({ route }: Props): JSX.Element {
+  const logger = useLogger()
   const { network } = useNetworkContext()
   const { setWallet } = useWalletPersistenceContext()
   const {
@@ -48,7 +49,7 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
           await MnemonicStorage.set(words, pin)
           await setWallet(encrypted)
         })
-        .catch(e => Logging.error(e))
+        .catch(logger.error)
     }, 50) // allow UI render the spinner before async task
   }
 

@@ -9,7 +9,6 @@ import React, { Dispatch, useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { Logging } from '@api'
 import { Button } from '@components/Button'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import {
@@ -20,8 +19,8 @@ import {
   ThemedTouchableOpacity,
   ThemedView
 } from '@components/themed'
-import { useNetworkContext } from '@contexts/NetworkContext'
-import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -30,6 +29,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { NumberRow } from '@components/NumberRow'
 import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
@@ -42,6 +42,7 @@ export function SendScreen ({
   route,
   navigation
 }: Props): JSX.Element {
+  const logger = useLogger()
   const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
   const tokens = useTokensAPI()
@@ -70,7 +71,7 @@ export function SendScreen ({
   useEffect(() => {
     client.fee.estimate()
       .then((f) => setFee(new BigNumber(f)))
-      .catch(Logging.error)
+      .catch(logger.error)
   }, [])
 
   useEffect(() => {
@@ -107,7 +108,7 @@ export function SendScreen ({
           },
           merge: true
         })
-      })
+      }, logger)
     } else if (formState.isValid) {
       const values = getValues()
       navigation.navigate({
@@ -362,10 +363,10 @@ function AmountRow ({ token, control, onAmountChange, onClearButtonPress }: Amou
 async function constructSignedConversionAndSend ({
   mode,
   amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void): Promise<void> {
+}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
   try {
     dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
   } catch (e) {
-    Logging.error(e)
+    logger.error(e)
   }
 }

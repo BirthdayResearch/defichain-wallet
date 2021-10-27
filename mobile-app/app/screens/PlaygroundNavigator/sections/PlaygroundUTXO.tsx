@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { View } from '@components/index'
 import { usePlaygroundContext } from '@contexts/PlaygroundContext'
-import { useWalletContext } from '@contexts/WalletContext'
-import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { fetchTokens } from '@hooks/wallet/TokensAPI'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundTitle } from '../components/PlaygroundTitle'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 export function PlaygroundUTXO (): JSX.Element {
+  const logger = useLogger()
   const { wallet } = useWalletContext()
   const whaleApiClient = useWhaleApiClient()
   const dispatch = useDispatch()
@@ -52,7 +54,7 @@ export function PlaygroundUTXO (): JSX.Element {
             <PlaygroundAction
               onPress={async () => {
                 const address = await wallet.get(0).getAddress()
-                fetchTokens(whaleApiClient, address, dispatch)
+                fetchTokens(whaleApiClient, address, dispatch, logger)
               }}
               testID='playground_wallet_fetch_balances'
               title='Fetch Balances'

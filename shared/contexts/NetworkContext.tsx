@@ -1,8 +1,8 @@
 import { NetworkName } from '@defichain/jellyfish-network'
-import React, { createContext, useContext, useEffect, useState } from 'react'
-import { Logging, SecuredStoreAPI } from '@api'
-import { getJellyfishNetwork } from '@api/wallet'
+import React, { createContext, useContext, useEffect, useState, PropsWithChildren } from 'react'
+import { getJellyfishNetwork } from '@shared-api/wallet/network'
 import { EnvironmentNetwork } from '@environment'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 interface NetworkContextI {
   network: EnvironmentNetwork
@@ -16,15 +16,24 @@ export function useNetworkContext (): NetworkContextI {
   return useContext(NetworkContext)
 }
 
-export function NetworkProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
+export interface NetworkProviderProps extends PropsWithChildren<{}> {
+  api: {
+    getNetwork: () => Promise<EnvironmentNetwork>
+    setNetwork: (network: EnvironmentNetwork) => Promise<void>
+  }
+}
+
+export function NetworkProvider (props: NetworkProviderProps): JSX.Element | null {
   const [network, setNetwork] = useState<EnvironmentNetwork>()
   const [networkName, setNetworkName] = useState<NetworkName>()
+  const logger = useLogger()
+  const { api } = props
 
   useEffect(() => {
-    SecuredStoreAPI.getNetwork().then(async value => {
+    api.getNetwork().then(async (value: EnvironmentNetwork) => {
       setNetworkName(getJellyfishNetwork(value).name)
       setNetwork(value)
-    }).catch(Logging.error)
+    }).catch(logger.error)
   }, [])
 
   if (network === undefined || networkName === undefined) {
@@ -35,7 +44,7 @@ export function NetworkProvider (props: React.PropsWithChildren<any>): JSX.Eleme
     network: network,
     networkName: networkName,
     async updateNetwork (value: EnvironmentNetwork): Promise<void> {
-      await SecuredStoreAPI.setNetwork(value)
+      await api.setNetwork(value)
       setNetworkName(getJellyfishNetwork(value).name)
       setNetwork(value)
     }

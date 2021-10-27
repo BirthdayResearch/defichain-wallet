@@ -3,7 +3,7 @@ import * as React from 'react'
 import { Text } from 'react-native'
 import { Button, ButtonColorType, ButtonFillType } from './Button'
 
-jest.mock('../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider')
 
 const buttonFill: ButtonFillType[] = ['fill', 'outline', 'flat']
 const buttonColor: ButtonColorType[] = ['primary', 'secondary']
