@@ -16,7 +16,7 @@ interface TabOption {
   handleOnPress: () => void
 }
 
-export function Tabs (props: TabsProps): JSX.Element {
+const Tabs = React.memo((props: TabsProps): JSX.Element => {
   const FixedTab = (): JSX.Element => {
     return (
       <ThemedView
@@ -83,6 +83,11 @@ export function Tabs (props: TabsProps): JSX.Element {
   }
 
   return (<ScrollableTabs />)
+}, comparisonFn)
+
+function comparisonFn (prevProps: TabsProps, nextProps: TabsProps): boolean {
+  // compare objects by stringify which won't compare functions
+  return JSON.stringify(prevProps.tabSections) === JSON.stringify(nextProps.tabSections)
 }
 
 function TabLabel (props: {tab: TabOption}): JSX.Element {
@@ -96,3 +101,5 @@ function TabLabel (props: {tab: TabOption}): JSX.Element {
     </ThemedText>
   )
 }
+
+export { Tabs }

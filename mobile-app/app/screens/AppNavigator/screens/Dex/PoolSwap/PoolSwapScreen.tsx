@@ -231,6 +231,15 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     }
   }, [JSON.stringify(tokens), poolpair])
 
+  const getMaxAmount = (token: DerivedTokenState): string => {
+    if (token.id !== '0_unified') {
+      return new BigNumber(token.amount).toFixed(8)
+    }
+
+    const maxAmount = new BigNumber(token.amount).minus(reservedDfi)
+    return maxAmount.isLessThanOrEqualTo(0) ? new BigNumber(0).toFixed(8) : maxAmount.toFixed(8)
+  }
+
   if (tokenA === undefined || tokenB === undefined || poolpair === undefined || aToBPrice === undefined) {
     return <></>
   }
@@ -244,7 +253,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           controlName={tokenAForm}
           isDisabled={false}
           title={translate('screens/PoolSwapScreen', 'How much {{token}} do you want to swap?', { token: tokenA.displaySymbol })}
-          maxAmount={tokenA.id === '0_unified' ? new BigNumber(tokenA.amount).minus(reservedDfi).toFixed(8) : tokenA.amount}
+          maxAmount={getMaxAmount(tokenA)}
           enableMaxButton
           onChangeFromAmount={async (amount) => {
             setIsComputing(true)
@@ -261,7 +270,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         <InputHelperText
           testID={`text_balance_${tokenAForm}`}
           label={`${translate('screens/PoolSwapScreen', 'Available')}: `}
-          content={tokenA.id === '0_unified' ? new BigNumber(tokenA.amount).minus(reservedDfi).toFixed(8) : tokenA.amount}
+          content={getMaxAmount(tokenA)}
           suffix={` ${tokenA.displaySymbol}`}
         />
         {tokenA.id === '0_unified' && <ReservedDFIInfoText />}

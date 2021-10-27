@@ -25,6 +25,13 @@ context('Wallet - DEX - Pool Swap without balance', () => {
     cy.getByTestID('pool_pair_swap-horiz_dLTC-DFI').click()
     cy.getByTestID('button_submit').should('have.attr', 'aria-disabled')
   })
+
+  it('should not have negative amount', function () {
+    cy.getByTestID('swap_button').click()
+    cy.getByTestID('text_balance_tokenA').should('have.text', '0.00000000 DFI')
+    cy.getByTestID('MAX_amount_button').click()
+    cy.getByTestID('text_input_tokenA').should('have.value', '0.00000000')
+  })
 })
 
 context('Wallet - DEX - Pool Swap with balance', () => {
