@@ -131,7 +131,9 @@ context('Wallet - DEX - Pool Swap with balance Confirm Txn', () => {
   it('should be able to swap', function () {
     cy.getByTestID('swap_button').click().wait(4000)
     cy.getByTestID('text_input_tokenA').type('10')
+    cy.getByTestID('slippage_select').click()
     cy.getByTestID('slippage_10%').click()
+    cy.getByTestID('button_tolerance_submit').click()
     cy.getByTestID('estimated').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
       cy.getByTestID('button_submit').click()
@@ -154,7 +156,9 @@ context('Wallet - DEX - Pool Swap with balance Confirm Txn', () => {
   it('should be able to swap correctly when user cancel a tx and updated some inputs', function () {
     cy.getByTestID('swap_button').click().wait(4000)
     cy.getByTestID('text_input_tokenA').type('1')
+    cy.getByTestID('slippage_select').click()
     cy.getByTestID('slippage_1%').click()
+    cy.getByTestID('button_tolerance_submit').click()
     cy.getByTestID('estimated').then(($txt: any) => {
       $txt[0].textContent.replace(' dLTC', '').replace(',', '')
       cy.getByTestID('button_submit').click()
@@ -168,7 +172,9 @@ context('Wallet - DEX - Pool Swap with balance Confirm Txn', () => {
       // Update input values
       cy.getByTestID('text_input_tokenA_clear_button').click()
       cy.getByTestID('text_input_tokenA').type('10')
+      cy.getByTestID('slippage_select').click()
       cy.getByTestID('slippage_10%').click()
+      cy.getByTestID('button_tolerance_submit').click()
       cy.getByTestID('estimated').then(($txt: any) => {
         const updatedTokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
         cy.getByTestID('button_submit').click()
