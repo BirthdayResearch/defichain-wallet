@@ -461,7 +461,8 @@
     "Slippage Tolerance": "Slippage Toleranz",
     "Slippage rate changes occur within a transaction. Select preferred slippage rate.": "Änderungen der Slippage-Rate erfolgen innerhalb einer Transaktion. Wähle die bevorzugte Slippage-Toleranz.",
     "Custom": "Benutzerdefiniert",
-    "USE THIS SLIPPAGE TOLERANCE": "SLIPPAGE-TOLERANZ VERWENDEN"
+    "USE THIS SLIPPAGE TOLERANCE": "SLIPPAGE-TOLERANZ VERWENDEN",
+    "Required field is missing": "Erforderliches Feld fehlt",
   },
   "screens/PoolSwapScreen": {
     "Swap": "Tausche",

@@ -464,7 +464,8 @@
     "Slippage Tolerance": "交易滑点",
     "Slippage rate changes occur within a transaction. Select preferred slippage rate.": "滑点率变化会在交易中发生。选择您的首选滑点率。",
     "Custom": "自订",
-    "USE THIS SLIPPAGE TOLERANCE": "使用此滑点限制范围"
+    "USE THIS SLIPPAGE TOLERANCE": "使用此滑点限制范围",
+    "Required field is missing": "缺少必要填入的字栏"
 
   },
   "screens/PoolSwapScreen": {
