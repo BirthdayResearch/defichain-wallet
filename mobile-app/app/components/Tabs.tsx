@@ -4,11 +4,6 @@ import { translate } from '@translations'
 import React from 'react'
 import { ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from './themed'
 
-export enum TabKey {
-  BrowseLoans = 'BROWSE_LOANS',
-  YourVaults = 'YOUR_VAULTS'
-}
-
 interface TabsProps {
   activeTabKey: TabOption['id']
   tabSections: TabOption[]
@@ -16,10 +11,10 @@ interface TabsProps {
 }
 
 interface TabOption {
-  id: TabKey
+  id: string
   label: string
   disabled: boolean
-  handleOnPress: (id: TabKey) => void
+  handleOnPress: (id: string) => void
 }
 
 const Tabs = React.memo((props: TabsProps): JSX.Element => {

@@ -3,12 +3,17 @@ import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { ThemedView } from '@components/themed'
 import { LoanCardOptions, LoanCards } from '@components/LoanCards'
-import { TabKey, Tabs } from '@components/Tabs'
+import { Tabs } from '@components/Tabs'
 import { Vaults } from './components/Vaults'
 
+enum TabKey {
+  BrowseLoans = 'BROWSE_LOANS',
+  YourVaults = 'YOUR_VAULTS'
+}
+
 export function LoansScreen (): JSX.Element {
-  const [activeTab, setActiveTab] = useState(TabKey.BrowseLoans)
-  const onPress = (tabId: TabKey): void => {
+  const [activeTab, setActiveTab] = useState<string>(TabKey.BrowseLoans)
+  const onPress = (tabId: string): void => {
     setActiveTab(tabId)
   }
 
