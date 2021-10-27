@@ -38,7 +38,7 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
           )
         } else {
           return (
-            <View style={{ flex: 0.5 }}>
+            <View style={{ flexBasis: '50%' }}>
               <LoadCard
                 {...item}
               />
