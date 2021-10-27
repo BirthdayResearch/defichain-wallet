@@ -167,11 +167,6 @@ context('Wallet - Network detail screen - with wallet context', () => {
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('header_settings').click()
     cy.getByTestID('setting_header_container').filter(':visible').click()
-    cy.getByTestID('network_details_block_height').first().invoke('text').then((blockHeight) => {
-      const blockH: string = blockHeight.replace(',', '')
-      cy.getByTestID('block_detail_explorer_url').click().wait(3000)
-      cy.url().should('include', `https://defiscan.live/blocks/${blockH}`)
-    })
   })
 })
 
