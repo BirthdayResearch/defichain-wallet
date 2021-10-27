@@ -4,10 +4,6 @@ import { PasscodePrompt } from './PasscodePrompt'
 import { TransactionStatus } from '@screens/TransactionAuthorization/api/transaction_types'
 
 jest.mock('@shared-contexts/ThemeProvider')
-jest.mock('react-native/Libraries/Utilities/Platform', () => ({
-  OS: 'web',
-  select: () => jest.fn
-}))
 
 const StatusTypes: TransactionStatus[] = [TransactionStatus.INIT, TransactionStatus.IDLE, TransactionStatus.BLOCK, TransactionStatus.PIN, TransactionStatus.SIGNING, TransactionStatus.AUTHORIZED]
 
@@ -19,8 +15,6 @@ describe('transaction authorization screen', () => {
       }
       const onCancel = jest.fn
       const onPinInput = jest.fn
-      const closeModal = jest.fn
-      const modalRef = { current: null }
       const rendered = render(
         <PasscodePrompt
           onCancel={onCancel}
@@ -42,9 +36,6 @@ describe('transaction authorization screen', () => {
           isRetry
           attemptsRemaining={3}
           maxPasscodeAttempt={3}
-          modalRef={modalRef}
-          promptModalName='foo'
-          onModalCancel={closeModal}
         />
       )
       expect(rendered.toJSON()).toMatchSnapshot()

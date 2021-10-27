@@ -30,8 +30,8 @@ export function RootNavigator (): JSX.Element {
     <WalletNodeProvider data={wallets[0]}>
       <WalletContextProvider>
         <PrivacyLock />
+        <TransactionAuthorization />
         <BottomSheetModalProvider>
-          <TransactionAuthorization />
           <AppNavigator />
         </BottomSheetModalProvider>
       </WalletContextProvider>

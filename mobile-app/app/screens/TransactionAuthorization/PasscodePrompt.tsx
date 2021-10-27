@@ -1,14 +1,12 @@
 import { PinTextInput } from '@components/PinTextInput'
 import { ThemedActivityIndicator, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { DfTxSigner } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import React from 'react'
 import { Platform, SafeAreaView, View } from 'react-native'
 import { TransactionStatus } from '@screens/TransactionAuthorization/api/transaction_types'
-import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal } from '@gorhom/bottom-sheet'
-import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
 interface PasscodePromptProps {
   onCancel: () => void
@@ -24,32 +22,26 @@ interface PasscodePromptProps {
   isRetry: boolean
   attemptsRemaining: number
   maxPasscodeAttempt: number
-  promptModalName: string
-  modalRef: React.RefObject<BottomSheetModalMethods>
-  onModalCancel: () => void
 }
 
-export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
+export const PasscodePrompt = React.memo(function MemoPasscodePrompt (props: PasscodePromptProps): JSX.Element {
   const { isLight } = useThemeContext()
-  const getSnapPoints = (): string[] => {
-    if (Platform.OS === 'ios') {
-      return ['65%'] // ios measures space without keyboard
-    } else if (Platform.OS === 'android') {
-      return ['50%'] // android measure space by including keyboard
-    }
-    return []
-  }
-
-  const PromptContent = (): JSX.Element => {
-    return (
-      <SafeAreaView
-        style={tailwind('w-full h-full flex-col')}
+  return (
+    <SafeAreaView
+      style={tailwind('w-full h-full flex-col', `${isLight ? 'bg-gray-100' : 'bg-gray-800'}`)}
+    >
+      <View
+        style={{
+          paddingTop: Platform.select({
+            android: 30
+          })
+        }}
       >
         <ThemedTouchableOpacity
           dark={tailwind('bg-gray-900')}
           light={tailwind('bg-white')}
           onPress={props.onCancel}
-          style={tailwind('items-end pt-2 pr-2')}
+          style={tailwind('flex flex-row-reverse p-4')}
           testID='cancel_authorization'
           disabled={[TransactionStatus.BLOCK, TransactionStatus.SIGNING].includes(props.status)}
         >
@@ -61,14 +53,15 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
             size={26}
           />
         </ThemedTouchableOpacity>
+      </View>
 
-        <ThemedView
-          dark={tailwind('bg-gray-900')}
-          light={tailwind('bg-white')}
-          style={tailwind('w-full flex-1 flex-col')}
-        >
+      <ThemedView
+        dark={tailwind('bg-gray-900')}
+        light={tailwind('bg-white')}
+        style={tailwind('w-full flex-1 flex-col pt-8')}
+      >
 
-          {props.status === TransactionStatus.AUTHORIZED
+        {props.status === TransactionStatus.AUTHORIZED
           ? (
             <SuccessMessage
               message={props.transaction === undefined ? props.grantedAccessMessage : props.authorizedTransactionMessage}
@@ -161,38 +154,10 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
                   : null
               }
             </ThemedView>)}
-        </ThemedView>
-      </SafeAreaView>
-    )
-  }
-
-  if (Platform.OS === 'web') {
-    return (<PromptContent />)
-  }
-
-  return (
-    <BottomSheetModal
-      name={props.promptModalName}
-      ref={props.modalRef}
-      snapPoints={getSnapPoints()}
-      handleComponent={null}
-      backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
-        <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
-      )}
-      backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
-        <View {...backgroundProps} style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-900 border-gray-700'} border-t rounded`)]} />
-      )}
-      onChange={(index) => {
-        if (index === -1) {
-          props.onModalCancel()
-        }
-      }}
-      enablePanDownToClose={false}
-    >
-      <PromptContent />
-    </BottomSheetModal>
+      </ThemedView>
+    </SafeAreaView>
   )
-}
+})
 
 function SuccessMessage ({ message }: { message?: { title: string, description: string } }): JSX.Element | null {
   if (message === undefined) {
