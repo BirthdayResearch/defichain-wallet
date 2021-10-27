@@ -583,5 +583,9 @@
     "Active Price": "Aktueller Preis",
     "Next Price": "Nächster Preis",
     "Interest": "Zins"
+  },
+  "components/InfoTextCTA": {
+    "Learn more about UTXO and Token": "Erfahre mehr über UTXO und Token",
+    "UTXO vs Token, what is the difference?": "UTXO vs Token, worin liegt der Unterschied?"
   }
 }
