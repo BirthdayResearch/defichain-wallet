@@ -32,7 +32,7 @@ export function InfoTextLink (props: InfoTextCTAProps): JSX.Element {
         light={tailwind('text-primary-500')}
         style={[tailwind('ml-1 text-xs font-medium px-1'), props.textStyle]}
       >
-        {translate('components/InfoTextCTA', props.text)}
+        {translate('components/InfoTextLink', props.text)}
       </ThemedText>
     </TouchableOpacity>
   )

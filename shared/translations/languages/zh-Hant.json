@@ -584,7 +584,7 @@
     "Next Price": "下一個價格",
     "Interest": "利息"
   },
-  "components/InfoTextCTA": {
+  "components/InfoTextLink": {
     "Learn more about UTXO and Token": "了解 UTXO 和代幣區別",
     "UTXO vs Token, what is the difference?": "UTXO和代幣的區別是什麼？"
   }
