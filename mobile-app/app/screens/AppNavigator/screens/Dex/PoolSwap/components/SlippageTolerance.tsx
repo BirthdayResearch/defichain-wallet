@@ -36,7 +36,7 @@ export function SlippageTolerance ({ slippage, setSlippage }: SlippageToleranceP
       <ThemedView
         dark={tailwind('bg-gray-800 border-b border-gray-700')}
         light={tailwind('bg-white border-b border-gray-200')}
-        style={tailwind('flex-row items-center flex-grow py-4 px-4 pl-0 ')}
+        style={tailwind('flex-row items-center flex-grow p-4 pl-0 ')}
       >
         <View style={tailwind('mx-3 flex-auto')}>
           <ThemedText
