@@ -15,8 +15,8 @@
     "plugin:react-hooks/recommended"
   ],
   "ignorePatterns": [
-    "*.json",
-    "cypress/support/*.ts"
+    "/*.config.js",
+    "*.json"
   ],
   "overrides": [
     // Js and Typescript files

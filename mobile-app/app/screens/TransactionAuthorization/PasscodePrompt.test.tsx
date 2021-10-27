@@ -1,0 +1,43 @@
+import { render } from '@testing-library/react-native'
+import React from 'react'
+import { PasscodePrompt } from './PasscodePrompt'
+import { TransactionStatus } from '@screens/TransactionAuthorization/api/transaction_types'
+
+jest.mock('../../contexts/ThemeProvider')
+const StatusTypes: TransactionStatus[] = [TransactionStatus.INIT, TransactionStatus.IDLE, TransactionStatus.BLOCK, TransactionStatus.PIN, TransactionStatus.SIGNING, TransactionStatus.AUTHORIZED]
+
+describe('transaction authorization screen', () => {
+  StatusTypes.forEach(type => {
+    it(`should match snapshot of status: ${type}`, async () => {
+      const mockTransaction = {
+        sign: jest.fn()
+      }
+      const onCancel = jest.fn
+      const onPinInput = jest.fn
+      const rendered = render(
+        <PasscodePrompt
+          onCancel={onCancel}
+          message='foo'
+          transaction={mockTransaction}
+          status={type}
+          pinLength={6}
+          onPinInput={onPinInput}
+          pin='foo'
+          loadingMessage='foo'
+          authorizedTransactionMessage={{
+            title: 'foo',
+            description: 'bar'
+          }}
+          grantedAccessMessage={{
+            title: 'foo',
+            description: 'bar'
+          }}
+          isRetry
+          attemptsRemaining={3}
+          maxPasscodeAttempt={3}
+        />
+      )
+      expect(rendered.toJSON()).toMatchSnapshot()
+    })
+  })
+})

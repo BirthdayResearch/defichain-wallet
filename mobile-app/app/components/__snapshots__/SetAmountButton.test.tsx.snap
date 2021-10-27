@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`set amount button should match styling of set amount button type 50% 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "borderBottomColor": "rgba(212, 212, 212, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 1,
+      "borderLeftColor": "rgba(212, 212, 212, 1)",
+      "borderLeftWidth": 1,
+      "borderRightColor": "rgba(212, 212, 212, 1)",
+      "borderRightWidth": 1,
+      "borderTopColor": "rgba(212, 212, 212, 1)",
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 1,
+      "display": "flex",
+      "marginRight": 4,
+      "opacity": 1,
+      "paddingBottom": 4,
+      "paddingLeft": 8,
+      "paddingRight": 8,
+      "paddingTop": 4,
+    }
+  }
+  testID="50%_amount_button"
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Array [
+          Object {
+            "fontFamily": "MediumFont",
+            "fontWeight": "500",
+            "textAlign": "center",
+          },
+          Object {
+            "color": "rgba(255, 0, 175, 1)",
+          },
+        ],
+      ]
+    }
+  >
+    50%
+  </Text>
+</View>
+`;
+
+exports[`set amount button should match styling of set amount button type MAX 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "borderBottomColor": "rgba(212, 212, 212, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 1,
+      "borderLeftColor": "rgba(212, 212, 212, 1)",
+      "borderLeftWidth": 1,
+      "borderRightColor": "rgba(212, 212, 212, 1)",
+      "borderRightWidth": 1,
+      "borderTopColor": "rgba(212, 212, 212, 1)",
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 1,
+      "display": "flex",
+      "opacity": 1,
+      "paddingBottom": 4,
+      "paddingLeft": 8,
+      "paddingRight": 8,
+      "paddingTop": 4,
+    }
+  }
+  testID="MAX_amount_button"
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Array [
+          Object {
+            "fontFamily": "MediumFont",
+            "fontWeight": "500",
+            "textAlign": "center",
+          },
+          Object {
+            "color": "rgba(255, 0, 175, 1)",
+          },
+        ],
+      ]
+    }
+  >
+    MAX
+  </Text>
+</View>
+`;

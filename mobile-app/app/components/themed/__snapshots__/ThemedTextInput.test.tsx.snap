@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`text input should match snapshot with OS android period comma locale 1`] = `
+<TextInput
+  allowFontScaling={true}
+  editable={true}
+  placeholder="Enter an amount"
+  placeholderTextColor="rgba(0, 0, 0, 0.4)"
+  rejectResponderTermination={true}
+  style={
+    Array [
+      undefined,
+      Object {
+        "color": "rgba(64, 64, 64, 1)",
+      },
+    ]
+  }
+  underlineColorAndroid="transparent"
+  value="123"
+/>
+`;
+
+exports[`text input should match snapshot with OS android period decimal locale 1`] = `
+<TextInput
+  allowFontScaling={true}
+  editable={true}
+  placeholder="Enter an amount"
+  placeholderTextColor="rgba(0, 0, 0, 0.4)"
+  rejectResponderTermination={true}
+  style={
+    Array [
+      undefined,
+      Object {
+        "color": "rgba(64, 64, 64, 1)",
+      },
+    ]
+  }
+  underlineColorAndroid="transparent"
+  value="123"
+/>
+`;
+
+exports[`text input should match snapshot with OS android period unknown locale 1`] = `
+<TextInput
+  allowFontScaling={true}
+  editable={true}
+  placeholder="Enter an amount"
+  placeholderTextColor="rgba(0, 0, 0, 0.4)"
+  rejectResponderTermination={true}
+  style={
+    Array [
+      undefined,
+      Object {
+        "color": "rgba(64, 64, 64, 1)",
+      },
+    ]
+  }
+  underlineColorAndroid="transparent"
+  value="123"
+/>
+`;
+
+exports[`text input should match snapshot with OS ios period comma locale 1`] = `
+<TextInput
+  allowFontScaling={true}
+  editable={true}
+  placeholder="Enter an amount"
+  placeholderTextColor="rgba(0, 0, 0, 0.4)"
+  rejectResponderTermination={true}
+  style={
+    Array [
+      undefined,
+      Object {
+        "color": "rgba(64, 64, 64, 1)",
+      },
+    ]
+  }
+  underlineColorAndroid="transparent"
+  value="123"
+/>
+`;
+
+exports[`text input should match snapshot with OS ios period decimal locale 1`] = `
+<TextInput
+  allowFontScaling={true}
+  editable={true}
+  placeholder="Enter an amount"
+  placeholderTextColor="rgba(0, 0, 0, 0.4)"
+  rejectResponderTermination={true}
+  style={
+    Array [
+      undefined,
+      Object {
+        "color": "rgba(64, 64, 64, 1)",
+      },
+    ]
+  }
+  underlineColorAndroid="transparent"
+  value="123"
+/>
+`;
+
+exports[`text input should match snapshot with OS ios period unknown locale 1`] = `
+<TextInput
+  allowFontScaling={true}
+  editable={true}
+  placeholder="Enter an amount"
+  placeholderTextColor="rgba(0, 0, 0, 0.4)"
+  rejectResponderTermination={true}
+  style={
+    Array [
+      undefined,
+      Object {
+        "color": "rgba(64, 64, 64, 1)",
+      },
+    ]
+  }
+  underlineColorAndroid="transparent"
+  value="123"
+/>
+`;

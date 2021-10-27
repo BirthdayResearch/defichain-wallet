@@ -2,7 +2,6 @@
 [![wallet](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/count/oqk3fk/main&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/oqk3fk/runs)
 [![codecov](https://codecov.io/gh/DeFiCh/wallet/branch/main/graph/badge.svg?token=83SCBQBEVJ)](https://codecov.io/gh/DeFiCh/wallet)
 [![Maintainability](https://api.codeclimate.com/v1/badges/30297425fadcab8fbba4/maintainability)](https://codeclimate.com/github/DeFiCh/wallet/maintainability)
-[![TS-Standard](https://badgen.net/badge/code%20style/ts-standard/blue?icon=typescript)](https://github.com/standard/ts-standard)
 <div>
   <a href="https://apps.apple.com/us/app/defichain-wallet/id1572472820"><img width="130" height="50" src="/.github/images/app_store.svg" alt="app store" /></a>
   <a href='https://play.google.com/store/apps/details?id=com.defichain.app'><img width="130" height="50" alt='Get it on Google Play' src='/.github/images/play_store.svg'/></a>
@@ -14,7 +13,7 @@ DeFi Blockchain Light Wallet for iOS, Android & Web.
 
 ## Releases
 
-DeFiChain Wallet has 3 releases channel and unique environment for each of those channel. [`app/environment.ts`](/app/environment.ts) carries the environment state for those releases channel.
+DeFiChain Wallet has 3 releases channel and unique environment for each of those channel. [`shared/environment.ts`](/shared/environment.ts) carries the environment state for those releases channel.
 
 <details>
 <summary><b>Production</b></summary>
@@ -62,10 +61,9 @@ npm install
 ### Project Structure
 
 ```txt
-wallet/
+mobile-app/
 ├─ .github/
 ├─ app/
-│  ├─ assets/
 │  ├─ components/
 │  ├─ contexts/
 │  ├─ hooks/
@@ -73,10 +71,12 @@ wallet/
 │  ├─ screens/
 │  │  ├─ ...Navigator/
 │  │  └─ Main.tsx
-│  ├─ store/
-│  └─ translations/
-│     └─ languages/
 └─ cypress/
+shared/
+├─ assets/
+├─ store/
+└─ translations/
+   └─ languages/
 ```
 
 DeFiChain Wallet project is structured with 3 core directories. Each pull request will likely carry significant changes
@@ -86,13 +86,13 @@ Directory               | Description
 ------------------------|-------------
 `/.github`              | GitHub Workflow for shift left automation
 `/app/api`              | API and middlewares logic for application, for non-UI logic only
-`/app/assets`           | assets of the project that can be loaded at startup
+`/shared/assets`        | assets of the project that can be loaded at startup
 `/app/components`       | top level components for a atomic shared design language
 `/app/contexts`         | shared contexts for application, non-UI logic
 `/app/hooks`            | shared hooks for application, for UI logic only
 `/app/screens`          | screens hierarchy tree matching directory hierarchy tree
-`/app/store`            | global state that is used at least more than once in screens, for UI logic only
-`/app/translations`     | various language translations
+`/shared/store`         | global state that is used at least more than once in screens, for UI logic only
+`/shared/translations`  | various language translations
 `/cypress`              | E2E tested facilitated through web testing technologies
 
 ### Testing

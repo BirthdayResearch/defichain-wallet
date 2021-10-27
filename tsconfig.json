@@ -1,4 +1,8 @@
 {
+  "extends": "expo/tsconfig.base",
+  "exclude": [
+    "node_modules"
+  ],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "jsx": "react-native",
@@ -11,13 +15,19 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "strict": true,
-    "baseUrl": "app",
+    "baseUrl": "mobile-app/app",
     "paths": {
       "@api": [
         "api"
       ],
+      "@api/*": [
+        "api/*"
+      ],
       "@assets": [
-        "assets/*"
+        "../../shared/assets"
+      ],
+      "@assets/*": [
+        "../../shared/assets/*"
       ],
       "@constants/*": [
         "constants/*"
@@ -25,34 +35,45 @@
       "@contexts/*": [
         "contexts/*"
       ],
+      "@components": [
+        "components"
+      ],
       "@components/*": [
         "components/*"
       ],
       "@environment": [
-        "environment"
+        "../../shared/environment"
       ],
       "@hooks/*": [
         "hooks/*"
+      ],
+      "@shared-api": [
+        "../../shared/api"
+      ],
+      "@shared-api/*": [
+        "../../shared/api/*"
+      ],
+      "@shared-types": [
+        "../../shared/types"
+      ],
+      "@shared-types/*": [
+        "../../shared/types/*"
       ],
       "@screens/*": [
         "screens/*"
       ],
       "@store": [
-        "store"
+        "../../shared/store"
       ],
       "@store/*": [
-        "store/*"
+        "../../shared/store/*"
       ],
       "@translations": [
-        "translations"
+        "../../shared/translations"
       ],
       "@tailwind": [
         "tailwind"
       ]
     }
-  },
-  "extends": "expo/tsconfig.base",
-  "exclude": [
-    "node_modules"
-  ]
+  }
 }

@@ -37,6 +37,7 @@ issue:
       list:
         - core
         - workflow
+        - website
         - api
         - assets
         - contexts
@@ -123,6 +124,20 @@ issue:
         collaborator: true
         member: true
         owner: true
+
+  captures:
+    - regex: '\W*v?(\d+\.\d+\.\d+)\W*'
+      github_release: true
+      ignore_case: true
+      label: 'version/$CAPTURED'
+
+    - regex: '\W*iOS\W*'
+      label: 'platform/ios'
+      ignore_case: true
+
+    - regex: '\W*Android\W*'
+      label: 'platform/android'
+      ignore_case: true
 
 pull_request:
   labels:

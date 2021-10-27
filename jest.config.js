@@ -1,7 +1,7 @@
 module.exports = {
   preset: 'jest-expo',
   testPathIgnorePatterns: [
-    'cypress/.*'
+    'mobile-app/cypress/.*'
   ],
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
@@ -18,7 +18,8 @@ module.exports = {
     '!**/_shim.js',
     '!**/screens/PlaygroundNavigator/**',
     '!**/cypress-coverage/**',
-    '!**/jest-coverage/**'
+    '!**/jest-coverage/**',
+    '!**/website/**'
   ],
   coverageDirectory: 'jest-coverage'
 }

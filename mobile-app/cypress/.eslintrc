@@ -1,0 +1,24 @@
+{
+  "root": true,
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": [
+    "cypress"
+  ],
+  "extends": [
+    "standard-with-typescript"
+  ],
+  "ignorePatterns": [
+    "/plugins/*.ts",
+    "/support/*.ts"
+  ],
+  "rules": {
+    "@typescript-eslint/no-namespace": "off",
+    "cypress/no-assigning-return-values": "error",
+    "cypress/no-unnecessary-waiting": "off",
+    "cypress/assertion-before-screenshot": "warn",
+    "cypress/no-force": "error",
+    "cypress/no-async-tests": "error"
+  }
+}

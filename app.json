@@ -6,11 +6,11 @@
     "owner": "dfxag",
     "version": "0.10.5",
     "orientation": "portrait",
-    "icon": "./app/assets/images/icon.png",
+    "icon": "./shared/assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./app/assets/images/splash.png",
+      "image": "./shared/assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -23,18 +23,44 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.defichain.app.dfx",
-      "buildNumber": "0.10.5"
+      "buildNumber": "0.10.5",
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "This app uses FaceID to enable privacy lock on device."
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./app/assets/images/adaptive-icon.png",
+        "foregroundImage": "./shared/assets/images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.defichain.app.dfx",
-      "versionCode": 6
+      "versionCode": 6,
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": {
+            "scheme": "https"
+          },
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        },
+        {
+          "autoVerify": true,
+          "action": "VIEW",
+          "data": {
+            "scheme": "http"
+          },
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ]
     },
     "web": {
-      "favicon": "./app/assets/images/favicon.png"
+      "favicon": "./shared/assets/images/favicon.png"
     }
   }
 }
