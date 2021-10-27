@@ -1,5 +1,5 @@
 import React from 'react'
-import { VaultCard, VaultStatus } from './VaultCard'
+import { VaultCard, VaultStatus, VaultCardProps } from './VaultCard'
 import BigNumber from 'bignumber.js'
 import { render } from '@testing-library/react-native'
 
@@ -7,7 +7,7 @@ jest.mock('../contexts/ThemeProvider')
 
 describe('Vault card', () => {
   it('should match snapshot of locked vault', async () => {
-    const lockedVault = {
+    const lockedVault: VaultCardProps = {
       vaultAddress: '22ffasd5ca123123123123123121231061',
       status: VaultStatus.Locked,
       collaterals: ['BTC', 'DFI', 'dETH', 'dLTC', 'dLTC'],
@@ -23,7 +23,7 @@ describe('Vault card', () => {
   })
 
   it('should match snapshot of at-risk vault', async () => {
-    const atRiskVault = {
+    const atRiskVault: VaultCardProps = {
       vaultAddress: '22ffasd5ca123123123123123121231061',
       status: VaultStatus.AtRisk,
       collaterals: ['BTC', 'DFI'],
@@ -39,7 +39,7 @@ describe('Vault card', () => {
   })
 
   it('should match snapshot of safe vault', async () => {
-    const safeVault = {
+    const safeVault: VaultCardProps = {
       vaultAddress: '22ffasd5ca123123123123123121231061',
       status: VaultStatus.Safe,
       collaterals: ['dETH', 'BTC', 'DFI', 'dLTC', 'dLTC', 'dLTC', 'dLTC'],
@@ -55,7 +55,7 @@ describe('Vault card', () => {
   })
 
   it('should match snapshot of new vault', async () => {
-    const newVault = {
+    const newVault: VaultCardProps = {
       vaultAddress: '22ffasd5ca123123123123123121231061',
       status: VaultStatus.New,
       collaterals: [],

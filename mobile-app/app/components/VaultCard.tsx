@@ -8,7 +8,7 @@ import { TokenIconGroup } from './TokenIconGroup'
 import NumberFormat from 'react-number-format'
 import { IconButton } from './IconButton'
 
-interface VaultCardProps {
+export interface VaultCardProps {
   vaultAddress: string
   status?: VaultStatus
   collaterals: string[]
