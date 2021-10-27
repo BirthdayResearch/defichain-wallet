@@ -3,7 +3,7 @@ import { VaultCard, VaultStatus, VaultCardProps } from './VaultCard'
 import BigNumber from 'bignumber.js'
 import { render } from '@testing-library/react-native'
 
-jest.mock('../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider')
 
 describe('Vault card', () => {
   it('should match snapshot of locked vault', async () => {
