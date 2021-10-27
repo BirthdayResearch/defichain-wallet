@@ -2,7 +2,7 @@ import { render } from '@testing-library/react-native'
 import React from 'react'
 import { InputHelperText } from './InputHelperText'
 
-jest.mock('../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider')
 
 describe('input helper text', () => {
   it('should render', async () => {

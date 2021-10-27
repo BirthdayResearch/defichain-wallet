@@ -3,7 +3,7 @@ import React from 'react'
 import { LoanCardOptions, LoanCards } from './LoanCards'
 import BigNumber from 'bignumber.js'
 
-jest.mock('../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider')
 
 describe('loan cards', () => {
   it('should match snapshot', async () => {

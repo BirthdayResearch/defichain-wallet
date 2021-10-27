@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { ThemePersistence } from '@api'
 import { Switch, View } from '@components/index'
 import { ThemedText, ThemedView } from '@components/themed'
-import { useThemeContext } from '@contexts/ThemeProvider'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 

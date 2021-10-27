@@ -1,8 +1,7 @@
-import { Logging } from '@api'
-import { useDeFiScanContext } from '@contexts/DeFiScanContext'
-import { useThemeContext } from '@contexts/ThemeProvider'
-import { useWalletContext } from '@contexts/WalletContext'
-import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
@@ -16,6 +15,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Animated } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import * as Updates from 'expo-updates'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { TransactionDetail } from './TransactionDetail'
 import { TransactionError } from './TransactionError'
 
@@ -23,19 +23,19 @@ const MAX_AUTO_RETRY = 1
 const MAX_TIMEOUT = 300000
 const INTERVAL_TIME = 5000
 
-async function broadcastTransaction (tx: CTransactionSegWit, client: WhaleApiClient, retries: number = 0): Promise<string> {
+async function broadcastTransaction (tx: CTransactionSegWit, client: WhaleApiClient, retries: number = 0, logger: NativeLoggingProps): Promise<string> {
   try {
     return await client.rawtx.send({ hex: tx.toHex() })
   } catch (e) {
-    Logging.error(e)
+    logger.error(e)
     if (retries < MAX_AUTO_RETRY) {
-      return await broadcastTransaction(tx, client, retries + 1)
+      return await broadcastTransaction(tx, client, retries + 1, logger)
     }
     throw e
   }
 }
 
-async function waitForTxConfirmation (id: string, client: WhaleApiClient): Promise<Transaction> {
+async function waitForTxConfirmation (id: string, client: WhaleApiClient, logger: NativeLoggingProps): Promise<Transaction> {
   const initialTime = getEnvironment(Updates.releaseChannel).debug ? 5000 : 30000
   let start = initialTime
 
@@ -49,7 +49,7 @@ async function waitForTxConfirmation (id: string, client: WhaleApiClient): Promi
         resolve(tx)
       }).catch((e) => {
         if (start >= MAX_TIMEOUT) {
-          Logging.error(e)
+          logger.error(e)
           if (intervalID !== undefined) {
             clearInterval(intervalID)
           }
@@ -72,6 +72,7 @@ async function waitForTxConfirmation (id: string, client: WhaleApiClient): Promi
  *  Need to get the height of bottom tab via `useBottomTabBarHeight()` hook to be called on screen.
  * */
 export function OceanInterface (): JSX.Element | null {
+  const logger = useLogger()
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
   const { wallet, address } = useWalletContext()
@@ -102,12 +103,12 @@ export function OceanInterface (): JSX.Element | null {
         broadcasted: false,
         title: translate('screens/OceanInterface', 'Preparing broadcast')
       })
-      broadcastTransaction(transaction.tx, client)
+      broadcastTransaction(transaction.tx, client, 0, logger)
         .then(async () => {
           try {
             setTxUrl(getTransactionUrl(transaction.tx.txId, transaction.tx.toHex()))
           } catch (e) {
-            Logging.error(e)
+            logger.error(e)
           }
           setTx({
             ...transaction,
@@ -118,10 +119,10 @@ export function OceanInterface (): JSX.Element | null {
           }
           let title
           try {
-            await waitForTxConfirmation(transaction.tx.txId, client)
+            await waitForTxConfirmation(transaction.tx.txId, client, logger)
             title = 'Transaction completed'
           } catch (e) {
-            Logging.error(e)
+            logger.error(e)
             title = 'Sent but not confirmed'
           }
           setTx({
@@ -136,14 +137,14 @@ export function OceanInterface (): JSX.Element | null {
         .catch((e: Error) => {
           const errMsg = `${e.message}. Txid: ${transaction.tx.txId}`
           setError(errMsg)
-          Logging.error(e)
+          logger.error(e)
           if (transaction.onError !== undefined) {
             transaction.onError()
           }
         })
         .finally(() => {
           dispatch(ocean.actions.popTransaction())
-          fetchTokens(client, address, dispatch)
+          fetchTokens(client, address, dispatch, logger)
         }) // remove the job as soon as completion
     }
   }, [transaction, wallet, address])

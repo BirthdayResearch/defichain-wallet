@@ -1,19 +1,28 @@
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { ColorSchemeName, useColorScheme } from 'react-native'
-import { Logging, ThemePersistence } from '@api'
 
 interface ThemeLoader {
   theme: NonNullable<ColorSchemeName>
   isThemeLoaded: boolean
 }
 
-export function useTheme (): ThemeLoader {
-  const colorScheme = useColorScheme()
+type ColorSchemeName = 'light' | 'dark' | null | undefined
+
+interface ThemeContextI {
+  api: {
+    get: () => Promise<string | null>
+    set: (language: NonNullable<ColorSchemeName>) => Promise<void>
+  }
+  colorScheme?: ColorSchemeName
+}
+
+export function useTheme ({ api, colorScheme }: ThemeContextI): ThemeLoader {
+  const logger = useLogger()
   const [isThemeLoaded, setIsThemeLoaded] = useState<boolean>(false)
   const [theme, setTheme] = useState<NonNullable<ColorSchemeName>>('light')
 
   useEffect(() => {
-    ThemePersistence.get().then((t) => {
+    api.get().then((t) => {
       let currentTheme: NonNullable<ColorSchemeName> = 'light'
       if (t !== null && t !== undefined) {
         currentTheme = t as NonNullable<ColorSchemeName>
@@ -21,7 +30,9 @@ export function useTheme (): ThemeLoader {
         currentTheme = colorScheme
       }
       setTheme(currentTheme)
-    }).catch((err) => Logging.error(err)).finally(() => setIsThemeLoaded(true))
+    })
+    .catch(logger?.error)
+    .finally(() => setIsThemeLoaded(true))
   }, [])
 
   return {
@@ -42,8 +53,9 @@ export function useThemeContext (): Theme {
   return useContext(ThemeContext)
 }
 
-export function ThemeProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
-  const { theme } = useTheme()
+export function ThemeProvider (props: ThemeContextI & React.PropsWithChildren<any>): JSX.Element | null {
+  const { api, colorScheme } = props
+  const { theme } = useTheme({ api, colorScheme })
   const [currentTheme, setTheme] = useState<NonNullable<ColorSchemeName>>(theme)
 
   useEffect(() => {
