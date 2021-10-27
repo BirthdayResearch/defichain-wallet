@@ -8,7 +8,7 @@ context('Wallet - Balances', () => {
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().wait(3000)
-    cy.getByTestID('bottom_tab_settings').click()
+    cy.getByTestID('header_settings').click()
     cy.getByTestID('bottom_tab_balances').click()
   })
 

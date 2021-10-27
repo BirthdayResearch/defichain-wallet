@@ -18,7 +18,7 @@ import { ConversionParam } from '../Balances/BalancesNavigator'
 
 export interface DexParamList {
   DexScreen: undefined
-  PoolSwapScreen: { poolpair: PoolPairData }
+  PoolSwapScreen: { pair: PoolPairData }
   ConfirmPoolSwapScreen: {
     tokenA: DerivedTokenState
     tokenB: DerivedTokenState
@@ -68,6 +68,7 @@ export function DexNavigator (): JSX.Element {
     <DexStack.Navigator
       initialRouteName='DexScreen'
       screenOptions={{
+        headerTitleAlign: 'center',
         headerTitleStyle: HeaderFont,
         headerBackTitleVisible: false
       }}

@@ -43,18 +43,18 @@ context('Wallet - Send', function () {
 
       // Invalid address
       cy.getByTestID('address_input').type('z')
-      cy.getByTestID('send_submit_button').should('have.attr', 'disabled')
+      cy.getByTestID('send_submit_button').should('have.attr', 'aria-disabled')
       cy.getByTestID('address_input_clear_button').click()
-      cy.getByTestID('send_submit_button').should('have.attr', 'disabled')
+      cy.getByTestID('send_submit_button').should('have.attr', 'aria-disabled')
 
       // Invalid amount - Character, over max amount, zero
       cy.getByTestID('address_input').clear().type(addresses[0])
       cy.getByTestID('amount_input').clear().type('a')
-      cy.getByTestID('send_submit_button').should('have.attr', 'disabled')
+      cy.getByTestID('send_submit_button').should('have.attr', 'aria-disabled')
       cy.getByTestID('amount_input').clear().type('12')
-      cy.getByTestID('send_submit_button').should('have.attr', 'disabled')
+      cy.getByTestID('send_submit_button').should('have.attr', 'aria-disabled')
       cy.getByTestID('amount_input').clear().type('0')
-      cy.getByTestID('send_submit_button').should('have.attr', 'disabled')
+      cy.getByTestID('send_submit_button').should('have.attr', 'aria-disabled')
     })
 
     it('should be able to display elements', function () {

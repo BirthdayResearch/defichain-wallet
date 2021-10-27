@@ -12,3 +12,14 @@ export interface AnnouncementData {
    */
   version: string
 }
+
+export interface FeatureFlag {
+  id: string
+  name: string
+  version: string
+  stage: 'alpha' | 'beta' | 'public'
+}
+
+export type FEATURE_FLAG_ID = 'loan' | 'auction'
+
+export type FEATURE_FLAG_STAGE = 'alpha' | 'beta' | 'public'

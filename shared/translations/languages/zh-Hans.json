@@ -20,7 +20,7 @@
     "Add liquidity": "增加流动资金",
     "Confirm Add Liquidity": "确认增加流动资金",
     "Remove Liquidity": "退出流动资金",
-    "Confirm removal": "确认退出",
+    "Confirm Removal": "确认退出",
     "Confirm swap": "确认兑换",
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "为以下去中心化交易所配对池提供流动资金，并获得高利率的区块奖励回报.",
     "YOUR LIQUIDITY": "您的资金",
@@ -230,7 +230,10 @@
     "AVAILABLE OPTIONS": "可使用的功能",
     "Send to other wallet": "发送到其他地址",
     "Receive": "接收",
-    "Convert to {{symbol}}": "转换至 {{symbol}}"
+    "Convert to {{symbol}}": "转换至 {{symbol}}",
+    "Add to liquidity pool":  "加入流动性池",
+    "Remove liquidity": "撒出 流动性池",
+    "Swap with {{token}}": "用 {{token}} 兑换"
   },
   "screens/TokensVsUtxoScreen": {
     "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "DFI 有两种形式 - UTXO 和代币, 两者可依据使用做互换. 这个程序可以进行互换.",
@@ -341,7 +344,8 @@
     "Liquidity": "流动",
     "Transactions": "交易",
     "Settings": "设置",
-    "DEX": "去中心化交易所"
+    "DEX": "去中心化交易所",
+    "Loans": "贷款"
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "正在确认",
@@ -390,7 +394,8 @@
     "Your pooled {{token}}": "Your pooled {{token}}",
     "Amount to be converted": "要转换的金额",
     "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换",
-    "Estimated fee": "所需费用（大约）"
+    "Estimated fee": "所需费用（大约）",
+    "Pooled {{symbol}}": "池中总 {{symbol}}"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "您正要增加流动资金",
@@ -419,7 +424,13 @@
     "Price": "价格",
     "Estimated fee": "所需费用（大约）",
     "REMOVE": "退出",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}"
+    "PRICE DETAILS": "价格详情",
+    "{{symbolA}} per {{symbolB}}": "每退出 {{symbolA}} 量相当于 {{symbolB}} 量等值",
+    "{{symbolB}} per {{symbolA}}": "每退出 {{symbolB}} 量相当于 {{symbolA}} 量等值",
+    "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 量相当于 {{tokenB}} 量等值",
+    "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 量相当于 {{tokenA}} 量等值",
+    "Transaction type": "交易类型",
+    "Remove liquidity": "退出流动"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "退出流动资金",
@@ -430,8 +441,14 @@
     "Price": "价格",
     "Removing {{amount}} {{symbol}}": "退出 {{amount}} {{symbol}}",
     "Review full transaction details in the next screen": "请在下一步确认交易明细",
-    "PRICE DETAILS": "PRICE DETAILS",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}"
+    "PRICE DETAILS": "价格详情",
+    "{{symbolA}} per {{symbolB}}": "每退出 {{symbolA}} 量相当于 {{symbolB}} 量等值",
+    "{{symbolB}} per {{symbolA}}": "每退出 {{symbolB}} 量相当于 {{symbolA}} 量等值",
+    "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 量相当于 {{tokenB}} 量等值",
+    "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 量相当于 {{tokenA}} 量等值",
+    "Drag or enter amount to remove": "向左右滑动退出流动池股份",
+    "You are removing": "你要退出的",
+    "from liquidity pool": "从流动资金池中"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "钱包网络",
@@ -447,7 +464,7 @@
   },
   "components/slider": {
     "None": "无",
-    "All": "所有"
+    "Max": "最高值"
   },
   "components/Button": {
     "CONTINUE": "继续"
@@ -566,5 +583,17 @@
   "components/TransactionResultsRow": {
     "TRANSACTION RESULTS": "交易结果",
     "Resulting {{symbol}}": "转换后 {{symbol}}"
+  },
+  "screens/LoansScreen": {
+    "Loans": "贷款"
+  },
+  "components/tabs": {
+    "Browse loans": "浏览贷款选项",
+    "Your vaults": "你的金库"
+  },
+  "components/LoanCard": {
+    "Active Price": "目前活跃价格",
+    "Next Price": "下一个价格",
+    "Interest": "利息"
   }
 }

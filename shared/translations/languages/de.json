@@ -20,7 +20,7 @@
     "Add liquidity": "Liquidität hinzufügen",
     "Confirm Add Liquidity": "Liquidität hinzufügen bestätigen",
     "Remove Liquidity": "Liquidität entfernen",
-    "Confirm removal": "Bestätige die Rücknahme",
+    "Confirm Removal": "Entfernen bestätigen",
     "Confirm swap": "Bestätige den Umtausch",
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Wähle unten ein Pool-Paar aus, stelle Liquidität für den Betrieb der dezentralen Börse (DEX) bereit und beginne, Gebühren und jährliche Renditen von bis zu 100% zu verdienen. Du kannst jederzeit Liquidität entfernen.",
     "YOUR LIQUIDITY": "VON DIR BEREITGESTELLTE LIQUIDITÄT",
@@ -229,7 +229,10 @@
     "AVAILABLE OPTIONS": "VERFÜGBARE OPTIONEN",
     "Send to other wallet": "An andere Wallet senden",
     "Receive": "Empfange",
-    "Convert to {{symbol}}": "Umwandeln in {{symbol}}"
+    "Convert to {{symbol}}": "Umwandeln in {{symbol}}",
+    "Add to liquidity pool":  "Zu Liquiditätspool hinzufügen",
+    "Remove liquidity": "Liquidität entfernen",
+    "Swap with {{token}}": "Tauschen gegen {{token}}"
   },
   "screens/TokensVsUtxoScreen": {
     "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "DFI existiert in zwei Formen - UTXO und Token, die je nach Verwendung austauschbar sind. Mit der App kannst du leicht zwischen den beiden Arten wechseln.",
@@ -339,7 +342,8 @@
     "Balances": "Guthaben",
     "Liquidity": "Liquidität",
     "Transactions": "Transaktionen",
-    "Settings": "Einstellungen"
+    "Settings": "Einstellungen",
+    "Loans": "Darlehen"
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "Warte auf Bestätigung",
@@ -383,12 +387,13 @@
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
     "PRICE DETAILS": "PREISDETAILS",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",    
+    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Your pooled {{token}}": "Deine {{token}} im Pool",
     "Amount to be converted": "Umzuwandelnder Betrag",
     "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
-    "Estimated fee": "Geschätzte Gebühr"
+    "Estimated fee": "Geschätzte Gebühr",
+    "Pooled {{symbol}}": "Im Pool {{symbol}}"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "Du fügst hinzu",
@@ -417,7 +422,13 @@
     "Price": "Preis",
     "Estimated fee": "Geschätzte Gebühr",
     "REMOVE": "ENTFERNEN",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}"    
+    "PRICE DETAILS": "PREISDETAILS",
+    "{{symbolA}} per {{symbolB}}": "{{symbolA}} pro {{symbolB}}",
+    "{{symbolB}} per {{symbolA}}": "{{symbolB}} pro {{symbolA}}",
+    "{{tokenA}} price in {{tokenB}}": "{{tokenA}}-Preis in {{tokenB}}",
+    "{{tokenB}} price in {{tokenA}}": "{{tokenB}}-Preis in {{tokenA}}",
+    "Transaction type": "Transaktions-Typ",
+    "Remove liquidity": "Liquidität entfernen"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "Entferne Liquidität",
@@ -429,7 +440,13 @@
     "Removing {{amount}} {{symbol}}": "Entferne {{amount}} {{symbol}}",
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
     "PRICE DETAILS": "PREISDETAILS",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}"
+    "{{symbolA}} per {{symbolB}}": "{{symbolA}} pro {{symbolB}}",
+    "{{symbolB}} per {{symbolA}}": "{{symbolB}} pro {{symbolA}}",
+    "{{tokenA}} price in {{tokenB}}": "{{tokenA}}-Preis in {{tokenB}}",
+    "{{tokenB}} price in {{tokenA}}": "{{tokenB}}-Preis in {{tokenA}}",
+    "Drag or enter amount to remove": "Wähle den Betrag oder gib den zu entfernenden Betrag ein",
+    "You are removing": "Du entnimmst",
+    "from liquidity pool": "aus dem Liquiditätspool"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "Wallet Netzwerk",
@@ -445,7 +462,7 @@
   },
   "components/slider": {
     "None": "Keine",
-    "All": "Alle"
+    "Max": "Max"
   },
   "components/Button": {
     "CONTINUE": "FORTFAHREN"
@@ -500,7 +517,7 @@
     "Sign Transaction": "Transaktion freigeben",
     "Signing your transaction...": "Transaktionsfreigabe...",
     "Transaction authorized": "Transaktion genehmigt",
-    "Please wait while your transaction is being prepared": "Bitte warten, während die Transaktion vorbereitet wird",
+    "Please wait while your transaction is being prepared": "Bitte warten, während deine Transaktion vorbereitet wird",
     "Verifying access": "Zugriff wird verifiziert"
   },
   "components/CreateWalletIndicator": {
@@ -564,5 +581,17 @@
   "components/TransactionResultsRow": {
     "TRANSACTION RESULTS": "TRANSAKTIONSERGEBNISSE",
     "Resulting {{symbol}}": "Zu erhaltende {{symbol}}"
+  },
+  "screens/LoansScreen": {
+    "Loans": "Darlehen"
+  },
+  "components/tabs": {
+    "Browse loans": "Darlehen durchsuchen",
+    "Your vaults": "Deine Sicherheitendepots"
+  },
+  "components/LoanCard": {
+    "Active Price": "Aktueller Preis",
+    "Next Price": "Nächster Preis",
+    "Interest": "Zins"
   }
 }
