@@ -1,12 +1,13 @@
 import React from 'react'
-import { WalletContextProvider } from '@contexts/WalletContext'
-import { WalletNodeProvider } from '@contexts/WalletNodeProvider'
-import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
+import { WalletContextProvider } from '@shared-contexts/WalletContext'
+import { WalletNodeProvider } from '@shared-contexts/WalletNodeProvider'
+import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
 import { AppNavigator } from './AppNavigator/AppNavigator'
 import { PrivacyLock } from './PrivacyLock'
 import { TransactionAuthorization } from './TransactionAuthorization/TransactionAuthorization'
 import { WalletNavigator } from './WalletNavigator/WalletNavigator'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+
 /**
  * Top Root Level Wallet State to control what screen to show
  */

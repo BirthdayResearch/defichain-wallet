@@ -4,7 +4,7 @@ import * as React from 'react'
 import { Platform } from 'react-native'
 import { ThemedTextInput } from './ThemedTextInput'
 
-jest.mock('../../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('expo-localization')
 
 const platform = ['ios', 'android']

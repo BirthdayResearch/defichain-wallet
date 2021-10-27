@@ -7,19 +7,13 @@ import { RootState } from '@store'
 import { wallet } from '@store/wallet'
 import { ReceiveScreen } from './ReceiveScreen'
 
-jest.mock('../../../../../contexts/WalletContext', () => ({
-  useWalletContext: () => {
-    return {
-      address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d'
-    }
-  }
-}))
+jest.mock('@shared-contexts/WalletContext')
 
 jest.mock('expo-clipboard', () => ({
   setString: jest.fn()
 }))
 
-jest.mock('../../../../../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider')
 
 describe('receive page', () => {
   it('should match snapshot', async () => {

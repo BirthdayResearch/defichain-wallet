@@ -1,6 +1,6 @@
 import React from 'react'
 import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
-import { useThemeContext } from '@contexts/ThemeProvider'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { Text } from './Text'
 import { ThemedActivityIndicator } from '@components/themed'

@@ -1,6 +1,6 @@
 import { MnemonicProviderData } from '@defichain/jellyfish-wallet-mnemonic'
 import { EnvironmentNetwork } from '@environment'
-import { WalletPersistenceData, WalletType } from '../persistence'
+import { WalletPersistenceDataI, WalletType } from '@shared-contexts/WalletPersistenceContext'
 import { MnemonicUnprotected } from '@api/wallet'
 
 beforeEach(() => {
@@ -9,7 +9,7 @@ beforeEach(() => {
 
 describe('getMnemonicHdNodeProvider', () => {
   it('should throw error when wallet type is not unprotected or version is not v1', () => {
-    const data: WalletPersistenceData<MnemonicProviderData> = {
+    const data: WalletPersistenceDataI<MnemonicProviderData> = {
       version: 'v1',
       type: WalletType.MNEMONIC_ENCRYPTED,
       raw: {
@@ -21,11 +21,11 @@ describe('getMnemonicHdNodeProvider', () => {
     const options = EnvironmentNetwork.LocalPlayground
     expect(() => {
       MnemonicUnprotected.initProvider(data, options)
-    }).toThrowError('Unexpected WalletPersistenceData')
+    }).toThrowError('Unexpected WalletPersistenceDataI')
   })
 
   it('should get provider (abandon x23)', async () => {
-    const data: WalletPersistenceData<MnemonicProviderData> = {
+    const data: WalletPersistenceDataI<MnemonicProviderData> = {
       version: 'v1',
       type: WalletType.MNEMONIC_UNPROTECTED,
       raw: {

@@ -1,11 +1,10 @@
-import { Logging } from '@api'
 import { Button } from '@components/Button'
 import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
 import { NumberRow } from '@components/NumberRow'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
-import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
@@ -27,6 +26,7 @@ import { WalletTextInput } from '@components/WalletTextInput'
 import { InputHelperText } from '@components/InputHelperText'
 import { DFITokenSelector, DFIUtxoSelector, WalletToken } from '@store/wallet'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
@@ -42,6 +42,7 @@ export interface DerivedTokenState {
 type Props = StackScreenProps<DexParamList, 'PoolSwapScreen'>
 
 export function PoolSwapScreen ({ route }: Props): JSX.Element {
+  const logger = useLogger()
   const client = useWhaleApiClient()
   const pairs = usePoolPairsAPI()
   const [poolpair, setPoolPair] = useState<PoolPairData>()
@@ -59,7 +60,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   useEffect(() => {
     client.fee.estimate()
       .then((f) => setFee(new BigNumber(f)))
-      .catch(Logging.error)
+      .catch(logger.error)
   }, [])
 
   // props derived state
@@ -154,7 +155,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
             conversionAmount
           }
         })
-      })
+      }, logger)
     } else {
       navigation.navigate('ConfirmPoolSwapScreen', {
         tokenA,
@@ -537,10 +538,10 @@ function getPriceRate (reserveA: string, reserveB: string): string {
 async function constructSignedConversionAndPoolswap ({
   mode,
   amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void): Promise<void> {
+}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
   try {
     dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
   } catch (e) {
-    Logging.error(e)
+    logger.error(e)
   }
 }

@@ -13,6 +13,7 @@ module.exports = function (api) {
           '@environment': './shared/environment',
           '@hooks': './mobile-app/app/hooks',
           '@shared-api': './shared/api',
+          '@shared-contexts': './shared/contexts',
           '@shared-types': './shared/types',
           '@screens': './mobile-app/app/screens',
           '@store': './shared/store',

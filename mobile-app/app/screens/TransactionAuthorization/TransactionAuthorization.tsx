@@ -4,24 +4,23 @@ import { MnemonicHdNode } from '@defichain/jellyfish-wallet-mnemonic'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Logging } from '@api'
 import {
   initJellyfishWallet,
   MnemonicEncrypted,
   MnemonicUnprotected,
-  PasscodeAttemptCounter,
-  WalletType
-} from '@api/wallet'
-import { useNetworkContext } from '@contexts/NetworkContext'
-import { useWalletNodeContext } from '@contexts/WalletNodeProvider'
-import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
-import { useWhaleApiClient } from '@contexts/WhaleContext'
+  PasscodeAttemptCounter
+} from '../../api/wallet'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
+import { useWalletPersistenceContext, WalletType } from '@shared-contexts/WalletPersistenceContext'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
 import { authentication as authenticationStore } from '@store/authentication'
 import { ocean } from '@store/ocean'
 import { first, transactionQueue } from '@store/transaction_queue'
 import { translate } from '@translations'
 import { PasscodePrompt } from './PasscodePrompt'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import {
   alertUnlinkWallet,
   authenticateFor,
@@ -55,6 +54,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   const { clearWallets } = useWalletPersistenceContext()
   const { network } = useNetworkContext()
   const whaleApiClient = useWhaleApiClient()
+  const logger = useLogger()
   const dispatch = useDispatch()
   const transaction = useSelector((state: RootState) => first(state.transactionQueue))
   const authentication = useSelector((state: RootState) => state.authentication.authentication)
@@ -190,7 +190,7 @@ export function TransactionAuthorization (): JSX.Element | null {
         setTransactionStatus(TransactionStatus.IDLE)
       })
       .catch(error => {
-        Logging.error(error)
+        logger.error(error)
         throw error
       })
   }, [providerData, network, whaleApiClient])
@@ -217,7 +217,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       wallet !== undefined // just in case any data stuck in store
     ) {
       setTransactionStatus(TransactionStatus.BLOCK) // prevent any re-render trigger (between IDLE and PIN)
-      signTransaction(transaction, wallet.get(0), onRetry, retries)
+      signTransaction(transaction, wallet.get(0), onRetry, retries, logger)
         .then(async signedTx => {
           // case 1: success
           await onPinSuccess(transaction.onBroadcast, signedTx, transaction.submitButtonLabel)
@@ -241,7 +241,7 @@ export function TransactionAuthorization (): JSX.Element | null {
           onTaskCompletion()
 
           if (e.message !== CANCELED_ERROR) { // no need to log if user cancels
-            Logging.error(e)
+            logger.error(e)
           }
         })
     } else if (authentication !== undefined) {
@@ -250,7 +250,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       setMessage(authentication.message)
       setLoadingMessage(authentication.loading)
 
-      authenticateFor(onPrompt, authentication, onRetry, retries)
+      authenticateFor(onPrompt, authentication, onRetry, retries, logger)
         .then(async () => {
           // case 1: success
           setTransactionStatus(TransactionStatus.AUTHORIZED)
@@ -275,7 +275,7 @@ export function TransactionAuthorization (): JSX.Element | null {
           onTaskCompletion()
 
           if (e.message !== CANCELED_ERROR) { // no need to log if user cancels
-            Logging.error(e)
+            logger.error(e)
           }
         })
     }

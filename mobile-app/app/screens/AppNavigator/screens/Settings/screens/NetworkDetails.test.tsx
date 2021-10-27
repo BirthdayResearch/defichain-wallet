@@ -6,23 +6,9 @@ import { NetworkDetails } from './NetworkDetails'
 import { RootState } from '@store'
 import { block } from '@store/block'
 
-jest.mock('../../../../../contexts/ThemeProvider')
-
-jest.mock('../../../../../contexts/NetworkContext', () => ({
-  useNetworkContext: () => {
-    return {
-      network: 'Playground'
-    }
-  }
-}))
-
-jest.mock('../../../../../contexts/DeFiScanContext', () => ({
-  useDeFiScanContext: () => {
-    return {
-      getBlocksUrl: jest.fn
-    }
-  }
-}))
+jest.mock('@shared-contexts/ThemeProvider')
+jest.mock('@shared-contexts/NetworkContext')
+jest.mock('@shared-contexts/DeFiScanContext')
 
 jest.mock('dayjs', () => () => ({ format: () => 'Sep 14, 9:07 pm' }))
 

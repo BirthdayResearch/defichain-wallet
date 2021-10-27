@@ -4,7 +4,6 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Logging } from '@api'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
 import { RootState } from '@store'
@@ -18,6 +17,7 @@ import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { NumberRow } from '@components/NumberRow'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { dfiConversionCrafter } from '@api/transaction/dfi_converter'
 
@@ -39,6 +39,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
+  const logger = useLogger()
 
   useEffect(() => {
     setIsOnPage(true)
@@ -57,7 +58,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
       amount
     }, dispatch, () => {
       onTransactionBroadcast(isOnPage, navigation.dispatch)
-    })
+    }, logger)
     setIsSubmitting(false)
   }
 
@@ -167,10 +168,10 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
 async function constructSignedConversionAndSend ({
   mode,
   amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void): Promise<void> {
+}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
   try {
     dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast)))
   } catch (e) {
-    Logging.error(e)
+    logger.error(e)
   }
 }
