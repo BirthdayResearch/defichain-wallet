@@ -4,17 +4,22 @@ import { translate } from '@translations'
 import React from 'react'
 import { ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from './themed'
 
+export enum TabKey {
+  BrowseLoans = 'BROWSE_LOANS',
+  YourVaults = 'YOUR_VAULTS'
+}
+
 interface TabsProps {
-  activeTabId: TabOption['id']
+  activeTabKey: TabOption['id']
   tabSections: TabOption[]
   testID?: string
 }
 
 interface TabOption {
-  id: number
+  id: TabKey
   label: string
   disabled: boolean
-  handleOnPress: (id: number) => void
+  handleOnPress: (id: TabKey) => void
 }
 
 const Tabs = React.memo((props: TabsProps): JSX.Element => {
@@ -27,7 +32,7 @@ const Tabs = React.memo((props: TabsProps): JSX.Element => {
         testID={props.testID}
       >
         {props.tabSections.map((tab) => {
-          const isActive = tab.id === props.activeTabId
+          const isActive = tab.id === props.activeTabKey
           return (
             <View
               key={tab.id}
@@ -66,7 +71,7 @@ const Tabs = React.memo((props: TabsProps): JSX.Element => {
           showsHorizontalScrollIndicator={false}
         >
           {props.tabSections.map((tab, index) => {
-            const isActive = tab.id === props.activeTabId
+            const isActive = tab.id === props.activeTabKey
             return (
               <ThemedTouchableOpacity
                 key={index}

@@ -3,22 +3,22 @@ import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { ThemedView } from '@components/themed'
 import { LoanCardOptions, LoanCards } from '@components/LoanCards'
-import { Tabs } from '@components/Tabs'
+import { TabKey, Tabs } from '@components/Tabs'
 import { Vaults } from './components/Vaults'
 
 export function LoansScreen (): JSX.Element {
-  const [activeTab, setActiveTab] = useState(1)
-  const onPress = (tabId: number): void => {
+  const [activeTab, setActiveTab] = useState(TabKey.BrowseLoans)
+  const onPress = (tabId: TabKey): void => {
     setActiveTab(tabId)
   }
 
   const tabsList = [{
-    id: 1,
+    id: TabKey.BrowseLoans,
     label: 'Browse loans',
     disabled: false,
     handleOnPress: onPress
   }, {
-    id: 2,
+    id: TabKey.YourVaults,
     label: 'Your vaults',
     disabled: false,
     handleOnPress: onPress
@@ -119,8 +119,8 @@ export function LoansScreen (): JSX.Element {
       testID='loans_screen'
       style={tailwind('flex-1')}
     >
-      <Tabs tabSections={tabsList} testID='loans_tabs' activeTabId={activeTab} />
-      {activeTab === 2 ? <Vaults /> : <LoanCards testID='loans_cards' loans={loans} />}
+      <Tabs tabSections={tabsList} testID='loans_tabs' activeTabKey={activeTab} />
+      {activeTab === TabKey.YourVaults ? <Vaults /> : <LoanCards testID='loans_cards' loans={loans} />}
     </ThemedView>
   )
 }
