@@ -1,6 +1,6 @@
 import { NetworkName } from '@defichain/jellyfish-network'
 import React, { createContext, useContext, useEffect, useState, PropsWithChildren } from 'react'
-import { getJellyfishNetwork } from '@api/wallet'
+import { getJellyfishNetwork } from '@shared-api/wallet/network'
 import { EnvironmentNetwork } from '@environment'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
