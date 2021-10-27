@@ -223,7 +223,10 @@
     "AVAILABLE OPTIONS": "可使用的功能",
     "Send to other wallet": "發送到其他地址",
     "Receive": "接收",
-    "Convert to {{symbol}}": "轉換至 {{symbol}}"
+    "Convert to {{symbol}}": "轉換至 {{symbol}}",
+    "Add to liquidity pool":  "加入流動性池",
+    "Remove liquidity": "撒出 流動性池",
+    "Swap with {{token}}": "用 {{token}} 兌換"
   },
   "screens/TokensVsUtxoScreen": {
     "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "DFI 有兩種形式 - UTXO 和代幣, 兩者可依據使用做互換. 這個程序可以進行互換.",
@@ -334,7 +337,8 @@
     "Liquidity": "流動",
     "Transactions": "交易",
     "Settings": "設置",
-    "DEX": "去中心化交易所"
+    "DEX": "去中心化交易所",
+    "Loans": "貸款"
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "正在確認",
@@ -381,7 +385,8 @@
     "Your pooled {{token}}": "Your pooled {{token}}",
     "Amount to be converted": "要轉換的金額",
     "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換",
-    "Estimated fee": "所需費用（大約）"
+    "Estimated fee": "所需費用（大約）",
+    "Pooled {{symbol}}": "池中總 {{symbol}}"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "您正要增加流動資金",
@@ -570,5 +575,17 @@
   "components/TransactionResultsRow": {
     "TRANSACTION RESULTS": "交易結果",
     "Resulting {{symbol}}": "轉換後 {{symbol}}"
+  },
+  "screens/LoansScreen": {
+    "Loans": "貸款"
+  },
+  "components/tabs": {
+    "Browse loans": "瀏覽貸款選項",
+    "Your vaults": "你的金庫"
+  },
+  "components/LoanCard": {
+    "Active Price": "目前活躍價格",
+    "Next Price": "下一個價格",
+    "Interest": "利息"
   }
 }

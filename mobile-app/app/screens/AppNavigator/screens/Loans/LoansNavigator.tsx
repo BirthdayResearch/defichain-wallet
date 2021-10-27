@@ -1,17 +1,17 @@
-import * as React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { translate } from '@translations'
+import * as React from 'react'
 import { HeaderFont } from '@components/Text'
 import { HeaderTitle } from '@components/HeaderTitle'
-import { LoansScreen } from './screens/LoansScreen'
+import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
+import { LoansScreen } from './LoansScreen'
 
-export interface LoansParamList {
+export interface LoanParamList {
   LoansScreen: undefined
   [key: string]: undefined | object
 }
 
-const LoansStack = createStackNavigator<LoansParamList>()
+const LoansStack = createStackNavigator<LoanParamList>()
 
 export function LoansNavigator (): JSX.Element {
   const headerContainerTestId = 'loans_header_container'
@@ -20,8 +20,9 @@ export function LoansNavigator (): JSX.Element {
     <LoansStack.Navigator
       initialRouteName='LoansScreen'
       screenOptions={{
+        headerTitleAlign: 'center',
         headerTitleStyle: HeaderFont,
-        headerTitleAlign: 'center'
+        headerBackTitleVisible: false
       }}
     >
       <LoansStack.Screen

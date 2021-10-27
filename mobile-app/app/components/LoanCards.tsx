@@ -9,6 +9,7 @@ import { getNativeIcon } from './icons/assets'
 
 interface LoanCardsProps {
   loans: LoanCardOptions[]
+  testID?: string
 }
 
 export interface LoanCardOptions {
@@ -25,15 +26,13 @@ type PriceType = 'ACTIVE' | 'NEXT'
 export function LoanCards (props: LoanCardsProps): JSX.Element {
   return (
     <ThemedFlatList
-      style={tailwind('px-2 pt-4 -mb-4')}
+      contentContainerStyle={tailwind('px-2 pt-4 pb-2')}
       data={props.loans}
       numColumns={2}
-      keyExtractor={(_item, index) => index.toString()}
       renderItem={({ item, index }): JSX.Element => {
         if (index !== props.loans.length - 1) {
           return (
             <LoadCard
-              key={index}
               {...item}
             />
           )
@@ -41,13 +40,14 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
           return (
             <View style={{ flexBasis: '50%' }}>
               <LoadCard
-                key={index}
                 {...item}
               />
             </View>
           )
         }
       }}
+      keyExtractor={(_item, index) => index.toString()}
+      testID={props.testID}
     />
   )
 }

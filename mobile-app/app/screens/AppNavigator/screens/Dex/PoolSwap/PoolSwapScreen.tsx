@@ -103,11 +103,11 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   }
 
   useEffect(() => {
-    const pair = pairs.find((v) => v.data.id === route.params.poolpair.id)
+    const pair = pairs.find((v) => v.data.id === route.params.pair.id)
     if (pair !== undefined) {
       setPoolPair(pair.data)
     }
-  }, [pairs, route.params.poolpair])
+  }, [pairs, route.params.pair])
 
   async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
