@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from './themed'
 import Accordion from 'react-native-collapsible/Accordion'
 import { tailwind } from '@tailwind'
-import { useThemeContext } from '@contexts/ThemeProvider'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
 interface AccordionProps {
   testID?: string

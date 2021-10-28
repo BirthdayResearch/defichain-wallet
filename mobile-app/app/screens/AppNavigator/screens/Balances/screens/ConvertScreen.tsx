@@ -8,13 +8,12 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import { useSelector } from 'react-redux'
-import { Logging } from '@api'
 import { View } from '@components/index'
 import { Button } from '@components/Button'
 import { IconButton } from '@components/IconButton'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
-import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -24,6 +23,7 @@ import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<BalanceParamList, 'ConvertScreen'>
@@ -34,6 +34,7 @@ interface ConversionIO extends AddressToken {
 
 export function ConvertScreen (props: Props): JSX.Element {
   const client = useWhaleApiClient()
+  const logger = useLogger()
   // global state
   const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -49,7 +50,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   useEffect(() => {
     client.fee.estimate()
       .then((f) => setFee(new BigNumber(f)))
-      .catch(Logging.error)
+      .catch(logger.error)
   }, [])
 
   useEffect(() => {

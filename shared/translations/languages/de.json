@@ -46,7 +46,7 @@
   },
   "screens/EstimatedFeeInfo": {
     "Estimated fee": "Geschätzte Gebühr",
-    "Each transaction will subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "Jede Transaktion unterliegt einer geringen Gebühr. Der Betrag kann je nach Auslastung des Netzwerks variieren."
+    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "Jede Transaktion unterliegt einer geringen Gebühr. Der Betrag kann je nach Auslastung des Netzwerks variieren."
   },
   "screens/BalancesScreen": {
     "Balances": "Guthaben",

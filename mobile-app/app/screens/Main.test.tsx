@@ -2,7 +2,7 @@ import { render } from '@testing-library/react-native'
 import * as React from 'react'
 import { Main } from './Main'
 
-jest.mock('../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider')
 
 describe('<Main>', () => {
   it('should match snapshot', async () => {

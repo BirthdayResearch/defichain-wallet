@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as Linking from 'expo-linking'
 import * as React from 'react'
 import { getDefaultTheme } from '@constants/Theme'
-import { useThemeContext } from '@contexts/ThemeProvider'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { PlaygroundNavigator } from '../PlaygroundNavigator/PlaygroundNavigator'
 import { AppLinking, BottomTabNavigator } from './BottomTabNavigator'
 

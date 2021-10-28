@@ -556,7 +556,7 @@ exports[`loan cards should match snapshot 1`] = `
         <View
           style={
             Object {
-              "flex": 0.5,
+              "flexBasis": "50%",
             }
           }
         >

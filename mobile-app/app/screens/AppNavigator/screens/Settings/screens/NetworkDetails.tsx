@@ -1,4 +1,4 @@
-import { useNetworkContext } from '@contexts/NetworkContext'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { RootState } from '@store'
 import * as React from 'react'
 import dayjs from 'dayjs'
@@ -11,7 +11,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { TextRow } from '@components/TextRow'
 import { NumberRow } from '@components/NumberRow'
-import { useDeFiScanContext } from '@contexts/DeFiScanContext'
+import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 
 export function NetworkDetails (): JSX.Element {
   const { network } = useNetworkContext()

@@ -3,7 +3,7 @@ import { PlaygroundRpcClient } from '@defichain/playground-api-client'
 import React, { useEffect, useState } from 'react'
 import { View } from '@components/index'
 import { usePlaygroundContext } from '@contexts/PlaygroundContext'
-import { useWalletContext } from '@contexts/WalletContext'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundTitle } from '../components/PlaygroundTitle'
 

@@ -1,5 +1,6 @@
 import { PinTextInput } from '@components/PinTextInput'
 import { ThemedActivityIndicator, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { DfTxSigner } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -8,7 +9,6 @@ import { Platform, SafeAreaView, View } from 'react-native'
 import { TransactionStatus } from '@screens/TransactionAuthorization/api/transaction_types'
 import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
-import { useThemeContext } from '@contexts/ThemeProvider'
 
 interface PasscodePromptProps {
   onCancel: () => void
@@ -29,46 +29,35 @@ interface PasscodePromptProps {
   onModalCancel: () => void
 }
 
-export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
-  const { isLight } = useThemeContext()
-  const getSnapPoints = (): string[] => {
-    if (Platform.OS === 'ios') {
-      return ['65%'] // ios measures space without keyboard
-    } else if (Platform.OS === 'android') {
-      return ['50%'] // android measure space by including keyboard
-    }
-    return []
-  }
-
-  const PromptContent = (): JSX.Element => {
-    return (
-      <SafeAreaView
-        style={tailwind('w-full h-full flex-col')}
+const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
+  return (
+    <SafeAreaView
+      style={tailwind('w-full h-full flex-col')}
+    >
+      <ThemedTouchableOpacity
+        dark={tailwind('bg-gray-900')}
+        light={tailwind('bg-white')}
+        onPress={props.onCancel}
+        style={tailwind('items-end pt-2 pr-2')}
+        testID='cancel_authorization'
+        disabled={[TransactionStatus.BLOCK, TransactionStatus.SIGNING].includes(props.status)}
       >
-        <ThemedTouchableOpacity
-          dark={tailwind('bg-gray-900')}
-          light={tailwind('bg-white')}
-          onPress={props.onCancel}
-          style={tailwind('items-end pt-2 pr-2')}
-          testID='cancel_authorization'
-          disabled={[TransactionStatus.BLOCK, TransactionStatus.SIGNING].includes(props.status)}
-        >
-          <ThemedIcon
-            dark={tailwind('text-white')}
-            light={tailwind('text-black')}
-            iconType='MaterialIcons'
-            name='close'
-            size={26}
-          />
-        </ThemedTouchableOpacity>
+        <ThemedIcon
+          dark={tailwind('text-white')}
+          light={tailwind('text-black')}
+          iconType='MaterialIcons'
+          name='close'
+          size={26}
+        />
+      </ThemedTouchableOpacity>
 
-        <ThemedView
-          dark={tailwind('bg-gray-900')}
-          light={tailwind('bg-white')}
-          style={tailwind('w-full flex-1 flex-col')}
-        >
+      <ThemedView
+        dark={tailwind('bg-gray-900')}
+        light={tailwind('bg-white')}
+        style={tailwind('w-full flex-1 flex-col')}
+      >
 
-          {props.status === TransactionStatus.AUTHORIZED
+        {props.status === TransactionStatus.AUTHORIZED
           ? (
             <SuccessMessage
               message={props.transaction === undefined ? props.grantedAccessMessage : props.authorizedTransactionMessage}
@@ -161,13 +150,24 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
                   : null
               }
             </ThemedView>)}
-        </ThemedView>
-      </SafeAreaView>
-    )
+      </ThemedView>
+    </SafeAreaView>
+  )
+})
+
+export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Element => {
+  const { isLight } = useThemeContext()
+  const getSnapPoints = (): string[] => {
+    if (Platform.OS === 'ios') {
+      return ['65%'] // ios measures space without keyboard
+    } else if (Platform.OS === 'android') {
+      return ['50%'] // android measure space by including keyboard
+    }
+    return []
   }
 
   if (Platform.OS === 'web') {
-    return (<PromptContent />)
+    return (<PromptContent {...props} />)
   }
 
   return (
@@ -180,7 +180,10 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
         <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
       )}
       backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
-        <View {...backgroundProps} style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-900 border-gray-700'} border-t rounded`)]} />
+        <View
+          {...backgroundProps}
+          style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-900 border-gray-700'} border-t rounded`)]}
+        />
       )}
       onChange={(index) => {
         if (index === -1) {
@@ -189,10 +192,10 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
       }}
       enablePanDownToClose={false}
     >
-      <PromptContent />
+      <PromptContent {...props} />
     </BottomSheetModal>
   )
-}
+})
 
 function SuccessMessage ({ message }: { message?: { title: string, description: string } }): JSX.Element | null {
   if (message === undefined) {

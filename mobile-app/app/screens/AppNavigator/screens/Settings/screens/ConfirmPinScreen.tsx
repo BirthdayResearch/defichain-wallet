@@ -1,21 +1,22 @@
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
-import { Logging } from '@api'
 import { MnemonicEncrypted } from '@api/wallet'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { View } from '@components/index'
 import { PinTextInput } from '@components/PinTextInput'
 import { ThemedActivityIndicator, ThemedScrollView, ThemedText } from '@components/themed'
-import { useNetworkContext } from '@contexts/NetworkContext'
-import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { SettingsParamList } from '../SettingsNavigator'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 type Props = StackScreenProps<SettingsParamList, 'ConfirmPinScreen'>
 
 export function ConfirmPinScreen ({ route }: Props): JSX.Element {
+  const logger = useLogger()
   const navigation = useNavigation()
   const { network } = useNetworkContext()
   const { setWallet } = useWalletPersistenceContext()
@@ -49,7 +50,7 @@ export function ConfirmPinScreen ({ route }: Props): JSX.Element {
           await setWallet(encrypted)
           navigation.dispatch(StackActions.popToTop())
         })
-        .catch(e => Logging.error(e))
+        .catch(logger.error)
     }, 50) // allow UI render the spinner before async task
   }
 

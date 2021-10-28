@@ -7,7 +7,6 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Logging } from '@api'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
@@ -23,6 +22,7 @@ import { ConversionTag } from '@components/ConversionTag'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { View } from '@components'
 import { InfoText } from '@components/InfoText'
@@ -52,6 +52,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const TokenAIcon = getNativeIcon(pair.tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(pair.tokenB.displaySymbol)
+  const logger = useLogger()
 
   useEffect(() => {
     setIsOnPage(true)
@@ -77,7 +78,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       dispatch,
       () => {
         onTransactionBroadcast(isOnPage, navigation.dispatch)
-      }
+      },
+      logger
     )
     setIsSubmitting(false)
   }
@@ -278,7 +280,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 async function constructSignedAddLiqAndSend (
   addLiqForm: { tokenASymbol: string, tokenAId: number, tokenAAmount: BigNumber, tokenBSymbol: string, tokenBId: number, tokenBAmount: BigNumber },
   dispatch: Dispatch<any>,
-  onBroadcast: () => void
+  onBroadcast: () => void,
+  logger: NativeLoggingProps
 ): Promise<void> {
   try {
     const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
@@ -318,6 +321,6 @@ async function constructSignedAddLiqAndSend (
       onBroadcast
     }))
   } catch (e) {
-    Logging.error(e)
+    logger.error(e)
   }
 }

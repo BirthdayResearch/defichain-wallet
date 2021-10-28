@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
 import { Text, View } from '.'
-import { useThemeContext } from '@contexts/ThemeProvider'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { ThemedText } from './themed'

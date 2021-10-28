@@ -53,6 +53,12 @@
       "@shared-api/*": [
         "../../shared/api/*"
       ],
+      "@shared-contexts": [
+        "../../shared/contexts"
+      ],
+      "@shared-contexts/*": [
+        "../../shared/contexts/*"
+      ],
       "@shared-types": [
         "../../shared/types"
       ],

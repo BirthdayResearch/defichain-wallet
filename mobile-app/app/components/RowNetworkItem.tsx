@@ -1,6 +1,6 @@
 import { ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
-import { useNetworkContext } from '@contexts/NetworkContext'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { EnvironmentNetwork, isPlayground } from '@environment'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { SettingsParamList } from '@screens/AppNavigator/screens/Settings/SettingsNavigator'
