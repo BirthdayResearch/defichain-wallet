@@ -6,13 +6,13 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
+import { StyleProp, ViewStyle } from 'react-native'
 import { useSelector } from 'react-redux'
 import { View } from '@components/index'
 import { Button } from '@components/Button'
 import { IconButton } from '@components/IconButton'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
-import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
+import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { RootState } from '@store'
@@ -24,6 +24,7 @@ import { BalanceParamList } from '../BalancesNavigator'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { InfoTextLink } from '@components/InfoTextLink'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<BalanceParamList, 'ConvertScreen'>
@@ -107,7 +108,13 @@ export function ConvertScreen (props: Props): JSX.Element {
           title={translate('screens/ConvertScreen', 'After conversion, you will receive')}
         />
 
-        <TokenVsUtxosInfo />
+        <InfoTextLink
+          text='UTXO vs Token, what is the difference?'
+          textStyle={tailwind('text-sm')}
+          containerStyle={tailwind('my-4')}
+          onPress={() => navigation.navigate('TokensVsUtxo')}
+          testId='token_vs_utxo_info'
+        />
 
         {isUtxoToAccount(mode) && <ReservedDFIInfoText style={tailwind('mt-0')} />}
       </View>
@@ -247,35 +254,6 @@ function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
         testID='button_convert_mode_toggle'
       />
     </View>
-  )
-}
-
-function TokenVsUtxosInfo (): JSX.Element {
-  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
-  return (
-    <TouchableOpacity
-      onPress={() => {
-        navigation.navigate('TokensVsUtxo')
-      }}
-      style={tailwind('flex-row py-2 my-2 items-center justify-start')}
-      testID='token_vs_utxo_info'
-    >
-      <ThemedIcon
-        dark={tailwind('text-darkprimary-500')}
-        iconType='MaterialIcons'
-        light={tailwind('text-primary-500')}
-        name='help'
-        size={16}
-      />
-
-      <ThemedText
-        dark={tailwind('text-darkprimary-500')}
-        light={tailwind('text-primary-500')}
-        style={tailwind('ml-1 text-sm font-medium px-1')}
-      >
-        {translate('screens/ConvertScreen', 'UTXO vs Token, what is the difference?')}
-      </ThemedText>
-    </TouchableOpacity>
   )
 }
 

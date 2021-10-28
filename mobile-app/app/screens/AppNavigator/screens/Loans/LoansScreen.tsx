@@ -5,6 +5,7 @@ import { ThemedView } from '@components/themed'
 import { LoanCardOptions, LoanCards } from '@components/LoanCards'
 import { Tabs } from '@components/Tabs'
 import { Vaults } from './components/Vaults'
+import { EmptyVault } from './EmptyVault'
 
 enum TabKey {
   BrowseLoans = 'BROWSE_LOANS',
@@ -13,6 +14,7 @@ enum TabKey {
 
 export function LoansScreen (): JSX.Element {
   const [activeTab, setActiveTab] = useState<string>(TabKey.BrowseLoans)
+  const [displayCreateVault, setDisplayCreateVault] = useState(true) // TODO: remove temporary display flag
   const onPress = (tabId: string): void => {
     setActiveTab(tabId)
   }
@@ -119,6 +121,19 @@ export function LoansScreen (): JSX.Element {
       onPress: () => {}
     }
   ]
+
+  if (displayCreateVault) {
+    return (
+      <EmptyVault
+        handleRefresh={() => {}}
+        isLoading={false}
+        onCreateVaultPress={() => {
+          // TODO: remove temporary display flag
+          setDisplayCreateVault(false)
+        }}
+      />
+    )
+  }
   return (
     <ThemedView
       testID='loans_screen'
