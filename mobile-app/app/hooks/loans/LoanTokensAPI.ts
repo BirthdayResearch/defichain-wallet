@@ -9,7 +9,8 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger, NativeLoggingProps } from '@shared-contexts/NativeLoggingProvider'
 
 export function fetchLoanTokens (client: WhaleApiClient, dispatch: Dispatch<any>, logger: NativeLoggingProps): void {
-  client.loans.listLoanToken(50).then((vaults: LoanToken[]) => {
+  // @ts-expect-error
+  client.loan.listLoanToken(50).then((vaults: LoanToken[]) => {
     dispatch(loans.actions.setLoanTokens(vaults))
   }).catch(logger.error)
 }

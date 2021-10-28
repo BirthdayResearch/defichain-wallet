@@ -9,7 +9,8 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger, NativeLoggingProps } from '@shared-contexts/NativeLoggingProvider'
 
 export function fetchCollateralTokens (client: WhaleApiClient, dispatch: Dispatch<any>, logger: NativeLoggingProps): void {
-  client.loans.listCollateralToken(50).then((tokens: CollateralToken[]) => {
+  // @ts-expect-error
+  client.loan.listCollateralToken(50).then((tokens: CollateralToken[]) => {
     dispatch(loans.actions.setCollateralTokens(tokens))
   }).catch(logger.error)
 }

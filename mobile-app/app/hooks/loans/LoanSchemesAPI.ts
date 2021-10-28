@@ -9,6 +9,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger, NativeLoggingProps } from '@shared-contexts/NativeLoggingProvider'
 
 export function fetchLoanSchemes (client: WhaleApiClient, dispatch: Dispatch<any>, logger: NativeLoggingProps): void {
+  // @ts-expect-error
   client.loan.listScheme(50).then((loanSchemes: LoanScheme[]) => {
     dispatch(loans.actions.setLoanSchemes(loanSchemes))
   }).catch(logger.error)

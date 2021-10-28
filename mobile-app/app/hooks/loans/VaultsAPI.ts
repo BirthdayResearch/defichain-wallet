@@ -9,6 +9,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger, NativeLoggingProps } from '@shared-contexts/NativeLoggingProvider'
 
 export function fetchVaults (client: WhaleApiClient, address: string, dispatch: Dispatch<any>, logger: NativeLoggingProps): void {
+  // @ts-expect-error
   client.loan.listVaults(address).then((vaults: LoanVault[]) => {
     dispatch(loans.actions.setVaults(vaults))
   }).catch(logger.error)

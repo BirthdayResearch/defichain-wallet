@@ -9,6 +9,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger, NativeLoggingProps } from '@shared-contexts/NativeLoggingProvider'
 
 export function fetchAuctions (client: WhaleApiClient, dispatch: Dispatch<any>, logger: NativeLoggingProps): void {
+  // @ts-expect-error
   client.loan.listAuctions(50).then((vaults: AuctionDetail[]) => {
     dispatch(loans.actions.setAuctions(vaults))
   }).catch(logger.error)
