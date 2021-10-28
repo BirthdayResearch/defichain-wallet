@@ -24,7 +24,7 @@ export function EmptyVault (props: EmptyVaultProps): JSX.Element {
       refreshControl={
         <RefreshControl
           onRefresh={props.handleRefresh}
-          refreshing={props.loadingStatus === 'loading'}
+          refreshing={props.loadingStatus === 'isLoading'}
         />
       }
       contentContainerStyle={tailwind('px-8 pt-32 pb-2 text-center')}

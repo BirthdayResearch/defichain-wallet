@@ -4,7 +4,7 @@ import React from 'react'
 import { StyleProp, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
 import { ThemedIcon, ThemedText } from './themed'
 
-interface InfoTextCTAProps {
+interface InfoTextLinkProps {
   onPress: () => void
   text: string
   testId?: string
@@ -12,7 +12,7 @@ interface InfoTextCTAProps {
   textStyle?: StyleProp<TextStyle>
 }
 
-export function InfoTextLink (props: InfoTextCTAProps): JSX.Element {
+export function InfoTextLink (props: InfoTextLinkProps): JSX.Element {
   return (
     <TouchableOpacity
       onPress={props.onPress}
