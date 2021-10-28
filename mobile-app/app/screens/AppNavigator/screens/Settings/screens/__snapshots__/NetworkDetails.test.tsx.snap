@@ -528,7 +528,8 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       <View
         style={
           Object {
-            "width": "41.666667%",
+            "flexDirection": "row",
+            "width": "50%",
           }
         }
       >

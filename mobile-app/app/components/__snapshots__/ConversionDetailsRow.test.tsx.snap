@@ -61,7 +61,8 @@ Array [
     <View
       style={
         Object {
-          "width": "41.666667%",
+          "flexDirection": "row",
+          "width": "50%",
         }
       }
     >
@@ -162,7 +163,8 @@ Array [
     <View
       style={
         Object {
-          "width": "41.666667%",
+          "flexDirection": "row",
+          "width": "50%",
         }
       }
     >
