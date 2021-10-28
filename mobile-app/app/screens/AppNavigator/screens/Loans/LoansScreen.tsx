@@ -1,25 +1,34 @@
-import { LoanCardOptions, LoanCards } from '@components/LoanCards'
-import React from 'react'
+import React, { useState } from 'react'
 import BigNumber from 'bignumber.js'
-import { ThemedView } from '@components/themed'
-import { Tabs } from '@components/Tabs'
 import { tailwind } from '@tailwind'
+import { ThemedView } from '@components/themed'
+import { LoanCardOptions, LoanCards } from '@components/LoanCards'
+import { Tabs } from '@components/Tabs'
+import { Vaults } from './components/Vaults'
+
+enum TabKey {
+  BrowseLoans = 'BROWSE_LOANS',
+  YourVaults = 'YOUR_VAULTS'
+}
 
 export function LoansScreen (): JSX.Element {
-  const tabsList = [
-    {
-      label: 'Browse loans',
-      isActive: true,
-      disabled: false,
-      handleOnPress: () => {}
-    },
-    {
-      label: 'Your vaults',
-      isActive: false,
-      disabled: true,
-      handleOnPress: () => {}
-    }
-  ]
+  const [activeTab, setActiveTab] = useState<string>(TabKey.BrowseLoans)
+  const onPress = (tabId: string): void => {
+    setActiveTab(tabId)
+  }
+
+  const tabsList = [{
+    id: TabKey.BrowseLoans,
+    label: 'Browse loans',
+    disabled: false,
+    handleOnPress: onPress
+  }, {
+    id: TabKey.YourVaults,
+    label: 'Your vaults',
+    disabled: false,
+    handleOnPress: onPress
+  }]
+
   const loans: LoanCardOptions[] = [
     {
       loanName: 'BTC',
@@ -115,8 +124,8 @@ export function LoansScreen (): JSX.Element {
       testID='loans_screen'
       style={tailwind('flex-1')}
     >
-      <Tabs tabSections={tabsList} testID='loans_tabs' />
-      <LoanCards loans={loans} testID='loans_cards' />
+      <Tabs tabSections={tabsList} testID='loans_tabs' activeTabKey={activeTab} />
+      {activeTab === TabKey.YourVaults ? <Vaults /> : <LoanCards testID='loans_cards' loans={loans} />}
     </ThemedView>
   )
 }

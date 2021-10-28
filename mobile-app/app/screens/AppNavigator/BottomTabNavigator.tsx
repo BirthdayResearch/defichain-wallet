@@ -1,14 +1,13 @@
+import * as React from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import * as React from 'react'
-import { OceanInterface } from '@components/OceanInterface/OceanInterface'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-
+import { OceanInterface } from '@components/OceanInterface/OceanInterface'
 import { BalancesNavigator } from './screens/Balances/BalancesNavigator'
 import { DexNavigator } from './screens/Dex/DexNavigator'
-import { TransactionsNavigator } from './screens/Transactions/TransactionsNavigator'
 import { LoansNavigator } from './screens/Loans/LoansNavigator'
+import { TransactionsNavigator } from './screens/Transactions/TransactionsNavigator'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 export interface BottomTabParamList {

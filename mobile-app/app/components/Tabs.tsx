@@ -5,15 +5,16 @@ import React from 'react'
 import { ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from './themed'
 
 interface TabsProps {
+  activeTabKey: TabOption['id']
   tabSections: TabOption[]
   testID?: string
 }
 
 interface TabOption {
+  id: string
   label: string
-  isActive: boolean
   disabled: boolean
-  handleOnPress: () => void
+  handleOnPress: (id: string) => void
 }
 
 const Tabs = React.memo((props: TabsProps): JSX.Element => {
@@ -25,27 +26,30 @@ const Tabs = React.memo((props: TabsProps): JSX.Element => {
         style={tailwind('flex flex-row pt-3')}
         testID={props.testID}
       >
-        {props.tabSections.map((tab, index) => (
-          <View
-            key={index}
-            style={tailwind('w-2/4 flex items-center')}
-          >
-            <ThemedTouchableOpacity
-              light={tailwind('border-b-2', { 'border-primary-500': tab.isActive })}
-              dark={tailwind('border-b-2', { 'border-darkprimary-500': tab.isActive })}
-              style={tailwind('flex items-center border-transparent')}
-              onPress={tab.handleOnPress}
-              disabled={tab.disabled}
+        {props.tabSections.map((tab) => {
+          const isActive = tab.id === props.activeTabKey
+          return (
+            <View
+              key={tab.id}
+              style={tailwind('w-2/4 flex items-center')}
             >
-              <ThemedView
-                light={tailwind('bg-white')}
-                dark={tailwind('bg-gray-800')}
+              <ThemedTouchableOpacity
+                light={tailwind('border-b-2', { 'border-primary-500': isActive })}
+                dark={tailwind('border-b-2', { 'border-darkprimary-500': isActive })}
+                style={tailwind('flex items-center border-transparent')}
+                onPress={() => tab.handleOnPress(tab.id)}
+                disabled={tab.disabled}
               >
-                <TabLabel tab={tab} />
-              </ThemedView>
-            </ThemedTouchableOpacity>
-          </View>
-        ))}
+                <ThemedView
+                  light={tailwind('bg-white')}
+                  dark={tailwind('bg-gray-800')}
+                >
+                  <TabLabel tab={tab} isActive={isActive} />
+                </ThemedView>
+              </ThemedTouchableOpacity>
+            </View>
+)
+        })}
       </ThemedView>
     )
   }
@@ -61,18 +65,21 @@ const Tabs = React.memo((props: TabsProps): JSX.Element => {
           style={tailwind('flex flex-row -mr-6 flex-1')}
           showsHorizontalScrollIndicator={false}
         >
-          {props.tabSections.map((tab, index) => (
-            <ThemedTouchableOpacity
-              key={index}
-              light={tailwind('border-b-2', { 'border-primary-500': tab.isActive })}
-              dark={tailwind('border-b-2', { 'border-darkprimary-500': tab.isActive })}
-              style={tailwind('flex items-center mr-6 border-transparent')}
-              onPress={tab.handleOnPress}
-              disabled={tab.disabled}
-            >
-              <TabLabel tab={tab} />
-            </ThemedTouchableOpacity>
-          ))}
+          {props.tabSections.map((tab, index) => {
+            const isActive = tab.id === props.activeTabKey
+            return (
+              <ThemedTouchableOpacity
+                key={index}
+                light={tailwind('border-b-2', { 'border-primary-500': isActive })}
+                dark={tailwind('border-b-2', { 'border-darkprimary-500': isActive })}
+                style={tailwind('flex items-center mr-6 border-transparent')}
+                onPress={() => tab.handleOnPress(tab.id)}
+                disabled={tab.disabled}
+              >
+                <TabLabel tab={tab} isActive={isActive} />
+              </ThemedTouchableOpacity>
+          )
+          })}
         </ThemedScrollView>
       </View>
     )
@@ -87,15 +94,15 @@ const Tabs = React.memo((props: TabsProps): JSX.Element => {
 
 function comparisonFn (prevProps: TabsProps, nextProps: TabsProps): boolean {
   // compare objects by stringify which won't compare functions
-  return JSON.stringify(prevProps.tabSections) === JSON.stringify(nextProps.tabSections)
+  return JSON.stringify(prevProps) === JSON.stringify(nextProps)
 }
 
-function TabLabel (props: {tab: TabOption}): JSX.Element {
+function TabLabel (props: {tab: TabOption, isActive: boolean}): JSX.Element {
   return (
     <ThemedText
-      light={tailwind({ 'text-gray-200': props.tab.disabled, 'text-gray-500': !props.tab.isActive && !props.tab.disabled, 'text-black': props.tab.isActive })}
-      dark={tailwind({ 'text-gray-700': props.tab.disabled, 'text-gray-400': !props.tab.isActive && !props.tab.disabled, 'text-white': props.tab.isActive })}
-      style={tailwind('text-base pb-3 text-center', { 'font-semibold': props.tab.isActive })}
+      light={tailwind({ 'text-gray-200': props.tab.disabled, 'text-gray-500': !props.isActive && !props.tab.disabled, 'text-black': props.isActive })}
+      dark={tailwind({ 'text-gray-700': props.tab.disabled, 'text-gray-400': !props.isActive && !props.tab.disabled, 'text-white': props.isActive })}
+      style={tailwind('text-base pb-3 text-center', { 'font-semibold': props.isActive })}
     >
       {translate('components/tabs', props.tab.label)}
     </ThemedText>

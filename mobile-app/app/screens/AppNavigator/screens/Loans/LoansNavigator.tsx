@@ -37,7 +37,6 @@ export function LoansNavigator (): JSX.Element {
           )
         }}
       />
-
       <LoansStack.Screen
         component={NetworkDetails}
         name='NetworkDetails'
@@ -47,7 +46,6 @@ export function LoansNavigator (): JSX.Element {
           headerBackTestID: 'network_details_header_back'
         }}
       />
-
     </LoansStack.Navigator>
   )
 }
