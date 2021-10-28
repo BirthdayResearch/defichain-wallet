@@ -32,7 +32,7 @@ export function LoansNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/LoansScreen', 'Loans')}
+              text={translate('screens/LoansScreen', 'Loans') + ' (Beta)'}
               containerTestID={headerContainerTestId}
             />
           )
@@ -54,7 +54,7 @@ export function LoansNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/LoansScreen', 'Create vault')}
+              text={translate('screens/LoansScreen', 'Create vault') + ' (Beta)'}
             />
           )
         }}
