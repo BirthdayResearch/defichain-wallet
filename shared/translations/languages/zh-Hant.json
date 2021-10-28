@@ -415,7 +415,7 @@
     "Price": "價格",
     "Estimated fee": "所需費用（大約）",
     "REMOVE": "退出",
-    "PRICE DETAILS": "價格詳情 ",
+    "PRICE DETAILS": "價格詳情",
     "{{symbolA}} per {{symbolB}}": "每退出 {{symbolA}} 量相當於 {{symbolB}} 量等值",
     "{{symbolB}} per {{symbolA}}": "每退出 {{symbolB}} 量相當於 {{symbolA}} 量等值",
     "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 量相當於 {{tokenB}} 量等值",
@@ -432,7 +432,7 @@
     "Price": "價格",
     "Removing {{amount}} {{symbol}}": "退出 {{amount}} {{symbol}}",
     "Review full transaction details in the next screen": "請在下一步確認交易明細",
-    "PRICE DETAILS": "價格詳情 ",
+    "PRICE DETAILS": "價格詳情",
     "{{symbolA}} per {{symbolB}}": "每退出 {{symbolA}} 量相當於 {{symbolB}} 量等值",
     "{{symbolB}} per {{symbolA}}": "每退出 {{symbolB}} 量相當於 {{symbolA}} 量等值",
     "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 量相當於 {{tokenB}} 量等值",
@@ -466,7 +466,8 @@
     "Slippage rate changes occur within a transaction. Select preferred slippage rate.": "滑點率變化會在交易中發生。 選擇您的首選滑點率。",
     "Custom": "自訂",
     "USE THIS SLIPPAGE TOLERANCE": "使用此滑點限制範圍",
-    "Required field is missing": "缺少必要填入的字欄"
+    "Required field is missing": "缺少必要填入的字欄",
+    "Slippage rate must range from 0-100%": "滑點率選擇百分比必須在 0 - 100%"
   },
   "screens/PoolSwapScreen": {
     "Swap": "兌換",
@@ -484,7 +485,8 @@
     "Estimated fee": "所需費用（大約）",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
     "Amount to be converted": "要轉換的金額",
-    "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換"
+    "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換",
+    "PRICE DETAILS": "價格詳情"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "您正要兌換",

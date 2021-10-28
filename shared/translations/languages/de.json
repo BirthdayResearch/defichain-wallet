@@ -480,7 +480,8 @@
     "Estimated fee": "Geschätzte Gebühr",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
     "Amount to be converted": "Umzuwandelnder Betrag",
-    "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln"
+    "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
+    "PRICE DETAILS": "PREISDETAILS"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Du tauschst",

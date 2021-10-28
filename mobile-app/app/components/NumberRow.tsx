@@ -8,6 +8,7 @@ type INumberRowProps = React.PropsWithChildren<ViewProps> & NumberRowProps
 type SuffixType = 'text' | 'component'
 interface NumberRowProps {
   lhs: string
+  lhsIcon?: JSX.Element
   rhs: NumberRowRightElement
   textStyle?: StyleProp<TextStyle>
 }
@@ -25,10 +26,11 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('p-4 flex-row items-start w-full')}
     >
-      <View style={tailwind('w-5/12')}>
+      <View style={tailwind('w-6/12 flex-row')}>
         <ThemedText style={[tailwind('text-sm'), props.textStyle]} testID={`${props.rhs.testID}_label`}>
           {props.lhs}
         </ThemedText>
+        {props.lhsIcon}
       </View>
 
       <View

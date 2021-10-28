@@ -95,6 +95,7 @@ context('Wallet - DEX - Pool Swap with balance', () => {
   })
 
   it('should be able to use/validate custom slippage tolerance', function () {
+    cy.getByTestID('text_input_tokenA').type('10')
     cy.getByTestID('slippage_select').click()
     cy.getByTestID('slippage_1%').should('exist')
 
@@ -109,14 +110,14 @@ context('Wallet - DEX - Pool Swap with balance', () => {
     cy.getByTestID('slippage_Custom').click()
     cy.getByTestID('slippage_input').should('have.value', '5')
     cy.getByTestID('slippage_input').clear().type('101').blur().wait(100)
-    cy.getByTestID('slippage_input_error').should('have.text', 'This field must be from 0-100%')
+    cy.getByTestID('slippage_input_error').should('have.text', 'Slippage rate must range from 0-100%')
     cy.getByTestID('slippage_input').clear()
     cy.getByTestID('slippage_input_error').should('have.text', 'Required field is missing')
     cy.getByTestID('slippage_input').clear().type('-1').blur().wait(100)
-    cy.getByTestID('slippage_input_error').should('have.text', 'This field must be from 0-100%')
+    cy.getByTestID('slippage_input_error').should('have.text', 'Slippage rate must range from 0-100%')
     cy.getByTestID('slippage_input').clear().type('a1').blur().wait(100)
-    cy.getByTestID('slippage_input_error').should('have.text', 'This field must be from 0-100%')
-    cy.getByTestID('button_tolerance_submit').should('have.attr', 'disabled')
+    cy.getByTestID('slippage_input_error').should('have.text', 'Slippage rate must range from 0-100%')
+    cy.getByTestID('button_tolerance_submit').should('have.attr', 'aria-disabled')
 
     cy.getByTestID('slippage_input').clear().type('25').blur().wait(100)
     cy.getByTestID('button_tolerance_submit').click()

@@ -379,7 +379,7 @@
     "How much {{symbol}} to supply?": "您想提供多少 {{symbol}} 流动资金?",
     "Enter an amount": "请输入数量",
     "Available": "可提供资金",
-    "PRICE DETAILS": "PRICE DETAILS",
+    "PRICE DETAILS": "价格详情",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
     "TRANSACTION DETAILS": "交易明細",
     "Your pooled {{token}}": "Your pooled {{token}}",
@@ -400,7 +400,7 @@
     "ADDING": "增加",
     "Pooled {{symbol}}": "池中总 {{symbol}}",
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "向 {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} 配对增加流动资金",
-    "PRICE DETAILS": "PRICE DETAILS",
+    "PRICE DETAILS": "价格详情",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
     "Your pooled {{token}}": "Your pooled {{token}}",
     "Transaction type": "交易类型",
@@ -465,8 +465,8 @@
     "Slippage rate changes occur within a transaction. Select preferred slippage rate.": "滑点率变化会在交易中发生。选择您的首选滑点率。",
     "Custom": "自订",
     "USE THIS SLIPPAGE TOLERANCE": "使用此滑点限制范围",
-    "Required field is missing": "缺少必要填入的字栏"
-
+    "Required field is missing": "缺少必要填入的字栏",
+    "Slippage rate must range from 0-100%": "滑点率选择百分比必须在 0 - 100%"
   },
   "screens/PoolSwapScreen": {
     "Swap": "兑换",
@@ -484,7 +484,8 @@
     "Estimated fee": "所需费用（大约）",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
     "Amount to be converted": "要转换的金额",
-    "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换"
+    "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换",
+    "PRICE DETAILS": "价格详情"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "您正要兑换",

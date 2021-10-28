@@ -36,52 +36,42 @@ export function SlippageTolerance ({ slippage, setSlippage }: SlippageToleranceP
       <ThemedView
         dark={tailwind('bg-gray-800 border-b border-gray-700')}
         light={tailwind('bg-white border-b border-gray-200')}
-        style={tailwind('flex-row items-center flex-grow p-4 pl-0 ')}
+        style={tailwind('flex-row items-center flex-grow w-full p-4 pr-2')}
       >
-        <View style={tailwind('mx-3 flex-auto')}>
-          <ThemedText
-            dark={tailwind('text-gray-200')}
-            light={tailwind('text-black')}
-            testID='slippage_title'
-          >
-            {translate('screens/SlippageTolerance', 'Slippage Tolerance')}
-          </ThemedText>
-        </View>
-        <View style={tailwind('flex-row items-center')}>
-          {Platform.OS === 'web'
-          ? (
-            <TouchableOpacity
-              onPress={() => {
-                setIsSelectorOpen(true)
-              }}
-              style={tailwind('flex-row')}
-              testID='slippage_select'
-            >
-              <SelectedValue slippage={slippage} />
-            </TouchableOpacity>
-          )
-          : (
-            <BottomSheetModal
-              name={SLIPPAGE_MODAL_NAME}
-              snapPoints={['55%']}
-              containerStyle='flex-row justify-between items-center'
-              triggerComponent={<SelectedValue slippage={slippage} />}
-            >
-              <ThemedView
-                dark={tailwind('bg-gray-800 border-b border-gray-700')}
-                light={tailwind('bg-white border-b border-gray-200')}
-                style={tailwind('p-4')}
-              >
-                <SlippageHeader />
-                <SlippageSelector
-                  slippage={slippage}
-                  isCustomSlippage={isCustomSlippage}
-                  onSubmitSlippage={onSubmitSlippage}
-                />
-              </ThemedView>
-            </BottomSheetModal>
-          )}
-        </View>
+        {Platform.OS === 'web'
+              ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    setIsSelectorOpen(true)
+                  }}
+                  style={tailwind('w-full')}
+                  testID='slippage_select'
+                >
+                  <SelectedValue slippage={slippage} />
+                </TouchableOpacity>
+              )
+              : (
+                <BottomSheetModal
+                  name={SLIPPAGE_MODAL_NAME}
+                  snapPoints={['45%']}
+                  containerStyle='flex-row justify-between items-center'
+                  enablePanDownToClose={false}
+                  triggerComponent={<SelectedValue slippage={slippage} />}
+                >
+                  <ThemedView
+                    dark={tailwind('bg-gray-800')}
+                    light={tailwind('bg-white')}
+                    style={tailwind('p-4')}
+                  >
+                    <SlippageHeader />
+                    <SlippageSelector
+                      slippage={slippage}
+                      isCustomSlippage={isCustomSlippage}
+                      onSubmitSlippage={onSubmitSlippage}
+                    />
+                  </ThemedView>
+                </BottomSheetModal>
+              )}
       </ThemedView>
 
       {(Platform.OS === 'web' && isSelectorOpen) && (
@@ -125,31 +115,52 @@ function SlippageButton ({ onPress, isActive, label }: { onPress: () => void, is
 
 function SelectedValue ({ slippage }: { slippage: number }): JSX.Element {
   return (
-    <NumberFormat
-      decimalScale={8}
-      displayType='text'
-      renderText={(val: string) => (
-        <>
-          <ThemedText
-            dark={tailwind('text-gray-400')}
-            light={tailwind('text-gray-500')}
-            style={tailwind('text-base text-right')}
-            testID='slippage_value'
-          >
-            {val}%
-          </ThemedText>
-          <ThemedIcon
-            dark={tailwind('text-gray-200')}
-            iconType='MaterialIcons'
-            light={tailwind('text-black')}
-            name='chevron-right'
-            size={24}
-          />
-        </>
+    <View
+      style={tailwind('flex-row w-full')}
+    >
+      <View style={tailwind('mr-3 flex-auto flex-row items-center')}>
+        <ThemedText
+          dark={tailwind('text-gray-200')}
+          light={tailwind('text-black')}
+          style={tailwind('text-sm mr-1')}
+          testID='slippage_title'
+        >
+          {translate('screens/SlippageTolerance', 'Slippage Tolerance')}
+        </ThemedText>
+        <ThemedIcon
+          size={16}
+          name='info-outline'
+          iconType='MaterialIcons'
+          dark={tailwind('text-gray-200')}
+          light={tailwind('text-gray-700')}
+        />
+      </View>
+      <NumberFormat
+        decimalScale={8}
+        displayType='text'
+        renderText={(val: string) => (
+          <>
+            <ThemedText
+              dark={tailwind('text-gray-400')}
+              light={tailwind('text-gray-500')}
+              style={tailwind('text-base text-right')}
+              testID='slippage_value'
+            >
+              {val}%
+            </ThemedText>
+            <ThemedIcon
+              dark={tailwind('text-gray-200')}
+              iconType='MaterialIcons'
+              light={tailwind('text-black')}
+              name='chevron-right'
+              size={24}
+            />
+          </>
       )}
-      thousandSeparator
-      value={slippage}
-    />
+        thousandSeparator
+        value={slippage}
+      />
+    </View>
   )
 }
 
@@ -161,7 +172,7 @@ function SlippageHeader (): JSX.Element {
         style={tailwind('flex-row mb-3 items-center ')}
       >
         <ThemedIcon
-          size={20}
+          size={17}
           name='info-outline'
           iconType='MaterialIcons'
           dark={tailwind('text-gray-200')}
@@ -171,7 +182,7 @@ function SlippageHeader (): JSX.Element {
         <ThemedText
           dark={tailwind('text-gray-50')}
           light={tailwind('text-gray-900')}
-          style={tailwind(`${Platform.OS === 'web' ? 'text-base' : 'text-2xl'} font-semibold`)}
+          style={tailwind('text-base font-semibold')}
         >
           {translate('screens/SlippageTolerance', 'Slippage Tolerance')}
         </ThemedText>
@@ -223,7 +234,7 @@ function SlippageSelector ({ slippage, onSubmitSlippage, isCustomSlippage }: Sli
     } else if (!(new BigNumber(value).gte(0) && new BigNumber(value).lte(100))) {
       setError({
         type: 'error',
-        text: translate('screens/SlippageTolerance', 'This field must be from 0-100%')
+        text: translate('screens/SlippageTolerance', 'Slippage rate must range from 0-100%')
       })
       return
     }
@@ -232,7 +243,7 @@ function SlippageSelector ({ slippage, onSubmitSlippage, isCustomSlippage }: Sli
   }
 
   useEffect(() => {
-    validateSlippage(selectedSlippage)
+      validateSlippage(selectedSlippage)
     setIsRiskWarningDisplayed((new BigNumber(selectedSlippage).gte(20) && new BigNumber(selectedSlippage).lte(100)))
   }, [selectedSlippage])
 
@@ -302,7 +313,7 @@ function SlippageSelector ({ slippage, onSubmitSlippage, isCustomSlippage }: Sli
         disabled={!isSlippageValid()}
         label={translate('screens/SlippageTolerance', 'USE THIS SLIPPAGE TOLERANCE')}
         onPress={() => {
-          onSubmitSlippage(parseInt(selectedSlippage), isCustomSlippage)
+          onSubmitSlippage(parseFloat(selectedSlippage), isCustomSlippage)
         }}
         testID='button_tolerance_submit'
         title={translate('screens/SlippageTolerance', 'USE THIS SLIPPAGE TOLERANCE')}

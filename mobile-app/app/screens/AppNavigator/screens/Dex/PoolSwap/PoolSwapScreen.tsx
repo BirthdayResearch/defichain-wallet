@@ -22,7 +22,7 @@ import { View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { DexParamList } from '../DexNavigator'
-import { SlippageTolerance } from './components/SlippageTolerance'
+import { SlippageTolerance } from '@screens/AppNavigator/screens/Dex/PoolSwap/components/SlippageTolerance'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { InputHelperText } from '@components/InputHelperText'
 import { DFITokenSelector, DFIUtxoSelector, WalletToken } from '@store/wallet'
@@ -45,6 +45,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const client = useWhaleApiClient()
   const pairs = usePoolPairsAPI()
   const [poolpair, setPoolPair] = useState<PoolPairData>()
+  const [slippage, setSlippage] = useState(3)
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const tokens = useTokensAPI()
   const dispatch = useDispatch()
@@ -66,7 +67,6 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const [tokenA, setTokenA] = useState<DerivedTokenState>()
   const [tokenB, setTokenB] = useState<DerivedTokenState>()
   const [isComputing, setIsComputing] = useState<boolean>(false)
-  const [slippage, setSlippage] = useState(3)
   const [aToBPrice, setAToBPrice] = useState<BigNumber>()
 
   // component UI state
@@ -110,8 +110,6 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   }, [pairs, route.params.pair])
 
   async function onSubmit (): Promise<void> {
-    const slippageInDecimal = slippage / 100
-
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
@@ -128,6 +126,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       return
     }
 
+    const slippageInDecimal = slippage / 100
     const swap = {
       fromToken: tokenA,
       toToken: tokenB,
@@ -231,6 +230,10 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     }
   }, [JSON.stringify(tokens), poolpair])
 
+  const onSlippageChange = (val: number): void => {
+    setSlippage(val)
+  }
+
   const getMaxAmount = (token: DerivedTokenState): string => {
     if (token.id !== '0_unified') {
       return new BigNumber(token.amount).toFixed(8)
@@ -307,10 +310,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         />
         {isConversionRequired && <ConversionInfoText />}
       </View>
-      <SlippageTolerance
-        setSlippage={(amount) => setSlippage(amount)}
-        slippage={slippage}
-      />
+
       {
         !isComputing && (new BigNumber(getValues()[tokenAForm]).isGreaterThan(0) && new BigNumber(getValues()[tokenBForm]).isGreaterThan(0)) &&
           <SwapSummary
@@ -322,6 +322,8 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
             fee={fee.toFixed(8)}
             isConversionRequired={isConversionRequired}
             conversionAmount={conversionAmount}
+            slippage={slippage}
+            setSlippage={onSlippageChange}
           />
       }
 
@@ -456,9 +458,11 @@ interface SwapSummaryItems {
   fee: string
   isConversionRequired: boolean
   conversionAmount: BigNumber
+  slippage: number
+  setSlippage: (val: number) => void
 }
 
-function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee, isConversionRequired, conversionAmount }: SwapSummaryItems): JSX.Element {
+function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee, isConversionRequired, conversionAmount, slippage, setSlippage }: SwapSummaryItems): JSX.Element {
   const reserveA = getReserveAmount(tokenA.id, poolpair)
   const reserveB = getReserveAmount(tokenB.id, poolpair)
   const priceA = getPriceRate(reserveA, reserveB)
@@ -468,9 +472,9 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee, isConversio
   return (
     <View style={tailwind('mt-4')}>
       <ThemedSectionTitle
-        testID='title_add_detail'
-        text={translate('screens/PoolSwapScreen', 'TRANSACTION DETAILS')}
-        style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
+        testID='title_price_details'
+        text={translate('screens/PoolSwapScreen', 'PRICE DETAILS')}
+        style={tailwind('px-4 pb-2 text-xs text-gray-500 font-medium')}
       />
       {isConversionRequired &&
         <NumberRow
@@ -485,20 +489,30 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee, isConversio
       <NumberRow
         lhs={translate('screens/PoolSwapScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
         rhs={{
-          testID: 'price_a',
-          value: priceA,
-          suffixType: 'text',
-          suffix: tokenA.displaySymbol
-        }}
+            testID: 'price_a',
+            value: priceA,
+            suffixType: 'text',
+            suffix: tokenA.displaySymbol
+          }}
       />
       <NumberRow
         lhs={translate('screens/PoolSwapScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenB.displaySymbol, tokenB: tokenA.displaySymbol })}
         rhs={{
-          testID: 'price_b',
-          value: priceB,
-          suffixType: 'text',
-          suffix: tokenB.displaySymbol
-        }}
+            testID: 'price_b',
+            value: priceB,
+            suffixType: 'text',
+            suffix: tokenB.displaySymbol
+          }}
+      />
+      <SlippageTolerance
+        setSlippage={(amount) => setSlippage(amount)}
+        slippage={slippage}
+      />
+
+      <ThemedSectionTitle
+        testID='title_add_detail'
+        text={translate('screens/PoolSwapScreen', 'TRANSACTION DETAILS')}
+        style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
       />
       <NumberRow
         lhs={translate('screens/PoolSwapScreen', 'Estimated to receive')}

@@ -169,6 +169,14 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
       />
       <NumberRow
         lhs={translate('screens/PoolSwapConfirmScreen', 'Slippage Tolerance')}
+        lhsIcon={<ThemedIcon
+          size={17}
+          name='info-outline'
+          iconType='MaterialIcons'
+          dark={tailwind('text-gray-200')}
+          light={tailwind('text-gray-700')}
+          style={tailwind('ml-2')}
+                 />}
         rhs={{
           value: new BigNumber(slippage).times(100).toFixed(),
           suffix: '%',
