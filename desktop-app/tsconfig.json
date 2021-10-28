@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "outDir": "./main/build",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "pretty": true,
+    "rootDir": "./main",
+    "resolveJsonModule": true
+  },
+  "include": ["./main/**/*"],
+  "exclude": ["./main/build/**/*"]
+}
