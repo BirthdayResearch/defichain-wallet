@@ -241,7 +241,7 @@ function PoolPairRowYour ({
           name='add'
           onPress={onAdd}
           pair={symbol}
-          label={translate('screens/DexScreen', 'ADD LIQUIDITY')}
+          label={translate('screens/DexScreen', 'ADD MORE')}
         />
 
         <PoolPairActionButton

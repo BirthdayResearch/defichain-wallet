@@ -30,7 +30,8 @@
     "Your pooled {{symbol}}": "Gepoolte {{symbol}}",
     "SWAP TOKENS": "TAUSCHE TOKEN",
     "REMOVE": "ENTFERNEN",
-    "APR": "ZINS"
+    "APR": "ZINS",
+    "ADD MORE": "HINZUFÜGEN"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Richtlinien",
