@@ -9,7 +9,19 @@ import { CreateVaultScreen } from './Screens/CreateVaultScreen'
 
 export interface LoanParamList {
   LoansScreen: undefined
+  CreateVaultConfirmationScreen: {
+    loanScheme: LoanScheme
+  }
   [key: string]: undefined | object
+}
+
+/**
+ * TODO: remove after state and model is added
+ */
+export interface LoanScheme {
+  id: string
+  minColRatio: string
+  interestRate: string
 }
 
 const LoansStack = createStackNavigator<LoanParamList>()
