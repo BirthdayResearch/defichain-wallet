@@ -10,6 +10,7 @@ import { View } from '@components'
 interface EmptyVaultProps {
   handleRefresh: (nextToken?: string | undefined) => void
   loadingStatus: string
+  onCreateVaultPress: () => void
 }
 
 export function EmptyVault (props: EmptyVaultProps): JSX.Element {
@@ -48,7 +49,7 @@ export function EmptyVault (props: EmptyVaultProps): JSX.Element {
 
       <Button
         label={translate('screens/LoansScreen', 'CREATE VAULT')}
-        onPress={() => /* props.navigation.navigate('CreateVault') */{}} // TODO: navigate to create vault screen
+        onPress={props.onCreateVaultPress}
         testID='button_create_vault'
         title='Create vault'
         margin='m-0 mb-8'

@@ -85,7 +85,7 @@ exports[`Empty vault should match snapshot 1`] = `
     </Text>
     <View
       accessible={true}
-      focusable={true}
+      focusable={false}
       onClick={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
