@@ -22,8 +22,8 @@ import { DexGuidelines } from './DexGuidelines'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 enum SectionKey {
-  YourLiquidity = 'YOUR LIQUIDITY',
-  AvailablePoolPair = 'AVAILABLE POOL PAIRS'
+  YourLiquidity = 'YOUR LIQUIDITY POOLS',
+  AvailablePoolPair = 'AVAILABLE LIQUIDITY POOLS'
 }
 
 export function DexScreen (): JSX.Element {
