@@ -22,7 +22,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
-import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { FeeInfoRow } from '@components/FeeInfoRow'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
@@ -117,13 +117,11 @@ export function ConvertScreen (props: Props): JSX.Element {
         text={translate('screens/ConvertScreen', 'TRANSACTION DETAILS')}
         style={tailwind('px-4 mt-6 pb-2 text-xs text-gray-500 font-medium')}
       />
-      <EstimatedFeeInfo
-        lhs={translate('screens/ConvertScreen', 'Estimated fee')}
-        rhs={{
-          value: fee.toString(),
-          suffix: ' DFI',
-          testID: 'transaction_fee'
-        }}
+      <FeeInfoRow
+        type='ESTIMATED_FEE'
+        value={fee.toString()}
+        testID='transaction_fee'
+        suffix='DFI'
       />
       <ThemedText
         light={tailwind('text-gray-600')}

@@ -22,7 +22,7 @@ import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionTag } from '@components/ConversionTag'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
-import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { FeeInfoRow } from '@components/FeeInfoRow'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { InfoText } from '@components/InfoText'
@@ -142,14 +142,11 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
           suffix: token.displaySymbol
         }}
       />
-
-      <EstimatedFeeInfo
-        lhs={translate('screens/SendConfirmationScreen', 'Estimated fee')}
-        rhs={{
-          value: fee.toFixed(8),
-          testID: 'text_fee',
-          suffix: token.displaySymbol
-        }}
+      <FeeInfoRow
+        type='ESTIMATED_FEE'
+        value={fee.toFixed(8)}
+        testID='text_fee'
+        suffix={token.displaySymbol}
       />
 
       <TransactionResultsRow

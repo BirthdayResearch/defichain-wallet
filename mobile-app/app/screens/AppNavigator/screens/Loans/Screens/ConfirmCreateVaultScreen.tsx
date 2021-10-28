@@ -13,6 +13,7 @@ import { View } from '@components'
 import { TextRow } from '@components/TextRow'
 import BigNumber from 'bignumber.js'
 import { NumberRow } from '@components/NumberRow'
+import { FeeInfoRow } from '@components/FeeInfoRow'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmCreateVaultScreen'>
 
@@ -113,6 +114,12 @@ function SummaryTransactionDetails (): JSX.Element {
           testID: 'text_transaction_type'
         }}
         textStyle={tailwind('text-sm font-normal')}
+      />
+      <FeeInfoRow
+        type='VAULT_FEE'
+        value='2'
+        testID='vault_fee'
+        suffix='DFI'
       />
     </>
   )
