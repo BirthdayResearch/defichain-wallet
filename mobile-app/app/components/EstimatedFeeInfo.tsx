@@ -18,7 +18,7 @@ export function EstimatedFeeInfo ({
 }: { lhs: string, rhs: EstimatedFeeElement }): JSX.Element {
   const feeInfo = {
     title: translate('screens/EstimatedFeeInfo', 'Estimated Fee'),
-    message: translate('screens/EstimatedFeeInfo', 'Each transaction will subject to a small amount of fees. The amount may vary depending on the network’s congestion.')
+    message: translate('screens/EstimatedFeeInfo', 'Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.')
   }
 
   return (
