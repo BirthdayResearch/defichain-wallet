@@ -2,7 +2,7 @@ import React, { ReactElement, useCallback, useRef, useEffect } from 'react'
 import { tailwind } from '@tailwind'
 import { TouchableOpacity, View, Platform } from 'react-native'
 import { BottomSheetBackgroundProps, BottomSheetModal as Modal, BottomSheetModalProps, useBottomSheetModal } from '@gorhom/bottom-sheet'
-import { useThemeContext } from '@contexts/ThemeProvider'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { ThemedIcon, ThemedProps } from './themed'
 import { WalletAlert } from './WalletAlert'
 

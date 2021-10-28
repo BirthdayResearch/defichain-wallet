@@ -7,7 +7,7 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
-import { View } from '@components/index'
+import { View } from '@components'
 import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
@@ -17,8 +17,9 @@ import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
-import { DisplayDexGuidelinesPersistence, Logging } from '@api'
+import { DisplayDexGuidelinesPersistence } from '@api'
 import { DexGuidelines } from './DexGuidelines'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 enum SectionKey {
   YourLiquidity = 'YOUR LIQUIDITY',
@@ -26,6 +27,7 @@ enum SectionKey {
 }
 
 export function DexScreen (): JSX.Element {
+  const logger = useLogger()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [displayGuidelines, setDisplayGuidelines] = useState<boolean>(true)
@@ -61,7 +63,7 @@ export function DexScreen (): JSX.Element {
       .then((shouldDisplayGuidelines: boolean) => {
         setDisplayGuidelines(shouldDisplayGuidelines)
       })
-      .catch((err) => Logging.error(err))
+      .catch(logger.error)
       .finally(() => setIsLoaded(true))
   }, [])
 
@@ -108,7 +110,7 @@ export function DexScreen (): JSX.Element {
                 onAdd={() => onAdd(item.data)}
                 onSwap={() => navigation.navigate({
                   name: 'PoolSwap',
-                  params: { poolpair: item.data },
+                  params: { pair: item.data },
                   merge: true
                 })}
               />

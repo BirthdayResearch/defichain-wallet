@@ -3,7 +3,7 @@ import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/Balance
 import React from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { useSelector } from 'react-redux'
-import { useNetworkContext } from '@contexts/NetworkContext'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { RootState } from '@store'
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedText } from './themed'
@@ -47,7 +47,7 @@ export function HeaderTitle ({
           <ThemedText
             dark={tailwind('text-white text-opacity-90')}
             light={tailwind('text-black')}
-            style={tailwind('font-semibold leading-5')}
+            style={tailwind('font-semibold leading-5 text-center')}
             testID={testID}
           >
             {text}
@@ -65,7 +65,7 @@ export function ConnectionStatus (): JSX.Element {
   const { network } = useNetworkContext()
   const connected = useSelector((state: RootState) => state.block.connected)
   return (
-    <View style={tailwind('flex-row items-center')}>
+    <View style={tailwind('flex-row items-center justify-center')}>
       <View
         style={tailwind(`h-2 w-2 rounded-full ${connected ? 'bg-green-500' : 'bg-red-500'} mr-1.5`)}
         testID='header_status_indicator'

@@ -7,9 +7,10 @@ import { TouchableOpacity, View } from 'react-native'
 import { BarCodeScanner } from '@components/BarCodeScanner'
 import { ConnectionStatus, HeaderTitle } from '@components/HeaderTitle'
 import { getNativeIcon } from '@components/icons/assets'
-import { ThemedText } from '@components/themed'
+import { ThemedIcon, ThemedText } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
+import { SettingsNavigator } from '../Settings/SettingsNavigator'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { BalancesScreen } from './BalancesScreen'
 import { ConvertConfirmationScreen } from './screens/ConvertConfirmationScreen'
@@ -87,11 +88,39 @@ export function BalancesNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const headerContainerTestId = 'balances_header_container'
   return (
-    <BalanceStack.Navigator initialRouteName='BalancesScreen'>
+    <BalanceStack.Navigator
+      initialRouteName='BalancesScreen'
+      screenOptions={{
+        headerTitleAlign: 'center'
+      }}
+    >
+      <BalanceStack.Screen
+        component={SettingsNavigator}
+        name={translate('BalancesNavigator', 'Settings')}
+        options={{
+          headerShown: false
+        }}
+      />
+
       <BalanceStack.Screen
         component={BalancesScreen}
         name='BalancesScreen'
         options={{
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Settings')}
+              testID='header_settings'
+            >
+              <ThemedIcon
+                iconType='MaterialIcons'
+                name='settings'
+                size={28}
+                style={tailwind('ml-2')}
+                light={tailwind('text-primary-500')}
+                dark={tailwind('text-primary-500')}
+              />
+            </TouchableOpacity>
+          ),
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/BalancesScreen', 'Balances')}

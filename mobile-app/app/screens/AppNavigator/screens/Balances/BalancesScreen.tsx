@@ -9,9 +9,9 @@ import {
   ThemedView
 } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
-import { useWalletContext } from '@contexts/WalletContext'
-import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
-import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { fetchTokens, useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -29,10 +29,12 @@ import { Announcements } from '@screens/AppNavigator/screens/Balances/components
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
 import { translate } from '@translations'
 import { RefreshControl } from 'react-native'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
+  const logger = useLogger()
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
@@ -51,7 +53,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
-    await fetchTokens(client, address, dispatch)
+    await fetchTokens(client, address, dispatch, logger)
     setRefreshing(false)
   }, [address, client, dispatch])
 

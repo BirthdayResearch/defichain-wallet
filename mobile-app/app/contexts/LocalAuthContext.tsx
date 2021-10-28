@@ -1,9 +1,9 @@
-import { Logging } from '@api'
 import * as LocalAuthentication from 'expo-local-authentication'
 import { AuthenticationType, LocalAuthenticationOptions, SecurityLevel } from 'expo-local-authentication'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { PrivacyLockPersistence } from '@api/wallet/privacy_lock'
 import { Platform } from 'react-native'
+import { useLogger } from '../../../shared/contexts/NativeLoggingProvider'
 
 export interface PrivacyLockContextI {
   // user's hardware condition, external
@@ -30,6 +30,7 @@ export function usePrivacyLockContext (): PrivacyLockContextI {
 }
 
 export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
+  const logger = useLogger()
   const [hasHardware, setHasHardware] = useState<boolean>(false)
   const [securityLevel, setSecurityLevel] = useState<SecurityLevel>(SecurityLevel.NONE)
   const [biometricHardwares, setBiometricHardwares] = useState<AuthenticationType[]>([])
@@ -54,7 +55,7 @@ export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>)
         setIsLocalAuthLoaded(true)
       })
       .catch(error => {
-        Logging.error(error)
+        logger.error(error)
         setHasHardware(false)
         setIsLocalAuthLoaded(true)
       })
@@ -65,7 +66,7 @@ export function PrivacyLockContextProvider (props: React.PropsWithChildren<any>)
     PrivacyLockPersistence.isEnabled()
       .then(enabled => setIsPrivacyLock(enabled))
       .catch(error => {
-        Logging.error(error)
+        logger.error(error)
         setIsPrivacyLock(false)
       })
       .finally(() => {

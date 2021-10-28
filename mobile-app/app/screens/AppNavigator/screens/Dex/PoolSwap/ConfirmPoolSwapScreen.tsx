@@ -5,7 +5,6 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Logging } from '@api'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
@@ -20,6 +19,7 @@ import { DerivedTokenState } from './PoolSwapScreen'
 import { getNativeIcon } from '@components/icons/assets'
 import { ConversionTag } from '@components/ConversionTag'
 import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
@@ -47,6 +47,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
+  const logger = useLogger()
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
 
@@ -64,7 +65,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
     setIsSubmitting(true)
     await constructSignedSwapAndSend(swap, slippage, dispatch, () => {
       onTransactionBroadcast(isOnPage, navigation.dispatch)
-    })
+    }, logger)
     setIsSubmitting(false)
   }
 
@@ -225,7 +226,8 @@ async function constructSignedSwapAndSend (
   dexForm: DexForm,
   slippage: number,
   dispatch: Dispatch<any>,
-  onBroadcast: () => void
+  onBroadcast: () => void,
+  logger: NativeLoggingProps
 ): Promise<void> {
   try {
     const maxPrice = dexForm.fromAmount.div(dexForm.toAmount).times(1 + slippage).decimalPlaces(8)
@@ -257,6 +259,6 @@ async function constructSignedSwapAndSend (
       onBroadcast
     }))
   } catch (e) {
-    Logging.error(e)
+    logger.error(e)
   }
 }

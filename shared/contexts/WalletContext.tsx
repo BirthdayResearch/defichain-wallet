@@ -1,11 +1,11 @@
+import React, { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react'
 import { JellyfishWallet, WalletHdNode } from '@defichain/jellyfish-wallet'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import React, { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react'
-import { Logging } from '@api'
-import { initJellyfishWallet } from '@api/wallet'
 import { useNetworkContext } from './NetworkContext'
-import { useWalletNodeContext } from './WalletNodeProvider'
 import { useWhaleApiClient } from './WhaleContext'
+import { useWalletNodeContext } from './WalletNodeProvider'
+import { initJellyfishWallet } from '@api/wallet'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 interface WalletContextI {
   /**
@@ -28,7 +28,8 @@ export function useWalletContext (): WalletContextI {
   return useContext(WalletContext)
 }
 
-export function WalletContextProvider (props: PropsWithChildren<{}>): JSX.Element | null {
+export function WalletContextProvider (props: PropsWithChildren<any>): JSX.Element | null {
+  const logger = useLogger()
   const { provider } = useWalletNodeContext()
   const [address, setAddress] = useState<string>()
   const { network } = useNetworkContext()
@@ -41,7 +42,8 @@ export function WalletContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
   useEffect(() => {
     wallet.get(0).getAddress().then(value => {
       setAddress(value)
-    }).catch(Logging.error)
+    })
+    .catch(logger.error)
   }, [wallet])
 
   if (address === undefined) {

@@ -5,7 +5,7 @@ import { useGetAnnouncementsQuery } from '@store/website'
 import { AnnouncementData } from '@shared-types/website'
 import { nativeApplicationVersion } from 'expo-application'
 import { satisfies } from 'semver'
-import { useLanguageContext } from '@contexts/LanguageProvider'
+import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 
 export function Announcements (): JSX.Element {
   const {

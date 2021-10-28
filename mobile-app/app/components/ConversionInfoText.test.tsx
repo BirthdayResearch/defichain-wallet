@@ -2,7 +2,7 @@ import { render } from '@testing-library/react-native'
 import React from 'react'
 import { ConversionInfoText } from './ConversionInfoText'
 
-jest.mock('../contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider')
 
 describe('Conversion info text', () => {
   it('should match snapshot', async () => {

@@ -20,14 +20,14 @@ context('Wallet - Convert DFI', () => {
   })
 
   it('should have form validation', function () {
-    cy.getByTestID('button_continue_convert').should('have.attr', 'disabled')
+    cy.getByTestID('button_continue_convert').should('have.attr', 'aria-disabled')
     cy.getByTestID('source_balance').contains(19.9)
     cy.getByTestID('target_balance').contains(10)
     cy.getByTestID('text_input_convert_from_input_text').contains('How much UTXO to convert?')
     cy.getByTestID('text_input_convert_from_to_text').contains('After conversion, you will receive')
     cy.getByTestID('text_input_convert_from_input').type('1')
     cy.getByTestID('text_input_convert_from_input_clear_button').click()
-    cy.getByTestID('button_continue_convert').should('have.attr', 'disabled')
+    cy.getByTestID('button_continue_convert').should('have.attr', 'aria-disabled')
     cy.getByTestID('text_input_convert_from_input').type('1')
     cy.getByTestID('source_balance').contains(19.9)
     cy.getByTestID('target_balance').contains(11)

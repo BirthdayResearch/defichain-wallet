@@ -8,7 +8,7 @@ import {
 import { getRandomBytes } from 'expo-random'
 import { EnvironmentNetwork } from '@environment'
 import { getBip32Option } from '@shared-api/wallet/network'
-import { WalletPersistenceData, WalletType } from '../persistence'
+import { WalletPersistenceDataI, WalletType } from '@shared-contexts/WalletPersistenceContext'
 
 // BIP38 default, 16k, 8, 8
 const DEFAULT_SCRYPT_N_R_P = [
@@ -44,12 +44,12 @@ interface PromptInterface {
 }
 
 function initProvider (
-  data: WalletPersistenceData<EncryptedProviderData>,
+  data: WalletPersistenceDataI<EncryptedProviderData>,
   network: EnvironmentNetwork,
   promptInterface: PromptInterface
 ): EncryptedHdNodeProvider {
   if (data.type !== WalletType.MNEMONIC_ENCRYPTED || data.version !== 'v1') {
-    throw new Error('Unexpected WalletPersistenceData')
+    throw new Error('Unexpected WalletPersistenceDataI')
   }
 
   const bip32Options = getBip32Option(network)
@@ -58,7 +58,7 @@ function initProvider (
   })
 }
 
-async function toData (mnemonic: string[], network: EnvironmentNetwork, passphrase: string): Promise<WalletPersistenceData<EncryptedProviderData>> {
+async function toData (mnemonic: string[], network: EnvironmentNetwork, passphrase: string): Promise<WalletPersistenceDataI<EncryptedProviderData>> {
   const options = getBip32Option(network)
   const data = await EncryptedHdNodeProvider.wordsToEncryptedData(mnemonic, options, encryption, passphrase)
 

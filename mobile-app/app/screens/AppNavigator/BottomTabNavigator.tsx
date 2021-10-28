@@ -1,14 +1,14 @@
+import * as React from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import * as React from 'react'
-import { OceanInterface } from '@components/OceanInterface/OceanInterface'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-
+import { OceanInterface } from '@components/OceanInterface/OceanInterface'
 import { BalancesNavigator } from './screens/Balances/BalancesNavigator'
 import { DexNavigator } from './screens/Dex/DexNavigator'
-import { SettingsNavigator } from './screens/Settings/SettingsNavigator'
+import { LoansNavigator } from './screens/Loans/LoansNavigator'
 import { TransactionsNavigator } from './screens/Transactions/TransactionsNavigator'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 export interface BottomTabParamList {
   Balances: undefined
@@ -22,6 +22,7 @@ export interface BottomTabParamList {
 const BottomTab = createBottomTabNavigator<BottomTabParamList>()
 
 export function BottomTabNavigator (): JSX.Element {
+  const { isLoansDisplayed } = useFeatureFlagContext()
   return (
     <>
       <OceanInterface />
@@ -64,6 +65,22 @@ export function BottomTabNavigator (): JSX.Element {
           }}
         />
 
+        {isLoansDisplayed &&
+          <BottomTab.Screen
+            component={LoansNavigator}
+            name={translate('BottomTabNavigator', 'Loans')}
+            options={{
+              tabBarTestID: 'bottom_tab_loans',
+              tabBarIcon: ({ color }) => (
+                <MaterialIcons
+                  color={color}
+                  name='credit-card'
+                  size={24}
+                />
+              )
+            }}
+          />}
+
         <BottomTab.Screen
           component={TransactionsNavigator}
           name={translate('BottomTabNavigator', 'Transactions')}
@@ -79,20 +96,6 @@ export function BottomTabNavigator (): JSX.Element {
           }}
         />
 
-        <BottomTab.Screen
-          component={SettingsNavigator}
-          name={translate('BottomTabNavigator', 'Settings')}
-          options={{
-            tabBarTestID: 'bottom_tab_settings',
-            tabBarIcon: ({ color }) => (
-              <MaterialIcons
-                color={color}
-                name='settings'
-                size={24}
-              />
-            )
-          }}
-        />
       </BottomTab.Navigator>
     </>
   )
