@@ -126,7 +126,7 @@ export function LoansScreen (): JSX.Element {
     return (
       <EmptyVault
         handleRefresh={() => {}}
-        loadingStatus=''
+        isLoading={false}
         onCreateVaultPress={() => {
           // TODO: remove temporary display flag
           setDisplayCreateVault(false)

@@ -9,7 +9,7 @@ import { View } from '@components'
 
 interface EmptyVaultProps {
   handleRefresh: (nextToken?: string | undefined) => void
-  loadingStatus: string
+  isLoading: boolean
   onCreateVaultPress: () => void
 }
 
@@ -24,7 +24,7 @@ export function EmptyVault (props: EmptyVaultProps): JSX.Element {
       refreshControl={
         <RefreshControl
           onRefresh={props.handleRefresh}
-          refreshing={props.loadingStatus === 'isLoading'}
+          refreshing={props.isLoading}
         />
       }
       contentContainerStyle={tailwind('px-8 pt-32 pb-2 text-center')}
