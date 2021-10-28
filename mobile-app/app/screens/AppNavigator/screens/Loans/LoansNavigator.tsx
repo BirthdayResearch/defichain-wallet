@@ -5,6 +5,7 @@ import { HeaderTitle } from '@components/HeaderTitle'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { LoansScreen } from './LoansScreen'
+import { CreateVaultScreen } from './Screens/CreateVaultScreen'
 
 export interface LoanParamList {
   LoansScreen: undefined
@@ -18,7 +19,7 @@ export function LoansNavigator (): JSX.Element {
 
   return (
     <LoansStack.Navigator
-      initialRouteName='LoansScreen'
+      initialRouteName='CreateVaultScreen'
       screenOptions={{
         headerTitleAlign: 'center',
         headerTitleStyle: HeaderFont,
@@ -44,6 +45,18 @@ export function LoansNavigator (): JSX.Element {
           headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
           headerBackTitleVisible: false,
           headerBackTestID: 'network_details_header_back'
+        }}
+      />
+      <LoansStack.Screen
+        component={CreateVaultScreen}
+        name='CreateVaultScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Create vault')}
+            />
+          )
         }}
       />
     </LoansStack.Navigator>
