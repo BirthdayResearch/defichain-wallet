@@ -107,7 +107,7 @@ function TokenSummary (props: { token: WalletToken}): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white')}
-      dark={tailwind('bg-gray-800')}
+      dark={tailwind('bg-blue-800')}
       style={tailwind('px-4 pt-6')}
     >
       <View style={tailwind('flex-row items-center mb-1')}>

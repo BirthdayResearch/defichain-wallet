@@ -21,7 +21,7 @@ interface NumberRowRightElement {
 export function NumberRow (props: INumberRowProps): JSX.Element {
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      dark={tailwind('bg-blue-800 border-b border-blue-900')}
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('p-4 flex-row items-start w-full')}
     >

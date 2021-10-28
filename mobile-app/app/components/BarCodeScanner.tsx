@@ -7,7 +7,7 @@ import { View } from '.'
 import { Logging } from '@api'
 import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { translate } from '@translations'
-import { ThemedText } from './themed'
+import { ThemedText, ThemedView } from './themed'
 
 type Props = StackScreenProps<BalanceParamList, 'BarCodeScanner'>
 
@@ -44,11 +44,11 @@ export function BarCodeScanner ({
 
   if (hasPermission === null) {
     return (
-      <View style={tailwind('flex-col flex-1 justify-center items-center')}>
+      <ThemedView style={tailwind('flex-col flex-1 justify-center items-center')}>
         <ThemedText>
           {translate('components/BarCodeScanner', 'Requesting for camera permission')}
         </ThemedText>
-      </View>
+      </ThemedView>
     )
   }
   if (!hasPermission) {

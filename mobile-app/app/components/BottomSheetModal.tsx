@@ -65,7 +65,7 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
             <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
           )}
           backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
-            <View {...backgroundProps} style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'} border-t rounded`)]} />
+            <View {...backgroundProps} style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-blue-800 border-gray-700'} border-t rounded`)]} />
           )}
         >
           <View style={tailwind('font-medium w-full px-2 items-end')}>

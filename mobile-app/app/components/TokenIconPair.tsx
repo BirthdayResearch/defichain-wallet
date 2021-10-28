@@ -13,7 +13,7 @@ export function TokenIconPair (props: {
 
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800')}
+      dark={tailwind('bg-blue-800')}
       light={tailwind('bg-white')}
       style={tailwind('flex-row items-center mr-2')}
     >

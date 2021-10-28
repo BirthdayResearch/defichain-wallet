@@ -38,7 +38,7 @@ export function DexGuidelines ({ onClose }: Props): JSX.Element {
 
   return (
     <ThemedScrollView
-      dark={tailwind('bg-gray-900')}
+      dark={tailwind('bg-blue-900')}
       light={tailwind('bg-white')}
       style={tailwind('flex-1 p-4 pt-6')}
       testID='dex_guidelines_screen'

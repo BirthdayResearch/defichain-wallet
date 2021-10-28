@@ -381,7 +381,7 @@ function PoolPairAPR (props: { symbol: string, apr: number, row: string }): JSX.
   return (
     <ThemedView
       light={tailwind('bg-gray-100')}
-      dark={tailwind('bg-gray-900')}
+      dark={tailwind('bg-blue-900')}
       style={tailwind('flex-row justify-between items-center px-2 py-1 rounded')}
     >
       <ThemedText

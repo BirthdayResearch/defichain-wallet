@@ -233,7 +233,7 @@ function PrivacyLockToggle ({
     <>
       <ThemedView
         light={tailwind('bg-white border-b border-gray-200')}
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        dark={tailwind('bg-blue-800 border-b border-blue-900')}
         style={tailwind('flex p-4 pr-2 flex-row items-center justify-between')}
       >
         <ThemedText testID='text_privacy_lock' style={tailwind('font-medium')}>

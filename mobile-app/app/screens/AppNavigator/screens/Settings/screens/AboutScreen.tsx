@@ -65,7 +65,7 @@ const ABOUT_LINKS: AboutLinks[] = [
   {
     testID: 'privacy_policy_button',
     title: 'Privacy Policy',
-    url: 'https://defichain.com/privacy-policy/'
+    url: 'https://dfx.swiss/datenschutz.html'
   },
   {
     testID: 'licenses_button',
@@ -80,16 +80,8 @@ const ABOUT_LINKS: AboutLinks[] = [
 ]
 
 const SOCIAL_LINKS: AboutScreenSocialLinks[] = [
-  {
-    testID: 'youtube_social',
-    iconName: 'youtube',
-    url: 'https://www.youtube.com/channel/UCL635AjCJe6gNOD7Awlv4ug'
-  },
-  {
-    testID: 'twitter_social',
-    iconName: 'twitter',
-    url: 'https://twitter.com/defichain'
-  },
+  { testID: 'youtube_social', iconName: 'youtube', url: 'https://www.youtube.com/channel/UCYvgdByyzqBeuSMSEdv9SMg' },
+  { testID: 'twitter_social', iconName: 'twitter', url: 'https://twitter.com/DFX_Swiss' },
   {
     testID: 'reddit_social',
     iconName: 'reddit',
@@ -98,7 +90,7 @@ const SOCIAL_LINKS: AboutScreenSocialLinks[] = [
   {
     testID: 'github',
     iconName: 'github',
-    url: 'https://github.com/DeFiCh/wallet'
+    url: 'https://github.com/DFXswiss/wallet'
   }
 ]
 
@@ -107,20 +99,19 @@ export function AboutScreen (): JSX.Element {
     <ThemedScrollView light={tailwind('bg-white')} style={tailwind('px-4')}>
       <View style={tailwind('flex-1 items-center justify-center p-4 mt-4 mb-8')}>
         <AppIcon
-          height={70}
+          height={100}
           testID='app_logo'
-          width={70}
+          width={150}
         />
-
-        <ThemedText style={tailwind('text-2xl font-bold mt-3')}>
-          {translate('screens/AboutScreen', 'DeFiChain Wallet')}
+        <ThemedText style={tailwind('text-2xl font-bold')}>
+          {translate('screens/AboutScreen', 'Wallet')}
         </ThemedText>
 
         <ThemedText style={tailwind('text-base font-light text-black')}>
           {`v${nativeApplicationVersion ?? '0.0.0'}`}
         </ThemedText>
 
-        <View style={tailwind('flex-row justify-center pt-3')}>
+        <View style={tailwind('flex-row justify-center pt-5')}>
           {
             SOCIAL_LINKS.map((link) => (
               <SocialIcon
@@ -196,7 +187,7 @@ function LinkItemRow ({
 
   return (
     <ThemedTouchableOpacity
-      dark={tailwind('bg-gray-800')}
+      dark={tailwind('bg-blue-800')}
       light={tailwind('bg-gray-50')}
       onPress={handlePress}
       style={tailwind('flex-row p-4 items-center rounded-lg mb-3')}

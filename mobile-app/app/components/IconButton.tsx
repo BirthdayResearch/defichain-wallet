@@ -21,7 +21,7 @@ export function IconButton (props: IconButtonProps): JSX.Element {
   return (
     <ThemedTouchableOpacity
       light={tailwind({ 'border-gray-300 bg-white': !disabled, 'border-gray-100 bg-gray-100': disabled })}
-      dark={tailwind({ 'border-gray-400 bg-gray-900': !disabled, 'border-gray-800 bg-gray-800': disabled })}
+      dark={tailwind({ 'border-gray-800 bg-blue-900': !disabled, 'border-gray-800 bg-blue-800': disabled })}
       onPress={props.onPress}
       style={[tailwind('p-1 flex-row items-center border rounded'), props.style]}
       testID={props.testID}

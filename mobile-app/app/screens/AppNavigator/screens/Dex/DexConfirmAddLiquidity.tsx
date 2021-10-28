@@ -108,7 +108,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       testID='confirm-root'
     >
       <ThemedView
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        dark={tailwind('bg-blue-800 border-b border-blue-900')}
         light={tailwind('bg-white border-b border-gray-300')}
         style={tailwind('flex-col px-4 py-8')}
       >

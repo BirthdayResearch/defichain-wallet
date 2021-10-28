@@ -10,7 +10,7 @@ export function MnemonicWordSkeletonLoader (props: JSX.IntrinsicAttributes & ICo
     <ThemedView
       testID='mnemonic_word_skeleton_loader'
       light={tailwind('bg-white border-b border-gray-200')}
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      dark={tailwind('bg-blue-800 border-b border-blue-900')}
       style={tailwind('p-2 w-full items-center justify-center')}
     >
       <ContentLoader

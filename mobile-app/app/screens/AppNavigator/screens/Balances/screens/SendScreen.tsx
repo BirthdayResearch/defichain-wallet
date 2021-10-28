@@ -252,7 +252,7 @@ function AddressRow ({
               inputType='default'
             >
               <ThemedTouchableOpacity
-                dark={tailwind('bg-gray-800')}
+                dark={tailwind('bg-blue-900')}
                 light={tailwind('bg-white')}
                 onPress={onQrButtonPress}
                 style={tailwind('w-9 p-1.5')}
@@ -319,7 +319,7 @@ function AmountRow ({ token, control, onAmountChange, onClearButtonPress }: Amou
               inputType='numeric'
             >
               <ThemedView
-                dark={tailwind('bg-gray-800')}
+                dark={tailwind('bg-blue-900')}
                 light={tailwind('bg-white')}
                 style={tailwind('flex-row items-center')}
               >

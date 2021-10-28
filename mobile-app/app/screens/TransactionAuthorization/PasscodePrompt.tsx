@@ -29,7 +29,7 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
 
   return (
     <SafeAreaView
-      style={tailwind('w-full h-full flex-col', `${isLight ? 'bg-gray-100' : 'bg-gray-800'}`)}
+      style={tailwind('w-full h-full flex-col', `${isLight ? 'bg-gray-100' : 'bg-blue-800'}`)}
     >
       <View
         style={{
@@ -39,7 +39,7 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
         }}
       >
         <ThemedTouchableOpacity
-          dark={tailwind('bg-gray-900')}
+          dark={tailwind('bg-blue-900')}
           light={tailwind('bg-white')}
           onPress={props.onCancel}
           style={tailwind('flex flex-row-reverse p-4')}
@@ -56,7 +56,7 @@ export function PasscodePrompt (props: PasscodePromptProps): JSX.Element {
       </View>
 
       <ThemedView
-        dark={tailwind('bg-gray-900')}
+        dark={tailwind('bg-blue-900')}
         light={tailwind('bg-white')}
         style={tailwind('w-full flex-1 flex-col pt-8')}
       >

@@ -24,6 +24,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { tokenSelector } from '@store/wallet'
+import { theme } from '../../../../tailwind.config'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
@@ -207,11 +208,11 @@ function AmountSlider (props: { current: number, onChange: (percentage: string) 
       <View style={tailwind('flex-1 ml-4 mr-4')}>
         <Slider
           maximumValue={100}
-          minimumTrackTintColor='#ff00af'
+          minimumTrackTintColor={theme.extend.colors.darkprimary[500]}
           minimumValue={0}
           onSlidingComplete={(val) => props.onChange(new BigNumber(val).toFixed(2))}
           testID='slider_remove_liq_percentage'
-          thumbTintColor='#ff00af'
+          thumbTintColor={theme.extend.colors.darkprimary[500]}
           value={isNaN(props.current) ? 0 : props.current}
         />
       </View>

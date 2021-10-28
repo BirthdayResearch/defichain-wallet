@@ -165,8 +165,6 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
   return (
     <View style={[tailwind('flex-col w-full'), props.style]}>
       <ThemedView
-        // dark={tailwind('bg-blue-800 border-b border-blue-900')}
-        // light={tailwind('bg-white border-b border-gray-200')}
         dark={tailwind('')}
         light={tailwind('')}
         style={tailwind('flex-row w-full items-center')}

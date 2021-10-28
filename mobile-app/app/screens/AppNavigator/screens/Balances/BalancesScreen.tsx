@@ -147,7 +147,7 @@ function BalanceItemRow ({
   const testID = `balances_row_${token.id}`
   return (
     <ThemedTouchableOpacity
-      dark={tailwind('bg-blue-800 border-b border-gray-700')}
+      dark={tailwind('bg-blue-800 border-b border-blue-900')}
       light={tailwind('bg-white border-b border-gray-100')}
       onPress={onPress}
       style={tailwind('py-4 pl-4 pr-2 flex-row justify-between items-center')}
