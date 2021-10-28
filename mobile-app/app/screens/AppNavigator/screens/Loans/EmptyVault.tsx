@@ -6,6 +6,8 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { InfoTextLink } from '@components/InfoTextLink'
 import { View } from '@components'
+import { NavigationProp, useNavigation } from '@react-navigation/core'
+import { LoanParamList } from './LoansNavigator'
 
 interface EmptyVaultProps {
   handleRefresh: (nextToken?: string | undefined) => void
@@ -14,7 +16,7 @@ interface EmptyVaultProps {
 }
 
 export function EmptyVault (props: EmptyVaultProps): JSX.Element {
-  // const navigation = useNavigation<NavigationProp<LoanParamList>>()
+  const navigation = useNavigation<NavigationProp<LoanParamList>>()
   const goToVaultsFaq = (): void => {
     // TODO: add navigation to vault FAQ screen
     // navigation.navigate('')
@@ -49,7 +51,7 @@ export function EmptyVault (props: EmptyVaultProps): JSX.Element {
 
       <Button
         label={translate('screens/LoansScreen', 'CREATE VAULT')}
-        onPress={props.onCreateVaultPress}
+        onPress={() => navigation.navigate('CreateVaultScreen')}
         testID='button_create_vault'
         title='Create vault'
         margin='m-0 mb-8'

@@ -35,7 +35,7 @@ export function LoansNavigator (): JSX.Element {
 
   return (
     <LoansStack.Navigator
-      initialRouteName='CreateVaultScreen'
+      initialRouteName='LoansScreen'
       screenOptions={{
         headerTitleAlign: 'center',
         headerTitleStyle: HeaderFont,
