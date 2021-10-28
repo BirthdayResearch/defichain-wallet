@@ -1,0 +1,147 @@
+import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
+import { StackScreenProps } from '@react-navigation/stack'
+import { RootState } from '@store'
+import { hasTxQueued } from '@store/transaction_queue'
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { LoanParamList, LoanScheme } from '../LoansNavigator'
+import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
+import { translate } from '@translations'
+import { tailwind } from '@tailwind'
+import { View } from '@components'
+import { TextRow } from '@components/TextRow'
+import BigNumber from 'bignumber.js'
+import { NumberRow } from '@components/NumberRow'
+
+type Props = StackScreenProps<LoanParamList, 'ConfirmCreateVaultScreen'>
+
+export function ConfirmCreateVaultScreen ({ route, navigation }: Props): JSX.Element {
+  const { loanScheme } = route.params
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+
+  function onCancel (): void {
+    navigation.navigate({
+      name: 'CreateVaultScreen',
+      params: {
+        loanScheme
+      },
+      merge: true
+    })
+  }
+
+  async function onSubmit (): Promise<void> {
+    // TODO: create signer to create vault
+  }
+
+  function getSubmitLabel (): string {
+    if (!hasPendingBroadcastJob && !hasPendingJob) {
+      return 'CONFIRM CREATE'
+    }
+    return 'CREATING'
+  }
+
+  return (
+    <ThemedScrollView>
+      <SummaryHeader />
+      <SummaryTransactionDetails />
+      <SummaryVaultDetails loanScheme={loanScheme} />
+      <SubmitButtonGroup
+        isDisabled={hasPendingJob || hasPendingBroadcastJob}
+        label={translate('screens/ConfirmCreateVaultScreen', 'CONFIRM CREATE')}
+        isProcessing={hasPendingJob || hasPendingBroadcastJob}
+        processingLabel={translate('screens/ConfirmCreateVaultScreen', getSubmitLabel())}
+        onCancel={onCancel}
+        onSubmit={onSubmit}
+        title='create_vault'
+      />
+    </ThemedScrollView>
+  )
+}
+
+function SummaryHeader (): JSX.Element {
+  return (
+    <ThemedView
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      light={tailwind('bg-white border-b border-gray-300')}
+      style={tailwind('flex-col px-4 py-6')}
+    >
+      <ThemedText
+        light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-400')}
+        style={tailwind('mb-2')}
+      >
+        {translate('screens/ConfirmCreateVaultScreen', 'You are creating vault')}
+      </ThemedText>
+      <View style={tailwind('flex flex-row items-center')}>
+        <ThemedView
+          light={tailwind('bg-gray-100')}
+          dark={tailwind('bg-gray-700')}
+          style={tailwind('w-8 h-8 rounded-full flex items-center justify-center mr-2')}
+        >
+          <ThemedIcon
+            iconType='MaterialIcons'
+            name='shield'
+            size={14}
+            light={tailwind('text-gray-600')}
+            dark={tailwind('text-gray-300')}
+          />
+        </ThemedView>
+        <ThemedText
+          light={tailwind('text-gray-400')}
+          dark={tailwind('text-gray-500')}
+          style={tailwind('text-sm')}
+        >
+          {translate('screens/ConfirmCreateVaultScreen', 'ID is generated once vault is created')}
+        </ThemedText>
+      </View>
+    </ThemedView>
+  )
+}
+
+function SummaryTransactionDetails (): JSX.Element {
+  return (
+    <>
+      <ThemedSectionTitle
+        text={translate('screens/ConfirmCreateVaultScreen', 'TRANSACTION DETAILS')}
+      />
+      <TextRow
+        lhs={translate('screens/ConfirmCreateVaultScreen', 'Transaction type')}
+        rhs={{
+          value: translate('screens/ConfirmCreateVaultScreen', 'Create vault'),
+          testID: 'text_transaction_type'
+        }}
+        textStyle={tailwind('text-sm font-normal')}
+      />
+    </>
+  )
+}
+
+function SummaryVaultDetails (props: {loanScheme: LoanScheme}): JSX.Element {
+  return (
+    <>
+      <ThemedSectionTitle
+        text={translate('screens/ConfirmCreateVaultScreen', 'VAULT DETAILS')}
+      />
+      <NumberRow
+        lhs={translate('screens/ConfirmCreateVaultScreen', 'Min. collateral ratio')}
+        rhs={{
+          value: new BigNumber(props.loanScheme.minColRatio).toFixed(2),
+          testID: 'text_amount',
+          suffixType: 'text',
+          suffix: '%'
+        }}
+      />
+      <NumberRow
+        lhs={translate('screens/ConfirmCreateVaultScreen', 'Interest rate (in APR)')}
+        rhs={{
+          value: new BigNumber(props.loanScheme.interestRate).toFixed(2),
+          testID: 'text_amount',
+          suffixType: 'text',
+          suffix: `% ${translate('screens/ConfirmCreateVaultScreen', 'APR')}`
+        }}
+      />
+    </>
+  )
+}

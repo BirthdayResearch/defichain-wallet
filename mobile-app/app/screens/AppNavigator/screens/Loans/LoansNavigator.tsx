@@ -6,10 +6,14 @@ import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { LoansScreen } from './LoansScreen'
 import { CreateVaultScreen } from './Screens/CreateVaultScreen'
+import { ConfirmCreateVaultScreen } from './Screens/ConfirmCreateVaultScreen'
 
 export interface LoanParamList {
   LoansScreen: undefined
-  CreateVaultConfirmationScreen: {
+  CreateVaultScreen: {
+    loanScheme?: LoanScheme
+  }
+  ConfirmCreateVaultScreen: {
     loanScheme: LoanScheme
   }
   [key: string]: undefined | object
@@ -67,6 +71,18 @@ export function LoansNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/LoansScreen', 'Create vault') + ' (Beta)'}
+            />
+          )
+        }}
+      />
+      <LoansStack.Screen
+        component={ConfirmCreateVaultScreen}
+        name='ConfirmCreateVaultScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Confirm create vault') + ' (Beta)'}
             />
           )
         }}

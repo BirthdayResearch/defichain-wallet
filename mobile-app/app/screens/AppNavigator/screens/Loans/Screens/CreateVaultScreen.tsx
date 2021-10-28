@@ -7,9 +7,9 @@ import { translate } from '@translations'
 import React, { useState } from 'react'
 import { LoanParamList, LoanScheme } from '../LoansNavigator'
 
-type Props = StackScreenProps<LoanParamList, 'SendScreen'>
+type Props = StackScreenProps<LoanParamList, 'CreateVaultScreen'>
 
-export function CreateVaultScreen ({ navigation }: Props): JSX.Element {
+export function CreateVaultScreen ({ navigation, route }: Props): JSX.Element {
   const loanSchemes: LoanScheme[] = [
     {
       id: '1',
@@ -62,14 +62,14 @@ export function CreateVaultScreen ({ navigation }: Props): JSX.Element {
       interestRate: '0.5'
     }
   ]
-  const [selectedLoanScheme, setSelectedLoanScheme] = useState<LoanScheme | undefined>()
+  const [selectedLoanScheme, setSelectedLoanScheme] = useState<LoanScheme | undefined>(route.params?.loanScheme)
   const onSubmit = (): void => {
     if (selectedLoanScheme === undefined) {
       return
     }
 
     navigation.navigate({
-      name: 'CreateVaultConfirmationScreen',
+      name: 'ConfirmCreateVaultScreen',
       params: {
         loanScheme: selectedLoanScheme
       }
