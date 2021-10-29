@@ -78,6 +78,7 @@ export function CreateVaultScreen ({ navigation, route }: Props): JSX.Element {
 
   return (
     <ThemedScrollView
+      testID='create_vault_screen'
       contentContainerStyle={tailwind('py-8 px-4')}
     >
       <ThemedSectionTitle
@@ -93,7 +94,7 @@ export function CreateVaultScreen ({ navigation, route }: Props): JSX.Element {
       >
         {translate('screens/CreateVaultScreen', 'This sets the minimum collateral ratio and the vault’s interest rate.')}
       </ThemedText>
-      <LoanSchemeSelection
+      <LoanSchemeOptions
         loanSchemes={loanSchemes}
         selectedLoanScheme={selectedLoanScheme}
         onLoanSchemePress={(scheme: LoanScheme) => setSelectedLoanScheme(scheme)}
@@ -110,6 +111,7 @@ export function CreateVaultScreen ({ navigation, route }: Props): JSX.Element {
         label={translate('screens/CreateVaultScreen', 'CONTINUE')}
         onPress={onSubmit}
         margin='m-0 mb-2'
+        testID='create_vault_submit_button'
       />
       <ThemedText
         light={tailwind('text-gray-500')}
@@ -122,16 +124,20 @@ export function CreateVaultScreen ({ navigation, route }: Props): JSX.Element {
   )
 }
 
-function LoanSchemeSelection (props: {loanSchemes: LoanScheme[], selectedLoanScheme?: LoanScheme, onLoanSchemePress: (scheme: LoanScheme) => void}): JSX.Element {
+function LoanSchemeOptions (props: {loanSchemes: LoanScheme[], selectedLoanScheme?: LoanScheme, onLoanSchemePress: (scheme: LoanScheme) => void}): JSX.Element {
   return (
-    <View style={tailwind('mb-1')}>
-      {props.loanSchemes.map(scheme => (
+    <View
+      style={tailwind('mb-1')}
+      testID='loan_scheme_options'
+    >
+      {props.loanSchemes.map((scheme, index) => (
         <ThemedTouchableOpacity
           key={scheme.id}
           light={tailwind('border-gray-300', { 'border-primary-500': props.selectedLoanScheme?.id === scheme.id })}
           dark={tailwind('border-gray-700', { 'border-darkprimary-500': props.selectedLoanScheme?.id === scheme.id })}
           style={tailwind('py-2 px-5 rounded-lg border flex flex-row items-center mb-1')}
           onPress={() => props.onLoanSchemePress(scheme)}
+          testID={`loan_scheme_option_${index}`}
         >
           <ThemedView
             light={tailwind('border-gray-500', { 'border-primary-500 bg-primary-500': props.selectedLoanScheme?.id === scheme.id })}
@@ -150,13 +156,15 @@ function LoanSchemeSelection (props: {loanSchemes: LoanScheme[], selectedLoanSch
               )}
 
           </ThemedView>
-          <LoadSchemeSelectionData
+          <LoanSchemeOptionData
             label='Collateral ratio'
             value={scheme.minColRatio}
+            testId='min_col_ratio_value'
           />
-          <LoadSchemeSelectionData
+          <LoanSchemeOptionData
             label='Interest rate'
             value={scheme.interestRate}
+            testId='interest_rate_value'
           />
         </ThemedTouchableOpacity>
       ))}
@@ -164,7 +172,7 @@ function LoanSchemeSelection (props: {loanSchemes: LoanScheme[], selectedLoanSch
   )
 }
 
-function LoadSchemeSelectionData (props: {label: string, value: string}): JSX.Element {
+function LoanSchemeOptionData (props: {label: string, value: string, testId: string}): JSX.Element {
   return (
     <View style={tailwind('flex-1')}>
       <ThemedText
@@ -178,6 +186,7 @@ function LoadSchemeSelectionData (props: {label: string, value: string}): JSX.El
         light={tailwind('text-gray-900')}
         dark={tailwind('text-gray-50')}
         style={tailwind('text-sm font-medium')}
+        testID={props.testId}
       >
         {props.value}
       </ThemedText>

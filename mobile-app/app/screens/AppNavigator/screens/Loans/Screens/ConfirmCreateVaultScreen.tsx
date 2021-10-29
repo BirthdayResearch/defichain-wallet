@@ -51,7 +51,7 @@ export function ConfirmCreateVaultScreen ({ route, navigation }: Props): JSX.Ele
   }
 
   return (
-    <ThemedScrollView>
+    <ThemedScrollView testID='confirm_create_vault_screen'>
       <SummaryHeader />
       <SummaryTransactionDetails />
       <SummaryVaultDetails loanScheme={loanScheme} />
@@ -142,7 +142,7 @@ function SummaryVaultDetails (props: {loanScheme: LoanScheme}): JSX.Element {
         lhs={translate('screens/ConfirmCreateVaultScreen', 'Min. collateral ratio')}
         rhs={{
           value: new BigNumber(props.loanScheme.minColRatio).toFixed(2),
-          testID: 'text_amount',
+          testID: 'confirm_min_col_ratio_value',
           suffixType: 'text',
           suffix: '%'
         }}
@@ -151,7 +151,7 @@ function SummaryVaultDetails (props: {loanScheme: LoanScheme}): JSX.Element {
         lhs={translate('screens/ConfirmCreateVaultScreen', 'Interest rate (in APR)')}
         rhs={{
           value: new BigNumber(props.loanScheme.interestRate).toFixed(2),
-          testID: 'text_amount',
+          testID: 'confirm_interest_rate_value',
           suffixType: 'text',
           suffix: `% ${translate('screens/ConfirmCreateVaultScreen', 'APR')}`
         }}

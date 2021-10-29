@@ -1,15 +1,8 @@
 context('Wallet - Loans', () => {
-  beforeEach(function () {
-    cy.createEmptyWallet(true)
-  })
-
   it('should have loans in bottom tab navigator', function () {
+    cy.allowLoanFeature()
+    cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_loans').should('exist')
-  })
-
-  it('should display empty vault screen', function () {
-    cy.getByTestID('bottom_tab_loans').click()
-    cy.getByTestID('empty_vault').should('exist')
   })
 })
 
