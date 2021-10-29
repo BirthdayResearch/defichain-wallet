@@ -346,15 +346,18 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                   "lineHeight": 24,
                 },
                 Array [
-                  Object {
-                    "fontFamily": "MediumFont",
-                    "fontSize": 12,
-                    "fontWeight": "500",
-                    "lineHeight": 16,
-                    "marginLeft": 4,
-                    "paddingLeft": 4,
-                    "paddingRight": 4,
-                  },
+                  Array [
+                    Object {
+                      "fontFamily": "MediumFont",
+                      "fontSize": 12,
+                      "fontWeight": "500",
+                      "lineHeight": 16,
+                      "marginLeft": 4,
+                      "paddingLeft": 4,
+                      "paddingRight": 4,
+                    },
+                    undefined,
+                  ],
                   Object {
                     "color": "rgba(255, 0, 175, 1)",
                   },

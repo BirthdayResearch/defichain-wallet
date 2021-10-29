@@ -23,14 +23,15 @@
     "Confirm Removal": "确认退出",
     "Confirm swap": "确认兑换",
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "为以下去中心化交易所配对池提供流动资金，并获得高利率的区块奖励回报.",
-    "YOUR LIQUIDITY": "您的资金",
-    "AVAILABLE POOL PAIRS": "开放使用的流动池配对",
+    "YOUR LIQUIDITY POOLS": "你的流动性池",
+    "AVAILABLE LIQUIDITY POOLS": "可用的流动性池",
     "Pooled {{symbol}}": "池中总 {{symbol}} 数量",
     "Total pooled {{symbol}}": "池中总 {{symbol}} 数量",
     "Your pooled {{symbol}}": "您的池中总 {{symbol}} 数量",
     "SWAP TOKENS": "兑换货币",
     "REMOVE": "退出",
-    "APR": "回报率"
+    "APR": "回报率",
+    "ADD MORE": "加入更多货币"
   },
   "screens/DexGuidelines": {
     "Guidelines": "指导方针",
@@ -100,7 +101,6 @@
     "Convert DFI": "转换 DFI",
     "Scan recipient QR": "扫一扫 QR 二维条码",
     "Balance": "总资金",
-    "UTXO vs Token, what is the difference?": "UTXO和代币的区别是什么？",
     "CONVERT {{symbol}}": "转换 {{symbol}}",
     "TO {{symbol}}": "至 {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要预留一些可使用的 UTXO (0.1 DFI (UTXO)) 作为费用",
@@ -551,9 +551,6 @@
     "Your passcode is valid only for DeFiChain wallet.": "Your passcode is valid only for DeFiChain wallet.",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
   },
-  "components/DFIBalanceCard": {
-    "Learn more about UTXO and Token": "了解 UTXO 和代币区别"
-  },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要预留一些可使用的 UTXO (0.1 DFI) 作为费用"
   },
@@ -586,5 +583,9 @@
     "Active Price": "目前活跃价格",
     "Next Price": "下一个价格",
     "Interest": "利息"
+  },
+  "components/InfoTextLink": {
+    "Learn more about UTXO and Token": "了解 UTXO 和代币区别",
+    "UTXO vs Token, what is the difference?": "UTXO和代币的区别是什么？"
   }
 }
