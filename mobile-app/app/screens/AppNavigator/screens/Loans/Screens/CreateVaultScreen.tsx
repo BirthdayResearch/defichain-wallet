@@ -161,11 +161,13 @@ function LoanSchemeOptions (props: {loanSchemes: LoanScheme[], selectedLoanSchem
             label='Collateral ratio'
             value={scheme.minColRatio}
             testId='min_col_ratio_value'
+            suffix='%'
           />
           <LoanSchemeOptionData
             label='Interest rate'
             value={scheme.interestRate}
             testId='interest_rate_value'
+            suffix={`% ${translate('screens/CreateVaultScreen', 'APR')}`}
           />
         </ThemedTouchableOpacity>
       ))}
@@ -173,7 +175,7 @@ function LoanSchemeOptions (props: {loanSchemes: LoanScheme[], selectedLoanSchem
   )
 }
 
-function LoanSchemeOptionData (props: {label: string, value: string, testId: string}): JSX.Element {
+function LoanSchemeOptionData (props: {label: string, value: string, testId: string, suffix?: string}): JSX.Element {
   return (
     <View style={tailwind('flex-1')}>
       <ThemedText
@@ -185,7 +187,7 @@ function LoanSchemeOptionData (props: {label: string, value: string, testId: str
       </ThemedText>
       <NumberFormat
         displayType='text'
-        suffix='%'
+        suffix={props.suffix}
         renderText={(value: string) => (
           <ThemedText
             light={tailwind('text-gray-900')}

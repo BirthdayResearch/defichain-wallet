@@ -611,6 +611,7 @@
     "Keep note of your selected collateral ratio for your vault to sustain the loans within it.": "請注意您為金庫選擇的抵押品比率，以維持持續貸款",
     "Collateral ratio": "抵押品比率",
     "Interest rate": "利率",
+    "APR": "回報率",
     "CONTINUE": "繼續",
     "Confirm your vault details in next screen": "在下一個屏幕上確認您的金庫細節"
   },

@@ -611,6 +611,7 @@
     "Keep note of your selected collateral ratio for your vault to sustain the loans within it.": "Behalte die von dir gewählte Besicherungsquote für dein Sicherheitendepot im Auge, um die darin befindlichen Darlehen zu decken.",
     "Collateral ratio": "Besicherungsquote",
     "Interest rate": "Zinssatz",
+    "APR": "ZINS",
     "CONTINUE": "FORTFAHREN",
     "Confirm your vault details in next screen": "Bestätige die Daten deines Sicherheitendepots in der nächsten Ansicht"
   },
