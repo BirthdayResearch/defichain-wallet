@@ -573,7 +573,9 @@
     "Resulting {{symbol}}": "转换后 {{symbol}}"
   },
   "screens/LoansScreen": {
-    "Loans": "贷款"
+    "Loans": "贷款",
+    "Create vault": "创建金库",
+    "Confirm create vault": "Confirm create vault"
   },
   "components/tabs": {
     "Browse loans": "浏览贷款选项",
@@ -586,6 +588,44 @@
   },
   "components/InfoTextLink": {
     "Learn more about UTXO and Token": "了解 UTXO 和代币区别",
-    "UTXO vs Token, what is the difference?": "UTXO和代币的区别是什么？"
+    "UTXO vs Token, what is the difference?": "UTXO和代币的区别是什么？",
+    "Learn more about vaults": "了解更多关于金库的资讯"
+  },
+  "components/VaultCard": {
+    "Collaterals:": "抵押品:",
+    "None": "Keine",
+    "Locked": "锁定",
+    "At risk": "请注意抵押 比率",
+    "Safe": "安全状态",
+    "Active loans": "活跃的贷款",
+    "Total loan amount": "贷款总金额",
+    "Collateral amount": "抵押品金额",
+    "Collateral ratio": "抵押品比率",
+    "n/a": "不适用"
+  },
+  "components/EmptyVault": {
+    "No vault created": "还没建立金库",
+    "To get started, create a vault and add DFI and other tokens as collaterals": "若要启动贷款，您需要创建一个金库，并添加DFI和其他币作为抵押品",
+    "CREATE VAULT": "创建金库"
+  },
+  "screens/CreateVaultScreen": {
+    "Choose loan scheme for your vault": "为您的金库选择贷款方案",
+    "This sets the minimum collateral ratio and the vault’s interest rate.": "这将设置了最低抵押率和金库的利率.",
+    "Keep note of your selected collateral ratio for your vault to sustain the loans within it.": "请注意您为金库选择的抵押品比率，以维持持续贷款.",
+    "Collateral ratio": "抵押品比率",
+    "Interest rate": "利率",
+    "CONTINUE": "继续",
+    "Confirm your vault details in next screen": "在下一个屏幕上确认您的金库细节"
+  },
+  "screens/ConfirmCreateVaultScreen": {
+    "You are creating vault": "You are creating vault",
+    "ID is generated once vault is created": "ID is generated once vault is created",
+    "TRANSACTION DETAILS": "交易明細",
+    "Transaction type": "交易类型",
+    "Create vault": "创建金库",
+    "VAULT DETAILS": "VAULT DETAILS",
+    "Min. collateral ratio": "Min. collateral ratio",
+    "Interest rate (in APR)": "Interest rate (in APR)",
+    "APR": "回报率"
   }
 }

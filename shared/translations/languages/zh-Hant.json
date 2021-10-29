@@ -574,7 +574,9 @@
     "Resulting {{symbol}}": "轉換後 {{symbol}}"
   },
   "screens/LoansScreen": {
-    "Loans": "貸款"
+    "Loans": "貸款",
+    "Create vault": "創建金庫",
+    "Confirm create vault": "Confirm create vault"
   },
   "components/tabs": {
     "Browse loans": "瀏覽貸款選項",
@@ -587,6 +589,44 @@
   },
   "components/InfoTextLink": {
     "Learn more about UTXO and Token": "了解 UTXO 和代幣區別",
-    "UTXO vs Token, what is the difference?": "UTXO和代幣的區別是什麼？"
+    "UTXO vs Token, what is the difference?": "UTXO和代幣的區別是什麼？",
+    "Learn more about vaults": "了解更多關於金庫的資訊"
+  },
+  "components/VaultCard": {
+    "Collaterals:": "抵押品:",
+    "None": "無",
+    "Locked": "鎖定",
+    "At risk": "請注意抵押比率",
+    "Safe": "安全狀態",
+    "Active loans": "活躍的貸款",
+    "Total loan amount": "貸款總金額",
+    "Collateral amount": "抵押品金額",
+    "Collateral ratio": "抵押品比率",
+    "n/a": "不適用"
+  },
+  "components/EmptyVault": {
+    "No vault created": "還沒建立金庫",
+    "To get started, create a vault and add DFI and other tokens as collaterals": "若要啟動貸款，您需要創建一個金庫，並添加DFI和其他幣作為抵押品",
+    "CREATE VAULT": "創建金庫"
+  },
+  "screens/CreateVaultScreen": {
+    "Choose loan scheme for your vault": "為您的金庫選擇貸款方案",
+    "This sets the minimum collateral ratio and the vault’s interest rate.": "這將設置了最低抵押率和金庫的利率.",
+    "Keep note of your selected collateral ratio for your vault to sustain the loans within it.": "請注意您為金庫選擇的抵押品比率，以維持持續貸款",
+    "Collateral ratio": "抵押品比率",
+    "Interest rate": "利率",
+    "CONTINUE": "繼續",
+    "Confirm your vault details in next screen": "在下一個屏幕上確認您的金庫細節"
+  },
+  "screens/ConfirmCreateVaultScreen": {
+    "You are creating vault": "You are creating vault",
+    "ID is generated once vault is created": "ID is generated once vault is created",
+    "TRANSACTION DETAILS": "交易明細",
+    "Transaction type": "交易類型",
+    "Create vault": "創建金庫",
+    "VAULT DETAILS": "VAULT DETAILS",
+    "Min. collateral ratio": "Min. collateral ratio",
+    "Interest rate (in APR)": "Interest rate (in APR)",
+    "APR": "回報率"
   }
 }

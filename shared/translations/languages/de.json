@@ -574,7 +574,9 @@
     "Resulting {{symbol}}": "Zu erhaltende {{symbol}}"
   },
   "screens/LoansScreen": {
-    "Loans": "Darlehen"
+    "Loans": "Darlehen",
+    "Create vault": "Sicherheitendepot erstellen",
+    "Confirm create vault": "Confirm create vault"
   },
   "components/tabs": {
     "Browse loans": "Darlehen durchsuchen",
@@ -587,6 +589,44 @@
   },
   "components/InfoTextLink": {
     "Learn more about UTXO and Token": "Erfahre mehr über UTXO und Token",
-    "UTXO vs Token, what is the difference?": "UTXO vs Token, worin liegt der Unterschied?"
+    "UTXO vs Token, what is the difference?": "UTXO vs Token, worin liegt der Unterschied?",
+    "Learn more about vaults": "Lerne mehr über Sicherheitendepots"
+  },
+  "components/VaultCard": {
+    "Collaterals:": "Sicherheiten:",
+    "None": "Keine",
+    "Locked": "Gesperrt",
+    "At risk": "Gefährdet",
+    "Safe": "Sicher",
+    "Active loans": "Aktive Darlehen",
+    "Total loan amount": "Gesamtdarlehensbetrag",
+    "Collateral amount": "Höhe der Sicherheiten",
+    "Collateral ratio": "Besicherungsquote",
+    "n/a": "k.A."
+  },
+  "components/EmptyVault": {
+    "No vault created": "Kein Sicherheitendepot erstellt",
+    "To get started, create a vault and add DFI and other tokens as collaterals": "Um loszulegen, erstelle ein Sicherheitendepot und füge DFI und andere Token als Sicherheiten hinzu",
+    "CREATE VAULT": "SICHERHEITENDEPOT ERSTELLEN"
+  },
+  "screens/CreateVaultScreen": {
+    "Choose loan scheme for your vault": "Wähle ein Darlehensmodell für dein Sicherheitendepot",
+    "This sets the minimum collateral ratio and the vault’s interest rate.": "Hier wird die Mindestbesicherungsquote und der Zinssatz für das Sicherheitendepot festgelegt.",
+    "Keep note of your selected collateral ratio for your vault to sustain the loans within it.": "Behalte die von dir gewählte Besicherungsquote für dein Sicherheitendepot im Auge, um die darin befindlichen Darlehen zu decken.",
+    "Collateral ratio": "Besicherungsquote",
+    "Interest rate": "Zinssatz",
+    "CONTINUE": "FORTFAHREN",
+    "Confirm your vault details in next screen": "Bestätige die Daten deines Sicherheitendepots in der nächsten Ansicht"
+  },
+  "screens/ConfirmCreateVaultScreen": {
+    "You are creating vault": "You are creating vault",
+    "ID is generated once vault is created": "ID is generated once vault is created",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "Transaction type": "Transaktionsart",
+    "Create vault": "Sicherheitendepot erstellen",
+    "VAULT DETAILS": "VAULT DETAILS",
+    "Min. collateral ratio": "Min. collateral ratio",
+    "Interest rate (in APR)": "Interest rate (in APR)",
+    "APR": "ZINS"
   }
 }
