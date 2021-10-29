@@ -37,7 +37,7 @@ async function createWindow (): Promise<void> {
     icon: path.join(__dirname, '../../shared/assets/images/icon-512.png')
   })
 
-  await mainWindow.loadURL(`file://${path.resolve(__dirname, '../../public/', 'index.html')}`)
+  void mainWindow.loadURL('http://localhost:3000')
 
   mainWindow.on('ready-to-show', () => {
     if (mainWindow == null) {
@@ -60,19 +60,6 @@ async function createWindow (): Promise<void> {
   })
 }
 
-function interceptFiles (): void {
-  protocol.interceptFileProtocol('file', (request, callback) => {
-    /* all urls start with 'file://' */
-    const fileUrl = request.url.substr(7)
-    const basePath = path.normalize(`${__dirname}/../../../../webapp`)
-    if (this.isDevMode) {
-      callback(path.normalize(`${basePath}/build/release/${fileUrl}`))
-    } else {
-      callback(path.normalize(`${basePath}/${fileUrl}`))
-    }
-  })
-}
-
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
@@ -85,14 +72,12 @@ app
   .whenReady()
   .then(async () => {
     await createWindow()
-    interceptFiles()
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     app.on('activate', async () => {
       // On macOS it's common to re-create a window in the app when the
       // dock icon is clicked and there are no other windows open.
       if (mainWindow === null) {
         await createWindow()
-        interceptFiles()
       }
     })
   })

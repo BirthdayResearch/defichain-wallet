@@ -77,9 +77,7 @@ function createWindow() {
                         movable: true,
                         icon: path_1["default"].join(__dirname, '../../shared/assets/images/icon-512.png')
                     });
-                    return [4 /*yield*/, mainWindow.loadURL("file://" + path_1["default"].resolve(__dirname, '../../public/', 'index.html'))];
-                case 3:
-                    _a.sent();
+                    void mainWindow.loadURL('http://localhost:3000');
                     mainWindow.on('ready-to-show', function () {
                         if (mainWindow == null) {
                             throw new Error('"mainWindow" is not defined');
