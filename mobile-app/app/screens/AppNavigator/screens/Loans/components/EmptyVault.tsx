@@ -50,7 +50,11 @@ export function EmptyVault (props: EmptyVaultProps): JSX.Element {
 
       <Button
         label={translate('components/EmptyVault', 'CREATE VAULT')}
-        onPress={() => navigation.navigate('CreateVaultScreen')}
+        onPress={() => navigation.navigate({
+          name: 'CreateVaultScreen',
+          params: {},
+          merge: true
+        })}
         testID='button_create_vault'
         title='Create vault'
         margin='m-0 mb-4'
