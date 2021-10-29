@@ -2,11 +2,14 @@ import { View } from '@components'
 import { Button } from '@components/Button'
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { StackScreenProps } from '@react-navigation/stack'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NumberFormat from 'react-number-format'
 import { LoanParamList, LoanScheme } from '../LoansNavigator'
+import BigNumber from 'bignumber.js'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 type Props = StackScreenProps<LoanParamList, 'CreateVaultScreen'>
 
@@ -63,6 +66,9 @@ export function CreateVaultScreen ({ navigation, route }: Props): JSX.Element {
       interestRate: '0.5'
     }
   ]
+  const client = useWhaleApiClient()
+  const logger = useLogger()
+  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [selectedLoanScheme, setSelectedLoanScheme] = useState<LoanScheme | undefined>(route.params?.loanScheme)
   const onSubmit = (): void => {
     if (selectedLoanScheme === undefined) {
@@ -72,10 +78,17 @@ export function CreateVaultScreen ({ navigation, route }: Props): JSX.Element {
     navigation.navigate({
       name: 'ConfirmCreateVaultScreen',
       params: {
-        loanScheme: selectedLoanScheme
+        loanScheme: selectedLoanScheme,
+        fee: fee
       }
     })
   }
+
+  useEffect(() => {
+    client.fee.estimate()
+      .then((f) => setFee(new BigNumber(f)))
+      .catch(logger.error)
+  }, [])
 
   return (
     <ThemedScrollView

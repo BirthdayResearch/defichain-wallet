@@ -22,7 +22,7 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
   }
   const vaultFee = {
     title: 'Vault fee',
-    message: 'This fee serves as initial deposit for your vault. You will receive this back when you choose to close this vault.'
+    message: 'This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.'
   }
 
   return (

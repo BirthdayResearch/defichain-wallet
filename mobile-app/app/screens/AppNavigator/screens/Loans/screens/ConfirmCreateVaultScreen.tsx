@@ -18,7 +18,7 @@ import { FeeInfoRow } from '@components/FeeInfoRow'
 type Props = StackScreenProps<LoanParamList, 'ConfirmCreateVaultScreen'>
 
 export function ConfirmCreateVaultScreen ({ route, navigation }: Props): JSX.Element {
-  const { loanScheme } = route.params
+  const { loanScheme, fee } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
 
@@ -53,7 +53,7 @@ export function ConfirmCreateVaultScreen ({ route, navigation }: Props): JSX.Ele
   return (
     <ThemedScrollView testID='confirm_create_vault_screen'>
       <SummaryHeader />
-      <SummaryTransactionDetails />
+      <SummaryTransactionDetails fee={fee} />
       <SummaryVaultDetails loanScheme={loanScheme} />
       <SubmitButtonGroup
         isDisabled={hasPendingJob || hasPendingBroadcastJob}
@@ -108,7 +108,9 @@ function SummaryHeader (): JSX.Element {
   )
 }
 
-function SummaryTransactionDetails (): JSX.Element {
+function SummaryTransactionDetails (props: {fee: BigNumber}): JSX.Element {
+  const vaultFee = new BigNumber(2)
+  const transactionCost = vaultFee.plus(props.fee)
   return (
     <>
       <ThemedSectionTitle
@@ -124,9 +126,24 @@ function SummaryTransactionDetails (): JSX.Element {
       />
       <FeeInfoRow
         type='VAULT_FEE'
-        value='2'
+        value={vaultFee.toFixed(8)}
         testID='vault_fee'
         suffix='DFI'
+      />
+      <FeeInfoRow
+        type='ESTIMATED_FEE'
+        value={props.fee.toFixed(8)}
+        testID='estimated_fee'
+        suffix='DFI'
+      />
+      <NumberRow
+        lhs={translate('screens/ConfirmCreateVaultScreen', 'Total transaction cost')}
+        rhs={{
+          value: transactionCost.toFixed(8),
+          testID: 'total_transaction_cost',
+          suffixType: 'text',
+          suffix: 'DFI'
+        }}
       />
     </>
   )

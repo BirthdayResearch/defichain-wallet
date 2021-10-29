@@ -7,6 +7,7 @@ import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { LoansScreen } from './LoansScreen'
 import { CreateVaultScreen } from './screens/CreateVaultScreen'
 import { ConfirmCreateVaultScreen } from './screens/ConfirmCreateVaultScreen'
+import BigNumber from 'bignumber.js'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -17,6 +18,7 @@ export interface LoanParamList {
   }
   ConfirmCreateVaultScreen: {
     loanScheme: LoanScheme
+    fee: BigNumber
   }
   [key: string]: undefined | object
 }

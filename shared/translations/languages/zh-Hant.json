@@ -631,6 +631,6 @@
     "Estimated fee": "所需費用（大約）",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "每筆交易需要支付少量的費用. 金額可能因網絡擁擠程度而異.",
     "Vault fee": "金庫費用",
-    "This fee serves as initial deposit for your vault. You will receive this back when you choose to close this vault.": "這筆費用作為您金庫的初始押金。當您選擇關閉這個金庫時，您會收回這筆押金。"
+    "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "這筆費用作為您金庫的初始押金。當您選擇關閉這個金庫時，您會收回 1 DFI。"
   }
 }
