@@ -5,8 +5,8 @@ import { HeaderTitle } from '@components/HeaderTitle'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { LoansScreen } from './LoansScreen'
-import { CreateVaultScreen } from './Screens/CreateVaultScreen'
-import { ConfirmCreateVaultScreen } from './Screens/ConfirmCreateVaultScreen'
+import { CreateVaultScreen } from './screens/CreateVaultScreen'
+import { ConfirmCreateVaultScreen } from './screens/ConfirmCreateVaultScreen'
 
 export interface LoanParamList {
   LoansScreen: {
