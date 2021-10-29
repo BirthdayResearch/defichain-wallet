@@ -33,7 +33,14 @@ export function ConfirmCreateVaultScreen ({ route, navigation }: Props): JSX.Ele
   }
 
   async function onSubmit (): Promise<void> {
-    // TODO: create signer to create vault
+    // TODO: create signer to create vault, remove custom navigation below
+    navigation.navigate({
+      name: 'LoansScreen',
+      params: {
+        displayEmptyVault: false
+      },
+      merge: true
+    })
   }
 
   function getSubmitLabel (): string {

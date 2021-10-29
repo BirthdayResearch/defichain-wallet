@@ -9,7 +9,9 @@ import { CreateVaultScreen } from './Screens/CreateVaultScreen'
 import { ConfirmCreateVaultScreen } from './Screens/ConfirmCreateVaultScreen'
 
 export interface LoanParamList {
-  LoansScreen: undefined
+  LoansScreen: {
+    displayEmptyVault?: boolean // TODO: remove hard-coded condition used for create vault flow
+  }
   CreateVaultScreen: {
     loanScheme?: LoanScheme
   }

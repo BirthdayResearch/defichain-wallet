@@ -12,7 +12,6 @@ import { LoanParamList } from './LoansNavigator'
 interface EmptyVaultProps {
   handleRefresh: (nextToken?: string | undefined) => void
   isLoading: boolean
-  onCreateVaultPress: () => void
 }
 
 export function EmptyVault (props: EmptyVaultProps): JSX.Element {
