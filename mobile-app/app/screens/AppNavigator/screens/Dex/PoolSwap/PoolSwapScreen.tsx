@@ -46,7 +46,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const client = useWhaleApiClient()
   const pairs = usePoolPairsAPI()
   const [poolpair, setPoolPair] = useState<PoolPairData>()
-  const [slippage, setSlippage] = useState(3)
+  const [slippage, setSlippage] = useState(new BigNumber(3))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const tokens = useTokensAPI()
   const dispatch = useDispatch()
@@ -127,7 +127,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       return
     }
 
-    const slippageInDecimal = slippage / 100
+    const slippageInDecimal = new BigNumber(slippage).div(100)
     const swap = {
       fromToken: tokenA,
       toToken: tokenB,
@@ -231,7 +231,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     }
   }, [JSON.stringify(tokens), poolpair])
 
-  const onSlippageChange = (val: number): void => {
+  const onSlippageChange = (val: BigNumber): void => {
     setSlippage(val)
   }
 
@@ -459,8 +459,8 @@ interface SwapSummaryItems {
   fee: string
   isConversionRequired: boolean
   conversionAmount: BigNumber
-  slippage: number
-  setSlippage: (val: number) => void
+  slippage: BigNumber
+  setSlippage: (val: BigNumber) => void
 }
 
 function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee, isConversionRequired, conversionAmount, slippage, setSlippage }: SwapSummaryItems): JSX.Element {

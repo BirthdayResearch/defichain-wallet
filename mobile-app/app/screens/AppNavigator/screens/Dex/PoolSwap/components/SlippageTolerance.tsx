@@ -15,20 +15,34 @@ const SLIPPAGE_WARNING = 'Slippage rate changes occur within a transaction. Sele
 const SLIPPAGE_MODAL_NAME = 'SlippageTolerance'
 
 interface SlippageToleranceProps {
-  slippage: number
-  setSlippage: (slippage: number) => void
+  slippage: BigNumber
+  setSlippage: (slippage: BigNumber) => void
 }
 
 export function SlippageTolerance ({ slippage, setSlippage }: SlippageToleranceProps): JSX.Element {
   const { dismiss } = useBottomSheetModal()
   const [isCustomSlippage, setIsCustomSlippage] = useState(false)
   const [isSelectorOpen, setIsSelectorOpen] = useState(false)
+  const [snapIndex, setSnapIndex] = useState(0)
 
-  const onSubmitSlippage = (val: number, isCustom: boolean): void => {
+  const onSubmitSlippage = (val: BigNumber, isCustom: boolean): void => {
     setIsCustomSlippage(isCustom)
     setSlippage(val)
     setIsSelectorOpen(false)
     dismiss(SLIPPAGE_MODAL_NAME)
+  }
+
+  const onSnapToIndex = (val: number): void => {
+    setSnapIndex(val)
+  }
+
+  const getSnapPoints = (): string[] => {
+    if (Platform.OS === 'ios') {
+      return ['50%', '50%'] // ios measures space without keyboard
+    } else if (Platform.OS === 'android') {
+      return ['50%', '60%'] // android measure space by including keyboard
+    }
+    return []
   }
 
   return (
@@ -53,10 +67,12 @@ export function SlippageTolerance ({ slippage, setSlippage }: SlippageToleranceP
               : (
                 <BottomSheetModal
                   name={SLIPPAGE_MODAL_NAME}
-                  snapPoints={['45%']}
+                  snapPoints={getSnapPoints()}
+                  index={snapIndex}
                   containerStyle='flex-row justify-between items-center'
                   enablePanDownToClose={false}
                   triggerComponent={<SelectedValue slippage={slippage} />}
+                  handleComponent={null}
                 >
                   <ThemedView
                     dark={tailwind('bg-gray-800')}
@@ -68,6 +84,7 @@ export function SlippageTolerance ({ slippage, setSlippage }: SlippageToleranceP
                       slippage={slippage}
                       isCustomSlippage={isCustomSlippage}
                       onSubmitSlippage={onSubmitSlippage}
+                      onSnapToIndex={onSnapToIndex}
                     />
                   </ThemedView>
                 </BottomSheetModal>
@@ -85,6 +102,7 @@ export function SlippageTolerance ({ slippage, setSlippage }: SlippageToleranceP
             slippage={slippage}
             isCustomSlippage={isCustomSlippage}
             onSubmitSlippage={onSubmitSlippage}
+            onSnapToIndex={onSnapToIndex}
           />
         </ThemedView>
       )}
@@ -93,7 +111,7 @@ export function SlippageTolerance ({ slippage, setSlippage }: SlippageToleranceP
 }
 
 function SlippageButton ({ onPress, isActive, label }: { onPress: () => void, isActive: boolean, label: string }): JSX.Element {
-  const buttonStyles = 'flex px-2 py-1.5 border border-gray-300 rounded mr-2'
+  const buttonStyles = 'flex px-2 py-1.5 border border-gray-300 rounded mr-2 mb-2'
   const activeStyle = 'bg-primary-500 border-primary-500'
   return (
     <TouchableOpacity
@@ -113,7 +131,7 @@ function SlippageButton ({ onPress, isActive, label }: { onPress: () => void, is
   )
 }
 
-function SelectedValue ({ slippage }: { slippage: number }): JSX.Element {
+function SelectedValue ({ slippage }: { slippage: BigNumber}): JSX.Element {
   return (
     <View
       style={tailwind('flex-row w-full')}
@@ -158,7 +176,7 @@ function SelectedValue ({ slippage }: { slippage: number }): JSX.Element {
           </>
       )}
         thousandSeparator
-        value={slippage}
+        value={new BigNumber(slippage).toNumber()}
       />
     </View>
   )
@@ -169,7 +187,7 @@ function SlippageHeader (): JSX.Element {
     <>
       <View
         testID='slippage_tolerance_heading'
-        style={tailwind('flex-row mb-3 items-center ')}
+        style={tailwind('flex-row mb-3 items-center -mt-2')}
       >
         <ThemedIcon
           size={17}
@@ -202,11 +220,12 @@ function SlippageHeader (): JSX.Element {
 
 interface SlippageSelectorProps {
   isCustomSlippage: boolean
-  slippage: number
-  onSubmitSlippage: (val: number, isCustomSlippage: boolean) => void
+  onSnapToIndex: (val: number) => void
+  onSubmitSlippage: (val: BigNumber, isCustomSlippage: boolean) => void
+  slippage: BigNumber
 }
 
-function SlippageSelector ({ slippage, onSubmitSlippage, isCustomSlippage }: SlippageSelectorProps): JSX.Element {
+function SlippageSelector ({ isCustomSlippage, onSnapToIndex, onSubmitSlippage, slippage }: SlippageSelectorProps): JSX.Element {
   const percentageList = ['1', '3', '5', '10', '20']
   const [selectedSlippage, setSelectedSlippage] = useState(slippage.toString())
   const [isCustom, setIsCustom] = useState(isCustomSlippage)
@@ -249,12 +268,13 @@ function SlippageSelector ({ slippage, onSubmitSlippage, isCustomSlippage }: Sli
 
   return (
     <>
-      <View style={[tailwind('flex-row mb-3 flex-wrap'), { rowGap: '8px' }]}>
+      <View style={tailwind('flex-row mb-3 flex-wrap')}>
         {percentageList.map((value) => (
           <SlippageButton
             key={value}
             onPress={() => {
               setIsCustom(false)
+              onSnapToIndex(0)
               setSelectedSlippage(value)
             }}
             isActive={!isCustom && selectedSlippage === value}
@@ -262,7 +282,10 @@ function SlippageSelector ({ slippage, onSubmitSlippage, isCustomSlippage }: Sli
           />
               ))}
         <SlippageButton
-          onPress={() => setIsCustom(true)}
+          onPress={() => {
+            onSnapToIndex(1)
+            setIsCustom(true)
+          }}
           isActive={isCustom}
           label={translate('screens/SlippageTolerance', 'Custom')}
         />
@@ -313,7 +336,7 @@ function SlippageSelector ({ slippage, onSubmitSlippage, isCustomSlippage }: Sli
         disabled={!isSlippageValid()}
         label={translate('screens/SlippageTolerance', 'USE THIS SLIPPAGE TOLERANCE')}
         onPress={() => {
-          onSubmitSlippage(parseFloat(selectedSlippage), isCustomSlippage)
+          onSubmitSlippage(new BigNumber(selectedSlippage), isCustomSlippage)
         }}
         testID='button_tolerance_submit'
         title={translate('screens/SlippageTolerance', 'USE THIS SLIPPAGE TOLERANCE')}
@@ -323,14 +346,14 @@ function SlippageSelector ({ slippage, onSubmitSlippage, isCustomSlippage }: Sli
 }
 
 interface BottomSheetInputProps {
-  onSlippageChange: (value: string) => void
-  setSelectedSlippage: (value: string) => void
-  isSlippageValid: () => boolean
-  selectedSlippage: string
   error: {
     type: 'error' | 'helper'
     text?: string
   } | undefined
+  isSlippageValid: () => boolean
+  onSlippageChange: (val: string) => void
+  setSelectedSlippage: (val: string) => void
+  selectedSlippage: string
 }
 
 /**

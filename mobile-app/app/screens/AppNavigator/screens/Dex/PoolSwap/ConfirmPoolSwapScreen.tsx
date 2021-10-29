@@ -232,13 +232,13 @@ export interface DexForm {
 
 async function constructSignedSwapAndSend (
   dexForm: DexForm,
-  slippage: number,
+  slippage: BigNumber,
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   logger: NativeLoggingProps
 ): Promise<void> {
   try {
-    const maxPrice = dexForm.fromAmount.div(dexForm.toAmount).times(1 + slippage).decimalPlaces(8)
+    const maxPrice = dexForm.fromAmount.div(dexForm.toAmount).times(slippage.plus(1)).decimalPlaces(8)
     const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
       const builder = account.withTransactionBuilder()
       const script = await account.getScript()

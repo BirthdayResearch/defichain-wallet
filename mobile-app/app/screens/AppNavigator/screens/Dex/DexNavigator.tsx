@@ -25,7 +25,7 @@ export interface DexParamList {
     swap: DexForm
     fee: BigNumber
     pair: PoolPairData
-    slippage: number
+    slippage: BigNumber
     priceRateA: string
     priceRateB: string
     conversion?: ConversionParam

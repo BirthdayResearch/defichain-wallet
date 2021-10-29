@@ -22,6 +22,7 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
     style,
     children,
     containerStyle,
+    handleComponent,
     triggerComponent,
     alertInfo,
     snapPoints = ['100%', '50%'],
@@ -70,9 +71,10 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
           backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
             <View {...backgroundProps} style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'} border-t rounded`)]} />
           )}
+          handleComponent={handleComponent}
           {...otherModalProps}
         >
-          <View style={tailwind('font-medium w-full px-2 items-end')}>
+          <View style={tailwind('font-medium w-full px-2 items-end p-2', { 'mt-1': handleComponent === null })}>
             <TouchableOpacity onPress={closeModal}>
               <ThemedIcon
                 size={24}
