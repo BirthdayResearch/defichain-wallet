@@ -44,11 +44,7 @@
     "Earn high yields by supplying token pairs to the liquidity pool.": "提供流动池配对货币并获得高回报率",
     "Conveniently swap participating tokens within the liquidity pool.": "方便地在流动池里兑换货币",
     "You have full control over your tokens unlike any other.": "您能完全掌控货币"
-  },
-  "screens/EstimatedFeeInfo": {
-    "Estimated fee": "所需费用（大约）",
-    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "每笔交易需要支付少量的费用. 金额可能因网络拥挤程度而异."
-  },
+  },  
   "screens/BalancesScreen": {
     "Balances": "我的资产",
     "RECEIVE": "接收",
@@ -627,5 +623,11 @@
     "Min. collateral ratio": "Min. collateral ratio",
     "Interest rate (in APR)": "Interest rate (in APR)",
     "APR": "回报率"
+  },
+  "components/FeeInfoRow": {
+    "Estimated fee": "所需费用（大约）",
+    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "每笔交易需要支付少量的费用. 金额可能因网络拥挤程度而异.",
+    "Vault fee": "Vault fee",
+    "This fee serves as initial deposit for your vault. You will receive this back when you choose to close this vault.": "This fee serves as initial deposit for your vault. You will receive this back when you choose to close this vault."
   }
 }

@@ -44,11 +44,7 @@
     "Earn high yields by supplying token pairs to the liquidity pool.": "Erziele hohe Erträge durch die Bereitstellung von Handelspaaren zum Liquidity Pool.",
     "Conveniently swap participating tokens within the liquidity pool.": "Bequemer Umtausch von im Liquidity Pool vertretenen Token.",
     "You have full control over your tokens unlike any other.": "Nur du hast volle Kontrolle über deine Token."
-  },
-  "screens/EstimatedFeeInfo": {
-    "Estimated fee": "Geschätzte Gebühr",
-    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "Jede Transaktion unterliegt einer geringen Gebühr. Der Betrag kann je nach Auslastung des Netzwerks variieren."
-  },
+  },  
   "screens/BalancesScreen": {
     "Balances": "Guthaben",
     "RECEIVE": "EMPFANGEN",
@@ -628,5 +624,11 @@
     "Min. collateral ratio": "Min. collateral ratio",
     "Interest rate (in APR)": "Interest rate (in APR)",
     "APR": "ZINS"
+  },
+  "components/FeeInfoRow": {
+    "Estimated fee":"Geschätzte Gebühr",
+    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.":"Jede Transaktion unterliegt einer geringen Gebühr. Der Betrag kann je nach Auslastung des Netzwerks variieren.",
+    "Vault fee": "Vault fee",
+     "This fee serves as initial deposit for your vault. You will receive this back when you choose to close this vault.": "This fee serves as initial deposit for your vault. You will receive this back when you choose to close this vault."
   }
 }

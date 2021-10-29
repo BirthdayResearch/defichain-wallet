@@ -17,12 +17,12 @@ type FeeType = 'ESTIMATED_FEE' | 'VAULT_FEE'
 
 export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
   const estimatedFee = {
-    title: translate('screens/FeeInfoRow', 'Estimated Fee'),
-    message: translate('screens/FeeInfoRow', 'Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.')
+    title: 'Estimated fee',
+    message: 'Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.'
   }
   const vaultFee = {
-    title: translate('screens/FeeInfoRow', 'Vault Fee'),
-    message: translate('screens/FeeInfoRow', 'This fee serves as initial deposit for your vault. You will receive this back when you choose to close this vault.')
+    title: 'Vault fee',
+    message: 'This fee serves as initial deposit for your vault. You will receive this back when you choose to close this vault.'
   }
 
   return (
@@ -34,7 +34,7 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
       <View style={tailwind('w-5/12')}>
         <View style={tailwind('flex-row items-center justify-start')}>
           <ThemedText style={tailwind('text-sm mr-1')} testID={`${props.testID}_label`}>
-            {props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title}
+            {translate('components/FeeInfoRow', props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title)}
           </ThemedText>
 
           <BottomSheetModal
@@ -68,7 +68,7 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
                   light={tailwind('text-gray-900')}
                   style={tailwind('ml-2 text-2xl font-semibold')}
                 >
-                  {props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title}
+                  {translate('components/FeeInfoRow', props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title)}
                 </ThemedText>
 
               </View>
@@ -78,7 +78,7 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
                   dark={tailwind('text-gray-200')}
                   light={tailwind('text-gray-700')}
                 >
-                  {props.type === 'ESTIMATED_FEE' ? estimatedFee.message : vaultFee.message}
+                  {translate('components/FeeInfoRow', props.type === 'ESTIMATED_FEE' ? estimatedFee.message : vaultFee.message)}
                 </ThemedText>
               </View>
             </View>
