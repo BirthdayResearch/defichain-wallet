@@ -6,7 +6,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { InfoTextLink } from '@components/InfoTextLink'
 import { View } from '@components'
-import { NavigationProp, useNavigation } from '@react-navigation/core'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { LoanParamList } from '../LoansNavigator'
 
 interface EmptyVaultProps {

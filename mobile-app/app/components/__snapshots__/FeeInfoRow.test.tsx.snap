@@ -63,7 +63,7 @@ exports[`estimated fee info scanner should match snapshot of estimated fee 1`] =
         }
         testID="text_fee_label"
       >
-        Estimated Fee
+        Estimated fee
       </Text>
     </View>
   </View>
@@ -197,7 +197,7 @@ exports[`estimated fee info scanner should match snapshot of vault fee 1`] = `
         }
         testID="text_fee_label"
       >
-        Vault Fee
+        Vault fee
       </Text>
     </View>
   </View>
