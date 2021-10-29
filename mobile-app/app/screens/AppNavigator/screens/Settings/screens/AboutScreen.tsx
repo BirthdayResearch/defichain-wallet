@@ -55,9 +55,9 @@ const MAIN_LINKS: AboutScreenLinks[] = [
   {
     testID: 'official_website',
     title: 'View official website',
-    subtitle: 'Learn more about the blockchain',
+    subtitle: 'Learn more about DFX',
     iconName: 'web',
-    url: 'https://defichain.com/'
+    url: 'https://dfx.swiss/'
   }
 ]
 
