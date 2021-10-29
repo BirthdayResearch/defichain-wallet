@@ -1,20 +1,20 @@
 {
   "name": "@defich/wallet-desktop",
-  "main": "./main/build/main/main.js",
+  "main": "./main/build/main.js",
   "author": {
     "name": "DeFiChain Foundation",
     "email": "engineering@defichain.com",
     "url": "https://defichain.com/"
   },
   "scripts": {
-    "transpile": "tsc --p tsconfig.json",
-    "transpile:prod": "tsc --p tsconfig.production.json",
+    "transpile": "tsc --p main/tsconfig.json",
+    "transpile:prod": "tsc --p main/tsconfig.production.json",
     "watch": "tsc -w",
     "start:dev": "concurrently -p \"[{time} - {name}]\" -n \"ReactApp,Electron\" -c \"bgMagenta.black.bold,bgCyan.black.bold\" -t \"hh:mm:ss a\" \"npm run start:react\" \"npm run start:electron\"",
-    "start:react": "cross-env NODE_ENV=development webpack serve --config webpack.config.babel.js",
-    "start:electron": "node initiate-electron",
+    "start:react": "cross-env SKIP_PREFLIGHT_CHECK=true BUILD_PATH=build react-scripts start",
+    "start:electron": "node main/initiate-electron",
     "electron": "npm run transpile && cross-env NODE_ENV=development electron --inspect . -d true",
-    "build:react": "cross-env NODE_ENV=production webpack",
+    "build:react": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts build",
     "build:electron": "npm run build:react && npm run transpile:prod && npm run set_env:prod",
     "build": "npm run build:electron && electron-builder",
     "build:all": "npm run build:electron && electron-builder -mwl",
@@ -29,21 +29,19 @@
     "is-electron": "^2.2.0",
     "loglevel": "^1.7.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "4.0.3"
   },
   "devDependencies": {
-    "@babel/core": "~7.15.8",
-    "@babel/preset-env": "^7.15.8",
-    "@babel/preset-react": "^7.14.5",
-    "@pmmmwh/react-refresh-webpack-plugin": "~0.5.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^12.20.36",
     "@types/react": "^17.0.30",
     "@types/react-dom": "^17.0.9",
-    "autoprefixer": "^10.3.7",
-    "babel-loader": "^8.2.2",
     "buffer": "6.0.3",
-    "clean-webpack-plugin": "~4.0.0",
-    "copy-webpack-plugin": "~9.0.1",
-    "core-js": "^3.19.0",
     "concurrently": "6.3.0",
     "cross-env": "7.0.3",
     "electron": "15.3.0",
@@ -51,31 +49,11 @@
     "electron-devtools-installer": "^3.2.0",
     "electron-notarize": "1.1.1",
     "file-loader": "^6.2.0",
-    "fork-ts-checker-webpack-plugin": "~6.3.5",
-    "html-loader": "~2.1.2",
-    "html-webpack-plugin": "~5.4.0",
-    "image-minimizer-webpack-plugin": "2.2.0",
-    "imagemin-jpegtran": "7.0.0",
-    "imagemin-optipng": "8.0.0",
-    "imagemin-svgo": "8.0.0",
-    "import-sort-style-module-and-prefix": "~0.1.3",
     "install": "^0.13.0",
-    "mini-css-extract-plugin": "^2.4.2",
-    "postcss": "8.3.9",
-    "postcss-loader": "^6.2.0",
-    "react-refresh": "^0.10.0",
-    "resolve-url-loader": "4.0.0",
-    "sass": "1.43.2",
-    "sass-loader": "^12.2.0",
-    "stream-browserify": "3.0.0",
-    "style-loader": "~3.3.0",
-    "terser-webpack-plugin": "^5.2.4",
-    "ts-loader": "^9.2.6",
-    "url-loader": "^4.1.1",
-    "webpack": "5.59.0",
-    "webpack-cli": "4.9.1",
-    "webpack-dev-server": "^4.3.1",
-    "webpack-merge": "^5.8.0",
+    "jest": "26.6.0",
+    "node-sass": "^6.0.1",
+    "web-vitals": "^1.1.2",
+    "ts-node": "^10.4.0",
     "typescript": "^4.4.4"
   },
   "engines": {
@@ -144,5 +122,17 @@
       "owner": "DeFiCh",
       "releaseType": "prerelease"
     }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

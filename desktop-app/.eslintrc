@@ -1,0 +1,16 @@
+{
+  "root": true,
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": [
+    "react",
+    "react-hooks"
+  ],
+  "extends": [
+    "standard-with-typescript",
+    "standard-jsx",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ]
+}

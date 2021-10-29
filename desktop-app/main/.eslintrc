@@ -5,8 +5,6 @@
   },
   "extends": [
     "standard-with-typescript",
-    "standard-jsx",
-    "react",
-    "react-hooks"
+    "standard-jsx"
   ]
 }

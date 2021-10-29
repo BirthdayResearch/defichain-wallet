@@ -1,16 +1,37 @@
 {
   "compilerOptions": {
-    "outDir": "./main/build",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "noImplicitAny": true,
-    "esModuleInterop": true,
+    "outDir": "./dist",
     "sourceMap": true,
-    "baseUrl": ".",
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "noImplicitAny": false,
+    "downlevelIteration": true,
+    "declaration": true,
+    "declarationMap": true,
     "pretty": true,
-    "rootDir": "./main",
-    "resolveJsonModule": true
+    "noFallthroughCasesInSwitch": true
   },
-  "include": ["./main/**/*"],
-  "exclude": ["./main/build/**/*"]
+  "exclude": [
+    "node_modules",
+    "webpack"
+  ],
+  "include": [
+    "src"
+  ]
 }
