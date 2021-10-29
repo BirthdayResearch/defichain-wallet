@@ -101,7 +101,7 @@ function SummaryHeader (): JSX.Element {
           dark={tailwind('text-gray-500')}
           style={tailwind('text-sm')}
         >
-          {translate('screens/ConfirmCreateVaultScreen', 'ID is generated once vault is created')}
+          {translate('screens/ConfirmCreateVaultScreen', 'ID will generate once vault has been created')}
         </ThemedText>
       </View>
     </ThemedView>

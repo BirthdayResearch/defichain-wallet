@@ -617,7 +617,7 @@
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Du erstellst gerade ein Sicherheitendepot",
-    "ID is generated once vault is created": "ID wird generiert, sobald das Sicherheitendepot erstellt ist",
+    "ID will generate once vault has been created": "ID wird generiert, sobald das Sicherheitendepot erstellt ist",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktionsart",
     "Create vault": "Sicherheitendepot erstellen",

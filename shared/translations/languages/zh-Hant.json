@@ -617,7 +617,7 @@
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "您正在創建金庫",
-    "ID is generated once vault is created": "金庫創建後會產生金庫 ID",
+    "ID will generate once vault has been created": "金庫創建後會產生金庫 ID",
     "TRANSACTION DETAILS": "交易明細",
     "Transaction type": "交易類型",
     "Create vault": "創建金庫",

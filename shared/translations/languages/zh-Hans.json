@@ -616,7 +616,7 @@
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "您正在创建金库",
-    "ID is generated once vault is created": "金库创建后会产生金库 ID",
+    "ID will generate once vault has been created": "金库创建后会产生金库 ID",
     "TRANSACTION DETAILS": "交易明細",
     "Transaction type": "交易类型",
     "Create vault": "创建金库",
