@@ -38,9 +38,9 @@ export function SlippageTolerance ({ slippage, setSlippage }: SlippageToleranceP
 
   const getSnapPoints = (): string[] => {
     if (Platform.OS === 'ios') {
-      return ['50%', '50%'] // ios measures space without keyboard
+      return ['40%', '40%'] // ios measures space without keyboard
     } else if (Platform.OS === 'android') {
-      return ['50%', '60%'] // android measure space by including keyboard
+      return ['45%', '55%'] // android measure space by including keyboard
     }
     return []
   }
@@ -71,6 +71,7 @@ export function SlippageTolerance ({ slippage, setSlippage }: SlippageToleranceP
                   index={snapIndex}
                   containerStyle='flex-row justify-between items-center'
                   enablePanDownToClose={false}
+                  enableContentPanningGesture={false}
                   triggerComponent={<SelectedValue slippage={slippage} />}
                   handleComponent={null}
                 >
@@ -111,7 +112,7 @@ export function SlippageTolerance ({ slippage, setSlippage }: SlippageToleranceP
 }
 
 function SlippageButton ({ onPress, isActive, label }: { onPress: () => void, isActive: boolean, label: string }): JSX.Element {
-  const buttonStyles = 'flex px-2 py-1.5 border border-gray-300 rounded mr-2 mb-2'
+  const buttonStyles = 'flex px-2 py-1.5 border border-gray-300 rounded mr-2 mt-2'
   const activeStyle = 'bg-primary-500 border-primary-500'
   return (
     <TouchableOpacity
@@ -187,7 +188,7 @@ function SlippageHeader (): JSX.Element {
     <>
       <View
         testID='slippage_tolerance_heading'
-        style={tailwind('flex-row mb-3 items-center -mt-2')}
+        style={tailwind(['flex-row mb-3 items-center', { '-mt-6': Platform.OS !== 'web' }])}
       >
         <ThemedIcon
           size={17}
@@ -200,12 +201,12 @@ function SlippageHeader (): JSX.Element {
         <ThemedText
           dark={tailwind('text-gray-50')}
           light={tailwind('text-gray-900')}
-          style={tailwind('text-base font-semibold')}
+          style={tailwind('text-xl font-semibold')}
         >
           {translate('screens/SlippageTolerance', 'Slippage Tolerance')}
         </ThemedText>
       </View>
-      <View testID='slippage_tolerance_description' style={tailwind('flex-row mb-6 items-center')}>
+      <View testID='slippage_tolerance_description' style={tailwind('flex-row mb-3 items-center')}>
         <ThemedText
           style={tailwind('text-base')}
           dark={tailwind('text-gray-200')}
@@ -326,7 +327,7 @@ function SlippageSelector ({ isCustomSlippage, onSnapToIndex, onSubmitSlippage, 
         <ThemedText
           light={tailwind('text-error-500')}
           dark={tailwind('text-darkerror-500')}
-          style={tailwind('text-sm mt-1')}
+          style={tailwind('text-sm mb-3')}
           testID='slippage_warning'
         >
           {translate('screens/SlippageTolerance', 'Proceed at your own risk')}
@@ -340,6 +341,8 @@ function SlippageSelector ({ isCustomSlippage, onSnapToIndex, onSubmitSlippage, 
         }}
         testID='button_tolerance_submit'
         title={translate('screens/SlippageTolerance', 'USE THIS SLIPPAGE TOLERANCE')}
+        style={tailwind('w-full')}
+        margin='mt-3'
       />
     </>
   )
@@ -384,6 +387,7 @@ const BottomSheetInput = (props: BottomSheetInputProps): JSX.Element => {
       autoCapitalize='none'
       placeholder='0.00%'
       style={tailwind('flex-grow h-8')}
+      containerStyle='mb-1 w-full flex-col'
       testID='slippage_input'
       value={selectedSlippage !== undefined ? selectedSlippage.toString() : ''}
       displayClearButton={selectedSlippage !== undefined}
