@@ -5,6 +5,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import React, { useState } from 'react'
+import NumberFormat from 'react-number-format'
 import { LoanParamList, LoanScheme } from '../LoansNavigator'
 
 type Props = StackScreenProps<LoanParamList, 'CreateVaultScreen'>
@@ -182,14 +183,23 @@ function LoanSchemeOptionData (props: {label: string, value: string, testId: str
       >
         {translate('screens/CreateVaultScreen', props.label)}
       </ThemedText>
-      <ThemedText
-        light={tailwind('text-gray-900')}
-        dark={tailwind('text-gray-50')}
-        style={tailwind('text-sm font-medium')}
-        testID={props.testId}
-      >
-        {props.value}
-      </ThemedText>
+      <NumberFormat
+        displayType='text'
+        suffix='%'
+        renderText={(value: string) => (
+          <ThemedText
+            light={tailwind('text-gray-900')}
+            dark={tailwind('text-gray-50')}
+            style={tailwind('text-sm font-medium')}
+            testID={props.testId}
+          >
+            {value}
+          </ThemedText>
+        )}
+        thousandSeparator
+        value={props.value}
+      />
+
     </View>
   )
 }
