@@ -620,6 +620,7 @@
     "TRANSACTION DETAILS": "交易明細",
     "Transaction type": "交易类型",
     "Create vault": "创建金库",
+    "Total transaction cost": "总交易费用",
     "VAULT DETAILS": "金库明细",
     "Min. collateral ratio": "最小抵押率",
     "Interest rate (APR)": "利率（以回报率计算）",
