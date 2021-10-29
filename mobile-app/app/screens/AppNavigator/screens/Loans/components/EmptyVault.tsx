@@ -7,7 +7,7 @@ import { translate } from '@translations'
 import { InfoTextLink } from '@components/InfoTextLink'
 import { View } from '@components'
 import { NavigationProp, useNavigation } from '@react-navigation/core'
-import { LoanParamList } from './LoansNavigator'
+import { LoanParamList } from '../LoansNavigator'
 
 interface EmptyVaultProps {
   handleRefresh: (nextToken?: string | undefined) => void
@@ -35,25 +35,25 @@ export function EmptyVault (props: EmptyVaultProps): JSX.Element {
         light={tailwind('text-black')}
         dark={tailwind('text-white')}
         iconType='MaterialCommunityIcons'
-        name='shield-plus'
+        name='shield-off'
         size={44}
         style={tailwind('pb-5 text-center')}
       />
 
       <ThemedText style={tailwind('text-2xl pb-2 font-semibold text-center')}>
-        {translate('screens/LoansScreen', 'No vault created')}
+        {translate('components/EmptyVault', 'No vault created')}
       </ThemedText>
 
       <ThemedText style={tailwind('text-sm pb-4 text-center opacity-60')}>
-        {translate('screens/LoansScreen', 'To get started, create a vault and add DFI and other tokens as collaterals')}
+        {translate('components/EmptyVault', 'To get started, create a vault and add DFI and other tokens as collaterals')}
       </ThemedText>
 
       <Button
-        label={translate('screens/LoansScreen', 'CREATE VAULT')}
+        label={translate('components/EmptyVault', 'CREATE VAULT')}
         onPress={() => navigation.navigate('CreateVaultScreen')}
         testID='button_create_vault'
         title='Create vault'
-        margin='m-0 mb-8'
+        margin='m-0 mb-4'
       />
       <View style={tailwind('flex items-center')}>
         <InfoTextLink

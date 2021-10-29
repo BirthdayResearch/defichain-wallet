@@ -45,7 +45,7 @@ export function ConfirmCreateVaultScreen ({ route, navigation }: Props): JSX.Ele
 
   function getSubmitLabel (): string {
     if (!hasPendingBroadcastJob && !hasPendingJob) {
-      return 'CONFIRM CREATE'
+      return 'CONFIRM CREATE VAULT'
     }
     return 'CREATING'
   }
@@ -57,7 +57,7 @@ export function ConfirmCreateVaultScreen ({ route, navigation }: Props): JSX.Ele
       <SummaryVaultDetails loanScheme={loanScheme} />
       <SubmitButtonGroup
         isDisabled={hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/ConfirmCreateVaultScreen', 'CONFIRM CREATE')}
+        label={translate('screens/ConfirmCreateVaultScreen', 'CONFIRM CREATE VAULT')}
         isProcessing={hasPendingJob || hasPendingBroadcastJob}
         processingLabel={translate('screens/ConfirmCreateVaultScreen', getSubmitLabel())}
         onCancel={onCancel}

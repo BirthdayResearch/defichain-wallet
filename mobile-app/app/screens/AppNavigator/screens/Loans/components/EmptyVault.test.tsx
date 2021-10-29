@@ -6,7 +6,7 @@ jest.mock('@shared-contexts/ThemeProvider')
 
 describe('Empty vault', () => {
   it('should match snapshot', async () => {
-    const rendered = render(<EmptyVault handleRefresh={() => jest.fn} isLoading={false} onCreateVaultPress={() => jest.fn} />)
+    const rendered = render(<EmptyVault handleRefresh={() => jest.fn} isLoading={false} />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })

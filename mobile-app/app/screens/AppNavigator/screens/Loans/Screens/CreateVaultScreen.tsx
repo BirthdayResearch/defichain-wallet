@@ -109,8 +109,15 @@ export function CreateVaultScreen ({ navigation, route }: Props): JSX.Element {
         disabled={selectedLoanScheme === undefined}
         label={translate('screens/CreateVaultScreen', 'CONTINUE')}
         onPress={onSubmit}
-        margin='m-0'
+        margin='m-0 mb-2'
       />
+      <ThemedText
+        light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-400')}
+        style={tailwind('text-center text-xs mb-16')}
+      >
+        {translate('screens/CreateVaultScreen', 'Confirm your vault details in next screen')}
+      </ThemedText>
     </ThemedScrollView>
   )
 }

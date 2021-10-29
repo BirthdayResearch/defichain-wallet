@@ -5,7 +5,7 @@ import { ThemedView } from '@components/themed'
 import { LoanCardOptions, LoanCards } from '@components/LoanCards'
 import { Tabs } from '@components/Tabs'
 import { Vaults } from './components/Vaults'
-import { EmptyVault } from './EmptyVault'
+import { EmptyVault } from './components/EmptyVault'
 import { StackScreenProps } from '@react-navigation/stack'
 import { LoanParamList } from './LoansNavigator'
 
