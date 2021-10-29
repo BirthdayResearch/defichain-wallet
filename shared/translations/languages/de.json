@@ -572,7 +572,7 @@
   "screens/LoansScreen": {
     "Loans": "Darlehen",
     "Create vault": "Sicherheitendepot erstellen",
-    "Confirm create vault": "Confirm create vault"
+    "Confirm create vault": "Bestätige Sicherheitendepot erstellen"
   },
   "components/tabs": {
     "Browse loans": "Darlehen durchsuchen",
@@ -615,20 +615,21 @@
     "Confirm your vault details in next screen": "Bestätige die Daten deines Sicherheitendepots in der nächsten Ansicht"
   },
   "screens/ConfirmCreateVaultScreen": {
-    "You are creating vault": "You are creating vault",
-    "ID is generated once vault is created": "ID is generated once vault is created",
+    "You are creating vault": "Du erstellst gerade ein Sicherheitendepot",
+    "ID is generated once vault is created": "ID wird generiert, sobald das Sicherheitendepot erstellt ist",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktionsart",
     "Create vault": "Sicherheitendepot erstellen",
-    "VAULT DETAILS": "VAULT DETAILS",
-    "Min. collateral ratio": "Min. collateral ratio",
-    "Interest rate (in APR)": "Interest rate (in APR)",
-    "APR": "ZINS"
+    "VAULT DETAILS": "SICHERHEITENDEPOT DETAILS",
+    "Min. collateral ratio": "Mindestbesicherungsquote",
+    "Interest rate (APR)": "Zinssatz (APR)",
+    "APR": "ZINS",
+    "CONFIRM CREATE VAULT": "BESTÄTIGE SICHERHEITENDEPOT ERSTELLEN"
   },
   "components/FeeInfoRow": {
     "Estimated fee":"Geschätzte Gebühr",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.":"Jede Transaktion unterliegt einer geringen Gebühr. Der Betrag kann je nach Auslastung des Netzwerks variieren.",
-    "Vault fee": "Vault fee",
-     "This fee serves as initial deposit for your vault. You will receive this back when you choose to close this vault.": "This fee serves as initial deposit for your vault. You will receive this back when you choose to close this vault."
+    "Vault fee": "Sicherheitendepotgebühr",
+    "This fee serves as initial deposit for your vault. You will receive this back when you choose to close this vault.": "Diese Gebühr dient als Ersteinlage für dein Sicherheitendepot. Du erhältst die Gebühr zurück, wenn du dich entscheidest, dieses Sicherheitendepot zu schließen."
   }
 }

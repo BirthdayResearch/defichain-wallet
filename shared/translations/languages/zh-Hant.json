@@ -572,7 +572,7 @@
   "screens/LoansScreen": {
     "Loans": "貸款",
     "Create vault": "創建金庫",
-    "Confirm create vault": "Confirm create vault"
+    "Confirm create vault": "確認創建金庫"
   },
   "components/tabs": {
     "Browse loans": "瀏覽貸款選項",
@@ -615,20 +615,21 @@
     "Confirm your vault details in next screen": "在下一個屏幕上確認您的金庫細節"
   },
   "screens/ConfirmCreateVaultScreen": {
-    "You are creating vault": "You are creating vault",
-    "ID is generated once vault is created": "ID is generated once vault is created",
+    "You are creating vault": "您正在創建金庫",
+    "ID is generated once vault is created": "金庫創建後會產生金庫 ID",
     "TRANSACTION DETAILS": "交易明細",
     "Transaction type": "交易類型",
     "Create vault": "創建金庫",
-    "VAULT DETAILS": "VAULT DETAILS",
-    "Min. collateral ratio": "Min. collateral ratio",
-    "Interest rate (in APR)": "Interest rate (in APR)",
-    "APR": "回報率"
+    "VAULT DETAILS": "金庫明細",
+    "Min. collateral ratio": "最小抵押率",
+    "Interest rate (APR)": "利率（以回報率計算）",
+    "APR": "回報率",
+    "Confirm create vault": "確認創建金庫"
   },
   "components/FeeInfoRow": {
     "Estimated fee": "所需費用（大約）",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "每筆交易需要支付少量的費用. 金額可能因網絡擁擠程度而異.",
-    "Vault fee": "Vault fee",
-    "This fee serves as initial deposit for your vault. You will receive this back when you choose to close this vault.": "This fee serves as initial deposit for your vault. You will receive this back when you choose to close this vault."
+    "Vault fee": "金庫費用",
+    "This fee serves as initial deposit for your vault. You will receive this back when you choose to close this vault.": "這筆費用作為您金庫的初始押金。當您選擇關閉這個金庫時，您會收回這筆押金。"
   }
 }

@@ -148,7 +148,7 @@ function SummaryVaultDetails (props: {loanScheme: LoanScheme}): JSX.Element {
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmCreateVaultScreen', 'Interest rate (in APR)')}
+        lhs={translate('screens/ConfirmCreateVaultScreen', 'Interest rate (APR)')}
         rhs={{
           value: new BigNumber(props.loanScheme.interestRate).toFixed(2),
           testID: 'confirm_interest_rate_value',
