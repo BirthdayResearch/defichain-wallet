@@ -221,15 +221,15 @@ context('Wallet - Send', function () {
       it(`should be able to send to address ${address}`, function () {
         cy.getByTestID('bottom_tab_balances').click()
         cy.getByTestID('balances_list').should('exist')
-        cy.getByTestID('balances_row_6').should('exist')
-        cy.getByTestID('balances_row_6_amount').contains(10).click()
+        cy.getByTestID('balances_row_10').should('exist')
+        cy.getByTestID('balances_row_10_amount').contains(10).click()
         cy.getByTestID('send_button').click()
         cy.getByTestID('address_input').type(address)
         cy.getByTestID('MAX_amount_button').click()
         cy.getByTestID('send_submit_button').click()
         cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
-        cy.getByTestID('balances_row_6_amount').should('not.exist')
+        cy.getByTestID('balances_row_10_amount').should('not.exist')
 
         cy.sendTokenToWallet(['BTC-DFI']).wait(3000)
       })
