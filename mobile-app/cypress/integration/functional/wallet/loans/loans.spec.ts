@@ -7,11 +7,9 @@ context('Wallet - Loans', () => {
     cy.getByTestID('bottom_tab_loans').should('exist')
   })
 
-  it('should display loans screen', function () {
+  it('should display empty vault screen', function () {
     cy.getByTestID('bottom_tab_loans').click()
-    cy.getByTestID('loans_screen').should('exist')
-    cy.getByTestID('loans_tabs').should('exist')
-    cy.getByTestID('loans_cards').should('exist')
+    cy.getByTestID('empty_vault').should('exist')
   })
 })
 
