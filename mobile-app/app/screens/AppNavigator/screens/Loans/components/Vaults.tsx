@@ -10,24 +10,31 @@ export function Vaults (): JSX.Element {
     {
       vaultAddress: '22ffasd5ca123123123123123121231061',
       status: VaultStatus.Locked,
-      collaterals: ['BTC', 'DFI', 'dETH', 'dLTC', 'dLTC'],
+      collaterals: [
+        { id: 'BTC', vaultProportion: new BigNumber(20) },
+        { id: 'DFI', vaultProportion: new BigNumber(12.4573) },
+        { id: 'dETH', vaultProportion: new BigNumber(55.123333) },
+        { id: 'dLTC', vaultProportion: new BigNumber(20) },
+        { id: 'dLTC', vaultProportion: new BigNumber(20) }
+      ],
       activeLoans: new BigNumber(3),
       totalLoanAmount: new BigNumber('50000'),
       collateralAmount: new BigNumber('40000'),
       collateralRatio: new BigNumber('80'),
-      actions: ['ADD_COLLATERAL', 'VIEW_LOANS'],
-      onArrowPress: () => {}
+      actions: ['ADD_COLLATERAL', 'VIEW_LOANS']
     },
     {
       vaultAddress: '22ffasd5ca123123123123123121231061',
       status: VaultStatus.AtRisk,
-      collaterals: ['BTC', 'DFI'],
+      collaterals: [
+        { id: 'BTC', vaultProportion: new BigNumber(20) },
+        { id: 'DFI', vaultProportion: new BigNumber(12.4573) }
+      ],
       activeLoans: new BigNumber(3),
       totalLoanAmount: new BigNumber('50000000000000000000'),
       collateralAmount: new BigNumber('40000'),
       collateralRatio: new BigNumber('150'),
-      actions: [],
-      onArrowPress: () => {}
+      actions: []
     }
   ]
 
