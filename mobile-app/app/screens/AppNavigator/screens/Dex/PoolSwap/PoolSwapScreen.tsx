@@ -25,7 +25,7 @@ import { SlippageTolerance } from '@screens/AppNavigator/screens/Dex/PoolSwap/co
 import { WalletTextInput } from '@components/WalletTextInput'
 import { InputHelperText } from '@components/InputHelperText'
 import { DFITokenSelector, DFIUtxoSelector, WalletToken } from '@store/wallet'
-import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { FeeInfoRow } from '@components/FeeInfoRow'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
@@ -524,13 +524,11 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee, isConversio
           suffix: tokenB.displaySymbol
         }}
       />
-      <EstimatedFeeInfo
-        lhs={translate('screens/PoolSwapScreen', 'Estimated fee')}
-        rhs={{
-          value: fee,
-          testID: 'estimated_fee',
-          suffix: 'DFI'
-        }}
+      <FeeInfoRow
+        type='ESTIMATED_FEE'
+        value={fee}
+        testID='estimated_fee'
+        suffix='DFI'
       />
     </View>
   )

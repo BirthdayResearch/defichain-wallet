@@ -28,7 +28,7 @@ import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
-import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { FeeInfoRow } from '@components/FeeInfoRow'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { NumberRow } from '@components/NumberRow'
@@ -187,13 +187,11 @@ export function SendScreen ({
                 }}
               />}
 
-            <EstimatedFeeInfo
-              lhs={translate('screens/SendScreen', 'Estimated fee')}
-              rhs={{
-                value: fee.toString(),
-                suffix: 'DFI',
-                testID: 'transaction_fee'
-              }}
+            <FeeInfoRow
+              type='ESTIMATED_FEE'
+              value={fee.toString()}
+              testID='transaction_fee'
+              suffix='DFI'
             />
           </View>
         )

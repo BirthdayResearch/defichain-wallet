@@ -21,7 +21,7 @@ import { getNativeIcon } from '@components/icons/assets'
 import { ConversionTag } from '@components/ConversionTag'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
-import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { FeeInfoRow } from '@components/FeeInfoRow'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { View } from '@components'
@@ -177,14 +177,11 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
           suffix: pair.tokenB.displaySymbol
         }}
       />
-
-      <EstimatedFeeInfo
-        lhs={translate('screens/ConfirmAddLiq', 'Estimated fee')}
-        rhs={{
-          value: fee.toFixed(8),
-          testID: 'text_fee',
-          suffix: 'DFI'
-        }}
+      <FeeInfoRow
+        type='ESTIMATED_FEE'
+        value={fee.toFixed(8)}
+        testID='text_fee'
+        suffix='DFI'
       />
 
       <ThemedSectionTitle
