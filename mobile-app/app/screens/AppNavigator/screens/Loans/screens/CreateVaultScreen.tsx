@@ -130,7 +130,7 @@ export function CreateVaultScreen ({ navigation, route }: Props): JSX.Element {
       <ThemedText
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
-        style={tailwind('text-center text-xs mb-16')}
+        style={tailwind('text-center text-xs')}
       >
         {translate('screens/CreateVaultScreen', 'Confirm your vault details in next screen')}
       </ThemedText>
@@ -147,8 +147,8 @@ function LoanSchemeOptions (props: {loanSchemes: LoanScheme[], selectedLoanSchem
       {props.loanSchemes.map((scheme, index) => (
         <ThemedTouchableOpacity
           key={scheme.id}
-          light={tailwind('border-gray-300', { 'border-primary-500': props.selectedLoanScheme?.id === scheme.id })}
-          dark={tailwind('border-gray-700', { 'border-darkprimary-500': props.selectedLoanScheme?.id === scheme.id })}
+          light={tailwind('border-gray-300 bg-white', { 'border-primary-500': props.selectedLoanScheme?.id === scheme.id })}
+          dark={tailwind('border-gray-700 bg-gray-800', { 'border-darkprimary-500': props.selectedLoanScheme?.id === scheme.id })}
           style={tailwind('py-2 px-5 rounded-lg border flex flex-row items-center mb-1')}
           onPress={() => props.onLoanSchemePress(scheme)}
           testID={`loan_scheme_option_${index}`}
