@@ -6,19 +6,23 @@ import { translate } from '@translations'
 import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
 
-interface EstimatedFeeElement {
+interface FeeInfoRowProps {
   value: string | number
+  type: FeeType
   suffix?: string
   testID: string
 }
 
-export function EstimatedFeeInfo ({
-  lhs,
-  rhs
-}: { lhs: string, rhs: EstimatedFeeElement }): JSX.Element {
-  const feeInfo = {
-    title: translate('screens/EstimatedFeeInfo', 'Estimated Fee'),
-    message: translate('screens/EstimatedFeeInfo', 'Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.')
+type FeeType = 'ESTIMATED_FEE' | 'VAULT_FEE'
+
+export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
+  const estimatedFee = {
+    title: 'Estimated fee',
+    message: 'Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.'
+  }
+  const vaultFee = {
+    title: 'Vault fee',
+    message: 'This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.'
   }
 
   return (
@@ -29,14 +33,14 @@ export function EstimatedFeeInfo ({
     >
       <View style={tailwind('w-5/12')}>
         <View style={tailwind('flex-row items-center justify-start')}>
-          <ThemedText style={tailwind('text-sm mr-1')} testID={`${rhs.testID}_label`}>
-            {lhs}
+          <ThemedText style={tailwind('text-sm mr-1')} testID={`${props.testID}_label`}>
+            {translate('components/FeeInfoRow', props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title)}
           </ThemedText>
 
           <BottomSheetModal
             name='EstimatedFeeInfo'
             snapPoints={['30%']}
-            alertInfo={feeInfo}
+            alertInfo={props.type === 'ESTIMATED_FEE' ? estimatedFee : vaultFee}
             triggerComponent={
               <ThemedIcon
                 size={16}
@@ -64,7 +68,7 @@ export function EstimatedFeeInfo ({
                   light={tailwind('text-gray-900')}
                   style={tailwind('ml-2 text-2xl font-semibold')}
                 >
-                  {feeInfo.title}
+                  {translate('components/FeeInfoRow', props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title)}
                 </ThemedText>
 
               </View>
@@ -74,7 +78,7 @@ export function EstimatedFeeInfo ({
                   dark={tailwind('text-gray-200')}
                   light={tailwind('text-gray-700')}
                 >
-                  {feeInfo.message}
+                  {translate('components/FeeInfoRow', props.type === 'ESTIMATED_FEE' ? estimatedFee.message : vaultFee.message)}
                 </ThemedText>
               </View>
             </View>
@@ -91,21 +95,21 @@ export function EstimatedFeeInfo ({
               dark={tailwind('text-gray-400')}
               light={tailwind('text-gray-500')}
               style={tailwind('text-sm text-right')}
-              testID={rhs.testID}
+              testID={props.testID}
             >
               {val}
             </ThemedText>
           )}
           thousandSeparator
-          value={rhs.value}
+          value={props.value}
         />
         <ThemedText
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
           style={tailwind('text-sm ml-1')}
-          testID={`${rhs.testID}_suffix`}
+          testID={`${props.testID}_suffix`}
         >
-          {rhs.suffix}
+          {props.suffix}
         </ThemedText>
       </View>
     </ThemedView>

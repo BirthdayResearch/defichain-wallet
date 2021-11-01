@@ -5,10 +5,31 @@ import { HeaderTitle } from '@components/HeaderTitle'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { LoansScreen } from './LoansScreen'
+import { CreateVaultScreen } from './screens/CreateVaultScreen'
+import { ConfirmCreateVaultScreen } from './screens/ConfirmCreateVaultScreen'
+import BigNumber from 'bignumber.js'
 
 export interface LoanParamList {
-  LoansScreen: undefined
+  LoansScreen: {
+    displayEmptyVault?: boolean // TODO: remove hard-coded condition used for create vault flow
+  }
+  CreateVaultScreen: {
+    loanScheme?: LoanScheme
+  }
+  ConfirmCreateVaultScreen: {
+    loanScheme: LoanScheme
+    fee: BigNumber
+  }
   [key: string]: undefined | object
+}
+
+/**
+ * TODO: remove after state and model is added
+ */
+export interface LoanScheme {
+  id: string
+  minColRatio: string
+  interestRate: string
 }
 
 const LoansStack = createStackNavigator<LoanParamList>()
@@ -31,7 +52,7 @@ export function LoansNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/LoansScreen', 'Loans')}
+              text={translate('screens/LoansScreen', 'Loans') + ' (Beta)'} // TODO: remove beta from title
               containerTestID={headerContainerTestId}
             />
           )
@@ -44,6 +65,30 @@ export function LoansNavigator (): JSX.Element {
           headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
           headerBackTitleVisible: false,
           headerBackTestID: 'network_details_header_back'
+        }}
+      />
+      <LoansStack.Screen
+        component={CreateVaultScreen}
+        name='CreateVaultScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Create vault') + ' (Beta)'} // TODO: remove beta from title
+            />
+          )
+        }}
+      />
+      <LoansStack.Screen
+        component={ConfirmCreateVaultScreen}
+        name='ConfirmCreateVaultScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Confirm create vault') + ' (Beta)'} // TODO: remove beta from title
+            />
+          )
         }}
       />
     </LoansStack.Navigator>

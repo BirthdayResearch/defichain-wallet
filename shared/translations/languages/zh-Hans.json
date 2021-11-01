@@ -44,11 +44,7 @@
     "Earn high yields by supplying token pairs to the liquidity pool.": "提供流动池配对货币并获得高回报率",
     "Conveniently swap participating tokens within the liquidity pool.": "方便地在流动池里兑换货币",
     "You have full control over your tokens unlike any other.": "您能完全掌控货币"
-  },
-  "screens/EstimatedFeeInfo": {
-    "Estimated fee": "所需费用（大约）",
-    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "每笔交易需要支付少量的费用. 金额可能因网络拥挤程度而异."
-  },
+  },  
   "screens/BalancesScreen": {
     "Balances": "我的资产",
     "RECEIVE": "接收",
@@ -573,7 +569,9 @@
     "Resulting {{symbol}}": "转换后 {{symbol}}"
   },
   "screens/LoansScreen": {
-    "Loans": "贷款"
+    "Loans": "贷款",
+    "Create vault": "创建金库",
+    "Confirm create vault": "确认创建金库"
   },
   "components/tabs": {
     "Browse loans": "浏览贷款选项",
@@ -586,6 +584,53 @@
   },
   "components/InfoTextLink": {
     "Learn more about UTXO and Token": "了解 UTXO 和代币区别",
-    "UTXO vs Token, what is the difference?": "UTXO和代币的区别是什么？"
+    "UTXO vs Token, what is the difference?": "UTXO和代币的区别是什么？",
+    "Learn more about vaults": "了解更多关于金库的资讯"
+  },
+  "components/VaultCard": {
+    "Collaterals:": "抵押品:",
+    "None": "Keine",
+    "Locked": "锁定",
+    "At risk": "请注意抵押 比率",
+    "Safe": "安全状态",
+    "Active loans": "活跃的贷款",
+    "Total loan amount": "贷款总金额",
+    "Collateral amount": "抵押品金额",
+    "Collateral ratio": "抵押品比率",
+    "n/a": "不适用"
+  },
+  "components/EmptyVault": {
+    "No vault created": "还没建立金库",
+    "To get started, create a vault and add DFI and other tokens as collaterals": "若要启动贷款，您需要创建一个金库，并添加DFI和其他币作为抵押品",
+    "CREATE VAULT": "创建金库"
+  },
+  "screens/CreateVaultScreen": {
+    "Choose loan scheme for your vault": "为您的金库选择贷款方案",
+    "This sets the minimum collateral ratio and the vault’s interest rate.": "这将设置了最低抵押率和金库的利率.",
+    "Keep note of your selected collateral ratio for your vault to sustain the loans within it.": "请注意您为金库选择的抵押品比率，以维持持续贷款.",
+    "Collateral ratio": "抵押品比率",
+    "Interest rate": "利率",
+    "APR": "回报率",
+    "CONTINUE": "继续",
+    "Confirm your vault details in next screen": "在下一个屏幕上确认您的金库细节"
+  },
+  "screens/ConfirmCreateVaultScreen": {
+    "You are creating vault": "您正在创建金库",
+    "ID will generate once vault has been created": "金库创建后会产生金库 ID",
+    "TRANSACTION DETAILS": "交易明細",
+    "Transaction type": "交易类型",
+    "Create vault": "创建金库",
+    "Total transaction cost": "总交易费用",
+    "VAULT DETAILS": "金库明细",
+    "Min. collateral ratio": "最小抵押率",
+    "Interest rate (APR)": "利率（以回报率计算）",
+    "APR": "回报率",
+    "Confirm create vault": "确认创建金库"
+  },
+  "components/FeeInfoRow": {
+    "Estimated fee": "所需费用（大约）",
+    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "每笔交易需要支付少量的费用. 金额可能因网络拥挤程度而异.",
+    "Vault fee": "金库费用",
+    "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "这笔费用作为您金库的初始押金。当您选择关闭这个金库时，您会收回 1 DFI。"
   }
 }
