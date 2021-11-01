@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Platform, TouchableOpacity } from 'react-native'
+import { KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity } from 'react-native'
 import BigNumber from 'bignumber.js'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
@@ -13,6 +13,8 @@ import { BottomSheetModal } from '@components/BottomSheetModal'
 
 const SLIPPAGE_WARNING = 'Slippage rate changes occur within a transaction. Select preferred slippage rate.'
 const SLIPPAGE_MODAL_NAME = 'SlippageTolerance'
+
+const percentageList = ['1', '3', '5', '10', '20']
 
 interface SlippageToleranceProps {
   slippage: BigNumber
@@ -38,12 +40,16 @@ export function SlippageTolerance ({ slippage, setSlippage }: SlippageToleranceP
 
   const getSnapPoints = (): string[] => {
     if (Platform.OS === 'ios') {
-      return ['40%', '40%'] // ios measures space without keyboard
+      return ['40%', '45%'] // ios measures space without keyboard
     } else if (Platform.OS === 'android') {
-      return ['45%', '55%'] // android measure space by including keyboard
+      return ['45%', '58%'] // android measure space by including keyboard
     }
     return []
   }
+
+  useEffect(() => {
+    setIsCustomSlippage(!percentageList.includes(new BigNumber(slippage).toString()))
+  }, [slippage])
 
   return (
     <>
@@ -69,25 +75,33 @@ export function SlippageTolerance ({ slippage, setSlippage }: SlippageToleranceP
                   name={SLIPPAGE_MODAL_NAME}
                   snapPoints={getSnapPoints()}
                   index={snapIndex}
-                  containerStyle='flex-row justify-between items-center'
+                  containerStyle='p-0 m-0 flex-row justify-between items-center'
                   enablePanDownToClose={false}
                   enableContentPanningGesture={false}
                   triggerComponent={<SelectedValue slippage={slippage} />}
                   handleComponent={null}
                 >
-                  <ThemedView
-                    dark={tailwind('bg-gray-800')}
-                    light={tailwind('bg-white')}
-                    style={tailwind('p-4')}
+                  {/* This handles the full display of elements when keyboard is open */}
+                  <KeyboardAvoidingView
+                    behavior='height'
+                    style={tailwind('flex', { 'pb-10': Platform.OS === 'ios' })}
                   >
-                    <SlippageHeader />
-                    <SlippageSelector
-                      slippage={slippage}
-                      isCustomSlippage={isCustomSlippage}
-                      onSubmitSlippage={onSubmitSlippage}
-                      onSnapToIndex={onSnapToIndex}
-                    />
-                  </ThemedView>
+                    <ScrollView>
+                      <ThemedView
+                        dark={tailwind('bg-gray-800')}
+                        light={tailwind('bg-white')}
+                        style={tailwind('p-4')}
+                      >
+                        <SlippageHeader />
+                        <SlippageSelector
+                          slippage={slippage}
+                          isCustomSlippage={isCustomSlippage}
+                          onSubmitSlippage={onSubmitSlippage}
+                          onSnapToIndex={onSnapToIndex}
+                        />
+                      </ThemedView>
+                    </ScrollView>
+                  </KeyboardAvoidingView>
                 </BottomSheetModal>
               )}
       </ThemedView>
@@ -188,7 +202,7 @@ function SlippageHeader (): JSX.Element {
     <>
       <View
         testID='slippage_tolerance_heading'
-        style={tailwind(['flex-row mb-3 items-center', { '-mt-6': Platform.OS !== 'web' }])}
+        style={tailwind(['flex-row mb-3 items-center', { '-mt-5': Platform.OS !== 'web' }])}
       >
         <ThemedIcon
           size={17}
@@ -227,7 +241,6 @@ interface SlippageSelectorProps {
 }
 
 function SlippageSelector ({ isCustomSlippage, onSnapToIndex, onSubmitSlippage, slippage }: SlippageSelectorProps): JSX.Element {
-  const percentageList = ['1', '3', '5', '10', '20']
   const [selectedSlippage, setSelectedSlippage] = useState(slippage.toString())
   const [isCustom, setIsCustom] = useState(isCustomSlippage)
   const [isRiskWarningDisplayed, setIsRiskWarningDisplayed] = useState(false)
@@ -264,7 +277,7 @@ function SlippageSelector ({ isCustomSlippage, onSnapToIndex, onSubmitSlippage, 
 
   useEffect(() => {
       validateSlippage(selectedSlippage)
-    setIsRiskWarningDisplayed((new BigNumber(selectedSlippage).gte(20) && new BigNumber(selectedSlippage).lte(100)))
+      setIsRiskWarningDisplayed((new BigNumber(selectedSlippage).gte(20) && new BigNumber(selectedSlippage).lte(100)))
   }, [selectedSlippage])
 
   return (
