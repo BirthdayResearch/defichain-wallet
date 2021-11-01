@@ -28,16 +28,15 @@ async function createWindow (): Promise<void> {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
-    minWidth: 640,
-    minHeight: 480,
+    width: 385,
+    height: 720,
     title: app.name,
     movable: true,
+    resizable: false,
     icon: path.join(__dirname, '../../shared/assets/images/icon-512.png')
   })
 
-  void mainWindow.loadURL('http://localhost:3000')
+  void mainWindow.loadURL('http://localhost:19006')
 
   mainWindow.on('ready-to-show', () => {
     if (mainWindow == null) {
@@ -52,6 +51,10 @@ async function createWindow (): Promise<void> {
 
   const menuBuilder = new MenuBuilder(mainWindow)
   menuBuilder.buildMenu()
+
+  if (isDevelopment) {
+    mainWindow.webContents.openDevTools({ mode: 'detach' })
+  }
 
   // Open urls in the user's browser
   mainWindow.webContents.on('new-window', (event, url) => {

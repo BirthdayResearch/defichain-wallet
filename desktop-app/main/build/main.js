@@ -69,15 +69,13 @@ function createWindow() {
                 case 2:
                     mainWindow = new electron_1.BrowserWindow({
                         show: false,
-                        width: 1024,
-                        height: 728,
-                        minWidth: 640,
-                        minHeight: 480,
+                        width: 400,
+                        height: 730,
                         title: electron_1.app.name,
                         movable: true,
                         icon: path_1["default"].join(__dirname, '../../shared/assets/images/icon-512.png')
                     });
-                    void mainWindow.loadURL('http://localhost:3000');
+                    void mainWindow.loadURL('http://localhost:19006');
                     mainWindow.on('ready-to-show', function () {
                         if (mainWindow == null) {
                             throw new Error('"mainWindow" is not defined');

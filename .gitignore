@@ -44,3 +44,4 @@ web-build/
 
 # macOS
 .DS_Store
+!/desktop-app/main/build/
