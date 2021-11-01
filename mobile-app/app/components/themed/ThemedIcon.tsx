@@ -5,7 +5,7 @@ import { tailwind } from '@tailwind'
 import React from 'react'
 import { ThemedProps } from './index'
 
-type IconType = 'MaterialCommunityIcons' | 'MaterialIcons'
+export type IconType = 'MaterialCommunityIcons' | 'MaterialIcons'
 
 interface IThemedIcon {
   iconType: IconType
