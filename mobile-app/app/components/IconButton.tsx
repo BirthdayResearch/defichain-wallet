@@ -7,9 +7,9 @@ import { ThemedIcon, ThemedText, ThemedTouchableOpacity } from './themed'
 type IconType = 'MaterialCommunityIcons' | 'MaterialIcons'
 
 interface IconButtonProps extends TouchableOpacityProps {
-  iconName: React.ComponentProps<typeof MaterialIcons>['name'] | React.ComponentProps<typeof MaterialCommunityIcons>['name']
-  iconType: IconType
-  iconSize: number
+  iconName?: React.ComponentProps<typeof MaterialIcons>['name'] | React.ComponentProps<typeof MaterialCommunityIcons>['name']
+  iconType?: IconType
+  iconSize?: number
   iconLabel?: string
   disabled?: boolean
 }
@@ -27,13 +27,15 @@ export function IconButton (props: IconButtonProps): JSX.Element {
       testID={props.testID}
       disabled={props.disabled}
     >
-      <ThemedIcon
-        light={tailwind({ 'text-primary-500': !disabled, 'text-gray-300': disabled })}
-        dark={tailwind({ 'text-darkprimary-500': !disabled, 'text-gray-600': disabled })}
-        iconType={props.iconType}
-        name={props.iconName}
-        size={props.iconSize}
-      />
+      {props.iconName !== undefined && props.iconType !== undefined &&
+        <ThemedIcon
+          light={tailwind({ 'text-primary-500': !disabled, 'text-gray-300': disabled })}
+          dark={tailwind({ 'text-darkprimary-500': !disabled, 'text-gray-600': disabled })}
+          iconType={props.iconType}
+          name={props.iconName}
+          size={props.iconSize}
+        />}
+
       {props.iconLabel !== undefined &&
         <ThemedText
           light={tailwind({ 'text-primary-500': !disabled, 'text-gray-300': disabled })}
