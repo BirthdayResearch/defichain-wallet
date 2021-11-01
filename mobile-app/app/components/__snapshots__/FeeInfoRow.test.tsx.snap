@@ -1,0 +1,269 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`estimated fee info scanner should match snapshot of estimated fee 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "flex-start",
+        "flexDirection": "row",
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+        "width": "100%",
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomColor": "rgba(229, 229, 229, 1)",
+        "borderBottomWidth": 1,
+        "borderLeftColor": "rgba(229, 229, 229, 1)",
+        "borderRightColor": "rgba(229, 229, 229, 1)",
+        "borderTopColor": "rgba(229, 229, 229, 1)",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "width": "41.666667%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "flex-start",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 20,
+                "marginRight": 4,
+              },
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+          ]
+        }
+        testID="text_fee_label"
+      >
+        Estimated fee
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexBasis": "0%",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "flexWrap": "wrap",
+        "justifyContent": "flex-end",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontSize": 14,
+              "lineHeight": 20,
+              "textAlign": "right",
+            },
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
+      }
+      testID="text_fee"
+    >
+      100
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontSize": 14,
+              "lineHeight": 20,
+              "marginLeft": 4,
+            },
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
+      }
+      testID="text_fee_suffix"
+    >
+      DFI
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`estimated fee info scanner should match snapshot of vault fee 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "flex-start",
+        "flexDirection": "row",
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+        "width": "100%",
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomColor": "rgba(229, 229, 229, 1)",
+        "borderBottomWidth": 1,
+        "borderLeftColor": "rgba(229, 229, 229, 1)",
+        "borderRightColor": "rgba(229, 229, 229, 1)",
+        "borderTopColor": "rgba(229, 229, 229, 1)",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "width": "41.666667%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "flex-start",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 20,
+                "marginRight": 4,
+              },
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+          ]
+        }
+        testID="text_fee_label"
+      >
+        Vault fee
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexBasis": "0%",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "flexWrap": "wrap",
+        "justifyContent": "flex-end",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontSize": 14,
+              "lineHeight": 20,
+              "textAlign": "right",
+            },
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
+      }
+      testID="text_fee"
+    >
+      100
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontSize": 14,
+              "lineHeight": 20,
+              "marginLeft": 4,
+            },
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
+      }
+      testID="text_fee_suffix"
+    >
+      DFI
+    </Text>
+  </View>
+</View>
+`;
