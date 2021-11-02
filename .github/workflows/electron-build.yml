@@ -53,7 +53,7 @@ jobs:
       - uses: actions/upload-artifact@27121b0bdffd731efa15d66772be8dc71245d074
         with:
           name: linux-build
-          path: 'dist/DeFiChain Wallet-${{needs.version.outputs.version}}.AppImage'
+          path: './desktop-app/dist/DeFiChain Wallet-${{needs.version.outputs.version}}.AppImage'
 
   build_mac_version:
     environment: Electron Release
@@ -85,7 +85,7 @@ jobs:
       - uses: actions/upload-artifact@27121b0bdffd731efa15d66772be8dc71245d074
         with:
           name: mac-build
-          path: 'dist/DeFiChain Wallet-${{ needs.version.outputs.version }}.dmg'
+          path: './desktop-app/dist/DeFiChain Wallet-${{ needs.version.outputs.version }}.dmg'
 
   build_windows_version:
     runs-on: windows-latest
@@ -111,4 +111,4 @@ jobs:
       - uses: actions/upload-artifact@27121b0bdffd731efa15d66772be8dc71245d074
         with:
           name: win-build
-          path: 'dist/DeFiChain Wallet Setup ${{ needs.version.outputs.version }}.exe'
+          path: './desktop-app/dist/DeFiChain Wallet Setup ${{ needs.version.outputs.version }}.exe'
