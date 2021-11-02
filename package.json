@@ -58,11 +58,11 @@
     "expo-linking": "~2.4.2",
     "expo-local-authentication": "~12.0.1",
     "expo-localization": "~11.0.0",
-    "expo-random": "~12.0.0",
+    "expo-random": "~12.0.1",
     "expo-secure-store": "~11.0.3",
     "expo-splash-screen": "~0.13.4",
     "expo-status-bar": "~1.1.0",
-    "expo-updates": "~0.10.5",
+    "expo-updates": "^0.10.10",
     "expo-web-browser": "~10.0.3",
     "i18n-js": "^3.8.0",
     "install": "^0.13.0",
@@ -80,6 +80,7 @@
     "react-native-loading-spinner-overlay": "^2.0.0",
     "react-native-qrcode-svg": "^6.1.1",
     "react-native-reanimated": "~2.2.0",
+    "react-native-redash": "^16.2.2",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.8.0",
     "react-native-svg": "12.1.1",
@@ -91,7 +92,7 @@
     "smart-buffer": "^4.1.0",
     "stream-browserify": "^3.0.0",
     "tailwind-rn": "^3.0.1",
-    "tailwindcss": "^2.2.15"
+    "tailwindcss": "^2.2.19"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
