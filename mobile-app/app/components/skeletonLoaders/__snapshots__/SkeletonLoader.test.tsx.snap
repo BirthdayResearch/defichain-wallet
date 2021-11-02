@@ -406,10 +406,11 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
       Object {
         "flexDirection": "row",
         "justifyContent": "space-around",
-        "paddingBottom": 8,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 8,
+        "marginLeft": 8,
+        "marginRight": 8,
+        "marginTop": 8,
+        "paddingBottom": 4,
+        "paddingTop": 4,
       },
       Object {
         "backgroundColor": "rgba(245, 245, 245, 1)",
@@ -421,12 +422,17 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
   <View
     style={
       Array [
-        Object {
-          "borderBottomLeftRadius": 4,
-          "borderBottomRightRadius": 4,
-          "borderTopLeftRadius": 4,
-          "borderTopRightRadius": 4,
-        },
+        Array [
+          Object {
+            "borderBottomLeftRadius": 4,
+            "borderBottomRightRadius": 4,
+            "borderTopLeftRadius": 4,
+            "borderTopRightRadius": 4,
+          },
+          Object {
+            "flexBasis": "47%",
+          },
+        ],
         Object {
           "backgroundColor": "rgba(255, 255, 255, 1)",
           "borderBottomColor": "rgba(229, 229, 229, 1)",
@@ -471,11 +477,11 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
     >
       <RNSVGGroup>
         <RNSVGRect
-          clipPath="s9d5vqq-animated-diff"
+          clipPath="ggvtku-animated-diff"
           fill={
             Array [
               1,
-              "s9d5vqq-diff",
+              "ggvtku-diff",
             ]
           }
           height="100%"
@@ -490,7 +496,7 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
         />
         <RNSVGDefs>
           <RNSVGClipPath
-            name="s9d5vqq-animated-diff"
+            name="ggvtku-animated-diff"
           >
             <RNSVGRect
               height="14"
@@ -551,7 +557,7 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
             }
             gradientTransform={null}
             gradientUnits={0}
-            name="s9d5vqq-diff"
+            name="ggvtku-diff"
             x1="-100%"
             x2="0%"
             y1={0}
@@ -564,12 +570,17 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
   <View
     style={
       Array [
-        Object {
-          "borderBottomLeftRadius": 4,
-          "borderBottomRightRadius": 4,
-          "borderTopLeftRadius": 4,
-          "borderTopRightRadius": 4,
-        },
+        Array [
+          Object {
+            "borderBottomLeftRadius": 4,
+            "borderBottomRightRadius": 4,
+            "borderTopLeftRadius": 4,
+            "borderTopRightRadius": 4,
+          },
+          Object {
+            "flexBasis": "47%",
+          },
+        ],
         Object {
           "backgroundColor": "rgba(255, 255, 255, 1)",
           "borderBottomColor": "rgba(229, 229, 229, 1)",
@@ -614,11 +625,11 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
     >
       <RNSVGGroup>
         <RNSVGRect
-          clipPath="ynt6am9-animated-diff"
+          clipPath="0d2r2uh-animated-diff"
           fill={
             Array [
               1,
-              "ynt6am9-diff",
+              "0d2r2uh-diff",
             ]
           }
           height="100%"
@@ -633,7 +644,7 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
         />
         <RNSVGDefs>
           <RNSVGClipPath
-            name="ynt6am9-animated-diff"
+            name="0d2r2uh-animated-diff"
           >
             <RNSVGRect
               height="14"
@@ -694,7 +705,7 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
             }
             gradientTransform={null}
             gradientUnits={0}
-            name="ynt6am9-diff"
+            name="0d2r2uh-diff"
             x1="-100%"
             x2="0%"
             y1={0}
