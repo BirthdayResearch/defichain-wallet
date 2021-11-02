@@ -171,7 +171,7 @@ export function LoansScreen ({ route }: Props): JSX.Element {
         ? (
           <View style={tailwind('mt-1')}>
             <SkeletonLoader
-              row={4}
+              row={6}
               screen={SkeletonLoaderScreen.Vault}
             />
           </View>
