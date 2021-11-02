@@ -53,6 +53,10 @@ async function createWindow (): Promise<void> {
     mainWindow = null
   })
 
+  mainWindow.webContents.setWindowOpenHandler(() => {
+    return { action: 'allow' }
+  })
+
   const menuBuilder = new MenuBuilder(mainWindow)
   menuBuilder.buildMenu()
 
