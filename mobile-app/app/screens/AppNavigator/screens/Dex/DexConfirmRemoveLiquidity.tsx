@@ -17,7 +17,7 @@ import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
-import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { FeeInfoRow } from '@components/FeeInfoRow'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
@@ -104,10 +104,11 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
-
-      <EstimatedFeeInfo
-        lhs={translate('screens/ConfirmRemoveLiquidity', 'Estimated fee')}
-        rhs={{ value: fee.toFixed(8), testID: 'text_fee', suffix: 'DFI' }}
+      <FeeInfoRow
+        type='ESTIMATED_FEE'
+        value={fee.toFixed(8)}
+        testID='text_fee'
+        suffix='DFI'
       />
 
       <ThemedSectionTitle

@@ -15,7 +15,7 @@ import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
-import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { FeeInfoRow } from '@components/FeeInfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { DFITokenSelector, DFIUtxoSelector, WalletToken } from '@store/wallet'
 import { ConversionInfoText } from '@components/ConversionInfoText'
@@ -378,9 +378,11 @@ function TransactionDetailsSection (props: { pair: ExtPoolPairData, sharePercent
           suffix: pair?.tokenB?.displaySymbol
         }}
       />
-      <EstimatedFeeInfo
-        lhs={translate('screens/AddLiquidity', 'Estimated fee')}
-        rhs={{ value: props.fee.toFixed(8), testID: 'text_fee', suffix: 'DFI' }}
+      <FeeInfoRow
+        type='ESTIMATED_FEE'
+        value={props.fee.toFixed(8)}
+        testID='text_fee'
+        suffix='DFI'
       />
     </>
   )

@@ -18,7 +18,7 @@ import { DexParamList } from '../DexNavigator'
 import { DerivedTokenState } from './PoolSwapScreen'
 import { getNativeIcon } from '@components/icons/assets'
 import { ConversionTag } from '@components/ConversionTag'
-import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { FeeInfoRow } from '@components/FeeInfoRow'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
@@ -131,13 +131,11 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
           suffix: swap.toToken.displaySymbol
         }}
       />
-      <EstimatedFeeInfo
-        lhs={translate('screens/PoolSwapConfirmScreen', 'Estimated fee')}
-        rhs={{
-          value: fee.toFixed(8),
-          testID: 'text_fee',
-          suffix: 'DFI'
-        }}
+      <FeeInfoRow
+        type='ESTIMATED_FEE'
+        value={fee.toFixed(8)}
+        testID='text_fee'
+        suffix='DFI'
       />
 
       <ThemedSectionTitle
