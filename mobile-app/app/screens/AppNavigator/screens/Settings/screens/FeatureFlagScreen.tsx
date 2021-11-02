@@ -9,29 +9,31 @@ import { View } from 'react-native'
 import { FeatureFlag, FEATURE_FLAG_ID } from '@shared-types/website'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
-interface BetaFeaturesI extends FeatureFlag {
+export interface BetaFeaturesI extends FeatureFlag {
   value: boolean
 }
 
 export function FeatureFlagScreen (): JSX.Element {
   const { featureFlags, enabledFeatures, updateEnabledFeatures } = useFeatureFlagContext()
+  const features = featureFlags.filter((item) => item.stage === 'beta')
   const [betaFeatures, setBetaFeatures] = useState<BetaFeaturesI []>([])
 
-  useEffect(() => {
-    const betaFeatures: BetaFeaturesI [] = featureFlags.reduce((prev: BetaFeaturesI[], curr: FeatureFlag) => {
-      if (curr.stage === 'beta') {
-        prev.push({
-          ...curr,
-          value: enabledFeatures.includes(curr.id)
-        })
+  const getBetaFeature = (flags: FEATURE_FLAG_ID[]): BetaFeaturesI[] => {
+    return features.map((item: FeatureFlag) => {
+      return {
+        ...item,
+        value: flags.includes(item.id)
       }
-      return prev
-    }, [])
-    setBetaFeatures(betaFeatures)
-  }, [enabledFeatures])
+    })
+  }
+
+  useEffect(() => {
+    setBetaFeatures(getBetaFeature(enabledFeatures))
+  }, [])
 
   const onFeatureChange = async (id: FEATURE_FLAG_ID, value: boolean): Promise<void> => {
     const flags: FEATURE_FLAG_ID[] = value ? [...enabledFeatures, id] : enabledFeatures.filter(e => e !== id)
+    setBetaFeatures(getBetaFeature(flags))
     await updateEnabledFeatures(flags)
   }
 

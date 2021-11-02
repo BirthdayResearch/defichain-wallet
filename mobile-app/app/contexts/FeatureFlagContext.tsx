@@ -9,7 +9,7 @@ import * as Updates from 'expo-updates'
 import { FeatureFlagPersistence } from '@api'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
-interface FeatureFlagContextI {
+export interface FeatureFlagContextI {
   featureFlags: FeatureFlag[]
   enabledFeatures: FEATURE_FLAG_ID[]
   updateEnabledFeatures: (features: FEATURE_FLAG_ID[]) => void
