@@ -9,6 +9,8 @@ let mainWindow: BrowserWindow | null = null
 
 async function installExtensions (): Promise<void> {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require('electron-debug')()
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const installer = require('electron-devtools-installer')
   const forceDownload = !(process.env.UPGRADE_EXTENSIONS == null)
   const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS']
@@ -19,6 +21,29 @@ async function installExtensions (): Promise<void> {
       forceDownload
     )
     .catch(console.log)
+}
+
+function initiateInterceptFileProtocol (): void {
+  protocol.interceptFileProtocol('file', (request, callback) => {
+    /* all urls start with 'file://' */
+    const fileUrl = request.url.substr(7)
+    console.log(fileUrl)
+    const basePath = path.normalize(`${__dirname}../../web-build`)
+    callback(path.normalize(`${basePath}/${fileUrl}`))
+  })
+}
+
+function makeSingleInstance (): void {
+  if (process.mas) return
+  app.requestSingleInstanceLock()
+  app.on('second-instance', () => {
+    if (mainWindow != null) {
+      if (mainWindow.isMinimized()) {
+        mainWindow.restore()
+      }
+      mainWindow.focus()
+    }
+  })
 }
 
 async function createWindow (): Promise<void> {
@@ -33,10 +58,15 @@ async function createWindow (): Promise<void> {
     title: app.name,
     movable: true,
     resizable: false,
-    icon: path.join(__dirname, '../../shared/assets/images/icon-512.png')
+    icon: path.join(__dirname, '../../shared/assets/images/icon-512.png'),
+    webPreferences: {
+      nodeIntegration: true,
+      webSecurity: false,
+      contextIsolation: false
+    }
   })
 
-  void mainWindow.loadURL('http://localhost:19006')
+  void mainWindow.loadURL(isDevelopment ? 'http://localhost:19006' : `file://${path.resolve(__dirname, '../../web-build/index.html')}`)
 
   mainWindow.on('ready-to-show', () => {
     if (mainWindow == null) {
@@ -52,9 +82,9 @@ async function createWindow (): Promise<void> {
   const menuBuilder = new MenuBuilder(mainWindow)
   menuBuilder.buildMenu()
 
-  if (isDevelopment) {
-    mainWindow.webContents.openDevTools({ mode: 'detach' })
-  }
+  // if (isDevelopment) {
+  mainWindow.webContents.openDevTools({ mode: 'detach' })
+  // }
 
   // Open urls in the user's browser
   mainWindow.webContents.on('new-window', (event, url) => {
@@ -74,6 +104,9 @@ app.on('window-all-closed', () => {
 app
   .whenReady()
   .then(async () => {
+    if (!isDevelopment) {
+      initiateInterceptFileProtocol()
+    }
     await createWindow()
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     app.on('activate', async () => {
@@ -82,6 +115,7 @@ app
       if (mainWindow === null) {
         await createWindow()
       }
+      makeSingleInstance()
     })
   })
   .catch(console.log)

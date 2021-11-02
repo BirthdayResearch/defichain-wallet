@@ -1,4 +1,4 @@
-import { BrowserWindow, Menu, MenuItemConstructorOptions } from 'electron'
+import { BrowserWindow, Menu, MenuItemConstructorOptions, shell } from 'electron'
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string
@@ -13,10 +13,7 @@ export default class MenuBuilder {
   }
 
   buildMenu (): Menu {
-    const template =
-      process.platform === 'darwin'
-        ? this.buildDarwinTemplate()
-        : this.buildDefaultTemplate()
+    const template = this.buildDefaultTemplate()
 
     const menu = Menu.buildFromTemplate(template)
     Menu.setApplicationMenu(menu)
@@ -24,18 +21,42 @@ export default class MenuBuilder {
     return menu
   }
 
-  buildDarwinTemplate (): MenuItemConstructorOptions[] {
-    const subMenuAbout: DarwinMenuItemConstructorOptions = {
-      label: 'About'
-    }
-    return [subMenuAbout]
-  }
-
   buildDefaultTemplate (): MenuItemConstructorOptions[] {
-    return [
-      {
-        label: 'About'
-      }
-    ]
+    const subMenuHelp: DarwinMenuItemConstructorOptions = {
+      label: 'Help',
+      submenu: [
+        {
+          label: 'Submit an issue/feature',
+          click: async () => {
+            await shell.openExternal('https://github.com/DeFiCh/wallet/issues')
+          }
+        }
+      ]
+    }
+
+    const subMenuAbout: DarwinMenuItemConstructorOptions = {
+      label: 'About',
+      submenu: [
+        {
+          label: 'Visit our site',
+          click: async () => {
+            await shell.openExternal('https://defichain.com')
+          }
+        },
+        {
+          label: 'Apple App Store',
+          click: async () => {
+            await shell.openExternal('https://apps.apple.com/us/app/defichain-wallet/id1572472820')
+          }
+        },
+        {
+          label: 'Google Play Store',
+          click: async () => {
+            await shell.openExternal('https://play.google.com/store/apps/details?id=com.defichain.app')
+          }
+        }
+      ]
+    }
+    return [subMenuAbout, subMenuHelp]
   }
 }

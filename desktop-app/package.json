@@ -1,5 +1,7 @@
 {
-  "name": "@defich/wallet-desktop",
+  "name": "@defich/desktop-wallet",
+  "version": "0.0.0",
+  "description": "DeFi Blockchain Light Wallet for Desktop (Mac, Linux and Windows).",
   "main": "./main/build/main.js",
   "author": {
     "name": "DeFiChain Foundation",
@@ -55,17 +57,17 @@
     "files": [
       "./main/build",
       {
-        "from": "./renderer/build/release/",
-        "to": "./renderer",
+        "from": "../web-build/",
+        "to": "./web-build/",
         "filter": [
           "**/*"
         ]
       }
     ],
-    "icon": "../shared/assets/icon-512.png",
+    "icon": "../shared/assets/images/icon-512.png",
     "dmg": {
       "sign": false,
-      "icon": "../shared/assets/app.icns",
+      "icon": "../shared/assets/images/app.icns",
       "contents": [
         {
           "x": 40,
@@ -80,7 +82,7 @@
       ]
     },
     "linux": {
-      "icon": "../shared/assets/icon-512.png",
+      "icon": "../shared/assets/images/icon-512.png",
       "target": [
         "AppImage"
       ]
