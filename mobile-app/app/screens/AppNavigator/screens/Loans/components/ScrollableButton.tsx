@@ -16,6 +16,7 @@ export interface ScrollButton {
   iconType?: IconType
   iconName?: React.ComponentProps<typeof MaterialIcons>['name'] | React.ComponentProps<typeof MaterialCommunityIcons>['name']
   disabled?: boolean
+  handleOnPress: () => void
 }
 
 export function ScrollableButton (props: ScrollableButtonProps): JSX.Element | null {
@@ -43,6 +44,7 @@ export function ScrollableButton (props: ScrollableButtonProps): JSX.Element | n
             iconName={button.iconName}
             style={tailwind('mr-2 p-2')}
             disabled={button.disabled}
+            onPress={button.handleOnPress}
           />
         ))}
       </ThemedScrollView>

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
 import { ThemedView } from '@components/themed'
-import { VaultCard, VaultCardProps, VaultStatus } from '@components/VaultCard'
+import { VaultCard, VaultCardProps, VaultStatus } from '@screens/AppNavigator/screens/Loans/components/VaultCard'
 
 export function Vaults (): JSX.Element {
   // TODO(pierregee): Remove hardcoded vaults once API is ready

@@ -1,7 +1,7 @@
 import * as Clipboard from 'expo-clipboard'
 import { View } from '@components'
 import { ThemedIcon, ThemedProps, ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
-import { Collateral, VaultCardProps, VaultStatus } from '@components/VaultCard'
+import { Collateral, VaultCardProps, VaultStatus } from '@screens/AppNavigator/screens/Loans/components/VaultCard'
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -52,19 +52,22 @@ export function VaultDetailScreen ({ route }: Props): JSX.Element {
     {
       iconName: 'add',
       iconType: 'MaterialIcons',
-      label: 'ADD COLLATERAL'
+      label: 'ADD COLLATERAL',
+      handleOnPress: () => {}
     },
     {
       iconName: 'remove',
       iconType: 'MaterialIcons',
       label: 'TAKE COLLATERAL',
-      disabled: currentVault.collaterals.length === 0
+      disabled: currentVault.collaterals.length === 0,
+      handleOnPress: () => {}
     },
     {
       iconName: 'tune',
       iconType: 'MaterialIcons',
       label: 'EDIT SCHEME',
-      disabled: true
+      disabled: true,
+      handleOnPress: () => {}
     }
   ]
   const vaultChildTabs = [
