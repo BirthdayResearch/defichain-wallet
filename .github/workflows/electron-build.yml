@@ -39,6 +39,11 @@ jobs:
 
       - run: npm ci
 
+      - run: |
+          git config --global user.email "github-bot@defichain.com"
+          git config --global user.name "defichain-bot"
+          npx standard-version --release-as ${{ needs.version.outputs.version }}
+
       - name: Build app
         working-directory: ./desktop-app
         run: npm run build:linux
@@ -46,7 +51,7 @@ jobs:
       - uses: actions/upload-artifact@27121b0bdffd731efa15d66772be8dc71245d074
         with:
           name: linux-build
-          path: 'dist/DeFiChain_Wallet_${{needs.version.outputs.version}}.AppImage'
+          path: 'dist/DeFiChain Wallet-${{needs.version.outputs.version}}.AppImage'
 
   build_mac_version:
     environment: Electron Release
@@ -59,6 +64,11 @@ jobs:
           node-version: 16
 
       - run: npm ci
+
+      - run: |
+          git config --global user.email "github-bot@defichain.com"
+          git config --global user.name "defichain-bot"
+          npx standard-version --release-as ${{ needs.version.outputs.version }}
 
       - name: Build app
         working-directory: ./desktop-app
@@ -73,7 +83,7 @@ jobs:
       - uses: actions/upload-artifact@27121b0bdffd731efa15d66772be8dc71245d074
         with:
           name: mac-build
-          path: 'dist/DeFiChain_Wallet_${{ needs.version.outputs.version }}.dmg'
+          path: 'dist/DeFiChain Wallet-${{ needs.version.outputs.version }}.dmg'
 
   build_windows_version:
     runs-on: windows-latest
@@ -86,6 +96,11 @@ jobs:
 
       - run: npm ci
 
+      - run: |
+          git config --global user.email "github-bot@defichain.com"
+          git config --global user.name "defichain-bot"
+          npx standard-version --release-as ${{ needs.version.outputs.version }}
+
       - name: Build app
         working-directory: ./desktop-app
         run: npm run build:win
@@ -94,4 +109,4 @@ jobs:
       - uses: actions/upload-artifact@27121b0bdffd731efa15d66772be8dc71245d074
         with:
           name: win-build
-          path: 'dist/DeFiChain_Wallet_${{ needs.version.outputs.version }}.exe'
+          path: 'dist/DeFiChain Wallet Setup ${{ needs.version.outputs.version }}.exe'
