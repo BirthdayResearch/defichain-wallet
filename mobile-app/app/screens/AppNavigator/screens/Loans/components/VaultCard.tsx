@@ -105,7 +105,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
                       {translate('components/VaultCard', 'None')}
                     </ThemedText>
                   )}
-                <TokenIconGroup symbols={props.collaterals.map(collateral => collateral.id)} maxDisplay={3} />
+                <TokenIconGroup symbols={props.collaterals.map(collateral => collateral.id)} maxIconToDisplay={3} />
               </View>
             </View>
           </View>

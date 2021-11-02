@@ -28,8 +28,6 @@ describe('Vault info', () => {
         label='Foo'
         valueType='TOKEN_ICON_GROUP'
         tokens={['BTC', 'dLTC', 'dDOGE', 'dETH', 'dBCH', 'DFI']}
-        suffix='%'
-        prefix='$'
       />
     )
     expect(rendered.toJSON()).toMatchSnapshot()

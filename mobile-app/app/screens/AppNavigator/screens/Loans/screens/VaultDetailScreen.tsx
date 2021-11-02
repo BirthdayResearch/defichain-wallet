@@ -160,7 +160,7 @@ function VaultIdSection (props: { vaultId: string, collaterals: Collateral[] }):
           >
             {translate('screens/VaultDetailScreen', 'Vault ID')}
           </ThemedText>
-          <TouchableOpacity onPress={() => copyToClipboard(props.vaultId)}>
+          <TouchableOpacity onPress={() => Clipboard.setString(props.vaultId)}>
             <ThemedIcon
               dark={tailwind('text-darkprimary-500')}
               iconType='MaterialIcons'
@@ -178,10 +178,6 @@ function VaultIdSection (props: { vaultId: string, collaterals: Collateral[] }):
       </View>
     </ThemedView>
   )
-}
-
-function copyToClipboard (text: string): void {
-  Clipboard.setString(text)
 }
 
 function VaultCollateralTokenShare (props: {collaterals: Collateral[]}): JSX.Element | null {

@@ -53,7 +53,7 @@ export function VaultInfo (props: VaultInfoProps): JSX.Element {
       {props.valueType === 'TOKEN_ICON_GROUP' && props.tokens !== undefined &&
         (
           <View style={tailwind('mt-0.5')}>
-            <TokenIconGroup symbols={props.tokens} maxDisplay={5} />
+            <TokenIconGroup symbols={props.tokens} maxIconToDisplay={5} />
           </View>
         )}
 
