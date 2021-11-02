@@ -48,6 +48,7 @@ jobs:
           path: 'dist/DeFiChain_Wallet_${{needs.version.outputs.version}}.AppImage'
 
   build_mac_version:
+    environment: Electron Release
     runs-on: macos-latest
     needs: [ version ]
     steps:
