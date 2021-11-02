@@ -14,7 +14,7 @@ export interface VaultCardProps {
   vaultAddress: string
   status?: VaultStatus
   collaterals: Collateral[]
-  activeLoans?: BigNumber
+  activeLoans?: LoanToken[]
   totalLoanAmount?: BigNumber
   collateralAmount?: BigNumber
   collateralRatio?: BigNumber
@@ -26,6 +26,10 @@ export interface VaultCardProps {
 export interface Collateral {
   id: string
   vaultProportion: BigNumber
+}
+
+export interface LoanToken {
+  tokenId: string
 }
 
 export enum VaultStatus {
@@ -87,7 +91,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
                 <ThemedText
                   light={tailwind('text-gray-500')}
                   dark={tailwind('text-gray-300')}
-                  style={tailwind('text-xs')}
+                  style={tailwind('text-xs mr-1')}
                 >
                   {translate('components/VaultCard', 'Collaterals:')}
                 </ThemedText>
@@ -101,20 +105,21 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
                       {translate('components/VaultCard', 'None')}
                     </ThemedText>
                   )}
-                <TokenIconGroup symbols={props.collaterals} />
+                <TokenIconGroup symbols={props.collaterals.map(collateral => collateral.id)} maxDisplay={3} />
               </View>
             </View>
           </View>
         </View>
         <View style={tailwind('flex flex-row flex-wrap -mb-2')}>
-          <VaultInfo label='Active loans' value={props.activeLoans} decimalPlace={0} />
-          <VaultInfo label='Total loan amount' value={props.totalLoanAmount} prefix='$' decimalPlace={2} />
-          <VaultInfo label='Collateral amount' value={props.collateralAmount} prefix='$' decimalPlace={2} />
+          <VaultInfo label='Active loans' tokens={props.activeLoans?.map(loan => loan.tokenId)} valueType='TOKEN_ICON_GROUP' />
+          <VaultInfo label='Total loan amount' value={props.totalLoanAmount} prefix='$' decimalPlace={2} valueType='NUMBER' />
+          <VaultInfo label='Collateral amount' value={props.collateralAmount} prefix='$' decimalPlace={2} valueType='NUMBER' />
           <VaultInfo
             label='Collateral ratio'
             value={props.collateralRatio}
             suffix='%'
             decimalPlace={2}
+            valueType='NUMBER'
             valueThemedProps={props.collateralRatio !== undefined ? getCollateralRatioColor(props.collateralRatio) : undefined}
           />
         </View>

@@ -42,7 +42,7 @@ export function VaultDetailScreen ({ route }: Props): JSX.Element {
       { id: 'dLTC', vaultProportion: new BigNumber(20) },
       { id: 'dUSDC', vaultProportion: new BigNumber(20) }
     ],
-    activeLoans: new BigNumber(3),
+    activeLoans: [{ tokenId: 'BTC' }, { tokenId: 'dETH' }, { tokenId: 'dDOGE' }],
     totalLoanAmount: new BigNumber('50000'),
     collateralAmount: new BigNumber('40000'),
     collateralRatio: new BigNumber('10'),
@@ -234,14 +234,15 @@ function VaultInfoSection (props: VaultCardProps): JSX.Element | null {
 
   return (
     <View style={tailwind('flex flex-row flex-wrap -mb-2 mt-4')}>
-      <VaultInfo label='Active loans' value={props.activeLoans} decimalPlace={0} />
-      <VaultInfo label='Total loan amount' value={props.totalLoanAmount} prefix='$' decimalPlace={2} />
-      <VaultInfo label='Collateral amount' value={props.collateralAmount} prefix='$' decimalPlace={2} />
+      <VaultInfo label='Active loans' tokens={props.activeLoans?.map(loan => loan.tokenId)} valueType='TOKEN_ICON_GROUP' />
+      <VaultInfo label='Total loan amount' value={props.totalLoanAmount} prefix='$' decimalPlace={2} valueType='NUMBER' />
+      <VaultInfo label='Collateral amount' value={props.collateralAmount} prefix='$' decimalPlace={2} valueType='NUMBER' />
       <VaultInfo
         label='Collateral ratio'
         value={props.collateralRatio}
         suffix='%'
         decimalPlace={2}
+        valueType='NUMBER'
         valueThemedProps={props.collateralRatio !== undefined ? getCollateralRatioColor(props.collateralRatio) : undefined}
       />
     </View>

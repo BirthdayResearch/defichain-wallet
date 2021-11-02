@@ -15,9 +15,9 @@ export function Vaults (): JSX.Element {
         { id: 'DFI', vaultProportion: new BigNumber(12.4573) },
         { id: 'dETH', vaultProportion: new BigNumber(55.123333) },
         { id: 'dLTC', vaultProportion: new BigNumber(20) },
-        { id: 'dLTC', vaultProportion: new BigNumber(20) }
+        { id: 'dUSDC', vaultProportion: new BigNumber(20) }
       ],
-      activeLoans: new BigNumber(3),
+      activeLoans: [{ tokenId: 'BTC' }, { tokenId: 'DFI' }, { tokenId: 'dETH' }],
       totalLoanAmount: new BigNumber('50000'),
       collateralAmount: new BigNumber('40000'),
       collateralRatio: new BigNumber('80'),
@@ -30,7 +30,7 @@ export function Vaults (): JSX.Element {
         { id: 'BTC', vaultProportion: new BigNumber(20) },
         { id: 'DFI', vaultProportion: new BigNumber(12.4573) }
       ],
-      activeLoans: new BigNumber(3),
+      activeLoans: [{ tokenId: 'BTC' }, { tokenId: 'DFI' }, { tokenId: 'dETH' }, { tokenId: 'dLTC' }, { tokenId: 'dDOGE' }, { tokenId: 'dUSDC' }, { tokenId: 'dBCH' }],
       totalLoanAmount: new BigNumber('50000000000000000000'),
       collateralAmount: new BigNumber('40000'),
       collateralRatio: new BigNumber('150'),
