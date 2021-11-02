@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { View } from 'react-native'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { ThemedView } from '@components/themed'
@@ -140,13 +141,13 @@ export function LoansScreen ({ route }: Props): JSX.Element {
    // TODO: remove fake loading of loans
   useEffect(
     () => {
-      const timer1 = setTimeout(() => {
+      const loansTimer = setTimeout(() => {
         console.log('here')
         setLoadingState('success')
-      }, 3000)
+      }, 5000)
 
       return () => {
-        clearTimeout(timer1)
+        clearTimeout(loansTimer)
       }
     }, [route.params?.loadingState])
 
@@ -168,10 +169,13 @@ export function LoansScreen ({ route }: Props): JSX.Element {
       {activeTab === TabKey.YourVaults && <Vaults />}
       {activeTab === TabKey.BrowseLoans && loadingState === 'loading'
         ? (
-          <SkeletonLoader
-            row={4}
-            screen={SkeletonLoaderScreen.Vault}
-          />)
+          <View style={tailwind('mt-1')}>
+            <SkeletonLoader
+              row={4}
+              screen={SkeletonLoaderScreen.Vault}
+            />
+          </View>
+          )
         : <LoanCards testID='loans_cards' loans={loans} />}
     </ThemedView>
   )

@@ -30,14 +30,14 @@ export function VaultSkeletonLoader (loaderProps: JSX.IntrinsicAttributes & ICon
 
   return (
     <ThemedView
-      style={tailwind('p-2 flex-row justify-around')}
+      style={tailwind('flex-row justify-around py-1 mx-2 mt-2')}
       testID='vault_skeleton_loader'
     >
       {skeletonCols.map((_col, i) => (
         <ThemedView
           dark={tailwind('bg-gray-800 border border-gray-700')}
           light={tailwind('bg-white border border-gray-200')}
-          style={tailwind('rounded')}
+          style={[tailwind('rounded'), { flexBasis: '47%' }]}
           key={i}
         >
           <VaultLoader isLight={isLight} />
