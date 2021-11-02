@@ -40,12 +40,12 @@ export function VaultDetailScreen ({ route }: Props): JSX.Element {
       { id: 'DFI', vaultProportion: new BigNumber(12.4573) },
       { id: 'dETH', vaultProportion: new BigNumber(55.123333) },
       { id: 'dLTC', vaultProportion: new BigNumber(20) },
-      { id: 'dLTC', vaultProportion: new BigNumber(20) }
+      { id: 'dUSDC', vaultProportion: new BigNumber(20) }
     ],
     activeLoans: new BigNumber(3),
     totalLoanAmount: new BigNumber('50000'),
     collateralAmount: new BigNumber('40000'),
-    collateralRatio: new BigNumber('180'),
+    collateralRatio: new BigNumber('10'),
     actions: ['ADD_COLLATERAL', 'VIEW_LOANS']
   }
   const vaultActionButtons: ScrollButton[] = [
@@ -57,7 +57,8 @@ export function VaultDetailScreen ({ route }: Props): JSX.Element {
     {
       iconName: 'remove',
       iconType: 'MaterialIcons',
-      label: 'TAKE COLLATERAL'
+      label: 'TAKE COLLATERAL',
+      disabled: currentVault.collaterals.length === 0
     },
     {
       iconName: 'tune',
@@ -96,7 +97,7 @@ export function VaultDetailScreen ({ route }: Props): JSX.Element {
   return (
     <ThemedScrollView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-700 border-gray-800')}
+      dark={tailwind('bg-gray-800 border-gray-800')}
       style={tailwind('border-b')}
     >
       <View style={tailwind('p-4')}>
@@ -107,12 +108,18 @@ export function VaultDetailScreen ({ route }: Props): JSX.Element {
       </View>
       <ThemedView
         light={tailwind('border-gray-200')}
-        dark={tailwind('border-gray-800')}
+        dark={tailwind('border-gray-700')}
         style={tailwind('pb-4 border-b')}
       >
         <ScrollableButton buttons={vaultActionButtons} containerStyle={tailwind('pl-4')} />
+        <EmptyCollateralMessage collaterals={currentVault.collaterals} />
       </ThemedView>
       <Tabs tabSections={vaultChildTabs} activeTabKey={activeTab} />
+      <ThemedView
+        style={tailwind('h-full')}
+      >
+        {/* TODO: detail tab content */}
+      </ThemedView>
     </ThemedScrollView>
   )
 }
@@ -121,7 +128,7 @@ function VaultIdSection (props: { vaultId: string, collaterals: Collateral[] }):
   return (
     <ThemedView
       light={tailwind('bg-white')}
-      dark={tailwind('bg-gray-700')}
+      dark={tailwind('bg-gray-800')}
       style={tailwind('flex flex-row items-center')}
     >
       <ThemedView
@@ -182,7 +189,7 @@ function VaultCollateralTokenShare (props: {collaterals: Collateral[]}): JSX.Ele
   return (
     <ThemedView
       light={tailwind('border-gray-200')}
-      dark={tailwind('border-gray-800')}
+      dark={tailwind('border-gray-700')}
       style={tailwind('flex flex-row flex-wrap mt-2 pb-3 border-b')}
     >
       {props.collaterals.map(collateral => (
@@ -247,6 +254,9 @@ function getCollateralRatioColor (value: BigNumber): ThemedProps {
   if (value.isLessThan(100)) {
     lightStyle = 'text-error-500'
     darkStyle = 'text-darkerror-500'
+  } else if (value.isLessThan(300)) {
+    lightStyle = 'text-warning-500'
+    darkStyle = 'text-darkwarning-500'
   }
 
   return {
@@ -270,6 +280,27 @@ function CollateralStatusMessage (props: {collateralRatio?: BigNumber}): JSX.Ele
   }
 
   return (
-    <InfoText text={message} type={type} style={tailwind('mt-2')} />
+    <InfoText
+      text={translate('screens/VaultDetailScreen', message)}
+      type={type}
+      style={tailwind('mt-2')}
+    />
+  )
+}
+
+function EmptyCollateralMessage (props: {collaterals: Collateral[]}): JSX.Element | null {
+  if (props.collaterals.length !== 0) {
+    return null
+  }
+
+  return (
+    <View
+      style={tailwind('mx-4')}
+    >
+      <InfoText
+        text={translate('screens/VaultDetailScreen', 'Collaterals required to use this vault')}
+        style={tailwind('mt-2')}
+      />
+    </View>
   )
 }
