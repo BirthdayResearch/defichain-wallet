@@ -4,9 +4,11 @@ import { IconType, ThemedScrollView } from '@components/themed'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { tailwind } from '@tailwind'
 import React from 'react'
+import { StyleProp, ViewStyle } from 'react-native'
 
 interface ScrollableButtonProps {
   buttons: ScrollButton[]
+  containerStyle?: StyleProp<ViewStyle>
 }
 
 export interface ScrollButton {
@@ -26,11 +28,12 @@ export function ScrollableButton (props: ScrollableButtonProps): JSX.Element | n
       style={tailwind('h-8')}
     >
       <ThemedScrollView
+        contentContainerStyle={props.containerStyle}
         horizontal
         showsHorizontalScrollIndicator={false}
         light={tailwind('bg-white')}
         dark={tailwind('bg-gray-800')}
-        style={tailwind('flex flex-row flex-1')}
+        style={tailwind('flex flex-row')}
       >
         {props.buttons.map(button => (
           <IconButton

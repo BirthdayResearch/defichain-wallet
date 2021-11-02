@@ -105,9 +105,13 @@ export function VaultDetailScreen ({ route }: Props): JSX.Element {
         <VaultInfoSection {...currentVault} />
         <CollateralStatusMessage collateralRatio={currentVault.collateralRatio} />
       </View>
-      <View style={tailwind('ml-4')}>
-        <ScrollableButton buttons={vaultActionButtons} />
-      </View>
+      <ThemedView
+        light={tailwind('border-gray-200')}
+        dark={tailwind('border-gray-800')}
+        style={tailwind('pb-4 border-b')}
+      >
+        <ScrollableButton buttons={vaultActionButtons} containerStyle={tailwind('pl-4')} />
+      </ThemedView>
       <Tabs tabSections={vaultChildTabs} activeTabKey={activeTab} />
     </ThemedScrollView>
   )

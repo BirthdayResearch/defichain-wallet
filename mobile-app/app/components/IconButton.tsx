@@ -40,7 +40,7 @@ export function IconButton (props: IconButtonProps): JSX.Element {
         <ThemedText
           light={tailwind({ 'text-primary-500': !disabled, 'text-gray-300': disabled })}
           dark={tailwind({ 'text-darkprimary-500': !disabled, 'text-gray-600': disabled })}
-          style={tailwind('px-1 text-sm font-medium')}
+          style={tailwind('px-1 text-sm font-medium leading-4')}
         >
           {props.iconLabel}
         </ThemedText>}
