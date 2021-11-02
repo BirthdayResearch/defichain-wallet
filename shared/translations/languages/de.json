@@ -572,7 +572,8 @@
   "screens/LoansScreen": {
     "Loans": "Darlehen",
     "Create vault": "Sicherheitendepot erstellen",
-    "Confirm create vault": "Bestätige Sicherheitendepot erstellen"
+    "Confirm create vault": "Bestätige Sicherheitendepot erstellen",
+    "Vault detail": "Sicherheitendepot detail"
   },
   "components/tabs": {
     "Browse loans": "Darlehen durchsuchen",

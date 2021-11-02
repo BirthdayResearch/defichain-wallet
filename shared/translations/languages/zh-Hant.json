@@ -572,7 +572,8 @@
   "screens/LoansScreen": {
     "Loans": "貸款",
     "Create vault": "創建金庫",
-    "Confirm create vault": "確認創建金庫"
+    "Confirm create vault": "確認創建金庫",
+    "Vault detail": "金庫明細"
   },
   "components/tabs": {
     "Browse loans": "瀏覽貸款選項",

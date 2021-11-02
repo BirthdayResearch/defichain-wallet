@@ -571,7 +571,8 @@
   "screens/LoansScreen": {
     "Loans": "贷款",
     "Create vault": "创建金库",
-    "Confirm create vault": "确认创建金库"
+    "Confirm create vault": "确认创建金库",
+    "Vault detail": "金库明细"
   },
   "components/tabs": {
     "Browse loans": "浏览贷款选项",
