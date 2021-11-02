@@ -8,17 +8,19 @@ import { Vaults } from './components/Vaults'
 import { EmptyVault } from './components/EmptyVault'
 import { StackScreenProps } from '@react-navigation/stack'
 import { LoanParamList } from './LoansNavigator'
+import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 
 enum TabKey {
   BrowseLoans = 'BROWSE_LOANS',
   YourVaults = 'YOUR_VAULTS'
 }
 
+export type LoadingState = 'empty_vault' | 'loading' | 'success'
 type Props = StackScreenProps<LoanParamList, 'LoansScreen'>
 
 export function LoansScreen ({ route }: Props): JSX.Element {
   const [activeTab, setActiveTab] = useState<string>(TabKey.BrowseLoans)
-  const [displayEmptyVault, setDisplayEmptyVault] = useState<boolean | undefined>(true) // TODO: remove temporary display flag
+  const [loadingState, setLoadingState] = useState<LoadingState>('empty_vault') // TODO: remove temporary display flag
   const onPress = (tabId: string): void => {
     setActiveTab(tabId)
   }
@@ -128,14 +130,27 @@ export function LoansScreen ({ route }: Props): JSX.Element {
 
   // TODO: remove custom handling of empty vault display
   useEffect(() => {
-    if (route.params?.displayEmptyVault === undefined) {
-      setDisplayEmptyVault(true)
+    if (route.params?.loadingState === undefined) {
+      setLoadingState('empty_vault')
     } else {
-      setDisplayEmptyVault(route.params.displayEmptyVault)
+      setLoadingState(route.params.loadingState)
     }
-  }, [route.params?.displayEmptyVault])
+  }, [route.params?.loadingState])
 
-  if (displayEmptyVault === true) {
+   // TODO: remove fake loading of loans
+  useEffect(
+    () => {
+      const timer1 = setTimeout(() => {
+        console.log('here')
+        setLoadingState('success')
+      }, 3000)
+
+      return () => {
+        clearTimeout(timer1)
+      }
+    }, [route.params?.loadingState])
+
+  if (loadingState === 'empty_vault') {
     return (
       <EmptyVault
         handleRefresh={() => {}}
@@ -143,13 +158,21 @@ export function LoansScreen ({ route }: Props): JSX.Element {
       />
     )
   }
+
   return (
     <ThemedView
       testID='loans_screen'
       style={tailwind('flex-1')}
     >
       <Tabs tabSections={tabsList} testID='loans_tabs' activeTabKey={activeTab} />
-      {activeTab === TabKey.YourVaults ? <Vaults /> : <LoanCards testID='loans_cards' loans={loans} />}
+      {activeTab === TabKey.YourVaults && <Vaults />}
+      {activeTab === TabKey.BrowseLoans && loadingState === 'loading'
+        ? (
+          <SkeletonLoader
+            row={4}
+            screen={SkeletonLoaderScreen.Vault}
+          />)
+        : <LoanCards testID='loans_cards' loans={loans} />}
     </ThemedView>
   )
 }
