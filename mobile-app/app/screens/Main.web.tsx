@@ -7,6 +7,7 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { PlaygroundNavigator } from './PlaygroundNavigator/PlaygroundNavigator'
 import { RootNavigator } from './RootNavigator'
+import Constants from 'expo-constants'
 
 export function Main (): JSX.Element {
   const { isLight } = useThemeContext()
@@ -16,6 +17,17 @@ export function Main (): JSX.Element {
       <View style={styles.phone}>
         <RootNavigator />
       </View>
+
+      {
+        Constants?.manifest?.extra?.nodeEnv !== 'production' && (
+          <View style={[styles.phone, tailwind('bg-white ml-2')]}>
+            <NavigationContainer theme={DeFiChainTheme}>
+              <PlaygroundNavigator />
+            </NavigationContainer>
+          </View>
+        )
+      }
+
     </View>
   )
 }

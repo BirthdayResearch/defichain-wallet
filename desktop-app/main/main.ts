@@ -10,17 +10,6 @@ let mainWindow: BrowserWindow | null = null
 async function installExtensions (): Promise<void> {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   require('electron-debug')()
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const installer = require('electron-devtools-installer')
-  const forceDownload = !(process.env.UPGRADE_EXTENSIONS == null)
-  const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS']
-
-  return installer
-    .default(
-      extensions.map((name) => installer[name]),
-      forceDownload
-    )
-    .catch(console.log)
 }
 
 function makeSingleInstance (): void {
@@ -43,17 +32,12 @@ async function createWindow (): Promise<void> {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 385,
-    height: 720,
+    width: isDevelopment ? 800 : 385,
+    height: 750,
     title: app.name,
     movable: true,
-    resizable: false,
-    icon: path.join(__dirname, '../../shared/assets/images/icon-512.png'),
-    webPreferences: {
-      nodeIntegration: true,
-      webSecurity: false,
-      contextIsolation: false
-    }
+    resizable: isDevelopment,
+    icon: path.join(__dirname, '../../shared/assets/images/icon-512.png')
   })
 
   await mainWindow.loadURL(isDevelopment ? 'http://localhost:19006' : `file://${path.resolve(__dirname, '../../web-build/index.html')}`)
@@ -72,9 +56,9 @@ async function createWindow (): Promise<void> {
   const menuBuilder = new MenuBuilder(mainWindow)
   menuBuilder.buildMenu()
 
-  // if (isDevelopment) {
-  mainWindow.webContents.openDevTools({ mode: 'detach' })
-  // }
+  if (isDevelopment) {
+    mainWindow.webContents.openDevTools({ mode: 'detach' })
+  }
 
   // Open urls in the user's browser
   mainWindow.webContents.on('new-window', (event, url) => {

@@ -15,7 +15,7 @@
     "start:electron": "node main/initiate-electron",
     "electron": "cross-env NODE_ENV=development electron -r ts-node/register/transpile-only ./main/main.ts --inspect -d true",
     "build:react": "cd .. && expo build:web --no-pwa",
-    "build:electron": "npm run build:react && npm run transpile && cross-env NODE_ENV=production",
+    "build:electron": "cross-env NODE_ENV=production && npm run build:react && npm run transpile",
     "build": "npm run build:electron && electron-builder",
     "build:all": "npm run build:electron && electron-builder -mwl",
     "build:linux": "npm run build:electron && electron-builder --linux -p never",
@@ -52,7 +52,7 @@
     "productName": "DeFiChain Wallet",
     "appId": "com.defichain.wallet",
     "copyright": "Copyright © 2021 ${author}",
-    "asar": false,
+    "asar": true,
     "afterSign": "./notarize/notarize.js",
     "files": [
       "./main/build",
