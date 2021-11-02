@@ -3,7 +3,7 @@ import { tailwind } from '@tailwind'
 import React from 'react'
 import BigNumber from 'bignumber.js'
 import { ThemedText } from './themed'
-import { SymbolIcon } from '@screens/AppNavigator/screens/Loans/components/SymbolIcon'
+import { SymbolIcon } from '@components/SymbolIcon'
 
 interface TokenIconGroupProps {
   symbols: string[]
