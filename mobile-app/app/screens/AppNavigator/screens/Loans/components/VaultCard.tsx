@@ -52,11 +52,12 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
       dark={tailwind('bg-gray-800 border-gray-700')}
-      style={tailwind('rounded mb-2 border')}
+      style={tailwind('rounded mb-2 border p-4')}
     >
       <ThemedTouchableOpacity
         onPress={() => onCardPress(props.vaultAddress)}
-        style={tailwind('p-4')}
+        light={tailwind('border-b-0')}
+        dark={tailwind('border-b-0')}
       >
         <View style={tailwind('flex flex-row justify-between mb-4')}>
           <View style={tailwind('flex flex-row items-center')}>
@@ -215,7 +216,7 @@ function VaultActionButton (props: {actions: VaultAction[], onAddCollateral?: ()
     <ThemedView
       light={tailwind('border-gray-200')}
       dark={tailwind('border-gray-700')}
-      style={tailwind('flex flex-row p-4 border-t')}
+      style={tailwind('flex flex-row mt-4 flex-wrap -mb-2')}
     >
       {
         props.actions.map(action => {
@@ -227,7 +228,7 @@ function VaultActionButton (props: {actions: VaultAction[], onAddCollateral?: ()
                 iconName='add'
                 iconLabel={translate('components/VaultCard', 'ADD COLLATERAL')}
                 iconSize={16}
-                style={tailwind('mr-2')}
+                style={tailwind('mr-2 mb-2')}
                 onPress={props.onAddCollateral}
               />
             )
@@ -239,7 +240,7 @@ function VaultActionButton (props: {actions: VaultAction[], onAddCollateral?: ()
                 iconName='credit-card'
                 iconLabel={translate('components/VaultCard', 'VIEW LOANS')}
                 iconSize={16}
-                style={tailwind('mr-2')}
+                style={tailwind('mr-2 mb-2')}
                 onPress={props.onViewLoans}
               />
             )

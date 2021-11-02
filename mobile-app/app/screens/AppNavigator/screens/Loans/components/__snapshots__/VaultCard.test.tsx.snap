@@ -14,6 +14,10 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
         "borderTopRightRadius": 4,
         "borderTopWidth": 1,
         "marginBottom": 8,
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
       },
       Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -37,17 +41,8 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderTopColor": "rgba(229, 229, 229, 1)",
+        "borderBottomWidth": 0,
         "opacity": 1,
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 16,
       }
     }
   >
@@ -1040,6 +1035,10 @@ exports[`Vault card should match snapshot of locked vault 1`] = `
         "borderTopRightRadius": 4,
         "borderTopWidth": 1,
         "marginBottom": 8,
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
       },
       Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -1063,17 +1062,8 @@ exports[`Vault card should match snapshot of locked vault 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderTopColor": "rgba(229, 229, 229, 1)",
+        "borderBottomWidth": 0,
         "opacity": 1,
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 16,
       }
     }
   >
@@ -2030,13 +2020,11 @@ exports[`Vault card should match snapshot of locked vault 1`] = `
     style={
       Array [
         Object {
-          "borderTopWidth": 1,
           "display": "flex",
           "flexDirection": "row",
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "paddingTop": 16,
+          "flexWrap": "wrap",
+          "marginBottom": -8,
+          "marginTop": 16,
         },
         Object {
           "borderBottomColor": "rgba(229, 229, 229, 1)",
@@ -2074,6 +2062,7 @@ exports[`Vault card should match snapshot of locked vault 1`] = `
           "borderTopRightRadius": 4,
           "borderTopWidth": 1,
           "flexDirection": "row",
+          "marginBottom": 8,
           "marginRight": 8,
           "opacity": 1,
           "paddingBottom": 4,
@@ -2139,6 +2128,7 @@ exports[`Vault card should match snapshot of locked vault 1`] = `
           "borderTopRightRadius": 4,
           "borderTopWidth": 1,
           "flexDirection": "row",
+          "marginBottom": 8,
           "marginRight": 8,
           "opacity": 1,
           "paddingBottom": 4,
@@ -2195,6 +2185,10 @@ exports[`Vault card should match snapshot of new vault 1`] = `
         "borderTopRightRadius": 4,
         "borderTopWidth": 1,
         "marginBottom": 8,
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
       },
       Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -2218,17 +2212,8 @@ exports[`Vault card should match snapshot of new vault 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderTopColor": "rgba(229, 229, 229, 1)",
+        "borderBottomWidth": 0,
         "opacity": 1,
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 16,
       }
     }
   >
@@ -2629,13 +2614,11 @@ exports[`Vault card should match snapshot of new vault 1`] = `
     style={
       Array [
         Object {
-          "borderTopWidth": 1,
           "display": "flex",
           "flexDirection": "row",
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "paddingTop": 16,
+          "flexWrap": "wrap",
+          "marginBottom": -8,
+          "marginTop": 16,
         },
         Object {
           "borderBottomColor": "rgba(229, 229, 229, 1)",
@@ -2673,6 +2656,7 @@ exports[`Vault card should match snapshot of new vault 1`] = `
           "borderTopRightRadius": 4,
           "borderTopWidth": 1,
           "flexDirection": "row",
+          "marginBottom": 8,
           "marginRight": 8,
           "opacity": 1,
           "paddingBottom": 4,
@@ -2753,6 +2737,10 @@ exports[`Vault card should match snapshot of safe vault 1`] = `
         "borderTopRightRadius": 4,
         "borderTopWidth": 1,
         "marginBottom": 8,
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
       },
       Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -2776,17 +2764,8 @@ exports[`Vault card should match snapshot of safe vault 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderTopColor": "rgba(229, 229, 229, 1)",
+        "borderBottomWidth": 0,
         "opacity": 1,
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 16,
       }
     }
   >
@@ -3766,13 +3745,11 @@ exports[`Vault card should match snapshot of safe vault 1`] = `
     style={
       Array [
         Object {
-          "borderTopWidth": 1,
           "display": "flex",
           "flexDirection": "row",
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "paddingTop": 16,
+          "flexWrap": "wrap",
+          "marginBottom": -8,
+          "marginTop": 16,
         },
         Object {
           "borderBottomColor": "rgba(229, 229, 229, 1)",
@@ -3810,6 +3787,7 @@ exports[`Vault card should match snapshot of safe vault 1`] = `
           "borderTopRightRadius": 4,
           "borderTopWidth": 1,
           "flexDirection": "row",
+          "marginBottom": 8,
           "marginRight": 8,
           "opacity": 1,
           "paddingBottom": 4,
