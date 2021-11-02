@@ -40,7 +40,8 @@ jobs:
       - run: npm ci
 
       - name: Build app
-        run: cd desktop-app && npm run build:linux
+        working-directory: ./desktop-app
+        run: npm run build:linux
 
       - uses: actions/upload-artifact@27121b0bdffd731efa15d66772be8dc71245d074
         with:
@@ -60,7 +61,8 @@ jobs:
       - run: npm ci
 
       - name: Build app
-        run: cd desktop-app && npm run build:mac
+        working-directory: ./desktop-app
+        run: npm run build:mac
         env:
           CSC_LINK: ${{ secrets.CSC_LINK }}
           CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
@@ -85,7 +87,8 @@ jobs:
       - run: npm ci
 
       - name: Build app
-        run: cd desktop-app && npm run build:win
+        working-directory: ./desktop-app
+        run: npm run build:win
         shell: powershell
 
       - uses: actions/upload-artifact@27121b0bdffd731efa15d66772be8dc71245d074

@@ -1,5 +1,5 @@
 import path from 'path'
-import { app, BrowserWindow, shell } from 'electron'
+import { app, BrowserWindow } from 'electron'
 import MenuBuilder from './src/menu'
 
 const isDevelopment =
@@ -63,12 +63,6 @@ async function createWindow (): Promise<void> {
   if (isDevelopment) {
     mainWindow.webContents.openDevTools({ mode: 'detach' })
   }
-
-  // Open urls in the user's browser
-  mainWindow.webContents.on('new-window', (event, url) => {
-    event.preventDefault()
-    void shell.openExternal(url)
-  })
 }
 
 app.on('window-all-closed', () => {
