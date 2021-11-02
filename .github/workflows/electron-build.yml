@@ -14,6 +14,8 @@ jobs:
   version:
     name: Version
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.result }}
     steps:
       - uses: actions/checkout@1e204e9a9253d643386038d443f96446fa156a97
 

@@ -3,6 +3,9 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "ignorePatterns": [
+    "initiate-electron.js"
+  ],
   "extends": [
     "standard-with-typescript",
     "standard-jsx"
