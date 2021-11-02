@@ -477,11 +477,11 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
     >
       <RNSVGGroup>
         <RNSVGRect
-          clipPath="ggvtku-animated-diff"
+          clipPath="vault-animated-diff"
           fill={
             Array [
               1,
-              "ggvtku-diff",
+              "vault-diff",
             ]
           }
           height="100%"
@@ -496,7 +496,7 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
         />
         <RNSVGDefs>
           <RNSVGClipPath
-            name="ggvtku-animated-diff"
+            name="vault-animated-diff"
           >
             <RNSVGRect
               height="14"
@@ -557,7 +557,7 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
             }
             gradientTransform={null}
             gradientUnits={0}
-            name="ggvtku-diff"
+            name="vault-diff"
             x1="-100%"
             x2="0%"
             y1={0}
@@ -625,11 +625,11 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
     >
       <RNSVGGroup>
         <RNSVGRect
-          clipPath="0d2r2uh-animated-diff"
+          clipPath="vault-animated-diff"
           fill={
             Array [
               1,
-              "0d2r2uh-diff",
+              "vault-diff",
             ]
           }
           height="100%"
@@ -644,7 +644,7 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
         />
         <RNSVGDefs>
           <RNSVGClipPath
-            name="0d2r2uh-animated-diff"
+            name="vault-animated-diff"
           >
             <RNSVGRect
               height="14"
@@ -705,7 +705,7 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
             }
             gradientTransform={null}
             gradientUnits={0}
-            name="0d2r2uh-diff"
+            name="vault-diff"
             x1="-100%"
             x2="0%"
             y1={0}
