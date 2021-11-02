@@ -4,9 +4,9 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { ThemedView } from '../themed'
 
-type VaultSkeletonLoaderProps = JSX.IntrinsicAttributes & IContentLoaderProps & { children?: React.ReactNode }
+type LoanSkeletonLoaderProps = JSX.IntrinsicAttributes & IContentLoaderProps & { children?: React.ReactNode }
 
-function VaultLoader ({ props, isLight }: {props: VaultSkeletonLoaderProps, isLight: boolean}): JSX.Element {
+function LoanLoader ({ props, isLight }: {props: LoanSkeletonLoaderProps, isLight: boolean}): JSX.Element {
   return (
     <ContentLoader
       backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}
@@ -27,14 +27,14 @@ function VaultLoader ({ props, isLight }: {props: VaultSkeletonLoaderProps, isLi
   )
 }
 
-export function VaultSkeletonLoader (loaderProps: VaultSkeletonLoaderProps): JSX.Element {
+export function LoanSkeletonLoader (loaderProps: LoanSkeletonLoaderProps): JSX.Element {
   const { isLight } = useThemeContext()
   const skeletonCols = Array.from(Array(2), (_v, i) => i + 1)
 
   return (
     <ThemedView
       style={tailwind('flex-row justify-around py-1 mx-2 mt-2')}
-      testID='vault_skeleton_loader'
+      testID='loan_skeleton_loader'
     >
       {skeletonCols.map((_col, i) => (
         <ThemedView
@@ -43,7 +43,7 @@ export function VaultSkeletonLoader (loaderProps: VaultSkeletonLoaderProps): JSX
           style={[tailwind('rounded'), { flexBasis: '47%' }]}
           key={i}
         >
-          <VaultLoader props={loaderProps} isLight={isLight} />
+          <LoanLoader props={loaderProps} isLight={isLight} />
         </ThemedView>))}
     </ThemedView>
   )

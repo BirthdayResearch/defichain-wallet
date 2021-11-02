@@ -142,7 +142,6 @@ export function LoansScreen ({ route }: Props): JSX.Element {
   useEffect(
     () => {
       const loansTimer = setTimeout(() => {
-        console.log('here')
         setLoadingState('success')
       }, 5000)
 
@@ -172,7 +171,7 @@ export function LoansScreen ({ route }: Props): JSX.Element {
           <View style={tailwind('mt-1')}>
             <SkeletonLoader
               row={6}
-              screen={SkeletonLoaderScreen.Vault}
+              screen={SkeletonLoaderScreen.Loan}
             />
           </View>
           )

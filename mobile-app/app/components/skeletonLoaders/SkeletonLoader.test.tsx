@@ -3,7 +3,7 @@ import * as React from 'react'
 import { DexSkeletonLoader } from './DexSkeletonLoader'
 import { MnemonicWordSkeletonLoader } from './MnemonicWordSkeletonLoader'
 import { TransactionSkeletonLoader } from './TransactionSkeletonLoader'
-import { VaultSkeletonLoader } from './VaultSkeletonLoader'
+import { LoanSkeletonLoader } from './LoanSkeletonLoader'
 
 jest.mock('@shared-contexts/ThemeProvider')
 
@@ -32,9 +32,9 @@ describe('Skeleton Loader', () => {
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 
-  it('should match snapshot of vault skeleton loader', async () => {
+  it('should match snapshot of loan skeleton loader', async () => {
     const component = (
-      <VaultSkeletonLoader uniqueKey='vault' />
+      <LoanSkeletonLoader uniqueKey='loan' />
     )
     const rendered = render(component)
     expect(rendered.toJSON()).toMatchSnapshot()
