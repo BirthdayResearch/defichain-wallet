@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { HeaderFont } from '@components/Text'
 import { HeaderTitle } from '@components/HeaderTitle'
+import { LoanScheme } from '@defichain/whale-api-client/dist/api/loan'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { LoansScreen } from './LoansScreen'
@@ -21,15 +22,6 @@ export interface LoanParamList {
     fee: BigNumber
   }
   [key: string]: undefined | object
-}
-
-/**
- * TODO: remove after state and model is added
- */
-export interface LoanScheme {
-  id: string
-  minColRatio: string
-  interestRate: string
 }
 
 const LoansStack = createStackNavigator<LoanParamList>()
