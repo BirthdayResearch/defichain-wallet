@@ -298,7 +298,7 @@ function EmptyCollateralMessage (props: {collaterals: Collateral[]}): JSX.Elemen
       style={tailwind('mx-4')}
     >
       <InfoText
-        text={translate('screens/VaultDetailScreen', 'Collaterals required to use this vault')}
+        text={translate('screens/VaultDetailScreen', 'Collaterals required to use this vault.')}
         style={tailwind('mt-2')}
       />
     </View>

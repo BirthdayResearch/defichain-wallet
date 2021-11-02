@@ -3,6 +3,7 @@ import { IconButton } from '@components/IconButton'
 import { IconType, ThemedScrollView } from '@components/themed'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import React from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
 
@@ -39,7 +40,7 @@ export function ScrollableButton (props: ScrollableButtonProps): JSX.Element | n
         {props.buttons.map(button => (
           <IconButton
             key={button.label}
-            iconLabel={button.label}
+            iconLabel={translate('components/ScrollableButton', button.label)}
             iconType={button.iconType}
             iconName={button.iconName}
             style={tailwind('mr-2 p-2')}

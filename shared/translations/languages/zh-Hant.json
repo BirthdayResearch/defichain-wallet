@@ -576,7 +576,11 @@
   },
   "components/tabs": {
     "Browse loans": "瀏覽貸款選項",
-    "Your vaults": "你的金庫"
+    "Your vaults": "你的金庫",
+    "Active loan": "Active loan",
+    "Details": "Details",
+    "Collaterals": "Collaterals",
+    "Auctions": "Auctions"
   },
   "components/LoanCard": {
     "Active Price": "目前活躍價格",
@@ -598,7 +602,9 @@
     "Total loan amount": "貸款總金額",
     "Collateral amount": "抵押品金額",
     "Collateral ratio": "抵押品比率",
-    "n/a": "不適用"
+    "n/a": "不適用",
+    "ADD COLLATERAL": "ADD COLLATERAL",
+    "VIEW LOANS": "VIEW LOANS"
   },
   "components/EmptyVault": {
     "No vault created": "還沒建立金庫",
@@ -633,5 +639,16 @@
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "每筆交易需要支付少量的費用. 金額可能因網絡擁擠程度而異.",
     "Vault fee": "金庫費用",
     "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "這筆費用作為您金庫的初始押金。當您選擇關閉這個金庫時，您會收回 1 DFI。"
+  },
+  "screens/VaultDetailScreen": {
+    "Vault ID": "Vault ID",
+    "Your vault is locked for liquidation.": "Your vault is locked for liquidation.",
+    "Your vault is at risk of liquidation. Prevent liquidity by adding more collaterals or paying back loans.": "Your vault is at risk of liquidation. Prevent liquidity by adding more collaterals or paying back loans.",
+    "Collaterals required to use this vault.": "Collaterals required to use this vault."
+  },
+  "components/ScrollableButton": {
+    "ADD COLLATERAL":"ADD COLLATERAL",
+    "TAKE COLLATERAL": "TAKE COLLATERAL",
+    "EDIT SCHEME": "EDIT SCHEME"
   }
 }
