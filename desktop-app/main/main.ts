@@ -1,5 +1,5 @@
 import path from 'path'
-import { app, BrowserWindow, shell, protocol } from 'electron'
+import { app, BrowserWindow, shell } from 'electron'
 import MenuBuilder from './src/menu'
 
 const isDevelopment =
@@ -21,16 +21,6 @@ async function installExtensions (): Promise<void> {
       forceDownload
     )
     .catch(console.log)
-}
-
-function initiateInterceptFileProtocol (): void {
-  protocol.interceptFileProtocol('file', (request, callback) => {
-    /* all urls start with 'file://' */
-    const fileUrl = request.url.substr(7)
-    console.log(fileUrl)
-    const basePath = path.normalize(`${__dirname}../../web-build`)
-    callback(path.normalize(`${basePath}/${fileUrl}`))
-  })
 }
 
 function makeSingleInstance (): void {
@@ -66,7 +56,7 @@ async function createWindow (): Promise<void> {
     }
   })
 
-  void mainWindow.loadURL(isDevelopment ? 'http://localhost:19006' : `file://${path.resolve(__dirname, '../../web-build/index.html')}`)
+  await mainWindow.loadURL(isDevelopment ? 'http://localhost:19006' : `file://${path.resolve(__dirname, '../../web-build/index.html')}`)
 
   mainWindow.on('ready-to-show', () => {
     if (mainWindow == null) {
@@ -104,9 +94,6 @@ app.on('window-all-closed', () => {
 app
   .whenReady()
   .then(async () => {
-    if (!isDevelopment) {
-      initiateInterceptFileProtocol()
-    }
     await createWindow()
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     app.on('activate', async () => {
