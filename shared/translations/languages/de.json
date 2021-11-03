@@ -605,7 +605,11 @@
     "Collateral ratio": "Besicherungsquote",
     "n/a": "k.A.",
     "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
-    "VIEW LOANS": "DARLEHEN ANSEHEN"
+    "VIEW LOANS": "DARLEHEN ANSEHEN",
+    "Borrowed tokens": "Geliehene Token",
+    "Interest amount (1.5%)": "Interest amount (1.5%)",
+    "Amount payable": "Auszahlbarer Betrag",
+    "Price per token (in USD)": "Preis pro Token (USD)"
   },
   "components/EmptyVault": {
     "No vault created": "Kein Sicherheitendepot erstellt",
@@ -651,5 +655,14 @@
     "ADD COLLATERAL":"SICHERHEITEN HINZUFÜGEN",
     "TAKE COLLATERAL": "SICHERHEITEN ENTNEHMEN",
     "EDIT SCHEME": "DARLEHENSMODELL BEARBEITEN"
+  },
+  "components/EmptyActiveLoans": {
+    "No active loans": "Keine aktiven Darlehen",
+    "Browse for available loan tokens and start using this vault as collateral.": "Suche nach verfügbaren Hinterlegungs-Token und verwende dieses Sicherheitendepot als Sicherheit.",
+    "BROWSE LOANS": "DARLEHEN DURCHSUCHEN"
+  },
+  "components/ActiveLoans": {
+    "REPAY LOAN": "DARLEHEN ZURÜCKZAHLEN",
+    "BORROW MORE": "MEHR AUSLEIHEN"
   }
 }

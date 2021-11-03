@@ -18,7 +18,7 @@ export function EmptyActiveLoans (): JSX.Element {
       </ThemedText>
 
       <ThemedText style={tailwind('text-sm pb-4 text-center opacity-60')}>
-        {translate('components/EmptyActiveLoans', 'Browse for available loan tokens and start using this vault as collateral')}
+        {translate('components/EmptyActiveLoans', 'Browse for available loan tokens and start using this vault as collateral.')}
       </ThemedText>
 
       <Button

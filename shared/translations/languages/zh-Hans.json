@@ -604,7 +604,11 @@
     "Collateral ratio": "抵押品比率",
     "n/a": "不适用",
     "ADD COLLATERAL": "加入抵押品",
-    "VIEW LOANS": "检视贷款"
+    "VIEW LOANS": "检视贷款",
+    "Borrowed tokens": "已借贷代币",
+    "Interest amount (1.5%)": "Interest amount (1.5%)",
+    "Amount payable": "应付款金额",
+    "Price per token (in USD)": "代币的单价 (美金)"
   },
   "components/EmptyVault": {
     "No vault created": "还没建立金库",
@@ -650,5 +654,14 @@
     "ADD COLLATERAL":"加入抵押品",
     "TAKE COLLATERAL": "減低抵押品",
     "EDIT SCHEME": "更改计划"
+  },
+  "components/EmptyActiveLoans": {
+    "No active loans": "没有活跃的贷款",
+    "Browse for available loan tokens and start using this vault as collateral.": "浏览可选择的贷款代币并开始使用此金库作为抵押.",
+    "BROWSE LOANS": "浏览贷款选项"
+  },
+  "components/ActiveLoans": {
+    "REPAY LOAN": "偿还贷款",
+    "BORROW MORE": "注入更多借贷"
   }
 }
