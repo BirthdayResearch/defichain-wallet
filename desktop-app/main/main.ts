@@ -3,7 +3,7 @@ import { app, BrowserWindow } from 'electron'
 import MenuBuilder from './src/menu'
 
 const isDevelopment =
-  process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true'
+  process.env.mode === 'development' || process.env.DEBUG_PROD === 'true'
 
 let mainWindow: BrowserWindow | null = null
 

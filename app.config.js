@@ -1,6 +1,6 @@
 export default ({ config }) => {
   config.extra = {
-    nodeEnv: process.env.NODE_ENV
+    mode: process.env.mode
   }
   return {
     ...config,

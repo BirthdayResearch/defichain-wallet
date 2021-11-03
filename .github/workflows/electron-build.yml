@@ -48,7 +48,7 @@ jobs:
 
       - name: Build app
         working-directory: ./desktop-app
-        run: npm run build:linux
+        run: npm run build:electron
 
       - uses: actions/upload-artifact@27121b0bdffd731efa15d66772be8dc71245d074
         with:
@@ -74,7 +74,7 @@ jobs:
 
       - name: Build app
         working-directory: ./desktop-app
-        run: npm run build:mac
+        run: npm run build:electron
         env:
           CSC_LINK: ${{ secrets.CSC_LINK }}
           CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
@@ -105,7 +105,7 @@ jobs:
 
       - name: Build app
         working-directory: ./desktop-app
-        run: npm run build:win
+        run: npm run build:electron
         shell: powershell
 
       - uses: actions/upload-artifact@27121b0bdffd731efa15d66772be8dc71245d074

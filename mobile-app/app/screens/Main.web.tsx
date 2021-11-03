@@ -19,7 +19,7 @@ export function Main (): JSX.Element {
       </View>
 
       {
-        Constants?.manifest?.extra?.nodeEnv !== 'production' && (
+        Constants?.manifest?.extra?.mode !== 'production' && (
           <View style={[styles.phone, tailwind('bg-white ml-2')]}>
             <NavigationContainer theme={DeFiChainTheme}>
               <PlaygroundNavigator />

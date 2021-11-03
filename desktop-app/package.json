@@ -13,15 +13,11 @@
     "start:dev": "concurrently -p \"[{time} - {name}]\" -n \"ReactApp,Electron\" -c \"bgMagenta.black.bold,bgCyan.black.bold\" -t \"hh:mm:ss a\" \"npm run start:react\" \"npm run start:electron\"",
     "start:react": "cd .. && expo start --clear --web",
     "start:electron": "node main/initiate-electron",
-    "electron": "cross-env NODE_ENV=development WEB_PUBLIC_URL=./ electron -r ts-node/register/transpile-only ./main/main.ts --inspect -d true",
-    "build:react": "cd .. && expo build:web --no-pwa",
-    "build:electron": "cross-env NODE_ENV=production WEB_PUBLIC_URL=./ && npm run build:react && npm run transpile",
-    "build": "npm run build:electron && electron-builder",
-    "build:linux": "npm run build:electron && electron-builder --linux -p never",
-    "build:mac": "npm run build:electron && electron-builder --mac -p never",
-    "build:win": "npm run build:electron && electron-builder --win -p never",
+    "electron": "cross-env mode=development WEB_PUBLIC_URL=./ electron -r ts-node/register/transpile-only ./main/main.ts --inspect -d true",
+    "build:react": "cd .. && cross-env WEB_PUBLIC_URL=./ mode=production expo build:web --no-pwa",
+    "build:electron": "npm run build:react && npm run transpile && electron-builder -p never",
     "postinstall": "electron-builder install-app-deps",
-    "publish": "npm run build:react && npm run transpile && cross-env NODE_ENV=production && electron-builder build -p always"
+    "publish": "npm run build:react && npm run transpile && cross-env mode=production && electron-builder build -p always"
   },
   "dependencies": {
     "electron-debug": "^3.2.0",
