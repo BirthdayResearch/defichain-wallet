@@ -654,5 +654,9 @@
   },
   "components/BalanceControlCard": {
     "Wallet Address": "Wallet Adresse"
+  },
+  "components/EmptyBalances": {
+    "No other tokens yet": "Noch keine weiteren Token",
+    "Get started by adding your tokens here in your wallet": "Fange an, indem du deine Token hier deiner Wallet hinzufügst"
   }
 }
