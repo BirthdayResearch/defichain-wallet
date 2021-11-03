@@ -10,6 +10,17 @@ let mainWindow: BrowserWindow | null = null
 async function installExtensions (): Promise<void> {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   require('electron-debug')()
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const installer = require('electron-devtools-installer')
+  const forceDownload = !(process.env.UPGRADE_EXTENSIONS == null)
+  const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS']
+
+  return installer
+    .default(
+      extensions.map((name) => installer[name]),
+      forceDownload
+    )
+    .catch(console.log)
 }
 
 function makeSingleInstance (): void {
@@ -33,14 +44,14 @@ async function createWindow (): Promise<void> {
   mainWindow = new BrowserWindow({
     show: false,
     width: isDevelopment ? 800 : 385,
-    height: 750,
+    height: isDevelopment ? 750 : 730,
     title: app.name,
     movable: true,
     resizable: isDevelopment,
     icon: path.join(__dirname, '../../shared/assets/images/icon-512.png')
   })
 
-  await mainWindow.loadURL(isDevelopment ? 'http://localhost:19006' : `file://${path.resolve(__dirname, '../../web-build/index.html')}`)
+  void mainWindow.loadURL(isDevelopment ? 'http://localhost:19006' : `file://${path.resolve(__dirname, '../../web-build/index.html')}`)
 
   mainWindow.on('ready-to-show', () => {
     if (mainWindow == null) {
@@ -73,18 +84,19 @@ app.on('window-all-closed', () => {
   }
 })
 
+makeSingleInstance()
+
 app
   .whenReady()
-  .then(async () => {
-    await createWindow()
+  .then(() => {
+    void createWindow()
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    app.on('activate', async () => {
+    app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the
       // dock icon is clicked and there are no other windows open.
       if (mainWindow === null) {
-        await createWindow()
+        void createWindow()
       }
-      makeSingleInstance()
     })
   })
   .catch(console.log)
