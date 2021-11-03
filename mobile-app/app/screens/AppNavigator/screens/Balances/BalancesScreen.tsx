@@ -30,6 +30,7 @@ import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/component
 import { translate } from '@translations'
 import { RefreshControl } from 'react-native'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { BalanceControlCard } from '@screens/AppNavigator/screens/Balances/components/BalanceControlCard'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -73,7 +74,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       }
     >
       <Announcements />
-      <DFIBalanceCard />
+      <BalanceControlCard />
       <ThemedView
         style={tailwind('flex flex-row justify-between')}
       >
@@ -90,8 +91,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         >
           <ThemedIcon
             iconType='MaterialIcons'
-            dark={tailwind('text-gray-200')}
-            light={tailwind('text-black')}
+            dark={tailwind('text-darkprimary-500')}
+            light={tailwind('text-primary-500')}
             style={tailwind('self-center pr-1')}
             name={`${isBalancesDisplayed ? 'visibility' : 'visibility-off'}`}
             size={15}
@@ -107,6 +108,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           </ThemedText>
         </ThemedTouchableOpacity>
       </ThemedView>
+      <DFIBalanceCard />
       {
         dstTokens.length === 0
           ? (

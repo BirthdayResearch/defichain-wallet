@@ -633,5 +633,8 @@
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.":"Jede Transaktion unterliegt einer geringen Gebühr. Der Betrag kann je nach Auslastung des Netzwerks variieren.",
     "Vault fee": "Sicherheitendepotgebühr",
     "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "Diese Gebühr dient als Ersteinlage für dein Sicherheitendepot. Du erhältst 1 DFI zurück, wenn du dich entscheidest, dieses Sicherheitendepot zu schließen."
+  },
+  "components/BalanceControlCard": {
+    "Wallet Address": "Wallet Adresse"
   }
 }

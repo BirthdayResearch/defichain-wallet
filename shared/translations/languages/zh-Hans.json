@@ -632,5 +632,8 @@
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "每笔交易需要支付少量的费用. 金额可能因网络拥挤程度而异.",
     "Vault fee": "金库费用",
     "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "这笔费用作为您金库的初始押金。当您选择关闭这个金库时，您会收回 1 DFI。"
+  },
+  "components/BalanceControlCard": {
+    "Wallet Address": "钱包地址"
   }
 }
