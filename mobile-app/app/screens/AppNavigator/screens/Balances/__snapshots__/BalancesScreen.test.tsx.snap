@@ -29,6 +29,1165 @@ exports[`balances page should match snapshot 1`] = `
       style={
         Array [
           Object {
+            "display": "flex",
+            "flexDirection": "column",
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          },
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(245, 245, 245, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(245, 245, 245, 1)",
+            "borderRightColor": "rgba(245, 245, 245, 1)",
+            "borderTopColor": "rgba(245, 245, 245, 1)",
+          },
+        ]
+      }
+      testID="balance_control_card"
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <RNSVGSvgView
+          align="xMidYMid"
+          bbHeight={30}
+          bbWidth={30}
+          fill="none"
+          focusable={false}
+          height={30}
+          meetOrSlice={0}
+          minX={0}
+          minY={0}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+                "borderWidth": 0,
+              },
+              Object {
+                "flex": 0,
+                "height": 30,
+                "width": 30,
+              },
+            ]
+          }
+          vbHeight={80}
+          vbWidth={80}
+          width={30}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <RNSVGGroup
+            fill={null}
+            propList={
+              Array [
+                "fill",
+              ]
+            }
+          >
+            <RNSVGMask
+              height={80}
+              maskContentUnits={1}
+              maskTransform={
+                Array [
+                  1,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                ]
+              }
+              maskUnits={1}
+              name="mask0"
+              width={80}
+              x={0}
+              y={0}
+            >
+              <RNSVGRect
+                fill={4294967295}
+                height={80}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                rx={160}
+                width={80}
+                x={0}
+                y={0}
+              />
+            </RNSVGMask>
+            <RNSVGGroup
+              mask="mask0"
+            >
+              <RNSVGRect
+                fill={4292569528}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={0}
+                y={0}
+              />
+              <RNSVGRect
+                fill={4292569528}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={20}
+                y={0}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={40}
+                y={0}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={60}
+                y={0}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={10}
+                y={0}
+              />
+              <RNSVGRect
+                fill={4294634229}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={30}
+                y={0}
+              />
+              <RNSVGRect
+                fill={4293799089}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={50}
+                y={0}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={70}
+                y={0}
+              />
+              <RNSVGRect
+                fill={4292569528}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={0}
+                y={10}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={0}
+                y={20}
+              />
+              <RNSVGRect
+                fill={4293799089}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={0}
+                y={30}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={0}
+                y={40}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={0}
+                y={50}
+              />
+              <RNSVGRect
+                fill={4293799089}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={0}
+                y={60}
+              />
+              <RNSVGRect
+                fill={4280690214}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={0}
+                y={70}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={20}
+                y={10}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={20}
+                y={20}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={20}
+                y={30}
+              />
+              <RNSVGRect
+                fill={4293799089}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={20}
+                y={40}
+              />
+              <RNSVGRect
+                fill={4292569528}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={20}
+                y={50}
+              />
+              <RNSVGRect
+                fill={4292569528}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={20}
+                y={60}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={20}
+                y={70}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={40}
+                y={10}
+              />
+              <RNSVGRect
+                fill={4294634229}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={40}
+                y={20}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={40}
+                y={30}
+              />
+              <RNSVGRect
+                fill={4293799089}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={40}
+                y={40}
+              />
+              <RNSVGRect
+                fill={4293799089}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={40}
+                y={50}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={40}
+                y={60}
+              />
+              <RNSVGRect
+                fill={4292569528}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={40}
+                y={70}
+              />
+              <RNSVGRect
+                fill={4292569528}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={60}
+                y={10}
+              />
+              <RNSVGRect
+                fill={4280690214}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={60}
+                y={20}
+              />
+              <RNSVGRect
+                fill={4294634229}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={60}
+                y={30}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={60}
+                y={40}
+              />
+              <RNSVGRect
+                fill={4294634229}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={60}
+                y={50}
+              />
+              <RNSVGRect
+                fill={4280690214}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={60}
+                y={60}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={60}
+                y={70}
+              />
+              <RNSVGRect
+                fill={4280690214}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={10}
+                y={10}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={10}
+                y={20}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={10}
+                y={30}
+              />
+              <RNSVGRect
+                fill={4293799089}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={10}
+                y={40}
+              />
+              <RNSVGRect
+                fill={4293799089}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={10}
+                y={50}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={10}
+                y={60}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={10}
+                y={70}
+              />
+              <RNSVGRect
+                fill={4280690214}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={30}
+                y={10}
+              />
+              <RNSVGRect
+                fill={4280690214}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={30}
+                y={20}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={30}
+                y={30}
+              />
+              <RNSVGRect
+                fill={4293799089}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={30}
+                y={40}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={30}
+                y={50}
+              />
+              <RNSVGRect
+                fill={4293799089}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={30}
+                y={60}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={30}
+                y={70}
+              />
+              <RNSVGRect
+                fill={4280690214}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={50}
+                y={10}
+              />
+              <RNSVGRect
+                fill={4280690214}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={50}
+                y={20}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={50}
+                y={30}
+              />
+              <RNSVGRect
+                fill={4293799089}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={50}
+                y={40}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={50}
+                y={50}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={50}
+                y={60}
+              />
+              <RNSVGRect
+                fill={4293799089}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={50}
+                y={70}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={70}
+                y={10}
+              />
+              <RNSVGRect
+                fill={4280690214}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={70}
+                y={20}
+              />
+              <RNSVGRect
+                fill={4280690214}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={70}
+                y={30}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={70}
+                y={40}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={70}
+                y={50}
+              />
+              <RNSVGRect
+                fill={4284501695}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={70}
+                y={60}
+              />
+              <RNSVGRect
+                fill={4294634229}
+                height={10}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={10}
+                x={70}
+                y={70}
+              />
+            </RNSVGGroup>
+          </RNSVGGroup>
+        </RNSVGSvgView>
+        <View
+          style={
+            Object {
+              "display": "flex",
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "marginLeft": 12,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "marginBottom": 2,
+              }
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                      "marginRight": 6,
+                    },
+                    Object {
+                      "color": "rgba(163, 163, 163, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Wallet Address
+            </Text>
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <Text />
+            </View>
+          </View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontFamily": "SemiBoldFont",
+                      "fontSize": 14,
+                      "fontWeight": "600",
+                      "lineHeight": 20,
+                      "paddingRight": 16,
+                    },
+                    Object {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "display": "flex",
+            "flexDirection": "row",
+            "marginTop": 16,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(212, 212, 212, 1)",
+              "borderBottomLeftRadius": 4,
+              "borderBottomRightRadius": 4,
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(212, 212, 212, 1)",
+              "borderLeftWidth": 1,
+              "borderRightColor": "rgba(212, 212, 212, 1)",
+              "borderRightWidth": 1,
+              "borderTopColor": "rgba(212, 212, 212, 1)",
+              "borderTopLeftRadius": 4,
+              "borderTopRightRadius": 4,
+              "borderTopWidth": 1,
+              "flexDirection": "row",
+              "marginRight": 8,
+              "opacity": 1,
+              "paddingBottom": 4,
+              "paddingLeft": 4,
+              "paddingRight": 4,
+              "paddingTop": 4,
+            }
+          }
+          testID="header_receive_balance"
+        >
+          <Text />
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "fontFamily": "MediumFont",
+                    "fontSize": 14,
+                    "fontWeight": "500",
+                    "lineHeight": 16,
+                    "paddingLeft": 4,
+                    "paddingRight": 4,
+                  },
+                  Object {
+                    "color": "rgba(255, 0, 175, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            RECEIVE
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          },
+          Object {
+            "backgroundColor": "rgba(245, 245, 245, 1)",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "color": "rgba(115, 115, 115, 1)",
+                "fontFamily": "MediumFont",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 16,
+                "paddingBottom": 8,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "paddingTop": 24,
+              },
+              Object {
+                "backgroundColor": "rgba(245, 245, 245, 1)",
+                "color": "rgba(115, 115, 115, 1)",
+              },
+            ],
+          ]
+        }
+        testID="balances_title"
+        text="PORTFOLIO"
+      >
+        PORTFOLIO
+      </Text>
+      <View
+        accessible={true}
+        focusable={false}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "display": "flex",
+            "flexDirection": "row",
+            "opacity": 1,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          }
+        }
+        testID="toggle_balance"
+      >
+        <Text />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontSize": 12,
+                  "fontWeight": "500",
+                  "lineHeight": 16,
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+          testID="toggle_balance_text"
+        >
+          Hide balances
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
             "borderBottomLeftRadius": 8,
             "borderBottomRightRadius": 8,
             "borderTopLeftRadius": 8,
@@ -36,9 +1195,9 @@ exports[`balances page should match snapshot 1`] = `
             "flexBasis": "0%",
             "flexGrow": 1,
             "flexShrink": 1,
+            "marginBottom": 16,
             "marginLeft": 8,
             "marginRight": 8,
-            "marginTop": 16,
           },
           Object {
             "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -481,105 +1640,6 @@ exports[`balances page should match snapshot 1`] = `
             </View>
           </View>
         </View>
-      </View>
-    </View>
-    <View
-      style={
-        Array [
-          Object {
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-          },
-          Object {
-            "backgroundColor": "rgba(245, 245, 245, 1)",
-          },
-        ]
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-                "fontFamily": "MediumFont",
-                "fontSize": 12,
-                "fontWeight": "500",
-                "lineHeight": 16,
-                "paddingBottom": 8,
-                "paddingLeft": 16,
-                "paddingRight": 16,
-                "paddingTop": 24,
-              },
-              Object {
-                "backgroundColor": "rgba(245, 245, 245, 1)",
-                "color": "rgba(115, 115, 115, 1)",
-              },
-            ],
-          ]
-        }
-        testID="balances_title"
-        text="PORTFOLIO"
-      >
-        PORTFOLIO
-      </Text>
-      <View
-        accessible={true}
-        focusable={false}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "alignItems": "center",
-            "backgroundColor": "transparent",
-            "display": "flex",
-            "flexDirection": "row",
-            "opacity": 1,
-            "paddingRight": 16,
-            "paddingTop": 16,
-          }
-        }
-        testID="toggle_balance"
-      >
-        <Text />
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 12,
-                  "fontWeight": "500",
-                  "lineHeight": 16,
-                },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-          testID="toggle_balance_text"
-        >
-          Hide balances
-        </Text>
       </View>
     </View>
     <View

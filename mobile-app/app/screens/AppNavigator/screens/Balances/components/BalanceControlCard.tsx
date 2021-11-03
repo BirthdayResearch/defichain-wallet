@@ -7,6 +7,7 @@ import { TouchableOpacity } from 'react-native'
 import { translate } from '@translations'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
+// @ts-expect-error
 import Avatar from 'react-native-boring-avatars'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
@@ -31,7 +32,7 @@ export function BalanceControlCard (): JSX.Element {
           colors={['#EE2CB1', '#604EBF', '#DB69B8', '#FAEAF5', '#262626']}
         />
         <View
-          style={tailwind('flex flex-1 ml-2')}
+          style={tailwind('flex flex-1 ml-3')}
         >
           <View
             style={tailwind('flex flex-row mb-0.5')}
@@ -54,7 +55,7 @@ export function BalanceControlCard (): JSX.Element {
             </TouchableOpacity>
           </View>
           <TouchableOpacity onPress={async () => await openURL(getAddressUrl(address))}>
-            <ThemedText style={tailwind('text-sm font-semibold')}>
+            <ThemedText testID='wallet_address' style={tailwind('text-sm font-semibold pr-4')}>
               {address}
             </ThemedText>
           </TouchableOpacity>
@@ -67,7 +68,7 @@ export function BalanceControlCard (): JSX.Element {
           iconSize={20}
           iconType='MaterialIcons'
           onPress={() => navigation.navigate('Receive')}
-          testID='header_receive_balance'
+          testID='receive_balance_button'
           style={tailwind('mr-2')}
           iconLabel={translate('screens/BalancesScreen', 'RECEIVE')}
         />

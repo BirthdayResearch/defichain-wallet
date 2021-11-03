@@ -47,7 +47,7 @@ context('Wallet - Balances', () => {
 
   it('should redirect to receive page', function () {
     cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('header_receive_balance').click()
+    cy.getByTestID('receive_balance_button').click()
     cy.getByTestID('address_text').should('exist')
   })
 
@@ -71,7 +71,7 @@ context('Wallet - Balances', () => {
 })
 
 context('Wallet - Balances - Failed API', () => {
-  before(function () {
+  beforeEach(function () {
     cy.createEmptyWallet(true)
   })
 
@@ -86,5 +86,14 @@ context('Wallet - Balances - Failed API', () => {
     cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('total_dfi_amount').contains('0.00000000')
+  })
+
+  it('should display correct address', function () {
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('receive_balance_button').click()
+    cy.getByTestID('address_text').should('exist').then(($txt: any) => {
+      const address = $txt[0].textContent
+      cy.getByTestID('wallet_address').should('contain', address)
+    })
   })
 })

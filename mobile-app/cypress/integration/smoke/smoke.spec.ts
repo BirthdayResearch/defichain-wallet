@@ -104,7 +104,7 @@ context('Mainnet - Wallet', () => {
       cy.reload()
       cy.isNetworkConnected('MainNet')
       cy.getByTestID('bottom_tab_balances').click()
-      cy.getByTestID('header_receive_balance').click()
+      cy.getByTestID('receive_balance_button').click()
       cy.getByTestID('address_text').then(($txt: any) => {
         const address = $txt[0].textContent
         expect(address).eq(mainnetAddress.address)
@@ -141,7 +141,7 @@ context('Mainnet - Wallet', () => {
 
     it('should have correct address', function () {
       cy.getByTestID('bottom_tab_balances').click()
-      cy.getByTestID('header_receive_balance').click()
+      cy.getByTestID('receive_balance_button').click()
       cy.getByTestID('address_text').then(($txt: any) => {
         const address = $txt[0].textContent
         expect(address).eq(localAddress.address)
