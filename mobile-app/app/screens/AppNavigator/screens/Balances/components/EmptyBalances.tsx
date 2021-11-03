@@ -18,11 +18,11 @@ export function EmptyBalances (): JSX.Element {
         style={tailwind('pb-2 text-center')}
       />
 
-      <ThemedText style={tailwind('text-lg pb-1 font-semibold text-center')}>
+      <ThemedText testID='empty_tokens_title' style={tailwind('text-lg pb-1 font-semibold text-center')}>
         {translate('components/EmptyBalances', 'No other tokens yet')}
       </ThemedText>
 
-      <ThemedText style={tailwind('text-sm px-8 pb-4 text-center opacity-60')}>
+      <ThemedText testID='empty_tokens_subtitle' style={tailwind('text-sm px-8 pb-4 text-center opacity-60')}>
         {translate('components/EmptyBalances', 'Get started by adding your tokens here in your wallet')}
       </ThemedText>
     </ThemedView>
