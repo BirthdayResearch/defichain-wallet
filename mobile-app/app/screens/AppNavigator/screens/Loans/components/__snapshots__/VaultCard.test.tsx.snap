@@ -886,12 +886,15 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                 "lineHeight": 24,
               },
               Array [
-                Object {
-                  "fontFamily": "SemiBoldFont",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "fontFamily": "SemiBoldFont",
+                    "fontSize": 14,
+                    "fontWeight": "600",
+                    "lineHeight": 20,
+                  },
+                  undefined,
+                ],
                 Object {
                   "color": "rgba(23, 23, 23, 1)",
                 },
@@ -943,12 +946,15 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                 "lineHeight": 24,
               },
               Array [
-                Object {
-                  "fontFamily": "SemiBoldFont",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "fontFamily": "SemiBoldFont",
+                    "fontSize": 14,
+                    "fontWeight": "600",
+                    "lineHeight": 20,
+                  },
+                  undefined,
+                ],
                 Object {
                   "color": "rgba(23, 23, 23, 1)",
                 },
@@ -1000,12 +1006,15 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                 "lineHeight": 24,
               },
               Array [
-                Object {
-                  "fontFamily": "SemiBoldFont",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "fontFamily": "SemiBoldFont",
+                    "fontSize": 14,
+                    "fontWeight": "600",
+                    "lineHeight": 20,
+                  },
+                  undefined,
+                ],
                 Object {
                   "color": "rgba(255, 150, 41, 1)",
                 },
@@ -1884,12 +1893,15 @@ exports[`Vault card should match snapshot of locked vault 1`] = `
                 "lineHeight": 24,
               },
               Array [
-                Object {
-                  "fontFamily": "SemiBoldFont",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "fontFamily": "SemiBoldFont",
+                    "fontSize": 14,
+                    "fontWeight": "600",
+                    "lineHeight": 20,
+                  },
+                  undefined,
+                ],
                 Object {
                   "color": "rgba(23, 23, 23, 1)",
                 },
@@ -1941,12 +1953,15 @@ exports[`Vault card should match snapshot of locked vault 1`] = `
                 "lineHeight": 24,
               },
               Array [
-                Object {
-                  "fontFamily": "SemiBoldFont",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "fontFamily": "SemiBoldFont",
+                    "fontSize": 14,
+                    "fontWeight": "600",
+                    "lineHeight": 20,
+                  },
+                  undefined,
+                ],
                 Object {
                   "color": "rgba(23, 23, 23, 1)",
                 },
@@ -1998,12 +2013,15 @@ exports[`Vault card should match snapshot of locked vault 1`] = `
                 "lineHeight": 24,
               },
               Array [
-                Object {
-                  "fontFamily": "SemiBoldFont",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "fontFamily": "SemiBoldFont",
+                    "fontSize": 14,
+                    "fontWeight": "600",
+                    "lineHeight": 20,
+                  },
+                  undefined,
+                ],
                 Object {
                   "color": "rgba(255, 0, 0, 1)",
                 },
@@ -2478,12 +2496,15 @@ exports[`Vault card should match snapshot of new vault 1`] = `
                 "lineHeight": 24,
               },
               Array [
-                Object {
-                  "fontFamily": "SemiBoldFont",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "fontFamily": "SemiBoldFont",
+                    "fontSize": 14,
+                    "fontWeight": "600",
+                    "lineHeight": 20,
+                  },
+                  undefined,
+                ],
                 Object {
                   "color": "rgba(23, 23, 23, 1)",
                 },
@@ -2535,12 +2556,15 @@ exports[`Vault card should match snapshot of new vault 1`] = `
                 "lineHeight": 24,
               },
               Array [
-                Object {
-                  "fontFamily": "SemiBoldFont",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "fontFamily": "SemiBoldFont",
+                    "fontSize": 14,
+                    "fontWeight": "600",
+                    "lineHeight": 20,
+                  },
+                  undefined,
+                ],
                 Object {
                   "color": "rgba(23, 23, 23, 1)",
                 },
@@ -2592,12 +2616,15 @@ exports[`Vault card should match snapshot of new vault 1`] = `
                 "lineHeight": 24,
               },
               Array [
-                Object {
-                  "fontFamily": "SemiBoldFont",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "fontFamily": "SemiBoldFont",
+                    "fontSize": 14,
+                    "fontWeight": "600",
+                    "lineHeight": 20,
+                  },
+                  undefined,
+                ],
                 Object {
                   "color": "rgba(23, 23, 23, 1)",
                 },
@@ -3609,12 +3636,15 @@ exports[`Vault card should match snapshot of safe vault 1`] = `
                 "lineHeight": 24,
               },
               Array [
-                Object {
-                  "fontFamily": "SemiBoldFont",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "fontFamily": "SemiBoldFont",
+                    "fontSize": 14,
+                    "fontWeight": "600",
+                    "lineHeight": 20,
+                  },
+                  undefined,
+                ],
                 Object {
                   "color": "rgba(23, 23, 23, 1)",
                 },
@@ -3666,12 +3696,15 @@ exports[`Vault card should match snapshot of safe vault 1`] = `
                 "lineHeight": 24,
               },
               Array [
-                Object {
-                  "fontFamily": "SemiBoldFont",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "fontFamily": "SemiBoldFont",
+                    "fontSize": 14,
+                    "fontWeight": "600",
+                    "lineHeight": 20,
+                  },
+                  undefined,
+                ],
                 Object {
                   "color": "rgba(23, 23, 23, 1)",
                 },
@@ -3723,12 +3756,15 @@ exports[`Vault card should match snapshot of safe vault 1`] = `
                 "lineHeight": 24,
               },
               Array [
-                Object {
-                  "fontFamily": "SemiBoldFont",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "fontFamily": "SemiBoldFont",
+                    "fontSize": 14,
+                    "fontWeight": "600",
+                    "lineHeight": 20,
+                  },
+                  undefined,
+                ],
                 Object {
                   "color": "rgba(2, 179, 27, 1)",
                 },
