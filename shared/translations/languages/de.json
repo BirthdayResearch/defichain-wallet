@@ -671,5 +671,20 @@
   "components/EmptyBalances": {
     "No other tokens yet": "Noch keine weiteren Token",
     "Get started by adding your tokens here in your wallet": "Fange an, indem du deine Token hier deiner Wallet hinzufügst"
+  },
+  "components/VaultDetailDetailsTab": {
+    "LOAN SCHEME": "",
+    "Min. collateral ratio": "Mindestbesicherungsquote",
+    "Vault interest": "",
+    "VAULT DETAILS": "SICHERHEITENDEPOT DETAILS",
+    "Collateral ratio": "Besicherungsquote",
+    "Active loans": "Aktive Darlehen",
+    "Total value of loans": "",
+    "Collateral value": "",
+    "Vault health": "",
+    "Safe": "Sicher",
+    "At risk": "Gefährdet",
+    "Liquidated": "",
+    "Created": ""
   }
 }

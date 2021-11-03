@@ -671,5 +671,20 @@
   "components/EmptyBalances": {
     "No other tokens yet": "尚未添加其他貨幣",
     "Get started by adding your tokens here in your wallet": "在您的錢包中添加代幣便可以開始操作"
+  },
+  "components/VaultDetailDetailsTab": {
+    "LOAN SCHEME": "",
+    "Min. collateral ratio": "最小抵押率",
+    "Vault interest": "",
+    "VAULT DETAILS": "金庫明細",
+    "Collateral ratio": "抵押品比率",
+    "Active loans": "活躍的貸款",
+    "Total value of loans": "",
+    "Collateral value": "",
+    "Vault health": "",
+    "Safe": "安全狀態",
+    "At risk": "請注意抵押比率",
+    "Liquidated": "",
+    "Created": ""
   }
 }
