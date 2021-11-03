@@ -1,6 +1,6 @@
 import { Button } from '@components/Button'
 import { ThemedScrollView, ThemedText } from '@components/themed'
-import { NavigationProp, useNavigation } from '@react-navigation/core'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import React from 'react'
@@ -23,11 +23,17 @@ export function EmptyActiveLoans (): JSX.Element {
 
       <Button
         label={translate('components/EmptyActiveLoans', 'BROWSE LOANS')}
-        onPress={() => navigation.navigate({
-          name: 'LoansScreen',
-          params: {},
-          merge: true
-        })}
+        onPress={() => {
+          // TODO: replace navigation to browse loans tab in loans screen
+          navigation.navigate({
+            name: 'VaultDetailScreen',
+            params: {
+              vaultId: '22ffasd5ca123123123123123121231061',
+              emptyActiveLoans: false
+            },
+            merge: true
+          })
+        }}
         testID='button_browse_loans'
         title='Browse loans'
         margin='m-0 mb-4'
