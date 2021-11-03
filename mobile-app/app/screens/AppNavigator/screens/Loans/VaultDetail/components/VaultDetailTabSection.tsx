@@ -2,6 +2,7 @@ import { Tabs } from '@components/Tabs'
 import { ThemedView } from '@components/themed'
 import React, { useState } from 'react'
 import { ActiveLoans } from './ActiveLoans'
+import { VaultDetailDetailsTab } from './Details'
 import { EmptyActiveLoans } from './EmptyActiveLoans'
 
 enum TabKey {
@@ -50,19 +51,14 @@ export function VaultDetailTabSection (props: VaultDetailTabSectionProps): JSX.E
   return (
     <>
       <Tabs tabSections={vaultChildTabs} activeTabKey={activeTab} />
-      {activeTab === TabKey.ActiveLoans && props.emptyActiveLoans === true &&
-        (
-          <ThemedView>
-            <EmptyActiveLoans />
-          </ThemedView>
-        )}
-      {activeTab === TabKey.ActiveLoans && props.emptyActiveLoans === false &&
-        (
-          <ThemedView>
-            <ActiveLoans />
-          </ThemedView>
-        )}
-
+      <ThemedView>
+        {activeTab === TabKey.ActiveLoans && props.emptyActiveLoans === true &&
+          (<EmptyActiveLoans />)}
+        {activeTab === TabKey.ActiveLoans && props.emptyActiveLoans === false &&
+          (<ActiveLoans />)}
+        {activeTab === TabKey.Details &&
+          (<VaultDetailDetailsTab />)}
+      </ThemedView>
     </>
   )
 }
