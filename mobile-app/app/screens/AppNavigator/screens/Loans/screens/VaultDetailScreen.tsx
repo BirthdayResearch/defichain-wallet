@@ -15,6 +15,7 @@ import { VaultInfo } from '../components/VaultInfo'
 import { InfoText, InfoTextType } from '@components/InfoText'
 import { ScrollableButton, ScrollButton } from '../components/ScrollableButton'
 import { Tabs } from '@components/Tabs'
+import { EmptyActiveLoans } from '../VaultDetail/components/EmptyActiveLoans'
 
 type Props = StackScreenProps<LoanParamList, 'VaultDetailScreen'>
 enum TabKey {
@@ -118,10 +119,8 @@ export function VaultDetailScreen ({ route }: Props): JSX.Element {
         <EmptyCollateralMessage collaterals={currentVault.collaterals} />
       </ThemedView>
       <Tabs tabSections={vaultChildTabs} activeTabKey={activeTab} />
-      <ThemedView
-        style={tailwind('h-full')}
-      >
-        {/* TODO: detail tab content */}
+      <ThemedView>
+        <EmptyActiveLoans />
       </ThemedView>
     </ThemedScrollView>
   )
