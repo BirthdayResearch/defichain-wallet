@@ -572,11 +572,16 @@
   "screens/LoansScreen": {
     "Loans": "Darlehen",
     "Create vault": "Sicherheitendepot erstellen",
-    "Confirm create vault": "Bestätige Sicherheitendepot erstellen"
+    "Confirm create vault": "Bestätige Sicherheitendepot erstellen",
+    "Vault detail": "Sicherheitendepot detail"
   },
   "components/tabs": {
     "Browse loans": "Darlehen durchsuchen",
-    "Your vaults": "Deine Sicherheitendepots"
+    "Your vaults": "Deine Sicherheitendepots",
+    "Active loan": "Aktuelles Darlehen",
+    "Details": "Details",
+    "Collaterals": "Sicherheiten",
+    "Auctions": "Auktionen"
   },
   "components/LoanCard": {
     "Active Price": "Aktueller Preis",
@@ -598,7 +603,9 @@
     "Total loan amount": "Gesamtdarlehensbetrag",
     "Collateral amount": "Höhe der Sicherheiten",
     "Collateral ratio": "Besicherungsquote",
-    "n/a": "k.A."
+    "n/a": "k.A.",
+    "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
+    "VIEW LOANS": "DARLEHEN ANSEHEN"
   },
   "components/EmptyVault": {
     "No vault created": "Kein Sicherheitendepot erstellt",
@@ -633,5 +640,16 @@
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.":"Jede Transaktion unterliegt einer geringen Gebühr. Der Betrag kann je nach Auslastung des Netzwerks variieren.",
     "Vault fee": "Sicherheitendepotgebühr",
     "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "Diese Gebühr dient als Ersteinlage für dein Sicherheitendepot. Du erhältst 1 DFI zurück, wenn du dich entscheidest, dieses Sicherheitendepot zu schließen."
+  },
+  "screens/VaultDetailScreen": {
+    "Vault ID": "Sicherheitendepot-ID",
+    "Your vault is locked for liquidation.": "Dein Sicherheitendepot ist im Rahmen der Liquidation gesperrt.",
+    "Your vault is at risk of liquidation. Prevent liquidity by adding more collaterals or paying back loans.": "Dein Sicherheitendepot ist von der Liquidation bedroht. Verhindere die Liquidiation, indem du weitere Sicherheiten hinzufügst oder Darlehen zurückzahlst.",
+    "Collaterals required to use this vault.": "Für die Nutzung dieses Sicherheitendepots sind Sicherheiten erforderlich."
+  },
+  "components/ScrollableButton": {
+    "ADD COLLATERAL":"SICHERHEITEN HINZUFÜGEN",
+    "TAKE COLLATERAL": "SICHERHEITEN ENTNEHMEN",
+    "EDIT SCHEME": "DARLEHENSMODELL BEARBEITEN"
   }
 }

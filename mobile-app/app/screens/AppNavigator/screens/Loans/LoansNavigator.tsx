@@ -8,6 +8,7 @@ import { LoadingState, LoansScreen } from './LoansScreen'
 import { CreateVaultScreen } from './screens/CreateVaultScreen'
 import { ConfirmCreateVaultScreen } from './screens/ConfirmCreateVaultScreen'
 import BigNumber from 'bignumber.js'
+import { VaultDetailScreen } from './screens/VaultDetailScreen'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -19,6 +20,9 @@ export interface LoanParamList {
   ConfirmCreateVaultScreen: {
     loanScheme: LoanScheme
     fee: BigNumber
+  }
+  VaultDetailScreen: {
+    vaultId: string
   }
   [key: string]: undefined | object
 }
@@ -87,6 +91,18 @@ export function LoansNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/LoansScreen', 'Confirm create vault') + ' (Beta)'} // TODO: remove beta from title
+            />
+          )
+        }}
+      />
+      <LoansStack.Screen
+        component={VaultDetailScreen}
+        name='VaultDetailScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Vault detail') + ' (Beta)'} // TODO: remove beta from title
             />
           )
         }}
