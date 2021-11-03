@@ -6,6 +6,7 @@ interface DeFiScanContextI {
   getTransactionUrl: (txid: string, rawtx?: string) => string
   getBlocksUrl: (blockCount: number) => string
   getTokenUrl: (tokenId: number | string) => string
+  getAddressUrl: (address: string) => string
 }
 
 const DeFiScanContext = createContext<DeFiScanContextI>(undefined as any)
@@ -24,10 +25,13 @@ export function DeFiScanProvider (props: React.PropsWithChildren<any>): JSX.Elem
         return getTxURLByNetwork(network, txid, rawtx)
       },
       getBlocksUrl: (blockCount: number) => {
-        return getBlocksURLByNetwork(network, blockCount)
+        return getURLByNetwork('blocks', network, blockCount)
       },
       getTokenUrl: (tokenId: number | string) => {
-        return getTokenURLByNetwork(network, tokenId)
+        return getURLByNetwork('tokens', network, tokenId)
+      },
+      getAddressUrl: (address: string) => {
+        return getURLByNetwork('address', network, address)
       }
     }
   }, [network])
@@ -42,7 +46,7 @@ export function DeFiScanProvider (props: React.PropsWithChildren<any>): JSX.Elem
 function getNetworkParams (network: EnvironmentNetwork): string {
   switch (network) {
     case EnvironmentNetwork.MainNet:
-    // no-op: network param not required for MainNet
+      // no-op: network param not required for MainNet
       return ''
     case EnvironmentNetwork.TestNet:
       return `?network=${EnvironmentNetwork.TestNet}`
@@ -71,12 +75,6 @@ function getTxURLByNetwork (network: EnvironmentNetwork, txid: string, rawtx?: s
   return baseUrl
 }
 
-function getBlocksURLByNetwork (network: EnvironmentNetwork, blockCount: number): string {
-  const baseUrl = `${baseDefiScanUrl}/blocks/${blockCount}${getNetworkParams(network)}`
-  return baseUrl
-}
-
-function getTokenURLByNetwork (network: EnvironmentNetwork, tokenId: number | string): string {
-  const baseUrl = `${baseDefiScanUrl}/tokens/${tokenId}${getNetworkParams(network)}`
-  return baseUrl
+function getURLByNetwork (path: string, network: EnvironmentNetwork, id: number | string): string {
+  return `${baseDefiScanUrl}/${path}/${id}${getNetworkParams(network)}`
 }
