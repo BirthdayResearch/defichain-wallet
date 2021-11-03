@@ -663,5 +663,12 @@
   "components/ActiveLoans": {
     "REPAY LOAN": "偿还贷款",
     "BORROW MORE": "注入更多借贷"
+  },
+  "components/BalanceControlCard": {
+    "Wallet Address": "钱包地址"
+  },
+  "components/EmptyBalances": {
+    "No other tokens yet": "尚未添加其他货币",
+    "Get started by adding your tokens here in your wallet": "在您的钱包中添加代币便可以开始操作"
   }
 }
