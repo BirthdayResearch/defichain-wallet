@@ -43,7 +43,7 @@
   },
   "build": {
     "productName": "DeFiChain Wallet",
-    "appId": "com.defichain.wallet",
+    "appId": "com.defichain.desktop.wallet",
     "copyright": "Copyright © 2021 ${author}",
     "asar": true,
     "afterSign": "./notarize/notarize.js",
