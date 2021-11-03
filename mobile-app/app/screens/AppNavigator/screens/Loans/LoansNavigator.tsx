@@ -4,7 +4,7 @@ import { HeaderFont } from '@components/Text'
 import { HeaderTitle } from '@components/HeaderTitle'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
-import { LoansScreen } from './LoansScreen'
+import { LoadingState, LoansScreen } from './LoansScreen'
 import { CreateVaultScreen } from './screens/CreateVaultScreen'
 import { ConfirmCreateVaultScreen } from './screens/ConfirmCreateVaultScreen'
 import BigNumber from 'bignumber.js'
@@ -12,7 +12,7 @@ import { VaultDetailScreen } from './screens/VaultDetailScreen'
 
 export interface LoanParamList {
   LoansScreen: {
-    displayEmptyVault?: boolean // TODO: remove hard-coded condition used for create vault flow
+    loadingState: LoadingState // TODO: remove hard-coded condition used for create vault flow
   }
   CreateVaultScreen: {
     loanScheme?: LoanScheme

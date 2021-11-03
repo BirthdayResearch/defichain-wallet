@@ -578,10 +578,10 @@
   "components/tabs": {
     "Browse loans": "瀏覽貸款選項",
     "Your vaults": "你的金庫",
-    "Active loan": "Active loan",
-    "Details": "Details",
-    "Collaterals": "Collaterals",
-    "Auctions": "Auctions"
+    "Active loan": "活躍的貸款",
+    "Details": "明細",
+    "Collaterals": "抵押品",
+    "Auctions": "清算拍賣"
   },
   "components/LoanCard": {
     "Active Price": "目前活躍價格",
@@ -604,8 +604,8 @@
     "Collateral amount": "抵押品金額",
     "Collateral ratio": "抵押品比率",
     "n/a": "不適用",
-    "ADD COLLATERAL": "ADD COLLATERAL",
-    "VIEW LOANS": "VIEW LOANS"
+    "ADD COLLATERAL": "加入抵押品",
+    "VIEW LOANS": "檢視貸款"
   },
   "components/EmptyVault": {
     "No vault created": "還沒建立金庫",
@@ -632,8 +632,8 @@
     "VAULT DETAILS": "金庫明細",
     "Min. collateral ratio": "最小抵押率",
     "Interest rate (APR)": "利率（以回報率計算）",
-    "APR": "回報率",
-    "Confirm create vault": "確認創建金庫"
+    "APR": "回報率",    
+    "CONFIRM CREATE VAULT": "確認創建金庫"
   },
   "components/FeeInfoRow": {
     "Estimated fee": "所需費用（大約）",
@@ -642,14 +642,14 @@
     "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "這筆費用作為您金庫的初始押金。當您選擇關閉這個金庫時，您會收回 1 DFI。"
   },
   "screens/VaultDetailScreen": {
-    "Vault ID": "Vault ID",
-    "Your vault is locked for liquidation.": "Your vault is locked for liquidation.",
-    "Your vault is at risk of liquidation. Prevent liquidity by adding more collaterals or paying back loans.": "Your vault is at risk of liquidation. Prevent liquidity by adding more collaterals or paying back loans.",
-    "Collaterals required to use this vault.": "Collaterals required to use this vault."
+    "Vault ID": "金庫編號",
+    "Your vault is locked for liquidation.": "您的金庫已被鎖定以進行清算.",
+    "Your vault is at risk of liquidation. Prevent liquidity by adding more collaterals or paying back loans.": "您的金庫狀態可能會被清算。為了確保金庫能持續運作，請增加抵押品資金或立即還完貸款。",
+    "Collaterals required to use this vault.": "使用此金庫需要抵押品."
   },
   "components/ScrollableButton": {
-    "ADD COLLATERAL":"ADD COLLATERAL",
-    "TAKE COLLATERAL": "TAKE COLLATERAL",
-    "EDIT SCHEME": "EDIT SCHEME"
+    "ADD COLLATERAL":"加入抵押品",
+    "TAKE COLLATERAL": "減低抵押品",
+    "EDIT SCHEME": "更改計劃"
   }
 }

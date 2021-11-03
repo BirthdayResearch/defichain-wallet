@@ -1,4 +1,3 @@
-import * as Clipboard from 'expo-clipboard'
 import { View } from '@components'
 import { ThemedIcon, ThemedProps, ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
 import { Collateral, VaultCardProps, VaultStatus } from '@screens/AppNavigator/screens/Loans/components/VaultCard'
@@ -159,12 +158,12 @@ function VaultIdSection (props: { vaultId: string, collaterals: Collateral[] }):
           >
             {translate('screens/VaultDetailScreen', 'Vault ID')}
           </ThemedText>
-          <TouchableOpacity onPress={() => Clipboard.setString(props.vaultId)}>
+          <TouchableOpacity onPress={() => { /* TODO: link to defiscan */ }}>
             <ThemedIcon
               dark={tailwind('text-darkprimary-500')}
               iconType='MaterialIcons'
               light={tailwind('text-primary-500')}
-              name='content-copy'
+              name='open-in-new'
               size={18}
             />
           </TouchableOpacity>
@@ -188,14 +187,14 @@ function VaultCollateralTokenShare (props: {collaterals: Collateral[]}): JSX.Ele
     <ThemedView
       light={tailwind('border-gray-200')}
       dark={tailwind('border-gray-700')}
-      style={tailwind('flex flex-row flex-wrap mt-2 pb-3 border-b')}
+      style={tailwind('flex flex-row flex-wrap mt-3 pb-3 border-b')}
     >
       {props.collaterals.map(collateral => (
         <ThemedView
           key={collateral.id}
           light={tailwind('bg-gray-50')}
           dark={tailwind('bg-gray-900')}
-          style={tailwind('flex flex-row p-1 rounded-2xl mr-1 mb-1')}
+          style={tailwind('flex flex-row py-1 px-1.5 rounded-2xl mr-1 mb-1')}
         >
           <SymbolIcon symbol={collateral.id} />
           <ThemedText
