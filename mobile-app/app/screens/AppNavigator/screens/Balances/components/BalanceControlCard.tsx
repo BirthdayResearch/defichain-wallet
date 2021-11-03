@@ -22,11 +22,11 @@ export function BalanceControlCard (): JSX.Element {
       testID='balance_control_card'
       style={tailwind('p-4 flex flex-col')}
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-100')}
+      light={tailwind('bg-white border-b border-gray-200')}
     >
       <View style={tailwind('flex flex-row items-center')}>
         <Avatar
-          size={30}
+          size={40}
           name={address}
           variant='pixel'
           colors={['#EE2CB1', '#604EBF', '#DB69B8', '#FAEAF5', '#262626']}

@@ -38,11 +38,11 @@ exports[`balances page should match snapshot 1`] = `
           },
           Object {
             "backgroundColor": "rgba(255, 255, 255, 1)",
-            "borderBottomColor": "rgba(245, 245, 245, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
             "borderBottomWidth": 1,
-            "borderLeftColor": "rgba(245, 245, 245, 1)",
-            "borderRightColor": "rgba(245, 245, 245, 1)",
-            "borderTopColor": "rgba(245, 245, 245, 1)",
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
           },
         ]
       }
@@ -59,11 +59,11 @@ exports[`balances page should match snapshot 1`] = `
       >
         <RNSVGSvgView
           align="xMidYMid"
-          bbHeight={30}
-          bbWidth={30}
+          bbHeight={40}
+          bbWidth={40}
           fill="none"
           focusable={false}
-          height={30}
+          height={40}
           meetOrSlice={0}
           minX={0}
           minY={0}
@@ -75,14 +75,14 @@ exports[`balances page should match snapshot 1`] = `
               },
               Object {
                 "flex": 0,
-                "height": 30,
-                "width": 30,
+                "height": 40,
+                "width": 40,
               },
             ]
           }
           vbHeight={80}
           vbWidth={80}
-          width={30}
+          width={40}
           xmlns="http://www.w3.org/2000/svg"
         >
           <RNSVGGroup
@@ -1002,6 +1002,7 @@ exports[`balances page should match snapshot 1`] = `
                   ],
                 ]
               }
+              testID="wallet_address"
             >
               bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d
             </Text>
@@ -1052,7 +1053,7 @@ exports[`balances page should match snapshot 1`] = `
               "paddingTop": 4,
             }
           }
-          testID="header_receive_balance"
+          testID="receive_balance_button"
         >
           <Text />
           <Text
