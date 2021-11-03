@@ -25,7 +25,7 @@ interface VaultDetailsDetail {
   created: number
 }
 
-export function VaultDetailDetailsTab (): JSX.Element {
+export function DetailsTab (): JSX.Element {
   const details: VaultDetailsDetail = {
     minColRatio: new BigNumber(150),
     vaultInterest: new BigNumber(1.5),
