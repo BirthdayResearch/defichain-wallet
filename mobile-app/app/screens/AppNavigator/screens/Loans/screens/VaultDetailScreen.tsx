@@ -189,14 +189,14 @@ function VaultCollateralTokenShare (props: {collaterals: Collateral[]}): JSX.Ele
     <ThemedView
       light={tailwind('border-gray-200')}
       dark={tailwind('border-gray-700')}
-      style={tailwind('flex flex-row flex-wrap mt-2 pb-3 border-b')}
+      style={tailwind('flex flex-row flex-wrap mt-3 pb-3 border-b')}
     >
       {props.collaterals.map(collateral => (
         <ThemedView
           key={collateral.id}
           light={tailwind('bg-gray-50')}
           dark={tailwind('bg-gray-900')}
-          style={tailwind('flex flex-row p-1 rounded-2xl mr-1 mb-1')}
+          style={tailwind('flex flex-row p-1.5 rounded-2xl mr-1 mb-1')}
         >
           <SymbolIcon symbol={collateral.id} />
           <ThemedText
