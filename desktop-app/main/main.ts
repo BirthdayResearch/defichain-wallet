@@ -44,7 +44,7 @@ async function createWindow (): Promise<void> {
   mainWindow = new BrowserWindow({
     show: false,
     width: isDevelopment ? 800 : 385,
-    height: isDevelopment ? 750 : 730,
+    height: isDevelopment ? 750 : 720,
     title: app.name,
     movable: true,
     resizable: isDevelopment,
@@ -65,7 +65,9 @@ async function createWindow (): Promise<void> {
   })
 
   mainWindow.webContents.setWindowOpenHandler(() => {
-    return { action: 'allow' }
+    return {
+      action: 'allow'
+    }
   })
 
   const menuBuilder = new MenuBuilder(mainWindow)
