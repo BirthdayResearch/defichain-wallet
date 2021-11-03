@@ -60,7 +60,6 @@ export function ActiveLoans (): JSX.Element {
 function ActiveLoanCard (props: ActiveLoan): JSX.Element {
   return (
     <ThemedView
-      key={props.loanId}
       light={tailwind('bg-white border-gray-200')}
       dark={tailwind('bg-gray-800 border-gray-700')}
       style={tailwind('p-4 mb-2 border rounded')}
