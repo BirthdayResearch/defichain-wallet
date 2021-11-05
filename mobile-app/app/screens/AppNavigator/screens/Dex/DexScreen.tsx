@@ -202,7 +202,10 @@ function YourPoolPairCards ({
           <View style={tailwind('flex-row items-center justify-between')}>
             <View style={tailwind('flex-row items-center')}>
               <PoolPairIcon symbolA={symbolA} symbolB={symbolB} />
-              <ThemedText style={tailwind('text-base font-medium')}>
+              <ThemedText
+                style={tailwind('text-base font-medium')}
+                testID={`your_symbol_${symbol}`}
+              >
                 {symbol}
               </ThemedText>
             </View>
