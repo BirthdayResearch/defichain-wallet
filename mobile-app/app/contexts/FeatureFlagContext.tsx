@@ -5,7 +5,7 @@ import { nativeApplicationVersion } from 'expo-application'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { satisfies } from 'semver'
-import * as Updates from 'expo-updates'
+import { getReleaseChannel } from '@api/releaseChannel'
 
 interface FeatureFlagContextI {
   isLoansDisplayed: boolean
@@ -75,6 +75,6 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
 }
 
 function checkFeatureStage (featureFlagStage: FEATURE_FLAG_STAGE): boolean {
-  return !((featureFlagStage === 'alpha' && !getEnvironment(Updates.releaseChannel).debug) ||
-    (featureFlagStage === 'beta' && getEnvironment(Updates.releaseChannel).name !== EnvironmentName.Preview))
+  return !((featureFlagStage === 'alpha' && !getEnvironment(getReleaseChannel()).debug) ||
+    (featureFlagStage === 'beta' && getEnvironment(getReleaseChannel()).name !== EnvironmentName.Preview))
 }

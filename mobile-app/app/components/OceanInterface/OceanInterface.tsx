@@ -14,10 +14,10 @@ import { translate } from '@translations'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Animated } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import * as Updates from 'expo-updates'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { TransactionDetail } from './TransactionDetail'
 import { TransactionError } from './TransactionError'
+import { getReleaseChannel } from '@api/releaseChannel'
 
 const MAX_AUTO_RETRY = 1
 const MAX_TIMEOUT = 300000
@@ -36,7 +36,7 @@ async function broadcastTransaction (tx: CTransactionSegWit, client: WhaleApiCli
 }
 
 async function waitForTxConfirmation (id: string, client: WhaleApiClient, logger: NativeLoggingProps): Promise<Transaction> {
-  const initialTime = getEnvironment(Updates.releaseChannel).debug ? 5000 : 30000
+  const initialTime = getEnvironment(getReleaseChannel()).debug ? 5000 : 30000
   let start = initialTime
 
   return await new Promise((resolve, reject) => {
