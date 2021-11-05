@@ -1,7 +1,8 @@
 import { Tabs } from '@components/Tabs'
 import { ThemedView } from '@components/themed'
 import React, { useState } from 'react'
-import { ActiveLoans } from './ActiveLoans'
+import { ActiveLoans } from './ActiveLoansTab'
+import { CollateralsTab } from './CollateralsTab'
 import { DetailsTab } from './DetailsTab'
 import { EmptyActiveLoans } from './EmptyActiveLoans'
 
@@ -58,6 +59,8 @@ export function VaultDetailTabSection (props: VaultDetailTabSectionProps): JSX.E
           (<ActiveLoans />)}
         {activeTab === TabKey.Details &&
           (<DetailsTab />)}
+        {activeTab === TabKey.Collaterals &&
+          (<CollateralsTab />)}
       </ThemedView>
     </>
   )
