@@ -31,7 +31,8 @@
     "SWAP TOKENS": "兌換貨幣",
     "REMOVE": "退出",
     "APR": "回報率",
-    "ADD MORE": "加入更多貨幣"
+    "ADD MORE": "加入更多貨幣",
+    "Total Value Locked (TVL)": "總體價值鎖定 (美元)"
   },
   "screens/DexGuidelines": {
     "Guidelines": "指導方針",

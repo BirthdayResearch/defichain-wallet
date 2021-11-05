@@ -31,7 +31,8 @@
     "SWAP TOKENS": "TAUSCHE TOKEN",
     "REMOVE": "ENTFERNEN",
     "APR": "ZINS",
-    "ADD MORE": "HINZUFÜGEN"
+    "ADD MORE": "HINZUFÜGEN",
+    "Total Value Locked (TVL)": "Fixierter Gesamtwert"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Richtlinien",
