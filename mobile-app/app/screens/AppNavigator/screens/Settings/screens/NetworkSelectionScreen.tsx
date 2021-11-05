@@ -4,10 +4,10 @@ import { ThemedSectionTitle } from '@components/themed/ThemedSectionTitle'
 import { getEnvironment } from '@environment'
 import { translate } from '@translations'
 import { RowNetworkItem } from '@components/RowNetworkItem'
-import { getReleaseChannel } from '@api/releaseChannel'
+import * as Updates from 'expo-updates'
 
 export function NetworkSelectionScreen (): JSX.Element {
-  const networks = getEnvironment(getReleaseChannel()).networks
+  const networks = getEnvironment(Updates.releaseChannel).networks
 
   return (
     <View testID='network_selection_screen'>
