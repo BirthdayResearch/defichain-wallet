@@ -332,7 +332,7 @@ function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: s
             {
               pair.totalLiquidity.usd !== undefined && (
                 <PoolPairInfoLine
-                  label={translate('screens/DexScreen', 'Total liquidity (in USD)')}
+                  label={translate('screens/DexScreen', 'Total liquidity (USD)')}
                   value={{
                     text: pair.totalLiquidity.usd,
                     decimalScale: 2,
