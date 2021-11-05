@@ -29,7 +29,7 @@ export function StatsProvider (props: PropsWithChildren<any>): JSX.Element | nul
           count: count.blocks,
           masternodeCount: count.masternodes,
           lastSync: new Date().toString(),
-          tvl: tvl.dex
+          tvl: tvl?.dex ?? 0
         }))
         dispatch(block.actions.setConnected(true))
       }).catch((err) => {
