@@ -24,11 +24,12 @@ export function StatsProvider (props: PropsWithChildren<any>): JSX.Element | nul
 
     function refresh (): void {
       dispatch(block.actions.setPolling(true))
-      api.stats.get().then(({ count }) => {
+      api.stats.get().then(({ count, tvl }) => {
         dispatch(block.actions.updateBlockDetails({
           count: count.blocks,
           masternodeCount: count.masternodes,
-          lastSync: new Date().toString()
+          lastSync: new Date().toString(),
+          tvl: tvl?.dex ?? 0
         }))
         dispatch(block.actions.setConnected(true))
       }).catch((err) => {

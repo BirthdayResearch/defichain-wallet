@@ -93,6 +93,9 @@ context('Wallet - Network detail screen - outside wallet context', () => {
             prices: 0,
             tokens: 11,
             masternodes: 10
+          },
+          tvl: {
+            dex: 1
           }
         }
       }

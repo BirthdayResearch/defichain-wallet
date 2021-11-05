@@ -4,7 +4,7 @@ import { Collateral, VaultCardProps, VaultStatus } from '@screens/AppNavigator/s
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { useState } from 'react'
+import React from 'react'
 import { LoanParamList } from '../LoansNavigator'
 import { TouchableOpacity } from 'react-native'
 import BigNumber from 'bignumber.js'
@@ -13,24 +13,16 @@ import NumberFormat from 'react-number-format'
 import { VaultInfo } from '../components/VaultInfo'
 import { InfoText, InfoTextType } from '@components/InfoText'
 import { ScrollableButton, ScrollButton } from '../components/ScrollableButton'
-import { Tabs } from '@components/Tabs'
+import { VaultDetailTabSection } from './components/VaultDetailTabSection'
 
 type Props = StackScreenProps<LoanParamList, 'VaultDetailScreen'>
-enum TabKey {
-  ActiveLoans = 'ACTIVE_LOANS',
-  Details = 'DETAILS',
-  Collaterals = 'COLLATERALS',
-  Auctions = 'AUCTIONS'
-}
 
 export function VaultDetailScreen ({ route }: Props): JSX.Element {
   const {
-    vaultId
+    vaultId,
+    emptyActiveLoans = true
   } = route.params
-  const [activeTab, setActiveTab] = useState<string>(TabKey.ActiveLoans)
-  const onPress = (tabId: string): void => {
-    setActiveTab(tabId)
-  }
+
   const currentVault: VaultCardProps = {
     vaultAddress: '22ffasd5ca123123123123123121231061',
     status: VaultStatus.AtRisk,
@@ -69,59 +61,32 @@ export function VaultDetailScreen ({ route }: Props): JSX.Element {
       handleOnPress: () => {}
     }
   ]
-  const vaultChildTabs = [
-    {
-      id: TabKey.ActiveLoans,
-      label: 'Active loan',
-      disabled: false,
-      handleOnPress: onPress
-    },
-    {
-      id: TabKey.Details,
-      label: 'Details',
-      disabled: false,
-      handleOnPress: onPress
-    },
-    {
-      id: TabKey.Collaterals,
-      label: 'Collaterals',
-      disabled: false,
-      handleOnPress: onPress
-    },
-    {
-      id: TabKey.Auctions,
-      label: 'Auctions',
-      disabled: true,
-      handleOnPress: onPress
-    }
-  ]
 
   return (
     <ThemedScrollView
-      light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-800')}
-      style={tailwind('border-b')}
+      light={tailwind('bg-gray-100')}
+      dark={tailwind('bg-gray-900')}
     >
-      <View style={tailwind('p-4')}>
-        <VaultIdSection vaultId={vaultId} collaterals={currentVault.collaterals} />
-        <VaultCollateralTokenShare collaterals={currentVault.collaterals} />
-        <VaultInfoSection {...currentVault} />
-        <CollateralStatusMessage collateralRatio={currentVault.collateralRatio} />
-      </View>
       <ThemedView
-        light={tailwind('border-gray-200')}
-        dark={tailwind('border-gray-700')}
-        style={tailwind('pb-4 border-b')}
+        light={tailwind('bg-white')}
+        dark={tailwind('bg-gray-800')}
       >
-        <ScrollableButton buttons={vaultActionButtons} containerStyle={tailwind('pl-4')} />
-        <EmptyCollateralMessage collaterals={currentVault.collaterals} />
+        <View style={tailwind('p-4')}>
+          <VaultIdSection vaultId={vaultId} collaterals={currentVault.collaterals} />
+          <VaultCollateralTokenShare collaterals={currentVault.collaterals} />
+          <VaultInfoSection {...currentVault} />
+          <CollateralStatusMessage collateralRatio={currentVault.collateralRatio} />
+        </View>
+        <ThemedView
+          light={tailwind('border-gray-200')}
+          dark={tailwind('border-gray-700')}
+          style={tailwind('pb-4 border-b')}
+        >
+          <ScrollableButton buttons={vaultActionButtons} containerStyle={tailwind('pl-4')} />
+          <EmptyCollateralMessage collaterals={currentVault.collaterals} />
+        </ThemedView>
       </ThemedView>
-      <Tabs tabSections={vaultChildTabs} activeTabKey={activeTab} />
-      <ThemedView
-        style={tailwind('h-full')}
-      >
-        {/* TODO: detail tab content */}
-      </ThemedView>
+      <VaultDetailTabSection emptyActiveLoans={emptyActiveLoans} />
     </ThemedScrollView>
   )
 }

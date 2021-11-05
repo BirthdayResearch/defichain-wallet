@@ -14,6 +14,7 @@ exports[`Tabs component should match snapshot with 2 tabs 1`] = `
       },
     ]
   }
+  testID="loans_tabs"
 >
   <View
     style={
@@ -46,6 +47,7 @@ exports[`Tabs component should match snapshot with 2 tabs 1`] = `
           "opacity": 1,
         }
       }
+      testID="loans_tabs_BROWSE_LOANS"
     >
       <View
         style={
@@ -118,6 +120,7 @@ exports[`Tabs component should match snapshot with 2 tabs 1`] = `
           "opacity": 1,
         }
       }
+      testID="loans_tabs_YOUR_VAULTS"
     >
       <View
         style={

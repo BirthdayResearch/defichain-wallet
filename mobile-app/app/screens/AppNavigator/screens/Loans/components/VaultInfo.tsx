@@ -1,10 +1,11 @@
-import { View } from '@components'
+import { TextProps, View } from '@components'
 import { ThemedProps, ThemedText } from '@components/themed'
 import { TokenIconGroup } from '@components/TokenIconGroup'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import React from 'react'
+import { StyleProp } from 'react-native'
 import NumberFormat from 'react-number-format'
 
 interface VaultInfoProps {
@@ -16,6 +17,7 @@ interface VaultInfoProps {
   suffix?: string
   decimalPlace?: number
   valueThemedProps?: ThemedProps
+  valueStyleProps?: StyleProp<TextProps>
 }
 
 type VaultInfoValueType = 'NUMBER' | 'TOKEN_ICON_GROUP'
@@ -44,7 +46,7 @@ export function VaultInfo (props: VaultInfoProps): JSX.Element {
                 light={tailwind('text-gray-900')}
                 dark={tailwind('text-gray-100')}
                 {...props.valueThemedProps}
-                style={tailwind('text-sm font-semibold')}
+                style={[tailwind('text-sm font-semibold'), props.valueStyleProps]}
               >
                 {value.length === 0 ? translate('components/VaultCard', 'n/a') : value}
               </ThemedText>}

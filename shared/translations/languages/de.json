@@ -23,15 +23,19 @@
     "Confirm Removal": "Entfernen bestätigen",
     "Confirm swap": "Bestätige den Umtausch",
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Wähle unten ein Pool-Paar aus, stelle Liquidität für den Betrieb der dezentralen Börse (DEX) bereit und beginne, Gebühren und jährliche Renditen von bis zu 100% zu verdienen. Du kannst jederzeit Liquidität entfernen.",
-    "YOUR LIQUIDITY POOLS": "DEINE LIQUIDITÄTSPOOLS",
-    "AVAILABLE LIQUIDITY POOLS": "VERFÜGBARE LIQUIDITÄTSPOOLS",
     "Pooled {{symbol}}": "Im Pool {{symbol}}",
-    "Total pooled {{symbol}}": "{{symbol}}-Gesamtvolumen im Pool",
+    "Total pooled {{symbol}}": "Gesamte {{symbol}} im Pool",
     "Your pooled {{symbol}}": "Gepoolte {{symbol}}",
     "SWAP TOKENS": "TAUSCHE TOKEN",
     "REMOVE": "ENTFERNEN",
     "APR": "ZINS",
-    "ADD MORE": "HINZUFÜGEN"
+    "ADD MORE": "HINZUFÜGEN",
+    "No active pool pairs": "Keine aktiven Pool-Paare",
+    "Supply liquidity pool tokens to earn high yields": "Liquiditätspool-Token bereitstellen, um hohe Renditen zu erzielen",
+    "Total liquidity (USD)":"Gesamtliquidität (USD)",
+    "Browse pool pairs": "Pool-Paare durchsuchen",
+    "Your pool pairs": "Deine Pool-Paare",
+    "Total Value Locked (USD)": "Fixierter Gesamtwert (USD)"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Richtlinien",
@@ -44,7 +48,7 @@
     "Earn high yields by supplying token pairs to the liquidity pool.": "Erziele hohe Erträge durch die Bereitstellung von Handelspaaren zum Liquidity Pool.",
     "Conveniently swap participating tokens within the liquidity pool.": "Bequemer Umtausch von im Liquidity Pool vertretenen Token.",
     "You have full control over your tokens unlike any other.": "Nur du hast volle Kontrolle über deine Token."
-  },  
+  },
   "screens/BalancesScreen": {
     "Balances": "Guthaben",
     "RECEIVE": "EMPFANGEN",
@@ -185,7 +189,7 @@
     "Report in Github, discuss in Reddit and Telegram": "In Github melden, in Reddit und Telegram thematisch diskutieren",
     "Track transactions, tokens and DEX pairs": "Nachverfolgung von Transaktionen, Token und DEX-Handelspaaren",
     "View official website": "Offizielle Website anzeigen",
-    "Learn more about the blockchain": "Erfahre mehr über die Blockchain"
+    "Learn more about the blockchain": "Lerne mehr über Blockchain"
   },
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "LERNE ETWAS ÜBER",
@@ -571,13 +575,13 @@
   },
   "screens/LoansScreen": {
     "Loans": "Darlehen",
-    "Create vault": "Sicherheitendepot erstellen",
-    "Confirm create vault": "Bestätige Sicherheitendepot erstellen",
-    "Vault detail": "Sicherheitendepot detail"
+    "Create vault": "Vault erstellen",
+    "Confirm create vault": "Bestätige Vault erstellen",
+    "Vault detail": "Vault-Detail"
   },
   "components/tabs": {
     "Browse loans": "Darlehen durchsuchen",
-    "Your vaults": "Deine Sicherheitendepots",
+    "Your vaults": "Deine Vaults",
     "Active loan": "Aktuelles Darlehen",
     "Details": "Details",
     "Collaterals": "Sicherheiten",
@@ -591,7 +595,7 @@
   "components/InfoTextLink": {
     "Learn more about UTXO and Token": "Erfahre mehr über UTXO und Token",
     "UTXO vs Token, what is the difference?": "UTXO vs Token, worin liegt der Unterschied?",
-    "Learn more about vaults": "Lerne mehr über Sicherheitendepots"
+    "Learn more about vaults": "Lerne mehr über Vaults"
   },
   "components/VaultCard": {
     "Collaterals:": "Sicherheiten:",
@@ -605,52 +609,65 @@
     "Collateral ratio": "Besicherungsquote",
     "n/a": "k.A.",
     "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
-    "VIEW LOANS": "DARLEHEN ANSEHEN"
+    "VIEW LOANS": "DARLEHEN ANSEHEN",
+    "Borrowed tokens": "Geliehene Token",
+    "Interest amount (1.5%)": "Zinsbetrag (1.5%)",
+    "Amount payable": "Auszahlbarer Betrag",
+    "Price per token (USD)": "Preis pro Token (USD)"
   },
   "components/EmptyVault": {
-    "No vault created": "Kein Sicherheitendepot erstellt",
-    "To get started, create a vault and add DFI and other tokens as collaterals": "Um loszulegen, erstelle ein Sicherheitendepot und füge DFI und andere Token als Sicherheiten hinzu",
-    "CREATE VAULT": "SICHERHEITENDEPOT ERSTELLEN"
+    "No vault created": "Kein Vault erstellt",
+    "To get started, create a vault and add DFI and other tokens as collaterals": "Um loszulegen, erstelle einen Vault und füge DFI und andere Token als Sicherheiten hinzu",
+    "CREATE VAULT": "VAULT ERSTELLEN"
   },
   "screens/CreateVaultScreen": {
-    "Choose loan scheme for your vault": "Wähle ein Darlehensmodell für dein Sicherheitendepot",
-    "This sets the minimum collateral ratio and the vault’s interest rate.": "Hier wird die Mindestbesicherungsquote und der Zinssatz für das Sicherheitendepot festgelegt.",
-    "Keep note of your selected collateral ratio for your vault to sustain the loans within it.": "Behalte die von dir gewählte Besicherungsquote für dein Sicherheitendepot im Auge, um die darin befindlichen Darlehen zu decken.",
+    "Choose loan scheme for your vault": "Wähle ein Darlehensmodell für deinen Vault",
+    "This sets the minimum collateral ratio and the vault’s interest rate.": "Hier wird die Mindestbesicherungsquote und der Zinssatz für den Vault festgelegt.",
+    "Keep note of your selected collateral ratio for your vault to sustain the loans within it.": "Behalte die von dir gewählte Besicherungsquote für deinen Vault im Auge, um die darin befindlichen Darlehen zu decken.",
     "Collateral ratio": "Besicherungsquote",
     "Interest rate": "Zinssatz",
     "APR": "ZINS",
     "CONTINUE": "FORTFAHREN",
-    "Confirm your vault details in next screen": "Bestätige die Daten deines Sicherheitendepots in der nächsten Ansicht"
+    "Confirm your vault details in next screen": "Bestätige die Daten deines Vaults in der nächsten Ansicht"
   },
   "screens/ConfirmCreateVaultScreen": {
-    "You are creating vault": "Du erstellst gerade ein Sicherheitendepot",
+    "You are creating vault": "Du erstellst gerade einen Vault",
     "ID will generate once vault has been created": "ID wird generiert, sobald das Sicherheitendepot erstellt ist",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktionsart",
-    "Create vault": "Sicherheitendepot erstellen",
-    "Total transaction cost": "Transaktionskosten insgesamt",
-    "VAULT DETAILS": "SICHERHEITENDEPOT DETAILS",
+    "Create vault": "Vault erstellen",
+    "Total transaction cost": "Transaktionskosten gesamt",
+    "VAULT DETAILS": "VAULT-DETAILS",
     "Min. collateral ratio": "Mindestbesicherungsquote",
     "Interest rate (APR)": "Zinssatz (APR)",
     "APR": "ZINS",
-    "CONFIRM CREATE VAULT": "BESTÄTIGE SICHERHEITENDEPOT ERSTELLEN"
+    "CONFIRM CREATE VAULT": "VAULT ERSTELLEN BESTÄTIGEN"
   },
   "components/FeeInfoRow": {
     "Estimated fee":"Geschätzte Gebühr",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.":"Jede Transaktion unterliegt einer geringen Gebühr. Der Betrag kann je nach Auslastung des Netzwerks variieren.",
-    "Vault fee": "Sicherheitendepotgebühr",
-    "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "Diese Gebühr dient als Ersteinlage für dein Sicherheitendepot. Du erhältst 1 DFI zurück, wenn du dich entscheidest, dieses Sicherheitendepot zu schließen."
+    "Vault fee": "Vaultgebühr",
+    "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "Diese Gebühr dient als Ersteinlage für deinen Vault. Du erhältst 1 DFI zurück, wenn du dich entscheidest, diesen Vault zu schließen."
   },
   "screens/VaultDetailScreen": {
-    "Vault ID": "Sicherheitendepot-ID",
-    "Your vault is locked for liquidation.": "Dein Sicherheitendepot ist im Rahmen der Liquidation gesperrt.",
-    "Your vault is at risk of liquidation. Prevent liquidity by adding more collaterals or paying back loans.": "Dein Sicherheitendepot ist von der Liquidation bedroht. Verhindere die Liquidiation, indem du weitere Sicherheiten hinzufügst oder Darlehen zurückzahlst.",
-    "Collaterals required to use this vault.": "Für die Nutzung dieses Sicherheitendepots sind Sicherheiten erforderlich."
+    "Vault ID": "Vault-ID",
+    "Your vault is locked for liquidation.": "Dein Vault ist im Rahmen der Liquidation eingefroren.",
+    "Your vault is at risk of liquidation. Prevent liquidity by adding more collaterals or paying back loans.": "Dein Vault ist von der Liquidation bedroht. Verhindere die Liquidation, indem du weitere Sicherheiten hinzufügst oder Darlehen zurückzahlst.",
+    "Collaterals required to use this vault.": "Für die Nutzung dieses Vaults sind Sicherheiten erforderlich."
   },
   "components/ScrollableButton": {
     "ADD COLLATERAL":"SICHERHEITEN HINZUFÜGEN",
     "TAKE COLLATERAL": "SICHERHEITEN ENTNEHMEN",
     "EDIT SCHEME": "DARLEHENSMODELL BEARBEITEN"
+  },
+  "components/EmptyActiveLoans": {
+    "No active loans": "Keine aktiven Darlehen",
+    "Browse for available loan tokens and start using this vault as collateral.": "Suche nach verfügbaren Hinterlegungs-Token und verwende diesen Vault als Sicherheit.",
+    "BROWSE LOANS": "DARLEHEN DURCHSUCHEN"
+  },
+  "components/ActiveLoans": {
+    "REPAY LOAN": "DARLEHEN ZURÜCKZAHLEN",
+    "BORROW MORE": "MEHR AUSLEIHEN"
   },
   "components/BalanceControlCard": {
     "Wallet Address": "Wallet Adresse"
@@ -658,5 +675,24 @@
   "components/EmptyBalances": {
     "No other tokens yet": "Noch keine weiteren Token",
     "Get started by adding your tokens here in your wallet": "Fange an, indem du deine Token hier deiner Wallet hinzufügst"
+  },
+  "components/VaultDetailDetailsTab": {
+    "LOAN SCHEME": "DARLEHENSMODELL",
+    "Min. collateral ratio": "Mindestbesicherungsquote",
+    "Vault interest": "Vault-Zins",
+    "VAULT DETAILS": "VAULT-DETAILS",
+    "Collateral ratio": "Besicherungsquote",
+    "Active loans": "Aktive Darlehen",
+    "Total value of loans": "Gesamtwert der Darlehen",
+    "Collateral value": "Sicherheitenwert",
+    "Vault health": "Vault-Zustand",
+    "Safe": "Sicher",
+    "At risk": "Gefährdet",
+    "Liquidated": "Liquidiert",
+    "Created": "Erstellt"
+  },
+  "components/VaultDetailsCollateralsTab": {
+    "Collateral amount": "Höhe der Sicherheiten",
+    "Vault %": "Vault %"
   }
 }

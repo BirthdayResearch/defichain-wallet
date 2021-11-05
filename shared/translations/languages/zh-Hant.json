@@ -23,15 +23,19 @@
     "Confirm Removal": "確認退出",
     "Confirm swap": "確認兌換",
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "為以下去中心化交易所配對池提供流動資金，並獲得高利率的區塊獎勵回報.",
-    "YOUR LIQUIDITY POOLS": "你的流動性池",
-    "AVAILABLE LIQUIDITY POOLS": "可用的流動性池",
     "Pooled {{symbol}}": "池中總 {{symbol}} 數量",
-    "Total pooled {{symbol}}": "池中總 {{symbol}} 數量",
+    "Total pooled {{symbol}}": "池中總 {{symbol}}",
     "Your pooled {{symbol}}": "您的池中總 {{symbol}} 數量",
     "SWAP TOKENS": "兌換貨幣",
     "REMOVE": "退出",
     "APR": "回報率",
-    "ADD MORE": "加入更多貨幣"
+    "ADD MORE": "加入更多貨幣",
+    "No active pool pairs": "尚未進入流動池",
+    "Supply liquidity pool tokens to earn high yields": "您可以向流動池提供資金已賺取區塊獎勵和兌換佣金",
+    "Total liquidity (USD)":"總資金值 (美元)",
+    "Browse pool pairs": "瀏覽流動池配對",
+    "Your pool pairs": "您的流動池股份",
+    "Total Value Locked (USD)": "總體價值鎖定 (美元)"
   },
   "screens/DexGuidelines": {
     "Guidelines": "指導方針",
@@ -605,7 +609,11 @@
     "Collateral ratio": "抵押品比率",
     "n/a": "不適用",
     "ADD COLLATERAL": "加入抵押品",
-    "VIEW LOANS": "檢視貸款"
+    "VIEW LOANS": "檢視貸款",
+    "Borrowed tokens": "已借貸代幣",
+    "Interest amount (1.5%)": "利息金額 (1.5%)",
+    "Amount payable": "應付款金額",
+    "Price per token (USD)": "代幣的單價 (美金)"
   },
   "components/EmptyVault": {
     "No vault created": "還沒建立金庫",
@@ -652,11 +660,39 @@
     "TAKE COLLATERAL": "減低抵押品",
     "EDIT SCHEME": "更改計劃"
   },
+  "components/EmptyActiveLoans": {
+    "No active loans": "沒有活躍的貸款",
+    "Browse for available loan tokens and start using this vault as collateral.": "瀏覽可選擇的貸款代幣並開始使用此金庫作為抵押.",
+    "BROWSE LOANS": "瀏覽貸款選項"
+  },
+  "components/ActiveLoans": {
+    "REPAY LOAN": "償還貸款",
+    "BORROW MORE": "注入更多借貸"
+  },
   "components/BalanceControlCard": {
     "Wallet Address": "錢包地址"
   },
   "components/EmptyBalances": {
     "No other tokens yet": "尚未添加其他貨幣",
     "Get started by adding your tokens here in your wallet": "在您的錢包中添加代幣便可以開始操作"
+  },
+  "components/VaultDetailDetailsTab": {
+    "LOAN SCHEME": "貸款計劃",
+    "Min. collateral ratio": "最小抵押率",
+    "Vault interest": "金庫利息",
+    "VAULT DETAILS": "金庫明細",
+    "Collateral ratio": "抵押品比率",
+    "Active loans": "活躍的貸款",
+    "Total value of loans": "貸款總價值",
+    "Collateral value": "抵押品價值",
+    "Vault health": "金庫狀態",
+    "Safe": "安全狀態",
+    "At risk": "請注意抵押比率",
+    "Liquidated": "清算",
+    "Created": "建立時間"
+  },
+  "components/VaultDetailsCollateralsTab": {
+    "Collateral amount": "抵押品金額",
+    "Vault %": "金庫 %"
   }
 }
