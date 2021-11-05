@@ -23,15 +23,19 @@
     "Confirm Removal": "Entfernen bestätigen",
     "Confirm swap": "Bestätige den Umtausch",
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Wähle unten ein Pool-Paar aus, stelle Liquidität für den Betrieb der dezentralen Börse (DEX) bereit und beginne, Gebühren und jährliche Renditen von bis zu 100% zu verdienen. Du kannst jederzeit Liquidität entfernen.",
-    "YOUR LIQUIDITY POOLS": "DEINE LIQUIDITÄTSPOOLS",
-    "AVAILABLE LIQUIDITY POOLS": "VERFÜGBARE LIQUIDITÄTSPOOLS",
     "Pooled {{symbol}}": "Im Pool {{symbol}}",
-    "Total pooled {{symbol}}": "{{symbol}}-Gesamtvolumen im Pool",
+    "Total pooled {{symbol}}": "Gesamte {{symbol}} im Pool",
     "Your pooled {{symbol}}": "Gepoolte {{symbol}}",
     "SWAP TOKENS": "TAUSCHE TOKEN",
     "REMOVE": "ENTFERNEN",
     "APR": "ZINS",
-    "ADD MORE": "HINZUFÜGEN"
+    "ADD MORE": "HINZUFÜGEN",
+    "No active pool pairs": "Keine aktiven Pool-Paare",
+    "Supply liquidity pool tokens to earn high yields": "Liquiditätspool-Token bereitstellen, um hohe Renditen zu erzielen",
+    "Total liquidity (USD)":"Gesamtliquidität (USD)",
+    "Browse pool pairs": "Pool-Paare durchsuchen",
+    "Your pool pairs": "Deine Pool-Paare",
+    "Total Value Locked (USD)": "Fixierter Gesamtwert (USD)"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Richtlinien",
@@ -609,7 +613,7 @@
     "Borrowed tokens": "Geliehene Token",
     "Interest amount (1.5%)": "Zinsbetrag (1.5%)",
     "Amount payable": "Auszahlbarer Betrag",
-    "Price per token (in USD)": "Preis pro Token (USD)"
+    "Price per token (USD)": "Preis pro Token (USD)"
   },
   "components/EmptyVault": {
     "No vault created": "Kein Vault erstellt",

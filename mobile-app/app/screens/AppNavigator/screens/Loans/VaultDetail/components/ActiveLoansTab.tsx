@@ -76,7 +76,7 @@ function ActiveLoanCard (props: ActiveLoan): JSX.Element {
         <VaultInfo label='Borrowed tokens' value={props.borrowedTokens} valueType='NUMBER' valueStyleProps={tailwind('font-normal')} />
         <VaultInfo label='Interest amount (1.5%)' value={props.interest} valueType='NUMBER' valueStyleProps={tailwind('font-normal')} />
         <VaultInfo label='Amount payable' value={props.amountPayable} decimalPlace={2} valueType='NUMBER' valueStyleProps={tailwind('font-normal')} />
-        <VaultInfo label='Price per token (in USD)' value={props.pricePerToken} decimalPlace={2} valueType='NUMBER' valueStyleProps={tailwind('font-normal')} />
+        <VaultInfo label='Price per token (USD)' value={props.pricePerToken} decimalPlace={2} valueType='NUMBER' valueStyleProps={tailwind('font-normal')} />
       </View>
       <ActionButtons />
     </ThemedView>

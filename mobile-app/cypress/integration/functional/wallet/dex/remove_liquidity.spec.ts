@@ -7,10 +7,11 @@ function createAddLiquidityToWallet (): void {
   cy.sendDFItoWallet().sendTokenToWallet(['ETH-DFI']).wait(3000)
   cy.getByTestID('bottom_tab_dex').click().wait(1000)
   cy.getByTestID('close_dex_guidelines').click()
-  cy.getByTestID('liquidity_screen_list').wait(2000)
+  cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click().wait(1000)
+  cy.getByTestID('your_liquidity_tab').wait(2000)
     .getByTestID('pool_pair_row_your').should('have.length', 1)
 
-  cy.getByTestID('liquidity_screen_list')
+  cy.getByTestID('your_liquidity_tab')
     .wait(2000).getByTestID('pool_pair_row_your').first()
     .invoke('text').should(text => expect(text).to.contains('10.00000000'))
 
@@ -27,7 +28,8 @@ context('Wallet - DEX - Remove Liquidity', () => {
 
   after(function () {
     // Remove added liquidity
-    cy.getByTestID('bottom_tab_dex').click().wait(1000)
+    cy.getByTestID('bottom_tab_dex').click()
+    cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click().wait(1000)
     cy.getByTestID('pool_pair_remove_dETH-DFI').click().wait(1000)
     cy.getByTestID('button_slider_max').click().wait(1000)
     cy.getByTestID('button_continue_remove_liq').click()
