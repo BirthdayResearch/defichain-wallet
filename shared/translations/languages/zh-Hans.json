@@ -34,7 +34,8 @@
     "Supply liquidity pool tokens to earn high yields": "您可以向流动池提供资金已赚取区块奖励和兑换佣金",
     "Total liquidity (USD)":"总资金值 (美元)",
     "Browse pool pairs": "浏览流动池配对",
-    "Your pool pairs": "您的流动池股份"
+    "Your pool pairs": "您的流动池股份",
+    "Total Value Locked (USD)": "总体价值锁定 (美元)"
   },
   "screens/DexGuidelines": {
     "Guidelines": "指导方针",

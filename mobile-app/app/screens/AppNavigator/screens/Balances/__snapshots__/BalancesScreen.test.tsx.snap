@@ -936,7 +936,7 @@ exports[`balances page should match snapshot 1`] = `
                       "marginRight": 6,
                     },
                     Object {
-                      "color": "rgba(163, 163, 163, 1)",
+                      "color": "rgba(115, 115, 115, 1)",
                     },
                   ],
                 ]

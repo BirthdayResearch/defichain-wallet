@@ -22,6 +22,7 @@ import { DexGuidelines } from './DexGuidelines'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Tabs } from '@components/Tabs'
 import { WalletToken } from '@store/wallet'
+import { RootState } from '@store'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -56,6 +57,10 @@ export function DexScreen (): JSX.Element {
     disabled: false,
     handleOnPress: () => onTabChange(TabKey.YourPoolPair)
   }]
+
+  const {
+    tvl
+  } = useSelector((state: RootState) => state.block)
 
   const onAdd = (data: PoolPairData): void => {
     navigation.navigate({
@@ -97,6 +102,33 @@ export function DexScreen (): JSX.Element {
 
   return (
     <>
+      <ThemedView
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        light={tailwind('bg-white border-b border-gray-200')}
+        style={tailwind('flex flex-row px-4 py-3')}
+      >
+        <View style={tailwind('flex flex-col')}>
+          <ThemedText light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')} style={tailwind('text-xs')}>{translate('screens/DexScreen', 'Total Value Locked (USD)')}</ThemedText>
+          <ThemedText>
+            <NumberFormat
+              displayType='text'
+              prefix='$'
+              renderText={(val: string) => (
+                <ThemedText
+                  dark={tailwind('text-gray-50')}
+                  light={tailwind('text-gray-900')}
+                  style={tailwind('text-lg text-right font-bold')}
+                  testID='DEX_TVL'
+                >
+                  {val}
+                </ThemedText>
+              )}
+              thousandSeparator
+              value={new BigNumber(tvl ?? 0).decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
+            />
+          </ThemedText>
+        </View>
+      </ThemedView>
       <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
       <View style={tailwind('flex-1')}>
         {
