@@ -297,14 +297,14 @@ function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: s
   const decimalScale = type === 'available' ? 2 : 8
 
   return (
-    <View style={tailwind('mt-4 -mb-1 flex flex-row flex-wrap')}>
+    <View style={tailwind('mt-1 -mb-1 flex flex-row flex-wrap')}>
       {
         pair !== undefined && (
           <>
             {
               type === 'your' && pairAmount !== undefined && (
                 <PoolPairInfoLine
-                  label={translate('screens/DexScreen', 'Pooled {{pairSymbol}}', { pairSymbol })}
+                  label={translate('screens/DexScreen', 'Pooled {{symbol}}', { symbol: pairSymbol })}
                   value={{
                     text: pairAmount,
                     decimalScale: 8,
@@ -371,7 +371,7 @@ interface PoolPairInfoLineProps {
 
 function PoolPairInfoLine (props: PoolPairInfoLineProps): JSX.Element {
   return (
-    <View style={[tailwind('flex-col justify-between mb-3'), { width: '50%' }]}>
+    <View style={[tailwind('flex-col justify-between mt-3'), { width: '50%' }]}>
       <ThemedText
         dark={tailwind('text-gray-400')}
         light={tailwind('text-gray-500')}
@@ -436,7 +436,7 @@ function PoolPairActionButton (props: { name: React.ComponentProps<typeof Materi
       iconSize={16}
       iconType='MaterialIcons'
       onPress={props.onPress}
-      style={tailwind('mr-2')}
+      style={tailwind('mr-2 mt-2')}
       testID={`pool_pair_${props.name}_${props.pair}`}
       iconLabel={props.label}
     />
