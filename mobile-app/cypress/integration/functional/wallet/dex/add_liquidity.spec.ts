@@ -157,12 +157,13 @@ context('Wallet - DEX - Combine Add and Confirm Liquidity Spec', () => {
   })
 })
 
-context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
+context.only('Wallet - DEX - Add Liquidity Confirm Txn', () => {
   beforeEach(function () {
     setupWallet()
   })
 
   afterEach(function () {
+    cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click().wait(1000)
     cy.getByTestID('your_dBTC-DFI').contains('10.00000000')
     cy.getByTestID('tokenA_dBTC').contains('9.99999999')
     cy.getByTestID('tokenB_DFI').contains('9.99999999')
