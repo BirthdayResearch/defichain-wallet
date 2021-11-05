@@ -346,7 +346,7 @@ function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: s
               )
             }
             <PoolPairInfoLine
-              label={translate('screens/DexScreen', `${type === 'available' ? 'Total pooled' : 'Pooled'} {{symbol}}`, { symbol: pair?.tokenA?.displaySymbol })}
+              label={translate('screens/DexScreen', `${type === 'available' ? 'Pooled' : 'Your pooled'} {{symbol}}`, { symbol: pair?.tokenA?.displaySymbol })}
               value={{
                 text: tokenATotal,
                 decimalScale: decimalScale,
@@ -354,7 +354,7 @@ function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: s
               }}
             />
             <PoolPairInfoLine
-              label={translate('screens/DexScreen', `${type === 'available' ? 'Total pooled' : 'Pooled'} {{symbol}}`, { symbol: pair?.tokenB?.displaySymbol })}
+              label={translate('screens/DexScreen', `${type === 'available' ? 'Pooled' : 'Your pooled'} {{symbol}}`, { symbol: pair?.tokenB?.displaySymbol })}
               value={{
                 text: tokenBTotal,
                 decimalScale: decimalScale,
