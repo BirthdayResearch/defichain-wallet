@@ -28,7 +28,7 @@
     "@defichain/jellyfish-wallet": "^0.51.0",
     "@defichain/jellyfish-wallet-encrypted": "^0.51.0",
     "@defichain/jellyfish-wallet-mnemonic": "^0.51.0",
-    "@defichain/playground-api-client": "^0.11.0",
+    "@defichain/playground-api-client": "^0.11.1",
     "@defichain/whale-api-client": "^0.13.0",
     "@defichain/whale-api-wallet": "^0.13.0",
     "@expo-google-fonts/ibm-plex-sans": "^0.2.0",
