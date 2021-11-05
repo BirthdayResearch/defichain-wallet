@@ -364,7 +364,7 @@ function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: s
             {
               pair.totalLiquidity.usd !== undefined && (
                 <PoolPairInfoLine
-                  label={translate('screens/DexScreen', 'Total liquidity (in USD)')}
+                  label={translate('screens/DexScreen', 'Total liquidity (USD)')}
                   value={{
                     text: pair.totalLiquidity.usd,
                     decimalScale: 2,
@@ -394,7 +394,7 @@ function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: s
 interface PoolPairInfoLineProps {
   label: string
   value: {
-    decimalScale?: number
+    decimalScale: number
     suffix?: string
     testID: string
     text: string
@@ -411,31 +411,21 @@ function PoolPairInfoLine (props: PoolPairInfoLineProps): JSX.Element {
       >
         {props.label}
       </ThemedText>
-
-      {props.value.decimalScale === undefined
-        ? (
+      <NumberFormat
+        decimalScale={props.value.decimalScale}
+        displayType='text'
+        renderText={value => (
           <ThemedText
             style={tailwind('text-sm')}
             testID={props.value.testID}
           >
-            {props.value.text}
-          </ThemedText>)
-        : (<NumberFormat
-            decimalScale={props.value.decimalScale}
-            displayType='text'
-            renderText={value => (
-              <ThemedText
-                style={tailwind('text-sm')}
-                testID={props.value.testID}
-              >
-                {value}
-              </ThemedText>
-            )}
-            thousandSeparator
-            suffix={props.value.suffix ?? ''}
-            value={props.value.text}
-           />
+            {value}
+          </ThemedText>
         )}
+        thousandSeparator
+        suffix={props.value.suffix}
+        value={props.value.text}
+      />
     </View>
   )
 }

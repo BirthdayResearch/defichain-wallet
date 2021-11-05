@@ -24,12 +24,17 @@
     "Confirm swap": "确认兑换",
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "为以下去中心化交易所配对池提供流动资金，并获得高利率的区块奖励回报.",
     "Pooled {{symbol}}": "池中总 {{symbol}} 数量",
-    "Total pooled {{symbol}}": "池中总 {{symbol}} 数量",
+    "Total pooled {{symbol}}": "池中总 {{symbol}}",
     "Your pooled {{symbol}}": "您的池中总 {{symbol}} 数量",
     "SWAP TOKENS": "兑换货币",
     "REMOVE": "退出",
     "APR": "回报率",
     "ADD MORE": "加入更多货币",
+    "No active pool pairs": "尚未进入流动池",
+    "Supply liquidity pool tokens to earn high yields": "您可以向流动池提供资金已赚取区块奖励和兑换佣金",
+    "Total liquidity (USD)":"总资金值 (美元)",
+    "Browse pool pairs": "浏览流动池配对",
+    "Your pool pairs": "您的流动池股份",
     "Total Value Locked (USD)": "总体价值锁定 (美元)"
   },
   "screens/DexGuidelines": {
