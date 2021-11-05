@@ -133,7 +133,7 @@ function VaultDetailSection (props: VaultDetailsDetail): JSX.Element {
             )
           }
         }}
-        textStyle={tailwind('text-sm font-normal', {})}
+        textStyle={tailwind('text-sm font-normal')}
       />
       <TextRow
         lhs={translate('components/VaultDetailDetailsTab', 'Created')}
