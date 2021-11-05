@@ -44,7 +44,7 @@
     "Earn high yields by supplying token pairs to the liquidity pool.": "Erziele hohe Erträge durch die Bereitstellung von Handelspaaren zum Liquidity Pool.",
     "Conveniently swap participating tokens within the liquidity pool.": "Bequemer Umtausch von im Liquidity Pool vertretenen Token.",
     "You have full control over your tokens unlike any other.": "Nur du hast volle Kontrolle über deine Token."
-  },  
+  },
   "screens/BalancesScreen": {
     "Balances": "Guthaben",
     "RECEIVE": "EMPFANGEN",
@@ -185,7 +185,7 @@
     "Report in Github, discuss in Reddit and Telegram": "In Github melden, in Reddit und Telegram thematisch diskutieren",
     "Track transactions, tokens and DEX pairs": "Nachverfolgung von Transaktionen, Token und DEX-Handelspaaren",
     "View official website": "Offizielle Website anzeigen",
-    "Learn more about the blockchain": "Lerne mehr über Vaults"
+    "Learn more about the blockchain": "Lerne mehr über Blockchain"
   },
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "LERNE ETWAS ÜBER",
@@ -571,9 +571,9 @@
   },
   "screens/LoansScreen": {
     "Loans": "Darlehen",
-    "Create vault": "Sicherheitendepot erstellen",
-    "Confirm create vault": "Bestätige Sicherheitendepot erstellen",
-    "Vault detail": "Sicherheitendepot detail"
+    "Create vault": "Vault erstellen",
+    "Confirm create vault": "Bestätige Vault erstellen",
+    "Vault detail": "Vault-Detail"
   },
   "components/tabs": {
     "Browse loans": "Darlehen durchsuchen",
@@ -591,7 +591,7 @@
   "components/InfoTextLink": {
     "Learn more about UTXO and Token": "Erfahre mehr über UTXO und Token",
     "UTXO vs Token, what is the difference?": "UTXO vs Token, worin liegt der Unterschied?",
-    "Learn more about vaults": "Lerne mehr über Sicherheitendepots"
+    "Learn more about vaults": "Lerne mehr über Vaults"
   },
   "components/VaultCard": {
     "Collaterals:": "Sicherheiten:",
@@ -629,15 +629,15 @@
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Du erstellst gerade einen Vault",
     "ID will generate once vault has been created": "ID wird generiert, sobald das Sicherheitendepot erstellt ist",
-    "TRANSACTION DETAILS": "VAULT DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktionsart",
-    "Create vault": "Sicherheitendepot erstellen",
+    "Create vault": "Vault erstellen",
     "Total transaction cost": "Transaktionskosten gesamt",
-    "VAULT DETAILS": "VAULT DETAILS",
+    "VAULT DETAILS": "VAULT-DETAILS",
     "Min. collateral ratio": "Mindestbesicherungsquote",
     "Interest rate (APR)": "Zinssatz (APR)",
     "APR": "ZINS",
-    "CONFIRM CREATE VAULT": "BESTÄTIGE VAULT ERSTELLEN"
+    "CONFIRM CREATE VAULT": "VAULT ERSTELLEN BESTÄTIGEN"
   },
   "components/FeeInfoRow": {
     "Estimated fee":"Geschätzte Gebühr",
@@ -676,7 +676,7 @@
     "LOAN SCHEME": "DARLEHENSMODELL",
     "Min. collateral ratio": "Mindestbesicherungsquote",
     "Vault interest": "Vault-Zins",
-    "VAULT DETAILS": "SICHERHEITENDEPOT DETAILS",
+    "VAULT DETAILS": "VAULT-DETAILS",
     "Collateral ratio": "Besicherungsquote",
     "Active loans": "Aktive Darlehen",
     "Total value of loans": "Gesamtwert der Darlehen",
