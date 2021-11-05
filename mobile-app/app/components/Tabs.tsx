@@ -7,7 +7,7 @@ import { ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from
 interface TabsProps {
   activeTabKey: TabOption['id']
   tabSections: TabOption[]
-  testID?: string
+  testID: string
 }
 
 interface TabOption {
@@ -39,6 +39,7 @@ const Tabs = React.memo((props: TabsProps): JSX.Element => {
                 style={tailwind('flex items-center border-transparent')}
                 onPress={() => tab.handleOnPress(tab.id)}
                 disabled={tab.disabled}
+                testID={`${props.testID}_${tab.id}`}
               >
                 <ThemedView
                   light={tailwind('bg-white')}
