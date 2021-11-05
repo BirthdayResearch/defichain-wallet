@@ -23,15 +23,18 @@
     "Confirm Removal": "Entfernen bestätigen",
     "Confirm swap": "Bestätige den Umtausch",
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Wähle unten ein Pool-Paar aus, stelle Liquidität für den Betrieb der dezentralen Börse (DEX) bereit und beginne, Gebühren und jährliche Renditen von bis zu 100% zu verdienen. Du kannst jederzeit Liquidität entfernen.",
-    "YOUR LIQUIDITY POOLS": "DEINE LIQUIDITÄTSPOOLS",
-    "AVAILABLE LIQUIDITY POOLS": "VERFÜGBARE LIQUIDITÄTSPOOLS",
     "Pooled {{symbol}}": "Im Pool {{symbol}}",
     "Total pooled {{symbol}}": "{{symbol}}-Gesamtvolumen im Pool",
     "Your pooled {{symbol}}": "Gepoolte {{symbol}}",
     "SWAP TOKENS": "TAUSCHE TOKEN",
     "REMOVE": "ENTFERNEN",
     "APR": "ZINS",
-    "ADD MORE": "HINZUFÜGEN"
+    "ADD MORE": "HINZUFÜGEN",
+    "No active pool pairs": "No active pool pairs",
+    "Supply liquidity pool tokens to earn high yields": "Supply liquidity pool tokens to earn high yields",
+    "Total liquidity (in USD)":"Total liquidity (in USD)",
+    "Browse pool pairs": "Browse pool pairs",
+    "Your pool pairs": "Your pool pairs"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Richtlinien",

@@ -133,13 +133,13 @@ export function DexScreen (): JSX.Element {
               />
               <ThemedText
                 style={tailwind('text-2xl font-semibold text-center mb-1')}
-              >No active pool pairs
+              >{translate('screens/DexScreen', 'No active pool pairs')}
               </ThemedText>
               <ThemedText
                 dark={tailwind('text-gray-400')}
                 light={tailwind('text-gray-500')}
                 style={tailwind('text-base text-center')}
-              >Supply tokens to liquidity pools and earn high yield for yourself
+              >{translate('screens/DexScreen', 'Supply liquidity pool tokens to earn high yields')}
               </ThemedText>
             </ThemedView>
           )
@@ -304,7 +304,7 @@ function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: s
             {
               type === 'your' && pairAmount !== undefined && (
                 <PoolPairInfoLine
-                  label={`Pooled ${pairSymbol}`}
+                  label={translate('screens/DexScreen', 'Pooled {{pairSymbol}}', { pairSymbol })}
                   value={{
                     text: pairAmount,
                     decimalScale: 8,
@@ -314,7 +314,7 @@ function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: s
               )
             }
             <PoolPairInfoLine
-              label={`${type === 'available' ? 'Total pooled' : 'Pooled'} ${pair?.tokenA?.displaySymbol}`}
+              label={translate('screens/DexScreen', `${type === 'available' ? 'Total pooled' : 'Pooled'} {{symbol}}`, { symbol: pair?.tokenA?.displaySymbol })}
               value={{
                 text: tokenATotal,
                 decimalScale: decimalScale,
@@ -322,7 +322,7 @@ function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: s
               }}
             />
             <PoolPairInfoLine
-              label={`${type === 'available' ? 'Total pooled' : 'Pooled'} ${pair?.tokenB?.displaySymbol}`}
+              label={translate('screens/DexScreen', `${type === 'available' ? 'Total pooled' : 'Pooled'} {{symbol}}`, { symbol: pair?.tokenB?.displaySymbol })}
               value={{
                 text: tokenBTotal,
                 decimalScale: decimalScale,
@@ -332,7 +332,7 @@ function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: s
             {
               pair.totalLiquidity.usd !== undefined && (
                 <PoolPairInfoLine
-                  label='Total liquidity (in USD)'
+                  label={translate('screens/DexScreen', 'Total liquidity (in USD)')}
                   value={{
                     text: pair.totalLiquidity.usd,
                     decimalScale: 2,
@@ -343,7 +343,7 @@ function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: s
             {
               pair.apr?.total !== undefined &&
                 <PoolPairInfoLine
-                  label='APR'
+                  label={translate('screens/DexScreen', 'APR')}
                   value={{
                   text: new BigNumber(isNaN(pair.apr.total) ? 0 : pair.apr.total).times(100).toFixed(2),
                   decimalScale: 2,
