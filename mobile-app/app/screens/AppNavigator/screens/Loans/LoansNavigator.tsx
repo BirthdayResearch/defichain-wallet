@@ -8,7 +8,7 @@ import { LoadingState, LoansScreen } from './LoansScreen'
 import { CreateVaultScreen } from './screens/CreateVaultScreen'
 import { ConfirmCreateVaultScreen } from './screens/ConfirmCreateVaultScreen'
 import BigNumber from 'bignumber.js'
-import { VaultDetailScreen } from './screens/VaultDetailScreen'
+import { VaultDetailScreen } from './VaultDetail/VaultDetailScreen'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -23,6 +23,7 @@ export interface LoanParamList {
   }
   VaultDetailScreen: {
     vaultId: string
+    emptyActiveLoans?: boolean // TODO: remove hard-coded value
   }
   [key: string]: undefined | object
 }
