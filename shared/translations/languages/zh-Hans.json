@@ -606,7 +606,7 @@
     "ADD COLLATERAL": "加入抵押品",
     "VIEW LOANS": "检视贷款",
     "Borrowed tokens": "已借贷代币",
-    "Interest amount (1.5%)": "Interest amount (1.5%)",
+    "Interest amount (1.5%)": "利息金额 (1.5%)",
     "Amount payable": "应付款金额",
     "Price per token (in USD)": "代币的单价 (美金)"
   },
@@ -672,18 +672,18 @@
     "Get started by adding your tokens here in your wallet": "在您的钱包中添加代币便可以开始操作"
   },
   "components/VaultDetailDetailsTab": {
-    "LOAN SCHEME": "",
+    "LOAN SCHEME": "贷款计划",
     "Min. collateral ratio": "最小抵押率",
-    "Vault interest": "",
+    "Vault interest": "金库利息",
     "VAULT DETAILS": "金库明细",
     "Collateral ratio": "抵押品比率",
     "Active loans": "活跃的贷款",
-    "Total value of loans": "",
-    "Collateral value": "",
-    "Vault health": "",
+    "Total value of loans": "贷款总价值",
+    "Collateral value": "抵押品价值",
+    "Vault health": "金库状态",
     "Safe": "安全状态",
     "At risk": "请注意抵押比率",
-    "Liquidated": "",
-    "Created": ""
+    "Liquidated": "清算",
+    "Created": "建立时间"
   }
 }

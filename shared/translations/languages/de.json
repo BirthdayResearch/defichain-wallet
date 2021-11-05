@@ -607,7 +607,7 @@
     "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
     "VIEW LOANS": "DARLEHEN ANSEHEN",
     "Borrowed tokens": "Geliehene Token",
-    "Interest amount (1.5%)": "Interest amount (1.5%)",
+    "Interest amount (1.5%)": "Zinsbetrag (1.5%)",
     "Amount payable": "Auszahlbarer Betrag",
     "Price per token (in USD)": "Preis pro Token (USD)"
   },
@@ -673,18 +673,18 @@
     "Get started by adding your tokens here in your wallet": "Fange an, indem du deine Token hier deiner Wallet hinzufügst"
   },
   "components/VaultDetailDetailsTab": {
-    "LOAN SCHEME": "",
+    "LOAN SCHEME": "DARLEHENSMODELL",
     "Min. collateral ratio": "Mindestbesicherungsquote",
-    "Vault interest": "",
+    "Vault interest": "Vault-Zins",
     "VAULT DETAILS": "SICHERHEITENDEPOT DETAILS",
     "Collateral ratio": "Besicherungsquote",
     "Active loans": "Aktive Darlehen",
-    "Total value of loans": "",
-    "Collateral value": "",
-    "Vault health": "",
+    "Total value of loans": "Gesamtwert der Darlehen",
+    "Collateral value": "Sicherheitenwert",
+    "Vault health": "Vault-Zustand",
     "Safe": "Sicher",
     "At risk": "Gefährdet",
-    "Liquidated": "",
-    "Created": ""
+    "Liquidated": "Liquidiert",
+    "Created": "Erstellt"
   }
 }
