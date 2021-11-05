@@ -685,5 +685,9 @@
     "At risk": "请注意抵押比率",
     "Liquidated": "清算",
     "Created": "建立时间"
+  },
+  "components/VaultDetailsCollateralsTab": {
+    "Collateral amount": "抵押品金额",
+    "Vault %": "金库 %"
   }
 }
