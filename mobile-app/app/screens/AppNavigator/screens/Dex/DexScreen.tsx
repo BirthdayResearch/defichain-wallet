@@ -214,8 +214,8 @@ function YourPoolPairCards ({
             type='your'
             pair={mappedPair}
             pairAmount={yourPair.amount}
-            tokenATotal={tokenATotal}
-            tokenBTotal={tokenBTotal}
+            tokenATotal={tokenATotal.toFixed(8)}
+            tokenBTotal={tokenBTotal.toFixed(8)}
             testID='your'
           />
           <PoolPairActions
@@ -247,6 +247,7 @@ function AvailablePoolPairCards ({
         ? [pair.tokenA.displaySymbol, pair.tokenB.displaySymbol]
         : pair.symbol.split('-')
       const symbol = `${symbolA}-${symbolB}`
+
       return (
         <ThemedView
           dark={tailwind('bg-gray-800 border-gray-700')}
@@ -264,7 +265,7 @@ function AvailablePoolPairCards ({
             </ThemedText>
           </View>
 
-          <PoolPairInfoDetails type='available' pair={pair} tokenATotal={new BigNumber(pair?.tokenA.reserve)} tokenBTotal={new BigNumber(pair?.tokenB.reserve)} testID='available' />
+          <PoolPairInfoDetails type='available' pair={pair} tokenATotal={pair?.tokenA.reserve} tokenBTotal={pair?.tokenB.reserve} testID='available' />
           <View style={tailwind('flex-row mt-4 flex-wrap')}>
             <PoolPairActionButton
               name='add'
@@ -290,7 +291,7 @@ function AvailablePoolPairCards ({
 )
 }
 
-function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: string, pair: PoolPairData | undefined, tokenATotal: BigNumber, tokenBTotal: BigNumber, testID: string}): JSX.Element {
+function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: string, pair: PoolPairData | undefined, tokenATotal: string, tokenBTotal: string, testID: string}): JSX.Element {
   const { type, pair, pairAmount, tokenATotal, tokenBTotal } = props
   const pairSymbol = (pair?.tokenA.displaySymbol !== undefined && pair?.tokenB.displaySymbol !== undefined) ? `${pair?.tokenA?.displaySymbol}-${pair?.tokenB?.displaySymbol}` : ''
   const decimalScale = type === 'available' ? 2 : 8
@@ -315,7 +316,7 @@ function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: s
             <PoolPairInfoLine
               label={`${type === 'available' ? 'Total pooled' : 'Pooled'} ${pair?.tokenA?.displaySymbol}`}
               value={{
-                text: tokenATotal.toFixed(decimalScale),
+                text: tokenATotal,
                 decimalScale: decimalScale,
                 testID: `${props.testID}_${pair?.tokenA?.displaySymbol}`
               }}
@@ -323,7 +324,7 @@ function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: s
             <PoolPairInfoLine
               label={`${type === 'available' ? 'Total pooled' : 'Pooled'} ${pair?.tokenB?.displaySymbol}`}
               value={{
-                text: tokenBTotal.toFixed(decimalScale),
+                text: tokenBTotal,
                 decimalScale: decimalScale,
                 testID: `${props.testID}_${pair?.tokenB?.displaySymbol}`
               }}
