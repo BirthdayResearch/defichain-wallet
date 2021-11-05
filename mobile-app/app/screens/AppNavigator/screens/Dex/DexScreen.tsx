@@ -42,6 +42,22 @@ export function DexScreen (): JSX.Element {
     data: data
   })))
 
+  const onTabChange = (tabKey: TabKey): void => {
+    setActiveTab(tabKey)
+  }
+
+  const tabsList = [{
+    id: TabKey.AvailablePoolPair,
+    label: translate('screens/DexScreen', 'Browse pool pairs'),
+    disabled: false,
+    handleOnPress: () => onTabChange(TabKey.AvailablePoolPair)
+  }, {
+    id: TabKey.YourPoolPair,
+    label: translate('screens/DexScreen', 'Your pool pairs'),
+    disabled: false,
+    handleOnPress: () => onTabChange(TabKey.YourPoolPair)
+  }]
+
   const {
     tvl
   } = useSelector((state: RootState) => state.block)
@@ -83,22 +99,6 @@ export function DexScreen (): JSX.Element {
   if (displayGuidelines) {
     return <DexGuidelines onClose={onGuidelinesClose} />
   }
-
-  const onTabChange = (tabKey: TabKey): void => {
-    setActiveTab(tabKey)
-  }
-
-  const tabsList = [{
-    id: TabKey.AvailablePoolPair,
-    label: translate('screens/DexScreen', 'Browse pool pairs'),
-    disabled: false,
-    handleOnPress: () => onTabChange(TabKey.AvailablePoolPair)
-  }, {
-    id: TabKey.YourPoolPair,
-    label: translate('screens/DexScreen', 'Your pool pairs'),
-    disabled: false,
-    handleOnPress: () => onTabChange(TabKey.YourPoolPair)
-  }]
 
   return (
     <>
@@ -235,7 +235,10 @@ function YourPoolPairCards ({
           <View style={tailwind('flex-row items-center justify-between')}>
             <View style={tailwind('flex-row items-center')}>
               <PoolPairIcon symbolA={symbolA} symbolB={symbolB} />
-              <ThemedText style={tailwind('text-base font-medium')}>
+              <ThemedText
+                style={tailwind('text-base font-medium')}
+                testID={`your_symbol_${symbol}`}
+              >
                 {symbol}
               </ThemedText>
             </View>
@@ -347,7 +350,7 @@ function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: s
               value={{
                 text: tokenATotal.toFixed(decimalScale),
                 decimalScale: decimalScale,
-                testID: `${props.testID}_tokenA_${pair?.tokenA?.displaySymbol}`
+                testID: `${props.testID}_${pair?.tokenA?.displaySymbol}`
               }}
             />
             <PoolPairInfoLine
@@ -355,7 +358,7 @@ function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: s
               value={{
                 text: tokenBTotal.toFixed(decimalScale),
                 decimalScale: decimalScale,
-                testID: `${props.testID}_tokenB_${pair?.tokenB?.displaySymbol}`
+                testID: `${props.testID}_${pair?.tokenB?.displaySymbol}`
               }}
             />
             {
