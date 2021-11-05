@@ -64,23 +64,27 @@ export function VaultDetailScreen ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollView
-      light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-800')}
-      style={tailwind('border-b')}
+      light={tailwind('bg-gray-100')}
+      dark={tailwind('bg-gray-900')}
     >
-      <View style={tailwind('p-4')}>
-        <VaultIdSection vaultId={vaultId} collaterals={currentVault.collaterals} />
-        <VaultCollateralTokenShare collaterals={currentVault.collaterals} />
-        <VaultInfoSection {...currentVault} />
-        <CollateralStatusMessage collateralRatio={currentVault.collateralRatio} />
-      </View>
       <ThemedView
-        light={tailwind('border-gray-200')}
-        dark={tailwind('border-gray-700')}
-        style={tailwind('pb-4 border-b')}
+        light={tailwind('bg-white')}
+        dark={tailwind('bg-gray-800')}
       >
-        <ScrollableButton buttons={vaultActionButtons} containerStyle={tailwind('pl-4')} />
-        <EmptyCollateralMessage collaterals={currentVault.collaterals} />
+        <View style={tailwind('p-4')}>
+          <VaultIdSection vaultId={vaultId} collaterals={currentVault.collaterals} />
+          <VaultCollateralTokenShare collaterals={currentVault.collaterals} />
+          <VaultInfoSection {...currentVault} />
+          <CollateralStatusMessage collateralRatio={currentVault.collateralRatio} />
+        </View>
+        <ThemedView
+          light={tailwind('border-gray-200')}
+          dark={tailwind('border-gray-700')}
+          style={tailwind('pb-4 border-b')}
+        >
+          <ScrollableButton buttons={vaultActionButtons} containerStyle={tailwind('pl-4')} />
+          <EmptyCollateralMessage collaterals={currentVault.collaterals} />
+        </ThemedView>
       </ThemedView>
       <VaultDetailTabSection emptyActiveLoans={emptyActiveLoans} />
     </ThemedScrollView>

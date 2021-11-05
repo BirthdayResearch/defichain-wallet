@@ -686,5 +686,9 @@
     "At risk": "Gefährdet",
     "Liquidated": "Liquidiert",
     "Created": "Erstellt"
+  },
+  "components/VaultDetailsCollateralsTab": {
+    "Collateral amount": "Höhe der Sicherheiten",
+    "Vault %": "Vault %"
   }
 }
