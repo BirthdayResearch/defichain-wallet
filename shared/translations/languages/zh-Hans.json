@@ -612,7 +612,7 @@
     "Borrowed tokens": "已借贷代币",
     "Interest amount (1.5%)": "利息金额 (1.5%)",
     "Amount payable": "应付款金额",
-    "Price per token (in USD)": "代币的单价 (美金)"
+    "Price per token (USD)": "代币的单价 (美金)"
   },
   "components/EmptyVault": {
     "No vault created": "还没建立金库",

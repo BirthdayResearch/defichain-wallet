@@ -613,7 +613,7 @@
     "Borrowed tokens": "Geliehene Token",
     "Interest amount (1.5%)": "Zinsbetrag (1.5%)",
     "Amount payable": "Auszahlbarer Betrag",
-    "Price per token (in USD)": "Preis pro Token (USD)"
+    "Price per token (USD)": "Preis pro Token (USD)"
   },
   "components/EmptyVault": {
     "No vault created": "Kein Sicherheitendepot erstellt",
