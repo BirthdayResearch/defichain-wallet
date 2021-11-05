@@ -115,7 +115,7 @@ export function DexScreen (): JSX.Element {
               prefix='$'
               renderText={(val: string) => (
                 <ThemedText
-                  dark={tailwind('text-gray-400')}
+                  dark={tailwind('text-gray-200')}
                   light={tailwind('text-gray-900')}
                   style={tailwind('text-lg text-right font-bold')}
                   testID='DEX_TVL'
