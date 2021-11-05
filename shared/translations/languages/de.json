@@ -35,7 +35,7 @@
     "Total liquidity (in USD)":"Gesamtliquidität (in USD)",
     "Browse pool pairs": "Pool-Paare durchsuchen",
     "Your pool pairs": "Deine Pool-Paare",
-    "Total Value Locked (TVL)": "Fixierter Gesamtwert"
+    "Total Value Locked (USD)": "Fixierter Gesamtwert (USD)"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Richtlinien",

@@ -108,12 +108,11 @@ export function DexScreen (): JSX.Element {
         style={tailwind('flex flex-row px-4 py-3')}
       >
         <View style={tailwind('flex flex-col')}>
-          <ThemedText light={tailwind('text-gray-500')} dark={tailwind('text-gray-500')} style={tailwind('text-xs')}>{translate('screens/DexScreen', 'Total Value Locked (TVL)')}</ThemedText>
+          <ThemedText light={tailwind('text-gray-500')} dark={tailwind('text-gray-500')} style={tailwind('text-xs')}>{translate('screens/DexScreen', 'Total Value Locked (USD)')}</ThemedText>
           <ThemedText>
             <NumberFormat
               displayType='text'
               prefix='$'
-              suffix=' USD'
               renderText={(val: string) => (
                 <ThemedText
                   dark={tailwind('text-gray-400')}
