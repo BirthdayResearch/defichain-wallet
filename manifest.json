@@ -1,5 +1,5 @@
 {
-  "description": "DeFi Blockchain Light Wallet for iOS, Android & Web.",
+  "description": "DeFi Blockchain Light Wallet for iOS, Android, Desktop & Chrome.",
   "name": "DeFiChain Wallet",
   "short_name": "DeFiChain Wallet",
   "browser_action": {

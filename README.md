@@ -9,7 +9,7 @@
 
 # DeFiChain Wallet
 
-DeFi Blockchain Light Wallet for iOS, Android & Web.
+DeFi Blockchain Light Wallet for iOS, Android, Desktop & Chrome.
 
 ## Releases
 
