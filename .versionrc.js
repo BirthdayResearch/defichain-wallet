@@ -13,6 +13,7 @@ module.exports = {
       updater: require.resolve('standard-version-expo/ios'),
     },
     './desktop-app/package.json',
-    './desktop-app/package-lock.json'
+    './desktop-app/package-lock.json',
+    './manifest.json'
   ],
 };

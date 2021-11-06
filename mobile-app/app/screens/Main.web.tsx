@@ -37,7 +37,7 @@ export function Main (): JSX.Element {
  */
 const styles = StyleSheet.create({
   phone: {
-    height: 667,
+    height: Constants?.manifest?.extra?.appType === 'extension' ? 600 : 667,
     width: 375
   }
 })

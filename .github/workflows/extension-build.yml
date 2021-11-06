@@ -1,0 +1,55 @@
+name: Extension Build
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  version:
+    name: Version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.result }}
+    steps:
+      - uses: actions/checkout@1e204e9a9253d643386038d443f96446fa156a97
+
+      - uses: actions/github-script@441359b1a30438de65712c2fbca0abe4816fa667
+        id: version
+        with:
+          script: |
+            const [date] = new Date().toISOString().split('T')
+            const build = '0.0.' + date.replace(/[^0-9]/g, '')
+            console.log(build)
+            return build
+
+          result-encoding: string
+
+  build_extension:
+    runs-on: ubuntu-latest
+    needs: [ version ]
+    steps:
+      - uses: actions/checkout@1e204e9a9253d643386038d443f96446fa156a97
+      - uses: actions/setup-node@270253e841af726300e85d718a5f606959b2903c
+        with:
+          node-version: 16
+
+      - run: npm ci
+
+      - run: |
+          git config --global user.email "github-bot@defichain.com"
+          git config --global user.name "defichain-bot"
+          npx standard-version --release-as ${{ needs.version.outputs.version }}
+
+      - name: Build extension
+        run: npm run build:extension
+
+      - uses: actions/upload-artifact@27121b0bdffd731efa15d66772be8dc71245d074
+        with:
+          name: extension
+          path: './web-build'

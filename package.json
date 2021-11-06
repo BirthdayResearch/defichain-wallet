@@ -18,7 +18,8 @@
     "test:ci": "jest --ci --coverage",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --headless --browser chrome",
-    "react-devtools:open": "react-devtools"
+    "react-devtools:open": "react-devtools",
+    "build:extension": "cross-env mode=production APP_TYPE=extension expo build:web --no-pwa --clear"
   },
   "dependencies": {
     "@defichain/jellyfish-address": "^0.51.0",
@@ -115,6 +116,7 @@
     "@types/react-test-renderer": "^17.0.1",
     "@types/semver": "^7.3.9",
     "babel-plugin-istanbul": "^6.1.1",
+    "copy-webpack-plugin": "^6.0.4",
     "cypress": "^8.7.0",
     "cypress-image-diff-js": "^1.15.4",
     "eas-cli": "^0.34.1",

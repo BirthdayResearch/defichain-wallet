@@ -60,6 +60,29 @@
           background-color: black;
         }
       }*/
+
+      /**
+      * Custom scrollbar
+      */
+      ::-webkit-scrollbar-track {
+          -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+          -webkit-border-radius: 8px;
+          border-radius: 8px;
+      }
+
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+          -webkit-border-radius: 8px;
+          border-radius: 8px;
+          background: rgba(184, 182, 182, 0.8);
+          -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+      }
+      ::-webkit-scrollbar-thumb:window-inactive {
+          background: rgba(184, 182, 182, 0.4);
+      }
+      ::-webkit-scrollbar {
+          width: 10px;
+      }
     </style>
   </head>
 
