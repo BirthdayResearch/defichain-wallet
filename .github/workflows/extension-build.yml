@@ -25,7 +25,6 @@ jobs:
           script: |
             const [date] = new Date().toISOString().split('T')
             const build = '0.0.' + date.replace(/[^0-9]/g, '')
-            console.log(build)
             return build
 
           result-encoding: string
