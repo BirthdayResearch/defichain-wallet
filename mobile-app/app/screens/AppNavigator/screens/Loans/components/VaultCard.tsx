@@ -1,25 +1,35 @@
 import React from 'react'
 import BigNumber from 'bignumber.js'
-import { ThemedIcon, ThemedProps, ThemedText, ThemedView } from './themed'
+import { ThemedIcon, ThemedProps, ThemedText, ThemedTouchableOpacity, ThemedView } from '../../../../../components/themed'
 import { tailwind } from '@tailwind'
 import { View } from '@components'
 import { translate } from '@translations'
-import { TokenIconGroup } from './TokenIconGroup'
-import NumberFormat from 'react-number-format'
-import { IconButton } from './IconButton'
+import { TokenIconGroup } from '../../../../../components/TokenIconGroup'
+import { IconButton } from '../../../../../components/IconButton'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
+import { VaultInfo } from '@screens/AppNavigator/screens/Loans/components/VaultInfo'
 
 export interface VaultCardProps {
   vaultAddress: string
   status?: VaultStatus
-  collaterals: string[]
-  activeLoans?: BigNumber
+  collaterals: Collateral[]
+  activeLoans?: LoanToken[]
   totalLoanAmount?: BigNumber
   collateralAmount?: BigNumber
   collateralRatio?: BigNumber
   actions: VaultAction[]
-  onArrowPress: () => void
   onAddCollateral?: () => void
   onViewLoans?: () => void
+}
+
+export interface Collateral {
+  id: string
+  vaultProportion: BigNumber
+}
+
+export interface LoanToken {
+  tokenId: string
 }
 
 export enum VaultStatus {
@@ -32,13 +42,23 @@ export enum VaultStatus {
 type VaultAction = 'ADD_COLLATERAL' | 'VIEW_LOANS'
 
 export function VaultCard (props: VaultCardProps): JSX.Element {
+  const navigation = useNavigation<NavigationProp<LoanParamList>>()
+  const onCardPress = (vaultId: string): void => {
+    navigation.navigate('VaultDetailScreen', {
+      vaultId
+    })
+  }
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
       dark={tailwind('bg-gray-800 border-gray-700')}
-      style={tailwind('rounded mb-2 border')}
+      style={tailwind('rounded mb-2 border p-4')}
     >
-      <View style={tailwind('p-4')}>
+      <ThemedTouchableOpacity
+        onPress={() => onCardPress(props.vaultAddress)}
+        light={tailwind('border-b-0')}
+        dark={tailwind('border-b-0')}
+      >
         <View style={tailwind('flex flex-row justify-between mb-4')}>
           <View style={tailwind('flex flex-row items-center')}>
             <ThemedView
@@ -55,7 +75,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
               />
             </ThemedView>
             <View style={tailwind('flex flex-col')}>
-              <View style={tailwind('flex flex-row items-baseline')}>
+              <View style={tailwind('flex flex-row')}>
                 <ThemedText
                   style={tailwind('font-semibold w-44 flex-shrink')}
                   numberOfLines={1}
@@ -72,7 +92,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
                 <ThemedText
                   light={tailwind('text-gray-500')}
                   dark={tailwind('text-gray-300')}
-                  style={tailwind('text-xs')}
+                  style={tailwind('text-xs mr-1')}
                 >
                   {translate('components/VaultCard', 'Collaterals:')}
                 </ThemedText>
@@ -86,27 +106,25 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
                       {translate('components/VaultCard', 'None')}
                     </ThemedText>
                   )}
-                <TokenIconGroup symbols={props.collaterals} />
+                <TokenIconGroup symbols={props.collaterals.map(collateral => collateral.id)} maxIconToDisplay={3} />
               </View>
             </View>
           </View>
-          <View>
-            <ThemedIcon onPress={props.onArrowPress} iconType='MaterialIcons' name='chevron-right' size={20} style={tailwind('mt-1')} />
-          </View>
         </View>
         <View style={tailwind('flex flex-row flex-wrap -mb-2')}>
-          <VaultInfo label='Active loans' value={props.activeLoans} decimalPlace={0} />
-          <VaultInfo label='Total loan amount' value={props.totalLoanAmount} prefix='$' decimalPlace={2} />
-          <VaultInfo label='Collateral amount' value={props.collateralAmount} prefix='$' decimalPlace={2} />
+          <VaultInfo label='Active loans' tokens={props.activeLoans?.map(loan => loan.tokenId)} valueType='TOKEN_ICON_GROUP' />
+          <VaultInfo label='Total loan amount' value={props.totalLoanAmount} prefix='$' decimalPlace={2} valueType='NUMBER' />
+          <VaultInfo label='Collateral amount' value={props.collateralAmount} prefix='$' decimalPlace={2} valueType='NUMBER' />
           <VaultInfo
             label='Collateral ratio'
             value={props.collateralRatio}
             suffix='%'
             decimalPlace={2}
+            valueType='NUMBER'
             valueThemedProps={props.collateralRatio !== undefined ? getCollateralRatioColor(props.collateralRatio) : undefined}
           />
         </View>
-      </View>
+      </ThemedTouchableOpacity>
       <VaultActionButton actions={props.actions} />
     </ThemedView>
   )
@@ -169,37 +187,6 @@ function VaultStatusTag (props: {status: VaultStatus}): JSX.Element | null {
   )
 }
 
-function VaultInfo (props: {label: string, value?: BigNumber, prefix?: string, suffix?: string, decimalPlace: number, valueThemedProps?: ThemedProps}): JSX.Element {
-  return (
-    <View style={tailwind('w-2/4 mb-2')}>
-      <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
-        style={tailwind('text-xs')}
-      >
-        {translate('components/VaultCard', props.label)}
-      </ThemedText>
-      <NumberFormat
-        value={props.value?.toFixed(props.decimalPlace)}
-        thousandSeparator
-        decimalScale={2}
-        displayType='text'
-        suffix={props.suffix}
-        prefix={props.prefix}
-        renderText={value =>
-          <ThemedText
-            light={tailwind('text-gray-900')}
-            dark={tailwind('text-gray-100')}
-            {...props.valueThemedProps}
-            style={tailwind('text-sm font-semibold')}
-          >
-            {value.length === 0 ? translate('components/VaultCard', 'n/a') : value}
-          </ThemedText>}
-      />
-    </View>
-  )
-}
-
 function getCollateralRatioColor (value: BigNumber): ThemedProps {
   let lightStyle, darkStyle
 
@@ -229,7 +216,7 @@ function VaultActionButton (props: {actions: VaultAction[], onAddCollateral?: ()
     <ThemedView
       light={tailwind('border-gray-200')}
       dark={tailwind('border-gray-700')}
-      style={tailwind('flex flex-row p-4 border-t')}
+      style={tailwind('flex flex-row mt-4 flex-wrap -mb-2')}
     >
       {
         props.actions.map(action => {
@@ -241,7 +228,7 @@ function VaultActionButton (props: {actions: VaultAction[], onAddCollateral?: ()
                 iconName='add'
                 iconLabel={translate('components/VaultCard', 'ADD COLLATERAL')}
                 iconSize={16}
-                style={tailwind('mr-2')}
+                style={tailwind('mr-2 mb-2')}
                 onPress={props.onAddCollateral}
               />
             )
@@ -253,7 +240,7 @@ function VaultActionButton (props: {actions: VaultAction[], onAddCollateral?: ()
                 iconName='credit-card'
                 iconLabel={translate('components/VaultCard', 'VIEW LOANS')}
                 iconSize={16}
-                style={tailwind('mr-2')}
+                style={tailwind('mr-2 mb-2')}
                 onPress={props.onViewLoans}
               />
             )

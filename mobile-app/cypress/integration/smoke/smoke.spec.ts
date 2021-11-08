@@ -104,7 +104,7 @@ context('Mainnet - Wallet', () => {
       cy.reload()
       cy.isNetworkConnected('MainNet')
       cy.getByTestID('bottom_tab_balances').click()
-      cy.getByTestID('header_receive_balance').click()
+      cy.getByTestID('receive_balance_button').click()
       cy.getByTestID('address_text').then(($txt: any) => {
         const address = $txt[0].textContent
         expect(address).eq(mainnetAddress.address)
@@ -135,13 +135,14 @@ context('Mainnet - Wallet', () => {
     it('should have correct poolpairs', function () {
       cy.getByTestID('bottom_tab_dex').click()
       cy.getByTestID('close_dex_guidelines').click()
+      cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()
       cy.getByTestID('your_dETH-DFI').contains('10.00000000')
       cy.getByTestID('bottom_tab_balances').click()
     })
 
     it('should have correct address', function () {
       cy.getByTestID('bottom_tab_balances').click()
-      cy.getByTestID('header_receive_balance').click()
+      cy.getByTestID('receive_balance_button').click()
       cy.getByTestID('address_text').then(($txt: any) => {
         const address = $txt[0].textContent
         expect(address).eq(localAddress.address)
@@ -170,6 +171,7 @@ context('Mainnet - Wallet - Pool Pair Values', () => {
   })
 
   it('should verify poolpair values', function () {
+    cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
     cy.wrap<DexItem[]>(whale.poolpairs.list(50), { timeout: 20000 }).then((pairs) => {
       const available: PoolPairData[] = pairs.map(data => ({ type: 'available', data: data }))
       available.forEach((pair) => {

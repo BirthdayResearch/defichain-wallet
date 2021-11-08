@@ -38,7 +38,7 @@ export function ConfirmCreateVaultScreen ({ route, navigation }: Props): JSX.Ele
     navigation.navigate({
       name: 'LoansScreen',
       params: {
-        displayEmptyVault: false
+        loadingState: 'loading'
       },
       merge: true
     })

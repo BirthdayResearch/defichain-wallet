@@ -54,7 +54,7 @@ declare global {
 
 Cypress.Commands.add('verifyWalletAddress', (network: string, addressObject?: { address: string }) => {
   cy.getByTestID('bottom_tab_balances').click()
-  cy.getByTestID('header_receive_balance').click()
+  cy.getByTestID('receive_balance_button').click()
   cy.getByTestID('address_text').then(($txt: any) => {
     const a = $txt[0].textContent
     if (addressObject !== undefined) {
