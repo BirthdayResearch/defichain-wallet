@@ -1,4 +1,5 @@
 import { View } from '@components'
+import { Button } from '@components/Button'
 import { IconButton } from '@components/IconButton'
 import { SymbolIcon } from '@components/SymbolIcon'
 import { ThemedIcon, ThemedProps, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
@@ -30,8 +31,30 @@ export function AddCollateralScreen ({ navigation }: Props): JSX.Element {
       amount: new BigNumber('123.123123'),
       amountValue: new BigNumber('369.369'),
       vaultProportion: new BigNumber('100')
+    },
+    {
+      collateralId: 'dETH',
+      collateralFactor: new BigNumber(100),
+      amount: new BigNumber('123.123123'),
+      amountValue: new BigNumber('369.369'),
+      vaultProportion: new BigNumber('100')
+    },
+    {
+      collateralId: 'dLTC',
+      collateralFactor: new BigNumber(100),
+      amount: new BigNumber('123.123123'),
+      amountValue: new BigNumber('369.369'),
+      vaultProportion: new BigNumber('100')
+    },
+    {
+      collateralId: 'dBCH',
+      collateralFactor: new BigNumber(100),
+      amount: new BigNumber('123.123123'),
+      amountValue: new BigNumber('369.369'),
+      vaultProportion: new BigNumber('100')
     }
   ]
+  const totalCollateralValue = new BigNumber(1081312326112)
   return (
     <View style={tailwind('flex-1')}>
       <ThemedScrollView
@@ -44,19 +67,9 @@ export function AddCollateralScreen ({ navigation }: Props): JSX.Element {
           <CollateralCard key={collateral.collateralId} {...collateral} />
           ))}
         <LearnMoreCollateralFactor />
-        {/* <IconButton iconLabel="Navigate to confirm" onPress={() => navigation.navigate('ConfirmAddCollateralScreen')}/>
-        <ThemedText style={tailwind('bg-warning-500 h-96 border-2 border-gray-900')}>Hello content</ThemedText>
-        <ThemedText style={tailwind('bg-warning-500 h-96 border-2 border-gray-900')}>Hello content</ThemedText>
-        <ThemedText style={tailwind('bg-warning-500 h-96 border-2 border-gray-900')}>Hello content</ThemedText> */}
+        <AddCollateralButton disabled />
       </ThemedScrollView>
-      <ThemedView
-        style={tailwind('absolute left-0 bottom-0 w-full')}
-      >
-        <ThemedText>Hello footer</ThemedText>
-        <ThemedText>Hello footer</ThemedText>
-        <ThemedText>Hello footer</ThemedText>
-        <ThemedText>Hello footer</ThemedText>
-      </ThemedView>
+      <FooterSection totalCollateralValue={totalCollateralValue} isValid={false} />
     </View>
   )
 }
@@ -158,6 +171,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             iconType='MaterialIcons'
             iconName='edit'
             iconSize={20}
+            onPress={() => { /* TODO: handle edit collateral selected */ }}
           />
           {props.collateralId !== 'DFI' &&
             (
@@ -166,6 +180,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                 iconName='remove-circle-outline'
                 iconSize={20}
                 style={tailwind('ml-2')}
+                onPress={() => { /* TODO: handle remove colleteral selection */ }}
               />
             )}
         </View>
@@ -209,7 +224,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
 
           </View>
         </View>
-        <View style={tailwind('w-4/12 flex items-end justify-between')}>
+        <View style={tailwind('w-4/12 flex items-end')}>
           <CardLabel text='Vault %' />
           <NumberFormat
             value={props.vaultProportion.toFixed(2)}
@@ -277,7 +292,9 @@ function LearnMoreCollateralFactor (): JSX.Element {
         style={tailwind('text-xs font-medium')}
       >
         {translate('screens/AddCollateralScreen', 'Each token has their own collateral factor that would affect its value as collateral. ')}
-        <TouchableOpacity style={tailwind('')}>
+        <TouchableOpacity
+          onPress={() => { /* TODO: handle learn more link */ }}
+        >
           <ThemedText
             light={tailwind('text-primary-500')}
             dark={tailwind('text-darkprimary-500')}
@@ -288,5 +305,79 @@ function LearnMoreCollateralFactor (): JSX.Element {
         </TouchableOpacity>
       </ThemedText>
     </View>
+  )
+}
+
+function AddCollateralButton (props: {disabled: boolean}): JSX.Element {
+  return (
+    <TouchableOpacity
+      disabled={props.disabled}
+      style={tailwind('mt-8 mb-44 flex flex-row justify-center')}
+      onPress={() => { /* TODO: handle add colleterals */ }}
+    >
+      <ThemedIcon
+        iconType='MaterialIcons'
+        name='add'
+        size={14}
+        light={tailwind({ 'text-primary-500': !props.disabled, 'text-gray-300': props.disabled })}
+        dark={tailwind({ 'text-darkprimary-500': !props.disabled, 'text-gray-600': props.disabled })}
+      />
+      <ThemedText
+        light={tailwind({ 'text-primary-500': !props.disabled, 'text-gray-300': props.disabled })}
+        dark={tailwind({ 'text-darkprimary-500': !props.disabled, 'text-gray-600': props.disabled })}
+        style={tailwind('pl-2.5 text-sm font-medium leading-4')}
+      >
+        {translate('screens/AddCollateralScreen', 'ADD TOKEN AS COLLATERAL')}
+      </ThemedText>
+    </TouchableOpacity>
+  )
+}
+
+function FooterSection (props: {totalCollateralValue: BigNumber, isValid: boolean}): JSX.Element {
+  return (
+    <ThemedView
+      light={tailwind('bg-white border-gray-200')}
+      dark={tailwind('bg-gray-800 border-gray-700')}
+      style={tailwind('border-t absolute left-0 bottom-0 w-full px-4 py-6')}
+    >
+      <View style={tailwind('flex flex-row justify-between mb-5')}>
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-500')}
+          style={tailwind('text-sm font-medium w-6/12')}
+        >
+          {translate('screens/AddCollateralScreen', 'Total collateral value (USD)')}
+        </ThemedText>
+        <NumberFormat
+          value={props.totalCollateralValue.toFixed(2)}
+          decimalScale={2}
+          displayType='text'
+          thousandSeparator
+          prefix='$'
+          renderText={value =>
+            <ThemedText
+              light={tailwind('text-gray-900')}
+              dark={tailwind('text-gray-50')}
+              style={tailwind('text-sm font-semibold w-6/12 text-right')}
+            >
+              {value}
+            </ThemedText>}
+        />
+      </View>
+      <Button
+        disabled={!props.isValid}
+        label={translate('screens/AddCollateralScreen', 'CONTINUE')}
+        onPress={() => { /* TODO: handle continue button */ }}
+        testID='add_collateral_button'
+        margin='mb-2'
+      />
+      <ThemedText
+        light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-500')}
+        style={tailwind('text-xs text-center')}
+      >
+        {translate('screens/AddCollateralScreen', 'Confirm details in next screen')}
+      </ThemedText>
+    </ThemedView>
   )
 }
