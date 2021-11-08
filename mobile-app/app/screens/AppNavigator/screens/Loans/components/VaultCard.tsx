@@ -125,7 +125,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
           />
         </View>
       </ThemedTouchableOpacity>
-      <VaultActionButton actions={props.actions} />
+      <VaultActionButton actions={props.actions} onAddCollateral={() => navigation.navigate('AddCollateralScreen')} />
     </ThemedView>
   )
 }
