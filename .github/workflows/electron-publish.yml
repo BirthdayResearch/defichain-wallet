@@ -63,11 +63,11 @@ jobs:
         with:
           repository: 'DeFiCh/wallet'
           tag: 'v${{ needs.version.outputs.version }}'
-          file: 'DeFiChain Wallet-${{needs.version.outputs.version}}.AppImage'
+          file: 'DeFiChain-Wallet-${{needs.version.outputs.version}}.AppImage'
 
       - name: Generate SHA256 checksum
         run: |
-          sha256sum DeFiChain Wallet-${{needs.version.outputs.version}}.AppImage > DeFiChain Wallet-${{needs.version.outputs.version}}.AppImage.SHA256
+          sha256sum DeFiChain-Wallet-${{needs.version.outputs.version}}.AppImage > DeFiChain-Wallet-${{needs.version.outputs.version}}.AppImage.SHA256
 
       - name: Upload checksum - Linux
         uses: softprops/action-gh-release@a80139913ad69754b738283897e8a1e3362b1a03
@@ -122,13 +122,13 @@ jobs:
 
       - name: Generate SHA256 checksum
         run: |
-          sha256sum DeFiChain Wallet-${{needs.version.outputs.version}}.dmg > DeFiChain Wallet-${{needs.version.outputs.version}}.dmg.SHA256
+          sha256sum DeFiChain-Wallet-${{needs.version.outputs.version}}.dmg > DeFiChain-Wallet-${{needs.version.outputs.version}}.dmg.SHA256
 
       - name: Upload checksum - Mac
         uses: softprops/action-gh-release@a80139913ad69754b738283897e8a1e3362b1a03
         with:
           fail_on_unmatched_files: true
-          files: ./DeFiChain Wallet-${{needs.version.outputs.version}}.dmg.SHA256
+          files: ./DeFiChain-Wallet-${{needs.version.outputs.version}}.dmg.SHA256
           token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
 
   publish_windows_app:
@@ -151,6 +151,8 @@ jobs:
         working-directory: ./desktop-app
         run: npm run publish
         shell: powershell
+        env:
+          GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
 
   create-windows-checksum:
     needs: [ version, publish_windows_app ]
@@ -166,15 +168,15 @@ jobs:
         with:
           repository: 'DeFiCh/wallet'
           tag: 'v${{ needs.version.outputs.version }}'
-          file: 'DeFiChain Wallet Setup ${{ needs.version.outputs.version }}.exe'
+          file: 'DeFiChain-Wallet-Setup-${{ needs.version.outputs.version }}.exe'
 
       - name: Generate SHA256 checksum
         run: |
-          sha256sum DeFiChain Wallet Setup ${{ needs.version.outputs.version }}.exe > DeFiChain Wallet Setup ${{ needs.version.outputs.version }}.exe.SHA256
+          sha256sum DeFiChain-Wallet-Setup-${{ needs.version.outputs.version }}.exe > DeFiChain-Wallet-Setup-${{ needs.version.outputs.version }}.exe.SHA256
 
       - name: Upload checksum - Windows
         uses: softprops/action-gh-release@a80139913ad69754b738283897e8a1e3362b1a03
         with:
           fail_on_unmatched_files: true
-          files: ./DeFiChain Wallet Setup ${{ needs.version.outputs.version }}.exe.SHA256
+          files: ./DeFiChain-Wallet-Setup-${{ needs.version.outputs.version }}.exe.SHA256
           token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
