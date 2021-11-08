@@ -69,14 +69,14 @@ export const fetchCollateralTokens = createAsyncThunk(
   }
 )
 
-export const fetchAuctions = createAsyncThunk(
-  'wallet/fetchAuctions',
-  async ({ size = 50, client }: { size?: number, client: WhaleApiClient }) => {
-    // @ts-expect-error
-    const auctions = await client.loan.listAuctions(size)
-    return auctions
-  }
-)
+// TODO (Harsh) Auctions api are not ready yet
+// export const fetchAuctions = createAsyncThunk(
+//   'wallet/fetchAuctions',
+//   async ({ size = 50, client }: { size?: number, client: WhaleApiClient }) => {
+//     const auctions = await client.loan.listAuctions(size)
+//     return auctions
+//   }
+// )
 
 export const loans = createSlice({
   name: 'loans',
@@ -95,8 +95,9 @@ export const loans = createSlice({
     builder.addCase(fetchCollateralTokens.fulfilled, (state, action: PayloadAction<CollateralToken[]>) => {
       state.collateralTokens = action.payload
     })
-    builder.addCase(fetchAuctions.fulfilled, (state, action: PayloadAction<AuctionDetail[]>) => {
-      state.auctions = action.payload
-    })
+    // TODO (Harsh) Auctions api are not ready yet
+    // builder.addCase(fetchAuctions.fulfilled, (state, action: PayloadAction<AuctionDetail[]>) => {
+    //   state.auctions = action.payload
+    // })
   }
 })
