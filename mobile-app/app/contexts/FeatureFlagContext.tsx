@@ -5,9 +5,9 @@ import { nativeApplicationVersion } from 'expo-application'
 import React, { createContext, ReactElement, useContext, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { satisfies } from 'semver'
-import * as Updates from 'expo-updates'
 import { FeatureFlagPersistence } from '@api'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { getReleaseChannel } from '@api/releaseChannel'
 
 export interface FeatureFlagContextI {
   featureFlags: FeatureFlag[]
@@ -55,7 +55,7 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
   function checkFeatureStage (feature: FeatureFlag): boolean {
     switch (feature.stage) {
       case 'alpha':
-        return getEnvironment(Updates.releaseChannel).debug
+        return getEnvironment(getReleaseChannel()).debug
       case 'beta':
         return enabledFeatures.includes(feature.id)
       case 'public':

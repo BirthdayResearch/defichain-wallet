@@ -14,7 +14,8 @@ context('Wallet - Balances', () => {
 
   it('should display no tokens text', function () {
     cy.getByTestID('toggle_balance_text').should('have.text', 'Hide balances')
-    cy.getByTestID('empty_token_text').should('have.text', 'You do not have any other tokens.')
+    cy.getByTestID('empty_tokens_title').should('have.text', 'No other tokens yet')
+    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Get started by adding your tokens here in your wallet')
   })
 
   it('should display dfi utxo and dfi token with correct amount', function () {
@@ -47,7 +48,7 @@ context('Wallet - Balances', () => {
 
   it('should redirect to receive page', function () {
     cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('header_receive_balance').click()
+    cy.getByTestID('receive_balance_button').click()
     cy.getByTestID('address_text').should('exist')
   })
 
@@ -71,7 +72,7 @@ context('Wallet - Balances', () => {
 })
 
 context('Wallet - Balances - Failed API', () => {
-  before(function () {
+  beforeEach(function () {
     cy.createEmptyWallet(true)
   })
 
@@ -86,5 +87,14 @@ context('Wallet - Balances - Failed API', () => {
     cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('total_dfi_amount').contains('0.00000000')
+  })
+
+  it('should display correct address', function () {
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('receive_balance_button').click()
+    cy.getByTestID('address_text').should('exist').then(($txt: any) => {
+      const address = $txt[0].textContent
+      cy.getByTestID('wallet_address').should('contain', address)
+    })
   })
 })

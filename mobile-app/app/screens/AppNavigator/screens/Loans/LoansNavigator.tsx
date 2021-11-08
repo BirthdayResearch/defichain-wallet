@@ -4,14 +4,15 @@ import { HeaderFont } from '@components/Text'
 import { HeaderTitle } from '@components/HeaderTitle'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
-import { LoansScreen } from './LoansScreen'
+import { LoadingState, LoansScreen } from './LoansScreen'
 import { CreateVaultScreen } from './screens/CreateVaultScreen'
 import { ConfirmCreateVaultScreen } from './screens/ConfirmCreateVaultScreen'
 import BigNumber from 'bignumber.js'
+import { VaultDetailScreen } from './VaultDetail/VaultDetailScreen'
 
 export interface LoanParamList {
   LoansScreen: {
-    displayEmptyVault?: boolean // TODO: remove hard-coded condition used for create vault flow
+    loadingState: LoadingState // TODO: remove hard-coded condition used for create vault flow
   }
   CreateVaultScreen: {
     loanScheme?: LoanScheme
@@ -19,6 +20,10 @@ export interface LoanParamList {
   ConfirmCreateVaultScreen: {
     loanScheme: LoanScheme
     fee: BigNumber
+  }
+  VaultDetailScreen: {
+    vaultId: string
+    emptyActiveLoans?: boolean // TODO: remove hard-coded value
   }
   [key: string]: undefined | object
 }
@@ -87,6 +92,18 @@ export function LoansNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/LoansScreen', 'Confirm create vault') + ' (Beta)'} // TODO: remove beta from title
+            />
+          )
+        }}
+      />
+      <LoansStack.Screen
+        component={VaultDetailScreen}
+        name='VaultDetailScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Vault detail') + ' (Beta)'} // TODO: remove beta from title
             />
           )
         }}
