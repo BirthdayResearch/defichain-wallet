@@ -1,11 +1,13 @@
 import path from 'path'
 import { app, BrowserWindow } from 'electron'
 import MenuBuilder from './src/menu'
+import { autoUpdater } from 'electron-updater'
 
 const isDevelopment =
   process.env.mode === 'development' || process.env.DEBUG_PROD === 'true'
 
 let mainWindow: BrowserWindow | null = null
+void autoUpdater.checkForUpdatesAndNotify()
 
 async function installExtensions (): Promise<void> {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
