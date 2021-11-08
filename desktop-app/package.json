@@ -17,7 +17,7 @@
     "build:react": "cd .. && cross-env WEB_PUBLIC_URL=./ mode=production expo build:web --no-pwa",
     "build:electron": "npm run build:react && npm run transpile && electron-builder -p never",
     "postinstall": "electron-builder install-app-deps",
-    "publish": "npm run build:react && npm run transpile && cross-env mode=production && electron-builder build -p always"
+    "publish": "npm run build:electron && electron-builder build -p always"
   },
   "dependencies": {
     "electron-debug": "^3.2.0",
