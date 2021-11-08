@@ -39,8 +39,8 @@ const initialState: LoansState = {
 // TODO (Harsh) Manage pagination for all api
 export const fetchVaults = createAsyncThunk(
   'wallet/fetchVaults',
-  async ({ size = 50, client }: { size?: number, client: WhaleApiClient }) => {
-    const vaults = await client.loan.listVault(size)
+  async ({ size = 50, address, client }: { size?: number, address: string, client: WhaleApiClient }) => {
+    const vaults = await client.address.listVault(address, size)
     return vaults
   }
 )
