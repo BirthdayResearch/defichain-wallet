@@ -1,87 +1,35 @@
-import React, { memo, useMemo } from 'react'
-import {
-  createStackNavigator,
-  StackNavigationOptions,
-  TransitionPresets
-} from '@react-navigation/stack'
-import { NavigationProp, useNavigation } from '@react-navigation/core'
-import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
-import { NavigationContainer } from '@react-navigation/native'
-import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from './themed'
-import BigNumber from 'bignumber.js'
+import React, { memo } from 'react'
 import { tailwind } from '@tailwind'
-import { SymbolIcon } from './SymbolIcon'
 import { TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { AddOrEditCollateralFormProps } from '@screens/AppNavigator/screens/Loans/components/AddOrEditCollateralForm'
+import BigNumber from 'bignumber.js'
+import { SymbolIcon } from './SymbolIcon'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from './themed'
+import { NavigationProp, useNavigation } from '@react-navigation/core'
+import { BottomSheetWithNavRouteParam } from './BottomSheetWithNav'
 
 interface BottomSheetTokenListProps {
-  modalRef: React.Ref<BottomSheetModalMethods>
-  modalHeaderLabel: string
+  headerLabel: string
   onCloseButtonPress: () => void
-  onTokenPress?: () => void
-  secondScreen: Screen
+  onTokenPress?: (token: BottomSheetToken) => void
+  navigateToScreen?: string
 }
 
-interface Token {
+export interface BottomSheetToken {
   id: string
   name: string
   available: BigNumber
   collateralFactor: BigNumber
 }
 
-interface Screen {
-  title: string
-  component: React.ComponentType<any>
-}
-
-export interface BottomSheetTokenListRouteParam {
-  AddOrEditCollateralForm: AddOrEditCollateralFormProps
-  [key: string]: undefined | object
-}
-
-export function BottomSheetTokenList (props: BottomSheetTokenListProps): JSX.Element {
-  const BottomSheetTokenListStack = createStackNavigator<BottomSheetTokenListRouteParam>()
-  const Navigator = (): JSX.Element => {
-    const screenOptions = useMemo<StackNavigationOptions>(
-      () => ({
-        ...TransitionPresets.SlideFromRightIOS,
-
-        headerShown: true,
-        safeAreaInsets: { top: 0 },
-        cardStyle: {
-          backgroundColor: 'white',
-          overflow: 'visible'
-        },
-        headerMode: 'screen'
-      }),
-      []
-    )
-
-    const TokenListScreenOptions = useMemo(() => ({
-       headerLeft: () => null,
-       header: () => null
-    }), [])
-    return (
-      <NavigationContainer independent>
-        <BottomSheetTokenListStack.Navigator screenOptions={screenOptions}>
-          <BottomSheetTokenListStack.Screen
-            name='TokenListScreen'
-            options={TokenListScreenOptions}
-            component={createTokenList(tokenList, props.modalHeaderLabel, props.onCloseButtonPress, props.onTokenPress)}
-          />
-          {props.secondScreen !== undefined && (
-            <BottomSheetTokenListStack.Screen
-              name={props.secondScreen.title}
-              component={props.secondScreen.component}
-            />
-          )}
-        </BottomSheetTokenListStack.Navigator>
-      </NavigationContainer>
-    )
-  }
-  const tokenList: Token[] = [
+export const BottomSheetTokenList = ({
+  headerLabel,
+  onCloseButtonPress,
+  onTokenPress,
+  navigateToScreen
+}: BottomSheetTokenListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
+  const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
+  const tokenList: BottomSheetToken[] = [
     {
       id: 'DFI',
       name: 'DFI',
@@ -105,34 +53,27 @@ export function BottomSheetTokenList (props: BottomSheetTokenListProps): JSX.Ele
       name: 'DFI',
       available: new BigNumber('123'),
       collateralFactor: new BigNumber(100)
+    },
+    {
+      id: 'dBCH',
+      name: 'DFI',
+      available: new BigNumber('123'),
+      collateralFactor: new BigNumber(100)
     }
-
   ]
-  return (
-    <BottomSheetModal
-      ref={props.modalRef}
-      index={0}
-      snapPoints={['50%']}
-    >
-      <Navigator />
-    </BottomSheetModal>
-  )
-}
 
-const createTokenList = (tokenList: Token[], headerLabel: string, onCloseButtonPress: () => void, onTokenPress?: (token: Token) => void): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
-  const navigation = useNavigation<NavigationProp<BottomSheetTokenListRouteParam>>()
   return (
     <ThemedFlatList
-      contentContainerStyle={tailwind('')}
       data={tokenList}
       renderItem={({ item }): JSX.Element => (
         <ThemedTouchableOpacity
           onPress={() => {
             if (onTokenPress !== undefined) {
               onTokenPress(item)
-            } else {
+            }
+            if (navigateToScreen !== undefined) {
               navigation.navigate({
-                name: 'AddOrEditCollateralForm',
+                name: navigateToScreen,
                 params: {
                   token: item.id,
                   available: item.available,
@@ -148,8 +89,16 @@ const createTokenList = (tokenList: Token[], headerLabel: string, onCloseButtonP
           <View style={tailwind('flex flex-row items-center')}>
             <SymbolIcon symbol={item.id} styleProps={{ width: 24, height: 24 }} />
             <View style={tailwind('ml-2')}>
-              <ThemedText>{item.id}</ThemedText>
-              <ThemedText>{item.name}</ThemedText>
+              <ThemedText>
+                {item.id}
+              </ThemedText>
+              <ThemedText
+                light={tailwind('text-gray-500')}
+                dark={tailwind('text-gray-400')}
+                style={tailwind('text-xs')}
+              >
+                {item.name}
+              </ThemedText>
             </View>
           </View>
           <View style={tailwind('flex flex-row items-center')}>
@@ -160,12 +109,12 @@ const createTokenList = (tokenList: Token[], headerLabel: string, onCloseButtonP
                 <ThemedText
                   light={tailwind('text-gray-700')}
                   dark={tailwind('text-gray-300')}
-                  style={tailwind('mr-2')}
+                  style={tailwind('mr-0.5')}
                 >
                   {value}
                 </ThemedText>}
             />
-            <ThemedIcon iconType='MaterialIcons' name='chevron-right' size={12} />
+            <ThemedIcon iconType='MaterialIcons' name='chevron-right' size={20} />
           </View>
         </ThemedTouchableOpacity>
       )}

@@ -1,12 +1,15 @@
-import { BottomSheetTokenListRouteParam } from '@components/BottomSheetTokenList'
+import { BottomSheetWithNavRouteParam } from '@components/BottomSheetWithNav'
 import { Button } from '@components/Button'
+import { InputHelperText } from '@components/InputHelperText'
 import { SymbolIcon } from '@components/SymbolIcon'
 import { ThemedText, ThemedView } from '@components/themed'
+import { WalletTextInput } from '@components/WalletTextInput'
+import { useBottomSheetInternal } from '@gorhom/bottom-sheet'
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
 
@@ -17,19 +20,38 @@ export interface AddOrEditCollateralFormProps {
   onButtonPress: () => void
 }
 
-type Props = StackScreenProps<BottomSheetTokenListRouteParam, 'AddOrEditCollateralForm'>
+type Props = StackScreenProps<BottomSheetWithNavRouteParam, 'AddOrEditCollateralForm'>
 
-export function AddOrEditCollateralForm ({ route }: Props): JSX.Element {
+export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Element => {
   const {
     token,
-    collateralFactor
+    collateralFactor,
+    available
   } = route.params
+  const [collateralValue, setCollateralValue] = useState<string>('123')
+  const { shouldHandleKeyboardEvents } = useBottomSheetInternal()
+  const handleOnFocus = useCallback(
+    () => {
+      shouldHandleKeyboardEvents.value = true
+    },
+    [shouldHandleKeyboardEvents]
+  )
+  const handleOnBlur = useCallback(
+    () => {
+      shouldHandleKeyboardEvents.value = false
+    },
+    [shouldHandleKeyboardEvents]
+  )
   return (
-    <ThemedView>
-      <ThemedText>
+    <ThemedView
+      light={tailwind('bg-white')}
+      dark={tailwind('bg-gray-800')}
+      style={tailwind('p-4')}
+    >
+      <ThemedText style={tailwind('mb-2 text-lg font-medium')}>
         {translate('components/AddOrEditCollateralForm', 'How much {{token}} to add?', { token: token })}
       </ThemedText>
-      <View style={tailwind('flex flex-row items-center')}>
+      <View style={tailwind('flex flex-row items-center mb-2')}>
         <SymbolIcon symbol={token} styleProps={{ width: 24, height: 24 }} />
         <ThemedText
           style={tailwind('mx-2')}
@@ -57,6 +79,22 @@ export function AddOrEditCollateralForm ({ route }: Props): JSX.Element {
           />
         </ThemedView>
       </View>
+      <WalletTextInput
+        value={collateralValue}
+        inputType='numeric'
+        displayClearButton={collateralValue !== ''}
+        onChangeText={(text) => console.log('change', text)}
+        onClearButtonPress={() => setCollateralValue('')}
+        placeholder={translate('components/AddOrEditCollateralForm', 'Enter an amount')}
+        style={tailwind('h-9')}
+        onBlur={handleOnBlur}
+        onFocus={handleOnFocus}
+      />
+      <InputHelperText
+        label={`${translate('screens/ConvertScreen', 'Available')}: `}
+        content={available.toFixed(8)}
+        suffix={` ${token}`}
+      />
       <Button
         disabled
         label={translate('components/AddOrEditCollateralForm', 'ADD TOKEN AS COLLATERAL')}
@@ -65,4 +103,9 @@ export function AddOrEditCollateralForm ({ route }: Props): JSX.Element {
       />
     </ThemedView>
   )
+}, areEqual)
+
+function areEqual (prev: Readonly<any>, next: Readonly<any>): boolean {
+  console.log(prev, next)
+  return true
 }

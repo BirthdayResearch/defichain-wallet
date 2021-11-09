@@ -7,54 +7,73 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
-
-import React from 'react'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import React, { useCallback, useRef, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { LoanParamList } from '../LoansNavigator'
+import { BottomSheetNavScreen, BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { AddOrEditCollateralForm, AddOrEditCollateralFormProps } from '../components/AddOrEditCollateralForm'
+import { BottomSheetTokenList } from '@components/BottomSheetTokenList'
 
 type Props = StackScreenProps<LoanParamList, 'AddCollateralScreen'>
 
-export function AddCollateralScreen ({ navigation }: Props): JSX.Element {
-  const vaultId = '22ffasd5ca123123123123123121231061'
-  const collaterals: CollateralCardProps[] = [
+export interface BottomSheetWithNavRouteParam {
+  AddOrEditCollateralForm: AddOrEditCollateralFormProps
+  [key: string]: undefined | object
+}
+
+export function AddCollateralScreen ({ route }: Props): JSX.Element {
+  const { vaultId } = route.params
+  const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
+  const collaterals: any[] = [
     {
       collateralId: 'DFI',
       collateralFactor: new BigNumber(100),
       amount: new BigNumber('18769865765623.123123'),
       amountValue: new BigNumber('369.369'),
-      vaultProportion: new BigNumber('40')
+      vaultProportion: new BigNumber('40'),
+      available: new BigNumber(123123)
     },
     {
       collateralId: 'dBTC',
       collateralFactor: new BigNumber(100),
       amount: new BigNumber('123.123123'),
       amountValue: new BigNumber('369.369'),
-      vaultProportion: new BigNumber('100')
+      vaultProportion: new BigNumber('100'),
+      available: new BigNumber(123123)
     },
     {
       collateralId: 'dETH',
       collateralFactor: new BigNumber(100),
       amount: new BigNumber('123.123123'),
       amountValue: new BigNumber('369.369'),
-      vaultProportion: new BigNumber('100')
+      vaultProportion: new BigNumber('100'),
+      available: new BigNumber(123123)
     },
     {
       collateralId: 'dLTC',
       collateralFactor: new BigNumber(100),
       amount: new BigNumber('123.123123'),
       amountValue: new BigNumber('369.369'),
-      vaultProportion: new BigNumber('100')
+      vaultProportion: new BigNumber('100'),
+      available: new BigNumber(123123)
     },
     {
       collateralId: 'dBCH',
       collateralFactor: new BigNumber(100),
       amount: new BigNumber('123.123123'),
       amountValue: new BigNumber('369.369'),
-      vaultProportion: new BigNumber('100')
+      vaultProportion: new BigNumber('100'),
+      available: new BigNumber(123123)
     }
   ]
   const totalCollateralValue = new BigNumber(1081312326112)
+  const bottomSheetRef = useRef<BottomSheetModal>(null)
+  const expandModal = useCallback(() => {
+    bottomSheetRef.current?.present()
+  }, [])
+
   return (
     <View style={tailwind('flex-1')}>
       <ThemedScrollView
@@ -64,12 +83,55 @@ export function AddCollateralScreen ({ navigation }: Props): JSX.Element {
         <VaultIdSection vaultId={vaultId} />
         <SectionTitle title='ADD DFI AND TOKENS FOR COLLATERAL' />
         {collaterals.map(collateral => (
-          <CollateralCard key={collateral.collateralId} {...collateral} />
+          <CollateralCard
+            key={collateral.collateralId}
+            {...collateral}
+            onEditPress={(collateral: CollateralCardProps) => {
+              setBottomSheetScreen([
+                {
+                  stackScreenName: 'AddOrEditCollateralForm',
+                  component: AddOrEditCollateralForm
+                  // TODO: finalize edit button
+                  // initialParam: {
+                  //   token: collateral.collateralId,
+                  //   collateralFactor: collateral.collateralFactor,
+                  //   available: collateral.available,
+                  //   onButtonPress:
+                  // }
+                }
+              ])
+            }}
+          />
           ))}
         <LearnMoreCollateralFactor />
-        <AddCollateralButton disabled />
+        <AddCollateralButton
+          disabled={false} onPress={() => {
+          setBottomSheetScreen([
+            {
+              stackScreenName: 'TokenList',
+              component: BottomSheetTokenList({
+                headerLabel: translate('screens/AddCollateralScreen', 'Select token to add'),
+                onCloseButtonPress: () => bottomSheetRef.current?.close(),
+                navigateToScreen: 'AddOrEditCollateralForm'
+              }),
+              option: {
+                header: () => null
+              }
+            },
+            {
+              stackScreenName: 'AddOrEditCollateralForm',
+              component: AddOrEditCollateralForm
+            }
+          ])
+          expandModal()
+        }}
+        />
       </ThemedScrollView>
       <FooterSection totalCollateralValue={totalCollateralValue} isValid={false} />
+      <BottomSheetWithNav
+        modalRef={bottomSheetRef}
+        screenList={bottomSheetScreen}
+      />
     </View>
   )
 }
@@ -124,6 +186,8 @@ interface CollateralCardProps {
   amount: BigNumber
   amountValue: BigNumber
   vaultProportion: BigNumber
+  available: BigNumber
+  onEditPress: (collateral: CollateralCardProps) => void
 }
 
 function CollateralCard (props: CollateralCardProps): JSX.Element {
@@ -171,7 +235,10 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             iconType='MaterialIcons'
             iconName='edit'
             iconSize={20}
-            onPress={() => { /* TODO: handle edit collateral selected */ }}
+            onPress={() => {
+              /* TODO: handle edit collateral selected */
+              // setBottomsheet()
+            }}
           />
           {props.collateralId !== 'DFI' &&
             (
@@ -308,12 +375,12 @@ function LearnMoreCollateralFactor (): JSX.Element {
   )
 }
 
-function AddCollateralButton (props: {disabled: boolean}): JSX.Element {
+function AddCollateralButton (props: {disabled: boolean, onPress: () => void}): JSX.Element {
   return (
     <TouchableOpacity
       disabled={props.disabled}
       style={tailwind('mt-8 mb-44 flex flex-row justify-center')}
-      onPress={() => { /* TODO: handle add colleterals */ }}
+      onPress={props.onPress}
     >
       <ThemedIcon
         iconType='MaterialIcons'
