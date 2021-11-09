@@ -8,7 +8,7 @@ import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal 
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { NavigationContainer, Theme } from '@react-navigation/native'
 import { AddOrEditCollateralFormProps } from '@screens/AppNavigator/screens/Loans/components/AddOrEditCollateralForm'
-import { View } from 'react-native'
+import { Platform, View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { getDefaultTheme } from '@constants/Theme'
@@ -33,6 +33,14 @@ export interface BottomSheetWithNavRouteParam {
 export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): JSX.Element => {
   const { isLight } = useThemeContext()
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
+  const getSnapPoints = (): string[] => {
+    if (Platform.OS === 'ios') {
+      return ['50%']
+    } else if (Platform.OS === 'android') {
+      return ['60%']
+    }
+    return []
+  }
   const BottomSheetWithNavStack = createStackNavigator<BottomSheetWithNavRouteParam>()
   const Navigator = (): JSX.Element => {
     const screenOptions = useMemo<StackNavigationOptions>(
@@ -40,7 +48,7 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
         ...TransitionPresets.SlideFromRightIOS,
 
         headerShown: true,
-        // safeAreaInsets: { top: 0 },
+        safeAreaInsets: { top: 0 },
         cardStyle: {
           backgroundColor: 'white',
           overflow: 'visible'
@@ -71,7 +79,7 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
     <BottomSheetModal
       ref={props.modalRef}
       index={0}
-      snapPoints={['50%']}
+      snapPoints={getSnapPoints()}
       backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
         <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
       )}

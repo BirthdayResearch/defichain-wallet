@@ -10,7 +10,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import React, { useCallback, useEffect, useState } from 'react'
-import { View } from 'react-native'
+import { Platform, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 
 export interface AddOrEditCollateralFormProps {
@@ -36,13 +36,17 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
   const { shouldHandleKeyboardEvents } = useBottomSheetInternal()
   const handleOnFocus = useCallback(
     () => {
-      shouldHandleKeyboardEvents.value = true
+      if (Platform.OS === 'ios') {
+        shouldHandleKeyboardEvents.value = true
+      }
     },
     [shouldHandleKeyboardEvents]
   )
   const handleOnBlur = useCallback(
     () => {
-      shouldHandleKeyboardEvents.value = false
+      if (Platform.OS === 'ios') {
+        shouldHandleKeyboardEvents.value = true
+      }
     },
     [shouldHandleKeyboardEvents]
   )
@@ -63,7 +67,7 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
     <ThemedView
       light={tailwind('bg-white')}
       dark={tailwind('bg-gray-800')}
-      style={tailwind('p-4')}
+      style={tailwind('p-4 flex-1')}
     >
       <ThemedText style={tailwind('mb-2 text-lg font-medium')}>
         {translate('components/AddOrEditCollateralForm', 'How much {{token}} to add?', { token: token })}
@@ -103,7 +107,7 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
         onChangeText={(text) => setCollateralValue(text)}
         onClearButtonPress={() => setCollateralValue('')}
         placeholder={translate('components/AddOrEditCollateralForm', 'Enter an amount')}
-        style={tailwind('h-9')}
+        style={tailwind('h-9 w-10/12 flex-grow')}
         onBlur={handleOnBlur}
         onFocus={handleOnFocus}
       />

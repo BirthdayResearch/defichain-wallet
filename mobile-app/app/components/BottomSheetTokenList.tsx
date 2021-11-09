@@ -12,7 +12,10 @@ interface BottomSheetTokenListProps {
   headerLabel: string
   onCloseButtonPress: () => void
   onTokenPress?: (token: BottomSheetToken) => void
-  navigateToScreen?: string
+  navigateToScreen?: {
+    screenName: string
+    onButtonPress: () => void
+  }
 }
 
 export interface BottomSheetToken {
@@ -73,12 +76,12 @@ export const BottomSheetTokenList = ({
             }
             if (navigateToScreen !== undefined) {
               navigation.navigate({
-                name: navigateToScreen,
+                name: navigateToScreen.screenName,
                 params: {
                   token: item.id,
                   available: item.available,
                   collateralFactor: item.collateralFactor,
-                  onButtonPress: () => {}
+                  onButtonPress: navigateToScreen.onButtonPress
                 },
                 merge: true
               })
