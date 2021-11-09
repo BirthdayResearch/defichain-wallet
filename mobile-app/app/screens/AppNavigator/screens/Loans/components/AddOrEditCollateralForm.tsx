@@ -28,7 +28,7 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
     collateralFactor,
     available
   } = route.params
-  const [collateralValue, setCollateralValue] = useState<string>('123')
+  const [collateralValue, setCollateralValue] = useState<string>('')
   const { shouldHandleKeyboardEvents } = useBottomSheetInternal()
   const handleOnFocus = useCallback(
     () => {
@@ -44,9 +44,9 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
   )
   return (
     <ThemedView
-      light={tailwind('bg-white')}
-      dark={tailwind('bg-gray-800')}
-      style={tailwind('p-4')}
+      light={tailwind('bg-white border-gray-200')}
+      dark={tailwind('bg-gray-800 border-gray-700')}
+      style={tailwind('p-4 border-t')}
     >
       <ThemedText style={tailwind('mb-2 text-lg font-medium')}>
         {translate('components/AddOrEditCollateralForm', 'How much {{token}} to add?', { token: token })}
@@ -67,7 +67,7 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
             value={collateralFactor.toFixed(2)}
             decimalScale={2}
             displayType='text'
-            suffix='%'
+            suffix={` %${translate('AddOrEditCollateralForm', 'collateral factor')}`}
             renderText={value =>
               <ThemedText
                 light={tailwind('text-gray-700')}
@@ -83,7 +83,7 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
         value={collateralValue}
         inputType='numeric'
         displayClearButton={collateralValue !== ''}
-        onChangeText={(text) => console.log('change', text)}
+        onChangeText={(text) => setCollateralValue(text)}
         onClearButtonPress={() => setCollateralValue('')}
         placeholder={translate('components/AddOrEditCollateralForm', 'Enter an amount')}
         style={tailwind('h-9')}
@@ -94,6 +94,7 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
         label={`${translate('screens/ConvertScreen', 'Available')}: `}
         content={available.toFixed(8)}
         suffix={` ${token}`}
+        styleProps={tailwind('font-medium')}
       />
       <Button
         disabled

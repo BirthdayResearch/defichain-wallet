@@ -120,7 +120,13 @@ export function AddCollateralScreen ({ route }: Props): JSX.Element {
             },
             {
               stackScreenName: 'AddOrEditCollateralForm',
-              component: AddOrEditCollateralForm
+              component: AddOrEditCollateralForm,
+              option: {
+                headerStatusBarHeight: 0,
+                headerBackgroundContainerStyle: { top: -20 },
+                headerTitle: '',
+                headerBackTitle: translate('screens/AddCollateralScreen', 'BACK')
+              }
             }
           ])
           expandModal()

@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import { tailwind } from '@tailwind'
-import { TouchableOpacity, View } from 'react-native'
+import { Platform, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { SymbolIcon } from './SymbolIcon'
@@ -122,7 +122,7 @@ export const BottomSheetTokenList = ({
         <ThemedView
           light={tailwind('bg-white border-gray-200')}
           dark={tailwind('bg-gray-800 border-gray-700')}
-          style={tailwind('flex flex-row justify-between items-center px-4 py-2 border-b')}
+          style={tailwind('flex flex-row justify-between items-center px-4 py-2 border-b', { 'h-14 mt-px': Platform.OS === 'android' })}
         >
           <ThemedText
             style={tailwind('text-lg font-medium')}

@@ -6,11 +6,12 @@ import {
 } from '@react-navigation/stack'
 import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer, Theme } from '@react-navigation/native'
 import { AddOrEditCollateralFormProps } from '@screens/AppNavigator/screens/Loans/components/AddOrEditCollateralForm'
 import { View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { getDefaultTheme } from '@constants/Theme'
 
 interface BottomSheetWithNavProps {
   modalRef: React.Ref<BottomSheetModalMethods>
@@ -31,6 +32,7 @@ export interface BottomSheetWithNavRouteParam {
 
 export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): JSX.Element => {
   const { isLight } = useThemeContext()
+  const DeFiChainTheme: Theme = getDefaultTheme(isLight)
   const BottomSheetWithNavStack = createStackNavigator<BottomSheetWithNavRouteParam>()
   const Navigator = (): JSX.Element => {
     const screenOptions = useMemo<StackNavigationOptions>(
@@ -38,7 +40,7 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
         ...TransitionPresets.SlideFromRightIOS,
 
         headerShown: true,
-        safeAreaInsets: { top: 0 },
+        // safeAreaInsets: { top: 0 },
         cardStyle: {
           backgroundColor: 'white',
           overflow: 'visible'
@@ -49,7 +51,7 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
     )
 
     return (
-      <NavigationContainer independent>
+      <NavigationContainer independent theme={DeFiChainTheme}>
         <BottomSheetWithNavStack.Navigator screenOptions={screenOptions}>
           {props.screenList.map(screen => (
             <BottomSheetWithNavStack.Screen
@@ -69,7 +71,7 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
     <BottomSheetModal
       ref={props.modalRef}
       index={0}
-      snapPoints={['70%']}
+      snapPoints={['50%']}
       backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
         <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
       )}
