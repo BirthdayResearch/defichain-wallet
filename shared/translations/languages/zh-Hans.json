@@ -332,6 +332,15 @@
     "Connection problem": "网络连接出了问题",
     "There seems to be a problem with the connection. Check your network and try again.": "网络连接不良，请查看网络设定后重试."
   },
+  "screens/FeatureFlagScreen": {
+    "Continue": "继续",
+    "Cancel": "取消",
+    "Enable {{feature}} (Beta)": "启用 Beta测试版 {{feature}}",
+    "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "此功能仍处于Beta测试版 阶段，使用它可能有些风险。您是否想继续？",
+    "Beta Features": " 测试版功能",
+    "Beta features of Light Wallet are features undergoing final testing before its official release. Experimentation of the features is encouraged, but caution is advised when using your assets.": "轻钱包的Beta版功能是在正式发布前正在进行最后测试的功能。我们鼓励您对这些功能进行测试，但建议在使用您的资产时要谨慎。",
+    "Feature is still in Beta. Use at your own risk.": "功能仍处于测试阶段。使用时风险请自己负责。"
+  },
   "BottomTabNavigator": {
     "Balances": "总资金",
     "Liquidity": "流动",

@@ -1,5 +1,4 @@
 import { ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
-import { ThemedSectionTitle } from '@components/themed/ThemedSectionTitle'
 import { Switch } from '@components/index'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -8,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { FeatureFlag, FEATURE_FLAG_ID } from '@shared-types/website'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { WalletAlert } from '@components/WalletAlert'
 
 export interface BetaFeaturesI extends FeatureFlag {
   value: boolean
@@ -31,60 +31,65 @@ export function FeatureFlagScreen (): JSX.Element {
     setBetaFeatures(getBetaFeature(enabledFeatures))
   }, [])
 
-  const onFeatureChange = async (id: FEATURE_FLAG_ID, value: boolean): Promise<void> => {
-    const flags: FEATURE_FLAG_ID[] = value ? [...enabledFeatures, id] : enabledFeatures.filter(e => e !== id)
-    setBetaFeatures(getBetaFeature(flags))
-    await updateEnabledFeatures(flags)
+  const onFeatureChange = async (feature: FeatureFlag, value: boolean): Promise<void> => {
+    const flags: FEATURE_FLAG_ID[] = value ? [...enabledFeatures, feature.id] : enabledFeatures.filter(e => e !== feature.id)
+    if (value) {
+      WalletAlert({
+        title: translate('screens/FeatureFlagScreen', 'Enable {{feature}} (Beta)', { feature: translate('screens/Settings', feature.name) }),
+        message: translate(
+          'screens/FeatureFlagScreen', 'This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?'),
+        buttons: [
+          {
+            text: translate('screens/FeatureFlagScreen', 'Cancel'),
+            style: 'cancel'
+          },
+          {
+            text: translate('screens/FeatureFlagScreen', 'Continue'),
+            style: 'destructive',
+            onPress: async () => {
+              setBetaFeatures(getBetaFeature(flags))
+              await updateEnabledFeatures(flags)
+            }
+          }
+        ]
+      })
+    } else {
+      setBetaFeatures(getBetaFeature(flags))
+      await updateEnabledFeatures(flags)
+    }
   }
 
   return (
-    <ThemedScrollView light={tailwind('bg-white')}>
-      <View testID='features_flag_screen'>
-        <ThemedSectionTitle
-          testID='features_flag_screen_title'
-          text={translate('screens/FeatureFlagScreen', 'APP beta features')}
-        />
-        {betaFeatures.length === 0
-        ? (
-          <View style={tailwind('p-4')}>
-            <ThemedText
-              dark={tailwind('text-gray-600')}
-              light={tailwind('text-gray-400')}
-              style={tailwind('text-xs font-normal')}
-            >
-              {translate('screens/FeatureFlagScreen', 'No beta features available.')}
-            </ThemedText>
-          </View>
-          )
-        : (
-          <>
-            {betaFeatures.map((item: BetaFeaturesI) => (
-              <FeatureFlagItem
-                key={item.id}
-                item={item}
-                onChange={onFeatureChange}
-              />
-            ))}
+    <ThemedScrollView testID='features_flag_screen'>
+      <View style={tailwind('flex-1 p-4 pt-6')}>
+        <ThemedText
+          style={tailwind('text-base font-semibold')}
+        >
+          {translate('screens/FeatureFlagScreen', 'Beta Features')}
+        </ThemedText>
 
-            <View style={tailwind('p-4')}>
-              <ThemedText
-                dark={tailwind('text-gray-600')}
-                light={tailwind('text-gray-400')}
-                style={tailwind('text-xs font-normal')}
-              >
-                {translate('screens/FeatureFlagScreen', 'Enable/disable beta features')}
-              </ThemedText>
-            </View>
-          </>
-        )}
+        <ThemedText
+          dark={tailwind('text-gray-400')}
+          light={tailwind('text-gray-500')}
+          style={tailwind('text-sm font-normal')}
+        >
+          {translate('screens/FeatureFlagScreen', 'Beta features of Light Wallet are features undergoing final testing before its official release. Experimentation of the features is encouraged, but caution is advised when using your assets.')}
+        </ThemedText>
       </View>
+      {betaFeatures.map((item: BetaFeaturesI) => (
+        <FeatureFlagItem
+          key={item.id}
+          item={item}
+          onChange={onFeatureChange}
+        />
+      ))}
     </ThemedScrollView>
   )
 }
 
 interface FeatureFlagItemProps {
   item: BetaFeaturesI
-  onChange: (type: FEATURE_FLAG_ID, value: boolean) => void
+  onChange: (feature: FeatureFlag, value: boolean) => void
 }
 
 export function FeatureFlagItem ({ item, onChange }: FeatureFlagItemProps): JSX.Element {
@@ -106,7 +111,7 @@ export function FeatureFlagItem ({ item, onChange }: FeatureFlagItemProps): JSX.
       <View style={tailwind('flex-row items-center')}>
         <Switch
           onValueChange={(v) => {
-            onChange(item.id, v)
+            onChange(item, v)
           }}
           testID={`feature_${item.id}_switch`}
           value={item.value}

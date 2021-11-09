@@ -9,6 +9,7 @@ import { translate } from '@translations'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { openURL } from '@api/linking'
 import { SettingsParamList } from '../SettingsNavigator'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 interface AboutScreenLinks {
   testID: string
@@ -105,10 +106,16 @@ const SOCIAL_LINKS: AboutScreenSocialLinks[] = [
 
 export function AboutScreen (): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
+  const { featureFlags } = useFeatureFlagContext()
+  const features = featureFlags.filter((item) => item.stage === 'beta')
+
   return (
     <ThemedScrollView light={tailwind('bg-white')} style={tailwind('px-4')}>
       <View style={tailwind('flex-1 items-center justify-center p-4 mt-4 mb-8')}>
-        <TouchableOpacity onLongPress={() => navigation.navigate('FeatureFlagScreen')}>
+        <TouchableOpacity
+          disabled={features.length === 0}
+          onLongPress={() => navigation.navigate('FeatureFlagScreen')}
+        >
           <AppIcon
             height={70}
             testID='app_logo'

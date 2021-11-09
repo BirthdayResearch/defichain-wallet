@@ -90,14 +90,25 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
     Array [
       undefined,
       Object {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "backgroundColor": "rgba(245, 245, 245, 1)",
       },
     ]
   }
+  testID="features_flag_screen"
 >
   <View>
     <View
-      testID="features_flag_screen"
+      style={
+        Object {
+          "flexBasis": "0%",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 24,
+        }
+      }
     >
       <Text
         style={
@@ -110,144 +121,125 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
             },
             Array [
               Object {
-                "color": "rgba(115, 115, 115, 1)",
-                "fontFamily": "MediumFont",
-                "fontSize": 12,
-                "fontWeight": "500",
-                "lineHeight": 16,
-                "paddingBottom": 8,
-                "paddingLeft": 16,
-                "paddingRight": 16,
-                "paddingTop": 24,
+                "fontFamily": "SemiBoldFont",
+                "fontSize": 16,
+                "fontWeight": "600",
+                "lineHeight": 24,
               },
               Object {
-                "backgroundColor": "rgba(245, 245, 245, 1)",
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        Beta Features
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 14,
+                "fontWeight": "400",
+                "lineHeight": 20,
+              },
+              Object {
                 "color": "rgba(115, 115, 115, 1)",
               },
             ],
           ]
         }
-        testID="features_flag_screen_title"
-        text="APP beta features"
       >
-        APP beta features
+        Beta features of Light Wallet are features undergoing final testing before its official release. Experimentation of the features is encouraged, but caution is advised when using your assets.
       </Text>
-      <View
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 8,
+            "paddingTop": 16,
+          },
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderTopColor": "rgba(229, 229, 229, 1)",
+          },
+        ]
+      }
+      testID="feature_loan_row"
+    >
+      <Text
         style={
           Array [
             Object {
-              "alignItems": "center",
-              "display": "flex",
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 8,
-              "paddingTop": 16,
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
-            },
-          ]
-        }
-        testID="feature_loan_row"
-      >
-        <Text
-          style={
             Array [
               Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
+                "fontFamily": "MediumFont",
+                "fontWeight": "500",
               },
-              Array [
-                Object {
-                  "fontFamily": "MediumFont",
-                  "fontWeight": "500",
-                },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          Decentralized Loans
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "flexDirection": "row",
-            }
-          }
-        >
-          <RCTSwitch
-            accessibilityRole="switch"
-            onChange={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            onTintColor="#34C759"
-            style={
-              Array [
-                Object {
-                  "height": 31,
-                  "width": 51,
-                },
-                Object {
-                  "backgroundColor": "#ffffff",
-                  "borderRadius": 16,
-                },
-              ]
-            }
-            testID="feature_loan_switch"
-            thumbTintColor="#fff"
-            tintColor="rgba(120, 120, 128, 0.20)"
-            value={true}
-          />
-        </View>
-      </View>
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        Decentralized Loans
+      </Text>
       <View
         style={
           Object {
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 16,
-            "paddingTop": 16,
+            "alignItems": "center",
+            "flexDirection": "row",
           }
         }
       >
-        <Text
+        <RCTSwitch
+          accessibilityRole="switch"
+          onChange={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          onTintColor="#34C759"
           style={
             Array [
               Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
+                "height": 31,
+                "width": 51,
               },
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 12,
-                  "fontWeight": "400",
-                  "lineHeight": 16,
-                },
-                Object {
-                  "color": "rgba(163, 163, 163, 1)",
-                },
-              ],
+              Object {
+                "backgroundColor": "#ffffff",
+                "borderRadius": 16,
+              },
             ]
           }
-        >
-          Enable/disable beta features
-        </Text>
+          testID="feature_loan_switch"
+          thumbTintColor="#fff"
+          tintColor="rgba(120, 120, 128, 0.20)"
+          value={true}
+        />
       </View>
     </View>
   </View>
