@@ -360,9 +360,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             )}
           />
         </View>
-
       </View>
-
     </ThemedView>
   )
 }

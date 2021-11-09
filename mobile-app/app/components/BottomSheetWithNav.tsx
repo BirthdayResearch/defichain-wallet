@@ -46,7 +46,6 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
     const screenOptions = useMemo<StackNavigationOptions>(
       () => ({
         ...TransitionPresets.SlideFromRightIOS,
-
         headerShown: true,
         safeAreaInsets: { top: 0 },
         cardStyle: {
