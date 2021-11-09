@@ -51,7 +51,7 @@ export function VaultDetailTabSection (props: VaultDetailTabSectionProps): JSX.E
 
   return (
     <>
-      <Tabs tabSections={vaultChildTabs} activeTabKey={activeTab} />
+      <Tabs tabSections={vaultChildTabs} activeTabKey={activeTab} testID='vault_detail_tabs' />
       <ThemedView>
         {activeTab === TabKey.ActiveLoans && props.emptyActiveLoans === true &&
           (<EmptyActiveLoans />)}
