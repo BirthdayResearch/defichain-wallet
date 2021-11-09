@@ -16,6 +16,7 @@ import { BottomSheetNavScreen, BottomSheetWithNav } from '@components/BottomShee
 import { AddOrEditCollateralForm, AddOrEditCollateralFormProps } from '../components/AddOrEditCollateralForm'
 import { BottomSheetTokenList } from '@components/BottomSheetTokenList'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { WalletAlert } from '@components/WalletAlert'
 
 type Props = StackScreenProps<LoanParamList, 'AddCollateralScreen'>
 
@@ -113,36 +114,61 @@ export function AddCollateralScreen ({ route }: Props): JSX.Element {
               ])
               expandModal()
             }}
+            onRemovePress={() => {
+              WalletAlert({
+                title: translate('screens/AddCollateralScreen', 'Are you sure you want to remove collateral token?'),
+                buttons: [
+                  {
+                    text: translate('screens/Settings', 'Cancel'),
+                    style: 'cancel'
+                  },
+                  {
+                    text: translate('screens/Settings', 'Remove'),
+                    style: 'destructive',
+                    onPress: () => {
+                      // TODO: handle on remove collateral
+                    }
+                  }
+                ]
+              })
+            }}
           />
           ))}
         <LearnMoreCollateralFactor />
         <AddCollateralButton
-          disabled={false} onPress={() => {
-          setBottomSheetScreen([
-            {
-              stackScreenName: 'TokenList',
-              component: BottomSheetTokenList({
-                headerLabel: translate('screens/AddCollateralScreen', 'Select token to add'),
-                onCloseButtonPress: () => bottomSheetRef.current?.close(),
-                navigateToScreen: 'AddOrEditCollateralForm'
-              }),
-              option: {
-                header: () => null
+          disabled={false} /* TODO: add validation to check if DFI >= 50% */
+          onPress={() => {
+            setBottomSheetScreen([
+              {
+                stackScreenName: 'TokenList',
+                component: BottomSheetTokenList({
+                  headerLabel: translate('screens/AddCollateralScreen', 'Select token to add'),
+                  onCloseButtonPress: () => bottomSheetRef.current?.close(),
+                  navigateToScreen: {
+                    screenName: 'AddOrEditCollateralForm',
+                    onButtonPress: () => {
+                      /* TODO: set state of collateral */
+                      dismissModal()
+                    }
+                  }
+                }),
+                option: {
+                  header: () => null
+                }
+              },
+              {
+                stackScreenName: 'AddOrEditCollateralForm',
+                component: AddOrEditCollateralForm,
+                option: {
+                  headerStatusBarHeight: 1,
+                  headerBackgroundContainerStyle: tailwind('-top-5 border-b', { 'border-gray-200': isLight, 'border-gray-700': !isLight }),
+                  headerTitle: '',
+                  headerBackTitle: translate('screens/AddCollateralScreen', 'BACK')
+                }
               }
-            },
-            {
-              stackScreenName: 'AddOrEditCollateralForm',
-              component: AddOrEditCollateralForm,
-              option: {
-                headerStatusBarHeight: 1,
-                headerBackgroundContainerStyle: tailwind('-top-5 border-b', { 'border-gray-200': isLight, 'border-gray-700': !isLight }),
-                headerTitle: '',
-                headerBackTitle: translate('screens/AddCollateralScreen', 'BACK')
-              }
-            }
-          ])
-          expandModal()
-        }}
+            ])
+            expandModal()
+          }}
         />
       </ThemedScrollView>
       <FooterSection totalCollateralValue={totalCollateralValue} isValid={false} />
@@ -150,6 +176,7 @@ export function AddCollateralScreen ({ route }: Props): JSX.Element {
         modalRef={bottomSheetRef}
         screenList={bottomSheetScreen}
       />
+      {/* TODO: handle bottom sheet in desktop */}
     </View>
   )
 }
@@ -206,6 +233,7 @@ interface CollateralCardProps {
   vaultProportion: BigNumber
   available: BigNumber
   onEditPress: (collateral: CollateralCardProps) => void
+  onRemovePress: () => void
 }
 
 function CollateralCard (props: CollateralCardProps): JSX.Element {
@@ -262,7 +290,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                 iconName='remove-circle-outline'
                 iconSize={20}
                 style={tailwind('ml-2')}
-                onPress={() => { /* TODO: handle remove colleteral selection */ }}
+                onPress={() => props.onRemovePress()}
               />
             )}
         </View>
