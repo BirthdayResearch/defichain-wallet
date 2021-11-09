@@ -47,7 +47,7 @@
     "buffer": "^6.0.3",
     "classnames": "^2.3.1",
     "dayjs": "^1.10.7",
-    "expo": "43.0.1",
+    "expo": "43.0.2",
     "expo-asset": "~8.4.3",
     "expo-barcode-scanner": "~11.1.2",
     "expo-cli": "^4.12.12",
@@ -98,7 +98,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@cypress/code-coverage": "^3.9.11",
-    "@expo/metro-config": "^0.2.8",
+    "@expo/metro-config": "^0.3.0",
     "@testing-library/cypress": "^8.0.1",
     "@testing-library/react-hooks": "^7.0.2",
     "@testing-library/react-native": "^8.0.0",
