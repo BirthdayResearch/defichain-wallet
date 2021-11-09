@@ -15,6 +15,7 @@ import { LoanParamList } from '../LoansNavigator'
 import { BottomSheetNavScreen, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { AddOrEditCollateralForm, AddOrEditCollateralFormProps } from '../components/AddOrEditCollateralForm'
 import { BottomSheetTokenList } from '@components/BottomSheetTokenList'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
 type Props = StackScreenProps<LoanParamList, 'AddCollateralScreen'>
 
@@ -25,6 +26,7 @@ export interface BottomSheetWithNavRouteParam {
 
 export function AddCollateralScreen ({ route }: Props): JSX.Element {
   const { vaultId } = route.params
+  const { isLight } = useThemeContext()
   const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
   const collaterals: any[] = [
     {
@@ -73,6 +75,9 @@ export function AddCollateralScreen ({ route }: Props): JSX.Element {
   const expandModal = useCallback(() => {
     bottomSheetRef.current?.present()
   }, [])
+  const dismissModal = useCallback(() => {
+    bottomSheetRef.current?.close()
+  }, [])
 
   return (
     <View style={tailwind('flex-1')}>
@@ -90,16 +95,23 @@ export function AddCollateralScreen ({ route }: Props): JSX.Element {
               setBottomSheetScreen([
                 {
                   stackScreenName: 'AddOrEditCollateralForm',
-                  component: AddOrEditCollateralForm
-                  // TODO: finalize edit button
-                  // initialParam: {
-                  //   token: collateral.collateralId,
-                  //   collateralFactor: collateral.collateralFactor,
-                  //   available: collateral.available,
-                  //   onButtonPress:
-                  // }
+                  component: AddOrEditCollateralForm,
+                  initialParam: {
+                    token: collateral.collateralId,
+                    collateralFactor: collateral.collateralFactor,
+                    available: collateral.available,
+                    current: collateral.amount,
+                    onButtonPress: () => {
+                      // TODO: set state of collateral
+                      dismissModal()
+                    }
+                  },
+                  option: {
+                    header: () => null
+                  }
                 }
               ])
+              expandModal()
             }}
           />
           ))}
@@ -122,8 +134,8 @@ export function AddCollateralScreen ({ route }: Props): JSX.Element {
               stackScreenName: 'AddOrEditCollateralForm',
               component: AddOrEditCollateralForm,
               option: {
-                headerStatusBarHeight: 0,
-                headerBackgroundContainerStyle: { top: -20 },
+                headerStatusBarHeight: 1,
+                headerBackgroundContainerStyle: tailwind('-top-5 border-b', { 'border-gray-200': isLight, 'border-gray-700': !isLight }),
                 headerTitle: '',
                 headerBackTitle: translate('screens/AddCollateralScreen', 'BACK')
               }
@@ -241,10 +253,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             iconType='MaterialIcons'
             iconName='edit'
             iconSize={20}
-            onPress={() => {
-              /* TODO: handle edit collateral selected */
-              // setBottomsheet()
-            }}
+            onPress={() => props.onEditPress(props)}
           />
           {props.collateralId !== 'DFI' &&
             (

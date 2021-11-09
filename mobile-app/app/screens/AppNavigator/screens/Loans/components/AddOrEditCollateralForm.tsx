@@ -9,7 +9,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
 
@@ -17,6 +17,7 @@ export interface AddOrEditCollateralFormProps {
   token: string
   collateralFactor: BigNumber
   available: BigNumber
+  current?: BigNumber
   onButtonPress: () => void
 }
 
@@ -26,9 +27,12 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
   const {
     token,
     collateralFactor,
-    available
+    available,
+    current,
+    onButtonPress
   } = route.params
-  const [collateralValue, setCollateralValue] = useState<string>('')
+  const [collateralValue, setCollateralValue] = useState<string>(current?.toFixed(8) ?? '')
+  const [isValid, setIsValid] = useState(false)
   const { shouldHandleKeyboardEvents } = useBottomSheetInternal()
   const handleOnFocus = useCallback(
     () => {
@@ -42,11 +46,24 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
     },
     [shouldHandleKeyboardEvents]
   )
+  const validateInput = (input: string): void => {
+    const formattedInput = new BigNumber(input)
+    if (formattedInput.isGreaterThan(available) || formattedInput.isLessThanOrEqualTo(0) || formattedInput.isNaN()) {
+      setIsValid(false)
+    } else {
+      setIsValid(true)
+    }
+  }
+
+  useEffect(() => {
+    validateInput(collateralValue)
+  }, [collateralValue])
+
   return (
     <ThemedView
-      light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
-      style={tailwind('p-4 border-t')}
+      light={tailwind('bg-white')}
+      dark={tailwind('bg-gray-800')}
+      style={tailwind('p-4')}
     >
       <ThemedText style={tailwind('mb-2 text-lg font-medium')}>
         {translate('components/AddOrEditCollateralForm', 'How much {{token}} to add?', { token: token })}
@@ -67,7 +84,7 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
             value={collateralFactor.toFixed(2)}
             decimalScale={2}
             displayType='text'
-            suffix={` %${translate('AddOrEditCollateralForm', 'collateral factor')}`}
+            suffix={`% ${translate('AddOrEditCollateralForm', 'collateral factor')}`}
             renderText={value =>
               <ThemedText
                 light={tailwind('text-gray-700')}
@@ -97,16 +114,11 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
         styleProps={tailwind('font-medium')}
       />
       <Button
-        disabled
+        disabled={!isValid}
         label={translate('components/AddOrEditCollateralForm', 'ADD TOKEN AS COLLATERAL')}
-        onPress={() => { /* TODO: handle button press */ }}
+        onPress={onButtonPress}
         margin='mt-8 mb-10'
       />
     </ThemedView>
   )
-}, areEqual)
-
-function areEqual (prev: Readonly<any>, next: Readonly<any>): boolean {
-  console.log(prev, next)
-  return true
-}
+})

@@ -22,7 +22,7 @@ export interface BottomSheetNavScreen {
   stackScreenName: string
   component: React.ComponentType<any>
   option?: StackNavigationOptions
-  initialParam?: Partial<Object | undefined>
+  initialParam?: Partial<BottomSheetWithNavRouteParam['AddOrEditCollateralForm']>
 }
 
 export interface BottomSheetWithNavRouteParam {
