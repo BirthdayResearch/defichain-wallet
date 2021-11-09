@@ -12,4 +12,5 @@ export function initJellyfishWallet (provider: WalletHdNodeProvider<WalletHdNode
 export * from './provider/mnemonic_encrypted'
 export * from './provider/mnemonic_unprotected'
 export * from './passcode_attempt'
+export * from './address_index'
 export * from './persistence'
