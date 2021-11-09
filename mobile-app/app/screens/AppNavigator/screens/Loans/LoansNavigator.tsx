@@ -27,6 +27,9 @@ export interface LoanParamList {
     vaultId: string
     emptyActiveLoans?: boolean // TODO: remove hard-coded value
   }
+  AddCollateralScreen: {
+    vaultId: string
+  }
   [key: string]: undefined | object
 }
 

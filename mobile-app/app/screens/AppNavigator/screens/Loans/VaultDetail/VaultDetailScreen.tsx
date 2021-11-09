@@ -45,7 +45,13 @@ export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
       iconType: 'MaterialIcons',
       label: 'ADD COLLATERAL',
       handleOnPress: () => {
-        navigation.navigate('AddCollateralScreen')
+        navigation.navigate({
+          name: 'AddCollateralScreen',
+          params: {
+            vaultId: currentVault.vaultAddress
+          },
+          merge: true
+        })
       }
     },
     {
