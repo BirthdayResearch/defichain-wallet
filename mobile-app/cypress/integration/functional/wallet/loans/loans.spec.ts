@@ -59,6 +59,33 @@ context('Wallet - Loans Feature Gated', () => {
     cy.getByTestID('bottom_tab_loans').should('not.exist')
   })
 
+  it('should have loans tab if loan feature is beta is activated by user', function () {
+    cy.intercept('**/settings/flags', {
+      body: [
+        {
+          id: 'loan',
+          name: 'Loan',
+          stage: 'beta',
+          version: '>=0.0.0',
+          description: 'Loan'
+        }
+      ]
+    })
+    cy.createEmptyWallet(true)
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('header_settings').click()
+    cy.getByTestID('setting_navigate_About').click()
+    cy.getByTestID('try_beta_features').click()
+    cy.getByTestID('feature_loan_row').should('exist')
+    cy.getByTestID('feature_loan_switch').click().should(() => {
+      expect(localStorage.getItem('WALLET.ENABLED_FEATURES')).to.eq('["loan"]')
+    })
+    cy.getByTestID('bottom_tab_loans').should('exist')
+    cy.getByTestID('feature_loan_switch').click().should(() => {
+      expect(localStorage.getItem('WALLET.ENABLED_FEATURES')).to.eq('[]')
+    })
+  })
+
   it('should have loans tab if loan feature is public', function () {
     cy.intercept('**/settings/flags', {
       body: [
