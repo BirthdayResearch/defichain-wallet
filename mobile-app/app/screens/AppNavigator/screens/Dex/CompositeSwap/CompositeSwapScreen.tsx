@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Control, Controller, useForm } from 'react-hook-form'
 import BigNumber from 'bignumber.js'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { translate } from '@translations'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -23,6 +24,8 @@ import {
   ThemedTouchableOpacity, ThemedView
 } from '@components/themed'
 import { getNativeIcon } from '@components/icons/assets'
+import { BottomSheetNavScreen, BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { BottomSheetTokenList } from '@components/BottomSheetTokenList'
 import { Button } from '@components/Button'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { InputHelperText } from '@components/InputHelperText'
@@ -51,12 +54,20 @@ export function CompositeSwapScreen (): JSX.Element {
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
 
   const reservedDfi = 0.1
+  const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [selectedTokenA, setSelectedTokenA] = useState<DerivedTokenState>()
   const [selectedTokenB, setSelectedTokenB] = useState<DerivedTokenState>()
   const [selectedPoolPair, setSelectedPoolPair] = useState<PoolPairData>()
   const [priceRates, setPriceRates] = useState<PriceRateProps[]>()
   const [slippage, setSlippage] = useState<number>(0.03)
+  const bottomSheetRef = useRef<BottomSheetModal>(null)
+  const expandModal = useCallback(() => {
+    bottomSheetRef.current?.present()
+  }, [])
+  const dismissModal = useCallback(() => {
+    bottomSheetRef.current?.close()
+  }, [])
 
   // component UI state
   const { control, setValue, trigger, watch } = useForm<{
@@ -76,22 +87,38 @@ export function CompositeSwapScreen (): JSX.Element {
     return maxAmount.isLessThanOrEqualTo(0) ? new BigNumber(0).toFixed(8) : maxAmount.toFixed(8)
   }
 
-  const onTokenSelect = ({ direction, value }: {direction: 'FROM' | 'TO', value: string}): void => {
-    // TODO - THIS IS TEMP. Once TokenBottomSheet is merged, this will be replaced
-    const selectedPair = pairs.find(pair => pair.data.tokenA.symbol === value)?.data.tokenA ?? pairs.find(pair => pair.data.tokenB.symbol === value)?.data.tokenB
+  const onTokenSelect = ({ direction }: {direction: 'FROM' | 'TO'}): void => {
+    setBottomSheetScreen([
+      {
+        stackScreenName: 'TokenList',
+        component: BottomSheetTokenList({
+          headerLabel: translate('screens/CompositeSwap', 'Select token to add'),
+          onCloseButtonPress: () => bottomSheetRef.current?.close(),
+          onTokenPress: (_item): void => {
+            // TODO - Select the actual token when composite swap already works
+            const value = direction === 'FROM' ? 'DFI' : 'ETH'
+            const selectedPair = pairs.find(pair => pair.data.tokenA.symbol === value)?.data.tokenA ?? pairs.find(pair => pair.data.tokenB.symbol === value)?.data.tokenB
 
-    if (selectedPair === undefined) {
-      return
-    }
+            if (selectedPair === undefined) {
+              return
+            }
 
-    const mappedData: DerivedTokenState = getAddressTokenById(selectedPair.id) ?? {
-      id: selectedPair.id,
-      symbol: selectedPair.symbol,
-      displaySymbol: selectedPair.displaySymbol,
-      amount: selectedPair.reserve
-    }
+            const mappedData: DerivedTokenState = getAddressTokenById(selectedPair.id) ?? {
+              id: selectedPair.id,
+              symbol: selectedPair.symbol,
+              displaySymbol: selectedPair.displaySymbol,
+              amount: selectedPair.reserve
+            }
 
-    direction === 'FROM' ? setSelectedTokenA(mappedData) : setSelectedTokenB(mappedData)
+            direction === 'FROM' ? setSelectedTokenA(mappedData) : setSelectedTokenB(mappedData)
+            dismissModal()
+          }
+        }),
+        option: {
+          header: () => null
+        }
+      }])
+    expandModal()
   }
 
   const getAddressTokenById = (poolpairTokenId: string): WalletToken | undefined => {
@@ -189,8 +216,8 @@ export function CompositeSwapScreen (): JSX.Element {
       </ThemedText>
 
       <View style={tailwind('flex flex-row mt-3 mx-2')}>
-        <TokenSelection label='FROM' symbol={selectedTokenA?.displaySymbol} onPress={() => onTokenSelect({ direction: 'FROM', value: 'DFI' })} />
-        <TokenSelection label='TO' symbol={selectedTokenB?.displaySymbol} onPress={() => onTokenSelect({ direction: 'TO', value: 'ETH' })} />
+        <TokenSelection label='FROM' symbol={selectedTokenA?.displaySymbol} onPress={() => onTokenSelect({ direction: 'FROM' })} />
+        <TokenSelection label='TO' symbol={selectedTokenB?.displaySymbol} onPress={() => onTokenSelect({ direction: 'TO' })} />
       </View>
 
       {(selectedTokenA === undefined || selectedTokenB === undefined) &&
@@ -249,6 +276,11 @@ export function CompositeSwapScreen (): JSX.Element {
           testID='button_submit'
           title='CONTINUE'
         />)}
+
+      <BottomSheetWithNav
+        modalRef={bottomSheetRef}
+        screenList={bottomSheetScreen}
+      />
     </ThemedScrollView>
 )
 }
