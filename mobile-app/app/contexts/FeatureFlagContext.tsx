@@ -40,22 +40,20 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
   }
 
   function isBetaFeature (featureId: FEATURE_FLAG_ID): boolean {
-    return featureFlags.some((flag) => {
-      return flag.id === featureId && flag.stage === 'beta'
+    return featureFlags.some((flag: FeatureFlag) => {
+      if (Platform.OS === 'web') {
+        return flag.id === featureId && flag.stage === 'beta'
+      }
+      return satisfies(appVersion, flag.version) && flag.id === featureId && flag.stage === 'beta'
     })
   }
 
   function isFeatureAvailable (featureId: FEATURE_FLAG_ID): boolean {
-    if (featureFlags.length === 0 || featureFlags?.some === undefined) {
-      return false
-    }
-
-    return featureFlags.some((flag) => {
+    return featureFlags.some((flag: FeatureFlag) => {
       if (Platform.OS === 'web') {
         return flag.id === featureId && checkFeatureStage(flag)
-      } else {
-        return satisfies(appVersion, flag.version) && flag.id === featureId && checkFeatureStage(flag)
       }
+      return satisfies(appVersion, flag.version) && flag.id === featureId && checkFeatureStage(flag)
     })
   }
 
