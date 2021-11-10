@@ -94,29 +94,37 @@ interface FeatureFlagItemProps {
 
 export function FeatureFlagItem ({ item, onChange }: FeatureFlagItemProps): JSX.Element {
   return (
-    <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-200')}
-      style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
-      testID={`feature_${item.id}_row`}
-    >
-      <ThemedText
-        dark={tailwind('text-white text-opacity-90')}
-        light={tailwind('text-black')}
-        style={tailwind('font-medium')}
+    <View testID={`feature_${item.id}_row`}>
+      <ThemedView
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        light={tailwind('bg-white border-b border-gray-200')}
+        style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
       >
-        {translate('screens/FeatureFlagScreen', item.name)}
-      </ThemedText>
+        <ThemedText
+          dark={tailwind('text-white text-opacity-90')}
+          light={tailwind('text-black')}
+          style={tailwind('font-medium')}
+        >
+          {translate('screens/FeatureFlagScreen', item.name)}
+        </ThemedText>
 
-      <View style={tailwind('flex-row items-center')}>
-        <Switch
-          onValueChange={(v) => {
+        <View style={tailwind('flex-row items-center')}>
+          <Switch
+            onValueChange={(v) => {
             onChange(item, v)
           }}
-          testID={`feature_${item.id}_switch`}
-          value={item.value}
-        />
-      </View>
-    </ThemedView>
+            testID={`feature_${item.id}_switch`}
+            value={item.value}
+          />
+        </View>
+      </ThemedView>
+      <ThemedText
+        dark={tailwind('text-gray-400')}
+        light={tailwind('text-gray-500')}
+        style={tailwind('px-4 py-2 mb-2 text-sm font-normal')}
+      >
+        {translate('screens/FeatureFlagScreen', item.description)}
+      </ThemedText>
+    </View>
   )
 }

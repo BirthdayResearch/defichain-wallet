@@ -18,6 +18,7 @@ export interface FeatureFlag {
   name: string
   version: string
   stage: FEATURE_FLAG_STAGE
+  description: string
 }
 
 export type FEATURE_FLAG_ID = 'loan' | 'auction'

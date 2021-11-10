@@ -2,30 +2,88 @@
 
 exports[`feature flag screen should render FeatureFlagItem 1`] = `
 <View
-  style={
-    Array [
-      Object {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 8,
-        "paddingTop": 16,
-      },
-      Object {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderTopColor": "rgba(229, 229, 229, 1)",
-      },
-    ]
-  }
   testID="feature_loan_row"
 >
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 8,
+          "paddingTop": 16,
+        },
+        Object {
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderBottomColor": "rgba(229, 229, 229, 1)",
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(229, 229, 229, 1)",
+          "borderRightColor": "rgba(229, 229, 229, 1)",
+          "borderTopColor": "rgba(229, 229, 229, 1)",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "MediumFont",
+              "fontWeight": "500",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Decentralized Loans
+    </Text>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <RCTSwitch
+        accessibilityRole="switch"
+        onChange={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        onTintColor="#34C759"
+        style={
+          Array [
+            Object {
+              "height": 31,
+              "width": 51,
+            },
+            Object {
+              "backgroundColor": "#ffffff",
+              "borderRadius": 16,
+            },
+          ]
+        }
+        testID="feature_loan_switch"
+        thumbTintColor="#fff"
+        tintColor="rgba(120, 120, 128, 0.20)"
+        value={true}
+      />
+    </View>
+  </View>
   <Text
     style={
       Array [
@@ -37,50 +95,25 @@ exports[`feature flag screen should render FeatureFlagItem 1`] = `
         },
         Array [
           Object {
-            "fontFamily": "MediumFont",
-            "fontWeight": "500",
+            "fontFamily": "RegularFont",
+            "fontSize": 14,
+            "fontWeight": "400",
+            "lineHeight": 20,
+            "marginBottom": 8,
+            "paddingBottom": 8,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 8,
           },
           Object {
-            "color": "rgba(0, 0, 0, 1)",
+            "color": "rgba(115, 115, 115, 1)",
           },
         ],
       ]
     }
   >
-    Decentralized Loans
+    Browse loan tokens provided by Defichain
   </Text>
-  <View
-    style={
-      Object {
-        "alignItems": "center",
-        "flexDirection": "row",
-      }
-    }
-  >
-    <RCTSwitch
-      accessibilityRole="switch"
-      onChange={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      onTintColor="#34C759"
-      style={
-        Array [
-          Object {
-            "height": 31,
-            "width": 51,
-          },
-          Object {
-            "backgroundColor": "#ffffff",
-            "borderRadius": 16,
-          },
-        ]
-      }
-      testID="feature_loan_switch"
-      thumbTintColor="#fff"
-      tintColor="rgba(120, 120, 128, 0.20)"
-      value={true}
-    />
-  </View>
 </View>
 `;
 
@@ -162,30 +195,88 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
       </Text>
     </View>
     <View
-      style={
-        Array [
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 8,
-            "paddingTop": 16,
-          },
-          Object {
-            "backgroundColor": "rgba(255, 255, 255, 1)",
-            "borderBottomColor": "rgba(229, 229, 229, 1)",
-            "borderBottomWidth": 1,
-            "borderLeftColor": "rgba(229, 229, 229, 1)",
-            "borderRightColor": "rgba(229, 229, 229, 1)",
-            "borderTopColor": "rgba(229, 229, 229, 1)",
-          },
-        ]
-      }
       testID="feature_loan_row"
     >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 8,
+              "paddingTop": 16,
+            },
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(229, 229, 229, 1)",
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(229, 229, 229, 1)",
+              "borderRightColor": "rgba(229, 229, 229, 1)",
+              "borderTopColor": "rgba(229, 229, 229, 1)",
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontWeight": "500",
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Decentralized Loans
+        </Text>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            }
+          }
+        >
+          <RCTSwitch
+            accessibilityRole="switch"
+            onChange={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            onTintColor="#34C759"
+            style={
+              Array [
+                Object {
+                  "height": 31,
+                  "width": 51,
+                },
+                Object {
+                  "backgroundColor": "#ffffff",
+                  "borderRadius": 16,
+                },
+              ]
+            }
+            testID="feature_loan_switch"
+            thumbTintColor="#fff"
+            tintColor="rgba(120, 120, 128, 0.20)"
+            value={true}
+          />
+        </View>
+      </View>
       <Text
         style={
           Array [
@@ -197,50 +288,25 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
             },
             Array [
               Object {
-                "fontFamily": "MediumFont",
-                "fontWeight": "500",
+                "fontFamily": "RegularFont",
+                "fontSize": 14,
+                "fontWeight": "400",
+                "lineHeight": 20,
+                "marginBottom": 8,
+                "paddingBottom": 8,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "paddingTop": 8,
               },
               Object {
-                "color": "rgba(0, 0, 0, 1)",
+                "color": "rgba(115, 115, 115, 1)",
               },
             ],
           ]
         }
       >
-        Decentralized Loans
+        Browse loan tokens provided by Defichain
       </Text>
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-          }
-        }
-      >
-        <RCTSwitch
-          accessibilityRole="switch"
-          onChange={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          onTintColor="#34C759"
-          style={
-            Array [
-              Object {
-                "height": 31,
-                "width": 51,
-              },
-              Object {
-                "backgroundColor": "#ffffff",
-                "borderRadius": 16,
-              },
-            ]
-          }
-          testID="feature_loan_switch"
-          thumbTintColor="#fff"
-          tintColor="rgba(120, 120, 128, 0.20)"
-          value={true}
-        />
-      </View>
     </View>
   </View>
 </RCTScrollView>
