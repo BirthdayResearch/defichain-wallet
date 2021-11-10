@@ -13,6 +13,8 @@ import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
 import { DexScreen } from './DexScreen'
 import { ConfirmPoolSwapScreen, DexForm } from './PoolSwap/ConfirmPoolSwapScreen'
 import { DerivedTokenState, PoolSwapScreen } from './PoolSwap/PoolSwapScreen'
+import { CompositeSwapScreen } from './CompositeSwap/CompositeSwapScreen'
+import { CompositeSwapForm, ConfirmCompositeSwapScreen } from './CompositeSwap/ConfirmCompositeSwapScreen'
 import { WalletToken } from '@store/wallet'
 import { ConversionParam } from '../Balances/BalancesNavigator'
 
@@ -29,6 +31,15 @@ export interface DexParamList {
     priceRateA: string
     priceRateB: string
     conversion?: ConversionParam
+  }
+  CompositeSwapScreen: undefined
+  ConfirmCompositeSwapScreen: {
+    tokenA: DerivedTokenState
+    tokenB: DerivedTokenState
+    slippage: number
+    fee: BigNumber
+    swap: CompositeSwapForm
+    priceRates: Array<{label: string, value: string}>
   }
   AddLiquidity: { pair: PoolPairData }
   ConfirmAddLiquidity: {
@@ -154,6 +165,32 @@ export function DexNavigator (): JSX.Element {
       <DexStack.Screen
         component={ConfirmPoolSwapScreen}
         name='ConfirmPoolSwapScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Confirm Swap')}
+              containerTestID={headerContainerTestId}
+            />
+          )
+        }}
+      />
+
+      <DexStack.Screen
+        component={CompositeSwapScreen}
+        name='CompositeSwap'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Swap tokens')}
+              containerTestID={headerContainerTestId}
+            />
+          )
+        }}
+      />
+
+      <DexStack.Screen
+        component={ConfirmCompositeSwapScreen}
+        name='ConfirmCompositeSwapScreen'
         options={{
           headerTitle: () => (
             <HeaderTitle

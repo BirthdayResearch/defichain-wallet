@@ -105,7 +105,7 @@ export function DexScreen (): JSX.Element {
       <ThemedView
         dark={tailwind('bg-gray-800 border-b border-gray-700')}
         light={tailwind('bg-white border-b border-gray-200')}
-        style={tailwind('flex flex-row px-4 py-3')}
+        style={tailwind('flex flex-row px-4 py-3 justify-between text-center')}
       >
         <View style={tailwind('flex flex-col')}>
           <ThemedText light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')} style={tailwind('text-xs')}>{translate('screens/DexScreen', 'Total Value Locked (USD)')}</ThemedText>
@@ -128,6 +128,16 @@ export function DexScreen (): JSX.Element {
             />
           </ThemedText>
         </View>
+        <PoolPairActionButton
+          name='swap-horiz'
+          onPress={() => navigation.navigate({
+            name: 'CompositeSwap',
+            params: {},
+            merge: true
+          })}
+          pair='DFI'
+          label={translate('screens/DexScreen', 'SWAP')}
+        />
       </ThemedView>
       <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
       <View style={tailwind('flex-1')}>
