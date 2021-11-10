@@ -9,7 +9,7 @@ context('Wallet - Loans', () => {
 context('Wallet - Loans Feature Gated', () => {
   it('should not have loans tab if loan feature is blocked', function () {
     cy.intercept('**/settings/flags', {
-      body: {}
+      body: []
     })
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_loans').should('not.exist')
@@ -22,7 +22,8 @@ context('Wallet - Loans Feature Gated', () => {
           id: 'foo',
           name: 'bar',
           stage: 'alpha',
-          version: '>=0.0.0'
+          version: '>=0.0.0',
+          description: 'foo'
         }
       ]
     })
@@ -40,5 +41,37 @@ context('Wallet - Loans Feature Gated', () => {
     })
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_loans').should('not.exist')
+  })
+
+  it('should not have loans tab if loan feature is beta and not activated by user', function () {
+    cy.intercept('**/settings/flags', {
+      body: [
+        {
+          id: 'loan',
+          name: 'Loan',
+          stage: 'beta',
+          version: '>=0.0.0',
+          description: 'Loan'
+        }
+      ]
+    })
+    cy.createEmptyWallet(true)
+    cy.getByTestID('bottom_tab_loans').should('not.exist')
+  })
+
+  it('should have loans tab if loan feature is public', function () {
+    cy.intercept('**/settings/flags', {
+      body: [
+        {
+          id: 'loan',
+          name: 'Loan',
+          stage: 'public',
+          version: '>=0.0.0',
+          description: 'Loan'
+        }
+      ]
+    })
+    cy.createEmptyWallet(true)
+    cy.getByTestID('bottom_tab_loans').should('exist')
   })
 })
