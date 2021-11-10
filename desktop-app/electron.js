@@ -6,7 +6,8 @@ process.env.ELECTRON_START_URL = `http://localhost:${port}`
 
 const client = new net.Socket()
 let startedElectron = false
-const tryConnection = () => {
+
+function tryConnection () {
   client.connect({ port }, () => {
     client.end()
     if (!startedElectron) {
@@ -20,6 +21,6 @@ const tryConnection = () => {
 
 tryConnection()
 
-client.on('error', (err) => {
+client.on('error', () => {
   setTimeout(tryConnection, 1000)
 })

@@ -17,6 +17,6 @@
     "isolatedModules": true
   },
   "include": [
-    "main.ts"
+    "index.ts"
   ]
 }

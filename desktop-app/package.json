@@ -2,27 +2,23 @@
   "name": "@defich/desktop-wallet",
   "version": "0.0.0",
   "description": "DeFiChain Wallet for Desktop (Mac, Linux and Windows).",
-  "main": "./main/build/main.js",
+  "main": "./build/index.js",
   "engines": {
     "node": ">=16"
   },
   "scripts": {
-    "transpile": "tsc --p main/tsconfig.json",
-    "start:dev": "concurrently -p \"[{time} - {name}]\" -n \"ReactApp,Electron\" -c \"bgMagenta.black.bold,bgCyan.black.bold\" -t \"hh:mm:ss a\" \"npm run start:react\" \"npm run start:electron\"",
-    "start:react": "cd .. && expo start --clear --web",
-    "start:electron": "node main/initiate-electron",
-    "electron": "cross-env mode=development WEB_PUBLIC_URL=./ electron -r ts-node/register/transpile-only ./main/main.ts --inspect -d true",
-    "build:react": "cd .. && cross-env WEB_PUBLIC_URL=./ mode=production expo build:web --no-pwa",
-    "build:electron": "npm run build:react && npm run transpile && electron-builder -p never",
     "postinstall": "electron-builder install-app-deps",
-    "publish": "npm run build:react && npm run transpile && cross-env mode=production && electron-builder build -p always"
+    "dev": "concurrently -p \"[{time} - {name}]\" -n \"ReactApp,Electron\" -c \"bgMagenta.black.bold,bgCyan.black.bold\" -t \"hh:mm:ss a\" \"npm run start:react\" \"npm run start:electron\"",
+    "dev:react": "cd .. && expo start --clear --web",
+    "dev:electron": "node electron.js",
+    "build": "npm run build:react && npm run build:electron",
+    "build:react": "cd .. && cross-env WEB_PUBLIC_URL=./ mode=production expo build:web --no-pwa",
+    "build:electron": "tsc --p tsconfig.json && electron-builder --publish never",
+    "publish": "npm run build:react && cross-env mode=production && electron-builder --publish always"
   },
   "dependencies": {
     "electron-debug": "^3.2.0",
-    "electron-log": "^4.4.1",
-    "foreman": "^3.0.1",
-    "is-electron": "^2.2.0",
-    "loglevel": "^1.7.1"
+    "electron-log": "^4.4.1"
   },
   "devDependencies": {
     "concurrently": "6.3.0",
@@ -31,7 +27,6 @@
     "electron-builder": "22.13.1",
     "electron-devtools-installer": "^3.2.0",
     "electron-notarize": "1.1.1",
-    "install": "^0.13.0",
     "ts-node": "^10.4.0"
   },
   "build": {
@@ -41,7 +36,7 @@
     "asar": true,
     "afterSign": "./notarize.js",
     "files": [
-      "./main/build",
+      "./build",
       {
         "from": "../web-build/",
         "to": "./web-build/",
@@ -97,17 +92,5 @@
       "owner": "DeFiCh",
       "releaseType": "prerelease"
     }
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   }
 }
