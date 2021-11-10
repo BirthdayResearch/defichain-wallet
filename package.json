@@ -70,7 +70,6 @@
     "expo-web-browser": "~10.0.3",
     "i18n-js": "^3.8.0",
     "install": "^0.13.0",
-    "is-electron": "^2.2.0",
     "lodash": "^4.17.21",
     "react": "17.0.1",
     "react-content-loader": "^6.0.3",

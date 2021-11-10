@@ -13,7 +13,7 @@ export async function setupBrowserWindow (isDev: boolean): Promise<BrowserWindow
     title: app.name,
     movable: true,
     resizable: isDev,
-    icon: path.join(__dirname, '../../shared/assets/images/icon-512.png')
+    icon: path.join(__dirname, './src/assets/icon-512.png')
   })
 
   // TODO: to push publishing into another PR to implement it together with web-build
