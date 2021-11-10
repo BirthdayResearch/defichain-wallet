@@ -335,6 +335,7 @@
   },
   "screens/FeatureFlagScreen": {
     "Loans": "贷款",
+    "Browse loan tokens provided by DeFiChain": "浏览 DeFiChain 提供的贷款代币",
     "Continue": "继续",
     "Cancel": "取消",
     "Enable {{feature}} (Beta)": "启用 Beta测试版 {{feature}}",

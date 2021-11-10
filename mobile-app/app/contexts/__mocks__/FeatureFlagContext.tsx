@@ -8,7 +8,7 @@ export function useFeatureFlagContext (): FeatureFlagContextI {
         name: 'Decentralized Loans',
         stage: 'beta',
         version: '>=0.12.0',
-        description: 'Browse loan tokens provided by Defichain'
+        description: 'Browse loan tokens provided by DeFiChain'
       }
     ],
     enabledFeatures: ['loan'],

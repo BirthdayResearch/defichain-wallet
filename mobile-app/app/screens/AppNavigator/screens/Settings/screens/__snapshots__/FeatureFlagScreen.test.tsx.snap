@@ -112,7 +112,7 @@ exports[`feature flag screen should render FeatureFlagItem 1`] = `
       ]
     }
   >
-    Browse loan tokens provided by Defichain
+    Browse loan tokens provided by DeFiChain
   </Text>
 </View>
 `;
@@ -305,7 +305,7 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
           ]
         }
       >
-        Browse loan tokens provided by Defichain
+        Browse loan tokens provided by DeFiChain
       </Text>
     </View>
   </View>

@@ -14,6 +14,6 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     name: 'Loans',
     stage: 'beta',
     version: '>=0.12.0',
-    description: 'Browse loan tokens provided by Defichain'
+    description: 'Browse loan tokens provided by DeFiChain'
   }])
 }

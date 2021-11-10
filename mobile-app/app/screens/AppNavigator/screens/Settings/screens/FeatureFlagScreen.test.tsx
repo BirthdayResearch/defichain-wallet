@@ -12,7 +12,7 @@ describe('feature flag screen', () => {
       name: 'Decentralized Loans',
       stage: 'beta',
       version: '>=0.12.0',
-      description: 'Browse loan tokens provided by Defichain',
+      description: 'Browse loan tokens provided by DeFiChain',
       value: true
     }
     const rendered = render(<FeatureFlagItem item={feature} onChange={() => {}} />)
