@@ -70,7 +70,7 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
       style={tailwind('p-4 flex-1')}
     >
       <ThemedText style={tailwind('mb-2 text-lg font-medium')}>
-        {translate('components/AddOrEditCollateralForm', 'How much {{token}} to add?', { token: token })}
+        {translate('components/AddOrEditCollateralForm', 'How much {{symbol}} to add?', { symbol: token })}
       </ThemedText>
       <View style={tailwind('flex flex-row items-center mb-2')}>
         <SymbolIcon symbol={token} styleProps={{ width: 24, height: 24 }} />
@@ -88,7 +88,7 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
             value={collateralFactor.toFixed(2)}
             decimalScale={2}
             displayType='text'
-            suffix={`% ${translate('AddOrEditCollateralForm', 'collateral factor')}`}
+            suffix={`% ${translate('components/AddOrEditCollateralForm', 'collateral factor')}`}
             renderText={value =>
               <ThemedText
                 light={tailwind('text-gray-700')}
@@ -112,7 +112,7 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
         onFocus={handleOnFocus}
       />
       <InputHelperText
-        label={`${translate('screens/ConvertScreen', 'Available')}: `}
+        label={`${translate('components/AddOrEditCollateralForm', 'Available')}: `}
         content={available.toFixed(8)}
         suffix={` ${token}`}
         styleProps={tailwind('font-medium')}
