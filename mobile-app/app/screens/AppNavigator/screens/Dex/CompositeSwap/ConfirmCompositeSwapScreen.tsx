@@ -1,17 +1,19 @@
 import React from 'react'
 import { tailwind } from '@tailwind'
 import { StackScreenProps } from '@react-navigation/stack'
-import { ThemedScrollView, ThemedSectionTitle } from '@components/themed'
-import { DexParamList } from '../DexNavigator'
+import BigNumber from 'bignumber.js'
 import { translate } from '@translations'
+import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
 import { TextRow } from '@components/TextRow'
 import { NumberRow } from '@components/NumberRow'
-import { DerivedTokenState } from '@screens/AppNavigator/screens/Dex/PoolSwap/PoolSwapScreen'
-import BigNumber from 'bignumber.js'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { PricesSection } from './components/PricesSection'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
+import { SummaryTitle } from '@components/SummaryTitle'
+import { getNativeIcon } from '@components/icons/assets'
+import { DerivedTokenState } from './CompositeSwapScreen'
+import { DexParamList } from '../DexNavigator'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmCompositeSwapScreen'>
 export interface CompositeSwapForm {
@@ -30,13 +32,31 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
     tokenA,
     tokenB
   } = route.params
+  const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
+  const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
 
   async function onSubmit (): Promise<void> {
-
   }
 
   return (
     <ThemedScrollView style={tailwind('pb-4')}>
+      <ThemedView
+        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        light={tailwind('bg-white border-b border-gray-300')}
+        style={tailwind('flex-col px-4 py-8')}
+      >
+        <SummaryTitle
+          amount={swap.amountFrom}
+          suffixType='component'
+          testID='text_swap_amount'
+          title={translate('screens/ConfirmCompositePoolSwapScreen', 'You are swapping')}
+        >
+          <TokenAIcon height={24} width={24} style={tailwind('ml-1')} />
+          <ThemedIcon iconType='MaterialIcons' name='arrow-right-alt' size={24} style={tailwind('px-1')} />
+          <TokenBIcon height={24} width={24} />
+        </SummaryTitle>
+      </ThemedView>
+
       <ThemedSectionTitle
         testID='title_tx_detail'
         text={translate('screens/ConfirmCompositePoolSwapScreen', 'TRANSACTION DETAILS')}

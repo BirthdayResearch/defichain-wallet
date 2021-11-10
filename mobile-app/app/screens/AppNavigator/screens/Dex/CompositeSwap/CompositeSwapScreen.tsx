@@ -14,7 +14,6 @@ import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { DerivedTokenState } from '@screens/AppNavigator/screens/Dex/PoolSwap/PoolSwapScreen'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import {
   ThemedIcon,
@@ -33,6 +32,13 @@ import { TextRow } from '@components/TextRow'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { SlippageTolerance } from '../PoolSwap/components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
+
+export interface DerivedTokenState {
+  id: string
+  amount: string
+  symbol: string
+  displaySymbol: string
+}
 
 export function CompositeSwapScreen (): JSX.Element {
   const logger = useLogger()

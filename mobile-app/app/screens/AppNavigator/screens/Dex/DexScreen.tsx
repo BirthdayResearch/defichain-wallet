@@ -1,3 +1,4 @@
+import { StyleProp, ViewStyle } from 'react-native'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { MaterialIcons } from '@expo/vector-icons'
@@ -128,7 +129,7 @@ export function DexScreen (): JSX.Element {
             />
           </ThemedText>
         </View>
-        <PoolPairActionButton
+        <ActionButton
           name='swap-horiz'
           onPress={() => navigation.navigate({
             name: 'CompositeSwap',
@@ -137,6 +138,7 @@ export function DexScreen (): JSX.Element {
           })}
           pair='DFI'
           label={translate('screens/DexScreen', 'SWAP')}
+          style={tailwind('my-2 p-2')}
         />
       </ThemedView>
       <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
@@ -309,13 +311,14 @@ function AvailablePoolPairCards ({
 
           <PoolPairInfoDetails type='available' pair={pair} tokenATotal={pair?.tokenA.reserve} tokenBTotal={pair?.tokenB.reserve} testID='available' />
           <View style={tailwind('flex-row mt-4 flex-wrap')}>
-            <PoolPairActionButton
+            <ActionButton
               name='add'
               onPress={() => onAdd(pair)}
               pair={symbol}
               label={translate('screens/DexScreen', 'ADD LIQUIDITY')}
+              style={tailwind('mr-2 mt-2')}
             />
-            <PoolPairActionButton
+            <ActionButton
               name='swap-horiz'
               onPress={() => navigation.navigate({
                 name: 'PoolSwap',
@@ -324,6 +327,7 @@ function AvailablePoolPairCards ({
               })}
               pair={symbol}
               label={translate('screens/DexScreen', 'SWAP TOKENS')}
+              style={tailwind('mr-2 mt-2')}
             />
           </View>
         </ThemedView>
@@ -444,31 +448,33 @@ function PoolPairActions (props: {onAdd: () => void, onRemove: () => void, symbo
   const { onAdd, onRemove, symbol } = props
   return (
     <View style={tailwind('flex-row mt-3 flex-wrap -mr-2')}>
-      <PoolPairActionButton
+      <ActionButton
         name='add'
         onPress={onAdd}
         pair={symbol}
         label={translate('screens/DexScreen', 'ADD MORE')}
+        style={tailwind('mr-2 mt-2')}
       />
 
-      <PoolPairActionButton
+      <ActionButton
         name='remove'
         onPress={onRemove}
         pair={symbol}
         label={translate('screens/DexScreen', 'REMOVE')}
+        style={tailwind('mr-2 mt-2')}
       />
     </View>
   )
 }
 
-function PoolPairActionButton (props: { name: React.ComponentProps<typeof MaterialIcons>['name'], pair: string, onPress: () => void, label: string }): JSX.Element {
+function ActionButton (props: { name: React.ComponentProps<typeof MaterialIcons>['name'], pair: string, onPress: () => void, label: string, style?: StyleProp<ViewStyle> }): JSX.Element {
   return (
     <IconButton
       iconName={props.name}
       iconSize={16}
       iconType='MaterialIcons'
       onPress={props.onPress}
-      style={tailwind('mr-2 mt-2')}
+      style={props.style}
       testID={`pool_pair_${props.name}_${props.pair}`}
       iconLabel={props.label}
     />
