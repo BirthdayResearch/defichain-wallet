@@ -10,7 +10,8 @@ import { CreateVaultScreen } from './screens/CreateVaultScreen'
 import { ConfirmCreateVaultScreen } from './screens/ConfirmCreateVaultScreen'
 import BigNumber from 'bignumber.js'
 import { VaultDetailScreen } from './VaultDetail/VaultDetailScreen'
-import { AddCollateralScreen } from './screens/AddCollateralScreen'
+import { AddCollateralScreen, Collateral } from './screens/AddCollateralScreen'
+import { ConfirmAddCollateralScreen } from './screens/ConfirmAddCollateralScreen'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -29,6 +30,12 @@ export interface LoanParamList {
   }
   AddCollateralScreen: {
     vaultId: string
+  }
+  ConfirmAddCollateralScreen: {
+    vaultId: string
+    collaterals: Collateral[] // TODO: update type
+    totalCollateralValue: BigNumber
+    fee: BigNumber
   }
   [key: string]: undefined | object
 }
@@ -75,7 +82,7 @@ export function LoansNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/LoansScreen', 'Create vault') + ' (Beta)'} // TODO: remove beta from title
+              text={translate('screens/LoansScreen', 'Create Vault') + ' (Beta)'} // TODO: remove beta from title
             />
           )
         }}
@@ -87,7 +94,7 @@ export function LoansNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/LoansScreen', 'Confirm create vault') + ' (Beta)'} // TODO: remove beta from title
+              text={translate('screens/LoansScreen', 'Confirm Create Vault') + ' (Beta)'} // TODO: remove beta from title
             />
           )
         }}
@@ -99,7 +106,7 @@ export function LoansNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/LoansScreen', 'Vault detail') + ' (Beta)'} // TODO: remove beta from title
+              text={translate('screens/LoansScreen', 'Vault Detail') + ' (Beta)'} // TODO: remove beta from title
             />
           )
         }}
@@ -111,7 +118,19 @@ export function LoansNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/LoansScreen', 'Add collateral') + ' (Beta)'} // TODO: remove beta from title
+              text={translate('screens/LoansScreen', 'Add Collateral') + ' (Beta)'} // TODO: remove beta from title
+            />
+          )
+        }}
+      />
+      <LoansStack.Screen
+        component={ConfirmAddCollateralScreen}
+        name='ConfirmAddCollateralScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Confirm Add Collateral') + ' (Beta)'} // TODO: remove beta from title
             />
           )
         }}

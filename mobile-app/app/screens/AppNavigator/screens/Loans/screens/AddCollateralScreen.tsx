@@ -8,7 +8,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { LoanParamList } from '../LoansNavigator'
@@ -17,6 +17,8 @@ import { AddOrEditCollateralForm, AddOrEditCollateralFormProps } from '../compon
 import { BottomSheetTokenList } from '@components/BottomSheetTokenList'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { WalletAlert } from '@components/WalletAlert'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 type Props = StackScreenProps<LoanParamList, 'AddCollateralScreen'>
 
@@ -25,11 +27,23 @@ export interface BottomSheetWithNavRouteParam {
   [key: string]: undefined | object
 }
 
-export function AddCollateralScreen ({ route }: Props): JSX.Element {
+export interface Collateral {
+  collateralId: string
+  collateralFactor: BigNumber
+  amount: BigNumber
+  amountValue: BigNumber
+  vaultProportion: BigNumber
+  available: BigNumber
+}
+
+export function AddCollateralScreen ({ route, navigation }: Props): JSX.Element {
   const { vaultId } = route.params
+  const client = useWhaleApiClient()
+  const logger = useLogger()
   const { isLight } = useThemeContext()
+  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
-  const collaterals: any[] = [
+  const collaterals: Collateral[] = [
     {
       collateralId: 'DFI',
       collateralFactor: new BigNumber(100),
@@ -79,13 +93,30 @@ export function AddCollateralScreen ({ route }: Props): JSX.Element {
   const dismissModal = useCallback(() => {
     bottomSheetRef.current?.close()
   }, [])
+  const onContinuePress = (): void => {
+    navigation.navigate({
+      name: 'ConfirmAddCollateralScreen',
+      params: {
+        vaultId,
+        collaterals,
+        totalCollateralValue,
+        fee
+      },
+      merge: true
+    })
+  }
+  useEffect(() => {
+    client.fee.estimate()
+      .then((f) => setFee(new BigNumber(f)))
+      .catch(logger.error)
+  }, [])
 
   return (
     <View style={tailwind('flex-1')}>
       <ThemedScrollView
         contentContainerStyle={tailwind('p-4 pt-0')}
       >
-        <SectionTitle title='YOU ARE ADDING COLLATERAL TO VAULT' />
+        <SectionTitle title='COLLATERALS WILL BE ADDED TO VAULT' />
         <VaultIdSection vaultId={vaultId} />
         <SectionTitle title='ADD DFI AND TOKENS FOR COLLATERAL' />
         {collaterals.map(collateral => (
@@ -119,11 +150,11 @@ export function AddCollateralScreen ({ route }: Props): JSX.Element {
                 title: translate('screens/AddCollateralScreen', 'Are you sure you want to remove collateral token?'),
                 buttons: [
                   {
-                    text: translate('screens/Settings', 'Cancel'),
+                    text: translate('screens/AddCollateralScreen', 'Cancel'),
                     style: 'cancel'
                   },
                   {
-                    text: translate('screens/Settings', 'Remove'),
+                    text: translate('screens/AddCollateralScreen', 'Remove'),
                     style: 'destructive',
                     onPress: () => {
                       // TODO: handle on remove collateral
@@ -171,7 +202,7 @@ export function AddCollateralScreen ({ route }: Props): JSX.Element {
           }}
         />
       </ThemedScrollView>
-      <FooterSection totalCollateralValue={totalCollateralValue} isValid={false} />
+      <FooterSection totalCollateralValue={totalCollateralValue} onContinuePress={onContinuePress} isValid />
       <BottomSheetWithNav
         modalRef={bottomSheetRef}
         screenList={bottomSheetScreen}
@@ -399,7 +430,7 @@ function LearnMoreCollateralFactor (): JSX.Element {
         dark={tailwind('text-gray-500')}
         style={tailwind('text-xs font-medium')}
       >
-        {translate('screens/AddCollateralScreen', 'Each token has their own collateral factor that would affect its value as collateral. ')}
+        {translate('screens/AddCollateralScreen', 'Each token has their own collateral factor that would affect its respective collateral value. ')}
         <TouchableOpacity
           onPress={() => { /* TODO: handle learn more link */ }}
         >
@@ -441,7 +472,7 @@ function AddCollateralButton (props: {disabled: boolean, onPress: () => void}): 
   )
 }
 
-function FooterSection (props: {totalCollateralValue: BigNumber, isValid: boolean}): JSX.Element {
+function FooterSection (props: {totalCollateralValue: BigNumber, onContinuePress: () => void, isValid: boolean}): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
@@ -475,7 +506,7 @@ function FooterSection (props: {totalCollateralValue: BigNumber, isValid: boolea
       <Button
         disabled={!props.isValid}
         label={translate('screens/AddCollateralScreen', 'CONTINUE')}
-        onPress={() => { /* TODO: handle continue button */ }}
+        onPress={props.onContinuePress}
         testID='add_collateral_button'
         margin='mb-2'
       />
