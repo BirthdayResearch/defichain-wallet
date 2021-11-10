@@ -132,11 +132,11 @@ export function CompositeSwapScreen (): JSX.Element {
 
       // TODO - Handle price rates computation of composite swap (multiple hops)
       setPriceRates([{
-        label: `${selectedPoolPair.tokenA.displaySymbol} price per ${selectedPoolPair.tokenB.displaySymbol}`,
-        value: priceB
+        label: `${selectedPoolPair.tokenA.displaySymbol} price in ${selectedPoolPair.tokenB.displaySymbol}`,
+        value: `1 ${selectedPoolPair.tokenA.displaySymbol} = ${priceB} ${selectedPoolPair.tokenB.displaySymbol}`
       }, {
-        label: `${selectedPoolPair.tokenB.displaySymbol} price per ${selectedPoolPair.tokenA.displaySymbol}`,
-        value: priceA
+        label: `${selectedPoolPair.tokenB.displaySymbol} price in ${selectedPoolPair.tokenA.displaySymbol}`,
+        value: `1 ${selectedPoolPair.tokenB.displaySymbol} = ${priceA} ${selectedPoolPair.tokenA.displaySymbol}`
       }
       ])
 
@@ -190,7 +190,7 @@ export function CompositeSwapScreen (): JSX.Element {
 
       <View style={tailwind('flex flex-row mt-3 mx-2')}>
         <TokenSelection label='FROM' symbol={selectedTokenA?.displaySymbol} onPress={() => onTokenSelect({ direction: 'FROM', value: 'DFI' })} />
-        <TokenSelection label='TO' symbol={selectedTokenB?.displaySymbol} onPress={() => onTokenSelect({ direction: 'TO', value: 'USDT' })} />
+        <TokenSelection label='TO' symbol={selectedTokenB?.displaySymbol} onPress={() => onTokenSelect({ direction: 'TO', value: 'ETH' })} />
       </View>
 
       {(selectedTokenA === undefined || selectedTokenB === undefined) &&
