@@ -187,6 +187,9 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
                   "fontSize": 12,
                   "fontWeight": "300",
                   "lineHeight": 16,
+                  "marginBottom": 4,
+                  "marginTop": 4,
+                  "textDecorationLine": "underline",
                 },
                 Object {
                   "color": "rgba(0, 0, 0, 1)",

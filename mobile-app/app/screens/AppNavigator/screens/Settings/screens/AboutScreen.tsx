@@ -131,7 +131,7 @@ export function AboutScreen (): JSX.Element {
             testID='try_beta_features'
             onPress={() => navigation.navigate('FeatureFlagScreen')}
           >
-            <ThemedText style={tailwind('text-xs font-light text-black')}>
+            <ThemedText style={tailwind('mt-1 mb-1 text-xs font-light text-black underline')}>
               {translate('screens/AboutScreen', 'Try Beta features')}
             </ThemedText>
           </TouchableOpacity>

@@ -15,16 +15,18 @@ export interface BetaFeaturesI extends FeatureFlag {
 
 export function FeatureFlagScreen (): JSX.Element {
   const { featureFlags, enabledFeatures, updateEnabledFeatures } = useFeatureFlagContext()
-  const features = featureFlags.filter((item) => item.stage === 'beta')
   const [betaFeatures, setBetaFeatures] = useState<BetaFeaturesI []>([])
 
   const getBetaFeature = (flags: FEATURE_FLAG_ID[]): BetaFeaturesI[] => {
-    return features.map((item: FeatureFlag) => {
-      return {
-        ...item,
-        value: flags.includes(item.id)
+    return featureFlags.reduce((features: BetaFeaturesI[], item: FeatureFlag) => {
+      if (item.stage === 'beta') {
+        features.push({
+          ...item,
+          value: flags.includes(item.id)
+        })
       }
-    })
+      return features
+    }, [])
   }
 
   useEffect(() => {
@@ -110,7 +112,7 @@ export function FeatureFlagItem ({ item, onChange }: FeatureFlagItemProps): JSX.
 
         <View style={tailwind('flex-row items-center')}>
           <Switch
-            onValueChange={(v) => {
+            onValueChange={(v: boolean) => {
             onChange(item, v)
           }}
             testID={`feature_${item.id}_switch`}
@@ -118,13 +120,15 @@ export function FeatureFlagItem ({ item, onChange }: FeatureFlagItemProps): JSX.
           />
         </View>
       </ThemedView>
-      <ThemedText
-        dark={tailwind('text-gray-400')}
-        light={tailwind('text-gray-500')}
-        style={tailwind('px-4 py-2 mb-2 text-sm font-normal')}
-      >
-        {translate('screens/FeatureFlagScreen', item.description)}
-      </ThemedText>
+      {item.description !== undefined && (
+        <ThemedText
+          dark={tailwind('text-gray-400')}
+          light={tailwind('text-gray-500')}
+          style={tailwind('px-4 py-2 mb-2 text-sm font-normal')}
+        >
+          {translate('screens/FeatureFlagScreen', item.description)}
+        </ThemedText>
+      )}
     </View>
   )
 }
