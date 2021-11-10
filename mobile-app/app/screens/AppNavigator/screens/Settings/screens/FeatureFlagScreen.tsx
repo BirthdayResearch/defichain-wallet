@@ -120,15 +120,13 @@ export function FeatureFlagItem ({ item, onChange }: FeatureFlagItemProps): JSX.
           />
         </View>
       </ThemedView>
-      {item.description !== undefined && (
-        <ThemedText
-          dark={tailwind('text-gray-400')}
-          light={tailwind('text-gray-500')}
-          style={tailwind('px-4 py-2 mb-2 text-sm font-normal')}
-        >
-          {translate('screens/FeatureFlagScreen', item.description)}
-        </ThemedText>
-      )}
+      <ThemedText
+        dark={tailwind('text-gray-400')}
+        light={tailwind('text-gray-500')}
+        style={tailwind('px-4 py-2 mb-2 text-sm font-normal')}
+      >
+        {translate('screens/FeatureFlagScreen', item.description)}
+      </ThemedText>
     </View>
   )
 }
