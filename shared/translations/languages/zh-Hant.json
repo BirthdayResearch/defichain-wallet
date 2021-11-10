@@ -734,6 +734,7 @@
     "Collateralization factor": "抵押品係數",
     "Collateral amount": "抵押品金額",
     "Collateral value (USD)": "抵押品價值 (USD)",    
-    "CONFIRM ADD COLLATERAL": "確認添加抵押資金"
+    "CONFIRM ADD COLLATERAL": "確認添加抵押資金",
+    "ADDING": "正在增加"
   }
 }

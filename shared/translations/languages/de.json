@@ -734,6 +734,7 @@
     "Collateralization factor": "Besicherungsfaktor",
     "Collateral amount": "Höhe der Sicherheiten",
     "Collateral value (USD)": "Sicherheitenwert (USD)",
-    "CONFIRM ADD COLLATERAL": "BESTÄTIGE DAS HINZUFÜGEN VON SICHERHEITEN"
+    "CONFIRM ADD COLLATERAL": "BESTÄTIGE DAS HINZUFÜGEN VON SICHERHEITEN",
+    "ADDING": "WIRD HINZUGEFÜGT"
   }
 }

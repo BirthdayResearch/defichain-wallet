@@ -53,7 +53,7 @@ export function ConfirmAddCollateralScreen ({ route, navigation }: Props): JSX.E
 
   function getSubmitLabel (): string {
     if (hasPendingBroadcastJob || hasPendingJob) {
-      return 'CREATING'
+      return 'ADDING'
     }
     return 'CONFIRM ADD COLLATERAL'
   }
