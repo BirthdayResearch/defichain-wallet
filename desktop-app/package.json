@@ -1,12 +1,10 @@
 {
   "name": "@defich/desktop-wallet",
   "version": "0.0.0",
-  "description": "DeFi Blockchain Light Wallet for Desktop (Mac, Linux and Windows).",
+  "description": "DeFiChain Wallet for Desktop (Mac, Linux and Windows).",
   "main": "./main/build/main.js",
-  "author": {
-    "name": "DeFiChain Foundation",
-    "email": "engineering@defichain.com",
-    "url": "https://defichain.com/"
+  "engines": {
+    "node": ">=16"
   },
   "scripts": {
     "transpile": "tsc --p main/tsconfig.json",
@@ -34,17 +32,12 @@
     "electron-devtools-installer": "^3.2.0",
     "electron-notarize": "1.1.1",
     "install": "^0.13.0",
-    "jest": "26.6.0",
-    "ts-node": "^10.4.0",
-    "typescript": "^4.4.4"
-  },
-  "engines": {
-    "node": ">=16"
+    "ts-node": "^10.4.0"
   },
   "build": {
     "productName": "DeFiChain Wallet",
     "appId": "com.defichain.desktop.wallet",
-    "copyright": "Copyright © 2021 ${author}",
+    "copyright": "Copyright © 2021 DeFiChain Wallet Contributors",
     "asar": true,
     "afterSign": "./notarize/notarize.js",
     "files": [

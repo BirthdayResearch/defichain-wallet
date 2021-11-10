@@ -14,7 +14,7 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "isolatedModules": true,
+    "isolatedModules": true
   },
   "include": [
     "main.ts"
