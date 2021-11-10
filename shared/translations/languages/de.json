@@ -575,9 +575,11 @@
   },
   "screens/LoansScreen": {
     "Loans": "Darlehen",
-    "Create vault": "Vault erstellen",
-    "Confirm create vault": "Bestätige Vault erstellen",
-    "Vault detail": "Vault-Detail"
+    "Create Vault": "Vault Erstellen",
+    "Confirm Create Vault": "Bestätige Vault Erstellen",
+    "Vault Detail": "Vault-Detail",
+    "Add Collateral": "Sicherheiten Hinzufügen",
+    "Confirm Add Collateral": "Bestätige das Hinzufügen von Sicherheiten"
   },
   "components/tabs": {
     "Browse loans": "Darlehen durchsuchen",
@@ -694,5 +696,45 @@
   "components/VaultDetailsCollateralsTab": {
     "Collateral amount": "Höhe der Sicherheiten",
     "Vault %": "Vault %"
+  },
+  "screens/AddCollateralScreen": {
+    "COLLATERALS WILL BE ADDED TO VAULT": "DIE SICHERHEITEN WERDEN DEM VAULT HINZUGEFÜGT",
+    "ADD DFI AND TOKENS FOR COLLATERAL": "FÜGE DFI UND TOKEN ALS SICHERHEITEN HINZU",
+    "Collateral amount": "Höhe der Sicherheiten",
+    "Vault %": "Vault %",
+    "Each token has their own collateral factor that would affect its respective collateral value. ": "Jeder Token hat seinen eigenen Besicherungsfaktor, der sich auf den jeweiligen Besicherungswert auswirkt. ",
+    "Learn more": "Erfahre mehr",    
+    "ADD TOKEN AS COLLATERAL": "TOKEN ALS BESICHERUNG HINZUFÜGEN",
+    "Total collateral value (USD)": "Gesamter Besicherungswert (USD)",
+    "Vault needs DFI to be in 50% vault share": "Der Vault muss zu 50% aus DFI bestehen",
+    "Confirm details in next screen": "Bestätige die Details im nächsten Schritt",    
+    "Select token to add": "Wähle den Token aus, der hinzugefügt werden soll",
+    "Are you sure you want to remove collateral token?": "Bist du sicher, dass du den Token  für die Besicherung entfernen möchtest?",
+    "CONTINUE": "FORTFAHREN",
+    "BACK": "ZURÜCK",
+    "Cancel": "Abbrechen",
+    "Remove": "Entfernen"
+  },
+  "components/AddOrEditCollateralForm": {
+    "How much {{symbol}} to add?": "Wie viel von {{symbol}} soll hinzugefügt werden?",
+    "collateral factor": "besicherungsfaktor",
+    "Enter an amount": "Gib eine Menge ein",
+    "Available": "Verfügbar",
+    "ADD TOKEN AS COLLATERAL": "TOKEN ALS BESICHERUNG HINZUFÜGEN"
+  },
+  "screens/ConfirmAddCollateralScreen": {
+    "You are adding collaterals to": "You are adding collaterals to",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "Transaction type": "Transaktionsart",
+    "Add collateral": "Sicherheiten hinzufügen",
+    "Collateral tokens to add": "Füge Tokens zur Besicherung hinzu",
+    "Total collateral value (USD)": "Gesamter Besicherungswert (USD)",
+    "COLLATERAL {{index}}": "SICHERHEITEN {{index}}",
+    "Token": "Token",
+    "Collateralization factor": "Besicherungsfaktor",
+    "Collateral amount": "Höhe der Sicherheiten",
+    "Collateral value (USD)": "Sicherheitenwert (USD)",
+    "CONFIRM ADD COLLATERAL": "BESTÄTIGE DAS HINZUFÜGEN VON SICHERHEITEN",
+    "ADDING": "WIRD HINZUGEFÜGT"
   }
 }
