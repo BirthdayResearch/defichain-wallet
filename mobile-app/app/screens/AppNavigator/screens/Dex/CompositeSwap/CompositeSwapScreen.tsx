@@ -92,7 +92,7 @@ export function CompositeSwapScreen (): JSX.Element {
       {
         stackScreenName: 'TokenList',
         component: BottomSheetTokenList({
-          headerLabel: translate('screens/CompositeSwap', 'Select token to add'),
+          headerLabel: translate('screens/CompositeSwap', 'Choose a token'),
           onCloseButtonPress: () => bottomSheetRef.current?.close(),
           onTokenPress: (_item): void => {
             // TODO - Select the actual token when composite swap already works
