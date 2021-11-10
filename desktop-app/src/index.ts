@@ -1,15 +1,18 @@
 import { app, BrowserWindow } from 'electron'
-import { setupElectronMenu } from './src/ElectronMenu'
-import { setupBrowserWindow } from './src/BrowserWindow'
+import { buildElectronMenu } from './ElectronMenu'
+import { setupBrowserWindow } from './BrowserWindow'
 
-class MainProcess {
-  isDev: boolean = process.env.mode === 'development' || process.env.DEBUG_PROD === 'true'
+class DesktopApp {
+  isDev: boolean = process.env.NODE_ENV !== 'production'
   browserWindow?: BrowserWindow
 
   /**
    * Setup App Lifecycle
    */
   async initApp (): Promise<void> {
+    await app.whenReady()
+    app.applicationMenu = buildElectronMenu()
+
     app.on('window-all-closed', () => {
       // OSX Convention: Having the application in memory even after all windows have been closed
       if (process.platform !== 'darwin') {
@@ -36,8 +39,6 @@ class MainProcess {
         void this.initWindow()
       }
     })
-
-    await app.whenReady()
   }
 
   /**
@@ -45,7 +46,6 @@ class MainProcess {
    */
   async initWindow (): Promise<void> {
     const window = await setupBrowserWindow(this.isDev)
-    setupElectronMenu()
 
     window.on('ready-to-show', () => {
       window.show()
@@ -60,7 +60,7 @@ class MainProcess {
 }
 
 void (async function () {
-  const main = new MainProcess()
-  await main.initApp()
-  await main.initWindow()
+  const app = new DesktopApp()
+  await app.initApp()
+  await app.initWindow()
 })()

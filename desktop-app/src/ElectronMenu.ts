@@ -1,12 +1,10 @@
 import { Menu, MenuItemConstructorOptions, shell } from 'electron'
 
-export function setupElectronMenu (): void {
-  const menu = Menu.buildFromTemplate([
+export function buildElectronMenu (): Electron.Menu {
+  return Menu.buildFromTemplate([
     helpMenu(),
     aboutMenu()
   ])
-
-  Menu.setApplicationMenu(menu)
 }
 
 function helpMenu (): MenuItemConstructorOptions {

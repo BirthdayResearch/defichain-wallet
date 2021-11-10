@@ -2,32 +2,25 @@
   "name": "@defich/desktop-wallet",
   "version": "0.0.0",
   "description": "DeFiChain Wallet for Desktop (Mac, Linux and Windows).",
-  "main": "./build/index.js",
+  "main": "./dist/index.js",
   "engines": {
     "node": ">=16"
   },
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
-    "dev": "concurrently -p \"[{time} - {name}]\" -n \"ReactApp,Electron\" -c \"bgMagenta.black.bold,bgCyan.black.bold\" -t \"hh:mm:ss a\" \"npm run start:react\" \"npm run start:electron\"",
-    "dev:react": "cd .. && expo start --clear --web",
-    "dev:electron": "node electron.js",
-    "build": "npm run build:react && npm run build:electron",
-    "build:react": "cd .. && cross-env WEB_PUBLIC_URL=./ mode=production expo build:web --no-pwa",
-    "build:electron": "tsc --p tsconfig.json && electron-builder --publish never",
-    "publish": "npm run build:react && cross-env mode=production && electron-builder --publish always"
+    "build": "tsc",
+    "start": "npm run build && electron ./dist/index.js",
+    "publish": "npm run build && electron-builder --publish always"
   },
   "dependencies": {
-    "electron-debug": "^3.2.0",
+    "electron": "15.3.0",
     "electron-log": "^4.4.1"
   },
   "devDependencies": {
-    "concurrently": "6.3.0",
-    "cross-env": "7.0.3",
-    "electron": "15.3.0",
     "electron-builder": "22.13.1",
+    "electron-debug": "^3.2.0",
     "electron-devtools-installer": "^3.2.0",
-    "electron-notarize": "1.1.1",
-    "ts-node": "^10.4.0"
+    "electron-notarize": "1.1.1"
   },
   "build": {
     "productName": "DeFiChain Wallet",
