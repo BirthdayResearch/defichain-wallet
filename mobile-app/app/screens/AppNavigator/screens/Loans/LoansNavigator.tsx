@@ -82,7 +82,7 @@ export function LoansNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/LoansScreen', 'Create vault') + ' (Beta)'} // TODO: remove beta from title
+              text={translate('screens/LoansScreen', 'Create Vault') + ' (Beta)'} // TODO: remove beta from title
             />
           )
         }}
@@ -94,7 +94,7 @@ export function LoansNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/LoansScreen', 'Confirm create vault') + ' (Beta)'} // TODO: remove beta from title
+              text={translate('screens/LoansScreen', 'Confirm Create Vault') + ' (Beta)'} // TODO: remove beta from title
             />
           )
         }}
@@ -106,7 +106,7 @@ export function LoansNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/LoansScreen', 'Vault detail') + ' (Beta)'} // TODO: remove beta from title
+              text={translate('screens/LoansScreen', 'Vault Detail') + ' (Beta)'} // TODO: remove beta from title
             />
           )
         }}
@@ -118,7 +118,7 @@ export function LoansNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/LoansScreen', 'Add collateral') + ' (Beta)'} // TODO: remove beta from title
+              text={translate('screens/LoansScreen', 'Add Collateral') + ' (Beta)'} // TODO: remove beta from title
             />
           )
         }}
@@ -130,7 +130,7 @@ export function LoansNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/LoansScreen', 'Confirm add collateral') + ' (Beta)'} // TODO: remove beta from title
+              text={translate('screens/LoansScreen', 'Confirm Add Collateral') + ' (Beta)'} // TODO: remove beta from title
             />
           )
         }}

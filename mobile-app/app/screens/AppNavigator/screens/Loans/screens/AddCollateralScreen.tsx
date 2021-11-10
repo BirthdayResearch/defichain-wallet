@@ -116,7 +116,7 @@ export function AddCollateralScreen ({ route, navigation }: Props): JSX.Element 
       <ThemedScrollView
         contentContainerStyle={tailwind('p-4 pt-0')}
       >
-        <SectionTitle title='YOU ARE ADDING COLLATERAL TO VAULT' />
+        <SectionTitle title='COLLATERALS WILL BE ADDED TO VAULT' />
         <VaultIdSection vaultId={vaultId} />
         <SectionTitle title='ADD DFI AND TOKENS FOR COLLATERAL' />
         {collaterals.map(collateral => (
@@ -150,11 +150,11 @@ export function AddCollateralScreen ({ route, navigation }: Props): JSX.Element 
                 title: translate('screens/AddCollateralScreen', 'Are you sure you want to remove collateral token?'),
                 buttons: [
                   {
-                    text: translate('screens/Settings', 'Cancel'),
+                    text: translate('screens/AddCollateralScreen', 'Cancel'),
                     style: 'cancel'
                   },
                   {
-                    text: translate('screens/Settings', 'Remove'),
+                    text: translate('screens/AddCollateralScreen', 'Remove'),
                     style: 'destructive',
                     onPress: () => {
                       // TODO: handle on remove collateral
@@ -430,7 +430,7 @@ function LearnMoreCollateralFactor (): JSX.Element {
         dark={tailwind('text-gray-500')}
         style={tailwind('text-xs font-medium')}
       >
-        {translate('screens/AddCollateralScreen', 'Each token has their own collateral factor that would affect its value as collateral. ')}
+        {translate('screens/AddCollateralScreen', 'Each token has their own collateral factor that would affect its respective collateral value. ')}
         <TouchableOpacity
           onPress={() => { /* TODO: handle learn more link */ }}
         >
