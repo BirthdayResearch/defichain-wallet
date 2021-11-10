@@ -189,7 +189,8 @@
     "Report in Github, discuss in Reddit and Telegram": "In Github melden, in Reddit und Telegram thematisch diskutieren",
     "Track transactions, tokens and DEX pairs": "Nachverfolgung von Transaktionen, Token und DEX-Handelspaaren",
     "View official website": "Offizielle Website anzeigen",
-    "Learn more about the blockchain": "Lerne mehr über Blockchain"
+    "Learn more about the blockchain": "Lerne mehr über Blockchain",
+    "Try Beta features": "Beta-Funktionen ausprobieren"
   },
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "LERNE ETWAS ÜBER",
@@ -332,6 +333,7 @@
     "There seems to be a problem with the connection. Check your network and try again.": "Ein Problem mit der Internetverbindung ist aufgetreten. Überprüfe deine Datenverbindung und versuche es erneut."
   },
   "screens/FeatureFlagScreen": {
+    "Loans": "Darlehen",
     "Continue": "Fortfahren",
     "Cancel": "Abbrechen",
     "Enable {{feature}} (Beta)": "Aktiviere {{feature}} (Beta)",

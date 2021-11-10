@@ -112,16 +112,11 @@ export function AboutScreen (): JSX.Element {
   return (
     <ThemedScrollView light={tailwind('bg-white')} style={tailwind('px-4')}>
       <View style={tailwind('flex-1 items-center justify-center p-4 mt-4 mb-8')}>
-        <TouchableOpacity
-          disabled={features.length === 0}
-          onLongPress={() => navigation.navigate('FeatureFlagScreen')}
-        >
-          <AppIcon
-            height={70}
-            testID='app_logo'
-            width={70}
-          />
-        </TouchableOpacity>
+        <AppIcon
+          height={70}
+          testID='app_logo'
+          width={70}
+        />
 
         <ThemedText style={tailwind('text-2xl font-bold mt-3')}>
           {translate('screens/AboutScreen', 'DeFiChain Wallet')}
@@ -130,6 +125,17 @@ export function AboutScreen (): JSX.Element {
         <ThemedText style={tailwind('text-base font-light text-black')}>
           {`v${nativeApplicationVersion ?? '0.0.0'}`}
         </ThemedText>
+
+        {features.length > 0 && (
+          <TouchableOpacity
+            testID='try_beta_features'
+            onPress={() => navigation.navigate('FeatureFlagScreen')}
+          >
+            <ThemedText style={tailwind('text-xs font-light text-black')}>
+              {translate('screens/AboutScreen', 'Try Beta features')}
+            </ThemedText>
+          </TouchableOpacity>
+        )}
 
         <View style={tailwind('flex-row justify-center pt-3')}>
           {

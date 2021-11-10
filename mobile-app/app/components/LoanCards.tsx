@@ -6,6 +6,8 @@ import { translate } from '@translations'
 import NumberFormat from 'react-number-format'
 import { View } from 'react-native'
 import { getNativeIcon } from './icons/assets'
+import { InfoText } from './InfoText'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 interface LoanCardsProps {
   loans: LoanCardOptions[]
@@ -24,12 +26,22 @@ export interface LoanCardOptions {
 type PriceType = 'ACTIVE' | 'NEXT'
 
 export function LoanCards (props: LoanCardsProps): JSX.Element {
+  const { isBetaFeature } = useFeatureFlagContext()
   return (
-    <ThemedFlatList
-      contentContainerStyle={tailwind('px-2 pt-4 pb-2')}
-      data={props.loans}
-      numColumns={2}
-      renderItem={({ item, index }): JSX.Element => {
+    <>
+      {isBetaFeature('loan') && (
+        <View style={tailwind('p-4 pb-0')}>
+          <InfoText
+            testID='beta_warning_info_text'
+            text={translate('screens/FeatureFlagScreen', 'Feature is still in Beta. Use at your own risk.')}
+          />
+        </View>
+      )}
+      <ThemedFlatList
+        contentContainerStyle={tailwind('px-2 pt-4 pb-2')}
+        data={props.loans}
+        numColumns={2}
+        renderItem={({ item, index }): JSX.Element => {
         if (index !== props.loans.length - 1) {
           return (
             <LoadCard
@@ -46,9 +58,10 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
           )
         }
       }}
-      keyExtractor={(_item, index) => index.toString()}
-      testID={props.testID}
-    />
+        keyExtractor={(_item, index) => index.toString()}
+        testID={props.testID}
+      />
+    </>
   )
 }
 

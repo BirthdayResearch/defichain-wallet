@@ -14,6 +14,7 @@ export interface FeatureFlagContextI {
   enabledFeatures: FEATURE_FLAG_ID[]
   updateEnabledFeatures: (features: FEATURE_FLAG_ID[]) => void
   isFeatureAvailable: (featureId: FEATURE_FLAG_ID) => boolean
+  isBetaFeature: (featureId: FEATURE_FLAG_ID) => boolean
 }
 
 const FeatureFlagContext = createContext<FeatureFlagContextI>(undefined as any)
@@ -36,6 +37,12 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
 
   if (!isError) {
     prefetchPage({})
+  }
+
+  function isBetaFeature (featureId: FEATURE_FLAG_ID): boolean {
+    return featureFlags.some((flag) => {
+      return flag.id === featureId && flag.stage === 'beta'
+    })
   }
 
   function isFeatureAvailable (featureId: FEATURE_FLAG_ID): boolean {
@@ -86,7 +93,8 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
     featureFlags,
     enabledFeatures,
     updateEnabledFeatures,
-    isFeatureAvailable
+    isFeatureAvailable,
+    isBetaFeature
   }
 
   return (

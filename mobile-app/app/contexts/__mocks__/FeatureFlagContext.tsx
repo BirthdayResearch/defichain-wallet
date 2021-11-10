@@ -12,6 +12,7 @@ export function useFeatureFlagContext (): FeatureFlagContextI {
     ],
     enabledFeatures: ['loan'],
     updateEnabledFeatures: jest.fn(),
-    isFeatureAvailable: jest.fn()
+    isFeatureAvailable: jest.fn(),
+    isBetaFeature: jest.fn()
   }
 }

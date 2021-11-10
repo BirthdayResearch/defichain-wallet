@@ -11,8 +11,8 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
   await runMiddleware(req, res, cors)
   res.json([{
     id: 'loan',
-    name: 'Decentralized Loans',
-    stage: 'alpha',
+    name: 'Loans',
+    stage: 'beta',
     version: '>=0.12.0'
   }])
 }
