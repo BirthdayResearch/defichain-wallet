@@ -39,7 +39,7 @@
     "appId": "com.defichain.desktop.wallet",
     "copyright": "Copyright © 2021 DeFiChain Wallet Contributors",
     "asar": true,
-    "afterSign": "./notarize/notarize.js",
+    "afterSign": "./notarize.js",
     "files": [
       "./main/build",
       {
@@ -83,8 +83,8 @@
       ],
       "type": "distribution",
       "hardenedRuntime": true,
-      "entitlements": "./notarize/entitlements.mac.plist",
-      "entitlementsInherit": "./notarize/entitlements.mac.plist",
+      "entitlements": "./entitlements.mac.plist",
+      "entitlementsInherit": "./entitlements.mac.plist",
       "gatekeeperAssess": false
     },
     "nsis": {
