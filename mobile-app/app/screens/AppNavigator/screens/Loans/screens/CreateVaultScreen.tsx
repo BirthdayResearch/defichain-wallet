@@ -20,11 +20,6 @@ type Props = StackScreenProps<LoanParamList, 'CreateVaultScreen'>
 export function CreateVaultScreen ({ navigation, route }: Props): JSX.Element {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
-
-  useEffect(() => {
-    dispatch(fetchLoanSchemes({ client }))
-  }, [])
-
   const loanSchemes: LoanScheme[] = useSelector((state: RootState) => state.loans.loanSchemes)
   const logger = useLogger()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
@@ -42,6 +37,10 @@ export function CreateVaultScreen ({ navigation, route }: Props): JSX.Element {
       }
     })
   }
+
+  useEffect(() => {
+    dispatch(fetchLoanSchemes({ client }))
+  }, [])
 
   useEffect(() => {
     client.fee.estimate()

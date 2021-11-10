@@ -574,9 +574,11 @@
   },
   "screens/LoansScreen": {
     "Loans": "贷款",
-    "Create vault": "创建金库",
-    "Confirm create vault": "确认创建金库",
-    "Vault detail": "金库明细"
+    "Create Vault": "创建金库",
+    "Confirm Create Vault": "确认创建金库",
+    "Vault Detail": "金库明细",
+    "Add Collateral": "添加抵押资金",
+    "Confirm Add Collateral": "确认添加抵押资金"
   },
   "components/tabs": {
     "Browse loans": "浏览贷款选项",
@@ -693,5 +695,45 @@
   "components/VaultDetailsCollateralsTab": {
     "Collateral amount": "抵押品金额",
     "Vault %": "金库 %"
+  },
+  "screens/AddCollateralScreen": {
+    "COLLATERALS WILL BE ADDED TO VAULT": "您正要向金库添加抵押资金",
+    "ADD DFI AND TOKENS FOR COLLATERAL": "添加DFI和代币作为抵押资金",
+    "Collateral amount": "抵押品金额",
+    "Vault %": "金库 %",
+    "Each token has their own collateral factor that would affect its respective collateral value. ": "每个代币都有不同的抵押品价值因素. ",
+    "Learn more": "了解更多",    
+    "ADD TOKEN AS COLLATERAL": "添加代币为抵押资金",
+    "Total collateral value (USD)": "抵押资金总价值 (美金)",
+    "Vault needs DFI to be in 50% vault share": "DFI抵押资金需要占金库的50%",
+    "Confirm details in next screen": "在下一个屏幕中确认细节",    
+    "Select token to add": "选择要添加的代币",
+    "Are you sure you want to remove collateral token?": "您确定您要移除抵押品代币吗?",
+    "CONTINUE": "继续",
+    "BACK": "返回",
+    "Cancel": "取消",
+    "Remove": "移除"
+  },
+  "components/AddOrEditCollateralForm": {
+    "How much {{symbol}} to add?": "您要添加多少 {{symbol}}?",
+    "collateral factor": "抵押品系数",
+    "Enter an amount": "请输入数量",
+    "Available": "可添加资金",
+    "ADD TOKEN AS COLLATERAL": "添加代币为抵押资金"
+  },
+  "screens/ConfirmAddCollateralScreen": {
+    "You are adding collaterals to": "您正要向以下金库添加抵押资金",
+    "TRANSACTION DETAILS": "交易明細",
+    "Transaction type": "交易类型",
+    "Add collateral": "添加抵押资金",
+    "Collateral tokens to add": "要添加的抵押代币",
+    "Total collateral value (USD)": "抵押资金总价值 (美金)",
+    "COLLATERAL {{index}}": "抵押品 {{index}}",
+    "Token": "代币",
+    "Collateralization factor": "抵押品系数",
+    "Collateral amount": "抵押品金额",
+    "Collateral value (USD)": "抵押品价值",
+    "CONFIRM ADD COLLATERAL": "确认添加抵押资金",
+    "ADDING": "正在增加"
   }
 }
