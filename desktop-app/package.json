@@ -7,10 +7,8 @@
     "node": ">=16"
   },
   "scripts": {
-    "postinstall": "electron-builder install-app-deps",
     "build": "tsc",
-    "start": "npm run build && electron ./dist/index.js",
-    "publish": "npm run build && electron-builder --publish always"
+    "start": "npm run build && electron ./dist/index.js"
   },
   "dependencies": {
     "electron": "15.3.0",
@@ -29,7 +27,7 @@
     "asar": true,
     "afterSign": "./notarize.js",
     "files": [
-      "./build",
+      "./dist",
       {
         "from": "../web-build/",
         "to": "./web-build/",
@@ -38,7 +36,7 @@
         ]
       }
     ],
-    "icon": "../shared/assets/images/icon-512.png",
+    "icon": "./src/assets/icon-512.png",
     "dmg": {
       "sign": false,
       "icon": "../shared/assets/images/app.icns",
@@ -56,7 +54,7 @@
       ]
     },
     "linux": {
-      "icon": "../shared/assets/images/icon-512.png",
+      "icon": "./src/assets/icon-512.png",
       "target": [
         "AppImage"
       ]

@@ -16,6 +16,7 @@ export async function setupBrowserWindow (isDev: boolean): Promise<BrowserWindow
     icon: path.join(__dirname, '../../shared/assets/images/icon-512.png')
   })
 
+  // TODO: to push publishing into another PR to implement it together with web-build
   await window.loadURL(isDev ? 'http://localhost:19006' : `file://${path.resolve(__dirname, '../../web-build/index.html')}`)
 
   window.webContents.setWindowOpenHandler(() => {
