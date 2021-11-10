@@ -7,66 +7,20 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import React, { useEffect, useState } from 'react'
 import NumberFormat from 'react-number-format'
-import { LoanParamList, LoanScheme } from '../LoansNavigator'
+import { LoanParamList } from '../LoansNavigator'
+import { LoanScheme } from '@defichain/whale-api-client/dist/api/loan'
 import BigNumber from 'bignumber.js'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchLoanSchemes } from '@store/loans'
+import { RootState } from '@store'
 
 type Props = StackScreenProps<LoanParamList, 'CreateVaultScreen'>
 
 export function CreateVaultScreen ({ navigation, route }: Props): JSX.Element {
-  const loanSchemes: LoanScheme[] = [
-    {
-      id: '1',
-      minColRatio: '150',
-      interestRate: '5'
-    },
-    {
-      id: '2',
-      minColRatio: '175',
-      interestRate: '3'
-    },
-    {
-      id: '3',
-      minColRatio: '200',
-      interestRate: '2'
-    },
-    {
-      id: '4',
-      minColRatio: '350',
-      interestRate: '15'
-    },
-    {
-      id: '5',
-      minColRatio: '500',
-      interestRate: '1'
-    },
-    {
-      id: '6',
-      minColRatio: '1000',
-      interestRate: '0.5'
-    },
-    {
-      id: '7',
-      minColRatio: '1000',
-      interestRate: '0.5'
-    },
-    {
-      id: '8',
-      minColRatio: '1000',
-      interestRate: '0.5'
-    },
-    {
-      id: '9',
-      minColRatio: '1000',
-      interestRate: '0.5'
-    },
-    {
-      id: '10',
-      minColRatio: '1000',
-      interestRate: '0.5'
-    }
-  ]
+  const dispatch = useDispatch()
   const client = useWhaleApiClient()
+  const loanSchemes: LoanScheme[] = useSelector((state: RootState) => state.loans.loanSchemes)
   const logger = useLogger()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [selectedLoanScheme, setSelectedLoanScheme] = useState<LoanScheme | undefined>(route.params?.loanScheme)
@@ -83,6 +37,10 @@ export function CreateVaultScreen ({ navigation, route }: Props): JSX.Element {
       }
     })
   }
+
+  useEffect(() => {
+    dispatch(fetchLoanSchemes({ client }))
+  }, [])
 
   useEffect(() => {
     client.fee.estimate()
