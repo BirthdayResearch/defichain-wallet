@@ -3,13 +3,13 @@ import { View } from 'react-native'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { ThemedView } from '@components/themed'
-import { LoanCardOptions, LoanCards } from '@components/LoanCards'
 import { Tabs } from '@components/Tabs'
 import { Vaults } from './components/Vaults'
 import { EmptyVault } from './components/EmptyVault'
 import { StackScreenProps } from '@react-navigation/stack'
 import { LoanParamList } from './LoansNavigator'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
+import { LoanCardOptions, LoanCards } from './components/LoanCards'
 
 enum TabKey {
   BrowseLoans = 'BROWSE_LOANS',
@@ -44,88 +44,77 @@ export function LoansScreen ({ route }: Props): JSX.Element {
       priceType: 'ACTIVE',
       price: new BigNumber('123.4567'),
       isVerified: true,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      interestRate: new BigNumber('1.2345')
     },
     {
       loanName: 'BTC',
       priceType: 'NEXT',
       price: new BigNumber('123.4567'),
       isVerified: false,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      interestRate: new BigNumber('1.2345')
     },
     {
       loanName: 'BTC',
       priceType: 'ACTIVE',
       price: new BigNumber('123.4567'),
       isVerified: true,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      interestRate: new BigNumber('1.2345')
     },
     {
       loanName: 'BTC',
       priceType: 'NEXT',
       price: new BigNumber('123.4567'),
       isVerified: false,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      interestRate: new BigNumber('1.2345')
     },
     {
       loanName: 'BTC',
       priceType: 'ACTIVE',
       price: new BigNumber('123.4567'),
       isVerified: true,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      interestRate: new BigNumber('1.2345')
     },
     {
       loanName: 'BTC',
       priceType: 'NEXT',
       price: new BigNumber('123.4567'),
       isVerified: false,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      interestRate: new BigNumber('1.2345')
     },
     {
       loanName: 'BTC',
       priceType: 'ACTIVE',
       price: new BigNumber('123.4567'),
       isVerified: true,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      interestRate: new BigNumber('1.2345')
     },
     {
       loanName: 'BTC',
       priceType: 'NEXT',
       price: new BigNumber('123.4567'),
       isVerified: false,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      interestRate: new BigNumber('1.2345')
     },
     {
       loanName: 'BTC',
       priceType: 'ACTIVE',
       price: new BigNumber('123.4567'),
       isVerified: true,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      interestRate: new BigNumber('1.2345')
     },
     {
       loanName: 'BTC',
       priceType: 'NEXT',
       price: new BigNumber('123.4567'),
       isVerified: false,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      interestRate: new BigNumber('1.2345')
     },
     {
       loanName: 'BTC',
       priceType: 'ACTIVE',
       price: new BigNumber('123.4567'),
       isVerified: true,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      interestRate: new BigNumber('1.2345')
     }
   ]
 
@@ -175,7 +164,7 @@ export function LoansScreen ({ route }: Props): JSX.Element {
             />
           </View>
           )
-        : <LoanCards testID='loans_cards' loans={loans} />}
+        : <LoanCards testID='loans_cards' loans={loans} onPress={() => { /* TODO: navigate to borrow loan screen */ }} />}
     </ThemedView>
   )
 }

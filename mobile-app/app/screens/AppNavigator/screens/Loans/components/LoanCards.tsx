@@ -1,15 +1,16 @@
 import React from 'react'
 import BigNumber from 'bignumber.js'
-import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity } from './themed'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import NumberFormat from 'react-number-format'
 import { View } from 'react-native'
-import { getNativeIcon } from './icons/assets'
+import { getNativeIcon } from '@components/icons/assets'
 
 interface LoanCardsProps {
   loans: LoanCardOptions[]
   testID?: string
+  onPress: (loan: LoanCardOptions) => void
 }
 
 export interface LoanCardOptions {
@@ -18,7 +19,6 @@ export interface LoanCardOptions {
   price: BigNumber
   isVerified: boolean
   interestRate: BigNumber
-  onPress: () => void
 }
 
 type PriceType = 'ACTIVE' | 'NEXT'
@@ -34,6 +34,7 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
           return (
             <LoadCard
               {...item}
+              onPress={() => props.onPress(item)}
             />
           )
         } else {
@@ -41,6 +42,7 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
             <View style={{ flexBasis: '50%' }}>
               <LoadCard
                 {...item}
+                onPress={() => props.onPress(item)}
               />
             </View>
           )
@@ -52,13 +54,17 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
   )
 }
 
+interface LoanCardProps extends LoanCardOptions {
+  onPress: () => void
+}
+
 function LoadCard ({
   loanName,
   priceType,
   price,
   interestRate,
   onPress
-}: LoanCardOptions): JSX.Element {
+}: LoanCardProps): JSX.Element {
   const LoanIcon = getNativeIcon(loanName)
   return (
     <ThemedTouchableOpacity

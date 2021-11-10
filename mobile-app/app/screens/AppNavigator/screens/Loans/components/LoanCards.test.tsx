@@ -13,27 +13,24 @@ describe('loan cards', () => {
         priceType: 'ACTIVE',
         price: new BigNumber('123.4567'),
         isVerified: true,
-        interestRate: new BigNumber('1.2345'),
-        onPress: () => jest.fn
+        interestRate: new BigNumber('1.2345')
       },
       {
         loanName: 'BTC',
         priceType: 'NEXT',
         price: new BigNumber('123.4567'),
         isVerified: false,
-        interestRate: new BigNumber('1.2345'),
-        onPress: () => jest.fn
+        interestRate: new BigNumber('1.2345')
       },
       {
         loanName: 'BTC',
         priceType: 'ACTIVE',
         price: new BigNumber('123.4567'),
         isVerified: true,
-        interestRate: new BigNumber('1.2345'),
-        onPress: () => jest.fn
+        interestRate: new BigNumber('1.2345')
       }
     ]
-    const rendered = render(<LoanCards loans={loanCards} />)
+    const rendered = render(<LoanCards loans={loanCards} onPress={() => jest.fn} />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })
