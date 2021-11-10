@@ -12,6 +12,7 @@ import BigNumber from 'bignumber.js'
 import { VaultDetailScreen } from './VaultDetail/VaultDetailScreen'
 import { AddCollateralScreen, Collateral } from './screens/AddCollateralScreen'
 import { ConfirmAddCollateralScreen } from './screens/ConfirmAddCollateralScreen'
+import { ChooseLoanTokenScreen } from './screens/ChooseLoanTokenScreen'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -131,6 +132,18 @@ export function LoansNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/LoansScreen', 'Confirm Add Collateral') + ' (Beta)'} // TODO: remove beta from title
+            />
+          )
+        }}
+      />
+      <LoansStack.Screen
+        component={ChooseLoanTokenScreen}
+        name='ChooseLoanTokenScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Choose Loan Token to Borrow') + ' (Beta)'} // TODO: remove beta from title
             />
           )
         }}

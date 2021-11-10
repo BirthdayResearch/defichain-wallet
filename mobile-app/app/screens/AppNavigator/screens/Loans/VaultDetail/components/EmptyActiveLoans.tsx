@@ -24,15 +24,7 @@ export function EmptyActiveLoans (): JSX.Element {
       <Button
         label={translate('components/EmptyActiveLoans', 'BROWSE LOANS')}
         onPress={() => {
-          // TODO: replace navigation to browse loans tab in loans screen
-          navigation.navigate({
-            name: 'VaultDetailScreen',
-            params: {
-              vaultId: '22ffasd5ca123123123123123121231061',
-              emptyActiveLoans: false
-            },
-            merge: true
-          })
+          navigation.navigate('ChooseLoanTokenScreen')
         }}
         testID='button_browse_loans'
         title='Browse loans'
