@@ -10,7 +10,8 @@ import { CreateVaultScreen } from './screens/CreateVaultScreen'
 import { ConfirmCreateVaultScreen } from './screens/ConfirmCreateVaultScreen'
 import BigNumber from 'bignumber.js'
 import { VaultDetailScreen } from './VaultDetail/VaultDetailScreen'
-import { AddCollateralScreen } from './screens/AddCollateralScreen'
+import { AddCollateralScreen, Collateral } from './screens/AddCollateralScreen'
+import { ConfirmAddCollateralScreen } from './screens/ConfirmAddCollateralScreen'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -29,6 +30,12 @@ export interface LoanParamList {
   }
   AddCollateralScreen: {
     vaultId: string
+  }
+  ConfirmAddCollateralScreen: {
+    vaultId: string
+    collaterals: Collateral[] // TODO: update type
+    totalCollateralValue: BigNumber
+    fee: BigNumber
   }
   [key: string]: undefined | object
 }
@@ -112,6 +119,18 @@ export function LoansNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/LoansScreen', 'Add collateral') + ' (Beta)'} // TODO: remove beta from title
+            />
+          )
+        }}
+      />
+      <LoansStack.Screen
+        component={ConfirmAddCollateralScreen}
+        name='ConfirmAddCollateralScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Confirm add collateral') + ' (Beta)'} // TODO: remove beta from title
             />
           )
         }}
