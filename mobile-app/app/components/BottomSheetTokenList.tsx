@@ -5,7 +5,7 @@ import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { SymbolIcon } from './SymbolIcon'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from './themed'
-import { NavigationProp, useNavigation } from '@react-navigation/core'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BottomSheetWithNavRouteParam } from './BottomSheetWithNav'
 
 interface BottomSheetTokenListProps {
