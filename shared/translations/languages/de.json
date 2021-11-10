@@ -334,6 +334,7 @@
   },
   "screens/FeatureFlagScreen": {
     "Loans": "Darlehen",
+    "Browse loan tokens provided by DeFiChain": "Von DeFiChain bereitgestellte Darlehens-Token durchsuchen",
     "Continue": "Fortfahren",
     "Cancel": "Abbrechen",
     "Enable {{feature}} (Beta)": "Aktiviere {{feature}} (Beta)",
