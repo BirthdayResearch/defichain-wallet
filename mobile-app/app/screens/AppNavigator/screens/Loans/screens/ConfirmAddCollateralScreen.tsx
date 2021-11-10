@@ -146,7 +146,7 @@ function SummaryTransactionDetails (props: {tokensToAdd: number, totalCollateral
         textStyle={tailwind('text-sm font-normal')}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmCreateVaultScreen', 'Collateral tokens to add')}
+        lhs={translate('screens/ConfirmAddCollateralScreen', 'Collateral tokens to add')}
         rhs={{
           value: props.tokensToAdd,
           testID: 'tokens_to_add',
@@ -154,7 +154,7 @@ function SummaryTransactionDetails (props: {tokensToAdd: number, totalCollateral
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmCreateVaultScreen', 'Total collateral value (USD)')}
+        lhs={translate('screens/ConfirmAddCollateralScreen', 'Total collateral value (USD)')}
         rhs={{
           value: props.totalCollateralValue.toFixed(2),
           testID: 'total_collateral_value',

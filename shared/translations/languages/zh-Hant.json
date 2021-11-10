@@ -724,8 +724,16 @@
   },
   "screens/ConfirmAddCollateralScreen": {
     "You are adding collaterals to": "您正要向以下金庫添加抵押資金",
+    "TRANSACTION DETAILS": "交易明細",
+    "Transaction type": "交易類型",
+    "Add collateral": "添加抵押資金",
     "Collateral tokens to add": "要添加的抵押代幣",
+    "Total collateral value (USD)": "抵押資金總價值 (美金)",
+    "COLLATERAL {{index}}": "抵押品 {{index}}",
+    "Token": "代幣",
     "Collateralization factor": "抵押品係數",
+    "Collateral amount": "抵押品金額",
+    "Collateral value (USD)": "抵押品價值 (USD)",    
     "CONFIRM ADD COLLATERAL": "確認添加抵押資金"
   }
 }
