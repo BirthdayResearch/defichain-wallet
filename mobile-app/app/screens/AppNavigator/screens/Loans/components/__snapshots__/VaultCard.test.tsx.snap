@@ -2055,7 +2055,7 @@ exports[`Vault card should match snapshot of locked vault 1`] = `
   >
     <View
       accessible={true}
-      focusable={false}
+      focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
@@ -2658,7 +2658,7 @@ exports[`Vault card should match snapshot of new vault 1`] = `
   >
     <View
       accessible={true}
-      focusable={false}
+      focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
@@ -3798,7 +3798,7 @@ exports[`Vault card should match snapshot of safe vault 1`] = `
   >
     <View
       accessible={true}
-      focusable={false}
+      focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
