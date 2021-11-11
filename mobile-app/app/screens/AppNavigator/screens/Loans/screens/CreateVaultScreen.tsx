@@ -25,6 +25,7 @@ import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
 import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
+import { ConversionInfoText } from '@components/ConversionInfoText'
 
 type Props = StackScreenProps<LoanParamList, 'CreateVaultScreen'>
 
@@ -115,10 +116,15 @@ export function CreateVaultScreen ({
       <ThemedText
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
-        style={tailwind('text-center text-xs mb-16')}
+        style={tailwind('text-center text-xs mb-10')}
       >
         {translate('screens/CreateVaultScreen', 'Keep note of your selected collateral ratio for your vault to sustain the loans within it.')}
       </ThemedText>
+
+      {isConversionRequired &&
+        <View style={tailwind('mt-4 mb-6')}>
+          <ConversionInfoText />
+        </View>}
       <Button
         disabled={selectedLoanScheme === undefined || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/CreateVaultScreen', 'CONTINUE')}
