@@ -12,6 +12,11 @@ import BigNumber from 'bignumber.js'
 import { VaultDetailScreen } from './VaultDetail/VaultDetailScreen'
 import { AddCollateralScreen, Collateral } from './screens/AddCollateralScreen'
 import { ConfirmAddCollateralScreen } from './screens/ConfirmAddCollateralScreen'
+import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
+import { TouchableOpacity } from 'react-native'
+import { ThemedIcon } from '@components/themed'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { tailwind } from '@tailwind'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -23,6 +28,7 @@ export interface LoanParamList {
   ConfirmCreateVaultScreen: {
     loanScheme: LoanScheme
     fee: BigNumber
+    conversion?: ConversionParam
   }
   VaultDetailScreen: {
     vaultId: string
@@ -37,6 +43,7 @@ export interface LoanParamList {
     totalCollateralValue: BigNumber
     fee: BigNumber
   }
+
   [key: string]: undefined | object
 }
 
@@ -44,6 +51,7 @@ const LoansStack = createStackNavigator<LoanParamList>()
 
 export function LoansNavigator (): JSX.Element {
   const headerContainerTestId = 'loans_header_container'
+  const navigation = useNavigation<NavigationProp<LoanParamList>>()
 
   return (
     <LoansStack.Navigator
@@ -63,6 +71,21 @@ export function LoansNavigator (): JSX.Element {
               text={translate('screens/LoansScreen', 'Loans') + ' (Beta)'} // TODO: remove beta from title
               containerTestID={headerContainerTestId}
             />
+          ),
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate({
+              name: 'CreateVaultScreen',
+              params: {},
+              merge: true
+            })} testID='create_vault_header_button'
+            >
+              <ThemedIcon
+                size={28}
+                style={tailwind('mr-2')} light={tailwind('text-primary-500')}
+                dark={tailwind('text-primary-500')} iconType='MaterialCommunityIcons' name='plus'
+              />
+            </TouchableOpacity>
           )
         }}
       />

@@ -4,8 +4,8 @@ import { ThemedIcon, ThemedProps, ThemedText, ThemedTouchableOpacity, ThemedView
 import { tailwind } from '@tailwind'
 import { View } from '@components'
 import { translate } from '@translations'
-import { TokenIconGroup } from '../../../../../components/TokenIconGroup'
-import { IconButton } from '../../../../../components/IconButton'
+import { TokenIconGroup } from '@components/TokenIconGroup'
+import { IconButton } from '@components/IconButton'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
 import { VaultInfo } from '@screens/AppNavigator/screens/Loans/components/VaultInfo'
@@ -18,7 +18,7 @@ export interface VaultCardProps {
   totalLoanAmount?: BigNumber
   collateralAmount?: BigNumber
   collateralRatio?: BigNumber
-  actions: VaultAction[]
+  actions: any[]
   onAddCollateral?: () => void
   onViewLoans?: () => void
 }

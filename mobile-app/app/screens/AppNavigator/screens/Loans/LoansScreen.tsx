@@ -7,9 +7,12 @@ import { LoanCardOptions, LoanCards } from '@components/LoanCards'
 import { Tabs } from '@components/Tabs'
 import { Vaults } from './components/Vaults'
 import { EmptyVault } from './components/EmptyVault'
-import { StackScreenProps } from '@react-navigation/stack'
-import { LoanParamList } from './LoansNavigator'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@store'
+import { fetchVaults } from '@store/loans'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 enum TabKey {
   BrowseLoans = 'BROWSE_LOANS',
@@ -17,14 +20,20 @@ enum TabKey {
 }
 
 export type LoadingState = 'empty_vault' | 'loading' | 'success'
-type Props = StackScreenProps<LoanParamList, 'LoansScreen'>
 
-export function LoansScreen ({ route }: Props): JSX.Element {
+export function LoansScreen (): JSX.Element {
+  const { address } = useWalletContext()
+  const vaults = useSelector((state: RootState) => state.loans.vaults)
   const [activeTab, setActiveTab] = useState<string>(TabKey.BrowseLoans)
-  const [loadingState, setLoadingState] = useState<LoadingState>('empty_vault') // TODO: remove temporary display flag
+  const dispatch = useDispatch()
+  const client = useWhaleApiClient()
   const onPress = (tabId: string): void => {
     setActiveTab(tabId)
   }
+
+  useEffect(() => {
+    dispatch(fetchVaults({ address, client }))
+  }, [])
 
   const tabsList = [{
     id: TabKey.BrowseLoans,
@@ -129,28 +138,7 @@ export function LoansScreen ({ route }: Props): JSX.Element {
     }
   ]
 
-  // TODO: remove custom handling of empty vault display
-  useEffect(() => {
-    if (route.params?.loadingState === undefined) {
-      setLoadingState('empty_vault')
-    } else {
-      setLoadingState(route.params.loadingState)
-    }
-  }, [route.params?.loadingState])
-
-   // TODO: remove fake loading of loans
-  useEffect(
-    () => {
-      const loansTimer = setTimeout(() => {
-        setLoadingState('success')
-      }, 5000)
-
-      return () => {
-        clearTimeout(loansTimer)
-      }
-    }, [route.params?.loadingState])
-
-  if (loadingState === 'empty_vault') {
+  if (vaults?.length === 0) {
     return (
       <EmptyVault
         handleRefresh={() => {}}
@@ -166,7 +154,7 @@ export function LoansScreen ({ route }: Props): JSX.Element {
     >
       <Tabs tabSections={tabsList} testID='loans_tabs' activeTabKey={activeTab} />
       {activeTab === TabKey.YourVaults && <Vaults />}
-      {activeTab === TabKey.BrowseLoans && loadingState === 'loading'
+      {activeTab === TabKey.BrowseLoans
         ? (
           <View style={tailwind('mt-1')}>
             <SkeletonLoader

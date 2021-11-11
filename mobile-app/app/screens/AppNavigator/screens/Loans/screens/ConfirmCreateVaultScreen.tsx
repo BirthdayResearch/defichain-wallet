@@ -1,10 +1,10 @@
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { StackScreenProps } from '@react-navigation/stack'
 import { RootState } from '@store'
-import { hasTxQueued } from '@store/transaction_queue'
-import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import React from 'react'
-import { useSelector } from 'react-redux'
+import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
+import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import React, { Dispatch, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { LoanParamList } from '../LoansNavigator'
 import { LoanScheme } from '@defichain/whale-api-client/dist/api/loan'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
@@ -15,51 +15,84 @@ import { TextRow } from '@components/TextRow'
 import BigNumber from 'bignumber.js'
 import { NumberRow } from '@components/NumberRow'
 import { FeeInfoRow } from '@components/FeeInfoRow'
+import { ConversionTag } from '@components/ConversionTag'
+import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
+import { CTransactionSegWit } from '@defichain/jellyfish-transaction'
+import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { fetchVaults } from '@store/loans'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmCreateVaultScreen'>
 
 export function ConfirmCreateVaultScreen ({ route, navigation }: Props): JSX.Element {
-  const { loanScheme, fee } = route.params
+  const { loanScheme, fee, conversion } = route.params
+  const logger = useLogger()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isOnPage, setIsOnPage] = useState<boolean>(true)
+  const { address } = useWalletContext()
+  const client = useWhaleApiClient()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    setIsOnPage(true)
+    return () => {
+      setIsOnPage(false)
+    }
+  }, [])
 
   function onCancel (): void {
-    navigation.navigate({
-      name: 'CreateVaultScreen',
-      params: {
-        loanScheme
-      },
-      merge: true
-    })
+    if (!isSubmitting) {
+      navigation.navigate({
+        name: 'CreateVaultScreen',
+        params: {
+          loanScheme
+        },
+        merge: true
+      })
+    }
   }
 
   async function onSubmit (): Promise<void> {
-    // TODO: create signer to create vault, remove custom navigation below
-    navigation.navigate({
-      name: 'LoansScreen',
-      params: {
-        loadingState: 'loading'
-      },
-      merge: true
-    })
+    if (hasPendingJob || hasPendingBroadcastJob) {
+      return
+    }
+    setIsSubmitting(true)
+    await createVault({
+      address,
+      loanScheme
+    }, dispatch, () => {
+      onTransactionBroadcast(isOnPage, navigation.dispatch)
+    }, () => {
+      dispatch(fetchVaults({ address, client }))
+    }, logger)
+    setIsSubmitting(false)
   }
 
   function getSubmitLabel (): string {
     if (!hasPendingBroadcastJob && !hasPendingJob) {
       return 'CONFIRM CREATE VAULT'
     }
+    if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
+      return currentBroadcastJob.submitButtonLabel
+    }
     return 'CREATING'
   }
 
   return (
     <ThemedScrollView testID='confirm_create_vault_screen'>
-      <SummaryHeader />
+      <SummaryHeader conversion={conversion} />
       <SummaryTransactionDetails fee={fee} />
       <SummaryVaultDetails loanScheme={loanScheme} />
       <SubmitButtonGroup
-        isDisabled={hasPendingJob || hasPendingBroadcastJob}
+        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/ConfirmCreateVaultScreen', 'CONFIRM CREATE VAULT')}
-        isProcessing={hasPendingJob || hasPendingBroadcastJob}
+        isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         processingLabel={translate('screens/ConfirmCreateVaultScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
@@ -69,7 +102,7 @@ export function ConfirmCreateVaultScreen ({ route, navigation }: Props): JSX.Ele
   )
 }
 
-function SummaryHeader (): JSX.Element {
+function SummaryHeader (props: { conversion?: ConversionParam }): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
@@ -105,6 +138,7 @@ function SummaryHeader (): JSX.Element {
           {translate('screens/ConfirmCreateVaultScreen', 'ID will generate once vault has been created')}
         </ThemedText>
       </View>
+      {props.conversion?.isConversionRequired === true && <ConversionTag />}
     </ThemedView>
   )
 }
@@ -127,7 +161,7 @@ function SummaryTransactionDetails (props: {fee: BigNumber}): JSX.Element {
       />
       <FeeInfoRow
         type='VAULT_FEE'
-        value={vaultFee.toFixed(8)}
+        value={vaultFee.toFixed(0)}
         testID='vault_fee'
         suffix='DFI'
       />
@@ -176,4 +210,39 @@ function SummaryVaultDetails (props: {loanScheme: LoanScheme}): JSX.Element {
       />
     </>
   )
+}
+
+interface VaultForm {
+  loanScheme: LoanScheme
+  address: string
+}
+
+async function createVault ({
+  address,
+  loanScheme
+}: VaultForm, dispatch: Dispatch<any>, onBroadcast: () => void, onConfirmation: () => void, logger: NativeLoggingProps): Promise<void> {
+  try {
+    const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
+      const script = await account.getScript()
+      const builder = account.withTransactionBuilder()
+      const signed = await builder.loans.createVault({
+        ownerAddress: script,
+        schemeId: loanScheme.id
+      }, script)
+      return new CTransactionSegWit(signed)
+    }
+
+    dispatch(transactionQueue.actions.push({
+      sign: signer,
+      title: translate('screens/ConfirmCreateVaultScreen', 'Creating vault'),
+      description: translate('screens/ConfirmCreateVaultScreen', 'Creating vault with min. collateral ratio of {{amount}}% and interest rate of {{ir}}% APR', {
+        amount: loanScheme.minColRatio,
+        ir: loanScheme.interestRate
+      }),
+      onBroadcast,
+      onConfirmation
+    }))
+  } catch (e) {
+    logger.error(e)
+  }
 }
