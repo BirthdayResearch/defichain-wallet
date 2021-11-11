@@ -657,7 +657,7 @@
     "APR": "ZINS",
     "CONFIRM CREATE VAULT": "VAULT ERSTELLEN BESTÄTIGEN",
     "Creating vault": "Vault anlegen",
-    "Creating vault with min. collateral ratio of {{amount}}% and interest rate of {{ir}}% APR": "Anlegen eines Vaults mit einem Mindestbesicherungsgrad von {{amount}}% und einem Zinssatz von {{ir}}% effektivem Jahreszins"
+    "Creating vault with min. collateral ratio of {{amount}}% and interest rate of {{ir}}% APR": "Anlegen eines Vaults mit einem Mindestbesicherungsgrad von {{amount}}% und einem effektiven Jahreszinssatz von {{ir}}%"
   },
   "components/FeeInfoRow": {
     "Estimated fee":"Geschätzte Gebühr",
