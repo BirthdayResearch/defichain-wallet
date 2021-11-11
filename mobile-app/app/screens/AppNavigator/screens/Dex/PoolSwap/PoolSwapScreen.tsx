@@ -301,7 +301,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         <InputHelperText
           testID={`text_balance_${tokenBForm}`}
           label={`${translate('screens/PoolSwapScreen', 'You have')} `}
-          content={tokenB.amount}
+          content={tokenB.amount} // TODO: this amount is wrong
           suffix={` ${tokenB.displaySymbol}`}
         />
         {isConversionRequired && <ConversionInfoText />}
@@ -526,6 +526,9 @@ function calculateEstimatedAmount (tokenAAmount: string, reserveA: string, price
 }
 
 function getReserveAmount (id: string, poolpair: PoolPairData): string {
+  if (id === '0_unified') {
+    id = '0'
+  }
   return id === poolpair.tokenA.id ? poolpair.tokenA.reserve : poolpair.tokenB.reserve
 }
 
