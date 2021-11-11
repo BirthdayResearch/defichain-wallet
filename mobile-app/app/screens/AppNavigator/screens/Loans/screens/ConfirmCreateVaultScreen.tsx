@@ -27,13 +27,19 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmCreateVaultScreen'>
 
-export function ConfirmCreateVaultScreen ({ route, navigation }: Props): JSX.Element {
-  const { loanScheme, fee, conversion } = route.params
+export function ConfirmCreateVaultScreen ({
+  route,
+  navigation
+}: Props): JSX.Element {
+  const {
+    loanScheme,
+    fee,
+    conversion
+  } = route.params
   const logger = useLogger()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const { address } = useWalletContext()
   const client = useWhaleApiClient()
@@ -47,31 +53,30 @@ export function ConfirmCreateVaultScreen ({ route, navigation }: Props): JSX.Ele
   }, [])
 
   function onCancel (): void {
-    if (!isSubmitting) {
-      navigation.navigate({
-        name: 'CreateVaultScreen',
-        params: {
-          loanScheme
-        },
-        merge: true
-      })
-    }
+    navigation.navigate({
+      name: 'CreateVaultScreen',
+      params: {
+        loanScheme
+      },
+      merge: true
+    })
   }
 
   async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
-    setIsSubmitting(true)
     await createVault({
       address,
       loanScheme
     }, dispatch, () => {
       onTransactionBroadcast(isOnPage, navigation.dispatch)
     }, () => {
-      dispatch(fetchVaults({ address, client }))
+      dispatch(fetchVaults({
+        address,
+        client
+      }))
     }, logger)
-    setIsSubmitting(false)
   }
 
   function getSubmitLabel (): string {
@@ -87,12 +92,12 @@ export function ConfirmCreateVaultScreen ({ route, navigation }: Props): JSX.Ele
   return (
     <ThemedScrollView testID='confirm_create_vault_screen'>
       <SummaryHeader conversion={conversion} />
-      <SummaryTransactionDetails fee={fee} />
+      <SummaryTransactionDetails fee={fee} conversion={conversion} />
       <SummaryVaultDetails loanScheme={loanScheme} />
       <SubmitButtonGroup
-        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        isDisabled={hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/ConfirmCreateVaultScreen', 'CONFIRM CREATE VAULT')}
-        isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        isProcessing={hasPendingJob || hasPendingBroadcastJob}
         processingLabel={translate('screens/ConfirmCreateVaultScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
@@ -143,7 +148,7 @@ function SummaryHeader (props: { conversion?: ConversionParam }): JSX.Element {
   )
 }
 
-function SummaryTransactionDetails (props: {fee: BigNumber}): JSX.Element {
+function SummaryTransactionDetails (props: { fee: BigNumber, conversion?: ConversionParam }): JSX.Element {
   const vaultFee = new BigNumber(2)
   const transactionCost = vaultFee.plus(props.fee)
   return (
@@ -154,14 +159,14 @@ function SummaryTransactionDetails (props: {fee: BigNumber}): JSX.Element {
       <TextRow
         lhs={translate('screens/ConfirmCreateVaultScreen', 'Transaction type')}
         rhs={{
-          value: translate('screens/ConfirmCreateVaultScreen', 'Create vault'),
+          value: props.conversion?.isConversionRequired === true ? translate('screens/ConfirmCreateVaultScreen', 'Convert & create vault') : translate('screens/ConfirmCreateVaultScreen', 'Create vault'),
           testID: 'text_transaction_type'
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
       <FeeInfoRow
         type='VAULT_FEE'
-        value={vaultFee.toFixed(0)}
+        value={vaultFee.toFixed(8)}
         testID='vault_fee'
         suffix='DFI'
       />
@@ -184,7 +189,7 @@ function SummaryTransactionDetails (props: {fee: BigNumber}): JSX.Element {
   )
 }
 
-function SummaryVaultDetails (props: {loanScheme: LoanScheme}): JSX.Element {
+function SummaryVaultDetails (props: { loanScheme: LoanScheme }): JSX.Element {
   return (
     <>
       <ThemedSectionTitle
