@@ -19,6 +19,7 @@ exports[`loan cards should match snapshot 1`] = `
         "onPress": [Function],
         "price": "123.4567",
         "priceType": "ACTIVE",
+        "testID": "loan_0",
       },
       Object {
         "interestRate": "1.2345",
@@ -27,6 +28,7 @@ exports[`loan cards should match snapshot 1`] = `
         "onPress": [Function],
         "price": "123.4567",
         "priceType": "NEXT",
+        "testID": "loan_1",
       },
       Object {
         "interestRate": "1.2345",
@@ -35,6 +37,7 @@ exports[`loan cards should match snapshot 1`] = `
         "onPress": [Function],
         "price": "123.4567",
         "priceType": "ACTIVE",
+        "testID": "loan_2",
       },
     ]
   }
@@ -115,6 +118,7 @@ exports[`loan cards should match snapshot 1`] = `
               "paddingTop": 16,
             }
           }
+          testID="loan_0"
         >
           <View
             style={
@@ -345,6 +349,7 @@ exports[`loan cards should match snapshot 1`] = `
               "paddingTop": 16,
             }
           }
+          testID="loan_1"
         >
           <View
             style={
@@ -595,6 +600,7 @@ exports[`loan cards should match snapshot 1`] = `
                 "paddingTop": 16,
               }
             }
+            testID="loan_2"
           >
             <View
               style={
