@@ -8,6 +8,7 @@ jest.mock('@react-navigation/native', () => ({
 }))
 
 jest.mock('@shared-contexts/ThemeProvider')
+jest.mock('@contexts/FeatureFlagContext')
 
 it('<AboutScreen /> should match snapshot', async () => {
   const tree = render(<AboutScreen />)

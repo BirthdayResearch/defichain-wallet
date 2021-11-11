@@ -4,6 +4,7 @@ import { LoanCardOptions, LoanCards } from './LoanCards'
 import BigNumber from 'bignumber.js'
 
 jest.mock('@shared-contexts/ThemeProvider')
+jest.mock('@contexts/FeatureFlagContext')
 
 describe('loan cards', () => {
   it('should match snapshot', async () => {
