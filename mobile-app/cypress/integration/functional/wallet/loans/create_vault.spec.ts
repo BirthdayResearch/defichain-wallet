@@ -1,3 +1,5 @@
+import { LoanScheme } from '@defichain/whale-api-client/dist/api/loan'
+
 context('Wallet - Loans - Create vault', () => {
   beforeEach(function () {
     cy.allowLoanFeature()
@@ -22,8 +24,8 @@ context('Wallet - Loans - Create vault', () => {
     cy.getByTestID('create_vault_submit_button').should('have.attr', 'aria-disabled')
     cy.getByTestID('loan_scheme_options').should('exist')
     cy.wait(['@loanSchemes']).then((intercept: any) => {
-      const data: any[] = (intercept).response.body.data || []
-      data.forEach((scheme, i) => {
+      const data: any[] = intercept.response.body.data
+      data.forEach((scheme: LoanScheme, i) => {
         cy.getByTestID(`min_col_ratio_value_${i}`).contains(`${Number(scheme.minColRatio).toLocaleString()}%`)
         cy.getByTestID(`interest_rate_value_${i}`).contains(`${scheme.interestRate}% APR`)
       })
