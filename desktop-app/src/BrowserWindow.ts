@@ -2,12 +2,8 @@ import { app, BrowserWindow } from 'electron'
 import path from 'path'
 
 export async function setupBrowserWindow (isDev: boolean): Promise<BrowserWindow> {
-  if (isDev) {
-    await installDevExtensions()
-  }
-
   const window = new BrowserWindow({
-    show: false,
+    show: true,
     width: isDev ? 800 : 385,
     height: isDev ? 750 : 720,
     title: app.name,
@@ -16,17 +12,13 @@ export async function setupBrowserWindow (isDev: boolean): Promise<BrowserWindow
     icon: path.join(__dirname, './src/assets/icon-512.png')
   })
 
-  // TODO: to push publishing into another PR to implement it together with web-build
-  await window.loadURL(isDev ? 'http://localhost:19006' : `file://${path.resolve(__dirname, '../../web-build/index.html')}`)
-
-  window.webContents.setWindowOpenHandler(() => {
-    return {
-      action: 'allow'
-    }
-  })
-
   if (isDev) {
+    await installDevExtensions()
+    await window.loadURL('http://localhost:19006')
     window.webContents.openDevTools({ mode: 'detach' })
+  } else {
+    // TODO: to push publishing into another PR to implement it together with web-build
+    await window.loadFile(path.resolve(__dirname, '../web-build/index.html'))
   }
 
   return window

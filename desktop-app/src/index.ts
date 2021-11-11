@@ -10,9 +10,6 @@ class DesktopApp {
    * Setup App Lifecycle
    */
   async initApp (): Promise<void> {
-    await app.whenReady()
-    app.applicationMenu = buildElectronMenu()
-
     app.on('window-all-closed', () => {
       // OSX Convention: Having the application in memory even after all windows have been closed
       if (process.platform !== 'darwin') {
@@ -39,6 +36,8 @@ class DesktopApp {
         void this.initWindow()
       }
     })
+
+    await app.whenReady()
   }
 
   /**
@@ -48,7 +47,6 @@ class DesktopApp {
     const window = await setupBrowserWindow(this.isDev)
 
     window.on('ready-to-show', () => {
-      window.show()
     })
 
     window.on('closed', () => {
@@ -57,10 +55,18 @@ class DesktopApp {
 
     this.browserWindow = window
   }
+
+  /**
+   * Setup Electron Menu
+   */
+  async initMenu (): Promise<void> {
+    app.applicationMenu = buildElectronMenu()
+  }
 }
 
 void (async function () {
   const app = new DesktopApp()
   await app.initApp()
   await app.initWindow()
+  await app.initMenu()
 })()

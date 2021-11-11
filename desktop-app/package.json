@@ -7,6 +7,7 @@
     "node": ">=16"
   },
   "scripts": {
+    "postinstall": "electron-builder install-app-deps",
     "build": "tsc",
     "start": "npm run build && electron ./dist/index.js"
   },
@@ -39,7 +40,7 @@
     "icon": "./src/assets/icon-512.png",
     "dmg": {
       "sign": false,
-      "icon": ".src/assets/app.icns",
+      "icon": "./src/assets/app.icns",
       "contents": [
         {
           "x": 40,

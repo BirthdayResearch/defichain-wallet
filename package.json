@@ -15,7 +15,7 @@
     "start:ios": "expo start --ios",
     "start:web": "expo start --web",
     "start:electron": "concurrently -c \"bgBlue,bgMagenta\" \"npm:start:electron:*\"",
-    "start:electron:server": "expo start --web",
+    "start:electron:server": "expo start --web --clear",
     "start:electron:client": "wait-on http://localhost:19006 && npm run start -w desktop-app",
     "playground:start": "docker-compose rm -fsv && docker-compose up",
     "test:ci": "jest --ci --coverage",
