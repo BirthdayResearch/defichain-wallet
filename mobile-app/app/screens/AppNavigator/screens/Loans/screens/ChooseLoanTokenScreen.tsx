@@ -142,7 +142,13 @@ export function ChooseLoanTokenScreen ({ navigation }: Props): JSX.Element {
         testID='loans_cards'
         loans={filteredLoans}
         onPress={(loan: LoanCardOptions) => {
-          // navigation.navigate()
+          navigation.navigate({
+            name: 'BorrowLoanTokenScreen',
+            params: {
+              loan
+            },
+            merge: true
+          })
         }}
       />
     </ThemedView>

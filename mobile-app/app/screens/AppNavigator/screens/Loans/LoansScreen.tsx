@@ -19,7 +19,7 @@ enum TabKey {
 export type LoadingState = 'empty_vault' | 'loading' | 'success'
 type Props = StackScreenProps<LoanParamList, 'LoansScreen'>
 
-export function LoansScreen ({ route }: Props): JSX.Element {
+export function LoansScreen ({ route, navigation }: Props): JSX.Element {
   const [activeTab, setActiveTab] = useState<string>(TabKey.BrowseLoans)
   const [loadingState, setLoadingState] = useState<LoadingState>('empty_vault') // TODO: remove temporary display flag
   const onPress = (tabId: string): void => {
@@ -164,7 +164,22 @@ export function LoansScreen ({ route }: Props): JSX.Element {
             />
           </View>
           )
-        : <LoanCards testID='loans_cards' loans={loans} onPress={() => { /* TODO: navigate to borrow loan screen */ }} />}
+        : (
+          <LoanCards
+            testID='loans_cards'
+            loans={loans}
+            onPress={(loan) => {
+                /* TODO: navigate to borrow loan screen */
+                navigation.navigate({
+                  name: 'BorrowLoanTokenScreen',
+                  params: {
+                    loan
+                  },
+                  merge: true
+                })
+              }}
+          />
+        )}
     </ThemedView>
   )
 }
