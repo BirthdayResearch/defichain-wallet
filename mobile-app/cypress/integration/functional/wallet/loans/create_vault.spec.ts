@@ -76,6 +76,6 @@ context.only('Wallet - Loans - Confirm create vault', () => {
   it('should verify if vault was created', function () {
     cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
-    cy.getByTestID('loan_card_0').should('exist')
+    cy.getByTestID('vault_card_0').should('exist')
   })
 })

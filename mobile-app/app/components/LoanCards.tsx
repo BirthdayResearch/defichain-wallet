@@ -46,16 +46,16 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
         if (index !== props.loans.length - 1) {
           return (
             <LoadCard
-              testID={`loan_card_${index}`}
               {...item}
+              testID={`loan_card_${index}`}
             />
           )
         } else {
           return (
             <View style={{ flexBasis: '50%' }}>
               <LoadCard
-                testID={`loan_card_${index}`}
                 {...item}
+                testID={`loan_card_${index}`}
               />
             </View>
           )

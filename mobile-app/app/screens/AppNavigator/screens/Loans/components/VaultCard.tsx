@@ -21,6 +21,7 @@ export interface VaultCardProps {
   actions: any[]
   onAddCollateral?: () => void
   onViewLoans?: () => void
+  testID?: string
 }
 
 export interface Collateral {
@@ -55,6 +56,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
       style={tailwind('rounded mb-2 border p-4')}
     >
       <ThemedTouchableOpacity
+        testID={props.testID}
         onPress={() => onCardPress(props.vaultAddress)}
         light={tailwind('border-b-0')}
         dark={tailwind('border-b-0')}

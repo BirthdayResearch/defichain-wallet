@@ -61,7 +61,7 @@ export function Vaults (): JSX.Element {
         </View>
       )}
       {vaults.map((vault, index) => {
-        return <VaultCard key={index} {...vault} />
+        return <VaultCard testID={`vault_card_${index}`} key={index} {...vault} />
       })}
     </ThemedView>
   )
