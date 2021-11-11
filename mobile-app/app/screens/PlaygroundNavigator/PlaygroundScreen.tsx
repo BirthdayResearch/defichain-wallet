@@ -10,7 +10,7 @@ import { PlaygroundConnection } from './sections/PlaygroundConnection'
 import { PlaygroundToken } from './sections/PlaygroundToken'
 import { PlaygroundUTXO } from './sections/PlaygroundUTXO'
 import { PlaygroundWallet } from './sections/PlaygroundWallet'
-import { WalletAddressIndex } from '@api/wallet'
+import { WalletAddressIndexPersistence } from '@api/wallet'
 
 export function PlaygroundScreen (): JSX.Element {
   return (
@@ -41,7 +41,7 @@ function PlaygroundWalletSection (): JSX.Element | null {
 
   return (
     <WalletNodeProvider data={wallets[0]}>
-      <WalletContextProvider api={WalletAddressIndex}>
+      <WalletContextProvider api={WalletAddressIndexPersistence}>
         <PlaygroundUTXO />
 
         <PlaygroundToken />

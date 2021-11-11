@@ -8,7 +8,7 @@ import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundTitle } from '../components/PlaygroundTitle'
 
 export function PlaygroundToken (): JSX.Element | null {
-  const { wallet } = useWalletContext()
+  const { wallet, account } = useWalletContext()
   const {
     rpc,
     api
@@ -30,7 +30,7 @@ export function PlaygroundToken (): JSX.Element | null {
       <PlaygroundAction
         key={token.id}
         onPress={async () => {
-          const address = await wallet.get(0).getAddress()
+          const address = await account.getAddress()
           await rpc.call('sendtokenstoaddress', [{}, {
             [address]: `10@${token.symbol}`
           }], 'number')
@@ -57,7 +57,7 @@ export function PlaygroundToken (): JSX.Element | null {
         onPress={async () => {
           await api.wallet.sendTokenDfiToAddress({
             amount: '10',
-            address: await wallet.get(0).getAddress()
+            address: await account.getAddress()
           })
         }}
         testID='playground_token_DFI'

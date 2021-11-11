@@ -11,7 +11,7 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 export function PlaygroundUTXO (): JSX.Element {
   const logger = useLogger()
-  const { wallet } = useWalletContext()
+  const { wallet, account } = useWalletContext()
   const whaleApiClient = useWhaleApiClient()
   const dispatch = useDispatch()
   const {
@@ -44,7 +44,7 @@ export function PlaygroundUTXO (): JSX.Element {
           <>
             <PlaygroundAction
               onPress={async () => {
-                const address = await wallet.get(0).getAddress()
+                const address = await account.getAddress()
                 await rpc.wallet.sendToAddress(address, 10)
               }}
               testID='playground_wallet_top_up'
@@ -53,7 +53,7 @@ export function PlaygroundUTXO (): JSX.Element {
 
             <PlaygroundAction
               onPress={async () => {
-                const address = await wallet.get(0).getAddress()
+                const address = await account.getAddress()
                 fetchTokens(whaleApiClient, address, dispatch, logger)
               }}
               testID='playground_wallet_fetch_balances'

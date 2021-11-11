@@ -55,7 +55,13 @@
     "PORTFOLIO": "资产组合",
     "Show balances": "显示总资产",
     "Hide balances": "隐藏总资产",
-    "You do not have any other tokens.": "你现在没有其他代币"
+    "You do not have any other tokens.": "你现在没有其他代币",
+    "SWITCH": "切换钱包"
+  },
+  "screens/AddressControlScreen": {
+    "CREATE WALLET ADDRESS": "创建钱包",
+    "Switch to another wallet": "切换到另一个钱包",
+    "Wallet Address": "钱包地址"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",

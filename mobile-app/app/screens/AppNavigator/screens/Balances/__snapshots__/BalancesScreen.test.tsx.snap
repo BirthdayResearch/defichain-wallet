@@ -948,6 +948,8 @@ exports[`balances page should match snapshot 1`] = `
               accessible={true}
               focusable={true}
               onClick={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               onResponderGrant={[Function]}
               onResponderMove={[Function]}
               onResponderRelease={[Function]}
@@ -967,6 +969,8 @@ exports[`balances page should match snapshot 1`] = `
             accessible={true}
             focusable={true}
             onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
             onResponderGrant={[Function]}
             onResponderMove={[Function]}
             onResponderRelease={[Function]}
@@ -1022,6 +1026,8 @@ exports[`balances page should match snapshot 1`] = `
           accessible={true}
           focusable={true}
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -1084,6 +1090,74 @@ exports[`balances page should match snapshot 1`] = `
             RECEIVE
           </Text>
         </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(212, 212, 212, 1)",
+              "borderBottomLeftRadius": 4,
+              "borderBottomRightRadius": 4,
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(212, 212, 212, 1)",
+              "borderLeftWidth": 1,
+              "borderRightColor": "rgba(212, 212, 212, 1)",
+              "borderRightWidth": 1,
+              "borderTopColor": "rgba(212, 212, 212, 1)",
+              "borderTopLeftRadius": 4,
+              "borderTopRightRadius": 4,
+              "borderTopWidth": 1,
+              "flexDirection": "row",
+              "marginRight": 8,
+              "opacity": 1,
+              "paddingBottom": 4,
+              "paddingLeft": 4,
+              "paddingRight": 4,
+              "paddingTop": 4,
+            }
+          }
+          testID="switch_account_button"
+        >
+          <Text />
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "fontFamily": "MediumFont",
+                    "fontSize": 14,
+                    "fontWeight": "500",
+                    "lineHeight": 16,
+                    "paddingLeft": 4,
+                    "paddingRight": 4,
+                  },
+                  Object {
+                    "color": "rgba(255, 0, 175, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            SWITCH
+          </Text>
+        </View>
       </View>
     </View>
     <View
@@ -1137,6 +1211,8 @@ exports[`balances page should match snapshot 1`] = `
         accessible={true}
         focusable={false}
         onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
         onResponderRelease={[Function]}
@@ -1502,6 +1578,8 @@ exports[`balances page should match snapshot 1`] = `
               accessible={true}
               focusable={true}
               onClick={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               onResponderGrant={[Function]}
               onResponderMove={[Function]}
               onResponderRelease={[Function]}
@@ -1565,6 +1643,8 @@ exports[`balances page should match snapshot 1`] = `
                 accessible={true}
                 focusable={true}
                 onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 onResponderGrant={[Function]}
                 onResponderMove={[Function]}
                 onResponderRelease={[Function]}
@@ -1604,6 +1684,8 @@ exports[`balances page should match snapshot 1`] = `
                 accessible={true}
                 focusable={true}
                 onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 onResponderGrant={[Function]}
                 onResponderMove={[Function]}
                 onResponderRelease={[Function]}
@@ -1647,6 +1729,8 @@ exports[`balances page should match snapshot 1`] = `
       accessible={true}
       focusable={true}
       onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -1866,6 +1950,8 @@ exports[`balances page should match snapshot 1`] = `
       accessible={true}
       focusable={true}
       onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}

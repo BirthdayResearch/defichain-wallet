@@ -4,7 +4,7 @@ import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { useNetworkContext } from './NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
 import { useWalletNodeContext } from './WalletNodeProvider'
-import { initJellyfishWallet } from '@api/wallet'
+import { AddressIndexType, initJellyfishWallet } from '@api/wallet'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 interface WalletContextI {
@@ -34,10 +34,11 @@ interface WalletContextI {
   createAddress: () => Promise<void>
 
 }
+
 export interface WalletContextProviderProps extends PropsWithChildren<{}> {
   api: {
-    get: (type: string) => Promise<number>
-    set: (type: string, count: number) => Promise<void>
+    get: (type: AddressIndexType) => Promise<number>
+    set: (type: AddressIndexType, count: number) => Promise<void>
   }
 }
 
@@ -67,7 +68,7 @@ export function WalletContextProvider (props: WalletContextProviderProps): JSX.E
   }, [wallet])
 
   const getWalletDetails = async (): Promise<void> => {
-    const maxAddressIndex = 2 // await api.get('max')
+    const maxAddressIndex = await api.get('max')
     const activeAddressIndex = await api.get('active')
     const addresses: string[] = []
     for (let i = 0; i <= maxAddressIndex; i++) {

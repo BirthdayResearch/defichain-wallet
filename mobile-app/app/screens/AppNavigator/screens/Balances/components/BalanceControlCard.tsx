@@ -1,5 +1,5 @@
 import { tailwind } from '@tailwind'
-import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView, ThemedScrollView } from '@components/themed'
+import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import * as React from 'react'
 import { useRef, useCallback } from 'react'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -15,6 +15,7 @@ import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/Balance
 import { IconButton } from '@components/IconButton'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet'
+import { AddressControlModal } from './AddressControlScreen'
 
 export function BalanceControlCard (): JSX.Element {
   const { availableAddresses, address } = useWalletContext()
@@ -27,7 +28,7 @@ export function BalanceControlCard (): JSX.Element {
 
   const onSwitchClick = useCallback(() => {
     if (Platform.OS === 'web') {
-      // WalletAlert(alertInfo)
+      navigation.navigate('AddressControlScreen')
     } else {
       bottomSheetModalRef.current?.present()
     }
@@ -38,8 +39,11 @@ export function BalanceControlCard (): JSX.Element {
   }, [])
 
   const getSnapPoints = (): string[] => {
-    if (availableAddresses.length > 2) {
-      return ['50%']
+    if (availableAddresses?.length > 6) {
+      return ['90%']
+    }
+    if (availableAddresses?.length > 3) {
+      return ['60%']
     }
     return ['30%']
   }
@@ -109,143 +113,25 @@ export function BalanceControlCard (): JSX.Element {
           style={tailwind('mr-2')}
           iconLabel={translate('screens/BalancesScreen', 'SWITCH')}
         />
-        <BottomSheetModal
-          name={switchAddressModalName}
-          ref={bottomSheetModalRef}
-          snapPoints={getSnapPoints()}
-          backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
-            <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
-          )}
-          backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
-            <View
-              {...backgroundProps}
-              style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-900 border-gray-700'} border-t rounded`)]}
-            />
-          )}
-        >
-          <AddressControlCard onClose={closeModal} />
-        </BottomSheetModal>
+        {Platform.OS !== 'web' && (
+          <BottomSheetModal
+            name={switchAddressModalName}
+            ref={bottomSheetModalRef}
+            snapPoints={getSnapPoints()}
+            backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
+              <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
+            )}
+            backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
+              <View
+                {...backgroundProps}
+                style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-900 border-gray-700'} border-t rounded`)]}
+              />
+            )}
+          >
+            <AddressControlModal onClose={closeModal} />
+          </BottomSheetModal>
+       )}
       </View>
     </ThemedView>
-  )
-}
-
-function AddressControlCard ({ onClose }: { onClose?: () => void }): JSX.Element {
-  const { availableAddresses, switchAccount, createAddress } = useWalletContext()
-
-  return (
-    <View style={tailwind('w-full pb-16')}>
-      <ThemedView
-        dark={tailwind('border-b-2 border-gray-700')}
-        light={tailwind('border-b-2 border-gray-100')}
-        style={tailwind('w-full')}
-      >
-        <View style={tailwind('flex flex-row justify-between w-full px-4 pb-4 pt-2')}>
-          <ThemedText
-            dark={tailwind('text-gray-50')}
-            light={tailwind('text-gray-900')}
-            style={tailwind('ml-2 text-lg font-medium')}
-          >
-            {translate('components/FeeInfoRow', 'Switch to another wallet')}
-          </ThemedText>
-          <TouchableOpacity onPress={onClose}>
-            <ThemedIcon
-              size={24}
-              name='close'
-              iconType='MaterialIcons'
-              dark={tailwind('text-white text-opacity-70')}
-              light={tailwind('text-gray-600')}
-            />
-          </TouchableOpacity>
-        </View>
-      </ThemedView>
-      <ThemedScrollView
-        dark={tailwind('text-gray-50')}
-        light={tailwind('text-gray-900')}
-        contentContainerStyle={tailwind('pb-8')}
-      >
-        {availableAddresses.map((availableAddress, index) =>
-          <AddressItemRow
-            key={availableAddress}
-            address={availableAddress}
-            onPress={async () => {
-                await switchAccount(index)
-                if (onClose != null) {
-                  onClose()
-                }
-              }}
-          />
-        )}
-        <ThemedTouchableOpacity
-          dark={tailwind('bg-gray-800 border-b border-gray-700')}
-          light={tailwind('bg-white border-b border-gray-100')}
-          style={tailwind('py-4 pl-4 pr-2 flex-row justify-between items-center')}
-          onPress={createAddress}
-          testID='create_new_address'
-        >
-          <View style={tailwind('flex-row items-center flex-grow')}>
-            <ThemedIcon
-              size={16}
-              name='add'
-              dark={tailwind('text-darkprimary-500')}
-              light={tailwind('text-primary-500')}
-              style={tailwind('font-normal')}
-              iconType='MaterialIcons'
-            />
-
-            <View style={tailwind('mx-3 flex-auto')}>
-              <ThemedText
-                dark={tailwind('text-darkprimary-500')}
-                light={tailwind('text-primary-500')}
-                style={tailwind('text-sm font-normal')}
-              >
-                {translate('components/FeeInfoRow', 'CREATE WALLET ADDRESS')}
-              </ThemedText>
-            </View>
-          </View>
-        </ThemedTouchableOpacity>
-      </ThemedScrollView>
-    </View>
-  )
-}
-
-function AddressItemRow ({ address, onPress }: { address: string, onPress: () => void }): JSX.Element {
-  return (
-    <ThemedTouchableOpacity
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-100')}
-      onPress={onPress}
-      style={tailwind('py-4 pl-4 pr-2 flex-row justify-between items-center')}
-      testID={`address_row_${address}`}
-    >
-      <View style={tailwind('flex-row items-center flex-grow')}>
-        <ThemedIcon
-          size={16}
-          name='account-balance-wallet'
-          iconType='MaterialIcons'
-          dark={tailwind('text-white text-opacity-70')}
-          light={tailwind('text-gray-600')}
-        />
-
-        <View style={tailwind('mx-3 flex-auto')}>
-          <ThemedText
-            dark={tailwind('text-gray-200')}
-            light={tailwind('text-black')}
-            style={tailwind('text-sm font-normal')}
-          >
-            {address}
-          </ThemedText>
-        </View>
-        <View style={tailwind('flex-row items-center')}>
-          <ThemedIcon
-            dark={tailwind('text-gray-200')}
-            iconType='MaterialIcons'
-            light={tailwind('text-black')}
-            name='chevron-right'
-            size={24}
-          />
-        </View>
-      </View>
-    </ThemedTouchableOpacity>
   )
 }

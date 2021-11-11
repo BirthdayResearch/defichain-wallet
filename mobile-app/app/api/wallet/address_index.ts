@@ -2,14 +2,14 @@ import { SecuredStoreAPI } from '@api'
 
 const KEY = 'WALLET_ADDRESS.INDEX'
 
-type IndexType = 'max' | 'active'
+export type AddressIndexType = 'max' | 'active'
 
-async function get (type: IndexType): Promise<number> {
+async function get (type: AddressIndexType): Promise<number> {
   const str = await SecuredStoreAPI.getItem(`${KEY}.${type}`)
   return str === undefined ? 0 : Number(str)
 }
 
-async function set (type: IndexType, count: number): Promise<void> {
+async function set (type: AddressIndexType, count: number): Promise<void> {
   await SecuredStoreAPI.setItem(`${KEY}.${type}`, `${count}`)
 }
 
@@ -17,7 +17,7 @@ async function set (type: IndexType, count: number): Promise<void> {
  * max index to know how many addresses have been generated.
  * active index to know which index's address is active.
  */
-export const WalletAddressIndex = {
+export const WalletAddressIndexPersistence = {
   set,
   get
 }
