@@ -54,6 +54,7 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
           return (
             <View style={{ flexBasis: '50%' }}>
               <LoadCard
+                testID={`loan_card_${index}`}
                 {...item}
               />
             </View>
