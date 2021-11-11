@@ -171,6 +171,10 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   }
 
   function updatePoolPairPrice (tokenAId: string, poolpair: PoolPairData): void {
+    if (tokenAId === '0_unified') {
+      tokenAId = '0'
+    }
+
     const aToBPrice = tokenAId === poolpair.tokenA.id
       ? new BigNumber(poolpair.tokenB.reserve).div(poolpair.tokenA.reserve)
       : new BigNumber(poolpair.tokenA.reserve).div(poolpair.tokenB.reserve)
@@ -301,7 +305,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         <InputHelperText
           testID={`text_balance_${tokenBForm}`}
           label={`${translate('screens/PoolSwapScreen', 'You have')} `}
-          content={tokenB.amount} // TODO: this amount is wrong
+          content={tokenB.amount}
           suffix={` ${tokenB.displaySymbol}`}
         />
         {isConversionRequired && <ConversionInfoText />}
