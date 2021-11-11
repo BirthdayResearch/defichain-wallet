@@ -172,13 +172,13 @@ function LoanSchemeOptions (props: { loanSchemes: LoanScheme[], selectedLoanSche
           <LoanSchemeOptionData
             label='Min. collateral ratio'
             value={scheme.minColRatio}
-            testId='min_col_ratio_value'
+            testId={`min_col_ratio_value_${index}`}
             suffix='%'
           />
           <LoanSchemeOptionData
             label='Interest rate'
             value={scheme.interestRate}
-            testId='interest_rate_value'
+            testId={`interest_rate_value_${index}`}
             suffix={`% ${translate('screens/CreateVaultScreen', 'APR')}`}
           />
         </ThemedTouchableOpacity>
