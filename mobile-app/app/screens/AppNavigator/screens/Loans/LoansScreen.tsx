@@ -54,7 +54,8 @@ export function LoansScreen (): JSX.Element {
       price: new BigNumber('123.4567'),
       isVerified: true,
       interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      onPress: () => {},
+      testID: 'loan_0'
     },
     {
       loanName: 'BTC',
@@ -62,7 +63,8 @@ export function LoansScreen (): JSX.Element {
       price: new BigNumber('123.4567'),
       isVerified: false,
       interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      onPress: () => {},
+      testID: 'loan_1'
     },
     {
       loanName: 'BTC',
@@ -70,7 +72,8 @@ export function LoansScreen (): JSX.Element {
       price: new BigNumber('123.4567'),
       isVerified: true,
       interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      onPress: () => {},
+      testID: 'loan_2'
     },
     {
       loanName: 'BTC',
@@ -78,7 +81,8 @@ export function LoansScreen (): JSX.Element {
       price: new BigNumber('123.4567'),
       isVerified: false,
       interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      onPress: () => {},
+      testID: 'loan_3'
     },
     {
       loanName: 'BTC',
@@ -86,7 +90,8 @@ export function LoansScreen (): JSX.Element {
       price: new BigNumber('123.4567'),
       isVerified: true,
       interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      onPress: () => {},
+      testID: 'loan_4'
     },
     {
       loanName: 'BTC',
@@ -94,7 +99,8 @@ export function LoansScreen (): JSX.Element {
       price: new BigNumber('123.4567'),
       isVerified: false,
       interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      onPress: () => {},
+      testID: 'loan_5'
     },
     {
       loanName: 'BTC',
@@ -102,7 +108,8 @@ export function LoansScreen (): JSX.Element {
       price: new BigNumber('123.4567'),
       isVerified: true,
       interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      onPress: () => {},
+      testID: 'loan_6'
     },
     {
       loanName: 'BTC',
@@ -110,7 +117,8 @@ export function LoansScreen (): JSX.Element {
       price: new BigNumber('123.4567'),
       isVerified: false,
       interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      onPress: () => {},
+      testID: 'loan_7'
     },
     {
       loanName: 'BTC',
@@ -118,7 +126,8 @@ export function LoansScreen (): JSX.Element {
       price: new BigNumber('123.4567'),
       isVerified: true,
       interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      onPress: () => {},
+      testID: 'loan_8'
     },
     {
       loanName: 'BTC',
@@ -126,7 +135,8 @@ export function LoansScreen (): JSX.Element {
       price: new BigNumber('123.4567'),
       isVerified: false,
       interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      onPress: () => {},
+      testID: 'loan_9'
     },
     {
       loanName: 'BTC',
@@ -134,7 +144,8 @@ export function LoansScreen (): JSX.Element {
       price: new BigNumber('123.4567'),
       isVerified: true,
       interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
+      onPress: () => {},
+      testID: 'loan_10'
     }
   ]
 
