@@ -509,7 +509,8 @@
     "CONFIRM SWAP": "確認兌換",
     "Transaction type": "交易類型",
     "Swap": "兌換",
-    "Convert & swap": "轉換並兌換"
+    "Convert & swap": "轉換並兌換",
+    "Max Price per {{fromToken}}": "每 {{fromToken}} 的最高價格"
   },
   "screens/UnlockWallet": {
     "Enter Passcode": "請輸入密碼",
@@ -657,7 +658,8 @@
     "APR": "回報率",
     "CONFIRM CREATE VAULT": "確認創建金庫",
     "Creating vault": "創建金庫",
-    "Creating vault with min. collateral ratio of {{amount}}% and interest rate of {{ir}}% APR": "創建金庫時，設定的最低抵押率為{{amount}}%，利率為{{ir}}%年回報率"
+    "Creating vault with min. collateral ratio of {{amount}}% and interest rate of {{ir}}% APR": "創建金庫時，設定的最低抵押率為{{amount}}%，利率為{{ir}}%年回報率",
+    "Convert & create vault": "轉換和創建金庫"
   },
   "components/FeeInfoRow": {
     "Estimated fee": "所需費用（大約）",
