@@ -9,13 +9,14 @@ import { translate } from '@translations'
 import { NavigationProp, useNavigation } from '@react-navigation/core'
 import { BalanceParamList } from '../BalancesNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { RandomAvatar } from '@screens/AppNavigator/screens/Balances/components/RandomAvatar'
 
 export function AddressControlScreen (): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   return (
     <ThemedScrollView>
       <ThemedSectionTitle
-        testID='onboarding_network_selection_screen_title'
+        testID='switch_address_screen_title'
         text={translate('screens/OnboardingNetworkSelectScreen', 'Switch to another wallet')}
       />
       <AddressControlCard onClose={() => navigation.goBack()} />
@@ -62,18 +63,26 @@ export function AddressControlModal ({ onClose }: { onClose?: () => void }): JSX
 }
 
 export function AddressControlCard ({ onClose }: { onClose?: () => void }): JSX.Element {
-  const { availableAddresses, switchAccount, createAddress, wallet } = useWalletContext()
+  const { address, addressLength, setIndex, append, wallet } = useWalletContext()
+  const [availableAddresses, setAvailableAddresses] = useState<string[]>([])
   const [canCreateAddress, setCanCreateAddress] = useState<boolean>(false)
   const logger = useLogger()
 
+  const discoverAddresses = async (): Promise<void> => {
+    const addresses: string[] = []
+    for (let i = 0; i <= addressLength; i++) {
+      const account = wallet.get(i)
+      const address = await account.getAddress()
+      addresses.push(address)
+    }
+    setAvailableAddresses(addresses)
+    const discoveredAddress = await wallet.discover(addresses.length)
+    setCanCreateAddress(addresses.length === discoveredAddress.length)
+  }
+
   useEffect(() => {
-    wallet.discover(availableAddresses.length).then(discoveredAddress => {
-      if (availableAddresses.length === discoveredAddress.length) {
-        return setCanCreateAddress(true)
-      }
-      return setCanCreateAddress(false)
-    }).catch(logger.error)
-  }, [wallet, availableAddresses])
+    discoverAddresses().catch(logger.error)
+  }, [wallet, addressLength])
 
   return (
     <>
@@ -81,8 +90,9 @@ export function AddressControlCard ({ onClose }: { onClose?: () => void }): JSX.
         <AddressItemRow
           key={availableAddress}
           address={availableAddress}
+          isActive={address === availableAddress}
           onPress={async () => {
-              await switchAccount(index)
+              await setIndex(index)
               if (onClose != null) {
                 onClose()
               }
@@ -94,7 +104,7 @@ export function AddressControlCard ({ onClose }: { onClose?: () => void }): JSX.
           dark={tailwind('bg-gray-800 border-b border-gray-700')}
           light={tailwind('bg-white border-b border-gray-100')}
           style={tailwind('py-4 pl-4 pr-2')}
-          onPress={createAddress}
+          onPress={append}
           testID='create_new_address'
         >
           <View style={tailwind('flex-row items-center flex-grow')}>
@@ -123,7 +133,7 @@ export function AddressControlCard ({ onClose }: { onClose?: () => void }): JSX.
   )
 }
 
-function AddressItemRow ({ address, onPress }: { address: string, onPress: () => void }): JSX.Element {
+function AddressItemRow ({ address, isActive, onPress }: { address: string, isActive: boolean, onPress: () => void }): JSX.Element {
   return (
     <ThemedTouchableOpacity
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
@@ -133,27 +143,35 @@ function AddressItemRow ({ address, onPress }: { address: string, onPress: () =>
       testID={`address_row_${address}`}
     >
       <View style={tailwind('flex-row items-center flex-grow')}>
-        <ThemedIcon
-          size={16}
-          name='account-balance-wallet'
-          iconType='MaterialIcons'
-          dark={tailwind('text-white text-opacity-70')}
-          light={tailwind('text-gray-600')}
-        />
-
-        <View style={tailwind('mx-3 flex-auto')}>
+        <RandomAvatar name={address} size={16} />
+        <View style={tailwind('ml-3 flex-auto')}>
           <ThemedText
             dark={tailwind('text-gray-200')}
             light={tailwind('text-black')}
             style={tailwind('text-sm w-full font-normal')}
-            // style={tailwind('font-semibold w-44 flex-shrink')}
             numberOfLines={1}
             ellipsizeMode='middle'
           >
             {address}
           </ThemedText>
         </View>
-        <View style={tailwind('flex-row items-center')}>
+        {isActive && (
+          <ThemedView
+            light={tailwind('bg-blue-100')}
+            dark={tailwind('bg-darkblue-100')}
+            style={tailwind('h-4 ml-1')}
+            testID='address_active_indicator'
+          >
+            <ThemedText
+              light={tailwind('text-blue-500')}
+              dark={tailwind('text-darkblue-500')}
+              style={tailwind('text-2xs px-1 font-medium')}
+            >
+              {translate('screens/AddressControlScreen', 'ACTIVE')}
+            </ThemedText>
+          </ThemedView>
+        )}
+        <View style={tailwind('ml-3 flex-row items-center')}>
           <ThemedIcon
             dark={tailwind('text-gray-200')}
             iconType='MaterialIcons'

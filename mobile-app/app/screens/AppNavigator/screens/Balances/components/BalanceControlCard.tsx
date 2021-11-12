@@ -8,17 +8,16 @@ import { Platform, TouchableOpacity } from 'react-native'
 import { translate } from '@translations'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
-// @ts-expect-error
-import Avatar from 'react-native-boring-avatars'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { IconButton } from '@components/IconButton'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet'
-import { AddressControlModal } from './AddressControlScreen'
+import { AddressControlModal } from '@screens/AppNavigator/screens/Balances/components/AddressControlScreen'
+import { RandomAvatar } from '@screens/AppNavigator/screens/Balances/components/RandomAvatar'
 
 export function BalanceControlCard (): JSX.Element {
-  const { availableAddresses, address } = useWalletContext()
+  const { addressLength, address } = useWalletContext()
   const { getAddressUrl } = useDeFiScanContext()
   const { isLight } = useThemeContext()
   const { dismiss } = useBottomSheetModal()
@@ -39,10 +38,10 @@ export function BalanceControlCard (): JSX.Element {
   }, [])
 
   const getSnapPoints = (): string[] => {
-    if (availableAddresses?.length > 6) {
+    if (addressLength > 6) {
       return ['90%']
     }
-    if (availableAddresses?.length > 3) {
+    if (addressLength > 2) {
       return ['60%']
     }
     return ['30%']
@@ -56,12 +55,7 @@ export function BalanceControlCard (): JSX.Element {
       light={tailwind('bg-white border-b border-gray-200')}
     >
       <View style={tailwind('flex flex-row items-center')}>
-        <Avatar
-          size={40}
-          name={address}
-          variant='pixel'
-          colors={['#EE2CB1', '#604EBF', '#DB69B8', '#FAEAF5', '#262626']}
-        />
+        <RandomAvatar name={address} size={40} />
         <View
           style={tailwind('flex flex-1 ml-3')}
         >
@@ -113,6 +107,7 @@ export function BalanceControlCard (): JSX.Element {
           style={tailwind('mr-2')}
           iconLabel={translate('screens/BalancesScreen', 'SWITCH')}
         />
+
         {Platform.OS !== 'web' && (
           <BottomSheetModal
             name={switchAddressModalName}

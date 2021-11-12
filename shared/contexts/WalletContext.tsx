@@ -4,7 +4,7 @@ import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { useNetworkContext } from './NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
 import { useWalletNodeContext } from './WalletNodeProvider'
-import { AddressIndexType, initJellyfishWallet } from '@api/wallet'
+import { initJellyfishWallet } from '@api/wallet'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 interface WalletContextI {
@@ -21,24 +21,26 @@ interface WalletContextI {
    */
   address: string
   /**
-   * Available addresses of the above wallet
+   * Available address length of the above wallet
    */
-  availableAddresses: string[]
+  addressLength: number
   /**
    * Switch account addresses of the above wallet
    */
-  switchAccount: (index: number) => Promise<void>
+  setIndex: (index: number) => Promise<void>
   /**
    * Create new account addresses of the above wallet
    */
-  createAddress: () => Promise<void>
+  append: () => Promise<void>
 
 }
 
 export interface WalletContextProviderProps extends PropsWithChildren<{}> {
   api: {
-    get: (type: AddressIndexType) => Promise<number>
-    set: (type: AddressIndexType, count: number) => Promise<void>
+    getLength: () => Promise<number>
+    setLength: (count: number) => Promise<void>
+    getActive: () => Promise<number>
+    setActive: (count: number) => Promise<void>
   }
 }
 
@@ -54,7 +56,7 @@ export function WalletContextProvider (props: WalletContextProviderProps): JSX.E
   const { provider } = useWalletNodeContext()
   const [address, setAddress] = useState<string>()
   const [account, setAccount] = useState<WhaleWalletAccount>()
-  const [availableAddresses, setAvailableAddresses] = useState<string[]>([])
+  const [addressLength, setAddressLength] = useState<number>(0)
   const { network } = useNetworkContext()
   const client = useWhaleApiClient()
 
@@ -68,33 +70,25 @@ export function WalletContextProvider (props: WalletContextProviderProps): JSX.E
   }, [wallet])
 
   const getWalletDetails = async (): Promise<void> => {
-    const maxAddressIndex = await api.get('max')
-    const activeAddressIndex = await api.get('active')
-    const addresses: string[] = []
-    for (let i = 0; i <= maxAddressIndex; i++) {
-      const account = wallet.get(i)
-      const address = await account.getAddress()
-      addresses.push(address)
-      if (i === activeAddressIndex) {
-        setAccount(account)
-        setAddress(address)
-      }
-    }
-    setAvailableAddresses(addresses)
+    const maxAddressIndex = await api.getLength()
+    setAddressLength(maxAddressIndex)
+    const activeAddressIndex = await api.getActive()
+    const account = wallet.get(activeAddressIndex)
+    const address = await account.getAddress()
+    setAccount(account)
+    setAddress(address)
   }
 
-  const createAddress = async (): Promise<void> => {
-    const index = availableAddresses.length
-    await api.set('max', index)
-    const account = wallet.get(index)
-    const address = await account.getAddress()
-    setAvailableAddresses([...availableAddresses, address])
+  const append = async (): Promise<void> => {
+    const index = addressLength + 1
+    await api.setLength(index)
+    setAddressLength(index)
   }
 
-  const switchAccount = async (index: number): Promise<void> => {
+  const setIndex = async (index: number): Promise<void> => {
     const account = wallet.get(index)
     const address = await account.getAddress()
-    await api.set('active', index)
+    await api.setActive(index)
     setAccount(account)
     setAddress(address)
   }
@@ -107,9 +101,9 @@ export function WalletContextProvider (props: WalletContextProviderProps): JSX.E
     wallet: wallet,
     account: account,
     address: address,
-    switchAccount: switchAccount,
-    createAddress: createAddress,
-    availableAddresses: availableAddresses
+    setIndex: setIndex,
+    append: append,
+    addressLength: addressLength
   }
 
   return (

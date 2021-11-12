@@ -7,7 +7,7 @@ import { PrivacyLock } from './PrivacyLock'
 import { TransactionAuthorization } from './TransactionAuthorization/TransactionAuthorization'
 import { WalletNavigator } from './WalletNavigator/WalletNavigator'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import { WalletAddressIndexPersistence } from '@api/wallet'
+import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 
 /**
  * Top Root Level Wallet State to control what screen to show
