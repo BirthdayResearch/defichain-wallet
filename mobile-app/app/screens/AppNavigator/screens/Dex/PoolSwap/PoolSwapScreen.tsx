@@ -171,6 +171,10 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   }
 
   function updatePoolPairPrice (tokenAId: string, poolpair: PoolPairData): void {
+    if (tokenAId === '0_unified') {
+      tokenAId = '0'
+    }
+
     const aToBPrice = tokenAId === poolpair.tokenA.id
       ? new BigNumber(poolpair.tokenB.reserve).div(poolpair.tokenA.reserve)
       : new BigNumber(poolpair.tokenA.reserve).div(poolpair.tokenB.reserve)
@@ -526,6 +530,9 @@ function calculateEstimatedAmount (tokenAAmount: string, reserveA: string, price
 }
 
 function getReserveAmount (id: string, poolpair: PoolPairData): string {
+  if (id === '0_unified') {
+    id = '0'
+  }
   return id === poolpair.tokenA.id ? poolpair.tokenA.reserve : poolpair.tokenB.reserve
 }
 
