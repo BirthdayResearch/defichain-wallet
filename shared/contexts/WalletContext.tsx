@@ -72,7 +72,7 @@ export function WalletContextProvider (props: WalletContextProviderProps): JSX.E
       setAccount(account)
       setAddress(address)
     }).catch(logger.error)
-  }, [addressIndex])
+  }, [wallet, addressIndex])
 
   const getWalletDetails = async (): Promise<void> => {
     // get discovered address
