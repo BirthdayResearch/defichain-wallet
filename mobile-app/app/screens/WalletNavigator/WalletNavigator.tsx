@@ -7,7 +7,7 @@ import * as React from 'react'
 import { HeaderFont } from '@components'
 import { HeaderTitle } from '@components/HeaderTitle'
 import { getDefaultTheme } from '@constants/Theme'
-import { useThemeContext } from '@contexts/ThemeProvider'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { translate } from '@translations'
 import { CreateMnemonicWallet } from './screens/CreateWallet/CreateMnemonicWallet'
 import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
@@ -85,7 +85,7 @@ export function WalletNavigator (): JSX.Element {
     >
       <WalletStack.Navigator
         initialRouteName='Onboarding'
-        screenOptions={{ headerTitleStyle: HeaderFont }}
+        screenOptions={{ headerTitleStyle: HeaderFont, headerTitleAlign: 'center' }}
       >
         <WalletStack.Screen
           component={Onboarding}

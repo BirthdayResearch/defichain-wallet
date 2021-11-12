@@ -3,14 +3,15 @@ import BigNumber from 'bignumber.js'
 function createAddLiquidityToWallet (): void {
   cy.createEmptyWallet(true)
 
-  cy.getByTestID('bottom_tab_settings').click()
+  cy.getByTestID('header_settings').click()
   cy.sendDFItoWallet().sendTokenToWallet(['ETH-DFI']).wait(3000)
   cy.getByTestID('bottom_tab_dex').click().wait(1000)
   cy.getByTestID('close_dex_guidelines').click()
-  cy.getByTestID('liquidity_screen_list').wait(2000)
+  cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click().wait(1000)
+  cy.getByTestID('your_liquidity_tab').wait(2000)
     .getByTestID('pool_pair_row_your').should('have.length', 1)
 
-  cy.getByTestID('liquidity_screen_list')
+  cy.getByTestID('your_liquidity_tab')
     .wait(2000).getByTestID('pool_pair_row_your').first()
     .invoke('text').should(text => expect(text).to.contains('10.00000000'))
 
@@ -27,7 +28,8 @@ context('Wallet - DEX - Remove Liquidity', () => {
 
   after(function () {
     // Remove added liquidity
-    cy.getByTestID('bottom_tab_dex').click().wait(1000)
+    cy.getByTestID('bottom_tab_dex').click()
+    cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click().wait(1000)
     cy.getByTestID('pool_pair_remove_dETH-DFI').click().wait(1000)
     cy.getByTestID('button_slider_max').click().wait(1000)
     cy.getByTestID('button_continue_remove_liq').click()
@@ -55,20 +57,20 @@ context('Wallet - DEX - Remove Liquidity', () => {
   // })
 
   it('should disable continue button by default', () => {
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
   })
 
   it('should disable continue button when input is invalid', () => {
     cy.getByTestID('text_input_percentage').clear().type('0')
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
     cy.getByTestID('text_input_percentage').clear().type('123')
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
     cy.getByTestID('text_input_percentage').clear().type('100.000000000001')
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
     cy.getByTestID('text_input_percentage').clear().type('1.23.456.789')
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
     cy.getByTestID('text_input_percentage').clear().type('cake')
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
   })
 
   it('should be able to continue when input valid percentage', () => {
@@ -92,7 +94,7 @@ context('Wallet - DEX - Remove Liquidity', () => {
     cy.getByTestID('price_a').contains('0.00000000')
     cy.getByTestID('price_b').contains('0.00000000')
 
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'disabled')
+    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
   })
 })
 
@@ -104,7 +106,7 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
   afterEach(function () {
     cy.getByTestID('pool_pair_row_your').should('not.exist')
     cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('balances_row_7').should('not.exist')
+    cy.getByTestID('balances_row_11').should('not.exist')
   })
 
   it('Should be able to remove liquidity', function () {

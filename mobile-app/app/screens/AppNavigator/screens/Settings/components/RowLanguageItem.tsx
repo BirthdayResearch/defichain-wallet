@@ -1,7 +1,6 @@
-import { LanguagePersistence } from '@api'
 import { ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
-import { useLanguageContext } from '@contexts/LanguageProvider'
+import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
 import { AppLanguageItem, translate } from '@translations'
@@ -34,8 +33,7 @@ export function RowLanguageItem ({ languageItem }: { languageItem: AppLanguageIt
           text: translate('screens/Settings', 'Yes'),
           style: 'destructive',
           onPress: async () => {
-            setLanguage(languageItem.locale)
-            await LanguagePersistence.set(languageItem.locale)
+            await setLanguage(languageItem.locale)
             navigation.goBack()
           }
         }

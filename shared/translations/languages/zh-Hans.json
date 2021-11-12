@@ -23,14 +23,19 @@
     "Confirm Removal": "确认退出",
     "Confirm swap": "确认兑换",
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "为以下去中心化交易所配对池提供流动资金，并获得高利率的区块奖励回报.",
-    "YOUR LIQUIDITY": "您的资金",
-    "AVAILABLE POOL PAIRS": "开放使用的流动池配对",
     "Pooled {{symbol}}": "池中总 {{symbol}} 数量",
-    "Total pooled {{symbol}}": "池中总 {{symbol}} 数量",
+    "Total pooled {{symbol}}": "池中总 {{symbol}}",
     "Your pooled {{symbol}}": "您的池中总 {{symbol}} 数量",
     "SWAP TOKENS": "兑换货币",
     "REMOVE": "退出",
-    "APR": "回报率"
+    "APR": "回报率",
+    "ADD MORE": "加入更多货币",
+    "No active pool pairs": "尚未进入流动池",
+    "Supply liquidity pool tokens to earn high yields": "您可以向流动池提供资金已赚取区块奖励和兑换佣金",
+    "Total liquidity (USD)":"总资金值 (美元)",
+    "Browse pool pairs": "浏览流动池配对",
+    "Your pool pairs": "您的流动池股份",
+    "Total Value Locked (USD)": "总体价值锁定 (美元)"
   },
   "screens/DexGuidelines": {
     "Guidelines": "指导方针",
@@ -43,11 +48,7 @@
     "Earn high yields by supplying token pairs to the liquidity pool.": "提供流动池配对货币并获得高回报率",
     "Conveniently swap participating tokens within the liquidity pool.": "方便地在流动池里兑换货币",
     "You have full control over your tokens unlike any other.": "您能完全掌控货币"
-  },
-  "screens/EstimatedFeeInfo": {
-    "Estimated fee": "所需费用（大约）",
-    "Each transaction will subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "每笔交易需要支付少量的费用. 金额可能因网络拥挤程度而异."
-  },
+  },  
   "screens/BalancesScreen": {
     "Balances": "我的资产",
     "RECEIVE": "接收",
@@ -100,7 +101,6 @@
     "Convert DFI": "转换 DFI",
     "Scan recipient QR": "扫一扫 QR 二维条码",
     "Balance": "总资金",
-    "UTXO vs Token, what is the difference?": "UTXO和代币的区别是什么？",
     "CONVERT {{symbol}}": "转换 {{symbol}}",
     "TO {{symbol}}": "至 {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要预留一些可使用的 UTXO (0.1 DFI (UTXO)) 作为费用",
@@ -223,7 +223,10 @@
     "AVAILABLE OPTIONS": "可使用的功能",
     "Send to other wallet": "发送到其他地址",
     "Receive": "接收",
-    "Convert to {{symbol}}": "转换至 {{symbol}}"
+    "Convert to {{symbol}}": "转换至 {{symbol}}",
+    "Add to liquidity pool":  "加入流动性池",
+    "Remove liquidity": "撒出 流动性池",
+    "Swap with {{token}}": "用 {{token}} 兑换"
   },
   "screens/TokensVsUtxoScreen": {
     "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "DFI 有两种形式 - UTXO 和代币, 两者可依据使用做互换. 这个程序可以进行互换.",
@@ -334,7 +337,8 @@
     "Liquidity": "流动",
     "Transactions": "交易",
     "Settings": "设置",
-    "DEX": "去中心化交易所"
+    "DEX": "去中心化交易所",
+    "Loans": "贷款"
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "正在确认",
@@ -381,7 +385,8 @@
     "Your pooled {{token}}": "Your pooled {{token}}",
     "Amount to be converted": "要转换的金额",
     "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换",
-    "Estimated fee": "所需费用（大约）"
+    "Estimated fee": "所需费用（大约）",
+    "Pooled {{symbol}}": "池中总 {{symbol}}"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "您正要增加流动资金",
@@ -546,9 +551,6 @@
     "Your passcode is valid only for DeFiChain wallet.": "Your passcode is valid only for DeFiChain wallet.",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
   },
-  "components/DFIBalanceCard": {
-    "Learn more about UTXO and Token": "了解 UTXO 和代币区别"
-  },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要预留一些可使用的 UTXO (0.1 DFI) 作为费用"
   },
@@ -569,5 +571,127 @@
   "components/TransactionResultsRow": {
     "TRANSACTION RESULTS": "交易结果",
     "Resulting {{symbol}}": "转换后 {{symbol}}"
+  },
+  "screens/LoansScreen": {
+    "Loans": "贷款",
+    "Create vault": "创建金库",
+    "Confirm create vault": "确认创建金库",
+    "Vault detail": "金库明细"
+  },
+  "components/tabs": {
+    "Browse loans": "浏览贷款选项",
+    "Your vaults": "你的金库",
+    "Active loan": "活跃的贷款",
+    "Details": "明细",
+    "Collaterals": "抵押品",
+    "Auctions": "清算拍卖"
+  },
+  "components/LoanCard": {
+    "Active Price": "目前活跃价格",
+    "Next Price": "下一个价格",
+    "Interest": "利息"
+  },
+  "components/InfoTextLink": {
+    "Learn more about UTXO and Token": "了解 UTXO 和代币区别",
+    "UTXO vs Token, what is the difference?": "UTXO和代币的区别是什么？",
+    "Learn more about vaults": "了解更多关于金库的资讯"
+  },
+  "components/VaultCard": {
+    "Collaterals:": "抵押品:",
+    "None": "Keine",
+    "Locked": "锁定",
+    "At risk": "请注意抵押比率",
+    "Safe": "安全状态",
+    "Active loans": "活跃的贷款",
+    "Total loan amount": "贷款总金额",
+    "Collateral amount": "抵押品金额",
+    "Collateral ratio": "抵押品比率",
+    "n/a": "不适用",
+    "ADD COLLATERAL": "加入抵押品",
+    "VIEW LOANS": "检视贷款",
+    "Borrowed tokens": "已借贷代币",
+    "Interest amount (1.5%)": "利息金额 (1.5%)",
+    "Amount payable": "应付款金额",
+    "Price per token (USD)": "代币的单价 (美金)"
+  },
+  "components/EmptyVault": {
+    "No vault created": "还没建立金库",
+    "To get started, create a vault and add DFI and other tokens as collaterals": "若要启动贷款，您需要创建一个金库，并添加DFI和其他币作为抵押品",
+    "CREATE VAULT": "创建金库"
+  },
+  "screens/CreateVaultScreen": {
+    "Choose loan scheme for your vault": "为您的金库选择贷款方案",
+    "This sets the minimum collateral ratio and the vault’s interest rate.": "这将设置了最低抵押率和金库的利率.",
+    "Keep note of your selected collateral ratio for your vault to sustain the loans within it.": "请注意您为金库选择的抵押品比率，以维持持续贷款.",
+    "Collateral ratio": "抵押品比率",
+    "Interest rate": "利率",
+    "APR": "回报率",
+    "CONTINUE": "继续",
+    "Confirm your vault details in next screen": "在下一个屏幕上确认您的金库细节"
+  },
+  "screens/ConfirmCreateVaultScreen": {
+    "You are creating vault": "您正在创建金库",
+    "ID will generate once vault has been created": "金库创建后会产生金库 ID",
+    "TRANSACTION DETAILS": "交易明細",
+    "Transaction type": "交易类型",
+    "Create vault": "创建金库",
+    "Total transaction cost": "总交易费用",
+    "VAULT DETAILS": "金库明细",
+    "Min. collateral ratio": "最小抵押率",
+    "Interest rate (APR)": "利率（以回报率计算）",
+    "APR": "回报率",
+    "CONFIRM CREATE VAULT": "确认创建金库"
+  },
+  "components/FeeInfoRow": {
+    "Estimated fee": "所需费用（大约）",
+    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "每笔交易需要支付少量的费用. 金额可能因网络拥挤程度而异.",
+    "Vault fee": "金库费用",
+    "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "这笔费用作为您金库的初始押金。当您选择关闭这个金库时，您会收回 1 DFI。"
+  },
+  "screens/VaultDetailScreen": {
+    "Vault ID": "金库编号",
+    "Your vault is locked for liquidation.": "您的金库已被锁定以进行清算.",
+    "Your vault is at risk of liquidation. Prevent liquidity by adding more collaterals or paying back loans.": "您的金库状态可能会被清算。为了确保金库能持续运作，请增加抵押品资金或立即还完贷款。",
+    "Collaterals required to use this vault.": "使用此金库需要抵押品."
+  },
+  "components/ScrollableButton": {
+    "ADD COLLATERAL":"加入抵押品",
+    "TAKE COLLATERAL": "減低抵押品",
+    "EDIT SCHEME": "更改计划"
+  },
+  "components/EmptyActiveLoans": {
+    "No active loans": "没有活跃的贷款",
+    "Browse for available loan tokens and start using this vault as collateral.": "浏览可选择的贷款代币并开始使用此金库作为抵押.",
+    "BROWSE LOANS": "浏览贷款选项"
+  },
+  "components/ActiveLoans": {
+    "REPAY LOAN": "偿还贷款",
+    "BORROW MORE": "注入更多借贷"
+  },
+  "components/BalanceControlCard": {
+    "Wallet Address": "钱包地址"
+  },
+  "components/EmptyBalances": {
+    "No other tokens yet": "尚未添加其他货币",
+    "Get started by adding your tokens here in your wallet": "在您的钱包中添加代币便可以开始操作"
+  },
+  "components/VaultDetailDetailsTab": {
+    "LOAN SCHEME": "贷款计划",
+    "Min. collateral ratio": "最小抵押率",
+    "Vault interest": "金库利息",
+    "VAULT DETAILS": "金库明细",
+    "Collateral ratio": "抵押品比率",
+    "Active loans": "活跃的贷款",
+    "Total value of loans": "贷款总价值",
+    "Collateral value": "抵押品价值",
+    "Vault health": "金库状态",
+    "Safe": "安全状态",
+    "At risk": "请注意抵押比率",
+    "Liquidated": "清算",
+    "Created": "建立时间"
+  },
+  "components/VaultDetailsCollateralsTab": {
+    "Collateral amount": "抵押品金额",
+    "Vault %": "金库 %"
   }
 }

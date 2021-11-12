@@ -1,11 +1,10 @@
-import { Logging } from '@api'
 import { Button } from '@components/Button'
 import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
 import { NumberRow } from '@components/NumberRow'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
-import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
@@ -26,7 +25,8 @@ import { SlippageTolerance } from './components/SlippageTolerance'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { InputHelperText } from '@components/InputHelperText'
 import { DFITokenSelector, DFIUtxoSelector, WalletToken } from '@store/wallet'
-import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { FeeInfoRow } from '@components/FeeInfoRow'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
@@ -42,6 +42,7 @@ export interface DerivedTokenState {
 type Props = StackScreenProps<DexParamList, 'PoolSwapScreen'>
 
 export function PoolSwapScreen ({ route }: Props): JSX.Element {
+  const logger = useLogger()
   const client = useWhaleApiClient()
   const pairs = usePoolPairsAPI()
   const [poolpair, setPoolPair] = useState<PoolPairData>()
@@ -59,7 +60,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   useEffect(() => {
     client.fee.estimate()
       .then((f) => setFee(new BigNumber(f)))
-      .catch(Logging.error)
+      .catch(logger.error)
   }, [])
 
   // props derived state
@@ -103,11 +104,11 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   }
 
   useEffect(() => {
-    const pair = pairs.find((v) => v.data.id === route.params.poolpair.id)
+    const pair = pairs.find((v) => v.data.id === route.params.pair.id)
     if (pair !== undefined) {
       setPoolPair(pair.data)
     }
-  }, [pairs, route.params.poolpair])
+  }, [pairs, route.params.pair])
 
   async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
@@ -154,7 +155,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
             conversionAmount
           }
         })
-      })
+      }, logger)
     } else {
       navigation.navigate('ConfirmPoolSwapScreen', {
         tokenA,
@@ -229,6 +230,15 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     }
   }, [JSON.stringify(tokens), poolpair])
 
+  const getMaxAmount = (token: DerivedTokenState): string => {
+    if (token.id !== '0_unified') {
+      return new BigNumber(token.amount).toFixed(8)
+    }
+
+    const maxAmount = new BigNumber(token.amount).minus(reservedDfi)
+    return maxAmount.isLessThanOrEqualTo(0) ? new BigNumber(0).toFixed(8) : maxAmount.toFixed(8)
+  }
+
   if (tokenA === undefined || tokenB === undefined || poolpair === undefined || aToBPrice === undefined) {
     return <></>
   }
@@ -242,7 +252,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
           controlName={tokenAForm}
           isDisabled={false}
           title={translate('screens/PoolSwapScreen', 'How much {{token}} do you want to swap?', { token: tokenA.displaySymbol })}
-          maxAmount={tokenA.id === '0_unified' ? new BigNumber(tokenA.amount).minus(reservedDfi).toFixed(8) : tokenA.amount}
+          maxAmount={getMaxAmount(tokenA)}
           enableMaxButton
           onChangeFromAmount={async (amount) => {
             setIsComputing(true)
@@ -259,7 +269,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         <InputHelperText
           testID={`text_balance_${tokenAForm}`}
           label={`${translate('screens/PoolSwapScreen', 'Available')}: `}
-          content={tokenA.id === '0_unified' ? new BigNumber(tokenA.amount).minus(reservedDfi).toFixed(8) : tokenA.amount}
+          content={getMaxAmount(tokenA)}
           suffix={` ${tokenA.displaySymbol}`}
         />
         {tokenA.id === '0_unified' && <ReservedDFIInfoText />}
@@ -499,13 +509,11 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee, isConversio
           suffix: tokenB.displaySymbol
         }}
       />
-      <EstimatedFeeInfo
-        lhs={translate('screens/PoolSwapScreen', 'Estimated fee')}
-        rhs={{
-          value: fee,
-          testID: 'estimated_fee',
-          suffix: 'DFI'
-        }}
+      <FeeInfoRow
+        type='ESTIMATED_FEE'
+        value={fee}
+        testID='estimated_fee'
+        suffix='DFI'
       />
     </View>
   )
@@ -528,10 +536,10 @@ function getPriceRate (reserveA: string, reserveB: string): string {
 async function constructSignedConversionAndPoolswap ({
   mode,
   amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void): Promise<void> {
+}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
   try {
     dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
   } catch (e) {
-    Logging.error(e)
+    logger.error(e)
   }
 }

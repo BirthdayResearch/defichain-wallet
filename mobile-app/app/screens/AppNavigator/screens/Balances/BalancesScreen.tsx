@@ -9,9 +9,9 @@ import {
   ThemedView
 } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
-import { useWalletContext } from '@contexts/WalletContext'
-import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
-import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { fetchTokens, useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -30,10 +30,14 @@ import { Announcements } from '@screens/AppNavigator/screens/Balances/components
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
 import { translate } from '@translations'
 import { RefreshControl } from 'react-native'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { BalanceControlCard } from '@screens/AppNavigator/screens/Balances/components/BalanceControlCard'
+import { EmptyBalances } from '@screens/AppNavigator/screens/Balances/components/EmptyBalances'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
+  const logger = useLogger()
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
@@ -52,7 +56,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
-    await fetchTokens(client, address, dispatch)
+    await fetchTokens(client, address, dispatch, logger)
     setRefreshing(false)
   }, [address, client, dispatch])
 
@@ -75,7 +79,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         <BuyWithFiat />
       </ThemedView>
       <Announcements />
-      <DFIBalanceCard />
+      <BalanceControlCard />
       <ThemedView
         style={tailwind('flex flex-row justify-between')}
       >
@@ -92,8 +96,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         >
           <ThemedIcon
             iconType='MaterialIcons'
-            dark={tailwind('text-gray-200')}
-            light={tailwind('text-black')}
+            dark={tailwind('text-darkprimary-500')}
+            light={tailwind('text-primary-500')}
             style={tailwind('self-center pr-1')}
             name={`${isBalancesDisplayed ? 'visibility' : 'visibility-off'}`}
             size={15}
@@ -109,17 +113,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           </ThemedText>
         </ThemedTouchableOpacity>
       </ThemedView>
+      <DFIBalanceCard />
       {
         dstTokens.length === 0
           ? (
-            <ThemedText
-              dark={tailwind('text-gray-500')}
-              light={tailwind('text-gray-500')}
-              style={tailwind('text-xs font-medium ml-4 mt-2')}
-              testID='empty_token_text'
-            >
-              {translate('screens/BalancesScreen', 'You do not have any other tokens.')}
-            </ThemedText>
+            <EmptyBalances />
           )
           : (
             dstTokens.map((item) => (

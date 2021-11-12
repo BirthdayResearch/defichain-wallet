@@ -15,9 +15,8 @@ import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
-import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
-import { useWhaleApiClient } from '@contexts/WhaleContext'
-import { Logging } from '@api'
+import { FeeInfoRow } from '@components/FeeInfoRow'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { DFITokenSelector, DFIUtxoSelector, WalletToken } from '@store/wallet'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { useDispatch, useSelector } from 'react-redux'
@@ -27,6 +26,7 @@ import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { useConversion } from '@hooks/wallet/Conversion'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -39,6 +39,7 @@ interface ExtPoolPairData extends PoolPairData {
 }
 
 export function AddLiquidityScreen (props: Props): JSX.Element {
+  const logger = useLogger()
   const pairs = usePoolPairsAPI()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const tokens = useTokensAPI()
@@ -128,7 +129,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
           },
           merge: true
         })
-      })
+      }, logger)
     } else {
       navigation.navigate({
         name: 'ConfirmAddLiquidity',
@@ -151,7 +152,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   useEffect(() => {
     client.fee.estimate()
       .then((f) => setFee(new BigNumber(f)))
-      .catch(Logging.error)
+      .catch(logger.error)
   }, [])
 
   useEffect(() => {
@@ -359,7 +360,7 @@ function TransactionDetailsSection (props: { pair: ExtPoolPairData, sharePercent
       />
 
       <NumberRow
-        lhs={translate('screens/AddLiquidity', 'Your pooled {{token}}', { token: pair?.tokenA?.displaySymbol })}
+        lhs={translate('screens/AddLiquidity', 'Pooled {{symbol}}', { symbol: pair?.tokenA?.displaySymbol })}
         rhs={{
           value: pair.tokenA.reserve,
           testID: `pooled_${pair?.tokenA?.displaySymbol}`,
@@ -369,7 +370,7 @@ function TransactionDetailsSection (props: { pair: ExtPoolPairData, sharePercent
       />
 
       <NumberRow
-        lhs={translate('screens/AddLiquidity', 'Your pooled {{token}}', { token: pair?.tokenB?.displaySymbol })}
+        lhs={translate('screens/AddLiquidity', 'Pooled {{symbol}}', { symbol: pair?.tokenB?.displaySymbol })}
         rhs={{
           value: pair.tokenB.reserve,
           testID: `pooled_${pair?.tokenB?.displaySymbol}`,
@@ -377,9 +378,11 @@ function TransactionDetailsSection (props: { pair: ExtPoolPairData, sharePercent
           suffix: pair?.tokenB?.displaySymbol
         }}
       />
-      <EstimatedFeeInfo
-        lhs={translate('screens/AddLiquidity', 'Estimated fee')}
-        rhs={{ value: props.fee.toFixed(8), testID: 'text_fee', suffix: 'DFI' }}
+      <FeeInfoRow
+        type='ESTIMATED_FEE'
+        value={props.fee.toFixed(8)}
+        testID='text_fee'
+        suffix='DFI'
       />
     </>
   )
@@ -420,10 +423,10 @@ function canAddLiquidity (pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenB
 async function constructSignedConversionAndAddLiquidity ({
   mode,
   amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void): Promise<void> {
+}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
   try {
     dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
   } catch (e) {
-    Logging.error(e)
+    logger.error(e)
   }
 }

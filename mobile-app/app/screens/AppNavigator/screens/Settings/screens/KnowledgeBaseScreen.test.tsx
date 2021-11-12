@@ -2,7 +2,7 @@ import { render } from '@testing-library/react-native'
 import * as React from 'react'
 import { KnowledgeBaseScreen } from './KnowledgeBaseScreen'
 
-jest.mock('@contexts/ThemeProvider')
+jest.mock('@shared-contexts/ThemeProvider')
 
 describe('knowledge base screen', () => {
   it('should render', async () => {

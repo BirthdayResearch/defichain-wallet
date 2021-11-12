@@ -10,8 +10,9 @@ jest.mock('@react-navigation/bottom-tabs', () => ({
   useBottomTabBarHeight: () => 49
 }))
 jest.mock('randomcolor', () => jest.fn().mockReturnValue('#ffffff'))
-jest.mock('../../../../contexts/ThemeProvider')
-jest.mock('../../../../contexts/LanguageProvider')
+jest.mock('@shared-contexts/ThemeProvider')
+jest.mock('@shared-contexts/LanguageProvider')
+jest.mock('@shared-contexts/DeFiScanContext')
 
 jest.mock('../../../../hooks/wallet/TokensAPI', () => ({
   useTokensAPI: () => [{
@@ -42,29 +43,10 @@ jest.mock('../../../../hooks/wallet/TokensAPI', () => ({
   }]
 }))
 
-jest.mock('../../../../contexts/WalletContext', () => ({
-  useWalletContext: () => {
-    return {
-      address: 'bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d'
-    }
-  }
-}))
+jest.mock('@shared-contexts/WalletContext')
+jest.mock('@shared-contexts/WalletPersistenceContext')
 
-jest.mock('../../../../contexts/WalletPersistenceContext', () => ({
-  useWalletPersistenceContext: () => {
-    return {
-      wallets: []
-    }
-  }
-}))
-
-jest.mock('../../../../contexts/DisplayBalancesContext', () => ({
-  useDisplayBalancesContext: () => {
-    return {
-      isBalancesDisplayed: true
-    }
-  }
-}))
+jest.mock('../../../../contexts/DisplayBalancesContext')
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn()

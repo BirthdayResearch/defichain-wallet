@@ -1,0 +1,225 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Scrollable button should match snapshot 1`] = `
+<View
+  style={
+    Object {
+      "height": 32,
+    }
+  }
+>
+  <RCTScrollView
+    horizontal={true}
+    showsHorizontalScrollIndicator={false}
+    style={
+      Array [
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        Object {
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+        },
+      ]
+    }
+  >
+    <View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(212, 212, 212, 1)",
+            "borderBottomLeftRadius": 4,
+            "borderBottomRightRadius": 4,
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(212, 212, 212, 1)",
+            "borderLeftWidth": 1,
+            "borderRightColor": "rgba(212, 212, 212, 1)",
+            "borderRightWidth": 1,
+            "borderTopColor": "rgba(212, 212, 212, 1)",
+            "borderTopLeftRadius": 4,
+            "borderTopRightRadius": 4,
+            "borderTopWidth": 1,
+            "flexDirection": "row",
+            "marginRight": 8,
+            "opacity": 1,
+            "paddingBottom": 8,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 8,
+          }
+        }
+      >
+        <Text />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "lineHeight": 16,
+                  "paddingLeft": 4,
+                  "paddingRight": 4,
+                },
+                Object {
+                  "color": "rgba(255, 0, 175, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          ADD COLLATERAL
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(212, 212, 212, 1)",
+            "borderBottomLeftRadius": 4,
+            "borderBottomRightRadius": 4,
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(212, 212, 212, 1)",
+            "borderLeftWidth": 1,
+            "borderRightColor": "rgba(212, 212, 212, 1)",
+            "borderRightWidth": 1,
+            "borderTopColor": "rgba(212, 212, 212, 1)",
+            "borderTopLeftRadius": 4,
+            "borderTopRightRadius": 4,
+            "borderTopWidth": 1,
+            "flexDirection": "row",
+            "marginRight": 8,
+            "opacity": 1,
+            "paddingBottom": 8,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 8,
+          }
+        }
+      >
+        <Text />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "lineHeight": 16,
+                  "paddingLeft": 4,
+                  "paddingRight": 4,
+                },
+                Object {
+                  "color": "rgba(255, 0, 175, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          TAKE COLLATERAL
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgba(245, 245, 245, 1)",
+            "borderBottomColor": "rgba(245, 245, 245, 1)",
+            "borderBottomLeftRadius": 4,
+            "borderBottomRightRadius": 4,
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(245, 245, 245, 1)",
+            "borderLeftWidth": 1,
+            "borderRightColor": "rgba(245, 245, 245, 1)",
+            "borderRightWidth": 1,
+            "borderTopColor": "rgba(245, 245, 245, 1)",
+            "borderTopLeftRadius": 4,
+            "borderTopRightRadius": 4,
+            "borderTopWidth": 1,
+            "flexDirection": "row",
+            "marginRight": 8,
+            "opacity": 1,
+            "paddingBottom": 8,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 8,
+          }
+        }
+      >
+        <Text />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "lineHeight": 16,
+                  "paddingLeft": 4,
+                  "paddingRight": 4,
+                },
+                Object {
+                  "color": "rgba(212, 212, 212, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          EDIT SCHEME
+        </Text>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

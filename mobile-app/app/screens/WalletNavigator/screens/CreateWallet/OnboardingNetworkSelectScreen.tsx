@@ -3,10 +3,10 @@ import { getEnvironment } from '@environment'
 import { RowNetworkItem } from '@components/RowNetworkItem'
 import { translate } from '@translations'
 import * as React from 'react'
-import * as Updates from 'expo-updates'
+import { getReleaseChannel } from '@api/releaseChannel'
 
 export function OnboardingNetworkSelectScreen (): JSX.Element {
-  const networks = getEnvironment(Updates.releaseChannel).networks
+  const networks = getEnvironment(getReleaseChannel()).networks
 
   return (
     <ThemedScrollView testID='onboarding_network_selection_screen'>

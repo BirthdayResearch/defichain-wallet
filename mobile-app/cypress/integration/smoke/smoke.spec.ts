@@ -79,7 +79,8 @@ context('Mainnet - Wallet', () => {
 
   context('Restore - Mnemonic Verification', () => {
     it('should be able to restore mnemonic words', function () {
-      cy.getByTestID('bottom_tab_settings').click()
+      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('header_settings').click()
       cy.getByTestID('setting_exit_wallet').click()
       cy.restoreMnemonicWords(settingsRecoveryWords)
     })
@@ -87,7 +88,8 @@ context('Mainnet - Wallet', () => {
 
   context('Wallet - Verify Wallet Address', () => {
     it('should be have selected valid network', function () {
-      cy.getByTestID('bottom_tab_settings').click()
+      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('header_settings').click()
       cy.getByTestID('button_selected_network').contains('MainNet').should('exist')
     })
 
@@ -102,7 +104,7 @@ context('Mainnet - Wallet', () => {
       cy.reload()
       cy.isNetworkConnected('MainNet')
       cy.getByTestID('bottom_tab_balances').click()
-      cy.getByTestID('header_receive_balance').click()
+      cy.getByTestID('receive_balance_button').click()
       cy.getByTestID('address_text').then(($txt: any) => {
         const address = $txt[0].textContent
         expect(address).eq(mainnetAddress.address)
@@ -123,7 +125,7 @@ context('Mainnet - Wallet', () => {
       cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
       cy.getByTestID('dfi_token_amount').contains('10')
       cy.getByTestID('total_dfi_amount').contains('20')
-      cy.checkBalanceRow('7', {
+      cy.checkBalanceRow('11', {
         name: 'Playground ETH-DeFiChain',
         amount: '10.00000000',
         symbol: 'dETH-DFI'
@@ -133,13 +135,14 @@ context('Mainnet - Wallet', () => {
     it('should have correct poolpairs', function () {
       cy.getByTestID('bottom_tab_dex').click()
       cy.getByTestID('close_dex_guidelines').click()
+      cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()
       cy.getByTestID('your_dETH-DFI').contains('10.00000000')
       cy.getByTestID('bottom_tab_balances').click()
     })
 
     it('should have correct address', function () {
       cy.getByTestID('bottom_tab_balances').click()
-      cy.getByTestID('header_receive_balance').click()
+      cy.getByTestID('receive_balance_button').click()
       cy.getByTestID('address_text').then(($txt: any) => {
         const address = $txt[0].textContent
         expect(address).eq(localAddress.address)
@@ -168,6 +171,7 @@ context('Mainnet - Wallet - Pool Pair Values', () => {
   })
 
   it('should verify poolpair values', function () {
+    cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
     cy.wrap<DexItem[]>(whale.poolpairs.list(50), { timeout: 20000 }).then((pairs) => {
       const available: PoolPairData[] = pairs.map(data => ({ type: 'available', data: data }))
       available.forEach((pair) => {

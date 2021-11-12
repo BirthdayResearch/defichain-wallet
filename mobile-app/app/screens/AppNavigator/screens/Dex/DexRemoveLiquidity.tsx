@@ -7,7 +7,6 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import { useSelector } from 'react-redux'
-import { Logging } from '@api'
 import { View } from '@components/index'
 import { Button } from '@components/Button'
 import { NumberRow } from '@components/NumberRow'
@@ -15,7 +14,7 @@ import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@c
 import { TokenBalanceRow } from '@components/TokenBalanceRow'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { TokenIconPair } from '@components/TokenIconPair'
-import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -23,12 +22,14 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { tokenSelector } from '@store/wallet'
 import { theme } from '../../../../tailwind.config'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
 export function RemoveLiquidityScreen (props: Props): JSX.Element {
+  const logger = useLogger()
   const client = useWhaleApiClient()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -75,7 +76,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   useEffect(() => {
     client.fee.estimate()
       .then((f) => setFee(new BigNumber(f)))
-      .catch(Logging.error)
+      .catch(logger.error)
   }, [])
 
   useEffect(() => {

@@ -1,3 +1,16 @@
+import React, { useEffect, useState } from 'react'
+import { Linking, TouchableOpacity } from 'react-native'
+import { tailwind } from '@tailwind'
+import BigNumber from 'bignumber.js'
+import NumberFormat from 'react-number-format'
+import { StackScreenProps } from '@react-navigation/stack'
+import { MaterialIcons } from '@expo/vector-icons'
+import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
+import { translate } from '@translations'
+import { WalletToken } from '@store/wallet'
+import { useTokensAPI } from '@hooks/wallet/TokensAPI'
+import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { View } from '@components/index'
 import { getNativeIcon } from '@components/icons/assets'
 import {
@@ -8,19 +21,8 @@ import {
   ThemedTouchableOpacity,
   ThemedView
 } from '@components/themed'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
-import { StackScreenProps } from '@react-navigation/stack'
-import { WalletToken } from '@store/wallet'
-import { tailwind } from '@tailwind'
-import { translate } from '@translations'
-import BigNumber from 'bignumber.js'
-import React, { useEffect, useState } from 'react'
-import NumberFormat from 'react-number-format'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
-import { MaterialIcons } from '@expo/vector-icons'
-import { Linking, TouchableOpacity } from 'react-native'
-import { useDeFiScanContext } from '@contexts/DeFiScanContext'
 
 interface TokenActionItems {
   title: string
@@ -30,16 +32,51 @@ interface TokenActionItems {
 }
 type Props = StackScreenProps<BalanceParamList, 'TokenDetailScreen'>
 
-export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
-  const [token, setToken] = useState(route.params.token)
+const usePoolPairToken = (tokenParam: WalletToken): { pair: PoolPairData | undefined, token: WalletToken } => {
+  // async calls
   const tokens = useTokensAPI()
+  const pairs = usePoolPairsAPI()
+
+  // state
+  const [token, setToken] = useState(tokenParam)
+  const [pair, setPair] = useState<PoolPairData>()
 
   useEffect(() => {
     const t = tokens.find((t) => t.id === token.id)
+
     if (t !== undefined) {
-      setToken({ ...t })
+      setToken(t)
     }
-  }, [JSON.stringify(tokens)])
+
+    const poolpair = pairs.find((p) => {
+      if (token.isLPS) {
+        return p.data.id === token.id
+      }
+      // get pair with same id if token passed is not LP
+      return token.id === p.data.tokenA.id || token.id === p.data.tokenB.id
+    })?.data
+
+    if (poolpair !== undefined) {
+      setPair(poolpair)
+    }
+  }, [token, JSON.stringify(tokens), pairs])
+
+  return {
+    pair,
+    token
+  }
+}
+
+export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
+  const { pair, token } = usePoolPairToken(route.params.token)
+  const onNavigate = ({ destination, pair }: {destination: 'AddLiquidity' | 'RemoveLiquidity' | 'PoolSwap', pair: PoolPairData}): void => {
+    navigation.navigate('DEX', {
+      screen: destination,
+      initial: false,
+      params: { pair },
+      merge: true
+    })
+  }
 
   return (
     <ThemedScrollView>
@@ -90,6 +127,45 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
           />
         )
       }
+
+      {
+        !token.isLPS && pair !== undefined && (
+          <TokenActionRow
+            icon='swap-horiz'
+            onPress={() => onNavigate({
+              destination: 'PoolSwap',
+              pair
+            })}
+            testID='swap_button'
+            title={translate('screens/TokenDetailScreen', 'Swap with {{token}}', { token: 'DFI' })}
+          />)
+      }
+
+      {
+        pair !== undefined && (
+          <TokenActionRow
+            icon='add'
+            onPress={() => onNavigate({
+                destination: 'AddLiquidity',
+                pair
+              })}
+            testID='add_liquidity_button'
+            title={translate('screens/TokenDetailScreen', 'Add to liquidity pool')}
+          />)
+      }
+
+      {
+        token.isLPS && pair !== undefined && (
+          <TokenActionRow
+            icon='remove'
+            onPress={() => onNavigate({
+                destination: 'RemoveLiquidity',
+                pair
+              })}
+            testID='remove_liquidity_button'
+            title={translate('screens/TokenDetailScreen', 'Remove liquidity')}
+          />)
+        }
     </ThemedScrollView>
   )
 }
@@ -167,7 +243,7 @@ function TokenActionRow ({ title, icon, onPress, testID }: TokenActionItems): JS
   return (
     <ThemedTouchableOpacity
       onPress={onPress}
-      style={tailwind('flex-row py-4 pl-4 pr-2 bg-white border-b border-gray-200')}
+      style={tailwind('flex-row py-4 pl-4 pr-2 bg-white border-b items-center border-gray-200')}
       testID={testID}
     >
       <ThemedIcon

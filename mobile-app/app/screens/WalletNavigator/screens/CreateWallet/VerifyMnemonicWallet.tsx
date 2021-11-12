@@ -3,7 +3,7 @@ import { CREATE_STEPS, CreateWalletStepIndicator } from '@components/CreateWalle
 import { View } from '@components/index'
 import { ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
-import { useThemeContext } from '@contexts/ThemeProvider'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { getEnvironment } from '@environment'
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
@@ -12,7 +12,7 @@ import { shuffle } from 'lodash'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { WalletParamList } from '../../WalletNavigator'
-import * as Updates from 'expo-updates'
+import { getReleaseChannel } from '@api/releaseChannel'
 
 type Props = StackScreenProps<WalletParamList, 'VerifyMnemonicWallet'>
 
@@ -84,7 +84,7 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
   }
 
   function debugBypass (): void {
-    if (getEnvironment(Updates.releaseChannel).debug) {
+    if (getEnvironment(getReleaseChannel()).debug) {
       navigateToPinCreation()
     }
   }

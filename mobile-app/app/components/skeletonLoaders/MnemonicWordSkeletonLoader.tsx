@@ -1,4 +1,4 @@
-import { useThemeContext } from '@contexts/ThemeProvider'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import * as React from 'react'
 import ContentLoader, { Circle, IContentLoaderProps, Rect } from 'react-content-loader/native'

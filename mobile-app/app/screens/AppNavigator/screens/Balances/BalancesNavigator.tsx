@@ -7,9 +7,10 @@ import { TouchableOpacity, View } from 'react-native'
 import { BarCodeScanner } from '@components/BarCodeScanner'
 import { ConnectionStatus, HeaderTitle } from '@components/HeaderTitle'
 import { getNativeIcon } from '@components/icons/assets'
-import { ThemedText } from '@components/themed'
+import { ThemedIcon, ThemedText } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
+import { SettingsNavigator } from '../Settings/SettingsNavigator'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { BalancesScreen } from './BalancesScreen'
 import { ConvertConfirmationScreen } from './screens/ConvertConfirmationScreen'
@@ -55,57 +56,52 @@ export interface ConversionParam {
   DFIToken: WalletToken
 }
 
-function BalanceActionButton (props: {
-  title?: string
-  onPress: () => void
-  testID: string
-}): JSX.Element {
-  return (
-    <TouchableOpacity
-      onPress={props.onPress}
-      style={tailwind('px-2 py-1.5 ml-3 flex-row items-center')}
-      testID={props.testID}
-    >
-      {
-        props.title !== undefined && (
-          <ThemedText
-            dark={tailwind('text-darkprimary-500')}
-            light={tailwind('text-primary-500')}
-            style={tailwind('mx-1 font-semibold')}
-          >
-            {translate('screens/BalancesScreen', props.title)}
-          </ThemedText>
-        )
-      }
-    </TouchableOpacity>
-  )
-}
-
 const BalanceStack = createStackNavigator<BalanceParamList>()
 
 export function BalancesNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const headerContainerTestId = 'balances_header_container'
   return (
-    <BalanceStack.Navigator initialRouteName='BalancesScreen'>
+    <BalanceStack.Navigator
+      initialRouteName='BalancesScreen'
+      screenOptions={{
+        headerTitleAlign: 'center'
+      }}
+    >
+      <BalanceStack.Screen
+        component={SettingsNavigator}
+        name={translate('BalancesNavigator', 'Settings')}
+        options={{
+          headerShown: false
+        }}
+      />
+
       <BalanceStack.Screen
         component={BalancesScreen}
         name='BalancesScreen'
         options={{
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Settings')}
+              testID='header_settings'
+            >
+              <ThemedIcon
+                iconType='MaterialIcons'
+                name='settings'
+                size={28}
+                style={tailwind('ml-2')}
+                light={tailwind('text-primary-500')}
+                dark={tailwind('text-primary-500')}
+              />
+            </TouchableOpacity>
+          ),
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/BalancesScreen', 'Balances')}
               containerTestID={headerContainerTestId}
             />
           ),
-          headerBackTitleVisible: false,
-          headerRight: () => (
-            <BalanceActionButton
-              onPress={() => navigation.navigate('Receive')}
-              testID='header_receive_balance'
-              title='RECEIVE'
-            />
-          )
+          headerBackTitleVisible: false
         }}
       />
 

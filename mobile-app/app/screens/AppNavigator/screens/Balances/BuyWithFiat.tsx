@@ -4,17 +4,19 @@ import { MnemonicHdNode } from '@defichain/jellyfish-wallet-mnemonic'
 import { Linking } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { Logging } from '../../../../api'
-import { getJellyfishNetwork, initJellyfishWallet, MnemonicEncrypted, MnemonicUnprotected, WalletType } from '../../../../api/wallet'
-import { useNetworkContext } from '../../../../contexts/NetworkContext'
-import { useWalletContext } from '../../../../contexts/WalletContext'
-import { useWalletNodeContext } from '../../../../contexts/WalletNodeProvider'
-import { useWhaleApiClient } from '../../../../contexts/WhaleContext'
+import { initJellyfishWallet, MnemonicEncrypted, MnemonicUnprotected } from '@api/wallet'
+import { getJellyfishNetwork } from '@shared-api/wallet/network'
+import { WalletType } from '@shared-contexts/WalletPersistenceContext'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { authentication, Authentication } from '@store/authentication'
 import { translate } from '@translations'
 import { Button } from '../../../../components/Button'
 import { signAsync } from 'bitcoinjs-message'
 import { getEnvironment } from '@environment'
-import { useLanguage } from '@contexts/LanguageProvider'
+import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 import * as Updates from 'expo-updates'
 
 export function BuyWithFiat (): JSX.Element {
@@ -23,7 +25,7 @@ export function BuyWithFiat (): JSX.Element {
   const { data: providerData } = useWalletNodeContext()
   const whaleApiClient = useWhaleApiClient()
   const dispatch = useDispatch()
-  const { language } = useLanguage()
+  const { language } = useLanguageContext()
 
   // TODO(davidleomay): use useCallback?
   async function onBuyWithFiat (): Promise<void> {

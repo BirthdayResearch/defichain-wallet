@@ -8,13 +8,12 @@ import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import React, { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Logging } from '@api'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
 import { TextRow } from '@components/TextRow'
 import { ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
-import { useNetworkContext } from '@contexts/NetworkContext'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { RootState } from '@store'
 import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
@@ -23,7 +22,8 @@ import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionTag } from '@components/ConversionTag'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
-import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { FeeInfoRow } from '@components/FeeInfoRow'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { InfoText } from '@components/InfoText'
 import { View } from '@components'
@@ -39,6 +39,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
     fee,
     conversion
   } = route.params
+  const logger = useLogger()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
@@ -67,7 +68,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       networkName: network.networkName
     }, dispatch, () => {
       onTransactionBroadcast(isOnPage, navigation.dispatch)
-    })
+    }, logger)
     setIsSubmitting(false)
   }
 
@@ -141,14 +142,11 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
           suffix: token.displaySymbol
         }}
       />
-
-      <EstimatedFeeInfo
-        lhs={translate('screens/SendConfirmationScreen', 'Estimated fee')}
-        rhs={{
-          value: fee.toFixed(8),
-          testID: 'text_fee',
-          suffix: token.displaySymbol
-        }}
+      <FeeInfoRow
+        type='ESTIMATED_FEE'
+        value={fee.toFixed(8)}
+        testID='text_fee'
+        suffix={token.displaySymbol}
       />
 
       <TransactionResultsRow
@@ -195,7 +193,7 @@ async function send ({
   token,
   amount,
   networkName
-}: SendForm, dispatch: Dispatch<any>, onBroadcast: () => void): Promise<void> {
+}: SendForm, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
   try {
     const to = DeFiAddress.from(networkName, address).getScript()
 
@@ -233,6 +231,6 @@ async function send ({
       onBroadcast
     }))
   } catch (e) {
-    Logging.error(e)
+    logger.error(e)
   }
 }

@@ -1,9 +1,19 @@
 import React from 'react'
 import { StyleProp, TextStyle, View } from 'react-native'
 import { tailwind } from '@tailwind'
-import { ThemedText, ThemedView } from './themed'
+import { ThemedProps, ThemedText, ThemedView } from './themed'
 
-export function TextRow (props: { lhs: string, rhs: { value: string, testID: string }, textStyle?: StyleProp<TextStyle> }): JSX.Element {
+interface TextRowProps {
+  lhs: string
+  rhs: {
+    value: string
+    testID: string
+    themedProps?: ThemedProps
+  }
+  textStyle?: StyleProp<TextStyle>
+}
+
+export function TextRow (props: TextRowProps): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-blue-800 border-b border-blue-900')}
@@ -20,6 +30,7 @@ export function TextRow (props: { lhs: string, rhs: { value: string, testID: str
         <ThemedText
           dark={tailwind('text-gray-400')}
           light={tailwind('text-gray-500')}
+          {...props.rhs.themedProps}
           style={[tailwind('font-medium text-right'), props.textStyle]}
           testID={props.rhs.testID}
         >

@@ -7,7 +7,6 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Logging } from '@api'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
@@ -22,7 +21,8 @@ import { getNativeIcon } from '@components/icons/assets'
 import { ConversionTag } from '@components/ConversionTag'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
-import { EstimatedFeeInfo } from '@components/EstimatedFeeInfo'
+import { FeeInfoRow } from '@components/FeeInfoRow'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { View } from '@components'
 import { InfoText } from '@components/InfoText'
@@ -52,6 +52,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const TokenAIcon = getNativeIcon(pair.tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(pair.tokenB.displaySymbol)
+  const logger = useLogger()
 
   useEffect(() => {
     setIsOnPage(true)
@@ -77,7 +78,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       dispatch,
       () => {
         onTransactionBroadcast(isOnPage, navigation.dispatch)
-      }
+      },
+      logger
     )
     setIsSubmitting(false)
   }
@@ -158,7 +160,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
       />
 
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Your pooled {{symbol}}', { symbol: `${pair.tokenA?.displaySymbol}` })}
+        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${pair.tokenA?.displaySymbol}` })}
         rhs={{
           value: pair.tokenA.reserve,
           testID: 'pooled_a',
@@ -167,7 +169,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Your pooled {{symbol}}', { symbol: `${pair.tokenB?.displaySymbol}` })}
+        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${pair.tokenB?.displaySymbol}` })}
         rhs={{
           value: pair.tokenB.reserve,
           testID: 'pooled_b',
@@ -175,14 +177,11 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
           suffix: pair.tokenB.displaySymbol
         }}
       />
-
-      <EstimatedFeeInfo
-        lhs={translate('screens/ConfirmAddLiq', 'Estimated fee')}
-        rhs={{
-          value: fee.toFixed(8),
-          testID: 'text_fee',
-          suffix: 'DFI'
-        }}
+      <FeeInfoRow
+        type='ESTIMATED_FEE'
+        value={fee.toFixed(8)}
+        testID='text_fee'
+        suffix='DFI'
       />
 
       <ThemedSectionTitle
@@ -278,7 +277,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
 async function constructSignedAddLiqAndSend (
   addLiqForm: { tokenASymbol: string, tokenAId: number, tokenAAmount: BigNumber, tokenBSymbol: string, tokenBId: number, tokenBAmount: BigNumber },
   dispatch: Dispatch<any>,
-  onBroadcast: () => void
+  onBroadcast: () => void,
+  logger: NativeLoggingProps
 ): Promise<void> {
   try {
     const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
@@ -318,6 +318,6 @@ async function constructSignedAddLiqAndSend (
       onBroadcast
     }))
   } catch (e) {
-    Logging.error(e)
+    logger.error(e)
   }
 }

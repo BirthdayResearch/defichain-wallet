@@ -1,4 +1,3 @@
-import { Logging } from '@api'
 import {
   ThemedIcon,
   ThemedScrollView,
@@ -10,9 +9,9 @@ import {
 import { Switch } from '@components/index'
 import { WalletAlert } from '@components/WalletAlert'
 import { usePrivacyLockContext } from '@contexts/LocalAuthContext'
-import { useNetworkContext } from '@contexts/NetworkContext'
-import { useWalletNodeContext } from '@contexts/WalletNodeProvider'
-import { useWalletPersistenceContext } from '@contexts/WalletPersistenceContext'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
+import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
 import { EnvironmentNetwork } from '@environment'
 import { StackScreenProps } from '@react-navigation/stack'
 import { authentication, Authentication } from '@store/authentication'
@@ -25,10 +24,12 @@ import { useDispatch } from 'react-redux'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 // import { RowThemeItem } from './components/RowThemeItem'
 import { SettingsParamList } from './SettingsNavigator'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
 
 export function SettingsScreen ({ navigation }: Props): JSX.Element {
+  const logger = useLogger()
   const { network } = useNetworkContext()
   const dispatch = useDispatch()
   const walletContext = useWalletPersistenceContext()
@@ -50,7 +51,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
           merge: true
         })
       },
-      onError: e => Logging.error(e),
+      onError: e => logger.error(e),
       message: translate('screens/Settings', 'Enter passcode to continue'),
       loading: translate('screens/Settings', 'Verifying access')
     }

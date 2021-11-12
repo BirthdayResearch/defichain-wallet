@@ -43,13 +43,18 @@ declare global {
        * @param resultingToken
        */
       validateConversionDetails: (isTokenToUTXO: boolean, amountToConvert: string, resultingUTXO: string, resultingToken: string) => Chainable<Element>
+
+      /**
+       * @description Intercept feature flag API to turn on loan feature
+       */
+      allowLoanFeature: () => Chainable<Element>
     }
   }
 }
 
 Cypress.Commands.add('verifyWalletAddress', (network: string, addressObject?: { address: string }) => {
   cy.getByTestID('bottom_tab_balances').click()
-  cy.getByTestID('header_receive_balance').click()
+  cy.getByTestID('receive_balance_button').click()
   cy.getByTestID('address_text').then(($txt: any) => {
     const a = $txt[0].textContent
     if (addressObject !== undefined) {
@@ -81,7 +86,8 @@ Cypress.Commands.add('checkBalanceRow', (id: string, details: BalanceTokenDetail
 })
 
 Cypress.Commands.add('changePasscode', () => {
-  cy.getByTestID('bottom_tab_settings').click()
+  cy.getByTestID('bottom_tab_balances').click()
+  cy.getByTestID('header_settings').click()
   cy.getByTestID('view_change_passcode').click()
   cy.getByTestID('pin_authorize').type('000000').wait(3000)
   cy.getByTestID('pin_input').type('696969').wait(3000)
@@ -98,4 +104,17 @@ Cypress.Commands.add('validateConversionDetails', (isTokenToUTXO: boolean, amoun
   cy.getByTestID('resulting_utxo').should('contain', resultingUTXO)
   cy.getByTestID('resulting_token').should('contain', resultingToken)
   cy.getByTestID('conversion_breakdown_text').should('contain', 'Amount above are prior to transaction')
+})
+
+Cypress.Commands.add('allowLoanFeature', () => {
+  cy.intercept('**/settings/flags', {
+    body: [
+      {
+        id: "loan",
+        name: "Decentralized Loans",
+        stage: "alpha",
+        version: ">=0.0.0"
+      }
+    ]
+  })
 })
