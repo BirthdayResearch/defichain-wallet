@@ -655,7 +655,9 @@
     "Min. collateral ratio": "最小抵押率",
     "Interest rate (APR)": "利率（以回報率計算）",
     "APR": "回報率",
-    "CONFIRM CREATE VAULT": "確認創建金庫"
+    "CONFIRM CREATE VAULT": "確認創建金庫",
+    "Creating vault": "創建金庫",
+    "Creating vault with min. collateral ratio of {{amount}}% and interest rate of {{ir}}% APR": "創建金庫時，設定的最低抵押率為{{amount}}%，利率為{{ir}}%年回報率"
   },
   "components/FeeInfoRow": {
     "Estimated fee": "所需費用（大約）",
