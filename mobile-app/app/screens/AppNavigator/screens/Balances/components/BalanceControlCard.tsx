@@ -38,13 +38,13 @@ export function BalanceControlCard (): JSX.Element {
   }, [])
 
   const getSnapPoints = (): string[] => {
-    if (addressLength > 6) {
-      return ['90%']
+    if (addressLength > 5) {
+      return ['80%']
     }
     if (addressLength > 2) {
       return ['60%']
     }
-    return ['30%']
+    return ['40%']
   }
 
   return (

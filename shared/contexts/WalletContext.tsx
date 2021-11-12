@@ -28,10 +28,6 @@ interface WalletContextI {
    * Switch account addresses of the above wallet
    */
   setIndex: (index: number) => Promise<void>
-  /**
-   * Create new account addresses of the above wallet
-   */
-  append: () => Promise<void>
 
 }
 
@@ -56,6 +52,7 @@ export function WalletContextProvider (props: WalletContextProviderProps): JSX.E
   const { provider } = useWalletNodeContext()
   const [address, setAddress] = useState<string>()
   const [account, setAccount] = useState<WhaleWalletAccount>()
+  const [addressIndex, setAddressIndex] = useState<number>(0)
   const [addressLength, setAddressLength] = useState<number>(0)
   const { network } = useNetworkContext()
   const client = useWhaleApiClient()
@@ -69,28 +66,39 @@ export function WalletContextProvider (props: WalletContextProviderProps): JSX.E
     .catch(logger.error)
   }, [wallet])
 
+  useEffect(() => {
+    const account = wallet.get(addressIndex)
+    account.getAddress().then((address) => {
+      setAccount(account)
+      setAddress(address)
+    }).catch(logger.error)
+  }, [addressIndex])
+
   const getWalletDetails = async (): Promise<void> => {
-    const maxAddressIndex = await api.getLength()
-    setAddressLength(maxAddressIndex)
+    // get discovered address
+    const discoveredAddress = await getDiscoveredAddress(wallet)
+    await api.setLength(discoveredAddress)
+    setAddressLength(discoveredAddress)
     const activeAddressIndex = await api.getActive()
-    const account = wallet.get(activeAddressIndex)
-    const address = await account.getAddress()
-    setAccount(account)
-    setAddress(address)
+    setAddressIndex(activeAddressIndex)
   }
 
-  const append = async (): Promise<void> => {
-    const index = addressLength + 1
-    await api.setLength(index)
-    setAddressLength(index)
+  const getDiscoveredAddress = async (wallet: JellyfishWallet<WhaleWalletAccount, WalletHdNode>, count: number = 0): Promise<number> => {
+    const activeAddress = await wallet.discover(100)
+    count += activeAddress.length
+    if (activeAddress.length === 100) {
+      count += await getDiscoveredAddress(wallet, count)
+    }
+    return count
   }
 
   const setIndex = async (index: number): Promise<void> => {
-    const account = wallet.get(index)
-    const address = await account.getAddress()
+    if (index > addressLength) {
+      await api.setLength(index)
+      setAddressLength(index)
+    }
     await api.setActive(index)
-    setAccount(account)
-    setAddress(address)
+    setAddressIndex(index)
   }
 
   if (account === undefined || address === undefined) {
@@ -102,7 +110,6 @@ export function WalletContextProvider (props: WalletContextProviderProps): JSX.E
     account: account,
     address: address,
     setIndex: setIndex,
-    append: append,
     addressLength: addressLength
   }
 

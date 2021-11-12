@@ -24,13 +24,13 @@ export function AddressControlScreen (): JSX.Element {
   )
 }
 
-export function AddressControlModal ({ onClose }: { onClose?: () => void }): JSX.Element {
+export function AddressControlModal ({ onClose }: { onClose: () => void }): JSX.Element {
   return (
     <View style={tailwind('w-full pb-16')}>
       <ThemedView
-        dark={tailwind('border-b-2 border-gray-700')}
-        light={tailwind('border-b-2 border-gray-100')}
-        style={tailwind('w-full')}
+        dark={tailwind('border-gray-700')}
+        light={tailwind('border-gray-100')}
+        style={tailwind('border-b-2')}
       >
         <View style={tailwind('flex flex-row justify-between w-full px-4 pb-4 pt-2')}>
           <ThemedText
@@ -62,8 +62,8 @@ export function AddressControlModal ({ onClose }: { onClose?: () => void }): JSX
   )
 }
 
-export function AddressControlCard ({ onClose }: { onClose?: () => void }): JSX.Element {
-  const { address, addressLength, setIndex, append, wallet } = useWalletContext()
+export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.Element {
+  const { address, addressLength, setIndex, wallet } = useWalletContext()
   const [availableAddresses, setAvailableAddresses] = useState<string[]>([])
   const [canCreateAddress, setCanCreateAddress] = useState<boolean>(false)
   const logger = useLogger()
@@ -80,6 +80,11 @@ export function AddressControlCard ({ onClose }: { onClose?: () => void }): JSX.
     setCanCreateAddress(addresses.length === discoveredAddress.length)
   }
 
+  const onRowPress = async (index: number): Promise<void> => {
+    await setIndex(index)
+    onClose()
+  }
+
   useEffect(() => {
     discoverAddresses().catch(logger.error)
   }, [wallet, addressLength])
@@ -92,19 +97,18 @@ export function AddressControlCard ({ onClose }: { onClose?: () => void }): JSX.
           address={availableAddress}
           isActive={address === availableAddress}
           onPress={async () => {
-              await setIndex(index)
-              if (onClose != null) {
-                onClose()
-              }
-            }}
+            await onRowPress(index)
+          }}
         />
       )}
       {canCreateAddress && (
         <ThemedTouchableOpacity
-          dark={tailwind('bg-gray-800 border-b border-gray-700')}
-          light={tailwind('bg-white border-b border-gray-100')}
-          style={tailwind('py-4 pl-4 pr-2')}
-          onPress={append}
+          dark={tailwind('bg-gray-800 border-gray-700')}
+          light={tailwind('bg-white border-gray-100')}
+          style={tailwind('py-4 pl-4 pr-2 border-b ')}
+          onPress={async () => {
+            await onRowPress(addressLength + 1)
+          }}
           testID='create_new_address'
         >
           <View style={tailwind('flex-row items-center flex-grow')}>
@@ -136,18 +140,18 @@ export function AddressControlCard ({ onClose }: { onClose?: () => void }): JSX.
 function AddressItemRow ({ address, isActive, onPress }: { address: string, isActive: boolean, onPress: () => void }): JSX.Element {
   return (
     <ThemedTouchableOpacity
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-100')}
       onPress={onPress}
-      style={tailwind('py-4 pl-4 pr-2')}
+      light={tailwind('bg-white border-gray-100')}
+      dark={tailwind('bg-gray-900 border-gray-700')}
+      style={tailwind('py-4 pl-4 pr-2 border-b')}
       testID={`address_row_${address}`}
     >
       <View style={tailwind('flex-row items-center flex-grow')}>
         <RandomAvatar name={address} size={16} />
         <View style={tailwind('ml-3 flex-auto')}>
           <ThemedText
-            dark={tailwind('text-gray-200')}
-            light={tailwind('text-black')}
+            light={tailwind('text-gray-900')}
+            dark={tailwind('text-gray-100')}
             style={tailwind('text-sm w-full font-normal')}
             numberOfLines={1}
             ellipsizeMode='middle'
@@ -173,9 +177,9 @@ function AddressItemRow ({ address, isActive, onPress }: { address: string, isAc
         )}
         <View style={tailwind('ml-3 flex-row items-center')}>
           <ThemedIcon
-            dark={tailwind('text-gray-200')}
+            light={tailwind('text-gray-900')}
+            dark={tailwind('text-gray-100')}
             iconType='MaterialIcons'
-            light={tailwind('text-black')}
             name='chevron-right'
             size={24}
           />
