@@ -15,7 +15,8 @@ describe('loan cards', () => {
         price: new BigNumber('123.4567'),
         isVerified: true,
         interestRate: new BigNumber('1.2345'),
-        onPress: () => jest.fn
+        onPress: () => jest.fn,
+        testID: 'loan_0'
       },
       {
         loanName: 'BTC',
@@ -23,7 +24,8 @@ describe('loan cards', () => {
         price: new BigNumber('123.4567'),
         isVerified: false,
         interestRate: new BigNumber('1.2345'),
-        onPress: () => jest.fn
+        onPress: () => jest.fn,
+        testID: 'loan_1'
       },
       {
         loanName: 'BTC',
@@ -31,7 +33,8 @@ describe('loan cards', () => {
         price: new BigNumber('123.4567'),
         isVerified: true,
         interestRate: new BigNumber('1.2345'),
-        onPress: () => jest.fn
+        onPress: () => jest.fn,
+        testID: 'loan_2'
       }
     ]
     const rendered = render(<LoanCards loans={loanCards} />)

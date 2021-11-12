@@ -17,7 +17,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
 import { authentication as authenticationStore } from '@store/authentication'
 import { ocean } from '@store/ocean'
-import { first, transactionQueue } from '@store/transaction_queue'
+import { DfTxSigner, first, transactionQueue } from '@store/transaction_queue'
 import { translate } from '@translations'
 import { PasscodePrompt } from './PasscodePrompt'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
@@ -172,13 +172,15 @@ export function TransactionAuthorization (): JSX.Element | null {
     setWallet(initJellyfishWallet(provider, network, whaleApiClient))
   }
 
-  const onPinSuccess = async (onBroadcast: any, signedTx: CTransactionSegWit, submitButtonLabel?: string): Promise<void> => {
+  const onPinSuccess = async (transaction: DfTxSigner, signedTx: CTransactionSegWit): Promise<void> => {
     setTransactionStatus(TransactionStatus.AUTHORIZED)
     await resetPasscodeCounter()
     dispatch(ocean.actions.queueTransaction({
       tx: signedTx,
-      onBroadcast,
-      submitButtonLabel
+      onError: transaction.onError,
+      onConfirmation: transaction.onConfirmation,
+      onBroadcast: transaction.onBroadcast,
+      submitButtonLabel: transaction.submitButtonLabel
     })) // push signed result for broadcasting
   }
 
@@ -187,7 +189,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       const activeIndex = await WalletAddressIndexPersistence.getActive()
       const signedTx = await signTransaction(transaction, wallet.get(activeIndex), onRetry, retries, logger)
       // case 1: success
-      return await onPinSuccess(transaction.onBroadcast, signedTx, transaction.submitButtonLabel)
+      return await onPinSuccess(transaction, signedTx)
     } catch (e: any) {
       if (e.message === INVALID_HASH) {
         // case 2: invalid passcode
