@@ -4,6 +4,7 @@ context('Wallet - Loans - Create vault', () => {
   beforeEach(function () {
     cy.allowLoanFeature()
     cy.createEmptyWallet(true)
+    cy.sendDFItoWallet().wait(6000)
   })
 
   it('should display empty vault screen', function () {
@@ -33,7 +34,6 @@ context('Wallet - Loans - Create vault', () => {
   })
 
   it('should allow to submit', function () {
-    cy.sendDFItoWallet().wait(4000)
     cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('create_vault_header_button').click()
     cy.getByTestID('loan_scheme_option_0').click()
@@ -47,10 +47,10 @@ context.only('Wallet - Loans - Confirm create vault', () => {
   before(function () {
     cy.allowLoanFeature()
     cy.createEmptyWallet(true)
+    cy.sendDFItoWallet().wait(6000)
   })
 
   it('should navigate to confirm create vault screen and create a vault', function () {
-    cy.sendDFItoWallet().wait(4000)
     cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('button_create_vault').click()
     cy.getByTestID('loan_scheme_option_0').click()
