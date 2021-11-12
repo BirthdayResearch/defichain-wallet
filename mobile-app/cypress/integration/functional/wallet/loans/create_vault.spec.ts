@@ -43,7 +43,7 @@ context('Wallet - Loans - Create vault', () => {
   })
 })
 
-context.only('Wallet - Loans - Confirm create vault', () => {
+context('Wallet - Loans - Confirm create vault', () => {
   before(function () {
     cy.allowLoanFeature()
     cy.createEmptyWallet(true)
