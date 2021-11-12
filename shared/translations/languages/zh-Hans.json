@@ -190,7 +190,8 @@
     "Track transactions, tokens and DEX pairs": "审查交易、代币、和去中心化配对",
     "View official website": "前往递飞链官网",
     "Learn more about the blockchain": "了解更多关于递飞链区块链和相关资讯",
-    "DeFiChain Explorer": "递飞链浏览器"
+    "DeFiChain Explorer": "递飞链浏览器",
+    "Try Beta features": "试用测试版功能"
   },
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "关于",
@@ -331,6 +332,17 @@
   "screens/ConnectionBoundary": {
     "Connection problem": "网络连接出了问题",
     "There seems to be a problem with the connection. Check your network and try again.": "网络连接不良，请查看网络设定后重试."
+  },
+  "screens/FeatureFlagScreen": {
+    "Loans": "贷款",
+    "Browse loan tokens provided by DeFiChain": "浏览 DeFiChain 提供的贷款代币",
+    "Continue": "继续",
+    "Cancel": "取消",
+    "Enable {{feature}} (Beta)": "启用 Beta测试版 {{feature}}",
+    "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "此功能仍处于Beta测试版 阶段，使用它可能有些风险。您是否想继续？",
+    "Beta Features": " 测试版功能",
+    "Beta features of Light Wallet are features undergoing final testing before its official release. Experimentation of the features is encouraged, but caution is advised when using your assets.": "轻钱包的Beta版功能是在正式发布前正在进行最后测试的功能。我们鼓励您对这些功能进行测试，但建议在使用您的资产时要谨慎。",
+    "Feature is still in Beta. Use at your own risk.": "功能仍处于测试阶段。使用时风险请自己负责。"
   },
   "BottomTabNavigator": {
     "Balances": "总资金",
@@ -496,7 +508,8 @@
     "CONFIRM SWAP": "确认兑换",
     "Transaction type": "交易类型",
     "Swap": "兑换",
-    "Convert & swap": "转换并兑换"
+    "Convert & swap": "转换并兑换",
+    "Max Price per {{fromToken}}": "每 {{fromToken}} 的最高价格"
   },
   "screens/UnlockWallet": {
     "Enter Passcode": "请输入密码",
@@ -642,7 +655,10 @@
     "Min. collateral ratio": "最小抵押率",
     "Interest rate (APR)": "利率（以回报率计算）",
     "APR": "回报率",
-    "CONFIRM CREATE VAULT": "确认创建金库"
+    "CONFIRM CREATE VAULT": "确认创建金库",
+    "Creating vault": "创建金库",
+    "Creating vault with min. collateral ratio of {{amount}}% and interest rate of {{ir}}% APR": "创建金库时，设定的最低抵押率为{{amount}}%，利率为{{ir}}%年回报率",
+    "Convert & create vault": "转换和创建金库"
   },
   "components/FeeInfoRow": {
     "Estimated fee": "所需费用（大约）",

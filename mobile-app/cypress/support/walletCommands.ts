@@ -111,7 +111,7 @@ Cypress.Commands.add('allowLoanFeature', () => {
     body: [
       {
         id: "loan",
-        name: "Decentralized Loans",
+        name: "Loans",
         stage: "alpha",
         version: ">=0.0.0"
       }

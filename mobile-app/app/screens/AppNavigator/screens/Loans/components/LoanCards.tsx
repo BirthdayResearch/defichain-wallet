@@ -5,12 +5,14 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import NumberFormat from 'react-number-format'
 import { View } from 'react-native'
+
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { InfoText } from '@components/InfoText'
 import { getNativeIcon } from '@components/icons/assets'
 
 interface LoanCardsProps {
   loans: LoanCardOptions[]
   testID?: string
-  onPress: (loan: LoanCardOptions) => void
 }
 
 export interface LoanCardOptions {
@@ -19,22 +21,34 @@ export interface LoanCardOptions {
   price: BigNumber
   isVerified: boolean
   interestRate: BigNumber
+  onPress: () => void
+  testID: string
 }
 
 type PriceType = 'ACTIVE' | 'NEXT'
 
 export function LoanCards (props: LoanCardsProps): JSX.Element {
+  const { isBetaFeature } = useFeatureFlagContext()
   return (
-    <ThemedFlatList
-      contentContainerStyle={tailwind('px-2 pt-4 pb-2')}
-      data={props.loans}
-      numColumns={2}
-      renderItem={({ item, index }): JSX.Element => {
+    <>
+      {isBetaFeature('loan') && (
+        <View style={tailwind('p-4 pb-0')}>
+          <InfoText
+            testID='beta_warning_info_text'
+            text={translate('screens/FeatureFlagScreen', 'Feature is still in Beta. Use at your own risk.')}
+          />
+        </View>
+      )}
+      <ThemedFlatList
+        contentContainerStyle={tailwind('px-2 pt-4 pb-2')}
+        data={props.loans}
+        numColumns={2}
+        renderItem={({ item, index }): JSX.Element => {
         if (index !== props.loans.length - 1) {
           return (
             <LoadCard
               {...item}
-              onPress={() => props.onPress(item)}
+              testID={`loan_card_${index}`}
             />
           )
         } else {
@@ -42,20 +56,17 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
             <View style={{ flexBasis: '50%' }}>
               <LoadCard
                 {...item}
-                onPress={() => props.onPress(item)}
+                testID={`loan_card_${index}`}
               />
             </View>
           )
         }
       }}
-      keyExtractor={(_item, index) => index.toString()}
-      testID={props.testID}
-    />
+        keyExtractor={(_item, index) => index.toString()}
+        testID={props.testID}
+      />
+    </>
   )
-}
-
-interface LoanCardProps extends LoanCardOptions {
-  onPress: () => void
 }
 
 function LoadCard ({
@@ -63,11 +74,13 @@ function LoadCard ({
   priceType,
   price,
   interestRate,
-  onPress
-}: LoanCardProps): JSX.Element {
+  onPress,
+  testID
+}: LoanCardOptions): JSX.Element {
   const LoanIcon = getNativeIcon(loanName)
   return (
     <ThemedTouchableOpacity
+      testID={testID}
       style={tailwind('p-4 mx-2 mb-4 rounded flex-1')}
       onPress={onPress}
     >

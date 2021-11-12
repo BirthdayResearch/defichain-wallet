@@ -16,6 +16,11 @@ import { ChooseLoanTokenScreen } from './screens/ChooseLoanTokenScreen'
 import { LoanCardOptions } from './components/LoanCards'
 import { BorrowLoanTokenScreen } from './screens/BorrowLoanTokenScreen'
 import { ConfirmBorrowLoanTokenScreen } from './screens/ConfirmBorrowLoanTokenScreen'
+import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
+import { TouchableOpacity } from 'react-native'
+import { ThemedIcon } from '@components/themed'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { tailwind } from '@tailwind'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -27,6 +32,7 @@ export interface LoanParamList {
   ConfirmCreateVaultScreen: {
     loanScheme: LoanScheme
     fee: BigNumber
+    conversion?: ConversionParam
   }
   VaultDetailScreen: {
     vaultId: string
@@ -54,6 +60,7 @@ const LoansStack = createStackNavigator<LoanParamList>()
 
 export function LoansNavigator (): JSX.Element {
   const headerContainerTestId = 'loans_header_container'
+  const navigation = useNavigation<NavigationProp<LoanParamList>>()
 
   return (
     <LoansStack.Navigator
@@ -73,6 +80,21 @@ export function LoansNavigator (): JSX.Element {
               text={translate('screens/LoansScreen', 'Loans') + ' (Beta)'} // TODO: remove beta from title
               containerTestID={headerContainerTestId}
             />
+          ),
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate({
+              name: 'CreateVaultScreen',
+              params: {},
+              merge: true
+            })} testID='create_vault_header_button'
+            >
+              <ThemedIcon
+                size={28}
+                style={tailwind('mr-2')} light={tailwind('text-primary-500')}
+                dark={tailwind('text-primary-500')} iconType='MaterialCommunityIcons' name='plus'
+              />
+            </TouchableOpacity>
           )
         }}
       />
