@@ -3,8 +3,14 @@ import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
 import { ThemedView } from '@components/themed'
 import { VaultCard, VaultCardProps, VaultStatus } from '@screens/AppNavigator/screens/Loans/components/VaultCard'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { View } from 'react-native'
+import { InfoText } from '@components/InfoText'
+import { translate } from '@translations'
 
 export function Vaults (): JSX.Element {
+  const { isBetaFeature } = useFeatureFlagContext()
+
   // TODO(pierregee): Remove hardcoded vaults once API is ready
   const vaults: VaultCardProps[] = [
     {
@@ -40,6 +46,14 @@ export function Vaults (): JSX.Element {
 
   return (
     <ThemedView style={tailwind('h-full m-4')}>
+      {isBetaFeature('loan') && (
+        <View style={tailwind('pb-4')}>
+          <InfoText
+            testID='beta_warning_info_text'
+            text={translate('screens/FeatureFlagScreen', 'Feature is still in Beta. Use at your own risk.')}
+          />
+        </View>
+      )}
       {vaults.map((vault, index) => {
         return <VaultCard key={index} {...vault} />
       })}

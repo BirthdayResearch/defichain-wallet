@@ -14,10 +14,11 @@ export interface AnnouncementData {
 }
 
 export interface FeatureFlag {
-  id: string
+  id: FEATURE_FLAG_ID
   name: string
   version: string
-  stage: 'alpha' | 'beta' | 'public'
+  stage: FEATURE_FLAG_STAGE
+  description: string
 }
 
 export type FEATURE_FLAG_ID = 'loan' | 'auction'
