@@ -1,6 +1,6 @@
 import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
 
-context.only('Wallet - Loans', () => {
+context('Wallet - Loans', () => {
   before(function () {
     cy.allowLoanFeature()
     cy.createEmptyWallet(true)
