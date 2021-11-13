@@ -506,7 +506,8 @@
     "CONFIRM SWAP": "BESTÄTIGE DEN UMTAUSCH",
     "Transaction type": "Transaktionsart",
     "Swap": "Tausche",
-    "Convert & swap": "Umrechnen & tauschen"
+    "Convert & swap": "Umrechnen & tauschen",
+    "Max Price per {{fromToken}}": "Max. Preis pro {{fromToken}}"
   },
   "screens/UnlockWallet": {
     "Enter Passcode": "Passwort eingeben",
@@ -658,7 +659,8 @@
     "APR": "ZINS",
     "CONFIRM CREATE VAULT": "VAULT ERSTELLEN BESTÄTIGEN",
     "Creating vault": "Vault anlegen",
-    "Creating vault with min. collateral ratio of {{amount}}% and interest rate of {{ir}}% APR": "Anlegen eines Vaults mit einem Mindestbesicherungsgrad von {{amount}}% und einem effektiven Jahreszinssatz von {{ir}}%"
+    "Creating vault with min. collateral ratio of {{amount}}% and interest rate of {{ir}}% APR": "Anlegen eines Vaults mit einem Mindestbesicherungsgrad von {{amount}}% und einem effektiven Jahreszinssatz von {{ir}}%",
+    "Convert & create vault": "Umwandeln und Vault erstellen"
   },
   "components/FeeInfoRow": {
     "Estimated fee":"Geschätzte Gebühr",
