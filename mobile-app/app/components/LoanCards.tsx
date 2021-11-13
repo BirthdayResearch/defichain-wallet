@@ -43,30 +43,17 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
         contentContainerStyle={tailwind('px-2 pt-4 pb-2')}
         data={props.loans}
         numColumns={2}
-        renderItem={({ item, index }: { item: LoanToken, index: number }): JSX.Element => {
-        if (index !== props.loans.length - 1) {
-          return (
-            <LoadCard
-              displaySymbol={item.token.displaySymbol}
-              interestRate={item.interest}
-              price='' // TODO: pass price from oracle
-              loanTokenId={item.tokenId}
-              onPress={() => {
-                // TODO: navigate to borrow loan token screen
-                // navigation.navigate({
-
-                // })
-              }}
-              testID={`loan_card_${index}`}
-            />
-          )
-        } else {
-          return (
-            <View style={{ flexBasis: '50%' }}>
-              <LoadCard
+        renderItem={({
+          item,
+          index
+        }: { item: LoanToken, index: number }): JSX.Element => {
+          // TODO: Update to one element, just add the condition on style
+          if (index !== props.loans.length - 1) {
+            return (
+              <LoanCard
                 displaySymbol={item.token.displaySymbol}
                 interestRate={item.interest}
-                price='' // TODO: pass price from oracle
+                price='100000' // TODO: pass price from oracle
                 loanTokenId={item.tokenId}
                 onPress={() => {
                   // TODO: navigate to borrow loan token screen
@@ -76,10 +63,27 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
                 }}
                 testID={`loan_card_${index}`}
               />
-            </View>
-          )
-        }
-      }}
+            )
+          } else {
+            return (
+              <View style={{ flexBasis: '50%' }}>
+                <LoanCard
+                  displaySymbol={item.token.displaySymbol}
+                  interestRate={item.interest}
+                  price='100000' // TODO: pass price from oracle
+                  loanTokenId={item.tokenId}
+                  onPress={() => {
+                    // TODO: navigate to borrow loan token screen
+                    // navigation.navigate({
+
+                    // })
+                  }}
+                  testID={`loan_card_${index}`}
+                />
+              </View>
+            )
+          }
+        }}
         keyExtractor={(_item, index) => index.toString()}
         testID={props.testID}
       />
@@ -87,7 +91,7 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
   )
 }
 
-function LoadCard ({
+function LoanCard ({
   displaySymbol,
   price,
   interestRate,
@@ -106,7 +110,7 @@ function LoadCard ({
       <View style={tailwind('flex-row items-center pb-2 justify-between')}>
         <View style={tailwind('flex flex-row')}>
           <LoanIcon width={24} height={24} style={tailwind('mr-2')} />
-          <ThemedText style={tailwind('font-medium')}>{displaySymbol}</ThemedText>
+          <ThemedText testID={`${testID}_display_symbol`} style={tailwind('font-medium')}>{displaySymbol}</ThemedText>
         </View>
         <ThemedIcon iconType='MaterialIcons' name='chevron-right' size={20} style={tailwind('-mr-2')} />
       </View>
@@ -122,7 +126,7 @@ function LoadCard ({
         thousandSeparator
         displayType='text'
         renderText={(value) =>
-          <ThemedText style={tailwind('text-sm pb-2')}>
+          <ThemedText testID={`${testID}_interest_rate`} style={tailwind('text-sm pb-2')}>
             {value}
           </ThemedText>}
         value={interestRate}
@@ -141,7 +145,7 @@ function LoadCard ({
         displayType='text'
         renderText={(value) =>
           <View style={tailwind('flex flex-row items-center')}>
-            <ThemedText style={tailwind('text-sm mr-1')}>
+            <ThemedText testID={`${testID}_loan_amount`} style={tailwind('text-sm mr-1')}>
               ${value}
             </ThemedText>
           </View>}

@@ -304,6 +304,7 @@ exports[`loan cards should match snapshot 1`] = `
                     ],
                   ]
                 }
+                testID="loan_card_0_display_symbol"
               >
                 dTS25
               </Text>
@@ -354,6 +355,7 @@ exports[`loan cards should match snapshot 1`] = `
                 ],
               ]
             }
+            testID="loan_card_0_interest_rate"
           >
             2%
           </Text>
@@ -410,9 +412,10 @@ exports[`loan cards should match snapshot 1`] = `
                   ],
                 ]
               }
+              testID="loan_card_0_loan_amount"
             >
               $
-              
+              100,000.00
             </Text>
           </View>
         </View>
@@ -577,6 +580,7 @@ exports[`loan cards should match snapshot 1`] = `
                     ],
                   ]
                 }
+                testID="loan_card_1_display_symbol"
               >
                 dTR50
               </Text>
@@ -627,6 +631,7 @@ exports[`loan cards should match snapshot 1`] = `
                 ],
               ]
             }
+            testID="loan_card_1_interest_rate"
           >
             3%
           </Text>
@@ -683,9 +688,10 @@ exports[`loan cards should match snapshot 1`] = `
                   ],
                 ]
               }
+              testID="loan_card_1_loan_amount"
             >
               $
-              
+              100,000.00
             </Text>
           </View>
         </View>
@@ -870,6 +876,7 @@ exports[`loan cards should match snapshot 1`] = `
                       ],
                     ]
                   }
+                  testID="loan_card_2_display_symbol"
                 >
                   dTU10
                 </Text>
@@ -920,6 +927,7 @@ exports[`loan cards should match snapshot 1`] = `
                   ],
                 ]
               }
+              testID="loan_card_2_interest_rate"
             >
               1%
             </Text>
@@ -976,9 +984,10 @@ exports[`loan cards should match snapshot 1`] = `
                     ],
                   ]
                 }
+                testID="loan_card_2_loan_amount"
               >
                 $
-                
+                100,000.00
               </Text>
             </View>
           </View>
