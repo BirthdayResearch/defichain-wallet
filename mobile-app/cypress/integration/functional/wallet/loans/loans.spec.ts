@@ -1,8 +1,30 @@
+import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
+
 context('Wallet - Loans', () => {
-  it('should have loans in bottom tab navigator', function () {
+  before(function () {
     cy.allowLoanFeature()
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_loans').should('exist')
+    cy.sendDFItoWallet().wait(6000)
+  })
+
+  it('should display correct loans from API', function () {
+    cy.getByTestID('bottom_tab_loans').click()
+    cy.getByTestID('bottom_tab_loans').click()
+    cy.getByTestID('button_create_vault').click()
+    cy.getByTestID('loan_scheme_option_0').click()
+    cy.getByTestID('create_vault_submit_button').click()
+    cy.getByTestID('button_confirm_create_vault').click().wait(4000)
+    cy.closeOceanInterface()
+    cy.intercept('**/loans/tokens?size=50').as('loans')
+    cy.wait(['@loans']).then((intercept: any) => {
+      const data: any[] = intercept.response.body.data
+      data.forEach((loan: LoanToken, i) => {
+        cy.getByTestID(`loan_card_${i}_display_symbol`).contains(loan.token.displaySymbol)
+        cy.getByTestID(`loan_card_${i}_interest_rate`).contains(`${loan.interest}%`)
+        // TODO: Replace with actual value once available
+        cy.getByTestID(`loan_card_${i}_loan_amount`).contains(`$${Number(100000).toLocaleString()}`)
+      })
+    })
   })
 })
 
