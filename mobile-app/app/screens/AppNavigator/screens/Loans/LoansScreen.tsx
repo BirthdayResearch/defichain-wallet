@@ -22,6 +22,7 @@ export type LoadingState = 'empty_vault' | 'loading' | 'success'
 
 export function LoansScreen (): JSX.Element {
   const { address } = useWalletContext()
+  const blockCount = useSelector((state: RootState) => state.block.count)
   const vaults = useSelector((state: RootState) => state.loans.vaults)
   const loans = useSelector((state: RootState) => state.loans.loanTokens)
   const [activeTab, setActiveTab] = useState<string>(TabKey.BrowseLoans)
@@ -32,9 +33,12 @@ export function LoansScreen (): JSX.Element {
   }
 
   useEffect(() => {
-    dispatch(fetchVaults({ address, client }))
+    dispatch(fetchVaults({
+      address,
+      client
+    }))
     dispatch(fetchLoanTokens({ client }))
-  }, [])
+  }, [blockCount])
 
   const tabsList = [{
     id: TabKey.BrowseLoans,
@@ -51,7 +55,8 @@ export function LoansScreen (): JSX.Element {
   if (vaults?.length === 0) {
     return (
       <EmptyVault
-        handleRefresh={() => {}}
+        handleRefresh={() => {
+        }}
         isLoading={false}
       />
     )
@@ -65,16 +70,16 @@ export function LoansScreen (): JSX.Element {
       <Tabs tabSections={tabsList} testID='loans_tabs' activeTabKey={activeTab} />
       {activeTab === TabKey.YourVaults && <Vaults />}
       {activeTab === TabKey.BrowseLoans && loans.length === 0 &&
-        (
-          <View style={tailwind('mt-1')}>
-            <SkeletonLoader
-              row={6}
-              screen={SkeletonLoaderScreen.Loan}
-            />
-          </View>
-        )}
+      (
+        <View style={tailwind('mt-1')}>
+          <SkeletonLoader
+            row={6}
+            screen={SkeletonLoaderScreen.Loan}
+          />
+        </View>
+      )}
       {activeTab === TabKey.BrowseLoans && loans.length > 0 &&
-        (<LoanCards testID='loans_cards' loans={loans} />)}
+      (<LoanCards testID='loans_cards' loans={loans} />)}
     </ThemedView>
   )
 }
