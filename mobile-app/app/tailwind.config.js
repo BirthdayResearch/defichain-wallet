@@ -109,9 +109,25 @@ module.exports = {
           600: '#FFBC54',
           700: '#BF7708'
         },
+        blue: {
+          50: '#F7FBFE',
+          100: '#EFF6FD',
+          200: '#D6EAF9',
+          300: '#BDDDF5',
+          500: '#5AA9E6',
+          600: '#5198CF',
+          700: '#447FAD',
+          900: '#2C5371'
+        },
         darkblue: {
+          50: '#242D33',
           100: '#3E627A',
-          500: '#7FC8F8'
+          200: '#4C7895',
+          300: '#5F96BA',
+          500: '#7FC8F8',
+          600: '#A5D9FA',
+          700: '#CCE9FC',
+          900: '#F2FAFE'
         }
       },
       maxWidth: {
@@ -121,11 +137,6 @@ module.exports = {
       },
       zIndex: {
         '-1': '-1'
-      },
-      fontSize: {
-        '2xs': ['0.625rem', {
-          lineHeight: '1rem'
-        }]
       }
     }
   }

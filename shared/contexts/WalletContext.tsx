@@ -78,7 +78,9 @@ export function WalletContextProvider (props: WalletContextProviderProps): JSX.E
     const maxAddressIndex = await api.getLength()
     // get discovered address
     const discoveredAddressLength = await getDiscoveredAddressLength(wallet)
-    const length = Math.max(maxAddressIndex, discoveredAddressLength)
+    // sub 1 from total discovered address to get address index of last active address
+    const lastDiscoveredAddressIndex = discoveredAddressLength - 1
+    const length = Math.max(maxAddressIndex, lastDiscoveredAddressIndex)
     await api.setLength(length)
     setAddressLength(length)
     const activeAddressIndex = await api.getActive()

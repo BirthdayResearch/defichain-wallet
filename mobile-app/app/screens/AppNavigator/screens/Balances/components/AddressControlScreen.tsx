@@ -96,6 +96,7 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
           key={availableAddress}
           address={availableAddress}
           isActive={address === availableAddress}
+          index={index}
           onPress={async () => {
             await onRowPress(index)
           }}
@@ -137,14 +138,14 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
   )
 }
 
-function AddressItemRow ({ address, isActive, onPress }: { address: string, isActive: boolean, onPress: () => void }): JSX.Element {
+function AddressItemRow ({ address, isActive, index, onPress }: { address: string, isActive: boolean, index: number, onPress: () => void }): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={onPress}
       light={tailwind('bg-white border-gray-100')}
       dark={tailwind('bg-gray-900 border-gray-700')}
       style={tailwind('py-4 pl-4 pr-2 border-b')}
-      testID={`address_row_${address}`}
+      testID={`address_row_${index}`}
     >
       <View style={tailwind('flex-row items-center flex-grow')}>
         <RandomAvatar name={address} size={16} />
@@ -154,6 +155,7 @@ function AddressItemRow ({ address, isActive, onPress }: { address: string, isAc
             dark={tailwind('text-gray-100')}
             style={tailwind('text-sm w-full font-normal')}
             numberOfLines={1}
+            testID={`address_row_text_${index}`}
             ellipsizeMode='middle'
           >
             {address}
@@ -164,12 +166,12 @@ function AddressItemRow ({ address, isActive, onPress }: { address: string, isAc
             light={tailwind('bg-blue-100')}
             dark={tailwind('bg-darkblue-100')}
             style={tailwind('h-4 ml-1')}
-            testID='address_active_indicator'
+            testID={`address_active_indicator_${address}`}
           >
             <ThemedText
               light={tailwind('text-blue-500')}
               dark={tailwind('text-darkblue-500')}
-              style={tailwind('text-2xs px-1 font-medium')}
+              style={tailwind('text-xs px-1 font-medium')}
             >
               {translate('screens/AddressControlScreen', 'ACTIVE')}
             </ThemedText>
