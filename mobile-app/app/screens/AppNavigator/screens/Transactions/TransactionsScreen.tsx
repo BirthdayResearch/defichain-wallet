@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react'
 import { RefreshControl, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
-import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import { ThemedFlatList, ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { EmptyTransaction } from './EmptyTransaction'
 import { activitiesToViewModel, VMTransaction } from './screens/stateProcessor'
 import { TransactionsParamList } from './TransactionsNavigator'
@@ -90,10 +90,12 @@ export function TransactionsScreen (): JSX.Element {
 
   if (loadingState === 'loading') {
     return (
-      <SkeletonLoader
-        row={3}
-        screen={SkeletonLoaderScreen.Transaction}
-      />
+      <ThemedScrollView>
+        <SkeletonLoader
+          row={3}
+          screen={SkeletonLoaderScreen.Transaction}
+        />
+      </ThemedScrollView>
     )
   }
   // TODO(kyleleow): render error screen

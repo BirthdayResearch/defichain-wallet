@@ -130,7 +130,7 @@ export function DexScreen (): JSX.Element {
         </View>
       </ThemedView>
       <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
-      <View style={tailwind('flex-1')}>
+      <ThemedView style={tailwind('flex-1')}>
         {
           activeTab === TabKey.AvailablePoolPair && pairs.length === 0 && (
             <View style={tailwind('mt-2')}>
@@ -186,7 +186,7 @@ export function DexScreen (): JSX.Element {
             />
           )
         }
-      </View>
+      </ThemedView>
     </>
   )
 }
@@ -226,7 +226,7 @@ function YourPoolPairCards ({
 
       return (
         <ThemedView
-          dark={tailwind('bg-blue-800 border-gray-700')}
+          dark={tailwind('bg-blue-800 border-blue-900')}
           light={tailwind('bg-white border-gray-200')}
           style={tailwind('mx-4 p-4 my-1 border rounded', { 'mt-4': index === 0 })}
           testID='pool_pair_row_your'
@@ -282,7 +282,7 @@ function AvailablePoolPairCards ({
 
       return (
         <ThemedView
-          dark={tailwind('bg-gray-800 border-gray-700')}
+          dark={tailwind('bg-blue-800 border-blue-900')}
           light={tailwind('bg-white border-gray-200')}
           style={tailwind('mx-4 p-4 my-1 border rounded', { 'mt-4': index === 0 })}
           testID='pool_pair_row'

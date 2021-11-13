@@ -91,7 +91,7 @@ export function BalancesNavigator (): JSX.Element {
                 size={28}
                 style={tailwind('ml-2')}
                 light={tailwind('text-primary-500')}
-                dark={tailwind('text-primary-500')}
+                dark={tailwind('text-darkprimary-500')}
               />
             </TouchableOpacity>
           ),

@@ -3,14 +3,15 @@ import ContentLoader, { Circle, IContentLoaderProps, Rect } from 'react-content-
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { ThemedView } from '../themed'
+import { theme } from '../../tailwind.config'
 
 type LoanSkeletonLoaderProps = JSX.IntrinsicAttributes & IContentLoaderProps & { children?: React.ReactNode }
 
 function LoanLoader ({ props, isLight }: {props: LoanSkeletonLoaderProps, isLight: boolean}): JSX.Element {
   return (
     <ContentLoader
-      backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}
-      foregroundColor={isLight ? '#ffffff' : '#4a4a4a'}
+      backgroundColor={isLight ? '#ecebeb' : theme.extend.colors.blue[900]}
+      foregroundColor={isLight ? '#ffffff' : theme.extend.colors.blue[800]}
       speed={2}
       width='100%'
       height={144}
@@ -38,7 +39,7 @@ export function LoanSkeletonLoader (loaderProps: LoanSkeletonLoaderProps): JSX.E
     >
       {skeletonCols.map((_col, i) => (
         <ThemedView
-          dark={tailwind('bg-gray-800 border border-gray-700')}
+          dark={tailwind('bg-blue-800 border border-blue-900')}
           light={tailwind('bg-white border border-gray-200')}
           style={[tailwind('rounded'), { flexBasis: '47%' }]}
           key={i}

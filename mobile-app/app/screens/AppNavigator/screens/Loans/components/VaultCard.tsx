@@ -51,7 +51,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-blue-800 border-blue-900')}
       style={tailwind('rounded mb-2 border p-4')}
     >
       <ThemedTouchableOpacity
@@ -63,7 +63,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
           <View style={tailwind('flex flex-row items-center')}>
             <ThemedView
               light={tailwind('bg-gray-100')}
-              dark={tailwind('bg-gray-700')}
+              dark={tailwind('bg-blue-900')}
               style={tailwind('w-8 h-8 rounded-full flex items-center justify-center mr-2')}
             >
               <ThemedIcon

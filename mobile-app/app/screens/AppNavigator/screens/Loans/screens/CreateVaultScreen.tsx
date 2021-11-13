@@ -148,7 +148,7 @@ function LoanSchemeOptions (props: {loanSchemes: LoanScheme[], selectedLoanSchem
         <ThemedTouchableOpacity
           key={scheme.id}
           light={tailwind('border-gray-300 bg-white', { 'border-primary-500': props.selectedLoanScheme?.id === scheme.id })}
-          dark={tailwind('border-gray-700 bg-gray-800', { 'border-darkprimary-500': props.selectedLoanScheme?.id === scheme.id })}
+          dark={tailwind('border-blue-900 bg-blue-800', { 'border-darkprimary-500': props.selectedLoanScheme?.id === scheme.id })}
           style={tailwind('py-2 px-5 rounded-lg border flex flex-row items-center mb-1')}
           onPress={() => props.onLoanSchemePress(scheme)}
           testID={`loan_scheme_option_${index}`}

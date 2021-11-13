@@ -34,7 +34,7 @@ export function ScrollableButton (props: ScrollableButtonProps): JSX.Element | n
         horizontal
         showsHorizontalScrollIndicator={false}
         light={tailwind('bg-white')}
-        dark={tailwind('bg-gray-800')}
+        dark={tailwind('bg-blue-800')}
         style={tailwind('flex flex-row')}
       >
         {props.buttons.map(button => (

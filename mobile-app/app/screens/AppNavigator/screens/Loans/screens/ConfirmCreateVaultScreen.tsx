@@ -71,7 +71,7 @@ export function ConfirmCreateVaultScreen ({ route, navigation }: Props): JSX.Ele
 function SummaryHeader (): JSX.Element {
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      dark={tailwind('bg-blue-800 border-b border-blue-900')}
       light={tailwind('bg-white border-b border-gray-300')}
       style={tailwind('flex-col px-4 py-6')}
     >
@@ -85,7 +85,7 @@ function SummaryHeader (): JSX.Element {
       <View style={tailwind('flex flex-row items-center')}>
         <ThemedView
           light={tailwind('bg-gray-100')}
-          dark={tailwind('bg-gray-700')}
+          dark={tailwind('bg-blue-900')}
           style={tailwind('w-8 h-8 rounded-full flex items-center justify-center mr-2')}
         >
           <ThemedIcon

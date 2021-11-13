@@ -43,7 +43,7 @@ function CollateralCard (props: Collateral): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-blue-800 border-blue-900')}
       style={tailwind('p-4 mb-2 border rounded')}
     >
       <View style={tailwind('flex flex-row mb-3 items-center')}>

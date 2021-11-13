@@ -3,6 +3,7 @@ import { tailwind } from '@tailwind'
 import * as React from 'react'
 import ContentLoader, { Circle, IContentLoaderProps, Rect } from 'react-content-loader/native'
 import { ThemedView } from '../themed'
+import { theme } from '../../tailwind.config'
 
 export function MnemonicWordSkeletonLoader (props: JSX.IntrinsicAttributes & IContentLoaderProps & { children?: React.ReactNode }): JSX.Element {
   const { isLight } = useThemeContext()
@@ -19,8 +20,8 @@ export function MnemonicWordSkeletonLoader (props: JSX.IntrinsicAttributes & ICo
         height={47}
         viewBox='0 0 400 47'
         preserveAspectRatio='xMidYMid slice'
-        backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}
-        foregroundColor={isLight ? '#ffffff' : '#4a4a4a'}
+        backgroundColor={isLight ? '#ecebeb' : theme.extend.colors.blue[900]}
+        foregroundColor={isLight ? '#ffffff' : theme.extend.colors.blue[800]}
         {...props}
       >
         <Rect x='70' y='3' rx='3' ry='3' width='290' height='33' />

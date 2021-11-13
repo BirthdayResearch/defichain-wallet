@@ -3,6 +3,7 @@ import ContentLoader, { Circle, IContentLoaderProps, Rect } from 'react-content-
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { ThemedView } from '../themed'
+import { theme } from '../../tailwind.config'
 
 export function TransactionSkeletonLoader (props: JSX.IntrinsicAttributes & IContentLoaderProps & { children?: React.ReactNode }): JSX.Element {
   const { isLight } = useThemeContext()
@@ -14,8 +15,8 @@ export function TransactionSkeletonLoader (props: JSX.IntrinsicAttributes & ICon
       testID='transaction_skeleton_loader'
     >
       <ContentLoader
-        backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}
-        foregroundColor={isLight ? '#ffffff' : '#4a4a4a'}
+        backgroundColor={isLight ? '#ecebeb' : theme.extend.colors.blue[900]}
+        foregroundColor={isLight ? '#ffffff' : theme.extend.colors.blue[800]}
         height={47}
         preserveAspectRatio='xMidYMid slice'
         speed={2}
