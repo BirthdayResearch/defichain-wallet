@@ -1,12 +1,12 @@
 import { EnvironmentNetwork, getEnvironment } from '@environment'
 import { StorageProvider } from './provider'
-import * as Updates from 'expo-updates'
+import { getReleaseChannel } from '@api/releaseChannel'
 
 /**
  * @return EnvironmentNetwork if invalid, will be set to `networks[0]`
  */
 async function getNetwork (): Promise<EnvironmentNetwork> {
-  const env = getEnvironment(Updates.releaseChannel)
+  const env = getEnvironment(getReleaseChannel())
   const network = await StorageProvider.getItem(`${env.name}.NETWORK`)
 
   if ((env.networks as any[]).includes(network)) {
@@ -21,7 +21,7 @@ async function getNetwork (): Promise<EnvironmentNetwork> {
  * @param network {EnvironmentNetwork} with set with 'environment' prefixed
  */
 async function setNetwork (network: EnvironmentNetwork): Promise<void> {
-  const env = getEnvironment(Updates.releaseChannel)
+  const env = getEnvironment(getReleaseChannel())
 
   if (!env.networks.includes(network)) {
     throw new Error('network is not part of environment')
@@ -31,7 +31,7 @@ async function setNetwork (network: EnvironmentNetwork): Promise<void> {
 }
 
 async function getKey (key: string): Promise<string> {
-  const env = getEnvironment(Updates.releaseChannel)
+  const env = getEnvironment(getReleaseChannel())
   const network = await getNetwork()
   return `${env.name}.${network}.${key}`
 }

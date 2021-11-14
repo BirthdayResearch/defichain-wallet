@@ -25,26 +25,28 @@ context('Wallet - DEX - Available Pool Pairs', () => {
   })
 
   it('should display 5 available pool pair', function () {
-    cy.getByTestID('liquidity_screen_list').getByTestID('pool_pair_row').should('have.length', 5)
+    cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').should('have.length', 5)
   })
 
   it('should have BTC-DFI PoolPair as 1st', () => {
-    cy.getByTestID('liquidity_screen_list').getByTestID('pool_pair_row').first()
+    cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').first()
       .invoke('text').should(text => {
         expect(text).to.contains('dBTC-DFI')
-        expect(text).to.contains('Total pooled DFI')
-        expect(text).to.contains('Total pooled dBTC')
+        expect(text).to.contains('Pooled DFI')
+        expect(text).to.contains('Pooled dBTC')
+        expect(text).to.contains('Total liquidity (USD)')
+        expect(text).to.contains('APR')
       })
-    cy.getByTestID('apr_dBTC-DFI').should('exist')
   })
 
   it('should have DFI-USDT PoolPair as 3rd', () => {
-    cy.getByTestID('liquidity_screen_list').getByTestID('pool_pair_row').eq(2)
+    cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').eq(2)
       .invoke('text').should(text => {
         expect(text).to.contains('dUSDT-DFI')
-        expect(text).to.contains('Total pooled DFI')
-        expect(text).to.contains('Total pooled dUSDT')
+        expect(text).to.contains('Pooled DFI')
+        expect(text).to.contains('Pooled dUSDT')
+        expect(text).to.contains('Total liquidity (USD)')
+        expect(text).to.contains('APR')
       })
-    cy.getByTestID('apr_dUSDT-DFI').should('exist')
   })
 })

@@ -17,6 +17,7 @@ interface NumberRowRightElement {
   suffix?: string
   testID: string
   suffixType?: SuffixType
+  prefix?: string
 }
 
 export function NumberRow (props: INumberRowProps): JSX.Element {
@@ -39,6 +40,7 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
         <NumberFormat
           decimalScale={8}
           displayType='text'
+          prefix={props.rhs.prefix}
           renderText={(val: string) => (
             <ThemedText
               dark={tailwind('text-gray-400')}

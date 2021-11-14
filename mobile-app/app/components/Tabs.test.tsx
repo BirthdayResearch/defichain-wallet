@@ -20,7 +20,7 @@ describe('Tabs component', () => {
         handleOnPress: jest.fn
       }
     ]
-    const rendered = render(<Tabs tabSections={tabsList} activeTabKey='BROWSE_LOANS' />)
+    const rendered = render(<Tabs tabSections={tabsList} activeTabKey='BROWSE_LOANS' testID='loans_tabs' />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 
@@ -57,7 +57,7 @@ describe('Tabs component', () => {
         handleOnPress: jest.fn
       }
     ]
-    const rendered = render(<Tabs tabSections={tabsList} activeTabKey='BROWSE_LOANS' />)
+    const rendered = render(<Tabs tabSections={tabsList} activeTabKey='BROWSE_LOANS' testID='loans_tabs' />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })
