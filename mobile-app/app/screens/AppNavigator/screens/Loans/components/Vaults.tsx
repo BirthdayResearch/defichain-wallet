@@ -19,6 +19,7 @@ export function Vaults (): JSX.Element {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
+  const blockCount = useSelector((state: RootState) => state.block.count)
   // temporary just for display, it will map the newly created ID to vaultAddress
   // Just to test e2e scenario
   const vaults = useSelector(createSelector((state: RootState) => state.loans.vaults, vaults => {
@@ -47,7 +48,7 @@ export function Vaults (): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchVaults({ address, client }))
-  }, [])
+  }, [blockCount])
   const { isBetaFeature } = useFeatureFlagContext()
 
   return (
