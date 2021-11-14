@@ -1,4 +1,4 @@
-import { EnvironmentNetwork } from '@environment'
+import { EnvironmentNetwork } from '../environment'
 
 export interface AnnouncementText {
   en: string
