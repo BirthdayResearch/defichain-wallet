@@ -604,7 +604,8 @@
   "components/LoanCard": {
     "Active Price": "目前活跃价格",
     "Next Price": "下一个价格",
-    "Interest": "利息"
+    "Interest": "利息",
+    "Price (USD)": "价格 (美金)"
   },
   "components/InfoTextLink": {
     "Learn more about UTXO and Token": "了解 UTXO 和代币区别",

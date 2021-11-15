@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 
-context('Wallet - Network detail screen - outside wallet context', () => {
+// TODO: remove skip when playground connection is stable
+context.skip('Wallet - Network detail screen - outside wallet context', () => {
   beforeEach(() => {
     cy.visit('/')
     cy.exitWallet()
@@ -119,7 +120,8 @@ context('Wallet - Network detail screen - outside wallet context', () => {
   })
 })
 
-context('Wallet - Network detail screen - with wallet context', () => {
+// TODO: remove skip when playground connection is stable
+context.skip('Wallet - Network detail screen - with wallet context', () => {
   before(function () {
     cy.visit('/')
     cy.exitWallet()
