@@ -1,3 +1,5 @@
+import { EnvironmentNetwork } from '../environment'
+
 export interface AnnouncementText {
   en: string
   de: string
@@ -19,7 +21,11 @@ export interface FeatureFlag {
   version: string
   stage: FEATURE_FLAG_STAGE
   description: string
+  networks: EnvironmentNetwork[]
+  platforms: Platform[]
 }
+
+export type Platform = 'ios' | 'android' | 'windows' | 'macos' | 'web'
 
 export type FEATURE_FLAG_ID = 'loan' | 'auction'
 

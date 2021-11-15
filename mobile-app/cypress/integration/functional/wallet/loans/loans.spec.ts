@@ -1,4 +1,5 @@
 import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
+import { EnvironmentNetwork } from '../../../../../../shared/environment'
 
 context('Wallet - Loans', () => {
   before(function () {
@@ -73,7 +74,9 @@ context('Wallet - Loans Feature Gated', () => {
           name: 'Loan',
           stage: 'beta',
           version: '>=0.0.0',
-          description: 'Loan'
+          description: 'Loan',
+          networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+          platforms: ['ios', 'android', 'web']
         }
       ]
     })
@@ -89,7 +92,9 @@ context('Wallet - Loans Feature Gated', () => {
           name: 'Loan',
           stage: 'beta',
           version: '>=0.0.0',
-          description: 'Loan'
+          description: 'Loan',
+          networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+          platforms: ['ios', 'android', 'web']
         }
       ]
     })
@@ -116,7 +121,9 @@ context('Wallet - Loans Feature Gated', () => {
           name: 'Loan',
           stage: 'public',
           version: '>=0.0.0',
-          description: 'Loan'
+          description: 'Loan',
+          networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+          platforms: ['ios', 'android', 'web']
         }
       ]
     })
