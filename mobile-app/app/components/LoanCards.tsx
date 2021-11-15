@@ -9,6 +9,7 @@ import { getNativeIcon } from './icons/assets'
 import { InfoText } from './InfoText'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
+import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 // import { NavigationProp, useNavigation } from '@react-navigation/core'
 // import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
 
@@ -20,7 +21,7 @@ interface LoanCardsProps {
 export interface LoanCardOptions {
   loanTokenId: string
   displaySymbol: string
-  price: string
+  price?: ActivePrice
   interestRate: string
   onPress: () => void
   testID: string
@@ -53,7 +54,7 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
               <LoanCard
                 displaySymbol={item.token.displaySymbol}
                 interestRate={item.interest}
-                price='100000' // TODO: pass price from oracle
+                price={item.activePrice}
                 loanTokenId={item.tokenId}
                 onPress={() => {
                   // TODO: navigate to borrow loan token screen
@@ -70,7 +71,7 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
                 <LoanCard
                   displaySymbol={item.token.displaySymbol}
                   interestRate={item.interest}
-                  price='100000' // TODO: pass price from oracle
+                  price={item.activePrice}
                   loanTokenId={item.tokenId}
                   onPress={() => {
                     // TODO: navigate to borrow loan token screen
@@ -99,6 +100,7 @@ function LoanCard ({
   testID
 }: LoanCardOptions): JSX.Element {
   const LoanIcon = getNativeIcon(displaySymbol)
+  const currentPrice = price?.active?.amount ?? 0
   return (
     <ThemedTouchableOpacity
       testID={testID}
@@ -149,7 +151,7 @@ function LoanCard ({
               ${value}
             </ThemedText>
           </View>}
-        value={new BigNumber(price).toFixed(2)}
+        value={(currentPrice > 0 ? new BigNumber(currentPrice).toFixed(2) : '-')}
       />
     </ThemedTouchableOpacity>
   )

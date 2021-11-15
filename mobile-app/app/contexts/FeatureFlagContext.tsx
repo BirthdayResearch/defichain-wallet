@@ -8,6 +8,7 @@ import { satisfies } from 'semver'
 import { FeatureFlagPersistence } from '@api'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { getReleaseChannel } from '@api/releaseChannel'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
 
 export interface FeatureFlagContextI {
   featureFlags: FeatureFlag[]
@@ -34,26 +35,25 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
   const prefetchPage = usePrefetch('getFeatureFlags')
   const appVersion = nativeApplicationVersion ?? '0.0.0'
   const [enabledFeatures, setEnabledFeatures] = useState<FEATURE_FLAG_ID[]>([])
+  const { network } = useNetworkContext()
 
   if (!isError) {
     prefetchPage({})
   }
 
   function isBetaFeature (featureId: FEATURE_FLAG_ID): boolean {
-    return featureFlags.some((flag: FeatureFlag) => {
-      if (Platform.OS === 'web') {
-        return flag.id === featureId && flag.stage === 'beta'
-      }
-      return satisfies(appVersion, flag.version) && flag.id === featureId && flag.stage === 'beta'
-    })
+    return featureFlags.some((flag: FeatureFlag) => flag.id === featureId && flag.stage === 'beta')
   }
 
   function isFeatureAvailable (featureId: FEATURE_FLAG_ID): boolean {
     return featureFlags.some((flag: FeatureFlag) => {
-      if (Platform.OS === 'web') {
-        return flag.id === featureId && checkFeatureStage(flag)
+      if (flag.networks?.includes(network) && flag.platforms?.includes(Platform.OS)) {
+        if (Platform.OS === 'web') {
+          return flag.id === featureId && checkFeatureStage(flag)
+        }
+        return satisfies(appVersion, flag.version) && flag.id === featureId && checkFeatureStage(flag)
       }
-      return satisfies(appVersion, flag.version) && flag.id === featureId && checkFeatureStage(flag)
+      return false
     })
   }
 
@@ -77,10 +77,10 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
 
   useEffect(() => {
     FeatureFlagPersistence.get()
-    .then((features) => {
-      setEnabledFeatures(features)
-    })
-    .catch((err) => logger.error(err))
+      .then((features) => {
+        setEnabledFeatures(features)
+      })
+      .catch((err) => logger.error(err))
   }, [])
 
   if (isLoading) {
@@ -102,7 +102,10 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
   )
 }
 
-export function FeatureGate ({ children, feature }: { children: ReactElement, feature: FEATURE_FLAG_ID }): JSX.Element | null {
+export function FeatureGate ({
+  children,
+  feature
+}: { children: ReactElement, feature: FEATURE_FLAG_ID }): JSX.Element | null {
   const { isFeatureAvailable } = useFeatureFlagContext()
   return isFeatureAvailable(feature) ? children : null
 }

@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { FeatureFlag } from '@shared-types/website'
 import Cors from 'cors'
 import { runMiddleware } from '../../../../utils/middleware'
+import { EnvironmentNetwork } from '../../../../../../shared/environment'
 
 export const cors = Cors({
   methods: ['GET', 'HEAD']
@@ -14,6 +15,8 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     name: 'Loans',
     stage: 'alpha',
     version: '>=0.14.0',
-    description: 'Browse loan tokens provided by DeFiChain'
+    description: 'Browse loan tokens provided by DeFiChain',
+    networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+    platforms: ['ios', 'android', 'web']
   }])
 }
