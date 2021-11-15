@@ -7,9 +7,9 @@
     "skipLibCheck": true,
     "strict": true,
     "moduleResolution": "node",
-    "target": "esnext",
+    "target": "es2019",
     "lib": [
-      "esnext",
+      "es2019",
       "dom"
     ],
     "types": [
