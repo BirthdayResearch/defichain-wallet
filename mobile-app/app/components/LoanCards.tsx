@@ -8,25 +8,26 @@ import { View } from 'react-native'
 import { getNativeIcon } from './icons/assets'
 import { InfoText } from './InfoText'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
+// import { NavigationProp, useNavigation } from '@react-navigation/core'
+// import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
 
 interface LoanCardsProps {
-  loans: LoanCardOptions[]
+  loans: LoanToken[]
   testID?: string
 }
 
 export interface LoanCardOptions {
-  loanName: string
-  priceType: PriceType
-  price: BigNumber
-  isVerified: boolean
-  interestRate: BigNumber
+  loanTokenId: string
+  displaySymbol: string
+  price: string
+  interestRate: string
   onPress: () => void
   testID: string
 }
 
-type PriceType = 'ACTIVE' | 'NEXT'
-
 export function LoanCards (props: LoanCardsProps): JSX.Element {
+  // const navigation = useNavigation<NavigationProp<LoanParamList>>()
   const { isBetaFeature } = useFeatureFlagContext()
   return (
     <>
@@ -42,25 +43,47 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
         contentContainerStyle={tailwind('px-2 pt-4 pb-2')}
         data={props.loans}
         numColumns={2}
-        renderItem={({ item, index }): JSX.Element => {
-        if (index !== props.loans.length - 1) {
-          return (
-            <LoadCard
-              {...item}
-              testID={`loan_card_${index}`}
-            />
-          )
-        } else {
-          return (
-            <View style={{ flexBasis: '50%' }}>
-              <LoadCard
-                {...item}
+        renderItem={({
+          item,
+          index
+        }: { item: LoanToken, index: number }): JSX.Element => {
+          // TODO: Update to one element, just add the condition on style
+          if (index !== props.loans.length - 1) {
+            return (
+              <LoanCard
+                displaySymbol={item.token.displaySymbol}
+                interestRate={item.interest}
+                price='100000' // TODO: pass price from oracle
+                loanTokenId={item.tokenId}
+                onPress={() => {
+                  // TODO: navigate to borrow loan token screen
+                  // navigation.navigate({
+
+                  // })
+                }}
                 testID={`loan_card_${index}`}
               />
-            </View>
-          )
-        }
-      }}
+            )
+          } else {
+            return (
+              <View style={{ flexBasis: '50%' }}>
+                <LoanCard
+                  displaySymbol={item.token.displaySymbol}
+                  interestRate={item.interest}
+                  price='100000' // TODO: pass price from oracle
+                  loanTokenId={item.tokenId}
+                  onPress={() => {
+                    // TODO: navigate to borrow loan token screen
+                    // navigation.navigate({
+
+                    // })
+                  }}
+                  testID={`loan_card_${index}`}
+                />
+              </View>
+            )
+          }
+        }}
         keyExtractor={(_item, index) => index.toString()}
         testID={props.testID}
       />
@@ -68,51 +91,29 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
   )
 }
 
-function LoadCard ({
-  loanName,
-  priceType,
+function LoanCard ({
+  displaySymbol,
   price,
   interestRate,
   onPress,
   testID
 }: LoanCardOptions): JSX.Element {
-  const LoanIcon = getNativeIcon(loanName)
+  const LoanIcon = getNativeIcon(displaySymbol)
   return (
     <ThemedTouchableOpacity
       testID={testID}
-      style={tailwind('p-4 mx-2 mb-4 rounded flex-1')}
+      light={tailwind('bg-white border-gray-200')}
+      dark={tailwind('bg-gray-800 border-gray-700')}
+      style={tailwind('p-4 mx-2 mb-4 rounded flex-1 border')}
       onPress={onPress}
     >
-      <View style={tailwind('flex-row items-center pb-2')}>
-        <LoanIcon width={24} height={24} style={tailwind('mr-2')} />
-        <ThemedText style={tailwind('font-semibold')}>{loanName}</ThemedText>
+      <View style={tailwind('flex-row items-center pb-2 justify-between')}>
+        <View style={tailwind('flex flex-row')}>
+          <LoanIcon width={24} height={24} style={tailwind('mr-2')} />
+          <ThemedText testID={`${testID}_display_symbol`} style={tailwind('font-medium')}>{displaySymbol}</ThemedText>
+        </View>
+        <ThemedIcon iconType='MaterialIcons' name='chevron-right' size={20} style={tailwind('-mr-2')} />
       </View>
-      <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
-        style={tailwind('text-xs')}
-      >
-        {priceType === 'ACTIVE' ? translate('components/LoanCard', 'Active Price') : translate('components/LoanCard', 'Next Price')}
-      </ThemedText>
-      <NumberFormat
-        decimalScale={2}
-        thousandSeparator
-        displayType='text'
-        renderText={(value) =>
-          <View style={tailwind('flex flex-row items-center pb-2')}>
-            <ThemedText style={tailwind('text-sm font-semibold mr-1')}>
-              ${value}
-            </ThemedText>
-            <ThemedIcon
-              iconType='MaterialIcons'
-              name='check-circle'
-              size={10}
-              light={tailwind('text-success-500')}
-              dark={tailwind('text-darksuccess-500')}
-            />
-          </View>}
-        value={new BigNumber(price).toFixed(2)}
-      />
       <ThemedText
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
@@ -125,13 +126,30 @@ function LoadCard ({
         thousandSeparator
         displayType='text'
         renderText={(value) =>
-          <>
-            <ThemedText style={tailwind('text-sm font-semibold')}>
-              {value}
-            </ThemedText>
-          </>}
-        value={new BigNumber(interestRate).toFixed(2)}
+          <ThemedText testID={`${testID}_interest_rate`} style={tailwind('text-sm pb-2')}>
+            {value}
+          </ThemedText>}
+        value={interestRate}
         suffix='%'
+      />
+      <ThemedText
+        light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-400')}
+        style={tailwind('text-xs')}
+      >
+        {translate('components/LoanCard', 'Price (USD)')}
+      </ThemedText>
+      <NumberFormat
+        decimalScale={2}
+        thousandSeparator
+        displayType='text'
+        renderText={(value) =>
+          <View style={tailwind('flex flex-row items-center')}>
+            <ThemedText testID={`${testID}_loan_amount`} style={tailwind('text-sm mr-1')}>
+              ${value}
+            </ThemedText>
+          </View>}
+        value={new BigNumber(price).toFixed(2)}
       />
     </ThemedTouchableOpacity>
   )
