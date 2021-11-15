@@ -52,7 +52,7 @@ export function WalletContextProvider (props: WalletContextProviderProps): JSX.E
   const { provider } = useWalletNodeContext()
   const [address, setAddress] = useState<string>()
   const [account, setAccount] = useState<WhaleWalletAccount>()
-  const [addressIndex, setAddressIndex] = useState<number>(0)
+  const [addressIndex, setAddressIndex] = useState<number>()
   const [addressLength, setAddressLength] = useState<number>(0)
   const { network } = useNetworkContext()
   const client = useWhaleApiClient()
@@ -67,15 +67,19 @@ export function WalletContextProvider (props: WalletContextProviderProps): JSX.E
   }, [wallet])
 
   useEffect(() => {
-    const account = wallet.get(addressIndex)
-    account.getAddress().then((address) => {
-      setAccount(account)
-      setAddress(address)
-    }).catch(logger.error)
+    if (addressIndex !== undefined) {
+      const account = wallet.get(addressIndex)
+      account.getAddress().then((address) => {
+        setAccount(account)
+        setAddress(address)
+      }).catch(logger.error)
+    }
   }, [wallet, addressIndex])
 
   const getWalletDetails = async (): Promise<void> => {
     const maxAddressIndex = await api.getLength()
+    const activeAddressIndex = await api.getActive()
+    setAddressIndex(activeAddressIndex)
     // get discovered address
     const discoveredAddressLength = await getDiscoveredAddressLength(wallet)
     // sub 1 from total discovered address to get address index of last active address
@@ -83,8 +87,6 @@ export function WalletContextProvider (props: WalletContextProviderProps): JSX.E
     const length = Math.max(maxAddressIndex, lastDiscoveredAddressIndex)
     await api.setLength(length)
     setAddressLength(length)
-    const activeAddressIndex = await api.getActive()
-    setAddressIndex(activeAddressIndex)
   }
 
   const getDiscoveredAddressLength = async (wallet: JellyfishWallet<WhaleWalletAccount, WalletHdNode>, count: number = 0): Promise<number> => {

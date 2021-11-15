@@ -104,8 +104,8 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
       )}
       {canCreateAddress && (
         <ThemedTouchableOpacity
-          dark={tailwind('bg-gray-800 border-gray-700')}
           light={tailwind('bg-white border-gray-100')}
+          dark={tailwind('bg-gray-900 border-gray-700')}
           style={tailwind('py-4 pl-4 pr-2 border-b ')}
           onPress={async () => {
             await onRowPress(addressLength + 1)
@@ -114,7 +114,7 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
         >
           <View style={tailwind('flex-row items-center flex-grow')}>
             <ThemedIcon
-              size={16}
+              size={20}
               name='add'
               dark={tailwind('text-darkprimary-500')}
               light={tailwind('text-primary-500')}
@@ -148,7 +148,7 @@ function AddressItemRow ({ address, isActive, index, onPress }: { address: strin
       testID={`address_row_${index}`}
     >
       <View style={tailwind('flex-row items-center flex-grow')}>
-        <RandomAvatar name={address} size={16} />
+        <RandomAvatar name={address} size={20} />
         <View style={tailwind('ml-3 flex-auto')}>
           <ThemedText
             light={tailwind('text-gray-900')}
@@ -165,7 +165,7 @@ function AddressItemRow ({ address, isActive, index, onPress }: { address: strin
           <ThemedView
             light={tailwind('bg-blue-100')}
             dark={tailwind('bg-darkblue-100')}
-            style={tailwind('h-4 ml-1')}
+            style={tailwind('ml-1')}
             testID={`address_active_indicator_${address}`}
           >
             <ThemedText
