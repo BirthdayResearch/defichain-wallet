@@ -10,7 +10,7 @@ import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { InfoText } from '@components/InfoText'
 import { getNativeIcon } from '@components/icons/assets'
 import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
-import { NavigationProp, useNavigation } from '@react-navigation/core'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { LoanParamList } from '../LoansNavigator'
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 interface LoanCardsProps {
