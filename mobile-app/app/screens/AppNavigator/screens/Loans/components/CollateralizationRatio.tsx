@@ -1,9 +1,10 @@
 import React from 'react'
 import BigNumber from 'bignumber.js'
-import { ThemedProps, ThemedText } from '@components/themed'
+import { ThemedText } from '@components/themed'
 import { translate } from '@translations'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
+import { UseCollateralizationRatioColor } from '@hooks/wallet/CollateralizationRatioColor'
 
 interface CollateralizationRatioProps {
   value: string
@@ -12,23 +13,10 @@ interface CollateralizationRatioProps {
 
 export function CollateralizationRatio (props: CollateralizationRatioProps): JSX.Element {
   const collateralizationRatio = new BigNumber(props.value)
-  const getTextThemedProps = (): ThemedProps => {
-    const style: ThemedProps = {}
-    const atRiskThreshold = new BigNumber(props.minColRatio).plus(150)
-    const liquidatedThreshold = new BigNumber(props.minColRatio).plus(50)
-
-    if (collateralizationRatio.isLessThan(liquidatedThreshold)) {
-      style.light = tailwind('text-error-500')
-      style.dark = tailwind('text-darkerror-500')
-    } else if (collateralizationRatio.isLessThan(atRiskThreshold)) {
-      style.light = tailwind('text-warning-500')
-      style.dark = tailwind('text-darkwarning-500')
-    } else {
-      style.light = tailwind('text-success-500')
-      style.dark = tailwind('text-darksuccess-500')
-    }
-    return style
-  }
+  const ratioThemedProps = UseCollateralizationRatioColor({
+    value: props.value,
+    minColRatio: props.minColRatio
+  })
 
   if (collateralizationRatio.isLessThan(0)) {
     return (
@@ -51,7 +39,7 @@ export function CollateralizationRatio (props: CollateralizationRatioProps): JSX
       renderText={value =>
         <ThemedText
           style={tailwind('text-sm')}
-          {...getTextThemedProps()}
+          {...ratioThemedProps}
         >
           {value}
         </ThemedText>}
