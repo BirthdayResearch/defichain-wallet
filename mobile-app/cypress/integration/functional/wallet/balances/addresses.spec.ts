@@ -33,6 +33,7 @@ context('Wallet - Addresses', () => {
       cy.url().should('include', 'app/AddressControlScreen')
       cy.getByTestID('create_new_address').should('not.exist')
       cy.go('back')
+      cy.getByTestID('address_count_badge').should('not.exist')
       cy.getByTestID('receive_balance_button').click()
       cy.getByTestID('address_text').contains(address)
     })
@@ -55,6 +56,7 @@ context('Wallet - Addresses', () => {
     cy.getByTestID('address_row_text_1').invoke('text').then((address: string) => {
       cy.getByTestID(`address_active_indicator_${address}`).should('exist')
       cy.go('back')
+      cy.getByTestID('address_count_badge').should('exist').contains('2')
       cy.getByTestID('receive_balance_button').click()
       cy.getByTestID('address_text').contains(address)
     })

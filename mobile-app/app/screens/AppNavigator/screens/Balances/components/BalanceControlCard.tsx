@@ -55,7 +55,25 @@ export function BalanceControlCard (): JSX.Element {
       light={tailwind('bg-white border-b border-gray-200')}
     >
       <View style={tailwind('flex flex-row items-center')}>
-        <RandomAvatar name={address} size={40} />
+        <View>
+          <RandomAvatar name={address} size={40} />
+          {addressLength > 0 && (
+            <ThemedView
+              light={tailwind('bg-primary-700 border-white')}
+              dark={tailwind('bg-primary-700 border-white')}
+              style={tailwind('absolute rounded-full h-6 w-6 border-2 bottom-0 -top-1 -right-1')}
+            >
+              <ThemedText
+                testID='address_count_badge'
+                light={tailwind('text-white text-opacity-90')}
+                dark={tailwind('text-white text-opacity-90')}
+                style={tailwind('text-xs text-center leading-5')}
+              >
+                {addressLength > 9 ? '9+' : addressLength + 1}
+              </ThemedText>
+            </ThemedView>
+          )}
+        </View>
         <View
           style={tailwind('flex flex-1 ml-3')}
         >
