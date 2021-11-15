@@ -11,7 +11,6 @@ import React, { memo, useEffect } from 'react'
 import { Platform, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { CollateralizationRatio } from './CollateralizationRatio'
-import { VaultStatus, VaultStatusTag } from './VaultStatusTag'
 
 interface BottomSheetVaultListProps {
   headerLabel: string
@@ -62,7 +61,7 @@ export const BottomSheetVaultList = ({
               >
                 {item.vaultId}
               </ThemedText>
-              <VaultStatusTag status={VaultStatus.Healthy} />
+              {/* <VaultStatusTag status={VaultStatus.Healthy} // TODO: add status tag /> */}
             </View>
           </View>
           <View style={tailwind('flex items-end')}>

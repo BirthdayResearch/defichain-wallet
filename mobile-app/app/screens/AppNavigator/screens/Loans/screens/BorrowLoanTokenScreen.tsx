@@ -10,7 +10,6 @@ import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/typ
 import { View } from '@components'
 import { SymbolIcon } from '@components/SymbolIcon'
 import NumberFormat from 'react-number-format'
-import { VaultStatus, VaultStatusTag } from '../components/VaultStatusTag'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { NumberRow } from '@components/NumberRow'
 import { BottomSheetVaultList } from '../components/BottomSheetVaultList'
@@ -228,7 +227,7 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
                 {value}
               </ThemedText>
             </>}
-          suffix='%'
+          prefix='$'
         />
       </View>
       <View style={tailwind('mr-4')}>
@@ -316,7 +315,7 @@ function VaultInput (props: VaultInputProps): JSX.Element {
           >
             {props.vault.vaultId}
           </ThemedText>
-          <VaultStatusTag status={VaultStatus.Active} />
+          {/* <VaultStatusTag status={VaultStatus.Active} /> // TODO: add vault status tag */}
         </View>
         <ThemedIcon
           iconType='MaterialIcons'
