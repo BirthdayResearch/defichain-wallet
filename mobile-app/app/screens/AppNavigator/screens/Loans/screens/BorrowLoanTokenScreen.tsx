@@ -156,12 +156,12 @@ export function BorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Elemen
                   }
                 }}
                 testID='add_collateral_button'
-                margin='mt-16 mx-4'
+                margin='mt-16 mb-2 mx-4'
               />
               <ThemedText
                 light={tailwind('text-gray-500')}
                 dark={tailwind('text-gray-400')}
-                style={tailwind('text-center text-xs mt-12')}
+                style={tailwind('text-center text-xs mb-12')}
               >
                 {translate('screens/BorrowLoanTokenScreen', 'Review and confirm transaction in the next screen')}
               </ThemedText>
@@ -204,11 +204,11 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
       style={tailwind('border py-2.5 px-4 flex flex-row items-center justify-between rounded-lg')}
       onPress={props.onPress}
     >
-      <View style={tailwind('flex flex-row w-4/12 flex-grow items-center')}>
+      <View style={tailwind('flex flex-row w-2/12 flex-1 items-center')}>
         <SymbolIcon symbol={props.symbol} styleProps={{ width: 24, height: 24 }} />
         <ThemedText style={tailwind('ml-2 text-sm font-medium')}>{props.displaySymbol}</ThemedText>
       </View>
-      <View style={tailwind('mr-8')}>
+      <View style={tailwind('w-8/12 items-end flex-1')}>
         <ThemedText
           light={tailwind('text-gray-400')}
           dark={tailwind('text-gray-500')}
@@ -222,15 +222,13 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
           thousandSeparator
           displayType='text'
           renderText={(value) =>
-            <>
-              <ThemedText style={tailwind('text-sm font-semibold')}>
-                {value}
-              </ThemedText>
-            </>}
+            <ThemedText style={tailwind('text-sm font-semibold text-right')}>
+              {value}
+            </ThemedText>}
           prefix='$'
         />
       </View>
-      <View style={tailwind('mr-4')}>
+      <View style={tailwind('mr-4 w-3/12 items-end')}>
         <ThemedText
           light={tailwind('text-gray-400')}
           dark={tailwind('text-gray-500')}
@@ -244,11 +242,9 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
           thousandSeparator
           displayType='text'
           renderText={(value) =>
-            <>
-              <ThemedText style={tailwind('text-sm font-semibold')}>
-                {value}
-              </ThemedText>
-            </>}
+            <ThemedText style={tailwind('text-sm font-semibold text-right')}>
+              {value}
+            </ThemedText>}
           suffix='%'
         />
       </View>
@@ -258,7 +254,7 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
         size={24}
         light={tailwind('text-primary-500')}
         dark={tailwind('text-darkprimary-500')}
-        style={tailwind('-mr-1.5')}
+        style={tailwind('-mr-1.5 flex-shrink-0')}
       />
     </ThemedTouchableOpacity>
   )
