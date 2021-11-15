@@ -9,5 +9,13 @@ export const cors = Cors({
 
 export default async function handle (req: NextApiRequest, res: NextApiResponse<AnnouncementData[]>): Promise<void> {
   await runMiddleware(req, res, cors)
-  res.json([])
+  res.json([{
+    lang: {
+      en: 'Decentralised loan is coming to the Light Wallet app soon.',
+      de: 'Dezentrales Darlehen ist der Light Wallet App bald möglich.',
+      'zh-Hans': 'Decentralised loan is coming to the Light Wallet app soon.',
+      'zh-Hant': 'Decentralised loan is coming to the Light Wallet app soon.'
+    },
+    version: '>=0.12.0'
+  }])
 }
