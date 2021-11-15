@@ -10,8 +10,8 @@ import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { InfoText } from '@components/InfoText'
 import { getNativeIcon } from '@components/icons/assets'
 import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
-// import { NavigationProp, useNavigation } from '@react-navigation/core'
-// import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
+import { NavigationProp, useNavigation } from '@react-navigation/core'
+import { LoanParamList } from '../LoansNavigator'
 
 interface LoanCardsProps {
   loans: LoanToken[]
@@ -28,7 +28,7 @@ export interface LoanCardOptions {
 }
 
 export function LoanCards (props: LoanCardsProps): JSX.Element {
-  // const navigation = useNavigation<NavigationProp<LoanParamList>>()
+  const navigation = useNavigation<NavigationProp<LoanParamList>>()
   const { isBetaFeature } = useFeatureFlagContext()
   return (
     <>
@@ -57,10 +57,13 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
                 price='100000' // TODO: pass price from oracle
                 loanTokenId={item.tokenId}
                 onPress={() => {
-                  // TODO: navigate to borrow loan token screen
-                  // navigation.navigate({
-
-                  // })
+                  navigation.navigate({
+                    name: 'BorrowLoanTokenScreen',
+                    params: {
+                      loanToken: item
+                    },
+                    merge: true
+                  })
                 }}
                 testID={`loan_card_${index}`}
               />
@@ -74,10 +77,13 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
                   price='100000' // TODO: pass price from oracle
                   loanTokenId={item.tokenId}
                   onPress={() => {
-                    // TODO: navigate to borrow loan token screen
-                    // navigation.navigate({
-
-                    // })
+                    navigation.navigate({
+                      name: 'BorrowLoanTokenScreen',
+                      params: {
+                        loanToken: item
+                      },
+                      merge: true
+                    })
                   }}
                   testID={`loan_card_${index}`}
                 />

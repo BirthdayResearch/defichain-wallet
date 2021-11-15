@@ -2,7 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { HeaderFont } from '@components/Text'
 import { HeaderTitle } from '@components/HeaderTitle'
-import { LoanScheme } from '@defichain/whale-api-client/dist/api/loan'
+import { LoanScheme, LoanToken, LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { LoadingState, LoansScreen } from './LoansScreen'
@@ -13,7 +13,6 @@ import { VaultDetailScreen } from './VaultDetail/VaultDetailScreen'
 import { AddCollateralScreen, Collateral } from './screens/AddCollateralScreen'
 import { ConfirmAddCollateralScreen } from './screens/ConfirmAddCollateralScreen'
 import { ChooseLoanTokenScreen } from './screens/ChooseLoanTokenScreen'
-import { LoanCardOptions } from './components/LoanCards'
 import { BorrowLoanTokenScreen } from './screens/BorrowLoanTokenScreen'
 import { ConfirmBorrowLoanTokenScreen } from './screens/ConfirmBorrowLoanTokenScreen'
 import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
@@ -48,10 +47,12 @@ export interface LoanParamList {
     fee: BigNumber
   }
   BorrowLoanTokenScreen: {
-    loan: LoanCardOptions
+    loanToken: LoanToken
+    vault?: LoanVaultActive
   }
   ConfirmBorrowLoanTokenScreen: {
-    loan: LoanCardOptions
+    loanToken: LoanToken
+    vault: LoanVaultActive
   }
   [key: string]: undefined | object
 }
