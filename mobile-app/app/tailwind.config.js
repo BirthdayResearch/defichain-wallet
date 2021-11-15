@@ -28,6 +28,7 @@ module.exports = {
         },
         success: {
           50: '#F2FBF4',
+          100: '#E6F7E8',
           200: '#6FFD83',
           300: '#33FD4F',
           500: '#02B31B',
@@ -35,6 +36,7 @@ module.exports = {
         },
         error: {
           50: '#FFE5E5',
+          100: '#FFE6E6',
           200: '#FF9999',
           300: '#FF6666',
           500: '#FF0000',
@@ -59,6 +61,10 @@ module.exports = {
           700: '#404040',
           800: '#262626',
           900: '#171717'
+        },
+        blue: {
+          100: '#EFF6FD',
+          500: '#5AA9E6'
         },
         darkprimary: {
           50: '#fcf4fa',
@@ -86,6 +92,7 @@ module.exports = {
         },
         darksuccess: {
           50: '#0B3812',
+          100: '#196925',
           200: '#CCF5D2',
           300: '#ADEFB7',
           500: '#32D74B',
@@ -94,6 +101,7 @@ module.exports = {
         },
         darkerror: {
           50: '#441411',
+          100: '#7D221C',
           200: '#992923',
           300: '#FFB5B0',
           500: '#FF453A',
@@ -108,6 +116,10 @@ module.exports = {
           500: '#FF9F0A',
           600: '#FFBC54',
           700: '#BF7708'
+        },
+        darkblue: {
+          100: '#3E627A',
+          500: '#7FC8F8'
         }
       },
       maxWidth: {
