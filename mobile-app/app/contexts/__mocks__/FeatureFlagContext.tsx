@@ -1,4 +1,5 @@
 import { FeatureFlagContextI } from '../FeatureFlagContext'
+import { EnvironmentNetwork } from '@environment'
 
 export function useFeatureFlagContext (): FeatureFlagContextI {
   return {
@@ -8,7 +9,9 @@ export function useFeatureFlagContext (): FeatureFlagContextI {
         name: 'Decentralized Loans',
         stage: 'beta',
         version: '>=0.12.0',
-        description: 'Browse loan tokens provided by DeFiChain'
+        description: 'Browse loan tokens provided by DeFiChain',
+        networks: [EnvironmentNetwork.LocalPlayground, EnvironmentNetwork.RemotePlayground],
+        platforms: ['ios', 'android', 'web']
       }
     ],
     enabledFeatures: ['loan'],
