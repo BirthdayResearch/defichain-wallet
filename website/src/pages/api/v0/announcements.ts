@@ -12,7 +12,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
   res.json([{
     lang: {
       en: 'Decentralised loan is coming to the Light Wallet app soon.',
-      de: 'Dezentrales Darlehen ist der Light Wallet App bald möglich.',
+      de: 'Dezentrale Darlehen werden bald in der Light Wallet App verfügbar sein.',
       'zh-Hans': 'Decentralised loan is coming to the Light Wallet app soon.',
       'zh-Hant': 'Decentralised loan is coming to the Light Wallet app soon.'
     },
