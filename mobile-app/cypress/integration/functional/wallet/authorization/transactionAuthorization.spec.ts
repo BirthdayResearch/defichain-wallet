@@ -51,7 +51,7 @@ context('Wallet - Transaction Authorization with Error', () => {
     Array.from(Array(MAX_PASSCODE_ATTEMPT - 1), (v, i) => i + 1).forEach(() => {
       cy.getByTestID('pin_authorize').type('696969').wait(1000)
     })
-    cy.getByTestID('cancel_authorization').click()
+    cy.getByTestID('cancel_authorization').click().wait(1000)
     cy.getByTestID('view_recovery_words').click()
     cy.getByTestID('pin_attempt_error').should('not.exist')
     cy.getByTestID('pin_authorize').type('696969').wait(1000)

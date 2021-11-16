@@ -53,7 +53,7 @@ function CollateralCard (props: Collateral): JSX.Element {
       <View style={tailwind('flex flex-row')}>
         <View style={tailwind('w-8/12')}>
           <CardLabel text='Collateral amount' />
-          <View style={tailwind('flex flex-row items-baseline')}>
+          <View>
             <NumberFormat
               value={props.amount.toFixed(8)}
               thousandSeparator
@@ -67,22 +67,22 @@ function CollateralCard (props: Collateral): JSX.Element {
                   style={tailwind('text-sm')}
                 >
                   {val}
-                </ThemedText>
-              )}
-            />
-            <NumberFormat
-              value={props.tokenUnitPrice.toFixed(8)}
-              thousandSeparator
-              decimalScale={2}
-              displayType='text'
-              prefix='$'
-              renderText={(val: string) => (
-                <ThemedText
-                  dark={tailwind('text-gray-400')}
-                  light={tailwind('text-gray-500')}
-                  style={tailwind('text-xs')}
-                >
-                  {` /${val}`}
+                  <NumberFormat
+                    value={props.tokenUnitPrice.toFixed(8)}
+                    thousandSeparator
+                    decimalScale={2}
+                    displayType='text'
+                    prefix='$'
+                    renderText={(val: string) => (
+                      <ThemedText
+                        dark={tailwind('text-gray-400')}
+                        light={tailwind('text-gray-500')}
+                        style={tailwind('text-xs')}
+                      >
+                        {` /${val}`}
+                      </ThemedText>
+                    )}
+                  />
                 </ThemedText>
               )}
             />

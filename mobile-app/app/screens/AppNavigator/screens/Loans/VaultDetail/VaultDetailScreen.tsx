@@ -1,6 +1,6 @@
 import { View } from '@components'
 import { ThemedIcon, ThemedProps, ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
-import { Collateral, VaultCardProps, VaultStatus } from '@screens/AppNavigator/screens/Loans/components/VaultCard'
+import { Collateral, VaultCardProps } from '@screens/AppNavigator/screens/Loans/components/VaultCard'
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -17,7 +17,7 @@ import { VaultDetailTabSection } from './components/VaultDetailTabSection'
 
 type Props = StackScreenProps<LoanParamList, 'VaultDetailScreen'>
 
-export function VaultDetailScreen ({ route }: Props): JSX.Element {
+export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
   const {
     vaultId,
     emptyActiveLoans = true
@@ -25,7 +25,6 @@ export function VaultDetailScreen ({ route }: Props): JSX.Element {
 
   const currentVault: VaultCardProps = {
     vaultAddress: '22ffasd5ca123123123123123121231061',
-    status: VaultStatus.AtRisk,
     collaterals: [
       { id: 'BTC', vaultProportion: new BigNumber(20) },
       { id: 'DFI', vaultProportion: new BigNumber(12.4573) },
@@ -44,7 +43,15 @@ export function VaultDetailScreen ({ route }: Props): JSX.Element {
       iconName: 'add',
       iconType: 'MaterialIcons',
       label: 'ADD COLLATERAL',
-      handleOnPress: () => {}
+      handleOnPress: () => {
+        navigation.navigate({
+          name: 'AddCollateralScreen',
+          params: {
+            vaultId: currentVault.vaultAddress
+          },
+          merge: true
+        })
+      }
     },
     {
       iconName: 'remove',

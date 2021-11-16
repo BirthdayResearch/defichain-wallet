@@ -7,6 +7,9 @@ updates:
     labels:
       - "kind/dependencies"
     ignore:
+      - dependency-name: "defich"
+      - dependency-name: "defichain"
+      - dependency-name: "@defich/*"
       - dependency-name: "@defichain/*"
       - dependency-name: "@expo/*"
       - dependency-name: "@react-native-async-storage/async-storage"

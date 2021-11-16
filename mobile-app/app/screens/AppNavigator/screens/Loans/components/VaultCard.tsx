@@ -4,11 +4,12 @@ import { ThemedIcon, ThemedProps, ThemedText, ThemedTouchableOpacity, ThemedView
 import { tailwind } from '@tailwind'
 import { View } from '@components'
 import { translate } from '@translations'
-import { TokenIconGroup } from '../../../../../components/TokenIconGroup'
-import { IconButton } from '../../../../../components/IconButton'
+import { TokenIconGroup } from '@components/TokenIconGroup'
+import { IconButton } from '@components/IconButton'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
 import { VaultInfo } from '@screens/AppNavigator/screens/Loans/components/VaultInfo'
+import { VaultStatus, VaultStatusTag } from './VaultStatusTag'
 
 export interface VaultCardProps {
   vaultAddress: string
@@ -18,9 +19,10 @@ export interface VaultCardProps {
   totalLoanAmount?: BigNumber
   collateralAmount?: BigNumber
   collateralRatio?: BigNumber
-  actions: VaultAction[]
+  actions: any[]
   onAddCollateral?: () => void
   onViewLoans?: () => void
+  testID?: string
 }
 
 export interface Collateral {
@@ -30,13 +32,6 @@ export interface Collateral {
 
 export interface LoanToken {
   tokenId: string
-}
-
-export enum VaultStatus {
-  New = '',
-  Locked = 'Locked',
-  AtRisk = 'At risk',
-  Safe = 'Safe'
 }
 
 type VaultAction = 'ADD_COLLATERAL' | 'VIEW_LOANS'
@@ -55,6 +50,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
       style={tailwind('rounded mb-2 border p-4')}
     >
       <ThemedTouchableOpacity
+        testID={props.testID}
         onPress={() => onCardPress(props.vaultAddress)}
         light={tailwind('border-b-0')}
         dark={tailwind('border-b-0')}
@@ -125,64 +121,17 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
           />
         </View>
       </ThemedTouchableOpacity>
-      <VaultActionButton actions={props.actions} />
-    </ThemedView>
-  )
-}
-
-function VaultStatusTag (props: {status: VaultStatus}): JSX.Element | null {
-  if (props.status === VaultStatus.New) {
-    return null
-  }
-
-  return (
-    <ThemedView
-      light={tailwind(
-        {
-          'bg-gray-700': props.status === VaultStatus.Locked,
-          'bg-warning-50': props.status === VaultStatus.AtRisk,
-          'bg-success-50': props.status === VaultStatus.Safe
-        }
-      )}
-      dark={tailwind(
-        {
-          'bg-gray-100': props.status === VaultStatus.Locked,
-          'bg-darkwarning-50': props.status === VaultStatus.AtRisk,
-          'bg-darksuccess-50': props.status === VaultStatus.Safe
-        }
-      )}
-      style={tailwind('rounded-xl mx-2 flex flex-row items-center')}
-    >
-      {props.status === VaultStatus.Locked &&
-        (
-          <ThemedIcon
-            iconType='MaterialIcons'
-            name='lock'
-            size={14}
-            light={tailwind('text-gray-100')}
-            dark={tailwind('text-gray-800')}
-            style={tailwind('ml-2')}
-          />
-        )}
-      <ThemedText
-        light={tailwind(
-          {
-            'text-gray-100': props.status === VaultStatus.Locked,
-            'text-warning-600': props.status === VaultStatus.AtRisk,
-            'text-success-600': props.status === VaultStatus.Safe
-          }
-        )}
-        dark={tailwind(
-          {
-            'text-gray-800': props.status === VaultStatus.Locked,
-            'text-darkwarning-600': props.status === VaultStatus.AtRisk,
-            'text-darksuccess-600': props.status === VaultStatus.Safe
-          }
-        )}
-        style={tailwind('px-2 py-1 font-medium text-xs', { 'pl-1': props.status === VaultStatus.Locked })}
-      >
-        {translate('components/VaultCard', props.status)}
-      </ThemedText>
+      <VaultActionButton
+        actions={props.actions}
+        onAddCollateral={() =>
+          navigation.navigate({
+            name: 'AddCollateralScreen',
+            params: {
+              vaultId: props.vaultAddress
+            },
+            merge: true
+        })}
+      />
     </ThemedView>
   )
 }

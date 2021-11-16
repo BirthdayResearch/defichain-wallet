@@ -5,6 +5,7 @@ import { block } from './block'
 import { ocean } from './ocean'
 import { transactionQueue } from './transaction_queue'
 import { wallet } from './wallet'
+import { loans } from './loans'
 import { websiteSlice } from '@store/website'
 
 /**
@@ -21,6 +22,7 @@ export function initializeStore () {
     reducer: {
       block: block.reducer,
       wallet: wallet.reducer,
+      loans: loans.reducer,
       ocean: ocean.reducer,
       transactionQueue: transactionQueue.reducer,
       authentication: authentication.reducer,

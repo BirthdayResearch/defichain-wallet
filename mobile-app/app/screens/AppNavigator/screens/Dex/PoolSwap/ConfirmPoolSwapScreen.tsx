@@ -175,6 +175,17 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
           suffixType: 'text'
         }}
       />
+      <NumberRow
+        lhs={translate('screens/PoolSwapConfirmScreen', 'Max Price per {{fromToken}}', {
+          fromToken: swap.fromToken.displaySymbol
+        })}
+        rhs={{
+          value: swap.fromAmount.div(swap.toAmount).times(1 + slippage).toFixed(),
+          suffix: swap.toToken.displaySymbol,
+          testID: 'max_price',
+          suffixType: 'text'
+        }}
+      />
 
       <TransactionResultsRow
         tokens={[
@@ -239,7 +250,7 @@ async function constructSignedSwapAndSend (
         fromTokenId: Number(dexForm.fromToken.id === '0_unified' ? '0' : dexForm.fromToken.id),
         toTokenId: Number(dexForm.toToken.id === '0_unified' ? '0' : dexForm.toToken.id),
         fromAmount: dexForm.fromAmount,
-        maxPrice
+        maxPrice: maxPrice
       }
       const dfTx = await builder.dex.poolSwap(swap, script)
       return new CTransactionSegWit(dfTx)

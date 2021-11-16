@@ -1,15 +1,22 @@
-import { EnvironmentName, getEnvironment } from '@environment'
-import { FEATURE_FLAG_ID, FEATURE_FLAG_STAGE } from '@shared-types/website'
+import { getEnvironment } from '@environment'
+import { FeatureFlag, FEATURE_FLAG_ID } from '@shared-types/website'
 import { useGetFeatureFlagsQuery, usePrefetch } from '@store/website'
 import { nativeApplicationVersion } from 'expo-application'
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, ReactElement, useContext, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { satisfies } from 'semver'
+import { FeatureFlagPersistence } from '@api'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { getReleaseChannel } from '@api/releaseChannel'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
 
-interface FeatureFlagContextI {
-  isLoansDisplayed: boolean
-  isAuctionDisplayed: boolean
+export interface FeatureFlagContextI {
+  featureFlags: FeatureFlag[]
+  enabledFeatures: FEATURE_FLAG_ID[]
+  updateEnabledFeatures: (features: FEATURE_FLAG_ID[]) => void
+  isFeatureAvailable: (featureId: FEATURE_FLAG_ID) => boolean
+  isBetaFeature: (featureId: FEATURE_FLAG_ID) => boolean
+  hasBetaFeatures: boolean
 }
 
 const FeatureFlagContext = createContext<FeatureFlagContextI>(undefined as any)
@@ -20,51 +27,74 @@ export function useFeatureFlagContext (): FeatureFlagContextI {
 
 export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const {
-    data: featureFlags,
-    isSuccess,
+    data: featureFlags = [],
     isLoading,
     isError
   } = useGetFeatureFlagsQuery({})
+  const logger = useLogger()
+
   const prefetchPage = usePrefetch('getFeatureFlags')
   const appVersion = nativeApplicationVersion ?? '0.0.0'
-  const [isLoansDisplayed, setIsLoansDisplayed] = useState<boolean>(false)
-  const [isAuctionDisplayed, setIsAuctionDisplayed] = useState<boolean>(false)
+  const [enabledFeatures, setEnabledFeatures] = useState<FEATURE_FLAG_ID[]>([])
+  const { network } = useNetworkContext()
+
   if (!isError) {
     prefetchPage({})
   }
 
-  function isFeatureAvailable (featureId: FEATURE_FLAG_ID): boolean {
-    if (featureFlags === undefined || featureFlags?.some === undefined) {
-      return false
-    }
+  function isBetaFeature (featureId: FEATURE_FLAG_ID): boolean {
+    return featureFlags.some((flag: FeatureFlag) => flag.id === featureId && flag.stage === 'beta')
+  }
 
-    return featureFlags.some((flag) => {
-      if (Platform.OS !== 'web') {
-        return satisfies(appVersion, flag.version) && flag.id === featureId && checkFeatureStage(flag.stage)
-      } else {
-        return flag.id === featureId && checkFeatureStage(flag.stage)
+  function isFeatureAvailable (featureId: FEATURE_FLAG_ID): boolean {
+    return featureFlags.some((flag: FeatureFlag) => {
+      if (flag.networks?.includes(network) && flag.platforms?.includes(Platform.OS)) {
+        if (Platform.OS === 'web') {
+          return flag.id === featureId && checkFeatureStage(flag)
+        }
+        return satisfies(appVersion, flag.version) && flag.id === featureId && checkFeatureStage(flag)
       }
+      return false
     })
   }
 
-  useEffect(() => {
-    if (!isSuccess || featureFlags === undefined) {
-      setIsLoansDisplayed(false)
-      setIsAuctionDisplayed(false)
-      return
+  function checkFeatureStage (feature: FeatureFlag): boolean {
+    switch (feature.stage) {
+      case 'alpha':
+        return getEnvironment(getReleaseChannel()).debug
+      case 'beta':
+        return enabledFeatures.includes(feature.id)
+      case 'public':
+        return true
+      default:
+        return false
     }
+  }
 
-    setIsLoansDisplayed(isFeatureAvailable('loan'))
-    setIsAuctionDisplayed(isFeatureAvailable('auction'))
-  }, [featureFlags, isSuccess])
+  const updateEnabledFeatures = async (flags: FEATURE_FLAG_ID[]): Promise<void> => {
+    setEnabledFeatures(flags)
+    await FeatureFlagPersistence.set(flags)
+  }
+
+  useEffect(() => {
+    FeatureFlagPersistence.get()
+      .then((features) => {
+        setEnabledFeatures(features)
+      })
+      .catch((err) => logger.error(err))
+  }, [])
 
   if (isLoading) {
     return null
   }
 
   const context: FeatureFlagContextI = {
-    isLoansDisplayed,
-    isAuctionDisplayed
+    featureFlags,
+    enabledFeatures,
+    updateEnabledFeatures,
+    isFeatureAvailable,
+    isBetaFeature,
+    hasBetaFeatures: featureFlags.some((item) => item.networks?.includes(network) && item.platforms?.includes(Platform.OS) && item.stage === 'beta')
   }
 
   return (
@@ -74,7 +104,10 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
   )
 }
 
-function checkFeatureStage (featureFlagStage: FEATURE_FLAG_STAGE): boolean {
-  return !((featureFlagStage === 'alpha' && !getEnvironment(getReleaseChannel()).debug) ||
-    (featureFlagStage === 'beta' && getEnvironment(getReleaseChannel()).name !== EnvironmentName.Preview))
+export function FeatureGate ({
+  children,
+  feature
+}: { children: ReactElement, feature: FEATURE_FLAG_ID }): JSX.Element | null {
+  const { isFeatureAvailable } = useFeatureFlagContext()
+  return isFeatureAvailable(feature) ? children : null
 }
