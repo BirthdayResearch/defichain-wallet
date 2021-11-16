@@ -201,7 +201,7 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
   return (
     <ThemedTouchableOpacity
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-blue-800 border-blue-900')}
       style={tailwind('border py-2.5 px-4 flex flex-row items-center justify-between rounded-lg')}
       onPress={props.onPress}
     >
@@ -271,14 +271,14 @@ function VaultInput (props: VaultInputProps): JSX.Element {
     return (
       <ThemedTouchableOpacity
         light={tailwind('bg-white border-gray-200')}
-        dark={tailwind('bg-gray-800 border-gray-700')}
+        dark={tailwind('bg-blue-800 border-blue-900')}
         style={tailwind('border py-2.5 px-4 rounded-lg mb-8')}
         onPress={props.onPress}
       >
         <View style={tailwind('flex flex-row justify-between items-center py-1.5')}>
           <ThemedText
             light={tailwind('text-gray-300')}
-            dark={tailwind('text-gray-700')}
+            dark={tailwind('text-gray-500')}
             style={tailwind('text-sm')}
           >
             {translate('screens/BorrowLoanTokenScreen', 'Select a vault to use')}

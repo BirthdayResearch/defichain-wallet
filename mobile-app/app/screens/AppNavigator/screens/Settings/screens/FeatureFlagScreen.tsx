@@ -98,7 +98,7 @@ export function FeatureFlagItem ({ item, onChange }: FeatureFlagItemProps): JSX.
   return (
     <View testID={`feature_${item.id}_row`}>
       <ThemedView
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
+        dark={tailwind('bg-blue-800 border-b border-blue-900')}
         light={tailwind('bg-white border-b border-gray-200')}
         style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
       >

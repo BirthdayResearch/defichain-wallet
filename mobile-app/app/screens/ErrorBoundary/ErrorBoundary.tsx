@@ -14,10 +14,10 @@ interface State {
 
 export function ErrorDisplayComponent (): JSX.Element {
   return (
-    <View style={tailwind('flex-1 items-center justify-center p-4')}>
+    <View style={tailwind('flex-1 items-center justify-center p-4 bg-blue-900')}>
       <AppIcon />
 
-      <Text style={tailwind('text-xl font-bold mt-3')}>
+      <Text style={tailwind('text-xl text-white font-bold mt-3')}>
         {translate('screens/ErrorBoundary', 'Something went wrong')}
       </Text>
 

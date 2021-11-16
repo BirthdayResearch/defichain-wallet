@@ -225,12 +225,12 @@ function VaultIdSection (props: { vaultId: string }): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-blue-800 border-blue-900')}
       style={tailwind('flex flex-row items-center border rounded px-4 py-5')}
     >
       <ThemedView
         light={tailwind('bg-gray-100')}
-        dark={tailwind('bg-gray-700')}
+        dark={tailwind('bg-blue-900')}
         style={tailwind('w-6 h-6 rounded-full flex items-center justify-center mr-2')}
       >
         <ThemedIcon
@@ -271,12 +271,12 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-blue-800 border-blue-900')}
       style={tailwind('border rounded p-4 mb-2')}
     >
       <ThemedView
         light={tailwind('bg-white border-gray-200')}
-        dark={tailwind('bg-gray-800 border-gray-700')}
+        dark={tailwind('bg-blue-800 border-blue-900')}
         style={tailwind('flex flex-row items-center justify-between border-b pb-4 mb-2')}
       >
         <View style={tailwind('flex flex-row items-center')}>
@@ -376,7 +376,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             renderText={(val: string) => (
               <ThemedView
                 light={tailwind('bg-gray-100')}
-                dark={tailwind('bg-gray-900')}
+                dark={tailwind('bg-blue-900')}
                 style={tailwind('px-2 py-0.5 rounded')}
               >
                 <ThemedText
@@ -476,7 +476,7 @@ function FooterSection (props: {totalCollateralValue: BigNumber, onContinuePress
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-blue-800 border-blue-900')}
       style={tailwind('border-t absolute left-0 bottom-0 w-full px-4 py-6')}
     >
       <View style={tailwind('flex flex-row justify-between mb-5')}>

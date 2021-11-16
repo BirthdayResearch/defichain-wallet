@@ -108,7 +108,7 @@ function HeaderSearchInput (props: HeaderSearchInputProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-blue-800 border-blue-900')}
       style={[
         tailwind('flex flex-row items-center pb-2 px-4'),
         {

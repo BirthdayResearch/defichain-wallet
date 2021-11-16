@@ -157,7 +157,7 @@ export function DexScreen (): JSX.Element {
         {
           activeTab === TabKey.YourPoolPair && yourLPTokens.length === 0 && (
             <ThemedView
-              dark={tailwind('bg-gray-900')}
+              dark={tailwind('bg-blue-900')}
               light={tailwind('bg-gray-100')}
               style={tailwind('flex items-center justify-center px-14 pb-40 h-full')}
             >
