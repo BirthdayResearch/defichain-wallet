@@ -4,9 +4,11 @@ import { Platform, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { SymbolIcon } from './SymbolIcon'
-import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from './themed'
+import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from './themed'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BottomSheetWithNavRouteParam } from './BottomSheetWithNav'
+import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
 interface BottomSheetTokenListProps {
   headerLabel: string
@@ -31,6 +33,7 @@ export const BottomSheetTokenList = ({
   onTokenPress,
   navigateToScreen
 }: BottomSheetTokenListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
+  const { isLight } = useThemeContext()
   const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
   const tokenList: BottomSheetToken[] = [
     {
@@ -62,11 +65,29 @@ export const BottomSheetTokenList = ({
       name: 'DFI',
       available: new BigNumber('123'),
       collateralFactor: new BigNumber(100)
+    },
+    {
+      id: 'dBCH1',
+      name: 'DFI',
+      available: new BigNumber('123'),
+      collateralFactor: new BigNumber(100)
+    },
+    {
+      id: 'dBCH2',
+      name: 'DFI',
+      available: new BigNumber('123'),
+      collateralFactor: new BigNumber(100)
+    },
+    {
+      id: 'dBCH3',
+      name: 'DFI',
+      available: new BigNumber('123'),
+      collateralFactor: new BigNumber(100)
     }
   ]
 
   return (
-    <ThemedFlatList
+    <BottomSheetFlatList
       data={tokenList}
       renderItem={({ item }): JSX.Element => (
         <ThemedTouchableOpacity
@@ -125,7 +146,7 @@ export const BottomSheetTokenList = ({
         <ThemedView
           light={tailwind('bg-white border-gray-200')}
           dark={tailwind('bg-gray-800 border-gray-700')}
-          style={tailwind('flex flex-row justify-between items-center px-4 py-2 border-b', { 'h-14 mt-px': Platform.OS === 'android' })}
+          style={tailwind('flex flex-row justify-between items-center px-4 py-2 border-b', { 'py-3.5 border-t -mb-px': Platform.OS === 'android' })} // border top on android to handle 1px of horizontal transparent line when scroll past header
         >
           <ThemedText
             style={tailwind('text-lg font-medium')}
@@ -139,6 +160,7 @@ export const BottomSheetTokenList = ({
       }
       stickyHeaderIndices={[0]}
       keyExtractor={(item) => item.id}
+      style={tailwind({ 'bg-gray-800': !isLight, 'bg-white': isLight })}
     />
   )
 })

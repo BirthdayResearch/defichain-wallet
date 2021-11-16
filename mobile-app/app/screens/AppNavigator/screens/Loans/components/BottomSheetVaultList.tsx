@@ -1,6 +1,8 @@
 import { View } from '@components'
-import { ThemedFlatList, ThemedTouchableOpacity, ThemedText, ThemedView, ThemedIcon } from '@components/themed'
+import { ThemedTouchableOpacity, ThemedText, ThemedView, ThemedIcon } from '@components/themed'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
+import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
@@ -27,6 +29,7 @@ export const BottomSheetVaultList = ({
   onCloseButtonPress,
   onVaultPress
 }: BottomSheetVaultListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
+  const { isLight } = useThemeContext()
   const vaults = useSelector((state: RootState) => nonLiquidatedVault(state.loans))
   const { address } = useWalletContext()
   const client = useWhaleApiClient()
@@ -41,7 +44,7 @@ export const BottomSheetVaultList = ({
   }, [blockCount])
 
   return (
-    <ThemedFlatList
+    <BottomSheetFlatList
       data={vaults}
       renderItem={({ item }: { item: LoanVaultActive}): JSX.Element => (
         <ThemedTouchableOpacity
@@ -80,7 +83,7 @@ export const BottomSheetVaultList = ({
         <ThemedView
           light={tailwind('bg-white border-gray-200')}
           dark={tailwind('bg-gray-800 border-gray-700')}
-          style={tailwind('flex flex-row justify-between items-center px-4 py-2 border-b', { 'h-14 mt-px': Platform.OS === 'android' })}
+          style={tailwind('flex flex-row justify-between items-center px-4 py-2 border-b', { 'py-3.5 border-t -mb-px': Platform.OS === 'android' })}
         >
           <ThemedText
             style={tailwind('text-lg font-medium')}
@@ -94,6 +97,7 @@ export const BottomSheetVaultList = ({
       }
       stickyHeaderIndices={[0]}
       keyExtractor={(item) => item.vaultId}
+      style={tailwind({ 'bg-gray-800': !isLight, 'bg-white': isLight })}
     />
   )
 })
