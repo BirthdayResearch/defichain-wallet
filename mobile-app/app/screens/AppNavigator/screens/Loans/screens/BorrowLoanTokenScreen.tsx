@@ -124,6 +124,7 @@ export function BorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Elemen
                   inputType='numeric'
                   value={amountToBorrow}
                   title={translate('screens/BorrowLoanTokenScreen', 'How much do you want to borrow?')}
+                  placeholder={translate('screens/BorrowLoanTokenScreen', 'Enter an amount')}
                   onChangeText={(text) => setAmountToBorrow(text)}
                   displayClearButton={amountToBorrow !== ''}
                   onClearButtonPress={() => setAmountToBorrow('')}
