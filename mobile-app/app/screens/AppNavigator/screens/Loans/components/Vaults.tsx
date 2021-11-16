@@ -2,7 +2,7 @@ import * as React from 'react'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
 import { ThemedView } from '@components/themed'
-import { VaultCard, VaultStatus } from '@screens/AppNavigator/screens/Loans/components/VaultCard'
+import { VaultCard } from '@screens/AppNavigator/screens/Loans/components/VaultCard'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { View } from 'react-native'
 import { InfoText } from '@components/InfoText'
@@ -25,7 +25,6 @@ export function Vaults (): JSX.Element {
   const vaults = useSelector(createSelector((state: RootState) => state.loans.vaults, vaults => {
     return vaults.map((v) => {
       const temp = {
-        status: VaultStatus.Locked,
         collaterals: [
           { id: 'BTC', vaultProportion: new BigNumber(20) },
           { id: 'DFI', vaultProportion: new BigNumber(12.4573) },

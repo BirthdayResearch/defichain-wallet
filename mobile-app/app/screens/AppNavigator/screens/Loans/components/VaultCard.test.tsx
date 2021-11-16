@@ -1,7 +1,8 @@
 import React from 'react'
-import { VaultCard, VaultStatus, VaultCardProps } from './VaultCard'
+import { VaultCard, VaultCardProps } from './VaultCard'
 import BigNumber from 'bignumber.js'
 import { render } from '@testing-library/react-native'
+import { VaultStatus } from './VaultStatusTag'
 
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@react-navigation/native', () => ({
@@ -9,10 +10,10 @@ jest.mock('@react-navigation/native', () => ({
 }))
 
 describe('Vault card', () => {
-  it('should match snapshot of locked vault', async () => {
+  it('should match snapshot of liquidated vault', async () => {
     const lockedVault: VaultCardProps = {
       vaultAddress: '22ffasd5ca123123123123123121231061',
-      status: VaultStatus.Locked,
+      status: VaultStatus.Liquidated,
       collaterals: [
         { id: 'BTC', vaultProportion: new BigNumber(20) },
         { id: 'DFI', vaultProportion: new BigNumber(12.4573) },
@@ -51,10 +52,10 @@ describe('Vault card', () => {
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 
-  it('should match snapshot of safe vault', async () => {
+  it('should match snapshot of healthy vault', async () => {
     const safeVault: VaultCardProps = {
       vaultAddress: '22ffasd5ca123123123123123121231061',
-      status: VaultStatus.Safe,
+      status: VaultStatus.Healthy,
       collaterals: [
         { id: 'BTC', vaultProportion: new BigNumber(20) },
         { id: 'DFI', vaultProportion: new BigNumber(12.4573) },
@@ -72,10 +73,10 @@ describe('Vault card', () => {
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 
-  it('should match snapshot of new vault', async () => {
+  it('should match snapshot of active vault', async () => {
     const newVault: VaultCardProps = {
       vaultAddress: '22ffasd5ca123123123123123121231061',
-      status: VaultStatus.New,
+      status: VaultStatus.Active,
       collaterals: [],
       actions: ['ADD_COLLATERAL']
     }

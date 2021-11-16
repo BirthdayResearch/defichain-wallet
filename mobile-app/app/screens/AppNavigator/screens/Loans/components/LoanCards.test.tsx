@@ -5,6 +5,9 @@ import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
 
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@contexts/FeatureFlagContext')
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: jest.fn()
+}))
 
 describe('loan cards', () => {
   it('should match snapshot', async () => {
