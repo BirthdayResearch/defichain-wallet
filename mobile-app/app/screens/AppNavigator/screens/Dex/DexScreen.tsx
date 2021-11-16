@@ -108,8 +108,11 @@ export function DexScreen (): JSX.Element {
         style={tailwind('flex flex-row px-4 py-3')}
       >
         <View style={tailwind('flex flex-col')}>
-          <ThemedText light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
-                      style={tailwind('text-xs')}>{translate('screens/DexScreen', 'Total Value Locked (USD)')}</ThemedText>
+          <ThemedText
+            light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
+            style={tailwind('text-xs')}
+          >{translate('screens/DexScreen', 'Total Value Locked (USD)')}
+          </ThemedText>
           <ThemedText>
             <NumberFormat
               displayType='text'
@@ -197,12 +200,19 @@ interface DexItem<T> {
   data: T
 }
 
+interface YourPoolPairCardsItems {
+  yourPairs: Array<{ type: string, data: WalletToken }>
+  availablePairs: Array<DexItem<PoolPairData>>
+  onAdd: (data: PoolPairData) => void
+  onRemove: (data: PoolPairData) => void
+}
+
 function YourPoolPairCards ({
   yourPairs,
   availablePairs,
   onAdd,
   onRemove
-}: { yourPairs: Array<{ type: string, data: WalletToken }>, availablePairs: Array<DexItem<PoolPairData>>, onAdd: (data: PoolPairData) => void, onRemove: (data: PoolPairData) => void }): JSX.Element {
+}: YourPoolPairCardsItems): JSX.Element {
   return (
     <ThemedFlatList
       data={yourPairs}
@@ -304,8 +314,10 @@ function AvailablePoolPairCards ({
               </ThemedText>
             </View>
 
-            <PoolPairInfoDetails type='available' pair={pair} tokenATotal={pair?.tokenA.reserve}
-                                 tokenBTotal={pair?.tokenB.reserve} testID='available' />
+            <PoolPairInfoDetails
+              type='available' pair={pair} tokenATotal={pair?.tokenA.reserve}
+              tokenBTotal={pair?.tokenB.reserve} testID='available'
+            />
 
             <View style={tailwind('flex-row mt-4 flex-wrap')}>
               <PoolPairActionButton
@@ -391,15 +403,15 @@ function PoolPairInfoDetails (props: { type: 'available' | 'your', pairAmount?: 
             }
             {
               pair.apr?.total !== undefined &&
-              <PoolPairInfoLine
-                label={translate('screens/DexScreen', 'APR')}
-                value={{
+                <PoolPairInfoLine
+                  label={translate('screens/DexScreen', 'APR')}
+                  value={{
                   text: new BigNumber(isNaN(pair.apr.total) ? 0 : pair.apr.total).times(100).toFixed(2),
                   decimalScale: 2,
                   testID: `apr_${pairSymbol}`,
                   suffix: '%'
                 }}
-              />
+                />
             }
           </>
         )
@@ -507,4 +519,3 @@ function PoolPairIcon (props: { symbolA: string, symbolB: string }): JSX.Element
     </>
   )
 }
-
