@@ -7,6 +7,7 @@ import { TextInputProps } from 'react-native'
 type SearchInputProps = React.PropsWithChildren<TextInputProps> & ISearchInputProps
 
 interface ISearchInputProps {
+  showClearButton: boolean
   onClearInput: () => void
 }
 
@@ -31,15 +32,18 @@ export function SearchInput (props: SearchInputProps): JSX.Element {
       />
       <ThemedTextInput
         {...otherProps}
-        style={tailwind('flex-grow w-8/12')}
+        style={tailwind('flex-grow w-8/12 h-8')}
       />
-      <ClearButton
-        onPress={onClearInput}
-        iconThemedProps={{
-          light: tailwind('text-gray-300'),
-          dark: tailwind('text-gray-600')
-        }}
-      />
+      {props.showClearButton &&
+        (
+          <ClearButton
+            onPress={onClearInput}
+            iconThemedProps={{
+              light: tailwind('text-gray-300'),
+              dark: tailwind('text-gray-600')
+            }}
+          />
+        )}
     </ThemedView>
   )
 }

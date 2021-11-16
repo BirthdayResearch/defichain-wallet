@@ -120,6 +120,7 @@ function HeaderSearchInput (props: HeaderSearchInputProps): JSX.Element {
         value={props.searchString}
         placeholder={translate('screens/ChooseLoanTokenScreen', 'Search for loans')}
         autoFocus
+        showClearButton={props.searchString !== ''}
         onClearInput={props.onClearInput}
         onChangeText={props.onChangeInput}
       />
