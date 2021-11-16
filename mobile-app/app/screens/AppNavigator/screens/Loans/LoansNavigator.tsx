@@ -2,7 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { HeaderFont } from '@components/Text'
 import { HeaderTitle } from '@components/HeaderTitle'
-import { LoanScheme } from '@defichain/whale-api-client/dist/api/loan'
+import { LoanScheme, LoanToken, LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { LoadingState, LoansScreen } from './LoansScreen'
@@ -12,6 +12,9 @@ import BigNumber from 'bignumber.js'
 import { VaultDetailScreen } from './VaultDetail/VaultDetailScreen'
 import { AddCollateralScreen, Collateral } from './screens/AddCollateralScreen'
 import { ConfirmAddCollateralScreen } from './screens/ConfirmAddCollateralScreen'
+import { ChooseLoanTokenScreen } from './screens/ChooseLoanTokenScreen'
+import { BorrowLoanTokenScreen } from './screens/BorrowLoanTokenScreen'
+import { ConfirmBorrowLoanTokenScreen } from './screens/ConfirmBorrowLoanTokenScreen'
 import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { TouchableOpacity } from 'react-native'
 import { ThemedIcon } from '@components/themed'
@@ -43,7 +46,14 @@ export interface LoanParamList {
     totalCollateralValue: BigNumber
     fee: BigNumber
   }
-
+  BorrowLoanTokenScreen: {
+    loanToken: LoanToken
+    vault?: LoanVaultActive
+  }
+  ConfirmBorrowLoanTokenScreen: {
+    loanToken: LoanToken
+    vault: LoanVaultActive
+  }
   [key: string]: undefined | object
 }
 
@@ -154,6 +164,42 @@ export function LoansNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/LoansScreen', 'Confirm Add Collateral') + ' (Beta)'} // TODO: remove beta from title
+            />
+          )
+        }}
+      />
+      <LoansStack.Screen
+        component={ChooseLoanTokenScreen}
+        name='ChooseLoanTokenScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Choose Loan Token to Borrow') + ' (Beta)'} // TODO: remove beta from title
+            />
+          )
+        }}
+      />
+      <LoansStack.Screen
+        component={BorrowLoanTokenScreen}
+        name='BorrowLoanTokenScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Borrow Loan Token') + ' (Beta)'} // TODO: remove beta from title
+            />
+          )
+        }}
+      />
+      <LoansStack.Screen
+        component={ConfirmBorrowLoanTokenScreen}
+        name='ConfirmBorrowLoanTokenScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Confirm Borrow Loan Token') + ' (Beta)'} // TODO: remove beta from title
             />
           )
         }}

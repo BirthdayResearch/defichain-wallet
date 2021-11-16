@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { ThemedView } from '@components/themed'
-import { LoanCards } from '@components/LoanCards'
 import { Tabs } from '@components/Tabs'
 import { Vaults } from './components/Vaults'
 import { EmptyVault } from './components/EmptyVault'
@@ -12,6 +11,7 @@ import { RootState } from '@store'
 import { fetchLoanTokens, fetchVaults } from '@store/loans'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { LoanCards } from './components/LoanCards'
 
 enum TabKey {
   BrowseLoans = 'BROWSE_LOANS',
