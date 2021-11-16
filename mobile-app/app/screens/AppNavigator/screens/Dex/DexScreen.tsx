@@ -108,8 +108,7 @@ export function DexScreen (): JSX.Element {
         style={tailwind('flex flex-row px-4 py-3')}
       >
         <View style={tailwind('flex flex-col')}>
-          <ThemedText light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
-                      style={tailwind('text-xs')}>{translate('screens/DexScreen', 'Total Value Locked (USD)')}</ThemedText>
+          <ThemedText light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')} style={tailwind('text-xs')}>{translate('screens/DexScreen', 'Total Value Locked (USD)')}</ThemedText>
           <ThemedText>
             <NumberFormat
               displayType='text'
@@ -202,17 +201,14 @@ function YourPoolPairCards ({
   availablePairs,
   onAdd,
   onRemove
-}: { yourPairs: Array<{ type: string, data: WalletToken }>, availablePairs: Array<DexItem<PoolPairData>>, onAdd: (data: PoolPairData) => void, onRemove: (data: PoolPairData) => void }): JSX.Element {
+}: { yourPairs: Array<{type: string, data: WalletToken}>, availablePairs: Array<DexItem<PoolPairData>>, onAdd: (data: PoolPairData) => void, onRemove: (data: PoolPairData) => void }): JSX.Element {
   return (
     <ThemedFlatList
       data={yourPairs}
       numColumns={1}
       keyExtractor={(_item, index) => index.toString()}
       testID='your_liquidity_tab'
-      renderItem={({
-        item,
-        index
-      }: { item: { type: string, data: WalletToken }, index: number }): JSX.Element => {
+      renderItem={({ item, index }: {item: {type: string, data: WalletToken}, index: number}): JSX.Element => {
         const { data: yourPair } = item
         const poolPairData = availablePairs.find(pr => pr.data.symbol === (yourPair as AddressToken).symbol)
         const mappedPair = poolPairData?.data
@@ -277,10 +273,7 @@ function AvailablePoolPairCards ({
       numColumns={1}
       keyExtractor={(_item, index) => index.toString()}
       testID='available_liquidity_tab'
-      renderItem={({
-        item,
-        index
-      }: { item: DexItem<PoolPairData>, index: number }): JSX.Element => {
+      renderItem={({ item, index }: {item: DexItem<PoolPairData>, index: number}): JSX.Element => {
         const { data: pair } = item
         const [symbolA, symbolB] = (pair?.tokenA != null && pair?.tokenB != null)
           ? [pair.tokenA.displaySymbol, pair.tokenB.displaySymbol]
@@ -304,8 +297,8 @@ function AvailablePoolPairCards ({
               </ThemedText>
             </View>
 
-            <PoolPairInfoDetails type='available' pair={pair} tokenATotal={pair?.tokenA.reserve}
-                                 tokenBTotal={pair?.tokenB.reserve} testID='available' />
+            <PoolPairInfoDetails type='available' pair={pair} tokenATotal={pair?.tokenA.reserve} tokenBTotal={pair?.tokenB.reserve} testID='available' />
+
             <View style={tailwind('flex-row mt-4 flex-wrap')}>
               <PoolPairActionButton
                 name='add'
@@ -333,14 +326,8 @@ function AvailablePoolPairCards ({
   )
 }
 
-function PoolPairInfoDetails (props: { type: 'available' | 'your', pairAmount?: string, pair: PoolPairData | undefined, tokenATotal: string, tokenBTotal: string, testID: string }): JSX.Element {
-  const {
-    type,
-    pair,
-    pairAmount,
-    tokenATotal,
-    tokenBTotal
-  } = props
+function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: string, pair: PoolPairData | undefined, tokenATotal: string, tokenBTotal: string, testID: string}): JSX.Element {
+  const { type, pair, pairAmount, tokenATotal, tokenBTotal } = props
   const pairSymbol = (pair?.tokenA.displaySymbol !== undefined && pair?.tokenB.displaySymbol !== undefined) ? `${pair?.tokenA?.displaySymbol}-${pair?.tokenB?.displaySymbol}` : ''
   const decimalScale = type === 'available' ? 2 : 8
 
@@ -446,12 +433,8 @@ function PoolPairInfoLine (props: PoolPairInfoLineProps): JSX.Element {
   )
 }
 
-function PoolPairActions (props: { onAdd: () => void, onRemove: () => void, symbol: string }): JSX.Element {
-  const {
-    onAdd,
-    onRemove,
-    symbol
-  } = props
+function PoolPairActions (props: {onAdd: () => void, onRemove: () => void, symbol: string }): JSX.Element {
+  const { onAdd, onRemove, symbol } = props
   return (
     <View style={tailwind('flex-row mt-3 flex-wrap -mr-2')}>
       <PoolPairActionButton
@@ -486,7 +469,7 @@ function PoolPairActionButton (props: { name: React.ComponentProps<typeof Materi
   )
 }
 
-function PoolPairIcon (props: { symbolA: string, symbolB: string }): JSX.Element {
+function PoolPairIcon (props: { symbolA: string, symbolB: string}): JSX.Element {
   const IconA = getNativeIcon(props.symbolA)
   const IconB = getNativeIcon(props.symbolB)
 
@@ -506,3 +489,4 @@ function PoolPairIcon (props: { symbolA: string, symbolB: string }): JSX.Element
     </>
   )
 }
+
