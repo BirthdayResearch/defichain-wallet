@@ -13,7 +13,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
   res.json([{
     id: 'loan',
     name: 'Loans',
-    stage: 'alpha',
+    stage: 'beta',
     version: '>=0.14.0',
     description: 'Browse loan tokens provided by DeFiChain',
     networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
