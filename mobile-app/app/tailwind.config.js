@@ -116,10 +116,6 @@ module.exports = {
           500: '#FF9F0A',
           600: '#FFBC54',
           700: '#BF7708'
-        },
-        darkblue: {
-          100: '#3E627A',
-          500: '#7FC8F8'
         }
       },
       maxWidth: {
