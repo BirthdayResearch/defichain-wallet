@@ -16,6 +16,7 @@ export interface FeatureFlagContextI {
   updateEnabledFeatures: (features: FEATURE_FLAG_ID[]) => void
   isFeatureAvailable: (featureId: FEATURE_FLAG_ID) => boolean
   isBetaFeature: (featureId: FEATURE_FLAG_ID) => boolean
+  hasBetaFeatures: boolean
 }
 
 const FeatureFlagContext = createContext<FeatureFlagContextI>(undefined as any)
@@ -92,7 +93,8 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
     enabledFeatures,
     updateEnabledFeatures,
     isFeatureAvailable,
-    isBetaFeature
+    isBetaFeature,
+    hasBetaFeatures: featureFlags.some((item) => item.networks?.includes(network) && item.platforms?.includes(Platform.OS) && item.stage === 'beta')
   }
 
   return (
