@@ -1,7 +1,6 @@
 import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
-import BigNumber from 'bignumber.js'
-import { LoanCardOptions, LoanCards } from '../components/LoanCards'
+import { LoanCards } from '../components/LoanCards'
 import { StackScreenProps } from '@react-navigation/stack'
 import { LoanParamList } from '../LoansNavigator'
 import { debounce } from 'lodash'
@@ -10,100 +9,30 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { SearchInput } from '@components/SearchInput'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@store'
+import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { fetchLoanTokens } from '@store/loans'
 
 type Props = StackScreenProps<LoanParamList, 'ChooseLoanTokenScreen'>
 
 export function ChooseLoanTokenScreen ({ navigation }: Props): JSX.Element {
-  const loans: LoanCardOptions[] = [
-    {
-      loanName: 'BTC',
-      priceType: 'ACTIVE',
-      price: new BigNumber('123.4567'),
-      isVerified: true,
-      interestRate: new BigNumber('1.2345')
-    },
-    {
-      loanName: 'DFI',
-      priceType: 'NEXT',
-      price: new BigNumber('123.4567'),
-      isVerified: false,
-      interestRate: new BigNumber('1.2345')
-    },
-    {
-      loanName: 'dETH',
-      priceType: 'ACTIVE',
-      price: new BigNumber('123.4567'),
-      isVerified: true,
-      interestRate: new BigNumber('1.2345')
-    },
-    {
-      loanName: 'dLTC',
-      priceType: 'NEXT',
-      price: new BigNumber('123.4567'),
-      isVerified: false,
-      interestRate: new BigNumber('1.2345')
-    },
-    {
-      loanName: 'dBCH',
-      priceType: 'ACTIVE',
-      price: new BigNumber('123.4567'),
-      isVerified: true,
-      interestRate: new BigNumber('1.2345')
-    },
-    {
-      loanName: 'BTC',
-      priceType: 'NEXT',
-      price: new BigNumber('123.4567'),
-      isVerified: false,
-      interestRate: new BigNumber('1.2345')
-    },
-    {
-      loanName: 'BTC',
-      priceType: 'ACTIVE',
-      price: new BigNumber('123.4567'),
-      isVerified: true,
-      interestRate: new BigNumber('1.2345')
-    },
-    {
-      loanName: 'BTC',
-      priceType: 'NEXT',
-      price: new BigNumber('123.4567'),
-      isVerified: false,
-      interestRate: new BigNumber('1.2345')
-    },
-    {
-      loanName: 'BTC',
-      priceType: 'ACTIVE',
-      price: new BigNumber('123.4567'),
-      isVerified: true,
-      interestRate: new BigNumber('1.2345')
-    },
-    {
-      loanName: 'BTC',
-      priceType: 'NEXT',
-      price: new BigNumber('123.4567'),
-      isVerified: false,
-      interestRate: new BigNumber('1.2345')
-    },
-    {
-      loanName: 'BTC',
-      priceType: 'ACTIVE',
-      price: new BigNumber('123.4567'),
-      isVerified: true,
-      interestRate: new BigNumber('1.2345')
-    }
-  ]
-  const [filteredLoans, setFilteredLoans] = useState<LoanCardOptions[]>(loans)
+  const loans = useSelector((state: RootState) => state.loans.loanTokens)
+  const blockCount = useSelector((state: RootState) => state.block.count)
+  const dispatch = useDispatch()
+  const client = useWhaleApiClient()
+  const [filteredLoans, setFilteredLoans] = useState<LoanToken[]>(loans)
   const [showSeachInput, setShowSearchInput] = useState(false)
   const [searchString, setSearchString] = useState('')
 
   const handleFilter = useCallback(
     debounce((searchString: string) => {
       setFilteredLoans(loans.filter(loan =>
-        loan.loanName.toLowerCase().includes(searchString.toLowerCase().trim())
+        loan.token.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
       ))
     }, 1000)
-  , [])
+  , [loans])
 
   useEffect(() => {
     handleFilter(searchString)
@@ -136,20 +65,15 @@ export function ChooseLoanTokenScreen ({ navigation }: Props): JSX.Element {
     }
   }, [showSeachInput, searchString])
 
+  useEffect(() => {
+    dispatch(fetchLoanTokens({ client }))
+  }, [blockCount])
+
   return (
     <ThemedView style={tailwind('flex-1')}>
       <LoanCards
         testID='loans_cards'
         loans={filteredLoans}
-        onPress={(loan: LoanCardOptions) => {
-          navigation.navigate({
-            name: 'BorrowLoanTokenScreen',
-            params: {
-              loan
-            },
-            merge: true
-          })
-        }}
       />
     </ThemedView>
   )
