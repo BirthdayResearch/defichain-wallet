@@ -25,6 +25,14 @@ import { dFB } from './dFB'
 import { dTWTR } from './dTWTR'
 import { dNVDA } from './dNVDA'
 import { dMSFT } from './dMSFT'
+import { dSPY } from './dSPY'
+import { dQQQ } from './dQQQ'
+import { dGLD } from './dGLD'
+import { dSLV } from './dSLV'
+import { dPDBC } from './dPDBC'
+import { dVNQ } from './dVNQ'
+import { dURTH } from './dURTH'
+import { dTLT } from './dTLT'
 
 const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   _UTXO: DFI,
@@ -55,7 +63,15 @@ const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   dFB: dFB,
   dTWTR: dTWTR,
   dNVDA: dNVDA,
-  dMSFT: dMSFT
+  dMSFT: dMSFT,
+  dSPY: dSPY,
+  dQQQ: dQQQ,
+  dGLD: dGLD,
+  dSLV: dSLV,
+  dPDBC: dPDBC,
+  dVNQ: dVNQ,
+  dURTH: dURTH,
+  dTLT: dTLT
 }
 
 /**
