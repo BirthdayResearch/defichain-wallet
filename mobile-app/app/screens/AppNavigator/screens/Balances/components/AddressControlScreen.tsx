@@ -10,6 +10,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/core'
 import { BalanceParamList } from '../BalancesNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { RandomAvatar } from '@screens/AppNavigator/screens/Balances/components/RandomAvatar'
+import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 
 export function AddressControlScreen (): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
@@ -89,6 +90,15 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
   useEffect(() => {
     getAddresses().catch(logger.error)
   }, [wallet, addressLength])
+
+  if (address.length === 0) {
+    return (
+      <SkeletonLoader
+        row={addressLength}
+        screen={SkeletonLoaderScreen.Address}
+      />
+    )
+  }
 
   return (
     <>

@@ -3,6 +3,7 @@ import { DexSkeletonLoader } from './skeletonLoaders/DexSkeletonLoader'
 import { MnemonicWordSkeletonLoader } from './skeletonLoaders/MnemonicWordSkeletonLoader'
 import { TransactionSkeletonLoader } from './skeletonLoaders/TransactionSkeletonLoader'
 import { LoanSkeletonLoader } from './skeletonLoaders/LoanSkeletonLoader'
+import { AddressSkeletonLoader } from './skeletonLoaders/AddressSkeletonLoader'
 
 interface SkeletonLoaderProp {
   row: number
@@ -13,7 +14,8 @@ export enum SkeletonLoaderScreen {
   'Dex' = 'Dex',
   'Transaction' = 'Transaction',
   'MnemonicWord' = 'MnemonicWord',
-  'Loan' = 'Loan'
+  'Loan' = 'Loan',
+  'Address' = 'Address'
 }
 
 export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
@@ -52,5 +54,13 @@ export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
           ))}
         </>
       )
+    case SkeletonLoaderScreen.Address:
+        return (
+          <>
+            {skeletonRow.map(i => (
+              <AddressSkeletonLoader key={i} />
+            ))}
+          </>
+        )
   }
 }
