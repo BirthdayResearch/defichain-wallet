@@ -161,15 +161,20 @@ function HealthBar (props: {normalizedColRatio: BigNumber, normalizedNextRatio: 
         borderRadius={8}
         height={12}
       />
-      {props.normalizedColRatio.isGreaterThan(0) &&
+      {props.normalizedColRatio.isGreaterThanOrEqualTo(0) &&
         (
           <>
             <ThemedView
               light={tailwind('bg-black')}
               dark={tailwind('bg-white')}
-              style={[tailwind('w-px h-4 absolute bottom-0'), { left: `${BigNumber.min(props.normalizedColRatio.multipliedBy(100), 100).toFixed(2)}%` }]}
+              style={[tailwind('w-px h-4 absolute bottom-0'), {
+                left: `${BigNumber.min(props.normalizedColRatio.multipliedBy(100), 99.7).toFixed(2)}%`
+              }]}
             />
-            <View style={[tailwind('absolute bottom-0'), { left: `${BigNumber.min(props.normalizedNextRatio, 100).toFixed(2)}%` }]}>
+            <View style={[tailwind('absolute bottom-0'), {
+              left: `${BigNumber.min(props.normalizedNextRatio, 99.7).toFixed(2)}%`
+            }]}
+            >
               <Svg height='16' width='1' viewBox='0 0 1 16'>
                 <Line strokeDasharray='3, 2' x1='0' y1='0' x2='0' y2='100' stroke={`${isLight ? 'black' : 'white'}`} strokeWidth='10' />
               </Svg>
