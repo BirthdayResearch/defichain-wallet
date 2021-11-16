@@ -60,7 +60,7 @@ export function PrivacyLock (): JSX.Element {
     return (
       <ThemedView
         style={tailwind('h-full w-full')} light={tailwind('bg-gray-200')}
-        dark={tailwind('bg-blue-900')}
+        dark={tailwind('bg-dfxblue-900')}
       />
     )
   } else {

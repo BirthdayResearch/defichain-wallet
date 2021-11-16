@@ -111,7 +111,7 @@ function LoanCard ({
     <ThemedTouchableOpacity
       testID={testID}
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-blue-800 border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('p-4 mx-2 mb-4 rounded flex-1 border')}
       onPress={onPress}
     >

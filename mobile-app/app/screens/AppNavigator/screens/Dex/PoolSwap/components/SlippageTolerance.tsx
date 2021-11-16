@@ -13,7 +13,7 @@ export function SlippageTolerance ({
   }
 
   const buttonStyles = 'flex px-2 py-1.5 border border-gray-300 rounded mr-2'
-  const activeStyle = 'bg-darkprimary-500 border-darkprimary-500'
+  const activeStyle = 'bg-dfxred-500 border-dfxred-500'
   const percentageList = [{ label: '1%', amount: 0.01 }, { label: '3%', amount: 0.03 }, {
     label: '5%',
     amount: 0.05
@@ -27,7 +27,7 @@ export function SlippageTolerance ({
       />
 
       <ThemedView
-        dark={tailwind('bg-blue-800 border-b border-blue-900')}
+        dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
         light={tailwind('bg-white border-b border-gray-200')}
         style={tailwind('flex-row p-4')}
       >
@@ -42,7 +42,7 @@ export function SlippageTolerance ({
               <ThemedText
                 dark={tailwind(`${slippage === p.amount ? 'text-gray-200' : ''}`)}
                 light={tailwind(`${slippage === p.amount ? 'text-white' : ''}`)}
-                style={tailwind('font-medium text-darkprimary-500')}
+                style={tailwind('font-medium text-dfxred-500')}
               >
                 {p.label}
               </ThemedText>

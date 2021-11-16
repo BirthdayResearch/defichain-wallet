@@ -110,7 +110,7 @@ export function ConfirmCreateVaultScreen ({
 function SummaryHeader (props: { conversion?: ConversionParam }): JSX.Element {
   return (
     <ThemedView
-      dark={tailwind('bg-blue-800 border-b border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('bg-white border-b border-gray-300')}
       style={tailwind('flex-col px-4 py-6')}
     >
@@ -124,7 +124,7 @@ function SummaryHeader (props: { conversion?: ConversionParam }): JSX.Element {
       <View style={tailwind('flex flex-row items-center')}>
         <ThemedView
           light={tailwind('bg-gray-100')}
-          dark={tailwind('bg-blue-900')}
+          dark={tailwind('bg-dfxblue-900')}
           style={tailwind('w-8 h-8 rounded-full flex items-center justify-center mr-2')}
         >
           <ThemedIcon

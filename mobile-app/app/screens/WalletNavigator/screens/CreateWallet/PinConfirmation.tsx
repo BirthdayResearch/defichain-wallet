@@ -55,7 +55,7 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollView
-      dark={tailwind('bg-blue-900')}
+      dark={tailwind('bg-dfxblue-900')}
       light={tailwind('bg-white')}
       style={tailwind('w-full flex-1 flex-col')}
     >

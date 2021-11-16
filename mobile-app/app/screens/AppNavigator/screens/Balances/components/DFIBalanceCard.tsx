@@ -28,7 +28,7 @@ export function DFIBalanceCard (): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-100')}
-      dark={tailwind('bg-blue-800')}
+      dark={tailwind('bg-dfxblue-800')}
       style={tailwind('mx-2 mb-4 rounded-lg flex-1')}
       testID='dfi_balance_card'
     >

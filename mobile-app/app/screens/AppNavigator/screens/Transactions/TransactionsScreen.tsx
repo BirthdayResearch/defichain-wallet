@@ -145,7 +145,7 @@ function TransactionRow ({
   const rowId = `transaction_row_${index}`
   return (
     <ThemedTouchableOpacity
-      dark={tailwind('bg-blue-800 border-b border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       key={item.id}
       light={tailwind('bg-white border-b border-gray-200')}
       onPress={() => {
@@ -225,7 +225,7 @@ function LoadMore ({ onPress }: { onPress: () => void }): JSX.Element | null {
         testID='transactions_list_loadmore'
       >
         <ThemedText
-          dark={tailwind('text-darkprimary-500')}
+          dark={tailwind('text-dfxred-500')}
           light={tailwind('text-primary-500')}
         >
           {translate('screens/TransactionsScreen', 'LOAD MORE')}

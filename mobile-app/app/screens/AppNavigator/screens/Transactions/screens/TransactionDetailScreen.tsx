@@ -22,7 +22,7 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
     return (
       <ThemedScrollView testID={`transaction-detail-${lhs.toLowerCase()}`}>
         <ThemedView
-          dark={tailwind('bg-blue-800 border-b border-blue-900')}
+          dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
           light={tailwind('bg-white border-b border-gray-200')}
           style={tailwind('p-2 flex-row items-center w-full p-4 mt-4')}
         >
@@ -79,7 +79,7 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
         <View style={tailwind('flex-1 flex-row flex-initial')}>
           <View style={tailwind('flex-1')}>
             <ThemedText
-              dark={tailwind('text-darkprimary-500')}
+              dark={tailwind('text-dfxred-500')}
               light={tailwind('text-primary-500')}
               style={tailwind('font-medium text-sm')}
             >
@@ -89,7 +89,7 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
 
           <View style={tailwind('ml-2 flex-grow-0 justify-center')}>
             <ThemedIcon
-              dark={tailwind('text-darkprimary-500')}
+              dark={tailwind('text-dfxred-500')}
               iconType='MaterialIcons'
               light={tailwind('text-primary-500')}
               name='open-in-new'

@@ -41,7 +41,7 @@ export function ReceiveScreen (): JSX.Element {
       </ThemedText>
 
       <ThemedView
-        dark={tailwind('bg-blue-800')}
+        dark={tailwind('bg-dfxblue-800')}
         light={tailwind('bg-white')}
         style={tailwind('flex justify-center items-center p-5 rounded-lg')}
       >
@@ -80,7 +80,7 @@ export function ReceiveScreen (): JSX.Element {
       </ThemedView>
 
       <ThemedView
-        dark={tailwind('bg-blue-900')}
+        dark={tailwind('bg-dfxblue-900')}
         light={tailwind('bg-white')}
         style={tailwind('flex flex-row mt-6 mb-8')}
       >
@@ -121,7 +121,7 @@ export function ReceiveScreen (): JSX.Element {
                 testID='copy_button'
               >
                 <ThemedIcon
-                  dark={tailwind('text-darkprimary-500')}
+                  dark={tailwind('text-dfxred-500')}
                   iconType='MaterialIcons'
                   light={tailwind('text-primary-500')}
                   name='content-copy'
@@ -130,7 +130,7 @@ export function ReceiveScreen (): JSX.Element {
                 />
 
                 <ThemedText
-                  dark={tailwind('text-darkprimary-500')}
+                  dark={tailwind('text-dfxred-500')}
                   light={tailwind('text-primary-500')}
                   style={tailwind('ml-2 uppercase font-medium')}
                 >
@@ -148,7 +148,7 @@ export function ReceiveScreen (): JSX.Element {
           testID='share_button'
         >
           <ThemedIcon
-            dark={tailwind('text-darkprimary-500')}
+            dark={tailwind('text-dfxred-500')}
             iconType='MaterialIcons'
             light={tailwind('text-primary-500')}
             name='share'
@@ -157,7 +157,7 @@ export function ReceiveScreen (): JSX.Element {
           />
 
           <ThemedText
-            dark={tailwind('text-darkprimary-500')}
+            dark={tailwind('text-dfxred-500')}
             light={tailwind('text-primary-500')}
             style={tailwind('ml-2 uppercase font-medium')}
           >

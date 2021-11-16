@@ -9,14 +9,14 @@ export function TransactionSkeletonLoader (props: JSX.IntrinsicAttributes & ICon
   const { isLight } = useThemeContext()
   return (
     <ThemedView
-      dark={tailwind('bg-blue-800 border-b border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('p-2 w-full items-center justify-center')}
       testID='transaction_skeleton_loader'
     >
       <ContentLoader
-        backgroundColor={isLight ? '#ecebeb' : theme.extend.colors.blue[900]}
-        foregroundColor={isLight ? '#ffffff' : theme.extend.colors.blue[800]}
+        backgroundColor={isLight ? '#ecebeb' : theme.extend.colors.dfxblue[900]}
+        foregroundColor={isLight ? '#ffffff' : theme.extend.colors.dfxblue[800]}
         height={47}
         preserveAspectRatio='xMidYMid slice'
         speed={2}

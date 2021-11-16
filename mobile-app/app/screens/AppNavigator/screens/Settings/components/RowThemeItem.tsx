@@ -16,7 +16,7 @@ export function RowThemeItem (): JSX.Element {
   const [isDark, setIsDark] = useState<boolean>(!isLight)
   return (
     <ThemedView
-      dark={tailwind('bg-blue-800 border-b border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
       testID='theme_row'

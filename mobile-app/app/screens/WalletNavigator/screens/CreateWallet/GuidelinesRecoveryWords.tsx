@@ -6,7 +6,7 @@ import { translate } from '../../../../translations'
 export function GuidelinesRecoveryWords (): JSX.Element {
   return (
     <ThemedScrollView
-      dark={tailwind('bg-blue-900')}
+      dark={tailwind('bg-dfxblue-900')}
       light={tailwind('bg-white')}
       style={tailwind('flex-1 p-4 pt-6')}
     >

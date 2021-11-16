@@ -53,7 +53,7 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
           testID='reset_recovery_word_button'
         >
           <ThemedIcon
-            dark={tailwind('text-darkprimary-500')}
+            dark={tailwind('text-dfxred-500')}
             iconType='MaterialIcons'
             light={tailwind('text-primary-500')}
             name='refresh'
@@ -103,7 +103,7 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
 
   return (
     <ThemedScrollView
-      dark={tailwind('bg-blue-900')}
+      dark={tailwind('bg-dfxblue-900')}
       light={tailwind('bg-white')}
       style={tailwind('flex-1')}
     >
@@ -142,7 +142,7 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
 function RecoveryWordRow (props: { index: number, word: string, key: number }): JSX.Element {
   return (
     <ThemedView
-      dark={tailwind('bg-blue-800 border-b border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('p-4 flex-row')}
     >

@@ -201,7 +201,7 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
   return (
     <ThemedTouchableOpacity
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-blue-800 border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('border py-2.5 px-4 flex flex-row items-center justify-between rounded-lg')}
       onPress={props.onPress}
     >
@@ -254,7 +254,7 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
         name='unfold-more'
         size={24}
         light={tailwind('text-primary-500')}
-        dark={tailwind('text-darkprimary-500')}
+        dark={tailwind('text-dfxred-500')}
         style={tailwind('-mr-1.5 flex-shrink-0')}
       />
     </ThemedTouchableOpacity>
@@ -271,7 +271,7 @@ function VaultInput (props: VaultInputProps): JSX.Element {
     return (
       <ThemedTouchableOpacity
         light={tailwind('bg-white border-gray-200')}
-        dark={tailwind('bg-blue-800 border-blue-900')}
+        dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
         style={tailwind('border py-2.5 px-4 rounded-lg mb-8')}
         onPress={props.onPress}
       >
@@ -288,7 +288,7 @@ function VaultInput (props: VaultInputProps): JSX.Element {
             name='unfold-more'
             size={24}
             light={tailwind('text-primary-500')}
-            dark={tailwind('text-darkprimary-500')}
+            dark={tailwind('text-dfxred-500')}
             style={tailwind('-mr-1.5')}
           />
         </View>
@@ -319,7 +319,7 @@ function VaultInput (props: VaultInputProps): JSX.Element {
           name='unfold-more'
           size={24}
           light={tailwind('text-primary-500')}
-          dark={tailwind('text-darkprimary-500')}
+          dark={tailwind('text-dfxred-500')}
           style={tailwind('-mr-1.5')}
         />
       </View>

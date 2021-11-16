@@ -10,8 +10,8 @@ type LoanSkeletonLoaderProps = JSX.IntrinsicAttributes & IContentLoaderProps & {
 function LoanLoader ({ props, isLight }: {props: LoanSkeletonLoaderProps, isLight: boolean}): JSX.Element {
   return (
     <ContentLoader
-      backgroundColor={isLight ? '#ecebeb' : theme.extend.colors.blue[900]}
-      foregroundColor={isLight ? '#ffffff' : theme.extend.colors.blue[800]}
+      backgroundColor={isLight ? '#ecebeb' : theme.extend.colors.dfxblue[900]}
+      foregroundColor={isLight ? '#ffffff' : theme.extend.colors.dfxblue[800]}
       speed={2}
       width='100%'
       height={144}
@@ -39,7 +39,7 @@ export function LoanSkeletonLoader (loaderProps: LoanSkeletonLoaderProps): JSX.E
     >
       {skeletonCols.map((_col, i) => (
         <ThemedView
-          dark={tailwind('bg-blue-800 border border-blue-900')}
+          dark={tailwind('bg-dfxblue-800 border border-dfxblue-900')}
           light={tailwind('bg-white border border-gray-200')}
           style={[tailwind('rounded'), { flexBasis: '47%' }]}
           key={i}

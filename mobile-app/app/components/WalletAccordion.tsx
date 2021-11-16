@@ -41,14 +41,14 @@ export function WalletAccordion (props: AccordionProps): JSX.Element {
       />
 
       <Accordion
-        containerStyle={[tailwind('border rounded-lg mt-2 overflow-hidden'), isLight ? tailwind('bg-white border-gray-200') : tailwind('bg-blue-800 border-blue-900')]}
+        containerStyle={[tailwind('border rounded-lg mt-2 overflow-hidden'), isLight ? tailwind('bg-white border-gray-200') : tailwind('bg-dfxblue-800 border-dfxblue-900')]}
         underlayColor='transparent'
         sections={props.content}
         renderHeader={(prop, index, isActive) => {
           return (
             <ThemedView
               light={tailwind('border-gray-200')}
-              dark={tailwind('border-blue-900')}
+              dark={tailwind('border-dfxblue-900')}
               style={[tailwind('p-4 flex-row items-center justify-between'), !isActive && !isLastContent(index) && tailwind('border-b'), isActive && tailwind('pb-1')]}
             >
               <ThemedText
@@ -77,7 +77,7 @@ export function WalletAccordion (props: AccordionProps): JSX.Element {
             <ThemedView
               style={[tailwind('p-4 pt-0'), isActive && !isLastContent(index) && tailwind('border-b')]}
               light={tailwind('border-gray-200')}
-              dark={tailwind('border-blue-900')}
+              dark={tailwind('border-dfxblue-900')}
             >
               <ThemedText
                 style={tailwind('text-sm')}

@@ -9,14 +9,14 @@ export function DexSkeletonLoader (props: JSX.IntrinsicAttributes & IContentLoad
   const { isLight } = useThemeContext()
   return (
     <ThemedView
-      dark={tailwind('bg-blue-800 border border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border border-dfxblue-900')}
       light={tailwind('bg-white border border-gray-200')}
       style={tailwind('p-4 mx-4 mt-2 items-center justify-center')}
       testID='dex_skeleton_loader'
     >
       <ContentLoader
-        backgroundColor={isLight ? '#ecebeb' : theme.extend.colors.blue[900]}
-        foregroundColor={isLight ? '#ffffff' : theme.extend.colors.blue[800]}
+        backgroundColor={isLight ? '#ecebeb' : theme.extend.colors.dfxblue[900]}
+        foregroundColor={isLight ? '#ffffff' : theme.extend.colors.dfxblue[800]}
         height={194}
         preserveAspectRatio='xMidYMid slice'
         speed={2}

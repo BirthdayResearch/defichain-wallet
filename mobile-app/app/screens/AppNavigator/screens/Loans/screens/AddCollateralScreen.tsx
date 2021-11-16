@@ -225,12 +225,12 @@ function VaultIdSection (props: { vaultId: string }): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-blue-800 border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('flex flex-row items-center border rounded px-4 py-5')}
     >
       <ThemedView
         light={tailwind('bg-gray-100')}
-        dark={tailwind('bg-blue-900')}
+        dark={tailwind('bg-dfxblue-900')}
         style={tailwind('w-6 h-6 rounded-full flex items-center justify-center mr-2')}
       >
         <ThemedIcon
@@ -271,12 +271,12 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-blue-800 border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('border rounded p-4 mb-2')}
     >
       <ThemedView
         light={tailwind('bg-white border-gray-200')}
-        dark={tailwind('bg-blue-800 border-blue-900')}
+        dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
         style={tailwind('flex flex-row items-center justify-between border-b pb-4 mb-2')}
       >
         <View style={tailwind('flex flex-row items-center')}>
@@ -376,7 +376,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             renderText={(val: string) => (
               <ThemedView
                 light={tailwind('bg-gray-100')}
-                dark={tailwind('bg-blue-900')}
+                dark={tailwind('bg-dfxblue-900')}
                 style={tailwind('px-2 py-0.5 rounded')}
               >
                 <ThemedText
@@ -436,7 +436,7 @@ function LearnMoreCollateralFactor (): JSX.Element {
         >
           <ThemedText
             light={tailwind('text-primary-500')}
-            dark={tailwind('text-darkprimary-500')}
+            dark={tailwind('text-dfxred-500')}
             style={tailwind('text-xs font-medium underline relative top-0.5')}
           >
             {translate('screens/AddCollateralScreen', 'Learn more')}
@@ -459,11 +459,11 @@ function AddCollateralButton (props: {disabled: boolean, onPress: () => void}): 
         name='add'
         size={14}
         light={tailwind({ 'text-primary-500': !props.disabled, 'text-gray-300': props.disabled })}
-        dark={tailwind({ 'text-darkprimary-500': !props.disabled, 'text-gray-600': props.disabled })}
+        dark={tailwind({ 'text-dfxred-500': !props.disabled, 'text-gray-600': props.disabled })}
       />
       <ThemedText
         light={tailwind({ 'text-primary-500': !props.disabled, 'text-gray-300': props.disabled })}
-        dark={tailwind({ 'text-darkprimary-500': !props.disabled, 'text-gray-600': props.disabled })}
+        dark={tailwind({ 'text-dfxred-500': !props.disabled, 'text-gray-600': props.disabled })}
         style={tailwind('pl-2.5 text-sm font-medium leading-4')}
       >
         {translate('screens/AddCollateralScreen', 'ADD TOKEN AS COLLATERAL')}
@@ -476,7 +476,7 @@ function FooterSection (props: {totalCollateralValue: BigNumber, onContinuePress
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-blue-800 border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('border-t absolute left-0 bottom-0 w-full px-4 py-6')}
     >
       <View style={tailwind('flex flex-row justify-between mb-5')}>

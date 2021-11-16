@@ -14,7 +14,7 @@ export function ThemedActivityIndicator (props: ThemedTextProps): JSX.Element {
   } = props
   return (
     <ActivityIndicator
-      color={isLight ? '#ff00af' : theme.extend.colors.darkprimary[500]}
+      color={isLight ? '#ff00af' : theme.extend.colors.dfxred[500]}
       style={style}
       {...otherProps}
     />

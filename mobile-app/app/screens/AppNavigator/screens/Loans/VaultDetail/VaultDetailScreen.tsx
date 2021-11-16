@@ -76,7 +76,7 @@ export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
     >
       <ThemedView
         light={tailwind('bg-white')}
-        dark={tailwind('bg-blue-800')}
+        dark={tailwind('bg-dfxblue-800')}
       >
         <View style={tailwind('p-4')}>
           <VaultIdSection vaultId={vaultId} collaterals={currentVault.collaterals} />
@@ -86,7 +86,7 @@ export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
         </View>
         <ThemedView
           light={tailwind('border-gray-200')}
-          dark={tailwind('border-blue-900')}
+          dark={tailwind('border-dfxblue-900')}
           style={tailwind('pb-4 border-b')}
         >
           <ScrollableButton buttons={vaultActionButtons} containerStyle={tailwind('pl-4')} />
@@ -102,12 +102,12 @@ function VaultIdSection (props: { vaultId: string, collaterals: Collateral[] }):
   return (
     <ThemedView
       light={tailwind('bg-white')}
-      dark={tailwind('bg-blue-800')}
+      dark={tailwind('bg-dfxblue-800')}
       style={tailwind('flex flex-row items-center')}
     >
       <ThemedView
         light={tailwind('bg-gray-100')}
-        dark={tailwind('bg-blue-900')}
+        dark={tailwind('bg-dfxblue-900')}
         style={tailwind('w-8 h-8 rounded-full flex items-center justify-center mr-2')}
       >
         <ThemedIcon
@@ -133,7 +133,7 @@ function VaultIdSection (props: { vaultId: string, collaterals: Collateral[] }):
           </ThemedText>
           <TouchableOpacity onPress={() => { /* TODO: link to defiscan */ }}>
             <ThemedIcon
-              dark={tailwind('text-darkprimary-500')}
+              dark={tailwind('text-dfxred-500')}
               iconType='MaterialIcons'
               light={tailwind('text-primary-500')}
               name='open-in-new'
@@ -159,7 +159,7 @@ function VaultCollateralTokenShare (props: {collaterals: Collateral[]}): JSX.Ele
   return (
     <ThemedView
       light={tailwind('border-gray-200')}
-      dark={tailwind('border-blue-900')}
+      dark={tailwind('border-dfxblue-900')}
       style={tailwind('flex flex-row flex-wrap mt-3 pb-3 border-b')}
     >
       {props.collaterals.map(collateral => (

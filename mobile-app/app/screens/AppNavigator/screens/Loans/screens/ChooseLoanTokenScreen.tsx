@@ -87,7 +87,7 @@ function HeaderSearchIcon (props: {onPress: () => void}): JSX.Element {
     >
       <ThemedIcon
         light={tailwind('text-primary-500')}
-        dark={tailwind('text-darkprimary-500')}
+        dark={tailwind('text-dfxred-500')}
         iconType='MaterialIcons'
         name='search'
         size={24}
@@ -108,7 +108,7 @@ function HeaderSearchInput (props: HeaderSearchInputProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-blue-800 border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={[
         tailwind('flex flex-row items-center pb-2 px-4'),
         {
@@ -128,7 +128,7 @@ function HeaderSearchInput (props: HeaderSearchInputProps): JSX.Element {
         <TouchableOpacity onPress={props.onCancelPress}>
           <ThemedText
             light={tailwind('text-primary-500')}
-            dark={tailwind('text-darkprimary-500')}
+            dark={tailwind('text-dfxred-500')}
             style={tailwind('font-medium')}
           >
             {translate('screens/ChooseLoanTokenScreen', 'CANCEL')}

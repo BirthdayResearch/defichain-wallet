@@ -104,7 +104,7 @@ export function OnboardingCarousel (): JSX.Element {
       data={slides}
       index={0}
       paginationActiveColor={isLight ? 'rgba(0, 0, 0, 0.8)' : '#FFFFFF'}
-      paginationDefaultColor={isLight ? 'rgba(0, 0, 0, 0.1)' : theme.extend.colors.dgray[500]}
+      paginationDefaultColor={isLight ? 'rgba(0, 0, 0, 0.1)' : theme.extend.colors.dfxgray[500]}
       paginationStyleItem={tailwind('h-2.5 w-2.5 mx-1.5')}
       renderItem={({ item }) => (
         <View style={{ width }}>

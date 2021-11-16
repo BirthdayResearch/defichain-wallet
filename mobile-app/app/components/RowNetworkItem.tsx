@@ -60,7 +60,7 @@ export function RowNetworkItem (props: RowNetworkItemProps): JSX.Element {
         props.network === network &&
         (
           <ThemedIcon
-            dark={tailwind('text-darkprimary-500')}
+            dark={tailwind('text-dfxred-500')}
             iconType='MaterialIcons'
             light={tailwind('text-primary-500')}
             name='check'

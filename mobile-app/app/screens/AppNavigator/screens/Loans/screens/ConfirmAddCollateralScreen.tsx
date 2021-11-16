@@ -94,7 +94,7 @@ export function ConfirmAddCollateralScreen ({ route, navigation }: Props): JSX.E
 function SummaryHeader (props: {vaultId: string}): JSX.Element {
   return (
     <ThemedView
-      dark={tailwind('bg-blue-800 border-b border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('bg-white border-b border-gray-300')}
       style={tailwind('flex-col px-4 py-6')}
     >
@@ -231,7 +231,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
 function VaultProportionRow (props: {lhs: string, tokenId: string, proportion: BigNumber}): JSX.Element {
   return (
     <ThemedView
-      dark={tailwind('bg-blue-800 border-b border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('p-4 flex-row items-start w-full justify-between')}
     >
@@ -243,7 +243,7 @@ function VaultProportionRow (props: {lhs: string, tokenId: string, proportion: B
 
       <ThemedView
         light={tailwind('bg-gray-50')}
-        dark={tailwind('bg-blue-900')}
+        dark={tailwind('bg-dfxblue-900')}
         style={tailwind('flex flex-row py-1 px-1.5 rounded-2xl')}
       >
         <SymbolIcon symbol={props.tokenId} />

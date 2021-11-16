@@ -16,7 +16,7 @@ export function TransactionIDButton ({ txid, onPress }: TransactionIDButtonProps
       testID='oceanNetwork_explorer'
     >
       <ThemedText
-        dark={tailwind('text-darkprimary-500')}
+        dark={tailwind('text-dfxred-500')}
         ellipsizeMode='tail'
         light={tailwind('text-primary-500')}
         numberOfLines={1}
@@ -26,7 +26,7 @@ export function TransactionIDButton ({ txid, onPress }: TransactionIDButtonProps
       </ThemedText>
 
       <ThemedIcon
-        dark={tailwind('text-darkprimary-500')}
+        dark={tailwind('text-dfxred-500')}
         iconType='MaterialIcons'
         light={tailwind('text-primary-500')}
         name='open-in-new'

@@ -53,9 +53,9 @@ export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Eleme
     for (let i = 1; i < totalStep; i++) {
       let iconStyle
       if (current === i + 1) {
-        iconStyle = isLight ? 'bg-primary-500' : 'bg-dgray-500'
+        iconStyle = isLight ? 'bg-primary-500' : 'bg-dfxgray-500'
       } else if (current > i + 1) {
-        iconStyle = isLight ? 'bg-primary-500' : 'bg-darkprimary-500'
+        iconStyle = isLight ? 'bg-primary-500' : 'bg-dfxred-500'
       } else {
         iconStyle = isLight ? 'bg-gray-100' : 'bg-gray-700'
       }
@@ -96,10 +96,10 @@ function getStepNodeStyle (isLight: boolean, current: number, step: number): { s
   let stepperStyle
   let textStyle
   if (current === step) {
-    stepperStyle = isLight ? 'bg-primary-500 bg-opacity-10 border border-primary-500' : 'bg-dgray-500 border border-dgray-500'
-    textStyle = isLight ? 'text-primary-500' : 'text-blue-900'
+    stepperStyle = isLight ? 'bg-primary-500 bg-opacity-10 border border-primary-500' : 'bg-dfxgray-500 border border-dfxgray-500'
+    textStyle = isLight ? 'text-primary-500' : 'text-dfxblue-900'
   } else if (current > step) {
-    stepperStyle = isLight ? 'bg-primary-500 border border-primary-500' : 'bg-darkprimary-500 border border-darkprimary-600'
+    stepperStyle = isLight ? 'bg-primary-500 border border-primary-500' : 'bg-dfxred-500 border border-darkprimary-600'
     textStyle = 'text-white'
   } else {
     stepperStyle = isLight ? 'bg-transparent border border-gray-200' : 'bg-gray-700 border border-gray-200'

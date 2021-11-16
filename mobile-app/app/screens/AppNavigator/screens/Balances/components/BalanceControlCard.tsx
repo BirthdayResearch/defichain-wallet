@@ -21,7 +21,7 @@ export function BalanceControlCard (): JSX.Element {
     <ThemedView
       testID='balance_control_card'
       style={tailwind('p-4 flex flex-col')}
-      dark={tailwind('bg-blue-800 border-b border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('bg-white border-b border-gray-200')}
     >
       <View style={tailwind('flex flex-row items-center')}>
@@ -46,7 +46,7 @@ export function BalanceControlCard (): JSX.Element {
             </ThemedText>
             <TouchableOpacity onPress={async () => await openURL(getAddressUrl(address))}>
               <ThemedIcon
-                dark={tailwind('text-darkprimary-500')}
+                dark={tailwind('text-dfxred-500')}
                 iconType='MaterialIcons'
                 light={tailwind('text-primary-500')}
                 name='open-in-new'

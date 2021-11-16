@@ -16,7 +16,7 @@ export function TransactionCloseButton (props: TransactionCloseButtonProps): JSX
       testID='oceanInterface_close'
     >
       <ThemedText
-        dark={tailwind('font-medium text-darkprimary-500')}
+        dark={tailwind('font-medium text-dfxred-500')}
         light={tailwind('font-medium text-primary-500')}
         style={tailwind('text-sm ')}
       >

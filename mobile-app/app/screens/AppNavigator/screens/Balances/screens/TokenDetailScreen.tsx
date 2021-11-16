@@ -183,7 +183,7 @@ function TokenSummary (props: { token: WalletToken}): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white')}
-      dark={tailwind('bg-blue-800')}
+      dark={tailwind('bg-dfxblue-800')}
       style={tailwind('px-4 pt-6')}
     >
       <View style={tailwind('flex-row items-center mb-1')}>
@@ -194,14 +194,14 @@ function TokenSummary (props: { token: WalletToken}): JSX.Element {
         >
           <View style={tailwind('flex-row items-center')}>
             <ThemedText
-              dark={tailwind('text-darkprimary-500')}
+              dark={tailwind('text-dfxred-500')}
               light={tailwind('text-primary-500')}
             >
               {props.token.name}
             </ThemedText>
             <View style={tailwind('ml-2 flex-grow-0 justify-center')}>
               <ThemedIcon
-                dark={tailwind('text-darkprimary-500')}
+                dark={tailwind('text-dfxred-500')}
                 iconType='MaterialIcons'
                 light={tailwind('text-primary-500')}
                 name='open-in-new'
@@ -247,7 +247,7 @@ function TokenActionRow ({ title, icon, onPress, testID }: TokenActionItems): JS
       testID={testID}
     >
       <ThemedIcon
-        dark={tailwind('text-darkprimary-500')}
+        dark={tailwind('text-dfxred-500')}
         iconType='MaterialIcons'
         light={tailwind('text-primary-500')}
         name={icon}

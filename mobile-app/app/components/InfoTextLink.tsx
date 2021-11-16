@@ -20,7 +20,7 @@ export function InfoTextLink (props: InfoTextLinkProps): JSX.Element {
       testID={props.testId}
     >
       <ThemedIcon
-        dark={tailwind('text-darkprimary-500')}
+        dark={tailwind('text-dfxred-500')}
         iconType='MaterialIcons'
         light={tailwind('text-primary-500')}
         name='help'
@@ -28,7 +28,7 @@ export function InfoTextLink (props: InfoTextLinkProps): JSX.Element {
       />
 
       <ThemedText
-        dark={tailwind('text-darkprimary-500')}
+        dark={tailwind('text-dfxred-500')}
         light={tailwind('text-primary-500')}
         style={[tailwind('ml-1 text-xs font-medium px-1'), props.textStyle]}
       >

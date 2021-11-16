@@ -203,7 +203,7 @@ function LinkItemRow ({
 
   return (
     <ThemedTouchableOpacity
-      dark={tailwind('bg-blue-800')}
+      dark={tailwind('bg-dfxblue-800')}
       light={tailwind('bg-gray-50')}
       onPress={handlePress}
       style={tailwind('flex-row p-4 items-center rounded-lg mb-3')}

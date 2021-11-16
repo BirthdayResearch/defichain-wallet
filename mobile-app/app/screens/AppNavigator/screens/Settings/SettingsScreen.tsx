@@ -206,7 +206,7 @@ function RowExitWalletItem (): JSX.Element {
       testID='setting_exit_wallet'
     >
       <ThemedIcon
-        dark={tailwind('text-darkprimary-500')}
+        dark={tailwind('text-dfxred-500')}
         iconType='MaterialIcons'
         light={tailwind('text-primary-500')}
         name='exit-to-app'
@@ -215,7 +215,7 @@ function RowExitWalletItem (): JSX.Element {
       />
 
       <ThemedText
-        dark={tailwind('text-darkprimary-500')}
+        dark={tailwind('text-dfxred-500')}
         light={tailwind('text-primary-500')}
         style={tailwind('font-medium')}
       >
@@ -234,7 +234,7 @@ function PrivacyLockToggle ({
     <>
       <ThemedView
         light={tailwind('bg-white border-b border-gray-200')}
-        dark={tailwind('bg-blue-800 border-b border-blue-900')}
+        dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
         style={tailwind('flex p-4 pr-2 flex-row items-center justify-between')}
       >
         <ThemedText testID='text_privacy_lock' style={tailwind('font-medium')}>

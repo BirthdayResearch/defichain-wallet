@@ -40,7 +40,7 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
   const toggleSwitch = (): void => setIsEnabled(previousState => !previousState)
   return (
     <ThemedScrollView
-      dark={tailwind('bg-blue-900')}
+      dark={tailwind('bg-dfxblue-900')}
       light={tailwind('bg-white')}
       style={tailwind('flex-1 p-4 pt-6')}
     >
@@ -64,7 +64,7 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
         testID='recovery_words_button'
       >
         <ThemedText
-          dark={tailwind('text-darkprimary-500')}
+          dark={tailwind('text-dfxred-500')}
           light={tailwind('text-primary-500')}
           style={tailwind('font-medium text-sm')}
         >

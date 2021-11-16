@@ -251,14 +251,14 @@ function AddressRow ({
               inputType='default'
             >
               <ThemedTouchableOpacity
-                dark={tailwind('bg-blue-900')}
+                dark={tailwind('bg-dfxblue-900')}
                 light={tailwind('bg-white')}
                 onPress={onQrButtonPress}
                 style={tailwind('w-9 p-1.5')}
                 testID='qr_code_button'
               >
                 <ThemedIcon
-                  dark={tailwind('text-darkprimary-500')}
+                  dark={tailwind('text-dfxred-500')}
                   iconType='MaterialIcons'
                   light={tailwind('text-primary-500')}
                   name='qr-code-scanner'
@@ -318,7 +318,7 @@ function AmountRow ({ token, control, onAmountChange, onClearButtonPress }: Amou
               inputType='numeric'
             >
               <ThemedView
-                dark={tailwind('bg-blue-900')}
+                dark={tailwind('bg-dfxblue-900')}
                 light={tailwind('bg-white')}
                 style={tailwind('flex-row items-center')}
               >

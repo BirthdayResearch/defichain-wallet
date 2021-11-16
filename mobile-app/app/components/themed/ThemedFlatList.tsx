@@ -11,7 +11,7 @@ export function ThemedFlatList (props: ThemedFlatListProps): JSX.Element {
   const {
     style,
     light = tailwind('bg-gray-100'),
-    dark = tailwind('bg-blue-900'),
+    dark = tailwind('bg-dfxblue-900'),
     ...otherProps
   } = props
 

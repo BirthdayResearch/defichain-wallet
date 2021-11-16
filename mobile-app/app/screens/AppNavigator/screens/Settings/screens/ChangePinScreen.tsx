@@ -35,7 +35,7 @@ export function ChangePinScreen ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollView
-      dark={tailwind('bg-blue-900')}
+      dark={tailwind('bg-dfxblue-900')}
       light={tailwind('bg-white')}
       style={tailwind('w-full flex-1 flex-col')}
       testID='screen_create_pin'
@@ -78,7 +78,7 @@ export function ChangePinScreen ({ route }: Props): JSX.Element {
         <ThemedText
           style={tailwind('text-center text-sm font-semibold')}
           light={tailwind('text-primary-500')}
-          dark={tailwind('text-darkprimary-500')}
+          dark={tailwind('text-dfxred-500')}
         >
           {translate('screens/PinCreation', 'Learn more about passcode')}
         </ThemedText>

@@ -65,7 +65,7 @@ export function NetworkDetails (): JSX.Element {
 function NetworkStatusRow ({ connected }: {connected: boolean}): JSX.Element {
   return (
     <ThemedView
-      dark={tailwind('bg-blue-800 border-b border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('flex flex-row p-4 items-center justify-between w-full')}
     >
@@ -107,7 +107,7 @@ function BlocksInfoRow ({ blockCount }: {blockCount?: number}): JSX.Element {
 
   return (
     <ThemedView
-      dark={tailwind('bg-blue-800 border-b border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('flex flex-row p-4 items-center justify-between w-full')}
     >
@@ -125,7 +125,7 @@ function BlocksInfoRow ({ blockCount }: {blockCount?: number}): JSX.Element {
               displayType='text'
               renderText={(val: string) => (
                 <ThemedText
-                  dark={tailwind('text-darkprimary-500')}
+                  dark={tailwind('text-dfxred-500')}
                   light={tailwind('text-primary-500')}
                   style={tailwind('flex-wrap font-medium text-right text-gray-500')}
                   testID='network_details_block_height'
@@ -138,7 +138,7 @@ function BlocksInfoRow ({ blockCount }: {blockCount?: number}): JSX.Element {
             />
             <View style={tailwind('ml-2 flex-grow-0 justify-center')}>
               <ThemedIcon
-                dark={tailwind('text-darkprimary-500')}
+                dark={tailwind('text-dfxred-500')}
                 iconType='MaterialIcons'
                 light={tailwind('text-primary-500')}
                 name='open-in-new'

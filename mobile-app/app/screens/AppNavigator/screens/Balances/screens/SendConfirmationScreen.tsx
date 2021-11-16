@@ -97,7 +97,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   return (
     <ThemedScrollView style={tailwind('pb-4')}>
       <ThemedView
-        dark={tailwind('bg-blue-800 border-b border-blue-900')}
+        dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
         light={tailwind('bg-white border-b border-gray-300')}
         style={tailwind('flex-col px-4 py-8')}
       >

@@ -102,7 +102,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
           viewStyle={tailwind('p-4')}
         />
         <ThemedView
-          dark={tailwind('bg-blue-800')}
+          dark={tailwind('bg-dfxblue-800')}
           light={tailwind('bg-white')}
           style={tailwind('w-full flex-row p-4 items-stretch')}
         >
@@ -189,7 +189,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
 function AmountSlider (props: { current: number, onChange: (percentage: string) => void, viewStyle: StyleProp<ViewStyle> }): JSX.Element {
   return (
     <ThemedView
-      dark={tailwind('bg-blue-800 border-b border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('bg-white border-b border-gray-200')}
       style={[tailwind('flex-row items-center'), props.viewStyle]}
     >
@@ -209,11 +209,11 @@ function AmountSlider (props: { current: number, onChange: (percentage: string) 
       <View style={tailwind('flex-1 ml-4 mr-4')}>
         <Slider
           maximumValue={100}
-          minimumTrackTintColor={theme.extend.colors.darkprimary[500]}
+          minimumTrackTintColor={theme.extend.colors.dfxred[500]}
           minimumValue={0}
           onSlidingComplete={(val) => props.onChange(new BigNumber(val).toFixed(2))}
           testID='slider_remove_liq_percentage'
-          thumbTintColor={theme.extend.colors.darkprimary[500]}
+          thumbTintColor={theme.extend.colors.dfxred[500]}
           value={isNaN(props.current) ? 0 : props.current}
         />
       </View>

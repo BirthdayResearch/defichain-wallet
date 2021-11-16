@@ -32,7 +32,7 @@ export function SetAmountButton (props: SetAmountButtonProps): JSX.Element {
       testID={`${props.type}_amount_button`}
     >
       <ThemedText
-        dark={tailwind('text-darkprimary-500')}
+        dark={tailwind('text-dfxred-500')}
         light={tailwind('text-primary-500')}
         style={tailwind('text-center font-medium')}
       >

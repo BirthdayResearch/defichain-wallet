@@ -61,7 +61,7 @@ function ActiveLoanCard (props: ActiveLoan): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-blue-800 border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('p-4 mb-2 border rounded')}
     >
       <View style={tailwind('flex flex-row items-center')}>
@@ -109,7 +109,7 @@ function ActionButtons (): JSX.Element {
           name='more-horiz'
           size={16}
           light={tailwind('text-primary-500')}
-          dark={tailwind('text-darkprimary-500')}
+          dark={tailwind('text-dfxred-500')}
         />
       </TouchableOpacity>
 

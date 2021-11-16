@@ -11,7 +11,7 @@ export function MnemonicWordSkeletonLoader (props: JSX.IntrinsicAttributes & ICo
     <ThemedView
       testID='mnemonic_word_skeleton_loader'
       light={tailwind('bg-white border-b border-gray-200')}
-      dark={tailwind('bg-blue-800 border-b border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       style={tailwind('p-2 w-full items-center justify-center')}
     >
       <ContentLoader
@@ -20,8 +20,8 @@ export function MnemonicWordSkeletonLoader (props: JSX.IntrinsicAttributes & ICo
         height={47}
         viewBox='0 0 400 47'
         preserveAspectRatio='xMidYMid slice'
-        backgroundColor={isLight ? '#ecebeb' : theme.extend.colors.blue[900]}
-        foregroundColor={isLight ? '#ffffff' : theme.extend.colors.blue[800]}
+        backgroundColor={isLight ? '#ecebeb' : theme.extend.colors.dfxblue[900]}
+        foregroundColor={isLight ? '#ffffff' : theme.extend.colors.dfxblue[800]}
         {...props}
       >
         <Rect x='70' y='3' rx='3' ry='3' width='290' height='33' />

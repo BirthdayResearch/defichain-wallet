@@ -75,7 +75,7 @@ function CommunityItemRow ({
       testID={id}
     >
       <ThemedIcon
-        dark={tailwind('text-darkprimary-500')}
+        dark={tailwind('text-dfxred-500')}
         iconType='MaterialCommunityIcons'
         light={tailwind('text-primary-500')}
         name={icon}

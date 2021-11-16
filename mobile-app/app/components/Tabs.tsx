@@ -22,7 +22,7 @@ const Tabs = React.memo((props: TabsProps): JSX.Element => {
     return (
       <ThemedView
         light={tailwind('bg-white')}
-        dark={tailwind('bg-blue-800')}
+        dark={tailwind('bg-dfxblue-800')}
         style={tailwind('flex flex-row pt-3')}
         testID={props.testID}
       >
@@ -35,7 +35,7 @@ const Tabs = React.memo((props: TabsProps): JSX.Element => {
             >
               <ThemedTouchableOpacity
                 light={tailwind('border-b-2', { 'border-primary-500': isActive })}
-                dark={tailwind('border-b-2', { 'border-darkprimary-500': isActive })}
+                dark={tailwind('border-b-2', { 'border-dfxred-500': isActive })}
                 style={tailwind('flex items-center border-transparent')}
                 onPress={() => tab.handleOnPress(tab.id)}
                 disabled={tab.disabled}
@@ -43,7 +43,7 @@ const Tabs = React.memo((props: TabsProps): JSX.Element => {
               >
                 <ThemedView
                   light={tailwind('bg-white')}
-                  dark={tailwind('bg-blue-800')}
+                  dark={tailwind('bg-dfxblue-800')}
                 >
                   <TabLabel tab={tab} isActive={isActive} />
                 </ThemedView>
@@ -62,7 +62,7 @@ const Tabs = React.memo((props: TabsProps): JSX.Element => {
           contentContainerStyle={tailwind('pt-3 px-4')}
           horizontal
           light={tailwind('bg-white')}
-          dark={tailwind('bg-blue-800')}
+          dark={tailwind('bg-dfxblue-800')}
           style={tailwind('flex flex-row -mr-6 flex-1')}
           showsHorizontalScrollIndicator={false}
         >
@@ -72,7 +72,7 @@ const Tabs = React.memo((props: TabsProps): JSX.Element => {
               <ThemedTouchableOpacity
                 key={index}
                 light={tailwind('border-b-2', { 'border-primary-500': isActive })}
-                dark={tailwind('border-b-2', { 'border-darkprimary-500': isActive })}
+                dark={tailwind('border-b-2', { 'border-dfxred-500': isActive })}
                 style={tailwind('flex items-center mr-6 border-transparent')}
                 onPress={() => tab.handleOnPress(tab.id)}
                 disabled={tab.disabled}

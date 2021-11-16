@@ -96,7 +96,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         >
           <ThemedIcon
             iconType='MaterialIcons'
-            dark={tailwind('text-darkprimary-500')}
+            dark={tailwind('text-dfxred-500')}
             light={tailwind('text-primary-500')}
             style={tailwind('self-center pr-1')}
             name={`${isBalancesDisplayed ? 'visibility' : 'visibility-off'}`}
@@ -145,7 +145,7 @@ function BalanceItemRow ({
   const testID = `balances_row_${token.id}`
   return (
     <ThemedTouchableOpacity
-      dark={tailwind('bg-blue-800 border-b border-blue-900')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('bg-white border-b border-gray-100')}
       onPress={onPress}
       style={tailwind('py-4 pl-4 pr-2 flex-row justify-between items-center')}

@@ -103,7 +103,7 @@ export function DexScreen (): JSX.Element {
   return (
     <>
       <ThemedView
-        dark={tailwind('bg-blue-800 border-b border-blue-900')}
+        dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
         light={tailwind('bg-white border-b border-gray-200')}
         style={tailwind('flex flex-row px-4 py-3')}
       >
@@ -157,7 +157,7 @@ export function DexScreen (): JSX.Element {
         {
           activeTab === TabKey.YourPoolPair && yourLPTokens.length === 0 && (
             <ThemedView
-              dark={tailwind('bg-blue-900')}
+              dark={tailwind('bg-dfxblue-900')}
               light={tailwind('bg-gray-100')}
               style={tailwind('flex items-center justify-center px-14 pb-40 h-full')}
             >
@@ -240,7 +240,7 @@ function YourPoolPairCards ({
 
         return (
           <ThemedView
-            dark={tailwind('bg-blue-800 border-blue-900')}
+            dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
             light={tailwind('bg-white border-gray-200')}
             style={tailwind('mx-4 p-4 my-1 border rounded', { 'mt-4': index === 0 })}
             testID='pool_pair_row_your'
@@ -299,7 +299,7 @@ function AvailablePoolPairCards ({
 
         return (
           <ThemedView
-            dark={tailwind('bg-blue-800 border-blue-900')}
+            dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
             light={tailwind('bg-white border-gray-200')}
             style={tailwind('mx-4 p-4 my-1 border rounded', { 'mt-4': index === 0 })}
             testID='pool_pair_row'
