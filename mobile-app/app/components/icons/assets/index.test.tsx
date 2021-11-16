@@ -9,7 +9,7 @@ const icons = ['_UTXO', 'DFI', 'DFI (UTXO)', 'DFI (Token)', 'BTC', 'dBCH', 'dBTC
   'dUSDT', 'dUSDC', 'FAKE', 'dTSLA',
   'dAAPL', 'dAMD', 'dGME', 'dBABA',
   'dGOOG', 'dDUSD', 'DUSD', 'dPLTR', 'dARKK', 'dAMZN', 'dCOIN',
-  'dFB', 'dTWTR', 'dNVDA', 'dMSFT']
+  'dFB', 'dTWTR', 'dNVDA', 'dMSFT', 'dGLD', 'dPDBC', 'dQQQ', 'dSLV', 'dSPY', 'dTLT', 'dURTH', 'dVNQ']
 
 describe('token icons', () => {
   icons.forEach(icon => {
