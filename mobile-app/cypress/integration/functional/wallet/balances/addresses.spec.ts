@@ -2,7 +2,6 @@ import { WhaleApiClient } from '@defichain/whale-api-client'
 
 context('Wallet - Addresses', () => {
   let whale: WhaleApiClient
-  let address: string
 
   before(function () {
     cy.createEmptyWallet(true)
@@ -81,48 +80,50 @@ context('Wallet - Addresses', () => {
       cy.getByTestID('address_text').contains(activeAddress)
     })
   })
+  context('Wallet - Addresses transfer dfi between addresses', () => {
+    let address: string
+    it('should able to transfer dfi between addresses', function () {
+      cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
+      cy.url().should('include', 'app/AddressControlScreen')
+      cy.getByTestID('address_row_text_1').invoke('text').then((sendAddress: string) => {
+        address = sendAddress
+        cy.getByTestID('address_row_0').should('exist').click().should(() => {
+          const network: string = localStorage.getItem('Development.NETWORK')
+          expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.active`)).to.eq('0')
+          expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.length`)).to.eq('1')
+        })
+        cy.getByTestID('dfi_balance_card').should('exist')
+        cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
+        cy.getByTestID('send_dfi_button').click()
+        cy.getByTestID('address_input').type(sendAddress)
+        cy.getByTestID('amount_input').clear().type('1')
+        cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
+        cy.getByTestID('send_submit_button').click()
+        cy.getByTestID('confirm_title').contains('You are sending')
+        // Cancel button
+        cy.getByTestID('button_cancel_send').click()
+        cy.getByTestID('address_input').should('exist')
 
-  it('should able to transfer dfi between addresses', function () {
-    cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
-    cy.url().should('include', 'app/AddressControlScreen')
-    cy.getByTestID('address_row_text_1').invoke('text').then((sendAddress: string) => {
-      address = sendAddress
-      cy.getByTestID('address_row_0').should('exist').click().should(() => {
+        cy.getByTestID('send_submit_button').click()
+        cy.getByTestID('button_confirm_send').click().wait(3000)
+        cy.closeOceanInterface()
+      })
+    })
+
+    it('should check if exist on other side second address', function () {
+      cy.wrap(whale.address.getBalance(address)).then((response) => {
+        expect(response).eq('1.00000000')
+      })
+      cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
+      cy.getByTestID('create_new_address').should('exist')
+      cy.getByTestID('address_row_1').should('exist').click().should(() => {
         const network: string = localStorage.getItem('Development.NETWORK')
-        expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.active`)).to.eq('0')
+        expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.active`)).to.eq('1')
         expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.length`)).to.eq('1')
       })
-      cy.getByTestID('dfi_balance_card').should('exist')
-      cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
-      cy.getByTestID('send_dfi_button').click()
-      cy.getByTestID('address_input').type(sendAddress)
-      cy.getByTestID('amount_input').clear().type('1')
-      cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
-      cy.getByTestID('send_submit_button').click()
-      cy.getByTestID('confirm_title').contains('You are sending')
-      // Cancel button
-      cy.getByTestID('button_cancel_send').click()
-      cy.getByTestID('address_input').should('exist')
-
-      cy.getByTestID('send_submit_button').click()
-      cy.getByTestID('button_confirm_send').click().wait(3000)
-      cy.closeOceanInterface()
+      cy.getByTestID('dfi_utxo_amount').contains('1.00000000')
+      cy.exitWallet()
     })
-  })
-
-  it('should check if exist on other side second address', function () {
-    cy.wrap(whale.address.getBalance(address)).then((response) => {
-      expect(response).eq('1.00000000')
-    })
-    cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
-    cy.getByTestID('create_new_address').should('exist')
-    cy.getByTestID('address_row_1').should('exist').click().should(() => {
-      const network: string = localStorage.getItem('Development.NETWORK')
-      expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.active`)).to.eq('1')
-      expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.length`)).to.eq('1')
-    })
-    cy.getByTestID('dfi_utxo_amount').contains('1.00000000')
-    cy.exitWallet()
   })
 })
 
