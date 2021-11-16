@@ -186,7 +186,7 @@ function ColorScale (props: {normalizedLiquidatedThreshold: BigNumber, normalize
       <ThemedView
         light={tailwind('bg-warning-300')}
         dark={tailwind('bg-darkwarning-300')}
-        style={[tailwind('h-1 mr-0.5'), { width: `${props.normalizedAtRiskThreshold.toFixed(2)}%` }]}
+        style={[tailwind('h-1 mr-0.5'), { width: `${props.normalizedAtRiskThreshold.minus(props.normalizedLiquidatedThreshold).toFixed(2)}%` }]}
       />
       <ThemedView
         light={tailwind('bg-success-300')}
