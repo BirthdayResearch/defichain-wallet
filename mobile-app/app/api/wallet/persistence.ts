@@ -1,6 +1,5 @@
 import { SecuredStoreAPI } from '@api'
 import { WalletPersistenceDataI } from '@shared-contexts/WalletPersistenceContext'
-import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 
 async function get (): Promise<Array<WalletPersistenceDataI<any>>> {
   const count: string = await SecuredStoreAPI.getItem('WALLET.count') ?? '0'
@@ -34,8 +33,6 @@ async function set (wallets: Array<WalletPersistenceDataI<any>>): Promise<void> 
  */
 async function clear (): Promise<void> {
   const count: string = await SecuredStoreAPI.getItem('WALLET.count') ?? '0'
-  await WalletAddressIndexPersistence.setLength(0)
-  await WalletAddressIndexPersistence.setActive(0)
   for (let i = 0; i < parseInt(count); i++) {
     await SecuredStoreAPI.removeItem(`WALLET.${i}`)
   }

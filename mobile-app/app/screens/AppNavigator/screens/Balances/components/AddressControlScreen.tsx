@@ -68,7 +68,7 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
   const [canCreateAddress, setCanCreateAddress] = useState<boolean>(false)
   const logger = useLogger()
 
-  const discoverAddresses = async (): Promise<void> => {
+  const getAddresses = async (): Promise<void> => {
     const addresses: string[] = []
     for (let i = 0; i <= addressLength; i++) {
       const account = wallet.get(i)
@@ -76,8 +76,9 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
       addresses.push(address)
     }
     setAvailableAddresses(addresses)
-    const discoveredAddress = await wallet.discover(addresses.length)
-    setCanCreateAddress(addresses.length === discoveredAddress.length)
+    // incremented 1 to check if next account in the wallet is usable.
+    const isUsable = await wallet.isUsable(addressLength + 1)
+    setCanCreateAddress(isUsable)
   }
 
   const onRowPress = async (index: number): Promise<void> => {
@@ -86,7 +87,7 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
   }
 
   useEffect(() => {
-    discoverAddresses().catch(logger.error)
+    getAddresses().catch(logger.error)
   }, [wallet, addressLength])
 
   return (

@@ -22,6 +22,7 @@ import { useColorScheme } from 'react-native'
 import { WalletPersistence } from '@api/wallet'
 import { NativeLoggingProvider, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { FeatureFlagProvider } from '@contexts/FeatureFlagContext'
+import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 
 /**
  * Loads
@@ -55,7 +56,7 @@ export default function App (): JSX.Element | null {
             <NetworkProvider api={SecuredStoreAPI}>
               <WhaleProvider>
                 <DeFiScanProvider>
-                  <WalletPersistenceProvider api={WalletPersistence}>
+                  <WalletPersistenceProvider api={{ ...WalletPersistence, ...WalletAddressIndexPersistence }}>
                     <StoreProvider>
                       <StatsProvider>
                         <ThemeProvider api={ThemePersistence} colorScheme={colorScheme}>

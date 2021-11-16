@@ -80,22 +80,7 @@ export function WalletContextProvider (props: WalletContextProviderProps): JSX.E
     const maxAddressIndex = await api.getLength()
     const activeAddressIndex = await api.getActive()
     setAddressIndex(activeAddressIndex)
-    // get discovered address
-    const discoveredAddressLength = await getDiscoveredAddressLength(wallet)
-    // sub 1 from total discovered address to get address index of last active address
-    const lastDiscoveredAddressIndex = discoveredAddressLength - 1
-    const length = Math.max(maxAddressIndex, lastDiscoveredAddressIndex)
-    await api.setLength(length)
-    setAddressLength(length)
-  }
-
-  const getDiscoveredAddressLength = async (wallet: JellyfishWallet<WhaleWalletAccount, WalletHdNode>, count: number = 0): Promise<number> => {
-    const activeAddress = await wallet.discover(100)
-    count += activeAddress.length
-    if (activeAddress.length === 100) {
-      count += await getDiscoveredAddressLength(wallet, count)
-    }
-    return count
+    setAddressLength(maxAddressIndex)
   }
 
   const setIndex = async (index: number): Promise<void> => {
