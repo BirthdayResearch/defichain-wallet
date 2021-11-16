@@ -47,7 +47,9 @@ context('Wallet - Loans Feature Gated', () => {
           name: 'bar',
           stage: 'alpha',
           version: '>=0.0.0',
-          description: 'foo'
+          description: 'foo',
+          networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+          platforms: ['ios', 'android', 'web']
         }
       ]
     })
