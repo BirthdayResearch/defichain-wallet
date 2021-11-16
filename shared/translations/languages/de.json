@@ -189,7 +189,8 @@
     "Report in Github, discuss in Reddit and Telegram": "In Github melden, in Reddit und Telegram thematisch diskutieren",
     "Track transactions, tokens and DEX pairs": "Nachverfolgung von Transaktionen, Token und DEX-Handelspaaren",
     "View official website": "Offizielle Website anzeigen",
-    "Learn more about the blockchain": "Lerne mehr über Blockchain"
+    "Learn more about the blockchain": "Lerne mehr über Blockchain",
+    "Try Beta features": "Beta-Funktionen ausprobieren"
   },
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "LERNE ETWAS ÜBER",
@@ -330,6 +331,17 @@
   "screens/ConnectionBoundary": {
     "Connection problem": "Verbindungsproblem",
     "There seems to be a problem with the connection. Check your network and try again.": "Ein Problem mit der Internetverbindung ist aufgetreten. Überprüfe deine Datenverbindung und versuche es erneut."
+  },
+  "screens/FeatureFlagScreen": {
+    "Loans": "Darlehen",
+    "Browse loan tokens provided by DeFiChain": "Von DeFiChain bereitgestellte Darlehens-Token durchsuchen",
+    "Continue": "Fortfahren",
+    "Cancel": "Abbrechen",
+    "Enable {{feature}} (Beta)": "Aktiviere {{feature}} (Beta)",
+    "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "Diese Funktion ist noch in der Beta-Phase, bei der Aktivierung bist du einigen Risiken ausgesetzt. Möchtest du dennoch fortfahren?",
+    "Beta Features": "Beta-Funktionalitäten",
+    "Beta features of Light Wallet are features undergoing final testing before its official release. Experimentation of the features is encouraged, but caution is advised when using your assets.": "Die Beta-Funktionen der Light Wallet sind Funktionen, die vor der offiziellen Freigabe noch getestet werden. Das Ausprobieren der Funktionen ist erwünscht, aber bei der Verwendung mit realen Vermögenswerte ist Vorsicht geboten.",
+    "Feature is still in Beta. Use at your own risk.": "Diese Funktionalität ist noch im Beta-Stadium. Verwendung auf eigene Gefahr."
   },
   "BottomTabNavigator": {
     "Balances": "Guthaben",
@@ -494,7 +506,8 @@
     "CONFIRM SWAP": "BESTÄTIGE DEN UMTAUSCH",
     "Transaction type": "Transaktionsart",
     "Swap": "Tausche",
-    "Convert & swap": "Umrechnen & tauschen"
+    "Convert & swap": "Umrechnen & tauschen",
+    "Max Price per {{fromToken}}": "Max. Preis pro {{fromToken}}"
   },
   "screens/UnlockWallet": {
     "Enter Passcode": "Passwort eingeben",
@@ -592,7 +605,8 @@
   "components/LoanCard": {
     "Active Price": "Aktueller Preis",
     "Next Price": "Nächster Preis",
-    "Interest": "Zins"
+    "Interest": "Zins",
+    "Price (USD)": "Preis (USD)"
   },
   "components/InfoTextLink": {
     "Learn more about UTXO and Token": "Erfahre mehr über UTXO und Token",
@@ -643,7 +657,10 @@
     "Min. collateral ratio": "Mindestbesicherungsquote",
     "Interest rate (APR)": "Zinssatz (APR)",
     "APR": "ZINS",
-    "CONFIRM CREATE VAULT": "VAULT ERSTELLEN BESTÄTIGEN"
+    "CONFIRM CREATE VAULT": "VAULT ERSTELLEN BESTÄTIGEN",
+    "Creating vault": "Vault anlegen",
+    "Creating vault with min. collateral ratio of {{amount}}% and interest rate of {{ir}}% APR": "Anlegen eines Vaults mit einem Mindestbesicherungsgrad von {{amount}}% und einem effektiven Jahreszinssatz von {{ir}}%",
+    "Convert & create vault": "Umwandeln und Vault erstellen"
   },
   "components/FeeInfoRow": {
     "Estimated fee":"Geschätzte Gebühr",

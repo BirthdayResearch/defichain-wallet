@@ -4,8 +4,8 @@ import { ThemedIcon, ThemedProps, ThemedText, ThemedTouchableOpacity, ThemedView
 import { tailwind } from '@tailwind'
 import { View } from '@components'
 import { translate } from '@translations'
-import { TokenIconGroup } from '../../../../../components/TokenIconGroup'
-import { IconButton } from '../../../../../components/IconButton'
+import { TokenIconGroup } from '@components/TokenIconGroup'
+import { IconButton } from '@components/IconButton'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
 import { VaultInfo } from '@screens/AppNavigator/screens/Loans/components/VaultInfo'
@@ -18,9 +18,10 @@ export interface VaultCardProps {
   totalLoanAmount?: BigNumber
   collateralAmount?: BigNumber
   collateralRatio?: BigNumber
-  actions: VaultAction[]
+  actions: any[]
   onAddCollateral?: () => void
   onViewLoans?: () => void
+  testID?: string
 }
 
 export interface Collateral {
@@ -55,6 +56,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
       style={tailwind('rounded mb-2 border p-4')}
     >
       <ThemedTouchableOpacity
+        testID={props.testID}
         onPress={() => onCardPress(props.vaultAddress)}
         light={tailwind('border-b-0')}
         dark={tailwind('border-b-0')}

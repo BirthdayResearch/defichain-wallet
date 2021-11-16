@@ -1,6 +1,7 @@
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import '@testing-library/cypress/add-commands'
 import { BalanceTokenDetail } from '../integration/functional/wallet/balances/balances.spec'
+import { EnvironmentNetwork } from '../../../shared/environment'
 
 declare global {
   namespace Cypress {
@@ -110,10 +111,13 @@ Cypress.Commands.add('allowLoanFeature', () => {
   cy.intercept('**/settings/flags', {
     body: [
       {
-        id: "loan",
-        name: "Decentralized Loans",
-        stage: "alpha",
-        version: ">=0.0.0"
+        id: 'loan',
+        name: 'Loans',
+        stage: 'alpha',
+        version: ">=0.0.0",
+        description: 'Browse loan tokens provided by DeFiChain',
+        networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+        platforms: ['ios', 'android', 'web']
       }
     ]
   })
