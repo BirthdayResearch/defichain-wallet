@@ -18,7 +18,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 type Props = StackScreenProps<LoanParamList, 'ConfirmBorrowLoanTokenScreen'>
 
 export function ConfirmBorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Element {
-  const { loan } = route.params
+  const { loanToken } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const amount = new BigNumber(0.000123123)
@@ -41,7 +41,7 @@ export function ConfirmBorrowLoanTokenScreen ({ route, navigation }: Props): JSX
     navigation.navigate({
       name: 'BorrowLoanTokenScreen',
       params: {
-        loan
+        loanToken
       },
       merge: true
     })
