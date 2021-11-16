@@ -62,10 +62,6 @@ module.exports = {
           800: '#262626',
           900: '#171717'
         },
-        blue: {
-          100: '#EFF6FD',
-          500: '#5AA9E6'
-        },
         darkprimary: {
           50: '#fcf4fa',
           100: '#faeaf5',
