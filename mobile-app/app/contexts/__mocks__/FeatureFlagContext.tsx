@@ -3,6 +3,7 @@ import { EnvironmentNetwork } from '@environment'
 
 export function useFeatureFlagContext (): FeatureFlagContextI {
   return {
+    hasBetaFeatures: false,
     featureFlags: [
       {
         id: 'loan',

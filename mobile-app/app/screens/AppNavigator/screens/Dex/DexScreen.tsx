@@ -209,57 +209,57 @@ function YourPoolPairCards ({
       keyExtractor={(_item, index) => index.toString()}
       testID='your_liquidity_tab'
       renderItem={({ item, index }: {item: {type: string, data: WalletToken}, index: number}): JSX.Element => {
-      const { data: yourPair } = item
-      const poolPairData = availablePairs.find(pr => pr.data.symbol === (yourPair as AddressToken).symbol)
-      const mappedPair = poolPairData?.data
+        const { data: yourPair } = item
+        const poolPairData = availablePairs.find(pr => pr.data.symbol === (yourPair as AddressToken).symbol)
+        const mappedPair = poolPairData?.data
 
-      const [symbolA, symbolB] = (mappedPair?.tokenA != null && mappedPair?.tokenB != null)
-        ? [mappedPair.tokenA.displaySymbol, mappedPair.tokenB.displaySymbol]
-        : yourPair.symbol.split('-')
-      const toRemove = new BigNumber(1).times(yourPair.amount).decimalPlaces(8, BigNumber.ROUND_DOWN)
-      const ratioToTotal = toRemove.div(mappedPair?.totalLiquidity?.token ?? 1)
-      const symbol = `${symbolA}-${symbolB}`
+        const [symbolA, symbolB] = (mappedPair?.tokenA != null && mappedPair?.tokenB != null)
+          ? [mappedPair.tokenA.displaySymbol, mappedPair.tokenB.displaySymbol]
+          : yourPair.symbol.split('-')
+        const toRemove = new BigNumber(1).times(yourPair.amount).decimalPlaces(8, BigNumber.ROUND_DOWN)
+        const ratioToTotal = toRemove.div(mappedPair?.totalLiquidity?.token ?? 1)
+        const symbol = `${symbolA}-${symbolB}`
 
-      // assume defid will trim the dust values too
-      const tokenATotal = ratioToTotal.times(mappedPair?.tokenA.reserve ?? 0).decimalPlaces(8, BigNumber.ROUND_DOWN)
-      const tokenBTotal = ratioToTotal.times(mappedPair?.tokenB.reserve ?? 0).decimalPlaces(8, BigNumber.ROUND_DOWN)
+        // assume defid will trim the dust values too
+        const tokenATotal = ratioToTotal.times(mappedPair?.tokenA.reserve ?? 0).decimalPlaces(8, BigNumber.ROUND_DOWN)
+        const tokenBTotal = ratioToTotal.times(mappedPair?.tokenB.reserve ?? 0).decimalPlaces(8, BigNumber.ROUND_DOWN)
 
-      return (
-        <ThemedView
-          dark={tailwind('bg-gray-800 border-gray-700')}
-          light={tailwind('bg-white border-gray-200')}
-          style={tailwind('mx-4 p-4 my-1 border rounded', { 'mt-4': index === 0 })}
-          testID='pool_pair_row_your'
-        >
-          <View style={tailwind('flex-row items-center justify-between')}>
-            <View style={tailwind('flex-row items-center')}>
-              <PoolPairIcon symbolA={symbolA} symbolB={symbolB} />
-              <ThemedText
-                style={tailwind('text-base font-medium')}
-                testID={`your_symbol_${symbol}`}
-              >
-                {symbol}
-              </ThemedText>
+        return (
+          <ThemedView
+            dark={tailwind('bg-gray-800 border-gray-700')}
+            light={tailwind('bg-white border-gray-200')}
+            style={tailwind('mx-4 p-4 my-1 border rounded', { 'mt-4': index === 0 })}
+            testID='pool_pair_row_your'
+          >
+            <View style={tailwind('flex-row items-center justify-between')}>
+              <View style={tailwind('flex-row items-center')}>
+                <PoolPairIcon symbolA={symbolA} symbolB={symbolB} />
+                <ThemedText
+                  style={tailwind('text-base font-medium')}
+                  testID={`your_symbol_${symbol}`}
+                >
+                  {symbol}
+                </ThemedText>
+              </View>
             </View>
-          </View>
-          <PoolPairInfoDetails
-            type='your'
-            pair={mappedPair}
-            pairAmount={yourPair.amount}
-            tokenATotal={tokenATotal.toFixed(8)}
-            tokenBTotal={tokenBTotal.toFixed(8)}
-            testID='your'
-          />
-          <PoolPairActions
-            onAdd={() => onAdd((poolPairData as DexItem<PoolPairData>)?.data)}
-            onRemove={() => onRemove((poolPairData as DexItem<PoolPairData>)?.data)}
-            symbol={symbol}
-          />
-        </ThemedView>
-      )
-    }}
+            <PoolPairInfoDetails
+              type='your'
+              pair={mappedPair}
+              pairAmount={yourPair.amount}
+              tokenATotal={tokenATotal.toFixed(8)}
+              tokenBTotal={tokenBTotal.toFixed(8)}
+              testID='your'
+            />
+            <PoolPairActions
+              onAdd={() => onAdd((poolPairData as DexItem<PoolPairData>)?.data)}
+              onRemove={() => onRemove((poolPairData as DexItem<PoolPairData>)?.data)}
+              symbol={symbol}
+            />
+          </ThemedView>
+        )
+      }}
     />
-)
+  )
 }
 
 function AvailablePoolPairCards ({
@@ -274,53 +274,56 @@ function AvailablePoolPairCards ({
       keyExtractor={(_item, index) => index.toString()}
       testID='available_liquidity_tab'
       renderItem={({ item, index }: {item: DexItem<PoolPairData>, index: number}): JSX.Element => {
-      const { data: pair } = item
-      const [symbolA, symbolB] = (pair?.tokenA != null && pair?.tokenB != null)
-        ? [pair.tokenA.displaySymbol, pair.tokenB.displaySymbol]
-        : pair.symbol.split('-')
-      const symbol = `${symbolA}-${symbolB}`
+        const { data: pair } = item
+        const [symbolA, symbolB] = (pair?.tokenA != null && pair?.tokenB != null)
+          ? [pair.tokenA.displaySymbol, pair.tokenB.displaySymbol]
+          : pair.symbol.split('-')
+        const symbol = `${symbolA}-${symbolB}`
 
-      return (
-        <ThemedView
-          dark={tailwind('bg-gray-800 border-gray-700')}
-          light={tailwind('bg-white border-gray-200')}
-          style={tailwind('mx-4 p-4 my-1 border rounded', { 'mt-4': index === 0 })}
-          testID='pool_pair_row'
-        >
-          <View style={tailwind('flex-row items-center')}>
-            <PoolPairIcon symbolA={symbolA} symbolB={symbolB} />
-            <ThemedText
-              style={tailwind('text-base font-medium')}
-              testID={`your_symbol_${symbol}`}
-            >
-              {symbol}
-            </ThemedText>
-          </View>
+        return (
+          <ThemedView
+            dark={tailwind('bg-gray-800 border-gray-700')}
+            light={tailwind('bg-white border-gray-200')}
+            style={tailwind('mx-4 p-4 my-1 border rounded', { 'mt-4': index === 0 })}
+            testID='pool_pair_row'
+          >
+            <View style={tailwind('flex-row items-center')}>
+              <PoolPairIcon symbolA={symbolA} symbolB={symbolB} />
+              <ThemedText
+                style={tailwind('text-base font-medium')}
+                testID={`your_symbol_${symbol}`}
+              >
+                {symbol}
+              </ThemedText>
+            </View>
 
-          <PoolPairInfoDetails type='available' pair={pair} tokenATotal={pair?.tokenA.reserve} tokenBTotal={pair?.tokenB.reserve} testID='available' />
-          <View style={tailwind('flex-row mt-4 flex-wrap')}>
-            <PoolPairActionButton
-              name='add'
-              onPress={() => onAdd(pair)}
-              pair={symbol}
-              label={translate('screens/DexScreen', 'ADD LIQUIDITY')}
-            />
-            <PoolPairActionButton
-              name='swap-horiz'
-              onPress={() => navigation.navigate({
-                name: 'PoolSwap',
-                params: { pair },
-                merge: true
-              })}
-              pair={symbol}
-              label={translate('screens/DexScreen', 'SWAP TOKENS')}
-            />
-          </View>
-        </ThemedView>
-      )
-    }}
+            <PoolPairInfoDetails type='available' pair={pair} tokenATotal={pair?.tokenA.reserve} tokenBTotal={pair?.tokenB.reserve} testID='available' />
+
+            <View style={tailwind('flex-row mt-4 flex-wrap')}>
+              <PoolPairActionButton
+                name='add'
+                onPress={() => onAdd(pair)}
+                pair={symbol}
+                label={translate('screens/DexScreen', 'ADD LIQUIDITY')}
+                disabled={!pair.tradeEnabled || !pair.status}
+              />
+              <PoolPairActionButton
+                name='swap-horiz'
+                onPress={() => navigation.navigate({
+                  name: 'PoolSwap',
+                  params: { pair },
+                  merge: true
+                })}
+                pair={symbol}
+                label={translate('screens/DexScreen', 'SWAP TOKENS')}
+                disabled={!pair.tradeEnabled || !pair.status}
+              />
+            </View>
+          </ThemedView>
+        )
+      }}
     />
-)
+  )
 }
 
 function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: string, pair: PoolPairData | undefined, tokenATotal: string, tokenBTotal: string, testID: string}): JSX.Element {
@@ -374,21 +377,21 @@ function PoolPairInfoDetails (props: {type: 'available' | 'your', pairAmount?: s
             }
             {
               pair.apr?.total !== undefined &&
-                <PoolPairInfoLine
-                  label={translate('screens/DexScreen', 'APR')}
-                  value={{
+              <PoolPairInfoLine
+                label={translate('screens/DexScreen', 'APR')}
+                value={{
                   text: new BigNumber(isNaN(pair.apr.total) ? 0 : pair.apr.total).times(100).toFixed(2),
                   decimalScale: 2,
                   testID: `apr_${pairSymbol}`,
                   suffix: '%'
                 }}
-                />
+              />
             }
           </>
         )
       }
     </View>
-)
+  )
 }
 
 interface PoolPairInfoLineProps {
@@ -451,7 +454,7 @@ function PoolPairActions (props: {onAdd: () => void, onRemove: () => void, symbo
   )
 }
 
-function PoolPairActionButton (props: { name: React.ComponentProps<typeof MaterialIcons>['name'], pair: string, onPress: () => void, label: string }): JSX.Element {
+function PoolPairActionButton (props: { name: React.ComponentProps<typeof MaterialIcons>['name'], pair: string, onPress: () => void, label: string, disabled?: boolean }): JSX.Element {
   return (
     <IconButton
       iconName={props.name}
@@ -461,6 +464,7 @@ function PoolPairActionButton (props: { name: React.ComponentProps<typeof Materi
       style={tailwind('mr-2 mt-2')}
       testID={`pool_pair_${props.name}_${props.pair}`}
       iconLabel={props.label}
+      disabled={props.disabled}
     />
   )
 }
@@ -485,3 +489,4 @@ function PoolPairIcon (props: { symbolA: string, symbolB: string}): JSX.Element 
     </>
   )
 }
+
