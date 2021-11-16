@@ -10,8 +10,8 @@ interface UseCollateralizationRatioColorProps {
 export function UseCollateralizationRatioColor (props: UseCollateralizationRatioColorProps): ThemedProps {
   const collateralizationRatio = new BigNumber(props.value)
   const style: ThemedProps = {}
-  const atRiskThreshold = new BigNumber(props.minColRatio).plus(150)
-  const liquidatedThreshold = new BigNumber(props.minColRatio).plus(50)
+  const atRiskThreshold = new BigNumber(props.minColRatio).multipliedBy(1.5)
+  const liquidatedThreshold = new BigNumber(props.minColRatio).multipliedBy(1.25)
 
   if (collateralizationRatio.isLessThan(liquidatedThreshold)) {
     style.light = tailwind('text-error-500')
