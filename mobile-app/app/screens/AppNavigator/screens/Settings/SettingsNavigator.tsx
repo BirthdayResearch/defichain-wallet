@@ -176,7 +176,7 @@ export function SettingsNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/WalletNavigator', 'Loans FAQ')}
+              text={translate('components/LoansFaq', 'Loans FAQ')}
               containerTestID={headerContainerTestId}
             />
           ),

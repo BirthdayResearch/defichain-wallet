@@ -16,7 +16,7 @@ export function LoansFaq (): JSX.Element {
     {
       title: translate('components/LoansFaq', 'What is the collateralization ratio used for?'),
       content: [{
-        text: translate('components/LoansFaq', 'The collateralization ratio determines the state of the vault. A ratio below the minimum collaterization ratio results in liquidation, upon which, a vault’s collaterals will be sent for auction.'),
+        text: translate('components/LoansFaq', 'The collateralization ratio determines the state of the vault. A ratio below the minimum collaterization ratio results in liquidation, upon which, a vault\'s collaterals will be sent for auction.'),
         type: 'paragraph'
       }, {
         text: translate('components/LoansFaq', 'Indicators have been included to help visualise the health of your vault, where:'),
@@ -25,10 +25,10 @@ export function LoansFaq (): JSX.Element {
         text: translate('components/LoansFaq', 'Red: 1x – 1.25x above the minimum collateralization ratio'),
         type: 'bullet'
       }, {
-        text: translate('components/LoansFaq', 'Yellow: 1.25x – 1.5x  the minimum collateralization ratio'),
+        text: translate('components/LoansFaq', 'Yellow: 1.25x – 1.5x the minimum collateralization ratio'),
         type: 'bullet'
       }, {
-        text: translate('components/LoansFaq', 'Green: More than 1.5x  the minimum collateralization ratio'),
+        text: translate('components/LoansFaq', 'Green: More than 1.5x the minimum collateralization ratio'),
         type: 'bullet'
       }]
     },
@@ -38,10 +38,10 @@ export function LoansFaq (): JSX.Element {
         text: translate('components/LoansFaq', 'Active: When a vault has been created but no loan has been taken yet'),
         type: 'bullet'
       }, {
-        text: translate('components/LoansFaq', 'At risk: When the collateralization ratio of a vault is between 1x – 1.5x above the minimum collateralization ratio'),
+        text: translate('components/LoansFaq', 'At risk: When the collateralization ratio of a vault is between 1x – 1.5x the minimum collateralization ratio'),
         type: 'bullet'
       }, {
-        text: translate('components/LoansFaq', 'Healthy: When the collateralization ratio of a vault is more than 1.5x  the minimum collateralization ratio'),
+        text: translate('components/LoansFaq', 'Healthy: When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio'),
         type: 'bullet'
       }, {
         text: translate('components/LoansFaq', 'Liquidated: When a vault’s collateralization ratio falls below the minimum requirement'),
@@ -83,7 +83,7 @@ export function LoansFaq (): JSX.Element {
       <ThemedText
         style={tailwind('mt-2 text-sm')}
       >
-        {translate('components/LoansFaq', 'The decentralized loan feature allows you to borrow decentralised tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.')}
+        {translate('components/LoansFaq', 'The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.')}
       </ThemedText>
 
       <WalletAccordion

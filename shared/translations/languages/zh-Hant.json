@@ -200,6 +200,31 @@
     "UTXO vs Token": "UTXO 和代幣區別",
     "Loans": "貸款"
   },
+  "components/LoansFaq": {
+    "Loans FAQ": "貸款常見問題",
+    "Decentralized Loans": "去中心化貸款",
+    "FREQUENTLY ASKED QUESTIONS": "常見問題",
+    "The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.": "去中心化的貸款功能可讓您使用您擁有的加密貨幣持有量作為抵押品，並貸款去中心化的代幣。當您想啟動貸款功能，您必須先在鏈上創建一個金庫，並在貸款前存入抵押品。",
+    "How is the collateralization ratio calculated?": "金庫抵押率是如何計算的？",
+    "The collateralization ratio is calculated by taking the total collateral value deposited in a vault; divided by the amount of loan taken plus total interest, expressed in percentage.": "抵押率的計算方法是將存入金庫的抵押品總價值；除以貸款金額加上總利息，以百分比表示。",
+    "What is the collateralization ratio used for?": "金庫抵押率的用途是什麼？",
+    "The collateralization ratio determines the state of the vault. A ratio below the minimum collaterization ratio results in liquidation, upon which, a vault's collaterals will be sent for auction.": "抵押率將決定金庫的狀態。比率低於最低抵押率會導致清算，此時，金庫的抵押品將直接送去拍賣。",
+    "Indicators have been included to help visualise the health of your vault, where:": "顏色指示顯示出您的金庫目前的健康狀況，其中若是：",
+    "Red: 1x – 1.25x above the minimum collateralization ratio": "紅色視為警告：目前處在最低抵押率的1.25倍~1.5倍",
+    "Yellow: 1.25x – 1.5x the minimum collateralization ratio": "黃色視為注意： 目前處在最低抵押率的1.25倍~1.5倍",
+    "Green: More than 1.5x the minimum collateralization ratio": "綠色視為正常：目前處在超過1.5倍的最低抵押率",
+    "What does the different status of a vault mean?": "金庫的不同狀態表示什麼？",
+    "Active: When a vault has been created but no loan has been taken yet": "活躍：當某金庫已被創建，但還沒有獲得貸款時",
+    "At risk: When the collateralization ratio of a vault is between 1x – 1.5x the minimum collateralization ratio": "處於風險中：當某金庫的抵押率在1倍-1.5倍之間，高於最低抵押率時",
+    "Healthy: When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio": "健康正常：當某金庫的抵押率超過最低抵押率的1.5倍時",
+    "Liquidated: When a vault's collateralization ratio falls below the minimum requirement": "已清算：當一個金庫的抵押率低於最低要求時",
+    "Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour": "停止：當金庫中的任何代幣（抵押品或貸款）在過去一小時內波動超過30%時",
+    "How are interests calculated for loan?": "貸款的利息是如何計算的？",
+    "There are 2 types of interests that applies for loans, namely vault interest rate and token interest rate.": "貸款利息有兩種，分別為金庫利率和代幣利率",
+    "The vault interest rate is determine when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.": "金庫利率是在金庫所有者選擇金庫方案時確定的，最低抵押率越高，金庫利率越低。",
+    "The token interest rate is applied on specific loan tokens, and can differ from token to token.": "代幣利率適用於特定的代幣貸款，不同的代幣會有不同的利率。",
+    "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and calculated on a per annum basis.": "總利率是由：由金庫利率和代幣利率整體以每年率計算。"
+  },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "網絡",
     "Select network": "切換網絡"
