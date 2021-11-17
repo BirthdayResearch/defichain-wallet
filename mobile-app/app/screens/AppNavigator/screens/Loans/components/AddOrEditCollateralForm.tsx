@@ -2,7 +2,7 @@ import { BottomSheetWithNavRouteParam } from '@components/BottomSheetWithNav'
 import { Button } from '@components/Button'
 import { InputHelperText } from '@components/InputHelperText'
 import { SymbolIcon } from '@components/SymbolIcon'
-import { ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { useBottomSheetInternal } from '@gorhom/bottom-sheet'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -12,6 +12,7 @@ import BigNumber from 'bignumber.js'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
+import NumberFormat from 'react-number-format'
 
 export interface AddOrEditCollateralFormProps {
   token: TokenData
@@ -35,7 +36,8 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
     available,
     current,
     onButtonPress,
-    onCloseButtonPress
+    onCloseButtonPress,
+    collateralFactor
   } = route.params
   const [collateralValue, setCollateralValue] = useState<string>(current?.toFixed(8) ?? '')
   const [isValid, setIsValid] = useState(false)
@@ -79,9 +81,11 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
         <ThemedText style={tailwind('flex-1 mb-2 text-lg font-medium')}>
           {translate('components/AddOrEditCollateralForm', 'How much {{symbol}} to add?', { symbol: token.displaySymbol })}
         </ThemedText>
-        <TouchableOpacity onPress={onCloseButtonPress}>
-          <ThemedIcon iconType='MaterialIcons' name='close' size={20} />
-        </TouchableOpacity>
+        {onCloseButtonPress !== undefined && (
+          <TouchableOpacity onPress={onCloseButtonPress}>
+            <ThemedIcon iconType='MaterialIcons' name='close' size={20} />
+          </TouchableOpacity>
+        )}
       </View>
       <View style={tailwind('flex flex-row items-center mb-2')}>
         <SymbolIcon
@@ -94,7 +98,7 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
           style={tailwind('mx-2')}
         >
           {token.displaySymbol}
-        </ThemedText>{/*
+        </ThemedText>
         <ThemedView
           light={tailwind('text-gray-700 border-gray-700')}
           dark={tailwind('text-gray-300 border-gray-300')}
@@ -114,7 +118,7 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
                 {value}
               </ThemedText>}
           />
-        </ThemedView> */}
+        </ThemedView>
       </View>
       <WalletTextInput
         value={collateralValue}

@@ -2,7 +2,6 @@ import { View } from '@components'
 import { SymbolIcon } from '@components/SymbolIcon'
 import {
   ThemedIcon,
-  ThemedProps,
   ThemedScrollView,
   ThemedSectionTitle,
   ThemedText,
@@ -41,6 +40,7 @@ import { transactionQueue } from '@store/transaction_queue'
 import { NumberRow, NumberRowRightElement } from '@components/NumberRow'
 import { IconButton } from '@components/IconButton'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
+import { useVaultShare } from '@screens/AppNavigator/screens/Loans/hooks/VaultShare'
 
 type Props = StackScreenProps<LoanParamList, 'AddCollateralScreen'>
 
@@ -64,15 +64,13 @@ export interface CollateralItem extends CollateralToken {
 }
 
 export function AddCollateralScreen ({
-  route,
-  navigation
+  route
 }: Props): JSX.Element {
   const { address } = useWalletContext()
   const { vaultId } = route.params
   const client = useWhaleApiClient()
   const logger = useLogger()
   const { isLight } = useThemeContext()
-  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
   const [activeVault, setActiveVault] = useState<LoanVaultActive>()
   const dispatch = useDispatch()
@@ -81,6 +79,7 @@ export function AddCollateralScreen ({
   const getTokenAmount = (tokenId: string): BigNumber => {
     return new BigNumber(tokens.find((t) => t.id === tokenId)?.amount ?? 0)
   }
+
   const {
     vaults
   } = useSelector((state: RootState) => state.loans)
@@ -91,7 +90,6 @@ export function AddCollateralScreen ({
     }
   }).sort((a, b) => b.available.minus(a.available).toNumber()))
   const collateralTokens: CollateralItem[] = useSelector((state: RootState) => collateralSelector(state))
-
   useEffect(() => {
     dispatch(fetchCollateralTokens({ client }))
   }, [])
@@ -109,13 +107,6 @@ export function AddCollateralScreen ({
   }, [])
   const dismissModal = useCallback(() => {
     bottomSheetRef.current?.close()
-  }, [])
-
-  useEffect(() => {
-    client.fee.estimate()
-      .then((f) => setFee(new BigNumber(f)))
-      .catch(logger.error)
-    console.log(fee)
   }, [])
 
   const onAddCollateral = async (item: AddOrEditCollateralResponse): Promise<void> => {
@@ -137,7 +128,7 @@ export function AddCollateralScreen ({
       <ThemedScrollView
         contentContainerStyle={tailwind('p-4 pt-0')}
       >
-        <SectionTitle title='YOU ARE ADDING COLLATERAL TO VAULT' />
+        <SectionTitle title='VAULT DETAILS' />
         {(activeVault != null) && <VaultIdSection vault={activeVault} />}
         <AddCollateralButton
           disabled={false}
@@ -177,51 +168,56 @@ export function AddCollateralScreen ({
           }}
         />
         <SectionTitle title='COLLATERALS' />
-        {activeVault?.collateralAmounts.map(collateral => (
-          <CollateralCard
-            key={collateral.id}
-            collateral={collateral}
-            onAddPress={(collateral: LoanVaultTokenAmount) => {
-              const c = collateralTokens.find((col) => col.token.id === collateral.id)
-              if (c !== undefined) {
-                setBottomSheetScreen([
-                  {
-                    stackScreenName: 'AddOrEditCollateralForm',
-                    component: AddOrEditCollateralForm,
-                    initialParam: {
-                      token: c.token,
-                      available: c.available.toFixed(8),
-                      onButtonPress: onAddCollateral,
-                      onCloseButtonPress: () => bottomSheetRef.current?.close()
+        {activeVault?.collateralAmounts.map(collateral => {
+          const collateralItem = collateralTokens.find((col) => col.token.id === collateral.id)
+          return (
+            <CollateralCard
+              key={collateral.id}
+              collateralItem={collateralItem}
+              totalCollateralValue={activeVault?.collateralValue}
+              collateral={collateral}
+              onAddPress={() => {
+                if (collateralItem !== undefined) {
+                  setBottomSheetScreen([
+                    {
+                      stackScreenName: 'AddOrEditCollateralForm',
+                      component: AddOrEditCollateralForm,
+                      initialParam: {
+                        token: collateralItem.token,
+                        available: collateralItem.available.toFixed(8),
+                        onButtonPress: onAddCollateral,
+                        onCloseButtonPress: () => bottomSheetRef.current?.close(),
+                        collateralFactor: new BigNumber(collateralItem.factor ?? 0).times(100)
+                      },
+                      option: {
+                        header: () => null
+                      }
+                    }
+                  ])
+                  expandModal()
+                }
+              }}
+              onRemovePress={() => {
+                WalletAlert({
+                  title: translate('screens/AddCollateralScreen', 'Are you sure you want to remove collateral token?'),
+                  buttons: [
+                    {
+                      text: translate('screens/AddCollateralScreen', 'Cancel'),
+                      style: 'cancel'
                     },
-                    option: {
-                      header: () => null
+                    {
+                      text: translate('screens/AddCollateralScreen', 'Remove'),
+                      style: 'destructive',
+                      onPress: () => {
+                        // TODO: handle on remove collateral
+                      }
                     }
-                  }
-                ])
-                expandModal()
-              }
-            }}
-            onRemovePress={() => {
-              WalletAlert({
-                title: translate('screens/AddCollateralScreen', 'Are you sure you want to remove collateral token?'),
-                buttons: [
-                  {
-                    text: translate('screens/AddCollateralScreen', 'Cancel'),
-                    style: 'cancel'
-                  },
-                  {
-                    text: translate('screens/AddCollateralScreen', 'Remove'),
-                    style: 'destructive',
-                    onPress: () => {
-                      // TODO: handle on remove collateral
-                    }
-                  }
-                ]
-              })
-            }}
-          />
-        ))}
+                  ]
+                })
+              }}
+            />
+          )
+        })}
       </ThemedScrollView>
       <BottomSheetWithNav
         modalRef={bottomSheetRef}
@@ -261,14 +257,14 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
         </ThemedText>
       </View>
       <VaultSectionTextRow
-        testID='text_total_collateral_value' value={new BigNumber(vault.loanValue ?? 0).toFixed(2)}
-        prefix='$'
-        lhs={translate('components/AddCollateralScreen', 'Total loan (USD)')}
-      />
-      <VaultSectionTextRow
         testID='text_total_collateral_value'
         value={new BigNumber(vault.collateralValue ?? 0).toFixed(2)} prefix='$'
         lhs={translate('components/AddCollateralScreen', 'Total collateral (USD)')}
+      />
+      <VaultSectionTextRow
+        testID='text_total_collateral_value' value={new BigNumber(vault.loanValue ?? 0).toFixed(2)}
+        prefix='$'
+        lhs={translate('components/AddCollateralScreen', 'Total loan (USD)')}
       />
       <VaultSectionTextRow
         testID='text_total_collateral_value'
@@ -318,14 +314,21 @@ function VaultSectionTextRow (props: VaultSectionText): JSX.Element {
 
 interface CollateralCardProps {
   collateral: LoanVaultTokenAmount
-  onAddPress: (collateral: LoanVaultTokenAmount) => void
+  onAddPress: () => void
   onRemovePress: () => void
+  collateralItem?: CollateralItem
+  totalCollateralValue?: string
 }
 
 function CollateralCard (props: CollateralCardProps): JSX.Element {
-  const { collateral } = props
+  const {
+    collateral,
+    collateralItem,
+    totalCollateralValue
+  } = props
   const activePrice = collateral.activePrice?.active?.amount ?? 0
-  const collateralPrice = new BigNumber(activePrice).multipliedBy(collateral.amount).toFixed(2)
+  const collateralPrice = new BigNumber(activePrice).multipliedBy(collateral.amount)
+  const vaultShare = useVaultShare(new BigNumber(collateral.amount ?? 0), new BigNumber(collateralItem?.factor ?? 0), new BigNumber(activePrice), new BigNumber(totalCollateralValue ?? 0))
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
@@ -349,13 +352,33 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
           >
             {collateral.displaySymbol}
           </ThemedText>
+          <ThemedView
+            light={tailwind('text-gray-700 border-gray-700')}
+            dark={tailwind('text-gray-300 border-gray-300')}
+            style={tailwind('border rounded')}
+          >
+            <NumberFormat
+              value={new BigNumber(collateralItem?.factor ?? 0).multipliedBy(100).toFixed(8)}
+              decimalScale={2}
+              displayType='text'
+              suffix='%'
+              renderText={value =>
+                <ThemedText
+                  light={tailwind('text-gray-700')}
+                  dark={tailwind('text-gray-300')}
+                  style={tailwind('text-xs font-medium px-1')}
+                >
+                  {value}
+                </ThemedText>}
+            />
+          </ThemedView>
         </View>
         <View style={tailwind('flex flex-row')}>
           <IconButton
             iconType='MaterialIcons'
             iconName='add'
             iconSize={20}
-            onPress={() => props.onAddPress(props.collateral)}
+            onPress={() => props.onAddPress()}
           />
           {/* <IconButton
             iconType='MaterialIcons'
@@ -386,7 +409,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                   {
                     !new BigNumber(activePrice).isZero() &&
                       <NumberFormat
-                        value={collateralPrice}
+                        value={collateralPrice.toFixed(2)}
                         thousandSeparator
                         decimalScale={2}
                         displayType='text'
@@ -408,10 +431,10 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
 
           </View>
         </View>
-        {/* <View style={tailwind('w-4/12 flex items-end')}>
+        <View style={tailwind('w-4/12 flex items-end')}>
           <CardLabel text='Vault %' />
           <NumberFormat
-            value={props.vaultProportion.toFixed(2)}
+            value={vaultShare.toFixed(2)}
             thousandSeparator
             decimalScale={2}
             displayType='text'
@@ -425,7 +448,6 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                 <ThemedText
                   light={tailwind('text-gray-900')}
                   dark={tailwind('text-gray-50')}
-                  {...getVaultProportionThemedProps(props.collateralId, props.vaultProportion)}
                   style={tailwind('text-sm font-medium')}
                 >
                   {val}
@@ -433,7 +455,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
               </ThemedView>
             )}
           />
-        </View> */}
+        </View>
       </View>
     </ThemedView>
   )
@@ -449,20 +471,6 @@ function CardLabel (props: { text: string }): JSX.Element {
       {translate('screens/AddCollateralScreen', props.text)}
     </ThemedText>
   )
-}
-
-export function getVaultProportionThemedProps (id: string, proportion: BigNumber): ThemedProps | undefined {
-  if (id !== 'DFI') {
-    return
-  }
-
-  const minProportion = 50
-  if (proportion.isLessThan(minProportion)) {
-    return {
-      light: tailwind('text-error-500'),
-      dark: tailwind('text-darkerror-500')
-    }
-  }
 }
 
 function AddCollateralButton (props: { disabled: boolean, onPress: () => void }): JSX.Element {
