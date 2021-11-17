@@ -53,6 +53,10 @@ export interface LoanParamList {
   ConfirmBorrowLoanTokenScreen: {
     loanToken: LoanToken
     vault: LoanVaultActive
+    amountToBorrow: string
+    totalInterestAmount: BigNumber
+    totalLoanWithInterest: BigNumber
+    fee: BigNumber
   }
   [key: string]: undefined | object
 }

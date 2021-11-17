@@ -18,30 +18,26 @@ import { StackScreenProps } from '@react-navigation/stack'
 type Props = StackScreenProps<LoanParamList, 'ConfirmBorrowLoanTokenScreen'>
 
 export function ConfirmBorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Element {
-  const { loanToken } = route.params
+  const {
+    loanToken,
+    vault,
+    amountToBorrow,
+    totalInterestAmount,
+    totalLoanWithInterest,
+    fee
+  } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const amount = new BigNumber(0.000123123)
-  const displaySymbol = 'dTSLA'
-  const loansTransactionDetails = {
-    loanTokenAmount: new BigNumber('0.000123123'),
-    loanTokenDisplaySymbol: 'dTSLA',
-    loanTokenInterest: new BigNumber('1.5312'),
-    vaultInterest: new BigNumber('1'),
-    totalInterestAmount: new BigNumber('0.00000012312'),
-    paybackAmount: new BigNumber('0.000124'),
-    fee: new BigNumber('0.1')
-  }
-  const vaultId = '22ffasd5ca123123123123123121231061'
-  const collateralAmount = new BigNumber(923234)
-  const currentCollateralRatio = new BigNumber(193)
-  const resultCollateralRatio = new BigNumber('1231.3123')
+  const resultCollateralRatio = new BigNumber(vault.collateralValue).dividedBy(
+    new BigNumber(vault.loanValue).plus(totalLoanWithInterest.multipliedBy(
+      loanToken.activePrice?.active?.amount ?? 0))).multipliedBy(100)
 
   function onCancel (): void {
     navigation.navigate({
       name: 'BorrowLoanTokenScreen',
       params: {
-        loanToken
+        loanToken,
+        vault
       },
       merge: true
     })
@@ -52,7 +48,7 @@ export function ConfirmBorrowLoanTokenScreen ({ route, navigation }: Props): JSX
     navigation.navigate({
       name: 'VaultDetailScreen',
       params: {
-        vaultId: vaultId,
+        vaultId: vault.vaultId,
         emptyActiveLoans: false
       },
       merge: true
@@ -68,12 +64,26 @@ export function ConfirmBorrowLoanTokenScreen ({ route, navigation }: Props): JSX
 
   return (
     <ThemedScrollView>
-      <SummaryHeader amount={amount} displaySymbol={displaySymbol} />
-      <SummaryTransactionDetails {...loansTransactionDetails} />
-      <SummaryVaultDetails vaultId={vaultId} collateralAmount={collateralAmount} collateralRatio={currentCollateralRatio} />
-      <SummaryTransactionResults resultCollateralRatio={resultCollateralRatio} />
+      <SummaryHeader amount={new BigNumber(amountToBorrow)} displaySymbol={loanToken.token.displaySymbol} />
+      <SummaryTransactionDetails
+        amountToBorrow={amountToBorrow}
+        displaySymbol={loanToken.token.displaySymbol}
+        loanTokenInterest={loanToken.interest}
+        vaultInterest={vault.loanScheme.interestRate}
+        totalInterestAmount={totalInterestAmount}
+        totalLoanWithInterest={totalLoanWithInterest}
+        fee={fee}
+      />
+      <SummaryVaultDetails
+        vaultId={vault.vaultId}
+        collateralAmount={new BigNumber(vault.collateralValue)}
+        collateralRatio={new BigNumber(vault.collateralRatio)}
+      />
+      <SummaryTransactionResults
+        resultCollateralRatio={resultCollateralRatio}
+      />
       <SubmitButtonGroup
-        isDisabled={hasPendingJob || hasPendingBroadcastJob}
+        isDisabled={hasPendingJob || hasPendingBroadcastJob || resultCollateralRatio.isLessThan(vault.loanScheme.minColRatio)}
         label={translate('screens/ConfirmBorrowLoanTokenScreen', 'CONFIRM BORROW')}
         isProcessing={hasPendingJob || hasPendingBroadcastJob}
         processingLabel={translate('screens/ConfirmBorrowLoanTokenScreen', getSubmitLabel())}
@@ -104,12 +114,12 @@ function SummaryHeader (props: {amount: BigNumber, displaySymbol: string}): JSX.
 }
 
 interface SummaryTransactionDetailsProps {
-  loanTokenAmount: BigNumber
-  loanTokenDisplaySymbol: string
-  loanTokenInterest: BigNumber
-  vaultInterest: BigNumber
+  amountToBorrow: string
+  displaySymbol: string
+  loanTokenInterest: string
+  vaultInterest: string
   totalInterestAmount: BigNumber
-  paybackAmount: BigNumber
+  totalLoanWithInterest: BigNumber
   fee: BigNumber
 }
 
@@ -130,16 +140,16 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
       <NumberRow
         lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Loan tokens to borrow')}
         rhs={{
-          value: props.loanTokenAmount.toFixed(8),
+          value: props.amountToBorrow,
           testID: 'tokens_to_borrow',
           suffixType: 'text',
-          suffix: props.loanTokenDisplaySymbol
+          suffix: props.displaySymbol
         }}
       />
       <NumberRow
         lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Token interest')}
         rhs={{
-          value: props.loanTokenInterest.toFixed(2),
+          value: props.loanTokenInterest,
           testID: 'token_interest',
           suffixType: 'text',
           suffix: '%'
@@ -148,7 +158,7 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
       <NumberRow
         lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Vault interest')}
         rhs={{
-          value: props.vaultInterest.toFixed(2),
+          value: props.vaultInterest,
           testID: 'vault_interest',
           suffixType: 'text',
           suffix: '%'
@@ -160,16 +170,16 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
           value: props.totalInterestAmount.toFixed(8),
           testID: 'total_interest_amount',
           suffixType: 'text',
-          suffix: props.loanTokenDisplaySymbol
+          suffix: props.displaySymbol
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Loan tokens to payback')}
+        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Total loan + interest')}
         rhs={{
-          value: props.paybackAmount.toFixed(8),
-          testID: 'payback_amount',
+          value: props.totalLoanWithInterest.toFixed(8),
+          testID: 'total_loan_with_interest',
           suffixType: 'text',
-          suffix: props.loanTokenDisplaySymbol
+          suffix: props.displaySymbol
         }}
       />
       <FeeInfoRow
@@ -203,15 +213,28 @@ function SummaryVaultDetails (props: {vaultId: string, collateralAmount: BigNumb
           testID: 'text_collateral_amount'
         }}
       />
-      <NumberRow
-        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Current collateral ratio')}
-        rhs={{
-          value: props.collateralRatio.toFixed(2),
-          testID: 'text_current_collateral_ratio',
-          suffixType: 'text',
-          suffix: '%'
-        }}
-      />
+      {props.collateralRatio.isLessThan(0)
+        ? (
+          <TextRow
+            lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Collateralization ratio')}
+            rhs={{
+              value: translate('screens/ConfirmBorrowLoanTokenScreen', 'N/A'),
+              testID: 'text_current_collateral_ratio'
+            }}
+            textStyle={tailwind('text-sm font-normal')}
+          />
+        )
+      : (
+        <NumberRow
+          lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Collateralization ratio')}
+          rhs={{
+            value: props.collateralRatio.toFixed(2),
+            testID: 'text_current_collateral_ratio',
+            suffixType: 'text',
+            suffix: '%'
+          }}
+        />
+      )}
     </>
   )
 }

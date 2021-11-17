@@ -32,6 +32,8 @@ export function BorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Elemen
   const logger = useLogger()
   const [vault, setVault] = useState<LoanVaultActive | undefined>(route.params.vault)
   const [amountToBorrow, setAmountToBorrow] = useState('')
+  const [totalInterestAmount, setTotalInterestAmount] = useState(new BigNumber(NaN))
+  const [totalLoanWithInterest, setTotalLoanWithInterest] = useState(new BigNumber(NaN))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [valid, setValid] = useState(false)
   const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
@@ -61,15 +63,15 @@ export function BorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Elemen
     navigation.goBack()
   }
   const getCollateralizationRatio = useCallback(() => {
-    if (vault === undefined || amountToBorrow === undefined) {
+    if (vault === undefined || amountToBorrow === undefined || loanToken.activePrice?.active?.amount === undefined) {
       return
     }
     const vaultInterestRate = new BigNumber(vault.loanScheme.interestRate).div(100)
     const loanTokenInterestRate = new BigNumber(loanToken.interest).div(100)
-    const amount = new BigNumber(amountToBorrow)
+    const amountValue = new BigNumber(amountToBorrow).multipliedBy(loanToken.activePrice?.active?.amount)
 
     return new BigNumber(vault.collateralValue).div(
-      amount.multipliedBy(
+      amountValue.multipliedBy(
         vaultInterestRate.plus(loanTokenInterestRate).plus(1)
       )
     ).multipliedBy(100)
@@ -78,10 +80,19 @@ export function BorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Elemen
     const amount = new BigNumber(amountToBorrow)
     const colRatio = getCollateralizationRatio()
     return !(amount.isNaN() ||
-      amount.isLessThan(0) ||
+      amount.isLessThanOrEqualTo(0) ||
       vault === undefined ||
       colRatio === undefined ||
       colRatio.isLessThan(vault.loanScheme.minColRatio))
+  }
+  const updateInterestAmount = (): void => {
+    if (vault === undefined || amountToBorrow === undefined || loanToken.activePrice?.active?.amount === undefined) {
+      return
+    }
+    const vaultInterestRate = new BigNumber(vault.loanScheme.interestRate).div(100)
+    const loanTokenInterestRate = new BigNumber(loanToken.interest).div(100)
+    setTotalInterestAmount(new BigNumber(amountToBorrow).multipliedBy(vaultInterestRate.plus(loanTokenInterestRate)))
+    setTotalLoanWithInterest(new BigNumber(amountToBorrow).multipliedBy(vaultInterestRate.plus(loanTokenInterestRate).plus(1)))
   }
 
   useEffect(() => {
@@ -91,6 +102,7 @@ export function BorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Elemen
   }, [])
 
   useEffect(() => {
+    updateInterestAmount()
     setValid(isFormValid())
   }, [amountToBorrow, vault])
 
@@ -134,11 +146,13 @@ export function BorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Elemen
               </View>
               <TransactionDetailsSection
                 vault={vault}
-                amountToBorrow={amountToBorrow}
+                amountToBorrow={new BigNumber(amountToBorrow)}
                 collateralizationRatio={getCollateralizationRatio()}
                 vaultInterestRate={new BigNumber(vault?.loanScheme.interestRate ?? 0)}
                 loanTokenInterestRate={new BigNumber(loanToken.interest)}
                 loanTokenDisplaySymbol={loanToken.token.displaySymbol}
+                totalInterestAmount={totalInterestAmount}
+                totalLoanWithInterest={totalLoanWithInterest}
                 fee={fee}
               />
               <Button
@@ -150,7 +164,11 @@ export function BorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Elemen
                       name: 'ConfirmBorrowLoanTokenScreen',
                       params: {
                         loanToken: loanToken,
-                        vault: vault
+                        vault: vault,
+                        amountToBorrow,
+                        totalInterestAmount,
+                        totalLoanWithInterest,
+                        fee
                       },
                       merge: true
                     })
@@ -370,25 +388,22 @@ function VaultInput (props: VaultInputProps): JSX.Element {
 interface TransactionDetailsProps {
   vault: LoanVaultActive
   collateralizationRatio?: BigNumber
-  amountToBorrow: string
+  amountToBorrow: BigNumber
   vaultInterestRate: BigNumber
   loanTokenInterestRate: BigNumber
   loanTokenDisplaySymbol: string
+  totalInterestAmount: BigNumber
+  totalLoanWithInterest: BigNumber
   fee: BigNumber
 }
 
 function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element {
-  const amountToBorrow = new BigNumber(props.amountToBorrow)
-  const currentTotalInterestRate = props.vaultInterestRate.plus(props.loanTokenInterestRate)
-  const currentTotalInterestAmount = amountToBorrow.multipliedBy(currentTotalInterestRate.dividedBy(100))
-  const currentLoanWithInterest = amountToBorrow.plus(currentTotalInterestAmount)
-
   return (
     <>
       <ThemedSectionTitle
         text={translate('screens/BorrowLoanTokenScreen', 'TRANSACTION DETAILS')}
       />
-      {amountToBorrow.isNaN() || amountToBorrow.isLessThan(0) || props.collateralizationRatio === undefined
+      {props.amountToBorrow.isNaN() || props.amountToBorrow.isLessThan(0) || props.collateralizationRatio === undefined
         ? (
           <TextRow
             lhs={translate('screens/BorrowLoanTokenScreen', 'Collateralization ratio')}
@@ -422,7 +437,7 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
       <NumberRow
         lhs={translate('screens/BorrowLoanTokenScreen', 'Interest (Vault + Token)')}
         rhs={{
-          value: currentTotalInterestRate.toFixed(2),
+          value: props.vaultInterestRate.plus(props.loanTokenInterestRate).toFixed(2),
           testID: 'text_total_interest_rate',
           suffixType: 'text',
           suffix: '%'
@@ -431,19 +446,19 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
       <NumberRow
         lhs={translate('screens/BorrowLoanTokenScreen', 'Total interest amount')}
         rhs={{
-          value: currentTotalInterestAmount.toFixed(8),
+          value: props.totalInterestAmount.toFixed(8),
           testID: 'text_total_interest_amount',
           suffixType: 'text',
-          suffix: amountToBorrow.isNaN() || amountToBorrow.isLessThan(0) ? translate('screens/BorrowLoanTokenScreen', 'N/A') : props.loanTokenDisplaySymbol
+          suffix: props.amountToBorrow.isNaN() || props.amountToBorrow.isLessThan(0) ? translate('screens/BorrowLoanTokenScreen', 'N/A') : props.loanTokenDisplaySymbol
         }}
       />
       <NumberRow
         lhs={translate('screens/BorrowLoanTokenScreen', 'Total loan + interest')}
         rhs={{
-          value: currentLoanWithInterest.toFixed(8),
+          value: props.totalLoanWithInterest.toFixed(8),
           testID: 'text_total_interest_amount',
           suffixType: 'text',
-          suffix: amountToBorrow.isNaN() || amountToBorrow.isLessThan(0) ? translate('screens/BorrowLoanTokenScreen', 'N/A') : props.loanTokenDisplaySymbol
+          suffix: props.amountToBorrow.isNaN() || props.amountToBorrow.isLessThan(0) ? translate('screens/BorrowLoanTokenScreen', 'N/A') : props.loanTokenDisplaySymbol
         }}
       />
       <FeeInfoRow
