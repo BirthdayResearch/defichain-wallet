@@ -26,7 +26,7 @@ export interface DexParamList {
     tokenB: DerivedTokenState
     swap: DexForm
     fee: BigNumber
-    pair: PoolPairData
+    pairIds: PoolPairData[]
     slippage: number
     priceRateA: string
     priceRateB: string
@@ -34,12 +34,13 @@ export interface DexParamList {
   }
   CompositeSwapScreen: undefined
   ConfirmCompositeSwapScreen: {
+    fee: BigNumber
+    pairs: PoolPairData[]
+    priceRates: Array<{label: string, value: string}>
     tokenA: DerivedTokenState
     tokenB: DerivedTokenState
     slippage: number
-    fee: BigNumber
     swap: CompositeSwapForm
-    priceRates: Array<{label: string, value: string}>
   }
   AddLiquidity: { pair: PoolPairData }
   ConfirmAddLiquidity: {

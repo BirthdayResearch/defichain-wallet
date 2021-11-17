@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { Dispatch, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { tailwind } from '@tailwind'
 import { StackScreenProps } from '@react-navigation/stack'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
+import { RootState } from '@store'
+import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { translate } from '@translations'
+import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
+import { CompositeSwap, CTransactionSegWit } from '@defichain/jellyfish-transaction'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
+import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
 import { TextRow } from '@components/TextRow'
 import { NumberRow } from '@components/NumberRow'
@@ -26,16 +36,64 @@ export interface CompositeSwapForm {
 export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
   const {
     fee,
+    pairs,
     priceRates,
     slippage,
-    swap,
     tokenA,
-    tokenB
+    tokenB,
+    swap
   } = route.params
+  const navigation = useNavigation<NavigationProp<DexParamList>>()
+  const dispatch = useDispatch()
+  const logger = useLogger()
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
+
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isOnPage, setIsOnPage] = useState<boolean>(true)
+
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
 
+  useEffect(() => {
+    setIsOnPage(true)
+    return () => {
+      setIsOnPage(false)
+    }
+  }, [])
+
   async function onSubmit (): Promise<void> {
+    if (hasPendingJob || hasPendingBroadcastJob) {
+      return
+    }
+
+    setIsSubmitting(true)
+    console.log({ swap })
+    await constructSignedSwapAndSend(swap, pairs, slippage, dispatch, () => {
+      onTransactionBroadcast(isOnPage, navigation.dispatch)
+    }, logger)
+    setIsSubmitting(false)
+  }
+
+  function getSubmitLabel (): string {
+    if (!hasPendingBroadcastJob && !hasPendingJob) {
+      return 'CONFIRM SWAP'
+    }
+    if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
+      return currentBroadcastJob.submitButtonLabel
+    }
+    return 'SWAPPING'
+  }
+
+  function onCancel (): void {
+    if (!isSubmitting) {
+      navigation.navigate({
+        name: 'CompositeSwap',
+        params: {},
+        merge: true
+      })
+    }
   }
 
   return (
@@ -109,14 +167,59 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
         ]}
       />
       <SubmitButtonGroup
-        isDisabled={false}
+        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/ConfirmCompositePoolSwapScreen', 'CONFIRM SWAP')}
-        isProcessing={false}
-        processingLabel={translate('screens/ConfirmCompositePoolSwapScreen', 'SWAPPING')}
-        onCancel={() => {}}
+        isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        processingLabel={translate('screens/PoolSwapConfirmScreen', getSubmitLabel())}
+        onCancel={onCancel}
         onSubmit={onSubmit}
         title='swap'
       />
     </ThemedScrollView>
   )
+}
+
+async function constructSignedSwapAndSend (
+  cSwapForm: CompositeSwapForm,
+  pairs: PoolPairData[],
+  slippage: number,
+  dispatch: Dispatch<any>,
+  onBroadcast: () => void,
+  logger: NativeLoggingProps
+): Promise<void> {
+  try {
+    const maxPrice = cSwapForm.amountFrom.div(cSwapForm.amountTo).times(1 + slippage).decimalPlaces(8)
+    const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
+      const builder = account.withTransactionBuilder()
+      const script = await account.getScript()
+      const swap: CompositeSwap = {
+        poolSwap: {
+          fromScript: script,
+          toScript: script,
+          fromTokenId: Number(cSwapForm.tokenFrom.id === '0_unified' ? '0' : cSwapForm.tokenFrom.id),
+          toTokenId: Number(cSwapForm.tokenTo.id === '0_unified' ? '0' : cSwapForm.tokenTo.id),
+          fromAmount: cSwapForm.amountFrom,
+          maxPrice
+        },
+        pools: pairs.map(pair => ({ id: Number(pair.id) }))
+      }
+      const dfTx = await builder.dex.compositeSwap(swap, script)
+
+      return new CTransactionSegWit(dfTx)
+    }
+
+    dispatch(transactionQueue.actions.push({
+      sign: signer,
+      title: translate('screens/CompositeSwapConfirmScreen', 'Swapping Token'),
+      description: translate('screens/CompositeSwapConfirmScreen', 'Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}', {
+        amountA: cSwapForm.amountFrom.toFixed(8),
+        symbolA: cSwapForm.tokenFrom.displaySymbol,
+        amountB: cSwapForm.amountTo.toFixed(8),
+        symbolB: cSwapForm.tokenTo.displaySymbol
+      }),
+      onBroadcast
+    }))
+  } catch (e) {
+    logger.error(e)
+  }
 }

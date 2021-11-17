@@ -16,60 +16,31 @@ interface BottomSheetTokenListProps {
     screenName: string
     onButtonPress: () => void
   }
+  tokenList: BottomSheetToken[]
 }
 
 export interface BottomSheetToken {
   id: string
   name: string
   available: BigNumber
-  collateralFactor: BigNumber
+  collateralFactor?: BigNumber
 }
 
 export const BottomSheetTokenList = ({
+  tokenList,
   headerLabel,
   onCloseButtonPress,
   onTokenPress,
   navigateToScreen
 }: BottomSheetTokenListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
-  const tokenList: BottomSheetToken[] = [
-    {
-      id: 'DFI',
-      name: 'DFI',
-      available: new BigNumber('123'),
-      collateralFactor: new BigNumber(100)
-    },
-    {
-      id: 'dBTC',
-      name: 'DFI',
-      available: new BigNumber('123'),
-      collateralFactor: new BigNumber(100)
-    },
-    {
-      id: 'dETH',
-      name: 'DFI',
-      available: new BigNumber('123'),
-      collateralFactor: new BigNumber(100)
-    },
-    {
-      id: 'dLTC',
-      name: 'DFI',
-      available: new BigNumber('123'),
-      collateralFactor: new BigNumber(100)
-    },
-    {
-      id: 'dBCH',
-      name: 'DFI',
-      available: new BigNumber('123'),
-      collateralFactor: new BigNumber(100)
-    }
-  ]
 
   return (
     <ThemedFlatList
       data={tokenList}
-      renderItem={({ item }): JSX.Element => (
+      renderItem={({ item }: {item: BottomSheetToken}): JSX.Element => (
         <ThemedTouchableOpacity
+          testID={`token_${item.name}`}
           onPress={() => {
             if (onTokenPress !== undefined) {
               onTokenPress(item)
@@ -93,7 +64,7 @@ export const BottomSheetTokenList = ({
             <SymbolIcon symbol={item.id} styleProps={{ width: 24, height: 24 }} />
             <View style={tailwind('ml-2')}>
               <ThemedText>
-                {item.id}
+                {item.name}
               </ThemedText>
               <ThemedText
                 light={tailwind('text-gray-500')}

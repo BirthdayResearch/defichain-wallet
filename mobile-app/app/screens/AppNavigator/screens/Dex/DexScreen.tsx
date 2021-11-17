@@ -136,7 +136,7 @@ export function DexScreen (): JSX.Element {
             params: {},
             merge: true
           })}
-          pair='DFI'
+          pair='composite'
           label={translate('screens/DexScreen', 'SWAP')}
           style={tailwind('my-2 p-2')}
         />
