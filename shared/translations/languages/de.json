@@ -592,7 +592,8 @@
     "Confirm Create Vault": "Bestätige Vault Erstellen",
     "Vault Detail": "Vault-Detail",
     "Add Collateral": "Sicherheiten Hinzufügen",
-    "Confirm Add Collateral": "Bestätige das Hinzufügen von Sicherheiten"
+    "Confirm Add Collateral": "Bestätige das Hinzufügen von Sicherheiten",
+    "Edit Collateral": "Sicherheiten bearbeiten"
   },
   "components/tabs": {
     "Browse loans": "Darlehen durchsuchen",
@@ -629,7 +630,8 @@
     "Borrowed tokens": "Geliehene Token",
     "Interest amount (1.5%)": "Zinsbetrag (1.5%)",
     "Amount payable": "Auszahlbarer Betrag",
-    "Price per token (USD)": "Preis pro Token (USD)"
+    "Price per token (USD)": "Preis pro Token (USD)",
+    "EDIT COLLATERALS": "SICHERHEITEN BEARBEITEN"
   },
   "components/EmptyVault": {
     "No vault created": "Kein Vault erstellt",
