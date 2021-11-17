@@ -20,7 +20,7 @@ export function SetAmountButton (props: SetAmountButtonProps): JSX.Element {
 
   return (
     <ThemedTouchableOpacity
-      dark={tailwind('border border-gray-400')}
+      dark={tailwind('border border-dfxblue-900')}
       light={tailwind('border border-gray-300')}
       onPress={() => {
         props.onPress(props.type === AmountButtonTypes.half ? props.amount.div(2).toFixed(decimalPlace) : props.amount.toFixed(decimalPlace))

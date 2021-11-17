@@ -21,7 +21,7 @@ export function IconButton (props: IconButtonProps): JSX.Element {
   return (
     <ThemedTouchableOpacity
       light={tailwind({ 'border-gray-300 bg-white': !disabled, 'border-gray-100 bg-gray-100': disabled })}
-      dark={tailwind({ 'border-gray-800 bg-dfxblue-900': !disabled, 'border-gray-800 bg-dfxblue-800': disabled })}
+      dark={tailwind('border-dfxblue-900 bg-dfxblue-800')}
       onPress={props.onPress}
       style={[tailwind('p-1 flex-row items-center border rounded'), props.style]}
       testID={props.testID}
@@ -30,7 +30,7 @@ export function IconButton (props: IconButtonProps): JSX.Element {
       {props.iconName !== undefined && props.iconType !== undefined &&
         <ThemedIcon
           light={tailwind({ 'text-primary-500': !disabled, 'text-gray-300': disabled })}
-          dark={tailwind({ 'text-dfxred-500': !disabled, 'text-gray-600': disabled })}
+          dark={tailwind({ 'text-dfxred-500': !disabled, 'text-dfxblue-900': disabled })}
           iconType={props.iconType}
           name={props.iconName}
           size={props.iconSize}
@@ -39,7 +39,7 @@ export function IconButton (props: IconButtonProps): JSX.Element {
       {props.iconLabel !== undefined &&
         <ThemedText
           light={tailwind({ 'text-primary-500': !disabled, 'text-gray-300': disabled })}
-          dark={tailwind({ 'text-dfxred-500': !disabled, 'text-gray-600': disabled })}
+          dark={tailwind({ 'text-dfxred-500': !disabled, 'text-dfxblue-900': disabled })}
           style={tailwind('px-1 text-sm font-medium leading-4')}
         >
           {props.iconLabel}

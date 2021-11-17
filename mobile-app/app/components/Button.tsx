@@ -30,12 +30,12 @@ export function Button (props: ButtonProps): JSX.Element {
   const { isLight } = useThemeContext()
   const themedColor = isLight ? `${color}` : `dark${color}`
 
-  const disabledStyle = isLight ? 'bg-gray-200 border-0' : 'bg-gray-600 text-gray-500 border-0'
-  const disabledText = isLight ? 'text-gray-400' : 'text-gray-500'
+  const disabledStyle = isLight ? 'bg-gray-200 border-0' : 'bg-dfxgray-500 border-0'
+  const disabledText = isLight ? 'text-gray-400' : 'text-dfxgray-700'
 
   const buttonColor = isLight ? `bg-${themedColor}-50` : 'bg-dfxred-500'
   const buttonStyle = `${fill === 'fill' ? buttonColor : 'bg-transparent'}`
-  const buttonText = isLight ? `text-${themedColor}-500` : `${fill === 'fill' ? 'text-white' : 'text-darkprimary-700'}`
+  const buttonText = isLight ? `text-${themedColor}-500` : `${fill === 'fill' ? 'text-white' : 'text-dfxred-500'}`
 
   const textStyle = `${props.disabled === true ? disabledText : buttonText} ${isSubmitting ? 'ml-2' : ''}`
   const text = isSubmitting ? submittingLabel ?? label : label

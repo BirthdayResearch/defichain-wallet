@@ -60,12 +60,12 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
         />}
       <ThemedView
         light={tailwind(`bg-white ${!valid ? 'border-error-500' : (isFocus ? 'border-primary-300' : 'border-gray-300')}`)} // disabled border color is the same regardless of theme
-        dark={tailwind(`bg-dfxblue-800 ${!valid ? 'border-darkerror-500' : (isFocus ? 'border-darkprimary-300' : (editable ? 'border-gray-600' : 'border-gray-800'))}`)}
+        dark={tailwind(`bg-dfxblue-800 ${!valid ? 'border-darkerror-500' : (isFocus ? 'border-dfxred-500' : 'border-dfxblue-900')}`)}
         style={tailwind('flex-col w-full border rounded mt-2')}
       >
         <ThemedView
           light={tailwind(`${editable ? 'bg-transparent' : 'bg-gray-200'}`)}
-          dark={tailwind(`${editable ? 'bg-transparent' : 'bg-dfxblue-800'}`)}
+          dark={tailwind(`${'bg-transparent'}`)}
           style={tailwind('flex-row items-center p-2 justify-between')}
         >
           <ThemedTextInput

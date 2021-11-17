@@ -281,12 +281,12 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       <View style={tailwind('justify-center items-center py-2 px-4')}>
         <ThemedView
           light={tailwind('border-gray-200')}
-          dark={tailwind('border-gray-700')}
+          dark={tailwind('border-dfxblue-900')}
           style={tailwind('border-b w-full relative top-2/4')}
         />
         <IconButton
           iconName='swap-vert'
-          iconSize={24}
+          iconSize={28}
           iconType='MaterialIcons'
           onPress={swapToken}
           testID='swap_button'
@@ -333,7 +333,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
         testID='transaction_details_hint_text'
         light={tailwind('text-gray-600')}
         dark={tailwind('text-gray-300')}
-        style={tailwind('pt-2 pb-8 px-4 text-sm')}
+        style={tailwind('pt-2 pb-2 px-4 text-sm')}
       >
         {isConversionRequired
           ? translate('screens/PoolSwapScreen', 'Authorize transaction in the next screen to convert')

@@ -9,6 +9,7 @@ import { DexNavigator } from './screens/Dex/DexNavigator'
 import { LoansNavigator } from './screens/Loans/LoansNavigator'
 import { TransactionsNavigator } from './screens/Transactions/TransactionsNavigator'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { theme } from '../../tailwind.config'
 
 export interface BottomTabParamList {
   Balances: undefined
@@ -23,6 +24,7 @@ const BottomTab = createBottomTabNavigator<BottomTabParamList>()
 
 export function BottomTabNavigator (): JSX.Element {
   const { isFeatureAvailable } = useFeatureFlagContext()
+  const inactiveColor = theme.extend.colors.dfxgray[300]
   return (
     <>
       <OceanInterface />
@@ -40,6 +42,7 @@ export function BottomTabNavigator (): JSX.Element {
           name={translate('BottomTabNavigator', 'Balances')}
           options={{
             tabBarTestID: 'bottom_tab_balances',
+            tabBarInactiveTintColor: inactiveColor,
             tabBarIcon: ({ color }) => (
               <MaterialIcons
                 color={color}
@@ -55,6 +58,7 @@ export function BottomTabNavigator (): JSX.Element {
           name={translate('BottomTabNavigator', 'DEX')}
           options={{
             tabBarTestID: 'bottom_tab_dex',
+            tabBarInactiveTintColor: inactiveColor,
             tabBarIcon: ({ color }) => (
               <MaterialIcons
                 color={color}
@@ -71,6 +75,7 @@ export function BottomTabNavigator (): JSX.Element {
             name={translate('BottomTabNavigator', 'Loans')}
             options={{
               tabBarTestID: 'bottom_tab_loans',
+              tabBarInactiveTintColor: inactiveColor,
               tabBarIcon: ({ color }) => (
                 <MaterialIcons
                   color={color}
@@ -86,6 +91,7 @@ export function BottomTabNavigator (): JSX.Element {
           name={translate('BottomTabNavigator', 'Transactions')}
           options={{
             tabBarTestID: 'bottom_tab_transactions',
+            tabBarInactiveTintColor: inactiveColor,
             tabBarIcon: ({ color }) => (
               <MaterialIcons
                 color={color}

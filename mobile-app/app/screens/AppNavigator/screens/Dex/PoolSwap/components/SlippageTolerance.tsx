@@ -12,7 +12,7 @@ export function SlippageTolerance ({
     setSlippage(amount)
   }
 
-  const buttonStyles = 'flex px-2 py-1.5 border border-gray-300 rounded mr-2'
+  const buttonStyles = 'flex px-2 py-1.5 border border-dfxblue-900 rounded mr-2'
   const activeStyle = 'bg-dfxred-500 border-dfxred-500'
   const percentageList = [{ label: '1%', amount: 0.01 }, { label: '3%', amount: 0.03 }, {
     label: '5%',

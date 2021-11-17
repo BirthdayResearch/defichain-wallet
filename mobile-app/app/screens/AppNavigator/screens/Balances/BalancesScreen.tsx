@@ -75,10 +75,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         />
       }
     >
+      <Announcements />
       <ThemedView>
         <BuyWithFiat />
       </ThemedView>
-      <Announcements />
       <BalanceControlCard />
       <ThemedView
         style={tailwind('flex flex-row justify-between')}
