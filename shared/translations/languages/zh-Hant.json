@@ -197,7 +197,8 @@
     "LEARN ABOUT": "關於",
     "Recovery words": "恢復字組",
     "Passcode": "密碼",
-    "UTXO vs Token": "UTXO 和代幣區別"
+    "UTXO vs Token": "UTXO 和代幣區別",
+    "Loans": "貸款"
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "網絡",

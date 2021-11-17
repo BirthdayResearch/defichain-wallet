@@ -196,7 +196,8 @@
     "LEARN ABOUT": "LERNE ETWAS ÜBER",
     "Recovery words": "Wiederherstellungssatz",
     "Passcode": "Passwort",
-    "UTXO vs Token": "UTXO vs Token"
+    "UTXO vs Token": "UTXO vs Token",
+    "Loans": "Darlehen"
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "NETZWERK",
