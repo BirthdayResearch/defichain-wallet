@@ -57,6 +57,7 @@ export interface LoanParamList {
     totalInterestAmount: BigNumber
     totalLoanWithInterest: BigNumber
     fee: BigNumber
+    conversion?: ConversionParam
   }
   [key: string]: undefined | object
 }
