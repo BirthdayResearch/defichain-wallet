@@ -619,8 +619,8 @@
     "At risk": "请注意抵押比率",
     "Safe": "安全状态",
     "Active loans": "活跃的贷款",
-    "Total loan amount": "贷款总金额",
-    "Collateral amount": "抵押品金额",
+    "Total loan amount (USD)": "贷款总金额 (美金)",
+    "Collateral amount (USD)": "抵押品金额 (美金)",
     "Collateral ratio": "抵押品比率",
     "n/a": "不适用",
     "ADD COLLATERAL": "加入抵押品",
@@ -710,13 +710,13 @@
     "Created": "建立时间"
   },
   "components/VaultDetailsCollateralsTab": {
-    "Collateral amount": "抵押品金额",
+    "Collateral amount (USD)": "抵押品金额 (美金)",
     "Vault %": "金库 %"
   },
   "screens/AddCollateralScreen": {
     "COLLATERALS WILL BE ADDED TO VAULT": "您正要向金库添加抵押资金",
     "ADD DFI AND TOKENS FOR COLLATERAL": "添加DFI和代币作为抵押资金",
-    "Collateral amount": "抵押品金额",
+    "Collateral amount (USD)": "抵押品金额 (美金)",
     "Vault %": "金库 %",
     "Each token has their own collateral factor that would affect its respective collateral value. ": "每个代币都有不同的抵押品价值因素. ",
     "Learn more": "了解更多",    
@@ -729,7 +729,9 @@
     "CONTINUE": "继续",
     "BACK": "返回",
     "Cancel": "取消",
-    "Remove": "移除"
+    "Remove": "移除",
+    "VAULT DETAILS": "金库明细",
+    "COLLATERALS": "抵押品"
   },
   "components/AddOrEditCollateralForm": {
     "How much {{symbol}} to add?": "您要添加多少 {{symbol}}?",
@@ -748,7 +750,7 @@
     "COLLATERAL {{index}}": "抵押品 {{index}}",
     "Token": "代币",
     "Collateralization factor": "抵押品系数",
-    "Collateral amount": "抵押品金额",
+    "Collateral amount (USD)": "抵押品金额 (美金)",
     "Collateral value (USD)": "抵押品价值",
     "CONFIRM ADD COLLATERAL": "确认添加抵押资金",
     "ADDING": "正在增加"
