@@ -1,29 +1,50 @@
 import { View } from '@components'
-import { Button } from '@components/Button'
-import { IconButton } from '@components/IconButton'
 import { SymbolIcon } from '@components/SymbolIcon'
-import { ThemedIcon, ThemedProps, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
+import {
+  ThemedIcon,
+  ThemedProps,
+  ThemedScrollView,
+  ThemedSectionTitle,
+  ThemedText,
+  ThemedView
+} from '@components/themed'
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { Dispatch, useCallback, useEffect, useRef, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { LoanParamList } from '../LoansNavigator'
 import { BottomSheetNavScreen, BottomSheetWithNav } from '@components/BottomSheetWithNav'
-import { AddOrEditCollateralForm, AddOrEditCollateralFormProps } from '../components/AddOrEditCollateralForm'
+import {
+  AddOrEditCollateralForm,
+  AddOrEditCollateralFormProps,
+  AddOrEditCollateralResponse
+} from '../components/AddOrEditCollateralForm'
 import { BottomSheetTokenList } from '@components/BottomSheetTokenList'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { WalletAlert } from '@components/WalletAlert'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useDispatch, useSelector } from 'react-redux'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { RootState } from '@store'
+import { fetchCollateralTokens, fetchVaults } from '@store/loans'
+import { CollateralToken, LoanVaultActive, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
+import { createSelector } from '@reduxjs/toolkit'
+import { useTokensAPI } from '@hooks/wallet/TokensAPI'
+import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
+import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction'
+import { transactionQueue } from '@store/transaction_queue'
+import { WalletToken } from '@store/wallet'
 
 type Props = StackScreenProps<LoanParamList, 'AddCollateralScreen'>
 
 export interface BottomSheetWithNavRouteParam {
   AddOrEditCollateralForm: AddOrEditCollateralFormProps
+
   [key: string]: undefined | object
 }
 
@@ -36,56 +57,50 @@ export interface Collateral {
   available: BigNumber
 }
 
-export function AddCollateralScreen ({ route, navigation }: Props): JSX.Element {
+export interface CollateralItem extends CollateralToken {
+  available: BigNumber
+}
+
+export function AddCollateralScreen ({
+  route,
+  navigation
+}: Props): JSX.Element {
+  const { address } = useWalletContext()
   const { vaultId } = route.params
   const client = useWhaleApiClient()
   const logger = useLogger()
   const { isLight } = useThemeContext()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
-  const collaterals: Collateral[] = [
-    {
-      collateralId: 'DFI',
-      collateralFactor: new BigNumber(100),
-      amount: new BigNumber('18769865765623.123123'),
-      amountValue: new BigNumber('369.369'),
-      vaultProportion: new BigNumber('40'),
-      available: new BigNumber(123123)
-    },
-    {
-      collateralId: 'dBTC',
-      collateralFactor: new BigNumber(100),
-      amount: new BigNumber('123.123123'),
-      amountValue: new BigNumber('369.369'),
-      vaultProportion: new BigNumber('100'),
-      available: new BigNumber(123123)
-    },
-    {
-      collateralId: 'dETH',
-      collateralFactor: new BigNumber(100),
-      amount: new BigNumber('123.123123'),
-      amountValue: new BigNumber('369.369'),
-      vaultProportion: new BigNumber('100'),
-      available: new BigNumber(123123)
-    },
-    {
-      collateralId: 'dLTC',
-      collateralFactor: new BigNumber(100),
-      amount: new BigNumber('123.123123'),
-      amountValue: new BigNumber('369.369'),
-      vaultProportion: new BigNumber('100'),
-      available: new BigNumber(123123)
-    },
-    {
-      collateralId: 'dBCH',
-      collateralFactor: new BigNumber(100),
-      amount: new BigNumber('123.123123'),
-      amountValue: new BigNumber('369.369'),
-      vaultProportion: new BigNumber('100'),
-      available: new BigNumber(123123)
+  const [activeVault, setActiveVault] = useState<LoanVaultActive>()
+  const dispatch = useDispatch()
+
+  const tokens = useTokensAPI()
+  const getTokenAmount = (tokenId: string): BigNumber => {
+    return new BigNumber(tokens.find((t) => t.id === tokenId)?.amount ?? 0)
+  }
+  const {
+    vaults
+  } = useSelector((state: RootState) => state.loans)
+  const collateralSelector = createSelector((state: RootState) => state.loans.collateralTokens, (collaterals) => collaterals.map((c) => {
+    return {
+      ...c,
+      available: getTokenAmount(c.token.id)
     }
-  ]
-  const totalCollateralValue = new BigNumber(1081312326112)
+  }).sort((a, b) => b.available.minus(a.available).toNumber()))
+  const collateralTokens = useSelector((state: RootState) => collateralSelector(state))
+
+  useEffect(() => {
+    dispatch(fetchCollateralTokens({ client }))
+  }, [])
+
+  useEffect(() => {
+    const v = vaults.find((v) => v.vaultId === vaultId) as LoanVaultActive
+    if (v !== undefined) {
+      setActiveVault({ ...v })
+    }
+  }, [vaults])
+
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const expandModal = useCallback(() => {
     bottomSheetRef.current?.present()
@@ -93,22 +108,12 @@ export function AddCollateralScreen ({ route, navigation }: Props): JSX.Element 
   const dismissModal = useCallback(() => {
     bottomSheetRef.current?.close()
   }, [])
-  const onContinuePress = (): void => {
-    navigation.navigate({
-      name: 'ConfirmAddCollateralScreen',
-      params: {
-        vaultId,
-        collaterals,
-        totalCollateralValue,
-        fee
-      },
-      merge: true
-    })
-  }
+
   useEffect(() => {
     client.fee.estimate()
       .then((f) => setFee(new BigNumber(f)))
       .catch(logger.error)
+    console.log(fee)
   }, [])
 
   return (
@@ -119,12 +124,12 @@ export function AddCollateralScreen ({ route, navigation }: Props): JSX.Element 
         <SectionTitle title='COLLATERALS WILL BE ADDED TO VAULT' />
         <VaultIdSection vaultId={vaultId} />
         <SectionTitle title='ADD DFI AND TOKENS FOR COLLATERAL' />
-        {collaterals.map(collateral => (
+        {activeVault?.collateralAmounts.map(collateral => (
           <CollateralCard
-            key={collateral.collateralId}
-            {...collateral}
+            key={collateral.id}
+            collateral={collateral}
             onEditPress={(collateral: CollateralCardProps) => {
-              setBottomSheetScreen([
+              /* setBottomSheetScreen([
                 {
                   stackScreenName: 'AddOrEditCollateralForm',
                   component: AddOrEditCollateralForm,
@@ -143,7 +148,7 @@ export function AddCollateralScreen ({ route, navigation }: Props): JSX.Element 
                   }
                 }
               ])
-              expandModal()
+              expandModal() */
             }}
             onRemovePress={() => {
               WalletAlert({
@@ -164,27 +169,37 @@ export function AddCollateralScreen ({ route, navigation }: Props): JSX.Element 
               })
             }}
           />
-          ))}
-        <LearnMoreCollateralFactor />
+        ))}
         <AddCollateralButton
-          disabled={false} /* TODO: add validation to check if DFI >= 50% */
+          disabled={false}
           onPress={() => {
             setBottomSheetScreen([
               {
                 stackScreenName: 'TokenList',
                 component: BottomSheetTokenList({
+                  collateralTokens,
                   headerLabel: translate('screens/AddCollateralScreen', 'Select token to add'),
                   onCloseButtonPress: () => bottomSheetRef.current?.close(),
                   navigateToScreen: {
                     screenName: 'AddOrEditCollateralForm',
-                    onButtonPress: () => {
-                      /* TODO: set state of collateral */
+                    onButtonPress: async (item: AddOrEditCollateralResponse) => {
                       dismissModal()
+                      await addCollateral({
+                        vaultId,
+                        tokenAmount: item.amount,
+                        token: item.token
+                      }, dispatch, logger, () => {
+                        dispatch(fetchVaults({
+                          address,
+                          client
+                        }))
+                      })
                     }
                   }
                 }),
                 option: {
-                  header: () => null
+                  header: () => null,
+                  headerBackTitleVisible: false
                 }
               },
               {
@@ -192,9 +207,12 @@ export function AddCollateralScreen ({ route, navigation }: Props): JSX.Element 
                 component: AddOrEditCollateralForm,
                 option: {
                   headerStatusBarHeight: 1,
-                  headerBackgroundContainerStyle: tailwind('-top-5 border-b', { 'border-gray-200': isLight, 'border-gray-700': !isLight }),
+                  headerBackgroundContainerStyle: tailwind('-top-5 border-b', {
+                    'border-gray-200': isLight,
+                    'border-gray-700': !isLight
+                  }),
                   headerTitle: '',
-                  headerBackTitle: translate('screens/AddCollateralScreen', 'BACK')
+                  headerBackTitleVisible: false
                 }
               }
             ])
@@ -202,7 +220,6 @@ export function AddCollateralScreen ({ route, navigation }: Props): JSX.Element 
           }}
         />
       </ThemedScrollView>
-      <FooterSection totalCollateralValue={totalCollateralValue} onContinuePress={onContinuePress} isValid />
       <BottomSheetWithNav
         modalRef={bottomSheetRef}
         screenList={bottomSheetScreen}
@@ -212,7 +229,7 @@ export function AddCollateralScreen ({ route, navigation }: Props): JSX.Element 
   )
 }
 
-function SectionTitle (props: {title: string}): JSX.Element {
+function SectionTitle (props: { title: string }): JSX.Element {
   return (
     <ThemedSectionTitle
       style={tailwind('text-xs pb-2 pt-4 font-medium')}
@@ -257,17 +274,13 @@ function VaultIdSection (props: { vaultId: string }): JSX.Element {
 }
 
 interface CollateralCardProps {
-  collateralId: string
-  collateralFactor: BigNumber
-  amount: BigNumber
-  amountValue: BigNumber
-  vaultProportion: BigNumber
-  available: BigNumber
+  collateral: LoanVaultTokenAmount
   onEditPress: (collateral: CollateralCardProps) => void
   onRemovePress: () => void
 }
 
 function CollateralCard (props: CollateralCardProps): JSX.Element {
+  const { collateral } = props
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
@@ -280,34 +293,19 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
         style={tailwind('flex flex-row items-center justify-between border-b pb-4 mb-2')}
       >
         <View style={tailwind('flex flex-row items-center')}>
-          <SymbolIcon symbol={props.collateralId} styleProps={{ width: 24, height: 24 }} />
+          <SymbolIcon
+            symbol={collateral.displaySymbol} styleProps={{
+            width: 24,
+            height: 24
+          }}
+          />
           <ThemedText
             style={tailwind('font-medium ml-1 mr-2')}
           >
-            {props.collateralId}
+            {collateral.displaySymbol}
           </ThemedText>
-          <ThemedView
-            light={tailwind('text-gray-700 border-gray-700')}
-            dark={tailwind('text-gray-300 border-gray-300')}
-            style={tailwind('border rounded')}
-          >
-            <NumberFormat
-              value={props.collateralFactor.toFixed(2)}
-              decimalScale={2}
-              displayType='text'
-              suffix='%'
-              renderText={value =>
-                <ThemedText
-                  light={tailwind('text-gray-700')}
-                  dark={tailwind('text-gray-300')}
-                  style={tailwind('text-xs font-medium px-1')}
-                >
-                  {value}
-                </ThemedText>}
-            />
-          </ThemedView>
         </View>
-        <View style={tailwind('flex flex-row')}>
+        {/* <View style={tailwind('flex flex-row')}>
           <IconButton
             iconType='MaterialIcons'
             iconName='edit'
@@ -315,27 +313,27 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             onPress={() => props.onEditPress(props)}
           />
           {props.collateralId !== 'DFI' &&
-            (
-              <IconButton
-                iconType='MaterialIcons'
-                iconName='remove-circle-outline'
-                iconSize={20}
-                style={tailwind('ml-2')}
-                onPress={() => props.onRemovePress()}
-              />
-            )}
-        </View>
+          (
+            <IconButton
+              iconType='MaterialIcons'
+              iconName='remove-circle-outline'
+              iconSize={20}
+              style={tailwind('ml-2')}
+              onPress={() => props.onRemovePress()}
+            />
+          )}
+        </View> */}
       </ThemedView>
       <View style={tailwind('flex flex-row justify-between')}>
         <View style={tailwind('w-8/12')}>
-          <CardLabel text='Collateral amount' />
+          <CardLabel text='Collateral amount (USD)' />
           <View style={tailwind('mt-0.5')}>
             <NumberFormat
-              value={props.amount.toFixed(8)}
+              value={collateral.amount}
               thousandSeparator
               decimalScale={8}
               displayType='text'
-              suffix={` ${props.collateralId}`}
+              suffix={` ${collateral.displaySymbol}`}
               renderText={(val: string) => (
                 <ThemedText
                   dark={tailwind('text-gray-50')}
@@ -343,8 +341,8 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                   style={tailwind('text-sm font-medium')}
                 >
                   {val}
-                  <NumberFormat
-                    value={props.amountValue.toFixed(8)}
+                  {/* <NumberFormat
+                    value={collateral.amount}
                     thousandSeparator
                     decimalScale={2}
                     displayType='text'
@@ -358,14 +356,14 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                         {` /${val}`}
                       </ThemedText>
                     )}
-                  />
+                  /> */}
                 </ThemedText>
               )}
             />
 
           </View>
         </View>
-        <View style={tailwind('w-4/12 flex items-end')}>
+        {/* <View style={tailwind('w-4/12 flex items-end')}>
           <CardLabel text='Vault %' />
           <NumberFormat
             value={props.vaultProportion.toFixed(2)}
@@ -390,13 +388,13 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
               </ThemedView>
             )}
           />
-        </View>
+        </View> */}
       </View>
     </ThemedView>
   )
 }
 
-function CardLabel (props: {text: string}): JSX.Element {
+function CardLabel (props: { text: string }): JSX.Element {
   return (
     <ThemedText
       light={tailwind('text-gray-500')}
@@ -408,7 +406,7 @@ function CardLabel (props: {text: string}): JSX.Element {
   )
 }
 
-function getVaultProportionThemedProps (id: string, proportion: BigNumber): ThemedProps | undefined {
+export function getVaultProportionThemedProps (id: string, proportion: BigNumber): ThemedProps | undefined {
   if (id !== 'DFI') {
     return
   }
@@ -422,49 +420,36 @@ function getVaultProportionThemedProps (id: string, proportion: BigNumber): Them
   }
 }
 
-function LearnMoreCollateralFactor (): JSX.Element {
-  return (
-    <View>
-      <ThemedText
-        light={tailwind('text-gray-400')}
-        dark={tailwind('text-gray-500')}
-        style={tailwind('text-xs font-medium')}
-      >
-        {translate('screens/AddCollateralScreen', 'Each token has their own collateral factor that would affect its respective collateral value. ')}
-        <TouchableOpacity
-          onPress={() => { /* TODO: handle learn more link */ }}
-        >
-          <ThemedText
-            light={tailwind('text-primary-500')}
-            dark={tailwind('text-darkprimary-500')}
-            style={tailwind('text-xs font-medium underline relative top-0.5')}
-          >
-            {translate('screens/AddCollateralScreen', 'Learn more')}
-          </ThemedText>
-        </TouchableOpacity>
-      </ThemedText>
-    </View>
-  )
-}
-
-function AddCollateralButton (props: {disabled: boolean, onPress: () => void}): JSX.Element {
+function AddCollateralButton (props: { disabled: boolean, onPress: () => void }): JSX.Element {
   return (
     <TouchableOpacity
       disabled={props.disabled}
-      style={tailwind('mt-8 mb-44 flex flex-row justify-center')}
+      style={tailwind('mt-8 mb-10 flex flex-row justify-center')}
       onPress={props.onPress}
     >
       <ThemedIcon
         iconType='MaterialIcons'
         name='add'
         size={14}
-        light={tailwind({ 'text-primary-500': !props.disabled, 'text-gray-300': props.disabled })}
-        dark={tailwind({ 'text-darkprimary-500': !props.disabled, 'text-gray-600': props.disabled })}
+        light={tailwind({
+          'text-primary-500': !props.disabled,
+          'text-gray-300': props.disabled
+        })}
+        dark={tailwind({
+          'text-darkprimary-500': !props.disabled,
+          'text-gray-600': props.disabled
+        })}
       />
       <ThemedText
-        light={tailwind({ 'text-primary-500': !props.disabled, 'text-gray-300': props.disabled })}
-        dark={tailwind({ 'text-darkprimary-500': !props.disabled, 'text-gray-600': props.disabled })}
-        style={tailwind('pl-2.5 text-sm font-medium leading-4')}
+        light={tailwind({
+          'text-primary-500': !props.disabled,
+          'text-gray-300': props.disabled
+        })}
+        dark={tailwind({
+          'text-darkprimary-500': !props.disabled,
+          'text-gray-600': props.disabled
+        })}
+        style={tailwind('pl-2.5 text-sm font-medium leading-4 mb-2')}
       >
         {translate('screens/AddCollateralScreen', 'ADD TOKEN AS COLLATERAL')}
       </ThemedText>
@@ -472,51 +457,43 @@ function AddCollateralButton (props: {disabled: boolean, onPress: () => void}): 
   )
 }
 
-function FooterSection (props: {totalCollateralValue: BigNumber, onContinuePress: () => void, isValid: boolean}): JSX.Element {
-  return (
-    <ThemedView
-      light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
-      style={tailwind('border-t absolute left-0 bottom-0 w-full px-4 py-6')}
-    >
-      <View style={tailwind('flex flex-row justify-between mb-5')}>
-        <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-500')}
-          style={tailwind('text-sm font-medium w-6/12')}
-        >
-          {translate('screens/AddCollateralScreen', 'Total collateral value (USD)')}
-        </ThemedText>
-        <NumberFormat
-          value={props.totalCollateralValue.toFixed(2)}
-          decimalScale={2}
-          displayType='text'
-          thousandSeparator
-          prefix='$'
-          renderText={value =>
-            <ThemedText
-              light={tailwind('text-gray-900')}
-              dark={tailwind('text-gray-50')}
-              style={tailwind('text-sm font-semibold w-6/12 text-right')}
-            >
-              {value}
-            </ThemedText>}
-        />
-      </View>
-      <Button
-        disabled={!props.isValid}
-        label={translate('screens/AddCollateralScreen', 'CONTINUE')}
-        onPress={props.onContinuePress}
-        testID='add_collateral_button'
-        margin='mb-2'
-      />
-      <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-500')}
-        style={tailwind('text-xs text-center')}
-      >
-        {translate('screens/AddCollateralScreen', 'Confirm details in next screen')}
-      </ThemedText>
-    </ThemedView>
-  )
+interface AddCollateralForm {
+  vaultId: string
+  tokenAmount: BigNumber
+  token: WalletToken
+}
+
+async function addCollateral ({
+  vaultId,
+  tokenAmount,
+  token
+}: AddCollateralForm, dispatch: Dispatch<any>, logger: NativeLoggingProps, onConfirmation: () => void): Promise<void> {
+  try {
+    const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
+      const script = await account.getScript()
+      const builder = account.withTransactionBuilder()
+
+      const signed: TransactionSegWit = await builder.loans.depositToVault({
+        vaultId,
+        from: script,
+        tokenAmount: {
+          token: +token.id,
+          amount: tokenAmount
+        }
+      }, script)
+      return new CTransactionSegWit(signed)
+    }
+
+    dispatch(transactionQueue.actions.push({
+      sign: signer,
+      title: translate('screens/AddCollateralScreen', 'Adding collateral'),
+      description: translate('screens/AddCollateralScreen', 'Adding {{amount}} {{symbol}} as collateral', {
+        amount: tokenAmount.toFixed(8),
+        symbol: token.displaySymbol
+      }),
+      onConfirmation
+    }))
+  } catch (e) {
+    logger.error(e)
+  }
 }

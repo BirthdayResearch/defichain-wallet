@@ -620,8 +620,8 @@
     "At risk": "Gefährdet",
     "Safe": "Sicher",
     "Active loans": "Aktive Darlehen",
-    "Total loan amount": "Gesamtdarlehensbetrag",
-    "Collateral amount": "Höhe der Sicherheiten",
+    "Total loan amount (USD)": "Gesamtdarlehensbetrag (USD)",
+    "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateral ratio": "Besicherungsquote",
     "n/a": "k.A.",
     "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
@@ -711,13 +711,13 @@
     "Created": "Erstellt"
   },
   "components/VaultDetailsCollateralsTab": {
-    "Collateral amount": "Höhe der Sicherheiten",
+    "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Vault %": "Vault %"
   },
   "screens/AddCollateralScreen": {
     "COLLATERALS WILL BE ADDED TO VAULT": "DIE SICHERHEITEN WERDEN DEM VAULT HINZUGEFÜGT",
     "ADD DFI AND TOKENS FOR COLLATERAL": "FÜGE DFI UND TOKEN ALS SICHERHEITEN HINZU",
-    "Collateral amount": "Höhe der Sicherheiten",
+    "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Vault %": "Vault %",
     "Each token has their own collateral factor that would affect its respective collateral value. ": "Jeder Token hat seinen eigenen Besicherungsfaktor, der sich auf den jeweiligen Besicherungswert auswirkt. ",
     "Learn more": "Erfahre mehr",    
@@ -749,7 +749,7 @@
     "COLLATERAL {{index}}": "SICHERHEITEN {{index}}",
     "Token": "Token",
     "Collateralization factor": "Besicherungsfaktor",
-    "Collateral amount": "Höhe der Sicherheiten",
+    "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateral value (USD)": "Sicherheitenwert (USD)",
     "CONFIRM ADD COLLATERAL": "BESTÄTIGE DAS HINZUFÜGEN VON SICHERHEITEN",
     "ADDING": "WIRD HINZUGEFÜGT"

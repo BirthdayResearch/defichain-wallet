@@ -12,9 +12,9 @@ jest.mock('@react-navigation/native', () => ({
 describe('Vault card', () => {
   it('should match snapshot of liquidated vault', async () => {
     const lockedVault: VaultCardProps = {
-      vaultAddress: '22ffasd5ca123123123123123121231061',
+      vaultId: '22ffasd5ca123123123123123121231061',
       status: VaultStatus.Liquidated,
-      collaterals: [
+      collateralAmounts: [
         { id: 'BTC', vaultProportion: new BigNumber(20) },
         { id: 'DFI', vaultProportion: new BigNumber(12.4573) },
         { id: 'dETH', vaultProportion: new BigNumber(55.123333) },
@@ -33,9 +33,9 @@ describe('Vault card', () => {
 
   it('should match snapshot of at-risk vault', async () => {
     const atRiskVault: VaultCardProps = {
-      vaultAddress: '22ffasd5ca123123123123123121231061',
+      vaultId: '22ffasd5ca123123123123123121231061',
       status: VaultStatus.AtRisk,
-      collaterals: [
+      collateralAmounts: [
         { id: 'BTC', vaultProportion: new BigNumber(20) },
         { id: 'DFI', vaultProportion: new BigNumber(12.4573) },
         { id: 'dETH', vaultProportion: new BigNumber(55.123333) },
@@ -54,9 +54,9 @@ describe('Vault card', () => {
 
   it('should match snapshot of healthy vault', async () => {
     const safeVault: VaultCardProps = {
-      vaultAddress: '22ffasd5ca123123123123123121231061',
+      vaultId: '22ffasd5ca123123123123123121231061',
       status: VaultStatus.Healthy,
-      collaterals: [
+      collateralAmounts: [
         { id: 'BTC', vaultProportion: new BigNumber(20) },
         { id: 'DFI', vaultProportion: new BigNumber(12.4573) },
         { id: 'dETH', vaultProportion: new BigNumber(55.123333) },
@@ -75,9 +75,9 @@ describe('Vault card', () => {
 
   it('should match snapshot of active vault', async () => {
     const newVault: VaultCardProps = {
-      vaultAddress: '22ffasd5ca123123123123123121231061',
+      vaultId: '22ffasd5ca123123123123123121231061',
       status: VaultStatus.Active,
-      collaterals: [],
+      collateralAmounts: [],
       actions: ['ADD_COLLATERAL']
     }
     const rendered = render(<VaultCard {...newVault} />)

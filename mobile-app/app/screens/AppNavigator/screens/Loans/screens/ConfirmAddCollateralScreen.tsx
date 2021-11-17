@@ -203,7 +203,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmAddCollateralScreen', 'Collateral amount')}
+        lhs={translate('screens/ConfirmAddCollateralScreen', 'Collateral amount (USD)')}
         rhs={{
           value: new BigNumber(props.collateralAmount).toFixed(8),
           testID: 'collateral_amount',
