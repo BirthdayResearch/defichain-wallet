@@ -730,7 +730,9 @@
     "CONTINUE": "繼續",
     "BACK": "返回",
     "Cancel": "取消",
-    "Remove": "移除"
+    "Remove": "移除",
+    "VAULT DETAILS": "金库明细",
+    "COLLATERALS": "抵押品"
   },
   "components/AddOrEditCollateralForm": {
     "How much {{symbol}} to add?": "您要添加多少 {{symbol}}?",

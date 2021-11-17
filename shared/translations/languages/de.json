@@ -730,7 +730,9 @@
     "CONTINUE": "FORTFAHREN",
     "BACK": "ZURÜCK",
     "Cancel": "Abbrechen",
-    "Remove": "Entfernen"
+    "Remove": "Entfernen",
+    "VAULT DETAILS": "VAULT-DETAILS",
+    "COLLATERALS": "SICHERHEITEN"
   },
   "components/AddOrEditCollateralForm": {
     "How much {{symbol}} to add?": "Wie viel von {{symbol}} soll hinzugefügt werden?",

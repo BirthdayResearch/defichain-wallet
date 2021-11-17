@@ -1,6 +1,6 @@
 import { View } from '@components'
 import { ThemedIcon, ThemedProps, ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
-import { Collateral, VaultCardProps } from '@screens/AppNavigator/screens/Loans/components/VaultCard'
+import { VaultCardProps } from '@screens/AppNavigator/screens/Loans/components/VaultCard'
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -23,7 +23,7 @@ export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
     emptyActiveLoans = true
   } = route.params
 
-  const currentVault: VaultCardProps = {
+  const currentVault: any = {
     vaultId: '22ffasd5ca123123123123123121231061',
     collateralAmounts: [
       { id: 'BTC', vaultProportion: new BigNumber(20) },
@@ -98,7 +98,7 @@ export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
   )
 }
 
-function VaultIdSection (props: { vaultId: string, collaterals: Collateral[] }): JSX.Element {
+function VaultIdSection (props: { vaultId: string, collaterals: any[] }): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white')}
@@ -151,7 +151,7 @@ function VaultIdSection (props: { vaultId: string, collaterals: Collateral[] }):
   )
 }
 
-function VaultCollateralTokenShare (props: {collaterals: Collateral[]}): JSX.Element | null {
+function VaultCollateralTokenShare (props: {collaterals: any[]}): JSX.Element | null {
   if (props.collaterals.length === 0) {
     return null
   }
@@ -204,7 +204,7 @@ function VaultInfoSection (props: VaultCardProps): JSX.Element | null {
 
   return (
     <View style={tailwind('flex flex-row flex-wrap -mb-2 mt-4')}>
-      <VaultInfo label='Active loans' tokens={props.activeLoans?.map(loan => loan.tokenId)} valueType='TOKEN_ICON_GROUP' />
+      {/* <VaultInfo label='Active loans' tokens={props.activeLoans?.map(loan => loan.tokenId)} valueType='TOKEN_ICON_GROUP' /> */}
       <VaultInfo label='Total loan amount (USD)' value={props.totalLoanAmount} prefix='$' decimalPlace={2} valueType='NUMBER' />
       <VaultInfo label='Collateral amount (USD)' value={props.collateralAmount} prefix='$' decimalPlace={2} valueType='NUMBER' />
       <VaultInfo
@@ -259,7 +259,7 @@ function CollateralStatusMessage (props: {collateralRatio?: BigNumber}): JSX.Ele
   )
 }
 
-function EmptyCollateralMessage (props: {collaterals: Collateral[]}): JSX.Element | null {
+function EmptyCollateralMessage (props: {collaterals: any[]}): JSX.Element | null {
   if (props.collaterals.length !== 0) {
     return null
   }
