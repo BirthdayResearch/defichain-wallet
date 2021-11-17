@@ -40,7 +40,7 @@ export function VaultStatusTag (props: {status: VaultStatus}): JSX.Element {
             'text-blue-500': props.status === VaultStatus.Active,
             'text-success-500': props.status === VaultStatus.Healthy,
             'text-warning-500': props.status === VaultStatus.AtRisk,
-            'text-gray-400': props.status === VaultStatus.Halted,
+            'text-dfxgray-400': props.status === VaultStatus.Halted,
             'text-error-500': props.status === VaultStatus.Liquidated
           }
         )}
@@ -49,7 +49,7 @@ export function VaultStatusTag (props: {status: VaultStatus}): JSX.Element {
             'text-darkblue-500': props.status === VaultStatus.Active,
             'text-darksuccess-500': props.status === VaultStatus.Healthy,
             'text-darkwarning-500': props.status === VaultStatus.AtRisk,
-            'text-gray-500': props.status === VaultStatus.Halted,
+            'text-dfxgray-500': props.status === VaultStatus.Halted,
             'text-darkerror-500': props.status === VaultStatus.Liquidated
           }
         )}

@@ -68,8 +68,8 @@ export function ReceiveScreen (): JSX.Element {
           {address}
         </ThemedText>
         <ThemedText
-          dark={tailwind('text-gray-400')}
-          light={tailwind('text-gray-500')}
+          dark={tailwind('text-dfxgray-400')}
+          light={tailwind('text-dfxgray-500')}
           numberOfLines={2}
           selectable
           style={tailwind('font-medium my-2 text-center text-xs')}

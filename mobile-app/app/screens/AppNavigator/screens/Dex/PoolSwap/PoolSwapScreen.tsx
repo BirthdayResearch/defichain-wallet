@@ -332,7 +332,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
       <ThemedText
         testID='transaction_details_hint_text'
         light={tailwind('text-gray-600')}
-        dark={tailwind('text-gray-300')}
+        dark={tailwind('text-dfxgray-300')}
         style={tailwind('pt-2 pb-2 px-4 text-sm')}
       >
         {isConversionRequired
@@ -474,7 +474,7 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee, isConversio
       <ThemedSectionTitle
         testID='title_add_detail'
         text={translate('screens/PoolSwapScreen', 'TRANSACTION DETAILS')}
-        style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
+        style={tailwind('px-4 pt-6 pb-2 text-xs text-dfxgray-500 font-medium')}
       />
       {isConversionRequired &&
         <NumberRow

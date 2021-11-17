@@ -67,7 +67,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
                 name='shield'
                 size={14}
                 light={tailwind('text-gray-600')}
-                dark={tailwind('text-gray-300')}
+                dark={tailwind('text-dfxgray-300')}
               />
             </ThemedView>
             <View style={tailwind('flex flex-col')}>
@@ -86,8 +86,8 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
               </View>
               <View style={tailwind('flex flex-row')}>
                 <ThemedText
-                  light={tailwind('text-gray-500')}
-                  dark={tailwind('text-gray-300')}
+                  light={tailwind('text-dfxgray-500')}
+                  dark={tailwind('text-dfxgray-300')}
                   style={tailwind('text-xs mr-1')}
                 >
                   {translate('components/VaultCard', 'Collaterals:')}
@@ -95,8 +95,8 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
                 {props.collaterals.length === 0 &&
                   (
                     <ThemedText
-                      light={tailwind('text-gray-500')}
-                      dark={tailwind('text-gray-300')}
+                      light={tailwind('text-dfxgray-500')}
+                      dark={tailwind('text-dfxgray-300')}
                       style={tailwind('text-xs ml-1')}
                     >
                       {translate('components/VaultCard', 'None')}

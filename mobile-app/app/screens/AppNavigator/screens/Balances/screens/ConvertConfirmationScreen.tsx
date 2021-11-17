@@ -78,7 +78,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
     <ThemedScrollView style={tailwind('pb-4')}>
       <ThemedView
         dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
-        light={tailwind('bg-white border-b border-gray-300')}
+        light={tailwind('bg-white border-b border-dfxgray-300')}
         style={tailwind('flex-col px-4 py-8 mb-4')}
       >
         <SummaryTitle
@@ -89,8 +89,8 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
           title={translate('screens/ConvertConfirmScreen', 'You are converting')}
         >
           <ThemedText
-            light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
+            light={tailwind('text-dfxgray-500')}
+            dark={tailwind('text-dfxgray-400')}
             style={tailwind('text-sm')}
             testID='convert_amount_source_suffix'
           >
@@ -98,8 +98,8 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
           </ThemedText>
           <ThemedIcon iconType='MaterialIcons' name='arrow-right-alt' size={24} style={tailwind('px-1')} />
           <ThemedText
-            light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
+            light={tailwind('text-dfxgray-500')}
+            dark={tailwind('text-dfxgray-400')}
             style={tailwind('text-sm')}
             testID='convert_amount_target_suffix'
           >

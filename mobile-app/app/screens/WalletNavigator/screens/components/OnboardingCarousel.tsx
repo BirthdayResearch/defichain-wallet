@@ -54,8 +54,8 @@ export function InitialSlide (): JSX.Element {
       </ThemedText>
 
       <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        light={tailwind('text-dfxgray-500')}
+        dark={tailwind('text-dfxgray-400')}
         style={tailwind('text-center font-medium mt-10')}
       >
         {translate('screens/OnboardingCarousel', 'A wallet dedicated to the native decentralized finance for bitcoin.')}
@@ -77,8 +77,8 @@ export function ImageSlide ({ image, title, secondTitle, subtitle }: CarouselIma
         </ThemedText>
 
         <ThemedText
-          dark={tailwind('text-gray-400')}
-          light={tailwind('text-gray-500')}
+          dark={tailwind('text-dfxgray-400')}
+          light={tailwind('text-dfxgray-500')}
           style={tailwind('font-normal text-center mt-1 mb-8')}
         >
           {translate('screens/OnboardingCarousel', subtitle)}

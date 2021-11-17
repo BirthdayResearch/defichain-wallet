@@ -238,7 +238,7 @@ function VaultIdSection (props: { vaultId: string }): JSX.Element {
           name='shield'
           size={11}
           light={tailwind('text-gray-600')}
-          dark={tailwind('text-gray-300')}
+          dark={tailwind('text-dfxgray-300')}
         />
       </ThemedView>
       <View
@@ -288,7 +288,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
           </ThemedText>
           <ThemedView
             light={tailwind('text-gray-700 border-gray-700')}
-            dark={tailwind('text-gray-300 border-gray-300')}
+            dark={tailwind('text-dfxgray-300 border-dfxgray-300')}
             style={tailwind('border rounded')}
           >
             <NumberFormat
@@ -299,7 +299,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
               renderText={value =>
                 <ThemedText
                   light={tailwind('text-gray-700')}
-                  dark={tailwind('text-gray-300')}
+                  dark={tailwind('text-dfxgray-300')}
                   style={tailwind('text-xs font-medium px-1')}
                 >
                   {value}
@@ -351,8 +351,8 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                     prefix='$'
                     renderText={(val: string) => (
                       <ThemedText
-                        dark={tailwind('text-gray-400')}
-                        light={tailwind('text-gray-500')}
+                        dark={tailwind('text-dfxgray-400')}
+                        light={tailwind('text-dfxgray-500')}
                         style={tailwind('text-xs')}
                       >
                         {` /${val}`}
@@ -399,8 +399,8 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
 function CardLabel (props: {text: string}): JSX.Element {
   return (
     <ThemedText
-      light={tailwind('text-gray-500')}
-      dark={tailwind('text-gray-400')}
+      light={tailwind('text-dfxgray-500')}
+      dark={tailwind('text-dfxgray-400')}
       style={tailwind('text-xs mb-1')}
     >
       {translate('screens/AddCollateralScreen', props.text)}
@@ -426,8 +426,8 @@ function LearnMoreCollateralFactor (): JSX.Element {
   return (
     <View>
       <ThemedText
-        light={tailwind('text-gray-400')}
-        dark={tailwind('text-gray-500')}
+        light={tailwind('text-dfxgray-400')}
+        dark={tailwind('text-dfxgray-500')}
         style={tailwind('text-xs font-medium')}
       >
         {translate('screens/AddCollateralScreen', 'Each token has their own collateral factor that would affect its respective collateral value. ')}
@@ -458,11 +458,11 @@ function AddCollateralButton (props: {disabled: boolean, onPress: () => void}): 
         iconType='MaterialIcons'
         name='add'
         size={14}
-        light={tailwind({ 'text-primary-500': !props.disabled, 'text-gray-300': props.disabled })}
+        light={tailwind({ 'text-primary-500': !props.disabled, 'text-dfxgray-300': props.disabled })}
         dark={tailwind({ 'text-dfxred-500': !props.disabled, 'text-gray-600': props.disabled })}
       />
       <ThemedText
-        light={tailwind({ 'text-primary-500': !props.disabled, 'text-gray-300': props.disabled })}
+        light={tailwind({ 'text-primary-500': !props.disabled, 'text-dfxgray-300': props.disabled })}
         dark={tailwind({ 'text-dfxred-500': !props.disabled, 'text-gray-600': props.disabled })}
         style={tailwind('pl-2.5 text-sm font-medium leading-4')}
       >
@@ -481,8 +481,8 @@ function FooterSection (props: {totalCollateralValue: BigNumber, onContinuePress
     >
       <View style={tailwind('flex flex-row justify-between mb-5')}>
         <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-500')}
+          light={tailwind('text-dfxgray-500')}
+          dark={tailwind('text-dfxgray-500')}
           style={tailwind('text-sm font-medium w-6/12')}
         >
           {translate('screens/AddCollateralScreen', 'Total collateral value (USD)')}
@@ -511,8 +511,8 @@ function FooterSection (props: {totalCollateralValue: BigNumber, onContinuePress
         margin='mb-2'
       />
       <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-500')}
+        light={tailwind('text-dfxgray-500')}
+        dark={tailwind('text-dfxgray-500')}
         style={tailwind('text-xs text-center')}
       >
         {translate('screens/AddCollateralScreen', 'Confirm details in next screen')}

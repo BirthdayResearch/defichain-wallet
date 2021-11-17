@@ -15,7 +15,7 @@ export function InfoText (props: InfoTextProp): JSX.Element {
     type = 'warning',
     style,
     light = tailwind({ 'bg-warning-50 border-warning-200': type === 'warning', 'bg-error-50 border-error-200': type === 'error' }),
-    dark = tailwind({ 'bg-darkwarning-50 border-darkwarning-200': type === 'warning', 'bg-darkerror-50 border-darkerror-200': type === 'error' }),
+    dark = tailwind('bg-dfxblue-900 border-dfxblue-800'),
     ...otherProps
   } = props
 
@@ -38,7 +38,7 @@ export function InfoText (props: InfoTextProp): JSX.Element {
       <ThemedText
         style={tailwind('text-xs pl-2 font-medium flex-1')}
         light={tailwind('text-gray-600')}
-        dark={tailwind('text-gray-300')}
+        dark={tailwind('text-dfxgray-300')}
         {...otherProps}
       >
         {props.text}

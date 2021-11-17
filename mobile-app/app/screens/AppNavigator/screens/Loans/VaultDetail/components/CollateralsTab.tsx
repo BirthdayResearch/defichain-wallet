@@ -75,8 +75,8 @@ function CollateralCard (props: Collateral): JSX.Element {
                     prefix='$'
                     renderText={(val: string) => (
                       <ThemedText
-                        dark={tailwind('text-gray-400')}
-                        light={tailwind('text-gray-500')}
+                        dark={tailwind('text-dfxgray-400')}
+                        light={tailwind('text-dfxgray-500')}
                         style={tailwind('text-xs')}
                       >
                         {` /${val}`}
@@ -115,8 +115,8 @@ function CollateralCard (props: Collateral): JSX.Element {
 function CardLabel (props: {text: string}): JSX.Element {
   return (
     <ThemedText
-      light={tailwind('text-gray-500')}
-      dark={tailwind('text-gray-400')}
+      light={tailwind('text-dfxgray-500')}
+      dark={tailwind('text-dfxgray-400')}
       style={tailwind('text-xs mb-1')}
     >
       {translate('components/VaultDetailsCollateralsTab', props.text)}

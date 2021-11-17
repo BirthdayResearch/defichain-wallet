@@ -115,7 +115,7 @@ function VaultIdSection (props: { vaultId: string, collaterals: Collateral[] }):
           name='shield'
           size={14}
           light={tailwind('text-gray-600')}
-          dark={tailwind('text-gray-300')}
+          dark={tailwind('text-dfxgray-300')}
         />
       </ThemedView>
       <View
@@ -125,8 +125,8 @@ function VaultIdSection (props: { vaultId: string, collaterals: Collateral[] }):
           style={tailwind('flex flex-row mb-0.5')}
         >
           <ThemedText
-            light={tailwind('text-gray-400')}
-            dark={tailwind('text-gray-500')}
+            light={tailwind('text-dfxgray-400')}
+            dark={tailwind('text-dfxgray-500')}
             style={tailwind('text-xs mr-1.5')}
           >
             {translate('screens/VaultDetailScreen', 'Vault ID')}
@@ -172,7 +172,7 @@ function VaultCollateralTokenShare (props: {collaterals: Collateral[]}): JSX.Ele
           <SymbolIcon symbol={collateral.id} />
           <ThemedText
             light={tailwind('text-gray-700')}
-            dark={tailwind('text-gray-300')}
+            dark={tailwind('text-dfxgray-300')}
             style={tailwind('ml-1 mr-0.5 text-xs')}
           >
             {collateral.id}:
@@ -185,7 +185,7 @@ function VaultCollateralTokenShare (props: {collaterals: Collateral[]}): JSX.Ele
             renderText={value =>
               <ThemedText
                 light={tailwind('text-gray-700')}
-                dark={tailwind('text-gray-300')}
+                dark={tailwind('text-dfxgray-300')}
                 style={tailwind('text-xs font-medium')}
               >
                 {value}

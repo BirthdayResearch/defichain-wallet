@@ -92,8 +92,8 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
           displayType='text'
           renderText={(val: string) => (
             <ThemedText
-              dark={tailwind('text-gray-400')}
-              light={tailwind('text-gray-500')}
+              dark={tailwind('text-dfxgray-400')}
+              light={tailwind('text-dfxgray-500')}
               style={tailwind('text-sm text-right')}
               testID={props.testID}
             >
@@ -104,8 +104,8 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
           value={props.value}
         />
         <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
+          light={tailwind('text-dfxgray-500')}
+          dark={tailwind('text-dfxgray-400')}
           style={tailwind('text-sm ml-1')}
           testID={`${props.testID}_suffix`}
         >

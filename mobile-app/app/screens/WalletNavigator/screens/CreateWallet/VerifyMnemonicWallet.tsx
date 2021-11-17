@@ -173,7 +173,7 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
         {
           words.map((w, i) => (
             <ThemedTouchableOpacity
-              dark={tailwind(`${selectedWord === w ? activeButton : 'bg-dfxgray-500'}`)}
+              dark={tailwind(`${selectedWord === w ? activeButton : 'bg-dfxgray-400'}`)}
               key={`${w}_${i}`}
               light={tailwind(`${selectedWord === w ? activeButton : 'bg-gray-100'}`)}
               onPress={() => {

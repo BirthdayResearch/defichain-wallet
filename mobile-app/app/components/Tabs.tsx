@@ -101,8 +101,8 @@ function comparisonFn (prevProps: TabsProps, nextProps: TabsProps): boolean {
 function TabLabel (props: {tab: TabOption, isActive: boolean}): JSX.Element {
   return (
     <ThemedText
-      light={tailwind({ 'text-gray-200': props.tab.disabled, 'text-gray-500': !props.isActive && !props.tab.disabled, 'text-black': props.isActive })}
-      dark={tailwind({ 'text-gray-700': props.tab.disabled, 'text-gray-400': !props.isActive && !props.tab.disabled, 'text-white': props.isActive })}
+      light={tailwind({ 'text-gray-200': props.tab.disabled, 'text-dfxgray-500': !props.isActive && !props.tab.disabled, 'text-black': props.isActive })}
+      dark={tailwind({ 'text-gray-700': props.tab.disabled, 'text-dfxgray-400': !props.isActive && !props.tab.disabled, 'text-white': props.isActive })}
       style={tailwind('text-base pb-3 text-center', { 'font-semibold': props.isActive })}
     >
       {translate('components/tabs', props.tab.label)}

@@ -20,8 +20,8 @@ export function InputHelperText (props: InputHelperTextProps): JSX.Element {
       style={tailwind('flex-1 flex-row flex-wrap mt-1 mb-4 text-sm')}
     >
       <ThemedText
-        light={tailwind('text-gray-400')}
-        dark={tailwind('text-gray-500')}
+        light={tailwind('text-dfxgray-400')}
+        dark={tailwind('text-dfxgray-500')}
         style={tailwind('text-sm')}
       >
         {`${props.label}`}

@@ -21,7 +21,7 @@ export function ErrorDisplayComponent (): JSX.Element {
         {translate('screens/ErrorBoundary', 'Something went wrong')}
       </Text>
 
-      <Text style={tailwind('text-sm text-gray-400 font-bold mt-3 text-center')}>
+      <Text style={tailwind('text-sm text-dfxgray-400 font-bold mt-3 text-center')}>
         {translate('screens/ErrorBoundary', 'The app ran into a problem and could not recover. Please restart your application.')}
       </Text>
     </View>

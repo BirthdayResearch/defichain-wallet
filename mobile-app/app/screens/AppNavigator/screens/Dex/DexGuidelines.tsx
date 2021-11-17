@@ -50,8 +50,8 @@ export function DexGuidelines ({ onClose }: Props): JSX.Element {
       </ThemedText>
 
       <ThemedText
-        dark={tailwind('text-gray-400')}
-        light={tailwind('text-gray-500')}
+        dark={tailwind('text-dfxgray-400')}
+        light={tailwind('text-dfxgray-500')}
         style={tailwind('mt-1 text-sm font-medium mb-4')}
       >
         {translate('screens/DexGuidelines', 'Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).')}
@@ -75,8 +75,8 @@ export function DexGuidelines ({ onClose }: Props): JSX.Element {
               </ThemedText>
 
               <ThemedText
-                dark={tailwind('text-gray-400')}
-                light={tailwind('text-gray-500')}
+                dark={tailwind('text-dfxgray-400')}
+                light={tailwind('text-dfxgray-500')}
                 numberOfLines={4}
                 style={tailwind('text-sm')}
               >

@@ -47,8 +47,8 @@ export function DFIBalanceCard (): JSX.Element {
               </View>
 
               <ThemedText
-                light={tailwind('text-gray-500')}
-                dark={tailwind('text-gray-400')}
+                light={tailwind('text-dfxgray-500')}
+                dark={tailwind('text-dfxgray-400')}
                 style={tailwind('pr-14 text-sm pb-1.5')}
                 testID='dfi_utxo_label'
               >
@@ -56,8 +56,8 @@ export function DFIBalanceCard (): JSX.Element {
               </ThemedText>
 
               <ThemedText
-                light={tailwind('text-gray-500')}
-                dark={tailwind('text-gray-400')}
+                light={tailwind('text-dfxgray-500')}
+                dark={tailwind('text-dfxgray-400')}
                 style={tailwind('pr-12 text-sm')}
                 testID='dfi_token_label'
               >
@@ -89,8 +89,8 @@ export function DFIBalanceCard (): JSX.Element {
                 displayType='text'
                 renderText={value =>
                   <BalanceText
-                    light={tailwind('text-gray-500')}
-                    dark={tailwind('text-gray-400')}
+                    light={tailwind('text-dfxgray-500')}
+                    dark={tailwind('text-dfxgray-400')}
                     style={tailwind('text-sm pb-1.5')}
                     testID='dfi_utxo_amount'
                     value={value}
@@ -105,8 +105,8 @@ export function DFIBalanceCard (): JSX.Element {
                 displayType='text'
                 renderText={value =>
                   <BalanceText
-                    light={tailwind('text-gray-500')}
-                    dark={tailwind('text-gray-400')}
+                    light={tailwind('text-dfxgray-500')}
+                    dark={tailwind('text-dfxgray-400')}
                     style={tailwind('text-sm')}
                     testID='dfi_token_amount'
                     value={value}

@@ -87,7 +87,7 @@ function FooterSectionAbout (): JSX.Element {
 
   return (
     <section className='max-w-md'>
-      <p className='text-sm text-gray-500'>
+      <p className='text-sm text-dfxgray-500'>
         DeFi Blockchain’s primary vision is to enable decentralized finance with Bitcoin-grade security, strength
         and immutability. It's a blockchain dedicated to fast, intelligent and transparent financial services,
         accessible by everyone. For more info, visit <DeFiChainCom />

@@ -199,8 +199,8 @@ export function SendScreen ({
       <ThemedText
         testID='transaction_details_info_text'
         light={tailwind('text-gray-600')}
-        dark={tailwind('text-gray-300')}
-        style={tailwind('mt-2 mx-4 text-sm')}
+        dark={tailwind('text-dfxgray-300')}
+        style={tailwind('pt-2 pb-2 px-4 text-sm')}
       >
         {isConversionRequired
           ? translate('screens/SendScreen', 'Authorize transaction in the next screen to convert')
@@ -213,7 +213,6 @@ export function SendScreen ({
         onPress={onSubmit}
         testID='send_submit_button'
         title='Send'
-        margin='mt-14 mx-4'
       />
     </ThemedScrollView>
   )

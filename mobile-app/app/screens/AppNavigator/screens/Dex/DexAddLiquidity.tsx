@@ -242,8 +242,8 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
       <ThemedText
         testID='transaction_details_hint_text'
         light={tailwind('text-gray-600')}
-        dark={tailwind('text-gray-300')}
-        style={tailwind('pt-4 pb-8 px-4 text-sm')}
+        dark={tailwind('text-dfxgray-300')}
+        style={tailwind('pt-4 pb-2 px-4 text-sm')}
       >
         {isConversionRequired
           ? translate('screens/AddLiquidity', 'Authorize transaction in the next screen to convert')
@@ -307,7 +307,7 @@ function PriceDetailsSection (props: {pair: ExtPoolPairData}): JSX.Element {
       <ThemedSectionTitle
         testID='title_price_detail'
         text={translate('screens/AddLiquidity', 'PRICE DETAILS')}
-        style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
+        style={tailwind('px-4 pt-6 pb-2 text-xs text-dfxgray-500 font-medium')}
       />
       <NumberRow
         lhs={translate('screens/AddLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}

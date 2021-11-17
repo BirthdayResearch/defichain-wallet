@@ -114,8 +114,8 @@ export function CreateVaultScreen ({
         onLoanSchemePress={(scheme: LoanScheme) => setSelectedLoanScheme(scheme)}
       />
       <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        light={tailwind('text-dfxgray-500')}
+        dark={tailwind('text-dfxgray-400')}
         style={tailwind('text-center text-xs mb-10')}
       >
         {translate('screens/CreateVaultScreen', 'Keep note of your selected collateral ratio for your vault to sustain the loans within it.')}
@@ -133,8 +133,8 @@ export function CreateVaultScreen ({
         testID='create_vault_submit_button'
       />
       <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        light={tailwind('text-dfxgray-500')}
+        dark={tailwind('text-dfxgray-400')}
         style={tailwind('text-center text-xs')}
       >
         {translate('screens/CreateVaultScreen', 'Confirm your vault details in next screen')}
@@ -152,15 +152,15 @@ function LoanSchemeOptions (props: { loanSchemes: LoanScheme[], selectedLoanSche
       {props.loanSchemes.map((scheme, index) => (
         <ThemedTouchableOpacity
           key={scheme.id}
-          light={tailwind('border-gray-300 bg-white', { 'border-primary-500': props.selectedLoanScheme?.id === scheme.id })}
+          light={tailwind('border-dfxgray-300 bg-white', { 'border-primary-500': props.selectedLoanScheme?.id === scheme.id })}
           dark={tailwind('border-dfxblue-900 bg-dfxblue-800', { 'border-dfxred-500': props.selectedLoanScheme?.id === scheme.id })}
           style={tailwind('py-2 px-5 rounded-lg border flex flex-row items-center mb-1')}
           onPress={() => props.onLoanSchemePress(scheme)}
           testID={`loan_scheme_option_${index}`}
         >
           <ThemedView
-            light={tailwind('border-gray-500', { 'border-primary-500 bg-primary-500': props.selectedLoanScheme?.id === scheme.id })}
-            dark={tailwind('border-gray-400', { 'border-dfxred-500 bg-dfxred-500': props.selectedLoanScheme?.id === scheme.id })}
+            light={tailwind('border-dfxgray-500', { 'border-primary-500 bg-primary-500': props.selectedLoanScheme?.id === scheme.id })}
+            dark={tailwind('border-dfxgray-400', { 'border-dfxred-500 bg-dfxred-500': props.selectedLoanScheme?.id === scheme.id })}
             style={tailwind('rounded-full border w-4 h-4 mr-7')}
           >
             {props.selectedLoanScheme?.id === scheme.id &&
@@ -197,8 +197,8 @@ function LoanSchemeOptionData (props: { label: string, value: string, testId: st
   return (
     <View style={tailwind('flex-1')}>
       <ThemedText
-        light={tailwind('text-gray-400')}
-        dark={tailwind('text-gray-500')}
+        light={tailwind('text-dfxgray-400')}
+        dark={tailwind('text-dfxgray-500')}
         style={tailwind('text-xs')}
       >
         {translate('screens/CreateVaultScreen', props.label)}

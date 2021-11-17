@@ -109,7 +109,7 @@ export function DexScreen (): JSX.Element {
       >
         <View style={tailwind('flex flex-col')}>
           <ThemedText
-            light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
+            light={tailwind('text-dfxgray-500')} dark={tailwind('text-dfxgray-400')}
             style={tailwind('text-xs')}
           >{translate('screens/DexScreen', 'Total Value Locked (USD)')}
           </ThemedText>
@@ -172,8 +172,8 @@ export function DexScreen (): JSX.Element {
               >{translate('screens/DexScreen', 'No active pool pairs')}
               </ThemedText>
               <ThemedText
-                dark={tailwind('text-gray-400')}
-                light={tailwind('text-gray-500')}
+                dark={tailwind('text-dfxgray-400')}
+                light={tailwind('text-dfxgray-500')}
                 style={tailwind('text-base text-center')}
               >{translate('screens/DexScreen', 'Supply liquidity pool tokens to earn high yields')}
               </ThemedText>
@@ -434,8 +434,8 @@ function PoolPairInfoLine (props: PoolPairInfoLineProps): JSX.Element {
   return (
     <View style={[tailwind('flex-col justify-between mt-3'), { width: '50%' }]}>
       <ThemedText
-        dark={tailwind('text-gray-400')}
-        light={tailwind('text-gray-500')}
+        dark={tailwind('text-dfxgray-400')}
+        light={tailwind('text-dfxgray-500')}
         style={tailwind('text-xs font-normal')}
       >
         {props.label}

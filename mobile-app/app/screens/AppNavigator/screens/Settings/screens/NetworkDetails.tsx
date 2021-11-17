@@ -74,8 +74,8 @@ function NetworkStatusRow ({ connected }: {connected: boolean}): JSX.Element {
       </ThemedText>
 
       <ThemedView
-        dark={tailwind('text-gray-400')}
-        light={tailwind('text-gray-500')}
+        dark={tailwind('text-dfxgray-400')}
+        light={tailwind('text-dfxgray-500')}
         style={tailwind('flex-row items-center')}
       >
         <View
@@ -83,8 +83,8 @@ function NetworkStatusRow ({ connected }: {connected: boolean}): JSX.Element {
           testID='network_details_status_icon'
         />
         <ThemedText
-          dark={tailwind('text-gray-400')}
-          light={tailwind('text-gray-500')}
+          dark={tailwind('text-dfxgray-400')}
+          light={tailwind('text-dfxgray-500')}
           style={[tailwind('font-medium text-right'), { lineHeight: 20 }]}
           testID='network_details_status_value'
         >
@@ -127,7 +127,7 @@ function BlocksInfoRow ({ blockCount }: {blockCount?: number}): JSX.Element {
                 <ThemedText
                   dark={tailwind('text-dfxred-500')}
                   light={tailwind('text-primary-500')}
-                  style={tailwind('flex-wrap font-medium text-right text-gray-500')}
+                  style={tailwind('flex-wrap font-medium text-right text-dfxgray-500')}
                   testID='network_details_block_height'
                 >
                   {val}

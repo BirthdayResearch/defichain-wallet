@@ -28,8 +28,8 @@ export function TokenBalanceRow (props: { lhs: string, rhs: { value: string | nu
           displayType='text'
           renderText={(val: string) => (
             <ThemedText
-              dark={tailwind('text-gray-400')}
-              light={tailwind('text-gray-500')}
+              dark={tailwind('text-dfxgray-400')}
+              light={tailwind('text-dfxgray-500')}
               style={tailwind('flex-wrap font-medium text-right mr-1')}
               testID={props.rhs.testID}
             >

@@ -89,7 +89,7 @@ function SummaryHeader (props: {amount: BigNumber, displaySymbol: string}): JSX.
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-300')}
+      light={tailwind('bg-white border-b border-dfxgray-300')}
       style={tailwind('flex-col px-4 py-8')}
     >
       <SummaryTitle

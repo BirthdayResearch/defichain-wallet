@@ -12,7 +12,7 @@ export function TransactionCloseButton (props: TransactionCloseButtonProps): JSX
   return (
     <TouchableOpacity
       onPress={props.onPress}
-      style={tailwind('px-2 ml-3 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
+      style={tailwind('px-2 ml-3 py-1 rounded border border-dfxgray-300 rounded flex-row justify-center items-center')}
       testID='oceanInterface_close'
     >
       <ThemedText

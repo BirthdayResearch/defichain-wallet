@@ -228,8 +228,8 @@ function TokenSummary (props: { token: WalletToken}): JSX.Element {
           value={new BigNumber(props.token.amount).toFixed(8)}
         />
         <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
+          light={tailwind('text-dfxgray-500')}
+          dark={tailwind('text-dfxgray-400')}
           style={tailwind('text-sm')}
         >
           {props.token.displaySymbol}

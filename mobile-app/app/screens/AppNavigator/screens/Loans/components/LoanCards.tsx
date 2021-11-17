@@ -123,8 +123,8 @@ function LoanCard ({
         <ThemedIcon iconType='MaterialIcons' name='chevron-right' size={20} style={tailwind('-mr-2')} />
       </View>
       <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        light={tailwind('text-dfxgray-500')}
+        dark={tailwind('text-dfxgray-400')}
         style={tailwind('text-xs')}
       >
         {translate('components/LoanCard', 'Interest')}
@@ -141,8 +141,8 @@ function LoanCard ({
         suffix='%'
       />
       <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        light={tailwind('text-dfxgray-500')}
+        dark={tailwind('text-dfxgray-400')}
         style={tailwind('text-xs')}
       >
         {translate('components/LoanCard', 'Price (USD)')}

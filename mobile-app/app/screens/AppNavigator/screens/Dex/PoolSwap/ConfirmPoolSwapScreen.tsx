@@ -93,7 +93,7 @@ export function ConfirmPoolSwapScreen ({ route }: Props): JSX.Element {
     <ThemedScrollView style={tailwind('pb-4')}>
       <ThemedView
         dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
-        light={tailwind('bg-white border-b border-gray-300')}
+        light={tailwind('bg-white border-b border-dfxgray-300')}
         style={tailwind('flex-col px-4 py-8')}
       >
         <SummaryTitle

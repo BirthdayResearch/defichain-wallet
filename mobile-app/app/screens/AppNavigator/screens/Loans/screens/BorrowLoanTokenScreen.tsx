@@ -160,8 +160,8 @@ export function BorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Elemen
                 margin='mt-16 mb-2 mx-4'
               />
               <ThemedText
-                light={tailwind('text-gray-500')}
-                dark={tailwind('text-gray-400')}
+                light={tailwind('text-dfxgray-500')}
+                dark={tailwind('text-dfxgray-400')}
                 style={tailwind('text-center text-xs mb-12')}
               >
                 {translate('screens/BorrowLoanTokenScreen', 'Review and confirm transaction in the next screen')}
@@ -179,8 +179,8 @@ export function BorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Elemen
 function InputLabel (props: {text: string}): JSX.Element {
   return (
     <ThemedText
-      light={tailwind('text-gray-500')}
-      dark={tailwind('text-gray-400')}
+      light={tailwind('text-dfxgray-500')}
+      dark={tailwind('text-dfxgray-400')}
       style={tailwind('text-xs font-medium mt-4 mb-1')}
     >
       {translate('screens/BorrowLoanTokenScreen', props.text)}
@@ -211,8 +211,8 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
       </View>
       <View style={tailwind('w-8/12 items-end flex-1')}>
         <ThemedText
-          light={tailwind('text-gray-400')}
-          dark={tailwind('text-gray-500')}
+          light={tailwind('text-dfxgray-400')}
+          dark={tailwind('text-dfxgray-500')}
           style={tailwind('text-xs')}
         >
           {translate('screens/BorrowLoanTokenScreen', 'Price (USD)')}
@@ -231,8 +231,8 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
       </View>
       <View style={tailwind('mr-4 w-3/12 items-end')}>
         <ThemedText
-          light={tailwind('text-gray-400')}
-          dark={tailwind('text-gray-500')}
+          light={tailwind('text-dfxgray-400')}
+          dark={tailwind('text-dfxgray-500')}
           style={tailwind('text-xs')}
         >
           {translate('screens/BorrowLoanTokenScreen', 'Interest')}
@@ -277,8 +277,8 @@ function VaultInput (props: VaultInputProps): JSX.Element {
       >
         <View style={tailwind('flex flex-row justify-between items-center py-1.5')}>
           <ThemedText
-            light={tailwind('text-gray-300')}
-            dark={tailwind('text-gray-500')}
+            light={tailwind('text-dfxgray-300')}
+            dark={tailwind('text-dfxgray-500')}
             style={tailwind('text-sm')}
           >
             {translate('screens/BorrowLoanTokenScreen', 'Select a vault to use')}
@@ -325,8 +325,8 @@ function VaultInput (props: VaultInputProps): JSX.Element {
       </View>
       <View style={tailwind('flex flex-row items-center justify-between mb-1')}>
         <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
+          light={tailwind('text-dfxgray-500')}
+          dark={tailwind('text-dfxgray-400')}
           style={tailwind('text-xs')}
         >
           {translate('screens/BorrowLoanTokenScreen', 'Total collateral (USD)')}
@@ -345,8 +345,8 @@ function VaultInput (props: VaultInputProps): JSX.Element {
       </View>
       <View style={tailwind('flex flex-row items-center justify-between')}>
         <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
+          light={tailwind('text-dfxgray-500')}
+          dark={tailwind('text-dfxgray-400')}
           style={tailwind('text-xs')}
         >
           {translate('screens/BorrowLoanTokenScreen', 'Vault interest')}

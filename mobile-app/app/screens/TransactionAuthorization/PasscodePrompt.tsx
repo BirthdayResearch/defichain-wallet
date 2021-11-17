@@ -78,8 +78,8 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
               <View style={tailwind('px-8 text-sm text-center mb-6')}>
                 <ThemedText
                   testID='txn_authorization_message'
-                  dark={tailwind('text-gray-400')}
-                  light={tailwind('text-gray-500')}
+                  dark={tailwind('text-dfxgray-400')}
+                  light={tailwind('text-dfxgray-500')}
                   style={tailwind('p-2 px-8 text-sm text-center mb-2')}
                 >
                   {props.message}
@@ -89,8 +89,8 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                   props.transaction?.description !== undefined && (
                     <ThemedText
                       testID='txn_authorization_description'
-                      dark={tailwind('text-gray-400')}
-                      light={tailwind('text-gray-500')}
+                      dark={tailwind('text-dfxgray-400')}
+                      light={tailwind('text-dfxgray-500')}
                       style={tailwind('text-sm text-center')}
                     >
                       {props.transaction.description}

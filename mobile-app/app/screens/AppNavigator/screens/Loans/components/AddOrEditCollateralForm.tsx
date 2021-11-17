@@ -81,7 +81,7 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
         </ThemedText>
         <ThemedView
           light={tailwind('text-gray-700 border-gray-700')}
-          dark={tailwind('text-gray-300 border-gray-300')}
+          dark={tailwind('text-dfxgray-300 border-dfxgray-300')}
           style={tailwind('border rounded')}
         >
           <NumberFormat
@@ -92,7 +92,7 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
             renderText={value =>
               <ThemedText
                 light={tailwind('text-gray-700')}
-                dark={tailwind('text-gray-300')}
+                dark={tailwind('text-dfxgray-300')}
                 style={tailwind('text-xs font-medium px-1')}
               >
                 {value}

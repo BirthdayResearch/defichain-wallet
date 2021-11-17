@@ -248,8 +248,8 @@ function PrivacyLockToggle ({
         />
       </ThemedView>
       <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        light={tailwind('text-dfxgray-500')}
+        dark={tailwind('text-dfxgray-400')}
         style={tailwind('p-4 pt-2 mb-4 text-xs font-medium')}
       >
         {translate('screens/Settings', 'Auto-locks wallet if there is no activity for 1 min.')}

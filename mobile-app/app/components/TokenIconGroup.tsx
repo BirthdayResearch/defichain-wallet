@@ -32,8 +32,8 @@ export function TokenIconGroup (props: TokenIconGroupProps): JSX.Element {
       {additionalIcon.gt(0) &&
         (
           <ThemedText
-            light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
+            light={tailwind('text-dfxgray-500')}
+            dark={tailwind('text-dfxgray-400')}
             style={[tailwind('relative text-xs font-medium'), { left: (props.maxIconToDisplay - 2) * -5 }]}
           >
             & {additionalIcon.toFixed()} more

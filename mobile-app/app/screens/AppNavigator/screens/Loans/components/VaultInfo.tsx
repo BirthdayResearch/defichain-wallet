@@ -26,8 +26,8 @@ export function VaultInfo (props: VaultInfoProps): JSX.Element {
   return (
     <View style={tailwind('w-2/4 mb-2')}>
       <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        light={tailwind('text-dfxgray-500')}
+        dark={tailwind('text-dfxgray-400')}
         style={tailwind('text-xs')}
       >
         {translate('components/VaultCard', props.label)}

@@ -53,7 +53,7 @@ export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Eleme
     for (let i = 1; i < totalStep; i++) {
       let iconStyle
       if (current === i + 1) {
-        iconStyle = isLight ? 'bg-primary-500' : 'bg-dfxgray-500'
+        iconStyle = isLight ? 'bg-primary-500' : 'bg-dfxgray-400'
       } else if (current > i + 1) {
         iconStyle = isLight ? 'bg-primary-500' : 'bg-dfxred-500'
       } else {
@@ -96,14 +96,14 @@ function getStepNodeStyle (isLight: boolean, current: number, step: number): { s
   let stepperStyle
   let textStyle
   if (current === step) {
-    stepperStyle = isLight ? 'bg-primary-500 bg-opacity-10 border border-primary-500' : 'bg-dfxgray-500 border border-dfxgray-500'
+    stepperStyle = isLight ? 'bg-primary-500 bg-opacity-10 border border-primary-500' : 'bg-dfxgray-400 border border-dfxgray-400'
     textStyle = isLight ? 'text-primary-500' : 'text-dfxblue-900'
   } else if (current > step) {
     stepperStyle = isLight ? 'bg-primary-500 border border-primary-500' : 'bg-dfxred-500 border border-darkprimary-600'
     textStyle = 'text-white'
   } else {
     stepperStyle = isLight ? 'bg-transparent border border-gray-200' : 'bg-gray-700 border border-gray-200'
-    textStyle = isLight ? 'text-gray-500' : 'text-gray-400'
+    textStyle = isLight ? 'text-dfxgray-500' : 'text-dfxgray-400'
   }
   return {
     stepperStyle,
@@ -138,8 +138,8 @@ function StepNode (props: { step: number, current: number, content: string, isLi
 function Description (props: { step: number, current: number, content: string }): JSX.Element {
   return (
     <ThemedText
-      dark={tailwind(props.current === props.step ? 'text-white' : 'text-gray-400')}
-      light={tailwind(props.current === props.step ? 'text-primary-500' : 'text-gray-500')}
+      dark={tailwind(props.current === props.step ? 'text-white' : 'text-dfxgray-400')}
+      light={tailwind(props.current === props.step ? 'text-primary-500' : 'text-dfxgray-500')}
       style={tailwind('text-center text-sm font-medium top-9 absolute w-20')}
     >
       {translate('components/CreateWalletIndicator', props.content)}

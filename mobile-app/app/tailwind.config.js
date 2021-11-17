@@ -144,8 +144,8 @@ module.exports = {
         },
         dfxgray: {
           300: '#B8C4D8',
-          500: '#9AA5B8',
-          700: '#65728A'
+          400: '#9AA5B8',
+          500: '#65728A'
         }
       },
       maxWidth: {

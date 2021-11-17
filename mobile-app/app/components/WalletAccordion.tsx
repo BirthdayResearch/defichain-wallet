@@ -35,8 +35,8 @@ export function WalletAccordion (props: AccordionProps): JSX.Element {
     >
       <ThemedSectionTitle
         style={tailwind('mt-8 text-xs font-medium')}
-        light={tailwind('text-gray-400')}
-        dark={tailwind('text-gray-500')}
+        light={tailwind('text-dfxgray-400')}
+        dark={tailwind('text-dfxgray-500')}
         text={props.title}
       />
 
@@ -56,8 +56,8 @@ export function WalletAccordion (props: AccordionProps): JSX.Element {
                   tailwind('text-sm flex-1'),
                   isActive && tailwind('font-semibold')
                 ]}
-                light={isActive ? tailwind('text-gray-900') : tailwind('text-gray-500')}
-                dark={isActive ? tailwind('text-gray-50') : tailwind('text-gray-400')}
+                light={isActive ? tailwind('text-gray-900') : tailwind('text-dfxgray-500')}
+                dark={isActive ? tailwind('text-gray-50') : tailwind('text-dfxgray-400')}
               >
                 {prop.title}
               </ThemedText>
@@ -65,8 +65,8 @@ export function WalletAccordion (props: AccordionProps): JSX.Element {
                 iconType='MaterialIcons'
                 name={isActive ? 'arrow-drop-up' : 'arrow-drop-down'}
                 size={24}
-                light={isActive ? tailwind('text-gray-600') : tailwind('text-gray-400')}
-                dark={isActive ? tailwind('text-gray-300') : tailwind('text-gray-500')}
+                light={isActive ? tailwind('text-gray-600') : tailwind('text-dfxgray-400')}
+                dark={isActive ? tailwind('text-dfxgray-300') : tailwind('text-dfxgray-500')}
               />
             </ThemedView>
 
@@ -82,7 +82,7 @@ export function WalletAccordion (props: AccordionProps): JSX.Element {
               <ThemedText
                 style={tailwind('text-sm')}
                 light={tailwind('text-gray-600')}
-                dark={tailwind('text-gray-300')}
+                dark={tailwind('text-dfxgray-300')}
               >
                 {prop.content}
               </ThemedText>

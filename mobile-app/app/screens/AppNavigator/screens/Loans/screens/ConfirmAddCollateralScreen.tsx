@@ -95,12 +95,12 @@ function SummaryHeader (props: {vaultId: string}): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
-      light={tailwind('bg-white border-b border-gray-300')}
+      light={tailwind('bg-white border-b border-dfxgray-300')}
       style={tailwind('flex-col px-4 py-6')}
     >
       <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        light={tailwind('text-dfxgray-500')}
+        dark={tailwind('text-dfxgray-400')}
         style={tailwind('mb-2')}
       >
         {translate('screens/ConfirmAddCollateralScreen', 'You are adding collaterals to')}
@@ -116,7 +116,7 @@ function SummaryHeader (props: {vaultId: string}): JSX.Element {
             name='shield'
             size={14}
             light={tailwind('text-gray-600')}
-            dark={tailwind('text-gray-300')}
+            dark={tailwind('text-dfxgray-300')}
           />
         </ThemedView>
         <ThemedText
@@ -255,7 +255,7 @@ function VaultProportionRow (props: {lhs: string, tokenId: string, proportion: B
           renderText={value =>
             <ThemedText
               light={tailwind('text-gray-700')}
-              dark={tailwind('text-gray-300')}
+              dark={tailwind('text-dfxgray-300')}
               style={tailwind('text-xs font-medium ml-1')}
             >
               {value}

@@ -122,7 +122,7 @@ export function ConvertScreen (props: Props): JSX.Element {
       <ThemedSectionTitle
         testID='title_transaction_details'
         text={translate('screens/ConvertScreen', 'TRANSACTION DETAILS')}
-        style={tailwind('px-4 mt-6 pb-2 text-xs text-gray-500 font-medium')}
+        style={tailwind('px-4 mt-6 pb-2 text-xs text-dfxgray-500 font-medium')}
       />
       <FeeInfoRow
         type='ESTIMATED_FEE'
@@ -132,8 +132,8 @@ export function ConvertScreen (props: Props): JSX.Element {
       />
       <ThemedText
         light={tailwind('text-gray-600')}
-        dark={tailwind('text-gray-300')}
-        style={tailwind('mt-2 px-4 text-sm')}
+        dark={tailwind('text-dfxgray-300')}
+        style={tailwind('pt-2 pb-2 px-4 text-sm')}
       >
         {translate('screens/ConvertScreen', 'Review full transaction details in the next screen')}
       </ThemedText>
@@ -144,7 +144,6 @@ export function ConvertScreen (props: Props): JSX.Element {
         onPress={() => convert(sourceToken, targetToken)}
         testID='button_continue_convert'
         title='Convert'
-        margin='my-14 mx-4'
       />
     </ThemedScrollView>
   )
@@ -181,7 +180,7 @@ function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' 
             props.onChange(event.nativeEvent.text)
           }}
           placeholder={translate('screens/ConvertScreen', 'Enter an amount')}
-          style={tailwind('flex-grow w-2/5 text-gray-500 px-1')}
+          style={tailwind('flex-grow w-2/5 text-dfxgray-500 px-1')}
           testID={`text_input_convert_from_${props.mode}`}
           value={props.current}
           inputType='numeric'

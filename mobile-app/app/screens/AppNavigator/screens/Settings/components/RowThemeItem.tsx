@@ -33,7 +33,7 @@ export function RowThemeItem (): JSX.Element {
         <MaterialCommunityIcons
           name='white-balance-sunny'
           size={20}
-          style={tailwind('mr-2 text-gray-300', { 'text-yellow-400': isLight })}
+          style={tailwind('mr-2 text-dfxgray-300', { 'text-yellow-400': isLight })}
         />
 
         <Switch
@@ -50,7 +50,7 @@ export function RowThemeItem (): JSX.Element {
         <MaterialCommunityIcons
           name='moon-waning-crescent'
           size={20}
-          style={tailwind('ml-2 text-gray-300', { 'text-yellow-400': !isLight })}
+          style={tailwind('ml-2 text-dfxgray-300', { 'text-yellow-400': !isLight })}
         />
       </View>
     </ThemedView>

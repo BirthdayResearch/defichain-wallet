@@ -18,8 +18,8 @@ export function ConversionTag (): JSX.Element {
         style={tailwind('mt-0.5 mr-1')}
       />
       <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        light={tailwind('text-dfxgray-500')}
+        dark={tailwind('text-dfxgray-400')}
         style={tailwind('text-xs font-medium')}
       >
         {translate('components/ConversionTag', 'Conversion required')}

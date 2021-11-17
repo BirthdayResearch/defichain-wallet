@@ -92,7 +92,7 @@ function CommunityItemRow ({
         <ThemedIcon
           dark={tailwind('text-gray-200')}
           iconType='MaterialIcons'
-          light={tailwind('text-gray-500')}
+          light={tailwind('text-dfxgray-500')}
           name='chevron-right'
           size={24}
         />

@@ -57,7 +57,7 @@ export function ConversionBreakdown (props: ConversionBreakdownProps): JSX.Eleme
       />
       <ThemedText
         light={tailwind('text-gray-600')}
-        dark={tailwind('text-gray-300')}
+        dark={tailwind('text-dfxgray-300')}
         style={tailwind('mt-2 mx-4 text-sm')}
         testID='conversion_breakdown_text'
       >

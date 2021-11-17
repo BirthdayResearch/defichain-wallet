@@ -111,12 +111,12 @@ function SummaryHeader (props: { conversion?: ConversionParam }): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
-      light={tailwind('bg-white border-b border-gray-300')}
+      light={tailwind('bg-white border-b border-dfxgray-300')}
       style={tailwind('flex-col px-4 py-6')}
     >
       <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        light={tailwind('text-dfxgray-500')}
+        dark={tailwind('text-dfxgray-400')}
         style={tailwind('mb-2')}
       >
         {translate('screens/ConfirmCreateVaultScreen', 'You are creating vault')}
@@ -132,12 +132,12 @@ function SummaryHeader (props: { conversion?: ConversionParam }): JSX.Element {
             name='shield'
             size={14}
             light={tailwind('text-gray-600')}
-            dark={tailwind('text-gray-300')}
+            dark={tailwind('text-dfxgray-300')}
           />
         </ThemedView>
         <ThemedText
-          light={tailwind('text-gray-400')}
-          dark={tailwind('text-gray-500')}
+          light={tailwind('text-dfxgray-400')}
+          dark={tailwind('text-dfxgray-500')}
           style={tailwind('text-sm')}
         >
           {translate('screens/ConfirmCreateVaultScreen', 'ID will generate once vault has been created')}

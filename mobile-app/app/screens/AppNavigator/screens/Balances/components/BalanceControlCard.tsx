@@ -38,8 +38,8 @@ export function BalanceControlCard (): JSX.Element {
             style={tailwind('flex flex-row mb-0.5')}
           >
             <ThemedText
-              light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
+              light={tailwind('text-dfxgray-500')}
+              dark={tailwind('text-dfxgray-400')}
               style={tailwind('text-xs mr-1.5')}
             >
               {translate('components/BalanceControlCard', 'Wallet Address')}

@@ -104,8 +104,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             testID='toggle_balance_icon'
           />
           <ThemedText
-            dark={tailwind('text-gray-500')}
-            light={tailwind('text-gray-500')}
+            dark={tailwind('text-dfxgray-500')}
+            light={tailwind('text-dfxgray-500')}
             style={tailwind('text-xs font-medium')}
             testID='toggle_balance_text'
           >
@@ -164,7 +164,7 @@ function BalanceItemRow ({
             {token.displaySymbol}
           </ThemedText>
           <ThemedText
-            dark={tailwind('text-gray-400')}
+            dark={tailwind('text-dfxgray-400')}
             ellipsizeMode='tail'
             light={tailwind('text-gray-600')}
             numberOfLines={1}

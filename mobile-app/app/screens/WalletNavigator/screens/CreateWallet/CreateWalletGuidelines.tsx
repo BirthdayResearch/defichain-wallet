@@ -51,8 +51,8 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
       </ThemedText>
 
       <ThemedText
-        dark={tailwind('text-gray-400')}
-        light={tailwind('text-gray-500')}
+        dark={tailwind('text-dfxgray-400')}
+        light={tailwind('text-dfxgray-500')}
         style={tailwind('mt-1 text-sm font-medium')}
       >
         {translate('screens/Guidelines', 'Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.')}
@@ -90,8 +90,8 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
               </ThemedText>
 
               <ThemedText
-                dark={tailwind('text-gray-400')}
-                light={tailwind('text-gray-500')}
+                dark={tailwind('text-dfxgray-400')}
+                light={tailwind('text-dfxgray-500')}
                 numberOfLines={4}
                 style={tailwind('text-sm')}
               >

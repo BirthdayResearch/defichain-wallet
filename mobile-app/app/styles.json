@@ -6356,14 +6356,14 @@
 		"borderBottomColor": "rgba(184, 196, 216, var(--tw-border-opacity))",
 		"borderLeftColor": "rgba(184, 196, 216, var(--tw-border-opacity))"
 	},
-	"border-dfxgray-500": {
+	"border-dfxgray-400": {
 		"--tw-border-opacity": 1,
 		"borderTopColor": "rgba(154, 165, 184, var(--tw-border-opacity))",
 		"borderRightColor": "rgba(154, 165, 184, var(--tw-border-opacity))",
 		"borderBottomColor": "rgba(154, 165, 184, var(--tw-border-opacity))",
 		"borderLeftColor": "rgba(154, 165, 184, var(--tw-border-opacity))"
 	},
-	"border-dfxgray-700": {
+	"border-dfxgray-500": {
 		"--tw-border-opacity": 1,
 		"borderTopColor": "rgba(101, 114, 138, var(--tw-border-opacity))",
 		"borderRightColor": "rgba(101, 114, 138, var(--tw-border-opacity))",
@@ -7110,11 +7110,11 @@
 		"--tw-bg-opacity": 1,
 		"backgroundColor": "rgba(184, 196, 216, var(--tw-bg-opacity))"
 	},
-	"bg-dfxgray-500": {
+	"bg-dfxgray-400": {
 		"--tw-bg-opacity": 1,
 		"backgroundColor": "rgba(154, 165, 184, var(--tw-bg-opacity))"
 	},
-	"bg-dfxgray-700": {
+	"bg-dfxgray-500": {
 		"--tw-bg-opacity": 1,
 		"backgroundColor": "rgba(101, 114, 138, var(--tw-bg-opacity))"
 	},
@@ -8941,11 +8941,11 @@
 		"--tw-text-opacity": 1,
 		"color": "rgba(184, 196, 216, var(--tw-text-opacity))"
 	},
-	"text-dfxgray-500": {
+	"text-dfxgray-400": {
 		"--tw-text-opacity": 1,
 		"color": "rgba(154, 165, 184, var(--tw-text-opacity))"
 	},
-	"text-dfxgray-700": {
+	"text-dfxgray-500": {
 		"--tw-text-opacity": 1,
 		"color": "rgba(101, 114, 138, var(--tw-text-opacity))"
 	},
@@ -9841,11 +9841,11 @@
 		"--tw-ring-opacity": 1,
 		"--tw-ring-color": "rgba(184, 196, 216, var(--tw-ring-opacity))"
 	},
-	"ring-dfxgray-500": {
+	"ring-dfxgray-400": {
 		"--tw-ring-opacity": 1,
 		"--tw-ring-color": "rgba(154, 165, 184, var(--tw-ring-opacity))"
 	},
-	"ring-dfxgray-700": {
+	"ring-dfxgray-500": {
 		"--tw-ring-opacity": 1,
 		"--tw-ring-color": "rgba(101, 114, 138, var(--tw-ring-opacity))"
 	},
@@ -10431,10 +10431,10 @@
 	"ring-offset-dfxgray-300": {
 		"--tw-ring-offset-color": "#B8C4D8"
 	},
-	"ring-offset-dfxgray-500": {
+	"ring-offset-dfxgray-400": {
 		"--tw-ring-offset-color": "#9AA5B8"
 	},
-	"ring-offset-dfxgray-700": {
+	"ring-offset-dfxgray-500": {
 		"--tw-ring-offset-color": "#65728A"
 	},
 	"filter": {

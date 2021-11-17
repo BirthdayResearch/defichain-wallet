@@ -172,8 +172,8 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
       />
       <ThemedText
         light={tailwind('text-gray-600')}
-        dark={tailwind('text-gray-300')}
-        style={tailwind('pt-2 pb-8 px-4 text-sm')}
+        dark={tailwind('text-dfxgray-300')}
+        style={tailwind('pt-2 pb-2 px-4 text-sm')}
       >
         {translate('screens/RemoveLiquidity', 'Review full transaction details in the next screen')}
       </ThemedText>
@@ -198,8 +198,8 @@ function AmountSlider (props: { current: number, onChange: (percentage: string) 
         testID='button_slider_min'
       >
         <ThemedText
-          dark={tailwind('text-gray-300')}
-          light={tailwind('text-gray-500')}
+          dark={tailwind('text-dfxgray-300')}
+          light={tailwind('text-dfxgray-500')}
           style={tailwind(' text-xs')}
         >
           {translate('components/slider', 'None')}
@@ -223,8 +223,8 @@ function AmountSlider (props: { current: number, onChange: (percentage: string) 
         testID='button_slider_max'
       >
         <ThemedText
-          dark={tailwind('text-gray-400')}
-          light={tailwind('text-gray-500')}
+          dark={tailwind('text-dfxgray-400')}
+          light={tailwind('text-dfxgray-500')}
           style={tailwind('text-xs')}
         >
           {translate('components/slider', 'Max')}

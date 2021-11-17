@@ -111,7 +111,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
 
       <View style={tailwind('justify-center p-4')}>
         <ThemedText
-          dark={tailwind('text-gray-400')}
+          dark={tailwind('text-dfxgray-400')}
           light={tailwind('text-gray-900')}
           style={tailwind('font-medium text-sm text-center')}
         >

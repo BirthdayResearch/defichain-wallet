@@ -69,8 +69,8 @@ export const BottomSheetVaultList = ({
           </View>
           <View style={tailwind('flex items-end')}>
             <ThemedText
-              light={tailwind('text-gray-400')}
-              dark={tailwind('text-gray-500')}
+              light={tailwind('text-dfxgray-400')}
+              dark={tailwind('text-dfxgray-500')}
               style={tailwind('text-xs')}
             >
               {translate('components/BottomSheetVaultList', 'Collateral ratio')}

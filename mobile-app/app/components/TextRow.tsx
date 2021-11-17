@@ -28,8 +28,8 @@ export function TextRow (props: TextRowProps): JSX.Element {
 
       <View style={tailwind('flex-1')}>
         <ThemedText
-          dark={tailwind('text-gray-400')}
-          light={tailwind('text-gray-500')}
+          dark={tailwind('text-dfxgray-400')}
+          light={tailwind('text-dfxgray-500')}
           {...props.rhs.themedProps}
           style={[tailwind('font-medium text-right'), props.textStyle]}
           testID={props.rhs.testID}

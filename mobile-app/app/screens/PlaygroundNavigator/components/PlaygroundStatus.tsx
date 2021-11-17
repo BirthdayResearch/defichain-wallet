@@ -44,7 +44,7 @@ export function PlaygroundStatus (props: PlaygroundStatusProps): JSX.Element {
   }
   return (
     <View
-      style={tailwind('h-3 w-3 rounded-full bg-gray-500')}
+      style={tailwind('h-3 w-3 rounded-full bg-dfxgray-500')}
       testID='playground_status_indicator'
     />
   )

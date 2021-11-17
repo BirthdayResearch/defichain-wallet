@@ -71,8 +71,8 @@ export function FeatureFlagScreen (): JSX.Element {
         </ThemedText>
 
         <ThemedText
-          dark={tailwind('text-gray-400')}
-          light={tailwind('text-gray-500')}
+          dark={tailwind('text-dfxgray-400')}
+          light={tailwind('text-dfxgray-500')}
           style={tailwind('text-sm font-normal')}
         >
           {translate('screens/FeatureFlagScreen', 'Beta features of Light Wallet are features undergoing final testing before its official release. Experimentation of the features is encouraged, but caution is advised when using your assets.')}
@@ -121,8 +121,8 @@ export function FeatureFlagItem ({ item, onChange }: FeatureFlagItemProps): JSX.
         </View>
       </ThemedView>
       <ThemedText
-        dark={tailwind('text-gray-400')}
-        light={tailwind('text-gray-500')}
+        dark={tailwind('text-dfxgray-400')}
+        light={tailwind('text-dfxgray-500')}
         style={tailwind('px-4 py-2 mb-2 text-sm font-normal')}
       >
         {translate('screens/FeatureFlagScreen', item.description)}

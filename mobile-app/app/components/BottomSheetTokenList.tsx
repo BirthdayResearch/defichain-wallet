@@ -117,8 +117,8 @@ export const BottomSheetTokenList = ({
                 {item.id}
               </ThemedText>
               <ThemedText
-                light={tailwind('text-gray-500')}
-                dark={tailwind('text-gray-400')}
+                light={tailwind('text-dfxgray-500')}
+                dark={tailwind('text-dfxgray-400')}
                 style={tailwind('text-xs')}
               >
                 {item.name}
@@ -132,7 +132,7 @@ export const BottomSheetTokenList = ({
               renderText={value =>
                 <ThemedText
                   light={tailwind('text-gray-700')}
-                  dark={tailwind('text-gray-300')}
+                  dark={tailwind('text-dfxgray-300')}
                   style={tailwind('mr-0.5')}
                 >
                   {value}
