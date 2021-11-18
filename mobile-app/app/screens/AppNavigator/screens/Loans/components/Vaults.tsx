@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { tailwind } from '@tailwind'
-import { ThemedView } from '@components/themed'
+import { ThemedScrollView } from '@components/themed'
 import { VaultCard } from '@screens/AppNavigator/screens/Loans/components/VaultCard'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { View } from 'react-native'
@@ -26,7 +26,7 @@ export function Vaults (): JSX.Element {
   const { isBetaFeature } = useFeatureFlagContext()
 
   return (
-    <ThemedView style={tailwind('h-full m-4')}>
+    <ThemedScrollView style={tailwind('h-full m-4')}>
       {isBetaFeature('loan') && (
         <View style={tailwind('pb-4')}>
           <InfoText
@@ -38,6 +38,6 @@ export function Vaults (): JSX.Element {
       {vaults.map((vault, index) => {
         return <VaultCard testID={`vault_card_${index}`} key={index} vault={vault} />
       })}
-    </ThemedView>
+    </ThemedScrollView>
   )
 }

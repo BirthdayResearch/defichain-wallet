@@ -714,7 +714,7 @@
     "Collateral amount (USD)": "抵押品金額 (美金)",
     "Vault %": "金庫 %"
   },
-  "screens/AddCollateralScreen": {
+  "screens/EditCollateralScreen": {
     "COLLATERALS WILL BE ADDED TO VAULT": "您正要向金庫添加抵押資金",
     "ADD DFI AND TOKENS FOR COLLATERAL": "添加DFI和代幣作為抵押資金",
     "Collateral amount (USD)": "抵押品金額 (美金)",
@@ -741,7 +741,7 @@
     "Available": "可添加資金",
     "ADD TOKEN AS COLLATERAL": "添加代幣為抵押資金"
   },
-  "screens/ConfirmAddCollateralScreen": {
+  "screens/ConfirmEditCollateralScreen": {
     "You are adding collaterals to": "您正要向以下金庫添加抵押資金",
     "TRANSACTION DETAILS": "交易明細",
     "Transaction type": "交易類型",

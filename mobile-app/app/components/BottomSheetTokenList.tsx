@@ -10,7 +10,7 @@ import { BottomSheetWithNavRouteParam } from './BottomSheetWithNav'
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { AddOrEditCollateralResponse } from '@screens/AppNavigator/screens/Loans/components/AddOrEditCollateralForm'
-import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/AddCollateralScreen'
+import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen'
 
 interface BottomSheetTokenListProps {
   headerLabel: string
