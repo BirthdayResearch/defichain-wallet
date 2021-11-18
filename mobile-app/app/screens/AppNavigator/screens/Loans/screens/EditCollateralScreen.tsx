@@ -36,10 +36,10 @@ import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction'
 import { transactionQueue } from '@store/transaction_queue'
-import { NumberRow, NumberRowRightElement } from '@components/NumberRow'
 import { IconButton } from '@components/IconButton'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { useVaultShare } from '@screens/AppNavigator/screens/Loans/hooks/VaultShare'
+import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 
@@ -279,29 +279,6 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
         lhs={translate('components/EditCollateralScreen', 'Vault interest')}
       />
     </ThemedView>
-  )
-}
-
-interface VaultSectionText extends NumberRowRightElement {
-  lhs: string
-}
-
-function VaultSectionTextRow (props: VaultSectionText): JSX.Element {
-  return (
-    <NumberRow
-      lhs={props.lhs}
-      rhs={{
-        value: props.value,
-        testID: props.testID,
-        suffix: props.suffix,
-        suffixType: props.suffixType,
-        prefix: props.prefix
-      }}
-      style={tailwind('flex-row items-center w-full my-1')}
-      dark={tailwind('bg-gray-800')}
-      light={tailwind('bg-white')}
-      textStyle={tailwind('text-xs')}
-    />
   )
 }
 
