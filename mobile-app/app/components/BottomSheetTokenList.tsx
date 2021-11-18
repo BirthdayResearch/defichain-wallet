@@ -57,7 +57,8 @@ export const BottomSheetTokenList = ({
                   token: item.token,
                   available: item.available.toFixed(8),
                   onButtonPress: navigateToScreen.onButtonPress,
-                  collateralFactor: new BigNumber(item.factor ?? 0).times(100)
+                  collateralFactor: new BigNumber(item.factor ?? 0).times(100),
+                  isAdd: true
                 },
                 merge: true
               })
