@@ -10,8 +10,8 @@ import { CreateVaultScreen } from './screens/CreateVaultScreen'
 import { ConfirmCreateVaultScreen } from './screens/ConfirmCreateVaultScreen'
 import BigNumber from 'bignumber.js'
 import { VaultDetailScreen } from './VaultDetail/VaultDetailScreen'
-import { AddCollateralScreen, Collateral } from './screens/AddCollateralScreen'
-import { ConfirmAddCollateralScreen } from './screens/ConfirmAddCollateralScreen'
+import { EditCollateralScreen, Collateral } from './screens/EditCollateralScreen'
+import { ConfirmEditCollateralScreen } from './screens/ConfirmEditCollateralScreen'
 import { ChooseLoanTokenScreen } from './screens/ChooseLoanTokenScreen'
 import { BorrowLoanTokenScreen } from './screens/BorrowLoanTokenScreen'
 import { ConfirmBorrowLoanTokenScreen } from './screens/ConfirmBorrowLoanTokenScreen'
@@ -37,10 +37,10 @@ export interface LoanParamList {
     vaultId: string
     emptyActiveLoans?: boolean // TODO: remove hard-coded value
   }
-  AddCollateralScreen: {
+  EditCollateralScreen: {
     vaultId: string
   }
-  ConfirmAddCollateralScreen: {
+  ConfirmEditCollateralScreen: {
     vaultId: string
     collaterals: Collateral[] // TODO: update type
     totalCollateralValue: BigNumber
@@ -145,8 +145,8 @@ export function LoansNavigator (): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={AddCollateralScreen}
-        name='AddCollateralScreen'
+        component={EditCollateralScreen}
+        name='EditCollateralScreen'
         options={{
           headerBackTitleVisible: false,
           headerTitle: () => (
@@ -157,8 +157,8 @@ export function LoansNavigator (): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={ConfirmAddCollateralScreen}
-        name='ConfirmAddCollateralScreen'
+        component={ConfirmEditCollateralScreen}
+        name='ConfirmEditCollateralScreen'
         options={{
           headerBackTitleVisible: false,
           headerTitle: () => (

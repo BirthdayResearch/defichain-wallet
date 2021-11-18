@@ -239,7 +239,7 @@ function VaultActionButton ({ vault }: { vault: LoanVaultActive }): JSX.Element 
         style={tailwind('mr-2 mb-2 items-center')}
         onPress={() => {
           navigation.navigate({
-            name: 'AddCollateralScreen',
+            name: 'EditCollateralScreen',
             params: {
               vaultId: vault.vaultId
             },

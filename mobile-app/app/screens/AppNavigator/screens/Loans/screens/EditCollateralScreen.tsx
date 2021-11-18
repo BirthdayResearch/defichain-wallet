@@ -19,7 +19,6 @@ import { LoanParamList } from '../LoansNavigator'
 import { BottomSheetNavScreen, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import {
   AddOrEditCollateralForm,
-  AddOrEditCollateralFormProps,
   AddOrEditCollateralResponse
 } from '../components/AddOrEditCollateralForm'
 import { BottomSheetTokenList } from '@components/BottomSheetTokenList'
@@ -42,13 +41,7 @@ import { IconButton } from '@components/IconButton'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { useVaultShare } from '@screens/AppNavigator/screens/Loans/hooks/VaultShare'
 
-type Props = StackScreenProps<LoanParamList, 'AddCollateralScreen'>
-
-export interface BottomSheetWithNavRouteParam {
-  AddOrEditCollateralForm: AddOrEditCollateralFormProps
-
-  [key: string]: undefined | object
-}
+type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 
 export interface Collateral {
   collateralId: string
@@ -63,7 +56,7 @@ export interface CollateralItem extends CollateralToken {
   available: BigNumber
 }
 
-export function AddCollateralScreen ({
+export function EditCollateralScreen ({
   route
 }: Props): JSX.Element {
   const { address } = useWalletContext()
@@ -138,7 +131,7 @@ export function AddCollateralScreen ({
                 stackScreenName: 'TokenList',
                 component: BottomSheetTokenList({
                   collateralTokens,
-                  headerLabel: translate('screens/AddCollateralScreen', 'Select token to add'),
+                  headerLabel: translate('screens/EditCollateralScreen', 'Select token to add'),
                   onCloseButtonPress: () => bottomSheetRef.current?.close(),
                   navigateToScreen: {
                     screenName: 'AddOrEditCollateralForm',
@@ -199,14 +192,14 @@ export function AddCollateralScreen ({
               }}
               onRemovePress={() => {
                 WalletAlert({
-                  title: translate('screens/AddCollateralScreen', 'Are you sure you want to remove collateral token?'),
+                  title: translate('screens/EditCollateralScreen', 'Are you sure you want to remove collateral token?'),
                   buttons: [
                     {
-                      text: translate('screens/AddCollateralScreen', 'Cancel'),
+                      text: translate('screens/EditCollateralScreen', 'Cancel'),
                       style: 'cancel'
                     },
                     {
-                      text: translate('screens/AddCollateralScreen', 'Remove'),
+                      text: translate('screens/EditCollateralScreen', 'Remove'),
                       style: 'destructive',
                       onPress: () => {
                         // TODO: handle on remove collateral
@@ -232,7 +225,7 @@ function SectionTitle (props: { title: string }): JSX.Element {
   return (
     <ThemedSectionTitle
       style={tailwind('text-xs pb-2 pt-4 font-medium')}
-      text={translate('screens/AddCollateralScreen', props.title)}
+      text={translate('screens/EditCollateralScreen', props.title)}
     />
   )
 }
@@ -259,31 +252,31 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
       <VaultSectionTextRow
         testID='text_total_collateral_value'
         value={new BigNumber(vault.collateralValue ?? 0).toFixed(2)} prefix='$'
-        lhs={translate('components/AddCollateralScreen', 'Total collateral (USD)')}
+        lhs={translate('components/EditCollateralScreen', 'Total collateral (USD)')}
       />
       <VaultSectionTextRow
         testID='text_total_collateral_value' value={new BigNumber(vault.loanValue ?? 0).toFixed(2)}
         prefix='$'
-        lhs={translate('components/AddCollateralScreen', 'Total loan (USD)')}
+        lhs={translate('components/EditCollateralScreen', 'Total loan (USD)')}
       />
       <VaultSectionTextRow
         testID='text_total_collateral_value'
         value={BigNumber.maximum(new BigNumber(vault.collateralRatio ?? 0), 0).toFixed(2)}
         suffix='%'
         suffixType='text'
-        lhs={translate('components/AddCollateralScreen', 'Collateralization ratio')}
+        lhs={translate('components/EditCollateralScreen', 'Collateralization ratio')}
       />
       <VaultSectionTextRow
         testID='text_total_collateral_value'
         value={new BigNumber(vault.loanScheme.minColRatio ?? 0).toFixed(2)} suffix='%'
         suffixType='text'
-        lhs={translate('components/AddCollateralScreen', 'Min. collateralization ratio')}
+        lhs={translate('components/EditCollateralScreen', 'Min. collateralization ratio')}
       />
       <VaultSectionTextRow
         testID='text_vault_interest_value'
         value={new BigNumber(vault.loanScheme.interestRate ?? 0).toFixed(2)} suffix='%'
         suffixType='text'
-        lhs={translate('components/AddCollateralScreen', 'Vault interest')}
+        lhs={translate('components/EditCollateralScreen', 'Vault interest')}
       />
     </ThemedView>
   )
@@ -468,7 +461,7 @@ function CardLabel (props: { text: string }): JSX.Element {
       dark={tailwind('text-gray-400')}
       style={tailwind('text-xs mb-1')}
     >
-      {translate('screens/AddCollateralScreen', props.text)}
+      {translate('screens/EditCollateralScreen', props.text)}
     </ThemedText>
   )
 }
@@ -504,7 +497,7 @@ function AddCollateralButton (props: { disabled: boolean, onPress: () => void })
         })}
         style={tailwind('pl-2.5 text-sm font-medium leading-4 mb-2')}
       >
-        {translate('screens/AddCollateralScreen', 'ADD TOKEN AS COLLATERAL')}
+        {translate('screens/EditCollateralScreen', 'ADD TOKEN AS COLLATERAL')}
       </ThemedText>
     </TouchableOpacity>
   )
@@ -539,8 +532,8 @@ async function addCollateral ({
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
-      title: translate('screens/AddCollateralScreen', 'Adding collateral'),
-      description: translate('screens/AddCollateralScreen', 'Adding {{amount}} {{symbol}} as collateral', {
+      title: translate('screens/EditCollateralScreen', 'Adding collateral'),
+      description: translate('screens/EditCollateralScreen', 'Adding {{amount}} {{symbol}} as collateral', {
         amount: tokenAmount.toFixed(8),
         symbol: token.displaySymbol
       }),

@@ -716,7 +716,7 @@
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Vault %": "Vault %"
   },
-  "screens/AddCollateralScreen": {
+  "screens/EditCollateralScreen": {
     "COLLATERALS WILL BE ADDED TO VAULT": "DIE SICHERHEITEN WERDEN DEM VAULT HINZUGEFÜGT",
     "ADD DFI AND TOKENS FOR COLLATERAL": "FÜGE DFI UND TOKEN ALS SICHERHEITEN HINZU",
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
@@ -743,7 +743,7 @@
     "Available": "Verfügbar",
     "ADD TOKEN AS COLLATERAL": "TOKEN ALS BESICHERUNG HINZUFÜGEN"
   },
-  "screens/ConfirmAddCollateralScreen": {
+  "screens/ConfirmEditCollateralScreen": {
     "You are adding collaterals to": "You are adding collaterals to",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktionsart",
