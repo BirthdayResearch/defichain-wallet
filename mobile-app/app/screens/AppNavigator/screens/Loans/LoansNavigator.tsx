@@ -20,6 +20,7 @@ import { TouchableOpacity } from 'react-native'
 import { ThemedIcon } from '@components/themed'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
+import { LoanVault } from '@store/loans'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -34,8 +35,7 @@ export interface LoanParamList {
     conversion?: ConversionParam
   }
   VaultDetailScreen: {
-    vaultId: string
-    emptyActiveLoans?: boolean // TODO: remove hard-coded value
+    vault: LoanVault
   }
   EditCollateralScreen: {
     vaultId: string
