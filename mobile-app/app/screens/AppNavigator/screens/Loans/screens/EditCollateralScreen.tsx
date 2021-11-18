@@ -18,12 +18,11 @@ import NumberFormat from 'react-number-format'
 import { LoanParamList } from '../LoansNavigator'
 import { BottomSheetNavScreen, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import {
-  AddOrEditCollateralForm,
+  AddOrRemoveCollateralForm,
   AddOrEditCollateralResponse
-} from '../components/AddOrEditCollateralForm'
+} from '../components/AddOrRemoveCollateralForm'
 import { BottomSheetTokenList } from '@components/BottomSheetTokenList'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { WalletAlert } from '@components/WalletAlert'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useDispatch, useSelector } from 'react-redux'
@@ -156,6 +155,25 @@ export function EditCollateralScreen ({
     }
   }
 
+  const onRemoveCollateral = async (item: AddOrEditCollateralResponse): Promise<void> => {
+    dismissModal()
+    const collateralItem = collateralTokens.find((col) => col.token.id === item.token.id)
+    if (activeVault !== undefined && collateralItem !== undefined) {
+      navigation.navigate({
+        name: 'ConfirmEditCollateralScreen',
+        params: {
+          vault: activeVault,
+          amount: item.amount,
+          token: item.token,
+          fee,
+          isAdd: false,
+          collateralItem
+        },
+        merge: true
+      })
+    }
+  }
+
   return (
     <View style={tailwind('flex-1')}>
       <ThemedScrollView
@@ -174,7 +192,7 @@ export function EditCollateralScreen ({
                   headerLabel: translate('screens/EditCollateralScreen', 'Select token to add'),
                   onCloseButtonPress: () => bottomSheetRef.current?.close(),
                   navigateToScreen: {
-                    screenName: 'AddOrEditCollateralForm',
+                    screenName: 'AddOrRemoveCollateralForm',
                     onButtonPress: onAddCollateral
                   }
                 }),
@@ -184,8 +202,8 @@ export function EditCollateralScreen ({
                 }
               },
               {
-                stackScreenName: 'AddOrEditCollateralForm',
-                component: AddOrEditCollateralForm,
+                stackScreenName: 'AddOrRemoveCollateralForm',
+                component: AddOrRemoveCollateralForm,
                 option: {
                   headerStatusBarHeight: 1,
                   headerBackgroundContainerStyle: tailwind('-top-5 border-b', {
@@ -218,14 +236,15 @@ export function EditCollateralScreen ({
                   if (collateralItem !== undefined) {
                     setBottomSheetScreen([
                       {
-                        stackScreenName: 'AddOrEditCollateralForm',
-                        component: AddOrEditCollateralForm,
+                        stackScreenName: 'AddOrRemoveCollateralForm',
+                        component: AddOrRemoveCollateralForm,
                         initialParam: {
                           token: collateralItem.token,
                           available: collateralItem.available.toFixed(8),
                           onButtonPress: onAddCollateral,
                           onCloseButtonPress: () => bottomSheetRef.current?.close(),
-                          collateralFactor: new BigNumber(collateralItem.factor ?? 0).times(100)
+                          collateralFactor: new BigNumber(collateralItem.factor ?? 0).times(100),
+                          isAdd: true
                         },
                         option: {
                           header: () => null
@@ -236,22 +255,26 @@ export function EditCollateralScreen ({
                   }
                 }}
                 onRemovePress={() => {
-                  WalletAlert({
-                    title: translate('screens/EditCollateralScreen', 'Are you sure you want to remove collateral token?'),
-                    buttons: [
+                  if (collateralItem !== undefined) {
+                    setBottomSheetScreen([
                       {
-                        text: translate('screens/EditCollateralScreen', 'Cancel'),
-                        style: 'cancel'
-                      },
-                      {
-                        text: translate('screens/EditCollateralScreen', 'Remove'),
-                        style: 'destructive',
-                        onPress: () => {
-                          // TODO: handle on remove collateral
+                        stackScreenName: 'AddOrRemoveCollateralForm',
+                        component: AddOrRemoveCollateralForm,
+                        initialParam: {
+                          token: collateralItem.token,
+                          available: new BigNumber(collateral.amount).toFixed(8),
+                          onButtonPress: onRemoveCollateral,
+                          onCloseButtonPress: () => bottomSheetRef.current?.close(),
+                          collateralFactor: new BigNumber(collateralItem.factor ?? 0).times(100),
+                          isAdd: false
+                        },
+                        option: {
+                          header: () => null
                         }
                       }
-                    ]
-                  })
+                    ])
+                    expandModal()
+                  }
                 }}
               />
             )
@@ -419,13 +442,13 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             iconSize={20}
             onPress={() => props.onAddPress()}
           />
-          {/* <IconButton
+          <IconButton
             iconType='MaterialIcons'
             iconName='remove'
             iconSize={20}
             style={tailwind('ml-2')}
             onPress={() => props.onRemovePress()}
-          /> */}
+          />
         </View>
       </ThemedView>
       <View style={tailwind('flex flex-row justify-between')}>

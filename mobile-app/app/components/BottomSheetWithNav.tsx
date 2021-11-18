@@ -7,7 +7,7 @@ import {
 import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { NavigationContainer, Theme } from '@react-navigation/native'
-import { AddOrEditCollateralFormProps } from '@screens/AppNavigator/screens/Loans/components/AddOrEditCollateralForm'
+import { AddOrRemoveCollateralFormProps } from '@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm'
 import { Platform, View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
@@ -22,11 +22,11 @@ export interface BottomSheetNavScreen {
   stackScreenName: string
   component: React.ComponentType<any>
   option?: StackNavigationOptions
-  initialParam?: Partial<BottomSheetWithNavRouteParam['AddOrEditCollateralForm']>
+  initialParam?: Partial<BottomSheetWithNavRouteParam['AddOrRemoveCollateralFormProps']>
 }
 
 export interface BottomSheetWithNavRouteParam {
-  AddOrEditCollateralForm: AddOrEditCollateralFormProps
+  AddOrRemoveCollateralFormProps: AddOrRemoveCollateralFormProps
   [key: string]: undefined | object
 }
 
