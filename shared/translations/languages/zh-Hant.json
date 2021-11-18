@@ -770,9 +770,9 @@
     "Enter an amount": "請輸入數量",
     "Available": "可添加資金",
     "ADD TOKEN AS COLLATERAL": "添加代幣為抵押資金",
-    "REMOVE COLLATERAL AMOUNT": "REMOVE COLLATERAL AMOUNT",
-    "How much {{symbol}} to remove?": "How much {{symbol}} to remove?",
-    "Current": "Current"
+    "REMOVE COLLATERAL AMOUNT": "移除抵押金額",
+    "How much {{symbol}} to remove?": "您想移除多少 {{symbol}}",
+    "Current": "目前餘額"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "您正在加入抵押到",
