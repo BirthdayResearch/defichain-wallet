@@ -242,3 +242,24 @@ context('Wallet - Addresses should persist addresses after restore with active a
     cy.getByTestID(`address_active_indicator_${addresses[0]}`).should('exist')
   })
 })
+
+context('Wallet - Addresses should able to create maximum 10 addresses', () => {
+  before(function () {
+    cy.createEmptyWallet(true)
+  })
+
+  it('should able to create maximum 10 address', function () {
+    cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
+    cy.getByTestID('dfi_token_amount').contains('0.00000000')
+    cy.getByTestID('total_dfi_amount').contains('0.00000000')
+    cy.sendDFItoWallet().wait(3000)
+    for (let i = 1; i < 10; i++) {
+      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
+      cy.url().should('include', 'app/AddressControlScreen')
+      cy.getByTestID('create_new_address').should('exist').click()
+      cy.sendDFItoWallet().wait(3000)
+    }
+    cy.getByTestID('create_new_address').should('not.exist')
+  })
+})

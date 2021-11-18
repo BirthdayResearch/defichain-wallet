@@ -15,8 +15,7 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
-import { JellyfishWallet, WalletHdNode } from '@defichain/jellyfish-wallet'
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
+import { MAX_ALLOWED_ADDRESS } from '@shared-contexts/WalletContext'
 
 type Props = StackScreenProps<WalletParamList, 'PinConfirmation'>
 
@@ -73,20 +72,13 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
       }
     })
     const wallet = await initJellyfishWallet(provider, network, client)
-    // get discovered address
-    const discoveredAddressLength = await getDiscoveredAddressLength(wallet)
-    // sub 1 from total discovered address to get address index of last active address
-    const lastDiscoveredAddressIndex = Math.max(0, discoveredAddressLength - 1)
-    await WalletAddressIndexPersistence.setLength(lastDiscoveredAddressIndex)
-  }
 
- async function getDiscoveredAddressLength (wallet: JellyfishWallet<WhaleWalletAccount, WalletHdNode>, count: number = 0): Promise<number> {
-    const activeAddress = await wallet.discover(100)
-    count += activeAddress.length
-    if (activeAddress.length === 100) {
-      count += await getDiscoveredAddressLength(wallet, count)
-    }
-    return count
+    // get discovered address
+    const activeAddress = await wallet.discover(MAX_ALLOWED_ADDRESS)
+
+    // sub 1 from total discovered address to get address index of last active address
+    const lastDiscoveredAddressIndex = Math.max(0, activeAddress.length - 1)
+    await WalletAddressIndexPersistence.setLength(lastDiscoveredAddressIndex)
   }
 
   return (
