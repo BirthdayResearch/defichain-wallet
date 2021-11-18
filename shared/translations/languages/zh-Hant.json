@@ -758,7 +758,11 @@
     "Cancel": "取消",
     "Remove": "移除",
     "VAULT DETAILS": "金库明细",
-    "COLLATERALS": "抵押品"
+    "COLLATERALS": "抵押品",
+    "Adding collateral": "加入抵押中",
+    "Adding {{amount}} {{symbol}} as collateral": "加入 {{symbol}} 等值 {{amount}} 作為抵押",
+    "Removing collateral": "移除抵押中",
+    "Removing {{amount}} {{symbol}} collateral from vault": "從金庫移除{{symbol}} 等值 {{amount}} 抵押"
   },
   "components/AddOrEditCollateralForm": {
     "How much {{symbol}} to add?": "您要添加多少 {{symbol}}?",
@@ -768,7 +772,7 @@
     "ADD TOKEN AS COLLATERAL": "添加代幣為抵押資金"
   },
   "screens/ConfirmEditCollateralScreen": {
-    "You are adding collaterals to": "您正要向以下金庫添加抵押資金",
+    "You are adding collateral to": "您正在加入抵押到",
     "TRANSACTION DETAILS": "交易明細",
     "Transaction type": "交易類型",
     "Add collateral": "添加抵押資金",
@@ -780,6 +784,11 @@
     "Collateral amount (USD)": "抵押品金額 (美金)",
     "Collateral value (USD)": "抵押品價值 (USD)",    
     "CONFIRM ADD COLLATERAL": "確認添加抵押資金",
-    "ADDING": "正在增加"
+    "ADDING": "正在增加",
+    "You are removing collateral from": "您正在移除抵押",
+    "Convert & add collateral": "兌換和加入抵押",
+    "Convert & remove collateral": "兌換和移除抵押",
+    "Add Collateral": "加入抵押",
+    "Remove Collateral": "移除抵押"
   }
 }
