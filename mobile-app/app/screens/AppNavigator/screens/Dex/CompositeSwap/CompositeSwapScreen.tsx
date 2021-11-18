@@ -1,6 +1,6 @@
-import React, { Dispatch, useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { View } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Control, Controller, useForm } from 'react-hook-form'
 import BigNumber from 'bignumber.js'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
@@ -8,14 +8,13 @@ import { tailwind } from '@tailwind'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { translate } from '@translations'
 import { RootState } from '@store'
-import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
+import { hasTxQueued } from '@store/transaction_queue'
 import { DexItem, DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
 import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
 import { useConversion } from '@hooks/wallet/Conversion'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
-import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import {
@@ -48,7 +47,6 @@ export interface DerivedTokenState {
 }
 
 export function CompositeSwapScreen (): JSX.Element {
-  const dispatch = useDispatch()
   const logger = useLogger()
   const pairs = usePoolPairsAPI()
   const tokens = useTokensAPI()
@@ -251,7 +249,10 @@ export function CompositeSwapScreen (): JSX.Element {
     }
   }, [selectedPoolPairs, tokenAFormAmount])
 
-  const navigateToConfirmScreen = (): void => {
+  const onSubmit = async (): Promise<void> => {
+    if (hasPendingJob || hasPendingBroadcastJob) {
+      return
+    }
     if (selectedPoolPairs === undefined || selectedTokenA === undefined || selectedTokenB === undefined || priceRates === undefined || tokenAFormAmount === undefined || tokenBFormAmount === undefined) {
       return
     }
@@ -278,23 +279,6 @@ export function CompositeSwapScreen (): JSX.Element {
         }
       })
     })
-  }
-
-  const onSubmit = async (): Promise<void> => {
-    if (hasPendingJob || hasPendingBroadcastJob) {
-      return
-    }
-
-    if (isConversionRequired) {
-      await constructSignedConversionAndCompositeSwap({
-        mode: 'utxosToAccount',
-        amount: conversionAmount
-      }, dispatch, () => {
-        navigateToConfirmScreen()
-      }, logger)
-    } else {
-      navigateToConfirmScreen()
-    }
   }
 
   return (
@@ -620,17 +604,6 @@ function TokenRow (form: TokenForm): JSX.Element {
       rules={rules}
     />
   )
-}
-
-async function constructSignedConversionAndCompositeSwap ({
-  mode,
-  amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
-  try {
-    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
-  } catch (e) {
-    logger.error(e)
-  }
 }
 
 interface TokenProps {
