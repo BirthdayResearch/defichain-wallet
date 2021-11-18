@@ -32,6 +32,6 @@ function newWhaleClient (network: EnvironmentNetwork): WhaleApiClient {
     case EnvironmentNetwork.RemotePlayground:
       return new WhaleApiClient({ url: 'https://playground.defichain.com', network: 'regtest', version: 'v0' })
     case EnvironmentNetwork.LocalPlayground:
-      return new WhaleApiClient({ url: 'http://192.168.1.183:19553', network: 'regtest', version: 'v0' })
+      return new WhaleApiClient({ url: 'http://localhost:19553', network: 'regtest', version: 'v0' })
   }
 }
