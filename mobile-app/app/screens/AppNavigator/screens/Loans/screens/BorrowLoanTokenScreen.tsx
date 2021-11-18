@@ -299,7 +299,7 @@ function VaultInput (props: VaultInputProps): JSX.Element {
   return (
     <ThemedTouchableOpacity
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('border py-2.5 px-4 rounded-lg mb-8')}
       onPress={props.onPress}
     >

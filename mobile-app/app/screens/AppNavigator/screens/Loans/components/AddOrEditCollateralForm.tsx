@@ -66,7 +66,7 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
   return (
     <ThemedView
       light={tailwind('bg-white')}
-      dark={tailwind('bg-gray-800')}
+      dark={tailwind('bg-dfxblue-800')}
       style={tailwind('p-4 flex-1')}
     >
       <ThemedText style={tailwind('mb-2 text-lg font-medium')}>

@@ -88,7 +88,7 @@ export function ConfirmBorrowLoanTokenScreen ({ route, navigation }: Props): JSX
 function SummaryHeader (props: {amount: BigNumber, displaySymbol: string}): JSX.Element {
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('bg-white border-b border-dfxgray-300')}
       style={tailwind('flex-col px-4 py-8')}
     >

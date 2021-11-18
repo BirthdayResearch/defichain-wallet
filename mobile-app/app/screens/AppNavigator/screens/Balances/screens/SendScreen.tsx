@@ -316,23 +316,17 @@ function AmountRow ({ token, control, onAmountChange, onClearButtonPress }: Amou
               titleTestID='title_send'
               inputType='numeric'
             >
-              <ThemedView
-                dark={tailwind('bg-dfxblue-900')}
-                light={tailwind('bg-white')}
-                style={tailwind('flex-row items-center')}
-              >
-                <SetAmountButton
-                  amount={new BigNumber(maxAmount)}
-                  onPress={onAmountChange}
-                  type={AmountButtonTypes.half}
-                />
+              <SetAmountButton
+                amount={new BigNumber(maxAmount)}
+                onPress={onAmountChange}
+                type={AmountButtonTypes.half}
+              />
 
-                <SetAmountButton
-                  amount={new BigNumber(maxAmount)}
-                  onPress={onAmountChange}
-                  type={AmountButtonTypes.max}
-                />
-              </ThemedView>
+              <SetAmountButton
+                amount={new BigNumber(maxAmount)}
+                onPress={onAmountChange}
+                type={AmountButtonTypes.max}
+              />
             </WalletTextInput>
 
           </ThemedView>

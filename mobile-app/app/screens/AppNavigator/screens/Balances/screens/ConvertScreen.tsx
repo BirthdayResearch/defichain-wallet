@@ -240,12 +240,12 @@ function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
     <View style={tailwind('justify-center items-center mt-2')}>
       <ThemedView
         light={tailwind('border-gray-200')}
-        dark={tailwind('border-gray-700')}
+        dark={tailwind('border-dfxblue-900')}
         style={tailwind('border-b w-full relative top-2/4')}
       />
       <IconButton
         iconName='swap-vert'
-        iconSize={24}
+        iconSize={28}
         iconType='MaterialIcons'
         onPress={props.onPress}
         testID='button_convert_mode_toggle'
