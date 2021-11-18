@@ -313,7 +313,7 @@ async function borrowLoanToken ({
         vaultId: vaultId,
         to: script,
         tokenAmounts: [{
-          token: +loanToken.tokenId,
+          token: +loanToken.token.id,
           amount: amountToBorrow
         }]
       }, script)
