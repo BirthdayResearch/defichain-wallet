@@ -15,7 +15,7 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
-import { MAX_ALLOWED_ADDRESS } from '@shared-contexts/WalletContext'
+import { MAX_ALLOWED_ADDRESSES } from '@shared-contexts/WalletContext'
 
 type Props = StackScreenProps<WalletParamList, 'PinConfirmation'>
 
@@ -74,7 +74,7 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
     const wallet = await initJellyfishWallet(provider, network, client)
 
     // get discovered address
-    const activeAddress = await wallet.discover(MAX_ALLOWED_ADDRESS)
+    const activeAddress = await wallet.discover(MAX_ALLOWED_ADDRESSES)
 
     // sub 1 from total discovered address to get address index of last active address
     const lastDiscoveredAddressIndex = Math.max(0, activeAddress.length - 1)

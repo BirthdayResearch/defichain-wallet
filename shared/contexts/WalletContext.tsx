@@ -40,6 +40,8 @@ export interface WalletContextProviderProps extends PropsWithChildren<{}> {
   }
 }
 
+export const MAX_ALLOWED_ADDRESSES = 10
+
 const WalletContext = createContext<WalletContextI>(undefined as any)
 
 export function useWalletContext (): WalletContextI {

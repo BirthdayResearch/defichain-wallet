@@ -2,7 +2,7 @@ import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView, ThemedScrollView, ThemedSectionTitle } from '@components/themed'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { MAX_ALLOWED_ADDRESS, useWalletContext } from '@shared-contexts/WalletContext'
+import { MAX_ALLOWED_ADDRESSES, useWalletContext } from '@shared-contexts/WalletContext'
 import { View } from '@components'
 import { TouchableOpacity } from 'react-native'
 import { translate } from '@translations'
@@ -80,7 +80,7 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
     // incremented 1 to check if next account in the wallet is usable.
     const length = addressLength + 1
     const isUsable = await wallet.isUsable(length)
-    setCanCreateAddress(isUsable && MAX_ALLOWED_ADDRESS > length)
+    setCanCreateAddress(isUsable && MAX_ALLOWED_ADDRESSES > length)
   }
 
   const onRowPress = async (index: number): Promise<void> => {
