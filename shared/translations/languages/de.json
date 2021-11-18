@@ -136,7 +136,7 @@
     "DeFiChain is a community-driven and open project.": "DeFiChain ist ein offenes Gemeinschaftsprojekt.",
     "The DeFiChain Foundation does not provide direct support.": "Das Gründungskonsortium der DeFiChain stellt keinen direkten Support zur Verfügung.",
     "Report an issue on Github": "Erstelle ein Thema auf Github",
-    "Frequently Asked Questions": " Häufig gestellte Fragen",
+    "Frequently Asked Questions": "Häufig gestellte Fragen",
     "Announcements": "Bekanntgaben",
     "Official Website": "Offizielle Webseite"
   },
@@ -196,7 +196,33 @@
     "LEARN ABOUT": "LERNE ETWAS ÜBER",
     "Recovery words": "Wiederherstellungssatz",
     "Passcode": "Passwort",
-    "UTXO vs Token": "UTXO vs Token"
+    "UTXO vs Token": "UTXO vs Token",
+    "Loans": "Darlehen"
+  },
+  "components/LoansFaq": {
+    "Loans FAQ": "FAQ Darlehen",
+    "Decentralized Loans": "Dezentrale Darlehen",
+    "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN",
+    "The decentralized loan feature allows you to borrow decentralised tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.": "Mit der dezentralen Darlehensfunktion kannst du dezentrale Token ausleihen, indem du deine Kryptowährungsbestände als Sicherheiten verwendest. Zunächst musst du einen Vault anlegen und Sicherheiten hinterlegen, bevor du ein Darlehen aufnehmen kannst.",
+    "How is the collateralization ratio calculated?": "Wie wird die Besicherungsquote berechnet?",
+    "The collateralization ratio is calculated by taking the total collateral value deposited in a vault; divided by the amount of loan taken plus total interest, expressed in percentage.": "Die Besicherungsquote wird berechnet, indem der Gesamtwert der in einem Vault hinterlegten Sicherheiten durch den aufgenommenen Darlehensbetrag und die Gesamtzinsen geteilt wird, ausgedrückt in Prozent.",
+    "What is the collateralization ratio used for?": "Wozu dient die Besicherungsquote?",
+    "The collateralization ratio determines the state of the vault. A ratio below the minimum collaterization ratio results in liquidation, upon which, a vault's collaterals will be sent for auction.": "Die Besicherungsquote bestimmt den Zustand des Vaults. Liegt der Besicherungsgrad unter der Mindestbesicherungsquote, werden die Sicherheiten des Vaults zur Versteigerung (Auktion) freigegeben.",
+    "Indicators have been included to help visualise the health of your vault, where:": "Um den Zustand deines Vaults zu veranschaulichen, wurden farbliche Indikatoren eingefügt, die wie folgt aussehen:",
+    "Red: 1x – 1.25x above the minimum collateralization ratio": "Rot: 1x - 1,25x über dem Mindestbesicherungsverhältnis",
+    "Yellow: 1.25x – 1.5x the minimum collateralization ratio": "Gelb: 1,25x - 1,5x über dem Mindestbesicherungsverhältnis",
+    "Green: More than 1.5x the minimum collateralization ratio": "Grün: Mehr als das 1,5-fache des Mindestbesicherungsverhältnisses",
+    "What does the different status of a vault mean?": "Was bedeutet der unterschiedliche Status eines Vaults?",
+    "Active: When a vault has been created but no loan has been taken yet": "Aktiv: Wenn ein Vault angelegt wurde, aber noch kein Darlehen aufgenommen wurde",
+    "At risk: When the collateralization ratio of a vault is between 1x – 1.5x the minimum collateralization ratio": "Gefährdet: Wenn die Besicherungsquote eines Vaults zwischen 1x - 1,5x der Mindestbesicherungsquote liegt",
+    "Healthy: When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio": "In Ordnung: Wenn der Besicherungsgrad eines Vaults mehr als das 1,5-Fache des Mindestbesicherungsgrades beträgt",
+    "Liquidated: When a vault's collateralization ratio falls below the minimum requirement": "Liquidiert: Wenn der Besicherungsgrad eines Vaults unter die Mindestanforderung fällt",
+    "Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour": "Angehalten: Wenn ein Token im Vault (Sicherheit oder Darlehen) in der letzten Stunde um mehr als 30 % geschwankt hat.",
+    "How are interests calculated for loan?": "Wie werden die Zinsen für Darlehen berechnet?",
+    "There are 2 types of interests that applies for loans, namely vault interest rate and token interest rate.": "Es gibt 2 Arten von Zinsen, die für Darlehen gelten, nämlich den Vault-Zinssatz und den Token-Zinssatz.",
+    "The vault interest rate is determine when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.": "Der Vault-Zins wird festgelegt, wenn der Vaultbesitzer das Darlehensmodell auswählt, wobei der Vault-Zins umso niedriger ist, je höher die Mindestbesicherungsquote ist.", 
+    "The token interest rate is applied on specific loan tokens, and can differ from token to token.": "Der Token-Zinssatz wird auf bestimmte Darlehenstoken angewandt und kann sich von Token zu Token unterscheiden.",
+    "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and calculated on a per annum basis.": "Der Gesamtzinssatz für ein Darlehen ergibt sich aus dem Vault-Zinssatz und dem Token-Zinssatz und wird auf jährlicher Basis berechnet."
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "NETZWERK",
@@ -340,7 +366,7 @@
     "Enable {{feature}} (Beta)": "Aktiviere {{feature}} (Beta)",
     "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "Diese Funktion ist noch in der Beta-Phase, bei der Aktivierung bist du einigen Risiken ausgesetzt. Möchtest du dennoch fortfahren?",
     "Beta Features": "Beta-Funktionalitäten",
-    "Beta features of Light Wallet are features undergoing final testing before its official release. Experimentation of the features is encouraged, but caution is advised when using your assets.": "Die Beta-Funktionen der Light Wallet sind Funktionen, die vor der offiziellen Freigabe noch getestet werden. Das Ausprobieren der Funktionen ist erwünscht, aber bei der Verwendung mit realen Vermögenswerte ist Vorsicht geboten.",
+    "Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.": "Die Beta-Funktionen der Light Wallet sind Funktionen, die vor der offiziellen Freigabe noch getestet werden. Das Ausprobieren der Funktionen ist erwünscht, aber bei der Verwendung mit realen Vermögenswerte ist Vorsicht geboten.",
     "Feature is still in Beta. Use at your own risk.": "Diese Funktionalität ist noch im Beta-Stadium. Verwendung auf eigene Gefahr."
   },
   "BottomTabNavigator": {
@@ -592,7 +618,8 @@
     "Confirm Create Vault": "Bestätige Vault Erstellen",
     "Vault Detail": "Vault-Detail",
     "Add Collateral": "Sicherheiten Hinzufügen",
-    "Confirm Add Collateral": "Bestätige das Hinzufügen von Sicherheiten"
+    "Confirm Add Collateral": "Bestätige das Hinzufügen von Sicherheiten",
+    "Edit Collateral": "Sicherheiten bearbeiten"
   },
   "components/tabs": {
     "Browse loans": "Darlehen durchsuchen",
@@ -620,8 +647,8 @@
     "At risk": "Gefährdet",
     "Safe": "Sicher",
     "Active loans": "Aktive Darlehen",
-    "Total loan amount": "Gesamtdarlehensbetrag",
-    "Collateral amount": "Höhe der Sicherheiten",
+    "Total loan amount (USD)": "Gesamtdarlehensbetrag (USD)",
+    "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateral ratio": "Besicherungsquote",
     "n/a": "k.A.",
     "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
@@ -629,7 +656,8 @@
     "Borrowed tokens": "Geliehene Token",
     "Interest amount (1.5%)": "Zinsbetrag (1.5%)",
     "Amount payable": "Auszahlbarer Betrag",
-    "Price per token (USD)": "Preis pro Token (USD)"
+    "Price per token (USD)": "Preis pro Token (USD)",
+    "EDIT COLLATERALS": "SICHERHEITEN BEARBEITEN"
   },
   "components/EmptyVault": {
     "No vault created": "Kein Vault erstellt",
@@ -711,13 +739,13 @@
     "Created": "Erstellt"
   },
   "components/VaultDetailsCollateralsTab": {
-    "Collateral amount": "Höhe der Sicherheiten",
+    "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Vault %": "Vault %"
   },
-  "screens/AddCollateralScreen": {
+  "screens/EditCollateralScreen": {
     "COLLATERALS WILL BE ADDED TO VAULT": "DIE SICHERHEITEN WERDEN DEM VAULT HINZUGEFÜGT",
     "ADD DFI AND TOKENS FOR COLLATERAL": "FÜGE DFI UND TOKEN ALS SICHERHEITEN HINZU",
-    "Collateral amount": "Höhe der Sicherheiten",
+    "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Vault %": "Vault %",
     "Each token has their own collateral factor that would affect its respective collateral value. ": "Jeder Token hat seinen eigenen Besicherungsfaktor, der sich auf den jeweiligen Besicherungswert auswirkt. ",
     "Learn more": "Erfahre mehr",    
@@ -730,7 +758,9 @@
     "CONTINUE": "FORTFAHREN",
     "BACK": "ZURÜCK",
     "Cancel": "Abbrechen",
-    "Remove": "Entfernen"
+    "Remove": "Entfernen",
+    "VAULT DETAILS": "VAULT-DETAILS",
+    "COLLATERALS": "SICHERHEITEN"
   },
   "components/AddOrEditCollateralForm": {
     "How much {{symbol}} to add?": "Wie viel von {{symbol}} soll hinzugefügt werden?",
@@ -739,7 +769,7 @@
     "Available": "Verfügbar",
     "ADD TOKEN AS COLLATERAL": "TOKEN ALS BESICHERUNG HINZUFÜGEN"
   },
-  "screens/ConfirmAddCollateralScreen": {
+  "screens/ConfirmEditCollateralScreen": {
     "You are adding collaterals to": "You are adding collaterals to",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktionsart",
@@ -749,7 +779,7 @@
     "COLLATERAL {{index}}": "SICHERHEITEN {{index}}",
     "Token": "Token",
     "Collateralization factor": "Besicherungsfaktor",
-    "Collateral amount": "Höhe der Sicherheiten",
+    "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateral value (USD)": "Sicherheitenwert (USD)",
     "CONFIRM ADD COLLATERAL": "BESTÄTIGE DAS HINZUFÜGEN VON SICHERHEITEN",
     "ADDING": "WIRD HINZUGEFÜGT"

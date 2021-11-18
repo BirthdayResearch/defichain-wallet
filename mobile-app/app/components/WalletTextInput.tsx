@@ -1,6 +1,6 @@
 import React, { forwardRef, useState } from 'react'
 import { Platform, TextInputProps } from 'react-native'
-import { ThemedView, ThemedText, ThemedTextInput, ThemedIcon, ThemedSectionTitle, ThemedTouchableOpacity } from '@components/themed'
+import { ThemedView, ThemedText, ThemedTextInput, ThemedIcon, ThemedSectionTitle, ThemedTouchableOpacity, ThemedProps } from '@components/themed'
 import { tailwind } from '@tailwind'
 
 type WalletTextInputProps = React.PropsWithChildren<TextInputProps> & IWalletTextInputProps
@@ -120,7 +120,7 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
   )
 })
 
-function ClearButton (props: {onPress?: () => void, testID?: string}): JSX.Element {
+export function ClearButton (props: {onPress?: () => void, testID?: string, iconThemedProps?: ThemedProps}): JSX.Element {
   return (
     <ThemedTouchableOpacity
       testID={props.testID}
@@ -140,6 +140,7 @@ function ClearButton (props: {onPress?: () => void, testID?: string}): JSX.Eleme
         size={28}
         light={tailwind('text-gray-100')}
         dark={tailwind('text-gray-700')}
+        {...props.iconThemedProps}
       />
 
     </ThemedTouchableOpacity>

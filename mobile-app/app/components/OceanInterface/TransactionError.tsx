@@ -15,6 +15,7 @@ enum ErrorCodes {
   InsufficientUTXO = 1,
   InsufficientBalance = 2,
   PoolSwapHigher = 3,
+  InsufficientDFIInVault = 4,
 }
 
 interface ErrorMapping {
@@ -23,6 +24,7 @@ interface ErrorMapping {
 }
 
 export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): JSX.Element {
+  console.log('transaction error', errMsg)
   const err = errorMessageMapping(errMsg)
   return (
     <>
@@ -75,6 +77,11 @@ function errorMessageMapping (err: string): ErrorMapping {
     return {
       code: ErrorCodes.InsufficientUTXO,
       message: 'Insufficient UTXO DFI'
+    }
+  } else if (err.includes('At least 50% of the vault must be in DFI when taking a loan')) {
+    return {
+      code: ErrorCodes.InsufficientDFIInVault,
+      message: 'Insufficient DFI collateral (≥50%)'
     }
   }
 

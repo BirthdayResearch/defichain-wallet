@@ -1,18 +1,18 @@
 import React from 'react'
 import BigNumber from 'bignumber.js'
-import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity } from './themed'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import NumberFormat from 'react-number-format'
 import { View } from 'react-native'
-import { getNativeIcon } from './icons/assets'
-import { InfoText } from './InfoText'
-import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
-import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
-import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
-// import { NavigationProp, useNavigation } from '@react-navigation/core'
-// import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
 
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { InfoText } from '@components/InfoText'
+import { getNativeIcon } from '@components/icons/assets'
+import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { LoanParamList } from '../LoansNavigator'
+import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 interface LoanCardsProps {
   loans: LoanToken[]
   testID?: string
@@ -28,7 +28,7 @@ export interface LoanCardOptions {
 }
 
 export function LoanCards (props: LoanCardsProps): JSX.Element {
-  // const navigation = useNavigation<NavigationProp<LoanParamList>>()
+  const navigation = useNavigation<NavigationProp<LoanParamList>>()
   const { isBetaFeature } = useFeatureFlagContext()
   return (
     <>
@@ -57,10 +57,13 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
                 price={item.activePrice}
                 loanTokenId={item.tokenId}
                 onPress={() => {
-                  // TODO: navigate to borrow loan token screen
-                  // navigation.navigate({
-
-                  // })
+                  navigation.navigate({
+                    name: 'BorrowLoanTokenScreen',
+                    params: {
+                      loanToken: item
+                    },
+                    merge: true
+                  })
                 }}
                 testID={`loan_card_${index}`}
               />
@@ -74,10 +77,13 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
                   price={item.activePrice}
                   loanTokenId={item.tokenId}
                   onPress={() => {
-                    // TODO: navigate to borrow loan token screen
-                    // navigation.navigate({
-
-                    // })
+                    navigation.navigate({
+                      name: 'BorrowLoanTokenScreen',
+                      params: {
+                        loanToken: item
+                      },
+                      merge: true
+                    })
                   }}
                   testID={`loan_card_${index}`}
                 />

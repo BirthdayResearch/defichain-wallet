@@ -2,29 +2,34 @@ import React from 'react'
 import { StyleProp, TextStyle, View, ViewProps } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
-import { ThemedText, ThemedView } from './themed'
+import { ThemedProps, ThemedText, ThemedView } from './themed'
 
 type INumberRowProps = React.PropsWithChildren<ViewProps> & NumberRowProps
 type SuffixType = 'text' | 'component'
-interface NumberRowProps {
+
+interface NumberRowProps extends ThemedProps {
   lhs: string
   rhs: NumberRowRightElement
   textStyle?: StyleProp<TextStyle>
+  lhsStyle?: StyleProp<TextStyle>
+  rhsStyle?: StyleProp<TextStyle>
 }
-interface NumberRowRightElement {
+
+export interface NumberRowRightElement {
   value: string | number
   suffix?: string
   testID: string
   suffixType?: SuffixType
   prefix?: string
+  style?: StyleProp<ViewProps>
 }
 
 export function NumberRow (props: INumberRowProps): JSX.Element {
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-200')}
-      style={tailwind('p-4 flex-row items-start w-full')}
+      dark={props.dark ?? tailwind('bg-gray-800 border-b border-gray-700')}
+      light={props.light ?? tailwind('bg-white border-b border-gray-200')}
+      style={props.style ?? tailwind('p-4 flex-row items-start w-full')}
     >
       <View style={tailwind('w-5/12')}>
         <ThemedText style={[tailwind('text-sm'), props.textStyle]} testID={`${props.rhs.testID}_label`}>

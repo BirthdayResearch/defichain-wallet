@@ -10,6 +10,29 @@ import { DFI } from './DFI'
 import { dLTC } from './dLTC'
 import { dUSDC } from './dUSDC'
 import { dUSDT } from './dUSDT'
+import { dTSLA } from './dTSLA'
+import { dUSD } from './dUSD'
+import { dAAPL } from './dAAPL'
+import { dAMD } from './dAMD'
+import { dGME } from './dGME'
+import { dBABA } from './dBABA'
+import { dGOOG } from './dGOOG'
+import { dPLTR } from './dPLTR'
+import { dARKK } from './dARKK'
+import { dAMZN } from './dAMZN'
+import { dCOIN } from './dCOIN'
+import { dFB } from './dFB'
+import { dTWTR } from './dTWTR'
+import { dNVDA } from './dNVDA'
+import { dMSFT } from './dMSFT'
+import { dSPY } from './dSPY'
+import { dQQQ } from './dQQQ'
+import { dGLD } from './dGLD'
+import { dSLV } from './dSLV'
+import { dPDBC } from './dPDBC'
+import { dVNQ } from './dVNQ'
+import { dURTH } from './dURTH'
+import { dTLT } from './dTLT'
 
 const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   _UTXO: DFI,
@@ -24,7 +47,31 @@ const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   dETH: dETH,
   dLTC: dLTC,
   dUSDT: dUSDT,
-  dUSDC: dUSDC
+  dUSDC: dUSDC,
+  dTSLA: dTSLA,
+  dAAPL: dAAPL,
+  dAMD: dAMD,
+  dGME: dGME,
+  dBABA: dBABA,
+  dGOOG: dGOOG,
+  dDUSD: dUSD,
+  DUSD: dUSD,
+  dPLTR: dPLTR,
+  dARKK: dARKK,
+  dAMZN: dAMZN,
+  dCOIN: dCOIN,
+  dFB: dFB,
+  dTWTR: dTWTR,
+  dNVDA: dNVDA,
+  dMSFT: dMSFT,
+  dSPY: dSPY,
+  dQQQ: dQQQ,
+  dGLD: dGLD,
+  dSLV: dSLV,
+  dPDBC: dPDBC,
+  dVNQ: dVNQ,
+  dURTH: dURTH,
+  dTLT: dTLT
 }
 
 /**
