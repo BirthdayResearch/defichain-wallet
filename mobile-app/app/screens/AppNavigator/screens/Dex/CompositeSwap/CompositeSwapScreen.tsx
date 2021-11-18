@@ -379,16 +379,17 @@ export function CompositeSwapScreen (): JSX.Element {
           margin='mx-4 mb-2 mt-8'
         />)}
 
-      <ThemedText
-        testID='transaction_details_hint_text'
-        light={tailwind('text-gray-600')}
-        dark={tailwind('text-gray-300')}
-        style={tailwind('pb-8 px-4 text-sm text-center')}
-      >
-        {isConversionRequired
-          ? translate('screens/CompositePoolSwapScreen', 'Authorize transaction in the next screen to convert')
-          : translate('screens/CompositePoolSwapScreen', 'Review and confirm transaction in the next screen')}
-      </ThemedText>
+      {formState.isValid && selectedTokenA !== undefined && selectedTokenB !== undefined &&
+        <ThemedText
+          testID='transaction_details_hint_text'
+          light={tailwind('text-gray-600')}
+          dark={tailwind('text-gray-300')}
+          style={tailwind('pb-8 px-4 text-sm text-center')}
+        >
+          {isConversionRequired
+            ? translate('screens/CompositePoolSwapScreen', 'Authorize transaction in the next screen to convert')
+            : translate('screens/CompositePoolSwapScreen', 'Review and confirm transaction in the next screen')}
+        </ThemedText>}
 
       <BottomSheetWithNav
         modalRef={bottomSheetRef}
