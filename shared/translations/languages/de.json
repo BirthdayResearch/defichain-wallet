@@ -735,10 +735,10 @@
     "Remove": "Entfernen",
     "VAULT DETAILS": "VAULT-DETAILS",
     "COLLATERALS": "SICHERHEITEN",
-    "Adding collateral": "Adding collateral",
-    "Adding {{amount}} {{symbol}} as collateral": "Adding {{amount}} {{symbol}} as collateral",
-    "Removing collateral": "Removing collateral",
-    "Removing {{amount}} {{symbol}} collateral from vault": "Removing {{amount}} {{symbol}} collateral from vault"
+    "Adding collateral": "Sicherheiten hinzufügen",
+    "Adding {{amount}} {{symbol}} as collateral": "Hinzufügen von {{amount}} {{symbol}} als Sicherheit",
+    "Removing collateral": "Sicherheiten entfernen",
+    "Removing {{amount}} {{symbol}} collateral from vault": "{{amount}} {{symbol}} Sicherheit aus Vault entfernen"
   },
   "components/AddOrEditCollateralForm": {
     "How much {{symbol}} to add?": "Wie viel von {{symbol}} soll hinzugefügt werden?",
@@ -748,7 +748,7 @@
     "ADD TOKEN AS COLLATERAL": "TOKEN ALS BESICHERUNG HINZUFÜGEN"
   },
   "screens/ConfirmEditCollateralScreen": {
-    "You are adding collateral to": "You are adding collateral to",
+    "You are adding collateral to": "Du fügst Sicherheiten hinzu zu",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktionsart",
     "Add collateral": "Sicherheiten hinzufügen",
@@ -761,10 +761,10 @@
     "Collateral value (USD)": "Sicherheitenwert (USD)",
     "CONFIRM ADD COLLATERAL": "BESTÄTIGE DAS HINZUFÜGEN VON SICHERHEITEN",
     "ADDING": "WIRD HINZUGEFÜGT",
-    "You are removing collateral from": "You are removing collateral from",
-    "Convert & add collateral": "Convert & add collateral",
-    "Convert & remove collateral": "Convert & remove collateral",
-    "Add Collateral": "Add Collateral",
-    "Remove Collateral": "Remove Collateral"
+    "You are removing collateral from": "Du entfernst Sicherheiten aus",
+    "Convert & add collateral": "Umwandeln u. Sicherheiten hinzufügen",
+    "Convert & remove collateral": "Umwandeln u. Sicherheiten entfernen",
+    "Add Collateral": "Sicherheiten hinzufügen",
+    "Remove Collateral": "Sicherheiten entfernen"
   }
 }
