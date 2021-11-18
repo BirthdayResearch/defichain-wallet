@@ -184,8 +184,8 @@ export function CompositeSwapScreen (): JSX.Element {
     setAllowedSwapFromTokens(swappableFromTokens)
 
     if (selectedTokenA !== undefined && allTokens !== undefined) {
-       const test = getAllPossibleSwapToTokens(allTokens, pairs, selectedTokenA.id === '0_unified' ? '0' : selectedTokenA.id)
-      setAllowedSwapToTokens(test)
+       const swappableToTokens = getAllPossibleSwapToTokens(allTokens, pairs, selectedTokenA.id === '0_unified' ? '0' : selectedTokenA.id)
+      setAllowedSwapToTokens(swappableToTokens)
     }
   }, [tokens, selectedTokenA, selectedTokenB])
 
@@ -193,7 +193,7 @@ export function CompositeSwapScreen (): JSX.Element {
     if (selectedTokenA !== undefined && selectedTokenB !== undefined && allTokens !== undefined) {
       const graph: GraphProps[] = pairs.map(pair => {
         const graphItem: GraphProps = {
-          pairId: 1,
+          pairId: pair.data.id,
           a: pair.data.tokenA.symbol,
           b: pair.data.tokenB.symbol
         }
@@ -621,66 +621,62 @@ interface TokenProps {
  * @param tokenFrom
  */
 function getAllPossibleSwapToTokens (allTokens: TokenProps[], pairs: DexItem[], tokenFrom: string): BottomSheetToken[] {
-  const reachableTokens: BottomSheetToken[] = []
-  const reachableTokenIds = new Set<string>([])
+  const graph: GraphProps[] = pairs.map(pair => {
+    const graphItem: GraphProps = {
+      pairId: pair.data.id,
+      a: pair.data.tokenA.id,
+      b: pair.data.tokenB.id
+    }
+    return graphItem
+  })
+
+  const reachableNodes = []
+  const reachableNodeIds = new Set<string>([])
   // Use Sets to reduce checks if item is unique
-  const visitedTokens = new Set<string>([])
-  const tokensToVisit = new Set<string>([tokenFrom])
+  const visitedNodes = new Set<string>([])
+  const nodesToVisit = new Set<string>([tokenFrom])
 
-  while (tokensToVisit.size !== 0) {
-    const [token] = tokensToVisit // first item in a set
-    const reachableWalletTokens = getAllPossibleTokens(pairs, token, allTokens, tokenFrom)
+  while (nodesToVisit.size !== 0) {
+    const [token] = nodesToVisit // first item in a set
+    const adjacentNodes = getAdjacentVertices(tokenFrom, graph)
 
-    if (reachableWalletTokens !== undefined) {
-      reachableWalletTokens.forEach(reachableToken => {
-        if (!reachableTokenIds.has(reachableToken.id)) {
-          reachableTokens.push(reachableToken)
+    if (adjacentNodes !== undefined) {
+      adjacentNodes.forEach(node => {
+        if (!reachableNodeIds.has(node)) {
+          reachableNodes.push(node)
         }
 
         // If the token hasn't been visited, flag for visit.
-        if (!visitedTokens.has(reachableToken.id)) {
-          tokensToVisit.add(reachableToken.id)
+        if (!visitedNodes.has(node)) {
+          nodesToVisit.add(node)
         }
-        reachableTokenIds.add(reachableToken.id)
+        reachableNodeIds.add(node)
       })
     }
 
-    visitedTokens.add(token)
-    tokensToVisit.delete(token)
+    visitedNodes.add(token)
+    nodesToVisit.delete(token)
   }
+
+  const reachableTokens: BottomSheetToken[] = reachableNodes.reduce((tokens: BottomSheetToken[], node: string): BottomSheetToken[] => {
+    const token = allTokens.find(token => token.id === node)
+    if (token !== undefined && node !== tokenFrom) {
+      return [
+        ...tokens, {
+          id: token.id,
+          name: token.displaySymbol,
+          available: new BigNumber(token.reserve)
+        }
+      ]
+    }
+
+    return tokens
+  }, [])
 
   return reachableTokens
 }
 
-// TODO(pierre): check if this can just use getAdjacentVertices
-export function getAllPossibleTokens (pairs: DexItem[], token: string, tokens: TokenProps[], tokenFrom: string): BottomSheetToken[] {
-  return pairs.reduce((reachableTokens: BottomSheetToken[], pair) => {
-    if (pair.data.tokenA.id !== token && pair.data.tokenB.id !== token) { // No adjacent edges
-      return reachableTokens
-    }
-
-    const tokenId = pair.data.tokenA.id === token ? pair.data.tokenB.id : pair.data.tokenA.id
-    if (tokenFrom === tokenId) {
-      return reachableTokens
-    }
-
-    const reachableToken = tokens.find(token => token.id === tokenId)
-
-    if (reachableToken !== undefined) {
-      const derivedBottomSheetToken: BottomSheetToken = {
-        id: reachableToken.id,
-        name: reachableToken.displaySymbol,
-        available: new BigNumber(reachableToken.reserve)
-      }
-
-      return [...reachableTokens, derivedBottomSheetToken]
-    }
-
-    return reachableTokens
-  }, [])
-}
-
-interface GraphProps { pairId: number, a: string, b: string }
+interface GraphProps { pairId: string, a: string, b: string }
 /**
  * To find all the adjacent vertices / neighbors of a node in a graph
  * @param startNode
