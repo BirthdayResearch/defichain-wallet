@@ -8,15 +8,24 @@ export function PasscodeFaq (): JSX.Element {
   const faqContent: AccordionContent[] = [
     {
       title: translate('components/PasscodeFaq', 'What happens if I forgot my passcode? Can someone help me to retrieve my passcode?'),
-      content: translate('components/PasscodeFaq', 'Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.')
+      content: [{
+        text: translate('components/PasscodeFaq', 'Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.'),
+        type: 'paragraph'
+      }]
     },
     {
       title: translate('components/PasscodeFaq', 'Can I change my passcode?'),
-      content: translate('components/PasscodeFaq', 'Yes, you can change your passcode from your settings in-app. We recommend changing of passcode regularly for maximum security.')
+      content: [{
+        text: translate('components/PasscodeFaq', 'Yes, you can change your passcode from your settings in-app. We recommend changing of passcode regularly for maximum security.'),
+        type: 'paragraph'
+      }]
     },
     {
       title: translate('components/PasscodeFaq', 'Is passcode the same as phone PIN code?'),
-      content: translate('components/PasscodeFaq', 'Your passcode is valid only for DeFiChain wallet.')
+      content: [{
+        text: translate('components/PasscodeFaq', 'Your passcode is valid only for DeFiChain wallet.'),
+        type: 'paragraph'
+      }]
     }
   ]
 

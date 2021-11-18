@@ -10,7 +10,7 @@ import { CreateVaultScreen } from './screens/CreateVaultScreen'
 import { ConfirmCreateVaultScreen } from './screens/ConfirmCreateVaultScreen'
 import BigNumber from 'bignumber.js'
 import { VaultDetailScreen } from './VaultDetail/VaultDetailScreen'
-import { EditCollateralScreen, Collateral } from './screens/EditCollateralScreen'
+import { EditCollateralScreen, CollateralItem } from './screens/EditCollateralScreen'
 import { ConfirmEditCollateralScreen } from './screens/ConfirmEditCollateralScreen'
 import { ChooseLoanTokenScreen } from './screens/ChooseLoanTokenScreen'
 import { BorrowLoanTokenScreen } from './screens/BorrowLoanTokenScreen'
@@ -21,6 +21,7 @@ import { ThemedIcon } from '@components/themed'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
 import { LoanVault } from '@store/loans'
+import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -41,10 +42,13 @@ export interface LoanParamList {
     vaultId: string
   }
   ConfirmEditCollateralScreen: {
-    vaultId: string
-    collaterals: Collateral[] // TODO: update type
-    totalCollateralValue: BigNumber
+    vault: LoanVaultActive
+    amount: BigNumber
+    token: TokenData
     fee: BigNumber
+    isAdd: boolean
+    collateralItem: CollateralItem
+    conversion?: ConversionParam
   }
   BorrowLoanTokenScreen: {
     loanToken: LoanToken

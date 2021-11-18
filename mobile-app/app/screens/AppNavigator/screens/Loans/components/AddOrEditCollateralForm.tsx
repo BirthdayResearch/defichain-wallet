@@ -13,6 +13,10 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import NumberFormat from 'react-number-format'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
+import { hasTxQueued } from '@store/transaction_queue'
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 
 export interface AddOrEditCollateralFormProps {
   token: TokenData
@@ -39,6 +43,9 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
     onCloseButtonPress,
     collateralFactor
   } = route.params
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+
   const [collateralValue, setCollateralValue] = useState<string>(current?.toFixed(8) ?? '')
   const [isValid, setIsValid] = useState(false)
   const { shouldHandleKeyboardEvents } = useBottomSheetInternal()
@@ -138,7 +145,7 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
         styleProps={tailwind('font-medium')}
       />
       <Button
-        disabled={!isValid}
+        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
         label={translate('components/AddOrEditCollateralForm', 'ADD TOKEN AS COLLATERAL')}
         onPress={() => onButtonPress({
           token,
