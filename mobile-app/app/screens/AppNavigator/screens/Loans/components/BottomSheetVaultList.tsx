@@ -1,17 +1,13 @@
 import { View } from '@components'
 import { ThemedTouchableOpacity, ThemedText, ThemedView, ThemedIcon } from '@components/themed'
-import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
+import { LoanVaultActive, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { RootState } from '@store'
-import { fetchVaults, nonLiquidatedVault } from '@store/loans'
+import { LoanVault } from '@store/loans'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { memo, useEffect } from 'react'
+import React, { memo } from 'react'
 import { Platform, TouchableOpacity } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
 import { CollateralizationRatio } from './CollateralizationRatio'
 
 interface BottomSheetVaultListProps {
@@ -22,34 +18,25 @@ interface BottomSheetVaultListProps {
     screenName: string
     onButtonPress: () => void
   }
+  vaults: LoanVault[]
 }
 
 export const BottomSheetVaultList = ({
   headerLabel,
   onCloseButtonPress,
-  onVaultPress
+  onVaultPress,
+  vaults
 }: BottomSheetVaultListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const { isLight } = useThemeContext()
-  const vaults = useSelector((state: RootState) => nonLiquidatedVault(state.loans))
-  const { address } = useWalletContext()
-  const client = useWhaleApiClient()
-  const blockCount = useSelector((state: RootState) => state.block.count)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(fetchVaults({
-      address,
-      client
-    }))
-  }, [blockCount])
 
   return (
     <BottomSheetFlatList
       data={vaults}
-      renderItem={({ item }: { item: LoanVaultActive}): JSX.Element => (
+      renderItem={({ item }: { item: LoanVault}): JSX.Element => (
         <ThemedTouchableOpacity
+          disabled={!(item.state === LoanVaultState.ACTIVE || item.state === LoanVaultState.MAY_LIQUIDATE)}
           onPress={() => {
-            if (onVaultPress !== undefined) {
+            if (onVaultPress !== undefined && item.state !== LoanVaultState.IN_LIQUIDATION) {
               onVaultPress(item)
             }
           }}
@@ -75,7 +62,14 @@ export const BottomSheetVaultList = ({
             >
               {translate('components/BottomSheetVaultList', 'Collateral ratio')}
             </ThemedText>
-            <CollateralizationRatio value={item.collateralRatio} minColRatio={item.loanScheme.minColRatio} />
+            {item.state === LoanVaultState.IN_LIQUIDATION
+              ? (
+                <CollateralizationRatio value='' minColRatio='' />
+              )
+              : (
+                <CollateralizationRatio value={item.collateralRatio} minColRatio={item.loanScheme.minColRatio} />
+              )}
+
           </View>
         </ThemedTouchableOpacity>
       )}

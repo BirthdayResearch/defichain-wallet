@@ -13,7 +13,7 @@ import NumberFormat from 'react-number-format'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { NumberRow } from '@components/NumberRow'
 import { BottomSheetVaultList } from '../components/BottomSheetVaultList'
-import { LoanVault } from '@store/loans'
+import { fetchVaults, LoanVault } from '@store/loans'
 import { LoanVaultActive, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { TextRow } from '@components/TextRow'
@@ -28,6 +28,7 @@ import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_conve
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { ConversionInfoText } from '@components/ConversionInfoText'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowLoanTokenScreen'>
 
@@ -37,7 +38,10 @@ export function BorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Elemen
   } = route.params
   const client = useWhaleApiClient()
   const logger = useLogger()
+  const { address } = useWalletContext()
   const dispatch = useDispatch()
+  const blockCount = useSelector((state: RootState) => state.block.count)
+  const vaults = useSelector((state: RootState) => (state.loans.vaults))
   const [vault, setVault] = useState<LoanVaultActive | undefined>(route.params.vault)
   const [amountToBorrow, setAmountToBorrow] = useState('')
   const [totalInterestAmount, setTotalInterestAmount] = useState(new BigNumber(NaN))
@@ -63,7 +67,8 @@ export function BorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Elemen
         onVaultPress: (vault: LoanVaultActive) => {
           setVault(vault)
           dismissModal()
-        }
+        },
+        vaults
       }),
       option: {
         header: () => null
@@ -164,6 +169,18 @@ export function BorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Elemen
       .then((f) => setFee(new BigNumber(f)))
       .catch(logger.error)
   }, [])
+
+  useEffect(() => {
+    dispatch(fetchVaults({
+      address,
+      client
+    }))
+  }, [blockCount])
+
+  useEffect(() => {
+    const updatedVault = vaults.find(v => v.vaultId === vault?.vaultId) as LoanVaultActive
+    setVault(updatedVault)
+  }, [vaults])
 
   useEffect(() => {
     updateInterestAmount()
@@ -439,7 +456,7 @@ function VaultInput (props: VaultInputProps): JSX.Element {
 }
 
 interface TransactionDetailsProps {
-  vault: LoanVaultActive
+  vault: LoanVault
   collateralizationRatio?: BigNumber
   amountToBorrow: BigNumber
   vaultInterestRate: BigNumber
