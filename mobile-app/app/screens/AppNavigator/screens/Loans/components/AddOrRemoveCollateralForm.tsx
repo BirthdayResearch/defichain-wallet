@@ -17,36 +17,42 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { ConversionInfoText } from '@components/ConversionInfoText'
+import { DFITokenSelector } from '@store/wallet'
 
-export interface AddOrEditCollateralFormProps {
+export interface AddOrRemoveCollateralFormProps {
   token: TokenData
   collateralFactor: BigNumber
   available: string
   current?: BigNumber
   onButtonPress: (item: AddOrEditCollateralResponse) => void
   onCloseButtonPress: () => void
+  isAdd: boolean
 }
 
-type Props = StackScreenProps<BottomSheetWithNavRouteParam, 'AddOrEditCollateralForm'>
+type Props = StackScreenProps<BottomSheetWithNavRouteParam, 'AddOrRemoveCollateralFormProps'>
 
 export interface AddOrEditCollateralResponse {
   token: TokenData
   amount: BigNumber
 }
 
-export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Element => {
+export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Element => {
   const {
     token,
     available,
     current,
     onButtonPress,
     onCloseButtonPress,
-    collateralFactor
+    collateralFactor,
+    isAdd
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
 
   const [collateralValue, setCollateralValue] = useState<string>(current?.toFixed(8) ?? '')
+  const isConversionRequired = isAdd && token.id === '0' ? new BigNumber(collateralValue).gt(DFIToken.amount) : false
   const [isValid, setIsValid] = useState(false)
   const { shouldHandleKeyboardEvents } = useBottomSheetInternal()
   const handleOnFocus = useCallback(
@@ -86,7 +92,10 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
     >
       <View style={tailwind('flex flex-row items-center mb-2')}>
         <ThemedText style={tailwind('flex-1 mb-2 text-lg font-medium')}>
-          {translate('components/AddOrEditCollateralForm', 'How much {{symbol}} to add?', { symbol: token.displaySymbol })}
+          {translate('components/AddOrRemoveCollateralForm', 'How much {{symbol}} to {{operation}}?', {
+            symbol: token.displaySymbol,
+            operation: isAdd ? 'add' : 'remove'
+          })}
         </ThemedText>
         {onCloseButtonPress !== undefined && (
           <TouchableOpacity onPress={onCloseButtonPress}>
@@ -115,7 +124,7 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
             value={collateralFactor.toFixed(2)}
             decimalScale={2}
             displayType='text'
-            suffix={`% ${translate('components/AddOrEditCollateralForm', 'collateral factor')}`}
+            suffix={`% ${translate('components/AddOrRemoveCollateralForm', 'collateral factor')}`}
             renderText={value =>
               <ThemedText
                 light={tailwind('text-gray-700')}
@@ -133,20 +142,24 @@ export const AddOrEditCollateralForm = React.memo(({ route }: Props): JSX.Elemen
         displayClearButton={collateralValue !== ''}
         onChangeText={(text) => setCollateralValue(text)}
         onClearButtonPress={() => setCollateralValue('')}
-        placeholder={translate('components/AddOrEditCollateralForm', 'Enter an amount')}
+        placeholder={translate('components/AddOrRemoveCollateralForm', 'Enter an amount')}
         style={tailwind('h-9 w-10/12 flex-grow')}
         onBlur={handleOnBlur}
         onFocus={handleOnFocus}
       />
       <InputHelperText
-        label={`${translate('components/AddOrEditCollateralForm', 'Available')}: `}
+        label={`${translate('components/AddOrRemoveCollateralForm', isAdd ? 'Available' : 'Current')}: `}
         content={available}
         suffix={` ${token.displaySymbol}`}
         styleProps={tailwind('font-medium')}
       />
+      {isConversionRequired &&
+        <View style={tailwind('mt-4 mb-6')}>
+          <ConversionInfoText />
+        </View>}
       <Button
         disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('components/AddOrEditCollateralForm', 'ADD TOKEN AS COLLATERAL')}
+        label={translate('components/AddOrRemoveCollateralForm', isAdd ? 'ADD TOKEN AS COLLATERAL' : 'REMOVE COLLATERAL AMOUNT')}
         onPress={() => onButtonPress({
           token,
           amount: new BigNumber(collateralValue)

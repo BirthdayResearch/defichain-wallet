@@ -764,12 +764,15 @@
     "Removing collateral": "移除抵押中",
     "Removing {{amount}} {{symbol}} collateral from vault": "從金庫移除{{symbol}} 等值 {{amount}} 抵押"
   },
-  "components/AddOrEditCollateralForm": {
+  "components/AddOrRemoveCollateralForm": {
     "How much {{symbol}} to add?": "您要添加多少 {{symbol}}?",
     "collateral factor": "抵押品係數",
     "Enter an amount": "請輸入數量",
     "Available": "可添加資金",
-    "ADD TOKEN AS COLLATERAL": "添加代幣為抵押資金"
+    "ADD TOKEN AS COLLATERAL": "添加代幣為抵押資金",
+    "REMOVE COLLATERAL AMOUNT": "移除抵押金額",
+    "How much {{symbol}} to remove?": "您想移除多少 {{symbol}}",
+    "Current": "目前餘額"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "您正在加入抵押到",

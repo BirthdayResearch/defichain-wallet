@@ -15,7 +15,7 @@ import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
-import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
@@ -48,6 +48,7 @@ export function ConfirmEditCollateralScreen ({
   const client = useWhaleApiClient()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const dispatch = useDispatch()
   const logger = useLogger()
@@ -73,27 +74,29 @@ export function ConfirmEditCollateralScreen ({
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
-    if (isAdd) {
-      await addCollateral({
-        vaultId: vault.vaultId,
-        token,
-        tokenAmount: amount
-      }, dispatch, logger, () => {
-        onTransactionBroadcast(isOnPage, navigation.dispatch, 1)
-      }, () => {
-        dispatch(fetchVaults({
-          address,
-          client
-        }))
-      })
-    }
+    await modifyCollateral({
+      vaultId: vault.vaultId,
+      token,
+      tokenAmount: amount,
+      isAdd
+    }, dispatch, logger, () => {
+      onTransactionBroadcast(isOnPage, navigation.dispatch, 1)
+    }, () => {
+      dispatch(fetchVaults({
+        address,
+        client
+      }))
+    })
   }
 
   function getSubmitLabel (): string {
-    if (hasPendingBroadcastJob || hasPendingJob) {
-      return 'ADDING'
+    if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
+      return currentBroadcastJob.submitButtonLabel
     }
-    return 'CONFIRM ADD COLLATERAL'
+    if (hasPendingBroadcastJob || hasPendingJob) {
+      return isAdd ? 'ADDING' : 'REMOVING'
+    }
+    return isAdd ? 'CONFIRM ADD COLLATERAL' : 'CONFIRM REMOVE COLLATERAL'
   }
 
   return (
@@ -110,12 +113,12 @@ export function ConfirmEditCollateralScreen ({
       />
       <SubmitButtonGroup
         isDisabled={hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/ConfirmEditCollateralScreen', 'CONFIRM ADD COLLATERAL')}
+        label={translate('screens/ConfirmEditCollateralScreen', `CONFIRM ${isAdd ? 'ADD' : 'REMOVE'} COLLATERAL`)}
         isProcessing={hasPendingJob || hasPendingBroadcastJob}
         processingLabel={translate('screens/ConfirmEditCollateralScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
-        title='create_vault'
+        title='confirm_edit_collateral'
       />
     </ThemedScrollView>
   )
@@ -218,7 +221,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
           value: props.amount.toFixed(8),
           testID: 'collateral_amount',
           suffixType: 'text',
-          suffix: ` ${props.token.displaySymbol}`
+          suffix: props.token.displaySymbol
         }}
       />
       <NumberRow
@@ -276,37 +279,50 @@ function VaultProportionRow (props: { lhs: string, tokenId: string, proportion: 
   )
 }
 
-interface AddCollateralForm {
+interface ModifyCollateralForm {
   vaultId: string
   tokenAmount: BigNumber
   token: TokenData
+  isAdd: boolean
 }
 
-async function addCollateral ({
+async function modifyCollateral ({
   vaultId,
   tokenAmount,
-  token
-}: AddCollateralForm, dispatch: Dispatch<any>, logger: NativeLoggingProps, onBroadcast: () => void, onConfirmation: () => void): Promise<void> {
+  token,
+  isAdd
+}: ModifyCollateralForm, dispatch: Dispatch<any>, logger: NativeLoggingProps, onBroadcast: () => void, onConfirmation: () => void): Promise<void> {
   try {
     const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
       const script = await account.getScript()
       const builder = account.withTransactionBuilder()
 
-      const signed: TransactionSegWit = await builder.loans.depositToVault({
-        vaultId,
-        from: script,
-        tokenAmount: {
-          token: +token.id,
-          amount: tokenAmount
-        }
-      }, script)
+      const signed: TransactionSegWit = isAdd
+        ? await builder.loans.depositToVault({
+          vaultId,
+          from: script,
+          tokenAmount: {
+            token: +token.id,
+            amount: tokenAmount
+          }
+        }, script)
+        : await builder.loans.withdrawFromVault({
+          vaultId,
+          tokenAmount: {
+            token: +token.id,
+            amount: tokenAmount
+          },
+          to: script
+        }, script)
       return new CTransactionSegWit(signed)
     }
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
-      title: translate('screens/EditCollateralScreen', 'Adding collateral'),
-      description: translate('screens/EditCollateralScreen', 'Adding {{amount}} {{symbol}} as collateral', {
+      title: translate('screens/EditCollateralScreen', isAdd ? 'Adding collateral' : 'Removing collateral'),
+      description: translate('screens/EditCollateralScreen', isAdd
+        ? 'Adding {{amount}} {{symbol}} as collateral'
+        : 'Removing {{amount}} {{symbol}} collateral from vault', {
         amount: tokenAmount.toFixed(8),
         symbol: token.displaySymbol
       }),

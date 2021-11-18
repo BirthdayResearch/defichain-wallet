@@ -766,12 +766,15 @@
     "Removing collateral": "Sicherheiten entfernen",
     "Removing {{amount}} {{symbol}} collateral from vault": "{{amount}} {{symbol}} Sicherheit aus Vault entfernen"
   },
-  "components/AddOrEditCollateralForm": {
+  "components/AddOrRemoveCollateralForm": {
     "How much {{symbol}} to add?": "Wie viel von {{symbol}} soll hinzugefügt werden?",
     "collateral factor": "besicherungsfaktor",
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
-    "ADD TOKEN AS COLLATERAL": "TOKEN ALS BESICHERUNG HINZUFÜGEN"
+    "ADD TOKEN AS COLLATERAL": "TOKEN ALS BESICHERUNG HINZUFÜGEN",
+    "REMOVE COLLATERAL AMOUNT": "REMOVE COLLATERAL AMOUNT",
+    "How much {{symbol}} to remove?": "How much {{symbol}} to remove?",
+    "Current": "Current"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Du fügst Sicherheiten hinzu zu",
