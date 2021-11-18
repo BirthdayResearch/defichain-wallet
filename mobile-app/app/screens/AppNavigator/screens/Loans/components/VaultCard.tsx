@@ -32,9 +32,9 @@ export enum VaultStatus {
 export function VaultCard (props: VaultCardProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
   const vault = props.vault as LoanVaultActive
-  const onCardPress = (vaultId: string): void => {
+  const onCardPress = (): void => {
     navigation.navigate('VaultDetailScreen', {
-      vaultId
+      vault
     })
   }
   return (
@@ -45,7 +45,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
     >
       <ThemedTouchableOpacity
         testID={props.testID}
-        onPress={() => onCardPress(vault.vaultId)}
+        onPress={onCardPress}
         light={tailwind('border-b-0')}
         dark={tailwind('border-b-0')}
       >
