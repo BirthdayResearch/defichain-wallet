@@ -7,7 +7,7 @@ import { View } from '@components'
 import { ThemedText, ThemedView } from '@components/themed'
 import Svg, { Line } from 'react-native-svg'
 import { translate } from '@translations'
-import { UseCollateralizationRatioColor } from '@hooks/wallet/CollateralizationRatioColor'
+import { useCollateralizationRatioColor } from '@hooks/wallet/CollateralizationRatioColor'
 import NumberFormat from 'react-number-format'
 
 interface CollateralizationRatioDisplayProps {
@@ -35,7 +35,7 @@ export function CollateralizationRatioDisplay (props: CollateralizationRatioDisp
 }
 
 function CollateralizationRatioText (props: {colRatio: string, minColRatio: string}): JSX.Element {
-  const { light, dark } = UseCollateralizationRatioColor({
+  const { light, dark } = useCollateralizationRatioColor({
     value: props.colRatio,
     minColRatio: props.minColRatio
   })
