@@ -32,8 +32,8 @@ import { CollateralToken, LoanVaultActive, LoanVaultTokenAmount } from '@deficha
 import { createSelector } from '@reduxjs/toolkit'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { transactionQueue } from '@store/transaction_queue'
-import { NumberRow, NumberRowRightElement } from '@components/NumberRow'
 import { IconButton } from '@components/IconButton'
+import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
 import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { useCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
@@ -352,29 +352,6 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
         lhs={translate('components/EditCollateralScreen', 'Vault interest')}
       />
     </ThemedView>
-  )
-}
-
-interface VaultSectionText extends NumberRowRightElement {
-  lhs: string
-}
-
-function VaultSectionTextRow (props: VaultSectionText): JSX.Element {
-  return (
-    <NumberRow
-      lhs={props.lhs}
-      rhs={{
-        value: props.value,
-        testID: props.testID,
-        suffix: props.suffix,
-        suffixType: props.suffixType,
-        prefix: props.prefix
-      }}
-      style={tailwind('flex-row items-center w-full my-1')}
-      dark={tailwind('bg-gray-800')}
-      light={tailwind('bg-white')}
-      textStyle={tailwind('text-xs')}
-    />
   )
 }
 
