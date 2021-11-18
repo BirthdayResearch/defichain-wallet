@@ -17,9 +17,9 @@ import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 
-type Props = StackScreenProps<LoanParamList, 'ConfirmAddCollateralScreen'>
+type Props = StackScreenProps<LoanParamList, 'ConfirmEditCollateralScreen'>
 
-export function ConfirmAddCollateralScreen ({ route, navigation }: Props): JSX.Element {
+export function ConfirmEditCollateralScreen ({ route, navigation }: Props): JSX.Element {
   const {
     vaultId,
     collaterals,
@@ -31,7 +31,7 @@ export function ConfirmAddCollateralScreen ({ route, navigation }: Props): JSX.E
 
   function onCancel (): void {
     navigation.navigate({
-      name: 'AddCollateralScreen',
+      name: 'EditCollateralScreen',
       params: {
         vaultId
       },
@@ -80,9 +80,9 @@ export function ConfirmAddCollateralScreen ({ route, navigation }: Props): JSX.E
         ))}
       <SubmitButtonGroup
         isDisabled={hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/ConfirmAddCollateralScreen', 'CONFIRM ADD COLLATERAL')}
+        label={translate('screens/ConfirmEditCollateralScreen', 'CONFIRM ADD COLLATERAL')}
         isProcessing={hasPendingJob || hasPendingBroadcastJob}
-        processingLabel={translate('screens/ConfirmAddCollateralScreen', getSubmitLabel())}
+        processingLabel={translate('screens/ConfirmEditCollateralScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='create_vault'
@@ -103,7 +103,7 @@ function SummaryHeader (props: {vaultId: string}): JSX.Element {
         dark={tailwind('text-gray-400')}
         style={tailwind('mb-2')}
       >
-        {translate('screens/ConfirmAddCollateralScreen', 'You are adding collaterals to')}
+        {translate('screens/ConfirmEditCollateralScreen', 'You are adding collaterals to')}
       </ThemedText>
       <View style={tailwind('flex flex-row items-center')}>
         <ThemedView
@@ -135,25 +135,25 @@ function SummaryTransactionDetails (props: {tokensToAdd: number, totalCollateral
   return (
     <>
       <ThemedSectionTitle
-        text={translate('screens/ConfirmAddCollateralScreen', 'TRANSACTION DETAILS')}
+        text={translate('screens/ConfirmEditCollateralScreen', 'TRANSACTION DETAILS')}
       />
       <TextRow
-        lhs={translate('screens/ConfirmAddCollateralScreen', 'Transaction type')}
+        lhs={translate('screens/ConfirmEditCollateralScreen', 'Transaction type')}
         rhs={{
-          value: translate('screens/ConfirmAddCollateralScreen', 'Add collateral'),
+          value: translate('screens/ConfirmEditCollateralScreen', 'Add collateral'),
           testID: 'text_transaction_type'
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmAddCollateralScreen', 'Collateral tokens to add')}
+        lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateral tokens to add')}
         rhs={{
           value: props.tokensToAdd,
           testID: 'tokens_to_add'
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmAddCollateralScreen', 'Total collateral value (USD)')}
+        lhs={translate('screens/ConfirmEditCollateralScreen', 'Total collateral value (USD)')}
         rhs={{
           value: props.totalCollateralValue.toFixed(2),
           testID: 'total_collateral_value',
@@ -183,10 +183,10 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
   return (
     <>
       <ThemedSectionTitle
-        text={translate('screens/ConfirmAddCollateralScreen', 'COLLATERAL {{index}}', { index: props.index + 1 })}
+        text={translate('screens/ConfirmEditCollateralScreen', 'COLLATERAL {{index}}', { index: props.index + 1 })}
       />
       <TextRow
-        lhs={translate('screens/ConfirmAddCollateralScreen', 'Token')}
+        lhs={translate('screens/ConfirmEditCollateralScreen', 'Token')}
         rhs={{
           value: props.collateralId,
           testID: 'text_token_id'
@@ -194,7 +194,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
         textStyle={tailwind('text-sm font-normal')}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmAddCollateralScreen', 'Collateralization factor')}
+        lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateralization factor')}
         rhs={{
           value: new BigNumber(props.collateralizationFactor).toFixed(2),
           testID: 'collateral_factor',
@@ -203,7 +203,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmAddCollateralScreen', 'Collateral amount')}
+        lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateral amount (USD)')}
         rhs={{
           value: new BigNumber(props.collateralAmount).toFixed(8),
           testID: 'collateral_amount',
@@ -212,7 +212,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmAddCollateralScreen', 'Collateral value (USD)')}
+        lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateral value (USD)')}
         rhs={{
           value: new BigNumber(props.collateralAmount).toFixed(2),
           testID: 'collateral_value',
@@ -220,7 +220,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
         }}
       />
       <VaultProportionRow
-        lhs={translate('screens/ConfirmAddCollateralScreen', 'Vault %')}
+        lhs={translate('screens/ConfirmEditCollateralScreen', 'Vault %')}
         tokenId={props.collateralId}
         proportion={props.vaultProportion}
       />

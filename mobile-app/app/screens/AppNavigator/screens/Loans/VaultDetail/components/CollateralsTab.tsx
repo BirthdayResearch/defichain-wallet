@@ -52,7 +52,7 @@ function CollateralCard (props: Collateral): JSX.Element {
       </View>
       <View style={tailwind('flex flex-row')}>
         <View style={tailwind('w-8/12')}>
-          <CardLabel text='Collateral amount' />
+          <CardLabel text='Collateral amount (USD)' />
           <View>
             <NumberFormat
               value={props.amount.toFixed(8)}

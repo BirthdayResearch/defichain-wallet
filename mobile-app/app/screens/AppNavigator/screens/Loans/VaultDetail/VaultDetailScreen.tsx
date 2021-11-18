@@ -1,6 +1,6 @@
 import { View } from '@components'
 import { ThemedIcon, ThemedProps, ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
-import { Collateral, VaultCardProps } from '@screens/AppNavigator/screens/Loans/components/VaultCard'
+import { VaultCardProps } from '@screens/AppNavigator/screens/Loans/components/VaultCard'
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -23,9 +23,9 @@ export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
     emptyActiveLoans = true
   } = route.params
 
-  const currentVault: VaultCardProps = {
-    vaultAddress: '22ffasd5ca123123123123123121231061',
-    collaterals: [
+  const currentVault: any = {
+    vaultId: '22ffasd5ca123123123123123121231061',
+    collateralAmounts: [
       { id: 'BTC', vaultProportion: new BigNumber(20) },
       { id: 'DFI', vaultProportion: new BigNumber(12.4573) },
       { id: 'dETH', vaultProportion: new BigNumber(55.123333) },
@@ -45,9 +45,9 @@ export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
       label: 'ADD COLLATERAL',
       handleOnPress: () => {
         navigation.navigate({
-          name: 'AddCollateralScreen',
+          name: 'EditCollateralScreen',
           params: {
-            vaultId: currentVault.vaultAddress
+            vaultId: currentVault.vaultId
           },
           merge: true
         })
@@ -57,7 +57,7 @@ export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
       iconName: 'remove',
       iconType: 'MaterialIcons',
       label: 'TAKE COLLATERAL',
-      disabled: currentVault.collaterals.length === 0,
+      disabled: currentVault.collateralAmounts.length === 0,
       handleOnPress: () => {}
     },
     {
@@ -79,8 +79,8 @@ export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
         dark={tailwind('bg-gray-800')}
       >
         <View style={tailwind('p-4')}>
-          <VaultIdSection vaultId={vaultId} collaterals={currentVault.collaterals} />
-          <VaultCollateralTokenShare collaterals={currentVault.collaterals} />
+          <VaultIdSection vaultId={vaultId} collaterals={currentVault.collateralAmounts} />
+          <VaultCollateralTokenShare collaterals={currentVault.collateralAmounts} />
           <VaultInfoSection {...currentVault} />
           <CollateralStatusMessage collateralRatio={currentVault.collateralRatio} />
         </View>
@@ -90,7 +90,7 @@ export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
           style={tailwind('pb-4 border-b')}
         >
           <ScrollableButton buttons={vaultActionButtons} containerStyle={tailwind('pl-4')} />
-          <EmptyCollateralMessage collaterals={currentVault.collaterals} />
+          <EmptyCollateralMessage collaterals={currentVault.collateralAmounts} />
         </ThemedView>
       </ThemedView>
       <VaultDetailTabSection emptyActiveLoans={emptyActiveLoans} />
@@ -98,7 +98,7 @@ export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
   )
 }
 
-function VaultIdSection (props: { vaultId: string, collaterals: Collateral[] }): JSX.Element {
+function VaultIdSection (props: { vaultId: string, collaterals: any[] }): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white')}
@@ -151,7 +151,7 @@ function VaultIdSection (props: { vaultId: string, collaterals: Collateral[] }):
   )
 }
 
-function VaultCollateralTokenShare (props: {collaterals: Collateral[]}): JSX.Element | null {
+function VaultCollateralTokenShare (props: {collaterals: any[]}): JSX.Element | null {
   if (props.collaterals.length === 0) {
     return null
   }
@@ -198,15 +198,15 @@ function VaultCollateralTokenShare (props: {collaterals: Collateral[]}): JSX.Ele
 }
 
 function VaultInfoSection (props: VaultCardProps): JSX.Element | null {
-  if (props.collaterals.length === 0) {
+  if (props.collateralAmounts.length === 0) {
     return null
   }
 
   return (
     <View style={tailwind('flex flex-row flex-wrap -mb-2 mt-4')}>
-      <VaultInfo label='Active loans' tokens={props.activeLoans?.map(loan => loan.tokenId)} valueType='TOKEN_ICON_GROUP' />
-      <VaultInfo label='Total loan amount' value={props.totalLoanAmount} prefix='$' decimalPlace={2} valueType='NUMBER' />
-      <VaultInfo label='Collateral amount' value={props.collateralAmount} prefix='$' decimalPlace={2} valueType='NUMBER' />
+      {/* <VaultInfo label='Active loans' tokens={props.activeLoans?.map(loan => loan.tokenId)} valueType='TOKEN_ICON_GROUP' /> */}
+      <VaultInfo label='Total loan amount (USD)' value={props.totalLoanAmount} prefix='$' decimalPlace={2} valueType='NUMBER' />
+      <VaultInfo label='Collateral amount (USD)' value={props.collateralAmount} prefix='$' decimalPlace={2} valueType='NUMBER' />
       <VaultInfo
         label='Collateral ratio'
         value={props.collateralRatio}
@@ -259,7 +259,7 @@ function CollateralStatusMessage (props: {collateralRatio?: BigNumber}): JSX.Ele
   )
 }
 
-function EmptyCollateralMessage (props: {collaterals: Collateral[]}): JSX.Element | null {
+function EmptyCollateralMessage (props: {collaterals: any[]}): JSX.Element | null {
   if (props.collaterals.length !== 0) {
     return null
   }

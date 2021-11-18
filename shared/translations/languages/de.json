@@ -347,7 +347,7 @@
     "Enable {{feature}} (Beta)": "Aktiviere {{feature}} (Beta)",
     "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "Diese Funktion ist noch in der Beta-Phase, bei der Aktivierung bist du einigen Risiken ausgesetzt. Möchtest du dennoch fortfahren?",
     "Beta Features": "Beta-Funktionalitäten",
-    "Beta features of Light Wallet are features undergoing final testing before its official release. Experimentation of the features is encouraged, but caution is advised when using your assets.": "Die Beta-Funktionen der Light Wallet sind Funktionen, die vor der offiziellen Freigabe noch getestet werden. Das Ausprobieren der Funktionen ist erwünscht, aber bei der Verwendung mit realen Vermögenswerte ist Vorsicht geboten.",
+    "Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.": "Die Beta-Funktionen der Light Wallet sind Funktionen, die vor der offiziellen Freigabe noch getestet werden. Das Ausprobieren der Funktionen ist erwünscht, aber bei der Verwendung mit realen Vermögenswerte ist Vorsicht geboten.",
     "Feature is still in Beta. Use at your own risk.": "Diese Funktionalität ist noch im Beta-Stadium. Verwendung auf eigene Gefahr."
   },
   "BottomTabNavigator": {
@@ -599,7 +599,8 @@
     "Confirm Create Vault": "Bestätige Vault Erstellen",
     "Vault Detail": "Vault-Detail",
     "Add Collateral": "Sicherheiten Hinzufügen",
-    "Confirm Add Collateral": "Bestätige das Hinzufügen von Sicherheiten"
+    "Confirm Add Collateral": "Bestätige das Hinzufügen von Sicherheiten",
+    "Edit Collateral": "Sicherheiten bearbeiten"
   },
   "components/tabs": {
     "Browse loans": "Darlehen durchsuchen",
@@ -627,8 +628,8 @@
     "At risk": "Gefährdet",
     "Safe": "Sicher",
     "Active loans": "Aktive Darlehen",
-    "Total loan amount": "Gesamtdarlehensbetrag",
-    "Collateral amount": "Höhe der Sicherheiten",
+    "Total loan amount (USD)": "Gesamtdarlehensbetrag (USD)",
+    "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateral ratio": "Besicherungsquote",
     "n/a": "k.A.",
     "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
@@ -636,7 +637,8 @@
     "Borrowed tokens": "Geliehene Token",
     "Interest amount (1.5%)": "Zinsbetrag (1.5%)",
     "Amount payable": "Auszahlbarer Betrag",
-    "Price per token (USD)": "Preis pro Token (USD)"
+    "Price per token (USD)": "Preis pro Token (USD)",
+    "EDIT COLLATERALS": "SICHERHEITEN BEARBEITEN"
   },
   "components/EmptyVault": {
     "No vault created": "Kein Vault erstellt",
@@ -718,13 +720,13 @@
     "Created": "Erstellt"
   },
   "components/VaultDetailsCollateralsTab": {
-    "Collateral amount": "Höhe der Sicherheiten",
+    "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Vault %": "Vault %"
   },
-  "screens/AddCollateralScreen": {
+  "screens/EditCollateralScreen": {
     "COLLATERALS WILL BE ADDED TO VAULT": "DIE SICHERHEITEN WERDEN DEM VAULT HINZUGEFÜGT",
     "ADD DFI AND TOKENS FOR COLLATERAL": "FÜGE DFI UND TOKEN ALS SICHERHEITEN HINZU",
-    "Collateral amount": "Höhe der Sicherheiten",
+    "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Vault %": "Vault %",
     "Each token has their own collateral factor that would affect its respective collateral value. ": "Jeder Token hat seinen eigenen Besicherungsfaktor, der sich auf den jeweiligen Besicherungswert auswirkt. ",
     "Learn more": "Erfahre mehr",    
@@ -737,7 +739,9 @@
     "CONTINUE": "FORTFAHREN",
     "BACK": "ZURÜCK",
     "Cancel": "Abbrechen",
-    "Remove": "Entfernen"
+    "Remove": "Entfernen",
+    "VAULT DETAILS": "VAULT-DETAILS",
+    "COLLATERALS": "SICHERHEITEN"
   },
   "components/AddOrEditCollateralForm": {
     "How much {{symbol}} to add?": "Wie viel von {{symbol}} soll hinzugefügt werden?",
@@ -746,7 +750,7 @@
     "Available": "Verfügbar",
     "ADD TOKEN AS COLLATERAL": "TOKEN ALS BESICHERUNG HINZUFÜGEN"
   },
-  "screens/ConfirmAddCollateralScreen": {
+  "screens/ConfirmEditCollateralScreen": {
     "You are adding collaterals to": "You are adding collaterals to",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktionsart",
@@ -756,7 +760,7 @@
     "COLLATERAL {{index}}": "SICHERHEITEN {{index}}",
     "Token": "Token",
     "Collateralization factor": "Besicherungsfaktor",
-    "Collateral amount": "Höhe der Sicherheiten",
+    "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateral value (USD)": "Sicherheitenwert (USD)",
     "CONFIRM ADD COLLATERAL": "BESTÄTIGE DAS HINZUFÜGEN VON SICHERHEITEN",
     "ADDING": "WIRD HINZUGEFÜGT"
