@@ -214,6 +214,7 @@ context('Wallet - Addresses should persist addresses after restore with active a
       expect(activeAddress).to.eq('1')
       expect(maxAddress).to.eq('1')
     })
+    cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
     cy.getByTestID('address_row_text_0').invoke('text').then((address: string) => {
       addresses.push(address)
     })
