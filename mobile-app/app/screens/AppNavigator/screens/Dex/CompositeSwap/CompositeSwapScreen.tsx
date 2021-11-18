@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { Dispatch, useCallback, useEffect, useRef, useState } from 'react'
 import { View } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Control, Controller, useForm } from 'react-hook-form'
 import BigNumber from 'bignumber.js'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
@@ -8,12 +8,14 @@ import { tailwind } from '@tailwind'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { translate } from '@translations'
 import { RootState } from '@store'
+import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { hasTxQueued } from '@store/transaction_queue'
-import { DexItem } from '@store/wallet'
+import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
+import { DexItem, DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
 import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
+import { useConversion } from '@hooks/wallet/Conversion'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
-import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import {
@@ -27,8 +29,10 @@ import { getNativeIcon } from '@components/icons/assets'
 import { BottomSheetNavScreen, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetToken, BottomSheetTokenList } from '@components/BottomSheetTokenList'
 import { Button } from '@components/Button'
+import { ConversionInfoText } from '@components/ConversionInfoText'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { InputHelperText } from '@components/InputHelperText'
+import { NumberRow } from '@components/NumberRow'
 import { PriceRateProps, PricesSection } from './components/PricesSection'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { TextRow } from '@components/TextRow'
@@ -44,6 +48,7 @@ export interface DerivedTokenState {
 }
 
 export function CompositeSwapScreen (): JSX.Element {
+  const dispatch = useDispatch()
   const logger = useLogger()
   const pairs = usePoolPairsAPI()
   const tokens = useTokensAPI()
@@ -52,6 +57,8 @@ export function CompositeSwapScreen (): JSX.Element {
 
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
+  const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
 
   const reservedDfi = 0.1
   const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
@@ -81,6 +88,13 @@ export function CompositeSwapScreen (): JSX.Element {
   const { tokenA, tokenB } = watch()
   const tokenAFormAmount = tokenA === '' ? undefined : tokenA
   const tokenBFormAmount = tokenB === '' ? undefined : tokenB
+  const { isConversionRequired, conversionAmount } = useConversion({
+    inputToken: {
+      type: selectedTokenA?.id === '0_unified' ? 'token' : 'others',
+      amount: new BigNumber(tokenA)
+    },
+    deps: [tokenA, JSON.stringify(tokens)]
+  })
 
   const getMaxAmount = (token: DerivedTokenState): string => {
     if (token.id !== '0_unified') {
@@ -100,19 +114,19 @@ export function CompositeSwapScreen (): JSX.Element {
           headerLabel: translate('screens/CompositeSwap', 'Choose a token'),
           onCloseButtonPress: () => bottomSheetRef.current?.close(),
           onTokenPress: (item): void => {
-            const tokenId = item.id === '0' ? '0_unified' : item.id
-            const selectedToken = allTokens?.find(token => token.id === item.id)
-            const ownedToken = tokens?.find(token => token.id === tokenId)
+            const tokenId = item.id === '0_unified' ? '0' : item.id
+            const selectedToken = allTokens?.find(token => token.id === tokenId)
+            const ownedToken = tokens?.find(token => token.id === item.id)
             if (selectedToken == null) {
               dismissModal()
               return
             }
 
             const mappedData: DerivedTokenState = {
-              id: selectedToken.id,
+              id: ownedToken !== undefined ? ownedToken.id : selectedToken.id,
               symbol: selectedToken.symbol,
               displaySymbol: selectedToken.displaySymbol,
-              amount: (ownedToken != null) ? ownedToken.amount : ''
+              amount: ownedToken !== undefined ? ownedToken.amount : ''
             }
 
             direction === 'FROM' ? setSelectedTokenA(mappedData) : setSelectedTokenB(mappedData)
@@ -155,8 +169,8 @@ export function CompositeSwapScreen (): JSX.Element {
 
   useEffect(() => {
     // setOwnedNonLPTokens(tokens.filter(token => token.isLPS === false && !token.id.includes('utxo') && !token.id.includes('unified')))
-    const swappableTokens = tokens.reduce((swappedTokens: BottomSheetToken[], token): BottomSheetToken[] => {
-      if (!token.isLPS && token.id !== '0_unified' && token.id !== '0_utxo') {
+    const swappableFromTokens = tokens.reduce((swappedTokens: BottomSheetToken[], token): BottomSheetToken[] => {
+      if (!token.isLPS && token.id !== '0' && token.id !== '0_utxo') {
         const derivedBottomSheetToken: BottomSheetToken = {
           id: token.id,
           name: token.displaySymbol,
@@ -169,7 +183,7 @@ export function CompositeSwapScreen (): JSX.Element {
       return swappedTokens
     }, [])
 
-    setAllowedSwapFromTokens(swappableTokens)
+    setAllowedSwapFromTokens(swappableFromTokens)
 
     if (selectedTokenA !== undefined && allTokens !== undefined) {
        const test = getAllPossibleSwapToTokens(allTokens, pairs, selectedTokenA.id === '0_unified' ? '0' : selectedTokenA.id)
@@ -237,10 +251,7 @@ export function CompositeSwapScreen (): JSX.Element {
     }
   }, [selectedPoolPairs, tokenAFormAmount])
 
-  const onSubmit = async (): Promise<void> => {
-    if (hasPendingJob || hasPendingBroadcastJob) {
-      return
-    }
+  const navigateToConfirmScreen = (): void => {
     if (selectedPoolPairs === undefined || selectedTokenA === undefined || selectedTokenB === undefined || priceRates === undefined || tokenAFormAmount === undefined || tokenBFormAmount === undefined) {
       return
     }
@@ -257,15 +268,33 @@ export function CompositeSwapScreen (): JSX.Element {
         amountTo: new BigNumber(tokenBFormAmount)
       },
       tokenA: selectedTokenA,
-      tokenB: selectedTokenB
-      // TODO - Add auto conversion
-      // conversion: {
-      //   isConversionRequired,
-      //   DFIToken,
-      //   DFIUtxo,
-      //   conversionAmount
-      // }
+      tokenB: selectedTokenB,
+      ...(isConversionRequired && {
+        conversion: {
+          isConversionRequired,
+          DFIToken,
+          DFIUtxo,
+          conversionAmount
+        }
+      })
     })
+  }
+
+  const onSubmit = async (): Promise<void> => {
+    if (hasPendingJob || hasPendingBroadcastJob) {
+      return
+    }
+
+    if (isConversionRequired) {
+      await constructSignedConversionAndCompositeSwap({
+        mode: 'utxosToAccount',
+        amount: conversionAmount
+      }, dispatch, () => {
+        navigateToConfirmScreen()
+      }, logger)
+    } else {
+      navigateToConfirmScreen()
+    }
   }
 
   return (
@@ -312,7 +341,7 @@ export function CompositeSwapScreen (): JSX.Element {
             content={getMaxAmount(selectedTokenA)}
             suffix={` ${selectedTokenA.displaySymbol}`}
           />
-          <View style={tailwind('mt-4')}>
+          <View style={tailwind(['mt-4', { 'mb-4': isConversionRequired }])}>
             <TokenRow
               control={control}
               controlName='tokenB'
@@ -322,13 +351,22 @@ export function CompositeSwapScreen (): JSX.Element {
               enableMaxButton={false}
             />
           </View>
+          {isConversionRequired && <ConversionInfoText />}
           <SlippageTolerance setSlippage={(amount) => setSlippage(amount)} slippage={slippage} />
         </View>}
 
-      {(selectedTokenB !== undefined && priceRates !== undefined && tokenAFormAmount !== undefined && tokenBFormAmount !== undefined) &&
+      {(selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenAFormAmount !== undefined && tokenBFormAmount !== undefined) &&
         <>
           <PricesSection priceRates={priceRates} sectionTitle='PRICES' />
-          <TransactionDetailsSection estimatedAmount={tokenBFormAmount} fee={fee} slippage={slippage} tokenB={selectedTokenB} />
+          <TransactionDetailsSection
+            conversionAmount={conversionAmount}
+            estimatedAmount={tokenBFormAmount}
+            fee={fee}
+            isConversionRequired={isConversionRequired}
+            slippage={slippage}
+            tokenA={selectedTokenA}
+            tokenB={selectedTokenB}
+          />
         </>}
 
       {selectedTokenA !== undefined && selectedTokenB !== undefined && (
@@ -338,7 +376,19 @@ export function CompositeSwapScreen (): JSX.Element {
           onPress={onSubmit}
           testID='button_submit'
           title='CONTINUE'
+          margin='mx-4 mb-2 mt-8'
         />)}
+
+      <ThemedText
+        testID='transaction_details_hint_text'
+        light={tailwind('text-gray-600')}
+        dark={tailwind('text-gray-300')}
+        style={tailwind('pb-8 px-4 text-sm text-center')}
+      >
+        {isConversionRequired
+          ? translate('screens/CompositePoolSwapScreen', 'Authorize transaction in the next screen to convert')
+          : translate('screens/CompositePoolSwapScreen', 'Review and confirm transaction in the next screen')}
+      </ThemedText>
 
       <BottomSheetWithNav
         modalRef={bottomSheetRef}
@@ -395,7 +445,7 @@ function TokenSelection (props: {symbol?: string, label: string, onPress: () => 
   )
 }
 
-function TransactionDetailsSection ({ estimatedAmount, fee, slippage, tokenB }: {estimatedAmount: string, fee: BigNumber, slippage: number, tokenB: DerivedTokenState}): JSX.Element {
+function TransactionDetailsSection ({ conversionAmount, estimatedAmount, fee, isConversionRequired, slippage, tokenA, tokenB }: {conversionAmount: BigNumber, estimatedAmount: string, fee: BigNumber, isConversionRequired: boolean, slippage: number, tokenA: DerivedTokenState, tokenB: DerivedTokenState}): JSX.Element {
   return (
     <>
       <ThemedSectionTitle
@@ -403,6 +453,16 @@ function TransactionDetailsSection ({ estimatedAmount, fee, slippage, tokenB }: 
         text={translate('screens/CompositePoolSwapScreen', 'TRANSACTION DETAILS')}
         style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
       />
+      {isConversionRequired &&
+        <NumberRow
+          lhs={translate('screens/CompositePoolSwapScreen', 'Amount to be converted')}
+          rhs={{
+          testID: 'amount_to_convert',
+          value: conversionAmount.toFixed(8),
+          suffixType: 'text',
+          suffix: tokenA.displaySymbol
+        }}
+        />}
       <TextRow
         lhs='Estimated to receive'
         rhs={{
@@ -558,6 +618,17 @@ function TokenRow (form: TokenForm): JSX.Element {
       rules={rules}
     />
   )
+}
+
+async function constructSignedConversionAndCompositeSwap ({
+  mode,
+  amount
+}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
+  try {
+    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
+  } catch (e) {
+    logger.error(e)
+  }
 }
 
 interface TokenProps {

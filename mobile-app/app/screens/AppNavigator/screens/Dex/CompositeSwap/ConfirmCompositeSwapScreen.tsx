@@ -22,6 +22,9 @@ import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
 import { getNativeIcon } from '@components/icons/assets'
+import { ConversionTag } from '@components/ConversionTag'
+import { View } from '@components'
+import { InfoText } from '@components/InfoText'
 import { DerivedTokenState } from './CompositeSwapScreen'
 import { DexParamList } from '../DexNavigator'
 
@@ -35,6 +38,7 @@ export interface CompositeSwapForm {
 
 export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
   const {
+    conversion,
     fee,
     pairs,
     priceRates,
@@ -69,7 +73,6 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
     }
 
     setIsSubmitting(true)
-    console.log({ swap })
     await constructSignedSwapAndSend(swap, pairs, slippage, dispatch, () => {
       onTransactionBroadcast(isOnPage, navigation.dispatch)
     }, logger)
@@ -107,28 +110,29 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
           amount={swap.amountFrom}
           suffixType='component'
           testID='text_swap_amount'
-          title={translate('screens/ConfirmCompositePoolSwapScreen', 'You are swapping')}
+          title={translate('screens/ConfirmCompositeSwapScreen', 'You are swapping')}
         >
           <TokenAIcon height={24} width={24} style={tailwind('ml-1')} />
           <ThemedIcon iconType='MaterialIcons' name='arrow-right-alt' size={24} style={tailwind('px-1')} />
           <TokenBIcon height={24} width={24} />
         </SummaryTitle>
+        {conversion?.isConversionRequired === true && <ConversionTag />}
       </ThemedView>
 
       <ThemedSectionTitle
         testID='title_tx_detail'
-        text={translate('screens/ConfirmCompositePoolSwapScreen', 'TRANSACTION DETAILS')}
+        text={translate('screens/ConfirmCompositeSwapScreen', 'TRANSACTION DETAILS')}
       />
       <TextRow
-        lhs={translate('screens/ConfirmCompositePoolSwapScreen', 'Transaction type')}
+        lhs={translate('screens/ConfirmCompositeSwapScreen', 'Transaction type')}
         rhs={{
-          value: translate('screens/ConfirmCompositePoolSwapScreen', 'Swap'),
+          value: conversion?.isConversionRequired === true ? translate('screens/ConfirmCompositeSwapScreen', 'Convert & swap') : translate('screens/PoolSwapConfirmScreen', 'Swap'),
           testID: 'text_transaction_type'
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmCompositePoolSwapScreen', 'Estimated to receive')}
+        lhs={translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive')}
         rhs={{
           testID: 'estimated_to_receive',
           value: swap.amountTo.toFixed(8),
@@ -143,7 +147,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
         suffix='DFI'
       />
       <NumberRow
-        lhs={translate('screens/ConfirmCompositePoolSwapScreen', 'Slippage Tolerance')}
+        lhs={translate('screens/ConfirmCompositeSwapScreen', 'Slippage Tolerance')}
         rhs={{
           value: new BigNumber(slippage).times(100).toFixed(),
           suffix: '%',
@@ -166,11 +170,19 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
           }
         ]}
       />
+      {conversion?.isConversionRequired === true && (
+        <View style={tailwind('p-4 mt-2')}>
+          <InfoText
+            testID='conversion_warning_info_text'
+            text={translate('components/ConversionInfoText', 'Please wait as we convert tokens for your transaction. Conversions are irreversible.')}
+          />
+        </View>
+      )}
       <SubmitButtonGroup
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/ConfirmCompositePoolSwapScreen', 'CONFIRM SWAP')}
+        label={translate('screens/ConfirmCompositeSwapScreen', 'CONFIRM SWAP')}
         isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        processingLabel={translate('screens/PoolSwapConfirmScreen', getSubmitLabel())}
+        processingLabel={translate('screens/ConfirmCompositeSwapScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
         title='swap'

@@ -34,13 +34,14 @@ export interface DexParamList {
   }
   CompositeSwapScreen: undefined
   ConfirmCompositeSwapScreen: {
+    conversion?: ConversionParam
     fee: BigNumber
     pairs: PoolPairData[]
     priceRates: Array<{label: string, value: string}>
-    tokenA: DerivedTokenState
-    tokenB: DerivedTokenState
     slippage: number
     swap: CompositeSwapForm
+    tokenA: DerivedTokenState
+    tokenB: DerivedTokenState
   }
   AddLiquidity: { pair: PoolPairData }
   ConfirmAddLiquidity: {
