@@ -144,11 +144,14 @@ Array [
               "lineHeight": 24,
             },
             Array [
-              Object {
-                "fontSize": 14,
-                "lineHeight": 20,
-                "marginLeft": 4,
-              },
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                  "marginLeft": 4,
+                },
+                undefined,
+              ],
               Object {
                 "color": "rgba(115, 115, 115, 1)",
               },
@@ -270,11 +273,14 @@ Array [
               "lineHeight": 24,
             },
             Array [
-              Object {
-                "fontSize": 14,
-                "lineHeight": 20,
-                "marginLeft": 4,
-              },
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                  "marginLeft": 4,
+                },
+                undefined,
+              ],
               Object {
                 "color": "rgba(115, 115, 115, 1)",
               },
