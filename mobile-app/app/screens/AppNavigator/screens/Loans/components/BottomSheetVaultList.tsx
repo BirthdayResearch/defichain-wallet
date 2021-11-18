@@ -62,14 +62,10 @@ export const BottomSheetVaultList = ({
             >
               {translate('components/BottomSheetVaultList', 'Collateral ratio')}
             </ThemedText>
-            {item.state === LoanVaultState.IN_LIQUIDATION
-              ? (
-                <CollateralizationRatio value='' minColRatio='' />
-              )
-              : (
-                <CollateralizationRatio value={item.collateralRatio} minColRatio={item.loanScheme.minColRatio} />
-              )}
-
+            <CollateralizationRatio
+              value={item.state === LoanVaultState.IN_LIQUIDATION ? '' : item.collateralRatio}
+              minColRatio={item.state === LoanVaultState.IN_LIQUIDATION ? '' : item.loanScheme.minColRatio}
+            />
           </View>
         </ThemedTouchableOpacity>
       )}
