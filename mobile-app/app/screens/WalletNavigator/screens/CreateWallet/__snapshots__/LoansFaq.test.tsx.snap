@@ -68,7 +68,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
         ]
       }
     >
-      The decentralized loan feature allows you to borrow decentralised tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.
+      The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.
     </Text>
     <RCTScrollView
       style={
@@ -431,7 +431,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      The collateralization ratio determines the state of the vault. A ratio below the minimum collaterization ratio results in liquidation, upon which, a vault’s collaterals will be sent for auction.
+                      The collateralization ratio determines the state of the vault. A ratio below the minimum collaterization ratio results in liquidation, upon which, a vault's collaterals will be sent for auction.
                     </Text>
                   </View>
                   <View
@@ -588,7 +588,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      Yellow: 1.25x – 1.5x  the minimum collateralization ratio
+                      Yellow: 1.25x – 1.5x the minimum collateralization ratio
                     </Text>
                   </View>
                   <View
@@ -649,7 +649,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      Green: More than 1.5x  the minimum collateralization ratio
+                      Green: More than 1.5x the minimum collateralization ratio
                     </Text>
                   </View>
                 </View>
@@ -888,7 +888,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      At risk: When the collateralization ratio of a vault is between 1x – 1.5x above the minimum collateralization ratio
+                      At risk: When the collateralization ratio of a vault is between 1x – 1.5x the minimum collateralization ratio
                     </Text>
                   </View>
                   <View
@@ -949,7 +949,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      Healthy: When the collateralization ratio of a vault is more than 1.5x  the minimum collateralization ratio
+                      Healthy: When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio
                     </Text>
                   </View>
                   <View
