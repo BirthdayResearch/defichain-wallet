@@ -112,33 +112,16 @@ export function EditCollateralScreen ({
     dismissModal()
     const isConversionRequired = item.token.id === '0' ? new BigNumber(item.amount).gt(DFIToken.amount) : false
     const collateralItem = collateralTokens.find((col) => col.token.id === item.token.id)
-    if (activeVault !== undefined && collateralItem !== undefined) {
-      if (isConversionRequired) {
-        const conversionAmount = new BigNumber(item.amount).minus(DFIToken.amount)
-        await constructSignedConversion({
-          mode: 'utxosToAccount',
-          amount: conversionAmount
-        }, dispatch, () => {
-          navigation.navigate({
-            name: 'ConfirmEditCollateralScreen',
-            params: {
-              vault: activeVault,
-              amount: item.amount,
-              token: item.token,
-              fee,
-              isAdd: true,
-              collateralItem,
-              conversion: {
-                DFIUtxo,
-                DFIToken,
-                isConversionRequired,
-                conversionAmount: new BigNumber(item.amount).minus(DFIToken.amount)
-              }
-            },
-            merge: true
-          })
-        }, logger)
-      } else {
+    if (activeVault === undefined || collateralItem === undefined) {
+      return
+    }
+
+    if (isConversionRequired) {
+      const conversionAmount = new BigNumber(item.amount).minus(DFIToken.amount)
+      await constructSignedConversion({
+        mode: 'utxosToAccount',
+        amount: conversionAmount
+      }, dispatch, () => {
         navigation.navigate({
           name: 'ConfirmEditCollateralScreen',
           params: {
@@ -147,11 +130,30 @@ export function EditCollateralScreen ({
             token: item.token,
             fee,
             isAdd: true,
-            collateralItem
+            collateralItem,
+            conversion: {
+              DFIUtxo,
+              DFIToken,
+              isConversionRequired,
+              conversionAmount: new BigNumber(item.amount).minus(DFIToken.amount)
+            }
           },
           merge: true
         })
-      }
+      }, logger)
+    } else {
+      navigation.navigate({
+        name: 'ConfirmEditCollateralScreen',
+        params: {
+          vault: activeVault,
+          amount: item.amount,
+          token: item.token,
+          fee,
+          isAdd: true,
+          collateralItem
+        },
+        merge: true
+      })
     }
   }
 

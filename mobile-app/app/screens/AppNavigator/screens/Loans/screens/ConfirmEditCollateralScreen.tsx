@@ -15,7 +15,7 @@ import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
-import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
@@ -48,6 +48,7 @@ export function ConfirmEditCollateralScreen ({
   const client = useWhaleApiClient()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const dispatch = useDispatch()
   const logger = useLogger()
@@ -89,6 +90,9 @@ export function ConfirmEditCollateralScreen ({
   }
 
   function getSubmitLabel (): string {
+    if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
+      return currentBroadcastJob.submitButtonLabel
+    }
     if (hasPendingBroadcastJob || hasPendingJob) {
       return isAdd ? 'ADDING' : 'REMOVING'
     }
@@ -217,7 +221,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
           value: props.amount.toFixed(8),
           testID: 'collateral_amount',
           suffixType: 'text',
-          suffix: ` ${props.token.displaySymbol}`
+          suffix: props.token.displaySymbol
         }}
       />
       <NumberRow
@@ -294,22 +298,22 @@ async function modifyCollateral ({
       const builder = account.withTransactionBuilder()
 
       const signed: TransactionSegWit = isAdd
-? await builder.loans.depositToVault({
-        vaultId,
-        from: script,
-        tokenAmount: {
-          token: +token.id,
-          amount: tokenAmount
-        }
-      }, script)
-: await builder.loans.withdrawFromVault({
-        vaultId,
-        tokenAmount: {
-          token: +token.id,
-          amount: tokenAmount
-        },
-        to: script
-      }, script)
+        ? await builder.loans.depositToVault({
+          vaultId,
+          from: script,
+          tokenAmount: {
+            token: +token.id,
+            amount: tokenAmount
+          }
+        }, script)
+        : await builder.loans.withdrawFromVault({
+          vaultId,
+          tokenAmount: {
+            token: +token.id,
+            amount: tokenAmount
+          },
+          to: script
+        }, script)
       return new CTransactionSegWit(signed)
     }
 
@@ -317,7 +321,7 @@ async function modifyCollateral ({
       sign: signer,
       title: translate('screens/EditCollateralScreen', isAdd ? 'Adding collateral' : 'Removing collateral'),
       description: translate('screens/EditCollateralScreen', isAdd
-? 'Adding {{amount}} {{symbol}} as collateral'
+        ? 'Adding {{amount}} {{symbol}} as collateral'
         : 'Removing {{amount}} {{symbol}} collateral from vault', {
         amount: tokenAmount.toFixed(8),
         symbol: token.displaySymbol
