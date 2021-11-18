@@ -111,7 +111,7 @@ export function CompositeSwapScreen (): JSX.Element {
         stackScreenName: 'TokenList',
         component: BottomSheetTokenList({
           tokenList: direction === 'FROM' ? allowedSwapFromTokens ?? [] : allowedSwapToTokens ?? [],
-          headerLabel: translate('screens/CompositeSwap', 'Choose a token'),
+          headerLabel: translate('screens/CompositeSwapScreen', 'Choose a token for swap'),
           onCloseButtonPress: () => bottomSheetRef.current?.close(),
           onTokenPress: (item): void => {
             const tokenId = item.id === '0_unified' ? '0' : item.id
@@ -238,10 +238,10 @@ export function CompositeSwapScreen (): JSX.Element {
     if (selectedTokenA !== undefined && selectedTokenB !== undefined && selectedPoolPairs !== undefined) {
       const { priceA, priceB } = calculatePriceRates(selectedTokenA, selectedPoolPairs)
       setPriceRates([{
-        label: `${selectedTokenA.displaySymbol} price in ${selectedTokenB.displaySymbol}`,
+        label: translate('screens/CompositeSwapScreen', '{{tokenA}} price in {{tokenB}}', { tokenA: selectedTokenA.displaySymbol, tokenB: selectedTokenB.displaySymbol }),
         value: `1 ${selectedTokenA.displaySymbol} = ${priceB} ${selectedTokenB.displaySymbol}`
       }, {
-        label: `${selectedTokenB.displaySymbol} price in ${selectedTokenA.displaySymbol}`,
+        label: translate('screens/CompositeSwapScreen', '{{tokenB}} price in {{tokenA}}', { tokenA: selectedTokenA.displaySymbol, tokenB: selectedTokenB.displaySymbol }),
         value: `1 ${selectedTokenB.displaySymbol} = ${priceA} ${selectedTokenA.displaySymbol}`
       }
       ])
@@ -303,7 +303,8 @@ export function CompositeSwapScreen (): JSX.Element {
         dark={tailwind('text-gray-50')}
         light={tailwind('text-gray-900')}
         style={tailwind('text-xl font-semibold m-4 mb-0')}
-      >Swap Tokens
+      >
+        {translate('screens/CompositeSwapScreen', 'Swap tokens')}
       </ThemedText>
 
       <View style={tailwind('flex flex-row mt-3 mx-2')}>
@@ -316,7 +317,7 @@ export function CompositeSwapScreen (): JSX.Element {
           dark={tailwind('text-gray-400')}
           light={tailwind('text-gray-500')}
           style={tailwind('mt-10 text-center')}
-        >Select tokens you want to swap to get started
+        > {translate('screens/CompositeSwapScreen', 'Select tokens you want to swap to get started')}
         </ThemedText>}
 
       {selectedTokenA !== undefined && selectedTokenB !== undefined &&
@@ -325,7 +326,7 @@ export function CompositeSwapScreen (): JSX.Element {
             control={control}
             controlName='tokenA'
             isDisabled={false}
-            title={translate('screens/CompositePoolSwapScreen', 'How much {{token}} do you want to swap?', { token: selectedTokenA.displaySymbol })}
+            title={translate('screens/CompositeSwapScreen', 'How much {{token}} do you want to swap?', { token: selectedTokenA.displaySymbol })}
             maxAmount={getMaxAmount(selectedTokenA)}
             enableMaxButton
             onChangeFromAmount={async (amount) => {
@@ -337,7 +338,7 @@ export function CompositeSwapScreen (): JSX.Element {
           />
           <InputHelperText
             testID='text_balance_amount'
-            label={`${translate('screens/CompositePoolSwapScreen', 'You have')} `}
+            label={`${translate('screens/CompositeSwapScreen', 'You have')} `}
             content={getMaxAmount(selectedTokenA)}
             suffix={` ${selectedTokenA.displaySymbol}`}
           />
@@ -346,7 +347,7 @@ export function CompositeSwapScreen (): JSX.Element {
               control={control}
               controlName='tokenB'
               isDisabled
-              title={translate('screens/CompositePoolSwapScreen', 'Estimated to receive')}
+              title={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
               token={selectedTokenB}
               enableMaxButton={false}
             />
@@ -372,7 +373,7 @@ export function CompositeSwapScreen (): JSX.Element {
       {selectedTokenA !== undefined && selectedTokenB !== undefined && (
         <Button
           disabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob}
-          label={translate('screens/CompositePoolSwapScreen', 'CONTINUE')}
+          label={translate('screens/CompositeSwapScreen', 'CONTINUE')}
           onPress={onSubmit}
           testID='button_submit'
           title='CONTINUE'
@@ -387,8 +388,8 @@ export function CompositeSwapScreen (): JSX.Element {
           style={tailwind('pb-8 px-4 text-sm text-center')}
         >
           {isConversionRequired
-            ? translate('screens/CompositePoolSwapScreen', 'Authorize transaction in the next screen to convert')
-            : translate('screens/CompositePoolSwapScreen', 'Review and confirm transaction in the next screen')}
+            ? translate('screens/CompositeSwapScreen', 'Authorize transaction in the next screen to convert')
+            : translate('screens/CompositeSwapScreen', 'Review and confirm transaction in the next screen')}
         </ThemedText>}
 
       <BottomSheetWithNav
@@ -424,7 +425,7 @@ function TokenSelection (props: {symbol?: string, label: string, onPress: () => 
             light={tailwind('text-gray-500')}
             style={tailwind('text-sm leading-6')}
           >
-            Select Token
+            {translate('screens/CompositeSwapScreen', 'Select token')}
           </ThemedText>}
 
         {props.symbol !== undefined &&
@@ -451,12 +452,12 @@ function TransactionDetailsSection ({ conversionAmount, estimatedAmount, fee, is
     <>
       <ThemedSectionTitle
         testID='title_add_detail'
-        text={translate('screens/CompositePoolSwapScreen', 'TRANSACTION DETAILS')}
+        text={translate('screens/CompositeSwapScreen', 'TRANSACTION DETAILS')}
         style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
       />
       {isConversionRequired &&
         <NumberRow
-          lhs={translate('screens/CompositePoolSwapScreen', 'Amount to be converted')}
+          lhs={translate('screens/CompositeSwapScreen', 'Amount to be converted')}
           rhs={{
           testID: 'amount_to_convert',
           value: conversionAmount.toFixed(8),
@@ -465,7 +466,7 @@ function TransactionDetailsSection ({ conversionAmount, estimatedAmount, fee, is
         }}
         />}
       <TextRow
-        lhs='Estimated to receive'
+        lhs={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
         rhs={{
           value: `${estimatedAmount} ${tokenB.displaySymbol}`,
           testID: 'estimated_to_receive'
@@ -577,7 +578,7 @@ function TokenRow (form: TokenForm): JSX.Element {
                 }
               }
             }}
-            placeholder={isDisabled ? undefined : translate('screens/CompositePoolSwapScreen', 'Enter an amount')}
+            placeholder={isDisabled ? undefined : translate('screens/CompositeSwapScreen', 'Enter an amount')}
             style={tailwind('flex-grow w-2/5')}
             testID={`text_input_${controlName}`}
             value={value}

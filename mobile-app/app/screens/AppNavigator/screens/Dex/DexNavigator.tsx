@@ -196,7 +196,7 @@ export function DexNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/DexScreen', 'Confirm Swap')}
+              text={translate('screens/DexScreen', 'Confirm swap')}
               containerTestID={headerContainerTestId}
             />
           )
