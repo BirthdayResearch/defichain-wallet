@@ -76,13 +76,13 @@ export function ConfirmBorrowLoanTokenScreen ({ route, navigation }: Props): JSX
   }
 
   function getSubmitLabel (): string {
-    if (hasPendingBroadcastJob || hasPendingJob) {
-      return 'BORROWING'
+    if (!hasPendingBroadcastJob && !hasPendingJob) {
+      return 'CONFIRM BORROW'
     }
     if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
       return currentBroadcastJob.submitButtonLabel
     }
-    return 'CONFIRM BORROW'
+    return 'BORROWING'
   }
 
   useEffect(() => {
