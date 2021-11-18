@@ -10,7 +10,7 @@ import { BottomSheetWithNavRouteParam } from './BottomSheetWithNav'
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { AddOrEditCollateralResponse } from '@screens/AppNavigator/screens/Loans/components/AddOrEditCollateralForm'
-import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/AddCollateralScreen'
+import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen'
 
 interface BottomSheetTokenListProps {
   headerLabel: string
@@ -33,7 +33,6 @@ export interface BottomSheetToken {
 export const BottomSheetTokenList = ({
   headerLabel,
   onCloseButtonPress,
-  onTokenPress,
   navigateToScreen,
   collateralTokens
 }: BottomSheetTokenListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
@@ -57,7 +56,8 @@ export const BottomSheetTokenList = ({
                 params: {
                   token: item.token,
                   available: item.available.toFixed(8),
-                  onButtonPress: navigateToScreen.onButtonPress
+                  onButtonPress: navigateToScreen.onButtonPress,
+                  collateralFactor: new BigNumber(item.factor ?? 0).times(100)
                 },
                 merge: true
               })
