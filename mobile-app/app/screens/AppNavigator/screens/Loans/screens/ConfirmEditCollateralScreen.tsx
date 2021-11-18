@@ -6,49 +6,87 @@ import BigNumber from 'bignumber.js'
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React from 'react'
+import React, { Dispatch, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { LoanParamList } from '../LoansNavigator'
 import { SymbolIcon } from '@components/SymbolIcon'
 import NumberFormat from 'react-number-format'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { hasTxQueued } from '@store/transaction_queue'
+import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
+import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction'
+import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen'
+import { useCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
+import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
+import { fetchVaults } from '@store/loans'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { ConversionTag } from '@components/ConversionTag'
+import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmEditCollateralScreen'>
 
-export function ConfirmEditCollateralScreen ({ route, navigation }: Props): JSX.Element {
+export function ConfirmEditCollateralScreen ({
+  route,
+  navigation
+}: Props): JSX.Element {
   const {
-    vaultId,
-    collaterals,
-    totalCollateralValue,
-    fee
+    vault,
+    token,
+    amount,
+    fee,
+    isAdd,
+    collateralItem,
+    conversion
   } = route.params
+  const { address } = useWalletContext()
+  const client = useWhaleApiClient()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const [isOnPage, setIsOnPage] = useState<boolean>(true)
+  const dispatch = useDispatch()
+  const logger = useLogger()
+
+  useEffect(() => {
+    setIsOnPage(true)
+    return () => {
+      setIsOnPage(false)
+    }
+  }, [])
 
   function onCancel (): void {
     navigation.navigate({
       name: 'EditCollateralScreen',
       params: {
-        vaultId
+        vaultId: vault.vaultId
       },
       merge: true
     })
   }
 
   async function onSubmit (): Promise<void> {
-    // TODO: create signer to add collateral, remove custom navigation below
-    navigation.navigate({
-      name: 'VaultDetailScreen',
-      params: {
-        vaultId: vaultId,
-        emptyActiveLoans: false
-      },
-      merge: true
-    })
+    if (hasPendingJob || hasPendingBroadcastJob) {
+      return
+    }
+    if (isAdd) {
+      await addCollateral({
+        vaultId: vault.vaultId,
+        token,
+        tokenAmount: amount
+      }, dispatch, logger, () => {
+        onTransactionBroadcast(isOnPage, navigation.dispatch, 1)
+      }, () => {
+        dispatch(fetchVaults({
+          address,
+          client
+        }))
+      })
+    }
   }
 
   function getSubmitLabel (): string {
@@ -60,24 +98,16 @@ export function ConfirmEditCollateralScreen ({ route, navigation }: Props): JSX.
 
   return (
     <ThemedScrollView>
-      <SummaryHeader vaultId={vaultId} />
-      <SummaryTransactionDetails
-        tokensToAdd={collaterals.length}
-        totalCollateralValue={totalCollateralValue}
+      <SummaryHeader vaultId={vault.vaultId} isAdd={isAdd} conversion={conversion} />
+      <CollateralSection
+        totalCollateralValue={new BigNumber(vault.collateralValue)}
+        collateralItem={collateralItem}
+        token={token}
+        amount={amount}
         fee={fee}
+        conversion={conversion}
+        isAdd={isAdd}
       />
-      {collaterals.map((collateral, index) =>
-        (
-          <CollateralSection
-            key={collateral.collateralId}
-            index={index}
-            collateralId={collateral.collateralId}
-            collateralAmount={collateral.amount}
-            collateralValue={collateral.amountValue}
-            collateralizationFactor={collateral.collateralFactor}
-            vaultProportion={collateral.vaultProportion}
-          />
-        ))}
       <SubmitButtonGroup
         isDisabled={hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/ConfirmEditCollateralScreen', 'CONFIRM ADD COLLATERAL')}
@@ -91,7 +121,7 @@ export function ConfirmEditCollateralScreen ({ route, navigation }: Props): JSX.
   )
 }
 
-function SummaryHeader (props: {vaultId: string}): JSX.Element {
+function SummaryHeader (props: { vaultId: string, isAdd: boolean, conversion?: ConversionParam }): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
@@ -103,7 +133,7 @@ function SummaryHeader (props: {vaultId: string}): JSX.Element {
         dark={tailwind('text-gray-400')}
         style={tailwind('mb-2')}
       >
-        {translate('screens/ConfirmEditCollateralScreen', 'You are adding collaterals to')}
+        {translate('screens/ConfirmEditCollateralScreen', props.isAdd ? 'You are adding collateral to' : 'You are removing collateral from')}
       </ThemedText>
       <View style={tailwind('flex flex-row items-center')}>
         <ThemedView
@@ -127,11 +157,23 @@ function SummaryHeader (props: {vaultId: string}): JSX.Element {
           {props.vaultId}
         </ThemedText>
       </View>
+      {props.conversion?.isConversionRequired === true && <ConversionTag />}
     </ThemedView>
   )
 }
 
-function SummaryTransactionDetails (props: {tokensToAdd: number, totalCollateralValue: BigNumber, fee: BigNumber}): JSX.Element {
+interface CollateralSectionProps {
+  collateralItem: CollateralItem
+  token: TokenData
+  amount: BigNumber
+  totalCollateralValue: BigNumber
+  conversion?: ConversionParam
+  isAdd: boolean
+  fee: BigNumber
+}
+
+function CollateralSection (props: CollateralSectionProps): JSX.Element {
+  const prices = useCollateralPrice(props.amount, props.collateralItem, props.totalCollateralValue)
   return (
     <>
       <ThemedSectionTitle
@@ -140,55 +182,23 @@ function SummaryTransactionDetails (props: {tokensToAdd: number, totalCollateral
       <TextRow
         lhs={translate('screens/ConfirmEditCollateralScreen', 'Transaction type')}
         rhs={{
-          value: translate('screens/ConfirmEditCollateralScreen', 'Add collateral'),
+          value: props.conversion?.isConversionRequired === true
+            ? translate('screens/ConfirmEditCollateralScreen', `Convert & ${props.isAdd ? 'add collateral' : 'remove collateral'}`)
+            : translate('screens/ConfirmEditCollateralScreen', `${props.isAdd ? 'Add Collateral' : 'Remove Collateral'}`),
           testID: 'text_transaction_type'
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
-      <NumberRow
-        lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateral tokens to add')}
-        rhs={{
-          value: props.tokensToAdd,
-          testID: 'tokens_to_add'
-        }}
-      />
-      <NumberRow
-        lhs={translate('screens/ConfirmEditCollateralScreen', 'Total collateral value (USD)')}
-        rhs={{
-          value: props.totalCollateralValue.toFixed(2),
-          testID: 'total_collateral_value',
-          prefix: '$'
-        }}
-      />
       <FeeInfoRow
         type='ESTIMATED_FEE'
         value={props.fee.toFixed(8)}
-        testID='estimated_fee'
+        testID='text_fee'
         suffix='DFI'
-      />
-    </>
-  )
-}
-
-interface CollateralSectionProps {
-  index: number
-  collateralId: string
-  collateralizationFactor: BigNumber
-  collateralAmount: BigNumber
-  collateralValue: BigNumber
-  vaultProportion: BigNumber
-}
-
-function CollateralSection (props: CollateralSectionProps): JSX.Element {
-  return (
-    <>
-      <ThemedSectionTitle
-        text={translate('screens/ConfirmEditCollateralScreen', 'COLLATERAL {{index}}', { index: props.index + 1 })}
       />
       <TextRow
         lhs={translate('screens/ConfirmEditCollateralScreen', 'Token')}
         rhs={{
-          value: props.collateralId,
+          value: props.token.displaySymbol,
           testID: 'text_token_id'
         }}
         textStyle={tailwind('text-sm font-normal')}
@@ -196,39 +206,39 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
       <NumberRow
         lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateralization factor')}
         rhs={{
-          value: new BigNumber(props.collateralizationFactor).toFixed(2),
+          value: prices.collateralFactor.multipliedBy(100).toFixed(2),
           testID: 'collateral_factor',
           suffixType: 'text',
           suffix: '%'
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateral amount (USD)')}
+        lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateral amount')}
         rhs={{
-          value: new BigNumber(props.collateralAmount).toFixed(8),
+          value: props.amount.toFixed(8),
           testID: 'collateral_amount',
           suffixType: 'text',
-          suffix: ` ${props.collateralId}`
+          suffix: ` ${props.token.displaySymbol}`
         }}
       />
       <NumberRow
         lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateral value (USD)')}
         rhs={{
-          value: new BigNumber(props.collateralAmount).toFixed(2),
+          value: prices.collateralPrice.toFixed(2),
           testID: 'collateral_value',
           prefix: '$'
         }}
       />
       <VaultProportionRow
         lhs={translate('screens/ConfirmEditCollateralScreen', 'Vault %')}
-        tokenId={props.collateralId}
-        proportion={props.vaultProportion}
+        tokenId={props.token.displaySymbol}
+        proportion={prices.vaultShare}
       />
     </>
   )
 }
 
-function VaultProportionRow (props: {lhs: string, tokenId: string, proportion: BigNumber}): JSX.Element {
+function VaultProportionRow (props: { lhs: string, tokenId: string, proportion: BigNumber }): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
@@ -264,4 +274,46 @@ function VaultProportionRow (props: {lhs: string, tokenId: string, proportion: B
       </ThemedView>
     </ThemedView>
   )
+}
+
+interface AddCollateralForm {
+  vaultId: string
+  tokenAmount: BigNumber
+  token: TokenData
+}
+
+async function addCollateral ({
+  vaultId,
+  tokenAmount,
+  token
+}: AddCollateralForm, dispatch: Dispatch<any>, logger: NativeLoggingProps, onBroadcast: () => void, onConfirmation: () => void): Promise<void> {
+  try {
+    const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
+      const script = await account.getScript()
+      const builder = account.withTransactionBuilder()
+
+      const signed: TransactionSegWit = await builder.loans.depositToVault({
+        vaultId,
+        from: script,
+        tokenAmount: {
+          token: +token.id,
+          amount: tokenAmount
+        }
+      }, script)
+      return new CTransactionSegWit(signed)
+    }
+
+    dispatch(transactionQueue.actions.push({
+      sign: signer,
+      title: translate('screens/EditCollateralScreen', 'Adding collateral'),
+      description: translate('screens/EditCollateralScreen', 'Adding {{amount}} {{symbol}} as collateral', {
+        amount: tokenAmount.toFixed(8),
+        symbol: token.displaySymbol
+      }),
+      onConfirmation,
+      onBroadcast
+    }))
+  } catch (e) {
+    logger.error(e)
+  }
 }
