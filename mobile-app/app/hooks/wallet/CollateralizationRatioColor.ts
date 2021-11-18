@@ -2,12 +2,12 @@ import { ThemedProps } from '@components/themed'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 
-interface UseCollateralizationRatioColorProps {
+interface useCollateralizationRatioColorProps {
   value: string
   minColRatio: string
 }
 
-export function UseCollateralizationRatioColor (props: UseCollateralizationRatioColorProps): ThemedProps {
+export function useCollateralizationRatioColor (props: useCollateralizationRatioColorProps): ThemedProps {
   const collateralizationRatio = new BigNumber(props.value)
   const style: ThemedProps = {}
   const atRiskThreshold = new BigNumber(props.minColRatio).multipliedBy(1.5)
