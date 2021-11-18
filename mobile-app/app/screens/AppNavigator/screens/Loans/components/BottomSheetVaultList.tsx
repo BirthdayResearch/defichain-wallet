@@ -97,7 +97,7 @@ export const BottomSheetVaultList = ({
       }
       stickyHeaderIndices={[0]}
       keyExtractor={(item) => item.vaultId}
-      style={tailwind({ 'bg-dfxblue-900': !isLight, 'bg-white': isLight })}
+      style={tailwind({ 'bg-dfxblue-800': !isLight, 'bg-white': isLight })}
     />
   )
 })

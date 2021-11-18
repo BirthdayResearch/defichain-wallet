@@ -192,7 +192,8 @@ export function AddCollateralScreen ({ route, navigation }: Props): JSX.Element 
                 component: AddOrEditCollateralForm,
                 option: {
                   headerStatusBarHeight: 1,
-                  headerBackgroundContainerStyle: tailwind('-top-5 border-b', { 'border-gray-200': isLight, 'border-gray-700': !isLight }),
+                  headerBackgroundContainerStyle: tailwind('-top-5 border-b', { 'border-gray-200': isLight, 'bg-dfxblue-800 border-dfxblue-900': !isLight }),
+                  headerStyle: tailwind('bg-dfxblue-800 border-dfxblue-900'),
                   headerTitle: '',
                   headerBackTitle: translate('screens/AddCollateralScreen', 'BACK')
                 }
