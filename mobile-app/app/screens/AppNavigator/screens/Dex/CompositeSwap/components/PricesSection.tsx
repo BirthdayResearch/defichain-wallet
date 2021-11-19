@@ -10,8 +10,8 @@ export function PricesSection ({ priceRates, sectionTitle }: {priceRates: PriceR
   return (
     <>
       <ThemedSectionTitle
-        testID='TODO'
-        text={translate('screens/PoolSwapScreen', sectionTitle)}
+        testID='pricerate_title'
+        text={translate('screens/CompositeSwapScreen', sectionTitle)}
         style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
       />
       {priceRates.map((priceRate) => {
@@ -21,7 +21,7 @@ export function PricesSection ({ priceRates, sectionTitle }: {priceRates: PriceR
             lhs={priceRate.label}
             rhs={{
               value: priceRate.value,
-              testID: 'TODO'
+              testID: 'pricerate_value'
             }}
             textStyle={tailwind('text-sm font-normal')}
           />

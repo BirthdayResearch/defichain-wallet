@@ -109,7 +109,7 @@ export function CompositeSwapScreen (): JSX.Element {
         stackScreenName: 'TokenList',
         component: BottomSheetTokenList({
           tokens: direction === 'FROM' ? allowedSwapFromTokens ?? [] : allowedSwapToTokens ?? [],
-          headerLabel: translate('screens/CompositeSwapScreen', 'Choose a token for swap'),
+          headerLabel: translate('screens/CompositeSwapScreen', 'Choose token for swap'),
           onCloseButtonPress: () => bottomSheetRef.current?.close(),
           onTokenPress: (item): void => {
             const tokenId = item.tokenId === '0_unified' ? '0' : item.tokenId
@@ -463,7 +463,7 @@ function TransactionDetailsSection ({ conversionAmount, estimatedAmount, fee, is
         textStyle={tailwind('text-sm font-normal')}
       />
       <TextRow
-        lhs='Slippage Tolerance'
+        lhs={translate('screens/CompositeSwapScreen', 'Slippage Tolerance')}
         rhs={{
           value: `${new BigNumber(slippage).times(100).toFixed(2)}%`,
           testID: 'slippage_tolerance'
