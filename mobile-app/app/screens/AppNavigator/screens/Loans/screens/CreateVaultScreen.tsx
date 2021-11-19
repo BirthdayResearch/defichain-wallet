@@ -26,6 +26,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
 import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { ConversionInfoText } from '@components/ConversionInfoText'
+import { InfoTextLink } from '@components/InfoTextLink'
 
 type Props = StackScreenProps<LoanParamList, 'CreateVaultScreen'>
 
@@ -44,6 +45,9 @@ export function CreateVaultScreen ({
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const isConversionRequired = new BigNumber(2).gt(DFIUtxo.amount)
+  const goToVaultsFaq = (): void => {
+    navigation.navigate('LoansFaq')
+  }
 
   const onSubmit = async (): Promise<void> => {
     if (selectedLoanScheme === undefined || hasPendingJob || hasPendingBroadcastJob) {
@@ -104,10 +108,17 @@ export function CreateVaultScreen ({
       <ThemedText
         light={tailwind('text-gray-700')}
         dark={tailwind('text-gray-200')}
-        style={tailwind('mb-6 text-sm')}
+        style={tailwind('text-sm')}
       >
-        {translate('screens/CreateVaultScreen', 'This sets the minimum collateral ratio and the vault’s interest rate.')}
+        {translate('screens/CreateVaultScreen', 'Loan scheme of your vault determines the required collateralization of your vault for loans.')}
       </ThemedText>
+      <View style={tailwind('mt-2 mb-6')}>
+        <InfoTextLink
+          onPress={goToVaultsFaq}
+          text='Learn more about vaults and loan schemes'
+          testId='empty_vault_learn_more'
+        />
+      </View>
       <LoanSchemeOptions
         loanSchemes={loanSchemes}
         selectedLoanScheme={selectedLoanScheme}

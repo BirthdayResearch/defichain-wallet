@@ -20,8 +20,8 @@ import { TouchableOpacity } from 'react-native'
 import { ThemedIcon } from '@components/themed'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
-import { LoanVault } from '@store/loans'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
+import { LoansFaq } from '@screens/WalletNavigator/screens/CreateWallet/LoansFaq'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -36,7 +36,7 @@ export interface LoanParamList {
     conversion?: ConversionParam
   }
   VaultDetailScreen: {
-    vault: LoanVault
+    vaultId: string
   }
   EditCollateralScreen: {
     vaultId: string
@@ -211,6 +211,19 @@ export function LoansNavigator (): JSX.Element {
               text={translate('screens/LoansScreen', 'Confirm Borrow Loan Token') + ' (Beta)'} // TODO: remove beta from title
             />
           )
+        }}
+      />
+      <LoansStack.Screen
+        component={LoansFaq}
+        name='LoansFaq'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('components/LoansFaq', 'Loans FAQ')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
         }}
       />
     </LoansStack.Navigator>

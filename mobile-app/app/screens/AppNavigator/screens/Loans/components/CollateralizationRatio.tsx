@@ -4,21 +4,22 @@ import { ThemedText } from '@components/themed'
 import { translate } from '@translations'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
-import { useCollateralizationRatioColor } from '@hooks/wallet/CollateralizationRatioColor'
+import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 
 interface CollateralizationRatioProps {
-  value: string
-  minColRatio: string
+  colRatio: BigNumber
+  minColRatio: BigNumber
+  totalLoanAmount: BigNumber
 }
 
 export function CollateralizationRatio (props: CollateralizationRatioProps): JSX.Element {
-  const collateralizationRatio = new BigNumber(props.value)
   const ratioThemedProps = useCollateralizationRatioColor({
-    value: props.value,
-    minColRatio: props.minColRatio
+    colRatio: props.colRatio,
+    minColRatio: props.minColRatio,
+    totalLoanAmount: props.totalLoanAmount
   })
 
-  if (collateralizationRatio.isLessThan(0) || collateralizationRatio.isNaN()) {
+  if (props.colRatio.isLessThan(0) || props.colRatio.isNaN()) {
     return (
       <ThemedText
         light={tailwind('text-gray-700')}
@@ -32,7 +33,7 @@ export function CollateralizationRatio (props: CollateralizationRatioProps): JSX
 
   return (
     <NumberFormat
-      value={collateralizationRatio.toFixed(2)}
+      value={props.colRatio.toFixed(2)}
       decimalScale={2}
       suffix='%'
       displayType='text'

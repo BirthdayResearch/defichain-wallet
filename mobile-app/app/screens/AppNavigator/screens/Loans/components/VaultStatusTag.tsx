@@ -2,16 +2,45 @@ import { ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import React from 'react'
+import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
+import BigNumber from 'bignumber.js'
+import { useCollateralRatioStats } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 
 export enum VaultStatus {
   Active = 'ACTIVE',
   Healthy = 'HEALTHY',
   AtRisk = 'AT RISK',
   Halted = 'HALTED',
-  Liquidated = 'LIQUIDATED'
+  Liquidated = 'IN LIQUIDATION',
+  Unknown = 'UNKNOWN'
 }
 
-export function VaultStatusTag (props: {status: VaultStatus}): JSX.Element {
+export function useVaultStatus (status: LoanVaultState, collateralRatio: BigNumber, minColRatio: BigNumber, totalLoanAmount: BigNumber): VaultStatus {
+  const colRatio = collateralRatio.gte(0) ? collateralRatio : new BigNumber(0)
+  const stats = useCollateralRatioStats({
+    colRatio,
+    minColRatio,
+    totalLoanAmount
+  })
+  if (status === LoanVaultState.FROZEN) {
+    return VaultStatus.Halted
+  } else if (status === LoanVaultState.UNKNOWN) {
+    return VaultStatus.Unknown
+  } else if (status === LoanVaultState.IN_LIQUIDATION || stats.isInLiquidation) {
+    return VaultStatus.Liquidated
+  } else if (stats.isAtRisk) {
+    return VaultStatus.AtRisk
+  } else if (stats.isHealthy) {
+    return VaultStatus.Healthy
+  } else {
+    return VaultStatus.Active
+  }
+}
+
+export function VaultStatusTag (props: { status: VaultStatus }): JSX.Element {
+  if (props.status === VaultStatus.Unknown) {
+    return <></>
+  }
   return (
     <ThemedView
       light={tailwind(
