@@ -46,6 +46,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
         "opacity": 1,
       }
     }
+    testID="vault"
   >
     <View
       style={
@@ -403,7 +404,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                 ],
               ]
             }
-            testID="undefined_total_loan_label"
+            testID="vault_total_loan_label"
           >
             Total loan (USD)
           </Text>
@@ -449,7 +450,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                 ],
               ]
             }
-            testID="undefined_total_loan"
+            testID="vault_total_loan"
           >
             $100.00
           </Text>
@@ -505,7 +506,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                 ],
               ]
             }
-            testID="undefined_total_collateral_label"
+            testID="vault_total_collateral_label"
           >
             Collateral amount (USD)
           </Text>
@@ -551,7 +552,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                 ],
               ]
             }
-            testID="undefined_total_collateral"
+            testID="vault_total_collateral"
           >
             
           </Text>
@@ -719,6 +720,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
         "opacity": 1,
       }
     }
+    testID="vault"
   >
     <View
       style={
@@ -1076,7 +1078,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                 ],
               ]
             }
-            testID="undefined_total_loan_label"
+            testID="vault_total_loan_label"
           >
             Total loan (USD)
           </Text>
@@ -1122,7 +1124,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                 ],
               ]
             }
-            testID="undefined_total_loan"
+            testID="vault_total_loan"
           >
             $100.00
           </Text>
@@ -1178,7 +1180,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                 ],
               ]
             }
-            testID="undefined_total_collateral_label"
+            testID="vault_total_collateral_label"
           >
             Collateral amount (USD)
           </Text>
@@ -1224,7 +1226,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                 ],
               ]
             }
-            testID="undefined_total_collateral"
+            testID="vault_total_collateral"
           >
             
           </Text>
@@ -1392,6 +1394,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
         "opacity": 1,
       }
     }
+    testID="vault"
   >
     <View
       style={
@@ -1749,7 +1752,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                 ],
               ]
             }
-            testID="undefined_total_loan_label"
+            testID="vault_total_loan_label"
           >
             Total loan (USD)
           </Text>
@@ -1795,7 +1798,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                 ],
               ]
             }
-            testID="undefined_total_loan"
+            testID="vault_total_loan"
           >
             $100.00
           </Text>
@@ -1851,7 +1854,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                 ],
               ]
             }
-            testID="undefined_total_collateral_label"
+            testID="vault_total_collateral_label"
           >
             Collateral amount (USD)
           </Text>
@@ -1897,7 +1900,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                 ],
               ]
             }
-            testID="undefined_total_collateral"
+            testID="vault_total_collateral"
           >
             
           </Text>
@@ -2065,6 +2068,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
         "opacity": 1,
       }
     }
+    testID="vault"
   >
     <View
       style={
@@ -2350,7 +2354,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
                 ],
               ]
             }
-            testID="undefined_total_loan_label"
+            testID="vault_total_loan_label"
           >
             Total loan (USD)
           </Text>
@@ -2396,9 +2400,9 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
                 ],
               ]
             }
-            testID="undefined_total_loan"
+            testID="vault_total_loan"
           >
-            $0.00
+            
           </Text>
         </View>
       </View>
@@ -2452,7 +2456,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
                 ],
               ]
             }
-            testID="undefined_total_collateral_label"
+            testID="vault_total_collateral_label"
           >
             Collateral amount (USD)
           </Text>
@@ -2498,9 +2502,9 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
                 ],
               ]
             }
-            testID="undefined_total_collateral"
+            testID="vault_total_collateral"
           >
-            $0.00
+            
           </Text>
         </View>
       </View>
