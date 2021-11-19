@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { View } from 'react-native'
+import { Platform, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Control, Controller, useForm } from 'react-hook-form'
 import BigNumber from 'bignumber.js'
@@ -26,7 +26,7 @@ import {
 } from '@components/themed'
 import { getNativeIcon } from '@components/icons/assets'
 import { BottomSheetNavScreen, BottomSheetWithNav } from '@components/BottomSheetWithNav'
-import { BottomSheetToken, BottomSheetTokenList } from './components/BottomSheetTokenList'
+import { BottomSheetToken, BottomSheetTokenList } from '@components/BottomSheetTokenList'
 import { Button } from '@components/Button'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { FeeInfoRow } from '@components/FeeInfoRow'
@@ -108,13 +108,13 @@ export function CompositeSwapScreen (): JSX.Element {
       {
         stackScreenName: 'TokenList',
         component: BottomSheetTokenList({
-          tokensList: direction === 'FROM' ? allowedSwapFromTokens ?? [] : allowedSwapToTokens ?? [],
+          tokens: direction === 'FROM' ? allowedSwapFromTokens ?? [] : allowedSwapToTokens ?? [],
           headerLabel: translate('screens/CompositeSwapScreen', 'Choose a token for swap'),
           onCloseButtonPress: () => bottomSheetRef.current?.close(),
           onTokenPress: (item): void => {
-            const tokenId = item.id === '0_unified' ? '0' : item.id
+            const tokenId = item.tokenId === '0_unified' ? '0' : item.tokenId
             const selectedToken = allTokens?.find(token => token.id === tokenId)
-            const ownedToken = tokens?.find(token => token.id === item.id)
+            const ownedToken = tokens?.find(token => token.id === item.tokenId)
             if (selectedToken == null) {
               dismissModal()
               return
@@ -168,11 +168,14 @@ export function CompositeSwapScreen (): JSX.Element {
   useEffect(() => {
     // setOwnedNonLPTokens(tokens.filter(token => token.isLPS === false && !token.id.includes('utxo') && !token.id.includes('unified')))
     const swappableFromTokens = tokens.reduce((swappedTokens: BottomSheetToken[], token): BottomSheetToken[] => {
-      if (!token.isLPS && token.id !== '0' && token.id !== '0_utxo') {
+      if (!token.isLPS && token.id !== '0' && token.id !== '0_utxo' && new BigNumber(token.amount).isGreaterThan(0)) {
         const derivedBottomSheetToken: BottomSheetToken = {
-          id: token.id,
-          name: token.displaySymbol,
-          available: new BigNumber(token.amount)
+          tokenId: token.id,
+          available: new BigNumber(token.amount),
+          token: {
+            displaySymbol: token.displaySymbol,
+            name: '' // not available in API
+          }
         }
 
         return [...swappedTokens, derivedBottomSheetToken]
@@ -281,6 +284,7 @@ export function CompositeSwapScreen (): JSX.Element {
     })
   }
 
+  const BottomSheetForWeb = bottomSheetScreen.length > 0 ? bottomSheetScreen[0].component : () => <></>
   return (
     <ThemedScrollView>
       <ThemedText
@@ -376,10 +380,11 @@ export function CompositeSwapScreen (): JSX.Element {
             : translate('screens/CompositeSwapScreen', 'Review and confirm transaction in the next screen')}
         </ThemedText>}
 
-      <BottomSheetWithNav
+      {Platform.OS === 'web' && bottomSheetScreen.length > 0 && <BottomSheetForWeb />}
+      {Platform.OS !== 'web' && <BottomSheetWithNav
         modalRef={bottomSheetRef}
         screenList={bottomSheetScreen}
-      />
+                                />}
 
     </ThemedScrollView>
 )
@@ -630,7 +635,7 @@ function getAllPossibleSwapToTokens (allTokens: TokenProps[], pairs: DexItem[], 
     return graphItem
   })
 
-  const reachableNodes = []
+  const reachableNodes: string[] = []
   const reachableNodeIds = new Set<string>([])
   // Use Sets to reduce checks if item is unique
   const visitedNodes = new Set<string>([])
@@ -658,22 +663,24 @@ function getAllPossibleSwapToTokens (allTokens: TokenProps[], pairs: DexItem[], 
     nodesToVisit.delete(token)
   }
 
-  const reachableTokens: BottomSheetToken[] = reachableNodes.reduce((tokens: BottomSheetToken[], node: string): BottomSheetToken[] => {
+  return reachableNodes.reduce((tokens: BottomSheetToken[], node: string): BottomSheetToken[] => {
     const token = allTokens.find(token => token.id === node)
     if (token !== undefined && node !== tokenFrom) {
       return [
         ...tokens, {
-          id: token.id,
-          name: token.displaySymbol,
-          available: new BigNumber(token.reserve)
+          tokenId: token.id,
+          available: new BigNumber(token.reserve),
+          token: {
+            name: '', // Not available in API
+            displaySymbol: token.displaySymbol
+          }
+
         }
       ]
     }
 
     return tokens
   }, [])
-
-  return reachableTokens
 }
 
 interface GraphProps { pairId: string, a: string, b: string }

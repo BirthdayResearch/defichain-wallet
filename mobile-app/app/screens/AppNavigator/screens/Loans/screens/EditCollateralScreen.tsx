@@ -130,7 +130,7 @@ export function EditCollateralScreen ({
               {
                 stackScreenName: 'TokenList',
                 component: BottomSheetTokenList({
-                  collateralTokens,
+                  tokens: collateralTokens,
                   headerLabel: translate('screens/EditCollateralScreen', 'Select token to add'),
                   onCloseButtonPress: () => bottomSheetRef.current?.close(),
                   navigateToScreen: {

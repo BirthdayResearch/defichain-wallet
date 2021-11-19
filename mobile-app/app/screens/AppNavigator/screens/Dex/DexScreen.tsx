@@ -143,6 +143,7 @@ export function DexScreen (): JSX.Element {
           pair='composite'
           label={translate('screens/DexScreen', 'SWAP')}
           style={tailwind('my-2 p-2')}
+          testID='composite_swap'
         />
       </ThemedView>
       <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
@@ -339,6 +340,7 @@ function AvailablePoolPairCards ({
                 label={translate('screens/DexScreen', 'ADD LIQUIDITY')}
                 disabled={!pair.tradeEnabled || !pair.status}
                 style={tailwind('mr-2 mt-2')}
+                testID={`pool_pair_add_${symbol}`}
               />
               <ActionButton
                 name='swap-horiz'
@@ -351,6 +353,7 @@ function AvailablePoolPairCards ({
                 label={translate('screens/DexScreen', 'SWAP TOKENS')}
                 disabled={!pair.tradeEnabled || !pair.status}
                 style={tailwind('mr-2 mt-2')}
+                testID={`pool_pair_swap-horiz_${symbol}`}
               />
             </View>
           </ThemedView>
@@ -487,6 +490,7 @@ function PoolPairActions (props: { onAdd: () => void, onRemove: () => void, symb
         pair={symbol}
         label={translate('screens/DexScreen', 'ADD MORE')}
         style={tailwind('mr-2 mt-2')}
+        testID={`pool_pair_add_${symbol}`}
       />
 
       <ActionButton
@@ -495,12 +499,13 @@ function PoolPairActions (props: { onAdd: () => void, onRemove: () => void, symb
         pair={symbol}
         label={translate('screens/DexScreen', 'REMOVE')}
         style={tailwind('mr-2 mt-2')}
+        testID={`pool_pair_remove_${symbol}`}
       />
     </View>
   )
 }
 
-function ActionButton (props: { name: React.ComponentProps<typeof MaterialIcons>['name'], pair: string, onPress: () => void, label: string, style?: StyleProp<ViewStyle>, disabled?: boolean }): JSX.Element {
+function ActionButton (props: { name: React.ComponentProps<typeof MaterialIcons>['name'], pair: string, onPress: () => void, label: string, style?: StyleProp<ViewStyle>, disabled?: boolean, testID: string }): JSX.Element {
   return (
     <IconButton
       iconName={props.name}
@@ -508,7 +513,7 @@ function ActionButton (props: { name: React.ComponentProps<typeof MaterialIcons>
       iconType='MaterialIcons'
       onPress={props.onPress}
       style={props.style}
-      testID={`pool_pair_${props.name}_${props.pair}`}
+      testID={props.testID}
       iconLabel={props.label}
       disabled={props.disabled}
     />

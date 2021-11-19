@@ -20,36 +20,39 @@ interface BottomSheetTokenListProps {
     screenName: string
     onButtonPress: (item: AddOrEditCollateralResponse) => void
   }
-  collateralTokens: CollateralItem[]
+  tokens: Array<CollateralItem | BottomSheetToken>
 }
 
 export interface BottomSheetToken {
-  id: string
-  name: string
+  tokenId: string
   available: BigNumber
-  collateralFactor?: BigNumber
+  token: {
+    name: string
+    displaySymbol: string
+  }
+  factor?: string
 }
 
 export const BottomSheetTokenList = ({
   headerLabel,
   onCloseButtonPress,
+  onTokenPress,
   navigateToScreen,
-  collateralTokens
+  tokens
 }: BottomSheetTokenListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const { isLight } = useThemeContext()
   const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
 
   return (
     <BottomSheetFlatList
-      data={collateralTokens}
-      renderItem={({ item }: { item: CollateralItem }): JSX.Element => (
+      data={tokens}
+      renderItem={({ item }: { item: CollateralItem | BottomSheetToken }): JSX.Element => (
         <ThemedTouchableOpacity
           disabled={new BigNumber(item.available).lte(0)}
           onPress={() => {
-            /*
             if (onTokenPress !== undefined) {
               onTokenPress(item)
-            } */
+            }
             if (navigateToScreen !== undefined) {
               navigation.navigate({
                 name: navigateToScreen.screenName,
