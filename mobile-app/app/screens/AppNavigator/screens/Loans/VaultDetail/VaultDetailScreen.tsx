@@ -179,7 +179,7 @@ function VaultInfoSection (props: { vault?: LoanVault }): JSX.Element | null {
               prefix='$'
             />
             <VaultSectionTextRow
-              value={props.vault.loanValue}
+              value={new BigNumber(props.vault.loanValue).toFixed(2)}
               lhs={translate('screens/VaultDetailScreen', 'Total loan (USD)')}
               testID='text_total_loan_value'
               prefix='$'
