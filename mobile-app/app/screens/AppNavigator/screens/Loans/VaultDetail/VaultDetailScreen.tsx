@@ -16,7 +16,7 @@ import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import BigNumber from 'bignumber.js'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
-import { VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
+import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 
 type Props = StackScreenProps<LoanParamList, 'VaultDetailScreen'>
 
@@ -24,7 +24,8 @@ export function VaultDetailScreen ({
   route,
   navigation
 }: Props): JSX.Element {
-  const [vault, setVault] = useState<LoanVault | undefined>(route.params.vault)
+  const { vaultId } = route.params
+  const [vault, setVault] = useState<LoanVault>()
   const vaults = useSelector((state: RootState) => state.loans.vaults)
   const vaultActionButtons: ScrollButton[] = [
     {
@@ -47,8 +48,15 @@ export function VaultDetailScreen ({
   ]
 
   useEffect(() => {
-    setVault(vaults.find(v => v.vaultId === vault?.vaultId))
+    const v = vaults.find(v => v.vaultId === vaultId)
+    if (v !== undefined) {
+      setVault({ ...v })
+    }
   }, [vaults])
+
+  if (vault === undefined) {
+    return <></>
+  }
 
   return (
     <ThemedScrollView
@@ -60,7 +68,7 @@ export function VaultDetailScreen ({
         dark={tailwind('bg-gray-800')}
       >
         <View style={tailwind('p-4')}>
-          <VaultIdSection vaultId={vault?.vaultId} state={vault?.state} />
+          <VaultIdSection vault={vault} />
           <VaultInfoSection vault={vault} />
         </View>
         <ThemedView
@@ -76,8 +84,11 @@ export function VaultDetailScreen ({
   )
 }
 
-function VaultIdSection (props: { vaultId?: string, state?: LoanVaultState }): JSX.Element {
+function VaultIdSection ({ vault }: { vault: LoanVault }): JSX.Element {
   const { getVaultsUrl } = useDeFiScanContext()
+  const colRatio = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.collateralRatio
+  const totalLoanAmount = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.loanValue
+  const vaultState = useVaultStatus(vault.state, new BigNumber(colRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber((totalLoanAmount)))
   return (
     <ThemedView
       light={tailwind('bg-white')}
@@ -95,10 +106,7 @@ function VaultIdSection (props: { vaultId?: string, state?: LoanVaultState }): J
           >
             {translate('screens/VaultDetailScreen', 'Vault ID')}
           </ThemedText>
-          {props.state !== undefined &&
-          (
-            <VaultStatusTag status={props.state} />
-          )}
+          <VaultStatusTag status={vaultState} />
         </View>
         <View
           style={tailwind('flex flex-row mb-2 items-center')}
@@ -106,9 +114,9 @@ function VaultIdSection (props: { vaultId?: string, state?: LoanVaultState }): J
           <ThemedText
             style={tailwind('text-sm font-semibold w-8/12 flex-1 mr-2')}
           >
-            {props?.vaultId}
+            {vault.vaultId}
           </ThemedText>
-          <TouchableOpacity onPress={async () => await openURL(getVaultsUrl(props?.vaultId ?? ''))}>
+          <TouchableOpacity onPress={async () => await openURL(getVaultsUrl(vault.vaultId ?? ''))}>
             <ThemedIcon
               dark={tailwind('text-darkprimary-500')}
               iconType='MaterialIcons'

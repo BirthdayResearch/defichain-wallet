@@ -20,7 +20,6 @@ import { TouchableOpacity } from 'react-native'
 import { ThemedIcon } from '@components/themed'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
-import { LoanVault } from '@store/loans'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { LoansFaq } from '@screens/WalletNavigator/screens/CreateWallet/LoansFaq'
 
@@ -37,7 +36,7 @@ export interface LoanParamList {
     conversion?: ConversionParam
   }
   VaultDetailScreen: {
-    vault: LoanVault
+    vaultId: string
   }
   EditCollateralScreen: {
     vaultId: string

@@ -3,47 +3,62 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import React from 'react'
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
+import BigNumber from 'bignumber.js'
+import { useCollateralRatioStats } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 
 export enum VaultStatus {
   Active = 'ACTIVE',
   Healthy = 'HEALTHY',
   AtRisk = 'AT RISK',
   Halted = 'HALTED',
-  Liquidated = 'LIQUIDATED'
+  Liquidated = 'IN LIQUIDATION',
+  Unknown = 'UNKNOWN'
 }
 
-export const getStatusMapping = (status: LoanVaultState): VaultStatus => {
-  switch (status) {
-    case LoanVaultState.ACTIVE:
-      return VaultStatus.Healthy
-    case LoanVaultState.FROZEN:
-      return VaultStatus.Halted
-    case LoanVaultState.MAY_LIQUIDATE:
-      return VaultStatus.AtRisk
-    case LoanVaultState.IN_LIQUIDATION:
-      return VaultStatus.Liquidated
-    default:
-      return VaultStatus.Healthy
+export function useVaultStatus (status: LoanVaultState, collateralRatio: BigNumber, minColRatio: BigNumber, totalLoanAmount: BigNumber): VaultStatus {
+  const colRatio = collateralRatio.gte(0) ? collateralRatio : new BigNumber(0)
+  const stats = useCollateralRatioStats({
+    colRatio,
+    minColRatio,
+    totalLoanAmount
+  })
+  if (status === LoanVaultState.FROZEN) {
+    return VaultStatus.Halted
+  } else if (status === LoanVaultState.UNKNOWN) {
+    return VaultStatus.Unknown
+  } else if (status === LoanVaultState.IN_LIQUIDATION || stats.isInLiquidation) {
+    return VaultStatus.Liquidated
+  } else if (stats.isAtRisk) {
+    return VaultStatus.AtRisk
+  } else if (stats.isHealthy) {
+    return VaultStatus.Healthy
+  } else {
+    return VaultStatus.Active
   }
 }
 
-export function VaultStatusTag (props: { status: LoanVaultState }): JSX.Element {
+export function VaultStatusTag (props: { status: VaultStatus }): JSX.Element {
+  if (props.status === VaultStatus.Unknown) {
+    return <></>
+  }
   return (
     <ThemedView
       light={tailwind(
         {
-          'bg-success-100': props.status === LoanVaultState.ACTIVE,
-          'bg-warning-100': props.status === LoanVaultState.MAY_LIQUIDATE,
-          'bg-gray-100': props.status === LoanVaultState.FROZEN,
-          'bg-error-100': props.status === LoanVaultState.IN_LIQUIDATION
+          'bg-blue-100': props.status === VaultStatus.Active,
+          'bg-success-100': props.status === VaultStatus.Healthy,
+          'bg-warning-100': props.status === VaultStatus.AtRisk,
+          'bg-gray-100': props.status === VaultStatus.Halted,
+          'bg-error-100': props.status === VaultStatus.Liquidated
         }
       )}
       dark={tailwind(
         {
-          'bg-darksuccess-100': props.status === LoanVaultState.ACTIVE,
-          'bg-darkwarning-100': props.status === LoanVaultState.MAY_LIQUIDATE,
-          'bg-gray-100': props.status === LoanVaultState.FROZEN,
-          'bg-darkerror-100': props.status === LoanVaultState.IN_LIQUIDATION
+          'bg-darkblue-100': props.status === VaultStatus.Active,
+          'bg-darksuccess-100': props.status === VaultStatus.Healthy,
+          'bg-darkwarning-100': props.status === VaultStatus.AtRisk,
+          'bg-gray-100': props.status === VaultStatus.Halted,
+          'bg-darkerror-100': props.status === VaultStatus.Liquidated
         }
       )}
       style={tailwind('flex flex-row items-center')}
@@ -51,23 +66,25 @@ export function VaultStatusTag (props: { status: LoanVaultState }): JSX.Element 
       <ThemedText
         light={tailwind(
           {
-            'text-success-500': props.status === LoanVaultState.ACTIVE,
-            'text-warning-500': props.status === LoanVaultState.MAY_LIQUIDATE,
-            'text-gray-400': props.status === LoanVaultState.FROZEN,
-            'text-error-500': props.status === LoanVaultState.IN_LIQUIDATION
+            'text-blue-500': props.status === VaultStatus.Active,
+            'text-success-500': props.status === VaultStatus.Healthy,
+            'text-warning-500': props.status === VaultStatus.AtRisk,
+            'text-gray-400': props.status === VaultStatus.Halted,
+            'text-error-500': props.status === VaultStatus.Liquidated
           }
         )}
         dark={tailwind(
           {
-            'text-darksuccess-500': props.status === LoanVaultState.ACTIVE,
-            'text-darkwarning-500': props.status === LoanVaultState.MAY_LIQUIDATE,
-            'text-gray-500': props.status === LoanVaultState.FROZEN,
-            'text-darkerror-500': props.status === LoanVaultState.IN_LIQUIDATION
+            'text-darkblue-500': props.status === VaultStatus.Active,
+            'text-darksuccess-500': props.status === VaultStatus.Healthy,
+            'text-darkwarning-500': props.status === VaultStatus.AtRisk,
+            'text-gray-500': props.status === VaultStatus.Halted,
+            'text-darkerror-500': props.status === VaultStatus.Liquidated
           }
         )}
         style={tailwind('px-2 py-0.5 font-medium text-xs')}
       >
-        {translate('components/VaultCard', getStatusMapping(props.status))}
+        {translate('components/VaultCard', props.status)}
       </ThemedText>
     </ThemedView>
   )

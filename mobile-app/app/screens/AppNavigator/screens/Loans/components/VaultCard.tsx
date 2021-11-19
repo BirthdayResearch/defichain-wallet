@@ -21,7 +21,7 @@ import { TouchableOpacity } from 'react-native'
 import { openURL } from '@api/linking'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { VaultSectionTextRow } from '@screens/AppNavigator/screens/Loans/components/VaultSectionTextRow'
-import { VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
+import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 
 export interface VaultCardProps extends React.ComponentProps<any> {
   vault: LoanVault
@@ -32,9 +32,10 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
   const vault = props.vault as LoanVaultActive
   const { getVaultsUrl } = useDeFiScanContext()
+  const vaultState = useVaultStatus(vault.state, new BigNumber(vault.collateralRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber(vault.loanValue))
   const onCardPress = (): void => {
     navigation.navigate('VaultDetailScreen', {
-      vault
+      vaultId: vault.vaultId
     })
   }
   return (
@@ -63,10 +64,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
                     >
                       {translate('screens/VaultDetailScreen', 'Vault ID')}
                     </ThemedText>
-                    {props.vault.state !== undefined &&
-                    (
-                      <VaultStatusTag status={props.vault.state} />
-                    )}
+                    <VaultStatusTag status={vaultState} />
                   </View>
                   <TouchableOpacity
                     style={tailwind('flex flex-row mb-0.5 items-center')}
