@@ -191,7 +191,7 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
           ]
         }
       >
-        Beta features of Light Wallet are features undergoing final testing before its official release. Experimentation of the features is encouraged, but caution is advised when using your assets.
+        Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.
       </Text>
     </View>
     <View
