@@ -70,14 +70,14 @@ function LoanCard (props: LoanCardProps): JSX.Element {
       <View style={tailwind('flex flex-row items-center')}>
         <SymbolIcon symbol={props.symbol} styleProps={{ width: 16, height: 16 }} />
         <ThemedText
-          light={tailwind({ 'text-gray-300': props.vaultState === LoanVaultState.IN_LIQUIDATION })}
-          dark={tailwind({ 'text-gray-700': props.vaultState === LoanVaultState.IN_LIQUIDATION })}
+          light={tailwind({ 'text-gray-300': props.vaultState === LoanVaultState.IN_LIQUIDATION, 'text-black': props.vaultState !== LoanVaultState.IN_LIQUIDATION })}
+          dark={tailwind({ 'text-gray-700': props.vaultState === LoanVaultState.IN_LIQUIDATION, 'text-white': props.vaultState !== LoanVaultState.IN_LIQUIDATION })}
           style={tailwind('font-medium ml-2')}
         >
           {props.displaySymbol}
         </ThemedText>
       </View>
-      <View style={tailwind('mt-4')}>
+      <View style={tailwind('mt-3')}>
         <VaultSectionTextRow
           value={new BigNumber(props.amount).toFixed(8)}
           lhs={translate('components/VaultDetailsLoansTab', 'Outstanding balance')}
@@ -86,8 +86,8 @@ function LoanCard (props: LoanCardProps): JSX.Element {
           suffix={` ${props.displaySymbol}`}
           style={tailwind('text-sm font-medium')}
           rhsThemedProps={{
-            light: tailwind({ 'text-gray-300': props.vaultState === LoanVaultState.IN_LIQUIDATION }),
-            dark: tailwind({ 'text-gray-700': props.vaultState === LoanVaultState.IN_LIQUIDATION })
+            light: tailwind({ 'text-gray-300': props.vaultState === LoanVaultState.IN_LIQUIDATION, 'text-black': props.vaultState !== LoanVaultState.IN_LIQUIDATION }),
+            dark: tailwind({ 'text-gray-700': props.vaultState === LoanVaultState.IN_LIQUIDATION, 'text-white': props.vaultState !== LoanVaultState.IN_LIQUIDATION })
           }}
         />
         {props.vaultState !== LoanVaultState.IN_LIQUIDATION &&
