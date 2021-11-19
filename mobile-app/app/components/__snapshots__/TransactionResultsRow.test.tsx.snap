@@ -61,7 +61,7 @@ Array [
     <View
       style={
         Object {
-          "width": "41.666667%",
+          "width": "50%",
         }
       }
     >
@@ -190,7 +190,7 @@ Array [
     <View
       style={
         Object {
-          "width": "41.666667%",
+          "width": "50%",
         }
       }
     >
