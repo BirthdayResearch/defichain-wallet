@@ -123,6 +123,7 @@ Array [
                   "textAlign": "right",
                 },
                 undefined,
+                undefined,
               ],
               Object {
                 "color": "rgba(115, 115, 115, 1)",
@@ -223,6 +224,7 @@ Array [
                   "lineHeight": 20,
                   "textAlign": "right",
                 },
+                undefined,
                 undefined,
               ],
               Object {

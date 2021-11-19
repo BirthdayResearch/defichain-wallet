@@ -443,6 +443,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                       "lineHeight": 16,
                       "marginLeft": 0,
                     },
+                    undefined,
                   ],
                   Object {
                     "color": "rgba(23, 23, 23, 1)",
@@ -545,6 +546,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                       "lineHeight": 16,
                       "marginLeft": 0,
                     },
+                    undefined,
                   ],
                   Object {
                     "color": "rgba(23, 23, 23, 1)",
@@ -1117,6 +1119,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                       "lineHeight": 16,
                       "marginLeft": 0,
                     },
+                    undefined,
                   ],
                   Object {
                     "color": "rgba(23, 23, 23, 1)",
@@ -1219,6 +1222,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                       "lineHeight": 16,
                       "marginLeft": 0,
                     },
+                    undefined,
                   ],
                   Object {
                     "color": "rgba(23, 23, 23, 1)",
@@ -1791,6 +1795,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                       "lineHeight": 16,
                       "marginLeft": 0,
                     },
+                    undefined,
                   ],
                   Object {
                     "color": "rgba(23, 23, 23, 1)",
@@ -1893,6 +1898,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                       "lineHeight": 16,
                       "marginLeft": 0,
                     },
+                    undefined,
                   ],
                   Object {
                     "color": "rgba(23, 23, 23, 1)",
@@ -2393,6 +2399,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
                       "lineHeight": 16,
                       "marginLeft": 0,
                     },
+                    undefined,
                   ],
                   Object {
                     "color": "rgba(23, 23, 23, 1)",
@@ -2495,6 +2502,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
                       "lineHeight": 16,
                       "marginLeft": 0,
                     },
+                    undefined,
                   ],
                   Object {
                     "color": "rgba(23, 23, 23, 1)",
