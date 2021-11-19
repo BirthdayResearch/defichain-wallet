@@ -10,7 +10,7 @@ import { TouchableOpacity } from 'react-native'
 import { LoanVault } from '@store/loans'
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { VaultSectionTextRow } from '../../components/VaultSectionTextRow'
-import { EmptyLoans } from './EmptyLoans'
+import { EmptyLoan } from './EmptyLoan'
 
 interface LoanCardProps {
   symbol: string
@@ -29,7 +29,7 @@ export function LoansTab (props: {vault: LoanVault}): JSX.Element {
     >
       {vault.state === LoanVaultState.ACTIVE && vault.loanValue === '0' &&
         (
-          <EmptyLoans />
+          <EmptyLoan />
         )}
       {vault.state === LoanVaultState.IN_LIQUIDATION
         ? (
