@@ -7,6 +7,7 @@ jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn()
 }))
+jest.mock('@shared-contexts/DeFiScanContext')
 
 describe('Vault card', () => {
   it('should match snapshot of liquidated vault', async () => {

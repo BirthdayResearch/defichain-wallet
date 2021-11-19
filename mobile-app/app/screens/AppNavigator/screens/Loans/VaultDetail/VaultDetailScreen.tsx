@@ -14,10 +14,16 @@ import { RootState } from '@store'
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import BigNumber from 'bignumber.js'
+import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
+import { openURL } from '@api/linking'
+import { VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 
 type Props = StackScreenProps<LoanParamList, 'VaultDetailScreen'>
 
-export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
+export function VaultDetailScreen ({
+  route,
+  navigation
+}: Props): JSX.Element {
   const [vault, setVault] = useState<LoanVault | undefined>(route.params.vault)
   const vaults = useSelector((state: RootState) => state.loans.vaults)
   const vaultActionButtons: ScrollButton[] = [
@@ -54,7 +60,7 @@ export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
         dark={tailwind('bg-gray-800')}
       >
         <View style={tailwind('p-4')}>
-          <VaultIdSection vaultId={vault?.vaultId} />
+          <VaultIdSection vaultId={vault?.vaultId} state={vault?.state} />
           <VaultInfoSection vault={vault} />
         </View>
         <ThemedView
@@ -70,7 +76,8 @@ export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
   )
 }
 
-function VaultIdSection (props: { vaultId?: string }): JSX.Element {
+function VaultIdSection (props: { vaultId?: string, state?: LoanVaultState }): JSX.Element {
+  const { getVaultsUrl } = useDeFiScanContext()
   return (
     <ThemedView
       light={tailwind('bg-white')}
@@ -80,14 +87,19 @@ function VaultIdSection (props: { vaultId?: string }): JSX.Element {
       <View
         style={tailwind('flex flex-1')}
       >
-        <ThemedText
-          light={tailwind('text-gray-400')}
-          dark={tailwind('text-gray-500')}
-          style={tailwind('text-xs mb-1')}
-        >
-          {translate('screens/VaultDetailScreen', 'Vault ID')}
-        </ThemedText>
-
+        <View style={tailwind('flex flex-row mb-2 items-center')}>
+          <ThemedText
+            light={tailwind('text-gray-400')}
+            dark={tailwind('text-gray-500')}
+            style={tailwind('text-xs mr-1')}
+          >
+            {translate('screens/VaultDetailScreen', 'Vault ID')}
+          </ThemedText>
+          {props.state !== undefined &&
+          (
+            <VaultStatusTag status={props.state} />
+          )}
+        </View>
         <View
           style={tailwind('flex flex-row mb-2 items-center')}
         >
@@ -96,7 +108,7 @@ function VaultIdSection (props: { vaultId?: string }): JSX.Element {
           >
             {props?.vaultId}
           </ThemedText>
-          <TouchableOpacity onPress={() => { /* TODO: link to defiscan */ }}>
+          <TouchableOpacity onPress={async () => await openURL(getVaultsUrl(props?.vaultId ?? ''))}>
             <ThemedIcon
               dark={tailwind('text-darkprimary-500')}
               iconType='MaterialIcons'
@@ -112,7 +124,7 @@ function VaultIdSection (props: { vaultId?: string }): JSX.Element {
   )
 }
 
-function VaultInfoSection (props: {vault?: LoanVault}): JSX.Element | null {
+function VaultInfoSection (props: { vault?: LoanVault }): JSX.Element | null {
   if (props.vault === undefined) {
     return null
   }

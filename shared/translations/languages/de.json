@@ -647,7 +647,7 @@
     "At risk": "Gefährdet",
     "Safe": "Sicher",
     "Active loans": "Aktive Darlehen",
-    "Total loan amount (USD)": "Gesamtdarlehensbetrag (USD)",
+    "Total loan (USD)": "Gesamtdarlehensbetrag (USD)",
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateral ratio": "Besicherungsquote",
     "n/a": "k.A.",
@@ -772,9 +772,9 @@
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
     "ADD TOKEN AS COLLATERAL": "TOKEN ALS BESICHERUNG HINZUFÜGEN",
-    "REMOVE COLLATERAL AMOUNT": "REMOVE COLLATERAL AMOUNT",
-    "How much {{symbol}} to remove?": "How much {{symbol}} to remove?",
-    "Current": "Current"
+    "REMOVE COLLATERAL AMOUNT": "BETRAG DER SICHERHEITEN REDUZIEREN",
+    "How much {{symbol}} to remove?": "Wie viel {{symbol}} soll entfernt werden?",
+    "Current": "Aktueller Stand"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Du fügst Sicherheiten hinzu zu",

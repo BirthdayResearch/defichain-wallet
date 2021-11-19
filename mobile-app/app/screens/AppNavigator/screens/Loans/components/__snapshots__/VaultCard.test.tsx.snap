@@ -42,6 +42,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
     style={
       Object {
         "borderBottomWidth": 0,
+        "marginBottom": 8,
         "opacity": 1,
       }
     }
@@ -61,7 +62,10 @@ exports[`Vault card should match snapshot of active vault 1`] = `
           Object {
             "alignItems": "center",
             "display": "flex",
+            "flexBasis": "0%",
             "flexDirection": "row",
+            "flexGrow": 1,
+            "flexShrink": 1,
           }
         }
       >
@@ -69,78 +73,207 @@ exports[`Vault card should match snapshot of active vault 1`] = `
           style={
             Object {
               "display": "flex",
+              "flexBasis": "0%",
               "flexDirection": "column",
+              "flexGrow": 1,
+              "flexShrink": 1,
             }
           }
         >
           <View
             style={
               Object {
+                "alignItems": "center",
                 "display": "flex",
                 "flexDirection": "row",
+                "justifyContent": "space-between",
               }
             }
           >
             <View
               style={
                 Object {
-                  "display": "flex",
                   "flexDirection": "column",
                 }
               }
             >
-              <Text
+              <View
                 style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
-                    Array [
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginRight": 6,
-                      },
-                      Object {
-                        "color": "rgba(163, 163, 163, 1)",
-                      },
-                    ],
-                  ]
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                  }
                 }
               >
-                Vault ID
-              </Text>
-              <Text
-                ellipsizeMode="middle"
-                numberOfLines={1}
-                style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                <Text
+                  style={
                     Array [
                       Object {
-                        "flexShrink": 1,
-                        "fontFamily": "SemiBoldFont",
-                        "fontWeight": "600",
-                        "width": 176,
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                          "marginRight": 6,
+                        },
+                        Object {
+                          "color": "rgba(163, 163, 163, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  Vault ID
+                </Text>
+                <View
+                  style={
+                    Array [
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                        "flexDirection": "row",
                       },
                       Object {
-                        "color": "rgba(0, 0, 0, 1)",
+                        "backgroundColor": "rgba(230, 247, 232, 1)",
                       },
-                    ],
-                  ]
+                    ]
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "fontFamily": "RegularFont",
+                          "fontSize": 16,
+                          "fontWeight": "400",
+                          "lineHeight": 24,
+                        },
+                        Array [
+                          Object {
+                            "fontFamily": "MediumFont",
+                            "fontSize": 12,
+                            "fontWeight": "500",
+                            "lineHeight": 16,
+                            "paddingBottom": 2,
+                            "paddingLeft": 8,
+                            "paddingRight": 8,
+                            "paddingTop": 2,
+                          },
+                          Object {
+                            "color": "rgba(2, 179, 27, 1)",
+                          },
+                        ],
+                      ]
+                    }
+                  >
+                    HEALTHY
+                  </Text>
+                </View>
+              </View>
+              <View
+                accessible={true}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "marginBottom": 2,
+                    "opacity": 1,
+                  }
                 }
               >
-                22ffasd5ca123123123123123121231061
-              </Text>
+                <Text
+                  ellipsizeMode="middle"
+                  numberOfLines={1}
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "flexShrink": 1,
+                          "fontFamily": "SemiBoldFont",
+                          "fontWeight": "600",
+                          "marginRight": 2,
+                          "width": 224,
+                        },
+                        Object {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  22ffasd5ca123123123123123121231061
+                </Text>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    Array [
+                      Object {
+                        "color": undefined,
+                        "fontSize": 18,
+                      },
+                      Array [
+                        undefined,
+                        Object {
+                          "color": "rgba(255, 0, 175, 1)",
+                        },
+                      ],
+                      Object {
+                        "fontFamily": "material",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
+                      },
+                      Object {},
+                    ]
+                  }
+                >
+                  
+                </Text>
+              </View>
             </View>
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": undefined,
+                    "fontSize": 30,
+                  },
+                  Array [
+                    undefined,
+                    Object {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
+                  Object {
+                    "fontFamily": "material",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  Object {},
+                ]
+              }
+            >
+              
+            </Text>
           </View>
           <View
             style={
@@ -222,183 +355,207 @@ exports[`Vault card should match snapshot of active vault 1`] = `
     >
       <View
         style={
-          Object {
-            "marginBottom": 8,
-            "width": "50%",
-          }
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "marginBottom": 4,
+              "marginTop": 4,
+              "width": "100%",
+            },
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+            },
+          ]
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
+            Object {
+              "width": "50%",
+            }
           }
         >
-          Total loan amount (USD)
-        </Text>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+          <Text
+            style={
               Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
                 Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                      "marginLeft": 0,
+                    },
+                  ],
                   Object {
-                    "fontFamily": "SemiBoldFont",
-                    "fontSize": 14,
-                    "fontWeight": "600",
-                    "lineHeight": 20,
+                    "color": "rgba(115, 115, 115, 1)",
                   },
-                  undefined,
                 ],
-                Object {
-                  "color": "rgba(23, 23, 23, 1)",
-                },
-              ],
-            ]
+              ]
+            }
+            testID="undefined_total_loan_label"
+          >
+            Total loan (USD)
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flexBasis": "0%",
+              "flexDirection": "row",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-end",
+            }
           }
         >
-          $100
-        </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                      "textAlign": "right",
+                    },
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                      "marginLeft": 0,
+                    },
+                  ],
+                  Object {
+                    "color": "rgba(23, 23, 23, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="undefined_total_loan"
+          >
+            $100.00
+          </Text>
+        </View>
       </View>
       <View
         style={
-          Object {
-            "marginBottom": 8,
-            "width": "50%",
-          }
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "marginBottom": 4,
+              "marginTop": 4,
+              "width": "100%",
+            },
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+            },
+          ]
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
+            Object {
+              "width": "50%",
+            }
           }
         >
-          Collateral amount (USD)
-        </Text>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+          <Text
+            style={
               Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
                 Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                      "marginLeft": 0,
+                    },
+                  ],
                   Object {
-                    "fontFamily": "SemiBoldFont",
-                    "fontSize": 14,
-                    "fontWeight": "600",
-                    "lineHeight": 20,
+                    "color": "rgba(115, 115, 115, 1)",
                   },
-                  undefined,
                 ],
-                Object {
-                  "color": "rgba(23, 23, 23, 1)",
-                },
-              ],
-            ]
+              ]
+            }
+            testID="undefined_total_collateral_label"
+          >
+            Collateral amount (USD)
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flexBasis": "0%",
+              "flexDirection": "row",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-end",
+            }
           }
         >
-          n/a
-        </Text>
-      </View>
-      <View
-        style={
-          Object {
-            "marginBottom": 8,
-            "width": "50%",
-          }
-        }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+          <Text
+            style={
               Array [
                 Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
                 },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          Collateral ratio
-        </Text>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
                 Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                      "textAlign": "right",
+                    },
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                      "marginLeft": 0,
+                    },
+                  ],
                   Object {
-                    "fontFamily": "SemiBoldFont",
-                    "fontSize": 14,
-                    "fontWeight": "600",
-                    "lineHeight": 20,
+                    "color": "rgba(23, 23, 23, 1)",
                   },
-                  undefined,
                 ],
-                Object {
-                  "color": "rgba(2, 179, 27, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          n/a
-        </Text>
+              ]
+            }
+            testID="undefined_total_collateral"
+          >
+            
+          </Text>
+        </View>
       </View>
     </View>
   </View>
@@ -558,6 +715,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
     style={
       Object {
         "borderBottomWidth": 0,
+        "marginBottom": 8,
         "opacity": 1,
       }
     }
@@ -577,7 +735,10 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
           Object {
             "alignItems": "center",
             "display": "flex",
+            "flexBasis": "0%",
             "flexDirection": "row",
+            "flexGrow": 1,
+            "flexShrink": 1,
           }
         }
       >
@@ -585,78 +746,207 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
           style={
             Object {
               "display": "flex",
+              "flexBasis": "0%",
               "flexDirection": "column",
+              "flexGrow": 1,
+              "flexShrink": 1,
             }
           }
         >
           <View
             style={
               Object {
+                "alignItems": "center",
                 "display": "flex",
                 "flexDirection": "row",
+                "justifyContent": "space-between",
               }
             }
           >
             <View
               style={
                 Object {
-                  "display": "flex",
                   "flexDirection": "column",
                 }
               }
             >
-              <Text
+              <View
                 style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
-                    Array [
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginRight": 6,
-                      },
-                      Object {
-                        "color": "rgba(163, 163, 163, 1)",
-                      },
-                    ],
-                  ]
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                  }
                 }
               >
-                Vault ID
-              </Text>
-              <Text
-                ellipsizeMode="middle"
-                numberOfLines={1}
-                style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                <Text
+                  style={
                     Array [
                       Object {
-                        "flexShrink": 1,
-                        "fontFamily": "SemiBoldFont",
-                        "fontWeight": "600",
-                        "width": 176,
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                          "marginRight": 6,
+                        },
+                        Object {
+                          "color": "rgba(163, 163, 163, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  Vault ID
+                </Text>
+                <View
+                  style={
+                    Array [
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                        "flexDirection": "row",
                       },
                       Object {
-                        "color": "rgba(0, 0, 0, 1)",
+                        "backgroundColor": "rgba(255, 245, 234, 1)",
                       },
-                    ],
-                  ]
+                    ]
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "fontFamily": "RegularFont",
+                          "fontSize": 16,
+                          "fontWeight": "400",
+                          "lineHeight": 24,
+                        },
+                        Array [
+                          Object {
+                            "fontFamily": "MediumFont",
+                            "fontSize": 12,
+                            "fontWeight": "500",
+                            "lineHeight": 16,
+                            "paddingBottom": 2,
+                            "paddingLeft": 8,
+                            "paddingRight": 8,
+                            "paddingTop": 2,
+                          },
+                          Object {
+                            "color": "rgba(255, 150, 41, 1)",
+                          },
+                        ],
+                      ]
+                    }
+                  >
+                    AT RISK
+                  </Text>
+                </View>
+              </View>
+              <View
+                accessible={true}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "marginBottom": 2,
+                    "opacity": 1,
+                  }
                 }
               >
-                22ffasd5ca123123123123123121231061
-              </Text>
+                <Text
+                  ellipsizeMode="middle"
+                  numberOfLines={1}
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "flexShrink": 1,
+                          "fontFamily": "SemiBoldFont",
+                          "fontWeight": "600",
+                          "marginRight": 2,
+                          "width": 224,
+                        },
+                        Object {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  22ffasd5ca123123123123123121231061
+                </Text>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    Array [
+                      Object {
+                        "color": undefined,
+                        "fontSize": 18,
+                      },
+                      Array [
+                        undefined,
+                        Object {
+                          "color": "rgba(255, 0, 175, 1)",
+                        },
+                      ],
+                      Object {
+                        "fontFamily": "material",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
+                      },
+                      Object {},
+                    ]
+                  }
+                >
+                  
+                </Text>
+              </View>
             </View>
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": undefined,
+                    "fontSize": 30,
+                  },
+                  Array [
+                    undefined,
+                    Object {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
+                  Object {
+                    "fontFamily": "material",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  Object {},
+                ]
+              }
+            >
+              
+            </Text>
           </View>
           <View
             style={
@@ -738,183 +1028,207 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
     >
       <View
         style={
-          Object {
-            "marginBottom": 8,
-            "width": "50%",
-          }
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "marginBottom": 4,
+              "marginTop": 4,
+              "width": "100%",
+            },
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+            },
+          ]
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
+            Object {
+              "width": "50%",
+            }
           }
         >
-          Total loan amount (USD)
-        </Text>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+          <Text
+            style={
               Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
                 Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                      "marginLeft": 0,
+                    },
+                  ],
                   Object {
-                    "fontFamily": "SemiBoldFont",
-                    "fontSize": 14,
-                    "fontWeight": "600",
-                    "lineHeight": 20,
+                    "color": "rgba(115, 115, 115, 1)",
                   },
-                  undefined,
                 ],
-                Object {
-                  "color": "rgba(23, 23, 23, 1)",
-                },
-              ],
-            ]
+              ]
+            }
+            testID="undefined_total_loan_label"
+          >
+            Total loan (USD)
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flexBasis": "0%",
+              "flexDirection": "row",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-end",
+            }
           }
         >
-          $100
-        </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                      "textAlign": "right",
+                    },
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                      "marginLeft": 0,
+                    },
+                  ],
+                  Object {
+                    "color": "rgba(23, 23, 23, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="undefined_total_loan"
+          >
+            $100.00
+          </Text>
+        </View>
       </View>
       <View
         style={
-          Object {
-            "marginBottom": 8,
-            "width": "50%",
-          }
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "marginBottom": 4,
+              "marginTop": 4,
+              "width": "100%",
+            },
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+            },
+          ]
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
+            Object {
+              "width": "50%",
+            }
           }
         >
-          Collateral amount (USD)
-        </Text>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+          <Text
+            style={
               Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
                 Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                      "marginLeft": 0,
+                    },
+                  ],
                   Object {
-                    "fontFamily": "SemiBoldFont",
-                    "fontSize": 14,
-                    "fontWeight": "600",
-                    "lineHeight": 20,
+                    "color": "rgba(115, 115, 115, 1)",
                   },
-                  undefined,
                 ],
-                Object {
-                  "color": "rgba(23, 23, 23, 1)",
-                },
-              ],
-            ]
+              ]
+            }
+            testID="undefined_total_collateral_label"
+          >
+            Collateral amount (USD)
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flexBasis": "0%",
+              "flexDirection": "row",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-end",
+            }
           }
         >
-          n/a
-        </Text>
-      </View>
-      <View
-        style={
-          Object {
-            "marginBottom": 8,
-            "width": "50%",
-          }
-        }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+          <Text
+            style={
               Array [
                 Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
                 },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          Collateral ratio
-        </Text>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
                 Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                      "textAlign": "right",
+                    },
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                      "marginLeft": 0,
+                    },
+                  ],
                   Object {
-                    "fontFamily": "SemiBoldFont",
-                    "fontSize": 14,
-                    "fontWeight": "600",
-                    "lineHeight": 20,
+                    "color": "rgba(23, 23, 23, 1)",
                   },
-                  undefined,
                 ],
-                Object {
-                  "color": "rgba(2, 179, 27, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          n/a
-        </Text>
+              ]
+            }
+            testID="undefined_total_collateral"
+          >
+            
+          </Text>
+        </View>
       </View>
     </View>
   </View>
@@ -1074,6 +1388,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
     style={
       Object {
         "borderBottomWidth": 0,
+        "marginBottom": 8,
         "opacity": 1,
       }
     }
@@ -1093,7 +1408,10 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
           Object {
             "alignItems": "center",
             "display": "flex",
+            "flexBasis": "0%",
             "flexDirection": "row",
+            "flexGrow": 1,
+            "flexShrink": 1,
           }
         }
       >
@@ -1101,78 +1419,207 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
           style={
             Object {
               "display": "flex",
+              "flexBasis": "0%",
               "flexDirection": "column",
+              "flexGrow": 1,
+              "flexShrink": 1,
             }
           }
         >
           <View
             style={
               Object {
+                "alignItems": "center",
                 "display": "flex",
                 "flexDirection": "row",
+                "justifyContent": "space-between",
               }
             }
           >
             <View
               style={
                 Object {
-                  "display": "flex",
                   "flexDirection": "column",
                 }
               }
             >
-              <Text
+              <View
                 style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
-                    Array [
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginRight": 6,
-                      },
-                      Object {
-                        "color": "rgba(163, 163, 163, 1)",
-                      },
-                    ],
-                  ]
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                  }
                 }
               >
-                Vault ID
-              </Text>
-              <Text
-                ellipsizeMode="middle"
-                numberOfLines={1}
-                style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                <Text
+                  style={
                     Array [
                       Object {
-                        "flexShrink": 1,
-                        "fontFamily": "SemiBoldFont",
-                        "fontWeight": "600",
-                        "width": 176,
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                          "marginRight": 6,
+                        },
+                        Object {
+                          "color": "rgba(163, 163, 163, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  Vault ID
+                </Text>
+                <View
+                  style={
+                    Array [
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                        "flexDirection": "row",
                       },
                       Object {
-                        "color": "rgba(0, 0, 0, 1)",
+                        "backgroundColor": "rgba(230, 247, 232, 1)",
                       },
-                    ],
-                  ]
+                    ]
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "fontFamily": "RegularFont",
+                          "fontSize": 16,
+                          "fontWeight": "400",
+                          "lineHeight": 24,
+                        },
+                        Array [
+                          Object {
+                            "fontFamily": "MediumFont",
+                            "fontSize": 12,
+                            "fontWeight": "500",
+                            "lineHeight": 16,
+                            "paddingBottom": 2,
+                            "paddingLeft": 8,
+                            "paddingRight": 8,
+                            "paddingTop": 2,
+                          },
+                          Object {
+                            "color": "rgba(2, 179, 27, 1)",
+                          },
+                        ],
+                      ]
+                    }
+                  >
+                    HEALTHY
+                  </Text>
+                </View>
+              </View>
+              <View
+                accessible={true}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "marginBottom": 2,
+                    "opacity": 1,
+                  }
                 }
               >
-                22ffasd5ca123123123123123121231061
-              </Text>
+                <Text
+                  ellipsizeMode="middle"
+                  numberOfLines={1}
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "flexShrink": 1,
+                          "fontFamily": "SemiBoldFont",
+                          "fontWeight": "600",
+                          "marginRight": 2,
+                          "width": 224,
+                        },
+                        Object {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  22ffasd5ca123123123123123121231061
+                </Text>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    Array [
+                      Object {
+                        "color": undefined,
+                        "fontSize": 18,
+                      },
+                      Array [
+                        undefined,
+                        Object {
+                          "color": "rgba(255, 0, 175, 1)",
+                        },
+                      ],
+                      Object {
+                        "fontFamily": "material",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
+                      },
+                      Object {},
+                    ]
+                  }
+                >
+                  
+                </Text>
+              </View>
             </View>
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": undefined,
+                    "fontSize": 30,
+                  },
+                  Array [
+                    undefined,
+                    Object {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
+                  Object {
+                    "fontFamily": "material",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  Object {},
+                ]
+              }
+            >
+              
+            </Text>
           </View>
           <View
             style={
@@ -1254,183 +1701,207 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
     >
       <View
         style={
-          Object {
-            "marginBottom": 8,
-            "width": "50%",
-          }
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "marginBottom": 4,
+              "marginTop": 4,
+              "width": "100%",
+            },
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+            },
+          ]
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
+            Object {
+              "width": "50%",
+            }
           }
         >
-          Total loan amount (USD)
-        </Text>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+          <Text
+            style={
               Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
                 Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                      "marginLeft": 0,
+                    },
+                  ],
                   Object {
-                    "fontFamily": "SemiBoldFont",
-                    "fontSize": 14,
-                    "fontWeight": "600",
-                    "lineHeight": 20,
+                    "color": "rgba(115, 115, 115, 1)",
                   },
-                  undefined,
                 ],
-                Object {
-                  "color": "rgba(23, 23, 23, 1)",
-                },
-              ],
-            ]
+              ]
+            }
+            testID="undefined_total_loan_label"
+          >
+            Total loan (USD)
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flexBasis": "0%",
+              "flexDirection": "row",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-end",
+            }
           }
         >
-          $100
-        </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                      "textAlign": "right",
+                    },
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                      "marginLeft": 0,
+                    },
+                  ],
+                  Object {
+                    "color": "rgba(23, 23, 23, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="undefined_total_loan"
+          >
+            $100.00
+          </Text>
+        </View>
       </View>
       <View
         style={
-          Object {
-            "marginBottom": 8,
-            "width": "50%",
-          }
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "marginBottom": 4,
+              "marginTop": 4,
+              "width": "100%",
+            },
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+            },
+          ]
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
+            Object {
+              "width": "50%",
+            }
           }
         >
-          Collateral amount (USD)
-        </Text>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+          <Text
+            style={
               Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
                 Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                      "marginLeft": 0,
+                    },
+                  ],
                   Object {
-                    "fontFamily": "SemiBoldFont",
-                    "fontSize": 14,
-                    "fontWeight": "600",
-                    "lineHeight": 20,
+                    "color": "rgba(115, 115, 115, 1)",
                   },
-                  undefined,
                 ],
-                Object {
-                  "color": "rgba(23, 23, 23, 1)",
-                },
-              ],
-            ]
+              ]
+            }
+            testID="undefined_total_collateral_label"
+          >
+            Collateral amount (USD)
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flexBasis": "0%",
+              "flexDirection": "row",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-end",
+            }
           }
         >
-          n/a
-        </Text>
-      </View>
-      <View
-        style={
-          Object {
-            "marginBottom": 8,
-            "width": "50%",
-          }
-        }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+          <Text
+            style={
               Array [
                 Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
                 },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          Collateral ratio
-        </Text>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
                 Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                      "textAlign": "right",
+                    },
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                      "marginLeft": 0,
+                    },
+                  ],
                   Object {
-                    "fontFamily": "SemiBoldFont",
-                    "fontSize": 14,
-                    "fontWeight": "600",
-                    "lineHeight": 20,
+                    "color": "rgba(23, 23, 23, 1)",
                   },
-                  undefined,
                 ],
-                Object {
-                  "color": "rgba(2, 179, 27, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          n/a
-        </Text>
+              ]
+            }
+            testID="undefined_total_collateral"
+          >
+            
+          </Text>
+        </View>
       </View>
     </View>
   </View>
@@ -1590,6 +2061,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
     style={
       Object {
         "borderBottomWidth": 0,
+        "marginBottom": 8,
         "opacity": 1,
       }
     }
@@ -1609,7 +2081,10 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
           Object {
             "alignItems": "center",
             "display": "flex",
+            "flexBasis": "0%",
             "flexDirection": "row",
+            "flexGrow": 1,
+            "flexShrink": 1,
           }
         }
       >
@@ -1617,78 +2092,159 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
           style={
             Object {
               "display": "flex",
+              "flexBasis": "0%",
               "flexDirection": "column",
+              "flexGrow": 1,
+              "flexShrink": 1,
             }
           }
         >
           <View
             style={
               Object {
+                "alignItems": "center",
                 "display": "flex",
                 "flexDirection": "row",
+                "justifyContent": "space-between",
               }
             }
           >
             <View
               style={
                 Object {
-                  "display": "flex",
                   "flexDirection": "column",
                 }
               }
             >
-              <Text
+              <View
                 style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
-                    Array [
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginRight": 6,
-                      },
-                      Object {
-                        "color": "rgba(163, 163, 163, 1)",
-                      },
-                    ],
-                  ]
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                  }
                 }
               >
-                Vault ID
-              </Text>
-              <Text
-                ellipsizeMode="middle"
-                numberOfLines={1}
-                style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                <Text
+                  style={
                     Array [
                       Object {
-                        "flexShrink": 1,
-                        "fontFamily": "SemiBoldFont",
-                        "fontWeight": "600",
-                        "width": 176,
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                          "marginRight": 6,
+                        },
+                        Object {
+                          "color": "rgba(163, 163, 163, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  Vault ID
+                </Text>
+                <View
+                  style={
+                    Array [
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                        "flexDirection": "row",
                       },
                       Object {
-                        "color": "rgba(0, 0, 0, 1)",
+                        "backgroundColor": "rgba(255, 230, 230, 1)",
                       },
-                    ],
-                  ]
+                    ]
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "fontFamily": "RegularFont",
+                          "fontSize": 16,
+                          "fontWeight": "400",
+                          "lineHeight": 24,
+                        },
+                        Array [
+                          Object {
+                            "fontFamily": "MediumFont",
+                            "fontSize": 12,
+                            "fontWeight": "500",
+                            "lineHeight": 16,
+                            "paddingBottom": 2,
+                            "paddingLeft": 8,
+                            "paddingRight": 8,
+                            "paddingTop": 2,
+                          },
+                          Object {
+                            "color": "rgba(255, 0, 0, 1)",
+                          },
+                        ],
+                      ]
+                    }
+                  >
+                    LIQUIDATED
+                  </Text>
+                </View>
+              </View>
+              <View
+                accessible={true}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "marginBottom": 2,
+                    "opacity": 1,
+                  }
                 }
               >
-                22ffasd5ca123123123123123121231061
-              </Text>
+                <Text
+                  ellipsizeMode="middle"
+                  numberOfLines={1}
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "flexShrink": 1,
+                          "fontFamily": "SemiBoldFont",
+                          "fontWeight": "600",
+                          "marginRight": 2,
+                          "width": 224,
+                        },
+                        Object {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  22ffasd5ca123123123123123121231061
+                </Text>
+                <Text />
+              </View>
             </View>
+            <Text />
           </View>
           <View
             style={
@@ -1746,183 +2302,207 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
     >
       <View
         style={
-          Object {
-            "marginBottom": 8,
-            "width": "50%",
-          }
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "marginBottom": 4,
+              "marginTop": 4,
+              "width": "100%",
+            },
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+            },
+          ]
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
+            Object {
+              "width": "50%",
+            }
           }
         >
-          Total loan amount (USD)
-        </Text>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+          <Text
+            style={
               Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
                 Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                      "marginLeft": 0,
+                    },
+                  ],
                   Object {
-                    "fontFamily": "SemiBoldFont",
-                    "fontSize": 14,
-                    "fontWeight": "600",
-                    "lineHeight": 20,
+                    "color": "rgba(115, 115, 115, 1)",
                   },
-                  undefined,
                 ],
-                Object {
-                  "color": "rgba(23, 23, 23, 1)",
-                },
-              ],
-            ]
+              ]
+            }
+            testID="undefined_total_loan_label"
+          >
+            Total loan (USD)
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flexBasis": "0%",
+              "flexDirection": "row",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-end",
+            }
           }
         >
-          $0
-        </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                      "textAlign": "right",
+                    },
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                      "marginLeft": 0,
+                    },
+                  ],
+                  Object {
+                    "color": "rgba(23, 23, 23, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="undefined_total_loan"
+          >
+            $0.00
+          </Text>
+        </View>
       </View>
       <View
         style={
-          Object {
-            "marginBottom": 8,
-            "width": "50%",
-          }
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "marginBottom": 4,
+              "marginTop": 4,
+              "width": "100%",
+            },
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+            },
+          ]
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
+            Object {
+              "width": "50%",
+            }
           }
         >
-          Collateral amount (USD)
-        </Text>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+          <Text
+            style={
               Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
                 Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                      "marginLeft": 0,
+                    },
+                  ],
                   Object {
-                    "fontFamily": "SemiBoldFont",
-                    "fontSize": 14,
-                    "fontWeight": "600",
-                    "lineHeight": 20,
+                    "color": "rgba(115, 115, 115, 1)",
                   },
-                  undefined,
                 ],
-                Object {
-                  "color": "rgba(23, 23, 23, 1)",
-                },
-              ],
-            ]
+              ]
+            }
+            testID="undefined_total_collateral_label"
+          >
+            Collateral amount (USD)
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flexBasis": "0%",
+              "flexDirection": "row",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-end",
+            }
           }
         >
-          $0
-        </Text>
-      </View>
-      <View
-        style={
-          Object {
-            "marginBottom": 8,
-            "width": "50%",
-          }
-        }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+          <Text
+            style={
               Array [
                 Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
                 },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          Collateral ratio
-        </Text>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
                 Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                      "textAlign": "right",
+                    },
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                      "marginLeft": 0,
+                    },
+                  ],
                   Object {
-                    "fontFamily": "SemiBoldFont",
-                    "fontSize": 14,
-                    "fontWeight": "600",
-                    "lineHeight": 20,
+                    "color": "rgba(23, 23, 23, 1)",
                   },
-                  undefined,
                 ],
-                Object {
-                  "color": "rgba(23, 23, 23, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          n/a
-        </Text>
+              ]
+            }
+            testID="undefined_total_collateral"
+          >
+            $0.00
+          </Text>
+        </View>
       </View>
     </View>
   </View>

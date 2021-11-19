@@ -22,6 +22,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
 import { LoanVault } from '@store/loans'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
+import { LoansFaq } from '@screens/WalletNavigator/screens/CreateWallet/LoansFaq'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -211,6 +212,19 @@ export function LoansNavigator (): JSX.Element {
               text={translate('screens/LoansScreen', 'Confirm Borrow Loan Token') + ' (Beta)'} // TODO: remove beta from title
             />
           )
+        }}
+      />
+      <LoansStack.Screen
+        component={LoansFaq}
+        name='LoansFaq'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('components/LoansFaq', 'Loans FAQ')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
         }}
       />
     </LoansStack.Navigator>
