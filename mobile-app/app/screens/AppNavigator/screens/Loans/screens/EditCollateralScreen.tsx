@@ -37,6 +37,7 @@ import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
 import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { useCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
+import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 
@@ -305,22 +306,26 @@ function SectionTitle (props: { title: string }): JSX.Element {
 
 function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
   const { vault } = props
+  const vaultState = useVaultStatus(vault.state, new BigNumber(vault.collateralRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber(vault.loanValue))
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
       dark={tailwind('bg-gray-800 border-gray-700')}
       style={tailwind('flex flex-col items-center border rounded px-4 py-3')}
     >
-      <View
-        style={tailwind('flex flex-1 mb-2')}
-      >
-        <ThemedText
-          style={tailwind('font-medium')}
-          numberOfLines={1}
-          ellipsizeMode='middle'
+      <View style={tailwind('flex flex-row items-center mb-2')}>
+        <View
+          style={tailwind('flex flex-1 mr-5')}
         >
-          {vault.vaultId}
-        </ThemedText>
+          <ThemedText
+            style={tailwind('font-medium')}
+            numberOfLines={1}
+            ellipsizeMode='middle'
+          >
+            {vault.vaultId}
+          </ThemedText>
+        </View>
+        <VaultStatusTag status={vaultState} />
       </View>
       <VaultSectionTextRow
         testID='text_total_collateral_value'

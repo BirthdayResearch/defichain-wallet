@@ -33,31 +33,31 @@ export function VaultInfo (props: VaultInfoProps): JSX.Element {
         {translate('components/VaultCard', props.label)}
       </ThemedText>
       {props.valueType === 'NUMBER' &&
-        (
-          <NumberFormat
-            value={props.value?.toFixed()}
-            thousandSeparator
-            decimalScale={2}
-            displayType='text'
-            suffix={props.suffix}
-            prefix={props.prefix}
-            renderText={value =>
-              <ThemedText
-                light={tailwind('text-gray-900')}
-                dark={tailwind('text-gray-100')}
-                {...props.valueThemedProps}
-                style={[tailwind('text-sm font-semibold'), props.valueStyleProps]}
-              >
-                {value.length === 0 ? translate('components/VaultCard', 'n/a') : value}
-              </ThemedText>}
-          />
-        )}
+      (
+        <NumberFormat
+          value={props.value?.toFixed()}
+          thousandSeparator
+          decimalScale={2}
+          displayType='text'
+          suffix={props.suffix}
+          prefix={props.prefix}
+          renderText={value =>
+            <ThemedText
+              light={tailwind('text-gray-900')}
+              dark={tailwind('text-gray-100')}
+              {...props.valueThemedProps}
+              style={[tailwind('text-sm font-semibold'), props.valueStyleProps]}
+            >
+              {value.length === 0 ? translate('components/VaultCard', 'n/a') : value}
+            </ThemedText>}
+        />
+      )}
       {props.valueType === 'TOKEN_ICON_GROUP' && props.tokens !== undefined &&
-        (
-          <View style={tailwind('mt-0.5')}>
-            <TokenIconGroup symbols={props.tokens} maxIconToDisplay={5} />
-          </View>
-        )}
+      (
+        <View style={tailwind('mt-0.5')}>
+          <TokenIconGroup symbols={props.tokens} maxIconToDisplay={5} />
+        </View>
+      )}
 
     </View>
   )
