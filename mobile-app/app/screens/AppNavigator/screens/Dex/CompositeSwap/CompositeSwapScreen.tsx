@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Platform, View } from 'react-native'
+import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Control, Controller, useForm } from 'react-hook-form'
 import BigNumber from 'bignumber.js'
@@ -284,7 +284,6 @@ export function CompositeSwapScreen (): JSX.Element {
     })
   }
 
-  const BottomSheetForWeb = bottomSheetScreen.length > 0 ? bottomSheetScreen[0].component : () => <></>
   return (
     <ThemedScrollView>
       <ThemedText
@@ -380,11 +379,10 @@ export function CompositeSwapScreen (): JSX.Element {
             : translate('screens/CompositeSwapScreen', 'Review and confirm transaction in the next screen')}
         </ThemedText>}
 
-      {Platform.OS === 'web' && bottomSheetScreen.length > 0 && <BottomSheetForWeb />}
-      {Platform.OS !== 'web' && <BottomSheetWithNav
+      <BottomSheetWithNav
         modalRef={bottomSheetRef}
         screenList={bottomSheetScreen}
-                                />}
+      />
 
     </ThemedScrollView>
 )
