@@ -1,9 +1,11 @@
 import { NumberRow, NumberRowElement } from '@components/NumberRow'
+import { ThemedProps } from '@components/themed'
 import { tailwind } from '@tailwind'
 import React from 'react'
 
 interface VaultSectionText extends NumberRowElement {
   lhs: string
+  rhsThemedProps?: ThemedProps
 }
 
 export function VaultSectionTextRow (props: VaultSectionText): JSX.Element {
@@ -15,7 +17,8 @@ export function VaultSectionTextRow (props: VaultSectionText): JSX.Element {
         testID: props.testID,
         suffix: props.suffix,
         suffixType: props.suffixType,
-        prefix: props.prefix
+        prefix: props.prefix,
+        style: props.style
       }}
       style={tailwind('flex-row items-center w-full my-1')}
       dark={tailwind('bg-gray-800')}
@@ -27,8 +30,10 @@ export function VaultSectionTextRow (props: VaultSectionText): JSX.Element {
       }}
       rhsThemedProps={{
         light: tailwind('text-gray-900'),
-        dark: tailwind('text-gray-50')
+        dark: tailwind('text-gray-50'),
+        ...props.rhsThemedProps
       }}
+
     />
   )
 }
