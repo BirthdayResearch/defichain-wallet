@@ -66,9 +66,6 @@ export const BottomSheetWebWithNav = React.memo((props: BottomSheetWithNavProps 
       screenList={props.screenList}
       ref={props.modalRef}
       isModalDisplayed={props.isModalDisplayed}
-      backdropComponent={() => (
-        <View style={tailwind('bg-black bg-opacity-60')} />
-      )}
     >
       <View style={tailwind('h-full')}>
         <Navigator {...props} />

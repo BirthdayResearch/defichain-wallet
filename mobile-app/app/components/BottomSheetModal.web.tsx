@@ -3,13 +3,11 @@ import { View } from 'react-native'
 import { ThemedProps } from './themed'
 import Modal from 'react-overlays/Modal'
 import { BottomSheetNavScreen } from './BottomSheetWithNav'
-import { tailwind } from '@tailwind'
 
 type Props = ThemedProps & {
   children: ReactElement
   screenList: BottomSheetNavScreen[]
   isModalDisplayed: boolean
-  backdropComponent: () => JSX.Element
 }
 
 export const BottomSheetModal = React.forwardRef((props: Props, ref: React.Ref<any>): JSX.Element => {
@@ -18,22 +16,28 @@ export const BottomSheetModal = React.forwardRef((props: Props, ref: React.Ref<a
   } = props
 
   return (
-    <View>
-      <Modal
-        container={ref as React.RefObject<any>}
-        show={props.isModalDisplayed}
-        renderBackdrop={() => <View style={tailwind('bg-black h-full bg-opacity-60')} />}
-        style={{
-        position: 'fixed',
-        height: '200px',
-        width: '350px',
-        zIndex: 1040,
-        top: '50%',
-        backgroundColor: 'gray'
+    <Modal
+      container={ref as React.RefObject<any>}
+      show={props.isModalDisplayed}
+      renderBackdrop={() => <View style={{
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+        backgroundColor: 'black',
+        opacity: 0.3
       }}
-      >
-        {children}
-      </Modal>
-    </View>
+                            />}
+      style={{
+        position: 'fixed',
+        height: '240px',
+        width: '375px',
+        zIndex: 50,
+        top: '50%'
+      }}
+    >
+      {children}
+    </Modal>
   )
 })

@@ -198,28 +198,29 @@ export function BorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Elemen
   }, [amountToBorrow, vault])
 
   return (
-    <ThemedScrollView>
-      <View style={tailwind('px-4')} ref={containerRef}>
-        <ThemedText style={tailwind('text-xl font-bold mt-6')}>
-          {translate('screens/BorrowLoanTokenScreen', 'Borrow loan token')}
-        </ThemedText>
-        <InputLabel text='SELECT LOAN TOKEN' />
-        <LoanTokenInput
-          loanTokenId={loanToken.tokenId}
-          symbol={loanToken.token.symbol}
-          displaySymbol={loanToken.token.displaySymbol}
-          price={loanToken.activePrice}
-          interestRate={loanToken.interest}
-          onPress={onLoanTokenInputPress}
-        />
-        <InputLabel text='SELECT VAULT FOR COLLATERAL' />
-        <VaultInput
-          vault={vault}
-          onPress={expandModal}
-        />
-      </View>
+    <View ref={containerRef}>
+      <ThemedScrollView>
+        <View style={tailwind('px-4')}>
+          <ThemedText style={tailwind('text-xl font-bold mt-6')}>
+            {translate('screens/BorrowLoanTokenScreen', 'Borrow loan token')}
+          </ThemedText>
+          <InputLabel text='SELECT LOAN TOKEN' />
+          <LoanTokenInput
+            loanTokenId={loanToken.tokenId}
+            symbol={loanToken.token.symbol}
+            displaySymbol={loanToken.token.displaySymbol}
+            price={loanToken.activePrice}
+            interestRate={loanToken.interest}
+            onPress={onLoanTokenInputPress}
+          />
+          <InputLabel text='SELECT VAULT FOR COLLATERAL' />
+          <VaultInput
+            vault={vault}
+            onPress={expandModal}
+          />
+        </View>
 
-      {vault !== undefined &&
+        {vault !== undefined &&
           (
             <>
               <View style={tailwind('px-4')}>
@@ -267,17 +268,18 @@ export function BorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Elemen
             </>
           )}
 
-      {Platform.OS === 'web' && <BottomSheetWebWithNav
-        modalRef={containerRef}
-        screenList={bottomSheetScreen}
-        isModalDisplayed={isModalDisplayed}
-                                />}
+        {Platform.OS === 'web' && <BottomSheetWebWithNav
+          modalRef={containerRef}
+          screenList={bottomSheetScreen}
+          isModalDisplayed={isModalDisplayed}
+                                  />}
 
-      {Platform.OS !== 'web' && <BottomSheetWithNav
-        modalRef={bottomSheetRef}
-        screenList={bottomSheetScreen}
-                                />}
-    </ThemedScrollView>
+        {Platform.OS !== 'web' && <BottomSheetWithNav
+          modalRef={bottomSheetRef}
+          screenList={bottomSheetScreen}
+                                  />}
+      </ThemedScrollView>
+    </View>
   )
 }
 
