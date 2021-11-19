@@ -34,8 +34,8 @@ import { transactionQueue } from '@store/transaction_queue'
 import { IconButton } from '@components/IconButton'
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
-import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { useCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
+import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 
