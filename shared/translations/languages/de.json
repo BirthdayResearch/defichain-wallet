@@ -638,7 +638,8 @@
   "components/InfoTextLink": {
     "Learn more about UTXO and Token": "Erfahre mehr über UTXO und Token",
     "UTXO vs Token, what is the difference?": "UTXO vs Token, worin liegt der Unterschied?",
-    "Learn more about vaults": "Lerne mehr über Vaults"
+    "Learn more about vaults": "Lerne mehr über Vaults",
+    "Learn more about vaults and loan schemes": "Erfahre mehr über Vaults und Darlehensmodelle"
   },
   "components/VaultCard": {
     "Collaterals:": "Sicherheiten:",
@@ -672,7 +673,8 @@
     "Interest rate": "Zinssatz",
     "APR": "ZINS",
     "CONTINUE": "FORTFAHREN",
-    "Confirm your vault details in next screen": "Bestätige die Daten deines Vaults in der nächsten Ansicht"
+    "Confirm your vault details in next screen": "Bestätige die Daten deines Vaults in der nächsten Ansicht",
+    "Loan scheme of your vault determines the required collateralization of your vault for loans.": "Das Darlehensmodell deines Vaults bestimmt dessen erforderliche Darlehens-Besicherung."
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Du erstellst gerade einen Vault",
@@ -736,7 +738,8 @@
     "Safe": "Sicher",
     "At risk": "Gefährdet",
     "Liquidated": "Liquidiert",
-    "Created": "Erstellt"
+    "Created": "Erstellt",
+    "In Liquidation": "In Liquidation"
   },
   "components/VaultDetailsCollateralsTab": {
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
