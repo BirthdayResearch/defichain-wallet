@@ -14,11 +14,18 @@ import { RootState } from '@store'
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import BigNumber from 'bignumber.js'
+import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
+import { openURL } from '@api/linking'
+import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 
 type Props = StackScreenProps<LoanParamList, 'VaultDetailScreen'>
 
-export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
-  const [vault, setVault] = useState<LoanVault | undefined>(route.params.vault)
+export function VaultDetailScreen ({
+  route,
+  navigation
+}: Props): JSX.Element {
+  const { vaultId } = route.params
+  const [vault, setVault] = useState<LoanVault>()
   const vaults = useSelector((state: RootState) => state.loans.vaults)
   const vaultActionButtons: ScrollButton[] = [
     {
@@ -41,8 +48,15 @@ export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
   ]
 
   useEffect(() => {
-    setVault(vaults.find(v => v.vaultId === vault?.vaultId))
+    const v = vaults.find(v => v.vaultId === vaultId)
+    if (v !== undefined) {
+      setVault({ ...v })
+    }
   }, [vaults])
+
+  if (vault === undefined) {
+    return <></>
+  }
 
   return (
     <ThemedScrollView
@@ -54,7 +68,7 @@ export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
         dark={tailwind('bg-gray-800')}
       >
         <View style={tailwind('p-4')}>
-          <VaultIdSection vaultId={vault?.vaultId} />
+          <VaultIdSection vault={vault} />
           <VaultInfoSection vault={vault} />
         </View>
         <ThemedView
@@ -70,7 +84,11 @@ export function VaultDetailScreen ({ route, navigation }: Props): JSX.Element {
   )
 }
 
-function VaultIdSection (props: { vaultId?: string }): JSX.Element {
+function VaultIdSection ({ vault }: { vault: LoanVault }): JSX.Element {
+  const { getVaultsUrl } = useDeFiScanContext()
+  const colRatio = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.collateralRatio
+  const totalLoanAmount = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.loanValue
+  const vaultState = useVaultStatus(vault.state, new BigNumber(colRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber((totalLoanAmount)))
   return (
     <ThemedView
       light={tailwind('bg-white')}
@@ -80,23 +98,25 @@ function VaultIdSection (props: { vaultId?: string }): JSX.Element {
       <View
         style={tailwind('flex flex-1')}
       >
-        <ThemedText
-          light={tailwind('text-gray-400')}
-          dark={tailwind('text-gray-500')}
-          style={tailwind('text-xs mb-1')}
-        >
-          {translate('screens/VaultDetailScreen', 'Vault ID')}
-        </ThemedText>
-
+        <View style={tailwind('flex flex-row mb-2 items-center')}>
+          <ThemedText
+            light={tailwind('text-gray-400')}
+            dark={tailwind('text-gray-500')}
+            style={tailwind('text-xs mr-1')}
+          >
+            {translate('screens/VaultDetailScreen', 'Vault ID')}
+          </ThemedText>
+          <VaultStatusTag status={vaultState} />
+        </View>
         <View
           style={tailwind('flex flex-row mb-2 items-center')}
         >
           <ThemedText
             style={tailwind('text-sm font-semibold w-8/12 flex-1 mr-2')}
           >
-            {props?.vaultId}
+            {vault.vaultId}
           </ThemedText>
-          <TouchableOpacity onPress={() => { /* TODO: link to defiscan */ }}>
+          <TouchableOpacity onPress={async () => await openURL(getVaultsUrl(vault.vaultId ?? ''))}>
             <ThemedIcon
               dark={tailwind('text-darkprimary-500')}
               iconType='MaterialIcons'
@@ -112,7 +132,7 @@ function VaultIdSection (props: { vaultId?: string }): JSX.Element {
   )
 }
 
-function VaultInfoSection (props: {vault?: LoanVault}): JSX.Element | null {
+function VaultInfoSection (props: { vault?: LoanVault }): JSX.Element | null {
   if (props.vault === undefined) {
     return null
   }

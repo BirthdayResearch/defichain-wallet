@@ -5,7 +5,7 @@ import { tailwind } from '@tailwind'
 import { ThemedProps, ThemedText, ThemedView } from './themed'
 
 type INumberRowProps = React.PropsWithChildren<ViewProps> & NumberRowProps
-type SuffixType = 'text' | 'component'
+export type SuffixType = 'text' | 'component'
 
 interface NumberRowProps extends ThemedProps {
   lhs: string
@@ -31,7 +31,7 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
       light={props.light ?? tailwind('bg-white border-b border-gray-200')}
       style={props.style ?? tailwind('p-4 flex-row items-start w-full')}
     >
-      <View style={tailwind('w-5/12')}>
+      <View style={tailwind('w-6/12')}>
         <ThemedText
           style={[tailwind('text-sm'), props.textStyle]}
           testID={`${props.rhs.testID}_label`}
