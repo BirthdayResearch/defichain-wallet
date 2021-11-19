@@ -118,7 +118,6 @@ export function EditCollateralScreen ({
     }
   }, [])
   const onAddCollateral = async (item: AddOrEditCollateralResponse): Promise<void> => {
-    console.log('onADdCollareratal')
     dismissModal()
     const isConversionRequired = item.token.id === '0' ? new BigNumber(item.amount).gt(DFIToken.amount) : false
     const collateralItem = collateralTokens.find((col) => col.token.id === item.token.id)
