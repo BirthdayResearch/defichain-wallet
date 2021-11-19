@@ -702,7 +702,7 @@
     "Vault ID": "Vault-ID",
     "Your vault is locked for liquidation.": "Dein Vault ist im Rahmen der Liquidation eingefroren.",
     "Your vault is at risk of liquidation. Prevent liquidity by adding more collaterals or paying back loans.": "Dein Vault ist von der Liquidation bedroht. Verhindere die Liquidation, indem du weitere Sicherheiten hinzufügst oder Darlehen zurückzahlst.",
-    "Collaterals required to use this vault.": "Für die Nutzung dieses Vaults sind Sicherheiten erforderlich."
+    "Collaterals required to use this vault.": "Für die Nutzung dieses Vaults sind Sicherheiten erforderlich."    
   },
   "components/ScrollableButton": {
     "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
@@ -714,8 +714,10 @@
     "Browse for available loan tokens and start using this vault as collateral.": "Suche nach verfügbaren Hinterlegungs-Token und verwende diesen Vault als Sicherheit.",
     "BROWSE LOANS": "DARLEHEN DURCHSUCHEN"
   },
-  "components/ActiveLoans": {
-    "REPAY LOAN": "DARLEHEN ZURÜCKZAHLEN",
+  "components/VaultDetailsLoansTab": { 
+    "Outstanding balance": "Outstanding balance",   
+    "Interest amount": "Interest amount",
+    "PAYBACK LOAN": "PAYBACK LOAN",    
     "BORROW MORE": "MEHR AUSLEIHEN"
   },
   "components/BalanceControlCard": {
@@ -742,8 +744,7 @@
     "In Liquidation": "In Liquidation"
   },
   "components/VaultDetailsCollateralsTab": {
-    "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
-    "Vault %": "Vault %"
+    "Collateral amount (USD)": "Höhe der Sicherheiten (USD)"
   },
   "screens/EditCollateralScreen": {
     "COLLATERALS WILL BE ADDED TO VAULT": "DIE SICHERHEITEN WERDEN DEM VAULT HINZUGEFÜGT",

@@ -709,8 +709,10 @@
     "Browse for available loan tokens and start using this vault as collateral.": "浏览可选择的贷款代币并开始使用此金库作为抵押.",
     "BROWSE LOANS": "浏览贷款选项"
   },
-  "components/ActiveLoans": {
-    "REPAY LOAN": "偿还贷款",
+  "components/VaultDetailsLoansTab": { 
+    "Outstanding balance": "Outstanding balance",   
+    "Interest amount": "Interest amount",
+    "PAYBACK LOAN": "PAYBACK LOAN", 
     "BORROW MORE": "注入更多借贷"
   },
   "components/BalanceControlCard": {
@@ -736,8 +738,7 @@
     "Created": "建立时间"
   },
   "components/VaultDetailsCollateralsTab": {
-    "Collateral amount (USD)": "抵押品金额 (美金)",
-    "Vault %": "金库 %"
+    "Collateral amount (USD)": "抵押品金额 (美金)"
   },
   "screens/EditCollateralScreen": {
     "COLLATERALS WILL BE ADDED TO VAULT": "您正要向金库添加抵押资金",

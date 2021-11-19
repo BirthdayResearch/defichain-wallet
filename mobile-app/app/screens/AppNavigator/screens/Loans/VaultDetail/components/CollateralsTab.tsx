@@ -65,10 +65,29 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
       dark={tailwind('bg-gray-800 border-gray-700')}
       style={tailwind('p-4 mb-2 border rounded')}
     >
-      <View style={tailwind('flex flex-row mb-3 items-center')}>
-        <SymbolIcon symbol={props.symbol} styleProps={{ width: 16, height: 16 }} />
-        <ThemedText style={tailwind('ml-2 font-medium')}>{props.displaySymbol}</ThemedText>
+      <View style={tailwind('flex flex-row mb-3 justify-between items-center')}>
+        <View style={tailwind('flex flex-row items-center')}>
+          <SymbolIcon symbol={props.symbol} styleProps={{ width: 16, height: 16 }} />
+          <ThemedText style={tailwind('ml-2 font-medium')}>{props.displaySymbol}</ThemedText>
+        </View>
+        <NumberFormat
+          value={props.vaultShare?.multipliedBy(100).toFixed(2)}
+          thousandSeparator
+          decimalScale={2}
+          displayType='text'
+          suffix='%'
+          renderText={(val: string) => (
+            <ThemedText
+              dark={tailwind('text-gray-50')}
+              light={tailwind('text-gray-900')}
+              style={tailwind('font-medium')}
+            >
+              {val}
+            </ThemedText>
+          )}
+        />
       </View>
+
       <View style={tailwind('flex flex-row')}>
         <View style={tailwind('w-8/12')}>
           <CardLabel text='Collateral amount' />
@@ -90,25 +109,6 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
               )}
             />
           </View>
-        </View>
-        <View style={tailwind('w-4/12 flex items-end')}>
-          <CardLabel text='Vault %' />
-          <NumberFormat
-            value={props.vaultShare?.multipliedBy(100).toFixed(2)}
-            thousandSeparator
-            decimalScale={2}
-            displayType='text'
-            suffix=' %'
-            renderText={(val: string) => (
-              <ThemedText
-                dark={tailwind('text-gray-50')}
-                light={tailwind('text-gray-900')}
-                style={tailwind('text-sm')}
-              >
-                {val}
-              </ThemedText>
-            )}
-          />
         </View>
       </View>
     </ThemedView>

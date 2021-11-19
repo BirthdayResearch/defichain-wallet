@@ -80,7 +80,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
       <View style={tailwind('mt-4')}>
         <VaultSectionTextRow
           value={new BigNumber(props.amount).toFixed(8)}
-          lhs={translate('screens/VaultDetailScreen', 'Outstanding balance')}
+          lhs={translate('components/VaultDetailsLoansTab', 'Outstanding balance')}
           testID='text_outstanding_balance'
           suffixType='text'
           suffix={` ${props.displaySymbol}`}
@@ -94,7 +94,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
           (
             <VaultSectionTextRow
               value={new BigNumber(props.interestAmount ?? 0).toFixed(8)}
-              lhs={translate('screens/VaultDetailScreen', 'Interest amount')}
+              lhs={translate('components/VaultDetailsLoansTab', 'Interest amount')}
               testID='text_interest_amount'
               suffixType='text'
               suffix={` ${props.displaySymbol}`}
@@ -113,12 +113,12 @@ function ActionButtons (): JSX.Element {
     >
       <View style={tailwind('flex flex-row flex-wrap flex-1')}>
         <IconButton
-          iconLabel={translate('components/ActiveLoans', 'PAYBACK LOAN')}
+          iconLabel={translate('components/VaultDetailsLoansTab', 'PAYBACK LOAN')}
           style={tailwind('mr-2 mb-2 p-2')}
           onPress={() => { /* TODO: handle repay loan on press */ }}
         />
         <IconButton
-          iconLabel={translate('components/ActiveLoans', 'BORROW MORE')}
+          iconLabel={translate('components/VaultDetailsLoansTab', 'BORROW MORE')}
           style={tailwind('mr-2 mb-2 p-2')}
           onPress={() => { /* TODO: handle borrow more on press */ }}
         />
