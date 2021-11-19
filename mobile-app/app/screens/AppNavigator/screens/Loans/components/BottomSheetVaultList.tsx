@@ -1,5 +1,5 @@
 import { View } from '@components'
-import { ThemedTouchableOpacity, ThemedText, ThemedView, ThemedIcon } from '@components/themed'
+import { ThemedTouchableOpacity, ThemedText, ThemedView, ThemedIcon, ThemedFlatList } from '@components/themed'
 import { LoanVaultActive, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
@@ -28,9 +28,14 @@ export const BottomSheetVaultList = ({
   vaults
 }: BottomSheetVaultListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const { isLight } = useThemeContext()
+  const flatListComponents = {
+    mobile: BottomSheetFlatList,
+    web: ThemedFlatList
+  }
+  const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
 
   return (
-    <BottomSheetFlatList
+    <FlatList
       data={vaults}
       renderItem={({ item }: { item: LoanVault}): JSX.Element => (
         <ThemedTouchableOpacity

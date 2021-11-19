@@ -1,3 +1,4 @@
+import { Platform, View } from 'react-native'
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
@@ -5,9 +6,8 @@ import { translate } from '@translations'
 import React, { Dispatch, useCallback, useEffect, useRef, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { LoanParamList } from '../LoansNavigator'
-import { BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
-import { View } from '@components'
 import { SymbolIcon } from '@components/SymbolIcon'
 import NumberFormat from 'react-number-format'
 import { WalletTextInput } from '@components/WalletTextInput'
@@ -75,11 +75,21 @@ export function BorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Elemen
       }
     }
   ]
+  const containerRef = useRef(null)
+  const [isModalDisplayed, setIsModalDisplayed] = useState(false)
   const expandModal = useCallback(() => {
-    bottomSheetRef.current?.present()
+    if (Platform.OS === 'web') {
+      setIsModalDisplayed(true)
+    } else {
+      bottomSheetRef.current?.present()
+    }
   }, [])
   const dismissModal = useCallback(() => {
-    bottomSheetRef.current?.close()
+    if (Platform.OS === 'web') {
+      setIsModalDisplayed(false)
+    } else {
+      bottomSheetRef.current?.close()
+    }
   }, [])
   const onLoanTokenInputPress = (): void => {
     navigation.goBack()
@@ -189,7 +199,7 @@ export function BorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Elemen
 
   return (
     <ThemedScrollView>
-      <View style={tailwind('px-4')}>
+      <View style={tailwind('px-4')} ref={containerRef}>
         <ThemedText style={tailwind('text-xl font-bold mt-6')}>
           {translate('screens/BorrowLoanTokenScreen', 'Borrow loan token')}
         </ThemedText>
@@ -256,10 +266,17 @@ export function BorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Elemen
               </ThemedText>
             </>
           )}
-      <BottomSheetWithNav
+
+      {Platform.OS === 'web' && <BottomSheetWebWithNav
+        modalRef={containerRef}
+        screenList={bottomSheetScreen}
+        isModalDisplayed={isModalDisplayed}
+                                />}
+
+      {Platform.OS !== 'web' && <BottomSheetWithNav
         modalRef={bottomSheetRef}
         screenList={bottomSheetScreen}
-      />
+                                />}
     </ThemedScrollView>
   )
 }

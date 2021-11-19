@@ -1,4 +1,3 @@
-import { View } from '@components'
 import { SymbolIcon } from '@components/SymbolIcon'
 import {
   ThemedIcon,
@@ -13,10 +12,10 @@ import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import React, { Dispatch, useCallback, useEffect, useRef, useState } from 'react'
-import { TouchableOpacity } from 'react-native'
+import { Platform, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { LoanParamList } from '../LoansNavigator'
-import { BottomSheetNavScreen, BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import {
   AddOrRemoveCollateralForm,
   AddOrEditCollateralResponse
@@ -66,6 +65,9 @@ export function EditCollateralScreen ({
   const dispatch = useDispatch()
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
+  const containerRef = useRef(null)
+  const [isModalDisplayed, setIsModalDisplayed] = useState(false)
+
   const tokens = useTokensAPI()
   const getTokenAmount = (tokenId: string): BigNumber => {
     const id = tokenId === '0' ? '0_unified' : tokenId
@@ -102,13 +104,21 @@ export function EditCollateralScreen ({
 
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const expandModal = useCallback(() => {
-    bottomSheetRef.current?.present()
+    if (Platform.OS === 'web') {
+      setIsModalDisplayed(true)
+    } else {
+      bottomSheetRef.current?.present()
+    }
   }, [])
   const dismissModal = useCallback(() => {
-    bottomSheetRef.current?.close()
+    if (Platform.OS === 'web') {
+      setIsModalDisplayed(false)
+    } else {
+      bottomSheetRef.current?.close()
+    }
   }, [])
-
   const onAddCollateral = async (item: AddOrEditCollateralResponse): Promise<void> => {
+    console.log('onADdCollareratal')
     dismissModal()
     const isConversionRequired = item.token.id === '0' ? new BigNumber(item.amount).gt(DFIToken.amount) : false
     const collateralItem = collateralTokens.find((col) => col.token.id === item.token.id)
@@ -177,7 +187,7 @@ export function EditCollateralScreen ({
   }
 
   return (
-    <View style={tailwind('flex-1')}>
+    <View style={tailwind('flex-1')} ref={containerRef}>
       <ThemedScrollView
         contentContainerStyle={tailwind('p-4 pt-0')}
       >
@@ -192,7 +202,13 @@ export function EditCollateralScreen ({
                 component: BottomSheetTokenList({
                   collateralTokens,
                   headerLabel: translate('screens/EditCollateralScreen', 'Select token to add'),
-                  onCloseButtonPress: () => bottomSheetRef.current?.close(),
+                  onCloseButtonPress: () => {
+                    if (Platform.OS === 'web') {
+                      setIsModalDisplayed(false)
+                    } else {
+                      bottomSheetRef.current?.close()
+                    }
+                  },
                   navigateToScreen: {
                     screenName: 'AddOrRemoveCollateralForm',
                     onButtonPress: onAddCollateral
@@ -289,7 +305,16 @@ export function EditCollateralScreen ({
         modalRef={bottomSheetRef}
         screenList={bottomSheetScreen}
       />
-      {/* TODO: handle bottom sheet in desktop */}
+
+      {Platform.OS === 'web' && <BottomSheetWebWithNav
+        modalRef={containerRef}
+        screenList={bottomSheetScreen}
+        isModalDisplayed={isModalDisplayed}
+                                />}
+      {Platform.OS !== 'web' && <BottomSheetWithNav
+        modalRef={bottomSheetRef}
+        screenList={bottomSheetScreen}
+                                />}
     </View>
   )
 }

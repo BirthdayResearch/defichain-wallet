@@ -12,6 +12,7 @@ import { Platform, View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { getDefaultTheme } from '@constants/Theme'
+import { BottomSheetModal as BottomSheetModalWeb } from './BottomSheetModal.web'
 
 interface BottomSheetWithNavProps {
   modalRef: React.Ref<BottomSheetModalMethods>
@@ -32,7 +33,6 @@ export interface BottomSheetWithNavRouteParam {
 
 export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): JSX.Element => {
   const { isLight } = useThemeContext()
-  const DeFiChainTheme: Theme = getDefaultTheme(isLight)
   const getSnapPoints = (): string[] => {
     if (Platform.OS === 'ios') {
       return ['50%']
@@ -40,38 +40,6 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
       return ['60%']
     }
     return []
-  }
-  const BottomSheetWithNavStack = createStackNavigator<BottomSheetWithNavRouteParam>()
-  const Navigator = (): JSX.Element => {
-    const screenOptions = useMemo<StackNavigationOptions>(
-      () => ({
-        ...TransitionPresets.SlideFromRightIOS,
-        headerShown: true,
-        safeAreaInsets: { top: 0 },
-        cardStyle: {
-          backgroundColor: 'white',
-          overflow: 'visible'
-        },
-        headerMode: 'screen'
-      }),
-      []
-    )
-
-    return (
-      <NavigationContainer independent theme={DeFiChainTheme}>
-        <BottomSheetWithNavStack.Navigator screenOptions={screenOptions}>
-          {props.screenList.map(screen => (
-            <BottomSheetWithNavStack.Screen
-              key={screen.stackScreenName}
-              name={screen.stackScreenName}
-              component={screen.component}
-              options={screen.option}
-              initialParams={screen.initialParam}
-            />
-          ))}
-        </BottomSheetWithNavStack.Navigator>
-      </NavigationContainer>
-    )
   }
 
   return (
@@ -87,7 +55,59 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
         <View {...backgroundProps} style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'} border-t rounded`)]} />
       )}
     >
-      <Navigator />
+      <Navigator {...props} />
     </BottomSheetModal>
   )
 })
+
+export const BottomSheetWebWithNav = React.memo((props: BottomSheetWithNavProps & {isModalDisplayed: boolean}): JSX.Element => {
+  return (
+    <BottomSheetModalWeb
+      screenList={props.screenList}
+      ref={props.modalRef}
+      isModalDisplayed={props.isModalDisplayed}
+      backdropComponent={() => (
+        <View style={tailwind('bg-black bg-opacity-60')} />
+      )}
+    >
+      <View style={tailwind('h-full')}>
+        <Navigator {...props} />
+      </View>
+    </BottomSheetModalWeb>
+  )
+})
+
+const Navigator = (props: BottomSheetWithNavProps): JSX.Element => {
+  const { isLight } = useThemeContext()
+  const DeFiChainTheme: Theme = getDefaultTheme(isLight)
+  const BottomSheetWithNavStack = createStackNavigator<BottomSheetWithNavRouteParam>()
+  const screenOptions = useMemo<StackNavigationOptions>(
+    () => ({
+      ...TransitionPresets.SlideFromRightIOS,
+      headerShown: true,
+      safeAreaInsets: { top: 0 },
+      cardStyle: {
+        backgroundColor: 'white',
+        overflow: 'visible'
+      },
+      headerMode: 'screen'
+    }),
+    []
+  )
+
+  return (
+    <NavigationContainer independent theme={DeFiChainTheme}>
+      <BottomSheetWithNavStack.Navigator screenOptions={screenOptions}>
+        {props.screenList.map(screen => (
+          <BottomSheetWithNavStack.Screen
+            key={screen.stackScreenName}
+            name={screen.stackScreenName}
+            component={screen.component}
+            options={screen.option}
+            initialParams={screen.initialParam}
+          />
+        ))}
+      </BottomSheetWithNavStack.Navigator>
+    </NavigationContainer>
+  )
+}
