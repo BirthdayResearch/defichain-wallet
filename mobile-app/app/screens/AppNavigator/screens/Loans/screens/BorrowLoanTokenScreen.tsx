@@ -1,3 +1,4 @@
+import { Platform, View } from 'react-native'
 import {
   ThemedIcon,
   ThemedScrollView,
@@ -11,9 +12,8 @@ import { translate } from '@translations'
 import React, { Dispatch, useCallback, useEffect, useRef, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { LoanParamList } from '../LoansNavigator'
-import { BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
-import { View } from '@components'
 import { SymbolIcon } from '@components/SymbolIcon'
 import NumberFormat from 'react-number-format'
 import { WalletTextInput } from '@components/WalletTextInput'
@@ -85,11 +85,21 @@ export function BorrowLoanTokenScreen ({
       }
     }
   ]
+  const containerRef = useRef(null)
+  const [isModalDisplayed, setIsModalDisplayed] = useState(false)
   const expandModal = useCallback(() => {
-    bottomSheetRef.current?.present()
+    if (Platform.OS === 'web') {
+      setIsModalDisplayed(true)
+    } else {
+      bottomSheetRef.current?.present()
+    }
   }, [])
   const dismissModal = useCallback(() => {
-    bottomSheetRef.current?.close()
+    if (Platform.OS === 'web') {
+      setIsModalDisplayed(false)
+    } else {
+      bottomSheetRef.current?.close()
+    }
   }, [])
   const onLoanTokenInputPress = (): void => {
     navigation.goBack()
@@ -198,79 +208,87 @@ export function BorrowLoanTokenScreen ({
   }, [amountToBorrow, vault])
 
   return (
-    <ThemedScrollView>
-      <View style={tailwind('px-4')}>
-        <ThemedText style={tailwind('text-xl font-bold mt-6')}>
-          {translate('screens/BorrowLoanTokenScreen', 'Borrow loan token')}
-        </ThemedText>
-        <InputLabel text='SELECT LOAN TOKEN' />
-        <LoanTokenInput
-          loanTokenId={loanToken.tokenId}
-          symbol={loanToken.token.symbol}
-          displaySymbol={loanToken.token.displaySymbol}
-          price={loanToken.activePrice}
-          interestRate={loanToken.interest}
-          onPress={onLoanTokenInputPress}
-        />
-        <InputLabel text='SELECT VAULT FOR COLLATERAL' />
-        <VaultInput
-          vault={vault}
-          onPress={expandModal}
-        />
-      </View>
-
-      {vault !== undefined &&
-      (
-        <>
-          <View style={tailwind('px-4')}>
-            <WalletTextInput
-              inputType='numeric'
-              value={amountToBorrow}
-              title={translate('screens/BorrowLoanTokenScreen', 'How much do you want to borrow?')}
-              placeholder={translate('screens/BorrowLoanTokenScreen', 'Enter an amount')}
-              onChangeText={(text) => setAmountToBorrow(text)}
-              displayClearButton={amountToBorrow !== ''}
-              onClearButtonPress={() => setAmountToBorrow('')}
-              containerStyle='mb-12'
-              style={tailwind('h-9 w-3/5 flex-grow')}
-            />
-          </View>
-          <TransactionDetailsSection
-            vault={vault}
-            amountToBorrow={new BigNumber(amountToBorrow)}
-            collateralizationRatio={getCollateralizationRatio()}
-            vaultInterestRate={new BigNumber(vault?.loanScheme.interestRate ?? 0)}
-            loanTokenInterestRate={new BigNumber(loanToken.interest)}
-            loanTokenDisplaySymbol={loanToken.token.displaySymbol}
-            totalInterestAmount={totalInterestAmount}
-            totalLoanWithInterest={totalLoanWithInterest}
-            fee={fee}
-          />
-          {isConversionRequired &&
-            <View style={tailwind('mt-4 mx-4')}>
-              <ConversionInfoText />
-            </View>}
-          <Button
-            disabled={!valid}
-            label={translate('screens/BorrowLoanTokenScreen', 'CONTINUE')}
-            onPress={onSubmit}
-            testID='add_collateral_button'
-            margin='mt-12 mb-2 mx-4'
-          />
-          <ThemedText
-            light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
-            style={tailwind('text-center text-xs mb-12')}
-          >
-            {translate('screens/BorrowLoanTokenScreen', 'Review and confirm transaction in the next screen')}
+    <View ref={containerRef}>
+      <ThemedScrollView>
+        <View style={tailwind('px-4')}>
+          <ThemedText style={tailwind('text-xl font-bold mt-6')}>
+            {translate('screens/BorrowLoanTokenScreen', 'Borrow loan token')}
           </ThemedText>
-        </>
-      )}
-      <BottomSheetWithNav
-        modalRef={bottomSheetRef}
-        screenList={bottomSheetScreen}
-      />
-    </ThemedScrollView>
+          <InputLabel text='SELECT LOAN TOKEN' />
+          <LoanTokenInput
+            loanTokenId={loanToken.tokenId}
+            symbol={loanToken.token.symbol}
+            displaySymbol={loanToken.token.displaySymbol}
+            price={loanToken.activePrice}
+            interestRate={loanToken.interest}
+            onPress={onLoanTokenInputPress}
+          />
+          <InputLabel text='SELECT VAULT FOR COLLATERAL' />
+          <VaultInput
+            vault={vault}
+            onPress={expandModal}
+          />
+        </View>
+
+        {vault !== undefined &&
+        (
+          <>
+            <View style={tailwind('px-4')}>
+              <WalletTextInput
+                inputType='numeric'
+                value={amountToBorrow}
+                title={translate('screens/BorrowLoanTokenScreen', 'How much do you want to borrow?')}
+                placeholder={translate('screens/BorrowLoanTokenScreen', 'Enter an amount')}
+                onChangeText={(text) => setAmountToBorrow(text)}
+                displayClearButton={amountToBorrow !== ''}
+                onClearButtonPress={() => setAmountToBorrow('')}
+                containerStyle='mb-12'
+                style={tailwind('h-9 w-3/5 flex-grow')}
+              />
+            </View>
+            <TransactionDetailsSection
+              vault={vault}
+              amountToBorrow={new BigNumber(amountToBorrow)}
+              collateralizationRatio={getCollateralizationRatio()}
+              vaultInterestRate={new BigNumber(vault?.loanScheme.interestRate ?? 0)}
+              loanTokenInterestRate={new BigNumber(loanToken.interest)}
+              loanTokenDisplaySymbol={loanToken.token.displaySymbol}
+              totalInterestAmount={totalInterestAmount}
+              totalLoanWithInterest={totalLoanWithInterest}
+              fee={fee}
+            />
+            {isConversionRequired &&
+              <View style={tailwind('mt-4 mx-4')}>
+                <ConversionInfoText />
+              </View>}
+            <Button
+              disabled={!valid}
+              label={translate('screens/BorrowLoanTokenScreen', 'CONTINUE')}
+              onPress={onSubmit}
+              testID='add_collateral_button'
+              margin='mt-12 mb-2 mx-4'
+            />
+            <ThemedText
+              light={tailwind('text-gray-500')}
+              dark={tailwind('text-gray-400')}
+              style={tailwind('text-center text-xs mb-12')}
+            >
+              {translate('screens/BorrowLoanTokenScreen', 'Review and confirm transaction in the next screen')}
+            </ThemedText>
+          </>
+        )}
+        {Platform.OS === 'web' && <BottomSheetWebWithNav
+          modalRef={containerRef}
+          screenList={bottomSheetScreen}
+          isModalDisplayed={isModalDisplayed}
+                                  />}
+
+        {Platform.OS !== 'web' && <BottomSheetWithNav
+          modalRef={bottomSheetRef}
+          screenList={bottomSheetScreen}
+                                  />}
+      </ThemedScrollView>
+    </View>
   )
 }
 
