@@ -28,6 +28,7 @@ export interface BottomSheetNavScreen {
 
 export interface BottomSheetWithNavRouteParam {
   AddOrRemoveCollateralFormProps: AddOrRemoveCollateralFormProps
+
   [key: string]: undefined | object
 }
 
@@ -52,7 +53,10 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
         <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
       )}
       backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
-        <View {...backgroundProps} style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'} border-t rounded`)]} />
+        <View
+          {...backgroundProps}
+          style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'} border-t rounded`)]}
+        />
       )}
     >
       <Navigator {...props} />
@@ -60,7 +64,7 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
   )
 })
 
-export const BottomSheetWebWithNav = React.memo((props: BottomSheetWithNavProps & {isModalDisplayed: boolean}): JSX.Element => {
+export const BottomSheetWebWithNav = React.memo((props: BottomSheetWithNavProps & { isModalDisplayed: boolean }): JSX.Element => {
   return (
     <BottomSheetModalWeb
       screenList={props.screenList}
