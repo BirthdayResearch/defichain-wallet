@@ -102,7 +102,11 @@ export function BorrowLoanTokenScreen ({
     }
   }, [])
   const onLoanTokenInputPress = (): void => {
-    navigation.navigate('ChooseLoanTokenScreen')
+    navigation.navigate({
+      name: 'ChooseLoanTokenScreen',
+      params: {},
+      merge: true
+    })
   }
 
   // Form update

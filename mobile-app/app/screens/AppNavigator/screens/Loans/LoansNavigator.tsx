@@ -44,7 +44,7 @@ export interface LoanParamList {
     vaultId: string
   }
   ChooseLoanTokenScreen: {
-    vaultId: string
+    vaultId?: string
   }
   ConfirmEditCollateralScreen: {
     vault: LoanVaultActive
