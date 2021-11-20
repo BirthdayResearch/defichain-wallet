@@ -11,7 +11,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import React, { Dispatch, useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { LoanParamList } from '../LoansNavigator'
@@ -23,20 +23,19 @@ import {
 import { BottomSheetTokenList } from '@components/BottomSheetTokenList'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { fetchCollateralTokens } from '@store/loans'
 import { CollateralToken, LoanVaultActive, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { createSelector } from '@reduxjs/toolkit'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
-import { transactionQueue } from '@store/transaction_queue'
 import { IconButton } from '@components/IconButton'
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
 import { useCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
-import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
+import { queueConvertTransaction } from '@hooks/wallet/Conversion'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 
@@ -128,7 +127,7 @@ export function EditCollateralScreen ({
 
     if (isConversionRequired) {
       const conversionAmount = new BigNumber(item.amount).minus(DFIToken.amount)
-      await constructSignedConversion({
+      queueConvertTransaction({
         mode: 'utxosToAccount',
         amount: conversionAmount
       }, dispatch, () => {
@@ -578,15 +577,4 @@ function AddCollateralButton (props: { disabled: boolean, onPress: () => void })
       </ThemedText>
     </TouchableOpacity>
   )
-}
-
-async function constructSignedConversion ({
-  mode,
-  amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
-  try {
-    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
-  } catch (e) {
-    logger.error(e)
-  }
 }
