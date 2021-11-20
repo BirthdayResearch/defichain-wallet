@@ -20,7 +20,7 @@ interface LoanCardProps {
   vaultState: LoanVaultState
 }
 
-export function LoansTab (props: {vault: LoanVault}): JSX.Element {
+export function LoansTab (props: { vault: LoanVault }): JSX.Element {
   const { vault } = props
 
   return (
@@ -28,9 +28,9 @@ export function LoansTab (props: {vault: LoanVault}): JSX.Element {
       style={tailwind('p-4')}
     >
       {vault.state === LoanVaultState.ACTIVE && vault.loanValue === '0' &&
-        (
-          <EmptyLoan />
-        )}
+      (
+        <EmptyLoan vaultId={vault.vaultId} />
+      )}
       {vault.state === LoanVaultState.IN_LIQUIDATION
         ? (
           vault.batches.map(batch => (
@@ -68,10 +68,21 @@ function LoanCard (props: LoanCardProps): JSX.Element {
       style={tailwind('p-4 mb-2 border rounded')}
     >
       <View style={tailwind('flex flex-row items-center')}>
-        <SymbolIcon symbol={props.symbol} styleProps={{ width: 16, height: 16 }} />
+        <SymbolIcon
+          symbol={props.symbol} styleProps={{
+          width: 16,
+          height: 16
+        }}
+        />
         <ThemedText
-          light={tailwind({ 'text-gray-300': props.vaultState === LoanVaultState.IN_LIQUIDATION, 'text-black': props.vaultState !== LoanVaultState.IN_LIQUIDATION })}
-          dark={tailwind({ 'text-gray-700': props.vaultState === LoanVaultState.IN_LIQUIDATION, 'text-white': props.vaultState !== LoanVaultState.IN_LIQUIDATION })}
+          light={tailwind({
+            'text-gray-300': props.vaultState === LoanVaultState.IN_LIQUIDATION,
+            'text-black': props.vaultState !== LoanVaultState.IN_LIQUIDATION
+          })}
+          dark={tailwind({
+            'text-gray-700': props.vaultState === LoanVaultState.IN_LIQUIDATION,
+            'text-white': props.vaultState !== LoanVaultState.IN_LIQUIDATION
+          })}
           style={tailwind('font-medium ml-2')}
         >
           {props.displaySymbol}
@@ -86,20 +97,26 @@ function LoanCard (props: LoanCardProps): JSX.Element {
           suffix={` ${props.displaySymbol}`}
           style={tailwind('text-sm font-medium')}
           rhsThemedProps={{
-            light: tailwind({ 'text-gray-300': props.vaultState === LoanVaultState.IN_LIQUIDATION, 'text-black': props.vaultState !== LoanVaultState.IN_LIQUIDATION }),
-            dark: tailwind({ 'text-gray-700': props.vaultState === LoanVaultState.IN_LIQUIDATION, 'text-white': props.vaultState !== LoanVaultState.IN_LIQUIDATION })
+            light: tailwind({
+              'text-gray-300': props.vaultState === LoanVaultState.IN_LIQUIDATION,
+              'text-black': props.vaultState !== LoanVaultState.IN_LIQUIDATION
+            }),
+            dark: tailwind({
+              'text-gray-700': props.vaultState === LoanVaultState.IN_LIQUIDATION,
+              'text-white': props.vaultState !== LoanVaultState.IN_LIQUIDATION
+            })
           }}
         />
         {props.vaultState !== LoanVaultState.IN_LIQUIDATION &&
-          (
-            <VaultSectionTextRow
-              value={new BigNumber(props.interestAmount ?? 0).toFixed(8)}
-              lhs={translate('components/VaultDetailsLoansTab', 'Interest amount')}
-              testID='text_interest_amount'
-              suffixType='text'
-              suffix={` ${props.displaySymbol}`}
-            />
-          )}
+        (
+          <VaultSectionTextRow
+            value={new BigNumber(props.interestAmount ?? 0).toFixed(8)}
+            lhs={translate('components/VaultDetailsLoansTab', 'Interest amount')}
+            testID='text_interest_amount'
+            suffixType='text'
+            suffix={` ${props.displaySymbol}`}
+          />
+        )}
       </View>
       <ActionButtons hide />
     </ThemedView>
@@ -107,7 +124,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
 }
 
 // TODO: show button when payback is ready
-function ActionButtons (props: {hide: boolean}): JSX.Element {
+function ActionButtons (props: { hide: boolean }): JSX.Element {
   if (props.hide) {
     return <></>
   }
@@ -120,17 +137,20 @@ function ActionButtons (props: {hide: boolean}): JSX.Element {
         <IconButton
           iconLabel={translate('components/VaultDetailsLoansTab', 'PAYBACK LOAN')}
           style={tailwind('mr-2 mb-2 p-2')}
-          onPress={() => { /* TODO: handle repay loan on press */ }}
+          onPress={() => { /* TODO: handle repay loan on press */
+          }}
         />
         <IconButton
           iconLabel={translate('components/VaultDetailsLoansTab', 'BORROW MORE')}
           style={tailwind('mr-2 mb-2 p-2')}
-          onPress={() => { /* TODO: handle borrow more on press */ }}
+          onPress={() => { /* TODO: handle borrow more on press */
+          }}
         />
       </View>
       <TouchableOpacity
         style={tailwind('flex justify-end mb-4')}
-        onPress={() => { /* TODO: handle ... on press */ }}
+        onPress={() => { /* TODO: handle ... on press */
+        }}
       >
         <ThemedIcon
           iconType='MaterialIcons'

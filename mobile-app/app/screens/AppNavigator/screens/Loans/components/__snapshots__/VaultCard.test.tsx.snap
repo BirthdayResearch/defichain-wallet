@@ -3600,25 +3600,5 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
       </View>
     </View>
   </View>
-  <View
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "flexWrap": "wrap",
-          "marginBottom": -8,
-          "marginTop": 16,
-        },
-        Object {
-          "borderBottomColor": "rgba(229, 229, 229, 1)",
-          "borderLeftColor": "rgba(229, 229, 229, 1)",
-          "borderRightColor": "rgba(229, 229, 229, 1)",
-          "borderTopColor": "rgba(229, 229, 229, 1)",
-        },
-      ]
-    }
-  />
 </View>
 `;

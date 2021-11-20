@@ -26,7 +26,7 @@ export function Vaults (): JSX.Element {
   const { isBetaFeature } = useFeatureFlagContext()
 
   return (
-    <ThemedScrollView style={tailwind('h-full m-4')}>
+    <ThemedScrollView contentContainerStyle={tailwind('p-4 pb-8')}>
       {isBetaFeature('loan') && (
         <View style={tailwind('pb-4')}>
           <InfoText

@@ -6,7 +6,7 @@ import { translate } from '@translations'
 import React from 'react'
 import { LoanParamList } from '../../LoansNavigator'
 
-export function EmptyLoan (): JSX.Element {
+export function EmptyLoan ({ vaultId }: { vaultId: string }): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
   return (
     <ThemedScrollView
@@ -24,10 +24,16 @@ export function EmptyLoan (): JSX.Element {
       <Button
         label={translate('components/EmptyActiveLoans', 'BROWSE LOAN TOKENS')}
         onPress={() => {
-          navigation.navigate('ChooseLoanTokenScreen')
+          navigation.navigate({
+            name: 'ChooseLoanTokenScreen',
+            params: {
+              vaultId
+            },
+            merge: true
+          })
         }}
         testID='button_browse_loans'
-        title='Browse loans'
+        title='Browse loan tokens'
         margin='m-0 mb-4'
       />
     </ThemedScrollView>

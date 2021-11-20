@@ -30,7 +30,7 @@ export function VaultDetailScreen ({
   route,
   navigation
 }: Props): JSX.Element {
-  const { vaultId } = route.params
+  const { vaultId, tab } = route.params
   const [vault, setVault] = useState<LoanVault>()
   const vaults = useSelector((state: RootState) => state.loans.vaults)
   const vaultActionButtons: ScrollButton[] = [
@@ -85,7 +85,7 @@ export function VaultDetailScreen ({
           <ScrollableButton buttons={vaultActionButtons} containerStyle={tailwind('pl-4')} />
         </ThemedView>
       </ThemedView>
-      <VaultDetailTabSection vault={vault} />
+      <VaultDetailTabSection vault={vault} tab={tab} />
     </ThemedScrollView>
   )
 }

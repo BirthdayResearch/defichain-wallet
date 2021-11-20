@@ -97,7 +97,7 @@ export function CreateVaultScreen ({
   return (
     <ThemedScrollView
       testID='create_vault_screen'
-      contentContainerStyle={tailwind('py-8 px-4')}
+      contentContainerStyle={tailwind('py-6 pb-8 px-4')}
     >
       <ThemedSectionTitle
         light={tailwind('text-gray-900')}

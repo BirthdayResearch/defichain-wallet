@@ -17,7 +17,8 @@ import { fetchLoanTokens } from '@store/loans'
 
 type Props = StackScreenProps<LoanParamList, 'ChooseLoanTokenScreen'>
 
-export function ChooseLoanTokenScreen ({ navigation }: Props): JSX.Element {
+export function ChooseLoanTokenScreen ({ navigation, route }: Props): JSX.Element {
+  const { vaultId } = route.params
   const loans = useSelector((state: RootState) => state.loans.loanTokens)
   const blockCount = useSelector((state: RootState) => state.block.count)
   const dispatch = useDispatch()
@@ -74,6 +75,7 @@ export function ChooseLoanTokenScreen ({ navigation }: Props): JSX.Element {
       <LoanCards
         testID='loans_cards'
         loans={filteredLoans}
+        vaultId={vaultId}
       />
     </ThemedView>
   )

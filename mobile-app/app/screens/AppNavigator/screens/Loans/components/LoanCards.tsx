@@ -9,13 +9,17 @@ import { View } from 'react-native'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { InfoText } from '@components/InfoText'
 import { getNativeIcon } from '@components/icons/assets'
-import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
+import { LoanToken, LoanVaultActive, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { LoanParamList } from '../LoansNavigator'
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
+
 interface LoanCardsProps {
   loans: LoanToken[]
   testID?: string
+  vaultId?: string
 }
 
 export interface LoanCardOptions {
@@ -29,6 +33,8 @@ export interface LoanCardOptions {
 
 export function LoanCards (props: LoanCardsProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
+  const vaults = useSelector((state: RootState) => state.loans.vaults)
+  const activeVault = vaults.find((v) => v.vaultId === props.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION) as LoanVaultActive
   const { isBetaFeature } = useFeatureFlagContext()
   return (
     <>
@@ -60,7 +66,8 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
                   navigation.navigate({
                     name: 'BorrowLoanTokenScreen',
                     params: {
-                      loanToken: item
+                      loanToken: item,
+                      vault: activeVault
                     },
                     merge: true
                   })

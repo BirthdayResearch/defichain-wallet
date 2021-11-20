@@ -13,10 +13,18 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
   res.json([{
     id: 'loan',
     name: 'Loans',
-    stage: 'beta',
-    version: '>=0.14.1',
+    stage: 'public',
+    version: '>=0.15.2',
     description: 'Browse loan tokens provided by DeFiChain',
     networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+    platforms: ['ios', 'android', 'web']
+  }, {
+    id: 'loan',
+    name: 'Loans',
+    stage: 'beta',
+    version: '>=0.15.2',
+    description: 'Browse loan tokens provided by DeFiChain',
+    networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet],
     platforms: ['ios', 'android', 'web']
   }])
 }

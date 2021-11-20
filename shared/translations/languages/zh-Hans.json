@@ -620,7 +620,7 @@
     "Confirm Add Collateral": "确认添加抵押资金"
   },
   "components/tabs": {
-    "Browse loans": "浏览贷款选项",
+    "Browse loan tokens": "浏览贷款选项",
     "Your vaults": "你的金库",
     "Active loan": "活跃的贷款",
     "Details": "明细",
@@ -711,7 +711,7 @@
   "components/EmptyActiveLoans": {
     "No active loans": "没有活跃的贷款",
     "Browse for available loan tokens and start using this vault as collateral.": "浏览可选择的贷款代币并开始使用此金库作为抵押.",
-    "BROWSE LOANS": "浏览贷款选项"
+    "BROWSE LOAN TOKENS": "浏览贷款选项"
   },
   "components/VaultDetailsLoansTab": { 
     "Outstanding balance": "Outstanding balance",   
