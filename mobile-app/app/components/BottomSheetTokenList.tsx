@@ -4,7 +4,7 @@ import { Platform, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { SymbolIcon } from './SymbolIcon'
-import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from './themed'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from './themed'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BottomSheetWithNavRouteParam } from './BottomSheetWithNav'
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
@@ -38,9 +38,14 @@ export const BottomSheetTokenList = ({
 }: BottomSheetTokenListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const { isLight } = useThemeContext()
   const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
+  const flatListComponents = {
+    mobile: BottomSheetFlatList,
+    web: ThemedFlatList
+  }
+  const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
 
   return (
-    <BottomSheetFlatList
+    <FlatList
       data={collateralTokens}
       renderItem={({ item }: { item: CollateralItem }): JSX.Element => (
         <ThemedTouchableOpacity
