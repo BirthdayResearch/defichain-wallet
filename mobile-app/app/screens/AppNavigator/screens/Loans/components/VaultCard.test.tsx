@@ -8,6 +8,10 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn()
 }))
 jest.mock('@shared-contexts/DeFiScanContext')
+jest.mock('@gorhom/bottom-sheet', () => ({
+  useBottomSheetModal: jest.fn().mockReturnValue({ dismiss: jest.fn() }),
+  BottomSheetModal: () => <></>
+}))
 
 describe('Vault card', () => {
   it('should match snapshot of liquidated vault', async () => {

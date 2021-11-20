@@ -359,29 +359,83 @@ exports[`Vault card should match snapshot of active vault 1`] = `
           }
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
-                },
-              ],
-            ]
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            }
           }
         >
-          Collateralization ratio
-        </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "marginRight": 2,
+                  },
+                  Object {
+                    "color": "rgba(0, 0, 0, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            Collateralization ratio
+          </Text>
+          <View>
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  Array [
+                    Object {
+                      "color": undefined,
+                      "fontSize": 16,
+                    },
+                    Array [
+                      undefined,
+                      Object {
+                        "color": "rgba(64, 64, 64, 1)",
+                      },
+                    ],
+                    Object {
+                      "fontFamily": "material",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    Object {},
+                  ]
+                }
+              >
+                
+              </Text>
+            </View>
+          </View>
+        </View>
         <Text
           style={
             Array [
@@ -1342,29 +1396,83 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
           }
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
-                },
-              ],
-            ]
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            }
           }
         >
-          Collateralization ratio
-        </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "marginRight": 2,
+                  },
+                  Object {
+                    "color": "rgba(0, 0, 0, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            Collateralization ratio
+          </Text>
+          <View>
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  Array [
+                    Object {
+                      "color": undefined,
+                      "fontSize": 16,
+                    },
+                    Array [
+                      undefined,
+                      Object {
+                        "color": "rgba(64, 64, 64, 1)",
+                      },
+                    ],
+                    Object {
+                      "fontFamily": "material",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    Object {},
+                  ]
+                }
+              >
+                
+              </Text>
+            </View>
+          </View>
+        </View>
         <Text
           style={
             Array [
@@ -2325,29 +2433,83 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
           }
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
-                },
-              ],
-            ]
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            }
           }
         >
-          Collateralization ratio
-        </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "marginRight": 2,
+                  },
+                  Object {
+                    "color": "rgba(0, 0, 0, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            Collateralization ratio
+          </Text>
+          <View>
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  Array [
+                    Object {
+                      "color": undefined,
+                      "fontSize": 16,
+                    },
+                    Array [
+                      undefined,
+                      Object {
+                        "color": "rgba(64, 64, 64, 1)",
+                      },
+                    ],
+                    Object {
+                      "fontFamily": "material",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    Object {},
+                  ]
+                }
+              >
+                
+              </Text>
+            </View>
+          </View>
+        </View>
         <Text
           style={
             Array [
@@ -3236,29 +3398,59 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
           }
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
-                },
-              ],
-            ]
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            }
           }
         >
-          Collateralization ratio
-        </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "marginRight": 2,
+                  },
+                  Object {
+                    "color": "rgba(0, 0, 0, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            Collateralization ratio
+          </Text>
+          <View>
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <Text />
+            </View>
+          </View>
+        </View>
         <Text
           style={
             Array [
