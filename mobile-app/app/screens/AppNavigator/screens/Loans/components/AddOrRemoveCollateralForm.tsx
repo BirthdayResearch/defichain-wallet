@@ -25,16 +25,17 @@ export interface AddOrRemoveCollateralFormProps {
   collateralFactor: BigNumber
   available: string
   current?: BigNumber
-  onButtonPress: (item: AddOrEditCollateralResponse) => void
+  onButtonPress: (item: AddOrRemoveCollateralResponse) => void
   onCloseButtonPress: () => void
   isAdd: boolean
 }
 
 type Props = StackScreenProps<BottomSheetWithNavRouteParam, 'AddOrRemoveCollateralFormProps'>
 
-export interface AddOrEditCollateralResponse {
+export interface AddOrRemoveCollateralResponse {
   token: TokenData
   amount: BigNumber
+  current?: BigNumber
 }
 
 export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Element => {
@@ -51,7 +52,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
 
-  const [collateralValue, setCollateralValue] = useState<string>(current?.toFixed(8) ?? '')
+  const [collateralValue, setCollateralValue] = useState<string>('')
   const isConversionRequired = isAdd && token.id === '0' ? new BigNumber(collateralValue).gt(DFIToken.amount) : false
   const [isValid, setIsValid] = useState(false)
   const { shouldHandleKeyboardEvents } = useBottomSheetInternal()
@@ -162,7 +163,8 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
         label={translate('components/AddOrRemoveCollateralForm', isAdd ? 'ADD TOKEN AS COLLATERAL' : 'REMOVE COLLATERAL AMOUNT')}
         onPress={() => onButtonPress({
           token,
-          amount: new BigNumber(collateralValue)
+          amount: new BigNumber(collateralValue),
+          current
         })}
         margin='mt-8 mb-10'
       />

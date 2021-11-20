@@ -9,7 +9,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BottomSheetWithNavRouteParam } from './BottomSheetWithNav'
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { AddOrEditCollateralResponse } from '@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm'
+import { AddOrRemoveCollateralResponse } from '@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm'
 import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen'
 
 interface BottomSheetTokenListProps {
@@ -18,7 +18,7 @@ interface BottomSheetTokenListProps {
   onTokenPress?: (token: BottomSheetToken) => void
   navigateToScreen?: {
     screenName: string
-    onButtonPress: (item: AddOrEditCollateralResponse) => void
+    onButtonPress: (item: AddOrRemoveCollateralResponse) => void
   }
   collateralTokens: CollateralItem[]
 }

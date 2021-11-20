@@ -42,7 +42,8 @@ export function ConfirmEditCollateralScreen ({
     fee,
     isAdd,
     collateralItem,
-    conversion
+    conversion,
+    current
   } = route.params
   const { address } = useWalletContext()
   const client = useWhaleApiClient()
@@ -110,6 +111,7 @@ export function ConfirmEditCollateralScreen ({
         fee={fee}
         conversion={conversion}
         isAdd={isAdd}
+        current={current}
       />
       <SubmitButtonGroup
         isDisabled={hasPendingJob || hasPendingBroadcastJob}
@@ -173,10 +175,13 @@ interface CollateralSectionProps {
   conversion?: ConversionParam
   isAdd: boolean
   fee: BigNumber
+  current?: BigNumber
 }
 
 function CollateralSection (props: CollateralSectionProps): JSX.Element {
-  const prices = useCollateralPrice(props.amount, props.collateralItem, props.totalCollateralValue)
+  const amount = props.isAdd ? props.amount.plus(props.current ?? 0) : BigNumber.max(0, new BigNumber(props.current ?? 0).minus(props.amount))
+  console.log(props.current)
+  const prices = useCollateralPrice(amount, props.collateralItem, props.totalCollateralValue)
   return (
     <>
       <ThemedSectionTitle
