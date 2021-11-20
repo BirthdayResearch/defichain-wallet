@@ -728,15 +728,12 @@
     "Min. collateral ratio": "最小抵押率",
     "Vault interest": "金庫利息",
     "VAULT DETAILS": "金庫明細",
-    "Collateral ratio": "抵押品比率",
+    "COLLATERALIZATION DETAILS": "COLLATERALIZATION DETAILS",
+    "Collateralization ratio": "抵押品比率",
+    "Next collateralization": "Next collateralization",
+    "Total collaterals (USD)": "Total collaterals (USD)",
     "Active loans": "活躍的貸款",
-    "Total value of loans": "貸款總價值",
-    "Collateral value": "抵押品價值",
-    "Vault health": "金庫狀態",
-    "Safe": "安全狀態",
-    "At risk": "請注意抵押比率",
-    "Liquidated": "清算",
-    "Created": "建立時間"
+    "Total loans (USD)": "Total loans (USD)"
   },
   "components/VaultDetailsCollateralsTab": {
     "Collateral amount (USD)": "抵押品金額 (美金)"

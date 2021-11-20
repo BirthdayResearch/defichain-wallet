@@ -732,16 +732,12 @@
     "Min. collateral ratio": "Mindestbesicherungsquote",
     "Vault interest": "Vault-Zins",
     "VAULT DETAILS": "VAULT-DETAILS",
-    "Collateral ratio": "Besicherungsquote",
+    "COLLATERALIZATION DETAILS": "COLLATERALIZATION DETAILS",
+    "Collateralization ratio": "Besicherungsquote",
+    "Next collateralization": "Next collateralization",
+    "Total collaterals (USD)": "Total collaterals (USD)",
     "Active loans": "Aktive Darlehen",
-    "Total value of loans": "Gesamtwert der Darlehen",
-    "Collateral value": "Sicherheitenwert",
-    "Vault health": "Vault-Zustand",
-    "Safe": "Sicher",
-    "At risk": "Gefährdet",
-    "Liquidated": "Liquidiert",
-    "Created": "Erstellt",
-    "In Liquidation": "In Liquidation"
+    "Total loans (USD)": "Total loans (USD)"
   },
   "components/VaultDetailsCollateralsTab": {
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)"

@@ -44,8 +44,8 @@ export function VaultDetailTabSection ({ vault }: VaultDetailTabSectionProps): J
           (<CollateralsTab vault={vault} />)}
         {activeTab === TabKey.Loans &&
           (<LoansTab vault={vault} />)}
-        {activeTab === TabKey.Details &&
-          (<DetailsTab />)}
+        {activeTab === TabKey.Details && vault.state !== LoanVaultState.IN_LIQUIDATION &&
+          (<DetailsTab vault={vault} />)}
       </ThemedView>
     </>
   )
