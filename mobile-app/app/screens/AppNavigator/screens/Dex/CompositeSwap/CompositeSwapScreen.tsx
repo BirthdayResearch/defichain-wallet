@@ -38,6 +38,7 @@ import { TextRow } from '@components/TextRow'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { SlippageTolerance } from '../PoolSwap/components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
+import { checkIfPair, findPath, getAdjacentVertices, GraphProps } from '../helpers/path-finding'
 
 export interface DerivedTokenState {
   id: string
@@ -202,33 +203,15 @@ export function CompositeSwapScreen (): JSX.Element {
         }
         return graphItem
       })
+      // TODO - Handle cheapest path with N hops, currently this logic finds the shortest path
+      const { path } = findPath(graph, selectedTokenA.symbol, selectedTokenB.symbol)
 
-      // TODO - Handle cheapest path with N hops, currently this logic find the shortest path
-      const path = findPath(graph, selectedTokenA.symbol, selectedTokenB.symbol)
       const poolPairs = path.reduce((poolPairs: PoolPairData[], token, index): PoolPairData[] => {
-        const pair = pairs.find(pair => pair.data.tokenA.symbol === token, path[index + 1])
+        const pair = pairs.find(pair => checkIfPair({ a: pair.data.tokenA.symbol, b: pair.data.tokenB.symbol }, token, path[index + 1]))
         if ((pair == null) || index === path.length) {
           return poolPairs
         }
-        return [
-          ...poolPairs,
-          {
-            id: pair.data.id,
-            symbol: pair.data.symbol,
-            tokenA: pair.data.tokenA,
-            tokenB: pair.data.tokenB,
-            priceRatio: pair.data.priceRatio,
-            name: pair.data.name,
-            totalLiquidity: pair.data.totalLiquidity,
-            apr: pair.data.apr,
-            commission: pair.data.commission,
-            creation: pair.data.creation,
-            customRewards: pair.data.customRewards,
-            ownerAddress: pair.data.ownerAddress,
-            rewardPct: pair.data.rewardPct,
-            status: pair.data.status,
-            tradeEnabled: pair.data.tradeEnabled
-          }]
+        return [...poolPairs, pair.data]
       }, [])
 
       setSelectedPoolPairs(poolPairs)
@@ -679,81 +662,4 @@ function getAllPossibleSwapToTokens (allTokens: TokenProps[], pairs: DexItem[], 
 
     return tokens
   }, [])
-}
-
-interface GraphProps { pairId: string, a: string, b: string }
-/**
- * To find all the adjacent vertices / neighbors of a node in a graph
- * @param startNode
- * @param graph
- */
-function getAdjacentVertices (startNode: string, graph: GraphProps[]): string[] {
-  return (
-    graph.reduce((vertices: string[], vertex): string[] => {
-      if (vertex.a === startNode && vertex.b !== startNode) {
-        return [...vertices, vertex.b]
-      } else if (vertex.b === startNode && vertex.a !== startNode) {
-        return [...vertices, vertex.a]
-      }
-
-      return vertices
-    }, [])
-  )
-}
-
-/**
- * This uses a modified Breadth First Search to find the first path found (by distance)
- * @param graph
- * @param start
- * @param target
- */
-function findPath (graph: GraphProps[], origin: string, target: string): string[] {
-  let isPathFound = false
-  let nodesToVisit = [origin]
-  const visitedNodes = new Set<string>([]) // track visited nodes in a set
-  let currentDistance = 0 // track distance from origin to target
-  const path: string[] = [] // store the first path found by token
-
-  bfs({
-    start: {
-      value: origin,
-      edges: getAdjacentVertices(origin, graph)
-    },
-    target: target
-  })
-
-  function bfs ({ start, target }: { start: { value: string, edges: string[]}, target: string}): void {
-    if (!isPathFound && (start.edges.length !== 0 || start.value === target)) { // not yet a dead-end
-      path[currentDistance] = start.value // store possible path to to target
-    }
-
-    if (start.value === target) {
-      isPathFound = true
-    }
-
-    visitedNodes.add(start.value)
-
-    while (nodesToVisit.length > 0) {
-      currentDistance = currentDistance + 1
-      nodesToVisit.shift()
-      const nextNodeToVisitEdges = start.edges
-
-      for (let i = 0; i < nextNodeToVisitEdges.length; i++) {
-        const startValue = nextNodeToVisitEdges[i]
-        const innerStart = {
-          value: startValue,
-          edges: getAdjacentVertices(startValue, graph).filter(vertex => !visitedNodes.has(vertex))
-        }
-        const startEdgesToVisit = innerStart.edges
-
-        nodesToVisit = [...nodesToVisit, ...startEdgesToVisit]
-        bfs({
-          start: innerStart,
-          target: target
-        })
-      }
-    }
-  }
-
-  return isPathFound ? path : []
 }
