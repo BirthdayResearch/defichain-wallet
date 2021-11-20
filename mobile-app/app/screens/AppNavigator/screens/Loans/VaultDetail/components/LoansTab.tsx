@@ -1,16 +1,21 @@
 import React from 'react'
 import BigNumber from 'bignumber.js'
-import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
+import { ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { View } from '@components'
 import { SymbolIcon } from '@components/SymbolIcon'
 import { IconButton } from '@components/IconButton'
 import { translate } from '@translations'
-import { TouchableOpacity } from 'react-native'
 import { LoanVault } from '@store/loans'
-import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
+import {
+  LoanVaultActive,
+  LoanVaultState,
+  LoanVaultTokenAmount
+} from '@defichain/whale-api-client/dist/api/loan'
 import { VaultSectionTextRow } from '../../components/VaultSectionTextRow'
 import { EmptyLoan } from './EmptyLoan'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
 
 interface LoanCardProps {
   symbol: string
@@ -18,6 +23,8 @@ interface LoanCardProps {
   amount: string
   interestAmount?: string
   vaultState: LoanVaultState
+  vault?: LoanVaultActive
+  loanToken: LoanVaultTokenAmount
 }
 
 export function LoansTab (props: { vault: LoanVault }): JSX.Element {
@@ -40,6 +47,7 @@ export function LoansTab (props: { vault: LoanVault }): JSX.Element {
               displaySymbol={batch.loan.displaySymbol}
               amount={batch.loan.amount}
               vaultState={LoanVaultState.IN_LIQUIDATION}
+              loanToken={batch.loan}
             />
           ))
         )
@@ -52,6 +60,8 @@ export function LoansTab (props: { vault: LoanVault }): JSX.Element {
               amount={loan.amount}
               interestAmount={vault.interestAmounts.find(interest => interest.symbol === loan.symbol)?.amount}
               vaultState={vault.state}
+              vault={vault}
+              loanToken={loan}
             />
           ))
         )}
@@ -118,16 +128,22 @@ function LoanCard (props: LoanCardProps): JSX.Element {
           />
         )}
       </View>
-      <ActionButtons hide />
+
+      {
+        props.vaultState !== LoanVaultState.IN_LIQUIDATION && props.vault !== undefined && (
+          <ActionButtons vault={props.vault} loanToken={props.loanToken} />
+        )
+      }
     </ThemedView>
   )
 }
 
 // TODO: show button when payback is ready
-function ActionButtons (props: { hide: boolean }): JSX.Element {
-  if (props.hide) {
-    return <></>
-  }
+function ActionButtons ({
+  vault,
+  loanToken
+}: { vault: LoanVaultActive, loanToken: LoanVaultTokenAmount }): JSX.Element {
+  const navigation = useNavigation<NavigationProp<LoanParamList>>()
 
   return (
     <View
@@ -137,30 +153,18 @@ function ActionButtons (props: { hide: boolean }): JSX.Element {
         <IconButton
           iconLabel={translate('components/VaultDetailsLoansTab', 'PAYBACK LOAN')}
           style={tailwind('mr-2 mb-2 p-2')}
-          onPress={() => { /* TODO: handle repay loan on press */
-          }}
-        />
-        <IconButton
-          iconLabel={translate('components/VaultDetailsLoansTab', 'BORROW MORE')}
-          style={tailwind('mr-2 mb-2 p-2')}
-          onPress={() => { /* TODO: handle borrow more on press */
+          onPress={() => {
+            navigation.navigate({
+              name: 'PaybackLoanScreen',
+              merge: true,
+              params: {
+                vault,
+                loanToken
+              }
+            })
           }}
         />
       </View>
-      <TouchableOpacity
-        style={tailwind('flex justify-end mb-4')}
-        onPress={() => { /* TODO: handle ... on press */
-        }}
-      >
-        <ThemedIcon
-          iconType='MaterialIcons'
-          name='more-horiz'
-          size={16}
-          light={tailwind('text-primary-500')}
-          dark={tailwind('text-darkprimary-500')}
-        />
-      </TouchableOpacity>
-
     </View>
   )
 }

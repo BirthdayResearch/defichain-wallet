@@ -2,7 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { HeaderFont } from '@components/Text'
 import { HeaderTitle } from '@components/HeaderTitle'
-import { LoanScheme, LoanToken, LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
+import { LoanScheme, LoanToken, LoanVaultActive, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { LoadingState, LoansScreen } from './LoansScreen'
@@ -23,6 +23,7 @@ import { tailwind } from '@tailwind'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { LoansFaq } from '@screens/WalletNavigator/screens/CreateWallet/LoansFaq'
 import { TabKey } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailTabSection'
+import { PaybackLoanScreen } from '@screens/AppNavigator/screens/Loans/screens/PaybackLoanScreen'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -67,6 +68,14 @@ export interface LoanParamList {
     totalLoanWithInterest: BigNumber
     fee: BigNumber
     conversion?: ConversionParam
+  }
+  PaybackLoanScreen: {
+    loanToken: LoanVaultTokenAmount
+    vault: LoanVaultActive
+  }
+  ConfirmPaybackLoanScreen: {
+    loanToken: LoanToken
+    vault: LoanVaultActive
   }
   [key: string]: undefined | object
 }
@@ -229,6 +238,18 @@ export function LoansNavigator (): JSX.Element {
             />
           ),
           headerBackTitleVisible: false
+        }}
+      />
+      <LoansStack.Screen
+        component={PaybackLoanScreen}
+        name='PaybackLoanScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Payback Loan')}
+            />
+          )
         }}
       />
     </LoansStack.Navigator>

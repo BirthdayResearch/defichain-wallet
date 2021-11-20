@@ -221,7 +221,6 @@ export function BorrowLoanTokenScreen ({
           <InputLabel text='SELECT LOAN TOKEN' />
           <LoanTokenInput
             loanTokenId={loanToken.tokenId}
-            symbol={loanToken.token.symbol}
             displaySymbol={loanToken.token.displaySymbol}
             price={loanToken.activePrice}
             interestRate={loanToken.interest}
@@ -282,16 +281,20 @@ export function BorrowLoanTokenScreen ({
             </ThemedText>
           </>
         )}
-        {Platform.OS === 'web' && <BottomSheetWebWithNav
-          modalRef={containerRef}
-          screenList={bottomSheetScreen}
-          isModalDisplayed={isModalDisplayed}
-                                  />}
+        {Platform.OS === 'web' && (
+          <BottomSheetWebWithNav
+            modalRef={containerRef}
+            screenList={bottomSheetScreen}
+            isModalDisplayed={isModalDisplayed}
+          />
+        )}
 
-        {Platform.OS !== 'web' && <BottomSheetWithNav
-          modalRef={bottomSheetRef}
-          screenList={bottomSheetScreen}
-                                  />}
+        {Platform.OS !== 'web' && (
+          <BottomSheetWithNav
+            modalRef={bottomSheetRef}
+            screenList={bottomSheetScreen}
+          />
+        )}
       </ThemedScrollView>
     </View>
   )
@@ -311,7 +314,6 @@ function InputLabel (props: { text: string }): JSX.Element {
 
 interface LoanTokenInputProps {
   loanTokenId: string
-  symbol: string
   displaySymbol: string
   price?: ActivePrice
   interestRate: string
@@ -329,7 +331,7 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
     >
       <View style={tailwind('flex flex-row w-2/12 flex-1 items-center')}>
         <SymbolIcon
-          symbol={props.symbol} styleProps={{
+          symbol={props.displaySymbol} styleProps={{
           width: 24,
           height: 24
         }}
