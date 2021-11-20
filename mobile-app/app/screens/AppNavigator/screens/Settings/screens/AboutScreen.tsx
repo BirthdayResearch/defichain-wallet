@@ -76,7 +76,7 @@ const ABOUT_LINKS: AboutLinks[] = [
   },
   {
     testID: 'white_paper',
-    title: 'White Paper',
+    title: 'DeFiChain White Paper',
     url: 'https://defichain.com/white-paper/'
   }
 ]

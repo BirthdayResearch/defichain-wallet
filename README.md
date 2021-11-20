@@ -140,6 +140,15 @@ convenience with basic toolchain setup but use of IntelliJ is totally optional.
 If you discover a security vulnerability in
 `DeFiChain Wallet`, [please see submit it privately](https://github.com/DeFiCh/.github/blob/main/SECURITY.md).
 
+### DFX Color Fixes (Dark Mode)
+- bg-gray-800 => bg-dfxblue-800
+- bg-gray-900 => bg-dfxblue-900
+- border-gray-700 => border-dfxblue-900
+- text-primary-500 => text-dfxred-500
+- gray-300 => dfxgray-300
+- gray-400 => dfxgray-400
+- gray-500 => dfxgray-500
+
 ## License & Disclaimer
 
 By using `DeFiChain Wallet` (this repo), you (the user) agree to be bound by [the terms of this license](LICENSE).
