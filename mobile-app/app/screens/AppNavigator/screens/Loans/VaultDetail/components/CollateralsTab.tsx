@@ -18,9 +18,7 @@ interface CollateralCardProps {
   vaultState: LoanVaultState
 }
 
-export function CollateralsTab (props: {vault: LoanVault}): JSX.Element {
-  const { vault } = props
-
+export function CollateralsTab ({ vault }: {vault: LoanVault}): JSX.Element {
   if (vault.state === LoanVaultState.ACTIVE && vault.collateralValue === '0') {
     return (
       <EmptyCollateral vaultId={vault.vaultId} />

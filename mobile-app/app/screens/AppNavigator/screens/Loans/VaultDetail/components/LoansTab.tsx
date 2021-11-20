@@ -101,12 +101,16 @@ function LoanCard (props: LoanCardProps): JSX.Element {
             />
           )}
       </View>
-      <ActionButtons />
+      <ActionButtons hide /> {/* TODO: display when button function is ready */}
     </ThemedView>
   )
 }
 
-function ActionButtons (): JSX.Element {
+function ActionButtons (props: {hide: boolean}): JSX.Element {
+  if (props.hide) {
+    return <></>
+  }
+
   return (
     <View
       style={tailwind('mt-4 -mb-2 flex flex-row justify-between')}
