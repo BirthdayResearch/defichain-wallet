@@ -41,6 +41,9 @@ export interface LoanParamList {
   EditCollateralScreen: {
     vaultId: string
   }
+  ChooseLoanTokenScreen: {
+    vaultId: string
+  }
   ConfirmEditCollateralScreen: {
     vault: LoanVaultActive
     amount: BigNumber

@@ -1,7 +1,11 @@
 import { render } from '@testing-library/react-native'
 import React from 'react'
 import { LoanCards } from './LoanCards'
-import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
+import { LoanToken, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
+import { Provider } from 'react-redux'
+import { RootState } from '@store'
+import { configureStore } from '@reduxjs/toolkit'
+import { loans } from '@store/loans'
 
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@contexts/FeatureFlagContext')
@@ -100,8 +104,38 @@ describe('loan cards', () => {
         fixedIntervalPriceId: 'TU10/USD'
       }
     ]
-
-    const rendered = render(<LoanCards loans={loanCards} />)
+    const initialState: Partial<RootState> = {
+      loans: {
+        vaults: [{
+          vaultId: '22ffasd5ca123123123123123121231061',
+          loanAmounts: [],
+          collateralRatio: '',
+          collateralValue: '',
+          collateralAmounts: [],
+          loanScheme: {
+            id: '0',
+            interestRate: '3',
+            minColRatio: '100'
+          },
+          loanValue: '100',
+          ownerAddress: 'bcrt1qxzj8pnkeqznvx6xgeepdywus8lkxq3vvmeccyt',
+          state: LoanVaultState.ACTIVE,
+          informativeRatio: '0',
+          interestAmounts: [],
+          interestValue: '1'
+        }],
+        collateralTokens: [],
+        hasFetchedLoansData: false,
+        hasFetchedVaultsData: false,
+        loanSchemes: [],
+        loanTokens: []
+      }
+    }
+    const store = configureStore({
+      preloadedState: initialState,
+      reducer: { loans: loans.reducer }
+    })
+    const rendered = render((<Provider store={store}><LoanCards loans={loanCards} /></Provider>))
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })

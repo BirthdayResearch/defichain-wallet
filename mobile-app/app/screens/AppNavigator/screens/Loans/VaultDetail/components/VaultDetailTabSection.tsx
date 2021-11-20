@@ -41,11 +41,11 @@ export function VaultDetailTabSection ({ vault }: VaultDetailTabSectionProps): J
       <Tabs tabSections={detailTabs} activeTabKey={activeTab} testID='vault_detail_tabs' />
       <ThemedView>
         {activeTab === TabKey.Collaterals &&
-          (<CollateralsTab vault={vault} />)}
+        (<CollateralsTab vault={vault} />)}
         {activeTab === TabKey.Loans &&
-          (<LoansTab vault={vault} />)}
+        (<LoansTab vault={vault} />)}
         {activeTab === TabKey.Details && vault.state !== LoanVaultState.IN_LIQUIDATION &&
-          (<DetailsTab vault={vault} />)}
+        (<DetailsTab vault={vault} />)}
       </ThemedView>
     </>
   )
@@ -80,7 +80,7 @@ function getDetailTabs (vault: LoanVault, tabOnPress: (tabId: string) => void): 
       {
         id: TabKey.Loans,
         label: 'Loans',
-        disabled: vault.state === LoanVaultState.ACTIVE && vault.collateralValue === '0' && vault.loanValue === '0',
+        disabled: false,
         handleOnPress: tabOnPress
       },
       {
