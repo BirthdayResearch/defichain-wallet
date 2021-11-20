@@ -619,7 +619,7 @@
     "Vault Detail": "Vault-Detail",
     "Add Collateral": "Sicherheiten Hinzufügen",
     "Confirm Add Collateral": "Bestätige das Hinzufügen von Sicherheiten",
-    "Edit Collateral": "Sicherheiten bearbeiten"
+    "Edit Collaterals": "Sicherheiten bearbeiten"
   },
   "components/tabs": {
     "Browse loans": "Darlehen durchsuchen",

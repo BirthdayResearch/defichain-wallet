@@ -246,7 +246,7 @@ export function EditCollateralScreen ({
           if (collateralItem !== undefined && activeVault !== undefined) {
             return (
               <CollateralCard
-                key={collateral.id}
+                key={collateral.displaySymbol}
                 collateralItem={collateralItem}
                 totalCollateralValue={new BigNumber(activeVault.collateralValue)}
                 collateral={collateral}

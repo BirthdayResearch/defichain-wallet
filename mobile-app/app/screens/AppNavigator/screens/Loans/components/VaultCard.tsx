@@ -1,12 +1,6 @@
 import React from 'react'
 import BigNumber from 'bignumber.js'
-import {
-  ThemedIcon,
-  ThemedProps,
-  ThemedText,
-  ThemedTouchableOpacity,
-  ThemedView
-} from '../../../../../components/themed'
+import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '../../../../../components/themed'
 import { tailwind } from '@tailwind'
 import { View } from '@components'
 import { translate } from '@translations'
@@ -21,7 +15,13 @@ import { TouchableOpacity } from 'react-native'
 import { openURL } from '@api/linking'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { VaultSectionTextRow } from '@screens/AppNavigator/screens/Loans/components/VaultSectionTextRow'
-import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
+import {
+  useVaultStatus,
+  VaultStatus,
+  VaultStatusTag
+} from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
+import { useNextCollateralizationRatio } from '@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio'
+import { CollateralizationRatioDisplay } from '@screens/AppNavigator/screens/Loans/components/CollateralizationRatioDisplay'
 
 export interface VaultCardProps extends React.ComponentProps<any> {
   vault: LoanVault
@@ -33,6 +33,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
   const vault = props.vault as LoanVaultActive
   const { getVaultsUrl } = useDeFiScanContext()
   const vaultState = useVaultStatus(vault.state, new BigNumber(vault.collateralRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber(vault.loanValue))
+  const nextCollateralizationRatio = useNextCollateralizationRatio(vault.collateralAmounts, vault.loanAmounts)
   const onCardPress = (): void => {
     navigation.navigate('VaultDetailScreen', {
       vaultId: vault.vaultId
@@ -122,12 +123,21 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
             </View>
           </View>
         </View>
+        {
+          vaultState !== VaultStatus.Active && (
+            <CollateralizationRatioDisplay
+              collateralizationRatio={vault.collateralRatio}
+              minCollateralizationRatio={vault.loanScheme.minColRatio}
+              totalLoanAmount={vault.loanValue}
+              nextCollateralizationRatio={nextCollateralizationRatio?.toFixed(8)}
+            />
+          )
+        }
         <View style={tailwind('flex flex-row flex-wrap -mb-2')}>
           {
             vault.loanAmounts?.length > 0 &&
               <VaultInfo
                 label='Active loans' tokens={vault.loanAmounts?.map(loan => loan.displaySymbol)}
-                valueType='TOKEN_ICON_GROUP'
               />
           }
           <VaultSectionTextRow
@@ -147,26 +157,6 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
       <VaultActionButton vault={vault} />
     </ThemedView>
   )
-}
-
-export function getCollateralRatioColor (value: BigNumber): ThemedProps {
-  let lightStyle, darkStyle
-
-  if (value.isLessThan(100)) {
-    lightStyle = 'text-error-500'
-    darkStyle = 'text-darkerror-500'
-  } else if (value.isLessThan(300)) {
-    lightStyle = 'text-warning-500'
-    darkStyle = 'text-darkwarning-500'
-  } else {
-    lightStyle = 'text-success-500'
-    darkStyle = 'text-darksuccess-500'
-  }
-
-  return {
-    light: tailwind(lightStyle),
-    dark: tailwind(darkStyle)
-  }
 }
 
 function VaultActionButton ({ vault }: { vault: LoanVaultActive }): JSX.Element | null {

@@ -102,7 +102,7 @@ export function BorrowLoanTokenScreen ({
     }
   }, [])
   const onLoanTokenInputPress = (): void => {
-    navigation.goBack()
+    navigation.navigate('ChooseLoanTokenScreen')
   }
 
   // Form update
@@ -257,10 +257,11 @@ export function BorrowLoanTokenScreen ({
               totalLoanWithInterest={totalLoanWithInterest}
               fee={fee}
             />
-            {isConversionRequired &&
+            {isConversionRequired && (
               <View style={tailwind('mt-4 mx-4')}>
                 <ConversionInfoText />
-              </View>}
+              </View>
+            )}
             <Button
               disabled={!valid}
               label={translate('screens/BorrowLoanTokenScreen', 'CONTINUE')}
