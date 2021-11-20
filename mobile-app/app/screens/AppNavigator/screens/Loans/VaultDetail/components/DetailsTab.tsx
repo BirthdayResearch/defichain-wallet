@@ -138,8 +138,8 @@ function CollateralizationRatioSection (props: CollateralizationRatioSectionProp
         lhs={translate('components/VaultDetailDetailsTab', 'Total loans (USD)')}
         rhs={{
           value: props.totalLoansValue.toFixed(2),
-          testID: 'text_total_loan_value'
-
+          testID: 'text_total_loan_value',
+          prefix: '$'
         }}
       />
     </>
