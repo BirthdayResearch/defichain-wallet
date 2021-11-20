@@ -16,7 +16,13 @@ import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import BigNumber from 'bignumber.js'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
-import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
+import {
+  useVaultStatus,
+  VaultStatus,
+  VaultStatusTag
+} from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
+import { CollateralizationRatioDisplay } from '@screens/AppNavigator/screens/Loans/components/CollateralizationRatioDisplay'
+import { useNextCollateralizationRatio } from '@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio'
 
 type Props = StackScreenProps<LoanParamList, 'VaultDetailScreen'>
 
@@ -29,7 +35,7 @@ export function VaultDetailScreen ({
   const vaults = useSelector((state: RootState) => state.loans.vaults)
   const vaultActionButtons: ScrollButton[] = [
     {
-      label: 'EDIT COLLATERAL',
+      label: 'EDIT COLLATERALS',
       disabled: vault?.state === LoanVaultState.IN_LIQUIDATION,
       handleOnPress: () => {
         if (vault === undefined) {
@@ -39,7 +45,7 @@ export function VaultDetailScreen ({
         navigation.navigate({
           name: 'EditCollateralScreen',
           params: {
-            vaultId: vault?.vaultId
+            vaultId: vault.vaultId
           },
           merge: true
         })
@@ -48,9 +54,9 @@ export function VaultDetailScreen ({
   ]
 
   useEffect(() => {
-    const v = vaults.find(v => v.vaultId === vaultId)
-    if (v !== undefined) {
-      setVault({ ...v })
+    const _vault = vaults.find(v => v.vaultId === vaultId)
+    if (_vault !== undefined) {
+      setVault(_vault)
     }
   }, [vaults])
 
@@ -79,7 +85,7 @@ export function VaultDetailScreen ({
           <ScrollableButton buttons={vaultActionButtons} containerStyle={tailwind('pl-4')} />
         </ThemedView>
       </ThemedView>
-      <VaultDetailTabSection emptyActiveLoans />
+      <VaultDetailTabSection vault={vault} />
     </ThemedScrollView>
   )
 }
@@ -89,46 +95,61 @@ function VaultIdSection ({ vault }: { vault: LoanVault }): JSX.Element {
   const colRatio = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.collateralRatio
   const totalLoanAmount = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.loanValue
   const vaultState = useVaultStatus(vault.state, new BigNumber(colRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber((totalLoanAmount)))
+  const collateralAmounts = vault.state === LoanVaultState.IN_LIQUIDATION ? [] : vault.collateralAmounts
+  const loanAmounts = vault.state === LoanVaultState.IN_LIQUIDATION ? [] : vault.loanAmounts
+  const nextCollateralizationRatio = useNextCollateralizationRatio(collateralAmounts, loanAmounts)
   return (
-    <ThemedView
-      light={tailwind('bg-white')}
-      dark={tailwind('bg-gray-800')}
-      style={tailwind('flex flex-row items-center')}
-    >
-      <View
-        style={tailwind('flex flex-1')}
+    <>
+      <ThemedView
+        light={tailwind('bg-white')}
+        dark={tailwind('bg-gray-800')}
+        style={tailwind('flex flex-row items-center')}
       >
-        <View style={tailwind('flex flex-row mb-2 items-center')}>
-          <ThemedText
-            light={tailwind('text-gray-400')}
-            dark={tailwind('text-gray-500')}
-            style={tailwind('text-xs mr-1')}
-          >
-            {translate('screens/VaultDetailScreen', 'Vault ID')}
-          </ThemedText>
-          <VaultStatusTag status={vaultState} />
-        </View>
         <View
-          style={tailwind('flex flex-row mb-2 items-center')}
+          style={tailwind('flex flex-1')}
         >
-          <ThemedText
-            style={tailwind('text-sm font-semibold w-8/12 flex-1 mr-2')}
+          <View style={tailwind('flex flex-row mb-2 items-center')}>
+            <ThemedText
+              light={tailwind('text-gray-400')}
+              dark={tailwind('text-gray-500')}
+              style={tailwind('text-xs mr-1')}
+            >
+              {translate('screens/VaultDetailScreen', 'Vault ID')}
+            </ThemedText>
+            <VaultStatusTag status={vaultState} />
+          </View>
+          <View
+            style={tailwind('flex flex-row mb-2 items-center')}
           >
-            {vault.vaultId}
-          </ThemedText>
-          <TouchableOpacity onPress={async () => await openURL(getVaultsUrl(vault.vaultId ?? ''))}>
-            <ThemedIcon
-              dark={tailwind('text-darkprimary-500')}
-              iconType='MaterialIcons'
-              light={tailwind('text-primary-500')}
-              name='open-in-new'
-              size={22}
-              style={tailwind('-mr-1')}
-            />
-          </TouchableOpacity>
+            <ThemedText
+              style={tailwind('text-sm font-semibold w-8/12 flex-1 mr-2')}
+            >
+              {vault.vaultId}
+            </ThemedText>
+            <TouchableOpacity onPress={async () => await openURL(getVaultsUrl(vault.vaultId ?? ''))}>
+              <ThemedIcon
+                dark={tailwind('text-darkprimary-500')}
+                iconType='MaterialIcons'
+                light={tailwind('text-primary-500')}
+                name='open-in-new'
+                size={22}
+                style={tailwind('-mr-1')}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </ThemedView>
+      </ThemedView>
+      {
+        vault.state !== LoanVaultState.IN_LIQUIDATION && vaultState !== VaultStatus.Active && (
+          <CollateralizationRatioDisplay
+            collateralizationRatio={vault.collateralRatio}
+            minCollateralizationRatio={vault.loanScheme.minColRatio}
+            totalLoanAmount={vault.loanValue}
+            nextCollateralizationRatio={nextCollateralizationRatio?.toFixed(8)}
+          />
+        )
+      }
+    </>
   )
 }
 
@@ -179,7 +200,7 @@ function VaultInfoSection (props: { vault?: LoanVault }): JSX.Element | null {
               prefix='$'
             />
             <VaultSectionTextRow
-              value={props.vault.loanValue}
+              value={new BigNumber(props.vault.loanValue).toFixed(2)}
               lhs={translate('screens/VaultDetailScreen', 'Total loan (USD)')}
               testID='text_total_loan_value'
               prefix='$'

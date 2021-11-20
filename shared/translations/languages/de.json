@@ -619,7 +619,7 @@
     "Vault Detail": "Vault-Detail",
     "Add Collateral": "Sicherheiten Hinzufügen",
     "Confirm Add Collateral": "Bestätige das Hinzufügen von Sicherheiten",
-    "Edit Collateral": "Sicherheiten bearbeiten"
+    "Edit Collaterals": "Sicherheiten bearbeiten"
   },
   "components/tabs": {
     "Browse loans": "Darlehen durchsuchen",
@@ -692,17 +692,23 @@
     "Creating vault with min. collateral ratio of {{amount}}% and interest rate of {{ir}}% APR": "Anlegen eines Vaults mit einem Mindestbesicherungsgrad von {{amount}}% und einem effektiven Jahreszinssatz von {{ir}}%",
     "Convert & create vault": "Umwandeln und Vault erstellen"
   },
-  "components/FeeInfoRow": {
+  "components/BottomSheetInfo": {
     "Estimated fee": "Geschätzte Gebühr",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "Jede Transaktion unterliegt einer geringen Gebühr. Der Betrag kann je nach Auslastung des Netzwerks variieren.",
     "Vault fee": "Vaultgebühr",
-    "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "Diese Gebühr dient als Ersteinlage für deinen Vault. Du erhältst 1 DFI zurück, wenn du dich entscheidest, diesen Vault zu schließen."
+    "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "Diese Gebühr dient als Ersteinlage für deinen Vault. Du erhältst 1 DFI zurück, wenn du dich entscheidest, diesen Vault zu schließen.",
+    "The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.": "The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.",
+    "Next collateralization ratio represents the vault's collateralization ratio based on the prices of the collateral/loan token(s) in the next hour.": "Next collateralization ratio represents the vault's collateralization ratio based on the prices of the collateral/loan token(s) in the next hour.",
+    "Annual vault interest rate based on the loan scheme selected.": "Annual vault interest rate based on the loan scheme selected.",
+    "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.",
+    "Collateralization ratio": "Besicherungsquote",
+    "Next collateralization": "Next collateralization"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
     "Your vault is locked for liquidation.": "Dein Vault ist im Rahmen der Liquidation eingefroren.",
     "Your vault is at risk of liquidation. Prevent liquidity by adding more collaterals or paying back loans.": "Dein Vault ist von der Liquidation bedroht. Verhindere die Liquidation, indem du weitere Sicherheiten hinzufügst oder Darlehen zurückzahlst.",
-    "Collaterals required to use this vault.": "Für die Nutzung dieses Vaults sind Sicherheiten erforderlich."
+    "Collaterals required to use this vault.": "Für die Nutzung dieses Vaults sind Sicherheiten erforderlich."    
   },
   "components/ScrollableButton": {
     "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
@@ -714,8 +720,10 @@
     "Browse for available loan tokens and start using this vault as collateral.": "Suche nach verfügbaren Hinterlegungs-Token und verwende diesen Vault als Sicherheit.",
     "BROWSE LOANS": "DARLEHEN DURCHSUCHEN"
   },
-  "components/ActiveLoans": {
-    "REPAY LOAN": "DARLEHEN ZURÜCKZAHLEN",
+  "components/VaultDetailsLoansTab": { 
+    "Outstanding balance": "Outstanding balance",   
+    "Interest amount": "Interest amount",
+    "PAYBACK LOAN": "PAYBACK LOAN",    
     "BORROW MORE": "MEHR AUSLEIHEN"
   },
   "components/BalanceControlCard": {
@@ -730,20 +738,15 @@
     "Min. collateral ratio": "Mindestbesicherungsquote",
     "Vault interest": "Vault-Zins",
     "VAULT DETAILS": "VAULT-DETAILS",
-    "Collateral ratio": "Besicherungsquote",
+    "COLLATERALIZATION DETAILS": "COLLATERALIZATION DETAILS",
+    "Collateralization ratio": "Besicherungsquote",
+    "Next collateralization": "Next collateralization",
+    "Total collaterals (USD)": "Total collaterals (USD)",
     "Active loans": "Aktive Darlehen",
-    "Total value of loans": "Gesamtwert der Darlehen",
-    "Collateral value": "Sicherheitenwert",
-    "Vault health": "Vault-Zustand",
-    "Safe": "Sicher",
-    "At risk": "Gefährdet",
-    "Liquidated": "Liquidiert",
-    "Created": "Erstellt",
-    "In Liquidation": "In Liquidation"
+    "Total loans (USD)": "Total loans (USD)"
   },
   "components/VaultDetailsCollateralsTab": {
-    "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
-    "Vault %": "Vault %"
+    "Collateral amount (USD)": "Höhe der Sicherheiten (USD)"
   },
   "screens/EditCollateralScreen": {
     "COLLATERALS WILL BE ADDED TO VAULT": "DIE SICHERHEITEN WERDEN DEM VAULT HINZUGEFÜGT",

@@ -52,7 +52,7 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
             <ThemedText
               dark={tailwind('text-gray-400')}
               light={tailwind('text-gray-500')}
-              style={[tailwind('text-sm text-right'), props.textStyle]}
+              style={[tailwind('text-sm text-right'), props.textStyle, props.rhs.style]}
               testID={props.rhs.testID}
               {...props.rhsThemedProps}
             >
@@ -67,7 +67,7 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
             <ThemedText
               light={tailwind('text-gray-500')}
               dark={tailwind('text-gray-400')}
-              style={[tailwind('text-sm ml-1'), props.textStyle]}
+              style={[tailwind('text-sm ml-1'), props.textStyle, props.rhs.style]}
               testID={`${props.rhs.testID}_suffix`}
               {...props.rhsThemedProps}
             >

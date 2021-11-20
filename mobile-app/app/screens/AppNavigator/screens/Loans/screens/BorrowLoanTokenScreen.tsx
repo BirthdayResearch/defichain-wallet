@@ -9,7 +9,7 @@ import {
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { Dispatch, useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { LoanParamList } from '../LoansNavigator'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
@@ -25,17 +25,17 @@ import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { TextRow } from '@components/TextRow'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Button } from '@components/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
 import { RootState } from '@store'
-import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
-import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
+import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
+import { queueConvertTransaction } from '@hooks/wallet/Conversion'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowLoanTokenScreen'>
 
@@ -102,7 +102,7 @@ export function BorrowLoanTokenScreen ({
     }
   }, [])
   const onLoanTokenInputPress = (): void => {
-    navigation.goBack()
+    navigation.navigate('ChooseLoanTokenScreen')
   }
 
   // Form update
@@ -147,7 +147,7 @@ export function BorrowLoanTokenScreen ({
     }
 
     if (isConversionRequired) {
-      await constructSignedConversionAndBorrow({
+      queueConvertTransaction({
         mode: 'accountToUtxos',
         amount: new BigNumber(0.1).minus(DFIUtxo.amount)
       }, dispatch, () => {
@@ -257,10 +257,11 @@ export function BorrowLoanTokenScreen ({
               totalLoanWithInterest={totalLoanWithInterest}
               fee={fee}
             />
-            {isConversionRequired &&
+            {isConversionRequired && (
               <View style={tailwind('mt-4 mx-4')}>
                 <ConversionInfoText />
-              </View>}
+              </View>
+            )}
             <Button
               disabled={!valid}
               label={translate('screens/BorrowLoanTokenScreen', 'CONTINUE')}
@@ -583,16 +584,4 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
       />
     </>
   )
-}
-
-// TODO: replace with hook
-async function constructSignedConversionAndBorrow ({
-  mode,
-  amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
-  try {
-    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
-  } catch (e) {
-    logger.error(e)
-  }
 }

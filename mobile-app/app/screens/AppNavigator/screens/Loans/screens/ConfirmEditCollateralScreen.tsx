@@ -28,6 +28,7 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { ConversionTag } from '@components/ConversionTag'
 import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
+import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmEditCollateralScreen'>
 
@@ -110,6 +111,7 @@ export function ConfirmEditCollateralScreen ({
         fee={fee}
         conversion={conversion}
         isAdd={isAdd}
+        vault={vault}
       />
       <SubmitButtonGroup
         isDisabled={hasPendingJob || hasPendingBroadcastJob}
@@ -173,10 +175,13 @@ interface CollateralSectionProps {
   conversion?: ConversionParam
   isAdd: boolean
   fee: BigNumber
+  vault: LoanVaultActive
 }
 
 function CollateralSection (props: CollateralSectionProps): JSX.Element {
-  const prices = useCollateralPrice(props.amount, props.collateralItem, props.totalCollateralValue)
+  const currentBalance = props.vault?.collateralAmounts?.find((c) => c.id === props.token.id)?.amount ?? '0'
+  const amount = props.isAdd ? props.amount.plus(currentBalance) : BigNumber.max(0, new BigNumber(currentBalance).minus(props.amount))
+  const prices = useCollateralPrice(amount, props.collateralItem, props.totalCollateralValue)
   return (
     <>
       <ThemedSectionTitle

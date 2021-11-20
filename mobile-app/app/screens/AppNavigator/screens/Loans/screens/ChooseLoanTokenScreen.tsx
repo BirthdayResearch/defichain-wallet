@@ -1,4 +1,4 @@
-import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedView } from '@components/themed'
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { LoanCards } from '../components/LoanCards'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -124,15 +124,15 @@ function HeaderSearchInput (props: HeaderSearchInputProps): JSX.Element {
         onClearInput={props.onClearInput}
         onChangeText={props.onChangeInput}
       />
-      <View style={tailwind('w-16 flex justify-center ml-2')}>
+      <View style={tailwind('flex justify-center ml-2')}>
         <TouchableOpacity onPress={props.onCancelPress}>
-          <ThemedText
+          <ThemedIcon
             light={tailwind('text-primary-500')}
             dark={tailwind('text-darkprimary-500')}
-            style={tailwind('font-medium')}
-          >
-            {translate('screens/ChooseLoanTokenScreen', 'CANCEL')}
-          </ThemedText>
+            iconType='MaterialCommunityIcons'
+            name='close'
+            size={24}
+          />
         </TouchableOpacity>
       </View>
     </ThemedView>

@@ -2,7 +2,6 @@ import { WhaleApiClient } from '@defichain/whale-api-client'
 import { CollateralToken, LoanScheme, LoanToken, LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { createAsyncThunk, createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
 
-// TODO (Harsh) interface is not yet finalized, need to update
 export type LoanVault = LoanVaultActive | LoanVaultLiquidated
 
 interface LoansState {

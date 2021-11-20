@@ -12,21 +12,21 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { Dispatch, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NumberFormat from 'react-number-format'
 import { LoanParamList } from '../LoansNavigator'
 import { LoanScheme } from '@defichain/whale-api-client/dist/api/loan'
 import BigNumber from 'bignumber.js'
-import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchLoanSchemes } from '@store/loans'
 import { RootState } from '@store'
-import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
+import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
-import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { InfoTextLink } from '@components/InfoTextLink'
+import { queueConvertTransaction } from '@hooks/wallet/Conversion'
 
 type Props = StackScreenProps<LoanParamList, 'CreateVaultScreen'>
 
@@ -55,7 +55,7 @@ export function CreateVaultScreen ({
     }
 
     if (isConversionRequired) {
-      await constructSignedConversionAndCreateVault({
+      queueConvertTransaction({
         mode: 'accountToUtxos',
         amount: new BigNumber(2).minus(DFIUtxo.amount)
       }, dispatch, () => {
@@ -233,15 +233,4 @@ function LoanSchemeOptionData (props: { label: string, value: string, testId: st
 
     </View>
   )
-}
-
-async function constructSignedConversionAndCreateVault ({
-  mode,
-  amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
-  try {
-    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
-  } catch (e) {
-    logger.error(e)
-  }
 }
