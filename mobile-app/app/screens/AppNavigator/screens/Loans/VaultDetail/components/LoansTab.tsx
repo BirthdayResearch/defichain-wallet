@@ -101,11 +101,12 @@ function LoanCard (props: LoanCardProps): JSX.Element {
             />
           )}
       </View>
-      <ActionButtons hide /> {/* TODO: display when button function is ready */}
+      <ActionButtons hide />
     </ThemedView>
   )
 }
 
+// TODO: show button when payback is ready
 function ActionButtons (props: {hide: boolean}): JSX.Element {
   if (props.hide) {
     return <></>
