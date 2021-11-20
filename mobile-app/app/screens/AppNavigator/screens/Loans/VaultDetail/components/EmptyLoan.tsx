@@ -33,7 +33,7 @@ export function EmptyLoan ({ vaultId }: { vaultId: string }): JSX.Element {
           })
         }}
         testID='button_browse_loans'
-        title='Browse loans'
+        title='Browse loan tokens'
         margin='m-0 mb-4'
       />
     </ThemedScrollView>

@@ -9,7 +9,7 @@ describe('Tabs component', () => {
     const tabsList = [
       {
         id: 'BROWSE_LOANS',
-        label: 'Browse loans',
+        label: 'Browse loan tokens',
         disabled: false,
         handleOnPress: jest.fn
       },
@@ -28,7 +28,7 @@ describe('Tabs component', () => {
     const tabsList = [
       {
         id: 'BROWSE_LOANS',
-        label: 'Browse loans',
+        label: 'Browse loan tokens',
         disabled: false,
         handleOnPress: jest.fn
       },
