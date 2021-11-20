@@ -49,7 +49,6 @@ export interface LoanParamList {
     isAdd: boolean
     collateralItem: CollateralItem
     conversion?: ConversionParam
-    current?: BigNumber
   }
   BorrowLoanTokenScreen: {
     loanToken: LoanToken

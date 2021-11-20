@@ -28,6 +28,7 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { ConversionTag } from '@components/ConversionTag'
 import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
+import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmEditCollateralScreen'>
 
@@ -42,8 +43,7 @@ export function ConfirmEditCollateralScreen ({
     fee,
     isAdd,
     collateralItem,
-    conversion,
-    current
+    conversion
   } = route.params
   const { address } = useWalletContext()
   const client = useWhaleApiClient()
@@ -111,7 +111,7 @@ export function ConfirmEditCollateralScreen ({
         fee={fee}
         conversion={conversion}
         isAdd={isAdd}
-        current={current}
+        vault={vault}
       />
       <SubmitButtonGroup
         isDisabled={hasPendingJob || hasPendingBroadcastJob}
@@ -175,12 +175,12 @@ interface CollateralSectionProps {
   conversion?: ConversionParam
   isAdd: boolean
   fee: BigNumber
-  current?: BigNumber
+  vault: LoanVaultActive
 }
 
 function CollateralSection (props: CollateralSectionProps): JSX.Element {
-  const amount = props.isAdd ? props.amount.plus(props.current ?? 0) : BigNumber.max(0, new BigNumber(props.current ?? 0).minus(props.amount))
-  console.log(props.current)
+  const currentBalance = props.vault?.collateralAmounts?.find((c) => c.id === props.token.id)?.amount ?? '0'
+  const amount = props.isAdd ? props.amount.plus(currentBalance) : BigNumber.max(0, new BigNumber(currentBalance).minus(props.amount))
   const prices = useCollateralPrice(amount, props.collateralItem, props.totalCollateralValue)
   return (
     <>

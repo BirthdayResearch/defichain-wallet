@@ -135,8 +135,7 @@ export function EditCollateralScreen ({
         fee,
         isAdd: true,
         collateralItem,
-        conversion: undefined,
-        current: item.current
+        conversion: undefined
       },
       merge: true
     }
@@ -171,12 +170,15 @@ export function EditCollateralScreen ({
           token: item.token,
           fee,
           isAdd: false,
-          collateralItem,
-          current: item.current
+          collateralItem
         },
         merge: true
       })
     }
+  }
+
+  if (activeVault === undefined) {
+    return <></>
   }
 
   return (
@@ -185,7 +187,7 @@ export function EditCollateralScreen ({
         contentContainerStyle={tailwind('p-4 pt-0')}
       >
         <SectionTitle title='VAULT DETAILS' />
-        {(activeVault != null) && <VaultIdSection vault={activeVault} />}
+        <VaultIdSection vault={activeVault} />
         <AddCollateralButton
           disabled={false}
           onPress={() => {
@@ -230,13 +232,13 @@ export function EditCollateralScreen ({
           }}
         />
         {
-          activeVault !== undefined && activeVault.collateralAmounts?.length > 0 && (
+          activeVault.collateralAmounts?.length > 0 && (
             <SectionTitle title='COLLATERALS' />
           )
         }
-        {activeVault?.collateralAmounts.map((collateral, index) => {
+        {activeVault.collateralAmounts.map((collateral, index) => {
           const collateralItem = collateralTokens.find((col) => col.token.id === collateral.id)
-          if (collateralItem !== undefined && activeVault !== undefined) {
+          if (collateralItem !== undefined) {
             const params = {
               stackScreenName: 'AddOrRemoveCollateralForm',
               component: AddOrRemoveCollateralForm,
@@ -247,7 +249,7 @@ export function EditCollateralScreen ({
                 onCloseButtonPress: () => bottomSheetRef.current?.close(),
                 collateralFactor: new BigNumber(collateralItem.factor ?? 0).times(100),
                 isAdd: true,
-                current: new BigNumber(0)
+                current: new BigNumber(collateral.amount)
               },
               option: {
                 header: () => null
@@ -271,7 +273,6 @@ export function EditCollateralScreen ({
                   params.initialParam.available = new BigNumber(collateral.amount).toFixed(8)
                   params.initialParam.onButtonPress = onRemoveCollateral as any
                   params.initialParam.isAdd = false
-                  params.initialParam.current = new BigNumber(collateral.amount)
                   setBottomSheetScreen([
                     params
                   ])
@@ -290,15 +291,19 @@ export function EditCollateralScreen ({
         screenList={bottomSheetScreen}
       />
 
-      {Platform.OS === 'web' && <BottomSheetWebWithNav
-        modalRef={containerRef}
-        screenList={bottomSheetScreen}
-        isModalDisplayed={isModalDisplayed}
-                                />}
-      {Platform.OS !== 'web' && <BottomSheetWithNav
-        modalRef={bottomSheetRef}
-        screenList={bottomSheetScreen}
-                                />}
+      {Platform.OS === 'web' && (
+        <BottomSheetWebWithNav
+          modalRef={containerRef}
+          screenList={bottomSheetScreen}
+          isModalDisplayed={isModalDisplayed}
+        />
+      )}
+      {Platform.OS !== 'web' && (
+        <BottomSheetWithNav
+          modalRef={bottomSheetRef}
+          screenList={bottomSheetScreen}
+        />
+      )}
     </View>
   )
 }

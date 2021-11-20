@@ -35,14 +35,12 @@ type Props = StackScreenProps<BottomSheetWithNavRouteParam, 'AddOrRemoveCollater
 export interface AddOrRemoveCollateralResponse {
   token: TokenData
   amount: BigNumber
-  current?: BigNumber
 }
 
 export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Element => {
   const {
     token,
     available,
-    current,
     onButtonPress,
     onCloseButtonPress,
     collateralFactor,
@@ -163,8 +161,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
         label={translate('components/AddOrRemoveCollateralForm', isAdd ? 'ADD TOKEN AS COLLATERAL' : 'REMOVE COLLATERAL AMOUNT')}
         onPress={() => onButtonPress({
           token,
-          amount: new BigNumber(collateralValue),
-          current
+          amount: new BigNumber(collateralValue)
         })}
         margin='mt-8 mb-10'
       />
