@@ -22,6 +22,7 @@ import {
 } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 import { useNextCollateralizationRatio } from '@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio'
 import { CollateralizationRatioDisplay } from '@screens/AppNavigator/screens/Loans/components/CollateralizationRatioDisplay'
+import { TabKey } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailTabSection'
 
 export interface VaultCardProps extends React.ComponentProps<any> {
   vault: LoanVault
@@ -141,9 +142,11 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
         <View style={tailwind('flex flex-row flex-wrap -mb-2')}>
           {
             vault.loanAmounts?.length > 0 &&
+            (
               <VaultInfo
                 label='Active loans' tokens={vault.loanAmounts?.map(loan => loan.displaySymbol)}
               />
+            )
           }
           <VaultSectionTextRow
             testID={`${props.testID}_total_loan`}
@@ -159,12 +162,18 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
           />
         </View>
       </ThemedTouchableOpacity>
-      <VaultActionButton vault={vault} isClickable={isClickable} />
+      {
+        isClickable && (
+          <VaultActionButton vault={vault} />
+        )
+      }
     </ThemedView>
   )
 }
 
-function VaultActionButton ({ vault, isClickable }: { vault: LoanVaultActive, isClickable: boolean }): JSX.Element | null {
+function VaultActionButton ({
+  vault
+}: { vault: LoanVaultActive }): JSX.Element | null {
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
   return (
     <ThemedView
@@ -172,37 +181,39 @@ function VaultActionButton ({ vault, isClickable }: { vault: LoanVaultActive, is
       dark={tailwind('border-gray-700')}
       style={tailwind('flex flex-row mt-4 items-center flex-wrap -mb-2')}
     >
-      {/* {
-        <IconButton
-          key={action}
-          iconType='MaterialIcons'
-          iconName='credit-card'
-          iconLabel={translate('components/VaultCard', 'VIEW LOANS')}
-          iconSize={16}
-          style={tailwind('mr-2 mb-2')}
-          onPress={props.onViewLoans}
-        />
-      } */}
       {
-        isClickable && (
+        new BigNumber(vault.collateralValue).gt(0) && (
           <IconButton
             iconType='MaterialIcons'
-            iconName='edit'
-            iconLabel={translate('components/VaultCard', 'EDIT COLLATERALS')}
+            iconName='credit-card'
+            iconLabel={translate('components/VaultCard', 'MANAGE LOANS')}
             iconSize={16}
             style={tailwind('mr-2 mb-2 items-center')}
             onPress={() => {
-              navigation.navigate({
-                name: 'EditCollateralScreen',
-                params: {
-                  vaultId: vault.vaultId
-                },
-                merge: true
+              navigation.navigate('VaultDetailScreen', {
+                vaultId: vault.vaultId,
+                tab: TabKey.Loans
               })
             }}
           />
         )
       }
+      <IconButton
+        iconType='MaterialIcons'
+        iconName='edit'
+        iconLabel={translate('components/VaultCard', 'EDIT COLLATERALS')}
+        iconSize={16}
+        style={tailwind('mr-2 mb-2 items-center')}
+        onPress={() => {
+          navigation.navigate({
+            name: 'EditCollateralScreen',
+            params: {
+              vaultId: vault.vaultId
+            },
+            merge: true
+          })
+        }}
+      />
     </ThemedView>
   )
 }

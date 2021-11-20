@@ -22,6 +22,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { LoansFaq } from '@screens/WalletNavigator/screens/CreateWallet/LoansFaq'
+import { TabKey } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailTabSection'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -37,6 +38,7 @@ export interface LoanParamList {
   }
   VaultDetailScreen: {
     vaultId: string
+    tab?: TabKey
   }
   EditCollateralScreen: {
     vaultId: string

@@ -7,7 +7,7 @@ import { LoansTab } from './LoansTab'
 import { CollateralsTab } from './CollateralsTab'
 import { DetailsTab } from './DetailsTab'
 
-enum TabKey {
+export enum TabKey {
   Loans = 'LOANS',
   Details = 'DETAILS',
   Collaterals = 'COLLATERALS',
@@ -16,6 +16,7 @@ enum TabKey {
 
 interface VaultDetailTabSectionProps {
   vault: LoanVault
+  tab?: TabKey
 }
 
 interface VaultDetailTabsProps {
@@ -25,8 +26,8 @@ interface VaultDetailTabsProps {
   handleOnPress: (tabId: string) => void
 }
 
-export function VaultDetailTabSection ({ vault }: VaultDetailTabSectionProps): JSX.Element {
-  const [activeTab, setActiveTab] = useState<string>(TabKey.Collaterals)
+export function VaultDetailTabSection ({ vault, tab }: VaultDetailTabSectionProps): JSX.Element {
+  const [activeTab, setActiveTab] = useState<string>(tab ?? TabKey.Collaterals)
   const [detailTabs, setDetailTabs] = useState<VaultDetailTabsProps[]>([])
   const onPress = (tabId: string): void => {
     setActiveTab(tabId)
