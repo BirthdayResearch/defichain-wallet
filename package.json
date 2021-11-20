@@ -86,7 +86,7 @@
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.9.0",
     "react-native-svg": "12.1.1",
-    "react-native-swiper-flatlist": "^3.0.15",
+    "react-native-swiper-flatlist": "^3.0.16",
     "react-native-web": "0.17.1",
     "react-number-format": "^4.8.0",
     "react-redux": "^7.2.6",
