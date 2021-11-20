@@ -688,11 +688,15 @@
     "Creating vault with min. collateral ratio of {{amount}}% and interest rate of {{ir}}% APR": "創建金庫時，設定的最低抵押率為{{amount}}%，利率為{{ir}}%年回報率",
     "Convert & create vault": "轉換和創建金庫"
   },
-  "components/FeeInfoRow": {
+  "components/BottomSheetInfo": {
     "Estimated fee": "所需費用（大約）",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "每筆交易需要支付少量的費用. 金額可能因網絡擁擠程度而異.",
     "Vault fee": "金庫費用",
-    "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "這筆費用作為您金庫的初始押金。當您選擇關閉這個金庫時，您會收回 1 DFI。"
+    "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "這筆費用作為您金庫的初始押金。當您選擇關閉這個金庫時，您會收回 1 DFI。",
+    "The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.": "抵押率指的是存放在金庫中的抵押品數量與貸款金額的關係比例，而是由百分比表示。",
+    "Next collateralization ratio represents the vault's collateralization ratio based on the prices of the collateral/loan token(s) in the next hour.": "下一個抵押率代表金庫的抵押率，以下一個小時的抵押品/貸款代幣的價格算出。",
+    "Annual vault interest rate based on the loan scheme selected.": "基於所選貸款計劃的金庫年利率。",
+    "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "基於所選貸款計劃的最低要求抵押率。當抵押率低於最低要求時，金庫將被清算。"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金庫編號",

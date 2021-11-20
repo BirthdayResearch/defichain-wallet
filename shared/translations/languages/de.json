@@ -692,11 +692,17 @@
     "Creating vault with min. collateral ratio of {{amount}}% and interest rate of {{ir}}% APR": "Anlegen eines Vaults mit einem Mindestbesicherungsgrad von {{amount}}% und einem effektiven Jahreszinssatz von {{ir}}%",
     "Convert & create vault": "Umwandeln und Vault erstellen"
   },
-  "components/FeeInfoRow": {
+  "components/BottomSheetInfo": {
     "Estimated fee": "Geschätzte Gebühr",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "Jede Transaktion unterliegt einer geringen Gebühr. Der Betrag kann je nach Auslastung des Netzwerks variieren.",
     "Vault fee": "Vaultgebühr",
-    "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "Diese Gebühr dient als Ersteinlage für deinen Vault. Du erhältst 1 DFI zurück, wenn du dich entscheidest, diesen Vault zu schließen."
+    "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "Diese Gebühr dient als Ersteinlage für deinen Vault. Du erhältst 1 DFI zurück, wenn du dich entscheidest, diesen Vault zu schließen.",
+    "The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.": "The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.",
+    "Next collateralization ratio represents the vault's collateralization ratio based on the prices of the collateral/loan token(s) in the next hour.": "Next collateralization ratio represents the vault's collateralization ratio based on the prices of the collateral/loan token(s) in the next hour.",
+    "Annual vault interest rate based on the loan scheme selected.": "Annual vault interest rate based on the loan scheme selected.",
+    "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.",
+    "Collateralization ratio": "Besicherungsquote",
+    "Next collateralization": "Next collateralization"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",

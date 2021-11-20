@@ -9,6 +9,7 @@ import Svg, { Line } from 'react-native-svg'
 import { translate } from '@translations'
 import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 import NumberFormat from 'react-number-format'
+import { BottomSheetInfo } from '@components/BottomSheetInfo'
 
 interface CollateralizationRatioDisplayProps {
   collateralizationRatio: string
@@ -54,14 +55,20 @@ function CollateralizationRatioText (props: { colRatio: string, minColRatio: str
     minColRatio: new BigNumber(props.minColRatio),
     totalLoanAmount: new BigNumber(props.totalLoanAmount)
   })
-
+  const alertInfo = {
+    title: 'Collateralization ratio',
+    message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+  }
   return (
     <View style={tailwind('flex-row justify-between')}>
-      <ThemedText
-        style={tailwind('text-sm')}
-      >
-        {translate('components/CollateralizationRatioDisplay', 'Collateralization ratio')}
-      </ThemedText>
+      <View style={tailwind('items-center flex-row')}>
+        <ThemedText
+          style={tailwind('text-sm mr-0.5')}
+        >
+          {translate('components/CollateralizationRatioDisplay', 'Collateralization ratio')}
+        </ThemedText>
+        <BottomSheetInfo alertInfo={alertInfo} name={alertInfo.title} />
+      </View>
       {props.colRatio === '-1'
         ? (
           <ThemedText
