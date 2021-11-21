@@ -121,7 +121,7 @@ function CollateralizationRatioSection (props: CollateralizationRatioSectionProp
           />
         )}
       <NumberRow
-        lhs={translate('components/VaultDetailDetailsTab', 'Total collaterals (USD)')}
+        lhs={translate('components/VaultDetailDetailsTab', 'Total collateral (USD)')}
         rhs={{
           value: props.totalCollateralsValue.toFixed(2),
           testID: 'text_collateral_value',

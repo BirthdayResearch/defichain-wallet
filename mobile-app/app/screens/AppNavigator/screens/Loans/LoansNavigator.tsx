@@ -24,6 +24,7 @@ import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { LoansFaq } from '@screens/WalletNavigator/screens/CreateWallet/LoansFaq'
 import { TabKey } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailTabSection'
 import { PaybackLoanScreen } from '@screens/AppNavigator/screens/Loans/screens/PaybackLoanScreen'
+import { ConfirmPaybackLoanScreen } from '@screens/AppNavigator/screens/Loans/screens/ConfirmPaybackLoanScreen'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -74,8 +75,10 @@ export interface LoanParamList {
     vault: LoanVaultActive
   }
   ConfirmPaybackLoanScreen: {
-    loanToken: LoanToken
+    fee: BigNumber
+    amountToPay: BigNumber
     vault: LoanVaultActive
+    loanToken: LoanVaultTokenAmount
   }
   [key: string]: undefined | object
 }
@@ -248,6 +251,18 @@ export function LoansNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/LoansScreen', 'Payback Loan')}
+            />
+          )
+        }}
+      />
+      <LoansStack.Screen
+        component={ConfirmPaybackLoanScreen}
+        name='ConfirmPaybackLoanScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ConfirmPaybackLoanScreen', 'Confirm Loan Payment')}
             />
           )
         }}

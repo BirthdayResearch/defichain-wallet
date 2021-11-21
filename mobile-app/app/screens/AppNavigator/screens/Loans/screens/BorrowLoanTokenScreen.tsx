@@ -266,7 +266,7 @@ export function BorrowLoanTokenScreen ({
               </View>
             )}
             <Button
-              disabled={!valid}
+              disabled={!valid || hasPendingJob || hasPendingBroadcastJob}
               label={translate('screens/BorrowLoanTokenScreen', 'CONTINUE')}
               onPress={onSubmit}
               testID='add_collateral_button'
@@ -547,7 +547,7 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
           />
         )}
       <NumberRow
-        lhs={translate('screens/BorrowLoanTokenScreen', 'Min. collateralization')}
+        lhs={translate('screens/BorrowLoanTokenScreen', 'Min. collateral ratio')}
         rhs={{
           value: props.vault.loanScheme.minColRatio,
           testID: 'text_col_ratio',

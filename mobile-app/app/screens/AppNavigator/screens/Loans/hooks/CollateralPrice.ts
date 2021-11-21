@@ -21,3 +21,9 @@ export function useCollateralPrice (amount: BigNumber, collateralItem: Collatera
     collateralFactor
   }
 }
+
+export function useResultingCollateralRatio (collateralValue: BigNumber, loanValue: BigNumber, totalLoanWithInterest: BigNumber, activePrice: BigNumber): BigNumber {
+  return new BigNumber(collateralValue).dividedBy(
+    new BigNumber(loanValue).plus(totalLoanWithInterest.multipliedBy(
+      activePrice))).multipliedBy(100)
+}

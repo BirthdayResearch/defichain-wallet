@@ -152,7 +152,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
             testID={`${props.testID}_total_loan`}
             prefix='$'
             value={new BigNumber(vault.loanValue).toFixed(2)}
-            lhs={translate('components/VaultCard', 'Total loan (USD)')}
+            lhs={translate('components/VaultCard', 'Total loans (USD)')}
           />
           <VaultSectionTextRow
             testID={`${props.testID}_total_collateral`}
@@ -184,10 +184,7 @@ function VaultActionButton ({
       {
         new BigNumber(vault.collateralValue).gt(0) && (
           <IconButton
-            iconType='MaterialIcons'
-            iconName='credit-card'
             iconLabel={translate('components/VaultCard', 'MANAGE LOANS')}
-            iconSize={16}
             style={tailwind('mr-2 mb-2 items-center')}
             onPress={() => {
               navigation.navigate('VaultDetailScreen', {
@@ -199,10 +196,7 @@ function VaultActionButton ({
         )
       }
       <IconButton
-        iconType='MaterialIcons'
-        iconName='edit'
         iconLabel={translate('components/VaultCard', 'EDIT COLLATERALS')}
-        iconSize={16}
         style={tailwind('mr-2 mb-2 items-center')}
         onPress={() => {
           navigation.navigate({

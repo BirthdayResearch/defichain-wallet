@@ -24,10 +24,14 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { ConversionParam } from '../../Balances/BalancesNavigator'
 import { ConversionTag } from '@components/ConversionTag'
+import { useResultingCollateralRatio } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmBorrowLoanTokenScreen'>
 
-export function ConfirmBorrowLoanTokenScreen ({ route, navigation }: Props): JSX.Element {
+export function ConfirmBorrowLoanTokenScreen ({
+  route,
+  navigation
+}: Props): JSX.Element {
   const {
     loanToken,
     vault,
@@ -45,9 +49,8 @@ export function ConfirmBorrowLoanTokenScreen ({ route, navigation }: Props): JSX
   const { address } = useWalletContext()
   const client = useWhaleApiClient()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
-  const resultCollateralRatio = new BigNumber(vault.collateralValue).dividedBy(
-    new BigNumber(vault.loanValue).plus(totalLoanWithInterest.multipliedBy(
-      loanToken.activePrice?.active?.amount ?? 0))).multipliedBy(100)
+  const resultCollateralRatio = useResultingCollateralRatio(new BigNumber(vault.collateralValue), new BigNumber(vault.loanValue),
+    new BigNumber(totalLoanWithInterest), new BigNumber(loanToken.activePrice?.active?.amount ?? 0))
 
   function onCancel (): void {
     navigation.navigate({
@@ -130,7 +133,7 @@ export function ConfirmBorrowLoanTokenScreen ({ route, navigation }: Props): JSX
   )
 }
 
-function SummaryHeader (props: {amount: BigNumber, displaySymbol: string, conversion?: ConversionParam}): JSX.Element {
+function SummaryHeader (props: { amount: BigNumber, displaySymbol: string, conversion?: ConversionParam }): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
@@ -229,7 +232,7 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
   )
 }
 
-function SummaryVaultDetails (props: {vaultId: string, collateralAmount: BigNumber, collateralRatio: BigNumber}): JSX.Element {
+function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNumber, collateralRatio: BigNumber }): JSX.Element {
   return (
     <>
       <ThemedSectionTitle
@@ -261,22 +264,22 @@ function SummaryVaultDetails (props: {vaultId: string, collateralAmount: BigNumb
             textStyle={tailwind('text-sm font-normal')}
           />
         )
-      : (
-        <NumberRow
-          lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Collateralization ratio')}
-          rhs={{
-            value: props.collateralRatio.toFixed(2),
-            testID: 'text_current_collateral_ratio',
-            suffixType: 'text',
-            suffix: '%'
-          }}
-        />
-      )}
+        : (
+          <NumberRow
+            lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Collateralization ratio')}
+            rhs={{
+              value: props.collateralRatio.toFixed(2),
+              testID: 'text_current_collateral_ratio',
+              suffixType: 'text',
+              suffix: '%'
+            }}
+          />
+        )}
     </>
   )
 }
 
-function SummaryTransactionResults (props: {resultCollateralRatio: BigNumber}): JSX.Element {
+function SummaryTransactionResults (props: { resultCollateralRatio: BigNumber }): JSX.Element {
   return (
     <>
       <ThemedSectionTitle
@@ -300,6 +303,7 @@ interface BorrowForm {
   amountToBorrow: BigNumber
   loanToken: LoanToken
 }
+
 async function borrowLoanToken ({
   vaultId,
   amountToBorrow,

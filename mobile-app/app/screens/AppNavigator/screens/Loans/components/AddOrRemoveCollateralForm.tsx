@@ -91,9 +91,8 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
     >
       <View style={tailwind('flex flex-row items-center mb-2')}>
         <ThemedText style={tailwind('flex-1 mb-2 text-lg font-medium')}>
-          {translate('components/AddOrRemoveCollateralForm', 'How much {{symbol}} to {{operation}}?', {
-            symbol: token.displaySymbol,
-            operation: isAdd ? 'add' : 'remove'
+          {translate('components/AddOrRemoveCollateralForm', `How much {{symbol}} to ${isAdd ? 'add' : 'remove'}?`, {
+            symbol: token.displaySymbol
           })}
         </ThemedText>
         {onCloseButtonPress !== undefined && (

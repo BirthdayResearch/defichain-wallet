@@ -9,7 +9,7 @@ import { translate } from '@translations'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useEffect } from 'react'
-import { fetchVaults } from '@store/loans'
+import { fetchCollateralTokens, fetchVaults } from '@store/loans'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 
@@ -23,6 +23,10 @@ export function Vaults (): JSX.Element {
   useEffect(() => {
     dispatch(fetchVaults({ address, client }))
   }, [blockCount])
+
+  useEffect(() => {
+    dispatch(fetchCollateralTokens({ client }))
+  }, [])
   const { isBetaFeature } = useFeatureFlagContext()
 
   return (
