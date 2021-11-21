@@ -34,7 +34,7 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
       <View style={tailwind('w-5/12')}>
         <View style={tailwind('flex-row items-center justify-start')}>
           <ThemedText style={tailwind('text-sm mr-1')} testID={`${props.testID}_label`}>
-            {translate('components/FeeInfoRow', props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title)}
+            {translate('components/BottomSheetInfo', props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title)}
           </ThemedText>
           <BottomSheetInfo alertInfo={props.type === 'ESTIMATED_FEE' ? estimatedFee : vaultFee} name={props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title} />
         </View>

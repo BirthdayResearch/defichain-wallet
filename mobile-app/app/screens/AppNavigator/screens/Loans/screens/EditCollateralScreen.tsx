@@ -351,32 +351,32 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
       <VaultSectionTextRow
         testID='text_total_collateral_value'
         value={new BigNumber(vault.collateralValue ?? 0).toFixed(2)} prefix='$'
-        lhs={translate('components/EditCollateralScreen', 'Total collateral (USD)')}
+        lhs={translate('screens/EditCollateralScreen', 'Total collateral (USD)')}
       />
       <VaultSectionTextRow
         testID='text_total_collateral_value' value={new BigNumber(vault.loanValue ?? 0).toFixed(2)}
         prefix='$'
-        lhs={translate('components/EditCollateralScreen', 'Total loan (USD)')}
+        lhs={translate('screens/EditCollateralScreen', 'Total loans (USD)')}
       />
       <VaultSectionTextRow
         testID='text_total_collateral_value'
         value={BigNumber.maximum(new BigNumber(vault.collateralRatio ?? 0), 0).toFixed(2)}
         suffix='%'
         suffixType='text'
-        lhs={translate('components/EditCollateralScreen', 'Collateralization ratio')}
+        lhs={translate('screens/EditCollateralScreen', 'Collateralization ratio')}
         rhsThemedProps={colors}
       />
       <VaultSectionTextRow
         testID='text_total_collateral_value'
         value={new BigNumber(vault.loanScheme.minColRatio ?? 0).toFixed(2)} suffix='%'
         suffixType='text'
-        lhs={translate('components/EditCollateralScreen', 'Min. collateralization ratio')}
+        lhs={translate('screens/EditCollateralScreen', 'Min. collateralization ratio')}
       />
       <VaultSectionTextRow
         testID='text_vault_interest_value'
         value={new BigNumber(vault.loanScheme.interestRate ?? 0).toFixed(2)} suffix='%'
         suffixType='text'
-        lhs={translate('components/EditCollateralScreen', 'Vault interest')}
+        lhs={translate('screens/EditCollateralScreen', 'Vault interest')}
       />
     </ThemedView>
   )
@@ -545,7 +545,7 @@ function AddCollateralButton (props: { disabled: boolean, onPress: () => void })
   return (
     <TouchableOpacity
       disabled={props.disabled}
-      style={tailwind('my-6 flex flex-row justify-center')}
+      style={tailwind('mt-6 mb-3 flex flex-row justify-center')}
       onPress={props.onPress}
     >
       <ThemedIcon

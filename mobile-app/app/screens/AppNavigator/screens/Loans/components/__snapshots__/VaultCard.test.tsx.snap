@@ -767,7 +767,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
             }
             testID="vault_total_loan_label"
           >
-            Total loan (USD)
+            Total loans (USD)
           </Text>
         </View>
         <View
@@ -980,31 +980,6 @@ exports[`Vault card should match snapshot of active vault 1`] = `
         }
       }
     >
-      <Text
-        allowFontScaling={false}
-        style={
-          Array [
-            Object {
-              "color": undefined,
-              "fontSize": 16,
-            },
-            Array [
-              undefined,
-              Object {
-                "color": "rgba(255, 0, 175, 1)",
-              },
-            ],
-            Object {
-              "fontFamily": "material",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            Object {},
-          ]
-        }
-      >
-        
-      </Text>
       <Text
         style={
           Array [
@@ -1804,7 +1779,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
             }
             testID="vault_total_loan_label"
           >
-            Total loan (USD)
+            Total loans (USD)
           </Text>
         </View>
         <View
@@ -2017,31 +1992,6 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
         }
       }
     >
-      <Text
-        allowFontScaling={false}
-        style={
-          Array [
-            Object {
-              "color": undefined,
-              "fontSize": 16,
-            },
-            Array [
-              undefined,
-              Object {
-                "color": "rgba(255, 0, 175, 1)",
-              },
-            ],
-            Object {
-              "fontFamily": "material",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            Object {},
-          ]
-        }
-      >
-        
-      </Text>
       <Text
         style={
           Array [
@@ -2841,7 +2791,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
             }
             testID="vault_total_loan_label"
           >
-            Total loan (USD)
+            Total loans (USD)
           </Text>
         </View>
         <View
@@ -3054,31 +3004,6 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
         }
       }
     >
-      <Text
-        allowFontScaling={false}
-        style={
-          Array [
-            Object {
-              "color": undefined,
-              "fontSize": 16,
-            },
-            Array [
-              undefined,
-              Object {
-                "color": "rgba(255, 0, 175, 1)",
-              },
-            ],
-            Object {
-              "fontFamily": "material",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            Object {},
-          ]
-        }
-      >
-        
-      </Text>
       <Text
         style={
           Array [
@@ -3444,7 +3369,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
             }
             testID="vault_total_loan_label"
           >
-            Total loan (USD)
+            Total loans (USD)
           </Text>
         </View>
         <View
