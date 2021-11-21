@@ -7,6 +7,11 @@ jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn()
 }))
+jest.mock('@shared-contexts/DeFiScanContext')
+jest.mock('@gorhom/bottom-sheet', () => ({
+  useBottomSheetModal: jest.fn().mockReturnValue({ dismiss: jest.fn() }),
+  BottomSheetModal: () => <></>
+}))
 
 describe('Vault card', () => {
   it('should match snapshot of liquidated vault', async () => {
@@ -24,9 +29,10 @@ describe('Vault card', () => {
         batchCount: 0,
         liquidationHeight: 0,
         liquidationPenalty: 0
-      }
+      },
+      testID: 'vault'
     }
-    const rendered = render(<VaultCard vault={lockedVault.vault} />)
+    const rendered = render(<VaultCard vault={lockedVault.vault} testID={lockedVault.testID} />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 
@@ -49,9 +55,10 @@ describe('Vault card', () => {
         informativeRatio: '0',
         interestAmounts: [],
         interestValue: '1'
-      }
+      },
+      testID: 'vault'
     }
-    const rendered = render(<VaultCard {...atRiskVault} />)
+    const rendered = render(<VaultCard {...atRiskVault} testID={atRiskVault.testID} />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 
@@ -74,9 +81,10 @@ describe('Vault card', () => {
         informativeRatio: '0',
         interestAmounts: [],
         interestValue: '1'
-      }
+      },
+      testID: 'vault'
     }
-    const rendered = render(<VaultCard vault={safeVault.vault} />)
+    const rendered = render(<VaultCard vault={safeVault.vault} testID={safeVault.testID} />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 
@@ -99,9 +107,10 @@ describe('Vault card', () => {
         informativeRatio: '0',
         interestAmounts: [],
         interestValue: '1'
-      }
+      },
+      testID: 'vault'
     }
-    const rendered = render(<VaultCard vault={newVault.vault} />)
+    const rendered = render(<VaultCard vault={newVault.vault} testID={newVault.testID} />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })

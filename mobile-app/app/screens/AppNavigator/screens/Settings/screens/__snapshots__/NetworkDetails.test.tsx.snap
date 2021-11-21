@@ -528,7 +528,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       <View
         style={
           Object {
-            "width": "41.666667%",
+            "width": "50%",
           }
         }
       >
@@ -600,6 +600,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
                     "fontWeight": "500",
                     "lineHeight": 24,
                   },
+                  undefined,
                 ],
                 Object {
                   "color": "rgba(115, 115, 115, 1)",

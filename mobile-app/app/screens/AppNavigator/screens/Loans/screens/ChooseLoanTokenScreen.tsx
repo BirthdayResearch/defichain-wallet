@@ -1,4 +1,4 @@
-import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedView } from '@components/themed'
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { LoanCards } from '../components/LoanCards'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -17,7 +17,8 @@ import { fetchLoanTokens } from '@store/loans'
 
 type Props = StackScreenProps<LoanParamList, 'ChooseLoanTokenScreen'>
 
-export function ChooseLoanTokenScreen ({ navigation }: Props): JSX.Element {
+export function ChooseLoanTokenScreen ({ navigation, route }: Props): JSX.Element {
+  const { vaultId } = route.params
   const loans = useSelector((state: RootState) => state.loans.loanTokens)
   const blockCount = useSelector((state: RootState) => state.block.count)
   const dispatch = useDispatch()
@@ -74,6 +75,7 @@ export function ChooseLoanTokenScreen ({ navigation }: Props): JSX.Element {
       <LoanCards
         testID='loans_cards'
         loans={filteredLoans}
+        vaultId={vaultId}
       />
     </ThemedView>
   )
@@ -124,15 +126,15 @@ function HeaderSearchInput (props: HeaderSearchInputProps): JSX.Element {
         onClearInput={props.onClearInput}
         onChangeText={props.onChangeInput}
       />
-      <View style={tailwind('w-16 flex justify-center ml-2')}>
+      <View style={tailwind('flex justify-center ml-2')}>
         <TouchableOpacity onPress={props.onCancelPress}>
-          <ThemedText
+          <ThemedIcon
             light={tailwind('text-primary-500')}
             dark={tailwind('text-darkprimary-500')}
-            style={tailwind('font-medium')}
-          >
-            {translate('screens/ChooseLoanTokenScreen', 'CANCEL')}
-          </ThemedText>
+            iconType='MaterialCommunityIcons'
+            name='close'
+            size={24}
+          />
         </TouchableOpacity>
       </View>
     </ThemedView>

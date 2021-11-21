@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { View } from 'react-native'
+import { Platform, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Control, Controller, useForm } from 'react-hook-form'
 import BigNumber from 'bignumber.js'
@@ -25,7 +25,7 @@ import {
   ThemedTouchableOpacity, ThemedView
 } from '@components/themed'
 import { getNativeIcon } from '@components/icons/assets'
-import { BottomSheetNavScreen, BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetToken, BottomSheetTokenList } from '@components/BottomSheetTokenList'
 import { Button } from '@components/Button'
 import { ConversionInfoText } from '@components/ConversionInfoText'
@@ -70,13 +70,23 @@ export function CompositeSwapScreen (): JSX.Element {
   const [allowedSwapFromTokens, setAllowedSwapFromTokens] = useState<BottomSheetToken[]>()
   const [allowedSwapToTokens, setAllowedSwapToTokens] = useState<BottomSheetToken[]>()
   const [allTokens, setAllTokens] = useState<TokenProps[]>()
-
+  const [isModalDisplayed, setIsModalDisplayed] = useState(false)
+  const containerRef = useRef(null)
   const bottomSheetRef = useRef<BottomSheetModal>(null)
+
   const expandModal = useCallback(() => {
-    bottomSheetRef.current?.present()
+    if (Platform.OS === 'web') {
+      setIsModalDisplayed(true)
+    } else {
+      bottomSheetRef.current?.present()
+    }
   }, [])
   const dismissModal = useCallback(() => {
-    bottomSheetRef.current?.close()
+    if (Platform.OS === 'web') {
+      setIsModalDisplayed(false)
+    } else {
+      bottomSheetRef.current?.close()
+    }
   }, [])
 
   // component UI state
@@ -111,7 +121,7 @@ export function CompositeSwapScreen (): JSX.Element {
         component: BottomSheetTokenList({
           tokens: direction === 'FROM' ? allowedSwapFromTokens ?? [] : allowedSwapToTokens ?? [],
           headerLabel: translate('screens/CompositeSwapScreen', 'Choose token for swap'),
-          onCloseButtonPress: () => bottomSheetRef.current?.close(),
+          onCloseButtonPress: () => dismissModal(),
           onTokenPress: (item): void => {
             const tokenId = item.tokenId === '0_unified' ? '0' : item.tokenId
             const selectedToken = allTokens?.find(token => token.id === tokenId)
@@ -167,7 +177,6 @@ export function CompositeSwapScreen (): JSX.Element {
   }, [pairs])
 
   useEffect(() => {
-    // setOwnedNonLPTokens(tokens.filter(token => token.isLPS === false && !token.id.includes('utxo') && !token.id.includes('unified')))
     const swappableFromTokens = tokens.reduce((swappedTokens: BottomSheetToken[], token): BottomSheetToken[] => {
       if (!token.isLPS && token.id !== '0' && token.id !== '0_utxo' && new BigNumber(token.amount).isGreaterThan(0)) {
         const derivedBottomSheetToken: BottomSheetToken = {
@@ -268,106 +277,118 @@ export function CompositeSwapScreen (): JSX.Element {
   }
 
   return (
-    <ThemedScrollView>
-      <ThemedText
-        dark={tailwind('text-gray-50')}
-        light={tailwind('text-gray-900')}
-        style={tailwind('text-xl font-semibold m-4 mb-0')}
-      >
-        {translate('screens/CompositeSwapScreen', 'Swap tokens')}
-      </ThemedText>
-
-      <View style={tailwind('flex flex-row mt-3 mx-2')}>
-        <TokenSelection label='FROM' symbol={selectedTokenA?.displaySymbol} onPress={() => onTokenSelect({ direction: 'FROM' })} />
-        <TokenSelection label='TO' symbol={selectedTokenB?.displaySymbol} onPress={() => onTokenSelect({ direction: 'TO' })} />
-      </View>
-
-      {(selectedTokenA === undefined || selectedTokenB === undefined) &&
+    <View ref={containerRef}>
+      <ThemedScrollView>
         <ThemedText
-          dark={tailwind('text-gray-400')}
-          light={tailwind('text-gray-500')}
-          style={tailwind('mt-10 text-center')}
-        > {translate('screens/CompositeSwapScreen', 'Select tokens you want to swap to get started')}
-        </ThemedText>}
+          dark={tailwind('text-gray-50')}
+          light={tailwind('text-gray-900')}
+          style={tailwind('text-xl font-semibold m-4 mb-0')}
+        >
+          {translate('screens/CompositeSwapScreen', 'Swap tokens')}
+        </ThemedText>
 
-      {selectedTokenA !== undefined && selectedTokenB !== undefined &&
-        <View style={tailwind('mt-10 mx-4')}>
-          <TokenRow
-            control={control}
-            controlName='tokenA'
-            isDisabled={false}
-            title={translate('screens/CompositeSwapScreen', 'How much {{token}} do you want to swap?', { token: selectedTokenA.displaySymbol })}
-            maxAmount={getMaxAmount(selectedTokenA)}
-            enableMaxButton
-            onChangeFromAmount={async (amount) => {
-              amount = isNaN(+amount) ? '0' : amount
-              setValue('tokenA', amount)
-              await trigger('tokenA')
-            }}
-            token={selectedTokenA}
-          />
-          <InputHelperText
-            testID='text_balance_amount'
-            label={`${translate('screens/CompositeSwapScreen', 'You have')} `}
-            content={getMaxAmount(selectedTokenA)}
-            suffix={` ${selectedTokenA.displaySymbol}`}
-          />
-          <View style={tailwind(['mt-4', { 'mb-4': isConversionRequired }])}>
+        <View style={tailwind(['flex flex-row mt-3 mx-2', { hidden: allowedSwapFromTokens?.length === 0 }])}>
+          <TokenSelection label='FROM' symbol={selectedTokenA?.displaySymbol} onPress={() => onTokenSelect({ direction: 'FROM' })} />
+          <TokenSelection label='TO' symbol={selectedTokenB?.displaySymbol} onPress={() => onTokenSelect({ direction: 'TO' })} />
+        </View>
+
+        {(selectedTokenA === undefined || selectedTokenB === undefined) &&
+          <ThemedText
+            dark={tailwind('text-gray-400')}
+            light={tailwind('text-gray-500')}
+            style={tailwind('mt-10 text-center')}
+            testID='swap_instructions'
+          > {translate('screens/CompositeSwapScreen', allowedSwapFromTokens?.length === 0 ? "You don't have any tokens to swap" : 'Select tokens you want to swap to get started')}
+          </ThemedText>}
+
+        {selectedTokenA !== undefined && selectedTokenB !== undefined &&
+          <View style={tailwind('mt-10 mx-4')}>
             <TokenRow
               control={control}
-              controlName='tokenB'
-              isDisabled
-              title={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
-              token={selectedTokenB}
-              enableMaxButton={false}
+              controlName='tokenA'
+              isDisabled={false}
+              title={translate('screens/CompositeSwapScreen', 'How much {{token}} do you want to swap?', { token: selectedTokenA.displaySymbol })}
+              maxAmount={getMaxAmount(selectedTokenA)}
+              enableMaxButton
+              onChangeFromAmount={async (amount) => {
+                amount = isNaN(+amount) ? '0' : amount
+                setValue('tokenA', amount)
+                await trigger('tokenA')
+              }}
+              token={selectedTokenA}
             />
-          </View>
-          {isConversionRequired && <ConversionInfoText />}
-          <SlippageTolerance setSlippage={(amount) => setSlippage(amount)} slippage={slippage} />
-        </View>}
+            <InputHelperText
+              testID='text_balance_amount'
+              label={`${translate('screens/CompositeSwapScreen', 'You have')} `}
+              content={getMaxAmount(selectedTokenA)}
+              suffix={` ${selectedTokenA.displaySymbol}`}
+            />
+            <View style={tailwind(['mt-4', { 'mb-4': isConversionRequired }])}>
+              <TokenRow
+                control={control}
+                controlName='tokenB'
+                isDisabled
+                title={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
+                token={selectedTokenB}
+                enableMaxButton={false}
+              />
+            </View>
+            {isConversionRequired && <ConversionInfoText />}
+            <SlippageTolerance setSlippage={(amount) => setSlippage(amount)} slippage={slippage} />
+          </View>}
 
-      {(selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenAFormAmount !== undefined && tokenBFormAmount !== undefined) &&
-        <>
-          <PricesSection priceRates={priceRates} sectionTitle='PRICES' />
-          <TransactionDetailsSection
-            conversionAmount={conversionAmount}
-            estimatedAmount={tokenBFormAmount}
-            fee={fee}
-            isConversionRequired={isConversionRequired}
-            slippage={slippage}
-            tokenA={selectedTokenA}
-            tokenB={selectedTokenB}
+        {(selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenAFormAmount !== undefined && tokenBFormAmount !== undefined) &&
+          <>
+            <PricesSection priceRates={priceRates} sectionTitle='PRICES' />
+            <TransactionDetailsSection
+              conversionAmount={conversionAmount}
+              estimatedAmount={tokenBFormAmount}
+              fee={fee}
+              isConversionRequired={isConversionRequired}
+              slippage={slippage}
+              tokenA={selectedTokenA}
+              tokenB={selectedTokenB}
+            />
+          </>}
+
+        {selectedTokenA !== undefined && selectedTokenB !== undefined && (
+          <Button
+            disabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob}
+            label={translate('screens/CompositeSwapScreen', 'CONTINUE')}
+            onPress={onSubmit}
+            testID='button_submit'
+            title='CONTINUE'
+            margin='mx-4 mb-2 mt-8'
+          />)}
+
+        {formState.isValid && selectedTokenA !== undefined && selectedTokenB !== undefined &&
+          <ThemedText
+            testID='transaction_details_hint_text'
+            light={tailwind('text-gray-600')}
+            dark={tailwind('text-gray-300')}
+            style={tailwind('pb-8 px-4 text-sm text-center')}
+          >
+            {isConversionRequired
+              ? translate('screens/CompositeSwapScreen', 'Authorize transaction in the next screen to convert')
+              : translate('screens/CompositeSwapScreen', 'Review and confirm transaction in the next screen')}
+          </ThemedText>}
+
+        {Platform.OS === 'web' && (
+          <BottomSheetWebWithNav
+            modalRef={containerRef}
+            screenList={bottomSheetScreen}
+            isModalDisplayed={isModalDisplayed}
           />
-        </>}
+        )}
 
-      {selectedTokenA !== undefined && selectedTokenB !== undefined && (
-        <Button
-          disabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob}
-          label={translate('screens/CompositeSwapScreen', 'CONTINUE')}
-          onPress={onSubmit}
-          testID='button_submit'
-          title='CONTINUE'
-          margin='mx-4 mb-2 mt-8'
-        />)}
-
-      {formState.isValid && selectedTokenA !== undefined && selectedTokenB !== undefined &&
-        <ThemedText
-          testID='transaction_details_hint_text'
-          light={tailwind('text-gray-600')}
-          dark={tailwind('text-gray-300')}
-          style={tailwind('pb-8 px-4 text-sm text-center')}
-        >
-          {isConversionRequired
-            ? translate('screens/CompositeSwapScreen', 'Authorize transaction in the next screen to convert')
-            : translate('screens/CompositeSwapScreen', 'Review and confirm transaction in the next screen')}
-        </ThemedText>}
-
-      <BottomSheetWithNav
-        modalRef={bottomSheetRef}
-        screenList={bottomSheetScreen}
-      />
-
-    </ThemedScrollView>
+        {Platform.OS !== 'web' && (
+          <BottomSheetWithNav
+            modalRef={bottomSheetRef}
+            screenList={bottomSheetScreen}
+          />
+        )}
+      </ThemedScrollView>
+    </View>
 )
 }
 

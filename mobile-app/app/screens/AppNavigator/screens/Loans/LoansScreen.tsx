@@ -50,7 +50,7 @@ export function LoansScreen (): JSX.Element {
 
   const tabsList = [{
     id: TabKey.BrowseLoans,
-    label: 'Browse loans',
+    label: 'Browse loan tokens',
     disabled: false,
     handleOnPress: onPress
   }, {

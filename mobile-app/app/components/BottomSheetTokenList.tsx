@@ -4,12 +4,12 @@ import { Platform, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { SymbolIcon } from './SymbolIcon'
-import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from './themed'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from './themed'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BottomSheetWithNavRouteParam } from './BottomSheetWithNav'
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { AddOrEditCollateralResponse } from '@screens/AppNavigator/screens/Loans/components/AddOrEditCollateralForm'
+import { AddOrRemoveCollateralResponse } from '@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm'
 import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen'
 
 interface BottomSheetTokenListProps {
@@ -18,7 +18,7 @@ interface BottomSheetTokenListProps {
   onTokenPress?: (token: BottomSheetToken) => void
   navigateToScreen?: {
     screenName: string
-    onButtonPress: (item: AddOrEditCollateralResponse) => void
+    onButtonPress: (item: AddOrRemoveCollateralResponse) => void
   }
   tokens: Array<CollateralItem | BottomSheetToken>
 }
@@ -42,9 +42,14 @@ export const BottomSheetTokenList = ({
 }: BottomSheetTokenListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const { isLight } = useThemeContext()
   const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
+  const flatListComponents = {
+    mobile: BottomSheetFlatList,
+    web: ThemedFlatList
+  }
+  const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
 
   return (
-    <BottomSheetFlatList
+    <FlatList
       data={tokens}
       renderItem={({ item }: { item: CollateralItem | BottomSheetToken }): JSX.Element => (
         <ThemedTouchableOpacity
@@ -60,7 +65,8 @@ export const BottomSheetTokenList = ({
                   token: item.token,
                   available: item.available.toFixed(8),
                   onButtonPress: navigateToScreen.onButtonPress,
-                  collateralFactor: new BigNumber(item.factor ?? 0).times(100)
+                  collateralFactor: new BigNumber(item.factor ?? 0).times(100),
+                  isAdd: true
                 },
                 merge: true
               })
