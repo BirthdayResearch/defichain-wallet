@@ -303,8 +303,8 @@ export function CompositeSwapScreen (): JSX.Element {
         </ThemedText>
 
         <View style={tailwind(['flex flex-row mt-3 mx-2', { hidden: allowedSwapFromTokens?.length === 0 }])}>
-          <TokenSelection label='FROM' symbol={selectedTokenA?.displaySymbol} onPress={() => onTokenSelect({ direction: 'FROM' })} />
-          <TokenSelection label='TO' symbol={selectedTokenB?.displaySymbol} onPress={() => onTokenSelect({ direction: 'TO' })} />
+          <TokenSelection label={translate('screens/CompositeSwapScreen', 'FROM')} symbol={selectedTokenA?.displaySymbol} onPress={() => onTokenSelect({ direction: 'FROM' })} />
+          <TokenSelection label={translate('screens/CompositeSwapScreen', 'TO')} symbol={selectedTokenB?.displaySymbol} onPress={() => onTokenSelect({ direction: 'TO' })} />
         </View>
 
         {(selectedTokenA === undefined || selectedTokenB === undefined) && allowedSwapFromTokens?.length !== 0 &&

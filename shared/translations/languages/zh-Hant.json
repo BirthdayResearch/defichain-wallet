@@ -533,7 +533,7 @@
     "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 量相當於 {{tokenA}} 量等值",
     "CONTINUE": "繼續",
     "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換",
-    "Review and confirm transaction in the next screen": "Review and confirm transaction in the next screen",
+    "Review and confirm transaction in the next screen": "請在下個屏幕審查並確認兌換",
     "Choose token for swap": "選擇要兌換的代幣",
     "Enter an amount": "請輸入數量",
     "{{token}} tokens converted": "{{token}} 代幣轉換",
@@ -541,7 +541,9 @@
     "Amount to be converted": "要轉換的金額",
     "Slippage Tolerance": "交易滑價",
     "TRANSACTION DETAILS": "交易明細",
-    "PRICE DETAILS": "價格詳情"
+    "PRICE DETAILS": "價格詳情",
+    "FROM": "從",
+    "TO": "到"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "正在轉換",
@@ -751,10 +753,10 @@
     "Browse for available loan tokens and start using this vault as collateral.": "瀏覽可選擇的貸款代幣並開始使用此金庫作為抵押.",
     "BROWSE LOAN TOKENS": "瀏覽貸款選項"
   },
-  "components/VaultDetailsLoansTab": { 
-    "Outstanding balance": "Outstanding balance",   
+  "components/VaultDetailsLoansTab": {
+    "Outstanding balance": "Outstanding balance",
     "Interest amount": "Interest amount",
-    "PAYBACK LOAN": "PAYBACK LOAN", 
+    "PAYBACK LOAN": "PAYBACK LOAN",
     "BORROW MORE": "注入更多借貸"
   },
   "components/BalanceControlCard": {

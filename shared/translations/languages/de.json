@@ -530,7 +530,7 @@
     "{{tokenB}} price in {{tokenA}}": "{{tokenB}}-Preis in {{tokenA}}",
     "CONTINUE": "FORTFAHREN",
     "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
-    "Review and confirm transaction in the next screen": "Review and confirm transaction in the next screen",
+    "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
     "Choose token for swap": "Token für den Tausch wählen",
     "Enter an amount": "Gib einen Betrag an",
     "{{token}} tokens converted": "Umgewandelte {{token}}-Token",
@@ -538,7 +538,9 @@
     "Amount to be converted": "Umzuwandelnder Betrag",
     "Slippage Tolerance": "Slippage Toleranz",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
-    "PRICE DETAILS": "PREISDETAILS"
+    "PRICE DETAILS": "PREISDETAILS",
+    "FROM": "VON",
+    "TO": "IN"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "WANDLE UM",
@@ -770,10 +772,10 @@
     "Browse for available loan tokens and start using this vault as collateral.": "Suche nach verfügbaren Hinterlegungs-Token und verwende diesen Vault als Sicherheit.",
     "BROWSE LOAN TOKENS": "DARLEHEN DURCHSUCHEN"
   },
-  "components/VaultDetailsLoansTab": { 
-    "Outstanding balance": "Outstanding balance",   
+  "components/VaultDetailsLoansTab": {
+    "Outstanding balance": "Outstanding balance",
     "Interest amount": "Interest amount",
-    "PAYBACK LOAN": "PAYBACK LOAN",    
+    "PAYBACK LOAN": "PAYBACK LOAN",
     "BORROW MORE": "MEHR AUSLEIHEN"
   },
   "components/BalanceControlCard": {
