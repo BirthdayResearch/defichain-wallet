@@ -177,7 +177,7 @@ function VaultInfoSection (props: { vault?: LoanVault }): JSX.Element | null {
           <>
             <VaultSectionTextRow
               value={props.vault.loanScheme.minColRatio}
-              lhs={translate('screens/VaultDetailScreen', 'Min. collateralization ratio')}
+              lhs={translate('screens/VaultDetailScreen', 'Min. collateral ratio')}
               testID='text_min_col_ratio'
               suffixType='text'
               suffix='%'

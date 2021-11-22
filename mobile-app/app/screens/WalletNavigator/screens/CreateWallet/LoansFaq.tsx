@@ -44,7 +44,7 @@ export function LoansFaq (): JSX.Element {
         text: translate('components/LoansFaq', 'Healthy: When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio'),
         type: 'bullet'
       }, {
-        text: translate('components/LoansFaq', 'Liquidated: When a vault’s collateralization ratio falls below the minimum requirement'),
+        text: translate('components/LoansFaq', 'Liquidated: When a vault\'s collateralization ratio falls below the minimum requirement'),
         type: 'bullet'
       }, {
         text: translate('components/LoansFaq', 'Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour'),
@@ -83,7 +83,7 @@ export function LoansFaq (): JSX.Element {
       <ThemedText
         style={tailwind('mt-2 text-sm')}
       >
-        {translate('components/LoansFaq', 'The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.')}
+        {translate('components/LoansFaq', 'The decentralized loan feature allows you to borrow decentralised tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.')}
       </ThemedText>
 
       <WalletAccordion
