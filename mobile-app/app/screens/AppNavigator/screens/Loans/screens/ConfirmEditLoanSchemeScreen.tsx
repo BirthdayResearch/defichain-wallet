@@ -1,4 +1,3 @@
-import { ConversionTag } from '@components/ConversionTag'
 import { NumberRow } from '@components/NumberRow'
 import { TextRow } from '@components/TextRow'
 import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
@@ -6,7 +5,6 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import React, { Dispatch, useEffect, useState } from 'react'
-import { ConversionParam } from '../../Balances/BalancesNavigator'
 import { LoanParamList } from '../LoansNavigator'
 import BigNumber from 'bignumber.js'
 import { FeeInfoRow } from '@components/FeeInfoRow'
@@ -27,8 +25,7 @@ export function ConfirmEditLoanSchemeScreen ({ route, navigation }: Props): JSX.
   const {
     vault,
     loanScheme,
-    fee,
-    conversion
+    fee
   } = route.params
 
   // Submit
@@ -80,14 +77,13 @@ export function ConfirmEditLoanSchemeScreen ({ route, navigation }: Props): JSX.
 
   return (
     <ThemedScrollView>
-      <SummaryHeader vaultId={vault.vaultId} conversion={conversion} />
+      <SummaryHeader vaultId={vault.vaultId} />
       <SummaryTransactionDetails
         minColRatio={vault.loanScheme.minColRatio}
         newMinColRatio={loanScheme.minColRatio}
         vaultInterest={vault.loanScheme.interestRate}
         newVaultInterest={loanScheme.interestRate}
         fee={fee}
-        conversion={conversion}
       />
       <SubmitButtonGroup
         isDisabled={hasPendingJob || hasPendingBroadcastJob || vault.loanScheme.id === loanScheme.id}
@@ -102,7 +98,7 @@ export function ConfirmEditLoanSchemeScreen ({ route, navigation }: Props): JSX.
   )
 }
 
-function SummaryHeader (props: { vaultId: string, conversion?: ConversionParam }): JSX.Element {
+function SummaryHeader (props: { vaultId: string }): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-b border-gray-300')}
@@ -121,8 +117,6 @@ function SummaryHeader (props: { vaultId: string, conversion?: ConversionParam }
       >
         {props.vaultId}
       </ThemedText>
-
-      {props.conversion?.isConversionRequired === true && <ConversionTag />}
     </ThemedView>
   )
 }
@@ -133,7 +127,6 @@ interface SummaryTransactionDetailsProps {
   newMinColRatio: string
   newVaultInterest: string
   fee: BigNumber
-  conversion?: ConversionParam
 }
 
 function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.Element {
@@ -145,7 +138,7 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
       <TextRow
         lhs={translate('screens/ConfirmEditLoanSchemeScreen', 'Transaction type')}
         rhs={{
-          value: props.conversion?.isConversionRequired === true ? translate('screens/ConfirmEditLoanSchemeScreen', 'Convert & edit loan scheme') : translate('screens/ConfirmEditLoanSchemeScreen', 'Edit loan scheme'),
+          value: translate('screens/ConfirmEditLoanSchemeScreen', 'Edit loan scheme'),
           testID: 'text_transaction_type'
         }}
         textStyle={tailwind('text-sm font-normal')}

@@ -9,18 +9,15 @@ import { View } from '@components'
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import { StackScreenProps } from '@react-navigation/stack'
 import { LoanParamList } from '../LoansNavigator'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { LoanSchemeOptions, WalletLoanScheme } from '../components/LoanSchemeOptions'
 import { ascColRatioLoanScheme } from '@store/loans'
 import { Button } from '@components/Button'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { queueConvertTransaction } from '@hooks/wallet/Conversion'
-import { ConversionInfoText } from '@components/ConversionInfoText'
 import { useVaultStatus, VaultStatusTag } from '../components/VaultStatusTag'
 
 type Props = StackScreenProps<LoanParamList, 'EditLoanSchemeScreen'>
@@ -32,15 +29,9 @@ export function EditLoanSchemeScreen ({ route, navigation }: Props): JSX.Element
   const [activeVault, setActiveVault] = useState<LoanVaultActive>()
   const [filteredLoanSchemes, setFilteredLoanSchemes] = useState<WalletLoanScheme[]>()
   const [selectedLoanScheme, setSelectedLoanScheme] = useState<LoanScheme>()
-  const dispatch = useDispatch()
   const logger = useLogger()
-
-  // Conversion
   const client = useWhaleApiClient()
-  const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
-  const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
-  const isConversionRequired = new BigNumber(fee).gt(DFIUtxo.amount)
 
   // Continue button
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -50,36 +41,14 @@ export function EditLoanSchemeScreen ({ route, navigation }: Props): JSX.Element
       return
     }
 
-    if (isConversionRequired) {
-      queueConvertTransaction({
-        mode: 'accountToUtxos',
-        amount: new BigNumber(fee).minus(DFIUtxo.amount)
-      }, dispatch, () => {
-        navigation.navigate({
-          name: 'ConfirmEditLoanSchemeScreen',
-          params: {
-            vault: activeVault,
-            loanScheme: selectedLoanScheme,
-            fee: fee,
-            conversion: {
-              DFIUtxo,
-              DFIToken,
-              isConversionRequired,
-              conversionAmount: new BigNumber(2).minus(DFIUtxo.amount)
-            }
-          }
-        })
-      }, logger)
-    } else {
-      navigation.navigate({
-        name: 'ConfirmEditLoanSchemeScreen',
-        params: {
-          vault: activeVault,
-          loanScheme: selectedLoanScheme,
-          fee: fee
-        }
-      })
-    }
+    navigation.navigate({
+      name: 'ConfirmEditLoanSchemeScreen',
+      params: {
+        vault: activeVault,
+        loanScheme: selectedLoanScheme,
+        fee: fee
+      }
+    })
   }
 
   useEffect(() => {
@@ -138,10 +107,6 @@ export function EditLoanSchemeScreen ({ route, navigation }: Props): JSX.Element
         selectedLoanScheme={selectedLoanScheme}
         onLoanSchemePress={(scheme: LoanScheme) => setSelectedLoanScheme(scheme)}
       />
-      {isConversionRequired &&
-        <View style={tailwind('mt-4')}>
-          <ConversionInfoText />
-        </View>}
       <Button
         disabled={selectedLoanScheme === undefined || selectedLoanScheme.id === activeVault.loanScheme.id || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/EditLoanSchemeScreen', 'CONTINUE')}

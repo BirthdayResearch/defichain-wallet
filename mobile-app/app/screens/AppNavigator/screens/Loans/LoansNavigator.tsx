@@ -89,7 +89,6 @@ export interface LoanParamList {
     vault: LoanVaultActive
     loanScheme: LoanScheme
     fee: BigNumber
-    conversion?: ConversionParam
   }
   [key: string]: undefined | object
 }
