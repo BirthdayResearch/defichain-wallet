@@ -11,7 +11,6 @@ import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { CompositeSwap, CTransactionSegWit } from '@defichain/jellyfish-transaction'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
@@ -57,21 +56,11 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isOnPage, setIsOnPage] = useState(true)
-  const [isConversionSuccess, setIsConversionSuccess] = useState(false)
 
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
 
   useEffect(() => {
-    if (conversion?.isConversionRequired === true) {
-      constructSignedConversionAndCompositeSwap({
-        mode: 'utxosToAccount',
-        amount: conversion.conversionAmount
-      }, dispatch, () => {
-        setIsConversionSuccess(true)
-      }, logger)
-    }
-
     setIsOnPage(true)
     return () => {
       setIsOnPage(false)
@@ -127,7 +116,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
           <ThemedIcon iconType='MaterialIcons' name='arrow-right-alt' size={24} style={tailwind('px-1')} />
           <TokenBIcon height={24} width={24} />
         </SummaryTitle>
-        {conversion?.isConversionRequired === true && !isConversionSuccess && <ConversionTag />}
+        {conversion?.isConversionRequired === true && <ConversionTag />}
       </ThemedView>
 
       <ThemedSectionTitle
@@ -184,9 +173,9 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
       {conversion?.isConversionRequired === true && (
         <View style={tailwind('px-4 pt-2 pb-1 mt-2')}>
           <InfoText
-            type={isConversionSuccess ? 'success' : 'warning'}
+            type='warning'
             testID='conversion_warning_info_text'
-            text={translate('components/ConversionInfoText', isConversionSuccess ? 'DFI tokens converted' : 'Please wait as we convert tokens for your transaction. Conversions are irreversible.')}
+            text={translate('components/ConversionInfoText', 'Please wait as we convert tokens for your transaction. Conversions are irreversible.')}
           />
         </View>
       )}
@@ -243,17 +232,6 @@ async function constructSignedSwapAndSend (
       }),
       onBroadcast
     }))
-  } catch (e) {
-    logger.error(e)
-  }
-}
-
-async function constructSignedConversionAndCompositeSwap ({
-  mode,
-  amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): void {
-  try {
-    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
   } catch (e) {
     logger.error(e)
   }

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Platform, View } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Control, Controller, useForm } from 'react-hook-form'
 import BigNumber from 'bignumber.js'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
@@ -12,7 +12,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
 import { DexItem, DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
 import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
-import { useConversion } from '@hooks/wallet/Conversion'
+import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
@@ -54,6 +54,7 @@ export function CompositeSwapScreen (): JSX.Element {
   const tokens = useTokensAPI()
   const client = useWhaleApiClient()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
+  const dispatch = useDispatch()
 
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -245,10 +246,7 @@ export function CompositeSwapScreen (): JSX.Element {
     }
   }, [selectedPoolPairs, tokenAFormAmount])
 
-  const onSubmit = async (): Promise<void> => {
-    if (hasPendingJob || hasPendingBroadcastJob) {
-      return
-    }
+  const navigateToConfirmScreen = (): void => {
     if (selectedPoolPairs === undefined || selectedTokenA === undefined || selectedTokenB === undefined || priceRates === undefined || tokenAFormAmount === undefined || tokenBFormAmount === undefined) {
       return
     }
@@ -275,6 +273,20 @@ export function CompositeSwapScreen (): JSX.Element {
         }
       })
     })
+  }
+
+  const onSubmit = async (): Promise<void> => {
+    if (hasPendingJob || hasPendingBroadcastJob) {
+      return
+    }
+    if (isConversionRequired) {
+      queueConvertTransaction({
+        mode: 'utxosToAccount',
+        amount: conversionAmount
+      }, dispatch, () => {
+        navigateToConfirmScreen()
+      }, logger)
+    }
   }
 
   return (
