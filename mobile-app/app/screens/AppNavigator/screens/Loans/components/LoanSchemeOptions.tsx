@@ -56,7 +56,7 @@ export function LoanSchemeOptions (props: { loanSchemes: WalletLoanScheme[], sel
 
           </ThemedView>
           <LoanSchemeOptionData
-            label='Min. collateral ratio'
+            label='Min. collateralization'
             value={scheme.minColRatio}
             testId={`min_col_ratio_value_${index}`}
             suffix='%'
@@ -66,7 +66,7 @@ export function LoanSchemeOptions (props: { loanSchemes: WalletLoanScheme[], sel
             label='Interest rate'
             value={scheme.interestRate}
             testId={`interest_rate_value_${index}`}
-            suffix={`% ${translate('screens/CreateVaultScreen', 'APR')}`}
+            suffix={`% ${translate('components/LoanSchemeOptions', 'APR')}`}
             disabled={scheme.disabled}
           />
         </ThemedTouchableOpacity>
@@ -83,7 +83,7 @@ function LoanSchemeOptionData (props: { label: string, value: string, testId: st
         dark={tailwind('text-gray-500', { 'text-gray-600': props.disabled === true })}
         style={tailwind('text-xs')}
       >
-        {translate('screens/CreateVaultScreen', props.label)}
+        {translate('components/LoanSchemeOptions', props.label)}
       </ThemedText>
       <NumberFormat
         displayType='text'

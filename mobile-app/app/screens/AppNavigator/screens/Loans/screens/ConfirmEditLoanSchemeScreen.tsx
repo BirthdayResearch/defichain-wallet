@@ -145,7 +145,7 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
       <TextRow
         lhs={translate('screens/ConfirmEditLoanSchemeScreen', 'Transaction type')}
         rhs={{
-          value: props.conversion?.isConversionRequired === true ? translate('screens/ConfirmEditLoanSchemeScreen', 'Convert & edit scheme') : translate('screens/ConfirmEditLoanSchemeScreen', 'Edit scheme'),
+          value: props.conversion?.isConversionRequired === true ? translate('screens/ConfirmEditLoanSchemeScreen', 'Convert & edit loan scheme') : translate('screens/ConfirmEditLoanSchemeScreen', 'Edit loan scheme'),
           testID: 'text_transaction_type'
         }}
         textStyle={tailwind('text-sm font-normal')}
