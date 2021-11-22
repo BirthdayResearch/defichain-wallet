@@ -1010,7 +1010,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      Liquidated: When a vault's collateralization ratio falls below the minimum requirement
+                      In liquidation: When a vault's collateralization ratio falls below the minimum requirement
                     </Text>
                   </View>
                   <View
@@ -1282,7 +1282,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      The vault interest rate is determine when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.
+                      The vault interest rate is determined when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.
                     </Text>
                   </View>
                   <View

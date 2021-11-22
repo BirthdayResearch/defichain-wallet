@@ -64,7 +64,7 @@ export const BottomSheetVaultList = ({
                   >
                     {item.vaultId}
                   </ThemedText>
-                  <VaultStatusTag status={vaultState} />
+                  <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
                 </View>
               </View>
               <View style={tailwind('flex items-end')}>

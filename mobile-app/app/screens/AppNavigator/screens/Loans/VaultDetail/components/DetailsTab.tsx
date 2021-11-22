@@ -8,7 +8,7 @@ import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import React from 'react'
 import NumberFormat from 'react-number-format'
-import { useVaultStatus, VaultStatus, VaultStatusTag } from '../../components/VaultStatusTag'
+import { useVaultStatus, VaultHealthItem, VaultStatusTag } from '../../components/VaultStatusTag'
 import { useNextCollateralizationRatio } from '../../hooks/NextCollateralizationRatio'
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
 
@@ -97,7 +97,7 @@ function CollateralizationRatioSection (props: CollateralizationRatioSectionProp
             value={props.collateralizationRatio.toFixed(2)}
             testId='text_col_ratio'
             type='current'
-            status={currentVaultState}
+            vaultState={currentVaultState}
           />
         )}
       {props.nextCollateralizationRatio.isLessThan(0)
@@ -117,7 +117,7 @@ function CollateralizationRatioSection (props: CollateralizationRatioSectionProp
             value={props.nextCollateralizationRatio.toFixed(2)}
             testId='text_next_col'
             type='next'
-            status={nextVaultState}
+            vaultState={nextVaultState}
           />
         )}
       <NumberRow
@@ -152,7 +152,7 @@ interface CollateralizationRatioRowProps {
   value: string
   testId: string
   type: 'current' | 'next'
-  status: VaultStatus
+  vaultState: VaultHealthItem
 }
 
 function CollateralizationRatioRow (props: CollateralizationRatioRowProps): JSX.Element {
@@ -177,7 +177,10 @@ function CollateralizationRatioRow (props: CollateralizationRatioRowProps): JSX.
         >
           {props.label}
         </ThemedText>
-        <BottomSheetInfo alertInfo={props.type === 'next' ? nextAlertInfo : alertInfo} name={props.type === 'next' ? nextAlertInfo.title : alertInfo.title} />
+        <BottomSheetInfo
+          alertInfo={props.type === 'next' ? nextAlertInfo : alertInfo}
+          name={props.type === 'next' ? nextAlertInfo.title : alertInfo.title}
+        />
       </View>
 
       <View
@@ -199,7 +202,7 @@ function CollateralizationRatioRow (props: CollateralizationRatioRowProps): JSX.
               >
                 {props.type === 'next' && '~'}{val}
               </ThemedText>
-              <VaultStatusTag status={props.status} />
+              <VaultStatusTag status={props.vaultState.status} vaultStats={props.vaultState.vaultStats} />
             </View>
           )}
         />
