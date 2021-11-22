@@ -521,20 +521,22 @@ function TransactionDetailsSection ({ conversionAmount, estimatedAmount, fee, is
 }
 
 function calculatePriceRates (tokenA: DerivedTokenState, tokenB: DerivedTokenState, pairs: PoolPairData[], amount: string): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: string } {
-  let lastTokenBId = tokenA.id === pairs[0].tokenA.id ? pairs[0].tokenB.id : pairs[0].tokenA.id
+  let lastTokenBId = tokenA.id
   let lastAmount = new BigNumber(amount)
   const priceRates = pairs.reduce((priceRates, pair): {aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: BigNumber} => {
-    const [reserveA, reserveB] = pair.tokenB.id === lastTokenBId ? [pair.tokenA.reserve, pair.tokenB.reserve] : [pair.tokenB.reserve, pair.tokenA.reserve]
+    const [reserveA, reserveB] = pair.tokenB.id === lastTokenBId ? [pair.tokenB.reserve, pair.tokenA.reserve] : [pair.tokenA.reserve, pair.tokenB.reserve]
+    const [tokenAId, tokenBId] = pair.tokenB.id === lastTokenBId ? [pair.tokenB.id, pair.tokenA.id] : [pair.tokenA.id, pair.tokenB.id]
+
     const priceRateA = new BigNumber(reserveB).div(reserveA)
     const priceRateB = new BigNumber(reserveA).div(reserveB)
     // To sequentially convert the token from its last token
-    lastTokenBId = pair.tokenB.id === lastTokenBId ? pair.tokenB.id : pair.tokenA.id
-    const aToBPrice = pair.tokenB.id === lastTokenBId ? priceRateB : priceRateA
-    const bToAPrice = pair.tokenB.id === lastTokenBId ? priceRateA : priceRateB
+    const aToBPrice = tokenAId === lastTokenBId ? priceRateA : priceRateB
+    const bToAPrice = tokenAId === lastTokenBId ? priceRateB : priceRateA
 
     const slippage = (new BigNumber(1).minus(new BigNumber(lastAmount).div(reserveA)))
     const estimated = new BigNumber(lastAmount).times(aToBPrice).times(slippage)
     lastAmount = estimated
+    lastTokenBId = tokenBId
     return {
       aToBPrice: priceRates.aToBPrice.times(aToBPrice),
       bToAPrice: priceRates.bToAPrice.times(bToAPrice),

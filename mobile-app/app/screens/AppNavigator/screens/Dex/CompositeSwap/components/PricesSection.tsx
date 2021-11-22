@@ -14,14 +14,14 @@ export function PricesSection ({ priceRates, sectionTitle }: {priceRates: PriceR
         text={translate('screens/CompositeSwapScreen', sectionTitle)}
         style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
       />
-      {priceRates.map((priceRate) => {
+      {priceRates.map((priceRate, index) => {
         return (
           <TextRow
             key={priceRate.label}
             lhs={priceRate.label}
             rhs={{
               value: priceRate.value,
-              testID: 'pricerate_value'
+              testID: `pricerate_value_${index}`
             }}
             textStyle={tailwind('text-sm font-normal')}
           />
