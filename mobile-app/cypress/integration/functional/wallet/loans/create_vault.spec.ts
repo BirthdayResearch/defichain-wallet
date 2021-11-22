@@ -1,4 +1,5 @@
 import { LoanScheme } from '@defichain/whale-api-client/dist/api/loan'
+import BigNumber from 'bignumber.js'
 
 context('Wallet - Loans - Create vault', () => {
   beforeEach(function () {
@@ -26,7 +27,7 @@ context('Wallet - Loans - Create vault', () => {
     cy.getByTestID('loan_scheme_options').should('exist')
     cy.wait(['@loanSchemes']).then((intercept: any) => {
       const data: any[] = intercept.response.body.data
-      data.forEach((scheme: LoanScheme, i) => {
+      data.sort((a, b) => new BigNumber(a.minColRatio).minus(b.minColRatio).toNumber()).forEach((scheme: LoanScheme, i) => {
         cy.getByTestID(`min_col_ratio_value_${i}`).contains(`${Number(scheme.minColRatio).toLocaleString()}%`)
         cy.getByTestID(`interest_rate_value_${i}`).contains(`${scheme.interestRate}% APR`)
       })
