@@ -86,11 +86,13 @@ export function EditLoanSchemeScreen ({ route, navigation }: Props): JSX.Element
     if (v === undefined) {
       return
     }
+    setActiveVault(v)
+
     const l = loanSchemes.find(l => l.id === v.loanScheme.id)
-    if (l === undefined) {
+    if (l === undefined || selectedLoanScheme !== undefined) {
       return
     }
-    setActiveVault(v)
+
     setSelectedLoanScheme(l)
   }, [vaults, loanSchemes])
 
@@ -140,7 +142,7 @@ export function EditLoanSchemeScreen ({ route, navigation }: Props): JSX.Element
           <ConversionInfoText />
         </View>}
       <Button
-        disabled={selectedLoanScheme === undefined || hasPendingJob || hasPendingBroadcastJob}
+        disabled={selectedLoanScheme === undefined || selectedLoanScheme.id === activeVault.loanScheme.id || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/EditVaultScreen', 'CONTINUE')}
         onPress={onSubmit}
         margin='mt-7 mb-2'
