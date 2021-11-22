@@ -285,7 +285,7 @@ export function LoansNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/LoansScreen', 'Edit Vault')}
+              text={translate('screens/LoansScreen', 'Edit Loan Scheme')}
             />
           )
         }}
@@ -297,7 +297,7 @@ export function LoansNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/LoansScreen', 'Confirm Edit Vault')}
+              text={translate('screens/LoansScreen', 'Confirm Edit Loan Scheme')}
             />
           )
         }}
