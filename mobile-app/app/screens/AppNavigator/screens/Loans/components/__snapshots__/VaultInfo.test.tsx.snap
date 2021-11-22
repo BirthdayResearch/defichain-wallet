@@ -68,7 +68,6 @@ exports[`Vault info should render label with token icon group 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
               "borderBottomLeftRadius": 9999,
               "borderBottomRightRadius": 9999,
               "borderTopLeftRadius": 9999,
@@ -137,7 +136,6 @@ exports[`Vault info should render label with token icon group 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
               "borderBottomLeftRadius": 9999,
               "borderBottomRightRadius": 9999,
               "borderTopLeftRadius": 9999,
@@ -206,7 +204,6 @@ exports[`Vault info should render label with token icon group 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
               "borderBottomLeftRadius": 9999,
               "borderBottomRightRadius": 9999,
               "borderTopLeftRadius": 9999,
@@ -4848,7 +4845,6 @@ exports[`Vault info should render label with token icon group 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
               "borderBottomLeftRadius": 9999,
               "borderBottomRightRadius": 9999,
               "borderTopLeftRadius": 9999,
@@ -4959,7 +4955,6 @@ exports[`Vault info should render label with token icon group 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
               "borderBottomLeftRadius": 9999,
               "borderBottomRightRadius": 9999,
               "borderTopLeftRadius": 9999,

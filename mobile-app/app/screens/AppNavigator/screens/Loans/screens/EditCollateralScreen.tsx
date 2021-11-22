@@ -346,7 +346,7 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
             {vault.vaultId}
           </ThemedText>
         </View>
-        <VaultStatusTag status={vaultState} />
+        <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
       </View>
       <VaultSectionTextRow
         testID='text_total_collateral_value'

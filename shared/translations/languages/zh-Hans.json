@@ -217,11 +217,11 @@
     "Active: When a vault has been created but no loan has been taken yet": "活跃：当某金库已被创建，但还没有获得贷款时",
     "At risk: When the collateralization ratio of a vault is between 1x – 1.5x the minimum collateralization ratio": "处于风险中：当某金库的抵押率在1倍-1.5倍之间，高于最低抵押率时",
     "Healthy: When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio": "健康正常：当某金库的抵押率超过最低抵押率的1.5倍时",
-    "Liquidated: When a vault's collateralization ratio falls below the minimum requirement": "已清算：当一个金库的抵押率低于最低要求时",
+    "In liquidation: When a vault's collateralization ratio falls below the minimum requirement": "已清算：当一个金库的抵押率低于最低要求时",
     "Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour": "停止：当金库中的任何代币（抵押品或贷款）在过去一小时内波动超过30%时",
     "How are interests calculated for loan?": "贷款的利息是如何计算的？",
     "There are 2 types of interests that applies for loans, namely vault interest rate and token interest rate.": "贷款利息有两种，分别为金库利率和代币利率",
-    "The vault interest rate is determine when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.": "金库利率是在金库所有者选择金库方案时确定的，最低抵押率越高，金库利率越低。",
+    "The vault interest rate is determined when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.": "金库利率是在金库所有者选择金库方案时确定的，最低抵押率越高，金库利率越低。",
     "The token interest rate is applied on specific loan tokens, and can differ from token to token.": "代币利率适用于特定的代币贷款，不同的代币会有不同的利率。",
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and calculated on a per annum basis.": "总利率是由：由金库利率和代币利率整体以每年率计算。"
   },

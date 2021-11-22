@@ -67,7 +67,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
                     >
                       {translate('screens/VaultDetailScreen', 'Vault ID')}
                     </ThemedText>
-                    <VaultStatusTag status={vaultState} />
+                    <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
                   </View>
                   <TouchableOpacity
                     style={tailwind('flex flex-row mb-0.5 items-center')}
@@ -130,7 +130,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
           </View>
         </View>
         {
-          ![VaultStatus.Active, VaultStatus.Unknown, VaultStatus.Liquidated].includes(vaultState) && (
+          ![VaultStatus.Active, VaultStatus.Unknown, VaultStatus.Liquidated].includes(vaultState.status) && (
             <CollateralizationRatioDisplay
               collateralizationRatio={vault.collateralRatio}
               minCollateralizationRatio={vault.loanScheme.minColRatio}

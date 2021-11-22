@@ -139,7 +139,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                         "flexDirection": "row",
                       },
                       Object {
-                        "backgroundColor": "rgba(255, 230, 230, 1)",
+                        "backgroundColor": "rgba(255, 245, 234, 1)",
                       },
                     ]
                   }
@@ -661,7 +661,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                   "marginRight": 2,
                 },
                 Object {
-                  "width": "12.50%",
+                  "width": "20.83%",
                 },
               ],
               Object {
@@ -679,7 +679,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                   "marginRight": 2,
                 },
                 Object {
-                  "width": "2.50%",
+                  "width": "4.17%",
                 },
               ],
               Object {
@@ -1151,7 +1151,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                         "flexDirection": "row",
                       },
                       Object {
-                        "backgroundColor": "rgba(255, 230, 230, 1)",
+                        "backgroundColor": "rgba(255, 245, 234, 1)",
                       },
                     ]
                   }
@@ -1673,7 +1673,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                   "marginRight": 2,
                 },
                 Object {
-                  "width": "12.50%",
+                  "width": "20.83%",
                 },
               ],
               Object {
@@ -1691,7 +1691,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                   "marginRight": 2,
                 },
                 Object {
-                  "width": "2.50%",
+                  "width": "4.17%",
                 },
               ],
               Object {
@@ -2163,7 +2163,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                         "flexDirection": "row",
                       },
                       Object {
-                        "backgroundColor": "rgba(255, 230, 230, 1)",
+                        "backgroundColor": "rgba(255, 245, 234, 1)",
                       },
                     ]
                   }
@@ -2685,7 +2685,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                   "marginRight": 2,
                 },
                 Object {
-                  "width": "12.50%",
+                  "width": "20.83%",
                 },
               ],
               Object {
@@ -2703,7 +2703,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                   "marginRight": 2,
                 },
                 Object {
-                  "width": "2.50%",
+                  "width": "4.17%",
                 },
               ],
               Object {

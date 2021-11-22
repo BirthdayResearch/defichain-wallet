@@ -8,7 +8,7 @@ interface CollateralizationRatioProps {
   totalLoanAmount: BigNumber
 }
 
-interface CollateralizationRatioStats {
+export interface CollateralizationRatioStats {
   atRiskThreshold: BigNumber
   liquidatedThreshold: BigNumber
   isInLiquidation: boolean

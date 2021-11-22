@@ -44,7 +44,7 @@ export function LoansFaq (): JSX.Element {
         text: translate('components/LoansFaq', 'Healthy: When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio'),
         type: 'bullet'
       }, {
-        text: translate('components/LoansFaq', 'Liquidated: When a vault\'s collateralization ratio falls below the minimum requirement'),
+        text: translate('components/LoansFaq', 'In liquidation: When a vault\'s collateralization ratio falls below the minimum requirement'),
         type: 'bullet'
       }, {
         text: translate('components/LoansFaq', 'Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour'),
@@ -57,7 +57,7 @@ export function LoansFaq (): JSX.Element {
         text: translate('components/LoansFaq', 'There are 2 types of interests that applies for loans, namely vault interest rate and token interest rate.'),
         type: 'paragraph'
       }, {
-        text: translate('components/LoansFaq', 'The vault interest rate is determine when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.'),
+        text: translate('components/LoansFaq', 'The vault interest rate is determined when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.'),
         type: 'bullet'
       }, {
         text: translate('components/LoansFaq', 'The token interest rate is applied on specific loan tokens, and can differ from token to token.'),
