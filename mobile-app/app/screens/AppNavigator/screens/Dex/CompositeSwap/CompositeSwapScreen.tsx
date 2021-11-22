@@ -286,6 +286,8 @@ export function CompositeSwapScreen (): JSX.Element {
       }, dispatch, () => {
         navigateToConfirmScreen()
       }, logger)
+    } else {
+      navigateToConfirmScreen()
     }
   }
 
