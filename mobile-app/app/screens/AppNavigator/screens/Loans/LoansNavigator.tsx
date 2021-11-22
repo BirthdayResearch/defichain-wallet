@@ -25,6 +25,8 @@ import { LoansFaq } from '@screens/WalletNavigator/screens/CreateWallet/LoansFaq
 import { TabKey } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailTabSection'
 import { PaybackLoanScreen } from '@screens/AppNavigator/screens/Loans/screens/PaybackLoanScreen'
 import { ConfirmPaybackLoanScreen } from '@screens/AppNavigator/screens/Loans/screens/ConfirmPaybackLoanScreen'
+import { EditLoanSchemeScreen } from './screens/EditLoanSchemeScreen'
+import { ConfirmEditLoanSchemeScreen } from './screens/ConfirmEditLoanSchemeScreen'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -79,6 +81,15 @@ export interface LoanParamList {
     amountToPay: BigNumber
     vault: LoanVaultActive
     loanToken: LoanVaultTokenAmount
+  }
+  EditLoanSchemeScreen: {
+    vaultId: string
+  }
+  ConfirmEditLoanSchemeScreen: {
+    vault: LoanVaultActive
+    loanScheme: LoanScheme
+    fee: BigNumber
+    conversion?: ConversionParam
   }
   [key: string]: undefined | object
 }
@@ -263,6 +274,30 @@ export function LoansNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/ConfirmPaybackLoanScreen', 'Confirm Loan Payment')}
+            />
+          )
+        }}
+      />
+      <LoansStack.Screen
+        component={EditLoanSchemeScreen}
+        name='EditVaultScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Edit Vault')}
+            />
+          )
+        }}
+      />
+      <LoansStack.Screen
+        component={ConfirmEditLoanSchemeScreen}
+        name='ConfirmEditVaultScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Confirm Edit Vault')}
             />
           )
         }}
