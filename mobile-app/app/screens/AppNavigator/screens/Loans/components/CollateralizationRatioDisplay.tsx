@@ -19,12 +19,13 @@ interface CollateralizationRatioDisplayProps {
 }
 
 export function CollateralizationRatioDisplay (props: CollateralizationRatioDisplayProps): JSX.Element {
-  const maxRatio = 1000
+  const atRiskThresholdMultiplier = 1.5
   const minColRatio = new BigNumber(props.minCollateralizationRatio)
+  const maxRatio = getMaxRatio(minColRatio.multipliedBy(atRiskThresholdMultiplier))
   const normalizedColRatio = new BigNumber(props.collateralizationRatio).dividedBy(maxRatio)
   const normalizedNextRatio = new BigNumber(props.nextCollateralizationRatio).dividedBy(maxRatio).multipliedBy(100)
   const normalizedLiquidatedThreshold = minColRatio.multipliedBy(1.25).dividedBy(maxRatio).multipliedBy(100)
-  const normalizedAtRiskThreshold = minColRatio.multipliedBy(1.5).dividedBy(maxRatio).multipliedBy(100)
+  const normalizedAtRiskThreshold = minColRatio.multipliedBy(atRiskThresholdMultiplier).dividedBy(maxRatio).multipliedBy(100)
 
   return (
     <View style={tailwind('mb-4')}>
@@ -230,4 +231,9 @@ function ColorScale (props: { normalizedLiquidatedThreshold: BigNumber, normaliz
       />
     </View>
   )
+}
+
+function getMaxRatio (atRiskThreshold: BigNumber): number {
+  const healthyScaleRatio = 0.75
+  return atRiskThreshold.dividedBy(new BigNumber(1).minus(healthyScaleRatio)).toNumber()
 }
