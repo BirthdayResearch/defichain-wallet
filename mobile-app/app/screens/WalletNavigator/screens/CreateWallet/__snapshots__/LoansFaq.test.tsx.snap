@@ -68,7 +68,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
         ]
       }
     >
-      The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.
+      The decentralized loan feature allows you to borrow decentralised tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.
     </Text>
     <RCTScrollView
       style={
@@ -1010,7 +1010,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      Liquidated: When a vault’s collateralization ratio falls below the minimum requirement
+                      Liquidated: When a vault's collateralization ratio falls below the minimum requirement
                     </Text>
                   </View>
                   <View
