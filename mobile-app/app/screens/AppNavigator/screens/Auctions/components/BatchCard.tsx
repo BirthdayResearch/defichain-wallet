@@ -19,6 +19,7 @@ export interface BatchCardProps {
   state: LoanVaultState
   liquidationHeight: number
   batch: LoanVaultLiquidationBatch
+  testID?: string
 }
 
 export interface Collateral {
@@ -39,10 +40,10 @@ export function secondsToHm (d: number): string {
 }
 
 export function BatchCard (props: BatchCardProps): JSX.Element {
-  const { batch, state, liquidationHeight } = props
+  const { batch, state, liquidationHeight, testID } = props
   const { isLight } = useThemeContext()
   const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
-  const blockCount = useSelector((state: RootState) => state.block.count)
+  const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const blocksRemaining = liquidationHeight - blockCount
   const timeRemaining = (blocksRemaining > 0) ? secondsToHm(blocksRemaining * 30) : ''
 
@@ -51,6 +52,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
       light={tailwind('bg-white border-gray-200')}
       dark={tailwind('bg-gray-800 border-gray-700')}
       style={tailwind('rounded mb-2 border p-4')}
+      testID={testID}
     >
       <View style={tailwind('flex-row w-full items-center justify-between mb-4')}>
         <View style={tailwind('flex flex-row items-center')}>

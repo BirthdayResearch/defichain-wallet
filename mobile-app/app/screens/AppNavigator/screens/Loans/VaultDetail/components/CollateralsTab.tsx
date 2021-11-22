@@ -11,7 +11,6 @@ import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { EmptyCollateral } from './EmptyCollateral'
 
 interface CollateralCardProps {
-  symbol: string
   displaySymbol: string
   amount?: BigNumber
   vaultShare?: BigNumber
@@ -33,7 +32,6 @@ export function CollateralsTab ({ vault }: {vault: LoanVault}): JSX.Element {
             batch.collaterals.map(collateral => (
               <CollateralCard
                 key={collateral.id}
-                symbol={collateral.symbol}
                 displaySymbol={collateral.displaySymbol}
                 vaultState={LoanVaultState.IN_LIQUIDATION}
               />
@@ -44,7 +42,6 @@ export function CollateralsTab ({ vault }: {vault: LoanVault}): JSX.Element {
           vault.collateralAmounts.map(collateral => (
             <CollateralCard
               key={collateral.id}
-              symbol={collateral.symbol}
               displaySymbol={collateral.displaySymbol}
               amount={new BigNumber(collateral.amount)}
               vaultShare={BigNumber.min(new BigNumber(collateral.amount).multipliedBy(collateral.activePrice?.active?.amount ?? 0).div(vault.collateralValue ?? 1), 1)}
@@ -65,7 +62,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
     >
       <View style={tailwind('flex flex-row mb-3 justify-between items-center')}>
         <View style={tailwind('flex flex-row items-center')}>
-          <SymbolIcon symbol={props.symbol} styleProps={{ width: 16, height: 16 }} />
+          <SymbolIcon symbol={props.displaySymbol} styleProps={{ width: 16, height: 16 }} />
           <ThemedText style={tailwind('ml-2 font-medium')}>{props.displaySymbol}</ThemedText>
         </View>
         <NumberFormat

@@ -332,7 +332,7 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
       dark={tailwind('bg-gray-800 border-gray-700')}
-      style={tailwind('flex flex-col items-center border rounded px-4 py-3')}
+      style={tailwind('border rounded px-4 py-3')}
     >
       <View style={tailwind('flex flex-row items-center mb-2')}>
         <View
@@ -346,7 +346,7 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
             {vault.vaultId}
           </ThemedText>
         </View>
-        <VaultStatusTag status={vaultState} />
+        <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
       </View>
       <VaultSectionTextRow
         testID='text_total_collateral_value'
@@ -420,26 +420,6 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
           >
             {collateral.displaySymbol}
           </ThemedText>
-          <ThemedView
-            light={tailwind('text-gray-700 border-gray-700')}
-            dark={tailwind('text-gray-300 border-gray-300')}
-            style={tailwind('border rounded')}
-          >
-            <NumberFormat
-              value={prices.collateralFactor.multipliedBy(100).toFixed(8)}
-              decimalScale={2}
-              displayType='text'
-              suffix='%'
-              renderText={value =>
-                <ThemedText
-                  light={tailwind('text-gray-700')}
-                  dark={tailwind('text-gray-300')}
-                  style={tailwind('text-xs font-medium px-1')}
-                >
-                  {value}
-                </ThemedText>}
-            />
-          </ThemedView>
         </View>
         <View style={tailwind('flex flex-row')}>
           <IconButton
@@ -506,7 +486,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             thousandSeparator
             decimalScale={2}
             displayType='text'
-            suffix=' %'
+            suffix='%'
             renderText={(val: string) => (
               <ThemedView
                 light={tailwind('bg-gray-100')}

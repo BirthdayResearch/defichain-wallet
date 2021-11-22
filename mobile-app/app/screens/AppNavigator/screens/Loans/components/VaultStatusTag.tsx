@@ -4,7 +4,10 @@ import { translate } from '@translations'
 import React from 'react'
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import BigNumber from 'bignumber.js'
-import { useCollateralRatioStats } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
+import {
+  CollateralizationRatioStats,
+  useCollateralRatioStats
+} from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 
 export enum VaultStatus {
   Active = 'ACTIVE',
@@ -16,31 +19,44 @@ export enum VaultStatus {
   Unknown = 'UNKNOWN'
 }
 
-export function useVaultStatus (status: LoanVaultState, collateralRatio: BigNumber, minColRatio: BigNumber, totalLoanAmount: BigNumber): VaultStatus {
+export interface VaultHealthItem {
+  vaultStats: CollateralizationRatioStats
+  status: VaultStatus
+}
+
+export function useVaultStatus (status: LoanVaultState, collateralRatio: BigNumber, minColRatio: BigNumber, totalLoanAmount: BigNumber): VaultHealthItem {
   const colRatio = collateralRatio.gte(0) ? collateralRatio : new BigNumber(0)
   const stats = useCollateralRatioStats({
     colRatio,
     minColRatio,
     totalLoanAmount
   })
+  let vaultStatus: VaultStatus
   if (status === LoanVaultState.FROZEN) {
-    return VaultStatus.Halted
+    vaultStatus = VaultStatus.Halted
   } else if (status === LoanVaultState.UNKNOWN) {
-    return VaultStatus.Unknown
+    vaultStatus = VaultStatus.Unknown
   } else if (status === LoanVaultState.IN_LIQUIDATION) {
-    return VaultStatus.Liquidated
+    vaultStatus = VaultStatus.Liquidated
   } else if (stats.isInLiquidation) {
-    return VaultStatus.NearLiquidation
+    vaultStatus = VaultStatus.NearLiquidation
   } else if (stats.isAtRisk) {
-    return VaultStatus.AtRisk
+    vaultStatus = VaultStatus.AtRisk
   } else if (stats.isHealthy) {
-    return VaultStatus.Healthy
+    vaultStatus = VaultStatus.Healthy
   } else {
-    return VaultStatus.Active
+    vaultStatus = VaultStatus.Active
+  }
+  return {
+    status: vaultStatus,
+    vaultStats: stats
   }
 }
 
-export function VaultStatusTag ({ status }: { status: VaultStatus }): JSX.Element {
+export function VaultStatusTag ({
+  status,
+  vaultStats
+}: VaultHealthItem): JSX.Element {
   if (status === VaultStatus.Unknown) {
     return <></>
   }
@@ -48,20 +64,20 @@ export function VaultStatusTag ({ status }: { status: VaultStatus }): JSX.Elemen
     <ThemedView
       light={tailwind(
         {
+          'bg-error-100': status === VaultStatus.Liquidated || (status === VaultStatus.NearLiquidation && vaultStats.isInLiquidation),
           'bg-blue-100': status === VaultStatus.Active,
           'bg-success-100': status === VaultStatus.Healthy,
           'bg-warning-100': status === VaultStatus.AtRisk,
-          'bg-gray-100': status === VaultStatus.Halted,
-          'bg-error-100': status === VaultStatus.Liquidated || status === VaultStatus.NearLiquidation
+          'bg-gray-100': status === VaultStatus.Halted
         }
       )}
       dark={tailwind(
         {
+          'bg-darkerror-100': status === VaultStatus.Liquidated || (status === VaultStatus.NearLiquidation && vaultStats.isInLiquidation),
           'bg-darkblue-100': status === VaultStatus.Active,
           'bg-darksuccess-100': status === VaultStatus.Healthy,
           'bg-darkwarning-100': status === VaultStatus.AtRisk,
-          'bg-gray-100': status === VaultStatus.Halted,
-          'bg-darkerror-100': status === VaultStatus.Liquidated || status === VaultStatus.NearLiquidation
+          'bg-gray-100': status === VaultStatus.Halted
         }
       )}
       style={tailwind('flex flex-row items-center')}
@@ -73,7 +89,7 @@ export function VaultStatusTag ({ status }: { status: VaultStatus }): JSX.Elemen
             'text-success-500': status === VaultStatus.Healthy,
             'text-warning-500': status === VaultStatus.AtRisk,
             'text-gray-400': status === VaultStatus.Halted,
-            'text-error-500': status === VaultStatus.Liquidated || status === VaultStatus.NearLiquidation
+            'text-error-500': status === VaultStatus.Liquidated || (status === VaultStatus.NearLiquidation && vaultStats.isInLiquidation)
           }
         )}
         dark={tailwind(
@@ -82,7 +98,7 @@ export function VaultStatusTag ({ status }: { status: VaultStatus }): JSX.Elemen
             'text-darksuccess-500': status === VaultStatus.Healthy,
             'text-darkwarning-500': status === VaultStatus.AtRisk,
             'text-gray-500': status === VaultStatus.Halted,
-            'text-darkerror-500': status === VaultStatus.Liquidated || status === VaultStatus.NearLiquidation
+            'text-darkerror-500': status === VaultStatus.Liquidated || (status === VaultStatus.NearLiquidation && vaultStats.isInLiquidation)
           }
         )}
         style={tailwind('px-2 py-0.5 font-medium text-xs')}
