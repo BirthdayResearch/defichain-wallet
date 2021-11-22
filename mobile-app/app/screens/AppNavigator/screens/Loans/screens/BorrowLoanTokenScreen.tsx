@@ -542,7 +542,8 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
               value: props.collateralizationRatio.toFixed(2),
               testID: 'text_col_ratio',
               suffixType: 'text',
-              suffix: '%'
+              suffix: '%',
+              style: tailwind('ml-0')
             }}
           />
         )}
@@ -552,7 +553,8 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
           value: props.vault.loanScheme.minColRatio,
           testID: 'text_col_ratio',
           suffixType: 'text',
-          suffix: '%'
+          suffix: '%',
+          style: tailwind('ml-0')
         }}
       />
       <NumberRow
@@ -561,7 +563,8 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
           value: props.vaultInterestRate.plus(props.loanTokenInterestRate).toFixed(2),
           testID: 'text_total_interest_rate',
           suffixType: 'text',
-          suffix: '%'
+          suffix: '%',
+          style: tailwind('ml-0')
         }}
       />
       <NumberRow

@@ -46,7 +46,8 @@ function VaultDetailsSection (props: { minColRatio: BigNumber, vaultInterest: Bi
           value: props.minColRatio.toFixed(2),
           testID: 'text_min_col_ratio',
           suffixType: 'text',
-          suffix: '%'
+          suffix: '%',
+          style: tailwind('ml-0')
         }}
       />
       <NumberRow
@@ -55,7 +56,8 @@ function VaultDetailsSection (props: { minColRatio: BigNumber, vaultInterest: Bi
           value: props.vaultInterest.toFixed(2),
           testID: 'text_min_col_ratio',
           suffixType: 'text',
-          suffix: '%'
+          suffix: '%',
+          style: tailwind('ml-0')
         }}
       />
     </>

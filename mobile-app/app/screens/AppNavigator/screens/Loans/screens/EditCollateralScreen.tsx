@@ -486,7 +486,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             thousandSeparator
             decimalScale={2}
             displayType='text'
-            suffix=' %'
+            suffix='%'
             renderText={(val: string) => (
               <ThemedView
                 light={tailwind('bg-gray-100')}

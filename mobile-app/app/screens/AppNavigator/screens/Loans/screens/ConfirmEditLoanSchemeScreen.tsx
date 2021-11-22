@@ -156,7 +156,8 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
           value: new BigNumber(props.minColRatio).toFixed(2),
           testID: 'prev_min_col_ratio',
           suffixType: 'text',
-          suffix: '%'
+          suffix: '%',
+          style: tailwind('ml-0')
         }}
       />
       <NumberRow
@@ -165,7 +166,8 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
           value: new BigNumber(props.vaultInterest).toFixed(2),
           testID: 'prev_vault_interest',
           suffixType: 'text',
-          suffix: '%'
+          suffix: '%',
+          style: tailwind('ml-0')
         }}
       />
       <NumberRow
@@ -174,7 +176,8 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
           value: new BigNumber(props.newMinColRatio).toFixed(2),
           testID: 'new_min_col_ratio',
           suffixType: 'text',
-          suffix: '%'
+          suffix: '%',
+          style: tailwind('ml-0')
         }}
       />
       <NumberRow
@@ -183,7 +186,8 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
           value: new BigNumber(props.newVaultInterest).toFixed(2),
           testID: 'new_vault_interest',
           suffixType: 'text',
-          suffix: '%'
+          suffix: '%',
+          style: tailwind('ml-0')
         }}
       />
       <FeeInfoRow
