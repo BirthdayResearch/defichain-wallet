@@ -26,5 +26,13 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     description: 'Browse loan tokens provided by DeFiChain',
     networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet],
     platforms: ['ios', 'android', 'web']
+  }, {
+    id: 'auction',
+    name: 'Auction',
+    stage: 'alpha',
+    version: '>=0.15.2',
+    description: 'Browse auctions provided by DeFiChain',
+    networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+    platforms: ['ios', 'android', 'web']
   }])
 }
