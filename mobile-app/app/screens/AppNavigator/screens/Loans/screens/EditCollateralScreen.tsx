@@ -420,26 +420,6 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
           >
             {collateral.displaySymbol}
           </ThemedText>
-          <ThemedView
-            light={tailwind('text-gray-700 border-gray-700')}
-            dark={tailwind('text-gray-300 border-gray-300')}
-            style={tailwind('border rounded')}
-          >
-            <NumberFormat
-              value={prices.collateralFactor.multipliedBy(100).toFixed(8)}
-              decimalScale={2}
-              displayType='text'
-              suffix='%'
-              renderText={value =>
-                <ThemedText
-                  light={tailwind('text-gray-700')}
-                  dark={tailwind('text-gray-300')}
-                  style={tailwind('text-xs font-medium px-1')}
-                >
-                  {value}
-                </ThemedText>}
-            />
-          </ThemedView>
         </View>
         <View style={tailwind('flex flex-row')}>
           <IconButton

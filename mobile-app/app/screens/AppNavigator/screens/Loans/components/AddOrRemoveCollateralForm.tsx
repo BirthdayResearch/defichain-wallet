@@ -162,8 +162,11 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
           token,
           amount: new BigNumber(collateralValue)
         })}
-        margin='mt-8 mb-10'
+        margin='mt-8 mb-2'
       />
+      <ThemedText style={tailwind('text-xs text-center p-2 px-6')} light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}>
+        {translate('components/AddOrRemoveCollateralForm', 'The collateral factor determines the degree of contribution of each collateral token.')}
+      </ThemedText>
     </ThemedScrollView>
   )
 })

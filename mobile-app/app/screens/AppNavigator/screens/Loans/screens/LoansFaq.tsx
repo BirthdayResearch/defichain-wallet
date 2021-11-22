@@ -66,6 +66,13 @@ export function LoansFaq (): JSX.Element {
         text: translate('components/LoansFaq', 'The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and calculated on a per annum basis.'),
         type: 'paragraph'
       }]
+    },
+    {
+      title: translate('components/LoansFaq', 'What is collateral factor?'),
+      content: [{
+        text: translate('components/LoansFaq', 'The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 of it would contribute to $70 of collateral value in a vault.'),
+        type: 'paragraph'
+      }]
     }
   ]
 
