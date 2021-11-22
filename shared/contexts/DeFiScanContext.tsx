@@ -7,6 +7,7 @@ interface DeFiScanContextI {
   getBlocksUrl: (blockCount: number) => string
   getTokenUrl: (tokenId: number | string) => string
   getAddressUrl: (address: string) => string
+  getVaultsUrl: (vaultId: string) => string
 }
 
 const DeFiScanContext = createContext<DeFiScanContextI>(undefined as any)
@@ -32,6 +33,9 @@ export function DeFiScanProvider (props: React.PropsWithChildren<any>): JSX.Elem
       },
       getAddressUrl: (address: string) => {
         return getURLByNetwork('address', network, address)
+      },
+      getVaultsUrl: (vaultId: string) => {
+        return getURLByNetwork('vaults', network, vaultId)
       }
     }
   }, [network])

@@ -11,11 +11,11 @@ import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import { RootState } from '@store'
-import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
+import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
-import React, { Dispatch, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -26,11 +26,10 @@ import { WalletTextInput } from '@components/WalletTextInput'
 import { InputHelperText } from '@components/InputHelperText'
 import { DFITokenSelector, DFIUtxoSelector, WalletToken } from '@store/wallet'
 import { FeeInfoRow } from '@components/FeeInfoRow'
-import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { ConversionInfoText } from '@components/ConversionInfoText'
-import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
-import { useConversion } from '@hooks/wallet/Conversion'
+import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 
 export interface DerivedTokenState {
   id: string
@@ -71,15 +70,24 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
   const [aToBPrice, setAToBPrice] = useState<BigNumber>()
 
   // component UI state
-  const { control, setValue, formState, getValues, trigger } = useForm({ mode: 'onChange' })
-  const { isConversionRequired, conversionAmount } = useConversion({
+  const {
+    control,
+    setValue,
+    formState,
+    getValues,
+    trigger
+  } = useForm({ mode: 'onChange' })
+  const {
+    isConversionRequired,
+    conversionAmount
+  } = useConversion({
     inputToken: {
       type: tokenA?.id === '0_unified' ? 'token' : 'others',
       amount: new BigNumber(getValues(tokenAForm))
     },
     deps: [getValues(tokenAForm), JSON.stringify(tokens)]
   })
-  const ScreenTitle = (props: {tokenA: DerivedTokenState, tokenB: DerivedTokenState}): JSX.Element => {
+  const ScreenTitle = (props: { tokenA: DerivedTokenState, tokenB: DerivedTokenState }): JSX.Element => {
     const TokenAIcon = getNativeIcon(props.tokenA.displaySymbol)
     const TokenBIcon = getNativeIcon(props.tokenB.displaySymbol)
 
@@ -135,7 +143,7 @@ export function PoolSwapScreen ({ route }: Props): JSX.Element {
     }
 
     if (isConversionRequired) {
-      await constructSignedConversionAndPoolswap({
+      queueConvertTransaction({
         mode: 'utxosToAccount',
         amount: conversionAmount
       }, dispatch, () => {
@@ -389,7 +397,12 @@ function TokenRow (form: TokenForm): JSX.Element {
       control={control}
       defaultValue={defaultValue}
       name={controlName}
-      render={({ field: { onChange, value } }) => (
+      render={({
+        field: {
+          onChange,
+          value
+        }
+      }) => (
         <ThemedView
           dark={tailwind('bg-transparent')}
           light={tailwind('bg-transparent')}
@@ -462,7 +475,15 @@ interface SwapSummaryItems {
   conversionAmount: BigNumber
 }
 
-function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee, isConversionRequired, conversionAmount }: SwapSummaryItems): JSX.Element {
+function SwapSummary ({
+  poolpair,
+  tokenA,
+  tokenB,
+  tokenAAmount,
+  fee,
+  isConversionRequired,
+  conversionAmount
+}: SwapSummaryItems): JSX.Element {
   const reserveA = getReserveAmount(tokenA.id, poolpair)
   const reserveB = getReserveAmount(tokenB.id, poolpair)
   const priceA = getPriceRate(reserveA, reserveB)
@@ -480,14 +501,17 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee, isConversio
         <NumberRow
           lhs={translate('screens/PoolSwapScreen', 'Amount to be converted')}
           rhs={{
-            testID: 'amount_to_convert',
-            value: conversionAmount.toFixed(8),
-            suffixType: 'text',
-            suffix: tokenA.displaySymbol
-          }}
+          testID: 'amount_to_convert',
+          value: conversionAmount.toFixed(8),
+          suffixType: 'text',
+          suffix: tokenA.displaySymbol
+        }}
         />}
       <NumberRow
-        lhs={translate('screens/PoolSwapScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenA.displaySymbol, tokenB: tokenB.displaySymbol })}
+        lhs={translate('screens/PoolSwapScreen', '{{tokenA}} price per {{tokenB}}', {
+          tokenA: tokenA.displaySymbol,
+          tokenB: tokenB.displaySymbol
+        })}
         rhs={{
           testID: 'price_a',
           value: priceA,
@@ -496,7 +520,10 @@ function SwapSummary ({ poolpair, tokenA, tokenB, tokenAAmount, fee, isConversio
         }}
       />
       <NumberRow
-        lhs={translate('screens/PoolSwapScreen', '{{tokenA}} price per {{tokenB}}', { tokenA: tokenB.displaySymbol, tokenB: tokenA.displaySymbol })}
+        lhs={translate('screens/PoolSwapScreen', '{{tokenA}} price per {{tokenB}}', {
+          tokenA: tokenB.displaySymbol,
+          tokenB: tokenA.displaySymbol
+        })}
         rhs={{
           testID: 'price_b',
           value: priceB,
@@ -538,15 +565,4 @@ function getReserveAmount (id: string, poolpair: PoolPairData): string {
 
 function getPriceRate (reserveA: string, reserveB: string): string {
   return new BigNumber(reserveA).div(reserveB).toFixed(8)
-}
-
-async function constructSignedConversionAndPoolswap ({
-  mode,
-  amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
-  try {
-    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
-  } catch (e) {
-    logger.error(e)
-  }
 }

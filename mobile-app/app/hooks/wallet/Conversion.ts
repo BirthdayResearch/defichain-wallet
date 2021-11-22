@@ -1,8 +1,11 @@
-import { DependencyList, useEffect, useState } from 'react'
+import { DependencyList, Dispatch, useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { DFITokenSelector, DFIUtxoSelector, unifiedDFISelector } from '@store/wallet'
+import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
+import { NativeLoggingProps } from '@shared-contexts/NativeLoggingProvider'
+import { transactionQueue } from '@store/transaction_queue'
 
 interface useConversionProps {
   inputToken: InputToken
@@ -51,5 +54,19 @@ export function useConversion (props: useConversionProps): ConversionResult {
     }
   }, props.deps)
 
-  return { isConversionRequired, conversionAmount }
+  return {
+    isConversionRequired,
+    conversionAmount
+  }
+}
+
+export function queueConvertTransaction ({
+  mode,
+  amount
+}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): void {
+  try {
+    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
+  } catch (e) {
+    logger.error(e)
+  }
 }
