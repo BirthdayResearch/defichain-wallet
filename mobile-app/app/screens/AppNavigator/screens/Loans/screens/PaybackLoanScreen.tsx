@@ -229,7 +229,7 @@ function VaultInput ({ vault }: VaultInputProps): JSX.Element {
           >{vault.vaultId}
           </ThemedText>
         </View>
-        <VaultStatusTag status={vaultState} />
+        <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
       </View>
       <View style={tailwind('flex flex-row items-center justify-between mb-1 mt-2')}>
         <ThemedText
@@ -257,7 +257,7 @@ function VaultInput ({ vault }: VaultInputProps): JSX.Element {
           dark={tailwind('text-gray-400')}
           style={tailwind('text-xs')}
         >
-          {translate('screens/PaybackLoanScreen', 'Min. collateralization ratio')}
+          {translate('screens/PaybackLoanScreen', 'Min. collateral ratio')}
         </ThemedText>
         <NumberFormat
           value={new BigNumber(vault.loanScheme.minColRatio).toFixed(2)}

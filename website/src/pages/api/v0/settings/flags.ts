@@ -14,7 +14,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     id: 'loan',
     name: 'Loans',
     stage: 'public',
-    version: '>=0.15.2',
+    version: '>=0.15.3',
     description: 'Browse loan tokens provided by DeFiChain',
     networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
     platforms: ['ios', 'android', 'web']
@@ -22,7 +22,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     id: 'loan',
     name: 'Loans',
     stage: 'beta',
-    version: '>=0.15.2',
+    version: '>=0.15.3',
     description: 'Browse loan tokens provided by DeFiChain',
     networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet],
     platforms: ['ios', 'android', 'web']

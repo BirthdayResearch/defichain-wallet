@@ -27,6 +27,7 @@ import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { InfoTextLink } from '@components/InfoTextLink'
 import { queueConvertTransaction } from '@hooks/wallet/Conversion'
+import { createSelector } from '@reduxjs/toolkit'
 
 type Props = StackScreenProps<LoanParamList, 'CreateVaultScreen'>
 
@@ -36,7 +37,10 @@ export function CreateVaultScreen ({
 }: Props): JSX.Element {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
-  const loanSchemes: LoanScheme[] = useSelector((state: RootState) => state.loans.loanSchemes)
+  const loanSchemesSelector = createSelector((state: RootState) => state.loans.loanSchemes,
+    (schemes) => schemes.map((c) => c).sort((a, b) => new BigNumber(a.minColRatio).minus(b.minColRatio).toNumber()))
+  const loanSchemes = useSelector((state: RootState) => loanSchemesSelector(state))
+
   const logger = useLogger()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [selectedLoanScheme, setSelectedLoanScheme] = useState<LoanScheme | undefined>(route.params?.loanScheme)
