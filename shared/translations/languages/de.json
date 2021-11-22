@@ -622,7 +622,9 @@
     "Add Collateral": "Sicherheiten Hinzufügen",
     "Confirm Add Collateral": "Bestätige das Hinzufügen von Sicherheiten",
     "Edit Collaterals": "Sicherheiten bearbeiten",
-    "Borrow Loan Token": "Darlehenstoken entleihen"
+    "Borrow Loan Token": "Darlehenstoken entleihen",
+    "Edit Loan Scheme": "Darlehensmodell bearbeiten",
+    "Confirm Edit Loan Scheme": "Darlehensmodellbearbeitung bestätigen"
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehen durchsuchen",
@@ -730,7 +732,8 @@
     "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
     "TAKE COLLATERAL": "SICHERHEITEN ENTNEHMEN",
     "EDIT SCHEME": "DARLEHENSMODELL BEARBEITEN",
-    "EDIT COLLATERALS": "SICHERHEITEN BEARBEITEN"
+    "EDIT COLLATERALS": "SICHERHEITEN BEARBEITEN",
+    "EDIT LOAN SCHEME": "DARLEHENSMODELL BEARBEITEN"
   },
   "components/EmptyActiveLoans": {
     "No active loans": "Keine aktiven Darlehen",
@@ -906,5 +909,29 @@
   },
   "components/BottomSheetVaultList": {
     "Collateralization ratio": "Besicherungsquote"
+  },
+  "screens/EditLoanSchemeScreen": {
+    "EDIT LOAN SCHEME OF VAULT": "BELEIHUNGSMODELL DES VAULTS BEARBEITEN",
+    "Make sure your collateralization ratio is still above your min. collateralization ratio": "Vergewissere dich, dass deine Besicherungsquote immer noch über deiner Mindestbesicherungsquote liegt",
+    "CONTINUE": "FORTFAHREN",
+    "Confirm your vault details in next screen":"Bestätige die Daten deines Vaults in der nächsten Ansicht"
+  },
+  "screens/ConfirmEditLoanSchemeScreen": {
+    "You are editing scheme of vault": "You are editing scheme of vault",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "Transaction type": "Transaktions-Typ",
+    "Edit loan scheme": "Darlehensmodell bearbeiten",
+    "Prev. minimum collateralization ratio": "Vorherige Mindestbesicherungsquote",
+    "Prev. vault interest (APR)": "Bisheriger Vault-Zins p.a.",
+    "New minimum collateralization ratio": "Neue Mindestbesicherungsquote",
+    "New vault interest (APR)": "Neuer Vault-Zins p.a.",
+    "CONFIRM EDIT": "BEARBEITEN BESTÄTIGEN",
+    "EDITING": "BEARBEITEN",
+    "CONVERTING":"WANDLE UM"
+  },
+  "components/LoanSchemeOptions": {
+    "Min. collateralization": "Mindestbesicherung",
+    "Interest rate": "Zinssatz",
+    "APR": "ZINS"
   }
 }
