@@ -39,6 +39,7 @@ import { WalletTextInput } from '@components/WalletTextInput'
 import { SlippageTolerance } from '../PoolSwap/components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
 import { checkIfPair, findPath, getAdjacentVertices, GraphProps } from '../helpers/path-finding'
+import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 
 export interface DerivedTokenState {
   id: string
@@ -228,18 +229,18 @@ export function CompositeSwapScreen (): JSX.Element {
   }, [selectedTokenA, selectedTokenB, allTokens])
 
   useEffect(() => {
-    if (selectedTokenA !== undefined && selectedTokenB !== undefined && selectedPoolPairs !== undefined) {
-      const { priceA, priceB } = calculatePriceRates(selectedTokenA, selectedPoolPairs)
+    if (selectedTokenA !== undefined && selectedTokenB !== undefined && selectedPoolPairs !== undefined && tokenAFormAmount !== undefined) {
+      const { aToBPrice, bToAPrice, estimated } = calculatePriceRates(selectedTokenA, selectedTokenB, selectedPoolPairs, tokenAFormAmount)
+
       setPriceRates([{
         label: translate('screens/CompositeSwapScreen', '{{tokenA}} price in {{tokenB}}', { tokenA: selectedTokenA.displaySymbol, tokenB: selectedTokenB.displaySymbol }),
-        value: `1 ${selectedTokenA.displaySymbol} = ${priceB} ${selectedTokenB.displaySymbol}`
+        value: `1 ${selectedTokenA.displaySymbol} = ${aToBPrice.toFixed(8)} ${selectedTokenB.displaySymbol}`
       }, {
         label: translate('screens/CompositeSwapScreen', '{{tokenB}} price in {{tokenA}}', { tokenA: selectedTokenA.displaySymbol, tokenB: selectedTokenB.displaySymbol }),
-        value: `1 ${selectedTokenB.displaySymbol} = ${priceA} ${selectedTokenA.displaySymbol}`
+        value: `1 ${selectedTokenB.displaySymbol} = ${bToAPrice.toFixed(8)} ${selectedTokenA.displaySymbol}`
       }
       ])
 
-      const estimated = calculateEstimatedAmount(tokenAFormAmount, selectedTokenA, priceA).toFixed(8)
       setValue('tokenB', estimated)
     }
   }, [selectedPoolPairs, tokenAFormAmount])
@@ -277,7 +278,7 @@ export function CompositeSwapScreen (): JSX.Element {
   }
 
   return (
-    <View ref={containerRef}>
+    <View style={tailwind('h-full')} ref={containerRef}>
       <ThemedScrollView>
         <ThemedText
           dark={tailwind('text-gray-50')}
@@ -292,14 +293,36 @@ export function CompositeSwapScreen (): JSX.Element {
           <TokenSelection label='TO' symbol={selectedTokenB?.displaySymbol} onPress={() => onTokenSelect({ direction: 'TO' })} />
         </View>
 
-        {(selectedTokenA === undefined || selectedTokenB === undefined) &&
+        {(selectedTokenA === undefined || selectedTokenB === undefined) && allowedSwapFromTokens?.length !== 0 &&
           <ThemedText
             dark={tailwind('text-gray-400')}
             light={tailwind('text-gray-500')}
             style={tailwind('mt-10 text-center')}
             testID='swap_instructions'
-          > {translate('screens/CompositeSwapScreen', allowedSwapFromTokens?.length === 0 ? "You don't have any tokens to swap" : 'Select tokens you want to swap to get started')}
+          > {translate('screens/CompositeSwapScreen', 'Select tokens you want to swap to get started')}
           </ThemedText>}
+
+        {allowedSwapFromTokens?.length === 0 &&
+          <ThemedView
+            style={tailwind('px-8 mt-16 pb-2 text-center')}
+            testID='empty_balances'
+          >
+            <ThemedIcon
+              light={tailwind('text-black')}
+              dark={tailwind('text-white')}
+              iconType='MaterialCommunityIcons'
+              name='circle-off-outline'
+              size={32}
+              style={tailwind('pb-2 text-center')}
+            />
+            <ThemedText testID='empty_tokens_title' style={tailwind('text-lg pb-1 font-semibold text-center')}>
+              {translate('screens/CompositeSwapScreen', "You don't have tokens to swap")}
+            </ThemedText>
+
+            <ThemedText testID='empty_tokens_subtitle' style={tailwind('text-sm px-8 pb-4 text-center opacity-60')}>
+              {translate('screens/CompositeSwapScreen', 'Get started by adding your tokens here in your wallet')}
+            </ThemedText>
+          </ThemedView>}
 
         {selectedTokenA !== undefined && selectedTokenB !== undefined &&
           <View style={tailwind('mt-10 mx-4')}>
@@ -323,6 +346,7 @@ export function CompositeSwapScreen (): JSX.Element {
               content={getMaxAmount(selectedTokenA)}
               suffix={` ${selectedTokenA.displaySymbol}`}
             />
+            {selectedTokenA.id === '0_unified' && <ReservedDFIInfoText />}
             <View style={tailwind(['mt-4', { 'mb-4': isConversionRequired }])}>
               <TokenRow
                 control={control}
@@ -482,35 +506,37 @@ function TransactionDetailsSection ({ conversionAmount, estimatedAmount, fee, is
   )
 }
 
-function calculatePriceRates (tokenA: DerivedTokenState, pairs: PoolPairData[]): { priceA: string, priceB: string } {
-  let lastTokenBId = tokenA.id
-  const priceRates = pairs.reduce((priceRates, pair): {priceA: BigNumber, priceB: BigNumber} => {
-    const [reserveA, reserveB] = pair.tokenA.id !== lastTokenBId ? [pair.tokenA.reserve, pair.tokenB.reserve] : [pair.tokenB.reserve, pair.tokenA.reserve]
-    const priceRateA = new BigNumber(reserveA).div(reserveB)
-    const priceRateB = new BigNumber(reserveB).div(reserveA)
-
+function calculatePriceRates (tokenA: DerivedTokenState, tokenB: DerivedTokenState, pairs: PoolPairData[], amount: string): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: string } {
+  let lastTokenBId = tokenA.displaySymbol === pairs[0].tokenA.displaySymbol ? pairs[0].tokenB.displaySymbol : pairs[0].tokenA.displaySymbol
+  let lastAmount = new BigNumber(amount)
+  const priceRates = pairs.reduce((priceRates, pair): {aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: BigNumber} => {
+    const [reserveA, reserveB] = pair.tokenB.displaySymbol === lastTokenBId ? [pair.tokenA.reserve, pair.tokenB.reserve] : [pair.tokenB.reserve, pair.tokenA.reserve]
+    const priceRateA = new BigNumber(reserveB).div(reserveA)
+    const priceRateB = new BigNumber(reserveA).div(reserveB)
     // To sequentially convert the token from its last token
-    lastTokenBId = pair.tokenA.id === lastTokenBId ? pair.tokenB.id : pair.tokenA.id
+    lastTokenBId = pair.tokenB.id === lastTokenBId ? pair.tokenB.displaySymbol : pair.tokenA.displaySymbol
+    const aToBPrice = pair.tokenB.id === lastTokenBId ? priceRateB : priceRateA
+    const bToAPrice = pair.tokenB.id === lastTokenBId ? priceRateA : priceRateB
 
+    const slippage = (new BigNumber(1).minus(new BigNumber(lastAmount).div(reserveA)))
+    const estimated = new BigNumber(lastAmount).times(aToBPrice).times(slippage)
+    lastAmount = estimated
     return {
-      priceA: priceRates.priceA.times(priceRateA),
-      priceB: priceRates.priceB.times(priceRateB)
+      aToBPrice: priceRates.aToBPrice.times(aToBPrice),
+      bToAPrice: priceRates.bToAPrice.times(bToAPrice),
+      estimated
     }
   }, {
-    priceA: new BigNumber(1),
-    priceB: new BigNumber(1)
+    aToBPrice: new BigNumber(1),
+    bToAPrice: new BigNumber(1),
+    estimated: new BigNumber(0)
   })
 
   return {
-    priceA: priceRates.priceA.toFixed(8),
-    priceB: priceRates.priceB.toFixed(8)
+    aToBPrice: priceRates.aToBPrice,
+    bToAPrice: priceRates.bToAPrice,
+    estimated: priceRates.estimated.toFixed(8)
   }
-}
-
-function calculateEstimatedAmount (tokenAAmount: string | undefined, selectedTokenA: DerivedTokenState, priceA: string): BigNumber {
-  // TODO: Add logic to determine the slippage
-  // const slippage = (new BigNumber(1).minus(new BigNumber(tokenAAmount).div(reserveA)))
-  return new BigNumber(tokenAAmount ?? 0).times(priceA)// .times(slippage)
 }
 
 interface TokenForm {
@@ -645,8 +671,7 @@ function getAllPossibleSwapToTokens (allTokens: TokenProps[], pairs: DexItem[], 
 
   while (nodesToVisit.size !== 0) {
     const [token] = nodesToVisit // first item in a set
-    const adjacentNodes = getAdjacentVertices(tokenFrom, graph)
-
+    const adjacentNodes = getAdjacentVertices(token, graph)
     if (adjacentNodes !== undefined) {
       adjacentNodes.forEach(node => {
         if (!reachableNodeIds.has(node)) {

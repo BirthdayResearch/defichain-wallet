@@ -176,7 +176,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
           },
           {
             symbol: tokenB.displaySymbol,
-            value: BigNumber.max(new BigNumber(tokenB.amount).plus(swap.amountTo), 0).toFixed(8),
+            value: BigNumber.max(new BigNumber(tokenB.amount === '' ? 0 : tokenB.amount).plus(swap.amountTo), 0).toFixed(8),
             suffix: tokenB.displaySymbol
           }
         ]}

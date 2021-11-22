@@ -73,6 +73,7 @@ export const BottomSheetTokenList = ({
             }
           }}
           style={tailwind('px-4 py-3 flex flex-row items-center justify-between')}
+          testID={`select_${item.token.displaySymbol}`}
         >
           <View style={tailwind('flex flex-row items-center')}>
             <SymbolIcon
@@ -103,6 +104,7 @@ export const BottomSheetTokenList = ({
                   light={tailwind('text-gray-700')}
                   dark={tailwind('text-gray-300')}
                   style={tailwind('mr-0.5')}
+                  testID={`select_${item.token.displaySymbol}_value`}
                 >
                   {value}
                 </ThemedText>}
