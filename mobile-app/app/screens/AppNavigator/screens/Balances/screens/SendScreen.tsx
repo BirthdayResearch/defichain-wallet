@@ -125,7 +125,7 @@ export function SendScreen ({
   }
 
   return (
-    <ThemedScrollView contentContainerStyle={tailwind('py-8')} testID='send_screen'>
+    <ThemedScrollView testID='send_screen'>
       <View style={tailwind('px-4')}>
         <AddressRow
           control={control}

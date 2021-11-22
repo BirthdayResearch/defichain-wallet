@@ -86,7 +86,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   }
 
   return (
-    <ThemedScrollView style={tailwind('w-full flex-col flex-1 py-8')} testID='convert_screen'>
+    <ThemedScrollView style={tailwind('w-full flex-col flex-1')} testID='convert_screen'>
       <View style={tailwind('px-4')}>
         <ConversionIOCard
           balance={new BigNumber(sourceToken.amount)}
