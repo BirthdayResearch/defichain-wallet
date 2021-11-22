@@ -220,7 +220,7 @@
     "Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour": "Angehalten: Wenn ein Token im Vault (Sicherheit oder Darlehen) in der letzten Stunde um mehr als 30 % geschwankt hat.",
     "How are interests calculated for loan?": "Wie werden die Zinsen für Darlehen berechnet?",
     "There are 2 types of interests that applies for loans, namely vault interest rate and token interest rate.": "Es gibt 2 Arten von Zinsen, die für Darlehen gelten, nämlich den Vault-Zinssatz und den Token-Zinssatz.",
-    "The vault interest rate is determine when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.": "Der Vault-Zins wird festgelegt, wenn der Vaultbesitzer das Darlehensmodell auswählt, wobei der Vault-Zins umso niedriger ist, je höher die Mindestbesicherungsquote ist.", 
+    "The vault interest rate is determine when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.": "Der Vault-Zins wird festgelegt, wenn der Vaultbesitzer das Darlehensmodell auswählt, wobei der Vault-Zins umso niedriger ist, je höher die Mindestbesicherungsquote ist.",
     "The token interest rate is applied on specific loan tokens, and can differ from token to token.": "Der Token-Zinssatz wird auf bestimmte Darlehenstoken angewandt und kann sich von Token zu Token unterscheiden.",
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and calculated on a per annum basis.": "Der Gesamtzinssatz für ein Darlehen ergibt sich aus dem Vault-Zinssatz und dem Token-Zinssatz und wird auf jährlicher Basis berechnet."
   },
@@ -620,13 +620,13 @@
     "Add Collateral": "Sicherheiten Hinzufügen",
     "Confirm Add Collateral": "Bestätige das Hinzufügen von Sicherheiten",
     "Edit Collaterals": "Sicherheiten bearbeiten",
-    "Borrow Loan Token": "Borrow Loan Token"
+    "Borrow Loan Token": "Darlehenstoken entleihen"
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehen durchsuchen",
     "Your vaults": "Deine Vaults",
     "Active loan": "Aktuelles Darlehen",
-    "Details": "Details",
+    "Details": "Dateils",
     "Collaterals": "Sicherheiten",
     "Auctions": "Auktionen",
     "Loans": "Darlehen"
@@ -662,11 +662,11 @@
     "Amount payable": "Auszahlbarer Betrag",
     "Price per token (USD)": "Preis pro Token (USD)",
     "EDIT COLLATERALS": "SICHERHEITEN BEARBEITEN",
-    "MANAGE LOANS": "MANAGE LOANS",
-    "ACTIVE": "ACTIVE",
-    "HEALTHY": "HEALTHY",
-    "AT RISK": "AT RISK",
-    "HALTED": "HALTED",
+    "MANAGE LOANS": "DARLEHEN VERWALTEN",
+    "ACTIVE": "AKTIV",
+    "HEALTHY": "GUT",
+    "AT RISK": "GEFÄHRDE",
+    "HALTED": "GESTOPPT",
     "IN LIQUIDATION": "IN LIQUIDATION"
   },
   "components/EmptyVault": {
@@ -683,7 +683,8 @@
     "APR": "ZINS",
     "CONTINUE": "FORTFAHREN",
     "Confirm your vault details in next screen": "Bestätige die Daten deines Vaults in der nächsten Ansicht",
-    "Loan scheme of your vault determines the required collateralization of your vault for loans.": "Das Darlehensmodell deines Vaults bestimmt dessen erforderliche Darlehens-Besicherung."
+    "Loan scheme of your vault determines the required collateralization of your vault for loans.": "Das Darlehensmodell deines Vaults bestimmt dessen erforderliche Darlehens-Besicherung.",
+    "Min. collateral ratio": "Mindestbesicherungsquote"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Du erstellst gerade einen Vault",
@@ -720,7 +721,8 @@
     "Collaterals required to use this vault.": "Für die Nutzung dieses Vaults sind Sicherheiten erforderlich.",
     "Total collateral (USD)": "Gesamter Besicherungswert (USD)",
     "Total loans (USD)": "Gesamtdarlehensbetrag (USD)",
-    "Vault interest (APR)": "Vault interest (APR)"
+    "Vault interest (APR)": "Vault-Zins (jährl.)",
+    "Min. collateral ratio": "Mindestbesicherungsquote"
   },
   "components/ScrollableButton": {
     "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
@@ -733,10 +735,10 @@
     "Browse for available loan tokens and start using this vault as collateral.": "Suche nach verfügbaren Hinterlegungs-Token und verwende diesen Vault als Sicherheit.",
     "BROWSE LOAN TOKENS": "DARLEHEN DURCHSUCHEN"
   },
-  "components/VaultDetailsLoansTab": { 
-    "Outstanding balance": "Outstanding balance",   
-    "Interest amount": "Interest amount",
-    "PAYBACK LOAN": "PAYBACK LOAN",    
+  "components/VaultDetailsLoansTab": {
+    "Outstanding balance": "Ausstehender Saldo",
+    "Interest amount": "Zinsbetrag",
+    "PAYBACK LOAN": "DARLEHENRÜCKZAHLUNG",
     "BORROW MORE": "MEHR AUSLEIHEN"
   },
   "components/BalanceControlCard": {
@@ -751,7 +753,7 @@
     "Min. collateral ratio": "Mindestbesicherungsquote",
     "Vault interest": "Vault-Zins",
     "VAULT DETAILS": "VAULT-DETAILS",
-    "COLLATERALIZATION DETAILS": "COLLATERALIZATION DETAILS",
+    "COLLATERALIZATION DETAILS": "DETAILS ZUR BESICHERUNG",
     "Collateralization ratio": "Besicherungsquote",
     "Next collateralization": "Nächste Besicherung",
     "Total collateral (USD)": "Gesamter Besicherungswert (USD)",
@@ -820,79 +822,86 @@
     "Remove Collateral": "Sicherheiten entfernen"
   },
   "screens/PaybackLoanScreen": {
-    "YOU ARE PAYING FOR LOAN": "YOU ARE PAYING FOR LOAN",
-    "VAULT IN USE": "VAULT IN USE",
-    "How much do you want to pay?": "How much do you want to pay?",
+    "YOU ARE PAYING FOR LOAN": "SIE ZAHLEN FÜR EIN DARLEHEN",
+    "VAULT IN USE": "AKTIVER VAULT",
+    "How much do you want to pay?": "Wie viel willst du abzahlen?",
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
     "CONTINUE": "FORTSETZEN",
-    "Review and confirm transaction in the next screen": "Review and confirm transaction in the next screen",
+    "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
-    "Amount to pay": "Amount to pay",
-    "Remaining loan amount": "Remaining loan amount"
+    "Amount to pay": "Zu zahlender Betrag",
+    "Remaining loan amount": "Verbleibender Darlehensbetrag",
+    "Outstanding balance": "Ausstehender Saldo",
+    "Collateralization ratio": "Besicherungsquote",
+    "Min. collateral ratio": "Mindestbesicherungsquote"
   },
   "screens/ConfirmPaybackLoanScreen": {
-    "CONFIRM PAYMENT": "CONFIRM PAYMENT",
-    "PAYING": "PAYING",
-    "You are paying": "You are paying",
+    "CONFIRM PAYMENT": "ZAHLUNG BESTÄTIGEN",
+    "PAYING": "BEZAHLEN",
+    "You are paying": "Du zahlst",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktionsart",
-    "Loan payment": "Loan payment",
-    "Amount to pay": "Amount to pay",
-    "Remaining loan amount": "Remaining loan amount",
+    "Loan payment": "Darlehensrückzahlung",
+    "Amount to pay": "Zu zahlender Betrag",
+    "Remaining loan amount": "Verbleibender Darlehensbetrag",
     "VAULT DETAILS": "VAULT-DETAILS",
     "Vault ID": "Vault-ID",
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateralization ratio": "Besicherungsquote",
-    "Paying loan": "Paying loan",
-    "Paying {{amount}} {{symbol}}": "Paying {{amount}} {{symbol}}",
-    "Confirm Loan Payment": "Confirm Loan Payment"
+    "Paying loan": "Darlehen abbezahlen",
+    "Paying {{amount}} {{symbol}}": "{{amount}} {{symbol}} bezahlen",
+    "Confirm Loan Payment": "Darlehensauszahlung bestätigen"
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "Besicherungsquote",
     "Min:": "Min:",
-    "Next:": "Next:"
+    "Next:": "Nächste:"
   },
   "screens/BorrowLoanTokenScreen": {
-    "Borrow loan token": "Borrow loan token",
-    "SELECT VAULT FOR COLLATERAL": "SELECT VAULT FOR COLLATERAL",
+    "Borrow loan token": "Darlehenstoken leihen",
+    "SELECT VAULT FOR COLLATERAL": "VAULT FÜR SICHERHEITEN AUSWÄHLEN",
     "Select a vault to use": "Select a vault to use",
-    "Choose a vault to use": "Choose a vault to use",
+    "Choose a vault to use": "Wähle einen zu verwendenden Vault",
     "Price (USD)": "Preis (USD)",
     "Interest": "Zins",
     "Total collateral (USD)": "Gesamter Besicherungswert (USD)",
     "Vault interest": "Vault-Zins",
-    "How much do you want to borrow?": "How much do you want to borrow?",
+    "How much do you want to borrow?": "Wie viel willst du leihen?",
     "Collateral ratio": "Besicherungsquote",
     "Enter an amount": "Gib eine Menge ein",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Collateralization ratio": "Besicherungsquote",
     "Min. collateral ratio": "Mindestbesicherungsquote",
-    "Interest (Vault + Token)": "Interest (Vault + Token)",
-    "Total interest amount": "Total interest amount",
-    "Total loan + interest": "Total loan + interest",
-    "Review and confirm transaction in the next screen": "Review and confirm transaction in the next screen"
+    "Interest (Vault + Token)": "Zinsen (Vault + Token)",
+    "Total interest amount": "Zinsgesamtbetrag",
+    "Total loan + interest": "Gesamtbetrag Darlehen + Zins",
+    "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
+    "SELECT LOAN TOKEN": "SELECT LOAN TOKEN"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
-    "You are borrowing": "You are borrowing",
+    "You are borrowing": "Du leihst dir",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktionsart",
-    "Borrow loan token": "Borrow loan token",
-    "Convert & borrow loan token": "Convert & borrow loan token",
-    "Loan tokens to borrow": "Loan tokens to borrow",
-    "Token interest": "Token interest",
+    "Borrow loan token": "Darlehenstoken leihen",
+    "Convert & borrow loan token": "Darlehenstoken umwandeln & leihen",
+    "Loan tokens to borrow": "Auszuleihende Darlehenstoken",
+    "Token interest": "Token-Zins",
     "Vault interest": "Vault-Zins",
-    "Total interest amount": "Total interest amount",
-    "Total loan + interest": "Total loan + interest",
+    "Total interest amount": "Zinsgesamtbetrag",
+    "Total loan + interest": "Gesamtbetrag Darlehen + Zins",
     "VAULT DETAILS": "VAULT-DETAILS",
     "Vault ID": "Vault-ID",
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateralization ratio": "Besicherungsquote",
     "TRANSACTION RESULTS": "TRANSAKTIONSERGEBNISSE",
-    "Resulting collateral ratio": "Resulting collateral ratio",
-    "Borrowing loan token": "Borrowing loan token",
-    "Borrowing {{amount}} {{symbol}}": "Borrowing {{amount}} {{symbol}}",
-    "CONFIRM BORROW": "CONFIRM BORROW",
-    "BORROWING": "BORROWING"
+    "Resulting collateral ratio": "Resultierende Besicherungsquote",
+    "Borrowing loan token": "Darlehenstoken ausleihen",
+    "Borrowing {{amount}} {{symbol}}": "{{amount}} {{symbol}} ausleihen",
+    "CONFIRM BORROW": "LEIHEN BESTÄTIGEN",
+    "BORROWING": "LEIHEN"
+  },
+  "components/BottomSheetVaultList": {
+    "Collateralization ratio": "Besicherungsquote"
   }
 }

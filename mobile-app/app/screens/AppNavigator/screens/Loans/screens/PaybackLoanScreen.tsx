@@ -257,7 +257,7 @@ function VaultInput ({ vault }: VaultInputProps): JSX.Element {
           dark={tailwind('text-gray-400')}
           style={tailwind('text-xs')}
         >
-          {translate('screens/PaybackLoanScreen', 'Min. collateralization ratio')}
+          {translate('screens/PaybackLoanScreen', 'Min. collateral ratio')}
         </ThemedText>
         <NumberFormat
           value={new BigNumber(vault.loanScheme.minColRatio).toFixed(2)}

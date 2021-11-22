@@ -21,7 +21,10 @@ export function Vaults (): JSX.Element {
   const vaults = useSelector((state: RootState) => state.loans.vaults)
 
   useEffect(() => {
-    dispatch(fetchVaults({ address, client }))
+    dispatch(fetchVaults({
+      address,
+      client
+    }))
   }, [blockCount])
 
   useEffect(() => {
