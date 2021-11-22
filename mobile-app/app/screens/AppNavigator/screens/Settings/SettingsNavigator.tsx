@@ -17,7 +17,7 @@ import { KnowledgeBaseScreen } from './screens/KnowledgeBaseScreen'
 import { RecoveryWordsFaq } from '@screens/WalletNavigator/screens/CreateWallet/RecoveryWordsFaq'
 import { TokensVsUtxoScreen } from '../Balances/screens/TokensVsUtxoScreen'
 import { FeatureFlagScreen } from './screens/FeatureFlagScreen'
-import { LoansFaq } from '@screens/WalletNavigator/screens/CreateWallet/LoansFaq'
+import { LoansFaq } from '@screens/AppNavigator/screens/Loans/screens/LoansFaq'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
