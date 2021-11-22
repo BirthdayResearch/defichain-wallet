@@ -11,7 +11,6 @@ interface LoansState {
   collateralTokens: CollateralToken[]
   hasFetchedVaultsData: boolean
   hasFetchedLoansData: boolean
-  auctions: LoanVaultLiquidated[]
 }
 
 const initialState: LoansState = {
@@ -20,8 +19,7 @@ const initialState: LoansState = {
   loanSchemes: [],
   collateralTokens: [],
   hasFetchedVaultsData: false,
-  hasFetchedLoansData: false,
-  auctions: []
+  hasFetchedLoansData: false
 }
 
 // TODO (Harsh) Manage pagination for all api
@@ -53,113 +51,6 @@ export const fetchCollateralTokens = createAsyncThunk(
   }
 )
 
-export const fetchAuctions = createAsyncThunk(
-  'wallet/fetchAuctions',
-  async ({ size = 50, client }: { size?: number, client: WhaleApiClient }) => {
-    const vault: LoanVaultLiquidated[] = [
-      {
-        vaultId: 'fef7d5120a6d944e8ea501a285d468ee20e13f6b179143cf42a74ec7c786ec38',
-        loanScheme: {
-          id: '1',
-          minColRatio: '150',
-          interestRate: '0.5'
-        },
-        ownerAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
-        state: LoanVaultState.IN_LIQUIDATION,
-        liquidationHeight: 500,
-        liquidationPenalty: 5,
-        batchCount: 0,
-        batches: [{
-          index: 0,
-          collaterals: [{
-            id: '0',
-            amount: '10000',
-            symbol: 'DFI',
-            displaySymbol: 'DFI',
-            symbolKey: 'DFI',
-            name: 'DeFiChain'
-          //   activePrice:  {
-          //     id: string;
-          //     key: string;
-          //     sort: string;
-          //     active?: {
-          //         amount: string;
-          //         weightage: number;
-          //         oracles: {
-          //             active: number;
-          //             total: number;
-          //         };
-          //     };
-          //     next?: {
-          //         amount: string;
-          //         weightage: number;
-          //         oracles: {
-          //             active: number;
-          //             total: number;
-          //         };
-          //     };
-          //     isLive: boolean;
-          //     block: {
-          //         hash: string;
-          //         height: number;
-          //         time: number;
-          //         medianTime: number;
-          //     };
-          // }
-          }, {
-            id: '1',
-            amount: '0.00001',
-            symbol: 'BTC',
-            displaySymbol: 'BTC',
-            symbolKey: 'BTC',
-            name: 'Bitcoin'
-            // activePrice: '30000.1'
-          }],
-          loan: {
-            id: '0',
-            amount: '10000',
-            symbol: 'DFI',
-            displaySymbol: 'DFI',
-            symbolKey: 'DFI',
-            name: 'DeFiChain'
-            // activePrice: '3.1'
-          }
-        }, {
-          index: 1,
-          collaterals: [{
-            id: '0',
-            amount: '10000',
-            symbol: 'DFI',
-            displaySymbol: 'DFI',
-            symbolKey: 'DFI',
-            name: 'DeFiChain'
-            // activePrice: '3.1'
-          }, {
-            id: '1',
-            amount: '0.00001',
-            symbol: 'BTC',
-            displaySymbol: 'BTC',
-            symbolKey: 'BTC',
-            name: 'Bitcoin'
-            // activePrice: '30000.1'
-          }],
-          loan: {
-            id: '0',
-            amount: '10000',
-            symbol: 'DFI',
-            displaySymbol: 'DFI',
-            symbolKey: 'DFI',
-            name: 'DeFiChain'
-            // activePrice: '3.1'
-          }
-        }
-
-      ]
-    }]
-    return vault // await client.address.listAuction(size)
-  }
-)
-
 export const loans = createSlice({
   name: 'loans',
   initialState,
@@ -178,9 +69,6 @@ export const loans = createSlice({
     })
     builder.addCase(fetchCollateralTokens.fulfilled, (state, action: PayloadAction<CollateralToken[]>) => {
       state.collateralTokens = action.payload
-    })
-    builder.addCase(fetchAuctions.fulfilled, (state, action: PayloadAction<LoanVaultLiquidated[]>) => {
-      state.auctions = action.payload
     })
   }
 })

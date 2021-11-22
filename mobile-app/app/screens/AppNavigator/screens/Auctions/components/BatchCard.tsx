@@ -7,15 +7,18 @@ import { View } from '@components'
 import { translate } from '@translations'
 import { TokenIconGroup } from '@components/TokenIconGroup'
 import { IconButton } from '@components/IconButton'
-import { LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
+import { LoanVaultLiquidationBatch, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { getNativeIcon } from '@components/icons/assets'
 import NumberFormat from 'react-number-format'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
 
 export interface BatchCardProps {
   vaultId: string
+  state: LoanVaultState
+  liquidationHeight: number
   batch: LoanVaultLiquidationBatch
-  testID?: string
 }
 
 export interface Collateral {
@@ -27,10 +30,21 @@ export interface LoanToken {
   tokenId: string
 }
 
+export function secondsToHm (d: number): string {
+  const h = Math.floor(d / 3600)
+  const m = Math.floor(d % 3600 / 60)
+  const hDisplay = h > 0 ? `${translate('components/BatchCard', '{{h}}h', { h })} ` : ''
+  const mDisplay = m > 0 ? translate('components/BatchCard', '{{m}}m', { m }) : ''
+  return `${hDisplay}${mDisplay}`
+}
+
 export function BatchCard (props: BatchCardProps): JSX.Element {
-  const { batch } = props
+  const { batch, state, liquidationHeight } = props
   const { isLight } = useThemeContext()
   const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
+  const blockCount = useSelector((state: RootState) => state.block.count)
+  const blocksRemaining = liquidationHeight - blockCount
+  const timeRemaining = (blocksRemaining > 0) ? secondsToHm(blocksRemaining * 30) : ''
 
   return (
     <ThemedView
@@ -52,6 +66,23 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
               {batch.loan.displaySymbol}
             </ThemedText>
           </View>
+          {/* TODO add condition here for showing active bid */}
+          {state === LoanVaultState.IN_LIQUIDATION && (
+            <ThemedView
+              light={tailwind('bg-blue-100')}
+              dark={tailwind('bg-darkblue-100')}
+              style={tailwind('ml-1')}
+              testID={`active_indicator_${batch.index}`}
+            >
+              <ThemedText
+                light={tailwind('text-blue-500')}
+                dark={tailwind('text-darkblue-500')}
+                style={tailwind('text-xs px-1 font-medium')}
+              >
+                {translate('components/BatchCard', 'ACTIVE BID')}
+              </ThemedText>
+            </ThemedView>
+          )}
         </View>
         <View style={tailwind('flex flex-row')}>
           <ThemedText>
@@ -136,7 +167,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
             dark={tailwind('text-gray-50')}
             style={tailwind('text-sm')}
           >
-            5h 42m (712 blks)
+            {timeRemaining} ({translate('components/BatchCard', '{{block}} blks', { block: blocksRemaining })})
           </ThemedText>
         </View>
       </View>

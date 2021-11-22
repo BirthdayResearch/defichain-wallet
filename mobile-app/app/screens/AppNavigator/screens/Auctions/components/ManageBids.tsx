@@ -11,7 +11,7 @@ import { useEffect } from 'react'
 import { fetchVaults } from '@store/loans'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
+import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { BidCard } from './BidCard'
 import { EmptyBidsScreen } from './EmptyBidsScreen'
 
@@ -20,8 +20,7 @@ export function ManageBids (): JSX.Element {
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const blockCount = useSelector((state: RootState) => state.block.count)
-
-  const auctions = useSelector((state: RootState) => state.loans.auctions)
+  const auctions = useSelector((state: RootState) => state.auctions.auctions)
 
   useEffect(() => {
     dispatch(fetchVaults({ address, client }))
@@ -43,7 +42,7 @@ export function ManageBids (): JSX.Element {
           />
         </View>
       )}
-      {auctions.map((auction, index) => {
+      {auctions.map((auction: LoanVaultLiquidated, index: number) => {
         return (
           <View key={auction.vaultId}>
             {
@@ -51,6 +50,7 @@ export function ManageBids (): JSX.Element {
               return (
                 <BidCard
                   vaultId={auction.vaultId}
+                  liquidationHeight={auction.liquidationHeight}
                   batch={eachBatch}
                   key={`${auction.vaultId}_${eachBatch.index}`}
                   testID={`bid_card_${index}`}

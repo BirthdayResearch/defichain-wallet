@@ -10,11 +10,14 @@ import { TouchableOpacity } from 'react-native'
 import { LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import NumberFormat from 'react-number-format'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { useSelector } from 'react-redux'
+import { secondsToHm } from './BatchCard'
+import { RootState } from '@store'
 
 export interface BidCardProps {
   vaultId: string
   batch: LoanVaultLiquidationBatch
-  testID?: string
+  liquidationHeight: number
 }
 
 export interface Collateral {
@@ -27,8 +30,11 @@ export interface LoanToken {
 }
 
 export function BidCard (props: BidCardProps): JSX.Element {
-  const { batch, vaultId } = props
+  const { batch, vaultId, liquidationHeight } = props
   const { isLight } = useThemeContext()
+  const blockCount = useSelector((state: RootState) => state.block.count)
+  const blocksRemaining = liquidationHeight - blockCount
+  const timeRemaining = (blocksRemaining > 0) ? secondsToHm(blocksRemaining * 30) : ''
 
   return (
     <ThemedView
@@ -37,7 +43,7 @@ export function BidCard (props: BidCardProps): JSX.Element {
       style={tailwind('rounded mb-2 border p-4')}
     >
       <View style={tailwind('flex-row w-full items-center justify-between mb-4')}>
-        <View style={tailwind('flex w-1/2 flex-row')}>
+        <View style={tailwind('flex flex-row')}>
           <NumberFormat
             displayType='text'
             suffix={` ${batch.loan.displaySymbol}`}
@@ -49,7 +55,7 @@ export function BidCard (props: BidCardProps): JSX.Element {
               >
                 {value}
               </ThemedText>
-                  )}
+            )}
             thousandSeparator
             value={batch.loan.amount}
           />
@@ -93,7 +99,7 @@ export function BidCard (props: BidCardProps): JSX.Element {
             dark={tailwind('text-gray-400')}
             style={tailwind('text-xs')}
           >
-            {translate('components/BidCard', 'Auction ends in')}
+            {translate('components/BidCard', 'Auction ends on')}
           </ThemedText>
         </View>
         <View style={tailwind('flex flex-row')}>
@@ -102,7 +108,7 @@ export function BidCard (props: BidCardProps): JSX.Element {
             dark={tailwind('text-gray-50')}
             style={tailwind('text-sm')}
           >
-            5h 42m (712 blks)
+            {timeRemaining} ({translate('components/BidCard', '{{block}} blks', { block: blocksRemaining })})
           </ThemedText>
         </View>
       </View>

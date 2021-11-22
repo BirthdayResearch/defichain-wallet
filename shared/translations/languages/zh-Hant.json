@@ -362,6 +362,7 @@
   "screens/FeatureFlagScreen": {
     "Loans": "貸款",
     "Browse loan tokens provided by DeFiChain": "瀏覽 DeFiChain 提供的貸款代幣",
+    "Browse auctions provided by DeFiChain": "瀏覽 DeFiChain 提供的拍賣",
     "Continue": "繼續",
     "Cancel": "取消",
     "Enable {{feature}} (Beta)": "啟用 Beta測試版 {{feature}}",
@@ -626,7 +627,9 @@
     "Active loan": "活躍的貸款",
     "Details": "明細",
     "Collaterals": "抵押品",
-    "Auctions": "清算拍賣"
+    "Auctions": "清算拍賣",
+    "Browse auctions": "瀏覽拍賣",
+    "Manage bids": "管理競投出價"
   },
   "components/LoanCard": {
     "Active Price": "目前活躍價格",
@@ -637,7 +640,33 @@
   "components/InfoTextLink": {
     "Learn more about UTXO and Token": "了解 UTXO 和代幣區別",
     "UTXO vs Token, what is the difference?": "UTXO和代幣的區別是什麼？",
-    "Learn more about vaults": "了解更多關於金庫的資訊"
+    "Learn more about vaults": "了解更多關於金庫的資訊",
+    "Learn more about auctions and bidding": "了解有關拍賣和出價的更多信息"
+  },
+  "components/EmptyBidsScreen": {
+    "No active bids": "沒有活躍競投價格",
+    "To get started, browse on auctions and place a bid": "首先，瀏覽拍賣並出價"
+  },
+  "components/BatchCard": {
+    "Latest bid": "最新出價",
+    "Token to win": "贏得競投後獲得的代幣",
+    "Auction time left": "剩餘拍賣時間",
+    "PLACE BID": "競投出價",
+    "VIEW REWARDS": "查看獎勵",
+    "{{block}} blks": "{{block}} 區塊",
+    "ACTIVE BID": "主動出價",
+    "{{h}}h": "{{h}}時",
+    "{{m}}m": "{{m}}分"
+  },
+  "components/BidCard": {
+    "BID HIGHER": "出價更高",
+    "VIEW REWARDS": "查看獎勵",
+    "{{block}} blks": "{{block}} 區塊",
+    "Auction ID": "拍賣編號",
+    "Auction ends on": "拍賣結束於",
+    "Auction won": "贏得拍賣",
+    "Lost to another bid": "輸給另一個出價",
+    "Lost": "競投失敗"
   },
   "components/VaultCard": {
     "Collaterals:": "抵押品:",
