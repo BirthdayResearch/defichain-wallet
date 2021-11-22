@@ -55,7 +55,7 @@ export function EditLoanSchemeScreen ({ route, navigation }: Props): JSX.Element
         amount: new BigNumber(fee).minus(DFIUtxo.amount)
       }, dispatch, () => {
         navigation.navigate({
-          name: 'ConfirmEditVaultScreen',
+          name: 'ConfirmEditLoanSchemeScreen',
           params: {
             vault: activeVault,
             loanScheme: selectedLoanScheme,
@@ -71,7 +71,7 @@ export function EditLoanSchemeScreen ({ route, navigation }: Props): JSX.Element
       }, logger)
     } else {
       navigation.navigate({
-        name: 'ConfirmEditVaultScreen',
+        name: 'ConfirmEditLoanSchemeScreen',
         params: {
           vault: activeVault,
           loanScheme: selectedLoanScheme,

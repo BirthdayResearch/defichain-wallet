@@ -280,7 +280,7 @@ export function LoansNavigator (): JSX.Element {
       />
       <LoansStack.Screen
         component={EditLoanSchemeScreen}
-        name='EditVaultScreen'
+        name='EditLoanSchemeScreen'
         options={{
           headerBackTitleVisible: false,
           headerTitle: () => (
@@ -292,7 +292,7 @@ export function LoansNavigator (): JSX.Element {
       />
       <LoansStack.Screen
         component={ConfirmEditLoanSchemeScreen}
-        name='ConfirmEditVaultScreen'
+        name='ConfirmEditLoanSchemeScreen'
         options={{
           headerBackTitleVisible: false,
           headerTitle: () => (

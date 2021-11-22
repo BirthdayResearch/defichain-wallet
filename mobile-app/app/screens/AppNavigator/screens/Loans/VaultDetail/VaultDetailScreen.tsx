@@ -60,7 +60,7 @@ export function VaultDetailScreen ({
         }
 
         navigation.navigate({
-          name: 'EditVaultScreen',
+          name: 'EditLoanSchemeScreen',
           params: {
             vaultId: vault.vaultId
           },
