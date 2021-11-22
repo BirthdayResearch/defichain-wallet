@@ -917,7 +917,7 @@
     "Confirm your vault details in next screen":"Bestätige die Daten deines Vaults in der nächsten Ansicht"
   },
   "screens/ConfirmEditLoanSchemeScreen": {
-    "You are editing scheme of vault": "You are editing scheme of vault",
+    "You are editing scheme of vault": "Du bearbeitest das Vault-Modell",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktions-Typ",
     "Edit loan scheme": "Darlehensmodell bearbeiten",
