@@ -451,7 +451,7 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
           >
             {props.vault.vaultId}
           </ThemedText>
-          <VaultStatusTag status={vaultState} />
+          <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
         </View>
         <ThemedIcon
           iconType='MaterialIcons'
