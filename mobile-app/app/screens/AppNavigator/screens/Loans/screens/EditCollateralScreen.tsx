@@ -332,7 +332,7 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
       dark={tailwind('bg-gray-800 border-gray-700')}
-      style={tailwind('flex flex-col items-center border rounded px-4 py-3')}
+      style={tailwind('border rounded px-4 py-3')}
     >
       <View style={tailwind('flex flex-row items-center mb-2')}>
         <View
