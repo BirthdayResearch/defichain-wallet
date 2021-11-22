@@ -205,7 +205,7 @@ context('Wallet - DEX - Pool Pair failed api', () => {
   })
 })
 
-context('Wallet - DEX - Pool Swap with Conversion', () => {
+context('Wallet - DEX - Composite Swap with Conversion', () => {
   beforeEach(function () {
     setupWalletForConversion()
   })
