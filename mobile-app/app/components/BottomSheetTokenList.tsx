@@ -89,7 +89,7 @@ export const BottomSheetTokenList = ({
               <ThemedText
                 light={tailwind('text-gray-500')}
                 dark={tailwind('text-gray-400')}
-                style={tailwind('text-xs')}
+                style={tailwind(['text-xs', { hidden: item.token.name === '' }])}
               >
                 {item.token.name}
               </ThemedText>
