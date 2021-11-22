@@ -1,9 +1,9 @@
 import * as React from 'react'
+import { tailwind } from '@tailwind'
 import { WalletHdNodeProvider } from '@defichain/jellyfish-wallet'
 import { MnemonicHdNode } from '@defichain/jellyfish-wallet-mnemonic'
-import { Linking } from 'react-native'
+import { StyleSheet, ImageSourcePropType, Linking, TouchableOpacity, TouchableOpacityProps, Image, View } from 'react-native'
 import { useDispatch } from 'react-redux'
-import { Logging } from '../../../../api'
 import { initJellyfishWallet, MnemonicEncrypted, MnemonicUnprotected } from '@api/wallet'
 import { getJellyfishNetwork } from '@shared-api/wallet/network'
 import { WalletType } from '@shared-contexts/WalletPersistenceContext'
@@ -13,13 +13,20 @@ import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { authentication, Authentication } from '@store/authentication'
 import { translate } from '@translations'
-import { Button } from '../../../../components/Button'
 import { signAsync } from 'bitcoinjs-message'
 import { getEnvironment } from '@environment'
 import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 import * as Updates from 'expo-updates'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import BtnGatewayDe from '@assets/images/dfx_buttons/btn_gateway_de.png'
+import BtnOverviewDe from '@assets/images/dfx_buttons/btn_overview_de.png'
+import BtnTaxDe from '@assets/images/dfx_buttons/btn_tax_de.png'
+import BtnGatewayEn from '@assets/images/dfx_buttons/btn_gateway_en.png'
+import BtnOverviewEn from '@assets/images/dfx_buttons/btn_overview_en.png'
+import BtnTaxEn from '@assets/images/dfx_buttons/btn_tax_en.png'
 
-export function BuyWithFiat (): JSX.Element {
+export function DfxButtons (): JSX.Element {
+  const logger = useLogger()
   const { network } = useNetworkContext()
   const { address } = useWalletContext()
   const { data: providerData } = useWalletNodeContext()
@@ -28,7 +35,7 @@ export function BuyWithFiat (): JSX.Element {
   const { language } = useLanguageContext()
 
   // TODO(davidleomay): use useCallback?
-  async function onBuyWithFiat (): Promise<void> {
+  async function onGatewayButtonPress (): Promise<void> {
     if (providerData.type === WalletType.MNEMONIC_UNPROTECTED) {
       const provider = MnemonicUnprotected.initProvider(providerData, network)
       const signature = await signMessage(provider)
@@ -40,7 +47,7 @@ export function BuyWithFiat (): JSX.Element {
           return await signMessage(provider)
         },
         onAuthenticated: onMessageSigned,
-        onError: e => Logging.error(e),
+        onError: e => logger.error(e),
         message: translate('screens/BalancesScreen', 'To activate Fiat exchange, we need you to enter your current passcode.'),
         loading: translate('screens/BalancesScreen', 'Verifying passcode...')
       }
@@ -72,12 +79,48 @@ export function BuyWithFiat (): JSX.Element {
     return await signAsync(message, privKey, true, messagePrefix)
   }
 
+  async function onOverviewButtonPress (): Promise<void> {
+    const url = `https://defichain-income.com/address/${encodeURIComponent(address)}`
+    await Linking.openURL(url)
+  }
+
+  async function onTaxButtonPress (): Promise<void> {
+    const url = `https://dfi.tax/adr/${encodeURIComponent(address)}`
+    await Linking.openURL(url)
+  }
+
   return (
-    <Button
-      testID='button_buy_with_fiat'
-      title='Buy with FIAT'
-      onPress={onBuyWithFiat}
-      label={translate('screens/BalancesScreen', 'BUY WITH FIAT')}
-    />
+    <View style={tailwind('flex flex-row justify-evenly mt-6')}>
+      <ImageButton source={language === 'de' ? BtnGatewayDe : BtnGatewayEn} onPress={onGatewayButtonPress} />
+      <ImageButton source={language === 'de' ? BtnOverviewDe : BtnOverviewEn} onPress={onOverviewButtonPress} />
+      <ImageButton source={language === 'de' ? BtnTaxDe : BtnTaxEn} onPress={onTaxButtonPress} />
+    </View>
+  )
+}
+
+interface ImageButtonProps extends TouchableOpacityProps {
+    source: ImageSourcePropType
+  }
+
+export function ImageButton (props: ImageButtonProps): JSX.Element {
+  const styles = StyleSheet.create({
+    button: {
+    aspectRatio: 1.85,
+    flex: 1
+    },
+    image: {
+    height: '100%',
+    resizeMode: 'contain',
+    width: '100%'
+    }
+  })
+
+  return (
+    <TouchableOpacity style={styles.button} {...props}>
+      <Image
+        source={props.source}
+        style={styles.image}
+      />
+    </TouchableOpacity>
   )
 }

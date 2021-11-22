@@ -12,6 +12,7 @@ import Avatar from 'react-native-boring-avatars'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { IconButton } from '@components/IconButton'
+import { DfxButtons } from './DfxButtons'
 
 export function BalanceControlCard (): JSX.Element {
   const { address } = useWalletContext()
@@ -61,18 +62,19 @@ export function BalanceControlCard (): JSX.Element {
           </TouchableOpacity>
 
         </View>
+        <View style={tailwind('flex flex-row mt-4')}>
+          <IconButton
+            iconName='arrow-downward'
+            iconSize={20}
+            iconType='MaterialIcons'
+            onPress={() => navigation.navigate('Receive')}
+            testID='receive_balance_button'
+            style={tailwind('mr-2')}
+            iconLabel={translate('screens/BalancesScreen', 'RECEIVE')}
+          />
+        </View>
       </View>
-      <View style={tailwind('flex flex-row mt-4')}>
-        <IconButton
-          iconName='arrow-downward'
-          iconSize={20}
-          iconType='MaterialIcons'
-          onPress={() => navigation.navigate('Receive')}
-          testID='receive_balance_button'
-          style={tailwind('mr-2')}
-          iconLabel={translate('screens/BalancesScreen', 'RECEIVE')}
-        />
-      </View>
+      <DfxButtons />
     </ThemedView>
   )
 }

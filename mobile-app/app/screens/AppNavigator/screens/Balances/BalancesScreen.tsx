@@ -24,7 +24,6 @@ import { useCallback, useEffect, useState } from 'react'
 import NumberFormat from 'react-number-format'
 import { useDispatch } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
-import { BuyWithFiat } from './BuyWithFiat'
 import { BalanceText } from './components/BalanceText'
 import { Announcements } from '@screens/AppNavigator/screens/Balances/components/Announcements'
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
@@ -76,9 +75,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       }
     >
       <Announcements />
-      <ThemedView>
-        <BuyWithFiat />
-      </ThemedView>
       <BalanceControlCard />
       <ThemedView
         style={tailwind('flex flex-row justify-between')}
