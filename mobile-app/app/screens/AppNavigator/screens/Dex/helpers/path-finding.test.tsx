@@ -1,6 +1,6 @@
 import { findPath, GraphProps } from './path-finding'
 
-describe('Graph', () => {
+describe('Path Finding - Composite Swap', () => {
   it('should be able to find a path in an undirected graph', () => {
     const graphWithAtoBtoB: GraphProps[] = [
       { pairId: '1', a: 'CAT', b: 'ANIMAL' },
