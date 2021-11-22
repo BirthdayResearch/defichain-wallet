@@ -2,10 +2,13 @@ import BigNumber from 'bignumber.js'
 
 function setupWalletForConversion (): void {
   cy.createEmptyWallet(true)
+  cy.sendDFItoWallet()
+    .sendDFITokentoWallet()
+    .sendTokenToWallet(['USDC'])
+    .wait(3000)
+
   cy.getByTestID('bottom_tab_dex').click().wait(3000)
   cy.getByTestID('close_dex_guidelines').click()
-  cy.sendDFItoWallet()
-    .sendDFITokentoWallet().wait(3000)
 
   cy.getByTestID('bottom_tab_dex').click().wait(3000)
   cy.getByTestID('composite_swap').click()
@@ -99,59 +102,34 @@ context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
-    cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['LTC']).wait(3000)
+    cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['LTC', 'USDC']).wait(3000)
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
     cy.getByTestID('composite_swap').click()
+  })
+
+  it('should be able to swap tokens with 2 hops', function () {
+    cy.getByTestID('token_select_button_FROM').click()
+    cy.getByTestID('select_dUSDC').click().wait(100)
+    cy.getByTestID('token_select_button_TO').click()
+    cy.getByTestID('select_dLTC').click().wait(100)
+  })
+
+  it('should be able to swap direct pair', function () {
     cy.getByTestID('token_select_button_FROM').click()
     cy.getByTestID('select_DFI').click().wait(100)
     cy.getByTestID('token_select_button_TO').click()
     cy.getByTestID('select_dLTC').click().wait(100)
   })
 
-  it('should be able to swap', function () {
-    cy.getByTestID('text_input_tokenA').type('10')
-    cy.getByTestID('slippage_10%').click()
-    cy.getByTestID('estimated_to_receive').then(($txt: any) => {
-      const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
-      cy.getByTestID('button_submit').click()
-      cy.getByTestID('slippage_fee').contains('10')
-      cy.getByTestID('slippage_fee_suffix').contains('%')
-      cy.getByTestID('confirm_title').contains('You are swapping')
-      cy.getByTestID('button_confirm_swap').click().wait(3000)
-      cy.closeOceanInterface()
-      cy.fetchWalletBalance()
-      cy.getByTestID('bottom_tab_balances').click()
-      cy.getByTestID('balances_row_4').should('exist')
-
-      cy.getByTestID('balances_row_4_amount').then(($txt: any) => {
-        const balanceAmount = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
-        expect(new BigNumber(balanceAmount).toNumber()).be.gte(new BigNumber(tokenValue).toNumber())
-      })
-    })
-  })
-
-  it('should be able to swap correctly when user cancel a tx and updated some inputs', function () {
-    cy.getByTestID('text_input_tokenA').type('1')
-    cy.getByTestID('slippage_1%').click()
-    cy.getByTestID('estimated_to_receive').then(($txt: any) => {
-      $txt[0].textContent.replace(' dLTC', '').replace(',', '')
-      cy.getByTestID('button_submit').click()
-      cy.getByTestID('slippage_fee').contains('1')
-      cy.getByTestID('slippage_fee_suffix').contains('%')
-      cy.getByTestID('confirm_title').contains('You are swapping')
-      cy.getByTestID('button_confirm_swap').click().wait(3000)
-      // Cancel send on authorisation page
-      cy.getByTestID('cancel_authorization').click()
-      cy.getByTestID('button_cancel_swap').click()
-      // Update input values
-      cy.getByTestID('text_input_tokenA_clear_button').click()
+  afterEach(function () {
+    it('should be able to swap', function () {
       cy.getByTestID('text_input_tokenA').type('10')
       cy.getByTestID('slippage_10%').click()
       cy.getByTestID('estimated_to_receive').then(($txt: any) => {
-        const updatedTokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
+        const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
         cy.getByTestID('button_submit').click()
         cy.getByTestID('slippage_fee').contains('10')
         cy.getByTestID('slippage_fee_suffix').contains('%')
@@ -164,7 +142,44 @@ context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
 
         cy.getByTestID('balances_row_4_amount').then(($txt: any) => {
           const balanceAmount = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
-          expect(new BigNumber(balanceAmount).toNumber()).be.gte(new BigNumber(updatedTokenValue).toNumber())
+          expect(new BigNumber(balanceAmount).toNumber()).be.gte(new BigNumber(tokenValue).toNumber())
+        })
+      })
+    })
+
+    it('should be able to swap correctly when user cancel a tx and updated some inputs', function () {
+      cy.getByTestID('text_input_tokenA').type('1')
+      cy.getByTestID('slippage_1%').click()
+      cy.getByTestID('estimated_to_receive').then(($txt: any) => {
+        $txt[0].textContent.replace(' dLTC', '').replace(',', '')
+        cy.getByTestID('button_submit').click()
+        cy.getByTestID('slippage_fee').contains('1')
+        cy.getByTestID('slippage_fee_suffix').contains('%')
+        cy.getByTestID('confirm_title').contains('You are swapping')
+        cy.getByTestID('button_confirm_swap').click().wait(3000)
+        // Cancel send on authorisation page
+        cy.getByTestID('cancel_authorization').click()
+        cy.getByTestID('button_cancel_swap').click()
+        // Update input values
+        cy.getByTestID('text_input_tokenA_clear_button').click()
+        cy.getByTestID('text_input_tokenA').type('10')
+        cy.getByTestID('slippage_10%').click()
+        cy.getByTestID('estimated_to_receive').then(($txt: any) => {
+          const updatedTokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
+          cy.getByTestID('button_submit').click()
+          cy.getByTestID('slippage_fee').contains('10')
+          cy.getByTestID('slippage_fee_suffix').contains('%')
+          cy.getByTestID('confirm_title').contains('You are swapping')
+          cy.getByTestID('button_confirm_swap').click().wait(3000)
+          cy.closeOceanInterface()
+          cy.fetchWalletBalance()
+          cy.getByTestID('bottom_tab_balances').click()
+          cy.getByTestID('balances_row_4').should('exist')
+
+          cy.getByTestID('balances_row_4_amount').then(($txt: any) => {
+            const balanceAmount = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
+            expect(new BigNumber(balanceAmount).toNumber()).be.gte(new BigNumber(updatedTokenValue).toNumber())
+          })
         })
       })
     })

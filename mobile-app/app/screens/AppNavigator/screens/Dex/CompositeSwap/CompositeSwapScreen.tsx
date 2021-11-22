@@ -521,22 +521,23 @@ function TransactionDetailsSection ({ conversionAmount, estimatedAmount, fee, is
 }
 
 function calculatePriceRates (tokenA: DerivedTokenState, tokenB: DerivedTokenState, pairs: PoolPairData[], amount: string): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: string } {
-  let lastTokenBId = tokenA.id
+  let lastTokenBySymbol = tokenA.symbol
   let lastAmount = new BigNumber(amount)
   const priceRates = pairs.reduce((priceRates, pair): {aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: BigNumber} => {
-    const [reserveA, reserveB] = pair.tokenB.id === lastTokenBId ? [pair.tokenB.reserve, pair.tokenA.reserve] : [pair.tokenA.reserve, pair.tokenB.reserve]
-    const [tokenAId, tokenBId] = pair.tokenB.id === lastTokenBId ? [pair.tokenB.id, pair.tokenA.id] : [pair.tokenA.id, pair.tokenB.id]
+    const [reserveA, reserveB] = pair.tokenB.symbol === lastTokenBySymbol ? [pair.tokenB.reserve, pair.tokenA.reserve] : [pair.tokenA.reserve, pair.tokenB.reserve]
+    const [tokenASymbol, tokenBSymbol] = pair.tokenB.symbol === lastTokenBySymbol ? [pair.tokenB.symbol, pair.tokenA.symbol] : [pair.tokenA.symbol, pair.tokenB.symbol]
 
     const priceRateA = new BigNumber(reserveB).div(reserveA)
     const priceRateB = new BigNumber(reserveA).div(reserveB)
     // To sequentially convert the token from its last token
-    const aToBPrice = tokenAId === lastTokenBId ? priceRateA : priceRateB
-    const bToAPrice = tokenAId === lastTokenBId ? priceRateB : priceRateA
+    const aToBPrice = tokenASymbol === lastTokenBySymbol ? priceRateA : priceRateB
+    const bToAPrice = tokenASymbol === lastTokenBySymbol ? priceRateB : priceRateA
 
     const slippage = (new BigNumber(1).minus(new BigNumber(lastAmount).div(reserveA)))
     const estimated = new BigNumber(lastAmount).times(aToBPrice).times(slippage)
+
     lastAmount = estimated
-    lastTokenBId = tokenBId
+    lastTokenBySymbol = tokenBSymbol
     return {
       aToBPrice: priceRates.aToBPrice.times(aToBPrice),
       bToAPrice: priceRates.bToAPrice.times(bToAPrice),
