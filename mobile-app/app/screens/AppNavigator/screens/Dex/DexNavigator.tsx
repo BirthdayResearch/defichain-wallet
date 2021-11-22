@@ -26,7 +26,7 @@ export interface DexParamList {
     tokenB: DerivedTokenState
     swap: DexForm
     fee: BigNumber
-    pairIds: PoolPairData[]
+    pair: PoolPairData
     slippage: number
     priceRateA: string
     priceRateB: string
