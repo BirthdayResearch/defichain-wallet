@@ -133,7 +133,7 @@ function VaultIdSection ({ vault }: { vault: LoanVault }): JSX.Element {
             >
               {translate('screens/VaultDetailScreen', 'Vault ID')}
             </ThemedText>
-            <VaultStatusTag status={vaultState} />
+            <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
           </View>
           <View
             style={tailwind('flex flex-row mb-2 items-center')}
@@ -157,7 +157,7 @@ function VaultIdSection ({ vault }: { vault: LoanVault }): JSX.Element {
         </View>
       </ThemedView>
       {
-        vault.state !== LoanVaultState.IN_LIQUIDATION && vaultState !== VaultStatus.Active && (
+        vault.state !== LoanVaultState.IN_LIQUIDATION && vaultState.status !== VaultStatus.Active && (
           <CollateralizationRatioDisplay
             collateralizationRatio={vault.collateralRatio}
             minCollateralizationRatio={vault.loanScheme.minColRatio}

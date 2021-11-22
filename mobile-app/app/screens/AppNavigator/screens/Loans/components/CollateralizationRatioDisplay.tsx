@@ -19,12 +19,13 @@ interface CollateralizationRatioDisplayProps {
 }
 
 export function CollateralizationRatioDisplay (props: CollateralizationRatioDisplayProps): JSX.Element {
-  const maxRatio = 1000
+  const atRiskThresholdMultiplier = 1.5
   const minColRatio = new BigNumber(props.minCollateralizationRatio)
+  const maxRatio = getMaxRatio(minColRatio.multipliedBy(atRiskThresholdMultiplier))
   const normalizedColRatio = new BigNumber(props.collateralizationRatio).dividedBy(maxRatio)
   const normalizedNextRatio = new BigNumber(props.nextCollateralizationRatio).dividedBy(maxRatio).multipliedBy(100)
   const normalizedLiquidatedThreshold = minColRatio.multipliedBy(1.25).dividedBy(maxRatio).multipliedBy(100)
-  const normalizedAtRiskThreshold = minColRatio.multipliedBy(1.5).dividedBy(maxRatio).multipliedBy(100)
+  const normalizedAtRiskThreshold = minColRatio.multipliedBy(atRiskThresholdMultiplier).dividedBy(maxRatio).multipliedBy(100)
 
   return (
     <View style={tailwind('mb-4')}>
@@ -177,9 +178,9 @@ function HealthBar (props: { normalizedColRatio: BigNumber, normalizedNextRatio:
       <Progress.Bar
         progress={props.normalizedColRatio.toNumber()}
         width={null}
-        borderColor={getColor(isLight ? 'gray-300' : 'gray-600')}
-        color={getColor(isLight ? 'white' : 'black')}
-        unfilledColor={getColor(isLight ? 'gray-100' : 'gray-900')}
+        borderColor={getColor(isLight ? 'gray-300' : 'gray-800')}
+        color={getColor(isLight ? 'white' : 'gray-200')}
+        unfilledColor={getColor(isLight ? 'gray-100' : 'gray-700')}
         borderRadius={8}
         height={12}
       />
@@ -230,4 +231,9 @@ function ColorScale (props: { normalizedLiquidatedThreshold: BigNumber, normaliz
       />
     </View>
   )
+}
+
+function getMaxRatio (atRiskThreshold: BigNumber): number {
+  const healthyScaleRatio = 0.75
+  return atRiskThreshold.dividedBy(new BigNumber(1).minus(healthyScaleRatio)).toNumber()
 }

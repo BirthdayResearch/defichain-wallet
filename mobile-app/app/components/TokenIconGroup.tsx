@@ -18,7 +18,7 @@ export function TokenIconGroup (props: TokenIconGroupProps): JSX.Element {
         props.symbols?.map((symbol, index): JSX.Element | null => {
           if (index < props.maxIconToDisplay) {
             return (
-              <View key={symbol} style={[tailwind('bg-white rounded-full p-px relative'), { left: index * -5 }]}>
+              <View key={symbol} style={[tailwind('rounded-full p-px relative'), { left: index * -5 }]}>
                 <SymbolIcon
                   key={symbol}
                   symbol={symbol}
