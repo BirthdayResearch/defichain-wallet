@@ -3,7 +3,7 @@ import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import React from 'react'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { View } from '@components'
-import { TouchableOpacity } from 'react-native'
+import { Dimensions, TouchableOpacity } from 'react-native'
 import { translate } from '@translations'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
@@ -16,6 +16,8 @@ import { DfxButtons } from './DfxButtons'
 
 export function BalanceControlCard (): JSX.Element {
   const { address } = useWalletContext()
+  const letterCount = Dimensions.get('window').width > 340 ? 6 : 4
+  const displayAddress = `${address.substr(0, letterCount)}...${address.substr(address.length - letterCount, address.length)}`
   const { getAddressUrl } = useDeFiScanContext()
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   return (
@@ -57,12 +59,12 @@ export function BalanceControlCard (): JSX.Element {
           </View>
           <TouchableOpacity onPress={async () => await openURL(getAddressUrl(address))}>
             <ThemedText testID='wallet_address' style={tailwind('text-sm font-semibold pr-4')}>
-              {address}
+              {displayAddress}
             </ThemedText>
           </TouchableOpacity>
 
         </View>
-        <View style={tailwind('flex flex-row mt-4')}>
+        <View style={tailwind('flex flex-row mt-1')}>
           <IconButton
             iconName='arrow-downward'
             iconSize={20}
