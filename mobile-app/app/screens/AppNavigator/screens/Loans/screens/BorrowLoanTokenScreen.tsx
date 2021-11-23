@@ -120,6 +120,7 @@ export function BorrowLoanTokenScreen ({
       amount.isLessThanOrEqualTo(0) ||
       vault === undefined ||
       resultingColRatio === undefined ||
+      resultingColRatio.isNaN() ||
       resultingColRatio.isLessThan(vault.loanScheme.minColRatio))
   }
 
@@ -508,7 +509,7 @@ interface TransactionDetailsProps {
   fee: BigNumber
 }
 
-function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element {
+export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element {
   const resultingVaultState = useVaultStatus(
     props.vault.state,
     props.resultingColRatio,
