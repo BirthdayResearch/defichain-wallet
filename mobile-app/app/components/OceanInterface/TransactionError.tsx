@@ -83,6 +83,26 @@ function errorMessageMapping (err: string): ErrorMapping {
       code: ErrorCodes.InsufficientDFIInVault,
       message: 'Insufficient DFI collateral (≥50%)'
     }
+  } else if (err.includes('Lack of liquidity')) {
+    return {
+      code: ErrorCodes.InsufficientDFIInVault,
+      message: 'Pool does not have enough liquidity'
+    }
+  } else if (err.includes('Cannot payback loan while any of the asset\'s price is invalid')) {
+    return {
+      code: ErrorCodes.InsufficientDFIInVault,
+      message: 'Cannot payback loan due to invalid price'
+    }
+  } else if (err.includes('No live fixed prices')) {
+    return {
+      code: ErrorCodes.InsufficientDFIInVault,
+      message: 'No live fixed prices for loan token'
+    }
+  } else if (err.includes('Vault does not have enough collateralization ratio defined by loan scheme')) {
+    return {
+      code: ErrorCodes.InsufficientDFIInVault,
+      message: 'Vault does not have enough col. ratio'
+    }
   }
 
   return {

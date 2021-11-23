@@ -195,14 +195,17 @@ export function LoansNavigator (): JSX.Element {
       <LoansStack.Screen
         component={ConfirmEditCollateralScreen}
         name='ConfirmEditCollateralScreen'
-        options={{
+        options={({ route }: { route: any }) => ({
           headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/LoansScreen', 'Confirm Add Collateral')}
-            />
-          )
-        }}
+          headerTitle: () => {
+            const isAdd = route?.params?.isAdd as boolean
+            return (
+              <HeaderTitle
+                text={translate('screens/LoansScreen', `Confirm ${isAdd ? 'Add' : 'Remove'} Collateral`)}
+              />
+            )
+          }
+        })}
       />
       <LoansStack.Screen
         component={ChooseLoanTokenScreen}

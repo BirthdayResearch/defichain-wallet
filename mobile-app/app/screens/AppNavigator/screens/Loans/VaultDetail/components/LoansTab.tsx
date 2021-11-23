@@ -16,6 +16,7 @@ import { VaultSectionTextRow } from '../../components/VaultSectionTextRow'
 import { EmptyLoan } from './EmptyLoan'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
+import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 
 interface LoanCardProps {
   symbol: string
@@ -71,6 +72,7 @@ export function LoansTab (props: { vault: LoanVault }): JSX.Element {
 }
 
 function LoanCard (props: LoanCardProps): JSX.Element {
+  const canUseOperations = useLoanOperations(props.vault?.state)
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
@@ -130,7 +132,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
       </View>
 
       {
-        props.vaultState !== LoanVaultState.IN_LIQUIDATION && props.vault !== undefined && (
+        canUseOperations && props.vault !== undefined && (
           <ActionButtons vault={props.vault} loanToken={props.loanToken} />
         )
       }
@@ -138,7 +140,6 @@ function LoanCard (props: LoanCardProps): JSX.Element {
   )
 }
 
-// TODO: show button when payback is ready
 function ActionButtons ({
   vault,
   loanToken

@@ -36,6 +36,7 @@ import { ConversionInfoText } from '@components/ConversionInfoText'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 import { queueConvertTransaction } from '@hooks/wallet/Conversion'
+import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowLoanTokenScreen'>
 
@@ -65,6 +66,7 @@ export function BorrowLoanTokenScreen ({
   const isConversionRequired = new BigNumber(0.1).gt(DFIUtxo.amount)
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const canUseOperations = useLoanOperations(vault?.state)
 
   // Bottom sheet
   const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
@@ -266,7 +268,7 @@ export function BorrowLoanTokenScreen ({
               </View>
             )}
             <Button
-              disabled={!valid || hasPendingJob || hasPendingBroadcastJob}
+              disabled={!valid || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
               label={translate('screens/BorrowLoanTokenScreen', 'CONTINUE')}
               onPress={onSubmit}
               testID='add_collateral_button'

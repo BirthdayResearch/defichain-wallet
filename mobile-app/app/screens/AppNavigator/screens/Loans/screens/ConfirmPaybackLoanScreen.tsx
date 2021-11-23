@@ -62,7 +62,7 @@ export function ConfirmPaybackLoanScreen ({
       loanToken: loanToken,
       amountToPay
     }, dispatch, () => {
-      onTransactionBroadcast(isOnPage, navigation.dispatch, 1)
+      onTransactionBroadcast(isOnPage, navigation.dispatch)
     }, () => {
       dispatch(fetchVaults({
         address,
