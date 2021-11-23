@@ -503,24 +503,6 @@
   "screens/SlippageTolerance": {
     "SLIPPAGE TOLERANCE": "SLIPPAGE TOLERANZ"
   },
-  "screens/PoolSwapScreen": {
-    "Swap": "Tausche",
-    "How much {{token}} do you want to swap?": "Wie viele {{token}} möchtest du umtauschen?",
-    "Available": "Verfügbar",
-    "After": "Danach",
-    "You have": "Du hast aktuell",
-    "CONTINUE": "FORTFAHREN",
-    "Enter an amount": "Gib eine Menge ein",
-    "Price": "Preis",
-    "Estimated to receive": "Vorraussichtlich wird empfangen",
-    "Balance: ": "Guthaben: ",
-    "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
-    "Estimated fee": "Geschätzte Gebühr",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
-    "Amount to be converted": "Umzuwandelnder Betrag",
-    "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln"
-  },
   "screens/CompositeSwapScreen": {
     "Swap tokens": "Tausche Token",
     "Select tokens you want to swap to get started": "Wähle die Token, die du tauschen möchtest, um zu beginnen",
@@ -557,24 +539,6 @@
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
     "Slippage Tolerance": "Slippage Toleranz",
     "Estimated to receive": "Vorraussichtlich wird empfangen"
-  },
-  "screens/PoolSwapConfirmScreen": {
-    "You are swapping": "Du tauschst",
-    "ESTIMATED BALANCE AFTER SWAP": "GESCHÄTZTES GUTHABEN NACH DEM TAUSCH",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
-    "Slippage Tolerance": "Slippage Toleranz",
-    "Estimated fee": "Geschätzte Gebühr",
-    "SWAP": "TAUSCHE",
-    "SWAPPING": "WIRD GETAUSCHT",
-    "Swapping Token": "Tausche Token",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
-    "{{token}} balance": "{{token}} Saldo",
-    "CONFIRM SWAP": "BESTÄTIGE DEN UMTAUSCH",
-    "Transaction type": "Transaktionsart",
-    "Swap": "Tausche",
-    "Convert & swap": "Umrechnen & tauschen",
-    "Max Price per {{fromToken}}": "Max. Preis pro {{fromToken}}"
   },
   "screens/UnlockWallet": {
     "Enter Passcode": "Passwort eingeben",

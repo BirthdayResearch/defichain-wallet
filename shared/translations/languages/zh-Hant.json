@@ -504,24 +504,6 @@
   "screens/SlippageTolerance": {
     "SLIPPAGE TOLERANCE": "交易滑價"
   },
-  "screens/PoolSwapScreen": {
-    "Swap": "兌換",
-    "How much {{token}} do you want to swap?": "你要兌換多少  {{token}}？",
-    "Available": "可兌換資金",
-    "After": "兌換後",
-    "You have": "你現有",
-    "CONTINUE": "繼續",
-    "Enter an amount": "請輸入數量",
-    "Price": "價格",
-    "Estimated to receive": "您大約會收到",
-    "Balance: ": "總資產餘額: ",
-    "Review full transaction details in the next screen": "請在下一步確認交易明細",
-    "TRANSACTION DETAILS": "交易明細",
-    "Estimated fee": "所需費用（大約）",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
-    "Amount to be converted": "要轉換的金額",
-    "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換"
-  },
   "screens/CompositeSwapScreen": {
     "Swap tokens": "兌換貨幣",
     "Select tokens you want to swap to get started": "選擇您要兌換的代幣",
@@ -558,24 +540,6 @@
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兌換 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
     "Slippage Tolerance": "交易滑價",
     "Estimated to receive": "您大約會收到"
-  },
-  "screens/PoolSwapConfirmScreen": {
-    "You are swapping": "您正要兌換",
-    "ESTIMATED BALANCE AFTER SWAP": "兌換後的總餘額",
-    "TRANSACTION DETAILS": "交易明細",
-    "Slippage Tolerance": "交易滑價",
-    "Estimated fee": "所需費用（大約）",
-    "SWAP": "兌換",
-    "SWAPPING": "兌換",
-    "Swapping Token": "兌換代幣",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兌換 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
-    "{{token}} balance": "{{token}} balance",
-    "CONFIRM SWAP": "確認兌換",
-    "Transaction type": "交易類型",
-    "Swap": "兌換",
-    "Convert & swap": "轉換並兌換",
-    "Max Price per {{fromToken}}": "每 {{fromToken}} 的最高價格"
   },
   "screens/UnlockWallet": {
     "Enter Passcode": "請輸入密碼",
