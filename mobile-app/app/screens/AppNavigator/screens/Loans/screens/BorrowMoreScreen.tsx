@@ -3,7 +3,7 @@ import { ThemedScrollView, ThemedSectionTitle, ThemedText } from '@components/th
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { LoanParamList } from '../LoansNavigator'
 import { LoanTokenInput, VaultInput } from './PaybackLoanScreen'
 import BigNumber from 'bignumber.js'
@@ -19,6 +19,7 @@ import { Button } from '@components/Button'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
+import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowMoreScreen'>
 
@@ -41,16 +42,18 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
   new BigNumber(totalLoanWithInterest), new BigNumber(loanTokenAmount.activePrice?.active?.amount ?? 0))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const interestPerBlock = useInterestPerBlock(new BigNumber(vault.loanScheme.interestRate), new BigNumber(loanToken?.interest ?? 0), new BigNumber(amountToAdd))
 
   // Form update
-  const isFormValid = useCallback((): boolean => {
+  const isFormValid = (): boolean => {
     const amount = new BigNumber(amountToAdd)
     return !(amount.isNaN() ||
       amount.isLessThanOrEqualTo(0) ||
       vault === undefined ||
       resultingColRatio === undefined ||
-      resultingColRatio.isLessThan(vault.loanScheme.minColRatio))
-  }, [amountToAdd, vault, resultingColRatio])
+      resultingColRatio.isLessThan(vault.loanScheme.minColRatio) ||
+      interestPerBlock.isLessThanOrEqualTo(0.00000009))
+  }
 
   const updateInterestAmount = (): void => {
     if (vault === undefined || amountToAdd === undefined || loanToken?.activePrice?.active?.amount === undefined) {
