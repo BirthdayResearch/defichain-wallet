@@ -159,7 +159,21 @@ function ActionButtons ({
               merge: true,
               params: {
                 vault,
-                loanToken
+                loanToken: loanToken
+              }
+            })
+          }}
+        />
+        <IconButton
+          iconLabel={translate('components/VaultDetailsLoansTab', 'BORROW MORE')}
+          style={tailwind('mr-2 mb-2 p-2')}
+          onPress={() => {
+            navigation.navigate({
+              name: 'BorrowMoreScreen',
+              merge: true,
+              params: {
+                vault,
+                loanTokenAmount: loanToken
               }
             })
           }}
