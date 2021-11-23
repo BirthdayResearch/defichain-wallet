@@ -49,11 +49,8 @@ export interface TokenState {
   symbol: string
 }
 
-export interface OwnedTokenState {
-  id: string
+export interface OwnedTokenState extends TokenState {
   amount: string
-  displaySymbol: string
-  symbol: string
 }
 
 type Props = StackScreenProps<DexParamList, 'CompositeSwapScreen'>
@@ -142,7 +139,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     }
 
     if (direction === 'FROM' && ownedToken !== undefined) {
-      setSelectedTokenA({ ...derivedToken, amount: ownedToken.amount })
+      setSelectedTokenA({ ...derivedToken, amount: ownedToken.amount, reserve: token.reserve })
     } else {
       setSelectedTokenB({ ...derivedToken, reserve: token.reserve })
     }
@@ -262,7 +259,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
   useEffect(() => {
     if (selectedTokenA !== undefined && selectedTokenB !== undefined && selectedPoolPairs !== undefined && tokenAFormAmount !== undefined) {
-      const { aToBPrice, bToAPrice, estimated } = calculatePriceRates(selectedTokenA, selectedTokenB, selectedPoolPairs, tokenAFormAmount)
+      const { aToBPrice, bToAPrice, estimated } = calculatePriceRates(selectedTokenA, selectedPoolPairs, tokenAFormAmount)
 
       setPriceRates([{
         label: translate('screens/CompositeSwapScreen', '{{tokenA}} price in {{tokenB}}', { tokenA: selectedTokenA.displaySymbol, tokenB: selectedTokenB.displaySymbol }),
@@ -552,7 +549,8 @@ function TransactionDetailsSection ({ conversionAmount, estimatedAmount, fee, is
   )
 }
 
-function calculatePriceRates (tokenA: OwnedTokenState, tokenB: TokenState, pairs: PoolPairData[], amount: string): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: string } {
+function calculatePriceRates (tokenA: OwnedTokenState, pairs: PoolPairData[], amount: string): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: string } {
+  const slippage = new BigNumber(1).minus(new BigNumber(amount).div(tokenA.reserve))
   let lastTokenBySymbol = tokenA.symbol
   let lastAmount = new BigNumber(amount)
   const priceRates = pairs.reduce((priceRates, pair): {aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: BigNumber} => {
@@ -564,9 +562,7 @@ function calculatePriceRates (tokenA: OwnedTokenState, tokenB: TokenState, pairs
     // To sequentially convert the token from its last token
     const aToBPrice = tokenASymbol === lastTokenBySymbol ? priceRateA : priceRateB
     const bToAPrice = tokenASymbol === lastTokenBySymbol ? priceRateB : priceRateA
-
-    const slippage = (new BigNumber(1).minus(new BigNumber(lastAmount).div(reserveA)))
-    const estimated = new BigNumber(lastAmount).times(aToBPrice).times(slippage)
+    const estimated = new BigNumber(lastAmount).times(aToBPrice)
 
     lastAmount = estimated
     lastTokenBySymbol = tokenBSymbol
@@ -584,7 +580,7 @@ function calculatePriceRates (tokenA: OwnedTokenState, tokenB: TokenState, pairs
   return {
     aToBPrice: priceRates.aToBPrice,
     bToAPrice: priceRates.bToAPrice,
-    estimated: priceRates.estimated.toFixed(8)
+    estimated: priceRates.estimated.times(slippage).toFixed(8)
   }
 }
 
