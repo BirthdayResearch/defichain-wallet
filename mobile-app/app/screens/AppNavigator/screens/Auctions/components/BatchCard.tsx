@@ -13,6 +13,7 @@ import NumberFormat from 'react-number-format'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
+import { padStart } from 'lodash'
 
 export interface BatchCardProps {
   vaultId: string
@@ -35,7 +36,7 @@ export function secondsToHm (d: number): string {
   const h = Math.floor(d / 3600)
   const m = Math.floor(d % 3600 / 60)
   const hDisplay = h > 0 ? `${translate('components/BatchCard', '{{h}}h', { h })} ` : ''
-  const mDisplay = m > 0 ? translate('components/BatchCard', '{{m}}m', { m }) : ''
+  const mDisplay = m >= 0 ? translate('components/BatchCard', '{{m}}m', { m: padStart(m.toString(), 2, '0') }) : ''
   return `${hDisplay}${mDisplay}`
 }
 
@@ -72,7 +73,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
             <ThemedView
               light={tailwind('bg-blue-100')}
               dark={tailwind('bg-darkblue-100')}
-              style={tailwind('ml-1')}
+              style={tailwind('ml-2')}
               testID={`active_indicator_${batch.index}`}
             >
               <ThemedText
@@ -172,6 +173,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
           </ThemedText>
         </View>
       </View>
+      {/* TODO Calculate time remaining ratio for progress bar */}
       <Progress.Bar
         progress={0.8}
         width={null}

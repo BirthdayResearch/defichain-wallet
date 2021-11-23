@@ -377,7 +377,8 @@
     "Transactions": "交易",
     "Settings": "設置",
     "DEX": "去中心化交易所",
-    "Loans": "貸款"
+    "Loans": "貸款",
+    "Auctions": "清算拍賣"
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "正在確認",

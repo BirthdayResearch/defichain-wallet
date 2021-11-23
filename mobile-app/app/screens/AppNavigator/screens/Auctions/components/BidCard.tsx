@@ -114,6 +114,7 @@ export function BidCard (props: BidCardProps): JSX.Element {
           </ThemedText>
         </View>
       </View>
+      {/* TODO Calculate time remaining ratio for progress bar */}
       <Progress.Bar
         progress={0.8}
         width={null}
