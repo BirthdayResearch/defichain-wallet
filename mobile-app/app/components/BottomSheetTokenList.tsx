@@ -87,7 +87,7 @@ export const BottomSheetTokenList = ({
                 {item.token.displaySymbol}
               </ThemedText>
               <ThemedText
-                light={tailwind('text-gray-500')}
+                light={tailwind('text-dfxgray-500')}
                 dark={tailwind('text-dfxgray-400')}
                 style={tailwind(['text-xs', { hidden: item.token.name === '' }])}
               >

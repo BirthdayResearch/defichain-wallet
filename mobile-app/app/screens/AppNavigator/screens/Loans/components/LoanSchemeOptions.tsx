@@ -19,7 +19,7 @@ export function LoanSchemeOptions (props: { loanSchemes: WalletLoanScheme[], sel
       {props.loanSchemes.map((scheme, index) => (
         <ThemedTouchableOpacity
           key={scheme.id}
-          light={tailwind('bg-white border-gray-300', {
+          light={tailwind('bg-white border-dfxgray-300', {
             'border-primary-500': props.selectedLoanScheme?.id === scheme.id,
             'border-gray-50': scheme.disabled === true
           })}
@@ -33,7 +33,7 @@ export function LoanSchemeOptions (props: { loanSchemes: WalletLoanScheme[], sel
           testID={`loan_scheme_option_${index}`}
         >
           <ThemedView
-            light={tailwind('border-gray-500', {
+            light={tailwind('border-dfxgray-500', {
               'border-primary-500 bg-primary-500': props.selectedLoanScheme?.id === scheme.id,
               'border-gray-100 bg-gray-50': scheme.disabled === true
             })}
@@ -79,8 +79,8 @@ function LoanSchemeOptionData (props: { label: string, value: string, testId: st
   return (
     <View style={tailwind('flex-1')}>
       <ThemedText
-        light={tailwind('text-gray-400', { 'text-gray-300': props.disabled === true })}
-        dark={tailwind('text-gray-500', { 'text-gray-600': props.disabled === true })}
+        light={tailwind('text-dfxgray-400', { 'text-dfxgray-300': props.disabled === true })}
+        dark={tailwind('text-dfxgray-500', { 'text-gray-600': props.disabled === true })}
         style={tailwind('text-xs')}
       >
         {translate('components/LoanSchemeOptions', props.label)}
@@ -90,7 +90,7 @@ function LoanSchemeOptionData (props: { label: string, value: string, testId: st
         suffix={props.suffix}
         renderText={(value: string) => (
           <ThemedText
-            light={tailwind('text-gray-900', { 'text-gray-300': props.disabled === true })}
+            light={tailwind('text-gray-900', { 'text-dfxgray-300': props.disabled === true })}
             dark={tailwind('text-gray-50', { 'text-gray-600': props.disabled === true })}
             style={tailwind('text-sm font-medium')}
             testID={props.testId}

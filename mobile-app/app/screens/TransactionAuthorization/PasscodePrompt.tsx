@@ -35,7 +35,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
       style={tailwind('w-full h-full flex-col')}
     >
       <ThemedTouchableOpacity
-        dark={tailwind('bg-dfxblue-900')}
+        dark={tailwind('bg-dfxblue-800')}
         light={tailwind('bg-white')}
         onPress={props.onCancel}
         style={tailwind('items-end pt-2 pr-2')}
@@ -52,7 +52,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
       </ThemedTouchableOpacity>
 
       <ThemedView
-        dark={tailwind('bg-dfxblue-900')}
+        dark={tailwind('bg-dfxblue-800')}
         light={tailwind('bg-white')}
         style={tailwind('w-full flex-1 flex-col')}
       >
@@ -66,6 +66,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
           : (
             <ThemedView
               light={tailwind('bg-white')}
+              dark={tailwind('bg-dfxblue-800')}
             >
               <ThemedText
                 style={tailwind('text-center text-xl font-bold px-1')}
@@ -182,7 +183,7 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
       backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
         <View
           {...backgroundProps}
-          style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-900 border-gray-700'} border-t rounded`)]}
+          style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-dfxblue-800 border-dfxblue-900'} border-t rounded`)]}
         />
       )}
       onChange={(index) => {

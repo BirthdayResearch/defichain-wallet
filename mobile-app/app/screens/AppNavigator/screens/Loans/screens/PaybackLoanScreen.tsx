@@ -148,8 +148,8 @@ export function PaybackLoanScreen ({
         margin='mt-12 mb-2 mx-4'
       />
       <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        light={tailwind('text-dfxgray-500')}
+        dark={tailwind('text-dfxgray-400')}
         style={tailwind('text-center text-xs mb-12')}
       >
         {translate('screens/PaybackLoanScreen', 'Review and confirm transaction in the next screen')}
@@ -169,7 +169,7 @@ export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('border p-4 flex flex-col rounded-lg')}
     >
       <View style={tailwind('flex flex-row flex-1 items-center mb-3')}>
@@ -183,8 +183,8 @@ export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
       </View>
       <View style={tailwind('flex flex-row items-center justify-between')}>
         <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
+          light={tailwind('text-dfxgray-500')}
+          dark={tailwind('text-dfxgray-400')}
           style={tailwind('text-xs')}
         >
           {translate('screens/PaybackLoanScreen', 'Outstanding balance')}
@@ -219,7 +219,7 @@ export function VaultInput ({ vault }: VaultInputProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('border p-4 flex flex-col rounded-lg mb-4')}
     >
       <View style={tailwind('flex flex-row justify-between items-center mb-2')}>
@@ -235,8 +235,8 @@ export function VaultInput ({ vault }: VaultInputProps): JSX.Element {
       </View>
       <View style={tailwind('flex flex-row items-center justify-between mb-1 mt-2')}>
         <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
+          light={tailwind('text-dfxgray-500')}
+          dark={tailwind('text-dfxgray-400')}
           style={tailwind('text-xs')}
         >
           {translate('screens/PaybackLoanScreen', 'Collateralization ratio')}
@@ -255,8 +255,8 @@ export function VaultInput ({ vault }: VaultInputProps): JSX.Element {
       </View>
       <View style={tailwind('flex flex-row items-center justify-between mb-1')}>
         <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
+          light={tailwind('text-dfxgray-500')}
+          dark={tailwind('text-dfxgray-400')}
           style={tailwind('text-xs')}
         >
           {translate('screens/PaybackLoanScreen', 'Min. collateral ratio')}

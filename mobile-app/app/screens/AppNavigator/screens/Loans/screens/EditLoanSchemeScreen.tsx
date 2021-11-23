@@ -96,8 +96,8 @@ export function EditLoanSchemeScreen ({ route, navigation }: Props): JSX.Element
       />
       <VaultSection vault={activeVault} />
       <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-500')}
+        light={tailwind('text-dfxgray-500')}
+        dark={tailwind('text-dfxgray-500')}
         style={tailwind('text-xs mb-6')}
       >
         {translate('screens/EditLoanSchemeScreen', 'Make sure your collateralization ratio is still above your min. collateralization ratio')}
@@ -115,8 +115,8 @@ export function EditLoanSchemeScreen ({ route, navigation }: Props): JSX.Element
         testID='create_vault_submit_button'
       />
       <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        light={tailwind('text-dfxgray-500')}
+        dark={tailwind('text-dfxgray-400')}
         style={tailwind('text-center text-xs')}
       >
         {translate('screens/EditLoanSchemeScreen', 'Confirm your vault details in next screen')}
@@ -139,7 +139,7 @@ function VaultSection (props: { vault: LoanVaultActive }): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('border rounded px-4 py-3 mb-2')}
     >
       <View style={tailwind('mb-2 flex flex-row')}>

@@ -23,7 +23,7 @@ export function VaultInfo (props: VaultInfoProps): JSX.Element {
     <View style={tailwind('flex-row items-center w-full my-1')}>
       <View style={tailwind('w-6/12')}>
         <ThemedText
-          light={tailwind('text-gray-500')}
+          light={tailwind('text-dfxgray-500')}
           dark={tailwind('text-dfxgray-400')}
           style={tailwind('text-xs')}
         >

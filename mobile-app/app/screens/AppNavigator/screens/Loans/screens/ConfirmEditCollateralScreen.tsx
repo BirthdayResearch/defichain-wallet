@@ -129,13 +129,13 @@ export function ConfirmEditCollateralScreen ({
 function SummaryHeader (props: { vaultId: string, isAdd: boolean, conversion?: ConversionParam }): JSX.Element {
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-300')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
+      light={tailwind('bg-white border-b border-dfxgray-300')}
       style={tailwind('flex-col px-4 py-6')}
     >
       <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        light={tailwind('text-dfxgray-500')}
+        dark={tailwind('text-dfxgray-400')}
         style={tailwind('mb-2')}
       >
         {translate('screens/ConfirmEditCollateralScreen', props.isAdd ? 'You are adding collateral to' : 'You are removing collateral from')}
@@ -143,7 +143,7 @@ function SummaryHeader (props: { vaultId: string, isAdd: boolean, conversion?: C
       <View style={tailwind('flex flex-row items-center')}>
         <ThemedView
           light={tailwind('bg-gray-100')}
-          dark={tailwind('bg-gray-700')}
+          dark={tailwind('bg-dfxblue-900')}
           style={tailwind('w-8 h-8 rounded-full flex items-center justify-center mr-2')}
         >
           <ThemedIcon
@@ -151,7 +151,7 @@ function SummaryHeader (props: { vaultId: string, isAdd: boolean, conversion?: C
             name='shield'
             size={14}
             light={tailwind('text-gray-600')}
-            dark={tailwind('text-gray-300')}
+            dark={tailwind('text-dfxgray-300')}
           />
         </ThemedView>
         <ThemedText
@@ -250,7 +250,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
 function VaultProportionRow (props: { lhs: string, tokenId: string, proportion: BigNumber }): JSX.Element {
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('p-4 flex-row items-start w-full justify-between')}
     >
@@ -262,7 +262,7 @@ function VaultProportionRow (props: { lhs: string, tokenId: string, proportion: 
 
       <ThemedView
         light={tailwind('bg-gray-50')}
-        dark={tailwind('bg-gray-900')}
+        dark={tailwind('bg-dfxblue-900')}
         style={tailwind('flex flex-row py-1 px-1.5 rounded-2xl')}
       >
         <SymbolIcon symbol={props.tokenId} />
@@ -274,7 +274,7 @@ function VaultProportionRow (props: { lhs: string, tokenId: string, proportion: 
           renderText={value =>
             <ThemedText
               light={tailwind('text-gray-700')}
-              dark={tailwind('text-gray-300')}
+              dark={tailwind('text-dfxgray-300')}
               style={tailwind('text-xs font-medium ml-1')}
             >
               {value}

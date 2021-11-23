@@ -86,7 +86,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
   return (
     <ThemedScrollView
       light={tailwind('bg-white')}
-      dark={tailwind('bg-gray-800')}
+      dark={tailwind('bg-dfxblue-800')}
       style={tailwind('p-4 flex-1')}
     >
       <View style={tailwind('flex flex-row items-center mb-2')}>
@@ -115,7 +115,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
         </ThemedText>
         <ThemedView
           light={tailwind('text-gray-700 border-gray-700')}
-          dark={tailwind('text-gray-300 border-gray-300')}
+          dark={tailwind('text-dfxgray-300 border-dfxgray-300')}
           style={tailwind('border rounded')}
         >
           <NumberFormat
@@ -126,7 +126,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
             renderText={value =>
               <ThemedText
                 light={tailwind('text-gray-700')}
-                dark={tailwind('text-gray-300')}
+                dark={tailwind('text-dfxgray-300')}
                 style={tailwind('text-xs font-medium px-1')}
               >
                 {value}
@@ -164,7 +164,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
         })}
         margin='mt-8 mb-2'
       />
-      <ThemedText style={tailwind('text-xs text-center p-2 px-6')} light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}>
+      <ThemedText style={tailwind('text-xs text-center p-2 px-6')} light={tailwind('text-dfxgray-500')} dark={tailwind('text-dfxgray-400')}>
         {translate('components/AddOrRemoveCollateralForm', 'The collateral factor determines the degree of contribution of each collateral token.')}
       </ThemedText>
     </ThemedScrollView>

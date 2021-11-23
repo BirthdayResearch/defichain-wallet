@@ -335,8 +335,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
         {(selectedTokenA === undefined || selectedTokenB === undefined) && allowedSwapFromTokens?.length !== 0 &&
           <ThemedText
-            dark={tailwind('text-gray-400')}
-            light={tailwind('text-gray-500')}
+            dark={tailwind('text-dfxgray-400')}
+            light={tailwind('text-dfxgray-500')}
             style={tailwind('mt-10 text-center')}
             testID='swap_instructions'
           > {translate('screens/CompositeSwapScreen', 'Select tokens you want to swap to get started')}
@@ -429,7 +429,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
           <ThemedText
             testID='transaction_details_hint_text'
             light={tailwind('text-gray-600')}
-            dark={tailwind('text-gray-300')}
+            dark={tailwind('text-dfxgray-300')}
             style={tailwind('pb-8 px-4 text-sm text-center')}
           >
             {isConversionRequired
@@ -462,22 +462,22 @@ function TokenSelection (props: {symbol?: string, label: string, onPress: () => 
   return (
     <View style={[tailwind('flex-grow mx-2'), { flexBasis: 0 }]}>
       <ThemedText
-        dark={tailwind('text-gray-400')}
-        light={tailwind('text-gray-500')}
+        dark={tailwind('text-dfxgray-400')}
+        light={tailwind('text-dfxgray-500')}
         style={tailwind('text-xs pb-1')}
       >{props.label}
       </ThemedText>
       <ThemedTouchableOpacity
         onPress={props.onPress}
         testID={`token_select_button_${props.label}`}
-        dark={tailwind('bg-gray-800 border-gray-400')}
-        light={tailwind('bg-white border-gray-300')}
+        dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
+        light={tailwind('bg-white border-dfxgray-300')}
         style={tailwind('flex flex-row items-center border rounded p-2')}
       >
         {props.symbol === undefined &&
           <ThemedText
-            dark={tailwind('text-gray-400')}
-            light={tailwind('text-gray-500')}
+            dark={tailwind('text-dfxgray-400')}
+            light={tailwind('text-dfxgray-500')}
             style={tailwind('text-sm leading-6')}
           >
             {translate('screens/CompositeSwapScreen', 'Select token')}
@@ -486,14 +486,14 @@ function TokenSelection (props: {symbol?: string, label: string, onPress: () => 
         {props.symbol !== undefined &&
           <>
             <Icon testID='tokenA_icon' height={17} width={17} />
-            <ThemedText style={tailwind('text-gray-500 ml-2')}>{props.symbol}</ThemedText>
+            <ThemedText style={tailwind('text-dfxgray-500 ml-2')}>{props.symbol}</ThemedText>
           </>}
 
         <ThemedIcon
           iconType='MaterialIcons'
           name='unfold-more'
           size={20}
-          dark={tailwind('text-darkprimary-500')}
+          dark={tailwind('text-dfxred-500')}
           light={tailwind('text-primary-500')}
           style={[tailwind('text-center mt-0.5'), { marginLeft: 'auto' }]}
         />
@@ -508,7 +508,7 @@ function TransactionDetailsSection ({ conversionAmount, estimatedAmount, fee, is
       <ThemedSectionTitle
         testID='title_add_detail'
         text={translate('screens/CompositeSwapScreen', 'TRANSACTION DETAILS')}
-        style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
+        style={tailwind('px-4 pt-6 pb-2 text-xs text-dfxgray-500 font-medium')}
       />
       {isConversionRequired &&
         <NumberRow

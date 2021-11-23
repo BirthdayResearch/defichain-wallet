@@ -159,8 +159,8 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
         margin='mt-12 mb-2 mx-4'
       />
       <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        light={tailwind('text-dfxgray-500')}
+        dark={tailwind('text-dfxgray-400')}
         style={tailwind('text-center text-xs mb-12')}
       >
         {translate('screens/BorrowMoreScreen', 'Review and confirm transaction in the next screen')}

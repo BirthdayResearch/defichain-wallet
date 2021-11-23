@@ -209,7 +209,7 @@ export function BorrowLoanTokenScreen ({
   }, [amountToBorrow, vault, totalLoanWithInterest])
 
   return (
-    <View ref={containerRef}>
+    <View ref={containerRef} style={{ flex: 1 }}>
       <ThemedScrollView>
         <View style={tailwind('px-4')}>
           <ThemedText style={tailwind('text-xl font-bold mt-6')}>
@@ -271,7 +271,7 @@ export function BorrowLoanTokenScreen ({
               margin='mt-12 mb-2 mx-4'
             />
             <ThemedText
-              light={tailwind('text-gray-500')}
+              light={tailwind('text-dfxgray-500')}
               dark={tailwind('text-dfxgray-400')}
               style={tailwind('text-center text-xs mb-12')}
             >

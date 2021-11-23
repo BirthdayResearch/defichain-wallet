@@ -21,12 +21,12 @@ export function VaultSectionTextRow (props: VaultSectionText): JSX.Element {
         style: props.style
       }}
       style={tailwind('flex-row items-center w-full my-1')}
-      dark={tailwind('bg-gray-800')}
+      dark={tailwind('bg-dfxblue-800')}
       light={tailwind('bg-white')}
       textStyle={tailwind('text-xs ml-0')}
       lhsThemedProps={{
-        light: tailwind('text-gray-500'),
-        dark: tailwind('text-gray-400')
+        light: tailwind('text-dfxgray-500'),
+        dark: tailwind('text-dfxgray-400')
       }}
       rhsThemedProps={{
         light: tailwind('text-gray-900'),

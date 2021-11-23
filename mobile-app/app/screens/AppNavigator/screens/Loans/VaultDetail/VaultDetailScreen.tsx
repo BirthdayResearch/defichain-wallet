@@ -86,7 +86,7 @@ export function VaultDetailScreen ({
   return (
     <ThemedScrollView
       light={tailwind('bg-gray-100')}
-      dark={tailwind('bg-gray-900')}
+      dark={tailwind('bg-dfxblue-900')}
     >
       <ThemedView
         light={tailwind('bg-white')}
@@ -129,7 +129,7 @@ function VaultIdSection ({ vault }: { vault: LoanVault }): JSX.Element {
         >
           <View style={tailwind('flex flex-row mb-2 items-center')}>
             <ThemedText
-              light={tailwind('text-gray-400')}
+              light={tailwind('text-dfxgray-400')}
               dark={tailwind('text-dfxgray-500')}
               style={tailwind('text-xs mr-1')}
             >

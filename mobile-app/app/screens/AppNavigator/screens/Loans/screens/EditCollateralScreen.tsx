@@ -329,7 +329,7 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('border rounded px-4 py-3')}
     >
       <View style={tailwind('flex flex-row items-center mb-2')}>
@@ -401,12 +401,12 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('border rounded p-4 mb-2')}
     >
       <ThemedView
         light={tailwind('bg-white border-gray-200')}
-        dark={tailwind('bg-gray-800 border-gray-700')}
+        dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
         style={tailwind('flex flex-row items-center justify-between border-b pb-4 mb-2')}
       >
         <View style={tailwind('flex flex-row items-center')}>
@@ -467,8 +467,8 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                         prefix='$'
                         renderText={(val: string) => (
                           <ThemedText
-                            dark={tailwind('text-gray-400')}
-                            light={tailwind('text-gray-500')}
+                            dark={tailwind('text-dfxgray-400')}
+                            light={tailwind('text-dfxgray-500')}
                             style={tailwind('text-xs')}
                           >
                             {` /${val}`}
@@ -493,7 +493,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             renderText={(val: string) => (
               <ThemedView
                 light={tailwind('bg-gray-100')}
-                dark={tailwind('bg-gray-900')}
+                dark={tailwind('bg-dfxblue-900')}
                 style={tailwind('px-2 py-0.5 rounded')}
               >
                 <ThemedText
@@ -515,8 +515,8 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
 function CardLabel (props: { text: string }): JSX.Element {
   return (
     <ThemedText
-      light={tailwind('text-gray-500')}
-      dark={tailwind('text-gray-400')}
+      light={tailwind('text-dfxgray-500')}
+      dark={tailwind('text-dfxgray-400')}
       style={tailwind('text-xs mb-1')}
     >
       {translate('screens/EditCollateralScreen', props.text)}
@@ -537,21 +537,21 @@ function AddCollateralButton (props: { disabled: boolean, onPress: () => void })
         size={14}
         light={tailwind({
           'text-primary-500': !props.disabled,
-          'text-gray-300': props.disabled
+          'text-dfxgray-300': props.disabled
         })}
         dark={tailwind({
-          'text-darkprimary-500': !props.disabled,
-          'text-gray-600': props.disabled
+          'text-dfxred-500': !props.disabled,
+          'text-dfxgray-500': props.disabled
         })}
       />
       <ThemedText
         light={tailwind({
           'text-primary-500': !props.disabled,
-          'text-gray-300': props.disabled
+          'text-dfxgray-300': props.disabled
         })}
         dark={tailwind({
-          'text-darkprimary-500': !props.disabled,
-          'text-gray-600': props.disabled
+          'text-dfxred-500': !props.disabled,
+          'text-dfxgray-500': props.disabled
         })}
         style={tailwind('pl-2.5 text-sm font-medium leading-4 mb-2')}
       >

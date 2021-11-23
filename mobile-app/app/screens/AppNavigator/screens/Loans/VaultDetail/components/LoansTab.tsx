@@ -76,7 +76,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('p-4 mb-2 border rounded')}
     >
       <View style={tailwind('flex flex-row items-center')}>
@@ -88,7 +88,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
         />
         <ThemedText
           light={tailwind({
-            'text-gray-300': props.vaultState === LoanVaultState.IN_LIQUIDATION,
+            'text-dfxgray-300': props.vaultState === LoanVaultState.IN_LIQUIDATION,
             'text-black': props.vaultState !== LoanVaultState.IN_LIQUIDATION
           })}
           dark={tailwind({
@@ -110,7 +110,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
           style={tailwind('text-sm font-medium')}
           rhsThemedProps={{
             light: tailwind({
-              'text-gray-300': props.vaultState === LoanVaultState.IN_LIQUIDATION,
+              'text-dfxgray-300': props.vaultState === LoanVaultState.IN_LIQUIDATION,
               'text-black': props.vaultState !== LoanVaultState.IN_LIQUIDATION
             }),
             dark: tailwind({

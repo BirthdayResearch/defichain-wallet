@@ -19,7 +19,7 @@ export function SearchInput (props: SearchInputProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-gray-100')}
-      dark={tailwind('bg-gray-900')}
+      dark={tailwind('bg-dfxblue-900')}
       style={tailwind('rounded-lg flex flex-row items-center py-1 pl-2 flex-1')}
     >
       <ThemedIcon
@@ -40,7 +40,7 @@ export function SearchInput (props: SearchInputProps): JSX.Element {
             onPress={onClearInput}
             iconThemedProps={{
               light: tailwind('text-dfxgray-300'),
-              dark: tailwind('text-gray-600')
+              dark: tailwind('text-dfxblue-800')
             }}
           />
         )}

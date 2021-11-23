@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { ThemedView } from '@components/themed'
 import { Tabs } from '@components/Tabs'
@@ -62,12 +61,12 @@ export function LoansScreen (): JSX.Element {
 
   if (!hasFetchedVaultsData) {
     return (
-      <View style={tailwind('mt-1')}>
+      <ThemedView>
         <SkeletonLoader
           row={6}
           screen={SkeletonLoaderScreen.Loan}
         />
-      </View>
+      </ThemedView>
 )
   } else if (vaults?.length === 0) {
     return (
@@ -88,12 +87,12 @@ export function LoansScreen (): JSX.Element {
       {activeTab === TabKey.YourVaults && <Vaults />}
       {activeTab === TabKey.BrowseLoans && !hasFetchedLoansData &&
       (
-        <View style={tailwind('mt-1')}>
+        <ThemedView>
           <SkeletonLoader
             row={6}
             screen={SkeletonLoaderScreen.Loan}
           />
-        </View>
+        </ThemedView>
       )}
       {activeTab === TabKey.BrowseLoans && hasFetchedLoansData &&
       (<LoanCards testID='loans_cards' loans={loans} />)}

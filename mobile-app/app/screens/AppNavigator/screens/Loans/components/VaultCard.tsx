@@ -61,7 +61,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
                 <View style={tailwind('flex-col')}>
                   <View style={tailwind('flex-row items-center')}>
                     <ThemedText
-                      light={tailwind('text-gray-400')}
+                      light={tailwind('text-dfxgray-400')}
                       dark={tailwind('text-dfxgray-500')}
                       style={tailwind('text-xs mr-1.5')}
                     >
@@ -179,7 +179,7 @@ function VaultActionButton ({
   return (
     <ThemedView
       light={tailwind('border-gray-200')}
-      dark={tailwind('border-gray-700')}
+      dark={tailwind('border-dfxblue-900')}
       style={tailwind('flex flex-row mt-4 items-center flex-wrap -mb-2')}
     >
       {

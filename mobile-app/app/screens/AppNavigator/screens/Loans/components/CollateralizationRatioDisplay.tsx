@@ -73,8 +73,8 @@ function CollateralizationRatioText (props: { colRatio: string, minColRatio: str
       {props.colRatio === '-1'
         ? (
           <ThemedText
-            light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-500')}
+            light={tailwind('text-dfxgray-500')}
+            dark={tailwind('text-dfxgray-500')}
             style={tailwind('text-sm font-semibold')}
           >
             {translate('components/CollateralizationRatioDisplay', 'N/A')}
@@ -106,8 +106,8 @@ function MinAndNextRatioText (props: { minColRatio: string, nextColRatio: string
     <View style={tailwind('flex flex-row items-center justify-between mb-3')}>
       <View style={tailwind('flex flex-row items-center')}>
         <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-500')}
+          light={tailwind('text-dfxgray-500')}
+          dark={tailwind('text-dfxgray-500')}
           style={tailwind('text-xs mr-0.5')}
         >
           {translate('components/CollateralizationRatioDisplay', 'Min:')}
@@ -120,8 +120,8 @@ function MinAndNextRatioText (props: { minColRatio: string, nextColRatio: string
           suffix='%'
           renderText={value =>
             <ThemedText
-              light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-500')}
+              light={tailwind('text-dfxgray-500')}
+              dark={tailwind('text-dfxgray-500')}
               style={tailwind('text-xs')}
             >
               {value}
@@ -131,8 +131,8 @@ function MinAndNextRatioText (props: { minColRatio: string, nextColRatio: string
       {props.nextColRatio === '-1'
         ? (
           <ThemedText
-            light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-500')}
+            light={tailwind('text-dfxgray-500')}
+            dark={tailwind('text-dfxgray-500')}
             style={tailwind('text-xs')}
           >
             {translate('components/CollateralizationRatioDisplay', 'n/a')}
@@ -141,8 +141,8 @@ function MinAndNextRatioText (props: { minColRatio: string, nextColRatio: string
         : (
           <View style={tailwind('flex flex-row items-center')}>
             <ThemedText
-              light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-500')}
+              light={tailwind('text-dfxgray-500')}
+              dark={tailwind('text-dfxgray-500')}
               style={tailwind('text-xs mr-0.5')}
             >
               {translate('components/CollateralizationRatioDisplay', 'Next:')}
@@ -156,8 +156,8 @@ function MinAndNextRatioText (props: { minColRatio: string, nextColRatio: string
               suffix='%'
               renderText={value =>
                 <ThemedText
-                  light={tailwind('text-gray-500')}
-                  dark={tailwind('text-gray-500')}
+                  light={tailwind('text-dfxgray-500')}
+                  dark={tailwind('text-dfxgray-500')}
                   style={tailwind('text-xs')}
                 >
                   {value}
