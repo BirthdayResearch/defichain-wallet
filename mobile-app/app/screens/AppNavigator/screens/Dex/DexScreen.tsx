@@ -12,7 +12,7 @@ import { View } from '@components'
 import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
-import { ThemedFlatList, ThemedIcon, ThemedText, ThemedView } from '@components/themed'
+import { ThemedFlatList, ThemedIcon, ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
 import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { tailwind } from '@tailwind'
@@ -94,7 +94,12 @@ export function DexScreen (): JSX.Element {
   }
 
   if (!isLoaded) {
-    return <></>
+    return (
+      <ThemedScrollView
+        dark={tailwind('bg-dfxblue-900')}
+        light={tailwind('bg-white')}
+      />
+    )
   }
 
   if (displayGuidelines) {

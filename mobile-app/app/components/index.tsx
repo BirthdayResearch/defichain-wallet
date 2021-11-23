@@ -1,6 +1,7 @@
 import React from 'react'
 import { Switch as DefaultSwitch, TextInput as DefaultTextInput, View as DefaultView } from 'react-native'
 import { tailwind } from '@tailwind'
+import { theme } from '../tailwind.config'
 
 export function View (props: DefaultView['props']): JSX.Element {
   const { style, ...otherProps } = props
@@ -29,9 +30,9 @@ export function Switch (props: DefaultSwitch['props']): JSX.Element {
 
   return (
     <DefaultSwitch
-      ios_backgroundColor='#ffffff'
+      ios_backgroundColor={theme.extend.colors.dfxgray[400]}
       thumbColor='#fff'
-      trackColor={{ false: 'rgba(120, 120, 128, 0.20)', true: '#34C759' }}
+      trackColor={{ false: theme.extend.colors.dfxgray[400], true: '#34C759' }}
       {...otherProps}
     />
   )
