@@ -20,6 +20,7 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
+import { useLoanOperations } from '../hooks/LoanOperations'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowMoreScreen'>
 
@@ -43,6 +44,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const interestPerBlock = useInterestPerBlock(new BigNumber(vault.loanScheme.interestRate), new BigNumber(loanToken?.interest ?? 0), new BigNumber(amountToAdd))
+  const canUseOperations = useLoanOperations(vault?.state)
 
   // Form update
   const isFormValid = (): boolean => {
@@ -150,7 +152,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
         fee={fee}
       />
       <Button
-        disabled={!valid || hasPendingJob || hasPendingBroadcastJob}
+        disabled={!valid || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
         label={translate('screens/BorrowMoreScreen', 'CONTINUE')}
         onPress={onSubmit}
         testID='add_collateral_button'
