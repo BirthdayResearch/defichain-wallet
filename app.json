@@ -9,10 +9,11 @@
     "icon": "./shared/assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
+    "backgroundColor": "#072440",
     "splash": {
       "image": "./shared/assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#072440"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

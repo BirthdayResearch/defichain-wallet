@@ -1,4 +1,3 @@
-import * as SplashScreen from 'expo-splash-screen'
 import React from 'react'
 import './_shim'
 import { SecuredStoreAPI, LanguagePersistence, ThemePersistence } from '@api'
@@ -9,18 +8,18 @@ import { PrivacyLockContextProvider } from '@contexts/LocalAuthContext'
 import { NetworkProvider } from '@shared-contexts/NetworkContext'
 import { StatsProvider } from '@shared-contexts/StatsProvider'
 import { StoreProvider } from '@contexts/StoreProvider'
-import { ThemeProvider, useTheme } from '@shared-contexts/ThemeProvider'
+import { ThemeProvider } from '@shared-contexts/ThemeProvider'
 import { WalletPersistenceProvider } from '@shared-contexts/WalletPersistenceContext'
 import { WhaleProvider } from '@shared-contexts/WhaleContext'
 import { useCachedResources } from '@hooks/useCachedResources'
 import ConnectionBoundary from '@screens/ConnectionBoundary/ConnectionBoundary'
 import ErrorBoundary from '@screens/ErrorBoundary/ErrorBoundary'
 import { Main } from '@screens/Main'
-import { LanguageProvider, useLanguage } from '@shared-contexts/LanguageProvider'
+import { LanguageProvider } from '@shared-contexts/LanguageProvider'
 import * as Localization from 'expo-localization'
 import { useColorScheme } from 'react-native'
 import { WalletPersistence } from '@api/wallet'
-import { NativeLoggingProvider, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { NativeLoggingProvider } from '@shared-contexts/NativeLoggingProvider'
 import { FeatureFlagProvider } from '@contexts/FeatureFlagContext'
 
 /**
@@ -31,21 +30,8 @@ import { FeatureFlagProvider } from '@contexts/FeatureFlagContext'
 
 // eslint-disable-next-line import/no-default-export
 export default function App (): JSX.Element | null {
-  const isLoaded = useCachedResources()
+  useCachedResources()
   const colorScheme = useColorScheme()
-  const logger = useLogger()
-
-  const { isThemeLoaded } = useTheme({ api: ThemePersistence, colorScheme })
-  const { isLanguageLoaded } = useLanguage({ api: LanguagePersistence, locale: Localization.locale })
-
-  if (!isLoaded && !isThemeLoaded && !isLanguageLoaded) {
-    SplashScreen.preventAutoHideAsync()
-      .catch(logger.error)
-    return null
-  }
-
-  SplashScreen.hideAsync()
-    .catch(logger.error)
 
   return (
     <NativeLoggingProvider>

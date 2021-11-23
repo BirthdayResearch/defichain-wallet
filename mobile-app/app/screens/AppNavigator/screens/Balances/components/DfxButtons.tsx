@@ -105,13 +105,13 @@ interface ImageButtonProps extends TouchableOpacityProps {
 export function ImageButton (props: ImageButtonProps): JSX.Element {
   const styles = StyleSheet.create({
     button: {
-    aspectRatio: 1.85,
-    flex: 1
+      aspectRatio: 1.85,
+      flex: 1
     },
     image: {
-    height: '100%',
-    resizeMode: 'contain',
-    width: '100%'
+      height: '100%',
+      resizeMode: 'contain',
+      width: '100%'
     }
   })
 
