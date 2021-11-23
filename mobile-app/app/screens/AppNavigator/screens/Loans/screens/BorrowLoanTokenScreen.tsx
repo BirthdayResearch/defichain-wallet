@@ -36,6 +36,8 @@ import { ConversionInfoText } from '@components/ConversionInfoText'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 import { queueConvertTransaction } from '@hooks/wallet/Conversion'
+import { useResultingCollateralRatio } from '../hooks/CollateralPrice'
+import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowLoanTokenScreen'>
 
@@ -58,6 +60,8 @@ export function BorrowLoanTokenScreen ({
   const [totalLoanWithInterest, setTotalLoanWithInterest] = useState(new BigNumber(NaN))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [valid, setValid] = useState(false)
+  const resultingColRatio = useResultingCollateralRatio(new BigNumber(vault?.collateralValue ?? NaN), new BigNumber(vault?.loanValue ?? NaN),
+  new BigNumber(totalLoanWithInterest), new BigNumber(loanToken.activePrice?.active?.amount ?? 0))
 
   // Conversion
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
@@ -110,29 +114,13 @@ export function BorrowLoanTokenScreen ({
   }
 
   // Form update
-  const getCollateralizationRatio = useCallback(() => {
-    if (vault === undefined || amountToBorrow === undefined || loanToken.activePrice?.active?.amount === undefined) {
-      return
-    }
-    const vaultInterestRate = new BigNumber(vault.loanScheme.interestRate).div(100)
-    const loanTokenInterestRate = new BigNumber(loanToken.interest).div(100)
-    const amountValue = new BigNumber(amountToBorrow).multipliedBy(loanToken.activePrice?.active?.amount)
-
-    return new BigNumber(vault.collateralValue).div(
-      amountValue.multipliedBy(
-        vaultInterestRate.plus(loanTokenInterestRate).plus(1)
-      )
-    ).multipliedBy(100)
-  }, [amountToBorrow, vault])
-
   const isFormValid = (): boolean => {
     const amount = new BigNumber(amountToBorrow)
-    const colRatio = getCollateralizationRatio()
     return !(amount.isNaN() ||
       amount.isLessThanOrEqualTo(0) ||
       vault === undefined ||
-      colRatio === undefined ||
-      colRatio.isLessThan(vault.loanScheme.minColRatio))
+      resultingColRatio === undefined ||
+      resultingColRatio.isLessThan(vault.loanScheme.minColRatio))
   }
 
   const updateInterestAmount = (): void => {
@@ -252,12 +240,13 @@ export function BorrowLoanTokenScreen ({
             <TransactionDetailsSection
               vault={vault}
               amountToBorrow={new BigNumber(amountToBorrow)}
-              collateralizationRatio={getCollateralizationRatio()}
+              resultingColRatio={resultingColRatio}
               vaultInterestRate={new BigNumber(vault?.loanScheme.interestRate ?? 0)}
               loanTokenInterestRate={new BigNumber(loanToken.interest)}
               loanTokenDisplaySymbol={loanToken.token.displaySymbol}
               totalInterestAmount={totalInterestAmount}
               totalLoanWithInterest={totalLoanWithInterest}
+              loanTokenPrice={new BigNumber(loanToken.activePrice?.active?.amount ?? 0)}
               fee={fee}
             />
             {isConversionRequired && (
@@ -507,44 +496,51 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
 }
 
 interface TransactionDetailsProps {
-  vault: LoanVault
-  collateralizationRatio?: BigNumber
+  vault: LoanVaultActive
+  resultingColRatio: BigNumber
   amountToBorrow: BigNumber
   vaultInterestRate: BigNumber
   loanTokenInterestRate: BigNumber
   loanTokenDisplaySymbol: string
   totalInterestAmount: BigNumber
   totalLoanWithInterest: BigNumber
+  loanTokenPrice: BigNumber
   fee: BigNumber
 }
 
 function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element {
+  const resultingVaultState = useVaultStatus(
+    props.vault.state,
+    props.resultingColRatio,
+    new BigNumber(props.vault.loanScheme.minColRatio),
+    new BigNumber(props.vault.loanValue).plus(
+      props.totalLoanWithInterest.multipliedBy(props.loanTokenPrice)
+    )
+  )
+
   return (
     <>
       <ThemedSectionTitle
         text={translate('screens/BorrowLoanTokenScreen', 'TRANSACTION DETAILS')}
       />
-      {props.amountToBorrow.isNaN() || props.amountToBorrow.isLessThan(0) || props.collateralizationRatio === undefined
+      {props.amountToBorrow.isNaN() || props.amountToBorrow.isLessThan(0) || props.resultingColRatio === undefined
         ? (
           <TextRow
-            lhs={translate('screens/BorrowLoanTokenScreen', 'Collateralization ratio')}
+            lhs={translate('screens/BorrowLoanTokenScreen', 'Resulting collateralization')}
             rhs={{
-              value: translate('screens/BorrowLoanTokenScreen', 'N/A'),
-              testID: 'text_col_ratio'
-            }}
+                value: translate('screens/BorrowLoanTokenScreen', 'N/A'),
+                testID: 'text_resulting_col_ratio'
+              }}
             textStyle={tailwind('text-sm font-normal')}
           />
         )
         : (
-          <NumberRow
-            lhs={translate('screens/BorrowLoanTokenScreen', 'Collateralization ratio')}
-            rhs={{
-              value: props.collateralizationRatio.toFixed(2),
-              testID: 'text_col_ratio',
-              suffixType: 'text',
-              suffix: '%',
-              style: tailwind('ml-0')
-            }}
+          <CollateralizationRatioRow
+            label={translate('screens/BorrowLoanTokenScreen', 'Resulting collateralization')}
+            value={props.resultingColRatio.toFixed(2)}
+            testId='text_resulting_col_ratio'
+            type='current'
+            vaultState={resultingVaultState}
           />
         )}
       <NumberRow
