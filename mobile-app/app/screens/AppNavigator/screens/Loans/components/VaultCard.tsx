@@ -110,7 +110,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
                   {translate('components/VaultCard', 'Collaterals:')}
                 </ThemedText>
                 {
-                  vault.collateralAmounts?.length === 0 &&
+                  (vault.collateralAmounts?.length === 0 || vault.collateralAmounts === undefined) &&
                   (
                     <ThemedText
                       light={tailwind('text-gray-500')}

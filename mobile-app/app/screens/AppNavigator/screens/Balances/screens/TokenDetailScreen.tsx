@@ -104,7 +104,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
               icon='arrow-downward'
               onPress={() => navigation.navigate('Receive')}
               testID='receive_button'
-              title={`${translate('screens/TokenDetailScreen', 'Receive')} ${token.displaySymbol}`}
+              title={`${translate('screens/TokenDetailScreen', 'Receive {{token}}', { token: token.displaySymbol })}`}
             />
           </>
         )

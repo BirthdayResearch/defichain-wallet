@@ -1,11 +1,5 @@
 import { SymbolIcon } from '@components/SymbolIcon'
-import {
-  ThemedIcon,
-  ThemedScrollView,
-  ThemedSectionTitle,
-  ThemedText,
-  ThemedView
-} from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -16,10 +10,7 @@ import { Platform, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { LoanParamList } from '../LoansNavigator'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
-import {
-  AddOrRemoveCollateralForm,
-  AddOrRemoveCollateralResponse
-} from '../components/AddOrRemoveCollateralForm'
+import { AddOrRemoveCollateralForm, AddOrRemoveCollateralResponse } from '../components/AddOrRemoveCollateralForm'
 import { BottomSheetTokenList } from '@components/BottomSheetTokenList'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
@@ -27,7 +18,11 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { fetchCollateralTokens } from '@store/loans'
-import { CollateralToken, LoanVaultActive, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
+import {
+  CollateralToken,
+  LoanVaultActive,
+  LoanVaultTokenAmount
+} from '@defichain/whale-api-client/dist/api/loan'
 import { createSelector } from '@reduxjs/toolkit'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { IconButton } from '@components/IconButton'
@@ -37,6 +32,7 @@ import { useCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/Co
 import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 import { queueConvertTransaction } from '@hooks/wallet/Conversion'
 import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
+import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 
@@ -68,6 +64,7 @@ export function EditCollateralScreen ({
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const containerRef = useRef(null)
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
+  const canUseOperations = useLoanOperations(activeVault?.state)
 
   const tokens = useTokensAPI()
   const getTokenAmount = (tokenId: string): BigNumber => {
@@ -189,7 +186,7 @@ export function EditCollateralScreen ({
         <SectionTitle title='VAULT DETAILS' />
         <VaultIdSection vault={activeVault} />
         <AddCollateralButton
-          disabled={false}
+          disabled={!canUseOperations}
           onPress={() => {
             setBottomSheetScreen([
               {
@@ -257,6 +254,7 @@ export function EditCollateralScreen ({
             }
             return (
               <CollateralCard
+                vault={activeVault}
                 key={collateral.displaySymbol}
                 collateralItem={collateralItem}
                 totalCollateralValue={new BigNumber(activeVault.collateralValue)}
@@ -388,14 +386,17 @@ interface CollateralCardProps {
   onRemovePress: () => void
   collateralItem: CollateralItem
   totalCollateralValue: BigNumber
+  vault: LoanVaultActive
 }
 
 function CollateralCard (props: CollateralCardProps): JSX.Element {
   const {
     collateral,
     collateralItem,
-    totalCollateralValue
+    totalCollateralValue,
+    vault
   } = props
+  const canUseOperations = useLoanOperations(vault.state)
   const prices = useCollateralPrice(new BigNumber(collateral.amount), collateralItem, totalCollateralValue)
   return (
     <ThemedView
@@ -426,6 +427,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             iconType='MaterialIcons'
             iconName='add'
             iconSize={20}
+            disabled={!canUseOperations}
             onPress={() => props.onAddPress()}
           />
           <IconButton
@@ -433,6 +435,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             iconName='remove'
             iconSize={20}
             style={tailwind('ml-2')}
+            disabled={!canUseOperations}
             onPress={() => props.onRemovePress()}
           />
         </View>

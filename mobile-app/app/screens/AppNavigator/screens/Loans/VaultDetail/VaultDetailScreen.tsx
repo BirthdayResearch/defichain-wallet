@@ -23,6 +23,7 @@ import {
 } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 import { CollateralizationRatioDisplay } from '@screens/AppNavigator/screens/Loans/components/CollateralizationRatioDisplay'
 import { useNextCollateralizationRatio } from '@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio'
+import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 
 type Props = StackScreenProps<LoanParamList, 'VaultDetailScreen'>
 
@@ -33,10 +34,11 @@ export function VaultDetailScreen ({
   const { vaultId, tab } = route.params
   const [vault, setVault] = useState<LoanVault>()
   const vaults = useSelector((state: RootState) => state.loans.vaults)
+  const canUseOperations = useLoanOperations(vault?.state)
   const vaultActionButtons: ScrollButton[] = [
     {
       label: 'EDIT COLLATERALS',
-      disabled: vault?.state === LoanVaultState.IN_LIQUIDATION,
+      disabled: !canUseOperations,
       handleOnPress: () => {
         if (vault === undefined) {
           return
@@ -53,7 +55,7 @@ export function VaultDetailScreen ({
     },
     {
       label: 'EDIT LOAN SCHEME',
-      disabled: vault?.state === LoanVaultState.IN_LIQUIDATION,
+      disabled: !canUseOperations,
       handleOnPress: () => {
         if (vault === undefined) {
           return

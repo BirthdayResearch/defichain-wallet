@@ -25,7 +25,7 @@
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Wähle unten ein Pool-Paar aus, stelle Liquidität für den Betrieb der dezentralen Börse (DEX) bereit und beginne, Gebühren und jährliche Renditen von bis zu 100% zu verdienen. Du kannst jederzeit Liquidität entfernen.",
     "Pooled {{symbol}}": "Im Pool {{symbol}}",
     "Total pooled {{symbol}}": "Gesamte {{symbol}} im Pool",
-    "Your pooled {{symbol}}": "Gepoolte {{symbol}}",
+    "Your pooled {{symbol}}": "{{symbol}} im Pool",
     "SWAP TOKENS": "TAUSCHE TOKEN",
     "REMOVE": "ENTFERNEN",
     "APR": "ZINS",
@@ -252,7 +252,7 @@
     "AMOUNT BALANCE": "Guthabenbetrag",
     "AVAILABLE OPTIONS": "VERFÜGBARE OPTIONEN",
     "Send to other wallet": "An andere Wallet senden",
-    "Receive": "Empfange",
+    "Receive {{token}}": "{{token}} empfangen",
     "Convert to {{symbol}}": "Umwandeln in {{symbol}}",
     "Add to liquidity pool": "Zu Liquiditätspool hinzufügen",
     "Remove liquidity": "Liquidität entfernen",
@@ -656,7 +656,7 @@
   "screens/LoansScreen": {
     "Loans": "Darlehen",
     "Create Vault": "Vault Erstellen",
-    "Confirm Create Vault": "Bestätige Vault Erstellen",
+    "Confirm Create Vault": "Bestätige Vault-Erstellung",
     "Vault Detail": "Vault-Detail",
     "Add Collateral": "Sicherheiten Hinzufügen",
     "Confirm Add Collateral": "Bestätige das Hinzufügen von Sicherheiten",
@@ -733,14 +733,14 @@
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Du erstellst gerade einen Vault",
-    "ID will generate once vault has been created": "ID wird generiert, sobald das Sicherheitendepot erstellt ist",
+    "ID will generate once vault has been created": "ID wird generiert, sobald das Vault erstellt ist",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktionsart",
     "Create vault": "Vault erstellen",
     "Total transaction cost": "Transaktionskosten gesamt",
     "VAULT DETAILS": "VAULT-DETAILS",
     "Min. collateral ratio": "Mindestbesicherungsquote",
-    "Interest rate (APR)": "Zinssatz (APR)",
+    "Interest rate (APR)": "Zinssatz p.a.",
     "APR": "ZINS",
     "CONFIRM CREATE VAULT": "VAULT ERSTELLEN BESTÄTIGEN",
     "Creating vault": "Vault anlegen",
@@ -784,7 +784,7 @@
   "components/VaultDetailsLoansTab": {
     "Outstanding balance": "Ausstehender Saldo",
     "Interest amount": "Zinsbetrag",
-    "PAYBACK LOAN": "DARLEHENRÜCKZAHLUNG",
+    "PAYBACK LOAN": "DARLEHEN ZURÜCKZAHLEN",
     "BORROW MORE": "MEHR AUSLEIHEN"
   },
   "components/BalanceControlCard": {
@@ -869,7 +869,7 @@
     "Remove Collateral": "Sicherheiten entfernen"
   },
   "screens/PaybackLoanScreen": {
-    "YOU ARE PAYING FOR LOAN": "SIE ZAHLEN FÜR EIN DARLEHEN",
+    "YOU ARE PAYING FOR LOAN": "RÜCKZAHLUNG FÜR FOLGENDES DARLEHEN",
     "VAULT IN USE": "AKTIVER VAULT",
     "How much do you want to pay?": "Wie viel willst du abzahlen?",
     "Enter an amount": "Gib eine Menge ein",
@@ -898,7 +898,7 @@
     "Collateralization ratio": "Besicherungsquote",
     "Paying loan": "Darlehen abbezahlen",
     "Paying {{amount}} {{symbol}}": "{{amount}} {{symbol}} bezahlen",
-    "Confirm Loan Payment": "Darlehensauszahlung bestätigen"
+    "Confirm Loan Payment": "Darlehensrückzahlung bestätigen"
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "Besicherungsquote",
@@ -908,7 +908,7 @@
   "screens/BorrowLoanTokenScreen": {
     "Borrow loan token": "Darlehenstoken leihen",
     "SELECT VAULT FOR COLLATERAL": "VAULT FÜR SICHERHEITEN AUSWÄHLEN",
-    "Select a vault to use": "Wähle einen zu verwendenden Vault",
+    "Select a vault to use": "Zu verwendenden Vault wählen",
     "Choose a vault to use": "Wähle einen zu verwendenden Vault",
     "Price (USD)": "Preis (USD)",
     "Interest": "Zins",

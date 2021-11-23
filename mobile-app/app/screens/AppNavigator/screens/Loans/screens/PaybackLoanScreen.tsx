@@ -29,6 +29,7 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { NumberRow } from '@components/NumberRow'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 
 type Props = StackScreenProps<LoanParamList, 'PaybackLoanScreen'>
 
@@ -46,6 +47,7 @@ export function PaybackLoanScreen ({
     return new BigNumber(tokens.find((t) => t.id === id)?.amount ?? 0)
   }
 
+  const canUseOperations = useLoanOperations(vault?.state)
   const client = useWhaleApiClient()
   const token = tokens?.find((t) => t.id === loanToken.id)
   const tokenBalance = (token != null) ? getTokenAmount(token.id) : 0
@@ -139,7 +141,7 @@ export function PaybackLoanScreen ({
         )
       }
       <Button
-        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
+        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
         label={translate('screens/PaybackLoanScreen', 'CONTINUE')}
         onPress={onSubmit}
         testID='payback_loan_button'
