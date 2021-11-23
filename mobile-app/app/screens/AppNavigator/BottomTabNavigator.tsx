@@ -83,22 +83,22 @@ export function BottomTabNavigator (): JSX.Element {
           />
         )}
 
-        {/* {isFeatureAvailable('auction') && ( */}
-        <BottomTab.Screen
-          component={AuctionsNavigator}
-          name={translate('BottomTabNavigator', 'Auctions')}
-          options={{
-              tabBarTestID: 'bottom_tab_auctions',
-              tabBarIcon: ({ color }) => (
-                <MaterialIcons
-                  color={color}
-                  name='gavel'
-                  size={24}
-                />
-              )
-            }}
-        />
-        {/* )} */}
+        {isFeatureAvailable('auction') && (
+          <BottomTab.Screen
+            component={AuctionsNavigator}
+            name={translate('BottomTabNavigator', 'Auctions')}
+            options={{
+                tabBarTestID: 'bottom_tab_auctions',
+                tabBarIcon: ({ color }) => (
+                  <MaterialIcons
+                    color={color}
+                    name='gavel'
+                    size={24}
+                  />
+                )
+              }}
+          />
+        )}
 
         <BottomTab.Screen
           component={TransactionsNavigator}

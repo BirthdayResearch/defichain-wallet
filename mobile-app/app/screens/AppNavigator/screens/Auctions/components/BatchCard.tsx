@@ -68,7 +68,6 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
               {batch.loan.displaySymbol}
             </ThemedText>
           </View>
-          {/* TODO add condition here for showing active bid */}
           {state === LoanVaultState.IN_LIQUIDATION && (
             <ThemedView
               light={tailwind('bg-blue-100')}
