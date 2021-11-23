@@ -98,6 +98,7 @@ export const BottomSheetTokenList = ({
           <View style={tailwind('flex flex-row items-center')}>
             <NumberFormat
               value={item.available.toFixed(8)}
+              thousandSeparator
               displayType='text'
               renderText={value =>
                 <ThemedText
