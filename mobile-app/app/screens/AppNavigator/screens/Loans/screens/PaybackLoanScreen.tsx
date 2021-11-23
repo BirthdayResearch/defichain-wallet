@@ -165,23 +165,23 @@ interface LoanTokenInputProps {
   outstandingBalance: BigNumber
 }
 
-function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
+export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
       dark={tailwind('bg-gray-800 border-gray-700')}
       style={tailwind('border p-4 flex flex-col rounded-lg')}
     >
-      <View style={tailwind('flex flex-row flex-1 items-center mb-2')}>
+      <View style={tailwind('flex flex-row flex-1 items-center mb-3')}>
         <SymbolIcon
           symbol={props.displaySymbol} styleProps={{
           width: 24,
           height: 24
         }}
         />
-        <ThemedText style={tailwind('ml-2 text-sm font-medium')}>{props.displaySymbol}</ThemedText>
+        <ThemedText style={tailwind('ml-2 font-medium')}>{props.displaySymbol}</ThemedText>
       </View>
-      <View style={tailwind('flex flex-row items-center justify-between mb-1 mt-2')}>
+      <View style={tailwind('flex flex-row items-center justify-between')}>
         <ThemedText
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
@@ -196,7 +196,7 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
           suffix={` ${props.displaySymbol}`}
           displayType='text'
           renderText={(value) =>
-            <ThemedText style={tailwind('font-medium')}>
+            <ThemedText style={tailwind('text-sm font-medium')}>
               {value}
             </ThemedText>}
         />
@@ -209,7 +209,7 @@ interface VaultInputProps {
   vault: LoanVaultActive
 }
 
-function VaultInput ({ vault }: VaultInputProps): JSX.Element {
+export function VaultInput ({ vault }: VaultInputProps): JSX.Element {
   const vaultState = useVaultStatus(vault.state, new BigNumber(vault.collateralRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber(vault.loanValue))
   const colors = useCollateralizationRatioColor({
     colRatio: new BigNumber(vault.collateralRatio),
@@ -248,7 +248,7 @@ function VaultInput ({ vault }: VaultInputProps): JSX.Element {
           suffix='%'
           displayType='text'
           renderText={(value) =>
-            <ThemedText light={colors.light} dark={colors.dark} style={tailwind('font-medium')}>
+            <ThemedText light={colors.light} dark={colors.dark} style={tailwind('text-sm font-medium')}>
               {value}
             </ThemedText>}
         />
@@ -268,7 +268,7 @@ function VaultInput ({ vault }: VaultInputProps): JSX.Element {
           suffix='%'
           displayType='text'
           renderText={(value) =>
-            <ThemedText light={colors.light} dark={colors.dark} style={tailwind('font-medium')}>
+            <ThemedText light={colors.light} dark={colors.dark} style={tailwind('text-sm font-medium')}>
               {value}
             </ThemedText>}
         />
