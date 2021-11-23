@@ -363,18 +363,30 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
         suffixType='text'
         lhs={translate('screens/EditCollateralScreen', 'Collateralization ratio')}
         rhsThemedProps={colors}
+        info={{
+          title: 'Collateralization ratio',
+          message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+        }}
       />
       <VaultSectionTextRow
         testID='text_total_collateral_value'
         value={new BigNumber(vault.loanScheme.minColRatio ?? 0).toFixed(2)} suffix='%'
         suffixType='text'
         lhs={translate('screens/EditCollateralScreen', 'Min. collateral ratio')}
+        info={{
+          title: 'Min. collateral ratio',
+          message: 'Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.'
+        }}
       />
       <VaultSectionTextRow
         testID='text_vault_interest_value'
         value={new BigNumber(vault.loanScheme.interestRate ?? 0).toFixed(2)} suffix='%'
         suffixType='text'
         lhs={translate('screens/EditCollateralScreen', 'Vault interest')}
+        info={{
+          title: 'Annual vault interest',
+          message: 'Annual vault interest rate based on the loan scheme selected.'
+        }}
       />
     </ThemedView>
   )

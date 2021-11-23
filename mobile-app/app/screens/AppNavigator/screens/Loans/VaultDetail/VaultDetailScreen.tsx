@@ -200,6 +200,10 @@ function VaultInfoSection (props: { vault?: LoanVault }): JSX.Element | null {
               testID='text_min_col_ratio'
               suffixType='text'
               suffix='%'
+              info={{
+                title: 'Min. collateral ratio',
+                message: 'Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.'
+              }}
             />
             <VaultSectionTextRow
               value={props.vault.loanScheme.interestRate}
@@ -225,6 +229,10 @@ function VaultInfoSection (props: { vault?: LoanVault }): JSX.Element | null {
               prefix='$'
             />
             <VaultSectionTextRow
+              info={{
+                title: 'Annual vault interest',
+                message: 'Annual vault interest rate based on the loan scheme selected.'
+              }}
               value={props.vault.loanScheme.interestRate}
               lhs={translate('screens/VaultDetailScreen', 'Vault interest (APR)')}
               testID='text_vault_interest'

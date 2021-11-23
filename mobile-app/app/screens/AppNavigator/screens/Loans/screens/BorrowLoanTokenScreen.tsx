@@ -40,6 +40,7 @@ import { useResultingCollateralRatio } from '../hooks/CollateralPrice'
 import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
+import { BottomSheetInfo } from '@components/BottomSheetInfo'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowLoanTokenScreen'>
 
@@ -433,6 +434,10 @@ interface VaultInputActiveProps {
 
 function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
   const vaultState = useVaultStatus(props.vault.state, new BigNumber(props.vault.collateralRatio), new BigNumber(props.vault.loanScheme.minColRatio), new BigNumber(props.vault.loanValue))
+  const vaultAlertInfo = {
+    title: 'Annual vault interest',
+    message: 'Annual vault interest rate based on the loan scheme selected.'
+  }
   return (
     <ThemedTouchableOpacity
       light={tailwind('bg-white border-gray-200')}
@@ -481,13 +486,16 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
         />
       </View>
       <View style={tailwind('flex flex-row items-center justify-between')}>
-        <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
-          style={tailwind('text-xs')}
-        >
-          {translate('screens/BorrowLoanTokenScreen', 'Vault interest')}
-        </ThemedText>
+        <View style={tailwind('flex-row items-center')}>
+          <ThemedText
+            light={tailwind('text-gray-500')}
+            dark={tailwind('text-gray-400')}
+            style={tailwind('text-xs mr-1')}
+          >
+            {translate('screens/BorrowLoanTokenScreen', 'Vault interest')}
+          </ThemedText>
+          <BottomSheetInfo alertInfo={vaultAlertInfo} name={vaultAlertInfo.title} infoIconStyle={tailwind('text-xs')} />
+        </View>
         <NumberFormat
           value={props.vault.loanScheme.interestRate}
           decimalScale={2}
@@ -527,6 +535,11 @@ export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.
     )
   )
 
+  const minCollateralRatioInfo = {
+    title: 'Min. collateral ratio',
+    message: 'Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.'
+  }
+
   return (
     <>
       <ThemedSectionTitle
@@ -554,6 +567,7 @@ export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.
         )}
       <NumberRow
         lhs={translate('screens/BorrowLoanTokenScreen', 'Min. collateral ratio')}
+        info={minCollateralRatioInfo}
         rhs={{
           value: props.vault.loanScheme.minColRatio,
           testID: 'text_col_ratio',
