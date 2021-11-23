@@ -25,13 +25,13 @@ import { getNativeIcon } from '@components/icons/assets'
 import { ConversionTag } from '@components/ConversionTag'
 import { View } from '@components'
 import { InfoText } from '@components/InfoText'
-import { DerivedTokenState } from './CompositeSwapScreen'
 import { DexParamList } from '../DexNavigator'
+import { OwnedTokenState, TokenState } from './CompositeSwapScreen'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmCompositeSwapScreen'>
 export interface CompositeSwapForm {
-  tokenFrom: DerivedTokenState
-  tokenTo: DerivedTokenState
+  tokenFrom: OwnedTokenState
+  tokenTo: TokenState & { amount?: string}
   amountFrom: BigNumber
   amountTo: BigNumber
 }
@@ -165,7 +165,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
           },
           {
             symbol: tokenB.displaySymbol,
-            value: BigNumber.max(new BigNumber(tokenB.amount === '' ? 0 : tokenB.amount).plus(swap.amountTo), 0).toFixed(8),
+            value: BigNumber.max(new BigNumber(tokenB?.amount === '' || tokenB?.amount === undefined ? 0 : tokenB?.amount).plus(swap.amountTo), 0).toFixed(8),
             suffix: tokenB.displaySymbol
           }
         ]}

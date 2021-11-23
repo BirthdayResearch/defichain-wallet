@@ -13,7 +13,7 @@ import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
 import { DexScreen } from './DexScreen'
 import { ConfirmPoolSwapScreen, DexForm } from './PoolSwap/ConfirmPoolSwapScreen'
 import { DerivedTokenState, PoolSwapScreen } from './PoolSwap/PoolSwapScreen'
-import { CompositeSwapScreen } from './CompositeSwap/CompositeSwapScreen'
+import { CompositeSwapScreen, OwnedTokenState, TokenState } from './CompositeSwap/CompositeSwapScreen'
 import { CompositeSwapForm, ConfirmCompositeSwapScreen } from './CompositeSwap/ConfirmCompositeSwapScreen'
 import { WalletToken } from '@store/wallet'
 import { ConversionParam } from '../Balances/BalancesNavigator'
@@ -32,7 +32,7 @@ export interface DexParamList {
     priceRateB: string
     conversion?: ConversionParam
   }
-  CompositeSwapScreen: undefined
+  CompositeSwapScreen: { pair?: PoolPairData }
   ConfirmCompositeSwapScreen: {
     conversion?: ConversionParam
     fee: BigNumber
@@ -40,8 +40,8 @@ export interface DexParamList {
     priceRates: Array<{label: string, value: string}>
     slippage: number
     swap: CompositeSwapForm
-    tokenA: DerivedTokenState
-    tokenB: DerivedTokenState
+    tokenA: OwnedTokenState
+    tokenB: TokenState & {amount?: string}
   }
   AddLiquidity: { pair: PoolPairData }
   ConfirmAddLiquidity: {
