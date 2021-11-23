@@ -69,7 +69,7 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
   const [canCreateAddress, setCanCreateAddress] = useState<boolean>(false)
   const logger = useLogger()
 
-  const getAddresses = async (): Promise<void> => {
+  const fetchAddresses = async (): Promise<void> => {
     const addresses: string[] = []
     for (let i = 0; i <= addressLength; i++) {
       const account = wallet.get(i)
@@ -78,9 +78,9 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
     }
     setAvailableAddresses(addresses)
     // incremented 1 to check if next account in the wallet is usable.
-    const length = addressLength + 1
-    const isUsable = await wallet.isUsable(length)
-    setCanCreateAddress(isUsable && MAX_ALLOWED_ADDRESSES > length)
+    const next = addressLength + 1
+    const isUsable = await wallet.isUsable(next)
+    setCanCreateAddress(isUsable && MAX_ALLOWED_ADDRESSES > next)
   }
 
   const onRowPress = async (index: number): Promise<void> => {
@@ -89,7 +89,7 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
   }
 
   useEffect(() => {
-    getAddresses().catch(logger.error)
+    fetchAddresses().catch(logger.error)
   }, [wallet, addressLength])
 
   if (address.length === 0) {
@@ -103,7 +103,7 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
 
   return (
     <>
-      {availableAddresses.map((availableAddress, index) =>
+      {availableAddresses.map((availableAddress: string, index: number) =>
         <AddressItemRow
           key={availableAddress}
           address={availableAddress}
