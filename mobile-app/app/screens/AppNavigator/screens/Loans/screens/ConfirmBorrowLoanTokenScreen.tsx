@@ -53,14 +53,7 @@ export function ConfirmBorrowLoanTokenScreen ({
     new BigNumber(totalLoanWithInterest), new BigNumber(loanToken.activePrice?.active?.amount ?? 0))
 
   function onCancel (): void {
-    navigation.navigate({
-      name: 'BorrowLoanTokenScreen',
-      params: {
-        loanToken,
-        vault
-      },
-      merge: true
-    })
+    navigation.goBack()
   }
 
   async function onSubmit (): Promise<void> {

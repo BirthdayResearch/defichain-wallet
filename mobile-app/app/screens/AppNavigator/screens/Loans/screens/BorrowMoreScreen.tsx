@@ -65,11 +65,11 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
     }
 
     navigation.navigate({
-      name: 'ConfirmBorrowMoreScreen',
+      name: 'ConfirmBorrowLoanTokenScreen',
       params: {
         loanToken,
         vault,
-        amountToAdd,
+        amountToBorrow: amountToAdd,
         totalInterestAmount,
         totalLoanWithInterest,
         fee
