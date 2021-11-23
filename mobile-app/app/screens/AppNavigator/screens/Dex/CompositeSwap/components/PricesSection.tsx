@@ -2,9 +2,9 @@ import React from 'react'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { ThemedSectionTitle } from '@components/themed'
-import { TextRow } from '@components/TextRow'
+import { NumberRow } from '@components/NumberRow'
 
-export interface PriceRateProps {label: string, value: string}
+export interface PriceRateProps { label: string, value: string, aSymbol: string, bSymbol: string }
 
 export function PricesSection ({ priceRates, sectionTitle }: {priceRates: PriceRateProps[], sectionTitle: string}): JSX.Element {
   return (
@@ -16,12 +16,15 @@ export function PricesSection ({ priceRates, sectionTitle }: {priceRates: PriceR
       />
       {priceRates.map((priceRate, index) => {
         return (
-          <TextRow
+          <NumberRow
             key={priceRate.label}
             lhs={priceRate.label}
             rhs={{
               value: priceRate.value,
-              testID: `pricerate_value_${index}`
+              testID: `pricerate_value_${index}`,
+              prefix: `1 ${priceRate.aSymbol} = `,
+              suffix: priceRate.bSymbol,
+              suffixType: 'text'
             }}
             textStyle={tailwind('text-sm font-normal')}
           />

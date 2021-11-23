@@ -17,6 +17,7 @@ import { CompositeSwapScreen, OwnedTokenState, TokenState } from './CompositeSwa
 import { CompositeSwapForm, ConfirmCompositeSwapScreen } from './CompositeSwap/ConfirmCompositeSwapScreen'
 import { WalletToken } from '@store/wallet'
 import { ConversionParam } from '../Balances/BalancesNavigator'
+import { PriceRateProps } from '@screens/AppNavigator/screens/Dex/CompositeSwap/components/PricesSection'
 
 export interface DexParamList {
   DexScreen: undefined
@@ -37,7 +38,7 @@ export interface DexParamList {
     conversion?: ConversionParam
     fee: BigNumber
     pairs: PoolPairData[]
-    priceRates: Array<{label: string, value: string}>
+    priceRates: PriceRateProps[]
     slippage: number
     swap: CompositeSwapForm
     tokenA: OwnedTokenState
