@@ -169,8 +169,8 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     cy.getByTestID('your_DFI').contains('9.99999999')
 
     cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('balances_row_10').should('exist')
-    cy.getByTestID('balances_row_10_symbol').contains('dBTC-DFI')
+    cy.getByTestID('balances_row_15').should('exist')
+    cy.getByTestID('balances_row_15_symbol').contains('dBTC-DFI')
     // Remove added liquidity
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()

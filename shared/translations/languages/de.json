@@ -224,7 +224,9 @@
     "There are 2 types of interests that applies for loans, namely vault interest rate and token interest rate.": "Es gibt 2 Arten von Zinsen, die für Darlehen gelten, nämlich den Vault-Zinssatz und den Token-Zinssatz.",
     "The vault interest rate is determined when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.": "Der Vault-Zins wird festgelegt, wenn der Vaultbesitzer das Darlehensmodell auswählt, wobei der Vault-Zins umso niedriger ist, je höher die Mindestbesicherungsquote ist.",
     "The token interest rate is applied on specific loan tokens, and can differ from token to token.": "Der Token-Zinssatz wird auf bestimmte Darlehenstoken angewandt und kann sich von Token zu Token unterscheiden.",
-    "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and calculated on a per annum basis.": "Der Gesamtzinssatz für ein Darlehen ergibt sich aus dem Vault-Zinssatz und dem Token-Zinssatz und wird auf jährlicher Basis berechnet."
+    "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and calculated on a per annum basis.": "Der Gesamtzinssatz für ein Darlehen ergibt sich aus dem Vault-Zinssatz und dem Token-Zinssatz und wird auf jährlicher Basis berechnet.",
+    "What is collateral factor?": "Was ist der Beleihungsfaktor?",
+    "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 of it would contribute to $70 of collateral value in a vault.": "Der Beleihungsfaktor bestimmt den Grad des Beitrags jedes Beleihungswertes. Wenn beispielsweise ein Token mit einem Besicherungsfaktor von 70 % akzeptiert wird, tragen 100 Dollar davon zu 70 Dollar Besicherungswert in einem Vault bei."
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "NETZWERK",
@@ -659,7 +661,9 @@
     "Add Collateral": "Sicherheiten Hinzufügen",
     "Confirm Add Collateral": "Bestätige das Hinzufügen von Sicherheiten",
     "Edit Collaterals": "Sicherheiten bearbeiten",
-    "Borrow Loan Token": "Darlehenstoken entleihen"
+    "Borrow Loan Token": "Darlehenstoken entleihen",
+    "Edit Loan Scheme": "Darlehensmodell bearbeiten",
+    "Confirm Edit Loan Scheme": "Darlehensmodellbearbeitung bestätigen"
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehen durchsuchen",
@@ -767,7 +771,8 @@
     "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
     "TAKE COLLATERAL": "SICHERHEITEN ENTNEHMEN",
     "EDIT SCHEME": "DARLEHENSMODELL BEARBEITEN",
-    "EDIT COLLATERALS": "SICHERHEITEN BEARBEITEN"
+    "EDIT COLLATERALS": "SICHERHEITEN BEARBEITEN",
+    "EDIT LOAN SCHEME": "DARLEHENSMODELL BEARBEITEN"
   },
   "components/EmptyActiveLoans": {
     "No active loans": "Keine aktiven Darlehen",
@@ -838,7 +843,8 @@
     "ADD TOKEN AS COLLATERAL": "TOKEN ALS BESICHERUNG HINZUFÜGEN",
     "REMOVE COLLATERAL AMOUNT": "BETRAG DER SICHERHEITEN REDUZIEREN",
     "How much {{symbol}} to remove?": "Wie viel {{symbol}} soll entfernt werden?",
-    "Current": "Aktueller Stand"
+    "Current": "Aktueller Stand",
+    "The collateral factor determines the degree of contribution of each collateral token.": "Der Beleihungsfaktor bestimmt den Grad des Beitrags jedes Sicherheiten-Tokens."
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Du fügst Sicherheiten hinzu zu",
@@ -900,7 +906,7 @@
   "screens/BorrowLoanTokenScreen": {
     "Borrow loan token": "Darlehenstoken leihen",
     "SELECT VAULT FOR COLLATERAL": "VAULT FÜR SICHERHEITEN AUSWÄHLEN",
-    "Select a vault to use": "Select a vault to use",
+    "Select a vault to use": "Wähle einen zu verwendenden Vault",
     "Choose a vault to use": "Wähle einen zu verwendenden Vault",
     "Price (USD)": "Preis (USD)",
     "Interest": "Zins",
@@ -916,7 +922,7 @@
     "Total interest amount": "Zinsgesamtbetrag",
     "Total loan + interest": "Gesamtbetrag Darlehen + Zins",
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
-    "SELECT LOAN TOKEN": "SELECT LOAN TOKEN"
+    "SELECT LOAN TOKEN": "DARLEHENSTOKEN AUSWÄHLEN"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "Du leihst dir",
@@ -942,5 +948,29 @@
   },
   "components/BottomSheetVaultList": {
     "Collateralization ratio": "Besicherungsquote"
+  },
+  "screens/EditLoanSchemeScreen": {
+    "EDIT LOAN SCHEME OF VAULT": "BELEIHUNGSMODELL DES VAULTS BEARBEITEN",
+    "Make sure your collateralization ratio is still above your min. collateralization ratio": "Vergewissere dich, dass deine Besicherungsquote immer noch über deiner Mindestbesicherungsquote liegt",
+    "CONTINUE": "FORTFAHREN",
+    "Confirm your vault details in next screen":"Bestätige die Daten deines Vaults in der nächsten Ansicht"
+  },
+  "screens/ConfirmEditLoanSchemeScreen": {
+    "You are editing scheme of vault": "Du bearbeitest das Vault-Modell",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "Transaction type": "Transaktions-Typ",
+    "Edit loan scheme": "Darlehensmodell bearbeiten",
+    "Prev. minimum collateralization ratio": "Vorherige Mindestbesicherungsquote",
+    "Prev. vault interest (APR)": "Bisheriger Vault-Zins p.a.",
+    "New minimum collateralization ratio": "Neue Mindestbesicherungsquote",
+    "New vault interest (APR)": "Neuer Vault-Zins p.a.",
+    "CONFIRM EDIT": "BEARBEITEN BESTÄTIGEN",
+    "EDITING": "BEARBEITEN",
+    "CONVERTING":"WANDLE UM"
+  },
+  "components/LoanSchemeOptions": {
+    "Min. collateralization": "Mindestbesicherung",
+    "Interest rate": "Zinssatz",
+    "APR": "ZINS"
   }
 }

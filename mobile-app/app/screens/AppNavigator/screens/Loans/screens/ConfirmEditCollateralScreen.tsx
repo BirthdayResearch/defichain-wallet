@@ -217,7 +217,8 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
           value: prices.collateralFactor.multipliedBy(100).toFixed(2),
           testID: 'collateral_factor',
           suffixType: 'text',
-          suffix: '%'
+          suffix: '%',
+          style: tailwind('ml-0')
         }}
       />
       <NumberRow

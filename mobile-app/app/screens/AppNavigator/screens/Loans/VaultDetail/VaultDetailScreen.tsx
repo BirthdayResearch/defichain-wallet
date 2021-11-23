@@ -50,6 +50,23 @@ export function VaultDetailScreen ({
           merge: true
         })
       }
+    },
+    {
+      label: 'EDIT LOAN SCHEME',
+      disabled: vault?.state === LoanVaultState.IN_LIQUIDATION,
+      handleOnPress: () => {
+        if (vault === undefined) {
+          return
+        }
+
+        navigation.navigate({
+          name: 'EditLoanSchemeScreen',
+          params: {
+            vaultId: vault.vaultId
+          },
+          merge: true
+        })
+      }
     }
   ]
 
