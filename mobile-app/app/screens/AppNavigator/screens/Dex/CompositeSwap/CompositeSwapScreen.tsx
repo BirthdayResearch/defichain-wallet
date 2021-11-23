@@ -37,10 +37,10 @@ import { PriceRateProps, PricesSection } from './components/PricesSection'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { TextRow } from '@components/TextRow'
 import { WalletTextInput } from '@components/WalletTextInput'
+import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
+import { checkIfPair, findPath, getAdjacentNodes, GraphProps } from '../helpers/path-finding'
 import { SlippageTolerance } from '../PoolSwap/components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
-import { checkIfPair, findPath, getAdjacentVertices, GraphProps } from '../helpers/path-finding'
-import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 
 export interface TokenState {
   id: string
@@ -207,27 +207,25 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   }, [pairs])
 
   useEffect(() => {
-    const swappableFromTokens = tokens.reduce((swappedTokens: BottomSheetToken[], token): BottomSheetToken[] => {
-      if (!token.isLPS && token.id !== '0' && token.id !== '0_utxo' && new BigNumber(token.amount).isGreaterThan(0)) {
-        const derivedBottomSheetToken: BottomSheetToken = {
-          tokenId: token.id,
-          available: new BigNumber(token.amount),
-          token: {
-            displaySymbol: token.displaySymbol,
-            name: '' // not available in API
-          }
+    const swappableFromTokens = tokens
+    .filter(token => !token.isLPS && token.id !== '0' && token.id !== '0_utxo' && new BigNumber(token.amount).isGreaterThan(0))
+    .reduce((swappedTokens: BottomSheetToken[], token): BottomSheetToken[] => {
+      const derivedBottomSheetToken: BottomSheetToken = {
+        tokenId: token.id,
+        available: new BigNumber(token.amount),
+        token: {
+          displaySymbol: token.displaySymbol,
+          name: '' // not available in API
         }
-
-        return [...swappedTokens, derivedBottomSheetToken]
       }
 
-      return swappedTokens
+      return [...swappedTokens, derivedBottomSheetToken]
     }, [])
 
     setAllowedSwapFromTokens(swappableFromTokens)
 
     if (selectedTokenA !== undefined && allTokens !== undefined) {
-       const swappableToTokens = getAllPossibleSwapToTokens(allTokens, pairs, selectedTokenA.id === '0_unified' ? '0' : selectedTokenA.id)
+      const swappableToTokens = getAllPossibleSwapToTokens(allTokens, pairs, selectedTokenA.id === '0_unified' ? '0' : selectedTokenA.id)
       setAllowedSwapToTokens(swappableToTokens)
     }
   }, [tokens, selectedTokenA, selectedTokenB])
@@ -235,12 +233,11 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   useEffect(() => {
     if (selectedTokenA !== undefined && selectedTokenB !== undefined) {
       const graph: GraphProps[] = pairs.map(pair => {
-        const graphItem: GraphProps = {
+        return {
           pairId: pair.data.id,
           a: pair.data.tokenA.symbol,
           b: pair.data.tokenB.symbol
         }
-        return graphItem
       })
       // TODO - Handle cheapest path with N hops, currently this logic finds the shortest path
       const { path } = findPath(graph, selectedTokenA.symbol, selectedTokenB.symbol)
@@ -708,8 +705,8 @@ function getAllPossibleSwapToTokens (allTokens: TokenState[], pairs: DexItem[], 
 
   while (nodesToVisit.size !== 0) {
     const [token] = nodesToVisit // first item in a set
-    const adjacentNodes = getAdjacentVertices(token, graph)
-    if (adjacentNodes !== undefined) {
+    const adjacentNodes = getAdjacentNodes(token, graph)
+    if (adjacentNodes.length !== 0) {
       adjacentNodes.forEach(node => {
         if (!reachableNodeIds.has(node)) {
           reachableNodes.push(node)
@@ -738,7 +735,6 @@ function getAllPossibleSwapToTokens (allTokens: TokenState[], pairs: DexItem[], 
             name: '', // Not available in API
             displaySymbol: token.displaySymbol
           }
-
         }
       ]
     }

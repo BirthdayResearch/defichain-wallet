@@ -34,4 +34,19 @@ describe('Path Finding - Composite Swap', () => {
     expect(aToB.visitedNodes).toEqual(new Set(['POMSKY', 'POODLE', 'DOG', 'ANIMAL', '4_LEGGED']))
     expect(Array.from(aToB.visitedNodes)).toEqual(expect.not.arrayContaining(['PET', 'FUN']))
   })
+
+  it('should stop immediately stop if there are no neighbors', () => {
+    const graph: GraphProps[] = [
+      { pairId: '1', a: 'POMSKY', b: 'DOG' },
+      { pairId: '2', a: 'POODLE', b: 'DOG' },
+      { pairId: '3', a: 'DOG', b: '4_LEGGED' },
+      { pairId: '4', a: 'DOG', b: 'ANIMAL' }, // path found here
+      { pairId: '5', a: 'DOG', b: 'PET' },
+      { pairId: '6', a: 'PET', b: 'FUN' }
+    ]
+    const aToB = findPath(graph, 'POODLE', 'ANIMAL')
+    expect(aToB.path).toEqual(['POODLE', 'DOG', 'ANIMAL'])
+    expect(aToB.visitedNodes).toEqual(new Set(['POMSKY', 'POODLE', 'DOG', 'ANIMAL', '4_LEGGED']))
+    expect(Array.from(aToB.visitedNodes)).toEqual(expect.not.arrayContaining(['PET', 'FUN']))
+  })
 })
