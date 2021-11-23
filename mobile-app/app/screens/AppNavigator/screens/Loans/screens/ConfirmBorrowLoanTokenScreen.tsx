@@ -192,7 +192,8 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
           value: props.loanTokenInterest,
           testID: 'token_interest',
           suffixType: 'text',
-          suffix: '%'
+          suffix: '%',
+          style: tailwind('ml-0')
         }}
       />
       <NumberRow
@@ -201,7 +202,8 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
           value: props.vaultInterest,
           testID: 'vault_interest',
           suffixType: 'text',
-          suffix: '%'
+          suffix: '%',
+          style: tailwind('ml-0')
         }}
       />
       <NumberRow
@@ -271,7 +273,8 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
               value: props.collateralRatio.toFixed(2),
               testID: 'text_current_collateral_ratio',
               suffixType: 'text',
-              suffix: '%'
+              suffix: '%',
+              style: tailwind('ml-0')
             }}
           />
         )}
@@ -291,7 +294,8 @@ function SummaryTransactionResults (props: { resultCollateralRatio: BigNumber })
           value: props.resultCollateralRatio.toFixed(2),
           testID: 'text_result_collateral_ratio',
           suffixType: 'text',
-          suffix: '%'
+          suffix: '%',
+          style: tailwind('ml-0')
         }}
       />
     </>

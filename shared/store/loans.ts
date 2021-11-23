@@ -1,6 +1,7 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { CollateralToken, LoanScheme, LoanToken, LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { createAsyncThunk, createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
+import BigNumber from 'bignumber.js'
 
 export type LoanVault = LoanVaultActive | LoanVaultLiquidated
 
@@ -76,3 +77,6 @@ export const loans = createSlice({
 export const nonLiquidatedVault = createSelector((state: LoansState) => state.vaults, vaults => {
   return vaults.filter(vault => vault.state !== LoanVaultState.IN_LIQUIDATION) as LoanVaultActive[]
 })
+
+export const ascColRatioLoanScheme = createSelector((state: LoansState) => state.loanSchemes,
+  (schemes) => schemes.map((c) => c).sort((a, b) => new BigNumber(a.minColRatio).minus(b.minColRatio).toNumber()))

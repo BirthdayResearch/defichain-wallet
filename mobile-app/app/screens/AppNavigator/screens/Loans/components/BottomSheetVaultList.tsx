@@ -64,7 +64,7 @@ export const BottomSheetVaultList = ({
                   >
                     {item.vaultId}
                   </ThemedText>
-                  <VaultStatusTag status={vaultState} />
+                  <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
                 </View>
               </View>
               <View style={tailwind('flex items-end')}>
@@ -73,7 +73,7 @@ export const BottomSheetVaultList = ({
                   dark={tailwind('text-gray-500')}
                   style={tailwind('text-xs')}
                 >
-                  {translate('components/BottomSheetVaultList', 'Collateral ratio')}
+                  {translate('components/BottomSheetVaultList', 'Collateralization ratio')}
                 </ThemedText>
                 <CollateralizationRatio
                   totalLoanAmount={item.state === LoanVaultState.IN_LIQUIDATION ? new BigNumber(0) : new BigNumber(item.loanValue)}

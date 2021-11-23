@@ -21,10 +21,12 @@ import { ThemedIcon } from '@components/themed'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
-import { LoansFaq } from '@screens/WalletNavigator/screens/CreateWallet/LoansFaq'
+import { LoansFaq } from '@screens/AppNavigator/screens/Loans/screens/LoansFaq'
 import { TabKey } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailTabSection'
 import { PaybackLoanScreen } from '@screens/AppNavigator/screens/Loans/screens/PaybackLoanScreen'
 import { ConfirmPaybackLoanScreen } from '@screens/AppNavigator/screens/Loans/screens/ConfirmPaybackLoanScreen'
+import { EditLoanSchemeScreen } from './screens/EditLoanSchemeScreen'
+import { ConfirmEditLoanSchemeScreen } from './screens/ConfirmEditLoanSchemeScreen'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -79,6 +81,14 @@ export interface LoanParamList {
     amountToPay: BigNumber
     vault: LoanVaultActive
     loanToken: LoanVaultTokenAmount
+  }
+  EditLoanSchemeScreen: {
+    vaultId: string
+  }
+  ConfirmEditLoanSchemeScreen: {
+    vault: LoanVaultActive
+    loanScheme: LoanScheme
+    fee: BigNumber
   }
   [key: string]: undefined | object
 }
@@ -263,6 +273,30 @@ export function LoansNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/ConfirmPaybackLoanScreen', 'Confirm Loan Payment')}
+            />
+          )
+        }}
+      />
+      <LoansStack.Screen
+        component={EditLoanSchemeScreen}
+        name='EditLoanSchemeScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Edit Loan Scheme')}
+            />
+          )
+        }}
+      />
+      <LoansStack.Screen
+        component={ConfirmEditLoanSchemeScreen}
+        name='ConfirmEditLoanSchemeScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Confirm Edit Loan Scheme')}
             />
           )
         }}
