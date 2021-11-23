@@ -80,3 +80,9 @@ export const nonLiquidatedVault = createSelector((state: LoansState) => state.va
 
 export const ascColRatioLoanScheme = createSelector((state: LoansState) => state.loanSchemes,
   (schemes) => schemes.map((c) => c).sort((a, b) => new BigNumber(a.minColRatio).minus(b.minColRatio).toNumber()))
+
+const selectTokenId = (state: LoansState, tokenId: string): string => tokenId
+
+export const loanTokenByTokenId = createSelector([selectTokenId, (state: LoansState) => state.loanTokens], (tokenId, loanTokens) => {
+  return loanTokens.find(loanToken => loanToken.token.id === tokenId)
+})
