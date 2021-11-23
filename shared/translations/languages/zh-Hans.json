@@ -35,7 +35,9 @@
     "Total liquidity (USD)":"总资金值 (美元)",
     "Browse pool pairs": "浏览流动池配对",
     "Your pool pairs": "您的流动池股份",
-    "Total Value Locked (USD)": "总体价值锁定 (美元)"
+    "Total Value Locked (USD)": "总体价值锁定 (美元)",
+    "Swap tokens": "兑换货币",
+    "SWAP": "兑换"
   },
   "screens/DexGuidelines": {
     "Guidelines": "指导方针",
@@ -48,7 +50,7 @@
     "Earn high yields by supplying token pairs to the liquidity pool.": "提供流动池配对货币并获得高回报率",
     "Conveniently swap participating tokens within the liquidity pool.": "方便地在流动池里兑换货币",
     "You have full control over your tokens unlike any other.": "您能完全掌控货币"
-  },  
+  },
   "screens/BalancesScreen": {
     "Balances": "我的资产",
     "RECEIVE": "接收",
@@ -519,6 +521,44 @@
     "Amount to be converted": "要转换的金额",
     "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换"
   },
+  "screens/CompositeSwapScreen": {
+    "Swap tokens": "兑换货币",
+    "Select tokens you want to swap to get started": "选择您要兑换的代币",
+    "How much {{token}} do you want to swap?": "你要兑换多少  {{token}}？",
+    "You have": "你现有",
+    "Estimated to receive": "您大约会收到",
+    "PRICES": "价格",
+    "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 量相当于 {{tokenB}} 量等值",
+    "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 量相当于 {{tokenA}} 量等值",
+    "CONTINUE": "继续",
+    "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换",
+    "Review and confirm transaction in the next screen": "请在下个屏幕审查并确认兑换",
+    "Choose token for swap": "选择要兑换的代币",
+    "Enter an amount": "请输入数量",
+    "{{token}} tokens converted": "{{token}} 代币转换",
+    "Select token": "选择代币",
+    "Amount to be converted": "要转换的金额",
+    "Slippage Tolerance": "交易滑点",
+    "TRANSACTION DETAILS": "交易明細",
+    "PRICE DETAILS": "价格详情",
+    "FROM": "从",
+    "TO": "到"
+
+  },
+  "screens/ConfirmCompositeSwapScreen": {
+    "CONVERTING": "正在转换",
+    "CONFIRM SWAP": "确认兑换",
+    "SWAPPING": "兑换",
+    "You are swapping": "您正要兑换",
+    "TRANSACTION DETAILS": "交易明細",
+    "Transaction type": "交易类型",
+    "Convert & swap": "转换并兑换",
+    "Swap": "兑换",
+    "Swapping Token": "兑换代币",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兑换 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
+    "Slippage Tolerance": "交易滑点",
+    "Estimated to receive": "您大约会收到"
+  },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "您正要兑换",
     "ESTIMATED BALANCE AFTER SWAP": "兑换后的总余额",
@@ -713,10 +753,10 @@
     "Browse for available loan tokens and start using this vault as collateral.": "浏览可选择的贷款代币并开始使用此金库作为抵押.",
     "BROWSE LOAN TOKENS": "浏览贷款选项"
   },
-  "components/VaultDetailsLoansTab": { 
-    "Outstanding balance": "Outstanding balance",   
+  "components/VaultDetailsLoansTab": {
+    "Outstanding balance": "Outstanding balance",
     "Interest amount": "Interest amount",
-    "PAYBACK LOAN": "PAYBACK LOAN", 
+    "PAYBACK LOAN": "PAYBACK LOAN",
     "BORROW MORE": "注入更多借贷"
   },
   "components/BalanceControlCard": {
@@ -736,7 +776,7 @@
     "Next collateralization": "Next collateralization",
     "Total collaterals (USD)": "Total collaterals (USD)",
     "Active loans": "活跃的贷款",
-    "Total loans (USD)": "Total loans (USD)"    
+    "Total loans (USD)": "Total loans (USD)"
   },
   "components/VaultDetailsCollateralsTab": {
     "Collateral amount (USD)": "抵押品金额 (美金)"
@@ -747,11 +787,11 @@
     "Collateral amount (USD)": "抵押品金额 (美金)",
     "Vault %": "金库 %",
     "Each token has their own collateral factor that would affect its respective collateral value. ": "每个代币都有不同的抵押品价值因素. ",
-    "Learn more": "了解更多",    
+    "Learn more": "了解更多",
     "ADD TOKEN AS COLLATERAL": "添加代币为抵押资金",
     "Total collateral (USD)": "抵押资金总价值 (美金)",
     "Vault needs DFI to be in 50% vault share": "DFI抵押资金需要占金库的50%",
-    "Confirm details in next screen": "在下一个屏幕中确认细节",    
+    "Confirm details in next screen": "在下一个屏幕中确认细节",
     "Select token to add": "选择要添加的代币",
     "Are you sure you want to remove collateral token?": "您确定您要移除抵押品代币吗?",
     "CONTINUE": "继续",
