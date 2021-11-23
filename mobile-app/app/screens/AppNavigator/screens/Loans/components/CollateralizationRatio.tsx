@@ -37,6 +37,7 @@ export function CollateralizationRatio (props: CollateralizationRatioProps): JSX
       decimalScale={2}
       suffix='%'
       displayType='text'
+      thousandSeparator
       renderText={value =>
         <ThemedText
           style={tailwind('text-sm')}
