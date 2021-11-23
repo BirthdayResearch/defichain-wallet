@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { View } from 'react-native'
+import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import { TouchableOpacity, View } from 'react-native'
 import { tailwind } from '@tailwind'
-import { ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedView } from '@components/themed'
 import { Tabs } from '@components/Tabs'
 import { Vaults } from './components/Vaults'
 import { EmptyVault } from './components/EmptyVault'
@@ -12,15 +12,21 @@ import { fetchLoanSchemes, fetchLoanTokens, fetchVaults } from '@store/loans'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { LoanCards } from './components/LoanCards'
+import { StackScreenProps } from '@react-navigation/stack'
+import { LoanParamList } from './LoansNavigator'
+import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
+import { HeaderSearchInput } from '@components/HeaderSearchInput'
+import { debounce } from 'lodash'
+import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
 
 enum TabKey {
   BrowseLoans = 'BROWSE_LOANS',
   YourVaults = 'YOUR_VAULTS'
 }
 
-export type LoadingState = 'empty_vault' | 'loading' | 'success'
+type Props = StackScreenProps<LoanParamList, 'LoansScreen'>
 
-export function LoansScreen (): JSX.Element {
+export function LoansScreen ({ navigation }: Props): JSX.Element {
   const { address } = useWalletContext()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const {
@@ -33,8 +39,31 @@ export function LoansScreen (): JSX.Element {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
   const onPress = (tabId: string): void => {
+    if (tabId === TabKey.YourVaults) {
+      setShowSearchInput(false)
+    } else if (searchString !== '') {
+        setShowSearchInput(true)
+    } else {
+      // no-op: maintain search input state if no query
+    }
     setActiveTab(tabId)
   }
+
+  // Search
+  const [filteredLoans, setFilteredLoans] = useState<LoanToken[]>(loans)
+  const [showSeachInput, setShowSearchInput] = useState(false)
+  const [searchString, setSearchString] = useState('')
+  const handleFilter = useCallback(
+    debounce((searchString: string) => {
+      setFilteredLoans(loans.filter(loan =>
+        loan.token.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
+      ))
+    }, 1000)
+  , [loans])
+
+  useEffect(() => {
+    handleFilter(searchString)
+  }, [searchString])
 
   useEffect(() => {
     dispatch(fetchVaults({
@@ -47,6 +76,56 @@ export function LoansScreen (): JSX.Element {
   useEffect(() => {
     dispatch(fetchLoanSchemes({ client }))
   }, [])
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: (): JSX.Element => {
+        if (activeTab === TabKey.BrowseLoans) {
+          return (
+            <HeaderSearchIcon onPress={() => setShowSearchInput(true)} />
+          )
+        } else {
+          return (
+            <TouchableOpacity
+            // eslint-disable-next-line
+              onPress={() => navigation.navigate({
+                name: 'CreateVaultScreen',
+                params: {},
+                merge: true
+              })}
+              testID='create_vault_header_button'
+            >
+              <ThemedIcon
+                size={28}
+                style={tailwind('mr-2')} light={tailwind('text-primary-500')}
+                dark={tailwind('text-primary-500')} iconType='MaterialCommunityIcons' name='plus'
+              />
+            </TouchableOpacity>
+          )
+        }
+      }
+
+    })
+  }, [navigation, activeTab])
+
+  useEffect(() => {
+    if (showSeachInput) {
+      navigation.setOptions({
+        header: (): JSX.Element => (
+          <HeaderSearchInput
+            searchString={searchString}
+            onClearInput={() => setSearchString('')}
+            onChangeInput={(text: string) => setSearchString(text)}
+            onCancelPress={() => setShowSearchInput(false)}
+          />
+        )
+      })
+    } else {
+      navigation.setOptions({
+        header: undefined
+      })
+    }
+  }, [showSeachInput, searchString])
 
   const tabsList = [{
     id: TabKey.BrowseLoans,
@@ -96,7 +175,7 @@ export function LoansScreen (): JSX.Element {
         </View>
       )}
       {activeTab === TabKey.BrowseLoans && hasFetchedLoansData &&
-      (<LoanCards testID='loans_cards' loans={loans} />)}
+      (<LoanCards testID='loans_cards' loans={filteredLoans} />)}
     </ThemedView>
   )
 }
