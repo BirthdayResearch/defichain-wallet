@@ -129,14 +129,14 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const onTokenSelect = (selectedTokenId: string, direction: 'FROM' | 'TO'): void => {
     const tokenId = selectedTokenId === '0_unified' ? '0' : selectedTokenId
     const token = allTokens?.find(token => token.id === tokenId)
-    const ownedToken = tokens?.find(token => token.id === tokenId)
+    const ownedToken = tokens?.find(token => token.id === selectedTokenId)
 
     if (token === undefined) {
       return
     }
 
     const derivedToken = {
-      id: token.id,
+      id: ownedToken !== undefined ? ownedToken.id : token.id, // retrieve unified token if selected
       symbol: token.symbol,
       displaySymbol: token.displaySymbol
     }
