@@ -102,6 +102,10 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
     setValid(isFormValid())
   }, [amountToAdd, vault, totalLoanWithInterest])
 
+  if (vault === undefined || loanToken === undefined) {
+    return (<></>)
+  }
+
   return (
     <ThemedScrollView>
       <ThemedSectionTitle
@@ -137,12 +141,12 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
         vault={vault}
         amountToBorrow={new BigNumber(amountToAdd)}
         resultingColRatio={resultingColRatio}
-        vaultInterestRate={new BigNumber(vault.loanScheme.interestRate ?? NaN)}
-        loanTokenInterestRate={new BigNumber(loanToken?.interest ?? NaN)}
-        loanTokenDisplaySymbol={loanToken?.token.displaySymbol ?? ''}
+        vaultInterestRate={new BigNumber(vault.loanScheme.interestRate)}
+        loanTokenInterestRate={new BigNumber(loanToken.interest)}
+        loanTokenDisplaySymbol={loanToken.token.displaySymbol}
         totalInterestAmount={totalInterestAmount}
         totalLoanWithInterest={totalLoanWithInterest}
-        loanTokenPrice={new BigNumber(loanToken?.activePrice?.active?.amount ?? 0)}
+        loanTokenPrice={new BigNumber(loanToken.activePrice?.active?.amount ?? 0)}
         fee={fee}
       />
       <Button
