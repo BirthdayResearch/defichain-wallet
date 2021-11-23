@@ -44,7 +44,7 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
           </ThemedText>
           {(props.info != null) && (
             <View style={tailwind('ml-1')}>
-              <BottomSheetInfo alertInfo={props.info} name={props.info.title} infoIconStyle={props.textStyle} />
+              <BottomSheetInfo alertInfo={props.info} name={props.info.title} infoIconStyle={[tailwind('text-sm'), props.textStyle]} />
             </View>
           )}
         </View>

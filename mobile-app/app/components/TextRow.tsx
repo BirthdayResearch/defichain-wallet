@@ -29,7 +29,7 @@ export function TextRow (props: TextRowProps): JSX.Element {
           </ThemedText>
           {(props.info != null) && (
             <View style={tailwind('ml-1')}>
-              <BottomSheetInfo alertInfo={props.info} name={props.info.title} infoIconStyle={props.textStyle} />
+              <BottomSheetInfo alertInfo={props.info} name={props.info.title} infoIconStyle={[tailwind('font-medium'), props.textStyle]} />
             </View>
           )}
         </View>
