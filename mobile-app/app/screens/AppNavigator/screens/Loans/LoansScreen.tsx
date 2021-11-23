@@ -48,6 +48,17 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
     }
     setActiveTab(tabId)
   }
+  const tabsList = [{
+    id: TabKey.BrowseLoans,
+    label: 'Browse loan tokens',
+    disabled: false,
+    handleOnPress: onPress
+  }, {
+    id: TabKey.YourVaults,
+    label: 'Your vaults',
+    disabled: false,
+    handleOnPress: onPress
+  }]
 
   // Search
   const [filteredLoans, setFilteredLoans] = useState<LoanToken[]>(loans)
@@ -58,12 +69,19 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
       setFilteredLoans(loans.filter(loan =>
         loan.token.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
       ))
-    }, 1000)
-  , [loans])
+    }, 500)
+  , [loans, hasFetchedLoansData])
 
   useEffect(() => {
+    if (loans.length === 0) {
+      return
+    }
     handleFilter(searchString)
   }, [searchString])
+
+  useEffect(() => {
+    setFilteredLoans(loans)
+  }, [hasFetchedLoansData])
 
   useEffect(() => {
     dispatch(fetchVaults({
@@ -80,7 +98,7 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: (): JSX.Element => {
-        if (activeTab === TabKey.BrowseLoans) {
+        if (activeTab === TabKey.BrowseLoans && vaults.length !== 0) {
           return (
             <HeaderSearchIcon onPress={() => setShowSearchInput(true)} />
           )
@@ -104,9 +122,8 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
           )
         }
       }
-
     })
-  }, [navigation, activeTab])
+  }, [navigation, activeTab, vaults])
 
   useEffect(() => {
     if (showSeachInput) {
@@ -126,18 +143,6 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
       })
     }
   }, [showSeachInput, searchString])
-
-  const tabsList = [{
-    id: TabKey.BrowseLoans,
-    label: 'Browse loan tokens',
-    disabled: false,
-    handleOnPress: onPress
-  }, {
-    id: TabKey.YourVaults,
-    label: 'Your vaults',
-    disabled: false,
-    handleOnPress: onPress
-  }]
 
   if (!hasFetchedVaultsData) {
     return (

@@ -30,7 +30,7 @@ export function ChooseLoanTokenScreen ({ navigation, route }: Props): JSX.Elemen
       setFilteredLoans(loans.filter(loan =>
         loan.token.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
       ))
-    }, 1000)
+    }, 500)
   , [loans])
 
   useEffect(() => {
