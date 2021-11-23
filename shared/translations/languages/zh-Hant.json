@@ -35,7 +35,9 @@
     "Total liquidity (USD)":"總資金值 (美元)",
     "Browse pool pairs": "瀏覽流動池配對",
     "Your pool pairs": "您的流動池股份",
-    "Total Value Locked (USD)": "總體價值鎖定 (美元)"
+    "Total Value Locked (USD)": "總體價值鎖定 (美元)",
+    "Swap tokens": "兌換貨幣",
+    "SWAP": "兌換"
   },
   "screens/DexGuidelines": {
     "Guidelines": "指導方針",
@@ -522,6 +524,43 @@
     "Amount to be converted": "要轉換的金額",
     "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換"
   },
+  "screens/CompositeSwapScreen": {
+    "Swap tokens": "兌換貨幣",
+    "Select tokens you want to swap to get started": "選擇您要兌換的代幣",
+    "How much {{token}} do you want to swap?": "你要兌換多少  {{token}}？",
+    "You have": "你現有",
+    "Estimated to receive": "您大約會收到",
+    "PRICES": "價格",
+    "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 量相當於 {{tokenB}} 量等值",
+    "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 量相當於 {{tokenA}} 量等值",
+    "CONTINUE": "繼續",
+    "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換",
+    "Review and confirm transaction in the next screen": "請在下個屏幕審查並確認兌換",
+    "Choose token for swap": "選擇要兌換的代幣",
+    "Enter an amount": "請輸入數量",
+    "{{token}} tokens converted": "{{token}} 代幣轉換",
+    "Select token": "選擇代幣",
+    "Amount to be converted": "要轉換的金額",
+    "Slippage Tolerance": "交易滑價",
+    "TRANSACTION DETAILS": "交易明細",
+    "PRICE DETAILS": "價格詳情",
+    "FROM": "從",
+    "TO": "到"
+  },
+  "screens/ConfirmCompositeSwapScreen": {
+    "CONVERTING": "正在轉換",
+    "CONFIRM SWAP": "確認兌換",
+    "SWAPPING": "兌換",
+    "You are swapping": "您正要兌換",
+    "TRANSACTION DETAILS": "交易明細",
+    "Transaction type": "交易類型",
+    "Convert & swap": "轉換並兌換",
+    "Swap": "兌換",
+    "Swapping Token": "兌換代幣",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兌換 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
+    "Slippage Tolerance": "交易滑價",
+    "Estimated to receive": "您大約會收到"
+  },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "您正要兌換",
     "ESTIMATED BALANCE AFTER SWAP": "兌換後的總餘額",
@@ -620,7 +659,10 @@
     "Confirm Create Vault": "確認創建金庫",
     "Vault Detail": "金庫明細",
     "Add Collateral": "添加抵押資金",
-    "Confirm Add Collateral": "確認添加抵押資金"
+    "Confirm Add Collateral": "確認添加抵押資金",
+    "Borrow Loan Token": "借用貸款代幣",
+    "Confirm Borrow Loan Token": "確認借用貸款代幣",
+    "Borrow More": "注入更多借貸"
   },
   "components/tabs": {
     "Browse loan tokens": "瀏覽貸款選項",
@@ -630,7 +672,8 @@
     "Collaterals": "抵押品",
     "Auctions": "清算拍賣",
     "Browse auctions": "瀏覽拍賣",
-    "Manage bids": "管理競投出價"
+    "Manage bids": "管理競投出價",
+    "Loans": "貸款"
   },
   "components/LoanCard": {
     "Active Price": "目前活躍價格",
@@ -744,10 +787,10 @@
     "Browse for available loan tokens and start using this vault as collateral.": "瀏覽可選擇的貸款代幣並開始使用此金庫作為抵押.",
     "BROWSE LOAN TOKENS": "瀏覽貸款選項"
   },
-  "components/VaultDetailsLoansTab": { 
-    "Outstanding balance": "Outstanding balance",   
+  "components/VaultDetailsLoansTab": {
+    "Outstanding balance": "Outstanding balance",
     "Interest amount": "Interest amount",
-    "PAYBACK LOAN": "PAYBACK LOAN", 
+    "PAYBACK LOAN": "PAYBACK LOAN",
     "BORROW MORE": "注入更多借貸"
   },
   "components/BalanceControlCard": {
@@ -778,11 +821,11 @@
     "Collateral amount (USD)": "抵押品金額 (美金)",
     "Vault %": "金庫 %",
     "Each token has their own collateral factor that would affect its respective collateral value. ": "每個代幣都有不同的抵押品價值因素. ",
-    "Learn more": "了解更多",    
+    "Learn more": "了解更多",
     "ADD TOKEN AS COLLATERAL": "添加代幣為抵押資金",
     "Total collateral (USD)": "抵押資金總價值 (美金)",
     "Vault needs DFI to be in 50% vault share": "DFI抵押資金需要佔金庫的50%",
-    "Confirm details in next screen": "在下一個屏幕中確認細節",    
+    "Confirm details in next screen": "在下一個屏幕中確認細節",
     "Select token to add": "選擇要添加的代幣",
     "Are you sure you want to remove collateral token?": "您確定您要移除抵押品代幣嗎?",
     "CONTINUE": "繼續",
@@ -817,7 +860,7 @@
     "Token": "代幣",
     "Collateralization factor": "抵押品係數",
     "Collateral amount (USD)": "抵押品金額 (美金)",
-    "Collateral value (USD)": "抵押品價值 (USD)",    
+    "Collateral value (USD)": "抵押品價值 (USD)",
     "CONFIRM ADD COLLATERAL": "確認添加抵押資金",
     "ADDING": "正在增加",
     "You are removing collateral from": "您正在移除抵押",
@@ -825,5 +868,58 @@
     "Convert & remove collateral": "兌換和移除抵押",
     "Add Collateral": "加入抵押",
     "Remove Collateral": "移除抵押"
+  },
+  "screens/BorrowLoanTokenScreen": {
+    "Borrow loan token": "借用貸款代幣",
+    "SELECT VAULT FOR COLLATERAL": "選擇金庫抵押",
+    "Select a vault to use": "選擇要使用的金庫",
+    "Choose a vault to use": "選擇要使用的金庫",
+    "Price (USD)": "價格 (美金)",
+    "Interest": "利息",
+    "Total collateral (USD)": "抵押資金總價值 (美金)",
+    "Vault interest": "金庫利息",
+    "How much do you want to borrow?": "您想借用多少金額?",
+    "Collateral ratio": "抵押率",
+    "Enter an amount": "請輸入數量",
+    "TRANSACTION DETAILS": "交易明細",
+    "Collateralization ratio": "抵押率",
+    "Resulting collateralization": "最終抵押率",
+    "Min. collateral ratio": "最低抵押率",
+    "Interest (Vault + Token)": "利息 (金庫+代幣)",
+    "Total interest amount": "總利息金額",
+    "Total loan + interest": "貸款總額+利息",
+    "Review and confirm transaction in the next screen": "在下一個屏幕中檢查並確認交易",
+    "SELECT LOAN TOKEN": "選擇貸款代幣",
+    "CONTINUE": "繼續"
+  },
+  "screens/ConfirmBorrowLoanTokenScreen": {
+    "You are borrowing": "您正要借用",
+    "TRANSACTION DETAILS": "交易明細",
+    "Transaction type": "交易類型",
+    "Borrow loan token": "借用貸款代幣",
+    "Convert & borrow loan token": "兌換和借用貸款代幣",
+    "Loan tokens to borrow": "貸款代幣",
+    "Token interest": "代幣利息",
+    "Vault interest": "金庫利息",
+    "Total interest amount": "總利息金額",
+    "Total loan + interest": "貸款總額+利息",
+    "VAULT DETAILS": "金庫明細",
+    "Vault ID": "金庫編號",
+    "Collateral amount (USD)": "抵押品金額 (美金)",
+    "Collateralization ratio": "抵押率",
+    "TRANSACTION RESULTS": "交易結果",
+    "Resulting collateralization": "最終抵押率",
+    "Borrowing loan token": "借用貸款代幣",
+    "Borrowing {{amount}} {{symbol}}": "借用{{amount}} {{symbol}}",
+    "CONFIRM BORROW": "確認借用",
+    "BORROWING": "借用"
+  },
+  "screens/BorrowMoreScreen": {
+    "YOU ARE BORROWING MORE FOR LOAN": "您正在貸款更多借款",
+    "How much do you want to add?": "你想增加多少?",
+    "Enter an amount": "請輸入數量",
+    "VAULT IN USE": "VAULT IN USE",
+    "CONTINUE": "繼續",
+    "Review and confirm transaction in the next screen" : "在下一個屏幕中檢查並確認交易"
   }
 }

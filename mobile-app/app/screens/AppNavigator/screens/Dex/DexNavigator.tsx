@@ -13,6 +13,8 @@ import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
 import { DexScreen } from './DexScreen'
 import { ConfirmPoolSwapScreen, DexForm } from './PoolSwap/ConfirmPoolSwapScreen'
 import { DerivedTokenState, PoolSwapScreen } from './PoolSwap/PoolSwapScreen'
+import { CompositeSwapScreen, OwnedTokenState, TokenState } from './CompositeSwap/CompositeSwapScreen'
+import { CompositeSwapForm, ConfirmCompositeSwapScreen } from './CompositeSwap/ConfirmCompositeSwapScreen'
 import { WalletToken } from '@store/wallet'
 import { ConversionParam } from '../Balances/BalancesNavigator'
 
@@ -29,6 +31,17 @@ export interface DexParamList {
     priceRateA: string
     priceRateB: string
     conversion?: ConversionParam
+  }
+  CompositeSwapScreen: { pair?: PoolPairData }
+  ConfirmCompositeSwapScreen: {
+    conversion?: ConversionParam
+    fee: BigNumber
+    pairs: PoolPairData[]
+    priceRates: Array<{label: string, value: string}>
+    slippage: number
+    swap: CompositeSwapForm
+    tokenA: OwnedTokenState
+    tokenB: TokenState & {amount?: string}
   }
   AddLiquidity: { pair: PoolPairData }
   ConfirmAddLiquidity: {
@@ -158,6 +171,32 @@ export function DexNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/DexScreen', 'Confirm Swap')}
+              containerTestID={headerContainerTestId}
+            />
+          )
+        }}
+      />
+
+      <DexStack.Screen
+        component={CompositeSwapScreen}
+        name='CompositeSwap'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Swap tokens')}
+              containerTestID={headerContainerTestId}
+            />
+          )
+        }}
+      />
+
+      <DexStack.Screen
+        component={ConfirmCompositeSwapScreen}
+        name='ConfirmCompositeSwapScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Confirm swap')}
               containerTestID={headerContainerTestId}
             />
           )

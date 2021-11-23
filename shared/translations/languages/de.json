@@ -35,7 +35,9 @@
     "Total liquidity (USD)": "Gesamtliquidität (USD)",
     "Browse pool pairs": "Pool-Paare durchsuchen",
     "Your pool pairs": "Deine Pool-Paare",
-    "Total Value Locked (USD)": "Fixierter Gesamtwert (USD)"
+    "Total Value Locked (USD)": "Fixierter Gesamtwert (USD)",
+    "SWAP": "TAUSCHE",
+    "Swap tokens": "Tausche Token"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Richtlinien",
@@ -521,6 +523,43 @@
     "Amount to be converted": "Umzuwandelnder Betrag",
     "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln"
   },
+  "screens/CompositeSwapScreen": {
+    "Swap tokens": "Tausche Token",
+    "Select tokens you want to swap to get started": "Wähle die Token, die du tauschen möchtest, um zu beginnen",
+    "How much {{token}} do you want to swap?": "Wie viele {{token}} möchtest du umtauschen?",
+    "You have": "Du hast aktuell",
+    "Estimated to receive": "Vorraussichtlich wird empfangen",
+    "PRICES": "PREISE",
+    "{{tokenA}} price in {{tokenB}}": "{{tokenA}}-Preis in {{tokenB}}",
+    "{{tokenB}} price in {{tokenA}}": "{{tokenB}}-Preis in {{tokenA}}",
+    "CONTINUE": "FORTFAHREN",
+    "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
+    "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
+    "Choose token for swap": "Token für den Tausch wählen",
+    "Enter an amount": "Gib einen Betrag an",
+    "{{token}} tokens converted": "Umgewandelte {{token}}-Token",
+    "Select token": "Token auswählen",
+    "Amount to be converted": "Umzuwandelnder Betrag",
+    "Slippage Tolerance": "Slippage Toleranz",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "PRICE DETAILS": "PREISDETAILS",
+    "FROM": "VON",
+    "TO": "IN"
+  },
+  "screens/ConfirmCompositeSwapScreen": {
+    "CONVERTING": "WANDLE UM",
+    "CONFIRM SWAP": "BESTÄTIGE DEN UMTAUSCH",
+    "SWAPPING": "WIRD GETAUSCHT",
+    "You are swapping": "Du tauschst",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "Transaction type": "Transaktionsart",
+    "Convert & swap": "Umrechnen & tauschen",
+    "Swap": "Tausche",
+    "Swapping Token": "Tausche Token",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
+    "Slippage Tolerance": "Slippage Toleranz",
+    "Estimated to receive": "Vorraussichtlich wird empfangen"
+  },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Du tauschst",
     "ESTIMATED BALANCE AFTER SWAP": "GESCHÄTZTES GUTHABEN NACH DEM TAUSCH",
@@ -625,8 +664,10 @@
     "Confirm Add Collateral": "Bestätige das Hinzufügen von Sicherheiten",
     "Edit Collaterals": "Sicherheiten bearbeiten",
     "Borrow Loan Token": "Darlehenstoken entleihen",
+    "Confirm Borrow Loan Token": "Ausleihen des Darlehenstokens bestätigen",
     "Edit Loan Scheme": "Darlehensmodell bearbeiten",
-    "Confirm Edit Loan Scheme": "Darlehensmodellbearbeitung bestätigen"
+    "Confirm Edit Loan Scheme": "Darlehensmodellbearbeitung bestätigen",
+    "Borrow More": "Mehr ausleihen"
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehen durchsuchen",
@@ -906,12 +947,14 @@
     "Enter an amount": "Gib eine Menge ein",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Collateralization ratio": "Besicherungsquote",
+    "Resulting collateralization": "Resultierende Besicherungsquote",
     "Min. collateral ratio": "Mindestbesicherungsquote",
     "Interest (Vault + Token)": "Zinsen (Vault + Token)",
     "Total interest amount": "Zinsgesamtbetrag",
     "Total loan + interest": "Gesamtbetrag Darlehen + Zins",
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
-    "SELECT LOAN TOKEN": "DARLEHENSTOKEN AUSWÄHLEN"
+    "SELECT LOAN TOKEN": "DARLEHENSTOKEN AUSWÄHLEN",
+    "CONTINUE": "FORTFAHREN"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "Du leihst dir",
@@ -929,7 +972,7 @@
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateralization ratio": "Besicherungsquote",
     "TRANSACTION RESULTS": "TRANSAKTIONSERGEBNISSE",
-    "Resulting collateral ratio": "Resultierende Besicherungsquote",
+    "Resulting collateralization": "Resultierende Besicherungsquote",
     "Borrowing loan token": "Darlehenstoken ausleihen",
     "Borrowing {{amount}} {{symbol}}": "{{amount}} {{symbol}} ausleihen",
     "CONFIRM BORROW": "LEIHEN BESTÄTIGEN",
@@ -961,5 +1004,13 @@
     "Min. collateralization": "Mindestbesicherung",
     "Interest rate": "Zinssatz",
     "APR": "ZINS"
+  },
+  "screens/BorrowMoreScreen": {
+    "YOU ARE BORROWING MORE FOR LOAN": "DU NIMMST MEHR GELD FÜR EIN DARLEHEN AUF",
+    "How much do you want to add?": "Wie viel möchtest du hinzufügen?",
+    "Enter an amount": "Gib eine Menge ein",
+    "VAULT IN USE": "AKTIVER VAULT",
+    "CONTINUE": "FORTFAHREN",
+    "Review and confirm transaction in the next screen" : "Überprüfe und bestätige die Transaktion in der nächsten Ansicht"
   }
 }
