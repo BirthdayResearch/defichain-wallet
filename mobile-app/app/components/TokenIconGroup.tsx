@@ -11,14 +11,14 @@ interface TokenIconGroupProps {
 }
 
 export function TokenIconGroup (props: TokenIconGroupProps): JSX.Element {
-  const additionalIcon = BigNumber.max(props.symbols.length - props.maxIconToDisplay, 0)
+  const additionalIcon = BigNumber.max(props.symbols?.length - props.maxIconToDisplay, 0)
   return (
     <View style={tailwind('flex flex-row')}>
       {
-        props.symbols.map((symbol, index): JSX.Element | null => {
+        props.symbols?.map((symbol, index): JSX.Element | null => {
           if (index < props.maxIconToDisplay) {
             return (
-              <View key={symbol} style={[tailwind('bg-white rounded-full p-px relative'), { left: index * -5 }]}>
+              <View key={symbol} style={[tailwind('rounded-full p-px relative'), { left: index * -5 }]}>
                 <SymbolIcon
                   key={symbol}
                   symbol={symbol}

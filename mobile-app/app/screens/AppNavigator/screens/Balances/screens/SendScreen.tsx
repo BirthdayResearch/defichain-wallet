@@ -5,7 +5,7 @@ import { NetworkName } from '@defichain/jellyfish-network'
 import { StackScreenProps } from '@react-navigation/stack'
 import { DFITokenSelector, DFIUtxoSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
-import React, { Dispatch, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -24,17 +24,16 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
+import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { FeeInfoRow } from '@components/FeeInfoRow'
-import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { NumberRow } from '@components/NumberRow'
-import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
-import { useConversion } from '@hooks/wallet/Conversion'
+import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -60,7 +59,10 @@ export function SendScreen ({
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
-  const { isConversionRequired, conversionAmount } = useConversion({
+  const {
+    isConversionRequired,
+    conversionAmount
+  } = useConversion({
     inputToken: {
       type: token.id === '0_unified' ? 'utxo' : 'others',
       amount: new BigNumber(getValues('amount'))
@@ -88,7 +90,7 @@ export function SendScreen ({
 
     const values = getValues()
     if (formState.isValid && isConversionRequired) {
-      await constructSignedConversionAndSend({
+      queueConvertTransaction({
         mode: 'accountToUtxos',
         amount: conversionAmount
       }, dispatch, () => {
@@ -180,11 +182,11 @@ export function SendScreen ({
               <NumberRow
                 lhs={translate('screens/SendScreen', 'Amount to be converted')}
                 rhs={{
-                  value: conversionAmount.toFixed(8),
-                  testID: 'text_amount_to_convert',
-                  suffixType: 'text',
-                  suffix: token.displaySymbol
-                }}
+                value: conversionAmount.toFixed(8),
+                testID: 'text_amount_to_convert',
+                suffixType: 'text',
+                suffix: token.displaySymbol
+              }}
               />}
 
             <FeeInfoRow
@@ -224,7 +226,7 @@ function AddressRow ({
   onQrButtonPress,
   onClearButtonPress,
   onAddressChange
-}: { control: Control, networkName: NetworkName, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void}): JSX.Element {
+}: { control: Control, networkName: NetworkName, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void }): JSX.Element {
   const defaultValue = ''
   return (
     <>
@@ -232,7 +234,12 @@ function AddressRow ({
         control={control}
         defaultValue={defaultValue}
         name='address'
-        render={({ field: { value, onChange } }) => (
+        render={({
+          field: {
+            value,
+            onChange
+          }
+        }) => (
           <View style={tailwind('flex-row w-full mb-6')}>
             <WalletTextInput
               autoCapitalize='none'
@@ -285,7 +292,12 @@ interface AmountForm {
   onClearButtonPress: () => void
 }
 
-function AmountRow ({ token, control, onAmountChange, onClearButtonPress }: AmountForm): JSX.Element {
+function AmountRow ({
+  token,
+  control,
+  onAmountChange,
+  onClearButtonPress
+}: AmountForm): JSX.Element {
   const reservedDFI = 0.1
   let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(reservedDFI).toFixed(8) : token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
@@ -296,7 +308,12 @@ function AmountRow ({ token, control, onAmountChange, onClearButtonPress }: Amou
         control={control}
         defaultValue={defaultValue}
         name='amount'
-        render={({ field: { onChange, value } }) => (
+        render={({
+          field: {
+            onChange,
+            value
+          }
+        }) => (
           <ThemedView
             dark={tailwind('bg-transparent')}
             light={tailwind('bg-transparent')}
@@ -349,15 +366,4 @@ function AmountRow ({ token, control, onAmountChange, onClearButtonPress }: Amou
       />
     </>
   )
-}
-
-async function constructSignedConversionAndSend ({
-  mode,
-  amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
-  try {
-    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
-  } catch (e) {
-    logger.error(e)
-  }
 }

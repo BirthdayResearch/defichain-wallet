@@ -1,8 +1,8 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { CollateralToken, LoanScheme, LoanToken, LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { createAsyncThunk, createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
+import BigNumber from 'bignumber.js'
 
-// TODO (Harsh) interface is not yet finalized, need to update
 export type LoanVault = LoanVaultActive | LoanVaultLiquidated
 
 interface LoansState {
@@ -10,13 +10,17 @@ interface LoansState {
   loanTokens: LoanToken[]
   loanSchemes: LoanScheme[]
   collateralTokens: CollateralToken[]
+  hasFetchedVaultsData: boolean
+  hasFetchedLoansData: boolean
 }
 
 const initialState: LoansState = {
   vaults: [],
   loanTokens: [],
   loanSchemes: [],
-  collateralTokens: []
+  collateralTokens: [],
+  hasFetchedVaultsData: false,
+  hasFetchedLoansData: false
 }
 
 // TODO (Harsh) Manage pagination for all api
@@ -55,9 +59,11 @@ export const loans = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchVaults.fulfilled, (state, action: PayloadAction<LoanVault[]>) => {
       state.vaults = action.payload
+      state.hasFetchedVaultsData = true
     })
     builder.addCase(fetchLoanTokens.fulfilled, (state, action: PayloadAction<LoanToken[]>) => {
       state.loanTokens = action.payload
+      state.hasFetchedLoansData = true
     })
     builder.addCase(fetchLoanSchemes.fulfilled, (state, action: PayloadAction<LoanScheme[]>) => {
       state.loanSchemes = action.payload
@@ -70,4 +76,13 @@ export const loans = createSlice({
 
 export const nonLiquidatedVault = createSelector((state: LoansState) => state.vaults, vaults => {
   return vaults.filter(vault => vault.state !== LoanVaultState.IN_LIQUIDATION) as LoanVaultActive[]
+})
+
+export const ascColRatioLoanScheme = createSelector((state: LoansState) => state.loanSchemes,
+  (schemes) => schemes.map((c) => c).sort((a, b) => new BigNumber(a.minColRatio).minus(b.minColRatio).toNumber()))
+
+const selectTokenId = (state: LoansState, tokenId: string): string => tokenId
+
+export const loanTokenByTokenId = createSelector([selectTokenId, (state: LoansState) => state.loanTokens], (tokenId, loanTokens) => {
+  return loanTokens.find(loanToken => loanToken.token.id === tokenId)
 })

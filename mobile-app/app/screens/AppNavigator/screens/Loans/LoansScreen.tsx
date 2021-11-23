@@ -8,7 +8,7 @@ import { EmptyVault } from './components/EmptyVault'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { fetchLoanTokens, fetchVaults } from '@store/loans'
+import { fetchLoanSchemes, fetchLoanTokens, fetchVaults } from '@store/loans'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { LoanCards } from './components/LoanCards'
@@ -23,8 +23,12 @@ export type LoadingState = 'empty_vault' | 'loading' | 'success'
 export function LoansScreen (): JSX.Element {
   const { address } = useWalletContext()
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const vaults = useSelector((state: RootState) => state.loans.vaults)
-  const loans = useSelector((state: RootState) => state.loans.loanTokens)
+  const {
+    vaults,
+    loanTokens: loans,
+    hasFetchedVaultsData,
+    hasFetchedLoansData
+  } = useSelector((state: RootState) => state.loans)
   const [activeTab, setActiveTab] = useState<string>(TabKey.BrowseLoans)
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
@@ -40,9 +44,13 @@ export function LoansScreen (): JSX.Element {
     dispatch(fetchLoanTokens({ client }))
   }, [blockCount])
 
+  useEffect(() => {
+    dispatch(fetchLoanSchemes({ client }))
+  }, [])
+
   const tabsList = [{
     id: TabKey.BrowseLoans,
-    label: 'Browse loans',
+    label: 'Browse loan tokens',
     disabled: false,
     handleOnPress: onPress
   }, {
@@ -52,7 +60,16 @@ export function LoansScreen (): JSX.Element {
     handleOnPress: onPress
   }]
 
-  if (vaults?.length === 0) {
+  if (!hasFetchedVaultsData) {
+    return (
+      <View style={tailwind('mt-1')}>
+        <SkeletonLoader
+          row={6}
+          screen={SkeletonLoaderScreen.Loan}
+        />
+      </View>
+)
+  } else if (vaults?.length === 0) {
     return (
       <EmptyVault
         handleRefresh={() => {
@@ -69,7 +86,7 @@ export function LoansScreen (): JSX.Element {
     >
       <Tabs tabSections={tabsList} testID='loans_tabs' activeTabKey={activeTab} />
       {activeTab === TabKey.YourVaults && <Vaults />}
-      {activeTab === TabKey.BrowseLoans && loans.length === 0 &&
+      {activeTab === TabKey.BrowseLoans && !hasFetchedLoansData &&
       (
         <View style={tailwind('mt-1')}>
           <SkeletonLoader
@@ -78,7 +95,7 @@ export function LoansScreen (): JSX.Element {
           />
         </View>
       )}
-      {activeTab === TabKey.BrowseLoans && loans.length > 0 &&
+      {activeTab === TabKey.BrowseLoans && hasFetchedLoansData &&
       (<LoanCards testID='loans_cards' loans={loans} />)}
     </ThemedView>
   )

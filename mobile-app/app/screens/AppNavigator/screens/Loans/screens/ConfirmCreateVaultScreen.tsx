@@ -201,7 +201,8 @@ function SummaryVaultDetails (props: { loanScheme: LoanScheme }): JSX.Element {
           value: new BigNumber(props.loanScheme.minColRatio).toFixed(2),
           testID: 'confirm_min_col_ratio_value',
           suffixType: 'text',
-          suffix: '%'
+          suffix: '%',
+          style: tailwind('ml-0')
         }}
       />
       <NumberRow
@@ -210,7 +211,8 @@ function SummaryVaultDetails (props: { loanScheme: LoanScheme }): JSX.Element {
           value: new BigNumber(props.loanScheme.interestRate).toFixed(2),
           testID: 'confirm_interest_rate_value',
           suffixType: 'text',
-          suffix: `% ${translate('screens/ConfirmCreateVaultScreen', 'APR')}`
+          suffix: `% ${translate('screens/ConfirmCreateVaultScreen', 'APR')}`,
+          style: tailwind('ml-0')
         }}
       />
     </>

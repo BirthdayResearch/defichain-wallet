@@ -10,10 +10,12 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { SettingsParamList } from '../SettingsNavigator'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 type Props = StackScreenProps<SettingsParamList, 'KnowledgeBaseScreen'>
 
 export function KnowledgeBaseScreen ({ navigation }: Props): JSX.Element {
+  const { isFeatureAvailable } = useFeatureFlagContext()
   const knowledgeBaseItems = [
     {
       label: 'Recovery words',
@@ -29,6 +31,14 @@ export function KnowledgeBaseScreen ({ navigation }: Props): JSX.Element {
       onPress: () => navigation.navigate('TokensVsUtxo')
     }
   ]
+
+  if (isFeatureAvailable('loan')) {
+    knowledgeBaseItems.push({
+      label: 'Loans',
+      testID: 'loans_faq',
+      onPress: () => navigation.navigate('LoansFaq')
+    })
+  }
 
   return (
     <ThemedScrollView

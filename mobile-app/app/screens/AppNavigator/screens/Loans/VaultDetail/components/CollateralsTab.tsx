@@ -6,60 +6,93 @@ import { View } from '@components'
 import { SymbolIcon } from '@components/SymbolIcon'
 import { translate } from '@translations'
 import NumberFormat from 'react-number-format'
+import { LoanVault } from '@store/loans'
+import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
+import { EmptyCollateral } from './EmptyCollateral'
 
-interface Collateral {
-  id: string
-  amount: BigNumber
-  tokenUnitPrice: BigNumber
-  proportion: BigNumber
+interface CollateralCardProps {
+  displaySymbol: string
+  amount?: BigNumber
+  vaultShare?: BigNumber
+  vaultState: LoanVaultState
 }
 
-export function CollateralsTab (): JSX.Element {
-  const collaterals: Collateral[] = [
-    {
-      id: 'DFI',
-      amount: new BigNumber(200),
-      tokenUnitPrice: new BigNumber('2.54'),
-      proportion: new BigNumber('79.5')
-    },
-    {
-      id: 'dETH',
-      amount: new BigNumber(0.65),
-      tokenUnitPrice: new BigNumber('4530.123'),
-      proportion: new BigNumber('20.5')
-    }
-  ]
+export function CollateralsTab ({ vault }: {vault: LoanVault}): JSX.Element {
+  if (vault.state === LoanVaultState.ACTIVE && vault.collateralValue === '0') {
+    return (
+      <EmptyCollateral vaultId={vault.vaultId} />
+    )
+  }
 
   return (
     <View style={tailwind('p-4')}>
-      {collaterals.map(collateral => (
-        <CollateralCard key={collateral.id} {...collateral} />
-      ))}
+      {vault.state === LoanVaultState.IN_LIQUIDATION
+        ? (
+          vault.batches.map(batch =>
+            batch.collaterals.map(collateral => (
+              <CollateralCard
+                key={collateral.id}
+                displaySymbol={collateral.displaySymbol}
+                vaultState={LoanVaultState.IN_LIQUIDATION}
+              />
+            ))
+          )
+        )
+        : (
+          vault.collateralAmounts.map(collateral => (
+            <CollateralCard
+              key={collateral.id}
+              displaySymbol={collateral.displaySymbol}
+              amount={new BigNumber(collateral.amount)}
+              vaultShare={BigNumber.min(new BigNumber(collateral.amount).multipliedBy(collateral.activePrice?.active?.amount ?? 0).div(vault.collateralValue ?? 1), 1)}
+              vaultState={vault.state}
+            />
+          ))
+        )}
     </View>
   )
 }
 
-function CollateralCard (props: Collateral): JSX.Element {
+function CollateralCard (props: CollateralCardProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
       dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('p-4 mb-2 border rounded')}
     >
-      <View style={tailwind('flex flex-row mb-3 items-center')}>
-        <SymbolIcon symbol={props.id} styleProps={{ width: 16, height: 16 }} />
-        <ThemedText style={tailwind('ml-1 text-sm font-medium')}>{props.id}</ThemedText>
+      <View style={tailwind('flex flex-row mb-3 justify-between items-center')}>
+        <View style={tailwind('flex flex-row items-center')}>
+          <SymbolIcon symbol={props.displaySymbol} styleProps={{ width: 16, height: 16 }} />
+          <ThemedText style={tailwind('ml-2 font-medium')}>{props.displaySymbol}</ThemedText>
+        </View>
+        <NumberFormat
+          value={props.vaultShare?.multipliedBy(100).toFixed(2)}
+          thousandSeparator
+          decimalScale={2}
+          displayType='text'
+          suffix='%'
+          renderText={(val: string) => (
+            <ThemedText
+              dark={tailwind('text-gray-50')}
+              light={tailwind('text-gray-900')}
+              style={tailwind('font-medium')}
+            >
+              {val}
+            </ThemedText>
+          )}
+        />
       </View>
+
       <View style={tailwind('flex flex-row')}>
         <View style={tailwind('w-8/12')}>
           <CardLabel text='Collateral amount' />
           <View>
             <NumberFormat
-              value={props.amount.toFixed(8)}
+              value={props.amount?.toFixed(8)}
               thousandSeparator
               decimalScale={8}
               displayType='text'
-              suffix={` ${props.id}`}
+              suffix={` ${props.displaySymbol}`}
               renderText={(val: string) => (
                 <ThemedText
                   dark={tailwind('text-gray-50')}
@@ -67,45 +100,10 @@ function CollateralCard (props: Collateral): JSX.Element {
                   style={tailwind('text-sm')}
                 >
                   {val}
-                  <NumberFormat
-                    value={props.tokenUnitPrice.toFixed(8)}
-                    thousandSeparator
-                    decimalScale={2}
-                    displayType='text'
-                    prefix='$'
-                    renderText={(val: string) => (
-                      <ThemedText
-                        dark={tailwind('text-dfxgray-400')}
-                        light={tailwind('text-dfxgray-500')}
-                        style={tailwind('text-xs')}
-                      >
-                        {` /${val}`}
-                      </ThemedText>
-                    )}
-                  />
                 </ThemedText>
               )}
             />
           </View>
-        </View>
-        <View style={tailwind('w-4/12 flex items-end')}>
-          <CardLabel text='Vault %' />
-          <NumberFormat
-            value={props.proportion.toFixed(2)}
-            thousandSeparator
-            decimalScale={2}
-            displayType='text'
-            suffix=' %'
-            renderText={(val: string) => (
-              <ThemedText
-                dark={tailwind('text-gray-50')}
-                light={tailwind('text-gray-900')}
-                style={tailwind('text-sm')}
-              >
-                {val}
-              </ThemedText>
-            )}
-          />
         </View>
       </View>
     </ThemedView>

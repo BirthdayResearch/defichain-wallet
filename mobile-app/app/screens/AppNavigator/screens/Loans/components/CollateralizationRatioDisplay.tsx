@@ -7,46 +7,69 @@ import { View } from '@components'
 import { ThemedText, ThemedView } from '@components/themed'
 import Svg, { Line } from 'react-native-svg'
 import { translate } from '@translations'
-import { UseCollateralizationRatioColor } from '@hooks/wallet/CollateralizationRatioColor'
+import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 import NumberFormat from 'react-number-format'
+import { BottomSheetInfo } from '@components/BottomSheetInfo'
 
 interface CollateralizationRatioDisplayProps {
   collateralizationRatio: string
   nextCollateralizationRatio: string
   minCollateralizationRatio: string
+  totalLoanAmount: string
 }
 
 export function CollateralizationRatioDisplay (props: CollateralizationRatioDisplayProps): JSX.Element {
-  const maxRatio = 1000
+  const atRiskThresholdMultiplier = 1.5
   const minColRatio = new BigNumber(props.minCollateralizationRatio)
+  const maxRatio = getMaxRatio(minColRatio.multipliedBy(atRiskThresholdMultiplier))
   const normalizedColRatio = new BigNumber(props.collateralizationRatio).dividedBy(maxRatio)
   const normalizedNextRatio = new BigNumber(props.nextCollateralizationRatio).dividedBy(maxRatio).multipliedBy(100)
   const normalizedLiquidatedThreshold = minColRatio.multipliedBy(1.25).dividedBy(maxRatio).multipliedBy(100)
-  const normalizedAtRiskThreshold = minColRatio.multipliedBy(1.5).dividedBy(maxRatio).multipliedBy(100)
+  const normalizedAtRiskThreshold = minColRatio.multipliedBy(atRiskThresholdMultiplier).dividedBy(maxRatio).multipliedBy(100)
 
   return (
     <View style={tailwind('mb-4')}>
-      <CollateralizationRatioText colRatio={props.collateralizationRatio} minColRatio={props.minCollateralizationRatio} />
-      <MinAndNextRatioText minColRatio={props.minCollateralizationRatio} nextColRatio={props.nextCollateralizationRatio} />
+      <CollateralizationRatioText
+        totalLoanAmount={props.totalLoanAmount}
+        colRatio={props.collateralizationRatio}
+        minColRatio={props.minCollateralizationRatio}
+      />
+      <MinAndNextRatioText
+        minColRatio={props.minCollateralizationRatio}
+        nextColRatio={props.nextCollateralizationRatio}
+      />
       <HealthBar normalizedColRatio={normalizedColRatio} normalizedNextRatio={normalizedNextRatio} />
-      <ColorScale normalizedLiquidatedThreshold={normalizedLiquidatedThreshold} normalizedAtRiskThreshold={normalizedAtRiskThreshold} />
+      <ColorScale
+        normalizedLiquidatedThreshold={normalizedLiquidatedThreshold}
+        normalizedAtRiskThreshold={normalizedAtRiskThreshold}
+      />
     </View>
   )
 }
 
-function CollateralizationRatioText (props: {colRatio: string, minColRatio: string}): JSX.Element {
-  const { light, dark } = UseCollateralizationRatioColor({
-    value: props.colRatio,
-    minColRatio: props.minColRatio
+function CollateralizationRatioText (props: { colRatio: string, minColRatio: string, totalLoanAmount: string }): JSX.Element {
+  const {
+    light,
+    dark
+  } = useCollateralizationRatioColor({
+    colRatio: new BigNumber(props.colRatio),
+    minColRatio: new BigNumber(props.minColRatio),
+    totalLoanAmount: new BigNumber(props.totalLoanAmount)
   })
-
+  const alertInfo = {
+    title: 'Collateralization ratio',
+    message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+  }
   return (
     <View style={tailwind('flex-row justify-between')}>
-      <ThemedText
-        style={tailwind('text-sm')}
-      >
-        {translate('components/CollateralizationRatioDisplay', 'Collateralization ratio')}
-      </ThemedText>
+      <View style={tailwind('items-center flex-row')}>
+        <ThemedText
+          style={tailwind('text-sm mr-0.5')}
+        >
+          {translate('components/CollateralizationRatioDisplay', 'Collateralization ratio')}
+        </ThemedText>
+        <BottomSheetInfo alertInfo={alertInfo} name={alertInfo.title} />
+      </View>
       {props.colRatio === '-1'
         ? (
           <ThemedText
@@ -78,7 +101,7 @@ function CollateralizationRatioText (props: {colRatio: string, minColRatio: stri
   )
 }
 
-function MinAndNextRatioText (props: {minColRatio: string, nextColRatio: string}): JSX.Element {
+function MinAndNextRatioText (props: { minColRatio: string, nextColRatio: string }): JSX.Element {
   return (
     <View style={tailwind('flex flex-row items-center justify-between mb-3')}>
       <View style={tailwind('flex flex-row items-center')}>
@@ -115,39 +138,39 @@ function MinAndNextRatioText (props: {minColRatio: string, nextColRatio: string}
             {translate('components/CollateralizationRatioDisplay', 'n/a')}
           </ThemedText>
         )
-       : (
-         <View style={tailwind('flex flex-row items-center')}>
-           <ThemedText
-             light={tailwind('text-gray-500')}
-             dark={tailwind('text-gray-500')}
-             style={tailwind('text-xs mr-0.5')}
-           >
-             {translate('components/CollateralizationRatioDisplay', 'Next:')}
-           </ThemedText>
-           <NumberFormat
-             value={props.nextColRatio}
-             decimalScale={2}
-             thousandSeparator
-             displayType='text'
-             prefix='~'
-             suffix='%'
-             renderText={value =>
-               <ThemedText
-                 light={tailwind('text-gray-500')}
-                 dark={tailwind('text-gray-500')}
-                 style={tailwind('text-xs')}
-               >
-                 {value}
-               </ThemedText>}
-           />
-         </View>
-       )}
+        : (
+          <View style={tailwind('flex flex-row items-center')}>
+            <ThemedText
+              light={tailwind('text-gray-500')}
+              dark={tailwind('text-gray-500')}
+              style={tailwind('text-xs mr-0.5')}
+            >
+              {translate('components/CollateralizationRatioDisplay', 'Next:')}
+            </ThemedText>
+            <NumberFormat
+              value={props.nextColRatio}
+              decimalScale={2}
+              thousandSeparator
+              displayType='text'
+              prefix='~'
+              suffix='%'
+              renderText={value =>
+                <ThemedText
+                  light={tailwind('text-gray-500')}
+                  dark={tailwind('text-gray-500')}
+                  style={tailwind('text-xs')}
+                >
+                  {value}
+                </ThemedText>}
+            />
+          </View>
+        )}
 
     </View>
   )
 }
 
-function HealthBar (props: {normalizedColRatio: BigNumber, normalizedNextRatio: BigNumber}): JSX.Element {
+function HealthBar (props: { normalizedColRatio: BigNumber, normalizedNextRatio: BigNumber }): JSX.Element {
   const { isLight } = useThemeContext()
 
   return (
@@ -155,37 +178,40 @@ function HealthBar (props: {normalizedColRatio: BigNumber, normalizedNextRatio: 
       <Progress.Bar
         progress={props.normalizedColRatio.toNumber()}
         width={null}
-        borderColor={getColor(isLight ? 'gray-300' : 'gray-600')}
-        color={getColor(isLight ? 'white' : 'black')}
-        unfilledColor={getColor(isLight ? 'gray-100' : 'gray-900')}
+        borderColor={getColor(isLight ? 'gray-300' : 'gray-800')}
+        color={getColor(isLight ? 'white' : 'gray-200')}
+        unfilledColor={getColor(isLight ? 'gray-100' : 'gray-700')}
         borderRadius={8}
         height={12}
       />
       {props.normalizedColRatio.isGreaterThanOrEqualTo(0) &&
-        (
-          <>
-            <ThemedView
-              light={tailwind('bg-black')}
-              dark={tailwind('bg-white')}
-              style={[tailwind('w-px h-4 absolute bottom-0'), {
-                left: `${BigNumber.min(props.normalizedColRatio.multipliedBy(100), 99.7).toFixed(2)}%`
-              }]}
-            />
-            <View style={[tailwind('absolute bottom-0'), {
-              left: `${BigNumber.min(props.normalizedNextRatio, 99.7).toFixed(2)}%`
+      (
+        <>
+          <ThemedView
+            light={tailwind('bg-black')}
+            dark={tailwind('bg-white')}
+            style={[tailwind('w-px h-4 absolute bottom-0'), {
+              left: `${BigNumber.min(props.normalizedColRatio.multipliedBy(100), 99.7).toFixed(2)}%`
             }]}
-            >
-              <Svg height='16' width='1' viewBox='0 0 1 16'>
-                <Line strokeDasharray='3, 2' x1='0' y1='0' x2='0' y2='100' stroke={`${isLight ? 'black' : 'white'}`} strokeWidth='10' />
-              </Svg>
-            </View>
-          </>
-        )}
+          />
+          <View style={[tailwind('absolute bottom-0'), {
+            left: `${BigNumber.min(props.normalizedNextRatio, 99.7).toFixed(2)}%`
+          }]}
+          >
+            <Svg height='16' width='1' viewBox='0 0 1 16'>
+              <Line
+                strokeDasharray='3, 2' x1='0' y1='0' x2='0' y2='100' stroke={`${isLight ? 'black' : 'white'}`}
+                strokeWidth='10'
+              />
+            </Svg>
+          </View>
+        </>
+      )}
     </View>
   )
 }
 
-function ColorScale (props: {normalizedLiquidatedThreshold: BigNumber, normalizedAtRiskThreshold: BigNumber}): JSX.Element {
+function ColorScale (props: { normalizedLiquidatedThreshold: BigNumber, normalizedAtRiskThreshold: BigNumber }): JSX.Element {
   return (
     <View style={tailwind('flex flex-row mt-1')}>
       <ThemedView
@@ -205,4 +231,9 @@ function ColorScale (props: {normalizedLiquidatedThreshold: BigNumber, normalize
       />
     </View>
   )
+}
+
+function getMaxRatio (atRiskThreshold: BigNumber): number {
+  const healthyScaleRatio = 0.75
+  return atRiskThreshold.dividedBy(new BigNumber(1).minus(healthyScaleRatio)).toNumber()
 }

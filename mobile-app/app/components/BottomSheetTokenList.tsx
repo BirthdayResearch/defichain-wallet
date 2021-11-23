@@ -4,11 +4,13 @@ import { Platform, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { SymbolIcon } from './SymbolIcon'
-import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from './themed'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from './themed'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BottomSheetWithNavRouteParam } from './BottomSheetWithNav'
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { AddOrRemoveCollateralResponse } from '@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm'
+import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen'
 
 interface BottomSheetTokenListProps {
   headerLabel: string
@@ -16,81 +18,42 @@ interface BottomSheetTokenListProps {
   onTokenPress?: (token: BottomSheetToken) => void
   navigateToScreen?: {
     screenName: string
-    onButtonPress: () => void
+    onButtonPress: (item: AddOrRemoveCollateralResponse) => void
   }
+  tokens: Array<CollateralItem | BottomSheetToken>
 }
 
 export interface BottomSheetToken {
-  id: string
-  name: string
+  tokenId: string
   available: BigNumber
-  collateralFactor: BigNumber
+  token: {
+    name: string
+    displaySymbol: string
+  }
+  factor?: string
 }
 
 export const BottomSheetTokenList = ({
   headerLabel,
   onCloseButtonPress,
   onTokenPress,
-  navigateToScreen
+  navigateToScreen,
+  tokens
 }: BottomSheetTokenListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const { isLight } = useThemeContext()
   const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
-  const tokenList: BottomSheetToken[] = [
-    {
-      id: 'DFI',
-      name: 'DFI',
-      available: new BigNumber('123'),
-      collateralFactor: new BigNumber(100)
-    },
-    {
-      id: 'dBTC',
-      name: 'DFI',
-      available: new BigNumber('123'),
-      collateralFactor: new BigNumber(100)
-    },
-    {
-      id: 'dETH',
-      name: 'DFI',
-      available: new BigNumber('123'),
-      collateralFactor: new BigNumber(100)
-    },
-    {
-      id: 'dLTC',
-      name: 'DFI',
-      available: new BigNumber('123'),
-      collateralFactor: new BigNumber(100)
-    },
-    {
-      id: 'dBCH',
-      name: 'DFI',
-      available: new BigNumber('123'),
-      collateralFactor: new BigNumber(100)
-    },
-    {
-      id: 'dBCH1',
-      name: 'DFI',
-      available: new BigNumber('123'),
-      collateralFactor: new BigNumber(100)
-    },
-    {
-      id: 'dBCH2',
-      name: 'DFI',
-      available: new BigNumber('123'),
-      collateralFactor: new BigNumber(100)
-    },
-    {
-      id: 'dBCH3',
-      name: 'DFI',
-      available: new BigNumber('123'),
-      collateralFactor: new BigNumber(100)
-    }
-  ]
+  const flatListComponents = {
+    mobile: BottomSheetFlatList,
+    web: ThemedFlatList
+  }
+  const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
 
   return (
-    <BottomSheetFlatList
-      data={tokenList}
-      renderItem={({ item }): JSX.Element => (
+    <FlatList
+      data={tokens}
+      renderItem={({ item }: { item: CollateralItem | BottomSheetToken }): JSX.Element => (
         <ThemedTouchableOpacity
+          disabled={new BigNumber(item.available).lte(0)}
           onPress={() => {
             if (onTokenPress !== undefined) {
               onTokenPress(item)
@@ -99,29 +62,36 @@ export const BottomSheetTokenList = ({
               navigation.navigate({
                 name: navigateToScreen.screenName,
                 params: {
-                  token: item.id,
-                  available: item.available,
-                  collateralFactor: item.collateralFactor,
-                  onButtonPress: navigateToScreen.onButtonPress
+                  token: item.token,
+                  available: item.available.toFixed(8),
+                  onButtonPress: navigateToScreen.onButtonPress,
+                  collateralFactor: new BigNumber(item.factor ?? 0).times(100),
+                  isAdd: true
                 },
                 merge: true
               })
             }
           }}
           style={tailwind('px-4 py-3 flex flex-row items-center justify-between')}
+          testID={`select_${item.token.displaySymbol}`}
         >
           <View style={tailwind('flex flex-row items-center')}>
-            <SymbolIcon symbol={item.id} styleProps={{ width: 24, height: 24 }} />
+            <SymbolIcon
+              symbol={item.token.displaySymbol} styleProps={{
+              width: 24,
+              height: 24
+            }}
+            />
             <View style={tailwind('ml-2')}>
               <ThemedText>
-                {item.id}
+                {item.token.displaySymbol}
               </ThemedText>
               <ThemedText
-                light={tailwind('text-dfxgray-500')}
+                light={tailwind('text-gray-500')}
                 dark={tailwind('text-dfxgray-400')}
-                style={tailwind('text-xs')}
+                style={tailwind(['text-xs', { hidden: item.token.name === '' }])}
               >
-                {item.name}
+                {item.token.name}
               </ThemedText>
             </View>
           </View>
@@ -134,6 +104,7 @@ export const BottomSheetTokenList = ({
                   light={tailwind('text-gray-700')}
                   dark={tailwind('text-dfxgray-300')}
                   style={tailwind('mr-0.5')}
+                  testID={`select_${item.token.displaySymbol}_value`}
                 >
                   {value}
                 </ThemedText>}
@@ -159,8 +130,11 @@ export const BottomSheetTokenList = ({
         </ThemedView>
       }
       stickyHeaderIndices={[0]}
-      keyExtractor={(item) => item.id}
-      style={tailwind({ 'bg-dfxblue-800': !isLight, 'bg-white': isLight })}
+      keyExtractor={(item) => item.tokenId}
+      style={tailwind({
+        'bg-dfxblue-800': !isLight,
+        'bg-white': isLight
+      })}
     />
   )
 })

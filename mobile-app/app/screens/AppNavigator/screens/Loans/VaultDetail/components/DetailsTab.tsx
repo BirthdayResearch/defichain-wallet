@@ -2,54 +2,42 @@ import { View } from '@components'
 import { NumberRow } from '@components/NumberRow'
 import { TextRow } from '@components/TextRow'
 import { ThemedSectionTitle } from '@components/themed'
-import { formatBlockTime } from '@screens/AppNavigator/screens/Transactions/TransactionsScreen'
+import { LoanVaultActive, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import React from 'react'
+import { useVaultStatus } from '../../components/VaultStatusTag'
+import { useNextCollateralizationRatio } from '../../hooks/NextCollateralizationRatio'
+import { CollateralizationRatioRow } from '../../components/CollateralizationRatioRow'
 
-enum VaultHealth {
-  Liquidated = 'Liquidated',
-  AtRisk = 'At risk',
-  Safe = 'Safe'
-}
-
-interface VaultDetailsDetail {
-  minColRatio: BigNumber
-  vaultInterest: BigNumber
-  collateralRatio: BigNumber
-  activeLoans: BigNumber
-  totalLoanValue: BigNumber
-  collateralValue: BigNumber
-  valueHealth: VaultHealth
-  created: number
-}
-
-export function DetailsTab (): JSX.Element {
-  const details: VaultDetailsDetail = {
-    minColRatio: new BigNumber(150),
-    vaultInterest: new BigNumber(1.5),
-    collateralRatio: new BigNumber(100000),
-    activeLoans: new BigNumber(3),
-    totalLoanValue: new BigNumber(75000),
-    collateralValue: new BigNumber(75000),
-    valueHealth: VaultHealth.Safe,
-    created: 1635935161
-  }
+export function DetailsTab ({ vault }: { vault: LoanVaultActive }): JSX.Element {
+  const nextCollateralizationRatio = useNextCollateralizationRatio(vault.collateralAmounts, vault.loanAmounts)
 
   return (
     <View style={tailwind('mb-16')}>
-      <LoanSchemeSection minColRatio={details.minColRatio} vaultInterest={details.vaultInterest} />
-      <VaultDetailSection {...details} />
+      <VaultDetailsSection
+        minColRatio={new BigNumber(vault.loanScheme.minColRatio)}
+        vaultInterest={new BigNumber(vault.loanScheme.interestRate)}
+      />
+      <CollateralizationRatioSection
+        collateralizationRatio={new BigNumber(vault.collateralRatio)}
+        nextCollateralizationRatio={new BigNumber(nextCollateralizationRatio)}
+        totalCollateralsValue={new BigNumber(vault.collateralValue)}
+        numberOfLoans={vault.loanAmounts.length}
+        totalLoansValue={new BigNumber(vault.loanValue)}
+        vaultState={vault.state}
+        minColRatio={new BigNumber(vault.loanScheme.minColRatio)}
+      />
     </View>
   )
 }
 
-function LoanSchemeSection (props: {minColRatio: BigNumber, vaultInterest: BigNumber}): JSX.Element {
+function VaultDetailsSection (props: { minColRatio: BigNumber, vaultInterest: BigNumber }): JSX.Element {
   return (
     <>
       <ThemedSectionTitle
-        text={translate('components/VaultDetailDetailsTab', 'LOAN SCHEME')}
+        text={translate('components/VaultDetailDetailsTab', 'VAULT DETAILS')}
       />
       <NumberRow
         lhs={translate('components/VaultDetailDetailsTab', 'Min. collateral ratio')}
@@ -57,7 +45,8 @@ function LoanSchemeSection (props: {minColRatio: BigNumber, vaultInterest: BigNu
           value: props.minColRatio.toFixed(2),
           testID: 'text_min_col_ratio',
           suffixType: 'text',
-          suffix: '%'
+          suffix: '%',
+          style: tailwind('ml-0')
         }}
       />
       <NumberRow
@@ -66,82 +55,94 @@ function LoanSchemeSection (props: {minColRatio: BigNumber, vaultInterest: BigNu
           value: props.vaultInterest.toFixed(2),
           testID: 'text_min_col_ratio',
           suffixType: 'text',
-          suffix: '%'
+          suffix: '%',
+          style: tailwind('ml-0')
         }}
       />
     </>
   )
 }
 
-function VaultDetailSection (props: VaultDetailsDetail): JSX.Element {
+interface CollateralizationRatioSectionProps {
+  collateralizationRatio: BigNumber
+  nextCollateralizationRatio: BigNumber
+  totalCollateralsValue: BigNumber
+  numberOfLoans: number
+  totalLoansValue: BigNumber
+  vaultState: LoanVaultState
+  minColRatio: BigNumber
+}
+
+function CollateralizationRatioSection (props: CollateralizationRatioSectionProps): JSX.Element {
+  const currentVaultState = useVaultStatus(props.vaultState, props.collateralizationRatio, props.minColRatio, props.totalLoansValue)
+  const nextVaultState = useVaultStatus(props.vaultState, props.nextCollateralizationRatio, props.minColRatio, props.totalLoansValue)
   return (
     <>
       <ThemedSectionTitle
-        text={translate('components/VaultDetailDetailsTab', 'VAULT DETAILS')}
+        text={translate('components/VaultDetailDetailsTab', 'COLLATERALIZATION DETAILS')}
       />
+      {props.collateralizationRatio.isLessThan(0)
+        ? (
+          <TextRow
+            lhs={translate('screens/VaultDetailDetailsTab', 'Collateralization ratio')}
+            rhs={{
+              value: translate('components/VaultDetailDetailsTab', 'N/A'),
+              testID: 'text_col_ratio'
+            }}
+            textStyle={tailwind('text-sm font-normal')}
+          />
+        )
+        : (
+          <CollateralizationRatioRow
+            label={translate('components/VaultDetailDetailsTab', 'Collateralization ratio')}
+            value={props.collateralizationRatio.toFixed(2)}
+            testId='text_col_ratio'
+            type='current'
+            vaultState={currentVaultState}
+          />
+        )}
+      {props.nextCollateralizationRatio.isLessThan(0)
+        ? (
+          <TextRow
+            lhs={translate('screens/VaultDetailDetailsTab', 'Next collateralization')}
+            rhs={{
+              value: translate('components/VaultDetailDetailsTab', 'N/A'),
+              testID: 'text_next_col'
+            }}
+            textStyle={tailwind('text-sm font-normal')}
+          />
+        )
+        : (
+          <CollateralizationRatioRow
+            label={translate('components/VaultDetailDetailsTab', 'Next collateralization')}
+            value={props.nextCollateralizationRatio.toFixed(2)}
+            testId='text_next_col'
+            type='next'
+            vaultState={nextVaultState}
+          />
+        )}
       <NumberRow
-        lhs={translate('components/VaultDetailDetailsTab', 'Collateral ratio')}
+        lhs={translate('components/VaultDetailDetailsTab', 'Total collateral (USD)')}
         rhs={{
-          value: props.collateralRatio.toFixed(2),
-          testID: 'text_min_col_ratio',
-          suffixType: 'text',
-          suffix: '%'
+          value: props.totalCollateralsValue.toFixed(2),
+          testID: 'text_collateral_value',
+          prefix: '$'
         }}
       />
       <NumberRow
         lhs={translate('components/VaultDetailDetailsTab', 'Active loans')}
         rhs={{
-          value: props.activeLoans.toFixed(0),
+          value: props.numberOfLoans,
           testID: 'text_active_loans'
         }}
       />
       <NumberRow
-        lhs={translate('components/VaultDetailDetailsTab', 'Total value of loans')}
+        lhs={translate('components/VaultDetailDetailsTab', 'Total loans (USD)')}
         rhs={{
-          value: props.totalLoanValue.toFixed(2),
-          testID: 'text_total_loan_value'
-
-        }}
-      />
-      <NumberRow
-        lhs={translate('components/VaultDetailDetailsTab', 'Collateral value')}
-        rhs={{
-          value: props.collateralValue.toFixed(2),
-          testID: 'text_collateral_value',
+          value: props.totalLoansValue.toFixed(2),
+          testID: 'text_total_loan_value',
           prefix: '$'
         }}
-      />
-      <TextRow
-        lhs={translate('components/VaultDetailDetailsTab', 'Vault health')}
-        rhs={{
-          value: translate('components/VaultDetailDetailsTab', props.valueHealth),
-          testID: 'text_vault_health',
-          themedProps: {
-            light: tailwind(
-              {
-                'text-success-500': props.valueHealth === VaultHealth.Safe,
-                'text-warning-500': props.valueHealth === VaultHealth.AtRisk,
-                'text-error-500': props.valueHealth === VaultHealth.Liquidated
-              }
-            ),
-            dark: tailwind(
-              {
-                'text-darksuccess-500': props.valueHealth === VaultHealth.Safe,
-                'text-darkwarning-500': props.valueHealth === VaultHealth.AtRisk,
-                'text-darkerror-500': props.valueHealth === VaultHealth.Liquidated
-              }
-            )
-          }
-        }}
-        textStyle={tailwind('text-sm font-normal')}
-      />
-      <TextRow
-        lhs={translate('components/VaultDetailDetailsTab', 'Created')}
-        rhs={{
-          value: formatBlockTime(props.created),
-          testID: 'text_created'
-        }}
-        textStyle={tailwind('text-sm font-normal')}
       />
     </>
   )
