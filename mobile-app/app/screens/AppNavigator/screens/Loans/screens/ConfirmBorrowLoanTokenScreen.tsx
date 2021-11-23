@@ -282,7 +282,7 @@ function SummaryTransactionResults (props: { resultCollateralRatio: BigNumber })
         text={translate('screens/ConfirmBorrowLoanTokenScreen', 'TRANSACTION RESULTS')}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Resulting collateral ratio')}
+        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Resulting collateralization')}
         rhs={{
           value: props.resultCollateralRatio.toFixed(2),
           testID: 'text_result_collateral_ratio',
