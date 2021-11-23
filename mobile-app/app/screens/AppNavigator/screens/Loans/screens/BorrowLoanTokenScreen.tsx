@@ -197,8 +197,11 @@ export function BorrowLoanTokenScreen ({
 
   useEffect(() => {
     updateInterestAmount()
-    setValid(isFormValid())
   }, [amountToBorrow, vault])
+
+  useEffect(() => {
+    setValid(isFormValid())
+  }, [amountToBorrow, vault, totalLoanWithInterest])
 
   return (
     <View ref={containerRef}>

@@ -3,7 +3,7 @@ import { ThemedScrollView, ThemedSectionTitle, ThemedText } from '@components/th
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { LoanParamList } from '../LoansNavigator'
 import { LoanTokenInput, VaultInput } from './PaybackLoanScreen'
 import BigNumber from 'bignumber.js'
@@ -18,17 +18,20 @@ import { loanTokenByTokenId } from '@store/loans'
 import { Button } from '@components/Button'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowMoreScreen'>
 
 export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
   const {
-    vault,
+    vault: vaultFromRoute,
     loanTokenAmount
   } = route.params
   const client = useWhaleApiClient()
   const logger = useLogger()
+  const vaults = useSelector((state: RootState) => (state.loans.vaults))
   const loanToken = useSelector((state: RootState) => loanTokenByTokenId(state.loans, loanTokenAmount.id))
+  const [vault, setVault] = useState<LoanVaultActive>(vaultFromRoute)
   const [amountToAdd, setAmountToAdd] = useState('')
   const [totalInterestAmount, setTotalInterestAmount] = useState(new BigNumber(NaN))
   const [totalLoanWithInterest, setTotalLoanWithInterest] = useState(new BigNumber(NaN))
@@ -40,14 +43,14 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
 
   // Form update
-  const isFormValid = (): boolean => {
+  const isFormValid = useCallback((): boolean => {
     const amount = new BigNumber(amountToAdd)
     return !(amount.isNaN() ||
       amount.isLessThanOrEqualTo(0) ||
       vault === undefined ||
       resultingColRatio === undefined ||
       resultingColRatio.isLessThan(vault.loanScheme.minColRatio))
-  }
+  }, [amountToAdd, vault, resultingColRatio])
 
   const updateInterestAmount = (): void => {
     if (vault === undefined || amountToAdd === undefined || loanToken?.activePrice?.active?.amount === undefined) {
@@ -84,9 +87,17 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
   }, [])
 
   useEffect(() => {
+    const updatedVault = vaults.find(v => v.vaultId === vault?.vaultId) as LoanVaultActive
+    setVault(updatedVault)
+  }, [vaults])
+
+  useEffect(() => {
     updateInterestAmount()
-    setValid(isFormValid())
   }, [amountToAdd, vault])
+
+  useEffect(() => {
+    setValid(isFormValid())
+  }, [amountToAdd, vault, totalLoanWithInterest])
 
   return (
     <ThemedScrollView>
