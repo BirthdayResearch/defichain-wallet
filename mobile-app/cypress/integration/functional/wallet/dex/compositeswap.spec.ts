@@ -123,7 +123,7 @@ context('Wallet - DEX - Composite Swap with balance', () => {
   })
 })
 
-context.only('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
+context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
