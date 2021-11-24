@@ -161,6 +161,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     }
   }
 
+  console.log({ allowedSwapFromTokens })
   const onBottomSheetSelect = ({ direction }: { direction: 'FROM' | 'TO' }): void => {
     setBottomSheetScreen([
       {
@@ -414,35 +415,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             testID='swap_instructions'
           > {translate('screens/CompositeSwapScreen', 'Select tokens you want to swap to get started')}
           </ThemedText>}
-
-        {allowedSwapFromTokens?.length === 0 &&
-          <ThemedView
-            style={tailwind('px-8 mt-16 pb-2 text-center')}
-            testID='empty_balances'
-          >
-            <ThemedIcon
-              light={tailwind('text-black')}
-              dark={tailwind('text-white')}
-              iconType='MaterialCommunityIcons'
-              name='circle-off-outline'
-              size={32}
-              style={tailwind('pb-2 text-center')}
-            />
-            <ThemedText testID='empty_tokens_title' style={tailwind('text-2xl pb-2 font-semibold text-center')}>
-              {translate('screens/CompositeSwapScreen', 'You do not have tokens to swap')}
-            </ThemedText>
-
-            <ThemedText testID='empty_tokens_subtitle' style={tailwind('text-sm px-8 pb-4 text-center opacity-60')}>
-              {translate('screens/CompositeSwapScreen', 'Get started by adding your tokens here in your wallet')}
-            </ThemedText>
-
-            <Button
-              label={translate('screens/TransactionsScreen', 'RECEIVE TOKENS')}
-              onPress={() => navigation.navigate('Receive')}
-              testID='button_receive_coins'
-              title='Receive Tokens'
-            />
-          </ThemedView>}
 
         {selectedTokenA !== undefined && selectedTokenB !== undefined &&
           <View style={tailwind('mt-10 mx-4')}>

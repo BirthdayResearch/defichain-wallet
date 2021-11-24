@@ -534,6 +534,7 @@
     "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换",
     "Review and confirm transaction in the next screen": "请在下个屏幕审查并确认兑换",
     "Choose token for swap": "选择要兑换的代币",
+    "Choose token to swap": "Choose token to swap",
     "Enter an amount": "请输入数量",
     "{{token}} tokens converted": "{{token}} 代币转换",
     "Select token": "选择代币",
