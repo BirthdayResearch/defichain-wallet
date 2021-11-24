@@ -379,7 +379,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
   const onTokenSwitch = async (): Promise<void> => {
     if (selectedTokenA !== undefined && selectedTokenB !== undefined) {
-      // TODO check DFI, check normal token
       const tokenBId = selectedTokenB.id === '0' ? '0_unified' : selectedTokenB.id
       const ownedTokenB = tokens.find(token => token.id === tokenBId)
       setSelectedTokenA({
