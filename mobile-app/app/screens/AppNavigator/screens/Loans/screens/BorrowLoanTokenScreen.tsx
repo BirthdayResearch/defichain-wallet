@@ -120,6 +120,7 @@ export function BorrowLoanTokenScreen ({
   }
 
   // Form update
+  const [inputValidationMessage, setInputValidationMessage] = useState('')
   const isFormValid = (): boolean => {
     const amount = new BigNumber(amountToBorrow)
     return !(amount.isNaN() ||
@@ -184,6 +185,22 @@ export function BorrowLoanTokenScreen ({
     }
   }
 
+  const validateInput = (): void => {
+    const amount = new BigNumber(amountToBorrow)
+    if (amount.isNaN() || amount.isZero() || vault === undefined) {
+      setInputValidationMessage('')
+      return
+    }
+
+    if (amount.isGreaterThan(0) && (vault.collateralValue === '0' || vault.collateralValue === undefined)) {
+      setInputValidationMessage('Insufficient vault collateral to borrow this amount')
+    } else if (resultingColRatio.isLessThan(vault.loanScheme.minColRatio)) {
+      setInputValidationMessage('This amount may place the vault in liquidation')
+    } else {
+      setInputValidationMessage('')
+    }
+  }
+
   useEffect(() => {
     client.fee.estimate()
       .then((f) => setFee(new BigNumber(f)))
@@ -207,6 +224,7 @@ export function BorrowLoanTokenScreen ({
   }, [amountToBorrow, vault])
 
   useEffect(() => {
+    validateInput()
     setValid(isFormValid())
   }, [amountToBorrow, vault, totalLoanWithInterest])
 
@@ -246,6 +264,11 @@ export function BorrowLoanTokenScreen ({
                 displayClearButton={amountToBorrow !== ''}
                 onClearButtonPress={() => setAmountToBorrow('')}
                 containerStyle='mb-12'
+                valid={inputValidationMessage === ''}
+                inlineText={{
+                  type: 'error',
+                  text: translate('screens/BorrowLoanTokenScreen', inputValidationMessage)
+                }}
                 style={tailwind('h-9 w-3/5 flex-grow')}
               />
             </View>
@@ -274,11 +297,13 @@ export function BorrowLoanTokenScreen ({
               margin='mt-12 mb-2 mx-4'
             />
             <ThemedText
-              light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
+              light={tailwind('text-gray-500', { 'text-error-500': inputValidationMessage !== '' })}
+              dark={tailwind('text-gray-400', { 'text-darkerror-500': inputValidationMessage !== '' })}
               style={tailwind('text-center text-xs mb-12')}
             >
-              {translate('screens/BorrowLoanTokenScreen', 'Review and confirm transaction in the next screen')}
+              {inputValidationMessage === ''
+                ? translate('screens/BorrowLoanTokenScreen', 'Review and confirm transaction in the next screen')
+                : translate('screens/BorrowLoanTokenScreen', 'Unable to proceed because of errors')}
             </ThemedText>
           </>
         )}
