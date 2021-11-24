@@ -268,7 +268,7 @@ export function VaultInput ({ vault }: VaultInputProps): JSX.Element {
           suffix='%'
           displayType='text'
           renderText={(value) =>
-            <ThemedText light={colors.light} dark={colors.dark} style={tailwind('text-sm font-medium')}>
+            <ThemedText style={tailwind('text-sm font-medium')}>
               {value}
             </ThemedText>}
         />
