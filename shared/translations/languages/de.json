@@ -931,7 +931,11 @@
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
     "SELECT LOAN TOKEN": "DARLEHENSTOKEN AUSWÄHLEN",
     "CONTINUE": "WEITER",
-    "N/A": "K/A"
+    "N/A": "K/A",
+    "Insufficient vault collateral to borrow this amount": "Unzureichende Vault-Sicherheiten, um diesen Betrag auszuleihen",
+    "This amount may place the vault in liquidation": "Dieser Betrag kann den Vault in Liquidation versetzen",
+    "Unable to proceed because of errors": "Kann aufgrund eines Fehlers nicht durchgeführt werden",
+    "Max. loan amount": "Max. Darlehensbetrag"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "Du leihst dir",
@@ -993,5 +997,9 @@
   },
   "screens/ChooseLoanTokenScreen": {
     "Search for loans": "Nach Darlehen suchen"
+  },
+  "components/EmptyCollateral": {
+    "No collaterals": "Keine Sicherheiten",
+    "Add DFI and tokens as collateral to get started with loans.": "Füge DFI und Token als Sicherheiten hinzu, um Darlehen aufnehmen zu können."
   }
 }
