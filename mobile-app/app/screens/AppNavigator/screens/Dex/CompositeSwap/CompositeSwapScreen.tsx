@@ -454,7 +454,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               suffix={` ${selectedTokenA.displaySymbol}`}
             />
             {selectedTokenA.id === '0_unified' && <ReservedDFIInfoText />}
-            <View style={tailwind(['mt-4 flex flex-row', { 'mb-4': isConversionRequired }])}>
+            <View style={tailwind(['mt-4 flex flex-row items-center', { 'mb-4': isConversionRequired }])}>
               <TouchableOpacity
                 onPress={onTokenSwitch}
                 testID='switch_button'
