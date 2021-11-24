@@ -61,7 +61,6 @@ export function LoanSchemeOptions (props: { loanSchemes: WalletLoanScheme[], sel
             testId={`min_col_ratio_value_${index}`}
             suffix='%'
             disabled={scheme.disabled}
-            type='ratio'
           />
           <LoanSchemeOptionData
             label='Interest rate'
@@ -69,7 +68,6 @@ export function LoanSchemeOptions (props: { loanSchemes: WalletLoanScheme[], sel
             testId={`interest_rate_value_${index}`}
             suffix={`% ${translate('components/LoanSchemeOptions', 'APR')}`}
             disabled={scheme.disabled}
-            type='interest'
           />
         </ThemedTouchableOpacity>
       ))}
@@ -77,10 +75,9 @@ export function LoanSchemeOptions (props: { loanSchemes: WalletLoanScheme[], sel
   )
 }
 
-type LoanSchemeType = 'ratio' | 'interest'
-function LoanSchemeOptionData (props: { label: string, value: string, testId: string, suffix?: string, disabled?: boolean, type: LoanSchemeType }): JSX.Element {
+function LoanSchemeOptionData (props: { label: string, value: string, testId: string, suffix?: string, disabled?: boolean }): JSX.Element {
   return (
-    <View style={tailwind({ 'flex-1': props.type === 'ratio' })}>
+    <View style={tailwind('flex-1')}>
       <ThemedText
         light={tailwind('text-gray-400', { 'text-gray-300': props.disabled === true })}
         dark={tailwind('text-gray-500', { 'text-gray-600': props.disabled === true })}
