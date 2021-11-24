@@ -218,7 +218,7 @@
     "What does the different status of a vault mean?": "Was bedeutet der unterschiedliche Status eines Vaults?",
     "Active: When a vault has been created but no loan has been taken yet": "Aktiv: Wenn ein Vault angelegt wurde, aber noch kein Darlehen aufgenommen wurde",
     "At risk: When the collateralization ratio of a vault is between 1x – 1.5x the minimum collateralization ratio": "Gefährdet: Wenn die Besicherungsquote eines Vaults zwischen 1x - 1,5x der Mindestbesicherungsquote liegt",
-    "Healthy: When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio": "Wenn der Besicherungsgrad eines Vaults mehr als das 1,5-Fache des Mindestbesicherungsgrades beträgt",
+    "Healthy: When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio": "Gut: Wenn der Besicherungsgrad eines Vaults mehr als das 1,5-Fache des Mindestbesicherungsgrades beträgt",
     "In liquidation: When a vault's collateralization ratio falls below the minimum requirement": "In Liquidation: Wenn der Besicherungsgrad eines Vaults unter die Mindestanforderung fällt",
     "Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour": "Gestoppt: Wenn ein Token im Vault (Sicherheit oder Darlehen) in der letzten Stunde um mehr als 30 % geschwankt hat",
     "How are interests calculated for loan?": "Wie werden die Zinsen für Darlehen berechnet?",
