@@ -149,7 +149,7 @@ context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
     cy.getByTestID('token_select_button_FROM').click()
     cy.getByTestID('select_dLTC').click().wait(100)
     cy.getByTestID('token_select_button_TO').click()
-    cy.getByTestID('select_dFI').click().wait(100)
+    cy.getByTestID('select_DFI').click().wait(100)
   })
 
   afterEach(function () {
