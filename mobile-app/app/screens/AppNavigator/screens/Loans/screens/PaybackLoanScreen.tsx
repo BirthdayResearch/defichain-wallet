@@ -191,8 +191,8 @@ export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
           {translate('screens/PaybackLoanScreen', 'Outstanding balance')}
         </ThemedText>
         <NumberFormat
-          value={new BigNumber(props.outstandingBalance).toFixed(2)}
-          decimalScale={2}
+          value={new BigNumber(props.outstandingBalance).toFixed(8)}
+          decimalScale={8}
           thousandSeparator
           suffix={` ${props.displaySymbol}`}
           displayType='text'
