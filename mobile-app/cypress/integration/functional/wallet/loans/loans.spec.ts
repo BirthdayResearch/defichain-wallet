@@ -11,8 +11,6 @@ context('Wallet - Loans', () => {
 
   it('should display correct loans from API', function () {
     cy.getByTestID('bottom_tab_loans').click()
-    cy.getByTestID('bottom_tab_loans').click()
-    cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
     cy.getByTestID('button_create_vault').click()
     cy.getByTestID('loan_scheme_option_0').click()
     cy.getByTestID('create_vault_submit_button').click()
