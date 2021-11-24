@@ -161,7 +161,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     }
   }
 
-  console.log({ allowedSwapFromTokens })
   const onBottomSheetSelect = ({ direction }: { direction: 'FROM' | 'TO' }): void => {
     setBottomSheetScreen([
       {
