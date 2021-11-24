@@ -14,7 +14,7 @@ import { SymbolIcon } from '@components/SymbolIcon'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
-import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
+import { LoanToken, LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 import { WalletTextInput } from '@components/WalletTextInput'
@@ -31,6 +31,7 @@ import { FeeInfoRow } from '@components/FeeInfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
+import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
 
 type Props = StackScreenProps<LoanParamList, 'PaybackLoanScreen'>
 
@@ -191,8 +192,8 @@ export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
           {translate('screens/PaybackLoanScreen', 'Outstanding balance')}
         </ThemedText>
         <NumberFormat
-          value={new BigNumber(props.outstandingBalance).toFixed(2)}
-          decimalScale={2}
+          value={new BigNumber(props.outstandingBalance).toFixed(8)}
+          decimalScale={8}
           thousandSeparator
           suffix={` ${props.displaySymbol}`}
           displayType='text'
@@ -208,15 +209,22 @@ export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
 
 interface VaultInputProps {
   vault: LoanVaultActive
+  loanToken?: LoanToken
+  displayMaxLoanAmount?: boolean
 }
 
-export function VaultInput ({ vault }: VaultInputProps): JSX.Element {
+export function VaultInput ({
+  vault,
+  loanToken,
+  displayMaxLoanAmount = false
+}: VaultInputProps): JSX.Element {
   const vaultState = useVaultStatus(vault.state, new BigNumber(vault.collateralRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber(vault.loanValue))
   const colors = useCollateralizationRatioColor({
     colRatio: new BigNumber(vault.collateralRatio),
     minColRatio: new BigNumber(vault.loanScheme.minColRatio),
     totalLoanAmount: new BigNumber(vault.loanValue)
   })
+
   const collateralAlertInfo = {
     title: 'Collateralization ratio',
     message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
@@ -226,6 +234,15 @@ export function VaultInput ({ vault }: VaultInputProps): JSX.Element {
     title: 'Min. collateralization ratio',
     message: 'Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.'
   }
+
+  const maxLoanAmount = useMaxLoanAmount({
+    totalCollateralValue: new BigNumber(vault.collateralValue),
+    totalLoanValue: new BigNumber(vault.loanValue),
+    minColRatio: new BigNumber(vault.loanScheme.minColRatio),
+    vaultInterest: new BigNumber(vault.loanScheme.interestRate),
+    loanInterest: new BigNumber(loanToken?.interest ?? NaN),
+    loanActivePrice: new BigNumber(loanToken?.activePrice?.active?.amount ?? NaN)
+  })
 
   return (
     <ThemedView
@@ -287,12 +304,35 @@ export function VaultInput ({ vault }: VaultInputProps): JSX.Element {
           suffix='%'
           displayType='text'
           renderText={(value) => (
-            <ThemedText light={colors.light} dark={colors.dark} style={tailwind('text-sm font-medium')}>
+            <ThemedText style={tailwind('text-sm font-medium')}>
               {value}
             </ThemedText>
           )}
         />
       </View>
+      {displayMaxLoanAmount && loanToken !== undefined &&
+        (
+          <View style={tailwind('flex flex-row items-center justify-between mb-1')}>
+            <ThemedText
+              light={tailwind('text-gray-500')}
+              dark={tailwind('text-gray-400')}
+              style={tailwind('text-xs')}
+            >
+              {translate('screens/BorrowMoreScreen', 'Max loan amount')}
+            </ThemedText>
+            <NumberFormat
+              value={maxLoanAmount.isNaN() ? translate('screens/BorrowMoreScreen', 'N/A') : maxLoanAmount.toFixed(8)}
+              decimalScale={8}
+              thousandSeparator
+              suffix={` ${loanToken.token.displaySymbol}`}
+              displayType='text'
+              renderText={(value) =>
+                <ThemedText style={tailwind('text-sm font-medium')}>
+                  {value}
+                </ThemedText>}
+            />
+          </View>
+        )}
     </ThemedView>
   )
 }
