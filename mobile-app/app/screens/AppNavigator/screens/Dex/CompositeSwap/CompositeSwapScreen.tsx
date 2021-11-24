@@ -167,7 +167,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         stackScreenName: 'TokenList',
         component: BottomSheetTokenList({
           tokens: direction === 'FROM' ? allowedSwapFromTokens ?? [] : allowedSwapToTokens ?? [],
-          headerLabel: translate('screens/CompositeSwapScreen', 'Choose token for swap'),
+          headerLabel: translate('screens/CompositeSwapScreen', direction === 'FROM' ? 'Choose token for swap' : 'Choose token to swap'),
           onCloseButtonPress: () => dismissModal(),
           onTokenPress: (item): void => {
             onTokenSelect(item, direction)

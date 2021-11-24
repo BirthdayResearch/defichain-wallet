@@ -5,13 +5,13 @@ function setupWalletForConversion (): void {
   cy.sendDFItoWallet()
     .sendDFITokentoWallet()
     .sendTokenToWallet(['USDC'])
-    .wait(3000)
+    .wait(5000)
 
   cy.getByTestID('bottom_tab_dex').click().wait(3000)
   cy.getByTestID('close_dex_guidelines').click()
 
   cy.getByTestID('bottom_tab_dex').click().wait(3000)
-  cy.getByTestID('composite_swap').click()
+  cy.getByTestID('composite_swap').click().wait(1000)
   cy.getByTestID('token_select_button_FROM').click()
   cy.getByTestID('select_DFI').click().wait(100)
   cy.getByTestID('token_select_button_TO').click()
@@ -123,7 +123,7 @@ context('Wallet - DEX - Composite Swap with balance', () => {
   })
 })
 
-context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
+context.only('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
