@@ -274,7 +274,7 @@ export function VaultInput ({ vault }: VaultInputProps): JSX.Element {
           <ThemedText
             light={tailwind('text-gray-500')}
             dark={tailwind('text-gray-400')}
-            style={tailwind('text-xs mr-1')}
+            style={tailwind('text-xs')}
           >
             {translate('screens/PaybackLoanScreen', 'Min. collateralization ratio')}
           </ThemedText>

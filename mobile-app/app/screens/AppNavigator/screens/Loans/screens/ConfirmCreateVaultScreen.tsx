@@ -246,7 +246,7 @@ async function createVault ({
     dispatch(transactionQueue.actions.push({
       sign: signer,
       title: translate('screens/ConfirmCreateVaultScreen', 'Creating vault'),
-      description: translate('screens/ConfirmCreateVaultScreen', 'Creating vault with min. collateral ratio of {{amount}}% and interest rate of {{ir}}% APR', {
+      description: translate('screens/ConfirmCreateVaultScreen', 'Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR', {
         amount: loanScheme.minColRatio,
         ir: loanScheme.interestRate
       }),
