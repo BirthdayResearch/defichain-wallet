@@ -195,7 +195,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     setIsTokenSelectDisabled(true)
 
     const pair = pairs.find((pair) => pair.data.id === route.params.pair?.id)
-    if (pair !== undefined) {
+    if (pair !== undefined && selectedTokenA === undefined && selectedTokenB === undefined) {
       onTokenSelect({
         tokenId: pair.data.tokenA.id,
         available: new BigNumber(pair.data.tokenA.reserve),
