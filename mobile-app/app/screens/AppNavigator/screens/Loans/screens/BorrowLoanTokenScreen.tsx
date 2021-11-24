@@ -19,7 +19,7 @@ import NumberFormat from 'react-number-format'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { NumberRow } from '@components/NumberRow'
 import { BottomSheetVaultList } from '../components/BottomSheetVaultList'
-import { fetchVaults, LoanVault } from '@store/loans'
+import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
 import { LoanVaultActive, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { TextRow } from '@components/TextRow'
@@ -55,7 +55,7 @@ export function BorrowLoanTokenScreen ({
   const { address } = useWalletContext()
   const dispatch = useDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const vaults = useSelector((state: RootState) => (state.loans.vaults))
+  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const [vault, setVault] = useState<LoanVaultActive | undefined>(route.params.vault)
   const [amountToBorrow, setAmountToBorrow] = useState('')
   const [totalInterestAmount, setTotalInterestAmount] = useState(new BigNumber(NaN))

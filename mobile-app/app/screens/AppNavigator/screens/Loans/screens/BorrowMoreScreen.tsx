@@ -14,7 +14,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { loanTokenByTokenId } from '@store/loans'
+import { loanTokenByTokenId, vaultsSelector } from '@store/loans'
 import { Button } from '@components/Button'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -31,7 +31,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
   } = route.params
   const client = useWhaleApiClient()
   const logger = useLogger()
-  const vaults = useSelector((state: RootState) => (state.loans.vaults))
+  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const loanToken = useSelector((state: RootState) => loanTokenByTokenId(state.loans, loanTokenAmount.id))
   const [vault, setVault] = useState<LoanVaultActive>(vaultFromRoute)
   const [amountToAdd, setAmountToAdd] = useState('')
