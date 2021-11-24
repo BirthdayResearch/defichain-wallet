@@ -468,14 +468,16 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                   light={tailwind('text-primary-500')}
                 />
               </TouchableOpacity>
-              <TokenRow
-                control={control}
-                controlName='tokenB'
-                isDisabled
-                title=''
-                token={selectedTokenB}
-                enableMaxButton={false}
-              />
+              <View style={tailwind('flex-1')}>
+                <TokenRow
+                  control={control}
+                  controlName='tokenB'
+                  isDisabled
+                  title=''
+                  token={selectedTokenB}
+                  enableMaxButton={false}
+                />
+              </View>
             </View>
             {isConversionRequired && <ConversionInfoText />}
             <SlippageTolerance setSlippage={(amount) => setSlippage(amount)} slippage={slippage} />
