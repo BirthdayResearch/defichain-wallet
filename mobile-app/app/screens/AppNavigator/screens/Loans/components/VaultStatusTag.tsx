@@ -60,24 +60,25 @@ export function VaultStatusTag ({
   if (status === VaultStatus.Unknown) {
     return <></>
   }
+
   return (
     <ThemedView
       light={tailwind(
         {
-          'bg-error-100': status === VaultStatus.Liquidated || (status === VaultStatus.NearLiquidation && vaultStats.isInLiquidation),
           'bg-blue-100': status === VaultStatus.Active,
           'bg-success-100': status === VaultStatus.Healthy,
           'bg-warning-100': status === VaultStatus.AtRisk,
-          'bg-gray-100': status === VaultStatus.Halted
+          'bg-gray-100': status === VaultStatus.Halted,
+          'bg-error-100': status === VaultStatus.Liquidated || (status === VaultStatus.NearLiquidation && vaultStats.isInLiquidation)
         }
       )}
       dark={tailwind(
         {
-          'bg-darkerror-100': status === VaultStatus.Liquidated || (status === VaultStatus.NearLiquidation && vaultStats.isInLiquidation),
           'bg-darkblue-100': status === VaultStatus.Active,
           'bg-darksuccess-100': status === VaultStatus.Healthy,
           'bg-darkwarning-100': status === VaultStatus.AtRisk,
-          'bg-gray-100': status === VaultStatus.Halted
+          'bg-gray-100': status === VaultStatus.Halted,
+          'bg-darkerror-100': status === VaultStatus.Liquidated || (status === VaultStatus.NearLiquidation && vaultStats.isInLiquidation)
         }
       )}
       style={tailwind('flex flex-row items-center')}
