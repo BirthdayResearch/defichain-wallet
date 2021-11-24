@@ -733,7 +733,7 @@
     "CONTINUE": "WEITER",
     "Confirm your vault details in next screen": "Bestätige die Daten deines Vaults in der nächsten Ansicht",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "Das Darlehensmodell deines Vaults bestimmt dessen erforderliche Darlehens-Besicherung.",
-    "Min. collateralization ratio": "Mindestbesicherungsquote"
+    "Min. collateralization ratio": "Min. Besicherungsquote"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Du erstellst gerade einen Vault",
@@ -743,7 +743,7 @@
     "Create vault": "Vault erstellen",
     "Total transaction cost": "Transaktionskosten gesamt",
     "VAULT DETAILS": "VAULT-DETAILS",
-    "Min. collateralization ratio": "Mindestbesicherungsquote",
+    "Min. collateralization ratio": "Min. Besicherungsquote",
     "Interest rate (APR)": "Jahreszinssatz",
     "APR": "Jahreszins",
     "CONFIRM CREATE VAULT": "VAULT ERSTELLEN BESTÄTIGEN",
@@ -763,7 +763,7 @@
     "Collateralization ratio": "Besicherungsquote",
     "Interest amount": "Zinsbetrag",
     "Next collateralization": "Nächste Besicherung",
-    "Min. collateralization ratio": "Mindestbesicherungsquote",
+    "Min. collateralization ratio": "Min. Besicherungsquote",
     "This amount is the total interest amount from both vault and token interest rate.": "This amount is the total interest amount from both vault and token interest rate.",
     "Annual vault interest": "Annual vault interest"
   },
@@ -775,7 +775,7 @@
     "Total collateral (USD)": "Gesamter Besicherungswert (USD)",
     "Total loans (USD)": "Gesamtdarlehensbetrag (USD)",
     "Vault interest (APR)": "Vault-Jahreszins",
-    "Min. collateralization ratio": "Mindestbesicherungsquote"
+    "Min. collateralization ratio": "Min. Besicherungsquote"
   },
   "components/ScrollableButton": {
     "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
@@ -804,7 +804,7 @@
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "DARLEHENSMODELL",
-    "Min. collateralization ratio": "Mindestbesicherungsquote",
+    "Min. collateralization ratio": "Min. Besicherungsquote",
     "Vault interest": "Vault-Jahreszins",
     "VAULT DETAILS": "VAULT-DETAILS",
     "COLLATERALIZATION DETAILS": "DETAILS ZUR BESICHERUNG",
@@ -842,7 +842,7 @@
     "Removing {{amount}} {{symbol}} collateral from vault": "{{amount}} {{symbol}} Sicherheit aus Vault entfernen",
     "Total loans (USD)": "Gesamtdarlehensbetrag (USD)",
     "Collateralization ratio": "Besicherungsquote",
-    "Min. collateralization ratio": "Mindestbesicherungsquote",
+    "Min. collateralization ratio": "Min. Besicherungsquote",
     "Vault interest": "Vault-Jahreszins"
   },
   "components/AddOrRemoveCollateralForm": {
@@ -889,7 +889,7 @@
     "Remaining loan amount": "Verbleibender Darlehensbetrag",
     "Outstanding balance": "Ausstehender Saldo",
     "Collateralization ratio": "Besicherungsquote",
-    "Min. collateralization ratio": "Mindestbesicherungsquote"
+    "Min. collateralization ratio": "Min. Besicherungsquote"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "ZAHLUNG BESTÄTIGEN",
@@ -927,7 +927,7 @@
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Collateralization ratio": "Besicherungsquote",
     "Resulting collateralization": "Resultierende Besicherungsquote",
-    "Min. collateralization ratio": "Mindestbesicherungsquote",
+    "Min. collateralization ratio": "Min. Besicherungsquote",
     "Interest (Vault + Token)": "Zinsen (Vault + Token)",
     "Total interest amount": "Zinsgesamtbetrag",
     "Total loan + interest": "Gesamtbetrag Darlehen + Zins",
