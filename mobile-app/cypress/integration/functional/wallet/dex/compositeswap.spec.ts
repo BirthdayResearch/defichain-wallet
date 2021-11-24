@@ -125,7 +125,7 @@ context('Wallet - DEX - Composite Swap with balance', () => {
 })
 
 context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
-  beforeEach(function () {
+  before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
     cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['LTC', 'USDC']).wait(5000)
@@ -133,24 +133,33 @@ context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
-    cy.getByTestID('composite_swap').click().wait(5000)
   })
 
   it('should be able to swap tokens with 2 hops', function () {
+    cy.getByTestID('composite_swap').click().wait(5000)
     cy.getByTestID('token_select_button_FROM').click()
-    cy.getByTestID('select_dUSDC').click().wait(100)
-    cy.getByTestID('token_select_button_TO').click()
     cy.getByTestID('select_dLTC').click().wait(100)
+    cy.getByTestID('token_select_button_TO').click()
+    cy.getByTestID('select_dUSDC').click().wait(100)
   })
 
   it('should be able to swap direct pair', function () {
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('token_select_button_FROM').click()
-    cy.getByTestID('select_DFI').click().wait(100)
-    cy.getByTestID('token_select_button_TO').click()
     cy.getByTestID('select_dLTC').click().wait(100)
+    cy.getByTestID('token_select_button_TO').click()
+    cy.getByTestID('select_DFI').click().wait(100)
   })
 
   afterEach(function () {
+    it('should be able to switch tokens and reset values', function () {
+      cy.getByTestID('MAX_amount_button').click()
+      cy.getByTestID('switch_button').click()
+      cy.getByTestID('text_input_tokenA').should('have.value', '')
+      cy.getByTestID('text_input_tokenB').should('have.value', '')
+    })
+
     it('should be able to swap', function () {
       cy.getByTestID('text_input_tokenA').type('10')
       cy.getByTestID('slippage_10%').click()

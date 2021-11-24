@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Platform, View } from 'react-native'
+import { Platform, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Control, Controller, useForm } from 'react-hook-form'
 import BigNumber from 'bignumber.js'
@@ -377,6 +377,22 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     }
   }
 
+  const onTokenSwitch = async (): Promise<void> => {
+    if (selectedTokenA !== undefined && selectedTokenB !== undefined) {
+      const tokenBId = selectedTokenB.id === '0' ? '0_unified' : selectedTokenB.id
+      const ownedTokenB = tokens.find(token => token.id === tokenBId)
+      setSelectedTokenA({
+        ...selectedTokenB,
+        amount: ownedTokenB !== undefined ? ownedTokenB.amount : '0'
+      })
+      setSelectedTokenB(selectedTokenA)
+      setValue('tokenA', '')
+      await trigger('tokenA')
+      setValue('tokenB', '')
+      await trigger('tokenB')
+    }
+  }
+
   return (
     <View style={tailwind('h-full')} ref={containerRef}>
       <ThemedScrollView>
@@ -425,10 +441,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               maxAmount={getMaxAmount(selectedTokenA)}
               enableMaxButton
               onChangeFromAmount={async (amount) => {
-              amount = isNaN(+amount) ? '0' : amount
-              setValue('tokenA', amount)
-              await trigger('tokenA')
-            }}
+                amount = isNaN(+amount) ? '0' : amount
+                setValue('tokenA', amount)
+                await trigger('tokenA')
+              }}
               token={selectedTokenA}
             />
             <InputHelperText
@@ -438,15 +454,29 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               suffix={` ${selectedTokenA.displaySymbol}`}
             />
             {selectedTokenA.id === '0_unified' && <ReservedDFIInfoText />}
-            <View style={tailwind(['mt-4', { 'mb-4': isConversionRequired }])}>
-              <TokenRow
-                control={control}
-                controlName='tokenB'
-                isDisabled
-                title={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
-                token={selectedTokenB}
-                enableMaxButton={false}
-              />
+            <View style={tailwind(['flex flex-row items-center', { 'mb-4': isConversionRequired }])}>
+              <TouchableOpacity
+                onPress={onTokenSwitch}
+                testID='switch_button'
+              >
+                <ThemedIcon
+                  name='swap-vert'
+                  size={24}
+                  iconType='MaterialIcons'
+                  style={tailwind('w-8 mx-2 mt-2.5')}
+                  dark={tailwind('text-darkprimary-500')}
+                  light={tailwind('text-primary-500')}
+                />
+              </TouchableOpacity>
+              <View style={tailwind('flex-1')}>
+                <TokenRow
+                  control={control}
+                  controlName='tokenB'
+                  isDisabled
+                  token={selectedTokenB}
+                  enableMaxButton={false}
+                />
+              </View>
             </View>
             {isConversionRequired && <ConversionInfoText />}
             <SlippageTolerance setSlippage={(amount) => setSlippage(amount)} slippage={slippage} />
@@ -672,7 +702,7 @@ interface TokenForm {
   enableMaxButton: boolean
   maxAmount?: string
   onChangeFromAmount?: (amount: string) => void
-  title: string
+  title?: string
   isDisabled: boolean
 }
 
@@ -712,7 +742,7 @@ function TokenRow (form: TokenForm): JSX.Element {
         <ThemedView
           dark={tailwind('bg-transparent')}
           light={tailwind('bg-transparent')}
-          style={tailwind('flex-row w-full')}
+          style={tailwind('flex-row flex-grow')}
         >
           <WalletTextInput
             autoCapitalize='none'
