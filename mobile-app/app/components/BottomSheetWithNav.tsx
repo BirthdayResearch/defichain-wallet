@@ -13,6 +13,7 @@ import { tailwind } from '@tailwind'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { getDefaultTheme } from '@constants/Theme'
 import { BottomSheetModal as BottomSheetModalWeb } from './BottomSheetModal.web'
+import { theme } from '../tailwind.config'
 
 interface BottomSheetWithNavProps {
   modalRef: React.Ref<BottomSheetModalMethods>
@@ -86,10 +87,10 @@ const Navigator = (props: BottomSheetWithNavProps): JSX.Element => {
     () => ({
       ...TransitionPresets.SlideFromRightIOS,
       headerShown: true,
-      safeAreaInsets: { top: 0 },
-      cardStyle: {
-        backgroundColor: 'white',
-        overflow: 'visible'
+      headerStyle: {
+        borderTopWidth: 1,
+        borderTopColor: theme.extend.colors.dfxblue[900],
+        backgroundColor: theme.extend.colors.dfxblue[800]
       },
       headerMode: 'screen'
     }),

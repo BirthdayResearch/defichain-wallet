@@ -15,7 +15,6 @@ import { LoanParamList } from '../LoansNavigator'
 import { BottomSheetNavScreen, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { AddOrEditCollateralForm, AddOrEditCollateralFormProps } from '../components/AddOrEditCollateralForm'
 import { BottomSheetTokenList } from '@components/BottomSheetTokenList'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { WalletAlert } from '@components/WalletAlert'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
@@ -40,7 +39,6 @@ export function AddCollateralScreen ({ route, navigation }: Props): JSX.Element 
   const { vaultId } = route.params
   const client = useWhaleApiClient()
   const logger = useLogger()
-  const { isLight } = useThemeContext()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
   const collaterals: Collateral[] = [
@@ -192,9 +190,8 @@ export function AddCollateralScreen ({ route, navigation }: Props): JSX.Element 
                 component: AddOrEditCollateralForm,
                 option: {
                   headerStatusBarHeight: 1,
-                  headerBackgroundContainerStyle: tailwind('-top-5 border-b', { 'border-gray-200': isLight, 'bg-dfxblue-800 border-dfxblue-900': !isLight }),
-                  headerStyle: tailwind('bg-dfxblue-800 border-dfxblue-900'),
                   headerTitle: '',
+                  headerBackTitleVisible: true,
                   headerBackTitle: translate('screens/AddCollateralScreen', 'BACK')
                 }
               }

@@ -12,7 +12,6 @@ import { LoanParamList } from '../LoansNavigator'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { AddOrRemoveCollateralForm, AddOrRemoveCollateralResponse } from '../components/AddOrRemoveCollateralForm'
 import { BottomSheetTokenList } from '@components/BottomSheetTokenList'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useDispatch, useSelector } from 'react-redux'
@@ -56,7 +55,6 @@ export function EditCollateralScreen ({
   const { vaultId } = route.params
   const client = useWhaleApiClient()
   const logger = useLogger()
-  const { isLight } = useThemeContext()
   const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
   const [activeVault, setActiveVault] = useState<LoanVaultActive>()
   const dispatch = useDispatch()
@@ -216,12 +214,9 @@ export function EditCollateralScreen ({
                 component: AddOrRemoveCollateralForm,
                 option: {
                   headerStatusBarHeight: 1,
-                  headerBackgroundContainerStyle: tailwind('-top-5 border-b', {
-                    'border-gray-200': isLight,
-                    'border-gray-700': !isLight
-                  }),
                   headerTitle: '',
-                  headerBackTitleVisible: false
+                  headerBackTitleVisible: true,
+                  headerBackTitle: translate('screens/EditCollateralScreen', 'BACK')
                 }
               }
             ])
@@ -284,10 +279,6 @@ export function EditCollateralScreen ({
           }
         })}
       </ThemedScrollView>
-      <BottomSheetWithNav
-        modalRef={bottomSheetRef}
-        screenList={bottomSheetScreen}
-      />
 
       {Platform.OS === 'web' && (
         <BottomSheetWebWithNav
