@@ -225,7 +225,7 @@
     "There are 2 types of interests that applies for loans, namely vault interest rate and token interest rate.": "貸款利息有兩種，分別為金庫利率和代幣利率",
     "The vault interest rate is determined when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.": "金庫利率是在金庫所有者選擇金庫方案時確定的，最低抵押率越高，金庫利率越低。",
     "The token interest rate is applied on specific loan tokens, and can differ from token to token.": "代幣利率適用於特定的代幣貸款，不同的代幣會有不同的利率。",
-    "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and calculated on a per annum basis.": "總利率是由：由金庫利率和代幣利率整體以每年率計算。"
+    "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "總利率是由：由金庫利率和代幣利率整體以每年率計算。"
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "網絡",
@@ -691,7 +691,7 @@
     "Active loans": "活躍的貸款",
     "Total loans (USD)": "貸款總金額 (美金)",
     "Collateral amount (USD)": "抵押品金額 (美金)",
-    "Collateral ratio": "抵押品比率",
+    "Collateralization ratio": "抵押品比率",
     "n/a": "不適用",
     "ADD COLLATERAL": "加入抵押品",
     "VIEW LOANS": "檢視貸款",
@@ -707,9 +707,9 @@
   },
   "screens/CreateVaultScreen": {
     "Choose loan scheme for your vault": "為您的金庫選擇貸款方案",
-    "This sets the minimum collateral ratio and the vault’s interest rate.": "這將設置了最低抵押率和金庫的利率.",
-    "Keep note of your selected collateral ratio for your vault to sustain the loans within it.": "請注意您為金庫選擇的抵押品比率，以維持持續貸款",
-    "Collateral ratio": "抵押品比率",
+    "This sets the minimum collateralization ratio and the vault’s interest rate.": "這將設置了最低抵押率和金庫的利率.",
+    "Keep note of your selected collateralization ratio for your vault to sustain the loans within it.": "請注意您為金庫選擇的抵押品比率，以維持持續貸款",
+    "Collateralization ratio": "抵押品比率",
     "Interest rate": "利率",
     "APR": "回報率",
     "CONTINUE": "繼續",
@@ -723,12 +723,12 @@
     "Create vault": "創建金庫",
     "Total transaction cost": "總交易費用",
     "VAULT DETAILS": "金庫明細",
-    "Min. collateral ratio": "最小抵押率",
+    "Min. collateralization ratio": "最小抵押率",
     "Interest rate (APR)": "利率（以回報率計算）",
     "APR": "回報率",
     "CONFIRM CREATE VAULT": "確認創建金庫",
     "Creating vault": "創建金庫",
-    "Creating vault with min. collateral ratio of {{amount}}% and interest rate of {{ir}}% APR": "創建金庫時，設定的最低抵押率為{{amount}}%，利率為{{ir}}%年回報率",
+    "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "創建金庫時，設定的最低抵押率為{{amount}}%，利率為{{ir}}%年回報率",
     "Convert & create vault": "轉換和創建金庫"
   },
   "components/BottomSheetInfo": {
@@ -772,7 +772,7 @@
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "貸款計劃",
-    "Min. collateral ratio": "最小抵押率",
+    "Min. collateralization ratio": "最小抵押率",
     "Vault interest": "金庫利息",
     "VAULT DETAILS": "金庫明細",
     "COLLATERALIZATION DETAILS": "COLLATERALIZATION DETAILS",
@@ -849,12 +849,11 @@
     "Total collateral (USD)": "抵押資金總價值 (美金)",
     "Vault interest": "金庫利息",
     "How much do you want to borrow?": "您想借用多少金額?",
-    "Collateral ratio": "抵押率",
     "Enter an amount": "請輸入數量",
     "TRANSACTION DETAILS": "交易明細",
     "Collateralization ratio": "抵押率",
     "Resulting collateralization": "最終抵押率",
-    "Min. collateral ratio": "最低抵押率",
+    "Min. collateralization ratio": "最低抵押率",
     "Interest (Vault + Token)": "利息 (金庫+代幣)",
     "Total interest amount": "總利息金額",
     "Total loan + interest": "貸款總額+利息",

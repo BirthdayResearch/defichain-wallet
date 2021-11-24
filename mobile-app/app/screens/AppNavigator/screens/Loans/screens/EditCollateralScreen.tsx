@@ -368,7 +368,7 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
         testID='text_total_collateral_value'
         value={new BigNumber(vault.loanScheme.minColRatio ?? 0).toFixed(2)} suffix='%'
         suffixType='text'
-        lhs={translate('screens/EditCollateralScreen', 'Min. collateral ratio')}
+        lhs={translate('screens/EditCollateralScreen', 'Min. collateralization ratio')}
       />
       <VaultSectionTextRow
         testID='text_vault_interest_value'
