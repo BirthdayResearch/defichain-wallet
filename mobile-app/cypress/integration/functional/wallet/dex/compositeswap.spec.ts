@@ -127,12 +127,12 @@ context.only('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
-    cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['LTC', 'USDC']).wait(3000)
+    cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['LTC', 'USDC']).wait(5000)
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
-    cy.getByTestID('composite_swap').click()
+    cy.getByTestID('composite_swap').click().wait(5000)
   })
 
   it('should be able to swap tokens with 2 hops', function () {
