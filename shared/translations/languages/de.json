@@ -26,7 +26,7 @@
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Wähle unten ein Pool-Paar aus, stelle Liquidität für den Betrieb der dezentralen Börse (DEX) bereit und beginne, Gebühren und jährliche Renditen von bis zu 100% zu verdienen. Du kannst jederzeit Liquidität entfernen.",
     "Pooled {{symbol}}": "{{symbol}} im Pool",
     "Total pooled {{symbol}}": "Gesamte {{symbol}} im Pool",
-    "Your pooled {{symbol}}": "Deine {{token}} im Pool",
+    "Your pooled {{symbol}}": "Deine {{symbol}} im Pool",
     "SWAP TOKENS": "TOKEN TAUSCHEN",
     "REMOVE": "ENTFERNEN",
     "APR": "Jahreszins",
@@ -218,7 +218,7 @@
     "What does the different status of a vault mean?": "Was bedeutet der unterschiedliche Status eines Vaults?",
     "Active: When a vault has been created but no loan has been taken yet": "Aktiv: Wenn ein Vault angelegt wurde, aber noch kein Darlehen aufgenommen wurde",
     "At risk: When the collateralization ratio of a vault is between 1x – 1.5x the minimum collateralization ratio": "Gefährdet: Wenn die Besicherungsquote eines Vaults zwischen 1x - 1,5x der Mindestbesicherungsquote liegt",
-    "Healthy: When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio": "Wenn der Besicherungsgrad eines Vaults mehr als das 1,5-Fache des Mindestbesicherungsgrades beträgt",
+    "Healthy: When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio": "Gut: Wenn der Besicherungsgrad eines Vaults mehr als das 1,5-Fache des Mindestbesicherungsgrades beträgt",
     "In liquidation: When a vault's collateralization ratio falls below the minimum requirement": "In Liquidation: Wenn der Besicherungsgrad eines Vaults unter die Mindestanforderung fällt",
     "Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour": "Gestoppt: Wenn ein Token im Vault (Sicherheit oder Darlehen) in der letzten Stunde um mehr als 30 % geschwankt hat",
     "How are interests calculated for loan?": "Wie werden die Zinsen für Darlehen berechnet?",
@@ -443,7 +443,7 @@
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "Füge {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} hinzu",
     "PRICE DETAILS": "PREISDETAILS",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
-    "Your pooled {{symbol}}": "Deine {{token}} im Pool",
+    "Your pooled {{symbol}}": "Deine {{symbol}} im Pool",
     "Transaction type": "Transaktionsart",
     "Add liquidity": "Liquidität hinzufügen",
     "Convert & add liquidity": "Umrechnen & Liquidität hinzufügen",
@@ -536,7 +536,7 @@
     "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
     "Choose token for swap": "Token für den Tausch wählen",
-    "Choose token to swap": "Choose token to swap",
+    "Choose token to swap": "Token zum Tauschen wählen",
     "Enter an amount": "Gib einen Betrag an",
     "{{token}} tokens converted": "Umgewandelte {{token}}-Token",
     "Select token": "Token auswählen",
@@ -715,7 +715,7 @@
     "MANAGE LOANS": "DARLEHEN VERWALTEN",
     "ACTIVE": "AKTIV",
     "HEALTHY": "GUT",
-    "AT RISK": "GEFÄHRDE",
+    "AT RISK": "GEFÄHRDET",
     "HALTED": "GESTOPPT",
     "IN LIQUIDATION": "IN LIQUIDATION"
   },
@@ -930,7 +930,12 @@
     "Total loan + interest": "Gesamtbetrag Darlehen + Zins",
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
     "SELECT LOAN TOKEN": "DARLEHENSTOKEN AUSWÄHLEN",
-    "CONTINUE": "WEITER"
+    "CONTINUE": "WEITER",
+    "N/A": "K/A",
+    "Insufficient vault collateral to borrow this amount": "Unzureichende Vault-Sicherheiten, um diesen Betrag auszuleihen",
+    "This amount may place the vault in liquidation": "Dieser Betrag kann den Vault in Liquidation versetzen",
+    "Unable to proceed because of errors": "Kann aufgrund eines Fehlers nicht durchgeführt werden",
+    "Max. loan amount": "Max. Darlehensbetrag"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "Du leihst dir",
@@ -987,9 +992,14 @@
     "Enter an amount": "Gib eine Menge ein",
     "VAULT IN USE": "AKTIVER VAULT",
     "CONTINUE": "WEITER",
-    "Review and confirm transaction in the next screen" : "Überprüfe und bestätige die Transaktion in der nächsten Ansicht"
+    "Review and confirm transaction in the next screen" : "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
+    "N/A": "K/A"
   },
   "screens/ChooseLoanTokenScreen": {
     "Search for loans": "Nach Darlehen suchen"
+  },
+  "components/EmptyCollateral": {
+    "No collaterals": "Keine Sicherheiten",
+    "Add DFI and tokens as collateral to get started with loans.": "Füge DFI und Token als Sicherheiten hinzu, um Darlehen aufnehmen zu können."
   }
 }
