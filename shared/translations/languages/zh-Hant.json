@@ -723,7 +723,7 @@
     "Create vault": "創建金庫",
     "Total transaction cost": "總交易費用",
     "VAULT DETAILS": "金庫明細",
-    "Min. collateral ratio": "最小抵押率",
+    "Min. collateralization ratio": "最小抵押率",
     "Interest rate (APR)": "利率（以回報率計算）",
     "APR": "回報率",
     "CONFIRM CREATE VAULT": "確認創建金庫",
@@ -739,7 +739,13 @@
     "The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.": "抵押率指的是存放在金庫中的抵押品數量與貸款金額的關係比例，而是由百分比表示。",
     "Next collateralization ratio represents the vault's collateralization ratio based on the prices of the collateral/loan token(s) in the next hour.": "下一個抵押率代表金庫的抵押率，以下一個小時的抵押品/貸款代幣的價格算出。",
     "Annual vault interest rate based on the loan scheme selected.": "基於所選貸款計劃的金庫年利率。",
-    "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "基於所選貸款計劃的最低要求抵押率。當抵押率低於最低要求時，金庫將被清算。"
+    "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "基於所選貸款計劃的最低要求抵押率。當抵押率低於最低要求時，金庫將被清算。",
+    "Collateralization ratio": "抵押品比率",
+    "Interest amount": "",
+    "Next collateralization": "",
+    "Min. collateralization ratio": "最小抵押率",
+    "This amount is the total interest amount from both vault and token interest rate.": "",
+    "Annual vault interest": ""
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金庫編號",
@@ -772,7 +778,7 @@
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "貸款計劃",
-    "Min. collateral ratio": "最小抵押率",
+    "Min. collateralization ratio": "最小抵押率",
     "Vault interest": "金庫利息",
     "VAULT DETAILS": "金庫明細",
     "COLLATERALIZATION DETAILS": "COLLATERALIZATION DETAILS",
@@ -854,7 +860,7 @@
     "TRANSACTION DETAILS": "交易明細",
     "Collateralization ratio": "抵押率",
     "Resulting collateralization": "最終抵押率",
-    "Min. collateral ratio": "最低抵押率",
+    "Min. collateralization ratio": "最低抵押率",
     "Interest (Vault + Token)": "利息 (金庫+代幣)",
     "Total interest amount": "總利息金額",
     "Total loan + interest": "貸款總額+利息",

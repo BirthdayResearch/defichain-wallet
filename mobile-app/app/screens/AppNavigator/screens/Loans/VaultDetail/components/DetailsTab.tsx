@@ -40,7 +40,7 @@ function VaultDetailsSection (props: { minColRatio: BigNumber, vaultInterest: Bi
         text={translate('components/VaultDetailDetailsTab', 'VAULT DETAILS')}
       />
       <NumberRow
-        lhs={translate('components/VaultDetailDetailsTab', 'Min. collateral ratio')}
+        lhs={translate('components/VaultDetailDetailsTab', 'Min. collateralization ratio')}
         rhs={{
           value: props.minColRatio.toFixed(2),
           testID: 'text_min_col_ratio',

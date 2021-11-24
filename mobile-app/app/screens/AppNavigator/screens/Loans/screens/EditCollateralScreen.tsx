@@ -372,9 +372,9 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
         testID='text_total_collateral_value'
         value={new BigNumber(vault.loanScheme.minColRatio ?? 0).toFixed(2)} suffix='%'
         suffixType='text'
-        lhs={translate('screens/EditCollateralScreen', 'Min. collateral ratio')}
+        lhs={translate('screens/EditCollateralScreen', 'Min. collateralization ratio')}
         info={{
-          title: 'Min. collateral ratio',
+          title: 'Min. collateralization ratio',
           message: 'Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.'
         }}
       />

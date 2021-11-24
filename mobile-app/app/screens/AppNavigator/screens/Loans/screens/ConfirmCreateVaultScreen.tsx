@@ -196,7 +196,7 @@ function SummaryVaultDetails (props: { loanScheme: LoanScheme }): JSX.Element {
         text={translate('screens/ConfirmCreateVaultScreen', 'VAULT DETAILS')}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmCreateVaultScreen', 'Min. collateral ratio')}
+        lhs={translate('screens/ConfirmCreateVaultScreen', 'Min. collateralization ratio')}
         rhs={{
           value: new BigNumber(props.loanScheme.minColRatio).toFixed(2),
           testID: 'confirm_min_col_ratio_value',
@@ -205,7 +205,7 @@ function SummaryVaultDetails (props: { loanScheme: LoanScheme }): JSX.Element {
           style: tailwind('ml-0')
         }}
         info={{
-          title: 'Min. collateral ratio',
+          title: 'Min. collateralization ratio',
           message: 'Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.'
         }}
       />

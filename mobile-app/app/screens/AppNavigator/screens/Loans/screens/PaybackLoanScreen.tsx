@@ -223,7 +223,7 @@ export function VaultInput ({ vault }: VaultInputProps): JSX.Element {
   }
 
   const minCollateralRatioInfo = {
-    title: 'Min. collateral ratio',
+    title: 'Min. collateralization ratio',
     message: 'Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.'
   }
 
@@ -276,7 +276,7 @@ export function VaultInput ({ vault }: VaultInputProps): JSX.Element {
             dark={tailwind('text-gray-400')}
             style={tailwind('text-xs mr-1')}
           >
-            {translate('screens/PaybackLoanScreen', 'Min. collateral ratio')}
+            {translate('screens/PaybackLoanScreen', 'Min. collateralization ratio')}
           </ThemedText>
           <BottomSheetInfo alertInfo={minCollateralRatioInfo} name={minCollateralRatioInfo.title} infoIconStyle={tailwind('text-xs')} />
         </View>

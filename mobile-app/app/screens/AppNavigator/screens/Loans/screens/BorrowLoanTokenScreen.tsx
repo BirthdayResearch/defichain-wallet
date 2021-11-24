@@ -536,7 +536,7 @@ export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.
   )
 
   const minCollateralRatioInfo = {
-    title: 'Min. collateral ratio',
+    title: 'Min. collateralization ratio',
     message: 'Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.'
   }
 
@@ -566,7 +566,7 @@ export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.
           />
         )}
       <NumberRow
-        lhs={translate('screens/BorrowLoanTokenScreen', 'Min. collateral ratio')}
+        lhs={translate('screens/BorrowLoanTokenScreen', 'Min. collateralization ratio')}
         info={minCollateralRatioInfo}
         rhs={{
           value: props.vault.loanScheme.minColRatio,
