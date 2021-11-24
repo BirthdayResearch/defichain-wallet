@@ -60,7 +60,7 @@ context('Wallet - Loans - Confirm create vault', () => {
     cy.getByTestID('confirm_min_col_ratio_value').should('contain', '150.00')
     cy.getByTestID('confirm_interest_rate_value').should('contain', '5.00')
     cy.getByTestID('button_confirm_create_vault').click().wait(4000)
-    cy.getByTestID('txn_authorization_description').should('contain', 'Creating vault with min. collateral ratio of 150% and interest rate of 5% APR')
+    cy.getByTestID('txn_authorization_description').should('contain', 'Creating vault with min. collateralization ratio of 150% and interest rate of 5% APR')
 
     // Cancel first selection
     cy.getByTestID('cancel_authorization').click()
@@ -70,7 +70,7 @@ context('Wallet - Loans - Confirm create vault', () => {
     cy.getByTestID('confirm_min_col_ratio_value').should('contain', '175.00')
     cy.getByTestID('confirm_interest_rate_value').should('contain', '3.00')
     cy.getByTestID('button_confirm_create_vault').click().wait(4000)
-    cy.getByTestID('txn_authorization_description').should('contain', 'Creating vault with min. collateral ratio of 175% and interest rate of 3% APR')
+    cy.getByTestID('txn_authorization_description').should('contain', 'Creating vault with min. collateralization ratio of 175% and interest rate of 3% APR')
     cy.closeOceanInterface()
   })
 

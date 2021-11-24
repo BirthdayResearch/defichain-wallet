@@ -196,7 +196,7 @@ function SummaryVaultDetails (props: { loanScheme: LoanScheme }): JSX.Element {
         text={translate('screens/ConfirmCreateVaultScreen', 'VAULT DETAILS')}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmCreateVaultScreen', 'Min. collateral ratio')}
+        lhs={translate('screens/ConfirmCreateVaultScreen', 'Min. collateralization ratio')}
         rhs={{
           value: new BigNumber(props.loanScheme.minColRatio).toFixed(2),
           testID: 'confirm_min_col_ratio_value',
@@ -242,7 +242,7 @@ async function createVault ({
     dispatch(transactionQueue.actions.push({
       sign: signer,
       title: translate('screens/ConfirmCreateVaultScreen', 'Creating vault'),
-      description: translate('screens/ConfirmCreateVaultScreen', 'Creating vault with min. collateral ratio of {{amount}}% and interest rate of {{ir}}% APR', {
+      description: translate('screens/ConfirmCreateVaultScreen', 'Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR', {
         amount: loanScheme.minColRatio,
         ir: loanScheme.interestRate
       }),

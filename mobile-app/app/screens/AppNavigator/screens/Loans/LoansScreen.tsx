@@ -35,27 +35,27 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
     hasFetchedVaultsData,
     hasFetchedLoansData
   } = useSelector((state: RootState) => state.loans)
-  const [activeTab, setActiveTab] = useState<string>(TabKey.BrowseLoans)
+  const [activeTab, setActiveTab] = useState<string>(TabKey.YourVaults)
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
   const onPress = (tabId: string): void => {
     if (tabId === TabKey.YourVaults) {
       setShowSearchInput(false)
     } else if (searchString !== '') {
-        setShowSearchInput(true)
+      setShowSearchInput(true)
     } else {
       // no-op: maintain search input state if no query
     }
     setActiveTab(tabId)
   }
   const tabsList = [{
-    id: TabKey.BrowseLoans,
-    label: 'Browse loan tokens',
+    id: TabKey.YourVaults,
+    label: 'Your vaults',
     disabled: false,
     handleOnPress: onPress
   }, {
-    id: TabKey.YourVaults,
-    label: 'Your vaults',
+    id: TabKey.BrowseLoans,
+    label: 'Browse loan tokens',
     disabled: false,
     handleOnPress: onPress
   }]
@@ -70,7 +70,7 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
         loan.token.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
       ))
     }, 500)
-  , [loans, hasFetchedLoansData])
+    , [loans, hasFetchedLoansData])
 
   useEffect(() => {
     if (loans.length === 0) {
@@ -105,7 +105,7 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
         } else {
           return (
             <TouchableOpacity
-            // eslint-disable-next-line
+              // eslint-disable-next-line
               onPress={() => navigation.navigate({
                 name: 'CreateVaultScreen',
                 params: {},
@@ -152,7 +152,7 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
           screen={SkeletonLoaderScreen.Loan}
         />
       </View>
-)
+    )
   } else if (vaults?.length === 0) {
     return (
       <EmptyVault

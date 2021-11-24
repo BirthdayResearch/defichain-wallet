@@ -40,7 +40,7 @@ function VaultDetailsSection (props: { minColRatio: BigNumber, vaultInterest: Bi
         text={translate('components/VaultDetailDetailsTab', 'VAULT DETAILS')}
       />
       <NumberRow
-        lhs={translate('components/VaultDetailDetailsTab', 'Min. collateral ratio')}
+        lhs={translate('components/VaultDetailDetailsTab', 'Min. collateralization ratio')}
         rhs={{
           value: props.minColRatio.toFixed(2),
           testID: 'text_min_col_ratio',
@@ -84,7 +84,7 @@ function CollateralizationRatioSection (props: CollateralizationRatioSectionProp
       {props.collateralizationRatio.isLessThan(0)
         ? (
           <TextRow
-            lhs={translate('screens/VaultDetailDetailsTab', 'Collateralization ratio')}
+            lhs={translate('components/VaultDetailDetailsTab', 'Collateralization ratio')}
             rhs={{
               value: translate('components/VaultDetailDetailsTab', 'N/A'),
               testID: 'text_col_ratio'
@@ -104,7 +104,7 @@ function CollateralizationRatioSection (props: CollateralizationRatioSectionProp
       {props.nextCollateralizationRatio.isLessThan(0)
         ? (
           <TextRow
-            lhs={translate('screens/VaultDetailDetailsTab', 'Next collateralization')}
+            lhs={translate('components/VaultDetailDetailsTab', 'Next collateralization')}
             rhs={{
               value: translate('components/VaultDetailDetailsTab', 'N/A'),
               testID: 'text_next_col'
