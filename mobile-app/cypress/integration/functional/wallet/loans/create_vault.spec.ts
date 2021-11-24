@@ -15,6 +15,7 @@ context('Wallet - Loans - Create vault', () => {
 
   it('should navigate to create vault screen', function () {
     cy.getByTestID('bottom_tab_loans').click()
+    cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
     cy.getByTestID('button_create_vault').click()
     cy.getByTestID('create_vault_screen').should('exist')
   })
@@ -22,6 +23,7 @@ context('Wallet - Loans - Create vault', () => {
   it('should display correct loan schemes in create vault screen', function () {
     cy.intercept('**/loans/schemes?size=50').as('loanSchemes')
     cy.getByTestID('bottom_tab_loans').click()
+    cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
     cy.getByTestID('button_create_vault').click()
     cy.getByTestID('create_vault_submit_button').should('have.attr', 'aria-disabled')
     cy.getByTestID('loan_scheme_options').should('exist')
@@ -53,6 +55,7 @@ context('Wallet - Loans - Confirm create vault', () => {
 
   it('should navigate to confirm create vault screen and create a vault', function () {
     cy.getByTestID('bottom_tab_loans').click()
+    cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
     cy.getByTestID('button_create_vault').click()
     cy.getByTestID('loan_scheme_option_0').click()
     cy.getByTestID('create_vault_submit_button').click()
