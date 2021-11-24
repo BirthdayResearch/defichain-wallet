@@ -377,6 +377,23 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     }
   }
 
+  const onTokenSwitch = async (): Promise<void> => {
+    if (selectedTokenA !== undefined && selectedTokenB !== undefined) {
+      // TODO check DFI, check normal token
+      const tokenBId = selectedTokenB.id === '0' ? '0_unified' : selectedTokenB.id
+      const ownedTokenB = tokens.find(token => token.id === tokenBId)
+      setSelectedTokenA({
+        ...selectedTokenB,
+        amount: ownedTokenB !== undefined ? ownedTokenB.amount : '0'
+      })
+      setSelectedTokenB(selectedTokenA)
+      setValue('tokenA', '')
+      await trigger('tokenA')
+      setValue('tokenB', '')
+      await trigger('tokenB')
+    }
+  }
+
   return (
     <View style={tailwind('h-full')} ref={containerRef}>
       <ThemedScrollView>
@@ -425,10 +442,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               maxAmount={getMaxAmount(selectedTokenA)}
               enableMaxButton
               onChangeFromAmount={async (amount) => {
-              amount = isNaN(+amount) ? '0' : amount
-              setValue('tokenA', amount)
-              await trigger('tokenA')
-            }}
+                amount = isNaN(+amount) ? '0' : amount
+                setValue('tokenA', amount)
+                await trigger('tokenA')
+              }}
               token={selectedTokenA}
             />
             <InputHelperText
@@ -438,12 +455,22 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               suffix={` ${selectedTokenA.displaySymbol}`}
             />
             {selectedTokenA.id === '0_unified' && <ReservedDFIInfoText />}
-            <View style={tailwind(['mt-4', { 'mb-4': isConversionRequired }])}>
+            <View style={tailwind(['mt-4 flex flex-row', { 'mb-4': isConversionRequired }])}>
+              <ThemedIcon
+                name='swap-vert'
+                size={24}
+                iconType='MaterialIcons'
+                onPress={onTokenSwitch}
+                testID='switch_button'
+                style={tailwind('w-8 mt-4')}
+                dark={tailwind('text-darkprimary-500')}
+                light={tailwind('text-primary-500')}
+              />
               <TokenRow
                 control={control}
                 controlName='tokenB'
                 isDisabled
-                title={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
+                title=''
                 token={selectedTokenB}
                 enableMaxButton={false}
               />
@@ -712,7 +739,7 @@ function TokenRow (form: TokenForm): JSX.Element {
         <ThemedView
           dark={tailwind('bg-transparent')}
           light={tailwind('bg-transparent')}
-          style={tailwind('flex-row w-full')}
+          style={tailwind('flex-row flex-grow')}
         >
           <WalletTextInput
             autoCapitalize='none'
