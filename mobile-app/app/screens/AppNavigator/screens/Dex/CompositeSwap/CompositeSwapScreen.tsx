@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Platform, View } from 'react-native'
+import { Platform, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Control, Controller, useForm } from 'react-hook-form'
 import BigNumber from 'bignumber.js'
@@ -455,16 +455,19 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             />
             {selectedTokenA.id === '0_unified' && <ReservedDFIInfoText />}
             <View style={tailwind(['mt-4 flex flex-row', { 'mb-4': isConversionRequired }])}>
-              <ThemedIcon
-                name='swap-vert'
-                size={24}
-                iconType='MaterialIcons'
+              <TouchableOpacity
                 onPress={onTokenSwitch}
                 testID='switch_button'
-                style={tailwind('w-8 mt-4')}
-                dark={tailwind('text-darkprimary-500')}
-                light={tailwind('text-primary-500')}
-              />
+              >
+                <ThemedIcon
+                  name='swap-vert'
+                  size={24}
+                  iconType='MaterialIcons'
+                  style={tailwind('w-8 mt-4')}
+                  dark={tailwind('text-darkprimary-500')}
+                  light={tailwind('text-primary-500')}
+                />
+              </TouchableOpacity>
               <TokenRow
                 control={control}
                 controlName='tokenB'
