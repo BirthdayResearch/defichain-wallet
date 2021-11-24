@@ -14,12 +14,11 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { loanTokenByTokenId } from '@store/loans'
+import { loanTokenByTokenId, vaultsSelector } from '@store/loans'
 import { Button } from '@components/Button'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
-import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { useLoanOperations } from '../hooks/LoanOperations'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowMoreScreen'>
@@ -31,7 +30,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
   } = route.params
   const client = useWhaleApiClient()
   const logger = useLogger()
-  const vaults = useSelector((state: RootState) => (state.loans.vaults))
+  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const loanToken = useSelector((state: RootState) => loanTokenByTokenId(state.loans, loanTokenAmount.id))
   const [vault, setVault] = useState<LoanVaultActive>(vaultFromRoute)
   const [amountToAdd, setAmountToAdd] = useState('')
@@ -43,7 +42,6 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
   new BigNumber(totalLoanWithInterest), new BigNumber(loanTokenAmount.activePrice?.active?.amount ?? 0))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const interestPerBlock = useInterestPerBlock(new BigNumber(vault.loanScheme.interestRate), new BigNumber(loanToken?.interest ?? 0), new BigNumber(amountToAdd))
   const canUseOperations = useLoanOperations(vault?.state)
 
   // Form update
@@ -54,8 +52,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
       amount.isLessThanOrEqualTo(0) ||
       vault === undefined ||
       resultingColRatio === undefined ||
-      resultingColRatio.isLessThan(vault.loanScheme.minColRatio) ||
-      interestPerBlock.isLessThanOrEqualTo(0.00000009))
+      resultingColRatio.isLessThan(vault.loanScheme.minColRatio))
   }
 
   const updateInterestAmount = (): void => {

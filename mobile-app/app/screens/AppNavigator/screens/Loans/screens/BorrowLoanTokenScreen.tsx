@@ -19,7 +19,7 @@ import NumberFormat from 'react-number-format'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { NumberRow } from '@components/NumberRow'
 import { BottomSheetVaultList } from '../components/BottomSheetVaultList'
-import { fetchVaults, LoanVault } from '@store/loans'
+import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
 import { LoanToken, LoanVaultActive, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { TextRow } from '@components/TextRow'
@@ -38,7 +38,6 @@ import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Lo
 import { queueConvertTransaction } from '@hooks/wallet/Conversion'
 import { useResultingCollateralRatio } from '../hooks/CollateralPrice'
 import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
-import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
@@ -57,7 +56,7 @@ export function BorrowLoanTokenScreen ({
   const { address } = useWalletContext()
   const dispatch = useDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const vaults = useSelector((state: RootState) => (state.loans.vaults))
+  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const [vault, setVault] = useState<LoanVaultActive | undefined>(route.params.vault)
   const [amountToBorrow, setAmountToBorrow] = useState('')
   const [totalInterestAmount, setTotalInterestAmount] = useState(new BigNumber(NaN))
@@ -66,7 +65,6 @@ export function BorrowLoanTokenScreen ({
   const [valid, setValid] = useState(false)
   const resultingColRatio = useResultingCollateralRatio(new BigNumber(vault?.collateralValue ?? NaN), new BigNumber(vault?.loanValue ?? NaN),
   new BigNumber(totalLoanWithInterest), new BigNumber(loanToken.activePrice?.active?.amount ?? 0))
-  const interestPerBlock = useInterestPerBlock(new BigNumber(vault?.loanScheme.interestRate ?? 0), new BigNumber(loanToken.interest), new BigNumber(amountToBorrow))
 
   // Conversion
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
@@ -128,8 +126,7 @@ export function BorrowLoanTokenScreen ({
       vault === undefined ||
       resultingColRatio === undefined ||
       resultingColRatio.isNaN() ||
-      resultingColRatio.isLessThan(vault.loanScheme.minColRatio) ||
-      interestPerBlock.isLessThanOrEqualTo(0.00000009))
+      resultingColRatio.isLessThan(vault.loanScheme.minColRatio))
   }
 
   const updateInterestAmount = (): void => {

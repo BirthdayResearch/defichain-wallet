@@ -8,7 +8,7 @@ import { EmptyVault } from './components/EmptyVault'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { fetchLoanSchemes, fetchLoanTokens, fetchVaults } from '@store/loans'
+import { fetchLoanSchemes, fetchLoanTokens, fetchVaults, loanTokensSelector } from '@store/loans'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { LoanCards } from './components/LoanCards'
@@ -31,10 +31,10 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
   const blockCount = useSelector((state: RootState) => state.block.count)
   const {
     vaults,
-    loanTokens: loans,
     hasFetchedVaultsData,
     hasFetchedLoansData
   } = useSelector((state: RootState) => state.loans)
+  const loans = useSelector((state: RootState) => loanTokensSelector(state.loans))
   const [activeTab, setActiveTab] = useState<string>(TabKey.YourVaults)
   const dispatch = useDispatch()
   const client = useWhaleApiClient()

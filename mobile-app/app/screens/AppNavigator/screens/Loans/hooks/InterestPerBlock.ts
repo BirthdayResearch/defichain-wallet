@@ -6,6 +6,6 @@ export function useInterestPerBlock (vaultInterest: BigNumber, loanTokenInterest
   const { network } = useNetworkContext()
   const blocksPerDay = network === EnvironmentNetwork.MainNet || network === EnvironmentNetwork.TestNet ? 2880 : 144
 
-  return vaultInterest.plus(loanTokenInterest).multipliedBy(loanAmount).dividedBy(
+  return vaultInterest.plus(loanTokenInterest).dividedBy(100).multipliedBy(loanAmount).dividedBy(
     new BigNumber(365).multipliedBy(blocksPerDay))
 }
