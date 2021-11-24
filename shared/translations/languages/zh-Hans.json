@@ -860,7 +860,12 @@
     "Total loan + interest": "贷款总额+利息",
     "Review and confirm transaction in the next screen": "在下个屏幕中检查并确认交易",
     "SELECT LOAN TOKEN": "选择贷款代币",
-    "CONTINUE": "继续"
+    "CONTINUE": "继续",
+    "Insufficient vault collateral to borrow this amount": "抵押金库不足够支付借贷金额",
+    "This amount may place the vault in liquidation": "这金额可能会导致金库清算",
+    "Unable to proceed because of errors": "错误而无法继续",
+    "Max loan amount": "最高的贷款金额",
+    "N/A": "不适用"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "您正要借用",
@@ -890,6 +895,11 @@
     "Enter an amount": "请输入数量",
     "VAULT IN USE": "VAULT IN USE",
     "CONTINUE": "继续",
-    "Review and confirm transaction in the next screen" : "在下个屏幕中检查并确认交易"
+    "Review and confirm transaction in the next screen" : "在下个屏幕中检查并确认交易",
+    "Insufficient vault collateral to borrow this amount": "抵押金库不足够支付借贷金额",
+    "This amount may place the vault in liquidation": "这金额可能会导致金库清算",
+    "Unable to proceed because of errors": "错误而无法继续",
+    "Max loan amount": "最高的贷款金额",
+    "N/A": "不适用"
   }
 }
