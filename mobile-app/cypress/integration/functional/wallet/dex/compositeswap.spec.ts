@@ -68,6 +68,7 @@ context('Wallet - DEX - Composite Swap with balance', () => {
   })
 
   it('should be able to choose tokens to swap', function () {
+    cy.getByTestID('composite_swap').click()
     cy.getByTestID('token_select_button_FROM').click()
     cy.getByTestID('select_DFI_value').should('have.text', '20.00000000')
     cy.getByTestID('select_DFI').click().wait(1000)
