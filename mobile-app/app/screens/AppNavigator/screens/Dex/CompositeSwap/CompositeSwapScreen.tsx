@@ -39,7 +39,7 @@ import { TextRow } from '@components/TextRow'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { checkIfPair, findPath, getAdjacentNodes, GraphProps } from '../helpers/path-finding'
-import { SlippageTolerance } from '../PoolSwap/components/SlippageTolerance'
+import { SlippageTolerance } from './components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
 
 export interface TokenState {
@@ -80,6 +80,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const [allowedSwapToTokens, setAllowedSwapToTokens] = useState<BottomSheetToken[]>()
   const [allTokens, setAllTokens] = useState<TokenState[]>()
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
+  const [isTokenSelectDisabled, setIsTokenSelectDisabled] = useState(false)
   const containerRef = useRef(null)
   const bottomSheetRef = useRef<BottomSheetModal>(null)
 
@@ -135,35 +136,29 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     return maxAmount.isLessThanOrEqualTo(0) ? new BigNumber(0).toFixed(8) : maxAmount.toFixed(8)
   }
 
-  const onTokenSelect = (selectedTokenId: string, direction: 'FROM' | 'TO'): void => {
-    const tokenId = selectedTokenId === '0_unified' ? '0' : selectedTokenId
-    const token = allTokens?.find(token => token.id === tokenId)
-    const ownedToken = tokens?.find(token => token.id === selectedTokenId)
-
-    if (token === undefined) {
-      return
-    }
-
+  const onTokenSelect = ({ tokenId, reserve, token: { displaySymbol, symbol } }: BottomSheetToken, direction: 'FROM' | 'TO'): void => {
+    const ownedToken = tokens?.find(token => token.id === tokenId)
     const derivedToken = {
-      id: ownedToken !== undefined ? ownedToken.id : token.id, // retrieve unified token if selected
-      symbol: token.symbol,
-      displaySymbol: token.displaySymbol
+      id: ownedToken !== undefined ? ownedToken.id : tokenId, // retrieve unified token if selected
+      symbol,
+      displaySymbol,
+      reserve: reserve !== undefined ? new BigNumber(reserve).toFixed(8) : new BigNumber(0).toFixed(8)
     }
 
-    if (direction === 'FROM' && ownedToken !== undefined) {
+    if (direction === 'FROM') {
       setSelectedTokenA({
         ...derivedToken,
-        amount: ownedToken.amount,
-        reserve: token.reserve
+        amount: ownedToken === undefined ? '0' : ownedToken.amount
       })
-    } else {
-      setSelectedTokenB({
-        ...derivedToken,
-        reserve: token.reserve
-      })
-    }
 
-    direction === 'FROM' && selectedTokenB !== undefined && setSelectedTokenB(undefined)
+      if (selectedTokenB !== undefined) {
+        setSelectedTokenB(undefined)
+        setValue('tokenA', '')
+        setValue('tokenB', '')
+      }
+    } else {
+      setSelectedTokenB(derivedToken)
+    }
   }
 
   const onBottomSheetSelect = ({ direction }: { direction: 'FROM' | 'TO' }): void => {
@@ -172,10 +167,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         stackScreenName: 'TokenList',
         component: BottomSheetTokenList({
           tokens: direction === 'FROM' ? allowedSwapFromTokens ?? [] : allowedSwapToTokens ?? [],
-          headerLabel: translate('screens/CompositeSwapScreen', 'Choose token for swap'),
+          headerLabel: translate('screens/CompositeSwapScreen', direction === 'FROM' ? 'Choose token for swap' : 'Choose token to swap'),
           onCloseButtonPress: () => dismissModal(),
           onTokenPress: (item): void => {
-            onTokenSelect(item.tokenId, direction)
+            onTokenSelect(item, direction)
             dismissModal()
           }
         }),
@@ -196,10 +191,31 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     if (route.params.pair?.id === undefined) {
       return
     }
+
+    setIsTokenSelectDisabled(true)
+
     const pair = pairs.find((pair) => pair.data.id === route.params.pair?.id)
-    if (pair !== undefined) {
-      onTokenSelect(pair.data.tokenA.id, 'FROM')
-      onTokenSelect(pair.data.tokenB.id, 'TO')
+    if (pair !== undefined && selectedTokenA === undefined && selectedTokenB === undefined) {
+      onTokenSelect({
+        tokenId: pair.data.tokenA.id,
+        available: new BigNumber(pair.data.tokenA.reserve),
+        token: {
+          displaySymbol: pair.data.tokenA.displaySymbol,
+          symbol: pair.data.tokenA.symbol,
+          name: '' // not available in API
+        },
+        reserve: pair.data.tokenA.reserve
+      }, 'FROM')
+      onTokenSelect({
+        tokenId: pair.data.tokenB.id,
+        available: new BigNumber(pair.data.tokenB.reserve),
+        token: {
+          displaySymbol: pair.data.tokenB.displaySymbol,
+          symbol: pair.data.tokenB.symbol,
+          name: '' // not available in API
+        },
+        reserve: pair.data.tokenB.reserve
+      }, 'TO')
     }
   }, [pairs, route.params.pair])
 
@@ -226,26 +242,30 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   }, [pairs])
 
   useEffect(() => {
-    const swappableFromTokens = tokens
-      .filter(token => !token.isLPS && token.id !== '0' && token.id !== '0_utxo' && new BigNumber(token.amount).isGreaterThan(0))
-      .reduce((swappedTokens: BottomSheetToken[], token): BottomSheetToken[] => {
-        const derivedBottomSheetToken: BottomSheetToken = {
-          tokenId: token.id,
-          available: new BigNumber(token.amount),
+    if (allTokens === undefined) {
+      return
+    }
+
+    const swappableFromTokens: BottomSheetToken[] = allTokens
+      .map((token) => {
+        const tokenId = token.id === '0' ? '0_unified' : token.id
+        const ownedToken = tokens.find(t => t.id === tokenId)
+        return {
+          tokenId: tokenId,
+          available: new BigNumber(ownedToken === undefined ? 0 : ownedToken.amount),
           token: {
             displaySymbol: token.displaySymbol,
-            name: '' // not available in API
-          }
+            name: '', // not available in API,
+            symbol: token.symbol
+          },
+          reserve: token.reserve
         }
-
-        return [...swappedTokens, derivedBottomSheetToken]
-      }, [])
+      })
 
     setAllowedSwapFromTokens(swappableFromTokens)
 
     if (selectedTokenA !== undefined && allTokens !== undefined) {
-      const swappableToTokens = getAllPossibleSwapToTokens(allTokens, pairs, selectedTokenA.id === '0_unified' ? '0' : selectedTokenA.id)
-      setAllowedSwapToTokens(swappableToTokens)
+      setAllowedSwapToTokens(getAllPossibleSwapToTokens(allTokens, pairs, selectedTokenA.id === '0_unified' ? '0' : selectedTokenA.id))
     }
   }, [tokens, selectedTokenA, selectedTokenB])
 
@@ -260,7 +280,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       })
       // TODO - Handle cheapest path with N hops, currently this logic finds the shortest path
       const { path } = findPath(graph, selectedTokenA.symbol, selectedTokenB.symbol)
-
       const poolPairs = path.reduce((poolPairs: PoolPairData[], token, index): PoolPairData[] => {
         const pair = pairs.find(pair => checkIfPair({
           a: pair.data.tokenA.symbol,
@@ -378,10 +397,12 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             label={translate('screens/CompositeSwapScreen', 'FROM')}
             symbol={selectedTokenA?.displaySymbol}
             onPress={() => onBottomSheetSelect({ direction: 'FROM' })}
+            disabled={isTokenSelectDisabled}
           />
           <TokenSelection
             label={translate('screens/CompositeSwapScreen', 'TO')} symbol={selectedTokenB?.displaySymbol}
             onPress={() => onBottomSheetSelect({ direction: 'TO' })}
+            disabled={isTokenSelectDisabled}
           />
         </View>
 
@@ -393,35 +414,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             testID='swap_instructions'
           > {translate('screens/CompositeSwapScreen', 'Select tokens you want to swap to get started')}
           </ThemedText>}
-
-        {allowedSwapFromTokens?.length === 0 &&
-          <ThemedView
-            style={tailwind('px-8 mt-16 pb-2 text-center')}
-            testID='empty_balances'
-          >
-            <ThemedIcon
-              light={tailwind('text-black')}
-              dark={tailwind('text-white')}
-              iconType='MaterialCommunityIcons'
-              name='circle-off-outline'
-              size={32}
-              style={tailwind('pb-2 text-center')}
-            />
-            <ThemedText testID='empty_tokens_title' style={tailwind('text-2xl pb-2 font-semibold text-center')}>
-              {translate('screens/CompositeSwapScreen', 'You do not have tokens to swap')}
-            </ThemedText>
-
-            <ThemedText testID='empty_tokens_subtitle' style={tailwind('text-sm px-8 pb-4 text-center opacity-60')}>
-              {translate('screens/CompositeSwapScreen', 'Get started by adding your tokens here in your wallet')}
-            </ThemedText>
-
-            <Button
-              label={translate('screens/TransactionsScreen', 'RECEIVE TOKENS')}
-              onPress={() => navigation.navigate('Receive')}
-              testID='button_receive_coins'
-              title='Receive Tokens'
-            />
-          </ThemedView>}
 
         {selectedTokenA !== undefined && selectedTokenB !== undefined &&
           <View style={tailwind('mt-10 mx-4')}>
@@ -515,9 +507,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   )
 }
 
-function TokenSelection (props: { symbol?: string, label: string, onPress: () => void }): JSX.Element {
+function TokenSelection (props: { symbol?: string, label: string, onPress: () => void, disabled: boolean }): JSX.Element {
   const Icon = getNativeIcon(props.symbol ?? '')
-
   return (
     <View style={[tailwind('flex-grow mx-2'), { flexBasis: 0 }]}>
       <ThemedText
@@ -529,9 +520,16 @@ function TokenSelection (props: { symbol?: string, label: string, onPress: () =>
       <ThemedTouchableOpacity
         onPress={props.onPress}
         testID={`token_select_button_${props.label}`}
-        dark={tailwind('bg-gray-800 border-gray-400')}
-        light={tailwind('bg-white border-gray-300')}
+        dark={tailwind({
+          'bg-gray-600 text-gray-500 border-0': props.disabled,
+          'bg-gray-800 border-gray-400': !props.disabled
+})}
+        light={tailwind({
+          'bg-gray-200 border-0': props.disabled,
+          'bg-white border-gray-300': !props.disabled
+})}
         style={tailwind('flex flex-row items-center border rounded p-2')}
+        disabled={props.disabled}
       >
         {props.symbol === undefined &&
           <ThemedText
@@ -545,15 +543,32 @@ function TokenSelection (props: { symbol?: string, label: string, onPress: () =>
         {props.symbol !== undefined &&
           <>
             <Icon testID='tokenA_icon' height={17} width={17} />
-            <ThemedText style={tailwind('text-gray-500 ml-2')}>{props.symbol}</ThemedText>
+            <ThemedText
+              style={tailwind('ml-2')}
+              dark={tailwind({
+                'text-gray-500': !props.disabled,
+                'text-gray-400': props.disabled
+                })}
+              light={tailwind({
+                'text-gray-900': !props.disabled,
+                'text-gray-500': props.disabled
+                })}
+            >{props.symbol}
+            </ThemedText>
           </>}
 
         <ThemedIcon
           iconType='MaterialIcons'
           name='unfold-more'
           size={20}
-          dark={tailwind('text-darkprimary-500')}
-          light={tailwind('text-primary-500')}
+          dark={tailwind({
+            'text-darkprimary-500': !props.disabled,
+            'text-gray-400': props.disabled
+          })}
+          light={tailwind({
+            'text-primary-500': !props.disabled,
+            'text-gray-500': props.disabled
+          })}
           style={[tailwind('text-center mt-0.5'), { marginLeft: 'auto' }]}
         />
       </ThemedTouchableOpacity>
@@ -587,10 +602,12 @@ function TransactionDetailsSection ({
           suffix: tokenA.displaySymbol
         }}
         />}
-      <TextRow
+      <NumberRow
         lhs={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
         rhs={{
-          value: `${estimatedAmount} ${tokenB.displaySymbol}`,
+          value: estimatedAmount,
+          suffixType: 'text',
+          suffix: tokenB.displaySymbol,
           testID: 'estimated_to_receive'
         }}
         textStyle={tailwind('text-sm font-normal')}
@@ -805,8 +822,10 @@ function getAllPossibleSwapToTokens (allTokens: TokenState[], pairs: DexItem[], 
           available: new BigNumber(token.reserve),
           token: {
             name: '', // Not available in API
-            displaySymbol: token.displaySymbol
-          }
+            displaySymbol: token.displaySymbol,
+            symbol: token.symbol
+          },
+          reserve: token.reserve
         }
       ]
     }
