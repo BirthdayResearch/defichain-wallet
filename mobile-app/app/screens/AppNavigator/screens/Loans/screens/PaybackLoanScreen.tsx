@@ -297,10 +297,10 @@ export function VaultInput ({
               dark={tailwind('text-gray-400')}
               style={tailwind('text-xs')}
             >
-              {translate('screens/PaybackLoanScreen', 'Max. loan amount')}
+              {translate('screens/BorrowMoreScreen', 'Max loan amount')}
             </ThemedText>
             <NumberFormat
-              value={maxLoanAmount.isNaN() ? translate('screens/PaybackLoanScreen', 'N/A') : maxLoanAmount.toFixed(8)}
+              value={maxLoanAmount.isNaN() ? translate('screens/BorrowMoreScreen', 'N/A') : maxLoanAmount.toFixed(8)}
               decimalScale={8}
               thousandSeparator
               suffix={` ${loanToken.token.displaySymbol}`}

@@ -513,7 +513,7 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
         testID='vault_interest_text'
       />
       <VaultSectionTextRow
-        lhs={translate('screens/BorrowLoanTokenScreen', 'Max. loan amount')}
+        lhs={translate('screens/BorrowLoanTokenScreen', 'Max loan amount')}
         value={maxLoanAmount.isNaN() ? translate('screens/BorrowLoanTokenScreen', 'N/A') : maxLoanAmount.toFixed(8)}
         suffix={` ${props.loanToken.token.displaySymbol}`}
         suffixType='text'
