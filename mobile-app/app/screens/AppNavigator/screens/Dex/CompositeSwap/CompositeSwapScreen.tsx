@@ -454,7 +454,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               suffix={` ${selectedTokenA.displaySymbol}`}
             />
             {selectedTokenA.id === '0_unified' && <ReservedDFIInfoText />}
-            <View style={tailwind(['mt-4 flex flex-row items-center', { 'mb-4': isConversionRequired }])}>
+            <View style={tailwind(['flex flex-row items-center', { 'mb-4': isConversionRequired }])}>
               <TouchableOpacity
                 onPress={onTokenSwitch}
                 testID='switch_button'
@@ -463,7 +463,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                   name='swap-vert'
                   size={24}
                   iconType='MaterialIcons'
-                  style={tailwind('w-8 mt-4')}
+                  style={tailwind('w-8 mx-2 mt-2.5')}
                   dark={tailwind('text-darkprimary-500')}
                   light={tailwind('text-primary-500')}
                 />
@@ -473,7 +473,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                   control={control}
                   controlName='tokenB'
                   isDisabled
-                  title=''
                   token={selectedTokenB}
                   enableMaxButton={false}
                 />
@@ -703,7 +702,7 @@ interface TokenForm {
   enableMaxButton: boolean
   maxAmount?: string
   onChangeFromAmount?: (amount: string) => void
-  title: string
+  title?: string
   isDisabled: boolean
 }
 
