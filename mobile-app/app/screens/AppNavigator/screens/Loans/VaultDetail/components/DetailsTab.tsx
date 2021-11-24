@@ -57,7 +57,7 @@ function VaultDetailsSection (props: { minColRatio: BigNumber, vaultInterest: Bi
         lhs={translate('components/VaultDetailDetailsTab', 'Vault interest')}
         rhs={{
           value: props.vaultInterest.toFixed(2),
-          testID: 'text_min_col_ratio',
+          testID: 'text_vault_interest_ratio',
           suffixType: 'text',
           suffix: '%',
           style: tailwind('ml-0')

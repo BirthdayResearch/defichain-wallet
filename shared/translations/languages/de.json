@@ -764,8 +764,8 @@
     "Interest amount": "Zinsbetrag",
     "Next collateralization": "Nächste Besicherung",
     "Min. collateralization ratio": "Mindestbesicherungsquote",
-    "This amount is the total interest amount from both vault and token interest rate.": "",
-    "Annual vault interest": ""
+    "This amount is the total interest amount from both vault and token interest rate.": "This amount is the total interest amount from both vault and token interest rate.",
+    "Annual vault interest": "Annual vault interest"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
