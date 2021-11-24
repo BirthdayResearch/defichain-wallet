@@ -195,7 +195,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     setIsTokenSelectDisabled(true)
 
     const pair = pairs.find((pair) => pair.data.id === route.params.pair?.id)
-    if (pair !== undefined && selectedTokenA === undefined && selectedTokenB === undefined) {
+    if (pair !== undefined) {
       onTokenSelect({
         tokenId: pair.data.tokenA.id,
         available: new BigNumber(pair.data.tokenA.reserve),
@@ -217,7 +217,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         reserve: pair.data.tokenB.reserve
       }, 'TO')
     }
-  }, [pairs, route.params.pair])
+  }, [route.params.pair])
 
   useEffect(() => {
     if (pairs === undefined) {
@@ -413,12 +413,12 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             label={translate('screens/CompositeSwapScreen', 'FROM')}
             symbol={selectedTokenA?.displaySymbol}
             onPress={() => onBottomSheetSelect({ direction: 'FROM' })}
-            disabled={isTokenSelectDisabled}
+            disabled={isTokenSelectDisabled || allowedSwapFromTokens === undefined || allowedSwapFromTokens?.length === 0}
           />
           <TokenSelection
             label={translate('screens/CompositeSwapScreen', 'TO')} symbol={selectedTokenB?.displaySymbol}
             onPress={() => onBottomSheetSelect({ direction: 'TO' })}
-            disabled={isTokenSelectDisabled}
+            disabled={isTokenSelectDisabled || allowedSwapToTokens === undefined || allowedSwapToTokens?.length === 0}
           />
         </View>
 
