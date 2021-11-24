@@ -116,7 +116,7 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
               <ThemedIcon
                 size={28}
                 style={tailwind('mr-2')} light={tailwind('text-primary-500')}
-                dark={tailwind('text-primary-500')} iconType='MaterialCommunityIcons' name='plus'
+                dark={tailwind('text-dfxred-500')} iconType='MaterialCommunityIcons' name='plus'
               />
             </TouchableOpacity>
           )

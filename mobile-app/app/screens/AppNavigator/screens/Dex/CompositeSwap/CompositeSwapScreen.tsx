@@ -464,7 +464,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                   size={24}
                   iconType='MaterialIcons'
                   style={tailwind('w-8 mx-2 mt-2.5')}
-                  dark={tailwind('text-darkprimary-500')}
+                  dark={tailwind('text-dfxred-500')}
                   light={tailwind('text-primary-500')}
                 />
               </TouchableOpacity>
@@ -550,11 +550,7 @@ function TokenSelection (props: { symbol?: string, label: string, onPress: () =>
       <ThemedTouchableOpacity
         onPress={props.onPress}
         testID={`token_select_button_${props.label}`}
-        // TODO: disabled?
-        dark={tailwind({
-          'bg-gray-600 text-gray-500 border-0': props.disabled,
-          'bg-dfxblue-800 border-dfxblue-900': !props.disabled
-        })}
+        dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
         light={tailwind({
           'bg-gray-200 border-0': props.disabled,
           'bg-white border-gray-300': !props.disabled
@@ -564,7 +560,10 @@ function TokenSelection (props: { symbol?: string, label: string, onPress: () =>
       >
         {props.symbol === undefined &&
           <ThemedText
-            dark={tailwind('text-dfxgray-400')}
+            dark={tailwind({
+              'text-dfxgray-500': !props.disabled,
+              'text-dfxblue-900': props.disabled
+            })}
             light={tailwind('text-dfxgray-500')}
             style={tailwind('text-sm leading-6')}
           >
@@ -577,8 +576,8 @@ function TokenSelection (props: { symbol?: string, label: string, onPress: () =>
             <ThemedText
               style={tailwind('ml-2')}
               dark={tailwind({
-                'text-dfxgray-500': !props.disabled,
-                'text-gray-400': props.disabled // TODO: disabled?
+                'text-white': !props.disabled,
+                'text-dfxgray-400': props.disabled
                 })}
               light={tailwind({
                 'text-gray-900': !props.disabled,
@@ -593,8 +592,8 @@ function TokenSelection (props: { symbol?: string, label: string, onPress: () =>
           name='unfold-more'
           size={20}
           dark={tailwind({
-            'text-dfxred-500': !props.disabled, // TODO: disabled?
-            'text-gray-400': props.disabled
+            'text-dfxred-500': !props.disabled,
+            'text-transparent': props.disabled
           })}
           light={tailwind({
             'text-primary-500': !props.disabled,

@@ -256,6 +256,7 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
       onPress={props.onPress}
       testID='button_continue_remove_liq'
       title='continue'
+      margin='m-4'
     />
   )
 }

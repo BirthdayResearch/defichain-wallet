@@ -252,12 +252,10 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
           : translate('screens/AddLiquidity', 'Review full transaction details in the next screen')}
       </ThemedText>
 
-      <View style={tailwind('px-4')}>
-        <ContinueButton
-          enabled={canContinue}
-          onPress={onSubmit}
-        />
-      </View>
+      <ContinueButton
+        enabled={canContinue}
+        onPress={onSubmit}
+      />
     </ThemedScrollView>
   )
 }
@@ -409,7 +407,7 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
       onPress={props.onPress}
       testID='button_continue_add_liq'
       title='Continue'
-      margin='mt-8 mx-0'
+      margin='m-4'
     />
   )
 }

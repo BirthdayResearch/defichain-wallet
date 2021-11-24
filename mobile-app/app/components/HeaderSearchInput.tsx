@@ -19,7 +19,7 @@ export function HeaderSearchInput (props: HeaderSearchInputProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-dfxblue-900 border-dfxblue-900')}
       style={[
         tailwind('flex flex-row items-center pb-2 px-4'),
         {
@@ -39,7 +39,7 @@ export function HeaderSearchInput (props: HeaderSearchInputProps): JSX.Element {
         <TouchableOpacity onPress={props.onCancelPress}>
           <ThemedIcon
             light={tailwind('text-primary-500')}
-            dark={tailwind('text-darkprimary-500')}
+            dark={tailwind('text-dfxred-500')}
             iconType='MaterialCommunityIcons'
             name='close'
             size={24}

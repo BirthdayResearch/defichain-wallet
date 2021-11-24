@@ -11,7 +11,7 @@ export function HeaderSearchIcon (props: {onPress: () => void}): JSX.Element {
     >
       <ThemedIcon
         light={tailwind('text-primary-500')}
-        dark={tailwind('text-darkprimary-500')}
+        dark={tailwind('text-dfxred-500')}
         iconType='MaterialIcons'
         name='search'
         size={24}

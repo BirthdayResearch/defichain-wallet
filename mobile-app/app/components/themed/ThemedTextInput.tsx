@@ -3,6 +3,7 @@ import React, { forwardRef } from 'react'
 import { KeyboardTypeOptions, Platform, TextInput, TextInputProps } from 'react-native'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
+import { theme } from '../../tailwind.config'
 
 export const ThemedTextInput = forwardRef(
   function (props: React.PropsWithChildren<TextInputProps>, ref: React.Ref<any>): JSX.Element {
@@ -22,7 +23,7 @@ export const ThemedTextInput = forwardRef(
 
   return (
     <TextInput
-      placeholderTextColor={isLight ? 'rgba(0, 0, 0, 0.4)' : '#828282'}
+      placeholderTextColor={isLight ? 'rgba(0, 0, 0, 0.4)' : theme.extend.colors.dfxgray[500]}
       style={[style, tailwind(isLight ? 'text-gray-700' : 'text-white')]}
       ref={ref}
       {...otherProps}
