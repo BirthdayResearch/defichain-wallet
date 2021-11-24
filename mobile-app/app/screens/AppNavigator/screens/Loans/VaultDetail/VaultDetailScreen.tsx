@@ -8,7 +8,7 @@ import { LoanParamList } from '../LoansNavigator'
 import { TouchableOpacity } from 'react-native'
 import { ScrollableButton, ScrollButton } from '../components/ScrollableButton'
 import { VaultDetailTabSection } from './components/VaultDetailTabSection'
-import { LoanVault } from '@store/loans'
+import { LoanVault, vaultsSelector } from '@store/loans'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
@@ -33,7 +33,7 @@ export function VaultDetailScreen ({
 }: Props): JSX.Element {
   const { vaultId, tab } = route.params
   const [vault, setVault] = useState<LoanVault>()
-  const vaults = useSelector((state: RootState) => state.loans.vaults)
+  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const canUseOperations = useLoanOperations(vault?.state)
   const vaultActionButtons: ScrollButton[] = [
     {
@@ -196,7 +196,7 @@ function VaultInfoSection (props: { vault?: LoanVault }): JSX.Element | null {
           <>
             <VaultSectionTextRow
               value={props.vault.loanScheme.minColRatio}
-              lhs={translate('screens/VaultDetailScreen', 'Min. collateral ratio')}
+              lhs={translate('screens/VaultDetailScreen', 'Min. collateralization ratio')}
               testID='text_min_col_ratio'
               suffixType='text'
               suffix='%'

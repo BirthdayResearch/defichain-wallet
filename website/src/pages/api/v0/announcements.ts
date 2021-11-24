@@ -11,8 +11,8 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
   await runMiddleware(req, res, cors)
   res.json([{
     lang: {
-      en: 'Decentralised loan is coming to the Light Wallet app soon.',
-      de: 'Dezentrale Darlehen werden bald in der Light Wallet App verfügbar sein.',
+      en: 'Decentralized loan is coming to the Light Wallet app in one week\'s time!',
+      de: 'Die dezentrale Darlehensvergabe wird in einer Woche in der Light Wallet App verfügbar sein!',
       'zh-Hans': '去中心化贷款即将登陆轻钱包应用程序',
       'zh-Hant': '去中心化貸款即將登陸輕錢包應用程序'
     },

@@ -30,7 +30,7 @@ context('Wallet - Token Detail', () => {
   it('should be able to redirect with Pool Swap', function () {
     cy.getByTestID('swap_button').should('exist')
     cy.getByTestID('swap_button').click()
-    cy.url().should('include', 'DEX/PoolSwap')
+    cy.url().should('include', 'DEX/CompositeSwap')
   })
 })
 

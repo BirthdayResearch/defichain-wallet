@@ -350,7 +350,7 @@ function AvailablePoolPairCards ({
               <ActionButton
                 name='swap-horiz'
                 onPress={() => navigation.navigate({
-                  name: 'PoolSwap',
+                  name: 'CompositeSwap',
                   params: { pair },
                   merge: true
                 })}

@@ -14,12 +14,11 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { loanTokenByTokenId } from '@store/loans'
+import { loanTokenByTokenId, vaultsSelector } from '@store/loans'
 import { Button } from '@components/Button'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
-import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { useLoanOperations } from '../hooks/LoanOperations'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowMoreScreen'>
@@ -31,7 +30,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
   } = route.params
   const client = useWhaleApiClient()
   const logger = useLogger()
-  const vaults = useSelector((state: RootState) => (state.loans.vaults))
+  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const loanToken = useSelector((state: RootState) => loanTokenByTokenId(state.loans, loanTokenAmount.id))
   const [vault, setVault] = useState<LoanVaultActive>(vaultFromRoute)
   const [amountToAdd, setAmountToAdd] = useState('')
@@ -43,18 +42,17 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
   new BigNumber(totalLoanWithInterest), new BigNumber(loanTokenAmount.activePrice?.active?.amount ?? 0))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const interestPerBlock = useInterestPerBlock(new BigNumber(vault.loanScheme.interestRate), new BigNumber(loanToken?.interest ?? 0), new BigNumber(amountToAdd))
   const canUseOperations = useLoanOperations(vault?.state)
 
   // Form update
+  const [inputValidationMessage, setInputValidationMessage] = useState('')
   const isFormValid = (): boolean => {
     const amount = new BigNumber(amountToAdd)
     return !(amount.isNaN() ||
       amount.isLessThanOrEqualTo(0) ||
       vault === undefined ||
       resultingColRatio === undefined ||
-      resultingColRatio.isLessThan(vault.loanScheme.minColRatio) ||
-      interestPerBlock.isLessThanOrEqualTo(0.00000009))
+      resultingColRatio.isLessThan(vault.loanScheme.minColRatio))
   }
 
   const updateInterestAmount = (): void => {
@@ -85,6 +83,22 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
     })
   }
 
+  const validateInput = (): void => {
+    const amount = new BigNumber(amountToAdd)
+    if (amount.isNaN() || amount.isZero() || vault === undefined) {
+      setInputValidationMessage('')
+      return
+    }
+
+    if (amount.isGreaterThan(0) && (vault.collateralValue === '0' || vault.collateralValue === undefined)) {
+      setInputValidationMessage('Insufficient vault collateral to borrow this amount')
+    } else if (resultingColRatio.isLessThan(vault.loanScheme.minColRatio)) {
+      setInputValidationMessage('This amount may place the vault in liquidation')
+    } else {
+      setInputValidationMessage('')
+    }
+  }
+
   useEffect(() => {
     client.fee.estimate()
       .then((f) => setFee(new BigNumber(f)))
@@ -101,6 +115,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
   }, [amountToAdd, vault])
 
   useEffect(() => {
+    validateInput()
     setValid(isFormValid())
   }, [amountToAdd, vault, totalLoanWithInterest])
 
@@ -125,7 +140,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
         text={translate('screens/BorrowMoreScreen', 'VAULT IN USE')}
       />
       <View style={tailwind('px-4')}>
-        <VaultInput vault={vault} />
+        <VaultInput vault={vault} loanToken={loanToken} displayMaxLoanAmount />
       </View>
       <View style={tailwind('mt-2 mb-12 px-4')}>
         <WalletTextInput
@@ -136,6 +151,11 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
           onChangeText={(text) => setAmountToAdd(text)}
           displayClearButton={amountToAdd !== ''}
           onClearButtonPress={() => setAmountToAdd('')}
+          valid={inputValidationMessage === ''}
+          inlineText={{
+            type: 'error',
+            text: translate('screens/BorrowMoreScreen', inputValidationMessage)
+          }}
           style={tailwind('h-9 w-3/5 flex-grow')}
         />
       </View>
@@ -159,11 +179,13 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
         margin='mt-12 mb-2 mx-4'
       />
       <ThemedText
-        light={tailwind('text-dfxgray-500')}
-        dark={tailwind('text-dfxgray-400')}
+        light={tailwind('text-dfxgray-500', { 'text-error-500': inputValidationMessage !== '' })}
+        dark={tailwind('text-dfxgray-400', { 'text-darkerror-500': inputValidationMessage !== '' })}
         style={tailwind('text-center text-xs mb-12')}
       >
-        {translate('screens/BorrowMoreScreen', 'Review and confirm transaction in the next screen')}
+        {inputValidationMessage === ''
+            ? translate('screens/BorrowMoreScreen', 'Review and confirm transaction in the next screen')
+            : translate('screens/BorrowMoreScreen', 'Unable to proceed because of errors')}
       </ThemedText>
     </ThemedScrollView>
   )

@@ -11,33 +11,20 @@ import { ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
 import { RemoveLiquidityConfirmScreen } from './DexConfirmRemoveLiquidity'
 import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
 import { DexScreen } from './DexScreen'
-import { ConfirmPoolSwapScreen, DexForm } from './PoolSwap/ConfirmPoolSwapScreen'
-import { DerivedTokenState, PoolSwapScreen } from './PoolSwap/PoolSwapScreen'
 import { CompositeSwapScreen, OwnedTokenState, TokenState } from './CompositeSwap/CompositeSwapScreen'
 import { CompositeSwapForm, ConfirmCompositeSwapScreen } from './CompositeSwap/ConfirmCompositeSwapScreen'
 import { WalletToken } from '@store/wallet'
 import { ConversionParam } from '../Balances/BalancesNavigator'
+import { PriceRateProps } from '@screens/AppNavigator/screens/Dex/CompositeSwap/components/PricesSection'
 
 export interface DexParamList {
   DexScreen: undefined
-  PoolSwapScreen: { pair: PoolPairData }
-  ConfirmPoolSwapScreen: {
-    tokenA: DerivedTokenState
-    tokenB: DerivedTokenState
-    swap: DexForm
-    fee: BigNumber
-    pair: PoolPairData
-    slippage: number
-    priceRateA: string
-    priceRateB: string
-    conversion?: ConversionParam
-  }
   CompositeSwapScreen: { pair?: PoolPairData }
   ConfirmCompositeSwapScreen: {
     conversion?: ConversionParam
     fee: BigNumber
     pairs: PoolPairData[]
-    priceRates: Array<{label: string, value: string}>
+    priceRates: PriceRateProps[]
     slippage: number
     swap: CompositeSwapForm
     tokenA: OwnedTokenState
@@ -145,32 +132,6 @@ export function DexNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/DexScreen', 'Confirm Removal')}
-              containerTestID={headerContainerTestId}
-            />
-          )
-        }}
-      />
-
-      <DexStack.Screen
-        component={PoolSwapScreen}
-        name='PoolSwap'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Decentralized Exchange')}
-              containerTestID={headerContainerTestId}
-            />
-          )
-        }}
-      />
-
-      <DexStack.Screen
-        component={ConfirmPoolSwapScreen}
-        name='ConfirmPoolSwapScreen'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Confirm Swap')}
               containerTestID={headerContainerTestId}
             />
           )

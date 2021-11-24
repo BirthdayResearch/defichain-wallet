@@ -9,7 +9,7 @@ import { translate } from '@translations'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useEffect } from 'react'
-import { fetchCollateralTokens, fetchVaults } from '@store/loans'
+import { fetchCollateralTokens, fetchVaults, vaultsSelector } from '@store/loans'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 
@@ -18,7 +18,7 @@ export function Vaults (): JSX.Element {
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const vaults = useSelector((state: RootState) => state.loans.vaults)
+  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
 
   useEffect(() => {
     dispatch(fetchVaults({

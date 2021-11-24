@@ -56,7 +56,7 @@ export function LoanSchemeOptions (props: { loanSchemes: WalletLoanScheme[], sel
 
           </ThemedView>
           <LoanSchemeOptionData
-            label='Min. collateralization'
+            label='Min. collateralization ratio'
             value={scheme.minColRatio}
             testId={`min_col_ratio_value_${index}`}
             suffix='%'
