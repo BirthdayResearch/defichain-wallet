@@ -988,7 +988,8 @@
     "Enter an amount": "Gib eine Menge ein",
     "VAULT IN USE": "AKTIVER VAULT",
     "CONTINUE": "WEITER",
-    "Review and confirm transaction in the next screen" : "Überprüfe und bestätige die Transaktion in der nächsten Ansicht"
+    "Review and confirm transaction in the next screen" : "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
+    "N/A": "K/A"
   },
   "screens/ChooseLoanTokenScreen": {
     "Search for loans": "Nach Darlehen suchen"

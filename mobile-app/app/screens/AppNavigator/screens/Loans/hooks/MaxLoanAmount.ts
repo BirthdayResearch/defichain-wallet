@@ -17,8 +17,7 @@ export function useMaxLoanAmount ({
   loanInterest,
   loanActivePrice
 }: useMaxLoanAmountProps): BigNumber {
-  const result = totalCollateralValue.dividedBy(minColRatio.dividedBy(100)).minus(totalLoanValue).dividedBy(
+  return totalCollateralValue.dividedBy(minColRatio.dividedBy(100)).minus(totalLoanValue).dividedBy(
     loanActivePrice.multipliedBy(vaultInterest.plus(loanInterest).dividedBy(100).plus(1))
   )
-  return result
 }

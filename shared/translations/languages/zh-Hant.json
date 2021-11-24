@@ -864,7 +864,8 @@
     "Insufficient vault collateral to borrow this amount": "抵押金庫不足夠支付借貸金額",
     "This amount may place the vault in liquidation": "這金額可能會導致金庫清算",
     "Unable to proceed because of errors": "錯誤而無法繼續",
-    "Max loan amount": "最高的貸款金額"
+    "Max loan amount": "最高的貸款金額",
+    "N/A": "不適用"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "您正要借用",
@@ -898,6 +899,7 @@
     "Insufficient vault collateral to borrow this amount": "抵押金庫不足夠支付借貸金額",
     "This amount may place the vault in liquidation": "這金額可能會導致金庫清算",
     "Unable to proceed because of errors": "錯誤而無法繼續",
-    "Max loan amount": "最高的貸款金額"
+    "Max loan amount": "最高的貸款金額",
+    "N/A": "不適用"
   }
 }
