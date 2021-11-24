@@ -18,6 +18,7 @@ context('Wallet - Loans', () => {
     cy.intercept('**/loans/tokens?size=50').as('loans')
     cy.wait(['@loans']).then((intercept: any) => {
       const data: any[] = intercept.response.body.data
+      cy.getByTestID('loans_tabs_BROWSE_LOANS').click()
       data.forEach((loan: LoanToken, i) => {
         // const price = loan.activePrice?.active?.amount ?? 0
         cy.getByTestID(`loan_card_${i}_display_symbol`).contains(loan.token.displaySymbol)

@@ -29,8 +29,10 @@ export interface BottomSheetToken {
   token: {
     name: string
     displaySymbol: string
+    symbol: string
   }
   factor?: string
+  reserve?: string
 }
 
 export const BottomSheetTokenList = ({
