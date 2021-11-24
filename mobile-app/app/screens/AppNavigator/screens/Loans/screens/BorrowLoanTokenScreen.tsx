@@ -553,7 +553,7 @@ export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.
           />
         )}
       <NumberRow
-        lhs={translate('screens/BorrowLoanTokenScreen', 'Min. collateral ratio')}
+        lhs={translate('screens/BorrowLoanTokenScreen', 'Min. collateralization ratio')}
         rhs={{
           value: props.vault.loanScheme.minColRatio,
           testID: 'text_col_ratio',
