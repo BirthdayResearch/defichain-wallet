@@ -692,7 +692,7 @@
     "Safe": "安全狀態",
     "Active loans": "活躍的貸款",
     "Total loans (USD)": "貸款總金額 (美金)",
-    "Collateral amount (USD)": "抵押品金額 (美金)",
+    "Total collateral (USD)": "抵押資金總價值 (美金)",
     "Collateralization ratio": "抵押品比率",
     "n/a": "不適用",
     "ADD COLLATERAL": "加入抵押品",
