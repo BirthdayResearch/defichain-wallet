@@ -108,7 +108,7 @@ function SummaryHeader (props: { vaultId: string }): JSX.Element {
       <ThemedText
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
-        style={tailwind('mb-1')}
+        style={tailwind('mb-1 text-sm')}
       >
         {translate('screens/ConfirmEditLoanSchemeScreen', 'You are editing scheme of vault')}
       </ThemedText>
