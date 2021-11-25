@@ -125,7 +125,7 @@ export function PaybackLoanScreen ({
           style={tailwind('h-9 w-3/5 flex-grow')}
         />
         <InputHelperText
-          label={`${translate('components/PaybackLoanScreen', 'Available')}: `}
+          label={`${translate('screens/PaybackLoanScreen', 'Available')}: `}
           content={new BigNumber(tokenBalance).toFixed(8)}
           suffix={` ${loanToken.displaySymbol}`}
           styleProps={tailwind('font-medium')}
