@@ -19,8 +19,8 @@ import NumberFormat from 'react-number-format'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { NumberRow } from '@components/NumberRow'
 import { BottomSheetVaultList } from '../components/BottomSheetVaultList'
-import { fetchVaults, LoanVault } from '@store/loans'
-import { LoanVaultActive, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
+import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
+import { LoanToken, LoanVaultActive, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { TextRow } from '@components/TextRow'
 import { FeeInfoRow } from '@components/FeeInfoRow'
@@ -38,7 +38,9 @@ import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Lo
 import { queueConvertTransaction } from '@hooks/wallet/Conversion'
 import { useResultingCollateralRatio } from '../hooks/CollateralPrice'
 import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
-import { useInterestPerBlock } from '../hooks/InterestPerBlock'
+import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
+import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
+import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowLoanTokenScreen'>
 
@@ -54,7 +56,7 @@ export function BorrowLoanTokenScreen ({
   const { address } = useWalletContext()
   const dispatch = useDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const vaults = useSelector((state: RootState) => (state.loans.vaults))
+  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const [vault, setVault] = useState<LoanVaultActive | undefined>(route.params.vault)
   const [amountToBorrow, setAmountToBorrow] = useState('')
   const [totalInterestAmount, setTotalInterestAmount] = useState(new BigNumber(NaN))
@@ -63,7 +65,6 @@ export function BorrowLoanTokenScreen ({
   const [valid, setValid] = useState(false)
   const resultingColRatio = useResultingCollateralRatio(new BigNumber(vault?.collateralValue ?? NaN), new BigNumber(vault?.loanValue ?? NaN),
   new BigNumber(totalLoanWithInterest), new BigNumber(loanToken.activePrice?.active?.amount ?? 0))
-  const interestPerBlock = useInterestPerBlock(new BigNumber(vault?.loanScheme.interestRate ?? 0), new BigNumber(loanToken.interest), new BigNumber(amountToBorrow))
 
   // Conversion
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
@@ -71,6 +72,7 @@ export function BorrowLoanTokenScreen ({
   const isConversionRequired = new BigNumber(0.1).gt(DFIUtxo.amount)
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const canUseOperations = useLoanOperations(vault?.state)
 
   // Bottom sheet
   const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
@@ -116,6 +118,7 @@ export function BorrowLoanTokenScreen ({
   }
 
   // Form update
+  const [inputValidationMessage, setInputValidationMessage] = useState('')
   const isFormValid = (): boolean => {
     const amount = new BigNumber(amountToBorrow)
     return !(amount.isNaN() ||
@@ -123,8 +126,7 @@ export function BorrowLoanTokenScreen ({
       vault === undefined ||
       resultingColRatio === undefined ||
       resultingColRatio.isNaN() ||
-      resultingColRatio.isLessThan(vault.loanScheme.minColRatio) ||
-      interestPerBlock.isLessThanOrEqualTo(0.00000009))
+      resultingColRatio.isLessThan(vault.loanScheme.minColRatio))
   }
 
   const updateInterestAmount = (): void => {
@@ -180,6 +182,22 @@ export function BorrowLoanTokenScreen ({
     }
   }
 
+  const validateInput = (): void => {
+    const amount = new BigNumber(amountToBorrow)
+    if (amount.isNaN() || amount.isZero() || vault === undefined) {
+      setInputValidationMessage('')
+      return
+    }
+
+    if (amount.isGreaterThan(0) && (vault.collateralValue === '0' || vault.collateralValue === undefined)) {
+      setInputValidationMessage('Insufficient vault collateral to borrow this amount')
+    } else if (resultingColRatio.isLessThan(vault.loanScheme.minColRatio)) {
+      setInputValidationMessage('This amount may place the vault in liquidation')
+    } else {
+      setInputValidationMessage('')
+    }
+  }
+
   useEffect(() => {
     client.fee.estimate()
       .then((f) => setFee(new BigNumber(f)))
@@ -203,6 +221,7 @@ export function BorrowLoanTokenScreen ({
   }, [amountToBorrow, vault])
 
   useEffect(() => {
+    validateInput()
     setValid(isFormValid())
   }, [amountToBorrow, vault, totalLoanWithInterest])
 
@@ -224,6 +243,7 @@ export function BorrowLoanTokenScreen ({
           <InputLabel text='SELECT VAULT FOR COLLATERAL' />
           <VaultInput
             vault={vault}
+            loanToken={loanToken}
             onPress={expandModal}
           />
         </View>
@@ -241,6 +261,11 @@ export function BorrowLoanTokenScreen ({
                 displayClearButton={amountToBorrow !== ''}
                 onClearButtonPress={() => setAmountToBorrow('')}
                 containerStyle='mb-12'
+                valid={inputValidationMessage === ''}
+                inlineText={{
+                  type: 'error',
+                  text: translate('screens/BorrowLoanTokenScreen', inputValidationMessage)
+                }}
                 style={tailwind('h-9 w-3/5 flex-grow')}
               />
             </View>
@@ -262,18 +287,20 @@ export function BorrowLoanTokenScreen ({
               </View>
             )}
             <Button
-              disabled={!valid || hasPendingJob || hasPendingBroadcastJob}
+              disabled={!valid || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
               label={translate('screens/BorrowLoanTokenScreen', 'CONTINUE')}
               onPress={onSubmit}
               testID='add_collateral_button'
               margin='mt-12 mb-2 mx-4'
             />
             <ThemedText
-              light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
+              light={tailwind('text-gray-500', { 'text-error-500': inputValidationMessage !== '' })}
+              dark={tailwind('text-gray-400', { 'text-darkerror-500': inputValidationMessage !== '' })}
               style={tailwind('text-center text-xs mb-12')}
             >
-              {translate('screens/BorrowLoanTokenScreen', 'Review and confirm transaction in the next screen')}
+              {inputValidationMessage === ''
+                ? translate('screens/BorrowLoanTokenScreen', 'Review and confirm transaction in the next screen')
+                : translate('screens/BorrowLoanTokenScreen', 'Unable to proceed because of errors')}
             </ThemedText>
           </>
         )}
@@ -388,6 +415,7 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
 
 interface VaultInputProps {
   vault?: LoanVault
+  loanToken: LoanToken
   onPress: () => void
 }
 
@@ -421,16 +449,32 @@ function VaultInput (props: VaultInputProps): JSX.Element {
     )
   }
 
-  return <VaultInputActive vault={props.vault} onPress={props.onPress} />
+  return <VaultInputActive vault={props.vault} onPress={props.onPress} loanToken={props.loanToken} />
 }
 
 interface VaultInputActiveProps {
   vault: LoanVaultActive
+  loanToken: LoanToken
   onPress: () => void
 }
 
 function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
   const vaultState = useVaultStatus(props.vault.state, new BigNumber(props.vault.collateralRatio), new BigNumber(props.vault.loanScheme.minColRatio), new BigNumber(props.vault.loanValue))
+
+  const vaultAlertInfo = {
+    title: 'Annual vault interest',
+    message: 'Annual vault interest rate based on the loan scheme selected.'
+  }
+
+  const maxLoanAmount = useMaxLoanAmount({
+    totalCollateralValue: new BigNumber(props.vault.collateralValue),
+    totalLoanValue: new BigNumber(props.vault.loanValue),
+    minColRatio: new BigNumber(props.vault.loanScheme.minColRatio),
+    vaultInterest: new BigNumber(props.vault.loanScheme.interestRate),
+    loanInterest: new BigNumber(props.loanToken.interest),
+    loanActivePrice: new BigNumber(props.loanToken.activePrice?.active?.amount ?? NaN)
+  })
+
   return (
     <ThemedTouchableOpacity
       light={tailwind('bg-white border-gray-200')}
@@ -458,46 +502,27 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
           style={tailwind('-mr-1.5')}
         />
       </View>
-      <View style={tailwind('flex flex-row items-center justify-between mb-1')}>
-        <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
-          style={tailwind('text-xs')}
-        >
-          {translate('screens/BorrowLoanTokenScreen', 'Total collateral (USD)')}
-        </ThemedText>
-        <NumberFormat
-          value={props.vault.collateralValue}
-          decimalScale={2}
-          thousandSeparator
-          prefix='$'
-          displayType='text'
-          renderText={(value) =>
-            <ThemedText style={tailwind('text-xs')}>
-              {value}
-            </ThemedText>}
-        />
-      </View>
-      <View style={tailwind('flex flex-row items-center justify-between')}>
-        <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
-          style={tailwind('text-xs')}
-        >
-          {translate('screens/BorrowLoanTokenScreen', 'Vault interest')}
-        </ThemedText>
-        <NumberFormat
-          value={props.vault.loanScheme.interestRate}
-          decimalScale={2}
-          thousandSeparator
-          suffix='%'
-          displayType='text'
-          renderText={(value) =>
-            <ThemedText style={tailwind('text-xs')}>
-              {value}
-            </ThemedText>}
-        />
-      </View>
+      <VaultSectionTextRow
+        lhs={translate('screens/BorrowLoanTokenScreen', 'Total collateral (USD)')}
+        value={new BigNumber(props.vault.collateralValue).toFixed(2)}
+        testID='total_collateral_text'
+        prefix='$'
+      />
+      <VaultSectionTextRow
+        lhs={translate('screens/BorrowLoanTokenScreen', 'Vault interest')}
+        value={new BigNumber(props.vault.loanScheme.interestRate).toFixed(2)}
+        suffix='%'
+        suffixType='text'
+        testID='vault_interest_text'
+        info={vaultAlertInfo}
+      />
+      <VaultSectionTextRow
+        lhs={translate('screens/BorrowLoanTokenScreen', 'Max loan amount')}
+        value={maxLoanAmount.isNaN() ? translate('screens/BorrowLoanTokenScreen', 'N/A') : maxLoanAmount.toFixed(8)}
+        suffix={` ${props.loanToken.token.displaySymbol}`}
+        suffixType='text'
+        testID='max_loan_amount_text'
+      />
     </ThemedTouchableOpacity>
   )
 }
@@ -525,6 +550,11 @@ export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.
     )
   )
 
+  const minCollateralRatioInfo = {
+    title: 'Min. collateralization ratio',
+    message: 'Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.'
+  }
+
   return (
     <>
       <ThemedSectionTitle
@@ -551,7 +581,8 @@ export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.
           />
         )}
       <NumberRow
-        lhs={translate('screens/BorrowLoanTokenScreen', 'Min. collateral ratio')}
+        lhs={translate('screens/BorrowLoanTokenScreen', 'Min. collateralization ratio')}
+        info={minCollateralRatioInfo}
         rhs={{
           value: props.vault.loanScheme.minColRatio,
           testID: 'text_col_ratio',

@@ -54,6 +54,6 @@ export function dfiConversionCrafter (amount: BigNumber, mode: ConversionMode, o
         })
     }),
     onBroadcast,
-    submitButtonLabel
+    submitButtonLabel: submitButtonLabel !== undefined ? translate('screens/ConvertConfirmScreen', submitButtonLabel) : undefined
   }
 }

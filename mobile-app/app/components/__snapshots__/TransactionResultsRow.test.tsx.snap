@@ -65,33 +65,43 @@ Array [
         }
       }
     >
-      <Text
+      <View
         style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                },
-                undefined,
-              ],
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "flex-start",
+          }
         }
-        testID="resulting_DFI_label"
       >
-        Resulting DFI
-      </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Array [
+                  Object {
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                  },
+                  undefined,
+                ],
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
+            ]
+          }
+          testID="resulting_DFI_label"
+        >
+          Resulting DFI
+        </Text>
+      </View>
     </View>
     <View
       style={
@@ -196,33 +206,43 @@ Array [
         }
       }
     >
-      <Text
+      <View
         style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                },
-                undefined,
-              ],
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "flex-start",
+          }
         }
-        testID="resulting_dBTC_label"
       >
-        Resulting dBTC
-      </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Array [
+                  Object {
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                  },
+                  undefined,
+                ],
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
+            ]
+          }
+          testID="resulting_dBTC_label"
+        >
+          Resulting dBTC
+        </Text>
+      </View>
     </View>
     <View
       style={

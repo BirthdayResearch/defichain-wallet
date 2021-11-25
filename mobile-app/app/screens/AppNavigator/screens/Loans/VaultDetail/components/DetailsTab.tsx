@@ -40,7 +40,7 @@ function VaultDetailsSection (props: { minColRatio: BigNumber, vaultInterest: Bi
         text={translate('components/VaultDetailDetailsTab', 'VAULT DETAILS')}
       />
       <NumberRow
-        lhs={translate('components/VaultDetailDetailsTab', 'Min. collateral ratio')}
+        lhs={translate('components/VaultDetailDetailsTab', 'Min. collateralization ratio')}
         rhs={{
           value: props.minColRatio.toFixed(2),
           testID: 'text_min_col_ratio',
@@ -48,15 +48,23 @@ function VaultDetailsSection (props: { minColRatio: BigNumber, vaultInterest: Bi
           suffix: '%',
           style: tailwind('ml-0')
         }}
+        info={{
+          title: 'Min. collateralization ratio',
+          message: 'Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.'
+        }}
       />
       <NumberRow
         lhs={translate('components/VaultDetailDetailsTab', 'Vault interest')}
         rhs={{
           value: props.vaultInterest.toFixed(2),
-          testID: 'text_min_col_ratio',
+          testID: 'text_vault_interest_ratio',
           suffixType: 'text',
           suffix: '%',
           style: tailwind('ml-0')
+        }}
+        info={{
+          title: 'Annual vault interest',
+          message: 'Annual vault interest rate based on the loan scheme selected.'
         }}
       />
     </>
@@ -84,12 +92,16 @@ function CollateralizationRatioSection (props: CollateralizationRatioSectionProp
       {props.collateralizationRatio.isLessThan(0)
         ? (
           <TextRow
-            lhs={translate('screens/VaultDetailDetailsTab', 'Collateralization ratio')}
+            lhs={translate('components/VaultDetailDetailsTab', 'Collateralization ratio')}
             rhs={{
               value: translate('components/VaultDetailDetailsTab', 'N/A'),
               testID: 'text_col_ratio'
             }}
             textStyle={tailwind('text-sm font-normal')}
+            info={{
+              title: 'Collateralization ratio',
+              message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+            }}
           />
         )
         : (
@@ -104,12 +116,16 @@ function CollateralizationRatioSection (props: CollateralizationRatioSectionProp
       {props.nextCollateralizationRatio.isLessThan(0)
         ? (
           <TextRow
-            lhs={translate('screens/VaultDetailDetailsTab', 'Next collateralization')}
+            lhs={translate('components/VaultDetailDetailsTab', 'Next collateralization')}
             rhs={{
               value: translate('components/VaultDetailDetailsTab', 'N/A'),
               testID: 'text_next_col'
             }}
             textStyle={tailwind('text-sm font-normal')}
+            info={{
+              title: 'Next collateralization',
+              message: 'Next collateralization ratio represents the vault\'s collateralization ratio based on the prices of the collateral/loan token(s) in the next hour.'
+            }}
           />
         )
         : (

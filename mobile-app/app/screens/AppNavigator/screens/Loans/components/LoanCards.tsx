@@ -15,6 +15,7 @@ import { LoanParamList } from '../LoansNavigator'
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
+import { vaultsSelector } from '@store/loans'
 
 interface LoanCardsProps {
   loans: LoanToken[]
@@ -33,7 +34,7 @@ export interface LoanCardOptions {
 
 export function LoanCards (props: LoanCardsProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
-  const vaults = useSelector((state: RootState) => state.loans.vaults)
+  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const activeVault = vaults.find((v) => v.vaultId === props.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION) as LoanVaultActive
   const { isBetaFeature } = useFeatureFlagContext()
   return (

@@ -8,7 +8,7 @@ import { LoanParamList } from '../LoansNavigator'
 import { TouchableOpacity } from 'react-native'
 import { ScrollableButton, ScrollButton } from '../components/ScrollableButton'
 import { VaultDetailTabSection } from './components/VaultDetailTabSection'
-import { LoanVault } from '@store/loans'
+import { LoanVault, vaultsSelector } from '@store/loans'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
@@ -23,6 +23,7 @@ import {
 } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 import { CollateralizationRatioDisplay } from '@screens/AppNavigator/screens/Loans/components/CollateralizationRatioDisplay'
 import { useNextCollateralizationRatio } from '@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio'
+import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 
 type Props = StackScreenProps<LoanParamList, 'VaultDetailScreen'>
 
@@ -32,11 +33,12 @@ export function VaultDetailScreen ({
 }: Props): JSX.Element {
   const { vaultId, tab } = route.params
   const [vault, setVault] = useState<LoanVault>()
-  const vaults = useSelector((state: RootState) => state.loans.vaults)
+  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
+  const canUseOperations = useLoanOperations(vault?.state)
   const vaultActionButtons: ScrollButton[] = [
     {
       label: 'EDIT COLLATERALS',
-      disabled: vault?.state === LoanVaultState.IN_LIQUIDATION,
+      disabled: !canUseOperations,
       handleOnPress: () => {
         if (vault === undefined) {
           return
@@ -53,7 +55,7 @@ export function VaultDetailScreen ({
     },
     {
       label: 'EDIT LOAN SCHEME',
-      disabled: vault?.state === LoanVaultState.IN_LIQUIDATION,
+      disabled: !canUseOperations,
       handleOnPress: () => {
         if (vault === undefined) {
           return
@@ -61,6 +63,23 @@ export function VaultDetailScreen ({
 
         navigation.navigate({
           name: 'EditLoanSchemeScreen',
+          params: {
+            vaultId: vault.vaultId
+          },
+          merge: true
+        })
+      }
+    },
+    {
+      label: 'CLOSE VAULT',
+      disabled: !(vault?.state === LoanVaultState.ACTIVE && vault.loanValue === '0'),
+      handleOnPress: () => {
+        if (vault === undefined) {
+          return
+        }
+
+        navigation.navigate({
+          name: 'CloseVaultScreen',
           params: {
             vaultId: vault.vaultId
           },
@@ -194,10 +213,14 @@ function VaultInfoSection (props: { vault?: LoanVault }): JSX.Element | null {
           <>
             <VaultSectionTextRow
               value={props.vault.loanScheme.minColRatio}
-              lhs={translate('screens/VaultDetailScreen', 'Min. collateral ratio')}
+              lhs={translate('screens/VaultDetailScreen', 'Min. collateralization ratio')}
               testID='text_min_col_ratio'
               suffixType='text'
               suffix='%'
+              info={{
+                title: 'Min. collateralization ratio',
+                message: 'Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.'
+              }}
             />
             <VaultSectionTextRow
               value={props.vault.loanScheme.interestRate}
@@ -205,6 +228,10 @@ function VaultInfoSection (props: { vault?: LoanVault }): JSX.Element | null {
               testID='text_vault_interest'
               suffixType='text'
               suffix='%'
+              info={{
+                title: 'Annual vault interest',
+                message: 'Annual vault interest rate based on the loan scheme selected.'
+              }}
             />
           </>
         )
@@ -228,6 +255,10 @@ function VaultInfoSection (props: { vault?: LoanVault }): JSX.Element | null {
               testID='text_vault_interest'
               suffixType='text'
               suffix='%'
+              info={{
+                title: 'Annual vault interest',
+                message: 'Annual vault interest rate based on the loan scheme selected.'
+              }}
             />
           </>
         )}

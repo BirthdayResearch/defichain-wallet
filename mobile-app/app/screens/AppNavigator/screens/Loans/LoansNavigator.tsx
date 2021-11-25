@@ -5,7 +5,7 @@ import { HeaderTitle } from '@components/HeaderTitle'
 import { LoanScheme, LoanToken, LoanVaultActive, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
-import { LoadingState, LoansScreen } from './LoansScreen'
+import { LoansScreen } from './LoansScreen'
 import { CreateVaultScreen } from './screens/CreateVaultScreen'
 import { ConfirmCreateVaultScreen } from './screens/ConfirmCreateVaultScreen'
 import BigNumber from 'bignumber.js'
@@ -16,10 +16,6 @@ import { ChooseLoanTokenScreen } from './screens/ChooseLoanTokenScreen'
 import { BorrowLoanTokenScreen } from './screens/BorrowLoanTokenScreen'
 import { ConfirmBorrowLoanTokenScreen } from './screens/ConfirmBorrowLoanTokenScreen'
 import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
-import { TouchableOpacity } from 'react-native'
-import { ThemedIcon } from '@components/themed'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { tailwind } from '@tailwind'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { LoansFaq } from '@screens/AppNavigator/screens/Loans/screens/LoansFaq'
 import { TabKey } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailTabSection'
@@ -28,10 +24,10 @@ import { ConfirmPaybackLoanScreen } from '@screens/AppNavigator/screens/Loans/sc
 import { EditLoanSchemeScreen } from './screens/EditLoanSchemeScreen'
 import { ConfirmEditLoanSchemeScreen } from './screens/ConfirmEditLoanSchemeScreen'
 import { BorrowMoreScreen } from './screens/BorrowMoreScreen'
+import { CloseVaultScreen } from './screens/CloseVaultScreen'
 
 export interface LoanParamList {
   LoansScreen: {
-    loadingState: LoadingState // TODO: remove hard-coded condition used for create vault flow
   }
   CreateVaultScreen: {
     loanScheme?: LoanScheme
@@ -95,6 +91,9 @@ export interface LoanParamList {
     loanTokenAmount: LoanVaultTokenAmount
     vault: LoanVaultActive
   }
+  CloseVaultScreen: {
+    vaultId: string
+  }
   [key: string]: undefined | object
 }
 
@@ -102,7 +101,6 @@ const LoansStack = createStackNavigator<LoanParamList>()
 
 export function LoansNavigator (): JSX.Element {
   const headerContainerTestId = 'loans_header_container'
-  const navigation = useNavigation<NavigationProp<LoanParamList>>()
 
   return (
     <LoansStack.Navigator
@@ -122,21 +120,6 @@ export function LoansNavigator (): JSX.Element {
               text={translate('screens/LoansScreen', 'Loans')}
               containerTestID={headerContainerTestId}
             />
-          ),
-          headerRight: () => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate({
-              name: 'CreateVaultScreen',
-              params: {},
-              merge: true
-            })} testID='create_vault_header_button'
-            >
-              <ThemedIcon
-                size={28}
-                style={tailwind('mr-2')} light={tailwind('text-primary-500')}
-                dark={tailwind('text-primary-500')} iconType='MaterialCommunityIcons' name='plus'
-              />
-            </TouchableOpacity>
           )
         }}
       />
@@ -200,14 +183,17 @@ export function LoansNavigator (): JSX.Element {
       <LoansStack.Screen
         component={ConfirmEditCollateralScreen}
         name='ConfirmEditCollateralScreen'
-        options={{
+        options={({ route }: { route: any }) => ({
           headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/LoansScreen', 'Confirm Add Collateral')}
-            />
-          )
-        }}
+          headerTitle: () => {
+            const isAdd = route?.params?.isAdd as boolean
+            return (
+              <HeaderTitle
+                text={translate('screens/LoansScreen', `Confirm ${isAdd ? 'Add' : 'Remove'} Collateral`)}
+              />
+            )
+          }
+        })}
       />
       <LoansStack.Screen
         component={ChooseLoanTokenScreen}
@@ -314,6 +300,18 @@ export function LoansNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/LoansScreen', 'Borrow More')}
+            />
+          )
+        }}
+      />
+      <LoansStack.Screen
+        component={CloseVaultScreen}
+        name='CloseVaultScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Close Vault')}
             />
           )
         }}

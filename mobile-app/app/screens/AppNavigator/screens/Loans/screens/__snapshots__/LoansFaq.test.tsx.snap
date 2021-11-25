@@ -1380,7 +1380,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and calculated on a per annum basis.
+                      The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.
                     </Text>
                   </View>
                 </View>
@@ -1530,7 +1530,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 of it would contribute to $70 of collateral value in a vault.
+                      The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.
                     </Text>
                   </View>
                 </View>

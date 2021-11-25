@@ -24,6 +24,8 @@ import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchVaults } from '@store/loans'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { EnvironmentNetwork } from '@environment'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmCreateVaultScreen'>
 
@@ -149,7 +151,8 @@ function SummaryHeader (props: { conversion?: ConversionParam }): JSX.Element {
 }
 
 function SummaryTransactionDetails (props: { fee: BigNumber, conversion?: ConversionParam }): JSX.Element {
-  const vaultFee = new BigNumber(2)
+  const { network } = useNetworkContext()
+  const vaultFee = new BigNumber(network === EnvironmentNetwork.MainNet || network === EnvironmentNetwork.TestNet ? 2 : 1)
   const transactionCost = vaultFee.plus(props.fee)
   return (
     <>
@@ -196,13 +199,17 @@ function SummaryVaultDetails (props: { loanScheme: LoanScheme }): JSX.Element {
         text={translate('screens/ConfirmCreateVaultScreen', 'VAULT DETAILS')}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmCreateVaultScreen', 'Min. collateral ratio')}
+        lhs={translate('screens/ConfirmCreateVaultScreen', 'Min. collateralization ratio')}
         rhs={{
           value: new BigNumber(props.loanScheme.minColRatio).toFixed(2),
           testID: 'confirm_min_col_ratio_value',
           suffixType: 'text',
           suffix: '%',
           style: tailwind('ml-0')
+        }}
+        info={{
+          title: 'Min. collateralization ratio',
+          message: 'Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.'
         }}
       />
       <NumberRow
@@ -242,7 +249,7 @@ async function createVault ({
     dispatch(transactionQueue.actions.push({
       sign: signer,
       title: translate('screens/ConfirmCreateVaultScreen', 'Creating vault'),
-      description: translate('screens/ConfirmCreateVaultScreen', 'Creating vault with min. collateral ratio of {{amount}}% and interest rate of {{ir}}% APR', {
+      description: translate('screens/ConfirmCreateVaultScreen', 'Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR', {
         amount: loanScheme.minColRatio,
         ir: loanScheme.interestRate
       }),

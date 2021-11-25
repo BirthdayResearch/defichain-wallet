@@ -270,6 +270,7 @@ function VaultProportionRow (props: { lhs: string, tokenId: string, proportion: 
           value={props.proportion.toFixed(2)}
           decimalScale={2}
           displayType='text'
+          thousandSeparator
           suffix='%'
           renderText={value =>
             <ThemedText
