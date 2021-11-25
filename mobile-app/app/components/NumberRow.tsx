@@ -70,7 +70,7 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
                 {val}
               </ThemedText>
               {
-                props.rhs.suffixType === 'text' && props.rhs.suffix &&
+                props.rhs.suffixType === 'text' &&
                   <ThemedText
                     light={tailwind('text-gray-500')}
                     dark={tailwind('text-gray-400')}
@@ -78,7 +78,7 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
                     testID={`${props.rhs.testID}_suffix`}
                     {...props.rhsThemedProps}
                   >
-                    {` ${props.rhs.suffix}`}
+                    {props.rhs.suffix}
                   </ThemedText>
               }
             </Text>

@@ -23,7 +23,7 @@ export function PricesSection ({ priceRates, sectionTitle }: {priceRates: PriceR
               value: priceRate.value,
               testID: `pricerate_value_${index}`,
               prefix: `1 ${priceRate.aSymbol} = `,
-              suffix: priceRate.bSymbol,
+              suffix: ` ${priceRate.bSymbol}`,
               suffixType: 'text'
             }}
             textStyle={tailwind('text-sm font-normal')}
