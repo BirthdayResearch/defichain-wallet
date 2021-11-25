@@ -108,7 +108,7 @@
     "CONVERT {{symbol}}": "{{symbol}} UMWANDELN",
     "TO {{symbol}}": "IN {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
-    "How much {{symbol}} to convert?": "Wieviele {{symbol}} umzuwandeln?",
+    "How much {{symbol}} to convert?": "Wie viele {{symbol}} umzuwandeln?",
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
     "After conversion, you will receive": "Nach der Konvertierung erhältst du",
@@ -671,13 +671,14 @@
     "Confirm Edit Loan Scheme": "Darlehensmodellbearbeitung bestätigen",
     "Borrow More": "Mehr ausleihen",
     "Choose Loan Token to Borrow": "Darlehens-Token zum Ausleihen wählen",
-    "Payback Loan": "Darlehen Zurückzahlen"
+    "Payback Loan": "Darlehen Zurückzahlen",
+    "Close Vault": "Vault Schließen"
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehen durchsuchen",
     "Your vaults": "Deine Vaults",
     "Active loan": "Aktuelles Darlehen",
-    "Details": "Dateils",
+    "Details": "Details" ,
     "Collaterals": "Sicherheiten",
     "Auctions": "Auktionen",
     "Loans": "Darlehen"
@@ -766,8 +767,8 @@
     "Interest amount": "Zinsbetrag",
     "Next collateralization": "Nächste Besicherung",
     "Min. collateralization ratio": "Min. Besicherungsquote",
-    "This amount is the total interest amount from both vault and token interest rate.": "This amount is the total interest amount from both vault and token interest rate.",
-    "Annual vault interest": "Annual vault interest"
+    "This amount is the total interest amount from both vault and token interest rate.": "Dieser Gesamtzinsbetrag setzt sich aus Vault- und Token-Zinssatz zusammen.",
+    "Annual vault interest": "Vault-Jahreszins"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
@@ -784,7 +785,8 @@
     "TAKE COLLATERAL": "SICHERHEITEN ENTNEHMEN",
     "EDIT SCHEME": "DARLEHENSMODELL BEARBEITEN",
     "EDIT COLLATERALS": "SICHERHEITEN BEARBEITEN",
-    "EDIT LOAN SCHEME": "DARLEHENSMODELL BEARBEITEN"
+    "EDIT LOAN SCHEME": "DARLEHENSMODELL BEARBEITEN",
+    "CLOSE VAULT": "VAULT SCHLIESSEN"
   },
   "components/EmptyActiveLoans": {
     "No active loans": "Keine aktiven Darlehen",
@@ -1006,5 +1008,18 @@
   "components/EmptyCollateral": {
     "No collaterals": "Keine Sicherheiten",
     "Add DFI and tokens as collateral to get started with loans.": "Füge DFI und Token als Sicherheiten hinzu, um Darlehen aufnehmen zu können."
+  },
+  "screens/CloseVaultScreen": {
+    "You are closing Vault ID": "Du schließt den Vault mit der ID",
+    "DETAILS": "DATEILS",
+    "Fees to return": "Rückgabegebühr",
+    "Fees to burn": "Gebühren, die verbrannt werden",
+    "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Nach dem Schließen wird diese Vault-ID nicht mehr verwendet werden können. Vergewissere dich, dass du nichts aus diesem Vault benötigst, bevor du ihn schließt.",
+    "CONFIRM CLOSE VAULT": "VAULT SCHLIESSEN BESTÄTIGEN",
+    "You are about to close vault {{vaultId}}": "Du bist im Begriff, den Vault {{vaultId}} zu schließen",
+    "CLOSING": "SCHLIESSEN"
+  },
+  "components/TokenIconGroup": {
+    "more": "weitere"
   }
 }
