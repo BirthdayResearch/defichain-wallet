@@ -670,7 +670,8 @@
     "Edit Loan Scheme": "Darlehensmodell bearbeiten",
     "Confirm Edit Loan Scheme": "Darlehensmodellbearbeitung bestätigen",
     "Borrow More": "Mehr ausleihen",
-    "Choose Loan Token to Borrow": "Darlehens-Token zum Ausleihen wählen"
+    "Choose Loan Token to Borrow": "Darlehens-Token zum Ausleihen wählen",
+    "Payback Loan": "Darlehen Zurückzahlen"
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehen durchsuchen",

@@ -136,7 +136,14 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     return maxAmount.isLessThanOrEqualTo(0) ? new BigNumber(0).toFixed(8) : maxAmount.toFixed(8)
   }
 
-  const onTokenSelect = ({ tokenId, reserve, token: { displaySymbol, symbol } }: BottomSheetToken, direction: 'FROM' | 'TO'): void => {
+  const onTokenSelect = ({
+    tokenId,
+    reserve,
+    token: {
+      displaySymbol,
+      symbol
+    }
+  }: BottomSheetToken, direction: 'FROM' | 'TO'): void => {
     const ownedToken = tokens?.find(token => token.id === tokenId)
     const derivedToken = {
       id: ownedToken !== undefined ? ownedToken.id : tokenId, // retrieve unified token if selected
@@ -260,7 +267,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
           },
           reserve: token.reserve
         }
-      })
+      }).sort((a, b) => b.available.minus(a.available).toNumber())
 
     setAllowedSwapFromTokens(swappableFromTokens)
 
@@ -345,11 +352,11 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       },
       tokenA: selectedTokenA,
       tokenB: ownedTokenB !== undefined
-? {
-        ...selectedTokenB,
-        amount: ownedTokenB.amount
-      }
-: selectedTokenB,
+        ? {
+          ...selectedTokenB,
+          amount: ownedTokenB.amount
+        }
+        : selectedTokenB,
       ...(isConversionRequired && {
         conversion: {
           isConversionRequired,
@@ -426,7 +433,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
           <ThemedText
             dark={tailwind('text-gray-400')}
             light={tailwind('text-gray-500')}
-            style={tailwind('mt-10 text-center')}
+            style={tailwind('mt-10 text-center px-4')}
             testID='swap_instructions'
           > {translate('screens/CompositeSwapScreen', 'Select tokens you want to swap to get started')}
           </ThemedText>}
@@ -441,10 +448,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               maxAmount={getMaxAmount(selectedTokenA)}
               enableMaxButton
               onChangeFromAmount={async (amount) => {
-                amount = isNaN(+amount) ? '0' : amount
-                setValue('tokenA', amount)
-                await trigger('tokenA')
-              }}
+              amount = isNaN(+amount) ? '0' : amount
+              setValue('tokenA', amount)
+              await trigger('tokenA')
+            }}
               token={selectedTokenA}
             />
             <InputHelperText
@@ -553,11 +560,11 @@ function TokenSelection (props: { symbol?: string, label: string, onPress: () =>
         dark={tailwind({
           'bg-gray-600 text-gray-500 border-0': props.disabled,
           'bg-gray-800 border-gray-400': !props.disabled
-})}
+        })}
         light={tailwind({
           'bg-gray-200 border-0': props.disabled,
           'bg-white border-gray-300': !props.disabled
-})}
+        })}
         style={tailwind('flex flex-row items-center border rounded p-2')}
         disabled={props.disabled}
       >
@@ -576,13 +583,13 @@ function TokenSelection (props: { symbol?: string, label: string, onPress: () =>
             <ThemedText
               style={tailwind('ml-2')}
               dark={tailwind({
-                'text-gray-500': !props.disabled,
-                'text-gray-400': props.disabled
-                })}
+              'text-gray-500': !props.disabled,
+              'text-gray-400': props.disabled
+            })}
               light={tailwind({
-                'text-gray-900': !props.disabled,
-                'text-gray-500': props.disabled
-                })}
+              'text-gray-900': !props.disabled,
+              'text-gray-500': props.disabled
+            })}
             >{props.symbol}
             </ThemedText>
           </>}
