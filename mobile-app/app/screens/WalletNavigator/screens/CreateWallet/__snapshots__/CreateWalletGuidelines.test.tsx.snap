@@ -343,7 +343,7 @@ exports[`create wallet guidelines should match snapshot 1`] = `
         onChange={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        onTintColor="#34C759"
+        onTintColor="#02B31B"
         style={
           Array [
             Object {
@@ -351,14 +351,14 @@ exports[`create wallet guidelines should match snapshot 1`] = `
               "width": 51,
             },
             Object {
-              "backgroundColor": "#ffffff",
+              "backgroundColor": "#E5E5E5",
               "borderRadius": 16,
             },
           ]
         }
         testID="guidelines_switch"
-        thumbTintColor="#fff"
-        tintColor="rgba(120, 120, 128, 0.20)"
+        thumbTintColor="#FFFFFF"
+        tintColor="#E5E5E5"
         value={false}
       />
       <View
