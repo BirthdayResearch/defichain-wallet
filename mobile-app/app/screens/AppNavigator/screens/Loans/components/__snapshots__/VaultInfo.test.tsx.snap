@@ -5050,9 +5050,7 @@ exports[`Vault info should render label with token icon group 1`] = `
           ]
         }
       >
-        & 
-        1
-         more
+        & 1 more
       </Text>
     </View>
   </View>
