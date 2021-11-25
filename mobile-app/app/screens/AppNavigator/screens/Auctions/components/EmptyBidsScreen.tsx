@@ -16,11 +16,11 @@ export function EmptyBidsScreen (): JSX.Element {
         dark={tailwind('text-white')}
         iconType='MaterialIcons'
         name='no-sim'
-        size={32}
+        size={44}
         style={tailwind('pb-2 text-center')}
       />
 
-      <ThemedText testID='empty_bid_title' style={tailwind('text-lg pb-1 font-semibold text-center')}>
+      <ThemedText testID='empty_bid_title' style={tailwind('text-2xl pb-1 font-semibold text-center')}>
         {translate('components/EmptyBidsScreen', 'No active bids')}
       </ThemedText>
 

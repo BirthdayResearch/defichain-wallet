@@ -76,7 +76,7 @@ export function BidCard (props: BidCardProps): JSX.Element {
         </View>
         <View style={tailwind('flex w-1/2 flex-row')}>
           <ThemedText
-            style={tailwind('flex-shrink mr-0.5')}
+            style={tailwind('flex-shrink mr-0.5 text-sm')}
             numberOfLines={1}
             ellipsizeMode='middle'
           >
@@ -101,7 +101,7 @@ export function BidCard (props: BidCardProps): JSX.Element {
             dark={tailwind('text-gray-400')}
             style={tailwind('text-xs')}
           >
-            {translate('components/BidCard', 'Auction ends on')}
+            {translate('components/BidCard', 'Auction ends in')}
           </ThemedText>
         </View>
         <View style={tailwind('flex flex-row')}>

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { tailwind } from '@tailwind'
-import { ThemedView } from '@components/themed'
+import { ThemedScrollView } from '@components/themed'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { View } from 'react-native'
 import { InfoText } from '@components/InfoText'
@@ -33,7 +33,7 @@ export function ManageBids (): JSX.Element {
   }
 
   return (
-    <ThemedView style={tailwind('h-full m-4')} testID='bid_cards'>
+    <ThemedScrollView style={tailwind('h-full m-4')} testID='bid_cards'>
       {isBetaFeature('auction') && (
         <View style={tailwind('pb-4')}>
           <InfoText
@@ -61,6 +61,6 @@ export function ManageBids (): JSX.Element {
           </View>
         )
       })}
-    </ThemedView>
+    </ThemedScrollView>
   )
 }

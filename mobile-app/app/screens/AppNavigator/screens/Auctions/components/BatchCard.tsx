@@ -91,6 +91,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
             <NumberFormat
               displayType='text'
               prefix='$'
+              decimalScale={2}
               renderText={(value: string) => (
                 <ThemedText
                   light={tailwind('text-gray-900')}
@@ -101,7 +102,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
                 </ThemedText>
                 )}
               thousandSeparator
-              value={batch.loan.amount}
+              value={new BigNumber(batch.loan.amount).toFixed(2)}
             />
           </ThemedText>
         </View>

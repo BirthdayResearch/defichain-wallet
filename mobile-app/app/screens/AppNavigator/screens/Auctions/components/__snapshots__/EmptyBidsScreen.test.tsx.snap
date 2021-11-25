@@ -32,9 +32,9 @@ exports[`Empty bids should match snapshot 1`] = `
         Array [
           Object {
             "fontFamily": "SemiBoldFont",
-            "fontSize": 18,
+            "fontSize": 24,
             "fontWeight": "600",
-            "lineHeight": 28,
+            "lineHeight": 32,
             "paddingBottom": 4,
             "textAlign": "center",
           },

@@ -140,6 +140,8 @@ exports[`Bid Card should match snapshot 1`] = `
             Array [
               Object {
                 "flexShrink": 1,
+                "fontSize": 14,
+                "lineHeight": 20,
                 "marginRight": 2,
               },
               Object {
@@ -211,7 +213,7 @@ exports[`Bid Card should match snapshot 1`] = `
           ]
         }
       >
-        Auction ends on
+        Auction ends in
       </Text>
     </View>
     <View

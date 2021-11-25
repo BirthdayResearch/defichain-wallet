@@ -708,10 +708,12 @@
     "VIEW REWARDS": "查看奖励",
     "{{block}} blks": "{{block}} 区块",
     "Auction ID": "拍卖编号",
-    "Auction ends on": "拍卖结束于",
+    "Auction ends in": "拍卖即将完结于",
     "Auction won": "赢得拍卖",
     "Lost to another bid": "输给另一个出价",
-    "Lost": "竞投失败"
+    "Lost": "竞投失败",
+    "Highest bid": "最高的竞投价格",
+    "Auction ended": "拍卖完结"
   },
   "components/VaultCard": {
     "Collaterals:": "抵押品:",

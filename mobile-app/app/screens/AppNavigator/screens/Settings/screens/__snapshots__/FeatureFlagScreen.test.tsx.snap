@@ -371,7 +371,7 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
             onChange={[Function]}
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
-            onTintColor="#34C759"
+            onTintColor="#02B31B"
             style={
               Array [
                 Object {
@@ -379,14 +379,14 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
                   "width": 51,
                 },
                 Object {
-                  "backgroundColor": "#ffffff",
+                  "backgroundColor": "#E5E5E5",
                   "borderRadius": 16,
                 },
               ]
             }
             testID="feature_auction_switch"
-            thumbTintColor="#fff"
-            tintColor="rgba(120, 120, 128, 0.20)"
+            thumbTintColor="#FFFFFF"
+            tintColor="#E5E5E5"
             value={false}
           />
         </View>

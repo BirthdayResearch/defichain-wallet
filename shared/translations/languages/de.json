@@ -717,10 +717,12 @@
     "VIEW REWARDS": "REWARDS ANSEHEN",
     "{{block}} blks": "{{block}} Blöcke",
     "Auction ID": "Auktions-ID",
-    "Auction ends on": "Autionsende am",
+    "Auction ends in": "Auktion endet in",
     "Auction won": "Auktion gewonnen",
     "Lost to another bid": "An ein anderes Gebot verloren",
-    "Lost": "Verloren"
+    "Lost": "Verloren",
+    "Highest bid": "Höchstes Gebot",
+    "Auction ended": "Auktion beendet"
   },
   "components/VaultCard": {
     "Collaterals:": "Sicherheiten:",
