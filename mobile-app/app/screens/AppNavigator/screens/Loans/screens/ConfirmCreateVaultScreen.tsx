@@ -204,6 +204,10 @@ function SummaryVaultDetails (props: { loanScheme: LoanScheme }): JSX.Element {
           suffix: '%',
           style: tailwind('ml-0')
         }}
+        info={{
+          title: 'Min. collateralization ratio',
+          message: 'Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.'
+        }}
       />
       <NumberRow
         lhs={translate('screens/ConfirmCreateVaultScreen', 'Interest rate (APR)')}

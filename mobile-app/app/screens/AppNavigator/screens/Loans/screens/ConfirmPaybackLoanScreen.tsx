@@ -189,6 +189,11 @@ function SummaryVaultDetails (props: { vault: LoanVaultActive }): JSX.Element {
     minColRatio: new BigNumber(props.vault.loanScheme.minColRatio),
     totalLoanAmount: new BigNumber(props.vault.loanValue)
   })
+  const collateralAlertInfo = {
+    title: 'Collateralization ratio',
+    message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+  }
+
   return (
     <>
       <ThemedSectionTitle
@@ -218,6 +223,7 @@ function SummaryVaultDetails (props: { vault: LoanVaultActive }): JSX.Element {
               testID: 'text_current_collateral_ratio'
             }}
             textStyle={tailwind('text-sm font-normal')}
+            info={collateralAlertInfo}
           />
         )
         : (
@@ -230,6 +236,7 @@ function SummaryVaultDetails (props: { vault: LoanVaultActive }): JSX.Element {
               suffix: '%'
             }}
             rhsThemedProps={colors}
+            info={collateralAlertInfo}
           />
         )}
     </>

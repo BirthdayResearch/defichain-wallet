@@ -740,7 +740,13 @@
     "The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.": "抵押率指的是存放在金庫中的抵押品數量與貸款金額的關係比例，而是由百分比表示。",
     "Next collateralization ratio represents the vault's collateralization ratio based on the prices of the collateral/loan token(s) in the next hour.": "下一個抵押率代表金庫的抵押率，以下一個小時的抵押品/貸款代幣的價格算出。",
     "Annual vault interest rate based on the loan scheme selected.": "基於所選貸款計劃的金庫年利率。",
-    "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "基於所選貸款計劃的最低要求抵押率。當抵押率低於最低要求時，金庫將被清算。"
+    "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "基於所選貸款計劃的最低要求抵押率。當抵押率低於最低要求時，金庫將被清算。",
+    "Collateralization ratio": "抵押品比率",
+    "Interest amount": "總利息金額",
+    "Next collateralization": "Next collateralization",
+    "Min. collateralization ratio": "最小抵押率",
+    "This amount is the total interest amount from both vault and token interest rate.": "總利息金額包含金庫利率和代幣利率",
+    "Annual vault interest": "Annual vault interest"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金庫編號",
@@ -760,7 +766,7 @@
   },
   "components/VaultDetailsLoansTab": {
     "Outstanding balance": "Outstanding balance",
-    "Interest amount": "Interest amount",
+    "Interest amount": "總利息金額",
     "PAYBACK LOAN": "PAYBACK LOAN",
     "BORROW MORE": "注入更多借貸"
   },
