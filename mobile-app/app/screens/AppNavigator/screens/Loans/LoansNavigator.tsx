@@ -24,6 +24,7 @@ import { ConfirmPaybackLoanScreen } from '@screens/AppNavigator/screens/Loans/sc
 import { EditLoanSchemeScreen } from './screens/EditLoanSchemeScreen'
 import { ConfirmEditLoanSchemeScreen } from './screens/ConfirmEditLoanSchemeScreen'
 import { BorrowMoreScreen } from './screens/BorrowMoreScreen'
+import { CloseVaultScreen } from './screens/CloseVaultScreen'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -89,6 +90,9 @@ export interface LoanParamList {
   BorrowMoreScreen: {
     loanTokenAmount: LoanVaultTokenAmount
     vault: LoanVaultActive
+  }
+  CloseVaultScreen: {
+    vaultId: string
   }
   [key: string]: undefined | object
 }
@@ -296,6 +300,18 @@ export function LoansNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/LoansScreen', 'Borrow More')}
+            />
+          )
+        }}
+      />
+      <LoansStack.Screen
+        component={CloseVaultScreen}
+        name='CloseVaultScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/LoansScreen', 'Close Vault')}
             />
           )
         }}

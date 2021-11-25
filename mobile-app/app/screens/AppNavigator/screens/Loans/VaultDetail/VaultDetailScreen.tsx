@@ -69,6 +69,23 @@ export function VaultDetailScreen ({
           merge: true
         })
       }
+    },
+    {
+      label: 'CLOSE VAULT',
+      disabled: !(vault?.state === LoanVaultState.ACTIVE && vault.loanValue === '0'),
+      handleOnPress: () => {
+        if (vault === undefined) {
+          return
+        }
+
+        navigation.navigate({
+          name: 'CloseVaultScreen',
+          params: {
+            vaultId: vault.vaultId
+          },
+          merge: true
+        })
+      }
     }
   ]
 
