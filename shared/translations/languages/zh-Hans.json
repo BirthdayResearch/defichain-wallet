@@ -815,9 +815,9 @@
     "COLLATERALIZATION DETAILS": "COLLATERALIZATION DETAILS",
     "Collateralization ratio": "抵押品比率",
     "Next collateralization": "Next collateralization",
-    "Total collaterals (USD)": "Total collaterals (USD)",
+    "Total collaterals (USD)": "抵押资金总价值 (美金)",
     "Active loans": "活跃的贷款",
-    "Total loans (USD)": "Total loans (USD)"
+    "Total loans (USD)": "贷款总金额 (美金)"
   },
   "components/VaultDetailsCollateralsTab": {
     "Collateral amount (USD)": "抵押品金额 (美金)"
