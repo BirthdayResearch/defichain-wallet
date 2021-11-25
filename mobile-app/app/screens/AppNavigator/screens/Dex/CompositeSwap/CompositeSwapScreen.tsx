@@ -583,11 +583,11 @@ function TokenSelection (props: { symbol?: string, label: string, onPress: () =>
             <ThemedText
               style={tailwind('ml-2')}
               dark={tailwind({
-              'text-gray-500': !props.disabled,
+              'text-gray-200': !props.disabled,
               'text-gray-400': props.disabled
             })}
               light={tailwind({
-              'text-gray-900': !props.disabled,
+              'text-gray-200': !props.disabled,
               'text-gray-500': props.disabled
             })}
             >{props.symbol}
