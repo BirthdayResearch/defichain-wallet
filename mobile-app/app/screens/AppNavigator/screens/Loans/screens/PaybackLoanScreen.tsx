@@ -30,6 +30,7 @@ import { NumberRow } from '@components/NumberRow'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
+import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
 
 type Props = StackScreenProps<LoanParamList, 'PaybackLoanScreen'>
@@ -124,7 +125,7 @@ export function PaybackLoanScreen ({
           style={tailwind('h-9 w-3/5 flex-grow')}
         />
         <InputHelperText
-          label={`${translate('components/PaybackLoanScreen', 'Available')}: `}
+          label={`${translate('screens/PaybackLoanScreen', 'Available')}: `}
           content={new BigNumber(tokenBalance).toFixed(8)}
           suffix={` ${loanToken.displaySymbol}`}
           styleProps={tailwind('font-medium')}
@@ -173,7 +174,7 @@ export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
       dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('border p-4 flex flex-col rounded-lg')}
     >
-      <View style={tailwind('flex flex-row flex-1 items-center mb-3')}>
+      <View style={tailwind('flex flex-row items-center mb-3')}>
         <SymbolIcon
           symbol={props.displaySymbol} styleProps={{
           width: 24,
@@ -223,6 +224,17 @@ export function VaultInput ({
     minColRatio: new BigNumber(vault.loanScheme.minColRatio),
     totalLoanAmount: new BigNumber(vault.loanValue)
   })
+
+  const collateralAlertInfo = {
+    title: 'Collateralization ratio',
+    message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+  }
+
+  const minCollateralRatioInfo = {
+    title: 'Min. collateralization ratio',
+    message: 'Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.'
+  }
+
   const maxLoanAmount = useMaxLoanAmount({
     totalCollateralValue: new BigNumber(vault.collateralValue),
     totalLoanValue: new BigNumber(vault.loanValue),
@@ -244,49 +256,58 @@ export function VaultInput ({
             numberOfLines={1}
             ellipsizeMode='middle'
             style={tailwind('mr-2 w-56 flex-shrink text-sm font-medium')}
-          >{vault.vaultId}
+          >
+            {vault.vaultId}
           </ThemedText>
         </View>
         <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
       </View>
       <View style={tailwind('flex flex-row items-center justify-between mb-1 mt-2')}>
-        <ThemedText
-          light={tailwind('text-dfxgray-500')}
-          dark={tailwind('text-dfxgray-400')}
-          style={tailwind('text-xs')}
-        >
-          {translate('screens/PaybackLoanScreen', 'Collateralization ratio')}
-        </ThemedText>
+        <View style={tailwind('items-center flex-row')}>
+          <ThemedText
+            light={tailwind('text-dfxgray-500')}
+            dark={tailwind('text-dfxgray-400')}
+            style={tailwind('text-xs mr-1')}
+          >
+            {translate('screens/PaybackLoanScreen', 'Collateralization ratio')}
+          </ThemedText>
+          <BottomSheetInfo alertInfo={collateralAlertInfo} name={collateralAlertInfo.title} infoIconStyle={tailwind('text-xs')} />
+        </View>
         <NumberFormat
           value={new BigNumber(vault.collateralRatio).toFixed(2)}
           decimalScale={2}
           thousandSeparator
           suffix='%'
           displayType='text'
-          renderText={(value) =>
+          renderText={(value) => (
             <ThemedText light={colors.light} dark={colors.dark} style={tailwind('text-sm font-medium')}>
               {value}
-            </ThemedText>}
+            </ThemedText>
+          )}
         />
       </View>
       <View style={tailwind('flex flex-row items-center justify-between mb-1')}>
-        <ThemedText
-          light={tailwind('text-dfxgray-500')}
-          dark={tailwind('text-dfxgray-400')}
-          style={tailwind('text-xs')}
-        >
-          {translate('screens/PaybackLoanScreen', 'Min. collateralization ratio')}
-        </ThemedText>
+        <View style={tailwind('items-center flex-row')}>
+          <ThemedText
+            light={tailwind('text-dfxgray-500')}
+            dark={tailwind('text-dfxgray-400')}
+            style={tailwind('text-xs')}
+          >
+            {translate('screens/PaybackLoanScreen', 'Min. collateralization ratio')}
+          </ThemedText>
+          <BottomSheetInfo alertInfo={minCollateralRatioInfo} name={minCollateralRatioInfo.title} infoIconStyle={tailwind('text-xs')} />
+        </View>
         <NumberFormat
           value={new BigNumber(vault.loanScheme.minColRatio).toFixed(2)}
           decimalScale={2}
           thousandSeparator
           suffix='%'
           displayType='text'
-          renderText={(value) =>
+          renderText={(value) => (
             <ThemedText style={tailwind('text-sm font-medium')}>
               {value}
-            </ThemedText>}
+            </ThemedText>
+          )}
         />
       </View>
       {displayMaxLoanAmount && loanToken !== undefined &&

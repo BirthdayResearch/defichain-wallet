@@ -661,7 +661,8 @@
     "Confirm Add Collateral": "确认添加抵押资金",
     "Borrow Loan Token": "借用贷款代币",
     "Confirm Borrow Loan Token": "确认借用贷款代币",
-    "Borrow More": "注入更多借贷"
+    "Borrow More": "注入更多借贷",
+    "Close Vault": "关闭金库"
   },
   "components/tabs": {
     "Browse loan tokens": "浏览贷款选项",
@@ -740,7 +741,13 @@
     "The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.": "抵押率指的是存放在金库中的抵押品数量与贷款金额的关系比例，而是由百分比表示。",
     "Next collateralization ratio represents the vault's collateralization ratio based on the prices of the collateral/loan token(s) in the next hour.": "下一个抵押率代表金库的抵押率，以下一个小时的抵押品/贷款代币的价格算出。",
     "Annual vault interest rate based on the loan scheme selected.": "基于所选贷款计划的金库年利率。",
-    "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "基于所选贷款计划的最低要求抵押率。当抵押率低于最低要求时，金库将被清算。"
+    "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "基于所选贷款计划的最低要求抵押率。当抵押率低于最低要求时，金库将被清算。",
+    "Collateralization ratio": "抵押率",
+    "Interest amount": "总利息金额",
+    "Next collateralization": "Next collateralization",
+    "Min. collateralization ratio": "最小抵押率",
+    "This amount is the total interest amount from both vault and token interest rate.": "此金额是金库和代币利率的利息总和",
+    "Annual vault interest": "年金库利息"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金库编号",
@@ -751,7 +758,8 @@
   "components/ScrollableButton": {
     "ADD COLLATERAL":"加入抵押品",
     "TAKE COLLATERAL": "減低抵押品",
-    "EDIT SCHEME": "更改计划"
+    "EDIT SCHEME": "更改计划",
+    "CLOSE VAULT": "关闭金库"
   },
   "components/EmptyActiveLoans": {
     "No active loans": "没有活跃的贷款",
@@ -760,7 +768,7 @@
   },
   "components/VaultDetailsLoansTab": {
     "Outstanding balance": "Outstanding balance",
-    "Interest amount": "Interest amount",
+    "Interest amount": "总利息金额",
     "PAYBACK LOAN": "PAYBACK LOAN",
     "BORROW MORE": "注入更多借贷"
   },
@@ -779,9 +787,9 @@
     "COLLATERALIZATION DETAILS": "COLLATERALIZATION DETAILS",
     "Collateralization ratio": "抵押品比率",
     "Next collateralization": "Next collateralization",
-    "Total collaterals (USD)": "Total collaterals (USD)",
+    "Total collaterals (USD)": "抵押资金总价值 (美金)",
     "Active loans": "活跃的贷款",
-    "Total loans (USD)": "Total loans (USD)"
+    "Total loans (USD)": "贷款总金额 (美金)"
   },
   "components/VaultDetailsCollateralsTab": {
     "Collateral amount (USD)": "抵押品金额 (美金)"
@@ -901,5 +909,18 @@
     "Unable to proceed because of errors": "错误而无法继续",
     "Max loan amount": "最高的贷款金额",
     "N/A": "不适用"
+  },
+  "screens/CloseVaultScreen": {
+    "You are closing Vault ID": "您正在关闭金库编号",
+    "DETAILS": "明细",
+    "Fees to return": "费用退回",
+    "Fees to burn": "费用销毁",
+    "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "关闭后，此金库编号将不再可使用。在关闭之前，请确保您不需要此金库中的任何资料.",
+    "CONFIRM CLOSE VAULT": "确认关闭金库",
+    "You are about to close vault {{vaultId}}": "您即将关闭金库 {{vaultId}}",
+    "CLOSING": "关闭中"
+  },
+  "components/TokenIconGroup": {
+    "more": "显示更多"
   }
 }

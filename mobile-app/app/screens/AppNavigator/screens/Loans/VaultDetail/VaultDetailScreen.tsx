@@ -69,6 +69,23 @@ export function VaultDetailScreen ({
           merge: true
         })
       }
+    },
+    {
+      label: 'CLOSE VAULT',
+      disabled: !(vault?.state === LoanVaultState.ACTIVE && vault.loanValue === '0'),
+      handleOnPress: () => {
+        if (vault === undefined) {
+          return
+        }
+
+        navigation.navigate({
+          name: 'CloseVaultScreen',
+          params: {
+            vaultId: vault.vaultId
+          },
+          merge: true
+        })
+      }
     }
   ]
 
@@ -200,6 +217,10 @@ function VaultInfoSection (props: { vault?: LoanVault }): JSX.Element | null {
               testID='text_min_col_ratio'
               suffixType='text'
               suffix='%'
+              info={{
+                title: 'Min. collateralization ratio',
+                message: 'Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.'
+              }}
             />
             <VaultSectionTextRow
               value={props.vault.loanScheme.interestRate}
@@ -207,6 +228,10 @@ function VaultInfoSection (props: { vault?: LoanVault }): JSX.Element | null {
               testID='text_vault_interest'
               suffixType='text'
               suffix='%'
+              info={{
+                title: 'Annual vault interest',
+                message: 'Annual vault interest rate based on the loan scheme selected.'
+              }}
             />
           </>
         )
@@ -230,6 +255,10 @@ function VaultInfoSection (props: { vault?: LoanVault }): JSX.Element | null {
               testID='text_vault_interest'
               suffixType='text'
               suffix='%'
+              info={{
+                title: 'Annual vault interest',
+                message: 'Annual vault interest rate based on the loan scheme selected.'
+              }}
             />
           </>
         )}

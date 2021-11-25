@@ -1,3 +1,4 @@
+import { BottomSheetAlertInfo } from '@components/BottomSheetInfo'
 import { NumberRow, NumberRowElement } from '@components/NumberRow'
 import { ThemedProps } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -5,6 +6,7 @@ import React from 'react'
 
 interface VaultSectionText extends NumberRowElement {
   lhs: string
+  info?: BottomSheetAlertInfo
   rhsThemedProps?: ThemedProps
 }
 
@@ -20,6 +22,7 @@ export function VaultSectionTextRow (props: VaultSectionText): JSX.Element {
         prefix: props.prefix,
         style: props.style
       }}
+      info={props.info}
       style={tailwind('flex-row items-center w-full my-1')}
       dark={tailwind('bg-dfxblue-800')}
       light={tailwind('bg-white')}

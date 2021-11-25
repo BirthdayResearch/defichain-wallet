@@ -460,6 +460,12 @@ interface VaultInputActiveProps {
 
 function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
   const vaultState = useVaultStatus(props.vault.state, new BigNumber(props.vault.collateralRatio), new BigNumber(props.vault.loanScheme.minColRatio), new BigNumber(props.vault.loanValue))
+
+  const vaultAlertInfo = {
+    title: 'Annual vault interest',
+    message: 'Annual vault interest rate based on the loan scheme selected.'
+  }
+
   const maxLoanAmount = useMaxLoanAmount({
     totalCollateralValue: new BigNumber(props.vault.collateralValue),
     totalLoanValue: new BigNumber(props.vault.loanValue),
@@ -508,6 +514,7 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
         suffix='%'
         suffixType='text'
         testID='vault_interest_text'
+        info={vaultAlertInfo}
       />
       <VaultSectionTextRow
         lhs={translate('screens/BorrowLoanTokenScreen', 'Max loan amount')}
@@ -543,6 +550,11 @@ export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.
     )
   )
 
+  const minCollateralRatioInfo = {
+    title: 'Min. collateralization ratio',
+    message: 'Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.'
+  }
+
   return (
     <>
       <ThemedSectionTitle
@@ -570,6 +582,7 @@ export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.
         )}
       <NumberRow
         lhs={translate('screens/BorrowLoanTokenScreen', 'Min. collateralization ratio')}
+        info={minCollateralRatioInfo}
         rhs={{
           value: props.vault.loanScheme.minColRatio,
           testID: 'text_col_ratio',

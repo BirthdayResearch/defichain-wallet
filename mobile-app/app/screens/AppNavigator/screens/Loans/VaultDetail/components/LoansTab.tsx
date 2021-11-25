@@ -127,6 +127,10 @@ function LoanCard (props: LoanCardProps): JSX.Element {
             testID='text_interest_amount'
             suffixType='text'
             suffix={` ${props.displaySymbol}`}
+            info={{
+              title: 'Interest amount',
+              message: 'This amount is the total interest amount from both vault and token interest rate.'
+            }}
           />
         )}
       </View>
