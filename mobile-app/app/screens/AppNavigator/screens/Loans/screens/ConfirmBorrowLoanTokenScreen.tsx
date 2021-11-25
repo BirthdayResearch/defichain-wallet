@@ -53,14 +53,7 @@ export function ConfirmBorrowLoanTokenScreen ({
     new BigNumber(totalLoanWithInterest), new BigNumber(loanToken.activePrice?.active?.amount ?? 0))
 
   function onCancel (): void {
-    navigation.navigate({
-      name: 'BorrowLoanTokenScreen',
-      params: {
-        loanToken,
-        vault
-      },
-      merge: true
-    })
+    navigation.goBack()
   }
 
   async function onSubmit (): Promise<void> {
@@ -205,6 +198,10 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
           suffix: '%',
           style: tailwind('ml-0')
         }}
+        info={{
+          title: 'Annual vault interest',
+          message: 'Annual vault interest rate based on the loan scheme selected.'
+        }}
       />
       <NumberRow
         lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Total interest amount')}
@@ -235,6 +232,11 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
 }
 
 function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNumber, collateralRatio: BigNumber }): JSX.Element {
+  const collateralAlertInfo = {
+    title: 'Collateralization ratio',
+    message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+  }
+
   return (
     <>
       <ThemedSectionTitle
@@ -264,6 +266,7 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
               testID: 'text_current_collateral_ratio'
             }}
             textStyle={tailwind('text-sm font-normal')}
+            info={collateralAlertInfo}
           />
         )
         : (
@@ -276,6 +279,7 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
               suffix: '%',
               style: tailwind('ml-0')
             }}
+            info={collateralAlertInfo}
           />
         )}
     </>
@@ -289,7 +293,7 @@ function SummaryTransactionResults (props: { resultCollateralRatio: BigNumber })
         text={translate('screens/ConfirmBorrowLoanTokenScreen', 'TRANSACTION RESULTS')}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Resulting collateral ratio')}
+        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Resulting collateralization')}
         rhs={{
           value: props.resultCollateralRatio.toFixed(2),
           testID: 'text_result_collateral_ratio',

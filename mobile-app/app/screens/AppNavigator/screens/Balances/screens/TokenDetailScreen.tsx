@@ -69,7 +69,7 @@ const usePoolPairToken = (tokenParam: WalletToken): { pair: PoolPairData | undef
 
 export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
   const { pair, token } = usePoolPairToken(route.params.token)
-  const onNavigate = ({ destination, pair }: {destination: 'AddLiquidity' | 'RemoveLiquidity' | 'PoolSwap', pair: PoolPairData}): void => {
+  const onNavigate = ({ destination, pair }: {destination: 'AddLiquidity' | 'RemoveLiquidity' | 'CompositeSwap', pair: PoolPairData}): void => {
     navigation.navigate('DEX', {
       screen: destination,
       initial: false,
@@ -104,7 +104,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
               icon='arrow-downward'
               onPress={() => navigation.navigate('Receive')}
               testID='receive_button'
-              title={`${translate('screens/TokenDetailScreen', 'Receive')} ${token.displaySymbol}`}
+              title={`${translate('screens/TokenDetailScreen', 'Receive {{token}}', { token: token.displaySymbol })}`}
             />
           </>
         )
@@ -133,7 +133,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
           <TokenActionRow
             icon='swap-horiz'
             onPress={() => onNavigate({
-              destination: 'PoolSwap',
+              destination: 'CompositeSwap',
               pair
             })}
             testID='swap_button'

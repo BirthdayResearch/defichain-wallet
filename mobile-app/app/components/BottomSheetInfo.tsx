@@ -3,16 +3,22 @@ import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedText } from './themed'
 import { BottomSheetModal } from './BottomSheetModal'
 import { translate } from '@translations'
-import { View } from 'react-native'
+import { StyleProp, TextStyle, View } from 'react-native'
 
+export interface BottomSheetAlertInfo {
+  title: string
+  message: string
+}
 interface BottomSheetInfoProps {
   name: string
-  alertInfo: { title: string, message: string }
+  alertInfo: BottomSheetAlertInfo
+  infoIconStyle?: StyleProp<TextStyle>
 }
 
 export function BottomSheetInfo ({
   name,
-  alertInfo
+  alertInfo,
+  infoIconStyle
 }: BottomSheetInfoProps): JSX.Element {
   return (
     <BottomSheetModal
@@ -26,6 +32,7 @@ export function BottomSheetInfo ({
           iconType='MaterialIcons'
           dark={tailwind('text-gray-200')}
           light={tailwind('text-gray-700')}
+          style={infoIconStyle}
         />
       }
     >

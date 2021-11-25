@@ -20,21 +20,27 @@ interface BottomSheetTokenListProps {
     screenName: string
     onButtonPress: (item: AddOrRemoveCollateralResponse) => void
   }
-  collateralTokens: CollateralItem[]
+  tokens: Array<CollateralItem | BottomSheetToken>
 }
 
 export interface BottomSheetToken {
-  id: string
-  name: string
+  tokenId: string
   available: BigNumber
-  collateralFactor: BigNumber
+  token: {
+    name: string
+    displaySymbol: string
+    symbol: string
+  }
+  factor?: string
+  reserve?: string
 }
 
 export const BottomSheetTokenList = ({
   headerLabel,
   onCloseButtonPress,
+  onTokenPress,
   navigateToScreen,
-  collateralTokens
+  tokens
 }: BottomSheetTokenListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const { isLight } = useThemeContext()
   const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
@@ -46,15 +52,14 @@ export const BottomSheetTokenList = ({
 
   return (
     <FlatList
-      data={collateralTokens}
-      renderItem={({ item }: { item: CollateralItem }): JSX.Element => (
+      data={tokens}
+      renderItem={({ item }: { item: CollateralItem | BottomSheetToken }): JSX.Element => (
         <ThemedTouchableOpacity
           disabled={new BigNumber(item.available).lte(0)}
           onPress={() => {
-            /*
             if (onTokenPress !== undefined) {
               onTokenPress(item)
-            } */
+            }
             if (navigateToScreen !== undefined) {
               navigation.navigate({
                 name: navigateToScreen.screenName,
@@ -70,6 +75,7 @@ export const BottomSheetTokenList = ({
             }
           }}
           style={tailwind('px-4 py-3 flex flex-row items-center justify-between')}
+          testID={`select_${item.token.displaySymbol}`}
         >
           <View style={tailwind('flex flex-row items-center')}>
             <SymbolIcon
@@ -85,7 +91,7 @@ export const BottomSheetTokenList = ({
               <ThemedText
                 light={tailwind('text-gray-500')}
                 dark={tailwind('text-gray-400')}
-                style={tailwind('text-xs')}
+                style={tailwind(['text-xs', { hidden: item.token.name === '' }])}
               >
                 {item.token.name}
               </ThemedText>
@@ -94,12 +100,14 @@ export const BottomSheetTokenList = ({
           <View style={tailwind('flex flex-row items-center')}>
             <NumberFormat
               value={item.available.toFixed(8)}
+              thousandSeparator
               displayType='text'
               renderText={value =>
                 <ThemedText
                   light={tailwind('text-gray-700')}
                   dark={tailwind('text-gray-300')}
                   style={tailwind('mr-0.5')}
+                  testID={`select_${item.token.displaySymbol}_value`}
                 >
                   {value}
                 </ThemedText>}

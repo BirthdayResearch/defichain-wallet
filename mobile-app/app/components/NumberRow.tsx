@@ -3,6 +3,7 @@ import { StyleProp, TextStyle, View, ViewProps } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
 import { ThemedProps, ThemedText, ThemedView } from './themed'
+import { BottomSheetAlertInfo, BottomSheetInfo } from './BottomSheetInfo'
 
 type INumberRowProps = React.PropsWithChildren<ViewProps> & NumberRowProps
 export type SuffixType = 'text' | 'component'
@@ -10,6 +11,7 @@ export type SuffixType = 'text' | 'component'
 interface NumberRowProps extends ThemedProps {
   lhs: string
   rhs: NumberRowElement
+  info?: BottomSheetAlertInfo
   textStyle?: StyleProp<TextStyle>
   lhsThemedProps?: ThemedProps // TODO: change lhs to type NumberRowElement, move themedprops into NumberRowElement
   rhsThemedProps?: ThemedProps
@@ -32,13 +34,20 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
       style={props.style ?? tailwind('p-4 flex-row items-start w-full')}
     >
       <View style={tailwind('w-6/12')}>
-        <ThemedText
-          style={[tailwind('text-sm'), props.textStyle]}
-          testID={`${props.rhs.testID}_label`}
-          {...props.lhsThemedProps}
-        >
-          {props.lhs}
-        </ThemedText>
+        <View style={tailwind('flex-row items-center justify-start')}>
+          <ThemedText
+            style={[tailwind('text-sm'), props.textStyle]}
+            testID={`${props.rhs.testID}_label`}
+            {...props.lhsThemedProps}
+          >
+            {props.lhs}
+          </ThemedText>
+          {(props.info != null) && (
+            <View style={tailwind('ml-1')}>
+              <BottomSheetInfo alertInfo={props.info} name={props.info.title} infoIconStyle={[tailwind('text-sm'), props.textStyle]} />
+            </View>
+          )}
+        </View>
       </View>
 
       <View

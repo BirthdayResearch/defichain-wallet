@@ -126,7 +126,7 @@ export function CreateVaultScreen ({
         dark={tailwind('text-gray-400')}
         style={tailwind('text-center text-xs mb-10')}
       >
-        {translate('screens/CreateVaultScreen', 'Keep note of your selected collateral ratio for your vault to sustain the loans within it.')}
+        {translate('screens/CreateVaultScreen', 'Keep note of your selected collateralization ratio for your vault to sustain the loans within it.')}
       </ThemedText>
 
       {isConversionRequired &&
