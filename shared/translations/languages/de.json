@@ -108,7 +108,7 @@
     "CONVERT {{symbol}}": "{{symbol}} UMWANDELN",
     "TO {{symbol}}": "IN {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
-    "How much {{symbol}} to convert?": "Wieviele {{symbol}} umzuwandeln?",
+    "How much {{symbol}} to convert?": "Wie viele {{symbol}} umzuwandeln?",
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
     "After conversion, you will receive": "Nach der Konvertierung erhältst du",
@@ -677,7 +677,7 @@
     "Browse loan tokens": "Darlehen durchsuchen",
     "Your vaults": "Deine Vaults",
     "Active loan": "Aktuelles Darlehen",
-    "Details": "Dateils",
+    "Details": "Details" ,
     "Collaterals": "Sicherheiten",
     "Auctions": "Auktionen",
     "Loans": "Darlehen"
