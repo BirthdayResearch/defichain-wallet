@@ -663,7 +663,8 @@
     "Confirm Add Collateral": "确认添加抵押资金",
     "Borrow Loan Token": "借用贷款代币",
     "Confirm Borrow Loan Token": "确认借用贷款代币",
-    "Borrow More": "注入更多借贷"
+    "Borrow More": "注入更多借贷",
+    "Close Vault": "关闭金库"
   },
   "components/tabs": {
     "Browse loan tokens": "浏览贷款选项",
@@ -777,8 +778,8 @@
     "Interest amount": "总利息金额",
     "Next collateralization": "Next collateralization",
     "Min. collateralization ratio": "最小抵押率",
-    "This amount is the total interest amount from both vault and token interest rate.": "总利息金额包含金库利率和代币利率",
-    "Annual vault interest": "Annual vault interest"
+    "This amount is the total interest amount from both vault and token interest rate.": "此金额是金库和代币利率的利息总和",
+    "Annual vault interest": "年金库利息"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金库编号",
@@ -789,7 +790,8 @@
   "components/ScrollableButton": {
     "ADD COLLATERAL":"加入抵押品",
     "TAKE COLLATERAL": "減低抵押品",
-    "EDIT SCHEME": "更改计划"
+    "EDIT SCHEME": "更改计划",
+    "CLOSE VAULT": "关闭金库"
   },
   "components/EmptyActiveLoans": {
     "No active loans": "没有活跃的贷款",
@@ -939,5 +941,18 @@
     "Unable to proceed because of errors": "错误而无法继续",
     "Max loan amount": "最高的贷款金额",
     "N/A": "不适用"
+  },
+  "screens/CloseVaultScreen": {
+    "You are closing Vault ID": "您正在关闭金库编号",
+    "DETAILS": "明细",
+    "Fees to return": "费用退回",
+    "Fees to burn": "费用销毁",
+    "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "关闭后，此金库编号将不再可使用。在关闭之前，请确保您不需要此金库中的任何资料.",
+    "CONFIRM CLOSE VAULT": "确认关闭金库",
+    "You are about to close vault {{vaultId}}": "您即将关闭金库 {{vaultId}}",
+    "CLOSING": "关闭中"
+  },
+  "components/TokenIconGroup": {
+    "more": "显示更多"
   }
 }
