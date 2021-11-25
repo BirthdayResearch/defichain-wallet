@@ -74,11 +74,11 @@ export function VaultStatusTag ({
       )}
       dark={tailwind(
         {
-          'bg-darkblue-100': status === VaultStatus.Active,
+          'bg-dfxblue-600': status === VaultStatus.Active,
           'bg-darksuccess-100': status === VaultStatus.Healthy,
-          'bg-darkwarning-100': status === VaultStatus.AtRisk,
+          'bg-dfxyellow-500': status === VaultStatus.AtRisk,
           'bg-gray-100': status === VaultStatus.Halted,
-          'bg-darkerror-100': status === VaultStatus.Liquidated || (status === VaultStatus.NearLiquidation && vaultStats.isInLiquidation)
+          'bg-dfxpink-500': status === VaultStatus.Liquidated || (status === VaultStatus.NearLiquidation && vaultStats.isInLiquidation)
         }
       )}
       style={tailwind('flex flex-row items-center')}
@@ -95,11 +95,11 @@ export function VaultStatusTag ({
         )}
         dark={tailwind(
           {
-            'text-darkblue-500': status === VaultStatus.Active,
+            'text-dfxblue-500': status === VaultStatus.Active,
             'text-darksuccess-500': status === VaultStatus.Healthy,
-            'text-darkwarning-500': status === VaultStatus.AtRisk,
+            'text-dfxyellow-300': status === VaultStatus.AtRisk,
             'text-gray-500': status === VaultStatus.Halted,
-            'text-darkerror-500': status === VaultStatus.Liquidated || (status === VaultStatus.NearLiquidation && vaultStats.isInLiquidation)
+            'text-dfxpink-300': status === VaultStatus.Liquidated || (status === VaultStatus.NearLiquidation && vaultStats.isInLiquidation)
           }
         )}
         style={tailwind('px-2 py-0.5 font-medium text-xs')}

@@ -82,7 +82,7 @@ function SummaryHeader (props: { vaultId: string }): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-b border-gray-300')}
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       style={tailwind('flex-col px-4 py-6')}
     >
       <ThemedText

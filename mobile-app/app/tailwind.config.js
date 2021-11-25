@@ -136,12 +136,21 @@ module.exports = {
           900: '#F2FAFE'
         },
         dfxblue: {
-          700: '#09C0FA',
+          500: '#09C0FA',
+          600: '#3E5A7A',
           800: '#0A355C',
           900: '#072440'
         },
+        dfxpink: {
+          300: '#FBC9FF',
+          500: '#AB51CB'
+        },
         dfxred: {
           500: '#F5516C'
+        },
+        dfxyellow: {
+          300: '#FFF856',
+          500: '#C89102'
         },
         dfxgray: {
           300: '#B8C4D8',
