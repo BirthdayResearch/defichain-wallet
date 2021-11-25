@@ -6,7 +6,7 @@ import { MAX_ALLOWED_ADDRESSES, useWalletContext } from '@shared-contexts/Wallet
 import { View } from '@components'
 import { TouchableOpacity } from 'react-native'
 import { translate } from '@translations'
-import { NavigationProp, useNavigation } from '@react-navigation/core'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BalanceParamList } from '../BalancesNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { RandomAvatar } from '@screens/AppNavigator/screens/Balances/components/RandomAvatar'
@@ -150,7 +150,7 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
   )
 }
 
-function AddressItemRow ({ address, isActive, index, onPress }: { address: string, isActive: boolean, index: number, onPress: () => void }): JSX.Element {
+export function AddressItemRow ({ address, isActive, index, onPress }: { address: string, isActive: boolean, index: number, onPress: () => void }): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={onPress}
