@@ -139,7 +139,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                         "flexDirection": "row",
                       },
                       Object {
-                        "backgroundColor": "rgba(255, 245, 234, 1)",
+                        "backgroundColor": "rgba(255, 230, 230, 1)",
                       },
                     ]
                   }
@@ -1171,7 +1171,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                         "flexDirection": "row",
                       },
                       Object {
-                        "backgroundColor": "rgba(255, 245, 234, 1)",
+                        "backgroundColor": "rgba(255, 230, 230, 1)",
                       },
                     ]
                   }
@@ -2203,7 +2203,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                         "flexDirection": "row",
                       },
                       Object {
-                        "backgroundColor": "rgba(255, 245, 234, 1)",
+                        "backgroundColor": "rgba(255, 230, 230, 1)",
                       },
                     ]
                   }

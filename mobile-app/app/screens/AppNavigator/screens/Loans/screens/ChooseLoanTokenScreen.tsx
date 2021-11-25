@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { fetchLoanTokens } from '@store/loans'
+import { fetchLoanTokens, loanTokensSelector } from '@store/loans'
 import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
 
@@ -17,7 +17,7 @@ type Props = StackScreenProps<LoanParamList, 'ChooseLoanTokenScreen'>
 
 export function ChooseLoanTokenScreen ({ navigation, route }: Props): JSX.Element {
   const { vaultId } = route.params
-  const loans = useSelector((state: RootState) => state.loans.loanTokens)
+  const loans = useSelector((state: RootState) => loanTokensSelector(state.loans))
   const blockCount = useSelector((state: RootState) => state.block.count)
   const dispatch = useDispatch()
   const client = useWhaleApiClient()

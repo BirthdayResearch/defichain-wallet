@@ -174,7 +174,7 @@ export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
       dark={tailwind('bg-gray-800 border-gray-700')}
       style={tailwind('border p-4 flex flex-col rounded-lg')}
     >
-      <View style={tailwind('flex flex-row flex-1 items-center mb-3')}>
+      <View style={tailwind('flex flex-row items-center mb-3')}>
         <SymbolIcon
           symbol={props.displaySymbol} styleProps={{
           width: 24,
