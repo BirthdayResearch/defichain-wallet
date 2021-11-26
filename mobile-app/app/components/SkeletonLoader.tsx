@@ -4,6 +4,7 @@ import { MnemonicWordSkeletonLoader } from './skeletonLoaders/MnemonicWordSkelet
 import { TransactionSkeletonLoader } from './skeletonLoaders/TransactionSkeletonLoader'
 import { LoanSkeletonLoader } from './skeletonLoaders/LoanSkeletonLoader'
 import { BrowseAuctionsLoader } from './skeletonLoaders/BrowseAuctionsLoader'
+import { VaultSkeletonLoader } from './skeletonLoaders/VaultSkeletonLoader'
 
 interface SkeletonLoaderProp {
   row: number
@@ -15,7 +16,8 @@ export enum SkeletonLoaderScreen {
   'Transaction' = 'Transaction',
   'MnemonicWord' = 'MnemonicWord',
   'Loan' = 'Loan',
-  'BrowseAuction' = 'BrowseAuction'
+  'BrowseAuction' = 'BrowseAuction',
+  'Vault' = 'Vault'
 }
 
 export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
@@ -59,6 +61,14 @@ export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
         <>
           {skeletonRow.map(i => (
             <BrowseAuctionsLoader key={i} />
+          ))}
+        </>
+      )
+    case SkeletonLoaderScreen.Vault:
+      return (
+        <>
+          {skeletonRow.map(i => (
+            <VaultSkeletonLoader key={i} />
           ))}
         </>
       )
