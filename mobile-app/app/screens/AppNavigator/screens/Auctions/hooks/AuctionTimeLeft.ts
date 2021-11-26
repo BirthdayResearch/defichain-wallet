@@ -1,16 +1,22 @@
+import { EnvironmentNetwork } from '@environment'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { translate } from '@translations'
 import { padStart } from 'lodash'
 
 interface AuctionTimeLeft {
   timeRemaining: string
   blocksRemaining: number
+  blocksPerAuction: number
 }
 
 export function useAuctionTimeLeft (liquidationHeight: number, blockCount: number): AuctionTimeLeft {
+  const { network } = useNetworkContext()
+  const blocksPerAuction = network === EnvironmentNetwork.MainNet || network === EnvironmentNetwork.TestNet ? 720 : 36
   const blocksRemaining = liquidationHeight - blockCount
   return {
     timeRemaining: (blocksRemaining > 0) ? secondsToHm(blocksRemaining * 30) : '',
-    blocksRemaining
+    blocksRemaining,
+    blocksPerAuction
   }
 }
 
