@@ -33,7 +33,7 @@ export function ManageBids (): JSX.Element {
   }
 
   return (
-    <ThemedScrollView style={tailwind('h-full m-4')} testID='bid_cards'>
+    <ThemedScrollView contentContainerStyle={tailwind('p-4')} testID='bid_cards'>
       {isBetaFeature('auction') && (
         <View style={tailwind('pb-4')}>
           <InfoText

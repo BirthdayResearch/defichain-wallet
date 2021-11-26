@@ -31,7 +31,7 @@ export function AuctionsNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/AuctionScreen', 'Auction') + ' (Beta)'} // TODO: remove beta from title
+              text={translate('screens/AuctionScreen', 'Auctions') + ' (Beta)'} // TODO: remove beta from title
               containerTestID={headerContainerTestId}
             />
           )
