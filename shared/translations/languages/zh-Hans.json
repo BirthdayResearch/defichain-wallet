@@ -693,6 +693,9 @@
     "No active bids": "没有活跃竞投价格",
     "To get started, browse on auctions and place a bid": "首先，浏览拍卖并出价"
   },
+  "screens/AuctionScreen": {
+    "Auctions": "清算拍卖"
+  },
   "components/BatchCard": {
     "Latest bid": "最新出价",
     "Token to win": "赢得竞投后获得的代币",

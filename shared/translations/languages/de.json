@@ -704,6 +704,9 @@
     "No active bids": "Keine aktiven Gebote",
     "To get started, browse on auctions and place a bid": "Durchsuche Auktionen und gebe ein Gebot ab"
   },
+  "screens/AuctionScreen": {
+    "Auctions": "Auktionen"
+  },
   "components/BatchCard": {
     "Latest bid": "Letztes Gebot",
     "Token to win": "Token zu ersteigern",
