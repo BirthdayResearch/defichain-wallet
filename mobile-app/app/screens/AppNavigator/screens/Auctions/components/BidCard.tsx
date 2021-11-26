@@ -1,17 +1,15 @@
 import React from 'react'
-import * as Progress from 'react-native-progress'
 import { ThemedIcon, ThemedText, ThemedView } from '../../../../../components/themed'
-import { getColor, tailwind } from '@tailwind'
+import { tailwind } from '@tailwind'
 import { View } from '@components'
 import { translate } from '@translations'
 import { IconButton } from '@components/IconButton'
 import { TouchableOpacity } from 'react-native'
 import { LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import NumberFormat from 'react-number-format'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { useAuctionTimeLeft } from '../hooks/AuctionTimeLeft'
+import { AuctionTimeProgress } from './AuctionTimeProgress'
 
 export interface BidCardProps {
   vaultId: string
@@ -22,9 +20,7 @@ export interface BidCardProps {
 
 export function BidCard (props: BidCardProps): JSX.Element {
   const { batch, vaultId, liquidationHeight, testID } = props
-  const { isLight } = useThemeContext()
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
-  const { timeRemaining, blocksRemaining } = useAuctionTimeLeft(liquidationHeight, blockCount)
 
   return (
     <ThemedView
@@ -83,35 +79,10 @@ export function BidCard (props: BidCardProps): JSX.Element {
         </View>
       </View>
 
-      <View style={tailwind('flex-row w-full items-center justify-between mb-2')}>
-        <View style={tailwind('flex flex-row')}>
-          <ThemedText
-            light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
-            style={tailwind('text-xs')}
-          >
-            {translate('components/BidCard', 'Auction ends in')}
-          </ThemedText>
-        </View>
-        <View style={tailwind('flex flex-row')}>
-          <ThemedText
-            light={tailwind('text-gray-900')}
-            dark={tailwind('text-gray-50')}
-            style={tailwind('text-sm')}
-          >
-            {timeRemaining} ({translate('components/BidCard', '{{block}} blks', { block: blocksRemaining })})
-          </ThemedText>
-        </View>
-      </View>
-      {/* TODO Calculate time remaining ratio for progress bar */}
-      <Progress.Bar
-        progress={0.8}
-        width={null}
-        borderColor={getColor(isLight ? 'gray-300' : 'gray-600')}
-        color={getColor(isLight ? 'blue-500' : 'blue-500')}
-        unfilledColor='gray-100'
-        borderRadius={8}
-        height={8}
+      <AuctionTimeProgress
+        liquidationHeight={liquidationHeight}
+        blockCount={blockCount}
+        label='Auction ends in'
       />
 
       <ThemedView

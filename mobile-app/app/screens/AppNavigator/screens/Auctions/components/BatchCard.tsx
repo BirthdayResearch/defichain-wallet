@@ -1,8 +1,7 @@
 import React from 'react'
 import BigNumber from 'bignumber.js'
-import * as Progress from 'react-native-progress'
 import { ThemedText, ThemedView } from '../../../../../components/themed'
-import { getColor, tailwind } from '@tailwind'
+import { tailwind } from '@tailwind'
 import { View } from '@components'
 import { translate } from '@translations'
 import { TokenIconGroup } from '@components/TokenIconGroup'
@@ -10,10 +9,9 @@ import { IconButton } from '@components/IconButton'
 import { LoanVaultLiquidationBatch, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { getNativeIcon } from '@components/icons/assets'
 import NumberFormat from 'react-number-format'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { useAuctionTimeLeft } from '../hooks/AuctionTimeLeft'
+import { AuctionTimeProgress } from './AuctionTimeProgress'
 
 export interface BatchCardProps {
   vaultId: string
@@ -144,49 +142,13 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
         </View>
       </View>
 
-      <AuctionTimeLeftDisplay liquidationHeight={liquidationHeight} blockCount={blockCount} />
+      <AuctionTimeProgress
+        liquidationHeight={liquidationHeight}
+        blockCount={blockCount}
+        label='Auction time left'
+      />
       <BatchCardButtons />
     </ThemedView>
-  )
-}
-
-function AuctionTimeLeftDisplay (props: {liquidationHeight: number, blockCount: number}): JSX.Element {
-  const { isLight } = useThemeContext()
-  const { timeRemaining, blocksRemaining, blocksPerAuction } = useAuctionTimeLeft(props.liquidationHeight, props.blockCount)
-  const normalizedBlocks = new BigNumber(blocksPerAuction).minus(blocksRemaining).dividedBy(blocksPerAuction).toNumber()
-
-  return (
-    <>
-      <View style={tailwind('flex-row w-full items-center justify-between mb-2')}>
-        <View style={tailwind('flex flex-row')}>
-          <ThemedText
-            light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
-            style={tailwind('text-xs')}
-          >
-            {translate('components/BatchCard', 'Auction time left')}
-          </ThemedText>
-        </View>
-        <View style={tailwind('flex flex-row')}>
-          <ThemedText
-            light={tailwind('text-gray-900')}
-            dark={tailwind('text-gray-50')}
-            style={tailwind('text-sm')}
-          >
-            {timeRemaining} ({translate('components/BatchCard', '{{block}} blks', { block: blocksRemaining })})
-          </ThemedText>
-        </View>
-      </View>
-      <Progress.Bar
-        progress={normalizedBlocks}
-        width={null}
-        borderColor={getColor(isLight ? 'gray-300' : 'gray-600')}
-        color={getColor(isLight ? 'blue-500' : 'blue-500')}
-        unfilledColor='gray-100'
-        borderRadius={8}
-        height={8}
-      />
-    </>
   )
 }
 
