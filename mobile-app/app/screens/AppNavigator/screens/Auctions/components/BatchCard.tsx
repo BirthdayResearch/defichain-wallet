@@ -13,7 +13,7 @@ import NumberFormat from 'react-number-format'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { padStart } from 'lodash'
+import { useAuctionTimeLeft } from '../hooks/AuctionTimeLeft'
 
 export interface BatchCardProps {
   vaultId: string
@@ -23,30 +23,12 @@ export interface BatchCardProps {
   testID?: string
 }
 
-export interface Collateral {
-  id: string
-  vaultProportion: BigNumber
-}
-
-export interface LoanToken {
-  tokenId: string
-}
-
-export function secondsToHm (d: number): string {
-  const h = Math.floor(d / 3600)
-  const m = Math.floor(d % 3600 / 60)
-  const hDisplay = h > 0 ? `${translate('components/BatchCard', '{{h}}h', { h })} ` : ''
-  const mDisplay = m >= 0 ? translate('components/BatchCard', '{{m}}m', { m: padStart(m.toString(), 2, '0') }) : ''
-  return `${hDisplay}${mDisplay}`
-}
-
 export function BatchCard (props: BatchCardProps): JSX.Element {
   const { batch, state, liquidationHeight, testID } = props
   const { isLight } = useThemeContext()
   const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
-  const blocksRemaining = liquidationHeight - blockCount
-  const timeRemaining = (blocksRemaining > 0) ? secondsToHm(blocksRemaining * 30) : ''
+  const { timeRemaining, blocksRemaining } = useAuctionTimeLeft(liquidationHeight, blockCount)
 
   return (
     <ThemedView
@@ -133,7 +115,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
                 </ThemedText>
                 )}
               thousandSeparator
-              value={batch.loan.amount}
+              value={new BigNumber(batch.loan.amount).toFixed(8)}
             />
           </ThemedText>
         </View>
@@ -150,7 +132,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
           </ThemedText>
         </View>
         <View style={tailwind('flex flex-row')}>
-          <TokenIconGroup symbols={batch.collaterals.map(collateral => collateral.displaySymbol)} maxIconToDisplay={3} />
+          <TokenIconGroup symbols={batch.collaterals.map(collateral => collateral.displaySymbol)} maxIconToDisplay={5} />
         </View>
       </View>
 

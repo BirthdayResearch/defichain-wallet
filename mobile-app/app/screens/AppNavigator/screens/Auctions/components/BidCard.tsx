@@ -1,5 +1,4 @@
 import React from 'react'
-import BigNumber from 'bignumber.js'
 import * as Progress from 'react-native-progress'
 import { ThemedIcon, ThemedText, ThemedView } from '../../../../../components/themed'
 import { getColor, tailwind } from '@tailwind'
@@ -11,8 +10,8 @@ import { LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/
 import NumberFormat from 'react-number-format'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useSelector } from 'react-redux'
-import { secondsToHm } from './BatchCard'
 import { RootState } from '@store'
+import { useAuctionTimeLeft } from '../hooks/AuctionTimeLeft'
 
 export interface BidCardProps {
   vaultId: string
@@ -21,21 +20,11 @@ export interface BidCardProps {
   testID?: string
 }
 
-export interface Collateral {
-  id: string
-  vaultProportion: BigNumber
-}
-
-export interface LoanToken {
-  tokenId: string
-}
-
 export function BidCard (props: BidCardProps): JSX.Element {
   const { batch, vaultId, liquidationHeight, testID } = props
   const { isLight } = useThemeContext()
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
-  const blocksRemaining = liquidationHeight - blockCount
-  const timeRemaining = (blocksRemaining > 0) ? secondsToHm(blocksRemaining * 30) : ''
+  const { timeRemaining, blocksRemaining } = useAuctionTimeLeft(liquidationHeight, blockCount)
 
   return (
     <ThemedView
