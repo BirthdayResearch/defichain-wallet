@@ -25,6 +25,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { ConversionParam } from '../../Balances/BalancesNavigator'
 import { ConversionTag } from '@components/ConversionTag'
 import { useResultingCollateralRatio } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
+import { useCollateralizationRatioColor } from '../hooks/CollateralizationRatio'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmBorrowLoanTokenScreen'>
 
@@ -112,6 +113,8 @@ export function ConfirmBorrowLoanTokenScreen ({
       />
       <SummaryTransactionResults
         resultCollateralRatio={resultCollateralRatio}
+        minColRatio={new BigNumber(vault.loanScheme.minColRatio)}
+        totalLoanValue={new BigNumber(vault.loanValue).plus(totalLoanWithInterest.multipliedBy(loanToken.activePrice?.active?.amount ?? 0))}
       />
       <SubmitButtonGroup
         isDisabled={hasPendingJob || hasPendingBroadcastJob || resultCollateralRatio.isLessThan(vault.loanScheme.minColRatio)}
@@ -286,7 +289,13 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
   )
 }
 
-function SummaryTransactionResults (props: { resultCollateralRatio: BigNumber }): JSX.Element {
+function SummaryTransactionResults (props: { resultCollateralRatio: BigNumber, minColRatio: BigNumber, totalLoanValue: BigNumber }): JSX.Element {
+  const colors = useCollateralizationRatioColor({
+    colRatio: props.resultCollateralRatio,
+    minColRatio: props.minColRatio,
+    totalLoanAmount: props.totalLoanValue
+  })
+
   return (
     <>
       <ThemedSectionTitle
@@ -301,6 +310,7 @@ function SummaryTransactionResults (props: { resultCollateralRatio: BigNumber })
           suffix: '%',
           style: tailwind('ml-0')
         }}
+        rhsThemedProps={colors}
       />
     </>
   )
