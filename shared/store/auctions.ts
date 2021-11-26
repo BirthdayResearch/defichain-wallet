@@ -46,9 +46,18 @@ export const auctionsSelector = createSelector((state: AuctionsState) => state.a
           return { ...collateral }
         }
       })
+
+      const modifiedLoan = batch.loan.symbol === 'DUSD'
+        ? {
+          ...batch.loan,
+          activePrice: customDUSDActivePrice
+        }
+        : { ...batch.loan }
+
       return {
         ...batch,
-        collaterals: modifiedCollaterals
+        collaterals: modifiedCollaterals,
+        loan: modifiedLoan
       }
     })
     return {
