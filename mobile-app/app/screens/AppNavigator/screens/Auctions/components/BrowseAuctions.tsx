@@ -29,7 +29,7 @@ export function BrowseAuctions (): JSX.Element {
   const { isBetaFeature } = useFeatureFlagContext()
 
   return (
-    <ThemedScrollView style={tailwind('h-full m-4')} testID='auctions_cards'>
+    <ThemedScrollView contentContainerStyle={tailwind('p-4')} testID='auctions_cards'>
       {isBetaFeature('auction') && (
         <View style={tailwind('pb-4')}>
           <InfoText
