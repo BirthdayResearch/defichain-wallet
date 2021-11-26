@@ -80,7 +80,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
                 </ThemedText>
                 )}
               thousandSeparator
-              value={new BigNumber(batch.loan.amount).toFixed(2)}
+              value={new BigNumber(batch.loan.amount).multipliedBy(batch.loan.activePrice?.active?.amount ?? 0).toFixed(2)}
             />
           </ThemedText>
         </View>
