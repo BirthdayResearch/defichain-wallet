@@ -148,8 +148,8 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
     return (
       <ThemedView>
         <SkeletonLoader
-          row={6}
-          screen={SkeletonLoaderScreen.Loan}
+          row={3}
+          screen={SkeletonLoaderScreen.Vault}
         />
       </ThemedView>
     )
