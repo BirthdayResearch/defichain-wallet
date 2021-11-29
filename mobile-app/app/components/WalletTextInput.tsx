@@ -50,10 +50,10 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
   } = props
 
   const textInputComponents = {
-    mobile: TextInputIOS,
+    ios: TextInputIOS,
     default: TextInputDefault
   }
-  const TextInput = Platform.OS === 'ios' && hasBottomSheet === true ? textInputComponents.mobile : textInputComponents.default
+  const TextInput = Platform.OS === 'ios' && hasBottomSheet === true ? textInputComponents.ios : textInputComponents.default
 
   const hasClearButton = (): boolean => {
     return (displayClearButton) && (onClearButtonPress !== undefined)
