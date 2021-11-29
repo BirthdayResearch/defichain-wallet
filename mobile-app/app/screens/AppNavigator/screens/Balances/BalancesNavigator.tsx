@@ -24,7 +24,7 @@ import { TokensVsUtxoScreen } from './screens/TokensVsUtxoScreen'
 export interface BalanceParamList {
   BalancesScreen: undefined
   ReceiveScreen: undefined
-  SendScreen: { token: WalletToken }
+  SendScreen: { token?: WalletToken }
   SendConfirmationScreen: {
     token: WalletToken
     destination: string

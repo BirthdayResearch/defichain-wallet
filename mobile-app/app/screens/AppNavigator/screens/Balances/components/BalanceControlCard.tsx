@@ -62,7 +62,16 @@ export function BalanceControlCard (): JSX.Element {
 
         </View>
       </View>
-      <View style={tailwind('flex flex-row mt-4')}>
+      <View style={tailwind('flex flex-row mt-4 -mr-2')}>
+        <IconButton
+          iconName='arrow-upward'
+          iconSize={20}
+          iconType='MaterialIcons'
+          onPress={() => navigation.navigate('Send')}
+          testID='receive_balance_button'
+          style={tailwind('mr-2')}
+          iconLabel={translate('screens/BalancesScreen', 'SEND')}
+        />
         <IconButton
           iconName='arrow-downward'
           iconSize={20}
