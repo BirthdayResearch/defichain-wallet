@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
-import { ThemedIcon, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedView } from '@components/themed'
 import { Tabs } from '@components/Tabs'
 import { Vaults } from './components/Vaults'
 import { EmptyVault } from './components/EmptyVault'
@@ -146,12 +146,12 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
 
   if (!hasFetchedVaultsData) {
     return (
-      <ThemedView>
+      <ThemedScrollView>
         <SkeletonLoader
           row={3}
           screen={SkeletonLoaderScreen.Vault}
         />
-      </ThemedView>
+      </ThemedScrollView>
     )
   } else if (vaults?.length === 0) {
     return (
