@@ -1,0 +1,15 @@
+{
+  "name": "@defichain-wallet/electron",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "ELECTRON_DISABLE_SECURITY_WARNINGS=1 electron-webpack dev"
+  },
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "electron": "^16.0.2",
+    "electron-builder": "^22.14.5",
+    "electron-webpack": "^2.8.2"
+  }
+}

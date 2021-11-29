@@ -4,7 +4,8 @@
   "license": "MIT",
   "main": "index.js",
   "workspaces": [
-    "./website"
+    "./website",
+    "./platforms/*"
   ],
   "scripts": {
     "prepare": "husky install",
@@ -13,6 +14,7 @@
     "start:android": "expo start --android",
     "start:ios": "expo start --ios",
     "start:web": "expo start --web",
+    "start:electron": "npm run start --workspace=electron",
     "playground:start": "docker-compose rm -fsv && docker-compose up",
     "test:ci": "jest --ci --coverage",
     "cypress:open": "cypress open",
@@ -93,6 +95,7 @@
     "react-redux": "^7.2.6",
     "semver": "^7.3.5",
     "smart-buffer": "^4.2.0",
+    "source-map-support": "^0.5.21",
     "stream-browserify": "^3.0.0",
     "tailwind-rn": "^3.0.1",
     "tailwindcss": "^2.2.19"
