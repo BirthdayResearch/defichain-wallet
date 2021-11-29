@@ -35,30 +35,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.defichain.app.dfx",
-      "versionCode": 8,
-      "intentFilters": [
-        {
-          "action": "VIEW",
-          "data": {
-            "scheme": "https"
-          },
-          "category": [
-            "BROWSABLE",
-            "DEFAULT"
-          ]
-        },
-        {
-          "autoVerify": true,
-          "action": "VIEW",
-          "data": {
-            "scheme": "http"
-          },
-          "category": [
-            "BROWSABLE",
-            "DEFAULT"
-          ]
-        }
-      ]
+      "versionCode": 8
     },
     "web": {
       "favicon": "./shared/assets/images/favicon.png"
