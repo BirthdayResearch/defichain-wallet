@@ -315,7 +315,7 @@ export function VaultInput ({
           <View style={tailwind('flex flex-row items-center justify-between mb-1')}>
             <ThemedText
               light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
+              dark={tailwind('text-dfxgray-400')}
               style={tailwind('text-xs')}
             >
               {translate('screens/BorrowMoreScreen', 'Max loan amount')}
