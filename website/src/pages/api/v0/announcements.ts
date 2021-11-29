@@ -16,6 +16,6 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       'zh-Hans': '去中心化贷款已在清钱包 Light Wallet 正式推出',
       'zh-Hant': '去中心化貸款已在清錢包 Light Wallet 正式推出'
     },
-    version: '>=0.12.0'
+    version: '>=0.17.0'
   }])
 }
