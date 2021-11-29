@@ -4,8 +4,7 @@
   "license": "MIT",
   "main": "index.js",
   "workspaces": [
-    "./website",
-    "./platforms/*"
+    "./website"
   ],
   "scripts": {
     "prepare": "husky install",
@@ -14,7 +13,7 @@
     "start:android": "expo start --android",
     "start:ios": "expo start --ios",
     "start:web": "expo start --web",
-    "start:electron": "npm run start --workspace=electron",
+    "start:electron": "ELECTRON_DISABLE_SECURITY_WARNINGS=1 electron-webpack dev",
     "playground:start": "docker-compose rm -fsv && docker-compose up",
     "test:ci": "jest --ci --coverage",
     "cypress:open": "cypress open",
@@ -122,6 +121,9 @@
     "cypress": "9.0.0",
     "cypress-image-diff-js": "^1.15.7",
     "eas-cli": "^0.38.1",
+    "electorn": "^0.0.1-security",
+    "electron-builder": "^22.14.5",
+    "electron-webpack": "^2.8.2",
     "eslint": "7.32.0",
     "eslint-config-standard-jsx": "^10.0.0",
     "eslint-config-standard-with-typescript": "^21.0.1",
