@@ -1,6 +1,6 @@
 {
   "screens/WalletNavigator": {
-    "Guidelines": "指導方針",
+    "Guidelines": "使用指南",
     "Recovery Words FAQ": "恢復字組常見問題",
     "Display recovery words": "顯示恢復字組",
     "Verify words": "確認字組",
@@ -40,7 +40,7 @@
     "SWAP": "兌換"
   },
   "screens/DexGuidelines": {
-    "Guidelines": "指導方針",
+    "Guidelines": "使用指南",
     "CONTINUE": "繼續",
     "Decentralized Exchange": "去中心化交易所",
     "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "將您的貨幣提供給 DEX 去中心化交易所，並獲得高達三位數百分比的年回報率",
@@ -852,41 +852,41 @@
     "Remove Collateral": "移除抵押"
   },
   "screens/PaybackLoanScreen": {
-    "YOU ARE PAYING FOR LOAN": "RÜCKZAHLUNG FÜR FOLGENDES DARLEHEN",
-    "VAULT IN USE": "AKTIVER VAULT",
-    "How much do you want to pay?": "Wie viel willst du abzahlen?",
-    "Enter an amount": "Gib eine Menge ein",
-    "Available": "Verfügbar",
-    "CONTINUE": "WEITER",
-    "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
-    "Amount to pay": "Zu zahlender Betrag",
-    "Remaining loan amount": "Verbleibender Darlehensbetrag",
-    "Outstanding balance": "Ausstehender Saldo",
-    "Collateralization ratio": "Besicherungsquote",
-    "Min. collateralization ratio": "Min. Besicherungsquote"
+    "YOU ARE PAYING FOR LOAN": "您正在償還貸款",
+    "VAULT IN USE": "金庫使用中T",
+    "How much do you want to pay?": "您希望付款多少?",
+    "Enter an amount": "輸入金額",
+    "Available": "可用的",
+    "CONTINUE": "繼續",
+    "Review and confirm transaction in the next screen": "請在下一頁面檢閱及確認交易",
+    "TRANSACTION DETAILS": "交易細項",
+    "Amount to pay": "付款金價",
+    "Remaining loan amount": "剩餘貸款金額",
+    "Outstanding balance": "未付餘額",
+    "Collateralization ratio": "抵押比例率",
+    "Min. collateralization ratio": "最低抵押比例率"
   },
   "screens/ConfirmPaybackLoanScreen": {
-    "CONFIRM PAYMENT": "ZAHLUNG BESTÄTIGEN",
-    "PAYING": "BEZAHLEN",
-    "You are paying": "Du zahlst",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
-    "Transaction type": "Transaktionsart",
-    "Loan payment": "Darlehensrückzahlung",
-    "Amount to pay": "Zu zahlender Betrag",
-    "Remaining loan amount": "Verbleibender Darlehensbetrag",
-    "VAULT DETAILS": "VAULT-DETAILS",
-    "Vault ID": "Vault-ID",
-    "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
-    "Collateralization ratio": "Besicherungsquote",
-    "Paying loan": "Darlehen abbezahlen",
-    "Paying {{amount}} {{symbol}}": "{{amount}} {{symbol}} bezahlen",
-    "Confirm Loan Payment": "Darlehensrückzahlung bestätigen"
+    "CONFIRM PAYMENT": "確認付款",
+    "PAYING": "付款中",
+    "You are paying": "正在付款",
+    "TRANSACTION DETAILS": "交易細項",
+    "Transaction type": "交易類別",
+    "Loan payment": "貸款付款",
+    "Amount to pay": "付款銀碼",
+    "Remaining loan amount": "剩餘貸款銀碼",
+    "VAULT DETAILS": "金庫資料",
+    "Vault ID": "金庫使用ID",
+    "Collateral amount (USD)": "抵押金額 （USD)",
+    "Collateralization ratio": "抵押率",
+    "Paying loan": "償還貸款中",
+    "Paying {{amount}} {{symbol}}": "償還款項 {{amount}} {{symbol}} ",
+    "Confirm Loan Payment": "確認償還貸款"
   },
   "components/CollateralizationRatioDisplay": {
-    "Collateralization ratio": "Besicherungsquote",
-    "Min:": "Min:",
-    "Next:": "Nächste:"
+    "Collateralization ratio": "抵押率",
+    "Min:": "最低:",
+    "Next:": "下一個:"
   },
   "screens/BorrowLoanTokenScreen": {
     "Borrow loan token": "借用貸款代幣",
@@ -938,26 +938,26 @@
     "BORROWING": "借用"
   },
   "components/BottomSheetVaultList": {
-    "Collateralization ratio": "Besicherungsquote"
+    "Collateralization ratio": "抵押率"
   },
   "screens/EditLoanSchemeScreen": {
-    "EDIT LOAN SCHEME OF VAULT": "BELEIHUNGSMODELL DES VAULTS BEARBEITEN",
-    "Make sure your collateralization ratio is still above your min. collateralization ratio": "Vergewissere dich, dass deine Besicherungsquote immer noch über deiner Mindestbesicherungsquote liegt",
-    "CONTINUE": "WEITER",
-    "Confirm your vault details in next screen": "Bestätige die Daten deines Vaults in der nächsten Ansicht"
+    "EDIT LOAN SCHEME OF VAULT": "更改金庫中的貸款計劃",
+    "Make sure your collateralization ratio is still above your min. collateralization ratio": "確保您的抵押率仍然高於您的最低要求抵押率",
+    "CONTINUE": "繼續",
+    "Confirm your vault details in next screen": "請在下一頁確認金庫細項"
   },
   "screens/ConfirmEditLoanSchemeScreen": {
-    "You are editing scheme of vault": "Du bearbeitest das Vault-Modell",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
-    "Transaction type": "Transaktions-Typ",
-    "Edit loan scheme": "Darlehensmodell bearbeiten",
-    "Prev. minimum collateralization ratio": "Vorherige Mindestbesicherungsquote",
-    "Prev. vault interest (APR)": "Bisheriger Vault-Jahreszins",
-    "New minimum collateralization ratio": "Neue Mindestbesicherungsquote",
-    "New vault interest (APR)": "Neuer Vault-Jahreszins",
-    "CONFIRM EDIT": "BEARBEITEN BESTÄTIGEN",
-    "EDITING": "BEARBEITEN",
-    "CONVERTING": "UMWANDELN"
+    "You are editing scheme of vault": "正在更改金庫計劃",
+    "TRANSACTION DETAILS": "交易資料",
+    "Transaction type": "交易類別",
+    "Edit loan scheme": "更改貸款計劃",
+    "Prev. minimum collateralization ratio": "前最低抵押率",
+    "Prev. vault interest (APR)": "前金庫利息 (APR)",
+    "New minimum collateralization ratio": "更新後最低抵押率",
+    "New vault interest (APR)": "更新後金庫利息 (APR)",
+    "CONFIRM EDIT": "確認更改",
+    "EDITING": "更改中",
+    "CONVERTING": "轉換中"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Mindestbesicherung",
@@ -978,11 +978,11 @@
     "N/A": "不適用"
   },
   "screens/ChooseLoanTokenScreen": {
-    "Search for loans": "Nach Darlehen suchen"
+    "Search for loans": "搜尋貸款"
   },
   "components/EmptyCollateral": {
-    "No collaterals": "Keine Sicherheiten",
-    "Add DFI and tokens as collateral to get started with loans.": "Füge DFI und Token als Sicherheiten hinzu, um Darlehen aufnehmen zu können."
+    "No collaterals": "沒有抵押",
+    "Add DFI and tokens as collateral to get started with loans.": "加入 DFI 和代幣作為抵押開始貸款"
   },
   "screens/CloseVaultScreen": {
     "You are closing Vault ID": "您正在關閉金庫編號",
