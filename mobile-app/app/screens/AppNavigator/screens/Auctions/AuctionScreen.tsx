@@ -45,9 +45,15 @@ export function AuctionsScreen (): JSX.Element {
       testID='auctions_screen'
       style={tailwind('flex-1')}
     >
-      <Tabs tabSections={tabsList} testID='auctions_tabs' activeTabKey={activeTab} />
-      {activeTab === TabKey.BrowseAuctions && (<BrowseAuctions />)}
-      {activeTab === TabKey.ManageBids && <ManageBids />}
+      {/* TODO  Unable tabs when manage bids screen is ready */}
+      {false && (
+        <>
+          <Tabs tabSections={tabsList} testID='auctions_tabs' activeTabKey={activeTab} />
+          {activeTab === TabKey.BrowseAuctions && (<BrowseAuctions />)}
+          {activeTab === TabKey.ManageBids && <ManageBids />}
+        </>
+      )}
+      <BrowseAuctions />
     </ThemedView>
   )
 }
