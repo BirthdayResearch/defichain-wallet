@@ -170,7 +170,7 @@
     "ADDITIONAL OPTIONS": "WEITERE OPTIONEN",
     "SECURITY": "SICHERHEITSEINSTELLUNGEN",
     "Privacy Lock": "App-Passwortschutz",
-    "Auto-locks wallet if there is no activity for 1 min.": "Automatische Wallet-Sperre bei 1 Min. Inaktivität",
+    "Auto-locks wallet if there is no activity for 1 min.": "Automatische Wallet-Sperre bei 1 Min. Inaktivität.",
     "Secure with {{option}}": "Sichern durch {{option}}",
     "Face ID": "Face ID",
     "Touch ID": "Touch ID",
@@ -736,17 +736,17 @@
     "CONTINUE": "WEITER",
     "Confirm your vault details in next screen": "Bestätige die Daten deines Vaults in der nächsten Ansicht",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "Das Darlehensmodell deines Vaults bestimmt dessen erforderliche Darlehens-Besicherung.",
-    "Min. collateralization ratio": "Min. Besicherungsquote"
+    "Min. collateralization ratio": "Mind. Besicherungsquote"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Du erstellst gerade einen Vault",
-    "ID will generate once vault has been created": "ID wird generiert, sobald das Vault erstellt ist",
+    "ID will generate once vault has been created": "ID wird generiert, sobald der Vault erstellt ist",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktionsart",
     "Create vault": "Vault erstellen",
     "Total transaction cost": "Transaktionskosten gesamt",
     "VAULT DETAILS": "VAULT-DETAILS",
-    "Min. collateralization ratio": "Min. Besicherungsquote",
+    "Min. collateralization ratio": "Mind. Besicherungsquote",
     "Interest rate (APR)": "Jahreszinssatz",
     "APR": "Jahreszins",
     "CONFIRM CREATE VAULT": "VAULT ERSTELLEN BESTÄTIGEN",
@@ -762,11 +762,11 @@
     "The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.": "Die Besicherungsquote stellt die Menge der in einem Vault hinterlegten Sicherheiten im Verhältnis zum Darlehensbetrag dar, ausgedrückt in Prozent.",
     "Next collateralization ratio represents the vault's collateralization ratio based on the prices of the collateral/loan token(s) in the next hour.": "Nächste Besicherungsquote stellt den Besicherungsgrad des Vaults auf der Grundlage der Preise der Sicherheiten/Darlehenstoken in der nächsten Stunde dar.",
     "Annual vault interest rate based on the loan scheme selected.": "Vault-Jahreszinssatz auf Basis des gewählten Darlehensmodells.",
-    "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "Erforderliche Mindestbesicherungsquote je nach ausgewähltem Darlehensmodell. Ein Voult wird liquidiert, wenn die Besicherungsquote unter die Mindestanforderung sinkt.",
+    "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "Erforderliche Mindestbesicherungsquote je nach ausgewähltem Darlehensmodell. Ein Vault wird liquidiert, wenn die Besicherungsquote unter die Mindestanforderung sinkt.",
     "Collateralization ratio": "Besicherungsquote",
     "Interest amount": "Zinsbetrag",
     "Next collateralization": "Nächste Besicherung",
-    "Min. collateralization ratio": "Min. Besicherungsquote",
+    "Min. collateralization ratio": "Mind. Besicherungsquote",
     "This amount is the total interest amount from both vault and token interest rate.": "Dieser Gesamtzinsbetrag setzt sich aus Vault- und Token-Zinssatz zusammen.",
     "Annual vault interest": "Vault-Jahreszins"
   },
@@ -778,7 +778,7 @@
     "Total collateral (USD)": "Gesamter Besicherungswert (USD)",
     "Total loans (USD)": "Gesamtes Darlehen (USD)",
     "Vault interest (APR)": "Vault-Jahreszins",
-    "Min. collateralization ratio": "Min. Besicherungsquote"
+    "Min. collateralization ratio": "Mind. Besicherungsquote"
   },
   "components/ScrollableButton": {
     "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
@@ -808,7 +808,7 @@
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "DARLEHENSMODELL",
-    "Min. collateralization ratio": "Min. Besicherungsquote",
+    "Min. collateralization ratio": "Mind. Besicherungsquote",
     "Vault interest": "Vault-Jahreszins",
     "VAULT DETAILS": "VAULT-DETAILS",
     "COLLATERALIZATION DETAILS": "DETAILS ZUR BESICHERUNG",
@@ -846,7 +846,7 @@
     "Removing {{amount}} {{symbol}} collateral from vault": "{{amount}} {{symbol}} Sicherheit aus Vault entfernen",
     "Total loans (USD)": "Gesamtes Darlehen (USD)",
     "Collateralization ratio": "Besicherungsquote",
-    "Min. collateralization ratio": "Min. Besicherungsquote",
+    "Min. collateralization ratio": "Mind. Besicherungsquote",
     "Vault interest": "Vault-Jahreszins"
   },
   "components/AddOrRemoveCollateralForm": {
@@ -893,7 +893,7 @@
     "Remaining loan amount": "Verbleibender Darlehensbetrag",
     "Outstanding balance": "Ausstehender Saldo",
     "Collateralization ratio": "Besicherungsquote",
-    "Min. collateralization ratio": "Min. Besicherungsquote"
+    "Min. collateralization ratio": "Mind. Besicherungsquote"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "ZAHLUNG BESTÄTIGEN",
@@ -931,7 +931,7 @@
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Collateralization ratio": "Besicherungsquote",
     "Resulting collateralization": "Resultierende Besicherungsquote",
-    "Min. collateralization ratio": "Min. Besicherungsquote",
+    "Min. collateralization ratio": "Mind. Besicherungsquote",
     "Interest (Vault + Token)": "Zinsen (Vault + Token)",
     "Total interest amount": "Zinsgesamtbetrag",
     "Total loan + interest": "Gesamtbetrag Darlehen + Zins",
@@ -989,7 +989,7 @@
     "CONVERTING":"UMWANDELN"
   },
   "components/LoanSchemeOptions": {
-    "Min. collateralization ratio": "Mindestbesicherung",
+    "Min. collateralization ratio": "Mind. Besicherungsquote",
     "Interest rate": "Zinssatz",
     "APR": "Jahreszins"
   },
