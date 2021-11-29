@@ -174,123 +174,125 @@ export function SendScreen ({
   }
 
   return (
-    <ThemedScrollView contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'>
-      <TokenInput token={token} onPress={expandModal} />
+    <View style={tailwind('h-full')} ref={containerRef}>
+      <ThemedScrollView contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'>
+        <TokenInput token={token} onPress={expandModal} />
 
-      {token === undefined
-          ? (
-            <ThemedText style={tailwind('px-4')}>
-              {translate('screens/SendScreen', 'Select a token you want to send to get started')}
-            </ThemedText>
-          )
-          : (
-            <>
-              <View style={tailwind('px-4')}>
-                <AddressRow
-                  control={control}
-                  networkName={networkName}
-                  onQrButtonPress={() => navigation.navigate({
-                    name: 'BarCodeScanner',
-                    params: {
-                      onQrScanned: async (value) => {
-                        setValue('address', value, { shouldDirty: true })
-                        await trigger('address')
-                      }
-                    },
-                    merge: true
-                  })}
-                  onClearButtonPress={async () => {
-                    setValue('address', '')
-                    await trigger('address')
-                  }}
-                  onAddressChange={async (address) => {
-                    setValue('address', address, { shouldDirty: true })
-                    await trigger('address')
-                  }}
-                />
-
-                <AmountRow
-                  control={control}
-                  onAmountChange={async (amount) => {
-                    setValue('amount', amount, { shouldDirty: true })
-                    await trigger('amount')
-                  }}
-                  onClearButtonPress={async () => {
-                    setValue('amount', '')
-                    await trigger('amount')
-                  }}
-                  token={token}
-                />
-
-                <ReservedDFIInfoText />
-                {isConversionRequired &&
-                  <View style={tailwind('mt-2')}>
-                    <ConversionInfoText />
-                  </View>}
-              </View>
-              {
-                fee !== undefined && (
-                  <View style={tailwind()}>
-                    <ThemedSectionTitle
-                      text={translate('screens/SendScreen', 'TRANSACTION DETAILS')}
-                    />
-                    {isConversionRequired &&
-                      <NumberRow
-                        lhs={translate('screens/SendScreen', 'Amount to be converted')}
-                        rhs={{
-                        value: conversionAmount.toFixed(8),
-                        testID: 'text_amount_to_convert',
-                        suffixType: 'text',
-                        suffix: token.displaySymbol
-                      }}
-                      />}
-
-                    <FeeInfoRow
-                      type='ESTIMATED_FEE'
-                      value={fee.toString()}
-                      testID='transaction_fee'
-                      suffix='DFI'
-                    />
-                  </View>
-                )
-              }
-              <ThemedText
-                testID='transaction_details_info_text'
-                light={tailwind('text-gray-600')}
-                dark={tailwind('text-gray-300')}
-                style={tailwind('mt-2 mx-4 text-sm')}
-              >
-                {isConversionRequired
-                  ? translate('screens/SendScreen', 'Authorize transaction in the next screen to convert')
-                  : translate('screens/SendScreen', 'Review full transaction details in the next screen')}
+        {token === undefined
+            ? (
+              <ThemedText style={tailwind('px-4')}>
+                {translate('screens/SendScreen', 'Select a token you want to send to get started')}
               </ThemedText>
-            </>
-          )}
+            )
+            : (
+              <>
+                <View style={tailwind('px-4')}>
+                  <AddressRow
+                    control={control}
+                    networkName={networkName}
+                    onQrButtonPress={() => navigation.navigate({
+                      name: 'BarCodeScanner',
+                      params: {
+                        onQrScanned: async (value) => {
+                          setValue('address', value, { shouldDirty: true })
+                          await trigger('address')
+                        }
+                      },
+                      merge: true
+                    })}
+                    onClearButtonPress={async () => {
+                      setValue('address', '')
+                      await trigger('address')
+                    }}
+                    onAddressChange={async (address) => {
+                      setValue('address', address, { shouldDirty: true })
+                      await trigger('address')
+                    }}
+                  />
 
-      <Button
-        disabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || token === undefined}
-        label={translate('screens/SendScreen', 'CONTINUE')}
-        onPress={onSubmit}
-        testID='send_submit_button'
-        title='Send'
-        margin='mt-14 mx-4'
-      />
+                  <AmountRow
+                    control={control}
+                    onAmountChange={async (amount) => {
+                      setValue('amount', amount, { shouldDirty: true })
+                      await trigger('amount')
+                    }}
+                    onClearButtonPress={async () => {
+                      setValue('amount', '')
+                      await trigger('amount')
+                    }}
+                    token={token}
+                  />
 
-      {Platform.OS === 'web' && (
-        <BottomSheetWebWithNav
-          modalRef={containerRef}
-          screenList={bottomSheetScreen}
-          isModalDisplayed={isModalDisplayed}
+                  <ReservedDFIInfoText />
+                  {isConversionRequired &&
+                    <View style={tailwind('mt-2')}>
+                      <ConversionInfoText />
+                    </View>}
+                </View>
+                {
+                  fee !== undefined && (
+                    <View style={tailwind()}>
+                      <ThemedSectionTitle
+                        text={translate('screens/SendScreen', 'TRANSACTION DETAILS')}
+                      />
+                      {isConversionRequired &&
+                        <NumberRow
+                          lhs={translate('screens/SendScreen', 'Amount to be converted')}
+                          rhs={{
+                          value: conversionAmount.toFixed(8),
+                          testID: 'text_amount_to_convert',
+                          suffixType: 'text',
+                          suffix: token.displaySymbol
+                        }}
+                        />}
+
+                      <FeeInfoRow
+                        type='ESTIMATED_FEE'
+                        value={fee.toString()}
+                        testID='transaction_fee'
+                        suffix='DFI'
+                      />
+                    </View>
+                  )
+                }
+                <ThemedText
+                  testID='transaction_details_info_text'
+                  light={tailwind('text-gray-600')}
+                  dark={tailwind('text-gray-300')}
+                  style={tailwind('mt-2 mx-4 text-sm')}
+                >
+                  {isConversionRequired
+                    ? translate('screens/SendScreen', 'Authorize transaction in the next screen to convert')
+                    : translate('screens/SendScreen', 'Review full transaction details in the next screen')}
+                </ThemedText>
+              </>
+            )}
+
+        <Button
+          disabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || token === undefined}
+          label={translate('screens/SendScreen', 'CONTINUE')}
+          onPress={onSubmit}
+          testID='send_submit_button'
+          title='Send'
+          margin='mt-14 mx-4'
         />
-      )}
 
-      {Platform.OS !== 'web' && (
-        <BottomSheetWithNav
-          modalRef={bottomSheetRef}
-          screenList={bottomSheetScreen}
-        />
-      )}
-    </ThemedScrollView>
+        {Platform.OS === 'web' && (
+          <BottomSheetWebWithNav
+            modalRef={containerRef}
+            screenList={bottomSheetScreen}
+            isModalDisplayed={isModalDisplayed}
+          />
+        )}
+
+        {Platform.OS !== 'web' && (
+          <BottomSheetWithNav
+            modalRef={bottomSheetRef}
+            screenList={bottomSheetScreen}
+          />
+        )}
+      </ThemedScrollView>
+    </View>
   )
 }
 
