@@ -11,10 +11,10 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
   await runMiddleware(req, res, cors)
   res.json([{
     lang: {
-      en: 'Decentralized loan is coming to the Light Wallet app in one week\'s time!',
-      de: 'Die dezentrale Darlehensvergabe wird in einer Woche in der Light Wallet App verfügbar sein!',
-      'zh-Hans': '去中心化贷款即将登陆轻钱包应用程序',
-      'zh-Hant': '去中心化貸款即將登陸輕錢包應用程序'
+      en: 'Decentralized loan is now available on the Light Wallet app.',
+      de: 'Dezentrale Darlehen sind jetzt in der Light Wallet App verfügbar.',
+      'zh-Hans': '去中心化贷款已在清钱包 Light Wallet 正式推出',
+      'zh-Hant': '去中心化貸款已在清錢包 Light Wallet 正式推出'
     },
     version: '>=0.12.0'
   }])
