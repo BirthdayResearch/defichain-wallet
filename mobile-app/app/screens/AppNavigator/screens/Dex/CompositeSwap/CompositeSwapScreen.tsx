@@ -71,6 +71,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const reservedDfi = 0.1
   const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
+  const [liquidityProviderFee, setLiquidityProviderFee] = useState<BigNumber>(new BigNumber(0))
   const [selectedTokenA, setSelectedTokenA] = useState<OwnedTokenState>()
   const [selectedTokenB, setSelectedTokenB] = useState<TokenState>()
   const [selectedPoolPairs, setSelectedPoolPairs] = useState<PoolPairData[]>()
@@ -307,7 +308,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       const {
         aToBPrice,
         bToAPrice,
-        estimated
+        estimated,
+        commission
       } = calculatePriceRates(selectedTokenA, selectedPoolPairs, tokenAFormAmount)
 
       setPriceRates([{
@@ -330,6 +332,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       ])
 
       setValue('tokenB', estimated)
+      setLiquidityProviderFee(commission)
     }
   }, [selectedPoolPairs, tokenAFormAmount])
 
@@ -497,6 +500,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               conversionAmount={conversionAmount}
               estimatedAmount={tokenBFormAmount}
               fee={fee}
+              liquidityProviderFee={liquidityProviderFee}
               isConversionRequired={isConversionRequired}
               slippage={slippage}
               tokenA={selectedTokenA}
@@ -618,11 +622,12 @@ function TransactionDetailsSection ({
   conversionAmount,
   estimatedAmount,
   fee,
+  liquidityProviderFee,
   isConversionRequired,
   slippage,
   tokenA,
   tokenB
-}: { conversionAmount: BigNumber, estimatedAmount: string, fee: BigNumber, isConversionRequired: boolean, slippage: number, tokenA: OwnedTokenState, tokenB: TokenState }): JSX.Element {
+}: { conversionAmount: BigNumber, estimatedAmount: string, fee: BigNumber, liquidityProviderFee: BigNumber, isConversionRequired: boolean, slippage: number, tokenA: OwnedTokenState, tokenB: TokenState }): JSX.Element {
   return (
     <>
       <ThemedSectionTitle
@@ -658,6 +663,16 @@ function TransactionDetailsSection ({
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
+      <NumberRow
+        lhs={translate('screens/CompositeSwapScreen', 'Liquidity provider fee')}
+        rhs={{
+          value: liquidityProviderFee.toFixed(8),
+          suffixType: 'text',
+          suffix: 'DFI',
+          testID: 'liquidity_provider_fee'
+        }}
+        textStyle={tailwind('text-sm font-normal')}
+      />
       <FeeInfoRow
         type='ESTIMATED_FEE'
         value={fee.toFixed(8)}
@@ -668,11 +683,11 @@ function TransactionDetailsSection ({
   )
 }
 
-function calculatePriceRates (tokenA: OwnedTokenState, pairs: PoolPairData[], amount: string): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: string } {
+function calculatePriceRates (tokenA: OwnedTokenState, pairs: PoolPairData[], amount: string): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: string, commission: BigNumber } {
   const slippage = new BigNumber(1).minus(new BigNumber(amount).div(tokenA.reserve))
   let lastTokenBySymbol = tokenA.symbol
   let lastAmount = new BigNumber(amount)
-  const priceRates = pairs.reduce((priceRates, pair): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: BigNumber } => {
+  const priceRates = pairs.reduce((priceRates, pair): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: BigNumber, commission: BigNumber } => {
     const [reserveA, reserveB] = pair.tokenB.symbol === lastTokenBySymbol ? [pair.tokenB.reserve, pair.tokenA.reserve] : [pair.tokenA.reserve, pair.tokenB.reserve]
     const [tokenASymbol, tokenBSymbol] = pair.tokenB.symbol === lastTokenBySymbol ? [pair.tokenB.symbol, pair.tokenA.symbol] : [pair.tokenA.symbol, pair.tokenB.symbol]
 
@@ -682,24 +697,28 @@ function calculatePriceRates (tokenA: OwnedTokenState, pairs: PoolPairData[], am
     const aToBPrice = tokenASymbol === lastTokenBySymbol ? priceRateA : priceRateB
     const bToAPrice = tokenASymbol === lastTokenBySymbol ? priceRateB : priceRateA
     const estimated = new BigNumber(lastAmount).times(aToBPrice)
+    const commission = priceRates.commission.plus(new BigNumber(pair.commission).multipliedBy(amount))
 
     lastAmount = estimated
     lastTokenBySymbol = tokenBSymbol
     return {
       aToBPrice: priceRates.aToBPrice.times(aToBPrice),
       bToAPrice: priceRates.bToAPrice.times(bToAPrice),
-      estimated
+      estimated,
+      commission
     }
   }, {
     aToBPrice: new BigNumber(1),
     bToAPrice: new BigNumber(1),
-    estimated: new BigNumber(0)
+    estimated: new BigNumber(0),
+    commission: new BigNumber(0)
   })
 
   return {
     aToBPrice: priceRates.aToBPrice,
     bToAPrice: priceRates.bToAPrice,
-    estimated: priceRates.estimated.times(slippage).toFixed(8)
+    estimated: priceRates.estimated.times(slippage).toFixed(8),
+    commission: priceRates.commission
   }
 }
 
