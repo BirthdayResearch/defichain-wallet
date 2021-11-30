@@ -9,21 +9,20 @@ import { translate } from '@translations'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useEffect } from 'react'
-import { fetchVaults } from '@store/loans'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
+import { auctionsSelector, fetchAuctions } from '@store/auctions'
 
 export function BrowseAuctions (): JSX.Element {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
-  const { address } = useWalletContext()
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const auctions = useSelector((state: RootState) => state.auctions.auctions)
+  const auctions = useSelector((state: RootState) => auctionsSelector(state.auctions))
+  const { hasFetchAuctionsData } = useSelector((state: RootState) => state.auctions)
 
   useEffect(() => {
-    dispatch(fetchVaults({ address, client }))
+    dispatch(fetchAuctions({ client }))
   }, [blockCount])
 
   const { isBetaFeature } = useFeatureFlagContext()
@@ -38,7 +37,7 @@ export function BrowseAuctions (): JSX.Element {
           />
         </View>
       )}
-      {auctions.length === 0 && (
+      {!hasFetchAuctionsData && (
         <View>
           <SkeletonLoader
             row={6}
@@ -49,8 +48,7 @@ export function BrowseAuctions (): JSX.Element {
       {auctions.map((auction: LoanVaultLiquidated, index: number) => {
         return (
           <View key={auction.vaultId}>
-            {
-            auction.batches.map((eachBatch: LoanVaultLiquidationBatch) => {
+            {auction.batches.map((eachBatch: LoanVaultLiquidationBatch) => {
               return (
                 <BatchCard
                   vaultId={auction.vaultId}
@@ -61,8 +59,7 @@ export function BrowseAuctions (): JSX.Element {
                   testID={`batch_card_${index}`}
                 />
               )
-            })
-            }
+            })}
           </View>
         )
       })}

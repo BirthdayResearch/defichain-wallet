@@ -719,6 +719,10 @@
     "Highest bid": "最高的競投價格",
     "Auction ended": "拍賣完結"
   },
+  "components/AuctionTimeProgress": {
+    "Auction ends in": "拍賣即將完結於",
+    "Auction time left": "剩餘拍賣時間"
+  },
   "components/VaultCard": {
     "Collaterals:": "抵押品:",
     "None": "無",

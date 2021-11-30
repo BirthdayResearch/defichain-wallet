@@ -1,8 +1,7 @@
 import React from 'react'
 import BigNumber from 'bignumber.js'
-import * as Progress from 'react-native-progress'
 import { ThemedText, ThemedView } from '../../../../../components/themed'
-import { getColor, tailwind } from '@tailwind'
+import { tailwind } from '@tailwind'
 import { View } from '@components'
 import { translate } from '@translations'
 import { TokenIconGroup } from '@components/TokenIconGroup'
@@ -10,10 +9,9 @@ import { IconButton } from '@components/IconButton'
 import { LoanVaultLiquidationBatch, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { getNativeIcon } from '@components/icons/assets'
 import NumberFormat from 'react-number-format'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { padStart } from 'lodash'
+import { AuctionTimeProgress } from './AuctionTimeProgress'
 
 export interface BatchCardProps {
   vaultId: string
@@ -23,30 +21,10 @@ export interface BatchCardProps {
   testID?: string
 }
 
-export interface Collateral {
-  id: string
-  vaultProportion: BigNumber
-}
-
-export interface LoanToken {
-  tokenId: string
-}
-
-export function secondsToHm (d: number): string {
-  const h = Math.floor(d / 3600)
-  const m = Math.floor(d % 3600 / 60)
-  const hDisplay = h > 0 ? `${translate('components/BatchCard', '{{h}}h', { h })} ` : ''
-  const mDisplay = m >= 0 ? translate('components/BatchCard', '{{m}}m', { m: padStart(m.toString(), 2, '0') }) : ''
-  return `${hDisplay}${mDisplay}`
-}
-
 export function BatchCard (props: BatchCardProps): JSX.Element {
   const { batch, state, liquidationHeight, testID } = props
-  const { isLight } = useThemeContext()
   const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
-  const blocksRemaining = liquidationHeight - blockCount
-  const timeRemaining = (blocksRemaining > 0) ? secondsToHm(blocksRemaining * 30) : ''
 
   return (
     <ThemedView
@@ -102,7 +80,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
                 </ThemedText>
                 )}
               thousandSeparator
-              value={new BigNumber(batch.loan.amount).toFixed(2)}
+              value={new BigNumber(batch.loan.amount).multipliedBy(batch.loan.activePrice?.active?.amount ?? 0).toFixed(2)}
             />
           </ThemedText>
         </View>
@@ -119,23 +97,33 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
           </ThemedText>
         </View>
         <View style={tailwind('flex flex-row')}>
-          <ThemedText>
-            <NumberFormat
-              suffix={` ${batch.loan.displaySymbol}`}
-              displayType='text'
-              renderText={(value: string) => (
-                <ThemedText
-                  light={tailwind('text-gray-900')}
-                  dark={tailwind('text-gray-50')}
-                  style={tailwind('text-sm')}
-                >
-                  {value}
-                </ThemedText>
-                )}
-              thousandSeparator
-              value={batch.loan.amount}
-            />
-          </ThemedText>
+          {batch.highestBid === undefined
+            ? (
+              <ThemedText
+                light={tailwind('text-gray-900')}
+                dark={tailwind('text-gray-50')}
+                style={tailwind('text-sm')}
+              >
+                {translate('components/BatchCard', 'N/A')}
+              </ThemedText>
+            )
+            : (
+              <NumberFormat
+                suffix={` ${batch.loan.displaySymbol}`}
+                displayType='text'
+                renderText={(value: string) => (
+                  <ThemedText
+                    light={tailwind('text-gray-900')}
+                    dark={tailwind('text-gray-50')}
+                    style={tailwind('text-sm')}
+                  >
+                    {value}
+                  </ThemedText>
+                    )}
+                thousandSeparator
+                value={new BigNumber(batch.highestBid.amount.amount).toFixed(8)}
+              />
+            )}
         </View>
       </View>
 
@@ -150,59 +138,39 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
           </ThemedText>
         </View>
         <View style={tailwind('flex flex-row')}>
-          <TokenIconGroup symbols={batch.collaterals.map(collateral => collateral.displaySymbol)} maxIconToDisplay={3} />
+          <TokenIconGroup symbols={batch.collaterals.map(collateral => collateral.displaySymbol)} maxIconToDisplay={5} />
         </View>
       </View>
 
-      <View style={tailwind('flex-row w-full items-center justify-between mb-2')}>
-        <View style={tailwind('flex flex-row')}>
-          <ThemedText
-            light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
-            style={tailwind('text-xs')}
-          >
-            {translate('components/BatchCard', 'Auction time left')}
-          </ThemedText>
-        </View>
-        <View style={tailwind('flex flex-row')}>
-          <ThemedText
-            light={tailwind('text-gray-900')}
-            dark={tailwind('text-gray-50')}
-            style={tailwind('text-sm')}
-          >
-            {timeRemaining} ({translate('components/BatchCard', '{{block}} blks', { block: blocksRemaining })})
-          </ThemedText>
-        </View>
-      </View>
-      {/* TODO Calculate time remaining ratio for progress bar */}
-      <Progress.Bar
-        progress={0.8}
-        width={null}
-        borderColor={getColor(isLight ? 'gray-300' : 'gray-600')}
-        color={getColor(isLight ? 'blue-500' : 'blue-500')}
-        unfilledColor='gray-100'
-        borderRadius={8}
-        height={8}
+      <AuctionTimeProgress
+        liquidationHeight={liquidationHeight}
+        blockCount={blockCount}
+        label='Auction time left'
       />
+      <BatchCardButtons />
+    </ThemedView>
+  )
+}
 
-      <ThemedView
-        light={tailwind('border-gray-200')}
-        dark={tailwind('border-gray-700')}
-        style={tailwind('flex flex-row mt-4 flex-wrap -mb-2')}
-      >
-        <IconButton
-          iconLabel={translate('components/BatchCard', 'PLACE BID')}
-          iconSize={16}
-          style={tailwind('mr-2 mb-2')}
-          onPress={() => {}}
-        />
-        <IconButton
-          iconLabel={translate('components/BatchCard', 'VIEW REWARDS')}
-          iconSize={16}
-          style={tailwind('mr-2 mb-2')}
-          onPress={() => {}}
-        />
-      </ThemedView>
+function BatchCardButtons (): JSX.Element {
+  return (
+    <ThemedView
+      light={tailwind('border-gray-200')}
+      dark={tailwind('border-gray-700')}
+      style={tailwind('flex flex-row mt-4 flex-wrap -mb-2')}
+    >
+      <IconButton
+        iconLabel={translate('components/BatchCard', 'PLACE BID')}
+        iconSize={16}
+        style={tailwind('mr-2 mb-2')}
+        onPress={() => {}}
+      />
+      <IconButton
+        iconLabel={translate('components/BatchCard', 'VIEW REWARDS')}
+        iconSize={16}
+        style={tailwind('mr-2 mb-2')}
+        onPress={() => {}}
+      />
     </ThemedView>
   )
 }
