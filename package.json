@@ -75,7 +75,7 @@
     "react-native": "0.64.3",
     "react-native-boring-avatars": "^1.0.1",
     "react-native-collapsible": "^1.6.0",
-    "react-native-confirmation-code-field": "^7.1.0",
+    "react-native-confirmation-code-field": "^7.2.0",
     "react-native-gesture-handler": "~1.10.3",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-loading-spinner-overlay": "^2.0.0",
