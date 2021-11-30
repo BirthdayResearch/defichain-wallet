@@ -884,7 +884,7 @@
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "抵押率",
-    "Min:": "最底:",
+    "Min:": "最低:",
     "Next:": "下一个:"
   },
   "screens/BorrowLoanTokenScreen": {
