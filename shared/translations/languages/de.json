@@ -27,7 +27,7 @@
     "Pooled {{symbol}}": "{{symbol}} im Pool",
     "Total pooled {{symbol}}": "Gesamte {{symbol}} im Pool",
     "Your pooled {{symbol}}": "Deine {{symbol}} im Pool",
-    "SWAP TOKENS": "TOKEN TAUSCHEN",
+    "SWAP TOKENS": "TOKEN-TAUSCH",
     "REMOVE": "ENTFERNEN",
     "APR": "Jahreszins",
     "ADD MORE": "HINZUFÜGEN",
@@ -38,7 +38,7 @@
     "Your pool pairs": "Deine Pool-Paare",
     "Total Value Locked (USD)": "Fixierter Gesamtwert (USD)",
     "SWAP": "TAUSCH",
-    "Swap tokens": "Token Tausche"
+    "Swap tokens": "Token-Tausch"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Richtlinien",
@@ -46,7 +46,7 @@
     "Decentralized Exchange": "Dezentrale Börse",
     "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "Nimm teil am Liquidität Bereitstellen für den Betrieb der dezentralen Börse (DEX). Gebrauche deine Token, um hohe Renditen zu erzielen (bis zu 100%).",
     "Add liquidity": "Liquidität hinzufügen",
-    "Swap tokens": "Token Tausche",
+    "Swap tokens": "Token-Tausch",
     "Withdraw at any time": "Entfernen der Liquidität zu jeder Zeit",
     "Earn high yields by supplying token pairs to the liquidity pool.": "Erziele hohe Erträge durch die Bereitstellung von Handelspaaren zum Liquidity Pool.",
     "Conveniently swap participating tokens within the liquidity pool.": "Bequemer Umtausch von im Liquidity Pool vertretenen Token.",
@@ -127,7 +127,7 @@
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktionsart",
     "Convert": "Umwandeln",
-    "{{token}} to receive": "Zu erhaltende {{token}}",
+    "{{token}} to receive": "Verbleibende {{token}}",
     "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN"
   },
   "screens/SettingsNavigator": {
@@ -257,7 +257,7 @@
     "Convert to {{symbol}}": "Umwandeln in {{symbol}}",
     "Add to liquidity pool": "Zu Liquiditätspool hinzufügen",
     "Remove liquidity": "Liquidität entfernen",
-    "Swap with {{token}}": "Tauschen gegen {{token}}"
+    "Swap with {{token}}": "Tausche gegen {{token}}"
   },
   "screens/TokensVsUtxoScreen": {
     "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "DFI existiert in zwei Formen - UTXO und Token, die je nach Verwendung austauschbar sind. Mit der App kannst du leicht zwischen den beiden Arten wechseln.",
@@ -451,7 +451,7 @@
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "Du entfernst",
-    "ESTIMATED AMOUNT TO RECEIVE": "GESCHÄTZTER ZU ERHALTENDER BETRAG",
+    "ESTIMATED AMOUNT TO RECEIVE": "VORAUSSICHTLICH ZU ERHALTENDER BETRAG",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Price": "Preis",
     "Estimated fee": "Voraussichtliche Gebühr",
@@ -505,7 +505,7 @@
     "SLIPPAGE TOLERANCE": "SLIPPAGE TOLERANZ"
   },
   "screens/PoolSwapScreen": {
-    "Swap": "Tausche",
+    "Swap": "Tausch",
     "How much {{token}} do you want to swap?": "Wie viele {{token}} möchtest du umtauschen?",
     "Available": "Verfügbar",
     "After": "Danach",
@@ -524,7 +524,7 @@
     "You will receive": "Du wirst erhalten"
   },
   "screens/CompositeSwapScreen": {
-    "Swap tokens": "Token Tausche",
+    "Swap tokens": "Token-Tausch",
     "Select tokens you want to swap to get started": "Wähle die Token, die du tauschen möchtest, um zu beginnen",
     "How much {{token}} do you want to swap?": "Wie viele {{token}} möchtest du umtauschen?",
     "You have": "Du hast aktuell",
@@ -555,8 +555,8 @@
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktionsart",
     "Convert & swap": "Umrechnen & tauschen",
-    "Swap": "Tausche",
-    "Swapping Token": "Token Tausche",
+    "Swap": "Tausch",
+    "Swapping Token": "Token-Tausch",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
     "Slippage Tolerance": "Slippage Toleranz",
     "Estimated to receive": "Geschätzter Betrag"
@@ -567,15 +567,15 @@
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Slippage Tolerance": "Slippage Toleranz",
     "Estimated fee": "Voraussichtliche Gebühr",
-    "SWAP": "TAUSCHE",
+    "SWAP": "TAUSCH",
     "SWAPPING": "WIRD GETAUSCHT",
-    "Swapping Token": "Token Tausche",
+    "Swapping Token": "Token-Tausch",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
     "{{token}} balance": "{{token}} Saldo",
     "CONFIRM SWAP": "TAUSCH BESTÄTIGEN",
     "Transaction type": "Transaktionsart",
-    "Swap": "Tausche",
+    "Swap": "Tausch",
     "Convert & swap": "Umrechnen & tauschen",
     "Max Price per {{fromToken}}": "Max. Preis pro {{fromToken}}",
     "PRICE DETAILS": "PREISDETAILS"
@@ -650,12 +650,12 @@
     "CONVERSION DETAILS": "UMRECHNUNGSDETAILS",
     "Conversion type": "Art der Konvertierung",
     "Amount to convert": "Umzuwandelnder Betrag",
-    "Resulting {{token}}": "Zu erhaltende {{token}}",
+    "Resulting {{token}}": "Verbleibende {{token}}",
     "Amount above are prior to transaction": "Die oben genannten Beträge geben die Werte vor der Transaktion wieder"
   },
   "components/TransactionResultsRow": {
     "TRANSACTION RESULTS": "TRANSAKTIONSERGEBNISSE",
-    "Resulting {{symbol}}": "Zu erhaltende {{symbol}}"
+    "Resulting {{symbol}}": "Verbleibende {{symbol}}"
   },
   "screens/LoansScreen": {
     "Loans": "Darlehen",
@@ -671,7 +671,7 @@
     "Confirm Edit Loan Scheme": "Darlehensmodellbearbeitung bestätigen",
     "Borrow More": "Mehr ausleihen",
     "Choose Loan Token to Borrow": "Darlehens-Token zum Ausleihen wählen",
-    "Payback Loan": "Darlehen Zurückzahlen",
+    "Payback Loan": "Darlehensrückzahlung",
     "Close Vault": "Vault Schließen"
   },
   "components/tabs": {
@@ -796,7 +796,7 @@
   "components/VaultDetailsLoansTab": {
     "Outstanding balance": "Ausstehender Saldo",
     "Interest amount": "Zinsbetrag",
-    "PAYBACK LOAN": "DARLEHEN ZURÜCKZAHLEN",
+    "PAYBACK LOAN": "DARLEHENSRÜCKZAHLUNG",
     "BORROW MORE": "MEHR AUSLEIHEN"
   },
   "components/BalanceControlCard": {
