@@ -28,8 +28,8 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     lang: {
       en: 'Decentralized loan is now available on the Light Wallet app.',
       de: 'Dezentrale Darlehen sind jetzt in der Light Wallet App verfügbar.',
-      'zh-Hans': '去中心化贷款已在清钱包 Light Wallet 正式推出',
-      'zh-Hant': '去中心化貸款已在清錢包 Light Wallet 正式推出'
+      'zh-Hans': '去中心化贷款已在轻钱包 Light Wallet 正式推出',
+      'zh-Hant': '去中心化貸款已在輕錢包 Light Wallet 正式推出'
     },
     version: '>=0.17.0',
     url: {
