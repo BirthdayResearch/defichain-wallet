@@ -11,7 +11,7 @@
     "Cancel": "取消",
     "Refresh": "刷新",
     "Refresh recovery words": "刷新恢复字组",
-    "You are about to generate a new set of recovery words. Continue?": "您正要产生新的恢复字组，确认要继续？",
+    "You are about to generate a new set of recovery words. Continue?": "您正要产生新的恢复字组，确认要继续?",
     "Passcode FAQ": "密码常见问题"
   },
   "screens/DexScreen": {
