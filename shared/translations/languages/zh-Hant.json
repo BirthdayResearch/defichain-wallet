@@ -853,7 +853,7 @@
   },
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "您正在償還貸款",
-    "VAULT IN USE": "金庫使用中T",
+    "VAULT IN USE": "金庫使用中",
     "How much do you want to pay?": "您希望付款多少?",
     "Enter an amount": "輸入金額",
     "Available": "可用的",
