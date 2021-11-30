@@ -119,6 +119,7 @@ export function SendScreen ({
             const _token = tokens.find(t => t.id === item.tokenId)
             if (_token !== undefined) {
               setToken(_token)
+              setValue('amount', '')
               await trigger('amount')
             }
             dismissModal()
