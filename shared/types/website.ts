@@ -16,6 +16,8 @@ export interface AnnouncementData {
   url: {
     ios: string
     android: string
+    macos: string
+    windows: string
     web: string
   }
 }

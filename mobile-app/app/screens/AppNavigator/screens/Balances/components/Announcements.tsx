@@ -18,14 +18,9 @@ export function Announcements (): JSX.Element {
   const {
     language
   } = useLanguageContext()
-
-  if (!isSuccess || announcements === undefined || announcements.length === 0) {
-    return <></>
-  }
-
   const announcement = findAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', announcements, language)
 
-  if (announcement === undefined) {
+  if (!isSuccess || announcements === undefined || announcements.length === 0 || announcement === undefined) {
     return <></>
   }
 
@@ -76,9 +71,16 @@ interface Announcement {
 
 function findAnnouncementForVersion (version: string, announcements: AnnouncementData[], language: string): Announcement | undefined {
   for (const announcement of announcements) {
+    const lang: any = announcement.lang
+    const platformUrl: any = announcement.url
+    if (Platform.OS !== 'ios' && Platform.OS !== 'android') {
+      return {
+        content: lang[language] ?? lang.en,
+        url: platformUrl[Platform.OS]
+      }
+    }
+
     if (satisfies(version, announcement.version)) {
-      const lang: any = announcement.lang
-      const platformUrl: any = announcement.url
       return {
         content: lang[language] ?? lang.en,
         url: platformUrl[Platform.OS]
