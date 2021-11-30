@@ -18,7 +18,7 @@
     "Decentralized Exchange": "ＤＥＸ",
     "ADD LIQUIDITY": "增加流動資金",
     "Add liquidity": "增加流動資金",
-    "Confirm Add Liquidity": "Confirm Add Liquidity",
+    "Confirm Add Liquidity": "請輸入密碼",
     "Remove Liquidity": "退出流動資金",
     "Confirm Removal": "確認退出",
     "Confirm swap": "確認兌換",
@@ -747,7 +747,7 @@
     "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "基於所選貸款計劃的最低要求抵押率。當抵押率低於最低要求時，金庫將被清算。",
     "Collateralization ratio": "抵押品比率",
     "Interest amount": "總利息金額",
-    "Next collateralization": "Next collateralization",
+    "Next collateralization": "當新價格生效，下一個抵押比率",
     "Min. collateralization ratio": "最小抵押率",
     "This amount is the total interest amount from both vault and token interest rate.": "此金額是金庫和代幣利率的利息總和",
     "Annual vault interest": "金庫年利息"
@@ -787,9 +787,9 @@
     "Min. collateralization ratio": "最小抵押率",
     "Vault interest": "金庫利息",
     "VAULT DETAILS": "金庫明細",
-    "COLLATERALIZATION DETAILS": "COLLATERALIZATION DETAILS",
+    "COLLATERALIZATION DETAILS": "抵押品明細",
     "Collateralization ratio": "抵押品比率",
-    "Next collateralization": "Next collateralization",
+    "Next collateralization": "當新價格生效，下一個抵押比率",
     "Total collaterals (USD)": "抵押資金總價值 (美金)",
     "Active loans": "活躍的貸款",
     "Total loans (USD)": "貸款總金額(美金)"
@@ -960,9 +960,9 @@
     "CONVERTING": "轉換中"
   },
   "components/LoanSchemeOptions": {
-    "Min. collateralization ratio": "Mindestbesicherung",
-    "Interest rate": "Zinssatz",
-    "APR": "Jahreszins"
+    "Min. collateralization ratio": "最小抵押率",
+    "Interest rate": "利率",
+    "APR": "回報率"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "您正要借更多貸款",
