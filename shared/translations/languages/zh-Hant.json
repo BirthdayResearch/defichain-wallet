@@ -877,7 +877,7 @@
     "Remaining loan amount": "剩餘貸款銀碼",
     "VAULT DETAILS": "金庫資料",
     "Vault ID": "金庫使用ID",
-    "Collateral amount (USD)": "抵押金額 （USD)",
+    "Collateral amount (USD)": "抵押金額 （美金)",
     "Collateralization ratio": "抵押率",
     "Paying loan": "償還貸款中",
     "Paying {{amount}} {{symbol}}": "償還款項 {{amount}} {{symbol}} ",
