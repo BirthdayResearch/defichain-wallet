@@ -151,7 +151,7 @@ context('Mainnet - Wallet', () => {
   })
 })
 
-context('Mainnet - Wallet - Pool Pair Values', () => {
+context.only('Mainnet - Wallet - Pool Pair Values', () => {
   beforeEach(function () {
     cy.restoreLocalStorage()
   })
@@ -174,11 +174,11 @@ context('Mainnet - Wallet - Pool Pair Values', () => {
     cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
     cy.wrap<DexItem[]>(whale.poolpairs.list(50), { timeout: 20000 }).then((pairs) => {
       const available: PoolPairData[] = pairs.map(data => ({ type: 'available', data: data }))
-      cy.wait(4000)
-      available.forEach((pair) => {
+      cy.wait(5000)
+      cy.getByTestID('available_liquidity_tab').scrollTo('bottom')
+      available.forEach((pair, index) => {
         const data: PoolPairData = pair.data
         const symbol = `${data.tokenA.displaySymbol}-${data.tokenB.displaySymbol}`
-        cy.wait(4000)
         cy.getByTestID(`your_symbol_${symbol}`).contains(symbol)
         cy.getByTestID(`apr_${symbol}`).contains(`${new BigNumber(data.apr.total).times(100).toFixed(2)}%`)
         cy.getByTestID(`available_${data.tokenA.displaySymbol}`).contains(`${new BigNumber(new BigNumber(data.tokenA.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)
