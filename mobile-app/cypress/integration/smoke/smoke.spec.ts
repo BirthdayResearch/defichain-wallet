@@ -174,6 +174,7 @@ context('Mainnet - Wallet - Pool Pair Values', () => {
     cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
     cy.wrap<DexItem[]>(whale.poolpairs.list(50), { timeout: 20000 }).then((pairs) => {
       const available: PoolPairData[] = pairs.map(data => ({ type: 'available', data: data }))
+      cy.wait(4000)
       available.forEach((pair) => {
         const data: PoolPairData = pair.data
         const symbol = `${data.tokenA.displaySymbol}-${data.tokenB.displaySymbol}`
