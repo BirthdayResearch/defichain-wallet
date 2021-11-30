@@ -41,7 +41,7 @@ export function CreateVaultScreen ({
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
-  const isConversionRequired = new BigNumber(2).gt(DFIUtxo.amount)
+  const isConversionRequired = new BigNumber(2.1).gt(DFIUtxo.amount)
   const goToVaultsFaq = (): void => {
     navigation.navigate('LoansFaq')
   }
@@ -54,7 +54,7 @@ export function CreateVaultScreen ({
     if (isConversionRequired) {
       queueConvertTransaction({
         mode: 'accountToUtxos',
-        amount: new BigNumber(2).minus(DFIUtxo.amount)
+        amount: new BigNumber(2.1).minus(DFIUtxo.amount)
       }, dispatch, () => {
         navigation.navigate({
           name: 'ConfirmCreateVaultScreen',
@@ -65,7 +65,7 @@ export function CreateVaultScreen ({
               DFIUtxo,
               DFIToken,
               isConversionRequired,
-              conversionAmount: new BigNumber(2).minus(DFIUtxo.amount)
+              conversionAmount: new BigNumber(2.1).minus(DFIUtxo.amount)
             }
           }
         })

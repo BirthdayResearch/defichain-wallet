@@ -37,7 +37,7 @@
     "Browse pool pairs": "Pool-Paare durchsuchen",
     "Your pool pairs": "Deine Pool-Paare",
     "Total Value Locked (USD)": "Fixierter Gesamtwert (USD)",
-    "SWAP": "TAUSCHE",
+    "SWAP": "TAUSCH",
     "Swap tokens": "Token Tausche"
   },
   "screens/DexGuidelines": {
@@ -678,7 +678,7 @@
     "Browse loan tokens": "Darlehen durchsuchen",
     "Your vaults": "Deine Vaults",
     "Active loan": "Aktuelles Darlehen",
-    "Details": "Details" ,
+    "Details": "Details",
     "Collaterals": "Sicherheiten",
     "Auctions": "Auktionen",
     "Loans": "Darlehen"
@@ -942,7 +942,7 @@
     "Insufficient vault collateral to borrow this amount": "Unzureichende Vault-Sicherheiten, um diesen Betrag auszuleihen",
     "This amount may place the vault in liquidation": "Dieser Betrag kann den Vault in Liquidation versetzen",
     "Unable to proceed because of errors": "Kann aufgrund eines Fehlers nicht durchgeführt werden",
-    "Max. loan amount": "Max. Darlehensbetrag"
+    "Max loan amount": "Max. Darlehensbetrag"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "Du leihst dir",
@@ -973,7 +973,7 @@
     "EDIT LOAN SCHEME OF VAULT": "BELEIHUNGSMODELL DES VAULTS BEARBEITEN",
     "Make sure your collateralization ratio is still above your min. collateralization ratio": "Vergewissere dich, dass deine Besicherungsquote immer noch über deiner Mindestbesicherungsquote liegt",
     "CONTINUE": "WEITER",
-    "Confirm your vault details in next screen":"Bestätige die Daten deines Vaults in der nächsten Ansicht"
+    "Confirm your vault details in next screen": "Bestätige die Daten deines Vaults in der nächsten Ansicht"
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "Du bearbeitest das Vault-Modell",
@@ -986,7 +986,8 @@
     "New vault interest (APR)": "Neuer Vault-Jahreszins",
     "CONFIRM EDIT": "BEARBEITEN BESTÄTIGEN",
     "EDITING": "BEARBEITEN",
-    "CONVERTING":"UMWANDELN"
+    "CONVERTING": "UMWANDELN",
+    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Aktualisierung des Vaults auf eine Mind. Besicherungsquote von {{percent}} und einen Zinssatz von {{percent}}"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Mind. Besicherungsquote",
@@ -999,8 +1000,9 @@
     "Enter an amount": "Gib eine Menge ein",
     "VAULT IN USE": "AKTIVER VAULT",
     "CONTINUE": "WEITER",
-    "Review and confirm transaction in the next screen" : "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
-    "N/A": "K/A"
+    "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
+    "N/A": "K/A",
+    "Max loan amount": "Max. Darlehensbetrag"
   },
   "screens/ChooseLoanTokenScreen": {
     "Search for loans": "Nach Darlehen suchen"

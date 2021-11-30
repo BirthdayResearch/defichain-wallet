@@ -216,9 +216,10 @@ export function EditCollateralScreen ({
                 component: AddOrRemoveCollateralForm,
                 option: {
                   headerStatusBarHeight: 1,
-                  headerBackgroundContainerStyle: tailwind('-top-5 border-b', {
+                  headerBackgroundContainerStyle: tailwind('border-b', {
                     'border-gray-200': isLight,
-                    'border-gray-700': !isLight
+                    'border-gray-700': !isLight,
+                    '-top-5': Platform.OS !== 'web'
                   }),
                   headerTitle: '',
                   headerBackTitleVisible: false

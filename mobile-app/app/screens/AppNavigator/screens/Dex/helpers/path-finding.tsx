@@ -6,16 +6,16 @@ export interface GraphProps { pairId: string, a: string, b: string }
  * @param graph
  */
 export function getAdjacentNodes (startNode: string, graph: GraphProps[]): string[] {
-  const adjacentNodes: string[] = []
+  const adjacentNodesSet = new Set()
   graph.forEach((vertices) => {
     if (vertices.a === startNode && vertices.b !== startNode) {
-      adjacentNodes.push(vertices.b)
+      adjacentNodesSet.add(vertices.b)
     } else if (vertices.b === startNode && vertices.a !== startNode) {
-      adjacentNodes.push(vertices.a)
+      adjacentNodesSet.add(vertices.a)
     }
   })
 
-  return adjacentNodes
+  return Array.from(adjacentNodesSet) as string[]
 }
 
 /**
@@ -26,27 +26,26 @@ export function getAdjacentNodes (startNode: string, graph: GraphProps[]): strin
  */
 export function findPath (graph: GraphProps[], origin: string, target: string): { visitedNodes: Set<string>, path: string[]} {
   let isPathFound = false
-  let nodesToVisit = [origin]
+  let nodesToVisit = [origin, ...getAdjacentNodes(origin, graph)]
   const visitedNodes = new Set<string>([]) // track visited nodes in a set
-  let currentDistance = 0 // track distance from origin to target
   const path: string[] = [] // store the first path found by token
-
   bfs({
     start: {
       value: origin,
-      edges: getAdjacentNodes(origin, graph)
+      edges: getAdjacentNodes(origin, graph),
+      currentDistance: 0
     },
     target: target
   })
 
-  function bfs ({ start, target }: { start: { value: string, edges: string[]}, target: string}): void {
+  function bfs ({ start, target }: { start: { value: string, edges: string[], currentDistance: number}, target: string}): void {
     if (start.edges.length === 0 && start.value !== target) { // no possible path
       visitedNodes.add(start.value)
       return
     }
 
     if (!isPathFound) {
-      path[currentDistance] = start.value
+      path[start.currentDistance] = start.value
     }
 
     if (start.value === target) {
@@ -58,7 +57,6 @@ export function findPath (graph: GraphProps[], origin: string, target: string): 
     visitedNodes.add(start.value)
 
     while (nodesToVisit.length > 0) {
-      currentDistance += 1
       nodesToVisit.shift()
       const nextNodeToVisitEdges = start.edges
 
@@ -66,7 +64,8 @@ export function findPath (graph: GraphProps[], origin: string, target: string): 
         const startValue = nextNodeToVisitEdges[0]
         const innerStart = {
           value: startValue,
-          edges: getAdjacentNodes(startValue, graph).filter(node => !visitedNodes.has(node))
+          edges: getAdjacentNodes(startValue, graph).filter(node => !visitedNodes.has(node)),
+          currentDistance: start.currentDistance + 1
         }
         const startEdgesToVisit = innerStart.edges
 
