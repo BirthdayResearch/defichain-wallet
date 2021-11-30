@@ -39,7 +39,7 @@ export function Announcements (): JSX.Element {
       >
         <ThemedIcon style={tailwind('mr-2')} iconType='MaterialIcons' name='campaign' size={22} />
         <ThemedText style={tailwind('text-xs flex-auto')} testID='announcements_text'>
-          {announcement.content}
+          {`${announcement.content} `}
           <View>
             <ThemedIcon
               dark={tailwind('text-darkprimary-500')}
@@ -47,7 +47,7 @@ export function Announcements (): JSX.Element {
               light={tailwind('text-primary-500')}
               name='open-in-new'
               size={14}
-              style={tailwind('ml-1 relative top-0.5')}
+              style={tailwind('relative top-0.5')}
             />
           </View>
         </ThemedText>
