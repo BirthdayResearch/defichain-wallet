@@ -54,11 +54,12 @@
   },
   "screens/BalancesScreen": {
     "Balances": "Guthaben",
+    "SEND": "SENDEN",
     "RECEIVE": "EMPFANGEN",
     "PORTFOLIO": "PORTFOLIO",
     "Show balances": "Guthaben sichtbar machen",
     "Hide balances": "Guthaben verbergen",
-    "You do not have any other tokens.": "Keine weiteren Token in deinem Bestand."
+    "You do not have any other tokens.": "Keine weiteren Token in deinem Bestand." 
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
@@ -81,7 +82,11 @@
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
     "Amount to be converted": "Umzuwandelnder Betrag",
-    "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln"
+    "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
+    "Send to other wallet": "An andere Wallet senden",
+    "Select token": "Token auswählen",
+    "Select a token you want to send to get started": "Wähle einen Token, den du senden möchtest, um loszulegen",
+    "Choose token to send": "Token zum Senden auswählen"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Senden bestätigen",

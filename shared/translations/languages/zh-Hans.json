@@ -53,6 +53,7 @@
   },
   "screens/BalancesScreen": {
     "Balances": "我的资产",
+    "SEND": "发出",
     "RECEIVE": "接收",
     "PORTFOLIO": "资产组合",
     "Show balances": "显示总资产",
@@ -80,7 +81,11 @@
     "Enter an amount": "请输入数量",
     "Available": "可发送资金",
     "Amount to be converted": "要转换的金额",
-    "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换"
+    "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换",
+    "Send to other wallet": "发送到其他地址",
+    "Select token": "选择代币",
+    "Select a token you want to send to get started": "若要开始，请先选您想发出的代币",
+    "Choose token to send": "选择发出此代币"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "确认发出",
