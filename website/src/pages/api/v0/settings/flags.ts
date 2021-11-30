@@ -22,7 +22,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     id: 'auction',
     name: 'Auction',
     stage: 'alpha',
-    version: '>=0.16.0',
+    version: '>=0.17.1',
     description: 'Browse auctions provided by DeFiChain',
     networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
     platforms: ['ios', 'android', 'web']
