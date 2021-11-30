@@ -632,7 +632,7 @@
     "FREQUENTLY ASKED QUESTIONS": "常見問題"
   },
   "components/DFIBalanceCard": {
-    "Learn more about UTXO and Token": "Erfahre mehr über UTXO und Token"
+    "Learn more about UTXO and Token": "了解UTXO 和代币区别"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要預留一些可使用的 UTXO(0.1 DFI)作為費用"
