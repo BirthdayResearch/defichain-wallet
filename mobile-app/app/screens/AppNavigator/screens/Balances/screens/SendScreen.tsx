@@ -312,6 +312,7 @@ function TokenInput (props: {token?: WalletToken, onPress: () => void}): JSX.Ele
           'mb-10': props.token !== undefined,
           'mb-6': props.token === undefined
         })}
+        testID='select_token_input'
       >
         {props.token === undefined
           ? (
@@ -319,6 +320,7 @@ function TokenInput (props: {token?: WalletToken, onPress: () => void}): JSX.Ele
               light={tailwind('text-gray-300')}
               dark={tailwind('text-gray-800')}
               style={tailwind('text-sm')}
+              testID='select_token_placeholder'
             >
               {translate('screens/SendScreen', 'Select token')}
             </ThemedText>
@@ -328,6 +330,7 @@ function TokenInput (props: {token?: WalletToken, onPress: () => void}): JSX.Ele
               <SymbolIcon symbol={props.token.symbol} styleProps={{ width: 24, height: 24 }} />
               <ThemedText
                 style={tailwind('ml-2 font-medium')}
+                testID='selected_token'
               >
                 {props.token.displaySymbol}
               </ThemedText>

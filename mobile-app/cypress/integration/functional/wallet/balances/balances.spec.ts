@@ -46,6 +46,12 @@ context('Wallet - Balances', () => {
     cy.getByTestID('toggle_balance_text').contains('Show balances')
   })
 
+  it('should redirect to send page', function () {
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('send_balance_button').click()
+    cy.getByTestID('send_screen').should('exist')
+  })
+
   it('should redirect to receive page', function () {
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('receive_balance_button').click()
@@ -96,5 +102,19 @@ context('Wallet - Balances - Failed API', () => {
       const address = $txt[0].textContent
       cy.getByTestID('wallet_address').should('contain', address)
     })
+  })
+})
+
+context('Wallet - Balances - No balance', () => {
+  beforeEach(function () {
+    cy.createEmptyWallet(true)
+  })
+
+  it('should disable send button', function () {
+    cy.getByTestID('send_balance_button').should('have.attr', 'aria-disabled')
+  })
+
+  it('should display empty balance to replace token list', function () {
+    cy.getByTestID('empty_balances').should('exist')
   })
 })
