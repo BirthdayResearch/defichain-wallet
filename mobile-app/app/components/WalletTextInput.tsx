@@ -1,6 +1,15 @@
-import React, { forwardRef, useState } from 'react'
+import React, { forwardRef, useCallback, useState } from 'react'
 import { Platform, TextInputProps } from 'react-native'
-import { ThemedView, ThemedText, ThemedTextInput, ThemedIcon, ThemedSectionTitle, ThemedTouchableOpacity, ThemedProps } from '@components/themed'
+import { useBottomSheetInternal } from '@gorhom/bottom-sheet'
+import {
+  ThemedView,
+  ThemedText,
+  ThemedTextInput,
+  ThemedIcon,
+  ThemedSectionTitle,
+  ThemedTouchableOpacity,
+  ThemedProps
+} from '@components/themed'
 import { tailwind } from '@tailwind'
 
 type WalletTextInputProps = React.PropsWithChildren<TextInputProps> & IWalletTextInputProps
@@ -20,12 +29,12 @@ interface IWalletTextInputProps {
   displayFocusStyle?: boolean
   containerStyle?: string
   onBlur?: () => void
+  hasBottomSheet?: boolean
 }
 
 export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (props: WalletTextInputProps, ref: React.Ref<any>): JSX.Element {
   const [isFocus, setIsFocus] = useState(false)
   const {
-    inputType,
     title,
     titleTestID,
     valid = true,
@@ -35,10 +44,16 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
     editable = true,
     children,
     containerStyle,
-    style,
     onBlur,
+    hasBottomSheet,
     ...otherProps
   } = props
+
+  const textInputComponents = {
+    ios: TextInputIOS,
+    default: TextInputDefault
+  }
+  const TextInput = Platform.OS === 'ios' && hasBottomSheet === true ? textInputComponents.ios : textInputComponents.default
 
   const hasClearButton = (): boolean => {
     return (displayClearButton) && (onClearButtonPress !== undefined)
@@ -68,17 +83,15 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
           dark={tailwind(`${editable ? 'bg-transparent' : 'bg-gray-900'}`)}
           style={tailwind('flex-row items-center p-2 justify-between')}
         >
-          <ThemedTextInput
-            style={style}
+          <TextInput
             onFocus={() => setIsFocus(true)}
             onBlur={() => {
-              if (onBlur != null) {
+              if (onBlur !== undefined) {
                 onBlur()
               }
 
               setIsFocus(false)
             }}
-            keyboardType={inputType}
             ref={ref}
             editable={editable}
             {...otherProps}
@@ -146,3 +159,57 @@ export function ClearButton (props: {onPress?: () => void, testID?: string, icon
     </ThemedTouchableOpacity>
   )
 }
+
+const TextInputDefault = forwardRef((props: WalletTextInputProps, ref: React.Ref<any>) => {
+  const {
+    inputType,
+    ...otherProps
+  } = props
+  return (
+    <ThemedTextInput
+      keyboardType={inputType}
+      ref={ref}
+      {...otherProps}
+    />
+  )
+})
+
+const TextInputIOS = forwardRef((props: WalletTextInputProps, ref: React.Ref<any>) => {
+  const {
+    inputType,
+    onBlur,
+    onFocus,
+    ...otherProps
+  } = props
+  const { shouldHandleKeyboardEvents } = useBottomSheetInternal()
+  const handleOnFocus = useCallback(
+    (e) => {
+      shouldHandleKeyboardEvents.value = true
+
+      if (onFocus !== undefined) {
+        onFocus(e)
+      }
+    },
+    [shouldHandleKeyboardEvents]
+  )
+  const handleOnBlur = useCallback(
+    () => {
+      shouldHandleKeyboardEvents.value = true
+
+      if (onBlur !== undefined) {
+        onBlur()
+      }
+    },
+    [shouldHandleKeyboardEvents]
+  )
+
+  return (
+    <ThemedTextInput
+      keyboardType={inputType}
+      ref={ref}
+      onBlur={handleOnBlur}
+      onFocus={handleOnFocus}
+      {...otherProps}
+    />
+  )
+})
