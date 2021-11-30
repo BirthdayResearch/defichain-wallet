@@ -16,7 +16,8 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       'zh-Hans': '请更新至最新版本应用程式使用去中心化贷款。',
       'zh-Hant': '請更新至最新版本應用程式使用去中心化貸款。'
     },
-    version: '<0.17.0'
+    version: '<0.17.0',
+    url: ''
   }, {
     lang: {
       en: 'Decentralized loan is now available on the Light Wallet app.',
@@ -24,6 +25,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       'zh-Hans': '去中心化贷款已在清钱包 Light Wallet 正式推出',
       'zh-Hant': '去中心化貸款已在清錢包 Light Wallet 正式推出'
     },
-    version: '>=0.17.0'
+    version: '>=0.17.0',
+    url: 'https://apps.apple.com/us/app/defichain-wallet/id1572472820'
   }])
 }

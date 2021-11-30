@@ -13,6 +13,7 @@ export interface AnnouncementData {
    * Versioned matching represented as semver satisfies
    */
   version: string
+  url: string
 }
 
 export interface FeatureFlag {
