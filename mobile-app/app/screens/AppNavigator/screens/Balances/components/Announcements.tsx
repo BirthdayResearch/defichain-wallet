@@ -8,6 +8,7 @@ import { satisfies } from 'semver'
 import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 import { openURL } from '@api/linking'
 import { View } from '@components'
+import { Platform } from 'react-native'
 
 export function Announcements (): JSX.Element {
   const {
@@ -77,9 +78,10 @@ function findAnnouncementForVersion (version: string, announcements: Announcemen
   for (const announcement of announcements) {
     if (satisfies(version, announcement.version)) {
       const lang: any = announcement.lang
+      const platformUrl: any = announcement.url
       return {
         content: lang[language] ?? lang.en,
-        url: announcement.url
+        url: platformUrl[Platform.OS]
       }
     }
   }
