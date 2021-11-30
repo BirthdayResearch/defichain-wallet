@@ -13,6 +13,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { auctionsSelector, fetchAuctions } from '@store/auctions'
+import { EmptyAuctionsScreen } from './EmptyAuctionsScreen'
 
 export function BrowseAuctions (): JSX.Element {
   const dispatch = useDispatch()
@@ -37,32 +38,41 @@ export function BrowseAuctions (): JSX.Element {
           />
         </View>
       )}
-      {!hasFetchAuctionsData && (
-        <View>
+      {hasFetchAuctionsData
+      ? (
+        <>
+          {auctions.length === 0
+          ? <EmptyAuctionsScreen />
+            : (
+              <>
+                {auctions.map((auction: LoanVaultLiquidated, index: number) => {
+                  return (
+                    <View key={auction.vaultId}>
+                      {auction.batches.map((eachBatch: LoanVaultLiquidationBatch) => {
+                        return (
+                          <BatchCard
+                            vault={auction}
+                            batch={eachBatch}
+                            key={`${auction.vaultId}_${eachBatch.index}`}
+                            testID={`batch_card_${index}`}
+                          />
+                        )
+                      })}
+                    </View>
+                  )
+                })}
+              </>
+            )}
+        </>)
+      : (
+        <View style={tailwind('pb-4')}>
           <SkeletonLoader
             row={6}
             screen={SkeletonLoaderScreen.BrowseAuction}
           />
         </View>
       )}
-      {auctions.map((auction: LoanVaultLiquidated, index: number) => {
-        return (
-          <View key={auction.vaultId}>
-            {auction.batches.map((eachBatch: LoanVaultLiquidationBatch) => {
-              return (
-                <BatchCard
-                  vaultId={auction.vaultId}
-                  state={auction.state}
-                  liquidationHeight={auction.liquidationHeight}
-                  batch={eachBatch}
-                  key={`${auction.vaultId}_${eachBatch.index}`}
-                  testID={`batch_card_${index}`}
-                />
-              )
-            })}
-          </View>
-        )
-      })}
+
     </ThemedScrollView>
   )
 }

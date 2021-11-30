@@ -245,7 +245,7 @@ exports[`Bid Card should match snapshot 1`] = `
           ]
         }
       >
-        65h 35m
+        ~65h 35m left
          (
         7870 blks
         )
@@ -263,7 +263,7 @@ exports[`Bid Card should match snapshot 1`] = `
     indeterminate={false}
     indeterminateAnimationDuration={1000}
     onLayout={[Function]}
-    progress={0.8}
+    progress={-217.61111111111111}
     style={
       Array [
         Object {
@@ -289,10 +289,10 @@ exports[`Bid Card should match snapshot 1`] = `
               "translateX": 0,
             },
             Object {
-              "translateX": 0.19999999999999996,
+              "translateX": 1,
             },
             Object {
-              "scaleX": 0.8000200000000001,
+              "scaleX": 0.0001,
             },
           ],
         }

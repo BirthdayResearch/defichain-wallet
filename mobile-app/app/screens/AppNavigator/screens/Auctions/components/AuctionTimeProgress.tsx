@@ -37,7 +37,7 @@ export function AuctionTimeProgress (props: AuctionTimeProgressProps): JSX.Eleme
             dark={tailwind('text-gray-50')}
             style={tailwind('text-sm')}
           >
-            {timeRemaining} ({translate('components/AuctionTimeProgress', '{{block}} blks', { block: blocksRemaining })})
+            {timeRemaining !== '' && translate('components/AuctionTimeProgress', '~{{time}} left', { time: timeRemaining })} ({translate('components/AuctionTimeProgress', '{{block}} blks', { block: blocksRemaining })})
           </ThemedText>
         </View>
       </View>
