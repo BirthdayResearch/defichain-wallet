@@ -1,6 +1,6 @@
 {
   "screens/WalletNavigator": {
-    "Guidelines": "指导方针",
+    "Guidelines": "使用指南",
     "Recovery Words FAQ": "恢复字组常见问题",
     "Display recovery words": "显示恢复字组",
     "Verify words": "确认字组",
@@ -32,7 +32,7 @@
     "ADD MORE": "加入更多货币",
     "No active pool pairs": "您尚未进入流动池",
     "Supply liquidity pool tokens to earn high yields": "您可以向流动池提供资金已赚取区块奖励和兑换佣金",
-    "Total liquidity (USD)":"总资金值 (美元)",
+    "Total liquidity (USD)": "总资金值 (美元)",
     "Browse pool pairs": "浏览流动池配对",
     "Your pool pairs": "您的流动池股份",
     "Total Value Locked (USD)": "总体价值锁定 (美元)",
@@ -40,7 +40,7 @@
     "SWAP": "兑换"
   },
   "screens/DexGuidelines": {
-    "Guidelines": "指导方针",
+    "Guidelines": "使用指南",
     "CONTINUE": "继续",
     "Decentralized Exchange": "去中心化交易所",
     "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "将您的货币提供给 DEX 去中心化交易所，并获得高达三位数百分比的年回报率",
@@ -253,7 +253,7 @@
     "Send to other wallet": "发送到其他地址",
     "Receive": "接收",
     "Convert to {{symbol}}": "转换至 {{symbol}}",
-    "Add to liquidity pool":  "加入流动性池",
+    "Add to liquidity pool": "加入流动性池",
     "Remove liquidity": "撒出 流动性池",
     "Swap with {{token}}": "用 {{token}} 兑换"
   },
@@ -544,7 +544,6 @@
     "PRICE DETAILS": "价格明细",
     "FROM": "从",
     "TO": "到"
-
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "正在转换",
@@ -621,7 +620,7 @@
     "FREQUENTLY ASKED QUESTIONS": "常见问题"
   },
   "components/PasscodeFaq": {
-    "Passcode": "Passcode",
+    "Passcode": "密码",
     "Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "您的六位数字密码是由您设置，这密码将用于授权所有交易。请保管好和负责您的密码私密性和安全性。",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "如果我忘记了我的密码会怎么样？有人能帮我找回我的密码吗？",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "除了您本人知道密码之外，没有任何人会知道。因此，没有人能帮您找回您的私人密码。",
@@ -630,6 +629,9 @@
     "Is passcode the same as phone PIN code?": "App密码和手机PIN码是一样的吗？",
     "Your passcode is valid only for DeFiChain wallet.": "您的App密码只对递飞链DeFiChain轻钱包有效。",
     "FREQUENTLY ASKED QUESTIONS": "常见问题"
+  },
+  "components/DFIBalanceCard": {
+    "Learn more about UTXO and Token": "了解UTXO 和代币区别"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要预留一些可使用的 UTXO(0.1 DFI)作为费用"
@@ -744,7 +746,7 @@
     "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "基于所选贷款计划的最低要求抵押率。当抵押率低于最低要求时，金库将被清算。",
     "Collateralization ratio": "抵押率",
     "Interest amount": "总利息金额",
-    "Next collateralization": "Next collateralization",
+    "Next collateralization": "当新价格生效，下一个抵押比率",
     "Min. collateralization ratio": "最小抵押率",
     "This amount is the total interest amount from both vault and token interest rate.": "此金额是金库和代币利率的利息总和",
     "Annual vault interest": "金库年利息"
@@ -756,7 +758,7 @@
     "Collaterals required to use this vault.": "使用此金库需要抵押品."
   },
   "components/ScrollableButton": {
-    "ADD COLLATERAL":"加入抵押品",
+    "ADD COLLATERAL": "加入抵押品",
     "TAKE COLLATERAL": "減低抵押品",
     "EDIT SCHEME": "更改计划",
     "CLOSE VAULT": "关闭金库"
@@ -784,9 +786,9 @@
     "Min. collateralization ratio": "最小抵押率",
     "Vault interest": "金库利息",
     "VAULT DETAILS": "金库明细",
-    "COLLATERALIZATION DETAILS": "COLLATERALIZATION DETAILS",
+    "COLLATERALIZATION DETAILS": "抵押品明细",
     "Collateralization ratio": "抵押品比率",
-    "Next collateralization": "Next collateralization",
+    "Next collateralization": "当新价格生效，下一个抵押比率",
     "Total collaterals (USD)": "抵押资金总价值 (美金)",
     "Active loans": "活跃的贷款",
     "Total loans (USD)": "贷款总金额(美金)"
@@ -848,6 +850,43 @@
     "Add Collateral": "加入抵押",
     "Remove Collateral": "移除抵押"
   },
+  "screens/PaybackLoanScreen": {
+    "YOU ARE PAYING FOR LOAN": "您正在清还贷款",
+    "VAULT IN USE": "金库使用中",
+    "How much do you want to pay?": "您打算付款多少?",
+    "Enter an amount": "输入金额",
+    "Available": "可用的",
+    "CONTINUE": "继续",
+    "Review and confirm transaction in the next screen": "在下一个屏幕中查看并确认交易",
+    "TRANSACTION DETAILS": "交易细项",
+    "Amount to pay": "支付数量",
+    "Remaining loan amount": "剩余贷款金额",
+    "Outstanding balance": "剩余结余",
+    "Collateralization ratio": "抵押率",
+    "Min. collateralization ratio": "最低抵押率"
+  },
+  "screens/ConfirmPaybackLoanScreen": {
+    "CONFIRM PAYMENT": "确认付款",
+    "PAYING": "付款中",
+    "You are paying": "正在付款中",
+    "TRANSACTION DETAILS": "交易细项",
+    "Transaction type": "交易类别",
+    "Loan payment": "支款贷款",
+    "Amount to pay": "支付数量",
+    "Remaining loan amount": "剩余贷款结余",
+    "VAULT DETAILS": "金库细项",
+    "Vault ID": "金库编号",
+    "Collateral amount (USD)": "抵押金额 (美金)",
+    "Collateralization ratio": "抵押率",
+    "Paying loan": "贷款还款",
+    "Paying {{amount}} {{symbol}}": "付款中{{amount}} {{symbol}} ",
+    "Confirm Loan Payment": "确认贷款支付"
+  },
+  "components/CollateralizationRatioDisplay": {
+    "Collateralization ratio": "抵押率",
+    "Min:": "最低:",
+    "Next:": "下一个:"
+  },
   "screens/BorrowLoanTokenScreen": {
     "Borrow loan token": "借用贷款代币",
     "SELECT VAULT FOR COLLATERAL": "选择金库抵押",
@@ -897,18 +936,52 @@
     "CONFIRM BORROW": "确认借用",
     "BORROWING": "借用"
   },
+  "components/BottomSheetVaultList": {
+    "Collateralization ratio": "抵押率"
+  },
+  "screens/EditLoanSchemeScreen": {
+    "EDIT LOAN SCHEME OF VAULT": "更改金库中贷款计划",
+    "Make sure your collateralization ratio is still above your min. collateralization ratio": "确保您的抵押率仍然高于最低要求的抵押率",
+    "CONTINUE": "继续",
+    "Confirm your vault details in next screen": "在下一页确认金库的细行"
+  },
+  "screens/ConfirmEditLoanSchemeScreen": {
+    "You are editing scheme of vault": "更改金库中的比率计划",
+    "TRANSACTION DETAILS": "交易细项",
+    "Transaction type": "交易类别",
+    "Edit loan scheme": "更改贷款计划",
+    "Prev. minimum collateralization ratio": "前次最低抵押率",
+    "Prev. vault interest (APR)": "前次最低利率 (年利率)",
+    "New minimum collateralization ratio": "更新最低抵押率",
+    "New vault interest (APR)": "更新最低利率 (年利率)",
+    "CONFIRM EDIT": "确认更改",
+    "EDITING": "更改中",
+    "CONVERTING": "转换中"
+  },
+  "components/LoanSchemeOptions": {
+    "Min. collateralization ratio": "最低抵押率",
+    "Interest rate": "利率",
+    "APR": "年利率"
+  },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "您正要借更多贷款",
     "How much do you want to add?": "您想增加多少?",
     "Enter an amount": "请输入数量",
     "VAULT IN USE": "金库使用中",
     "CONTINUE": "继续",
-    "Review and confirm transaction in the next screen" : "在下个屏幕中检查并确认交易",
+    "Review and confirm transaction in the next screen": "在下个屏幕中检查并确认交易",
     "Insufficient vault collateral to borrow this amount": "抵押金库不足够支付借贷金额",
     "This amount may place the vault in liquidation": "这金额可能会导致金库清算",
     "Unable to proceed because of errors": "错误而无法继续",
     "Max loan amount": "最高的贷款金额",
     "N/A": "不适用"
+  },
+  "screens/ChooseLoanTokenScreen": {
+    "Search for loans": "搜寻贷款"
+  },
+  "components/EmptyCollateral": {
+    "No collaterals": "没有抵押",
+    "Add DFI and tokens as collateral to get started with loans.": "加入 DFI及其他代币作抵押即可以开始借贷"
   },
   "screens/CloseVaultScreen": {
     "You are closing Vault ID": "您正在关闭金库编号",
