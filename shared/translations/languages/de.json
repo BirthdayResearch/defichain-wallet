@@ -709,8 +709,7 @@
   },
   "components/BatchCard": {
     "Latest bid": "Letztes Gebot",
-    "Token to win": "Token zu ersteigern",
-    "Auction time left": "Verbleibende Auktionszeit",
+    "Token to win": "Token zu ersteigern",    
     "PLACE BID": "GEBOT ABGEBEN",
     "VIEW REWARDS": "REWARDS ANSEHEN",
     "{{block}} blks": "{{block}} Blöcke",
@@ -720,13 +719,16 @@
     "BID HIGHER": "HÖHERES GEBOT",
     "VIEW REWARDS": "REWARDS ANSEHEN",
     "{{block}} blks": "{{block}} Blöcke",
-    "Auction ID": "Auktions-ID",
-    "Auction ends in": "Auktion endet in",
+    "Auction ID": "Auktions-ID",    
     "Auction won": "Auktion gewonnen",
     "Lost to another bid": "An ein anderes Gebot verloren",
     "Lost": "Verloren",
     "Highest bid": "Höchstes Gebot",
     "Auction ended": "Auktion beendet"
+  },
+  "components/AuctionTimeProgress": {
+    "Auction ends in": "Auktion endet in",
+    "Auction time left": "Verbleibende Auktionszeit"
   },
   "components/VaultCard": {
     "Collaterals:": "Sicherheiten:",

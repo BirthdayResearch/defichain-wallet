@@ -698,8 +698,7 @@
   },
   "components/BatchCard": {
     "Latest bid": "最新出价",
-    "Token to win": "赢得竞投后获得的代币",
-    "Auction time left": "剩余拍卖时间",
+    "Token to win": "赢得竞投后获得的代币",    
     "PLACE BID": "竞投出价",
     "VIEW REWARDS": "查看奖励",
     "{{block}} blks": "{{block}} 区块",
@@ -711,13 +710,16 @@
     "BID HIGHER": "出价更高",
     "VIEW REWARDS": "查看奖励",
     "{{block}} blks": "{{block}} 区块",
-    "Auction ID": "拍卖编号",
-    "Auction ends in": "拍卖即将完结于",
+    "Auction ID": "拍卖编号",    
     "Auction won": "赢得拍卖",
     "Lost to another bid": "输给另一个出价",
     "Lost": "竞投失败",
     "Highest bid": "最高的竞投价格",
     "Auction ended": "拍卖完结"
+  },
+  "components/AuctionTimeProgress": {
+    "Auction ends in": "拍卖即将完结于",
+    "Auction time left": "剩余拍卖时间"
   },
   "components/VaultCard": {
     "Collaterals:": "抵押品:",
