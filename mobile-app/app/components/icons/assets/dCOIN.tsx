@@ -9,7 +9,7 @@ export function dCOIN (props: SvgProps): JSX.Element {
       viewBox='0 0 32 32'
       {...props}
     >
-      <G clip-Path='url(#clip0_1462_4427)'>
+      <G clipPath='url(#clip0_1462_4427)'>
         <Path
           fillRule='evenodd' clipRule='evenodd'
           d='M16.5 0C7.663 0 0.5 7.163 0.5 16C0.5 24.837 7.663 32 16.5 32C25.338 32 32.5 24.837 32.5 16C32.5 7.163 25.338 0 16.5 0Z'
