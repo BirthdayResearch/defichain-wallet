@@ -952,9 +952,9 @@
     "Transaction type": "交易類別",
     "Edit loan scheme": "更改貸款計劃",
     "Prev. minimum collateralization ratio": "前最低抵押率",
-    "Prev. vault interest (APR)": "前金庫利息 (APR)",
+    "Prev. vault interest (APR)": "前金庫利息 (回報率)",
     "New minimum collateralization ratio": "更新後最低抵押率",
-    "New vault interest (APR)": "更新後金庫利息 (APR)",
+    "New vault interest (APR)": "更新後金庫利息 (回報率)",
     "CONFIRM EDIT": "確認更改",
     "EDITING": "更改中",
     "CONVERTING": "轉換中"
