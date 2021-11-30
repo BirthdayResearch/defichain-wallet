@@ -178,6 +178,7 @@ context('Mainnet - Wallet - Pool Pair Values', () => {
       available.forEach((pair) => {
         const data: PoolPairData = pair.data
         const symbol = `${data.tokenA.displaySymbol}-${data.tokenB.displaySymbol}`
+        cy.wait(4000)
         cy.getByTestID(`your_symbol_${symbol}`).contains(symbol)
         cy.getByTestID(`apr_${symbol}`).contains(`${new BigNumber(data.apr.total).times(100).toFixed(2)}%`)
         cy.getByTestID(`available_${data.tokenA.displaySymbol}`).contains(`${new BigNumber(new BigNumber(data.tokenA.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)
