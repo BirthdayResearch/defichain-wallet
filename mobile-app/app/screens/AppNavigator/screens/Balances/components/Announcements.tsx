@@ -3,12 +3,12 @@ import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@com
 import { tailwind } from '@tailwind'
 import { useGetAnnouncementsQuery } from '@store/website'
 import { AnnouncementData } from '@shared-types/website'
-import { nativeApplicationVersion } from 'expo-application'
 import { satisfies } from 'semver'
 import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 import { openURL } from '@api/linking'
 import { View } from '@components'
 import { Platform } from 'react-native'
+import packageJson from '@package'
 
 export function Announcements (): JSX.Element {
   const {
@@ -18,7 +18,8 @@ export function Announcements (): JSX.Element {
   const {
     language
   } = useLanguageContext()
-  const announcement = findAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, announcements)
+
+  const announcement = findAnnouncementForVersion(packageJson.version ?? '0.0.0', language, announcements)
 
   if (!isSuccess || announcements === undefined || announcements.length === 0 || announcement === undefined) {
     return <></>
@@ -40,9 +41,9 @@ export function Announcements (): JSX.Element {
               dark={tailwind('text-darkprimary-500')}
               iconType='MaterialIcons'
               light={tailwind('text-primary-500')}
-              name='open-in-new'
-              size={14}
-              style={tailwind('relative top-0.5')}
+              name='chevron-right'
+              size={18}
+              style={tailwind('relative -left-1 top-1')}
             />
           </View>
         </ThemedText>
@@ -77,13 +78,6 @@ function findAnnouncementForVersion (version: string, language: string, announce
   for (const announcement of announcements) {
     const lang: any = announcement.lang
     const platformUrl: any = announcement.url
-    if (Platform.OS !== 'ios' && Platform.OS !== 'android') {
-      return {
-        content: lang[language] ?? lang.en,
-        url: platformUrl[Platform.OS]
-      }
-    }
-
     if (satisfies(version, announcement.version)) {
       return {
         content: lang[language] ?? lang.en,
