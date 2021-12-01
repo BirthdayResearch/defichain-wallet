@@ -15,7 +15,7 @@ import BigNumber from 'bignumber.js'
 import { openURL } from '@api/linking'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { AuctionDetails } from './components/AuctionDetails'
-import { AuctionCollaterals } from './components/AuctionCollaterals'
+import { AuctionedCollaterals } from './components/AuctionedCollaterals'
 import { IconButton } from '@components/IconButton'
 import NumberFormat from 'react-number-format'
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
@@ -122,7 +122,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
         </ThemedView>
         <Tabs tabSections={tabsList} testID='auctions_tabs' activeTabKey={activeTab} />
         {activeTab === TabKey.Collaterals && (
-          <AuctionCollaterals
+          <AuctionedCollaterals
             collaterals={batch.collaterals}
             auctionAmount={new BigNumber(batch.loan.amount).multipliedBy(batch.loan.activePrice?.active?.amount ?? 0).toFixed(2)}
           />
@@ -165,7 +165,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
                 <ThemedText
                   dark={tailwind('text-gray-50')}
                   light={tailwind('text-gray-900')}
-                  style={tailwind('font-medium -mr-2')}
+                  style={tailwind('font-medium')}
                   testID='total_auction_value'
                 >
                   {value}
@@ -176,20 +176,18 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
           </View>
         </View>
         <View
-          light={tailwind('bg-white border-gray-200')}
-          dark={tailwind('bg-gray-800 border-gray-700')}
           style={tailwind('flex flex-row mt-4 items-center justify-center')}
         >
           <IconButton
             iconLabel={translate('components/AuctionDetailScreen', 'QUICK BID')}
             iconSize={16}
-            style={tailwind('mr-2 w-1/2 justify-center')}
+            style={tailwind('mr-1 w-1/2 justify-center')}
             onPress={() => {}}
           />
           <IconButton
             iconLabel={translate('components/AuctionDetailScreen', 'PLACE BID')}
             iconSize={16}
-            style={tailwind('mr-2 w-1/2 justify-center')}
+            style={tailwind('ml-1 w-1/2 justify-center')}
             onPress={() => {}}
           />
         </View>

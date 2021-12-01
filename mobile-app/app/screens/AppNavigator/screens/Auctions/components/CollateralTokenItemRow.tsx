@@ -17,7 +17,7 @@ export function CollateralTokenItemRow ({ token }: { token: LoanVaultTokenAmount
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
       light={tailwind('bg-white border-b border-gray-100')}
-      style={tailwind('py-4 pl-4 pr-2 flex-row justify-between items-center')}
+      style={tailwind('p-4 flex-row justify-between items-center')}
       testID={testID}
     >
       <View style={tailwind('flex-row items-center flex-grow')}>

@@ -7,7 +7,7 @@ import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import NumberFormat from 'react-number-format'
 import { CollateralTokenItemRow } from './CollateralTokenItemRow'
 
-export function AuctionCollaterals (props: { collaterals: LoanVaultTokenAmount[], auctionAmount: string }): JSX.Element {
+export function AuctionedCollaterals (props: { collaterals: LoanVaultTokenAmount[], auctionAmount: string }): JSX.Element {
   const { collaterals, auctionAmount } = props
   return (
     <>
@@ -21,7 +21,7 @@ export function AuctionCollaterals (props: { collaterals: LoanVaultTokenAmount[]
           token={token}
         />
         )}
-      <View style={tailwind('py-4 px-2 flex flex-row justify-end')}>
+      <View style={tailwind('p-4 flex flex-row justify-end')}>
         <ThemedText
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
