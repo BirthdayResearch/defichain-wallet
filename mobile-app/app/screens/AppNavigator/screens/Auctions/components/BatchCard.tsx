@@ -38,7 +38,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
   }
 
   const onCardPress = (): void => {
-    navigation.navigate('BatchDetailScreen', {
+    navigation.navigate('AuctionDetailScreen', {
       batch,
       vault
     })

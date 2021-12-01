@@ -90,7 +90,7 @@ function RowLinkItem (props: {label: string, value: string, onPress: () => void 
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
       light={tailwind('bg-white border-b border-gray-200')}
-      style={tailwind('p-4 flex-row items-start w-full')}
+      style={tailwind('p-4 flex-row items-center w-full')}
     >
       <View style={tailwind('w-5/12')}>
         <View style={tailwind('flex-row items-center justify-start')}>

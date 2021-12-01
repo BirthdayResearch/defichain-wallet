@@ -5,12 +5,12 @@ import { HeaderTitle } from '@components/HeaderTitle'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { AuctionsScreen } from './AuctionScreen'
-import { BatchDetailScreen } from './BatchDetailScreen'
+import { AuctionDetailScreen } from './AuctionDetailScreen'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 
 export interface AuctionsParamList {
   AuctionsScreen: {}
-  BatchDetailScreen: {
+  AuctionDetailScreen: {
     batch: LoanVaultLiquidationBatch
     vault: LoanVaultLiquidated
   }
@@ -45,12 +45,12 @@ export function AuctionsNavigator (): JSX.Element {
       />
 
       <AuctionsStack.Screen
-        component={BatchDetailScreen}
-        name='BatchDetailScreen'
+        component={AuctionDetailScreen}
+        name='AuctionDetailScreen'
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/AuctionScreen', 'Action details') + ' (Beta)'} // TODO: remove beta from title
+              text={translate('screens/AuctionScreen', 'Auction details') + ' (Beta)'} // TODO: remove beta from title
               containerTestID={headerContainerTestId}
             />
           )
