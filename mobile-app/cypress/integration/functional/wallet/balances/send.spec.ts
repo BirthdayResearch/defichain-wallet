@@ -26,6 +26,9 @@ context('Wallet - Send', function () {
 
   describe('DFI UTXO', function () {
     it('should be able to validate form', function () {
+      cy.getByTestID('balances_list').should('exist')
+      cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
+      cy.getByTestID('send_dfi_button').click()
       // Valid form
       cy.getByTestID('address_input').type(addresses[0])
       cy.getByTestID('amount_input').type('0.1')
