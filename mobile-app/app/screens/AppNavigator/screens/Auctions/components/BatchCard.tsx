@@ -1,6 +1,6 @@
 import React from 'react'
 import BigNumber from 'bignumber.js'
-import { ThemedText, ThemedView, ThemedTouchableOpacity, ThemedIcon } from '@components/themed'
+import { ThemedText, ThemedView, ThemedIcon } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { View } from '@components'
 import { translate } from '@translations'
@@ -52,11 +52,9 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
       dark={tailwind('bg-gray-800 border-gray-700')}
       style={tailwind('rounded mb-2 border p-4')}
     >
-      <ThemedTouchableOpacity
+      <TouchableOpacity
         testID={testID}
         onPress={onCardPress}
-        light={tailwind('border-b-0')}
-        dark={tailwind('border-b-0')}
       >
         <View style={tailwind('flex-row w-full items-center justify-between')}>
           <View style={tailwind('flex flex-row items-center')}>
@@ -164,7 +162,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
             />
           </View>
         </View>
-      </ThemedTouchableOpacity>
+      </TouchableOpacity>
 
       <AuctionTimeProgress
         liquidationHeight={vault.liquidationHeight}

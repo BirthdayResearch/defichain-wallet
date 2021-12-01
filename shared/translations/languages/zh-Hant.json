@@ -705,7 +705,6 @@
     "Auction time left": "剩餘拍賣時間",
     "PLACE BID": "競投出價",
     "VIEW REWARDS": "查看獎勵",
-    "{{block}} blks": "{{block}} 區塊",
     "ACTIVE BID": "主動出價",
     "{{h}}h": "{{h}}時",
     "{{m}}m": "{{m}}分"
@@ -713,7 +712,6 @@
   "components/BidCard": {
     "BID HIGHER": "出價更高",
     "VIEW REWARDS": "查看獎勵",
-    "{{block}} blks": "{{block}} 區塊",
     "Auction ID": "拍賣編號",
     "Auction ends in": "拍賣即將完結於",
     "Auction won": "贏得拍賣",
@@ -724,7 +722,8 @@
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "拍賣即將完結於",
-    "Auction time left": "剩餘拍賣時間"
+    "Auction time left": "剩餘拍賣時間",
+    "{{block}} blks": "{{block}} 區塊"
   },
   "components/VaultCard": {
     "Collaterals:": "抵押品:",

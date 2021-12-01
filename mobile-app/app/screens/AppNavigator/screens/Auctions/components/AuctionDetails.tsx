@@ -1,6 +1,6 @@
 import React from 'react'
-import { ThemedIcon, ThemedSectionTitle, ThemedText, ThemedView, ThemedTouchableOpacity } from '@components/themed'
-import { View } from 'react-native'
+import { ThemedIcon, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
+import { View, TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
@@ -28,24 +28,24 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
   return (
     <>
       <ThemedSectionTitle
-        testID='vault_details'
-        text={translate('screens/BatchDetailsScreen', 'VAULT DETAILS')}
+        testID='auction_details'
+        text={translate('screens/AuctionDetails', 'VAULT DETAILS')}
       />
 
       <RowLinkItem
-        label={translate('components/BatchDetailsScreen', 'Vault ID')}
+        label={translate('components/AuctionDetails', 'Vault ID')}
         value={vault.vaultId}
         onPress={async () => await openURL(getVaultsUrl(vault.vaultId))}
       />
 
       <RowLinkItem
-        label={translate('components/BatchDetailsScreen', 'Owner ID')}
+        label={translate('components/AuctionDetails', 'Owner ID')}
         value={vault.ownerAddress}
         onPress={async () => await openURL(getAddressUrl(vault.ownerAddress))}
       />
 
       <NumberRow
-        lhs={translate('components/BatchDetailsScreen', 'Liquidation height')}
+        lhs={translate('components/AuctionDetails', 'Liquidation height')}
         rhs={{
           value: vault.liquidationHeight,
           testID: 'text_liquidation_height'
@@ -54,11 +54,11 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
 
       <ThemedSectionTitle
         testID='vault_details'
-        text={translate('screens/BatchDetailsScreen', 'ADDITIONAL DETAILS')}
+        text={translate('screens/AuctionDetails', 'ADDITIONAL DETAILS')}
       />
 
       <NumberRow
-        lhs={translate('components/BatchDetailsScreen', 'Collateral Value (USD)')}
+        lhs={translate('components/AuctionDetails', 'Collateral value (USD)')}
         rhs={{
           value: new BigNumber(collateralValue).toFixed(2),
           testID: 'text_collateral_value',
@@ -67,7 +67,7 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
       />
 
       <NumberRow
-        lhs={translate('components/BatchDetailsScreen', 'Min. starting bid')}
+        lhs={translate('components/AuctionDetails', 'Min. starting bid')}
         rhs={{
           suffix: batch.loan.displaySymbol,
           suffixType: 'text',
@@ -77,7 +77,7 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
       />
 
       <TextRow
-        lhs={translate('components/BatchDetailsScreen', 'Auction start')}
+        lhs={translate('components/AuctionDetails', 'Auction start')}
         rhs={{
           value: startTime,
           testID: 'auction_start'
@@ -114,7 +114,7 @@ function RowLinkItem (props: {label: string, value: string, onPress: () => void 
           >
             {props.value}
           </ThemedText>
-          <ThemedTouchableOpacity
+          <TouchableOpacity
             onPress={props.onPress}
             testID='ocean_vault_explorer'
           >
@@ -126,7 +126,7 @@ function RowLinkItem (props: {label: string, value: string, onPress: () => void 
               style={tailwind('text-right ml-1')}
               size={16}
             />
-          </ThemedTouchableOpacity>
+          </TouchableOpacity>
         </View>
       </View>
     </ThemedView>

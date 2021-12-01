@@ -60,7 +60,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
 
   return (
     <View style={tailwind('flex-1')}>
-      <ThemedScrollView style={tailwind('mb-24')}>
+      <ThemedScrollView style={tailwind('mb-28')}>
         <ThemedView
           light={tailwind('bg-white border-gray-200')}
           dark={tailwind('bg-gray-800 border-gray-700')}
@@ -148,7 +148,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
                 dark={tailwind('text-gray-400')}
                 style={tailwind('text-sm items-center')}
               >
-                {translate('components/BatchDetailsScreen', 'Min. next bid')}
+                {translate('screens/AuctionDetailScreen', 'Min. next bid')}
               </ThemedText>
               <View style={tailwind('ml-1')}>
                 <BottomSheetInfo alertInfo={nextBidInfo} name={nextBidInfo.title} infoIconStyle={tailwind('text-sm')} />
@@ -181,13 +181,13 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
           <IconButton
             iconLabel={translate('components/AuctionDetailScreen', 'QUICK BID')}
             iconSize={16}
-            style={tailwind('mr-1 w-1/2 justify-center')}
+            style={tailwind('mr-1 w-1/2 justify-center p-2')}
             onPress={() => {}}
           />
           <IconButton
             iconLabel={translate('components/AuctionDetailScreen', 'PLACE BID')}
             iconSize={16}
-            style={tailwind('ml-1 w-1/2 justify-center')}
+            style={tailwind('ml-1 w-1/2 justify-center p-2')}
             onPress={() => {}}
           />
         </View>
