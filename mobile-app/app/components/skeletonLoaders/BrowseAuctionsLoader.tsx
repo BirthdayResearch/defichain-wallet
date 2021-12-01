@@ -26,13 +26,13 @@ export function BrowseAuctionsLoader (props: BrowseAuctionsLoaderProps): JSX.Ele
       >
         <Circle cx='21' cy='27' r='16' />
         <Rect x='46' y='12' rx='3' ry='3' width='120' height='26' />
-        <Rect x='272' y='12' rx='3' ry='3' width='120' height='26' />
+        <Circle cx='347' cy='21' r='8' />
+        <Circle cx='365' cy='21' r='8' />
+        <Circle cx='382' cy='21' r='8' />
         <Rect x='8' y='56' rx='3' ry='3' width='120' height='12' />
         <Rect x='282' y='56' rx='3' ry='3' width='110' height='12' />
         <Rect x='8' y='81' rx='3' ry='3' width='132' height='12' />
-        <Circle cx='347' cy='87' r='8' />
-        <Circle cx='365' cy='87' r='8' />
-        <Circle cx='382' cy='87' r='8' />
+        <Rect x='272' y='81' rx='3' ry='3' width='118' height='12' />
         <Rect x='8' y='105' rx='3' ry='3' width='170' height='12' />
         <Rect x='252' y='105' rx='3' ry='3' width='140' height='12' />
         <Rect x='8' y='132' rx='3' ry='3' width='384' height='12' />
