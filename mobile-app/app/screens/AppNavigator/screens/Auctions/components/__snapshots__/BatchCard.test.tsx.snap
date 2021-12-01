@@ -167,7 +167,25 @@ exports[`Batch Card should match snapshot 1`] = `
           >
             DUSD
           </Text>
-          <Text />
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+            testID="ocean_vault_explorer"
+          >
+            <Text />
+          </View>
         </View>
       </View>
       <View
@@ -510,54 +528,6 @@ exports[`Batch Card should match snapshot 1`] = `
           "alignItems": "center",
           "flexDirection": "row",
           "justifyContent": "space-between",
-          "marginTop": 8,
-          "width": "100%",
-        }
-      }
-    >
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-          }
-        }
-      >
-        <Text />
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                  "marginLeft": 4,
-                },
-                Object {
-                  "color": "rgba(90, 169, 230, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          Your placed bid is highest
-        </Text>
-      </View>
-    </View>
-    <View
-      style={
-        Object {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
           "marginBottom": 8,
           "marginTop": 16,
           "width": "100%",
@@ -626,82 +596,6 @@ exports[`Batch Card should match snapshot 1`] = `
           }
         >
           $0.00
-        </Text>
-      </View>
-    </View>
-    <View
-      style={
-        Object {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "marginBottom": 8,
-          "width": "100%",
-        }
-      }
-    >
-      <View
-        style={
-          Object {
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          Latest bid
-        </Text>
-      </View>
-      <View
-        style={
-          Object {
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                },
-                Object {
-                  "color": "rgba(23, 23, 23, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          N/A
         </Text>
       </View>
     </View>
