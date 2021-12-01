@@ -194,13 +194,7 @@ export function EditCollateralScreen ({
                 component: BottomSheetTokenList({
                   tokens: collateralTokens,
                   headerLabel: translate('screens/EditCollateralScreen', 'Select token to add'),
-                  onCloseButtonPress: () => {
-                    if (Platform.OS === 'web') {
-                      setIsModalDisplayed(false)
-                    } else {
-                      bottomSheetRef.current?.close()
-                    }
-                  },
+                  onCloseButtonPress: dismissModal,
                   navigateToScreen: {
                     screenName: 'AddOrRemoveCollateralForm',
                     onButtonPress: onAddCollateral
@@ -244,7 +238,7 @@ export function EditCollateralScreen ({
                 token: collateralItem.token,
                 available: '',
                 onButtonPress: undefined,
-                onCloseButtonPress: () => bottomSheetRef.current?.close(),
+                onCloseButtonPress: dismissModal,
                 collateralFactor: new BigNumber(collateralItem.factor ?? 0).times(100),
                 isAdd: true,
                 current: new BigNumber(collateral.amount)
