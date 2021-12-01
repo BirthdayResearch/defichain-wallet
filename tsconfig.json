@@ -79,6 +79,9 @@
       ],
       "@tailwind": [
         "tailwind"
+      ],
+      "@package": [
+        "../../package.json"
       ]
     }
   }
