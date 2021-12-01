@@ -4,7 +4,7 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { getColor, tailwind } from '@tailwind'
 import { translate } from '@translations'
 import React from 'react'
-import { useAuctionTimeLeft } from '../hooks/AuctionTimeLeft'
+import { useAuctionTime } from '../hooks/AuctionTimeLeft'
 import * as Progress from 'react-native-progress'
 import BigNumber from 'bignumber.js'
 
@@ -16,7 +16,7 @@ interface AuctionTimeProgressProps {
 
 export function AuctionTimeProgress (props: AuctionTimeProgressProps): JSX.Element {
   const { isLight } = useThemeContext()
-  const { timeRemaining, blocksRemaining, blocksPerAuction } = useAuctionTimeLeft(props.liquidationHeight, props.blockCount)
+  const { timeRemaining, blocksRemaining, blocksPerAuction } = useAuctionTime(props.liquidationHeight, props.blockCount)
   const normalizedBlocks = new BigNumber(blocksPerAuction).minus(blocksRemaining).dividedBy(blocksPerAuction).toNumber()
 
   return (

@@ -1,6 +1,6 @@
 import React from 'react'
 import BigNumber from 'bignumber.js'
-import { ThemedText, ThemedView, ThemedTouchableOpacity, ThemedIcon } from '@components/themed'
+import { ThemedText, ThemedView, ThemedIcon } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { View } from '@components'
 import { translate } from '@translations'
@@ -15,6 +15,10 @@ import { AuctionsParamList } from '../AuctionNavigator'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { CollateralTokenIconGroup } from './CollateralTokenIconGroup'
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
+import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
+import { TouchableOpacity } from 'react-native'
+import { openURL } from '@api/linking'
+import { useAuctionBidValue } from '../hooks/AuctionBidValue'
 
 export interface BatchCardProps {
   vault: LoanVaultLiquidated
@@ -24,9 +28,11 @@ export interface BatchCardProps {
 
 export function BatchCard (props: BatchCardProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>()
+  const { getVaultsUrl } = useDeFiScanContext()
   const { batch, testID, vault } = props
   const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
+  const { minNextBidInToken } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
 
   const nextBidInfo = {
     title: 'Min. next bid',
@@ -34,9 +40,9 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
   }
 
   const onCardPress = (): void => {
-    navigation.navigate('BatchDetailScreen', {
+    navigation.navigate('AuctionDetailScreen', {
       batch,
-      vaultId: vault.vaultId
+      vault
     })
   }
 
@@ -46,11 +52,9 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
       dark={tailwind('bg-gray-800 border-gray-700')}
       style={tailwind('rounded mb-2 border p-4')}
     >
-      <ThemedTouchableOpacity
+      <TouchableOpacity
         testID={testID}
         onPress={onCardPress}
-        light={tailwind('border-b-0')}
-        dark={tailwind('border-b-0')}
       >
         <View style={tailwind('flex-row w-full items-center justify-between')}>
           <View style={tailwind('flex flex-row items-center')}>
@@ -65,14 +69,19 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
               <ThemedText style={tailwind('font-semibold flex-shrink')}>
                 {batch.loan.displaySymbol}
               </ThemedText>
-              <ThemedIcon
-                style={tailwind('ml-2')}
-                dark={tailwind('text-darkprimary-500')}
-                iconType='MaterialIcons'
-                light={tailwind('text-primary-500')}
-                name='open-in-new'
-                size={18}
-              />
+              <TouchableOpacity
+                onPress={async () => await openURL(getVaultsUrl(vault.vaultId))}
+                testID='ocean_vault_explorer'
+              >
+                <ThemedIcon
+                  style={tailwind('ml-2')}
+                  dark={tailwind('text-darkprimary-500')}
+                  iconType='MaterialIcons'
+                  light={tailwind('text-primary-500')}
+                  name='open-in-new'
+                  size={18}
+                />
+              </TouchableOpacity>
             </View>
           </View>
           <View style={tailwind('flex flex-row items-center justify-center')}>
@@ -91,7 +100,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
           </View>
         </View>
         {/* TODO add bid status logic */}
-        <AuctionBidStatus type='heights' />
+        {/* <AuctionBidStatus type='heights' /> */}
         <View style={tailwind('flex-row w-full items-center justify-between mb-2 mt-4')}>
           <View style={tailwind('flex flex-row')}>
             <ThemedText
@@ -123,47 +132,6 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
         </View>
 
         <View style={tailwind('flex-row w-full items-center justify-between mb-2')}>
-          <View style={tailwind('flex flex-row')}>
-            <ThemedText
-              light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
-              style={tailwind('text-xs')}
-            >
-              {translate('components/BatchCard', 'Latest bid')}
-            </ThemedText>
-          </View>
-          <View style={tailwind('flex flex-row')}>
-            {batch.highestBid === undefined
-              ? (
-                <ThemedText
-                  light={tailwind('text-gray-900')}
-                  dark={tailwind('text-gray-50')}
-                  style={tailwind('text-sm')}
-                >
-                  {translate('components/BatchCard', 'N/A')}
-                </ThemedText>
-              )
-              : (
-                <NumberFormat
-                  suffix={` ${batch.loan.displaySymbol}`}
-                  displayType='text'
-                  renderText={(value: string) => (
-                    <ThemedText
-                      light={tailwind('text-gray-900')}
-                      dark={tailwind('text-gray-50')}
-                      style={tailwind('text-sm')}
-                    >
-                      {value}
-                    </ThemedText>
-                  )}
-                  thousandSeparator
-                  value={new BigNumber(batch.highestBid.amount.amount).toFixed(8)}
-                />
-              )}
-          </View>
-        </View>
-
-        <View style={tailwind('flex-row w-full items-center justify-between mb-2')}>
           <View style={tailwind('flex-row items-center justify-start')}>
             <ThemedText
               light={tailwind('text-gray-500')}
@@ -176,12 +144,10 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
               <BottomSheetInfo alertInfo={nextBidInfo} name={nextBidInfo.title} infoIconStyle={tailwind('text-xs')} />
             </View>
           </View>
-          {/*  TODO calculate next bid price */}
           <View style={tailwind('flex flex-row')}>
             <NumberFormat
               displayType='text'
-              prefix='$'
-              decimalScale={2}
+              suffix={` ${batch.loan.displaySymbol}`}
               renderText={(value: string) => (
                 <ThemedText
                   light={tailwind('text-gray-900')}
@@ -192,11 +158,11 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
                 </ThemedText>
               )}
               thousandSeparator
-              value={0}
+              value={minNextBidInToken}
             />
           </View>
         </View>
-      </ThemedTouchableOpacity>
+      </TouchableOpacity>
 
       <AuctionTimeProgress
         liquidationHeight={vault.liquidationHeight}
@@ -233,7 +199,7 @@ function BatchCardButtons (): JSX.Element {
 
 type AuctionBidStatusType = 'lost' | 'heights'
 
-function AuctionBidStatus ({ type }: { type: AuctionBidStatusType }): JSX.Element {
+export function AuctionBidStatus ({ type }: { type: AuctionBidStatusType }): JSX.Element {
   return (
     <View style={tailwind('flex-row w-full items-center justify-between mt-2')}>
       <View style={tailwind('flex flex-row items-center justify-between')}>

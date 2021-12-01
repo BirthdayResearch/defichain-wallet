@@ -25,16 +25,10 @@ context('Wallet - Send', function () {
   })
 
   describe('DFI UTXO', function () {
-    it('should be able redirect to QR screen page', function () {
+    it('should be able to validate form', function () {
       cy.getByTestID('balances_list').should('exist')
       cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
       cy.getByTestID('send_dfi_button').click()
-      cy.getByTestID('qr_code_button').click()
-      cy.url().should('include', 'app/BarCodeScanner')
-      cy.go('back')
-    })
-
-    it('should be able to validate form', function () {
       // Valid form
       cy.getByTestID('address_input').type(addresses[0])
       cy.getByTestID('amount_input').type('0.1')
@@ -58,7 +52,7 @@ context('Wallet - Send', function () {
     })
 
     it('should be able to display elements', function () {
-      cy.getByTestID('qr_code_button').should('be.visible')
+      cy.getByTestID('qr_code_button').should('not.exist')
     })
 
     it('should contain info text when sending UTXO', function () {

@@ -1,5 +1,4 @@
 import { StackScreenProps } from '@react-navigation/stack'
-import { BarCodeScanner as DefaultBarCodeScanner } from 'expo-barcode-scanner'
 import React, { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import tailwind from 'tailwind-rn'
@@ -8,6 +7,7 @@ import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/Balance
 import { translate } from '@translations'
 import { ThemedText } from './themed'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { Camera } from 'expo-camera'
 
 type Props = StackScreenProps<BalanceParamList, 'BarCodeScanner'>
 
@@ -29,7 +29,7 @@ export function BarCodeScanner ({
   }, [value])
 
   useEffect(() => {
-    DefaultBarCodeScanner.requestPermissionsAsync()
+    Camera.requestCameraPermissionsAsync()
       .then(({ status }) => {
         switch (status) {
           case 'granted':
@@ -92,8 +92,8 @@ export function BarCodeScanner ({
 
   return (
     <>
-      <DefaultBarCodeScanner
-        barCodeTypes={[DefaultBarCodeScanner.Constants.BarCodeType.qr]}
+      <Camera
+        type={Camera.Constants.Type.back}
         onBarCodeScanned={(e) => {
           setValue(e.data)
         }}

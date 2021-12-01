@@ -15,6 +15,16 @@ jest.mock('@react-navigation/native', () => ({
 jest.mock('@components/BottomSheetInfo', () => ({
   BottomSheetInfo: () => <></>
 }))
+jest.mock('@shared-contexts/DeFiScanContext')
+jest.mock('../hooks/AuctionBidValue', () => ({
+  useAuctionBidValue: () => ({
+    minNextBidInUSD: '10',
+    totalLoanAmountInUSD: '100',
+    minStartingBidInUSD: '100',
+    minStartingBidInToken: '11',
+    minNextBidInToken: '11'
+  })
+}))
 
 describe('Batch Card', () => {
   it('should match snapshot', async () => {

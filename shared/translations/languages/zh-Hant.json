@@ -1,6 +1,6 @@
 {
   "screens/WalletNavigator": {
-    "Guidelines": "指導方針",
+    "Guidelines": "使用指南",
     "Recovery Words FAQ": "恢復字組常見問題",
     "Display recovery words": "顯示恢復字組",
     "Verify words": "確認字組",
@@ -18,7 +18,7 @@
     "Decentralized Exchange": "ＤＥＸ",
     "ADD LIQUIDITY": "增加流動資金",
     "Add liquidity": "增加流動資金",
-    "Confirm Add Liquidity": "Confirm Add Liquidity",
+    "Confirm Add Liquidity": "請輸入密碼",
     "Remove Liquidity": "退出流動資金",
     "Confirm Removal": "確認退出",
     "Confirm swap": "確認兌換",
@@ -32,7 +32,7 @@
     "ADD MORE": "加入更多貨幣",
     "No active pool pairs": "您尚未進入流動池",
     "Supply liquidity pool tokens to earn high yields": "您可以向流動池提供資金已賺取區塊獎勵和兌換佣金",
-    "Total liquidity (USD)":"總資金值 (美元)",
+    "Total liquidity (USD)": "總資金值 (美元)",
     "Browse pool pairs": "瀏覽流動池配對",
     "Your pool pairs": "您的流動池股份",
     "Total Value Locked (USD)": "總體價值鎖定 (美元)",
@@ -40,7 +40,7 @@
     "SWAP": "兌換"
   },
   "screens/DexGuidelines": {
-    "Guidelines": "指導方針",
+    "Guidelines": "使用指南",
     "CONTINUE": "繼續",
     "Decentralized Exchange": "去中心化交易所",
     "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "將您的貨幣提供給 DEX 去中心化交易所，並獲得高達三位數百分比的年回報率",
@@ -253,7 +253,7 @@
     "Send to other wallet": "發送到其他地址",
     "Receive": "接收",
     "Convert to {{symbol}}": "轉換至 {{symbol}}",
-    "Add to liquidity pool":  "加入流動性池",
+    "Add to liquidity pool": "加入流動性池",
     "Remove liquidity": "撒出 流動性池",
     "Swap with {{token}}": "用 {{token}} 兌換"
   },
@@ -633,6 +633,9 @@
     "Your passcode is valid only for DeFiChain wallet.": "您的App密碼只對遞飛鏈DeFiChain輕錢包有效。",
     "FREQUENTLY ASKED QUESTIONS": "常見問題"
   },
+  "components/DFIBalanceCard": {
+    "Learn more about UTXO and Token": "了解UTXO 和代币区别"
+  },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要預留一些可使用的 UTXO(0.1 DFI)作為費用"
   },
@@ -702,7 +705,6 @@
     "Auction time left": "剩餘拍賣時間",
     "PLACE BID": "競投出價",
     "VIEW REWARDS": "查看獎勵",
-    "{{block}} blks": "{{block}} 區塊",
     "ACTIVE BID": "主動出價",
     "{{h}}h": "{{h}}時",
     "{{m}}m": "{{m}}分"
@@ -710,7 +712,6 @@
   "components/BidCard": {
     "BID HIGHER": "出價更高",
     "VIEW REWARDS": "查看獎勵",
-    "{{block}} blks": "{{block}} 區塊",
     "Auction ID": "拍賣編號",
     "Auction ends in": "拍賣即將完結於",
     "Auction won": "贏得拍賣",
@@ -721,7 +722,8 @@
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "拍賣即將完結於",
-    "Auction time left": "剩餘拍賣時間"
+    "Auction time left": "剩餘拍賣時間",
+    "{{block}} blks": "{{block}} 區塊"
   },
   "components/VaultCard": {
     "Collaterals:": "抵押品:",
@@ -783,7 +785,7 @@
     "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "基於所選貸款計劃的最低要求抵押率。當抵押率低於最低要求時，金庫將被清算。",
     "Collateralization ratio": "抵押品比率",
     "Interest amount": "總利息金額",
-    "Next collateralization": "Next collateralization",
+    "Next collateralization": "當新價格生效，下一個抵押比率",
     "Min. collateralization ratio": "最小抵押率",
     "This amount is the total interest amount from both vault and token interest rate.": "此金額是金庫和代幣利率的利息總和",
     "Annual vault interest": "金庫年利息"
@@ -795,7 +797,7 @@
     "Collaterals required to use this vault.": "使用此金庫需要抵押品."
   },
   "components/ScrollableButton": {
-    "ADD COLLATERAL":"加入抵押品",
+    "ADD COLLATERAL": "加入抵押品",
     "TAKE COLLATERAL": "減低抵押品",
     "EDIT SCHEME": "更改計劃",
     "CLOSE VAULT": "關閉金庫"
@@ -823,9 +825,9 @@
     "Min. collateralization ratio": "最小抵押率",
     "Vault interest": "金庫利息",
     "VAULT DETAILS": "金庫明細",
-    "COLLATERALIZATION DETAILS": "COLLATERALIZATION DETAILS",
+    "COLLATERALIZATION DETAILS": "抵押品明細",
     "Collateralization ratio": "抵押品比率",
-    "Next collateralization": "Next collateralization",
+    "Next collateralization": "當新價格生效，下一個抵押比率",
     "Total collaterals (USD)": "抵押資金總價值 (美金)",
     "Active loans": "活躍的貸款",
     "Total loans (USD)": "貸款總金額(美金)"
@@ -887,6 +889,43 @@
     "Add Collateral": "加入抵押",
     "Remove Collateral": "移除抵押"
   },
+  "screens/PaybackLoanScreen": {
+    "YOU ARE PAYING FOR LOAN": "您正在償還貸款",
+    "VAULT IN USE": "金庫使用中",
+    "How much do you want to pay?": "您希望付款多少?",
+    "Enter an amount": "輸入金額",
+    "Available": "可用的",
+    "CONTINUE": "繼續",
+    "Review and confirm transaction in the next screen": "請在下一頁面檢閱及確認交易",
+    "TRANSACTION DETAILS": "交易細項",
+    "Amount to pay": "付款金價",
+    "Remaining loan amount": "剩餘貸款金額",
+    "Outstanding balance": "未付餘額",
+    "Collateralization ratio": "抵押比例率",
+    "Min. collateralization ratio": "最低抵押比例率"
+  },
+  "screens/ConfirmPaybackLoanScreen": {
+    "CONFIRM PAYMENT": "確認付款",
+    "PAYING": "付款中",
+    "You are paying": "正在付款",
+    "TRANSACTION DETAILS": "交易細項",
+    "Transaction type": "交易類別",
+    "Loan payment": "貸款付款",
+    "Amount to pay": "付款銀碼",
+    "Remaining loan amount": "剩餘貸款銀碼",
+    "VAULT DETAILS": "金庫資料",
+    "Vault ID": "金庫使用ID",
+    "Collateral amount (USD)": "抵押金額 （美金)",
+    "Collateralization ratio": "抵押率",
+    "Paying loan": "償還貸款中",
+    "Paying {{amount}} {{symbol}}": "償還款項 {{amount}} {{symbol}} ",
+    "Confirm Loan Payment": "確認償還貸款"
+  },
+  "components/CollateralizationRatioDisplay": {
+    "Collateralization ratio": "抵押率",
+    "Min:": "最低:",
+    "Next:": "下一個:"
+  },
   "screens/BorrowLoanTokenScreen": {
     "Borrow loan token": "借用貸款代幣",
     "SELECT VAULT FOR COLLATERAL": "選擇金庫抵押",
@@ -936,18 +975,52 @@
     "CONFIRM BORROW": "確認借用",
     "BORROWING": "借用"
   },
+  "components/BottomSheetVaultList": {
+    "Collateralization ratio": "抵押率"
+  },
+  "screens/EditLoanSchemeScreen": {
+    "EDIT LOAN SCHEME OF VAULT": "更改金庫中的貸款計劃",
+    "Make sure your collateralization ratio is still above your min. collateralization ratio": "確保您的抵押率仍然高於您的最低要求抵押率",
+    "CONTINUE": "繼續",
+    "Confirm your vault details in next screen": "請在下一頁確認金庫細項"
+  },
+  "screens/ConfirmEditLoanSchemeScreen": {
+    "You are editing scheme of vault": "正在更改金庫計劃",
+    "TRANSACTION DETAILS": "交易資料",
+    "Transaction type": "交易類別",
+    "Edit loan scheme": "更改貸款計劃",
+    "Prev. minimum collateralization ratio": "前最低抵押率",
+    "Prev. vault interest (APR)": "前金庫利息 (回報率)",
+    "New minimum collateralization ratio": "更新後最低抵押率",
+    "New vault interest (APR)": "更新後金庫利息 (回報率)",
+    "CONFIRM EDIT": "確認更改",
+    "EDITING": "更改中",
+    "CONVERTING": "轉換中"
+  },
+  "components/LoanSchemeOptions": {
+    "Min. collateralization ratio": "最小抵押率",
+    "Interest rate": "利率",
+    "APR": "回報率"
+  },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "您正要借更多貸款",
     "How much do you want to add?": "您想增加多少?",
     "Enter an amount": "請輸入數量",
     "VAULT IN USE": "金庫使用中",
     "CONTINUE": "繼續",
-    "Review and confirm transaction in the next screen" : "在下一個屏幕中檢查並確認交易",
+    "Review and confirm transaction in the next screen": "在下一個屏幕中檢查並確認交易",
     "Insufficient vault collateral to borrow this amount": "抵押金庫不足夠支付借貸金額",
     "This amount may place the vault in liquidation": "這金額可能會導致金庫清算",
     "Unable to proceed because of errors": "錯誤而無法繼續",
     "Max loan amount": "最高的貸款金額",
     "N/A": "不適用"
+  },
+  "screens/ChooseLoanTokenScreen": {
+    "Search for loans": "搜尋貸款"
+  },
+  "components/EmptyCollateral": {
+    "No collaterals": "沒有抵押",
+    "Add DFI and tokens as collateral to get started with loans.": "加入 DFI 和代幣作為抵押開始貸款"
   },
   "screens/CloseVaultScreen": {
     "You are closing Vault ID": "您正在關閉金庫編號",
