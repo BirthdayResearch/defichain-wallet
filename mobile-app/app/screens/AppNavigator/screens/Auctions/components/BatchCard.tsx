@@ -169,12 +169,18 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
         blockCount={blockCount}
         label='Auction time left'
       />
-      <BatchCardButtons />
+      <BatchCardButtons onPlaceBid={() => {
+        navigation.navigate('PlaceBidScreen', {
+          batch,
+          vault
+        })
+      }}
+      />
     </ThemedView>
   )
 }
 
-function BatchCardButtons (): JSX.Element {
+function BatchCardButtons (props: {onPlaceBid: () => void}): JSX.Element {
   return (
     <ThemedView
       light={tailwind('border-gray-200')}
@@ -185,7 +191,7 @@ function BatchCardButtons (): JSX.Element {
         iconLabel={translate('components/BatchCard', 'PLACE BID')}
         iconSize={16}
         style={tailwind('mr-2 mb-2')}
-        onPress={() => {}}
+        onPress={props.onPlaceBid}
       />
       <IconButton
         iconLabel={translate('components/BatchCard', 'QUICK BID')}
