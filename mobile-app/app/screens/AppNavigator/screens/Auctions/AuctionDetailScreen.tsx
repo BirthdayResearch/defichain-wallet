@@ -19,6 +19,7 @@ import { AuctionedCollaterals } from './components/AuctionedCollaterals'
 import { IconButton } from '@components/IconButton'
 import NumberFormat from 'react-number-format'
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
+import { useAuctionBidValue } from './hooks/AuctionBidValue'
 
 type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
 
@@ -31,6 +32,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
   const { batch, vault } = props.route.params
   const { getVaultsUrl } = useDeFiScanContext()
   const [activeTab, setActiveTab] = useState<string>(TabKey.Collaterals)
+  const { minNextBidInToken } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
 
   const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
@@ -133,7 +135,6 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
         )}
 
       </ThemedScrollView>
-      {/* TODO calculate Min. starting bid */}
       <ThemedView
         light={tailwind('bg-white border-gray-200')}
         dark={tailwind('bg-gray-800 border-gray-700')}
@@ -147,7 +148,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
                 dark={tailwind('text-gray-400')}
                 style={tailwind('text-sm items-center')}
               >
-                {translate('components/BatchDetailsScreen', 'Min. starting bid')}
+                {translate('components/BatchDetailsScreen', 'Min. next bid')}
               </ThemedText>
               <View style={tailwind('ml-1')}>
                 <BottomSheetInfo alertInfo={nextBidInfo} name={nextBidInfo.title} infoIconStyle={tailwind('text-sm')} />
@@ -158,7 +159,6 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
             style={tailwind('flex-1 flex-row justify-end flex-wrap items-center')}
           >
             <NumberFormat
-              decimalScale={8}
               suffix={` ${batch.loan.displaySymbol}`}
               displayType='text'
               renderText={(value) =>
@@ -171,7 +171,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
                   {value}
                 </ThemedText>}
               thousandSeparator
-              value='0'
+              value={minNextBidInToken}
             />
           </View>
         </View>

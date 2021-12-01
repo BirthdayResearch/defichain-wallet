@@ -12,12 +12,14 @@ import { TextRow } from '@components/TextRow'
 import { useAuctionTime } from '../hooks/AuctionTimeLeft'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
+import { useAuctionBidValue } from '../hooks/AuctionBidValue'
 
 export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: LoanVaultLiquidationBatch }): JSX.Element {
   const { vault, batch } = props
   const blockCount = useSelector((state: RootState) => state.block.count)
   const { getVaultsUrl, getAddressUrl } = useDeFiScanContext()
   const { startTime } = useAuctionTime(vault.liquidationHeight, blockCount ?? 0)
+  const { minStartingBidInToken } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
 
   const collateralValue = batch.collaterals.reduce((total, eachItem) => {
     return total.plus(new BigNumber(eachItem.amount).multipliedBy(eachItem.activePrice?.active?.amount ?? 0))
@@ -64,14 +66,15 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
         }}
       />
 
-      {/* TODO calculate Min. starting bid */}
-      {/* <NumberRow
+      <NumberRow
         lhs={translate('components/BatchDetailsScreen', 'Min. starting bid')}
         rhs={{
-          value: '',
+          suffix: batch.loan.displaySymbol,
+          suffixType: 'text',
+          value: minStartingBidInToken,
           testID: 'text_min_starting_bid'
         }}
-      /> */}
+      />
 
       <TextRow
         lhs={translate('components/BatchDetailsScreen', 'Auction start')}

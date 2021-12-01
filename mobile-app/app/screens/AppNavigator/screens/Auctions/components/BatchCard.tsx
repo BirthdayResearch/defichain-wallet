@@ -18,6 +18,7 @@ import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { TouchableOpacity } from 'react-native'
 import { openURL } from '@api/linking'
+import { useAuctionBidValue } from '../hooks/AuctionBidValue'
 
 export interface BatchCardProps {
   vault: LoanVaultLiquidated
@@ -31,6 +32,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
   const { batch, testID, vault } = props
   const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
+  const { minNextBidInToken } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
 
   const nextBidInfo = {
     title: 'Min. next bid',
@@ -144,12 +146,10 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
               <BottomSheetInfo alertInfo={nextBidInfo} name={nextBidInfo.title} infoIconStyle={tailwind('text-xs')} />
             </View>
           </View>
-          {/*  TODO calculate next bid price */}
           <View style={tailwind('flex flex-row')}>
             <NumberFormat
               displayType='text'
-              prefix='$'
-              decimalScale={2}
+              suffix={` ${batch.loan.displaySymbol}`}
               renderText={(value: string) => (
                 <ThemedText
                   light={tailwind('text-gray-900')}
@@ -160,7 +160,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
                 </ThemedText>
               )}
               thousandSeparator
-              value={0}
+              value={minNextBidInToken}
             />
           </View>
         </View>
