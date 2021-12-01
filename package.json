@@ -49,7 +49,7 @@
     "defichain": "^2.10.0",
     "expo": "43.0.3",
     "expo-asset": "~8.4.3",
-    "expo-barcode-scanner": "~11.1.2",
+    "expo-camera": "~12.0.3",
     "expo-cli": "^4.13.0",
     "expo-clipboard": "~2.0.3",
     "expo-constants": "~12.1.3",
