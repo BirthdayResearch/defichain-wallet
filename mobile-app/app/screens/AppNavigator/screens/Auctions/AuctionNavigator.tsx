@@ -5,14 +5,14 @@ import { HeaderTitle } from '@components/HeaderTitle'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { AuctionsScreen } from './AuctionScreen'
-import { BatchDetailScreen } from './components/BatchDetailScreen'
-import { LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
+import { BatchDetailScreen } from './BatchDetailScreen'
+import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 
 export interface AuctionsParamList {
   AuctionsScreen: {}
   BatchDetailScreen: {
     batch: LoanVaultLiquidationBatch
-    vaultId: string
+    vault: LoanVaultLiquidated
   }
   [key: string]: undefined | object
 }

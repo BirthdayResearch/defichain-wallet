@@ -15,6 +15,7 @@ jest.mock('@react-navigation/native', () => ({
 jest.mock('@components/BottomSheetInfo', () => ({
   BottomSheetInfo: () => <></>
 }))
+jest.mock('@shared-contexts/DeFiScanContext')
 
 describe('Batch Card', () => {
   it('should match snapshot', async () => {
