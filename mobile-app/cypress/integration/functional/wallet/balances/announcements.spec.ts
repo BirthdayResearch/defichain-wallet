@@ -6,7 +6,14 @@ context('Wallet - Balances - Announcements', () => {
       'zh-Hans': '指导方针',
       'zh-Hant': '指導方針'
     },
-    version: '0.0.0 - 0.12.0'
+    version: '0.0.0 - 0.12.0',
+    url: {
+      ios: '',
+      android: '',
+      macos: '',
+      windows: '',
+      web: ''
+    }
   }, {
     lang: {
       en: 'Refresh',
@@ -14,7 +21,14 @@ context('Wallet - Balances - Announcements', () => {
       'zh-Hans': '刷新',
       'zh-Hant': '刷新'
     },
-    version: '>=0.12.1'
+    version: '>=0.12.1',
+    url: {
+      ios: 'https://foo.ios',
+      android: 'https://foo.android',
+      macos: 'https://foo.macos',
+      windows: 'https://foo.windows',
+      web: 'https://foo.web'
+    }
   }]
 
   beforeEach(function () {
@@ -46,7 +60,7 @@ context('Wallet - Balances - Announcements', () => {
       body: sampleAnnouncements
     })
     cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'Guidelines')
+    cy.getByTestID('announcements_text').should('contain', 'Refresh')
   })
 
   it('should display announcement message - translated', function () {
@@ -58,6 +72,6 @@ context('Wallet - Balances - Announcements', () => {
     cy.reload()
     cy.getByTestID('playground_wallet_random').click()
     cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'Richtlinien')
+    cy.getByTestID('announcements_text').should('contain', 'Erneuern')
   })
 })
