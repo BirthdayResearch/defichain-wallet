@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ThemedText, ThemedView, ThemedIcon, ThemedScrollView } from '@components/themed'
+import { ThemedText, ThemedView, ThemedIcon, ThemedScrollView, ThemedTouchableOpacity } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { View } from '@components'
 import { translate } from '@translations'
@@ -12,7 +12,6 @@ import { AuctionsParamList } from './AuctionNavigator'
 import { CollateralTokenIconGroup } from './components/CollateralTokenIconGroup'
 import { Tabs } from '@components/Tabs'
 import BigNumber from 'bignumber.js'
-import { TouchableOpacity } from 'react-native'
 import { openURL } from '@api/linking'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { AuctionDetails } from './components/AuctionDetails'
@@ -79,7 +78,7 @@ export function BatchDetailScreen (props: BatchDetailScreenProps): JSX.Element {
                   >
                     {translate('components/BatchDetailScreen', 'Batch #{{index}}', { index: 1 })}
                   </ThemedText>
-                  <TouchableOpacity
+                  <ThemedTouchableOpacity
                     onPress={async () => await openURL(getVaultsUrl(vault.vaultId))}
                     testID='ocean_vault_explorer'
                   >
@@ -91,7 +90,7 @@ export function BatchDetailScreen (props: BatchDetailScreenProps): JSX.Element {
                       style={tailwind('ml-1')}
                       size={12}
                     />
-                  </TouchableOpacity>
+                  </ThemedTouchableOpacity>
                 </View>
               </View>
             </View>
@@ -106,7 +105,7 @@ export function BatchDetailScreen (props: BatchDetailScreenProps): JSX.Element {
         </View>
 
         <AuctionTimeProgress
-          liquidationHeight={10}
+          liquidationHeight={vault.liquidationHeight}
           blockCount={blockCount}
           label='Auction time remaining'
         />

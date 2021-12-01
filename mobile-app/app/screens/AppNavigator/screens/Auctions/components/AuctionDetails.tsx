@@ -1,6 +1,6 @@
 import React from 'react'
-import { ThemedIcon, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
-import { TouchableOpacity, View } from 'react-native'
+import { ThemedIcon, ThemedSectionTitle, ThemedText, ThemedView, ThemedTouchableOpacity } from '@components/themed'
+import { View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
@@ -8,10 +8,16 @@ import { NumberRow } from '@components/NumberRow'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { openURL } from '@api/linking'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
+import { TextRow } from '@components/TextRow'
+import { useAuctionTime } from '../hooks/AuctionTimeLeft'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
 
 export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: LoanVaultLiquidationBatch }): JSX.Element {
   const { vault, batch } = props
+  const blockCount = useSelector((state: RootState) => state.block.count)
   const { getVaultsUrl, getAddressUrl } = useDeFiScanContext()
+  const { timeSpent } = useAuctionTime(vault.liquidationHeight, blockCount ?? 0)
 
   const collateralValue = batch.collaterals.reduce((total, eachItem) => {
     return total.plus(new BigNumber(eachItem.amount).multipliedBy(eachItem.activePrice?.active?.amount ?? 0))
@@ -67,15 +73,14 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
         }}
       /> */}
 
-      {/* TODO calculate Auction start date */}
-      {/* <TextRow
-        lhs={translate('components/BatchDetailsScreen', 'Auction start date')}
+      <TextRow
+        lhs={translate('components/BatchDetailsScreen', 'Auction start')}
         rhs={{
-          value: '',
-          testID: 'auction_start_date'
+          value: `~ ${timeSpent}`,
+          testID: 'auction_start'
         }}
         textStyle={tailwind('text-sm font-normal')}
-      /> */}
+      />
     </>
   )
 }
@@ -106,7 +111,7 @@ function RowLinkItem (props: {label: string, value: string, onPress: () => void 
           >
             {props.value}
           </ThemedText>
-          <TouchableOpacity
+          <ThemedTouchableOpacity
             onPress={props.onPress}
             testID='ocean_vault_explorer'
           >
@@ -118,7 +123,7 @@ function RowLinkItem (props: {label: string, value: string, onPress: () => void 
               style={tailwind('text-right ml-1')}
               size={16}
             />
-          </TouchableOpacity>
+          </ThemedTouchableOpacity>
         </View>
       </View>
     </ThemedView>
