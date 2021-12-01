@@ -1,11 +1,12 @@
 import { EnvironmentNetwork } from '@environment'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { translate } from '@translations'
+import dayjs from 'dayjs'
 import { padStart } from 'lodash'
 
 interface AuctionTimeLeft {
   timeRemaining: string
-  timeSpent: string
+  startTime: string
   blocksRemaining: number
   blocksPerAuction: number
 }
@@ -17,7 +18,7 @@ export function useAuctionTime (liquidationHeight: number, blockCount: number): 
   const timeSpent = blocksPerAuction - blocksRemaining
   return {
     timeRemaining: (blocksRemaining > 0) ? secondsToHm(blocksRemaining * 30) : '',
-    timeSpent: (timeSpent > 0) ? secondsToHm(timeSpent * 30) : '',
+    startTime: timeSpent > 0 ? dayjs().subtract(timeSpent * 30, 's').format('h:mm a') : '',
     blocksRemaining,
     blocksPerAuction
   }

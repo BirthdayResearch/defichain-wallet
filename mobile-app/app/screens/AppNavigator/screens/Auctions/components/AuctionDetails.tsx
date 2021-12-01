@@ -17,7 +17,7 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
   const { vault, batch } = props
   const blockCount = useSelector((state: RootState) => state.block.count)
   const { getVaultsUrl, getAddressUrl } = useDeFiScanContext()
-  const { timeSpent } = useAuctionTime(vault.liquidationHeight, blockCount ?? 0)
+  const { startTime } = useAuctionTime(vault.liquidationHeight, blockCount ?? 0)
 
   const collateralValue = batch.collaterals.reduce((total, eachItem) => {
     return total.plus(new BigNumber(eachItem.amount).multipliedBy(eachItem.activePrice?.active?.amount ?? 0))
@@ -76,7 +76,7 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
       <TextRow
         lhs={translate('components/BatchDetailsScreen', 'Auction start')}
         rhs={{
-          value: `~ ${timeSpent}`,
+          value: startTime,
           testID: 'auction_start'
         }}
         textStyle={tailwind('text-sm font-normal')}
