@@ -7,7 +7,7 @@ import { DFITokenSelector, DFIUtxoSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
-import { Platform, View } from 'react-native'
+import { View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button } from '@components/Button'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
@@ -377,7 +377,7 @@ function AddressRow ({
               onChange={onChange}
               onChangeText={onAddressChange}
               placeholder={translate('screens/SendScreen', 'Paste wallet address here')}
-              style={tailwind('w-3/5 flex-grow pb-1', { 'h-8': Platform.OS !== 'ios' && Platform.OS !== 'android' })}
+              style={tailwind('w-3/5 flex-grow pb-1')}
               testID='address_input'
               value={value}
               displayClearButton={value !== defaultValue}
@@ -386,24 +386,21 @@ function AddressRow ({
               titleTestID='title_to_address'
               inputType='default'
             >
-              {(Platform.OS === 'ios' || Platform.OS === 'android') &&
-                (
-                  <ThemedTouchableOpacity
-                    dark={tailwind('bg-gray-800')}
-                    light={tailwind('bg-white')}
-                    onPress={onQrButtonPress}
-                    style={tailwind('w-9 p-1.5')}
-                    testID='qr_code_button'
-                  >
-                    <ThemedIcon
-                      dark={tailwind('text-darkprimary-500')}
-                      iconType='MaterialIcons'
-                      light={tailwind('text-primary-500')}
-                      name='qr-code-scanner'
-                      size={24}
-                    />
-                  </ThemedTouchableOpacity>
-                )}
+              <ThemedTouchableOpacity
+                dark={tailwind('bg-gray-800')}
+                light={tailwind('bg-white')}
+                onPress={onQrButtonPress}
+                style={tailwind('w-9 p-1.5')}
+                testID='qr_code_button'
+              >
+                <ThemedIcon
+                  dark={tailwind('text-darkprimary-500')}
+                  iconType='MaterialIcons'
+                  light={tailwind('text-primary-500')}
+                  name='qr-code-scanner'
+                  size={24}
+                />
+              </ThemedTouchableOpacity>
             </WalletTextInput>
           </View>
         )}
