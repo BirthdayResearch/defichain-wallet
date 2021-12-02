@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { ThemedText, ThemedView, ThemedIcon, ThemedScrollView, ThemedTouchableOpacity } from '@components/themed'
+import { ThemedText, ThemedView, ThemedIcon, ThemedScrollView } from '@components/themed'
 import { tailwind } from '@tailwind'
-import { View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import { translate } from '@translations'
 import { getNativeIcon } from '@components/icons/assets'
 import { useSelector } from 'react-redux'
@@ -20,6 +20,7 @@ import { IconButton } from '@components/IconButton'
 import NumberFormat from 'react-number-format'
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useAuctionBidValue } from './hooks/AuctionBidValue'
+import { useAuctionTime } from './hooks/AuctionTimeLeft'
 
 type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
 
@@ -33,9 +34,9 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
   const { getVaultsUrl } = useDeFiScanContext()
   const [activeTab, setActiveTab] = useState<string>(TabKey.Collaterals)
   const { minNextBidInToken } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
-
-  const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
+  const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
+  const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
 
   const onPress = (tabId: string): void => {
     setActiveTab(tabId)
@@ -53,18 +54,13 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
     handleOnPress: onPress
   }]
 
-  const nextBidInfo = {
-    title: 'Min. next bid',
-    message: 'The minimum bid a user must place, as long as it’s not the first bid for the batch'
-  }
-
   return (
     <View style={tailwind('flex-1')}>
-      <ThemedScrollView style={tailwind('mb-28')}>
+      <ThemedScrollView style={tailwind('pb-28')}>
         <ThemedView
           light={tailwind('bg-white border-gray-200')}
           dark={tailwind('bg-gray-800 border-gray-700')}
-          style={tailwind('rounded border p-4')}
+          style={tailwind('rounded border-b p-4')}
           testID='batch_detail_screen'
         >
           <View style={tailwind('flex-row w-full items-center justify-between mb-4')}>
@@ -89,7 +85,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
                     >
                       {translate('components/AuctionDetailScreen', 'Batch #{{index}}', { index: 1 })}
                     </ThemedText>
-                    <ThemedTouchableOpacity
+                    <TouchableOpacity
                       onPress={async () => await openURL(getVaultsUrl(vault.vaultId))}
                       testID='ocean_vault_explorer'
                     >
@@ -101,7 +97,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
                         style={tailwind('ml-1')}
                         size={12}
                       />
-                    </ThemedTouchableOpacity>
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>
@@ -135,63 +131,96 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
         )}
 
       </ThemedScrollView>
-      <ThemedView
-        light={tailwind('bg-white border-gray-200')}
-        dark={tailwind('bg-gray-800 border-gray-700')}
-        style={tailwind('absolute w-full bottom-0 flex-1 border p-4')}
-      >
-        <View style={tailwind('flex flex-row items-center justify-center w-full')}>
-          <View style={tailwind('w-6/12')}>
-            <View style={tailwind('flex-row items-center')}>
-              <ThemedText
-                light={tailwind('text-gray-500')}
-                dark={tailwind('text-gray-400')}
-                style={tailwind('text-sm items-center')}
-              >
-                {translate('screens/AuctionDetailScreen', 'Min. next bid')}
-              </ThemedText>
-              <View style={tailwind('ml-1')}>
-                <BottomSheetInfo alertInfo={nextBidInfo} name={nextBidInfo.title} infoIconStyle={tailwind('text-sm')} />
-              </View>
+      <AuctionActionSection
+        minNextBidInToken={minNextBidInToken}
+        displaySymbol={batch.loan.displaySymbol}
+        blocksRemaining={blocksRemaining}
+      />
+    </View>
+  )
+}
+
+interface AuctionActionSectionProps {
+  minNextBidInToken: string
+  displaySymbol: string
+  blocksRemaining: number
+}
+
+function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
+  const nextBidInfo = {
+    title: 'Min. next bid',
+    message: 'The minimum bid a user must place, as long as it’s not the first bid for the batch'
+  }
+
+  return (
+    <ThemedView
+      light={tailwind('bg-white border-gray-200')}
+      dark={tailwind('bg-gray-800 border-gray-700')}
+      style={tailwind('absolute w-full bottom-0 flex-1 border-t px-4 pt-5 pb-10')}
+    >
+      <View style={tailwind('flex flex-row items-center justify-center w-full')}>
+        <View style={tailwind('w-6/12')}>
+          <View style={tailwind('flex-row items-center')}>
+            <ThemedText
+              light={tailwind('text-gray-500')}
+              dark={tailwind('text-gray-400')}
+              style={tailwind('text-sm items-center')}
+            >
+              {translate('screens/AuctionDetailScreen', 'Min. next bid')}
+            </ThemedText>
+            <View style={tailwind('ml-1')}>
+              <BottomSheetInfo alertInfo={nextBidInfo} name={nextBidInfo.title} infoIconStyle={tailwind('text-sm')} />
             </View>
-          </View>
-          <View
-            style={tailwind('flex-1 flex-row justify-end flex-wrap items-center')}
-          >
-            <NumberFormat
-              suffix={` ${batch.loan.displaySymbol}`}
-              displayType='text'
-              renderText={(value) =>
-                <ThemedText
-                  dark={tailwind('text-gray-50')}
-                  light={tailwind('text-gray-900')}
-                  style={tailwind('font-medium')}
-                  testID='total_auction_value'
-                >
-                  {value}
-                </ThemedText>}
-              thousandSeparator
-              value={minNextBidInToken}
-            />
           </View>
         </View>
         <View
-          style={tailwind('flex flex-row mt-4 items-center justify-center')}
+          style={tailwind('flex-1 flex-row justify-end flex-wrap items-center')}
         >
-          <IconButton
-            iconLabel={translate('components/AuctionDetailScreen', 'QUICK BID')}
-            iconSize={16}
-            style={tailwind('mr-1 w-1/2 justify-center p-2')}
-            onPress={() => {}}
-          />
-          <IconButton
-            iconLabel={translate('components/AuctionDetailScreen', 'PLACE BID')}
-            iconSize={16}
-            style={tailwind('ml-1 w-1/2 justify-center p-2')}
-            onPress={() => {}}
+          <NumberFormat
+            suffix={` ${props.displaySymbol}`}
+            displayType='text'
+            renderText={(value) =>
+              <ThemedText
+                dark={tailwind('text-gray-50')}
+                light={tailwind('text-gray-900')}
+                style={tailwind('font-semibold')}
+                testID='total_auction_value'
+              >
+                {value}
+              </ThemedText>}
+            thousandSeparator
+            value={props.minNextBidInToken}
           />
         </View>
-      </ThemedView>
-    </View>
+      </View>
+      <View
+        style={tailwind('flex flex-row mt-6 items-center justify-center')}
+      >
+        <IconButton
+          iconLabel={translate('components/AuctionDetailScreen', 'QUICK BID')}
+          iconSize={16}
+          style={tailwind('mr-1 w-1/2 justify-center p-2 rounded-sm')}
+          onPress={() => {}}
+          disabled={props.blocksRemaining === 0}
+          textStyle={tailwind('text-base')}
+        />
+        <IconButton
+          iconLabel={translate('components/AuctionDetailScreen', 'PLACE BID')}
+          iconSize={16}
+          style={tailwind('ml-1 w-1/2 justify-center p-2 rounded-sm bg-primary-50')}
+          onPress={() => {}}
+          disabled={props.blocksRemaining === 0}
+          themedProps={{
+            light: tailwind('bg-primary-50 border-primary-50'),
+            dark: tailwind('bg-darkprimary-700 border-darkprimary-700')
+          }}
+          textStyle={tailwind('text-base')}
+          textThemedProps={{
+            light: tailwind('text-primary-500'),
+            dark: tailwind('text-white')
+          }}
+        />
+      </View>
+    </ThemedView>
   )
 }

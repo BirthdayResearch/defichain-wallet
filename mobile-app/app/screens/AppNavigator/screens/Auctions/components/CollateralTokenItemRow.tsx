@@ -20,13 +20,12 @@ export function CollateralTokenItemRow ({ token }: { token: LoanVaultTokenAmount
       style={tailwind('p-4 flex-row justify-between items-center')}
       testID={testID}
     >
-      <View style={tailwind('flex-row items-center flex-grow')}>
+      <View style={tailwind('flex-row items-center w-6/12')}>
         <Icon testID={`${testID}_icon`} />
         <View style={tailwind('mx-3 flex-auto')}>
           <ThemedText
             dark={tailwind('text-gray-50')}
             light={tailwind('text-gray-900')}
-            style={tailwind('font-medium')}
             testID={`${testID}_symbol`}
           >
             {token.displaySymbol}
@@ -36,49 +35,47 @@ export function CollateralTokenItemRow ({ token }: { token: LoanVaultTokenAmount
             light={tailwind('text-gray-500')}
             dark={tailwind('text-gray-400')}
             numberOfLines={1}
-            style={tailwind('text-sm font-medium text-gray-600')}
+            style={tailwind('text-xs')}
             testID={`${testID}_name`}
           >
             {token.name}
           </ThemedText>
         </View>
-        <View style={tailwind('flex-row items-center')}>
-          <View style={tailwind('items-end')}>
-            <NumberFormat
-              decimalScale={8}
-              suffix={` ${token.displaySymbol}`}
-              displayType='text'
-              renderText={(value) =>
-                <ThemedText
-                  dark={tailwind('text-gray-50')}
-                  light={tailwind('text-gray-900')}
-                  style={tailwind('flex-wrap')}
-                  testID={`${testID}_amount`}
-                >
-                  {value}
-                </ThemedText>}
-              thousandSeparator
-              value={new BigNumber(token.amount).toFixed(8)}
-            />
-            <NumberFormat
-              decimalScale={8}
-              prefix='≈ '
-              suffix=' USD'
-              displayType='text'
-              renderText={(value) =>
-                <ThemedText
-                  light={tailwind('text-gray-500')}
-                  dark={tailwind('text-gray-400')}
-                  style={tailwind('text-xs flex-wrap')}
-                  testID={`${testID}_amount`}
-                >
-                  {value}
-                </ThemedText>}
-              thousandSeparator
-              value={new BigNumber(collateralPrice).toFixed(2)}
-            />
-          </View>
-        </View>
+      </View>
+      <View style={tailwind('flex justify-end flex-1 items-end')}>
+        <NumberFormat
+          decimalScale={8}
+          suffix={` ${token.displaySymbol}`}
+          displayType='text'
+          renderText={(value) =>
+            <ThemedText
+              dark={tailwind('text-gray-50')}
+              light={tailwind('text-gray-900')}
+              style={tailwind('flex-wrap text-right')}
+              testID={`${testID}_amount`}
+            >
+              {value}
+            </ThemedText>}
+          thousandSeparator
+          value={new BigNumber(token.amount).toFixed(8)}
+        />
+        <NumberFormat
+          decimalScale={8}
+          prefix='≈ '
+          suffix=' USD'
+          displayType='text'
+          renderText={(value) =>
+            <ThemedText
+              light={tailwind('text-gray-500')}
+              dark={tailwind('text-gray-400')}
+              style={tailwind('text-xs flex-wrap text-right')}
+              testID={`${testID}_amount`}
+            >
+              {value}
+            </ThemedText>}
+          thousandSeparator
+          value={new BigNumber(collateralPrice).toFixed(2)}
+        />
       </View>
     </ThemedView>
   )
