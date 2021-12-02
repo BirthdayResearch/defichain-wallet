@@ -12,14 +12,14 @@ import { useEffect } from 'react'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
-import { auctionsSelector, fetchAuctions } from '@store/auctions'
+import { fetchAuctions } from '@store/auctions'
 import { EmptyAuction } from './EmptyAuction'
 
 export function BrowseAuctions (): JSX.Element {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const auctions = useSelector((state: RootState) => auctionsSelector(state.auctions))
+  const auctions = useSelector((state: RootState) => state.auctions.auctions)
   const { hasFetchAuctionsData } = useSelector((state: RootState) => state.auctions)
 
   useEffect(() => {

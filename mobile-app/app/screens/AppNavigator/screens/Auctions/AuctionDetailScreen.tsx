@@ -21,6 +21,7 @@ import NumberFormat from 'react-number-format'
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useAuctionBidValue } from './hooks/AuctionBidValue'
 import { useAuctionTime } from './hooks/AuctionTimeLeft'
+import { getActivePrice } from './helpers/ActivePrice'
 
 type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
 
@@ -122,7 +123,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
         {activeTab === TabKey.Collaterals && (
           <AuctionedCollaterals
             collaterals={batch.collaterals}
-            auctionAmount={new BigNumber(batch.loan.amount).multipliedBy(batch.loan.activePrice?.active?.amount ?? 0).toFixed(2)}
+            auctionAmount={new BigNumber(batch.loan.amount).multipliedBy(getActivePrice(batch.loan)).toFixed(2)}
           />
         )}
 

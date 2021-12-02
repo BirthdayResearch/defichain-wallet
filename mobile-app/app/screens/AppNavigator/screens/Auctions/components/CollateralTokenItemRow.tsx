@@ -6,11 +6,12 @@ import { getNativeIcon } from '@components/icons/assets'
 import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
+import { getActivePrice } from '../helpers/ActivePrice'
 
 export function CollateralTokenItemRow ({ token }: { token: LoanVaultTokenAmount }): JSX.Element {
   const Icon = getNativeIcon(token.displaySymbol)
   const testID = `collateral_row_${token.id}`
-  const activePrice = new BigNumber(token.activePrice?.active?.amount ?? 0)
+  const activePrice = new BigNumber(getActivePrice(token))
   const collateralPrice = new BigNumber(activePrice).multipliedBy(token.amount)
 
   return (
