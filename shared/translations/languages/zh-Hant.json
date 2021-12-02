@@ -369,6 +369,7 @@
   "screens/FeatureFlagScreen": {
     "Loans": "貸款",
     "Browse loan tokens provided by DeFiChain": "瀏覽遞飛鏈DeFiChain提供的貸款代幣",
+    "Browse auctions provided by DeFiChain": "瀏覽 DeFiChain 提供的拍賣",
     "Continue": "繼續",
     "Cancel": "取消",
     "Enable {{feature}} (Beta)": "啟用Beta測試版 {{feature}}",
@@ -383,7 +384,8 @@
     "Transactions": "交易",
     "Settings": "設定",
     "DEX": "DEX",
-    "Loans": "貸款"
+    "Loans": "貸款",
+    "Auctions": "清算拍賣"
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "正在確認",
@@ -679,6 +681,8 @@
     "Details": "明細",
     "Collaterals": "抵押品",
     "Auctions": "清算拍賣",
+    "Browse auctions": "瀏覽拍賣",
+    "Manage bids": "管理競投出價",
     "Loans": "貸款"
   },
   "components/LoanCard": {
@@ -690,7 +694,41 @@
   "components/InfoTextLink": {
     "Learn more about UTXO and Token": "了解UTXO和代幣區別",
     "UTXO vs Token, what is the difference?": "UTXO和代幣的區別是什麼？",
-    "Learn more about vaults": "了解更多關於金庫的資訊"
+    "Learn more about vaults": "了解更多關於金庫的資訊",
+    "Learn more about auctions and bidding": "了解有關拍賣和出價的更多信息"
+  },
+  "components/EmptyBidsScreen": {
+    "No active bids": "沒有活躍競投價格",
+    "To get started, browse on auctions and place a bid": "首先，瀏覽拍賣並出價"
+  },
+  "screens/AuctionScreen": {
+    "Auctions": "清算拍賣"
+  },
+  "components/BatchCard": {
+    "Latest bid": "最新出價",
+    "Token to win": "贏得競投後獲得的代幣",
+    "Auction time left": "剩餘拍賣時間",
+    "PLACE BID": "競投出價",
+    "VIEW REWARDS": "查看獎勵",
+    "ACTIVE BID": "主動出價",
+    "{{h}}h": "{{h}}時",
+    "{{m}}m": "{{m}}分"
+  },
+  "components/BidCard": {
+    "BID HIGHER": "出價更高",
+    "VIEW REWARDS": "查看獎勵",
+    "Auction ID": "拍賣編號",
+    "Auction ends in": "拍賣即將完結於",
+    "Auction won": "贏得拍賣",
+    "Lost to another bid": "輸給另一個出價",
+    "Lost": "競投失敗",
+    "Highest bid": "最高的競投價格",
+    "Auction ended": "拍賣完結"
+  },
+  "components/AuctionTimeProgress": {
+    "Auction ends in": "拍賣即將完結於",
+    "Auction time left": "剩餘拍賣時間",
+    "{{block}} blks": "{{block}} 區塊"
   },
   "components/VaultCard": {
     "Collaterals:": "抵押品:",

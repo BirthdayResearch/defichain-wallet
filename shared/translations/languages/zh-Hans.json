@@ -369,6 +369,7 @@
   "screens/FeatureFlagScreen": {
     "Loans": "贷款",
     "Browse loan tokens provided by DeFiChain": "浏览递飞链DeFiChain提供的贷款代币",
+    "Browse auctions provided by DeFiChain": "浏览 DeFiChain 提供的拍卖",
     "Continue": "继续",
     "Cancel": "取消",
     "Enable {{feature}} (Beta)": "启用Beta测试版 {{feature}}",
@@ -383,7 +384,8 @@
     "Transactions": "交易",
     "Settings": "设置",
     "DEX": "DEX",
-    "Loans": "贷款"
+    "Loans": "贷款",
+    "Auctions": "清算拍卖"
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "正在确认",
@@ -678,6 +680,8 @@
     "Details": "明细",
     "Collaterals": "抵押品",
     "Auctions": "清算拍卖",
+    "Browse auctions": "浏览拍卖",
+    "Manage bids": "管理竞投出价",
     "Loans": "贷款"
   },
   "components/LoanCard": {
@@ -689,7 +693,39 @@
   "components/InfoTextLink": {
     "Learn more about UTXO and Token": "了解UTXO和代币区别",
     "UTXO vs Token, what is the difference?": "UTXO和代币的区别是什么？",
-    "Learn more about vaults": "了解更多关于金库的资讯"
+    "Learn more about vaults": "了解更多关于金库的资讯",
+    "Learn more about auctions and bidding": "了解有关拍卖和出价的更多信息"
+  },
+  "components/EmptyBidsScreen": {
+    "No active bids": "没有活跃竞投价格",
+    "To get started, browse on auctions and place a bid": "首先，浏览拍卖并出价"
+  },
+  "screens/AuctionScreen": {
+    "Auctions": "清算拍卖"
+  },
+  "components/BatchCard": {
+    "Latest bid": "最新出价",
+    "Token to win": "赢得竞投后获得的代币",    
+    "PLACE BID": "竞投出价",
+    "VIEW REWARDS": "查看奖励",
+    "ACTIVE BID": "主动出价",
+    "{{h}}h": "{{h}}时",
+    "{{m}}m": "{{m}}分"
+  },
+  "components/BidCard": {
+    "BID HIGHER": "出价更高",
+    "VIEW REWARDS": "查看奖励",
+    "Auction ID": "拍卖编号",    
+    "Auction won": "赢得拍卖",
+    "Lost to another bid": "输给另一个出价",
+    "Lost": "竞投失败",
+    "Highest bid": "最高的竞投价格",
+    "Auction ended": "拍卖完结"
+  },
+  "components/AuctionTimeProgress": {
+    "Auction ends in": "拍卖即将完结于",
+    "Auction time left": "剩余拍卖时间",
+    "{{block}} blks": "{{block}} 区块"
   },
   "components/VaultCard": {
     "Collaterals:": "抵押品:",

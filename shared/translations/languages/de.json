@@ -371,6 +371,7 @@
   "screens/FeatureFlagScreen": {
     "Loans": "Darlehen",
     "Browse loan tokens provided by DeFiChain": "Von DeFiChain bereitgestellte Darlehens-Token durchsuchen",
+    "Browse auctions provided by DeFiChain": "Von DeFiChain angebotene Auktionen durchsuchen",    
     "Continue": "Weiter",
     "Cancel": "Abbrechen",
     "Enable {{feature}} (Beta)": "Aktiviere {{feature}} (Beta)",
@@ -384,7 +385,8 @@
     "Liquidity": "Liquidität",
     "Transactions": "Transaktionen",
     "Settings": "Einstellungen",
-    "Loans": "Darlehen"
+    "Loans": "Darlehen",
+    "Auctions": "Auktionen"
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "Warte auf Bestätigung",
@@ -686,7 +688,9 @@
     "Details": "Details",
     "Collaterals": "Sicherheiten",
     "Auctions": "Auktionen",
-    "Loans": "Darlehen"
+    "Loans": "Darlehen",
+    "Browse auctions": "Auktionen durchsuchen",
+    "Manage bids": "Gebote verwalten"
   },
   "components/LoanCard": {
     "Active Price": "Aktueller Preis",
@@ -698,7 +702,37 @@
     "Learn more about UTXO and Token": "Erfahre mehr über UTXO und Token",
     "UTXO vs Token, what is the difference?": "UTXO vs Token, worin liegt der Unterschied?",
     "Learn more about vaults": "Lerne mehr über Vaults",
-    "Learn more about vaults and loan schemes": "Erfahre mehr über Vaults und Darlehensmodelle"
+    "Learn more about vaults and loan schemes": "Erfahre mehr über Vaults und Darlehensmodelle",
+    "Learn more about auctions and bidding": "Erfahre mehr über Auktionen und Bieten"
+  },
+  "components/EmptyBidsScreen": {
+    "No active bids": "Keine aktiven Gebote",
+    "To get started, browse on auctions and place a bid": "Durchsuche Auktionen und gebe ein Gebot ab"
+  },
+  "screens/AuctionScreen": {
+    "Auctions": "Auktionen"
+  },
+  "components/BatchCard": {
+    "Latest bid": "Letztes Gebot",
+    "Token to win": "Token zu ersteigern",    
+    "PLACE BID": "GEBOT ABGEBEN",
+    "VIEW REWARDS": "REWARDS ANSEHEN",
+    "ACTIVE BID": "AKTIVES GEBOT"
+  },
+  "components/BidCard": {
+    "BID HIGHER": "HÖHERES GEBOT",
+    "VIEW REWARDS": "REWARDS ANSEHEN",
+    "Auction ID": "Auktions-ID",    
+    "Auction won": "Auktion gewonnen",
+    "Lost to another bid": "An ein anderes Gebot verloren",
+    "Lost": "Verloren",
+    "Highest bid": "Höchstes Gebot",
+    "Auction ended": "Auktion beendet"
+  },
+  "components/AuctionTimeProgress": {
+    "Auction ends in": "Auktion endet in",
+    "Auction time left": "Verbleibende Auktionszeit",
+    "{{block}} blks": "{{block}} Blöcke"
   },
   "components/VaultCard": {
     "Collaterals:": "Sicherheiten:",

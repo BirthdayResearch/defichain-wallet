@@ -1,5 +1,6 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { CollateralToken, LoanScheme, LoanToken, LoanVaultActive, LoanVaultLiquidated, LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
+import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { createAsyncThunk, createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
 
@@ -23,7 +24,7 @@ const initialState: LoansState = {
   hasFetchedLoansData: false
 }
 
-const customDUSDActivePrice = {
+export const customDUSDActivePrice: ActivePrice = {
   id: 'custom_DUSD',
   key: 'custom_DUSD',
   sort: '',
