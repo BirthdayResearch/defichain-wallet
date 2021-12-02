@@ -91,7 +91,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
     })
   }
 
-  const isValidMinBid = new BigNumber(bidAmount).gte(minNextBidInToken)
+  const isValidMinBid = bidAmount === '' || new BigNumber(bidAmount).gte(minNextBidInToken)
 
   return (
     <View ref={containerRef} style={tailwind('h-full')}>
