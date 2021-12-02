@@ -11,6 +11,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
 import { translate } from '@translations'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
+import { useBottomSheet } from '@hooks/useBottomSheet'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { SetAmountButton, AmountButtonTypes } from '@components/SetAmountButton'
@@ -23,6 +24,9 @@ import { AuctionsParamList } from '../AuctionNavigator'
 import { CollateralTokenIconGroup } from '../components/CollateralTokenIconGroup'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
 import { useAuctionTime } from '../hooks/AuctionTimeLeft'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { BottomSheetAuctionedCollateral } from '../components/BottomSheetAuctionedCollateral'
+import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 
 type Props = StackScreenProps<AuctionsParamList, 'PlaceBidScreen'>
 
@@ -32,6 +36,15 @@ export function PlaceBidScreen (props: Props): JSX.Element {
   const ownedToken = tokens.find(token => token.id === batch.loan.id)
   const { minNextBidInToken, totalLoanAmountInUSD } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
   const estimatedFees = new BigNumber(0.002)
+  const {
+    bottomSheetRef,
+    containerRef,
+    dismissModal,
+    expandModal,
+    isModalDisplayed,
+    bottomSheetScreen,
+    setBottomSheetScreen
+   } = useBottomSheet()
 
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -46,6 +59,22 @@ export function PlaceBidScreen (props: Props): JSX.Element {
     const newBidAmount = new BigNumber(ownedTokenAmount).isGreaterThan(val) ? val : ownedTokenAmount
 
     setBidAmount(newBidAmount)
+  }
+
+  const onPressFullDetails = (): void => {
+    setBottomSheetScreen([{
+      stackScreenName: 'Auctioned collaterals',
+      option: {
+        header: () => null,
+        headerBackTitleVisible: false
+      },
+      component: BottomSheetAuctionedCollateral({
+       collaterals: batch.collaterals,
+       headerLabel: 'Auctioned collaterals',
+       onCloseButtonPress: dismissModal
+      })
+    }])
+    expandModal()
   }
 
   const onSubmit = async (): Promise<void> => {
@@ -65,84 +94,101 @@ export function PlaceBidScreen (props: Props): JSX.Element {
   const isValidMinBid = new BigNumber(bidAmount).gte(minNextBidInToken)
 
   return (
-    <ThemedScrollView
-      testID='place_bid_screen'
-      contentContainerStyle={tailwind('flex flex-col justify-between py-6 pb-8 px-4 h-full')}
-    >
-      <View>
-        <BidSummaryCard
-          displaySymbol={batch.loan.displaySymbol}
-          collateralDisplaySymbols={batch.collaterals.map(collateral => collateral.displaySymbol)}
-          blockCount={blockCount}
-          liquidationHeight={vault.liquidationHeight}
-          minNextBid={minNextBidInToken}
-          totalAuctionValue={totalLoanAmountInUSD}
-        />
+    <View ref={containerRef} style={tailwind('h-full')}>
+      <ThemedScrollView
+        testID='place_bid_screen'
+        contentContainerStyle={tailwind('flex flex-col justify-between py-6 pb-8 px-4 h-full')}
+      >
+        <View>
+          <BidSummaryCard
+            displaySymbol={batch.loan.displaySymbol}
+            collateralDisplaySymbols={batch.collaterals.map(collateral => collateral.displaySymbol)}
+            blockCount={blockCount}
+            liquidationHeight={vault.liquidationHeight}
+            minNextBid={minNextBidInToken}
+            totalAuctionValue={totalLoanAmountInUSD}
+            onPressFullDetails={onPressFullDetails}
+          />
 
-        <WalletTextInput
-          autoCapitalize='none'
-          onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-            setBidAmount(e.nativeEvent.text)
-          }}
-          placeholder='0.00'
-          style={tailwind('flex-grow w-2/5')}
-          value={bidAmount}
-          displayClearButton={new BigNumber(bidAmount).gte('0.00')}
-          onClearButtonPress={() => setBidAmount('0.00')}
-          title={translate('screens/PlaceBidScreen', 'How much do you want to place?')}
-          inputType='numeric'
-          valid={isValidMinBid}
-          inlineText={{
-            type: 'error',
-            text: isValidMinBid ? undefined : translate('screens/PlaceBidScreen', 'Bid amount is lower than required')
-          }}
-        >
-          <SetAmountButton
-            amount={new BigNumber(minNextBidInToken)}
-            onPress={onBidMinAmount}
-            type={AmountButtonTypes.max}
-            customText={translate('screens/PlaceBidScreen', 'MIN. BID')}
+          <WalletTextInput
+            autoCapitalize='none'
+            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+              setBidAmount(e.nativeEvent.text)
+            }}
+            placeholder='0.00'
+            style={tailwind('flex-grow w-2/5')}
+            value={bidAmount}
+            displayClearButton={new BigNumber(bidAmount).gte('0.00')}
+            onClearButtonPress={() => setBidAmount('0.00')}
+            title={translate('screens/PlaceBidScreen', 'How much do you want to place?')}
+            inputType='numeric'
+            valid={isValidMinBid}
+            inlineText={{
+              type: 'error',
+              text: isValidMinBid ? undefined : translate('screens/PlaceBidScreen', 'Bid amount is lower than required')
+            }}
+          >
+            <SetAmountButton
+              amount={new BigNumber(minNextBidInToken)}
+              onPress={onBidMinAmount}
+              type={AmountButtonTypes.max}
+              customText={translate('screens/PlaceBidScreen', 'MIN. BID')}
+            />
+          </WalletTextInput>
+          <InputHelperText
+            testID='text_balance_amount'
+            label={`${translate('screens/PlaceBidScreen', 'Available')} `}
+            content={ownedToken?.amount ?? '0.00'}
+            suffix={` ${batch.loan.displaySymbol}`}
           />
-        </WalletTextInput>
-        <InputHelperText
-          testID='text_balance_amount'
-          label={`${translate('screens/PlaceBidScreen', 'Available')} `}
-          content={ownedToken?.amount ?? '0.00'}
-          suffix={` ${batch.loan.displaySymbol}`}
-        />
 
-        <View style={tailwind(['-mx-4', { 'mt-4': Platform.OS !== 'web' }])}>
-          <ThemedSectionTitle
-            testID='title_tx_detail'
-            text={translate('screens/PlaceBidScreen', 'TRANSACTION DETAILS')}
-          />
-          <FeeInfoRow
-            type='ESTIMATED_FEE'
-            value={estimatedFees.toFixed(8)}
-            testID='text_fee'
-            suffix='DFI'
-          />
+          <View style={tailwind(['-mx-4', { 'mt-4': Platform.OS !== 'web' }])}>
+            <ThemedSectionTitle
+              testID='title_tx_detail'
+              text={translate('screens/PlaceBidScreen', 'TRANSACTION DETAILS')}
+            />
+            <FeeInfoRow
+              type='ESTIMATED_FEE'
+              value={estimatedFees.toFixed(8)}
+              testID='text_fee'
+              suffix='DFI'
+            />
+          </View>
         </View>
-      </View>
 
-      <View>
-        <Button
-          label={translate('screens/PlaceBidScreen', 'CONTINUE')}
-          disabled={blocksRemaining === 0 || !isValidMinBid || hasPendingJob || hasPendingBroadcastJob}
-          onPress={onSubmit}
-          testID='button_submit'
-          title='CONTINUE'
-          margin='my-4'
-        />
-        <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
-          style={tailwind('text-center text-xs')}
-        >
-          {translate('screens/PlaceBidScreen', 'Review and confirm transaction in the next screen')}
-        </ThemedText>
-      </View>
-    </ThemedScrollView>
+        <View>
+          <Button
+            label={translate('screens/PlaceBidScreen', 'CONTINUE')}
+            disabled={blocksRemaining === 0 || !isValidMinBid || hasPendingJob || hasPendingBroadcastJob}
+            onPress={onSubmit}
+            testID='button_submit'
+            title='CONTINUE'
+            margin='my-4'
+          />
+          <ThemedText
+            light={tailwind('text-gray-500')}
+            dark={tailwind('text-gray-400')}
+            style={tailwind('text-center text-xs')}
+          >
+            {translate('screens/PlaceBidScreen', 'Review and confirm transaction in the next screen')}
+          </ThemedText>
+        </View>
+        {Platform.OS === 'web' && (
+          <BottomSheetWebWithNav
+            modalRef={containerRef}
+            screenList={bottomSheetScreen}
+            isModalDisplayed={isModalDisplayed}
+          />
+          )}
+
+        {Platform.OS !== 'web' && (
+          <BottomSheetWithNav
+            modalRef={bottomSheetRef}
+            screenList={bottomSheetScreen}
+          />
+        )}
+      </ThemedScrollView>
+    </View>
   )
 }
 
@@ -153,6 +199,7 @@ function BidSummaryCard (props: {
   liquidationHeight: number
   minNextBid: string
   totalAuctionValue: string
+  onPressFullDetails: () => void
  }): JSX.Element {
   return (
     <ThemedView
@@ -189,12 +236,14 @@ function BidSummaryCard (props: {
               prefix: '$'
             }}
         >
-          <ThemedText
-            dark={tailwind('text-darkprimary-500')}
-            light={tailwind('text-primary-500')}
-            style={tailwind('text-xs')}
-          >{` ${translate('screens/PlaceBidScreen', '(Full Details)')}`}
-          </ThemedText>
+          <TouchableOpacity onPress={props.onPressFullDetails}>
+            <ThemedText
+              dark={tailwind('text-darkprimary-500')}
+              light={tailwind('text-primary-500')}
+              style={tailwind('text-xs')}
+            >{` ${translate('screens/PlaceBidScreen', '(Full details)')}`}
+            </ThemedText>
+          </TouchableOpacity>
         </BidCardRow>
         <BidCardRow
           lhs={translate('screens/PlaceBidScreen', 'Min. next bid')}
