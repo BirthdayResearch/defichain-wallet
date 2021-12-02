@@ -71,9 +71,9 @@ export function EditCollateralScreen ({
     const id = tokenId === '0' ? '0_unified' : tokenId
     const _token = tokens.find(t => t.id === id)
     const reservedDFI = 0.1
-    return new BigNumber(_token === undefined ? 0 : _token.amount).minus(
+    return BigNumber.max(new BigNumber(_token === undefined ? 0 : _token.amount).minus(
       _token?.id === '0_unified' ? reservedDFI : 0
-    )
+    ), 0)
   }
 
   const {
