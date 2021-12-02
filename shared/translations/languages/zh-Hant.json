@@ -28,7 +28,7 @@
     "Your pooled {{symbol}}": "您的池中總 {{symbol}} 數量",
     "SWAP TOKENS": "兌換貨幣",
     "REMOVE": "退出",
-    "APR": "回報率",
+    "APR": "年回報率",
     "ADD MORE": "加入更多貨幣",
     "No active pool pairs": "您尚未進入流動池",
     "Supply liquidity pool tokens to earn high yields": "您可以向流動池提供資金已賺取區塊獎勵和兌換佣金",
@@ -53,6 +53,7 @@
   },
   "screens/BalancesScreen": {
     "Balances": "我的資產",
+    "SEND": "發出",
     "RECEIVE": "接收",
     "PORTFOLIO": "資產組合",
     "Show balances": "顯示總資產",
@@ -80,7 +81,11 @@
     "Enter an amount": "請輸入數量",
     "Available": "可發送資金",
     "Amount to be converted": "要轉換的金額",
-    "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換"
+    "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換",
+    "Send to other wallet": "發送到其他地址",
+    "Select token": "選擇代幣",
+    "Select a token you want to send to get started": "若要開始，請先選您想發出的代幣",
+    "Choose token to send": "選擇發出此代幣"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "確認發出",
@@ -716,7 +721,7 @@
     "Keep note of your selected collateralization ratio for your vault to sustain the loans within it.": "請注意您為金庫選擇的抵押品比率，以維持持續貸款",
     "Collateralization ratio": "抵押品比率",
     "Interest rate": "利率",
-    "APR": "回報率",
+    "APR": "年回報率",
     "CONTINUE": "繼續",
     "Confirm your vault details in next screen": "在下一個屏幕上確認您的金庫細節"
   },
@@ -730,7 +735,7 @@
     "VAULT DETAILS": "金庫明細",
     "Min. collateralization ratio": "最小抵押率",
     "Interest rate (APR)": "利率(以回報率計算)",
-    "APR": "回報率",
+    "APR": "年回報率",
     "CONFIRM CREATE VAULT": "確認創建金庫",
     "Creating vault": "創建金庫",
     "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "創建金庫時，設定的最低抵押率為{{amount}}%，利率為{{ir}}%年回報率",
@@ -840,7 +845,7 @@
     "Total collateral (USD)": "抵押資金總價值(美金)",
     "COLLATERAL {{index}}": "抵押品 {{index}}",
     "Token": "代幣",
-    "Collateralization factor": "抵押品係數",
+    "Collateralization factor": "抵押係數",
     "Collateral amount (USD)": "抵押品金額(美金)",
     "Collateral value (USD)": "抵押品價值(美金)",
     "CONFIRM ADD COLLATERAL": "確認添加抵押資金",
@@ -952,9 +957,9 @@
     "Transaction type": "交易類別",
     "Edit loan scheme": "更改貸款計劃",
     "Prev. minimum collateralization ratio": "前最低抵押率",
-    "Prev. vault interest (APR)": "前金庫利息 (回報率)",
+    "Prev. vault interest (APR)": "前金庫利息 (年回報率)",
     "New minimum collateralization ratio": "更新後最低抵押率",
-    "New vault interest (APR)": "更新後金庫利息 (回報率)",
+    "New vault interest (APR)": "更新後金庫利息 (年回報率)",
     "CONFIRM EDIT": "確認更改",
     "EDITING": "更改中",
     "CONVERTING": "轉換中"
@@ -962,7 +967,7 @@
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "最小抵押率",
     "Interest rate": "利率",
-    "APR": "回報率"
+    "APR": "年回報率"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "您正要借更多貸款",
