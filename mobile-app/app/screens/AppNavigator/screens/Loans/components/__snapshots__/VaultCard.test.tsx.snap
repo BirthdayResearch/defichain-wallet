@@ -1046,14 +1046,17 @@ exports[`Vault card should match snapshot of active vault 1`] = `
               "lineHeight": 24,
             },
             Array [
-              Object {
-                "fontFamily": "MediumFont",
-                "fontSize": 14,
-                "fontWeight": "500",
-                "lineHeight": 16,
-                "paddingLeft": 4,
-                "paddingRight": 4,
-              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "lineHeight": 16,
+                  "paddingLeft": 4,
+                  "paddingRight": 4,
+                },
+                undefined,
+              ],
               Object {
                 "color": "rgba(255, 0, 175, 1)",
               },
@@ -2114,14 +2117,17 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
               "lineHeight": 24,
             },
             Array [
-              Object {
-                "fontFamily": "MediumFont",
-                "fontSize": 14,
-                "fontWeight": "500",
-                "lineHeight": 16,
-                "paddingLeft": 4,
-                "paddingRight": 4,
-              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "lineHeight": 16,
+                  "paddingLeft": 4,
+                  "paddingRight": 4,
+                },
+                undefined,
+              ],
               Object {
                 "color": "rgba(255, 0, 175, 1)",
               },
@@ -3182,14 +3188,17 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
               "lineHeight": 24,
             },
             Array [
-              Object {
-                "fontFamily": "MediumFont",
-                "fontSize": 14,
-                "fontWeight": "500",
-                "lineHeight": 16,
-                "paddingLeft": 4,
-                "paddingRight": 4,
-              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "lineHeight": 16,
+                  "paddingLeft": 4,
+                  "paddingRight": 4,
+                },
+                undefined,
+              ],
               Object {
                 "color": "rgba(255, 0, 175, 1)",
               },

@@ -1067,14 +1067,17 @@ exports[`balances page should match snapshot 1`] = `
                   "lineHeight": 24,
                 },
                 Array [
-                  Object {
-                    "fontFamily": "MediumFont",
-                    "fontSize": 14,
-                    "fontWeight": "500",
-                    "lineHeight": 16,
-                    "paddingLeft": 4,
-                    "paddingRight": 4,
-                  },
+                  Array [
+                    Object {
+                      "fontFamily": "MediumFont",
+                      "fontSize": 14,
+                      "fontWeight": "500",
+                      "lineHeight": 16,
+                      "paddingLeft": 4,
+                      "paddingRight": 4,
+                    },
+                    undefined,
+                  ],
                   Object {
                     "color": "rgba(255, 0, 175, 1)",
                   },
@@ -1133,14 +1136,17 @@ exports[`balances page should match snapshot 1`] = `
                   "lineHeight": 24,
                 },
                 Array [
-                  Object {
-                    "fontFamily": "MediumFont",
-                    "fontSize": 14,
-                    "fontWeight": "500",
-                    "lineHeight": 16,
-                    "paddingLeft": 4,
-                    "paddingRight": 4,
-                  },
+                  Array [
+                    Object {
+                      "fontFamily": "MediumFont",
+                      "fontSize": 14,
+                      "fontWeight": "500",
+                      "lineHeight": 16,
+                      "paddingLeft": 4,
+                      "paddingRight": 4,
+                    },
+                    undefined,
+                  ],
                   Object {
                     "color": "rgba(255, 0, 175, 1)",
                   },
