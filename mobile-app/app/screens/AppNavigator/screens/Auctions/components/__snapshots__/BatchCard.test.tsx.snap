@@ -538,7 +538,7 @@ exports[`Batch Card should match snapshot 1`] = `
             ]
           }
         >
-          $0.00
+          $5,015.08
         </Text>
       </View>
     </View>
