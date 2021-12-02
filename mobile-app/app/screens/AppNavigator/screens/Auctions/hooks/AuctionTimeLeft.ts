@@ -3,6 +3,7 @@ import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { translate } from '@translations'
 import dayjs from 'dayjs'
 import { padStart } from 'lodash'
+import BigNumber from 'bignumber.js'
 
 interface AuctionTimeLeft {
   timeRemaining: string
@@ -14,7 +15,7 @@ interface AuctionTimeLeft {
 export function useAuctionTime (liquidationHeight: number, blockCount: number): AuctionTimeLeft {
   const { network } = useNetworkContext()
   const blocksPerAuction = network === EnvironmentNetwork.MainNet || network === EnvironmentNetwork.TestNet ? 720 : 36
-  const blocksRemaining = liquidationHeight - blockCount
+  const blocksRemaining = BigNumber.max(liquidationHeight - blockCount, 0).toNumber()
   const timeSpent = blocksPerAuction - blocksRemaining
   return {
     timeRemaining: (blocksRemaining > 0) ? secondsToHm(blocksRemaining * 30) : '',
