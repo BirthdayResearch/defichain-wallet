@@ -69,7 +69,11 @@ export function EditCollateralScreen ({
   const tokens = useTokensAPI()
   const getTokenAmount = (tokenId: string): BigNumber => {
     const id = tokenId === '0' ? '0_unified' : tokenId
-    return new BigNumber(tokens.find((t) => t.id === id)?.amount ?? 0)
+    const _token = tokens.find(t => t.id === id)
+    const reservedDFI = 0.1
+    return BigNumber.max(new BigNumber(_token === undefined ? 0 : _token.amount).minus(
+      _token?.id === '0_unified' ? reservedDFI : 0
+    ), 0)
   }
 
   const {
@@ -194,13 +198,7 @@ export function EditCollateralScreen ({
                 component: BottomSheetTokenList({
                   tokens: collateralTokens,
                   headerLabel: translate('screens/EditCollateralScreen', 'Select token to add'),
-                  onCloseButtonPress: () => {
-                    if (Platform.OS === 'web') {
-                      setIsModalDisplayed(false)
-                    } else {
-                      bottomSheetRef.current?.close()
-                    }
-                  },
+                  onCloseButtonPress: dismissModal,
                   navigateToScreen: {
                     screenName: 'AddOrRemoveCollateralForm',
                     onButtonPress: onAddCollateral
@@ -244,7 +242,7 @@ export function EditCollateralScreen ({
                 token: collateralItem.token,
                 available: '',
                 onButtonPress: undefined,
-                onCloseButtonPress: () => bottomSheetRef.current?.close(),
+                onCloseButtonPress: dismissModal,
                 collateralFactor: new BigNumber(collateralItem.factor ?? 0).times(100),
                 isAdd: true,
                 current: new BigNumber(collateral.amount)
