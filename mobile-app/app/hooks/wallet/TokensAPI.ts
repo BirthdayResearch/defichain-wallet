@@ -12,7 +12,7 @@ import { useLogger, NativeLoggingProps } from '@shared-contexts/NativeLoggingPro
  * @deprecated need to refactor this
  */
 export function fetchTokens (client: WhaleApiClient, address: string, dispatch: Dispatch<any>, logger: NativeLoggingProps): void {
-  client.address.listToken(address).then((walletTokens) => {
+  client.address.listToken(address, 200).then((walletTokens) => {
     dispatch(wallet.actions.setTokens(walletTokens))
   }).catch(logger.error)
 
