@@ -710,7 +710,8 @@
     "To get started, browse on auctions and place a bid": "Durchsuche Auktionen und gebe ein Gebot ab"
   },
   "screens/AuctionScreen": {
-    "Auctions": "Auktionen"
+    "Auctions": "Auktionen",
+    "Place bid": "Bieten"
   },
   "components/BatchCard": {
     "Latest bid": "Letztes Gebot",
