@@ -22,6 +22,7 @@ import { AuctionTimeProgress } from '../components/AuctionTimeProgress'
 import { AuctionsParamList } from '../AuctionNavigator'
 import { CollateralTokenIconGroup } from '../components/CollateralTokenIconGroup'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
+import { useAuctionTime } from '../hooks/AuctionTimeLeft'
 
 type Props = StackScreenProps<AuctionsParamList, 'PlaceBidScreen'>
 
@@ -36,6 +37,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
+  const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
 
   const [bidAmount, setBidAmount] = useState<string>('')
 
@@ -126,7 +128,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
       <View>
         <Button
           label={translate('screens/PlaceBidScreen', 'CONTINUE')}
-          disabled={!isValidMinBid || hasPendingJob || hasPendingBroadcastJob}
+          disabled={blocksRemaining === 0 || !isValidMinBid || hasPendingJob || hasPendingBroadcastJob}
           onPress={onSubmit}
           testID='button_submit'
           title='CONTINUE'

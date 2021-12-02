@@ -42,7 +42,11 @@ export function BrowseAuctions (): JSX.Element {
   }, [blockCount])
 
   const { isBetaFeature } = useFeatureFlagContext()
-  const onQuickBid = (batch: LoanVaultLiquidationBatch, vaultId: string, minNextBidInToken: string): void => {
+  const onQuickBid = (
+    batch: LoanVaultLiquidationBatch,
+    vaultId: string,
+    minNextBidInToken: string,
+    vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']): void => {
     const ownedToken = tokens.find(token => token.id === batch.loan.id)
 
     setBottomSheetScreen([{
@@ -59,7 +63,8 @@ export function BrowseAuctions (): JSX.Element {
         loanTokenDisplaySymbol: batch.loan.displaySymbol,
         onCloseButtonPress: dismissModal,
         minNextBid: new BigNumber(minNextBidInToken),
-        currentBalance: new BigNumber(ownedToken?.amount ?? 0)
+        currentBalance: new BigNumber(ownedToken?.amount ?? 0),
+        vaultLiquidationHeight
       })
     }])
     expandModal()

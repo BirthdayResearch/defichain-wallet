@@ -10,6 +10,10 @@ import BigNumber from 'bignumber.js'
 import { Button } from '@components/Button'
 import { useSignBidAndSend } from '../hooks/SignBidAndSend'
 import { PlaceAuctionBid } from '@defichain/jellyfish-transaction/dist'
+import { LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
+import { useAuctionTime } from '../hooks/AuctionTimeLeft'
 
 interface QuickBidProps {
   loanTokenId: string // TODO: remove if no use case
@@ -20,6 +24,7 @@ interface QuickBidProps {
   currentBalance: BigNumber
   vaultId: PlaceAuctionBid['vaultId']
   index: PlaceAuctionBid['index']
+  vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']
 }
 
 export const QuickBid = ({
@@ -30,8 +35,11 @@ export const QuickBid = ({
   loanTokenDisplaySymbol,
   minNextBid,
   currentBalance,
-  onCloseButtonPress
+  onCloseButtonPress,
+  vaultLiquidationHeight
 }: QuickBidProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
+  const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
+  const { blocksRemaining } = useAuctionTime(vaultLiquidationHeight, blockCount)
   const isBalanceSufficient = currentBalance.gte(minNextBid)
   const {
     hasPendingJob,
@@ -39,17 +47,17 @@ export const QuickBid = ({
     constructSignedBidAndSend
   } = useSignBidAndSend()
 
-  const onQuickBid = async (): void => {
-    await constructSignedBidAndSend(
+  const onQuickBid = async (): Promise<void> => {
+    await constructSignedBidAndSend({
       vaultId,
       index,
-      {
+      tokenAmount: {
         amount: minNextBid,
         token: Number(loanTokenId)
       },
-      loanTokenDisplaySymbol,
-      () => {}
-    )
+      displaySymbol: loanTokenDisplaySymbol,
+      onBroadcast: () => {}
+    })
 
     onCloseButtonPress()
   }
@@ -64,7 +72,7 @@ export const QuickBid = ({
       <HeaderSection symbol={loanTokenSymbol} />
       <BiddingInfo minNextBid={minNextBid} currentBalance={currentBalance} displaySymbol={loanTokenDisplaySymbol} />
       <Button
-        disabled={!isBalanceSufficient || hasPendingJob || hasPendingBroadcastJob}
+        disabled={blocksRemaining === 0 || !isBalanceSufficient || hasPendingJob || hasPendingBroadcastJob}
         label={translate('components/QuickBid', 'QUICK BID')}
         onPress={onQuickBid}
         testID='quick_bid_submit_button'

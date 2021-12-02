@@ -28,7 +28,9 @@ export interface BatchCardProps {
   onQuickBid: (
     batch: LoanVaultLiquidationBatch,
     vaultId: string,
-    minNextBidInToken: string) => void
+    minNextBidInToken: string,
+    vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']) => void
+
 }
 
 export function BatchCard (props: BatchCardProps): JSX.Element {
@@ -59,7 +61,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
   }
 
   const onQuickBid = (): void => {
-    props.onQuickBid(batch, vault.vaultId, minNextBidInToken)
+    props.onQuickBid(batch, vault.vaultId, minNextBidInToken, vault.liquidationHeight)
   }
 
   return (
