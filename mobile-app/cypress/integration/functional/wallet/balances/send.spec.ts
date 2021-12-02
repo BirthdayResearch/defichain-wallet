@@ -322,3 +322,45 @@ context('Wallet - Send - with Conversion', function () {
     })
   })
 })
+
+context('Wallet - Send - Switch token', function () {
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet()
+      .sendDFITokentoWallet()
+      .sendTokenToWallet(['BTC', 'ETH'])
+      .wait(3000)
+    cy.getByTestID('bottom_tab_balances').click()
+  })
+
+  it('should be able to select token', function () {
+    cy.getByTestID('send_balance_button').click()
+    cy.getByTestID('select_token_placeholder').should('exist')
+    cy.getByTestID('send_submit_button').should('have.attr', 'aria-disabled')
+    cy.getByTestID('select_token_input').click()
+    cy.getByTestID('select_DFI_value').should('have.text', '20.00000000')
+    cy.getByTestID('select_dBTC_value').should('have.text', '10.00000000')
+    cy.getByTestID('select_dETH_value').should('have.text', '10.00000000')
+    cy.getByTestID('select_DFI').click()
+    cy.getByTestID('selected_token').should('have.text', 'DFI')
+    cy.getByTestID('max_value').contains('DFI')
+  })
+
+  it('should be able to switch token', function () {
+    cy.getByTestID('select_token_input').click()
+    cy.getByTestID('select_dBTC').click()
+    cy.getByTestID('selected_token').should('have.text', 'dBTC')
+    cy.getByTestID('max_value').contains('dBTC')
+    cy.getByTestID('send_submit_button').should('have.attr', 'aria-disabled')
+  })
+
+  it('should be able to pre-select token', function () {
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('balances_list').should('exist')
+    cy.getByTestID('balances_row_2').should('exist')
+    cy.getByTestID('balances_row_2_amount').contains(10).click()
+    cy.getByTestID('send_button').click()
+    cy.getByTestID('selected_token').should('have.text', 'dETH')
+    cy.getByTestID('max_value').contains('dETH')
+  })
+})

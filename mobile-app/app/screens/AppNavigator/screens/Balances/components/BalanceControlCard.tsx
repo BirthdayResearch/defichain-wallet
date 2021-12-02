@@ -12,11 +12,17 @@ import Avatar from 'react-native-boring-avatars'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { IconButton } from '@components/IconButton'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
+import { tokensSelector, WalletToken } from '@store/wallet'
+import BigNumber from 'bignumber.js'
 
 export function BalanceControlCard (): JSX.Element {
   const { address } = useWalletContext()
   const { getAddressUrl } = useDeFiScanContext()
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+
   return (
     <ThemedView
       testID='balance_control_card'
@@ -62,7 +68,17 @@ export function BalanceControlCard (): JSX.Element {
 
         </View>
       </View>
-      <View style={tailwind('flex flex-row mt-4')}>
+      <View style={tailwind('flex flex-row mt-4 -mr-2')}>
+        <IconButton
+          iconName='arrow-upward'
+          iconSize={20}
+          iconType='MaterialIcons'
+          onPress={() => navigation.navigate('Send')}
+          testID='send_balance_button'
+          style={tailwind('mr-2')}
+          iconLabel={translate('screens/BalancesScreen', 'SEND')}
+          disabled={!nonZeroBalance(tokens)}
+        />
         <IconButton
           iconName='arrow-downward'
           iconSize={20}
@@ -75,4 +91,8 @@ export function BalanceControlCard (): JSX.Element {
       </View>
     </ThemedView>
   )
+}
+
+function nonZeroBalance (tokens: WalletToken[]): boolean {
+  return tokens.some(token => new BigNumber(token.amount).isGreaterThan(0))
 }
