@@ -70,7 +70,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
       },
       component: BottomSheetAuctionedCollateral({
        collaterals: batch.collaterals,
-       headerLabel: 'Auctioned collaterals',
+       headerLabel: translate('screens/PlaceBidScreen', 'Auctioned collaterals'),
        onCloseButtonPress: dismissModal
       })
     }])

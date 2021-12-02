@@ -1072,7 +1072,7 @@
     "CONTINUE": "WEITER",
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
     "Total auction value (USD)": "Gesamtauktionswert (USD) ",
-    "(Full Details)": "(Alle Details)",
+    "(Full details)": "(Alle details)",
     "Min. next bid": "Nächstes Mind. Gebot"
   },
   "screens/ConfirmPlaceBidScreen": {
@@ -1087,7 +1087,8 @@
     "Liquidation Height": "Liquidationsblockhöhe",
     "CONFIRM PLACE BID": "GEBOT BESTÄTIGEN",
     "Sign Transaction": "Transaktion freigeben",
-    "Placing {{amount}} {{token}} as bid for auction.": "Abgabe des Gebotsbetrags von {{amount}} {{token}}"
+    "Placing {{amount}} {{token}} as bid for auction.": "Abgabe des Gebotsbetrags von {{amount}} {{token}}",
+    "Auctioned collaterals": "Auctioned collaterals"
   },
   "components/QuickBid": {
     "QUICK BID": "SCHNELLES GEBOT",
