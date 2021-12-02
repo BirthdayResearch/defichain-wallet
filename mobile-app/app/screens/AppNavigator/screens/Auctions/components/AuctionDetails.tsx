@@ -13,6 +13,7 @@ import { useAuctionTime } from '../hooks/AuctionTimeLeft'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
+import { getActivePrice } from '../helpers/ActivePrice'
 
 export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: LoanVaultLiquidationBatch }): JSX.Element {
   const { vault, batch } = props
@@ -22,7 +23,7 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
   const { minStartingBidInToken } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
 
   const collateralValue = batch.collaterals.reduce((total, eachItem) => {
-    return total.plus(new BigNumber(eachItem.amount).multipliedBy(eachItem.activePrice?.active?.amount ?? 0))
+    return total.plus(new BigNumber(eachItem.amount).multipliedBy(getActivePrice(eachItem)))
   }, new BigNumber(0))
 
   return (

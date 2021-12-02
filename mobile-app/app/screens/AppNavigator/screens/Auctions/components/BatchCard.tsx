@@ -19,6 +19,7 @@ import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { TouchableOpacity } from 'react-native'
 import { openURL } from '@api/linking'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
+import { getActivePrice } from '../helpers/ActivePrice'
 
 export interface BatchCardProps {
   vault: LoanVaultLiquidated
@@ -126,7 +127,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
                 </ThemedText>
               )}
               thousandSeparator
-              value={new BigNumber(batch.loan.amount).multipliedBy(batch.loan.activePrice?.active?.amount ?? 0).toFixed(2)}
+              value={new BigNumber(batch.loan.amount).multipliedBy(getActivePrice(batch.loan)).toFixed(2)}
             />
           </View>
         </View>
