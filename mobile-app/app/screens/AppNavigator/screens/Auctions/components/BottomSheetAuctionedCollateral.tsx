@@ -48,7 +48,7 @@ export const BottomSheetAuctionedCollateral = ({
         </ThemedView>
       }
       stickyHeaderIndices={[0]}
-      keyExtractor={(item) => item.tokenId}
+      keyExtractor={(item) => item.id}
       style={tailwind({
         'bg-gray-800': !isLight,
         'bg-white': isLight
