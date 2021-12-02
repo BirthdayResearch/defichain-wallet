@@ -12,8 +12,8 @@ import { useEffect } from 'react'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
-import { auctionsSelector, fetchAuctions } from '@store/auctions'
-import { EmptyAuctionsScreen } from './EmptyAuctionsScreen'
+import { fetchAuctions } from '@store/auctions'
+import { EmptyAuction } from './EmptyAuction'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { useBottomSheet } from '@hooks/useBottomSheet'
 import BigNumber from 'bignumber.js'
@@ -25,7 +25,7 @@ export function BrowseAuctions (): JSX.Element {
   const client = useWhaleApiClient()
   const tokens = useTokensAPI()
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const auctions = useSelector((state: RootState) => auctionsSelector(state.auctions))
+  const auctions = useSelector((state: RootState) => state.auctions.auctions)
   const { hasFetchAuctionsData } = useSelector((state: RootState) => state.auctions)
   const {
     bottomSheetRef,
@@ -42,7 +42,6 @@ export function BrowseAuctions (): JSX.Element {
   }, [blockCount])
 
   const { isBetaFeature } = useFeatureFlagContext()
-
   const onQuickBid = (batch: LoanVaultLiquidationBatch, vaultId: string, minNextBidInToken: string): void => {
     const ownedToken = tokens.find(token => token.id === batch.loan.id)
 
@@ -65,7 +64,6 @@ export function BrowseAuctions (): JSX.Element {
     }])
     expandModal()
   }
-
   return (
     <View ref={containerRef} style={tailwind('h-full')}>
       <ThemedScrollView contentContainerStyle={tailwind('p-4')} testID='auctions_cards'>
@@ -81,7 +79,7 @@ export function BrowseAuctions (): JSX.Element {
         ? (
           <>
             {auctions.length === 0
-            ? <EmptyAuctionsScreen />
+            ? <EmptyAuction />
               : (
                 <>
                   {auctions.map((auction: LoanVaultLiquidated, index: number) => {

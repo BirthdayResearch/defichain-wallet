@@ -5,7 +5,7 @@ import { NetworkName } from '@defichain/jellyfish-network'
 import { StackScreenProps } from '@react-navigation/stack'
 import { DFITokenSelector, DFIUtxoSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { Platform, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -34,6 +34,10 @@ import { ConversionInfoText } from '@components/ConversionInfoText'
 import { NumberRow } from '@components/NumberRow'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
+import { SymbolIcon } from '@components/SymbolIcon'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { BottomSheetToken, BottomSheetTokenList } from '@components/BottomSheetTokenList'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -45,7 +49,7 @@ export function SendScreen ({
   const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
   const tokens = useTokensAPI()
-  const [token, setToken] = useState(route.params.token)
+  const [token, setToken] = useState(route.params?.token)
   const {
     control,
     setValue,
@@ -64,11 +68,31 @@ export function SendScreen ({
     conversionAmount
   } = useConversion({
     inputToken: {
-      type: token.id === '0_unified' ? 'utxo' : 'others',
+      type: token?.id === '0_unified' ? 'utxo' : 'others',
       amount: new BigNumber(getValues('amount'))
     },
     deps: [getValues('amount'), JSON.stringify(token)]
   })
+
+  // Bottom sheet token
+  const [isModalDisplayed, setIsModalDisplayed] = useState(false)
+  const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
+  const containerRef = useRef(null)
+  const bottomSheetRef = useRef<BottomSheetModal>(null)
+  const expandModal = useCallback(() => {
+    if (Platform.OS === 'web') {
+      setIsModalDisplayed(true)
+    } else {
+      bottomSheetRef.current?.present()
+    }
+  }, [])
+  const dismissModal = useCallback(() => {
+    if (Platform.OS === 'web') {
+      setIsModalDisplayed(false)
+    } else {
+      bottomSheetRef.current?.close()
+    }
+  }, [])
 
   useEffect(() => {
     client.fee.estimate()
@@ -77,14 +101,38 @@ export function SendScreen ({
   }, [])
 
   useEffect(() => {
-    const t = tokens.find((t) => t.id === token.id)
+    const t = tokens.find((t) => t.id === token?.id)
     if (t !== undefined) {
       setToken({ ...t })
     }
   }, [JSON.stringify(tokens)])
 
+  useEffect(() => {
+    setBottomSheetScreen([
+      {
+        stackScreenName: 'TokenList',
+        component: BottomSheetTokenList({
+          tokens: getBottomSheetToken(tokens),
+          headerLabel: translate('screens/SendScreen', 'Choose token to send'),
+          onCloseButtonPress: () => dismissModal(),
+          onTokenPress: async (item): Promise<void> => {
+            const _token = tokens.find(t => t.id === item.tokenId)
+            if (_token !== undefined) {
+              setToken(_token)
+              setValue('amount', '')
+              await trigger('amount')
+            }
+            dismissModal()
+          }
+        }),
+        option: {
+          header: () => null
+        }
+      }])
+  }, [tokens])
+
   async function onSubmit (): Promise<void> {
-    if (hasPendingJob || hasPendingBroadcastJob) {
+    if (hasPendingJob || hasPendingBroadcastJob || token === undefined) {
       return
     }
 
@@ -127,97 +175,178 @@ export function SendScreen ({
   }
 
   return (
-    <ThemedScrollView contentContainerStyle={tailwind('py-8')} testID='send_screen'>
-      <View style={tailwind('px-4')}>
-        <AddressRow
-          control={control}
-          networkName={networkName}
-          onQrButtonPress={() => navigation.navigate({
-            name: 'BarCodeScanner',
-            params: {
-              onQrScanned: async (value) => {
-                setValue('address', value, { shouldDirty: true })
-                await trigger('address')
-              }
-            },
-            merge: true
-          })}
-          onClearButtonPress={async () => {
-            setValue('address', '')
-            await trigger('address')
-          }}
-          onAddressChange={async (address) => {
-            setValue('address', address, { shouldDirty: true })
-            await trigger('address')
-          }}
+    <View style={tailwind('h-full')} ref={containerRef}>
+      <ThemedScrollView contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'>
+        <TokenInput token={token} onPress={expandModal} />
+
+        {token === undefined
+            ? (
+              <ThemedText style={tailwind('px-4')}>
+                {translate('screens/SendScreen', 'Select a token you want to send to get started')}
+              </ThemedText>
+            )
+            : (
+              <>
+                <View style={tailwind('px-4')}>
+                  <AddressRow
+                    control={control}
+                    networkName={networkName}
+                    onQrButtonPress={() => navigation.navigate({
+                      name: 'BarCodeScanner',
+                      params: {
+                        onQrScanned: async (value) => {
+                          setValue('address', value, { shouldDirty: true })
+                          await trigger('address')
+                        }
+                      },
+                      merge: true
+                    })}
+                    onClearButtonPress={async () => {
+                      setValue('address', '')
+                      await trigger('address')
+                    }}
+                    onAddressChange={async (address) => {
+                      setValue('address', address, { shouldDirty: true })
+                      await trigger('address')
+                    }}
+                  />
+
+                  <AmountRow
+                    control={control}
+                    onAmountChange={async (amount) => {
+                      setValue('amount', amount, { shouldDirty: true })
+                      await trigger('amount')
+                    }}
+                    onClearButtonPress={async () => {
+                      setValue('amount', '')
+                      await trigger('amount')
+                    }}
+                    token={token}
+                  />
+
+                  <ReservedDFIInfoText />
+                  {isConversionRequired &&
+                    <View style={tailwind('mt-2')}>
+                      <ConversionInfoText />
+                    </View>}
+                </View>
+                {
+                  fee !== undefined && (
+                    <View style={tailwind()}>
+                      <ThemedSectionTitle
+                        text={translate('screens/SendScreen', 'TRANSACTION DETAILS')}
+                      />
+                      {isConversionRequired &&
+                        <NumberRow
+                          lhs={translate('screens/SendScreen', 'Amount to be converted')}
+                          rhs={{
+                          value: conversionAmount.toFixed(8),
+                          testID: 'text_amount_to_convert',
+                          suffixType: 'text',
+                          suffix: token.displaySymbol
+                        }}
+                        />}
+
+                      <FeeInfoRow
+                        type='ESTIMATED_FEE'
+                        value={fee.toString()}
+                        testID='transaction_fee'
+                        suffix='DFI'
+                      />
+                    </View>
+                  )
+                }
+                <ThemedText
+                  testID='transaction_details_info_text'
+                  light={tailwind('text-gray-600')}
+                  dark={tailwind('text-gray-300')}
+                  style={tailwind('mt-2 mx-4 text-sm')}
+                >
+                  {isConversionRequired
+                    ? translate('screens/SendScreen', 'Authorize transaction in the next screen to convert')
+                    : translate('screens/SendScreen', 'Review full transaction details in the next screen')}
+                </ThemedText>
+              </>
+            )}
+
+        <Button
+          disabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || token === undefined}
+          label={translate('screens/SendScreen', 'CONTINUE')}
+          onPress={onSubmit}
+          testID='send_submit_button'
+          title='Send'
+          margin='mt-14 mx-4'
         />
 
-        <AmountRow
-          control={control}
-          onAmountChange={async (amount) => {
-            setValue('amount', amount, { shouldDirty: true })
-            await trigger('amount')
-          }}
-          onClearButtonPress={async () => {
-            setValue('amount', '')
-            await trigger('amount')
-          }}
-          token={token}
-        />
+        {Platform.OS === 'web' && (
+          <BottomSheetWebWithNav
+            modalRef={containerRef}
+            screenList={bottomSheetScreen}
+            isModalDisplayed={isModalDisplayed}
+          />
+        )}
 
-        <ReservedDFIInfoText />
-        {isConversionRequired &&
-          <View style={tailwind('mt-2')}>
-            <ConversionInfoText />
-          </View>}
-      </View>
+        {Platform.OS !== 'web' && (
+          <BottomSheetWithNav
+            modalRef={bottomSheetRef}
+            screenList={bottomSheetScreen}
+          />
+        )}
+      </ThemedScrollView>
+    </View>
+  )
+}
 
-      {
-        fee !== undefined && (
-          <View style={tailwind()}>
-            <ThemedSectionTitle
-              text={translate('screens/SendScreen', 'TRANSACTION DETAILS')}
-            />
-            {isConversionRequired &&
-              <NumberRow
-                lhs={translate('screens/SendScreen', 'Amount to be converted')}
-                rhs={{
-                value: conversionAmount.toFixed(8),
-                testID: 'text_amount_to_convert',
-                suffixType: 'text',
-                suffix: token.displaySymbol
-              }}
-              />}
-
-            <FeeInfoRow
-              type='ESTIMATED_FEE'
-              value={fee.toString()}
-              testID='transaction_fee'
-              suffix='DFI'
-            />
-          </View>
-        )
-      }
+function TokenInput (props: {token?: WalletToken, onPress: () => void}): JSX.Element {
+  return (
+    <View style={tailwind('px-4')}>
       <ThemedText
-        testID='transaction_details_info_text'
-        light={tailwind('text-gray-600')}
-        dark={tailwind('text-gray-300')}
-        style={tailwind('mt-2 mx-4 text-sm')}
+        style={tailwind('text-xl font-semibold mb-4')}
       >
-        {isConversionRequired
-          ? translate('screens/SendScreen', 'Authorize transaction in the next screen to convert')
-          : translate('screens/SendScreen', 'Review full transaction details in the next screen')}
+        {translate('screens/SendScreen', 'Send to other wallet')}
       </ThemedText>
-
-      <Button
-        disabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/SendScreen', 'CONTINUE')}
-        onPress={onSubmit}
-        testID='send_submit_button'
-        title='Send'
-        margin='mt-14 mx-4'
-      />
-    </ThemedScrollView>
+      <ThemedTouchableOpacity
+        onPress={props.onPress}
+        light={tailwind('border-gray-300 bg-white')}
+        dark={tailwind('border-gray-600 bg-gray-800')}
+        style={tailwind('border rounded w-full flex flex-row justify-between h-12 items-center px-2', {
+          'mb-10': props.token !== undefined,
+          'mb-6': props.token === undefined
+        })}
+        testID='select_token_input'
+      >
+        {props.token === undefined
+          ? (
+            <ThemedText
+              light={tailwind('text-gray-300')}
+              dark={tailwind('text-gray-800')}
+              style={tailwind('text-sm')}
+              testID='select_token_placeholder'
+            >
+              {translate('screens/SendScreen', 'Select token')}
+            </ThemedText>
+          )
+          : (
+            <View style={tailwind('flex flex-row')}>
+              <SymbolIcon symbol={props.token.symbol} styleProps={{ width: 24, height: 24 }} />
+              <ThemedText
+                style={tailwind('ml-2 font-medium')}
+                testID='selected_token'
+              >
+                {props.token.displaySymbol}
+              </ThemedText>
+            </View>
+          )}
+        <ThemedIcon
+          iconType='MaterialIcons'
+          name='unfold-more'
+          size={24}
+          light={tailwind('text-primary-500')}
+          dark={tailwind('text-darkprimary-500')}
+          style={tailwind('-mr-1.5 flex-shrink-0')}
+        />
+      </ThemedTouchableOpacity>
+    </View>
   )
 }
 
@@ -248,7 +377,7 @@ function AddressRow ({
               onChange={onChange}
               onChangeText={onAddressChange}
               placeholder={translate('screens/SendScreen', 'Paste wallet address here')}
-              style={tailwind('w-3/5 flex-grow pb-1', { 'h-8': Platform.OS !== 'ios' && Platform.OS !== 'android' })}
+              style={tailwind('w-3/5 flex-grow pb-1')}
               testID='address_input'
               value={value}
               displayClearButton={value !== defaultValue}
@@ -257,24 +386,21 @@ function AddressRow ({
               titleTestID='title_to_address'
               inputType='default'
             >
-              {(Platform.OS === 'ios' || Platform.OS === 'android') &&
-                (
-                  <ThemedTouchableOpacity
-                    dark={tailwind('bg-gray-800')}
-                    light={tailwind('bg-white')}
-                    onPress={onQrButtonPress}
-                    style={tailwind('w-9 p-1.5')}
-                    testID='qr_code_button'
-                  >
-                    <ThemedIcon
-                      dark={tailwind('text-darkprimary-500')}
-                      iconType='MaterialIcons'
-                      light={tailwind('text-primary-500')}
-                      name='qr-code-scanner'
-                      size={24}
-                    />
-                  </ThemedTouchableOpacity>
-                )}
+              <ThemedTouchableOpacity
+                dark={tailwind('bg-gray-800')}
+                light={tailwind('bg-white')}
+                onPress={onQrButtonPress}
+                style={tailwind('w-9 p-1.5')}
+                testID='qr_code_button'
+              >
+                <ThemedIcon
+                  dark={tailwind('text-darkprimary-500')}
+                  iconType='MaterialIcons'
+                  light={tailwind('text-primary-500')}
+                  name='qr-code-scanner'
+                  size={24}
+                />
+              </ThemedTouchableOpacity>
             </WalletTextInput>
           </View>
         )}
@@ -376,4 +502,21 @@ function AmountRow ({
       />
     </>
   )
+}
+
+function getBottomSheetToken (tokens: WalletToken[]): BottomSheetToken[] {
+  return tokens.filter(t => {
+    return new BigNumber(t.amount).isGreaterThan(0) && t.id !== '0' && t.id !== '0_utxo'
+  }).map(t => {
+    const token: BottomSheetToken = {
+      tokenId: t.id,
+      available: new BigNumber(t.amount),
+      token: {
+        name: t.name,
+        displaySymbol: t.displaySymbol,
+        symbol: t.symbol
+      }
+    }
+    return token
+  })
 }
