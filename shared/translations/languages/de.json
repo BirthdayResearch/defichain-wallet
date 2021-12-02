@@ -59,7 +59,7 @@
     "PORTFOLIO": "PORTFOLIO",
     "Show balances": "Guthaben sichtbar machen",
     "Hide balances": "Guthaben verbergen",
-    "You do not have any other tokens.": "Keine weiteren Token in deinem Bestand." 
+    "You do not have any other tokens.": "Keine weiteren Token in deinem Bestand."
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
@@ -371,7 +371,7 @@
   "screens/FeatureFlagScreen": {
     "Loans": "Darlehen",
     "Browse loan tokens provided by DeFiChain": "Von DeFiChain bereitgestellte Darlehens-Token durchsuchen",
-    "Browse auctions provided by DeFiChain": "Von DeFiChain angebotene Auktionen durchsuchen",    
+    "Browse auctions provided by DeFiChain": "Von DeFiChain angebotene Auktionen durchsuchen",
     "Continue": "Weiter",
     "Cancel": "Abbrechen",
     "Enable {{feature}} (Beta)": "Aktiviere {{feature}} (Beta)",
@@ -714,7 +714,7 @@
   },
   "components/BatchCard": {
     "Latest bid": "Letztes Gebot",
-    "Token to win": "Token zu ersteigern",    
+    "Token to win": "Token zu ersteigern",
     "PLACE BID": "GEBOT ABGEBEN",
     "VIEW REWARDS": "REWARDS ANSEHEN",
     "ACTIVE BID": "AKTIVES GEBOT"
@@ -722,7 +722,7 @@
   "components/BidCard": {
     "BID HIGHER": "HÖHERES GEBOT",
     "VIEW REWARDS": "REWARDS ANSEHEN",
-    "Auction ID": "Auktions-ID",    
+    "Auction ID": "Auktions-ID",
     "Auction won": "Auktion gewonnen",
     "Lost to another bid": "An ein anderes Gebot verloren",
     "Lost": "Verloren",
@@ -1062,5 +1062,39 @@
   },
   "components/TokenIconGroup": {
     "more": "weitere"
+  },
+  "screens/PlaceBidScreen": {
+    "How much do you want to place?": "Wie viel möchtest du bieten?",
+    "MIN. BID": "MIND. GEBOT",
+    "Bid amount is lower than required": "Gebotsbetrag ist niedriger als erforderlich",
+    "Available": "Verfügbar",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "CONTINUE": "WEITER",
+    "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
+    "Total auction value (USD)": "Gesamtauktionswert (USD) ",
+    "(Full Details)": "(Alle Details)",
+    "Min. next bid": "Nächstes Mind. Gebot"
+  },
+  "screens/ConfirmPlaceBidScreen": {
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "Transaction type": "Transaktionsart",
+    "Place bid": "Bieten",
+    "Bid amount to place": "Zu setzender Gebotsbetrag",
+    "AUCTION DETAILS": "AUKTIONSDETAILS",
+    "Total auction value (USD)": "Gesamtauktionswert (USD)",
+    "Vault ID": "Vault-ID",
+    "Vault owner ID": "Vault-Besitzer-ID",
+    "Liquidation Height": "Liquidationsblockhöhe",
+    "CONFIRM PLACE BID": "GEBOT BESTÄTIGEN",
+    "Sign Transaction": "Transaktion freigeben",
+    "Placing {{amount}} {{token}} as bid for auction.": "Abgabe des Gebotsbetrags von {{amount}} {{token}}"
+  },
+  "components/QuickBid": {
+    "QUICK BID": "SCHNELLES GEBOT",
+    "Insufficient amount to place a bid": "Insufficient amount to place a bid",
+    "Quick bid": "Schnelles Gebot",
+    "Place a bid on the auctions with the min. next bid": "Gib ein Gebot auf die Auktionen mit dem nächsten Mindestgebot ab.",
+    "Min. next bid": "Nächstes Mind. Gebot",
+    "Current balance": "Aktueller Stand"
   }
 }
