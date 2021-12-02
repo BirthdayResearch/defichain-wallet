@@ -1,4 +1,5 @@
 import React from 'react'
+import { TouchableOpacity } from 'react-native'
 import BigNumber from 'bignumber.js'
 import { ThemedText, ThemedView, ThemedIcon } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -16,7 +17,6 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { CollateralTokenIconGroup } from './CollateralTokenIconGroup'
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
-import { TouchableOpacity } from 'react-native'
 import { openURL } from '@api/linking'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
 
@@ -24,6 +24,10 @@ export interface BatchCardProps {
   vault: LoanVaultLiquidated
   batch: LoanVaultLiquidationBatch
   testID?: string
+  onQuickBid: (
+    batch: LoanVaultLiquidationBatch,
+    vaultId: string,
+    minNextBidInToken: string) => void
 }
 
 export function BatchCard (props: BatchCardProps): JSX.Element {
@@ -44,6 +48,17 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
       batch,
       vault
     })
+  }
+
+  const onPlaceBid = (): void => {
+    navigation.navigate('PlaceBidScreen', {
+      batch,
+      vault
+    })
+  }
+
+  const onQuickBid = (): void => {
+    props.onQuickBid(batch, vault.vaultId, minNextBidInToken)
   }
 
   return (
@@ -169,18 +184,15 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
         blockCount={blockCount}
         label='Auction time left'
       />
-      <BatchCardButtons onPlaceBid={() => {
-        navigation.navigate('PlaceBidScreen', {
-          batch,
-          vault
-        })
-      }}
+      <BatchCardButtons
+        onPlaceBid={onPlaceBid}
+        onQuickBid={onQuickBid}
       />
     </ThemedView>
   )
 }
 
-function BatchCardButtons (props: {onPlaceBid: () => void}): JSX.Element {
+function BatchCardButtons (props: {onPlaceBid: () => void, onQuickBid: () => void}): JSX.Element {
   return (
     <ThemedView
       light={tailwind('border-gray-200')}
@@ -197,7 +209,7 @@ function BatchCardButtons (props: {onPlaceBid: () => void}): JSX.Element {
         iconLabel={translate('components/BatchCard', 'QUICK BID')}
         iconSize={16}
         style={tailwind('mr-2 mb-2')}
-        onPress={() => {}}
+        onPress={props.onQuickBid}
       />
     </ThemedView>
   )

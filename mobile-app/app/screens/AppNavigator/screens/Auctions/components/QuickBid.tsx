@@ -1,6 +1,4 @@
 import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
-import { RootState } from '@store'
-import { useSelector } from 'react-redux'
 import React, { memo } from 'react'
 import { tailwind } from '@tailwind'
 import { View } from '@components'
@@ -10,8 +8,8 @@ import { TouchableOpacity } from 'react-native'
 import { VaultSectionTextRow } from '../../Loans/components/VaultSectionTextRow'
 import BigNumber from 'bignumber.js'
 import { Button } from '@components/Button'
-import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { hasTxQueued } from '@store/transaction_queue'
+import { useSignBidAndSend } from '../hooks/SignBidAndSend'
+import { PlaceAuctionBid } from '@defichain/jellyfish-transaction/dist'
 
 interface QuickBidProps {
   loanTokenId: string // TODO: remove if no use case
@@ -20,17 +18,41 @@ interface QuickBidProps {
   onCloseButtonPress: () => void
   minNextBid: BigNumber
   currentBalance: BigNumber
+  vaultId: PlaceAuctionBid['vaultId']
+  index: PlaceAuctionBid['index']
 }
 
 export const QuickBid = ({
+  vaultId,
+  index,
+  loanTokenId,
   loanTokenSymbol,
   loanTokenDisplaySymbol,
   minNextBid,
   currentBalance,
   onCloseButtonPress
 }: QuickBidProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
-  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const isBalanceSufficient = currentBalance.gte(minNextBid)
+  const {
+    hasPendingJob,
+    hasPendingBroadcastJob,
+    constructSignedBidAndSend
+  } = useSignBidAndSend()
+
+  const onQuickBid = async (): void => {
+    await constructSignedBidAndSend(
+      vaultId,
+      index,
+      {
+        amount: minNextBid,
+        token: Number(loanTokenId)
+      },
+      loanTokenDisplaySymbol,
+      () => {}
+    )
+
+    onCloseButtonPress()
+  }
 
   return (
     <ThemedView
@@ -42,13 +64,21 @@ export const QuickBid = ({
       <HeaderSection symbol={loanTokenSymbol} />
       <BiddingInfo minNextBid={minNextBid} currentBalance={currentBalance} displaySymbol={loanTokenDisplaySymbol} />
       <Button
-        disabled={hasPendingJob || hasPendingBroadcastJob}
+        disabled={!isBalanceSufficient || hasPendingJob || hasPendingBroadcastJob}
         label={translate('components/QuickBid', 'QUICK BID')}
-        onPress={() => { /* TODO: handle quick bid transaction */ }}
+        onPress={onQuickBid}
         testID='quick_bid_submit_button'
         margin='m-0'
         style={tailwind('items-end')}
       />
+      {!isBalanceSufficient &&
+        <ThemedText
+          light={tailwind('text-error-500')}
+          dark={tailwind('text-darkerror-500')}
+          style={tailwind('text-center text-xs mt-2')}
+        >
+          {translate('components/QuickBid', 'Insufficient amount to place a bid')}
+        </ThemedText>}
     </ThemedView>
   )
 })

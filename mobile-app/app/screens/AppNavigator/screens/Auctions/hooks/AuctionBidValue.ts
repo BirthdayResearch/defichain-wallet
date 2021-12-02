@@ -14,8 +14,7 @@ export function useAuctionBidValue (batch: LoanVaultLiquidationBatch, liquidatio
   const LOAN_LIQUIDITY_PENALTY = new BigNumber(1).plus(new BigNumber(liquidationPenalty).div(100))
   const totalLoanAmountInToken = new BigNumber(loan.amount)
   const totalLoanAmountInUSD = totalLoanAmountInToken.times(loan.activePrice?.active?.amount ?? 0).toFixed(2)
-  const totalInterestAmountInToken = totalLoanAmountInToken.times(new BigNumber(schemeInterestRate).div(100))
-  const minStartingBidInToken = (totalLoanAmountInToken.plus(totalInterestAmountInToken)).times(LOAN_LIQUIDITY_PENALTY)
+  const minStartingBidInToken = totalLoanAmountInToken.times(LOAN_LIQUIDITY_PENALTY)
   const minStartingBidInUSD = loan.activePrice?.active != null ? minStartingBidInToken.times(loan.activePrice.active.amount).toFixed(2) : ''
   const minNextBidInToken = highestBid?.amount?.amount != null ? new BigNumber(highestBid.amount.amount).times(1.01) : minStartingBidInToken
   const minNextBidInUSD = loan.activePrice?.active != null ? minNextBidInToken.times(loan.activePrice.active.amount).toFixed(2) : ''
