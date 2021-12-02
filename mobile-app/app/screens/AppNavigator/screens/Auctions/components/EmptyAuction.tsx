@@ -5,7 +5,7 @@ import * as React from 'react'
 import { InfoTextLink } from '@components/InfoTextLink'
 import { View } from 'react-native'
 
-export function EmptyAuctionsScreen (): JSX.Element {
+export function EmptyAuction (): JSX.Element {
   return (
     <ThemedView
       style={tailwind('px-8 mt-8 pb-2 pt-32 text-center')}

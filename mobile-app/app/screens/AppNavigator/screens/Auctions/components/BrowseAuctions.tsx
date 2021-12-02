@@ -13,7 +13,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { auctionsSelector, fetchAuctions } from '@store/auctions'
-import { EmptyAuctionsScreen } from './EmptyAuctionsScreen'
+import { EmptyAuction } from './EmptyAuction'
 
 export function BrowseAuctions (): JSX.Element {
   const dispatch = useDispatch()
@@ -42,7 +42,7 @@ export function BrowseAuctions (): JSX.Element {
       ? (
         <>
           {auctions.length === 0
-          ? <EmptyAuctionsScreen />
+          ? <EmptyAuction />
             : (
               <>
                 {auctions.map((auction: LoanVaultLiquidated, index: number) => {
