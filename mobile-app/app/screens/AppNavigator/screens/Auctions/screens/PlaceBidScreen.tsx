@@ -89,7 +89,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
   }
 
   const ownedTokenAmount = ownedToken === undefined ? '0' : ownedToken.amount
-  const isValidMinBid = bidAmount === '' || new BigNumber(bidAmount).gte(minNextBidInToken)
+  const isValidMinBid = new BigNumber(bidAmount).gte(minNextBidInToken)
   const hasSufficientFunds = new BigNumber(ownedTokenAmount).gte(minNextBidInToken)
 
   return (
@@ -121,10 +121,10 @@ export function PlaceBidScreen (props: Props): JSX.Element {
             onClearButtonPress={() => onBidMinAmount('0.00')}
             title={translate('screens/PlaceBidScreen', 'Enter an amount')}
             inputType='numeric'
-            valid={hasSufficientFunds && isValidMinBid}
+            valid={bidAmount === '' || (hasSufficientFunds && isValidMinBid)}
             inlineText={{
               type: 'error',
-              text: hasSufficientFunds && isValidMinBid ? undefined : translate('screens/PlaceBidScreen', !hasSufficientFunds ? 'Insufficient funds' : 'Bid amount is lower than required')
+              text: bidAmount === '' || (hasSufficientFunds && isValidMinBid) ? undefined : translate('screens/PlaceBidScreen', !hasSufficientFunds ? 'Insufficient funds' : 'Bid amount is lower than required')
             }}
           >
             <SetAmountButton
