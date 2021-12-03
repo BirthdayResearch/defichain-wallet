@@ -3,16 +3,30 @@ import * as React from 'react'
 import { HeaderFont } from '@components/Text'
 import { HeaderTitle } from '@components/HeaderTitle'
 import { translate } from '@translations'
+import BigNumber from 'bignumber.js'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { AuctionsScreen } from './AuctionScreen'
 import { AuctionDetailScreen } from './AuctionDetailScreen'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
+import { PlaceBidScreen } from './screens/PlaceBidScreen'
+import { ConfirmPlaceBidScreen } from './screens/ConfirmPlaceBidScreen'
 
 export interface AuctionsParamList {
   AuctionsScreen: {}
   AuctionDetailScreen: {
     batch: LoanVaultLiquidationBatch
     vault: LoanVaultLiquidated
+  }
+  PlaceBidScreen: {
+    batch: LoanVaultLiquidationBatch
+    vault: LoanVaultLiquidated
+  }
+  ConfirmPlaceBidScreen: {
+    batch: LoanVaultLiquidationBatch
+    vault: LoanVaultLiquidated
+    bidAmount: BigNumber
+    estimatedFees: BigNumber
+    totalAuctionValue: string
   }
   [key: string]: undefined | object
 }
@@ -37,7 +51,7 @@ export function AuctionsNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/AuctionScreen', 'Auctions') + ' (Beta)'} // TODO: remove beta from title
+              text={translate('screens/AuctionScreen', 'Auctions')}
               containerTestID={headerContainerTestId}
             />
           )
@@ -50,7 +64,7 @@ export function AuctionsNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/AuctionScreen', 'Auction details') + ' (Beta)'} // TODO: remove beta from title
+              text={translate('screens/AuctionScreen', 'Auction details')}
               containerTestID={headerContainerTestId}
             />
           )
@@ -64,6 +78,32 @@ export function AuctionsNavigator (): JSX.Element {
           headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
           headerBackTitleVisible: false,
           headerBackTestID: 'network_details_header_back'
+        }}
+      />
+
+      <AuctionsStack.Screen
+        component={PlaceBidScreen}
+        name='PlaceBidScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/AuctionScreen', 'Place Bid')}
+              containerTestID={headerContainerTestId}
+            />
+          )
+        }}
+      />
+
+      <AuctionsStack.Screen
+        component={ConfirmPlaceBidScreen}
+        name='ConfirmPlaceBidScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/AuctionScreen', 'Confirm Place Bid')}
+              containerTestID={headerContainerTestId}
+            />
+          )
         }}
       />
     </AuctionsStack.Navigator>

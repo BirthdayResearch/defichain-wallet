@@ -1,16 +1,20 @@
 import React, { useState } from 'react'
 import { ThemedText, ThemedView, ThemedIcon, ThemedScrollView } from '@components/themed'
 import { tailwind } from '@tailwind'
-import { TouchableOpacity, View } from 'react-native'
+import { Platform, TouchableOpacity, View } from 'react-native'
 import { translate } from '@translations'
 import { getNativeIcon } from '@components/icons/assets'
 import { useSelector } from 'react-redux'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RootState } from '@store'
+import { useTokensAPI } from '@hooks/wallet/TokensAPI'
+import { useBottomSheet } from '@hooks/useBottomSheet'
 import { AuctionTimeProgress } from './components/AuctionTimeProgress'
 import { StackScreenProps } from '@react-navigation/stack'
 import { AuctionsParamList } from './AuctionNavigator'
 import { CollateralTokenIconGroup } from './components/CollateralTokenIconGroup'
 import { Tabs } from '@components/Tabs'
+import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import BigNumber from 'bignumber.js'
 import { openURL } from '@api/linking'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
@@ -22,6 +26,7 @@ import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useAuctionBidValue } from './hooks/AuctionBidValue'
 import { useAuctionTime } from './hooks/AuctionTimeLeft'
 import { getActivePrice } from './helpers/ActivePrice'
+import { QuickBid } from './components/QuickBid'
 
 type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
 
@@ -31,13 +36,54 @@ enum TabKey {
 }
 
 export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element {
+  const navigation = useNavigation<NavigationProp<AuctionsParamList>>()
   const { batch, vault } = props.route.params
+  const tokens = useTokensAPI()
   const { getVaultsUrl } = useDeFiScanContext()
   const [activeTab, setActiveTab] = useState<string>(TabKey.Collaterals)
   const { minNextBidInToken } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
   const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
+  const {
+    bottomSheetRef,
+    containerRef,
+    dismissModal,
+    expandModal,
+    isModalDisplayed,
+    bottomSheetScreen,
+    setBottomSheetScreen
+   } = useBottomSheet()
+
+  const onQuickBid = (): void => {
+    const ownedToken = tokens.find(token => token.id === batch.loan.id)
+    setBottomSheetScreen([{
+      stackScreenName: 'Quick Bid',
+      option: {
+        header: () => null,
+        headerBackTitleVisible: false
+      },
+      component: QuickBid({
+        vaultId: vault.vaultId,
+        index: batch.index,
+        loanTokenId: batch.loan.id,
+        loanTokenSymbol: batch.loan.symbol,
+        loanTokenDisplaySymbol: batch.loan.displaySymbol,
+        onCloseButtonPress: dismissModal,
+        minNextBid: new BigNumber(minNextBidInToken),
+        currentBalance: new BigNumber(ownedToken?.amount ?? 0),
+        vaultLiquidationHeight: vault.liquidationHeight
+      })
+    }])
+    expandModal()
+  }
+
+  const onPlaceBid = (): void => {
+    navigation.navigate('PlaceBidScreen', {
+      batch,
+      vault
+    })
+  }
 
   const onPress = (tabId: string): void => {
     setActiveTab(tabId)
@@ -56,7 +102,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
   }]
 
   return (
-    <View style={tailwind('flex-1')}>
+    <View style={tailwind('flex-1')} ref={containerRef}>
       <ThemedScrollView style={tailwind('pb-28')}>
         <ThemedView
           light={tailwind('bg-white border-gray-200')}
@@ -136,7 +182,28 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
         minNextBidInToken={minNextBidInToken}
         displaySymbol={batch.loan.displaySymbol}
         blocksRemaining={blocksRemaining}
+        onQuickBid={onQuickBid}
+        onPlaceBid={onPlaceBid}
       />
+
+      {Platform.OS === 'web' && (
+        <BottomSheetWebWithNav
+          modalRef={containerRef}
+          screenList={bottomSheetScreen}
+          isModalDisplayed={isModalDisplayed}
+        />
+      )}
+
+      {Platform.OS !== 'web' && (
+        <BottomSheetWithNav
+          modalRef={bottomSheetRef}
+          screenList={bottomSheetScreen}
+          snapPoints={{
+            ios: '40%',
+            android: '40%'
+          }}
+        />
+      )}
     </View>
   )
 }
@@ -145,6 +212,8 @@ interface AuctionActionSectionProps {
   minNextBidInToken: string
   displaySymbol: string
   blocksRemaining: number
+  onQuickBid: () => void
+  onPlaceBid: () => void
 }
 
 function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
@@ -156,7 +225,7 @@ function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-gray-900 border-gray-700')}
       style={tailwind('absolute w-full bottom-0 flex-1 border-t px-4 pt-5 pb-10')}
     >
       <View style={tailwind('flex flex-row items-center justify-center w-full')}>
@@ -201,7 +270,7 @@ function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
           iconLabel={translate('components/AuctionDetailScreen', 'QUICK BID')}
           iconSize={16}
           style={tailwind('mr-1 w-1/2 justify-center p-2 rounded-sm')}
-          onPress={() => {}}
+          onPress={props.onQuickBid}
           disabled={props.blocksRemaining === 0}
           textStyle={tailwind('text-base')}
         />
@@ -209,7 +278,7 @@ function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
           iconLabel={translate('components/AuctionDetailScreen', 'PLACE BID')}
           iconSize={16}
           style={tailwind('ml-1 w-1/2 justify-center p-2 rounded-sm bg-primary-50')}
-          onPress={() => {}}
+          onPress={props.onPlaceBid}
           disabled={props.blocksRemaining === 0}
           themedProps={{
             light: tailwind('bg-primary-50 border-primary-50'),

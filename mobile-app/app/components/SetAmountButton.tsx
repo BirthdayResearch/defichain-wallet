@@ -13,11 +13,12 @@ interface SetAmountButtonProps {
   type: AmountButtonTypes
   onPress: (amount: string) => void
   amount: BigNumber
+  customText?: string
 }
 
 export function SetAmountButton (props: SetAmountButtonProps): JSX.Element {
   const decimalPlace = 8
-
+  const text = props.customText !== undefined ? props.customText : translate('components/max', props.type)
   return (
     <ThemedTouchableOpacity
       dark={tailwind('border border-gray-400')}
@@ -36,7 +37,7 @@ export function SetAmountButton (props: SetAmountButtonProps): JSX.Element {
         light={tailwind('text-primary-500')}
         style={tailwind('text-center font-medium')}
       >
-        {translate('components/max', props.type)}
+        {text}
       </ThemedText>
     </ThemedTouchableOpacity>
   )

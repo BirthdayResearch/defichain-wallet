@@ -15,6 +15,7 @@ jest.mock('@react-navigation/native', () => ({
 jest.mock('@components/BottomSheetInfo', () => ({
   BottomSheetInfo: () => <></>
 }))
+jest.mock('@shared-contexts/WalletContext')
 jest.mock('@shared-contexts/DeFiScanContext')
 jest.mock('../hooks/AuctionBidValue', () => ({
   useAuctionBidValue: () => ({
@@ -266,7 +267,7 @@ describe('Batch Card', () => {
 
     const rendered = render(
       <Provider store={store}>
-        <BatchCard vault={vault} batch={vault.batches[0]} />
+        <BatchCard vault={vault} batch={vault.batches[0]} onQuickBid={() => {}} />
       </Provider>
     )
     expect(rendered.toJSON()).toMatchSnapshot()
