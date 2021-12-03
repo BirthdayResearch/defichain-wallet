@@ -103,7 +103,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
 
   return (
     <View style={tailwind('flex-1')} ref={containerRef}>
-      <ThemedScrollView style={tailwind('pb-28')}>
+      <ThemedScrollView contentContainerStyle={tailwind('pb-52')}>
         <ThemedView
           light={tailwind('bg-white border-gray-200')}
           dark={tailwind('bg-gray-800 border-gray-700')}
