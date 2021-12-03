@@ -120,7 +120,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
             value={bidAmount}
             displayClearButton={new BigNumber(bidAmount).gte('0.00')}
             onClearButtonPress={() => setBidAmount('0.00')}
-            title={translate('screens/PlaceBidScreen', 'How much do you want to place?')}
+            title={translate('screens/PlaceBidScreen', 'Enter an amount')}
             inputType='numeric'
             valid={isValidMinBid}
             inlineText={{
