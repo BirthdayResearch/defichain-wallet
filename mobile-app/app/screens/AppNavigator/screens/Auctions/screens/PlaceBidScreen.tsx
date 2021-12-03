@@ -130,12 +130,11 @@ export function PlaceBidScreen (props: Props): JSX.Element {
             onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => {
               onBidMinAmount(e.nativeEvent.text)
             }}
-            placeholder='0.00'
+            placeholder={translate('screens/PlaceBidScreen', 'Enter an amount')}
             style={tailwind('flex-grow w-2/5')}
             value={bidAmount}
             displayClearButton={new BigNumber(bidAmount).gte('0.00')}
             onClearButtonPress={() => onBidMinAmount('')}
-            title={translate('screens/PlaceBidScreen', 'Enter an amount')}
             inputType='numeric'
             valid={bidAmount === '' || (hasSufficientFunds && isValidMinBid)}
             inlineText={{
