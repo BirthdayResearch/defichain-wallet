@@ -30,23 +30,23 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
     <>
       <ThemedSectionTitle
         testID='auction_details'
-        text={translate('screens/AuctionDetails', 'VAULT DETAILS')}
+        text={translate('components/AuctionDetailScreen', 'VAULT DETAILS')}
       />
 
       <RowLinkItem
-        label={translate('components/AuctionDetails', 'Vault ID')}
+        label={translate('components/AuctionDetailScreen', 'Vault ID')}
         value={vault.vaultId}
         onPress={async () => await openURL(getVaultsUrl(vault.vaultId))}
       />
 
       <RowLinkItem
-        label={translate('components/AuctionDetails', 'Owner ID')}
+        label={translate('components/AuctionDetailScreen', 'Owner ID')}
         value={vault.ownerAddress}
         onPress={async () => await openURL(getAddressUrl(vault.ownerAddress))}
       />
 
       <NumberRow
-        lhs={translate('components/AuctionDetails', 'Liquidation height')}
+        lhs={translate('components/AuctionDetailScreen', 'Liquidation height')}
         rhs={{
           value: vault.liquidationHeight,
           testID: 'text_liquidation_height'
@@ -55,11 +55,11 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
 
       <ThemedSectionTitle
         testID='vault_details'
-        text={translate('screens/AuctionDetails', 'ADDITIONAL DETAILS')}
+        text={translate('components/AuctionDetailScreen', 'ADDITIONAL DETAILS')}
       />
 
       <NumberRow
-        lhs={translate('components/AuctionDetails', 'Collateral value (USD)')}
+        lhs={translate('components/AuctionDetailScreen', 'Collateral value (USD)')}
         rhs={{
           value: new BigNumber(collateralValue).toFixed(2),
           testID: 'text_collateral_value',
@@ -68,7 +68,7 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
       />
 
       <NumberRow
-        lhs={translate('components/AuctionDetails', 'Min. starting bid')}
+        lhs={translate('components/AuctionDetailScreen', 'Min. starting bid')}
         rhs={{
           suffix: batch.loan.displaySymbol,
           suffixType: 'text',
@@ -78,7 +78,7 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
       />
 
       <TextRow
-        lhs={translate('components/AuctionDetails', 'Auction start')}
+        lhs={translate('components/AuctionDetailScreen', 'Auction start')}
         rhs={{
           value: startTime,
           testID: 'auction_start'

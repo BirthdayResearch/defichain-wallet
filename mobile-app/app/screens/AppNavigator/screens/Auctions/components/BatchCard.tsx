@@ -209,7 +209,7 @@ function BatchCardButtons (props: {onPlaceBid: () => void, onQuickBid: () => voi
         onPress={props.onPlaceBid}
       />
       <IconButton
-        iconLabel={translate('components/BatchCard', 'QUICK BID')}
+        iconLabel={translate('components/QuickBid', 'QUICK BID')}
         iconSize={16}
         style={tailwind('mr-2 mb-2')}
         onPress={props.onQuickBid}

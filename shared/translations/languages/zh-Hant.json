@@ -683,7 +683,9 @@
     "Auctions": "清算拍賣",
     "Browse auctions": "瀏覽拍賣",
     "Manage bids": "管理競投出價",
-    "Loans": "貸款"
+    "Loans": "貸款",
+    "Auctioned collaterals": "拍賣抵押品", 
+    "Auction details": "拍賣細節"
   },
   "components/LoanCard": {
     "Active Price": "目前活躍價格",
@@ -706,6 +708,20 @@
     "Place Bid": "標價",
     "Confirm Place Bid": "確認出價"
   },
+  "components/AuctionDetailScreen":{
+    "Collaterals": "抵押品",
+    "Min. next bid": "最低標價",
+    "VAULT DETAILS": "金庫資料",
+    "Vault ID": "金庫編號",
+    "Owner ID": "主權者編號", 
+    "Liquidation height": "清算高度", 
+    "ADDITIONAL DETAILS": "其他細節",
+    "Collateral value (USD)": "抵押品價值(美金)",
+    "Auction start": "拍賣會開始",
+    "{{count}} COLLATERAL TOKENS": "{{count}} 抵押代幣",
+    "Total auction value (USD)": "拍賣總價值（美元）:",
+    "PLACE BID": "競投出價"
+  },
   "components/BatchCard": {
     "Latest bid": "最新出價",
     "Token to win": "贏得競投後獲得的代幣",
@@ -714,7 +730,9 @@
     "VIEW REWARDS": "查看獎勵",
     "ACTIVE BID": "主動出價",
     "{{h}}h": "{{h}}時",
-    "{{m}}m": "{{m}}分"
+    "{{m}}m": "{{m}}分",
+    "Total auction value (USD)": "拍賣總價值（美元）",
+    "Min. next bid": "最低標價"
   },
   "components/BidCard": {
     "BID HIGHER": "出價更高",
@@ -730,7 +748,9 @@
   "components/AuctionTimeProgress": {
     "Auction ends in": "拍賣即將完結於",
     "Auction time left": "剩餘拍賣時間",
-    "{{block}} blks": "{{block}} 區塊"
+    "{{block}} blks": "{{block}} 區塊",
+    "~{{time}} left": "~{{time}} 結束拍賣",
+    "Auction time remaining": "剩餘拍賣時間"
   },
   "components/VaultCard": {
     "Collaterals:": "抵押品:",
@@ -795,7 +815,9 @@
     "Next collateralization": "當新價格生效，下一個抵押比率",
     "Min. collateralization ratio": "最小抵押率",
     "This amount is the total interest amount from both vault and token interest rate.": "此金額是金庫和代幣利率的利息總和",
-    "Annual vault interest": "金庫年利息"
+    "Annual vault interest": "金庫年利息",
+    "Min. next bid": "最低標價", 
+    "The minimum bid a user must place, as long as it's not the first bid for the batch": "除了第一次出價以外，這是用戶必須出的最低價"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金庫編號",
@@ -859,7 +881,7 @@
     "BACK": "返回",
     "Cancel": "取消",
     "Remove": "移除",
-    "VAULT DETAILS": "金库明细",
+    "VAULT DETAILS": "金庫資料",
     "COLLATERALS": "抵押品",
     "Adding collateral": "加入抵押中",
     "Adding {{amount}} {{symbol}} as collateral": "加入{{amount}} {{symbol}}作為抵押",

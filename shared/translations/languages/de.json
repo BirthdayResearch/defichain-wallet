@@ -690,7 +690,9 @@
     "Auctions": "Auktionen",
     "Loans": "Darlehen",
     "Browse auctions": "Auktionen durchsuchen",
-    "Manage bids": "Gebote verwalten"
+    "Manage bids": "Gebote verwalten",
+    "Auctioned collaterals": "Versteigerte Sicherheiten",
+    "Auction details": "Auktionsdetails"
   },
   "components/LoanCard": {
     "Active Price": "Aktueller Preis",
@@ -714,12 +716,30 @@
     "Place Bid": "Bieten",
     "Confirm Place Bid": "Confirm Place Bid"
   },
+  "components/AuctionDetailScreen":{
+    "Collaterals": "Sicherheiten",
+    "Min. next bid": "Nächstes Mind. Gebot",
+    "VAULT DETAILS": "VAULT-DETAILS",
+    "Vault ID": "Vault-ID",
+    "Owner ID": "Besitzer-ID", 
+    "Liquidation height": "Liquidierungsblockhöhe", 
+    "ADDITIONAL DETAILS": "ZUSÄTZLICHE DETAILS",
+    "Collateral value (USD)": "Sicherheitenwert (USD)",
+    "Auction start": "Auktions-Start",
+    "{{count}} COLLATERAL TOKENS": "{{count}} BESICHERUNGSTOKEN",
+    "Total auction value (USD):": "Gesamtauktionswert (USD):",
+    "PLACE BID": "GEBOT ABGEBEN"
+  },
   "components/BatchCard": {
     "Latest bid": "Letztes Gebot",
     "Token to win": "Token zu ersteigern",
     "PLACE BID": "GEBOT ABGEBEN",
     "VIEW REWARDS": "REWARDS ANSEHEN",
-    "ACTIVE BID": "AKTIVES GEBOT"
+    "ACTIVE BID": "AKTIVES GEBOT",
+    "{{h}}h": "{{h}}h",
+    "{{m}}m": "{{m}}min",
+    "Total auction value (USD)": "Gesamtauktionswert (USD)",
+    "Min. next bid": "Nächstes Mind. Gebot"
   },
   "components/BidCard": {
     "BID HIGHER": "HÖHERES GEBOT",
@@ -734,7 +754,9 @@
   "components/AuctionTimeProgress": {
     "Auction ends in": "Auktion endet in",
     "Auction time left": "Verbleibende Auktionszeit",
-    "{{block}} blks": "{{block}} Blöcke"
+    "{{block}} blks": "{{block}} Blöcke",
+    "~{{time}} left": "Noch ~{{time}}",
+    "Auction time remaining": "Verbleibende Auktionszeit"
   },
   "components/VaultCard": {
     "Collaterals:": "Sicherheiten:",
@@ -809,7 +831,9 @@
     "Next collateralization": "Nächste Besicherung",
     "Min. collateralization ratio": "Mind. Besicherungsquote",
     "This amount is the total interest amount from both vault and token interest rate.": "Dieser Gesamtzinsbetrag setzt sich aus Vault- und Token-Zinssatz zusammen.",
-    "Annual vault interest": "Vault-Jahreszins"
+    "Annual vault interest": "Vault-Jahreszins",
+    "Min. next bid": "Nächstes Mind. Gebot",
+    "The minimum bid a user must place, as long as it's not the first bid for the batch": "Das Mindestgebot, das ein Nutzer abgeben muss, sofern es nicht das erste Gebot für den Auktionsteil ist"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
@@ -1090,7 +1114,7 @@
     "CONFIRM PLACE BID": "GEBOT BESTÄTIGEN",
     "Sign Transaction": "Transaktion freigeben",
     "Placing {{amount}} {{token}} as bid for auction.": "Abgabe des Gebotsbetrags von {{amount}} {{token}}",
-    "Auctioned collaterals": "Auctioned collaterals",
+    "Auctioned collaterals": "Versteigerte Sicherheiten",
     "Insufficient funds": "Insufficient funds"
   },
   "components/QuickBid": {
