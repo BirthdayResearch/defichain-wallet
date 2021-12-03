@@ -14,7 +14,7 @@ const initialState: AuctionsState = {
 
 export const fetchAuctions = createAsyncThunk(
   'wallet/fetchAuctions',
-  async ({ size = 50, client }: { size?: number, client: WhaleApiClient }) => {
+  async ({ size = 200, client }: { size?: number, client: WhaleApiClient }) => {
     return await client.loan.listAuction(size)
   }
 )
