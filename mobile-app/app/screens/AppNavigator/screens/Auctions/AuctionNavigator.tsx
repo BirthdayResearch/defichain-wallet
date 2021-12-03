@@ -87,7 +87,7 @@ export function AuctionsNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/AuctionScreen', 'Place bid') + ' (Beta)'} // TODO: remove beta from title
+              text={translate('screens/AuctionScreen', 'Place Bid')}
               containerTestID={headerContainerTestId}
             />
           )
@@ -100,7 +100,7 @@ export function AuctionsNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/AuctionScreen', 'Confirm place bid') + ' (Beta)'} // TODO: remove beta from title
+              text={translate('screens/AuctionScreen', 'Confirm Place Bid')}
               containerTestID={headerContainerTestId}
             />
           )

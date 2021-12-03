@@ -91,7 +91,7 @@ export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
   return (
     <ThemedScrollView
       testID='confirm_place_bid_screen'
-      contentContainerStyle={tailwind('py-6 pb-8 px-4')}
+      contentContainerStyle={tailwind('py-6 pb-8')}
     >
       <ThemedSectionTitle
         testID='title_tx_detail'
@@ -100,7 +100,7 @@ export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
       <TextRow
         lhs={translate('screens/ConfirmPlaceBidScreen', 'Transaction type')}
         rhs={{
-          value: translate('screens/ConfirmPlaceBidScreen', 'Place bid'),
+          value: translate('screens/ConfirmPlaceBidScreen', 'Place Bid'),
           testID: 'text_transaction_type'
         }}
         textStyle={tailwind('text-sm font-normal')}
@@ -131,7 +131,7 @@ export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
           testID: 'total_auction_value',
           value: totalAuctionValue,
           suffixType: 'text',
-          suffix: '$'
+          prefix: '$'
         }}
       />
       <TextRow

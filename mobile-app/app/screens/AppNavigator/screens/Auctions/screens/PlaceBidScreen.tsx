@@ -55,10 +55,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
   const [bidAmount, setBidAmount] = useState<string>('')
 
   const onBidMinAmount = (val: string): void => {
-    const ownedTokenAmount = ownedToken === undefined ? '0' : ownedToken.amount
-    const newBidAmount = new BigNumber(ownedTokenAmount).isGreaterThan(val) ? val : ownedTokenAmount
-
-    setBidAmount(newBidAmount)
+    setBidAmount(val)
   }
 
   const onPressFullDetails = (): void => {
@@ -91,7 +88,9 @@ export function PlaceBidScreen (props: Props): JSX.Element {
     })
   }
 
+  const ownedTokenAmount = ownedToken === undefined ? '0' : ownedToken.amount
   const isValidMinBid = bidAmount === '' || new BigNumber(bidAmount).gte(minNextBidInToken)
+  const hasSufficientFunds = new BigNumber(ownedTokenAmount).gte(minNextBidInToken)
 
   return (
     <View ref={containerRef} style={tailwind('h-full')}>
@@ -113,19 +112,19 @@ export function PlaceBidScreen (props: Props): JSX.Element {
           <WalletTextInput
             autoCapitalize='none'
             onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-              setBidAmount(e.nativeEvent.text)
+              onBidMinAmount(e.nativeEvent.text)
             }}
             placeholder='0.00'
             style={tailwind('flex-grow w-2/5')}
             value={bidAmount}
             displayClearButton={new BigNumber(bidAmount).gte('0.00')}
-            onClearButtonPress={() => setBidAmount('0.00')}
+            onClearButtonPress={() => onBidMinAmount('0.00')}
             title={translate('screens/PlaceBidScreen', 'Enter an amount')}
             inputType='numeric'
-            valid={isValidMinBid}
+            valid={hasSufficientFunds && isValidMinBid}
             inlineText={{
               type: 'error',
-              text: isValidMinBid ? undefined : translate('screens/PlaceBidScreen', 'Bid amount is lower than required')
+              text: hasSufficientFunds && isValidMinBid ? undefined : translate('screens/PlaceBidScreen', !hasSufficientFunds ? 'Insufficient funds' : 'Bid amount is lower than required')
             }}
           >
             <SetAmountButton
@@ -159,7 +158,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
         <View>
           <Button
             label={translate('screens/PlaceBidScreen', 'CONTINUE')}
-            disabled={blocksRemaining === 0 || !isValidMinBid || hasPendingJob || hasPendingBroadcastJob}
+            disabled={blocksRemaining === 0 || !isValidMinBid || !hasSufficientFunds || hasPendingJob || hasPendingBroadcastJob}
             onPress={onSubmit}
             testID='button_submit'
             title='CONTINUE'
