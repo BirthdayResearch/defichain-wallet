@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Platform, View, NativeSyntheticEvent, TextInputChangeEventData } from 'react-native'
 import { useSelector } from 'react-redux'
 import NumberFormat from 'react-number-format'
@@ -27,15 +27,23 @@ import { useAuctionTime } from '../hooks/AuctionTimeLeft'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { BottomSheetAuctionedCollateral } from '../components/BottomSheetAuctionedCollateral'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 
 type Props = StackScreenProps<AuctionsParamList, 'PlaceBidScreen'>
 
 export function PlaceBidScreen (props: Props): JSX.Element {
-  const { batch, vault } = props.route.params
+  const {
+    batch,
+    vault
+  } = props.route.params
   const tokens = useTokensAPI()
   const ownedToken = tokens.find(token => token.id === batch.loan.id)
-  const { minNextBidInToken, totalLoanAmountInUSD } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
-  const estimatedFees = new BigNumber(0.002)
+  const {
+    minNextBidInToken,
+    totalLoanAmountInUSD
+  } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
+  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const {
     bottomSheetRef,
     containerRef,
@@ -44,15 +52,23 @@ export function PlaceBidScreen (props: Props): JSX.Element {
     isModalDisplayed,
     bottomSheetScreen,
     setBottomSheetScreen
-   } = useBottomSheet()
+  } = useBottomSheet()
 
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
+  const logger = useLogger()
+  const client = useWhaleApiClient()
 
   const [bidAmount, setBidAmount] = useState<string>('')
+
+  useEffect(() => {
+    client.fee.estimate()
+      .then((f) => setFee(new BigNumber(f)))
+      .catch(logger.error)
+  }, [])
 
   const onBidMinAmount = (val: string): void => {
     setBidAmount(val)
@@ -66,9 +82,9 @@ export function PlaceBidScreen (props: Props): JSX.Element {
         headerBackTitleVisible: false
       },
       component: BottomSheetAuctionedCollateral({
-       collaterals: batch.collaterals,
-       headerLabel: translate('screens/PlaceBidScreen', 'Auctioned collaterals'),
-       onCloseButtonPress: dismissModal
+        collaterals: batch.collaterals,
+        headerLabel: translate('screens/PlaceBidScreen', 'Auctioned collaterals'),
+        onCloseButtonPress: dismissModal
       })
     }])
     expandModal()
@@ -82,7 +98,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
     navigation.navigate('ConfirmPlaceBidScreen', {
       batch,
       bidAmount: new BigNumber(bidAmount),
-      estimatedFees,
+      estimatedFees: fee,
       totalAuctionValue: totalLoanAmountInUSD,
       vault
     })
@@ -148,7 +164,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
             />
             <FeeInfoRow
               type='ESTIMATED_FEE'
-              value={estimatedFees.toFixed(8)}
+              value={fee.toFixed(8)}
               testID='text_fee'
               suffix='DFI'
             />
@@ -178,7 +194,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
             screenList={bottomSheetScreen}
             isModalDisplayed={isModalDisplayed}
           />
-          )}
+        )}
 
         {Platform.OS !== 'web' && (
           <BottomSheetWithNav
@@ -199,7 +215,7 @@ function BidSummaryCard (props: {
   minNextBid: string
   totalAuctionValue: string
   onPressFullDetails: () => void
- }): JSX.Element {
+}): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-gray-600')}
@@ -211,9 +227,9 @@ function BidSummaryCard (props: {
           <SymbolIcon
             symbol={props.displaySymbol}
             styleProps={{
-                width: 20,
-                height: 20
-              }}
+              width: 20,
+              height: 20
+            }}
           />
           <ThemedText style={tailwind('font-semibold ml-2')}>{props.displaySymbol}</ThemedText>
         </View>
@@ -230,10 +246,10 @@ function BidSummaryCard (props: {
         <BidCardRow
           lhs={translate('screens/PlaceBidScreen', 'Total auction value (USD)')}
           rhs={{
-              suffixType: 'component',
-              value: new BigNumber(props.totalAuctionValue),
-              prefix: '$'
-            }}
+            suffixType: 'component',
+            value: new BigNumber(props.totalAuctionValue),
+            prefix: '$'
+          }}
         >
           <TouchableOpacity onPress={props.onPressFullDetails}>
             <ThemedText
@@ -247,10 +263,10 @@ function BidSummaryCard (props: {
         <BidCardRow
           lhs={translate('screens/PlaceBidScreen', 'Min. next bid')}
           rhs={{
-              suffixType: 'text',
-              value: props.minNextBid,
-              suffix: props.displaySymbol
-            }}
+            suffixType: 'text',
+            value: props.minNextBid,
+            suffix: props.displaySymbol
+          }}
         />
         <AuctionTimeProgress
           liquidationHeight={props.liquidationHeight}
@@ -301,10 +317,11 @@ function BidCardRow (props: React.PropsWithChildren<BidCardRowProps>): JSX.Eleme
               value={props.rhs.value.toFixed(2)}
               renderText={(val: string) => (
                 <ThemedText {...rhsStyle}>{val}</ThemedText>
-              )}
+            )}
             />}
           {!BigNumber.isBigNumber(props.rhs.value) && <ThemedText {...rhsStyle}>{props.rhs.value}</ThemedText>}
-          {props.rhs.suffix !== undefined && props.rhs.suffixType === 'text' && <ThemedText {...rhsStyle}>{` ${props.rhs.suffix}`}</ThemedText>}
+          {props.rhs.suffix !== undefined && props.rhs.suffixType === 'text' &&
+            <ThemedText {...rhsStyle}>{` ${props.rhs.suffix}`}</ThemedText>}
         </ThemedText>
         {props.rhs.suffixType === 'component' && props.children}
       </View>

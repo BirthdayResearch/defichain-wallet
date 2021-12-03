@@ -225,7 +225,7 @@ function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-gray-900 border-gray-700')}
       style={tailwind('absolute w-full bottom-0 flex-1 border-t px-4 pt-5 pb-10')}
     >
       <View style={tailwind('flex flex-row items-center justify-center w-full')}>
