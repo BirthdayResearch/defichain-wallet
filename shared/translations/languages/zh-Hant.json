@@ -719,7 +719,7 @@
     "Collateral value (USD)": "抵押品價值(美金)",
     "Auction start": "拍賣會開始",
     "{{count}} COLLATERAL TOKENS": "{{count}} 抵押代幣",
-    "Total auction value (USD)": "拍賣總價值（美元）:",
+    "Total auction value (USD):": "拍賣總價值（美元）:",
     "PLACE BID": "競投出價"
   },
   "components/BatchCard": {
@@ -1074,7 +1074,9 @@
     "Review and confirm transaction in the next screen": "請在下個屏幕審查並確認兌換",
     "Total auction value (USD)": "拍賣總價值（美元）",
     "(Full details)": "(全部細節)",
-    "Min. next bid": "最低標價"
+    "Min. next bid": "最低標價",
+    "Collaterals": "抵押品",
+    "How much do you want to bid?": "How much do you want to bid?"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "交易明細",
@@ -1093,10 +1095,10 @@
     "Insufficient funds": "Insufficient funds"
   },
   "components/QuickBid": {
-    "QUICK BID": "QUICK BID",
+    "QUICK BID": "快速標價",
     "Insufficient amount to place a bid": "餘額不足，無法出價",
     "Quick bid": "快速標價",
-    "Place a bid on the auctions with the min. next bid": "Place a bid on the auctions with the min. next bid",
+    "Place a bid on the auctions with the min. next bid": "以下個最低底價進行快標",
     "Min. next bid": "最低標價",
     "Current balance": "目前餘額"
   }

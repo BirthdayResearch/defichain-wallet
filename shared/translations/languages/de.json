@@ -728,7 +728,9 @@
     "Auction start": "Auktions-Start",
     "{{count}} COLLATERAL TOKENS": "{{count}} BESICHERUNGSTOKEN",
     "Total auction value (USD):": "Gesamtauktionswert (USD):",
-    "PLACE BID": "GEBOT ABGEBEN"
+    "PLACE BID": "GEBOT ABGEBEN",
+    "Batch #{{index}}": "Batch #{{index}}",
+    "Min. starting bid": "Mind. Anfangsgebot"
   },
   "components/BatchCard": {
     "Latest bid": "Letztes Gebot",
@@ -739,7 +741,8 @@
     "{{h}}h": "{{h}}h",
     "{{m}}m": "{{m}}min",
     "Total auction value (USD)": "Gesamtauktionswert (USD)",
-    "Min. next bid": "Nächstes Mind. Gebot"
+    "Min. next bid": "Nächstes Mind. Gebot",
+    "You are the highest bidder": "Du bist der Höchstbietende"
   },
   "components/BidCard": {
     "BID HIGHER": "HÖHERES GEBOT",
@@ -1099,7 +1102,10 @@
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
     "Total auction value (USD)": "Gesamtauktionswert (USD)",
     "(Full details)": "(Alle details)",
-    "Min. next bid": "Nächstes Mind. Gebot"
+    "Min. next bid": "Nächstes Mind. Gebot",
+    "Insufficient funds": "Unzureichende Deckung",
+    "Collaterals": "Sicherheiten",
+    "How much do you want to bid?": "How much do you want to bid?"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
@@ -1115,7 +1121,7 @@
     "Sign Transaction": "Transaktion freigeben",
     "Placing {{amount}} {{token}} as bid for auction.": "Abgabe des Gebotsbetrags von {{amount}} {{token}}",
     "Auctioned collaterals": "Versteigerte Sicherheiten",
-    "Insufficient funds": "Insufficient funds"
+    "Insufficient funds": "Unzureichende Deckung"
   },
   "components/QuickBid": {
     "QUICK BID": "SCHNELLES GEBOT",

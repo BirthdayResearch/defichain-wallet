@@ -219,7 +219,7 @@ interface AuctionActionSectionProps {
 function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
   const nextBidInfo = {
     title: 'Min. next bid',
-    message: 'The minimum bid a user must place, as long as it’s not the first bid for the batch'
+    message: 'The minimum bid a user must place, as long as it\'s not the first bid for the batch'
   }
 
   return (

@@ -1072,7 +1072,9 @@
     "Total auction value (USD)": "拍卖总价值（美元值）",
     "(Full details)": "(全部细节)",
     "Min. next bid": "最低标价",
-    "Insufficient amount to place a bid": "余额不足，无法出价"
+    "Insufficient amount to place a bid": "余额不足，无法出价",
+    "Collaterals": "抵押品",
+    "How much do you want to bid?": "How much do you want to bid?"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "交易明細",
@@ -1091,10 +1093,10 @@
     "Insufficient funds": "Insufficient funds"
   },
   "components/QuickBid": {
-    "QUICK BID": "QUICK BID",
+    "QUICK BID": "快速标价",
     "Insufficient amount to place a bid": "余额不足，无法出价",
     "Quick bid": "快速标价",
-    "Place a bid on the auctions with the min. next bid": "Place a bid on the auctions with the min. next bid",
+    "Place a bid on the auctions with the min. next bid": "以下个最低底价进行快标",
     "Min. next bid": "最低标价",
     "Current balance": "目前余额"
   }
