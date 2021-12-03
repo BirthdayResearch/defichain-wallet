@@ -118,7 +118,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
             />
           </View>
         </View>
-        {batch?.highestBid?.owner === address && <AuctionBidStatus type='heights' />}
+        {batch?.highestBid?.owner === address && <AuctionBidStatus type='highest' />}
         <View style={tailwind('flex-row w-full items-center justify-between mb-2 mt-4')}>
           <View style={tailwind('flex flex-row')}>
             <ThemedText
@@ -218,7 +218,7 @@ function BatchCardButtons (props: {onPlaceBid: () => void, onQuickBid: () => voi
   )
 }
 
-type AuctionBidStatusType = 'lost' | 'heights'
+type AuctionBidStatusType = 'lost' | 'highest'
 
 export function AuctionBidStatus ({ type }: { type: AuctionBidStatusType }): JSX.Element {
   return (
