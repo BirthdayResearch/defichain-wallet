@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { StyleProp, View, ViewStyle } from 'react-native'
+import { View } from 'react-native'
 import { ThemedProps } from './themed'
 import Modal from 'react-overlays/Modal'
 import { BottomSheetNavScreen } from './BottomSheetWithNav'
@@ -8,7 +8,9 @@ type Props = ThemedProps & {
   children: ReactElement
   screenList: BottomSheetNavScreen[]
   isModalDisplayed: boolean
-  modalStyle: StyleProp<ViewStyle>
+  modalStyle: {
+    [other: string]: any
+  }
 }
 
 export const BottomSheetModal = React.forwardRef((props: Props, ref: React.Ref<any>): JSX.Element => {
