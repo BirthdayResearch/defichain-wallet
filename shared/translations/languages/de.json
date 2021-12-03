@@ -705,11 +705,16 @@
     "UTXO vs Token, what is the difference?": "UTXO vs Token, worin liegt der Unterschied?",
     "Learn more about vaults": "Lerne mehr über Vaults",
     "Learn more about vaults and loan schemes": "Erfahre mehr über Vaults und Darlehensmodelle",
-    "Learn more about auctions and bidding": "Erfahre mehr über Auktionen und Bieten"
+    "Learn more about auctions and bidding": "Erfahre mehr über Auktionen und Bieten",
+    "Learn about auctions": "Erfahre mehr über Auktionen"
   },
   "components/EmptyBidsScreen": {
     "No active bids": "Keine aktiven Gebote",
     "To get started, browse on auctions and place a bid": "Durchsuche Auktionen und gebe ein Gebot ab"
+  },
+  "components/EmptyAuctions": {
+    "No ongoing auctions": "Keine laufenden Auktionen",
+    "Check again later for any ongoing auctions that you can participate": "Schaue später noch einmal nach, ob es laufende Auktionen gibt, an denen du teilnehmen kannst",
   },
   "screens/AuctionScreen": {
     "Auctions": "Auktionen",
@@ -1077,6 +1082,7 @@
   },
   "components/EmptyCollateral": {
     "No collaterals": "Keine Sicherheiten",
+    "ADD COLLATERALS": "ADD COLLATERALS",
     "Add DFI and tokens as collateral to get started with loans.": "Füge DFI und Token als Sicherheiten hinzu, um Darlehen aufnehmen zu können."
   },
   "screens/CloseVaultScreen": {
@@ -1105,7 +1111,7 @@
     "Min. next bid": "Nächstes Mind. Gebot",
     "Insufficient funds": "Unzureichende Deckung",
     "Collaterals": "Sicherheiten",
-    "How much do you want to bid?": "How much do you want to bid?"
+    "How much do you want to bid?": "Wie viel möchtest du bieten?"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
