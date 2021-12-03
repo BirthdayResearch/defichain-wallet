@@ -121,6 +121,13 @@ export function BrowseAuctions (): JSX.Element {
             modalRef={containerRef}
             screenList={bottomSheetScreen}
             isModalDisplayed={isModalDisplayed}
+            modalStyle={{
+              position: 'absolute',
+              height: '240px',
+              width: '375px',
+              zIndex: 50,
+              bottom: 0
+            }}
           />
         )}
 

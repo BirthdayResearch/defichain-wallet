@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { View } from 'react-native'
+import { StyleProp, View, ViewStyle } from 'react-native'
 import { ThemedProps } from './themed'
 import Modal from 'react-overlays/Modal'
 import { BottomSheetNavScreen } from './BottomSheetWithNav'
@@ -8,12 +8,23 @@ type Props = ThemedProps & {
   children: ReactElement
   screenList: BottomSheetNavScreen[]
   isModalDisplayed: boolean
+  modalStyle: StyleProp<ViewStyle>
 }
 
 export const BottomSheetModal = React.forwardRef((props: Props, ref: React.Ref<any>): JSX.Element => {
   const {
     children
   } = props
+
+  const style = props.modalStyle !== undefined
+      ? props.modalStyle
+    : {
+        position: 'fixed',
+        height: '240px',
+        width: '375px',
+        zIndex: 50,
+        top: '55%'
+      }
 
   return (
     <Modal
@@ -31,13 +42,7 @@ export const BottomSheetModal = React.forwardRef((props: Props, ref: React.Ref<a
         }}
         />
       )}
-      style={{
-        position: 'fixed',
-        height: '240px',
-        width: '375px',
-        zIndex: 50,
-        top: '55%'
-      }}
+      style={style} // array as value crashes Web Modal
     >
       {children}
     </Modal>

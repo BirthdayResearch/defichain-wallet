@@ -8,7 +8,7 @@ import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal 
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { NavigationContainer, Theme } from '@react-navigation/native'
 import { AddOrRemoveCollateralFormProps } from '@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm'
-import { Platform, View } from 'react-native'
+import { Platform, StyleProp, View, ViewStyle } from 'react-native'
 import { tailwind } from '@tailwind'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { getDefaultTheme } from '@constants/Theme'
@@ -68,12 +68,13 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
   )
 })
 
-export const BottomSheetWebWithNav = React.memo((props: BottomSheetWithNavProps & { isModalDisplayed: boolean }): JSX.Element => {
+export const BottomSheetWebWithNav = React.memo((props: BottomSheetWithNavProps & { isModalDisplayed: boolean, modalStyle?: StyleProp<ViewStyle> }): JSX.Element => {
   return (
     <BottomSheetModalWeb
       screenList={props.screenList}
       ref={props.modalRef}
       isModalDisplayed={props.isModalDisplayed}
+      modalStyle={props.modalStyle}
     >
       <View style={tailwind('h-full')}>
         <Navigator {...props} />
