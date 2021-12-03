@@ -20,6 +20,7 @@ import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
 import { getActivePrice } from '../helpers/ActivePrice'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 export interface BatchCardProps {
   vault: LoanVaultLiquidated
@@ -30,11 +31,11 @@ export interface BatchCardProps {
     vaultId: string,
     minNextBidInToken: string,
     vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']) => void
-
 }
 
 export function BatchCard (props: BatchCardProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>()
+  const { address } = useWalletContext()
   const { getVaultsUrl } = useDeFiScanContext()
   const { batch, testID, vault } = props
   const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
@@ -117,8 +118,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
             />
           </View>
         </View>
-        {/* TODO add bid status logic */}
-        {/* <AuctionBidStatus type='heights' /> */}
+        {batch?.highestBid?.owner === address && <AuctionBidStatus type='heights' />}
         <View style={tailwind('flex-row w-full items-center justify-between mb-2 mt-4')}>
           <View style={tailwind('flex flex-row')}>
             <ThemedText
