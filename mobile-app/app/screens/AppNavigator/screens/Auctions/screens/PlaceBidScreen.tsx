@@ -134,7 +134,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
             style={tailwind('flex-grow w-2/5')}
             value={bidAmount}
             displayClearButton={new BigNumber(bidAmount).gte('0.00')}
-            onClearButtonPress={() => onBidMinAmount('0.00')}
+            onClearButtonPress={() => onBidMinAmount('')}
             title={translate('screens/PlaceBidScreen', 'Enter an amount')}
             inputType='numeric'
             valid={bidAmount === '' || (hasSufficientFunds && isValidMinBid)}
