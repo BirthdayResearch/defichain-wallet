@@ -701,11 +701,13 @@
     "To get started, browse on auctions and place a bid": "首先，浏览拍卖并出价"
   },
   "screens/AuctionScreen": {
-    "Auctions": "清算拍卖"
+    "Auctions": "清算拍卖",
+    "Place Bid": "标价",
+    "Confirm Place Bid": "Confirm Place Bid"
   },
   "components/BatchCard": {
     "Latest bid": "最新出价",
-    "Token to win": "赢得竞投后获得的代币",    
+    "Token to win": "赢得竞投后获得的代币",
     "PLACE BID": "竞投出价",
     "VIEW REWARDS": "查看奖励",
     "ACTIVE BID": "主动出价",
@@ -715,7 +717,7 @@
   "components/BidCard": {
     "BID HIGHER": "出价更高",
     "VIEW REWARDS": "查看奖励",
-    "Auction ID": "拍卖编号",    
+    "Auction ID": "拍卖编号",
     "Auction won": "赢得拍卖",
     "Lost to another bid": "输给另一个出价",
     "Lost": "竞投失败",
@@ -1036,5 +1038,42 @@
   },
   "components/TokenIconGroup": {
     "more": "显示更多"
+  },
+  "screens/PlaceBidScreen": {
+    "Enter an amount": "请输入数量",
+    "MIN. BID": "最低标价",
+    "Bid amount is lower than required": "标价金额未达到最低标价",
+    "Available": "可发送资金",
+    "TRANSACTION DETAILS": "交易明細",
+    "CONTINUE": "继续",
+    "Review and confirm transaction in the next screen": "请在下个屏幕审查并确认兑换",
+    "Total auction value (USD)": "拍卖总价值（美元",
+    "(Full details)": "(全部细节)",
+    "Min. next bid": "最低标价",
+    "Insufficient amount to place a bid": "余额不足，无法出价"
+  },
+  "screens/ConfirmPlaceBidScreen": {
+    "TRANSACTION DETAILS": "交易明細",
+    "Transaction type": "交易类型",
+    "Place Bid": "标价",
+    "Bid amount to place": "标价金额",
+    "AUCTION DETAILS": "拍卖细节",
+    "Total auction value (USD)": "拍卖总价值（美元）",
+    "Vault ID": "金库编号",
+    "Vault owner ID": "金库主权者编号",
+    "Liquidation Height": "清算高度",
+    "CONFIRM PLACE BID": "确认标价",
+    "Sign Transaction": "签下交易",
+    "Placing {{amount}} {{token}} as bid for auction.": "使用 {{amount}} {{token}} 作为标价",
+    "Auctioned collaterals": "拍卖的抵押品为",
+    "Insufficient funds": "Insufficient funds"
+  },
+  "components/QuickBid": {
+    "QUICK BID": "QUICK BID",
+    "Insufficient amount to place a bid": "余额不足，无法出价",
+    "Quick bid": "快速标价",
+    "Place a bid on the auctions with the min. next bid": "Place a bid on the auctions with the min. next bid",
+    "Min. next bid": "最低标价",
+    "Current balance": "目前余额"
   }
 }

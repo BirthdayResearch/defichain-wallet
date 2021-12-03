@@ -702,7 +702,9 @@
     "To get started, browse on auctions and place a bid": "首先，瀏覽拍賣並出價"
   },
   "screens/AuctionScreen": {
-    "Auctions": "清算拍賣"
+    "Auctions": "清算拍賣",
+    "Place Bid": "標價",
+    "Confirm Place Bid": "確認出價"
   },
   "components/BatchCard": {
     "Latest bid": "最新出價",
@@ -1039,5 +1041,41 @@
   },
   "components/TokenIconGroup": {
     "more": "顯示更多"
+  },
+  "screens/PlaceBidScreen": {
+    "Enter an amount": "請輸入數量",
+    "MIN. BID": "最低標價",
+    "Bid amount is lower than required": "標價金額未達到最低標價",
+    "Available": "可發送資金",
+    "TRANSACTION DETAILS": "交易明細",
+    "CONTINUE": "繼續",
+    "Review and confirm transaction in the next screen": "請在下個屏幕審查並確認兌換",
+    "Total auction value (USD)": "拍賣總價值（美元）",
+    "(Full details)": "(全部細節)",
+    "Min. next bid": "最低標價"
+  },
+  "screens/ConfirmPlaceBidScreen": {
+    "TRANSACTION DETAILS": "交易明細",
+    "Transaction type": "交易類型",
+    "Place Bid": "標價",
+    "Bid amount to place": "標價金額",
+    "AUCTION DETAILS": "拍賣細節",
+    "Total auction value (USD)": "拍賣總價值（美元）",
+    "Vault ID": "金庫編號",
+    "Vault owner ID": "金庫主權者編號",
+    "Liquidation Height": "清算高度",
+    "CONFIRM PLACE BID": "確認標價",
+    "Sign Transaction": "簽下交易",
+    "Placing {{amount}} {{token}} as bid for auction.": "使用 {{amount}} {{token}} 作為標價",
+    "Auctioned collaterals": "拍賣的抵押品為",
+    "Insufficient funds": "Insufficient funds"
+  },
+  "components/QuickBid": {
+    "QUICK BID": "QUICK BID",
+    "Insufficient amount to place a bid": "餘額不足，無法出價",
+    "Quick bid": "快速標價",
+    "Place a bid on the auctions with the min. next bid": "Place a bid on the auctions with the min. next bid",
+    "Min. next bid": "最低標價",
+    "Current balance": "目前餘額"
   }
 }

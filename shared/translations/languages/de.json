@@ -711,7 +711,8 @@
   },
   "screens/AuctionScreen": {
     "Auctions": "Auktionen",
-    "Place bid": "Bieten"
+    "Place Bid": "Bieten",
+    "Confirm Place Bid": "Confirm Place Bid"
   },
   "components/BatchCard": {
     "Latest bid": "Letztes Gebot",
@@ -1065,21 +1066,21 @@
     "more": "weitere"
   },
   "screens/PlaceBidScreen": {
-    "How much do you want to place?": "Wie viel möchtest du bieten?",
+    "Enter an amount": "Gib eine Menge ein",
     "MIN. BID": "MIND. GEBOT",
     "Bid amount is lower than required": "Gebotsbetrag ist niedriger als erforderlich",
     "Available": "Verfügbar",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "CONTINUE": "WEITER",
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
-    "Total auction value (USD)": "Gesamtauktionswert (USD) ",
+    "Total auction value (USD)": "Gesamtauktionswert (USD)",
     "(Full details)": "(Alle details)",
     "Min. next bid": "Nächstes Mind. Gebot"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktionsart",
-    "Place bid": "Bieten",
+    "Place Bid": "Bieten",
     "Bid amount to place": "Zu setzender Gebotsbetrag",
     "AUCTION DETAILS": "AUKTIONSDETAILS",
     "Total auction value (USD)": "Gesamtauktionswert (USD)",
@@ -1089,7 +1090,8 @@
     "CONFIRM PLACE BID": "GEBOT BESTÄTIGEN",
     "Sign Transaction": "Transaktion freigeben",
     "Placing {{amount}} {{token}} as bid for auction.": "Abgabe des Gebotsbetrags von {{amount}} {{token}}",
-    "Auctioned collaterals": "Auctioned collaterals"
+    "Auctioned collaterals": "Auctioned collaterals",
+    "Insufficient funds": "Insufficient funds"
   },
   "components/QuickBid": {
     "QUICK BID": "SCHNELLES GEBOT",
