@@ -19,13 +19,16 @@ import { useBottomSheet } from '@hooks/useBottomSheet'
 import BigNumber from 'bignumber.js'
 import { QuickBid } from './QuickBid'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
+import { createSelector } from '@reduxjs/toolkit'
 
 export function BrowseAuctions (): JSX.Element {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
   const tokens = useTokensAPI()
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const auctions = useSelector((state: RootState) => state.auctions.auctions)
+  const auctions = useSelector(createSelector((state: RootState) => state.auctions.auctions, (auctions: LoanVaultLiquidated[]) => {
+    return auctions.map((a) => a).sort((a, b) => new BigNumber(a.liquidationHeight).minus(b.liquidationHeight).toNumber())
+  }))
   const { hasFetchAuctionsData } = useSelector((state: RootState) => state.auctions)
   const {
     bottomSheetRef,
@@ -35,7 +38,7 @@ export function BrowseAuctions (): JSX.Element {
     isModalDisplayed,
     bottomSheetScreen,
     setBottomSheetScreen
-   } = useBottomSheet()
+  } = useBottomSheet()
 
   useEffect(() => {
     dispatch(fetchAuctions({ client }))
@@ -81,40 +84,40 @@ export function BrowseAuctions (): JSX.Element {
           </View>
         )}
         {hasFetchAuctionsData
-        ? (
-          <>
-            {auctions.length === 0
-            ? <EmptyAuction />
-              : (
-                <>
-                  {auctions.map((auction: LoanVaultLiquidated, index: number) => {
-                    return (
-                      <View key={auction.vaultId}>
-                        {auction.batches.map((eachBatch: LoanVaultLiquidationBatch) => {
-                          return (
-                            <BatchCard
-                              vault={auction}
-                              batch={eachBatch}
-                              key={`${auction.vaultId}_${eachBatch.index}`}
-                              testID={`batch_card_${index}`}
-                              onQuickBid={onQuickBid}
-                            />
-                          )
-                        })}
-                      </View>
-                    )
-                  })}
-                </>
-              )}
-          </>)
-        : (
-          <View style={tailwind('pb-4')}>
-            <SkeletonLoader
-              row={6}
-              screen={SkeletonLoaderScreen.BrowseAuction}
-            />
-          </View>
-        )}
+          ? (
+            <>
+              {auctions.length === 0
+                ? <EmptyAuction />
+                : (
+                  <>
+                    {auctions.map((auction: LoanVaultLiquidated, index: number) => {
+                      return (
+                        <View key={auction.vaultId}>
+                          {auction.batches.map((eachBatch: LoanVaultLiquidationBatch) => {
+                            return (
+                              <BatchCard
+                                vault={auction}
+                                batch={eachBatch}
+                                key={`${auction.vaultId}_${eachBatch.index}`}
+                                testID={`batch_card_${index}`}
+                                onQuickBid={onQuickBid}
+                              />
+                            )
+                          })}
+                        </View>
+                      )
+                    })}
+                  </>
+                )}
+            </>)
+          : (
+            <View style={tailwind('pb-4')}>
+              <SkeletonLoader
+                row={6}
+                screen={SkeletonLoaderScreen.BrowseAuction}
+              />
+            </View>
+          )}
 
         {Platform.OS === 'web' && (
           <BottomSheetWebWithNav
