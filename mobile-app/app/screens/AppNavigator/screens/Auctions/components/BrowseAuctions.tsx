@@ -135,6 +135,10 @@ export function BrowseAuctions (): JSX.Element {
           <BottomSheetWithNav
             modalRef={bottomSheetRef}
             screenList={bottomSheetScreen}
+            snapPoints={{
+              ios: '40%',
+              android: '40%'
+            }}
           />
         )}
       </ThemedScrollView>
