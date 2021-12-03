@@ -8,7 +8,7 @@ type Props = ThemedProps & {
   children: ReactElement
   screenList: BottomSheetNavScreen[]
   isModalDisplayed: boolean
-  modalStyle: {
+  modalStyle?: {
     [other: string]: any
   }
 }
