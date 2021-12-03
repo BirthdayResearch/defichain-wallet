@@ -130,6 +130,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
             onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => {
               onBidMinAmount(e.nativeEvent.text)
             }}
+            title={translate('screens/PlaceBidScreen', 'How much do you want to bid?')}
             placeholder={translate('screens/PlaceBidScreen', 'Enter an amount')}
             style={tailwind('flex-grow w-2/5')}
             value={bidAmount}
