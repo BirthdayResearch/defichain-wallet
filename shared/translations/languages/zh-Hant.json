@@ -1057,7 +1057,7 @@
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "交易明細",
     "Transaction type": "交易類型",
-    "Place Bid": "標價",
+    "Place bid": "標價",
     "Bid amount to place": "標價金額",
     "AUCTION DETAILS": "拍賣細節",
     "Total auction value (USD)": "拍賣總價值（美元）",

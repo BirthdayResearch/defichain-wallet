@@ -1080,7 +1080,7 @@
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktionsart",
-    "Place Bid": "Bieten",
+    "Place bid": "Bieten",
     "Bid amount to place": "Zu setzender Gebotsbetrag",
     "AUCTION DETAILS": "AUKTIONSDETAILS",
     "Total auction value (USD)": "Gesamtauktionswert (USD)",

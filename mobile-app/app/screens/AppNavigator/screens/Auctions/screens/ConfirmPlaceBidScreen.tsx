@@ -100,7 +100,7 @@ export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
       <TextRow
         lhs={translate('screens/ConfirmPlaceBidScreen', 'Transaction type')}
         rhs={{
-          value: translate('screens/ConfirmPlaceBidScreen', 'Place Bid'),
+          value: translate('screens/ConfirmPlaceBidScreen', 'Place bid'),
           testID: 'text_transaction_type'
         }}
         textStyle={tailwind('text-sm font-normal')}
