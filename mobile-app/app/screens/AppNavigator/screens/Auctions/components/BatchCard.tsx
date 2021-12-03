@@ -20,6 +20,7 @@ import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
 import { getActivePrice } from '../helpers/ActivePrice'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 export interface BatchCardProps {
   vault: LoanVaultLiquidated
@@ -30,11 +31,11 @@ export interface BatchCardProps {
     vaultId: string,
     minNextBidInToken: string,
     vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']) => void
-
 }
 
 export function BatchCard (props: BatchCardProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>()
+  const { address } = useWalletContext()
   const { getVaultsUrl } = useDeFiScanContext()
   const { batch, testID, vault } = props
   const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
@@ -117,8 +118,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
             />
           </View>
         </View>
-        {/* TODO add bid status logic */}
-        {/* <AuctionBidStatus type='heights' /> */}
+        {batch?.highestBid?.owner === address && <AuctionBidStatus type='highest' />}
         <View style={tailwind('flex-row w-full items-center justify-between mb-2 mt-4')}>
           <View style={tailwind('flex flex-row')}>
             <ThemedText
@@ -218,7 +218,7 @@ function BatchCardButtons (props: {onPlaceBid: () => void, onQuickBid: () => voi
   )
 }
 
-type AuctionBidStatusType = 'lost' | 'heights'
+type AuctionBidStatusType = 'lost' | 'highest'
 
 export function AuctionBidStatus ({ type }: { type: AuctionBidStatusType }): JSX.Element {
   return (
@@ -257,7 +257,7 @@ export function AuctionBidStatus ({ type }: { type: AuctionBidStatusType }): JSX
               dark={tailwind('text-darkblue-500')}
               style={tailwind('text-xs ml-1')}
             >
-              {translate('components/BatchCard', 'Your placed bid is highest')}
+              {translate('components/BatchCard', 'You are the highest bidder')}
             </ThemedText>
           </>
         )}
