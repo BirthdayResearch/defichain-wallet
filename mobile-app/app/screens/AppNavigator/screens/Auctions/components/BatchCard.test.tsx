@@ -15,6 +15,7 @@ jest.mock('@react-navigation/native', () => ({
 jest.mock('@components/BottomSheetInfo', () => ({
   BottomSheetInfo: () => <></>
 }))
+jest.mock('@shared-contexts/WalletContext')
 jest.mock('@shared-contexts/DeFiScanContext')
 jest.mock('../hooks/AuctionBidValue', () => ({
   useAuctionBidValue: () => ({

@@ -257,7 +257,7 @@ export function AuctionBidStatus ({ type }: { type: AuctionBidStatusType }): JSX
               dark={tailwind('text-darkblue-500')}
               style={tailwind('text-xs ml-1')}
             >
-              {translate('components/BatchCard', 'Your placed bid is highest')}
+              {translate('components/BatchCard', 'You are the highest bidder')}
             </ThemedText>
           </>
         )}
