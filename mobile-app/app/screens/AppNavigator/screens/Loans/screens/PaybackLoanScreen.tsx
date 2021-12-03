@@ -291,7 +291,7 @@ export function VaultInput ({
           <ThemedText
             light={tailwind('text-gray-500')}
             dark={tailwind('text-gray-400')}
-            style={tailwind('text-xs')}
+            style={tailwind('text-xs mr-1')}
           >
             {translate('screens/PaybackLoanScreen', 'Min. collateralization ratio')}
           </ThemedText>

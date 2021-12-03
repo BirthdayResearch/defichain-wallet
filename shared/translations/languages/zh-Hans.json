@@ -230,7 +230,9 @@
     "There are 2 types of interests that applies for loans, namely vault interest rate and token interest rate.": "贷款利息有两种，分别为金库利率和代币利率",
     "The vault interest rate is determined when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.": "金库利率是在金库所有者选择金库方案时确定的，最低抵押率越高，金库利率越低。",
     "The token interest rate is applied on specific loan tokens, and can differ from token to token.": "代币利率适用于特定的代币贷款，不同的代币会有不同的利率。",
-    "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "总利率是由：由金库利率和代币利率整体以每年率计算。"
+    "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "总利率是由：由金库利率和代币利率整体以每年率计算。",
+    "What is collateral factor?": "What is collateral factor?",
+    "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault."
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "网络",
@@ -701,6 +703,7 @@
     "Learn more about UTXO and Token": "了解UTXO和代币区别",
     "UTXO vs Token, what is the difference?": "UTXO和代币的区别是什么？",
     "Learn more about vaults": "了解更多关于金库的资讯",
+    "Learn more about vaults and loan schemes": "了解更多关于金库和贷款计划的资讯",
     "Learn more about auctions and bidding": "了解有关拍卖和出价的更多信息",
     "Learn about auctions": "了解更多关于拍卖和拍卖会"
   },
@@ -798,7 +801,9 @@
     "Interest rate": "利率",
     "APR": "年回报率",
     "CONTINUE": "继续",
-    "Confirm your vault details in next screen": "在下一个屏幕上确认您的金库细节"
+    "Confirm your vault details in next screen": "在下一个屏幕上确认您的金库细节",
+    "Loan scheme of your vault determines the required collateralization of your vault for loans.": "您的金库的贷款计划将决定您所需的贷款抵押品",
+    "Min. collateralization ratio": "最小抵押率"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "您正在创建金库",
@@ -933,6 +938,7 @@
     "Total collateral (USD)": "抵押资金总价值(美金)",
     "COLLATERAL {{index}}": "抵押品 {{index}}",
     "Token": "代币",
+    "Vault %": "金库 %",
     "Collateralization factor": "抵押系数",
     "Collateral amount (USD)": "抵押品金额(美金)",
     "Collateral value (USD)": "抵押品价值(美金)",

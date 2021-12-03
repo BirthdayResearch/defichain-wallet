@@ -230,7 +230,9 @@
     "There are 2 types of interests that applies for loans, namely vault interest rate and token interest rate.": "貸款利息有兩種，分別為金庫利率和代幣利率",
     "The vault interest rate is determined when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.": "金庫利率是在金庫所有者選擇金庫方案時確定的，最低抵押率越高，金庫利率越低。",
     "The token interest rate is applied on specific loan tokens, and can differ from token to token.": "代幣利率適用於特定的代幣貸款，不同的代幣會有不同的利率。",
-    "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "總利率是由：由金庫利率和代幣利率整體以每年率計算。"
+    "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "總利率是由：由金庫利率和代幣利率整體以每年率計算。",
+    "What is collateral factor?": "什麼是抵押因素？",
+    "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "抵押因素決定了每款抵押代幣的貢獻程度比例。 例如，假設一款代幣以 70% 的抵押因素被接受， 價值 $ 100 代幣將會在金庫中佔 $70 的抵押價值。"
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "網絡",
@@ -701,6 +703,7 @@
     "Learn more about UTXO and Token": "了解UTXO和代幣區別",
     "UTXO vs Token, what is the difference?": "UTXO和代幣的區別是什麼？",
     "Learn more about vaults": "了解更多關於金庫的資訊",
+    "Learn more about vaults and loan schemes": "了解更多關於金庫和貸款計劃的資訊",
     "Learn more about auctions and bidding": "了解有關拍賣和出價的更多信息",
     "Learn about auctions": "了解更多關於拍賣和拍賣會"
   },
@@ -800,7 +803,9 @@
     "Interest rate": "利率",
     "APR": "年回報率",
     "CONTINUE": "繼續",
-    "Confirm your vault details in next screen": "在下一個屏幕上確認您的金庫細節"
+    "Confirm your vault details in next screen": "在下一個屏幕上確認您的金庫細節",
+    "Loan scheme of your vault determines the required collateralization of your vault for loans.": "您的金庫的貸款計劃將決定您所需的貸款抵押品",
+    "Min. collateralization ratio": "最小抵押率"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "您正在創建金庫",
@@ -935,6 +940,7 @@
     "Total collateral (USD)": "抵押資金總價值(美金)",
     "COLLATERAL {{index}}": "抵押品 {{index}}",
     "Token": "代幣",
+    "Vault %": "金库 %",
     "Collateralization factor": "抵押係數",
     "Collateral amount (USD)": "抵押品金額(美金)",
     "Collateral value (USD)": "抵押品價值(美金)",
