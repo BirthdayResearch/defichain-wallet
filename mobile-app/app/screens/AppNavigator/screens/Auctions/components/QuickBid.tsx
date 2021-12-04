@@ -141,7 +141,7 @@ function BiddingInfo (props: {minNextBid: BigNumber, currentBalance: BigNumber, 
         style={tailwind('text-base font-medium')}
         info={{
           title: 'Min. next bid',
-          message: 'The minimum bid a user must place, as long as it’s not the first bid for the batch.'
+          message: 'The minimum bid a user must place, as long as it\'s not the first bid for the batch.'
         }}
       />
       <VaultSectionTextRow

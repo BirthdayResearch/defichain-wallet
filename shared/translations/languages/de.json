@@ -211,7 +211,7 @@
     "Loans FAQ": "FAQ Darlehen",
     "Decentralized Loans": "Dezentrale Darlehen",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN",
-    "The decentralized loan feature allows you to borrow decentralised tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.": "Mit der dezentralen Darlehensfunktion kannst du dezentrale Token ausleihen, indem du deine Kryptowährungsbestände als Sicherheiten verwendest. Zunächst musst du einen Vault anlegen und Sicherheiten hinterlegen, bevor du ein Darlehen aufnehmen kannst.",
+    "The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.": "Mit der dezentralen Darlehensfunktion kannst du dezentrale Token ausleihen, indem du deine Kryptowährungsbestände als Sicherheiten verwendest. Zunächst musst du einen Vault anlegen und Sicherheiten hinterlegen, bevor du ein Darlehen aufnehmen kannst.",
     "How is the collateralization ratio calculated?": "Wie wird die Besicherungsquote berechnet?",
     "The collateralization ratio is calculated by taking the total collateral value deposited in a vault; divided by the amount of loan taken plus total interest, expressed in percentage.": "Die Besicherungsquote wird berechnet, indem der Gesamtwert der in einem Vault hinterlegten Sicherheiten durch den aufgenommenen Darlehensbetrag und die Gesamtzinsen geteilt wird, ausgedrückt in Prozent.",
     "What is the collateralization ratio used for?": "Wozu dient die Besicherungsquote?",
@@ -690,7 +690,9 @@
     "Auctions": "Auktionen",
     "Loans": "Darlehen",
     "Browse auctions": "Auktionen durchsuchen",
-    "Manage bids": "Gebote verwalten"
+    "Manage bids": "Gebote verwalten",
+    "Auctioned collaterals": "Versteigerte Sicherheiten",
+    "Auction details": "Auktionsdetails"
   },
   "components/LoanCard": {
     "Active Price": "Aktueller Preis",
@@ -703,23 +705,49 @@
     "UTXO vs Token, what is the difference?": "UTXO vs Token, worin liegt der Unterschied?",
     "Learn more about vaults": "Lerne mehr über Vaults",
     "Learn more about vaults and loan schemes": "Erfahre mehr über Vaults und Darlehensmodelle",
-    "Learn more about auctions and bidding": "Erfahre mehr über Auktionen und Bieten"
+    "Learn more about auctions and bidding": "Erfahre mehr über Auktionen und Bieten",
+    "Learn about auctions": "Erfahre mehr über Auktionen"
   },
   "components/EmptyBidsScreen": {
     "No active bids": "Keine aktiven Gebote",
     "To get started, browse on auctions and place a bid": "Durchsuche Auktionen und gebe ein Gebot ab"
+  },
+  "components/EmptyAuctions": {
+    "No ongoing auctions": "Keine laufenden Auktionen",
+    "Check again later for any ongoing auctions that you can participate": "Schaue später noch einmal nach, ob es laufende Auktionen gibt, an denen du teilnehmen kannst"
   },
   "screens/AuctionScreen": {
     "Auctions": "Auktionen",
     "Place Bid": "Bieten",
     "Confirm Place Bid": "Confirm Place Bid"
   },
+  "components/AuctionDetailScreen":{
+    "Collaterals": "Sicherheiten",
+    "Min. next bid": "Nächstes Mind. Gebot",
+    "VAULT DETAILS": "VAULT-DETAILS",
+    "Vault ID": "Vault-ID",
+    "Owner ID": "Besitzer-ID", 
+    "Liquidation height": "Liquidierungsblockhöhe", 
+    "ADDITIONAL DETAILS": "ZUSÄTZLICHE DETAILS",
+    "Collateral value (USD)": "Sicherheitenwert (USD)",
+    "Auction start": "Auktions-Start",
+    "{{count}} COLLATERAL TOKENS": "{{count}} BESICHERUNGSTOKEN",
+    "Total auction value (USD):": "Gesamtauktionswert (USD):",
+    "PLACE BID": "GEBOT ABGEBEN",
+    "Batch #{{index}}": "Batch #{{index}}",
+    "Min. starting bid": "Mind. Anfangsgebot"
+  },
   "components/BatchCard": {
     "Latest bid": "Letztes Gebot",
     "Token to win": "Token zu ersteigern",
     "PLACE BID": "GEBOT ABGEBEN",
     "VIEW REWARDS": "REWARDS ANSEHEN",
-    "ACTIVE BID": "AKTIVES GEBOT"
+    "ACTIVE BID": "AKTIVES GEBOT",
+    "{{h}}h": "{{h}}h",
+    "{{m}}m": "{{m}}min",
+    "Total auction value (USD)": "Gesamtauktionswert (USD)",
+    "Min. next bid": "Nächstes Mind. Gebot",
+    "You are the highest bidder": "Du bist der Höchstbietende"
   },
   "components/BidCard": {
     "BID HIGHER": "HÖHERES GEBOT",
@@ -734,7 +762,9 @@
   "components/AuctionTimeProgress": {
     "Auction ends in": "Auktion endet in",
     "Auction time left": "Verbleibende Auktionszeit",
-    "{{block}} blks": "{{block}} Blöcke"
+    "{{block}} blks": "{{block}} Blöcke",
+    "~{{time}} left": "Noch ~{{time}}",
+    "Auction time remaining": "Verbleibende Auktionszeit"
   },
   "components/VaultCard": {
     "Collaterals:": "Sicherheiten:",
@@ -809,7 +839,9 @@
     "Next collateralization": "Nächste Besicherung",
     "Min. collateralization ratio": "Mind. Besicherungsquote",
     "This amount is the total interest amount from both vault and token interest rate.": "Dieser Gesamtzinsbetrag setzt sich aus Vault- und Token-Zinssatz zusammen.",
-    "Annual vault interest": "Vault-Jahreszins"
+    "Annual vault interest": "Vault-Jahreszins",
+    "Min. next bid": "Nächstes Mind. Gebot",
+    "The minimum bid a user must place, as long as it's not the first bid for the batch": "Das Mindestgebot, das ein Nutzer abgeben muss, sofern es nicht das erste Gebot für den Auktionsteil ist"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
@@ -910,6 +942,7 @@
     "Total collateral (USD)": "Gesamter Besicherungswert (USD)",
     "COLLATERAL {{index}}": "SICHERHEITEN {{index}}",
     "Token": "Token",
+    "Vault %": "Vault %",
     "Collateralization factor": "Besicherungsfaktor",
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateral value (USD)": "Sicherheitenwert (USD)",
@@ -1050,6 +1083,7 @@
   },
   "components/EmptyCollateral": {
     "No collaterals": "Keine Sicherheiten",
+    "ADD COLLATERALS": "ADD COLLATERALS",
     "Add DFI and tokens as collateral to get started with loans.": "Füge DFI und Token als Sicherheiten hinzu, um Darlehen aufnehmen zu können."
   },
   "screens/CloseVaultScreen": {
@@ -1075,7 +1109,10 @@
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
     "Total auction value (USD)": "Gesamtauktionswert (USD)",
     "(Full details)": "(Alle details)",
-    "Min. next bid": "Nächstes Mind. Gebot"
+    "Min. next bid": "Nächstes Mind. Gebot",
+    "Insufficient funds": "Unzureichende Deckung",
+    "Collaterals": "Sicherheiten",
+    "How much do you want to bid?": "Wie viel möchtest du bieten?"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
@@ -1090,8 +1127,8 @@
     "CONFIRM PLACE BID": "GEBOT BESTÄTIGEN",
     "Sign Transaction": "Transaktion freigeben",
     "Placing {{amount}} {{token}} as bid for auction.": "Abgabe des Gebotsbetrags von {{amount}} {{token}}",
-    "Auctioned collaterals": "Auctioned collaterals",
-    "Insufficient funds": "Insufficient funds"
+    "Auctioned collaterals": "Versteigerte Sicherheiten",
+    "Insufficient funds": "Unzureichende Deckung"
   },
   "components/QuickBid": {
     "QUICK BID": "SCHNELLES GEBOT",

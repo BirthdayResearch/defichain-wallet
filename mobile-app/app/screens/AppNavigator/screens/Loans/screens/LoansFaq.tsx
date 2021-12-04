@@ -90,7 +90,7 @@ export function LoansFaq (): JSX.Element {
       <ThemedText
         style={tailwind('mt-2 text-sm')}
       >
-        {translate('components/LoansFaq', 'The decentralized loan feature allows you to borrow decentralised tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.')}
+        {translate('components/LoansFaq', 'The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.')}
       </ThemedText>
 
       <WalletAccordion

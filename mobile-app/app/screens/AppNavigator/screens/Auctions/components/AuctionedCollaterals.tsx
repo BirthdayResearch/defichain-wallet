@@ -13,7 +13,7 @@ export function AuctionedCollaterals (props: { collaterals: LoanVaultTokenAmount
     <>
       <ThemedSectionTitle
         testID='collateral_token_count'
-        text={translate('components/AuctionedCollaterals', '{{count}} COLLATERAL TOKENS', { count: collaterals.length })}
+        text={translate('components/AuctionDetailScreen', '{{count}} COLLATERAL TOKENS', { count: collaterals.length })}
       />
       {collaterals.map((token: LoanVaultTokenAmount, index: any) =>
         <CollateralTokenItemRow
@@ -26,7 +26,7 @@ export function AuctionedCollaterals (props: { collaterals: LoanVaultTokenAmount
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
         >
-          {translate('components/AuctionedCollaterals', 'Total auction value (USD):')}
+          {translate('components/AuctionDetailScreen', 'Total auction value (USD):')}
         </ThemedText>
         <NumberFormat
           decimalScale={8}

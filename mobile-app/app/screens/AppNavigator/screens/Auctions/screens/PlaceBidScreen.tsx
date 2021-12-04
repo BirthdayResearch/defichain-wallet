@@ -235,7 +235,7 @@ function BidSummaryCard (props: {
         </View>
         <View style={tailwind('flex flex-row')}>
           <CollateralTokenIconGroup
-            title='Collaterals'
+            title={translate('screens/PlaceBidScreen', 'Collaterals')}
             symbols={props.collateralDisplaySymbols}
             maxIconToDisplay={3}
           />

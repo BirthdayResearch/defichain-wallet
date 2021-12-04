@@ -111,7 +111,7 @@ export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
           testID: 'estimated_to_receive',
           value: bidAmount.toFixed(8),
           suffixType: 'text',
-          suffix: 'dTSLA'
+          suffix: batch.loan.displaySymbol
         }}
       />
       <FeeInfoRow

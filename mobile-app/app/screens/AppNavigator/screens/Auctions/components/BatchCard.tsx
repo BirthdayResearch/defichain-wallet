@@ -44,7 +44,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
 
   const nextBidInfo = {
     title: 'Min. next bid',
-    message: 'The minimum bid a user must place, as long as it’s not the first bid for the batch'
+    message: 'The minimum bid a user must place, as long as it\'s not the first bid for the batch'
   }
 
   const onCardPress = (): void => {
@@ -144,7 +144,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
                 </ThemedText>
               )}
               thousandSeparator
-              value={new BigNumber(batch.loan.amount).multipliedBy(getActivePrice(batch.loan)).toFixed(2)}
+              value={new BigNumber(batch.loan.amount).multipliedBy(getActivePrice(batch.loan.symbol, batch.loan.activePrice)).toFixed(2)}
             />
           </View>
         </View>
@@ -209,7 +209,7 @@ function BatchCardButtons (props: {onPlaceBid: () => void, onQuickBid: () => voi
         onPress={props.onPlaceBid}
       />
       <IconButton
-        iconLabel={translate('components/BatchCard', 'QUICK BID')}
+        iconLabel={translate('components/QuickBid', 'QUICK BID')}
         iconSize={16}
         style={tailwind('mr-2 mb-2')}
         onPress={props.onQuickBid}
