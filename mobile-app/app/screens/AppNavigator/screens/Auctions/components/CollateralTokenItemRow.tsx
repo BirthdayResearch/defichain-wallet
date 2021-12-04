@@ -11,7 +11,7 @@ import { getActivePrice } from '../helpers/ActivePrice'
 export function CollateralTokenItemRow ({ token }: { token: LoanVaultTokenAmount }): JSX.Element {
   const Icon = getNativeIcon(token.displaySymbol)
   const testID = `collateral_row_${token.id}`
-  const activePrice = new BigNumber(getActivePrice(token))
+  const activePrice = new BigNumber(getActivePrice(token.symbol, token.activePrice))
   const collateralPrice = new BigNumber(activePrice).multipliedBy(token.amount)
 
   return (

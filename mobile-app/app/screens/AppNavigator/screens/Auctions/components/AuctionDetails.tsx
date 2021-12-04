@@ -23,7 +23,7 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
   const { minStartingBidInToken } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
 
   const collateralValue = batch.collaterals.reduce((total, eachItem) => {
-    return total.plus(new BigNumber(eachItem.amount).multipliedBy(getActivePrice(eachItem)))
+    return total.plus(new BigNumber(eachItem.amount).multipliedBy(getActivePrice(eachItem.symbol, eachItem.activePrice)))
   }, new BigNumber(0))
 
   return (

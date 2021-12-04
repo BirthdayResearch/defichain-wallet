@@ -27,6 +27,8 @@ import { useAuctionBidValue } from './hooks/AuctionBidValue'
 import { useAuctionTime } from './hooks/AuctionTimeLeft'
 import { getActivePrice } from './helpers/ActivePrice'
 import { QuickBid } from './components/QuickBid'
+import { AuctionBidStatus } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
 
@@ -44,6 +46,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
   const { minNextBidInToken } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
+  const { address } = useWalletContext()
   const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
   const {
     bottomSheetRef,
@@ -110,7 +113,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
           style={tailwind('rounded border-b p-4')}
           testID='batch_detail_screen'
         >
-          <View style={tailwind('flex-row w-full items-center justify-between mb-4')}>
+          <View style={tailwind('flex-row w-full items-center justify-between mb-2')}>
             <View style={tailwind('flex flex-row items-center')}>
               <ThemedView
                 light={tailwind('bg-gray-100')}
@@ -158,6 +161,12 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
             </View>
           </View>
 
+          {batch?.highestBid?.owner === address && (
+            <View style={tailwind('mb-1')}>
+              <AuctionBidStatus type='highest' />
+            </View>
+          )}
+
           <AuctionTimeProgress
             liquidationHeight={vault.liquidationHeight}
             blockCount={blockCount}
@@ -169,7 +178,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
         {activeTab === TabKey.Collaterals && (
           <AuctionedCollaterals
             collaterals={batch.collaterals}
-            auctionAmount={new BigNumber(batch.loan.amount).multipliedBy(getActivePrice(batch.loan)).toFixed(2)}
+            auctionAmount={new BigNumber(batch.loan.amount).multipliedBy(getActivePrice(batch.loan.symbol, batch.loan.activePrice)).toFixed(2)}
           />
         )}
 
