@@ -38,6 +38,7 @@ import { SymbolIcon } from '@components/SymbolIcon'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetToken, BottomSheetTokenList } from '@components/BottomSheetTokenList'
+import { InfoText } from '@components/InfoText'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -301,7 +302,7 @@ function TokenInput (props: {token?: WalletToken, onPress: () => void}): JSX.Ele
   return (
     <View style={tailwind('px-4')}>
       <ThemedText
-        style={tailwind('text-xl font-semibold mb-4')}
+        style={tailwind('text-xl font-semibold')}
       >
         {translate('screens/SendScreen', 'Send to other wallet')}
       </ThemedText>
@@ -310,7 +311,8 @@ function TokenInput (props: {token?: WalletToken, onPress: () => void}): JSX.Ele
         light={tailwind('border-gray-300 bg-white')}
         dark={tailwind('border-gray-600 bg-gray-800')}
         style={tailwind('border rounded w-full flex flex-row justify-between h-12 items-center px-2', {
-          'mb-10': props.token !== undefined,
+          'mb-10': props.token?.isLPS === false,
+          'mb-2': props.token?.isLPS === true,
           'mb-6': props.token === undefined
         })}
         testID='select_token_input'
@@ -346,6 +348,14 @@ function TokenInput (props: {token?: WalletToken, onPress: () => void}): JSX.Ele
           style={tailwind('-mr-1.5 flex-shrink-0')}
         />
       </ThemedTouchableOpacity>
+      {props.token?.isLPS === true &&
+          (
+            <InfoText
+              testID='lp_info_text'
+              text={translate('components/ConversionInfoText', 'Send LP tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges may result in irreversible loss of funds.')}
+              style={tailwind('mb-10')}
+            />
+          )}
     </View>
   )
 }
