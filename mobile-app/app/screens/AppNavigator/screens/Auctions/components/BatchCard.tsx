@@ -1,4 +1,5 @@
 import React from 'react'
+import { TouchableOpacity } from 'react-native'
 import BigNumber from 'bignumber.js'
 import { ThemedText, ThemedView, ThemedIcon } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -16,19 +17,25 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { CollateralTokenIconGroup } from './CollateralTokenIconGroup'
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
-import { TouchableOpacity } from 'react-native'
 import { openURL } from '@api/linking'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
 import { getActivePrice } from '../helpers/ActivePrice'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 export interface BatchCardProps {
   vault: LoanVaultLiquidated
   batch: LoanVaultLiquidationBatch
   testID?: string
+  onQuickBid: (
+    batch: LoanVaultLiquidationBatch,
+    vaultId: string,
+    minNextBidInToken: string,
+    vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']) => void
 }
 
 export function BatchCard (props: BatchCardProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>()
+  const { address } = useWalletContext()
   const { getVaultsUrl } = useDeFiScanContext()
   const { batch, testID, vault } = props
   const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
@@ -45,6 +52,17 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
       batch,
       vault
     })
+  }
+
+  const onPlaceBid = (): void => {
+    navigation.navigate('PlaceBidScreen', {
+      batch,
+      vault
+    })
+  }
+
+  const onQuickBid = (): void => {
+    props.onQuickBid(batch, vault.vaultId, minNextBidInToken, vault.liquidationHeight)
   }
 
   return (
@@ -100,8 +118,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
             />
           </View>
         </View>
-        {/* TODO add bid status logic */}
-        {/* <AuctionBidStatus type='heights' /> */}
+        {batch?.highestBid?.owner === address && <AuctionBidStatus type='highest' />}
         <View style={tailwind('flex-row w-full items-center justify-between mb-2 mt-4')}>
           <View style={tailwind('flex flex-row')}>
             <ThemedText
@@ -170,12 +187,15 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
         blockCount={blockCount}
         label='Auction time left'
       />
-      <BatchCardButtons />
+      <BatchCardButtons
+        onPlaceBid={onPlaceBid}
+        onQuickBid={onQuickBid}
+      />
     </ThemedView>
   )
 }
 
-function BatchCardButtons (): JSX.Element {
+function BatchCardButtons (props: {onPlaceBid: () => void, onQuickBid: () => void}): JSX.Element {
   return (
     <ThemedView
       light={tailwind('border-gray-200')}
@@ -186,19 +206,19 @@ function BatchCardButtons (): JSX.Element {
         iconLabel={translate('components/BatchCard', 'PLACE BID')}
         iconSize={16}
         style={tailwind('mr-2 mb-2')}
-        onPress={() => {}}
+        onPress={props.onPlaceBid}
       />
       <IconButton
         iconLabel={translate('components/BatchCard', 'QUICK BID')}
         iconSize={16}
         style={tailwind('mr-2 mb-2')}
-        onPress={() => {}}
+        onPress={props.onQuickBid}
       />
     </ThemedView>
   )
 }
 
-type AuctionBidStatusType = 'lost' | 'heights'
+type AuctionBidStatusType = 'lost' | 'highest'
 
 export function AuctionBidStatus ({ type }: { type: AuctionBidStatusType }): JSX.Element {
   return (
@@ -237,7 +257,7 @@ export function AuctionBidStatus ({ type }: { type: AuctionBidStatusType }): JSX
               dark={tailwind('text-darkblue-500')}
               style={tailwind('text-xs ml-1')}
             >
-              {translate('components/BatchCard', 'Your placed bid is highest')}
+              {translate('components/BatchCard', 'You are the highest bidder')}
             </ThemedText>
           </>
         )}

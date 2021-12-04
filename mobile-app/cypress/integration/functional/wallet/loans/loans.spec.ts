@@ -15,7 +15,7 @@ context('Wallet - Loans', () => {
     cy.getByTestID('create_vault_submit_button').click()
     cy.getByTestID('button_confirm_create_vault').click().wait(4000)
     cy.closeOceanInterface()
-    cy.intercept('**/loans/tokens?size=50').as('loans')
+    cy.intercept('**/loans/tokens?size=200').as('loans')
     cy.wait(['@loans']).then((intercept: any) => {
       const data: any[] = intercept.response.body.data
       cy.getByTestID('loans_tabs_BROWSE_LOANS').click()

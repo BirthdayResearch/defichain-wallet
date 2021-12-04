@@ -321,7 +321,7 @@ function TokenInput (props: {token?: WalletToken, onPress: () => void}): JSX.Ele
           ? (
             <ThemedText
               light={tailwind('text-gray-300')}
-              dark={tailwind('text-gray-800')}
+              dark={tailwind('text-gray-500')}
               style={tailwind('text-sm')}
               testID='select_token_placeholder'
             >
@@ -330,7 +330,7 @@ function TokenInput (props: {token?: WalletToken, onPress: () => void}): JSX.Ele
           )
           : (
             <View style={tailwind('flex flex-row')}>
-              <SymbolIcon symbol={props.token.symbol} styleProps={{ width: 24, height: 24 }} />
+              <SymbolIcon symbol={props.token.displaySymbol} styleProps={{ width: 24, height: 24 }} />
               <ThemedText
                 style={tailwind('ml-2 font-medium')}
                 testID='selected_token'

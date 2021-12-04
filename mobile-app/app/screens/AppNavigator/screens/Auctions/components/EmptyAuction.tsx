@@ -21,11 +21,11 @@ export function EmptyAuction (): JSX.Element {
       />
 
       <ThemedText testID='empty_bid_title' style={tailwind('text-2xl pb-1 font-semibold text-center')}>
-        {translate('components/EmptyAuctionsScreen', 'No ongoing auctions')}
+        {translate('components/EmptyAuctions', 'No ongoing auctions')}
       </ThemedText>
 
       <ThemedText testID='empty_bid_subtitle' style={tailwind('text-sm px-8 pb-4 text-center opacity-60')}>
-        {translate('components/EmptyAuctionsScreen', 'Check again later for any ongoing auctions that you can participate')}
+        {translate('components/EmptyAuctions', 'Check again later for any ongoing auctions that you can participate')}
       </ThemedText>
 
       <View style={tailwind('flex items-center')}>

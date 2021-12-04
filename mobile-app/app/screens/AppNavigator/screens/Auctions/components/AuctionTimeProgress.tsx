@@ -7,11 +7,13 @@ import React from 'react'
 import { useAuctionTime } from '../hooks/AuctionTimeLeft'
 import * as Progress from 'react-native-progress'
 import BigNumber from 'bignumber.js'
+import { StyleProp, TextStyle } from 'react-native'
 
 interface AuctionTimeProgressProps {
   liquidationHeight: number
   blockCount: number
   label: string
+  auctionTextStyle?: StyleProp<TextStyle>
 }
 
 export function AuctionTimeProgress (props: AuctionTimeProgressProps): JSX.Element {
@@ -35,7 +37,7 @@ export function AuctionTimeProgress (props: AuctionTimeProgressProps): JSX.Eleme
           <ThemedText
             light={tailwind('text-gray-900')}
             dark={tailwind('text-gray-50')}
-            style={tailwind('text-sm')}
+            style={props.auctionTextStyle === undefined ? tailwind('text-sm') : props.auctionTextStyle}
           >
             {timeRemaining !== '' && translate('components/AuctionTimeProgress', '~{{time}} left', { time: timeRemaining })} ({translate('components/AuctionTimeProgress', '{{block}} blks', { block: blocksRemaining })})
           </ThemedText>

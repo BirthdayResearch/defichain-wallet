@@ -21,10 +21,10 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
   }, {
     id: 'auction',
     name: 'Auction',
-    stage: 'alpha',
-    version: '>=0.17.1',
+    stage: 'beta',
+    version: '>=0.18.1',
     description: 'Browse auctions provided by DeFiChain',
-    networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+    networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
     platforms: ['ios', 'android', 'web']
   }])
 }
