@@ -47,14 +47,13 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   const debouncedSearchTerm = useDebounce(searchString, 500)
   const filteredAuctions = useSelector(createSelector((state: RootState) => state.auctions.auctions, (auctions: LoanVaultLiquidated[]) => {
     return auctions
-      .map((a) => {
+      .map((auction) => {
         const filteredBatches = debouncedSearchTerm !== '' && debouncedSearchTerm !== undefined
-          ? a.batches.filter(batch => batch.loan.displaySymbol.toLowerCase().includes(debouncedSearchTerm.trim().toLowerCase()))
-          : a.batches
-        console.log({ debouncedSearchTerm, filteredBatches, batches: a.batches })
+          ? auction.batches.filter(batch => batch.loan.displaySymbol.toLowerCase().includes(debouncedSearchTerm.trim().toLowerCase()))
+          : auction.batches
 
         return {
-          ...a,
+          ...auction,
           batches: filteredBatches,
           batchCount: filteredBatches.length
         }
