@@ -1094,7 +1094,7 @@
   },
   "screens/ChooseLoanTokenScreen": {
     "Search for loans": "搜寻贷款",
-    "Search for loan token": "Search for loan token"
+    "Search for loan token": "搜寻贷款代币"
   },
   "components/EmptyCollateral": {
     "No collaterals": "没有抵押",
