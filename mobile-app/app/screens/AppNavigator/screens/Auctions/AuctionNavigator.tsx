@@ -10,6 +10,7 @@ import { AuctionDetailScreen } from './AuctionDetailScreen'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { PlaceBidScreen } from './screens/PlaceBidScreen'
 import { ConfirmPlaceBidScreen } from './screens/ConfirmPlaceBidScreen'
+import { AuctionsFaq } from './screens/Auctions'
 
 export interface AuctionsParamList {
   AuctionsScreen: {}
@@ -91,6 +92,20 @@ export function AuctionsNavigator (): JSX.Element {
               containerTestID={headerContainerTestId}
             />
           )
+        }}
+      />
+
+      <AuctionsStack.Screen
+        component={AuctionsFaq}
+        name='AuctionsFaq'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('components/AuctionsFaq', 'Auctions FAQ')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
         }}
       />
 
