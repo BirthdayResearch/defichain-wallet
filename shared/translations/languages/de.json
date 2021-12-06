@@ -1093,7 +1093,7 @@
   },
   "screens/ChooseLoanTokenScreen": {
     "Search for loans": "Nach Darlehen suchen",
-    "Search for loan token": "Search for loan token"
+    "Search for loan token": "Suche nach Darlehenstoken"
   },
   "components/EmptyCollateral": {
     "No collaterals": "Keine Sicherheiten",
