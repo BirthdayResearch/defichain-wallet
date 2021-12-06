@@ -1100,6 +1100,8 @@ exports[`balances page should match snapshot 1`] = `
           accessible={true}
           focusable={true}
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -1215,14 +1217,17 @@ exports[`balances page should match snapshot 1`] = `
                   "lineHeight": 24,
                 },
                 Array [
-                  Object {
-                    "fontFamily": "MediumFont",
-                    "fontSize": 14,
-                    "fontWeight": "500",
-                    "lineHeight": 16,
-                    "paddingLeft": 4,
-                    "paddingRight": 4,
-                  },
+                  Array [
+                    Object {
+                      "fontFamily": "MediumFont",
+                      "fontSize": 14,
+                      "fontWeight": "500",
+                      "lineHeight": 16,
+                      "paddingLeft": 4,
+                      "paddingRight": 4,
+                    },
+                    undefined,
+                  ],
                   Object {
                     "color": "rgba(255, 0, 175, 1)",
                   },
