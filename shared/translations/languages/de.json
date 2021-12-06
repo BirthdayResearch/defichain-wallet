@@ -760,7 +760,9 @@
     "{{m}}m": "{{m}}min",
     "Total auction value (USD)": "Gesamtauktionswert (USD)",
     "Min. next bid": "Nächstes Mind. Gebot",
-    "You are the highest bidder": "Du bist Höchstbietender"
+    "You are the highest bidder": "Du bist Höchstbietender",
+    "From your vault": "Aus deinem Vault",
+    "Waiting for first bid": "Warten auf das erste Gebot"
   },
   "components/BidCard": {
     "BID HIGHER": "HÖHERES GEBOT",

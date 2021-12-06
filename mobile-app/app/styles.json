@@ -8034,6 +8034,10 @@
 	"text-justify": {
 		"textAlign": "justify"
 	},
+	"text-xxs": {
+		"fontSize": 10,
+		"lineHeight": 14
+	},
 	"text-xs": {
 		"fontSize": 12,
 		"lineHeight": 16

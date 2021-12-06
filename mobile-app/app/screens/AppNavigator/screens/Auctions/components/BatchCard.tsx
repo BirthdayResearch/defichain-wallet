@@ -29,6 +29,7 @@ export interface BatchCardProps {
     vaultId: string,
     minNextBidInToken: string,
     vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']) => void
+  isVaultOwner: boolean
 }
 
 export function BatchCard (props: BatchCardProps): JSX.Element {
@@ -38,7 +39,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
   const { batch, testID, vault } = props
   const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
-  const { minNextBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
+  const { minNextBidInToken, totalCollateralsValueInUSD, hasFirstBid } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
 
   const nextBidInfo = {
     title: 'Min. next bid',
@@ -116,6 +117,10 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
             />
           </View>
         </View>
+        <View style={tailwind('flex flex-row')}>
+          {props.isVaultOwner && <BatchCardInfo iconName='account-circle' text='From your vault' />}
+          {!hasFirstBid && <BatchCardInfo iconName='hourglass-top' text='Waiting for first bid' />}
+        </View>
         {batch?.highestBid?.owner === address && <AuctionBidStatus type='highest' />}
         <View style={tailwind('flex-row w-full items-center justify-between mb-2 mt-4')}>
           <View style={tailwind('flex flex-row')}>
@@ -191,6 +196,27 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
       />
     </ThemedView>
   )
+}
+
+function BatchCardInfo (props: { iconName: 'hourglass-top' | 'account-circle', text: string }): JSX.Element {
+ return (
+   <View style={tailwind('flex flex-row items-center')}>
+     <ThemedIcon
+       size={12}
+       name={props.iconName}
+       iconType='MaterialIcons'
+       style={tailwind('mr-0.5 mt-0.5')}
+       dark={tailwind('text-gray-200')}
+       light={tailwind('text-gray-700')}
+     />
+     <ThemedText
+       light={tailwind('text-gray-500')}
+       dark={tailwind('text-gray-400')}
+       style={tailwind('text-xxs mr-1.5')}
+     >{translate('components/BatchCard', props.text)}
+     </ThemedText>
+   </View>
+ )
 }
 
 function BatchCardButtons (props: {onPlaceBid: () => void, onQuickBid: () => void}): JSX.Element {
