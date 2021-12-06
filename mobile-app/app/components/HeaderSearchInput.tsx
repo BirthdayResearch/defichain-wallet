@@ -12,6 +12,7 @@ interface HeaderSearchInputProps {
   onClearInput: () => void
   onChangeInput: (text: string) => void
   onCancelPress: () => void
+  placeholder: string
 }
 
 export function HeaderSearchInput (props: HeaderSearchInputProps): JSX.Element {
@@ -29,7 +30,7 @@ export function HeaderSearchInput (props: HeaderSearchInputProps): JSX.Element {
     >
       <SearchInput
         value={props.searchString}
-        placeholder={translate('screens/ChooseLoanTokenScreen', 'Search for loans')}
+        placeholder={translate('screens/ChooseLoanTokenScreen', props.placeholder)}
         autoFocus
         showClearButton={props.searchString !== ''}
         onClearInput={props.onClearInput}
