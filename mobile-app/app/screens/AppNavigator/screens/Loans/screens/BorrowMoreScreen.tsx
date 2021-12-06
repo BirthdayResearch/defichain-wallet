@@ -20,6 +20,7 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { useLoanOperations } from '../hooks/LoanOperations'
+import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowMoreScreen'>
 
@@ -38,8 +39,14 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
   const [totalLoanWithInterest, setTotalLoanWithInterest] = useState(new BigNumber(NaN))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [valid, setValid] = useState(false)
-  const resultingColRatio = useResultingCollateralRatio(new BigNumber(vault?.collateralValue ?? NaN), new BigNumber(vault?.loanValue ?? NaN),
-  new BigNumber(totalLoanWithInterest), new BigNumber(loanTokenAmount.activePrice?.active?.amount ?? 0))
+  const interestPerBlock = useInterestPerBlock(new BigNumber(vault?.loanScheme.interestRate ?? NaN), new BigNumber(loanToken?.interest ?? NaN))
+  const resultingColRatio = useResultingCollateralRatio(
+    new BigNumber(vault?.collateralValue ?? NaN),
+    new BigNumber(vault?.loanValue ?? NaN),
+    new BigNumber(amountToAdd),
+    new BigNumber(loanTokenAmount.activePrice?.active?.amount ?? 0),
+    interestPerBlock
+  )
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const canUseOperations = useLoanOperations(vault?.state)
@@ -78,7 +85,8 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
         amountToBorrow: amountToAdd,
         totalInterestAmount,
         totalLoanWithInterest,
-        fee
+        fee,
+        resultingColRatio
       }
     })
   }
@@ -140,7 +148,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
         text={translate('screens/BorrowMoreScreen', 'VAULT IN USE')}
       />
       <View style={tailwind('px-4')}>
-        <VaultInput vault={vault} loanToken={loanToken} displayMaxLoanAmount />
+        <VaultInput vault={vault} loanToken={loanToken} interestPerBlock={interestPerBlock} displayMaxLoanAmount />
       </View>
       <View style={tailwind('mt-2 mb-12 px-4')}>
         <WalletTextInput
