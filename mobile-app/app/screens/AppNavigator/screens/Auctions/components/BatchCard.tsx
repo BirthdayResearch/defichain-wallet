@@ -183,7 +183,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
       <AuctionTimeProgress
         liquidationHeight={vault.liquidationHeight}
         blockCount={blockCount}
-        label='Auction time left'
+        label='Auction time remaining'
       />
       <BatchCardButtons
         onPlaceBid={onPlaceBid}
