@@ -22,8 +22,6 @@ import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { fetchVaults } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { ConversionParam } from '../../Balances/BalancesNavigator'
-import { ConversionTag } from '@components/ConversionTag'
 import { useResultingCollateralRatio } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
 import { useCollateralizationRatioColor } from '../hooks/CollateralizationRatio'
 
@@ -39,8 +37,7 @@ export function ConfirmBorrowLoanTokenScreen ({
     amountToBorrow,
     totalInterestAmount,
     totalLoanWithInterest,
-    fee,
-    conversion
+    fee
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -94,7 +91,6 @@ export function ConfirmBorrowLoanTokenScreen ({
       <SummaryHeader
         amount={new BigNumber(amountToBorrow)}
         displaySymbol={loanToken.token.displaySymbol}
-        conversion={conversion}
       />
       <SummaryTransactionDetails
         amountToBorrow={amountToBorrow}
@@ -104,7 +100,6 @@ export function ConfirmBorrowLoanTokenScreen ({
         totalInterestAmount={totalInterestAmount}
         totalLoanWithInterest={totalLoanWithInterest}
         fee={fee}
-        conversion={conversion}
       />
       <SummaryVaultDetails
         vaultId={vault.vaultId}
@@ -129,7 +124,7 @@ export function ConfirmBorrowLoanTokenScreen ({
   )
 }
 
-function SummaryHeader (props: { amount: BigNumber, displaySymbol: string, conversion?: ConversionParam }): JSX.Element {
+function SummaryHeader (props: { amount: BigNumber, displaySymbol: string }): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
@@ -143,7 +138,6 @@ function SummaryHeader (props: { amount: BigNumber, displaySymbol: string, conve
         testID='text_borrow_amount'
         title={translate('screens/ConfirmBorrowLoanTokenScreen', 'You are borrowing')}
       />
-      {props.conversion?.isConversionRequired === true && <ConversionTag />}
     </ThemedView>
   )
 }
@@ -156,7 +150,6 @@ interface SummaryTransactionDetailsProps {
   totalInterestAmount: BigNumber
   totalLoanWithInterest: BigNumber
   fee: BigNumber
-  conversion?: ConversionParam
 }
 
 function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.Element {
@@ -168,7 +161,7 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
       <TextRow
         lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Transaction type')}
         rhs={{
-          value: props.conversion?.isConversionRequired === true ? translate('screens/ConfirmBorrowLoanTokenScreen', 'Convert & borrow loan token') : translate('screens/ConfirmBorrowLoanTokenScreen', 'Borrow loan token'),
+          value: translate('screens/ConfirmBorrowLoanTokenScreen', 'Borrow loan token'),
           testID: 'text_transaction_type'
         }}
         textStyle={tailwind('text-sm font-normal')}
