@@ -70,17 +70,6 @@ export function BalanceControlCard (): JSX.Element {
           </TouchableOpacity>
 
         </View>
-        <View style={tailwind('flex flex-row mt-1')}>
-          <IconButton
-            iconName='arrow-downward'
-            iconSize={20}
-            iconType='MaterialIcons'
-            onPress={() => navigation.navigate('Receive')}
-            testID='receive_balance_button'
-            style={tailwind('mr-2')}
-            iconLabel={translate('screens/BalancesScreen', 'RECEIVE')}
-          />
-        </View>
       </View>
       <View style={tailwind('flex flex-row mt-4 -mr-2')}>
         <IconButton

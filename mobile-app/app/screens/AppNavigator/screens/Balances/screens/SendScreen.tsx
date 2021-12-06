@@ -313,7 +313,7 @@ function TokenInput (props: {token?: WalletToken, onPress: () => void}): JSX.Ele
       <ThemedTouchableOpacity
         onPress={props.onPress}
         light={tailwind('border-gray-300 bg-white')}
-        dark={tailwind('border-gray-600 bg-gray-800')}
+        dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
         style={tailwind('border rounded w-full flex flex-row justify-between h-12 items-center px-2', {
           'mb-10': props.token?.isLPS === false,
           'mb-2': props.token?.isLPS === true,
@@ -348,7 +348,7 @@ function TokenInput (props: {token?: WalletToken, onPress: () => void}): JSX.Ele
           name='unfold-more'
           size={24}
           light={tailwind('text-primary-500')}
-          dark={tailwind('text-darkprimary-500')}
+          dark={tailwind('text-dfxred-500')}
           style={tailwind('-mr-1.5 flex-shrink-0')}
         />
       </ThemedTouchableOpacity>
