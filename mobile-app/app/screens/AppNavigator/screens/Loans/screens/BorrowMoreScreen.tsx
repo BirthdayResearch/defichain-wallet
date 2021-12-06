@@ -35,7 +35,6 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
   const loanToken = useSelector((state: RootState) => loanTokenByTokenId(state.loans, loanTokenAmount.id))
   const [vault, setVault] = useState<LoanVaultActive>(vaultFromRoute)
   const [amountToAdd, setAmountToAdd] = useState('')
-  const [totalInterestAmount, setTotalInterestAmount] = useState(new BigNumber(NaN))
   const [totalLoanWithInterest, setTotalLoanWithInterest] = useState(new BigNumber(NaN))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [valid, setValid] = useState(false)
@@ -66,10 +65,8 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
     if (vault === undefined || amountToAdd === undefined || loanToken?.activePrice?.active?.amount === undefined) {
       return
     }
-    const vaultInterestRate = new BigNumber(vault.loanScheme.interestRate).div(100)
-    const loanTokenInterestRate = new BigNumber(loanToken.interest).div(100)
-    setTotalInterestAmount(new BigNumber(amountToAdd).multipliedBy(vaultInterestRate.plus(loanTokenInterestRate)))
-    setTotalLoanWithInterest(new BigNumber(amountToAdd).multipliedBy(vaultInterestRate.plus(loanTokenInterestRate).plus(1)))
+
+    setTotalLoanWithInterest(new BigNumber(amountToAdd).plus(interestPerBlock))
   }
 
   const onSubmit = async (): Promise<void> => {
@@ -83,7 +80,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
         loanToken,
         vault,
         amountToBorrow: amountToAdd,
-        totalInterestAmount,
+        totalInterestAmount: interestPerBlock,
         totalLoanWithInterest,
         fee,
         resultingColRatio
@@ -174,7 +171,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
         vaultInterestRate={new BigNumber(vault.loanScheme.interestRate)}
         loanTokenInterestRate={new BigNumber(loanToken.interest)}
         loanTokenDisplaySymbol={loanToken.token.displaySymbol}
-        totalInterestAmount={totalInterestAmount}
+        totalInterestAmount={interestPerBlock}
         totalLoanWithInterest={totalLoanWithInterest}
         loanTokenPrice={new BigNumber(loanToken.activePrice?.active?.amount ?? 0)}
         fee={fee}
