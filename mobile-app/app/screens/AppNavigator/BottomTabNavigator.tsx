@@ -10,6 +10,8 @@ import { LoansNavigator } from './screens/Loans/LoansNavigator'
 import { TransactionsNavigator } from './screens/Transactions/TransactionsNavigator'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { AuctionsNavigator } from './screens/Auctions/AuctionNavigator'
+import { useSelector } from 'react-redux'
+import { auctionsCountSelector } from '@store/auctions'
 
 export interface BottomTabParamList {
   Balances: undefined
@@ -24,6 +26,7 @@ const BottomTab = createBottomTabNavigator<BottomTabParamList>()
 
 export function BottomTabNavigator (): JSX.Element {
   const { isFeatureAvailable } = useFeatureFlagContext()
+  const auctionCount = useSelector(auctionsCountSelector)
   return (
     <>
       <OceanInterface />
@@ -88,15 +91,16 @@ export function BottomTabNavigator (): JSX.Element {
             component={AuctionsNavigator}
             name={translate('BottomTabNavigator', 'Auctions')}
             options={{
-                tabBarTestID: 'bottom_tab_auctions',
-                tabBarIcon: ({ color }) => (
-                  <MaterialIcons
-                    color={color}
-                    name='gavel'
-                    size={24}
-                  />
-                )
-              }}
+              tabBarTestID: 'bottom_tab_auctions',
+              tabBarIcon: ({ color }) => (
+                <MaterialIcons
+                  color={color}
+                  name='gavel'
+                  size={24}
+                />
+              ),
+              tabBarBadge: auctionCount > 0 ? auctionCount : undefined
+            }}
           />
         )}
 

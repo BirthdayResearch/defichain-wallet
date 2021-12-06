@@ -181,7 +181,9 @@ interface CollateralSectionProps {
 function CollateralSection (props: CollateralSectionProps): JSX.Element {
   const currentBalance = props.vault?.collateralAmounts?.find((c) => c.id === props.token.id)?.amount ?? '0'
   const amount = props.isAdd ? props.amount.plus(currentBalance) : BigNumber.max(0, new BigNumber(currentBalance).minus(props.amount))
-  const prices = useCollateralPrice(amount, props.collateralItem, props.totalCollateralValue)
+  const initialPrices = useCollateralPrice(props.amount, props.collateralItem, props.totalCollateralValue)
+  const totalCollateralValue = props.isAdd ? props.totalCollateralValue.plus(initialPrices.collateralPrice) : props.totalCollateralValue.minus(initialPrices.collateralPrice)
+  const prices = useCollateralPrice(amount, props.collateralItem, totalCollateralValue)
   return (
     <>
       <ThemedSectionTitle
