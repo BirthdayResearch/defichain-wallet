@@ -1096,7 +1096,7 @@
   },
   "screens/ChooseLoanTokenScreen": {
     "Search for loans": "搜尋貸款",
-    "Search for loan token": "Search for loan token"
+    "Search for loan token": "搜尋貸款代幣"
   },
   "components/EmptyCollateral": {
     "No collaterals": "沒有抵押",
