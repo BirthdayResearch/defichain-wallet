@@ -231,8 +231,8 @@
     "The vault interest rate is determined when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.": "金库利率是在金库所有者选择金库方案时确定的，最低抵押率越高，金库利率越低。",
     "The token interest rate is applied on specific loan tokens, and can differ from token to token.": "代币利率适用于特定的代币贷款，不同的代币会有不同的利率。",
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "总利率是由：由金库利率和代币利率整体以每年率计算。",
-    "What is collateral factor?": "What is collateral factor?",
-    "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault."
+    "What is collateral factor?": "抵押因素是什么？",
+    "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "抵押品因素决定每个抵押代币的贡献程度。例如，如果一个代币以70%的抵押因素被接受，价值100美元的代币将贡献该金库中70美元的抵押品价值。"
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "网络",
@@ -732,7 +732,9 @@
     "Auction start": "拍卖会开始",
     "{{count}} COLLATERAL TOKENS": "{{count}} 抵押代币",
     "Total auction value (USD):": "拍卖总价值（美元值）:",
-    "PLACE BID": "竞投出价"
+    "PLACE BID": "竞投出价",
+    "Batch #{{index}}": "批次 #{{index}}",
+    "Min. starting bid": "最低起标价"
   },
   "components/BatchCard": {
     "Latest bid": "最新出价",
@@ -743,7 +745,8 @@
     "{{h}}h": "{{h}}时",
     "{{m}}m": "{{m}}分",
     "Total auction value (USD)": "拍卖总价值（美元值）",
-    "Min. next bid": "最低标价"
+    "Min. next bid": "最低标价",
+    "You are the highest bidder": "您目前是出价最高的人"
   },
   "components/BidCard": {
     "BID HIGHER": "出价更高",
@@ -1081,7 +1084,7 @@
   },
   "components/EmptyCollateral": {
     "No collaterals": "没有抵押",
-    "ADD COLLATERALS": "ADD COLLATERALS",
+    "ADD COLLATERALS": "增加抵押资产",
     "Add DFI and tokens as collateral to get started with loans.": "加入 DFI及其他代币作抵押即可以开始借贷"
   },
   "screens/CloseVaultScreen": {
@@ -1110,7 +1113,7 @@
     "Min. next bid": "最低标价",
     "Insufficient amount to place a bid": "余额不足，无法出价",
     "Collaterals": "抵押品",
-    "How much do you want to bid?": "How much do you want to bid?"
+    "How much do you want to bid?": "您想出的价钱？"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "交易明細",
@@ -1126,7 +1129,7 @@
     "Sign Transaction": "签下交易",
     "Placing {{amount}} {{token}} as bid for auction.": "使用 {{amount}} {{token}} 作为标价",
     "Auctioned collaterals": "拍卖的抵押品为",
-    "Insufficient funds": "Insufficient funds"
+    "Insufficient funds": "资金不足"
   },
   "components/QuickBid": {
     "QUICK BID": "快速标价",

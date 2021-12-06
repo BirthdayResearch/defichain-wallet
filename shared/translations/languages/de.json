@@ -710,7 +710,7 @@
   },
   "components/EmptyBidsScreen": {
     "No active bids": "Keine aktiven Gebote",
-    "To get started, browse on auctions and place a bid": "Durchsuche Auktionen und gebe ein Gebot ab"
+    "To get started, browse on auctions and place a bid": "Durchsuche Auktionen und gib ein Gebot ab"
   },
   "components/EmptyAuctions": {
     "No ongoing auctions": "Keine laufenden Auktionen",
@@ -719,7 +719,7 @@
   "screens/AuctionScreen": {
     "Auctions": "Auktionen",
     "Place Bid": "Bieten",
-    "Confirm Place Bid": "Confirm Place Bid"
+    "Confirm Place Bid": "Gebot bestätigen"
   },
   "components/AuctionDetailScreen":{
     "Collaterals": "Sicherheiten",
@@ -747,7 +747,7 @@
     "{{m}}m": "{{m}}min",
     "Total auction value (USD)": "Gesamtauktionswert (USD)",
     "Min. next bid": "Nächstes Mind. Gebot",
-    "You are the highest bidder": "Du bist der Höchstbietende"
+    "You are the highest bidder": "Du bist Höchstbietender"
   },
   "components/BidCard": {
     "BID HIGHER": "HÖHERES GEBOT",
@@ -838,8 +838,8 @@
     "Interest amount": "Zinsbetrag",
     "Next collateralization": "Nächste Besicherung",
     "Min. collateralization ratio": "Mind. Besicherungsquote",
-    "This amount is the total interest amount from both vault and token interest rate.": "Dieser Gesamtzinsbetrag setzt sich aus Vault- und Token-Zinssatz zusammen.",
-    "Annual vault interest": "Vault-Jahreszins",
+    "This amount is the total interest amount from both vault and token interest rate.": "Dieser Betrag ist der Gesamtzinsbetrag zusammen gesetzt aus Vault- und Token-Zinssatz",
+    "Annual vault interest": "Jährlicher Vault-Zins",
     "Min. next bid": "Nächstes Mind. Gebot",
     "The minimum bid a user must place, as long as it's not the first bid for the batch": "Das Mindestgebot, das ein Nutzer abgeben muss, sofern es nicht das erste Gebot für den Auktionsteil ist"
   },
@@ -1070,7 +1070,7 @@
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "DU STOCKST DEIN DARLEHEN AUF",
-    "How much do you want to add?": "Wie viel möchtest du hinzufügen?",
+    "How much do you want to add?": "Wie viel möchtest du zusätzlich aufnehmen?",
     "Enter an amount": "Gib eine Menge ein",
     "VAULT IN USE": "AKTIVER VAULT",
     "CONTINUE": "WEITER",
@@ -1108,7 +1108,7 @@
     "CONTINUE": "WEITER",
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
     "Total auction value (USD)": "Gesamtauktionswert (USD)",
-    "(Full details)": "(Alle details)",
+    "(Full details)": "(Alle Details)",
     "Min. next bid": "Nächstes Mind. Gebot",
     "Insufficient funds": "Unzureichende Deckung",
     "Collaterals": "Sicherheiten",
