@@ -19,7 +19,7 @@ interface AuctionTimeProgressProps {
 export function AuctionTimeProgress (props: AuctionTimeProgressProps): JSX.Element {
   const { isLight } = useThemeContext()
   const { timeRemaining, blocksRemaining, blocksPerAuction } = useAuctionTime(props.liquidationHeight, props.blockCount)
-  const normalizedBlocks = new BigNumber(blocksPerAuction).minus(blocksRemaining).dividedBy(blocksPerAuction).toNumber()
+  const normalizedBlocks = new BigNumber(blocksRemaining).dividedBy(blocksPerAuction).toNumber()
 
   return (
     <>
