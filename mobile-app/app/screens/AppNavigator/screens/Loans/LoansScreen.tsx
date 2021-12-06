@@ -133,7 +133,10 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
             searchString={searchString}
             onClearInput={() => setSearchString('')}
             onChangeInput={(text: string) => setSearchString(text)}
-            onCancelPress={() => setShowSearchInput(false)}
+            onCancelPress={() => {
+              setSearchString('')
+              setShowSearchInput(false)
+            }}
             placeholder='Search for loans'
           />
         )
