@@ -67,7 +67,6 @@ export interface LoanParamList {
     totalInterestAmount: BigNumber
     totalLoanWithInterest: BigNumber
     fee: BigNumber
-    conversion?: ConversionParam
   }
   PaybackLoanScreen: {
     loanToken: LoanVaultTokenAmount
