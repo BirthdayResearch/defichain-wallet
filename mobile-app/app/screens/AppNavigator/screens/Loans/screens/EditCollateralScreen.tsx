@@ -18,18 +18,18 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { fetchCollateralTokens } from '@store/loans'
-import {
-  CollateralToken,
-  LoanVaultActive,
-  LoanVaultTokenAmount
-} from '@defichain/whale-api-client/dist/api/loan'
+import { CollateralToken, LoanVaultActive, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { createSelector } from '@reduxjs/toolkit'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { IconButton } from '@components/IconButton'
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
 import { useCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
-import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
+import {
+  useVaultStatus,
+  VaultStatus,
+  VaultStatusTag
+} from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 import { queueConvertTransaction } from '@hooks/wallet/Conversion'
 import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
@@ -69,7 +69,11 @@ export function EditCollateralScreen ({
   const tokens = useTokensAPI()
   const getTokenAmount = (tokenId: string): BigNumber => {
     const id = tokenId === '0' ? '0_unified' : tokenId
-    return new BigNumber(tokens.find((t) => t.id === id)?.amount ?? 0)
+    const _token = tokens.find(t => t.id === id)
+    const reservedDFI = 0.1
+    return BigNumber.max(new BigNumber(_token === undefined ? 0 : _token.amount).minus(
+      _token?.id === '0_unified' ? reservedDFI : 0
+    ), 0)
   }
 
   const {
@@ -194,13 +198,7 @@ export function EditCollateralScreen ({
                 component: BottomSheetTokenList({
                   tokens: collateralTokens,
                   headerLabel: translate('screens/EditCollateralScreen', 'Select token to add'),
-                  onCloseButtonPress: () => {
-                    if (Platform.OS === 'web') {
-                      setIsModalDisplayed(false)
-                    } else {
-                      bottomSheetRef.current?.close()
-                    }
-                  },
+                  onCloseButtonPress: dismissModal,
                   navigateToScreen: {
                     screenName: 'AddOrRemoveCollateralForm',
                     onButtonPress: onAddCollateral
@@ -216,9 +214,10 @@ export function EditCollateralScreen ({
                 component: AddOrRemoveCollateralForm,
                 option: {
                   headerStatusBarHeight: 1,
-                  headerBackgroundContainerStyle: tailwind('-top-5 border-b', {
+                  headerBackgroundContainerStyle: tailwind('border-b', {
                     'border-gray-200': isLight,
-                    'border-gray-700': !isLight
+                    'border-gray-700': !isLight,
+                    '-top-5': Platform.OS !== 'web'
                   }),
                   headerTitle: '',
                   headerBackTitleVisible: false
@@ -243,7 +242,7 @@ export function EditCollateralScreen ({
                 token: collateralItem.token,
                 available: '',
                 onButtonPress: undefined,
-                onCloseButtonPress: () => bottomSheetRef.current?.close(),
+                onCloseButtonPress: dismissModal,
                 collateralFactor: new BigNumber(collateralItem.factor ?? 0).times(100),
                 isAdd: true,
                 current: new BigNumber(collateral.amount)
@@ -362,7 +361,7 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
         suffix='%'
         suffixType='text'
         lhs={translate('screens/EditCollateralScreen', 'Collateralization ratio')}
-        rhsThemedProps={colors}
+        rhsThemedProps={vaultState.status !== VaultStatus.Active ? colors : undefined}
         info={{
           title: 'Collateralization ratio',
           message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'

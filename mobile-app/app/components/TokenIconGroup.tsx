@@ -4,6 +4,7 @@ import React from 'react'
 import BigNumber from 'bignumber.js'
 import { ThemedText } from './themed'
 import { SymbolIcon } from '@components/SymbolIcon'
+import { translate } from '@translations'
 
 interface TokenIconGroupProps {
   symbols: string[]
@@ -36,7 +37,7 @@ export function TokenIconGroup (props: TokenIconGroupProps): JSX.Element {
             dark={tailwind('text-gray-400')}
             style={[tailwind('relative text-xs font-medium'), { left: (props.maxIconToDisplay - 2) * -5 }]}
           >
-            & {additionalIcon.toFixed()} more
+            {`& ${additionalIcon.toFixed()} ${translate('components/TokenIconGroup', 'more')}`}
           </ThemedText>
         )}
     </View>

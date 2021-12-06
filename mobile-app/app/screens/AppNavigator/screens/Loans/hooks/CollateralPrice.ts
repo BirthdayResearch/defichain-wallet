@@ -22,8 +22,8 @@ export function useCollateralPrice (amount: BigNumber, collateralItem: Collatera
   }
 }
 
-export function useResultingCollateralRatio (collateralValue: BigNumber, loanValue: BigNumber, totalLoanWithInterest: BigNumber, activePrice: BigNumber): BigNumber {
+export function useResultingCollateralRatio (collateralValue: BigNumber, existingLoanValue: BigNumber, newLoanAmount: BigNumber, activePrice: BigNumber, interestPerBlock: BigNumber): BigNumber {
   return new BigNumber(collateralValue).dividedBy(
-    new BigNumber(loanValue).plus(totalLoanWithInterest.multipliedBy(
+    new BigNumber(existingLoanValue).plus(newLoanAmount.multipliedBy(interestPerBlock.plus(1)).multipliedBy(
       activePrice))).multipliedBy(100)
 }

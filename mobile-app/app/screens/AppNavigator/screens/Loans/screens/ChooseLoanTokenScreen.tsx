@@ -53,7 +53,11 @@ export function ChooseLoanTokenScreen ({ navigation, route }: Props): JSX.Elemen
             searchString={searchString}
             onClearInput={() => setSearchString('')}
             onChangeInput={(text: string) => setSearchString(text)}
-            onCancelPress={() => setShowSearchInput(false)}
+            onCancelPress={() => {
+              setSearchString('')
+              setShowSearchInput(false)
+            }}
+            placeholder='Search for loans'
           />
         )
       })

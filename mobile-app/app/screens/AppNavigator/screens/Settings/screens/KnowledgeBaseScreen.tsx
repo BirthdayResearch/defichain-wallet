@@ -40,6 +40,14 @@ export function KnowledgeBaseScreen ({ navigation }: Props): JSX.Element {
     })
   }
 
+  if (isFeatureAvailable('auction')) {
+    knowledgeBaseItems.push({
+      label: 'Auctions',
+      testID: 'auctions_faq',
+      onPress: () => navigation.navigate('AuctionsFaq')
+    })
+  }
+
   return (
     <ThemedScrollView
       style={tailwind('flex-1 pb-8')}

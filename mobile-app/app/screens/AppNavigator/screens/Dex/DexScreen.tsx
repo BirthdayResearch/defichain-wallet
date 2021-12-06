@@ -338,7 +338,6 @@ function AvailablePoolPairCards ({
                 onPress={() => onAdd(pair)}
                 pair={symbol}
                 label={translate('screens/DexScreen', 'ADD LIQUIDITY')}
-                disabled={!pair.tradeEnabled || !pair.status}
                 style={tailwind('mr-2 mt-2')}
                 testID={`pool_pair_add_${symbol}`}
               />

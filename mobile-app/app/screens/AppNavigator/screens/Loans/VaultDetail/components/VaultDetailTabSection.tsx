@@ -81,7 +81,7 @@ function getDetailTabs (vault: LoanVault, tabOnPress: (tabId: string) => void): 
       {
         id: TabKey.Loans,
         label: 'Loans',
-        disabled: false,
+        disabled: vault.state === LoanVaultState.ACTIVE && vault.collateralValue === '0',
         handleOnPress: tabOnPress
       },
       {

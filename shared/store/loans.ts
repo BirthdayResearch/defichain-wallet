@@ -1,5 +1,6 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { CollateralToken, LoanScheme, LoanToken, LoanVaultActive, LoanVaultLiquidated, LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
+import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { createAsyncThunk, createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
 
@@ -23,7 +24,7 @@ const initialState: LoansState = {
   hasFetchedLoansData: false
 }
 
-const customDUSDActivePrice = {
+export const customDUSDActivePrice: ActivePrice = {
   id: 'custom_DUSD',
   key: 'custom_DUSD',
   sort: '',
@@ -55,14 +56,14 @@ const customDUSDActivePrice = {
 // TODO (Harsh) Manage pagination for all api
 export const fetchVaults = createAsyncThunk(
   'wallet/fetchVaults',
-  async ({ size = 50, address, client }: { size?: number, address: string, client: WhaleApiClient }) => {
+  async ({ size = 200, address, client }: { size?: number, address: string, client: WhaleApiClient }) => {
     return await client.address.listVault(address, size)
   }
 )
 
 export const fetchLoanTokens = createAsyncThunk(
   'wallet/fetchLoanTokens',
-  async ({ size = 50, client }: { size?: number, client: WhaleApiClient }) => {
+  async ({ size = 200, client }: { size?: number, client: WhaleApiClient }) => {
     return await client.loan.listLoanToken(size)
   }
 )

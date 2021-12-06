@@ -158,7 +158,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
             testID={`${props.testID}_total_collateral`}
             prefix='$'
             value={new BigNumber(vault.collateralValue).toFixed(2)}
-            lhs={translate('components/VaultCard', 'Collateral amount (USD)')}
+            lhs={translate('components/VaultCard', 'Total collateral (USD)')}
           />
         </View>
       </ThemedTouchableOpacity>

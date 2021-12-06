@@ -133,7 +133,11 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
             searchString={searchString}
             onClearInput={() => setSearchString('')}
             onChangeInput={(text: string) => setSearchString(text)}
-            onCancelPress={() => setShowSearchInput(false)}
+            onCancelPress={() => {
+              setSearchString('')
+              setShowSearchInput(false)
+            }}
+            placeholder='Search for loans'
           />
         )
       })
@@ -148,8 +152,8 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
     return (
       <View style={tailwind('mt-1')}>
         <SkeletonLoader
-          row={6}
-          screen={SkeletonLoaderScreen.Loan}
+          row={3}
+          screen={SkeletonLoaderScreen.Vault}
         />
       </View>
     )
