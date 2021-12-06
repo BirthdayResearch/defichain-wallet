@@ -667,7 +667,7 @@ exports[`Batch Card should match snapshot 1`] = `
           ]
         }
       >
-        Auction time left
+        Auction time remaining
       </Text>
     </View>
     <View
