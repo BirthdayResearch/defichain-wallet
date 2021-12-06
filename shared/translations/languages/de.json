@@ -1128,7 +1128,8 @@
     "Min. next bid": "Nächstes Mind. Gebot",
     "Insufficient funds": "Unzureichende Deckung",
     "Collaterals": "Sicherheiten",
-    "How much do you want to bid?": "Wie viel möchtest du bieten?"
+    "How much do you want to bid?": "Wie viel möchtest du bieten?",
+    "The value of the tokens you are placing is considerably higher than the total auction value.": "Der Wert der Token, die du setzt, ist wesentlich höher als der Gesamtwert der Auktion."
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",

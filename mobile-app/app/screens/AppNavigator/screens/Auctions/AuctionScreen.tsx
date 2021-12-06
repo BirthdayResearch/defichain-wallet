@@ -71,7 +71,10 @@ export function AuctionsScreen ({ navigation }: Props): JSX.Element {
             onChangeInput={(text: string) => {
               setSearchString(text)
             }}
-            onCancelPress={() => setShowSearchInput(false)}
+            onCancelPress={() => {
+              setSearchString('')
+              setShowSearchInput(false)
+            }}
             placeholder='Search for loan token'
           />
         )
