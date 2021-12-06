@@ -853,7 +853,7 @@
     "This amount is the total interest amount from both vault and token interest rate.": "此金额是金库和代币利率的利息总和",
     "Annual vault interest": "金库年利息",
     "Min. next bid": "最低标价", 
-    "The minimum bid a user must place, as long as it's not the first bid for the batch": "除了第一次出价以外，这是用户必须出的最低价"
+    "The minimum bid a user must place in order to take part in the auction.": "用户参与拍卖必须提交的最低标价。"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金库编号",
