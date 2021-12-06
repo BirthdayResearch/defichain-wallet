@@ -237,7 +237,7 @@
     "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "抵押品因素決定每個抵押代幣的貢獻程度。例如，如果一個代幣以70%的抵押因素被接受，價值100美元的代幣將貢獻該金庫中70美元的抵押品價值。"
   },
   "components/AuctionsFaq": {
-    "Auctions FAQ": "Auctions FAQ",
+    "Auctions FAQ": "拍賣常見問題",
     "Auctions": "清算拍賣",
     "FREQUENTLY ASKED QUESTIONS": "常見問題",
     "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "金庫拍賣是用戶對已清算的金庫中的抵押品收回金庫未償還貸款的活動。當金庫的抵押品比率低於最低要求時，即進行清算，在此情況下，金庫抵押品將分為10,000美元的批次進行拍賣。",
