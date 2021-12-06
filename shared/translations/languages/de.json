@@ -27,7 +27,7 @@
     "Pooled {{symbol}}": "{{symbol}} im Pool",
     "Total pooled {{symbol}}": "Gesamte {{symbol}} im Pool",
     "Your pooled {{symbol}}": "Deine {{symbol}} im Pool",
-    "SWAP TOKENS": "TOKEN TAUSCHEN",
+    "SWAP TOKENS": "TOKEN-TAUSCH",
     "REMOVE": "ENTFERNEN",
     "APR": "APR",
     "ADD MORE": "HINZUFÜGEN",
@@ -38,7 +38,7 @@
     "Your pool pairs": "Deine Pool-Paare",
     "Total Value Locked (USD)": "Fixierter Gesamtwert (USD)",
     "SWAP": "TAUSCH",
-    "Swap tokens": "Token Tausche"
+    "Swap tokens": "Token-Tausch"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Richtlinien",
@@ -46,7 +46,7 @@
     "Decentralized Exchange": "Dezentrale Börse",
     "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "Nimm teil am Liquidität Bereitstellen für den Betrieb der dezentralen Börse (DEX). Gebrauche deine Token, um hohe Renditen zu erzielen (bis zu 100%).",
     "Add liquidity": "Liquidität hinzufügen",
-    "Swap tokens": "Token Tausche",
+    "Swap tokens": "Token-Tausch",
     "Withdraw at any time": "Entfernen der Liquidität zu jeder Zeit",
     "Earn high yields by supplying token pairs to the liquidity pool.": "Erziele hohe Erträge durch die Bereitstellung von Handelspaaren zum Liquidity Pool.",
     "Conveniently swap participating tokens within the liquidity pool.": "Bequemer Umtausch von im Liquidity Pool vertretenen Token.",
@@ -54,6 +54,7 @@
   },
   "screens/BalancesScreen": {
     "Balances": "Guthaben",
+    "SEND": "SENDEN",
     "RECEIVE": "EMPFANGEN",
     "BUY WITH FIAT": "MIT FIAT KAUFEN",
     "PORTFOLIO": "PORTFOLIO",
@@ -82,7 +83,11 @@
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
     "Amount to be converted": "Umzuwandelnder Betrag",
-    "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln"
+    "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
+    "Send to other wallet": "An andere Wallet senden",
+    "Select token": "Token auswählen",
+    "Select a token you want to send to get started": "Wähle einen Token, den du senden möchtest, um loszulegen",
+    "Choose token to send": "Token zum Senden auswählen"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Senden bestätigen",
@@ -99,7 +104,8 @@
     "Sending": "Senden {{symbol}}",
     "Sending {{amount}} {{symbol}}": "Sende {{amount}} {{symbol}}",
     "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN",
-    "Convert & send": "Umrechnen & senden"
+    "Convert & send": "Umrechnen & senden",
+    "I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "Ich nehme zur Kenntnis, dass der Versand von LP-Token an Adressen, die nicht mit der DeFiChain kompatibel sind, zu einem irreversiblen Verlust von Einlagen führen kann."
   },
   "screens/ConvertScreen": {
     "Convert DFI": "DFI umwandeln",
@@ -128,7 +134,7 @@
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktionsart",
     "Convert": "Umwandeln",
-    "{{token}} to receive": "Zu erhaltende {{token}}",
+    "{{token}} to receive": "Verbleibende {{token}}",
     "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN"
   },
   "screens/SettingsNavigator": {
@@ -207,7 +213,7 @@
     "Loans FAQ": "FAQ Darlehen",
     "Decentralized Loans": "Dezentrale Darlehen",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN",
-    "The decentralized loan feature allows you to borrow decentralised tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.": "Mit der dezentralen Darlehensfunktion kannst du dezentrale Token ausleihen, indem du deine Kryptowährungsbestände als Sicherheiten verwendest. Zunächst musst du einen Vault anlegen und Sicherheiten hinterlegen, bevor du ein Darlehen aufnehmen kannst.",
+    "The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.": "Mit der dezentralen Darlehensfunktion kannst du dezentrale Token ausleihen, indem du deine Kryptowährungsbestände als Sicherheiten verwendest. Zunächst musst du einen Vault anlegen und Sicherheiten hinterlegen, bevor du ein Darlehen aufnehmen kannst.",
     "How is the collateralization ratio calculated?": "Wie wird die Besicherungsquote berechnet?",
     "The collateralization ratio is calculated by taking the total collateral value deposited in a vault; divided by the amount of loan taken plus total interest, expressed in percentage.": "Die Besicherungsquote wird berechnet, indem der Gesamtwert der in einem Vault hinterlegten Sicherheiten durch den aufgenommenen Darlehensbetrag und die Gesamtzinsen geteilt wird, ausgedrückt in Prozent.",
     "What is the collateralization ratio used for?": "Wozu dient die Besicherungsquote?",
@@ -258,7 +264,7 @@
     "Convert to {{symbol}}": "Umwandeln in {{symbol}}",
     "Add to liquidity pool": "Zu Liquiditätspool hinzufügen",
     "Remove liquidity": "Liquidität entfernen",
-    "Swap with {{token}}": "Tauschen gegen {{token}}"
+    "Swap with {{token}}": "Tausche gegen {{token}}"
   },
   "screens/TokensVsUtxoScreen": {
     "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "DFI existiert in zwei Formen - UTXO und Token, die je nach Verwendung austauschbar sind. Mit der App kannst du leicht zwischen den beiden Arten wechseln.",
@@ -367,6 +373,7 @@
   "screens/FeatureFlagScreen": {
     "Loans": "Darlehen",
     "Browse loan tokens provided by DeFiChain": "Von DeFiChain bereitgestellte Darlehens-Token durchsuchen",
+    "Browse auctions provided by DeFiChain": "Von DeFiChain angebotene Auktionen durchsuchen",
     "Continue": "Weiter",
     "Cancel": "Abbrechen",
     "Enable {{feature}} (Beta)": "Aktiviere {{feature}} (Beta)",
@@ -380,7 +387,8 @@
     "Liquidity": "Liquidität",
     "Transactions": "Transaktionen",
     "Settings": "Einstellungen",
-    "Loans": "Darlehen"
+    "Loans": "Darlehen",
+    "Auctions": "Auktionen"
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "Warte auf Bestätigung",
@@ -452,7 +460,7 @@
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "Du entfernst",
-    "ESTIMATED AMOUNT TO RECEIVE": "GESCHÄTZTER ZU ERHALTENDER BETRAG",
+    "ESTIMATED AMOUNT TO RECEIVE": "VORAUSSICHTLICH ZU ERHALTENDER BETRAG",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Price": "Preis",
     "Estimated fee": "Voraussichtliche Gebühr",
@@ -506,7 +514,7 @@
     "SLIPPAGE TOLERANCE": "SLIPPAGE TOLERANZ"
   },
   "screens/PoolSwapScreen": {
-    "Swap": "Tausche",
+    "Swap": "Tausch",
     "How much {{token}} do you want to swap?": "Wie viele {{token}} möchtest du umtauschen?",
     "Available": "Verfügbar",
     "After": "Danach",
@@ -525,7 +533,7 @@
     "You will receive": "Du wirst erhalten"
   },
   "screens/CompositeSwapScreen": {
-    "Swap tokens": "Token Tausche",
+    "Swap tokens": "Token-Tausch",
     "Select tokens you want to swap to get started": "Wähle die Token, die du tauschen möchtest, um zu beginnen",
     "How much {{token}} do you want to swap?": "Wie viele {{token}} möchtest du umtauschen?",
     "You have": "Du hast aktuell",
@@ -556,8 +564,8 @@
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Transaction type": "Transaktionsart",
     "Convert & swap": "Umrechnen & tauschen",
-    "Swap": "Tausche",
-    "Swapping Token": "Token Tausche",
+    "Swap": "Tausch",
+    "Swapping Token": "Token-Tausch",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
     "Slippage Tolerance": "Slippage Toleranz",
     "Estimated to receive": "Geschätzter Betrag"
@@ -568,15 +576,15 @@
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Slippage Tolerance": "Slippage Toleranz",
     "Estimated fee": "Voraussichtliche Gebühr",
-    "SWAP": "TAUSCHE",
+    "SWAP": "TAUSCH",
     "SWAPPING": "WIRD GETAUSCHT",
-    "Swapping Token": "Token Tausche",
+    "Swapping Token": "Token-Tausch",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
     "{{token}} balance": "{{token}} Saldo",
     "CONFIRM SWAP": "TAUSCH BESTÄTIGEN",
     "Transaction type": "Transaktionsart",
-    "Swap": "Tausche",
+    "Swap": "Tausch",
     "Convert & swap": "Umrechnen & tauschen",
     "Max Price per {{fromToken}}": "Max. Preis pro {{fromToken}}",
     "PRICE DETAILS": "PREISDETAILS"
@@ -642,7 +650,8 @@
   },
   "components/ConversionInfoText": {
     "Conversion will be required. Your passcode will be asked to authorize both transactions.": "Eine Konvertierung ist erforderlich. Du wirst nach deinem Passwort gefragt, um beide Transaktionen frei zu geben.",
-    "Please wait as we convert tokens for your transaction. Conversions are irreversible.": "Warte bitte, während wir Token für deine Transaktion umwandeln. Konvertierungen sind nicht umkehrbar."
+    "Please wait as we convert tokens for your transaction. Conversions are irreversible.": "Warte bitte, während wir Token für deine Transaktion umwandeln. Konvertierungen sind nicht umkehrbar.",
+    "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges may result in irreversible loss of funds.": "Sende Liquidity Pool-Token nur an DeFiChain-kompatible Wallets. Andernfalls kann der Versand an andere Tauschbörsen zu einem irreversiblen Verlust von Einlagen führen."
   },
   "components/ConversionTag": {
     "Conversion required": "Konvertierung erforderlich"
@@ -651,12 +660,12 @@
     "CONVERSION DETAILS": "UMRECHNUNGSDETAILS",
     "Conversion type": "Art der Konvertierung",
     "Amount to convert": "Umzuwandelnder Betrag",
-    "Resulting {{token}}": "Zu erhaltende {{token}}",
+    "Resulting {{token}}": "Verbleibende {{token}}",
     "Amount above are prior to transaction": "Die oben genannten Beträge geben die Werte vor der Transaktion wieder"
   },
   "components/TransactionResultsRow": {
     "TRANSACTION RESULTS": "TRANSAKTIONSERGEBNISSE",
-    "Resulting {{symbol}}": "Zu erhaltende {{symbol}}"
+    "Resulting {{symbol}}": "Verbleibende {{symbol}}"
   },
   "screens/LoansScreen": {
     "Loans": "Darlehen",
@@ -672,7 +681,7 @@
     "Confirm Edit Loan Scheme": "Darlehensmodellbearbeitung bestätigen",
     "Borrow More": "Mehr ausleihen",
     "Choose Loan Token to Borrow": "Darlehens-Token zum Ausleihen wählen",
-    "Payback Loan": "Darlehen Zurückzahlen",
+    "Payback Loan": "Darlehensrückzahlung",
     "Close Vault": "Vault Schließen"
   },
   "components/tabs": {
@@ -682,7 +691,11 @@
     "Details": "Details",
     "Collaterals": "Sicherheiten",
     "Auctions": "Auktionen",
-    "Loans": "Darlehen"
+    "Loans": "Darlehen",
+    "Browse auctions": "Auktionen durchsuchen",
+    "Manage bids": "Gebote verwalten",
+    "Auctioned collaterals": "Versteigerte Sicherheiten",
+    "Auction details": "Auktionsdetails"
   },
   "components/LoanCard": {
     "Active Price": "Aktueller Preis",
@@ -694,7 +707,67 @@
     "Learn more about UTXO and Token": "Erfahre mehr über UTXO und Token",
     "UTXO vs Token, what is the difference?": "UTXO vs Token, worin liegt der Unterschied?",
     "Learn more about vaults": "Lerne mehr über Vaults",
-    "Learn more about vaults and loan schemes": "Erfahre mehr über Vaults und Darlehensmodelle"
+    "Learn more about vaults and loan schemes": "Erfahre mehr über Vaults und Darlehensmodelle",
+    "Learn more about auctions and bidding": "Erfahre mehr über Auktionen und Bieten",
+    "Learn about auctions": "Erfahre mehr über Auktionen"
+  },
+  "components/EmptyBidsScreen": {
+    "No active bids": "Keine aktiven Gebote",
+    "To get started, browse on auctions and place a bid": "Durchsuche Auktionen und gib ein Gebot ab"
+  },
+  "components/EmptyAuctions": {
+    "No ongoing auctions": "Keine laufenden Auktionen",
+    "Check again later for any ongoing auctions that you can participate": "Schaue später noch einmal nach, ob es laufende Auktionen gibt, an denen du teilnehmen kannst"
+  },
+  "screens/AuctionScreen": {
+    "Auctions": "Auktionen",
+    "Place Bid": "Bieten",
+    "Confirm Place Bid": "Gebot bestätigen"
+  },
+  "components/AuctionDetailScreen":{
+    "Collaterals": "Sicherheiten",
+    "Min. next bid": "Nächstes Mind. Gebot",
+    "VAULT DETAILS": "VAULT-DETAILS",
+    "Vault ID": "Vault-ID",
+    "Owner ID": "Besitzer-ID", 
+    "Liquidation height": "Liquidierungsblockhöhe", 
+    "ADDITIONAL DETAILS": "ZUSÄTZLICHE DETAILS",
+    "Collateral value (USD)": "Sicherheitenwert (USD)",
+    "Auction start": "Auktions-Start",
+    "{{count}} COLLATERAL TOKENS": "{{count}} BESICHERUNGSTOKEN",
+    "Total auction value (USD):": "Gesamtauktionswert (USD):",
+    "PLACE BID": "GEBOT ABGEBEN",
+    "Batch #{{index}}": "Batch #{{index}}",
+    "Min. starting bid": "Mind. Anfangsgebot"
+  },
+  "components/BatchCard": {
+    "Latest bid": "Letztes Gebot",
+    "Token to win": "Token zu ersteigern",
+    "PLACE BID": "GEBOT ABGEBEN",
+    "VIEW REWARDS": "REWARDS ANSEHEN",
+    "ACTIVE BID": "AKTIVES GEBOT",
+    "{{h}}h": "{{h}}h",
+    "{{m}}m": "{{m}}min",
+    "Total auction value (USD)": "Gesamtauktionswert (USD)",
+    "Min. next bid": "Nächstes Mind. Gebot",
+    "You are the highest bidder": "Du bist Höchstbietender"
+  },
+  "components/BidCard": {
+    "BID HIGHER": "HÖHERES GEBOT",
+    "VIEW REWARDS": "REWARDS ANSEHEN",
+    "Auction ID": "Auktions-ID",
+    "Auction won": "Auktion gewonnen",
+    "Lost to another bid": "An ein anderes Gebot verloren",
+    "Lost": "Verloren",
+    "Highest bid": "Höchstes Gebot",
+    "Auction ended": "Auktion beendet"
+  },
+  "components/AuctionTimeProgress": {
+    "Auction ends in": "Auktion endet in",
+    "Auction time left": "Verbleibende Auktionszeit",
+    "{{block}} blks": "{{block}} Blöcke",
+    "~{{time}} left": "Noch ~{{time}}",
+    "Auction time remaining": "Verbleibende Auktionszeit"
   },
   "components/VaultCard": {
     "Collaterals:": "Sicherheiten:",
@@ -768,8 +841,10 @@
     "Interest amount": "Zinsbetrag",
     "Next collateralization": "Nächste Besicherung",
     "Min. collateralization ratio": "Mind. Besicherungsquote",
-    "This amount is the total interest amount from both vault and token interest rate.": "Dieser Gesamtzinsbetrag setzt sich aus Vault- und Token-Zinssatz zusammen.",
-    "Annual vault interest": "Vault-Jahreszins"
+    "This amount is the total interest amount from both vault and token interest rate.": "Dieser Betrag ist der Gesamtzinsbetrag zusammen gesetzt aus Vault- und Token-Zinssatz",
+    "Annual vault interest": "Jährlicher Vault-Zins",
+    "Min. next bid": "Nächstes Mind. Gebot",
+    "The minimum bid a user must place, as long as it's not the first bid for the batch": "Das Mindestgebot, das ein Nutzer abgeben muss, sofern es nicht das erste Gebot für den Auktionsteil ist"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
@@ -797,7 +872,7 @@
   "components/VaultDetailsLoansTab": {
     "Outstanding balance": "Ausstehender Saldo",
     "Interest amount": "Zinsbetrag",
-    "PAYBACK LOAN": "DARLEHEN ZURÜCKZAHLEN",
+    "PAYBACK LOAN": "DARLEHENSRÜCKZAHLUNG",
     "BORROW MORE": "MEHR AUSLEIHEN"
   },
   "components/BalanceControlCard": {
@@ -870,6 +945,7 @@
     "Total collateral (USD)": "Gesamter Besicherungswert (USD)",
     "COLLATERAL {{index}}": "SICHERHEITEN {{index}}",
     "Token": "Token",
+    "Vault %": "Vault %",
     "Collateralization factor": "Besicherungsfaktor",
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateral value (USD)": "Sicherheitenwert (USD)",
@@ -997,7 +1073,7 @@
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "DU STOCKST DEIN DARLEHEN AUF",
-    "How much do you want to add?": "Wie viel möchtest du hinzufügen?",
+    "How much do you want to add?": "Wie viel möchtest du zusätzlich aufnehmen?",
     "Enter an amount": "Gib eine Menge ein",
     "VAULT IN USE": "AKTIVER VAULT",
     "CONTINUE": "WEITER",
@@ -1010,6 +1086,7 @@
   },
   "components/EmptyCollateral": {
     "No collaterals": "Keine Sicherheiten",
+    "ADD COLLATERALS": "ADD COLLATERALS",
     "Add DFI and tokens as collateral to get started with loans.": "Füge DFI und Token als Sicherheiten hinzu, um Darlehen aufnehmen zu können."
   },
   "screens/CloseVaultScreen": {
@@ -1024,5 +1101,44 @@
   },
   "components/TokenIconGroup": {
     "more": "weitere"
+  },
+  "screens/PlaceBidScreen": {
+    "Enter an amount": "Gib eine Menge ein",
+    "MIN. BID": "MIND. GEBOT",
+    "Bid amount is lower than required": "Gebotsbetrag ist niedriger als erforderlich",
+    "Available": "Verfügbar",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "CONTINUE": "WEITER",
+    "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
+    "Total auction value (USD)": "Gesamtauktionswert (USD)",
+    "(Full details)": "(Alle Details)",
+    "Min. next bid": "Nächstes Mind. Gebot",
+    "Insufficient funds": "Unzureichende Deckung",
+    "Collaterals": "Sicherheiten",
+    "How much do you want to bid?": "Wie viel möchtest du bieten?"
+  },
+  "screens/ConfirmPlaceBidScreen": {
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "Transaction type": "Transaktionsart",
+    "Place bid": "Bieten",
+    "Bid amount to place": "Zu setzender Gebotsbetrag",
+    "AUCTION DETAILS": "AUKTIONSDETAILS",
+    "Total auction value (USD)": "Gesamtauktionswert (USD)",
+    "Vault ID": "Vault-ID",
+    "Vault owner ID": "Vault-Besitzer-ID",
+    "Liquidation Height": "Liquidationsblockhöhe",
+    "CONFIRM PLACE BID": "GEBOT BESTÄTIGEN",
+    "Sign Transaction": "Transaktion freigeben",
+    "Placing {{amount}} {{token}} as bid for auction.": "Abgabe des Gebotsbetrags von {{amount}} {{token}}",
+    "Auctioned collaterals": "Versteigerte Sicherheiten",
+    "Insufficient funds": "Unzureichende Deckung"
+  },
+  "components/QuickBid": {
+    "QUICK BID": "SCHNELLES GEBOT",
+    "Insufficient amount to place a bid": "Insufficient amount to place a bid",
+    "Quick bid": "Schnelles Gebot",
+    "Place a bid on the auctions with the min. next bid": "Biete auf die Auktionen mit dem nächsten Mindestgebot",
+    "Min. next bid": "Nächstes Mind. Gebot",
+    "Current balance": "Aktueller Stand"
   }
 }

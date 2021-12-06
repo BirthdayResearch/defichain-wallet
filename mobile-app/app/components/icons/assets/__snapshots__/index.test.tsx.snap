@@ -499,13 +499,18 @@ exports[`token icons getNativeIcon("dAAPL") should get <IcondAAPL /> snapshot 1`
       ]
     }
   >
-    <RNSVGGroup>
+    <RNSVGGroup
+      clipPath="clip0_1388_11302"
+    >
       <RNSVGPath
+        clipRule={0}
         d="M16.5 0C7.663 0 0.5 7.163 0.5 16C0.5 24.837 7.663 32 16.5 32C25.338 32 32.5 24.837 32.5 16C32.5 7.163 25.338 0 16.5 0Z"
         fill={4278190080}
+        fillRule={0}
         propList={
           Array [
             "fill",
+            "fillRule",
           ]
         }
       />
@@ -614,13 +619,18 @@ exports[`token icons getNativeIcon("dAMD") should get <IcondAMD /> snapshot 1`] 
       ]
     }
   >
-    <RNSVGGroup>
+    <RNSVGGroup
+      clipPath="clip0_1388_11299"
+    >
       <RNSVGPath
+        clipRule={0}
         d="M16.5 0C7.663 0 0.5 7.163 0.5 16C0.5 24.837 7.663 32 16.5 32C25.338 32 32.5 24.837 32.5 16C32.5 7.163 25.338 0 16.5 0Z"
         fill={4278190080}
+        fillRule={0}
         propList={
           Array [
             "fill",
+            "fillRule",
           ]
         }
       />
@@ -1100,7 +1110,9 @@ exports[`token icons getNativeIcon("dCOIN") should get <IcondCOIN /> snapshot 1`
   width={32}
 >
   <RNSVGGroup>
-    <RNSVGGroup>
+    <RNSVGGroup
+      clipPath="clip0_1462_4427"
+    >
       <RNSVGPath
         clipRule={0}
         d="M16.5 0C7.663 0 0.5 7.163 0.5 16C0.5 24.837 7.663 32 16.5 32C25.338 32 32.5 24.837 32.5 16C32.5 7.163 25.338 0 16.5 0Z"
@@ -6175,13 +6187,18 @@ exports[`token icons getNativeIcon("dGME") should get <IcondGME /> snapshot 1`] 
       ]
     }
   >
-    <RNSVGGroup>
+    <RNSVGGroup
+      clipPath="clip0_1388_11290"
+    >
       <RNSVGPath
+        clipRule={0}
         d="M16.5 0C7.663 0 0.5 7.163 0.5 16C0.5 24.837 7.663 32 16.5 32C25.338 32 32.5 24.837 32.5 16C32.5 7.163 25.338 0 16.5 0Z"
         fill={4278190080}
+        fillRule={0}
         propList={
           Array [
             "fill",
+            "fillRule",
           ]
         }
       />
@@ -6282,11 +6299,14 @@ exports[`token icons getNativeIcon("dGOOG") should get <IcondGOOG /> snapshot 1`
     }
   >
     <RNSVGPath
+      clipRule={0}
       d="M16 0C7.163 0 0 7.163 0 16C0 24.837 7.163 32 16 32C24.838 32 32 24.837 32 16C32 7.163 24.838 0 16 0Z"
       fill={4281641043}
+      fillRule={0}
       propList={
         Array [
           "fill",
+          "fillRule",
         ]
       }
     />
@@ -6728,11 +6748,14 @@ exports[`token icons getNativeIcon("dPLTR") should get <IcondPLTR /> snapshot 1`
     }
   >
     <RNSVGPath
+      clipRule={0}
       d="M16 0C7.163 0 0 7.163 0 16C0 24.837 7.163 32 16 32C24.838 32 32 24.837 32 16C32 7.163 24.838 0 16 0Z"
       fill={4278190080}
+      fillRule={0}
       propList={
         Array [
           "fill",
+          "fillRule",
         ]
       }
     />
@@ -7124,13 +7147,18 @@ exports[`token icons getNativeIcon("dTSLA") should get <IcondTSLA /> snapshot 1`
       ]
     }
   >
-    <RNSVGGroup>
+    <RNSVGGroup
+      clipPath="clip0_1388_11287"
+    >
       <RNSVGPath
+        clipRule={0}
         d="M16 0C7.163 0 0 7.163 0 16C0 24.837 7.163 32 16 32C24.838 32 32 24.837 32 16C32 7.163 24.838 0 16 0Z"
         fill={4293402919}
+        fillRule={0}
         propList={
           Array [
             "fill",
+            "fillRule",
           ]
         }
       />

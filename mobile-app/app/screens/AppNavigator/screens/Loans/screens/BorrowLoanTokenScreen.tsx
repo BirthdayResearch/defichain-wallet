@@ -28,14 +28,11 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Button } from '@components/Button'
 import { useDispatch, useSelector } from 'react-redux'
-import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { ConversionInfoText } from '@components/ConversionInfoText'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
-import { queueConvertTransaction } from '@hooks/wallet/Conversion'
 import { useResultingCollateralRatio } from '../hooks/CollateralPrice'
 import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
@@ -65,11 +62,6 @@ export function BorrowLoanTokenScreen ({
   const [valid, setValid] = useState(false)
   const resultingColRatio = useResultingCollateralRatio(new BigNumber(vault?.collateralValue ?? NaN), new BigNumber(vault?.loanValue ?? NaN),
   new BigNumber(totalLoanWithInterest), new BigNumber(loanToken.activePrice?.active?.amount ?? 0))
-
-  // Conversion
-  const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
-  const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
-  const isConversionRequired = new BigNumber(0.1).gt(DFIUtxo.amount)
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const canUseOperations = useLoanOperations(vault?.state)
@@ -144,42 +136,17 @@ export function BorrowLoanTokenScreen ({
       return
     }
 
-    if (isConversionRequired) {
-      queueConvertTransaction({
-        mode: 'accountToUtxos',
-        amount: new BigNumber(0.1).minus(DFIUtxo.amount)
-      }, dispatch, () => {
-        navigation.navigate({
-          name: 'ConfirmBorrowLoanTokenScreen',
-          params: {
-            loanToken: loanToken,
-            vault: vault,
-            amountToBorrow,
-            totalInterestAmount,
-            totalLoanWithInterest,
-            fee,
-            conversion: {
-              DFIUtxo,
-              DFIToken,
-              isConversionRequired,
-              conversionAmount: new BigNumber(0.1).minus(DFIUtxo.amount)
-            }
-          }
-        })
-      }, logger)
-    } else {
-      navigation.navigate({
-        name: 'ConfirmBorrowLoanTokenScreen',
-        params: {
-          loanToken: loanToken,
-          vault: vault,
-          amountToBorrow,
-          totalInterestAmount,
-          totalLoanWithInterest,
-          fee
-        }
-      })
-    }
+    navigation.navigate({
+      name: 'ConfirmBorrowLoanTokenScreen',
+      params: {
+        loanToken: loanToken,
+        vault: vault,
+        amountToBorrow,
+        totalInterestAmount,
+        totalLoanWithInterest,
+        fee
+      }
+    })
   }
 
   const validateInput = (): void => {
@@ -226,7 +193,7 @@ export function BorrowLoanTokenScreen ({
   }, [amountToBorrow, vault, totalLoanWithInterest])
 
   return (
-    <View ref={containerRef} style={{ flex: 1 }}>
+    <View style={tailwind('h-full')} ref={containerRef}>
       <ThemedScrollView>
         <View style={tailwind('px-4')}>
           <ThemedText style={tailwind('text-xl font-bold mt-6')}>
@@ -281,11 +248,6 @@ export function BorrowLoanTokenScreen ({
               loanTokenPrice={new BigNumber(loanToken.activePrice?.active?.amount ?? 0)}
               fee={fee}
             />
-            {isConversionRequired && (
-              <View style={tailwind('mt-4 mx-4')}>
-                <ConversionInfoText />
-              </View>
-            )}
             <Button
               disabled={!valid || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
               label={translate('screens/BorrowLoanTokenScreen', 'CONTINUE')}

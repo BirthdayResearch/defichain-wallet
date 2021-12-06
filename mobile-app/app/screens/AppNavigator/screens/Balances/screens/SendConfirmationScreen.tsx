@@ -12,7 +12,7 @@ import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
 import { TextRow } from '@components/TextRow'
-import { ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
+import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { RootState } from '@store'
 import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -26,7 +26,7 @@ import { FeeInfoRow } from '@components/FeeInfoRow'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { InfoText } from '@components/InfoText'
-import { View } from '@components'
+import { Switch, View } from '@components'
 
 type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
 
@@ -48,6 +48,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const expectedBalance = BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)), 0).toFixed(8)
+  const [isAcknowledge, setIsAcknowledge] = useState(false)
 
   useEffect(() => {
     setIsOnPage(true)
@@ -168,8 +169,14 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         </View>
       )}
 
+      {token.isLPS &&
+        (
+          <LpAcknowledgeSwitch isAcknowledge={isAcknowledge} onSwitch={(val) => setIsAcknowledge(val)} />
+        )}
+
       <SubmitButtonGroup
-        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob || (token.isLPS && !isAcknowledge)}
+        isCancelDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/SendConfirmationScreen', 'CONFIRM SEND')}
         isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         processingLabel={translate('screens/SendConfirmationScreen', getSubmitLabel())}
@@ -181,6 +188,24 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   )
 }
 
+function LpAcknowledgeSwitch (props: {isAcknowledge: boolean, onSwitch: (val: boolean) => void}): JSX.Element {
+  return (
+    <View style={tailwind('mx-4 mt-8 flex flex-row items-center')}>
+      <Switch
+        value={props.isAcknowledge}
+        onValueChange={props.onSwitch}
+        testID='lp_ack_switch'
+      />
+      <ThemedText
+        light={tailwind('text-gray-700')}
+        dark={tailwind('text-gray-300')}
+        style={tailwind('ml-2 flex-1 text-xs')}
+      >
+        {translate('screens/SendConfirmationScreen', 'I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.')}
+      </ThemedText>
+    </View>
+  )
+}
 interface SendForm {
   amount: BigNumber
   address: string
