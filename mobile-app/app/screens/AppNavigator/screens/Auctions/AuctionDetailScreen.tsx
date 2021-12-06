@@ -25,7 +25,6 @@ import NumberFormat from 'react-number-format'
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useAuctionBidValue } from './hooks/AuctionBidValue'
 import { useAuctionTime } from './hooks/AuctionTimeLeft'
-import { getActivePrice } from './helpers/ActivePrice'
 import { QuickBid } from './components/QuickBid'
 import { AuctionBidStatus } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -43,7 +42,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
   const tokens = useTokensAPI()
   const { getVaultsUrl } = useDeFiScanContext()
   const [activeTab, setActiveTab] = useState<string>(TabKey.Collaterals)
-  const { minNextBidInToken } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
+  const { minNextBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
   const { address } = useWalletContext()
@@ -178,7 +177,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
         {activeTab === TabKey.Collaterals && (
           <AuctionedCollaterals
             collaterals={batch.collaterals}
-            auctionAmount={new BigNumber(batch.loan.amount).multipliedBy(getActivePrice(batch.loan.symbol, batch.loan.activePrice)).toFixed(2)}
+            auctionAmount={totalCollateralsValueInUSD}
           />
         )}
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
-import BigNumber from 'bignumber.js'
 import { ThemedText, ThemedView, ThemedIcon } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { View } from '@components'
@@ -19,7 +18,6 @@ import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
-import { getActivePrice } from '../helpers/ActivePrice'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 
 export interface BatchCardProps {
@@ -40,7 +38,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
   const { batch, testID, vault } = props
   const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
-  const { minNextBidInToken } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
+  const { minNextBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
 
   const nextBidInfo = {
     title: 'Min. next bid',
@@ -144,7 +142,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
                 </ThemedText>
               )}
               thousandSeparator
-              value={new BigNumber(batch.loan.amount).multipliedBy(getActivePrice(batch.loan.symbol, batch.loan.activePrice)).toFixed(2)}
+              value={totalCollateralsValueInUSD}
             />
           </View>
         </View>

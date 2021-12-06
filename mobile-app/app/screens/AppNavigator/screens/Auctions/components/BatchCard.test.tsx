@@ -23,7 +23,8 @@ jest.mock('../hooks/AuctionBidValue', () => ({
     totalLoanAmountInUSD: '100',
     minStartingBidInUSD: '100',
     minStartingBidInToken: '11',
-    minNextBidInToken: '11'
+    minNextBidInToken: '11',
+    totalCollateralsValueInUSD: '12345'
   })
 }))
 
