@@ -2,12 +2,15 @@ import { tailwind } from '@tailwind'
 import React from 'react'
 import { ThemedView, ThemedText } from '@components/themed'
 import NumberFormat from 'react-number-format'
+import { StyleProp } from 'react-native'
+import { TextProps } from '@components'
 
 interface InputHelperTextProps {
   testID?: string
   label: string
   content: string
   suffix: string
+  styleProps?: StyleProp<TextProps>
 }
 export function InputHelperText (props: InputHelperTextProps): JSX.Element {
   return (
@@ -31,7 +34,7 @@ export function InputHelperText (props: InputHelperTextProps): JSX.Element {
           <ThemedText
             light={tailwind('text-gray-700')}
             dark={tailwind('text-gray-200')}
-            style={tailwind('text-sm')}
+            style={[tailwind('text-sm'), props.styleProps]}
             testID={props.testID}
           >
             {value}

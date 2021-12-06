@@ -1,159 +1,163 @@
-import React, { useEffect, useState } from 'react'
-import { View } from 'react-native'
-import BigNumber from 'bignumber.js'
+import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import { TouchableOpacity, View } from 'react-native'
 import { tailwind } from '@tailwind'
-import { ThemedView } from '@components/themed'
-import { LoanCardOptions, LoanCards } from '@components/LoanCards'
+import { ThemedIcon, ThemedView } from '@components/themed'
 import { Tabs } from '@components/Tabs'
 import { Vaults } from './components/Vaults'
 import { EmptyVault } from './components/EmptyVault'
+import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@store'
+import { fetchLoanSchemes, fetchLoanTokens, fetchVaults, loanTokensSelector } from '@store/loans'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { LoanCards } from './components/LoanCards'
 import { StackScreenProps } from '@react-navigation/stack'
 import { LoanParamList } from './LoansNavigator'
-import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
+import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
+import { HeaderSearchInput } from '@components/HeaderSearchInput'
+import { debounce } from 'lodash'
+import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
 
 enum TabKey {
   BrowseLoans = 'BROWSE_LOANS',
   YourVaults = 'YOUR_VAULTS'
 }
 
-export type LoadingState = 'empty_vault' | 'loading' | 'success'
 type Props = StackScreenProps<LoanParamList, 'LoansScreen'>
 
-export function LoansScreen ({ route }: Props): JSX.Element {
-  const [activeTab, setActiveTab] = useState<string>(TabKey.BrowseLoans)
-  const [loadingState, setLoadingState] = useState<LoadingState>('empty_vault') // TODO: remove temporary display flag
+export function LoansScreen ({ navigation }: Props): JSX.Element {
+  const { address } = useWalletContext()
+  const blockCount = useSelector((state: RootState) => state.block.count)
+  const {
+    vaults,
+    hasFetchedVaultsData,
+    hasFetchedLoansData
+  } = useSelector((state: RootState) => state.loans)
+  const loans = useSelector((state: RootState) => loanTokensSelector(state.loans))
+  const [activeTab, setActiveTab] = useState<string>(TabKey.YourVaults)
+  const dispatch = useDispatch()
+  const client = useWhaleApiClient()
   const onPress = (tabId: string): void => {
+    if (tabId === TabKey.YourVaults) {
+      setShowSearchInput(false)
+    } else if (searchString !== '') {
+      setShowSearchInput(true)
+    } else {
+      // no-op: maintain search input state if no query
+    }
     setActiveTab(tabId)
   }
-
   const tabsList = [{
-    id: TabKey.BrowseLoans,
-    label: 'Browse loans',
-    disabled: false,
-    handleOnPress: onPress
-  }, {
     id: TabKey.YourVaults,
     label: 'Your vaults',
     disabled: false,
     handleOnPress: onPress
+  }, {
+    id: TabKey.BrowseLoans,
+    label: 'Browse loan tokens',
+    disabled: false,
+    handleOnPress: onPress
   }]
 
-  const loans: LoanCardOptions[] = [
-    {
-      loanName: 'BTC',
-      priceType: 'ACTIVE',
-      price: new BigNumber('123.4567'),
-      isVerified: true,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
-    },
-    {
-      loanName: 'BTC',
-      priceType: 'NEXT',
-      price: new BigNumber('123.4567'),
-      isVerified: false,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
-    },
-    {
-      loanName: 'BTC',
-      priceType: 'ACTIVE',
-      price: new BigNumber('123.4567'),
-      isVerified: true,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
-    },
-    {
-      loanName: 'BTC',
-      priceType: 'NEXT',
-      price: new BigNumber('123.4567'),
-      isVerified: false,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
-    },
-    {
-      loanName: 'BTC',
-      priceType: 'ACTIVE',
-      price: new BigNumber('123.4567'),
-      isVerified: true,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
-    },
-    {
-      loanName: 'BTC',
-      priceType: 'NEXT',
-      price: new BigNumber('123.4567'),
-      isVerified: false,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
-    },
-    {
-      loanName: 'BTC',
-      priceType: 'ACTIVE',
-      price: new BigNumber('123.4567'),
-      isVerified: true,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
-    },
-    {
-      loanName: 'BTC',
-      priceType: 'NEXT',
-      price: new BigNumber('123.4567'),
-      isVerified: false,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
-    },
-    {
-      loanName: 'BTC',
-      priceType: 'ACTIVE',
-      price: new BigNumber('123.4567'),
-      isVerified: true,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
-    },
-    {
-      loanName: 'BTC',
-      priceType: 'NEXT',
-      price: new BigNumber('123.4567'),
-      isVerified: false,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
-    },
-    {
-      loanName: 'BTC',
-      priceType: 'ACTIVE',
-      price: new BigNumber('123.4567'),
-      isVerified: true,
-      interestRate: new BigNumber('1.2345'),
-      onPress: () => {}
-    }
-  ]
+  // Search
+  const [filteredLoans, setFilteredLoans] = useState<LoanToken[]>(loans)
+  const [showSeachInput, setShowSearchInput] = useState(false)
+  const [searchString, setSearchString] = useState('')
+  const handleFilter = useCallback(
+    debounce((searchString: string) => {
+      setFilteredLoans(loans.filter(loan =>
+        loan.token.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
+      ))
+    }, 500)
+    , [loans, hasFetchedLoansData])
 
-  // TODO: remove custom handling of empty vault display
   useEffect(() => {
-    if (route.params?.loadingState === undefined) {
-      setLoadingState('empty_vault')
-    } else {
-      setLoadingState(route.params.loadingState)
+    if (loans.length === 0) {
+      return
     }
-  }, [route.params?.loadingState])
+    handleFilter(searchString)
+  }, [searchString])
 
-   // TODO: remove fake loading of loans
-  useEffect(
-    () => {
-      const loansTimer = setTimeout(() => {
-        setLoadingState('success')
-      }, 5000)
+  useEffect(() => {
+    setFilteredLoans(loans)
+  }, [hasFetchedLoansData])
 
-      return () => {
-        clearTimeout(loansTimer)
+  useEffect(() => {
+    dispatch(fetchVaults({
+      address,
+      client
+    }))
+    dispatch(fetchLoanTokens({ client }))
+  }, [blockCount])
+
+  useEffect(() => {
+    dispatch(fetchLoanSchemes({ client }))
+  }, [])
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: (): JSX.Element => {
+        if (activeTab === TabKey.BrowseLoans && vaults.length !== 0) {
+          return (
+            <HeaderSearchIcon onPress={() => setShowSearchInput(true)} />
+          )
+        } else {
+          return (
+            <TouchableOpacity
+              // eslint-disable-next-line
+              onPress={() => navigation.navigate({
+                name: 'CreateVaultScreen',
+                params: {},
+                merge: true
+              })}
+              testID='create_vault_header_button'
+            >
+              <ThemedIcon
+                size={28}
+                style={tailwind('mr-2')} light={tailwind('text-primary-500')}
+                dark={tailwind('text-primary-500')} iconType='MaterialCommunityIcons' name='plus'
+              />
+            </TouchableOpacity>
+          )
+        }
       }
-    }, [route.params?.loadingState])
+    })
+  }, [navigation, activeTab, vaults])
 
-  if (loadingState === 'empty_vault') {
+  useEffect(() => {
+    if (showSeachInput) {
+      navigation.setOptions({
+        header: (): JSX.Element => (
+          <HeaderSearchInput
+            searchString={searchString}
+            onClearInput={() => setSearchString('')}
+            onChangeInput={(text: string) => setSearchString(text)}
+            onCancelPress={() => setShowSearchInput(false)}
+          />
+        )
+      })
+    } else {
+      navigation.setOptions({
+        header: undefined
+      })
+    }
+  }, [showSeachInput, searchString])
+
+  if (!hasFetchedVaultsData) {
+    return (
+      <View style={tailwind('mt-1')}>
+        <SkeletonLoader
+          row={3}
+          screen={SkeletonLoaderScreen.Vault}
+        />
+      </View>
+    )
+  } else if (vaults?.length === 0) {
     return (
       <EmptyVault
-        handleRefresh={() => {}}
+        handleRefresh={() => {
+        }}
         isLoading={false}
       />
     )
@@ -166,16 +170,17 @@ export function LoansScreen ({ route }: Props): JSX.Element {
     >
       <Tabs tabSections={tabsList} testID='loans_tabs' activeTabKey={activeTab} />
       {activeTab === TabKey.YourVaults && <Vaults />}
-      {activeTab === TabKey.BrowseLoans && loadingState === 'loading'
-        ? (
-          <View style={tailwind('mt-1')}>
-            <SkeletonLoader
-              row={6}
-              screen={SkeletonLoaderScreen.Loan}
-            />
-          </View>
-          )
-        : <LoanCards testID='loans_cards' loans={loans} />}
+      {activeTab === TabKey.BrowseLoans && !hasFetchedLoansData &&
+      (
+        <View style={tailwind('mt-1')}>
+          <SkeletonLoader
+            row={6}
+            screen={SkeletonLoaderScreen.Loan}
+          />
+        </View>
+      )}
+      {activeTab === TabKey.BrowseLoans && hasFetchedLoansData &&
+      (<LoanCards testID='loans_cards' loans={filteredLoans} />)}
     </ThemedView>
   )
 }

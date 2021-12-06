@@ -24,7 +24,7 @@ import { TokensVsUtxoScreen } from './screens/TokensVsUtxoScreen'
 export interface BalanceParamList {
   BalancesScreen: undefined
   ReceiveScreen: undefined
-  SendScreen: { token: WalletToken }
+  SendScreen: { token?: WalletToken }
   SendConfirmationScreen: {
     token: WalletToken
     destination: string
@@ -91,7 +91,7 @@ export function BalancesNavigator (): JSX.Element {
                 size={28}
                 style={tailwind('ml-2')}
                 light={tailwind('text-primary-500')}
-                dark={tailwind('text-primary-500')}
+                dark={tailwind('text-darkprimary-500')}
               />
             </TouchableOpacity>
           ),

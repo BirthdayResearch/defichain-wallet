@@ -9,5 +9,21 @@ export const cors = Cors({
 
 export default async function handle (req: NextApiRequest, res: NextApiResponse<AnnouncementData[]>): Promise<void> {
   await runMiddleware(req, res, cors)
-  res.json([])
+  res.json([{
+    lang: {
+      en: 'Update to the latest app version to access Decentralized Loan.',
+      de: 'Aktualisiere auf die neueste Version der App, um Zugang zu dezentralen Darlehen zu erhalten.',
+      'zh-Hans': '请更新至最新版本应用程式使用去中心化贷款。',
+      'zh-Hant': '請更新至最新版本應用程式使用去中心化貸款。'
+    },
+    version: '<0.17.0'
+  }, {
+    lang: {
+      en: 'Decentralized loan is now available on the Light Wallet app.',
+      de: 'Dezentrale Darlehen sind jetzt in der Light Wallet App verfügbar.',
+      'zh-Hans': '去中心化贷款已在轻钱包 Light Wallet 正式推出',
+      'zh-Hant': '去中心化貸款已在輕錢包 Light Wallet 正式推出'
+    },
+    version: '>=0.17.0'
+  }])
 }

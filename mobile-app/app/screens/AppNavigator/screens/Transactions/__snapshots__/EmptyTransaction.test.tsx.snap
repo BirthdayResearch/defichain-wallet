@@ -130,7 +130,7 @@ exports[`empty transaction should match snapshot 1`] = `
           ]
         }
       >
-        RECEIVE COINS
+        RECEIVE TOKENS
       </Text>
     </View>
   </View>

@@ -5,9 +5,9 @@ import { NetworkName } from '@defichain/jellyfish-network'
 import { StackScreenProps } from '@react-navigation/stack'
 import { DFITokenSelector, DFIUtxoSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
-import React, { Dispatch, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
-import { View } from 'react-native'
+import { Platform, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button } from '@components/Button'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
@@ -24,17 +24,21 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
+import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { FeeInfoRow } from '@components/FeeInfoRow'
-import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { NumberRow } from '@components/NumberRow'
-import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
-import { useConversion } from '@hooks/wallet/Conversion'
+import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
+import { SymbolIcon } from '@components/SymbolIcon'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { BottomSheetToken, BottomSheetTokenList } from '@components/BottomSheetTokenList'
+import { InfoText } from '@components/InfoText'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -46,7 +50,7 @@ export function SendScreen ({
   const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
   const tokens = useTokensAPI()
-  const [token, setToken] = useState(route.params.token)
+  const [token, setToken] = useState(route.params?.token)
   const {
     control,
     setValue,
@@ -60,13 +64,36 @@ export function SendScreen ({
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
-  const { isConversionRequired, conversionAmount } = useConversion({
+  const {
+    isConversionRequired,
+    conversionAmount
+  } = useConversion({
     inputToken: {
-      type: token.id === '0_unified' ? 'utxo' : 'others',
+      type: token?.id === '0_unified' ? 'utxo' : 'others',
       amount: new BigNumber(getValues('amount'))
     },
     deps: [getValues('amount'), JSON.stringify(token)]
   })
+
+  // Bottom sheet token
+  const [isModalDisplayed, setIsModalDisplayed] = useState(false)
+  const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
+  const containerRef = useRef(null)
+  const bottomSheetRef = useRef<BottomSheetModal>(null)
+  const expandModal = useCallback(() => {
+    if (Platform.OS === 'web') {
+      setIsModalDisplayed(true)
+    } else {
+      bottomSheetRef.current?.present()
+    }
+  }, [])
+  const dismissModal = useCallback(() => {
+    if (Platform.OS === 'web') {
+      setIsModalDisplayed(false)
+    } else {
+      bottomSheetRef.current?.close()
+    }
+  }, [])
 
   useEffect(() => {
     client.fee.estimate()
@@ -75,20 +102,44 @@ export function SendScreen ({
   }, [])
 
   useEffect(() => {
-    const t = tokens.find((t) => t.id === token.id)
+    const t = tokens.find((t) => t.id === token?.id)
     if (t !== undefined) {
       setToken({ ...t })
     }
   }, [JSON.stringify(tokens)])
 
+  useEffect(() => {
+    setBottomSheetScreen([
+      {
+        stackScreenName: 'TokenList',
+        component: BottomSheetTokenList({
+          tokens: getBottomSheetToken(tokens),
+          headerLabel: translate('screens/SendScreen', 'Choose token to send'),
+          onCloseButtonPress: () => dismissModal(),
+          onTokenPress: async (item): Promise<void> => {
+            const _token = tokens.find(t => t.id === item.tokenId)
+            if (_token !== undefined) {
+              setToken(_token)
+              setValue('amount', '')
+              await trigger('amount')
+            }
+            dismissModal()
+          }
+        }),
+        option: {
+          header: () => null
+        }
+      }])
+  }, [tokens])
+
   async function onSubmit (): Promise<void> {
-    if (hasPendingJob || hasPendingBroadcastJob) {
+    if (hasPendingJob || hasPendingBroadcastJob || token === undefined) {
       return
     }
 
     const values = getValues()
     if (formState.isValid && isConversionRequired) {
-      await constructSignedConversionAndSend({
+      queueConvertTransaction({
         mode: 'accountToUtxos',
         amount: conversionAmount
       }, dispatch, () => {
@@ -125,97 +176,187 @@ export function SendScreen ({
   }
 
   return (
-    <ThemedScrollView contentContainerStyle={tailwind('py-8')} testID='send_screen'>
-      <View style={tailwind('px-4')}>
-        <AddressRow
-          control={control}
-          networkName={networkName}
-          onQrButtonPress={() => navigation.navigate({
-            name: 'BarCodeScanner',
-            params: {
-              onQrScanned: async (value) => {
-                setValue('address', value, { shouldDirty: true })
-                await trigger('address')
-              }
-            },
-            merge: true
-          })}
-          onClearButtonPress={async () => {
-            setValue('address', '')
-            await trigger('address')
-          }}
-          onAddressChange={async (address) => {
-            setValue('address', address, { shouldDirty: true })
-            await trigger('address')
-          }}
+    <View style={tailwind('h-full')} ref={containerRef}>
+      <ThemedScrollView contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'>
+        <TokenInput token={token} onPress={expandModal} />
+
+        {token === undefined
+            ? (
+              <ThemedText style={tailwind('px-4')}>
+                {translate('screens/SendScreen', 'Select a token you want to send to get started')}
+              </ThemedText>
+            )
+            : (
+              <>
+                <View style={tailwind('px-4')}>
+                  <AddressRow
+                    control={control}
+                    networkName={networkName}
+                    onQrButtonPress={() => navigation.navigate({
+                      name: 'BarCodeScanner',
+                      params: {
+                        onQrScanned: async (value) => {
+                          setValue('address', value, { shouldDirty: true })
+                          await trigger('address')
+                        }
+                      },
+                      merge: true
+                    })}
+                    onClearButtonPress={async () => {
+                      setValue('address', '')
+                      await trigger('address')
+                    }}
+                    onAddressChange={async (address) => {
+                      setValue('address', address, { shouldDirty: true })
+                      await trigger('address')
+                    }}
+                  />
+
+                  <AmountRow
+                    control={control}
+                    onAmountChange={async (amount) => {
+                      setValue('amount', amount, { shouldDirty: true })
+                      await trigger('amount')
+                    }}
+                    onClearButtonPress={async () => {
+                      setValue('amount', '')
+                      await trigger('amount')
+                    }}
+                    token={token}
+                  />
+
+                  <ReservedDFIInfoText />
+                  {isConversionRequired &&
+                    <View style={tailwind('mt-2')}>
+                      <ConversionInfoText />
+                    </View>}
+                </View>
+                {
+                  fee !== undefined && (
+                    <View style={tailwind()}>
+                      <ThemedSectionTitle
+                        text={translate('screens/SendScreen', 'TRANSACTION DETAILS')}
+                      />
+                      {isConversionRequired &&
+                        <NumberRow
+                          lhs={translate('screens/SendScreen', 'Amount to be converted')}
+                          rhs={{
+                          value: conversionAmount.toFixed(8),
+                          testID: 'text_amount_to_convert',
+                          suffixType: 'text',
+                          suffix: token.displaySymbol
+                        }}
+                        />}
+
+                      <FeeInfoRow
+                        type='ESTIMATED_FEE'
+                        value={fee.toString()}
+                        testID='transaction_fee'
+                        suffix='DFI'
+                      />
+                    </View>
+                  )
+                }
+                <ThemedText
+                  testID='transaction_details_info_text'
+                  light={tailwind('text-gray-600')}
+                  dark={tailwind('text-gray-300')}
+                  style={tailwind('mt-2 mx-4 text-sm')}
+                >
+                  {isConversionRequired
+                    ? translate('screens/SendScreen', 'Authorize transaction in the next screen to convert')
+                    : translate('screens/SendScreen', 'Review full transaction details in the next screen')}
+                </ThemedText>
+              </>
+            )}
+
+        <Button
+          disabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || token === undefined}
+          label={translate('screens/SendScreen', 'CONTINUE')}
+          onPress={onSubmit}
+          testID='send_submit_button'
+          title='Send'
+          margin='mt-14 mx-4'
         />
 
-        <AmountRow
-          control={control}
-          onAmountChange={async (amount) => {
-            setValue('amount', amount, { shouldDirty: true })
-            await trigger('amount')
-          }}
-          onClearButtonPress={async () => {
-            setValue('amount', '')
-            await trigger('amount')
-          }}
-          token={token}
-        />
+        {Platform.OS === 'web' && (
+          <BottomSheetWebWithNav
+            modalRef={containerRef}
+            screenList={bottomSheetScreen}
+            isModalDisplayed={isModalDisplayed}
+          />
+        )}
 
-        <ReservedDFIInfoText />
-        {isConversionRequired &&
-          <View style={tailwind('mt-2')}>
-            <ConversionInfoText />
-          </View>}
-      </View>
+        {Platform.OS !== 'web' && (
+          <BottomSheetWithNav
+            modalRef={bottomSheetRef}
+            screenList={bottomSheetScreen}
+          />
+        )}
+      </ThemedScrollView>
+    </View>
+  )
+}
 
-      {
-        fee !== undefined && (
-          <View style={tailwind()}>
-            <ThemedSectionTitle
-              text={translate('screens/SendScreen', 'TRANSACTION DETAILS')}
-            />
-            {isConversionRequired &&
-              <NumberRow
-                lhs={translate('screens/SendScreen', 'Amount to be converted')}
-                rhs={{
-                  value: conversionAmount.toFixed(8),
-                  testID: 'text_amount_to_convert',
-                  suffixType: 'text',
-                  suffix: token.displaySymbol
-                }}
-              />}
-
-            <FeeInfoRow
-              type='ESTIMATED_FEE'
-              value={fee.toString()}
-              testID='transaction_fee'
-              suffix='DFI'
-            />
-          </View>
-        )
-      }
+function TokenInput (props: {token?: WalletToken, onPress: () => void}): JSX.Element {
+  return (
+    <View style={tailwind('px-4')}>
       <ThemedText
-        testID='transaction_details_info_text'
-        light={tailwind('text-gray-600')}
-        dark={tailwind('text-gray-300')}
-        style={tailwind('mt-2 mx-4 text-sm')}
+        style={tailwind('text-xl font-semibold')}
       >
-        {isConversionRequired
-          ? translate('screens/SendScreen', 'Authorize transaction in the next screen to convert')
-          : translate('screens/SendScreen', 'Review full transaction details in the next screen')}
+        {translate('screens/SendScreen', 'Send to other wallet')}
       </ThemedText>
-
-      <Button
-        disabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/SendScreen', 'CONTINUE')}
-        onPress={onSubmit}
-        testID='send_submit_button'
-        title='Send'
-        margin='mt-14 mx-4'
-      />
-    </ThemedScrollView>
+      <ThemedTouchableOpacity
+        onPress={props.onPress}
+        light={tailwind('border-gray-300 bg-white')}
+        dark={tailwind('border-gray-600 bg-gray-800')}
+        style={tailwind('border rounded w-full flex flex-row justify-between h-12 items-center px-2', {
+          'mb-10': props.token?.isLPS === false,
+          'mb-2': props.token?.isLPS === true,
+          'mb-6': props.token === undefined
+        })}
+        testID='select_token_input'
+      >
+        {props.token === undefined
+          ? (
+            <ThemedText
+              light={tailwind('text-gray-300')}
+              dark={tailwind('text-gray-500')}
+              style={tailwind('text-sm')}
+              testID='select_token_placeholder'
+            >
+              {translate('screens/SendScreen', 'Select token')}
+            </ThemedText>
+          )
+          : (
+            <View style={tailwind('flex flex-row')}>
+              <SymbolIcon symbol={props.token.displaySymbol} styleProps={{ width: 24, height: 24 }} />
+              <ThemedText
+                style={tailwind('ml-2 font-medium')}
+                testID='selected_token'
+              >
+                {props.token.displaySymbol}
+              </ThemedText>
+            </View>
+          )}
+        <ThemedIcon
+          iconType='MaterialIcons'
+          name='unfold-more'
+          size={24}
+          light={tailwind('text-primary-500')}
+          dark={tailwind('text-darkprimary-500')}
+          style={tailwind('-mr-1.5 flex-shrink-0')}
+        />
+      </ThemedTouchableOpacity>
+      {props.token?.isLPS === true &&
+          (
+            <InfoText
+              testID='lp_info_text'
+              text={translate('components/ConversionInfoText', 'Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges may result in irreversible loss of funds.')}
+              style={tailwind('mb-10')}
+            />
+          )}
+    </View>
   )
 }
 
@@ -225,7 +366,7 @@ function AddressRow ({
   onQrButtonPress,
   onClearButtonPress,
   onAddressChange
-}: { control: Control, networkName: NetworkName, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void}): JSX.Element {
+}: { control: Control, networkName: NetworkName, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void }): JSX.Element {
   const defaultValue = ''
   return (
     <>
@@ -233,7 +374,12 @@ function AddressRow ({
         control={control}
         defaultValue={defaultValue}
         name='address'
-        render={({ field: { value, onChange } }) => (
+        render={({
+          field: {
+            value,
+            onChange
+          }
+        }) => (
           <View style={tailwind('flex-row w-full mb-6')}>
             <WalletTextInput
               autoCapitalize='none'
@@ -286,7 +432,12 @@ interface AmountForm {
   onClearButtonPress: () => void
 }
 
-function AmountRow ({ token, control, onAmountChange, onClearButtonPress }: AmountForm): JSX.Element {
+function AmountRow ({
+  token,
+  control,
+  onAmountChange,
+  onClearButtonPress
+}: AmountForm): JSX.Element {
   const reservedDFI = 0.1
   let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(reservedDFI).toFixed(8) : token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
@@ -297,7 +448,12 @@ function AmountRow ({ token, control, onAmountChange, onClearButtonPress }: Amou
         control={control}
         defaultValue={defaultValue}
         name='amount'
-        render={({ field: { onChange, value } }) => (
+        render={({
+          field: {
+            onChange,
+            value
+          }
+        }) => (
           <ThemedView
             dark={tailwind('bg-transparent')}
             light={tailwind('bg-transparent')}
@@ -358,13 +514,19 @@ function AmountRow ({ token, control, onAmountChange, onClearButtonPress }: Amou
   )
 }
 
-async function constructSignedConversionAndSend ({
-  mode,
-  amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
-  try {
-    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
-  } catch (e) {
-    logger.error(e)
-  }
+function getBottomSheetToken (tokens: WalletToken[]): BottomSheetToken[] {
+  return tokens.filter(t => {
+    return new BigNumber(t.amount).isGreaterThan(0) && t.id !== '0' && t.id !== '0_utxo'
+  }).map(t => {
+    const token: BottomSheetToken = {
+      tokenId: t.id,
+      available: new BigNumber(t.amount),
+      token: {
+        name: t.name,
+        displaySymbol: t.displaySymbol,
+        symbol: t.symbol
+      }
+    }
+    return token
+  })
 }

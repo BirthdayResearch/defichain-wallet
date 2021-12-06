@@ -30,7 +30,7 @@ context('Wallet - Token Detail', () => {
   it('should be able to redirect with Pool Swap', function () {
     cy.getByTestID('swap_button').should('exist')
     cy.getByTestID('swap_button').click()
-    cy.url().should('include', 'DEX/PoolSwap')
+    cy.url().should('include', 'DEX/CompositeSwap')
   })
 })
 
@@ -44,9 +44,9 @@ context('Wallet - Token Detail - LP', () => {
       .wait(10000)
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
-    cy.getByTestID('balances_row_11').should('exist')
-    cy.getByTestID('balances_row_11_amount').contains(10)
-    cy.getByTestID('balances_row_11').click()
+    cy.getByTestID('balances_row_16').should('exist')
+    cy.getByTestID('balances_row_16_amount').contains(10)
+    cy.getByTestID('balances_row_16').click()
   })
 
   it('should be able to click token ETH-DFI', function () {

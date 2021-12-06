@@ -1,10 +1,10 @@
 import React from 'react'
 import { tailwind } from '@tailwind'
-import { ThemedIcon, ThemedText, ThemedView } from './themed'
-import { BottomSheetModal } from './BottomSheetModal'
+import { ThemedText, ThemedView } from './themed'
 import { translate } from '@translations'
 import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
+import { BottomSheetInfo } from '@components/BottomSheetInfo'
 
 interface FeeInfoRowProps {
   value: string | number
@@ -34,55 +34,9 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
       <View style={tailwind('w-5/12')}>
         <View style={tailwind('flex-row items-center justify-start')}>
           <ThemedText style={tailwind('text-sm mr-1')} testID={`${props.testID}_label`}>
-            {translate('components/FeeInfoRow', props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title)}
+            {translate('components/BottomSheetInfo', props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title)}
           </ThemedText>
-
-          <BottomSheetModal
-            name='EstimatedFeeInfo'
-            snapPoints={['30%']}
-            alertInfo={props.type === 'ESTIMATED_FEE' ? estimatedFee : vaultFee}
-            triggerComponent={
-              <ThemedIcon
-                size={16}
-                name='info-outline'
-                iconType='MaterialIcons'
-                dark={tailwind('text-gray-200')}
-                light={tailwind('text-gray-700')}
-              />
-          }
-          >
-            <View style={tailwind('py-4 px-6 pt-0')}>
-              <View
-                testID='estimated_fee_heading'
-                style={tailwind('flex-row mb-3 items-center')}
-              >
-                <ThemedIcon
-                  size={20}
-                  name='info-outline'
-                  iconType='MaterialIcons'
-                  dark={tailwind('text-gray-200')}
-                  light={tailwind('text-gray-700')}
-                />
-                <ThemedText
-                  dark={tailwind('text-gray-50')}
-                  light={tailwind('text-gray-900')}
-                  style={tailwind('ml-2 text-2xl font-semibold')}
-                >
-                  {translate('components/FeeInfoRow', props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title)}
-                </ThemedText>
-
-              </View>
-              <View testID='estimated_fee_description'>
-                <ThemedText
-                  style={tailwind('text-base')}
-                  dark={tailwind('text-gray-200')}
-                  light={tailwind('text-gray-700')}
-                >
-                  {translate('components/FeeInfoRow', props.type === 'ESTIMATED_FEE' ? estimatedFee.message : vaultFee.message)}
-                </ThemedText>
-              </View>
-            </View>
-          </BottomSheetModal>
+          <BottomSheetInfo alertInfo={props.type === 'ESTIMATED_FEE' ? estimatedFee : vaultFee} name={props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title} />
         </View>
       </View>
 

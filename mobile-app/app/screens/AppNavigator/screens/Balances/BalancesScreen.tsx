@@ -22,7 +22,7 @@ import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useCallback, useEffect, useState } from 'react'
 import NumberFormat from 'react-number-format'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
 import { BalanceText } from './components/BalanceText'
 import { Announcements } from '@screens/AppNavigator/screens/Balances/components/Announcements'
@@ -32,6 +32,8 @@ import { RefreshControl } from 'react-native'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { BalanceControlCard } from '@screens/AppNavigator/screens/Balances/components/BalanceControlCard'
 import { EmptyBalances } from '@screens/AppNavigator/screens/Balances/components/EmptyBalances'
+import { fetchAuctions } from '@store/auctions'
+import { RootState } from '@store'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -46,6 +48,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     toggleDisplayBalances: onToggleDisplayBalances
   } = useDisplayBalancesContext()
 
+  const blockCount = useSelector((state: RootState) => state.block?.count)
   const dispatch = useDispatch()
   const [refreshing, setRefreshing] = useState(false)
 
@@ -63,6 +66,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const dstTokens = tokens.filter(token =>
     token.symbol !== 'DFI'
   )
+
+  useEffect(() => {
+    dispatch(fetchAuctions({ client }))
+  }, [blockCount])
 
   return (
     <ThemedScrollView

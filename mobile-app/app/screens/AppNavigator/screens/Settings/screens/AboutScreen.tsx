@@ -6,8 +6,10 @@ import { AppIcon } from '@components/icons/AppIcon'
 import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { openURL } from '@api/linking'
+import { SettingsParamList } from '../SettingsNavigator'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 interface AboutScreenLinks {
   testID: string
@@ -103,6 +105,9 @@ const SOCIAL_LINKS: AboutScreenSocialLinks[] = [
 ]
 
 export function AboutScreen (): JSX.Element {
+  const navigation = useNavigation<NavigationProp<SettingsParamList>>()
+  const { hasBetaFeatures } = useFeatureFlagContext()
+
   return (
     <ThemedScrollView light={tailwind('bg-white')} style={tailwind('px-4')}>
       <View style={tailwind('flex-1 items-center justify-center p-4 mt-4 mb-8')}>
@@ -119,6 +124,17 @@ export function AboutScreen (): JSX.Element {
         <ThemedText style={tailwind('text-base font-light text-black')}>
           {`v${nativeApplicationVersion ?? '0.0.0'}`}
         </ThemedText>
+
+        {hasBetaFeatures && (
+          <TouchableOpacity
+            testID='try_beta_features'
+            onPress={() => navigation.navigate('FeatureFlagScreen')}
+          >
+            <ThemedText style={tailwind('mt-1 mb-1 text-xs font-light text-black underline')}>
+              {translate('screens/AboutScreen', 'Try Beta features')}
+            </ThemedText>
+          </TouchableOpacity>
+        )}
 
         <View style={tailwind('flex-row justify-center pt-3')}>
           {

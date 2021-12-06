@@ -61,37 +61,47 @@ Array [
     <View
       style={
         Object {
-          "width": "41.666667%",
+          "width": "50%",
         }
       }
     >
-      <Text
+      <View
         style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                },
-                undefined,
-              ],
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
+          Object {
+            "alignItems": "flex-end",
+            "flexDirection": "row",
+            "justifyContent": "flex-start",
+          }
         }
-        testID="resulting_utxo_balance_label"
       >
-        Resulting UTXO
-      </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Array [
+                  Object {
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                  },
+                  undefined,
+                ],
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
+            ]
+          }
+          testID="resulting_utxo_balance_label"
+        >
+          Resulting UTXO
+        </Text>
+      </View>
     </View>
     <View
       style={
@@ -110,29 +120,44 @@ Array [
         style={
           Array [
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+              "fontSize": 14,
+              "lineHeight": 20,
+              "textAlign": "right",
             },
-            Array [
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                undefined,
-              ],
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-              },
-            ],
+            undefined,
+            undefined,
           ]
         }
-        testID="resulting_utxo_balance"
       >
-        10.00000000
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Array [
+                  Object {
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "textAlign": "right",
+                  },
+                  undefined,
+                  undefined,
+                ],
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+          testID="resulting_utxo_balance"
+        >
+          10.00000000
+        </Text>
       </Text>
     </View>
   </View>,
@@ -162,37 +187,47 @@ Array [
     <View
       style={
         Object {
-          "width": "41.666667%",
+          "width": "50%",
         }
       }
     >
-      <Text
+      <View
         style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                },
-                undefined,
-              ],
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
+          Object {
+            "alignItems": "flex-end",
+            "flexDirection": "row",
+            "justifyContent": "flex-start",
+          }
         }
-        testID="resulting_token_balance_label"
       >
-        Resulting Tokens
-      </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Array [
+                  Object {
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                  },
+                  undefined,
+                ],
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
+            ]
+          }
+          testID="resulting_token_balance_label"
+        >
+          Resulting Tokens
+        </Text>
+      </View>
     </View>
     <View
       style={
@@ -211,29 +246,44 @@ Array [
         style={
           Array [
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+              "fontSize": 14,
+              "lineHeight": 20,
+              "textAlign": "right",
             },
-            Array [
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                undefined,
-              ],
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-              },
-            ],
+            undefined,
+            undefined,
           ]
         }
-        testID="resulting_token_balance"
       >
-        0.00000001
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Array [
+                  Object {
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "textAlign": "right",
+                  },
+                  undefined,
+                  undefined,
+                ],
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+          testID="resulting_token_balance"
+        >
+          0.00000001
+        </Text>
       </Text>
     </View>
   </View>,

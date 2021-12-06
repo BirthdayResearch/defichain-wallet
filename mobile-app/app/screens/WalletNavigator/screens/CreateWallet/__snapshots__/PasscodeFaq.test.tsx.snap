@@ -247,29 +247,41 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
                     ]
                   }
                 >
-                  <Text
+                  <View
                     style={
-                      Array [
-                        Object {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
-                        Array [
-                          Object {
-                            "fontSize": 14,
-                            "lineHeight": 20,
-                          },
-                          Object {
-                            "color": "rgba(82, 82, 82, 1)",
-                          },
-                        ],
-                      ]
+                      Object {
+                        "flexDirection": "row",
+                        "justifyContent": "flex-start",
+                      }
                     }
                   >
-                    Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.
-                  </Text>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                              "fontSize": 14,
+                              "lineHeight": 20,
+                            },
+                            Object {
+                              "color": "rgba(82, 82, 82, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
@@ -387,29 +399,41 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
                     ]
                   }
                 >
-                  <Text
+                  <View
                     style={
-                      Array [
-                        Object {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
-                        Array [
-                          Object {
-                            "fontSize": 14,
-                            "lineHeight": 20,
-                          },
-                          Object {
-                            "color": "rgba(82, 82, 82, 1)",
-                          },
-                        ],
-                      ]
+                      Object {
+                        "flexDirection": "row",
+                        "justifyContent": "flex-start",
+                      }
                     }
                   >
-                    Yes, you can change your passcode from your settings in-app. We recommend changing of passcode regularly for maximum security.
-                  </Text>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                              "fontSize": 14,
+                              "lineHeight": 20,
+                            },
+                            Object {
+                              "color": "rgba(82, 82, 82, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      Yes, you can change your passcode from your settings in-app. We recommend changing of passcode regularly for maximum security.
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
@@ -525,29 +549,41 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
                     ]
                   }
                 >
-                  <Text
+                  <View
                     style={
-                      Array [
-                        Object {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
-                        Array [
-                          Object {
-                            "fontSize": 14,
-                            "lineHeight": 20,
-                          },
-                          Object {
-                            "color": "rgba(82, 82, 82, 1)",
-                          },
-                        ],
-                      ]
+                      Object {
+                        "flexDirection": "row",
+                        "justifyContent": "flex-start",
+                      }
                     }
                   >
-                    Your passcode is valid only for DeFiChain wallet.
-                  </Text>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                              "fontSize": 14,
+                              "lineHeight": 20,
+                            },
+                            Object {
+                              "color": "rgba(82, 82, 82, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      Your passcode is valid only for DeFiChain wallet.
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>

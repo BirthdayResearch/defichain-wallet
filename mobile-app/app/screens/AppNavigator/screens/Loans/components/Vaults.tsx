@@ -1,48 +1,50 @@
 import * as React from 'react'
 import { tailwind } from '@tailwind'
-import BigNumber from 'bignumber.js'
-import { ThemedView } from '@components/themed'
-import { VaultCard, VaultCardProps, VaultStatus } from '@screens/AppNavigator/screens/Loans/components/VaultCard'
+import { ThemedScrollView } from '@components/themed'
+import { VaultCard } from '@screens/AppNavigator/screens/Loans/components/VaultCard'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { View } from 'react-native'
+import { InfoText } from '@components/InfoText'
+import { translate } from '@translations'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@store'
+import { useEffect } from 'react'
+import { fetchCollateralTokens, fetchVaults, vaultsSelector } from '@store/loans'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 export function Vaults (): JSX.Element {
-  // TODO(pierregee): Remove hardcoded vaults once API is ready
-  const vaults: VaultCardProps[] = [
-    {
-      vaultAddress: '22ffasd5ca123123123123123121231061',
-      status: VaultStatus.Locked,
-      collaterals: [
-        { id: 'BTC', vaultProportion: new BigNumber(20) },
-        { id: 'DFI', vaultProportion: new BigNumber(12.4573) },
-        { id: 'dETH', vaultProportion: new BigNumber(55.123333) },
-        { id: 'dLTC', vaultProportion: new BigNumber(20) },
-        { id: 'dUSDC', vaultProportion: new BigNumber(20) }
-      ],
-      activeLoans: [{ tokenId: 'BTC' }, { tokenId: 'DFI' }, { tokenId: 'dETH' }],
-      totalLoanAmount: new BigNumber('50000'),
-      collateralAmount: new BigNumber('40000'),
-      collateralRatio: new BigNumber('80'),
-      actions: ['ADD_COLLATERAL', 'VIEW_LOANS']
-    },
-    {
-      vaultAddress: '22ffasd5ca123123123123123121231061',
-      status: VaultStatus.AtRisk,
-      collaterals: [
-        { id: 'BTC', vaultProportion: new BigNumber(20) },
-        { id: 'DFI', vaultProportion: new BigNumber(12.4573) }
-      ],
-      activeLoans: [{ tokenId: 'BTC' }, { tokenId: 'DFI' }, { tokenId: 'dETH' }, { tokenId: 'dLTC' }, { tokenId: 'dDOGE' }, { tokenId: 'dUSDC' }, { tokenId: 'dBCH' }],
-      totalLoanAmount: new BigNumber('50000000000000000000'),
-      collateralAmount: new BigNumber('40000'),
-      collateralRatio: new BigNumber('150'),
-      actions: []
-    }
-  ]
+  const dispatch = useDispatch()
+  const client = useWhaleApiClient()
+  const { address } = useWalletContext()
+  const blockCount = useSelector((state: RootState) => state.block.count)
+  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
+
+  useEffect(() => {
+    dispatch(fetchVaults({
+      address,
+      client
+    }))
+  }, [blockCount])
+
+  useEffect(() => {
+    dispatch(fetchCollateralTokens({ client }))
+  }, [])
+  const { isBetaFeature } = useFeatureFlagContext()
 
   return (
-    <ThemedView style={tailwind('h-full m-4')}>
+    <ThemedScrollView contentContainerStyle={tailwind('p-4 pb-8')}>
+      {isBetaFeature('loan') && (
+        <View style={tailwind('pb-4')}>
+          <InfoText
+            testID='beta_warning_info_text'
+            text={translate('screens/FeatureFlagScreen', 'Feature is still in Beta. Use at your own risk.')}
+          />
+        </View>
+      )}
       {vaults.map((vault, index) => {
-        return <VaultCard key={index} {...vault} />
+        return <VaultCard testID={`vault_card_${index}`} key={index} vault={vault} />
       })}
-    </ThemedView>
+    </ThemedScrollView>
   )
 }

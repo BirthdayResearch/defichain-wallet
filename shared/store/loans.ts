@@ -1,31 +1,18 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
-import { CollateralToken, LoanScheme, LoanToken, LoanVaultActive, LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { CollateralToken, LoanScheme, LoanToken, LoanVaultActive, LoanVaultLiquidated, LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
+import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
+import { createAsyncThunk, createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
 
-// TODO (Harsh) interface is not yet finalized, need to update
 export type LoanVault = LoanVaultActive | LoanVaultLiquidated
-
-export interface AuctionDetail {
-  vaultId: string
-  batchCount: BigNumber
-  liquidationPenalty: BigNumber
-  liquidationHeight: BigNumber
-  batches: AuctionBatchDetails[]
-}
-
-interface AuctionBatchDetails {
-  index: BigNumber
-  collaterals: string[]
-  loan: string
-}
 
 interface LoansState {
   vaults: LoanVault[]
   loanTokens: LoanToken[]
   loanSchemes: LoanScheme[]
   collateralTokens: CollateralToken[]
-  auctions: AuctionDetail[]
+  hasFetchedVaultsData: boolean
+  hasFetchedLoansData: boolean
 }
 
 const initialState: LoansState = {
@@ -33,50 +20,67 @@ const initialState: LoansState = {
   loanTokens: [],
   loanSchemes: [],
   collateralTokens: [],
-  auctions: []
+  hasFetchedVaultsData: false,
+  hasFetchedLoansData: false
+}
+
+export const customDUSDActivePrice: ActivePrice = {
+  id: 'custom_DUSD',
+  key: 'custom_DUSD',
+  sort: '',
+  isLive: true,
+  block: {
+    hash: '',
+    height: 0,
+    time: 0,
+    medianTime: 0
+  },
+  active: {
+    amount: '1',
+    weightage: 1,
+    oracles: {
+      active: 1,
+      total: 1
+    }
+  },
+  next: {
+    amount: '1',
+    weightage: 1,
+    oracles: {
+      active: 1,
+      total: 1
+    }
+  }
 }
 
 // TODO (Harsh) Manage pagination for all api
 export const fetchVaults = createAsyncThunk(
   'wallet/fetchVaults',
-  async ({ size = 50, address, client }: { size?: number, address: string, client: WhaleApiClient }) => {
-    const vaults = await client.address.listVault(address, size)
-    return vaults
+  async ({ size = 200, address, client }: { size?: number, address: string, client: WhaleApiClient }) => {
+    return await client.address.listVault(address, size)
   }
 )
 
 export const fetchLoanTokens = createAsyncThunk(
   'wallet/fetchLoanTokens',
-  async ({ size = 50, client }: { size?: number, client: WhaleApiClient }) => {
-    const tokens = await client.loan.listLoanToken(size)
-    return tokens
+  async ({ size = 200, client }: { size?: number, client: WhaleApiClient }) => {
+    return await client.loan.listLoanToken(size)
   }
 )
 
 export const fetchLoanSchemes = createAsyncThunk(
   'wallet/fetchLoanSchemes',
   async ({ size = 50, client }: { size?: number, client: WhaleApiClient }) => {
-    const schemes = await client.loan.listScheme(size)
-    return schemes
+    return await client.loan.listScheme(size)
   }
 )
 
 export const fetchCollateralTokens = createAsyncThunk(
   'wallet/fetchCollateralTokens',
   async ({ size = 50, client }: { size?: number, client: WhaleApiClient }) => {
-    const tokens = await client.loan.listCollateralToken(size)
-    return tokens
+    return await client.loan.listCollateralToken(size)
   }
 )
-
-// TODO (Harsh) Auctions api are not ready yet
-// export const fetchAuctions = createAsyncThunk(
-//   'wallet/fetchAuctions',
-//   async ({ size = 50, client }: { size?: number, client: WhaleApiClient }) => {
-//     const auctions = await client.loan.listAuctions(size)
-//     return auctions
-//   }
-// )
 
 export const loans = createSlice({
   name: 'loans',
@@ -85,9 +89,11 @@ export const loans = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchVaults.fulfilled, (state, action: PayloadAction<LoanVault[]>) => {
       state.vaults = action.payload
+      state.hasFetchedVaultsData = true
     })
     builder.addCase(fetchLoanTokens.fulfilled, (state, action: PayloadAction<LoanToken[]>) => {
       state.loanTokens = action.payload
+      state.hasFetchedLoansData = true
     })
     builder.addCase(fetchLoanSchemes.fulfilled, (state, action: PayloadAction<LoanScheme[]>) => {
       state.loanSchemes = action.payload
@@ -95,9 +101,68 @@ export const loans = createSlice({
     builder.addCase(fetchCollateralTokens.fulfilled, (state, action: PayloadAction<CollateralToken[]>) => {
       state.collateralTokens = action.payload
     })
-    // TODO (Harsh) Auctions api are not ready yet
-    // builder.addCase(fetchAuctions.fulfilled, (state, action: PayloadAction<AuctionDetail[]>) => {
-    //   state.auctions = action.payload
-    // })
   }
+})
+
+export const nonLiquidatedVault = createSelector((state: LoansState) => state.vaults, vaults => {
+  return vaults.filter(vault => vault.state !== LoanVaultState.IN_LIQUIDATION) as LoanVaultActive[]
+})
+
+export const ascColRatioLoanScheme = createSelector((state: LoansState) => state.loanSchemes,
+  (schemes) => schemes.map((c) => c).sort((a, b) => new BigNumber(a.minColRatio).minus(b.minColRatio).toNumber()))
+
+export const loanTokensSelector = createSelector((state: LoansState) => state.loanTokens, loanTokens => {
+  return loanTokens.map(loanToken => {
+    if (loanToken.token.symbol === 'DUSD') {
+      const modifiedLoanToken: LoanToken = {
+        ...loanToken,
+        activePrice: customDUSDActivePrice
+      }
+      return modifiedLoanToken
+    } else {
+      return { ...loanToken }
+    }
+  })
+})
+
+const selectTokenId = (state: LoansState, tokenId: string): string => tokenId
+
+export const loanTokenByTokenId = createSelector([selectTokenId, loanTokensSelector], (tokenId, loanTokens) => {
+  return loanTokens.find(loanToken => loanToken.token.id === tokenId)
+})
+
+export const vaultsSelector = createSelector((state: LoansState) => state.vaults, vaults => {
+  return vaults.map(vault => {
+    if (vault.state === LoanVaultState.IN_LIQUIDATION) {
+      return { ...vault }
+    }
+
+    const modifiedLoanAmounts = vault.loanAmounts.map(loanAmount => {
+      if (loanAmount.symbol === 'DUSD') {
+        const modifiedLoanAmount: LoanVaultTokenAmount = {
+          ...loanAmount,
+          activePrice: customDUSDActivePrice
+        }
+        return modifiedLoanAmount
+      }
+      return { ...loanAmount }
+    })
+
+    const modifiedInterestAmounts = vault.interestAmounts.map(interestAmount => {
+      if (interestAmount.symbol === 'DUSD') {
+        const modifiedInterestAmount: LoanVaultTokenAmount = {
+          ...interestAmount,
+          activePrice: customDUSDActivePrice
+        }
+        return modifiedInterestAmount
+      }
+      return { ...interestAmount }
+    })
+
+    return {
+      ...vault,
+      loanAmounts: modifiedLoanAmounts,
+      interestAmounts: modifiedInterestAmounts
+    }
+  }) as LoanVault[]
 })

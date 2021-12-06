@@ -16,6 +16,8 @@ import { PasscodeFaq } from '@screens/WalletNavigator/screens/CreateWallet/Passc
 import { KnowledgeBaseScreen } from './screens/KnowledgeBaseScreen'
 import { RecoveryWordsFaq } from '@screens/WalletNavigator/screens/CreateWallet/RecoveryWordsFaq'
 import { TokensVsUtxoScreen } from '../Balances/screens/TokensVsUtxoScreen'
+import { FeatureFlagScreen } from './screens/FeatureFlagScreen'
+import { LoansFaq } from '@screens/AppNavigator/screens/Loans/screens/LoansFaq'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
@@ -161,6 +163,34 @@ export function SettingsNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/WalletNavigator', 'Passcode FAQ')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <SettingsStack.Screen
+        component={LoansFaq}
+        name='LoansFaq'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('components/LoansFaq', 'Loans FAQ')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <SettingsStack.Screen
+        component={FeatureFlagScreen}
+        name='FeatureFlagScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/FeatureFlagScreen', 'Beta Features')}
               containerTestID={headerContainerTestId}
             />
           ),

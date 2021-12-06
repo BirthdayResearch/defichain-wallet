@@ -15,6 +15,11 @@ enum ErrorCodes {
   InsufficientUTXO = 1,
   InsufficientBalance = 2,
   PoolSwapHigher = 3,
+  InsufficientDFIInVault = 4,
+  LackOfLiquidity = 5,
+  PaybackLoanInvalidPrice = 6,
+  NoLiveFixedPrices = 7,
+  VaultNotEnoughCollateralization = 8
 }
 
 interface ErrorMapping {
@@ -22,7 +27,11 @@ interface ErrorMapping {
   message: string
 }
 
-export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): JSX.Element {
+export function TransactionError ({
+  errMsg,
+  onClose
+}: TransactionErrorProps): JSX.Element {
+  console.log('transaction error', errMsg)
   const err = errorMessageMapping(errMsg)
   return (
     <>
@@ -75,6 +84,31 @@ function errorMessageMapping (err: string): ErrorMapping {
     return {
       code: ErrorCodes.InsufficientUTXO,
       message: 'Insufficient UTXO DFI'
+    }
+  } else if (err.includes('At least 50% of the vault must be in DFI when taking a loan')) {
+    return {
+      code: ErrorCodes.InsufficientDFIInVault,
+      message: 'Insufficient DFI collateral (≥50%)'
+    }
+  } else if (err.includes('Lack of liquidity')) {
+    return {
+      code: ErrorCodes.LackOfLiquidity,
+      message: 'Pool does not have enough liquidity'
+    }
+  } else if (err.includes('Cannot payback loan while any of the asset\'s price is invalid')) {
+    return {
+      code: ErrorCodes.PaybackLoanInvalidPrice,
+      message: 'Cannot payback loan due to invalid price'
+    }
+  } else if (err.includes('No live fixed prices')) {
+    return {
+      code: ErrorCodes.NoLiveFixedPrices,
+      message: 'No live fixed prices for loan token'
+    }
+  } else if (err.includes('Vault does not have enough collateralization ratio defined by loan scheme')) {
+    return {
+      code: ErrorCodes.VaultNotEnoughCollateralization,
+      message: 'Vault does not have enough col. ratio'
     }
   }
 

@@ -3,6 +3,7 @@ import * as React from 'react'
 import { KnowledgeBaseScreen } from './KnowledgeBaseScreen'
 
 jest.mock('@shared-contexts/ThemeProvider')
+jest.mock('@contexts/FeatureFlagContext')
 
 describe('knowledge base screen', () => {
   it('should render', async () => {

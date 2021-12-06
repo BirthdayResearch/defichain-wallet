@@ -1,104 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Vault info should render label with numeric value 1`] = `
-<View
-  style={
-    Object {
-      "marginBottom": 8,
-      "width": "50%",
-    }
-  }
->
-  <Text
-    style={
-      Array [
-        Object {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
-        Array [
-          Object {
-            "fontSize": 12,
-            "lineHeight": 16,
-          },
-          Object {
-            "color": "rgba(115, 115, 115, 1)",
-          },
-        ],
-      ]
-    }
-  >
-    Foo
-  </Text>
-  <Text
-    style={
-      Array [
-        Object {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
-        Array [
-          Array [
-            Object {
-              "fontFamily": "SemiBoldFont",
-              "fontSize": 14,
-              "fontWeight": "600",
-              "lineHeight": 20,
-            },
-            undefined,
-          ],
-          Object {
-            "color": "rgba(23, 23, 23, 1)",
-          },
-        ],
-      ]
-    }
-  >
-    $123.45%
-  </Text>
-</View>
-`;
-
 exports[`Vault info should render label with token icon group 1`] = `
 <View
   style={
     Object {
-      "marginBottom": 8,
-      "width": "50%",
+      "alignItems": "center",
+      "flexDirection": "row",
+      "marginBottom": 4,
+      "marginTop": 4,
+      "width": "100%",
     }
   }
 >
-  <Text
-    style={
-      Array [
-        Object {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
-        Array [
-          Object {
-            "fontSize": 12,
-            "lineHeight": 16,
-          },
-          Object {
-            "color": "rgba(115, 115, 115, 1)",
-          },
-        ],
-      ]
-    }
-  >
-    Foo
-  </Text>
   <View
     style={
       Object {
-        "marginTop": 2,
+        "width": "50%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontSize": 12,
+              "lineHeight": 16,
+            },
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Foo
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexBasis": "0%",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "flexWrap": "wrap",
+        "justifyContent": "flex-end",
       }
     }
   >
@@ -114,7 +68,6 @@ exports[`Vault info should render label with token icon group 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
               "borderBottomLeftRadius": 9999,
               "borderBottomRightRadius": 9999,
               "borderTopLeftRadius": 9999,
@@ -183,7 +136,6 @@ exports[`Vault info should render label with token icon group 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
               "borderBottomLeftRadius": 9999,
               "borderBottomRightRadius": 9999,
               "borderTopLeftRadius": 9999,
@@ -252,7 +204,6 @@ exports[`Vault info should render label with token icon group 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
               "borderBottomLeftRadius": 9999,
               "borderBottomRightRadius": 9999,
               "borderTopLeftRadius": 9999,
@@ -4894,7 +4845,6 @@ exports[`Vault info should render label with token icon group 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
               "borderBottomLeftRadius": 9999,
               "borderBottomRightRadius": 9999,
               "borderTopLeftRadius": 9999,
@@ -5005,7 +4955,6 @@ exports[`Vault info should render label with token icon group 1`] = `
         style={
           Array [
             Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
               "borderBottomLeftRadius": 9999,
               "borderBottomRightRadius": 9999,
               "borderTopLeftRadius": 9999,
@@ -5101,9 +5050,7 @@ exports[`Vault info should render label with token icon group 1`] = `
           ]
         }
       >
-        & 
-        1
-         more
+        & 1 more
       </Text>
     </View>
   </View>

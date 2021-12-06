@@ -48,7 +48,7 @@ context('Wallet - Transaction - List', () => {
       cy.getByTestID('empty_transaction').should('not.exist')
     })
 
-    it('RECEIVE COINS should not exist', () => {
+    it('RECEIVE TOKENS should not exist', () => {
       cy.getByTestID('button_receive_coins').should('not.exist')
     })
   })

@@ -43,10 +43,10 @@ export function EmptyTransaction (props: EmptyTransactionProps): JSX.Element {
       </ThemedText>
 
       <Button
-        label={translate('screens/TransactionsScreen', 'RECEIVE COINS')}
+        label={translate('screens/TransactionsScreen', 'RECEIVE TOKENS')}
         onPress={() => props.navigation.navigate('Receive')}
         testID='button_receive_coins'
-        title='Receive Coins'
+        title='Receive Tokens'
       />
     </ThemedScrollView>
   )
