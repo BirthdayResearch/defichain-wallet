@@ -41,7 +41,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
   const ownedToken = tokens.find(token => token.id === batch.loan.id)
   const {
     minNextBidInToken,
-    totalLoanAmountInUSD
+    totalCollateralsValueInUSD
   } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const {
@@ -99,7 +99,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
       batch,
       bidAmount: new BigNumber(bidAmount),
       estimatedFees: fee,
-      totalAuctionValue: totalLoanAmountInUSD,
+      totalAuctionValue: totalCollateralsValueInUSD,
       vault
     })
   }
@@ -121,7 +121,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
             blockCount={blockCount}
             liquidationHeight={vault.liquidationHeight}
             minNextBid={minNextBidInToken}
-            totalAuctionValue={totalLoanAmountInUSD}
+            totalAuctionValue={totalCollateralsValueInUSD}
             onPressFullDetails={onPressFullDetails}
           />
 

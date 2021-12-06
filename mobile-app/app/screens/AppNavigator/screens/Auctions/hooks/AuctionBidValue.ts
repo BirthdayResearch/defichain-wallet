@@ -8,6 +8,7 @@ interface AuctionBid {
   minStartingBidInUSD: string
   minNextBidInToken: string
   minNextBidInUSD: string
+  totalCollateralsValueInUSD: string
 }
 
 export function useAuctionBidValue (batch: LoanVaultLiquidationBatch, liquidationPenalty: number, schemeInterestRate: string): AuctionBid {
@@ -19,11 +20,16 @@ export function useAuctionBidValue (batch: LoanVaultLiquidationBatch, liquidatio
   const minStartingBidInUSD = loan.activePrice?.active != null ? minStartingBidInToken.times(loan.activePrice.active.amount).toFixed(2) : ''
   const minNextBidInToken = highestBid?.amount?.amount != null ? new BigNumber(highestBid.amount.amount).times(1.01) : minStartingBidInToken
   const minNextBidInUSD = loan.activePrice?.active != null ? minNextBidInToken.times(loan.activePrice.active.amount).toFixed(2) : ''
+  const totalCollateralsValueInUSD = batch.collaterals.reduce((total, eachItem) => {
+    return total.plus(new BigNumber(eachItem.amount).multipliedBy(getActivePrice(eachItem.symbol, eachItem.activePrice)))
+  }, new BigNumber(0)).toFixed(2)
+
   return {
     minNextBidInUSD,
     totalLoanAmountInUSD,
     minStartingBidInUSD,
     minStartingBidInToken: minStartingBidInToken.toFixed(8),
-    minNextBidInToken: minNextBidInToken.toFixed(8)
+    minNextBidInToken: minNextBidInToken.toFixed(8),
+    totalCollateralsValueInUSD
   }
 }

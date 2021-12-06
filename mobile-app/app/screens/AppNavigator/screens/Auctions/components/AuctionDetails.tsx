@@ -3,7 +3,6 @@ import { ThemedIcon, ThemedSectionTitle, ThemedText, ThemedView } from '@compone
 import { View, TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import BigNumber from 'bignumber.js'
 import { NumberRow } from '@components/NumberRow'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { openURL } from '@api/linking'
@@ -13,18 +12,13 @@ import { useAuctionTime } from '../hooks/AuctionTimeLeft'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
-import { getActivePrice } from '../helpers/ActivePrice'
 
 export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: LoanVaultLiquidationBatch }): JSX.Element {
   const { vault, batch } = props
   const blockCount = useSelector((state: RootState) => state.block.count)
   const { getVaultsUrl, getAddressUrl } = useDeFiScanContext()
   const { startTime } = useAuctionTime(vault.liquidationHeight, blockCount ?? 0)
-  const { minStartingBidInToken } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
-
-  const collateralValue = batch.collaterals.reduce((total, eachItem) => {
-    return total.plus(new BigNumber(eachItem.amount).multipliedBy(getActivePrice(eachItem.symbol, eachItem.activePrice)))
-  }, new BigNumber(0))
+  const { minStartingBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
 
   return (
     <>
@@ -61,7 +55,7 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
       <NumberRow
         lhs={translate('components/AuctionDetailScreen', 'Collateral value (USD)')}
         rhs={{
-          value: new BigNumber(collateralValue).toFixed(2),
+          value: totalCollateralsValueInUSD,
           testID: 'text_collateral_value',
           prefix: '$'
         }}
