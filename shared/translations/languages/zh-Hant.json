@@ -206,7 +206,8 @@
     "Recovery words": "恢復字組",
     "Passcode": "密碼",
     "UTXO vs Token": "UTXO和代幣區別",
-    "Loans": "貸款"
+    "Loans": "貸款",
+    "Auctions": "清算拍賣"
   },
   "components/LoansFaq": {
     "Loans FAQ": "貸款常見問題",
@@ -234,6 +235,16 @@
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "總利率是由：由金庫利率和代幣利率整體以每年率計算。",
     "What is collateral factor?": "抵押因素是什麼？",
     "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "抵押品因素決定每個抵押代幣的貢獻程度。例如，如果一個代幣以70%的抵押因素被接受，價值100美元的代幣將貢獻該金庫中70美元的抵押品價值。"
+  },
+  "components/AuctionsFaq": {
+    "Auctions FAQ": "Auctions FAQ",
+    "Auctions": "清算拍賣",
+    "FREQUENTLY ASKED QUESTIONS": "常見問題",
+    "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "金庫拍賣是用戶對已清算的金庫中的抵押品收回金庫未償還貸款的活動。當金庫的抵押品比率低於最低要求時，即進行清算，在此情況下，金庫抵押品將分為10,000美元的批次進行拍賣。",
+    "How is the minimum starting bid determined?": "最低起標價是基於什麼？",
+    "The minimum starting bid is 105% of the batch's outstanding loan value. The additional 5% is included to cover the liquidation penalty, which is incurred upon vault liquidation.": "最低標價是批次未償貸款價值的105%。額外的5%是用來支付清算罰款的，這在金庫清算時是會產生的。",
+    "How is the minimum next bid determined?": "下一次出最低標價是如何計算的？",
+    "The minimum next bid is 1% above the previous bid price.": "下一次的最低出價是要比上一次的出價高1%。"
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "網絡",
@@ -844,7 +855,7 @@
     "This amount is the total interest amount from both vault and token interest rate.": "此金額是金庫和代幣利率的利息總和",
     "Annual vault interest": "金庫年利息",
     "Min. next bid": "最低標價", 
-    "The minimum bid a user must place, as long as it's not the first bid for the batch": "除了第一次出價以外，這是用戶必須出的最低價"
+    "The minimum bid a user must place in order to take part in the auction.": "用戶參與拍賣必須提交的最低標價。"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金庫編號",

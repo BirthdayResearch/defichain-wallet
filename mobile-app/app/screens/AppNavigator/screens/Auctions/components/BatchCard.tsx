@@ -42,7 +42,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
 
   const nextBidInfo = {
     title: 'Min. next bid',
-    message: 'The minimum bid a user must place, as long as it\'s not the first bid for the batch'
+    message: 'The minimum bid a user must place in order to take part in the auction.'
   }
 
   const onCardPress = (): void => {
