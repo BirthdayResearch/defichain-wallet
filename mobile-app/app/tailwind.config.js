@@ -141,6 +141,9 @@ module.exports = {
       },
       zIndex: {
         '-1': '-1'
+      },
+      fontSize: {
+        '2xs': 10
       }
     }
   }

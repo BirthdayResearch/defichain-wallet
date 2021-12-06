@@ -20,6 +20,8 @@ import { QuickBid } from './QuickBid'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { createSelector } from '@reduxjs/toolkit'
 import { useDebounce } from '@hooks/useDebounce'
+import { fetchVaults, vaultsSelector } from '@store/loans'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 interface Props {
   searchString: string
@@ -28,11 +30,13 @@ interface Props {
 export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
+  const { address } = useWalletContext()
   const tokens = useTokensAPI()
   const { isBetaFeature } = useFeatureFlagContext()
 
   const blockCount = useSelector((state: RootState) => state.block.count)
   const { hasFetchAuctionsData } = useSelector((state: RootState) => state.auctions)
+  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const {
     bottomSheetRef,
     containerRef,
@@ -63,6 +67,11 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchAuctions({ client }))
+
+    dispatch(fetchVaults({
+      address,
+      client
+    }))
   }, [blockCount])
 
   const onQuickBid = (
@@ -122,6 +131,7 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
                                 key={`${auction.vaultId}_${eachBatch.index}`}
                                 testID={`batch_card_${index}`}
                                 onQuickBid={onQuickBid}
+                                isVaultOwner={vaults.some(vault => vault.vaultId === auction.vaultId)}
                               />
                             )
                           })}
