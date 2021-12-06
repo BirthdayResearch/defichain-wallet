@@ -198,7 +198,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
   )
 }
 
-function BatchCardInfo (props: { iconName: 'hourglass-top' | 'account-circle', text: string }): JSX.Element {
+function BatchCardInfo (props: { iconName: React.ComponentProps<typeof MaterialIcons>['name'], text: string }): JSX.Element {
  return (
    <View style={tailwind('flex flex-row items-center')}>
      <ThemedIcon
