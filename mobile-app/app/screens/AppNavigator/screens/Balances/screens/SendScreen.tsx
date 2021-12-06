@@ -352,7 +352,7 @@ function TokenInput (props: {token?: WalletToken, onPress: () => void}): JSX.Ele
           (
             <InfoText
               testID='lp_info_text'
-              text={translate('components/ConversionInfoText', 'Send LP tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges may result in irreversible loss of funds.')}
+              text={translate('components/ConversionInfoText', 'Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges may result in irreversible loss of funds.')}
               style={tailwind('mb-10')}
             />
           )}

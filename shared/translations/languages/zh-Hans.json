@@ -102,7 +102,8 @@
     "Sending": "正转出 {{symbol}}",
     "Sending {{amount}} {{symbol}}": "正转出 {{amount}} {{symbol}}",
     "CONFIRM TRANSACTION": "CONFIRM TRANSACTION",
-    "Convert & send": "转换并发送"
+    "Convert & send": "转换并发送",
+    "I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "我承认和了解钱包地址性质，我会将d代币发送至已引入递飞链技术栈的钱包，否则会导致不可逆转的资金损失."
   },
   "screens/ConvertScreen": {
     "Convert DFI": "转换DFI",
@@ -658,7 +659,8 @@
   },
   "components/ConversionInfoText": {
     "Conversion will be required. Your passcode will be asked to authorize both transactions.": "将需要转换。您需要以App密码授权转换和兑换交易",
-    "Please wait as we convert tokens for your transaction. Conversions are irreversible.": "正在为您的交易转换代币，请稍候。转换过程是不可逆转的。"
+    "Please wait as we convert tokens for your transaction. Conversions are irreversible.": "正在为您的交易转换代币，请稍候。转换过程是不可逆转的。",
+    "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges may result in irreversible loss of funds.": "请注意，您只能将流动池的d代币发送至已引入递飞链技术栈的钱包。若您发到不确认可接受d代币的钱包或其他交易所，有可能造成无无法逆转的资金损失."
   },
   "components/ConversionTag": {
     "Conversion required": "需要转换"
