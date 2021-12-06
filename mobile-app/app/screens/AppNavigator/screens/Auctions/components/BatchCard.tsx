@@ -117,7 +117,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
             />
           </View>
         </View>
-        <View style={tailwind('flex flex-row')}>
+        <View style={tailwind('flex flex-row mt-0.5')}>
           {props.isVaultOwner && <BatchCardInfo iconName='account-circle' text='From your vault' />}
           {!hasFirstBid && <BatchCardInfo iconName='hourglass-top' text='Waiting for first bid' />}
         </View>
@@ -205,14 +205,14 @@ function BatchCardInfo (props: { iconName: 'hourglass-top' | 'account-circle', t
        size={12}
        name={props.iconName}
        iconType='MaterialIcons'
-       style={tailwind('mr-0.5 mt-0.5')}
+       style={tailwind('mr-0.5')}
        dark={tailwind('text-gray-200')}
        light={tailwind('text-gray-700')}
      />
      <ThemedText
        light={tailwind('text-gray-500')}
        dark={tailwind('text-gray-400')}
-       style={tailwind('text-xxs mr-1.5')}
+       style={tailwind('text-2xs mr-1.5')}
      >{translate('components/BatchCard', props.text)}
      </ThemedText>
    </View>
