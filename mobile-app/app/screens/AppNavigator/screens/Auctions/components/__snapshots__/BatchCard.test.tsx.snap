@@ -496,7 +496,8 @@ exports[`Batch Card should match snapshot 1`] = `
               Array [
                 Object {
                   "fontSize": 10,
-                  "marginRight": 6,
+                  "lineHeight": 12,
+                  "marginRight": 8,
                 },
                 Object {
                   "color": "rgba(115, 115, 115, 1)",
@@ -516,7 +517,7 @@ exports[`Batch Card should match snapshot 1`] = `
           "flexDirection": "row",
           "justifyContent": "space-between",
           "marginBottom": 8,
-          "marginTop": 16,
+          "marginTop": 8,
           "width": "100%",
         }
       }
