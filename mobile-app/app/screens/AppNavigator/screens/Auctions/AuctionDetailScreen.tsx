@@ -108,7 +108,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
       <ThemedScrollView contentContainerStyle={tailwind('pb-52')}>
         <ThemedView
           light={tailwind('bg-white border-gray-200')}
-          dark={tailwind('bg-gray-800 border-gray-700')}
+          dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
           style={tailwind('rounded border-b p-4')}
           testID='batch_detail_screen'
         >
@@ -129,7 +129,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
                   <View style={tailwind('flex flex-row items-center')}>
                     <ThemedText
                       light={tailwind('text-gray-500')}
-                      dark={tailwind('text-gray-400')}
+                      dark={tailwind('text-dfxgray-400')}
                       style={tailwind('text-xs')}
                     >
                       {translate('components/AuctionDetailScreen', 'Batch #{{index}}', { index: batch.index + 1 })}
@@ -139,7 +139,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
                       testID='ocean_vault_explorer'
                     >
                       <ThemedIcon
-                        dark={tailwind('text-darkprimary-500')}
+                        dark={tailwind('text-dfxred-500')}
                         iconType='MaterialIcons'
                         light={tailwind('text-primary-500')}
                         name='open-in-new'
@@ -233,7 +233,7 @@ function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-900 border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('absolute w-full bottom-0 flex-1 border-t px-4 pt-5 pb-10')}
     >
       <View style={tailwind('flex flex-row items-center justify-center w-full')}>
@@ -241,7 +241,7 @@ function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
           <View style={tailwind('flex-row items-center')}>
             <ThemedText
               light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
+              dark={tailwind('text-dfxgray-400')}
               style={tailwind('text-sm items-center')}
             >
               {translate('components/AuctionDetailScreen', 'Min. next bid')}
@@ -290,7 +290,7 @@ function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
           disabled={props.blocksRemaining === 0}
           themedProps={{
             light: tailwind('bg-primary-50 border-primary-50'),
-            dark: tailwind('bg-darkprimary-700 border-darkprimary-700')
+            dark: tailwind('bg-dfxred-500 border-dfxred-500')
           }}
           textStyle={tailwind('text-base')}
           textThemedProps={{

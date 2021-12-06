@@ -65,7 +65,7 @@ export const QuickBid = ({
   return (
     <ThemedView
       light={tailwind('bg-white')}
-      dark={tailwind('bg-gray-800')}
+      dark={tailwind('bg-dfxblue-800')}
       style={tailwind('px-4 h-full flex')}
     >
       <CloseButton onPress={onCloseButtonPress} />

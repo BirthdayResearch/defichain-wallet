@@ -10,7 +10,7 @@ export function BrowseAuctionsLoader (props: BrowseAuctionsLoaderProps): JSX.Ele
   const { isLight } = useThemeContext()
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border border-dfxblue-900')}
       light={tailwind('bg-white border border-gray-200')}
       style={tailwind('px-2 mb-2 rounded items-center justify-center')}
       testID='browse_auctions_skeleton_loader'

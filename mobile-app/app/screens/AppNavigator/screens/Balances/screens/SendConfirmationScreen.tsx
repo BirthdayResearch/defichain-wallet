@@ -198,7 +198,7 @@ function LpAcknowledgeSwitch (props: {isAcknowledge: boolean, onSwitch: (val: bo
       />
       <ThemedText
         light={tailwind('text-gray-700')}
-        dark={tailwind('text-gray-300')}
+        dark={tailwind('text-dfxgray-300')}
         style={tailwind('ml-2 flex-1 text-xs')}
       >
         {translate('screens/SendConfirmationScreen', 'I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.')}

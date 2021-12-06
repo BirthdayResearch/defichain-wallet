@@ -325,7 +325,7 @@ function TokenInput (props: {token?: WalletToken, onPress: () => void}): JSX.Ele
           ? (
             <ThemedText
               light={tailwind('text-gray-300')}
-              dark={tailwind('text-gray-500')}
+              dark={tailwind('text-dfxgray-500')}
               style={tailwind('text-sm')}
               testID='select_token_placeholder'
             >

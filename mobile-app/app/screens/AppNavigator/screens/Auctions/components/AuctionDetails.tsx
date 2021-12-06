@@ -86,7 +86,7 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
 function RowLinkItem (props: {label: string, value: string, onPress: () => void }): JSX.Element {
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('p-4 flex-row items-center w-full')}
     >
@@ -101,7 +101,7 @@ function RowLinkItem (props: {label: string, value: string, onPress: () => void 
       <View style={tailwind('flex-1')}>
         <View style={tailwind('flex flex-row items-center ')}>
           <ThemedText
-            dark={tailwind('text-gray-400')}
+            dark={tailwind('text-dfxgray-400')}
             light={tailwind('text-gray-500')}
             style={tailwind('text-right w-11/12 text-sm font-normal')}
             numberOfLines={1}
@@ -114,7 +114,7 @@ function RowLinkItem (props: {label: string, value: string, onPress: () => void 
             testID='ocean_vault_explorer'
           >
             <ThemedIcon
-              dark={tailwind('text-darkprimary-500')}
+              dark={tailwind('text-dfxred-500')}
               iconType='MaterialIcons'
               light={tailwind('text-primary-500')}
               name='open-in-new'

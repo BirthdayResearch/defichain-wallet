@@ -27,7 +27,7 @@ export function AuctionTimeProgress (props: AuctionTimeProgressProps): JSX.Eleme
         <View style={tailwind('flex flex-row')}>
           <ThemedText
             light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
+            dark={tailwind('text-dfxgray-400')}
             style={tailwind('text-xs')}
           >
             {translate('components/AuctionTimeProgress', props.label)}
@@ -46,8 +46,8 @@ export function AuctionTimeProgress (props: AuctionTimeProgressProps): JSX.Eleme
       <Progress.Bar
         progress={normalizedBlocks}
         width={null}
-        borderColor={getColor(isLight ? 'gray-300' : 'gray-600')}
-        color={getColor(isLight ? 'blue-500' : 'blue-500')}
+        borderColor={getColor(isLight ? 'gray-300' : 'dfxgray-500')}
+        color={getColor(isLight ? 'blue-500' : 'dfxblue-500')}
         unfilledColor='gray-100'
         borderRadius={8}
         height={8}

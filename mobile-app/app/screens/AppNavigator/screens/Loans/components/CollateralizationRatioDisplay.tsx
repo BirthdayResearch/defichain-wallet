@@ -178,7 +178,7 @@ function HealthBar (props: { normalizedColRatio: BigNumber, normalizedNextRatio:
       <Progress.Bar
         progress={props.normalizedColRatio.toNumber()}
         width={null}
-        borderColor={getColor(isLight ? 'gray-300' : 'gray-800')}
+        borderColor={getColor(isLight ? 'gray-300' : 'dfxblue-800')}
         color={getColor(isLight ? 'white' : 'gray-200')}
         unfilledColor={getColor(isLight ? 'gray-100' : 'gray-700')}
         borderRadius={8}

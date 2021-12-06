@@ -66,7 +66,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('rounded mb-2 border p-4')}
     >
       <TouchableOpacity
@@ -92,7 +92,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
               >
                 <ThemedIcon
                   style={tailwind('ml-2')}
-                  dark={tailwind('text-darkprimary-500')}
+                  dark={tailwind('text-dfxred-500')}
                   iconType='MaterialIcons'
                   light={tailwind('text-primary-500')}
                   name='open-in-new'
@@ -121,7 +121,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
           <View style={tailwind('flex flex-row')}>
             <ThemedText
               light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
+              dark={tailwind('text-dfxgray-400')}
               style={tailwind('text-xs')}
             >
               {translate('components/BatchCard', 'Total auction value (USD)')}
@@ -151,7 +151,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
           <View style={tailwind('flex-row items-center justify-start')}>
             <ThemedText
               light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
+              dark={tailwind('text-dfxgray-400')}
               style={tailwind('text-xs')}
             >
               {translate('components/BatchCard', 'Min. next bid')}
@@ -245,14 +245,14 @@ export function AuctionBidStatus ({ type }: { type: AuctionBidStatusType }): JSX
           <>
             <ThemedIcon
               light={tailwind('text-blue-500')}
-              dark={tailwind('text-darkblue-500')}
+              dark={tailwind('text-dfxblue-500')}
               iconType='MaterialIcons'
               name='person-pin'
               size={12}
             />
             <ThemedText
               light={tailwind('text-blue-500')}
-              dark={tailwind('text-darkblue-500')}
+              dark={tailwind('text-dfxblue-500')}
               style={tailwind('text-xs ml-1')}
             >
               {translate('components/BatchCard', 'You are the highest bidder')}

@@ -24,7 +24,7 @@ export function AuctionedCollaterals (props: { collaterals: LoanVaultTokenAmount
       <View style={tailwind('p-4 flex flex-row justify-end')}>
         <ThemedText
           light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
+          dark={tailwind('text-dfxgray-400')}
         >
           {translate('components/AuctionDetailScreen', 'Total auction value (USD):')}
         </ThemedText>

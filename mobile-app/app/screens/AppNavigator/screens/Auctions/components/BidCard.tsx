@@ -25,7 +25,7 @@ export function BidCard (props: BidCardProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('rounded mb-2 border p-4')}
       testID={testID}
     >
@@ -53,7 +53,7 @@ export function BidCard (props: BidCardProps): JSX.Element {
         <View style={tailwind('flex w-1/2 flex-row')}>
           <ThemedText
             light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
+            dark={tailwind('text-dfxgray-400')}
             style={tailwind('text-xs')}
           >
             {translate('components/BidCard', 'Auction ID')}
@@ -69,7 +69,7 @@ export function BidCard (props: BidCardProps): JSX.Element {
           </ThemedText>
           <TouchableOpacity onPress={() => {}}>
             <ThemedIcon
-              dark={tailwind('text-darkprimary-500')}
+              dark={tailwind('text-dfxred-500')}
               iconType='MaterialIcons'
               light={tailwind('text-primary-500')}
               name='open-in-new'

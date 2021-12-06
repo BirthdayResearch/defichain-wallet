@@ -80,7 +80,7 @@ function LoanSchemeOptionData (props: { label: string, value: string, testId: st
     <View style={tailwind('flex-1')}>
       <ThemedText
         light={tailwind('text-dfxgray-400', { 'text-dfxgray-300': props.disabled === true })}
-        dark={tailwind('text-dfxgray-500', { 'text-gray-600': props.disabled === true })}
+        dark={tailwind('text-dfxgray-500', { 'text-dfxgray-500': props.disabled === true })}
         style={tailwind('text-xs')}
       >
         {translate('components/LoanSchemeOptions', props.label)}
@@ -91,7 +91,7 @@ function LoanSchemeOptionData (props: { label: string, value: string, testId: st
         renderText={(value: string) => (
           <ThemedText
             light={tailwind('text-gray-900', { 'text-dfxgray-300': props.disabled === true })}
-            dark={tailwind('text-gray-50', { 'text-gray-600': props.disabled === true })}
+            dark={tailwind('text-dfxgray-300', { 'text-dfxgray-500': props.disabled === true })}
             style={tailwind('text-sm font-medium')}
             testID={props.testId}
           >

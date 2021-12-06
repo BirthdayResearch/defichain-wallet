@@ -144,7 +144,7 @@ If you discover a security vulnerability in
 - bg-gray-800 => bg-dfxblue-800
 - bg-gray-900 => bg-dfxblue-900
 - border-gray-700 => border-dfxblue-900
-- text-primary-500 => text-dfxred-500
+- text-darkprimary-500 => text-dfxred-500
 - gray-300 => dfxgray-300
 - gray-400 => dfxgray-400
 - gray-500 => dfxgray-500

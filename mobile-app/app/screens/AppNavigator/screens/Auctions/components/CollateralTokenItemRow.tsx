@@ -16,7 +16,7 @@ export function CollateralTokenItemRow ({ token }: { token: LoanVaultTokenAmount
 
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('bg-white border-b border-gray-100')}
       style={tailwind('p-4 flex-row justify-between items-center')}
       testID={testID}
@@ -34,7 +34,7 @@ export function CollateralTokenItemRow ({ token }: { token: LoanVaultTokenAmount
           <ThemedText
             ellipsizeMode='tail'
             light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
+            dark={tailwind('text-dfxgray-400')}
             numberOfLines={1}
             style={tailwind('text-xs')}
             testID={`${testID}_name`}
@@ -68,7 +68,7 @@ export function CollateralTokenItemRow ({ token }: { token: LoanVaultTokenAmount
           renderText={(value) =>
             <ThemedText
               light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
+              dark={tailwind('text-dfxgray-400')}
               style={tailwind('text-xs flex-wrap text-right')}
               testID={`${testID}_amount`}
             >

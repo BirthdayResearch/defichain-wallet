@@ -182,7 +182,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
           />
           <ThemedText
             light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
+            dark={tailwind('text-dfxgray-400')}
             style={tailwind('text-center text-xs')}
           >
             {translate('screens/PlaceBidScreen', 'Review and confirm transaction in the next screen')}
@@ -218,7 +218,7 @@ function BidSummaryCard (props: {
 }): JSX.Element {
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-gray-600')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       light={tailwind('bg-white border-gray-300')}
       style={tailwind('border p-4 mb-4')}
     >
@@ -253,7 +253,7 @@ function BidSummaryCard (props: {
         >
           <TouchableOpacity onPress={props.onPressFullDetails}>
             <ThemedText
-              dark={tailwind('text-darkprimary-500')}
+              dark={tailwind('text-dfxred-500')}
               light={tailwind('text-primary-500')}
               style={tailwind('text-xs')}
             >{` ${translate('screens/PlaceBidScreen', '(Full details)')}`}
@@ -300,7 +300,7 @@ function BidCardRow (props: React.PropsWithChildren<BidCardRowProps>): JSX.Eleme
       <View style={tailwind('w-6/12')}>
         <ThemedText
           light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
+          dark={tailwind('text-dfxgray-400')}
           style={tailwind('text-xs')}
         >
           {props.lhs}
