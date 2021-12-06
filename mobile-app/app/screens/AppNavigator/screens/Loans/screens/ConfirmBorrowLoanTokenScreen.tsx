@@ -22,7 +22,6 @@ import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { fetchVaults } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { useResultingCollateralRatio } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
 import { useCollateralizationRatioColor } from '../hooks/CollateralizationRatio'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmBorrowLoanTokenScreen'>
@@ -37,7 +36,8 @@ export function ConfirmBorrowLoanTokenScreen ({
     amountToBorrow,
     totalInterestAmount,
     totalLoanWithInterest,
-    fee
+    fee,
+    resultingColRatio
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -47,8 +47,6 @@ export function ConfirmBorrowLoanTokenScreen ({
   const { address } = useWalletContext()
   const client = useWhaleApiClient()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
-  const resultCollateralRatio = useResultingCollateralRatio(new BigNumber(vault.collateralValue), new BigNumber(vault.loanValue),
-    new BigNumber(totalLoanWithInterest), new BigNumber(loanToken.activePrice?.active?.amount ?? 0))
 
   function onCancel (): void {
     navigation.goBack()
@@ -107,12 +105,12 @@ export function ConfirmBorrowLoanTokenScreen ({
         collateralRatio={new BigNumber(vault.collateralRatio)}
       />
       <SummaryTransactionResults
-        resultCollateralRatio={resultCollateralRatio}
+        resultCollateralRatio={resultingColRatio}
         minColRatio={new BigNumber(vault.loanScheme.minColRatio)}
         totalLoanValue={new BigNumber(vault.loanValue).plus(totalLoanWithInterest.multipliedBy(loanToken.activePrice?.active?.amount ?? 0))}
       />
       <SubmitButtonGroup
-        isDisabled={hasPendingJob || hasPendingBroadcastJob || resultCollateralRatio.isLessThan(vault.loanScheme.minColRatio)}
+        isDisabled={hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/ConfirmBorrowLoanTokenScreen', 'CONFIRM BORROW')}
         isProcessing={hasPendingJob || hasPendingBroadcastJob}
         processingLabel={translate('screens/ConfirmBorrowLoanTokenScreen', getSubmitLabel())}
