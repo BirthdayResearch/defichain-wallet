@@ -131,7 +131,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
           {!hasFirstBid && <BatchCardInfo iconName='hourglass-top' text='Waiting for first bid' />}
         </View>
         {batch?.highestBid?.owner === address && <AuctionBidStatus type='highest' />}
-        <View style={tailwind('flex-row w-full items-center justify-between mb-2 mt-4')}>
+        <View style={tailwind('flex-row w-full items-center justify-between my-2')}>
           <View style={tailwind('flex flex-row')}>
             <ThemedText
               light={tailwind('text-gray-500')}
@@ -214,14 +214,14 @@ function BatchCardInfo (props: { iconName: React.ComponentProps<typeof MaterialI
         size={12}
         name={props.iconName}
         iconType='MaterialIcons'
-        style={tailwind('mr-0.5')}
+        style={tailwind('mr-1')}
         dark={tailwind('text-gray-200')}
         light={tailwind('text-gray-700')}
       />
       <ThemedText
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
-        style={tailwind('text-2xs mr-1.5')}
+        style={tailwind('text-2xs mr-2 leading-3')}
       >{translate('components/BatchCard', props.text)}
       </ThemedText>
     </View>
@@ -255,7 +255,7 @@ type AuctionBidStatusType = 'lost' | 'highest'
 
 export function AuctionBidStatus ({ type }: { type: AuctionBidStatusType }): JSX.Element {
   return (
-    <View style={tailwind('flex-row w-full items-center justify-between mt-2')}>
+    <View style={tailwind('flex-row w-full items-center justify-between')}>
       <View style={tailwind('flex flex-row items-center justify-between')}>
         {type === 'lost'
           ? (
@@ -284,11 +284,12 @@ export function AuctionBidStatus ({ type }: { type: AuctionBidStatusType }): JSX
                 iconType='MaterialIcons'
                 name='person-pin'
                 size={12}
+                style={tailwind('mr-1 mt-0.5')}
               />
               <ThemedText
                 light={tailwind('text-blue-500')}
                 dark={tailwind('text-darkblue-500')}
-                style={tailwind('text-xs ml-1')}
+                style={tailwind('text-2xs mr-2')}
               >
                 {translate('components/BatchCard', 'You are the highest bidder')}
               </ThemedText>
