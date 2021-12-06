@@ -703,7 +703,7 @@
     "Browse auctions": "瀏覽拍賣",
     "Manage bids": "管理競投出價",
     "Loans": "貸款",
-    "Auctioned collaterals": "拍賣抵押品", 
+    "Auctioned collaterals": "拍賣抵押品",
     "Auction details": "拍賣細節"
   },
   "components/LoanCard": {
@@ -738,8 +738,8 @@
     "Min. next bid": "最低標價",
     "VAULT DETAILS": "金庫資料",
     "Vault ID": "金庫編號",
-    "Owner ID": "主權者編號", 
-    "Liquidation height": "清算高度", 
+    "Owner ID": "主權者編號",
+    "Liquidation height": "清算高度",
     "ADDITIONAL DETAILS": "其他細節",
     "Collateral value (USD)": "抵押品價值(美金)",
     "Auction start": "拍賣會開始",
@@ -854,7 +854,7 @@
     "Min. collateralization ratio": "最小抵押率",
     "This amount is the total interest amount from both vault and token interest rate.": "此金額是金庫和代幣利率的利息總和",
     "Annual vault interest": "金庫年利息",
-    "Min. next bid": "最低標價", 
+    "Min. next bid": "最低標價",
     "The minimum bid a user must place in order to take part in the auction.": "用戶參與拍賣必須提交的最低標價。"
   },
   "screens/VaultDetailScreen": {
@@ -1095,7 +1095,8 @@
     "N/A": "不適用"
   },
   "screens/ChooseLoanTokenScreen": {
-    "Search for loans": "搜尋貸款"
+    "Search for loans": "搜尋貸款",
+    "Search for loan token": "Search for loan token"
   },
   "components/EmptyCollateral": {
     "No collaterals": "沒有抵押",

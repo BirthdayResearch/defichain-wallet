@@ -739,8 +739,8 @@
     "Min. next bid": "Nächstes Mind. Gebot",
     "VAULT DETAILS": "VAULT-DETAILS",
     "Vault ID": "Vault-ID",
-    "Owner ID": "Besitzer-ID", 
-    "Liquidation height": "Liquidierungsblockhöhe", 
+    "Owner ID": "Besitzer-ID",
+    "Liquidation height": "Liquidierungsblockhöhe",
     "ADDITIONAL DETAILS": "ZUSÄTZLICHE DETAILS",
     "Collateral value (USD)": "Sicherheitenwert (USD)",
     "Auction start": "Auktions-Start",
@@ -1092,7 +1092,8 @@
     "Max loan amount": "Max. Darlehensbetrag"
   },
   "screens/ChooseLoanTokenScreen": {
-    "Search for loans": "Nach Darlehen suchen"
+    "Search for loans": "Nach Darlehen suchen",
+    "Search for loan token": "Search for loan token"
   },
   "components/EmptyCollateral": {
     "No collaterals": "Keine Sicherheiten",
