@@ -132,7 +132,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
                       dark={tailwind('text-gray-400')}
                       style={tailwind('text-xs')}
                     >
-                      {translate('components/AuctionDetailScreen', 'Batch #{{index}}', { index: 1 })}
+                      {translate('components/AuctionDetailScreen', 'Batch #{{index}}', { index: batch.index + 1 })}
                     </ThemedText>
                     <TouchableOpacity
                       onPress={async () => await openURL(getVaultsUrl(vault.vaultId))}
