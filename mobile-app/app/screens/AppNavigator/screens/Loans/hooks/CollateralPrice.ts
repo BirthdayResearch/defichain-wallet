@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js'
 import { useVaultShare } from '@screens/AppNavigator/screens/Loans/hooks/VaultShare'
 import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen'
+import { CollateralToken } from '@defichain/whale-api-client/dist/api/loan'
 
 interface CollateralPrice {
   activePrice: BigNumber
@@ -9,7 +10,7 @@ interface CollateralPrice {
   collateralFactor: BigNumber
 }
 
-export function useCollateralPrice (amount: BigNumber, collateralItem: CollateralItem, totalCollateralValue: BigNumber): CollateralPrice {
+export function useCollateralPrice (amount: BigNumber, collateralItem: CollateralItem | CollateralToken, totalCollateralValue: BigNumber): CollateralPrice {
   const activePrice = new BigNumber(collateralItem.activePrice?.active?.amount ?? 0)
   const collateralPrice = new BigNumber(activePrice).multipliedBy(amount)
   const collateralFactor = new BigNumber(collateralItem?.factor ?? 0)
