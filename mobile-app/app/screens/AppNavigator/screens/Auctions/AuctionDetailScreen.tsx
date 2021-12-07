@@ -40,7 +40,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>()
   const { batch, vault } = props.route.params
   const tokens = useTokensAPI()
-  const { getVaultsUrl } = useDeFiScanContext()
+  const { getAuctionsUrl } = useDeFiScanContext()
   const [activeTab, setActiveTab] = useState<string>(TabKey.Collaterals)
   const { minNextBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
@@ -135,7 +135,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
                       {translate('components/AuctionDetailScreen', 'Batch #{{index}}', { index: batch.index + 1 })}
                     </ThemedText>
                     <TouchableOpacity
-                      onPress={async () => await openURL(getVaultsUrl(vault.vaultId))}
+                      onPress={async () => await openURL(getAuctionsUrl(vault.vaultId, batch.index))}
                       testID='ocean_vault_explorer'
                     >
                       <ThemedIcon
