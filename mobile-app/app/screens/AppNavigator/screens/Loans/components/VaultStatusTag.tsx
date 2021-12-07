@@ -20,7 +20,7 @@ export enum VaultStatus {
   Unknown = 'UNKNOWN'
 }
 
-export interface VaultHealthItem {
+interface VaultHealthItem {
   vaultStats: CollateralizationRatioStats
   status: VaultStatus
 }
@@ -60,7 +60,7 @@ export function useVaultStatus (status: LoanVaultState, collateralRatio: BigNumb
 export function VaultStatusTag ({
   status,
   testID
-}: {status: VaultStatus, testID: string}): JSX.Element {
+}: {status: VaultStatus, testID?: string}): JSX.Element {
   if (status === VaultStatus.Unknown) {
     return <></>
   }
