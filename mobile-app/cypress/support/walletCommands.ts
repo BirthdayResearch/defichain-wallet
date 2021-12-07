@@ -1,7 +1,6 @@
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import '@testing-library/cypress/add-commands'
 import { BalanceTokenDetail } from '../integration/functional/wallet/balances/balances.spec'
-import { EnvironmentNetwork } from '../../../shared/environment'
 
 declare global {
   namespace Cypress {
@@ -44,11 +43,6 @@ declare global {
        * @param resultingToken
        */
       validateConversionDetails: (isTokenToUTXO: boolean, amountToConvert: string, resultingUTXO: string, resultingToken: string) => Chainable<Element>
-
-      /**
-       * @description Intercept feature flag API to turn on loan feature
-       */
-      allowLoanFeature: () => Chainable<Element>
     }
   }
 }
@@ -105,20 +99,4 @@ Cypress.Commands.add('validateConversionDetails', (isTokenToUTXO: boolean, amoun
   cy.getByTestID('resulting_utxo').should('contain', resultingUTXO)
   cy.getByTestID('resulting_token').should('contain', resultingToken)
   cy.getByTestID('conversion_breakdown_text').should('contain', 'Amount above are prior to transaction')
-})
-
-Cypress.Commands.add('allowLoanFeature', () => {
-  cy.intercept('**/settings/flags', {
-    body: [
-      {
-        id: 'loan',
-        name: 'Loans',
-        stage: 'alpha',
-        version: ">=0.0.0",
-        description: 'Browse loan tokens provided by DeFiChain',
-        networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
-        platforms: ['ios', 'android', 'web']
-      }
-    ]
-  })
 })

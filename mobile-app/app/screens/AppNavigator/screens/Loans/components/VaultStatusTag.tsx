@@ -58,8 +58,9 @@ export function useVaultStatus (status: LoanVaultState, collateralRatio: BigNumb
 }
 
 export function VaultStatusTag ({
-  status
-}: {status: VaultStatus}): JSX.Element {
+  status,
+  testID
+}: {status: VaultStatus, testID: string}): JSX.Element {
   if (status === VaultStatus.Unknown) {
     return <></>
   }
@@ -85,6 +86,7 @@ export function VaultStatusTag ({
       style={tailwind('flex flex-row items-center py-0.5 px-2')}
     >
       <ThemedText
+        testID={testID}
         light={tailwind(
           {
             'text-gray-500': status === VaultStatus.Empty || status === VaultStatus.Ready || status === VaultStatus.Liquidated,
