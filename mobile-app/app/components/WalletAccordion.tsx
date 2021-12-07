@@ -9,6 +9,7 @@ interface AccordionProps {
   testID?: string
   title: string
   content: AccordionContent[]
+  activeSessions?: number[] | string[]
 }
 
 export interface AccordionContent {
@@ -26,7 +27,7 @@ interface ActiveSessions {
 export function WalletAccordion (props: AccordionProps): JSX.Element {
   const { isLight } = useThemeContext()
   const initialContent: ActiveSessions = {
-    activeSessions: []
+    activeSessions: props.activeSessions ?? []
   }
   const [activeContent, setActiveContent] = useState(initialContent)
   const isLastContent = (index: number): boolean => {
