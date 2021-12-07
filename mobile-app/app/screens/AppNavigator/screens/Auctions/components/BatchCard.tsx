@@ -232,7 +232,7 @@ function BatchCardButtons (props: { onPlaceBid: () => void, onQuickBid: () => vo
   return (
     <ThemedView
       light={tailwind('border-gray-200')}
-      dark={tailwind('border-gray-700')}
+      dark={tailwind('border-dfxblue-900')}
       style={tailwind('flex flex-row mt-4 flex-wrap -mb-2')}
     >
       <IconButton
