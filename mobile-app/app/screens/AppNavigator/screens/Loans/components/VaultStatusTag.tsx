@@ -22,6 +22,7 @@ export enum VaultStatus {
 export interface VaultHealthItem {
   vaultStats: CollateralizationRatioStats
   status: VaultStatus
+  testID?: string
 }
 
 export function useVaultStatus (status: LoanVaultState, collateralRatio: BigNumber, minColRatio: BigNumber, totalLoanAmount: BigNumber): VaultHealthItem {
@@ -55,7 +56,8 @@ export function useVaultStatus (status: LoanVaultState, collateralRatio: BigNumb
 
 export function VaultStatusTag ({
   status,
-  vaultStats
+  vaultStats,
+  testID
 }: VaultHealthItem): JSX.Element {
   if (status === VaultStatus.Unknown) {
     return <></>
@@ -84,6 +86,7 @@ export function VaultStatusTag ({
       style={tailwind('flex flex-row items-center')}
     >
       <ThemedText
+        testID={testID}
         light={tailwind(
           {
             'text-blue-500': status === VaultStatus.Active,
