@@ -137,6 +137,10 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                         "alignItems": "center",
                         "display": "flex",
                         "flexDirection": "row",
+                        "paddingBottom": 2,
+                        "paddingLeft": 8,
+                        "paddingRight": 8,
+                        "paddingTop": 2,
                       },
                       Object {
                         "backgroundColor": "rgba(255, 230, 230, 1)",
@@ -159,19 +163,43 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                             "fontSize": 12,
                             "fontWeight": "500",
                             "lineHeight": 16,
-                            "paddingBottom": 2,
-                            "paddingLeft": 8,
-                            "paddingRight": 8,
-                            "paddingTop": 2,
                           },
                           Object {
-                            "color": "rgba(255, 0, 0, 1)",
+                            "color": "rgba(230, 0, 0, 1)",
                           },
                         ],
                       ]
                     }
                   >
-                    AT RISK
+                    ACTIVE
+                  </Text>
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      Array [
+                        Object {
+                          "color": undefined,
+                          "fontSize": 12,
+                        },
+                        Array [
+                          Object {
+                            "marginLeft": 4,
+                            "paddingTop": 1,
+                          },
+                          Object {
+                            "color": "rgba(230, 0, 0, 1)",
+                          },
+                        ],
+                        Object {
+                          "fontFamily": "material-community",
+                          "fontStyle": "normal",
+                          "fontWeight": "normal",
+                        },
+                        Object {},
+                      ]
+                    }
+                  >
+                    󰢼
                   </Text>
                 </View>
               </View>
@@ -1208,6 +1236,10 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                         "alignItems": "center",
                         "display": "flex",
                         "flexDirection": "row",
+                        "paddingBottom": 2,
+                        "paddingLeft": 8,
+                        "paddingRight": 8,
+                        "paddingTop": 2,
                       },
                       Object {
                         "backgroundColor": "rgba(255, 230, 230, 1)",
@@ -1230,20 +1262,17 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                             "fontSize": 12,
                             "fontWeight": "500",
                             "lineHeight": 16,
-                            "paddingBottom": 2,
-                            "paddingLeft": 8,
-                            "paddingRight": 8,
-                            "paddingTop": 2,
                           },
                           Object {
-                            "color": "rgba(255, 0, 0, 1)",
+                            "color": "rgba(230, 0, 0, 1)",
                           },
                         ],
                       ]
                     }
                   >
-                    AT RISK
+                    ACTIVE
                   </Text>
+                  <Text />
                 </View>
               </View>
               <View
@@ -2279,6 +2308,10 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                         "alignItems": "center",
                         "display": "flex",
                         "flexDirection": "row",
+                        "paddingBottom": 2,
+                        "paddingLeft": 8,
+                        "paddingRight": 8,
+                        "paddingTop": 2,
                       },
                       Object {
                         "backgroundColor": "rgba(255, 230, 230, 1)",
@@ -2301,19 +2334,43 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                             "fontSize": 12,
                             "fontWeight": "500",
                             "lineHeight": 16,
-                            "paddingBottom": 2,
-                            "paddingLeft": 8,
-                            "paddingRight": 8,
-                            "paddingTop": 2,
                           },
                           Object {
-                            "color": "rgba(255, 0, 0, 1)",
+                            "color": "rgba(230, 0, 0, 1)",
                           },
                         ],
                       ]
                     }
                   >
-                    AT RISK
+                    ACTIVE
+                  </Text>
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      Array [
+                        Object {
+                          "color": undefined,
+                          "fontSize": 12,
+                        },
+                        Array [
+                          Object {
+                            "marginLeft": 4,
+                            "paddingTop": 1,
+                          },
+                          Object {
+                            "color": "rgba(230, 0, 0, 1)",
+                          },
+                        ],
+                        Object {
+                          "fontFamily": "material-community",
+                          "fontStyle": "normal",
+                          "fontWeight": "normal",
+                        },
+                        Object {},
+                      ]
+                    }
+                  >
+                    󰢼
                   </Text>
                 </View>
               </View>
@@ -3350,9 +3407,13 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
                         "alignItems": "center",
                         "display": "flex",
                         "flexDirection": "row",
+                        "paddingBottom": 2,
+                        "paddingLeft": 8,
+                        "paddingRight": 8,
+                        "paddingTop": 2,
                       },
                       Object {
-                        "backgroundColor": "rgba(255, 230, 230, 1)",
+                        "backgroundColor": "rgba(245, 245, 245, 1)",
                       },
                     ]
                   }
@@ -3372,13 +3433,9 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
                             "fontSize": 12,
                             "fontWeight": "500",
                             "lineHeight": 16,
-                            "paddingBottom": 2,
-                            "paddingLeft": 8,
-                            "paddingRight": 8,
-                            "paddingTop": 2,
                           },
                           Object {
-                            "color": "rgba(255, 0, 0, 1)",
+                            "color": "rgba(115, 115, 115, 1)",
                           },
                         ],
                       ]
