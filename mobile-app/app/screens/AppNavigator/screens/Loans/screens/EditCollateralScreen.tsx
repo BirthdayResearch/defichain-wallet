@@ -27,7 +27,6 @@ import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
 import { useCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
 import {
   useVaultStatus,
-  VaultStatus,
   VaultStatusTag
 } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 import { queueConvertTransaction } from '@hooks/wallet/Conversion'
@@ -319,11 +318,13 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
   const colRatio = new BigNumber(vault.collateralRatio)
   const minColRatio = new BigNumber(vault.loanScheme.minColRatio)
   const totalLoanAmount = new BigNumber(vault.loanValue)
-  const vaultState = useVaultStatus(vault.state, colRatio, minColRatio, totalLoanAmount)
+  const totalCollateralValue = new BigNumber(vault.collateralValue)
+  const vaultState = useVaultStatus(vault.state, colRatio, minColRatio, totalLoanAmount, totalCollateralValue)
   const colors = useCollateralizationRatioColor({
     colRatio,
     minColRatio,
-    totalLoanAmount
+    totalLoanAmount,
+    totalCollateralValue
   })
   return (
     <ThemedView
@@ -343,7 +344,7 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
             {vault.vaultId}
           </ThemedText>
         </View>
-        <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
+        <VaultStatusTag status={vaultState.status} />
       </View>
       <VaultSectionTextRow
         testID='text_total_collateral_value'
@@ -357,11 +358,11 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
       />
       <VaultSectionTextRow
         testID='text_total_collateral_value'
-        value={BigNumber.maximum(new BigNumber(vault.collateralRatio ?? 0), 0).toFixed(2)}
-        suffix='%'
+        value={new BigNumber(vault.collateralRatio === '-1' ? NaN : vault.collateralRatio).toFixed(2)}
+        suffix={vault.collateralRatio === '-1' ? translate('screens/EditCollateralScreen', 'N/A') : '%'}
         suffixType='text'
         lhs={translate('screens/EditCollateralScreen', 'Collateralization ratio')}
-        rhsThemedProps={vaultState.status !== VaultStatus.Active ? colors : undefined}
+        rhsThemedProps={colors}
         info={{
           title: 'Collateralization ratio',
           message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'

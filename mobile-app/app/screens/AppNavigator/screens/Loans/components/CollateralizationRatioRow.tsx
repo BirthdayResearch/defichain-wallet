@@ -4,17 +4,25 @@ import { ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import React from 'react'
 import NumberFormat from 'react-number-format'
-import { VaultHealthItem, VaultStatusTag } from './VaultStatusTag'
+import { CollateralizationRatioProps, useCollateralizationRatioColor } from '../hooks/CollateralizationRatio'
 
-interface CollateralizationRatioRowProps {
+interface CollateralizationRatioRowProps extends CollateralizationRatioProps {
   label: string
   value: string
   testId: string
   type: 'current' | 'next'
-  vaultState: VaultHealthItem
 }
 
 export function CollateralizationRatioRow (props: CollateralizationRatioRowProps): JSX.Element {
+  const {
+    light,
+    dark
+  } = useCollateralizationRatioColor({
+    colRatio: props.colRatio,
+    minColRatio: props.minColRatio,
+    totalLoanAmount: props.totalLoanAmount
+  })
+
   const alertInfo = {
     title: 'Collateralization ratio',
     message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
@@ -54,14 +62,13 @@ export function CollateralizationRatioRow (props: CollateralizationRatioRowProps
           renderText={(val: string) => (
             <View style={tailwind('flex flex-row items-center flex-1 flex-wrap justify-end')}>
               <ThemedText
-                dark={tailwind('text-gray-400')}
-                light={tailwind('text-gray-500')}
+                dark={dark}
+                light={light}
                 style={tailwind('text-sm text-right mr-1')}
                 testID={props.testId}
               >
                 {props.type === 'next' && '~'}{val}
               </ThemedText>
-              <VaultStatusTag status={props.vaultState.status} vaultStats={props.vaultState.vaultStats} />
             </View>
           )}
         />
