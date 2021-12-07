@@ -121,10 +121,10 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     checkCollateralFormValues('How much dBTC to remove?', 'dBTC', '10')
     cy.getByTestID('form_input_text').type('1').blur()
     cy.getByTestID('add_collateral_button_submit').click()
-    checkConfirmEditCollateralValues('You are removing collateral from', vaultId, 'Remove Collateral', '100', 'dBTC', '10.00000000', '$450.00', '31.03%')
+    checkConfirmEditCollateralValues('You are removing collateral from', vaultId, 'Remove Collateral', '100', 'dBTC', '1.00000000', '$450.00', '31.03%')
     cy.getByTestID('button_confirm_confirm_edit_collateral').click().wait(3000)
     cy.getByTestID('txn_authorization_description')
-      .contains(`Adding ${new BigNumber(10).toFixed(8)} dBTC as collateral`)
+      .contains(`Removing ${new BigNumber(1).toFixed(8)} dBTC collateral from vault`)
     cy.closeOceanInterface()
   })
 
