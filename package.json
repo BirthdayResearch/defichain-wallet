@@ -118,7 +118,7 @@
     "babel-plugin-istanbul": "^6.1.1",
     "cypress": "9.1.1",
     "cypress-image-diff-js": "1.15.7",
-    "eas-cli": "^0.38.3",
+    "eas-cli": "^0.39.0",
     "eslint": "7.32.0",
     "eslint-config-standard-jsx": "^10.0.0",
     "eslint-config-standard-with-typescript": "^21.0.1",
