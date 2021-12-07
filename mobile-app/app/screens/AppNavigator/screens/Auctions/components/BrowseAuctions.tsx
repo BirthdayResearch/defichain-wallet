@@ -11,7 +11,7 @@ import { RootState } from '@store'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
-import { AuctionBatchesProps, auctionsSearchByTermSelector, fetchAuctions } from '@store/auctions'
+import { AuctionBatchProps, auctionsSearchByTermSelector, fetchAuctions } from '@store/auctions'
 import { EmptyAuction } from './EmptyAuction'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { useBottomSheet } from '@hooks/useBottomSheet'
@@ -150,7 +150,7 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
 }
 
 function BatchCards ({ auctionBatches, vaults, onQuickBid }: {
-  auctionBatches: AuctionBatchesProps[]
+  auctionBatches: AuctionBatchProps[]
     vaults: LoanVault[]
     onQuickBid: (
       batch: LoanVaultLiquidationBatch,
@@ -167,7 +167,7 @@ function BatchCards ({ auctionBatches, vaults, onQuickBid }: {
       renderItem={({
       item,
       index
-    }: { item: AuctionBatchesProps, index: number }): JSX.Element => {
+    }: { item: AuctionBatchProps, index: number }): JSX.Element => {
       const { auction, ...batch } = item
       return (
         <View key={auction.vaultId}>

@@ -9,7 +9,7 @@ interface AuctionsState {
   hasFetchAuctionsData: boolean
 }
 
-export interface AuctionBatchesProps extends LoanVaultLiquidationBatch {
+export interface AuctionBatchProps extends LoanVaultLiquidationBatch {
   auction: LoanVaultLiquidated
 }
 
@@ -60,7 +60,7 @@ export const auctionsCountSelector = createSelector((state: RootState) => state.
   ],
   (auctions, searchTerm: string) => {
     return auctions
-    .reduce<AuctionBatchesProps[]>((auctionBatches, auction): AuctionBatchesProps[] => {
+    .reduce<AuctionBatchProps[]>((auctionBatches, auction): AuctionBatchProps[] => {
       const filteredAuctionBatches = auctionBatches
       if (searchTerm === '' || searchTerm === undefined) {
         auction.batches.forEach(batch => {
