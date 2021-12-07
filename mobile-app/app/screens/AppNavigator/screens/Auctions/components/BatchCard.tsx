@@ -220,7 +220,7 @@ function BatchCardInfo (props: { iconName: React.ComponentProps<typeof MaterialI
       />
       <ThemedText
         light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        dark={tailwind('text-dfxgray-400')}
         style={tailwind('text-2xs mr-2 leading-3')}
       >{translate('components/BatchCard', props.text)}
       </ThemedText>
