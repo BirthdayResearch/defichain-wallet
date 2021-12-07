@@ -1,6 +1,6 @@
 import React from 'react'
 import BigNumber from 'bignumber.js'
-import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '../../../../../components/themed'
+import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { View } from '@components'
 import { translate } from '@translations'
@@ -67,13 +67,14 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
                     >
                       {translate('screens/VaultDetailScreen', 'Vault ID')}
                     </ThemedText>
-                    <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
+                    <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} testID={`${props.testID}_status`} />
                   </View>
                   <TouchableOpacity
                     style={tailwind('flex flex-row mb-0.5 items-center')}
                     onPress={async () => await openURL(getVaultsUrl(vault.vaultId))}
                   >
                     <ThemedText
+                      testID={`${props.testID}_vault_id`}
                       style={tailwind('font-semibold w-56 flex-shrink mr-0.5')}
                       numberOfLines={1}
                       ellipsizeMode='middle'
@@ -116,6 +117,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
                       light={tailwind('text-gray-500')}
                       dark={tailwind('text-gray-300')}
                       style={tailwind('text-xs ml-1')}
+                      testID={`${props.testID}_collateral_none`}
                     >
                       {translate('components/VaultCard', 'None')}
                     </ThemedText>
@@ -196,6 +198,7 @@ function VaultActionButton ({
         )
       }
       <IconButton
+        testID='edit_collaterals_button'
         iconLabel={translate('components/VaultCard', 'EDIT COLLATERALS')}
         style={tailwind('mr-2 mb-2 items-center')}
         onPress={() => {
