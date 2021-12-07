@@ -32,7 +32,7 @@ interface TokenActionItems {
 }
 type Props = StackScreenProps<BalanceParamList, 'TokenDetailScreen'>
 
-const usePoolPairToken = (tokenParam: WalletToken): { pair: PoolPairData | undefined, token: WalletToken } => {
+const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token: WalletToken, swapTokenDisplaySymbol?: string } => {
   // async calls
   const tokens = useTokensAPI()
   const pairs = usePoolPairsAPI()
@@ -40,6 +40,7 @@ const usePoolPairToken = (tokenParam: WalletToken): { pair: PoolPairData | undef
   // state
   const [token, setToken] = useState(tokenParam)
   const [pair, setPair] = useState<PoolPairData>()
+  const [swapTokenDisplaySymbol, setSwapTokenDisplaySymbol] = useState<string>()
 
   useEffect(() => {
     const t = tokens.find((t) => t.id === token.id)
@@ -53,7 +54,15 @@ const usePoolPairToken = (tokenParam: WalletToken): { pair: PoolPairData | undef
         return p.data.id === token.id
       }
       // get pair with same id if token passed is not LP
-      return token.id === p.data.tokenA.id || token.id === p.data.tokenB.id
+      if (token.id === p.data.tokenA.id) {
+        setSwapTokenDisplaySymbol(p.data.tokenB.displaySymbol)
+        return true
+      }
+      if (token.id === p.data.tokenB.id) {
+        setSwapTokenDisplaySymbol(p.data.tokenA.displaySymbol)
+        return true
+      }
+      return false
     })?.data
 
     if (poolpair !== undefined) {
@@ -63,12 +72,13 @@ const usePoolPairToken = (tokenParam: WalletToken): { pair: PoolPairData | undef
 
   return {
     pair,
-    token
+    token,
+    swapTokenDisplaySymbol
   }
 }
 
 export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
-  const { pair, token } = usePoolPairToken(route.params.token)
+  const { pair, token, swapTokenDisplaySymbol } = usePoolPairToken(route.params.token)
   const onNavigate = ({ destination, pair }: {destination: 'AddLiquidity' | 'RemoveLiquidity' | 'CompositeSwap', pair: PoolPairData}): void => {
     navigation.navigate('DEX', {
       screen: destination,
@@ -129,7 +139,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
       }
 
       {
-        !token.isLPS && pair !== undefined && (
+        (!token.isLPS && pair !== undefined && swapTokenDisplaySymbol !== undefined) && (
           <TokenActionRow
             icon='swap-horiz'
             onPress={() => onNavigate({
@@ -137,7 +147,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
               pair
             })}
             testID='swap_button'
-            title={translate('screens/TokenDetailScreen', 'Swap with {{token}}', { token: 'DFI' })}
+            title={translate('screens/TokenDetailScreen', 'Swap with {{token}}', { token: swapTokenDisplaySymbol })}
           />)
       }
 

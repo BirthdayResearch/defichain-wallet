@@ -3,7 +3,7 @@ import { Platform, View, NativeSyntheticEvent, TextInputChangeEventData } from '
 import { useSelector } from 'react-redux'
 import NumberFormat from 'react-number-format'
 import { StackScreenProps } from '@react-navigation/stack'
-import { NavigationProp, useNavigation } from '@react-navigation/core'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { RootState } from '@store'
@@ -29,6 +29,8 @@ import { BottomSheetAuctionedCollateral } from '../components/BottomSheetAuction
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { InfoText } from '@components/InfoText'
+import { getActivePrice } from '../helpers/ActivePrice'
 
 type Props = StackScreenProps<AuctionsParamList, 'PlaceBidScreen'>
 
@@ -107,7 +109,9 @@ export function PlaceBidScreen (props: Props): JSX.Element {
   const ownedTokenAmount = ownedToken === undefined ? '0' : ownedToken.amount
   const isValidMinBid = new BigNumber(bidAmount).gte(minNextBidInToken)
   const hasSufficientFunds = new BigNumber(ownedTokenAmount).gte(minNextBidInToken)
-
+  const displayHigherBidWarning = new BigNumber(bidAmount)
+                                  .multipliedBy(getActivePrice(batch.loan.symbol, batch.loan.activePrice))
+                                  .gte(new BigNumber(totalCollateralsValueInUSD).times(1.2))
   return (
     <View ref={containerRef} style={tailwind('h-full')}>
       <ThemedScrollView
@@ -156,6 +160,14 @@ export function PlaceBidScreen (props: Props): JSX.Element {
             content={ownedToken?.amount ?? '0.00'}
             suffix={` ${batch.loan.displaySymbol}`}
           />
+
+          {displayHigherBidWarning && (
+            <InfoText
+              testID='conversion_info_text'
+              text={translate('screens/PlaceBidScreen', 'The value of the tokens you are placing is considerably higher than the total auction value.')}
+              style={tailwind('mt-5')}
+            />
+          )}
 
           <View style={tailwind(['-mx-4', { 'mt-4': Platform.OS !== 'web' }])}>
             <ThemedSectionTitle

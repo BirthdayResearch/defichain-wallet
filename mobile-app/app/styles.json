@@ -8198,6 +8198,9 @@
 		"fontSize": 36,
 		"lineHeight": 40
 	},
+	"text-2xs": {
+		"fontSize": 10
+	},
 	"font-thin": {
 		"fontWeight": "100"
 	},

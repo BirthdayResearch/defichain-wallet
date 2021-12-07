@@ -4,8 +4,16 @@ import { translate } from '@translations'
 import * as React from 'react'
 import { InfoTextLink } from '@components/InfoTextLink'
 import { View } from 'react-native'
+import { useNavigation, NavigationProp } from '@react-navigation/native'
+import { AuctionsParamList } from '../AuctionNavigator'
 
 export function EmptyAuction (): JSX.Element {
+  const navigation = useNavigation<NavigationProp<AuctionsParamList>>()
+
+  const goToAuctionsFaq = (): void => {
+    navigation.navigate('AuctionsFaq')
+  }
+
   return (
     <ThemedView
       style={tailwind('px-8 mt-8 pb-2 pt-32 text-center')}
@@ -30,7 +38,7 @@ export function EmptyAuction (): JSX.Element {
 
       <View style={tailwind('flex items-center')}>
         <InfoTextLink
-          onPress={() => {}}
+          onPress={goToAuctionsFaq}
           text='Learn about auctions'
           testId='empty_auctions_learn_more'
         />

@@ -211,12 +211,14 @@ interface VaultInputProps {
   vault: LoanVaultActive
   loanToken?: LoanToken
   displayMaxLoanAmount?: boolean
+  interestPerBlock?: BigNumber
 }
 
 export function VaultInput ({
   vault,
   loanToken,
-  displayMaxLoanAmount = false
+  displayMaxLoanAmount = false,
+  interestPerBlock
 }: VaultInputProps): JSX.Element {
   const vaultState = useVaultStatus(vault.state, new BigNumber(vault.collateralRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber(vault.loanValue))
   const colors = useCollateralizationRatioColor({
@@ -237,11 +239,10 @@ export function VaultInput ({
 
   const maxLoanAmount = useMaxLoanAmount({
     totalCollateralValue: new BigNumber(vault.collateralValue),
-    totalLoanValue: new BigNumber(vault.loanValue),
+    existingLoanValue: new BigNumber(vault.loanValue),
     minColRatio: new BigNumber(vault.loanScheme.minColRatio),
-    vaultInterest: new BigNumber(vault.loanScheme.interestRate),
-    loanInterest: new BigNumber(loanToken?.interest ?? NaN),
-    loanActivePrice: new BigNumber(loanToken?.activePrice?.active?.amount ?? NaN)
+    loanActivePrice: new BigNumber(loanToken?.activePrice?.active?.amount ?? NaN),
+    interestPerBlock: interestPerBlock ?? new BigNumber(NaN)
   })
 
   return (

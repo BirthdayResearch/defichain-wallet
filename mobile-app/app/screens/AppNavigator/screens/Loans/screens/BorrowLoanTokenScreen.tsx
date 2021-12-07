@@ -38,6 +38,7 @@ import { CollateralizationRatioRow } from '../components/CollateralizationRatioR
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
+import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowLoanTokenScreen'>
 
@@ -56,12 +57,17 @@ export function BorrowLoanTokenScreen ({
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const [vault, setVault] = useState<LoanVaultActive | undefined>(route.params.vault)
   const [amountToBorrow, setAmountToBorrow] = useState('')
-  const [totalInterestAmount, setTotalInterestAmount] = useState(new BigNumber(NaN))
   const [totalLoanWithInterest, setTotalLoanWithInterest] = useState(new BigNumber(NaN))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [valid, setValid] = useState(false)
-  const resultingColRatio = useResultingCollateralRatio(new BigNumber(vault?.collateralValue ?? NaN), new BigNumber(vault?.loanValue ?? NaN),
-  new BigNumber(totalLoanWithInterest), new BigNumber(loanToken.activePrice?.active?.amount ?? 0))
+  const interestPerBlock = useInterestPerBlock(new BigNumber(vault?.loanScheme.interestRate ?? NaN), new BigNumber(loanToken.interest))
+  const resultingColRatio = useResultingCollateralRatio(
+    new BigNumber(vault?.collateralValue ?? NaN),
+    new BigNumber(vault?.loanValue ?? NaN),
+    new BigNumber(amountToBorrow),
+    new BigNumber(loanToken.activePrice?.active?.amount ?? 0),
+    interestPerBlock
+  )
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const canUseOperations = useLoanOperations(vault?.state)
@@ -125,10 +131,8 @@ export function BorrowLoanTokenScreen ({
     if (vault === undefined || amountToBorrow === undefined || loanToken.activePrice?.active?.amount === undefined) {
       return
     }
-    const vaultInterestRate = new BigNumber(vault.loanScheme.interestRate).div(100)
-    const loanTokenInterestRate = new BigNumber(loanToken.interest).div(100)
-    setTotalInterestAmount(new BigNumber(amountToBorrow).multipliedBy(vaultInterestRate.plus(loanTokenInterestRate)))
-    setTotalLoanWithInterest(new BigNumber(amountToBorrow).multipliedBy(vaultInterestRate.plus(loanTokenInterestRate).plus(1)))
+
+    setTotalLoanWithInterest(new BigNumber(amountToBorrow).plus(interestPerBlock))
   }
 
   const onSubmit = async (): Promise<void> => {
@@ -142,9 +146,10 @@ export function BorrowLoanTokenScreen ({
         loanToken: loanToken,
         vault: vault,
         amountToBorrow,
-        totalInterestAmount,
+        totalInterestAmount: interestPerBlock,
         totalLoanWithInterest,
-        fee
+        fee,
+        resultingColRatio
       }
     })
   }
@@ -212,6 +217,7 @@ export function BorrowLoanTokenScreen ({
             vault={vault}
             loanToken={loanToken}
             onPress={expandModal}
+            interestPerBlock={interestPerBlock}
           />
         </View>
 
@@ -243,7 +249,7 @@ export function BorrowLoanTokenScreen ({
               vaultInterestRate={new BigNumber(vault?.loanScheme.interestRate ?? 0)}
               loanTokenInterestRate={new BigNumber(loanToken.interest)}
               loanTokenDisplaySymbol={loanToken.token.displaySymbol}
-              totalInterestAmount={totalInterestAmount}
+              totalInterestAmount={interestPerBlock}
               totalLoanWithInterest={totalLoanWithInterest}
               loanTokenPrice={new BigNumber(loanToken.activePrice?.active?.amount ?? 0)}
               fee={fee}
@@ -379,6 +385,7 @@ interface VaultInputProps {
   vault?: LoanVault
   loanToken: LoanToken
   onPress: () => void
+  interestPerBlock: BigNumber
 }
 
 function VaultInput (props: VaultInputProps): JSX.Element {
@@ -411,13 +418,14 @@ function VaultInput (props: VaultInputProps): JSX.Element {
     )
   }
 
-  return <VaultInputActive vault={props.vault} onPress={props.onPress} loanToken={props.loanToken} />
+  return <VaultInputActive vault={props.vault} onPress={props.onPress} loanToken={props.loanToken} interestPerBlock={props.interestPerBlock} />
 }
 
 interface VaultInputActiveProps {
   vault: LoanVaultActive
   loanToken: LoanToken
   onPress: () => void
+  interestPerBlock: BigNumber
 }
 
 function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
@@ -430,11 +438,10 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
 
   const maxLoanAmount = useMaxLoanAmount({
     totalCollateralValue: new BigNumber(props.vault.collateralValue),
-    totalLoanValue: new BigNumber(props.vault.loanValue),
+    existingLoanValue: new BigNumber(props.vault.loanValue),
     minColRatio: new BigNumber(props.vault.loanScheme.minColRatio),
-    vaultInterest: new BigNumber(props.vault.loanScheme.interestRate),
-    loanInterest: new BigNumber(props.loanToken.interest),
-    loanActivePrice: new BigNumber(props.loanToken.activePrice?.active?.amount ?? NaN)
+    loanActivePrice: new BigNumber(props.loanToken.activePrice?.active?.amount ?? NaN),
+    interestPerBlock: props.interestPerBlock
   })
 
   return (

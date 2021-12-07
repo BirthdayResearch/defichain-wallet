@@ -20,6 +20,7 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { useLoanOperations } from '../hooks/LoanOperations'
+import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowMoreScreen'>
 
@@ -34,12 +35,17 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
   const loanToken = useSelector((state: RootState) => loanTokenByTokenId(state.loans, loanTokenAmount.id))
   const [vault, setVault] = useState<LoanVaultActive>(vaultFromRoute)
   const [amountToAdd, setAmountToAdd] = useState('')
-  const [totalInterestAmount, setTotalInterestAmount] = useState(new BigNumber(NaN))
   const [totalLoanWithInterest, setTotalLoanWithInterest] = useState(new BigNumber(NaN))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [valid, setValid] = useState(false)
-  const resultingColRatio = useResultingCollateralRatio(new BigNumber(vault?.collateralValue ?? NaN), new BigNumber(vault?.loanValue ?? NaN),
-  new BigNumber(totalLoanWithInterest), new BigNumber(loanTokenAmount.activePrice?.active?.amount ?? 0))
+  const interestPerBlock = useInterestPerBlock(new BigNumber(vault?.loanScheme.interestRate ?? NaN), new BigNumber(loanToken?.interest ?? NaN))
+  const resultingColRatio = useResultingCollateralRatio(
+    new BigNumber(vault?.collateralValue ?? NaN),
+    new BigNumber(vault?.loanValue ?? NaN),
+    new BigNumber(amountToAdd),
+    new BigNumber(loanTokenAmount.activePrice?.active?.amount ?? 0),
+    interestPerBlock
+  )
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const canUseOperations = useLoanOperations(vault?.state)
@@ -59,10 +65,8 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
     if (vault === undefined || amountToAdd === undefined || loanToken?.activePrice?.active?.amount === undefined) {
       return
     }
-    const vaultInterestRate = new BigNumber(vault.loanScheme.interestRate).div(100)
-    const loanTokenInterestRate = new BigNumber(loanToken.interest).div(100)
-    setTotalInterestAmount(new BigNumber(amountToAdd).multipliedBy(vaultInterestRate.plus(loanTokenInterestRate)))
-    setTotalLoanWithInterest(new BigNumber(amountToAdd).multipliedBy(vaultInterestRate.plus(loanTokenInterestRate).plus(1)))
+
+    setTotalLoanWithInterest(new BigNumber(amountToAdd).plus(interestPerBlock))
   }
 
   const onSubmit = async (): Promise<void> => {
@@ -76,9 +80,10 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
         loanToken,
         vault,
         amountToBorrow: amountToAdd,
-        totalInterestAmount,
+        totalInterestAmount: interestPerBlock,
         totalLoanWithInterest,
-        fee
+        fee,
+        resultingColRatio
       }
     })
   }
@@ -140,7 +145,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
         text={translate('screens/BorrowMoreScreen', 'VAULT IN USE')}
       />
       <View style={tailwind('px-4')}>
-        <VaultInput vault={vault} loanToken={loanToken} displayMaxLoanAmount />
+        <VaultInput vault={vault} loanToken={loanToken} interestPerBlock={interestPerBlock} displayMaxLoanAmount />
       </View>
       <View style={tailwind('mt-2 mb-12 px-4')}>
         <WalletTextInput
@@ -166,7 +171,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
         vaultInterestRate={new BigNumber(vault.loanScheme.interestRate)}
         loanTokenInterestRate={new BigNumber(loanToken.interest)}
         loanTokenDisplaySymbol={loanToken.token.displaySymbol}
-        totalInterestAmount={totalInterestAmount}
+        totalInterestAmount={interestPerBlock}
         totalLoanWithInterest={totalLoanWithInterest}
         loanTokenPrice={new BigNumber(loanToken.activePrice?.active?.amount ?? 0)}
         fee={fee}

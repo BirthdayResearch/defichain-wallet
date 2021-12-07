@@ -207,7 +207,8 @@
     "Recovery words": "Wiederherstellungssatz",
     "Passcode": "Passwort",
     "UTXO vs Token": "UTXO vs Token",
-    "Loans": "Darlehen"
+    "Loans": "Darlehen",
+    "Auctions": "Auktionen"
   },
   "components/LoansFaq": {
     "Loans FAQ": "FAQ Darlehen",
@@ -235,6 +236,16 @@
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "Der Gesamtzinssatz für ein Darlehen ergibt sich aus dem Vault-Zinssatz und dem Token-Zinssatz und wird auf jährlicher Basis berechnet.",
     "What is collateral factor?": "Was ist der Beleihungsfaktor?",
     "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "Der Beleihungsfaktor bestimmt den Grad des Beitrags jedes Beleihungswertes. Wenn beispielsweise ein Token mit einem Besicherungsfaktor von 70 % akzeptiert wird, würden Token im Wert von 100 $ davon zu einem Besicherungswert von 70 $ in einem Vault führen."
+  },
+  "components/AuctionsFaq": {
+    "Auctions FAQ": "FAQ Auktionen",
+    "Auctions": "Auktionen",
+    "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN",
+    "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "Bei der Versteigerung bieten die Nutzer auf die Sicherheiten in den Vaults, die in Liquidation sind, um deren ausstehende Darlehen beizutreiben. Die Liquidation erfolgt, wenn die Besicherungsquote eines Vaults unter die Mindestanforderung sinkt. In diesem Fall werden die Sicherheiten der Vaults in Chargen von 10.000USD aufgeteilt und versteigert.",
+    "How is the minimum starting bid determined?": "Wie wird das Mindeststartgebot festgelegt?",
+    "The minimum starting bid is 105% of the batch's outstanding loan value. The additional 5% is included to cover the liquidation penalty, which is incurred upon vault liquidation.": "Das Startgebot liegt bei 105% des ausstehenden Darlehenswerts der Charge. Die zusätzlichen 5% dienen zur Deckung der Liquidationsstrafe, die bei der Liquidation des Vaults anfällt.",
+    "How is the minimum next bid determined?": "Wie wird das nächste Mindestgebot bestimmt?",
+    "The minimum next bid is 1% above the previous bid price.": "Das nächste Mindestgebot liegt 1% über dem vorherigen Gebotspreis."
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "NETZWERK",
@@ -729,8 +740,8 @@
     "Min. next bid": "Nächstes Mind. Gebot",
     "VAULT DETAILS": "VAULT-DETAILS",
     "Vault ID": "Vault-ID",
-    "Owner ID": "Besitzer-ID", 
-    "Liquidation height": "Liquidierungsblockhöhe", 
+    "Owner ID": "Besitzer-ID",
+    "Liquidation height": "Liquidierungsblockhöhe",
     "ADDITIONAL DETAILS": "ZUSÄTZLICHE DETAILS",
     "Collateral value (USD)": "Sicherheitenwert (USD)",
     "Auction start": "Auktions-Start",
@@ -750,7 +761,9 @@
     "{{m}}m": "{{m}}min",
     "Total auction value (USD)": "Gesamtauktionswert (USD)",
     "Min. next bid": "Nächstes Mind. Gebot",
-    "You are the highest bidder": "Du bist Höchstbietender"
+    "You are the highest bidder": "Du bist Höchstbietender",
+    "From your vault": "Aus deinem Vault",
+    "Waiting for first bid": "Warten auf das erste Gebot"
   },
   "components/BidCard": {
     "BID HIGHER": "HÖHERES GEBOT",
@@ -844,7 +857,7 @@
     "This amount is the total interest amount from both vault and token interest rate.": "Dieser Betrag ist der Gesamtzinsbetrag zusammen gesetzt aus Vault- und Token-Zinssatz",
     "Annual vault interest": "Jährlicher Vault-Zins",
     "Min. next bid": "Nächstes Mind. Gebot",
-    "The minimum bid a user must place, as long as it's not the first bid for the batch": "Das Mindestgebot, das ein Nutzer abgeben muss, sofern es nicht das erste Gebot für den Auktionsteil ist"
+    "The minimum bid a user must place in order to take part in the auction.": "Das Mindestgebot, das ein Nutzer abgeben muss, um an der Auktion teilnehmen zu können."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
@@ -1082,7 +1095,8 @@
     "Max loan amount": "Max. Darlehensbetrag"
   },
   "screens/ChooseLoanTokenScreen": {
-    "Search for loans": "Nach Darlehen suchen"
+    "Search for loans": "Nach Darlehen suchen",
+    "Search for loan token": "Suche nach Darlehenstoken"
   },
   "components/EmptyCollateral": {
     "No collaterals": "Keine Sicherheiten",
@@ -1115,7 +1129,8 @@
     "Min. next bid": "Nächstes Mind. Gebot",
     "Insufficient funds": "Unzureichende Deckung",
     "Collaterals": "Sicherheiten",
-    "How much do you want to bid?": "Wie viel möchtest du bieten?"
+    "How much do you want to bid?": "Wie viel möchtest du bieten?",
+    "The value of the tokens you are placing is considerably higher than the total auction value.": "Der Wert der Token, die du setzt, ist wesentlich höher als der Gesamtwert der Auktion."
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useEffect } from 'react'
 import { tailwind } from '@tailwind'
 import { ThemedScrollView } from '@components/themed'
 import { BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
@@ -8,7 +8,6 @@ import { InfoText } from '@components/InfoText'
 import { translate } from '@translations'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { useEffect } from 'react'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
@@ -20,16 +19,24 @@ import BigNumber from 'bignumber.js'
 import { QuickBid } from './QuickBid'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { createSelector } from '@reduxjs/toolkit'
+import { useDebounce } from '@hooks/useDebounce'
+import { fetchVaults, vaultsSelector } from '@store/loans'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
-export function BrowseAuctions (): JSX.Element {
+interface Props {
+  searchString: string
+}
+
+export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
+  const { address } = useWalletContext()
   const tokens = useTokensAPI()
+  const { isBetaFeature } = useFeatureFlagContext()
+
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const auctions = useSelector(createSelector((state: RootState) => state.auctions.auctions, (auctions: LoanVaultLiquidated[]) => {
-    return auctions.map((a) => a).sort((a, b) => new BigNumber(a.liquidationHeight).minus(b.liquidationHeight).toNumber())
-  }))
   const { hasFetchAuctionsData } = useSelector((state: RootState) => state.auctions)
+  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const {
     bottomSheetRef,
     containerRef,
@@ -40,11 +47,33 @@ export function BrowseAuctions (): JSX.Element {
     setBottomSheetScreen
   } = useBottomSheet()
 
+  // Search
+  const debouncedSearchTerm = useDebounce(searchString, 500)
+  const filteredAuctions = useSelector(createSelector((state: RootState) => state.auctions.auctions, (auctions: LoanVaultLiquidated[]) => {
+    return auctions
+      .map((auction) => {
+        const filteredBatches = debouncedSearchTerm !== '' && debouncedSearchTerm !== undefined
+          ? auction.batches.filter(batch => batch.loan.displaySymbol.toLowerCase().includes(debouncedSearchTerm.trim().toLowerCase()))
+          : auction.batches
+
+        return {
+          ...auction,
+          batches: filteredBatches,
+          batchCount: filteredBatches.length
+        }
+      })
+      .sort((a, b) => new BigNumber(a.liquidationHeight).minus(b.liquidationHeight).toNumber())
+  }))
+
   useEffect(() => {
     dispatch(fetchAuctions({ client }))
+
+    dispatch(fetchVaults({
+      address,
+      client
+    }))
   }, [blockCount])
 
-  const { isBetaFeature } = useFeatureFlagContext()
   const onQuickBid = (
     batch: LoanVaultLiquidationBatch,
     vaultId: string,
@@ -72,6 +101,7 @@ export function BrowseAuctions (): JSX.Element {
     }])
     expandModal()
   }
+
   return (
     <View ref={containerRef} style={tailwind('h-full')}>
       <ThemedScrollView contentContainerStyle={tailwind('p-4')} testID='auctions_cards'>
@@ -86,11 +116,11 @@ export function BrowseAuctions (): JSX.Element {
         {hasFetchAuctionsData
           ? (
             <>
-              {auctions.length === 0
+              {filteredAuctions.length === 0
                 ? <EmptyAuction />
                 : (
                   <>
-                    {auctions.map((auction: LoanVaultLiquidated, index: number) => {
+                    {filteredAuctions.map((auction: LoanVaultLiquidated, index: number) => {
                       return (
                         <View key={auction.vaultId}>
                           {auction.batches.map((eachBatch: LoanVaultLiquidationBatch) => {
@@ -101,6 +131,7 @@ export function BrowseAuctions (): JSX.Element {
                                 key={`${auction.vaultId}_${eachBatch.index}`}
                                 testID={`batch_card_${index}`}
                                 onQuickBid={onQuickBid}
+                                isVaultOwner={vaults.some(vault => vault.vaultId === auction.vaultId)}
                               />
                             )
                           })}

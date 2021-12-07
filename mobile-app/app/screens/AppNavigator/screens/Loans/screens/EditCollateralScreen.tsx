@@ -17,18 +17,18 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { fetchCollateralTokens } from '@store/loans'
-import {
-  CollateralToken,
-  LoanVaultActive,
-  LoanVaultTokenAmount
-} from '@defichain/whale-api-client/dist/api/loan'
+import { CollateralToken, LoanVaultActive, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { createSelector } from '@reduxjs/toolkit'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { IconButton } from '@components/IconButton'
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
 import { useCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
-import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
+import {
+  useVaultStatus,
+  VaultStatus,
+  VaultStatusTag
+} from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 import { queueConvertTransaction } from '@hooks/wallet/Conversion'
 import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
@@ -351,7 +351,7 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
         suffix='%'
         suffixType='text'
         lhs={translate('screens/EditCollateralScreen', 'Collateralization ratio')}
-        rhsThemedProps={colors}
+        rhsThemedProps={vaultState.status !== VaultStatus.Active ? colors : undefined}
         info={{
           title: 'Collateralization ratio',
           message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'

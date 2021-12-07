@@ -24,7 +24,8 @@ jest.mock('../hooks/AuctionBidValue', () => ({
     minStartingBidInUSD: '100',
     minStartingBidInToken: '11',
     minNextBidInToken: '11',
-    totalCollateralsValueInUSD: '12345'
+    totalCollateralsValueInUSD: '12345',
+    hasFirstBid: false
   })
 }))
 
@@ -268,7 +269,7 @@ describe('Batch Card', () => {
 
     const rendered = render(
       <Provider store={store}>
-        <BatchCard vault={vault} batch={vault.batches[0]} onQuickBid={() => {}} />
+        <BatchCard vault={vault} batch={vault.batches[0]} onQuickBid={() => {}} isVaultOwner={false} />
       </Provider>
     )
     expect(rendered.toJSON()).toMatchSnapshot()
