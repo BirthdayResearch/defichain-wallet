@@ -1,6 +1,7 @@
 import '@testing-library/cypress/add-commands'
 import './onboardingCommands'
 import './walletCommands'
+import './loanCommands'
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const compareSnapshotCommand = require('cypress-image-diff-js/dist/command')

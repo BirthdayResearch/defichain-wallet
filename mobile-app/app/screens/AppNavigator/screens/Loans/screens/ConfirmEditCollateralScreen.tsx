@@ -137,6 +137,7 @@ function SummaryHeader (props: { vaultId: string, isAdd: boolean, conversion?: C
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
         style={tailwind('mb-2')}
+        testID='edit_collateral_confirm_title'
       >
         {translate('screens/ConfirmEditCollateralScreen', props.isAdd ? 'You are adding collateral to' : 'You are removing collateral from')}
       </ThemedText>
@@ -158,6 +159,7 @@ function SummaryHeader (props: { vaultId: string, isAdd: boolean, conversion?: C
           light={tailwind('text-gray-900')}
           dark={tailwind('text-gray-50')}
           style={tailwind('text-sm font-medium flex-1 w-8/12')}
+          testID='edit_collateral_confirm_vault_id'
         >
           {props.vaultId}
         </ThemedText>
@@ -279,6 +281,7 @@ function VaultProportionRow (props: { lhs: string, tokenId: string, proportion: 
               light={tailwind('text-gray-700')}
               dark={tailwind('text-gray-300')}
               style={tailwind('text-xs font-medium ml-1')}
+              testID='edit_collateral_confirm_vault_share'
             >
               {value}
             </ThemedText>}

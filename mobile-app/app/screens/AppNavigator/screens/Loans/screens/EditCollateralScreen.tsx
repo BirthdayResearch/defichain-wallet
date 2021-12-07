@@ -338,12 +338,13 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
           <ThemedText
             style={tailwind('font-medium')}
             numberOfLines={1}
+            testID='collateral_vault_id'
             ellipsizeMode='middle'
           >
             {vault.vaultId}
           </ThemedText>
         </View>
-        <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
+        <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} testID='collateral_vault_tag' />
       </View>
       <VaultSectionTextRow
         testID='text_total_collateral_value'
@@ -351,12 +352,12 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
         lhs={translate('screens/EditCollateralScreen', 'Total collateral (USD)')}
       />
       <VaultSectionTextRow
-        testID='text_total_collateral_value' value={new BigNumber(vault.loanValue ?? 0).toFixed(2)}
+        testID='text_total_loans_value' value={new BigNumber(vault.loanValue ?? 0).toFixed(2)}
         prefix='$'
         lhs={translate('screens/EditCollateralScreen', 'Total loans (USD)')}
       />
       <VaultSectionTextRow
-        testID='text_total_collateral_value'
+        testID='text_col_ratio_value'
         value={BigNumber.maximum(new BigNumber(vault.collateralRatio ?? 0), 0).toFixed(2)}
         suffix='%'
         suffixType='text'
@@ -368,7 +369,7 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
         }}
       />
       <VaultSectionTextRow
-        testID='text_total_collateral_value'
+        testID='text_min_col_ratio_value'
         value={new BigNumber(vault.loanScheme.minColRatio ?? 0).toFixed(2)} suffix='%'
         suffixType='text'
         lhs={translate('screens/EditCollateralScreen', 'Min. collateralization ratio')}
@@ -428,6 +429,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
           }}
           />
           <ThemedText
+            testID={`collateral_card_symbol_${collateral.displaySymbol}`}
             style={tailwind('font-medium ml-1 mr-2')}
           >
             {collateral.displaySymbol}
@@ -440,6 +442,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             iconSize={20}
             disabled={!canUseOperations}
             onPress={() => props.onAddPress()}
+            testID={`collateral_card_add_${collateral.displaySymbol}`}
           />
           <IconButton
             iconType='MaterialIcons'
@@ -448,6 +451,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             style={tailwind('ml-2')}
             disabled={!canUseOperations}
             onPress={() => props.onRemovePress()}
+            testID={`collateral_card_remove_${collateral.displaySymbol}`}
           />
         </View>
       </ThemedView>
@@ -463,6 +467,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
               suffix={` ${collateral.displaySymbol}`}
               renderText={(val: string) => (
                 <ThemedText
+                  testID={`collateral_card_col_amount_${collateral.displaySymbol}`}
                   dark={tailwind('text-gray-50')}
                   light={tailwind('text-gray-900')}
                   style={tailwind('text-sm font-medium')}
@@ -481,6 +486,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                             dark={tailwind('text-gray-400')}
                             light={tailwind('text-gray-500')}
                             style={tailwind('text-xs')}
+                            testID={`collateral_card_col_amount_usd_${collateral.displaySymbol}`}
                           >
                             {` /${val}`}
                           </ThemedText>
@@ -511,6 +517,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                   light={tailwind('text-gray-900')}
                   dark={tailwind('text-gray-50')}
                   style={tailwind('text-sm font-medium')}
+                  testID={`collateral_card_vault_share_${collateral.displaySymbol}`}
                 >
                   {val}
                 </ThemedText>
@@ -541,6 +548,7 @@ function AddCollateralButton (props: { disabled: boolean, onPress: () => void })
       disabled={props.disabled}
       style={tailwind('mt-6 mb-3 flex flex-row justify-center')}
       onPress={props.onPress}
+      testID='add_collateral_button'
     >
       <ThemedIcon
         iconType='MaterialIcons'
