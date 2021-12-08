@@ -24,6 +24,7 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { ConversionParam } from '../../Balances/BalancesNavigator'
 import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
+import { WalletAddressRow } from '@components/WalletAddressRow'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmPaybackLoanScreen'>
 
@@ -154,6 +155,7 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
+      <WalletAddressRow />
       <NumberRow
         lhs={translate('screens/ConfirmPaybackLoanScreen', 'Amount to pay')}
         rhs={{

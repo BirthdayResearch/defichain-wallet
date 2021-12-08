@@ -27,6 +27,7 @@ import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingPro
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { InfoText } from '@components/InfoText'
 import { Switch, View } from '@components'
+import { WalletAddressRow } from '@components/WalletAddressRow'
 
 type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
 
@@ -125,8 +126,9 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
+      <WalletAddressRow />
       <TextRow
-        lhs={translate('screens/SendConfirmationScreen', 'Address')}
+        lhs={translate('screens/SendConfirmationScreen', 'Recipient\'s address')}
         rhs={{
           value: destination,
           testID: 'text_destination'
