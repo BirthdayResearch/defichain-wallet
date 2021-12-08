@@ -99,7 +99,7 @@
     "CONFIRM SEND": "確認發出",
     "You are sending": "您正要發出資金",
     "TRANSACTION DETAILS": "交易明細",
-    "Address": "地址",
+    "Recipient address": "接收地址",
     "Network": "網絡",
     "Amount": "資金數量",
     "Estimated fee": "所需費用(大約)",
@@ -1114,7 +1114,7 @@
   },
   "screens/CloseVaultScreen": {
     "You are closing Vault ID": "您正在關閉金庫編號",
-    "DETAILS": "明细",
+    "TRANSACTION DETAILS": "交易明細",
     "Fees to return": "退回費用",
     "Fees to burn": "費用銷毀",
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "關閉後，此金庫編號 將不再可使用。 在關閉之前，請確保您不需要此金庫中的任何資料。",
@@ -1162,5 +1162,8 @@
     "Place a bid on the auctions with the min. next bid": "以下個最低底價進行快標",
     "Min. next bid": "最低標價",
     "Current balance": "目前餘額"
-  }
+  },
+  "components/WalletAddressRow": {
+    "Wallet address": "錢包地址"
+  }  
 }

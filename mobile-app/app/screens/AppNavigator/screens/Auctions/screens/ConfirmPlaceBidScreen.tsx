@@ -17,6 +17,7 @@ import { NumberRow } from '@components/NumberRow'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { ThemedScrollView, ThemedSectionTitle } from '@components/themed'
 import { AuctionsParamList } from '../AuctionNavigator'
+import { WalletAddressRow } from '@components/WalletAddressRow'
 
 type Props = StackScreenProps<AuctionsParamList, 'ConfirmPlaceBidScreen'>
 
@@ -105,6 +106,7 @@ export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
+      <WalletAddressRow />
       <NumberRow
         lhs={translate('screens/ConfirmPlaceBidScreen', 'Bid amount to place')}
         rhs={{

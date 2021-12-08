@@ -23,6 +23,7 @@ import { fetchVaults } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useCollateralizationRatioColor } from '../hooks/CollateralizationRatio'
+import { WalletAddressRow } from '@components/WalletAddressRow'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmBorrowLoanTokenScreen'>
 
@@ -164,6 +165,7 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
+      <WalletAddressRow />
       <NumberRow
         lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Loan tokens to borrow')}
         rhs={{
