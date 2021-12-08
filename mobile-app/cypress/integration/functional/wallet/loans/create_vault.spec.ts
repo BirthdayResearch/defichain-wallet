@@ -3,7 +3,6 @@ import BigNumber from 'bignumber.js'
 
 context('Wallet - Loans - Create vault', () => {
   beforeEach(function () {
-    cy.allowLoanFeature()
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().wait(6000)
   })
@@ -46,7 +45,6 @@ context('Wallet - Loans - Create vault', () => {
 
 context('Wallet - Loans - Confirm create vault', () => {
   before(function () {
-    cy.allowLoanFeature()
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().wait(6000)
   })
@@ -78,5 +76,9 @@ context('Wallet - Loans - Confirm create vault', () => {
     cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
     cy.getByTestID('vault_card_0').should('exist')
+    cy.getByTestID('vault_card_0_status').contains('ACTIVE')
+    cy.getByTestID('vault_card_0_collateral_none').contains('None')
+    cy.getByTestID('vault_card_0_total_loan').contains('$0.00')
+    cy.getByTestID('vault_card_0_total_collateral').contains('$0.00')
   })
 })
