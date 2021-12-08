@@ -123,6 +123,7 @@ function getTagLabel (status: VaultStatus): string {
 }
 
 function SignalIcon (props: {status: VaultStatus}): JSX.Element | null {
+  const signalIconSize = 15
   if (props.status === VaultStatus.Healthy) {
     return (
       <ThemedIcon
@@ -131,6 +132,7 @@ function SignalIcon (props: {status: VaultStatus}): JSX.Element | null {
         light={tailwind('text-success-500')}
         dark={tailwind('text-darksuccess-500')}
         style={tailwind('ml-1 pt-px')}
+        size={signalIconSize}
       />
     )
   }
@@ -143,6 +145,7 @@ function SignalIcon (props: {status: VaultStatus}): JSX.Element | null {
         light={tailwind('text-warning-500')}
         dark={tailwind('text-darkwarning-500')}
         style={tailwind('ml-1 pt-px')}
+        size={signalIconSize}
       />
     )
   }
@@ -155,6 +158,7 @@ function SignalIcon (props: {status: VaultStatus}): JSX.Element | null {
         light={tailwind('text-error-600')}
         dark={tailwind('text-darkerror-600')}
         style={tailwind('ml-1 pt-px')}
+        size={signalIconSize}
       />
     )
   }
@@ -167,6 +171,7 @@ function SignalIcon (props: {status: VaultStatus}): JSX.Element | null {
         light={tailwind('text-gray-300')}
         dark={tailwind('text-gray-600')}
         style={tailwind('ml-1 pt-px')}
+        size={signalIconSize}
       />
     )
   }
