@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { tailwind } from '@tailwind'
-import { ThemedFlatList, ThemedScrollView } from '@components/themed'
+import { ThemedFlatList } from '@components/themed'
 import { BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { Platform, View } from 'react-native'
@@ -88,7 +88,7 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
 
   return (
     <View ref={containerRef} style={tailwind('h-full')}>
-      <ThemedScrollView contentContainerStyle={tailwind('p-4')} testID='auctions_cards'>
+      <View style={tailwind('p-4')} testID='auctions_cards'>
         {isBetaFeature('auction') && (
           <View style={tailwind('pb-4')}>
             <InfoText
@@ -144,7 +144,7 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
             }}
           />
         )}
-      </ThemedScrollView>
+      </View>
     </View>
   )
 }
