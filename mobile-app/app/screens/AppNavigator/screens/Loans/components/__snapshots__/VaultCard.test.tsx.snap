@@ -180,7 +180,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                       Array [
                         Object {
                           "color": undefined,
-                          "fontSize": 12,
+                          "fontSize": 15,
                         },
                         Array [
                           Object {
@@ -2359,7 +2359,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                       Array [
                         Object {
                           "color": undefined,
-                          "fontSize": 12,
+                          "fontSize": 15,
                         },
                         Array [
                           Object {
