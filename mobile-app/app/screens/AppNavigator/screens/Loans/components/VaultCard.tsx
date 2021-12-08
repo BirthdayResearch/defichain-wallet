@@ -36,7 +36,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
   const vault = props.vault as LoanVaultActive
   const { getVaultsUrl } = useDeFiScanContext()
-  const vaultState = useVaultStatus(vault.state, new BigNumber(vault.collateralRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber(vault.loanValue))
+  const vaultState = useVaultStatus(vault.state, new BigNumber(vault.collateralRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber(vault.loanValue), new BigNumber(vault.collateralValue))
   const nextCollateralizationRatio = useNextCollateralizationRatio(vault.collateralAmounts, vault.loanAmounts)
   const canUseOperations = useLoanOperations(vault?.state)
   const onCardPress = (): void => {
@@ -70,7 +70,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
                     >
                       {translate('screens/VaultDetailScreen', 'Vault ID')}
                     </ThemedText>
-                    <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} testID={`${props.testID}_status`} />
+                    <VaultStatusTag status={vaultState.status} testID={`${props.testID}_status`} />
                   </View>
                   <TouchableOpacity
                     style={tailwind('flex flex-row mb-0.5 items-center')}
@@ -135,7 +135,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
           </View>
         </View>
         {
-          ![VaultStatus.Active, VaultStatus.Unknown, VaultStatus.Liquidated].includes(vaultState.status) && (
+          ![VaultStatus.Empty, VaultStatus.Ready, VaultStatus.Unknown, VaultStatus.Liquidated].includes(vaultState.status) && (
             <CollateralizationRatioDisplay
               collateralizationRatio={vault.collateralRatio}
               minCollateralizationRatio={vault.loanScheme.minColRatio}
