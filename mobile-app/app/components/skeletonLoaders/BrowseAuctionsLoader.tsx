@@ -3,6 +3,7 @@ import ContentLoader, { Circle, IContentLoaderProps, Rect } from 'react-content-
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { ThemedView } from '../themed'
+import { theme } from '../../tailwind.config'
 
 type BrowseAuctionsLoaderProps = JSX.IntrinsicAttributes & IContentLoaderProps & { children?: React.ReactNode }
 
@@ -16,8 +17,8 @@ export function BrowseAuctionsLoader (props: BrowseAuctionsLoaderProps): JSX.Ele
       testID='browse_auctions_skeleton_loader'
     >
       <ContentLoader
-        backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}
-        foregroundColor={isLight ? '#ffffff' : '#4a4a4a'}
+        backgroundColor={isLight ? '#ecebeb' : theme.extend.colors.dfxblue[900]}
+        foregroundColor={isLight ? '#ffffff' : theme.extend.colors.dfxblue[800]}
         speed={2}
         width='100%'
         height={186}

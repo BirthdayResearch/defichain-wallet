@@ -24,6 +24,7 @@ import BtnTaxDe from '@assets/images/dfx_buttons/btn_tax_de.png'
 import BtnGatewayEn from '@assets/images/dfx_buttons/btn_gateway_en.png'
 import BtnOverviewEn from '@assets/images/dfx_buttons/btn_overview_en.png'
 import BtnTaxEn from '@assets/images/dfx_buttons/btn_tax_en.png'
+import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 
 export function DfxButtons (): JSX.Element {
   const logger = useLogger()
@@ -68,7 +69,8 @@ export function DfxButtons (): JSX.Element {
   }
 
   async function signMessage (provider: WalletHdNodeProvider<MnemonicHdNode>): Promise<Buffer> {
-    const account = initJellyfishWallet(provider, network, whaleApiClient).get(0)
+    const activeIndex = await WalletAddressIndexPersistence.getActive()
+    const account = initJellyfishWallet(provider, network, whaleApiClient).get(activeIndex)
 
     const privKey = await account.privateKey()
     const messagePrefix = getJellyfishNetwork(network).messagePrefix

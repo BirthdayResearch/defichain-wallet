@@ -47,7 +47,7 @@ export function TransactionError ({
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={tailwind('justify-center flex flex-col')}
         light={tailwind('bg-white')}
-        dark={tailwind('bg-gray-800')}
+        dark={tailwind('bg-dfxblue-800')}
         style={tailwind('mx-3')}
       >
         <ThemedText

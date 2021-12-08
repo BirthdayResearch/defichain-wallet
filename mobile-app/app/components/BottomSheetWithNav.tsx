@@ -87,6 +87,7 @@ export const BottomSheetWebWithNav = React.memo((props: BottomSheetWithNavProps 
 const Navigator = (props: BottomSheetWithNavProps): JSX.Element => {
   const { isLight } = useThemeContext()
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
+  DeFiChainTheme.colors.background = theme.extend.colors.dfxblue[800]
   const BottomSheetWithNavStack = createStackNavigator<BottomSheetWithNavRouteParam>()
   const screenOptions = useMemo<StackNavigationOptions>(
     () => ({

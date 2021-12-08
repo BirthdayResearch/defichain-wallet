@@ -29,7 +29,7 @@ export function AddressControlModal ({ onClose }: { onClose: () => void }): JSX.
   return (
     <View style={tailwind('w-full pb-16')}>
       <ThemedView
-        dark={tailwind('border-gray-700')}
+        dark={tailwind('border-dfxblue-900')}
         light={tailwind('border-gray-100')}
         style={tailwind('border-b-2')}
       >
@@ -117,7 +117,7 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
       {canCreateAddress && (
         <ThemedTouchableOpacity
           light={tailwind('bg-white border-gray-100')}
-          dark={tailwind('bg-gray-900 border-gray-700')}
+          dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
           style={tailwind('py-4 pl-4 pr-2 border-b ')}
           onPress={async () => {
             await onRowPress(addressLength + 1)
@@ -128,7 +128,7 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
             <ThemedIcon
               size={20}
               name='add'
-              dark={tailwind('text-darkprimary-500')}
+              dark={tailwind('text-dfxred-500')}
               light={tailwind('text-primary-500')}
               style={tailwind('font-normal')}
               iconType='MaterialIcons'
@@ -136,7 +136,7 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
 
             <View style={tailwind('mx-3 flex-auto')}>
               <ThemedText
-                dark={tailwind('text-darkprimary-500')}
+                dark={tailwind('text-dfxred-500')}
                 light={tailwind('text-primary-500')}
                 style={tailwind('text-sm font-normal')}
               >
@@ -155,7 +155,7 @@ export function AddressItemRow ({ address, isActive, index, onPress }: { address
     <ThemedTouchableOpacity
       onPress={onPress}
       light={tailwind('bg-white border-gray-100')}
-      dark={tailwind('bg-gray-900 border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('py-4 pl-4 pr-2 border-b')}
       testID={`address_row_${index}`}
     >

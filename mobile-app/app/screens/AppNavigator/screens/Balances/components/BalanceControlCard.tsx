@@ -23,8 +23,6 @@ import BigNumber from 'bignumber.js'
 
 export function BalanceControlCard (): JSX.Element {
   const { addressLength, address } = useWalletContext()
-  // const letterCount = Dimensions.get('window').width > 340 ? 6 : 4
-  // const displayAddress = `${address.substr(0, letterCount)}...${address.substr(address.length - letterCount, address.length)}`
   const { getAddressUrl } = useDeFiScanContext()
   const { isLight } = useThemeContext()
   const { dismiss } = useBottomSheetModal()
@@ -106,8 +104,13 @@ export function BalanceControlCard (): JSX.Element {
             </TouchableOpacity>
           </View>
           <TouchableOpacity onPress={async () => await openURL(getAddressUrl(address))}>
-            <ThemedText testID='wallet_address' style={tailwind('text-sm font-semibold pr-4')}>
-              {displayAddress}
+            <ThemedText
+              ellipsizeMode='middle'
+              numberOfLines={1}
+              testID='wallet_address'
+              style={tailwind('text-sm font-semibold pr-4')}
+            >
+              {address}
             </ThemedText>
           </TouchableOpacity>
 
@@ -155,7 +158,7 @@ export function BalanceControlCard (): JSX.Element {
             backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
               <View
                 {...backgroundProps}
-                style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-900 border-gray-700'} border-t rounded`)]}
+                style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-dfxblue-800 border-dfxblue-900'} border-t rounded`)]}
               />
             )}
           >

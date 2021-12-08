@@ -77,7 +77,7 @@ export function VaultStatusTag ({
       )}
       dark={tailwind(
         {
-          'bg-gray-900': status === VaultStatus.Empty || status === VaultStatus.Ready || status === VaultStatus.Halted || status === VaultStatus.Liquidated,
+          'bg-dfxblue-900': status === VaultStatus.Empty || status === VaultStatus.Ready || status === VaultStatus.Halted || status === VaultStatus.Liquidated,
           'bg-darksuccess-100': status === VaultStatus.Healthy,
           'bg-dfxyellow-500': status === VaultStatus.AtRisk,
           'bg-dfxpink-500': status === VaultStatus.NearLiquidation
@@ -98,8 +98,8 @@ export function VaultStatusTag ({
         )}
         dark={tailwind(
           {
-            'text-gray-400': status === VaultStatus.Empty || status === VaultStatus.Ready || status === VaultStatus.Liquidated,
-            'text-gray-500': status === VaultStatus.Halted,
+            'text-dfxgray-400': status === VaultStatus.Empty || status === VaultStatus.Ready || status === VaultStatus.Liquidated,
+            'text-dfxgray-500': status === VaultStatus.Halted,
             'text-darksuccess-500': status === VaultStatus.Healthy,
             'text-dfxyellow-300': status === VaultStatus.AtRisk,
             'text-dfxpink-300': status === VaultStatus.NearLiquidation
@@ -143,7 +143,7 @@ function SignalIcon (props: {status: VaultStatus}): JSX.Element | null {
         iconType='MaterialCommunityIcons'
         name='signal-cellular-2'
         light={tailwind('text-warning-500')}
-        dark={tailwind('text-darkwarning-500')}
+        dark={tailwind('text-dfxyellow-300')}
         style={tailwind('ml-1 pt-px')}
         size={signalIconSize}
       />
@@ -156,7 +156,7 @@ function SignalIcon (props: {status: VaultStatus}): JSX.Element | null {
         iconType='MaterialCommunityIcons'
         name='signal-cellular-1'
         light={tailwind('text-error-600')}
-        dark={tailwind('text-darkerror-600')}
+        dark={tailwind('text-dfxpink-300')}
         style={tailwind('ml-1 pt-px')}
         size={signalIconSize}
       />
@@ -169,7 +169,7 @@ function SignalIcon (props: {status: VaultStatus}): JSX.Element | null {
         iconType='MaterialCommunityIcons'
         name='signal-cellular-3'
         light={tailwind('text-gray-300')}
-        dark={tailwind('text-gray-600')}
+        dark={tailwind('text-dfxgray-500')}
         style={tailwind('ml-1 pt-px')}
         size={signalIconSize}
       />
