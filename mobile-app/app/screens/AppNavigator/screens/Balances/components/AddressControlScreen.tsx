@@ -11,6 +11,10 @@ import { BalanceParamList } from '../BalancesNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { RandomAvatar } from '@screens/AppNavigator/screens/Balances/components/RandomAvatar'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
+import { hasTxQueued } from '@store/transaction_queue'
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 
 export function AddressControlScreen (): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
@@ -151,6 +155,9 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
 }
 
 export function AddressItemRow ({ address, isActive, index, onPress }: { address: string, isActive: boolean, index: number, onPress: () => void }): JSX.Element {
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+
   return (
     <ThemedTouchableOpacity
       onPress={onPress}
@@ -158,6 +165,7 @@ export function AddressItemRow ({ address, isActive, index, onPress }: { address
       dark={tailwind('bg-gray-900 border-gray-700')}
       style={tailwind('py-4 pl-4 pr-2 border-b')}
       testID={`address_row_${index}`}
+      disabled={hasPendingJob || hasPendingBroadcastJob}
     >
       <View style={tailwind('flex-row items-center flex-grow')}>
         <RandomAvatar name={address} size={20} />

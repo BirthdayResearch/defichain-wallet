@@ -26,6 +26,7 @@ import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingPro
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { View } from '@components'
 import { InfoText } from '@components/InfoText'
+import { WalletAddressRow } from '@components/WalletAddressRow'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -149,6 +150,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
+      <WalletAddressRow />
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Share of pool')}
         rhs={{
