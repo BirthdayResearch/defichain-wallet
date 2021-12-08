@@ -78,11 +78,11 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     }
     if (ref === 'primary') {
       setTokenAAmount(amountString)
-      setTokenBAmount(refAmount.times(pair.aToBRate).toFixed(8))
+      setTokenBAmount(refAmount.times(pair.bToARate).toFixed(8))
       setSharePercentage(refAmount.div(pair.tokenA.reserve))
     } else {
       setTokenBAmount(amountString)
-      setTokenAAmount(refAmount.times(pair.bToARate).toFixed(8))
+      setTokenAAmount(refAmount.times(pair.aToBRate).toFixed(8))
       setSharePercentage(refAmount.div(pair.tokenB.reserve))
     }
   }, [pair])
@@ -185,8 +185,8 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
         ...poolpair,
         aSymbol,
         bSymbol,
-        aToBRate: new BigNumber(poolpair.tokenB.reserve).div(poolpair.tokenA.reserve),
-        bToARate: new BigNumber(poolpair.tokenA.reserve).div(poolpair.tokenB.reserve)
+        aToBRate: new BigNumber(poolpair.tokenA.reserve).div(poolpair.tokenB.reserve),
+        bToARate: new BigNumber(poolpair.tokenB.reserve).div(poolpair.tokenA.reserve)
       })
       if (addressTokenA !== undefined) {
         setBalanceA(addressTokenA.id === '0_unified' ? new BigNumber(addressTokenA.amount).minus(reservedDfi) : new BigNumber(addressTokenA.amount))

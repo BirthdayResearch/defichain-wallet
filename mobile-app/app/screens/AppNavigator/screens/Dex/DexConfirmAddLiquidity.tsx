@@ -46,8 +46,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   const { conversion } = props.route.params
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const aToBRate = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
-  const bToARate = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
+  const aToBRate = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
+  const bToARate = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
   const lmTokenAmount = percentage.times(pair.totalLiquidity.token)
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const navigation = useNavigation<NavigationProp<DexParamList>>()

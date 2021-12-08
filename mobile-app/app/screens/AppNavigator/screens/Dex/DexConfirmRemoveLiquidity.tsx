@@ -35,8 +35,8 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
     tokenA,
     tokenB
   } = route.params
-  const aToBRate = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
-  const bToARate = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
+  const aToBRate = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
+  const bToARate = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
   const symbol = (pair?.tokenA != null && pair?.tokenB != null)
     ? `${pair.tokenA.displaySymbol}-${pair.tokenB.displaySymbol}`
     : pair.symbol
