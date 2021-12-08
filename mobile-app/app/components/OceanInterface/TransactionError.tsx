@@ -125,10 +125,10 @@ function errorMessageMapping (err: string): ErrorMapping {
 }
 
 function getErrorMessage (err: string): string {
-  const errParts = err.split(':')
+  const errParts = err?.split(':')
   if (errParts.length !== 4) {
     return err
   }
 
-  return errParts[2].concat(errParts[3]).trim() // display error message without HTTP error code and url path
+  return errParts[2]?.concat(errParts[3])?.trim() // display error message without HTTP error code and url path
 }
