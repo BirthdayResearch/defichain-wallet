@@ -83,7 +83,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
       style={tailwind('p-4 flex-1')}
     >
       <View style={tailwind('flex flex-row items-center mb-2')}>
-        <ThemedText style={tailwind('flex-1 mb-2 text-lg font-medium')}>
+        <ThemedText testID='form_title' style={tailwind('flex-1 mb-2 text-lg font-medium')}>
           {translate('components/AddOrRemoveCollateralForm', `How much {{symbol}} to ${isAdd ? 'add' : 'remove'}?`, {
             symbol: token.displaySymbol
           })}
@@ -102,6 +102,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
         }}
         />
         <ThemedText
+          testID={`token_symbol_${token.displaySymbol}`}
           style={tailwind('mx-2')}
         >
           {token.displaySymbol}
@@ -136,6 +137,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
         placeholder={translate('components/AddOrRemoveCollateralForm', 'Enter an amount')}
         style={tailwind('h-9 w-6/12 flex-grow')}
         hasBottomSheet
+        testID='form_input_text'
       >
         <ThemedView
           dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
@@ -158,6 +160,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
       <InputHelperText
         label={`${translate('components/AddOrRemoveCollateralForm', isAdd ? 'Available' : 'Current')}: `}
         content={available}
+        testID='form_balance_text'
         suffix={` ${token.displaySymbol}`}
         styleProps={tailwind('font-medium')}
       />
@@ -173,6 +176,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
           amount: new BigNumber(collateralValue)
         })}
         margin='mt-8 mb-2'
+        testID='add_collateral_button_submit'
       />
       <ThemedText style={tailwind('text-xs text-center p-2 px-6')} light={tailwind('text-dfxgray-500')} dark={tailwind('text-dfxgray-400')}>
         {translate('components/AddOrRemoveCollateralForm', 'The collateral factor determines the degree of contribution of each collateral token.')}

@@ -1,17 +1,21 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
-import { MnemonicEncrypted } from '@api/wallet'
+import { initJellyfishWallet, MnemonicEncrypted } from '@api/wallet'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { View } from '@components/index'
 import { CREATE_STEPS, CreateWalletStepIndicator, RESTORE_STEPS } from '@components/CreateWalletStepIndicator'
 import { PinTextInput } from '@components/PinTextInput'
 import { ThemedActivityIndicator, ThemedScrollView, ThemedText } from '@components/themed'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
+import { useWalletPersistenceContext, WalletPersistenceDataI } from '@shared-contexts/WalletPersistenceContext'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '@screens/WalletNavigator/WalletNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
+import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
+import { MAX_ALLOWED_ADDRESSES } from '@shared-contexts/WalletContext'
 
 type Props = StackScreenProps<WalletParamList, 'PinConfirmation'>
 
@@ -19,6 +23,7 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
   const logger = useLogger()
   const { network } = useNetworkContext()
   const { setWallet } = useWalletPersistenceContext()
+  const client = useWhaleApiClient()
   const {
     pin,
     words,
@@ -47,10 +52,33 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
       MnemonicEncrypted.toData(copy.words, copy.network, copy.pin)
         .then(async encrypted => {
           await MnemonicStorage.set(words, pin)
+          if (type === 'restore') {
+            await discoverWalletAddresses(encrypted)
+          }
           await setWallet(encrypted)
         })
         .catch(logger.error)
     }, 50) // allow UI render the spinner before async task
+  }
+
+  async function discoverWalletAddresses (data: WalletPersistenceDataI<EncryptedProviderData>): Promise<void> {
+    const provider = await MnemonicEncrypted.initProvider(data, network, {
+      /**
+       * wallet context only use for READ purpose (non signing)
+       * see {@link TransactionAuthorization} for signing implementation
+       */
+      async prompt () {
+        throw new Error('No UI attached for passphrase prompting')
+      }
+    })
+    const wallet = await initJellyfishWallet(provider, network, client)
+
+    // get discovered address
+    const activeAddress = await wallet.discover(MAX_ALLOWED_ADDRESSES)
+
+    // sub 1 from total discovered address to get address index of last active address
+    const lastDiscoveredAddressIndex = Math.max(0, activeAddress.length - 1)
+    await WalletAddressIndexPersistence.setLength(lastDiscoveredAddressIndex)
   }
 
   return (

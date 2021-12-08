@@ -60,7 +60,14 @@
     "PORTFOLIO": "PORTFOLIO",
     "Show balances": "Guthaben sichtbar machen",
     "Hide balances": "Guthaben verbergen",
-    "You do not have any other tokens.": "Keine weiteren Token in deinem Bestand."
+    "You do not have any other tokens.": "Keine weiteren Token in deinem Bestand.",
+    "SWITCH": "WECHSELN"
+  },
+  "screens/AddressControlScreen": {
+    "CREATE WALLET ADDRESS": "WALLET-ADRESSE ERSTELLEN",
+    "Switch to another wallet": "Zu einer anderen Wallet wechseln",
+    "Wallet Address": "Wallet Adresse",
+    "ACTIVE": "AKTIV"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
@@ -806,7 +813,9 @@
     "HEALTHY": "GUT",
     "AT RISK": "GEFÄHRDET",
     "HALTED": "GESTOPPT",
-    "IN LIQUIDATION": "IN LIQUIDATION"
+    "IN LIQUIDATION": "IN LIQUIDATION",
+    "EMPTY": "LEER",
+    "READY": "BEREIT"
   },
   "components/EmptyVault": {
     "No vault created": "Kein Vault erstellt",

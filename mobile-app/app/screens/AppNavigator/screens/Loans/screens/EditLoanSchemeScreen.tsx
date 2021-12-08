@@ -130,11 +130,13 @@ function VaultSection (props: { vault: LoanVaultActive }): JSX.Element {
   const colRatio = new BigNumber(vault.collateralRatio)
   const minColRatio = new BigNumber(vault.loanScheme.minColRatio)
   const totalLoanValue = new BigNumber(vault.loanValue)
-  const vaultState = useVaultStatus(vault.state, colRatio, minColRatio, totalLoanValue)
+  const totalCollateralValue = new BigNumber(vault.collateralValue)
+  const vaultState = useVaultStatus(vault.state, colRatio, minColRatio, totalLoanValue, totalCollateralValue)
   const colors = useCollateralizationRatioColor({
     colRatio,
     minColRatio,
-    totalLoanAmount: totalLoanValue
+    totalLoanAmount: totalLoanValue,
+    totalCollateralValue
   })
   return (
     <ThemedView
@@ -152,7 +154,7 @@ function VaultSection (props: { vault: LoanVaultActive }): JSX.Element {
             {vault.vaultId}
           </ThemedText>
         </View>
-        <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
+        <VaultStatusTag status={vaultState.status} />
       </View>
       <VaultSectionTextRow
         testID='text_total_collateral_value'
@@ -167,8 +169,8 @@ function VaultSection (props: { vault: LoanVaultActive }): JSX.Element {
       />
       <VaultSectionTextRow
         testID='text_total_collateral_value'
-        value={BigNumber.maximum(new BigNumber(vault.collateralRatio ?? 0), 0).toFixed(2)}
-        suffix='%'
+        value={new BigNumber(vault.collateralRatio === '-1' ? NaN : vault.collateralRatio).toFixed(2)}
+        suffix={vault.collateralRatio === '-1' ? translate('screens/EditCollateralScreen', 'N/A') : '%'}
         suffixType='text'
         lhs={translate('screens/EditCollateralScreen', 'Collateralization ratio')}
         rhsThemedProps={colors}

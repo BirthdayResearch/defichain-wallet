@@ -11,8 +11,6 @@ import { TransactionsNavigator } from './screens/Transactions/TransactionsNaviga
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { theme } from '../../tailwind.config'
 import { AuctionsNavigator } from './screens/Auctions/AuctionNavigator'
-import { useSelector } from 'react-redux'
-import { auctionsCountSelector } from '@store/auctions'
 
 export interface BottomTabParamList {
   Balances: undefined
@@ -28,7 +26,6 @@ const BottomTab = createBottomTabNavigator<BottomTabParamList>()
 export function BottomTabNavigator (): JSX.Element {
   const { isFeatureAvailable } = useFeatureFlagContext()
   const inactiveColor = theme.extend.colors.dfxgray[300]
-  const auctionCount = useSelector(auctionsCountSelector)
   return (
     <>
       <OceanInterface />
@@ -103,8 +100,7 @@ export function BottomTabNavigator (): JSX.Element {
                   name='gavel'
                   size={24}
                 />
-              ),
-              tabBarBadge: auctionCount > 0 ? auctionCount : undefined
+              )
             }}
           />
         )}

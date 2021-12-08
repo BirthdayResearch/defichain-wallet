@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { tailwind } from '@tailwind'
-import { ThemedScrollView } from '@components/themed'
+import { ThemedFlatList } from '@components/themed'
 import { BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { Platform, View } from 'react-native'
@@ -11,16 +11,15 @@ import { RootState } from '@store'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
-import { fetchAuctions } from '@store/auctions'
+import { AuctionBatchProps, auctionsSearchByTermSelector, fetchAuctions } from '@store/auctions'
 import { EmptyAuction } from './EmptyAuction'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { useBottomSheet } from '@hooks/useBottomSheet'
 import BigNumber from 'bignumber.js'
 import { QuickBid } from './QuickBid'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
-import { createSelector } from '@reduxjs/toolkit'
 import { useDebounce } from '@hooks/useDebounce'
-import { fetchVaults, vaultsSelector } from '@store/loans'
+import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 
 interface Props {
@@ -49,25 +48,10 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
 
   // Search
   const debouncedSearchTerm = useDebounce(searchString, 500)
-  const filteredAuctions = useSelector(createSelector((state: RootState) => state.auctions.auctions, (auctions: LoanVaultLiquidated[]) => {
-    return auctions
-      .map((auction) => {
-        const filteredBatches = debouncedSearchTerm !== '' && debouncedSearchTerm !== undefined
-          ? auction.batches.filter(batch => batch.loan.displaySymbol.toLowerCase().includes(debouncedSearchTerm.trim().toLowerCase()))
-          : auction.batches
-
-        return {
-          ...auction,
-          batches: filteredBatches,
-          batchCount: filteredBatches.length
-        }
-      })
-      .sort((a, b) => new BigNumber(a.liquidationHeight).minus(b.liquidationHeight).toNumber())
-  }))
+  const filteredAuctionBatches = useSelector((state: RootState) => auctionsSearchByTermSelector(state.auctions, debouncedSearchTerm))
 
   useEffect(() => {
     dispatch(fetchAuctions({ client }))
-
     dispatch(fetchVaults({
       address,
       client
@@ -104,7 +88,13 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
 
   return (
     <View ref={containerRef} style={tailwind('h-full')}>
-      <ThemedScrollView contentContainerStyle={tailwind('p-4')} testID='auctions_cards'>
+      <View
+        style={tailwind(['p-4', {
+          'pb-16': Platform.OS !== 'web',
+          'flex-1 flex-col pb-0': Platform.OS === 'web'
+        }])}
+        testID='auctions_cards'
+      >
         {isBetaFeature('auction') && (
           <View style={tailwind('pb-4')}>
             <InfoText
@@ -116,29 +106,14 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
         {hasFetchAuctionsData
           ? (
             <>
-              {filteredAuctions.length === 0
+              {filteredAuctionBatches.length === 0
                 ? <EmptyAuction />
                 : (
-                  <>
-                    {filteredAuctions.map((auction: LoanVaultLiquidated, index: number) => {
-                      return (
-                        <View key={auction.vaultId}>
-                          {auction.batches.map((eachBatch: LoanVaultLiquidationBatch) => {
-                            return (
-                              <BatchCard
-                                vault={auction}
-                                batch={eachBatch}
-                                key={`${auction.vaultId}_${eachBatch.index}`}
-                                testID={`batch_card_${index}`}
-                                onQuickBid={onQuickBid}
-                                isVaultOwner={vaults.some(vault => vault.vaultId === auction.vaultId)}
-                              />
-                            )
-                          })}
-                        </View>
-                      )
-                    })}
-                  </>
+                  <BatchCards
+                    auctionBatches={filteredAuctionBatches}
+                    onQuickBid={onQuickBid}
+                    vaults={vaults}
+                  />
                 )}
             </>)
           : (
@@ -175,7 +150,44 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
             }}
           />
         )}
-      </ThemedScrollView>
+      </View>
     </View>
+  )
+}
+
+function BatchCards ({ auctionBatches, vaults, onQuickBid }: {
+  auctionBatches: AuctionBatchProps[]
+    vaults: LoanVault[]
+    onQuickBid: (
+      batch: LoanVaultLiquidationBatch,
+      vaultId: string,
+      minNextBidInToken: string,
+      vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']) => void
+  }): JSX.Element {
+  return (
+    <ThemedFlatList
+      data={auctionBatches}
+      numColumns={1}
+      keyExtractor={(_item, index) => index.toString()}
+      testID='available_liquidity_tab'
+      renderItem={({
+      item,
+      index
+    }: { item: AuctionBatchProps, index: number }): JSX.Element => {
+      const { auction, ...batch } = item
+      return (
+        <View key={auction.vaultId}>
+          <BatchCard
+            vault={auction}
+            batch={batch}
+            key={`${auction.vaultId}_${batch.index}`}
+            testID={`batch_card_${index}`}
+            onQuickBid={onQuickBid}
+            isVaultOwner={vaults.some(vault => vault.vaultId === auction.vaultId)}
+          />
+        </View>
+      )
+    }}
+    />
   )
 }

@@ -42,8 +42,9 @@ export const BottomSheetVaultList = ({
       renderItem={({ item }: { item: LoanVault }): JSX.Element => {
         const colRatio = item.state === LoanVaultState.IN_LIQUIDATION ? 0 : item.collateralRatio
         const totalLoanAmount = item.state === LoanVaultState.IN_LIQUIDATION ? 0 : item.loanValue
+        const totalCollateralValue = item.state === LoanVaultState.IN_LIQUIDATION ? 0 : item.collateralValue
         // eslint-disable-next-line
-        const vaultState = useVaultStatus(item.state, new BigNumber(colRatio), new BigNumber(item.loanScheme.minColRatio), new BigNumber(totalLoanAmount))
+        const vaultState = useVaultStatus(item.state, new BigNumber(colRatio), new BigNumber(item.loanScheme.minColRatio), new BigNumber(totalLoanAmount), new BigNumber(totalCollateralValue))
         return (
           (
             <ThemedTouchableOpacity
@@ -64,7 +65,7 @@ export const BottomSheetVaultList = ({
                   >
                     {item.vaultId}
                   </ThemedText>
-                  <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
+                  <VaultStatusTag status={vaultState.status} />
                 </View>
               </View>
               <View style={tailwind('flex items-end')}>

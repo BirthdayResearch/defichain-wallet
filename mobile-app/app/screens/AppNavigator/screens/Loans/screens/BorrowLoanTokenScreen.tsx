@@ -32,7 +32,6 @@ import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 import { useResultingCollateralRatio } from '../hooks/CollateralPrice'
 import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
@@ -429,8 +428,6 @@ interface VaultInputActiveProps {
 }
 
 function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
-  const vaultState = useVaultStatus(props.vault.state, new BigNumber(props.vault.collateralRatio), new BigNumber(props.vault.loanScheme.minColRatio), new BigNumber(props.vault.loanValue))
-
   const vaultAlertInfo = {
     title: 'Annual vault interest',
     message: 'Annual vault interest rate based on the loan scheme selected.'
@@ -460,7 +457,6 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
           >
             {props.vault.vaultId}
           </ThemedText>
-          <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
         </View>
         <ThemedIcon
           iconType='MaterialIcons'
@@ -510,15 +506,6 @@ interface TransactionDetailsProps {
 }
 
 export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element {
-  const resultingVaultState = useVaultStatus(
-    props.vault.state,
-    props.resultingColRatio,
-    new BigNumber(props.vault.loanScheme.minColRatio),
-    new BigNumber(props.vault.loanValue).plus(
-      props.totalLoanWithInterest.multipliedBy(props.loanTokenPrice)
-    )
-  )
-
   const minCollateralRatioInfo = {
     title: 'Min. collateralization ratio',
     message: 'Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.'
@@ -546,7 +533,11 @@ export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.
             value={props.resultingColRatio.toFixed(2)}
             testId='text_resulting_col_ratio'
             type='current'
-            vaultState={resultingVaultState}
+            minColRatio={new BigNumber(props.vault.loanScheme.minColRatio)}
+            totalLoanAmount={new BigNumber(props.vault.loanValue).plus(
+              props.totalLoanWithInterest.multipliedBy(props.loanTokenPrice)
+            )}
+            colRatio={props.resultingColRatio}
           />
         )}
       <NumberRow

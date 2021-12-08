@@ -3,7 +3,6 @@ import { EnvironmentNetwork } from '../../../../../../shared/environment'
 
 context('Wallet - Loans', () => {
   before(function () {
-    cy.allowLoanFeature()
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().wait(6000)
   })
