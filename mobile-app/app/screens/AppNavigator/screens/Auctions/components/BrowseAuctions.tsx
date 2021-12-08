@@ -88,7 +88,13 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
 
   return (
     <View ref={containerRef} style={tailwind('h-full')}>
-      <View style={tailwind('p-4 pb-16')} testID='auctions_cards'>
+      <View
+        style={tailwind(['p-4 flex-1 flex-col', {
+          'pb-16': Platform.OS !== 'web',
+          'pb-0': Platform.OS === 'web'
+        }])}
+        testID='auctions_cards'
+      >
         {isBetaFeature('auction') && (
           <View style={tailwind('pb-4')}>
             <InfoText
