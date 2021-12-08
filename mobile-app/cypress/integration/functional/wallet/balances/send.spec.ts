@@ -350,6 +350,7 @@ context('Wallet - Send - Switch token', function () {
     cy.getByTestID('select_DFI_value').should('have.text', '20.00000000')
     cy.getByTestID('select_dBTC_value').should('have.text', '10.00000000')
     cy.getByTestID('select_dETH_value').should('have.text', '10.00000000')
+    cy.wait(3000) // timeout to allow max. one block-cycle of re-render
     cy.getByTestID('select_DFI').click()
     cy.getByTestID('selected_token').should('have.text', 'DFI')
     cy.getByTestID('max_value').contains('DFI')
