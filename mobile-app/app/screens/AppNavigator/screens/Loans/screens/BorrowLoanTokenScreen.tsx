@@ -149,7 +149,7 @@ export function BorrowLoanTokenScreen ({
       params: {
         loanToken: loanToken,
         vault: vault,
-        amountToBorrow: amountToBorrow.amountInToken.toFixed(8), // Todo Checked how much decimal should be sent
+        amountToBorrow: amountToBorrow.amountInToken.toFixed(8),
         totalInterestAmount: interestPerBlock,
         totalLoanWithInterest,
         fee,
