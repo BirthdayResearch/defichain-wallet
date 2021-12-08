@@ -40,7 +40,7 @@ export function AuctionsFaq (): JSX.Element {
       </ThemedText>
 
       <WalletAccordion
-        testID='loans_faq_accordion'
+        testID='auctions_faq_accordion'
         title={translate('components/AuctionsFaq', 'FREQUENTLY ASKED QUESTIONS')}
         content={faqContent}
       />

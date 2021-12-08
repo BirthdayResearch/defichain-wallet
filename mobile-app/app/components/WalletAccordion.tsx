@@ -9,7 +9,7 @@ interface AccordionProps {
   testID?: string
   title: string
   content: AccordionContent[]
-  activeSessions?: number[] | string[]
+  activeSections?: number[] | string[]
 }
 
 export interface AccordionContent {
@@ -20,16 +20,9 @@ export interface AccordionContent {
   }>
 }
 
-interface ActiveSessions {
-  activeSessions: number[] | string[]
-}
-
 export function WalletAccordion (props: AccordionProps): JSX.Element {
   const { isLight } = useThemeContext()
-  const initialContent: ActiveSessions = {
-    activeSessions: props.activeSessions ?? []
-  }
-  const [activeContent, setActiveContent] = useState(initialContent)
+  const [activeSections, setActiveSections] = useState<number[] | string[]>(props.activeSections ?? [])
   const isLastContent = (index: number): boolean => {
     return index === props.content.length - 1
   }
@@ -102,10 +95,10 @@ export function WalletAccordion (props: AccordionProps): JSX.Element {
             </ThemedView>
           )
         }}
-        onChange={(activeSessions) => {
-          setActiveContent({ activeSessions })
+        onChange={(activeSections) => {
+          setActiveSections(activeSections)
         }}
-        activeSections={activeContent.activeSessions}
+        activeSections={activeSections}
       />
     </ThemedScrollView>
   )
