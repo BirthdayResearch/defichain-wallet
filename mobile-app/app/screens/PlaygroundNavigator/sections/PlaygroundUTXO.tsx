@@ -8,6 +8,7 @@ import { fetchTokens } from '@hooks/wallet/TokensAPI'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundTitle } from '../components/PlaygroundTitle'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 
 export function PlaygroundUTXO (): JSX.Element {
   const logger = useLogger()
@@ -28,6 +29,12 @@ export function PlaygroundUTXO (): JSX.Element {
     })
   }, [wallet])
 
+  const getActiveAddress = async (): Promise<string> => {
+    const addressIndex = await WalletAddressIndexPersistence.getActive()
+    const account = wallet.get(addressIndex)
+    return await account.getAddress()
+  }
+
   return (
     <View>
       <PlaygroundTitle
@@ -44,7 +51,7 @@ export function PlaygroundUTXO (): JSX.Element {
           <>
             <PlaygroundAction
               onPress={async () => {
-                const address = await wallet.get(0).getAddress()
+                const address = await getActiveAddress()
                 await rpc.wallet.sendToAddress(address, 10)
               }}
               testID='playground_wallet_top_up'
@@ -53,7 +60,7 @@ export function PlaygroundUTXO (): JSX.Element {
 
             <PlaygroundAction
               onPress={async () => {
-                const address = await wallet.get(0).getAddress()
+                const address = await getActiveAddress()
                 fetchTokens(whaleApiClient, address, dispatch, logger)
               }}
               testID='playground_wallet_fetch_balances'

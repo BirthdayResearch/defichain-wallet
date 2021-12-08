@@ -41,6 +41,8 @@ interface WalletPersistenceProviderI {
   api: {
     get: () => Promise<Array<WalletPersistenceDataI<any>>>
     set: (wallets: Array<WalletPersistenceDataI<any>>) => Promise<void>
+    setLength: (count: number) => Promise<void>
+    setActive: (count: number) => Promise<void>
   }
 }
 
@@ -67,6 +69,9 @@ export function WalletPersistenceProvider (props: WalletPersistenceProviderI & P
       setDataList(await api.get())
     },
     async clearWallets (): Promise<void> {
+      // remove address length and active address
+      await api.setLength(0)
+      await api.setActive(0)
       await api.set([])
       setDataList(await api.get())
     }

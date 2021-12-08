@@ -6,6 +6,7 @@ import { usePlaygroundContext } from '@contexts/PlaygroundContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundTitle } from '../components/PlaygroundTitle'
+import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 
 export function PlaygroundToken (): JSX.Element | null {
   const { wallet } = useWalletContext()
@@ -25,12 +26,18 @@ export function PlaygroundToken (): JSX.Element | null {
     })
   }, [wallet])
 
+  const getActiveAddress = async (): Promise<string> => {
+    const addressIndex = await WalletAddressIndexPersistence.getActive()
+    const account = wallet.get(addressIndex)
+    return await account.getAddress()
+  }
+
   const actions = tokens.filter(({ symbol }) => symbol !== 'DFI').map(token => {
     return (
       <PlaygroundAction
         key={token.id}
         onPress={async () => {
-          const address = await wallet.get(0).getAddress()
+          const address = await getActiveAddress()
           await rpc.call('sendtokenstoaddress', [{}, {
             [address]: `10@${token.symbol}`
           }], 'number')
@@ -57,7 +64,7 @@ export function PlaygroundToken (): JSX.Element | null {
         onPress={async () => {
           await api.wallet.sendTokenDfiToAddress({
             amount: '10',
-            address: await wallet.get(0).getAddress()
+            address: await getActiveAddress()
           })
         }}
         testID='playground_token_DFI'

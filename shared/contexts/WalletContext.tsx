@@ -20,7 +20,27 @@ interface WalletContextI {
    * Default address of the above wallet
    */
   address: string
+  /**
+   * Available address length of the above wallet
+   */
+  addressLength: number
+  /**
+   * Switch account addresses of the above wallet
+   */
+  setIndex: (index: number) => Promise<void>
+
 }
+
+export interface WalletContextProviderProps extends PropsWithChildren<{}> {
+  api: {
+    getLength: () => Promise<number>
+    setLength: (count: number) => Promise<void>
+    getActive: () => Promise<number>
+    setActive: (count: number) => Promise<void>
+  }
+}
+
+export const MAX_ALLOWED_ADDRESSES = 10
 
 const WalletContext = createContext<WalletContextI>(undefined as any)
 
@@ -28,10 +48,14 @@ export function useWalletContext (): WalletContextI {
   return useContext(WalletContext)
 }
 
-export function WalletContextProvider (props: PropsWithChildren<any>): JSX.Element | null {
+export function WalletContextProvider (props: WalletContextProviderProps): JSX.Element | null {
+  const { api } = props
   const logger = useLogger()
   const { provider } = useWalletNodeContext()
   const [address, setAddress] = useState<string>()
+  const [account, setAccount] = useState<WhaleWalletAccount>()
+  const [addressIndex, setAddressIndex] = useState<number>()
+  const [addressLength, setAddressLength] = useState<number>(0)
   const { network } = useNetworkContext()
   const client = useWhaleApiClient()
 
@@ -40,20 +64,46 @@ export function WalletContextProvider (props: PropsWithChildren<any>): JSX.Eleme
   }, [provider, network, client])
 
   useEffect(() => {
-    wallet.get(0).getAddress().then(value => {
-      setAddress(value)
-    })
+    getWalletDetails()
     .catch(logger.error)
   }, [wallet])
 
-  if (address === undefined) {
+  useEffect(() => {
+    if (addressIndex !== undefined) {
+      const account = wallet.get(addressIndex)
+      account.getAddress().then((address) => {
+        setAccount(account)
+        setAddress(address)
+      }).catch(logger.error)
+    }
+  }, [wallet, addressIndex])
+
+  const getWalletDetails = async (): Promise<void> => {
+    const maxAddressIndex = await api.getLength()
+    const activeAddressIndex = await api.getActive()
+    setAddressIndex(activeAddressIndex)
+    setAddressLength(maxAddressIndex)
+  }
+
+  const setIndex = async (index: number): Promise<void> => {
+    if (index > addressLength) {
+      await api.setLength(index)
+      setAddressLength(index)
+    }
+    await api.setActive(index)
+    setAddressIndex(index)
+  }
+
+  if (account === undefined || address === undefined) {
     return null
   }
 
   const context: WalletContextI = {
     wallet: wallet,
-    account: wallet.get(0),
-    address: address
+    account: account,
+    address: address,
+    setIndex: setIndex,
+    addressLength: addressLength
   }
 
   return (
