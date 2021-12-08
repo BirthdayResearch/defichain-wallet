@@ -132,7 +132,8 @@ function VaultIdSection ({ vault }: { vault: LoanVault }): JSX.Element {
   const { getVaultsUrl } = useDeFiScanContext()
   const colRatio = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.collateralRatio
   const totalLoanAmount = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.loanValue
-  const vaultState = useVaultStatus(vault.state, new BigNumber(colRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber((totalLoanAmount)))
+  const totalCollateralValue = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.collateralValue
+  const vaultState = useVaultStatus(vault.state, new BigNumber(colRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber(totalLoanAmount), new BigNumber(totalCollateralValue))
   const collateralAmounts = vault.state === LoanVaultState.IN_LIQUIDATION ? [] : vault.collateralAmounts
   const loanAmounts = vault.state === LoanVaultState.IN_LIQUIDATION ? [] : vault.loanAmounts
   const nextCollateralizationRatio = useNextCollateralizationRatio(collateralAmounts, loanAmounts)
@@ -154,7 +155,7 @@ function VaultIdSection ({ vault }: { vault: LoanVault }): JSX.Element {
             >
               {translate('screens/VaultDetailScreen', 'Vault ID')}
             </ThemedText>
-            <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
+            <VaultStatusTag status={vaultState.status} />
           </View>
           <View
             style={tailwind('flex flex-row mb-2 items-center')}
@@ -178,7 +179,7 @@ function VaultIdSection ({ vault }: { vault: LoanVault }): JSX.Element {
         </View>
       </ThemedView>
       {
-        vault.state !== LoanVaultState.IN_LIQUIDATION && vaultState.status !== VaultStatus.Active && (
+        vault.state !== LoanVaultState.IN_LIQUIDATION && vaultState.status !== VaultStatus.Empty && vaultState.status !== VaultStatus.Ready && (
           <CollateralizationRatioDisplay
             collateralizationRatio={vault.collateralRatio}
             minCollateralizationRatio={vault.loanScheme.minColRatio}

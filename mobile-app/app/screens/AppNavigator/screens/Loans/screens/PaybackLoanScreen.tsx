@@ -220,11 +220,12 @@ export function VaultInput ({
   displayMaxLoanAmount = false,
   interestPerBlock
 }: VaultInputProps): JSX.Element {
-  const vaultState = useVaultStatus(vault.state, new BigNumber(vault.collateralRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber(vault.loanValue))
+  const vaultState = useVaultStatus(vault.state, new BigNumber(vault.collateralRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber(vault.loanValue), new BigNumber(vault.collateralValue))
   const colors = useCollateralizationRatioColor({
     colRatio: new BigNumber(vault.collateralRatio),
     minColRatio: new BigNumber(vault.loanScheme.minColRatio),
-    totalLoanAmount: new BigNumber(vault.loanValue)
+    totalLoanAmount: new BigNumber(vault.loanValue),
+    totalCollateralValue: new BigNumber(vault.collateralValue)
   })
 
   const collateralAlertInfo = {
@@ -261,7 +262,7 @@ export function VaultInput ({
             {vault.vaultId}
           </ThemedText>
         </View>
-        <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
+        <VaultStatusTag status={vaultState.status} />
       </View>
       <View style={tailwind('flex flex-row items-center justify-between mb-1 mt-2')}>
         <View style={tailwind('items-center flex-row')}>
@@ -275,10 +276,10 @@ export function VaultInput ({
           <BottomSheetInfo alertInfo={collateralAlertInfo} name={collateralAlertInfo.title} infoIconStyle={tailwind('text-xs')} />
         </View>
         <NumberFormat
-          value={new BigNumber(vault.collateralRatio).toFixed(2)}
+          value={new BigNumber(vault.collateralRatio === '-1' ? NaN : vault.collateralRatio).toFixed(2)}
           decimalScale={2}
           thousandSeparator
-          suffix='%'
+          suffix={vault.collateralRatio === '-1' ? translate('screens/PaybackLoanScreen', 'N/A') : '%'}
           displayType='text'
           renderText={(value) => (
             <ThemedText light={colors.light} dark={colors.dark} style={tailwind('text-sm font-medium')}>
