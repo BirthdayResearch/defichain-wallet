@@ -1,4 +1,4 @@
-import { ThemedText, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import React from 'react'
@@ -10,26 +10,28 @@ import {
 } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 
 export enum VaultStatus {
-  Active = 'ACTIVE',
+  Empty = 'EMPTY',
+  Ready = 'READY',
   Healthy = 'HEALTHY',
   AtRisk = 'AT RISK',
   Halted = 'HALTED',
-  NearLiquidation = 'AT RISK',
+  NearLiquidation = 'NEAR LIQUIDATION',
   Liquidated = 'IN LIQUIDATION',
   Unknown = 'UNKNOWN'
 }
 
-export interface VaultHealthItem {
+interface VaultHealthItem {
   vaultStats: CollateralizationRatioStats
   status: VaultStatus
 }
 
-export function useVaultStatus (status: LoanVaultState, collateralRatio: BigNumber, minColRatio: BigNumber, totalLoanAmount: BigNumber): VaultHealthItem {
+export function useVaultStatus (status: LoanVaultState, collateralRatio: BigNumber, minColRatio: BigNumber, totalLoanAmount: BigNumber, totalCollateralValue: BigNumber): VaultHealthItem {
   const colRatio = collateralRatio.gte(0) ? collateralRatio : new BigNumber(0)
   const stats = useCollateralRatioStats({
     colRatio,
     minColRatio,
-    totalLoanAmount
+    totalLoanAmount,
+    totalCollateralValue
   })
   let vaultStatus: VaultStatus
   if (status === LoanVaultState.FROZEN) {
@@ -44,8 +46,10 @@ export function useVaultStatus (status: LoanVaultState, collateralRatio: BigNumb
     vaultStatus = VaultStatus.AtRisk
   } else if (stats.isHealthy) {
     vaultStatus = VaultStatus.Healthy
+  } else if (stats.isReady) {
+    vaultStatus = VaultStatus.Ready
   } else {
-    vaultStatus = VaultStatus.Active
+    vaultStatus = VaultStatus.Empty
   }
   return {
     status: vaultStatus,
@@ -55,8 +59,8 @@ export function useVaultStatus (status: LoanVaultState, collateralRatio: BigNumb
 
 export function VaultStatusTag ({
   status,
-  vaultStats
-}: VaultHealthItem): JSX.Element {
+  testID
+}: {status: VaultStatus, testID?: string}): JSX.Element {
   if (status === VaultStatus.Unknown) {
     return <></>
   }
@@ -65,47 +69,112 @@ export function VaultStatusTag ({
     <ThemedView
       light={tailwind(
         {
-          'bg-blue-100': status === VaultStatus.Active,
+          'bg-gray-100': status === VaultStatus.Empty || status === VaultStatus.Ready || status === VaultStatus.Halted || status === VaultStatus.Liquidated,
           'bg-success-100': status === VaultStatus.Healthy,
           'bg-warning-100': status === VaultStatus.AtRisk,
-          'bg-gray-100': status === VaultStatus.Halted,
-          'bg-error-100': status === VaultStatus.Liquidated || (status === VaultStatus.NearLiquidation && vaultStats.isInLiquidation)
+          'bg-error-100': status === VaultStatus.NearLiquidation
         }
       )}
       dark={tailwind(
         {
-          'bg-darkblue-100': status === VaultStatus.Active,
+          'bg-gray-900': status === VaultStatus.Empty || status === VaultStatus.Ready || status === VaultStatus.Halted || status === VaultStatus.Liquidated,
           'bg-darksuccess-100': status === VaultStatus.Healthy,
           'bg-darkwarning-100': status === VaultStatus.AtRisk,
-          'bg-gray-100': status === VaultStatus.Halted,
-          'bg-darkerror-100': status === VaultStatus.Liquidated || (status === VaultStatus.NearLiquidation && vaultStats.isInLiquidation)
+          'bg-darkerror-100': status === VaultStatus.NearLiquidation
         }
       )}
-      style={tailwind('flex flex-row items-center')}
+      style={tailwind('flex flex-row items-center py-0.5 px-2')}
     >
       <ThemedText
+        testID={testID}
         light={tailwind(
           {
-            'text-blue-500': status === VaultStatus.Active,
+            'text-gray-500': status === VaultStatus.Empty || status === VaultStatus.Ready || status === VaultStatus.Liquidated,
+            'text-gray-400': status === VaultStatus.Halted,
             'text-success-500': status === VaultStatus.Healthy,
             'text-warning-500': status === VaultStatus.AtRisk,
-            'text-gray-400': status === VaultStatus.Halted,
-            'text-error-500': status === VaultStatus.Liquidated || (status === VaultStatus.NearLiquidation && vaultStats.isInLiquidation)
+            'text-error-600': status === VaultStatus.NearLiquidation
           }
         )}
         dark={tailwind(
           {
-            'text-darkblue-500': status === VaultStatus.Active,
+            'text-gray-400': status === VaultStatus.Empty || status === VaultStatus.Ready || status === VaultStatus.Liquidated,
+            'text-gray-500': status === VaultStatus.Halted,
             'text-darksuccess-500': status === VaultStatus.Healthy,
             'text-darkwarning-500': status === VaultStatus.AtRisk,
-            'text-gray-500': status === VaultStatus.Halted,
-            'text-darkerror-500': status === VaultStatus.Liquidated || (status === VaultStatus.NearLiquidation && vaultStats.isInLiquidation)
+            'text-darkerror-600': status === VaultStatus.NearLiquidation
           }
         )}
-        style={tailwind('px-2 py-0.5 font-medium text-xs')}
+        style={tailwind('font-medium text-xs')}
       >
-        {translate('components/VaultCard', status)}
+        {getTagLabel(status)}
       </ThemedText>
+      <SignalIcon status={status} />
     </ThemedView>
   )
+}
+
+function getTagLabel (status: VaultStatus): string {
+  if (status !== VaultStatus.Healthy && status !== VaultStatus.AtRisk && status !== VaultStatus.NearLiquidation) {
+    return translate('components/VaultCard', status)
+  }
+
+  return translate('components/VaultCard', 'ACTIVE')
+}
+
+function SignalIcon (props: {status: VaultStatus}): JSX.Element | null {
+  const signalIconSize = 14
+  if (props.status === VaultStatus.Healthy) {
+    return (
+      <ThemedIcon
+        iconType='MaterialCommunityIcons'
+        name='signal-cellular-3'
+        light={tailwind('text-success-500')}
+        dark={tailwind('text-darksuccess-500')}
+        style={tailwind('ml-1 pt-px')}
+        size={signalIconSize}
+      />
+    )
+  }
+
+  if (props.status === VaultStatus.AtRisk) {
+    return (
+      <ThemedIcon
+        iconType='MaterialCommunityIcons'
+        name='signal-cellular-2'
+        light={tailwind('text-warning-500')}
+        dark={tailwind('text-darkwarning-500')}
+        style={tailwind('ml-1 pt-px')}
+        size={signalIconSize}
+      />
+    )
+  }
+
+  if (props.status === VaultStatus.NearLiquidation) {
+    return (
+      <ThemedIcon
+        iconType='MaterialCommunityIcons'
+        name='signal-cellular-1'
+        light={tailwind('text-error-600')}
+        dark={tailwind('text-darkerror-600')}
+        style={tailwind('ml-1 pt-px')}
+        size={signalIconSize}
+      />
+    )
+  }
+
+  if (props.status === VaultStatus.Halted) {
+    return (
+      <ThemedIcon
+        iconType='MaterialCommunityIcons'
+        name='signal-cellular-3'
+        light={tailwind('text-gray-300')}
+        dark={tailwind('text-gray-600')}
+        style={tailwind('ml-1 pt-px')}
+        size={signalIconSize}
+      />
+    )
+  }
+
+  return null
 }

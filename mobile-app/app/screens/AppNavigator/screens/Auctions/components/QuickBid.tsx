@@ -141,7 +141,7 @@ function BiddingInfo (props: {minNextBid: BigNumber, currentBalance: BigNumber, 
         style={tailwind('text-base font-medium')}
         info={{
           title: 'Min. next bid',
-          message: 'The minimum bid a user must place in order to take part in the auction..'
+          message: 'The minimum bid a user must place in order to take part in the auction.'
         }}
       />
       <VaultSectionTextRow
