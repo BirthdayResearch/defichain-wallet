@@ -4,11 +4,12 @@ import BigNumber from 'bignumber.js'
 context('Wallet - Loans - Add/Remove Collateral', () => {
   let vaultId = ''
 
-  function checkCollateralDetailValues (status: string, totalCollateral: string, totalLoans: string, totalColRatio: string, totalMinCol: string, totalVaultInterest: string): void {
+  function checkCollateralDetailValues (status: string, totalCollateral: string, totalLoans: string, totalColRatio: string, colRatioSuffix: string, totalMinCol: string, totalVaultInterest: string): void {
     cy.getByTestID('collateral_vault_tag').contains(status)
     cy.getByTestID('text_total_collateral_value').contains(totalCollateral)
     cy.getByTestID('text_total_loans_value').contains(totalLoans)
-    cy.getByTestID('text_col_ratio_value').contains(totalColRatio)
+    cy.getByTestID('text_col_ratio_value').should('have.value', totalColRatio)
+    cy.getByTestID('text_col_ratio_value_suffix').contains(colRatioSuffix)
     cy.getByTestID('text_min_col_ratio_value').contains(totalMinCol)
     cy.getByTestID('text_vault_interest_value').contains(totalVaultInterest)
   }
@@ -47,7 +48,7 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('empty_vault').should('exist')
     cy.createVault(0)
-    cy.getByTestID('vault_card_0_status').contains('ACTIVE')
+    cy.getByTestID('vault_card_0_status').contains('EMPTY')
     cy.getByTestID('vault_card_0_vault_id').then(($txt: any) => {
       vaultId = $txt[0].textContent
     })
@@ -57,7 +58,7 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     cy.intercept('**/loans/collaterals?size=50').as('loanCollaterals')
     cy.getByTestID('edit_collaterals_button').click()
     cy.getByTestID('collateral_vault_id').contains(vaultId)
-    checkCollateralDetailValues('ACTIVE', '$0.00', '$0.00', '0.00', '150.00', '5.00')
+    checkCollateralDetailValues('EMPTY', '$0.00', '$0.00', '', 'N/A', '150.00', '5.00')
     cy.getByTestID('add_collateral_button').click()
     cy.wait(['@loanCollaterals']).then((intercept: any) => {
       const amounts: any = {
@@ -86,7 +87,7 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
   })
 
   it('should update vault details', function () {
-    checkCollateralDetailValues('ACTIVE', '$1,000.00', '$0.00', '0.00', '150.00', '5.00')
+    checkCollateralDetailValues('READY', '$1,000.00', '$0.00', '', 'N/A', '150.00', '5.00')
   })
 
   it('should update collateral list', function () {
@@ -108,7 +109,7 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
   })
 
   it('should update vault details', function () {
-    checkCollateralDetailValues('ACTIVE', '$1,500.00', '$0.00', '0.00', '150.00', '5.00')
+    checkCollateralDetailValues('READY', '$1,500.00', '$0.00', '', 'N/A', '150.00', '5.00')
   })
 
   it('should update collateral list', function () {
