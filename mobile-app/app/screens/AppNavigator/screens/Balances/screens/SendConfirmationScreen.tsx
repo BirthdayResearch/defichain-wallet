@@ -128,7 +128,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
       />
       <WalletAddressRow />
       <TextRow
-        lhs={translate('screens/SendConfirmationScreen', 'Recipient\'s address')}
+        lhs={translate('screens/SendConfirmationScreen', 'Recipient address')}
         rhs={{
           value: destination,
           testID: 'text_destination'

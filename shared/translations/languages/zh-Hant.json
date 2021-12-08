@@ -99,7 +99,7 @@
     "CONFIRM SEND": "確認發出",
     "You are sending": "您正要發出資金",
     "TRANSACTION DETAILS": "交易明細",
-    "Address": "地址",
+    "Recipient address": "接收地址",
     "Network": "網絡",
     "Amount": "資金數量",
     "Estimated fee": "所需費用(大約)",

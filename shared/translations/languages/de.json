@@ -100,7 +100,7 @@
     "CONFIRM SEND": "SENDEN BESTÄTIGEN",
     "You are sending": "Du sendest",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
-    "Address": "Adresse",
+    "Recipient address": "Adresse des Empfängers",
     "Network": "Netzwerk",
     "Amount": "Menge",
     "Estimated fee": "Voraussichtliche Gebühr",
