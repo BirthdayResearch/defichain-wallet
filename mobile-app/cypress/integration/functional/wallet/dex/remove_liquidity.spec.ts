@@ -128,9 +128,9 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
         cy.getByTestID('text_transaction_type').should('have.text', 'Remove liquidity')
 
         // Estimated Amount to Receive section
-        cy.getByTestID('price_a').contains('0.01000000')
+        cy.getByTestID('price_a').contains('100.00000000')
         cy.getByTestID('price_a_label').contains('dETH price in DFI')
-        cy.getByTestID('price_b').contains('100.00000000')
+        cy.getByTestID('price_b').contains('0.01000000')
         cy.getByTestID('price_b_label').contains('DFI price in dETH')
 
         // Price Details section
@@ -161,10 +161,10 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
     cy.getByTestID('a_amount').should('exist')
     cy.getByTestID('b_amount').should('exist')
     cy.getByTestID('text_fee').should('exist')
-    cy.getByTestID('price_a').contains('0.01000000')
+    cy.getByTestID('price_a').contains('100.00000000')
     cy.getByTestID('price_a_label').contains('dETH price in DFI')
     cy.getByTestID('price_a_suffix').should('have.text', 'DFI per dETH')
-    cy.getByTestID('price_b').contains('100.00000000')
+    cy.getByTestID('price_b').contains('0.01000000')
     cy.getByTestID('price_b_label').contains('DFI price in dETH')
     cy.getByTestID('price_b_suffix').should('have.text', 'dETH per DFI')
 
