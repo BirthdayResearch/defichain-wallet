@@ -37,6 +37,7 @@ import {
 import { queueConvertTransaction } from '@hooks/wallet/Conversion'
 import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
+import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 
@@ -239,11 +240,13 @@ export function EditCollateralScreen ({
         {activeVault.collateralAmounts.map((collateral, index) => {
           const collateralItem = collateralTokens.find((col) => col.token.id === collateral.id)
           if (collateralItem !== undefined) {
+            const activePrice = new BigNumber(getActivePrice(collateralItem.token.symbol, collateralItem.activePrice))
             const params = {
               stackScreenName: 'AddOrRemoveCollateralForm',
               component: AddOrRemoveCollateralForm,
               initialParam: {
                 token: collateralItem.token,
+                activePrice,
                 available: '',
                 onButtonPress: undefined,
                 onCloseButtonPress: dismissModal,

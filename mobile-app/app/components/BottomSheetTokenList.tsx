@@ -11,6 +11,7 @@ import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { AddOrRemoveCollateralResponse } from '@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm'
 import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen'
+import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 
 interface BottomSheetTokenListProps {
   headerLabel: string
@@ -61,10 +62,12 @@ export const BottomSheetTokenList = ({
               onTokenPress(item)
             }
             if (navigateToScreen !== undefined) {
+              const activePrice = new BigNumber(getActivePrice(item.token.symbol, (item as CollateralItem)?.activePrice))
               navigation.navigate({
                 name: navigateToScreen.screenName,
                 params: {
                   token: item.token,
+                  activePrice,
                   available: item.available.toFixed(8),
                   onButtonPress: navigateToScreen.onButtonPress,
                   collateralFactor: new BigNumber(item.factor ?? 0).times(100),
