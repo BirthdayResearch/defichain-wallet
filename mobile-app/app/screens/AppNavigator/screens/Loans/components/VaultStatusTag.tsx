@@ -123,7 +123,7 @@ function getTagLabel (status: VaultStatus): string {
 }
 
 function SignalIcon (props: {status: VaultStatus}): JSX.Element | null {
-  const signalIconSize = 15
+  const signalIconSize = 14
   if (props.status === VaultStatus.Healthy) {
     return (
       <ThemedIcon
