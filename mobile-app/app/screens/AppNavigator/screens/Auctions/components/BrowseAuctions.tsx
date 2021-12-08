@@ -88,7 +88,7 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
 
   return (
     <View ref={containerRef} style={tailwind('h-full')}>
-      <View style={tailwind('p-4')} testID='auctions_cards'>
+      <View style={tailwind('p-4 pb-16')} testID='auctions_cards'>
         {isBetaFeature('auction') && (
           <View style={tailwind('pb-4')}>
             <InfoText
