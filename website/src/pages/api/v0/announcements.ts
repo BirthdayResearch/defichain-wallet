@@ -12,7 +12,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
   res.json([{
     lang: {
       en: 'We are currently investigating a sync issue between the blockchain and the interface on the apps. This is only a display issue, and does not affect the balances in the wallet.',
-      de: 'We are currently investigating a sync issue between the blockchain and the interface on the apps. This is only a display issue, and does not affect the balances in the wallet.',
+      de: 'Wir untersuchen derzeit ein Synchronisationsproblem zwischen der Blockchain und der Schnittstelle der Apps. Dies ist nur ein Anzeigeproblem und hat keine Auswirkungen auf die Guthaben in der Wallet.',
       'zh-Hans': 'We are currently investigating a sync issue between the blockchain and the interface on the apps. This is only a display issue, and does not affect the balances in the wallet.',
       'zh-Hant': 'We are currently investigating a sync issue between the blockchain and the interface on the apps. This is only a display issue, and does not affect the balances in the wallet.'
     },
