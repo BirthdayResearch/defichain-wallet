@@ -805,7 +805,9 @@
     "HEALTHY": "GUT",
     "AT RISK": "GEFÄHRDET",
     "HALTED": "GESTOPPT",
-    "IN LIQUIDATION": "IN LIQUIDATION"
+    "IN LIQUIDATION": "IN LIQUIDATION",
+    "EMPTY": "LEER",
+    "READY": "BEREIT"
   },
   "components/EmptyVault": {
     "No vault created": "Kein Vault erstellt",

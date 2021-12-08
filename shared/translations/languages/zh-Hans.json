@@ -802,7 +802,9 @@
     "HEALTHY": "健康正常",
     "AT RISK": "处于风险中",
     "HALTED": "停止",
-    "IN LIQUIDATION": "清算中"
+    "IN LIQUIDATION": "清算中",
+    "EMPTY": "清空",
+    "READY": "准备中"
   },
   "components/EmptyVault": {
     "No vault created": "您尚未建立金库",
