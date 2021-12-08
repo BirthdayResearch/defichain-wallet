@@ -100,7 +100,7 @@
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@cypress/code-coverage": "^3.9.12",
-    "@expo/metro-config": "0.2.8",
+    "@expo/metro-config": "0.3.4",
     "@expo/webpack-config": "^0.16.11",
     "@testing-library/cypress": "^8.0.2",
     "@testing-library/react-hooks": "^7.0.2",
