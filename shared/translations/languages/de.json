@@ -1113,7 +1113,7 @@
   },
   "screens/CloseVaultScreen": {
     "You are closing Vault ID": "Du schließt den Vault mit der ID",
-    "DETAILS": "DATEILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Fees to return": "Rückgabegebühr",
     "Fees to burn": "Gebühren, die verbrannt werden",
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Nach dem Schließen wird diese Vault-ID nicht mehr verwendet werden können. Vergewissere dich, dass du nichts aus diesem Vault benötigst, bevor du ihn schließt.",
@@ -1163,5 +1163,8 @@
     "Place a bid on the auctions with the min. next bid": "Biete auf die Auktionen mit dem nächsten Mindestgebot",
     "Min. next bid": "Nächstes Mind. Gebot",
     "Current balance": "Aktueller Stand"
+  },
+  "components/WalletAddressRow": {
+    "Wallet address": "Wallet adresse"
   }
 }
