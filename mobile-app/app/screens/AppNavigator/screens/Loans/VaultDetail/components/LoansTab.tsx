@@ -7,11 +7,7 @@ import { SymbolIcon } from '@components/SymbolIcon'
 import { IconButton } from '@components/IconButton'
 import { translate } from '@translations'
 import { LoanVault } from '@store/loans'
-import {
-  LoanVaultActive,
-  LoanVaultState,
-  LoanVaultTokenAmount
-} from '@defichain/whale-api-client/dist/api/loan'
+import { LoanVaultActive, LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { VaultSectionTextRow } from '../../components/VaultSectionTextRow'
 import { EmptyLoan } from './EmptyLoan'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
@@ -136,8 +132,8 @@ function LoanCard (props: LoanCardProps): JSX.Element {
       </View>
 
       {
-        canUseOperations && props.vault !== undefined && (
-          <ActionButtons vault={props.vault} loanToken={props.loanToken} />
+        props.vault !== undefined && (
+          <ActionButtons vault={props.vault} loanToken={props.loanToken} canUseOperations={canUseOperations} />
         )
       }
     </ThemedView>
@@ -146,8 +142,9 @@ function LoanCard (props: LoanCardProps): JSX.Element {
 
 function ActionButtons ({
   vault,
-  loanToken
-}: { vault: LoanVaultActive, loanToken: LoanVaultTokenAmount }): JSX.Element {
+  loanToken,
+  canUseOperations
+}: { vault: LoanVaultActive, loanToken: LoanVaultTokenAmount, canUseOperations: boolean }): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
 
   return (
@@ -156,6 +153,7 @@ function ActionButtons ({
     >
       <View style={tailwind('flex flex-row flex-wrap flex-1')}>
         <IconButton
+          disabled={!canUseOperations}
           iconLabel={translate('components/VaultDetailsLoansTab', 'PAYBACK LOAN')}
           style={tailwind('mr-2 mb-2 p-2')}
           onPress={() => {
@@ -170,6 +168,7 @@ function ActionButtons ({
           }}
         />
         <IconButton
+          disabled={!canUseOperations || vault.state === LoanVaultState.FROZEN}
           iconLabel={translate('components/VaultDetailsLoansTab', 'BORROW MORE')}
           style={tailwind('mr-2 mb-2 p-2')}
           onPress={() => {
