@@ -21,7 +21,9 @@ import {
   VaultStatus,
   VaultStatusTag
 } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
-import { CollateralizationRatioDisplay } from '@screens/AppNavigator/screens/Loans/components/CollateralizationRatioDisplay'
+import {
+  CollateralizationRatioDisplay
+} from '@screens/AppNavigator/screens/Loans/components/CollateralizationRatioDisplay'
 import { useNextCollateralizationRatio } from '@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 
@@ -55,7 +57,7 @@ export function VaultDetailScreen ({
     },
     {
       label: 'EDIT LOAN SCHEME',
-      disabled: !canUseOperations,
+      disabled: !canUseOperations || vault?.state === LoanVaultState.FROZEN,
       handleOnPress: () => {
         if (vault === undefined) {
           return

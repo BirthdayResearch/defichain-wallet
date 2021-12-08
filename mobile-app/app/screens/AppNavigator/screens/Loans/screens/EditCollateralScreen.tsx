@@ -18,7 +18,12 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { fetchCollateralTokens } from '@store/loans'
-import { CollateralToken, LoanVaultActive, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
+import {
+  CollateralToken,
+  LoanVaultActive,
+  LoanVaultState,
+  LoanVaultTokenAmount
+} from '@defichain/whale-api-client/dist/api/loan'
 import { createSelector } from '@reduxjs/toolkit'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { IconButton } from '@components/IconButton'
@@ -450,7 +455,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             iconName='remove'
             iconSize={20}
             style={tailwind('ml-2')}
-            disabled={!canUseOperations}
+            disabled={!canUseOperations || vault.state === LoanVaultState.FROZEN}
             onPress={() => props.onRemovePress()}
             testID={`collateral_card_remove_${collateral.displaySymbol}`}
           />
