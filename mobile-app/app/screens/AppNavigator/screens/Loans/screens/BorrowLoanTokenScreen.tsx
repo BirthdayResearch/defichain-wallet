@@ -188,7 +188,7 @@ export function BorrowLoanTokenScreen ({
   }, [blockCount])
 
   useEffect(() => {
-    const updatedVault = vaults.find(v => v.vaultId === route.params.vault?.vaultId) as LoanVaultActive
+    const updatedVault = vaults.find(v => v.vaultId === vault?.vaultId) as LoanVaultActive
     setVault(updatedVault)
   }, [vaults])
 
