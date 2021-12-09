@@ -261,7 +261,7 @@
     "Transactions": "Transaktionen",
     "No transactions yet": "Noch keine Transaktionen",
     "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "Beginne, mit deiner Wallet Transaktionen auszuführen. Alle ausgeführten UTXO Transaktionen werden hier angezeigt. Weitere Transaktionstypen werden noch nicht unterstützt.",
-    "RECEIVE TOKENS": "EMPFANGE COINS",
+    "RECEIVE TOKENS": "TOKEN EMPFANGEN",
     "LOAD MORE": "WEITERE LADEN"
   },
   "screens/TransactionDetailScreen": {
@@ -274,7 +274,7 @@
     "Transactions": "Transaktionen"
   },
   "screens/TokenDetailScreen": {
-    "AMOUNT BALANCE": "Guthabenbetrag",
+    "AMOUNT BALANCE": "GUTHABENBETRAG",
     "AVAILABLE OPTIONS": "VERFÜGBARE OPTIONEN",
     "Send to other wallet": "An andere Wallet senden",
     "Receive {{token}}": "{{token}} empfangen",
