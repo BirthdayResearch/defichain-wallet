@@ -33,7 +33,10 @@ export function VaultDetailScreen ({
   route,
   navigation
 }: Props): JSX.Element {
-  const { vaultId, tab } = route.params
+  const {
+    vaultId,
+    tab
+  } = route.params
   const [vault, setVault] = useState<LoanVault>()
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const canUseOperations = useLoanOperations(vault?.state)
@@ -112,7 +115,7 @@ export function VaultDetailScreen ({
         dark={tailwind('bg-gray-800')}
       >
         <View style={tailwind('p-4')}>
-          <VaultIdSection vault={vault} />
+          <VaultIdSection vault={vault} testID='vault_id_section' />
           <VaultInfoSection vault={vault} />
         </View>
         <ThemedView
@@ -128,7 +131,10 @@ export function VaultDetailScreen ({
   )
 }
 
-function VaultIdSection ({ vault }: { vault: LoanVault }): JSX.Element {
+function VaultIdSection ({
+  vault,
+  testID
+}: { vault: LoanVault, testID: string }): JSX.Element {
   const { getVaultsUrl } = useDeFiScanContext()
   const colRatio = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.collateralRatio
   const totalLoanAmount = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.loanValue
@@ -186,6 +192,7 @@ function VaultIdSection ({ vault }: { vault: LoanVault }): JSX.Element {
             minCollateralizationRatio={vault.loanScheme.minColRatio}
             totalLoanAmount={vault.loanValue}
             nextCollateralizationRatio={nextCollateralizationRatio?.toFixed(8)}
+            testID={testID}
           />
         )
       }
