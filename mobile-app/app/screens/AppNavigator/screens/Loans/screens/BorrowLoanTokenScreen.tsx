@@ -188,7 +188,7 @@ export function BorrowLoanTokenScreen ({
   }, [blockCount])
 
   useEffect(() => {
-    const updatedVault = vaults.find(v => v.vaultId === vault?.vaultId) as LoanVaultActive
+    const updatedVault = vaults.find(v => v.vaultId === route.params.vault?.vaultId) as LoanVaultActive
     setVault(updatedVault)
   }, [vaults])
 
@@ -207,8 +207,8 @@ export function BorrowLoanTokenScreen ({
       amountInToken: new BigNumber(amountToBorrow.amountInput),
       amountInUSD:
         amountToBorrow.amountInput === '' || new BigNumber(amountToBorrow.amountInput).isNaN()
-        ? new BigNumber(0)
-        : new BigNumber(amountToBorrow.amountInput).times(getActivePrice(loanToken.token.symbol, loanToken.activePrice))
+          ? new BigNumber(0)
+          : new BigNumber(amountToBorrow.amountInput).times(getActivePrice(loanToken.token.symbol, loanToken.activePrice))
     })
   }, [amountToBorrow.amountInput])
 
@@ -238,68 +238,74 @@ export function BorrowLoanTokenScreen ({
         </View>
 
         {vault !== undefined &&
-        (
-          <>
-            <View style={tailwind('px-4 mb-12')}>
-              <WalletTextInput
-                inputType='numeric'
-                value={amountToBorrow.amountInput}
-                title={translate('screens/BorrowLoanTokenScreen', 'How many {{token}} tokens to borrow?', { token: loanToken.token.displaySymbol })}
-                placeholder={translate('screens/BorrowLoanTokenScreen', 'Enter an amount')}
-                onChangeText={(text: string) => setAmountToBorrow({ ...amountToBorrow, amountInput: text })}
-                displayClearButton={amountToBorrow.amountInput !== ''}
-                onClearButtonPress={() => setAmountToBorrow({ ...amountToBorrow, amountInput: '' })}
-                valid={inputValidationMessage === ''}
-                inlineText={{
-                  type: 'error',
-                  text: translate('screens/BorrowLoanTokenScreen', inputValidationMessage)
-                }}
-                style={tailwind('h-9 w-3/5 flex-grow')}
-                testID='form_input_borrow'
+          (
+            <>
+              <View style={tailwind('px-4 mb-12')}>
+                <WalletTextInput
+                  inputType='numeric'
+                  value={amountToBorrow.amountInput}
+                  title={translate('screens/BorrowLoanTokenScreen', 'How many {{token}} tokens to borrow?', { token: loanToken.token.displaySymbol })}
+                  placeholder={translate('screens/BorrowLoanTokenScreen', 'Enter an amount')}
+                  onChangeText={(text: string) => setAmountToBorrow({
+                    ...amountToBorrow,
+                    amountInput: text
+                  })}
+                  displayClearButton={amountToBorrow.amountInput !== ''}
+                  onClearButtonPress={() => setAmountToBorrow({
+                    ...amountToBorrow,
+                    amountInput: ''
+                  })}
+                  valid={inputValidationMessage === ''}
+                  inlineText={{
+                    type: 'error',
+                    text: translate('screens/BorrowLoanTokenScreen', inputValidationMessage)
+                  }}
+                  style={tailwind('h-9 w-3/5 flex-grow')}
+                  testID='form_input_borrow'
+                />
+                <WalletTextInput
+                  autoCapitalize='none'
+                  editable={false}
+                  placeholder='0.00'
+                  style={tailwind('flex-grow w-2/5')}
+                  testID='text_input_usd_value'
+                  value={amountToBorrow.amountInUSD.toFixed(2)}
+                  displayClearButton={false}
+                  inputType='numeric'
+                >
+                  <ThemedText>{translate('screens/BorrowLoanTokenScreen', 'USD')}</ThemedText>
+                </WalletTextInput>
+              </View>
+              <TransactionDetailsSection
+                vault={vault}
+                amountToBorrowInToken={amountToBorrow.amountInToken}
+                resultingColRatio={resultingColRatio}
+                vaultInterestRate={new BigNumber(vault?.loanScheme.interestRate ?? 0)}
+                loanTokenInterestRate={new BigNumber(loanToken.interest)}
+                loanTokenDisplaySymbol={loanToken.token.displaySymbol}
+                totalInterestAmount={interestPerBlock}
+                totalLoanWithInterest={totalLoanWithInterest}
+                loanTokenPrice={new BigNumber(loanToken.activePrice?.active?.amount ?? 0)}
+                fee={fee}
               />
-              <WalletTextInput
-                autoCapitalize='none'
-                editable={false}
-                placeholder='0.00'
-                style={tailwind('flex-grow w-2/5')}
-                testID='text_input_usd_value'
-                value={amountToBorrow.amountInUSD.toFixed(2)}
-                displayClearButton={false}
-                inputType='numeric'
+              <Button
+                disabled={!valid || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
+                label={translate('screens/BorrowLoanTokenScreen', 'CONTINUE')}
+                onPress={onSubmit}
+                testID='borrow_loan_submit_button'
+                margin='mt-12 mb-2 mx-4'
+              />
+              <ThemedText
+                light={tailwind('text-gray-500', { 'text-error-500': inputValidationMessage !== '' })}
+                dark={tailwind('text-gray-400', { 'text-darkerror-500': inputValidationMessage !== '' })}
+                style={tailwind('text-center text-xs mb-12')}
               >
-                <ThemedText>{translate('screens/BorrowLoanTokenScreen', 'USD')}</ThemedText>
-              </WalletTextInput>
-            </View>
-            <TransactionDetailsSection
-              vault={vault}
-              amountToBorrowInToken={amountToBorrow.amountInToken}
-              resultingColRatio={resultingColRatio}
-              vaultInterestRate={new BigNumber(vault?.loanScheme.interestRate ?? 0)}
-              loanTokenInterestRate={new BigNumber(loanToken.interest)}
-              loanTokenDisplaySymbol={loanToken.token.displaySymbol}
-              totalInterestAmount={interestPerBlock}
-              totalLoanWithInterest={totalLoanWithInterest}
-              loanTokenPrice={new BigNumber(loanToken.activePrice?.active?.amount ?? 0)}
-              fee={fee}
-            />
-            <Button
-              disabled={!valid || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
-              label={translate('screens/BorrowLoanTokenScreen', 'CONTINUE')}
-              onPress={onSubmit}
-              testID='borrow_loan_submit_button'
-              margin='mt-12 mb-2 mx-4'
-            />
-            <ThemedText
-              light={tailwind('text-gray-500', { 'text-error-500': inputValidationMessage !== '' })}
-              dark={tailwind('text-gray-400', { 'text-darkerror-500': inputValidationMessage !== '' })}
-              style={tailwind('text-center text-xs mb-12')}
-            >
-              {inputValidationMessage === ''
-                ? translate('screens/BorrowLoanTokenScreen', 'Review and confirm transaction in the next screen')
-                : translate('screens/BorrowLoanTokenScreen', 'Unable to proceed because of errors')}
-            </ThemedText>
-          </>
-        )}
+                {inputValidationMessage === ''
+                  ? translate('screens/BorrowLoanTokenScreen', 'Review and confirm transaction in the next screen')
+                  : translate('screens/BorrowLoanTokenScreen', 'Unable to proceed because of errors')}
+              </ThemedText>
+            </>
+          )}
         {Platform.OS === 'web' && (
           <BottomSheetWebWithNav
             modalRef={containerRef}
@@ -448,7 +454,12 @@ function VaultInput (props: VaultInputProps): JSX.Element {
     )
   }
 
-  return <VaultInputActive vault={props.vault} onPress={props.onPress} loanToken={props.loanToken} interestPerBlock={props.interestPerBlock} />
+  return (
+    <VaultInputActive
+      vault={props.vault} onPress={props.onPress} loanToken={props.loanToken}
+      interestPerBlock={props.interestPerBlock}
+    />
+  )
 }
 
 interface VaultInputActiveProps {
@@ -552,9 +563,9 @@ export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.
           <TextRow
             lhs={translate('screens/BorrowLoanTokenScreen', 'Resulting collateralization')}
             rhs={{
-                value: translate('screens/BorrowLoanTokenScreen', 'N/A'),
-                testID: 'text_resulting_col_ratio'
-              }}
+              value: translate('screens/BorrowLoanTokenScreen', 'N/A'),
+              testID: 'text_resulting_col_ratio'
+            }}
             textStyle={tailwind('text-sm font-normal')}
           />
         )

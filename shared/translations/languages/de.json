@@ -64,7 +64,7 @@
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "WALLET-ADRESSE ERSTELLEN",
-    "Switch to another wallet": "Zu einer anderen Wallet wechseln",
+    "Switch to another address": "Wechsel zu einer anderen Adresse",
     "Wallet Address": "Wallet Adresse",
     "ACTIVE": "AKTIV"
   },
@@ -88,7 +88,7 @@
     "How much do you want to send?": "Wie viel möchtest du senden?",
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
-    "UTXO to be converted": "Umzuwandelnder Betrag",
+    "UTXO to be converted": "Umzuwandelnde UTXO",
     "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
     "Send to other wallet": "An andere Wallet senden",
     "Select token": "Token auswählen",
@@ -269,7 +269,7 @@
     "RECEIVE TOKENS": "TOKEN EMPFANGEN",
     "LOAD MORE": "WEITERE LADEN",
     "Received": "Empfangen",
-    "Send": "Gesendet"
+    "Sent": "Gesendet"
   },
   "screens/TransactionDetailScreen": {
     "Type": "Typ",
@@ -457,7 +457,7 @@
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Your pooled {{token}}": "Deine {{token}} im Pool",
-    "UTXO to be converted": "Umzuwandelnder Betrag",
+    "UTXO to be converted": "Umzuwandelnde UTXO",
     "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
     "Estimated fee": "Voraussichtliche Gebühr",
     "Pooled {{symbol}}": "{{symbol}} im Pool"
@@ -552,7 +552,7 @@
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Estimated fee": "Voraussichtliche Gebühr",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
-    "UTXO to be converted": "Umzuwandelnder Betrag",
+    "UTXO to be converted": "Umzuwandelnde UTXO",
     "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
     "You will receive": "Du wirst erhalten"
   },
@@ -573,13 +573,13 @@
     "Enter an amount": "Gib einen Betrag an",
     "{{token}} tokens converted": "Umgewandelte {{token}}-Token",
     "Select token": "Token auswählen",
-    "UTXO to be converted": "Umzuwandelnder Betrag",
+    "UTXO to be converted": "Umzuwandelnde UTXO",
     "Slippage Tolerance": "Slippage Toleranz",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "PRICE DETAILS": "PREISDETAILS",
     "FROM": "VON",
     "TO": "IN",
-    "Total to be swapped": "Total to be swapped"
+    "Total to be swapped": "Zu tauschende Summe"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "UMWANDELN",

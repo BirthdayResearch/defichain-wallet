@@ -662,7 +662,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
             <View
               accessibilityState={
                 Object {
-                  "expanded": false,
+                  "expanded": true,
                 }
               }
               accessible={true}
@@ -688,10 +688,10 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         "paddingRight": 16,
                         "paddingTop": 16,
                       },
-                      Object {
-                        "borderBottomWidth": 1,
-                      },
                       false,
+                      Object {
+                        "paddingBottom": 4,
+                      },
                     ],
                     Object {
                       "borderBottomColor": "rgba(229, 229, 229, 1)",
@@ -720,10 +720,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                             "fontSize": 14,
                             "lineHeight": 20,
                           },
-                          false,
+                          Object {
+                            "fontFamily": "SemiBoldFont",
+                            "fontWeight": "600",
+                          },
                         ],
                         Object {
-                          "color": "rgba(115, 115, 115, 1)",
+                          "color": "rgba(23, 23, 23, 1)",
                         },
                       ],
                     ]
@@ -735,13 +738,8 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
               </View>
             </View>
             <View
-              pointerEvents="none"
-              style={
-                Object {
-                  "height": 0,
-                  "overflow": "hidden",
-                }
-              }
+              pointerEvents="auto"
+              style={Object {}}
             >
               <View
                 forwardedRef={[Function]}
@@ -758,7 +756,9 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                           "paddingRight": 16,
                           "paddingTop": 0,
                         },
-                        false,
+                        Object {
+                          "borderBottomWidth": 1,
+                        },
                       ],
                       Object {
                         "borderBottomColor": "rgba(229, 229, 229, 1)",

@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native'
 import React from 'react'
-import { AuctionsFaq } from './Auctions'
+import { AuctionsFaq } from './AuctionsFaq'
 
 jest.mock('@shared-contexts/ThemeProvider')
 
