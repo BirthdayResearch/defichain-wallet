@@ -317,7 +317,7 @@ function PriceDetailsSection (props: { pair: ExtPoolPairData }): JSX.Element {
           tokenB: pair.tokenB.displaySymbol
         })}
         rhs={{
-          value: pair.aToBRate.toFixed(8),
+          value: pair.bToARate.toFixed(8),
           testID: 'a_per_b_price',
           suffixType: 'text',
           suffix: pair.tokenA.displaySymbol
@@ -329,7 +329,7 @@ function PriceDetailsSection (props: { pair: ExtPoolPairData }): JSX.Element {
           tokenB: pair.tokenA.displaySymbol
         })}
         rhs={{
-          value: pair.bToARate.toFixed(8),
+          value: pair.aToBRate.toFixed(8),
           testID: 'b_per_a_price',
           suffixType: 'text',
           suffix: pair.tokenB.displaySymbol
