@@ -166,7 +166,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
       </View>
       <TransactionDetailsSection
         vault={vault}
-        amountToBorrow={new BigNumber(amountToAdd)}
+        amountToBorrowInToken={new BigNumber(amountToAdd)}
         resultingColRatio={resultingColRatio}
         vaultInterestRate={new BigNumber(vault.loanScheme.interestRate)}
         loanTokenInterestRate={new BigNumber(loanToken.interest)}
