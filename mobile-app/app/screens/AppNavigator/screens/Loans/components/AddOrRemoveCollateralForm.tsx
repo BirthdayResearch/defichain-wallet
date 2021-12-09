@@ -186,7 +186,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
                   <ThemedText
                     dark={tailwind('text-gray-400')}
                     light={tailwind('text-gray-500')}
-                    style={tailwind('text-xs')}
+                    style={tailwind('text-xs leading-5')}
                   >
                     {` /${val}`}
                   </ThemedText>

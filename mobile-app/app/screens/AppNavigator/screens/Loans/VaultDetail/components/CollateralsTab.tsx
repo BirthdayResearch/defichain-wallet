@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import BigNumber from 'bignumber.js'
 import { ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -6,12 +6,11 @@ import { View } from '@components'
 import { SymbolIcon } from '@components/SymbolIcon'
 import { translate } from '@translations'
 import NumberFormat from 'react-number-format'
-import { fetchCollateralTokens, LoanVault } from '@store/loans'
+import { LoanVault } from '@store/loans'
 import { CollateralToken, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { EmptyCollateral } from './EmptyCollateral'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useCollateralPrice } from '../../hooks/CollateralPrice'
 
 interface CollateralCardProps {
@@ -23,12 +22,6 @@ interface CollateralCardProps {
 
 export function CollateralsTab ({ vault }: {vault: LoanVault}): JSX.Element {
   const collateralTokens = useSelector((state: RootState) => state.loans.collateralTokens)
-  const dispatch = useDispatch()
-  const client = useWhaleApiClient()
-
-  useEffect(() => {
-    dispatch(fetchCollateralTokens({ client }))
-  }, [])
 
   if (vault.state === LoanVaultState.ACTIVE && vault.collateralValue === '0') {
     return (
@@ -98,7 +91,6 @@ function LiquidatedVaultCollateralCard ({ displaySymbol }: { displaySymbol: stri
 
 function CollateralCard (props: CollateralCardProps): JSX.Element {
   const prices = useCollateralPrice(props.amount, props.collateralItem, props.totalCollateralValue)
-
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
