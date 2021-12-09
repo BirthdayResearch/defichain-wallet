@@ -92,7 +92,8 @@
     "Send to other wallet": "發送到其他地址",
     "Select token": "選擇代幣",
     "Select a token you want to send to get started": "若要開始，請先選您想發出的代幣",
-    "Choose token to send": "選擇發出此代幣"
+    "Choose token to send": "選擇發出此代幣",
+    "TRANSACTION DETAILS": "交易明細"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "確認發出",
@@ -110,7 +111,9 @@
     "Sending {{amount}} {{symbol}}": "正轉出 {{amount}} {{symbol}}",
     "CONFIRM TRANSACTION": "確認交易",
     "Convert & send": "轉換並發送",
-    "I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "我承認和了解錢包地址性質，我會將d代幣發送至已引入遞飛鏈技術棧的錢包，否則會導致不可逆轉的資金損失."
+    "I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "我承認和了解錢包地址性質，我會將d代幣發送至已引入遞飛鏈技術棧的錢包，否則會導致不可逆轉的資金損失.",
+    "Transaction type": "交易類型",
+    "Amount to send": "發送金額"
   },
   "screens/ConvertScreen": {
     "Convert DFI": "轉換DFI",
@@ -124,7 +127,9 @@
     "Available": "可轉換資金",
     "After conversion, you will receive": "轉換後您會收到",
     "Review full transaction details in the next screen": "請在下一步確認交易明細",
-    "Estimated fee": "所需費用(大約)"
+    "Estimated fee": "所需費用(大約)",
+    "You will have": "你將會收到",
+    "TRANSACTION DETAILS": "交易明細"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "確認要轉換 DFI",
@@ -262,7 +267,9 @@
     "No transactions yet": "還沒有交易紀錄",
     "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "您能開始從錢包做交易. 所有UTXO交易都會在這裡顯示.目前還不提供其他交易類型.",
     "RECEIVE TOKENS": "接收的貨幣",
-    "LOAD MORE": "查看更多交易紀錄"
+    "LOAD MORE": "查看更多交易紀錄",
+    "Received": "收到",
+    "Send": "發送"
   },
   "screens/TransactionDetailScreen": {
     "Type": "交易類型",
@@ -988,7 +995,7 @@
     "Available": "可用的",
     "CONTINUE": "繼續",
     "Review and confirm transaction in the next screen": "請在下一頁面檢閱及確認交易",
-    "TRANSACTION DETAILS": "交易細項",
+    "TRANSACTION DETAILS": "交易明細",
     "Amount to pay": "付款金價",
     "Remaining loan amount": "剩餘貸款金額",
     "Outstanding balance": "未付餘額",
@@ -999,7 +1006,7 @@
     "CONFIRM PAYMENT": "確認付款",
     "PAYING": "付款中",
     "You are paying": "正在付款",
-    "TRANSACTION DETAILS": "交易細項",
+    "TRANSACTION DETAILS": "交易明細",
     "Transaction type": "交易類別",
     "Loan payment": "貸款付款",
     "Amount to pay": "付款銀碼",
@@ -1079,7 +1086,7 @@
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "正在更改金庫計劃",
-    "TRANSACTION DETAILS": "交易資料",
+    "TRANSACTION DETAILS": "交易明細",
     "Transaction type": "交易類別",
     "Edit loan scheme": "更改貸款計劃",
     "Prev. minimum collateralization ratio": "前最低抵押率",
