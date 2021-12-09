@@ -10,7 +10,10 @@ import { ocean } from '@store/ocean'
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@shared-contexts/WalletContext')
 jest.mock('@react-navigation/native', () => ({
-  useNavigation: jest.fn()
+  useNavigation: () => ({
+    goBack: jest.fn(),
+    setOptions: jest.fn()
+  })
 }))
 
 describe('DFI address control', () => {

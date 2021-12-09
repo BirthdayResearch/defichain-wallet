@@ -40,32 +40,63 @@ exports[`DFI address control should match snapshot for Address Control Modal 1`]
         }
       }
     >
-      <Text
+      <View
         style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Object {
-                "fontFamily": "MediumFont",
-                "fontSize": 18,
-                "fontWeight": "500",
-                "lineHeight": 28,
-                "marginLeft": 8,
-              },
-              Object {
-                "color": "rgba(23, 23, 23, 1)",
-              },
-            ],
-          ]
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
         }
       >
-        Switch to another wallet
-      </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontSize": 18,
+                  "fontWeight": "500",
+                  "lineHeight": 28,
+                  "marginLeft": 8,
+                  "marginRight": 8,
+                },
+                Object {
+                  "color": "rgba(23, 23, 23, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Switch to another address
+        </Text>
+        <View
+          accessible={true}
+          focusable={false}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          testID="discover_wallet_addresses"
+        >
+          <Text />
+        </View>
+      </View>
       <View
         accessible={true}
         focusable={true}

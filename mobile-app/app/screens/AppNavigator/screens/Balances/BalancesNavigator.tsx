@@ -130,6 +130,7 @@ export function BalancesNavigator (): JSX.Element {
               containerTestID={headerContainerTestId}
             />
           ),
+          headerRightContainerStyle: tailwind('px-2 py-2'),
           headerBackTitleVisible: false
         }}
       />
