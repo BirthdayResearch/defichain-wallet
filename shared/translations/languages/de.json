@@ -88,7 +88,7 @@
     "How much do you want to send?": "Wie viel möchtest du senden?",
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
-    "Amount to be converted": "Umzuwandelnder Betrag",
+    "UTXO to be converted": "Umzuwandelnder Betrag",
     "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
     "Send to other wallet": "An andere Wallet senden",
     "Select token": "Token auswählen",
@@ -450,7 +450,7 @@
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Your pooled {{token}}": "Deine {{token}} im Pool",
-    "Amount to be converted": "Umzuwandelnder Betrag",
+    "UTXO to be converted": "Umzuwandelnder Betrag",
     "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
     "Estimated fee": "Voraussichtliche Gebühr",
     "Pooled {{symbol}}": "{{symbol}} im Pool"
@@ -545,7 +545,7 @@
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Estimated fee": "Voraussichtliche Gebühr",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
-    "Amount to be converted": "Umzuwandelnder Betrag",
+    "UTXO to be converted": "Umzuwandelnder Betrag",
     "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
     "You will receive": "Du wirst erhalten"
   },
@@ -566,12 +566,13 @@
     "Enter an amount": "Gib einen Betrag an",
     "{{token}} tokens converted": "Umgewandelte {{token}}-Token",
     "Select token": "Token auswählen",
-    "Amount to be converted": "Umzuwandelnder Betrag",
+    "UTXO to be converted": "Umzuwandelnder Betrag",
     "Slippage Tolerance": "Slippage Toleranz",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "PRICE DETAILS": "PREISDETAILS",
     "FROM": "VON",
-    "TO": "IN"
+    "TO": "IN",
+    "Total to be swapped": "Total to be swapped"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "UMWANDELN",
@@ -1040,7 +1041,9 @@
     "Insufficient vault collateral to borrow this amount": "Unzureichende Vault-Sicherheiten, um diesen Betrag auszuleihen",
     "This amount may place the vault in liquidation": "Dieser Betrag kann den Vault in Liquidation versetzen",
     "Unable to proceed because of errors": "Kann aufgrund eines Fehlers nicht durchgeführt werden",
-    "Max loan amount": "Max. Darlehensbetrag"
+    "Max loan amount": "Max. Darlehensbetrag",
+    "USD": "USD",
+    "How many {{token}} tokens to borrow?": "Wie viele {{token}} Token möchtest du ausleihen?"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "Du leihst dir",

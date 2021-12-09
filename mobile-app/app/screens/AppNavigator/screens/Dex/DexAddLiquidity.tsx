@@ -354,7 +354,7 @@ function TransactionDetailsSection (props: { pair: ExtPoolPairData, sharePercent
       />
       {isConversionRequired &&
         <NumberRow
-          lhs={translate('screens/AddLiquidity', 'Amount to be converted')}
+          lhs={translate('screens/AddLiquidity', 'UTXO to be converted')}
           rhs={{
           value: props.amountToConvert.toFixed(8),
           testID: 'text_amount_to_convert',

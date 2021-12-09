@@ -87,7 +87,7 @@
     "How much do you want to send?": "您想發送多少資金?",
     "Enter an amount": "請輸入數量",
     "Available": "可發送資金",
-    "Amount to be converted": "要轉換的金額",
+    "UTXO to be converted": "要轉換的 UTXO",
     "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換",
     "Send to other wallet": "發送到其他地址",
     "Select token": "選擇代幣",
@@ -451,7 +451,7 @@
     "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相當於{{tokenA}}的價格",
     "TRANSACTION DETAILS": "交易明細",
     "Your pooled {{token}}": "您已入池的 {{token}}",
-    "Amount to be converted": "要轉換的金額",
+    "UTXO to be converted": "要轉換的 UTXO",
     "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換",
     "Estimated fee": "所需費用（大約）",
     "Pooled {{symbol}}": "池中總 {{symbol}}"
@@ -547,7 +547,7 @@
     "TRANSACTION DETAILS": "交易明細",
     "Estimated fee": "所需費用（大約）",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
-    "Amount to be converted": "要轉換的金額",
+    "UTXO to be converted": "要轉換的 UTXO",
     "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換"
   },
   "screens/CompositeSwapScreen": {
@@ -567,12 +567,13 @@
     "Enter an amount": "請輸入數量",
     "{{token}} tokens converted": "{{token}} 代幣轉換",
     "Select token": "選擇代幣",
-    "Amount to be converted": "要轉換的金額",
+    "UTXO to be converted": "要轉換的 UTXO",
     "Slippage Tolerance": "交易滑價",
     "TRANSACTION DETAILS": "交易明細",
     "PRICE DETAILS": "價格明細",
     "FROM": "從",
-    "TO": "到"
+    "TO": "到",
+    "Total to be swapped": "要兌換的總數"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "正在轉換",
@@ -767,7 +768,9 @@
     "{{m}}m": "{{m}}分",
     "Total auction value (USD)": "拍賣總價值（美元）",
     "Min. next bid": "最低標價",
-    "You are the highest bidder": "您目前是出價最高的人"
+    "You are the highest bidder": "您目前是出價最高的人",
+    "From your vault": "來自您的金庫",
+    "Waiting for first bid": "等待第一次標價"
   },
   "components/BidCard": {
     "BID HIGHER": "出價更高",
@@ -1039,7 +1042,9 @@
     "This amount may place the vault in liquidation": "這金額可能會導致金庫清算",
     "Unable to proceed because of errors": "因錯誤而無法繼續",
     "Max loan amount": "最高的貸款金額",
-    "N/A": "不適用"
+    "N/A": "不適用",
+    "USD": "美元",
+    "How many {{token}} tokens to borrow?": "要多少 {{token}} 代幣借貸？"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "您正要借用",
@@ -1165,5 +1170,5 @@
   },
   "components/WalletAddressRow": {
     "Wallet address": "錢包地址"
-  }  
+  }
 }
