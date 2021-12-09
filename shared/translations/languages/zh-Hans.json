@@ -58,7 +58,14 @@
     "PORTFOLIO": "资产组合",
     "Show balances": "显示总资产",
     "Hide balances": "隐藏总资产",
-    "You do not have any other tokens.": "您现在没有其他代币"
+    "You do not have any other tokens.": "您现在没有其他代币",
+    "SWITCH": "切换钱包"
+  },
+  "screens/AddressControlScreen": {
+    "CREATE WALLET ADDRESS": "创建钱包",
+    "Switch to another wallet": "切换到另一个钱包",
+    "Wallet Address": "钱包地址",
+    "ACTIVE": "激活"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
@@ -80,7 +87,7 @@
     "How much do you want to send?": "您想发送多少资金?",
     "Enter an amount": "请输入数量",
     "Available": "可发送资金",
-    "Amount to be converted": "要转换的金额",
+    "UTXO to be converted": "要轉換的 UTXO",
     "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换",
     "Send to other wallet": "发送到其他地址",
     "Select token": "选择代币",
@@ -92,7 +99,7 @@
     "CONFIRM SEND": "确认发出",
     "You are sending": "您正要发出资金",
     "TRANSACTION DETAILS": "交易明細",
-    "Address": "地址",
+    "Recipient address": "接收地址",
     "Network": "网络",
     "Amount": "资金数量",
     "Estimated fee": "所需费用(大约)",
@@ -444,7 +451,7 @@
     "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相当于{{tokenA}}的价格",
     "TRANSACTION DETAILS": "交易明細",
     "Your pooled {{token}}": "您已入池的 {{token}}",
-    "Amount to be converted": "要转换的金额",
+    "UTXO to be converted": "要轉換的 UTXO",
     "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换",
     "Estimated fee": "所需费用（大约）",
     "Pooled {{symbol}}": "池中总 {{symbol}}"
@@ -539,7 +546,7 @@
     "TRANSACTION DETAILS": "交易明細",
     "Estimated fee": "所需费用（大约）",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
-    "Amount to be converted": "要转换的金额",
+    "UTXO to be converted": "要轉換的 UTXO",
     "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换"
   },
   "screens/CompositeSwapScreen": {
@@ -559,12 +566,13 @@
     "Enter an amount": "请输入数量",
     "{{token}} tokens converted": "{{token}} 代币转换",
     "Select token": "选择代币",
-    "Amount to be converted": "要转换的金额",
+    "UTXO to be converted": "要轉換的 UTXO",
     "Slippage Tolerance": "交易滑点",
     "TRANSACTION DETAILS": "交易明細",
     "PRICE DETAILS": "价格明细",
     "FROM": "从",
-    "TO": "到"
+    "TO": "到",
+    "Total to be swapped": "要兌換的總數"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "正在转换",
@@ -759,7 +767,9 @@
     "{{m}}m": "{{m}}分",
     "Total auction value (USD)": "拍卖总价值（美元值）",
     "Min. next bid": "最低标价",
-    "You are the highest bidder": "您目前是出价最高的人"
+    "You are the highest bidder": "您目前是出价最高的人",
+    "From your vault": "来自您的金库",
+    "Waiting for first bid": "等待第一次标价"
   },
   "components/BidCard": {
     "BID HIGHER": "出价更高",
@@ -802,7 +812,9 @@
     "HEALTHY": "健康正常",
     "AT RISK": "处于风险中",
     "HALTED": "停止",
-    "IN LIQUIDATION": "清算中"
+    "IN LIQUIDATION": "清算中",
+    "EMPTY": "清空",
+    "READY": "准备中"
   },
   "components/EmptyVault": {
     "No vault created": "您尚未建立金库",
@@ -1028,7 +1040,9 @@
     "This amount may place the vault in liquidation": "这金额可能会导致金库清算",
     "Unable to proceed because of errors": "因错误而无法继续",
     "Max loan amount": "最高的贷款金额",
-    "N/A": "不适用"
+    "N/A": "不适用",
+    "USD": "美元",
+    "How many {{token}} tokens to borrow?": "要多少 {{token}} 代币借贷？"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "您正要借用",
@@ -1103,7 +1117,7 @@
   },
   "screens/CloseVaultScreen": {
     "You are closing Vault ID": "您正在关闭金库编号",
-    "DETAILS": "明细",
+    "TRANSACTION DETAILS": "交易明細",
     "Fees to return": "退回费用",
     "Fees to burn": "费用销毁",
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "关闭后，此金库编号将不再可使用。在关闭之前，请确保您不需要此金库中的任何资料.",
@@ -1152,5 +1166,8 @@
     "Place a bid on the auctions with the min. next bid": "以下个最低底价进行快标",
     "Min. next bid": "最低标价",
     "Current balance": "目前余额"
+  },
+  "components/WalletAddressRow": {
+    "Wallet address": "钱包地址"
   }
 }

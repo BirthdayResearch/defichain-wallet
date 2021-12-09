@@ -59,7 +59,14 @@
     "PORTFOLIO": "PORTFOLIO",
     "Show balances": "Guthaben sichtbar machen",
     "Hide balances": "Guthaben verbergen",
-    "You do not have any other tokens.": "Keine weiteren Token in deinem Bestand."
+    "You do not have any other tokens.": "Keine weiteren Token in deinem Bestand.",
+    "SWITCH": "WECHSELN"
+  },
+  "screens/AddressControlScreen": {
+    "CREATE WALLET ADDRESS": "WALLET-ADRESSE ERSTELLEN",
+    "Switch to another wallet": "Zu einer anderen Wallet wechseln",
+    "Wallet Address": "Wallet Adresse",
+    "ACTIVE": "AKTIV"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
@@ -81,7 +88,7 @@
     "How much do you want to send?": "Wie viel möchtest du senden?",
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
-    "Amount to be converted": "Umzuwandelnder Betrag",
+    "UTXO to be converted": "Umzuwandelnder Betrag",
     "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
     "Send to other wallet": "An andere Wallet senden",
     "Select token": "Token auswählen",
@@ -93,7 +100,7 @@
     "CONFIRM SEND": "SENDEN BESTÄTIGEN",
     "You are sending": "Du sendest",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
-    "Address": "Adresse",
+    "Recipient address": "Adresse des Empfängers",
     "Network": "Netzwerk",
     "Amount": "Menge",
     "Estimated fee": "Voraussichtliche Gebühr",
@@ -443,7 +450,7 @@
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Your pooled {{token}}": "Deine {{token}} im Pool",
-    "Amount to be converted": "Umzuwandelnder Betrag",
+    "UTXO to be converted": "Umzuwandelnder Betrag",
     "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
     "Estimated fee": "Voraussichtliche Gebühr",
     "Pooled {{symbol}}": "{{symbol}} im Pool"
@@ -538,7 +545,7 @@
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Estimated fee": "Voraussichtliche Gebühr",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
-    "Amount to be converted": "Umzuwandelnder Betrag",
+    "UTXO to be converted": "Umzuwandelnder Betrag",
     "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
     "You will receive": "Du wirst erhalten"
   },
@@ -559,12 +566,13 @@
     "Enter an amount": "Gib einen Betrag an",
     "{{token}} tokens converted": "Umgewandelte {{token}}-Token",
     "Select token": "Token auswählen",
-    "Amount to be converted": "Umzuwandelnder Betrag",
+    "UTXO to be converted": "Umzuwandelnder Betrag",
     "Slippage Tolerance": "Slippage Toleranz",
     "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "PRICE DETAILS": "PREISDETAILS",
     "FROM": "VON",
-    "TO": "IN"
+    "TO": "IN",
+    "Total to be swapped": "Total to be swapped"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "UMWANDELN",
@@ -805,7 +813,9 @@
     "HEALTHY": "GUT",
     "AT RISK": "GEFÄHRDET",
     "HALTED": "GESTOPPT",
-    "IN LIQUIDATION": "IN LIQUIDATION"
+    "IN LIQUIDATION": "IN LIQUIDATION",
+    "EMPTY": "LEER",
+    "READY": "BEREIT"
   },
   "components/EmptyVault": {
     "No vault created": "Kein Vault erstellt",
@@ -1031,7 +1041,9 @@
     "Insufficient vault collateral to borrow this amount": "Unzureichende Vault-Sicherheiten, um diesen Betrag auszuleihen",
     "This amount may place the vault in liquidation": "Dieser Betrag kann den Vault in Liquidation versetzen",
     "Unable to proceed because of errors": "Kann aufgrund eines Fehlers nicht durchgeführt werden",
-    "Max loan amount": "Max. Darlehensbetrag"
+    "Max loan amount": "Max. Darlehensbetrag",
+    "USD": "USD",
+    "How many {{token}} tokens to borrow?": "Wie viele {{token}} Token möchtest du ausleihen?"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "Du leihst dir",
@@ -1104,7 +1116,7 @@
   },
   "screens/CloseVaultScreen": {
     "You are closing Vault ID": "Du schließt den Vault mit der ID",
-    "DETAILS": "DATEILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
     "Fees to return": "Rückgabegebühr",
     "Fees to burn": "Gebühren, die verbrannt werden",
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Nach dem Schließen wird diese Vault-ID nicht mehr verwendet werden können. Vergewissere dich, dass du nichts aus diesem Vault benötigst, bevor du ihn schließt.",
@@ -1154,5 +1166,8 @@
     "Place a bid on the auctions with the min. next bid": "Biete auf die Auktionen mit dem nächsten Mindestgebot",
     "Min. next bid": "Nächstes Mind. Gebot",
     "Current balance": "Aktueller Stand"
+  },
+  "components/WalletAddressRow": {
+    "Wallet address": "Wallet adresse"
   }
 }

@@ -21,6 +21,7 @@ import { FeeInfoRow } from '@components/FeeInfoRow'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
+import { WalletAddressRow } from '@components/WalletAddressRow'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmRemoveLiquidity'>
 
@@ -104,6 +105,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
+      <WalletAddressRow />
       <FeeInfoRow
         type='ESTIMATED_FEE'
         value={fee.toFixed(8)}

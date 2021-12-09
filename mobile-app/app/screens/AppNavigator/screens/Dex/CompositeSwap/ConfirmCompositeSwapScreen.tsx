@@ -27,6 +27,7 @@ import { View } from '@components'
 import { InfoText } from '@components/InfoText'
 import { DexParamList } from '../DexNavigator'
 import { OwnedTokenState, TokenState } from './CompositeSwapScreen'
+import { WalletAddressRow } from '@components/WalletAddressRow'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmCompositeSwapScreen'>
 export interface CompositeSwapForm {
@@ -131,6 +132,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
+      <WalletAddressRow />
       <NumberRow
         lhs={translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive')}
         rhs={{

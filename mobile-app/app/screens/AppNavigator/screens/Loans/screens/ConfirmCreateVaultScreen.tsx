@@ -26,6 +26,7 @@ import { fetchVaults } from '@store/loans'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { EnvironmentNetwork } from '@environment'
+import { WalletAddressRow } from '@components/WalletAddressRow'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmCreateVaultScreen'>
 
@@ -167,6 +168,7 @@ function SummaryTransactionDetails (props: { fee: BigNumber, conversion?: Conver
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
+      <WalletAddressRow />
       <FeeInfoRow
         type='VAULT_FEE'
         value={vaultFee.toFixed(8)}

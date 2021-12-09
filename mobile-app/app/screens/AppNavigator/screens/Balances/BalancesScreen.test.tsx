@@ -51,6 +51,16 @@ jest.mock('../../../../contexts/DisplayBalancesContext')
 jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn()
 }))
+jest.mock('@gorhom/bottom-sheet', () => ({
+  useBottomSheetModal: () => ({
+    dismiss: jest.fn()
+  })
+}))
+
+jest.mock('react-native/Libraries/Utilities/Platform', () => ({
+  OS: 'web',
+  select: () => jest.fn
+}))
 
 describe('balances page', () => {
   it('should match snapshot', async () => {
