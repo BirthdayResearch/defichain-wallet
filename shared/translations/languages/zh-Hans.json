@@ -951,7 +951,7 @@
     "Total loans (USD)": "贷款总金额(美金)",
     "Collateralization ratio": "抵押率",
     "Min. collateralization ratio": "最低抵押率",
-    "Vault interest": "金库利息"
+    "Vault interest (APR)": "金库利息 (APR)"
   },
   "components/AddOrRemoveCollateralForm": {
     "How much {{symbol}} to add?": "您要添加多少{{symbol}}?",

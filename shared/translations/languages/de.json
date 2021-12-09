@@ -952,7 +952,7 @@
     "Total loans (USD)": "Gesamtes Darlehen (USD)",
     "Collateralization ratio": "Besicherungsquote",
     "Min. collateralization ratio": "Mind. Besicherungsquote",
-    "Vault interest": "Vault-Jahreszins"
+    "Vault interest (APR)": "Vault-Jahreszins"
   },
   "components/AddOrRemoveCollateralForm": {
     "How much {{symbol}} to add?": "Wie viele {{symbol}} sollen hinzugefügt werden?",
