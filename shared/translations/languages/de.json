@@ -93,13 +93,14 @@
     "Send to other wallet": "An andere Wallet senden",
     "Select token": "Token auswählen",
     "Select a token you want to send to get started": "Wähle einen Token, den du senden möchtest, um loszulegen",
-    "Choose token to send": "Token zum Senden auswählen"
+    "Choose token to send": "Token zum Senden auswählen",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Senden bestätigen",
     "CONFIRM SEND": "SENDEN BESTÄTIGEN",
     "You are sending": "Du sendest",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Recipient address": "Adresse des Empfängers",
     "Network": "Netzwerk",
     "Amount": "Menge",
@@ -111,7 +112,9 @@
     "Sending {{amount}} {{symbol}}": "Sende {{amount}} {{symbol}}",
     "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN",
     "Convert & send": "Umrechnen & senden",
-    "I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "Ich nehme zur Kenntnis, dass der Versand von LP-Token an Adressen, die nicht mit der DeFiChain kompatibel sind, zu einem irreversiblen Verlust von Einlagen führen kann."
+    "I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "Ich nehme zur Kenntnis, dass der Versand von LP-Token an Adressen, die nicht mit der DeFiChain kompatibel sind, zu einem irreversiblen Verlust von Einlagen führen kann.",
+    "Transaction type": "Transaktionsart",
+    "Amount to send": "Zu sendender Betrag"
   },
   "screens/ConvertScreen": {
     "Convert DFI": "DFI umwandeln",
@@ -126,7 +129,9 @@
     "Available": "Verfügbar",
     "After conversion, you will receive": "Nach der Konvertierung erhältst du",
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
-    "Estimated fee": "Voraussichtliche Gebühr"
+    "Estimated fee": "Voraussichtliche Gebühr",
+    "You will have": "Du wirst bekommen",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Bestätige DFI Konvertierung",
@@ -137,7 +142,7 @@
     "CONVERTING": "UMWANDELN",
     "Converting DFI": "Konvertieren von DFI",
     "Converting {{amount}} {{symbolA}} to {{symbolB}}": "Wandle {{amount}} {{symbolA}} in {{symbolB}} um",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Transaction type": "Transaktionsart",
     "Convert": "Umwandeln",
     "{{token}} to receive": "Verbleibende {{token}}",
@@ -262,7 +267,9 @@
     "No transactions yet": "Noch keine Transaktionen",
     "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "Beginne, mit deiner Wallet Transaktionen auszuführen. Alle ausgeführten UTXO Transaktionen werden hier angezeigt. Weitere Transaktionstypen werden noch nicht unterstützt.",
     "RECEIVE TOKENS": "TOKEN EMPFANGEN",
-    "LOAD MORE": "WEITERE LADEN"
+    "LOAD MORE": "WEITERE LADEN",
+    "Received": "Empfangen",
+    "Send": "Gesendet"
   },
   "screens/TransactionDetailScreen": {
     "Type": "Typ",
@@ -448,7 +455,7 @@
     "Available": "Verfügbar",
     "PRICE DETAILS": "PREISDETAILS",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Your pooled {{token}}": "Deine {{token}} im Pool",
     "UTXO to be converted": "Umzuwandelnder Betrag",
     "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
@@ -458,7 +465,7 @@
   "screens/ConfirmAddLiq": {
     "You are adding": "Du fügst hinzu",
     "AMOUNT TO SUPPLY": "FÜGE SUMME HINZU",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Price": "Preis",
     "Share of pool": "Anteil am Gesamtpool",
     "Estimated fee": "Voraussichtliche Gebühr",
@@ -478,7 +485,7 @@
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "Du entfernst",
     "ESTIMATED AMOUNT TO RECEIVE": "VORAUSSICHTLICH ZU ERHALTENDER BETRAG",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Price": "Preis",
     "Estimated fee": "Voraussichtliche Gebühr",
     "REMOVE": "ENTFERNEN",
@@ -542,7 +549,7 @@
     "Estimated to receive": "Geschätzter Betrag",
     "Balance: ": "Guthaben: ",
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Estimated fee": "Voraussichtliche Gebühr",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
     "UTXO to be converted": "Umzuwandelnder Betrag",
@@ -568,7 +575,7 @@
     "Select token": "Token auswählen",
     "UTXO to be converted": "Umzuwandelnder Betrag",
     "Slippage Tolerance": "Slippage Toleranz",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "PRICE DETAILS": "PREISDETAILS",
     "FROM": "VON",
     "TO": "IN",
@@ -579,7 +586,7 @@
     "CONFIRM SWAP": "TAUSCH BESTÄTIGEN",
     "SWAPPING": "WIRD GETAUSCHT",
     "You are swapping": "Du tauschst",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Transaction type": "Transaktionsart",
     "Convert & swap": "Umrechnen & tauschen",
     "Swap": "Tausch",
@@ -591,7 +598,7 @@
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Du tauschst",
     "ESTIMATED BALANCE AFTER SWAP": "GESCHÄTZTES GUTHABEN NACH DEM TAUSCH",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Slippage Tolerance": "Slippage Toleranz",
     "Estimated fee": "Voraussichtliche Gebühr",
     "SWAP": "TAUSCH",
@@ -837,7 +844,7 @@
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Du erstellst gerade einen Vault",
     "ID will generate once vault has been created": "ID wird generiert, sobald der Vault erstellt ist",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Transaction type": "Transaktionsart",
     "Create vault": "Vault erstellen",
     "Total transaction cost": "Transaktionskosten gesamt",
@@ -960,7 +967,7 @@
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Du fügst Sicherheiten hinzu zu",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Transaction type": "Transaktionsart",
     "Add collateral": "Sicherheiten hinzufügen",
     "Collateral tokens to add": "Füge Tokens zur Besicherung hinzu",
@@ -987,7 +994,7 @@
     "Available": "Verfügbar",
     "CONTINUE": "WEITER",
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Amount to pay": "Zu zahlender Betrag",
     "Remaining loan amount": "Verbleibender Darlehensbetrag",
     "Outstanding balance": "Ausstehender Saldo",
@@ -998,7 +1005,7 @@
     "CONFIRM PAYMENT": "ZAHLUNG BESTÄTIGEN",
     "PAYING": "BEZAHLEN",
     "You are paying": "Du zahlst",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Transaction type": "Transaktionsart",
     "Loan payment": "Darlehensrückzahlung",
     "Amount to pay": "Zu zahlender Betrag",
@@ -1027,7 +1034,7 @@
     "Vault interest": "Vault-Jahreszins",
     "How much do you want to borrow?": "Wie viel willst du leihen?",
     "Enter an amount": "Gib eine Menge ein",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Collateralization ratio": "Besicherungsquote",
     "Resulting collateralization": "Resultierende Besicherungsquote",
     "Min. collateralization ratio": "Mind. Besicherungsquote",
@@ -1047,7 +1054,7 @@
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "Du leihst dir",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Transaction type": "Transaktionsart",
     "Borrow loan token": "Darlehenstoken leihen",
     "Convert & borrow loan token": "Darlehenstoken umwandeln & leihen",
@@ -1078,7 +1085,7 @@
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "Du bearbeitest das Vault-Modell",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Transaction type": "Transaktions-Typ",
     "Edit loan scheme": "Darlehensmodell bearbeiten",
     "Prev. minimum collateralization ratio": "Vorherige Mindestbesicherungsquote",
@@ -1088,7 +1095,7 @@
     "CONFIRM EDIT": "BEARBEITEN BESTÄTIGEN",
     "EDITING": "BEARBEITEN",
     "CONVERTING": "UMWANDELN",
-    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Aktualisierung des Vaults auf eine Mind. Besicherungsquote von {{percent}} und einen Zinssatz von {{percent}}"
+    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Aktualisierung des Vaults auf eine Mind. Besicherungsquote von {{mincolRatio}} und einen Zinssatz von {{ir}}"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Mind. Besicherungsquote",
@@ -1116,7 +1123,7 @@
   },
   "screens/CloseVaultScreen": {
     "You are closing Vault ID": "Du schließt den Vault mit der ID",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Fees to return": "Rückgabegebühr",
     "Fees to burn": "Gebühren, die verbrannt werden",
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Nach dem Schließen wird diese Vault-ID nicht mehr verwendet werden können. Vergewissere dich, dass du nichts aus diesem Vault benötigst, bevor du ihn schließt.",
@@ -1132,7 +1139,7 @@
     "MIN. BID": "MIND. GEBOT",
     "Bid amount is lower than required": "Gebotsbetrag ist niedriger als erforderlich",
     "Available": "Verfügbar",
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "CONTINUE": "WEITER",
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
     "Total auction value (USD)": "Gesamtauktionswert (USD)",
@@ -1144,7 +1151,7 @@
     "The value of the tokens you are placing is considerably higher than the total auction value.": "Der Wert der Token, die du setzt, ist wesentlich höher als der Gesamtwert der Auktion."
   },
   "screens/ConfirmPlaceBidScreen": {
-    "TRANSACTION DETAILS": "TRANSAKTIONS-DETAILS",
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Transaction type": "Transaktionsart",
     "Place bid": "Bieten",
     "Bid amount to place": "Zu setzender Gebotsbetrag",
