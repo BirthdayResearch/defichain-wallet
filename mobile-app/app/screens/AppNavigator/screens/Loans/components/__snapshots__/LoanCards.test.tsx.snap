@@ -181,7 +181,7 @@ exports[`loan cards should match snapshot 1`] = `
               "paddingTop": 16,
             }
           }
-          testID="loan_card_0"
+          testID="loan_card_dTS25"
         >
           <View
             style={
@@ -457,7 +457,7 @@ exports[`loan cards should match snapshot 1`] = `
               "paddingTop": 16,
             }
           }
-          testID="loan_card_1"
+          testID="loan_card_dTR50"
         >
           <View
             style={
@@ -753,7 +753,7 @@ exports[`loan cards should match snapshot 1`] = `
                 "paddingTop": 16,
               }
             }
-            testID="loan_card_2"
+            testID="loan_card_dTU10"
           >
             <View
               style={

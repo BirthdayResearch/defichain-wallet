@@ -117,7 +117,7 @@ function LoanCard ({
   const currentPrice = price?.active?.amount ?? 0
   return (
     <ThemedTouchableOpacity
-      testID={testID}
+      testID={`loan_card_${displaySymbol}`}
       light={tailwind('bg-white border-gray-200')}
       dark={tailwind('bg-gray-800 border-gray-700')}
       style={tailwind('p-4 mx-2 mb-4 rounded flex-1 border')}
