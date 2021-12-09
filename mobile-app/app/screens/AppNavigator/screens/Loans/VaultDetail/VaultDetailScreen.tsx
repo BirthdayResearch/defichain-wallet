@@ -155,12 +155,13 @@ function VaultIdSection ({ vault }: { vault: LoanVault }): JSX.Element {
             >
               {translate('screens/VaultDetailScreen', 'Vault ID')}
             </ThemedText>
-            <VaultStatusTag status={vaultState.status} />
+            <VaultStatusTag status={vaultState.status} testID='vault_detail_status' />
           </View>
           <View
             style={tailwind('flex flex-row mb-2 items-center')}
           >
             <ThemedText
+              testID='vault_detail_id'
               style={tailwind('text-sm font-semibold w-8/12 flex-1 mr-2')}
             >
               {vault.vaultId}

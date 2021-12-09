@@ -83,6 +83,7 @@ exports[`Vault info should render label with token icon group 1`] = `
             },
           ]
         }
+        testID="vault_info_loan_symbol_BTC"
       >
         <RNSVGSvgView
           align="xMidYMid"
@@ -151,6 +152,7 @@ exports[`Vault info should render label with token icon group 1`] = `
             },
           ]
         }
+        testID="vault_info_loan_symbol_dLTC"
       >
         <RNSVGSvgView
           align="xMidYMid"
@@ -219,6 +221,7 @@ exports[`Vault info should render label with token icon group 1`] = `
             },
           ]
         }
+        testID="vault_info_loan_symbol_dDOGE"
       >
         <RNSVGSvgView
           align="xMidYMid"
@@ -4860,6 +4863,7 @@ exports[`Vault info should render label with token icon group 1`] = `
             },
           ]
         }
+        testID="vault_info_loan_symbol_dETH"
       >
         <RNSVGSvgView
           align="xMidYMid"
@@ -4970,6 +4974,7 @@ exports[`Vault info should render label with token icon group 1`] = `
             },
           ]
         }
+        testID="vault_info_loan_symbol_dBCH"
       >
         <RNSVGSvgView
           align="xMidYMid"

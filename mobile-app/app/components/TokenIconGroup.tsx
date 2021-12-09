@@ -9,6 +9,7 @@ import { translate } from '@translations'
 interface TokenIconGroupProps {
   symbols: string[]
   maxIconToDisplay: number
+  testID?: string
 }
 
 export function TokenIconGroup (props: TokenIconGroupProps): JSX.Element {
@@ -19,7 +20,7 @@ export function TokenIconGroup (props: TokenIconGroupProps): JSX.Element {
         props.symbols?.map((symbol, index): JSX.Element | null => {
           if (index < props.maxIconToDisplay) {
             return (
-              <View key={symbol} style={[tailwind('rounded-full p-px relative'), { left: index * -5 }]}>
+              <View testID={`${props.testID ?? ''}_${symbol}`} key={symbol} style={[tailwind('rounded-full p-px relative'), { left: index * -5 }]}>
                 <SymbolIcon
                   key={symbol}
                   symbol={symbol}
