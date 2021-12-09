@@ -130,7 +130,7 @@ export function PaybackLoanScreen ({
           label={`${translate('screens/PaybackLoanScreen', 'Available')}: `}
           content={new BigNumber(tokenBalance).toFixed(8)}
           suffixType='component'
-          styleProps={tailwind('font-medium')}
+          styleProps={tailwind('font-medium leading-5')}
         >
           <ThemedText
             light={tailwind('text-gray-700')}
@@ -149,7 +149,7 @@ export function PaybackLoanScreen ({
                 <ThemedText
                   dark={tailwind('text-gray-400')}
                   light={tailwind('text-gray-500')}
-                  style={tailwind('text-xs')}
+                  style={tailwind('text-xs leading-5')}
                 >
                   {` /${val}`}
                 </ThemedText>
