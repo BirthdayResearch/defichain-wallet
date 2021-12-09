@@ -1,5 +1,6 @@
 import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
 import { EnvironmentNetwork } from '../../../../../../shared/environment'
+import { checkVaultDetailValues } from '../../../../support/loanCommands'
 
 context('Wallet - Loans', () => {
   before(function () {
@@ -132,5 +133,71 @@ context('Wallet - Loans Feature Gated', () => {
     })
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_loans').should('exist')
+  })
+})
+
+context('Wallet - Loans - Take Loans', () => {
+  let vaultId = ''
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC']).wait(6000)
+    cy.getByTestID('bottom_tab_loans').click()
+    cy.getByTestID('empty_vault').should('exist')
+    cy.createVault(0)
+    cy.getByTestID('vault_card_0_manage_loans_button').should('not.exist')
+    cy.getByTestID('vault_card_0_vault_id').then(($txt: any) => {
+      vaultId = $txt[0].textContent
+    })
+    cy.getByTestID('vault_card_0_edit_collaterals_button').click()
+    cy.addCollateral('10', 'DFI')
+    cy.addCollateral('10', 'dBTC')
+  })
+
+  it('should add collateral', function () {
+    cy.go('back')
+    cy.wait(2000)
+    cy.getByTestID('vault_card_0_status').contains('READY')
+    cy.getByTestID('vault_card_0_collateral_token_group_DFI').should('exist')
+    cy.getByTestID('vault_card_0_collateral_token_group_dBTC').should('exist')
+    cy.getByTestID('vault_card_0_total_collateral').contains('$1,500.00')
+  })
+
+  it('should add loan', function () {
+    cy.getByTestID('vault_card_0_manage_loans_button').click()
+    checkVaultDetailValues('READY', vaultId, '$1,500.00', '$0.00', '5')
+    cy.getByTestID('button_browse_loans').click()
+    cy.getByTestID('loan_card_DUSD').click()
+    cy.getByTestID('form_input_borrow').type('1000').blur()
+    cy.wait(3000)
+    cy.getByTestID('text_input_usd_value').should('have.value', '1000.00')
+    cy.getByTestID('form_input_borrow_error').contains('This amount may place the vault in liquidation')
+    cy.getByTestID('text_resulting_col_ratio').contains('150.00%')
+    cy.getByTestID('borrow_loan_submit_button').should('have.attr', 'aria-disabled')
+    cy.getByTestID('form_input_borrow').clear().type('100').blur()
+    cy.wait(3000)
+    cy.getByTestID('text_input_usd_value').should('have.value', '100.00')
+    cy.getByTestID('text_resulting_col_ratio').contains('1,500.00%')
+    cy.getByTestID('borrow_loan_submit_button').click()
+    cy.getByTestID('text_borrow_amount').contains('100.00000000')
+    cy.getByTestID('text_borrow_amount_suffix').contains('DUSD')
+    cy.getByTestID('text_transaction_type').contains('Borrow loan token')
+    cy.getByTestID('tokens_to_borrow').contains('100.00000000')
+    cy.getByTestID('tokens_to_borrow_suffix').contains('DUSD')
+    cy.getByTestID('text_vault_id').contains(vaultId)
+    cy.getByTestID('text_collateral_amount').contains('$1,500.00')
+    cy.getByTestID('text_current_collateral_ratio').contains('N/A')
+    cy.getByTestID('text_result_collateral_ratio').contains('1,500.00')
+    cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
+    cy.getByTestID('txn_authorization_description')
+      .contains('Borrowing 100.00000000 DUSD')
+    cy.closeOceanInterface()
+  })
+
+  it('should verify vault card', function () {
+    cy.getByTestID('vault_card_0_status').contains('ACTIVE')
+    cy.getByTestID('vault_card_0_col_ratio').contains('1,500%')
+    cy.getByTestID('vault_card_0_min_ratio').contains('150%')
+    cy.getByTestID('vault_card_0_total_loan').contains('$100')
+    cy.getByTestID('vault_card_0_loan_symbol_DUSD').should('exist')
   })
 })

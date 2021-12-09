@@ -233,6 +233,7 @@ export function BorrowLoanTokenScreen ({
             loanToken={loanToken}
             onPress={expandModal}
             interestPerBlock={interestPerBlock}
+            testID='borrow_loan_vault'
           />
         </View>
 
@@ -254,6 +255,7 @@ export function BorrowLoanTokenScreen ({
                   text: translate('screens/BorrowLoanTokenScreen', inputValidationMessage)
                 }}
                 style={tailwind('h-9 w-3/5 flex-grow')}
+                testID='form_input_borrow'
               />
               <WalletTextInput
                 autoCapitalize='none'
@@ -284,7 +286,7 @@ export function BorrowLoanTokenScreen ({
               disabled={!valid || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
               label={translate('screens/BorrowLoanTokenScreen', 'CONTINUE')}
               onPress={onSubmit}
-              testID='add_collateral_button'
+              testID='borrow_loan_submit_button'
               margin='mt-12 mb-2 mx-4'
             />
             <ThemedText
@@ -412,6 +414,7 @@ interface VaultInputProps {
   loanToken: LoanToken
   onPress: () => void
   interestPerBlock: BigNumber
+  testID?: string
 }
 
 function VaultInput (props: VaultInputProps): JSX.Element {
@@ -422,6 +425,7 @@ function VaultInput (props: VaultInputProps): JSX.Element {
         dark={tailwind('bg-gray-800 border-gray-700')}
         style={tailwind('border py-2.5 px-4 rounded-lg mb-8')}
         onPress={props.onPress}
+        testID={props.testID}
       >
         <View style={tailwind('flex flex-row justify-between items-center py-1.5')}>
           <ThemedText
