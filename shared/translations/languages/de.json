@@ -574,7 +574,7 @@
     "PRICE DETAILS": "PREISDETAILS",
     "FROM": "VON",
     "TO": "IN",
-    "Total to be swapped": "Total to be swapped"
+    "Total to be swapped": "Zu tauschende Summe"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "UMWANDELN",
