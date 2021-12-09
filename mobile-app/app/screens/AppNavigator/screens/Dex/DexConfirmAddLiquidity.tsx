@@ -220,7 +220,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
           tokenB: pair.tokenB.displaySymbol
         })}
         rhs={{
-          value: aToBRate.toFixed(8),
+          value: bToARate.toFixed(8),
           testID: 'price_a',
           suffixType: 'text',
           suffix: pair.tokenA.displaySymbol
@@ -232,7 +232,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
           tokenB: pair.tokenA.displaySymbol
         })}
         rhs={{
-          value: bToARate.toFixed(8),
+          value: aToBRate.toFixed(8),
           testID: 'price_b',
           suffixType: 'text',
           suffix: pair.tokenB.displaySymbol
