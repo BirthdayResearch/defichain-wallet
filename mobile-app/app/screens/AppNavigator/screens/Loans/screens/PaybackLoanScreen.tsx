@@ -138,7 +138,7 @@ export function PaybackLoanScreen ({
             style={tailwind('text-sm font-medium')}
           >
             <Text>{' '}</Text>
-            {loanToken.displaySymbol}
+            <Text>{loanToken.displaySymbol}</Text>
             <NumberFormat
               value={tokenBalanceInUSD.toFixed(2)}
               thousandSeparator
