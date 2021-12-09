@@ -388,7 +388,7 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
         testID='text_vault_interest_value'
         value={new BigNumber(vault.loanScheme.interestRate ?? 0).toFixed(2)} suffix='%'
         suffixType='text'
-        lhs={translate('screens/EditCollateralScreen', 'Vault interest')}
+        lhs={translate('screens/EditCollateralScreen', 'Vault interest (APR)')}
         info={{
           title: 'Annual vault interest',
           message: 'Annual vault interest rate based on the loan scheme selected.'

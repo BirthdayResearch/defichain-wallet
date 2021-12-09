@@ -143,7 +143,7 @@
     "TRANSACTION DETAILS": "交易明細",
     "Transaction type": "交易類型",
     "Convert": "轉換",
-    "{{token}} to receive": "{{token}} to receive",
+    "{{token}} to receive": "{{token}} 將會收到",
     "CONFIRM TRANSACTION": "確認交易"
   },
   "screens/SettingsNavigator": {
@@ -269,7 +269,7 @@
     "RECEIVE TOKENS": "接收的貨幣",
     "LOAD MORE": "查看更多交易紀錄",
     "Received": "收到",
-    "Send": "發送"
+    "Sent": "已發送"
   },
   "screens/TransactionDetailScreen": {
     "Type": "交易類型",
@@ -553,7 +553,7 @@
     "Review full transaction details in the next screen": "請在下一步確認交易明細",
     "TRANSACTION DETAILS": "交易明細",
     "Estimated fee": "所需費用（大約）",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相當於{{tokenA}}的價格",
     "UTXO to be converted": "要轉換的 UTXO",
     "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換"
   },
@@ -606,7 +606,7 @@
     "SWAPPING": "兌換",
     "Swapping Token": "兌換代幣",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兌換 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相當於{{tokenA}}的價格",
     "{{token}} balance": "{{token}} balance",
     "CONFIRM SWAP": "確認兌換",
     "Transaction type": "交易類型",
@@ -883,7 +883,7 @@
     "Collaterals required to use this vault.": "使用此金庫需要抵押品.",
     "Total collateral (USD)": "抵押資金總價值 (美金)",
     "Total loans (USD)": "貸款總金額(美金)",
-    "Vault interest (APR)": "Vault interest (APR)",
+    "Vault interest (APR)": "金庫利息",
     "Min. collateralization ratio": "最小抵押率"
   },
   "components/ScrollableButton": {
@@ -953,7 +953,7 @@
     "Total loans (USD)": "貸款總金額(美金)",
     "Collateralization ratio": "抵押比例率",
     "Min. collateralization ratio": "最低抵押比例率",
-    "Vault interest": "金庫利息"
+    "Vault interest (APR)": "金庫利息 (APR)"
   },
   "components/AddOrRemoveCollateralForm": {
     "How much {{symbol}} to add?": "您要添加多少{{symbol}}?",
