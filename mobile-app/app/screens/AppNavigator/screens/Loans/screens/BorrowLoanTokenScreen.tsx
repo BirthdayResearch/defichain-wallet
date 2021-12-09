@@ -206,9 +206,9 @@ export function BorrowLoanTokenScreen ({
       ...amountToBorrow,
       amountInToken: new BigNumber(amountToBorrow.amountInput),
       amountInUSD:
-        amountToBorrow.amountInput === ''
-          ? new BigNumber(0)
-          : new BigNumber(amountToBorrow.amountInput).times(getActivePrice(loanToken.token.symbol, loanToken.activePrice))
+        amountToBorrow.amountInput === '' || new BigNumber(amountToBorrow.amountInput).isNaN()
+        ? new BigNumber(0)
+        : new BigNumber(amountToBorrow.amountInput).times(getActivePrice(loanToken.token.symbol, loanToken.activePrice))
     })
   }, [amountToBorrow.amountInput])
 
