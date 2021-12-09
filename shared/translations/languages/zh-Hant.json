@@ -63,7 +63,7 @@
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "創建錢包",
-    "Switch to another wallet": "切換到另一個錢包",
+    "Switch to another address": "切換到另一個地址",
     "Wallet Address": "錢包地址",
     "ACTIVE": "激活"
   },
