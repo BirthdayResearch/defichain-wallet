@@ -88,7 +88,8 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
                     navigation.navigate({
                       name: 'BorrowLoanTokenScreen',
                       params: {
-                        loanToken: item
+                        loanToken: item,
+                        vault: activeVault
                       },
                       merge: true
                     })

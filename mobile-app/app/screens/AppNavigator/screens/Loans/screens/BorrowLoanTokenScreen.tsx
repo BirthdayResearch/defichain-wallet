@@ -55,7 +55,7 @@ export function BorrowLoanTokenScreen ({
   const dispatch = useDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
-  const [vault, setVault] = useState<LoanVaultActive>()
+  const [vault, setVault] = useState<LoanVaultActive | undefined>(route.params.vault)
   const [amountToBorrow, setAmountToBorrow] = useState({
     amountInToken: new BigNumber(0),
     amountInUSD: new BigNumber(0),
@@ -207,8 +207,8 @@ export function BorrowLoanTokenScreen ({
       amountInToken: new BigNumber(amountToBorrow.amountInput),
       amountInUSD:
         amountToBorrow.amountInput === '' || new BigNumber(amountToBorrow.amountInput).isNaN()
-        ? new BigNumber(0)
-        : new BigNumber(amountToBorrow.amountInput).times(getActivePrice(loanToken.token.symbol, loanToken.activePrice))
+          ? new BigNumber(0)
+          : new BigNumber(amountToBorrow.amountInput).times(getActivePrice(loanToken.token.symbol, loanToken.activePrice))
     })
   }, [amountToBorrow.amountInput])
 
@@ -459,7 +459,7 @@ function VaultInput (props: VaultInputProps): JSX.Element {
       vault={props.vault} onPress={props.onPress} loanToken={props.loanToken}
       interestPerBlock={props.interestPerBlock}
     />
-)
+  )
 }
 
 interface VaultInputActiveProps {
