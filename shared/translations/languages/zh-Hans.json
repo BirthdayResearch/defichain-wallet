@@ -109,7 +109,7 @@
     "SENDING": "正在发出",
     "Sending": "正转出 {{symbol}}",
     "Sending {{amount}} {{symbol}}": "正转出 {{amount}} {{symbol}}",
-    "CONFIRM TRANSACTION": "CONFIRM TRANSACTION",
+    "CONFIRM TRANSACTION": "确认发出",
     "Convert & send": "转换并发送",
     "I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "我承认和了解钱包地址性质，我会将d代币发送至已引入递飞链技术栈的钱包，否则会导致不可逆转的资金损失.",
     "Transaction type": "交易类型",
@@ -143,8 +143,8 @@
     "TRANSACTION DETAILS": "交易明细",
     "Transaction type": "交易类型",
     "Convert": "转换",
-    "{{token}} to receive": "{{token}} to receive",
-    "CONFIRM TRANSACTION": "CONFIRM TRANSACTION"
+    "{{token}} to receive": "{{token}} 将会收到",
+    "CONFIRM TRANSACTION": "确认发出"
   },
   "screens/SettingsNavigator": {
     "Settings": "设置"
@@ -269,7 +269,7 @@
     "RECEIVE TOKENS": "接收的货币",
     "LOAD MORE": "查看更多交易纪录",
     "Received": "收到",
-    "Send": "发送"
+    "Sent": "已发送"
   },
   "screens/TransactionDetailScreen": {
     "Type": "交易类型",
@@ -477,7 +477,7 @@
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "向 {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} 配对增加流动资金",
     "PRICE DETAILS": "价格明细",
     "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相当于{{tokenA}}的价格",
-    "Your pooled {{token}}": "Your pooled {{token}}",
+    "Your pooled {{token}}": "您已入池的 {{token}}",
     "Transaction type": "交易类型",
     "Add liquidity": "增加流动资金",
     "Convert & add liquidity": "转换并增加流动资金",
@@ -552,7 +552,7 @@
     "Review full transaction details in the next screen": "请在下一步确认交易明细",
     "TRANSACTION DETAILS": "交易明细",
     "Estimated fee": "所需费用（大约）",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相当于{{tokenA}}的价格",
     "UTXO to be converted": "要轉換的 UTXO",
     "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换"
   },
@@ -605,7 +605,7 @@
     "SWAPPING": "兑换",
     "Swapping Token": "兑换代币",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兑换 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相当于{{tokenA}}的价格",
     "{{token}} balance": "{{token}} balance",
     "CONFIRM SWAP": "确认兑换",
     "Transaction type": "交易类型",
@@ -746,7 +746,7 @@
   "screens/AuctionScreen": {
     "Auctions": "清算拍卖",
     "Place Bid": "标价",
-    "Confirm Place Bid": "Confirm Place Bid"
+    "Confirm Place Bid": "确认出价"
   },
   "components/AuctionDetailScreen":{
     "Collaterals": "抵押品",
@@ -881,7 +881,7 @@
     "Collaterals required to use this vault.": "使用此金库需要抵押品.",
     "Total collateral (USD)": "抵押资金总价值 (美金)",
     "Total loans (USD)": "贷款总金额(美金)",
-    "Vault interest (APR)": "Vault interest (APR)",
+    "Vault interest (APR)": "金库利息",
     "Min. collateralization ratio": "最小抵押率"
   },
   "components/ScrollableButton": {
