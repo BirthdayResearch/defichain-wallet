@@ -79,7 +79,7 @@ exports[`Auctions FAQ screen should match snapshot 1`] = `
           },
         ]
       }
-      testID="loans_faq_accordion"
+      testID="auctions_faq_accordion"
     >
       <View>
         <Text
