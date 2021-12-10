@@ -4,15 +4,14 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
-import * as React from 'react'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState, useLayoutEffect } from 'react'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { View } from '@components'
 import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
-import { ThemedFlatList, ThemedIcon, ThemedText, ThemedView } from '@components/themed'
+import { ThemedFlatList, ThemedText, ThemedView } from '@components/themed'
 import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { tailwind } from '@tailwind'
@@ -24,6 +23,9 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Tabs } from '@components/Tabs'
 import { WalletToken } from '@store/wallet'
 import { RootState } from '@store'
+import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
+import { HeaderSearchInput } from '@components/HeaderSearchInput'
+import { EmptyActivePoolpair } from './components/EmptyActivePoolPair'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -79,6 +81,10 @@ export function DexScreen (): JSX.Element {
     })
   }
 
+  // Search
+  const [showSearchInput, setShowSearchInput] = useState(false)
+  const [searchString, setSearchString] = useState('')
+
   useEffect(() => {
     DisplayDexGuidelinesPersistence.get()
       .then((shouldDisplayGuidelines: boolean) => {
@@ -87,6 +93,45 @@ export function DexScreen (): JSX.Element {
       .catch(logger.error)
       .finally(() => setIsLoaded(true))
   }, [])
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: (): JSX.Element => {
+        if (!displayGuidelines) {
+          return (
+            <HeaderSearchIcon onPress={() => setShowSearchInput(true)} />
+          )
+        }
+
+        return <></>
+      }
+    })
+  }, [navigation, activeTab])
+
+  useEffect(() => {
+    if (showSearchInput) {
+      navigation.setOptions({
+        header: (): JSX.Element => (
+          <HeaderSearchInput
+            searchString={searchString}
+            onClearInput={() => setSearchString('')}
+            onChangeInput={(text: string) => {
+              setSearchString(text)
+            }}
+            onCancelPress={() => {
+              setSearchString('')
+              setShowSearchInput(false)
+            }}
+            placeholder='Search for pool pairs'
+          />
+        )
+      })
+    } else {
+      navigation.setOptions({
+        header: undefined
+      })
+    }
+  }, [showSearchInput, searchString])
 
   const onGuidelinesClose = async (): Promise<void> => {
     await DisplayDexGuidelinesPersistence.set(false)
@@ -103,49 +148,7 @@ export function DexScreen (): JSX.Element {
 
   return (
     <>
-      <ThemedView
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
-        light={tailwind('bg-white border-b border-gray-200')}
-        style={tailwind('flex flex-row px-4 py-3 justify-between text-center')}
-      >
-        <View style={tailwind('flex flex-col')}>
-          <ThemedText
-            light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
-            style={tailwind('text-xs')}
-          >{translate('screens/DexScreen', 'Total Value Locked (USD)')}
-          </ThemedText>
-          <ThemedText>
-            <NumberFormat
-              displayType='text'
-              prefix='$'
-              renderText={(val: string) => (
-                <ThemedText
-                  dark={tailwind('text-gray-50')}
-                  light={tailwind('text-gray-900')}
-                  style={tailwind('text-lg text-left font-bold')}
-                  testID='DEX_TVL'
-                >
-                  {val}
-                </ThemedText>
-              )}
-              thousandSeparator
-              value={new BigNumber(tvl ?? 0).decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
-            />
-          </ThemedText>
-        </View>
-        <ActionButton
-          name='swap-horiz'
-          onPress={() => navigation.navigate({
-            name: 'CompositeSwap',
-            params: {},
-            merge: true
-          })}
-          pair='composite'
-          label={translate('screens/DexScreen', 'SWAP')}
-          style={tailwind('my-2 p-2')}
-          testID='composite_swap'
-        />
-      </ThemedView>
+      <TVLSection tvl={tvl ?? 0} />
       <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
       <View style={tailwind('flex-1')}>
         {
@@ -169,28 +172,7 @@ export function DexScreen (): JSX.Element {
 
         {
           activeTab === TabKey.YourPoolPair && yourLPTokens.length === 0 && (
-            <ThemedView
-              dark={tailwind('bg-gray-900')}
-              light={tailwind('bg-gray-100')}
-              style={tailwind('flex items-center justify-center px-14 pb-40 h-full')}
-            >
-              <ThemedIcon
-                iconType='MaterialCommunityIcons'
-                name='circle-off-outline'
-                size={48}
-                style={tailwind('mb-6')}
-              />
-              <ThemedText
-                style={tailwind('text-2xl font-semibold text-center mb-1')}
-              >{translate('screens/DexScreen', 'No active pool pairs')}
-              </ThemedText>
-              <ThemedText
-                dark={tailwind('text-gray-400')}
-                light={tailwind('text-gray-500')}
-                style={tailwind('text-base text-center')}
-              >{translate('screens/DexScreen', 'Supply liquidity pool tokens to earn high yields')}
-              </ThemedText>
-            </ThemedView>
+            <EmptyActivePoolpair />
           )
         }
         {
@@ -208,6 +190,54 @@ export function DexScreen (): JSX.Element {
   )
 }
 
+function TVLSection (props: {tvl: number}): JSX.Element {
+  const navigation = useNavigation<NavigationProp<DexParamList>>()
+  return (
+    <ThemedView
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      light={tailwind('bg-white border-b border-gray-200')}
+      style={tailwind('flex flex-row px-4 py-3 justify-between text-center')}
+    >
+      <View style={tailwind('flex flex-col')}>
+        <ThemedText
+          light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
+          style={tailwind('text-xs')}
+        >{translate('screens/DexScreen', 'Total Value Locked (USD)')}
+        </ThemedText>
+        <ThemedText>
+          <NumberFormat
+            displayType='text'
+            prefix='$'
+            renderText={(val: string) => (
+              <ThemedText
+                dark={tailwind('text-gray-50')}
+                light={tailwind('text-gray-900')}
+                style={tailwind('text-lg text-left font-bold')}
+                testID='DEX_TVL'
+              >
+                {val}
+              </ThemedText>
+            )}
+            thousandSeparator
+            value={new BigNumber(props.tvl).decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
+          />
+        </ThemedText>
+      </View>
+      <ActionButton
+        name='swap-horiz'
+        onPress={() => navigation.navigate({
+          name: 'CompositeSwap',
+          params: {},
+          merge: true
+        })}
+        pair='composite'
+        label={translate('screens/DexScreen', 'SWAP')}
+        style={tailwind('my-2 p-2')}
+        testID='composite_swap'
+      />
+    </ThemedView>
+  )
+}
 interface DexItem<T> {
   type: 'your' | 'available'
   data: T
