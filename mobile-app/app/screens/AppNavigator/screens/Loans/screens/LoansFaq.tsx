@@ -95,6 +95,7 @@ export function LoansFaq (): JSX.Element {
 
       <WalletAccordion
         testID='loans_faq_accordion'
+        activeSections={[2]}
         title={translate('components/LoansFaq', 'FREQUENTLY ASKED QUESTIONS')}
         content={faqContent}
       />

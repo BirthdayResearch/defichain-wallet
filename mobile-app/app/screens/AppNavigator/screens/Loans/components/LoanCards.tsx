@@ -88,7 +88,8 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
                     navigation.navigate({
                       name: 'BorrowLoanTokenScreen',
                       params: {
-                        loanToken: item
+                        loanToken: item,
+                        vault: activeVault
                       },
                       merge: true
                     })
@@ -117,7 +118,7 @@ function LoanCard ({
   const currentPrice = price?.active?.amount ?? 0
   return (
     <ThemedTouchableOpacity
-      testID={testID}
+      testID={`loan_card_${displaySymbol}`}
       light={tailwind('bg-white border-gray-200')}
       dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('p-4 mx-2 mb-4 rounded flex-1 border')}

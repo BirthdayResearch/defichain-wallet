@@ -22,7 +22,7 @@ export function TextRow (props: TextRowProps): JSX.Element {
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('p-4 flex-row items-start w-full')}
     >
-      <View style={tailwind('w-5/12')}>
+      <View style={tailwind('w-6/12')}>
         <View style={tailwind('flex-row items-center justify-start')}>
           <ThemedText style={[tailwind('font-medium'), props.textStyle]}>
             {props.lhs}

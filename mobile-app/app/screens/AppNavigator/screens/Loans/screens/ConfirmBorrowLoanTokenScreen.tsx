@@ -23,6 +23,7 @@ import { fetchVaults } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useCollateralizationRatioColor } from '../hooks/CollateralizationRatio'
+import { WalletAddressRow } from '@components/WalletAddressRow'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmBorrowLoanTokenScreen'>
 
@@ -116,7 +117,7 @@ export function ConfirmBorrowLoanTokenScreen ({
         processingLabel={translate('screens/ConfirmBorrowLoanTokenScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
-        title='create_vault'
+        title='borrow_loan'
       />
     </ThemedScrollView>
   )
@@ -164,6 +165,7 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
+      <WalletAddressRow />
       <NumberRow
         lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Loan tokens to borrow')}
         rhs={{
@@ -248,7 +250,8 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
         lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Collateral amount (USD)')}
         rhs={{
           value: props.collateralAmount.toFixed(2),
-          testID: 'text_collateral_amount'
+          testID: 'text_collateral_amount',
+          prefix: '$'
         }}
       />
       {props.collateralRatio.isLessThan(0)

@@ -63,7 +63,7 @@
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "創建錢包",
-    "Switch to another wallet": "切換到另一個錢包",
+    "Switch to another address": "切換到另一個地址",
     "Wallet Address": "錢包地址",
     "ACTIVE": "激活"
   },
@@ -87,19 +87,20 @@
     "How much do you want to send?": "您想發送多少資金?",
     "Enter an amount": "請輸入數量",
     "Available": "可發送資金",
-    "Amount to be converted": "要轉換的金額",
+    "UTXO to be converted": "要轉換的 UTXO",
     "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換",
     "Send to other wallet": "發送到其他地址",
     "Select token": "選擇代幣",
     "Select a token you want to send to get started": "若要開始，請先選您想發出的代幣",
-    "Choose token to send": "選擇發出此代幣"
+    "Choose token to send": "選擇發出此代幣",
+    "TRANSACTION DETAILS": "交易明細"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "確認發出",
     "CONFIRM SEND": "確認發出",
     "You are sending": "您正要發出資金",
     "TRANSACTION DETAILS": "交易明細",
-    "Address": "地址",
+    "Recipient address": "接收地址",
     "Network": "網絡",
     "Amount": "資金數量",
     "Estimated fee": "所需費用(大約)",
@@ -110,7 +111,9 @@
     "Sending {{amount}} {{symbol}}": "正轉出 {{amount}} {{symbol}}",
     "CONFIRM TRANSACTION": "確認交易",
     "Convert & send": "轉換並發送",
-    "I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "我承認和了解錢包地址性質，我會將d代幣發送至已引入遞飛鏈技術棧的錢包，否則會導致不可逆轉的資金損失."
+    "I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "我承認和了解錢包地址性質，我會將d代幣發送至已引入遞飛鏈技術棧的錢包，否則會導致不可逆轉的資金損失.",
+    "Transaction type": "交易類型",
+    "Amount to send": "發送金額"
   },
   "screens/ConvertScreen": {
     "Convert DFI": "轉換DFI",
@@ -124,7 +127,9 @@
     "Available": "可轉換資金",
     "After conversion, you will receive": "轉換後您會收到",
     "Review full transaction details in the next screen": "請在下一步確認交易明細",
-    "Estimated fee": "所需費用(大約)"
+    "Estimated fee": "所需費用(大約)",
+    "You will have": "你將會收到",
+    "TRANSACTION DETAILS": "交易明細"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "確認要轉換 DFI",
@@ -138,7 +143,7 @@
     "TRANSACTION DETAILS": "交易明細",
     "Transaction type": "交易類型",
     "Convert": "轉換",
-    "{{token}} to receive": "{{token}} to receive",
+    "{{token}} to receive": "{{token}} 將會收到",
     "CONFIRM TRANSACTION": "確認交易"
   },
   "screens/SettingsNavigator": {
@@ -261,7 +266,9 @@
     "No transactions yet": "還沒有交易紀錄",
     "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "您能開始從錢包做交易. 所有UTXO交易都會在這裡顯示.目前還不提供其他交易類型.",
     "RECEIVE TOKENS": "接收的貨幣",
-    "LOAD MORE": "查看更多交易紀錄"
+    "LOAD MORE": "查看更多交易紀錄",
+    "Received": "收到",
+    "Sent": "已發送"
   },
   "screens/TransactionDetailScreen": {
     "Type": "交易類型",
@@ -450,7 +457,7 @@
     "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相當於{{tokenA}}的價格",
     "TRANSACTION DETAILS": "交易明細",
     "Your pooled {{token}}": "您已入池的 {{token}}",
-    "Amount to be converted": "要轉換的金額",
+    "UTXO to be converted": "要轉換的 UTXO",
     "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換",
     "Estimated fee": "所需費用（大約）",
     "Pooled {{symbol}}": "池中總 {{symbol}}"
@@ -545,8 +552,8 @@
     "Review full transaction details in the next screen": "請在下一步確認交易明細",
     "TRANSACTION DETAILS": "交易明細",
     "Estimated fee": "所需費用（大約）",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
-    "Amount to be converted": "要轉換的金額",
+    "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相當於{{tokenA}}的價格",
+    "UTXO to be converted": "要轉換的 UTXO",
     "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換"
   },
   "screens/CompositeSwapScreen": {
@@ -566,12 +573,13 @@
     "Enter an amount": "請輸入數量",
     "{{token}} tokens converted": "{{token}} 代幣轉換",
     "Select token": "選擇代幣",
-    "Amount to be converted": "要轉換的金額",
+    "UTXO to be converted": "要轉換的 UTXO",
     "Slippage Tolerance": "交易滑價",
     "TRANSACTION DETAILS": "交易明細",
     "PRICE DETAILS": "價格明細",
     "FROM": "從",
-    "TO": "到"
+    "TO": "到",
+    "Total to be swapped": "要兌換的總數"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "正在轉換",
@@ -597,7 +605,7 @@
     "SWAPPING": "兌換",
     "Swapping Token": "兌換代幣",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兌換 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相當於{{tokenA}}的價格",
     "{{token}} balance": "{{token}} balance",
     "CONFIRM SWAP": "確認兌換",
     "Transaction type": "交易類型",
@@ -766,7 +774,9 @@
     "{{m}}m": "{{m}}分",
     "Total auction value (USD)": "拍賣總價值（美元）",
     "Min. next bid": "最低標價",
-    "You are the highest bidder": "您目前是出價最高的人"
+    "You are the highest bidder": "您目前是出價最高的人",
+    "From your vault": "來自您的金庫",
+    "Waiting for first bid": "等待第一次標價"
   },
   "components/BidCard": {
     "BID HIGHER": "出價更高",
@@ -872,7 +882,7 @@
     "Collaterals required to use this vault.": "使用此金庫需要抵押品.",
     "Total collateral (USD)": "抵押資金總價值 (美金)",
     "Total loans (USD)": "貸款總金額(美金)",
-    "Vault interest (APR)": "Vault interest (APR)",
+    "Vault interest (APR)": "金庫利息",
     "Min. collateralization ratio": "最小抵押率"
   },
   "components/ScrollableButton": {
@@ -942,7 +952,7 @@
     "Total loans (USD)": "貸款總金額(美金)",
     "Collateralization ratio": "抵押比例率",
     "Min. collateralization ratio": "最低抵押比例率",
-    "Vault interest": "金庫利息"
+    "Vault interest (APR)": "金庫利息 (APR)"
   },
   "components/AddOrRemoveCollateralForm": {
     "How much {{symbol}} to add?": "您要添加多少{{symbol}}?",
@@ -984,7 +994,7 @@
     "Available": "可用的",
     "CONTINUE": "繼續",
     "Review and confirm transaction in the next screen": "請在下一頁面檢閱及確認交易",
-    "TRANSACTION DETAILS": "交易細項",
+    "TRANSACTION DETAILS": "交易明細",
     "Amount to pay": "付款金價",
     "Remaining loan amount": "剩餘貸款金額",
     "Outstanding balance": "未付餘額",
@@ -995,7 +1005,7 @@
     "CONFIRM PAYMENT": "確認付款",
     "PAYING": "付款中",
     "You are paying": "正在付款",
-    "TRANSACTION DETAILS": "交易細項",
+    "TRANSACTION DETAILS": "交易明細",
     "Transaction type": "交易類別",
     "Loan payment": "貸款付款",
     "Amount to pay": "付款銀碼",
@@ -1038,7 +1048,9 @@
     "This amount may place the vault in liquidation": "這金額可能會導致金庫清算",
     "Unable to proceed because of errors": "因錯誤而無法繼續",
     "Max loan amount": "最高的貸款金額",
-    "N/A": "不適用"
+    "N/A": "不適用",
+    "USD": "美元",
+    "How many {{token}} tokens to borrow?": "要多少 {{token}} 代幣借貸？"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "您正要借用",
@@ -1073,7 +1085,7 @@
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "正在更改金庫計劃",
-    "TRANSACTION DETAILS": "交易資料",
+    "TRANSACTION DETAILS": "交易明細",
     "Transaction type": "交易類別",
     "Edit loan scheme": "更改貸款計劃",
     "Prev. minimum collateralization ratio": "前最低抵押率",
@@ -1113,7 +1125,7 @@
   },
   "screens/CloseVaultScreen": {
     "You are closing Vault ID": "您正在關閉金庫編號",
-    "DETAILS": "明细",
+    "TRANSACTION DETAILS": "交易明細",
     "Fees to return": "退回費用",
     "Fees to burn": "費用銷毀",
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "關閉後，此金庫編號 將不再可使用。 在關閉之前，請確保您不需要此金庫中的任何資料。",
@@ -1161,5 +1173,8 @@
     "Place a bid on the auctions with the min. next bid": "以下個最低底價進行快標",
     "Min. next bid": "最低標價",
     "Current balance": "目前餘額"
+  },
+  "components/WalletAddressRow": {
+    "Wallet address": "錢包地址"
   }
 }

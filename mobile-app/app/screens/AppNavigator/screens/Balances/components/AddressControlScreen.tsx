@@ -1,7 +1,7 @@
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView, ThemedScrollView, ThemedSectionTitle } from '@components/themed'
 import * as React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useLayoutEffect } from 'react'
 import { MAX_ALLOWED_ADDRESSES, useWalletContext } from '@shared-contexts/WalletContext'
 import { View } from '@components'
 import { TouchableOpacity } from 'react-native'
@@ -11,9 +11,21 @@ import { BalanceParamList } from '../BalancesNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { RandomAvatar } from '@screens/AppNavigator/screens/Balances/components/RandomAvatar'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
+import { hasTxQueued } from '@store/transaction_queue'
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 
 export function AddressControlScreen (): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: (): JSX.Element => (
+        <DiscoverWalletAddress />
+      )
+    })
+  }, [navigation])
+
   return (
     <ThemedScrollView>
       <ThemedSectionTitle
@@ -34,13 +46,16 @@ export function AddressControlModal ({ onClose }: { onClose: () => void }): JSX.
         style={tailwind('border-b-2')}
       >
         <View style={tailwind('flex flex-row justify-between w-full px-4 pb-4 pt-2')}>
-          <ThemedText
-            dark={tailwind('text-gray-50')}
-            light={tailwind('text-gray-900')}
-            style={tailwind('ml-2 text-lg font-medium')}
-          >
-            {translate('screens/AddressControlScreen', 'Switch to another wallet')}
-          </ThemedText>
+          <View style={tailwind('flex flex-row justify-between items-center')}>
+            <ThemedText
+              dark={tailwind('text-gray-50')}
+              light={tailwind('text-gray-900')}
+              style={tailwind('ml-2 text-lg font-medium mr-2')}
+            >
+              {translate('screens/AddressControlScreen', 'Switch to another address')}
+            </ThemedText>
+            <DiscoverWalletAddress size={18} />
+          </View>
           <TouchableOpacity onPress={onClose}>
             <ThemedIcon
               size={24}
@@ -151,6 +166,9 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
 }
 
 export function AddressItemRow ({ address, isActive, index, onPress }: { address: string, isActive: boolean, index: number, onPress: () => void }): JSX.Element {
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+
   return (
     <ThemedTouchableOpacity
       onPress={onPress}
@@ -158,6 +176,7 @@ export function AddressItemRow ({ address, isActive, index, onPress }: { address
       dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('py-4 pl-4 pr-2 border-b')}
       testID={`address_row_${index}`}
+      disabled={hasPendingJob || hasPendingBroadcastJob}
     >
       <View style={tailwind('flex-row items-center flex-grow')}>
         <RandomAvatar name={address} size={20} />
@@ -200,5 +219,23 @@ export function AddressItemRow ({ address, isActive, index, onPress }: { address
         </View>
       </View>
     </ThemedTouchableOpacity>
+  )
+}
+
+export function DiscoverWalletAddress ({ size = 24 }: { size?: number }): JSX.Element {
+  const { discoverWalletAddresses } = useWalletContext()
+  return (
+    <TouchableOpacity
+      onPress={discoverWalletAddresses}
+      testID='discover_wallet_addresses'
+    >
+      <ThemedIcon
+        dark={tailwind('text-darkprimary-500')}
+        iconType='MaterialIcons'
+        light={tailwind('text-primary-500')}
+        name='sync'
+        size={size}
+      />
+    </TouchableOpacity>
   )
 }

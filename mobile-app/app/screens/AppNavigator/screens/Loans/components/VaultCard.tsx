@@ -128,6 +128,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
                   )
                 }
                 <TokenIconGroup
+                  testID={`${props.testID}_collateral_token_group`}
                   symbols={vault.collateralAmounts?.map(collateral => collateral.displaySymbol)}
                   maxIconToDisplay={3}
                 />
@@ -138,6 +139,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
         {
           ![VaultStatus.Empty, VaultStatus.Ready, VaultStatus.Unknown, VaultStatus.Liquidated].includes(vaultState.status) && (
             <CollateralizationRatioDisplay
+              testID={props.testID}
               collateralizationRatio={vault.collateralRatio}
               minCollateralizationRatio={vault.loanScheme.minColRatio}
               totalLoanAmount={vault.loanValue}
@@ -150,7 +152,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
             vault.loanAmounts?.length > 0 &&
             (
               <VaultInfo
-                label='Active loans' tokens={vault.loanAmounts?.map(loan => loan.displaySymbol)}
+                label='Active loans' testID={props.testID} tokens={vault.loanAmounts?.map(loan => loan.displaySymbol)}
               />
             )
           }
@@ -168,15 +170,16 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
           />
         </View>
       </ThemedTouchableOpacity>
-      <VaultActionButton vault={vault} canUseOperation={canUseOperations} />
+      <VaultActionButton vault={vault} canUseOperation={canUseOperations} testID={props.testID} />
     </ThemedView>
   )
 }
 
 function VaultActionButton ({
   vault,
-  canUseOperation
-}: { vault: LoanVaultActive, canUseOperation: boolean }): JSX.Element | null {
+  canUseOperation,
+  testID
+}: { vault: LoanVaultActive, canUseOperation: boolean, testID: string }): JSX.Element | null {
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
   return (
     <ThemedView
@@ -187,6 +190,7 @@ function VaultActionButton ({
       {
         new BigNumber(vault.collateralValue).gt(0) && (
           <IconButton
+            testID={`${testID}_manage_loans_button`}
             disabled={!canUseOperation || vault.state === LoanVaultState.FROZEN}
             iconLabel={translate('components/VaultCard', 'MANAGE LOANS')}
             style={tailwind('mr-2 mb-2 items-center')}
@@ -200,7 +204,7 @@ function VaultActionButton ({
         )
       }
       <IconButton
-        testID='edit_collaterals_button'
+        testID={`${testID}_edit_collaterals_button`}
         disabled={!canUseOperation}
         iconLabel={translate('components/VaultCard', 'EDIT COLLATERALS')}
         style={tailwind('mr-2 mb-2 items-center')}

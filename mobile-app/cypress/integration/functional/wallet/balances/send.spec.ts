@@ -311,7 +311,7 @@ context('Wallet - Send - with Conversion', function () {
       cy.getByTestID('conversion_info_text').should('exist')
       cy.getByTestID('conversion_info_text').should('contain', 'Conversion will be required. Your passcode will be asked to authorize both transactions.')
       cy.getByTestID('text_amount_to_convert_label').should('exist')
-      cy.getByTestID('text_amount_to_convert_label').should('contain', 'Amount to be converted')
+      cy.getByTestID('text_amount_to_convert_label').should('contain', 'UTXO to be converted')
       cy.getByTestID('text_amount_to_convert').should('contain', '2.10000000')
       cy.getByTestID('transaction_details_info_text').should('contain', 'Authorize transaction in the next screen to convert')
       cy.getByTestID('send_submit_button').click()

@@ -33,7 +33,10 @@ export function VaultDetailScreen ({
   route,
   navigation
 }: Props): JSX.Element {
-  const { vaultId, tab } = route.params
+  const {
+    vaultId,
+    tab
+  } = route.params
   const [vault, setVault] = useState<LoanVault>()
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const canUseOperations = useLoanOperations(vault?.state)
@@ -112,7 +115,7 @@ export function VaultDetailScreen ({
         dark={tailwind('bg-dfxblue-800')}
       >
         <View style={tailwind('p-4')}>
-          <VaultIdSection vault={vault} />
+          <VaultIdSection vault={vault} testID='vault_id_section' />
           <VaultInfoSection vault={vault} />
         </View>
         <ThemedView
@@ -128,7 +131,10 @@ export function VaultDetailScreen ({
   )
 }
 
-function VaultIdSection ({ vault }: { vault: LoanVault }): JSX.Element {
+function VaultIdSection ({
+  vault,
+  testID
+}: { vault: LoanVault, testID: string }): JSX.Element {
   const { getVaultsUrl } = useDeFiScanContext()
   const colRatio = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.collateralRatio
   const totalLoanAmount = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.loanValue
@@ -155,12 +161,13 @@ function VaultIdSection ({ vault }: { vault: LoanVault }): JSX.Element {
             >
               {translate('screens/VaultDetailScreen', 'Vault ID')}
             </ThemedText>
-            <VaultStatusTag status={vaultState.status} />
+            <VaultStatusTag status={vaultState.status} testID='vault_detail_status' />
           </View>
           <View
             style={tailwind('flex flex-row mb-2 items-center')}
           >
             <ThemedText
+              testID='vault_detail_id'
               style={tailwind('text-sm font-semibold w-8/12 flex-1 mr-2')}
             >
               {vault.vaultId}
@@ -185,6 +192,7 @@ function VaultIdSection ({ vault }: { vault: LoanVault }): JSX.Element {
             minCollateralizationRatio={vault.loanScheme.minColRatio}
             totalLoanAmount={vault.loanValue}
             nextCollateralizationRatio={nextCollateralizationRatio?.toFixed(8)}
+            testID={testID}
           />
         )
       }

@@ -496,6 +496,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
           <>
             <PricesSection priceRates={priceRates} sectionTitle='PRICES' />
             <TransactionDetailsSection
+              amountToSwap={tokenAFormAmount}
               conversionAmount={conversionAmount}
               estimatedAmount={tokenBFormAmount}
               fee={fee}
@@ -617,6 +618,7 @@ function TokenSelection (props: { symbol?: string, label: string, onPress: () =>
 }
 
 function TransactionDetailsSection ({
+  amountToSwap,
   conversionAmount,
   estimatedAmount,
   fee,
@@ -624,7 +626,16 @@ function TransactionDetailsSection ({
   slippage,
   tokenA,
   tokenB
-}: { conversionAmount: BigNumber, estimatedAmount: string, fee: BigNumber, isConversionRequired: boolean, slippage: number, tokenA: OwnedTokenState, tokenB: TokenState }): JSX.Element {
+}: {
+  amountToSwap: string
+  conversionAmount: BigNumber
+  estimatedAmount: string
+  fee: BigNumber
+  isConversionRequired: boolean
+  slippage: number
+  tokenA: OwnedTokenState
+  tokenB: TokenState
+ }): JSX.Element {
   return (
     <>
       <ThemedSectionTitle
@@ -634,7 +645,7 @@ function TransactionDetailsSection ({
       />
       {isConversionRequired &&
         <NumberRow
-          lhs={translate('screens/CompositeSwapScreen', 'Amount to be converted')}
+          lhs={translate('screens/CompositeSwapScreen', 'UTXO to be converted')}
           rhs={{
           testID: 'amount_to_convert',
           value: conversionAmount.toFixed(8),
@@ -642,6 +653,16 @@ function TransactionDetailsSection ({
           suffix: tokenA.displaySymbol
         }}
         />}
+      <NumberRow
+        lhs={translate('screens/CompositeSwapScreen', 'Total to be swapped')}
+        rhs={{
+          value: new BigNumber(amountToSwap).toFixed(8),
+          suffixType: 'text',
+          suffix: tokenA.displaySymbol,
+          testID: 'total_to_be_swapped'
+        }}
+        textStyle={tailwind('text-sm font-normal')}
+      />
       <NumberRow
         lhs={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
         rhs={{

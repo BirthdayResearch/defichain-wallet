@@ -239,13 +239,13 @@ export function SendScreen ({
                       />
                       {isConversionRequired &&
                         <NumberRow
-                          lhs={translate('screens/SendScreen', 'Amount to be converted')}
+                          lhs={translate('screens/SendScreen', 'UTXO to be converted')}
                           rhs={{
-                          value: conversionAmount.toFixed(8),
-                          testID: 'text_amount_to_convert',
-                          suffixType: 'text',
-                          suffix: token.displaySymbol
-                        }}
+                            value: conversionAmount.toFixed(8),
+                            testID: 'text_amount_to_convert',
+                            suffixType: 'text',
+                            suffix: token.displaySymbol
+                          }}
                         />}
 
                       <FeeInfoRow
