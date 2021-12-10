@@ -230,7 +230,7 @@ export function DiscoverWalletAddress ({ size = 24 }: { size?: number }): JSX.El
       testID='discover_wallet_addresses'
     >
       <ThemedIcon
-        dark={tailwind('text-darkprimary-500')}
+        dark={tailwind('text-dfxred-500')}
         iconType='MaterialIcons'
         light={tailwind('text-primary-500')}
         name='sync'

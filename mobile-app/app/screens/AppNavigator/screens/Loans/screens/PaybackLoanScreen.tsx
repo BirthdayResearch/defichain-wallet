@@ -147,7 +147,7 @@ export function PaybackLoanScreen ({
               prefix='$'
               renderText={(val: string) => (
                 <ThemedText
-                  dark={tailwind('text-gray-400')}
+                  dark={tailwind('text-dfxgray-400')}
                   light={tailwind('text-gray-500')}
                   style={tailwind('text-xs leading-5')}
                 >

@@ -19,7 +19,7 @@ export function CommunityScreen (): JSX.Element {
       ItemSeparatorComponent={
         () => (
           <ThemedView
-            dark={tailwind('bg-gray-700')}
+            dark={tailwind('bg-dfxblue-900')}
             light={tailwind('bg-gray-100')}
             style={tailwind('h-px')}
           />
