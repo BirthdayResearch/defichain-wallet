@@ -13,7 +13,6 @@ import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedView } from '@components/themed'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
@@ -21,7 +20,7 @@ import { DisplayDexGuidelinesPersistence } from '@api'
 import { DexGuidelines } from './DexGuidelines'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Tabs } from '@components/Tabs'
-import { fetchPoolPairs, WalletToken } from '@store/wallet'
+import { fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { RootState } from '@store'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -40,7 +39,7 @@ export function DexScreen (): JSX.Element {
   const [activeTab, setActiveTab] = useState<string>(TabKey.AvailablePoolPair)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [displayGuidelines, setDisplayGuidelines] = useState<boolean>(true)
-  const tokens = useTokensAPI()
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const blockCount = useSelector((state: RootState) => state.block.count)
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
   const yourLPTokens = useSelector(() => tokens.filter(({ isLPS }) => isLPS).map(data => ({
@@ -86,6 +85,7 @@ export function DexScreen (): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchPoolPairs({ client }))
+    dispatch(fetchTokens({ client, address }))
   }, [address, blockCount])
 
   useEffect(() => {

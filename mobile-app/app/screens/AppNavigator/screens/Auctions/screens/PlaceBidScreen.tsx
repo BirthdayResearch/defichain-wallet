@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Platform, View, NativeSyntheticEvent, TextInputChangeEventData } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import NumberFormat from 'react-number-format'
 import { StackScreenProps } from '@react-navigation/stack'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
@@ -10,7 +10,6 @@ import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
 import { translate } from '@translations'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { useBottomSheet } from '@hooks/useBottomSheet'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
@@ -31,6 +30,8 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { InfoText } from '@components/InfoText'
 import { getActivePrice } from '../helpers/ActivePrice'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { fetchTokens, tokensSelector } from '@store/wallet'
 
 type Props = StackScreenProps<AuctionsParamList, 'PlaceBidScreen'>
 
@@ -39,7 +40,9 @@ export function PlaceBidScreen (props: Props): JSX.Element {
     batch,
     vault
   } = props.route.params
-  const tokens = useTokensAPI()
+  const dispatch = useDispatch()
+  const { address } = useWalletContext()
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const ownedToken = tokens.find(token => token.id === batch.loan.id)
   const {
     minNextBidInToken,
@@ -65,6 +68,10 @@ export function PlaceBidScreen (props: Props): JSX.Element {
   const client = useWhaleApiClient()
 
   const [bidAmount, setBidAmount] = useState<string>('')
+
+  useEffect(() => {
+    dispatch(fetchTokens({ client, address }))
+  }, [address, blockCount])
 
   useEffect(() => {
     client.fee.estimate()

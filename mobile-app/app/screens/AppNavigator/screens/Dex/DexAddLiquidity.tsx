@@ -10,13 +10,12 @@ import { Button } from '@components/Button'
 import { NumberRow } from '@components/NumberRow'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { DFITokenSelector, DFIUtxoSelector, fetchPoolPairs, WalletToken } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
@@ -40,7 +39,6 @@ interface ExtPoolPairData extends PoolPairData {
 export function AddLiquidityScreen (props: Props): JSX.Element {
   const logger = useLogger()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
-  const tokens = useTokensAPI()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const dispatch = useDispatch()
@@ -50,6 +48,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const blockCount = useSelector((state: RootState) => state.block.count)
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
 
   // this component UI state
   const [tokenAAmount, setTokenAAmount] = useState<string>('')
@@ -155,6 +154,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchPoolPairs({ client }))
+    dispatch(fetchTokens({ client, address }))
   }, [address, blockCount])
 
   useEffect(() => {

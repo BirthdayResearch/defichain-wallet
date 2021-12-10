@@ -51,7 +51,7 @@ const unifiedDFI: WalletToken = {
   avatarSymbol: 'DFI'
 }
 
-const setTokenDetails = (t: AddressToken): WalletToken => {
+export const setTokenDetails = (t: AddressToken): WalletToken => {
   let displaySymbol = t.displaySymbol
   let avatarSymbol = t.displaySymbol
   if (t.id === '0') {
@@ -82,6 +82,15 @@ export const fetchPoolPairs = createAsyncThunk(
   }
 )
 
+export const fetchTokens = createAsyncThunk(
+  'wallet/fetchTokens',
+  async ({ size = 200, address, client }: { size?: number, address: string, client: WhaleApiClient }): Promise<{ tokens: AddressToken[], utxoBalance: string }> => {
+    const tokens = await client.address.listToken(address, size)
+    const utxoBalance = await client.address.getBalance(address)
+    return { tokens, utxoBalance }
+  }
+)
+
 export const wallet = createSlice({
   name: 'wallet',
   initialState,
@@ -96,6 +105,10 @@ export const wallet = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchPoolPairs.fulfilled, (state, action: PayloadAction<DexItem[]>) => {
       state.poolpairs = action.payload
+    })
+    builder.addCase(fetchTokens.fulfilled, (state, action: PayloadAction<{ tokens: AddressToken[], utxoBalance: string }>) => {
+      state.tokens = action.payload.tokens.map(setTokenDetails)
+      state.utxoBalance = action.payload.utxoBalance
     })
   }
 })
