@@ -494,7 +494,7 @@
     "{{symbolB}} per {{symbolA}}": "{{symbolB}} pro {{symbolA}}",
     "{{tokenA}} price in {{tokenB}}": "{{tokenA}}-Preis in {{tokenB}}",
     "{{tokenB}} price in {{tokenA}}": "{{tokenB}}-Preis in {{tokenA}}",
-    "Transaction type": "Transaktions-Typ",
+    "Transaction type": "Transaktionsart",
     "Remove liquidity": "Liquidität entfernen"
   },
   "screens/RemoveLiquidity": {
@@ -1086,7 +1086,7 @@
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "Du bearbeitest das Vault-Modell",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
-    "Transaction type": "Transaktions-Typ",
+    "Transaction type": "Transaktionsart",
     "Edit loan scheme": "Darlehensmodell bearbeiten",
     "Prev. minimum collateralization ratio": "Vorherige Mindestbesicherungsquote",
     "Prev. vault interest (APR)": "Bisheriger Vault-Jahreszins",
